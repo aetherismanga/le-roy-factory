@@ -25,6 +25,10 @@
           <li><a href="contact.html">Contact</a></li>
         </ul>
       </nav>
+      <!-- CORRECTION : Ajout du bouton burger manquant -->
+      <button class="burger-btn" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
 
@@ -61,7 +65,8 @@
               <h3 style="font-size: 1.5rem; margin: 0.5rem 0 1rem; color: var(--color-anthracite);">${fab.nom}</h3>
               <p style="font-size: 0.95rem; color: #555; margin-bottom: 1.5rem; line-height: 1.5;">${fab.presentation}</p>
             </div>
-            <a href="${fab.site}" target="_blank" rel="noopener" class="btn btn-outline" style="align-self: flex-start; font-size: 0.85rem; padding: 0.5rem 1rem;">Site officiel</a>
+            <!-- CORRECTION POINT 3 : Ajout de styles inline pour forcer la visibilité du bouton (bordure et texte) -->
+            <a href="${fab.site}" target="_blank" rel="noopener" class="btn btn-outline" style="align-self: flex-start; font-size: 0.85rem; padding: 0.5rem 1rem; border-color: var(--color-anthracite); color: var(--color-anthracite);">Site officiel</a>
           </div>
         `).join('');
       })
