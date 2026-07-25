@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Espace PRO & Tarifs — LE ROY FACTORY</title>
-  <meta name="description" content="Espace sécurisé réservé aux professionnels pour l'accès aux grilles tarifaires et documents exclusifs LE ROY FACTORY.">
+  <title>Inspirations & Univers — LE ROY FACTORY</title>
+  <meta name="description" content="Explorez nos univers décoratifs : bois, pierre, marbre, béton, terrazzo, zellige et bien plus pour vos projets d'aménagement professionnel.">
   <link rel="stylesheet" href="assets/css/variables.css">
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/components.css">
@@ -18,38 +18,65 @@
       <nav>
         <ul style="display: flex; gap: 2rem; align-items: center;">
           <li><a href="partenaires.html">Partenaires</a></li>
-          <li><a href="univers.html">Inspirations</a></li>
+          <li><a href="univers.html" class="active">Inspirations</a></li>
           <li><a href="realisations.html">Réalisations</a></li>
           <li><a href="catalogues.html">Catalogues</a></li>
-          <li><a href="tarifs-pro.html" class="active">Tarifs PRO</a></li>
+          <li><a href="tarifs-pro.html">Tarifs PRO</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
-  <main style="padding-top: 120px; padding-bottom: 4rem; min-height: 80vh; display: flex; align-items: center;">
-    <div class="container" style="max-width: 500px; text-align: center;">
-      <h1 style="font-size: 2.25rem; margin-bottom: 1rem; color: var(--color-anthracite);">Espace Sécurisé PRO</h1>
-      <p style="font-size: 1rem; color: #666; margin-bottom: 2rem;">Veuillez saisir votre mot de passe professionnel pour accéder aux tarifs et documents exclusifs.</p>
-      
-      <div id="auth-box" class="card-premium" style="padding: 2.5rem; text-align: left;">
-        <div style="margin-bottom: 1.5rem;">
-          <label for="password" style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--color-anthracite);">Mot de passe</label>
-          <input type="password" id="password" placeholder="Votre code d'accès" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
-        </div>
-        <button id="btn-login" class="btn btn-primary" style="width: 100%;">Accéder aux tarifs</button>
-        <p id="error-msg" style="color: #c0392b; font-size: 0.85rem; margin-top: 1rem; display: none;">Mot de passe incorrect.</p>
+  <main style="padding-bottom: 4rem;">
+    <section class="hero-banner" style="background-image: url('assets/img/image 03.png');">
+      <div class="container">
+        <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Inspirations & Univers</h1>
+        <p style="font-size: 1.1rem; opacity: 0.9; max-width: 700px;">Trouvez l'inspiration à travers nos différentes esthétiques et matières soigneusement sélectionnées.</p>
       </div>
+    </section>
 
-      <div id="content-box" style="display: none; text-align: left;" class="card-premium">
-        <div style="padding: 2.5rem;">
-          <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--color-anthracite);">Grilles Tarifaires 2026</h3>
-          <p style="font-size: 0.95rem; color: #555; margin-bottom: 1.5rem;">Accès autorisé aux professionnels partenaires.</p>
-          <ul style="display: flex; flex-direction: column; gap: 1rem;">
-            <li><a href="#" class="btn btn-outline" style="width: 100%; justify-content: space-between;"><span>Tarifs Carrelage - Italie/Espagne</span> <span>PDF</span></a></li>
-            <li><a href="#" class="btn btn-outline" style="width: 100%; justify-content: space-between;"><span>Tarifs Salle de Bain & Mobilier</span> <span>PDF</span></a></li>
-          </ul>
+    <div class="container" style="margin-top: 3rem;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem;">
+        <div class="card-premium" style="padding: 2.5rem; background: var(--color-light-grey);">
+          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--color-anthracite);">Bois</h3>
+          <p style="font-size: 0.9rem; color: #666;">Chaleur et noblesse du bois naturel transposées dans la céramique.</p>
+        </div>
+        <div class="card-premium" style="padding: 2.5rem; background: var(--color-light-grey);">
+          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--color-anthracite);">Pierre</h3>
+          <p style="font-size: 0.9rem; color: #666;">Authenticité et robustesse des textures minérales brutes.</p>
+        </div>
+        <div class="card-premium" style="padding: 2.5rem; background: var(--color-light-grey);">
+          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--color-anthracite);">Marbre</h3>
+          <p style="font-size: 0.9rem; color: #666;">Élégance intemporelle et veines graphiques d'exception.</p>
+        </div>
+        <div class="card-premium" style="padding: 2.5rem; background: var(--color-light-grey);">
+          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--color-anthracite);">Béton</h3>
+          <p style="font-size: 0.9rem; color: #666;">Esprit industriel, épuré et contemporain.</p>
+        </div>
+        <div class="card-premium" style="padding: 2.5rem; background: var(--color-light-grey);">
+          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--color-anthracite);">Terrazzo</h3>
+          <p style="font-size: 0.9rem; color: #666;">Le retour en force du granito multicolore et graphique.</p>
+        </div>
+        <div class="card-premium" style="padding: 2.5rem; background: var(--color-light-grey);">
+          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--color-anthracite);">Zellige</h3>
+          <p style="font-size: 0.9rem; color: #666;">Reflets nacrés et variations artisanales uniques.</p>
+        </div>
+        <div class="card-premium" style="padding: 2.5rem; background: var(--color-light-grey);">
+          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--color-anthracite);">Métal</h3>
+          <p style="font-size: 0.9rem; color: #666;">Effets oxydés et reflets métalliques sophistiqués.</p>
+        </div>
+        <div class="card-premium" style="padding: 2.5rem; background: var(--color-light-grey);">
+          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--color-anthracite);">Nature</h3>
+          <p style="font-size: 0.9rem; color: #666;">Tons terreux, organiques et ambiances végétales.</p>
+        </div>
+        <div class="card-premium" style="padding: 2.5rem; background: var(--color-light-grey);">
+          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--color-anthracite);">Contemporain</h3>
+          <p style="font-size: 0.9rem; color: #666;">Lignes pures et tendances actuelles du design.</p>
+        </div>
+        <div class="card-premium" style="padding: 2.5rem; background: var(--color-light-grey);">
+          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--color-anthracite);">Minimaliste</h3>
+          <p style="font-size: 0.9rem; color: #666;">L'essentiel sublimé par la simplicité formelle.</p>
         </div>
       </div>
     </div>
@@ -61,19 +88,6 @@
     </div>
   </footer>
 
-  <script>
-    const PASSWORD_CORRECT = "leroy2026";
-
-    document.getElementById('btn-login').addEventListener('click', function() {
-      const inputVal = document.getElementById('password').value;
-      if (inputVal === PASSWORD_CORRECT) {
-        document.getElementById('auth-box').style.display = 'none';
-        document.getElementById('content-box').style.display = 'block';
-      } else {
-        document.getElementById('error-msg').style.display = 'block';
-      }
-    });
-  </script>
   <script src="assets/js/app.js"></script>
 </body>
 </html>
