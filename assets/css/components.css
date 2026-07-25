@@ -17,14 +17,12 @@
   color: var(--color-dark-blue);
 }
 
-/* Survol : tonalité rosé */
 .btn-primary:hover, .btn-outline:hover {
   background-color: var(--color-floral);
   color: var(--color-anthracite);
   border-color: var(--color-floral);
 }
 
-/* Clic : plus sombre */
 .btn-primary:active, .btn-outline:active {
   background-color: var(--color-dark-blue);
   color: var(--color-white);
