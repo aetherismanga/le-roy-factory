@@ -1,0 +1,11 @@
+:root {
+  --color-white: #FFFFFF;
+  --color-light-grey: #F8F9FA;
+  --color-anthracite: #2C3E50;
+  --color-dark-blue: #1A2530;
+  --color-sage: #8A9A86;
+  --color-floral: #E8D7D8;
+  
+  --font-primary: 'Inter', system-ui, -apple-system, sans-serif;
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
