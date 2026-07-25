@@ -13,8 +13,8 @@
 }
 
 .btn-primary {
-  background-color: var(--color-dark-blue);
-  color: var(--color-white);
+  background-color: var(--color-white);
+  color: var(--color-dark-blue);
 }
 
 /* Survol : tonalité rosé */
@@ -26,15 +26,15 @@
 
 /* Clic : plus sombre */
 .btn-primary:active, .btn-outline:active {
-  background-color: #c5a8a9;
-  color: var(--color-dark-blue);
-  border-color: #c5a8a9;
+  background-color: var(--color-dark-blue);
+  color: var(--color-white);
+  border-color: var(--color-dark-blue);
 }
 
 .btn-outline {
   background-color: transparent;
-  border-color: var(--color-dark-blue);
-  color: var(--color-dark-blue);
+  border-color: var(--color-white);
+  color: var(--color-white);
 }
 
 /* Cartes univers & partenaires */
