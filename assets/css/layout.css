@@ -32,11 +32,13 @@ header {
   letter-spacing: 0.05em;
 }
 
-/* Onglets du menu : Survol rosé et Clic sombre */
+/* Onglets du menu : Uniformes, survol rosé, actif/clic sombre */
 header nav a {
   transition: var(--transition-smooth);
   padding: 0.5rem 0.75rem;
   border-radius: 4px;
+  color: var(--color-anthracite);
+  font-weight: 500;
 }
 
 header nav a:hover {
@@ -44,7 +46,8 @@ header nav a:hover {
   color: var(--color-anthracite);
 }
 
-header nav a:active {
+header nav a:active,
+header nav a.active {
   background-color: var(--color-dark-blue);
   color: var(--color-white);
 }
