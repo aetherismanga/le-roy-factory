@@ -32,15 +32,17 @@
   </header>
 
   <main>
-    <!-- SECTION HERO MODIFIÉE : J'ai changé 'assets/img/image 01.png' par 'assets/img/01.png' -->
-    <section style="min-height: 100vh; display: flex; align-items: center; background: linear-gradient(rgba(26,37,48,0.5), rgba(26,37,48,0.5)), url('assets/img/01.png') center/cover no-repeat; color: var(--color-white); padding-top: 80px;">
+    <!-- CORRECTION POINT 4 : Page d'accueil plus lumineuse avec écriture dorée.
+         J'ai changé l'overlay foncé par un overlay clair et les couleurs de texte pour le doré. -->
+    <section style="min-height: 100vh; display: flex; align-items: center; background: linear-gradient(rgba(255,255,255,0.4), rgba(255,255,255,0.4)), url('assets/img/01.png') center/cover no-repeat; padding-top: 80px;">
       <div class="container" style="text-align: center; max-width: 800px;">
-        <h1 style="font-size: 3.5rem; font-weight: 700; margin-bottom: 1rem; letter-spacing: -0.02em;">LE ROY FACTORY</h1>
-        <p style="font-size: 1.5rem; font-weight: 300; margin-bottom: 1.5rem; color: var(--color-light-grey);">Votre solution Carrelage & Bain</p>
-        <p style="font-size: 1.1rem; margin-bottom: 2.5rem; line-height: 1.8; opacity: 0.9;">Nous sélectionnons les meilleurs fabricants italiens et espagnols afin d'accompagner les professionnels dans leurs projets de décoration, d'aménagement et de salle de bain.</p>
+        <h1 style="font-size: 3.5rem; font-weight: 700; margin-bottom: 1rem; letter-spacing: -0.02em; color: #A67C00;">LE ROY FACTORY</h1>
+        <p style="font-size: 1.5rem; font-weight: 300; margin-bottom: 1.5rem; color: #C08000;">Votre solution Carrelage & Bain</p>
+        <p style="font-size: 1.1rem; margin-bottom: 2.5rem; line-height: 1.8; color: #1A2530;">Nous sélectionnons les meilleurs fabricants italiens et espagnols afin d'accompagner les professionnels dans leurs projets de décoration, d'aménagement et de salle de bain.</p>
         <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
           <a href="partenaires.html" class="btn btn-primary">Découvrir nos partenaires</a>
-          <a href="contact.html" class="btn btn-outline">Nous contacter</a>
+          <!-- J'ai aussi doré le bouton outline -->
+          <a href="contact.html" class="btn btn-outline" style="border-color: #C08000; color: #C08000;">Nous contacter</a>
         </div>
       </div>
     </section>
