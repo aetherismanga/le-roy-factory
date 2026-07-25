@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact — LE ROY FACTORY</title>
-  <meta name="description" content="Contactez Corinne Le Roy et Jérôme Hugol, vos agents commerciaux LE ROY FACTORY pour vos projets carrelage et bain.">
+  <title>Espace PRO & Tarifs — LE ROY FACTORY</title>
+  <meta name="description" content="Espace sécurisé réservé aux professionnels pour l'accès aux grilles tarifaires et documents exclusifs LE ROY FACTORY.">
   <link rel="stylesheet" href="assets/css/variables.css">
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/components.css">
@@ -21,63 +21,40 @@
           <li><a href="univers.html">Inspirations</a></li>
           <li><a href="realisations.html">Réalisations</a></li>
           <li><a href="catalogues.html">Catalogues</a></li>
-          <li><a href="tarifs-pro.html">Tarifs PRO</a></li>
-          <li><a href="contact.html" class="active">Contact</a></li>
+          <li><a href="tarifs-pro.html" class="active">Tarifs PRO</a></li>
+          <li><a href="contact.html">Contact</a></li>
         </ul>
       </nav>
+      <!-- CORRECTION : Ajout du bouton burger manquant -->
+      <button class="burger-btn" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
 
-  <main style="padding-bottom: 4rem;">
-    <section class="hero-banner" style="background-image: url('assets/img/02.png');">
-      <div class="container">
-        <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Contactez nos équipes</h1>
-        <p style="font-size: 1.1rem; opacity: 0.9; max-width: 700px;">Nos agents commerciaux dédiés aux professionnels sont à votre écoute pour vos projets.</p>
-      </div>
-    </section>
-
-    <div class="container" style="margin-top: 3rem;">
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin-bottom: 4rem;">
-        <div class="card-premium" style="padding: 2.5rem;">
-          <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-sage); font-weight: 600;">Agence Sud-Est</span>
-          <h3 style="font-size: 1.5rem; margin: 0.5rem 0 1rem; color: var(--color-anthracite);">Corinne Le Roy</h3>
-          <p style="font-size: 0.95rem; color: #555; margin-bottom: 1.5rem;"><strong>Secteurs :</strong> 04, 05, 06, 13, 20A, 20B, 83, 84</p>
-          <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-            <a href="tel:0613093606" class="btn btn-primary" style="font-size: 0.85rem; padding: 0.5rem 1rem; background-color: var(--color-dark-blue); color: var(--color-white);">06 13 09 36 06</a>
-            <a href="mailto:coryneleroyfactory@gmail.com" class="btn btn-outline" style="font-size: 0.85rem; padding: 0.5rem 1rem; border-color: var(--color-anthracite); color: var(--color-anthracite);">Envoyer un email</a>
-          </div>
+  <main style="padding-top: 120px; padding-bottom: 4rem; min-height: 80vh; display: flex; align-items: center;">
+    <div class="container" style="max-width: 500px; text-align: center;">
+      <h1 style="font-size: 2.25rem; margin-bottom: 1rem; color: var(--color-anthracite);">Espace Sécurisé PRO</h1>
+      <p style="font-size: 1rem; color: #666; margin-bottom: 2rem;">Veuillez saisir votre mot de passe professionnel pour accéder aux tarifs et documents exclusifs.</p>
+      
+      <div id="auth-box" class="card-premium" style="padding: 2.5rem; text-align: left;">
+        <div style="margin-bottom: 1.5rem;">
+          <label for="password" style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--color-anthracite);">Mot de passe</label>
+          <input type="password" id="password" placeholder="Votre code d'accès" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
         </div>
-
-        <div class="card-premium" style="padding: 2.5rem;">
-          <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-sage); font-weight: 600;">Agence Occitanie & Sud</span>
-          <h3 style="font-size: 1.5rem; margin: 0.5rem 0 1rem; color: var(--color-anthracite);">Jérôme Hugol</h3>
-          <p style="font-size: 0.95rem; color: #555; margin-bottom: 1.5rem;"><strong>Secteurs :</strong> 11, 30, 34, 66</p>
-          <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-            <a href="tel:0766040361" class="btn btn-primary" style="font-size: 0.85rem; padding: 0.5rem 1rem; background-color: var(--color-dark-blue); color: var(--color-white);">07 66 04 03 61</a>
-            <a href="mailto:agenceleroyfactory@gmail.com" class="btn btn-outline" style="font-size: 0.85rem; padding: 0.5rem 1rem; border-color: var(--color-anthracite); color: var(--color-anthracite);">Envoyer un email</a>
-          </div>
-        </div>
+        <button id="btn-login" class="btn btn-primary" style="width: 100%;">Accéder aux tarifs</button>
+        <p id="error-msg" style="color: #c0392b; font-size: 0.85rem; margin-top: 1rem; display: none;">Mot de passe incorrect.</p>
       </div>
 
-      <div class="card-premium" style="padding: 3rem; max-width: 800px; margin: 0 auto;">
-        <h3 style="font-size: 1.75rem; margin-bottom: 1.5rem; color: var(--color-anthracite);">Formulaire de contact professionnel</h3>
-        <form style="display: flex; flex-direction: column; gap: 1.5rem;">
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-            <div>
-              <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--color-anthracite);">Nom / Société</label>
-              <input type="text" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px;">
-            </div>
-            <div>
-              <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--color-anthracite);">Email professionnel</label>
-              <input type="email" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px;">
-            </div>
-          </div>
-          <div>
-            <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--color-anthracite);">Message</label>
-            <textarea rows="5" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px;"></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary" style="align-self: flex-start; background-color: var(--color-dark-blue); color: var(--color-white);">Envoyer le message</button>
-        </form>
+      <div id="content-box" style="display: none; text-align: left;" class="card-premium">
+        <div style="padding: 2.5rem;">
+          <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--color-anthracite);">Grilles Tarifaires 2026</h3>
+          <p style="font-size: 0.95rem; color: #555; margin-bottom: 1.5rem;">Accès autorisé aux professionnels partenaires.</p>
+          <ul style="display: flex; flex-direction: column; gap: 1rem;">
+            <li><a href="#" class="btn btn-outline" style="width: 100%; justify-content: space-between;"><span>Tarifs Carrelage - Italie/Espagne</span> <span>PDF</span></a></li>
+            <li><a href="#" class="btn btn-outline" style="width: 100%; justify-content: space-between;"><span>Tarifs Salle de Bain & Mobilier</span> <span>PDF</span></a></li>
+          </ul>
+        </div>
       </div>
     </div>
   </main>
@@ -88,6 +65,19 @@
     </div>
   </footer>
 
+  <script>
+    const PASSWORD_CORRECT = "leroy2026";
+
+    document.getElementById('btn-login').addEventListener('click', function() {
+      const inputVal = document.getElementById('password').value;
+      if (inputVal === PASSWORD_CORRECT) {
+        document.getElementById('auth-box').style.display = 'none';
+        document.getElementById('content-box').style.display = 'block';
+      } else {
+        document.getElementById('error-msg').style.display = 'block';
+      }
+    });
+  </script>
   <script src="assets/js/app.js"></script>
 </body>
 </html>
