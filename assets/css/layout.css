@@ -32,6 +32,23 @@ header {
   letter-spacing: 0.05em;
 }
 
+/* Onglets du menu : Survol rosé et Clic sombre */
+header nav a:not(.btn) {
+  transition: var(--transition-smooth);
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+}
+
+header nav a:not(.btn):hover {
+  background-color: var(--color-floral);
+  color: var(--color-anthracite);
+}
+
+header nav a:not(.btn):active {
+  background-color: #c5a8a9;
+  color: var(--color-dark-blue);
+}
+
 /* Menu Burger & Responsive */
 .burger-btn {
   display: none;
