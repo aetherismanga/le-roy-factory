@@ -25,7 +25,6 @@
           <li><a href="contact.html">Contact</a></li>
         </ul>
       </nav>
-      <!-- CORRECTION : Ajout du bouton burger manquant -->
       <button class="burger-btn" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
@@ -35,33 +34,10 @@
   <main style="padding-top: 120px; padding-bottom: 4rem;">
     <div class="container">
       <h1 style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--color-anthracite);">Catalogues Partenaires</h1>
-      <p style="font-size: 1.1rem; color: #666; margin-bottom: 3rem; max-width: 700px;">Consultez et téléchargez l'ensemble des catalogues officiels de nos fabricants de carrelage et de salle de bain.</p>
+      <p style="font-size: 1.1rem; color: #666; margin-bottom: 3rem; max-width: 700px;">Consultez et téléchargez l'ensemble des catalogues officiels et documentations de nos fabricants.</p>
       
-      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem;">
-        <div class="card-premium" style="padding: 2rem; display: flex; flex-direction: column; justify-content: space-between;">
-          <div>
-            <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-sage); font-weight: 600;">Elios Ceramica</span>
-            <h3 style="font-size: 1.25rem; margin: 0.5rem 0 1rem; color: var(--color-anthracite);">Catalogue Général 2026</h3>
-            <p style="font-size: 0.9rem; color: #555; margin-bottom: 1.5rem;">Découvrez toutes les collections de petits formats et faïences.</p>
-          </div>
-          <a href="#" class="btn btn-outline" style="align-self: flex-start; font-size: 0.85rem; padding: 0.5rem 1rem;">Télécharger le PDF</a>
-        </div>
-        <div class="card-premium" style="padding: 2rem; display: flex; flex-direction: column; justify-content: space-between;">
-          <div>
-            <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-sage); font-weight: 600;">Reviglass</span>
-            <h3 style="font-size: 1.25rem; margin: 0.5rem 0 1rem; color: var(--color-anthracite);">Collection Mosaïque</h3>
-            <p style="font-size: 0.9rem; color: #555; margin-bottom: 1.5rem;">Solutions en verre recyclé pour piscines et intérieurs.</p>
-          </div>
-          <a href="#" class="btn btn-outline" style="align-self: flex-start; font-size: 0.85rem; padding: 0.5rem 1rem;">Télécharger le PDF</a>
-        </div>
-        <div class="card-premium" style="padding: 2rem; display: flex; flex-direction: column; justify-content: space-between;">
-          <div>
-            <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-sage); font-weight: 600;">Randal Pro</span>
-            <h3 style="font-size: 1.25rem; margin: 0.5rem 0 1rem; color: var(--color-anthracite);">Mobilier de Salle de Bain</h3>
-            <p style="font-size: 0.9rem; color: #555; margin-bottom: 1.5rem;">Meubles sur mesure et solutions haut de gamme.</p>
-          </div>
-          <a href="#" class="btn btn-outline" style="align-self: flex-start; font-size: 0.85rem; padding: 0.5rem 1rem;">Télécharger le PDF</a>
-        </div>
+      <div id="grid-catalogues" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem;">
+        <!-- Injection dynamique via JS -->
       </div>
     </div>
   </main>
@@ -72,6 +48,145 @@
     </div>
   </footer>
 
+  <script>
+    const cataloguesData = [
+      {
+        nom: "Elios Ceramica",
+        pays: "Italie",
+        presentation: "Fabricant italien spécialisé dans les petits formats et la céramique décorative haut de gamme.",
+        fichiers: [
+          { titre: "Catalogue Général", desc: "Toutes les collections de petits formats et faïences." },
+          { titre: "Nouveautés & Décors", desc: "Dernières tendances et solutions graphiques." }
+        ]
+      },
+      {
+        nom: "View Ceramica",
+        pays: "Italie",
+        presentation: "Design contemporain et solutions céramiques innovantes pour les professionnels exigeants.",
+        fichiers: [
+          { titre: "Collection Générale", desc: "Surfaces céramiques innovantes et grands formats." }
+        ]
+      },
+      {
+        nom: "La Fenice",
+        pays: "Italie",
+        presentation: "Tradition et modernité italienne au service de l'architecture intérieure.",
+        fichiers: [
+          { titre: "Catalogue Général", desc: "Gammes résidentielles et architecturales." }
+        ]
+      },
+      {
+        nom: "Reviglass",
+        pays: "Espagne",
+        presentation: "Spécialiste de la mosaïque en verre recyclé haut de gamme.",
+        fichiers: [
+          { titre: "Collection Mosaïque & Piscines", desc: "Solutions en verre recyclé pour intérieurs et bassins." }
+        ]
+      },
+      {
+        nom: "Biopietra",
+        pays: "Italie",
+        presentation: "Pierre reconstituée écologique et certifiée pour l'aménagement décoratif.",
+        fichiers: [
+          { titre: "Catalogue Pierre Écologique", desc: "Revêtements muraux et sols texturés." }
+        ]
+      },
+      {
+        nom: "Petracer's",
+        pays: "Italie",
+        presentation: "L'expression ultime du luxe à l'italienne dans le carrelage d'exception.",
+        fichiers: [
+          { titre: "Luxe & Exception", desc: "Collections haut de gamme et décors d'apparat." }
+        ]
+      },
+      {
+        nom: "Pecchioli Firenze",
+        pays: "Italie",
+        presentation: "Céramique artistique et historique façonnée à Florence.",
+        fichiers: [
+          { titre: "Céramique Artistique", desc: "Faïences d'art et créations sur mesure." }
+        ]
+      },
+      {
+        nom: "Bulbo",
+        pays: "Italie",
+        presentation: "Créations céramiques audacieuses et design avant-gardiste.",
+        fichiers: [
+          { titre: "Catalogue Design", desc: "Lignes avant-gardistes et colorées." }
+        ]
+      },
+      {
+        nom: "Randal Pro",
+        pays: "Espagne",
+        presentation: "Mobilier de salle de bain sur mesure haut de gamme.",
+        fichiers: [
+          { titre: "Mobilier de Salle de Bain", desc: "Meubles sur mesure et solutions haut de gamme." }
+        ]
+      },
+      {
+        nom: "Neobath",
+        pays: "Italie",
+        presentation: "Fabricant italien de meubles de salle de bain design.",
+        fichiers: [
+          { titre: "Collections Meubles & Vasques", desc: "Agencements contemporains pour espaces d'eau." }
+        ]
+      },
+      {
+        nom: "Koibath",
+        pays: "Espagne",
+        presentation: "Solutions innovantes et esthétiques pour la salle de bain moderne.",
+        fichiers: [
+          { titre: "Catalogue Salle de Bain", desc: "Équipements et aménagements modernes." }
+        ]
+      },
+      {
+        nom: "Aquahome",
+        pays: "Robinetterie",
+        presentation: "Robinetterie haut de gamme alliant design et performance technique.",
+        fichiers: [
+          { titre: "Catalogue Robinetterie", desc: "Mitigeurs, colonnes de douche et accessoires." }
+        ]
+      },
+      {
+        nom: "Opal",
+        pays: "International",
+        presentation: "Fabricant de miroirs lumineux et décoratifs pour espaces d'eau.",
+        fichiers: [
+          { titre: "Miroirs & Éclairages", desc: "Gamme de miroirs lumineux et accessoires." }
+        ]
+      },
+      {
+        nom: "Bilt",
+        pays: "International",
+        presentation: "Croisillons autonivelants et accessoires de pose professionnels.",
+        fichiers: [
+          { titre: "Outillage & Pose", desc: "Systèmes de nivellement et accessoires de chantier." }
+        ]
+      }
+    ];
+
+    const grid = document.getElementById('grid-catalogues');
+    grid.innerHTML = cataloguesData.map(fab => `
+      <div class="card-premium" style="padding: 2rem; display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-sage); font-weight: 600;">${fab.pays}</span>
+          <h3 style="font-size: 1.25rem; margin: 0.5rem 0 1rem; color: var(--color-anthracite);">${fab.nom}</h3>
+          <p style="font-size: 0.9rem; color: #555; margin-bottom: 1.5rem;">${fab.presentation}</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+          ${fab.fichiers.map(file => `
+            <div style="background: var(--color-light-grey); padding: 0.75rem 1rem; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
+              <div>
+                <strong style="display: block; font-size: 0.85rem; color: var(--color-anthracite);">${file.titre}</strong>
+                <span style="font-size: 0.75rem; color: #666;">${file.desc}</span>
+              </div>
+              <a href="#" class="btn btn-outline" style="font-size: 0.75rem; padding: 0.4rem 0.8rem; border-color: var(--color-anthracite); color: var(--color-anthracite); white-space: nowrap;">PDF</a>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `).join('');
+  </script>
   <script src="assets/js/app.js"></script>
 </body>
 </html>
