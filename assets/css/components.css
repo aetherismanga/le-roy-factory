@@ -1,0 +1,48 @@
+/* Boutons premium */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 2rem;
+  font-weight: 500;
+  font-size: 0.95rem;
+  border-radius: 4px;
+  transition: var(--transition-smooth);
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.btn-primary {
+  background-color: var(--color-dark-blue);
+  color: var(--color-white);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-anthracite);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border-color: var(--color-dark-blue);
+  color: var(--color-dark-blue);
+}
+
+.btn-outline:hover {
+  background-color: var(--color-dark-blue);
+  color: var(--color-white);
+}
+
+/* Cartes univers & partenaires */
+.card-premium {
+  background-color: var(--color-white);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  transition: var(--transition-smooth);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.card-premium:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
