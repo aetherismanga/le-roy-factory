@@ -1,233 +1,54 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tarifs PRO — LE ROY FACTORY</title>
-  <meta name="description" content="Espace sécurisé réservé aux professionnels pour consulter les grilles tarifaires de nos fabricants partenaires.">
-  <link rel="stylesheet" href="assets/css/variables.css">
-  <link rel="stylesheet" href="assets/css/base.css">
-  <link rel="stylesheet" href="assets/css/components.css">
-  <link rel="stylesheet" href="assets/css/layout.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LE ROY FACTORY - Tarifs PRO</title>
+    <link rel="stylesheet" href="assets/css/variables.css">
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/layout.css">
+    <link rel="stylesheet" href="assets/css/components.css">
 </head>
 <body>
-
-  <header>
-    <div class="container nav-container">
-      <a href="index.html" class="logo">LE ROY FACTORY</a>
-      <nav>
-        <ul style="display: flex; gap: 2rem; align-items: center;">
-          <li><a href="partenaires.html">Partenaires</a></li>
-          <li><a href="univers.html">Inspirations</a></li>
-          <li><a href="realisations.html">Réalisations</a></li>
-          <li><a href="catalogues.html">Catalogues</a></li>
-          <li><a href="tarifs-pro.html" class="active">Tarifs PRO</a></li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
-      </nav>
-      <button class="burger-btn" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </header>
-
-  <main style="padding-top: 120px; padding-bottom: 4rem;">
-    <div class="container">
-      
-      <!-- Formulaire de mot de passe -->
-      <div id="login-section" style="max-width: 500px; margin: 4rem auto; background: white; padding: 3rem; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); text-align: center;">
-        <h1 style="font-size: 2rem; margin-bottom: 1rem; color: var(--color-anthracite);">Espace Sécurisé PRO</h1>
-        <p style="font-size: 1rem; color: #666; margin-bottom: 2rem;">Veuillez saisir votre mot de passe professionnel pour accéder aux tarifs et documents exclusifs.</p>
-        
-        <div style="display: flex; flex-direction: column; gap: 1rem;">
-          <input type="password" id="password-input" placeholder="Votre code d'accès" style="padding: 0.75rem 1rem; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; text-align: center;">
-          <button id="login-btn" class="btn btn-outline" style="border-color: var(--color-anthracite); color: var(--color-anthracite); padding: 0.75rem;">Accéder aux tarifs</button>
-          <p id="error-msg" style="color: #d9534f; font-size: 0.85rem; display: none; margin-top: 0.5rem;">Mot de passe incorrect.</p>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html">LE ROY FACTORY</a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="univers.html">Univers</a></li>
+                <li><a href="realisations.html">Réalisations</a></li>
+                <li><a href="catalogues.html">Catalogues</a></li>
+                <li><a href="partenaires.html">Partenaires</a></li>
+                <li><a href="tarifs-pro.html">Tarifs PRO</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="agent.html" class="agent-btn">🔒 Espace Agent</a></li>
+            </ul>
+            <div class="burger-menu" id="burgerMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+        <div class="mobile-menu" id="mobileMenu">
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="univers.html">Univers</a></li>
+                <li><a href="realisations.html">Réalisations</a></li>
+                <li><a href="catalogues.html">Catalogues</a></li>
+                <li><a href="partenaires.html">Partenaires</a></li>
+                <li><a href="tarifs-pro.html">Tarifs PRO</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="agent.html" class="agent-btn">🔒 Espace Agent</a></li>
+            </ul>
         </div>
-      </div>
-
-      <!-- Contenu protégé (Tarifs des partenaires) -->
-      <div id="pro-content" style="display: none;">
-        <h1 style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--color-anthracite);">Tarifs Partenaires PRO</h1>
-        <p style="font-size: 1.1rem; color: #666; margin-bottom: 3rem; max-width: 700px;">Consultez et téléchargez les grilles tarifaires officielles de nos fabricants.</p>
-        
-        <div id="grid-tarifs" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem;">
-          <!-- Injection dynamique via JS -->
-        </div>
-      </div>
-
-    </div>
-  </main>
-
-  <footer>
-    <div class="container" style="text-align: center;">
-      <p>&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p>
-    </div>
-  </footer>
-
-  <script>
-    const passwordInput = document.getElementById('password-input');
-    const loginBtn = document.getElementById('login-btn');
-    const loginSection = document.getElementById('login-section');
-    const proContent = document.getElementById('pro-content');
-    const errorMsg = document.getElementById('error-msg');
-
-    const partenairesTarifs = [
-      {
-        nom: "Elios Ceramica",
-        pays: "Italie",
-        presentation: "Fabricant italien spécialisé dans les petits formats et la céramique décorative haut de gamme.",
-        fichiers: [
-          { titre: "Grille Tarifaire 2026", desc: "Tarifs professionnels officiels.", lien: "assets/pdf/elios2026.pdf" }
-        ]
-      },
-      {
-        nom: "View Ceramica",
-        pays: "Italie",
-        presentation: "Design contemporain et solutions céramiques innovantes pour les professionnels exigeants.",
-        fichiers: [
-          { titre: "Grille Tarifaire 2026", desc: "Tarifs professionnels officiels.", lien: "assets/pdf/view2026.pdf" }
-        ]
-      },
-      {
-        nom: "La Fenice",
-        pays: "Italie",
-        presentation: "Tradition et modernité italienne au service de l'architecture intérieure.",
-        fichiers: [
-          { titre: "Grille Tarifaire 2026", desc: "Tarifs professionnels officiels.", lien: "assets/pdf/lafenice2026.pdf" }
-        ]
-      },
-      {
-        nom: "Reviglass",
-        pays: "Espagne",
-        presentation: "Spécialiste de la mosaïque en verre recyclé haut de gamme.",
-        fichiers: [
-          { titre: "Grille Tarifaire 2026", desc: "Tarifs professionnels officiels.", lien: "assets/pdf/reviglass2026.pdf" }
-        ]
-      },
-      {
-        nom: "Biopietra",
-        pays: "Italie",
-        presentation: "Pierre reconstituée écologique et certifiée pour l'aménagement décoratif.",
-        fichiers: [
-          { titre: "Catalogue & Tarifs 2026", desc: "Documentation et tarifs Biopietra.", lien: "assets/pdf/biopietra2026.pdf" },
-          { titre: "Code Prix Biopietra", desc: "Grille des codes prix.", lien: "assets/pdf/biopietracodeprix.pdf" }
-        ]
-      },
-      {
-        nom: "Petracer's",
-        pays: "Italie",
-        presentation: "L'expression ultime du luxe à l'italienne dans le carrelage d'exception.",
-        fichiers: [
-          { titre: "Grille Tarifaire", desc: "Tarifs professionnels Petracer's.", lien: "assets/pdf/petracer2023.pdf" }
-        ]
-      },
-      {
-        nom: "Pecchioli Firenze",
-        pays: "Italie",
-        presentation: "Céramique artistique et historique façonnée à Florence.",
-        fichiers: [
-          { titre: "Grille Tarifaire", desc: "Tarifs professionnels Pecchioli.", lien: "assets/pdf/pecchioli2022.pdf" }
-        ]
-      },
-      {
-        nom: "Bulbo",
-        pays: "Italie",
-        presentation: "Créations céramiques audacieuses et design avant-gardiste.",
-        fichiers: [
-          { titre: "Grille Tarifaire 2026", desc: "Tarifs professionnels Bulbo.", lien: "assets/pdf/bulbo2026.pdf" }
-        ]
-      },
-      {
-        nom: "Randal Pro",
-        pays: "Espagne",
-        presentation: "Mobilier de salle de bain sur mesure haut de gamme.",
-        fichiers: [
-          { titre: "Grille Tarifaire", desc: "Meubles sur mesure et solutions haut de gamme.", lien: "assets/pdf/RANDAL03.pdf" }
-        ]
-      },
-      {
-        nom: "Neobath",
-        pays: "Italie",
-        presentation: "Fabricant italien de meubles de salle de bain design.",
-        fichiers: [
-          { titre: "Collection Anima", desc: "Tarifs de la gamme Anima.", lien: "assets/pdf/neobathANIMA.pdf" },
-          { titre: "Collection DNA", desc: "Tarifs de la gamme DNA.", lien: "assets/pdf/neobathDNA.pdf" }
-        ]
-      },
-      {
-        nom: "Koibath",
-        pays: "Espagne",
-        presentation: "Solutions innovantes et esthétiques pour la salle de bain moderne.",
-        fichiers: [
-          { titre: "Grille Tarifaire", desc: "Tarifs professionnels Koibath.", lien: "#" }
-        ]
-      },
-      {
-        nom: "Aquahome",
-        pays: "Robinetterie",
-        presentation: "Robinetterie haut de gamme alliant design et performance technique.",
-        fichiers: [
-          { titre: "Grille Tarifaire", desc: "Mitigeurs, colonnes de douche et accessoires.", lien: "assets/pdf/AQUAHOME.pdf" }
-        ]
-      },
-      {
-        nom: "Opal",
-        pays: "International",
-        presentation: "Fabricant de miroirs lumineux et décoratifs pour espaces d'eau.",
-        fichiers: [
-          { titre: "Grille Tarifaire", desc: "Tarifs professionnels Opal.", lien: "#" }
-        ]
-      },
-      {
-        nom: "Bilt",
-        pays: "International",
-        presentation: "Croisillons autonivelants et accessoires de pose professionnels.",
-        fichiers: [
-          { titre: "Grille Tarifaire", desc: "Systèmes de nivellement et accessoires.", lien: "#" }
-        ]
-      }
-    ];
-
-    function checkPassword() {
-      if (passwordInput.value.trim() === '2026') {
-        loginSection.style.display = 'none';
-        proContent.style.display = 'block';
-        renderTarifs();
-      } else {
-        errorMsg.style.display = 'block';
-      }
-    }
-
-    loginBtn.addEventListener('click', checkPassword);
-    passwordInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') checkPassword();
-    });
-
-    function renderTarifs() {
-      const grid = document.getElementById('grid-tarifs');
-      grid.innerHTML = partenairesTarifs.map(fab => `
-        <div class="card-premium" style="padding: 2rem; display: flex; flex-direction: column; justify-content: space-between;">
-          <div>
-            <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-sage); font-weight: 600;">${fab.pays}</span>
-            <h3 style="font-size: 1.25rem; margin: 0.5rem 0 1rem; color: var(--color-anthracite);">${fab.nom}</h3>
-            <p style="font-size: 0.9rem; color: #555; margin-bottom: 1.5rem;">${fab.presentation}</p>
-          </div>
-          <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-            ${fab.fichiers.map(file => `
-              <div style="background: var(--color-light-grey); padding: 0.75rem 1rem; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
-                <div>
-                  <strong style="display: block; font-size: 0.85rem; color: var(--color-anthracite);">${file.titre}</strong>
-                  <span style="font-size: 0.75rem; color: #666;">${file.desc}</span>
-                </div>
-                <a href="${file.lien}" target="_blank" class="btn btn-outline" style="font-size: 0.75rem; padding: 0.4rem 0.8rem; border-color: var(--color-anthracite); color: var(--color-anthracite); white-space: nowrap;">Tarifs</a>
-              </div>
-            `).join('')}
-          </div>
-        </div>
-      `).join('');
-    }
-  </script>
-  <script src="assets/js/app.js"></script>
+    </header>
+    <main>
+        <section class="content">
+            <h1>Tarifs Professionnels</h1>
+        </section>
+    </main>
+    <script src="assets/js/main.js"></script>
 </body>
 </html>
