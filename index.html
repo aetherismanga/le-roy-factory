@@ -1,52 +1,97 @@
-<style>
-  .hero-video-section {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-  }
-  .bg-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 0;
-  }
-  .hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    z-index: 1;
-  }
-  .hero-content {
-    position: relative;
-    z-index: 2;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: white;
-    padding: 0 1rem;
-  }
-</style>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LE ROY FACTORY — Votre solution Carrelage & Bain</title>
+  <meta name="description" content="Sélection des meilleurs fabricants italiens et espagnols pour les professionnels de la décoration et de l'aménagement de salle de bain.">
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <style>
+    .hero-video-section {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .bg-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      padding: 0 1rem;
+    }
+  </style>
+</head>
+<body>
 
-<section class="hero-video-section">
-  <video autoplay muted loop playsinline class="bg-video">
-    <source src="assets/videos/videospageaccueil.mp4" type="video/mp4">
-  </video>
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <h1 style="font-size: 3.5rem; margin-bottom: 1rem; color: #d4af37;">LE ROY FACTORY</h1>
-    <h2 style="font-size: 2rem; margin-bottom: 1.5rem;">Votre solution Carrelage & Bain</h2>
-    <p style="font-size: 1.1rem; max-width: 700px; color: #f1f1f1;">
-      Nous sélectionnons les meilleurs fabricants italiens et espagnols afin d'accompagner les professionnels dans leurs projets de décoration, d'aménagement et de salle de bain.
-    </p>
-  </div>
-</section>
+  <header>
+    <div class="container nav-container">
+      <a href="index.html" class="logo">LE ROY FACTORY</a>
+      <nav>
+        <ul style="display: flex; gap: 2rem; align-items: center;">
+          <li><a href="partenaires.html">Partenaires</a></li>
+          <li><a href="univers.html">Inspirations</a></li>
+          <li><a href="realisations.html">Réalisations</a></li>
+          <li><a href="catalogues.html">Catalogues</a></li>
+          <li><a href="tarifs-pro.html">Tarifs PRO</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="burger-btn" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero-video-section">
+      <video autoplay muted loop playsinline class="bg-video">
+        <source src="assets/videos/videospageaccueil.mp4" type="video/mp4">
+        Votre navigateur ne supporte pas la lecture de vidéos.
+      </video>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1 style="font-size: 3.5rem; margin-bottom: 1rem; color: #d4af37;">LE ROY FACTORY</h1>
+        <h2 style="font-size: 2rem; margin-bottom: 1.5rem;">Votre solution Carrelage & Bain</h2>
+        <p style="font-size: 1.1rem; max-width: 700px; color: #f1f1f1;">
+          Nous sélectionnons les meilleurs fabricants italiens et espagnols afin d'accompagner les professionnels dans leurs projets de décoration, d'aménagement et de salle de bain.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container" style="text-align: center; padding: 2rem 0;">
+      <p>&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
