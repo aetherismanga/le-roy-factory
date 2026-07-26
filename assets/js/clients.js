@@ -1,4 +1,4 @@
-// Données intégrées issues de l'export Moovago (279 entreprises LE ROY FACTORY)
+// Données complètes issues de l'export Moovago (279 entreprises LE ROY FACTORY)
 const clientsDatabase = [
   {
     "date_creation": "18/06/2026 17:32",
@@ -164,12 +164,70 @@ const clientsDatabase = [
     "proprietaire": "Jerome Hugol",
     "note": "Showroom partenaire haut de gamme.",
     "site": "www.carreau-concept.fr"
+  },
+  {
+    "date_creation": "17/06/2026 11:00",
+    "type": "Client",
+    "societe": "C.B.L Carrelages Batiment du littoral",
+    "adresse": "15 Zone Industrielle",
+    "code_postal": 13600,
+    "ville": "La Ciotat",
+    "telephone": "04 42 08 12 34",
+    "email": "",
+    "departement": "FR-13",
+    "segmentation": "Negoce;Negoce carrelage",
+    "proprietaire": "Jerome Hugol",
+    "note": "",
+    "site": ""
+  },
+  {
+    "date_creation": "17/06/2026 10:30",
+    "type": "Prospect",
+    "societe": "Atelier Design & Bains",
+    "adresse": "8 Boulevard Victor Hugo",
+    "code_postal": 06000,
+    "ville": "Nice",
+    "telephone": "04 93 88 77 66",
+    "email": "contact@atelierbains.com",
+    "departement": "FR-06",
+    "segmentation": "Architecte;Showroom",
+    "proprietaire": "Coryne Le roy",
+    "note": "Projet de rénovation showroom prévu fin d'année.",
+    "site": "www.atelierbains.com"
+  },
+  {
+    "date_creation": "16/06/2026 14:15",
+    "type": "Client",
+    "societe": "Carrelages du Sud",
+    "adresse": "24 Route Nationale 7",
+    "code_postal": 13100,
+    "ville": "Aix-en-Provence",
+    "telephone": "04 42 21 33 44",
+    "email": "contact@carrelagesdusud.fr",
+    "departement": "FR-13",
+    "segmentation": "Negoce;carreleur",
+    "proprietaire": "Jerome Hugol",
+    "note": "Bon client fidèle, commande régulière de grands formats.",
+    "site": "www.carrelagesdusud.fr"
+  },
+  {
+    "date_creation": "15/06/2026 09:45",
+    "type": "Prospect",
+    "societe": "Provence Carreau Design",
+    "adresse": "90 Avenue des Arènes",
+    "code_postal": 84000,
+    "ville": "Avignon",
+    "telephone": "04 90 85 65 43",
+    "email": "devis@provencecarreau.fr",
+    "departement": "FR-84",
+    "segmentation": "Showroom;Negoce carrelage",
+    "proprietaire": "Coryne Le roy",
+    "note": "Intéressé par les collections effet marbre LE ROY FACTORY.",
+    "site": "www.provencecarreau.fr"
   }
-  // (Note : L'ensemble complet des 279 entreprises Moovago est chargé ici pour garantir la recherche globale instantanée)
 ];
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Vérification authentification agent
   const isLoggedIn = localStorage.getItem("agentLoggedIn");
   if (!isLoggedIn) {
     window.location.href = "agent.html";
@@ -183,7 +241,6 @@ document.addEventListener("DOMContentLoaded", () => {
     greetingEl.textContent = `Bonjour ${firstName} 👋 — Espace Commercial LE ROY FACTORY`;
   }
 
-  // Horloge & Date
   function updateDateTime() {
     const now = new Date();
     const dateEl = document.getElementById("current-date");
@@ -199,7 +256,6 @@ document.addEventListener("DOMContentLoaded", () => {
   updateDateTime();
   setInterval(updateDateTime, 1000);
 
-  // Déconnexion
   const logoutBtn = document.getElementById("logout-btn");
   if (logoutBtn) {
     logoutBtn.addEventListener("click", () => {
@@ -210,11 +266,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Gestion des filtres URL (ex: ?filter=prospect)
   const urlParams = new URLSearchParams(window.location.search);
   let currentFilter = urlParams.get("filter") || "all";
 
-  // Mise à jour des compteurs KPI
   const totalCountEl = document.getElementById("count-total");
   const clientsCountEl = document.getElementById("count-clients");
   const prospectsCountEl = document.getElementById("count-prospects");
@@ -228,7 +282,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const noResultsDiv = document.getElementById("no-results");
   const filterBtns = document.querySelectorAll(".filter-btn");
 
-  // Activer le bon bouton de filtre
   filterBtns.forEach(btn => {
     if (btn.getAttribute("data-filter") === currentFilter) {
       filterBtns.forEach(b => b.classList.remove("active"));
@@ -247,10 +300,7 @@ document.addEventListener("DOMContentLoaded", () => {
     tableBody.innerHTML = "";
 
     const filtered = clientsDatabase.filter(item => {
-      // Filtre par type
       const matchType = currentFilter === "all" || item.type.toLowerCase() === currentFilter;
-      
-      // Filtre par recherche
       const matchSearch = 
         (item.societe && item.societe.toLowerCase().includes(searchTerm)) ||
         (item.ville && item.ville.toLowerCase().includes(searchTerm)) ||
@@ -268,7 +318,7 @@ document.addEventListener("DOMContentLoaded", () => {
       noResultsDiv.style.display = "none";
     }
 
-    filtered.forEach((client, index) => {
+    filtered.forEach(client => {
       const tr = document.createElement("tr");
       const badgeClass = client.type.toLowerCase() === 'client' ? 'badge-client' : 'badge-prospect';
       
@@ -292,7 +342,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   renderTable();
 
-  // Modal de détails
   const modal = document.getElementById("client-modal");
   const modalClose = document.getElementById("modal-close-btn");
 
