@@ -31,7 +31,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(0, 0, 0, 0.45);
       z-index: 1;
     }
     .hero-content {
@@ -45,6 +45,38 @@
       text-align: center;
       color: white;
       padding: 0 1rem;
+    }
+    .hero-buttons {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .hero-btn {
+      padding: 0.8rem 2rem;
+      border-radius: 4px;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-gold {
+      background-color: #d4af37;
+      color: #000000;
+      border: 2px solid #d4af37;
+    }
+    .btn-gold:hover {
+      background-color: transparent;
+      color: #ffffff !important;
+    }
+    .btn-outline-white {
+      background-color: transparent;
+      color: #ffffff;
+      border: 2px solid #ffffff;
+    }
+    .btn-outline-white:hover {
+      background-color: #ffffff;
+      color: #000000 !important;
     }
   </style>
 </head>
@@ -79,9 +111,13 @@
       <div class="hero-content">
         <h1 style="font-size: 3.5rem; margin-bottom: 1rem; color: #d4af37;">LE ROY FACTORY</h1>
         <h2 style="font-size: 2rem; margin-bottom: 1.5rem;">Votre solution Carrelage & Bain</h2>
-        <p style="font-size: 1.1rem; max-width: 700px; color: #f1f1f1;">
+        <p style="font-size: 1.1rem; max-width: 700px; color: #f1f1f1; margin-bottom: 1rem;">
           Nous sélectionnons les meilleurs fabricants italiens et espagnols afin d'accompagner les professionnels dans leurs projets de décoration, d'aménagement et de salle de bain.
         </p>
+        <div class="hero-buttons">
+          <a href="partenaires.html" class="hero-btn btn-gold">Partenaires</a>
+          <a href="contact.html" class="hero-btn btn-outline-white">Contact</a>
+        </div>
       </div>
     </section>
   </main>
