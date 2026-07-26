@@ -9,6 +9,34 @@
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
+<style>
+.main-nav{
+display:flex;
+gap:1.2rem;
+align-items:center;
+justify-content:flex-end;
+list-style:none;
+margin:0;
+padding:0;
+flex-wrap:nowrap;
+}
+.main-nav li{display:flex;align-items:center;}
+.main-nav a{text-decoration:none;}
+.agent-btn{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+padding:8px 14px;
+background:#111;
+color:#d4af37!important;
+border:1px solid #d4af37;
+border-radius:8px;
+font-weight:600;
+white-space:nowrap;
+transition:.25s;
+}
+.agent-btn:hover{background:#d4af37;color:#111!important;}
+</style>
 </head>
 <body>
 
@@ -16,13 +44,14 @@
     <div class="container nav-container">
       <a href="index.html" class="logo">LE ROY FACTORY</a>
       <nav>
-        <ul style="display: flex; gap: 2rem; align-items: center;">
+        <ul class="main-nav">
           <li><a href="partenaires.html">Partenaires</a></li>
           <li><a href="univers.html">Inspirations</a></li>
           <li><a href="realisations.html">Réalisations</a></li>
           <li><a href="catalogues.html">Catalogues</a></li>
           <li><a href="tarifs-pro.html">Tarifs PRO</a></li>
-          <li><a href="contact.html" class="active">Contact</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="agent.html" class="agent-btn">🔒 Espace Agent</a></li>
         </ul>
       </nav>
       <button class="burger-btn" aria-label="Menu">
@@ -32,7 +61,6 @@
   </header>
 
   <main style="padding-top: 0; padding-bottom: 4rem;">
-    <!-- BANNIÈRE HERO AJOUTÉE : J'ai ajouté la classe .hero-banner et l'image 02.png -->
     <section class="hero-banner" style="background-image: url('assets/img/02.png'); padding-top: 140px;">
       <div class="container">
         <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem; color: var(--color-white);">Contactez nos équipes</h1>
