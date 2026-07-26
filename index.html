@@ -10,6 +10,17 @@
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
   <style>
+    /* Header et Footer avec l'image bandeau01.png */
+    header, footer {
+      background-image: url('assets/img/bandeau01.png');
+      background-size: cover;
+      background-position: center;
+      color: #ffffff;
+    }
+    header a, footer p {
+      color: #ffffff !important;
+    }
+
     .hero-video-section {
       position: relative;
       width: 100%;
@@ -48,7 +59,7 @@
       padding: 0 1rem;
     }
 
-    /* Logo agrandi et animé avec mouvement fluide uniquement */
+    /* Logo agrandi et animé */
     .hero-logo-wrapper {
       position: relative;
       display: inline-block;
@@ -57,7 +68,7 @@
     .hero-logo {
       width: auto;
       height: auto;
-      max-width: 680px; /* Logo agrandi */
+      max-width: 680px;
       display: block;
       animation: subtleFloat 4s ease-in-out infinite;
     }
