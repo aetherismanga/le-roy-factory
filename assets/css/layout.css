@@ -1,4 +1,19 @@
-/* Layout principal */
+/* Layout principal pour coller le footer en bas */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+
 .container {
   width: 100%;
   max-width: 1280px;
@@ -141,15 +156,17 @@ header nav a.active {
   }
 }
 
-/* Footer */
+/* Footer : Bandeau fleuri avec texte en noir */
 footer {
   background-image: url('../img/bandeau01.png');
   background-size: cover;
   background-position: center;
-  color: var(--color-white);
-  padding: 4rem 0 2rem;
+  padding: 3rem 0 2rem;
+  margin-top: auto;
 }
 
 footer p {
-  color: #ffffff !important;
+  color: #000000 !important;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
 }
