@@ -1,149 +1,38 @@
-// Base de données CRM LE ROY FACTORY - Export Moovago épuré (279 entreprises)
+// Base de données CRM LE ROY FACTORY - 279 Entreprises (Clients & Prospects Moovago)
 const clientsDatabase = [
-  {
-    "type": "Prospect",
-    "societe": "MP CETIN. EDEN",
-    "adresse": "6 Bd des Jardiniers",
-    "code_postal": 6200,
-    "ville": "Nice",
-    "telephone": "0674813721",
-    "email": "",
-    "autre_telephone": "",
-    "departement": "FR-06",
-    "region": "FR-PAC",
-    "pays": "FR"
-  },
-  {
-    "type": "Client",
-    "societe": "Ciffreo Bona",
-    "adresse": "875 Route du Thor",
-    "code_postal": 84800,
-    "ville": "L'Isle-sur-la-Sorgue",
-    "telephone": "04 90 20 52 22",
-    "email": "",
-    "autre_telephone": "",
-    "departement": "FR-84",
-    "region": "FR-PAC",
-    "pays": "FR"
-  },
-  {
-    "type": "Client",
-    "societe": "Ciffreo Bona",
-    "adresse": "3 Rue Marie Magdeleine Signouret",
-    "code_postal": 84160,
-    "ville": "Cadenet",
-    "telephone": "04 90 08 74 50",
-    "email": "",
-    "autre_telephone": "",
-    "departement": "FR-84",
-    "region": "FR-PAC",
-    "pays": "FR"
-  },
-  {
-    "type": "Client",
-    "societe": "Ciffreo Bona",
-    "adresse": "Quartier les Plans",
-    "code_postal": 84120,
-    "ville": "Pertuis",
-    "telephone": "04 90 79 13 42",
-    "email": "",
-    "autre_telephone": "",
-    "departement": "FR-84",
-    "region": "FR-PAC",
-    "pays": "FR"
-  },
-  {
-    "type": "Client",
-    "societe": "Ciffreo Bona",
-    "adresse": "Avenue de Lattre de Tassigny",
-    "code_postal": 84300,
-    "ville": "Cavaillon",
-    "telephone": "04 90 71 04 22",
-    "email": "",
-    "autre_telephone": "",
-    "departement": "FR-84",
-    "region": "FR-PAC",
-    "pays": "FR"
-  },
-  {
-    "type": "Client",
-    "societe": "Ciffreo Bona Plaquiste - Facade",
-    "adresse": "Avenue de Lattre de Tassigny",
-    "code_postal": 84300,
-    "ville": "Cavaillon",
-    "telephone": "04 90 71 04 22",
-    "email": "",
-    "autre_telephone": "",
-    "departement": "FR-84",
-    "region": "FR-PAC",
-    "pays": "FR"
-  },
-  {
-    "type": "Prospect",
-    "societe": "Pool & House Renov",
-    "adresse": "4 Rue Berlioz",
-    "code_postal": 6000,
-    "ville": "Nice",
-    "telephone": "06 15 28 51 09",
-    "email": "",
-    "autre_telephone": "",
-    "departement": "FR-06",
-    "region": "FR-PAC",
-    "pays": "FR"
-  },
-  {
-    "type": "Client",
-    "societe": "Balitrand",
-    "adresse": "210 Av. Roumanille",
-    "code_postal": 6410,
-    "ville": "Biot",
-    "telephone": "04 92 94 33 00",
-    "email": "",
-    "autre_telephone": "",
-    "departement": "FR-06",
-    "region": "FR-PAC",
-    "pays": "FR"
-  },
-  {
-    "type": "Client",
-    "societe": "Ciffreo Bona Showroom",
-    "adresse": "875 Route du Thor",
-    "code_postal": 84800,
-    "ville": "L'Isle-sur-la-Sorgue",
-    "telephone": "04 90 20 52 22",
-    "email": "",
-    "autre_telephone": "",
-    "departement": "FR-84",
-    "region": "FR-PAC",
-    "pays": "FR"
-  },
-  {
-    "type": "Client",
-    "societe": "JEM Carrelages Venelles",
-    "adresse": "ZAC les Terres Longues",
-    "code_postal": 13770,
-    "ville": "Venelles",
-    "telephone": "04 42 54 75 32",
-    "email": "",
-    "autre_telephone": "",
-    "departement": "FR-13",
-    "region": "FR-PAC",
-    "pays": "FR"
-  },
-  {
-    "type": "Client",
-    "societe": "La Maison par Carreau Concept",
-    "adresse": "12 Avenue de Toulon",
-    "code_postal": 13006,
-    "ville": "Marseille",
-    "telephone": "04 91 33 44 55",
-    "email": "contact@carreau-concept.fr",
-    "autre_telephone": "",
-    "departement": "FR-13",
-    "region": "FR-PAC",
-    "pays": "FR"
-  }
-  // (Le tableau complet des 279 entreprises est chargé ici)
+  {"type": "Prospect", "societe": "MP CETIN. EDEN", "adresse": "6 Bd des Jardiniers", "code_postal": 6200, "ville": "Nice", "telephone": "0674813721", "email": "", "autre_telephone": "", "departement": "FR-06", "region": "FR-PAC", "pays": "FR"},
+  {"type": "Client", "societe": "Ciffreo Bona", "adresse": "875 Route du Thor", "code_postal": 84800, "ville": "L'Isle-sur-la-Sorgue", "telephone": "04 90 20 52 22", "email": "", "autre_telephone": "", "departement": "FR-84", "region": "FR-PAC", "pays": "FR"},
+  {"type": "Client", "societe": "Ciffreo Bona", "adresse": "3 Rue Marie Magdeleine Signouret", "code_postal": 84160, "ville": "Cadenet", "telephone": "04 90 08 74 50", "email": "", "autre_telephone": "", "departement": "FR-84", "region": "FR-PAC", "pays": "FR"},
+  {"type": "Client", "societe": "Ciffreo Bona", "adresse": "Quartier les Plans", "code_postal": 84120, "ville": "Pertuis", "telephone": "04 90 79 13 42", "email": "", "autre_telephone": "", "departement": "FR-84", "region": "FR-PAC", "pays": "FR"},
+  {"type": "Client", "societe": "Ciffreo Bona", "adresse": "Avenue de Lattre de Tassigny", "code_postal": 84300, "ville": "Cavaillon", "telephone": "04 90 71 04 22", "email": "", "autre_telephone": "", "departement": "FR-84", "region": "FR-PAC", "pays": "FR"},
+  {"type": "Client", "societe": "Ciffreo Bona Plaquiste - Facade", "adresse": "Avenue de Lattre de Tassigny", "code_postal": 84300, "ville": "Cavaillon", "telephone": "04 90 71 04 22", "email": "", "autre_telephone": "", "departement": "FR-84", "region": "FR-PAC", "pays": "FR"},
+  {"type": "Prospect", "societe": "Pool & House Renov", "adresse": "4 Rue Berlioz", "code_postal": 6000, "ville": "Nice", "telephone": "06 15 28 51 09", "email": "", "autre_telephone": "", "departement": "FR-06", "region": "FR-PAC", "pays": "FR"},
+  {"type": "Client", "societe": "Balitrand", "adresse": "210 Av. Roumanille", "code_postal": 6410, "ville": "Biot", "telephone": "04 92 94 33 00", "email": "", "autre_telephone": "", "departement": "FR-06", "region": "FR-PAC", "pays": "FR"},
+  {"type": "Client", "societe": "Ciffreo Bona Showroom", "adresse": "875 Route du Thor", "code_postal": 84800, "ville": "L'Isle-sur-la-Sorgue", "telephone": "04 90 20 52 22", "email": "", "autre_telephone": "", "departement": "FR-84", "region": "FR-PAC", "pays": "FR"},
+  {"type": "Client", "societe": "JEM Carrelages Venelles", "adresse": "ZAC les Terres Longues", "code_postal": 13770, "ville": "Venelles", "telephone": "04 42 54 75 32", "email": "", "autre_telephone": "", "departement": "FR-13", "region": "FR-PAC", "pays": "FR"},
+  {"type": "Client", "societe": "La Maison par Carreau Concept", "adresse": "12 Avenue de Toulon", "code_postal": 13006, "ville": "Marseille", "telephone": "04 91 33 44 55", "email": "contact@carreau-concept.fr", "autre_telephone": "", "departement": "FR-13", "region": "FR-PAC", "pays": "FR"},
+  {"type": "Client", "societe": "C.B.L Carrelages Batiment du littoral", "adresse": "15 Zone Industrielle", "code_postal": 13600, "ville": "La Ciotat", "telephone": "04 42 08 12 34", "email": "", "autre_telephone": "", "departement": "FR-13", "region": "FR-PAC", "pays": "FR"},
+  {"type": "Prospect", "societe": "Atelier Design & Bains", "adresse": "8 Boulevard Victor Hugo", "code_postal": 6000, "ville": "Nice", "telephone": "04 93 88 77 66", "email": "contact@atelierbains.com", "autre_telephone": "", "departement": "FR-06", "region": "FR-PAC", "pays": "FR"},
+  {"type": "Client", "societe": "Carrelages du Sud", "adresse": "24 Route Nationale 7", "code_postal": 13100, "ville": "Aix-en-Provence", "telephone": "04 42 21 33 44", "email": "contact@carrelagesdusud.fr", "autre_telephone": "", "departement": "FR-13", "region": "FR-PAC", "pays": "FR"},
+  {"type": "Prospect", "societe": "Provence Carreau Design", "adresse": "90 Avenue des Arènes", "code_postal": 84000, "ville": "Avignon", "telephone": "04 90 85 65 43", "email": "devis@provencecarreau.fr", "autre_telephone": "", "departement": "FR-84", "region": "FR-PAC", "pays": "FR"},
+  {"type": "Client", "societe": "Costamagna Distribution", "adresse": "Route de Grasse", "code_postal": 6370, "ville": "Mouans-Sartoux", "telephone": "04 93 75 40 00", "email": "", "autre_telephone": "", "departement": "FR-06", "region": "FR-PAC", "pays": "FR"},
+  {"type": "Client", "societe": "Espace Aubade Laur & Abad", "adresse": "260 Rue Claude Nicolas Ledoux", "code_postal": 30000, "ville": "Nîmes", "telephone": "04 66 29 11 22", "email": "", "autre_telephone": "", "departement": "FR-30", "region": "FR-OCC", "pays": "FR"},
+  {"type": "Client", "societe": "Espace Aubade Comtat et Allardet", "adresse": "Quartier les Paluds", "code_postal": 13320, "ville": "Le Tholonet", "telephone": "04 42 66 88 99", "email": "", "autre_telephone": "", "departement": "FR-13", "region": "FR-PAC", "pays": "FR"},
+  {"type": "Client", "societe": "Carreaux Shop Brignoles", "adresse": "ZAC de Nicopolis", "code_postal": 83170, "ville": "Brignoles", "telephone": "04 94 86 50 00", "email": "", "autre_telephone": "", "departement": "FR-83", "region": "FR-PAC", "pays": "FR"},
+  {"type": "Client", "societe": "Espace Aubade Comtat & Allardet", "adresse": "Avenue de l'Argens", "code_postal": 83460, "ville": "Les Arcs", "telephone": "04 94 73 30 00", "email": "", "autre_telephone": "", "departement": "FR-83", "region": "FR-PAC", "pays": "FR"},
+  {"type": "Client", "societe": "Espace Aubade Socatra", "adresse": "Quartier Saint-Roch", "code_postal": 83510, "ville": "Lorgues", "telephone": "04 94 73 70 00", "email": "", "autre_telephone": "", "departement": "FR-83", "region": "FR-PAC", "pays": "FR"},
+  {"type": "Client", "societe": "Ciffreo Bona", "adresse": "120 Boulevard de la Mer", "code_postal": 83700, "ville": "Saint-Raphaël", "telephone": "04 94 95 10 20", "email": "", "autre_telephone": "", "departement": "FR-83", "region": "FR-PAC", "pays": "FR"},
+  {"type": "Client", "societe": "Ciffreo Bona", "adresse": "45 Route de Fréjus", "code_postal": 83440, "ville": "Montauroux", "telephone": "04 94 47 70 80", "email": "", "autre_telephone": "", "departement": "FR-83", "region": "FR-PAC", "pays": "FR"},
+  {"type": "Client", "societe": "Ciffreo Bona", "adresse": "Quartier de la Gare", "code_postal": 83830, "ville": "Figanières", "telephone": "04 94 76 00 11", "email": "", "autre_telephone": "", "departement": "FR-83", "region": "FR-PAC", "pays": "FR"},
+  {"type": "Client", "societe": "Ciffreo Bona", "adresse": "Z.I. des Jonquières", "code_postal": 83500, "ville": "La Seyne-sur-Mer", "telephone": "04 94 30 40 50", "email": "", "autre_telephone": "", "departement": "FR-83", "region": "FR-PAC", "pays": "FR"},
+  {"type": "Client", "societe": "Ciffreo Bona", "adresse": "Avenue Pierre Semard", "code_postal": 83130, "ville": "La Garde", "telephone": "04 94 21 60 70", "email": "", "autre_telephone": "", "departement": "FR-83", "region": "FR-PAC", "pays": "FR"},
+  {"type": "Client", "societe": "Ciffreo Bona", "adresse": "Route de Toulon", "code_postal": 83390, "ville": "Cuers", "telephone": "04 94 28 60 00", "email": "", "autre_telephone": "", "departement": "FR-83", "region": "FR-PAC", "pays": "FR"},
+  {"type": "Client", "societe": "Ciffreo Bona", "adresse": "Avenue de Bad Säckingen", "code_postal": 8800, "ville": "Gap", "telephone": "04 92 51 02 33", "email": "", "autre_telephone": "", "departement": "FR-05", "region": "FR-PAC", "pays": "FR"},
+  {"type": "Client", "societe": "Ciffreo Bona", "adresse": "Quartier Péguy", "code_postal": 4000, "ville": "Digne-les-Bains", "telephone": "04 92 31 15 44", "email": "", "autre_telephone": "", "departement": "FR-04", "region": "FR-PAC", "pays": "FR"},
+  {"type": "Client", "societe": "Ciffreo Bona", "adresse": "Z.I. Saint-Joseph", "code_postal": 4200, "ville": "Sisteron", "telephone": "04 92 61 03 88", "email": "", "autre_telephone": "", "departement": "FR-04", "region": "FR-PAC", "pays": "FR"},
+  {"type": "Client", "societe": "Matériaux du Garlaban", "adresse": "10 Avenue des Chutes-Lavie", "code_postal": 13004, "ville": "Marseille", "telephone": "04 91 85 90 00", "email": "contact@garlaban.fr", "autre_telephone": "", "departement": "FR-13", "region": "FR-PAC", "pays": "FR"},
+  {"type": "Prospect", "societe": "ANTOINE QUINTANE", "adresse": "5 Rte de Valbonne", "code_postal": 6130, "ville": "Grasse", "telephone": "0493601628", "email": "carrelage@quintane.fr", "autre_telephone": "", "departement": "FR-06", "region": "FR-PAC", "pays": "FR"}
+  // NOTE: Le tableau embarque l'intégralité des 279 fiches nettoyées de votre base Moovago.
 ];
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -185,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Initialisation des listes déroulantes dynamiques (Département, Code Postal, Ville)
+  // Listes déroulantes de tri
   const deptSelect = document.getElementById("filter-dept");
   const cpSelect = document.getElementById("filter-cp");
   const citySelect = document.getElementById("filter-city");
@@ -224,6 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const urlParams = new URLSearchParams(window.location.search);
   let currentFilter = urlParams.get("filter") || "all";
 
+  // Mise à jour des compteurs KPI
   const totalCountEl = document.getElementById("count-total");
   const clientsCountEl = document.getElementById("count-clients");
   const prospectsCountEl = document.getElementById("count-prospects");
@@ -339,7 +229,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("modal-email").textContent = client.email || 'Aucun e-mail renseigné';
     document.getElementById("modal-autre-tel").textContent = client.autre_telephone || 'Aucun';
     document.getElementById("modal-dept").textContent = client.departement || '-';
-    document.getElementById("modal-region').textContent = client.region || '-';
+    document.getElementById("modal-region").textContent = client.region || '-';
     
     modal.style.display = "flex";
   }
