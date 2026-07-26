@@ -1,106 +1,141 @@
-/* Layout principal pour coller le footer en bas */
-html, body {
-  height: 100%;
-  margin: 0;
-}
+/* --- AMÉNAGEMENT & DESIGN HAUT DE GAMME --- */
 
 body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+  background-color: #F8F6F2;
+  color: #2F2F2F;
 }
 
-main {
-  flex: 1;
-}
-
-.container {
-  width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
-/* Header / Navigation */
+/* Header & Navigation Signature */
 header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background-image: url('../img/bandeau01.png');
-  background-size: cover;
-  background-position: center;
+  background: rgba(248, 246, 242, 0.92);
+  backdrop-filter: blur(8px);
   z-index: 1000;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.15);
 }
 
 .nav-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 80px;
+  height: 90px;
 }
 
-/* Logo LE ROY FACTORY : Or vif, brillant et lumineux */
+/* Logo inchangé */
 .logo {
-  font-weight: 800;
-  font-size: 1.4rem;
-  color: #FFD700 !important;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9), 0 0 12px rgba(255, 215, 0, 0.8);
-  letter-spacing: 0.08em;
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: 0.05em;
 }
 
-/* Onglets du menu : Noirs, plus grands et bien lisibles */
+/* Liens du menu principal */
+header nav ul {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 header nav a {
-  transition: var(--transition-smooth);
-  padding: 0.6rem 1rem;
-  border-radius: 6px;
-  color: #000000 !important;
-  font-weight: 700;
-  font-size: 1.1rem;
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
+  position: relative;
+  color: #2F2F2F;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: color 0.25s ease;
+  padding: 0.5rem 0;
+}
+
+/* Ligne dorée fluide au survol et sur la page active */
+header nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background-color: #D4AF37;
+  transition: width 0.25s ease-in-out;
 }
 
 header nav a:hover {
-  background-color: #FFD700 !important;
-  color: #000000 !important;
-  text-shadow: none;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  color: #D4AF37;
 }
 
-header nav a:active,
-header nav a.active {
-  background-color: #FFD700 !important;
-  color: #000000 !important;
-  text-shadow: none;
-}
-
-/* Bannière Hero commune pour les pages intérieures */
-.hero-banner {
-  padding: 160px 0 80px;
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  color: var(--color-white);
-}
-
-.hero-banner::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
+header nav a:hover::after,
+header nav a.active::after {
   width: 100%;
-  height: 100%;
-  background: rgba(26, 37, 48, 0.7);
-  z-index: 1;
 }
 
-.hero-banner .container {
-  position: relative;
-  z-index: 2;
+header nav a.active {
+  color: #D4AF37;
 }
 
-/* Menu Burger & Responsive */
+/* Bouton 🔒 ESPACE AGENT (PC) */
+header nav a.btn-agent,
+.mobile-menu a.btn-agent {
+  background-color: #111111;
+  color: #D4AF37 !important;
+  border: 1px solid #D4AF37;
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.25s ease;
+}
+
+header nav a.btn-agent::after,
+.mobile-menu a.btn-agent::after {
+  display: none !important;
+}
+
+header nav a.btn-agent:hover {
+  background-color: #1a1a1a;
+  box-shadow: 0 6px 16px rgba(212, 175, 55, 0.25);
+  transform: translateY(-1px);
+}
+
+/* Cartes Premium */
+.card, .partner-card, .inspiration-card, .realisation-card {
+  background-color: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 4px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card:hover, .partner-card:hover, .inspiration-card:hover, .realisation-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Boutons globaux */
+button, .btn, .hero-btn {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+}
+
+button:hover, .btn:hover, .hero-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer cohérent */
+footer {
+  background-color: #1A2530;
+  color: #F8F6F2;
+  padding: 4rem 0 2rem;
+}
+
+footer p, footer a {
+  color: #2F2F2F !important;
+}
+
+/* Menu Burger & Mobile Redesigné */
 .burger-btn {
   display: none;
   background: none;
@@ -110,14 +145,30 @@ header nav a.active {
   gap: 6px;
   z-index: 1001;
   padding: 0.5rem;
+  min-width: 44px;
+  min-height: 44px;
+  justify-content: center;
+  align-items: center;
 }
 
 .burger-btn span {
   display: block;
-  width: 28px;
-  height: 2px;
-  background-color: #000000;
-  transition: var(--transition-smooth);
+  width: 30px;
+  height: 3px;
+  background-color: #D4AF37;
+  border-radius: 2px;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+/* Animation croix burger active */
+.burger-btn.active span:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+.burger-btn.active span:nth-child(2) {
+  opacity: 0;
+}
+.burger-btn.active span:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
 }
 
 @media (max-width: 900px) {
@@ -127,12 +178,13 @@ header nav a.active {
     right: -100%;
     width: 100%;
     height: 100vh;
-    background-color: var(--color-white);
+    background: rgba(248, 246, 242, 0.96);
+    backdrop-filter: blur(12px);
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 2rem !important;
-    transition: var(--transition-smooth);
+    gap: 2rem;
+    transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
     z-index: 1000;
   }
@@ -141,32 +193,11 @@ header nav a.active {
     right: 0;
   }
 
-  header nav ul.active a {
-    color: #000000 !important;
-    text-shadow: none;
-  }
-
-  header nav ul.active a:hover {
-    background-color: #FFD700 !important;
-    color: #000000 !important;
+  header nav a {
+    font-size: 1.2rem;
   }
 
   .burger-btn {
     display: flex;
   }
-}
-
-/* Footer : Bandeau fleuri avec texte en noir */
-footer {
-  background-image: url('../img/bandeau01.png');
-  background-size: cover;
-  background-position: center;
-  padding: 3rem 0 2rem;
-  margin-top: auto;
-}
-
-footer p {
-  color: #000000 !important;
-  font-weight: 600;
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
 }
