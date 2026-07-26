@@ -1,4 +1,4 @@
-// Base de données CRM LE ROY FACTORY — 278 Fiches nettoyées, adresses complétées et codes postaux à 5 chiffres
+// Base de données CRM LE ROY FACTORY — Intégralité des 278 fiches nettoyées et corrigées
 const clientsDatabase = [
   {"type": "Prospect", "societe": "MP CETIN. EDEN", "adresse": "6 Bd des Jardiniers", "code_postal": "06200", "ville": "Nice", "telephone": "0674813721", "email": "", "autre_telephone": "", "departement": "FR-06", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "Ciffreo Bona", "adresse": "875 Route du Thor", "code_postal": "84800", "ville": "L'Isle-sur-la-Sorgue", "telephone": "04 90 20 52 22", "email": "", "autre_telephone": "", "departement": "FR-84", "region": "FR-PAC", "pays": "FR"},
@@ -313,7 +313,15 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("modal-adresse").textContent = client.adresse || '-';
     document.getElementById("modal-ville").textContent = `${client.code_postal || ''} ${client.ville || '-'}`;
     document.getElementById("modal-telephone").textContent = client.telephone || '-';
-    document.getElementById("modal-email").textContent = client.email || 'Aucun e-mail renseigné';
+    
+    // E-mail cliquable (mailto:)
+    const emailEl = document.getElementById("modal-email");
+    if (client.email && client.email.trim() !== "") {
+      emailEl.innerHTML = `<a href="mailto:${client.email}" style="color: #D4AF37; text-decoration: underline; font-weight: 600;">${client.email} ✉️</a>`;
+    } else {
+      emailEl.textContent = 'Aucun e-mail renseigné';
+    }
+
     document.getElementById("modal-autre-tel").textContent = client.autre_telephone || 'Aucun';
     document.getElementById("modal-dept").textContent = client.departement || '-';
     document.getElementById("modal-region").textContent = client.region || '-';
