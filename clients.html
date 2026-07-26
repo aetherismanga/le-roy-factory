@@ -8,11 +8,11 @@
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
-  <link rel="stylesheet" href="clients.css">
+  <link rel="stylesheet" href="assets/css/clients.css">
 </head>
 <body class="crm-body">
 
-  <!-- Barre latérale CRM -->
+  <!-- Sidebar CRM -->
   <aside class="crm-sidebar">
     <a href="index.html" class="sidebar-brand">
       <span>👑</span> <span class="brand-text">LE ROY FACTORY</span>
@@ -45,19 +45,13 @@
         <p id="user-greeting">Chargement de l'agent...</p>
       </div>
       <div class="info-widgets">
-        <div class="widget-item">
-          <span>📅</span> <span id="current-date">--</span>
-        </div>
-        <div class="widget-item">
-          <span>⏰</span> <span id="current-time">--</span>
-        </div>
-        <div class="widget-item">
-          <span>🌤</span> <span>26°C, Ensoleillé</span>
-        </div>
+        <div class="widget-item"><span>📅</span> <span id="current-date">--</span></div>
+        <div class="widget-item"><span>⏰</span> <span id="current-time">--</span></div>
+        <div class="widget-item"><span>🌤</span> <span>26°C, Ensoleillé</span></div>
       </div>
     </div>
 
-    <!-- Widgets de statistiques rapides -->
+    <!-- Statistiques -->
     <div class="stats-grid">
       <div class="stat-card">
         <div class="stat-icon">🏢</div>
@@ -95,7 +89,7 @@
       </div>
     </div>
 
-    <!-- Tableau professionnel des clients -->
+    <!-- Tableau -->
     <div class="crm-table-container">
       <table class="crm-table">
         <thead>
@@ -109,7 +103,7 @@
           </tr>
         </thead>
         <tbody id="clients-table-body">
-          <!-- Les données Moovago injectées dynamiquement par JS -->
+          <!-- Données injectées -->
         </tbody>
       </table>
       <div id="no-results" class="no-results" style="display: none;">
@@ -118,7 +112,7 @@
     </div>
   </main>
 
-  <!-- Modal de détails entreprise -->
+  <!-- Modal détails -->
   <div id="client-modal" class="crm-modal" style="display: none;">
     <div class="modal-content">
       <button class="modal-close" id="modal-close-btn">&times;</button>
@@ -139,6 +133,6 @@
     </div>
   </div>
 
-  <script src="clients.js"></script>
+  <script src="assets/js/clients.js"></script>
 </body>
 </html>
