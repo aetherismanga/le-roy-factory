@@ -48,37 +48,18 @@
       padding: 0 1rem;
     }
 
-    /* Styles du logo animé */
+    /* Logo agrandi et animé avec mouvement fluide uniquement */
     .hero-logo-wrapper {
       position: relative;
       display: inline-block;
-      overflow: hidden;
       margin-bottom: 1.5rem;
-      padding: 10px;
     }
     .hero-logo {
       width: auto;
       height: auto;
-      max-width: 500px;
+      max-width: 680px; /* Logo agrandi */
       display: block;
       animation: subtleFloat 4s ease-in-out infinite;
-    }
-    .hero-logo-wrapper::after {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -150%;
-      width: 50%;
-      height: 200%;
-      background: linear-gradient(
-        to right,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.45) 50%,
-        rgba(255, 255, 255, 0) 100%
-      );
-      transform: rotate(30deg);
-      animation: shineAnimation 5s ease-in-out infinite;
-      animation-delay: 2s;
     }
 
     @keyframes subtleFloat {
@@ -86,14 +67,9 @@
       50% { transform: translateY(-10px); }
       100% { transform: translateY(0px); }
     }
-    @keyframes shineAnimation {
-      0% { left: -150%; opacity: 0; }
-      50% { left: 110%; opacity: 1; }
-      100% { left: 110%; opacity: 0; }
-    }
 
     @media (max-width: 768px) {
-      .hero-logo { max-width: 85%; }
+      .hero-logo { max-width: 90%; }
     }
 
     /* Styles des boutons */
