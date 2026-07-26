@@ -27,31 +27,38 @@ header {
   height: 80px;
 }
 
+/* Logo LE ROY FACTORY : Or vif, brillant et lumineux */
 .logo {
-  font-weight: 700;
-  font-size: 1.25rem;
-  color: #ffffff !important;
-  letter-spacing: 0.05em;
+  font-weight: 800;
+  font-size: 1.4rem;
+  color: #FFD700 !important;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9), 0 0 12px rgba(255, 215, 0, 0.8);
+  letter-spacing: 0.08em;
 }
 
-/* Onglets du menu - Marron foncé avec surbrillance dorée */
+/* Onglets du menu : Noirs, plus grands et bien lisibles */
 header nav a {
   transition: var(--transition-smooth);
-  padding: 0.5rem 0.75rem;
-  border-radius: 4px;
-  color: #4A3B32 !important;
-  font-weight: 600;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  color: #000000 !important;
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
 }
 
 header nav a:hover {
-  background-color: #d4af37 !important;
-  color: #ffffff !important;
+  background-color: #FFD700 !important;
+  color: #000000 !important;
+  text-shadow: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 header nav a:active,
 header nav a.active {
-  background-color: #d4af37 !important;
-  color: #ffffff !important;
+  background-color: #FFD700 !important;
+  color: #000000 !important;
+  text-shadow: none;
 }
 
 /* Bannière Hero commune pour les pages intérieures */
@@ -95,7 +102,7 @@ header nav a.active {
   display: block;
   width: 28px;
   height: 2px;
-  background-color: #ffffff;
+  background-color: #000000;
   transition: var(--transition-smooth);
 }
 
@@ -121,12 +128,13 @@ header nav a.active {
   }
 
   header nav ul.active a {
-    color: #4A3B32 !important;
+    color: #000000 !important;
+    text-shadow: none;
   }
 
   header nav ul.active a:hover {
-    background-color: #d4af37 !important;
-    color: #ffffff !important;
+    background-color: #FFD700 !important;
+    color: #000000 !important;
   }
 
   .burger-btn {
