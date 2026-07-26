@@ -188,7 +188,7 @@
     ];
 
     function checkPassword() {
-      if (passwordInput.value === '2026') {
+      if (passwordInput.value.trim() === '2026') {
         loginSection.style.display = 'none';
         proContent.style.display = 'block';
         renderTarifs();
