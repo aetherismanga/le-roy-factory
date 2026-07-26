@@ -12,7 +12,9 @@ header {
   top: 0;
   left: 0;
   width: 100%;
-  background-color: rgba(255, 255, 255, 0.95);
+  background-image: url('../img/bandeau01.png');
+  background-size: cover;
+  background-position: center;
   backdrop-filter: blur(10px);
   z-index: 1000;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
@@ -28,7 +30,7 @@ header {
 .logo {
   font-weight: 700;
   font-size: 1.25rem;
-  color: var(--color-anthracite);
+  color: #ffffff !important;
   letter-spacing: 0.05em;
 }
 
@@ -37,13 +39,13 @@ header nav a {
   transition: var(--transition-smooth);
   padding: 0.5rem 0.75rem;
   border-radius: 4px;
-  color: var(--color-anthracite);
+  color: #ffffff !important;
   font-weight: 500;
 }
 
 header nav a:hover {
-  background-color: var(--color-floral);
-  color: var(--color-anthracite);
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff !important;
 }
 
 header nav a:active,
@@ -93,7 +95,7 @@ header nav a.active {
   display: block;
   width: 28px;
   height: 2px;
-  background-color: var(--color-anthracite);
+  background-color: #ffffff;
   transition: var(--transition-smooth);
 }
 
@@ -118,6 +120,10 @@ header nav a.active {
     right: 0;
   }
 
+  header nav ul.active a {
+    color: var(--color-anthracite) !important;
+  }
+
   .burger-btn {
     display: flex;
   }
@@ -125,7 +131,13 @@ header nav a.active {
 
 /* Footer */
 footer {
-  background-color: var(--color-dark-blue);
+  background-image: url('../img/bandeau01.png');
+  background-size: cover;
+  background-position: center;
   color: var(--color-white);
   padding: 4rem 0 2rem;
+}
+
+footer p {
+  color: #ffffff !important;
 }
