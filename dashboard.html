@@ -3,249 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tableau de bord Agent — LE ROY FACTORY</title>
+  <title>Tableau de bord — LE ROY FACTORY</title>
   <link rel="stylesheet" href="assets/css/variables.css">
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
-  <style>
-    :root {
-      --sidebar-width: 260px;
-      --color-dark: #111111;
-      --color-gold: #FFD700;
-      --color-gold-muted: #D4AF37;
-      --bg-dashboard: #F8F6F2;
-    }
-    
-    body {
-      background-color: var(--bg-dashboard);
-      margin: 0;
-      font-family: inherit;
-      display: flex;
-      min-height: 100vh;
-      flex-direction: row;
-    }
-
-    /* Barre latérale fixe professionnelle */
-    .crm-sidebar {
-      width: var(--sidebar-width);
-      background-color: var(--color-dark);
-      border-right: 1px solid rgba(255, 215, 0, 0.15);
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      z-index: 1000;
-      transition: all 0.3s ease;
-    }
-
-    .sidebar-brand {
-      padding: 1.5rem;
-      font-weight: 800;
-      font-size: 1.2rem;
-      color: var(--color-gold) !important;
-      text-decoration: none;
-      letter-spacing: 0.08em;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .sidebar-menu {
-      list-style: none;
-      padding: 1rem 0;
-      margin: 0;
-      flex: 1;
-      overflow-y: auto;
-    }
-
-    .sidebar-menu li a {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 0.85rem 1.5rem;
-      color: #B3B3B3;
-      text-decoration: none;
-      font-size: 0.95rem;
-      font-weight: 500;
-      transition: all 0.25s ease;
-      border-left: 3px solid transparent;
-    }
-
-    .sidebar-menu li a:hover,
-    .sidebar-menu li a.active {
-      color: var(--color-gold);
-      background-color: rgba(255, 215, 0, 0.05);
-      border-left-color: var(--color-gold);
-    }
-
-    .sidebar-menu span.icon {
-      font-size: 1.2rem;
-      width: 24px;
-      text-align: center;
-    }
-
-    .sidebar-footer {
-      padding: 1rem 1.5rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .btn-logout-sidebar {
-      width: 100%;
-      background: transparent;
-      border: 1px solid var(--color-gold-muted);
-      color: var(--color-gold);
-      padding: 0.75rem;
-      border-radius: 4px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.25s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-    }
-
-    .btn-logout-sidebar:hover {
-      background-color: var(--color-gold);
-      color: #111;
-    }
-
-    /* Contenu principal du Dashboard */
-    .crm-main-content {
-      margin-left: var(--sidebar-width);
-      flex: 1;
-      padding: 2.5rem;
-      box-sizing: border-box;
-    }
-
-    .crm-topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #FFFFFF;
-      padding: 1.5rem 2rem;
-      border-radius: 8px;
-      border: 1px solid rgba(0, 0, 0, 0.06);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
-      margin-bottom: 2.5rem;
-    }
-
-    .welcome-box h1 {
-      font-size: 1.75rem;
-      color: #1A2530;
-      margin: 0 0 0.25rem 0;
-    }
-
-    .welcome-box p {
-      color: #666;
-      font-size: 0.9rem;
-      margin: 0;
-    }
-
-    .info-widgets {
-      display: flex;
-      gap: 1.5rem;
-      align-items: center;
-      font-size: 0.9rem;
-      color: #4B5563;
-      background: #FAFAFA;
-      padding: 0.75rem 1.25rem;
-      border-radius: 6px;
-      border: 1px solid rgba(0, 0, 0, 0.04);
-    }
-
-    .widget-item {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-weight: 500;
-    }
-
-    /* Grille des cartes premium */
-    .dashboard-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .dash-card {
-      background: #FFFFFF;
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      border-radius: 8px;
-      padding: 1.75rem;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
-
-    .dash-card:hover {
-      border-color: #FFD700;
-      transform: translateY(-4px);
-      box-shadow: 0 0 15px rgba(255, 215, 0, 0.35), 0 8px 25px rgba(0, 0, 0, 0.04);
-    }
-
-    .dash-card.is-selected {
-      border-color: #FFD700 !important;
-      background-color: #FFFFFF !important;
-      box-shadow: 0 0 18px rgba(255, 215, 0, 0.5), 0 8px 25px rgba(0, 0, 0, 0.04) !important;
-    }
-
-    .card-icon {
-      font-size: 2.2rem;
-      margin-bottom: 1rem;
-    }
-
-    .dash-card h3 {
-      font-size: 1.15rem;
-      color: #1A2530;
-      margin: 0 0 0.5rem 0;
-    }
-
-    .dash-card p {
-      font-size: 0.85rem;
-      color: #666;
-      margin: 0;
-    }
-
-    @media (max-width: 900px) {
-      .crm-sidebar {
-        width: 70px;
-      }
-      .sidebar-brand span.brand-text,
-      .sidebar-menu span.menu-text,
-      .sidebar-footer span {
-        display: none;
-      }
-      .crm-main-content {
-        margin-left: 70px;
-        padding: 1rem;
-      }
-      .crm-topbar {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="assets/css/dashboard.css">
 </head>
-<body>
+<body class="crm-body">
 
-  <!-- Barre latérale CRM -->
+  <!-- Sidebar CRM -->
   <aside class="crm-sidebar">
     <a href="index.html" class="sidebar-brand">
       <span>👑</span> <span class="brand-text">LE ROY FACTORY</span>
     </a>
     <ul class="sidebar-menu">
-      <li><a href="#" class="active"><span class="icon">🏠</span><span class="menu-text">Accueil</span></a></li>
-      <li><a href="#"><span class="icon">👥</span><span class="menu-text">Clients</span></a></li>
-      <li><a href="#"><span class="icon">🎯</span><span class="menu-text">Prospects</span></a></li>
+      <li><a href="dashboard.html" class="active"><span class="icon">🏠</span><span class="menu-text">Accueil</span></a></li>
+      <li><a href="clients.html"><span class="icon">👥</span><span class="menu-text">Clients</span></a></li>
+      <li><a href="clients.html?filter=prospect"><span class="icon">🎯</span><span class="menu-text">Prospects</span></a></li>
       <li><a href="#"><span class="icon">📅</span><span class="menu-text">Agenda</span></a></li>
       <li><a href="#"><span class="icon">📞</span><span class="menu-text">Comptes-rendus</span></a></li>
       <li><a href="catalogues.html"><span class="icon">📂</span><span class="menu-text">Catalogues</span></a></li>
@@ -270,63 +45,57 @@
         <p id="user-greeting">Chargement de l'agent...</p>
       </div>
       <div class="info-widgets">
-        <div class="widget-item">
-          <span>📅</span> <span id="current-date">--</span>
-        </div>
-        <div class="widget-item">
-          <span>⏰</span> <span id="current-time">--</span>
-        </div>
-        <div class="widget-item">
-          <span>🌤</span> <span id="weather-widget">26°C, Ensoleillé</span>
-        </div>
+        <div class="widget-item"><span>📅</span> <span id="current-date">--</span></div>
+        <div class="widget-item"><span>⏰</span> <span id="current-time">--</span></div>
+        <div class="widget-item"><span>🌤</span> <span>26°C, Ensoleillé</span></div>
       </div>
     </div>
 
-    <!-- Cartes du Tableau de bord -->
-    <div class="dashboard-grid">
+    <!-- Grille des modules / cartes -->
+    <div class="dash-grid">
       <div class="dash-card" data-module="aujourdhui">
         <div class="card-icon">⚡</div>
-        <h3>Aujourd'hui</h3>
-        <p>Tâches et rendez-vous du jour</p>
+        <div class="card-title">Aujourd'hui</div>
+        <div class="card-desc">Tâches et rendez-vous du jour</div>
       </div>
       <div class="dash-card" data-module="clients">
         <div class="card-icon">👥</div>
-        <h3>Clients</h3>
-        <p>Portefeuille clients et architectes</p>
+        <div class="card-title">Clients</div>
+        <div class="card-desc">Portefeuille clients et architectes</div>
       </div>
       <div class="dash-card" data-module="prospects">
         <div class="card-icon">🎯</div>
-        <h3>Prospects</h3>
-        <p>Suivi commercial et chantiers</p>
+        <div class="card-title">Prospects</div>
+        <div class="card-desc">Suivi commercial et chantiers</div>
       </div>
       <div class="dash-card" data-module="visites">
         <div class="card-icon">📍</div>
-        <h3>Visites</h3>
-        <p>Planification des showrooms</p>
+        <div class="card-title">Visites</div>
+        <div class="card-desc">Planification des showrooms</div>
       </div>
       <div class="dash-card" data-module="comptes-rendus">
         <div class="card-icon">📞</div>
-        <h3>Comptes-rendus</h3>
-        <p>Historique des échanges et notes</p>
+        <div class="card-title">Comptes-rendus</div>
+        <div class="card-desc">Historique des échanges et notes</div>
       </div>
       <div class="dash-card" data-module="agenda">
         <div class="card-icon">📅</div>
-        <h3>Agenda</h3>
-        <p>Planning global et réunions</p>
+        <div class="card-title">Agenda</div>
+        <div class="card-desc">Planning global et réunions</div>
       </div>
       <div class="dash-card" data-module="catalogues">
-        <div class="card-icon">📂</div>
-        <h3>Catalogues</h3>
-        <p>Grilles tarifaires et documentations</p>
+        <div class="card-icon">📁</div>
+        <div class="card-title">Catalogues</div>
+        <div class="card-desc">Grilles tarifaires et documentations</div>
       </div>
       <div class="dash-card" data-module="objectifs">
         <div class="card-icon">📊</div>
-        <h3>Objectifs</h3>
-        <p>Suivi des performances et chiffres</p>
+        <div class="card-title">Objectifs</div>
+        <div class="card-desc">Suivi des performances et chiffres</div>
       </div>
     </div>
   </main>
 
-  <script src="agent.js"></script>
+  <script src="assets/js/dashboard.js"></script>
 </body>
 </html>
