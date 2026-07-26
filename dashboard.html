@@ -10,89 +10,82 @@
   <link rel="stylesheet" href="assets/css/layout.css">
   <link rel="stylesheet" href="assets/css/dashboard.css">
 </head>
-<body class="crm-body">
+<body class="dashboard-body">
 
-  <!-- Sidebar CRM -->
-  <aside class="crm-sidebar">
-    <a href="index.html" class="sidebar-brand">
-      <span>👑</span> <span class="brand-text">LE ROY FACTORY</span>
-    </a>
-    <ul class="sidebar-menu">
-      <li><a href="dashboard.html" class="active"><span class="icon">🏠</span><span class="menu-text">Accueil</span></a></li>
-      <li><a href="clients.html"><span class="icon">👥</span><span class="menu-text">Clients</span></a></li>
-      <li><a href="clients.html?filter=prospect"><span class="icon">🎯</span><span class="menu-text">Prospects</span></a></li>
-      <li><a href="#"><span class="icon">📅</span><span class="menu-text">Agenda</span></a></li>
-      <li><a href="#"><span class="icon">📞</span><span class="menu-text">Comptes-rendus</span></a></li>
-      <li><a href="catalogues.html"><span class="icon">📂</span><span class="menu-text">Catalogues</span></a></li>
-      <li><a href="partenaires.html"><span class="icon">🏭</span><span class="menu-text">Fabricants</span></a></li>
-      <li><a href="#"><span class="icon">📸</span><span class="menu-text">Photos</span></a></li>
-      <li><a href="#"><span class="icon">🗺</span><span class="menu-text">Carte</span></a></li>
-      <li><a href="#"><span class="icon">📊</span><span class="menu-text">Statistiques</span></a></li>
-      <li><a href="#"><span class="icon">⚙</span><span class="menu-text">Paramètres</span></a></li>
-    </ul>
-    <div class="sidebar-footer">
-      <button id="logout-btn" class="btn-logout-sidebar">
-        <span>🚪</span> <span class="menu-text">Déconnexion</span>
-      </button>
+  <!-- Header du Tableau de bord -->
+  <header class="dashboard-header">
+    <div class="dashboard-nav-container">
+      <a href="index.html" class="logo">LE ROY FACTORY</a>
+      <div class="user-info">
+        <span id="user-greeting">Chargement...</span>
+        <button id="logout-btn" class="btn-logout">Déconnexion</button>
+      </div>
     </div>
-  </aside>
+  </header>
 
-  <!-- Contenu principal -->
-  <main class="crm-main-content">
-    <div class="crm-topbar">
-      <div class="welcome-box">
+  <!-- Contenu Principal -->
+  <main class="dashboard-main">
+    <div class="dashboard-container">
+      
+      <div class="dashboard-welcome">
         <h1 id="welcome-title">Tableau de bord</h1>
-        <p id="user-greeting">Chargement de l'agent...</p>
+        <p>Gérez vos clients, prospects et outils commerciaux depuis votre espace.</p>
+        <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #555;">
+          📅 <span id="current-date">--</span> | ⏰ <span id="current-time">--</span> | 🌤 26°C, Ensoleillé
+        </div>
       </div>
-      <div class="info-widgets">
-        <div class="widget-item"><span>📅</span> <span id="current-date">--</span></div>
-        <div class="widget-item"><span>⏰</span> <span id="current-time">--</span></div>
-        <div class="widget-item"><span>🌤</span> <span>26°C, Ensoleillé</span></div>
-      </div>
-    </div>
 
-    <!-- Grille des modules / cartes -->
-    <div class="dash-grid">
-      <div class="dash-card" data-module="aujourdhui">
-        <div class="card-icon">⚡</div>
-        <div class="card-title">Aujourd'hui</div>
-        <div class="card-desc">Tâches et rendez-vous du jour</div>
+      <!-- Grille des modules -->
+      <div class="dashboard-grid">
+        <div class="dash-card" data-module="aujourdhui">
+          <div class="card-icon">⚡</div>
+          <h3>Aujourd'hui</h3>
+          <p>Tâches et rendez-vous du jour</p>
+        </div>
+
+        <div class="dash-card" data-module="clients">
+          <div class="card-icon">👥</div>
+          <h3>Clients</h3>
+          <p>Portefeuille clients et architectes</p>
+        </div>
+
+        <div class="dash-card" data-module="prospects">
+          <div class="card-icon">🎯</div>
+          <h3>Prospects</h3>
+          <p>Suivi commercial et chantiers</p>
+        </div>
+
+        <div class="dash-card" data-module="visites">
+          <div class="card-icon">📍</div>
+          <h3>Visites</h3>
+          <p>Planification des showrooms</p>
+        </div>
+
+        <div class="dash-card" data-module="comptes-rendus">
+          <div class="card-icon">📞</div>
+          <h3>Comptes-rendus</h3>
+          <p>Historique des échanges et notes</p>
+        </div>
+
+        <div class="dash-card" data-module="agenda">
+          <div class="card-icon">📅</div>
+          <h3>Agenda</h3>
+          <p>Planning global et réunions</p>
+        </div>
+
+        <div class="dash-card" data-module="catalogues">
+          <div class="card-icon">📁</div>
+          <h3>Catalogues</h3>
+          <p>Grilles tarifaires et documentations</p>
+        </div>
+
+        <div class="dash-card" data-module="objectifs">
+          <div class="card-icon">📊</div>
+          <h3>Objectifs</h3>
+          <p>Suivi des performances et chiffres</p>
+        </div>
       </div>
-      <div class="dash-card" data-module="clients">
-        <div class="card-icon">👥</div>
-        <div class="card-title">Clients</div>
-        <div class="card-desc">Portefeuille clients et architectes</div>
-      </div>
-      <div class="dash-card" data-module="prospects">
-        <div class="card-icon">🎯</div>
-        <div class="card-title">Prospects</div>
-        <div class="card-desc">Suivi commercial et chantiers</div>
-      </div>
-      <div class="dash-card" data-module="visites">
-        <div class="card-icon">📍</div>
-        <div class="card-title">Visites</div>
-        <div class="card-desc">Planification des showrooms</div>
-      </div>
-      <div class="dash-card" data-module="comptes-rendus">
-        <div class="card-icon">📞</div>
-        <div class="card-title">Comptes-rendus</div>
-        <div class="card-desc">Historique des échanges et notes</div>
-      </div>
-      <div class="dash-card" data-module="agenda">
-        <div class="card-icon">📅</div>
-        <div class="card-title">Agenda</div>
-        <div class="card-desc">Planning global et réunions</div>
-      </div>
-      <div class="dash-card" data-module="catalogues">
-        <div class="card-icon">📁</div>
-        <div class="card-title">Catalogues</div>
-        <div class="card-desc">Grilles tarifaires et documentations</div>
-      </div>
-      <div class="dash-card" data-module="objectifs">
-        <div class="card-icon">📊</div>
-        <div class="card-title">Objectifs</div>
-        <div class="card-desc">Suivi des performances et chiffres</div>
-      </div>
+
     </div>
   </main>
 
