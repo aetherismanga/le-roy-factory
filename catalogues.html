@@ -3,12 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inspirations & Univers — LE ROY FACTORY</title>
-  <meta name="description" content="Explorez nos univers décoratifs : bois, pierre, marbre, béton, terrazzo, zellige et bien plus pour vos projets d'aménagement professionnel.">
+  <title>Catalogues PDF — LE ROY FACTORY</title>
+  <meta name="description" content="Téléchargez les catalogues officiels de nos fabricants partenaires italiens et espagnols pour vos projets professionnels.">
   <link rel="stylesheet" href="assets/css/variables.css">
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
+<style>
+.main-nav{
+display:flex;
+gap:1.2rem;
+align-items:center;
+justify-content:flex-end;
+list-style:none;
+margin:0;
+padding:0;
+flex-wrap:nowrap;
+}
+.main-nav li{display:flex;align-items:center;}
+.main-nav a{text-decoration:none;}
+.agent-btn{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+padding:8px 14px;
+background:#111;
+color:#d4af37!important;
+border:1px solid #d4af37;
+border-radius:8px;
+font-weight:600;
+white-space:nowrap;
+transition:.25s;
+}
+.agent-btn:hover{background:#d4af37;color:#111!important;}
+</style>
 </head>
 <body>
 
@@ -16,68 +44,29 @@
     <div class="container nav-container">
       <a href="index.html" class="logo">LE ROY FACTORY</a>
       <nav>
-        <ul style="display: flex; gap: 2rem; align-items: center;">
+        <ul class="main-nav">
           <li><a href="partenaires.html">Partenaires</a></li>
-          <li><a href="univers.html" class="active">Inspirations</a></li>
+          <li><a href="univers.html">Inspirations</a></li>
           <li><a href="realisations.html">Réalisations</a></li>
           <li><a href="catalogues.html">Catalogues</a></li>
           <li><a href="tarifs-pro.html">Tarifs PRO</a></li>
           <li><a href="contact.html">Contact</a></li>
+          <li><a href="agent.html" class="agent-btn">🔒 Espace Agent</a></li>
         </ul>
       </nav>
+      <button class="burger-btn" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
 
-  <main style="padding-bottom: 4rem;">
-    <section class="hero-banner" style="background-image: url('assets/img/03.png');">
-      <div class="container">
-        <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Inspirations & Univers</h1>
-        <p style="font-size: 1.1rem; opacity: 0.9; max-width: 700px;">Trouvez l'inspiration à travers nos différentes esthétiques et matières soigneusement sélectionnées.</p>
-      </div>
-    </section>
-
-    <div class="container" style="margin-top: 3rem;">
-      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem;">
-        <div class="card-premium" style="padding: 2.5rem; background: var(--color-light-grey);">
-          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--color-anthracite);">Bois</h3>
-          <p style="font-size: 0.9rem; color: #666;">Chaleur et noblesse du bois naturel transposées dans la céramique.</p>
-        </div>
-        <div class="card-premium" style="padding: 2.5rem; background: var(--color-light-grey);">
-          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--color-anthracite);">Pierre</h3>
-          <p style="font-size: 0.9rem; color: #666;">Authenticité et robustesse des textures minérales brutes.</p>
-        </div>
-        <div class="card-premium" style="padding: 2.5rem; background: var(--color-light-grey);">
-          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--color-anthracite);">Marbre</h3>
-          <p style="font-size: 0.9rem; color: #666;">Élégance intemporelle et veines graphiques d'exception.</p>
-        </div>
-        <div class="card-premium" style="padding: 2.5rem; background: var(--color-light-grey);">
-          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--color-anthracite);">Béton</h3>
-          <p style="font-size: 0.9rem; color: #666;">Esprit industriel, épuré et contemporain.</p>
-        </div>
-        <div class="card-premium" style="padding: 2.5rem; background: var(--color-light-grey);">
-          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--color-anthracite);">Terrazzo</h3>
-          <p style="font-size: 0.9rem; color: #666;">Le retour en force du granito multicolore et graphique.</p>
-        </div>
-        <div class="card-premium" style="padding: 2.5rem; background: var(--color-light-grey);">
-          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--color-anthracite);">Zellige</h3>
-          <p style="font-size: 0.9rem; color: #666;">Reflets nacrés et variations artisanales uniques.</p>
-        </div>
-        <div class="card-premium" style="padding: 2.5rem; background: var(--color-light-grey);">
-          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--color-anthracite);">Métal</h3>
-          <p style="font-size: 0.9rem; color: #666;">Effets oxydés et reflets métalliques sophistiqués.</p>
-        </div>
-        <div class="card-premium" style="padding: 2.5rem; background: var(--color-light-grey);">
-          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--color-anthracite);">Nature</h3>
-          <p style="font-size: 0.9rem; color: #666;">Tons terreux, organiques et ambiances végétales.</p>
-        </div>
-        <div class="card-premium" style="padding: 2.5rem; background: var(--color-light-grey);">
-          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--color-anthracite);">Contemporain</h3>
-          <p style="font-size: 0.9rem; color: #666;">Lignes pures et tendances actuelles du design.</p>
-        </div>
-        <div class="card-premium" style="padding: 2.5rem; background: var(--color-light-grey);">
-          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--color-anthracite);">Minimaliste</h3>
-          <p style="font-size: 0.9rem; color: #666;">L'essentiel sublimé par la simplicité formelle.</p>
-        </div>
+  <main style="padding-top: 120px; padding-bottom: 4rem;">
+    <div class="container">
+      <h1 style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--color-anthracite);">Catalogues Partenaires</h1>
+      <p style="font-size: 1.1rem; color: #666; margin-bottom: 3rem; max-width: 700px;">Consultez et téléchargez l'ensemble des catalogues officiels et documentations de nos fabricants.</p>
+      
+      <div id="grid-catalogues" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem;">
+        <!-- Injection dynamique via JS -->
       </div>
     </div>
   </main>
@@ -88,6 +77,152 @@
     </div>
   </footer>
 
+  <script>
+    const cataloguesData = [
+      {
+        nom: "Elios Ceramica",
+        pays: "Italie",
+        presentation: "Fabricant italien spécialisé dans les petits formats et la céramique décorative haut de gamme.",
+        fichiers: [
+          { titre: "Catalogue Général", desc: "Toutes les collections 2026.", lien: "https://eliosceramica.com/wp-content/uploads/2018/02/ELIOS_CATALOGO-GENERALE-2026-1.pdf" },
+          { titre: "Coverings 2026", desc: "Revêtements et dernières tendances.", lien: "https://eliosceramica.com/wp-content/uploads/2001/04/ELIOS_CATALOGO-COVERINGS-2026.pdf" },
+          { titre: "Outdoor 2026", desc: "Solutions et carrelages pour l'extérieur.", lien: "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_OUTDOOR_2026.pdf" }
+        ]
+      },
+      {
+        nom: "View Ceramica",
+        pays: "Italie",
+        presentation: "Design contemporain et solutions céramiques innovantes pour les professionnels exigeants.",
+        fichiers: [
+          { titre: "Corso 2026", desc: "Catalogue de la série Corso.", lien: "https://viewceramiche.com/wp-content/uploads/2023/12/View_catalogo_serie_Corso_2024_LR.pdf" },
+          { titre: "Tibur 2026", desc: "Catalogue de la série Tibur.", lien: "https://viewceramiche.com/wp-content/uploads/2023/11/Catalogo-Tibur_01-2025_LR.pdf" },
+          { titre: "Golden Stone 2026", desc: "Catalogue de la série Golden Stone.", lien: "https://viewceramiche.com/wp-content/uploads/2025/10/View_catalogo_serie_Golden_Stone_2026_LR.pdf" }
+        ]
+      },
+      {
+        nom: "La Fenice",
+        pays: "Italie",
+        presentation: "Tradition et modernité italienne au service de l'architecture intérieure.",
+        fichiers: [
+          { titre: "Catalogues", desc: "La Fenice srl", lien: "https://lafenicegc.com/fr/catalogues/" }
+        ]
+      },
+      {
+        nom: "Reviglass",
+        pays: "Espagne",
+        presentation: "Spécialiste de la mosaïque en verre recyclé haut de gamme.",
+        fichiers: [
+          { titre: "Catalogues Officiels", desc: "Espace documentation Reviglass.", lien: "https://reviglass.es/catalogos/" },
+          { titre: "Configurateur Virtuel Piscine", desc: "Créez votre design de piscine en ligne.", lien: "https://myvirtualpool.reviglass.es/" }
+        ]
+      },
+      {
+        nom: "Biopietra",
+        pays: "Italie",
+        presentation: "Pierre reconstituée écologique et certifiée pour l'aménagement décoratif.",
+        fichiers: [
+          { titre: "Catalogue Pierre Écologique", desc: "Revêtements muraux et sols texturés.", lien: "#" }
+        ]
+      },
+      {
+        nom: "Petracer's",
+        pays: "Italie",
+        presentation: "L'expression ultime du luxe à l'italienne dans le carrelage d'exception.",
+        fichiers: [
+          { titre: "Catalogue Intérieur", desc: "Collections de luxe et décors d'apparat.", lien: "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf" },
+          { titre: "Catalogue Général", desc: "Sélection complète et tarifs mail.", lien: "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf" }
+        ]
+      },
+      {
+        nom: "Pecchioli Firenze",
+        pays: "Italie",
+        presentation: "Céramique artistique et historique façonnée à Florence.",
+        fichiers: [
+          { titre: "Céramique Artistique", desc: "Faïences d'art et créations sur mesure.", lien: "assets/pdf/pecchioli.pdf" }
+        ]
+      },
+      {
+        nom: "Bulbo",
+        pays: "Italie",
+        presentation: "Créations céramiques audacieuses et design avant-gardiste.",
+        fichiers: [
+          { titre: "Catalogue Design 1", desc: "Lignes avant-gardistes et colorées.", lien: "https://heyzine.com/flip-book/50766f6757.html" },
+          { titre: "Catalogue Design 2", desc: "Collections et ambiances.", lien: "https://heyzine.com/flip-book/890ffb683e.html" }
+        ]
+      },
+      {
+        nom: "Randal Pro",
+        pays: "Espagne",
+        presentation: "Mobilier de salle de bain sur mesure haut de gamme.",
+        fichiers: [
+          { titre: "Mobilier de Salle de Bain & Prix", desc: "Meubles sur mesure et solutions haut de gamme.", lien: "assets/pdf/RANDAL03.pdf" }
+        ]
+      },
+      {
+        nom: "Neobath",
+        pays: "Italie",
+        presentation: "Fabricant italien de meubles de salle de bain design.",
+        fichiers: [
+          { titre: "Collection Anima", desc: "Catalogue de la gamme Anima.", lien: "assets/pdf/neobathANIMA.pdf" },
+          { titre: "Collection DNA", desc: "Catalogue de la gamme DNA.", lien: "assets/pdf/neobathDNA.pdf" }
+        ]
+      },
+      {
+        nom: "Koibath",
+        pays: "Espagne",
+        presentation: "Solutions innovantes et esthétiques pour la salle de bain moderne.",
+        fichiers: [
+          { titre: "Catalogue Salle de Bain", desc: "Équipements et aménagements modernes.", lien: "https://www.koibath.com/wp-content/uploads/2025-Catalogo-Espana-muebles-de-bano.pdf" }
+        ]
+      },
+      {
+        nom: "Aquahome",
+        pays: "Robinetterie",
+        presentation: "Robinetterie haut de gamme alliant design et performance technique.",
+        fichiers: [
+          { titre: "Catalogue Robinetterie", desc: "Mitigeurs, colonnes de douche et accessoires.", lien: "assets/pdf/AQUAHOME.pdf" }
+        ]
+      },
+      {
+        nom: "Opal",
+        pays: "International",
+        presentation: "Fabricant de miroirs lumineux et décoratifs pour espaces d'eau.",
+        fichiers: [
+          { titre: "Miroirs & Éclairages", desc: "Gamme de miroirs lumineux et accessoires.", lien: "https://www.koibath.com/wp-content/uploads/CATALOGO-ESPEJOS-2025.pdf" }
+        ]
+      },
+      {
+        nom: "Bilt",
+        pays: "International",
+        presentation: "Croisillons autonivelants et accessoires de pose professionnels.",
+        fichiers: [
+          { titre: "Outillage & Pose", desc: "Systèmes de nivellement et accessoires de chantier.", lien: "https://static1.squarespace.com/static/6303350848baf04643f47e75/t/695e81a2f7247e0c195e5394/1767801250391/Cata%CC%81logo+2025_ES_3.2.pdf" }
+        ]
+      }
+    ];
+
+    const grid = document.getElementById('grid-catalogues');
+    grid.innerHTML = cataloguesData.map(fab => `
+      <div class="card-premium" style="padding: 2rem; display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-sage); font-weight: 600;">${fab.pays}</span>
+          <h3 style="font-size: 1.25rem; margin: 0.5rem 0 1rem; color: var(--color-anthracite);">${fab.nom}</h3>
+          <p style="font-size: 0.9rem; color: #555; margin-bottom: 1.5rem;">${fab.presentation}</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+          ${fab.fichiers.map(file => `
+            <div style="background: var(--color-light-grey); padding: 0.75rem 1rem; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
+              <div>
+                <strong style="display: block; font-size: 0.85rem; color: var(--color-anthracite);">${file.titre}</strong>
+                <span style="font-size: 0.75rem; color: #666;">${file.desc}</span>
+              </div>
+              <a href="${file.lien}" target="_blank" class="btn btn-outline" style="font-size: 0.75rem; padding: 0.4rem 0.8rem; border-color: var(--color-anthracite); color: var(--color-anthracite); white-space: nowrap;">Lien</a>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `).join('');
+  </script>
   <script src="assets/js/app.js"></script>
 </body>
 </html>
