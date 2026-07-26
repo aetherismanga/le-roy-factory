@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Espace PRO & Tarifs — LE ROY FACTORY</title>
-  <meta name="description" content="Espace sécurisé réservé aux professionnels pour l'accès aux grilles tarifaires et documents exclusifs LE ROY FACTORY.">
+  <title>Tarifs PRO — LE ROY FACTORY</title>
+  <meta name="description" content="Espace sécurisé réservé aux professionnels pour consulter les grilles tarifaires de nos fabricants partenaires.">
   <link rel="stylesheet" href="assets/css/variables.css">
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/components.css">
@@ -25,37 +25,37 @@
           <li><a href="contact.html">Contact</a></li>
         </ul>
       </nav>
-      <!-- CORRECTION : Ajout du bouton burger manquant -->
       <button class="burger-btn" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
     </div>
   </header>
 
-  <main style="padding-top: 120px; padding-bottom: 4rem; min-height: 80vh; display: flex; align-items: center;">
-    <div class="container" style="max-width: 500px; text-align: center;">
-      <h1 style="font-size: 2.25rem; margin-bottom: 1rem; color: var(--color-anthracite);">Espace Sécurisé PRO</h1>
-      <p style="font-size: 1rem; color: #666; margin-bottom: 2rem;">Veuillez saisir votre mot de passe professionnel pour accéder aux tarifs et documents exclusifs.</p>
+  <main style="padding-top: 120px; padding-bottom: 4rem;">
+    <div class="container">
       
-      <div id="auth-box" class="card-premium" style="padding: 2.5rem; text-align: left;">
-        <div style="margin-bottom: 1.5rem;">
-          <label for="password" style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--color-anthracite);">Mot de passe</label>
-          <input type="password" id="password" placeholder="Votre code d'accès" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
+      <!-- Formulaire de mot de passe -->
+      <div id="login-section" style="max-width: 500px; margin: 4rem auto; background: white; padding: 3rem; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); text-align: center;">
+        <h1 style="font-size: 2rem; margin-bottom: 1rem; color: var(--color-anthracite);">Espace Sécurisé PRO</h1>
+        <p style="font-size: 1rem; color: #666; margin-bottom: 2rem;">Veuillez saisir votre mot de passe professionnel pour accéder aux tarifs et documents exclusifs.</p>
+        
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          <input type="password" id="password-input" placeholder="Votre code d'accès" style="padding: 0.75rem 1rem; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; text-align: center;">
+          <button id="login-btn" class="btn btn-outline" style="border-color: var(--color-anthracite); color: var(--color-anthracite); padding: 0.75rem;">Accéder aux tarifs</button>
+          <p id="error-msg" style="color: #d9534f; font-size: 0.85rem; display: none; margin-top: 0.5rem;">Mot de passe incorrect.</p>
         </div>
-        <button id="btn-login" class="btn btn-primary" style="width: 100%;">Accéder aux tarifs</button>
-        <p id="error-msg" style="color: #c0392b; font-size: 0.85rem; margin-top: 1rem; display: none;">Mot de passe incorrect.</p>
       </div>
 
-      <div id="content-box" style="display: none; text-align: left;" class="card-premium">
-        <div style="padding: 2.5rem;">
-          <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--color-anthracite);">Grilles Tarifaires 2026</h3>
-          <p style="font-size: 0.95rem; color: #555; margin-bottom: 1.5rem;">Accès autorisé aux professionnels partenaires.</p>
-          <ul style="display: flex; flex-direction: column; gap: 1rem;">
-            <li><a href="#" class="btn btn-outline" style="width: 100%; justify-content: space-between;"><span>Tarifs Carrelage - Italie/Espagne</span> <span>PDF</span></a></li>
-            <li><a href="#" class="btn btn-outline" style="width: 100%; justify-content: space-between;"><span>Tarifs Salle de Bain & Mobilier</span> <span>PDF</span></a></li>
-          </ul>
+      <!-- Contenu protégé (Tarifs des partenaires) -->
+      <div id="pro-content" style="display: none;">
+        <h1 style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--color-anthracite);">Tarifs Partenaires PRO</h1>
+        <p style="font-size: 1.1rem; color: #666; margin-bottom: 3rem; max-width: 700px;">Consultez et téléchargez les grilles tarifaires officielles de nos fabricants.</p>
+        
+        <div id="grid-tarifs" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem;">
+          <!-- Injection dynamique via JS -->
         </div>
       </div>
+
     </div>
   </main>
 
@@ -66,17 +66,165 @@
   </footer>
 
   <script>
-    const PASSWORD_CORRECT = "leroy2026";
+    const passwordInput = document.getElementById('password-input');
+    const loginBtn = document.getElementById('login-btn');
+    const loginSection = document.getElementById('login-section');
+    const proContent = document.getElementById('pro-content');
+    const errorMsg = document.getElementById('error-msg');
 
-    document.getElementById('btn-login').addEventListener('click', function() {
-      const inputVal = document.getElementById('password').value;
-      if (inputVal === PASSWORD_CORRECT) {
-        document.getElementById('auth-box').style.display = 'none';
-        document.getElementById('content-box').style.display = 'block';
-      } else {
-        document.getElementById('error-msg').style.display = 'block';
+    const partenairesTarifs = [
+      {
+        nom: "Elios Ceramica",
+        pays: "Italie",
+        presentation: "Fabricant italien spécialisé dans les petits formats et la céramique décorative haut de gamme.",
+        fichiers: [
+          { titre: "Grille Tarifaire", desc: "Tarifs professionnels 2026.", lien: "#" }
+        ]
+      },
+      {
+        nom: "View Ceramica",
+        pays: "Italie",
+        presentation: "Design contemporain et solutions céramiques innovantes pour les professionnels exigeants.",
+        fichiers: [
+          { titre: "Grille Tarifaire", desc: "Tarifs professionnels 2026.", lien: "#" }
+        ]
+      },
+      {
+        nom: "La Fenice",
+        pays: "Italie",
+        presentation: "Tradition et modernité italienne au service de l'architecture intérieure.",
+        fichiers: [
+          { titre: "Grille Tarifaire", desc: "Tarifs professionnels 2026.", lien: "#" }
+        ]
+      },
+      {
+        nom: "Reviglass",
+        pays: "Espagne",
+        presentation: "Spécialiste de la mosaïque en verre recyclé haut de gamme.",
+        fichiers: [
+          { titre: "Grille Tarifaire", desc: "Tarifs professionnels 2026.", lien: "#" }
+        ]
+      },
+      {
+        nom: "Biopietra",
+        pays: "Italie",
+        presentation: "Pierre reconstituée écologique et certifiée pour l'aménagement décoratif.",
+        fichiers: [
+          { titre: "Grille Tarifaire", desc: "Tarifs professionnels 2026.", lien: "#" }
+        ]
+      },
+      {
+        nom: "Petracer's",
+        pays: "Italie",
+        presentation: "L'expression ultime du luxe à l'italienne dans le carrelage d'exception.",
+        fichiers: [
+          { titre: "Grille Tarifaire", desc: "Tarifs professionnels 2026.", lien: "#" }
+        ]
+      },
+      {
+        nom: "Pecchioli Firenze",
+        pays: "Italie",
+        presentation: "Céramique artistique et historique façonnée à Florence.",
+        fichiers: [
+          { titre: "Grille Tarifaire", desc: "Tarifs professionnels 2026.", lien: "#" }
+        ]
+      },
+      {
+        nom: "Bulbo",
+        pays: "Italie",
+        presentation: "Créations céramiques audacieuses et design avant-gardiste.",
+        fichiers: [
+          { titre: "Grille Tarifaire", desc: "Tarifs professionnels 2026.", lien: "#" }
+        ]
+      },
+      {
+        nom: "Randal Pro",
+        pays: "Espagne",
+        presentation: "Mobilier de salle de bain sur mesure haut de gamme.",
+        fichiers: [
+          { titre: "Grille Tarifaire", desc: "Tarifs professionnels 2026.", lien: "assets/pdf/RANDAL03.pdf" }
+        ]
+      },
+      {
+        nom: "Neobath",
+        pays: "Italie",
+        presentation: "Fabricant italien de meubles de salle de bain design.",
+        fichiers: [
+          { titre: "Grille Tarifaire", desc: "Tarifs professionnels 2026.", lien: "#" }
+        ]
+      },
+      {
+        nom: "Koibath",
+        pays: "Espagne",
+        presentation: "Solutions innovantes et esthétiques pour la salle de bain moderne.",
+        fichiers: [
+          { titre: "Grille Tarifaire", desc: "Tarifs professionnels 2026.", lien: "#" }
+        ]
+      },
+      {
+        nom: "Aquahome",
+        pays: "Robinetterie",
+        presentation: "Robinetterie haut de gamme alliant design et performance technique.",
+        fichiers: [
+          { titre: "Grille Tarifaire", desc: "Tarifs professionnels 2026.", lien: "assets/pdf/AQUAHOME.pdf" }
+        ]
+      },
+      {
+        nom: "Opal",
+        pays: "International",
+        presentation: "Fabricant de miroirs lumineux et décoratifs pour espaces d'eau.",
+        fichiers: [
+          { titre: "Grille Tarifaire", desc: "Tarifs professionnels 2026.", lien: "#" }
+        ]
+      },
+      {
+        nom: "Bilt",
+        pays: "International",
+        presentation: "Croisillons autonivelants et accessoires de pose professionnels.",
+        fichiers: [
+          { titre: "Grille Tarifaire", desc: "Tarifs professionnels 2026.", lien: "#" }
+        ]
       }
+    ];
+
+    function checkPassword() {
+      if (passwordInput.value === '2026') {
+        loginSection.style.display = 'none';
+        proContent.style.display = 'block';
+        renderTarifs();
+      } else {
+        errorMsg.style.display = 'block';
+      }
+    }
+
+    loginBtn.addEventListener('click', checkPassword);
+    passwordInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') checkPassword();
     });
+
+    function renderTarifs() {
+      const grid = document.getElementById('grid-tarifs');
+      grid.innerHTML = partenairesTarifs.map(fab => `
+        <div class="card-premium" style="padding: 2rem; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-sage); font-weight: 600;">${fab.pays}</span>
+            <h3 style="font-size: 1.25rem; margin: 0.5rem 0 1rem; color: var(--color-anthracite);">${fab.nom}</h3>
+            <p style="font-size: 0.9rem; color: #555; margin-bottom: 1.5rem;">${fab.presentation}</p>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+            ${fab.fichiers.map(file => `
+              <div style="background: var(--color-light-grey); padding: 0.75rem 1rem; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
+                <div>
+                  <strong style="display: block; font-size: 0.85rem; color: var(--color-anthracite);">${file.titre}</strong>
+                  <span style="font-size: 0.75rem; color: #666;">${file.desc}</span>
+                </div>
+                <a href="${file.lien}" target="_blank" class="btn btn-outline" style="font-size: 0.75rem; padding: 0.4rem 0.8rem; border-color: var(--color-anthracite); color: var(--color-anthracite); white-space: nowrap;">Tarifs</a>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
   </script>
   <script src="assets/js/app.js"></script>
 </body>
