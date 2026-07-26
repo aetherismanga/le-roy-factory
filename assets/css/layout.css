@@ -170,3 +170,22 @@ footer p {
   font-weight: 600;
   text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
 }
+
+/* --- HARMONISATION DES CARTES HAUT DE GAMME --- */
+.card-premium, .card, .partner-card, .inspiration-card, .realisation-card, #grid-catalogues > div {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background-color: #FFFFFF;
+}
+
+.card-premium:hover, .card:hover, .partner-card:hover, .inspiration-card:hover, .realisation-card:hover, #grid-catalogues > div:hover {
+  border-color: #D4AF37;
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
+}
+
+.card-premium.is-selected, .card.is-selected, .partner-card.is-selected, .inspiration-card.is-selected, .realisation-card.is-selected, #grid-catalogues > div.is-selected {
+  border-color: #D4AF37 !important;
+  background-color: #FAF8F5 !important;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.2) !important;
+}
