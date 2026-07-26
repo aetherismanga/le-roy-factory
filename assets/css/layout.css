@@ -1,172 +1,167 @@
-/* Layout principal pour coller le footer en bas */
-html, body {
-  height: 100%;
-  margin: 0;
-}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LE ROY FACTORY — Votre solution Carrelage & Bain</title>
+  <meta name="description" content="Sélection des meilleurs fabricants italiens et espagnols pour les professionnels de la décoration et de l'aménagement de salle de bain.">
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <style>
+    .hero-video-section {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      background-color: #000000;
+    }
+    .bg-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.45);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      padding: 0 1rem;
+    }
 
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
+    /* Logo agrandi et animé */
+    .hero-logo-wrapper {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 1.5rem;
+    }
+    .hero-logo {
+      width: auto;
+      height: auto;
+      max-width: 680px;
+      display: block;
+      animation: subtleFloat 4s ease-in-out infinite;
+    }
 
-main {
-  flex: 1;
-}
+    @keyframes subtleFloat {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
 
-.container {
-  width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
+    @media (max-width: 768px) {
+      .hero-logo { max-width: 90%; }
+    }
 
-/* Header / Navigation */
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-image: url('../img/bandeau01.png');
-  background-size: cover;
-  background-position: center;
-  z-index: 1000;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-}
+    /* Styles des boutons */
+    .hero-buttons {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .hero-btn {
+      padding: 0.8rem 2rem;
+      border-radius: 4px;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      transition: background 0.2s, color 0.2s, transform 0.2s;
+    }
+    .hero-btn:hover {
+      transform: translateY(-2px);
+    }
+    .btn-gold {
+      background-color: #d4af37;
+      color: #000000;
+      border: 2px solid #d4af37;
+    }
+    .btn-gold:hover {
+      background-color: transparent;
+      color: #ffffff !important;
+    }
+    .btn-outline-white {
+      background-color: transparent;
+      color: #ffffff;
+      border: 2px solid #ffffff;
+    }
+    .btn-outline-white:hover {
+      background-color: #ffffff;
+      color: #000000 !important;
+    }
+  </style>
+</head>
+<body>
 
-.nav-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 80px;
-}
+  <header>
+    <div class="container nav-container">
+      <a href="index.html" class="logo">LE ROY FACTORY</a>
+      <nav>
+        <ul style="display: flex; gap: 2rem; align-items: center;">
+          <li><a href="partenaires.html">Partenaires</a></li>
+          <li><a href="univers.html">Inspirations</a></li>
+          <li><a href="realisations.html">Réalisations</a></li>
+          <li><a href="catalogues.html">Catalogues</a></li>
+          <li><a href="tarifs-pro.html">Tarifs PRO</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="burger-btn" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
 
-/* Logo LE ROY FACTORY : Or vif, brillant et lumineux */
-.logo {
-  font-weight: 800;
-  font-size: 1.4rem;
-  color: #FFD700 !important;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9), 0 0 12px rgba(255, 215, 0, 0.8);
-  letter-spacing: 0.08em;
-}
+  <main>
+    <section class="hero-video-section">
+      <video autoplay muted loop playsinline class="bg-video">
+        <source src="assets/videos/video01.mp4" type="video/mp4">
+        Votre navigateur ne supporte pas la lecture de vidéos.
+      </video>
+      <div class="hero-overlay"></div>
 
-/* Onglets du menu : Noirs, plus grands et bien lisibles */
-header nav a {
-  transition: var(--transition-smooth);
-  padding: 0.6rem 1rem;
-  border-radius: 6px;
-  color: #000000 !important;
-  font-weight: 700;
-  font-size: 1.1rem;
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
-}
+      <div class="hero-content">
+        <div class="hero-logo-wrapper">
+          <img src="assets/img/logo01.png" alt="LE ROY FACTORY" class="hero-logo">
+        </div>
 
-header nav a:hover {
-  background-color: #FFD700 !important;
-  color: #000000 !important;
-  text-shadow: none;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
+        <h2>Votre solution Carrelage & Bain</h2>
+        <p style="font-size: 1.1rem; max-width: 700px; color: #f1f1f1; margin-bottom: 1rem;">
+          Nous sélectionnons les meilleurs fabricants italiens et espagnols afin d'accompagner les professionnels dans leurs projets de décoration, d'aménagement et de salle de bain.
+        </p>
+        <div class="hero-buttons">
+          <a href="partenaires.html" class="hero-btn btn-gold">Partenaires</a>
+          <a href="contact.html" class="hero-btn btn-outline-white">Contact</a>
+        </div>
+      </div>
+    </section>
+  </main>
 
-header nav a:active,
-header nav a.active {
-  background-color: #FFD700 !important;
-  color: #000000 !important;
-  text-shadow: none;
-}
+  <footer>
+    <div class="container" style="text-align: center;">
+      <p style="color: #000000 !important; font-weight: 600; text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);">&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p>
+    </div>
+  </footer>
 
-/* Bannière Hero commune pour les pages intérieures */
-.hero-banner {
-  padding: 160px 0 80px;
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  color: var(--color-white);
-}
-
-.hero-banner::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(26, 37, 48, 0.7);
-  z-index: 1;
-}
-
-.hero-banner .container {
-  position: relative;
-  z-index: 2;
-}
-
-/* Menu Burger & Responsive */
-.burger-btn {
-  display: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-  flex-direction: column;
-  gap: 6px;
-  z-index: 1001;
-  padding: 0.5rem;
-}
-
-.burger-btn span {
-  display: block;
-  width: 28px;
-  height: 2px;
-  background-color: #000000;
-  transition: var(--transition-smooth);
-}
-
-@media (max-width: 900px) {
-  header nav ul {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 100%;
-    height: 100vh;
-    background-color: var(--color-white);
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem !important;
-    transition: var(--transition-smooth);
-    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-  }
-
-  header nav ul.active {
-    right: 0;
-  }
-
-  header nav ul.active a {
-    color: #000000 !important;
-    text-shadow: none;
-  }
-
-  header nav ul.active a:hover {
-    background-color: #FFD700 !important;
-    color: #000000 !important;
-  }
-
-  .burger-btn {
-    display: flex;
-  }
-}
-
-/* Footer : Bandeau fleuri avec texte en noir */
-footer {
-  background-image: url('../img/bandeau01.png');
-  background-size: cover;
-  background-position: center;
-  padding: 3rem 0 2rem;
-  margin-top: auto;
-}
-
-footer p {
-  color: #000000 !important;
-  font-weight: 600;
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
-}
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
