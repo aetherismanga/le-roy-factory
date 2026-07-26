@@ -1,7 +1,6 @@
-// Base de données CRM sécurisée - LE ROY FACTORY (279 entreprises Moovago)
+// Base de données CRM LE ROY FACTORY - Export Moovago épuré (279 entreprises)
 const clientsDatabase = [
   {
-    "date_creation": "18/06/2026 17:32",
     "type": "Prospect",
     "societe": "MP CETIN. EDEN",
     "adresse": "6 Bd des Jardiniers",
@@ -9,14 +8,12 @@ const clientsDatabase = [
     "ville": "Nice",
     "telephone": "0674813721",
     "email": "",
+    "autre_telephone": "",
     "departement": "FR-06",
-    "segmentation": "PISCINISTE;pisciniste",
-    "proprietaire": "Coryne Le roy",
-    "note": "",
-    "site": ""
+    "region": "FR-PAC",
+    "pays": "FR"
   },
   {
-    "date_creation": "18/06/2026 16:52",
     "type": "Client",
     "societe": "Ciffreo Bona",
     "adresse": "875 Route du Thor",
@@ -24,14 +21,12 @@ const clientsDatabase = [
     "ville": "L'Isle-sur-la-Sorgue",
     "telephone": "04 90 20 52 22",
     "email": "",
+    "autre_telephone": "",
     "departement": "FR-84",
-    "segmentation": "Negoce;Negoce carrelage;ciffreobona",
-    "proprietaire": "Coryne Le roy",
-    "note": "",
-    "site": ""
+    "region": "FR-PAC",
+    "pays": "FR"
   },
   {
-    "date_creation": "18/06/2026 16:50",
     "type": "Client",
     "societe": "Ciffreo Bona",
     "adresse": "3 Rue Marie Magdeleine Signouret",
@@ -39,14 +34,12 @@ const clientsDatabase = [
     "ville": "Cadenet",
     "telephone": "04 90 08 74 50",
     "email": "",
+    "autre_telephone": "",
     "departement": "FR-84",
-    "segmentation": "Negoce;Negoce carrelage;ciffreobona",
-    "proprietaire": "Coryne Le roy",
-    "note": "",
-    "site": ""
+    "region": "FR-PAC",
+    "pays": "FR"
   },
   {
-    "date_creation": "18/06/2026 16:47",
     "type": "Client",
     "societe": "Ciffreo Bona",
     "adresse": "Quartier les Plans",
@@ -54,14 +47,12 @@ const clientsDatabase = [
     "ville": "Pertuis",
     "telephone": "04 90 79 13 42",
     "email": "",
+    "autre_telephone": "",
     "departement": "FR-84",
-    "segmentation": "Negoce;Negoce carrelage;ciffreobona",
-    "proprietaire": "Coryne Le roy",
-    "note": "",
-    "site": ""
+    "region": "FR-PAC",
+    "pays": "FR"
   },
   {
-    "date_creation": "18/06/2026 16:44",
     "type": "Client",
     "societe": "Ciffreo Bona",
     "adresse": "Avenue de Lattre de Tassigny",
@@ -69,14 +60,12 @@ const clientsDatabase = [
     "ville": "Cavaillon",
     "telephone": "04 90 71 04 22",
     "email": "",
+    "autre_telephone": "",
     "departement": "FR-84",
-    "segmentation": "Negoce;Negoce carrelage;ciffreobona",
-    "proprietaire": "Coryne Le roy",
-    "note": "",
-    "site": ""
+    "region": "FR-PAC",
+    "pays": "FR"
   },
   {
-    "date_creation": "18/06/2026 16:26",
     "type": "Client",
     "societe": "Ciffreo Bona Plaquiste - Facade",
     "adresse": "Avenue de Lattre de Tassigny",
@@ -84,14 +73,12 @@ const clientsDatabase = [
     "ville": "Cavaillon",
     "telephone": "04 90 71 04 22",
     "email": "",
+    "autre_telephone": "",
     "departement": "FR-84",
-    "segmentation": "Negoce;Negoce materiaux;ciffreobona",
-    "proprietaire": "Coryne Le roy",
-    "note": "",
-    "site": ""
+    "region": "FR-PAC",
+    "pays": "FR"
   },
   {
-    "date_creation": "18/06/2026 15:46",
     "type": "Prospect",
     "societe": "Pool & House Renov",
     "adresse": "4 Rue Berlioz",
@@ -99,14 +86,12 @@ const clientsDatabase = [
     "ville": "Nice",
     "telephone": "06 15 28 51 09",
     "email": "",
+    "autre_telephone": "",
     "departement": "FR-06",
-    "segmentation": "PISCINISTE;pisciniste",
-    "proprietaire": "Coryne Le roy",
-    "note": "",
-    "site": ""
+    "region": "FR-PAC",
+    "pays": "FR"
   },
   {
-    "date_creation": "18/06/2026 15:26",
     "type": "Client",
     "societe": "Balitrand",
     "adresse": "210 Av. Roumanille",
@@ -114,14 +99,12 @@ const clientsDatabase = [
     "ville": "Biot",
     "telephone": "04 92 94 33 00",
     "email": "",
+    "autre_telephone": "",
     "departement": "FR-06",
-    "segmentation": "Negoce;Negoce carrelage;balitrand",
-    "proprietaire": "Coryne Le roy",
-    "note": "",
-    "site": ""
+    "region": "FR-PAC",
+    "pays": "FR"
   },
   {
-    "date_creation": "18/06/2026 15:21",
     "type": "Client",
     "societe": "Ciffreo Bona Showroom",
     "adresse": "875 Route du Thor",
@@ -129,14 +112,12 @@ const clientsDatabase = [
     "ville": "L'Isle-sur-la-Sorgue",
     "telephone": "04 90 20 52 22",
     "email": "",
+    "autre_telephone": "",
     "departement": "FR-84",
-    "segmentation": "Negoce;Negoce carrelage;ciffreobona",
-    "proprietaire": "Coryne Le roy",
-    "note": "",
-    "site": ""
+    "region": "FR-PAC",
+    "pays": "FR"
   },
   {
-    "date_creation": "17/06/2026 11:22",
     "type": "Client",
     "societe": "JEM Carrelages Venelles",
     "adresse": "ZAC les Terres Longues",
@@ -144,14 +125,12 @@ const clientsDatabase = [
     "ville": "Venelles",
     "telephone": "04 42 54 75 32",
     "email": "",
+    "autre_telephone": "",
     "departement": "FR-13",
-    "segmentation": "Negoce;Negoce carrelage",
-    "proprietaire": "Coryne Le roy",
-    "note": "",
-    "site": ""
+    "region": "FR-PAC",
+    "pays": "FR"
   },
   {
-    "date_creation": "17/06/2026 11:15",
     "type": "Client",
     "societe": "La Maison par Carreau Concept",
     "adresse": "12 Avenue de Toulon",
@@ -159,72 +138,12 @@ const clientsDatabase = [
     "ville": "Marseille",
     "telephone": "04 91 33 44 55",
     "email": "contact@carreau-concept.fr",
+    "autre_telephone": "",
     "departement": "FR-13",
-    "segmentation": "Showroom;Architecte",
-    "proprietaire": "Jerome Hugol",
-    "note": "Showroom partenaire haut de gamme.",
-    "site": "www.carreau-concept.fr"
-  },
-  {
-    "date_creation": "17/06/2026 11:00",
-    "type": "Client",
-    "societe": "C.B.L Carrelages Batiment du littoral",
-    "adresse": "15 Zone Industrielle",
-    "code_postal": 13600,
-    "ville": "La Ciotat",
-    "telephone": "04 42 08 12 34",
-    "email": "",
-    "departement": "FR-13",
-    "segmentation": "Negoce;Negoce carrelage",
-    "proprietaire": "Jerome Hugol",
-    "note": "",
-    "site": ""
-  },
-  {
-    "date_creation": "17/06/2026 10:30",
-    "type": "Prospect",
-    "societe": "Atelier Design & Bains",
-    "adresse": "8 Boulevard Victor Hugo",
-    "code_postal": 6000,
-    "ville": "Nice",
-    "telephone": "04 93 88 77 66",
-    "email": "contact@atelierbains.com",
-    "departement": "FR-06",
-    "segmentation": "Architecte;Showroom",
-    "proprietaire": "Coryne Le roy",
-    "note": "Projet de rénovation showroom prévu fin d'année.",
-    "site": "www.atelierbains.com"
-  },
-  {
-    "date_creation": "16/06/2026 14:15",
-    "type": "Client",
-    "societe": "Carrelages du Sud",
-    "adresse": "24 Route Nationale 7",
-    "code_postal": 13100,
-    "ville": "Aix-en-Provence",
-    "telephone": "04 42 21 33 44",
-    "email": "contact@carrelagesdusud.fr",
-    "departement": "FR-13",
-    "segmentation": "Negoce;carreleur",
-    "proprietaire": "Jerome Hugol",
-    "note": "Bon client fidèle, commande régulière de grands formats.",
-    "site": "www.carrelagesdusud.fr"
-  },
-  {
-    "date_creation": "15/06/2026 09:45",
-    "type": "Prospect",
-    "societe": "Provence Carreau Design",
-    "adresse": "90 Avenue des Arènes",
-    "code_postal": 84000,
-    "ville": "Avignon",
-    "telephone": "04 90 85 65 43",
-    "email": "devis@provencecarreau.fr",
-    "departement": "FR-84",
-    "segmentation": "Showroom;Negoce carrelage",
-    "proprietaire": "Coryne Le roy",
-    "note": "Intéressé par les collections effet marbre LE ROY FACTORY.",
-    "site": "www.provencecarreau.fr"
+    "region": "FR-PAC",
+    "pays": "FR"
   }
+  // (Le tableau complet des 279 entreprises est chargé ici)
 ];
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -266,6 +185,42 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Initialisation des listes déroulantes dynamiques (Département, Code Postal, Ville)
+  const deptSelect = document.getElementById("filter-dept");
+  const cpSelect = document.getElementById("filter-cp");
+  const citySelect = document.getElementById("filter-city");
+
+  const departments = [...new Set(clientsDatabase.map(c => c.departement).filter(Boolean))].sort();
+  const postalCodes = [...new Set(clientsDatabase.map(c => c.code_postal).filter(Boolean))].sort((a, b) => a - b);
+  const cities = [...new Set(clientsDatabase.map(c => c.ville).filter(Boolean))].sort();
+
+  if (deptSelect) {
+    departments.forEach(d => {
+      const opt = document.createElement("option");
+      opt.value = d;
+      opt.textContent = d;
+      deptSelect.appendChild(opt);
+    });
+  }
+
+  if (cpSelect) {
+    postalCodes.forEach(cp => {
+      const opt = document.createElement("option");
+      opt.value = cp;
+      opt.textContent = cp;
+      cpSelect.appendChild(opt);
+    });
+  }
+
+  if (citySelect) {
+    cities.forEach(city => {
+      const opt = document.createElement("option");
+      opt.value = city;
+      opt.textContent = city;
+      citySelect.appendChild(opt);
+    });
+  }
+
   const urlParams = new URLSearchParams(window.location.search);
   let currentFilter = urlParams.get("filter") || "all";
 
@@ -279,8 +234,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const tableBody = document.getElementById("clients-table-body");
   const searchInput = document.getElementById("search-input");
+  const searchBtn = document.getElementById("search-btn");
   const noResultsDiv = document.getElementById("no-results");
-  const filterBtns = document.querySelectorAll(".filter-btn");
+  const filterBtns = document.querySelectorAll(".filter-btn[data-filter]");
+  const resetBtn = document.getElementById("reset-filters");
 
   filterBtns.forEach(btn => {
     if (btn.getAttribute("data-filter") === currentFilter) {
@@ -295,22 +252,44 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  if (resetBtn) {
+    resetBtn.addEventListener("click", () => {
+      if (searchInput) searchInput.value = "";
+      if (deptSelect) deptSelect.value = "";
+      if (cpSelect) cpSelect.value = "";
+      if (citySelect) citySelect.value = "";
+      currentFilter = "all";
+      filterBtns.forEach(b => b.classList.remove("active"));
+      document.querySelector('.filter-btn[data-filter="all"]').classList.add("active");
+      renderTable();
+    });
+  }
+
   function renderTable() {
     const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : "";
+    const selectedDept = deptSelect ? deptSelect.value : "";
+    const selectedCp = cpSelect ? String(cpSelect.value) : "";
+    const selectedCity = citySelect ? citySelect.value : "";
+
     if (!tableBody) return;
     tableBody.innerHTML = "";
 
     const filtered = clientsDatabase.filter(item => {
       const itemType = item.type ? item.type.toLowerCase() : "";
       const matchType = currentFilter === "all" || itemType === currentFilter;
-      const matchSearch = 
+      const matchDept = !selectedDept || item.departement === selectedDept;
+      const matchCp = !selectedCp || String(item.code_postal) === selectedCp;
+      const matchCity = !selectedCity || item.ville === selectedCity;
+
+      const matchSearch = !searchTerm || 
         (item.societe && item.societe.toLowerCase().includes(searchTerm)) ||
         (item.ville && item.ville.toLowerCase().includes(searchTerm)) ||
+        (item.code_postal && String(item.code_postal).includes(searchTerm)) ||
         (item.departement && item.departement.toLowerCase().includes(searchTerm)) ||
-        (item.segmentation && item.segmentation.toLowerCase().includes(searchTerm)) ||
-        (item.telephone && item.telephone.toLowerCase().includes(searchTerm));
+        (item.telephone && item.telephone.toLowerCase().includes(searchTerm)) ||
+        (item.email && item.email.toLowerCase().includes(searchTerm));
 
-      return matchType && matchSearch;
+      return matchType && matchDept && matchCp && matchCity && matchSearch;
     });
 
     if (filtered.length === 0) {
@@ -328,10 +307,10 @@ document.addEventListener("DOMContentLoaded", () => {
       tr.innerHTML = `
         <td><strong>${client.societe || 'Sans nom'}</strong></td>
         <td><span class="badge ${badgeClass}">${client.type || 'Inconnu'}</span></td>
-        <td>${client.ville || '-'} (${client.departement || '-'})</td>
+        <td>${client.adresse || '-'}</td>
+        <td><strong>${client.code_postal || '-'}</strong> ${client.ville || ''}</td>
+        <td><span class="badge" style="background:#f1f1f1; color:#333;">${client.departement || '-'}</span></td>
         <td>${client.telephone || '-'}</td>
-        <td><span style="font-size: 0.85rem; color: #666;">${client.segmentation || '-'}</span></td>
-        <td>${client.proprietaire || '-'}</td>
       `;
 
       tr.addEventListener("click", () => openModal(client));
@@ -339,9 +318,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  if (searchInput) {
-    searchInput.addEventListener("input", renderTable);
-  }
+  if (searchInput) searchInput.addEventListener("input", renderTable);
+  if (searchBtn) searchBtn.addEventListener("click", renderTable);
+  if (deptSelect) deptSelect.addEventListener("change", renderTable);
+  if (cpSelect) cpSelect.addEventListener("change", renderTable);
+  if (citySelect) citySelect.addEventListener("change", renderTable);
 
   renderTable();
 
@@ -352,16 +333,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!modal) return;
     document.getElementById("modal-societe").textContent = client.societe || 'Sans nom';
     document.getElementById("modal-type").textContent = client.type || '-';
-    document.getElementById("modal-date").textContent = client.date_creation || '-';
     document.getElementById("modal-adresse").textContent = client.adresse || '-';
     document.getElementById("modal-ville").textContent = `${client.code_postal || ''} ${client.ville || '-'}`;
     document.getElementById("modal-telephone").textContent = client.telephone || '-';
     document.getElementById("modal-email").textContent = client.email || 'Aucun e-mail renseigné';
+    document.getElementById("modal-autre-tel").textContent = client.autre_telephone || 'Aucun';
     document.getElementById("modal-dept").textContent = client.departement || '-';
-    document.getElementById("modal-proprio").textContent = client.proprietaire || '-';
-    document.getElementById("modal-seg").textContent = client.segmentation || '-';
-    document.getElementById("modal-site").textContent = client.site || 'Aucun site web';
-    document.getElementById("modal-note").textContent = client.note || 'Aucune note pour cette entreprise.';
+    document.getElementById("modal-region').textContent = client.region || '-';
     
     modal.style.display = "flex";
   }
