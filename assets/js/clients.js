@@ -1,4 +1,4 @@
-// Données complètes issues de l'export Moovago (279 entreprises LE ROY FACTORY)
+// Base de données CRM sécurisée - LE ROY FACTORY (279 entreprises Moovago)
 const clientsDatabase = [
   {
     "date_creation": "18/06/2026 17:32",
@@ -185,7 +185,7 @@ const clientsDatabase = [
     "type": "Prospect",
     "societe": "Atelier Design & Bains",
     "adresse": "8 Boulevard Victor Hugo",
-    "code_postal": 06000,
+    "code_postal": 6000,
     "ville": "Nice",
     "telephone": "04 93 88 77 66",
     "email": "contact@atelierbains.com",
@@ -274,8 +274,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const prospectsCountEl = document.getElementById("count-prospects");
 
   if (totalCountEl) totalCountEl.textContent = clientsDatabase.length;
-  if (clientsCountEl) clientsCountEl.textContent = clientsDatabase.filter(c => c.type.toLowerCase() === 'client').length;
-  if (prospectsCountEl) prospectsCountEl.textContent = clientsDatabase.filter(c => c.type.toLowerCase() === 'prospect').length;
+  if (clientsCountEl) clientsCountEl.textContent = clientsDatabase.filter(c => c.type && c.type.toLowerCase() === 'client').length;
+  if (prospectsCountEl) prospectsCountEl.textContent = clientsDatabase.filter(c => c.type && c.type.toLowerCase() === 'prospect').length;
 
   const tableBody = document.getElementById("clients-table-body");
   const searchInput = document.getElementById("search-input");
@@ -297,10 +297,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function renderTable() {
     const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : "";
+    if (!tableBody) return;
     tableBody.innerHTML = "";
 
     const filtered = clientsDatabase.filter(item => {
-      const matchType = currentFilter === "all" || item.type.toLowerCase() === currentFilter;
+      const itemType = item.type ? item.type.toLowerCase() : "";
+      const matchType = currentFilter === "all" || itemType === currentFilter;
       const matchSearch = 
         (item.societe && item.societe.toLowerCase().includes(searchTerm)) ||
         (item.ville && item.ville.toLowerCase().includes(searchTerm)) ||
@@ -312,15 +314,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     if (filtered.length === 0) {
-      noResultsDiv.style.display = "block";
+      if (noResultsDiv) noResultsDiv.style.display = "block";
       return;
     } else {
-      noResultsDiv.style.display = "none";
+      if (noResultsDiv) noResultsDiv.style.display = "none";
     }
 
     filtered.forEach(client => {
       const tr = document.createElement("tr");
-      const badgeClass = client.type.toLowerCase() === 'client' ? 'badge-client' : 'badge-prospect';
+      const cType = client.type ? client.type.toLowerCase() : "";
+      const badgeClass = cType === 'client' ? 'badge-client' : 'badge-prospect';
       
       tr.innerHTML = `
         <td><strong>${client.societe || 'Sans nom'}</strong></td>
@@ -346,6 +349,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const modalClose = document.getElementById("modal-close-btn");
 
   function openModal(client) {
+    if (!modal) return;
     document.getElementById("modal-societe").textContent = client.societe || 'Sans nom';
     document.getElementById("modal-type").textContent = client.type || '-';
     document.getElementById("modal-date").textContent = client.date_creation || '-';
