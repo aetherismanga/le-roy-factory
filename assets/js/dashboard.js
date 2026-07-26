@@ -52,19 +52,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const cards = document.querySelectorAll(".dash-card");
   cards.forEach(card => {
     card.addEventListener("click", () => {
-      // Sélection visuelle unique de la carte
       document.querySelectorAll('.dash-card.is-selected').forEach(c => c.classList.remove('is-selected'));
       card.classList.add('is-selected');
 
       const moduleName = card.getAttribute("data-module");
       
-      // Redirection ou actions selon le module cliqué
+      // Redirection vers le module Clients & Prospects
       if (moduleName === "clients" || moduleName === "prospects") {
         setTimeout(() => {
           window.location.href = "clients.html";
-        }, 200);
+        }, 150);
       } else {
-        console.log(`Accès au module : ${moduleName}`);
+        console.log(`Module ${moduleName} en cours de développement...`);
       }
     });
   });
