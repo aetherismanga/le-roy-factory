@@ -6,26 +6,99 @@
   <title>Tableau de bord Agent — LE ROY FACTORY</title>
   <link rel="stylesheet" href="assets/css/variables.css">
   <link rel="stylesheet" href="assets/css/base.css">
-  <link rel="stylesheet" href="dashboard.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <style>
+    .main-nav {
+      display: flex;
+      gap: 1.2rem;
+      align-items: center;
+      justify-content: flex-end;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      flex-wrap: nowrap;
+    }
+    .main-nav li { display: flex; align-items: center; }
+    .main-nav a { text-decoration: none; }
+    
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .dash-card {
+      background: #FFFFFF;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 6px;
+      padding: 2rem;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      display: flex;
+      flex-direction: column;
+    }
+    .dash-card:hover {
+      border-color: #FFD700;
+      transform: translateY(-4px);
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.35), 0 8px 25px rgba(0, 0, 0, 0.04);
+    }
+    .dash-card.is-selected {
+      border-color: #FFD700 !important;
+      background-color: #FFFFFF !important;
+      box-shadow: 0 0 18px rgba(255, 215, 0, 0.5), 0 8px 25px rgba(0, 0, 0, 0.04) !important;
+    }
+    .card-icon {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+    }
+    .dash-card h3 {
+      font-size: 1.2rem;
+      color: #1A2530;
+      margin: 0 0 0.5rem 0;
+    }
+    .dash-card p {
+      font-size: 0.9rem;
+      color: #666;
+      margin: 0;
+    }
+    .btn-logout {
+      background: transparent;
+      border: 1px solid #FFD700;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      color: #1A2530;
+      transition: all 0.25s ease;
+    }
+    .btn-logout:hover {
+      background-color: #FFD700;
+      color: #000000;
+    }
+  </style>
 </head>
-<body class="dashboard-body">
-  <header class="dashboard-header">
-    <div class="dashboard-nav-container">
+<body>
+
+  <!-- En-tête officiel du site -->
+  <header>
+    <div class="container nav-container">
       <a href="index.html" class="logo">LE ROY FACTORY</a>
-      <div class="user-info">
-        <span id="user-greeting">Bonjour 👋</span>
+      <div style="display: flex; align-items: center; gap: 1.5rem;">
+        <span id="user-greeting" style="font-weight: 600; color: #000;">Bonjour 👋</span>
         <button id="logout-btn" class="btn-logout">Déconnexion</button>
       </div>
     </div>
   </header>
 
-  <main class="dashboard-main">
-    <div class="dashboard-container">
-      <div class="dashboard-welcome">
-        <div>
-          <h1 id="welcome-title">Tableau de bord</h1>
-          <p id="current-datetime">Chargement de la date...</p>
-        </div>
+  <!-- Contenu principal du Dashboard -->
+  <main style="padding-top: 140px; padding-bottom: 5rem;">
+    <div class="container">
+      <div style="margin-bottom: 2rem;">
+        <h1 id="welcome-title" style="font-size: 2.2rem; color: #1A2530; margin: 0 0 0.5rem 0;">Tableau de bord</h1>
+        <p id="current-datetime" style="color: #666; font-size: 1rem; margin: 0;">Chargement de la date...</p>
       </div>
 
       <div class="dashboard-grid">
@@ -87,6 +160,14 @@
       </div>
     </div>
   </main>
+
+  <!-- Footer officiel du site -->
+  <footer>
+    <div class="container" style="text-align: center;">
+      <p>&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p>
+    </div>
+  </footer>
+
   <script src="dashboard.js"></script>
 </body>
 </html>
