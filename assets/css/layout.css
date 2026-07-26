@@ -171,7 +171,7 @@ footer p {
   text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
 }
 
-/* --- HARMONISATION DES CARTES HAUT DE GAMME --- */
+/* --- EFFET CHIC : TRAIT DORÉ OR VIF & SURBRILLANCE SANS CHANGEMENT DE FOND --- */
 .card-premium, .card, .partner-card, .inspiration-card, .realisation-card, #grid-catalogues > div {
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   border: 1px solid rgba(0, 0, 0, 0.08);
@@ -179,13 +179,13 @@ footer p {
 }
 
 .card-premium:hover, .card:hover, .partner-card:hover, .inspiration-card:hover, .realisation-card:hover, #grid-catalogues > div:hover {
-  border-color: #D4AF37;
-  transform: translateY(-4px);
-  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
+  border-color: #FFD700;
+  transform: translateY(-3px);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.35), 0 8px 25px rgba(0, 0, 0, 0.04);
 }
 
 .card-premium.is-selected, .card.is-selected, .partner-card.is-selected, .inspiration-card.is-selected, .realisation-card.is-selected, #grid-catalogues > div.is-selected {
-  border-color: #D4AF37 !important;
-  background-color: #FAF8F5 !important;
-  box-shadow: 0 0 15px rgba(212, 175, 55, 0.2) !important;
+  border-color: #FFD700 !important;
+  background-color: #FFFFFF !important;
+  box-shadow: 0 0 18px rgba(255, 215, 0, 0.5), 0 8px 25px rgba(0, 0, 0, 0.04) !important;
 }
