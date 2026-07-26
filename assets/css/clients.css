@@ -197,26 +197,30 @@ body.crm-body {
   color: #666;
 }
 
-/* Toolbar & Filters */
-.crm-toolbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
-  gap: 1rem;
-  flex-wrap: wrap;
+/* Select & Inputs */
+.crm-select {
+  padding: 0.6rem 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  background-color: #FFFFFF;
+  color: #333;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.crm-select:focus {
+  border-color: #FFD700;
 }
 
 .search-box {
   display: flex;
   align-items: center;
-  background: #FFFFFF;
+  background: #FAFAFA;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 6px;
   padding: 0.6rem 1rem;
-  width: 100%;
-  max-width: 400px;
-  box-sizing: border-box;
   gap: 0.75rem;
 }
 
@@ -318,7 +322,7 @@ body.crm-body {
   font-size: 1rem;
 }
 
-/* Modal */
+/* Modal agrandie et plus lisible */
 .crm-modal {
   position: fixed;
   top: 0;
@@ -336,12 +340,12 @@ body.crm-body {
 .modal-content {
   background: #FFFFFF;
   width: 100%;
-  max-width: 650px;
-  border-radius: 8px;
-  padding: 2.5rem;
+  max-width: 800px;
+  border-radius: 12px;
+  padding: 3rem;
   position: relative;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(212, 175, 55, 0.3);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(212, 175, 55, 0.4);
   max-height: 90vh;
   overflow-y: auto;
 }
@@ -363,33 +367,27 @@ body.crm-body {
 }
 
 .modal-content h2 {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   color: #1A2530;
   margin-top: 0;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   border-bottom: 2px solid #FFD700;
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.75rem;
 }
 
 .modal-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  font-size: 0.95rem;
+  gap: 1.5rem;
+  font-size: 1.1rem;
 }
 
-.modal-grid .full-width {
-  grid-column: span 2;
+.modal-grid div {
+  color: #333;
 }
 
-.note-box {
-  background: #FAFAFA;
-  border: 1px solid #E5E7EB;
-  padding: 1rem;
-  border-radius: 4px;
-  margin-top: 0.25rem;
-  color: #4B5563;
-  white-space: pre-wrap;
+.modal-grid strong {
+  color: #1A2530;
 }
 
 @media (max-width: 900px) {
@@ -407,8 +405,5 @@ body.crm-body {
   }
   .modal-grid {
     grid-template-columns: 1fr;
-  }
-  .modal-grid .full-width {
-    grid-column: span 1;
   }
 }
