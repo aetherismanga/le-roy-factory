@@ -1,39 +1,43 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // Vérification de la session agent
   const isLoggedIn = localStorage.getItem("agentLoggedIn");
   if (!isLoggedIn) {
     window.location.href = "agent.html";
     return;
   }
 
+  // Récupération du nom de l'agent connecté
   const agentName = localStorage.getItem("agentName") || "Agent";
   const firstName = agentName.split(" ")[0];
 
   const userGreeting = document.getElementById("user-greeting");
   const welcomeTitle = document.getElementById("welcome-title");
   
-  if (userGreeting) userGreeting.textContent = `Bonjour ${firstName} 👋`;
-  if (welcomeTitle) welcomeTitle.textContent = `Tableau de bord de ${agentName}`;
+  if (userGreeting) {
+    userGreeting.textContent = `Bonjour ${firstName} 👋 — Espace Commercial Sécurisé`;
+  }
+  if (welcomeTitle) {
+    welcomeTitle.textContent = `Tableau de bord de ${agentName}`;
+  }
 
-  const datetimeElement = document.getElementById("current-datetime");
+  // Mise à jour en temps réel de la date et de l'heure
+  const dateElement = document.getElementById("current-date");
+  const timeElement = document.getElementById("current-time");
+
   function updateDateTime() {
-    if (datetimeElement) {
-      const now = new Date();
-      const options = { 
-        weekday: 'long', 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      };
-      let formatted = now.toLocaleDateString('fr-FR', options);
-      formatted = formatted.charAt(0).toUpperCase() + formatted.slice(1);
-      datetimeElement.textContent = formatted;
+    const now = new Date();
+    if (dateElement) {
+      let dateFormatted = now.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+      dateElement.textContent = dateFormatted.charAt(0).toUpperCase() + dateFormatted.slice(1);
+    }
+    if (timeElement) {
+      timeElement.textContent = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
     }
   }
   updateDateTime();
-  setInterval(updateDateTime, 60000);
+  setInterval(updateDateTime, 1000);
 
+  // Gestion de la déconnexion
   const logoutBtn = document.getElementById("logout-btn");
   if (logoutBtn) {
     logoutBtn.addEventListener("click", () => {
@@ -44,11 +48,24 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Interaction et navigation des cartes du tableau de bord
   const cards = document.querySelectorAll(".dash-card");
   cards.forEach(card => {
     card.addEventListener("click", () => {
+      // Sélection visuelle unique de la carte
+      document.querySelectorAll('.dash-card.is-selected').forEach(c => c.classList.remove('is-selected'));
+      card.classList.add('is-selected');
+
       const moduleName = card.getAttribute("data-module");
-      console.log(`Accès au module : ${moduleName}`);
+      
+      // Redirection ou actions selon le module cliqué
+      if (moduleName === "clients" || moduleName === "prospects") {
+        setTimeout(() => {
+          window.location.href = "clients.html";
+        }, 200);
+      } else {
+        console.log(`Accès au module : ${moduleName}`);
+      }
     });
   });
 });
