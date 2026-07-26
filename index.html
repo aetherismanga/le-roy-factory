@@ -10,11 +10,13 @@
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
   <style>
+    /* Styles spécifiques à la section Hero avec vidéo et logo animé */
     .hero-video-section {
       position: relative;
       width: 100%;
       height: 100vh;
       overflow: hidden;
+      background-color: #000000; /* Fond noir de secours */
     }
     .bg-video {
       position: absolute;
@@ -46,6 +48,76 @@
       color: white;
       padding: 0 1rem;
     }
+
+    /* ==========================================
+       STYLES DU LOGO AVEC ANIMATIONS
+       ========================================== */
+
+    /* Conteneur du logo pour gérer l'effet de brillance */
+    .hero-logo-wrapper {
+      position: relative;
+      display: inline-block;
+      overflow: hidden; /* Crucial pour cacher la brillance quand elle sort du logo */
+      margin-bottom: 1.5rem; /* Espacement sous le logo */
+      padding: 10px; /* Légère marge pour éviter que le scintillement ne soit coupé */
+    }
+
+    .hero-logo {
+      width: auto;
+      height: auto;
+      /* Rendre le logo plus grand que l'ancien texte (h1) */
+      max-width: 450px; /* Ajuste cette valeur si nécessaire pour desktop */
+      display: block;
+      /* Ajout du mouvement de flottement */
+      animation: subtleFloat 4s ease-in-out infinite;
+    }
+
+    /* Effet de brillance (pseudo-élément) */
+    .hero-logo-wrapper::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -150%;
+      width: 50%;
+      height: 200%;
+      background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.4) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      transform: rotate(30deg);
+      /* Animation de la brillance qui passe */
+      animation: shineAnimation 5s ease-in-out infinite;
+      animation-delay: 2s; /* Délai de 2s entre chaque brillance */
+    }
+
+    /* Keyframes pour le flottement */
+    @keyframes subtleFloat {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); } /* Monte légèrement */
+      100% { transform: translateY(0px); }
+    }
+
+    /* Keyframes pour la brillance */
+    @keyframes shineAnimation {
+      0% { left: -150%; opacity: 0; }
+      50% { left: 110%; opacity: 1; } /* Traverse l'image */
+      100% { left: 110%; opacity: 0; }
+    }
+
+    /* Responsive pour mobile : Réduire un peu la taille du logo */
+    @media (max-width: 768px) {
+      .hero-logo {
+        max-width: 85%; /* Prend 85% de la largeur de l'écran sur mobile */
+      }
+      .hero-content h2 { font-size: 1.5rem; }
+      .hero-content p { font-size: 1rem; }
+    }
+
+    /* ==========================================
+       STYLES DES BOUTONS
+       ========================================== */
     .hero-buttons {
       display: flex;
       gap: 1.5rem;
@@ -58,7 +130,10 @@
       text-transform: uppercase;
       font-size: 0.9rem;
       letter-spacing: 1px;
-      transition: background 0.2s, color 0.2s;
+      transition: background 0.2s, color 0.2s, transform 0.2s;
+    }
+    .hero-btn:hover {
+      transform: translateY(-2px);
     }
     .btn-gold {
       background-color: #d4af37;
@@ -108,9 +183,14 @@
         Votre navigateur ne supporte pas la lecture de vidéos.
       </video>
       <div class="hero-overlay"></div>
+
       <div class="hero-content">
-        <h1 style="font-size: 3.5rem; margin-bottom: 1rem; color: #d4af37;">LE ROY FACTORY</h1>
-        <h2 style="font-size: 2rem; margin-bottom: 1.5rem;">Votre solution Carrelage & Bain</h2>
+        <!-- NOUVEAU : Le logo remplace le titre H1 texte -->
+        <div class="hero-logo-wrapper">
+          <img src="assets/img/logo01.png" alt="LE ROY FACTORY" class="hero-logo">
+        </div>
+
+        <h2>Votre solution Carrelage & Bain</h2>
         <p style="font-size: 1.1rem; max-width: 700px; color: #f1f1f1; margin-bottom: 1rem;">
           Nous sélectionnons les meilleurs fabricants italiens et espagnols afin d'accompagner les professionnels dans leurs projets de décoration, d'aménagement et de salle de bain.
         </p>
@@ -119,15 +199,10 @@
           <a href="contact.html" class="hero-btn btn-outline-white">Contact</a>
         </div>
       </div>
+
     </section>
   </main>
 
   <footer>
     <div class="container" style="text-align: center; padding: 2rem 0;">
-      <p>&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p>
-    </div>
-  </footer>
-
-  <script src="assets/js/app.js"></script>
-</body>
-</html>
+      <p>&copy; 2026 LE ROY FACTORY. Tous droits réservés
