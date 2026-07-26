@@ -1,1 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tableau de bord Agent — LE ROY FACTORY</title>
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body class="dashboard-body">
+  <header class="dashboard-header">
+    <div class="dashboard-nav-container">
+      <a href="index.html" class="logo">LE ROY FACTORY</a>
+      <div class="user-info">
+        <span id="user-greeting">Bonjour 👋</span>
+        <button id="logout-btn" class="btn-logout">Déconnexion</button>
+      </div>
+    </div>
+  </header>
 
+  <main class="dashboard-main">
+    <div class="dashboard-container">
+      <div class="dashboard-welcome">
+        <div>
+          <h1 id="welcome-title">Tableau de bord</h1>
+          <p id="current-datetime">Chargement de la date...</p>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="dash-card" data-module="clients">
+          <div class="card-icon">👥</div>
+          <h3>Clients</h3>
+          <p>Gestion des clients et prospects</p>
+        </div>
+        <div class="dash-card" data-module="fabricants">
+          <div class="card-icon">🏭</div>
+          <h3>Fabricants</h3>
+          <p>Catalogues et fiches partenaires</p>
+        </div>
+        <div class="dash-card" data-module="catalogues">
+          <div class="card-icon">📂</div>
+          <h3>Catalogues</h3>
+          <p>Documentation et tarifs PDF</p>
+        </div>
+        <div class="dash-card" data-module="comptes-rendus">
+          <div class="card-icon">📞</div>
+          <h3>Comptes-rendus</h3>
+          <p>Suivi des visites et échanges</p>
+        </div>
+        <div class="dash-card" data-module="agenda">
+          <div class="card-icon">📅</div>
+          <h3>Agenda</h3>
+          <p>Rendez-vous et planifications</p>
+        </div>
+        <div class="dash-card" data-module="tournees">
+          <div class="card-icon">🚗</div>
+          <h3>Tournées</h3>
+          <p>Organisation des déplacements</p>
+        </div>
+        <div class="dash-card" data-module="photos">
+          <div class="card-icon">📸</div>
+          <h3>Photos</h3>
+          <p>Galeries et showrooms</p>
+        </div>
+        <div class="dash-card" data-module="carte">
+          <div class="card-icon">🗺</div>
+          <h3>Carte</h3>
+          <p>Implantation et géolocalisation</p>
+        </div>
+        <div class="dash-card" data-module="statistiques">
+          <div class="card-icon">📊</div>
+          <h3>Statistiques</h3>
+          <p>Performances et analyses</p>
+        </div>
+        <div class="dash-card" data-module="parametres">
+          <div class="card-icon">⚙</div>
+          <h3>Paramètres</h3>
+          <p>Configuration du compte</p>
+        </div>
+        <div class="dash-card" data-module="assistant-ia">
+          <div class="card-icon">🤖</div>
+          <h3>Assistant IA</h3>
+          <p>Aide à la rédaction et conseils</p>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="dashboard.js"></script>
+</body>
+</html>
