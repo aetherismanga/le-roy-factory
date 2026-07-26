@@ -1,217 +1,51 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Espace Agent — LE ROY FACTORY</title>
-  <link rel="stylesheet" href="assets/css/variables.css">
-  <link rel="stylesheet" href="assets/css/base.css">
-  <link rel="stylesheet" href="assets/css/components.css">
-  <link rel="stylesheet" href="assets/css/layout.css">
-  <style>
-    .main-nav {
-      display: flex;
-      gap: 1.2rem;
-      align-items: center;
-      justify-content: flex-end;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      flex-wrap: nowrap;
-    }
-    .main-nav li { display: flex; align-items: center; }
-    .main-nav a { text-decoration: none; }
-    .agent-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 8px 14px;
-      background: #111;
-      color: #FFD700 !important;
-      border: 1px solid #FFD700;
-      border-radius: 8px;
-      font-weight: 600;
-      white-space: nowrap;
-      transition: .25s;
-    }
-    .agent-btn:hover { background: #FFD700; color: #111 !important; }
+const agentsDatabase = [
+  {
+    name: "Jérôme Hugol",
+    email: "agenceleroyfactory@gmail.com",
+    password: "0000"
+  },
+  {
+    name: "Coryne Le Roy",
+    email: "coryneleroyfactory@gmail.com",
+    password: "0000"
+  }
+];
 
-    .login-wrapper {
-      max-width: 480px;
-      margin: 0 auto;
-      background: #FFFFFF;
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      border-radius: 8px;
-      padding: 3rem;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
-      transition: all 0.3s ease;
-    }
-    .login-wrapper:hover {
-      border-color: #FFD700;
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.25), 0 10px 30px rgba(0, 0, 0, 0.05);
-    }
-    .login-header-title {
-      text-align: center;
-      margin-bottom: 2.5rem;
-    }
-    .login-header-title h1 {
-      font-size: 1.8rem;
-      color: #1A2530;
-      margin: 0 0 0.5rem 0;
-      letter-spacing: 0.05em;
-    }
-    .login-header-title p {
-      font-size: 0.95rem;
-      color: #666;
-      margin: 0;
-    }
-    .form-group {
-      margin-bottom: 1.5rem;
-    }
-    .form-group label {
-      display: block;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: #1A2530;
-      margin-bottom: 0.5rem;
-    }
-    .form-group input {
-      width: 100%;
-      padding: 0.85rem 1rem;
-      border: 1px solid #D1D5DB;
-      border-radius: 4px;
-      font-size: 0.95rem;
-      background-color: #FAFAFA;
-      transition: all 0.25s ease;
-      box-sizing: border-box;
-    }
-    .form-group input:focus {
-      outline: none;
-      border-color: #FFD700;
-      background-color: #FFFFFF;
-      box-shadow: 0 0 12px rgba(255, 215, 0, 0.25);
-    }
-    .form-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.85rem;
-      margin-bottom: 2rem;
-    }
-    .checkbox-container {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      cursor: pointer;
-      color: #4B5563;
-    }
-    .forgot-link {
-      color: #D4AF37;
-      text-decoration: none;
-      font-weight: 600;
-    }
-    .forgot-link:hover {
-      text-decoration: underline;
-    }
-    .btn-login-submit {
-      width: 100%;
-      padding: 1rem;
-      background-color: #111111;
-      color: #FFD700;
-      border: 1px solid #FFD700;
-      border-radius: 4px;
-      font-weight: 700;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: all 0.25s ease;
-    }
-    .btn-login-submit:hover {
-      background-color: #FFD700;
-      color: #111111;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(255, 215, 0, 0.3);
-    }
-    .notification-error {
-      background-color: #FDF2F2;
-      border: 1px solid #F5C6CB;
-      color: #721C24;
-      padding: 0.75rem 1rem;
-      border-radius: 4px;
-      font-size: 0.85rem;
-      margin-bottom: 1.5rem;
-      text-align: center;
-      animation: fadeIn 0.3s ease;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-5px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-  </style>
-</head>
-<body>
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("Le script agent.js est bien chargé !");
+  
+  const loginForm = document.getElementById("login-form");
+  const emailInput = document.getElementById("email");
+  const passwordInput = document.getElementById("password");
+  const errorNotification = document.getElementById("error-notification");
 
-  <header>
-    <div class="container nav-container">
-      <a href="index.html" class="logo">LE ROY FACTORY</a>
-      <nav>
-        <ul class="main-nav">
-          <li><a href="partenaires.html">Partenaires</a></li>
-          <li><a href="univers.html">Inspirations</a></li>
-          <li><a href="realisations.html">Réalisations</a></li>
-          <li><a href="catalogues.html">Catalogues</a></li>
-          <li><a href="tarifs-pro.html">Tarifs PRO</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="agent.html" class="agent-btn active">🔒 Espace Agent</a></li>
-        </ul>
-      </nav>
-      <button class="burger-btn" aria-label="Menu" id="burgerMenu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </header>
+  if (loginForm) {
+    loginForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      console.log("Formulaire soumis ! Email saisi :", emailInput.value);
+      
+      const emailVal = emailInput.value.trim().toLowerCase();
+      const passwordVal = passwordInput.value;
 
-  <main style="padding-top: 140px; padding-bottom: 5rem;">
-    <div class="container">
-      <div class="login-wrapper">
-        <div class="login-header-title">
-          <h1>ESPACE AGENT</h1>
-          <p>Connexion sécurisée réservée aux agents commerciaux.</p>
-        </div>
-        
-        <div id="error-notification" class="notification-error" style="display: none;"></div>
+      const agent = agentsDatabase.find(
+        a => a.email.toLowerCase() === emailVal && a.password === passwordVal
+      );
 
-        <form id="login-form">
-          <div class="form-group">
-            <label for="email">Adresse e-mail</label>
-            <input type="email" id="email" required placeholder="nom@exemple.com">
-          </div>
-          
-          <div class="form-group">
-            <label for="password">Mot de passe</label>
-            <input type="password" id="password" required placeholder="••••••••">
-          </div>
-
-          <div class="form-row">
-            <label class="checkbox-container">
-              <input type="checkbox" id="remember">
-              <span>Se souvenir de moi</span>
-            </label>
-            <a href="#" class="forgot-link">Mot de passe oublié</a>
-          </div>
-
-          <button type="submit" class="btn-login-submit">Se connecter</button>
-        </form>
-      </div>
-    </div>
-  </main>
-
-  <footer>
-    <div class="container" style="text-align: center;">
-      <p>&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p>
-    </div>
-  </footer>
-
-  <script src="assets/js/agent.js"></script>
-  <script src="assets/js/app.js"></script>
-</body>
-</html>
+      if (agent) {
+        console.log("Connexion réussie pour :", agent.name);
+        localStorage.setItem("agentLoggedIn", "true");
+        localStorage.setItem("agentName", agent.name);
+        localStorage.setItem("agentEmail", agent.email);
+        window.location.href = "dashboard.html";
+      } else {
+        console.log("Identifiants incorrects !");
+        if (errorNotification) {
+          errorNotification.textContent = "Adresse e-mail ou mot de passe incorrect.";
+          errorNotification.style.display = "block";
+        }
+      }
+    });
+  } else {
+    console.error("Erreur : le formulaire #login-form est introuvable sur cette page !");
+  }
+});
