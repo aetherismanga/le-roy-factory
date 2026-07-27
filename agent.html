@@ -3,45 +3,157 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Espace Agent — LE ROY FACTORY</title>
-  <meta name="description" content="Espace réservé aux agents commerciaux de LE ROY FACTORY.">
+  <title>LE ROY FACTORY — Votre solution Carrelage & Bain</title>
+  <meta name="description" content="Sélection des meilleurs fabricants italiens et espagnols pour les professionnels de la décoration et de l'aménagement de salle de bain.">
   <link rel="stylesheet" href="assets/css/variables.css">
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
   <style>
-    .main-nav{
-      display:flex;
-      gap:1.2rem;
-      align-items:center;
-      justify-content:flex-end;
-      list-style:none;
-      margin:0;
-      padding:0;
-      flex-wrap:nowrap;
+    /* Header et Footer avec l'image bandeau01.png */
+    header, footer {
+      background-image: url('assets/img/bandeau01.png');
+      background-size: cover;
+      background-position: center;
+      color: #ffffff;
     }
-    .main-nav li{display:flex;align-items:center;}
-    .main-nav a{text-decoration:none;}
-    .agent-btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding:8px 14px;
-      background:#111;
-      color:#d4af37!important;
-      border:1px solid #d4af37;
-      border-radius:8px;
-      font-weight:600;
-      white-space:nowrap;
-      transition:.25s;
+    header a, footer p {
+      color: #ffffff !important;
     }
-    .agent-btn:hover{background:#d4af37;color:#111!important;}
-  </style>
+
+    .hero-video-section {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      background-color: #000000;
+    }
+    .bg-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.45);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      padding: 0 1rem;
+    }
+
+    /* Logo agrandi et animé */
+    .hero-logo-wrapper {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 1.5rem;
+    }
+    .hero-logo {
+      width: auto;
+      height: auto;
+      max-width: 680px;
+      display: block;
+      animation: subtleFloat 4s ease-in-out infinite;
+    }
+
+    @keyframes subtleFloat {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    @media (max-width: 768px) {
+      .hero-logo { max-width: 90%; }
+    }
+
+    /* Styles des boutons */
+    .hero-buttons {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .hero-btn {
+      padding: 0.8rem 2rem;
+      border-radius: 4px;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      transition: background 0.2s, color 0.2s, transform 0.2s;
+    }
+    .hero-btn:hover {
+      transform: translateY(-2px);
+    }
+    .btn-gold {
+      background-color: #d4af37;
+      color: #000000;
+      border: 2px solid #d4af37;
+    }
+    .btn-gold:hover {
+      background-color: transparent;
+      color: #ffffff !important;
+    }
+    .btn-outline-white {
+      background-color: transparent;
+      color: #ffffff;
+      border: 2px solid #ffffff;
+    }
+    .btn-outline-white:hover {
+      background-color: #ffffff;
+      color: #000000 !important;
+    }
+ 
+.main-nav{
+display:flex;
+gap:1.2rem;
+align-items:center;
+justify-content:flex-end;
+list-style:none;
+margin:0;
+padding:0;
+flex-wrap:nowrap;
+}
+.main-nav li{display:flex;align-items:center;}
+.main-nav a{text-decoration:none;}
+.agent-btn{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+padding:8px 14px;
+background:#111;
+color:#d4af37!important;
+border:1px solid #d4af37;
+border-radius:8px;
+font-weight:600;
+white-space:nowrap;
+transition:.25s;
+}
+.agent-btn:hover{background:#d4af37;color:#111!important;}
+
+</style>
 </head>
 <body>
 
   <header>
-    <div class="container nav-container" style="height: 130px;">
+    <!-- Bandeau ajusté à 130px avec le logo rond épuré décalé à gauche -->
+    <div class="container nav-container" style="height: 130px; display: flex; align-items: center; justify-content: space-between;">
       <a href="index.html" class="logo" style="display: flex; align-items: center; height: 100%; padding-left: 1.5rem;">
         <div style="width: 110px; height: 110px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.4);">
           <img src="assets/img/logo02lrf.png" alt="LE ROY FACTORY" style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.35);">
@@ -64,67 +176,37 @@
     </div>
   </header>
 
-  <main style="padding-bottom: 4rem;">
-    <section class="hero-banner" style="background-image: url('assets/img/02.png');">
-      <div class="container">
-        <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Espace Agent</h1>
-        <p style="font-size: 1.1rem; opacity: 0.9; max-width: 700px;">Accès sécurisé réservé aux représentants et agents commerciaux.</p>
+  <main>
+    <section class="hero-video-section">
+      <video autoplay muted loop playsinline class="bg-video">
+        <source src="assets/videos/video01.mp4" type="video/mp4">
+        Votre navigateur ne supporte pas la lecture de vidéos.
+      </video>
+      <div class="hero-overlay"></div>
+
+      <div class="hero-content">
+        <div class="hero-logo-wrapper">
+          <img src="assets/img/logo01.png" alt="LE ROY FACTORY" class="hero-logo">
+        </div>
+
+        <h2>Votre solution Carrelage & Bain</h2>
+        <p style="font-size: 1.1rem; max-width: 700px; color: #f1f1f1; margin-bottom: 1rem;">
+          Nous sélectionnons les meilleurs fabricants italiens et espagnols afin d'accompagner les professionnels dans leurs projets de décoration, d'aménagement et de salle de bain.
+        </p>
+        <div class="hero-buttons">
+          <a href="partenaires.html" class="hero-btn btn-gold">Partenaires</a>
+          <a href="contact.html" class="hero-btn btn-outline-white">Contact</a>
+        </div>
       </div>
     </section>
-
-    <div class="container" style="margin-top: 3rem;">
-      <!-- Section de Connexion Agent -->
-      <div id="login-section" style="max-width: 500px; margin: 2rem auto; background: var(--color-white); padding: 3rem; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); text-align: center;">
-        <h2 style="font-size: 1.75rem; margin-bottom: 1rem; color: var(--color-anthracite);">Connexion Sécurisée</h2>
-        <p style="color: #666; margin-bottom: 2rem; font-size: 0.95rem;">Veuillez saisir votre code d'accès agent pour accéder au contenu interne.</p>
-        
-        <div style="display: flex; flex-direction: column; gap: 1rem;">
-          <input type="password" id="agent-password" placeholder="Code d'accès agent" style="padding: 0.75rem 1rem; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; outline: none; width: 100%;">
-          <button id="agent-login-btn" class="btn" style="background: var(--color-anthracite); color: var(--color-white); padding: 0.75rem 1.5rem; border-radius: 4px; border: none; cursor: pointer; font-weight: 600;">Se connecter</button>
-        </div>
-        <p id="agent-error-msg" style="color: #d9534f; margin-top: 1rem; display: none; font-size: 0.85rem;">Code incorrect. Veuillez réessayer.</p>
-      </div>
-
-      <!-- Contenu Agent (Masqué par défaut jusqu'à authentification) -->
-      <div id="agent-content" style="display: none; max-width: 800px; margin: 2rem auto; background: #fff; padding: 3rem; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.06);">
-        <h2 style="font-size: 1.75rem; margin-bottom: 1rem; color: var(--color-anthracite);">Tableau de bord Agent</h2>
-        <p style="color: #555; margin-bottom: 2rem;">Bienvenue dans votre espace réservé. Vous avez ici accès aux documents internes, notes de service et outils commerciaux.</p>
-        <div style="background: var(--color-light-grey); padding: 1.5rem; border-radius: 4px; border-left: 4px solid var(--color-anthracite);">
-          <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--color-anthracite);">Documents Internes & Notes</h3>
-          <p style="font-size: 0.9rem; color: #666; margin: 0;">Aucune nouvelle note pour le moment. Les grilles tarifaires et mises à jour sont disponibles dans l'onglet Tarifs PRO.</p>
-        </div>
-      </div>
-    </div>
   </main>
 
   <footer>
-    <div class="container" style="text-align: center;">
-      <p>&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p>
+    <div class="container" style="text-align: center; padding: 2rem 0;">
+      <p>&copy; 2026 LE ROY FACTORY. Tous droits réservés.</p>
     </div>
   </footer>
 
-  <script>
-    const agentPasswordInput = document.getElementById('agent-password');
-    const agentLoginBtn = document.getElementById('agent-login-btn');
-    const agentLoginSection = document.getElementById('login-section');
-    const agentContent = document.getElementById('agent-content');
-    const agentErrorMsg = document.getElementById('agent-error-msg');
-
-    function checkAgentPassword() {
-      // Le code d'accès agent est défini sur '2026' (similaire à la page tarifs pro)
-      if (agentPasswordInput.value.trim() === '2026') {
-        agentLoginSection.style.display = 'none';
-        agentContent.style.display = 'block';
-      } else {
-        agentErrorMsg.style.display = 'block';
-      }
-    }
-
-    agentLoginBtn.addEventListener('click', checkAgentPassword);
-    agentPasswordInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') checkAgentPassword();
-    });
-  </script>
   <script src="assets/js/app.js"></script>
 </body>
 </html>
