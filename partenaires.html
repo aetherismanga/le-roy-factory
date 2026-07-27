@@ -42,7 +42,9 @@ transition:.25s;
 
   <header>
     <div class="container nav-container">
-      <a href="index.html" class="logo">LE ROY FACTORY</a>
+      <a href="index.html" class="logo">
+        <img src="assets/img/logo01.png" alt="LE ROY FACTORY" style="height: 55px; width: auto; display: block; object-fit: contain;">
+      </a>
       <nav>
         <ul class="main-nav">
           <li><a href="partenaires.html">Partenaires</a></li>
@@ -100,7 +102,7 @@ transition:.25s;
           else if (fab.id === 'neobath') logoFile = 'neobath.png';
           else if (fab.id === 'koibath') logoFile = 'koibath.png';
           else if (fab.id === 'aquahome') logoFile = 'aquahome.png';
-          else if (fab.id === 'opal') logoFile = 'opal.png'; // si présent
+          else if (fab.id === 'opal') logoFile = 'opal.png';
           else if (fab.id === 'bilt') logoFile = 'bilt.png';
 
           let logoStyle = logoFile ? `background-image: url('assets/img/${logoFile}');` : '';
