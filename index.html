@@ -3,157 +3,50 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LE ROY FACTORY — Votre solution Carrelage & Bain</title>
-  <meta name="description" content="Sélection des meilleurs fabricants italiens et espagnols pour les professionnels de la décoration et de l'aménagement de salle de bain.">
+  <title>LE ROY FACTORY — Céramiques et Salles de Bain Haut de Gamme</title>
+  <meta name="description" content="Découvrez LE ROY FACTORY, sélection exclusive de fabricants italiens et espagnols de carrelage et mobilier de salle de bain pour les professionnels.">
   <link rel="stylesheet" href="assets/css/variables.css">
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
   <style>
-    /* Header et Footer avec l'image bandeau01.png */
-    header, footer {
-      background-image: url('assets/img/bandeau01.png');
-      background-size: cover;
-      background-position: center;
-      color: #ffffff;
+    .main-nav{
+      display:flex;
+      gap:1.2rem;
+      align-items:center;
+      justify-content:flex-end;
+      list-style:none;
+      margin:0;
+      padding:0;
+      flex-wrap:nowrap;
     }
-    header a, footer p {
-      color: #ffffff !important;
+    .main-nav li{display:flex;align-items:center;}
+    .main-nav a{text-decoration:none;}
+    .agent-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:8px 14px;
+      background:#111;
+      color:#d4af37!important;
+      border:1px solid #d4af37;
+      border-radius:8px;
+      font-weight:600;
+      white-space:nowrap;
+      transition:.25s;
     }
-
-    .hero-video-section {
-      position: relative;
-      width: 100%;
-      height: 100vh;
-      overflow: hidden;
-      background-color: #000000;
-    }
-    .bg-video {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: 0;
-    }
-    .hero-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.45);
-      z-index: 1;
-    }
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: white;
-      padding: 0 1rem;
-    }
-
-    /* Logo agrandi et animé */
-    .hero-logo-wrapper {
-      position: relative;
-      display: inline-block;
-      margin-bottom: 1.5rem;
-    }
-    .hero-logo {
-      width: auto;
-      height: auto;
-      max-width: 680px;
-      display: block;
-      animation: subtleFloat 4s ease-in-out infinite;
-    }
-
-    @keyframes subtleFloat {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
-      100% { transform: translateY(0px); }
-    }
-
-    @media (max-width: 768px) {
-      .hero-logo { max-width: 90%; }
-    }
-
-    /* Styles des boutons */
-    .hero-buttons {
-      display: flex;
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-    .hero-btn {
-      padding: 0.8rem 2rem;
-      border-radius: 4px;
-      font-weight: 600;
-      text-transform: uppercase;
-      font-size: 0.9rem;
-      letter-spacing: 1px;
-      transition: background 0.2s, color 0.2s, transform 0.2s;
-    }
-    .hero-btn:hover {
-      transform: translateY(-2px);
-    }
-    .btn-gold {
-      background-color: #d4af37;
-      color: #000000;
-      border: 2px solid #d4af37;
-    }
-    .btn-gold:hover {
-      background-color: transparent;
-      color: #ffffff !important;
-    }
-    .btn-outline-white {
-      background-color: transparent;
-      color: #ffffff;
-      border: 2px solid #ffffff;
-    }
-    .btn-outline-white:hover {
-      background-color: #ffffff;
-      color: #000000 !important;
-    }
-  
-.main-nav{
-display:flex;
-gap:1.2rem;
-align-items:center;
-justify-content:flex-end;
-list-style:none;
-margin:0;
-padding:0;
-flex-wrap:nowrap;
-}
-.main-nav li{display:flex;align-items:center;}
-.main-nav a{text-decoration:none;}
-.agent-btn{
-display:inline-flex;
-align-items:center;
-justify-content:center;
-padding:8px 14px;
-background:#111;
-color:#d4af37!important;
-border:1px solid #d4af37;
-border-radius:8px;
-font-weight:600;
-white-space:nowrap;
-transition:.25s;
-}
-.agent-btn:hover{background:#d4af37;color:#111!important;}
-
-</style>
+    .agent-btn:hover{background:#d4af37;color:#111!important;}
+  </style>
 </head>
 <body>
 
   <header>
-    <div class="container nav-container">
-      <a href="index.html" class="logo">LE ROY FACTORY</a>
+    <div class="container nav-container" style="height: 130px;">
+      <a href="index.html" class="logo" style="display: flex; align-items: center; height: 100%; padding-left: 1.5rem;">
+        <div style="width: 110px; height: 110px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.4);">
+          <img src="assets/img/logo02lrf.png" alt="LE ROY FACTORY" style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.35);">
+        </div>
+      </a>
       <nav>
         <ul class="main-nav">
           <li><a href="partenaires.html">Partenaires</a></li>
@@ -171,34 +64,24 @@ transition:.25s;
     </div>
   </header>
 
-  <main>
-    <section class="hero-video-section">
-      <video autoplay muted loop playsinline class="bg-video">
-        <source src="assets/videos/video01.mp4" type="video/mp4">
-        Votre navigateur ne supporte pas la lecture de vidéos.
+  <main style="padding-bottom: 4rem;">
+    <!-- Hero Video / Section Accueil -->
+    <section style="position: relative; height: 100vh; min-height: 600px; display: flex; align-items: center; justify-content: center; text-align: center; color: #fff; overflow: hidden;">
+      <video autoplay muted loop playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;">
+        <source src="assets/videos/pageacceuil.mp4" type="video/mp4">
       </video>
-      <div class="hero-overlay"></div>
-
-      <div class="hero-content">
-        <div class="hero-logo-wrapper">
-          <img src="assets/img/logo01.png" alt="LE ROY FACTORY" class="hero-logo">
-        </div>
-
-        <h2>Votre solution Carrelage & Bain</h2>
-        <p style="font-size: 1.1rem; max-width: 700px; color: #f1f1f1; margin-bottom: 1rem;">
-          Nous sélectionnons les meilleurs fabricants italiens et espagnols afin d'accompagner les professionnels dans leurs projets de décoration, d'aménagement et de salle de bain.
-        </p>
-        <div class="hero-buttons">
-          <a href="partenaires.html" class="hero-btn btn-gold">Partenaires</a>
-          <a href="contact.html" class="hero-btn btn-outline-white">Contact</a>
-        </div>
+      <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.45); z-index: 2;"></div>
+      <div class="container" style="position: relative; z-index: 3;">
+        <h1 style="font-size: 3rem; margin-bottom: 1rem; text-shadow: 0 2px 10px rgba(0,0,0,0.8);">L'Excellence de la Céramique</h1>
+        <p style="font-size: 1.25rem; max-width: 700px; margin: 0 auto 2rem; text-shadow: 0 1px 5px rgba(0,0,0,0.8);">Représentation exclusive de fabricants italiens et espagnols pour les professionnels.</p>
+        <a href="partenaires.html" class="btn btn-outline" style="background: #FFD700; color: #000; border-color: #FFD700; font-weight: 700; padding: 0.8rem 2rem;">Découvrir nos partenaires</a>
       </div>
     </section>
   </main>
 
   <footer>
-    <div class="container" style="text-align: center; padding: 2rem 0;">
-      <p>&copy; 2026 LE ROY FACTORY. Tous droits réservés.</p>
+    <div class="container" style="text-align: center;">
+      <p>&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p>
     </div>
   </footer>
 
