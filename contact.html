@@ -36,6 +36,36 @@
       transition:.25s;
     }
     .agent-btn:hover{background:#d4af37;color:#111!important;}
+    
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .contact-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+    .agent-info-card {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      border-left: 4px solid var(--color-anthracite, #1A2530);
+    }
+    .agent-info-card h3 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      color: var(--color-anthracite, #1A2530);
+      font-size: 1.2rem;
+    }
+    .agent-info-card p {
+      margin: 0 0 1rem 0;
+      color: #555;
+      font-size: 0.95rem;
+    }
   </style>
 </head>
 <body>
@@ -72,22 +102,55 @@
       </div>
     </section>
 
-    <div class="container" style="margin-top: 3rem; max-width: 800px;">
-      <form style="display: flex; flex-direction: column; gap: 1.5rem; background: #fff; padding: 2.5rem; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
-        <div>
-          <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">Nom / Société</label>
-          <input type="text" required style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px;">
+    <div class="container" style="margin-top: 3rem; max-width: 1100px;">
+      <div class="contact-layout">
+        
+        <!-- Formulaire de Contact -->
+        <form id="contact-form" style="display: flex; flex-direction: column; gap: 1.5rem; background: #fff; padding: 2.5rem; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
+          <div>
+            <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">Destinataire (Agent)</label>
+            <select id="agent-select" required style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px; background: #fff;">
+              <option value="" disabled selected>-- Choisissez un agent --</option>
+              <option value="jerome">Jérôme (agenceleroyfactory@gmail.com)</option>
+              <option value="coryne">Coryne (coryneleroyfactory@gmail.com)</option>
+              <option value="deux">Les deux (Jérôme & Coryne)</option>
+            </select>
+          </div>
+
+          <div>
+            <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">Nom / Société</label>
+            <input type="text" id="contact-name" required style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px;">
+          </div>
+
+          <div>
+            <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">Email professionnel</label>
+            <input type="email" id="contact-email" required style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px;">
+          </div>
+
+          <div>
+            <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">Message</label>
+            <textarea id="contact-message" rows="5" required style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+          </div>
+
+          <button type="submit" class="btn" style="background: var(--color-anthracite); color: #fff; padding: 0.75rem 2rem; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; align-self: flex-start;">Envoyer le message</button>
+        </form>
+
+        <!-- Informations des Agents (Secteurs) -->
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+          <div class="agent-info-card">
+            <h3>Jérôme Hugol</h3>
+            <p><strong>Secteur / Départements :</strong><br>30 - 34 - 11 - 66</p>
+            <p style="margin: 0; font-size: 0.85rem; color: #777;">Email : agenceleroyfactory@gmail.com</p>
+          </div>
+
+          <div class="agent-info-card" style="border-left-color: #d4af37;">
+            <h3>Coryne Le Roy</h3>
+            <p><strong>Secteur / Départements :</strong><br>13 - 83 - 84 - 04 - 06 - 05 - 2A - 2B</p>
+            <p style="margin: 0; font-size: 0.85rem; color: #777;">Email : coryneleroyfactory@gmail.com</p>
+          </div>
         </div>
-        <div>
-          <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">Email professionnel</label>
-          <input type="email" required style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px;">
-        </div>
-        <div>
-          <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">Message</label>
-          <textarea rows="5" required style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px;"></textarea>
-        </div>
-        <button type="submit" class="btn" style="background: var(--color-anthracite); color: #fff; padding: 0.75rem 2rem; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; align-self: flex-start;">Envoyer le message</button>
-      </form>
+
+      </div>
     </div>
   </main>
 
@@ -97,6 +160,30 @@
     </div>
   </footer>
 
+  <script>
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const agentChoice = document.getElementById('agent-select').value;
+      const name = document.getElementById('contact-name').value;
+      const email = document.getElementById('contact-email').value;
+      const message = document.getElementById('contact-message').value;
+
+      let targetEmail = '';
+      if (agentChoice === 'jerome') {
+        targetEmail = 'agenceleroyfactory@gmail.com';
+      } else if (agentChoice === 'coryne') {
+        targetEmail = 'coryneleroyfactory@gmail.com';
+      } else if (agentChoice === 'deux') {
+        targetEmail = 'agenceleroyfactory@gmail.com,coryneleroyfactory@gmail.com';
+      }
+
+      const subject = encodeURIComponent(`Demande de contact de ${name} (Le Roy Factory)`);
+      const body = encodeURIComponent(`Nom / Société : ${name}\nEmail : ${email}\n\nMessage :\n${message}`);
+
+      window.location.href = `mailto:${targetEmail}?subject=${subject}&body=${body}`;
+    });
+  </script>
   <script src="assets/js/app.js"></script>
 </body>
 </html>
