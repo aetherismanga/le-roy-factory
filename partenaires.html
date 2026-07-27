@@ -87,17 +87,30 @@ transition:.25s;
       .then(data => {
         const grid = document.getElementById('grid-partenaires');
         grid.innerHTML = data.map(fab => {
-          let logoBg = '';
-          if (fab.id === 'elios-ceramica') logoBg = "background-image: url('assets/img/elios.png');";
-          else if (fab.id === 'la-fenice') logoBg = "background-image: url('assets/img/lafenice.png');";
-          else if (fab.id === 'view-ceramica') logoBg = "background-image: url('assets/img/view.png');";
+          let logoFile = '';
+          if (fab.id === 'elios-ceramica') logoFile = 'elios.png';
+          else if (fab.id === 'view-ceramica') logoFile = 'view.png';
+          else if (fab.id === 'la-fenice') logoFile = 'lafenice.png';
+          else if (fab.id === 'reviglass') logoFile = 'reviglass.png';
+          else if (fab.id === 'biopietra') logoFile = 'biopietra.png';
+          else if (fab.id === 'petracers') logoFile = 'petracer.png';
+          else if (fab.id === 'pecchioli-firenze') logoFile = 'pecchioli.png';
+          else if (fab.id === 'bulbo') logoFile = 'bulbo.png';
+          else if (fab.id === 'randal-pro') logoFile = 'randal.png';
+          else if (fab.id === 'neobath') logoFile = 'neobath.png';
+          else if (fab.id === 'koibath') logoFile = 'koibath.png';
+          else if (fab.id === 'aquahome') logoFile = 'aquahome.png';
+          else if (fab.id === 'opal') logoFile = 'opal.png'; // si présent
+          else if (fab.id === 'bilt') logoFile = 'bilt.png';
+
+          let logoStyle = logoFile ? `background-image: url('assets/img/${logoFile}');` : '';
 
           return `
             <div class="card-premium partner-card" style="padding: 2rem; display: flex; flex-direction: column; justify-content: space-between; position: relative;">
-              <!-- Logo positionné en haut à droite, taille proportionnelle et visibilité augmentée (opacity: 0.25) -->
-              <div style="position: absolute; top: 1.5rem; right: 1.5rem; width: 110px; height: 60px; ${logoBg} background-repeat: no-repeat; background-position: right top; background-size: contain; opacity: 0.25; pointer-events: none; z-index: 1;"></div>
+              <!-- Logo 100% visible en haut à droite -->
+              <div style="position: absolute; top: 1.5rem; right: 1.5rem; width: 110px; height: 50px; ${logoStyle} background-repeat: no-repeat; background-position: right top; background-size: contain; opacity: 1; pointer-events: none; z-index: 1;"></div>
               
-              <div style="position: relative; z-index: 2;">
+              <div style="position: relative; z-index: 2; padding-right: 90px;">
                 <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-sage); font-weight: 600;">${fab.pays}</span>
                 <h3 style="font-size: 1.5rem; margin: 0.5rem 0 1rem; color: var(--color-anthracite);">${fab.nom}</h3>
                 <p style="font-size: 0.95rem; color: #555; margin-bottom: 1.5rem; line-height: 1.5;">${fab.presentation}</p>
