@@ -94,7 +94,9 @@ transition:.25s;
 
           return `
             <div class="card-premium partner-card" style="padding: 2rem; display: flex; flex-direction: column; justify-content: space-between; position: relative;">
-              <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; ${logoBg} background-repeat: no-repeat; background-position: center; background-size: 55% auto; opacity: 0.08; pointer-events: none; z-index: 1;"></div>
+              <!-- Logo positionné en haut à droite, taille proportionnelle et visibilité augmentée (opacity: 0.25) -->
+              <div style="position: absolute; top: 1.5rem; right: 1.5rem; width: 110px; height: 60px; ${logoBg} background-repeat: no-repeat; background-position: right top; background-size: contain; opacity: 0.25; pointer-events: none; z-index: 1;"></div>
+              
               <div style="position: relative; z-index: 2;">
                 <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-sage); font-weight: 600;">${fab.pays}</span>
                 <h3 style="font-size: 1.5rem; margin: 0.5rem 0 1rem; color: var(--color-anthracite);">${fab.nom}</h3>
