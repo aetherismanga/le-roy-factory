@@ -463,9 +463,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const modal = document.getElementById("client-modal");
   const modalClose = document.getElementById("modal-close-btn");
+  
+  // Nouveaux éléments pour la gestion de la modification
+  const viewMode = document.getElementById("modal-view-mode");
+  const editMode = document.getElementById("modal-edit-mode");
+  const btnEdit = document.getElementById("btn-edit-client");
+  const btnCancel = document.getElementById("btn-cancel-edit");
+  const formEdit = document.getElementById("form-edit-client");
+  
+  let currentEditingClient = null; // Stocke la référence du client cliqué
 
   function openModal(client) {
     if (!modal) return;
+    currentEditingClient = client; // On garde le client actif en mémoire
+    
+    // Basculer l'affichage sur la vue "Lecture"
+    if (viewMode && editMode) {
+      viewMode.style.display = "block";
+      editMode.style.display = "none";
+    }
+
     document.getElementById("modal-societe").textContent = client.societe || 'Sans nom';
     document.getElementById("modal-type").textContent = client.type || '-';
     document.getElementById("modal-adresse").textContent = client.adresse || '-';
@@ -487,6 +504,58 @@ document.addEventListener("DOMContentLoaded", () => {
     modal.style.display = "flex";
   }
 
+  // --- LOGIQUE DE MODIFICATION (EDIT) --- //
+
+  // 1. Ouvrir le formulaire d'édition
+  if (btnEdit) {
+    btnEdit.addEventListener("click", () => {
+      viewMode.style.display = "none";
+      editMode.style.display = "block";
+
+      // Pré-remplir les champs avec les données actuelles
+      document.getElementById("edit-societe").value = currentEditingClient.societe || '';
+      document.getElementById("edit-type").value = currentEditingClient.type || 'Prospect';
+      document.getElementById("edit-email").value = currentEditingClient.email || '';
+      document.getElementById("edit-telephone").value = currentEditingClient.telephone || '';
+      document.getElementById("edit-autre-tel").value = currentEditingClient.autre_telephone || '';
+      document.getElementById("edit-adresse").value = currentEditingClient.adresse || '';
+      document.getElementById("edit-cp").value = currentEditingClient.code_postal || '';
+      document.getElementById("edit-ville").value = currentEditingClient.ville || '';
+    });
+  }
+
+  // 2. Annuler l'édition
+  if (btnCancel) {
+    btnCancel.addEventListener("click", () => {
+      viewMode.style.display = "block";
+      editMode.style.display = "none";
+    });
+  }
+
+  // 3. Sauvegarder les modifications
+  if (formEdit) {
+    formEdit.addEventListener("submit", (e) => {
+      e.preventDefault();
+      
+      // Mettre à jour l'objet JS (Sauvegarde locale temporaire pour la session)
+      currentEditingClient.societe = document.getElementById("edit-societe").value;
+      currentEditingClient.type = document.getElementById("edit-type").value;
+      currentEditingClient.email = document.getElementById("edit-email").value;
+      currentEditingClient.telephone = document.getElementById("edit-telephone").value;
+      currentEditingClient.autre_telephone = document.getElementById("edit-autre-tel").value;
+      currentEditingClient.adresse = document.getElementById("edit-adresse").value;
+      currentEditingClient.code_postal = document.getElementById("edit-cp").value;
+      currentEditingClient.ville = document.getElementById("edit-ville").value;
+
+      // Rafraichir le tableau global et rouvrir la modale actualisée en vue lecture
+      renderTable(); 
+      openModal(currentEditingClient);
+      
+      alert("✅ Les informations du contact ont été modifiées avec succès !");
+    });
+  }
+
+  // Fermer la modale (X ou clic à l'extérieur)
   if (modalClose) {
     modalClose.addEventListener("click", () => {
       modal.style.display = "none";
