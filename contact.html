@@ -29,18 +29,22 @@
       font-weight: 500;
       position: relative;
       padding-bottom: 4px;
+      background: transparent !important; /* Pas de fond */
       transition: color 0.3s ease;
     }
 
     /* Effet au survol simple */
     .main-nav a:hover {
       color: #d4af37;
+      background: transparent !important;
     }
 
     /* Effet chic et moderne uniquement pour l'onglet actif : Texte doré + Ligne soulignée lumineuse */
     .main-nav a.active {
       color: #d4af37 !important;
       font-weight: 600;
+      background: transparent !important; /* Aucun fond plein */
+      box-shadow: none !important;        /* Aucune surbrillance de bloc */
     }
     
     .main-nav a.active::after {
@@ -60,7 +64,7 @@
       align-items:center;
       justify-content:center;
       padding:8px 14px;
-      background:#111;
+      background:#111 !important;
       color:#d4af37!important;
       border:1px solid #d4af37;
       border-radius:8px;
@@ -69,7 +73,7 @@
       transition:.25s;
     }
     .agent-btn::after { display: none !important; }
-    .agent-btn:hover{background:#d4af37;color:#111!important;}
+    .agent-btn:hover{background:#d4af37 !important;color:#111!important;}
     
     .contact-layout {
       display: grid;
