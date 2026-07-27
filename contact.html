@@ -12,7 +12,7 @@
   <style>
     .main-nav{
       display:flex;
-      gap:1.2rem;
+      gap:1.5rem;
       align-items:center;
       justify-content:flex-end;
       list-style:none;
@@ -21,28 +21,38 @@
       flex-wrap:nowrap;
     }
     .main-nav li{display:flex;align-items:center;}
+    
+    /* Style de base des liens du menu */
     .main-nav a{
       text-decoration:none;
       color: #ffffff;
       font-weight: 500;
-      transition: color 0.3s ease, text-shadow 0.3s ease;
       position: relative;
-      padding: 6px 0;
+      padding-bottom: 4px;
+      transition: color 0.3s ease;
     }
-    .main-nav a:hover, .main-nav a.active {
+
+    /* Effet au survol simple */
+    .main-nav a:hover {
+      color: #d4af37;
+    }
+
+    /* Effet chic et moderne uniquement pour l'onglet actif : Texte doré + Ligne soulignée lumineuse */
+    .main-nav a.active {
       color: #d4af37 !important;
-      text-shadow: 0 0 10px rgba(212, 175, 55, 0.6), 0 0 20px rgba(212, 175, 55, 0.3);
+      font-weight: 600;
     }
-    /* Petite ligne dorée moderne sous l'onglet actif */
+    
     .main-nav a.active::after {
       content: '';
       position: absolute;
-      bottom: 0;
+      bottom: -2px;
       left: 0;
       width: 100%;
       height: 2px;
-      background: linear-gradient(90deg, transparent, #d4af37, transparent);
-      box-shadow: 0 0 8px #d4af37;
+      background: #d4af37;
+      box-shadow: 0 0 8px rgba(212, 175, 55, 0.8);
+      border-radius: 2px;
     }
 
     .agent-btn{
@@ -57,7 +67,6 @@
       font-weight:600;
       white-space:nowrap;
       transition:.25s;
-      text-shadow: none !important;
     }
     .agent-btn::after { display: none !important; }
     .agent-btn:hover{background:#d4af37;color:#111!important;}
