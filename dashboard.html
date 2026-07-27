@@ -3,91 +3,156 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tableau de bord — LE ROY FACTORY</title>
+  <title>Tableau de bord — LE ROY FACTORY CRM</title>
+  <!-- Google Fonts pour la police digitale Orbitron -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/variables.css">
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
   <link rel="stylesheet" href="assets/css/dashboard.css">
 </head>
-<body class="dashboard-body">
+<body class="dashboard-body-crm">
 
-  <!-- Header du Tableau de bord -->
-  <header class="dashboard-header">
-    <div class="dashboard-nav-container">
-      <a href="index.html" class="logo">LE ROY FACTORY</a>
-      <div class="user-info">
-        <span id="user-greeting">Chargement...</span>
-        <button id="logout-btn" class="btn-logout">Déconnexion</button>
+  <!-- Barre latérale professionnelle -->
+  <aside class="crm-sidebar">
+    <div class="sidebar-brand">
+      <span class="brand-crown">👑</span>
+      <div class="brand-titles">
+        <span class="brand-name">LE ROY FACTORY</span>
+        <span class="brand-sub">Espace Commercial</span>
       </div>
     </div>
-  </header>
+    <ul class="sidebar-menu">
+      <li><a href="dashboard.html" class="active"><span class="icon">🏠</span><span class="menu-text">Tableau de bord</span></a></li>
+      <li><a href="clients.html"><span class="icon">👥</span><span class="menu-text">Clients</span></a></li>
+      <li><a href="clients.html?filter=prospect"><span class="icon">📞</span><span class="menu-text">Prospects</span></a></li>
+      <li><a href="#"><span class="icon">📅</span><span class="menu-text">Agenda</span></a></li>
+      <li><a href="#"><span class="icon">📝</span><span class="menu-text">Comptes-rendus</span></a></li>
+      <li><a href="catalogues.html"><span class="icon">📚</span><span class="menu-text">Catalogues</span></a></li>
+      <li><a href="partenaires.html"><span class="icon">🏭</span><span class="menu-text">Fabricants</span></a></li>
+      <li><a href="#"><span class="icon">📸</span><span class="menu-text">Photos</span></a></li>
+      <li><a href="#"><span class="icon">🗺</span><span class="menu-text">Carte</span></a></li>
+      <li><a href="#"><span class="icon">📊</span><span class="menu-text">Statistiques</span></a></li>
+      <li><a href="#"><span class="icon">🤖</span><span class="menu-text">Assistant IA</span></a></li>
+      <li><a href="#"><span class="icon">⚙</span><span class="menu-text">Paramètres</span></a></li>
+    </ul>
+    <div class="sidebar-footer">
+      <button id="logout-btn" class="btn-logout-sidebar">
+        <span>🚪</span> <span class="menu-text">Déconnexion</span>
+      </button>
+    </div>
+  </aside>
 
-  <!-- Contenu Principal -->
-  <main class="dashboard-main">
-    <div class="dashboard-container">
+  <!-- Contenu Principal CRM -->
+  <main class="crm-main-container">
+
+    <!-- 1. Grand Bandeau d'Accueil -->
+    <section class="welcome-banner">
+      <div class="welcome-text">
+        <h1 id="welcome-title">Bonjour Jérôme 👋</h1>
+        <p>Bienvenue dans votre espace commercial sécurisé LE ROY FACTORY.</p>
+      </div>
+      <div class="welcome-widgets">
+        <div class="widget-box">
+          <span class="widget-icon">📅</span>
+          <span id="current-date">--</span>
+        </div>
+        <!-- 2. Horloge Digitale -->
+        <div class="widget-box digital-clock-box">
+          <span class="widget-icon">⏰</span>
+          <span id="digital-clock" class="orbitron-clock">09:42:18</span>
+        </div>
+        <div class="widget-box">
+          <span class="widget-icon">🌤</span>
+          <span>26°C, Ensoleillé</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Actions Rapides -->
+    <section class="quick-actions-section">
+      <h2 class="section-subtitle">Actions rapides</h2>
+      <div class="actions-grid">
+        <button class="action-btn" data-action="Nouveau client"><span>➕</span> Nouveau client</button>
+        <button class="action-btn" data-action="Nouveau prospect"><span>📞</span> Nouveau prospect</button>
+        <button class="action-btn" data-action="Nouveau rendez-vous"><span>📅</span> Nouveau rendez-vous</button>
+        <button class="action-btn" data-action="Nouveau compte-rendu"><span>📝</span> Nouveau compte-rendu</button>
+        <button class="action-btn" data-action="Ajouter des photos"><span>📷</span> Ajouter des photos</button>
+      </div>
+    </section>
+
+    <!-- 3. Cartes Principales & Blocs Dynamiques -->
+    <section class="dashboard-grid-main">
       
-      <div class="dashboard-welcome">
-        <h1 id="welcome-title">Tableau de bord</h1>
-        <p>Gérez vos clients, prospects et outils commerciaux depuis votre espace.</p>
-        <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #555;">
-          📅 <span id="current-date">--</span> | ⏰ <span id="current-time">--</span> | 🌤 26°C, Ensoleillé
+      <!-- Cartes statistiques principales agrandies -->
+      <div class="stat-card-premium" onclick="window.location.href='clients.html'">
+        <div class="stat-card-icon">🏢</div>
+        <div class="stat-card-content">
+          <h3>CLIENTS</h3>
+          <p class="stat-value">201</p>
+          <span class="stat-desc">Portefeuille commercial actif</span>
         </div>
       </div>
 
-      <!-- Grille des modules -->
-      <div class="dashboard-grid">
-        <div class="dash-card" data-module="aujourdhui">
-          <div class="card-icon">⚡</div>
-          <h3>Aujourd'hui</h3>
-          <p>Tâches et rendez-vous du jour</p>
-        </div>
-
-        <div class="dash-card" data-module="clients">
-          <div class="card-icon">👥</div>
-          <h3>Clients</h3>
-          <p>Portefeuille clients et architectes</p>
-        </div>
-
-        <div class="dash-card" data-module="prospects">
-          <div class="card-icon">🎯</div>
-          <h3>Prospects</h3>
-          <p>Suivi commercial et chantiers</p>
-        </div>
-
-        <div class="dash-card" data-module="visites">
-          <div class="card-icon">📍</div>
-          <h3>Visites</h3>
-          <p>Planification des showrooms</p>
-        </div>
-
-        <div class="dash-card" data-module="comptes-rendus">
-          <div class="card-icon">📞</div>
-          <h3>Comptes-rendus</h3>
-          <p>Historique des échanges et notes</p>
-        </div>
-
-        <div class="dash-card" data-module="agenda">
-          <div class="card-icon">📅</div>
-          <h3>Agenda</h3>
-          <p>Planning global et réunions</p>
-        </div>
-
-        <div class="dash-card" data-module="catalogues">
-          <div class="card-icon">📁</div>
-          <h3>Catalogues</h3>
-          <p>Grilles tarifaires et documentations</p>
-        </div>
-
-        <div class="dash-card" data-module="objectifs">
-          <div class="card-icon">📊</div>
-          <h3>Objectifs</h3>
-          <p>Suivi des performances et chiffres</p>
+      <div class="stat-card-premium" onclick="window.location.href='clients.html?filter=prospect'">
+        <div class="stat-card-icon">🎯</div>
+        <div class="stat-card-content">
+          <h3>PROSPECTS</h3>
+          <p class="stat-value">78</p>
+          <span class="stat-desc">Suivi commercial en cours</span>
         </div>
       </div>
 
-    </div>
+      <div class="stat-card-premium">
+        <div class="stat-card-icon">📅</div>
+        <div class="stat-card-content">
+          <h3>AGENDA</h3>
+          <p class="stat-value">12</p>
+          <span class="stat-desc">Rendez-vous planifiés</span>
+        </div>
+      </div>
+
+      <!-- 7. Informations du jour -->
+      <div class="info-card-box">
+        <h3>⚡ Aujourd'hui</h3>
+        <ul class="today-list">
+          <li><span>3 rendez-vous showroom</span> <span class="badge-count">3</span></li>
+          <li><span>5 prospects à relancer</span> <span class="badge-count">5</span></li>
+          <li><span>2 comptes-rendus rédigés</span> <span class="badge-count">2</span></li>
+          <li><span>1 rappel important chantier</span> <span class="badge-count alert">1</span></li>
+        </ul>
+      </div>
+
+      <!-- 8. Objectifs du mois -->
+      <div class="info-card-box objective-box">
+        <h3>📊 Objectif du mois</h3>
+        <div class="objective-header">
+          <span>Chiffre d'affaires & Showrooms</span>
+          <span class="obj-percent">78 %</span>
+        </div>
+        <div class="progress-bar-container">
+          <div class="progress-bar-fill" style="width: 78%;"></div>
+        </div>
+        <span class="obj-sub">Objectif atteint à 78% — Plus que 5 jours restants.</span>
+      </div>
+
+      <!-- 9. Dernières activités -->
+      <div class="info-card-box">
+        <h3>🕒 Dernières activités</h3>
+        <ul class="activity-list">
+          <li><span class="act-icon">✔</span> <strong>Compte-rendu ajouté</strong> — Ciffreo Bona</li>
+          <li><span class="act-icon">✔</span> <strong>Prospect créé</strong> — MP CETIN EDEN</li>
+          <li><span class="act-icon">✔</span> <strong>Client modifié</strong> — Balitrand Biot</li>
+        </ul>
+      </div>
+
+    </section>
+
   </main>
+
+  <!-- Notification interactive pour les actions rapides -->
+  <div id="action-toast" class="action-toast">Action exécutée avec succès ✨</div>
 
   <script src="assets/js/dashboard.js"></script>
 </body>
