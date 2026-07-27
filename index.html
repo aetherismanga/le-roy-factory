@@ -38,7 +38,7 @@
     .agent-btn:hover{background:#d4af37;color:#111!important;}
   </style>
 </head>
-<body>
+<body style="background-color: #0b0b0b; margin: 0; padding: 0;">
 
   <header>
     <div class="container nav-container" style="height: 130px;">
@@ -64,16 +64,16 @@
     </div>
   </header>
 
-  <main style="padding-bottom: 0;">
-    <!-- Section Accueil avec la vidéo en fond et le logo principal centré -->
-    <section style="position: relative; height: calc(100vh - 130px); min-height: 600px; display: flex; align-items: center; justify-content: center; text-align: center; color: #fff; overflow: hidden; background-color: #111;">
-      <video autoplay muted loop playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;">
+  <main style="padding: 0;">
+    <!-- Section Accueil avec la vidéo en fond -->
+    <section style="position: relative; width: 100%; height: calc(100vh - 130px); min-height: 600px; display: flex; align-items: center; justify-content: center; text-align: center; color: #fff; overflow: hidden; background: #000;">
+      <video autoplay muted loop playsinline preload="auto" style="position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; transform: translate(-50%, -50%); object-fit: cover; z-index: 1;">
         <source src="assets/videos/pageacceuil.mp4" type="video/mp4">
+        Votre navigateur ne supporte pas la lecture de vidéos.
       </video>
       <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2;"></div>
       
       <div class="container" style="position: relative; z-index: 3; display: flex; flex-direction: column; align-items: center;">
-        <!-- Logo principal au centre de la page d'accueil -->
         <img src="assets/img/logo01.png" alt="LE ROY FACTORY" style="max-width: 450px; width: 100%; height: auto; margin-bottom: 2rem; filter: drop-shadow(0 4px 15px rgba(0,0,0,0.8));">
         
         <h2 style="font-size: 1.75rem; margin-bottom: 0.75rem; font-weight: 400; letter-spacing: 0.05em; text-shadow: 0 2px 8px rgba(0,0,0,0.8);">Votre solution Carrelage & Bain</h2>
@@ -88,7 +88,7 @@
   </main>
 
   <footer>
-    <div class="container" style="text-align: center;">
+    <div class="container" style="text-align: center; background: #111; color: #fff; padding: 1.5rem 0;">
       <p>&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p>
     </div>
   </footer>
