@@ -23,31 +23,31 @@
     .main-nav li{display:flex;align-items:center;}
     
     /* Style de base des liens du menu */
-    .main-nav a{
+    .main-nav > li > a:not(.agent-btn){
       text-decoration:none;
       color: #ffffff;
       font-weight: 500;
       position: relative;
       padding-bottom: 4px;
-      background: transparent !important; /* Pas de fond */
+      background: transparent !important;
       transition: color 0.3s ease;
     }
 
     /* Effet au survol simple */
-    .main-nav a:hover {
+    .main-nav > li > a:not(.agent-btn):hover {
       color: #d4af37;
       background: transparent !important;
     }
 
-    /* Effet chic et moderne uniquement pour l'onglet actif : Texte doré + Ligne soulignée lumineuse */
-    .main-nav a.active {
-      color: #d4af37 !important;
-      font-weight: 600;
-      background: transparent !important; /* Aucun fond plein */
-      box-shadow: none !important;        /* Aucune surbrillance de bloc */
+    /* Onglet actif : le texte garde sa couleur normale, seule la ligne dorée apparaît en dessous */
+    .main-nav > li > a.active:not(.agent-btn) {
+      color: #ffffff !important; /* Reste blanc/foncé selon votre header */
+      font-weight: 500;
+      background: transparent !important;
+      box-shadow: none !important;
     }
     
-    .main-nav a.active::after {
+    .main-nav > li > a.active:not(.agent-btn)::after {
       content: '';
       position: absolute;
       bottom: -2px;
@@ -59,21 +59,24 @@
       border-radius: 2px;
     }
 
+    /* Style du bouton Espace Agent */
     .agent-btn{
       display:inline-flex;
       align-items:center;
       justify-content:center;
       padding:8px 14px;
       background:#111 !important;
-      color:#d4af37!important;
+      color:#d4af37 !important;
       border:1px solid #d4af37;
       border-radius:8px;
       font-weight:600;
       white-space:nowrap;
       transition:.25s;
+      text-shadow: none !important;
+      box-shadow: none !important;
     }
     .agent-btn::after { display: none !important; }
-    .agent-btn:hover{background:#d4af37 !important;color:#111!important;}
+    .agent-btn:hover{background:#d4af37 !important;color:#111 !important;}
     
     .contact-layout {
       display: grid;
