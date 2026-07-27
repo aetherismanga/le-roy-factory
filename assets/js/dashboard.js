@@ -1,43 +1,47 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Vérification de la session agent
+  // Vérification de connexion
   const isLoggedIn = localStorage.getItem("agentLoggedIn");
   if (!isLoggedIn) {
     window.location.href = "agent.html";
     return;
   }
 
-  // Récupération du nom de l'agent connecté
-  const agentName = localStorage.getItem("agentName") || "Agent";
+  // Prénom de l'agent
+  const agentName = localStorage.getItem("agentName") || "Jérôme";
   const firstName = agentName.split(" ")[0];
-
-  const userGreeting = document.getElementById("user-greeting");
   const welcomeTitle = document.getElementById("welcome-title");
-  
-  if (userGreeting) {
-    userGreeting.textContent = `Bonjour ${firstName} 👋 — Espace Commercial Sécurisé`;
-  }
   if (welcomeTitle) {
-    welcomeTitle.textContent = `Tableau de bord de ${agentName}`;
+    welcomeTitle.textContent = `Bonjour ${firstName} 👋`;
   }
 
-  // Mise à jour en temps réel de la date et de l'heure
-  const dateElement = document.getElementById("current-date");
-  const timeElement = document.getElementById("current-time");
-
-  function updateDateTime() {
+  // Date dynamique complète
+  const dateEl = document.getElementById("current-date");
+  if (dateEl) {
     const now = new Date();
-    if (dateElement) {
-      let dateFormatted = now.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
-      dateElement.textContent = dateFormatted.charAt(0).toUpperCase() + dateFormatted.slice(1);
-    }
-    if (timeElement) {
-      timeElement.textContent = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+    let formattedDate = now.toLocaleDateString('fr-FR', { 
+      weekday: 'long', 
+      day: 'numeric', 
+      month: 'long', 
+      year: 'numeric' 
+    });
+    dateEl.textContent = formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
+  }
+
+  // 2. Horloge digitale mise à jour toutes les secondes
+  function updateDigitalClock() {
+    const clockEl = document.getElementById("digital-clock");
+    if (clockEl) {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      clockEl.textContent = `${hours}:${minutes}:${seconds}`;
     }
   }
-  updateDateTime();
-  setInterval(updateDateTime, 1000);
+  updateDigitalClock();
+  setInterval(updateDigitalClock, 1000);
 
-  // Gestion de la déconnexion
+  // Gestion du bouton de déconnexion
   const logoutBtn = document.getElementById("logout-btn");
   if (logoutBtn) {
     logoutBtn.addEventListener("click", () => {
@@ -48,22 +52,19 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Interaction et navigation des cartes du tableau de bord
-  const cards = document.querySelectorAll(".dash-card");
-  cards.forEach(card => {
-    card.addEventListener("click", () => {
-      document.querySelectorAll('.dash-card.is-selected').forEach(c => c.classList.remove('is-selected'));
-      card.classList.add('is-selected');
+  // 6. Interaction sur les boutons d'actions rapides (Toast élégant)
+  const actionBtns = document.querySelectorAll(".action-btn");
+  const toast = document.getElementById("action-toast");
 
-      const moduleName = card.getAttribute("data-module");
-      
-      // Redirection vers le module Clients & Prospects
-      if (moduleName === "clients" || moduleName === "prospects") {
+  actionBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const actionName = btn.getAttribute("data-action");
+      if (toast) {
+        toast.textContent = `Module « ${actionName} » — Bientôt disponible 🚀`;
+        toast.classList.add("show");
         setTimeout(() => {
-          window.location.href = "clients.html";
-        }, 150);
-      } else {
-        console.log(`Module ${moduleName} en cours de développement...`);
+          toast.classList.remove("show");
+        }, 3000);
       }
     });
   });
