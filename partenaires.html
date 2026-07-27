@@ -54,7 +54,6 @@ transition:.25s;
           <li><a href="agent.html" class="agent-btn">🔒 Espace Agent</a></li>
         </ul>
       </nav>
-      <!-- CORRECTION : Ajout du bouton burger manquant -->
       <button class="burger-btn" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
@@ -87,17 +86,24 @@ transition:.25s;
       .then(response => response.json())
       .then(data => {
         const grid = document.getElementById('grid-partenaires');
-        grid.innerHTML = data.map(fab => `
-          <div class="card-premium" style="padding: 2rem; display: flex; flex-direction: column; justify-content: space-between;">
-            <div>
-              <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-sage); font-weight: 600;">${fab.pays}</span>
-              <h3 style="font-size: 1.5rem; margin: 0.5rem 0 1rem; color: var(--color-anthracite);">${fab.nom}</h3>
-              <p style="font-size: 0.95rem; color: #555; margin-bottom: 1.5rem; line-height: 1.5;">${fab.presentation}</p>
+        grid.innerHTML = data.map(fab => {
+          let logoBg = '';
+          if (fab.id === 'elios-ceramica') logoBg = "background-image: url('assets/img/elios.png');";
+          else if (fab.id === 'la-fenice') logoBg = "background-image: url('assets/img/lafenice.png');";
+          else if (fab.id === 'view-ceramica') logoBg = "background-image: url('assets/img/view.png');";
+
+          return `
+            <div class="card-premium partner-card" style="padding: 2rem; display: flex; flex-direction: column; justify-content: space-between; position: relative;">
+              <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; ${logoBg} background-repeat: no-repeat; background-position: center; background-size: 55% auto; opacity: 0.08; pointer-events: none; z-index: 1;"></div>
+              <div style="position: relative; z-index: 2;">
+                <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-sage); font-weight: 600;">${fab.pays}</span>
+                <h3 style="font-size: 1.5rem; margin: 0.5rem 0 1rem; color: var(--color-anthracite);">${fab.nom}</h3>
+                <p style="font-size: 0.95rem; color: #555; margin-bottom: 1.5rem; line-height: 1.5;">${fab.presentation}</p>
+              </div>
+              <a href="${fab.site}" target="_blank" rel="noopener" class="btn btn-outline" style="position: relative; z-index: 2; align-self: flex-start; font-size: 0.85rem; padding: 0.5rem 1rem; border-color: var(--color-anthracite); color: var(--color-anthracite);">Site officiel</a>
             </div>
-            <!-- CORRECTION POINT 3 : Ajout de styles inline pour forcer la visibilité du bouton (bordure et texte) -->
-            <a href="${fab.site}" target="_blank" rel="noopener" class="btn btn-outline" style="align-self: flex-start; font-size: 0.85rem; padding: 0.5rem 1rem; border-color: var(--color-anthracite); color: var(--color-anthracite);">Site officiel</a>
-          </div>
-        `).join('');
+          `;
+        }).join('');
       })
       .catch(error => console.error('Erreur lors du chargement des partenaires :', error));
   </script>
