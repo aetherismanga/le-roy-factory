@@ -9,45 +9,85 @@
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
-<style>
-  /* Header et Footer avec l'image bandeau01.png */
-  header, footer {
-    background-image: url('assets/img/bandeau01.png');
-    background-size: cover;
-    background-position: center;
-    color: #ffffff;
-  }
-  header a, footer p {
-    color: #ffffff !important;
-  }
+  <style>
+    /* Header et Footer avec l'image bandeau01.png */
+    header, footer {
+      background-image: url('assets/img/bandeau01.png');
+      background-size: cover;
+      background-position: center;
+      color: #ffffff;
+    }
+    header a, footer p {
+      color: #ffffff !important;
+    }
 
-.main-nav{
-display:flex;
-gap:1.2rem;
-align-items:center;
-justify-content:flex-end;
-list-style:none;
-margin:0;
-padding:0;
-flex-wrap:nowrap;
-}
-.main-nav li{display:flex;align-items:center;}
-.main-nav a{text-decoration:none;}
-.agent-btn{
-display:inline-flex;
-align-items:center;
-justify-content:center;
-padding:8px 14px;
-background:#111;
-color:#d4af37!important;
-border:1px solid #d4af37;
-border-radius:8px;
-font-weight:600;
-white-space:nowrap;
-transition:.25s;
-}
-.agent-btn:hover{background:#d4af37;color:#111!important;}
-</style>
+    .main-nav{
+      display:flex;
+      gap:1.2rem;
+      align-items:center;
+      justify-content:flex-end;
+      list-style:none;
+      margin:0;
+      padding:0;
+      flex-wrap:nowrap;
+    }
+    .main-nav li{display:flex;align-items:center;}
+    
+    /* Style de base des liens du menu */
+    .main-nav > li > a:not(.agent-btn){
+      text-decoration:none;
+      color: #ffffff;
+      font-weight: 500;
+      position: relative;
+      padding-bottom: 4px;
+      background: transparent !important;
+      transition: color 0.3s ease;
+    }
+
+    /* Effet au survol simple */
+    .main-nav > li > a:not(.agent-btn):hover {
+      color: #d4af37;
+      background: transparent !important;
+    }
+
+    /* Onglet actif : texte normal, seule la ligne dorée apparaît en dessous */
+    .main-nav > li > a.active:not(.agent-btn) {
+      color: #ffffff !important;
+      font-weight: 500;
+      background: transparent !important;
+      box-shadow: none !important;
+    }
+    
+    .main-nav > li > a.active:not(.agent-btn)::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: #d4af37;
+      box-shadow: 0 0 8px rgba(212, 175, 55, 0.8);
+      border-radius: 2px;
+    }
+
+    .agent-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:8px 14px;
+      background:#111 !important;
+      color:#d4af37 !important;
+      border:1px solid #d4af37;
+      border-radius:8px;
+      font-weight:600;
+      white-space:nowrap;
+      transition:.25s;
+      text-shadow: none !important;
+      box-shadow: none !important;
+    }
+    .agent-btn::after { display: none !important; }
+    .agent-btn:hover{background:#d4af37 !important;color:#111 !important;}
+  </style>
 </head>
 <body>
 
@@ -62,55 +102,40 @@ transition:.25s;
         <ul class="main-nav">
           <li><a href="partenaires.html">Partenaires</a></li>
           <li><a href="univers.html">Inspirations</a></li>
-          <li><a href="realisations.html">Réalisations</a></li>
+          <li><a href="realisations.html" class="active">Réalisations</a></li>
           <li><a href="catalogues.html">Catalogues</a></li>
           <li><a href="tarifs-pro.html">Tarifs PRO</a></li>
           <li><a href="contact.html">Contact</a></li>
           <li><a href="agent.html" class="agent-btn">🔒 Espace Agent</a></li>
         </ul>
       </nav>
-      <!-- CORRECTION : Ajout du bouton burger manquant pour le mobile -->
       <button class="burger-btn" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
     </div>
   </header>
 
-  <main style="padding-top: 120px; padding-bottom: 4rem;">
-    <div class="container">
-      <h1 style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--color-anthracite);">Galerie des Réalisations</h1>
-      <p style="font-size: 1.1rem; color: #666; margin-bottom: 2rem; max-width: 700px;">Explorez l'application de nos matériaux d'exception à travers des projets résidentiels et professionnels.</p>
-      
-      <!-- Filtres -->
-      <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 3rem;">
-        <button class="btn btn-primary" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Tous</button>
-        <button class="btn btn-outline" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Cuisine</button>
-        <button class="btn btn-outline" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Salon</button>
-        <button class="btn btn-outline" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Salle de bain</button>
-        <button class="btn btn-outline" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Terrasse</button>
-        <button class="btn btn-outline" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Piscine</button>
-        <button class="btn btn-outline" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Professionnel</button>
-        <button class="btn btn-outline" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Résidentiel</button>
+  <main style="padding-bottom: 4rem;">
+    <section class="hero-banner" style="background-image: url('assets/img/05.png');">
+      <div class="container">
+        <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Nos Réalisations</h1>
+        <p style="font-size: 1.1rem; opacity: 0.9; max-width: 700px;">Plongez au cœur de nos plus beaux chantiers et découvrez la mise en valeur de nos matériaux d'exception.</p>
       </div>
+    </section>
 
-      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2rem;">
-        <div class="card-premium" style="height: 300px; display: flex; align-items: flex-end; padding: 2rem; background: var(--color-light-grey);">
-          <div>
-            <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-sage); font-weight: 600;">Résidentiel</span>
-            <h3 style="font-size: 1.25rem; color: var(--color-anthracite); margin-top: 0.25rem;">Villa contemporaine — Cannes</h3>
-          </div>
+    <div class="container" style="margin-top: 3rem;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem;">
+        <div class="card-premium" style="padding: 2rem; background: #fff;">
+          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--color-anthracite);">Villa Contemporaine - Var</h3>
+          <p style="font-size: 0.9rem; color: #666;">Pose grand format effet pierre et aménagement de salles de bains épurées.</p>
         </div>
-        <div class="card-premium" style="height: 300px; display: flex; align-items: flex-end; padding: 2rem; background: var(--color-light-grey);">
-          <div>
-            <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-sage); font-weight: 600;">Professionnel</span>
-            <h3 style="font-size: 1.25rem; color: var(--color-anthracite); margin-top: 0.25rem;">Hôtel Boutique — Aix-en-Provence</h3>
-          </div>
+        <div class="card-premium" style="padding: 2.5rem; background: #fff;">
+          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--color-anthracite);">Appartement Haussmannien - Marseille</h3>
+          <p style="font-size: 0.9rem; color: #666;">Mariage subtil de carreaux de zellige artisanaux et parquets céramiques.</p>
         </div>
-        <div class="card-premium" style="height: 300px; display: flex; align-items: flex-end; padding: 2rem; background: var(--color-light-grey);">
-          <div>
-            <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-sage); font-weight: 600;">Salle de bain</span>
-            <h3 style="font-size: 1.25rem; color: var(--color-anthracite); margin-top: 0.25rem;">Appartement Haussmannien — Nice</h3>
-          </div>
+        <div class="card-premium" style="padding: 2.5rem; background: #fff;">
+          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--color-anthracite);">Hôtel de Charme - Côte d'Azur</h3>
+          <p style="font-size: 0.9rem; color: #666;">Revêtements muraux texturés et mosaïques de verre pour espaces bien-être.</p>
         </div>
       </div>
     </div>
