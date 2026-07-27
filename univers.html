@@ -10,9 +10,20 @@
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
   <style>
+    /* Header et Footer avec l'image bandeau01.png */
+    header, footer {
+      background-image: url('assets/img/bandeau01.png');
+      background-size: cover;
+      background-position: center;
+      color: #ffffff;
+    }
+    header a, footer p {
+      color: #ffffff !important;
+    }
+
     .main-nav{
       display:flex;
-      gap:1.5rem;
+      gap:1.2rem;
       align-items:center;
       justify-content:flex-end;
       list-style:none;
@@ -21,7 +32,8 @@
       flex-wrap:nowrap;
     }
     .main-nav li{display:flex;align-items:center;}
-    
+
+    /* Style de base des liens du menu */
     .main-nav > li > a:not(.agent-btn){
       text-decoration:none;
       color: #ffffff;
@@ -31,16 +43,21 @@
       background: transparent !important;
       transition: color 0.3s ease;
     }
+
+    /* Effet au survol simple */
     .main-nav > li > a:not(.agent-btn):hover {
       color: #d4af37;
       background: transparent !important;
     }
+
+    /* Onglet actif : texte normal, seule la ligne dorée apparaît en dessous */
     .main-nav > li > a.active:not(.agent-btn) {
       color: #ffffff !important;
       font-weight: 500;
       background: transparent !important;
       box-shadow: none !important;
     }
+    
     .main-nav > li > a.active:not(.agent-btn)::after {
       content: '';
       position: absolute;
@@ -52,6 +69,7 @@
       box-shadow: 0 0 8px rgba(212, 175, 55, 0.8);
       border-radius: 2px;
     }
+
     .agent-btn{
       display:inline-flex;
       align-items:center;
@@ -74,7 +92,7 @@
 <body>
 
   <header>
-    <div class="container nav-container" style="height: 130px;">
+    <div class="container nav-container" style="height: 130px; display: flex; align-items: center; justify-content: space-between;">
       <a href="index.html" class="logo" style="display: flex; align-items: center; height: 100%; padding-left: 1.5rem;">
         <div style="width: 110px; height: 110px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.4);">
           <img src="assets/img/logo02lrf.png" alt="LE ROY FACTORY" style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.35);">
@@ -98,20 +116,61 @@
   </header>
 
   <main style="padding-bottom: 4rem;">
-    <section class="hero-banner" style="background-image: url('assets/img/02.png');">
+    <section class="hero-banner" style="background-image: url('assets/img/03.png');">
       <div class="container">
         <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Inspirations & Univers</h1>
-        <p style="font-size: 1.1rem; opacity: 0.9; max-width: 700px;">Explorez nos tendances et ambiances pour sublimer vos espaces.</p>
+        <p style="font-size: 1.1rem; opacity: 0.9; max-width: 700px;">Trouvez l'inspiration à travers nos différentes esthétiques et matières soigneusement sélectionnées.</p>
       </div>
     </section>
 
     <div class="container" style="margin-top: 3rem;">
-      <p>Contenu des inspirations...</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem;">
+        <div class="card-premium" style="padding: 2.5rem; background: var(--color-light-grey);">
+          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--color-anthracite);">Bois</h3>
+          <p style="font-size: 0.9rem; color: #666;">Chaleur et noblesse du bois naturel transposées dans la céramique.</p>
+        </div>
+        <div class="card-premium" style="padding: 2.5rem; background: var(--color-light-grey);">
+          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--color-anthracite);">Pierre</h3>
+          <p style="font-size: 0.9rem; color: #666;">Authenticité et robustesse des textures minérales brutes.</p>
+        </div>
+        <div class="card-premium" style="padding: 2.5rem; background: var(--color-light-grey);">
+          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--color-anthracite);">Marbre</h3>
+          <p style="font-size: 0.9rem; color: #666;">Élégance intemporelle et veines graphiques d'exception.</p>
+        </div>
+        <div class="card-premium" style="padding: 2.5rem; background: var(--color-light-grey);">
+          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--color-anthracite);">Béton</h3>
+          <p style="font-size: 0.9rem; color: #666;">Esprit industriel, épuré et contemporain.</p>
+        </div>
+        <div class="card-premium" style="padding: 2.5rem; background: var(--color-light-grey);">
+          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--color-anthracite);">Terrazzo</h3>
+          <p style="font-size: 0.9rem; color: #666;">Le retour en force du granito multicolore et graphique.</p>
+        </div>
+        <div class="card-premium" style="padding: 2.5rem; background: var(--color-light-grey);">
+          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--color-anthracite);">Zellige</h3>
+          <p style="font-size: 0.9rem; color: #666;">Reflets nacrés et variations artisanales uniques.</p>
+        </div>
+        <div class="card-premium" style="padding: 2.5rem; background: var(--color-light-grey);">
+          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--color-anthracite);">Métal</h3>
+          <p style="font-size: 0.9rem; color: #666;">Effets oxydés et reflets métalliques sophistiqués.</p>
+        </div>
+        <div class="card-premium" style="padding: 2.5rem; background: var(--color-light-grey);">
+          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--color-anthracite);">Nature</h3>
+          <p style="font-size: 0.9rem; color: #666;">Tons terreux, organiques et ambiances végétales.</p>
+        </div>
+        <div class="card-premium" style="padding: 2.5rem; background: var(--color-light-grey);">
+          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--color-anthracite);">Contemporain</h3>
+          <p style="font-size: 0.9rem; color: #666;">Lignes pures et tendances actuelles du design.</p>
+        </div>
+        <div class="card-premium" style="padding: 2.5rem; background: var(--color-light-grey);">
+          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--color-anthracite);">Minimaliste</h3>
+          <p style="font-size: 0.9rem; color: #666;">L'essentiel sublimé par la simplicité formelle.</p>
+        </div>
+      </div>
     </div>
   </main>
 
   <footer>
-    <div class="container" style="text-align: center;">
+    <div class="container" style="text-align: center; padding: 2rem 0;">
       <p>&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p>
     </div>
   </footer>
