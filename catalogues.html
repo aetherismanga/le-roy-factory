@@ -48,7 +48,7 @@
           <li><a href="partenaires.html">Partenaires</a></li>
           <li><a href="univers.html">Inspirations</a></li>
           <li><a href="realisations.html">Réalisations</a></li>
-          <li><a href="catalogues.html" class="active">Catalogues</a></li>
+          <li><a href="catalogues.html">Catalogues</a></li>
           <li><a href="tarifs-pro.html">Tarifs PRO</a></li>
           <li><a href="contact.html">Contact</a></li>
           <li><a href="agent.html" class="agent-btn">🔒 Espace Agent</a></li>
@@ -60,20 +60,24 @@
     </div>
   </header>
 
-  <main style="padding-top: 120px; padding-bottom: 4rem;">
-    <div class="container">
-      <h1 style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--color-anthracite);">Catalogues Partenaires</h1>
-      <p style="font-size: 1.1rem; color: #666; margin-bottom: 3rem; max-width: 700px;">Consultez et téléchargez l'ensemble des catalogues officiels et documentations de nos fabricants.</p>
-      
-      <div id="grid-catalogues" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem;">
-        <!-- Injection dynamique sécurisée via JS -->
+  <main style="padding-bottom: 4rem;">
+    <section class="hero-banner" style="background-image: url('assets/img/02.png');">
+      <div class="container">
+        <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Catalogues Partenaires</h1>
+        <p style="font-size: 1.1rem; opacity: 0.9; max-width: 700px;">Consultez et téléchargez l'ensemble des catalogues officiels et documentations de nos fabricants.</p>
+      </div>
+    </section>
+
+    <div class="container" style="margin-top: 3rem;">
+      <div id="grid-catalogues" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 2rem;">
+        <!-- Injection dynamique -->
       </div>
     </div>
   </main>
 
   <footer>
     <div class="container" style="text-align: center;">
-      <p style="color: #000000 !important; font-weight: 600; text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);">&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p>
+      <p>&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p>
     </div>
   </footer>
 
@@ -204,26 +208,50 @@
 
       const grid = document.getElementById('grid-catalogues');
       if (grid) {
-        grid.innerHTML = cataloguesData.map(fab => `
-          <div class="card-premium" style="background: #ffffff; border: 1px solid rgba(0,0,0,0.06); border-radius: 4px; padding: 2rem; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
-            <div>
-              <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #708273; font-weight: 600;">${fab.pays}</span>
-              <h3 style="font-size: 1.25rem; margin: 0.5rem 0 1rem; color: #1a2530;">${fab.nom}</h3>
-              <p style="font-size: 0.9rem; color: #555; margin-bottom: 1.5rem;">${fab.presentation}</p>
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-              ${fab.fichiers.map(file => `
-                <div style="background: #f8f6f2; padding: 0.75rem 1rem; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
-                  <div>
-                    <strong style="display: block; font-size: 0.85rem; color: #1a2530;">${file.titre}</strong>
-                    <span style="font-size: 0.75rem; color: #666;">${file.desc}</span>
+        grid.innerHTML = cataloguesData.map(fab => {
+          let logoFile = '';
+          const nameLower = fab.nom.toLowerCase();
+          if (nameLower.includes('elios')) logoFile = 'elios.png';
+          else if (nameLower.includes('view')) logoFile = 'view.png';
+          else if (nameLower.includes('fenice')) logoFile = 'lafenice.png';
+          else if (nameLower.includes('reviglass')) logoFile = 'reviglass.png';
+          else if (nameLower.includes('biopietra')) logoFile = 'biopietra.png';
+          else if (nameLower.includes('petracer')) logoFile = 'petracer.png';
+          else if (nameLower.includes('pecchioli')) logoFile = 'pecchioli.png';
+          else if (nameLower.includes('bulbo')) logoFile = 'bulbo.png';
+          else if (nameLower.includes('randal')) logoFile = 'randal.png';
+          else if (nameLower.includes('neobath')) logoFile = 'neobath.png';
+          else if (nameLower.includes('koibath')) logoFile = 'koibath.png';
+          else if (nameLower.includes('aquahome')) logoFile = 'aquahome.png';
+          else if (nameLower.includes('opal')) logoFile = 'opal.png';
+          else if (nameLower.includes('bilt')) logoFile = 'bilt.png';
+
+          let logoStyle = logoFile ? `background-image: url('assets/img/${logoFile}');` : '';
+
+          return `
+            <div class="card-premium" style="background: #ffffff; border: 1px solid rgba(0,0,0,0.06); border-radius: 4px; padding: 2rem; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 20px rgba(0,0,0,0.03); position: relative;">
+              <!-- Logo 100% visible en haut à droite -->
+              <div style="position: absolute; top: 1.5rem; right: 1.5rem; width: 110px; height: 50px; ${logoStyle} background-repeat: no-repeat; background-position: right top; background-size: contain; opacity: 1; pointer-events: none; z-index: 1;"></div>
+              
+              <div style="position: relative; z-index: 2; padding-right: 90px;">
+                <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #708273; font-weight: 600;">${fab.pays}</span>
+                <h3 style="font-size: 1.25rem; margin: 0.5rem 0 1rem; color: #1a2530;">${fab.nom}</h3>
+                <p style="font-size: 0.9rem; color: #555; margin-bottom: 1.5rem;">${fab.presentation}</p>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 0.75rem; position: relative; z-index: 2;">
+                ${fab.fichiers.map(file => `
+                  <div style="background: #f8f6f2; padding: 0.75rem 1rem; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
+                    <div>
+                      <strong style="display: block; font-size: 0.85rem; color: #1a2530;">${file.titre}</strong>
+                      <span style="font-size: 0.75rem; color: #666;">${file.desc}</span>
+                    </div>
+                    <a href="${file.lien}" target="_blank" class="btn btn-outline" style="font-size: 0.75rem; padding: 0.4rem 0.8rem; border: 1px solid #1a2530; color: #1a2530; text-decoration: none; border-radius: 4px; white-space: nowrap;">Lien</a>
                   </div>
-                  <a href="${file.lien}" target="_blank" class="btn btn-outline" style="font-size: 0.75rem; padding: 0.4rem 0.8rem; border: 1px solid #1a2530; color: #1a2530; text-decoration: none; border-radius: 4px; white-space: nowrap;">Lien</a>
-                </div>
-              `).join('')}
+                `).join('')}
+              </div>
             </div>
-          </div>
-        `).join('');
+          `;
+        }).join('');
       }
     });
   </script>
