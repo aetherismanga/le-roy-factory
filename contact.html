@@ -21,7 +21,30 @@
       flex-wrap:nowrap;
     }
     .main-nav li{display:flex;align-items:center;}
-    .main-nav a{text-decoration:none;}
+    .main-nav a{
+      text-decoration:none;
+      color: #ffffff;
+      font-weight: 500;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+      position: relative;
+      padding: 6px 0;
+    }
+    .main-nav a:hover, .main-nav a.active {
+      color: #d4af37 !important;
+      text-shadow: 0 0 10px rgba(212, 175, 55, 0.6), 0 0 20px rgba(212, 175, 55, 0.3);
+    }
+    /* Petite ligne dorée moderne sous l'onglet actif */
+    .main-nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #d4af37, transparent);
+      box-shadow: 0 0 8px #d4af37;
+    }
+
     .agent-btn{
       display:inline-flex;
       align-items:center;
@@ -34,7 +57,9 @@
       font-weight:600;
       white-space:nowrap;
       transition:.25s;
+      text-shadow: none !important;
     }
+    .agent-btn::after { display: none !important; }
     .agent-btn:hover{background:#d4af37;color:#111!important;}
     
     .contact-layout {
@@ -84,7 +109,7 @@
           <li><a href="realisations.html">Réalisations</a></li>
           <li><a href="catalogues.html">Catalogues</a></li>
           <li><a href="tarifs-pro.html">Tarifs PRO</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          <li><a href="contact.html" class="active">Contact</a></li>
           <li><a href="agent.html" class="agent-btn">🔒 Espace Agent</a></li>
         </ul>
       </nav>
