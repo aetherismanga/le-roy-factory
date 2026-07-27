@@ -1,144 +1,496 @@
-.dashboard-body {
-  background-color: #F8F6F2;
-  color: #2F2F2F;
-  margin: 0;
-  font-family: inherit;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+/* ==========================================
+   TABLEAU DE BORD CRM — LE ROY FACTORY
+   Design Professionnel Haut de Gamme (Noir / Blanc / Doré / Gris clair)
+   ========================================== */
+
+:root {
+  --sidebar-width: 280px;
+  --color-dark: #111111;
+  --color-gold: #D4AF37;
+  --color-gold-light: #FFD700;
+  --bg-crm: #F8F6F2;
+  --card-bg: #FFFFFF;
+  --border-color: rgba(0, 0, 0, 0.08);
+  --shadow-subtle: 0 10px 30px rgba(0, 0, 0, 0.04);
+  --shadow-hover: 0 15px 35px rgba(212, 175, 55, 0.15);
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.dashboard-header {
-  background: #FFFFFF;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+body.dashboard-body-crm {
+  background-color: var(--bg-crm);
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  display: flex;
+  min-height: 100vh;
+  color: #2F2F2F;
+}
+
+/* 10. Barre Latérale Professionnelle Fixe */
+.crm-sidebar {
+  width: var(--sidebar-width);
+  background-color: var(--color-dark);
+  border-right: 1px solid rgba(212, 175, 55, 0.2);
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
   z-index: 1000;
 }
 
-.dashboard-nav-container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 2rem;
-  height: 80px;
+.sidebar-brand {
+  padding: 1.75rem 1.5rem;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.dashboard-header .logo {
-  font-weight: 800;
-  font-size: 1.25rem;
-  color: #1A2530;
-  text-decoration: none;
-  letter-spacing: 0.05em;
+.brand-crown {
+  font-size: 1.8rem;
 }
 
-.user-info {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-}
-
-#user-greeting {
-  font-weight: 600;
-  color: #1A2530;
-  font-size: 0.95rem;
-}
-
-.btn-logout {
-  background: transparent;
-  border: 1px solid #D1D5DB;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  color: #4B5563;
-  transition: all 0.2s;
-}
-
-.btn-logout:hover {
-  background-color: #F3F4F6;
-  color: #111111;
-  border-color: #9CA3AF;
-}
-
-.dashboard-main {
-  margin-top: 80px;
-  flex: 1;
-  padding: 3rem 2rem;
-}
-
-.dashboard-container {
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.dashboard-welcome {
-  margin-bottom: 2.5rem;
-}
-
-.dashboard-welcome h1 {
-  font-size: 2rem;
-  color: #1A2530;
-  margin: 0 0 0.5rem 0;
-}
-
-.dashboard-welcome p {
-  color: #666;
-  font-size: 0.95rem;
-  margin: 0;
-}
-
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
-}
-
-.dash-card {
-  background: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  border-radius: 8px;
-  padding: 1.75rem;
-  cursor: pointer;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+.brand-titles {
   display: flex;
   flex-direction: column;
 }
 
-.dash-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
-  border-color: rgba(212, 175, 55, 0.3);
+.brand-name {
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--color-gold);
+  letter-spacing: 0.08em;
 }
 
-.card-icon {
+.brand-sub {
+  font-size: 0.75rem;
+  color: #999;
+  letter-spacing: 0.05em;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 1rem 0;
+  margin: 0;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.sidebar-menu::-webkit-scrollbar {
+  width: 4px;
+}
+.sidebar-menu::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.3);
+  border-radius: 4px;
+}
+
+.sidebar-menu li a {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 1.75rem;
+  color: #B3B3B3;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: var(--transition-smooth);
+  border-left: 3px solid transparent;
+}
+
+.sidebar-menu li a:hover,
+.sidebar-menu li a.active {
+  color: var(--color-gold-light);
+  background-color: rgba(212, 175, 55, 0.07);
+  border-left-color: var(--color-gold);
+}
+
+.sidebar-menu span.icon {
+  font-size: 1.2rem;
+  width: 24px;
+  text-align: center;
+}
+
+.sidebar-footer {
+  padding: 1.25rem 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.btn-logout-sidebar {
+  width: 100%;
+  background: transparent;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  color: var(--color-gold);
+  padding: 0.8rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-logout-sidebar:hover {
+  background-color: var(--color-gold);
+  color: #111;
+  border-color: var(--color-gold);
+}
+
+/* 5. Conteneur Principal & Espacement Harmonieux */
+.crm-main-container {
+  margin-left: var(--sidebar-width);
+  flex: 1;
+  padding: 2.5rem 3rem;
+  box-sizing: border-box;
+  max-width: 1550px;
+}
+
+/* 1. Grand Bandeau d'Accueil */
+.welcome-banner {
+  background: var(--card-bg);
+  padding: 2rem 2.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-subtle);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.welcome-text h1 {
   font-size: 2rem;
-  margin-bottom: 1rem;
-}
-
-.dash-card h3 {
-  font-size: 1.15rem;
+  font-weight: 800;
   color: #1A2530;
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 0.35rem 0;
 }
 
-.dash-card p {
-  font-size: 0.85rem;
+.welcome-text p {
   color: #666;
+  font-size: 0.95rem;
   margin: 0;
 }
 
-@media (max-width: 768px) {
-  .dashboard-main {
-    padding: 1.5rem 1rem;
+.welcome-widgets {
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.widget-box {
+  background: #FAFAFA;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 0.85rem 1.25rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.widget-icon {
+  font-size: 1.1rem;
+}
+
+/* 2. Horloge Digitale Premium */
+.digital-clock-box {
+  background: #111111 !important;
+  color: var(--color-gold-light) !important;
+  border: 1px solid rgba(212, 175, 55, 0.3) !important;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);
+}
+
+.orbitron-clock {
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+}
+
+/* 6. Actions Rapides */
+.quick-actions-section {
+  margin-bottom: 2.25rem;
+}
+
+.section-subtitle {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1A2530;
+  margin-bottom: 1rem;
+}
+
+.actions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.25rem;
+}
+
+.action-btn {
+  background: var(--card-bg);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  color: #1A2530;
+  padding: 1rem 1.25rem;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  box-shadow: var(--shadow-subtle);
+  transition: var(--transition-smooth);
+}
+
+.action-btn:hover {
+  background-color: var(--color-dark);
+  color: var(--color-gold-light);
+  border-color: var(--color-gold);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* 3. & 4. Grille Principale & Cartes Spacieuses avec Animations Premium */
+.dashboard-grid-main {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 2rem;
+}
+
+.stat-card-premium {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 2.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  box-shadow: var(--shadow-subtle);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card-premium::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--color-gold);
+  opacity: 0;
+  transition: var(--transition-smooth);
+}
+
+/* 4. Animation au survol très premium */
+.stat-card-premium:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--color-gold);
+}
+
+.stat-card-premium:hover::before {
+  opacity: 1;
+}
+
+.stat-card-icon {
+  font-size: 2.75rem;
+  background: #FAF8F5;
+  padding: 1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 75px;
+  min-height: 75px;
+}
+
+.stat-card-content h3 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #777;
+  letter-spacing: 0.08em;
+  margin: 0 0 0.35rem 0;
+  text-transform: uppercase;
+}
+
+.stat-value {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #1A2530;
+  margin: 0 0 0.25rem 0;
+  line-height: 1;
+}
+
+.stat-desc {
+  font-size: 0.88rem;
+  color: #666;
+}
+
+/* Blocs Infos (Aujourd'hui, Objectifs, Dernières activités) */
+.info-card-box {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: var(--shadow-subtle);
+  transition: var(--transition-smooth);
+}
+
+.info-card-box:hover {
+  box-shadow: var(--shadow-hover);
+  border-color: rgba(212, 175, 55, 0.3);
+}
+
+.info-card-box h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1A2530;
+  margin: 0 0 1.25rem 0;
+  border-bottom: 2px solid #F1F1F1;
+  padding-bottom: 0.75rem;
+}
+
+/* Listes internes */
+.today-list, .activity-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.today-list li, .activity-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #F5F5F5;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.today-list li:last-child, .activity-list li:last-child {
+  border-bottom: none;
+}
+
+.badge-count {
+  background: #EAE6DF;
+  color: #333;
+  padding: 0.2rem 0.65rem;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+.badge-count.alert {
+  background: #FEE2E2;
+  color: #DC2626;
+}
+
+/* 8. Objectifs du mois & Barre de progression */
+.objective-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 0.75rem;
+}
+
+.obj-percent {
+  font-weight: 800;
+  color: var(--color-gold);
+  font-size: 1.1rem;
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 12px;
+  background: #EAE6DF;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #D4AF37, #FFD700);
+  border-radius: 6px;
+  transition: width 1s ease-in-out;
+}
+
+.obj-sub {
+  font-size: 0.82rem;
+  color: #777;
+}
+
+.act-icon {
+  color: #16A34A;
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+
+/* Notification Toast pour les actions rapides */
+.action-toast {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: #111111;
+  color: #FFD700;
+  padding: 1rem 1.75rem;
+  border-radius: 8px;
+  font-weight: 600;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  border: 1px solid #D4AF37;
+  z-index: 9999;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.action-toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 12. Responsive Parfait */
+@media (max-width: 1100px) {
+  .crm-sidebar {
+    width: 70px;
   }
-  .dashboard-grid {
+  .sidebar-brand .brand-titles,
+  .sidebar-menu span.menu-text,
+  .sidebar-footer span {
+    display: none;
+  }
+  .crm-main-container {
+    margin-left: 70px;
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .crm-sidebar {
+    display: none;
+  }
+  .crm-main-container {
+    margin-left: 0;
+    padding: 1rem;
+  }
+  .welcome-banner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .dashboard-grid-main {
     grid-template-columns: 1fr;
   }
 }
