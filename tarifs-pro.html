@@ -3,40 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tarifs PRO — LE ROY FACTORY</title>
-  <meta name="description" content="Espace sécurisé réservé aux professionnels pour consulter les grilles tarifaires de nos fabricants partenaires.">
+  <title>Tarifs Partenaires PRO — LE ROY FACTORY</title>
+  <meta name="description" content="Accédez aux grilles tarifaires officielles de nos fabricants partenaires. Espace réservé aux professionnels.">
   <link rel="stylesheet" href="assets/css/variables.css">
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
-<style>
-.main-nav{
-display:flex;
-gap:1.2rem;
-align-items:center;
-justify-content:flex-end;
-list-style:none;
-margin:0;
-padding:0;
-flex-wrap:nowrap;
-}
-.main-nav li{display:flex;align-items:center;}
-.main-nav a{text-decoration:none;}
-.agent-btn{
-display:inline-flex;
-align-items:center;
-justify-content:center;
-padding:8px 14px;
-background:#111;
-color:#d4af37!important;
-border:1px solid #d4af37;
-border-radius:8px;
-font-weight:600;
-white-space:nowrap;
-transition:.25s;
-}
-.agent-btn:hover{background:#d4af37;color:#111!important;}
-</style>
+  <style>
+    .main-nav{
+      display:flex;
+      gap:1.2rem;
+      align-items:center;
+      justify-content:flex-end;
+      list-style:none;
+      margin:0;
+      padding:0;
+      flex-wrap:nowrap;
+    }
+    .main-nav li{display:flex;align-items:center;}
+    .main-nav a{text-decoration:none;}
+    .agent-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:8px 14px;
+      background:#111;
+      color:#d4af37!important;
+      border:1px solid #d4af37;
+      border-radius:8px;
+      font-weight:600;
+      white-space:nowrap;
+      transition:.25s;
+    }
+    .agent-btn:hover{background:#d4af37;color:#111!important;}
+  </style>
 </head>
 <body>
 
@@ -60,31 +60,32 @@ transition:.25s;
     </div>
   </header>
 
-  <main style="padding-top: 120px; padding-bottom: 4rem;">
-    <div class="container">
-      
-      <!-- Formulaire de mot de passe -->
-      <div id="login-section" style="max-width: 500px; margin: 4rem auto; background: white; padding: 3rem; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); text-align: center;">
-        <h1 style="font-size: 2rem; margin-bottom: 1rem; color: var(--color-anthracite);">Espace Sécurisé PRO</h1>
-        <p style="font-size: 1rem; color: #666; margin-bottom: 2rem;">Veuillez saisir votre mot de passe professionnel pour accéder aux tarifs et documents exclusifs.</p>
-        
-        <div style="display: flex; flex-direction: column; gap: 1rem;">
-          <input type="password" id="password-input" placeholder="Votre code d'accès" style="padding: 0.75rem 1rem; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; text-align: center;">
-          <button id="login-btn" class="btn btn-outline" style="border-color: var(--color-anthracite); color: var(--color-anthracite); padding: 0.75rem;">Accéder aux tarifs</button>
-          <p id="error-msg" style="color: #d9534f; font-size: 0.85rem; display: none; margin-top: 0.5rem;">Mot de passe incorrect.</p>
+  <main style="padding-bottom: 4rem;">
+    <section class="hero-banner" style="background-image: url('assets/img/02.png');">
+      <div class="container">
+        <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Tarifs Partenaires PRO</h1>
+        <p style="font-size: 1.1rem; opacity: 0.9; max-width: 700px;">Consultez et téléchargez les grilles tarifaires officielles de nos fabricants.</p>
+      </div>
+    </section>
+
+    <div class="container" style="margin-top: 3rem;">
+      <!-- Section de Connexion PRO -->
+      <div id="login-section" style="max-width: 500px; margin: 4rem auto; background: var(--color-white); padding: 3rem; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); text-align: center;">
+        <h2 style="font-size: 1.75rem; margin-bottom: 1rem; color: var(--color-anthracite);">Espace Sécurisé Professionnel</h2>
+        <p style="color: #666; margin-bottom: 2rem; font-size: 0.95rem;">Veuillez saisir le code d'accès professionnel pour consulter les grilles tarifaires.</p>
+        <div style="display: flex; gap: 1rem; justify-content: center;">
+          <input type="password" id="password-input" placeholder="Code d'accès" style="padding: 0.75rem 1rem; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; width: 60%; outline: none;">
+          <button id="login-btn" class="btn" style="background: var(--color-anthracite); color: var(--color-white); padding: 0.75rem 1.5rem; border-radius: 4px; border: none; cursor: pointer; font-weight: 600;">Valider</button>
         </div>
+        <p id="error-msg" style="color: #d9534f; margin-top: 1rem; display: none; font-size: 0.85rem;">Code incorrect. Veuillez réessayer.</p>
       </div>
 
-      <!-- Contenu protégé (Tarifs des partenaires) -->
+      <!-- Contenu PRO (Masqué par défaut) -->
       <div id="pro-content" style="display: none;">
-        <h1 style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--color-anthracite);">Tarifs Partenaires PRO</h1>
-        <p style="font-size: 1.1rem; color: #666; margin-bottom: 3rem; max-width: 700px;">Consultez et téléchargez les grilles tarifaires officielles de nos fabricants.</p>
-        
-        <div id="grid-tarifs" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem;">
-          <!-- Injection dynamique via JS -->
+        <div id="grid-tarifs" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 2rem;">
+          <!-- Injection dynamique -->
         </div>
       </div>
-
     </div>
   </main>
 
@@ -235,26 +236,50 @@ transition:.25s;
 
     function renderTarifs() {
       const grid = document.getElementById('grid-tarifs');
-      grid.innerHTML = partenairesTarifs.map(fab => `
-        <div class="card-premium" style="padding: 2rem; display: flex; flex-direction: column; justify-content: space-between;">
-          <div>
-            <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-sage); font-weight: 600;">${fab.pays}</span>
-            <h3 style="font-size: 1.25rem; margin: 0.5rem 0 1rem; color: var(--color-anthracite);">${fab.nom}</h3>
-            <p style="font-size: 0.9rem; color: #555; margin-bottom: 1.5rem;">${fab.presentation}</p>
-          </div>
-          <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-            ${fab.fichiers.map(file => `
-              <div style="background: var(--color-light-grey); padding: 0.75rem 1rem; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
-                <div>
-                  <strong style="display: block; font-size: 0.85rem; color: var(--color-anthracite);">${file.titre}</strong>
-                  <span style="font-size: 0.75rem; color: #666;">${file.desc}</span>
+      grid.innerHTML = partenairesTarifs.map(fab => {
+        let logoFile = '';
+        const nameLower = fab.nom.toLowerCase();
+        if (nameLower.includes('elios')) logoFile = 'elios.png';
+        else if (nameLower.includes('view')) logoFile = 'view.png';
+        else if (nameLower.includes('fenice')) logoFile = 'lafenice.png';
+        else if (nameLower.includes('reviglass')) logoFile = 'reviglass.png';
+        else if (nameLower.includes('biopietra')) logoFile = 'biopietra.png';
+        else if (nameLower.includes('petracer')) logoFile = 'petracer.png';
+        else if (nameLower.includes('pecchioli')) logoFile = 'pecchioli.png';
+        else if (nameLower.includes('bulbo')) logoFile = 'bulbo.png';
+        else if (nameLower.includes('randal')) logoFile = 'randal.png';
+        else if (nameLower.includes('neobath')) logoFile = 'neobath.png';
+        else if (nameLower.includes('koibath')) logoFile = 'koibath.png';
+        else if (nameLower.includes('aquahome')) logoFile = 'aquahome.png';
+        else if (nameLower.includes('opal')) logoFile = 'opal.png';
+        else if (nameLower.includes('bilt')) logoFile = 'bilt.png';
+
+        let logoStyle = logoFile ? `background-image: url('assets/img/${logoFile}');` : '';
+
+        return `
+          <div class="card-premium" style="padding: 2rem; display: flex; flex-direction: column; justify-content: space-between; position: relative;">
+            <!-- Logo 100% visible en haut à droite -->
+            <div style="position: absolute; top: 1.5rem; right: 1.5rem; width: 110px; height: 50px; ${logoStyle} background-repeat: no-repeat; background-position: right top; background-size: contain; opacity: 1; pointer-events: none; z-index: 1;"></div>
+            
+            <div style="position: relative; z-index: 2; padding-right: 90px;">
+              <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-sage); font-weight: 600;">${fab.pays}</span>
+              <h3 style="font-size: 1.25rem; margin: 0.5rem 0 1rem; color: var(--color-anthracite);">${fab.nom}</h3>
+              <p style="font-size: 0.9rem; color: #555; margin-bottom: 1.5rem;">${fab.presentation}</p>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 0.75rem; position: relative; z-index: 2;">
+              ${fab.fichiers.map(file => `
+                <div style="background: var(--color-light-grey); padding: 0.75rem 1rem; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
+                  <div>
+                    <strong style="display: block; font-size: 0.85rem; color: var(--color-anthracite);">${file.titre}</strong>
+                    <span style="font-size: 0.75rem; color: #666;">${file.desc}</span>
+                  </div>
+                  <a href="${file.lien}" target="_blank" class="btn btn-outline" style="font-size: 0.75rem; padding: 0.4rem 0.8rem; border-color: var(--color-anthracite); color: var(--color-anthracite); white-space: nowrap;">Tarifs</a>
                 </div>
-                <a href="${file.lien}" target="_blank" class="btn btn-outline" style="font-size: 0.75rem; padding: 0.4rem 0.8rem; border-color: var(--color-anthracite); color: var(--color-anthracite); white-space: nowrap;">Tarifs</a>
-              </div>
-            `).join('')}
+              `).join('')}
+            </div>
           </div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
     }
   </script>
   <script src="assets/js/app.js"></script>
