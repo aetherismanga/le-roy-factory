@@ -68,15 +68,31 @@
     <section class="hero-banner" style="background-image: url('assets/img/02.png');">
       <div class="container">
         <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Espace Agent</h1>
-        <p style="font-size: 1.1rem; opacity: 0.9; max-width: 700px;">Accès réservé aux représentants et agents commerciaux.</p>
+        <p style="font-size: 1.1rem; opacity: 0.9; max-width: 700px;">Accès sécurisé réservé aux représentants et agents commerciaux.</p>
       </div>
     </section>
 
-    <div class="container" style="margin-top: 3rem; max-width: 500px;">
-      <div style="background: #fff; padding: 2.5rem; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); text-align: center;">
-        <h2 style="font-size: 1.5rem; margin-bottom: 1rem;">Connexion Agent</h2>
-        <input type="password" placeholder="Mot de passe agent" style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 1rem;">
-        <button class="btn" style="background: var(--color-anthracite); color: #fff; padding: 0.75rem 2rem; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; width: 100%;">Se connecter</button>
+    <div class="container" style="margin-top: 3rem;">
+      <!-- Section de Connexion Agent -->
+      <div id="login-section" style="max-width: 500px; margin: 2rem auto; background: var(--color-white); padding: 3rem; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); text-align: center;">
+        <h2 style="font-size: 1.75rem; margin-bottom: 1rem; color: var(--color-anthracite);">Connexion Sécurisée</h2>
+        <p style="color: #666; margin-bottom: 2rem; font-size: 0.95rem;">Veuillez saisir votre code d'accès agent pour accéder au contenu interne.</p>
+        
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          <input type="password" id="agent-password" placeholder="Code d'accès agent" style="padding: 0.75rem 1rem; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; outline: none; width: 100%;">
+          <button id="agent-login-btn" class="btn" style="background: var(--color-anthracite); color: var(--color-white); padding: 0.75rem 1.5rem; border-radius: 4px; border: none; cursor: pointer; font-weight: 600;">Se connecter</button>
+        </div>
+        <p id="agent-error-msg" style="color: #d9534f; margin-top: 1rem; display: none; font-size: 0.85rem;">Code incorrect. Veuillez réessayer.</p>
+      </div>
+
+      <!-- Contenu Agent (Masqué par défaut jusqu'à authentification) -->
+      <div id="agent-content" style="display: none; max-width: 800px; margin: 2rem auto; background: #fff; padding: 3rem; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.06);">
+        <h2 style="font-size: 1.75rem; margin-bottom: 1rem; color: var(--color-anthracite);">Tableau de bord Agent</h2>
+        <p style="color: #555; margin-bottom: 2rem;">Bienvenue dans votre espace réservé. Vous avez ici accès aux documents internes, notes de service et outils commerciaux.</p>
+        <div style="background: var(--color-light-grey); padding: 1.5rem; border-radius: 4px; border-left: 4px solid var(--color-anthracite);">
+          <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--color-anthracite);">Documents Internes & Notes</h3>
+          <p style="font-size: 0.9rem; color: #666; margin: 0;">Aucune nouvelle note pour le moment. Les grilles tarifaires et mises à jour sont disponibles dans l'onglet Tarifs PRO.</p>
+        </div>
       </div>
     </div>
   </main>
@@ -87,6 +103,28 @@
     </div>
   </footer>
 
+  <script>
+    const agentPasswordInput = document.getElementById('agent-password');
+    const agentLoginBtn = document.getElementById('agent-login-btn');
+    const agentLoginSection = document.getElementById('login-section');
+    const agentContent = document.getElementById('agent-content');
+    const agentErrorMsg = document.getElementById('agent-error-msg');
+
+    function checkAgentPassword() {
+      // Le code d'accès agent est défini sur '2026' (similaire à la page tarifs pro)
+      if (agentPasswordInput.value.trim() === '2026') {
+        agentLoginSection.style.display = 'none';
+        agentContent.style.display = 'block';
+      } else {
+        agentErrorMsg.style.display = 'block';
+      }
+    }
+
+    agentLoginBtn.addEventListener('click', checkAgentPassword);
+    agentPasswordInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') checkAgentPassword();
+    });
+  </script>
   <script src="assets/js/app.js"></script>
 </body>
 </html>
