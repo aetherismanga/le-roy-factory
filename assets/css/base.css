@@ -1,29 +1,46 @@
 /* ==========================================================================
-   REMPLACEMENT GLOBAL PAR bandeau02.png — LE ROY FACTORY
+   DESIGN GLOBAL : BANDEAUX HAUT ET BAS UNIQUEMENT — LE ROY FACTORY
    ========================================================================== */
 
-/* 1. Application de bandeau02.png sur tous les en-têtes, pieds de page et fonds */
-body, 
+/* 1. Le fond du milieu (corps de page) reprend sa couleur d'avant (sombre/uni) */
+body, html {
+  background-color: #0A0A0A !important;
+  background-image: none !important;
+  color: #F3F4F6 !important;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* 2. Le bandeau du HAUT (Header / Topbar) avec ton image bandeau02 */
 header, 
-footer, 
 .site-header, 
-.site-footer, 
 .crm-topbar {
   background-image: url('../img/bandeau02.png') !important;
   background-size: cover !important;
   background-position: center !important;
   background-repeat: no-repeat !important;
-}
-
-/* 2. Finitions élégantes Noir & Or */
-header, .crm-topbar, .site-header {
   border-bottom: 2px solid #D4AF37 !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
 }
 
-footer, .site-footer {
+/* 3. Le bandeau du BAS (Footer) avec ton image bandeau02 */
+footer, 
+.site-footer {
+  background-image: url('../img/bandeau02.png') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
   border-top: 2px solid #D4AF37 !important;
   color: #FFFFFF !important;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
   padding: 2.5rem 1rem;
   text-align: center;
+}
+
+/* 4. Liens du footer */
+footer a, 
+.site-footer a {
+  color: #FFD700 !important;
+  text-decoration: none;
 }
