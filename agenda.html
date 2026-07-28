@@ -1,1 +1,403 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agenda Commercial — LE ROY FACTORY CRM</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FullCalendar CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.css" rel="stylesheet">
+  
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/clients.css">
 
+  <style>
+    .agenda-card {
+      background: #FFFFFF;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      padding: 1.75rem;
+      min-height: 700px;
+    }
+
+    .agenda-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .google-sync-status {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: #FAF8F5;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      border: 1px solid #D4AF37;
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    /* Modale événement */
+    .event-modal-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .full-width {
+      grid-column: span 2;
+    }
+
+    /* Customisation FullCalendar aux couleurs LE ROY FACTORY */
+    .fc .fc-button-primary {
+      background-color: #111111 !important;
+      border-color: #FFD700 !important;
+      color: #FFD700 !important;
+      font-weight: 600;
+    }
+
+    .fc .fc-button-primary:hover {
+      background-color: #FFD700 !important;
+      color: #111111 !important;
+    }
+
+    .fc .fc-toolbar-title {
+      font-size: 1.35rem !important;
+      color: #1A2530;
+      font-weight: 800;
+    }
+
+    .fc-event {
+      background-color: #111111 !important;
+      border-color: #D4AF37 !important;
+      color: #FFD700 !important;
+      padding: 2px 5px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body class="crm-body">
+
+  <!-- Sidebar CRM -->
+  <aside class="crm-sidebar">
+    <div class="sidebar-brand">
+      <a href="index.html" class="logo-link">
+        <div class="logo-circle">
+          <img src="assets/img/logo02lrf.png" alt="LE ROY FACTORY">
+        </div>
+      </a>
+    </div>
+    <ul class="sidebar-menu">
+      <li><a href="dashboard.html"><span class="icon">🏠</span><span class="menu-text">Accueil</span></a></li>
+      <li><a href="clients.html"><span class="icon">👥</span><span class="menu-text">Clients</span></a></li>
+      <li><a href="clients.html?filter=prospect"><span class="icon">🎯</span><span class="menu-text">Prospects</span></a></li>
+      <li><a href="agenda.html" class="active"><span class="icon">📅</span><span class="menu-text">Agenda</span></a></li>
+      <li><a href="#"><span class="icon">📞</span><span class="menu-text">Comptes-rendus</span></a></li>
+      <li><a href="catalogues.html"><span class="icon">📂</span><span class="menu-text">Catalogues</span></a></li>
+      <li><a href="partenaires.html"><span class="icon">🏭</span><span class="menu-text">Fabricants</span></a></li>
+      <li><a href="#"><span class="icon">📸</span><span class="menu-text">Photos</span></a></li>
+      <li><a href="#"><span class="icon">🗺</span><span class="menu-text">Carte</span></a></li>
+      <li><a href="#"><span class="icon">📊</span><span class="menu-text">Statistiques</span></a></li>
+      <li><a href="#"><span class="icon">⚙</span><span class="menu-text">Paramètres</span></a></li>
+    </ul>
+    <div class="sidebar-footer">
+      <button id="logout-btn" class="btn-logout-sidebar">
+        <span>🚪</span> <span class="menu-text">Déconnexion</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Contenu Principal -->
+  <main class="crm-main-content">
+    <div class="crm-topbar">
+      <div class="welcome-box">
+        <h1>Agenda Commercial Synchronisé</h1>
+        <p id="user-greeting">Chargement de l'agent...</p>
+      </div>
+      <div class="info-widgets">
+        <div class="widget-item"><span>📅</span> <span id="current-date">--</span></div>
+        <div class="widget-item"><span>⏰</span> <span id="current-time">--</span></div>
+        <div class="widget-item"><span>🌤</span> <span>26°C, Ensoleillé</span></div>
+      </div>
+    </div>
+
+    <!-- Carte Agenda -->
+    <div class="agenda-card">
+      <div class="agenda-toolbar">
+        <button id="btn-new-event" class="btn-primary-gold">
+          ➕ Nouveau rendez-vous
+        </button>
+
+        <div class="google-sync-status">
+          <span id="sync-icon">🔴</span>
+          <span id="sync-text">Google Calendar : Non connecté</span>
+          <button id="btn-auth-google" class="filter-btn" style="padding: 0.3rem 0.75rem; font-size: 0.8rem; background: #111; color: #FFD700;">
+            Se connecter
+          </button>
+        </div>
+      </div>
+
+      <!-- Conteneur Calendrier -->
+      <div id="calendar"></div>
+    </div>
+  </main>
+
+  <!-- Modale Création de RDV -->
+  <div id="event-modal" class="crm-modal" style="display: none;">
+    <div class="modal-content">
+      <button class="modal-close" id="modal-event-close">&times;</button>
+      
+      <div class="modal-header">
+        <h2>Planifier un Rendez-vous</h2>
+      </div>
+
+      <form id="event-form">
+        <div class="modal-grid-edit">
+          <div class="form-field full-width">
+            <label for="event-title">Titre du rendez-vous / Client *</label>
+            <input type="text" id="event-title" placeholder="Ex: RDV Showroom — Ciffreo Bona" required>
+          </div>
+
+          <div class="form-field">
+            <label for="event-start-date">Date de début *</label>
+            <input type="date" id="event-start-date" required>
+          </div>
+
+          <div class="form-field">
+            <label for="event-start-time">Heure de début *</label>
+            <input type="time" id="event-start-time" value="09:00" required>
+          </div>
+
+          <div class="form-field">
+            <label for="event-end-date">Date de fin *</label>
+            <input type="date" id="event-end-date" required>
+          </div>
+
+          <div class="form-field">
+            <label for="event-end-time">Heure de fin *</label>
+            <input type="time" id="event-end-time" value="10:00" required>
+          </div>
+
+          <div class="form-field full-width">
+            <label for="event-description">Notes & Informations complémentaires</label>
+            <textarea id="event-description" rows="3" class="crm-select" style="width: 100%; border: 1px solid #D1D5DB;" placeholder="Précisions sur le chantier, produits à présenter..."></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" id="btn-cancel-event" class="filter-btn reset-btn">Annuler</button>
+          <button type="submit" class="btn-primary-gold">💾 Enregistrer sur Google Calendar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts Google API & FullCalendar -->
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="https://apis.google.com/js/api.js" async defer></script>
+
+  <script>
+    // Configuration Google API
+    const CLIENT_ID = '226219482076-kc5gofed3hr09qs62349mbdshlgk88u8.apps.googleusercontent.com';
+    const API_KEY = 'AIzaSyAZwTSbyDjzQ_eNMd57UImmjxz-h-6JqQA';
+    const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest';
+    const SCOPES = 'https://www.googleapis.com/auth/calendar.events';
+
+    let tokenClient;
+    let gapiInited = false;
+    let gsiInited = false;
+    let calendar;
+
+    document.addEventListener("DOMContentLoaded", () => {
+      // Contrôle Session
+      const isLoggedIn = localStorage.getItem("agentLoggedIn");
+      if (!isLoggedIn) {
+        window.location.href = "agent.html";
+        return;
+      }
+
+      const agentName = localStorage.getItem("agentName") || "Agent";
+      const firstName = agentName.split(" ")[0];
+      const greetingEl = document.getElementById("user-greeting");
+      if (greetingEl) {
+        greetingEl.textContent = `Agenda de ${firstName} — LE ROY FACTORY`;
+      }
+
+      function updateDateTime() {
+        const now = new Date();
+        const dateEl = document.getElementById("current-date");
+        const timeEl = document.getElementById("current-time");
+        if (dateEl) {
+          let formatted = now.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+          dateEl.textContent = formatted.charAt(0).toUpperCase() + formatted.slice(1);
+        }
+        if (timeEl) {
+          timeEl.textContent = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+        }
+      }
+      updateDateTime();
+      setInterval(updateDateTime, 1000);
+
+      // Déconnexion
+      document.getElementById("logout-btn")?.addEventListener("click", () => {
+        localStorage.removeItem("agentLoggedIn");
+        window.location.href = "agent.html";
+      });
+
+      // Initialisation FullCalendar
+      const calendarEl = document.getElementById('calendar');
+      calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'timeGridWeek',
+        locale: 'fr',
+        headerToolbar: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        buttonText: {
+          today: "Aujourd'hui",
+          month: 'Mois',
+          week: 'Semaine',
+          day: 'Jour'
+        },
+        selectable: true,
+        select: function(info) {
+          openEventModal(info.startStr.split('T')[0], info.endStr.split('T')[0]);
+        }
+      });
+      calendar.render();
+
+      // Gestion Modale
+      const eventModal = document.getElementById("event-modal");
+      const btnNewEvent = document.getElementById("btn-new-event");
+      const btnModalClose = document.getElementById("modal-event-close");
+      const btnCancelEvent = document.getElementById("btn-cancel-event");
+      const eventForm = document.getElementById("event-form");
+
+      function openEventModal(startDate = '', endDate = '') {
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById("event-title").value = '';
+        document.getElementById("event-start-date").value = startDate || today;
+        document.getElementById("event-end-date").value = endDate || startDate || today;
+        document.getElementById("event-description").value = '';
+        eventModal.style.display = "flex";
+      }
+
+      btnNewEvent?.addEventListener("click", () => openEventModal());
+      btnModalClose?.addEventListener("click", () => eventModal.style.display = "none");
+      btnCancelEvent?.addEventListener("click", () => eventModal.style.display = "none");
+
+      // Soumission formulaire rendez-vous
+      eventForm?.addEventListener("submit", (e) => {
+        e.preventDefault();
+        
+        const title = document.getElementById("event-title").value;
+        const startDate = document.getElementById("event-start-date").value;
+        const startTime = document.getElementById("event-start-time").value;
+        const endDate = document.getElementById("event-end-date").value;
+        const endTime = document.getElementById("event-end-time").value;
+        const description = document.getElementById("event-description").value;
+
+        const startDateTime = `${startDate}T${startTime}:00`;
+        const endDateTime = `${endDate}T${endTime}:00`;
+
+        // Ajout local sur FullCalendar
+        calendar.addEvent({
+          title: title,
+          start: startDateTime,
+          end: endDateTime,
+          description: description
+        });
+
+        // Envoi vers Google Calendar si connecté
+        if (gapi.client.getToken() !== null) {
+          const event = {
+            'summary': title,
+            'description': description,
+            'start': { 'dateTime': new Date(startDateTime).toISOString() },
+            'end': { 'dateTime': new Date(endDateTime).toISOString() }
+          };
+
+          gapi.client.calendar.events.insert({
+            'calendarId': 'primary',
+            'resource': event
+          }).then(() => {
+            alert("✅ Rendez-vous synchronisé avec votre Google Calendar !");
+          });
+        }
+
+        eventModal.style.display = "none";
+      });
+    });
+
+    // Chargement GAPI & GIS
+    function gapiLoaded() {
+      gapi.load('client', async () => {
+        await gapi.client.init({
+          apiKey: API_KEY,
+          discoveryDocs: [DISCOVERY_DOC],
+        });
+        gapiInited = true;
+      });
+    }
+
+    function gisLoaded() {
+      tokenClient = google.accounts.oauth2.initTokenClient({
+        client_id: CLIENT_ID,
+        scope: SCOPES,
+        callback: (resp) => {
+          if (resp.error) return;
+          document.getElementById("sync-icon").textContent = "🟢";
+          document.getElementById("sync-text").textContent = "Google Calendar : Connecté";
+          document.getElementById("btn-auth-google").style.display = "none";
+          loadGoogleEvents();
+        },
+      });
+      gsiInited = true;
+    }
+
+    document.getElementById("btn-auth-google")?.addEventListener("click", () => {
+      if (tokenClient) tokenClient.requestAccessToken({ prompt: 'consent' });
+    });
+
+    async function loadGoogleEvents() {
+      const response = await gapi.client.calendar.events.list({
+        'calendarId': 'primary',
+        'timeMin': (new Date()).toISOString(),
+        'showDeleted': false,
+        'singleEvents': true,
+        'orderBy': 'startTime',
+      });
+
+      const events = response.result.items;
+      events.forEach(e => {
+        calendar.addEvent({
+          id: e.id,
+          title: e.summary,
+          start: e.start.dateTime || e.start.date,
+          end: e.end.dateTime || e.end.date,
+          description: e.description
+        });
+      });
+    }
+
+    window.onload = () => {
+      gapiLoaded();
+      gisLoaded();
+    };
+  </script>
+</body>
+</html>
