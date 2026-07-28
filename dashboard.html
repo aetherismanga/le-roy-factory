@@ -4,37 +4,38 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tableau de bord — LE ROY FACTORY CRM</title>
-  <!-- Google Fonts pour la police digitale Orbitron -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="assets/css/variables.css">
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
-  <link rel="stylesheet" href="assets/css/dashboard.css">
+  <link rel="stylesheet" href="assets/css/clients.css">
 </head>
-<body class="dashboard-body-crm">
+<body class="crm-body">
 
-  <!-- Barre latérale professionnelle -->
+  <!-- Sidebar CRM -->
   <aside class="crm-sidebar">
-    <div class="sidebar-brand" style="display: flex; align-items: center; justify-content: center; padding: 1.25rem 1rem;">
-      <a href="index.html" style="display: flex; align-items: center; justify-content: center; text-decoration: none;">
-        <div style="width: 85px; height: 85px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.5); border: 1px solid rgba(212, 175, 55, 0.4);">
-          <img src="assets/img/logo02lrf.png" alt="LE ROY FACTORY" style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.35);">
+    <div class="sidebar-brand">
+      <a href="index.html" class="logo-link">
+        <div class="logo-circle">
+          <img src="assets/img/logo02lrf.png" alt="LE ROY FACTORY">
         </div>
       </a>
     </div>
     <ul class="sidebar-menu">
-      <li><a href="dashboard.html" class="active"><span class="icon">🏠</span><span class="menu-text">Tableau de bord</span></a></li>
+      <li><a href="dashboard.html" class="active"><span class="icon">🏠</span><span class="menu-text">Accueil</span></a></li>
       <li><a href="clients.html"><span class="icon">👥</span><span class="menu-text">Clients</span></a></li>
-      <li><a href="clients.html?filter=prospect"><span class="icon">📞</span><span class="menu-text">Prospects</span></a></li>
-      <li><a href="#"><span class="icon">📅</span><span class="menu-text">Agenda</span></a></li>
-      <li><a href="#"><span class="icon">📝</span><span class="menu-text">Comptes-rendus</span></a></li>
-      <li><a href="catalogues.html"><span class="icon">📚</span><span class="menu-text">Catalogues</span></a></li>
+      <li><a href="clients.html?filter=prospect"><span class="icon">🎯</span><span class="menu-text">Prospects</span></a></li>
+      <li><a href="agenda.html"><span class="icon">📅</span><span class="menu-text">Agenda</span></a></li>
+      <li><a href="#"><span class="icon">📞</span><span class="menu-text">Comptes-rendus</span></a></li>
+      <li><a href="catalogues.html"><span class="icon">📂</span><span class="menu-text">Catalogues</span></a></li>
       <li><a href="partenaires.html"><span class="icon">🏭</span><span class="menu-text">Fabricants</span></a></li>
       <li><a href="#"><span class="icon">📸</span><span class="menu-text">Photos</span></a></li>
       <li><a href="#"><span class="icon">🗺</span><span class="menu-text">Carte</span></a></li>
       <li><a href="#"><span class="icon">📊</span><span class="menu-text">Statistiques</span></a></li>
-      <li><a href="#"><span class="icon">🤖</span><span class="menu-text">Assistant IA</span></a></li>
       <li><a href="#"><span class="icon">⚙</span><span class="menu-text">Paramètres</span></a></li>
     </ul>
     <div class="sidebar-footer">
@@ -44,116 +45,94 @@
     </div>
   </aside>
 
-  <!-- Contenu Principal CRM -->
-  <main class="crm-main-container">
-
-    <!-- 1. Grand Bandeau d'Accueil -->
-    <section class="welcome-banner">
-      <div class="welcome-text">
+  <!-- Contenu Principal -->
+  <main class="crm-main-content">
+    <div class="crm-topbar">
+      <div class="welcome-box">
         <h1 id="welcome-title">Bonjour Jérôme 👋</h1>
         <p>Bienvenue dans votre espace commercial sécurisé LE ROY FACTORY.</p>
       </div>
-      <div class="welcome-widgets">
-        <div class="widget-box">
-          <span class="widget-icon">📅</span>
-          <span id="current-date">--</span>
-        </div>
-        <!-- 2. Horloge Digitale -->
-        <div class="widget-box digital-clock-box">
-          <span class="widget-icon">⏰</span>
-          <span id="digital-clock" class="orbitron-clock">09:42:18</span>
-        </div>
-        <div class="widget-box">
-          <span class="widget-icon">🌤</span>
-          <span>26°C, Ensoleillé</span>
-        </div>
+      <div class="info-widgets">
+        <div class="widget-item"><span>📅</span> <span id="current-date">--</span></div>
+        <div class="widget-item"><span>⏰</span> <span id="current-time">--</span></div>
+        <div class="widget-item"><span>🌤</span> <span>26°C, Ensoleillé</span></div>
+      </div>
+    </div>
+
+    <!-- Actions Rapides -->
+    <section style="margin-bottom: 2rem;">
+      <h2 style="font-size: 1.1rem; margin-bottom: 1rem; color: #1A2530;">Actions rapides</h2>
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <a href="clients.html" class="btn-primary-gold" style="text-decoration: none; padding: 0.75rem 1.25rem;">➕ Nouveau client</a>
+        <a href="clients.html?filter=prospect" class="btn-primary-gold" style="text-decoration: none; padding: 0.75rem 1.25rem;">🎯 Nouveau prospect</a>
+        <a href="agenda.html" class="btn-primary-gold" style="text-decoration: none; padding: 0.75rem 1.25rem;">📅 Nouveau rendez-vous</a>
       </div>
     </section>
 
-    <!-- 6. Actions Rapides -->
-    <section class="quick-actions-section">
-      <h2 class="section-subtitle">Actions rapides</h2>
-      <div class="actions-grid">
-        <button class="action-btn" data-action="Nouveau client"><span>➕</span> Nouveau client</button>
-        <button class="action-btn" data-action="Nouveau prospect"><span>📞</span> Nouveau prospect</button>
-        <button class="action-btn" data-action="Nouveau rendez-vous"><span>📅</span> Nouveau rendez-vous</button>
-        <button class="action-btn" data-action="Nouveau compte-rendu"><span>📝</span> Nouveau compte-rendu</button>
-        <button class="action-btn" data-action="Ajouter des photos"><span>📷</span> Ajouter des photos</button>
-      </div>
-    </section>
-
-    <!-- 3. Cartes Principales & Blocs Dynamiques -->
-    <section class="dashboard-grid-main">
+    <!-- Résumé / Statistiques rapides -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
       
-      <!-- Cartes statistiques principales agrandies -->
-      <div class="stat-card-premium" onclick="window.location.href='clients.html'">
-        <div class="stat-card-icon">🏢</div>
-        <div class="stat-card-content">
-          <h3>CLIENTS</h3>
-          <p class="stat-value">201</p>
-          <span class="stat-desc">Portefeuille commercial actif</span>
-        </div>
+      <!-- Bloc Clients -->
+      <div style="background: #FFF; padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(0,0,0,0.08);">
+        <h3 style="font-size: 1rem; color: #666; margin-bottom: 0.5rem;">Portefeuille Clients</h3>
+        <p style="font-size: 2rem; font-weight: 800; color: #111;">201</p>
+        <p style="font-size: 0.85rem; color: #888;">Clients actifs enregistrés</p>
       </div>
 
-      <div class="stat-card-premium" onclick="window.location.href='clients.html?filter=prospect'">
-        <div class="stat-card-icon">🎯</div>
-        <div class="stat-card-content">
-          <h3>PROSPECTS</h3>
-          <p class="stat-value">78</p>
-          <span class="stat-desc">Suivi commercial en cours</span>
-        </div>
+      <!-- Bloc Prospects -->
+      <div style="background: #FFF; padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(0,0,0,0.08);">
+        <h3 style="font-size: 1rem; color: #666; margin-bottom: 0.5rem;">Prospects en cours</h3>
+        <p style="font-size: 2rem; font-weight: 800; color: #111;">78</p>
+        <p style="font-size: 0.85rem; color: #888;">Suivi commercial actif</p>
       </div>
 
-      <div class="stat-card-premium">
-        <div class="stat-card-icon">📅</div>
-        <div class="stat-card-content">
-          <h3>AGENDA</h3>
-          <p class="stat-value">12</p>
-          <span class="stat-desc">Rendez-vous planifiés</span>
-        </div>
+      <!-- Bloc Agenda -->
+      <div style="background: #FFF; padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(0,0,0,0.08);">
+        <h3 style="font-size: 1rem; color: #666; margin-bottom: 0.5rem;">Agenda</h3>
+        <p style="font-size: 2rem; font-weight: 800; color: #D4AF37;">Synchronisé</p>
+        <a href="agenda.html" style="font-size: 0.85rem; color: #111; font-weight: 600; text-decoration: underline;">Accéder au calendrier Google &rarr;</a>
       </div>
 
-      <!-- 7. Informations du jour -->
-      <div class="info-card-box">
-        <h3>⚡ Aujourd'hui</h3>
-        <ul class="today-list">
-          <li><span>3 rendez-vous showroom</span> <span class="badge-count">3</span></li>
-          <li><span>5 prospects à relancer</span> <span class="badge-count">5</span></li>
-          <li><span>2 comptes-rendus rédigés</span> <span class="badge-count">2</span></li>
-          <li><span>1 rappel important chantier</span> <span class="badge-count alert">1</span></li>
-        </ul>
-      </div>
-
-      <!-- 8. Objectifs du mois -->
-      <div class="info-card-box objective-box">
-        <h3>📊 Objectif du mois</h3>
-        <div class="objective-header">
-          <span>Chiffre d'affaires & Showrooms</span>
-          <span class="obj-percent">78 %</span>
-        </div>
-        <div class="progress-bar-container">
-          <div class="progress-bar-fill" style="width: 78%;"></div>
-        </div>
-        <span class="obj-sub">Objectif atteint à 78% — Plus que 5 jours restants.</span>
-      </div>
-
-      <!-- 9. Dernières activités -->
-      <div class="info-card-box">
-        <h3>🕒 Dernières activités</h3>
-        <ul class="activity-list">
-          <li><span class="act-icon">✔</span> <strong>Compte-rendu ajouté</strong> — Ciffreo Bona</li>
-          <li><span class="act-icon">✔</span> <strong>Prospect créé</strong> — MP CETIN EDEN</li>
-          <li><span class="act-icon">✔</span> <strong>Client modifié</strong> — Balitrand Biot</li>
-        </ul>
-      </div>
-
-    </section>
-
+    </div>
   </main>
 
-  <!-- Notification interactive pour les actions rapides -->
-  <div id="action-toast" class="action-toast">Action exécutée avec succès ✨</div>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Vérification connexion
+      const isLoggedIn = localStorage.getItem("agentLoggedIn");
+      if (!isLoggedIn) {
+        window.location.href = "agent.html";
+        return;
+      }
 
-  <script src="assets/js/dashboard.js"></script>
+      const agentName = localStorage.getItem("agentName") || "Jérôme";
+      const titleEl = document.getElementById("welcome-title");
+      if (titleEl) {
+        titleEl.textContent = `Bonjour ${agentName} 👋`;
+      }
+
+      // Date et Heure en direct
+      function updateDateTime() {
+        const now = new Date();
+        const dateEl = document.getElementById("current-date");
+        const timeEl = document.getElementById("current-time");
+        if (dateEl) {
+          let formatted = now.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+          dateEl.textContent = formatted.charAt(0).toUpperCase() + formatted.slice(1);
+        }
+        if (timeEl) {
+          timeEl.textContent = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+        }
+      }
+      updateDateTime();
+      setInterval(updateDateTime, 1000);
+
+      // Déconnexion
+      document.getElementById("logout-btn")?.addEventListener("click", () => {
+        localStorage.removeItem("agentLoggedIn");
+        window.location.href = "agent.html";
+      });
+    });
+  </script>
 </body>
 </html>
