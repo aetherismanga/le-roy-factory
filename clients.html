@@ -49,7 +49,7 @@
       <li><a href="clients.html" class="active"><span class="icon">👥</span><span class="menu-text">Clients</span></a></li>
       <li><a href="clients.html?filter=prospect"><span class="icon">🎯</span><span class="menu-text">Prospects</span></a></li>
       <li><a href="agenda.html"><span class="icon">📅</span><span class="menu-text">Agenda</span></a></li>
-      <li><a href="#"><span class="icon">📞</span><span class="menu-text">Comptes-rendus</span></a></li>
+      <li><a href="comptes-rendus.html"><span class="icon">📞</span><span class="menu-text">Comptes-rendus</span></a></li>
       <li><a href="catalogues.html"><span class="icon">📂</span><span class="menu-text">Catalogues</span></a></li>
       <li><a href="partenaires.html"><span class="icon">🏭</span><span class="menu-text">Fabricants</span></a></li>
       <li><a href="#"><span class="icon">📸</span><span class="menu-text">Photos</span></a></li>
@@ -198,7 +198,7 @@
             </select>
           </div>
 
-          <!-- Agent référent (Remplace Région) -->
+          <!-- Agent référent -->
           <div class="form-field">
             <label for="edit-agent">Agent référent</label>
             <select id="edit-agent" class="crm-select">
@@ -270,6 +270,39 @@
           <ul id="documents-list" class="documents-list">
             <!-- Injection dynamique des fichiers -->
           </ul>
+        </div>
+
+        <!-- SECTION : COMPTES-RENDUS & DICTÉE VOCALE -->
+        <div class="documents-section" style="border-top: 2px dashed #D4AF37; margin-top: 2rem; padding-top: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
+            <h3 class="documents-title" style="margin: 0; color: #1A2530;">📝 Comptes-rendus de visites</h3>
+            <button type="button" id="btn-voice-dictation" class="filter-btn" style="background: #111; color: #FFD700; border-color: #FFD700; display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 700;">
+              <span id="voice-icon">🎙️</span> <span id="voice-status-text">Dictée vocale</span>
+            </button>
+          </div>
+
+          <!-- Zone de saisie d'un compte-rendu -->
+          <div style="background: #FAF8F5; border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem;">
+            <div style="display: flex; gap: 1rem; margin-bottom: 0.75rem; flex-wrap: wrap;">
+              <div style="flex: 1; min-width: 150px;">
+                <label style="font-size: 0.8rem; font-weight: 700; color: #1A2530; display: block; margin-bottom: 0.25rem;">Date de visite</label>
+                <input type="date" id="cr-date-input" class="crm-select" style="width: 100%;">
+              </div>
+              <div style="flex: 1; min-width: 150px;">
+                <label style="font-size: 0.8rem; font-weight: 700; color: #1A2530; display: block; margin-bottom: 0.25rem;">Auteur</label>
+                <input type="text" id="cr-author-input" class="crm-select" readonly style="width: 100%; background: #E5E7EB; font-weight: 600;">
+              </div>
+            </div>
+            <div>
+              <textarea id="cr-text-input" rows="3" style="width: 100%; padding: 0.75rem; border: 1px solid #D1D5DB; border-radius: 6px; font-family: inherit; font-size: 0.9rem; box-sizing: border-box;" placeholder="Parlez ou saisissez votre compte-rendu ici..."></textarea>
+            </div>
+            <button type="button" id="btn-add-cr" class="btn-primary-gold" style="margin-top: 0.75rem; font-size: 0.85rem; padding: 0.5rem 1rem;">
+              ➕ Enregistrer le compte-rendu
+            </button>
+          </div>
+
+          <!-- Historique des comptes-rendus du client -->
+          <div id="cr-history-list" style="display: flex; flex-direction: column; gap: 0.75rem;"></div>
         </div>
 
         <div class="modal-footer">
