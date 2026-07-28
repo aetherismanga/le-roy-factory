@@ -322,7 +322,7 @@ body.crm-body {
   font-size: 1rem;
 }
 
-/* Modal agrandie et plus lisible */
+/* Modal */
 .crm-modal {
   position: fixed;
   top: 0;
@@ -342,7 +342,7 @@ body.crm-body {
   width: 100%;
   max-width: 800px;
   border-radius: 12px;
-  padding: 3rem;
+  padding: 2.5rem;
   position: relative;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
   border: 1px solid rgba(212, 175, 55, 0.4);
@@ -366,28 +366,43 @@ body.crm-body {
   color: #FFD700;
 }
 
-.modal-content h2 {
-  font-size: 1.8rem;
-  color: #1A2530;
-  margin-top: 0;
-  margin-bottom: 2rem;
-  border-bottom: 2px solid #FFD700;
-  padding-bottom: 0.75rem;
-}
-
-.modal-grid {
+/* Style des champs d'édition de la fiche client */
+.modal-grid-edit {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  font-size: 1.1rem;
+  gap: 1.25rem;
 }
 
-.modal-grid div {
-  color: #333;
+.modal-grid-edit .form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
 }
 
-.modal-grid strong {
+.modal-grid-edit .form-field label {
+  font-size: 0.85rem;
+  font-weight: 700;
   color: #1A2530;
+}
+
+.modal-grid-edit .form-field input,
+.modal-grid-edit .form-field select {
+  padding: 0.65rem 0.85rem;
+  border: 1px solid #D1D5DB;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  background: #FAFAFA;
+  transition: all 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.modal-grid-edit .form-field input:focus,
+.modal-grid-edit .form-field select:focus {
+  outline: none;
+  border-color: #FFD700;
+  background: #FFFFFF;
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.25);
 }
 
 @media (max-width: 900px) {
@@ -403,7 +418,13 @@ body.crm-body {
     margin-left: 70px;
     padding: 1rem;
   }
-  .modal-grid {
+}
+
+@media (max-width: 650px) {
+  .modal-grid-edit {
     grid-template-columns: 1fr;
+  }
+  .modal-grid-edit .form-field {
+    grid-column: span 1 !important;
   }
 }
