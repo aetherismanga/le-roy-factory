@@ -101,3 +101,14 @@ header img {
   box-shadow: 0 0 20px rgba(212, 175, 55, 0.25), 0 10px 30px rgba(0, 0, 0, 0.05) !important;
   transform: translateY(-2px);
 }
+
+/* ==========================================================================
+   FORÇAGE DU TEXTE FONCÉ DANS LE FOOTER
+   ========================================================================== */
+footer *, 
+.site-footer *, 
+footer p, 
+.site-footer p {
+  color: #1A2530 !important;
+  text-shadow: none !important;
+}
