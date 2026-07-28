@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
     dateEl.textContent = formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
   }
 
-  // 2. Horloge digitale mise à jour toutes les secondes
+  // Horloge digitale mise à jour toutes les secondes
   function updateDigitalClock() {
     const clockEl = document.getElementById("digital-clock");
     if (clockEl) {
@@ -52,13 +52,25 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 6. Interaction sur les boutons d'actions rapides (Toast élégant)
+  // Interaction sur les boutons d'actions rapides
   const actionBtns = document.querySelectorAll(".action-btn");
   const toast = document.getElementById("action-toast");
 
   actionBtns.forEach(btn => {
     btn.addEventListener("click", () => {
       const actionName = btn.getAttribute("data-action");
+
+      // Redirection intelligente si clic sur Nouveau client ou Nouveau prospect
+      if (actionName === "Nouveau client") {
+        window.location.href = "clients.html?action=new-client";
+        return;
+      }
+      if (actionName === "Nouveau prospect") {
+        window.location.href = "clients.html?action=new-prospect";
+        return;
+      }
+
+      // Autres actions
       if (toast) {
         toast.textContent = `Module « ${actionName} » — Bientôt disponible 🚀`;
         toast.classList.add("show");
