@@ -1,514 +1,242 @@
-:root {
-  --sidebar-width: 260px;
-  --color-dark: #111111;
-  --color-gold: #FFD700;
-  --color-gold-muted: #D4AF37;
-  --bg-dashboard: #F8F6F2;
-}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clients & Prospects — LE ROY FACTORY CRM</title>
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/clients.css">
+</head>
+<body class="crm-body">
 
-body.crm-body {
-  background-color: var(--bg-dashboard);
-  margin: 0;
-  font-family: inherit;
-  display: flex;
-  min-height: 100vh;
-  flex-direction: row;
-  color: #2F2F2F;
-}
+  <!-- Sidebar CRM -->
+  <aside class="crm-sidebar">
+    <div class="sidebar-brand" style="display: flex; align-items: center; justify-content: center; padding: 1.25rem 1rem;">
+      <a href="index.html" style="display: flex; align-items: center; justify-content: center; text-decoration: none;">
+        <div style="width: 85px; height: 85px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.5); border: 1px solid rgba(212, 175, 55, 0.4);">
+          <img src="assets/img/logo02lrf.png" alt="LE ROY FACTORY" style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.35);">
+        </div>
+      </a>
+    </div>
+    <ul class="sidebar-menu">
+      <li><a href="dashboard.html"><span class="icon">🏠</span><span class="menu-text">Accueil</span></a></li>
+      <li><a href="clients.html" class="active"><span class="icon">👥</span><span class="menu-text">Clients</span></a></li>
+      <li><a href="clients.html?filter=prospect"><span class="icon">🎯</span><span class="menu-text">Prospects</span></a></li>
+      <li><a href="#"><span class="icon">📅</span><span class="menu-text">Agenda</span></a></li>
+      <li><a href="#"><span class="icon">📞</span><span class="menu-text">Comptes-rendus</span></a></li>
+      <li><a href="catalogues.html"><span class="icon">📂</span><span class="menu-text">Catalogues</span></a></li>
+      <li><a href="partenaires.html"><span class="icon">🏭</span><span class="menu-text">Fabricants</span></a></li>
+      <li><a href="#"><span class="icon">📸</span><span class="menu-text">Photos</span></a></li>
+      <li><a href="#"><span class="icon">🗺</span><span class="menu-text">Carte</span></a></li>
+      <li><a href="#"><span class="icon">📊</span><span class="menu-text">Statistiques</span></a></li>
+      <li><a href="#"><span class="icon">⚙</span><span class="menu-text">Paramètres</span></a></li>
+    </ul>
+    <div class="sidebar-footer">
+      <button id="logout-btn" class="btn-logout-sidebar">
+        <span>🚪</span> <span class="menu-text">Déconnexion</span>
+      </button>
+    </div>
+  </aside>
 
-/* Sidebar */
-.crm-sidebar {
-  width: var(--sidebar-width);
-  background-color: var(--color-dark);
-  border-right: 1px solid rgba(255, 215, 0, 0.15);
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  z-index: 1000;
-}
+  <!-- Contenu principal -->
+  <main class="crm-main-content">
+    <div class="crm-topbar">
+      <div class="welcome-box">
+        <h1>Portefeuille Clients & Prospects</h1>
+        <p id="user-greeting">Chargement de l'agent...</p>
+      </div>
+      <div class="info-widgets">
+        <div class="widget-item"><span>📅</span> <span id="current-date">--</span></div>
+        <div class="widget-item"><span>⏰</span> <span id="current-time">--</span></div>
+        <div class="widget-item"><span>🌤</span> <span>26°C, Ensoleillé</span></div>
+      </div>
+    </div>
 
-.sidebar-brand {
-  padding: 1.5rem;
-  font-weight: 800;
-  font-size: 1.2rem;
-  color: var(--color-gold) !important;
-  text-decoration: none;
-  letter-spacing: 0.08em;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
+    <!-- Statistiques -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">🏢</div>
+        <div class="stat-info">
+          <span class="stat-number" id="count-total">0</span>
+          <span class="stat-label">Total Entreprises</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🤝</div>
+        <div class="stat-info">
+          <span class="stat-number" id="count-clients">0</span>
+          <span class="stat-label">Clients Actifs</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🎯</div>
+        <div class="stat-info">
+          <span class="stat-number" id="count-prospects">0</span>
+          <span class="stat-label">Prospects</span>
+        </div>
+      </div>
+    </div>
 
-.sidebar-menu {
-  list-style: none;
-  padding: 1rem 0;
-  margin: 0;
-  flex: 1;
-  overflow-y: auto;
-}
+    <!-- Barre d'outils et de classement ergonomique -->
+    <div class="crm-toolbar" style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; justify-content: space-between; background: #FFF; padding: 1.25rem; border-radius: 8px; border: 1px solid rgba(0,0,0,0.06); margin-bottom: 1.5rem;">
+      
+      <!-- Action rapide : Fiche Vierge Client / Prospect -->
+      <button id="btn-add-client" class="filter-btn" style="background: #111; color: #FFD700; border-color: #FFD700; font-weight: 700; display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem;">
+        ➕ Nouveau Client / Prospect
+      </button>
 
-.sidebar-menu li a {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.85rem 1.5rem;
-  color: #B3B3B3;
-  text-decoration: none;
-  font-size: 0.95rem;
-  font-weight: 500;
-  transition: all 0.25s ease;
-  border-left: 3px solid transparent;
-}
+      <!-- Recherche avec Bouton -->
+      <div style="display: flex; gap: 0.5rem; flex: 1; min-width: 280px;">
+        <div class="search-box" style="flex: 1;">
+          <span>🔍</span>
+          <input type="text" id="search-input" placeholder="Rechercher société, téléphone, ville...">
+        </div>
+        <button id="search-btn" class="filter-btn" style="background: #111; color: #FFD700; border-color: #FFD700;">Rechercher</button>
+      </div>
 
-.sidebar-menu li a:hover,
-.sidebar-menu li a.active {
-  color: var(--color-gold);
-  background-color: rgba(255, 215, 0, 0.05);
-  border-left-color: var(--color-gold);
-}
+      <!-- Filtres par Département, Code Postal et Ville -->
+      <div class="select-filters" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+        <select id="filter-dept" class="crm-select">
+          <option value="">Tous les départements</option>
+        </select>
 
-.sidebar-menu span.icon {
-  font-size: 1.2rem;
-  width: 24px;
-  text-align: center;
-}
+        <select id="filter-cp" class="crm-select">
+          <option value="">Tous les codes postaux</option>
+        </select>
 
-.sidebar-footer {
-  padding: 1rem 1.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
+        <select id="filter-city" class="crm-select">
+          <option value="">Toutes les villes</option>
+        </select>
 
-.btn-logout-sidebar {
-  width: 100%;
-  background: transparent;
-  border: 1px solid var(--color-gold-muted);
-  color: var(--color-gold);
-  padding: 0.75rem;
-  border-radius: 4px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-}
+        <button id="reset-filters" class="filter-btn" style="background: #F3F4F6; border: 1px solid #D1D5DB;">Réinitialiser</button>
+      </div>
 
-.btn-logout-sidebar:hover {
-  background-color: var(--color-gold);
-  color: #111;
-}
+      <!-- Onglets Tous / Clients / Prospects -->
+      <div class="filter-tabs">
+        <button class="filter-btn active" data-filter="all">Tous</button>
+        <button class="filter-btn" data-filter="client">Clients</button>
+        <button class="filter-btn" data-filter="prospect">Prospects</button>
+      </div>
+    </div>
 
-/* Main Content */
-.crm-main-content {
-  margin-left: var(--sidebar-width);
-  flex: 1;
-  padding: 2.5rem;
-  box-sizing: border-box;
-}
+    <!-- Tableau -->
+    <div class="crm-table-container">
+      <table class="crm-table">
+        <thead>
+          <tr>
+            <th>Société</th>
+            <th>Type</th>
+            <th>Adresse</th>
+            <th>Code Postal / Ville</th>
+            <th>Département</th>
+            <th>Téléphone</th>
+          </tr>
+        </thead>
+        <tbody id="clients-table-body">
+          <!-- Données injectées -->
+        </tbody>
+      </table>
+      <div id="no-results" class="no-results" style="display: none;">
+        Aucune entreprise ne correspond à vos critères de classement ou de recherche.
+      </div>
+    </div>
+  </main>
 
-.crm-topbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #FFFFFF;
-  padding: 1.5rem 2rem;
-  border-radius: 8px;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
-  margin-bottom: 2rem;
-}
+  <!-- Modale Fiche de Renseignement (Vierge ou Édition) -->
+  <div id="client-modal" class="crm-modal" style="display: none;">
+    <div class="modal-content">
+      <button class="modal-close" id="modal-close-btn">&times;</button>
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #FFD700; padding-bottom: 0.75rem; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+        <h2 id="modal-societe-title" style="margin: 0; color: #1A2530;">Fiche de renseignement</h2>
+        <span id="modal-status-badge" class="badge"></span>
+      </div>
 
-.welcome-box h1 {
-  font-size: 1.75rem;
-  color: #1A2530;
-  margin: 0 0 0.25rem 0;
-}
+      <form id="client-edit-form">
+        <input type="hidden" id="edit-client-index" value="-1">
+        
+        <div class="modal-grid-edit">
+          <div class="form-field" style="grid-column: span 2;">
+            <label for="edit-societe">Nom de la société *</label>
+            <input type="text" id="edit-societe" placeholder="Ex: SAS CARRELAGE PROVENCE" required>
+          </div>
 
-.welcome-box p {
-  color: #666;
-  font-size: 0.9rem;
-  margin: 0;
-}
+          <div class="form-field">
+            <label for="edit-type">Statut commercial</label>
+            <select id="edit-type" class="crm-select" style="width: 100%;">
+              <option value="Client">Client</option>
+              <option value="Prospect">Prospect</option>
+            </select>
+          </div>
 
-.info-widgets {
-  display: flex;
-  gap: 1.5rem;
-  align-items: center;
-  font-size: 0.9rem;
-  color: #4B5563;
-  background: #FAFAFA;
-  padding: 0.75rem 1.25rem;
-  border-radius: 6px;
-  border: 1px solid rgba(0, 0, 0, 0.04);
-}
+          <div class="form-field">
+            <label for="edit-telephone">Téléphone principal</label>
+            <input type="text" id="edit-telephone" placeholder="04 00 00 00 00">
+          </div>
 
-.widget-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-weight: 500;
-}
+          <div class="form-field">
+            <label for="edit-autre-tel">Autre Téléphone</label>
+            <input type="text" id="edit-autre-tel" placeholder="06 00 00 00 00">
+          </div>
 
-/* Stats Cards */
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-}
+          <div class="form-field">
+            <label for="edit-email">E-mail professionnel</label>
+            <input type="email" id="edit-email" placeholder="contact@entreprise.com">
+          </div>
 
-.stat-card {
-  background: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  border-radius: 8px;
-  padding: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 1.25rem;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
-}
+          <div class="form-field" style="grid-column: span 2;">
+            <label for="edit-adresse">Adresse complète</label>
+            <input type="text" id="edit-adresse" placeholder="123 Avenue des Entreprises">
+          </div>
 
-.stat-icon {
-  font-size: 2rem;
-  background: #FAF8F5;
-  padding: 0.75rem;
-  border-radius: 6px;
-  border: 1px solid rgba(212, 175, 55, 0.2);
-}
+          <div class="form-field">
+            <label for="edit-code-postal">Code Postal</label>
+            <input type="text" id="edit-code-postal" placeholder="06000">
+          </div>
 
-.stat-info {
-  display: flex;
-  flex-direction: column;
-}
+          <div class="form-field">
+            <label for="edit-ville">Ville</label>
+            <input type="text" id="edit-ville" placeholder="Nice">
+          </div>
 
-.stat-number {
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: #1A2530;
-}
+          <div class="form-field">
+            <label for="edit-departement">Département (ex: FR-06)</label>
+            <input type="text" id="edit-departement" placeholder="FR-06">
+          </div>
 
-.stat-label {
-  font-size: 0.85rem;
-  color: #666;
-}
+          <div class="form-field">
+            <label for="edit-region">Région (ex: FR-PAC)</label>
+            <input type="text" id="edit-region" placeholder="FR-PAC">
+          </div>
+        </div>
 
-/* Select & Inputs */
-.crm-select {
-  padding: 0.6rem 1rem;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 6px;
-  font-size: 0.9rem;
-  background-color: #FFFFFF;
-  color: #333;
-  outline: none;
-  cursor: pointer;
-  transition: border-color 0.2s;
-}
+        <!-- Zone Documents joints (Ouvertures de compte, RIB, KBIS...) -->
+        <div class="documents-section">
+          <h3 class="documents-title">📄 Documents joints (Ouverture de compte, RIB, Kbis...)</h3>
+          
+          <div class="file-upload-box">
+            <input type="file" id="document-input" multiple accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+            <label for="document-input" class="file-upload-label">
+              <span>📎 Cliquer ou glisser-déposer pour ajouter des documents (PDF, RIB, Images...)</span>
+            </label>
+          </div>
 
-.crm-select:focus {
-  border-color: #FFD700;
-}
+          <ul id="documents-list" class="documents-list">
+            <!-- Injection dynamique des fichiers -->
+          </ul>
+        </div>
 
-.search-box {
-  display: flex;
-  align-items: center;
-  background: #FAFAFA;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 6px;
-  padding: 0.6rem 1rem;
-  gap: 0.75rem;
-}
+        <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 2rem; border-top: 1px solid #E5E7EB; padding-top: 1.25rem;">
+          <button type="button" id="btn-cancel-edit" class="filter-btn" style="background: #F3F4F6;">Annuler</button>
+          <button type="submit" class="filter-btn" style="background: #111; color: #FFD700; border-color: #FFD700; font-weight: 700;">💾 Enregistrer la fiche</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
-.search-box input {
-  border: none;
-  outline: none;
-  width: 100%;
-  font-size: 0.95rem;
-  background: transparent;
-}
-
-.filter-tabs {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.filter-btn {
-  background: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 0.6rem 1.25rem;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  color: #4B5563;
-}
-
-.filter-btn:hover,
-.filter-btn.active {
-  background-color: #111111;
-  color: #FFD700;
-  border-color: #FFD700;
-}
-
-/* Table Container */
-.crm-table-container {
-  background: #FFFFFF;
-  border-radius: 8px;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-  overflow: hidden;
-}
-
-.crm-table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
-  font-size: 0.92rem;
-}
-
-.crm-table th {
-  background-color: #FAFAFA;
-  color: #1A2530;
-  font-weight: 700;
-  padding: 1rem 1.25rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-}
-
-.crm-table td {
-  padding: 1rem 1.25rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  color: #333;
-}
-
-.crm-table tr {
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.crm-table tr:hover {
-  background-color: #FAF8F5;
-}
-
-/* Badges */
-.badge {
-  display: inline-block;
-  padding: 0.25rem 0.75rem;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.badge-client {
-  background-color: #E6F4EA;
-  color: #137333;
-}
-
-.badge-prospect {
-  background-color: #FEF7E0;
-  color: #B06000;
-}
-
-.no-results {
-  padding: 3rem;
-  text-align: center;
-  color: #666;
-  font-size: 1rem;
-}
-
-/* Modal */
-.crm-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2000;
-}
-
-.modal-content {
-  background: #FFFFFF;
-  width: 100%;
-  max-width: 850px;
-  border-radius: 12px;
-  padding: 2.5rem;
-  position: relative;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
-  border: 1px solid rgba(212, 175, 55, 0.4);
-  max-height: 92vh;
-  overflow-y: auto;
-}
-
-.modal-close {
-  position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-  background: none;
-  border: none;
-  font-size: 1.75rem;
-  cursor: pointer;
-  color: #666;
-  transition: color 0.2s;
-}
-
-.modal-close:hover {
-  color: #FFD700;
-}
-
-/* Formulaire d'édition */
-.modal-grid-edit {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
-}
-
-.modal-grid-edit .form-field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-}
-
-.modal-grid-edit .form-field label {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: #1A2530;
-}
-
-.modal-grid-edit .form-field input,
-.modal-grid-edit .form-field select {
-  padding: 0.65rem 0.85rem;
-  border: 1px solid #D1D5DB;
-  border-radius: 6px;
-  font-size: 0.95rem;
-  background: #FAFAFA;
-  transition: all 0.2s ease;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.modal-grid-edit .form-field input:focus,
-.modal-grid-edit .form-field select:focus {
-  outline: none;
-  border-color: #FFD700;
-  background: #FFFFFF;
-  box-shadow: 0 0 8px rgba(255, 215, 0, 0.25);
-}
-
-/* Zone d'ajout de documents */
-.documents-section {
-  margin-top: 2rem;
-  padding-top: 1.5rem;
-  border-top: 1px dashed #D1D5DB;
-}
-
-.documents-title {
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: #1A2530;
-  margin-bottom: 1rem;
-}
-
-.file-upload-box {
-  position: relative;
-  border: 2px dashed #D4AF37;
-  border-radius: 8px;
-  background: #FAF8F5;
-  text-align: center;
-  padding: 1.25rem;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.file-upload-box:hover {
-  background: #FFF;
-}
-
-.file-upload-box input[type="file"] {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  cursor: pointer;
-}
-
-.file-upload-label {
-  font-weight: 600;
-  color: #1A2530;
-  font-size: 0.9rem;
-}
-
-.documents-list {
-  list-style: none;
-  padding: 0;
-  margin: 1rem 0 0 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.document-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #FAFAFA;
-  border: 1px solid #E5E7EB;
-  padding: 0.6rem 1rem;
-  border-radius: 6px;
-  font-size: 0.88rem;
-}
-
-.document-item a {
-  color: #D4AF37;
-  font-weight: 600;
-  text-decoration: underline;
-  max-width: 80%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.btn-delete-doc {
-  background: none;
-  border: none;
-  color: #DC2626;
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 1.1rem;
-}
-
-@media (max-width: 900px) {
-  .crm-sidebar {
-    width: 70px;
-  }
-  .sidebar-brand span.brand-text,
-  .sidebar-menu span.menu-text,
-  .sidebar-footer span {
-    display: none;
-  }
-  .crm-main-content {
-    margin-left: 70px;
-    padding: 1rem;
-  }
-}
-
-@media (max-width: 650px) {
-  .modal-grid-edit {
-    grid-template-columns: 1fr;
-  }
-  .modal-grid-edit .form-field {
-    grid-column: span 1 !important;
-  }
-}
+  <script src="assets/js/clients.js"></script>
+</body>
+</html>
