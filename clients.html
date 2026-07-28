@@ -140,21 +140,79 @@
     </div>
   </main>
 
-  <!-- Modal détails -->
+  <!-- Modal Édition / Fiche Client -->
   <div id="client-modal" class="crm-modal" style="display: none;">
     <div class="modal-content">
       <button class="modal-close" id="modal-close-btn">&times;</button>
-      <h2 id="modal-societe">Nom de la société</h2>
-      <div class="modal-grid">
-        <div><strong>Type :</strong> <span id="modal-type">-</span></div>
-        <div><strong>Téléphone :</strong> <span id="modal-telephone">-</span></div>
-        <div><strong>Autre Tél :</strong> <span id="modal-autre-tel">-</span></div>
-        <div><strong>E-mail :</strong> <span id="modal-email">-</span></div>
-        <div><strong>Adresse :</strong> <span id="modal-adresse">-</span></div>
-        <div><strong>Ville :</strong> <span id="modal-ville">-</span></div>
-        <div><strong>Département :</strong> <span id="modal-dept">-</span></div>
-        <div><strong>Région :</strong> <span id="modal-region">-</span></div>
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #FFD700; padding-bottom: 0.75rem; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+        <h2 id="modal-societe-title" style="margin: 0; color: #1A2530;">Fiche Client</h2>
+        <span id="modal-status-badge" class="badge"></span>
       </div>
+
+      <form id="client-edit-form">
+        <input type="hidden" id="edit-client-index">
+        
+        <div class="modal-grid-edit">
+          <div class="form-field" style="grid-column: span 2;">
+            <label for="edit-societe">Nom de la société</label>
+            <input type="text" id="edit-societe" required>
+          </div>
+
+          <div class="form-field">
+            <label for="edit-type">Statut commercial</label>
+            <select id="edit-type" class="crm-select" style="width: 100%;">
+              <option value="Client">Client</option>
+              <option value="Prospect">Prospect</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label for="edit-telephone">Téléphone principal</label>
+            <input type="text" id="edit-telephone" placeholder="04 00 00 00 00">
+          </div>
+
+          <div class="form-field">
+            <label for="edit-autre-tel">Autre Téléphone</label>
+            <input type="text" id="edit-autre-tel" placeholder="06 00 00 00 00">
+          </div>
+
+          <div class="form-field">
+            <label for="edit-email">E-mail professionnel</label>
+            <input type="email" id="edit-email" placeholder="contact@entreprise.com">
+          </div>
+
+          <div class="form-field" style="grid-column: span 2;">
+            <label for="edit-adresse">Adresse</label>
+            <input type="text" id="edit-adresse">
+          </div>
+
+          <div class="form-field">
+            <label for="edit-code-postal">Code Postal</label>
+            <input type="text" id="edit-code-postal">
+          </div>
+
+          <div class="form-field">
+            <label for="edit-ville">Ville</label>
+            <input type="text" id="edit-ville">
+          </div>
+
+          <div class="form-field">
+            <label for="edit-departement">Département (ex: FR-06)</label>
+            <input type="text" id="edit-departement">
+          </div>
+
+          <div class="form-field">
+            <label for="edit-region">Région (ex: FR-PAC)</label>
+            <input type="text" id="edit-region">
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 2rem; border-top: 1px solid #E5E7EB; padding-top: 1.25rem;">
+          <button type="button" id="btn-cancel-edit" class="filter-btn" style="background: #F3F4F6;">Annuler</button>
+          <button type="submit" class="filter-btn" style="background: #111; color: #FFD700; border-color: #FFD700; font-weight: 700;">💾 Enregistrer les modifications</button>
+        </div>
+      </form>
     </div>
   </div>
 
