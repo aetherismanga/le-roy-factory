@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
     btn.addEventListener("click", () => {
       const actionName = btn.getAttribute("data-action");
 
-      // Redirection intelligente si clic sur Nouveau client ou Nouveau prospect
+      // Redirection et ouverture automatique de la fiche vierge
       if (actionName === "Nouveau client") {
         window.location.href = "clients.html?action=new-client";
         return;
