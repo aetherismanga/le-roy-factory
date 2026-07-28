@@ -1,1 +1,415 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nouveau Compte-Rendu — LE ROY FACTORY CRM</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Styles CRM -->
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/clients.css">
 
+  <style>
+    body.crm-body {
+      background-color: #FBF9F5 !important;
+      background-image: none !important;
+      color: #1A2530 !important;
+    }
+
+    .crm-topbar {
+      background-image: url('assets/img/bandeau02.png') !important;
+      background-size: cover !important;
+      background-position: center !important;
+      background-repeat: no-repeat !important;
+      border-bottom: 2px solid #D4AF37 !important;
+      color: #FFFFFF !important;
+    }
+    .crm-topbar h1, .crm-topbar p, .welcome-box h1, .welcome-box p {
+      color: #FFFFFF !important;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+    }
+
+    .form-container-card {
+      background: #FFFFFF;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      padding: 2.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .form-grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .form-group-custom {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-group-custom label {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #1A2530;
+    }
+
+    .attachments-preview {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .attachment-card {
+      background: #FAFAFA;
+      border: 1px solid #E5E7EB;
+      border-radius: 8px;
+      padding: 0.5rem;
+      text-align: center;
+      position: relative;
+      font-size: 0.75rem;
+    }
+
+    .attachment-card img {
+      width: 100%;
+      height: 85px;
+      object-fit: cover;
+      border-radius: 4px;
+      margin-bottom: 0.25rem;
+    }
+
+    .btn-remove-att {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      background: #DC2626;
+      color: #FFF;
+      border: none;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      font-weight: bold;
+      cursor: pointer;
+      line-height: 1;
+    }
+  </style>
+</head>
+<body class="crm-body">
+
+  <!-- Sidebar CRM -->
+  <aside class="crm-sidebar">
+    <div class="sidebar-brand">
+      <a href="index.html" class="logo-link">
+        <div class="logo-circle" style="width: 60px; height: 60px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.4); border: 2px solid #D4AF37; background-color: #000;">
+          <img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+      </a>
+    </div>
+    <ul class="sidebar-menu">
+      <li><a href="dashboard.html"><span class="icon">🏠</span><span class="menu-text">Accueil</span></a></li>
+      <li><a href="clients.html"><span class="icon">👥</span><span class="menu-text">Clients</span></a></li>
+      <li><a href="clients.html?filter=prospect"><span class="icon">🎯</span><span class="menu-text">Prospects</span></a></li>
+      <li><a href="agenda.html"><span class="icon">📅</span><span class="menu-text">Agenda</span></a></li>
+      <li><a href="comptes-rendus.html" class="active"><span class="icon">📞</span><span class="menu-text">Comptes-rendus</span></a></li>
+      <li><a href="catalogues.html"><span class="icon">📂</span><span class="menu-text">Catalogues</span></a></li>
+      <li><a href="partenaires.html"><span class="icon">🏭</span><span class="menu-text">Fabricants</span></a></li>
+      <li><a href="#"><span class="icon">📸</span><span class="menu-text">Photos</span></a></li>
+      <li><a href="#"><span class="icon">🗺</span><span class="menu-text">Carte</span></a></li>
+      <li><a href="#"><span class="icon">📊</span><span class="menu-text">Statistiques</span></a></li>
+      <li><a href="#"><span class="icon">⚙</span><span class="menu-text">Paramètres</span></a></li>
+    </ul>
+    <div class="sidebar-footer">
+      <button id="logout-btn" class="btn-logout-sidebar">
+        <span>🚪</span> <span class="menu-text">Déconnexion</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Contenu Principal -->
+  <main class="crm-main-content">
+    <div class="crm-topbar">
+      <div class="welcome-box">
+        <h1>Nouveau Compte-Rendu de Visite</h1>
+        <p>Attribuez le compte-rendu au client, dictez ou saisissez vos notes et joignez vos documents.</p>
+      </div>
+      <div class="info-widgets">
+        <div class="widget-item"><span>📅</span> <span id="current-date">--</span></div>
+        <div class="widget-item"><span>⏰</span> <span id="current-time">--</span></div>
+        <div class="widget-item"><span>🌤</span> <span>26°C, Ensoleillé</span></div>
+      </div>
+    </div>
+
+    <!-- Formulaire Vierge -->
+    <div class="form-container-card">
+      <form id="cr-form">
+        
+        <div class="form-grid-2">
+          <!-- Sélection Client -->
+          <div class="form-group-custom">
+            <label for="select-client">Attribuer au Client / Prospect *</label>
+            <select id="select-client" class="crm-select" required style="width: 100%; padding: 0.75rem;">
+              <option value="" disabled selected>-- Choisissez une entreprise --</option>
+            </select>
+          </div>
+
+          <!-- Date de la visite -->
+          <div class="form-group-custom">
+            <label for="input-date">Date de la visite *</label>
+            <input type="date" id="input-date" class="crm-select" style="width: 100%; padding: 0.75rem;" required>
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <!-- Auteur (Agent) -->
+          <div class="form-group-custom">
+            <label for="input-author">Agent commercial</label>
+            <input type="text" id="input-author" class="crm-select" readonly style="width: 100%; padding: 0.75rem; background: #E5E7EB; font-weight: 700;">
+          </div>
+
+          <!-- Dictée Vocale -->
+          <div class="form-group-custom" style="justify-content: flex-end;">
+            <button type="button" id="btn-voice-start" class="filter-btn" style="background: #111; color: #FFD700; border-color: #FFD700; padding: 0.75rem; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+              <span id="voice-icon">🎙️</span> <span id="voice-status">Lancer la dictée vocale</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Zone Texte du Compte-Rendu -->
+        <div class="form-group-custom" style="margin-bottom: 1.5rem;">
+          <label for="textarea-notes">Compte-rendu / Remarques / Prochaines actions *</label>
+          <textarea id="textarea-notes" rows="6" required class="crm-select" style="width: 100%; padding: 1rem; font-family: inherit; font-size: 0.95rem; line-height: 1.5;" placeholder="Parlez ou saisissez votre rapport de visite ici..."></textarea>
+        </div>
+
+        <!-- Section Photos & Documents joints -->
+        <div class="documents-section" style="margin-top: 2rem; border-top: 1px dashed #D1D5DB; padding-top: 1.5rem;">
+          <h3 class="documents-title" style="margin-bottom: 0.5rem;">📷 📄 Photos & Fichiers joints</h3>
+          <p style="font-size: 0.85rem; color: #666; margin-bottom: 1rem;">Ajoutez des photos de chantier ou des documents (PDF, devis, bons de commande).</p>
+
+          <div class="file-upload-box">
+            <input type="file" id="media-input" multiple accept="image/*,.pdf,.doc,.docx">
+            <label for="media-input" class="file-upload-label">
+              <span>📎 Cliquer pour ajouter des photos ou fichiers</span>
+            </label>
+          </div>
+
+          <!-- Aperçu des fichiers ajoutés -->
+          <div id="attachments-preview" class="attachments-preview"></div>
+        </div>
+
+        <!-- Boutons de validation -->
+        <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 2.5rem; border-top: 1px solid #E5E7EB; padding-top: 1.5rem;">
+          <a href="comptes-rendus.html" class="filter-btn reset-btn" style="text-decoration: none;">Annuler</a>
+          <button type="submit" class="btn-primary-gold" style="padding: 0.85rem 2rem; font-size: 1rem;">
+            💾 Enregistrer le compte-rendu
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </main>
+
+  <script>
+    let tempMediaFiles = [];
+    let recognition = null;
+    let isRecording = false;
+
+    document.addEventListener("DOMContentLoaded", () => {
+      // Contrôle de session
+      const isLoggedIn = localStorage.getItem("agentLoggedIn");
+      if (!isLoggedIn) {
+        window.location.href = "agent.html";
+        return;
+      }
+
+      const agentName = localStorage.getItem("agentName") || "Jérôme Hugol";
+      const agentFirstName = agentName.split(" ")[0];
+      
+      document.getElementById("input-author").value = agentFirstName;
+      document.getElementById("input-date").value = new Date().toISOString().split('T')[0];
+
+      // Date et heure
+      function updateDateTime() {
+        const now = new Date();
+        const dateEl = document.getElementById("current-date");
+        const timeEl = document.getElementById("current-time");
+        if (dateEl) {
+          let formatted = now.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+          dateEl.textContent = formatted.charAt(0).toUpperCase() + formatted.slice(1);
+        }
+        if (timeEl) {
+          timeEl.textContent = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+        }
+      }
+      updateDateTime();
+      setInterval(updateDateTime, 1000);
+
+      // Déconnexion
+      document.getElementById("logout-btn")?.addEventListener("click", () => {
+        localStorage.removeItem("agentLoggedIn");
+        window.location.href = "agent.html";
+      });
+
+      // Remplissage de la liste des clients
+      const clientsData = JSON.parse(localStorage.getItem("clientsDatabaseCustom")) || [];
+      const clientSelect = document.getElementById("select-client");
+
+      clientsData.sort((a, b) => (a.societe || '').localeCompare(b.societe || '', 'fr'));
+
+      clientsData.forEach((c, idx) => {
+        const opt = document.createElement("option");
+        opt.value = idx;
+        opt.textContent = `${c.societe || 'Sans nom'} (${c.code_postal || ''} ${c.ville || ''})`;
+        clientSelect.appendChild(opt);
+      });
+
+      // Reconnaissance Vocale
+      if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        recognition = new SpeechRecognition();
+        recognition.lang = 'fr-FR';
+        recognition.continuous = true;
+        recognition.interimResults = true;
+
+        recognition.onresult = (event) => {
+          let transcript = '';
+          for (let i = event.resultIndex; i < event.results.length; i++) {
+            transcript += event.results[i][0].transcript;
+          }
+          const textArea = document.getElementById("textarea-notes");
+          if (textArea) {
+            textArea.value = (textArea.value ? textArea.value + " " : "") + transcript;
+          }
+        };
+
+        recognition.onerror = () => stopRecording();
+        recognition.onend = () => { if (isRecording) stopRecording(); };
+      }
+
+      function startRecording() {
+        if (!recognition) {
+          alert("Reconnaissance vocale non prise en charge. Utilisez Google Chrome ou Safari.");
+          return;
+        }
+        isRecording = true;
+        recognition.start();
+        document.getElementById("btn-voice-start").style.background = "#DC2626";
+        document.getElementById("voice-icon").textContent = "🔴";
+        document.getElementById("voice-status").textContent = "Écoute en cours... Parlez maintenant";
+      }
+
+      function stopRecording() {
+        if (recognition && isRecording) recognition.stop();
+        isRecording = false;
+        document.getElementById("btn-voice-start").style.background = "#111";
+        document.getElementById("voice-icon").textContent = "🎙️";
+        document.getElementById("voice-status").textContent = "Lancer la dictée vocale";
+      }
+
+      document.getElementById("btn-voice-start")?.addEventListener("click", () => {
+        if (isRecording) stopRecording();
+        else startRecording();
+      });
+
+      // Gestion des fichiers joints
+      const mediaInput = document.getElementById("media-input");
+      const mediaPreview = document.getElementById("attachments-preview");
+
+      mediaInput?.addEventListener("change", (e) => {
+        const files = Array.from(e.target.files);
+        files.forEach(file => {
+          const reader = new FileReader();
+          reader.onload = (evt) => {
+            tempMediaFiles.push({
+              name: file.name,
+              type: file.type,
+              data: evt.target.result
+            });
+            renderMediaPreview();
+          };
+          reader.readAsDataURL(file);
+        });
+        mediaInput.value = "";
+      });
+
+      function renderMediaPreview() {
+        if (!mediaPreview) return;
+        mediaPreview.innerHTML = "";
+
+        tempMediaFiles.forEach((file, idx) => {
+          const isImg = file.type.startsWith("image/");
+          const card = document.createElement("div");
+          card.className = "attachment-card";
+
+          card.innerHTML = `
+            <button type="button" class="btn-remove-att" data-att-idx="${idx}">&times;</button>
+            ${isImg ? `<img src="${file.data}" alt="${file.name}">` : `<div style="font-size: 2rem; margin-bottom: 0.25rem;">📄</div>`}
+            <div style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${file.name}</div>
+          `;
+
+          mediaPreview.appendChild(card);
+        });
+
+        mediaPreview.querySelectorAll(".btn-remove-att").forEach(btn => {
+          btn.addEventListener("click", (e) => {
+            const idx = parseInt(e.target.getAttribute("data-att-idx"), 10);
+            tempMediaFiles.splice(idx, 1);
+            renderMediaPreview();
+          });
+        });
+      }
+
+      // Enregistrement
+      document.getElementById("cr-form")?.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const clientIdx = document.getElementById("select-client").value;
+        const dateVal = document.getElementById("input-date").value;
+        const authorVal = document.getElementById("input-author").value;
+        const textVal = document.getElementById("textarea-notes").value.trim();
+
+        if (clientIdx === "") {
+          alert("Veuillez sélectionner un client.");
+          return;
+        }
+
+        if (!clientsData[clientIdx]) return;
+
+        if (!clientsData[clientIdx].comptes_rendus) {
+          clientsData[clientIdx].comptes_rendus = [];
+        }
+
+        clientsData[clientIdx].comptes_rendus.unshift({
+          date: dateVal,
+          author: authorVal,
+          text: textVal,
+          attachments: [...tempMediaFiles]
+        });
+
+        localStorage.setItem("clientsDatabaseCustom", JSON.stringify(clientsData));
+
+        if (isRecording) stopRecording();
+
+        alert("✅ Compte-rendu enregistré avec succès !");
+        window.location.href = "comptes-rendus.html";
+      });
+    });
+  </script>
+</body>
+</html>
