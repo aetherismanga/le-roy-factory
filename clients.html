@@ -140,83 +140,20 @@
     </div>
   </main>
 
-  <!-- Modal détails avec option Modification -->
+  <!-- Modal détails -->
   <div id="client-modal" class="crm-modal" style="display: none;">
     <div class="modal-content">
       <button class="modal-close" id="modal-close-btn">&times;</button>
-      
-      <!-- Vue Lecture -->
-      <div id="modal-view-mode">
-        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #FFD700; padding-bottom: 0.75rem; margin-bottom: 2rem;">
-          <h2 id="modal-societe" style="border: none; padding: 0; margin: 0;">Nom de la société</h2>
-          <button id="btn-edit-client" class="btn" style="background: #111; color: #FFD700; border: 1px solid #FFD700; padding: 0.5rem 1rem; border-radius: 4px; font-weight: 600; cursor: pointer; transition: 0.2s ease;">✏️ Modifier</button>
-        </div>
-        <div class="modal-grid">
-          <div><strong>Type :</strong> <span id="modal-type">-</span></div>
-          <div><strong>Téléphone :</strong> <span id="modal-telephone">-</span></div>
-          <div><strong>Autre Tél :</strong> <span id="modal-autre-tel">-</span></div>
-          <div><strong>E-mail :</strong> <span id="modal-email">-</span></div>
-          <div><strong>Adresse :</strong> <span id="modal-adresse">-</span></div>
-          <div><strong>Ville :</strong> <span id="modal-ville">-</span></div>
-          <div><strong>Département :</strong> <span id="modal-dept">-</span></div>
-          <div><strong>Région :</strong> <span id="modal-region">-</span></div>
-        </div>
-      </div>
-
-      <!-- Vue Édition (Cachée par défaut) -->
-      <div id="modal-edit-mode" style="display: none;">
-        <h2 style="margin-top: 0; margin-bottom: 2rem; border-bottom: 2px solid #FFD700; padding-bottom: 0.75rem;">Modifier le contact</h2>
-        <form id="form-edit-client" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-          
-          <div style="grid-column: 1 / -1;">
-            <label style="display:block; font-weight:600; margin-bottom:0.5rem; font-size: 0.9rem;">Société</label>
-            <input type="text" id="edit-societe" style="width:100%; padding:0.75rem; border:1px solid #ccc; border-radius:4px; font-family: inherit;">
-          </div>
-          
-          <div>
-            <label style="display:block; font-weight:600; margin-bottom:0.5rem; font-size: 0.9rem;">Type</label>
-            <select id="edit-type" style="width:100%; padding:0.75rem; border:1px solid #ccc; border-radius:4px; font-family: inherit;">
-              <option value="Client">Client</option>
-              <option value="Prospect">Prospect</option>
-            </select>
-          </div>
-          
-          <div>
-            <label style="display:block; font-weight:600; margin-bottom:0.5rem; font-size: 0.9rem;">E-mail</label>
-            <input type="email" id="edit-email" style="width:100%; padding:0.75rem; border:1px solid #ccc; border-radius:4px; font-family: inherit;">
-          </div>
-          
-          <div>
-            <label style="display:block; font-weight:600; margin-bottom:0.5rem; font-size: 0.9rem;">Téléphone</label>
-            <input type="text" id="edit-telephone" style="width:100%; padding:0.75rem; border:1px solid #ccc; border-radius:4px; font-family: inherit;">
-          </div>
-          
-          <div>
-            <label style="display:block; font-weight:600; margin-bottom:0.5rem; font-size: 0.9rem;">Autre Tél</label>
-            <input type="text" id="edit-autre-tel" style="width:100%; padding:0.75rem; border:1px solid #ccc; border-radius:4px; font-family: inherit;">
-          </div>
-          
-          <div style="grid-column: 1 / -1;">
-            <label style="display:block; font-weight:600; margin-bottom:0.5rem; font-size: 0.9rem;">Adresse</label>
-            <input type="text" id="edit-adresse" style="width:100%; padding:0.75rem; border:1px solid #ccc; border-radius:4px; font-family: inherit;">
-          </div>
-          
-          <div>
-            <label style="display:block; font-weight:600; margin-bottom:0.5rem; font-size: 0.9rem;">Code Postal</label>
-            <input type="text" id="edit-cp" style="width:100%; padding:0.75rem; border:1px solid #ccc; border-radius:4px; font-family: inherit;">
-          </div>
-          
-          <div>
-            <label style="display:block; font-weight:600; margin-bottom:0.5rem; font-size: 0.9rem;">Ville</label>
-            <input type="text" id="edit-ville" style="width:100%; padding:0.75rem; border:1px solid #ccc; border-radius:4px; font-family: inherit;">
-          </div>
-          
-          <div style="grid-column: 1 / -1; display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1rem;">
-            <button type="button" id="btn-cancel-edit" class="btn" style="background: #f3f4f6; color: #333; border: 1px solid #ccc; padding: 0.75rem 1.5rem; border-radius: 4px; font-weight: 600; cursor: pointer; transition: 0.2s ease;">Annuler</button>
-            <button type="submit" class="btn" style="background: #111; color: #FFD700; border: 1px solid #FFD700; padding: 0.75rem 1.5rem; border-radius: 4px; font-weight: 600; cursor: pointer; transition: 0.2s ease;">💾 Sauvegarder</button>
-          </div>
-          
-        </form>
+      <h2 id="modal-societe">Nom de la société</h2>
+      <div class="modal-grid">
+        <div><strong>Type :</strong> <span id="modal-type">-</span></div>
+        <div><strong>Téléphone :</strong> <span id="modal-telephone">-</span></div>
+        <div><strong>Autre Tél :</strong> <span id="modal-autre-tel">-</span></div>
+        <div><strong>E-mail :</strong> <span id="modal-email">-</span></div>
+        <div><strong>Adresse :</strong> <span id="modal-adresse">-</span></div>
+        <div><strong>Ville :</strong> <span id="modal-ville">-</span></div>
+        <div><strong>Département :</strong> <span id="modal-dept">-</span></div>
+        <div><strong>Région :</strong> <span id="modal-region">-</span></div>
       </div>
     </div>
   </div>
