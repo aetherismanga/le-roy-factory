@@ -85,12 +85,14 @@
 }
 
 /* ==========================================================================
-   CENTRAGE ET REMONTÉE DU MENU BURGER MOBILE
+   CENTRAGE ET REMONTÉE FORCÉE DU MENU BURGER MOBILE
    ========================================================================== */
 .mobile-menu, 
 .nav-mobile-container, 
 nav.active, 
-.burger-open {
+.burger-open,
+.nav-menu.active,
+.navbar-nav.active {
   display: flex !important;
   flex-direction: column !important;
   justify-content: center !important;
@@ -99,27 +101,34 @@ nav.active,
   position: fixed !important;
   top: 0 !important;
   left: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
+  width: 100vw !important;
+  height: 100vh !important;
   background-color: #FBF9F5 !important; /* Fond coquille d'œuf harmonisé */
-  z-index: 9999 !important;
+  z-index: 99999 !important;
+  margin: 0 !important;
   padding: 2rem !important;
   box-sizing: border-box !important;
 }
 
 /* Espacement et style élégant des liens dans le menu ouvert */
 .mobile-menu a, 
-.nav-mobile-container a {
+.nav-mobile-container a,
+nav.active a,
+.burger-open a,
+.nav-menu.active a {
   font-size: 1.25rem !important;
   font-weight: 600 !important;
   color: #1A2530 !important;
-  margin: 0.75rem 0 !important;
+  margin: 0.6rem 0 !important;
   text-decoration: none !important;
   transition: color 0.3s ease !important;
 }
 
 .mobile-menu a:hover, 
-.nav-mobile-container a:hover {
+.nav-mobile-container a:hover,
+nav.active a:hover,
+.burger-open a:hover,
+.nav-menu.active a:hover {
   color: #D4AF37 !important;
 }
 
