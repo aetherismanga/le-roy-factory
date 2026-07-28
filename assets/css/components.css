@@ -2,47 +2,52 @@
    LE ROY FACTORY — COMPOSANTS (Bouton Agent, Navigation & Menu Burger Mobile)
    ========================================================================== */
 
-/* Bouton Espace Agent Premium */
+/* Bouton Espace Agent Premium (Couleur Or forcée et lisible) */
 .agent-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  background-color: #000000;
-  color: #d4af37 !important; /* Force la couleur or pour le texte du bouton */
-  border: 1px solid #d4af37;
-  padding: 0.5rem 1rem;
-  font-family: inherit;
-  font-size: 0.95rem;
-  font-weight: 500;
-  text-decoration: none;
-  border-radius: 4px;
-  white-space: nowrap;
-  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  background-color: #000000 !important;
+  color: #FFD700 !important; /* Or pur très lumineux */
+  border: 1px solid #D4AF37 !important;
+  padding: 0.75rem 1.25rem !important;
+  font-family: inherit !important;
+  font-size: 1rem !important;
+  font-weight: 700 !important; /* Texte en gras */
+  text-decoration: none !important;
+  border-radius: 8px !important;
+  white-space: nowrap !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5) !important;
 }
 
-/* Si le texte est enveloppé dans un span ou un nœud texte spécifique */
+/* Forcer TOUS les éléments texte ou icônes à l'intérieur du bouton agent en or */
+.agent-btn *,
 .agent-btn span,
-.agent-btn {
-  color: #d4af37 !important;
+.agent-btn text {
+  color: #FFD700 !important;
+  fill: #FFD700 !important;
 }
 
 /* Effet au survol (quand la souris passe dessus) */
 .agent-btn:hover {
-  background-color: #d4af37;
+  background-color: #FFD700 !important;
   color: #000000 !important;
 }
 
+.agent-btn:hover *,
 .agent-btn:hover span {
   color: #000000 !important;
+  fill: #000000 !important;
 }
 
-/* Neutralisation pour s'assurer qu'il ne reste pas doré après un clic/focus */
+/* Neutralisation pour s'assurer qu'il ne reste pas inversé après un clic/focus */
 .agent-btn:active, 
 .agent-btn:focus {
   background-color: #000000 !important;
-  color: #d4af37 !important;
-  border-color: #d4af37 !important;
+  color: #FFD700 !important;
+  border-color: #FFD700 !important;
 }
 
 /* Ajustements de la navigation pour éviter le chevauchement de Tarifs PRO */
@@ -57,9 +62,10 @@
 
 /* Intégration mobile dans le menu burger */
 .mobile-menu .agent-btn {
-  width: 100%;
-  margin-top: 1rem;
-  text-align: center;
+  width: 80% !important;
+  max-width: 300px !important;
+  margin-top: 1.5rem !important;
+  text-align: center !important;
 }
 
 /* ==========================================================================
