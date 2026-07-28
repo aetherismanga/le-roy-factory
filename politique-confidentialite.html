@@ -9,34 +9,20 @@
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
-<style>
-.main-nav{
-display:flex;
-gap:1.2rem;
-align-items:center;
-justify-content:flex-end;
-list-style:none;
-margin:0;
-padding:0;
-flex-wrap:nowrap;
-}
-.main-nav li{display:flex;align-items:center;}
-.main-nav a{text-decoration:none;}
-.agent-btn{
-display:inline-flex;
-align-items:center;
-justify-content:center;
-padding:8px 14px;
-background:#111;
-color:#d4af37!important;
-border:1px solid #d4af37;
-border-radius:8px;
-font-weight:600;
-white-space:nowrap;
-transition:.25s;
-}
-.agent-btn:hover{background:#d4af37;color:#111!important;}
-</style>
+  <style>
+    .main-nav{
+      display:flex;
+      gap:1.2rem;
+      align-items:center;
+      justify-content:flex-end;
+      list-style:none;
+      margin:0;
+      padding:0;
+      flex-wrap:nowrap;
+    }
+    .main-nav li{display:flex;align-items:center;}
+    .main-nav a{text-decoration:none;}
+  </style>
 </head>
 <body>
 
@@ -54,6 +40,9 @@ transition:.25s;
           <li><a href="agent.html" class="agent-btn">🔒 Espace Agent</a></li>
         </ul>
       </nav>
+      <button class="burger-btn" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
 
