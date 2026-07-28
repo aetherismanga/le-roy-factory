@@ -5,6 +5,7 @@
     "categorie": "carrelage",
     "pays": "Italie",
     "site": "https://www.eliosceramica.com",
+    "pdf": "assets/pdf/elios-ceramica.pdf",
     "presentation": "Fabricant italien spécialisé dans les petits formats et la céramique décorative haut de gamme."
   },
   {
@@ -13,6 +14,7 @@
     "categorie": "carrelage",
     "pays": "Italie",
     "site": "https://www.viewceramiche.com",
+    "pdf": "assets/pdf/view-ceramica.pdf",
     "presentation": "Design contemporain et solutions céramiques innovantes pour les professionnels exigeants."
   },
   {
@@ -21,6 +23,7 @@
     "categorie": "carrelage",
     "pays": "Italie",
     "site": "https://www.lafenicegc.com",
+    "pdf": "assets/pdf/la-fenice.pdf",
     "presentation": "Tradition et modernité italienne au service de l'architecture intérieure."
   },
   {
@@ -29,6 +32,7 @@
     "categorie": "mosaique-pierre",
     "pays": "Espagne",
     "site": "https://www.reviglass.es",
+    "pdf": "assets/pdf/reviglass.pdf",
     "presentation": "Spécialiste de la mosaïque en verre recyclé haut de gamme."
   },
   {
@@ -37,6 +41,7 @@
     "categorie": "mosaique-pierre",
     "pays": "Italie",
     "site": "https://www.biopietra.com",
+    "pdf": "assets/pdf/biopietra.pdf",
     "presentation": "Pierre reconstituée écologique et certifiée pour l'aménagement décoratif."
   },
   {
@@ -45,6 +50,7 @@
     "categorie": "carrelage-exception",
     "pays": "Italie",
     "site": "https://www.petracer.it",
+    "pdf": "assets/pdf/petracers.pdf",
     "presentation": "L'expression ultime du luxe à l'italienne dans le carrelage d'exception."
   },
   {
@@ -53,6 +59,7 @@
     "categorie": "carrelage-exception",
     "pays": "Italie",
     "site": "https://www.pecchiolifirenze.com",
+    "pdf": "assets/pdf/pecchioli-firenze.pdf",
     "presentation": "Céramique artistique et historique façonnée à Florence."
   },
   {
@@ -61,6 +68,7 @@
     "categorie": "carrelage-exception",
     "pays": "Italie",
     "site": "https://www.bulbo.it",
+    "pdf": "assets/pdf/bulbo.pdf",
     "presentation": "Créations céramiques audacieuses et design avant-gardiste."
   },
   {
@@ -69,6 +77,7 @@
     "categorie": "salle-de-bain",
     "pays": "Espagne",
     "site": "https://www.randal.group",
+    "pdf": "assets/pdf/randal-pro.pdf",
     "presentation": "Mobilier de salle de bain sur mesure haut de gamme."
   },
   {
@@ -77,6 +86,7 @@
     "categorie": "salle-de-bain",
     "pays": "Italie",
     "site": "https://www.neobathdesign.fr",
+    "pdf": "assets/pdf/neobath.pdf",
     "presentation": "Fabricant italien de meubles de salle de bain design."
   },
   {
@@ -85,6 +95,7 @@
     "categorie": "salle-de-bain",
     "pays": "Espagne",
     "site": "https://www.koibath.com",
+    "pdf": "assets/pdf/koibath.pdf",
     "presentation": "Solutions innovantes et esthétiques pour la salle de bain moderne."
   },
   {
@@ -93,6 +104,7 @@
     "categorie": "salle-de-bain",
     "pays": "Robinetterie",
     "site": "https://www.aquahomebs.com",
+    "pdf": "assets/pdf/aquahome.pdf",
     "presentation": "Robinetterie haut de gamme alliant design et performance technique."
   },
   {
@@ -101,6 +113,7 @@
     "categorie": "salle-de-bain",
     "pays": "International",
     "site": "#",
+    "pdf": "assets/pdf/opal.pdf",
     "presentation": "Fabricant de miroirs lumineux et décoratifs pour espaces d'eau."
   },
   {
@@ -109,6 +122,7 @@
     "categorie": "outillage",
     "pays": "International",
     "site": "https://www.biltbs.com",
+    "pdf": "assets/pdf/bilt.pdf",
     "presentation": "Croisillons autonivelants et accessoires de pose professionnels."
   }
 ]
