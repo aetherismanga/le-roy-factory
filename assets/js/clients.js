@@ -234,7 +234,7 @@ const initialClientsDatabase = [
 
 // Récupération des données sauvegardées
 let clientsDatabase = JSON.parse(localStorage.getItem("clientsDatabaseCustom")) || initialClientsDatabase;
-let tempDocuments = []; // Stockage temporaire des documents
+let tempDocuments = [];
 
 document.addEventListener("DOMContentLoaded", () => {
   // Contrôle de session agent
@@ -276,7 +276,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Tri ordonné des listes déroulantes (départements, codes postaux, villes)
+  // Tri ordonné des listes déroulantes
   const deptSelect = document.getElementById("filter-dept");
   const cpSelect = document.getElementById("filter-cp");
   const citySelect = document.getElementById("filter-city");
@@ -494,7 +494,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Ouvrir la modale (index = -1 -> FICHE VIERGE TOTALEMENT RÉINITIALISÉE)
   function openModal(index = -1, defaultType = "Client") {
     if (!modal) return;
 
@@ -507,7 +506,6 @@ document.addEventListener("DOMContentLoaded", () => {
       badgeEl.textContent = "Nouveau";
       badgeEl.className = defaultType === "Client" ? "badge badge-client" : "badge badge-prospect";
 
-      // Réinitialisation complète des champs
       document.getElementById("edit-societe").value = "";
       document.getElementById("edit-type").value = defaultType;
       document.getElementById("edit-telephone").value = "";
@@ -546,19 +544,17 @@ document.addEventListener("DOMContentLoaded", () => {
     modal.style.display = "flex";
   }
 
-  // Ouverture automatique d'une fiche vierge depuis URL
+  // Ouverture automatique si venant du Dashboard
   if (actionParam === "new-client") {
     openModal(-1, "Client");
   } else if (actionParam === "new-prospect") {
     openModal(-1, "Prospect");
   }
 
-  // Clic sur bouton "+ Nouveau Client / Prospect"
   if (btnAddClient) {
     btnAddClient.addEventListener("click", () => openModal(-1, "Client"));
   }
 
-  // Enregistrement de la fiche
   if (clientEditForm) {
     clientEditForm.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -580,10 +576,8 @@ document.addEventListener("DOMContentLoaded", () => {
       };
 
       if (index === -1) {
-        // Ajout en haut du tableau
         clientsDatabase.unshift(clientData);
       } else if (clientsDatabase[index]) {
-        // Modification
         clientsDatabase[index] = clientData;
       }
 
