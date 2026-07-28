@@ -83,7 +83,7 @@
     <!-- Barre d'outils et de classement ergonomique -->
     <div class="crm-toolbar" style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; justify-content: space-between; background: #FFF; padding: 1.25rem; border-radius: 8px; border: 1px solid rgba(0,0,0,0.06); margin-bottom: 1.5rem;">
       
-      <!-- Action rapide : Créer un client -->
+      <!-- Action rapide : Fiche Vierge Client / Prospect -->
       <button id="btn-add-client" class="filter-btn" style="background: #111; color: #FFD700; border-color: #FFD700; font-weight: 700; display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem;">
         ➕ Nouveau Client / Prospect
       </button>
@@ -145,13 +145,13 @@
     </div>
   </main>
 
-  <!-- Modal Création & Édition / Fiche Client -->
+  <!-- Modale Fiche de Renseignement (Vierge ou Édition) -->
   <div id="client-modal" class="crm-modal" style="display: none;">
     <div class="modal-content">
       <button class="modal-close" id="modal-close-btn">&times;</button>
       
       <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #FFD700; padding-bottom: 0.75rem; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
-        <h2 id="modal-societe-title" style="margin: 0; color: #1A2530;">Fiche Client</h2>
+        <h2 id="modal-societe-title" style="margin: 0; color: #1A2530;">Fiche de renseignement</h2>
         <span id="modal-status-badge" class="badge"></span>
       </div>
 
@@ -188,7 +188,7 @@
           </div>
 
           <div class="form-field" style="grid-column: span 2;">
-            <label for="edit-adresse">Adresse</label>
+            <label for="edit-adresse">Adresse complète</label>
             <input type="text" id="edit-adresse" placeholder="123 Avenue des Entreprises">
           </div>
 
@@ -213,14 +213,14 @@
           </div>
         </div>
 
-        <!-- Section Documents joints (Ouvertures de compte, RIB...) -->
+        <!-- Zone Documents joints (Ouvertures de compte, RIB, KBIS...) -->
         <div class="documents-section">
           <h3 class="documents-title">📄 Documents joints (Ouverture de compte, RIB, Kbis...)</h3>
           
           <div class="file-upload-box">
             <input type="file" id="document-input" multiple accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
             <label for="document-input" class="file-upload-label">
-              <span>📎 Cliquer pour ajouter des documents (PDF, Image, RIB...)</span>
+              <span>📎 Cliquer ou glisser-déposer pour ajouter des documents (PDF, RIB, Images...)</span>
             </label>
           </div>
 
