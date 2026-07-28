@@ -8,6 +8,7 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
+  <!-- Styles CRM -->
   <link rel="stylesheet" href="assets/css/variables.css">
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/components.css">
@@ -60,37 +61,94 @@
     </div>
 
     <!-- Actions Rapides -->
-    <section style="margin-bottom: 2rem;">
-      <h2 style="font-size: 1.1rem; margin-bottom: 1rem; color: #1A2530;">Actions rapides</h2>
+    <div style="margin-bottom: 2rem;">
+      <h2 style="font-size: 1.1rem; margin-bottom: 1rem; color: #1A2530; font-weight: 700;">Actions rapides</h2>
       <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-        <a href="clients.html" class="btn-primary-gold" style="text-decoration: none; padding: 0.75rem 1.25rem;">➕ Nouveau client</a>
-        <a href="clients.html?filter=prospect" class="btn-primary-gold" style="text-decoration: none; padding: 0.75rem 1.25rem;">🎯 Nouveau prospect</a>
-        <a href="agenda.html" class="btn-primary-gold" style="text-decoration: none; padding: 0.75rem 1.25rem;">📅 Nouveau rendez-vous</a>
+        <a href="clients.html" class="btn-primary-gold" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem;">➕ Nouveau client</a>
+        <a href="clients.html?filter=prospect" class="btn-primary-gold" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem;">🎯 Nouveau prospect</a>
+        <a href="agenda.html" class="btn-primary-gold" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem;">📅 Nouveau rendez-vous</a>
+        <a href="#" class="btn-primary-gold" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem;">📞 Nouveau compte-rendu</a>
+        <a href="#" class="btn-primary-gold" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem;">📸 Ajouter des photos</a>
       </div>
-    </section>
+    </div>
 
-    <!-- Résumé / Statistiques rapides -->
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+    <!-- Résumé / Statistiques principales -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
       
       <!-- Bloc Clients -->
-      <div style="background: #FFF; padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(0,0,0,0.08);">
-        <h3 style="font-size: 1rem; color: #666; margin-bottom: 0.5rem;">Portefeuille Clients</h3>
-        <p style="font-size: 2rem; font-weight: 800; color: #111;">201</p>
+      <div style="background: #FFF; padding: 1.75rem; border-radius: 12px; border: 1px solid rgba(0,0,0,0.08); box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
+        <h3 style="font-size: 0.9rem; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">Portefeuille Clients</h3>
+        <p style="font-size: 2.25rem; font-weight: 800; color: #111; margin-bottom: 0.25rem;">201</p>
         <p style="font-size: 0.85rem; color: #888;">Clients actifs enregistrés</p>
       </div>
 
       <!-- Bloc Prospects -->
-      <div style="background: #FFF; padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(0,0,0,0.08);">
-        <h3 style="font-size: 1rem; color: #666; margin-bottom: 0.5rem;">Prospects en cours</h3>
-        <p style="font-size: 2rem; font-weight: 800; color: #111;">78</p>
+      <div style="background: #FFF; padding: 1.75rem; border-radius: 12px; border: 1px solid rgba(0,0,0,0.08); box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
+        <h3 style="font-size: 0.9rem; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">Prospects en cours</h3>
+        <p style="font-size: 2.25rem; font-weight: 800; color: #111; margin-bottom: 0.25rem;">78</p>
         <p style="font-size: 0.85rem; color: #888;">Suivi commercial actif</p>
       </div>
 
       <!-- Bloc Agenda -->
+      <div style="background: #FFF; padding: 1.75rem; border-radius: 12px; border: 1px solid rgba(0,0,0,0.08); box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
+        <h3 style="font-size: 0.9rem; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">Agenda</h3>
+        <p style="font-size: 2.25rem; font-weight: 800; color: #D4AF37; margin-bottom: 0.25rem;">12</p>
+        <p style="font-size: 0.85rem; color: #888; margin-bottom: 0.5rem;">Rendez-vous planifiés</p>
+        <a href="agenda.html" style="font-size: 0.85rem; color: #111; font-weight: 600; text-decoration: none;">Accéder au calendrier Google &rarr;</a>
+      </div>
+
+    </div>
+
+    <!-- Grille Inférieure (Aujourd'hui, Objectifs, Dernières Activités) -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+      
+      <!-- Aujourd'hui -->
       <div style="background: #FFF; padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(0,0,0,0.08);">
-        <h3 style="font-size: 1rem; color: #666; margin-bottom: 0.5rem;">Agenda</h3>
-        <p style="font-size: 2rem; font-weight: 800; color: #D4AF37;">Synchronisé</p>
-        <a href="agenda.html" style="font-size: 0.85rem; color: #111; font-weight: 600; text-decoration: underline;">Accéder au calendrier Google &rarr;</a>
+        <h3 style="font-size: 1rem; color: #1A2530; margin-bottom: 1rem; font-weight: 700;">⚡ Aujourd'hui</h3>
+        <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.75rem;">
+          <li style="display: flex; justify-content: space-between; font-size: 0.9rem; color: #444; border-bottom: 1px solid #F3F4F6; padding-bottom: 0.5rem;">
+            <span>3 rendez-vous showroom</span><strong style="background: #FEF3C7; color: #D97706; padding: 2px 8px; border-radius: 12px; font-size: 0.8rem;">3</strong>
+          </li>
+          <li style="display: flex; justify-content: space-between; font-size: 0.9rem; color: #444; border-bottom: 1px solid #F3F4F6; padding-bottom: 0.5rem;">
+            <span>5 prospects à relancer</span><strong style="background: #DBEAFE; color: #1D4ED8; padding: 2px 8px; border-radius: 12px; font-size: 0.8rem;">5</strong>
+          </li>
+          <li style="display: flex; justify-content: space-between; font-size: 0.9rem; color: #444; border-bottom: 1px solid #F3F4F6; padding-bottom: 0.5rem;">
+            <span>2 comptes-rendus rédigés</span><strong style="background: #D1FAE5; color: #047857; padding: 2px 8px; border-radius: 12px; font-size: 0.8rem;">2</strong>
+          </li>
+          <li style="display: flex; justify-content: space-between; font-size: 0.9rem; color: #444;">
+            <span>1 rappel important chantier</span><strong style="background: #FEE2E2; color: #DC2626; padding: 2px 8px; border-radius: 12px; font-size: 0.8rem;">1</strong>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Objectif du mois -->
+      <div style="background: #FFF; padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(0,0,0,0.08);">
+        <h3 style="font-size: 1rem; color: #1A2530; margin-bottom: 1rem; font-weight: 700;">📊 Objectif du mois</h3>
+        <p style="font-size: 0.9rem; color: #666; margin-bottom: 0.5rem;">Chiffre d'affaires & Showrooms</p>
+        <div style="font-size: 1.5rem; font-weight: 800; color: #111; margin-bottom: 0.75rem;">78 %</div>
+        <div style="width: 100%; background: #E5E7EB; height: 10px; border-radius: 5px; overflow: hidden; margin-bottom: 0.75rem;">
+          <div style="width: 78%; background: #D4AF37; height: 100%;"></div>
+        </div>
+        <p style="font-size: 0.8rem; color: #888;">Objectif atteint à 78% — Plus que 5 jours restants.</p>
+      </div>
+
+      <!-- Dernières activités -->
+      <div style="background: #FFF; padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(0,0,0,0.08);">
+        <h3 style="font-size: 1rem; color: #1A2530; margin-bottom: 1rem; font-weight: 700;">🕒 Dernières activités</h3>
+        <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.9rem;">
+          <li style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #F3F4F6; padding-bottom: 0.5rem;">
+            <span style="color: #047857;">✔ Compte-rendu ajouté</span>
+            <span style="color: #666; font-size: 0.8rem;">— Ciffreo Bona</span>
+          </li>
+          <li style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #F3F4F6; padding-bottom: 0.5rem;">
+            <span style="color: #047857;">✔ Prospect créé</span>
+            <span style="color: #666; font-size: 0.8rem;">— MP CETIN EDEN</span>
+          </li>
+          <li style="display: flex; align-items: center; justify-content: space-between;">
+            <span style="color: #047857;">✔ Client modifié</span>
+            <span style="color: #666; font-size: 0.8rem;">— Balitrand Biot</span>
+          </li>
+        </ul>
       </div>
 
     </div>
@@ -98,7 +156,7 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      // Vérification connexion
+      // Vérification session
       const isLoggedIn = localStorage.getItem("agentLoggedIn");
       if (!isLoggedIn) {
         window.location.href = "agent.html";
