@@ -9,7 +9,7 @@
   justify-content: center;
   gap: 8px;
   background-color: #000000;
-  color: #d4af37;
+  color: #d4af37 !important; /* Force la couleur or pour le texte du bouton */
   border: 1px solid #d4af37;
   padding: 0.5rem 1rem;
   font-family: inherit;
@@ -21,11 +21,20 @@
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
 }
 
+/* Si le texte est enveloppé dans un span ou un nœud texte spécifique */
+.agent-btn span,
+.agent-btn {
+  color: #d4af37 !important;
+}
+
 /* Effet au survol (quand la souris passe dessus) */
 .agent-btn:hover {
   background-color: #d4af37;
-  color: #000000;
-  transform: translateY(-1px);
+  color: #000000 !important;
+}
+
+.agent-btn:hover span {
+  color: #000000 !important;
 }
 
 /* Neutralisation pour s'assurer qu'il ne reste pas doré après un clic/focus */
@@ -111,11 +120,11 @@ nav.active,
 }
 
 /* Espacement et style élégant des liens dans le menu ouvert */
-.mobile-menu a, 
-.nav-mobile-container a,
-nav.active a,
-.burger-open a,
-.nav-menu.active a {
+.mobile-menu a:not(.agent-btn), 
+.nav-mobile-container a:not(.agent-btn),
+nav.active a:not(.agent-btn),
+.burger-open a:not(.agent-btn),
+.nav-menu.active a:not(.agent-btn) {
   font-size: 1.25rem !important;
   font-weight: 600 !important;
   color: #1A2530 !important;
@@ -124,11 +133,11 @@ nav.active a,
   transition: color 0.3s ease !important;
 }
 
-.mobile-menu a:hover, 
-.nav-mobile-container a:hover,
-nav.active a:hover,
-.burger-open a:hover,
-.nav-menu.active a:hover {
+.mobile-menu a:not(.agent-btn):hover, 
+.nav-mobile-container a:not(.agent-btn):hover,
+nav.active a:not(.agent-btn):hover,
+.burger-open a:not(.agent-btn):hover,
+.nav-menu.active a:not(.agent-btn):hover {
   color: #D4AF37 !important;
 }
 
