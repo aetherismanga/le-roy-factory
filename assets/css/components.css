@@ -1,5 +1,5 @@
 /* ==========================================================================
-   LE ROY FACTORY — COMPOSANTS (Bouton Agent & Navigation)
+   LE ROY FACTORY — COMPOSANTS (Bouton Agent, Navigation & Burger Mobile)
    ========================================================================== */
 
 /* Bouton Espace Agent Premium */
@@ -51,4 +51,35 @@
   width: 100%;
   margin-top: 1rem;
   text-align: center;
+}
+
+/* ==========================================================================
+   BOUTON BURGER (MOBILE) — ESPACEMENT ET VISIBILITÉ
+   ========================================================================== */
+.burger-btn {
+  display: none; /* Affiché uniquement en responsive mobile */
+  background: rgba(0, 0, 0, 0.7) !important;
+  border: 1px solid #D4AF37 !important;
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin-right: 1.5rem !important; /* Décale le bouton vers la gauche pour qu'il ne soit plus collé au bord */
+  cursor: pointer;
+  z-index: 100;
+}
+
+/* Forcer l'affichage du burger sur les petits écrans */
+@media (max-width: 992px) {
+  .burger-btn {
+    display: flex !important;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  /* Style des barres du burger pour qu'elles soient bien dorées */
+  .burger-btn span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: #D4AF37 !important;
+  }
 }
