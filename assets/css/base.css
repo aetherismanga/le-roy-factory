@@ -1,8 +1,8 @@
 /* ==========================================================================
-   DESIGN LE ROY FACTORY : BANDEAUX HAUT/BAS + FOND COQUILLE D'OEUF
+   LE ROY FACTORY — DESIGN GLOBAL (Bandeaux, Fond & Logo Rond)
    ========================================================================== */
 
-/* 1. Fond général de la page en blanc crème / coquille d'œuf */
+/* 1. Fond général de toutes les pages en blanc crème / coquille d'œuf */
 body, html {
   background-color: #FBF9F5 !important;
   background-image: none !important;
@@ -12,7 +12,7 @@ body, html {
   padding: 0;
 }
 
-/* 2. Le bandeau du HAUT (Header / Topbar) avec bandeau02.png */
+/* 2. Le bandeau du HAUT avec bandeau02.png */
 header, 
 .site-header, 
 .crm-topbar {
@@ -24,7 +24,7 @@ header,
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
 }
 
-/* 3. Le bandeau du BAS (Footer) avec bandeau02.png */
+/* 3. Le bandeau du BAS avec bandeau02.png */
 footer, 
 .site-footer {
   background-image: url('../img/bandeau02.png') !important;
@@ -38,9 +38,34 @@ footer,
   text-align: center;
 }
 
-/* 4. Liens du footer */
 footer a, 
 .site-footer a {
   color: #FFD700 !important;
   text-decoration: none;
+}
+
+/* 4. Format rond parfait pour le logo sur toutes les pages */
+.logo-circle, 
+.sidebar-brand img, 
+.site-header img, 
+header img {
+  border-radius: 50% !important;
+  object-fit: cover !important;
+}
+
+.logo-circle {
+  width: 60px;
+  height: 60px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #D4AF37;
+  background-color: #000;
+}
+
+.logo-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
