@@ -1,5 +1,5 @@
 /* ==========================================================================
-   LE ROY FACTORY — COMPOSANTS (Bouton Agent, Navigation & Burger Mobile)
+   LE ROY FACTORY — COMPOSANTS (Bouton Agent, Navigation & Menu Burger Mobile)
    ========================================================================== */
 
 /* Bouton Espace Agent Premium */
@@ -82,4 +82,51 @@
     height: 2px;
     background-color: #D4AF37 !important;
   }
+}
+
+/* ==========================================================================
+   CENTRAGE ET REMONTÉE DU MENU BURGER MOBILE
+   ========================================================================== */
+.mobile-menu, 
+.nav-mobile-container, 
+nav.active, 
+.burger-open {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background-color: #FBF9F5 !important; /* Fond coquille d'œuf harmonisé */
+  z-index: 9999 !important;
+  padding: 2rem !important;
+  box-sizing: border-box !important;
+}
+
+/* Espacement et style élégant des liens dans le menu ouvert */
+.mobile-menu a, 
+.nav-mobile-container a {
+  font-size: 1.25rem !important;
+  font-weight: 600 !important;
+  color: #1A2530 !important;
+  margin: 0.75rem 0 !important;
+  text-decoration: none !important;
+  transition: color 0.3s ease !important;
+}
+
+.mobile-menu a:hover, 
+.nav-mobile-container a:hover {
+  color: #D4AF37 !important;
+}
+
+/* Bouton de fermeture (la croix en haut à droite) */
+.mobile-menu .close-btn, 
+.burger-close {
+  position: absolute !important;
+  top: 1.5rem !important;
+  right: 1.5rem !important;
 }
