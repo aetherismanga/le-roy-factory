@@ -3,7 +3,7 @@ const agentsDatabase = [
   {
     name: "Jérôme Hugol",
     // MODIFICATION DIRECTE ICI : Remplacement de l'email erroné
-    email: "agenceleroyfactory06@gmail.com", 
+    email: "agenceleroyfactory@gmail.com", 
     password: "0000"
   },
   {
