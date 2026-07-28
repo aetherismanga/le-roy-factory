@@ -1,18 +1,18 @@
 /* ==========================================================================
-   DESIGN GLOBAL : BANDEAUX HAUT ET BAS UNIQUEMENT — LE ROY FACTORY
+   DESIGN LE ROY FACTORY : BANDEAUX HAUT/BAS + FOND COQUILLE D'OEUF
    ========================================================================== */
 
-/* 1. Le fond du milieu (corps de page) reprend sa couleur d'avant (sombre/uni) */
+/* 1. Fond général de la page en blanc crème / coquille d'œuf */
 body, html {
-  background-color: #0A0A0A !important;
+  background-color: #FBF9F5 !important;
   background-image: none !important;
-  color: #F3F4F6 !important;
+  color: #1A2530 !important;
   font-family: 'Inter', sans-serif;
   margin: 0;
   padding: 0;
 }
 
-/* 2. Le bandeau du HAUT (Header / Topbar) avec ton image bandeau02 */
+/* 2. Le bandeau du HAUT (Header / Topbar) avec bandeau02.png */
 header, 
 .site-header, 
 .crm-topbar {
@@ -24,7 +24,7 @@ header,
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
 }
 
-/* 3. Le bandeau du BAS (Footer) avec ton image bandeau02 */
+/* 3. Le bandeau du BAS (Footer) avec bandeau02.png */
 footer, 
 .site-footer {
   background-image: url('../img/bandeau02.png') !important;
