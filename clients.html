@@ -83,6 +83,11 @@
     <!-- Barre d'outils et de classement ergonomique -->
     <div class="crm-toolbar" style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; justify-content: space-between; background: #FFF; padding: 1.25rem; border-radius: 8px; border: 1px solid rgba(0,0,0,0.06); margin-bottom: 1.5rem;">
       
+      <!-- Action rapide : Créer un client -->
+      <button id="btn-add-client" class="filter-btn" style="background: #111; color: #FFD700; border-color: #FFD700; font-weight: 700; display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem;">
+        ➕ Nouveau Client / Prospect
+      </button>
+
       <!-- Recherche avec Bouton -->
       <div style="display: flex; gap: 0.5rem; flex: 1; min-width: 280px;">
         <div class="search-box" style="flex: 1;">
@@ -140,7 +145,7 @@
     </div>
   </main>
 
-  <!-- Modal Édition / Fiche Client -->
+  <!-- Modal Création & Édition / Fiche Client -->
   <div id="client-modal" class="crm-modal" style="display: none;">
     <div class="modal-content">
       <button class="modal-close" id="modal-close-btn">&times;</button>
@@ -151,12 +156,12 @@
       </div>
 
       <form id="client-edit-form">
-        <input type="hidden" id="edit-client-index">
+        <input type="hidden" id="edit-client-index" value="-1">
         
         <div class="modal-grid-edit">
           <div class="form-field" style="grid-column: span 2;">
-            <label for="edit-societe">Nom de la société</label>
-            <input type="text" id="edit-societe" required>
+            <label for="edit-societe">Nom de la société *</label>
+            <input type="text" id="edit-societe" placeholder="Ex: SAS CARRELAGE PROVENCE" required>
           </div>
 
           <div class="form-field">
@@ -184,33 +189,49 @@
 
           <div class="form-field" style="grid-column: span 2;">
             <label for="edit-adresse">Adresse</label>
-            <input type="text" id="edit-adresse">
+            <input type="text" id="edit-adresse" placeholder="123 Avenue des Entreprises">
           </div>
 
           <div class="form-field">
             <label for="edit-code-postal">Code Postal</label>
-            <input type="text" id="edit-code-postal">
+            <input type="text" id="edit-code-postal" placeholder="06000">
           </div>
 
           <div class="form-field">
             <label for="edit-ville">Ville</label>
-            <input type="text" id="edit-ville">
+            <input type="text" id="edit-ville" placeholder="Nice">
           </div>
 
           <div class="form-field">
             <label for="edit-departement">Département (ex: FR-06)</label>
-            <input type="text" id="edit-departement">
+            <input type="text" id="edit-departement" placeholder="FR-06">
           </div>
 
           <div class="form-field">
             <label for="edit-region">Région (ex: FR-PAC)</label>
-            <input type="text" id="edit-region">
+            <input type="text" id="edit-region" placeholder="FR-PAC">
           </div>
+        </div>
+
+        <!-- Section Documents joints (Ouvertures de compte, RIB...) -->
+        <div class="documents-section">
+          <h3 class="documents-title">📄 Documents joints (Ouverture de compte, RIB, Kbis...)</h3>
+          
+          <div class="file-upload-box">
+            <input type="file" id="document-input" multiple accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+            <label for="document-input" class="file-upload-label">
+              <span>📎 Cliquer pour ajouter des documents (PDF, Image, RIB...)</span>
+            </label>
+          </div>
+
+          <ul id="documents-list" class="documents-list">
+            <!-- Injection dynamique des fichiers -->
+          </ul>
         </div>
 
         <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 2rem; border-top: 1px solid #E5E7EB; padding-top: 1.25rem;">
           <button type="button" id="btn-cancel-edit" class="filter-btn" style="background: #F3F4F6;">Annuler</button>
-          <button type="submit" class="filter-btn" style="background: #111; color: #FFD700; border-color: #FFD700; font-weight: 700;">💾 Enregistrer les modifications</button>
+          <button type="submit" class="filter-btn" style="background: #111; color: #FFD700; border-color: #FFD700; font-weight: 700;">💾 Enregistrer la fiche</button>
         </div>
       </form>
     </div>
