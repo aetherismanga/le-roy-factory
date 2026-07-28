@@ -10,12 +10,25 @@
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
   <style>
-    /* Header et Footer avec l'image bandeau01.png */
+    /* Fond général en blanc crème / coquille d'œuf */
+    body, html {
+      background-color: #FBF9F5 !important;
+      background-image: none !important;
+      color: #1A2530 !important;
+    }
+
+    /* Header et Footer avec l'image bandeau02.png */
     header, footer {
-      background-image: url('assets/img/bandeau01.png');
+      background-image: url('assets/img/bandeau02.png');
       background-size: cover;
       background-position: center;
       color: #ffffff;
+      border-bottom: 2px solid #D4AF37;
+    }
+    footer {
+      border-top: 2px solid #D4AF37;
+      border-bottom: none;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
     }
     header a, footer p {
       color: #ffffff !important;
@@ -96,10 +109,10 @@
 
   <header>
     <div class="container nav-container" style="height: 130px; display: flex; align-items: center; justify-content: space-between;">
-      <!-- Logo rond identique aux autres pages -->
+      <!-- Logo rond mis à jour vers logo03lrf.png -->
       <a href="index.html" class="logo" style="display: flex; align-items: center; height: 100%; padding-left: 1.5rem;">
-        <div style="width: 110px; height: 110px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.4);">
-          <img src="assets/img/logo02lrf.png" alt="LE ROY FACTORY" style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.35);">
+        <div style="width: 110px; height: 110px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.4); border: 2px solid #D4AF37; background-color: #000;">
+          <img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY" style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.35);">
         </div>
       </a>
       <nav>
@@ -121,7 +134,7 @@
 
   <main style="padding-top: 140px; padding-bottom: 4rem;">
     <div class="container">
-      <h1 style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--color-anthracite);">Catalogues Partenaires</h1>
+      <h1 style="font-size: 2.5rem; margin-bottom: 1rem; color: #1A2530;">Catalogues Partenaires</h1>
       <p style="font-size: 1.1rem; color: #666; margin-bottom: 3rem; max-width: 700px;">Consultez et téléchargez l'ensemble des catalogues officiels et documentations de nos fabricants.</p>
       
       <div id="grid-catalogues" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem;">
@@ -132,7 +145,7 @@
 
   <footer>
     <div class="container" style="text-align: center; padding: 2rem 0;">
-      <p style="color: #000000 !important; font-weight: 600; text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);">&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p>
+      <p style="color: #ffffff !important; font-weight: 600; text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);">&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p>
     </div>
   </footer>
 
