@@ -21,10 +21,19 @@
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
 }
 
+/* Effet au survol (quand la souris passe dessus) */
 .agent-btn:hover {
   background-color: #d4af37;
   color: #000000;
   transform: translateY(-1px);
+}
+
+/* Neutralisation pour s'assurer qu'il ne reste pas doré après un clic/focus */
+.agent-btn:active, 
+.agent-btn:focus {
+  background-color: #000000 !important;
+  color: #d4af37 !important;
+  border-color: #d4af37 !important;
 }
 
 /* Ajustements de la navigation pour éviter le chevauchement de Tarifs PRO */
