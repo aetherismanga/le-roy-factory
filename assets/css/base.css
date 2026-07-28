@@ -10,6 +10,8 @@ body, html {
   font-family: 'Inter', sans-serif;
   margin: 0;
   padding: 0;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 /* 2. Le bandeau du HAUT avec bandeau02.png */
@@ -22,9 +24,10 @@ header,
   background-repeat: no-repeat !important;
   border-bottom: 2px solid #D4AF37 !important;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  width: 100% !important;
 }
 
-/* 3. Le bandeau du BAS avec bandeau02.png */
+/* 3. Le bandeau du BAS avec bandeau02.png (Plein écran et beaucoup plus fin/étroit) */
 footer, 
 .site-footer {
   background-image: url('../img/bandeau02.png') !important;
@@ -34,8 +37,15 @@ footer,
   border-top: 2px solid #D4AF37 !important;
   color: #FFFFFF !important;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
-  padding: 2.5rem 1rem;
+  padding: 1rem 0.5rem !important; /* Hauteur réduite pour qu'il soit moins large verticalement */
   text-align: center;
+  width: 100vw !important;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw !important;
+  margin-right: -50vw !important;
+  box-sizing: border-box !important;
 }
 
 footer a, 
@@ -44,7 +54,16 @@ footer a,
   text-decoration: none;
 }
 
-/* 4. Format rond parfait pour le logo sur toutes les pages */
+/* 4. Format rond parfait pour le logo et centrage vertical dans le header */
+.logo, 
+.site-header a.logo,
+header a.logo {
+  display: flex !important;
+  align-items: center !important;
+  height: 100% !important;
+  padding-left: 1rem !important;
+}
+
 .logo-circle, 
 .sidebar-brand img, 
 .site-header img, 
@@ -54,8 +73,8 @@ header img {
 }
 
 .logo-circle {
-  width: 60px;
-  height: 60px;
+  width: 75px !important;
+  height: 75px !important;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -68,4 +87,17 @@ header img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* 5. Effet de survol doré sur toutes les cartes du site */
+.card-premium, 
+.partner-card {
+  transition: all 0.3s ease !important;
+}
+
+.card-premium:hover, 
+.partner-card:hover {
+  border-color: #D4AF37 !important;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.25), 0 10px 30px rgba(0, 0, 0, 0.05) !important;
+  transform: translateY(-2px);
 }
