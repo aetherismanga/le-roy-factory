@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Clients & Prospects — LE ROY FACTORY CRM</title>
-  <!-- Google Fonts pour un rendu typographique parfait -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/variables.css">
   <link rel="stylesheet" href="assets/css/base.css">
@@ -84,13 +83,10 @@
 
     <!-- Barre d'outils et de classement ergonomique -->
     <div class="crm-toolbar">
-      
-      <!-- Action rapide : Fiche Vierge Client / Prospect -->
       <button id="btn-add-client" class="btn-primary-gold">
         ➕ Nouveau Client / Prospect
       </button>
 
-      <!-- Recherche avec Bouton -->
       <div class="search-wrapper">
         <div class="search-box">
           <span>🔍</span>
@@ -99,7 +95,6 @@
         <button id="search-btn" class="btn-search">Rechercher</button>
       </div>
 
-      <!-- Filtres par Département, Code Postal et Ville -->
       <div class="select-filters">
         <select id="filter-dept" class="crm-select">
           <option value="">Tous les départements</option>
@@ -116,7 +111,6 @@
         <button id="reset-filters" class="filter-btn reset-btn">Réinitialiser</button>
       </div>
 
-      <!-- Onglets Tous / Clients / Prospects -->
       <div class="filter-tabs">
         <button class="filter-btn active" data-filter="all">Tous</button>
         <button class="filter-btn" data-filter="client">Clients</button>
@@ -138,7 +132,7 @@
           </tr>
         </thead>
         <tbody id="clients-table-body">
-          <!-- Données injectées via JS -->
+          <!-- Données injectées -->
         </tbody>
       </table>
       <div id="no-results" class="no-results" style="display: none;">
@@ -161,11 +155,19 @@
         <input type="hidden" id="edit-client-index" value="-1">
         
         <div class="modal-grid-edit">
+          <!-- Nom de société -->
           <div class="form-field full-width">
             <label for="edit-societe">Nom de la société *</label>
             <input type="text" id="edit-societe" placeholder="Ex: SAS CARRELAGE PROVENCE" required>
           </div>
 
+          <!-- Contact / Interlocuteur -->
+          <div class="form-field full-width">
+            <label for="edit-contact">Contact principal / Interlocuteur</label>
+            <input type="text" id="edit-contact" placeholder="Nom, Prénom ou Fonction (ex: M. Dupont - Gérant)">
+          </div>
+
+          <!-- Statut commercial -->
           <div class="form-field">
             <label for="edit-type">Statut commercial</label>
             <select id="edit-type" class="crm-select">
@@ -174,48 +176,65 @@
             </select>
           </div>
 
+          <!-- Agent référent (Remplace Région) -->
+          <div class="form-field">
+            <label for="edit-agent">Agent référent</label>
+            <select id="edit-agent" class="crm-select">
+              <option value="Jérôme">Jérôme Hugol</option>
+              <option value="Coryne">Coryne Le Roy</option>
+              <option value="Les deux">Jérôme & Coryne</option>
+            </select>
+          </div>
+
+          <!-- Téléphone principal -->
           <div class="form-field">
             <label for="edit-telephone">Téléphone principal</label>
             <input type="text" id="edit-telephone" placeholder="04 00 00 00 00">
           </div>
 
-          <div class="form-field">
-            <label for="edit-autre-tel">Autre Téléphone</label>
-            <input type="text" id="edit-autre-tel" placeholder="06 00 00 00 00">
-          </div>
-
+          <!-- Email -->
           <div class="form-field">
             <label for="edit-email">E-mail professionnel</label>
             <input type="email" id="edit-email" placeholder="contact@entreprise.com">
           </div>
 
+          <!-- Autres Téléphones multiples -->
+          <div class="form-field full-width">
+            <label>Autres téléphones</label>
+            <div id="extra-phones-container" class="multi-phones-box">
+              <!-- Numéros dynamiques -->
+            </div>
+            <button type="button" id="btn-add-phone" class="btn-add-phone-link">➕ Ajouter un numéro</button>
+          </div>
+
+          <!-- Adresse complète -->
           <div class="form-field full-width">
             <label for="edit-adresse">Adresse complète</label>
             <input type="text" id="edit-adresse" placeholder="123 Avenue des Entreprises">
           </div>
 
+          <!-- Code Postal -->
           <div class="form-field">
-            <label for="edit-code-postal">Code Postal</label>
-            <input type="text" id="edit-code-postal" placeholder="06000">
+            <label for="edit-code-postal">Code Postal (saisir pour détecter la ville)</label>
+            <input type="text" id="edit-code-postal" placeholder="Ex: 06000, 83100, 13000..." maxlength="5">
           </div>
 
+          <!-- Ville (Liste déroulante auto-remplie) -->
           <div class="form-field">
-            <label for="edit-ville">Ville</label>
-            <input type="text" id="edit-ville" placeholder="Nice">
+            <label for="edit-ville">Ville / Village</label>
+            <select id="edit-ville" class="crm-select">
+              <option value="">-- Entrez un Code Postal --</option>
+            </select>
           </div>
 
-          <div class="form-field">
-            <label for="edit-departement">Département (ex: FR-06)</label>
-            <input type="text" id="edit-departement" placeholder="FR-06">
-          </div>
-
-          <div class="form-field">
-            <label for="edit-region">Région (ex: FR-PAC)</label>
-            <input type="text" id="edit-region" placeholder="FR-PAC">
+          <!-- Département (Auto-rempli) -->
+          <div class="form-field full-width">
+            <label for="edit-departement">Département</label>
+            <input type="text" id="edit-departement" placeholder="FR-06" readonly style="background: #E5E7EB; cursor: not-allowed;">
           </div>
         </div>
 
-        <!-- Zone Documents joints (Ouvertures de compte, RIB, KBIS...) -->
+        <!-- Zone Documents joints -->
         <div class="documents-section">
           <h3 class="documents-title">📄 Documents joints (Ouverture de compte, RIB, Kbis...)</h3>
           
