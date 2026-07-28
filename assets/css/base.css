@@ -1,63 +1,29 @@
-/* ==========================================
-   BASE & RESET STYLES — LE ROY FACTORY
-   ========================================== */
+/* ==========================================================================
+   REMPLACEMENT GLOBAL PAR bandeau02.png — LE ROY FACTORY
+   ========================================================================== */
 
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/* 1. Application de bandeau02.png sur tous les en-têtes, pieds de page et fonds */
+body, 
+header, 
+footer, 
+.site-header, 
+.site-footer, 
+.crm-topbar {
+  background-image: url('../img/bandeau02.png') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
 }
 
-/* Force un affichage instantané et supprime les ralentissements entre les pages */
-html {
-  scroll-behavior: auto !important;
+/* 2. Finitions élégantes Noir & Or */
+header, .crm-topbar, .site-header {
+  border-bottom: 2px solid #D4AF37 !important;
 }
 
-body, main, .container, header, footer {
-  transition: none !important;
-  animation: none !important;
-}
-
-body {
-  font-family: Arial, sans-serif;
-  color: var(--color-anthracite, #222222);
-  background-color: #ffffff;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-ul {
-  list-style: none;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* Style de base des boutons et éléments globaux */
-.btn {
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  border-radius: 4px;
-  font-weight: 600;
+footer, .site-footer {
+  border-top: 2px solid #D4AF37 !important;
+  color: #FFFFFF !important;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+  padding: 2.5rem 1rem;
   text-align: center;
-  cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-.btn-outline {
-  background: transparent;
-  border: 1px solid currentColor;
-}
-
-.btn-outline:hover {
-  background: var(--color-anthracite, #222222);
-  color: #ffffff !important;
 }
