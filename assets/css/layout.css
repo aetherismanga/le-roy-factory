@@ -1,189 +1,204 @@
-/* ==========================================================================
-   VERSION MOBILE PREMIUM (Écrans inférieurs à 768px)
-   ========================================================================== */
-
-/* 1. SÉCURITÉ PC : CACHER LE NOUVEAU MENU SUR LES GRANDS ÉCRANS */
-@media (min-width: 769px) {
-  .mobile-premium-header,
-  .mobile-overlay,
-  .mobile-offcanvas {
-    display: none !important;
-  }
+/* Layout principal pour coller le footer en bas */
+html, body {
+  height: 100%;
+  margin: 0;
 }
 
-/* 2. VERSION MOBILE : CACHER L'ANCIEN MENU PC ET AFFICHER LE NOUVEAU */
-@media (max-width: 768px) {
-  
-  /* Masquer définitivement l'ancien header PC sur mobile */
-  .desktop-header,
-  .burger-btn {
-    display: none !important;
-  }
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
-  body {
-    padding-top: 65px !important;
-    overflow-x: hidden !important;
-  }
+main {
+  flex: 1;
+}
 
-  /* Nouveau Header Fixe Premium */
-  .mobile-premium-header {
-    display: flex !important;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 65px;
-    background-color: #000000;
-    background-image: none !important; /* Empêche l'image de fond d'apparaître */
-    z-index: 1000;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  }
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
 
-  .mobile-logo {
-    height: 30px; /* Taille parfaite pour le logo texte */
-    width: auto;
-    object-fit: contain;
-  }
+/* Header / Navigation */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-image: url('../img/bandeau01.png');
+  background-size: cover;
+  background-position: center;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
 
-  /* Bouton Hamburger Animé */
-  .mobile-menu-toggle {
-    background: transparent;
-    border: none;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-end;
-    gap: 6px;
-    cursor: pointer;
-    z-index: 1002;
-  }
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80px;
+}
 
-  .mobile-menu-toggle span {
-    display: block;
-    width: 24px;
-    height: 2px;
-    background-color: #d4af37;
-    border-radius: 2px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
+/* Logo LE ROY FACTORY : Or vif, brillant et lumineux */
+.logo {
+  font-weight: 800;
+  font-size: 1.4rem;
+  color: #FFD700 !important;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9), 0 0 12px rgba(255, 215, 0, 0.8);
+  letter-spacing: 0.08em;
+}
 
-  .mobile-menu-toggle.is-active span:nth-child(1) {
-    transform: translateY(8px) rotate(45deg);
-  }
-  .mobile-menu-toggle.is-active span:nth-child(2) {
-    opacity: 0;
-  }
-  .mobile-menu-toggle.is-active span:nth-child(3) {
-    transform: translateY(-8px) rotate(-45deg);
-  }
+/* Onglets du menu : Noirs, plus grands et bien lisibles */
+header nav a {
+  transition: var(--transition-smooth);
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  color: #000000 !important;
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
+}
 
-  /* Overlay sombre arrière-plan */
-  .mobile-overlay {
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(5px);
-    z-index: 999;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.4s ease;
-  }
+header nav a:hover {
+  background-color: #FFD700 !important;
+  color: #000000 !important;
+  text-shadow: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
 
-  .mobile-overlay.is-active {
-    opacity: 1;
-    visibility: visible;
-  }
+header nav a:active,
+header nav a.active {
+  background-color: #FFD700 !important;
+  color: #000000 !important;
+  text-shadow: none;
+}
 
-  /* Menu Latéral Glissant */
-  .mobile-offcanvas {
-    display: flex !important;
-    flex-direction: column;
+/* Bannière Hero commune pour les pages intérieures */
+.hero-banner {
+  padding: 160px 0 80px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  color: var(--color-white);
+}
+
+.hero-banner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(26, 37, 48, 0.7);
+  z-index: 1;
+}
+
+.hero-banner .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Menu Burger & Responsive */
+.burger-btn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 1001;
+  padding: 0.5rem;
+}
+
+.burger-btn span {
+  display: block;
+  width: 28px;
+  height: 2px;
+  background-color: #000000;
+  transition: var(--transition-smooth);
+}
+
+/* Animation des barres du menu burger en croix (X) */
+.burger-btn.active span:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.burger-btn.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.burger-btn.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+@media (max-width: 900px) {
+  header nav ul {
     position: fixed;
     top: 0;
     right: -100%;
-    width: 80%;
-    max-width: 320px;
+    width: 100%;
     height: 100vh;
-    background-color: #111111;
-    z-index: 1001;
-    padding: 30px 20px;
-    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: -5px 0 20px rgba(0,0,0,0.8);
+    background-color: var(--color-white);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem !important;
+    transition: var(--transition-smooth);
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
   }
 
-  .mobile-offcanvas.is-active {
+  header nav ul.active {
     right: 0;
   }
 
-  .mobile-offcanvas-header {
+  header nav ul.active a {
+    color: #000000 !important;
+    text-shadow: none;
+  }
+
+  header nav ul.active a:hover {
+    background-color: #FFD700 !important;
+    color: #000000 !important;
+  }
+
+  .burger-btn {
     display: flex;
-    justify-content: flex-end;
-    margin-bottom: 40px;
   }
+}
 
-  .mobile-menu-close {
-    background: transparent;
-    border: none;
-    color: #fff;
-    font-size: 28px;
-    cursor: pointer;
-  }
+/* Footer : Bandeau fleuri avec texte en noir */
+footer {
+  background-image: url('../img/bandeau01.png');
+  background-size: cover;
+  background-position: center;
+  padding: 3rem 0 2rem;
+  margin-top: auto;
+}
 
-  .mobile-nav-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
+footer p {
+  color: #000000 !important;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+}
 
-  .mobile-nav-link {
-    color: #ffffff;
-    text-decoration: none;
-    font-size: 1.15rem;
-    font-weight: 500;
-    display: block;
-    padding: 15px 10px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    transition: color 0.3s ease;
-  }
+/* --- EFFET CHIC : TRAIT DORÉ OR VIF & SURBRILLANCE SANS CHANGEMENT DE FOND --- */
+.card-premium, .card, .partner-card, .inspiration-card, .realisation-card, #grid-catalogues > div {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background-color: #FFFFFF;
+}
 
-  .mobile-nav-link:active {
-    background-color: rgba(212, 175, 55, 0.1);
-  }
+.card-premium:hover, .card:hover, .partner-card:hover, .inspiration-card:hover, .realisation-card:hover, #grid-catalogues > div:hover {
+  border-color: #FFD700;
+  transform: translateY(-3px);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.35), 0 8px 25px rgba(0, 0, 0, 0.04);
+}
 
-  /* Ajustements du Hero (Accueil) */
-  .hero-banner {
-    min-height: 50vh !important;
-    padding: 40px 15px !important;
-  }
-  .hero-video-section {
-    height: 70vh !important;
-  }
-  .hero-logo {
-    max-width: 80% !important;
-  }
-  .hero-buttons {
-    flex-direction: column;
-    width: 100%;
-    padding: 0 20px;
-  }
-  .hero-btn {
-    width: 100% !important;
-    min-height: 50px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    border-radius: 12px !important;
-  }
+.card-premium.is-selected, .card.is-selected, .partner-card.is-selected, .inspiration-card.is-selected, .realisation-card.is-selected, #grid-catalogues > div.is-selected {
+  border-color: #FFD700 !important;
+  background-color: #FFFFFF !important;
+  box-shadow: 0 0 18px rgba(255, 215, 0, 0.5), 0 8px 25px rgba(0, 0, 0, 0.04) !important;
 }
