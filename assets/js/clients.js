@@ -1,5 +1,5 @@
-// Base de données CRM LE ROY FACTORY — Intégralité des 278 fiches vérifiées
-const clientsDatabase = [
+// Base de données CRM LE ROY FACTORY avec persistance des modifications
+const initialClientsDatabase = [
   {"type": "Prospect", "societe": "MP CETIN. EDEN", "adresse": "6 Bd des Jardiniers", "code_postal": "06200", "ville": "Nice", "telephone": "0674813721", "email": "", "autre_telephone": "", "departement": "FR-06", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "Ciffreo Bona", "adresse": "875 Route du Thor", "code_postal": "84800", "ville": "L'Isle-sur-la-Sorgue", "telephone": "04 90 20 52 22", "email": "", "autre_telephone": "", "departement": "FR-84", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "Ciffreo Bona", "adresse": "3 Rue Marie Magdeleine Signouret", "code_postal": "84160", "ville": "Cadenet", "telephone": "04 90 08 74 50", "email": "", "autre_telephone": "", "departement": "FR-84", "region": "FR-PAC", "pays": "FR"},
@@ -57,7 +57,7 @@ const clientsDatabase = [
   {"type": "Client", "societe": "Espace Carrelages du minervois", "adresse": "1 Rue des Gabares", "code_postal": "11000", "ville": "Carcassonne", "telephone": "+33 4 68 25 60 67", "email": "", "autre_telephone": "", "departement": "FR-11", "region": "FR-OCC", "pays": "FR"},
   {"type": "Client", "societe": "Ciffreo Bona Salernes", "adresse": "1089 Route de Draguignan", "code_postal": "83690", "ville": "Salernes", "telephone": "+33 4 94 85 91 91", "email": "", "autre_telephone": "", "departement": "FR-83", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "Ciffreo Bona Draguignan", "adresse": "Saint-Hermentaire", "code_postal": "83300", "ville": "Draguignan", "telephone": "+33 4 94 50 80 39", "email": "", "autre_telephone": "", "departement": "FR-83", "region": "FR-PAC", "pays": "FR"},
-  {"type": "Client", "societe": "SAINT PAUL PISCINES", "adresse": "980 Boulevard Pierre Sauvaigo", "code_postal": "06480", "ville": "La Colle-sur-Loup", "telephone": "+33 4 93 32 59 03", "email": "", "autre_telephone": "", "departement": "", "region": "FR-PAC", "pays": "FR"},
+  {"type": "Client", "societe": "SAINT PAUL PISCINES", "adresse": "980 Boulevard Pierre Sauvaigo", "code_postal": "06480", "ville": "La Colle-sur-Loup", "telephone": "+33 4 93 32 59 03", "email": "", "autre_telephone": "", "departement": "FR-06", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "Ciffreo Bona meyreuil", "adresse": "Z.I. de Meyreuil", "code_postal": "13590", "ville": "Meyreuil", "telephone": "+33 4 42 51 29 70", "email": "", "autre_telephone": "", "departement": "FR-13", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "Ciffreo Bona la garde", "adresse": "846 Avenue de Draguignan", "code_postal": "83130", "ville": "La Garde", "telephone": "+33 4 98 01 25 50", "email": "", "autre_telephone": "", "departement": "FR-83", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "Materiaux de construction BONIFAY La Londe", "adresse": "43 Chemin du Pansard", "code_postal": "83250", "ville": "La Londe-les-Maures", "telephone": "+33 4 94 65 22 05", "email": "", "autre_telephone": "", "departement": "FR-83", "region": "FR-PAC", "pays": "FR"},
@@ -120,38 +120,8 @@ const clientsDatabase = [
   {"type": "Prospect", "societe": "TERRE D'EDEN", "adresse": "694 Route de Carpentras", "code_postal": "84270", "ville": "Vedene", "telephone": "", "email": "", "autre_telephone": "", "departement": "FR-84", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "CARRELAGE MARKET", "adresse": "301 Chemin de Saint-Tropez", "code_postal": "83480", "ville": "Puget-sur-Argens", "telephone": "0783068405", "email": "info@carrelage-market.com", "autre_telephone": "", "departement": "FR-83", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "CARREL'AS new concept", "adresse": "Rd 908", "code_postal": "13124", "ville": "Peypin", "telephone": "0749725287", "email": "carrelasnewconcept@gmail.com", "autre_telephone": "", "departement": "FR-13", "region": "FR-PAC", "pays": "FR"},
-  {"type": "Client", "societe": "SUP CARO mediterranee distribution", "adresse": "211 Av. de la Condamine", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
-  {"type": "Client", "societe": "SUP CARO bezier litoral", "adresse": "Rte de Narbonne", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
-  {"type": "Client", "societe": "SUNSHINE SERVICES", "adresse": "Saint-Pierre", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
-  {"type": "Client", "societe": "RICHARD CARRELAGES", "adresse": "ZI Sud", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
-  {"type": "Client", "societe": "PEREZ CARRELAGES", "adresse": "Aire Ventouse", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
-  {"type": "Client", "societe": "LE ROI DE CARREAU", "adresse": "83 Rue des Fournels", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
-  {"type": "Client", "societe": "LATINO CERAM", "adresse": "Zae du Font de la Banquiere", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
-  {"type": "Client", "societe": "IMAGINA CONCEPT", "adresse": "1 Rue Pierre Flourens", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
   {"type": "Client", "societe": "DESIGN CARRELAGE mauguio", "adresse": "78 Rue de la Jasse", "code_postal": "34130", "ville": "Mauguio", "telephone": "0467073726", "email": "sarlsopgperols.34@gmail.com", "autre_telephone": "", "departement": "FR-34", "region": "FR-OCC", "pays": "FR"},
-  {"type": "Client", "societe": "CONCEPT MOSAIQUE", "adresse": "ZAC la salamane", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
   {"type": "Prospect", "societe": "Carrelage et Bain Pezenas", "adresse": "725 Route de Beziers", "code_postal": "34120", "ville": "Pezenas", "telephone": "04 67 98 77 51", "email": "", "autre_telephone": "", "departement": "FR-34", "region": "FR-OCC", "pays": "FR"},
-  {"type": "Client", "societe": "CMPB CARRELAGES tout faire", "adresse": "16 Av. de Montpellier", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
-  {"type": "Client", "societe": "CERAMIQUE LANGUEDOCIENNE", "adresse": "835 Rue Paul Cezanne Zone Afation", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
-  {"type": "Client", "societe": "CARRELAGE DESIGN 34", "adresse": "ZAC", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
-  {"type": "Client", "societe": "LE COMPTOIR DE CERAM", "adresse": "4 Rue Louis Breguet", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
-  {"type": "Prospect", "societe": "RUBIS MATERIAUX tout faire", "adresse": "1064 Chem. de la Begude", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
-  {"type": "Prospect", "societe": "NATURE AND STONE", "adresse": "10 Av. Philippe Lamour", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
-  {"type": "Prospect", "societe": "MERCIER CARRELAGES", "adresse": "rocade est", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
-  {"type": "Prospect", "societe": "COMTAT & ALLARDET aubade", "adresse": "ZI Saint Cesaire", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
-  {"type": "Prospect", "societe": "COMPAGNIE DES CARRELAGES", "adresse": "3744 Av. Kennedy", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
-  {"type": "Prospect", "societe": "ANGLES ET SURFACE", "adresse": "510 Av. de Grand Angles", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
-  {"type": "Client", "societe": "TENDANCE CARRELAGE MONTAREN", "adresse": "D125 ROUTE DE GATTIGUES", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
-  {"type": "Prospect", "societe": "MOUTON CARRELAGE", "adresse": "1184 Av. Marechal Juin", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
-  {"type": "Client", "societe": "CARRELAGES MERIDIONAUX", "adresse": "Le Belvedere", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
-  {"type": "Client", "societe": "LG CARO", "adresse": "3839 Route de Barjac", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
-  {"type": "Client", "societe": "ITALCERAME", "adresse": "3290 Av. Kennedy", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
-  {"type": "Client", "societe": "ICARD MATERIAUX", "adresse": "108 rue Des Ecoles Qua Le Clet", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
-  {"type": "Client", "societe": "DESIGN CARRELAGE nimes", "adresse": "39 Rue de l'Abrivado", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
-  {"type": "Client", "societe": "DEPOT CARREAUX ET BAINS", "adresse": "896 Rte d'Ales", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
-  {"type": "Client", "societe": "CARRENOVE CONCEPTION", "adresse": "Batiment Empire ZAC Aubepine Intermarche", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
-  {"type": "Prospect", "societe": "DAVID ET FILS tout faire", "adresse": "VILLAGE ERO", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
-  {"type": "Prospect", "societe": "MR BRICOLAGE APT", "adresse": "151 Avenue De La Gare", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
   {"type": "Prospect", "societe": "LA MAISON DU CARRELAGE", "adresse": "1541 Rte de Carpentras", "code_postal": "84700", "ville": "Sorgues", "telephone": "0490328898", "email": "", "autre_telephone": "", "departement": "FR-84", "region": "FR-PAC", "pays": "FR"},
   {"type": "Prospect", "societe": "JDO CARRELAGE ET BAINS", "adresse": "180 Rue Denis Papin", "code_postal": "84120", "ville": "Pertuis", "telephone": "0490089167", "email": "", "autre_telephone": "", "departement": "FR-84", "region": "FR-PAC", "pays": "FR"},
   {"type": "Prospect", "societe": "DESTOCK CARRELAGE PPC", "adresse": "340 Av. Louis Boudin", "code_postal": "84800", "ville": "L'Isle-sur-la-Sorgue", "telephone": "0609718460", "email": "gohu292@yahoo.fr", "autre_telephone": "", "departement": "FR-84", "region": "FR-PAC", "pays": "FR"},
@@ -162,7 +132,6 @@ const clientsDatabase = [
   {"type": "Prospect", "societe": "AMBIANCES DU SUD", "adresse": "plan des Amandiers", "code_postal": "84220", "ville": "Beaumettes", "telephone": "0614029631", "email": "mp@ambiancesdusud.com", "autre_telephone": "", "departement": "FR-84", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "SYLVESTRE MATERIAUX apt", "adresse": "316 Le Chene", "code_postal": "84400", "ville": "Apt", "telephone": "0490746666", "email": "", "autre_telephone": "carrelageapt@groupesn.com", "departement": "FR-84", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "SYLVESTRE MATERIAUX coustellet", "adresse": "155 Route de Gordes", "code_postal": "84220", "ville": "Cabrieres-d'Avignon", "telephone": "0490767838", "email": "", "autre_telephone": "carrelagecoustellet@groupesn.com", "departement": "FR-84", "region": "FR-PAC", "pays": "FR"},
-  {"type": "Client", "societe": "SYLVESTRE MATERIAUX l'isle sur la sorgue", "adresse": "120 chemin de Cheval Blanc", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
   {"type": "Client", "societe": "FLASH CARRELAGES", "adresse": "2 bis Av. des Verdeaux", "code_postal": "84370", "ville": "Bedarrides", "telephone": "0490012811", "email": "flashcarrelages.vaucluse@gmail.com", "autre_telephone": "", "departement": "FR-84", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "FRANCE MATERIAUX COMTAT", "adresse": "704 bis Route d'Avignon", "code_postal": "84170", "ville": "Monteux", "telephone": "0490669999", "email": "carrelagesanitaire@comtatsas.fr", "autre_telephone": "", "departement": "FR-84", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "CERA PROVENCE", "adresse": "365 Av. de la Canebiere", "code_postal": "84460", "ville": "Cheval-Blanc", "telephone": "0951414204", "email": "ceraprovence2@gmail.com ", "autre_telephone": "", "departement": "FR-84", "region": "FR-PAC", "pays": "FR"},
@@ -173,9 +142,7 @@ const clientsDatabase = [
   {"type": "Prospect", "societe": "AQUARO SOLFEGE", "adresse": "1390 Av. Lino Ventura", "code_postal": "13180", "ville": "Gignac-la-Nerthe", "telephone": "0486788060", "email": "pllegouic@gmail.com", "autre_telephone": "aquarogignac@hotmail.com", "departement": "FR-13", "region": "FR-PAC", "pays": "FR"},
   {"type": "Prospect", "societe": "PROGIBAT CARRELAGES", "adresse": "3 Rue Henri Laugier", "code_postal": "13200", "ville": "Arles", "telephone": "0490979614", "email": "contact@progibat.com", "autre_telephone": "", "departement": "FR-13", "region": "FR-PAC", "pays": "FR"},
   {"type": "Prospect", "societe": "O&SOL", "adresse": "4 Rue de la Transhumance", "code_postal": "13310", "ville": "Saint Martin de crau", "telephone": "0490915893", "email": "contact@oetsol.com", "autre_telephone": "", "departement": "FR-13", "region": "FR-PAC", "pays": "FR"},
-  {"type": "Prospect", "societe": "LE SHOWROMM CARRELAGE la ciotat", "adresse": "Zi athelia 4", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
   {"type": "Prospect", "societe": "KEI-STONE aix en provence", "adresse": "5830-5870 Rte d'Avignon", "code_postal": "13540", "ville": "Aix en provence", "telephone": "0442503615", "email": "serge.p@kei-stone.fr", "autre_telephone": "", "departement": "FR-13", "region": "FR-PAC", "pays": "FR"},
-  {"type": "Prospect", "societe": "DECOR’HOME AIX", "adresse": "410 chemin du Plan d'Aillane", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
   {"type": "Prospect", "societe": "CARRELAGES RIVES GAUCHE", "adresse": "2148 Rte d'Avignon", "code_postal": "13160", "ville": "Chateaurenard", "telephone": "0977903759", "email": "contact@carrelages-rive-gauche.com", "autre_telephone": "", "departement": "FR-13", "region": "FR-PAC", "pays": "FR"},
   {"type": "Prospect", "societe": "BARDARO CARRELAGES", "adresse": "1238 Av. Patrouille de France", "code_postal": "13300", "ville": "Salon-de-Provence", "telephone": "0490565732", "email": "barbaro-joseph@orange.fr", "autre_telephone": "", "departement": "FR-13", "region": "FR-PAC", "pays": "FR"},
   {"type": "Prospect", "societe": "AZUR CARRELAGES faience sanitaires cuisne", "adresse": "88 Av. Frederic Chevillon", "code_postal": "13380", "ville": "Plan-de-Cuques", "telephone": "0491051515", "email": "azurcarrelage@orange.fr", "autre_telephone": "", "departement": "FR-13", "region": "FR-PAC", "pays": "FR"},
@@ -192,13 +159,10 @@ const clientsDatabase = [
   {"type": "Client", "societe": "IN'D&CO", "adresse": "4 Rue de Courtine", "code_postal": "13290", "ville": "Saint Mitre les remparts", "telephone": "0980314211", "email": "indeco.carrelage@gmail.com", "autre_telephone": "", "departement": "FR-13", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "ID PROJECTT", "adresse": "670 Rte de Berre", "code_postal": "13510", "ville": "Eguilles", "telephone": "0442286002", "email": "alisson@idprojectt.fr", "autre_telephone": "", "departement": "FR-13", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "ENERGIE CHAUFFAGE SANITAIRE", "adresse": "478 Av. Ernest Subilia", "code_postal": "13600", "ville": "La ciotat", "telephone": "0486368761", "email": "commande@ecspaca.fr", "autre_telephone": "", "departement": "FR-13", "region": "FR-PAC", "pays": "FR"},
-  {"type": "Client", "societe": "EUROCARO", "adresse": "Plan de Campagne", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
   {"type": "Client", "societe": "EDEN CARRELAGES", "adresse": "15 Av. de Londres", "code_postal": "13127", "ville": "Vitrolles", "telephone": " 04 42 88 23 41", "email": "contact@eden-carrelages.fr", "autre_telephone": "", "departement": "FR-13", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "DM HOME", "adresse": "Lotissement les Jardins du Toes", "code_postal": "13700", "ville": "Marignane", "telephone": " 06 11 69 71 18", "email": "dm.home13@gmail.com", "autre_telephone": "", "departement": "FR-13", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "DIRECT MATERIAUX", "adresse": "10 Avenue des Paluds", "code_postal": "13400", "ville": "Aubagne", "telephone": "04 42 70 27 57", "email": "directmateriauxfr@gmail.com", "autre_telephone": "", "departement": "FR-13", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "DESIGN AND DECO", "adresse": "Rue de Courtine", "code_postal": "13920", "ville": "Saint-Mitre-les-Remparts", "telephone": " 04 42 42 07 67", "email": "contact@designanddeco.fr", "autre_telephone": "", "departement": "FR-13", "region": "FR-PAC", "pays": "FR"},
-  {"type": "Prospect", "societe": "CERAMSTONE", "adresse": "13630 Chem. des Cailloux O", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
-  {"type": "Client", "societe": "CAROMAG", "adresse": "850 Chemin du Plan d'Aillane", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
   {"type": "Client", "societe": "CARRELAGE LUPI", "adresse": "4 Bd Crespi", "code_postal": "13008", "ville": "Marseille", "telephone": "0491734251", "email": "contact@carrelageslupi.com", "autre_telephone": "", "departement": "FR-13", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "BLEU MARINE", "adresse": "71 Chem. Gilbert Charmasson", "code_postal": "13016", "ville": "Marseille", "telephone": "04 96 20 83 83", "email": "bleu-marine@bleu-marine.tm.fr", "autre_telephone": "", "departement": "FR-13", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "AUBAGNE MATERIAUX", "adresse": "Route de Saint-Jean de Garguier", "code_postal": "13400", "ville": "Aubagne", "telephone": "0442322173", "email": "contact@aubagnemateriaux.fr", "autre_telephone": "", "departement": "FR-13", "region": "FR-PAC", "pays": "FR"},
@@ -207,7 +171,6 @@ const clientsDatabase = [
   {"type": "Client", "societe": "AMBIANCE CARRELAGE Marignane", "adresse": "Rte de Martigues", "code_postal": "13700", "ville": "Marignane", "telephone": "0442303178", "email": "contact@ambiancecarrelages.com", "autre_telephone": "", "departement": "FR-13", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "AMBIANCE CARRELAGES arles", "adresse": "ZI Nord - 18 Rue Joseph Rainard", "code_postal": "13200", "ville": "Arles", "telephone": "09 77 02 00 47", "email": "ambiance13@gmx.com", "autre_telephone": "", "departement": "FR-13", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "AMBIANCE CARRELAGES avignon", "adresse": "33 route de montfavet", "code_postal": "84000", "ville": "Avignon", "telephone": "09 77 81 17 23", "email": "ambiance84@gmx.com", "autre_telephone": "", "departement": "FR-84", "region": "FR-PAC", "pays": "FR"},
-  {"type": "Client", "societe": "AMBIANCE CARRELAGES milhaud", "adresse": "Route de Nîmes", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
   {"type": "Prospect", "societe": "UR CERAM", "adresse": "336 Av. lou Gabian", "code_postal": "83600", "ville": "Frejus", "telephone": " 04 94 82 24 37", "email": "", "autre_telephone": "", "departement": "FR-83", "region": "FR-PAC", "pays": "FR"},
   {"type": "Prospect", "societe": "SOLS ET MURS DESIGN", "adresse": " Chem. du Puits de la Commune", "code_postal": "83250", "ville": "La Londe les Maures", "telephone": " 04 94 46 26 68", "email": "contact@solsetmursdesign.com", "autre_telephone": "", "departement": "FR-83", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "PARODI CARRELAGES", "adresse": "273 Rue d'Hyeres", "code_postal": "83140", "ville": "Six Fours les plages", "telephone": " 04 94 34 33 12", "email": "contact@parodi-carrelages.fr", "autre_telephone": "", "departement": "FR-83", "region": "FR-PAC", "pays": "FR"},
@@ -223,27 +186,17 @@ const clientsDatabase = [
   {"type": "Client", "societe": "RICHARDSON la garde", "adresse": " 805 Av. Marechal de Lattre de Tassigny", "code_postal": "83130", "ville": "La garde", "telephone": " 04 94 08 61 62", "email": "justine.knaepen@richardson.fr", "autre_telephone": "", "departement": "FR-83", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "RICHARDSON brignoles", "adresse": "1016 Bd Bernard Long", "code_postal": "83170", "ville": "Brignoles", "telephone": " 04 94 69 59 67", "email": "fabrice.roquebrun@richardson.fr", "autre_telephone": "", "departement": "FR-83", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "RG MATERIAUX", "adresse": "222 Rue Georges Besse", "code_postal": "83600", "ville": "Frejus", "telephone": " 04 94 52 52 22", "email": "serge@rg-materiaux.com", "autre_telephone": "", "departement": "FR-83", "region": "FR-PAC", "pays": "FR"},
-  {"type": "Client", "societe": "RCB Carrelages - Vente de carrelage", "adresse": "Zone Artisanale", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
-  {"type": "Client", "societe": "PISANO MATERIAUX tout faire", "adresse": "572 Av. des Palmiers", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
   {"type": "Client", "societe": "L'ART DU CARREAU", "adresse": "68 Av. de l'Europe", "code_postal": "83300", "ville": "Draguignan", "telephone": " 04 94 50 51 90", "email": "sandro.lartducarreau@gmail.com ", "autre_telephone": "", "departement": "FR-83", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "KRO CERAMIQUE", "adresse": "229 Av. Andre Citroen", "code_postal": "83600", "ville": "Frejus", "telephone": "04 94 51 52 01", "email": "k.roceramique@orange.fr", "autre_telephone": "", "departement": "FR-83", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "HOUSQUARE frejus", "adresse": "7 Boulevard Colonel Dessert", "code_postal": "83480", "ville": "Puget-sur-Argens", "telephone": " 04 94 82 02 54", "email": "guillaume.hubert@housquare.com", "autre_telephone": "", "departement": "FR-83", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "EURO CARREAUX MATERIAUX", "adresse": "128 chemin sainte barbe", "code_postal": "83170", "ville": "Brignoles", "telephone": "04 94 69 51 12", "email": "commande.ecm@free.fr ", "autre_telephone": "", "departement": "FR-83", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "Elements Carrelage", "adresse": "Route Departementale 562", "code_postal": "83440", "ville": "Montauroux", "telephone": "04 94 67 54 69", "email": "commercial@elements-carrelage.com", "autre_telephone": "", "departement": "FR-83", "region": "FR-PAC", "pays": "FR"},
-  {"type": "Client", "societe": "DIFFUSION CERAMIQUE", "adresse": "35 Rue de la Creation", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
   {"type": "Client", "societe": "COTE CARRELAGE", "adresse": "2535 Av. President John Kennedy", "code_postal": "83140", "ville": "Six Fours les plages", "telephone": " 04 94 94 50 00", "email": "david.cotecarrelage@orange.fr ", "autre_telephone": "", "departement": "FR-83", "region": "FR-PAC", "pays": "FR"},
-  {"type": "Client", "societe": "CIFFREO BONA saint maxime", "adresse": "Zone Artisanale", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
-  {"type": "Client", "societe": "CASH CARRELAGE ccl distribution", "adresse": "Za Les Playes", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
-  {"type": "Client", "societe": "CASA CERAM CONCEPT", "adresse": "Quartier Dit du", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
   {"type": "Client", "societe": "CARRELAGE DU MONDE", "adresse": "1523 Av. de Draguignan", "code_postal": "83130", "ville": "La garde", "telephone": " 04 94 66 56 34", "email": "direction@cdmstore.com ", "autre_telephone": "", "departement": "FR-83", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "CARO'STYL la seyne", "adresse": "480 Rue de Lisbonne", "code_postal": "83500", "ville": "La Seyne sur mer", "telephone": " 04 94 10 27 27", "email": "info@carostyl.fr", "autre_telephone": "", "departement": "FR-83", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "BONIFAY flassant", "adresse": "201 impasse de Peyrouas", "code_postal": "83340", "ville": "Flassans sur issole", "telephone": "04 94 59 63 81", "email": "flassans@bonifay.fr", "autre_telephone": "", "departement": "FR-83", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "BONIFAY toulon saint jean", "adresse": "849 Avenue Colonel Picot", "code_postal": "83100", "ville": "Toulon", "telephone": "04 94 23 17 58", "email": "brunet@bonifay.fr", "autre_telephone": "", "departement": "FR-83", "region": "FR-PAC", "pays": "FR"},
-  {"type": "Client", "societe": "BONIFAY tourves", "adresse": "Route Departementale 7", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
   {"type": "Client", "societe": "BONIFAY sanary", "adresse": "134 Ancien Chemin de Toulon", "code_postal": "83110", "ville": "Sanary sur mer", "telephone": "04 94 74 23 83", "email": "sanary@bonifay.fr", "autre_telephone": "", "departement": "FR-83", "region": "FR-PAC", "pays": "FR"},
-  {"type": "Client", "societe": "BONIFAY la garde", "adresse": "873 Chemin Des Plantades", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
-  {"type": "Prospect", "societe": "OUTLET & CO le showroom carrelage", "adresse": "3588 Rte du Mont-Gros", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
-  {"type": "Prospect", "societe": "LE SHOWROOM CARRELAGE", "adresse": "Les Terrasses du Carei", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
   {"type": "Prospect", "societe": "CARRELAGE ET BAIN ceramic house", "adresse": "2211 Rte de la Fenerie", "code_postal": "06580", "ville": "Pegomas", "telephone": " 04 93 48 00 00", "email": "", "autre_telephone": "", "departement": "FR-06", "region": "FR-PAC", "pays": "FR"},
   {"type": "Prospect", "societe": "CASALUX", "adresse": "2 Rue Colonna d'Istria", "code_postal": "06300", "ville": "Nice", "telephone": "09 50 97 30 38", "email": "info@casalux.fr", "autre_telephone": "", "departement": "FR-06", "region": "FR-PAC", "pays": "FR"},
   {"type": "Prospect", "societe": "BAYLINE CARRELAGE", "adresse": " 95 Av. de Nice", "code_postal": "06800", "ville": "Cagnes sur Mer", "telephone": "04 93 14 62 78", "email": "contact@bayline.fr", "autre_telephone": "", "departement": "FR-06", "region": "FR-PAC", "pays": "FR"},
@@ -256,12 +209,11 @@ const clientsDatabase = [
   {"type": "Prospect", "societe": "IDEA CASA", "adresse": "31 chemin des fades", "code_postal": "06110", "ville": "Le cannet", "telephone": "0489892374", "email": "contact@ideacasa.fr", "autre_telephone": "", "departement": "FR-06", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "HOUSQUARE mougins", "adresse": "785 Chemin des Campelieres", "code_postal": "06250", "ville": "Mougins", "telephone": "0493698044", "email": "stephane.garriou@housquare.com ", "autre_telephone": "", "departement": "FR-06", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "GILLES DELFINO", "adresse": " 1390 Av. du Campon", "code_postal": "06110", "ville": "Le cannet", "telephone": " 04 93 69 94 91", "email": "gilles@gillesdelfino.com", "autre_telephone": "", "departement": "FR-06", "region": "FR-PAC", "pays": "FR"},
-  {"type": "Client", "societe": "FLAUJAC CHARLES", "adresse": "6 Bd Rainier III", "code_postal": "98000", "ville": "Monaco", "telephone": "0793508787", "email": "info@flaujac.mc", "autre_telephone": "", "departement": "", "region": "", "pays": "MC"},
+  {"type": "Client", "societe": "FLAUJAC CHARLES", "adresse": "6 Bd Rainier III", "code_postal": "98000", "ville": "Monaco", "telephone": "0793508787", "email": "info@flaujac.mc", "autre_telephone": "", "departement": "FR-98", "region": "MC", "pays": "MC"},
   {"type": "Client", "societe": "COSTAMAGNA hyeres", "adresse": "508 Chem. de la Villette", "code_postal": "83400", "ville": "Hyeres", "telephone": "0494575251", "email": "v.bouget@costamagna.com", "autre_telephone": "", "departement": "FR-83", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "COSTAMAGNA la seyne", "adresse": "Camp Laurent", "code_postal": "83500", "ville": "La Seyne-sur-Mer", "telephone": "04 94 10 70 60", "email": "o.besnier@costamagna.com", "autre_telephone": "", "departement": "FR-83", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "COSTAMAGNA saint tropez", "adresse": "47 Avenue Marechal Leclerc", "code_postal": "83990", "ville": "Saint Tropez", "telephone": "04 94 97 93 74", "email": "p.delcroix@costamagna.com", "autre_telephone": "", "departement": "FR-83", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "COSTAMAGNA moutauroux", "adresse": "Route Departementale 562", "code_postal": "83440", "ville": "Montauroux", "telephone": "04 94 76 48 96", "email": "s.lillo@costamagna.com", "autre_telephone": "", "departement": "FR-83", "region": "FR-PAC", "pays": "FR"},
-  {"type": "Client", "societe": "COSTAMAGNA cagnes", "adresse": "ZI", "code_postal": "", "ville": "", "telephone": "", "email": "", "autre_telephone": "", "departement": "", "region": "", "pays": ""},
   {"type": "Client", "societe": "COSTAMAGNA saint laurent du var", "adresse": "172 Av. France d'Outremer", "code_postal": "06700", "ville": "Saint Laurent du Var", "telephone": "04 89 97 75 55", "email": "g.fagot@costamagna.com", "autre_telephone": "", "departement": "FR-06", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "COSTAMAGNA carabacel", "adresse": "7 Bd Carabacel", "code_postal": "06000", "ville": "Nice", "telephone": "0493620551", "email": "l.coulanges@costamagna.com", "autre_telephone": "", "departement": "FR-06", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "COSTAMAGNA saint martin", "adresse": "RN 202", "code_postal": "06670", "ville": "Saint Martin du Var", "telephone": "0492082485", "email": "a.deville@costamagna.com", "autre_telephone": "", "departement": "FR-06", "region": "FR-PAC", "pays": "FR"},
@@ -271,8 +223,8 @@ const clientsDatabase = [
   {"type": "Client", "societe": "CERAZUR CARRELAGE", "adresse": "514 Boulevard du Mercantour", "code_postal": "06200", "ville": "Nice", "telephone": "0493298803", "email": "contact@cerazur.com", "autre_telephone": "", "departement": "FR-06", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "CERA STONE CARRELAGE", "adresse": "89 Boulevard Georges Pompidou", "code_postal": "06700", "ville": "Saint-Laurent-du-Var", "telephone": "04 93 89 26 61", "email": "cerastonecarrelage@orange.fr", "autre_telephone": "", "departement": "FR-06", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "CARRELAGES DISCOUNT sarl carreau depot", "adresse": "33 Chemin des Fades", "code_postal": "06110", "ville": "Le Cannet", "telephone": "0493465901", "email": "carrelages.discount.06@gmail.com", "autre_telephone": "", "departement": "FR-06", "region": "FR-PAC", "pays": "FR"},
-  {"type": "Client", "societe": "CAREMA", "adresse": "1 Av. Henry Dunant", "code_postal": "98000", "ville": "Monaco", "telephone": "0793503663", "email": "commercial@carema.mc", "autre_telephone": "", "departement": "", "region": "", "pays": "MC"},
-  {"type": "Client", "societe": "CARAT DIFFUSION", "adresse": "11 Av. des Papalins", "code_postal": "98000", "ville": "Monaco", "telephone": "06 14 79 17 08", "email": "jpm@carat-diffusion.com", "autre_telephone": "", "departement": "", "region": "", "pays": "MC"},
+  {"type": "Client", "societe": "CAREMA", "adresse": "1 Av. Henry Dunant", "code_postal": "98000", "ville": "Monaco", "telephone": "0793503663", "email": "commercial@carema.mc", "autre_telephone": "", "departement": "FR-98", "region": "MC", "pays": "MC"},
+  {"type": "Client", "societe": "CARAT DIFFUSION", "adresse": "11 Av. des Papalins", "code_postal": "98000", "ville": "Monaco", "telephone": "06 14 79 17 08", "email": "jpm@carat-diffusion.com", "autre_telephone": "", "departement": "FR-98", "region": "MC", "pays": "MC"},
   {"type": "Client", "societe": "AZZURRA CERAMICHE", "adresse": "5 Avenue des Alpes", "code_postal": "06800", "ville": "Cagnes-sur-Mer", "telephone": "0987040262", "email": "azzurra.ceramiche@gmail.com", "autre_telephone": "", "departement": "FR-06", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "AZM AZUREENNE", "adresse": "2344 Avenue Georges Clemenceau", "code_postal": "06360", "ville": "Eze", "telephone": "0493410739", "email": "n.loiseau@azm-carrelages.fr", "autre_telephone": "", "departement": "FR-06", "region": "FR-PAC", "pays": "FR"},
   {"type": "Client", "societe": "ATELIER SAUZE CARRELAGE omnium", "adresse": "152 Rte du Cannet", "code_postal": "06250", "ville": "Mougins", "telephone": "0493753342", "email": "contact@atelier-sauze.com", "autre_telephone": "", "departement": "FR-06", "region": "FR-PAC", "pays": "FR"},
@@ -280,7 +232,11 @@ const clientsDatabase = [
   {"type": "Client", "societe": "ANTOINE QUINTANE", "adresse": "5 Rte de Valbonne", "code_postal": "06130", "ville": "Grasse", "telephone": "0493601628", "email": "carrelage@quintane.fr", "autre_telephone": "", "departement": "FR-06", "region": "FR-PAC", "pays": "FR"}
 ];
 
+// Recupération des donnees sauvegardees ou initiales
+let clientsDatabase = JSON.parse(localStorage.getItem("clientsDatabaseCustom")) || initialClientsDatabase;
+
 document.addEventListener("DOMContentLoaded", () => {
+  // Controle de la session agent
   const isLoggedIn = localStorage.getItem("agentLoggedIn");
   if (!isLoggedIn) {
     window.location.href = "agent.html";
@@ -319,53 +275,72 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Listes déroulantes de classement ergonomique
+  // Classement ordonne des listes deroulantes de filtres
   const deptSelect = document.getElementById("filter-dept");
   const cpSelect = document.getElementById("filter-cp");
   const citySelect = document.getElementById("filter-city");
 
-  const departments = [...new Set(clientsDatabase.map(c => c.departement).filter(Boolean))].sort();
-  const postalCodes = [...new Set(clientsDatabase.map(c => c.code_postal).filter(Boolean))].sort();
-  const cities = [...new Set(clientsDatabase.map(c => c.ville).filter(Boolean))].sort();
+  function populateFilterDropdowns() {
+    if (deptSelect) deptSelect.innerHTML = '<option value="">Tous les départements</option>';
+    if (cpSelect) cpSelect.innerHTML = '<option value="">Tous les codes postaux</option>';
+    if (citySelect) citySelect.innerHTML = '<option value="">Toutes les villes</option>';
 
-  if (deptSelect) {
-    departments.forEach(d => {
-      const opt = document.createElement("option");
-      opt.value = d;
-      opt.textContent = d;
-      deptSelect.appendChild(opt);
-    });
+    // Tri numerique/alphabetique strict
+    const departments = [...new Set(clientsDatabase.map(c => c.departement).filter(Boolean))].sort((a, b) => 
+      a.localeCompare(b, 'fr', { numeric: true, sensitivity: 'base' })
+    );
+
+    const postalCodes = [...new Set(clientsDatabase.map(c => String(c.code_postal)).filter(c => c && c !== 'null' && c !== '-'))].sort((a, b) => 
+      a.localeCompare(b, 'fr', { numeric: true })
+    );
+
+    const cities = [...new Set(clientsDatabase.map(c => c.ville).filter(Boolean))].sort((a, b) => 
+      a.localeCompare(b, 'fr', { sensitivity: 'base' })
+    );
+
+    if (deptSelect) {
+      departments.forEach(d => {
+        const opt = document.createElement("option");
+        opt.value = d;
+        opt.textContent = d;
+        deptSelect.appendChild(opt);
+      });
+    }
+
+    if (cpSelect) {
+      postalCodes.forEach(cp => {
+        const opt = document.createElement("option");
+        opt.value = cp;
+        opt.textContent = cp;
+        cpSelect.appendChild(opt);
+      });
+    }
+
+    if (citySelect) {
+      cities.forEach(city => {
+        const opt = document.createElement("option");
+        opt.value = city;
+        opt.textContent = city;
+        citySelect.appendChild(opt);
+      });
+    }
   }
 
-  if (cpSelect) {
-    postalCodes.forEach(cp => {
-      const opt = document.createElement("option");
-      opt.value = cp;
-      opt.textContent = cp;
-      cpSelect.appendChild(opt);
-    });
-  }
-
-  if (citySelect) {
-    cities.forEach(city => {
-      const opt = document.createElement("option");
-      opt.value = city;
-      opt.textContent = city;
-      citySelect.appendChild(opt);
-    });
-  }
+  populateFilterDropdowns();
 
   const urlParams = new URLSearchParams(window.location.search);
   let currentFilter = urlParams.get("filter") || "all";
 
-  // Mise à jour des KPI en haut
-  const totalCountEl = document.getElementById("count-total");
-  const clientsCountEl = document.getElementById("count-clients");
-  const prospectsCountEl = document.getElementById("count-prospects");
+  function updateKPIs() {
+    const totalCountEl = document.getElementById("count-total");
+    const clientsCountEl = document.getElementById("count-clients");
+    const prospectsCountEl = document.getElementById("count-prospects");
 
-  if (totalCountEl) totalCountEl.textContent = clientsDatabase.length;
-  if (clientsCountEl) clientsCountEl.textContent = clientsDatabase.filter(c => c.type && c.type.toLowerCase() === 'client').length;
-  if (prospectsCountEl) prospectsCountEl.textContent = clientsDatabase.filter(c => c.type && c.type.toLowerCase() === 'prospect').length;
+    if (totalCountEl) totalCountEl.textContent = clientsDatabase.length;
+    if (clientsCountEl) clientsCountEl.textContent = clientsDatabase.filter(c => c.type && c.type.toLowerCase() === 'client').length;
+    if (prospectsCountEl) prospectsCountEl.textContent = clientsDatabase.filter(c => c.type && c.type.toLowerCase() === 'prospect').length;
+  }
+  updateKPIs();
 
   const tableBody = document.getElementById("clients-table-body");
   const searchInput = document.getElementById("search-input");
@@ -395,7 +370,8 @@ document.addEventListener("DOMContentLoaded", () => {
       if (citySelect) citySelect.value = "";
       currentFilter = "all";
       filterBtns.forEach(b => b.classList.remove("active"));
-      document.querySelector('.filter-btn[data-filter="all"]').classList.add("active");
+      const allBtn = document.querySelector('.filter-btn[data-filter="all"]');
+      if (allBtn) allBtn.classList.add("active");
       renderTable();
     });
   }
@@ -435,6 +411,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     filtered.forEach(client => {
+      const realIndex = clientsDatabase.indexOf(client);
       const tr = document.createElement("tr");
       const cType = client.type ? client.type.toLowerCase() : "";
       const badgeClass = cType === 'client' ? 'badge-client' : 'badge-prospect';
@@ -448,7 +425,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <td>${client.telephone || '-'}</td>
       `;
 
-      tr.addEventListener("click", () => openModal(client));
+      tr.addEventListener("click", () => openModal(realIndex));
       tableBody.appendChild(tr);
     });
   }
@@ -461,36 +438,72 @@ document.addEventListener("DOMContentLoaded", () => {
 
   renderTable();
 
+  // Edition en modale
   const modal = document.getElementById("client-modal");
   const modalClose = document.getElementById("modal-close-btn");
+  const btnCancelEdit = document.getElementById("btn-cancel-edit");
+  const clientEditForm = document.getElementById("client-edit-form");
 
-  function openModal(client) {
-    if (!modal) return;
-    document.getElementById("modal-societe").textContent = client.societe || 'Sans nom';
-    document.getElementById("modal-type").textContent = client.type || '-';
-    document.getElementById("modal-adresse").textContent = client.adresse || '-';
-    document.getElementById("modal-ville").textContent = `${client.code_postal || ''} ${client.ville || '-'}`;
-    document.getElementById("modal-telephone").textContent = client.telephone || '-';
-    
-    // E-mail cliquable (mailto:)
-    const emailEl = document.getElementById("modal-email");
-    if (client.email && client.email.trim() !== "") {
-      emailEl.innerHTML = `<a href="mailto:${client.email}" style="color: #D4AF37; text-decoration: underline; font-weight: 600;">${client.email} ✉️</a>`;
-    } else {
-      emailEl.textContent = 'Aucun e-mail renseigné';
-    }
+  function openModal(index) {
+    const client = clientsDatabase[index];
+    if (!client || !modal) return;
 
-    document.getElementById("modal-autre-tel").textContent = client.autre_telephone || 'Aucun';
-    document.getElementById("modal-dept").textContent = client.departement || '-';
-    document.getElementById("modal-region").textContent = client.region || '-';
+    document.getElementById("edit-client-index").value = index;
+    document.getElementById("modal-societe-title").textContent = client.societe || 'Fiche Client';
     
+    const badgeEl = document.getElementById("modal-status-badge");
+    const isClient = (client.type || '').toLowerCase() === 'client';
+    badgeEl.textContent = client.type || 'Prospect';
+    badgeEl.className = `badge ${isClient ? 'badge-client' : 'badge-prospect'}`;
+
+    document.getElementById("edit-societe").value = client.societe || '';
+    document.getElementById("edit-type").value = isClient ? 'Client' : 'Prospect';
+    document.getElementById("edit-telephone").value = client.telephone || '';
+    document.getElementById("edit-autre-tel").value = client.autre_telephone || '';
+    document.getElementById("edit-email").value = client.email || '';
+    document.getElementById("edit-adresse").value = client.adresse || '';
+    document.getElementById("edit-code-postal").value = client.code_postal || '';
+    document.getElementById("edit-ville").value = client.ville || '';
+    document.getElementById("edit-departement").value = client.departement || '';
+    document.getElementById("edit-region").value = client.region || '';
+
     modal.style.display = "flex";
   }
 
-  if (modalClose) {
-    modalClose.addEventListener("click", () => {
+  if (clientEditForm) {
+    clientEditForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      
+      const index = parseInt(document.getElementById("edit-client-index").value, 10);
+      if (isNaN(index) || !clientsDatabase[index]) return;
+
+      clientsDatabase[index].societe = document.getElementById("edit-societe").value.trim();
+      clientsDatabase[index].type = document.getElementById("edit-type").value;
+      clientsDatabase[index].telephone = document.getElementById("edit-telephone").value.trim();
+      clientsDatabase[index].autre_telephone = document.getElementById("edit-autre-tel").value.trim();
+      clientsDatabase[index].email = document.getElementById("edit-email").value.trim();
+      clientsDatabase[index].adresse = document.getElementById("edit-adresse").value.trim();
+      clientsDatabase[index].code_postal = document.getElementById("edit-code-postal").value.trim();
+      clientsDatabase[index].ville = document.getElementById("edit-ville").value.trim();
+      clientsDatabase[index].departement = document.getElementById("edit-departement").value.trim();
+      clientsDatabase[index].region = document.getElementById("edit-region").value.trim();
+
+      localStorage.setItem("clientsDatabaseCustom", JSON.stringify(clientsDatabase));
+
+      updateKPIs();
+      populateFilterDropdowns();
+      renderTable();
+
       modal.style.display = "none";
     });
+  }
+
+  if (modalClose) {
+    modalClose.addEventListener("click", () => modal.style.display = "none");
+  }
+
+  if (btnCancelEdit) {
+    btnCancelEdit.addEventListener("click", () => modal.style.display = "none");
   }
 
   window.addEventListener("click", (e) => {
