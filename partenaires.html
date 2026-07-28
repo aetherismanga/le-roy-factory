@@ -10,6 +10,30 @@
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
   <style>
+    /* Fond général de la page en blanc crème / coquille d'œuf */
+    body, html {
+      background-color: #FBF9F5 !important;
+      background-image: none !important;
+      color: #1A2530 !important;
+    }
+
+    /* Header et Footer avec l'image bandeau02.png */
+    header, footer {
+      background-image: url('assets/img/bandeau02.png');
+      background-size: cover;
+      background-position: center;
+      color: #ffffff;
+      border-bottom: 2px solid #D4AF37;
+    }
+    footer {
+      border-top: 2px solid #D4AF37;
+      border-bottom: none;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+    }
+    header a, footer p {
+      color: #ffffff !important;
+    }
+
     .main-nav{
       display:flex;
       gap:1.5rem;
@@ -74,10 +98,11 @@
 <body>
 
   <header>
-    <div class="container nav-container" style="height: 130px;">
+    <div class="container nav-container" style="height: 130px; display: flex; align-items: center; justify-content: space-between;">
+      <!-- Logo rond mis à jour vers logo03lrf.png -->
       <a href="index.html" class="logo" style="display: flex; align-items: center; height: 100%; padding-left: 1.5rem;">
-        <div style="width: 110px; height: 110px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.4);">
-          <img src="assets/img/logo02lrf.png" alt="LE ROY FACTORY" style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.35);">
+        <div style="width: 110px; height: 110px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.4); border: 2px solid #D4AF37; background-color: #000;">
+          <img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY" style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.35);">
         </div>
       </a>
       <nav>
@@ -113,8 +138,8 @@
   </main>
 
   <footer>
-    <div class="container" style="text-align: center;">
-      <p>&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p>
+    <div class="container" style="text-align: center; padding: 2rem 0;">
+      <p style="color: #ffffff !important; font-weight: 600; text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);">&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p>
     </div>
   </footer>
 
@@ -143,15 +168,15 @@
           let logoStyle = logoFile ? `background-image: url('assets/img/${logoFile}');` : '';
 
           return `
-            <div class="card-premium partner-card" style="padding: 2rem; display: flex; flex-direction: column; justify-content: space-between; position: relative;">
+            <div class="card-premium partner-card" style="padding: 2rem; display: flex; flex-direction: column; justify-content: space-between; position: relative; background: #ffffff; border: 1px solid rgba(0,0,0,0.06); border-radius: 4px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
               <div style="position: absolute; top: 1.5rem; right: 1.5rem; width: 110px; height: 50px; ${logoStyle} background-repeat: no-repeat; background-position: right top; background-size: contain; opacity: 1; pointer-events: none; z-index: 1;"></div>
               
               <div style="position: relative; z-index: 2; padding-right: 90px;">
-                <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-sage); font-weight: 600;">${fab.pays}</span>
-                <h3 style="font-size: 1.5rem; margin: 0.5rem 0 1rem; color: var(--color-anthracite);">${fab.nom}</h3>
+                <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-sage, #708273); font-weight: 600;">${fab.pays}</span>
+                <h3 style="font-size: 1.5rem; margin: 0.5rem 0 1rem; color: var(--color-anthracite, #1A2530);">${fab.nom}</h3>
                 <p style="font-size: 0.95rem; color: #555; margin-bottom: 1.5rem; line-height: 1.5;">${fab.presentation}</p>
               </div>
-              <a href="${fab.site}" target="_blank" rel="noopener" class="btn btn-outline" style="position: relative; z-index: 2; align-self: flex-start; font-size: 0.85rem; padding: 0.5rem 1rem; border-color: var(--color-anthracite); color: var(--color-anthracite);">Site officiel</a>
+              <a href="${fab.site}" target="_blank" rel="noopener" class="btn btn-outline" style="position: relative; z-index: 2; align-self: flex-start; font-size: 0.85rem; padding: 0.5rem 1rem; border-color: var(--color-anthracite, #1A2530); color: var(--color-anthracite, #1A2530);">Site officiel</a>
             </div>
           `;
         }).join('');
