@@ -85,10 +85,10 @@
     <div style="margin-bottom: 2rem;">
       <h2 style="font-size: 1.1rem; margin-bottom: 1rem; color: #1A2530; font-weight: 700;">Actions rapides</h2>
       <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-        <a href="clients.html" class="btn-primary-gold" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem;">➕ Nouveau client</a>
-        <a href="clients.html?filter=prospect" class="btn-primary-gold" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem;">🎯 Nouveau prospect</a>
+        <a href="clients.html?action=new-client" class="btn-primary-gold" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem;">➕ Nouveau client</a>
+        <a href="clients.html?action=new-prospect" class="btn-primary-gold" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem;">🎯 Nouveau prospect</a>
         <a href="agenda.html" class="btn-primary-gold" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem;">📅 Nouveau rendez-vous</a>
-        <a href="nouveau-compte-rendu.html" class="btn-primary-gold" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem;">📞 Nouveau compte-rendu</a>
+        <a href="comptes-rendus.html" class="btn-primary-gold" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem;">📞 Nouveau compte-rendu</a>
         <a href="#" class="btn-primary-gold" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem;">📸 Ajouter des photos</a>
       </div>
     </div>
@@ -99,14 +99,14 @@
       <!-- Bloc Clients -->
       <div style="background: #FFF; padding: 1.75rem; border-radius: 12px; border: 1px solid rgba(0,0,0,0.08); box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
         <h3 style="font-size: 0.9rem; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">Portefeuille Clients</h3>
-        <p style="font-size: 2.25rem; font-weight: 800; color: #111; margin-bottom: 0.25rem;">201</p>
+        <p id="dash-clients-actifs" style="font-size: 2.25rem; font-weight: 800; color: #111; margin-bottom: 0.25rem;">...</p>
         <p style="font-size: 0.85rem; color: #888;">Clients actifs enregistrés</p>
       </div>
 
       <!-- Bloc Prospects -->
       <div style="background: #FFF; padding: 1.75rem; border-radius: 12px; border: 1px solid rgba(0,0,0,0.08); box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
         <h3 style="font-size: 0.9rem; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">Prospects en cours</h3>
-        <p style="font-size: 2.25rem; font-weight: 800; color: #111; margin-bottom: 0.25rem;">78</p>
+        <p id="dash-prospects" style="font-size: 2.25rem; font-weight: 800; color: #111; margin-bottom: 0.25rem;">...</p>
         <p style="font-size: 0.85rem; color: #888;">Suivi commercial actif</p>
       </div>
 
@@ -175,8 +175,11 @@
     </div>
   </main>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
+  <script type="module">
+    import { db } from "./assets/js/firebase.js";
+    import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    document.addEventListener("DOMContentLoaded", async () => {
       // Vérification session
       const isLoggedIn = localStorage.getItem("agentLoggedIn");
       if (!isLoggedIn) {
@@ -185,9 +188,10 @@
       }
 
       const agentName = localStorage.getItem("agentName") || "Jérôme";
+      const firstName = agentName.split(" ")[0];
       const titleEl = document.getElementById("welcome-title");
       if (titleEl) {
-        titleEl.textContent = `Bonjour ${agentName} 👋`;
+        titleEl.textContent = `Bonjour ${firstName} 👋`;
       }
 
       // Date et Heure en direct
@@ -206,9 +210,36 @@
       updateDateTime();
       setInterval(updateDateTime, 1000);
 
+      // Chargement des compteurs depuis Firebase Firestore
+      try {
+        const querySnapshot = await getDocs(collection(db, "clients"));
+        let clientsCount = 0;
+        let prospectsCount = 0;
+
+        querySnapshot.forEach((docSnap) => {
+          const data = docSnap.data();
+          const type = (data.type || "").toLowerCase();
+          if (type === "client") {
+            clientsCount++;
+          } else if (type === "prospect") {
+            prospectsCount++;
+          }
+        });
+
+        const clientsEl = document.getElementById("dash-clients-actifs");
+        const prospectsEl = document.getElementById("dash-prospects");
+
+        if (clientsEl) clientsEl.textContent = clientsCount;
+        if (prospectsEl) prospectsEl.textContent = prospectsCount;
+      } catch (error) {
+        console.error("Erreur de récupération des stats Firebase sur l'accueil :", error);
+      }
+
       // Déconnexion
       document.getElementById("logout-btn")?.addEventListener("click", () => {
         localStorage.removeItem("agentLoggedIn");
+        localStorage.removeItem("agentName");
+        localStorage.removeItem("agentEmail");
         window.location.href = "agent.html";
       });
     });
