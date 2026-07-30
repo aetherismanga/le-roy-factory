@@ -126,7 +126,7 @@
       <li><a href="clients.html"><span class="icon">👥</span><span class="menu-text">Clients</span></a></li>
       <li><a href="clients.html?filter=prospect"><span class="icon">🎯</span><span class="menu-text">Prospects</span></a></li>
       <li><a href="agenda.html" class="active"><span class="icon">📅</span><span class="menu-text">Agenda</span></a></li>
-      <li><a href="#"><span class="icon">📞</span><span class="menu-text">Comptes-rendus</span></a></li>
+      <li><a href="comptes-rendus.html"><span class="icon">📞</span><span class="menu-text">Comptes-rendus</span></a></li>
       <li><a href="catalogues.html"><span class="icon">📂</span><span class="menu-text">Catalogues</span></a></li>
       <li><a href="partenaires.html"><span class="icon">🏭</span><span class="menu-text">Fabricants</span></a></li>
       <li><a href="#"><span class="icon">📸</span><span class="menu-text">Photos</span></a></li>
@@ -276,6 +276,7 @@
       // Déconnexion
       document.getElementById("logout-btn")?.addEventListener("click", () => {
         localStorage.removeItem("agentLoggedIn");
+        localStorage.removeItem("googleAccessToken");
         window.location.href = "agent.html";
       });
 
@@ -345,7 +346,8 @@
         });
 
         // Envoi vers Google Calendar si connecté
-        if (gapi.client.getToken() !== null) {
+        const savedToken = localStorage.getItem("googleAccessToken");
+        if (savedToken && gapi.client) {
           const event = {
             'summary': title,
             'description': description,
@@ -358,6 +360,8 @@
             'resource': event
           }).then(() => {
             alert("✅ Rendez-vous synchronisé avec votre Google Calendar !");
+          }).catch((err) => {
+            console.error("Erreur d'insertion Google Calendar:", err);
           });
         }
 
@@ -373,6 +377,7 @@
           discoveryDocs: [DISCOVERY_DOC],
         });
         gapiInited = true;
+        checkPersistedSession();
       });
     }
 
@@ -382,38 +387,68 @@
         scope: SCOPES,
         callback: (resp) => {
           if (resp.error) return;
-          document.getElementById("sync-icon").textContent = "🟢";
-          document.getElementById("sync-text").textContent = "Google Calendar : Connecté";
-          document.getElementById("btn-auth-google").style.display = "none";
-          loadGoogleEvents();
+          localStorage.setItem("googleAccessToken", resp.access_token);
+          setConnectedState(resp.access_token);
         },
       });
       gsiInited = true;
+      checkPersistedSession();
+    }
+
+    function setConnectedState(token) {
+      if (gapi.client) {
+        gapi.client.setToken({ access_token: token });
+      }
+      document.getElementById("sync-icon").textContent = "🟢";
+      document.getElementById("sync-text").textContent = "Google Calendar : Connecté";
+      document.getElementById("btn-auth-google").style.display = "none";
+      loadGoogleEvents();
+    }
+
+    function checkPersistedSession() {
+      if (gapiInited && gsiInited) {
+        const savedToken = localStorage.getItem("googleAccessToken");
+        if (savedToken) {
+          setConnectedState(savedToken);
+        }
+      }
     }
 
     document.getElementById("btn-auth-google")?.addEventListener("click", () => {
-      if (tokenClient) tokenClient.requestAccessToken({ prompt: 'consent' });
+      if (tokenClient) {
+        tokenClient.requestAccessToken({ prompt: '' });
+      }
     });
 
     async function loadGoogleEvents() {
-      const response = await gapi.client.calendar.events.list({
-        'calendarId': 'primary',
-        'timeMin': (new Date()).toISOString(),
-        'showDeleted': false,
-        'singleEvents': true,
-        'orderBy': 'startTime',
-      });
-
-      const events = response.result.items;
-      events.forEach(e => {
-        calendar.addEvent({
-          id: e.id,
-          title: e.summary,
-          start: e.start.dateTime || e.start.date,
-          end: e.end.dateTime || e.end.date,
-          description: e.description
+      try {
+        const response = await gapi.client.calendar.events.list({
+          'calendarId': 'primary',
+          'timeMin': (new Date()).toISOString(),
+          'showDeleted': false,
+          'singleEvents': true,
+          'orderBy': 'startTime',
         });
-      });
+
+        const events = response.result.items;
+        events.forEach(e => {
+          calendar.addEvent({
+            id: e.id,
+            title: e.summary,
+            start: e.start.dateTime || e.start.date,
+            end: e.end.dateTime || e.end.date,
+            description: e.description
+          });
+        });
+      } catch (err) {
+        console.error("Erreur de chargement des événements Google:", err);
+        if (err.status === 401 || err.result?.error?.code === 401) {
+          localStorage.removeItem("googleAccessToken");
+          document.getElementById("sync-icon").textContent = "🔴";
+          document.getElementById("sync-text").textContent = "Google Calendar : Non connecté";
+          document.getElementById("btn-auth-google").style.display = "inline-block";
+        }
+      }
     }
 
     window.onload = () => {
