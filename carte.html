@@ -48,10 +48,9 @@
       transition: all 0.3s ease;
     }
 
-    /* Style du conteneur de la carte en mode normal */
     #map {
       width: 100%;
-      height: 650px;
+      height: 620px;
       border-radius: 8px;
       z-index: 1;
     }
@@ -77,20 +76,55 @@
       height: auto !important;
     }
 
-    /* Bouton Plein Écran customisé */
+    /* Boutons de filtre et plein écran */
+    .filter-bar {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .btn-filter {
+      background: #FAF8F5;
+      color: #1A2530;
+      border: 1px solid #D1D5DB;
+      padding: 0.4rem 0.85rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-filter:hover, .btn-filter.active {
+      background: #111;
+      color: #FFD700;
+      border-color: #D4AF37;
+    }
+
+    .select-dept {
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      border: 1px solid #D1D5DB;
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: #FAF8F5;
+      color: #1A2530;
+    }
+
     .btn-fullscreen {
       background: #111;
       color: #FFD700;
       border: 1px solid #D4AF37;
-      padding: 0.35rem 0.75rem;
+      padding: 0.4rem 0.85rem;
       border-radius: 6px;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       font-weight: 600;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      transition: all 0.2s ease;
+      margin-left: auto;
     }
     .btn-fullscreen:hover {
       background: #D4AF37;
@@ -150,15 +184,38 @@
 
     <!-- Carte Géographique -->
     <div class="map-card" id="map-card-container">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
-        <div>
-          <h2 style="font-size: 1.1rem; color: #1A2530; font-weight: 700; margin: 0;">Localisation des Clients & Prospects</h2>
-          <span id="map-counter" style="font-size: 0.85rem; color: #666; font-weight: 600;">Synchronisation en direct...</span>
-        </div>
+      <!-- Barre de filtres par secteur / département -->
+      <div class="filter-bar">
+        <button class="btn-filter active" data-filter="all">Tous les secteurs</button>
+        <button class="btn-filter" data-filter="jerome">Secteur Jérôme (30, 34, 11, 66)</button>
+        <button class="btn-filter" data-filter="coryne">Secteur Coryne (13, 83, 84, 04, 06, 05, 2A, 2B, Monaco)</button>
+        
+        <select id="dept-select" class="select-dept">
+          <option value="">Filtrer par département...</option>
+          <option value="11">11 - Aude</option>
+          <option value="13">13 - Bouches-du-Rhône</option>
+          <option value="30">30 - Gard</option>
+          <option value="34">34 - Hérault</option>
+          <option value="04">04 - Alpes-de-Haute-Provence</option>
+          <option value="05">05 - Hautes-Alpes</option>
+          <option value="06">06 - Alpes-Maritimes</option>
+          <option value="83">83 - Var</option>
+          <option value="84">84 - Vaucluse</option>
+          <option value="2A">2A - Corse-du-Sud</option>
+          <option value="2B">2B - Haute-Corse</option>
+          <option value="66">66 - Pyrénées-Orientales</option>
+          <option value="98">98 - Monaco</option>
+        </select>
+
         <button id="btn-fullscreen-toggle" class="btn-fullscreen">
           <span id="fs-icon">⛶</span> <span id="fs-text">Pleine page</span>
         </button>
       </div>
+
+      <div style="margin-bottom: 0.75rem;">
+        <span id="map-counter" style="font-size: 0.85rem; color: #666; font-weight: 600;">Chargement des points...</span>
+      </div>
+
       <div id="map"></div>
     </div>
   </main>
@@ -171,7 +228,6 @@
     import { collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
     document.addEventListener("DOMContentLoaded", () => {
-      // 1. Vérification de session
       const isLoggedIn = localStorage.getItem("agentLoggedIn");
       if (!isLoggedIn) {
         window.location.href = "agent.html";
@@ -191,7 +247,7 @@
         window.location.href = "agent.html";
       });
 
-      // 2. Gestion du Plein Écran
+      // Gestion du Plein Écran
       const mapCardContainer = document.getElementById("map-card-container");
       const btnFullscreenToggle = document.getElementById("btn-fullscreen-toggle");
       const fsIcon = document.getElementById("fs-icon");
@@ -200,21 +256,12 @@
       btnFullscreenToggle?.addEventListener("click", () => {
         mapCardContainer.classList.toggle("fullscreen");
         const isFs = mapCardContainer.classList.contains("fullscreen");
-        
-        if (isFs) {
-          fsIcon.textContent = "🗗";
-          fsText.textContent = "Mode normal";
-        } else {
-          fsIcon.textContent = "⛶";
-          fsText.textContent = "Pleine page";
-        }
-        // Force Leaflet à recalculer la taille de la carte après basculement
-        setTimeout(() => {
-          map.invalidateSize();
-        }, 100);
+        fsIcon.textContent = isFs ? "🗗" : "⛶";
+        fsText.textContent = isFs ? "Mode normal" : "Pleine page";
+        setTimeout(() => map.invalidateSize(), 100);
       });
 
-      // 3. Initialisation de la carte
+      // Initialisation de la carte
       const map = L.map('map').setView([43.6109, 3.8767], 8);
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -226,10 +273,108 @@
       const counterEl = document.getElementById("map-counter");
       const geocodeCache = {};
 
-      // 4. Écoute en temps réel de la base Firebase Firestore (`onSnapshot`)
-      onSnapshot(collection(db, "clients"), async (querySnapshot) => {
+      // Définition des secteurs
+      const sectorJerome = ["30", "34", "11", "66"];
+      const sectorCoryne = ["13", "83", "84", "04", "06", "05", "2A", "2B", "98"];
+
+      let currentFilter = "all";
+      let selectedDept = "";
+      let allClientData = [];
+
+      // Gestion des clics sur les boutons de filtre
+      const filterButtons = document.querySelectorAll(".btn-filter");
+      filterButtons.forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          filterButtons.forEach(b => b.classList.remove("active"));
+          e.target.classList.add("active");
+          currentFilter = e.target.getAttribute("data-filter");
+          selectedDept = "";
+          document.getElementById("dept-select").value = "";
+          renderMarkers();
+        });
+      });
+
+      // Gestion du menu déroulant département
+      document.getElementById("dept-select").addEventListener("change", (e) => {
+        selectedDept = e.target.value;
+        filterButtons.forEach(b => b.classList.remove("active"));
+        currentFilter = "dept";
+        renderMarkers();
+      });
+
+      // Fonction d'extraction du code département depuis le code postal ou la ville
+      function extractDept(cp, ville) {
+        let cleanCp = (cp || "").trim();
+        if (cleanCp.length >= 2) {
+          let dept = cleanCp.substring(0, 2);
+          if (dept === "20") {
+            return parseInt(cleanCp) < 20200 ? "2A" : "2B";
+          }
+          return dept;
+        }
+        if ((ville || "").toLowerCase().includes("monaco")) return "98";
+        return "";
+      }
+
+      // Affichage des marqueurs selon les filtres actifs
+      function renderMarkers() {
         markersLayer.clearLayers();
         let validCount = 0;
+
+        allClientData.forEach(item => {
+          const dept = extractDept(item.cp, item.ville);
+          let match = false;
+
+          if (currentFilter === "all") {
+            match = true;
+          } else if (currentFilter === "jerome") {
+            match = sectorJerome.includes(dept);
+          } else if (currentFilter === "coryne") {
+            match = sectorCoryne.includes(dept);
+          } else if (currentFilter === "dept") {
+            match = (selectedDept === "" || dept === selectedDept);
+          }
+
+          if (match && item.lat !== null && item.lon !== null) {
+            const pinColor = item.type === 'client' ? '#047857' : '#D4AF37';
+
+            const markerHtml = `<div style="background-color: ${pinColor}; width: 16px; height: 16px; border-radius: 50%; border: 2px solid #FFF; box-shadow: 0 2px 5px rgba(0,0,0,0.3);"></div>`;
+            const customIcon = L.divIcon({
+              className: 'custom-pin',
+              html: markerHtml,
+              iconSize: [16, 16],
+              iconAnchor: [8, 8]
+            });
+
+            const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.fullAddress)}`;
+
+            const popupContent = `
+              <div style="font-family: 'Inter', sans-serif; padding: 4px; min-width: 200px;">
+                <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: ${pinColor};">${item.type} (Dept: ${dept || 'N/C'})</span>
+                <h3 style="font-size: 1rem; font-weight: 800; color: #111; margin: 0.2rem 0 0.5rem 0;">${item.societe}</h3>
+                <p style="font-size: 0.85rem; color: #555; margin: 0 0 0.5rem 0;">📍 ${item.adresse} <br>${item.cp} ${item.ville}</p>
+                ${item.telephone ? `<p style="font-size: 0.85rem; margin: 0 0 0.75rem 0;">📞 <a href="tel:${item.telephone}" style="color: #111; font-weight: 600;">${item.telephone}</a></p>` : ''}
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                  <a href="clients.html?search=${encodeURIComponent(item.societe)}" style="background: #111; color: #FFD700; padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; text-decoration: none; font-weight: 600;">Fiche client</a>
+                  <a href="${googleMapsUrl}" target="_blank" style="background: #D4AF37; color: #111; padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; text-decoration: none; font-weight: 700;">🧭 Naviguer (GPS)</a>
+                </div>
+              </div>
+            `;
+
+            const marker = L.marker([item.lat, item.lon], { icon: customIcon }).bindPopup(popupContent);
+            markersLayer.addLayer(marker);
+            validCount++;
+          }
+        });
+
+        if (counterEl) {
+          counterEl.textContent = `${validCount} entreprises affichées sur la carte`;
+        }
+      }
+
+      // Écoute en temps réel de Firebase
+      onSnapshot(collection(db, "clients"), async (querySnapshot) => {
+        allClientData = [];
 
         for (const docSnap of querySnapshot.docs) {
           const data = docSnap.data();
@@ -259,49 +404,18 @@
                   geocodeCache[fullAddress] = { lat, lon };
                 }
               } catch (err) {
-                console.warn("Échec du géocodage pour :", fullAddress);
+                console.warn("Échec géocodage :", fullAddress);
               }
             }
 
-            if (lat !== null && lon !== null) {
-              const pinColor = type === 'client' ? '#047857' : '#D4AF37';
-
-              const markerHtml = `<div style="background-color: ${pinColor}; width: 16px; height: 16px; border-radius: 50%; border: 2px solid #FFF; box-shadow: 0 2px 5px rgba(0,0,0,0.3);"></div>`;
-              const customIcon = L.divIcon({
-                className: 'custom-pin',
-                html: markerHtml,
-                iconSize: [16, 16],
-                iconAnchor: [8, 8]
-              });
-
-              const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddress)}`;
-
-              const popupContent = `
-                <div style="font-family: 'Inter', sans-serif; padding: 4px; min-width: 200px;">
-                  <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: ${pinColor};">${type}</span>
-                  <h3 style="font-size: 1rem; font-weight: 800; color: #111; margin: 0.2rem 0 0.5rem 0;">${societe}</h3>
-                  <p style="font-size: 0.85rem; color: #555; margin: 0 0 0.5rem 0;">📍 ${adresse} <br>${cp} ${ville}</p>
-                  ${telephone ? `<p style="font-size: 0.85rem; margin: 0 0 0.75rem 0;">📞 <a href="tel:${telephone}" style="color: #111; font-weight: 600;">${telephone}</a></p>` : ''}
-                  <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                    <a href="clients.html?search=${encodeURIComponent(societe)}" style="background: #111; color: #FFD700; padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; text-decoration: none; font-weight: 600;">Fiche client</a>
-                    <a href="${googleMapsUrl}" target="_blank" style="background: #D4AF37; color: #111; padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; text-decoration: none; font-weight: 700;">🧭 Naviguer (GPS)</a>
-                  </div>
-                </div>
-              `;
-
-              const marker = L.marker([lat, lon], { icon: customIcon }).bindPopup(popupContent);
-              markersLayer.addLayer(marker);
-              validCount++;
-            }
+            allClientData.push({
+              societe, adresse, cp, ville, type, telephone, fullAddress, lat, lon
+            });
           }
         }
-
-        if (counterEl) {
-          counterEl.textContent = `${validCount} adresses valides géolocalisées (En direct)`;
-        }
+        renderMarkers();
       }, (error) => {
-        console.error("Erreur d'écoute en temps réel Firebase :", error);
-        if (counterEl) counterEl.textContent = "Erreur de synchronisation.";
+        console.error("Erreur Firebase :", error);
       });
     });
   </script>
