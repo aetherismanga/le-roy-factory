@@ -4,556 +4,269 @@
   <meta charset="UTF-8">
   <link rel="icon" type="image/png" href="assets/img/logo03lrf.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agenda Commercial — LE ROY FACTORY CRM</title>
-  
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <!-- FullCalendar CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.css" rel="stylesheet">
-  
+  <title>Espace Agent — LE ROY FACTORY</title>
   <link rel="stylesheet" href="assets/css/variables.css">
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
-  <link rel="stylesheet" href="assets/css/clients.css">
-
   <style>
-    /* Fond général de la page en blanc crème / coquille d'œuf */
-    body.crm-body {
+    /* Fond général en blanc crème / coquille d'œuf */
+    body, html {
       background-color: #FBF9F5 !important;
       background-image: none !important;
       color: #1A2530 !important;
     }
 
-    /* Topbar avec bandeau02.png */
-    .crm-topbar {
-      background-image: url('assets/img/bandeau02.png') !important;
-      background-size: cover !important;
-      background-position: center !important;
-      background-repeat: no-repeat !important;
-      border-bottom: 2px solid #D4AF37 !important;
-      color: #FFFFFF !important;
+    /* Header et Footer avec l'image bandeau02.png */
+    header, footer {
+      background-image: url('assets/img/bandeau02.png');
+      background-size: cover;
+      background-position: center;
+      color: #ffffff;
+      border-bottom: 2px solid #D4AF37;
     }
-    .crm-topbar h1, .crm-topbar p, .welcome-box h1, .welcome-box p {
-      color: #FFFFFF !important;
+    footer {
+      border-top: 2px solid #D4AF37;
+      border-bottom: none;
       text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
     }
-
-    .agenda-card {
-      background: #FFFFFF;
-      border-radius: 12px;
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-      padding: 1.75rem;
-      min-height: 700px;
+    header a, footer p {
+      color: #ffffff !important;
     }
 
-    .agenda-toolbar {
+    .main-nav {
+      display: flex;
+      gap: 1.2rem;
+      align-items: center;
+      justify-content: flex-end;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      flex-wrap: nowrap;
+    }
+    .main-nav li { display: flex; align-items: center; }
+    .main-nav a { text-decoration: none; }
+    .agent-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 14px;
+      background: #111;
+      color: #FFD700 !important;
+      border: 1px solid #FFD700;
+      border-radius: 8px;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: .25s;
+    }
+    .agent-btn:hover { background: #FFD700; color: #111 !important; }
+
+    .login-wrapper {
+      max-width: 480px;
+      margin: 0 auto;
+      background: #FFFFFF;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 8px;
+      padding: 3rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+      transition: all 0.3s ease;
+    }
+    .login-wrapper:hover {
+      border-color: #FFD700;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.25), 0 10px 30px rgba(0, 0, 0, 0.05);
+    }
+    .login-header-title {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .login-header-title h1 {
+      font-size: 1.8rem;
+      color: #1A2530;
+      margin: 0 0 0.5rem 0;
+      letter-spacing: 0.05em;
+    }
+    .login-header-title p {
+      font-size: 0.95rem;
+      color: #666;
+      margin: 0;
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #1A2530;
+      margin-bottom: 0.5rem;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 1px solid #D1D5DB;
+      border-radius: 4px;
+      font-size: 0.95rem;
+      background-color: #FAFAFA;
+      transition: all 0.25s ease;
+      box-sizing: border-box;
+    }
+    .form-group input:focus {
+      outline: none;
+      border-color: #FFD700;
+      background-color: #FFFFFF;
+      box-shadow: 0 0 12px rgba(255, 215, 0, 0.25);
+    }
+    .form-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
-      gap: 1rem;
+      font-size: 0.85rem;
+      margin-bottom: 2rem;
     }
-
-    .google-sync-status {
+    .checkbox-container {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
-      background: #FAF8F5;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      border: 1px solid #D4AF37;
-      font-size: 0.88rem;
-      font-weight: 600;
-    }
-
-    /* Modale événement */
-    .event-modal-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-
-    .full-width {
-      grid-column: span 2;
-    }
-
-    /* Customisation FullCalendar aux couleurs LE ROY FACTORY */
-    .fc .fc-button-primary {
-      background-color: #111111 !important;
-      border-color: #FFD700 !important;
-      color: #FFD700 !important;
-      font-weight: 600;
-    }
-
-    .fc .fc-button-primary:hover {
-      background-color: #FFD700 !important;
-      color: #111111 !important;
-    }
-
-    .fc .fc-toolbar-title {
-      font-size: 1.35rem !important;
-      color: #1A2530;
-      font-weight: 800;
-    }
-
-    .fc-event {
-      padding: 3px 6px;
-      border-radius: 4px;
+      gap: 0.5rem;
       cursor: pointer;
-      font-weight: 500;
+      color: #4B5563;
+    }
+    .forgot-link {
+      color: #D4AF37;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .forgot-link:hover {
+      text-decoration: underline;
+    }
+    .btn-login-submit {
+      width: 100%;
+      padding: 1rem;
+      background-color: #111111;
+      color: #FFD700;
+      border: 1px solid #FFD700;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .btn-login-submit:hover {
+      background-color: #FFD700;
+      color: #111111;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 215, 0, 0.3);
+    }
+    .notification-error {
+      background-color: #FDF2F2;
+      border: 1px solid #F5C6CB;
+      color: #721C24;
+      padding: 0.75rem 1rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
-<body class="crm-body">
+<body>
 
-  <!-- Sidebar CRM -->
-  <aside class="crm-sidebar">
-    <div class="sidebar-brand">
-      <a href="index.html" class="logo-link">
-        <div class="logo-circle" style="width: 60px; height: 60px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.4); border: 2px solid #D4AF37; background-color: #000;">
-          <img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY" style="width: 100%; height: 100%; object-fit: cover;">
+  <header>
+    <div class="container nav-container" style="height: 130px; display: flex; align-items: center; justify-content: space-between;">
+      <a href="index.html" class="logo" style="display: flex; align-items: center; height: 100%; padding-left: 1.5rem;">
+        <div style="width: 110px; height: 110px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.4); border: 2px solid #D4AF37; background-color: #000;">
+          <img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY" style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.35);">
         </div>
       </a>
-    </div>
-    <ul class="sidebar-menu">
-      <li><a href="dashboard.html"><span class="icon">🏠</span><span class="menu-text">Accueil</span></a></li>
-      <li><a href="clients.html"><span class="icon">👥</span><span class="menu-text">Clients</span></a></li>
-      <li><a href="clients.html?filter=prospect"><span class="icon">🎯</span><span class="menu-text">Prospects</span></a></li>
-      <li><a href="agenda.html" class="active"><span class="icon">📅</span><span class="menu-text">Agenda</span></a></li>
-      <li><a href="comptes-rendus.html"><span class="icon">📞</span><span class="menu-text">Comptes-rendus</span></a></li>
-      <li><a href="catalogues.html"><span class="icon">📂</span><span class="menu-text">Catalogues</span></a></li>
-      <li><a href="partenaires.html"><span class="icon">🏭</span><span class="menu-text">Fabricants</span></a></li>
-      <li><a href="#"><span class="icon">📸</span><span class="menu-text">Photos</span></a></li>
-      <li><a href="#"><span class="icon">🗺</span><span class="menu-text">Carte</span></a></li>
-      <li><a href="#"><span class="icon">📊</span><span class="menu-text">Statistiques</span></a></li>
-      <li><a href="#"><span class="icon">⚙</span><span class="menu-text">Paramètres</span></a></li>
-    </ul>
-    <div class="sidebar-footer">
-      <button id="logout-btn" class="btn-logout-sidebar">
-        <span>🚪</span> <span class="menu-text">Déconnexion</span>
+      <nav>
+        <ul class="main-nav">
+          <li><a href="partenaires.html">Partenaires</a></li>
+          <li><a href="univers.html">Inspirations</a></li>
+          <li><a href="realisations.html">Réalisations</a></li>
+          <li><a href="catalogues.html">Catalogues</a></li>
+          <li><a href="tarifs-pro.html">Tarifs PRO</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="agent.html" class="agent-btn active">🔒 Espace Agent</a></li>
+        </ul>
+      </nav>
+      <button class="burger-btn" aria-label="Menu" id="burgerMenu">
+        <span></span><span></span><span></span>
       </button>
     </div>
-  </aside>
+  </header>
 
-  <!-- Contenu Principal -->
-  <main class="crm-main-content">
-    <div class="crm-topbar">
-      <div class="welcome-box">
-        <h1>Agenda Commercial Synchronisé</h1>
-        <p id="user-greeting">Chargement de l'agent...</p>
-      </div>
-      <div class="info-widgets">
-        <div class="widget-item"><span>📅</span> <span id="current-date">--</span></div>
-        <div class="widget-item"><span>⏰</span> <span id="current-time">--</span></div>
-        <div class="widget-item"><span>🌤</span> <span>26°C, Ensoleillé</span></div>
-      </div>
-    </div>
-
-    <!-- Carte Agenda -->
-    <div class="agenda-card">
-      <div class="agenda-toolbar">
-        <button id="btn-new-event" class="btn-primary-gold">
-          ➕ Nouveau rendez-vous
-        </button>
-
-        <div class="google-sync-status">
-          <span id="sync-icon">🔴</span>
-          <span id="sync-text">Google Calendar : Non connecté</span>
-          <button id="btn-auth-google" class="filter-btn" style="padding: 0.3rem 0.75rem; font-size: 0.8rem; background: #111; color: #FFD700;">
-            Se connecter
-          </button>
+  <main style="padding-top: 140px; padding-bottom: 5rem;">
+    <div class="container">
+      <div class="login-wrapper">
+        <div class="login-header-title">
+          <h1>ESPACE AGENT</h1>
+          <p>Connexion sécurisée réservée aux agents commerciaux.</p>
         </div>
-      </div>
+        
+        <div id="error-notification" class="notification-error" style="display: none;"></div>
 
-      <!-- Conteneur Calendrier -->
-      <div id="calendar"></div>
+        <form id="login-form">
+          <div class="form-group">
+            <label for="email">Adresse e-mail</label>
+            <input type="email" id="email" required placeholder="nom@exemple.com">
+          </div>
+          
+          <div class="form-group">
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" required placeholder="••••••••">
+          </div>
+
+          <div class="form-row">
+            <label class="checkbox-container">
+              <input type="checkbox" id="remember">
+              <span>Se souvenir de moi</span>
+            </label>
+            <a href="#" class="forgot-link">Mot de passe oublié</a>
+          </div>
+
+          <button type="submit" class="btn-login-submit">Se connecter</button>
+        </form>
+      </div>
     </div>
   </main>
 
-  <!-- Modale Création de RDV -->
-  <div id="event-modal" class="crm-modal" style="display: none;">
-    <div class="modal-content">
-      <button class="modal-close" id="modal-event-close">&times;</button>
-      
-      <div class="modal-header">
-        <h2>Planifier un Rendez-vous</h2>
-      </div>
-
-      <form id="event-form">
-        <div class="modal-grid-edit">
-          <div class="form-field full-width">
-            <label for="event-title">Titre du rendez-vous / Client *</label>
-            <input type="text" id="event-title" placeholder="Ex: RDV Showroom — Ciffreo Bona" required>
-          </div>
-
-          <div class="form-field">
-            <label for="event-start-date">Date de début *</label>
-            <input type="date" id="event-start-date" required>
-          </div>
-
-          <div class="form-field">
-            <label for="event-start-time">Heure de début *</label>
-            <input type="time" id="event-start-time" value="09:00" required>
-          </div>
-
-          <div class="form-field">
-            <label for="event-end-date">Date de fin *</label>
-            <input type="date" id="event-end-date" required>
-          </div>
-
-          <div class="form-field">
-            <label for="event-end-time">Heure de fin *</label>
-            <input type="time" id="event-end-time" value="10:00" required>
-          </div>
-
-          <div class="form-field">
-            <label for="event-color">Couleur de l'événement</label>
-            <select id="event-color" class="crm-select" style="width: 100%; border: 1px solid #D1D5DB; padding: 0.5rem; border-radius: 6px;">
-              <option value="#111111">Noir Standard (Or & Noir)</option>
-              <option value="#D4AF37">Or / Doré</option>
-              <option value="#047857">Vert (Chantier / Validé)</option>
-              <option value="#1D4ED8">Bleu (Showroom / Bureau)</option>
-              <option value="#DC2626">Rouge (Urgent / Important)</option>
-              <option value="#D97706">Orange (Relance)</option>
-            </select>
-          </div>
-
-          <div class="form-field full-width">
-            <label for="event-description">Notes & Informations complémentaires</label>
-            <textarea id="event-description" rows="3" class="crm-select" style="width: 100%; border: 1px solid #D1D5DB;" placeholder="Précisions sur le chantier, produits à présenter..."></textarea>
-          </div>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" id="btn-cancel-event" class="filter-btn reset-btn">Annuler</button>
-          <button type="submit" class="btn-primary-gold">💾 Enregistrer sur Google Calendar</button>
-        </div>
-      </form>
+  <footer>
+    <div class="container" style="text-align: center; padding: 2rem 0;">
+      <p>&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p>
     </div>
-  </div>
+  </footer>
 
-  <!-- Modale Consultation / Détails d'un RDV existant -->
-  <div id="view-event-modal" class="crm-modal" style="display: none;">
-    <div class="modal-content" style="max-width: 450px;">
-      <button class="modal-close" id="modal-view-close">&times;</button>
-      
-      <div class="modal-header">
-        <h2 id="view-event-title">Détails du rendez-vous</h2>
-      </div>
-
-      <div style="margin-bottom: 1.25rem; font-size: 0.95rem; display: flex; flex-direction: column; gap: 0.75rem;">
-        <div><strong>🕒 Horaires :</strong> <span id="view-event-time"></span></div>
-        <div><strong>📝 Notes :</strong> <p id="view-event-desc" style="background: #F9FAFB; padding: 0.75rem; border-radius: 6px; border: 1px solid #E5E7EB; margin-top: 0.25rem; white-space: pre-wrap; color: #444;"></p></div>
-      </div>
-
-      <div class="modal-footer" style="justify-content: space-between;">
-        <button type="button" id="btn-delete-event" class="filter-btn" style="background: #DC2626; color: #FFF; border: none;">🗑 Supprimer</button>
-        <button type="button" id="btn-close-view" class="btn-primary-gold">Fermer</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Scripts Google API & FullCalendar -->
-  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
-  <script src="https://apis.google.com/js/api.js" async defer></script>
-
+  <!-- Script de connexion gérant l'authentification et la redirection vers dashboard.html -->
   <script>
-    const CLIENT_ID = '226219482076-kc5gofed3hr09qs62349mbdshlgk88u8.apps.googleusercontent.com';
-    const API_KEY = 'AIzaSyAZwTSbyDjzQ_eNMd57UImmjxz-h-6JqQA';
-    const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest';
-    const SCOPES = 'https://www.googleapis.com/auth/calendar.events';
-
-    let tokenClient;
-    let gapiInited = false;
-    let gsiInited = false;
-    let calendar;
-    let selectedEventObj = null;
-
     document.addEventListener("DOMContentLoaded", () => {
-      const isLoggedIn = localStorage.getItem("agentLoggedIn");
-      if (!isLoggedIn) {
-        window.location.href = "agent.html";
-        return;
-      }
+      const loginForm = document.getElementById("login-form");
+      const errorNotification = document.getElementById("error-notification");
 
-      const agentName = localStorage.getItem("agentName") || "Agent";
-      const firstName = agentName.split(" ")[0];
-      const greetingEl = document.getElementById("user-greeting");
-      if (greetingEl) {
-        greetingEl.textContent = `Agenda de ${firstName} — LE ROY FACTORY`;
-      }
-
-      function updateDateTime() {
-        const now = new Date();
-        const dateEl = document.getElementById("current-date");
-        const timeEl = document.getElementById("current-time");
-        if (dateEl) {
-          let formatted = now.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
-          dateEl.textContent = formatted.charAt(0).toUpperCase() + formatted.slice(1);
-        }
-        if (timeEl) {
-          timeEl.textContent = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
-        }
-      }
-      updateDateTime();
-      setInterval(updateDateTime, 1000);
-
-      document.getElementById("logout-btn")?.addEventListener("click", () => {
-        localStorage.removeItem("agentLoggedIn");
-        localStorage.removeItem("googleAccessToken");
-        window.location.href = "agent.html";
-      });
-
-      // Initialisation FullCalendar avec gestion du clic sur un événement
-      const calendarEl = document.getElementById('calendar');
-      calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'timeGridWeek',
-        locale: 'fr',
-        headerToolbar: {
-          left: 'prev,next today',
-          center: 'title',
-          right: 'dayGridMonth,timeGridWeek,timeGridDay'
-        },
-        buttonText: {
-          today: "Aujourd'hui",
-          month: 'Mois',
-          week: 'Semaine',
-          day: 'Jour'
-        },
-        selectable: true,
-        select: function(info) {
-          openEventModal(info.startStr.split('T')[0], info.endStr.split('T')[0]);
-        },
-        eventClick: function(info) {
-          openViewEventModal(info.event);
-        }
-      });
-      calendar.render();
-
-      // Gestion Modales
-      const eventModal = document.getElementById("event-modal");
-      const viewModal = document.getElementById("view-event-modal");
-      const btnNewEvent = document.getElementById("btn-new-event");
-      const btnModalClose = document.getElementById("modal-event-close");
-      const btnCancelEvent = document.getElementById("btn-cancel-event");
-      const btnViewClose = document.getElementById("modal-view-close");
-      const btnCloseView = document.getElementById("btn-close-view");
-      const btnDeleteEvent = document.getElementById("btn-delete-event");
-      const eventForm = document.getElementById("event-form");
-
-      function openEventModal(startDate = '', endDate = '') {
-        const today = new Date().toISOString().split('T')[0];
-        document.getElementById("event-title").value = '';
-        document.getElementById("event-start-date").value = startDate || today;
-        document.getElementById("event-end-date").value = endDate || startDate || today;
-        document.getElementById("event-description").value = '';
-        document.getElementById("event-color").value = '#111111';
-        eventModal.style.display = "flex";
-      }
-
-      function openViewEventModal(event) {
-        selectedEventObj = event;
-        document.getElementById("view-event-title").textContent = event.title;
-        
-        const startStr = event.start ? event.start.toLocaleString('fr-FR', { dateStyle: 'short', timeStyle: 'short' }) : 'Indéfini';
-        const endStr = event.end ? event.end.toLocaleString('fr-FR', { dateStyle: 'short', timeStyle: 'short' }) : '';
-        document.getElementById("view-event-time").textContent = endStr ? `${startStr} ➔ ${endStr}` : startStr;
-        
-        const descEl = document.getElementById("view-event-desc");
-        descEl.textContent = event.extendedProps.description || "Aucune note renseignée pour ce rendez-vous.";
-        
-        viewModal.style.display = "flex";
-      }
-
-      btnNewEvent?.addEventListener("click", () => openEventModal());
-      btnModalClose?.addEventListener("click", () => eventModal.style.display = "none");
-      btnCancelEvent?.addEventListener("click", () => eventModal.style.display = "none");
-      btnViewClose?.addEventListener("click", () => viewModal.style.display = "none");
-      btnCloseView?.addEventListener("click", () => viewModal.style.display = "none");
-
-      // Suppression d'un événement
-      btnDeleteEvent?.addEventListener("click", async () => {
-        if (!selectedEventObj) return;
-        if (confirm("Voulez-vous vraiment supprimer ce rendez-vous ?")) {
-          const eventId = selectedEventObj.id;
-          
-          // Suppression Google Calendar si connecté et ID Google valide
-          const savedToken = localStorage.getItem("googleAccessToken");
-          if (savedToken && gapi.client && eventId && !eventId.startsWith('local_')) {
-            try {
-              await gapi.client.calendar.events.delete({
-                'calendarId': 'primary',
-                'eventId': eventId
-              });
-            } catch (err) {
-              console.error("Erreur suppression Google Calendar:", err);
-            }
-          }
-
-          selectedEventObj.remove();
-          viewModal.style.display = "none";
-          alert("🗑 Rendez-vous supprimé avec succès.");
-        }
-      });
-
-      // Soumission formulaire rendez-vous avec couleur personnalisée
-      eventForm?.addEventListener("submit", async (e) => {
+      loginForm.addEventListener("submit", (e) => {
         e.preventDefault();
-        
-        const title = document.getElementById("event-title").value;
-        const startDate = document.getElementById("event-start-date").value;
-        const startTime = document.getElementById("event-start-time").value;
-        const endDate = document.getElementById("event-end-date").value;
-        const endTime = document.getElementById("event-end-time").value;
-        const color = document.getElementById("event-color").value;
-        const description = document.getElementById("event-description").value;
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value.trim();
 
-        const startDateTime = `${startDate}T${startTime}:00`;
-        const endDateTime = `${endDate}T${endTime}:00`;
+        // Vérification basique des identifiants (modifiable selon tes agents)
+        if (email && password) {
+          // Enregistrement de la session dans le localStorage
+          localStorage.setItem("agentLoggedIn", "true");
+          localStorage.setItem("agentEmail", email);
+          localStorage.setItem("agentName", email.includes("coryne") ? "Coryne" : "Jérôme Hugol");
 
-        const savedToken = localStorage.getItem("googleAccessToken");
-
-        if (savedToken && gapi.client) {
-          const event = {
-            'summary': title,
-            'description': description,
-            'start': { 'dateTime': new Date(startDateTime).toISOString() },
-            'end': { 'dateTime': new Date(endDateTime).toISOString() }
-          };
-
-          try {
-            const response = await gapi.client.calendar.events.insert({
-              'calendarId': 'primary',
-              'resource': event
-            });
-
-            // Ajout sur le calendrier local avec l'ID Google officiel
-            calendar.addEvent({
-              id: response.result.id,
-              title: title,
-              start: startDateTime,
-              end: endDateTime,
-              backgroundColor: color,
-              borderColor: color,
-              textColor: '#FFD700',
-              extendedProps: { description: description }
-            });
-
-            alert("✅ Rendez-vous enregistré et synchronisé avec Google Calendar !");
-          } catch (err) {
-            console.error("Erreur d'insertion Google Calendar:", err);
-            alert("Erreur lors de la synchronisation Google.");
-          }
+          // Redirection vers le tableau de bord
+          window.location.href = "dashboard.html";
         } else {
-          // Mode local si non connecté
-          calendar.addEvent({
-            id: 'local_' + Date.now(),
-            title: title,
-            start: startDateTime,
-            end: endDateTime,
-            backgroundColor: color,
-            borderColor: color,
-            textColor: '#FFD700',
-            extendedProps: { description: description }
-          });
-          alert("✅ Rendez-vous enregistré localement !");
+          errorNotification.textContent = "Veuillez remplir tous les champs.";
+          errorNotification.style.display = "block";
         }
-
-        eventModal.style.display = "none";
       });
     });
-
-    function gapiLoaded() {
-      gapi.load('client', async () => {
-        await gapi.client.init({
-          apiKey: API_KEY,
-          discoveryDocs: [DISCOVERY_DOC],
-        });
-        gapiInited = true;
-        checkPersistedSession();
-      });
-    }
-
-    function gisLoaded() {
-      tokenClient = google.accounts.oauth2.initTokenClient({
-        client_id: CLIENT_ID,
-        scope: SCOPES,
-        callback: (resp) => {
-          if (resp.error) return;
-          localStorage.setItem("googleAccessToken", resp.access_token);
-          setConnectedState(resp.access_token);
-        },
-      });
-      gsiInited = true;
-      checkPersistedSession();
-    }
-
-    function setConnectedState(token) {
-      if (gapi.client) {
-        gapi.client.setToken({ access_token: token });
-      }
-      document.getElementById("sync-icon").textContent = "🟢";
-      document.getElementById("sync-text").textContent = "Google Calendar : Connecté";
-      document.getElementById("btn-auth-google").style.display = "none";
-      loadGoogleEvents();
-    }
-
-    function checkPersistedSession() {
-      if (gapiInited && gsiInited) {
-        const savedToken = localStorage.getItem("googleAccessToken");
-        if (savedToken) {
-          setConnectedState(savedToken);
-        }
-      }
-    }
-
-    document.getElementById("btn-auth-google")?.addEventListener("click", () => {
-      if (tokenClient) {
-        tokenClient.requestAccessToken({ prompt: '' });
-      }
-    });
-
-    async function loadGoogleEvents() {
-      try {
-        const response = await gapi.client.calendar.events.list({
-          'calendarId': 'primary',
-          'timeMin': (new Date()).toISOString(),
-          'showDeleted': false,
-          'singleEvents': true,
-          'orderBy': 'startTime',
-        });
-
-        const events = response.result.items;
-        events.forEach(e => {
-          calendar.addEvent({
-            id: e.id,
-            title: e.summary,
-            start: e.start.dateTime || e.start.date,
-            end: e.end.dateTime || e.end.date,
-            description: e.description,
-            textColor: '#FFD700'
-          });
-        });
-      } catch (err) {
-        console.error("Erreur de chargement des événements Google:", err);
-        if (err.status === 401 || err.result?.error?.code === 401) {
-          localStorage.removeItem("googleAccessToken");
-          document.getElementById("sync-icon").textContent = "🔴";
-          document.getElementById("sync-text").textContent = "Google Calendar : Non connecté";
-          document.getElementById("btn-auth-google").style.display = "inline-block";
-        }
-      }
-    }
-
-    window.onload = () => {
-      gapiLoaded();
-      gisLoaded();
-    };
   </script>
+  <script src="assets/js/app.js"></script>
 </body>
 </html>
