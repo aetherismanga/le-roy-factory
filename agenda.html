@@ -70,8 +70,7 @@
       font-weight: 600;
     }
 
-    /* Modale événement */
-    .event-modal-grid {
+    .modal-grid-edit {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1rem;
@@ -101,12 +100,10 @@
     }
 
     .fc-event {
-      background-color: #111111 !important;
-      border-color: #D4AF37 !important;
-      color: #FFD700 !important;
-      padding: 2px 5px;
+      padding: 3px 6px;
       border-radius: 4px;
       cursor: pointer;
+      font-weight: 500;
     }
   </style>
 </head>
@@ -176,16 +173,17 @@
     </div>
   </main>
 
-  <!-- Modale Création de RDV -->
+  <!-- Modale Unique (Création et Modification) -->
   <div id="event-modal" class="crm-modal" style="display: none;">
     <div class="modal-content">
       <button class="modal-close" id="modal-event-close">&times;</button>
       
       <div class="modal-header">
-        <h2>Planifier un Rendez-vous</h2>
+        <h2 id="modal-main-title">Planifier un Rendez-vous</h2>
       </div>
 
       <form id="event-form">
+        <input type="hidden" id="event-edit-id" value="">
         <div class="modal-grid-edit">
           <div class="form-field full-width">
             <label for="event-title">Titre du rendez-vous / Client *</label>
@@ -212,15 +210,30 @@
             <input type="time" id="event-end-time" value="10:00" required>
           </div>
 
+          <div class="form-field">
+            <label for="event-color">Couleur de l'événement</label>
+            <select id="event-color" class="crm-select" style="width: 100%; border: 1px solid #D1D5DB; padding: 0.5rem; border-radius: 6px;">
+              <option value="#111111">Noir Standard (Or & Noir)</option>
+              <option value="#D4AF37">Or / Doré</option>
+              <option value="#047857">Vert (Chantier / Validé)</option>
+              <option value="#1D4ED8">Bleu (Showroom / Bureau)</option>
+              <option value="#DC2626">Rouge (Urgent / Important)</option>
+              <option value="#D97706">Orange (Relance)</option>
+            </select>
+          </div>
+
           <div class="form-field full-width">
             <label for="event-description">Notes & Informations complémentaires</label>
             <textarea id="event-description" rows="3" class="crm-select" style="width: 100%; border: 1px solid #D1D5DB;" placeholder="Précisions sur le chantier, produits à présenter..."></textarea>
           </div>
         </div>
 
-        <div class="modal-footer">
-          <button type="button" id="btn-cancel-event" class="filter-btn reset-btn">Annuler</button>
-          <button type="submit" class="btn-primary-gold">💾 Enregistrer sur Google Calendar</button>
+        <div class="modal-footer" style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem;">
+          <button type="button" id="btn-delete-event" class="filter-btn" style="background: #DC2626; color: #FFF; border: none; display: none;">🗑 Supprimer</button>
+          <div style="display: flex; gap: 0.5rem; margin-left: auto;">
+            <button type="button" id="btn-cancel-event" class="filter-btn reset-btn">Annuler</button>
+            <button type="submit" class="btn-primary-gold" id="btn-submit-text">💾 Enregistrer</button>
+          </div>
         </div>
       </form>
     </div>
@@ -232,7 +245,6 @@
   <script src="https://apis.google.com/js/api.js" async defer></script>
 
   <script>
-    // Configuration Google API
     const CLIENT_ID = '226219482076-kc5gofed3hr09qs62349mbdshlgk88u8.apps.googleusercontent.com';
     const API_KEY = 'AIzaSyAZwTSbyDjzQ_eNMd57UImmjxz-h-6JqQA';
     const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest';
@@ -242,9 +254,9 @@
     let gapiInited = false;
     let gsiInited = false;
     let calendar;
+    let activeEventObj = null;
 
     document.addEventListener("DOMContentLoaded", () => {
-      // Contrôle Session
       const isLoggedIn = localStorage.getItem("agentLoggedIn");
       if (!isLoggedIn) {
         window.location.href = "agent.html";
@@ -273,7 +285,6 @@
       updateDateTime();
       setInterval(updateDateTime, 1000);
 
-      // Déconnexion
       document.getElementById("logout-btn")?.addEventListener("click", () => {
         localStorage.removeItem("agentLoggedIn");
         localStorage.removeItem("googleAccessToken");
@@ -298,78 +309,189 @@
         },
         selectable: true,
         select: function(info) {
-          openEventModal(info.startStr.split('T')[0], info.endStr.split('T')[0]);
+          openCreateModal(info.startStr.split('T')[0], info.endStr.split('T')[0]);
+        },
+        eventClick: function(info) {
+          openEditModal(info.event);
         }
       });
       calendar.render();
 
-      // Gestion Modale
       const eventModal = document.getElementById("event-modal");
       const btnNewEvent = document.getElementById("btn-new-event");
       const btnModalClose = document.getElementById("modal-event-close");
       const btnCancelEvent = document.getElementById("btn-cancel-event");
+      const btnDeleteEvent = document.getElementById("btn-delete-event");
       const eventForm = document.getElementById("event-form");
 
-      function openEventModal(startDate = '', endDate = '') {
+      function openCreateModal(startDate = '', endDate = '') {
+        activeEventObj = null;
+        document.getElementById("event-edit-id").value = "";
+        document.getElementById("modal-main-title").textContent = "Planifier un Rendez-vous";
+        document.getElementById("btn-submit-text").textContent = "💾 Enregistrer";
+        btnDeleteEvent.style.display = "none";
+
         const today = new Date().toISOString().split('T')[0];
         document.getElementById("event-title").value = '';
         document.getElementById("event-start-date").value = startDate || today;
+        document.getElementById("event-start-time").value = "09:00";
         document.getElementById("event-end-date").value = endDate || startDate || today;
+        document.getElementById("event-end-time").value = "10:00";
+        document.getElementById("event-color").value = '#111111';
         document.getElementById("event-description").value = '';
+        
         eventModal.style.display = "flex";
       }
 
-      btnNewEvent?.addEventListener("click", () => openEventModal());
+      function openEditModal(event) {
+        activeEventObj = event;
+        document.getElementById("event-edit-id").value = event.id;
+        document.getElementById("modal-main-title").textContent = "Modifier / Gérer le Rendez-vous";
+        document.getElementById("btn-submit-text").textContent = "💾 Mettre à jour";
+        btnDeleteEvent.style.display = "block";
+
+        document.getElementById("event-title").value = event.title || '';
+        
+        const start = event.start;
+        const end = event.end || event.start;
+
+        document.getElementById("event-start-date").value = start.toISOString().split('T')[0];
+        document.getElementById("event-start-time").value = start.toTimeString().substring(0, 5);
+        document.getElementById("event-end-date").value = end.toISOString().split('T')[0];
+        document.getElementById("event-end-time").value = end.toTimeString().substring(0, 5);
+        
+        document.getElementById("event-color").value = event.backgroundColor || '#111111';
+        document.getElementById("event-description").value = event.extendedProps.description || '';
+
+        eventModal.style.display = "flex";
+      }
+
+      btnNewEvent?.addEventListener("click", () => openCreateModal());
       btnModalClose?.addEventListener("click", () => eventModal.style.display = "none");
       btnCancelEvent?.addEventListener("click", () => eventModal.style.display = "none");
 
-      // Soumission formulaire rendez-vous
-      eventForm?.addEventListener("submit", (e) => {
+      // Suppression d'un événement
+      btnDeleteEvent?.addEventListener("click", async () => {
+        if (!activeEventObj) return;
+        if (confirm("Voulez-vous vraiment supprimer ce rendez-vous ?")) {
+          const eventId = activeEventObj.id;
+          const savedToken = localStorage.getItem("googleAccessToken");
+          
+          if (savedToken && gapi.client && eventId && !eventId.startsWith('local_')) {
+            try {
+              await gapi.client.calendar.events.delete({
+                'calendarId': 'primary',
+                'eventId': eventId
+              });
+            } catch (err) {
+              console.error("Erreur suppression Google Calendar:", err);
+            }
+          }
+
+          activeEventObj.remove();
+          eventModal.style.display = "none";
+          alert("🗑 Rendez-vous supprimé avec succès.");
+        }
+      });
+
+      // Soumission formulaire (Création ou Modification)
+      eventForm?.addEventListener("submit", async (e) => {
         e.preventDefault();
         
+        const editId = document.getElementById("event-edit-id").value;
         const title = document.getElementById("event-title").value;
         const startDate = document.getElementById("event-start-date").value;
         const startTime = document.getElementById("event-start-time").value;
         const endDate = document.getElementById("event-end-date").value;
         const endTime = document.getElementById("event-end-time").value;
+        const color = document.getElementById("event-color").value;
         const description = document.getElementById("event-description").value;
 
         const startDateTime = `${startDate}T${startTime}:00`;
         const endDateTime = `${endDate}T${endTime}:00`;
-
-        // Ajout local sur FullCalendar
-        calendar.addEvent({
-          title: title,
-          start: startDateTime,
-          end: endDateTime,
-          description: description
-        });
-
-        // Envoi vers Google Calendar si connecté
         const savedToken = localStorage.getItem("googleAccessToken");
-        if (savedToken && gapi.client) {
-          const event = {
-            'summary': title,
-            'description': description,
-            'start': { 'dateTime': new Date(startDateTime).toISOString() },
-            'end': { 'dateTime': new Date(endDateTime).toISOString() }
-          };
 
-          gapi.client.calendar.events.insert({
-            'calendarId': 'primary',
-            'resource': event
-          }).then(() => {
-            alert("✅ Rendez-vous synchronisé avec votre Google Calendar !");
-          }).catch((err) => {
-            console.error("Erreur d'insertion Google Calendar:", err);
-          });
+        if (editId) {
+          // --- MODE MODIFICATION ---
+          if (activeEventObj) {
+            activeEventObj.setProp('title', title);
+            activeEventObj.setStart(startDateTime);
+            activeEventObj.setEnd(endDateTime);
+            activeEventObj.setProp('backgroundColor', color);
+            activeEventObj.setProp('borderColor', color);
+            activeEventObj.setExtendedProp('description', description);
+
+            // Mise sur Google Calendar si connecté et ID valide
+            if (savedToken && gapi.client && !editId.startsWith('local_')) {
+              try {
+                const resource = {
+                  'summary': title,
+                  'description': description,
+                  'start': { 'dateTime': new Date(startDateTime).toISOString() },
+                  'end': { 'dateTime': new Date(endDateTime).toISOString() }
+                };
+                await gapi.client.calendar.events.patch({
+                  'calendarId': 'primary',
+                  'eventId': editId,
+                  'resource': resource
+                });
+              } catch (err) {
+                console.error("Erreur mise à jour Google Calendar:", err);
+              }
+            }
+            alert("✅ Rendez-vous mis à jour avec succès !");
+          }
+        } else {
+          // --- MODE CRÉATION ---
+          if (savedToken && gapi.client) {
+            const event = {
+              'summary': title,
+              'description': description,
+              'start': { 'dateTime': new Date(startDateTime).toISOString() },
+              'end': { 'dateTime': new Date(endDateTime).toISOString() }
+            };
+
+            try {
+              const response = await gapi.client.calendar.events.insert({
+                'calendarId': 'primary',
+                'resource': event
+              });
+
+              calendar.addEvent({
+                id: response.result.id,
+                title: title,
+                start: startDateTime,
+                end: endDateTime,
+                backgroundColor: color,
+                borderColor: color,
+                textColor: '#FFD700',
+                extendedProps: { description: description }
+              });
+
+              alert("✅ Rendez-vous créé et synchronisé avec Google Calendar !");
+            } catch (err) {
+              console.error("Erreur insertion Google Calendar:", err);
+              alert("Erreur lors de la synchronisation Google.");
+            }
+          } else {
+            calendar.addEvent({
+              id: 'local_' + Date.now(),
+              title: title,
+              start: startDateTime,
+              end: endDateTime,
+              backgroundColor: color,
+              borderColor: color,
+              textColor: '#FFD700',
+              extendedProps: { description: description }
+            });
+            alert("✅ Rendez-vous enregistré localement !");
+          }
         }
 
         eventModal.style.display = "none";
       });
     });
 
-    // Chargement GAPI & GIS
     function gapiLoaded() {
       gapi.load('client', async () => {
         await gapi.client.init({
@@ -437,7 +559,8 @@
             title: e.summary,
             start: e.start.dateTime || e.start.date,
             end: e.end.dateTime || e.end.date,
-            description: e.description
+            description: e.description,
+            textColor: '#FFD700'
           });
         });
       } catch (err) {
