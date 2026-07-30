@@ -45,13 +45,56 @@
       border: 1px solid rgba(0, 0, 0, 0.08);
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
       padding: 1.5rem;
+      transition: all 0.3s ease;
     }
 
+    /* Style du conteneur de la carte en mode normal */
     #map {
       width: 100%;
       height: 650px;
       border-radius: 8px;
       z-index: 1;
+    }
+
+    /* Mode Plein Écran */
+    .map-card.fullscreen {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      z-index: 9999 !important;
+      border-radius: 0 !important;
+      padding: 1rem !important;
+      margin: 0 !important;
+      background: #FFFFFF !important;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .map-card.fullscreen #map {
+      flex-grow: 1;
+      height: auto !important;
+    }
+
+    /* Bouton Plein Écran customisé */
+    .btn-fullscreen {
+      background: #111;
+      color: #FFD700;
+      border: 1px solid #D4AF37;
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s ease;
+    }
+    .btn-fullscreen:hover {
+      background: #D4AF37;
+      color: #111;
     }
 
     .leaflet-popup-content-wrapper {
@@ -106,10 +149,15 @@
     </div>
 
     <!-- Carte Géographique -->
-    <div class="map-card">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-        <h2 style="font-size: 1.1rem; color: #1A2530; font-weight: 700;">Localisation des Clients & Prospects</h2>
-        <span id="map-counter" style="font-size: 0.85rem; color: #666; font-weight: 600;">Synchronisation en direct...</span>
+    <div class="map-card" id="map-card-container">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
+        <div>
+          <h2 style="font-size: 1.1rem; color: #1A2530; font-weight: 700; margin: 0;">Localisation des Clients & Prospects</h2>
+          <span id="map-counter" style="font-size: 0.85rem; color: #666; font-weight: 600;">Synchronisation en direct...</span>
+        </div>
+        <button id="btn-fullscreen-toggle" class="btn-fullscreen">
+          <span id="fs-icon">⛶</span> <span id="fs-text">Pleine page</span>
+        </button>
       </div>
       <div id="map"></div>
     </div>
@@ -143,7 +191,30 @@
         window.location.href = "agent.html";
       });
 
-      // 2. Initialisation de la carte
+      // 2. Gestion du Plein Écran
+      const mapCardContainer = document.getElementById("map-card-container");
+      const btnFullscreenToggle = document.getElementById("btn-fullscreen-toggle");
+      const fsIcon = document.getElementById("fs-icon");
+      const fsText = document.getElementById("fs-text");
+
+      btnFullscreenToggle?.addEventListener("click", () => {
+        mapCardContainer.classList.toggle("fullscreen");
+        const isFs = mapCardContainer.classList.contains("fullscreen");
+        
+        if (isFs) {
+          fsIcon.textContent = "🗗";
+          fsText.textContent = "Mode normal";
+        } else {
+          fsIcon.textContent = "⛶";
+          fsText.textContent = "Pleine page";
+        }
+        // Force Leaflet à recalculer la taille de la carte après basculement
+        setTimeout(() => {
+          map.invalidateSize();
+        }, 100);
+      });
+
+      // 3. Initialisation de la carte
       const map = L.map('map').setView([43.6109, 3.8767], 8);
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -151,16 +222,13 @@
         attribution: '&copy; OpenStreetMap contributors'
       }).addTo(map);
 
-      // Groupe de calques pour nettoyer et recréer les marqueurs en temps réel sans dupliquer
       const markersLayer = L.layerGroup().addTo(map);
       const counterEl = document.getElementById("map-counter");
-
-      // Cache pour éviter de refaire des requêtes GPS sur des adresses déjà connues
       const geocodeCache = {};
 
-      // 3. Écoute en temps réel de la base Firebase Firestore (`onSnapshot`)
+      // 4. Écoute en temps réel de la base Firebase Firestore (`onSnapshot`)
       onSnapshot(collection(db, "clients"), async (querySnapshot) => {
-        markersLayer.clearLayers(); // Nettoie les anciens marqueurs
+        markersLayer.clearLayers();
         let validCount = 0;
 
         for (const docSnap of querySnapshot.docs) {
@@ -177,7 +245,6 @@
             let lat = null;
             let lon = null;
 
-            // Vérifie si on a déjà les coordonnées en cache
             if (geocodeCache[fullAddress]) {
               lat = geocodeCache[fullAddress].lat;
               lon = geocodeCache[fullAddress].lon;
