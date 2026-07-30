@@ -177,8 +177,8 @@
             <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">Destinataire (Agent)</label>
             <select id="agent-select" required style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px; background: #fff;">
               <option value="" disabled selected>-- Choisissez un agent --</option>
-              <option value="jerome">Jérôme (agenceleroyfactory@gmail.com)</option>
-              <option value="coryne">Coryne (coryneleroyfactory@gmail.com)</option>
+              <option value="jerome">Jérôme (jerome@leroyfactory.fr)</option>
+              <option value="coryne">Coryne (coryne@leroyfactory.fr)</option>
               <option value="deux">Les deux (Jérôme & Coryne)</option>
             </select>
           </div>
@@ -206,13 +206,13 @@
           <div class="agent-info-card">
             <h3>Jérôme Hugol</h3>
             <p><strong>Secteur / Départements :</strong><br>30 - 34 - 11 - 66</p>
-            <p style="margin: 0; font-size: 0.85rem; color: #777;">Email : agenceleroyfactory@gmail.com</p>
+            <p style="margin: 0; font-size: 0.85rem; color: #777;">Email : jerome@leroyfactory.fr</p>
           </div>
 
           <div class="agent-info-card" style="border-left-color: #d4af37;">
             <h3>Coryne Le Roy</h3>
             <p><strong>Secteur / Départements :</strong><br>13 - 83 - 84 - 04 - 06 - 05 - 2A - 2B</p>
-            <p style="margin: 0; font-size: 0.85rem; color: #777;">Email : coryneleroyfactory@gmail.com</p>
+            <p style="margin: 0; font-size: 0.85rem; color: #777;">Email : coryne@leroyfactory.fr</p>
           </div>
         </div>
 
@@ -237,11 +237,11 @@
 
       let targetEmail = '';
       if (agentChoice === 'jerome') {
-        targetEmail = 'agenceleroyfactory@gmail.com';
+        targetEmail = 'jerome@leroyfactory.fr';
       } else if (agentChoice === 'coryne') {
-        targetEmail = 'coryneleroyfactory@gmail.com';
+        targetEmail = 'coryne@leroyfactory.fr';
       } else if (agentChoice === 'deux') {
-        targetEmail = 'agenceleroyfactory@gmail.com,coryneleroyfactory@gmail.com';
+        targetEmail = 'jerome@leroyfactory.fr,coryne@leroyfactory.fr';
       }
 
       const subject = encodeURIComponent(`Demande de contact de ${name} (Le Roy Factory)`);
