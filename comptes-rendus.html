@@ -4,12 +4,11 @@
   <meta charset="UTF-8">
   <link rel="icon" type="image/png" href="assets/img/logo03lrf.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nouveau Compte-Rendu — LE ROY FACTORY CRM</title>
+  <title>Comptes-Rendus de Visites — LE ROY FACTORY CRM</title>
   
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
-  <!-- Styles CRM -->
   <link rel="stylesheet" href="assets/css/variables.css">
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/components.css">
@@ -17,12 +16,14 @@
   <link rel="stylesheet" href="assets/css/clients.css">
 
   <style>
+    /* Fond général de la page */
     body.crm-body {
       background-color: #FBF9F5 !important;
       background-image: none !important;
       color: #1A2530 !important;
     }
 
+    /* Topbar avec bandeau02.png */
     .crm-topbar {
       background-image: url('assets/img/bandeau02.png') !important;
       background-size: cover !important;
@@ -36,79 +37,55 @@
       text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
     }
 
-    .form-container-card {
+    .cr-card {
       background: #FFFFFF;
-      border-radius: 12px;
+      border-radius: 10px;
       border: 1px solid rgba(0, 0, 0, 0.08);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-      padding: 2.5rem;
-      max-width: 900px;
-      margin: 0 auto;
+      border-left: 4px solid #D4AF37;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+      transition: all 0.25s ease;
     }
 
-    .form-grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-      margin-bottom: 1.5rem;
+    .cr-card:hover {
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.15);
+      transform: translateY(-2px);
     }
 
-    @media (max-width: 768px) {
-      .form-grid-2 {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .form-group-custom {
+    .cr-header {
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+      flex-wrap: wrap;
       gap: 0.5rem;
     }
 
-    .form-group-custom label {
-      font-weight: 700;
-      font-size: 0.9rem;
+    .cr-client-name {
+      font-size: 1.1rem;
+      font-weight: 800;
       color: #1A2530;
+      text-decoration: none;
     }
 
-    .attachments-preview {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    .cr-meta {
+      font-size: 0.85rem;
+      color: #666;
+      display: flex;
       gap: 1rem;
-      margin-top: 1rem;
+      align-items: center;
     }
 
-    .attachment-card {
-      background: #FAFAFA;
-      border: 1px solid #E5E7EB;
-      border-radius: 8px;
-      padding: 0.5rem;
-      text-align: center;
-      position: relative;
-      font-size: 0.75rem;
-    }
-
-    .attachment-card img {
-      width: 100%;
-      height: 85px;
-      object-fit: cover;
-      border-radius: 4px;
-      margin-bottom: 0.25rem;
-    }
-
-    .btn-remove-att {
-      position: absolute;
-      top: -6px;
-      right: -6px;
-      background: #DC2626;
-      color: #FFF;
-      border: none;
-      border-radius: 50%;
-      width: 22px;
-      height: 22px;
-      font-weight: bold;
-      cursor: pointer;
-      line-height: 1;
+    .cr-text {
+      font-size: 0.95rem;
+      color: #333;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      background: #FAF8F5;
+      padding: 1rem;
+      border-radius: 6px;
+      border: 1px solid rgba(0, 0, 0, 0.04);
     }
   </style>
 </head>
@@ -147,8 +124,8 @@
   <main class="crm-main-content">
     <div class="crm-topbar">
       <div class="welcome-box">
-        <h1>Nouveau Compte-Rendu de Visite</h1>
-        <p>Attribuez le compte-rendu au client, dictez ou saisissez vos notes et joignez vos documents.</p>
+        <h1>Fil des Comptes-Rendus de Visites</h1>
+        <p id="user-greeting">Chargement de l'agent...</p>
       </div>
       <div class="info-widgets">
         <div class="widget-item"><span>📅</span> <span id="current-date">--</span></div>
@@ -157,95 +134,47 @@
       </div>
     </div>
 
-    <!-- Formulaire Vierge -->
-    <div class="form-container-card">
-      <form id="cr-form">
-        
-        <div class="form-grid-2">
-          <!-- Sélection Client -->
-          <div class="form-group-custom">
-            <label for="select-client">Attribuer au Client / Prospect *</label>
-            <select id="select-client" class="crm-select" required style="width: 100%; padding: 0.75rem;">
-              <option value="" disabled selected>-- Choisissez une entreprise --</option>
-            </select>
-          </div>
-
-          <!-- Date de la visite -->
-          <div class="form-group-custom">
-            <label for="input-date">Date de la visite *</label>
-            <input type="date" id="input-date" class="crm-select" style="width: 100%; padding: 0.75rem;" required>
-          </div>
+    <!-- Barre d'outils et filtres -->
+    <div class="crm-toolbar">
+      <div class="search-wrapper">
+        <div class="search-box">
+          <span>🔍</span>
+          <input type="text" id="cr-search-input" placeholder="Rechercher par client, mot-clé, ville...">
         </div>
+      </div>
 
-        <div class="form-grid-2">
-          <!-- Auteur (Agent) -->
-          <div class="form-group-custom">
-            <label for="input-author">Agent commercial</label>
-            <input type="text" id="input-author" class="crm-select" readonly style="width: 100%; padding: 0.75rem; background: #E5E7EB; font-weight: 700;">
-          </div>
+      <div class="select-filters">
+        <select id="cr-filter-agent" class="crm-select">
+          <option value="">Tous les agents</option>
+          <option value="Jérôme">Jérôme</option>
+          <option value="Coryne">Coryne</option>
+        </select>
+      </div>
+    </div>
 
-          <!-- Dictée Vocale -->
-          <div class="form-group-custom" style="justify-content: flex-end;">
-            <button type="button" id="btn-voice-start" class="filter-btn" style="background: #111; color: #FFD700; border-color: #FFD700; padding: 0.75rem; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
-              <span id="voice-icon">🎙️</span> <span id="voice-status">Lancer la dictée vocale</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Zone Texte du Compte-Rendu -->
-        <div class="form-group-custom" style="margin-bottom: 1.5rem;">
-          <label for="textarea-notes">Compte-rendu / Remarques / Prochaines actions *</label>
-          <textarea id="textarea-notes" rows="6" required class="crm-select" style="width: 100%; padding: 1rem; font-family: inherit; font-size: 0.95rem; line-height: 1.5;" placeholder="Parlez ou saisissez votre rapport de visite ici..."></textarea>
-        </div>
-
-        <!-- Section Photos & Documents joints -->
-        <div class="documents-section" style="margin-top: 2rem; border-top: 1px dashed #D1D5DB; padding-top: 1.5rem;">
-          <h3 class="documents-title" style="margin-bottom: 0.5rem;">📷 📄 Photos & Fichiers joints</h3>
-          <p style="font-size: 0.85rem; color: #666; margin-bottom: 1rem;">Ajoutez des photos de chantier ou des documents (PDF, devis, bons de commande).</p>
-
-          <div class="file-upload-box">
-            <input type="file" id="media-input" multiple accept="image/*,.pdf,.doc,.docx">
-            <label for="media-input" class="file-upload-label">
-              <span>📎 Cliquer pour ajouter des photos ou fichiers</span>
-            </label>
-          </div>
-
-          <!-- Aperçu des fichiers ajoutés -->
-          <div id="attachments-preview" class="attachments-preview"></div>
-        </div>
-
-        <!-- Boutons de validation -->
-        <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 2.5rem; border-top: 1px solid #E5E7EB; padding-top: 1.5rem;">
-          <a href="comptes-rendus.html" class="filter-btn reset-btn" style="text-decoration: none;">Annuler</a>
-          <button type="submit" class="btn-primary-gold" style="padding: 0.85rem 2rem; font-size: 1rem;">
-            💾 Enregistrer le compte-rendu
-          </button>
-        </div>
-
-      </form>
+    <!-- Liste globale des comptes-rendus -->
+    <div id="cr-feed-container">
+      <!-- Injection dynamique des comptes-rendus via JS -->
     </div>
   </main>
 
   <script>
-    let tempMediaFiles = [];
-    let recognition = null;
-    let isRecording = false;
-
     document.addEventListener("DOMContentLoaded", () => {
-      // Contrôle de session
+      // Vérification session
       const isLoggedIn = localStorage.getItem("agentLoggedIn");
       if (!isLoggedIn) {
         window.location.href = "agent.html";
         return;
       }
 
-      const agentName = localStorage.getItem("agentName") || "Jérôme Hugol";
-      const agentFirstName = agentName.split(" ")[0];
-      
-      document.getElementById("input-author").value = agentFirstName;
-      document.getElementById("input-date").value = new Date().toISOString().split('T')[0];
+      const agentName = localStorage.getItem("agentName") || "Agent";
+      const firstName = agentName.split(" ")[0];
+      const greetingEl = document.getElementById("user-greeting");
+      if (greetingEl) {
+        greetingEl.textContent = `Historique partagé Jérôme & Coryne`;
+      }
 
-      // Date et heure
+      // Horloge & Date
       function updateDateTime() {
         const now = new Date();
         const dateEl = document.getElementById("current-date");
@@ -267,149 +196,75 @@
         window.location.href = "agent.html";
       });
 
-      // Remplissage de la liste des clients
+      // Chargement et affichage des comptes-rendus
       const clientsData = JSON.parse(localStorage.getItem("clientsDatabaseCustom")) || [];
-      const clientSelect = document.getElementById("select-client");
+      const feedContainer = document.getElementById("cr-feed-container");
+      const searchInput = document.getElementById("cr-search-input");
+      const filterAgent = document.getElementById("cr-filter-agent");
 
-      clientsData.sort((a, b) => (a.societe || '').localeCompare(b.societe || '', 'fr'));
+      function renderFeed() {
+        if (!feedContainer) return;
+        feedContainer.innerHTML = "";
 
-      clientsData.forEach((c, idx) => {
-        const opt = document.createElement("option");
-        opt.value = idx;
-        opt.textContent = `${c.societe || 'Sans nom'} (${c.code_postal || ''} ${c.ville || ''})`;
-        clientSelect.appendChild(opt);
-      });
-
-      // Reconnaissance Vocale
-      if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        recognition = new SpeechRecognition();
-        recognition.lang = 'fr-FR';
-        recognition.continuous = true;
-        recognition.interimResults = true;
-
-        recognition.onresult = (event) => {
-          let transcript = '';
-          for (let i = event.resultIndex; i < event.results.length; i++) {
-            transcript += event.results[i][0].transcript;
-          }
-          const textArea = document.getElementById("textarea-notes");
-          if (textArea) {
-            textArea.value = (textArea.value ? textArea.value + " " : "") + transcript;
-          }
-        };
-
-        recognition.onerror = () => stopRecording();
-        recognition.onend = () => { if (isRecording) stopRecording(); };
-      }
-
-      function startRecording() {
-        if (!recognition) {
-          alert("Reconnaissance vocale non prise en charge. Utilisez Google Chrome ou Safari.");
-          return;
-        }
-        isRecording = true;
-        recognition.start();
-        document.getElementById("btn-voice-start").style.background = "#DC2626";
-        document.getElementById("voice-icon").textContent = "🔴";
-        document.getElementById("voice-status").textContent = "Écoute en cours... Parlez maintenant";
-      }
-
-      function stopRecording() {
-        if (recognition && isRecording) recognition.stop();
-        isRecording = false;
-        document.getElementById("btn-voice-start").style.background = "#111";
-        document.getElementById("voice-icon").textContent = "🎙️";
-        document.getElementById("voice-status").textContent = "Lancer la dictée vocale";
-      }
-
-      document.getElementById("btn-voice-start")?.addEventListener("click", () => {
-        if (isRecording) stopRecording();
-        else startRecording();
-      });
-
-      // Gestion des fichiers joints
-      const mediaInput = document.getElementById("media-input");
-      const mediaPreview = document.getElementById("attachments-preview");
-
-      mediaInput?.addEventListener("change", (e) => {
-        const files = Array.from(e.target.files);
-        files.forEach(file => {
-          const reader = new FileReader();
-          reader.onload = (evt) => {
-            tempMediaFiles.push({
-              name: file.name,
-              type: file.type,
-              data: evt.target.result
+        let allCRs = [];
+        clientsData.forEach(client => {
+          if (client.comptes_rendus && Array.isArray(client.comptes_rendus)) {
+            client.comptes_rendus.forEach(cr => {
+              allCRs.push({
+                ...cr,
+                societe: client.societe,
+                ville: client.ville,
+                code_postal: client.code_postal
+              });
             });
-            renderMediaPreview();
-          };
-          reader.readAsDataURL(file);
-        });
-        mediaInput.value = "";
-      });
-
-      function renderMediaPreview() {
-        if (!mediaPreview) return;
-        mediaPreview.innerHTML = "";
-
-        tempMediaFiles.forEach((file, idx) => {
-          const isImg = file.type.startsWith("image/");
-          const card = document.createElement("div");
-          card.className = "attachment-card";
-
-          card.innerHTML = `
-            <button type="button" class="btn-remove-att" data-att-idx="${idx}">&times;</button>
-            ${isImg ? `<img src="${file.data}" alt="${file.name}">` : `<div style="font-size: 2rem; margin-bottom: 0.25rem;">📄</div>`}
-            <div style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${file.name}</div>
-          `;
-
-          mediaPreview.appendChild(card);
+          }
         });
 
-        mediaPreview.querySelectorAll(".btn-remove-att").forEach(btn => {
-          btn.addEventListener("click", (e) => {
-            const idx = parseInt(e.target.getAttribute("data-att-idx"), 10);
-            tempMediaFiles.splice(idx, 1);
-            renderMediaPreview();
-          });
+        // Tri du plus récent au plus ancien
+        allCRs.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : "";
+        const selectedAgent = filterAgent ? filterAgent.value : "";
+
+        const filtered = allCRs.filter(cr => {
+          const matchAgent = !selectedAgent || cr.author.toLowerCase().includes(selectedAgent.toLowerCase());
+          const matchSearch = !searchTerm || 
+            cr.societe.toLowerCase().includes(searchTerm) ||
+            cr.text.toLowerCase().includes(searchTerm) ||
+            (cr.ville && cr.ville.toLowerCase().includes(searchTerm));
+          return matchAgent && matchSearch;
         });
-      }
 
-      // Enregistrement
-      document.getElementById("cr-form")?.addEventListener("submit", (e) => {
-        e.preventDefault();
-
-        const clientIdx = document.getElementById("select-client").value;
-        const dateVal = document.getElementById("input-date").value;
-        const authorVal = document.getElementById("input-author").value;
-        const textVal = document.getElementById("textarea-notes").value.trim();
-
-        if (clientIdx === "") {
-          alert("Veuillez sélectionner un client.");
+        if (filtered.length === 0) {
+          feedContainer.innerHTML = `
+            <div style="background: #FFF; padding: 3rem; text-align: center; border-radius: 8px; color: #666; border: 1px solid rgba(0,0,0,0.08);">
+              Aucun compte-rendu enregistré pour le moment.
+            </div>`;
           return;
         }
 
-        if (!clientsData[clientIdx]) return;
-
-        if (!clientsData[clientIdx].comptes_rendus) {
-          clientsData[clientIdx].comptes_rendus = [];
-        }
-
-        clientsData[clientIdx].comptes_rendus.unshift({
-          date: dateVal,
-          author: authorVal,
-          text: textVal,
-          attachments: [...tempMediaFiles]
+        filtered.forEach(cr => {
+          const formattedDate = new Date(cr.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+          const card = document.createElement("div");
+          card.className = "cr-card";
+          card.innerHTML = `
+            <div class="cr-header">
+              <span class="cr-client-name">🏢 ${cr.societe} <small style="font-weight: 400; font-size: 0.85rem; color: #666;">(${cr.code_postal || ''} ${cr.ville || ''})</small></span>
+              <div class="cr-meta">
+                <span>👤 <strong>${cr.author}</strong></span>
+                <span>📅 ${formattedDate}</span>
+              </div>
+            </div>
+            <div class="cr-text">${cr.text}</div>
+          `;
+          feedContainer.appendChild(card);
         });
+      }
 
-        localStorage.setItem("clientsDatabaseCustom", JSON.stringify(clientsData));
+      searchInput?.addEventListener("input", renderFeed);
+      filterAgent?.addEventListener("change", renderFeed);
 
-        if (isRecording) stopRecording();
-
-        alert("✅ Compte-rendu enregistré avec succès !");
-        window.location.href = "comptes-rendus.html";
-      });
+      renderFeed();
     });
   </script>
 </body>
