@@ -1,4 +1,8 @@
-// Base de données CRM LE ROY FACTORY — Intégralité des fiches
+// Importation de la base de données Firebase
+import { db } from "./firebase.js";
+import { collection, getDocs, setDoc, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+// Base de données initiale de secours (si Firestore est vide)
 const initialClientsDatabase = [
   {"type": "Prospect", "societe": "MP CETIN. EDEN", "contact": "", "agent": "Jérôme", "adresse": "6 Bd des Jardiniers", "code_postal": "06200", "ville": "Nice", "telephone": "0674813721", "email": "", "autres_telephones": [], "departement": "FR-06", "pays": "FR", "documents": [], "comptes_rendus": []},
   {"type": "Client", "societe": "Ciffreo Bona", "contact": "", "agent": "Jérôme", "adresse": "875 Route du Thor", "code_postal": "84800", "ville": "L'Isle-sur-la-Sorgue", "telephone": "04 90 20 52 22", "email": "", "autres_telephones": [], "departement": "FR-84", "pays": "FR", "documents": [], "comptes_rendus": []},
@@ -232,17 +236,15 @@ const initialClientsDatabase = [
   {"type": "Client", "societe": "ANTOINE QUINTANE", "contact": "", "agent": "Coryne", "adresse": "5 Rte de Valbonne", "code_postal": "06130", "ville": "Grasse", "telephone": "0493601628", "email": "carrelage@quintane.fr", "autres_telephones": [], "departement": "FR-06", "pays": "FR", "documents": [], "comptes_rendus": []}
 ];
 
-// Récupération des données sauvegardées
-let clientsDatabase = JSON.parse(localStorage.getItem("clientsDatabaseCustom")) || initialClientsDatabase;
+let clientsDatabase = [];
 let tempDocuments = [];
 let tempExtraPhones = [];
 let tempComptesRendus = [];
 
-// Variables Dictée Vocale
 let recognition = null;
 let isRecording = false;
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const isLoggedIn = localStorage.getItem("agentLoggedIn");
   if (!isLoggedIn) {
     window.location.href = "agent.html";
@@ -281,7 +283,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Tri ordonné des listes déroulantes des filtres
+  // CHARGEMENT DEPUIS FIREBASE FIRESTORE
+  await loadClientsFromFirebase();
+
   const deptSelect = document.getElementById("filter-dept");
   const cpSelect = document.getElementById("filter-cp");
   const citySelect = document.getElementById("filter-city");
@@ -450,7 +454,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   renderTable();
 
-  // ÉDITION / CRÉATION & COMPTES-RENDUS
   const modal = document.getElementById("client-modal");
   const modalClose = document.getElementById("modal-close-btn");
   const btnCancelEdit = document.getElementById("btn-cancel-edit");
@@ -465,14 +468,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const extraPhonesContainer = document.getElementById("extra-phones-container");
   const btnAddPhone = document.getElementById("btn-add-phone");
 
-  // DÉTECTION DU CODE POSTAL AUTOMATIQUE
   if (cpInput) {
     cpInput.addEventListener("input", (e) => {
       const code = e.target.value.trim();
-      
       if (code.length >= 2) {
-        const deptNum = code.substring(0, 2);
-        deptInput.value = `FR-${deptNum}`;
+        deptInput.value = `FR-${code.substring(0, 2)}`;
       } else {
         deptInput.value = "";
       }
@@ -505,7 +505,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // MULTI-TÉLÉPHONES
   function renderExtraPhones() {
     if (!extraPhonesContainer) return;
     extraPhonesContainer.innerHTML = "";
@@ -543,7 +542,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // DOCUMENTS LIST
   function renderDocumentsList() {
     if (!documentsList) return;
     documentsList.innerHTML = "";
@@ -590,7 +588,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // LOGIQUE DICTÉE VOCALE & COMPTES-RENDUS
   if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     recognition = new SpeechRecognition();
@@ -714,7 +711,6 @@ document.addEventListener("DOMContentLoaded", () => {
     renderComptesRendus();
   });
 
-  // OUVRIR LA MODALE
   function openModal(index = -1, defaultType = "Client") {
     if (!modal) return;
 
@@ -727,7 +723,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("cr-date-input").value = new Date().toISOString().split('T')[0];
 
     if (index === -1) {
-      // VIERGE
       document.getElementById("modal-societe-title").textContent = `Fiche Vierge — Nouveau ${defaultType}`;
       badgeEl.textContent = "Nouveau";
       badgeEl.className = defaultType === "Client" ? "badge badge-client" : "badge badge-prospect";
@@ -750,7 +745,6 @@ document.addEventListener("DOMContentLoaded", () => {
       tempExtraPhones = [];
       tempComptesRendus = [];
     } else {
-      // ÉDITION
       const client = clientsDatabase[index];
       if (!client) return;
 
@@ -796,13 +790,17 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (clientEditForm) {
-    clientEditForm.addEventListener("submit", (e) => {
+    clientEditForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       
       const index = parseInt(document.getElementById("edit-client-index").value, 10);
 
+      const societeName = document.getElementById("edit-societe").value.trim();
+      // On crée un identifiant unique basé sur le nom de la société pour Firestore
+      const docId = societeName.replace(/[^a-zA-Z0-9]/g, "_");
+
       const clientData = {
-        societe: document.getElementById("edit-societe").value.trim(),
+        societe: societeName,
         contact: document.getElementById("edit-contact").value.trim(),
         type: document.getElementById("edit-type").value,
         agent: document.getElementById("edit-agent").value,
@@ -817,19 +815,26 @@ document.addEventListener("DOMContentLoaded", () => {
         comptes_rendus: tempComptesRendus
       };
 
-      if (index === -1) {
-        clientsDatabase.unshift(clientData);
-      } else if (clientsDatabase[index]) {
-        clientsDatabase[index] = clientData;
+      try {
+        // Enregistrement dans Firebase Firestore
+        await setDoc(doc(db, "clients", docId), clientData);
+
+        if (index === -1) {
+          clientsDatabase.unshift(clientData);
+        } else if (clientsDatabase[index]) {
+          clientsDatabase[index] = clientData;
+        }
+
+        updateKPIs();
+        populateFilterDropdowns();
+        renderTable();
+
+        modal.style.display = "none";
+        alert("✅ Fiche enregistrée et synchronisée sur le cloud Firebase !");
+      } catch (error) {
+        console.error("Erreur lors de l'enregistrement Firebase :", error);
+        alert("Erreur lors de la synchronisation cloud.");
       }
-
-      localStorage.setItem("clientsDatabaseCustom", JSON.stringify(clientsDatabase));
-
-      updateKPIs();
-      populateFilterDropdowns();
-      renderTable();
-
-      modal.style.display = "none";
     });
   }
 
@@ -847,3 +852,28 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+// FONCTION DE CHARGEMENT DEPUIS FIREBASE
+async function loadClientsFromFirebase() {
+  try {
+    const querySnapshot = await getDocs(collection(db, "clients"));
+    let remoteClients = [];
+    querySnapshot.forEach((documentSnap) => {
+      remoteClients.push(documentSnap.data());
+    });
+
+    if (remoteClients.length > 0) {
+      clientsDatabase = remoteClients;
+    } else {
+      // Si la base cloud est vide, on y injecte la base initiale par défaut
+      for (let client of initialClientsDatabase) {
+        const docId = (client.societe || "client").replace(/[^a-zA-Z0-9]/g, "_");
+        await setDoc(doc(db, "clients", docId), client);
+      }
+      clientsDatabase = initialClientsDatabase;
+    }
+  } catch (error) {
+    console.error("Erreur de chargement Firebase, utilisation du cache local :", error);
+    clientsDatabase = initialClientsDatabase;
+  }
+}
