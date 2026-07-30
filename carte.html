@@ -76,7 +76,7 @@
       height: auto !important;
     }
 
-    /* Boutons de filtre et plein écran */
+    /* Barre de filtres et boutons */
     .filter-bar {
       display: flex;
       gap: 0.5rem;
@@ -184,7 +184,6 @@
 
     <!-- Carte Géographique -->
     <div class="map-card" id="map-card-container">
-      <!-- Barre de filtres par secteur / département -->
       <div class="filter-bar">
         <button class="btn-filter active" data-filter="all">Tous les secteurs</button>
         <button class="btn-filter" data-filter="jerome">Secteur Jérôme (30, 34, 11, 66)</button>
@@ -213,7 +212,7 @@
       </div>
 
       <div style="margin-bottom: 0.75rem;">
-        <span id="map-counter" style="font-size: 0.85rem; color: #666; font-weight: 600;">Chargement des points...</span>
+        <span id="map-counter" style="font-size: 0.85rem; color: #666; font-weight: 600;">Chargement instantané...</span>
       </div>
 
       <div id="map"></div>
@@ -225,7 +224,9 @@
 
   <script type="module">
     import { db } from "./assets/js/firebase.js";
-    import { collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { collection, onSnapshot, doc, updatedoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    // Note: on importe updateDoc ci-dessous proprement
+    import { updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
     document.addEventListener("DOMContentLoaded", () => {
       const isLoggedIn = localStorage.getItem("agentLoggedIn");
@@ -271,9 +272,7 @@
 
       const markersLayer = L.layerGroup().addTo(map);
       const counterEl = document.getElementById("map-counter");
-      const geocodeCache = {};
 
-      // Définition des secteurs
       const sectorJerome = ["30", "34", "11", "66"];
       const sectorCoryne = ["13", "83", "84", "04", "06", "05", "2A", "2B", "98"];
 
@@ -281,7 +280,6 @@
       let selectedDept = "";
       let allClientData = [];
 
-      // Gestion des clics sur les boutons de filtre
       const filterButtons = document.querySelectorAll(".btn-filter");
       filterButtons.forEach(btn => {
         btn.addEventListener("click", (e) => {
@@ -294,7 +292,6 @@
         });
       });
 
-      // Gestion du menu déroulant département
       document.getElementById("dept-select").addEventListener("change", (e) => {
         selectedDept = e.target.value;
         filterButtons.forEach(b => b.classList.remove("active"));
@@ -302,7 +299,6 @@
         renderMarkers();
       });
 
-      // Fonction d'extraction du code département depuis le code postal ou la ville
       function extractDept(cp, ville) {
         let cleanCp = (cp || "").trim();
         if (cleanCp.length >= 2) {
@@ -316,7 +312,6 @@
         return "";
       }
 
-      // Affichage des marqueurs selon les filtres actifs
       function renderMarkers() {
         markersLayer.clearLayers();
         let validCount = 0;
@@ -368,15 +363,16 @@
         });
 
         if (counterEl) {
-          counterEl.textContent = `${validCount} entreprises affichées sur la carte`;
+          counterEl.textContent = `${validCount} entreprises affichées sur la carte (Instantané)`;
         }
       }
 
-      // Écoute en temps réel de Firebase
+      // Écoute en temps réel de Firebase et mise en cache des GPS dans Firebase
       onSnapshot(collection(db, "clients"), async (querySnapshot) => {
         allClientData = [];
 
         for (const docSnap of querySnapshot.docs) {
+          const docId = docSnap.id;
           const data = docSnap.data();
           const societe = data.societe || "Entreprise sans nom";
           const adresse = (data.adresse || "").trim();
@@ -387,13 +383,11 @@
 
           if (adresse.length > 2 && ville.length > 1) {
             const fullAddress = `${adresse}, ${cp} ${ville}, France`;
-            let lat = null;
-            let lon = null;
+            let lat = data.lat;
+            let lon = data.lon;
 
-            if (geocodeCache[fullAddress]) {
-              lat = geocodeCache[fullAddress].lat;
-              lon = geocodeCache[fullAddress].lon;
-            } else {
+            // Si le GPS n'est pas encore enregistré dans Firebase pour ce client, on le cherche et on l'enregistre
+            if (lat === undefined || lon === undefined || lat === null || lon === null) {
               try {
                 const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(fullAddress)}`);
                 const results = await response.json();
@@ -401,7 +395,9 @@
                 if (results && results.length > 0) {
                   lat = parseFloat(results[0].lat);
                   lon = parseFloat(results[0].lon);
-                  geocodeCache[fullAddress] = { lat, lon };
+
+                  // Sauvegarde définitive dans Firebase pour les prochaines fois
+                  await updateDoc(doc(db, "clients", docId), { lat: lat, lon: lon });
                 }
               } catch (err) {
                 console.warn("Échec géocodage :", fullAddress);
