@@ -1,4 +1,7 @@
-document.addEventListener("DOMContentLoaded", () => {
+import { db } from "./firebase.js";
+import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+document.addEventListener("DOMContentLoaded", async () => {
   // Vérification de connexion
   const isLoggedIn = localStorage.getItem("agentLoggedIn");
   if (!isLoggedIn) {
@@ -50,6 +53,38 @@ document.addEventListener("DOMContentLoaded", () => {
       localStorage.removeItem("agentEmail");
       window.location.href = "agent.html";
     });
+  }
+
+  // CHARGEMENT DES STATISTIQUES EN DIRECT DEPUIS FIREBASE FIRESTORE
+  try {
+    const querySnapshot = await getDocs(collection(db, "clients"));
+    let totalCount = 0;
+    let clientsCount = 0;
+    let prospectsCount = 0;
+
+    querySnapshot.forEach((docSnap) => {
+      const data = docSnap.data();
+      totalCount++;
+      const type = (data.type || "").toLowerCase();
+      if (type === "client") {
+        clientsCount++;
+      } else if (type === "prospect") {
+        prospectsCount++;
+      }
+    });
+
+    // Injection dynamique dans les cartes du Dashboard
+    // (Assure-toi que tes éléments HTML ont bien ces ID ou adapte-les)
+    const countTotalEl = document.getElementById("count-total") || document.getElementById("dash-total-clients");
+    const countClientsEl = document.getElementById("count-clients") || document.getElementById("dash-clients-actifs");
+    const countProspectsEl = document.getElementById("count-prospects") || document.getElementById("dash-prospects");
+
+    if (countTotalEl) countTotalEl.textContent = totalCount;
+    if (countClientsEl) countClientsEl.textContent = clientsCount;
+    if (countProspectsEl) countProspectsEl.textContent = prospectsCount;
+
+  } catch (error) {
+    console.error("Erreur lors de la récupération des chiffres Firebase sur le dashboard :", error);
   }
 
   // Interaction sur les boutons d'actions rapides
