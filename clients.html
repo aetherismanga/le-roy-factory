@@ -36,26 +36,29 @@
 </head>
 <body class="crm-body">
 
-  <!-- Sidebar CRM -->
   <aside class="crm-sidebar">
     <div class="sidebar-brand">
       <a href="index.html" class="logo-link">
-        <div class="logo-circle" style="width: 60px; height: 60px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.4); border: 2px solid #D4AF37; background-color: #000;">
-          <img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY" style="width: 100%; height: 100%; object-fit: cover;">
+        <div class="logo-circle">
+          <img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY">
         </div>
       </a>
     </div>
+
     <ul class="sidebar-menu">
       <li><a href="dashboard.html"><span class="icon">🏠</span><span class="menu-text">Accueil</span></a></li>
-      <li><a href="clients.html" class="active"><span class="icon">👥</span><span class="menu-text">Clients</span></a></li>
-      <li><a href="clients.html?filter=prospect"><span class="icon">🎯</span><span class="menu-text">Prospects</span></a></li>
+      <li><a href="clients.html" class="active" id="nav-clients"><span class="icon">👥</span><span class="menu-text">Clients</span></a></li>
+      <li><a href="clients.html?filter=prospect" id="nav-prospects"><span class="icon">🎯</span><span class="menu-text">Prospects</span></a></li>
       <li><a href="agenda.html"><span class="icon">📅</span><span class="menu-text">Agenda</span></a></li>
       <li><a href="comptes-rendus.html"><span class="icon">📞</span><span class="menu-text">Comptes-rendus</span></a></li>
+      <li><a href="catalogues.html"><span class="icon">📂</span><span class="menu-text">Catalogues</span></a></li>
+      <li><a href="partenaires.html"><span class="icon">🏭</span><span class="menu-text">Fabricants</span></a></li>
       <li><a href="#"><span class="icon">📸</span><span class="menu-text">Photos</span></a></li>
       <li><a href="carte.html"><span class="icon">🗺</span><span class="menu-text">Carte</span></a></li>
       <li><a href="#"><span class="icon">📊</span><span class="menu-text">Statistiques</span></a></li>
       <li><a href="#"><span class="icon">⚙</span><span class="menu-text">Paramètres</span></a></li>
     </ul>
+
     <div class="sidebar-footer">
       <button id="logout-btn" class="btn-logout-sidebar">
         <span>🚪</span> <span class="menu-text">Déconnexion</span>
@@ -63,12 +66,11 @@
     </div>
   </aside>
 
-  <!-- Contenu principal -->
   <main class="crm-main-content">
     <div class="crm-topbar">
       <div class="welcome-box">
-        <h1>Portefeuille Clients & Prospects</h1>
-        <p id="user-greeting">Chargement de l'agent...</p>
+        <h1 id="page-title">Gestion de la Clientèle & Prospects</h1>
+        <p id="user-greeting">Connecté en tant que Jérôme Hugol</p>
       </div>
       <div class="info-widgets">
         <div class="widget-item"><span>📅</span> <span id="current-date">--</span></div>
@@ -77,32 +79,30 @@
       </div>
     </div>
 
-    <!-- Statistiques -->
     <div class="stats-grid">
       <div class="stat-card">
         <div class="stat-icon">🏢</div>
         <div class="stat-info">
-          <span class="stat-number" id="count-total">0</span>
-          <span class="stat-label">Total Entreprises</span>
-        </div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon">🤝</div>
-        <div class="stat-info">
-          <span class="stat-number" id="count-clients">0</span>
+          <span class="stat-number" id="stat-total-clients">0</span>
           <span class="stat-label">Clients Actifs</span>
         </div>
       </div>
       <div class="stat-card">
         <div class="stat-icon">🎯</div>
         <div class="stat-info">
-          <span class="stat-number" id="count-prospects">0</span>
-          <span class="stat-label">Prospects</span>
+          <span class="stat-number" id="stat-total-prospects">0</span>
+          <span class="stat-label">Prospects en cours</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">📍</div>
+        <div class="stat-info">
+          <span class="stat-number" id="stat-secteur-count">0</span>
+          <span class="stat-label">Sur votre secteur</span>
         </div>
       </div>
     </div>
 
-    <!-- Barre d'outils et de classement ergonomique -->
     <div class="crm-toolbar">
       <button id="btn-add-client" class="btn-primary-gold">
         ➕ Nouveau Client / Prospect
@@ -111,180 +111,113 @@
       <div class="search-wrapper">
         <div class="search-box">
           <span>🔍</span>
-          <input type="text" id="search-input" placeholder="Rechercher société, téléphone, ville...">
+          <input type="text" id="search-input" placeholder="Rechercher par nom, ville, interlocuteur, téléphone...">
         </div>
-        <button id="search-btn" class="btn-search">Rechercher</button>
+        <button id="btn-search" class="btn-search">Chercher</button>
       </div>
 
       <div class="select-filters">
-        <select id="filter-dept" class="crm-select">
+        <select id="filter-type" class="crm-select">
+          <option value="">Tous les types</option>
+          <option value="client">Clients uniquement</option>
+          <option value="prospect">Prospects uniquement</option>
+        </select>
+
+        <select id="filter-departement" class="crm-select">
           <option value="">Tous les départements</option>
         </select>
-
-        <select id="filter-cp" class="crm-select">
-          <option value="">Tous les codes postaux</option>
-        </select>
-
-        <select id="filter-city" class="crm-select">
-          <option value="">Toutes les villes</option>
-        </select>
-
-        <button id="reset-filters" class="filter-btn reset-btn">Réinitialiser</button>
-      </div>
-
-      <div class="filter-tabs">
-        <button class="filter-btn active" data-filter="all">Tous</button>
-        <button class="filter-btn" data-filter="client">Clients</button>
-        <button class="filter-btn" data-filter="prospect">Prospects</button>
       </div>
     </div>
 
-    <!-- Tableau -->
     <div class="crm-table-container">
       <table class="crm-table">
         <thead>
           <tr>
-            <th>Société</th>
             <th>Type</th>
-            <th>Adresse</th>
-            <th>Code Postal / Ville</th>
-            <th>Département</th>
+            <th>Société / Enseigne</th>
+            <th>Ville & CP</th>
+            <th>Contact Principal</th>
             <th>Téléphone</th>
+            <th>Dernier Échange</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody id="clients-table-body">
-          <!-- Données injectées -->
+          <tr>
+            <td colspan="7" class="no-results">Chargement de la base de données...</td>
+          </tr>
         </tbody>
       </table>
-      <div id="no-results" class="no-results" style="display: none;">
-        Aucune entreprise ne correspond à vos critères de classement ou de recherche.
-      </div>
     </div>
   </main>
 
-  <!-- Modale Fiche de Renseignement (Vierge ou Édition) -->
   <div id="client-modal" class="crm-modal" style="display: none;">
     <div class="modal-content">
-      <button class="modal-close" id="modal-close-btn">&times;</button>
-      
+      <button class="modal-close" id="btn-close-modal">&times;</button>
       <div class="modal-header">
-        <h2 id="modal-societe-title">Fiche de renseignement</h2>
-        <span id="modal-status-badge" class="badge"></span>
+        <h2 id="modal-title">Fiche Client / Prospect</h2>
+        <span id="modal-status-badge" class="badge badge-client">Client</span>
       </div>
 
-      <form id="client-edit-form">
-        <input type="hidden" id="edit-client-index" value="-1">
-        
+      <form id="client-form">
         <div class="modal-grid-edit">
-          <!-- Nom de société -->
-          <div class="form-field full-width">
-            <label for="edit-societe">Nom de la société *</label>
-            <input type="text" id="edit-societe" placeholder="Ex: SAS CARRELAGE PROVENCE" required>
-          </div>
-
-          <!-- Contact / Interlocuteur -->
-          <div class="form-field full-width">
-            <label for="edit-contact">Contact principal / Interlocuteur</label>
-            <input type="text" id="edit-contact" placeholder="Nom, Prénom ou Fonction (ex: M. Dupont - Gérant)">
-          </div>
-
-          <!-- Statut commercial -->
           <div class="form-field">
-            <label for="edit-type">Statut commercial</label>
-            <select id="edit-type" class="crm-select">
-              <option value="Client">Client</option>
-              <option value="Prospect">Prospect</option>
+            <label for="edit-type">Statut *</label>
+            <select id="edit-type" required>
+              <option value="client">Client</option>
+              <option value="prospect">Prospect</option>
             </select>
           </div>
 
-          <!-- Agent référent -->
           <div class="form-field">
-            <label for="edit-agent">Agent référent</label>
-            <select id="edit-agent" class="crm-select">
-              <option value="Jérôme">Jérôme Hugol</option>
-              <option value="Coryne">Coryne Le Roy</option>
-              <option value="Les deux">Jérôme & Coryne</option>
-            </select>
+            <label for="edit-societe">Société / Enseigne *</label>
+            <input type="text" id="edit-societe" required placeholder="Ex: Espace Aubade Montpellier">
           </div>
 
-          <!-- Téléphone principal -->
-          <div class="form-field">
-            <label for="edit-telephone">Téléphone principal</label>
-            <input type="text" id="edit-telephone" placeholder="04 00 00 00 00">
-          </div>
-
-          <!-- Email -->
-          <div class="form-field">
-            <label for="edit-email">E-mail professionnel</label>
-            <input type="email" id="edit-email" placeholder="contact@entreprise.com">
-          </div>
-
-          <!-- Autres Téléphones multiples -->
           <div class="form-field full-width">
-            <label>Autres téléphones</label>
-            <div id="extra-phones-container" class="multi-phones-box">
-              <!-- Numéros dynamiques -->
-            </div>
-            <button type="button" id="btn-add-phone" class="btn-add-phone-link">➕ Ajouter un numéro</button>
+            <label for="edit-adresse">Adresse physique</label>
+            <input type="text" id="edit-adresse" placeholder="Ex: 150 Rue des Artisans">
           </div>
 
-          <!-- Adresse complète -->
-          <div class="form-field full-width">
-            <label for="edit-adresse">Adresse complète</label>
-            <input type="text" id="edit-adresse" placeholder="123 Avenue des Entreprises">
-          </div>
-
-          <!-- Code Postal -->
           <div class="form-field">
-            <label for="edit-code-postal">Code Postal (saisir pour détecter la ville)</label>
-            <input type="text" id="edit-code-postal" placeholder="Ex: 06000, 83100, 13000..." maxlength="5">
+            <label for="edit-code-postal">Code Postal</label>
+            <input type="text" id="edit-code-postal" placeholder="Ex: 34000">
           </div>
 
-          <!-- Ville (Liste déroulante auto-remplie) -->
           <div class="form-field">
-            <label for="edit-ville">Ville / Village</label>
-            <select id="edit-ville" class="crm-select">
-              <option value="">-- Entrez un Code Postal --</option>
-            </select>
+            <label for="edit-ville">Ville</label>
+            <input type="text" id="edit-ville" placeholder="Ex: Montpellier">
           </div>
 
-          <!-- Département (Auto-rempli) -->
+          <div class="form-field">
+            <label for="edit-contact">Nom & Prénom Interlocuteur</label>
+            <input type="text" id="edit-contact" placeholder="Ex: Jean Dupont">
+          </div>
+
+          <div class="form-field">
+            <label for="edit-email">Email professionnel</label>
+            <input type="email" id="edit-email" placeholder="Ex: contact@aubade.fr">
+          </div>
+
           <div class="form-field full-width">
-            <label for="edit-departement">Département</label>
-            <input type="text" id="edit-departement" placeholder="FR-06" readonly style="background: #E5E7EB; cursor: not-allowed;">
+            <label>Téléphone(s) de contact</label>
+            <div id="phones-container" class="multi-phones-box"></div>
+            <button type="button" id="btn-add-phone" class="btn-add-phone-link">+ Ajouter un autre numéro</button>
+          </div>
+
+          <div class="form-field full-width">
+            <label for="edit-notes">Notes & Informations complémentaires</label>
+            <input type="text" id="edit-notes" placeholder="Remarques particulières, préférences...">
           </div>
         </div>
 
-        <!-- Zone Documents joints -->
-        <div class="documents-section">
-          <h3 class="documents-title">📄 Documents joints (Ouverture de compte, RIB, Kbis...)</h3>
+        <div class="documents-section" style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px dashed #D1D5DB;">
+          <h3 class="documents-title">📞 Comptes-Rendus de Visites / Échanges</h3>
           
-          <div class="file-upload-box">
-            <input type="file" id="document-input" multiple accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
-            <label for="document-input" class="file-upload-label">
-              <span>📎 Cliquer pour ajouter des documents (PDF, RIB, Images...)</span>
-            </label>
-          </div>
-
-          <ul id="documents-list" class="documents-list">
-            <!-- Injection dynamique des fichiers -->
-          </ul>
-        </div>
-
-        <!-- SECTION : COMPTES-RENDUS & DICTÉE VOCALE -->
-        <div class="documents-section" style="border-top: 2px dashed #D4AF37; margin-top: 2rem; padding-top: 1.5rem;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
-            <h3 class="documents-title" style="margin: 0; color: #1A2530;">📝 Comptes-rendus de visites</h3>
-            <button type="button" id="btn-voice-dictation" class="filter-btn" style="background: #111; color: #FFD700; border-color: #FFD700; display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 700;">
-              <span id="voice-icon">🎙️</span> <span id="voice-status-text">Dictée vocale</span>
-            </button>
-          </div>
-
-          <!-- Zone de saisie d'un compte-rendu -->
-          <div style="background: #FAF8F5; border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem;">
-            <div style="display: flex; gap: 1rem; margin-bottom: 0.75rem; flex-wrap: wrap;">
+          <div style="background: #FAF8F5; padding: 1rem; border-radius: 8px; border: 1px solid rgba(212, 175, 55, 0.3); margin-bottom: 1rem;">
+            <div style="display: flex; gap: 0.75rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
               <div style="flex: 1; min-width: 150px;">
-                <label style="font-size: 0.8rem; font-weight: 700; color: #1A2530; display: block; margin-bottom: 0.25rem;">Date de visite</label>
+                <label style="font-size: 0.8rem; font-weight: 700; color: #1A2530; display: block; margin-bottom: 0.25rem;">Date</label>
                 <input type="date" id="cr-date-input" class="crm-select" style="width: 100%;">
               </div>
               <div style="flex: 1; min-width: 150px;">
@@ -293,25 +226,400 @@
               </div>
             </div>
             <div>
-              <textarea id="cr-text-input" rows="3" style="width: 100%; padding: 0.75rem; border: 1px solid #D1D5DB; border-radius: 6px; font-family: inherit; font-size: 0.9rem; box-sizing: border-box;" placeholder="Parlez ou saisissez votre compte-rendu ici..."></textarea>
+              <textarea id="cr-text-input" rows="3" style="width: 100%; padding: 0.75rem; border: 1px solid #D1D5DB; border-radius: 6px; font-family: inherit; font-size: 0.9rem; box-sizing: border-box;" placeholder="Saisissez ou dictez votre compte-rendu ici..."></textarea>
             </div>
             <button type="button" id="btn-add-cr" class="btn-primary-gold" style="margin-top: 0.75rem; font-size: 0.85rem; padding: 0.5rem 1rem;">
               ➕ Enregistrer le compte-rendu
             </button>
           </div>
 
-          <!-- Historique des comptes-rendus du client -->
           <div id="cr-history-list" style="display: flex; flex-direction: column; gap: 0.75rem;"></div>
         </div>
 
+        <div class="documents-section">
+          <h3 class="documents-title">📎 Documents Joints (Tarifs, Devis, PDF, Photos)</h3>
+          
+          <div class="file-upload-box">
+            <input type="file" id="file-input" multiple>
+            <div class="file-upload-label">
+              <span>📁 Cliquez ou glissez des fichiers ici pour les joindre</span>
+            </div>
+          </div>
+
+          <ul id="documents-list" class="documents-list"></ul>
+        </div>
+
         <div class="modal-footer">
-          <button type="button" id="btn-cancel-edit" class="filter-btn reset-btn">Annuler</button>
+          <button type="button" id="btn-cancel-modal" class="filter-btn">Annuler</button>
           <button type="submit" class="btn-primary-gold">💾 Enregistrer la fiche</button>
         </div>
       </form>
     </div>
   </div>
 
-  <script type="module" src="assets/js/clients.js"></script>
+  <script type="module">
+    import { db } from "./assets/js/firebase.js";
+    import { collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    document.addEventListener("DOMContentLoaded", () => {
+      // 1. Vérification session agent
+      const isLoggedIn = localStorage.getItem("agentLoggedIn");
+      if (!isLoggedIn) {
+        window.location.href = "agent.html";
+        return;
+      }
+
+      const currentAgent = localStorage.getItem("agentName") || "Jérôme Hugol";
+      document.getElementById("user-greeting").textContent = `Connecté en tant que ${currentAgent}`;
+      document.getElementById("cr-author-input").value = currentAgent;
+
+      // 2. Horloge & Date
+      function updateDateTime() {
+        const now = new Date();
+        const dateEl = document.getElementById("current-date");
+        const timeEl = document.getElementById("current-time");
+        if (dateEl) {
+          let formatted = now.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+          dateEl.textContent = formatted.charAt(0).toUpperCase() + formatted.slice(1);
+        }
+        if (timeEl) {
+          timeEl.textContent = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+        }
+      }
+      updateDateTime();
+      setInterval(updateDateTime, 1000);
+
+      // Déconnexion
+      document.getElementById("logout-btn")?.addEventListener("click", () => {
+        localStorage.removeItem("agentLoggedIn");
+        window.location.href = "agent.html";
+      });
+
+      // 3. Auto-remplissage Ville via l'API Code Postal
+      const cpInput = document.getElementById("edit-code-postal");
+      const villeInput = document.getElementById("edit-ville");
+
+      if (cpInput && villeInput) {
+        cpInput.addEventListener("input", async (e) => {
+          const cp = e.target.value.trim();
+          if (/^\d{5}$/.test(cp)) {
+            try {
+              const res = await fetch(`https://geo.api.gouv.fr/communes?codePostal=${cp}&fields=nom&format=json`);
+              const data = await res.json();
+              if (data && data.length > 0) {
+                villeInput.value = data[0].nom;
+                villeInput.style.borderColor = "#10B981";
+                setTimeout(() => { villeInput.style.borderColor = ""; }, 1500);
+              }
+            } catch (err) {
+              console.warn("Échec recherche ville :", err);
+            }
+          }
+        });
+      }
+
+      // 4. Variables et état local
+      let clientsData = [];
+      let currentEditingId = null;
+      let currentDocList = [];
+      let currentCRList = [];
+
+      // Modale
+      const modal = document.getElementById("client-modal");
+      const btnAddClient = document.getElementById("btn-add-client");
+      const btnCloseModal = document.getElementById("btn-close-modal");
+      const btnCancelModal = document.getElementById("btn-cancel-modal");
+      const phonesContainer = document.getElementById("phones-container");
+      const btnAddPhone = document.getElementById("btn-add-phone");
+
+      function openModal(docId = null) {
+        currentEditingId = docId;
+        phonesContainer.innerHTML = "";
+        currentDocList = [];
+        currentCRList = [];
+
+        document.getElementById("cr-date-input").value = new Date().toISOString().split('T')[0];
+        document.getElementById("cr-text-input").value = "";
+
+        if (docId) {
+          const item = clientsData.find(c => c.id === docId);
+          if (item) {
+            document.getElementById("modal-title").textContent = `Édition : ${item.societe}`;
+            document.getElementById("edit-type").value = item.type || "client";
+            document.getElementById("edit-societe").value = item.societe || "";
+            document.getElementById("edit-adresse").value = item.adresse || "";
+            
+            // Inversion CP / Ville si nécessaire
+            let cp = (item.codePostal || item.code_postal || "").toString().trim();
+            let ville = (item.ville || "").toString().trim();
+            if (/^\d{5}$/.test(ville) && !/^\d{5}$/.test(cp)) {
+              const tmp = cp; cp = ville; ville = tmp;
+            }
+
+            document.getElementById("edit-code-postal").value = cp;
+            document.getElementById("edit-ville").value = ville;
+            document.getElementById("edit-contact").value = item.contact || "";
+            document.getElementById("edit-email").value = item.email || "";
+            document.getElementById("edit-notes").value = item.notes || "";
+
+            // Numéros multiples
+            const phones = Array.isArray(item.telephones) ? item.telephones : (item.telephone ? [item.telephone] : [""]);
+            phones.forEach(p => addPhoneRow(p));
+
+            currentDocList = Array.isArray(item.documents) ? [...item.documents] : [];
+            currentCRList = Array.isArray(item.comptes_rendus || item.comptesRendus) ? [...(item.comptes_rendus || item.comptesRendus)] : [];
+          }
+        } else {
+          document.getElementById("modal-title").textContent = "Nouveau Client / Prospect";
+          document.getElementById("client-form").reset();
+          addPhoneRow("");
+        }
+
+        renderDocList();
+        renderCRList();
+        modal.style.display = "flex";
+      }
+
+      function closeModal() {
+        modal.style.display = "none";
+        currentEditingId = null;
+      }
+
+      btnAddClient?.addEventListener("click", () => openModal());
+      btnCloseModal?.addEventListener("click", closeModal);
+      btnCancelModal?.addEventListener("click", closeModal);
+
+      // Gestion téléphone dynamique
+      function addPhoneRow(value = "") {
+        const row = document.createElement("div");
+        row.className = "phone-row";
+        row.innerHTML = `
+          <input type="tel" class="phone-input" placeholder="Ex: 04 67 00 00 00" value="${value}">
+          <button type="button" class="btn-remove-phone">&times;</button>
+        `;
+        row.querySelector(".btn-remove-phone").addEventListener("click", () => {
+          if (phonesContainer.children.length > 1) row.remove();
+        });
+        phonesContainer.appendChild(row);
+      }
+      btnAddPhone?.addEventListener("click", () => addPhoneRow());
+
+      // Comptes-rendus internes
+      function renderCRList() {
+        const container = document.getElementById("cr-history-list");
+        container.innerHTML = "";
+        if (currentCRList.length === 0) {
+          container.innerHTML = `<p style="font-size: 0.85rem; color: #777; font-style: italic;">Aucun compte-rendu enregistré pour ce client.</p>`;
+          return;
+        }
+
+        currentCRList.forEach((cr, idx) => {
+          const div = document.createElement("div");
+          div.style.cssText = "background: #FFF; padding: 0.75rem; border-radius: 6px; border: 1px solid #E5E7EB; font-size: 0.88rem;";
+          div.innerHTML = `
+            <div style="display: flex; justify-content: space-between; font-weight: 700; color: #1A2530; margin-bottom: 0.25rem;">
+              <span>👤 ${cr.author || 'Agent'}</span>
+              <span>📅 ${cr.date || ''}</span>
+            </div>
+            <div style="color: #444; white-space: pre-wrap;">${cr.text || ''}</div>
+          `;
+          container.appendChild(div);
+        });
+      }
+
+      document.getElementById("btn-add-cr")?.addEventListener("click", () => {
+        const dateVal = document.getElementById("cr-date-input").value;
+        const authorVal = document.getElementById("cr-author-input").value;
+        const textVal = document.getElementById("cr-text-input").value.trim();
+
+        if (!textVal) {
+          alert("Veuillez saisir un texte pour le compte-rendu.");
+          return;
+        }
+
+        currentCRList.unshift({ date: dateVal, author: authorVal, text: textVal });
+        document.getElementById("cr-text-input").value = "";
+        renderCRList();
+      });
+
+      // Documents
+      function renderDocList() {
+        const ul = document.getElementById("documents-list");
+        ul.innerHTML = "";
+        currentDocList.forEach((doc, idx) => {
+          const li = document.createElement("li");
+          li.className = "document-item";
+          li.innerHTML = `
+            <a href="${doc.url}" target="_blank">📄 ${doc.nom}</a>
+            <button type="button" class="btn-delete-doc">&times;</button>
+          `;
+          li.querySelector(".btn-delete-doc").addEventListener("click", () => {
+            currentDocList.splice(idx, 1);
+            renderDocList();
+          });
+          ul.appendChild(li);
+        });
+      }
+
+      document.getElementById("file-input")?.addEventListener("change", (e) => {
+        const files = Array.from(e.target.files);
+        files.forEach(f => {
+          currentDocList.push({ nom: f.name, url: "#" });
+        });
+        renderDocList();
+      });
+
+      // Soumission formulaire Client
+      document.getElementById("client-form")?.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const phones = Array.from(document.querySelectorAll(".phone-input"))
+          .map(i => i.value.trim())
+          .filter(v => v !== "");
+
+        const formData = {
+          type: document.getElementById("edit-type").value,
+          societe: document.getElementById("edit-societe").value.trim(),
+          adresse: document.getElementById("edit-adresse").value.trim(),
+          codePostal: document.getElementById("edit-code-postal").value.trim(),
+          ville: document.getElementById("edit-ville").value.trim(),
+          contact: document.getElementById("edit-contact").value.trim(),
+          email: document.getElementById("edit-email").value.trim(),
+          telephones: phones,
+          telephone: phones[0] || "",
+          notes: document.getElementById("edit-notes").value.trim(),
+          documents: currentDocList,
+          comptes_rendus: currentCRList
+        };
+
+        try {
+          if (currentEditingId) {
+            await updateDoc(doc(db, "clients", currentEditingId), formData);
+          } else {
+            await addDoc(collection(db, "clients"), formData);
+          }
+          closeModal();
+        } catch (err) {
+          console.error("Erreur sauvegarde client :", err);
+          alert("Erreur lors de la sauvegarde dans Firebase.");
+        }
+      });
+
+      // 5. Synchronisation Firestore & Rendu de la Table
+      const tableBody = document.getElementById("clients-table-body");
+      const searchInput = document.getElementById("search-input");
+      const filterType = document.getElementById("filter-type");
+      const filterDep = document.getElementById("filter-departement");
+
+      function renderTable() {
+        if (!tableBody) return;
+
+        const search = searchInput ? searchInput.value.toLowerCase().trim() : "";
+        const type = filterType ? filterType.value : "";
+        const dep = filterDep ? filterDep.value : "";
+
+        let clientsCount = 0;
+        let prospectsCount = 0;
+        const depsSet = new Set();
+
+        const filtered = clientsData.filter(c => {
+          let cp = (c.codePostal || c.code_postal || "").toString().trim();
+          let ville = (c.ville || "").toString().trim();
+
+          if (/^\d{5}$/.test(ville) && !/^\d{5}$/.test(cp)) {
+            const tmp = cp; cp = ville; ville = tmp;
+          }
+
+          if (cp.length >= 2) depsSet.add(cp.substring(0, 2));
+
+          const cType = (c.type || "client").toLowerCase();
+          if (cType === "client") clientsCount++;
+          else if (cType === "prospect") prospectsCount++;
+
+          const matchType = !type || cType === type;
+          const matchDep = !dep || cp.startsWith(dep);
+          const matchSearch = !search ||
+            (c.societe && c.societe.toLowerCase().includes(search)) ||
+            (ville && ville.toLowerCase().includes(search)) ||
+            (cp && cp.includes(search)) ||
+            (c.contact && c.contact.toLowerCase().includes(search)) ||
+            (c.telephone && c.telephone.includes(search));
+
+          return matchType && matchDep && matchSearch;
+        });
+
+        // Mise à jour stats
+        document.getElementById("stat-total-clients").textContent = clientsCount;
+        document.getElementById("stat-total-prospects").textContent = prospectsCount;
+        document.getElementById("stat-secteur-count").textContent = filtered.length;
+
+        // Mise à jour du filtre départements
+        if (filterDep && filterDep.children.length <= 1) {
+          Array.from(depsSet).sort().forEach(d => {
+            const opt = document.createElement("option");
+            opt.value = d; opt.textContent = `Dép. ${d}`;
+            filterDep.appendChild(opt);
+          });
+        }
+
+        if (filtered.length === 0) {
+          tableBody.innerHTML = `<tr><td colspan="7" class="no-results">Aucun client ou prospect ne correspond à la recherche.</td></tr>`;
+          return;
+        }
+
+        tableBody.innerHTML = "";
+        filtered.forEach(c => {
+          let cp = (c.codePostal || c.code_postal || "").toString().trim();
+          let ville = (c.ville || "").toString().trim();
+          if (/^\d{5}$/.test(ville) && !/^\d{5}$/.test(cp)) {
+            const tmp = cp; cp = ville; ville = tmp;
+          }
+
+          const crList = c.comptes_rendus || c.comptesRendus || [];
+          const lastCR = crList.length > 0 ? crList[0].date : "Aucun";
+
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td><span class="badge ${c.type === 'prospect' ? 'badge-prospect' : 'badge-client'}">${c.type || 'client'}</span></td>
+            <td><strong>${c.societe || ''}</strong></td>
+            <td>${cp ? cp + ' ' : ''}${ville}</td>
+            <td>${c.contact || '-'}</td>
+            <td>${c.telephone || '-'}</td>
+            <td>${lastCR}</td>
+            <td>
+              <button class="filter-btn btn-edit-row" style="padding: 0.3rem 0.6rem; font-size: 0.8rem;">✏️ Éditer</button>
+            </td>
+          `;
+
+          tr.querySelector(".btn-edit-row").addEventListener("click", (e) => {
+            e.stopPropagation();
+            openModal(c.id);
+          });
+          tr.addEventListener("click", () => openModal(c.id));
+
+          tableBody.appendChild(tr);
+        });
+      }
+
+      onSnapshot(collection(db, "clients"), (snapshot) => {
+        clientsData = [];
+        snapshot.forEach(docSnap => {
+          clientsData.push({ id: docSnap.id, ...docSnap.data() });
+        });
+        renderTable();
+      });
+
+      searchInput?.addEventListener("input", renderTable);
+      filterType?.addEventListener("change", renderTable);
+      filterDep?.addEventListener("change", renderTable);
+
+      // Ouverture directe via URL query string (?edit=ID)
+      const urlParams = new URLSearchParams(window.location.search);
+      const editParam = urlParams.get("edit");
+      if (editParam) {
+        setTimeout(() => openModal(editParam), 500);
+      }
+    });
+  </script>
 </body>
 </html>
