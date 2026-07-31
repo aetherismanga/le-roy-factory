@@ -32,6 +32,31 @@
       color: #FFFFFF !important;
       text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
     }
+
+    /* Styles pour les Badges de Statut */
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.65rem;
+      border-radius: 4px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    /* Badge CLIENT : VERT */
+    .badge-client {
+      background-color: #E6F4EA !important;
+      color: #047857 !important;
+      border: 1px solid #A7F3D0 !important;
+    }
+
+    /* Badge PROSPECT : ORANGE */
+    .badge-prospect {
+      background-color: #FFEDD5 !important;
+      color: #C2410C !important;
+      border: 1px solid #FDBA74 !important;
+    }
   </style>
 </head>
 <body class="crm-body">
@@ -39,8 +64,8 @@
   <aside class="crm-sidebar">
     <div class="sidebar-brand">
       <a href="index.html" class="logo-link">
-        <div class="logo-circle">
-          <img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY">
+        <div class="logo-circle" style="width: 60px; height: 60px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.4); border: 2px solid #D4AF37; background-color: #000;">
+          <img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
       </a>
     </div>
@@ -70,12 +95,11 @@
     <div class="crm-topbar">
       <div class="welcome-box">
         <h1 id="page-title">Gestion de la Clientèle & Prospects</h1>
-        <p id="user-greeting">Connecté en tant que Jérôme Hugol</p>
+        <p id="user-greeting">Connecté en tant qu'agent</p>
       </div>
       <div class="info-widgets">
         <div class="widget-item"><span>📅</span> <span id="current-date">--</span></div>
         <div class="widget-item"><span>⏰</span> <span id="current-time">--</span></div>
-        <div class="widget-item"><span>🌤</span> <span>26°C, Ensoleillé</span></div>
       </div>
     </div>
 
@@ -98,7 +122,7 @@
         <div class="stat-icon">📍</div>
         <div class="stat-info">
           <span class="stat-number" id="stat-secteur-count">0</span>
-          <span class="stat-label">Sur votre secteur</span>
+          <span class="stat-label">Affichés</span>
         </div>
       </div>
     </div>
@@ -113,14 +137,13 @@
           <span>🔍</span>
           <input type="text" id="search-input" placeholder="Rechercher par nom, ville, interlocuteur, téléphone...">
         </div>
-        <button id="btn-search" class="btn-search">Chercher</button>
       </div>
 
       <div class="select-filters">
         <select id="filter-type" class="crm-select">
           <option value="">Tous les types</option>
-          <option value="client">Clients uniquement</option>
-          <option value="prospect">Prospects uniquement</option>
+          <option value="client">Clients uniquement (Vert)</option>
+          <option value="prospect">Prospects uniquement (Orange)</option>
         </select>
 
         <select id="filter-departement" class="crm-select">
@@ -133,9 +156,9 @@
       <table class="crm-table">
         <thead>
           <tr>
-            <th>Type</th>
+            <th>Statut</th>
             <th>Société / Enseigne</th>
-            <th>Ville & CP</th>
+            <th>Code Postal & Ville</th>
             <th>Contact Principal</th>
             <th>Téléphone</th>
             <th>Dernier Échange</th>
@@ -185,7 +208,7 @@
           </div>
 
           <div class="form-field">
-            <label for="edit-ville">Ville</label>
+            <label for="edit-ville">Ville (S'affiche automatiquement)</label>
             <input type="text" id="edit-ville" placeholder="Ex: Montpellier">
           </div>
 
@@ -226,7 +249,7 @@
               </div>
             </div>
             <div>
-              <textarea id="cr-text-input" rows="3" style="width: 100%; padding: 0.75rem; border: 1px solid #D1D5DB; border-radius: 6px; font-family: inherit; font-size: 0.9rem; box-sizing: border-box;" placeholder="Saisissez ou dictez votre compte-rendu ici..."></textarea>
+              <textarea id="cr-text-input" rows="3" style="width: 100%; padding: 0.75rem; border: 1px solid #D1D5DB; border-radius: 6px; font-family: inherit; font-size: 0.9rem; box-sizing: border-box;" placeholder="Saisissez votre compte-rendu ici..."></textarea>
             </div>
             <button type="button" id="btn-add-cr" class="btn-primary-gold" style="margin-top: 0.75rem; font-size: 0.85rem; padding: 0.5rem 1rem;">
               ➕ Enregistrer le compte-rendu
@@ -259,7 +282,7 @@
 
   <script type="module">
     import { db } from "./assets/js/firebase.js";
-    import { collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { collection, doc, addDoc, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
     document.addEventListener("DOMContentLoaded", () => {
       // 1. Vérification session agent
@@ -295,7 +318,7 @@
         window.location.href = "agent.html";
       });
 
-      // 3. Auto-remplissage Ville via l'API Code Postal
+      // 3. Auto-remplissage automatique de la Ville via le Code Postal
       const cpInput = document.getElementById("edit-code-postal");
       const villeInput = document.getElementById("edit-ville");
 
@@ -318,7 +341,7 @@
         });
       }
 
-      // 4. Variables et état local
+      // 4. Variables locales
       let clientsData = [];
       let currentEditingId = null;
       let currentDocList = [];
@@ -331,6 +354,21 @@
       const btnCancelModal = document.getElementById("btn-cancel-modal");
       const phonesContainer = document.getElementById("phones-container");
       const btnAddPhone = document.getElementById("btn-add-phone");
+      const editTypeSelect = document.getElementById("edit-type");
+      const modalStatusBadge = document.getElementById("modal-status-badge");
+
+      function updateModalBadge(type) {
+        if (!modalStatusBadge) return;
+        if (type === "prospect") {
+          modalStatusBadge.textContent = "Prospect";
+          modalStatusBadge.className = "badge badge-prospect";
+        } else {
+          modalStatusBadge.textContent = "Client";
+          modalStatusBadge.className = "badge badge-client";
+        }
+      }
+
+      editTypeSelect?.addEventListener("change", (e) => updateModalBadge(e.target.value));
 
       function openModal(docId = null) {
         currentEditingId = docId;
@@ -345,11 +383,14 @@
           const item = clientsData.find(c => c.id === docId);
           if (item) {
             document.getElementById("modal-title").textContent = `Édition : ${item.societe}`;
-            document.getElementById("edit-type").value = item.type || "client";
+            const itemType = (item.type || "client").toLowerCase();
+            document.getElementById("edit-type").value = itemType;
+            updateModalBadge(itemType);
+
             document.getElementById("edit-societe").value = item.societe || "";
             document.getElementById("edit-adresse").value = item.adresse || "";
             
-            // Inversion CP / Ville si nécessaire
+            // Correction CP / Ville inversés
             let cp = (item.codePostal || item.code_postal || "").toString().trim();
             let ville = (item.ville || "").toString().trim();
             if (/^\d{5}$/.test(ville) && !/^\d{5}$/.test(cp)) {
@@ -362,7 +403,6 @@
             document.getElementById("edit-email").value = item.email || "";
             document.getElementById("edit-notes").value = item.notes || "";
 
-            // Numéros multiples
             const phones = Array.isArray(item.telephones) ? item.telephones : (item.telephone ? [item.telephone] : [""]);
             phones.forEach(p => addPhoneRow(p));
 
@@ -372,6 +412,7 @@
         } else {
           document.getElementById("modal-title").textContent = "Nouveau Client / Prospect";
           document.getElementById("client-form").reset();
+          updateModalBadge("client");
           addPhoneRow("");
         }
 
@@ -393,9 +434,10 @@
       function addPhoneRow(value = "") {
         const row = document.createElement("div");
         row.className = "phone-row";
+        row.style.cssText = "display: flex; gap: 0.5rem; margin-bottom: 0.5rem;";
         row.innerHTML = `
-          <input type="tel" class="phone-input" placeholder="Ex: 04 67 00 00 00" value="${value}">
-          <button type="button" class="btn-remove-phone">&times;</button>
+          <input type="tel" class="phone-input crm-select" placeholder="Ex: 04 67 00 00 00" value="${value}" style="flex: 1;">
+          <button type="button" class="btn-remove-phone filter-btn" style="color: #DC2626;">&times;</button>
         `;
         row.querySelector(".btn-remove-phone").addEventListener("click", () => {
           if (phonesContainer.children.length > 1) row.remove();
@@ -409,11 +451,11 @@
         const container = document.getElementById("cr-history-list");
         container.innerHTML = "";
         if (currentCRList.length === 0) {
-          container.innerHTML = `<p style="font-size: 0.85rem; color: #777; font-style: italic;">Aucun compte-rendu enregistré pour ce client.</p>`;
+          container.innerHTML = `<p style="font-size: 0.85rem; color: #777; font-style: italic;">Aucun compte-rendu enregistré pour cette fiche.</p>`;
           return;
         }
 
-        currentCRList.forEach((cr, idx) => {
+        currentCRList.forEach((cr) => {
           const div = document.createElement("div");
           div.style.cssText = "background: #FFF; padding: 0.75rem; border-radius: 6px; border: 1px solid #E5E7EB; font-size: 0.88rem;";
           div.innerHTML = `
@@ -469,7 +511,7 @@
         renderDocList();
       });
 
-      // Soumission formulaire Client
+      // Soumission du formulaire
       document.getElementById("client-form")?.addEventListener("submit", async (e) => {
         e.preventDefault();
 
@@ -500,16 +542,22 @@
           }
           closeModal();
         } catch (err) {
-          console.error("Erreur sauvegarde client :", err);
+          console.error("Erreur de sauvegarde :", err);
           alert("Erreur lors de la sauvegarde dans Firebase.");
         }
       });
 
-      // 5. Synchronisation Firestore & Rendu de la Table
+      // 5. Synchronisation Firestore & Rendu du Tableau
       const tableBody = document.getElementById("clients-table-body");
       const searchInput = document.getElementById("search-input");
       const filterType = document.getElementById("filter-type");
       const filterDep = document.getElementById("filter-departement");
+
+      // Pré-filtrage si venant du lien menu "Prospects"
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get("filter") === "prospect" && filterType) {
+        filterType.value = "prospect";
+      }
 
       function renderTable() {
         if (!tableBody) return;
@@ -548,22 +596,22 @@
           return matchType && matchDep && matchSearch;
         });
 
-        // Mise à jour stats
+        // Mise à jour des compteurs
         document.getElementById("stat-total-clients").textContent = clientsCount;
         document.getElementById("stat-total-prospects").textContent = prospectsCount;
         document.getElementById("stat-secteur-count").textContent = filtered.length;
 
-        // Mise à jour du filtre départements
+        // Remplissage dynamique des départements
         if (filterDep && filterDep.children.length <= 1) {
           Array.from(depsSet).sort().forEach(d => {
             const opt = document.createElement("option");
-            opt.value = d; opt.textContent = `Dép. ${d}`;
+            opt.value = d; opt.textContent = `Département ${d}`;
             filterDep.appendChild(opt);
           });
         }
 
         if (filtered.length === 0) {
-          tableBody.innerHTML = `<tr><td colspan="7" class="no-results">Aucun client ou prospect ne correspond à la recherche.</td></tr>`;
+          tableBody.innerHTML = `<tr><td colspan="7" class="no-results">Aucune entreprise ne correspond à votre recherche.</td></tr>`;
           return;
         }
 
@@ -575,12 +623,15 @@
             const tmp = cp; cp = ville; ville = tmp;
           }
 
+          const cType = (c.type || "client").toLowerCase();
+          const badgeClass = cType === "prospect" ? "badge-prospect" : "badge-client";
           const crList = c.comptes_rendus || c.comptesRendus || [];
           const lastCR = crList.length > 0 ? crList[0].date : "Aucun";
 
           const tr = document.createElement("tr");
+          tr.style.cursor = "pointer";
           tr.innerHTML = `
-            <td><span class="badge ${c.type === 'prospect' ? 'badge-prospect' : 'badge-client'}">${c.type || 'client'}</span></td>
+            <td><span class="badge ${badgeClass}">${cType}</span></td>
             <td><strong>${c.societe || ''}</strong></td>
             <td>${cp ? cp + ' ' : ''}${ville}</td>
             <td>${c.contact || '-'}</td>
@@ -613,8 +664,7 @@
       filterType?.addEventListener("change", renderTable);
       filterDep?.addEventListener("change", renderTable);
 
-      // Ouverture directe via URL query string (?edit=ID)
-      const urlParams = new URLSearchParams(window.location.search);
+      // Ouverture directe via query string (?edit=ID)
       const editParam = urlParams.get("edit");
       if (editParam) {
         setTimeout(() => openModal(editParam), 500);
