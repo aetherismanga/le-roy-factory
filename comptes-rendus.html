@@ -205,7 +205,7 @@
     import { collection, doc, updateDoc, onSnapshot, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
     document.addEventListener("DOMContentLoaded", () => {
-      // Vérification session
+      // 1. Vérification session
       const isLoggedIn = localStorage.getItem("agentLoggedIn");
       if (!isLoggedIn) {
         window.location.href = "agent.html";
@@ -218,7 +218,7 @@
         authorSelect.value = currentAgent.includes("Coryne") ? "Coryne" : "Jérôme Hugol";
       }
 
-      // Horloge & Date
+      // 2. Horloge & Date
       function updateDateTime() {
         const now = new Date();
         const dateEl = document.getElementById("current-date");
@@ -240,7 +240,7 @@
         window.location.href = "agent.html";
       });
 
-      // Modale Rédiger un compte-rendu
+      // 3. Modale Rédiger un compte-rendu
       const crModal = document.getElementById("cr-modal");
       const btnOpenModal = document.getElementById("btn-open-cr-modal");
       const btnCloseModal = document.getElementById("btn-close-cr-modal");
@@ -249,14 +249,11 @@
       const crInputDate = document.getElementById("cr-input-date");
       const crForm = document.getElementById("form-new-cr");
 
-      // Date par défaut (Aujourd'hui)
       if (crInputDate) {
         crInputDate.value = new Date().toISOString().split('T')[0];
       }
 
-      function openModal() {
-        if (crModal) crModal.style.display = "flex";
-      }
+      function openModal() { if (crModal) crModal.style.display = "flex"; }
       function closeModal() {
         if (crModal) crModal.style.display = "none";
         crForm.reset();
@@ -267,13 +264,30 @@
       btnCloseModal?.addEventListener("click", closeModal);
       btnCancelModal?.addEventListener("click", closeModal);
 
-      // Gestion de la liste et du fil de comptes-rendus
+      // 4. Cache dynamique API Code Postal -> Ville
+      const cpCache = {};
+      async function fetchVilleByCP(cp) {
+        if (!/^\d{5}$/.test(cp)) return "";
+        if (cpCache[cp]) return cpCache[cp];
+        try {
+          const res = await fetch(`https://geo.api.gouv.fr/communes?codePostal=${cp}&fields=nom&format=json`);
+          const data = await res.json();
+          if (data && data.length > 0) {
+            cpCache[cp] = data[0].nom;
+            return data[0].nom;
+          }
+        } catch (e) {
+          console.warn("Échec résolution automatique ville :", e);
+        }
+        return "";
+      }
+
+      // 5. Gestion de la liste et du fil de comptes-rendus
       const feedContainer = document.getElementById("cr-feed-container");
       const searchInput = document.getElementById("cr-search-input");
       const filterAgent = document.getElementById("cr-filter-agent");
 
       let allFirebaseCRs = [];
-      let clientsList = [];
 
       function renderFeed() {
         if (!feedContainer) return;
@@ -325,33 +339,32 @@
       }
 
       // Synchronisation temps réel Firestore
-      onSnapshot(collection(db, "clients"), (querySnapshot) => {
+      onSnapshot(collection(db, "clients"), async (querySnapshot) => {
         allFirebaseCRs = [];
-        clientsList = [];
-
         crSelectClient.innerHTML = `<option value="" disabled selected>-- Sélectionner un client --</option>`;
 
-        querySnapshot.forEach((docSnap) => {
+        for (const docSnap of querySnapshot.docs) {
           const data = docSnap.data();
           const clientId = docSnap.id;
           const societe = data.societe || "Entreprise sans nom";
 
-          // Point 2 : Correction automatique de l'inversion Code Postal / Ville
-          let rawCp = (data.codePostal || data.code_postal || data.cp || "").toString().trim();
-          let rawVille = (data.ville || data.city || "").toString().trim();
+          let rawCp = (data.codePostal || data.code_postal || "").toString().trim();
+          let rawVille = (data.ville || "").toString().trim();
 
+          // Correction si CP et Ville inversés
           if (/^\d{5}$/.test(rawVille) && !/^\d{5}$/.test(rawCp)) {
-            const temp = rawCp;
-            rawCp = rawVille;
-            rawVille = temp;
+            const tmp = rawCp; rawCp = rawVille; rawVille = tmp;
           }
 
-          clientsList.push({ id: clientId, societe: societe, code_postal: rawCp, ville: rawVille });
+          // Si la ville est manquante mais qu'on a un Code Postal, on la résout via l'API
+          if (!rawVille && /^\d{5}$/.test(rawCp)) {
+            rawVille = await fetchVilleByCP(rawCp);
+          }
 
-          // Remplissage menu déroulant client
+          // Option dans la liste déroulante
           const opt = document.createElement("option");
           opt.value = clientId;
-          opt.textContent = `${societe} (${rawCp} ${rawVille})`.trim();
+          opt.textContent = `${societe} (${rawCp ? rawCp + ' ' : ''}${rawVille})`.trim();
           crSelectClient.appendChild(opt);
 
           // Extraction des comptes-rendus
@@ -369,15 +382,14 @@
               });
             });
           }
-        });
+        }
 
-        // Tri chronologique (du plus récent au plus ancien)
+        // Tri du plus récent au plus ancien
         allFirebaseCRs.sort((a, b) => new Date(b.date) - new Date(a.date));
-
         renderFeed();
       });
 
-      // Point 1 & 3 : Enregistrement et validation du compte-rendu dans Firebase
+      // Validation et enregistrement dans Firebase
       crForm?.addEventListener("submit", async (e) => {
         e.preventDefault();
 
@@ -405,23 +417,14 @@
             const currentData = docSnap.data();
             const existingCRs = currentData.comptes_rendus || currentData.comptesRendus || [];
 
-            const newCR = {
-              date: dateVal,
-              author: authorVal,
-              text: textVal
-            };
-
+            const newCR = { date: dateVal, author: authorVal, text: textVal };
             const updatedCRs = [newCR, ...existingCRs];
 
-            // Mise à jour de Firebase Firestore
-            await updateDoc(clientDocRef, {
-              comptes_rendus: updatedCRs
-            });
-
+            await updateDoc(clientDocRef, { comptes_rendus: updatedCRs });
             closeModal();
           }
         } catch (error) {
-          console.error("Erreur lors de la sauvegarde du compte-rendu :", error);
+          console.error("Erreur sauvegarde compte-rendu :", error);
           alert("Une erreur s'est produite lors de l'enregistrement.");
         } finally {
           if (btnSave) {
