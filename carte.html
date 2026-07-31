@@ -341,6 +341,7 @@
 
             const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.fullAddress)}`;
 
+            // MODIFICATION ICI : On passe l'ID unique Firebase dans l'URL pour ouvrir directement la fiche exacte
             const popupContent = `
               <div style="font-family: 'Inter', sans-serif; padding: 4px; min-width: 200px;">
                 <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: ${pinColor};">${item.type} (Dept: ${dept || 'N/C'})</span>
@@ -348,7 +349,7 @@
                 <p style="font-size: 0.85rem; color: #555; margin: 0 0 0.5rem 0;">📍 ${item.adresse} <br>${item.cp} ${item.ville}</p>
                 ${item.telephone ? `<p style="font-size: 0.85rem; margin: 0 0 0.75rem 0;">📞 <a href="tel:${item.telephone}" style="color: #111; font-weight: 600;">${item.telephone}</a></p>` : ''}
                 <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                  <a href="clients.html?search=${encodeURIComponent(item.societe)}" style="background: #111; color: #FFD700; padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; text-decoration: none; font-weight: 600;">Fiche client</a>
+                  <a href="clients.html?edit=${item.id}" style="background: #111; color: #FFD700; padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; text-decoration: none; font-weight: 600;">Fiche client</a>
                   <a href="${googleMapsUrl}" target="_blank" style="background: #D4AF37; color: #111; padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; text-decoration: none; font-weight: 700;">🧭 Naviguer (GPS)</a>
                 </div>
               </div>
@@ -374,7 +375,7 @@
           const data = docSnap.data();
           const societe = data.societe || "Entreprise sans nom";
           const adresse = (data.adresse || "").trim();
-          const cp = (data.codePostal || "").trim();
+          const cp = (data.codePostal || data.code_postal || "").trim();
           const ville = (data.ville || "").trim();
           const type = (data.type || "prospect").toLowerCase();
           const telephone = data.telephone || "";
@@ -403,7 +404,7 @@
             }
 
             allClientData.push({
-              societe, adresse, cp, ville, type, telephone, fullAddress, lat, lon
+              id: docId, societe, adresse, cp, ville, type, telephone, fullAddress, lat, lon
             });
           }
         }
