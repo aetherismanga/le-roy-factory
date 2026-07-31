@@ -1,114 +1,347 @@
-[
-  {
-    "id": "elios-ceramica",
-    "nom": "Elios Ceramica",
-    "categorie": "carrelage",
-    "pays": "Italie",
-    "site": "https://www.eliosceramica.com",
-    "presentation": "Fabricant italien spécialisé dans les petits formats et la céramique décorative haut de gamme."
-  },
-  {
-    "id": "view-ceramica",
-    "nom": "View Ceramica",
-    "categorie": "carrelage",
-    "pays": "Italie",
-    "site": "https://www.viewceramiche.com",
-    "presentation": "Design contemporain et solutions céramiques innovantes pour les professionnels exigeants."
-  },
-  {
-    "id": "la-fenice",
-    "nom": "La Fenice",
-    "categorie": "carrelage",
-    "pays": "Italie",
-    "site": "https://www.lafenicegc.com",
-    "presentation": "Tradition et modernité italienne au service de l'architecture intérieure."
-  },
-  {
-    "id": "reviglass",
-    "nom": "Reviglass",
-    "categorie": "mosaique-pierre",
-    "pays": "Espagne",
-    "site": "https://www.reviglass.es",
-    "presentation": "Spécialiste de la mosaïque en verre recyclé haut de gamme."
-  },
-  {
-    "id": "biopietra",
-    "nom": "Biopietra",
-    "categorie": "mosaique-pierre",
-    "pays": "Italie",
-    "site": "https://www.biopietra.com",
-    "presentation": "Pierre reconstituée écologique et certifiée pour l'aménagement décoratif."
-  },
-  {
-    "id": "petracers",
-    "nom": "Petracer's",
-    "categorie": "carrelage-exception",
-    "pays": "Italie",
-    "site": "https://www.petracer.it",
-    "presentation": "L'expression ultime du luxe à l'italienne dans le carrelage d'exception."
-  },
-  {
-    "id": "pecchioli-firenze",
-    "nom": "Pecchioli Firenze",
-    "categorie": "carrelage-exception",
-    "pays": "Italie",
-    "site": "https://www.pecchiolifirenze.com",
-    "presentation": "Céramique artistique et historique façonnée à Florence."
-  },
-  {
-    "id": "bulbo",
-    "nom": "Bulbo",
-    "categorie": "carrelage-exception",
-    "pays": "Italie",
-    "site": "https://www.bulbo.it",
-    "presentation": "Créations céramiques audacieuses et design avant-gardiste."
-  },
-  {
-    "id": "randal-pro",
-    "nom": "Randal Pro",
-    "categorie": "salle-de-bain",
-    "pays": "Espagne",
-    "site": "https://www.randal.group",
-    "presentation": "Mobilier de salle de bain sur mesure haut de gamme."
-  },
-  {
-    "id": "neobath",
-    "nom": "Neobath",
-    "categorie": "salle-de-bain",
-    "pays": "Italie",
-    "site": "https://www.neobathdesign.fr",
-    "presentation": "Fabricant italien de meubles de salle de bain design."
-  },
-  {
-    "id": "koibath",
-    "nom": "Koibath",
-    "categorie": "salle-de-bain",
-    "pays": "Espagne",
-    "site": "https://www.koibath.com",
-    "presentation": "Solutions innovantes et esthétiques pour la salle de bain moderne."
-  },
-  {
-    "id": "aquahome",
-    "nom": "Aquahome",
-    "categorie": "salle-de-bain",
-    "pays": "Robinetterie",
-    "site": "https://www.aquahomebs.com",
-    "presentation": "Robinetterie haut de gamme alliant design et performance technique."
-  },
-  {
-    "id": "opal",
-    "nom": "Opal",
-    "categorie": "salle-de-bain",
-    "pays": "International",
-    "site": "#",
-    "presentation": "Fabricant de miroirs lumineux et décoratifs pour espaces d'eau."
-  },
-  {
-    "id": "bilt",
-    "nom": "Bilt",
-    "categorie": "outillage",
-    "pays": "International",
-    "site": "https://www.biltbs.com",
-    "presentation": "Croisillons autonivelants et accessoires de pose professionnels."
-  }
-]
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="assets/img/logo03lrf.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tarifs Partenaires PRO — LE ROY FACTORY</title>
+  <meta name="description" content="Accédez aux grilles tarifaires officielles de nos fabricants partenaires. Espace réservé aux professionnels.">
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <style>
+    /* Fond général de la page en blanc crème / coquille d'œuf */
+    body, html {
+      background-color: #FBF9F5 !important;
+      background-image: none !important;
+      color: #1A2530 !important;
+    }
+
+    /* Header et Footer avec l'image bandeau02.png */
+    header, footer {
+      background-image: url('assets/img/bandeau02.png');
+      background-size: cover;
+      background-position: center;
+      color: #ffffff;
+      border-bottom: 2px solid #D4AF37;
+    }
+    footer {
+      border-top: 2px solid #D4AF37;
+      border-bottom: none;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+    }
+    header a, footer p {
+      color: #ffffff !important;
+    }
+
+    .main-nav {
+      display: flex;
+      gap: 1.2rem;
+      align-items: center;
+      justify-content: flex-end;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      flex-wrap: nowrap;
+    }
+    .main-nav li { display: flex; align-items: center; }
+    
+    .main-nav > li > a:not(.agent-btn) {
+      text-decoration: none;
+      color: #ffffff;
+      font-weight: 500;
+      position: relative;
+      padding-bottom: 4px;
+      background: transparent !important;
+      transition: color 0.3s ease;
+    }
+
+    .main-nav > li > a:not(.agent-btn):hover {
+      color: #d4af37;
+      background: transparent !important;
+    }
+
+    .main-nav > li > a.active:not(.agent-btn) {
+      color: #ffffff !important;
+      font-weight: 500;
+      background: transparent !important;
+    }
+    
+    .main-nav > li > a.active:not(.agent-btn)::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: #d4af37;
+      box-shadow: 0 0 8px rgba(212, 175, 55, 0.8);
+      border-radius: 2px;
+    }
+
+    .agent-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 14px;
+      background: #111 !important;
+      color: #d4af37 !important;
+      border: 1px solid #d4af37;
+      border-radius: 8px;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: .25s;
+    }
+    .agent-btn::after { display: none !important; }
+    .agent-btn:hover { background: #d4af37 !important; color: #111 !important; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container nav-container" style="height: 130px; display: flex; align-items: center; justify-content: space-between;">
+      <a href="index.html" class="logo" style="display: flex; align-items: center; height: 100%; padding-left: 1.5rem;">
+        <div style="width: 110px; height: 110px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.4); border: 2px solid #D4AF37; background-color: #000;">
+          <img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY" style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.35);">
+        </div>
+      </a>
+      <nav>
+        <ul class="main-nav">
+          <li><a href="partenaires.html">Partenaires</a></li>
+          <li><a href="univers.html">Inspirations</a></li>
+          <li><a href="realisations.html">Réalisations</a></li>
+          <li><a href="catalogues.html">Catalogues</a></li>
+          <li><a href="tarifs-pro.html" class="active">Tarifs PRO</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="agent.html" class="agent-btn">🔒 Espace Agent</a></li>
+        </ul>
+      </nav>
+      <button class="burger-btn" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main style="padding-bottom: 4rem;">
+    <section class="hero-banner" style="background-image: url('assets/img/02.png');">
+      <div class="container">
+        <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Tarifs Partenaires PRO</h1>
+        <p style="font-size: 1.1rem; opacity: 0.9; max-width: 700px;">Consultez et téléchargez les grilles tarifaires officielles de nos fabricants.</p>
+      </div>
+    </section>
+
+    <div class="container" style="margin-top: 3rem;">
+      <div id="login-section" style="max-width: 500px; margin: 4rem auto; background: #ffffff; padding: 3rem; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); text-align: center; border: 1px solid rgba(0,0,0,0.06);">
+        <h2 style="font-size: 1.75rem; margin-bottom: 1rem; color: #1A2530;">Espace Sécurisé Professionnel</h2>
+        <p style="color: #666; margin-bottom: 2rem; font-size: 0.95rem;">Veuillez saisir le code d'accès professionnel pour consulter les grilles tarifaires.</p>
+        <div style="display: flex; gap: 1rem; justify-content: center;">
+          <input type="password" id="password-input" placeholder="Code d'accès" style="padding: 0.75rem 1rem; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; width: 60%; outline: none;">
+          <button id="login-btn" class="btn" style="background: #1A2530; color: #ffffff; padding: 0.75rem 1.5rem; border-radius: 4px; border: none; cursor: pointer; font-weight: 600;">Valider</button>
+        </div>
+        <p id="error-msg" style="color: #d9534f; margin-top: 1rem; display: none; font-size: 0.85rem;">Code incorrect. Veuillez réessayer.</p>
+      </div>
+
+      <div id="pro-content" style="display: none;">
+        <div id="grid-tarifs" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 2rem;">
+          <!-- Injection dynamique -->
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container" style="text-align: center; padding: 2rem 0;">
+      <p style="color: #ffffff !important; font-weight: 600; text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);">&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p>
+    </div>
+  </footer>
+
+  <script>
+    const passwordInput = document.getElementById('password-input');
+    const loginBtn = document.getElementById('login-btn');
+    const loginSection = document.getElementById('login-section');
+    const proContent = document.getElementById('pro-content');
+    const errorMsg = document.getElementById('error-msg');
+
+    const partenairesTarifs = [
+      {
+        nom: "Elios Ceramica",
+        pays: "Italie",
+        presentation: "Fabricant italien spécialisé dans les petits formats et la céramique décorative haut de gamme.",
+        fichiers: [
+          { titre: "Grille Tarifaire 2026", desc: "Tarifs professionnels officiels.", lien: "assets/pdf/elios2026.pdf" }
+        ]
+      },
+      {
+        nom: "View Ceramica",
+        pays: "Italie",
+        presentation: "Design contemporain et solutions céramiques innovantes pour les professionnels exigeants.",
+        fichiers: [
+          { titre: "Grille Tarifaire 2026", desc: "Tarifs professionnels officiels.", lien: "assets/pdf/view2026.pdf" }
+        ]
+      },
+      {
+        nom: "La Fenice",
+        pays: "Italie",
+        presentation: "Tradition et modernité italienne au service de l'architecture intérieure.",
+        fichiers: [
+          { titre: "Grille Tarifaire 2026", desc: "Tarifs professionnels officiels.", lien: "assets/pdf/lafenice2026.pdf" }
+        ]
+      },
+      {
+        nom: "Reviglass",
+        pays: "Espagne",
+        presentation: "Spécialiste de la mosaïque en verre recyclé haut de gamme.",
+        fichiers: [
+          { titre: "Grille Tarifaire 2026", desc: "Tarifs professionnels officiels.", lien: "assets/pdf/reviglass2026.pdf" }
+        ]
+      },
+      {
+        nom: "Biopietra",
+        pays: "Italie",
+        presentation: "Pierre reconstituée écologique et certifiée pour l'aménagement décoratif.",
+        fichiers: [
+          { titre: "Catalogue & Tarifs 2026", desc: "Documentation et tarifs Biopietra.", lien: "assets/pdf/biopietra2026.pdf" },
+          { titre: "Code Prix Biopietra", desc: "Grille des codes prix.", lien: "assets/pdf/biopietracodeprix.pdf" }
+        ]
+      },
+      {
+        nom: "Petracer's",
+        pays: "Italie",
+        presentation: "L'expression ultime du luxe à l'italienne dans le carrelage d'exception.",
+        fichiers: [
+          { titre: "Grille Tarifaire", desc: "Tarifs professionnels Petracer's.", lien: "assets/pdf/petracer2023.pdf" }
+        ]
+      },
+      {
+        nom: "Pecchioli Firenze",
+        pays: "Italie",
+        presentation: "Céramique artistique et historique façonnée à Florence.",
+        fichiers: [
+          { titre: "Grille Tarifaire", desc: "Tarifs professionnels Pecchioli.", lien: "assets/pdf/pecchioli2022.pdf" }
+        ]
+      },
+      {
+        nom: "Bulbo",
+        pays: "Italie",
+        presentation: "Créations céramiques audacieuses et design avant-gardiste.",
+        fichiers: [
+          { titre: "Grille Tarifaire 2026", desc: "Tarifs professionnels Bulbo.", lien: "assets/pdf/bulbo2026.pdf" }
+        ]
+      },
+      {
+        nom: "Randal Pro",
+        pays: "Espagne",
+        presentation: "Mobilier de salle de bain sur mesure haut de gamme.",
+        fichiers: [
+          { titre: "Grille Tarifaire", desc: "Meubles sur mesure et solutions haut de gamme.", lien: "assets/pdf/RANDAL03.pdf" }
+        ]
+      },
+      {
+        nom: "Neobath",
+        pays: "Italie",
+        presentation: "Fabricant italien de meubles de salle de bain design.",
+        fichiers: [
+          { titre: "Collection Anima", desc: "Tarifs de la gamme Anima.", lien: "assets/pdf/neobathANIMA.pdf" },
+          { titre: "Collection DNA", desc: "Tarifs de la gamme DNA.", lien: "assets/pdf/neobathDNA.pdf" }
+        ]
+      },
+      {
+        nom: "Koibath",
+        pays: "Espagne",
+        presentation: "Solutions innovantes et esthétiques pour la salle de bain moderne.",
+        fichiers: [
+          { titre: "Grille Tarifaire", desc: "Sur demande auprès de votre agent.", lien: "mailto:jerome@leroyfactory.fr?subject=Demande%20Tarifs%20Koibath" }
+        ]
+      },
+      {
+        nom: "Aquahome",
+        pays: "Robinetterie",
+        presentation: "Robinetterie haut de gamme alliant design et performance technique.",
+        fichiers: [
+          { titre: "Grille Tarifaire", desc: "Mitigeurs, colonnes de douche et accessoires.", lien: "assets/pdf/AQUAHOME.pdf" }
+        ]
+      },
+      {
+        nom: "Opal",
+        pays: "International",
+        presentation: "Fabricant de miroirs lumineux et décoratifs pour espaces d'eau.",
+        fichiers: [
+          { titre: "Grille Tarifaire", desc: "Miroirs et accessoires.", lien: "https://www.koibath.com/wp-content/uploads/CATALOGO-ESPEJOS-2025.pdf" }
+        ]
+      },
+      {
+        nom: "Bilt",
+        pays: "International",
+        presentation: "Croisillons autonivelants et accessoires de pose professionnels.",
+        fichiers: [
+          { titre: "Grille Tarifaire", desc: "Systèmes de nivellement et accessoires.", lien: "assets/pdf/bilt.pdf" }
+        ]
+      }
+    ];
+
+    function checkPassword() {
+      if (passwordInput.value.trim() === '2026') {
+        loginSection.style.display = 'none';
+        proContent.style.display = 'block';
+        renderTarifs();
+      } else {
+        errorMsg.style.display = 'block';
+      }
+    }
+
+    loginBtn.addEventListener('click', checkPassword);
+    passwordInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') checkPassword();
+    });
+
+    function renderTarifs() {
+      const grid = document.getElementById('grid-tarifs');
+      grid.innerHTML = partenairesTarifs.map(fab => {
+        let logoFile = '';
+        const nameLower = fab.nom.toLowerCase();
+        if (nameLower.includes('elios')) logoFile = 'elios.png';
+        else if (nameLower.includes('view')) logoFile = 'view.png';
+        else if (nameLower.includes('fenice')) logoFile = 'lafenice.png';
+        else if (nameLower.includes('reviglass')) logoFile = 'reviglass.png';
+        else if (nameLower.includes('biopietra')) logoFile = 'biopietra.png';
+        else if (nameLower.includes('petracer')) logoFile = 'petracer.png';
+        else if (nameLower.includes('pecchioli')) logoFile = 'pecchioli.png';
+        else if (nameLower.includes('bulbo')) logoFile = 'bulbo.png';
+        else if (nameLower.includes('randal')) logoFile = 'randal.png';
+        else if (nameLower.includes('neobath')) logoFile = 'neobath.png';
+        else if (nameLower.includes('koibath')) logoFile = 'koibath.png';
+        else if (nameLower.includes('aquahome')) logoFile = 'aquahome.png';
+        else if (nameLower.includes('opal')) logoFile = 'opal.png';
+        else if (nameLower.includes('bilt')) logoFile = 'bilt.png';
+
+        let logoStyle = logoFile ? `background-image: url('assets/img/${logoFile}');` : '';
+
+        return `
+          <div class="card-premium" style="padding: 2rem; display: flex; flex-direction: column; justify-content: space-between; position: relative; background: #ffffff; border: 1px solid rgba(0,0,0,0.06); border-radius: 4px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
+            <div style="position: absolute; top: 1.5rem; right: 1.5rem; width: 110px; height: 50px; ${logoStyle} background-repeat: no-repeat; background-position: right top; background-size: contain; opacity: 1; pointer-events: none; z-index: 1;"></div>
+            
+            <div style="position: relative; z-index: 2; padding-right: 90px;">
+              <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #708273; font-weight: 600;">${fab.pays}</span>
+              <h3 style="font-size: 1.25rem; margin: 0.5rem 0 1rem; color: #1A2530;">${fab.nom}</h3>
+              <p style="font-size: 0.9rem; color: #555; margin-bottom: 1.5rem;">${fab.presentation}</p>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 0.75rem; position: relative; z-index: 2;">
+              ${fab.fichiers.map(file => `
+                <div style="background: #F8F6F2; padding: 0.75rem 1rem; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
+                  <div>
+                    <strong style="display: block; font-size: 0.85rem; color: #1A2530;">${file.titre}</strong>
+                    <span style="font-size: 0.75rem; color: #666;">${file.desc}</span>
+                  </div>
+                  <a href="${file.lien}" target="_blank" class="btn btn-outline" style="font-size: 0.75rem; padding: 0.4rem 0.8rem; border-color: #1A2530; color: #1A2530; white-space: nowrap; text-decoration: none; border-radius: 4px;">Tarifs</a>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+  </script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
