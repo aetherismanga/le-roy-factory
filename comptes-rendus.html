@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Comptes-Rendus de Visites — LE ROY FACTORY CRM</title>
   
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="assets/css/variables.css">
@@ -91,7 +90,6 @@
 </head>
 <body class="crm-body">
 
-  <!-- Sidebar CRM -->
   <aside class="crm-sidebar">
     <div class="sidebar-brand">
       <a href="index.html" class="logo-link">
@@ -120,12 +118,11 @@
     </div>
   </aside>
 
-  <!-- Contenu Principal -->
   <main class="crm-main-content">
     <div class="crm-topbar">
       <div class="welcome-box">
         <h1>Fil des Comptes-Rendus de Visites</h1>
-        <p id="user-greeting">Chargement de l'agent...</p>
+        <p id="user-greeting">Chargement des données en direct...</p>
       </div>
       <div class="info-widgets">
         <div class="widget-item"><span>📅</span> <span id="current-date">--</span></div>
@@ -134,7 +131,6 @@
       </div>
     </div>
 
-    <!-- Barre d'outils et filtres -->
     <div class="crm-toolbar">
       <div class="search-wrapper">
         <div class="search-box">
@@ -152,13 +148,17 @@
       </div>
     </div>
 
-    <!-- Liste globale des comptes-rendus -->
     <div id="cr-feed-container">
-      <!-- Injection dynamique des comptes-rendus via JS -->
+      <div style="background: #FFF; padding: 2rem; text-align: center; border-radius: 8px; color: #666; border: 1px solid rgba(0,0,0,0.08);">
+        Chargement des comptes-rendus...
+      </div>
     </div>
   </main>
 
-  <script>
+  <script type="module">
+    import { db } from "./assets/js/firebase.js";
+    import { collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
     document.addEventListener("DOMContentLoaded", () => {
       // Vérification session
       const isLoggedIn = localStorage.getItem("agentLoggedIn");
@@ -167,11 +167,9 @@
         return;
       }
 
-      const agentName = localStorage.getItem("agentName") || "Agent";
-      const firstName = agentName.split(" ")[0];
       const greetingEl = document.getElementById("user-greeting");
       if (greetingEl) {
-        greetingEl.textContent = `Historique partagé Jérôme & Coryne`;
+        greetingEl.textContent = `Historique partagé Jérôme & Coryne (Synchronisé)`;
       }
 
       // Horloge & Date
@@ -196,41 +194,24 @@
         window.location.href = "agent.html";
       });
 
-      // Chargement et affichage des comptes-rendus
-      const clientsData = JSON.parse(localStorage.getItem("clientsDatabaseCustom")) || [];
       const feedContainer = document.getElementById("cr-feed-container");
       const searchInput = document.getElementById("cr-search-input");
       const filterAgent = document.getElementById("cr-filter-agent");
 
+      let allFirebaseCRs = [];
+
       function renderFeed() {
         if (!feedContainer) return;
-        feedContainer.innerHTML = "";
-
-        let allCRs = [];
-        clientsData.forEach(client => {
-          if (client.comptes_rendus && Array.isArray(client.comptes_rendus)) {
-            client.comptes_rendus.forEach(cr => {
-              allCRs.push({
-                ...cr,
-                societe: client.societe,
-                ville: client.ville,
-                code_postal: client.code_postal
-              });
-            });
-          }
-        });
-
-        // Tri du plus récent au plus ancien
-        allCRs.sort((a, b) => new Date(b.date) - new Date(a.date));
 
         const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : "";
         const selectedAgent = filterAgent ? filterAgent.value : "";
 
-        const filtered = allCRs.filter(cr => {
-          const matchAgent = !selectedAgent || cr.author.toLowerCase().includes(selectedAgent.toLowerCase());
+        const filtered = allFirebaseCRs.filter(cr => {
+          const authorName = cr.author || "";
+          const matchAgent = !selectedAgent || authorName.toLowerCase().includes(selectedAgent.toLowerCase());
           const matchSearch = !searchTerm || 
-            cr.societe.toLowerCase().includes(searchTerm) ||
-            cr.text.toLowerCase().includes(searchTerm) ||
+            (cr.societe && cr.societe.toLowerCase().includes(searchTerm)) ||
+            (cr.text && cr.text.toLowerCase().includes(searchTerm)) ||
             (cr.ville && cr.ville.toLowerCase().includes(searchTerm));
           return matchAgent && matchSearch;
         });
@@ -238,33 +219,76 @@
         if (filtered.length === 0) {
           feedContainer.innerHTML = `
             <div style="background: #FFF; padding: 3rem; text-align: center; border-radius: 8px; color: #666; border: 1px solid rgba(0,0,0,0.08);">
-              Aucun compte-rendu enregistré pour le moment.
+              Aucun compte-rendu ne correspond à vos critères.
             </div>`;
           return;
         }
 
+        feedContainer.innerHTML = "";
         filtered.forEach(cr => {
-          const formattedDate = new Date(cr.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+          const dateObj = cr.date ? new Date(cr.date) : new Date();
+          const formattedDate = isNaN(dateObj.getTime()) ? cr.date : dateObj.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+
           const card = document.createElement("div");
           card.className = "cr-card";
           card.innerHTML = `
             <div class="cr-header">
-              <span class="cr-client-name">🏢 ${cr.societe} <small style="font-weight: 400; font-size: 0.85rem; color: #666;">(${cr.code_postal || ''} ${cr.ville || ''})</small></span>
+              <span class="cr-client-name">
+                🏢 <a href="clients.html?edit=${cr.clientId}" style="color: #1A2530; text-decoration: none;">${cr.societe}</a> 
+                <small style="font-weight: 400; font-size: 0.85rem; color: #666;">(${cr.code_postal || ''} ${cr.ville || ''})</small>
+              </span>
               <div class="cr-meta">
-                <span>👤 <strong>${cr.author}</strong></span>
+                <span>👤 <strong>${cr.author || 'Agent'}</strong></span>
                 <span>📅 ${formattedDate}</span>
               </div>
             </div>
-            <div class="cr-text">${cr.text}</div>
+            <div class="cr-text">${cr.text || ''}</div>
           `;
           feedContainer.appendChild(card);
         });
       }
 
+      // Écoute en temps réel de la collection Firebase "clients"
+      onSnapshot(collection(db, "clients"), (querySnapshot) => {
+        allFirebaseCRs = [];
+
+        querySnapshot.forEach((docSnap) => {
+          const data = docSnap.data();
+          const clientId = docSnap.id;
+          const societe = data.societe || "Entreprise sans nom";
+          const ville = data.ville || "";
+          const code_postal = data.codePostal || data.code_postal || "";
+
+          // Récupération des comptes-rendus attachés au client
+          const crList = data.comptes_rendus || data.comptesRendus || [];
+          if (Array.isArray(crList)) {
+            crList.forEach(cr => {
+              allFirebaseCRs.push({
+                clientId: clientId,
+                societe: societe,
+                ville: ville,
+                code_postal: code_postal,
+                author: cr.author || cr.auteur || "Agent",
+                date: cr.date || "",
+                text: cr.text || cr.texte || cr.notes || ""
+              });
+            });
+          }
+        });
+
+        // Tri chronologique du plus récent au plus ancien
+        allFirebaseCRs.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        renderFeed();
+      }, (error) => {
+        console.error("Erreur de synchronisation des comptes-rendus :", error);
+        if (feedContainer) {
+          feedContainer.innerHTML = `<div style="background: #FFF; padding: 2rem; text-align: center; color: #DC2626;">Erreur de connexion à la base de données Firebase.</div>`;
+        }
+      });
+
       searchInput?.addEventListener("input", renderFeed);
       filterAgent?.addEventListener("change", renderFeed);
-
-      renderFeed();
     });
   </script>
 </body>
