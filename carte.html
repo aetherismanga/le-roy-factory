@@ -37,13 +37,96 @@
       text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
     }
 
+    .map-card {
+      background: #FFFFFF;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
     #map {
       width: 100%;
-      height: 680px;
-      border-radius: 10px;
-      border: 1px solid rgba(0, 0, 0, 0.1);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      height: 620px;
+      border-radius: 8px;
       z-index: 1;
+    }
+
+    /* Mode Plein Écran */
+    .map-card.fullscreen {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      z-index: 9999 !important;
+      border-radius: 0 !important;
+      padding: 1rem !important;
+      margin: 0 !important;
+      background: #FFFFFF !important;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .map-card.fullscreen #map {
+      flex-grow: 1;
+      height: auto !important;
+    }
+
+    /* Barre de filtres et boutons */
+    .filter-bar {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .btn-filter {
+      background: #FAF8F5;
+      color: #1A2530;
+      border: 1px solid #D1D5DB;
+      padding: 0.4rem 0.85rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-filter:hover, .btn-filter.active {
+      background: #111;
+      color: #FFD700;
+      border-color: #D4AF37;
+    }
+
+    .select-dept {
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      border: 1px solid #D1D5DB;
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: #FAF8F5;
+      color: #1A2530;
+    }
+
+    .btn-fullscreen {
+      background: #111;
+      color: #FFD700;
+      border: 1px solid #D4AF37;
+      padding: 0.4rem 0.85rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-left: auto;
+    }
+    .btn-fullscreen:hover {
+      background: #D4AF37;
+      color: #111;
     }
 
     .leaflet-popup-content-wrapper {
@@ -53,14 +136,14 @@
     }
 
     .popup-title {
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: 800;
-      color: #1A2530;
-      margin-bottom: 0.25rem;
+      color: #111;
+      margin: 0.2rem 0 0.4rem 0;
     }
 
     .popup-address {
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       color: #555;
       margin-bottom: 0.5rem;
       line-height: 1.4;
@@ -73,56 +156,42 @@
       font-size: 0.75rem;
       font-weight: 700;
       text-transform: uppercase;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.25rem;
     }
 
     .popup-actions {
       display: flex;
-      gap: 0.5rem;
+      gap: 0.4rem;
       flex-wrap: wrap;
-      margin-top: 0.75rem;
+      margin-top: 0.6rem;
     }
 
     .popup-btn {
       display: inline-flex;
       align-items: center;
-      gap: 0.35rem;
-      padding: 0.45rem 0.75rem;
-      border-radius: 6px;
-      font-size: 0.82rem;
-      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
       text-decoration: none;
       transition: all 0.2s ease;
     }
 
     .btn-gps {
-      background: #111111;
-      color: #FFD700 !important;
-      border: 1px solid #D4AF37;
-    }
-
-    .btn-gps:hover {
       background: #D4AF37;
-      color: #111111 !important;
+      color: #111 !important;
+      font-weight: 700;
     }
 
     .btn-waze {
       background: #33CCFF;
-      color: #FFFFFF !important;
+      color: #FFF !important;
+      font-weight: 700;
     }
 
-    .btn-waze:hover {
-      background: #0099FF;
-    }
-
-    .btn-edit {
-      background: #F3F4F6;
-      color: #333333 !important;
-      border: 1px solid #D1D5DB;
-    }
-
-    .btn-edit:hover {
-      background: #E5E7EB;
+    .btn-fiche {
+      background: #111;
+      color: #FFD700 !important;
     }
   </style>
 </head>
@@ -161,8 +230,8 @@
   <main class="crm-main-content">
     <div class="crm-topbar">
       <div class="welcome-box">
-        <h1>Cartographie Commerciale</h1>
-        <p id="user-greeting">Localisation interactive de vos clients et prospects</p>
+        <h1>Carte du Portefeuille Commercial</h1>
+        <p id="user-greeting">Géolocalisation terrain des clients et prospects</p>
       </div>
       <div class="info-widgets">
         <div class="widget-item"><span>📅</span> <span id="current-date">--</span></div>
@@ -170,30 +239,40 @@
       </div>
     </div>
 
-    <div class="crm-toolbar">
-      <div class="search-wrapper">
-        <div class="search-box">
-          <span>🔍</span>
-          <input type="text" id="map-search-input" placeholder="Rechercher une société, ville, code postal...">
-        </div>
-      </div>
-
-      <div class="select-filters">
-        <select id="map-filter-agent" class="crm-select">
-          <option value="">Tous les secteurs / agents</option>
-          <option value="jerome">Secteur Jérôme (30, 34, 11, 66)</option>
-          <option value="coryne">Secteur Coryne (13, 83, 84, 04, 06, 05, 2A, 2B, Monaco)</option>
+    <div class="map-card" id="map-card-container">
+      <div class="filter-bar">
+        <button class="btn-filter active" data-filter="all">Tous les secteurs</button>
+        <button class="btn-filter" data-filter="jerome">Secteur Jérôme (30, 34, 11, 66)</button>
+        <button class="btn-filter" data-filter="coryne">Secteur Coryne (13, 83, 84, 04, 06, 05, 2A, 2B, Monaco)</button>
+        
+        <select id="dept-select" class="select-dept">
+          <option value="">Filtrer par département...</option>
+          <option value="11">11 - Aude</option>
+          <option value="13">13 - Bouches-du-Rhône</option>
+          <option value="30">30 - Gard</option>
+          <option value="34">34 - Hérault</option>
+          <option value="04">04 - Alpes-de-Haute-Provence</option>
+          <option value="05">05 - Hautes-Alpes</option>
+          <option value="06">06 - Alpes-Maritimes</option>
+          <option value="83">83 - Var</option>
+          <option value="84">84 - Vaucluse</option>
+          <option value="2A">2A - Corse-du-Sud</option>
+          <option value="2B">2B - Haute-Corse</option>
+          <option value="66">66 - Pyrénées-Orientales</option>
+          <option value="98">98 - Monaco</option>
         </select>
 
-        <select id="map-filter-type" class="crm-select">
-          <option value="">Tous les statuts</option>
-          <option value="client">Clients uniquement</option>
-          <option value="prospect">Prospects uniquement</option>
-        </select>
+        <button id="btn-fullscreen-toggle" class="btn-fullscreen">
+          <span id="fs-icon">⛶</span> <span id="fs-text">Pleine page</span>
+        </button>
       </div>
+
+      <div style="margin-bottom: 0.75rem;">
+        <span id="map-counter" style="font-size: 0.85rem; color: #666; font-weight: 600;">Chargement instantané...</span>
+      </div>
+
+      <div id="map"></div>
     </div>
-
-    <div id="map"></div>
   </main>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
@@ -208,6 +287,13 @@
       if (!isLoggedIn) {
         window.location.href = "agent.html";
         return;
+      }
+
+      const agentName = localStorage.getItem("agentName") || "Agent";
+      const firstName = agentName.split(" ")[0];
+      const greetingEl = document.getElementById("user-greeting");
+      if (greetingEl) {
+        greetingEl.textContent = `Géolocalisation terrain de ${firstName} — LE ROY FACTORY`;
       }
 
       // 2. Horloge & Date
@@ -232,106 +318,153 @@
         window.location.href = "agent.html";
       });
 
-      // 3. Initialisation de la carte Leaflet (Centrée sur le sud de la France)
+      // 3. Gestion du Mode Plein Écran
+      const mapCardContainer = document.getElementById("map-card-container");
+      const btnFullscreenToggle = document.getElementById("btn-fullscreen-toggle");
+      const fsIcon = document.getElementById("fs-icon");
+      const fsText = document.getElementById("fs-text");
+
+      btnFullscreenToggle?.addEventListener("click", () => {
+        mapCardContainer.classList.toggle("fullscreen");
+        const isFs = mapCardContainer.classList.contains("fullscreen");
+        fsIcon.textContent = isFs ? "🗗" : "⛶";
+        fsText.textContent = isFs ? "Mode normal" : "Pleine page";
+        setTimeout(() => map.invalidateSize(), 150);
+      });
+
+      // 4. Initialisation Carte Leaflet
       const map = L.map('map').setView([43.6, 4.5], 8);
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
-        attribution: '&copy; OpenStreetMap contributors | LE ROY FACTORY'
+        attribution: '© OpenStreetMap contributors | LE ROY FACTORY'
       }).addTo(map);
 
-      // Icônes personnalisées
+      const markersLayer = L.layerGroup().addTo(map);
+      const counterEl = document.getElementById("map-counter");
+
+      // Pins personnalisés
       const greenIcon = L.divIcon({
         className: 'custom-pin-green',
-        html: `<div style="background-color: #10B981; width: 16px; height: 16px; border-radius: 50%; border: 2px solid #FFFFFF; box-shadow: 0 0 8px rgba(0,0,0,0.4);"></div>`,
+        html: `<div style="background-color: #047857; width: 16px; height: 16px; border-radius: 50%; border: 2px solid #FFF; box-shadow: 0 2px 5px rgba(0,0,0,0.3);"></div>`,
         iconSize: [16, 16],
         iconAnchor: [8, 8]
       });
 
       const goldIcon = L.divIcon({
         className: 'custom-pin-gold',
-        html: `<div style="background-color: #D4AF37; width: 16px; height: 16px; border-radius: 50%; border: 2px solid #FFFFFF; box-shadow: 0 0 8px rgba(0,0,0,0.4);"></div>`,
+        html: `<div style="background-color: #D4AF37; width: 16px; height: 16px; border-radius: 50%; border: 2px solid #FFF; box-shadow: 0 2px 5px rgba(0,0,0,0.3);"></div>`,
         iconSize: [16, 16],
         iconAnchor: [8, 8]
       });
 
-      let allClients = [];
-      let markersLayer = L.layerGroup().addTo(map);
+      const sectorJerome = ["30", "34", "11", "66"];
+      const sectorCoryne = ["13", "83", "84", "04", "06", "05", "2A", "2B", "98"];
 
-      // 4. Fonction de rendu des marqueurs
+      let currentFilter = "all";
+      let selectedDept = "";
+      let allClientData = [];
+
+      // Filtres par bouton et département
+      const filterButtons = document.querySelectorAll(".btn-filter");
+      filterButtons.forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          filterButtons.forEach(b => b.classList.remove("active"));
+          e.target.classList.add("active");
+          currentFilter = e.target.getAttribute("data-filter");
+          selectedDept = "";
+          document.getElementById("dept-select").value = "";
+          renderMarkers();
+        });
+      });
+
+      document.getElementById("dept-select")?.addEventListener("change", (e) => {
+        selectedDept = e.target.value;
+        filterButtons.forEach(b => b.classList.remove("active"));
+        currentFilter = "dept";
+        renderMarkers();
+      });
+
+      function extractDept(cp, ville) {
+        let cleanCp = (cp || "").trim();
+        if (cleanCp.length >= 2) {
+          let dept = cleanCp.substring(0, 2);
+          if (dept === "20") return parseInt(cleanCp) < 20200 ? "2A" : "2B";
+          return dept;
+        }
+        if ((ville || "").toLowerCase().includes("monaco")) return "98";
+        return "";
+      }
+
+      // Rendu instantané des marqueurs
       function renderMarkers() {
         markersLayer.clearLayers();
+        let validCount = 0;
 
-        const search = document.getElementById("map-search-input").value.toLowerCase().trim();
-        const selectedAgent = document.getElementById("map-filter-agent").value;
-        const selectedType = document.getElementById("map-filter-type").value;
+        allClientData.forEach(item => {
+          const dept = extractDept(item.cp, item.ville);
+          let match = false;
 
-        const jeromeDeps = ["30", "34", "11", "66"];
-        const coryneDeps = ["13", "83", "84", "04", "06", "05", "2A", "2B", "98"];
+          if (currentFilter === "all") {
+            match = true;
+          } else if (currentFilter === "jerome") {
+            match = sectorJerome.includes(dept);
+          } else if (currentFilter === "coryne") {
+            match = sectorCoryne.includes(dept);
+          } else if (currentFilter === "dept") {
+            match = (selectedDept === "" || dept === selectedDept);
+          }
 
-        allClients.forEach(item => {
-          const type = (item.type || "client").toLowerCase();
-          const dep = item.cp ? item.cp.substring(0, 2) : "";
-
-          // Filtre Agent / Secteur
-          let matchAgent = true;
-          if (selectedAgent === "jerome") matchAgent = jeromeDeps.includes(dep);
-          else if (selectedAgent === "coryne") matchAgent = coryneDeps.includes(dep);
-
-          // Filtre Type
-          const matchType = !selectedType || type === selectedType;
-
-          // Filtre Recherche
-          const matchSearch = !search ||
-            item.societe.toLowerCase().includes(search) ||
-            item.ville.toLowerCase().includes(search) ||
-            item.cp.includes(search);
-
-          if (matchAgent && matchType && matchSearch && item.lat && item.lon) {
-            const icon = type === "client" ? greenIcon : goldIcon;
+          if (match && item.lat !== null && item.lon !== null) {
+            const icon = item.type === 'client' ? greenIcon : goldIcon;
             const marker = L.marker([item.lat, item.lon], { icon: icon });
 
-            // URIs GPS officielles et fonctionnelles
             const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${item.lat},${item.lon}`;
             const wazeUrl = `https://waze.com/ul?ll=${item.lat},${item.lon}&navigate=yes`;
 
             const popupContent = `
-              <div>
-                <span class="popup-badge ${type === 'prospect' ? 'badge-prospect' : 'badge-client'}">${type}</span>
+              <div style="font-family: 'Inter', sans-serif; padding: 2px; min-width: 200px;">
+                <span class="popup-badge ${item.type === 'prospect' ? 'badge-prospect' : 'badge-client'}">${item.type} (Dept: ${dept || 'N/C'})</span>
                 <div class="popup-title">${item.societe}</div>
                 <div class="popup-address">
                   📍 ${item.adresse ? item.adresse + '<br>' : ''}${item.cp} ${item.ville}
-                  ${item.telephone ? '<br>📞 <a href="tel:' + item.telephone + '">' + item.telephone + '</a>' : ''}
+                  ${item.telephone ? '<br>📞 <a href="tel:' + item.telephone + '" style="color: #111; font-weight: 600;">' + item.telephone + '</a>' : ''}
                 </div>
                 <div class="popup-actions">
+                  <a href="clients.html?edit=${item.id}" class="popup-btn btn-fiche">✏️ Fiche client</a>
                   <a href="${googleMapsUrl}" target="_blank" rel="noopener" class="popup-btn btn-gps">🧭 Google Maps</a>
                   <a href="${wazeUrl}" target="_blank" rel="noopener" class="popup-btn btn-waze">🚗 Waze</a>
-                  <a href="clients.html?edit=${item.id}" class="popup-btn btn-edit">✏️ Fiche Client</a>
                 </div>
               </div>
             `;
 
             marker.bindPopup(popupContent);
             markersLayer.addLayer(marker);
+            validCount++;
           }
         });
+
+        if (counterEl) {
+          counterEl.textContent = `${validCount} entreprise(s) affichée(s) sur la carte (Affichage instantané)`;
+        }
       }
 
-      // 5. Synchronisation Firebase et Géocodage automatique
-      onSnapshot(collection(db, "clients"), async (querySnapshot) => {
-        allClients = [];
+      // 5. Chargement instantané + Géocodage asynchrone en arrière-plan
+      onSnapshot(collection(db, "clients"), (querySnapshot) => {
+        allClientData = [];
+        const clientsToGeocode = [];
 
-        for (const docSnap of querySnapshot.docs) {
+        querySnapshot.forEach((docSnap) => {
           const docId = docSnap.id;
           const data = docSnap.data();
 
           const societe = data.societe || "Entreprise sans nom";
-          const adresse = data.adresse || "";
+          const adresse = (data.adresse || "").trim();
           
           let cp = (data.codePostal || data.code_postal || "").toString().trim();
           let ville = (data.ville || "").toString().trim();
 
-          // Correction CP / Ville si inversés
+          // Inversion automatique CP / Ville
           if (/^\d{5}$/.test(ville) && !/^\d{5}$/.test(cp)) {
             const tmp = cp; cp = ville; ville = tmp;
           }
@@ -339,39 +472,61 @@
           const type = (data.type || "prospect").toLowerCase();
           const telephone = data.telephone || "";
 
-          let lat = data.lat;
-          let lon = data.lon;
+          let lat = data.lat !== undefined && data.lat !== null ? parseFloat(data.lat) : null;
+          let lon = data.lon !== undefined && data.lon !== null ? parseFloat(data.lon) : null;
 
-          // Si le GPS n'est pas enregistré, géocodage via OpenStreetMap Nominatim
-          if ((lat === undefined || lon === undefined || lat === null || lon === null) && (adresse.length > 2 || ville.length > 1)) {
-            const fullAddress = `${adresse} ${cp} ${ville}, France`.trim();
-            try {
-              const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(fullAddress)}`);
-              const results = await response.json();
+          const clientObj = { id: docId, societe, adresse, cp, ville, type, telephone, lat, lon };
+          allClientData.push(clientObj);
 
-              if (results && results.length > 0) {
-                lat = parseFloat(results[0].lat);
-                lon = parseFloat(results[0].lon);
-
-                // Sauvegarde définitive dans Firebase
-                await updateDoc(doc(db, "clients", docId), { lat: lat, lon: lon });
-              }
-            } catch (err) {
-              console.warn("Échec du géocodage GPS pour :", fullAddress);
-            }
+          if ((lat === null || lon === null) && (adresse || cp || ville)) {
+            clientsToGeocode.push(clientObj);
           }
+        });
 
-          allClients.push({
-            id: docId, societe, adresse, cp, ville, type, telephone, lat, lon
-          });
-        }
-
+        // AFFICHAGE IMMÉDIAT
         renderMarkers();
+
+        // GÉOCODAGE EN ARRIÈRE-PLAN
+        if (clientsToGeocode.length > 0) {
+          geocodeInBackground(clientsToGeocode);
+        }
       });
 
-      document.getElementById("map-search-input")?.addEventListener("input", renderMarkers);
-      document.getElementById("map-filter-agent")?.addEventListener("change", renderMarkers);
-      document.getElementById("map-filter-type")?.addEventListener("change", renderMarkers);
+      // Fonction de géocodage progressif
+      async function geocodeInBackground(list) {
+        for (const item of list) {
+          let query = `${item.adresse} ${item.cp} ${item.ville}, France`.trim();
+          if (!item.adresse) query = `${item.cp} ${item.ville}, France`.trim();
+
+          try {
+            let res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`);
+            let results = await res.json();
+
+            // Repli sur Code Postal + Ville si l'adresse exacte échoue
+            if ((!results || results.length === 0) && item.adresse && (item.cp || item.ville)) {
+              const fallbackQuery = `${item.cp} ${item.ville}, France`.trim();
+              res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(fallbackQuery)}`);
+              results = await res.json();
+            }
+
+            if (results && results.length > 0) {
+              item.lat = parseFloat(results[0].lat);
+              item.lon = parseFloat(results[0].lon);
+
+              // Sauvegarde définitive dans Firebase
+              await updateDoc(doc(db, "clients", item.id), { lat: item.lat, lon: item.lon });
+
+              // Mise à jour de la carte au fur et à mesure
+              renderMarkers();
+            }
+          } catch (err) {
+            console.warn("Échec géocodage pour :", item.societe, err);
+          }
+
+          // Temporisation pour respecter l'API Nominatim
+          await new Promise(r => setTimeout(r, 200));
+        }
+      }
     });
   </script>
 </body>
