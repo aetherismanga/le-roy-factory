@@ -122,16 +122,19 @@
     <div class="crm-topbar">
       <div class="welcome-box">
         <h1>Fil des Comptes-Rendus de Visites</h1>
-        <p id="user-greeting">Chargement des données en direct...</p>
+        <p id="user-greeting">Historique partagé Jérôme & Coryne (Synchronisé)</p>
       </div>
       <div class="info-widgets">
         <div class="widget-item"><span>📅</span> <span id="current-date">--</span></div>
         <div class="widget-item"><span>⏰</span> <span id="current-time">--</span></div>
-        <div class="widget-item"><span>🌤</span> <span>26°C, Ensoleillé</span></div>
       </div>
     </div>
 
     <div class="crm-toolbar">
+      <button id="btn-open-cr-modal" class="btn-primary-gold">
+        ➕ Rédiger un compte-rendu
+      </button>
+
       <div class="search-wrapper">
         <div class="search-box">
           <span>🔍</span>
@@ -155,9 +158,51 @@
     </div>
   </main>
 
+  <div id="cr-modal" class="crm-modal" style="display: none;">
+    <div class="modal-content" style="max-width: 600px;">
+      <button class="modal-close" id="btn-close-cr-modal">&times;</button>
+      <div class="modal-header">
+        <h2>Nouveau compte-rendu</h2>
+      </div>
+
+      <form id="form-new-cr" style="display: flex; flex-direction: column; gap: 1.2rem;">
+        <div>
+          <label style="display: block; font-weight: 700; font-size: 0.9rem; margin-bottom: 0.4rem; color: #1A2530;">Client / Prospect associé *</label>
+          <select id="cr-select-client" class="crm-select" style="width: 100%;" required>
+            <option value="" disabled selected>-- Sélectionner un client --</option>
+          </select>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div>
+            <label style="display: block; font-weight: 700; font-size: 0.9rem; margin-bottom: 0.4rem; color: #1A2530;">Date de visite</label>
+            <input type="date" id="cr-input-date" class="crm-select" style="width: 100%;" required>
+          </div>
+          <div>
+            <label style="display: block; font-weight: 700; font-size: 0.9rem; margin-bottom: 0.4rem; color: #1A2530;">Auteur</label>
+            <select id="cr-select-author" class="crm-select" style="width: 100%;" required>
+              <option value="Jérôme Hugol">Jérôme Hugol</option>
+              <option value="Coryne">Coryne</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label style="display: block; font-weight: 700; font-size: 0.9rem; margin-bottom: 0.4rem; color: #1A2530;">Compte-rendu de la visite *</label>
+          <textarea id="cr-input-text" rows="5" placeholder="Rédigez les détails de l'échange, produits présentés, suites à donner..." style="width: 100%; padding: 0.75rem; border: 1px solid #D1D5DB; border-radius: 6px; font-family: inherit; font-size: 0.95rem; box-sizing: border-box;" required></textarea>
+        </div>
+
+        <div class="modal-footer" style="margin-top: 1rem; padding-top: 1rem;">
+          <button type="button" id="btn-cancel-cr" class="filter-btn">Annuler</button>
+          <button type="submit" id="btn-save-cr" class="btn-primary-gold">✓ Valider et Enregistrer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <script type="module">
     import { db } from "./assets/js/firebase.js";
-    import { collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { collection, doc, updateDoc, onSnapshot, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
     document.addEventListener("DOMContentLoaded", () => {
       // Vérification session
@@ -167,9 +212,10 @@
         return;
       }
 
-      const greetingEl = document.getElementById("user-greeting");
-      if (greetingEl) {
-        greetingEl.textContent = `Historique partagé Jérôme & Coryne (Synchronisé)`;
+      const currentAgent = localStorage.getItem("agentName") || "Jérôme Hugol";
+      const authorSelect = document.getElementById("cr-select-author");
+      if (authorSelect) {
+        authorSelect.value = currentAgent.includes("Coryne") ? "Coryne" : "Jérôme Hugol";
       }
 
       // Horloge & Date
@@ -194,11 +240,40 @@
         window.location.href = "agent.html";
       });
 
+      // Modale Rédiger un compte-rendu
+      const crModal = document.getElementById("cr-modal");
+      const btnOpenModal = document.getElementById("btn-open-cr-modal");
+      const btnCloseModal = document.getElementById("btn-close-cr-modal");
+      const btnCancelModal = document.getElementById("btn-cancel-cr");
+      const crSelectClient = document.getElementById("cr-select-client");
+      const crInputDate = document.getElementById("cr-input-date");
+      const crForm = document.getElementById("form-new-cr");
+
+      // Date par défaut (Aujourd'hui)
+      if (crInputDate) {
+        crInputDate.value = new Date().toISOString().split('T')[0];
+      }
+
+      function openModal() {
+        if (crModal) crModal.style.display = "flex";
+      }
+      function closeModal() {
+        if (crModal) crModal.style.display = "none";
+        crForm.reset();
+        if (crInputDate) crInputDate.value = new Date().toISOString().split('T')[0];
+      }
+
+      btnOpenModal?.addEventListener("click", openModal);
+      btnCloseModal?.addEventListener("click", closeModal);
+      btnCancelModal?.addEventListener("click", closeModal);
+
+      // Gestion de la liste et du fil de comptes-rendus
       const feedContainer = document.getElementById("cr-feed-container");
       const searchInput = document.getElementById("cr-search-input");
       const filterAgent = document.getElementById("cr-filter-agent");
 
       let allFirebaseCRs = [];
+      let clientsList = [];
 
       function renderFeed() {
         if (!feedContainer) return;
@@ -212,7 +287,8 @@
           const matchSearch = !searchTerm || 
             (cr.societe && cr.societe.toLowerCase().includes(searchTerm)) ||
             (cr.text && cr.text.toLowerCase().includes(searchTerm)) ||
-            (cr.ville && cr.ville.toLowerCase().includes(searchTerm));
+            (cr.ville && cr.ville.toLowerCase().includes(searchTerm)) ||
+            (cr.code_postal && cr.code_postal.toLowerCase().includes(searchTerm));
           return matchAgent && matchSearch;
         });
 
@@ -235,7 +311,7 @@
             <div class="cr-header">
               <span class="cr-client-name">
                 🏢 <a href="clients.html?edit=${cr.clientId}" style="color: #1A2530; text-decoration: none;">${cr.societe}</a> 
-                <small style="font-weight: 400; font-size: 0.85rem; color: #666;">(${cr.code_postal || ''} ${cr.ville || ''})</small>
+                <small style="font-weight: 400; font-size: 0.85rem; color: #666;">(${cr.code_postal ? cr.code_postal + ' ' : ''}${cr.ville})</small>
               </span>
               <div class="cr-meta">
                 <span>👤 <strong>${cr.author || 'Agent'}</strong></span>
@@ -248,26 +324,45 @@
         });
       }
 
-      // Écoute en temps réel de la collection Firebase "clients"
+      // Synchronisation temps réel Firestore
       onSnapshot(collection(db, "clients"), (querySnapshot) => {
         allFirebaseCRs = [];
+        clientsList = [];
+
+        crSelectClient.innerHTML = `<option value="" disabled selected>-- Sélectionner un client --</option>`;
 
         querySnapshot.forEach((docSnap) => {
           const data = docSnap.data();
           const clientId = docSnap.id;
           const societe = data.societe || "Entreprise sans nom";
-          const ville = data.ville || "";
-          const code_postal = data.codePostal || data.code_postal || "";
 
-          // Récupération des comptes-rendus attachés au client
+          // Point 2 : Correction automatique de l'inversion Code Postal / Ville
+          let rawCp = (data.codePostal || data.code_postal || data.cp || "").toString().trim();
+          let rawVille = (data.ville || data.city || "").toString().trim();
+
+          if (/^\d{5}$/.test(rawVille) && !/^\d{5}$/.test(rawCp)) {
+            const temp = rawCp;
+            rawCp = rawVille;
+            rawVille = temp;
+          }
+
+          clientsList.push({ id: clientId, societe: societe, code_postal: rawCp, ville: rawVille });
+
+          // Remplissage menu déroulant client
+          const opt = document.createElement("option");
+          opt.value = clientId;
+          opt.textContent = `${societe} (${rawCp} ${rawVille})`.trim();
+          crSelectClient.appendChild(opt);
+
+          // Extraction des comptes-rendus
           const crList = data.comptes_rendus || data.comptesRendus || [];
           if (Array.isArray(crList)) {
             crList.forEach(cr => {
               allFirebaseCRs.push({
                 clientId: clientId,
                 societe: societe,
-                ville: ville,
-                code_postal: code_postal,
+                ville: rawVille,
+                code_postal: rawCp,
                 author: cr.author || cr.auteur || "Agent",
                 date: cr.date || "",
                 text: cr.text || cr.texte || cr.notes || ""
@@ -276,14 +371,63 @@
           }
         });
 
-        // Tri chronologique du plus récent au plus ancien
+        // Tri chronologique (du plus récent au plus ancien)
         allFirebaseCRs.sort((a, b) => new Date(b.date) - new Date(a.date));
 
         renderFeed();
-      }, (error) => {
-        console.error("Erreur de synchronisation des comptes-rendus :", error);
-        if (feedContainer) {
-          feedContainer.innerHTML = `<div style="background: #FFF; padding: 2rem; text-align: center; color: #DC2626;">Erreur de connexion à la base de données Firebase.</div>`;
+      });
+
+      // Point 1 & 3 : Enregistrement et validation du compte-rendu dans Firebase
+      crForm?.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const selectedClientId = crSelectClient.value;
+        const dateVal = crInputDate.value;
+        const authorVal = document.getElementById("cr-select-author").value;
+        const textVal = document.getElementById("cr-input-text").value.trim();
+
+        if (!selectedClientId) {
+          alert("Veuillez choisir un client dans la liste.");
+          return;
+        }
+
+        const btnSave = document.getElementById("btn-save-cr");
+        if (btnSave) {
+          btnSave.disabled = true;
+          btnSave.textContent = "Enregistrement...";
+        }
+
+        try {
+          const clientDocRef = doc(db, "clients", selectedClientId);
+          const docSnap = await getDoc(clientDocRef);
+
+          if (docSnap.exists()) {
+            const currentData = docSnap.data();
+            const existingCRs = currentData.comptes_rendus || currentData.comptesRendus || [];
+
+            const newCR = {
+              date: dateVal,
+              author: authorVal,
+              text: textVal
+            };
+
+            const updatedCRs = [newCR, ...existingCRs];
+
+            // Mise à jour de Firebase Firestore
+            await updateDoc(clientDocRef, {
+              comptes_rendus: updatedCRs
+            });
+
+            closeModal();
+          }
+        } catch (error) {
+          console.error("Erreur lors de la sauvegarde du compte-rendu :", error);
+          alert("Une erreur s'est produite lors de l'enregistrement.");
+        } finally {
+          if (btnSave) {
+            btnSave.disabled = false;
+            btnSave.textContent = "✓ Valider et Enregistrer";
+          }
         }
       });
 
