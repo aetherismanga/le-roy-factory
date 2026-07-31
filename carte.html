@@ -224,9 +224,7 @@
 
   <script type="module">
     import { db } from "./assets/js/firebase.js";
-    import { collection, onSnapshot, doc, updatedoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-    // Note: on importe updateDoc ci-dessous proprement
-    import { updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { collection, onSnapshot, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
     document.addEventListener("DOMContentLoaded", () => {
       const isLoggedIn = localStorage.getItem("agentLoggedIn");
