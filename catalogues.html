@@ -47,7 +47,6 @@
     }
     .main-nav li { display: flex; align-items: center; }
     
-    /* Style de base des liens du menu épuré */
     .main-nav > li > a:not(.agent-btn) {
       text-decoration: none;
       color: #ffffff !important;
@@ -56,23 +55,17 @@
       padding-bottom: 4px;
       background: transparent !important;
       transition: color 0.3s ease;
-      text-shadow: none !important;
-      box-shadow: none !important;
-      border-radius: 0 !important;
     }
 
-    /* Effet au survol simple */
     .main-nav > li > a:not(.agent-btn):hover {
       color: #d4af37 !important;
       background: transparent !important;
     }
 
-    /* Onglet actif : texte blanc, seule la ligne dorée apparaît en dessous */
     .main-nav > li > a.active:not(.agent-btn) {
       color: #ffffff !important;
       font-weight: 600;
       background: transparent !important;
-      box-shadow: none !important;
     }
     
     .main-nav > li > a.active:not(.agent-btn):::after {
@@ -99,8 +92,6 @@
       font-weight: 600;
       white-space: nowrap;
       transition: .25s;
-      text-shadow: none !important;
-      box-shadow: none !important;
     }
     .agent-btn::after { display: none !important; }
     .agent-btn:hover { background: #d4af37 !important; color: #111 !important; }
@@ -138,7 +129,7 @@
       <p style="font-size: 1.1rem; color: #666; margin-bottom: 3rem; max-width: 700px;">Consultez et téléchargez l'ensemble des catalogues officiels et documentations de nos fabricants[cite: 13].</p>
       
       <div id="grid-catalogues" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem;">
-        <!-- Injection dynamique sécurisée via JS -->
+        <!-- Injection dynamique via JS -->
       </div>
     </div>
   </main>
@@ -194,7 +185,7 @@
           pays: "Italie",
           presentation: "Pierre reconstituée écologique et certifiée pour l'aménagement décoratif.",
           fichiers: [
-            { titre: "Catalogue Pierre Écologique", desc: "Revêtements muraux et sols texturés.", lien: "#" }
+            { titre: "Catalogue Pierre Écologique", desc: "Revêtements muraux et sols texturés.", lien: "https://www.biopietra.com" }
           ]
         },
         {
