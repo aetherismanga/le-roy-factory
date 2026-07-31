@@ -2,418 +2,255 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <link rel="icon" type="image/png" href="assets/img/logo03lrf.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Carte Commerciale — LE ROY FACTORY CRM</title>
-  
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <!-- Leaflet CSS (Carte interactive) -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-
-  <!-- Styles CRM -->
+  <title>Contact — LE ROY FACTORY</title>
+  <meta name="description" content="Contactez l'équipe LE ROY FACTORY pour toute demande professionnelle, devis ou information sur nos fabricants.">
   <link rel="stylesheet" href="assets/css/variables.css">
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
-  <link rel="stylesheet" href="assets/css/clients.css">
-
   <style>
-    body.crm-body {
+    /* Fond général de la page en blanc crème / coquille d'œuf */
+    body, html {
       background-color: #FBF9F5 !important;
       background-image: none !important;
       color: #1A2530 !important;
     }
 
-    .crm-topbar {
-      background-image: url('assets/img/bandeau02.png') !important;
-      background-size: cover !important;
-      background-position: center !important;
-      background-repeat: no-repeat !important;
-      border-bottom: 2px solid #D4AF37 !important;
-      color: #FFFFFF !important;
+    /* Header et Footer avec l'image bandeau02.png */
+    header, footer {
+      background-image: url('assets/img/bandeau02.png');
+      background-size: cover;
+      background-position: center;
+      color: #ffffff;
+      border-bottom: 2px solid #D4AF37;
     }
-    .crm-topbar h1, .crm-topbar p, .welcome-box h1, .welcome-box p {
-      color: #FFFFFF !important;
+    footer {
+      border-top: 2px solid #D4AF37;
+      border-bottom: none;
       text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
     }
-
-    .map-card {
-      background: #FFFFFF;
-      border-radius: 12px;
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-      padding: 1.5rem;
-      transition: all 0.3s ease;
+    header a, footer p {
+      color: #ffffff !important;
     }
 
-    #map {
+    .main-nav{
+      display:flex;
+      gap:1.5rem;
+      align-items:center;
+      justify-content:flex-end;
+      list-style:none;
+      margin:0;
+      padding:0;
+      flex-wrap:nowrap;
+    }
+    .main-nav li{display:flex;align-items:center;}
+    
+    /* Style de base des liens du menu */
+    .main-nav > li > a:not(.agent-btn){
+      text-decoration:none;
+      color: #ffffff;
+      font-weight: 500;
+      position: relative;
+      padding-bottom: 4px;
+      background: transparent !important;
+      transition: color 0.3s ease;
+    }
+
+    /* Effet au survol simple */
+    .main-nav > li > a:not(.agent-btn):hover {
+      color: #d4af37;
+      background: transparent !important;
+    }
+
+    /* Onglet actif : le texte garde sa couleur normale, seule la ligne dorée apparaît en dessous */
+    .main-nav > li > a.active:not(.agent-btn) {
+      color: #ffffff !important;
+      font-weight: 500;
+      background: transparent !important;
+      box-shadow: none !important;
+    }
+    
+    .main-nav > li > a.active:not(.agent-btn)::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
       width: 100%;
-      height: 620px;
+      height: 2px;
+      background: #d4af37;
+      box-shadow: 0 0 8px rgba(212, 175, 55, 0.8);
+      border-radius: 2px;
+    }
+
+    /* Style du bouton Espace Agent */
+    .agent-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:8px 14px;
+      background:#111 !important;
+      color:#d4af37 !important;
+      border:1px solid #d4af37;
+      border-radius:8px;
+      font-weight:600;
+      white-space:nowrap;
+      transition:.25s;
+      text-shadow: none !important;
+      box-shadow: none !important;
+    }
+    .agent-btn::after { display: none !important; }
+    .agent-btn:hover{background:#d4af37 !important;color:#111 !important;}
+    
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .contact-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+    .agent-info-card {
+      background: #fff;
+      padding: 2rem;
       border-radius: 8px;
-      z-index: 1;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      border-left: 4px solid var(--color-anthracite, #1A2530);
     }
-
-    /* Mode Plein Écran */
-    .map-card.fullscreen {
-      position: fixed !important;
-      top: 0 !important;
-      left: 0 !important;
-      width: 100vw !important;
-      height: 100vh !important;
-      z-index: 9999 !important;
-      border-radius: 0 !important;
-      padding: 1rem !important;
-      margin: 0 !important;
-      background: #FFFFFF !important;
-      display: flex;
-      flex-direction: column;
+    .agent-info-card h3 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      color: var(--color-anthracite, #1A2530);
+      font-size: 1.2rem;
     }
-
-    .map-card.fullscreen #map {
-      flex-grow: 1;
-      height: auto !important;
-    }
-
-    /* Barre de filtres et boutons */
-    .filter-bar {
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
-      flex-wrap: wrap;
-      margin-bottom: 1rem;
-    }
-
-    .btn-filter {
-      background: #FAF8F5;
-      color: #1A2530;
-      border: 1px solid #D1D5DB;
-      padding: 0.4rem 0.85rem;
-      border-radius: 6px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    .btn-filter:hover, .btn-filter.active {
-      background: #111;
-      color: #FFD700;
-      border-color: #D4AF37;
-    }
-
-    .select-dept {
-      padding: 0.4rem 0.75rem;
-      border-radius: 6px;
-      border: 1px solid #D1D5DB;
-      font-size: 0.85rem;
-      font-weight: 600;
-      background: #FAF8F5;
-      color: #1A2530;
-    }
-
-    .btn-fullscreen {
-      background: #111;
-      color: #FFD700;
-      border: 1px solid #D4AF37;
-      padding: 0.4rem 0.85rem;
-      border-radius: 6px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      margin-left: auto;
-    }
-    .btn-fullscreen:hover {
-      background: #D4AF37;
-      color: #111;
-    }
-
-    .leaflet-popup-content-wrapper {
-      border-radius: 8px;
-      padding: 0.5rem;
+    .agent-info-card p {
+      margin: 0 0 1rem 0;
+      color: #555;
+      font-size: 0.95rem;
     }
   </style>
 </head>
-<body class="crm-body">
+<body>
 
-  <!-- Sidebar CRM -->
-  <aside class="crm-sidebar">
-    <div class="sidebar-brand">
-      <a href="index.html" class="logo-link">
-        <div class="logo-circle" style="width: 60px; height: 60px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.4); border: 2px solid #D4AF37; background-color: #000;">
-          <img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY" style="width: 100%; height: 100%; object-fit: cover;">
+  <header>
+    <div class="container nav-container" style="height: 130px; display: flex; align-items: center; justify-content: space-between;">
+      <!-- Logo rond mis à jour vers logo03lrf.png -->
+      <a href="index.html" class="logo" style="display: flex; align-items: center; height: 100%; padding-left: 1.5rem;">
+        <div style="width: 110px; height: 110px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.4); border: 2px solid #D4AF37; background-color: #000;">
+          <img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY" style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.35);">
         </div>
       </a>
-    </div>
-    <ul class="sidebar-menu">
-      <li><a href="dashboard.html"><span class="icon">🏠</span><span class="menu-text">Accueil</span></a></li>
-      <li><a href="clients.html"><span class="icon">👥</span><span class="menu-text">Clients</span></a></li>
-      <li><a href="clients.html?filter=prospect"><span class="icon">🎯</span><span class="menu-text">Prospects</span></a></li>
-      <li><a href="agenda.html"><span class="icon">📅</span><span class="menu-text">Agenda</span></a></li>
-      <li><a href="comptes-rendus.html"><span class="icon">📞</span><span class="menu-text">Comptes-rendus</span></a></li>
-      <li><a href="catalogues.html"><span class="icon">📂</span><span class="menu-text">Catalogues</span></a></li>
-      <li><a href="partenaires.html"><span class="icon">🏭</span><span class="menu-text">Fabricants</span></a></li>
-      <li><a href="#"><span class="icon">📸</span><span class="menu-text">Photos</span></a></li>
-      <li><a href="carte.html" class="active"><span class="icon">🗺</span><span class="menu-text">Carte</span></a></li>
-      <li><a href="#"><span class="icon">📊</span><span class="menu-text">Statistiques</span></a></li>
-      <li><a href="#"><span class="icon">⚙</span><span class="menu-text">Paramètres</span></a></li>
-    </ul>
-    <div class="sidebar-footer">
-      <button id="logout-btn" class="btn-logout-sidebar">
-        <span>🚪</span> <span class="menu-text">Déconnexion</span>
+      <nav>
+        <ul class="main-nav">
+          <li><a href="partenaires.html">Partenaires</a></li>
+          <li><a href="univers.html">Inspirations</a></li>
+          <li><a href="realisations.html">Réalisations</a></li>
+          <li><a href="catalogues.html">Catalogues</a></li>
+          <li><a href="tarifs-pro.html">Tarifs PRO</a></li>
+          <li><a href="contact.html" class="active">Contact</a></li>
+          <li><a href="agent.html" class="agent-btn">🔒 Espace Agent</a></li>
+        </ul>
+      </nav>
+      <button class="burger-btn" aria-label="Menu">
+        <span></span><span></span><span></span>
       </button>
     </div>
-  </aside>
+  </header>
 
-  <!-- Contenu Principal -->
-  <main class="crm-main-content">
-    <div class="crm-topbar">
-      <div class="welcome-box">
-        <h1>Carte du Portefeuille</h1>
-        <p id="user-greeting">Chargement de la carte géographique...</p>
+  <main style="padding-bottom: 4rem;">
+    <section class="hero-banner" style="background-image: url('assets/img/02.png');">
+      <div class="container">
+        <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Contactez-nous</h1>
+        <p style="font-size: 1.1rem; opacity: 0.9; max-width: 700px;">Notre équipe est à votre disposition pour répondre à toutes vos demandes professionnelles.</p>
       </div>
-      <div class="info-widgets">
-        <div class="widget-item"><span>📅</span> <span id="current-date">--</span></div>
-        <div class="widget-item"><span>⏰</span> <span id="current-time">--</span></div>
-        <div class="widget-item"><span>🌤</span> <span>26°C, Ensoleillé</span></div>
-      </div>
-    </div>
+    </section>
 
-    <!-- Carte Géographique -->
-    <div class="map-card" id="map-card-container">
-      <div class="filter-bar">
-        <button class="btn-filter active" data-filter="all">Tous les secteurs</button>
-        <button class="btn-filter" data-filter="jerome">Secteur Jérôme (30, 34, 11, 66)</button>
-        <button class="btn-filter" data-filter="coryne">Secteur Coryne (13, 83, 84, 04, 06, 05, 2A, 2B, Monaco)</button>
+    <div class="container" style="margin-top: 3rem; max-width: 1100px;">
+      <div class="contact-layout">
         
-        <select id="dept-select" class="select-dept">
-          <option value="">Filtrer par département...</option>
-          <option value="11">11 - Aude</option>
-          <option value="13">13 - Bouches-du-Rhône</option>
-          <option value="30">30 - Gard</option>
-          <option value="34">34 - Hérault</option>
-          <option value="04">04 - Alpes-de-Haute-Provence</option>
-          <option value="05">05 - Hautes-Alpes</option>
-          <option value="06">06 - Alpes-Maritimes</option>
-          <option value="83">83 - Var</option>
-          <option value="84">84 - Vaucluse</option>
-          <option value="2A">2A - Corse-du-Sud</option>
-          <option value="2B">2B - Haute-Corse</option>
-          <option value="66">66 - Pyrénées-Orientales</option>
-          <option value="98">98 - Monaco</option>
-        </select>
+        <!-- Formulaire de Contact -->
+        <form id="contact-form" style="display: flex; flex-direction: column; gap: 1.5rem; background: #fff; padding: 2.5rem; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
+          <div>
+            <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">Destinataire (Agent)</label>
+            <select id="agent-select" required style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px; background: #fff;">
+              <option value="" disabled selected>-- Choisissez un agent --</option>
+              <option value="jerome">Jérôme (agenceleroyfactory@gmail.com)</option>
+              <option value="coryne">Coryne (coryneleroyfactory@gmail.com)</option>
+              <option value="deux">Les deux (Jérôme & Coryne)</option>
+            </select>
+          </div>
 
-        <button id="btn-fullscreen-toggle" class="btn-fullscreen">
-          <span id="fs-icon">⛶</span> <span id="fs-text">Pleine page</span>
-        </button>
+          <div>
+            <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">Nom / Société</label>
+            <input type="text" id="contact-name" required style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px;">
+          </div>
+
+          <div>
+            <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">Email professionnel</label>
+            <input type="email" id="contact-email" required style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px;">
+          </div>
+
+          <div>
+            <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">Message</label>
+            <textarea id="contact-message" rows="5" required style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+          </div>
+
+          <button type="submit" class="btn" style="background: var(--color-anthracite, #1A2530); color: #fff; padding: 0.75rem 2rem; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; align-self: flex-start;">Envoyer le message</button>
+        </form>
+
+        <!-- Informations des Agents (Secteurs) -->
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+          <div class="agent-info-card">
+            <h3>Jérôme Hugol</h3>
+            <p><strong>Secteur / Départements :</strong><br>30 - 34 - 11 - 66</p>
+            <p style="margin: 0; font-size: 0.85rem; color: #777;">Email : agenceleroyfactory@gmail.com</p>
+          </div>
+
+          <div class="agent-info-card" style="border-left-color: #d4af37;">
+            <h3>Coryne Le Roy</h3>
+            <p><strong>Secteur / Départements :</strong><br>13 - 83 - 84 - 04 - 06 - 05 - 2A - 2B</p>
+            <p style="margin: 0; font-size: 0.85rem; color: #777;">Email : coryneleroyfactory@gmail.com</p>
+          </div>
+        </div>
+
       </div>
-
-      <div style="margin-bottom: 0.75rem;">
-        <span id="map-counter" style="font-size: 0.85rem; color: #666; font-weight: 600;">Chargement instantané...</span>
-      </div>
-
-      <div id="map"></div>
     </div>
   </main>
 
-  <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <footer>
+    <div class="container" style="text-align: center; padding: 2rem 0;">
+      <p style="color: #ffffff !important; font-weight: 600; text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);">&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p>
+    </div>
+  </footer>
 
-  <script type="module">
-    import { db } from "./assets/js/firebase.js";
-    import { collection, onSnapshot, doc, updatedoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-    // Note: on importe updateDoc ci-dessous proprement
-    import { updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+  <script>
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const agentChoice = document.getElementById('agent-select').value;
+      const name = document.getElementById('contact-name').value;
+      const email = document.getElementById('contact-email').value;
+      const message = document.getElementById('contact-message').value;
 
-    document.addEventListener("DOMContentLoaded", () => {
-      const isLoggedIn = localStorage.getItem("agentLoggedIn");
-      if (!isLoggedIn) {
-        window.location.href = "agent.html";
-        return;
+      let targetEmail = '';
+      if (agentChoice === 'jerome') {
+        targetEmail = 'agenceleroyfactory@gmail.com';
+      } else if (agentChoice === 'coryne') {
+        targetEmail = 'coryneleroyfactory@gmail.com';
+      } else if (agentChoice === 'deux') {
+        targetEmail = 'agenceleroyfactory@gmail.com,coryneleroyfactory@gmail.com';
       }
 
-      const agentName = localStorage.getItem("agentName") || "Agent";
-      const firstName = agentName.split(" ")[0];
-      const greetingEl = document.getElementById("user-greeting");
-      if (greetingEl) {
-        greetingEl.textContent = `Géolocalisation terrain de ${firstName} — LE ROY FACTORY`;
-      }
+      const subject = encodeURIComponent(`Demande de contact de ${name} (Le Roy Factory)`);
+      const body = encodeURIComponent(`Nom / Société : ${name}\nEmail : ${email}\n\nMessage :\n${message}`);
 
-      document.getElementById("logout-btn")?.addEventListener("click", () => {
-        localStorage.removeItem("agentLoggedIn");
-        localStorage.removeItem("googleAccessToken");
-        window.location.href = "agent.html";
-      });
-
-      // Gestion du Plein Écran
-      const mapCardContainer = document.getElementById("map-card-container");
-      const btnFullscreenToggle = document.getElementById("btn-fullscreen-toggle");
-      const fsIcon = document.getElementById("fs-icon");
-      const fsText = document.getElementById("fs-text");
-
-      btnFullscreenToggle?.addEventListener("click", () => {
-        mapCardContainer.classList.toggle("fullscreen");
-        const isFs = mapCardContainer.classList.contains("fullscreen");
-        fsIcon.textContent = isFs ? "🗗" : "⛶";
-        fsText.textContent = isFs ? "Mode normal" : "Pleine page";
-        setTimeout(() => map.invalidateSize(), 100);
-      });
-
-      // Initialisation de la carte
-      const map = L.map('map').setView([43.6109, 3.8767], 8);
-
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; OpenStreetMap contributors'
-      }).addTo(map);
-
-      const markersLayer = L.layerGroup().addTo(map);
-      const counterEl = document.getElementById("map-counter");
-
-      const sectorJerome = ["30", "34", "11", "66"];
-      const sectorCoryne = ["13", "83", "84", "04", "06", "05", "2A", "2B", "98"];
-
-      let currentFilter = "all";
-      let selectedDept = "";
-      let allClientData = [];
-
-      const filterButtons = document.querySelectorAll(".btn-filter");
-      filterButtons.forEach(btn => {
-        btn.addEventListener("click", (e) => {
-          filterButtons.forEach(b => b.classList.remove("active"));
-          e.target.classList.add("active");
-          currentFilter = e.target.getAttribute("data-filter");
-          selectedDept = "";
-          document.getElementById("dept-select").value = "";
-          renderMarkers();
-        });
-      });
-
-      document.getElementById("dept-select").addEventListener("change", (e) => {
-        selectedDept = e.target.value;
-        filterButtons.forEach(b => b.classList.remove("active"));
-        currentFilter = "dept";
-        renderMarkers();
-      });
-
-      function extractDept(cp, ville) {
-        let cleanCp = (cp || "").trim();
-        if (cleanCp.length >= 2) {
-          let dept = cleanCp.substring(0, 2);
-          if (dept === "20") {
-            return parseInt(cleanCp) < 20200 ? "2A" : "2B";
-          }
-          return dept;
-        }
-        if ((ville || "").toLowerCase().includes("monaco")) return "98";
-        return "";
-      }
-
-      function renderMarkers() {
-        markersLayer.clearLayers();
-        let validCount = 0;
-
-        allClientData.forEach(item => {
-          const dept = extractDept(item.cp, item.ville);
-          let match = false;
-
-          if (currentFilter === "all") {
-            match = true;
-          } else if (currentFilter === "jerome") {
-            match = sectorJerome.includes(dept);
-          } else if (currentFilter === "coryne") {
-            match = sectorCoryne.includes(dept);
-          } else if (currentFilter === "dept") {
-            match = (selectedDept === "" || dept === selectedDept);
-          }
-
-          if (match && item.lat !== null && item.lon !== null) {
-            const pinColor = item.type === 'client' ? '#047857' : '#D4AF37';
-
-            const markerHtml = `<div style="background-color: ${pinColor}; width: 16px; height: 16px; border-radius: 50%; border: 2px solid #FFF; box-shadow: 0 2px 5px rgba(0,0,0,0.3);"></div>`;
-            const customIcon = L.divIcon({
-              className: 'custom-pin',
-              html: markerHtml,
-              iconSize: [16, 16],
-              iconAnchor: [8, 8]
-            });
-
-            const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.fullAddress)}`;
-
-            const popupContent = `
-              <div style="font-family: 'Inter', sans-serif; padding: 4px; min-width: 200px;">
-                <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: ${pinColor};">${item.type} (Dept: ${dept || 'N/C'})</span>
-                <h3 style="font-size: 1rem; font-weight: 800; color: #111; margin: 0.2rem 0 0.5rem 0;">${item.societe}</h3>
-                <p style="font-size: 0.85rem; color: #555; margin: 0 0 0.5rem 0;">📍 ${item.adresse} <br>${item.cp} ${item.ville}</p>
-                ${item.telephone ? `<p style="font-size: 0.85rem; margin: 0 0 0.75rem 0;">📞 <a href="tel:${item.telephone}" style="color: #111; font-weight: 600;">${item.telephone}</a></p>` : ''}
-                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                  <a href="clients.html?search=${encodeURIComponent(item.societe)}" style="background: #111; color: #FFD700; padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; text-decoration: none; font-weight: 600;">Fiche client</a>
-                  <a href="${googleMapsUrl}" target="_blank" style="background: #D4AF37; color: #111; padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; text-decoration: none; font-weight: 700;">🧭 Naviguer (GPS)</a>
-                </div>
-              </div>
-            `;
-
-            const marker = L.marker([item.lat, item.lon], { icon: customIcon }).bindPopup(popupContent);
-            markersLayer.addLayer(marker);
-            validCount++;
-          }
-        });
-
-        if (counterEl) {
-          counterEl.textContent = `${validCount} entreprises affichées sur la carte (Instantané)`;
-        }
-      }
-
-      // Écoute en temps réel de Firebase et mise en cache des GPS dans Firebase
-      onSnapshot(collection(db, "clients"), async (querySnapshot) => {
-        allClientData = [];
-
-        for (const docSnap of querySnapshot.docs) {
-          const docId = docSnap.id;
-          const data = docSnap.data();
-          const societe = data.societe || "Entreprise sans nom";
-          const adresse = (data.adresse || "").trim();
-          const cp = (data.codePostal || "").trim();
-          const ville = (data.ville || "").trim();
-          const type = (data.type || "prospect").toLowerCase();
-          const telephone = data.telephone || "";
-
-          if (adresse.length > 2 && ville.length > 1) {
-            const fullAddress = `${adresse}, ${cp} ${ville}, France`;
-            let lat = data.lat;
-            let lon = data.lon;
-
-            // Si le GPS n'est pas encore enregistré dans Firebase pour ce client, on le cherche et on l'enregistre
-            if (lat === undefined || lon === undefined || lat === null || lon === null) {
-              try {
-                const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(fullAddress)}`);
-                const results = await response.json();
-
-                if (results && results.length > 0) {
-                  lat = parseFloat(results[0].lat);
-                  lon = parseFloat(results[0].lon);
-
-                  // Sauvegarde définitive dans Firebase pour les prochaines fois
-                  await updateDoc(doc(db, "clients", docId), { lat: lat, lon: lon });
-                }
-              } catch (err) {
-                console.warn("Échec géocodage :", fullAddress);
-              }
-            }
-
-            allClientData.push({
-              societe, adresse, cp, ville, type, telephone, fullAddress, lat, lon
-            });
-          }
-        }
-        renderMarkers();
-      }, (error) => {
-        console.error("Erreur Firebase :", error);
-      });
+      window.location.href = `mailto:${targetEmail}?subject=${subject}&body=${body}`;
     });
   </script>
+  <script src="assets/js/app.js"></script>
 </body>
 </html>
+```[cite: 1]
