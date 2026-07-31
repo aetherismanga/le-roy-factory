@@ -35,21 +35,20 @@
       color: #ffffff !important;
     }
 
-    .main-nav{
-      display:flex;
-      gap:1.2rem;
-      align-items:center;
-      justify-content:flex-end;
-      list-style:none;
-      margin:0;
-      padding:0;
-      flex-wrap:nowrap;
+    .main-nav {
+      display: flex;
+      gap: 1.2rem;
+      align-items: center;
+      justify-content: flex-end;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      flex-wrap: nowrap;
     }
-    .main-nav li{display:flex;align-items:center;}
+    .main-nav li { display: flex; align-items: center; }
     
-    /* Style de base des liens du menu */
-    .main-nav > li > a:not(.agent-btn){
-      text-decoration:none;
+    .main-nav > li > a:not(.agent-btn) {
+      text-decoration: none;
       color: #ffffff;
       font-weight: 500;
       position: relative;
@@ -58,18 +57,15 @@
       transition: color 0.3s ease;
     }
 
-    /* Effet au survol simple */
     .main-nav > li > a:not(.agent-btn):hover {
       color: #d4af37;
       background: transparent !important;
     }
 
-    /* Onglet actif : texte normal, seule la ligne dorée apparaît en dessous */
     .main-nav > li > a.active:not(.agent-btn) {
       color: #ffffff !important;
       font-weight: 500;
       background: transparent !important;
-      box-shadow: none !important;
     }
     
     .main-nav > li > a.active:not(.agent-btn)::after {
@@ -84,23 +80,21 @@
       border-radius: 2px;
     }
 
-    .agent-btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding:8px 14px;
-      background:#111 !important;
-      color:#d4af37 !important;
-      border:1px solid #d4af37;
-      border-radius:8px;
-      font-weight:600;
-      white-space:nowrap;
-      transition:.25s;
-      text-shadow: none !important;
-      box-shadow: none !important;
+    .agent-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 14px;
+      background: #111 !important;
+      color: #d4af37 !important;
+      border: 1px solid #d4af37;
+      border-radius: 8px;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: .25s;
     }
     .agent-btn::after { display: none !important; }
-    .agent-btn:hover{background:#d4af37 !important;color:#111 !important;}
+    .agent-btn:hover { background: #d4af37 !important; color: #111 !important; }
   </style>
 </head>
 <body>
@@ -257,7 +251,7 @@
         pays: "Espagne",
         presentation: "Solutions innovantes et esthétiques pour la salle de bain moderne.",
         fichiers: [
-          { titre: "Grille Tarifaire", desc: "Tarifs professionnels Koibath.", lien: "#" }
+          { titre: "Grille Tarifaire", desc: "Sur demande auprès de votre agent.", lien: "mailto:jerome@leroyfactory.fr?subject=Demande%20Tarifs%20Koibath" }
         ]
       },
       {
@@ -273,7 +267,7 @@
         pays: "International",
         presentation: "Fabricant de miroirs lumineux et décoratifs pour espaces d'eau.",
         fichiers: [
-          { titre: "Grille Tarifaire", desc: "Tarifs professionnels Opal.", lien: "#" }
+          { titre: "Grille Tarifaire", desc: "Miroirs et accessoires.", lien: "https://www.koibath.com/wp-content/uploads/CATALOGO-ESPEJOS-2025.pdf" }
         ]
       },
       {
