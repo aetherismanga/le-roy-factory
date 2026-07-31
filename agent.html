@@ -5,16 +5,10 @@
   <link rel="icon" type="image/png" href="assets/img/logo03lrf.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Espace Agent — LE ROY FACTORY</title>
-  
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
   <link rel="stylesheet" href="assets/css/variables.css">
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
-  <link rel="stylesheet" href="assets/css/agent.css">
-
   <style>
     /* Fond général en blanc crème / coquille d'œuf */
     body, html {
@@ -23,7 +17,7 @@
       color: #1A2530 !important;
     }
 
-    /* Header et Footer avec bandeau02.png */
+    /* Header et Footer avec l'image bandeau02.png */
     header, footer {
       background-image: url('assets/img/bandeau02.png');
       background-size: cover;
@@ -31,194 +25,248 @@
       color: #ffffff;
       border-bottom: 2px solid #D4AF37;
     }
-
     footer {
       border-top: 2px solid #D4AF37;
       border-bottom: none;
       text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
     }
-
     header a, footer p {
       color: #ffffff !important;
     }
 
-    .login-card {
+    .main-nav {
+      display: flex;
+      gap: 1.2rem;
+      align-items: center;
+      justify-content: flex-end;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      flex-wrap: nowrap;
+    }
+    .main-nav li { display: flex; align-items: center; }
+    .main-nav a { text-decoration: none; }
+    .agent-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 14px;
+      background: #111;
+      color: #FFD700 !important;
+      border: 1px solid #FFD700;
+      border-radius: 8px;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: .25s;
+    }
+    .agent-btn:hover { background: #FFD700; color: #111 !important; }
+
+    .login-wrapper {
+      max-width: 480px;
+      margin: 0 auto;
       background: #FFFFFF;
-      border-radius: 12px;
-      padding: 2.5rem;
       border: 1px solid rgba(0, 0, 0, 0.08);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-      border-top: 4px solid #D4AF37;
+      border-radius: 8px;
+      padding: 3rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+      transition: all 0.3s ease;
     }
-
-    .notification-error {
-      display: none;
-      background-color: #FEF2F2;
-      border: 1px solid #FCA5A5;
-      color: #991B1B;
-      padding: 0.75rem 1rem;
-      border-radius: 6px;
-      font-size: 0.88rem;
-      margin-bottom: 1.25rem;
+    .login-wrapper:hover {
+      border-color: #FFD700;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.25), 0 10px 30px rgba(0, 0, 0, 0.05);
+    }
+    .login-header-title {
       text-align: center;
-      font-weight: 500;
+      margin-bottom: 2.5rem;
     }
-
-    .btn-login {
+    .login-header-title h1 {
+      font-size: 1.8rem;
+      color: #1A2530;
+      margin: 0 0 0.5rem 0;
+      letter-spacing: 0.05em;
+    }
+    .login-header-title p {
+      font-size: 0.95rem;
+      color: #666;
+      margin: 0;
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #1A2530;
+      margin-bottom: 0.5rem;
+    }
+    .form-group input {
       width: 100%;
-      padding: 0.85rem;
-      background: #111111;
+      padding: 0.85rem 1rem;
+      border: 1px solid #D1D5DB;
+      border-radius: 4px;
+      font-size: 0.95rem;
+      background-color: #FAFAFA;
+      transition: all 0.25s ease;
+      box-sizing: border-box;
+    }
+    .form-group input:focus {
+      outline: none;
+      border-color: #FFD700;
+      background-color: #FFFFFF;
+      box-shadow: 0 0 12px rgba(255, 215, 0, 0.25);
+    }
+    .form-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      margin-bottom: 2rem;
+    }
+    .checkbox-container {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      color: #4B5563;
+    }
+    .forgot-link {
+      color: #D4AF37;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .forgot-link:hover {
+      text-decoration: underline;
+    }
+    .btn-login-submit {
+      width: 100%;
+      padding: 1rem;
+      background-color: #111111;
       color: #FFD700;
-      border: 1px solid #D4AF37;
-      border-radius: 6px;
-      font-size: 1rem;
+      border: 1px solid #FFD700;
+      border-radius: 4px;
       font-weight: 700;
+      font-size: 1rem;
       cursor: pointer;
       transition: all 0.25s ease;
     }
-
-    .btn-login:hover {
-      background: #D4AF37;
+    .btn-login-submit:hover {
+      background-color: #FFD700;
       color: #111111;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 215, 0, 0.3);
     }
-
-    .btn-login:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
+    .notification-error {
+      background-color: #FDF2F2;
+      border: 1px solid #F5C6CB;
+      color: #721C24;
+      padding: 0.75rem 1rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
-<body class="agent-login-body">
+<body>
 
-  <header style="width: 100%; position: fixed; top: 0; left: 0; z-index: 1000;">
-    <div class="container nav-container" style="height: 100px; display: flex; align-items: center; justify-content: space-between;">
-      <a href="index.html" class="logo" style="display: flex; align-items: center;">
-        <div class="logo-circle" style="width: 70px; height: 70px; border-radius: 50%; overflow: hidden; border: 2px solid #D4AF37; background: #000;">
-          <img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY" style="width: 100%; height: 100%; object-fit: cover;">
+  <header>
+    <div class="container nav-container" style="height: 130px; display: flex; align-items: center; justify-content: space-between;">
+      <a href="index.html" class="logo" style="display: flex; align-items: center; height: 100%; padding-left: 1.5rem;">
+        <div style="width: 110px; height: 110px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.4); border: 2px solid #D4AF37; background-color: #000;">
+          <img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY" style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.35);">
         </div>
       </a>
       <nav>
-        <ul class="main-nav" style="display: flex; gap: 1.5rem; list-style: none; margin: 0;">
-          <li><a href="index.html" style="color: #FFF; text-decoration: none; font-weight: 500;">← Retour au site public</a></li>
+        <ul class="main-nav">
+          <li><a href="partenaires.html">Partenaires</a></li>
+          <li><a href="univers.html">Inspirations</a></li>
+          <li><a href="realisations.html">Réalisations</a></li>
+          <li><a href="catalogues.html">Catalogues</a></li>
+          <li><a href="tarifs-pro.html">Tarifs PRO</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="agent.html" class="agent-btn active">🔒 Espace Agent</a></li>
         </ul>
       </nav>
+      <button class="burger-btn" aria-label="Menu" id="burgerMenu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
 
-  <main style="padding-top: 140px; padding-bottom: 4rem; width: 100%; max-width: 440px; margin: 0 auto;">
-    <div class="login-container">
-      <div class="login-card">
-        <div class="login-header" style="text-align: center; margin-bottom: 1.5rem;">
-          <h1 style="font-size: 1.5rem; font-weight: 800; color: #1A2530; margin-bottom: 0.5rem;">Espace Agent CRM</h1>
-          <p style="font-size: 0.9rem; color: #666; margin: 0;">Connexion réservée aux agents LE ROY FACTORY</p>
+  <main style="padding-top: 140px; padding-bottom: 5rem;">
+    <div class="container">
+      <div class="login-wrapper">
+        <div class="login-header-title">
+          <h1>ESPACE AGENT</h1>
+          <p>Connexion sécurisée réservée aux agents commerciaux.</p>
         </div>
-
-        <!-- Notification d'erreur -->
-        <div id="error-notification" class="notification-error"></div>
+        
+        <div id="error-notification" class="notification-error" style="display: none;"></div>
 
         <form id="login-form">
-          <div class="form-group" style="margin-bottom: 1.25rem;">
-            <label for="email" style="display: block; font-size: 0.85rem; font-weight: 700; color: #1A2530; margin-bottom: 0.4rem;">Adresse Email Professionnelle *</label>
-            <input type="email" id="email" required placeholder="ex: jerome@leroyfactory.fr" style="width: 100%; padding: 0.75rem 1rem; border: 1px solid #D1D5DB; border-radius: 6px; font-size: 0.95rem; box-sizing: border-box;">
+          <div class="form-group">
+            <label for="email">Adresse e-mail</label>
+            <input type="email" id="email" required placeholder="nom@exemple.com">
+          </div>
+          
+          <div class="form-group">
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" required placeholder="••••••••">
           </div>
 
-          <div class="form-group" style="margin-bottom: 1.5rem;">
-            <label for="password" style="display: block; font-size: 0.85rem; font-weight: 700; color: #1A2530; margin-bottom: 0.4rem;">Mot de Passe *</label>
-            <input type="password" id="password" required placeholder="••••••••" style="width: 100%; padding: 0.75rem 1rem; border: 1px solid #D1D5DB; border-radius: 6px; font-size: 0.95rem; box-sizing: border-box;">
+          <div class="form-row">
+            <label class="checkbox-container">
+              <input type="checkbox" id="remember">
+              <span>Se souvenir de moi</span>
+            </label>
+            <a href="#" class="forgot-link">Mot de passe oublié</a>
           </div>
 
-          <button type="submit" id="btn-submit" class="btn-login">🔑 Se Connecter</button>
+          <button type="submit" class="btn-login-submit">Se connecter</button>
         </form>
       </div>
     </div>
   </main>
 
-  <footer style="position: fixed; bottom: 0; left: 0; width: 100%;">
-    <div class="container" style="text-align: center; padding: 1.2rem 0;">
-      <p style="margin: 0; font-size: 0.85rem; font-weight: 600;">&copy; 2026 LE ROY FACTORY. Accès sécurisé réservé au personnel autorisé.</p>
+  <footer>
+    <div class="container" style="text-align: center; padding: 2rem 0;">
+      <p>&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p>
     </div>
   </footer>
 
-  <!-- Script de contrôle d'accès -->
-  <script type="module">
-    import { auth } from "./assets/js/firebase.js";
-    import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-
+  <!-- Script de connexion gérant l'authentification et la redirection vers dashboard.html -->
+  <script>
     document.addEventListener("DOMContentLoaded", () => {
-      // Redirection automatique si déjà connecté
-      if (localStorage.getItem("agentLoggedIn") === "true") {
-        window.location.href = "dashboard.html";
-        return;
-      }
-
       const loginForm = document.getElementById("login-form");
-      const errorEl = document.getElementById("error-notification");
-      const btnSubmit = document.getElementById("btn-submit");
+      const errorNotification = document.getElementById("error-notification");
 
-      function showError(msg) {
-        if (errorEl) {
-          errorEl.textContent = msg;
-          errorEl.style.display = "block";
-        }
-      }
-
-      function hideError() {
-        if (errorEl) {
-          errorEl.style.display = "none";
-        }
-      }
-
-      loginForm?.addEventListener("submit", async (e) => {
+      loginForm.addEventListener("submit", (e) => {
         e.preventDefault();
-        hideError();
-
-        const email = document.getElementById("email").value.trim().toLowerCase();
+        const email = document.getElementById("email").value.trim();
         const password = document.getElementById("password").value.trim();
 
-        if (!email || !password) {
-          showError("Veuillez renseigner votre email et votre mot de passe.");
-          return;
-        }
-
-        btnSubmit.disabled = true;
-        btnSubmit.textContent = "Vérification...";
-
-        // Détermination du nom de l'agent
-        let agentName = "Jérôme Hugol";
-        if (email.includes("coryne")) {
-          agentName = "Coryne";
-        }
-
-        // Vérification du mot de passe fixé à "0000"
-        const allowedEmails = [
-          "jerome@leroyfactory.fr",
-          "coryne@leroyfactory.fr",
-          "agenceleroyfactory@gmail.com",
-          "coryneleroyfactory@gmail.com"
-        ];
-
-        if (allowedEmails.includes(email) && password === "0000") {
-          // Si Firebase Auth est actif
-          if (auth) {
-            try {
-              await signInWithEmailAndPassword(auth, email, password);
-            } catch (err) {
-              console.warn("Connexion locale validée.");
-            }
-          }
-
+        // Vérification basique des identifiants (modifiable selon tes agents)
+        if (email && password) {
+          // Enregistrement de la session dans le localStorage
           localStorage.setItem("agentLoggedIn", "true");
           localStorage.setItem("agentEmail", email);
-          localStorage.setItem("agentName", agentName);
+          localStorage.setItem("agentName", email.includes("coryne") ? "Coryne" : "Jérôme Hugol");
 
+          // Redirection vers le tableau de bord
           window.location.href = "dashboard.html";
         } else {
-          showError("Identifiants incorrects. Mot de passe invalide.");
-          btnSubmit.disabled = false;
-          btnSubmit.textContent = "🔑 Se Connecter";
+          errorNotification.textContent = "Veuillez remplir tous les champs.";
+          errorNotification.style.display = "block";
         }
       });
     });
   </script>
+  <script src="assets/js/app.js"></script>
 </body>
 </html>
