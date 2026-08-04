@@ -1,95 +1,61 @@
-const functions = require("firebase-functions");
-const admin = require("firebase-admin");
+const { onRequest } = require("firebase-functions/v2/https");
+const logger = require("firebase-functions/logger");
 const nodemailer = require("nodemailer");
 
-admin.initializeApp();
-
-/**
- * Fonction Cloud pour l'envoi sécurisé de mails groupés
- * Seuls les utilisateurs authentifiés peuvent déclencher cette fonction.
- */
-exports.sendGroupMail = functions.https.onCall(async (data, context) => {
-  // 1. Contrôle de sécurité : Vérification de la session
-  if (!context.auth) {
-    throw new functions.https.HttpsError(
-      "unauthenticated",
-      "Accès refusé. Vous devez être connecté au CRM pour envoyer des e-mails."
-    );
-  }
-
-  const { sender, subject, text, bccEmails, attachmentBase64, attachmentName } = data;
-
-  // 2. Validation des données requises
-  if (!bccEmails || !Array.isArray(bccEmails) || bccEmails.length === 0) {
-    throw new functions.https.HttpsError(
-      "invalid-argument",
-      "La liste des destinataires est vide."
-    );
-  }
-
-  if (!subject || !text) {
-    throw new functions.https.HttpsError(
-      "invalid-argument",
-      "L'objet et le corps du message sont obligatoires."
-    );
-  }
-
-  // 3. Détermination de l'expéditeur officiel
-  const senderEmail = sender === "coryne" ? "coryne@leroyfactory.fr" : "jerome@leroyfactory.fr";
-  const senderName = sender === "coryne" ? "Coryne - LE ROY FACTORY" : "Jérôme Hugol - LE ROY FACTORY";
-
-  // 4. Récupération du mot de passe SMTP sécurisé
-  const smtpPassword = process.env.SMTP_PASSWORD;
-
-  if (!smtpPassword) {
-    throw new functions.https.HttpsError(
-      "internal",
-      "Configuration serveur incomplète : mot de passe SMTP manquant."
-    );
-  }
-
-  // Configuration SMTP OVH (ssl0.ovh.net)
-  const transporter = nodemailer.createTransport({
-    host: "ssl0.ovh.net",
-    port: 465,
-    secure: true,
-    auth: {
-      user: senderEmail,
-      pass: smtpPassword
+exports.sendGroupEmail = onRequest(
+  {
+    cors: true,
+    secrets: ["SMTP_PASSWORD_JEROME", "SMTP_PASSWORD_CORYNE"]
+  },
+  async (req, res) => {
+    if (req.method === "OPTIONS") {
+      res.set("Access-Control-Allow-Origin", "*");
+      res.set("Access-Control-Allow-Methods", "POST");
+      res.set("Access-Control-Allow-Headers", "Content-Type");
+      res.status(204).send("");
+      return;
     }
-  });
 
-  // 5. Construction du mail en Cci (BCC)
-  const mailOptions = {
-    from: `"${senderName}" <${senderEmail}>`,
-    to: senderEmail,
-    bcc: bccEmails,
-    subject: subject,
-    text: text
-  };
+    try {
+      const { senderEmail, bccRecipients, subject, htmlContent, attachments } = req.body;
 
-  // 6. Prise en charge de la pièce jointe (si présente)
-  if (attachmentBase64 && attachmentName) {
-    mailOptions.attachments = [
-      {
-        filename: attachmentName,
-        content: attachmentBase64,
-        encoding: "base64"
+      if (!senderEmail || !bccRecipients || !subject || !htmlContent) {
+        res.status(400).json({ success: false, error: "Champs requis manquants." });
+        return;
       }
-    ];
-  }
 
-  // 7. Envoi effectif
-  try {
-    const info = await transporter.sendMail(mailOptions);
-    console.log(`✅ Mail groupé envoyé avec succès (${bccEmails.length} destinataires) : ${info.messageId}`);
-    return {
-      success: true,
-      messageId: info.messageId,
-      count: bccEmails.length
-    };
-  } catch (error) {
-    console.error("❌ Erreur lors de l'envoi SMTP :", error);
-    throw new functions.https.HttpsError("internal", `Échec de l'envoi : ${error.message}`);
+      // Sélection du bon mot de passe selon l'expéditeur
+      let password = "";
+      if (senderEmail.toLowerCase().includes("coryne")) {
+        password = process.env.SMTP_PASSWORD_CORYNE;
+      } else {
+        password = process.env.SMTP_PASSWORD_JEROME;
+      }
+
+      const transporter = nodemailer.createTransport({
+        host: "ssl0.ovh.net",
+        port: 465,
+        secure: true,
+        auth: {
+          user: senderEmail,
+          pass: password
+        }
+      });
+
+      const mailOptions = {
+        from: senderEmail,
+        to: senderEmail,
+        bcc: bccRecipients,
+        subject: subject,
+        html: htmlContent,
+        attachments: attachments || []
+      };
+
+      await transporter.sendMail(mailOptions);
+      res.status(200).json({ success: true, count: bccRecipients.length });
+    } catch (error) {
+      logger.error("Erreur envoi mail:", error);
+      res.status(500).json({ success: false, error: error.message });
+    }
   }
-});
+);
