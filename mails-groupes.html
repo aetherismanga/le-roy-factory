@@ -215,8 +215,8 @@
     </div>
 
     <div class="nav-tabs">
-      <button class="tab-btn active" id="tab-compose-btn">✉️ Nouveau Mail Groupé</button>
-      <button class="tab-btn" id="tab-history-btn">📜 Historique des envois</button>
+      <button class="tab-btn active" id="tab-compose-btn" data-tab="tab-send">✉️ Nouveau Mail Groupé</button>
+      <button class="tab-btn" id="tab-history-btn" data-tab="tab-history">📜 Historique des envois</button>
     </div>
 
     <div id="section-compose">
@@ -228,7 +228,7 @@
           <div class="form-group-custom">
             <label for="filter-type">Type de contact</label>
             <select id="filter-type" class="crm-select">
-              <option value="all">Tous (Clients & Prospects)</option>
+              <option value="all">Tous (Clients &amp; Prospects)</option>
               <option value="client">Clients uniquement</option>
               <option value="prospect">Prospects uniquement</option>
             </select>
@@ -275,7 +275,7 @@
           <table class="email-table">
             <thead>
               <tr>
-                <th style="width: 40px; text-align: center;"><input type="checkbox" id="chk-toggle-all"></th>
+                <th style="width: 40px; text-align: center;"><input type="checkbox" id="header-select-all"></th>
                 <th>Société / Nom</th>
                 <th>Type</th>
                 <th>Dép.</th>
@@ -313,13 +313,13 @@
           </div>
 
           <div class="form-group-custom" style="margin-bottom: 1.25rem;">
-            <label for="input-subject">Objet du mail *</label>
-            <input type="text" id="input-subject" class="crm-select" placeholder="Ex: Nouvelle Collection Carrelage & Bain 2026" required style="padding: 0.75rem;">
+            <label for="email-subject">Objet du mail *</label>
+            <input type="text" id="email-subject" class="crm-select" placeholder="Ex: Nouvelle Collection Carrelage &amp; Bain 2026" required style="padding: 0.75rem;">
           </div>
 
           <div class="form-group-custom" style="margin-bottom: 1.25rem;">
-            <label for="textarea-body">Corps du message *</label>
-            <textarea id="textarea-body" rows="8" class="crm-select" required style="padding: 1rem; font-family: inherit; line-height: 1.5;" placeholder="Rédigez votre message ici..."></textarea>
+            <label for="email-body">Corps du message *</label>
+            <textarea id="email-body" rows="8" class="crm-select" required style="padding: 1rem; font-family: inherit; line-height: 1.5;" placeholder="Rédigez votre message ici..."></textarea>
           </div>
 
           <div class="form-group-custom" style="margin-bottom: 1.5rem;">
@@ -334,10 +334,7 @@
           </div>
 
           <div style="display: flex; justify-content: flex-end; gap: 1rem; border-top: 1px solid #E5E7EB; padding-top: 1.25rem;">
-            <button type="button" id="btn-preview-email" class="btn-primary-gold" style="background: #111; color: #FFD700; border: 1px solid #FFD700; padding: 0.85rem 1.75rem;">
-              👁️ Aperçu & Vérification
-            </button>
-            <button type="submit" id="btn-submit-email" class="btn-primary-gold" style="padding: 0.85rem 2.25rem; font-size: 1rem;">
+            <button type="button" id="btn-open-confirm" class="btn-primary-gold" style="padding: 0.85rem 2.25rem; font-size: 1rem;">
               🚀 Préparer l'envoi
             </button>
           </div>
@@ -357,12 +354,11 @@
                 <th>Expéditeur</th>
                 <th>Objet</th>
                 <th>Destinataires</th>
-                <th>Dép.</th>
                 <th>Statut</th>
               </tr>
             </thead>
             <tbody id="history-tbody">
-              <tr><td colspan="6" style="text-align: center; padding: 2rem;">Aucun envoi enregistré dans l'historique.</td></tr>
+              <tr><td colspan="5" style="text-align: center; padding: 2rem;">Aucun envoi enregistré dans l'historique.</td></tr>
             </tbody>
           </table>
         </div>
@@ -371,15 +367,12 @@
 
   </main>
 
+  <!-- Modal Overlay -->
   <div id="modal-confirm" class="modal-overlay">
     <div class="modal-content">
       <h2 style="font-size: 1.25rem; color: #1A2530; margin-bottom: 1rem; border-bottom: 2px solid #D4AF37; padding-bottom: 0.5rem;">
         🔒 Confirmation de l'envoi groupé
       </h2>
-      
-      <p id="modal-confirm-text" style="font-size: 0.95rem; line-height: 1.6; color: #333; margin-bottom: 1.5rem;">
-        --
-      </p>
 
       <div style="background: #FAFAFA; border: 1px solid #E5E7EB; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.85rem; color: #555;">
         <div><strong>Expéditeur :</strong> <span id="summary-sender">--</span></div>
