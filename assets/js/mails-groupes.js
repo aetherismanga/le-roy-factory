@@ -35,14 +35,62 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
+  // Horloge
+  updateDateTime();
+  setInterval(updateDateTime, 1000);
+
+  // Déconnexion
+  document.getElementById("logout-btn")?.addEventListener("click", () => {
+    localStorage.removeItem("agentLoggedIn");
+    window.location.href = "agent.html";
+  });
+
+  // Gestion des Onglets (Nouveau Mail / Historique)
+  setupTabs();
+
   setupEventListeners();
   await loadContacts();
+  await loadHistory();
   updateSignature();
 });
 
+function updateDateTime() {
+  const now = new Date();
+  const dateEl = document.getElementById("current-date");
+  const timeEl = document.getElementById("current-time");
+  if (dateEl) {
+    let formatted = now.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    dateEl.textContent = formatted.charAt(0).toUpperCase() + formatted.slice(1);
+  }
+  if (timeEl) {
+    timeEl.textContent = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+  }
+}
+
+function setupTabs() {
+  const btnCompose = document.getElementById("tab-compose-btn");
+  const btnHistory = document.getElementById("tab-history-btn");
+  const secCompose = document.getElementById("section-compose");
+  const secHistory = document.getElementById("section-history");
+
+  btnCompose?.addEventListener("click", () => {
+    btnCompose.classList.add("active");
+    btnHistory?.classList.remove("active");
+    if (secCompose) secCompose.style.display = "block";
+    if (secHistory) secHistory.style.display = "none";
+  });
+
+  btnHistory?.addEventListener("click", () => {
+    btnHistory.classList.add("active");
+    btnCompose?.classList.remove("active");
+    if (secHistory) secHistory.style.display = "block";
+    if (secCompose) secCompose.style.display = "none";
+  });
+}
+
 // 1. Chargement et nettoyage des contacts depuis Firestore
 async function loadContacts() {
-  const tbody = document.getElementById("recipients-tbody") || document.getElementById("contacts-tbody");
+  const tbody = document.getElementById("recipients-tbody");
   if (tbody) {
     tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding: 20px;">Chargement des contacts...</td></tr>`;
   }
@@ -58,9 +106,8 @@ async function loadContacts() {
       const rawEmail = data.email || data.eMail || data.mail || data.Mail || data.Email || "";
       const cleanEmail = String(rawEmail).trim();
 
-      // On n'accepte que les adresses valides avec un @
       if (cleanEmail && cleanEmail.includes("@")) {
-        // Extraction et uniformisation du Département (ex: '34' -> 'FR-34', 'FR-34' -> 'FR-34')
+        // Extraction et Uniformisation du Département (34 -> FR-34)
         let rawDept = String(data.departement || data.Dept || "").trim();
         if (!rawDept && (data.codePostal || data.cp)) {
           rawDept = String(data.codePostal || data.cp).trim().substring(0, 2);
@@ -68,7 +115,6 @@ async function loadContacts() {
 
         let cleanDept = "-";
         if (rawDept) {
-          // Nettoyage pour éviter les doublons type FR-FR-34
           let numOnly = rawDept.replace(/[^0-9A-Ba-b]/g, "");
           if (numOnly) {
             cleanDept = "FR-" + numOnly.toUpperCase();
@@ -77,8 +123,8 @@ async function loadContacts() {
           }
         }
 
-        // Détermination du nom d'affichage (Société en priorité, sinon Nom du contact)
-        const displayName = data.societe || data.nomSociete || data.entreprise || data.nom || data.nomContact || "Sans nom";
+        // Nom de Société / Nom
+        const displaySociete = data.societe || data.nomSociete || data.entreprise || data.nom || data.nomContact || "Sans nom";
 
         // Secteur / Agent souple
         const agentRaw = String(data.agent || data.secteur || data.Agent || "").toLowerCase();
@@ -87,12 +133,12 @@ async function loadContacts() {
           agentClean = "Coryne";
         }
 
-        // Type (client ou prospect)
+        // Type
         const typeRaw = String(data.type || data.Type || "client").toLowerCase();
 
         allContacts.push({
           id: docSnap.id,
-          nom: displayName,
+          nom: displaySociete,
           type: typeRaw.includes("prospect") ? "prospect" : "client",
           departement: cleanDept,
           agent: agentClean,
@@ -131,8 +177,8 @@ function populateDepartmentFilter() {
 function applyFilters() {
   const typeFilter = document.getElementById("filter-type")?.value || "all";
   const deptFilter = document.getElementById("filter-dept")?.value || "all";
-  const sectorFilter = (document.getElementById("filter-sector")?.value || document.getElementById("filter-agent")?.value || "all").toLowerCase();
-  const searchFilter = (document.getElementById("search-input")?.value || document.getElementById("filter-search")?.value || "").toLowerCase().trim();
+  const sectorFilter = (document.getElementById("filter-sector")?.value || "all").toLowerCase();
+  const searchFilter = (document.getElementById("search-input")?.value || "").toLowerCase().trim();
 
   filteredContacts = allContacts.filter(c => {
     const matchType = typeFilter === "all" || c.type === typeFilter;
@@ -153,12 +199,13 @@ function applyFilters() {
   renderTable();
 }
 
-// 4. Rendu du tableau (Alignement exact 6 colonnes)
+// 4. Rendu du tableau (Exactement 6 colonnes alignées avec le HTML)
 function renderTable() {
-  const tbody = document.getElementById("recipients-tbody") || document.getElementById("contacts-tbody");
+  const tbody = document.getElementById("recipients-tbody");
   const countDisplayedEl = document.getElementById("count-displayed");
   const countSelectedEl = document.getElementById("count-selected");
   const warningLimit = document.getElementById("warning-limit");
+  const headerCheckbox = document.getElementById("header-select-all") || document.getElementById("chk-toggle-all");
 
   if (!tbody) return;
 
@@ -169,7 +216,7 @@ function renderTable() {
       const isChecked = selectedContacts.some(sc => sc.id === c.id);
       return `
         <tr>
-          <td><input type="checkbox" class="contact-checkbox" data-id="${c.id}" ${isChecked ? "checked" : ""}></td>
+          <td style="text-align: center;"><input type="checkbox" class="contact-checkbox" data-id="${c.id}" ${isChecked ? "checked" : ""}></td>
           <td><strong>${escapeHtml(c.nom)}</strong></td>
           <td><span class="badge badge-${c.type}">${c.type.toUpperCase()}</span></td>
           <td>${escapeHtml(c.departement)}</td>
@@ -183,16 +230,22 @@ function renderTable() {
   if (countDisplayedEl) countDisplayedEl.textContent = filteredContacts.length;
   if (countSelectedEl) countSelectedEl.textContent = selectedContacts.length;
 
+  // Mise à jour synchrone de la case d'en-tête
+  if (headerCheckbox) {
+    const allFilteredAreSelected = filteredContacts.length > 0 && filteredContacts.every(fc => selectedContacts.some(sc => sc.id === fc.id));
+    headerCheckbox.checked = allFilteredAreSelected;
+  }
+
   if (warningLimit) {
     if (selectedContacts.length > 30) {
       warningLimit.style.display = "block";
-      warningLimit.textContent = "Attention : Vous avez sélectionné plus de 30 destinataires. L'envoi peut prendre quelques secondes de plus.";
+      warningLimit.textContent = "⚠️ Vous avez sélectionné plus de 30 destinataires. L'envoi peut prendre quelques secondes de plus.";
     } else {
       warningLimit.style.display = "none";
     }
   }
 
-  // Événements sur les cases à cocher
+  // Événements cases à cocher
   document.querySelectorAll(".contact-checkbox").forEach(cb => {
     cb.addEventListener("change", (e) => {
       const contactId = e.target.dataset.id;
@@ -214,11 +267,25 @@ function setupEventListeners() {
   document.getElementById("filter-type")?.addEventListener("change", applyFilters);
   document.getElementById("filter-dept")?.addEventListener("change", applyFilters);
   document.getElementById("filter-sector")?.addEventListener("change", applyFilters);
-  document.getElementById("filter-agent")?.addEventListener("change", applyFilters);
   document.getElementById("search-input")?.addEventListener("input", applyFilters);
-  document.getElementById("filter-search")?.addEventListener("input", applyFilters);
 
-  // Tout sélectionner / Tout désélectionner
+  // Case à cocher d'en-tête
+  const headerCheckbox = document.getElementById("header-select-all") || document.getElementById("chk-toggle-all");
+  headerCheckbox?.addEventListener("change", (e) => {
+    if (e.target.checked) {
+      filteredContacts.forEach(c => {
+        if (!selectedContacts.some(sc => sc.id === c.id)) {
+          selectedContacts.push(c);
+        }
+      });
+    } else {
+      const filteredIds = filteredContacts.map(c => c.id);
+      selectedContacts = selectedContacts.filter(sc => !filteredIds.includes(sc.id));
+    }
+    renderTable();
+  });
+
+  // Boutons Tout sélectionner / Tout désélectionner
   document.getElementById("btn-select-all")?.addEventListener("click", () => {
     filteredContacts.forEach(c => {
       if (!selectedContacts.some(sc => sc.id === c.id)) {
@@ -233,22 +300,19 @@ function setupEventListeners() {
     renderTable();
   });
 
-  // Changement d'expéditeur / Signature
   document.getElementById("select-sender")?.addEventListener("change", updateSignature);
 
-  // Pièce jointe
   const fileInput = document.getElementById("file-attachment");
   if (fileInput) {
     fileInput.addEventListener("change", handleFileSelect);
   }
 
-  // Bouton Ouvrir Modale d'envoi
   document.getElementById("btn-open-confirm")?.addEventListener("click", openConfirmModal);
   document.getElementById("btn-cancel-send")?.addEventListener("click", closeModal);
   document.getElementById("btn-confirm-send")?.addEventListener("click", executeEmailSending);
 }
 
-// 6. Mise à jour de la signature
+// 6. Signature
 function updateSignature() {
   const senderVal = document.getElementById("select-sender")?.value || "jerome";
   const previewEl = document.getElementById("signature-preview");
@@ -257,7 +321,7 @@ function updateSignature() {
   }
 }
 
-// 7. Traitement des pièces jointes (Base64)
+// 7. Fichiers joints
 function handleFileSelect(e) {
   const files = e.target.files;
   const previewInfo = document.getElementById("file-preview-info");
@@ -324,7 +388,7 @@ function closeModal() {
   if (modal) modal.style.display = "none";
 }
 
-// 9. Envoi effectif via la Firebase Function
+// 9. Envoi d'e-mail
 async function executeEmailSending() {
   const btnConfirm = document.getElementById("btn-confirm-send");
   if (btnConfirm) {
@@ -356,7 +420,6 @@ async function executeEmailSending() {
     const result = await response.json();
 
     if (result.success) {
-      // Historique global
       await addDoc(collection(db, "historique_mails"), {
         date: new Date().toISOString(),
         expediteur: senderEmail,
@@ -366,10 +429,9 @@ async function executeEmailSending() {
         statut: "Succès"
       });
 
-      // Historique client individuel
       const dateStr = new Date().toLocaleDateString("fr-FR");
       const agentName = senderVal === "coryne" ? "Coryne" : "Jérôme";
-      
+
       for (const contact of selectedContacts) {
         try {
           const clientRef = doc(db, "clients", contact.id);
@@ -381,7 +443,7 @@ async function executeEmailSending() {
             })
           });
         } catch (e) {
-          console.warn("Impossible d'inscrire l'historique pour le client:", contact.id);
+          console.warn("Impossible de mettre à jour le client:", contact.id);
         }
       }
 
@@ -399,6 +461,42 @@ async function executeEmailSending() {
       btnConfirm.disabled = false;
       btnConfirm.textContent = "Confirmer l'envoi";
     }
+  }
+}
+
+// 10. Historique
+async function loadHistory() {
+  const tbody = document.getElementById("history-tbody");
+  if (!tbody) return;
+
+  try {
+    const querySnapshot = await getDocs(collection(db, "historique_mails"));
+    if (querySnapshot.empty) {
+      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding: 20px;">Aucun envoi enregistré.</td></tr>`;
+      return;
+    }
+
+    let historyList = [];
+    querySnapshot.forEach(docSnap => {
+      historyList.push(docSnap.data());
+    });
+
+    historyList.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    tbody.innerHTML = historyList.map(item => {
+      const formattedDate = new Date(item.date).toLocaleString("fr-FR");
+      return `
+        <tr>
+          <td>${formattedDate}</td>
+          <td>${escapeHtml(item.expediteur)}</td>
+          <td><strong>${escapeHtml(item.objet)}</strong></td>
+          <td>${item.nbDestinataires} contact(s)</td>
+          <td><span class="badge badge-client">${escapeHtml(item.statut || "Envoyé")}</span></td>
+        </tr>
+      `;
+    }).join("");
+  } catch (e) {
+    console.error("Erreur chargement historique:", e);
   }
 }
 
