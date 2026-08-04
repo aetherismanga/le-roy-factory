@@ -6,7 +6,7 @@ let filteredContacts = [];
 let selectedContacts = [];
 let attachedFiles = [];
 
-// Signatures préconfigurées
+// Signatures prédéfinies
 const SIGNATURES = {
   jerome: `
 <br><br>
@@ -40,11 +40,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   updateSignature();
 });
 
-// 1. Chargement souple des contacts depuis Firestore
+// 1. Chargement et nettoyage des contacts depuis Firestore
 async function loadContacts() {
   const tbody = document.getElementById("recipients-tbody") || document.getElementById("contacts-tbody");
   if (tbody) {
-    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding: 20px;">Chargement des contacts...</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding: 20px;">Chargement des contacts...</td></tr>`;
   }
 
   try {
@@ -54,19 +54,33 @@ async function loadContacts() {
     querySnapshot.forEach((docSnap) => {
       const data = docSnap.data();
 
-      // Récupération souple du mail (email, eMail, mail, Mail, etc.)
+      // Récupération souple de l'e-mail
       const rawEmail = data.email || data.eMail || data.mail || data.Mail || data.Email || "";
       const cleanEmail = String(rawEmail).trim();
 
       // On n'accepte que les adresses valides avec un @
       if (cleanEmail && cleanEmail.includes("@")) {
-        // Département depuis la fiche ou les 2 premiers chiffres du code postal
-        let dept = data.departement || data.Dept || "";
-        if (!dept && (data.codePostal || data.cp)) {
-          dept = String(data.codePostal || data.cp).substring(0, 2);
+        // Extraction et uniformisation du Département (ex: '34' -> 'FR-34', 'FR-34' -> 'FR-34')
+        let rawDept = String(data.departement || data.Dept || "").trim();
+        if (!rawDept && (data.codePostal || data.cp)) {
+          rawDept = String(data.codePostal || data.cp).trim().substring(0, 2);
         }
 
-        // Secteur / Agent souple (détection de Jerome / Jérôme / Coryne)
+        let cleanDept = "-";
+        if (rawDept) {
+          // Nettoyage pour éviter les doublons type FR-FR-34
+          let numOnly = rawDept.replace(/[^0-9A-Ba-b]/g, "");
+          if (numOnly) {
+            cleanDept = "FR-" + numOnly.toUpperCase();
+          } else {
+            cleanDept = rawDept.toUpperCase();
+          }
+        }
+
+        // Détermination du nom d'affichage (Société en priorité, sinon Nom du contact)
+        const displayName = data.societe || data.nomSociete || data.entreprise || data.nom || data.nomContact || "Sans nom";
+
+        // Secteur / Agent souple
         const agentRaw = String(data.agent || data.secteur || data.Agent || "").toLowerCase();
         let agentClean = "Jérôme";
         if (agentRaw.includes("coryne")) {
@@ -78,10 +92,9 @@ async function loadContacts() {
 
         allContacts.push({
           id: docSnap.id,
-          nom: data.nom || data.nomContact || data.prenom || "Contact sans nom",
-          societe: data.societe || data.nomSociete || data.entreprise || "-",
+          nom: displayName,
           type: typeRaw.includes("prospect") ? "prospect" : "client",
-          departement: dept || "-",
+          departement: cleanDept,
           agent: agentClean,
           email: cleanEmail
         });
@@ -91,9 +104,9 @@ async function loadContacts() {
     populateDepartmentFilter();
     applyFilters();
   } catch (error) {
-    console.error("Erreur lors de la récupération des contacts:", error);
+    console.error("Erreur chargement contacts:", error);
     if (tbody) {
-      tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color: red; padding: 20px;">Erreur de connexion à la base de données.</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color: red; padding: 20px;">Erreur lors du chargement des contacts.</td></tr>`;
     }
   }
 }
@@ -132,7 +145,6 @@ function applyFilters() {
 
     const matchSearch = !searchFilter || 
       c.nom.toLowerCase().includes(searchFilter) || 
-      c.societe.toLowerCase().includes(searchFilter) || 
       c.email.toLowerCase().includes(searchFilter);
 
     return matchType && matchDept && matchSector && matchSearch;
@@ -141,7 +153,7 @@ function applyFilters() {
   renderTable();
 }
 
-// 4. Rendu du tableau
+// 4. Rendu du tableau (Alignement exact 6 colonnes)
 function renderTable() {
   const tbody = document.getElementById("recipients-tbody") || document.getElementById("contacts-tbody");
   const countDisplayedEl = document.getElementById("count-displayed");
@@ -151,7 +163,7 @@ function renderTable() {
   if (!tbody) return;
 
   if (filteredContacts.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding: 20px;">Aucun contact trouvé.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding: 20px;">Aucun contact trouvé.</td></tr>`;
   } else {
     tbody.innerHTML = filteredContacts.map(c => {
       const isChecked = selectedContacts.some(sc => sc.id === c.id);
@@ -159,7 +171,6 @@ function renderTable() {
         <tr>
           <td><input type="checkbox" class="contact-checkbox" data-id="${c.id}" ${isChecked ? "checked" : ""}></td>
           <td><strong>${escapeHtml(c.nom)}</strong></td>
-          <td>${escapeHtml(c.societe)}</td>
           <td><span class="badge badge-${c.type}">${c.type.toUpperCase()}</span></td>
           <td>${escapeHtml(c.departement)}</td>
           <td>${escapeHtml(c.agent)}</td>
@@ -269,7 +280,7 @@ function handleFileSelect(e) {
   reader.onload = function(evt) {
     attachedFiles.push({
       filename: file.name,
-      content: evt.target.result.split(',')[1], // extraction de la partie base64
+      content: evt.target.result.split(',')[1],
       encoding: 'base64'
     });
     if (previewInfo) {
@@ -345,7 +356,7 @@ async function executeEmailSending() {
     const result = await response.json();
 
     if (result.success) {
-      // Inscription dans l'historique global
+      // Historique global
       await addDoc(collection(db, "historique_mails"), {
         date: new Date().toISOString(),
         expediteur: senderEmail,
@@ -355,7 +366,7 @@ async function executeEmailSending() {
         statut: "Succès"
       });
 
-      // Ajout d'une note dans la fiche de chaque client
+      // Historique client individuel
       const dateStr = new Date().toLocaleDateString("fr-FR");
       const agentName = senderVal === "coryne" ? "Coryne" : "Jérôme";
       
