@@ -6,10 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tableau de bord — LE ROY FACTORY CRM</title>
   
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
-  <!-- Styles CRM -->
   <link rel="stylesheet" href="assets/css/variables.css">
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/components.css">
@@ -40,7 +38,6 @@
 </head>
 <body class="crm-body">
 
-  <!-- Sidebar CRM -->
   <aside class="crm-sidebar">
     <div class="sidebar-brand">
       <a href="index.html" class="logo-link">
@@ -55,7 +52,7 @@
       <li><a href="clients.html?filter=prospect"><span class="icon">🎯</span><span class="menu-text">Prospects</span></a></li>
       <li><a href="agenda.html"><span class="icon">📅</span><span class="menu-text">Agenda</span></a></li>
       <li><a href="comptes-rendus.html"><span class="icon">📞</span><span class="menu-text">Comptes-rendus</span></a></li>
-      <li><a href="#"><span class="icon">📸</span><span class="menu-text">Photos</span></a></li>
+      <li><a href="mails-groupes.html"><span class="icon">✉️</span><span class="menu-text">Mails groupés</span></a></li>
       <li><a href="carte.html"><span class="icon">🗺</span><span class="menu-text">Carte</span></a></li>
       <li><a href="#"><span class="icon">📊</span><span class="menu-text">Statistiques</span></a></li>
       <li><a href="#"><span class="icon">⚙</span><span class="menu-text">Paramètres</span></a></li>
@@ -67,7 +64,6 @@
     </div>
   </aside>
 
-  <!-- Contenu Principal -->
   <main class="crm-main-content">
     <div class="crm-topbar">
       <div class="welcome-box">
@@ -81,7 +77,6 @@
       </div>
     </div>
 
-    <!-- Actions Rapides -->
     <div style="margin-bottom: 2rem;">
       <h2 style="font-size: 1.1rem; margin-bottom: 1rem; color: #1A2530; font-weight: 700;">Actions rapides</h2>
       <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
@@ -89,28 +84,24 @@
         <a href="clients.html?action=new-prospect" class="btn-primary-gold" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem;">🎯 Nouveau prospect</a>
         <a href="agenda.html" class="btn-primary-gold" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem;">📅 Nouveau rendez-vous</a>
         <a href="comptes-rendus.html" class="btn-primary-gold" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem;">📞 Nouveau compte-rendu</a>
-        <a href="#" class="btn-primary-gold" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem;">📸 Ajouter des photos</a>
+        <a href="mails-groupes.html" class="btn-primary-gold" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem;">✉️ Mails groupés</a>
       </div>
     </div>
 
-    <!-- Résumé / Statistiques principales -->
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
       
-      <!-- Bloc Clients -->
       <div style="background: #FFF; padding: 1.75rem; border-radius: 12px; border: 1px solid rgba(0,0,0,0.08); box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
         <h3 style="font-size: 0.9rem; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">Portefeuille Clients</h3>
         <p id="dash-clients-actifs" style="font-size: 2.25rem; font-weight: 800; color: #111; margin-bottom: 0.25rem;">...</p>
         <p style="font-size: 0.85rem; color: #888;">Clients actifs enregistrés</p>
       </div>
 
-      <!-- Bloc Prospects -->
       <div style="background: #FFF; padding: 1.75rem; border-radius: 12px; border: 1px solid rgba(0,0,0,0.08); box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
         <h3 style="font-size: 0.9rem; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">Prospects en cours</h3>
         <p id="dash-prospects" style="font-size: 2.25rem; font-weight: 800; color: #111; margin-bottom: 0.25rem;">...</p>
         <p style="font-size: 0.85rem; color: #888;">Suivi commercial actif</p>
       </div>
 
-      <!-- Bloc Agenda -->
       <div style="background: #FFF; padding: 1.75rem; border-radius: 12px; border: 1px solid rgba(0,0,0,0.08); box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
         <h3 style="font-size: 0.9rem; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">Agenda</h3>
         <p style="font-size: 2.25rem; font-weight: 800; color: #D4AF37; margin-bottom: 0.25rem;">12</p>
@@ -120,10 +111,8 @@
 
     </div>
 
-    <!-- Grille Inférieure (Aujourd'hui, Objectifs, Dernières Activités) -->
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
       
-      <!-- Aujourd'hui -->
       <div style="background: #FFF; padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(0,0,0,0.08);">
         <h3 style="font-size: 1rem; color: #1A2530; margin-bottom: 1rem; font-weight: 700;">⚡ Aujourd'hui</h3>
         <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.75rem;">
@@ -142,7 +131,6 @@
         </ul>
       </div>
 
-      <!-- Objectif du mois -->
       <div style="background: #FFF; padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(0,0,0,0.08);">
         <h3 style="font-size: 1rem; color: #1A2530; margin-bottom: 1rem; font-weight: 700;">📊 Objectif du mois</h3>
         <p style="font-size: 0.9rem; color: #666; margin-bottom: 0.5rem;">Chiffre d'affaires & Showrooms</p>
@@ -153,7 +141,6 @@
         <p style="font-size: 0.8rem; color: #888;">Objectif atteint à 78% — Plus que 5 jours restants.</p>
       </div>
 
-      <!-- Dernières activités -->
       <div style="background: #FFF; padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(0,0,0,0.08);">
         <h3 style="font-size: 1rem; color: #1A2530; margin-bottom: 1rem; font-weight: 700;">🕒 Dernières activités</h3>
         <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.9rem;">
