@@ -20,7 +20,7 @@ const SIGNATURES = {
       Site : <a href="https://leroyfactory.fr" target="_blank" style="color: #D4AF37; text-decoration: none;">https://leroyfactory.fr</a>
     </td>
     <td style="padding-left: 20px; border-left: 2px solid #D4AF37; vertical-align: middle;">
-      <img src="https://leroyfactory.fr/assets/img/logo03lrf.png" alt="Le Roy Factory" width="80" style="display: block; width: 80px; height: auto;">
+      <img src="https://leroyfactory.fr/assets/img/logo03lrf.png" alt="Le Roy Factory" width="120" style="display: block; width: 120px; height: auto;">
     </td>
   </tr>
 </table>
@@ -37,7 +37,7 @@ const SIGNATURES = {
       Site : <a href="https://leroyfactory.fr" target="_blank" style="color: #D4AF37; text-decoration: none;">https://leroyfactory.fr</a>
     </td>
     <td style="padding-left: 20px; border-left: 2px solid #D4AF37; vertical-align: middle;">
-      <img src="https://leroyfactory.fr/assets/img/logo03lrf.png" alt="Le Roy Factory" width="80" style="display: block; width: 80px; height: auto;">
+      <img src="https://leroyfactory.fr/assets/img/logo03lrf.png" alt="Le Roy Factory" width="120" style="display: block; width: 120px; height: auto;">
     </td>
   </tr>
 </table>
@@ -47,7 +47,7 @@ const SIGNATURES = {
 <table style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px; color: #1A2530;">
   <tr>
     <td style="padding-right: 20px; vertical-align: middle;">
-      <strong>Coryne &amp; Jérôme Hugol</strong><br>
+      <strong>Coryne &amp; Jérôme</strong><br>
       <em>Agence Le Roy Factory</em><br>
       Téléphone Jérôme : <a href="tel:0766040361" style="color: #D4AF37; text-decoration: none;">07 66 04 03 61</a><br>
       Téléphone Coryne : <a href="tel:0613093606" style="color: #D4AF37; text-decoration: none;">06 13 09 36 06</a><br>
@@ -55,7 +55,7 @@ const SIGNATURES = {
       Site : <a href="https://leroyfactory.fr" target="_blank" style="color: #D4AF37; text-decoration: none;">https://leroyfactory.fr</a>
     </td>
     <td style="padding-left: 20px; border-left: 2px solid #D4AF37; vertical-align: middle;">
-      <img src="https://leroyfactory.fr/assets/img/logo03lrf.png" alt="Le Roy Factory" width="80" style="display: block; width: 80px; height: auto;">
+      <img src="https://leroyfactory.fr/assets/img/logo03lrf.png" alt="Le Roy Factory" width="120" style="display: block; width: 120px; height: auto;">
     </td>
   </tr>
 </table>
