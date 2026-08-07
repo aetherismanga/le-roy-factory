@@ -24,6 +24,15 @@ Site : <a href="https://leroyfactory.fr" target="_blank">https://leroyfactory.fr
 <em>Agence Le Roy Factory</em><br>
 E-mail : <a href="mailto:coryne@leroyfactory.fr">coryne@leroyfactory.fr</a><br>
 Site : <a href="https://leroyfactory.fr" target="_blank">https://leroyfactory.fr</a>
+  `,
+  both: `
+<br><br>
+--<br>
+<strong>Coryne &amp; Jérôme Hugol</strong><br>
+<em>Agence Le Roy Factory</em><br>
+Téléphone : <a href="tel:0766040361">07 66 04 03 61</a><br>
+E-mail : <a href="mailto:jerome@leroyfactory.fr">jerome@leroyfactory.fr</a> | <a href="mailto:coryne@leroyfactory.fr">coryne@leroyfactory.fr</a><br>
+Site : <a href="https://leroyfactory.fr" target="_blank">https://leroyfactory.fr</a>
   `
 };
 
@@ -344,7 +353,7 @@ function handleFileSelect(e) {
       content: evt.target.result.split(',')[1],
       encoding: 'base64'
     }];
-    input.value = ""; // Réinitialise l'input pour permettre la ré-sélection si besoin
+    input.value = "";
     renderFilePreview();
   };
   reader.readAsDataURL(file);
@@ -382,7 +391,14 @@ function removeAttachment() {
 // 8. Modale de confirmation
 function openConfirmModal() {
   const senderVal = document.getElementById("select-sender")?.value || "jerome";
-  const senderEmail = senderVal === "coryne" ? "coryne@leroyfactory.fr" : "jerome@leroyfactory.fr";
+  
+  let senderEmailText = "jerome@leroyfactory.fr";
+  if (senderVal === "coryne") {
+    senderEmailText = "coryne@leroyfactory.fr";
+  } else if (senderVal === "both") {
+    senderEmailText = "Jérôme & Coryne (jerome@leroyfactory.fr & coryne@leroyfactory.fr)";
+  }
+
   const subject = document.getElementById("email-subject")?.value?.trim();
   const body = document.getElementById("email-body")?.value?.trim();
 
@@ -399,7 +415,7 @@ function openConfirmModal() {
     return;
   }
 
-  document.getElementById("summary-sender").textContent = senderEmail;
+  document.getElementById("summary-sender").textContent = senderEmailText;
   document.getElementById("summary-subject").textContent = subject;
   document.getElementById("summary-count").textContent = `${selectedContacts.length} destinataire(s) en Cci`;
   document.getElementById("summary-attachment").textContent = attachedFiles.length > 0 ? attachedFiles[0].filename : "Aucune";
@@ -422,7 +438,6 @@ async function executeEmailSending() {
   }
 
   const senderVal = document.getElementById("select-sender")?.value || "jerome";
-  const senderEmail = senderVal === "coryne" ? "coryne@leroyfactory.fr" : "jerome@leroyfactory.fr";
   const subject = document.getElementById("email-subject")?.value?.trim();
   const bodyText = document.getElementById("email-body")?.value?.trim();
   const fullHtmlContent = `${bodyText.replace(/\n/g, "<br>")}${SIGNATURES[senderVal]}`;
@@ -434,7 +449,7 @@ async function executeEmailSending() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        senderEmail: senderEmail,
+        senderMode: senderVal,
         bccRecipients: bccRecipients,
         subject: subject,
         htmlContent: fullHtmlContent,
@@ -445,9 +460,13 @@ async function executeEmailSending() {
     const result = await response.json();
 
     if (result.success) {
+      let expLabel = "jerome@leroyfactory.fr";
+      if (senderVal === "coryne") expLabel = "coryne@leroyfactory.fr";
+      if (senderVal === "both") expLabel = "jerome@leroyfactory.fr & coryne@leroyfactory.fr";
+
       await addDoc(collection(db, "historique_mails"), {
         date: new Date().toISOString(),
-        expediteur: senderEmail,
+        expediteur: expLabel,
         objet: subject,
         nbDestinataires: bccRecipients.length,
         destinataires: bccRecipients,
@@ -455,7 +474,9 @@ async function executeEmailSending() {
       });
 
       const dateStr = new Date().toLocaleDateString("fr-FR");
-      const agentName = senderVal === "coryne" ? "Coryne" : "Jérôme";
+      let agentName = "Jérôme";
+      if (senderVal === "coryne") agentName = "Coryne";
+      if (senderVal === "both") agentName = "Jérôme & Coryne";
 
       for (const contact of selectedContacts) {
         try {
