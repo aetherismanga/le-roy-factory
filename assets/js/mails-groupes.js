@@ -10,29 +10,55 @@ let attachedFiles = [];
 const SIGNATURES = {
   jerome: `
 <br><br>
---<br>
-<strong>Jérôme Hugol</strong><br>
-<em>Agence Le Roy Factory</em><br>
-Téléphone : <a href="tel:0766040361">07 66 04 03 61</a><br>
-E-mail : <a href="mailto:jerome@leroyfactory.fr">jerome@leroyfactory.fr</a><br>
-Site : <a href="https://leroyfactory.fr" target="_blank">https://leroyfactory.fr</a>
+<table style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px; color: #1A2530;">
+  <tr>
+    <td style="padding-right: 20px; vertical-align: middle;">
+      <strong>Jérôme Hugol</strong><br>
+      <em>Agence Le Roy Factory</em><br>
+      Téléphone : <a href="tel:0766040361" style="color: #D4AF37; text-decoration: none;">07 66 04 03 61</a><br>
+      E-mail : <a href="mailto:jerome@leroyfactory.fr" style="color: #D4AF37; text-decoration: none;">jerome@leroyfactory.fr</a><br>
+      Site : <a href="https://leroyfactory.fr" target="_blank" style="color: #D4AF37; text-decoration: none;">https://leroyfactory.fr</a>
+    </td>
+    <td style="padding-left: 20px; border-left: 2px solid #D4AF37; vertical-align: middle;">
+      <img src="https://leroyfactory.fr/assets/img/logo03lrf.png" alt="Le Roy Factory" width="80" style="display: block; width: 80px; height: auto;">
+    </td>
+  </tr>
+</table>
   `,
   coryne: `
 <br><br>
---<br>
-<strong>Coryne</strong><br>
-<em>Agence Le Roy Factory</em><br>
-E-mail : <a href="mailto:coryne@leroyfactory.fr">coryne@leroyfactory.fr</a><br>
-Site : <a href="https://leroyfactory.fr" target="_blank">https://leroyfactory.fr</a>
+<table style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px; color: #1A2530;">
+  <tr>
+    <td style="padding-right: 20px; vertical-align: middle;">
+      <strong>Coryne</strong><br>
+      <em>Agence Le Roy Factory</em><br>
+      Téléphone : <a href="tel:0613093606" style="color: #D4AF37; text-decoration: none;">06 13 09 36 06</a><br>
+      E-mail : <a href="mailto:coryne@leroyfactory.fr" style="color: #D4AF37; text-decoration: none;">coryne@leroyfactory.fr</a><br>
+      Site : <a href="https://leroyfactory.fr" target="_blank" style="color: #D4AF37; text-decoration: none;">https://leroyfactory.fr</a>
+    </td>
+    <td style="padding-left: 20px; border-left: 2px solid #D4AF37; vertical-align: middle;">
+      <img src="https://leroyfactory.fr/assets/img/logo03lrf.png" alt="Le Roy Factory" width="80" style="display: block; width: 80px; height: auto;">
+    </td>
+  </tr>
+</table>
   `,
   both: `
 <br><br>
---<br>
-<strong>Coryne &amp; Jérôme Hugol</strong><br>
-<em>Agence Le Roy Factory</em><br>
-Téléphone : <a href="tel:0766040361">07 66 04 03 61</a><br>
-E-mail : <a href="mailto:jerome@leroyfactory.fr">jerome@leroyfactory.fr</a> | <a href="mailto:coryne@leroyfactory.fr">coryne@leroyfactory.fr</a><br>
-Site : <a href="https://leroyfactory.fr" target="_blank">https://leroyfactory.fr</a>
+<table style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px; color: #1A2530;">
+  <tr>
+    <td style="padding-right: 20px; vertical-align: middle;">
+      <strong>Coryne &amp; Jérôme Hugol</strong><br>
+      <em>Agence Le Roy Factory</em><br>
+      Téléphone Jérôme : <a href="tel:0766040361" style="color: #D4AF37; text-decoration: none;">07 66 04 03 61</a><br>
+      Téléphone Coryne : <a href="tel:0613093606" style="color: #D4AF37; text-decoration: none;">06 13 09 36 06</a><br>
+      E-mail : <a href="mailto:jerome@leroyfactory.fr" style="color: #D4AF37; text-decoration: none;">jerome@leroyfactory.fr</a> | <a href="mailto:coryne@leroyfactory.fr" style="color: #D4AF37; text-decoration: none;">coryne@leroyfactory.fr</a><br>
+      Site : <a href="https://leroyfactory.fr" target="_blank" style="color: #D4AF37; text-decoration: none;">https://leroyfactory.fr</a>
+    </td>
+    <td style="padding-left: 20px; border-left: 2px solid #D4AF37; vertical-align: middle;">
+      <img src="https://leroyfactory.fr/assets/img/logo03lrf.png" alt="Le Roy Factory" width="80" style="display: block; width: 80px; height: auto;">
+    </td>
+  </tr>
+</table>
   `
 };
 
@@ -330,7 +356,7 @@ function updateSignature() {
   }
 }
 
-// 7. Fichiers joints avec conversion Base64 & Option de suppression
+// 7. Fichier joint unique avec conversion Base64 & Option de suppression
 function handleFileSelect(e) {
   const input = e.target;
   const files = input.files;
@@ -353,7 +379,7 @@ function handleFileSelect(e) {
       content: evt.target.result.split(',')[1],
       encoding: 'base64'
     }];
-    input.value = "";
+    input.value = ""; // Réinitialise l'input
     renderFilePreview();
   };
   reader.readAsDataURL(file);
