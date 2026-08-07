@@ -321,37 +321,62 @@ function updateSignature() {
   }
 }
 
-// 7. Fichiers joints
+// 7. Fichiers joints avec conversion Base64 & Option de suppression
 function handleFileSelect(e) {
-  const files = e.target.files;
-  const previewInfo = document.getElementById("file-preview-info");
-  attachedFiles = [];
+  const input = e.target;
+  const files = input.files;
 
-  if (!files || files.length === 0) {
-    if (previewInfo) previewInfo.textContent = "Aucune pièce jointe.";
-    return;
-  }
+  if (!files || files.length === 0) return;
 
   const file = files[0];
   if (file.size > 10 * 1024 * 1024) {
     alert("Le fichier dépasse la limite autorisée de 10 Mo.");
-    e.target.value = "";
-    if (previewInfo) previewInfo.textContent = "Fichier trop volumineux.";
+    input.value = "";
+    renderFilePreview();
     return;
   }
 
   const reader = new FileReader();
   reader.onload = function(evt) {
-    attachedFiles.push({
+    attachedFiles = [{
       filename: file.name,
+      size: file.size,
       content: evt.target.result.split(',')[1],
       encoding: 'base64'
-    });
-    if (previewInfo) {
-      previewInfo.textContent = `Fichier prêt : ${file.name} (${(file.size / (1024*1024)).toFixed(2)} Mo)`;
-    }
+    }];
+    input.value = ""; // Réinitialise l'input pour permettre la ré-sélection si besoin
+    renderFilePreview();
   };
   reader.readAsDataURL(file);
+}
+
+function renderFilePreview() {
+  const previewInfo = document.getElementById("file-preview-info");
+  if (!previewInfo) return;
+
+  if (attachedFiles.length === 0) {
+    previewInfo.innerHTML = `<span style="font-size: 0.82rem; color: #666;">Aucune pièce jointe.</span>`;
+    return;
+  }
+
+  const file = attachedFiles[0];
+  const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+
+  previewInfo.innerHTML = `
+    <div class="file-chip">
+      <span>📄 <strong>${escapeHtml(file.filename)}</strong> (${sizeMB} Mo)</span>
+      <button type="button" class="btn-remove-file" id="btn-remove-attachment" title="Supprimer la pièce jointe">✕</button>
+    </div>
+  `;
+
+  document.getElementById("btn-remove-attachment")?.addEventListener("click", removeAttachment);
+}
+
+function removeAttachment() {
+  attachedFiles = [];
+  const fileInput = document.getElementById("file-attachment");
+  if (fileInput) fileInput.value = "";
+  renderFilePreview();
 }
 
 // 8. Modale de confirmation
