@@ -10,14 +10,11 @@
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
   <style>
-    /* Fond général en blanc crème / coquille d'œuf */
     body, html {
       background-color: #FBF9F5 !important;
       background-image: none !important;
       color: #1A2530 !important;
     }
-
-    /* Header et Footer avec l'image bandeau02.png */
     header, footer {
       background-image: url('assets/img/bandeau02.png');
       background-size: cover;
@@ -33,7 +30,6 @@
     header a, footer p {
       color: #ffffff !important;
     }
-
     .main-nav {
       display: flex;
       gap: 1.2rem;
@@ -60,7 +56,6 @@
       transition: .25s;
     }
     .agent-btn:hover { background: #FFD700; color: #111 !important; }
-
     .login-wrapper {
       max-width: 480px;
       margin: 0 auto;
@@ -174,7 +169,6 @@
   </style>
 </head>
 <body>
-
   <header>
     <div class="container nav-container" style="height: 130px; display: flex; align-items: center; justify-content: space-between;">
       <a href="index.html" class="logo" style="display: flex; align-items: center; height: 100%; padding-left: 1.5rem;">
@@ -188,9 +182,9 @@
           <li><a href="univers.html">Inspirations</a></li>
           <li><a href="realisations.html">Réalisations</a></li>
           <li><a href="catalogues.html">Catalogues</a></li>
-          <li><a href="tarifs-pro.html">Tarifs PRO</a></li>
+          <li><a href="tarifs-pro.html">Accès PRO</a></li>
           <li><a href="contact.html">Contact</a></li>
-          <li><a href="agent.html" class="agent-btn active">🔒 Espace Agent</a></li>
+          <li><a href="agent.html" class="agent-btn active">Espace Agent</a></li>
         </ul>
       </nav>
       <button class="burger-btn" aria-label="Menu" id="burgerMenu">
@@ -198,7 +192,6 @@
       </button>
     </div>
   </header>
-
   <main style="padding-top: 140px; padding-bottom: 5rem;">
     <div class="container">
       <div class="login-wrapper">
@@ -206,59 +199,45 @@
           <h1>ESPACE AGENT</h1>
           <p>Connexion sécurisée réservée aux agents commerciaux.</p>
         </div>
-        
         <div id="error-notification" class="notification-error" style="display: none;"></div>
-
         <form id="login-form">
           <div class="form-group">
             <label for="email">Adresse e-mail</label>
             <input type="email" id="email" required placeholder="nom@exemple.com">
           </div>
-          
           <div class="form-group">
             <label for="password">Mot de passe</label>
             <input type="password" id="password" required placeholder="••••••••">
           </div>
-
           <div class="form-row">
             <label class="checkbox-container">
               <input type="checkbox" id="remember">
               <span>Se souvenir de moi</span>
             </label>
-            <a href="#" class="forgot-link">Mot de passe oublié</a>
+            <a href="#" class="forgot-link">Mot de passe oublié ?</a>
           </div>
-
           <button type="submit" class="btn-login-submit">Se connecter</button>
         </form>
       </div>
     </div>
   </main>
-
   <footer>
     <div class="container" style="text-align: center; padding: 2rem 0;">
       <p>&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p>
     </div>
   </footer>
-
-  <!-- Script de connexion gérant l'authentification et la redirection vers dashboard.html -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const loginForm = document.getElementById("login-form");
       const errorNotification = document.getElementById("error-notification");
-
       loginForm.addEventListener("submit", (e) => {
         e.preventDefault();
         const email = document.getElementById("email").value.trim();
         const password = document.getElementById("password").value.trim();
-
-        // Vérification basique des identifiants (modifiable selon tes agents)
         if (email && password) {
-          // Enregistrement de la session dans le localStorage
           localStorage.setItem("agentLoggedIn", "true");
           localStorage.setItem("agentEmail", email);
           localStorage.setItem("agentName", email.includes("coryne") ? "Coryne" : "Jérôme Hugol");
-
-          // Redirection vers le tableau de bord
           window.location.href = "dashboard.html";
         } else {
           errorNotification.textContent = "Veuillez remplir tous les champs.";
