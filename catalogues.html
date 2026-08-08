@@ -95,7 +95,7 @@
     .agent-btn::after { display: none !important; }
     .agent-btn:hover {
       background-color: #FFD700 !important;
-      color: #000000 !important;
+      color: #111111 !important;
       border-color: #FFD700 !important;
     }
   </style>
@@ -264,28 +264,53 @@
           ]
         }
       ];
+
       const grid = document.getElementById('grid-catalogues');
       if (grid) {
-        grid.innerHTML = cataloguesData.map(fab => `
-          <div class="card-premium" style="background: #ffffff; border: 1px solid rgba(0,0,0,0.06); border-radius: 4px; padding: 2rem; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
-            <div>
-              <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #708273; font-weight: 600;">${fab.pays}</span>
-              <h3 style="font-size: 1.25rem; margin: 0.5rem 0 1rem; color: #1a2530;">${fab.nom}</h3>
-              <p style="font-size: 0.9rem; color: #555; margin-bottom: 1.5rem;">${fab.presentation}</p>
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-              ${fab.fichiers.map(file => `
-                <div style="background: #f8f6f2; padding: 0.75rem 1rem; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
-                  <div>
-                    <strong style="display: block; font-size: 0.85rem; color: #1a2530;">${file.titre}</strong>
-                    <span style="font-size: 0.75rem; color: #666;">${file.desc}</span>
+        grid.innerHTML = cataloguesData.map(fab => {
+          let logoFile = '';
+          const nameLower = fab.nom.toLowerCase();
+          if (nameLower.includes('elios')) logoFile = 'elios.png';
+          else if (nameLower.includes('view')) logoFile = 'view.png';
+          else if (nameLower.includes('fenice')) logoFile = 'lafenice.png';
+          else if (nameLower.includes('reviglass')) logoFile = 'reviglass.png';
+          else if (nameLower.includes('biopietra')) logoFile = 'biopietra.png';
+          else if (nameLower.includes('petracer')) logoFile = 'petracer.png';
+          else if (nameLower.includes('pecchioli')) logoFile = 'pecchioli.png';
+          else if (nameLower.includes('bulbo')) logoFile = 'bulbo.png';
+          else if (nameLower.includes('randal')) logoFile = 'randal.png';
+          else if (nameLower.includes('neobath')) logoFile = 'neobath.png';
+          else if (nameLower.includes('koibath')) logoFile = 'koibath.png';
+          else if (nameLower.includes('aquahome')) logoFile = 'aquahome.png';
+          else if (nameLower.includes('opal')) logoFile = 'opal.png';
+          else if (nameLower.includes('bilt')) logoFile = 'bilt.png';
+
+          let logoStyle = logoFile ? `background-image: url('assets/img/${logoFile}');` : '';
+
+          return `
+            <div class="card-premium" style="background: #ffffff; border: 1px solid rgba(0,0,0,0.06); border-radius: 4px; padding: 2rem; display: flex; flex-direction: column; justify-content: space-between; position: relative; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
+              <div style="position: absolute; top: 1.5rem; right: 1.5rem; width: 110px; height: 50px; ${logoStyle} background-repeat: no-repeat; background-position: right top; background-size: contain; opacity: 1; pointer-events: none; z-index: 1;"></div>
+              
+              <div style="position: relative; z-index: 2; padding-right: 90px;">
+                <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #708273; font-weight: 600;">${fab.pays}</span>
+                <h3 style="font-size: 1.25rem; margin: 0.5rem 0 1rem; color: #1a2530;">${fab.nom}</h3>
+                <p style="font-size: 0.9rem; color: #555; margin-bottom: 1.5rem;">${fab.presentation}</p>
+              </div>
+              
+              <div style="display: flex; flex-direction: column; gap: 0.75rem; position: relative; z-index: 2;">
+                ${fab.fichiers.map(file => `
+                  <div style="background: #f8f6f2; padding: 0.75rem 1rem; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
+                    <div>
+                      <strong style="display: block; font-size: 0.85rem; color: #1a2530;">${file.titre}</strong>
+                      <span style="font-size: 0.75rem; color: #666;">${file.desc}</span>
+                    </div>
+                    <a href="${file.lien}" target="_blank" rel="noopener" class="btn btn-outline" style="font-size: 0.75rem; padding: 0.4rem 0.8rem; border: 1px solid #1a2530; color: #1a2530; text-decoration: none; border-radius: 4px; white-space: nowrap;">Lien</a>
                   </div>
-                  <a href="${file.lien}" target="_blank" rel="noopener" class="btn btn-outline" style="font-size: 0.75rem; padding: 0.4rem 0.8rem; border: 1px solid #1a2530; color: #1a2530; text-decoration: none; border-radius: 4px; white-space: nowrap;">Lien</a>
-                </div>
-              `).join('')}
+                `).join('')}
+              </div>
             </div>
-          </div>
-        `).join('');
+          `;
+        }).join('');
       }
     });
   </script>
