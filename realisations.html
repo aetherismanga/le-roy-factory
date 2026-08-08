@@ -11,14 +11,11 @@
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
   <style>
-    /* Fond général de la page en blanc crème / coquille d'œuf */
     body, html {
       background-color: #FBF9F5 !important;
       background-image: none !important;
       color: #1A2530 !important;
     }
-
-    /* Header et Footer avec l'image bandeau02.png */
     header, footer {
       background-image: url('assets/img/bandeau02.png');
       background-size: cover;
@@ -34,22 +31,19 @@
     header a, footer p {
       color: #ffffff !important;
     }
-
-    .main-nav{
-      display:flex;
-      gap:1.2rem;
-      align-items:center;
-      justify-content:flex-end;
-      list-style:none;
-      margin:0;
-      padding:0;
-      flex-wrap:nowrap;
+    .main-nav {
+      display: flex;
+      gap: 1.2rem;
+      align-items: center;
+      justify-content: flex-end;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      flex-wrap: nowrap;
     }
-    .main-nav li{display:flex;align-items:center;}
-    
-    /* Style de base des liens du menu */
-    .main-nav > li > a:not(.agent-btn){
-      text-decoration:none;
+    .main-nav li { display: flex; align-items: center; }
+    .main-nav > li > a:not(.agent-btn) {
+      text-decoration: none;
       color: #ffffff;
       font-weight: 500;
       position: relative;
@@ -57,21 +51,16 @@
       background: transparent !important;
       transition: color 0.3s ease;
     }
-
-    /* Effet au survol simple */
     .main-nav > li > a:not(.agent-btn):hover {
       color: #d4af37;
       background: transparent !important;
     }
-
-    /* Onglet actif : texte normal, seule la ligne dorée apparaît en dessous */
     .main-nav > li > a.active:not(.agent-btn) {
       color: #ffffff !important;
       font-weight: 500;
       background: transparent !important;
       box-shadow: none !important;
     }
-    
     .main-nav > li > a.active:not(.agent-btn)::after {
       content: '';
       position: absolute;
@@ -83,31 +72,28 @@
       box-shadow: 0 0 8px rgba(212, 175, 55, 0.8);
       border-radius: 2px;
     }
-
-    .agent-btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding:8px 14px;
-      background:#111 !important;
-      color:#d4af37 !important;
-      border:1px solid #d4af37;
-      border-radius:8px;
-      font-weight:600;
-      white-space:nowrap;
-      transition:.25s;
+    .agent-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 14px;
+      background: #111 !important;
+      color: #d4af37 !important;
+      border: 1px solid #d4af37;
+      border-radius: 8px;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: .25s;
       text-shadow: none !important;
       box-shadow: none !important;
     }
     .agent-btn::after { display: none !important; }
-    .agent-btn:hover{background:#d4af37 !important;color:#111 !important;}
+    .agent-btn:hover { background: #d4af37 !important; color: #111 !important; }
   </style>
 </head>
 <body>
-
   <header>
     <div class="container nav-container" style="height: 130px; display: flex; align-items: center; justify-content: space-between;">
-      <!-- Logo rond mis à jour vers logo03lrf.png -->
       <a href="index.html" class="logo" style="display: flex; align-items: center; height: 100%; padding-left: 1.5rem;">
         <div style="width: 110px; height: 110px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.4); border: 2px solid #D4AF37; background-color: #000;">
           <img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY" style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.35);">
@@ -119,9 +105,9 @@
           <li><a href="univers.html">Inspirations</a></li>
           <li><a href="realisations.html" class="active">Réalisations</a></li>
           <li><a href="catalogues.html">Catalogues</a></li>
-          <li><a href="tarifs-pro.html">Tarifs PRO</a></li>
+          <li><a href="tarifs-pro.html">Accès PRO</a></li>
           <li><a href="contact.html">Contact</a></li>
-          <li><a href="agent.html" class="agent-btn">🔒 Espace Agent</a></li>
+          <li><a href="agent.html" class="agent-btn">Espace Agent</a></li>
         </ul>
       </nav>
       <button class="burger-btn" aria-label="Menu">
@@ -129,13 +115,11 @@
       </button>
     </div>
   </header>
-
   <main style="padding-top: 140px; padding-bottom: 4rem;">
     <div class="container">
       <h1 style="font-size: 2.5rem; margin-bottom: 1rem; color: #1A2530;">Galerie des Réalisations</h1>
       <p style="font-size: 1.1rem; color: #666; margin-bottom: 2rem; max-width: 700px;">Explorez l'application de nos matériaux d'exception à travers des projets résidentiels et professionnels.</p>
       
-      <!-- Filtres -->
       <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 3rem;">
         <button class="btn btn-primary" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Tous</button>
         <button class="btn btn-outline" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Cuisine</button>
@@ -146,36 +130,33 @@
         <button class="btn btn-outline" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Professionnel</button>
         <button class="btn btn-outline" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Résidentiel</button>
       </div>
-
       <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2rem;">
         <div class="card-premium" style="height: 300px; display: flex; align-items: flex-end; padding: 2rem; background: #E5E7EB; border-radius: 4px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
           <div>
             <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #708273; font-weight: 600;">Résidentiel</span>
-            <h3 style="font-size: 1.25rem; color: #1A2530; margin-top: 0.25rem;">Villa contemporaine — Cannes</h3>
+            <h3 style="font-size: 1.25rem; color: #1A2530; margin-top: 0.25rem;">Villa contemporaine à Cannes</h3>
           </div>
         </div>
         <div class="card-premium" style="height: 300px; display: flex; align-items: flex-end; padding: 2rem; background: #E5E7EB; border-radius: 4px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
           <div>
             <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #708273; font-weight: 600;">Professionnel</span>
-            <h3 style="font-size: 1.25rem; color: #1A2530; margin-top: 0.25rem;">Hôtel Boutique — Aix-en-Provence</h3>
+            <h3 style="font-size: 1.25rem; color: #1A2530; margin-top: 0.25rem;">Hôtel Boutique à Aix-en-Provence</h3>
           </div>
         </div>
         <div class="card-premium" style="height: 300px; display: flex; align-items: flex-end; padding: 2rem; background: #E5E7EB; border-radius: 4px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
           <div>
             <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #708273; font-weight: 600;">Salle de bain</span>
-            <h3 style="font-size: 1.25rem; color: #1A2530; margin-top: 0.25rem;">Appartement Haussmannien — Nice</h3>
+            <h3 style="font-size: 1.25rem; color: #1A2530; margin-top: 0.25rem;">Appartement Haussmannien à Nice</h3>
           </div>
         </div>
       </div>
     </div>
   </main>
-
   <footer>
     <div class="container" style="text-align: center; padding: 2rem 0;">
       <p style="color: #ffffff !important; font-weight: 600; text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);">&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p>
     </div>
   </footer>
-
   <script src="assets/js/app.js"></script>
 </body>
 </html>
