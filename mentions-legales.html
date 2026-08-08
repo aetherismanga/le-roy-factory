@@ -13,7 +13,7 @@
   <style>
     .main-nav {
       display: flex;
-      gap: 1.2rem;
+      gap: 1.5rem;
       align-items: center;
       justify-content: flex-end;
       list-style: none;
@@ -22,27 +22,71 @@
       flex-wrap: nowrap;
     }
     .main-nav li { display: flex; align-items: center; }
-    .main-nav a { text-decoration: none; }
-    .agent-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 8px 14px;
-      background: #111;
-      color: #d4af37 !important;
-      border: 1px solid #d4af37;
-      border-radius: 8px;
-      font-weight: 600;
-      white-space: nowrap;
-      transition: .25s;
+    .main-nav > li > a:not(.agent-btn) {
+      text-decoration: none;
+      color: #FFFFFF !important;
+      font-weight: 700 !important;
+      font-size: 1.05rem !important;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8) !important;
+      position: relative;
+      padding-bottom: 4px;
+      background: transparent !important;
+      transition: color 0.3s ease;
     }
-    .agent-btn:hover { background: #d4af37; color: #111 !important; }
+    .main-nav > li > a:not(.agent-btn):hover {
+      color: #FFD700 !important;
+      background: transparent !important;
+    }
+    .main-nav > li > a.active:not(.agent-btn) {
+      color: #FFFFFF !important;
+      font-weight: 700 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+    }
+    .main-nav > li > a.active:not(.agent-btn)::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: #FFD700;
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.9);
+      border-radius: 2px;
+    }
+    .agent-btn {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: 8px 16px !important;
+      background-color: #000000 !important;
+      color: #FFD700 !important;
+      border: 1px solid #FFD700 !important;
+      border-radius: 8px !important;
+      font-weight: 700 !important;
+      font-size: 0.95rem !important;
+      white-space: nowrap !important;
+      text-decoration: none !important;
+      transition: all 0.3s ease !important;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.5) !important;
+      text-shadow: none !important;
+    }
+    .agent-btn::after { display: none !important; }
+    .agent-btn:hover {
+      background-color: #FFD700 !important;
+      color: #000000 !important;
+      border-color: #FFD700 !important;
+    }
   </style>
 </head>
 <body>
   <header>
-    <div class="container nav-container">
-      <a href="index.html" class="logo">LE ROY FACTORY</a>
+    <div class="container nav-container" style="height: 130px; display: flex; align-items: center; justify-content: space-between;">
+      <a href="index.html" class="logo" style="display: flex; align-items: center; height: 100%; padding-left: 1.5rem; flex-shrink: 0;">
+        <div style="width: 110px; height: 110px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.4); border: 2px solid #D4AF37; background-color: #000; flex-shrink: 0;">
+          <img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY" style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.35);">
+        </div>
+      </a>
       <nav>
         <ul class="main-nav">
           <li><a href="partenaires.html">Partenaires</a></li>
@@ -54,6 +98,9 @@
           <li><a href="agent.html" class="agent-btn">Espace Agent</a></li>
         </ul>
       </nav>
+      <button class="burger-btn" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
   <main style="padding-top: 120px; padding-bottom: 4rem;">
