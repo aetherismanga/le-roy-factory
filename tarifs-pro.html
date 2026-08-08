@@ -11,14 +11,11 @@
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
   <style>
-    /* Fond général de la page en blanc crème / coquille d'œuf */
     body, html {
       background-color: #FBF9F5 !important;
       background-image: none !important;
       color: #1A2530 !important;
     }
-
-    /* Header et Footer avec l'image bandeau02.png */
     header, footer {
       background-image: url('assets/img/bandeau02.png');
       background-size: cover;
@@ -34,7 +31,6 @@
     header a, footer p {
       color: #ffffff !important;
     }
-
     .main-nav {
       display: flex;
       gap: 1.2rem;
@@ -46,7 +42,6 @@
       flex-wrap: nowrap;
     }
     .main-nav li { display: flex; align-items: center; }
-    
     .main-nav > li > a:not(.agent-btn) {
       text-decoration: none;
       color: #ffffff;
@@ -56,18 +51,15 @@
       background: transparent !important;
       transition: color 0.3s ease;
     }
-
     .main-nav > li > a:not(.agent-btn):hover {
       color: #d4af37;
       background: transparent !important;
     }
-
     .main-nav > li > a.active:not(.agent-btn) {
       color: #ffffff !important;
       font-weight: 500;
       background: transparent !important;
     }
-    
     .main-nav > li > a.active:not(.agent-btn)::after {
       content: '';
       position: absolute;
@@ -79,7 +71,6 @@
       box-shadow: 0 0 8px rgba(212, 175, 55, 0.8);
       border-radius: 2px;
     }
-
     .agent-btn {
       display: inline-flex;
       align-items: center;
@@ -98,7 +89,6 @@
   </style>
 </head>
 <body>
-
   <header>
     <div class="container nav-container" style="height: 130px; display: flex; align-items: center; justify-content: space-between;">
       <a href="index.html" class="logo" style="display: flex; align-items: center; height: 100%; padding-left: 1.5rem;">
@@ -112,9 +102,9 @@
           <li><a href="univers.html">Inspirations</a></li>
           <li><a href="realisations.html">Réalisations</a></li>
           <li><a href="catalogues.html">Catalogues</a></li>
-          <li><a href="tarifs-pro.html" class="active">Tarifs PRO</a></li>
+          <li><a href="tarifs-pro.html" class="active">Accès PRO</a></li>
           <li><a href="contact.html">Contact</a></li>
-          <li><a href="agent.html" class="agent-btn">🔒 Espace Agent</a></li>
+          <li><a href="agent.html" class="agent-btn">Espace Agent</a></li>
         </ul>
       </nav>
       <button class="burger-btn" aria-label="Menu">
@@ -122,7 +112,6 @@
       </button>
     </div>
   </header>
-
   <main style="padding-bottom: 4rem;">
     <section class="hero-banner" style="background-image: url('assets/img/02.png');">
       <div class="container">
@@ -130,7 +119,6 @@
         <p style="font-size: 1.1rem; opacity: 0.9; max-width: 700px;">Consultez et téléchargez les grilles tarifaires officielles de nos fabricants.</p>
       </div>
     </section>
-
     <div class="container" style="margin-top: 3rem;">
       <div id="login-section" style="max-width: 500px; margin: 4rem auto; background: #ffffff; padding: 3rem; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); text-align: center; border: 1px solid rgba(0,0,0,0.06);">
         <h2 style="font-size: 1.75rem; margin-bottom: 1rem; color: #1A2530;">Espace Sécurisé Professionnel</h2>
@@ -141,7 +129,6 @@
         </div>
         <p id="error-msg" style="color: #d9534f; margin-top: 1rem; display: none; font-size: 0.85rem;">Code incorrect. Veuillez réessayer.</p>
       </div>
-
       <div id="pro-content" style="display: none;">
         <div id="grid-tarifs" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 2rem;">
           <!-- Injection dynamique -->
@@ -149,20 +136,17 @@
       </div>
     </div>
   </main>
-
   <footer>
     <div class="container" style="text-align: center; padding: 2rem 0;">
       <p style="color: #ffffff !important; font-weight: 600; text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);">&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p>
     </div>
   </footer>
-
   <script>
     const passwordInput = document.getElementById('password-input');
     const loginBtn = document.getElementById('login-btn');
     const loginSection = document.getElementById('login-section');
     const proContent = document.getElementById('pro-content');
     const errorMsg = document.getElementById('error-msg');
-
     const partenairesTarifs = [
       {
         nom: "Elios Ceramica",
@@ -216,7 +200,7 @@
       {
         nom: "Pecchioli Firenze",
         pays: "Italie",
-        presentation: "Céramique artistique et historique façonnée à Florence.",
+        presentation: "Céramique artistique et historique faite à Florence.",
         fichiers: [
           { titre: "Grille Tarifaire", desc: "Tarifs professionnels Pecchioli.", lien: "assets/pdf/pecchioli2022.pdf" }
         ]
@@ -279,7 +263,6 @@
         ]
       }
     ];
-
     function checkPassword() {
       if (passwordInput.value.trim() === '2026') {
         loginSection.style.display = 'none';
@@ -289,12 +272,10 @@
         errorMsg.style.display = 'block';
       }
     }
-
     loginBtn.addEventListener('click', checkPassword);
     passwordInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') checkPassword();
     });
-
     function renderTarifs() {
       const grid = document.getElementById('grid-tarifs');
       grid.innerHTML = partenairesTarifs.map(fab => {
@@ -314,13 +295,10 @@
         else if (nameLower.includes('aquahome')) logoFile = 'aquahome.png';
         else if (nameLower.includes('opal')) logoFile = 'opal.png';
         else if (nameLower.includes('bilt')) logoFile = 'bilt.png';
-
         let logoStyle = logoFile ? `background-image: url('assets/img/${logoFile}');` : '';
-
         return `
           <div class="card-premium" style="padding: 2rem; display: flex; flex-direction: column; justify-content: space-between; position: relative; background: #ffffff; border: 1px solid rgba(0,0,0,0.06); border-radius: 4px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
             <div style="position: absolute; top: 1.5rem; right: 1.5rem; width: 110px; height: 50px; ${logoStyle} background-repeat: no-repeat; background-position: right top; background-size: contain; opacity: 1; pointer-events: none; z-index: 1;"></div>
-            
             <div style="position: relative; z-index: 2; padding-right: 90px;">
               <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #708273; font-weight: 600;">${fab.pays}</span>
               <h3 style="font-size: 1.25rem; margin: 0.5rem 0 1rem; color: #1A2530;">${fab.nom}</h3>
