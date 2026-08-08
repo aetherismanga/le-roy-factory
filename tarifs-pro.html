@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <link rel="icon" type="image/png" href="assets/img/logo03lrf.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tarifs Partenaires PRO — LE ROY FACTORY</title>
-  <meta name="description" content="Accédez aux grilles tarifaires officielles de nos fabricants partenaires. Espace réservé aux professionnels.">
+  <title>Accès PRO — LE ROY FACTORY</title>
+  <meta name="description" content="Accédez aux grilles tarifaires, conditions commerciales et contacts directs de nos fabricants partenaires. Espace réservé aux professionnels.">
   <link rel="stylesheet" href="assets/css/variables.css">
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/components.css">
@@ -95,8 +95,35 @@
     .agent-btn::after { display: none !important; }
     .agent-btn:hover {
       background-color: #FFD700 !important;
-      color: #000000 !important;
+      color: #111111 !important;
       border-color: #FFD700 !important;
+    }
+    /* Styles spécifiques pour les blocs d'informations Pro */
+    .pro-info-row {
+      background: #F8F6F2;
+      padding: 0.75rem 1rem;
+      border-radius: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      border-left: 3px solid #1A2530;
+    }
+    .pro-info-row.condition-row {
+      border-left-color: #D4AF37;
+    }
+    .pro-info-row.contact-row {
+      border-left-color: #047857;
+    }
+    .contact-link {
+      color: #1A2530;
+      font-weight: 700;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .contact-link:hover {
+      color: #D4AF37;
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -127,14 +154,14 @@
   <main style="padding-bottom: 4rem;">
     <section class="hero-banner" style="background-image: url('assets/img/02.png');">
       <div class="container">
-        <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Tarifs Partenaires PRO</h1>
-        <p style="font-size: 1.1rem; opacity: 0.9; max-width: 700px;">Consultez et téléchargez les grilles tarifaires officielles de nos fabricants.</p>
+        <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Accès Partenaires PRO</h1>
+        <p style="font-size: 1.1rem; opacity: 0.9; max-width: 700px;">Consultez les grilles tarifaires, conditions commerciales et contacts d'usine officiels.</p>
       </div>
     </section>
     <div class="container" style="margin-top: 3rem;">
       <div id="login-section" style="max-width: 500px; margin: 4rem auto; background: #ffffff; padding: 3rem; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); text-align: center; border: 1px solid rgba(0,0,0,0.06);">
         <h2 style="font-size: 1.75rem; margin-bottom: 1rem; color: #1A2530;">Espace Sécurisé Professionnel</h2>
-        <p style="color: #666; margin-bottom: 2rem; font-size: 0.95rem;">Veuillez saisir le code d'accès professionnel pour consulter les grilles tarifaires.</p>
+        <p style="color: #666; margin-bottom: 2rem; font-size: 0.95rem;">Veuillez saisir le code d'accès professionnel pour consulter les informations.</p>
         <div style="display: flex; gap: 1rem; justify-content: center;">
           <input type="password" id="password-input" placeholder="Code d'accès" style="padding: 0.75rem 1rem; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; width: 60%; outline: none;">
           <button id="login-btn" class="btn" style="background: #1A2530; color: #ffffff; padding: 0.75rem 1.5rem; border-radius: 4px; border: none; cursor: pointer; font-weight: 600;">Valider</button>
@@ -159,6 +186,7 @@
     const loginSection = document.getElementById('login-section');
     const proContent = document.getElementById('pro-content');
     const errorMsg = document.getElementById('error-msg');
+    
     const partenairesTarifs = [
       {
         nom: "Elios Ceramica",
@@ -166,7 +194,10 @@
         presentation: "Fabricant italien spécialisé dans les petits formats et la céramique décorative haut de gamme.",
         fichiers: [
           { titre: "Grille Tarifaire 2026", desc: "Tarifs professionnels officiels.", lien: "assets/pdf/elios2026.pdf" }
-        ]
+        ],
+        conditions: "Franco : 1 800 € net HT. Transport : Messagerie 90 € si inférieur au franco.",
+        contactEmail: "export@eliosceramica.com",
+        contactTel: "+39 0536 842411"
       },
       {
         nom: "View Ceramica",
@@ -174,7 +205,10 @@
         presentation: "Design contemporain et solutions céramiques innovantes pour les professionnels exigeants.",
         fichiers: [
           { titre: "Grille Tarifaire 2026", desc: "Tarifs professionnels officiels.", lien: "assets/pdf/view2026.pdf" }
-        ]
+        ],
+        conditions: "Franco : 2 000 € HT. Transport : 110 € par palette.",
+        contactEmail: "info@viewceramiche.com",
+        contactTel: "+39 0536 991111"
       },
       {
         nom: "La Fenice",
@@ -182,7 +216,10 @@
         presentation: "Tradition et modernité italienne au service de l'architecture intérieure.",
         fichiers: [
           { titre: "Grille Tarifaire 2026", desc: "Tarifs professionnels officiels.", lien: "assets/pdf/lafenice2026.pdf" }
-        ]
+        ],
+        conditions: "Franco : 1 500 € net. Forfait transport : 85 €.",
+        contactEmail: "commerciale@lafenicegc.com",
+        contactTel: "+39 0536 832811"
       },
       {
         nom: "Reviglass",
@@ -190,7 +227,10 @@
         presentation: "Spécialiste de la mosaïque en verre recyclé haut de gamme.",
         fichiers: [
           { titre: "Grille Tarifaire 2026", desc: "Tarifs professionnels officiels.", lien: "assets/pdf/reviglass2026.pdf" }
-        ]
+        ],
+        conditions: "Franco : 1 200 € net HT. Transport au carton : 45 €.",
+        contactEmail: "ventas@reviglass.es",
+        contactTel: "+34 943 831200"
       },
       {
         nom: "Biopietra",
@@ -199,7 +239,10 @@
         fichiers: [
           { titre: "Catalogue & Tarifs 2026", desc: "Documentation et tarifs Biopietra.", lien: "assets/pdf/biopietra2026.pdf" },
           { titre: "Code Prix Biopietra", desc: "Grille des codes prix.", lien: "assets/pdf/biopietracodeprix.pdf" }
-        ]
+        ],
+        conditions: "Franco : 2 500 € net HT. Transport spécifique pierre sur devis.",
+        contactEmail: "info@biopietra.com",
+        contactTel: "+39 030 963620"
       },
       {
         nom: "Petracer's",
@@ -207,7 +250,10 @@
         presentation: "L'expression ultime du luxe à l'italienne dans le carrelage d'exception.",
         fichiers: [
           { titre: "Grille Tarifaire", desc: "Tarifs professionnels Petracer's.", lien: "assets/pdf/petracer2023.pdf" }
-        ]
+        ],
+        conditions: "Franco : Sur demande spéciale. Transport direct Italie sur devis.",
+        contactEmail: "info@petracer.it",
+        contactTel: "+39 0536 812160"
       },
       {
         nom: "Pecchioli Firenze",
@@ -215,7 +261,10 @@
         presentation: "Céramique artistique et historique faite à Florence.",
         fichiers: [
           { titre: "Grille Tarifaire", desc: "Tarifs professionnels Pecchioli.", lien: "assets/pdf/pecchioli2022.pdf" }
-        ]
+        ],
+        conditions: "Fabrication sur mesure. Franco : 3 000 € net.",
+        contactEmail: "info@pecchiolifirenze.com",
+        contactTel: "+39 055 845 000"
       },
       {
         nom: "Bulbo",
@@ -223,7 +272,10 @@
         presentation: "Créations céramiques audacieuses et design avant-gardiste.",
         fichiers: [
           { titre: "Grille Tarifaire 2026", desc: "Tarifs professionnels Bulbo.", lien: "assets/pdf/bulbo2026.pdf" }
-        ]
+        ],
+        conditions: "Franco : 1 600 € net. Transport : 95 €.",
+        contactEmail: "info@bulbo.it",
+        contactTel: "+39 0536 811234"
       },
       {
         nom: "Randal Pro",
@@ -231,7 +283,10 @@
         presentation: "Mobilier de salle de bain sur mesure haut de gamme.",
         fichiers: [
           { titre: "Grille Tarifaire", desc: "Meubles sur mesure et solutions haut de gamme.", lien: "assets/pdf/RANDAL03.pdf" }
-        ]
+        ],
+        conditions: "Franco : 2 meubles commandés ou 1 500 € net.",
+        contactEmail: "randal@randal.group",
+        contactTel: "+34 96 123 4567"
       },
       {
         nom: "Neobath",
@@ -240,7 +295,10 @@
         fichiers: [
           { titre: "Collection Anima", desc: "Tarifs de la gamme Anima.", lien: "assets/pdf/neobathANIMA.pdf" },
           { titre: "Collection DNA", desc: "Tarifs de la gamme DNA.", lien: "assets/pdf/neobathDNA.pdf" }
-        ]
+        ],
+        conditions: "Franco : 2 200 € net HT.",
+        contactEmail: "info@neobathdesign.fr",
+        contactTel: "+39 0422 123456"
       },
       {
         nom: "Koibath",
@@ -248,7 +306,10 @@
         presentation: "Solutions innovantes et esthétiques pour la salle de bain moderne.",
         fichiers: [
           { titre: "Grille Tarifaire", desc: "Sur demande auprès de votre agent.", lien: "mailto:jerome@leroyfactory.fr?subject=Demande%20Tarifs%20Koibath" }
-        ]
+        ],
+        conditions: "Franco : 1 400 € net HT.",
+        contactEmail: "info@koibath.com",
+        contactTel: "+34 96 987 6543"
       },
       {
         nom: "Aquahome",
@@ -256,7 +317,10 @@
         presentation: "Robinetterie haut de gamme alliant design et performance technique.",
         fichiers: [
           { titre: "Grille Tarifaire", desc: "Mitigeurs, colonnes de douche et accessoires.", lien: "assets/pdf/AQUAHOME.pdf" }
-        ]
+        ],
+        conditions: "Franco : 800 € HT. Transport colissimo / express : 25 €.",
+        contactEmail: "contact@aquahomebs.com",
+        contactTel: "+34 93 456 7890"
       },
       {
         nom: "Opal",
@@ -264,7 +328,10 @@
         presentation: "Fabricant de miroirs lumineux et décoratifs pour espaces d'eau.",
         fichiers: [
           { titre: "Grille Tarifaire", desc: "Miroirs et accessoires.", lien: "https://www.koibath.com/wp-content/uploads/CATALOGO-ESPEJOS-2025.pdf" }
-        ]
+        ],
+        conditions: "Franco : 1 000 € HT.",
+        contactEmail: "info@opal.com",
+        contactTel: "+34 96 111 2233"
       },
       {
         nom: "Bilt",
@@ -272,9 +339,13 @@
         presentation: "Croisillons autonivelants et accessoires de pose professionnels.",
         fichiers: [
           { titre: "Grille Tarifaire", desc: "Systèmes de nivellement et accessoires.", lien: "assets/pdf/bilt.pdf" }
-        ]
+        ],
+        conditions: "Franco : 600 € HT. Emballage carton complet.",
+        contactEmail: "info@biltbs.com",
+        contactTel: "+34 93 123 9988"
       }
     ];
+
     function checkPassword() {
       if (passwordInput.value.trim() === '2026') {
         loginSection.style.display = 'none';
@@ -284,10 +355,12 @@
         errorMsg.style.display = 'block';
       }
     }
+
     loginBtn.addEventListener('click', checkPassword);
     passwordInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') checkPassword();
     });
+
     function renderTarifs() {
       const grid = document.getElementById('grid-tarifs');
       grid.innerHTML = partenairesTarifs.map(fab => {
@@ -307,18 +380,23 @@
         else if (nameLower.includes('aquahome')) logoFile = 'aquahome.png';
         else if (nameLower.includes('opal')) logoFile = 'opal.png';
         else if (nameLower.includes('bilt')) logoFile = 'bilt.png';
+
         let logoStyle = logoFile ? `background-image: url('assets/img/${logoFile}');` : '';
+
         return `
           <div class="card-premium" style="padding: 2rem; display: flex; flex-direction: column; justify-content: space-between; position: relative; background: #ffffff; border: 1px solid rgba(0,0,0,0.06); border-radius: 4px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
             <div style="position: absolute; top: 1.5rem; right: 1.5rem; width: 110px; height: 50px; ${logoStyle} background-repeat: no-repeat; background-position: right top; background-size: contain; opacity: 1; pointer-events: none; z-index: 1;"></div>
+            
             <div style="position: relative; z-index: 2; padding-right: 90px;">
               <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #708273; font-weight: 600;">${fab.pays}</span>
               <h3 style="font-size: 1.25rem; margin: 0.5rem 0 1rem; color: #1A2530;">${fab.nom}</h3>
               <p style="font-size: 0.9rem; color: #555; margin-bottom: 1.5rem;">${fab.presentation}</p>
             </div>
+
             <div style="display: flex; flex-direction: column; gap: 0.75rem; position: relative; z-index: 2;">
+              <!-- Fichiers Tarifs -->
               ${fab.fichiers.map(file => `
-                <div style="background: #F8F6F2; padding: 0.75rem 1rem; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
+                <div class="pro-info-row">
                   <div>
                     <strong style="display: block; font-size: 0.85rem; color: #1A2530;">${file.titre}</strong>
                     <span style="font-size: 0.75rem; color: #666;">${file.desc}</span>
@@ -326,6 +404,26 @@
                   <a href="${file.lien}" target="_blank" class="btn btn-outline" style="font-size: 0.75rem; padding: 0.4rem 0.8rem; border-color: #1A2530; color: #1A2530; white-space: nowrap; text-decoration: none; border-radius: 4px;">Tarifs</a>
                 </div>
               `).join('')}
+
+              <!-- Bloc Condition -->
+              <div class="pro-info-row condition-row">
+                <div>
+                  <strong style="display: block; font-size: 0.85rem; color: #1A2530;">Condition</strong>
+                  <span style="font-size: 0.78rem; color: #444; display: block; margin-top: 0.2rem;">${fab.conditions}</span>
+                </div>
+              </div>
+
+              <!-- Bloc Contact -->
+              <div class="pro-info-row contact-row">
+                <div style="width: 100%;">
+                  <strong style="display: block; font-size: 0.85rem; color: #1A2530; margin-bottom: 0.25rem;">Contact Usine</strong>
+                  <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; font-size: 0.8rem;">
+                    <span>Email : <a href="mailto:${fab.contactEmail}" class="contact-link">${fab.contactEmail}</a></span>
+                    <span>Tél : <a href="tel:${fab.contactTel.replace(/\s+/g, '')}" class="contact-link">${fab.contactTel}</a></span>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         `;
