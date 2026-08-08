@@ -11,14 +11,11 @@
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
   <style>
-    /* Fond général en blanc crème / coquille d'œuf */
     body, html {
       background-color: #FBF9F5 !important;
       background-image: none !important;
       color: #1A2530 !important;
     }
-
-    /* Header et Footer avec l'image bandeau02.png */
     header, footer {
       background-image: url('assets/img/bandeau02.png');
       background-size: cover;
@@ -34,7 +31,6 @@
     header a, footer p {
       color: #ffffff !important;
     }
-
     .main-nav {
       display: flex;
       gap: 1.2rem;
@@ -46,7 +42,6 @@
       flex-wrap: nowrap;
     }
     .main-nav li { display: flex; align-items: center; }
-    
     .main-nav > li > a:not(.agent-btn) {
       text-decoration: none;
       color: #ffffff !important;
@@ -56,19 +51,16 @@
       background: transparent !important;
       transition: color 0.3s ease;
     }
-
     .main-nav > li > a:not(.agent-btn):hover {
       color: #d4af37 !important;
       background: transparent !important;
     }
-
     .main-nav > li > a.active:not(.agent-btn) {
       color: #ffffff !important;
       font-weight: 600;
       background: transparent !important;
     }
-    
-    .main-nav > li > a.active:not(.agent-btn):::after {
+    .main-nav > li > a.active:not(.agent-btn)::after {
       content: '';
       position: absolute;
       bottom: -2px;
@@ -79,7 +71,6 @@
       box-shadow: 0 0 8px rgba(212, 175, 55, 0.8);
       border-radius: 2px;
     }
-
     .agent-btn {
       display: inline-flex;
       align-items: center;
@@ -98,7 +89,6 @@
   </style>
 </head>
 <body>
-
   <header>
     <div class="container nav-container" style="height: 130px; display: flex; align-items: center; justify-content: space-between;">
       <a href="index.html" class="logo" style="display: flex; align-items: center; height: 100%; padding-left: 1.5rem;">
@@ -112,9 +102,9 @@
           <li><a href="univers.html">Inspirations</a></li>
           <li><a href="realisations.html">Réalisations</a></li>
           <li><a href="catalogues.html" class="active">Catalogues</a></li>
-          <li><a href="tarifs-pro.html">Tarifs PRO</a></li>
+          <li><a href="tarifs-pro.html">Accès PRO</a></li>
           <li><a href="contact.html">Contact</a></li>
-          <li><a href="agent.html" class="agent-btn">🔒 Espace Agent</a></li>
+          <li><a href="agent.html" class="agent-btn">Espace Agent</a></li>
         </ul>
       </nav>
       <button class="burger-btn" aria-label="Menu">
@@ -122,24 +112,21 @@
       </button>
     </div>
   </header>
-
   <main style="padding-top: 140px; padding-bottom: 4rem;">
     <div class="container">
       <h1 style="font-size: 2.5rem; margin-bottom: 1rem; color: #1A2530;">Catalogues Partenaires</h1>
-      <p style="font-size: 1.1rem; color: #666; margin-bottom: 3rem; max-width: 700px;">Consultez et téléchargez l'ensemble des catalogues officiels et documentations de nos fabricants[cite: 13].</p>
+      <p style="font-size: 1.1rem; color: #666; margin-bottom: 3rem; max-width: 700px;">Consultez et téléchargez l'ensemble des catalogues officiels et documentations de nos fabricants.</p>
       
       <div id="grid-catalogues" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem;">
         <!-- Injection dynamique via JS -->
       </div>
     </div>
   </main>
-
   <footer>
     <div class="container" style="text-align: center; padding: 2rem 0;">
       <p style="color: #ffffff !important; font-weight: 600; text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);">&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p>
     </div>
   </footer>
-
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       const cataloguesData = [
@@ -200,7 +187,7 @@
         {
           nom: "Pecchioli Firenze",
           pays: "Italie",
-          presentation: "Céramique artistique et historique façonnée à Florence.",
+          presentation: "Céramique artistique et historique faite à Florence.",
           fichiers: [
             { titre: "Céramique Artistique", desc: "Faïences d'art et créations sur mesure.", lien: "assets/pdf/pecchioli.pdf" }
           ]
@@ -265,7 +252,6 @@
           ]
         }
       ];
-
       const grid = document.getElementById('grid-catalogues');
       if (grid) {
         grid.innerHTML = cataloguesData.map(fab => `
