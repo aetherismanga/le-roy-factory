@@ -22,4 +22,5 @@ console.log("🔥 Firebase est initialisé avec succès pour Le Roy Factory !");
 const currentPage = window.location.pathname.toLowerCase();
 if (currentPage.endsWith("clients.html")) {
   import("./client-direct-email.js").catch(err => console.error("Erreur chargement module e-mail client :", err));
+  import("./crm-moovago.js").catch(err => console.error("Erreur chargement module CRM Moovago :", err));
 }
