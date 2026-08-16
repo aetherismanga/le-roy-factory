@@ -26,4 +26,5 @@ if (currentPage.endsWith("clients.html")) {
 }
 if (currentPage.endsWith("mails-groupes.html")) {
   import("./mails-groupes-interlocuteurs.js").catch(err => console.error("Erreur chargement interlocuteurs mails groupés :", err));
+  import("./mails-groupes-partenaires.js").catch(err => console.error("Erreur chargement filtre partenaires mails groupés :", err));
 }
