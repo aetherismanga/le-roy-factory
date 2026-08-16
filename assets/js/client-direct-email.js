@@ -15,6 +15,7 @@ let activeEditClientId = null;
 let pendingNewClientEmails = null;
 let currentMailClient = null;
 let mailAttachments = [];
+let initialized = false;
 
 function esc(value) {
   return String(value ?? "")
@@ -66,7 +67,9 @@ function extractEmails(client) {
 }
 
 function injectStyles() {
+  if (document.getElementById("client-direct-email-styles")) return;
   const style = document.createElement("style");
+  style.id = "client-direct-email-styles";
   style.textContent = `
     .btn-mail-row{background:#fff;border:1px solid #D4AF37;color:#1A2530;border-radius:7px;padding:.38rem .7rem;font-weight:700;cursor:pointer;white-space:nowrap}
     .btn-mail-row:hover{background:#FFF8DC}
@@ -95,21 +98,14 @@ function injectStyles() {
 function injectEmailEditor() {
   const primary = document.getElementById("edit-email");
   if (!primary || document.getElementById("extra-emails-wrap")) return;
-
   const parent = primary.closest(".form-field");
   const label = parent?.querySelector("label");
   if (label) label.textContent = "Email professionnel principal";
-
   const wrap = document.createElement("div");
   wrap.id = "extra-emails-wrap";
   wrap.className = "form-field full-width";
-  wrap.innerHTML = `
-    <label>Autres adresses e-mail</label>
-    <div id="extra-emails-container"></div>
-    <button type="button" id="btn-add-email" class="btn-add-phone-link">+ Ajouter une autre adresse e-mail</button>
-  `;
+  wrap.innerHTML = `<label>Autres adresses e-mail</label><div id="extra-emails-container"></div><button type="button" id="btn-add-email" class="btn-add-phone-link">+ Ajouter une autre adresse e-mail</button>`;
   parent?.insertAdjacentElement("afterend", wrap);
-
   document.getElementById("btn-add-email")?.addEventListener("click", () => addExtraEmailRow(""));
 }
 
@@ -129,7 +125,7 @@ function populateEditEmails(client) {
   if (container) container.innerHTML = "";
   const emails = extractEmails(client || {});
   const primary = document.getElementById("edit-email");
-  if (primary && emails.length) primary.value = emails[0];
+  if (primary) primary.value = emails[0] || primary.value || "";
   emails.slice(1).forEach(addExtraEmailRow);
 }
 
@@ -146,9 +142,7 @@ function findClientForRow(row) {
   const cells = row.querySelectorAll("td");
   const societe = cells[1]?.textContent?.trim() || "";
   const phone = cells[4]?.textContent?.trim() || "";
-  return clients.find(c => (c.societe || "").trim() === societe && (!phone || phone === "-" || String(c.telephone || "").trim() === phone))
-    || clients.find(c => (c.societe || "").trim() === societe)
-    || null;
+  return clients.find(c => (c.societe || "").trim() === societe && (!phone || phone === "-" || String(c.telephone || "").trim() === phone)) || clients.find(c => (c.societe || "").trim() === societe) || null;
 }
 
 function latestExchange(client) {
@@ -174,7 +168,6 @@ function enhanceRows() {
     const client = findClientForRow(row);
     if (!client) return;
     row.dataset.clientId = client.id;
-
     const btn = row.querySelector(".btn-edit-row, .btn-mail-row");
     if (btn) {
       const hasEmail = extractEmails(client).length > 0;
@@ -192,20 +185,8 @@ function injectMailModal() {
   const overlay = document.createElement("div");
   overlay.id = "client-mail-overlay";
   overlay.className = "client-mail-overlay";
-  overlay.innerHTML = `
-    <div class="client-mail-dialog" role="dialog" aria-modal="true">
-      <div class="client-mail-head"><div><h2 style="margin:0;color:#1A2530">✉ Envoyer un mail</h2><div id="client-mail-company" style="color:#666;margin-top:.25rem"></div></div><button type="button" class="client-mail-close" id="client-mail-close">×</button></div>
-      <div class="client-mail-grid">
-        <div class="client-mail-field"><label>Expéditeur</label><select id="client-mail-sender"><option value="jerome">Jérôme — jerome@leroyfactory.fr</option><option value="coryne">Coryne — coryne@leroyfactory.fr</option></select></div>
-        <div class="client-mail-field"><label>Destinataire(s)</label><div id="client-mail-recipients" class="mail-recipient-list"></div></div>
-      </div>
-      <div class="client-mail-field"><label>Objet *</label><input id="client-mail-subject" type="text" placeholder="Objet du mail"></div>
-      <div class="client-mail-field"><label>Message *</label><textarea id="client-mail-body" rows="8" placeholder="Rédigez votre message..."></textarea></div>
-      <div class="client-mail-field"><label>📎 Pièces jointes — plusieurs fichiers possibles (10 Mo max par fichier)</label><input id="client-mail-files" type="file" multiple><div id="client-mail-files-list" class="mail-files-list"></div></div>
-      <div class="client-mail-actions"><button type="button" class="filter-btn" id="client-mail-cancel">Annuler</button><button type="button" class="btn-primary-gold" id="client-mail-send">✉ Envoyer</button></div>
-    </div>`;
+  overlay.innerHTML = `<div class="client-mail-dialog" role="dialog" aria-modal="true"><div class="client-mail-head"><div><h2 style="margin:0;color:#1A2530">✉ Envoyer un mail</h2><div id="client-mail-company" style="color:#666;margin-top:.25rem"></div></div><button type="button" class="client-mail-close" id="client-mail-close">×</button></div><div class="client-mail-grid"><div class="client-mail-field"><label>Expéditeur</label><select id="client-mail-sender"><option value="jerome">Jérôme — jerome@leroyfactory.fr</option><option value="coryne">Coryne — coryne@leroyfactory.fr</option></select></div><div class="client-mail-field"><label>Destinataire(s)</label><div id="client-mail-recipients" class="mail-recipient-list"></div></div></div><div class="client-mail-field"><label>Objet *</label><input id="client-mail-subject" type="text" placeholder="Objet du mail"></div><div class="client-mail-field"><label>Message *</label><textarea id="client-mail-body" rows="8" placeholder="Rédigez votre message..."></textarea></div><div class="client-mail-field"><label>📎 Pièces jointes — plusieurs fichiers possibles (10 Mo max par fichier)</label><input id="client-mail-files" type="file" multiple><div id="client-mail-files-list" class="mail-files-list"></div></div><div class="client-mail-actions"><button type="button" class="filter-btn" id="client-mail-cancel">Annuler</button><button type="button" class="btn-primary-gold" id="client-mail-send">✉ Envoyer</button></div></div>`;
   document.body.appendChild(overlay);
-
   document.getElementById("client-mail-close")?.addEventListener("click", closeMailModal);
   document.getElementById("client-mail-cancel")?.addEventListener("click", closeMailModal);
   overlay.addEventListener("click", e => { if (e.target === overlay) closeMailModal(); });
@@ -222,10 +203,8 @@ function openMailModal(client) {
   document.getElementById("client-mail-subject").value = "";
   document.getElementById("client-mail-body").value = "";
   document.getElementById("client-mail-files").value = "";
-
   const agent = (localStorage.getItem("agentName") || "").toLowerCase();
   document.getElementById("client-mail-sender").value = agent.includes("coryne") ? "coryne" : "jerome";
-
   const emails = extractEmails(client);
   const recipients = document.getElementById("client-mail-recipients");
   recipients.innerHTML = emails.map((email, idx) => `<label class="mail-recipient-row"><input type="checkbox" class="client-mail-recipient" value="${esc(email)}" ${idx === 0 ? "checked" : ""}> <span>${esc(email)}${idx === 0 ? " <strong>(principal)</strong>" : ""}</span></label>`).join("");
@@ -279,31 +258,18 @@ async function sendDirectMail() {
   if (!recipients.length) return alert("Sélectionnez au moins une adresse e-mail.");
   if (!subject) return alert("Saisissez l'objet du mail.");
   if (!body) return alert("Rédigez le message.");
-
   const btn = document.getElementById("client-mail-send");
   btn.disabled = true;
   btn.textContent = "Envoi en cours...";
   const htmlContent = `${esc(body).replace(/\n/g, "<br>")}${SIGNATURES[senderMode] || SIGNATURES.jerome}`;
-
   try {
-    const response = await fetch(SEND_URL, {
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({ senderMode, bccRecipients:recipients, subject, htmlContent, attachments:mailAttachments })
-    });
+    const response = await fetch(SEND_URL, { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({ senderMode, bccRecipients:recipients, subject, htmlContent, attachments:mailAttachments }) });
     const result = await response.json();
     if (!response.ok || !result.success) throw new Error(result.error || "Erreur d'envoi");
-
     const dateFr = new Date().toLocaleDateString("fr-FR");
     const agentLabel = senderMode === "coryne" ? "Coryne" : "Jérôme";
-    await updateDoc(doc(db, "clients", currentMailClient.id), {
-      historiqueMails: arrayUnion({ date:dateFr, expediteur:agentLabel, objet:subject, destinataires:recipients })
-    });
-    await addDoc(collection(db, "historique_mails"), {
-      date:new Date().toISOString(), expediteur:senderMode === "coryne" ? "coryne@leroyfactory.fr" : "jerome@leroyfactory.fr", objet:subject,
-      nbDestinataires:recipients.length, destinataires:recipients, clientId:currentMailClient.id, client:currentMailClient.societe || "", statut:"Succès"
-    });
-
+    await updateDoc(doc(db, "clients", currentMailClient.id), { historiqueMails: arrayUnion({ date:dateFr, expediteur:agentLabel, objet:subject, destinataires:recipients }) });
+    await addDoc(collection(db, "historique_mails"), { date:new Date().toISOString(), expediteur:senderMode === "coryne" ? "coryne@leroyfactory.fr" : "jerome@leroyfactory.fr", objet:subject, nbDestinataires:recipients.length, destinataires:recipients, clientId:currentMailClient.id, client:currentMailClient.societe || "", statut:"Succès" });
     alert(`✅ E-mail envoyé avec succès à ${recipients.length} adresse(s).`);
     closeMailModal();
   } catch (err) {
@@ -321,7 +287,6 @@ function setupEvents() {
     if (!row) return;
     const client = findClientForRow(row);
     if (client) activeEditClientId = client.id;
-
     const mailBtn = event.target.closest(".btn-edit-row, .btn-mail-row");
     if (mailBtn) {
       event.preventDefault();
@@ -337,20 +302,14 @@ function setupEvents() {
   }, true);
 
   const form = document.getElementById("client-form");
-  form?.addEventListener("submit", event => {
+  form?.addEventListener("submit", () => {
     const emails = collectEditEmails();
     const primary = document.getElementById("edit-email");
     if (primary) primary.value = emails[0] || "";
-
     if (activeEditClientId) {
       updateDoc(doc(db, "clients", activeEditClientId), { email:emails[0] || "", emails }).catch(console.error);
     } else {
-      pendingNewClientEmails = {
-        emails,
-        societe:document.getElementById("edit-societe")?.value.trim() || "",
-        primary:emails[0] || "",
-        startedAt:Date.now()
-      };
+      pendingNewClientEmails = { emails, societe:document.getElementById("edit-societe")?.value.trim() || "", primary:emails[0] || "", startedAt:Date.now() };
     }
   }, true);
 
@@ -384,16 +343,23 @@ function handlePendingNewClient() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+function initClientDirectEmail() {
+  if (initialized) return;
+  initialized = true;
   injectStyles();
   injectEmailEditor();
   injectMailModal();
   setupEvents();
-
   onSnapshot(collection(db, "clients"), snapshot => {
     clients = [];
     snapshot.forEach(s => clients.push({ id:s.id, ...s.data() }));
     handlePendingNewClient();
     setTimeout(enhanceRows, 0);
   });
-});
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initClientDirectEmail, { once:true });
+} else {
+  initClientDirectEmail();
+}
