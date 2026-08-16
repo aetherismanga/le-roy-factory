@@ -327,7 +327,10 @@ function setupEvents() {
   }
 
   const table = document.getElementById("clients-table-body");
-  if (table) new MutationObserver(enhanceRows).observe(table, { childList:true, subtree:true });
+  if (table) {
+    const tableObserver = new MutationObserver(() => requestAnimationFrame(enhanceRows));
+    tableObserver.observe(table, { childList:true, subtree:false });
+  }
 }
 
 function handlePendingNewClient() {
