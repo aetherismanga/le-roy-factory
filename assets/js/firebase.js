@@ -23,8 +23,10 @@ if (currentPage.endsWith("clients.html")) {
   import("./client-direct-email.js").catch(err => console.error("Erreur chargement module e-mail client :", err));
   import("./crm-moovago.js").catch(err => console.error("Erreur chargement module CRM Moovago :", err));
   import("./crm-client-enhancements.js").catch(err => console.error("Erreur chargement améliorations Clients :", err));
+  import("./client-mail-all-emails.js").catch(err => console.error("Erreur chargement sélection complète e-mails client :", err));
 }
 if (currentPage.endsWith("mails-groupes.html")) {
   import("./mails-groupes-interlocuteurs.js").catch(err => console.error("Erreur chargement interlocuteurs mails groupés :", err));
   import("./mails-groupes-partenaires.js").catch(err => console.error("Erreur chargement filtre partenaires mails groupés :", err));
+  import("./mails-groupes-all-emails.js").catch(err => console.error("Erreur chargement toutes les adresses mails groupés :", err));
 }
