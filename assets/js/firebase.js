@@ -18,9 +18,12 @@ export const db = getFirestore(app);
 
 console.log("🔥 Firebase est initialisé avec succès pour Le Roy Factory !");
 
-// Fonctionnalités complémentaires propres à la page Clients uniquement.
 const currentPage = window.location.pathname.toLowerCase();
 if (currentPage.endsWith("clients.html")) {
   import("./client-direct-email.js").catch(err => console.error("Erreur chargement module e-mail client :", err));
   import("./crm-moovago.js").catch(err => console.error("Erreur chargement module CRM Moovago :", err));
+  import("./crm-client-enhancements.js").catch(err => console.error("Erreur chargement améliorations Clients :", err));
+}
+if (currentPage.endsWith("mails-groupes.html")) {
+  import("./mails-groupes-interlocuteurs.js").catch(err => console.error("Erreur chargement interlocuteurs mails groupés :", err));
 }
