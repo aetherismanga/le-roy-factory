@@ -3,6 +3,7 @@ import { doc, getDoc, collection, onSnapshot } from "https://www.gstatic.com/fir
 
 let clients = [];
 let pendingClientId = null;
+let modalRefreshTimer = null;
 
 const valid = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(v || "").trim());
 const norm = v => String(v || "").trim().toLowerCase();
@@ -11,7 +12,6 @@ const esc = v => String(v || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").repl
 function allEmails(client) {
   const result = [];
   const seen = new Set();
-
   const add = (email, label, kind = "societe") => {
     email = String(email || "").trim();
     const key = norm(email);
@@ -34,8 +34,7 @@ function allEmails(client) {
     client.emails_contact.forEach((email, index) => add(email, `Adresse contact ${index + 1}`, "societe"));
   }
 
-  const people = Array.isArray(client?.interlocuteurs) ? client.interlocuteurs : [];
-  people.forEach(person => {
+  (Array.isArray(client?.interlocuteurs) ? client.interlocuteurs : []).forEach(person => {
     const name = [person?.civilite, person?.prenom, person?.nom].filter(Boolean).join(" ").trim() || "Interlocuteur";
     const role = person?.fonction ? ` — ${person.fonction}` : "";
     add(person?.email, `${name}${role}`, "interlocuteur");
@@ -50,19 +49,18 @@ function allEmails(client) {
       }
     });
   }
-
   return result;
 }
 
 function renderRecipients(client) {
   const list = document.getElementById("client-mail-recipients");
   if (!list || !client) return;
-
+  const checked = new Set([...list.querySelectorAll(".client-mail-recipient:checked")].map(x => norm(x.value)));
   const emails = allEmails(client);
   list.innerHTML = emails.length
     ? emails.map((item, index) => `
       <label class="mail-recipient-row ${item.kind === "interlocuteur" ? "person" : ""}" style="padding:.4rem .25rem;align-items:flex-start">
-        <input type="checkbox" class="client-mail-recipient" value="${esc(item.email)}" ${index === 0 ? "checked" : ""} style="width:auto;margin-top:3px">
+        <input type="checkbox" class="client-mail-recipient" value="${esc(item.email)}" ${(checked.has(norm(item.email)) || (checked.size === 0 && index === 0)) ? "checked" : ""} style="width:auto;margin-top:3px">
         <span><strong>${esc(item.email)}</strong><small style="display:block;color:#666;margin-top:2px">${esc(item.label)}</small></span>
       </label>`).join("")
     : `<div style="color:#777;padding:.5rem">Aucune adresse e-mail disponible.</div>`;
@@ -73,17 +71,33 @@ async function refreshFromFirestore(clientId) {
   try {
     const snap = await getDoc(doc(db, "clients", clientId));
     if (!snap.exists()) return;
-    const client = { id: snap.id, ...snap.data() };
-    renderRecipients(client);
+    renderRecipients({ id: snap.id, ...snap.data() });
   } catch (error) {
     console.error("Erreur lecture destinataires client :", error);
   }
 }
 
 function scheduleRefresh(clientId) {
-  [30, 120, 300, 700].forEach(delay => {
-    setTimeout(() => refreshFromFirestore(clientId), delay);
-  });
+  [20, 80, 180, 350, 650, 1000, 1500, 2200].forEach(delay => setTimeout(() => refreshFromFirestore(clientId), delay));
+}
+
+function startPersistentRefresh(clientId) {
+  clearInterval(modalRefreshTimer);
+  modalRefreshTimer = setInterval(() => {
+    const overlay = document.getElementById("client-mail-overlay");
+    if (!overlay || getComputedStyle(overlay).display === "none") {
+      clearInterval(modalRefreshTimer);
+      modalRefreshTimer = null;
+      return;
+    }
+    refreshFromFirestore(clientId);
+  }, 500);
+  setTimeout(() => {
+    if (modalRefreshTimer) {
+      clearInterval(modalRefreshTimer);
+      modalRefreshTimer = null;
+    }
+  }, 6000);
 }
 
 function clientForRow(row) {
@@ -120,6 +134,7 @@ function init() {
     if (!client?.id) return;
     pendingClientId = client.id;
     scheduleRefresh(client.id);
+    startPersistentRefresh(client.id);
   }, true);
 
   const overlay = document.getElementById("client-mail-overlay");
@@ -127,6 +142,7 @@ function init() {
     new MutationObserver(() => {
       if (getComputedStyle(overlay).display !== "none" && pendingClientId) {
         scheduleRefresh(pendingClientId);
+        startPersistentRefresh(pendingClientId);
       }
     }).observe(overlay, { attributes: true, attributeFilter: ["style"] });
   }
