@@ -4,7 +4,6 @@ const nodemailer = require("nodemailer");
 exports.sendGroupEmail = functions.onRequest({
   secrets: ["SMTP_PASSWORD_JEROME", "SMTP_PASSWORD_CORYNE"]
 }, async (req, res) => {
-  // Config CORS
   res.set("Access-Control-Allow-Origin", "*");
   res.set("Access-Control-Allow-Headers", "Content-Type");
   if (req.method === "OPTIONS") {
@@ -52,17 +51,26 @@ exports.sendGroupEmail = functions.onRequest({
       }
     });
 
+    const safeAttachments = Array.isArray(attachments)
+      ? attachments
+          .filter(att => att && att.filename && att.content)
+          .map(att => ({
+            filename: att.filename,
+            content: Buffer.from(att.content, "base64"),
+            contentType: att.contentType || undefined,
+            cid: att.cid || undefined,
+            contentDisposition: att.inline ? "inline" : "attachment"
+          }))
+      : [];
+
     const mailOptions = {
       from: fromHeader,
       to: smtpUser,
       replyTo: replyToHeader,
       bcc: bccRecipients,
-      subject: subject,
+      subject,
       html: htmlContent,
-      attachments: attachments ? attachments.map(att => ({
-        filename: att.filename,
-        content: Buffer.from(att.content, "base64")
-      })) : []
+      attachments: safeAttachments
     };
 
     await transporter.sendMail(mailOptions);
