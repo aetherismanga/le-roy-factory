@@ -1,7 +1,7 @@
-const functions = require("firebase-functions");
+const { onRequest } = require("firebase-functions/v2/https");
 const nodemailer = require("nodemailer");
 
-exports.sendGroupEmail = functions.onRequest({
+exports.sendGroupEmail = onRequest({
   secrets: ["SMTP_PASSWORD_JEROME", "SMTP_PASSWORD_CORYNE"]
 }, async (req, res) => {
   res.set("Access-Control-Allow-Origin", "*");
