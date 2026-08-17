@@ -10,6 +10,9 @@ function addNav(){
     if(quick&&!quick.querySelector('a[href="demandes-clients.html"]')){
       const a=document.createElement('a');a.href='demandes-clients.html';a.className='btn-primary-gold';a.style.cssText='text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.25rem';a.textContent='🧾 Demandes clients';quick.appendChild(a);
     }
+    if(quick&&!quick.querySelector('a[href="ouverture-compte.html"]')){
+      const a=document.createElement('a');a.href='ouverture-compte.html';a.target='_blank';a.className='btn-primary-gold';a.style.cssText='text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.25rem';a.textContent='🔗 Formulaire ouverture / mise à jour';quick.appendChild(a);
+    }
   }
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',addNav,{once:true});else addNav();
