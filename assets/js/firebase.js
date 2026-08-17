@@ -23,3 +23,6 @@ if (currentPage.endsWith("clients.html")) {
   import("./crm-moovago.js?v=20260817-1121").catch(err => console.error("Erreur chargement module CRM Moovago :", err));
   import("./crm-client-enhancements.js?v=20260817-1121").catch(err => console.error("Erreur chargement améliorations Clients :", err));
 }
+if (currentPage.endsWith("mails-groupes.html")) {
+  import("./mails-groupes-programmation.js?v=20260817-1145").catch(err => console.error("Erreur chargement mails programmés :", err));
+}
