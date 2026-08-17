@@ -216,3 +216,5 @@ exports.processScheduledEmails = onSchedule({
     }
   }
 });
+
+Object.assign(exports, require("./account-requests"));
