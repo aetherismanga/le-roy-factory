@@ -17,6 +17,18 @@ export const db = getFirestore(app);
 
 console.log("🔥 Firebase est initialisé avec succès pour Le Roy Factory !");
 
+function ensureMobileCss() {
+  if (!window.matchMedia("(max-width: 900px)").matches) return;
+  const old = document.getElementById("lrf-mobile-enhancements");
+  if (old) old.remove();
+  const link = document.createElement("link");
+  link.id = "lrf-mobile-enhancements";
+  link.rel = "stylesheet";
+  link.href = "assets/css/mobile-enhancements.css?v=20260817-1935";
+  document.head.appendChild(link);
+}
+ensureMobileCss();
+
 const currentPage = window.location.pathname.toLowerCase();
 import("./account-requests-nav.js?v=20260817-1845").catch(err => console.error("Erreur chargement navigation demandes clients :", err));
 if (currentPage.endsWith("clients.html")) {
