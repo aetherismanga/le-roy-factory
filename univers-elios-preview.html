@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="assets/img/logo03lrf.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inspirations ELIOS — LE ROY FACTORY</title>
+  <meta name="description" content="Recherchez rapidement les collections ELIOS par effet, couleur, format et usage.">
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/inspirations.css?v=20260818">
+  <link rel="stylesheet" href="assets/css/inspirations-gallery.css?v=20260818">
+  <style>
+    body,html{background-color:#FBF9F5!important;background-image:none!important;color:#1A2530!important}header,footer{background-image:url('assets/img/bandeau02.png');background-size:cover;background-position:center;color:#fff;border-bottom:2px solid #D4AF37}footer{border-top:2px solid #D4AF37;border-bottom:none;text-shadow:0 1px 4px rgba(0,0,0,.9)}footer p{color:#fff!important}.main-nav{display:flex;gap:1.5rem;align-items:center;justify-content:flex-end;list-style:none;margin:0;padding:0;flex-wrap:nowrap}.main-nav li{display:flex;align-items:center}.main-nav>li>a:not(.agent-btn){text-decoration:none;color:#111!important;font-weight:800!important;font-size:1.15rem!important;letter-spacing:.5px!important;text-shadow:0 1px 2px rgba(212,175,55,.6)!important;position:relative;padding-bottom:4px;background:transparent!important;transition:color .25s ease}.main-nav>li>a:not(.agent-btn):hover{color:#D4AF37!important}.main-nav>li>a.active:not(.agent-btn)::after{content:'';position:absolute;bottom:-2px;left:0;width:100%;height:3px;background:#D4AF37;box-shadow:0 0 10px rgba(212,175,55,.9);border-radius:2px}.agent-btn{display:inline-flex!important;align-items:center!important;justify-content:center!important;padding:8px 16px!important;background:#000!important;color:#FFD700!important;border:1px solid #FFD700!important;border-radius:8px!important;font-weight:700!important;font-size:.95rem!important;white-space:nowrap!important;text-decoration:none!important;box-shadow:0 2px 8px rgba(0,0,0,.5)!important}.agent-btn:hover{background:#FFD700!important;color:#000!important}.hero-banner{position:relative}.hero-banner:before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(12,19,25,.72),rgba(12,19,25,.25))}.hero-banner .container{position:relative;z-index:1}.hero-kicker{display:inline-block;background:#D4AF37;color:#121212;font-weight:900;font-size:.76rem;letter-spacing:.09em;text-transform:uppercase;border-radius:999px;padding:7px 11px;margin-bottom:10px}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav-container" style="height:130px;display:flex;align-items:center;justify-content:space-between;">
+      <a href="index.html" class="logo" style="display:flex;align-items:center;height:100%;padding-left:1.5rem;flex-shrink:0;">
+        <div style="width:110px;height:110px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.4);border:2px solid #D4AF37;background:#000;flex-shrink:0;">
+          <img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY" style="width:100%;height:100%;object-fit:cover;transform:scale(1.35);">
+        </div>
+      </a>
+      <nav><ul class="main-nav">
+        <li><a href="partenaires.html">Partenaires</a></li><li><a href="univers.html" class="active">Inspirations</a></li><li><a href="realisations.html">Réalisations</a></li><li><a href="catalogues.html">Catalogues</a></li><li><a href="tarifs-pro.html">Accès PRO</a></li><li><a href="contact.html">Contact</a></li><li><a href="agent.html" class="agent-btn">Espace Agent</a></li>
+      </ul></nav>
+      <button class="burger-btn" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+  <main>
+    <section class="hero-banner" style="background-image:url('assets/img/03.png');">
+      <div class="container">
+        <span class="hero-kicker">Prototype · Catalogue ELIOS 2026</span>
+        <h1 style="font-size:clamp(2rem,4vw,3rem);margin-bottom:.6rem;">Trouvez le bon carrelage en quelques secondes</h1>
+        <p style="font-size:1.08rem;opacity:.95;max-width:780px;">Recherchez une collection, une couleur, un format ou un usage sans parcourir les 240 pages du catalogue.</p>
+      </div>
+    </section>
+    <section class="inspiration-shell">
+      <div class="inspiration-intro">
+        <div><h2>Catalogue ELIOS Ceramica 2026</h2><p>35 sections du catalogue général intégrées. Photos issues du PDF fourni, recherche rapide et fiche produit sans quitter la page.</p></div>
+        <div class="brand-pill"><img src="assets/img/elios.png" alt="ELIOS"><span>Catalogue général 2026</span></div>
+      </div>
+      <div class="inspiration-search-panel">
+        <div class="search-main">
+          <div class="search-box"><input id="product-search" type="search" autocomplete="off" placeholder="Ex. Quercia, beige, 60x120, R11, bois…"><span class="search-icon">⌕</span></div>
+          <button id="filter-toggle" class="filter-toggle" type="button">Filtres</button>
+        </div>
+        <div id="advanced-filters" class="filter-row">
+          <select id="filter-category" aria-label="Univers"></select><select id="filter-color" aria-label="Couleur"></select><select id="filter-format" aria-label="Format"></select><select id="filter-usage" aria-label="Usage"></select>
+        </div>
+        <div class="quick-filters">
+          <button class="quick-filter active" data-category="Tous">Tout ELIOS</button>
+          <button class="quick-filter" data-category="Bois">Bois</button>
+          <button class="quick-filter" data-category="Pierre / marbre">Pierre / marbre</button>
+          <button class="quick-filter" data-category="Ciments / céramiques">Ciments / céramiques</button>
+          <button class="quick-filter" data-category="Décor / relief">Décor / relief</button>
+          <button class="quick-filter" data-category="Grandes dalles">Grandes dalles</button>
+        </div>
+      </div>
+      <div class="results-meta"><div><strong id="results-count">0 collection</strong> dans le catalogue</div><button id="reset-filters" class="reset-filters" type="button">Effacer les filtres</button></div>
+      <div id="products-grid" class="product-grid" aria-live="polite"></div>
+    </section>
+  </main>
+  <div id="product-modal" class="product-modal" role="dialog" aria-modal="true" aria-label="Fiche produit"><div id="product-dialog" class="product-dialog"></div></div>
+  <footer><div class="container" style="text-align:center;padding:2rem 0;"><p style="font-weight:600;">&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p></div></footer>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/elios-images/elios-images-1.js?v=20260818"></script>
+  <script src="assets/js/elios-images/elios-images-2.js?v=20260818"></script>
+  <script src="assets/js/elios-images/elios-images-3.js?v=20260818"></script>
+  <script src="assets/js/elios-images/elios-images-4.js?v=20260818"></script>
+  <script src="assets/js/elios-images/elios-images-5.js?v=20260818"></script>
+  <script src="assets/js/elios-images/elios-images-6.js?v=20260818"></script>
+  <script src="assets/js/elios-images/elios-images-7.js?v=20260818"></script>
+  <script src="assets/js/elios-images/elios-images-8.js?v=20260818"></script>
+  <script src="assets/js/elios-images/elios-images-9.js?v=20260818"></script>
+  <script src="assets/js/elios-images/elios-images-10.js?v=20260818"></script>
+  <script src="assets/js/elios-images/elios-images-11.js?v=20260818"></script>
+  <script src="assets/js/inspirations-elios-data.js?v=20260818"></script>
+  <script src="assets/js/inspirations-elios.js?v=20260818"></script>
+</body>
+</html>
