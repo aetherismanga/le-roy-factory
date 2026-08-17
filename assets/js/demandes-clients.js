@@ -27,7 +27,7 @@ function partnerChips(){return (current.partenaires||[]).map(p=>`<span class="ch
 function diffBlock(label,oldV,newV){if(current.requestType!=='mise_a_jour')return'';return `<div class="full"><label>${esc(label)} — comparaison</label><div class="diff"><div class="old">Actuel : ${esc(oldV||'—')}</div><div class="new">Demandé : ${esc(newV||'—')}</div></div></div>`}
 function requiredDocsOk(){const roles=new Set((current?.attachments||[]).map(a=>String(a.role||'').toLowerCase()));return roles.has('rib')&&roles.has('kbis')}
 function renderPanel(){const r=current,c=currentClient||{};const docs=(r.attachments||[]).map((a,i)=>`<div class="doc"><span>📎 ${esc(a.filename)} <small>(${esc(a.role||'document')})</small></span><button class="btn-alt download-doc" data-i="${i}">Télécharger</button></div>`).join('')||'<span class="req-meta">Aucun document joint</span>';
-  const missing=[];if(!r.tva)missing.push('N° TVA');if(!requiredDocsOk())missing.push('RIB / Kbis');
+  const missing=[];if(!requiredDocsOk())missing.push('RIB / Kbis');
   $('#panel-content').innerHTML=`
   ${r.requestType==='mise_a_jour'&&!currentClient?'<div class="section" style="border-color:#e0a29c;color:#9f2f28"><strong>⚠ Fiche existante introuvable.</strong> Vérifier le code LRF avant validation.</div>':''}
   ${missing.length?`<div class="section" style="border-color:#e0a29c;color:#9f2f28"><strong>⚠ Validation impossible :</strong> ${esc(missing.join(', '))} obligatoire(s).</div>`:''}
@@ -36,7 +36,7 @@ function renderPanel(){const r=current,c=currentClient||{};const docs=(r.attachm
     ${diffBlock('Société',c.societe,r.societe)}${diffBlock('Activité',c.categorieActivite||c.activite,r.activite)}
     <div class="full"><label>Adresse</label><input id="f-adresse" value="${esc(r.adresse)}"></div><div><label>Code postal</label><input id="f-cp" value="${esc(r.codePostal)}"></div><div><label>Ville</label><input id="f-ville" value="${esc(r.ville)}"></div>
     ${diffBlock('Adresse',c.adresse,r.adresse)}${diffBlock('Code postal',c.codePostal||c.code_postal,r.codePostal)}
-    <div><label>SIRET / SIREN</label><input id="f-siret" value="${esc(r.siret)}"></div><div><label>N° TVA *</label><input id="f-tva" value="${esc(r.tva)}"></div>
+    <div><label>SIRET / SIREN</label><input id="f-siret" value="${esc(r.siret)}"></div><div><label>N° TVA</label><input id="f-tva" value="${esc(r.tva)}"></div>
     <div><label>Chiffre d'affaires annuel (€ HT)</label><input id="f-ca" value="${esc(r.chiffreAffaires||'')}"></div><div></div>
     ${diffBlock("Chiffre d'affaires",c.chiffreAffaires||c.chiffre_affaires,r.chiffreAffaires)}
     <div><label>Contact principal</label><input id="f-contact" value="${esc(r.contact)}"></div><div><label>Fonction</label><input id="f-fonction" value="${esc(r.fonction)}"></div>
@@ -57,7 +57,7 @@ async function saveEdits(){const e=edited();await updateDoc(doc(db,'account_requ
 async function allocateCode(clientRef,data){const counterRef=doc(db,'crm_meta','client_codes');return runTransaction(db,async tx=>{const cs=await tx.get(counterRef);const last=Number(cs.exists()?cs.data().lastNumber:0)||0;const next=last+1;if(next>99999)throw new Error('Limite codes LRF atteinte.');const code=fmtCode(next);tx.set(counterRef,{lastNumber:next,updatedAt:new Date().toISOString()},{merge:true});tx.set(clientRef,{...data,codeClient:code},{merge:true});return code})}
 async function validateRequest(){
   if(current.status==='validee')return;
-  const e=edited();if(!e.tva){alert('Validation impossible : le numéro de TVA est obligatoire.');return}if(!requiredDocsOk()){alert('Validation impossible : le RIB et le Kbis sont obligatoires.');return}
+  const e=edited();if(!requiredDocsOk()){alert('Validation impossible : le RIB et le Kbis sont obligatoires.');return}
   await saveEdits();let code=current.codeClient,clientId=currentClient?.id;
   const clientData={type:'client',societe:e.societe,activite:e.activite,categorieActivite:e.activite,adresse:e.adresse,codePostal:e.codePostal,ville:e.ville,departement:depFromCp(e.codePostal)||current.departement||current.departementAuth||'',siret:e.siret,tva:e.tva,chiffreAffaires:e.chiffreAffaires,contact:e.contact,fonction:e.fonction,telephone:e.telephone,telephones:[e.telephone].filter(Boolean),email:e.email,emails:e.emailsAutres,contactsAutres:e.contactsAutres,partenaires:current.partenaires||[],documentsDemande:(current.attachments||[]).map(a=>({nom:a.filename,role:a.role,storagePath:a.storagePath||''})),updatedAt:new Date().toISOString()};
   if(current.requestType==='mise_a_jour'){if(!currentClient)throw new Error('Fiche existante introuvable.');clientId=currentClient.id;await updateDoc(doc(db,'clients',clientId),clientData);code=currentClient.codeClient}else{const ref=doc(collection(db,'clients'));clientId=ref.id;code=await allocateCode(ref,clientData)}
