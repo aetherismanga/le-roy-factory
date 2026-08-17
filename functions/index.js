@@ -155,13 +155,13 @@ exports.processScheduledEmails = onSchedule({
 }, async () => {
   const now = admin.firestore.Timestamp.now();
   const snap = await db.collection("scheduled_mails")
-    .where("scheduledAt", "<=", now)
-    .limit(20)
+    .where("status", "==", "programme")
+    .limit(100)
     .get();
 
   for (const docSnap of snap.docs) {
     const data = docSnap.data();
-    if (data.status !== "programme") continue;
+    if (!data.scheduledAt || data.scheduledAt.toMillis() > now.toMillis()) continue;
 
     const ref = docSnap.ref;
     try {
