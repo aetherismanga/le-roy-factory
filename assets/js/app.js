@@ -1,3 +1,16 @@
+function ensureMobileCss() {
+    if (!window.matchMedia('(max-width: 900px)').matches) return;
+    const old = document.getElementById('lrf-mobile-enhancements');
+    if (old) old.remove();
+    const link = document.createElement('link');
+    link.id = 'lrf-mobile-enhancements';
+    link.rel = 'stylesheet';
+    link.href = 'assets/css/mobile-enhancements.css?v=20260817-1935';
+    document.head.appendChild(link);
+}
+
+ensureMobileCss();
+
 document.addEventListener('DOMContentLoaded', () => {
     const burgerBtn = document.querySelector('.burger-btn');
     const mainNav = document.querySelector('header nav ul');
