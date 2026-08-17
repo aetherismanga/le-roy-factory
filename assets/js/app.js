@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Accès Tarifs PRO personnalisé par client LRF
     if (window.location.pathname.toLowerCase().endsWith('tarifs-pro.html')) {
-        import('./tarifs-pro-client-access.js?v=20260817-1705')
+        import('./tarifs-pro-client-access.js?v=20260817-1720')
             .catch(err => console.error('Erreur chargement accès tarifs PRO client :', err));
     }
 });
