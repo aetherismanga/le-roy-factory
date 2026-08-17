@@ -1,12 +1,27 @@
 const API='https://us-central1-le-roy-factory.cloudfunctions.net/submitAccountRequest';
 const PREFILL_API='https://us-central1-le-roy-factory.cloudfunctions.net/getAccountClientPrefill';
-const PARTNERS=['Elios Ceramica','View Ceramica','La Fenice','Reviglass','Biopietra',"Petracer's",'Pecchioli Firenze','Bulbo','Randal Pro','Neobath','Koibath','Aquahome','Opal','Bilt'];
+const PARTNERS=[
+  {name:'Elios Ceramica',logo:'elios.png'},
+  {name:'View Ceramica',logo:'view.png'},
+  {name:'La Fenice',logo:'lafenice.png'},
+  {name:'Reviglass',logo:'reviglass.png'},
+  {name:'Biopietra',logo:'biopietra.png'},
+  {name:"Petracer's",logo:'petracer.png'},
+  {name:'Pecchioli Firenze',logo:'pecchioli.png'},
+  {name:'Bulbo',logo:'bulbo.png'},
+  {name:'Randal Pro',logo:'randal.png'},
+  {name:'Neobath',logo:'neobath.png'},
+  {name:'Koibath',logo:'koibath.png'},
+  {name:'Aquahome',logo:'aquahome.png'},
+  {name:'Opal',logo:'opal.png'},
+  {name:'Bilt',logo:'bilt.png'}
+];
 const $=s=>document.querySelector(s);
 let prefillTimer=null,prefillLoadedKey='';
 
 function renderPartners(selected=[]){
   const set=new Set((selected||[]).map(String));
-  $('#partners').innerHTML=PARTNERS.map(p=>`<label class="partner"><input type="checkbox" name="partner" value="${p.replace(/"/g,'&quot;')}" ${set.has(p)?'checked':''}> ${p}</label>`).join('');
+  $('#partners').innerHTML=PARTNERS.map(p=>`<label class="partner"><input type="checkbox" name="partner" value="${p.name.replace(/"/g,'&quot;')}" ${set.has(p.name)?'checked':''}><span class="partner-main"><img class="partner-logo" src="assets/img/${p.logo}" alt="${p.name.replace(/"/g,'&quot;')}" onerror="this.style.display='none'"><span class="partner-name">${p.name}</span></span></label>`).join('');
 }
 function requestType(){return document.querySelector('input[name="requestType"]:checked')?.value||'ouverture'}
 function toggleUpdate(){
@@ -63,7 +78,6 @@ $('#account-form').addEventListener('submit',async e=>{
   e.preventDefault();const btn=$('#submit-btn');btn.disabled=true;showMsg('Envoi de votre demande en cours…',true);
   try{
     const type=requestType();const cp=$('#codePostal').value.trim();const tva=$('#tva').value.trim();
-    if(!tva)throw new Error('Le numéro de TVA intracommunautaire est obligatoire.');
     if(type==='mise_a_jour'&&!prefillLoadedKey)await loadExisting();
     if(type==='mise_a_jour'&&!prefillLoadedKey)throw new Error('Votre code client et votre département doivent être reconnus avant l’envoi.');
     const payload={
