@@ -24,13 +24,24 @@ function ensureMobileCss() {
   const link = document.createElement("link");
   link.id = "lrf-mobile-enhancements";
   link.rel = "stylesheet";
-  link.href = "assets/css/mobile-enhancements.css?v=20260817-1935";
+  link.href = "assets/css/mobile-enhancements.css?v=20260817-2008";
   document.head.appendChild(link);
 }
 ensureMobileCss();
 
+// Lien Statistiques fiable sur toutes les pages CRM, même si une ancienne page contient encore href="#".
+document.addEventListener("click", e => {
+  const link = e.target.closest(".sidebar-menu a");
+  if (!link) return;
+  const label = (link.textContent || "").toLowerCase();
+  if (label.includes("statistiques")) {
+    e.preventDefault();
+    window.location.href = "statistiques.html";
+  }
+}, true);
+
 const currentPage = window.location.pathname.toLowerCase();
-import("./account-requests-nav.js?v=20260817-1845").catch(err => console.error("Erreur chargement navigation demandes clients :", err));
+import("./account-requests-nav.js?v=20260817-2008").catch(err => console.error("Erreur chargement navigation demandes clients :", err));
 if (currentPage.endsWith("clients.html")) {
   import("./client-direct-email.js?v=20260817-1845").catch(err => console.error("Erreur chargement module e-mail client :", err));
   import("./crm-moovago.js?v=20260817-1845").catch(err => console.error("Erreur chargement module CRM Moovago :", err));
