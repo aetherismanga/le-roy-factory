@@ -18,17 +18,18 @@ export const db = getFirestore(app);
 console.log("🔥 Firebase est initialisé avec succès pour Le Roy Factory !");
 
 const currentPage = window.location.pathname.toLowerCase();
+import("./account-requests-nav.js?v=20260817-1825").catch(err => console.error("Erreur chargement navigation demandes clients :", err));
 if (currentPage.endsWith("clients.html")) {
-  import("./client-direct-email.js?v=20260817-1700").catch(err => console.error("Erreur chargement module e-mail client :", err));
-  import("./crm-moovago.js?v=20260817-1700").catch(err => console.error("Erreur chargement module CRM Moovago :", err));
-  import("./crm-client-enhancements.js?v=20260817-1700").catch(err => console.error("Erreur chargement améliorations Clients :", err));
-  import("./crm-ui-modern.js?v=20260817-1700").catch(err => console.error("Erreur chargement interface moderne CRM :", err));
-  import("./clients-operations.js?v=20260817-1700").catch(err => console.error("Erreur chargement outils opérationnels Clients :", err));
-  import("./client-codes.js?v=20260817-1700").catch(err => console.error("Erreur chargement codes clients LRF :", err));
-  import("./clients-export.js?v=20260817-1700").catch(err => console.error("Erreur chargement impression/export clients :", err));
+  import("./client-direct-email.js?v=20260817-1825").catch(err => console.error("Erreur chargement module e-mail client :", err));
+  import("./crm-moovago.js?v=20260817-1825").catch(err => console.error("Erreur chargement module CRM Moovago :", err));
+  import("./crm-client-enhancements.js?v=20260817-1825").catch(err => console.error("Erreur chargement améliorations Clients :", err));
+  import("./crm-ui-modern.js?v=20260817-1825").catch(err => console.error("Erreur chargement interface moderne CRM :", err));
+  import("./clients-operations.js?v=20260817-1825").catch(err => console.error("Erreur chargement outils opérationnels Clients :", err));
+  import("./client-codes.js?v=20260817-1825").catch(err => console.error("Erreur chargement codes clients LRF :", err));
+  import("./clients-export.js?v=20260817-1825").catch(err => console.error("Erreur chargement impression/export clients :", err));
 }
 if (currentPage.endsWith("dashboard.html")) {
-  import("./dashboard-commercial.js?v=20260817-1700").catch(err => console.error("Erreur chargement dashboard commercial :", err));
+  import("./dashboard-commercial.js?v=20260817-1825").catch(err => console.error("Erreur chargement dashboard commercial :", err));
 }
 if (currentPage.endsWith("mails-groupes.html")) {
   import("./mails-groupes-programmation.js?v=20260817-1145").catch(err => console.error("Erreur chargement mails programmés :", err));
