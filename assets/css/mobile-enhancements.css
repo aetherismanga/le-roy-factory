@@ -1,0 +1,49 @@
+/* LE ROY FACTORY — améliorations mobile uniquement */
+@media (max-width:900px){
+/* Site public */
+body:not(.crm-body) header .nav-container{height:88px!important;min-height:88px!important;padding:0 14px!important}
+body:not(.crm-body) header .logo{padding-left:0!important}
+body:not(.crm-body) header .logo>div{width:68px!important;height:68px!important}
+body:not(.crm-body) .burger-btn{margin-right:0!important;padding:10px!important;border-radius:10px!important;z-index:100002!important}
+body:not(.crm-body) header nav ul,body:not(.crm-body) header nav ul.main-nav{position:fixed!important;top:0!important;right:-100%!important;left:auto!important;width:min(86vw,370px)!important;height:100dvh!important;margin:0!important;padding:92px 20px 24px!important;box-sizing:border-box!important;display:flex!important;flex-direction:column!important;justify-content:flex-start!important;align-items:stretch!important;gap:0!important;overflow-y:auto!important;background:#FBF9F5!important;border-left:1px solid rgba(212,175,55,.45)!important;box-shadow:-18px 0 42px rgba(0,0,0,.18)!important;transition:right .25s ease!important;z-index:100001!important}
+body:not(.crm-body) header nav ul.active{right:0!important}
+body:not(.crm-body) .main-nav li{width:100%!important;display:block!important;border-bottom:1px solid rgba(26,37,48,.09)}
+body:not(.crm-body) .main-nav>li>a:not(.agent-btn){width:100%!important;min-height:48px!important;display:flex!important;align-items:center!important;padding:12px 6px!important;margin:0!important;box-sizing:border-box!important;font-size:1.03rem!important;text-align:left!important;color:#1A2530!important;text-shadow:none!important}
+body:not(.crm-body) .main-nav .agent-btn{width:100%!important;min-height:48px!important;margin:16px 0 0!important;padding:11px 14px!important;background:#FFFDF7!important;color:#1A2530!important;border:1px solid #D4AF37!important;border-radius:10px!important;box-shadow:none!important;text-align:center!important}
+body:not(.crm-body) .main-nav .agent-btn:hover,body:not(.crm-body) .main-nav .agent-btn:focus{background:#111!important;color:#FFD700!important}
+
+/* CRM : sidebar coulissante + contenu plein écran */
+body.crm-body{display:block!important;padding-bottom:76px!important;overflow-x:hidden!important}
+body.crm-body .crm-sidebar{width:min(86vw,320px)!important;transform:translateX(-105%);transition:transform .24s ease!important;box-shadow:16px 0 38px rgba(0,0,0,.24);z-index:100020!important}
+body.crm-body .crm-sidebar.mobile-open{transform:translateX(0)}
+body.crm-body .sidebar-menu span.menu-text,body.crm-body .sidebar-footer span.menu-text{display:inline!important}
+body.crm-body .crm-main-content{width:100%!important;max-width:none!important;margin-left:0!important;padding:68px 12px 20px!important;box-sizing:border-box!important}
+body.crm-body .crm-topbar{margin-bottom:1rem!important;padding:1rem!important;border-radius:12px!important;gap:.75rem!important}
+body.crm-body .welcome-box h1{font-size:1.28rem!important;line-height:1.2!important}
+body.crm-body .welcome-box p{font-size:.8rem!important}
+body.crm-body .info-widgets{width:100%!important;display:flex!important;overflow-x:auto!important;gap:.7rem!important;padding:.55rem .7rem!important;white-space:nowrap}
+body.crm-body .widget-item{font-size:.78rem!important;flex:0 0 auto}
+#crm-mobile-menu-btn{position:fixed;top:12px;left:12px;width:44px;height:44px;display:grid;place-items:center;border:1px solid #D4AF37;border-radius:11px;background:#111;color:#FFD700;font-size:1.25rem;z-index:100040;box-shadow:0 6px 18px rgba(0,0,0,.2)}
+.crm-mobile-backdrop{position:fixed;inset:0;display:none;background:rgba(0,0,0,.42);z-index:100010}body.crm-menu-open .crm-mobile-backdrop{display:block}
+.lrf-mobile-actions{position:fixed;left:8px;right:8px;bottom:8px;z-index:100000;display:grid;grid-template-columns:repeat(5,1fr);gap:4px;padding:6px;background:rgba(17,17,17,.96);border:1px solid rgba(212,175,55,.65);border-radius:14px;box-shadow:0 10px 28px rgba(0,0,0,.24)}
+.lrf-mobile-actions a{min-width:0;min-height:48px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:#FFF!important;text-decoration:none;font-size:.64rem;font-weight:700;border-radius:9px}.lrf-mobile-actions a span:first-child{font-size:1.05rem}.lrf-mobile-actions a.active{color:#FFD700!important;background:rgba(255,215,0,.09)}
+#lrf-mobile-fab{position:fixed;right:16px;bottom:78px;z-index:100006;width:52px;height:52px;border-radius:50%;border:1px solid #D4AF37;background:#111;color:#FFD700;font-size:1.65rem;box-shadow:0 9px 24px rgba(0,0,0,.25)}
+.lrf-mobile-action-sheet{position:fixed;right:14px;bottom:138px;z-index:100005;width:min(78vw,280px);display:none;padding:8px;background:#fff;border:1px solid #E5D39A;border-radius:14px;box-shadow:0 16px 38px rgba(0,0,0,.2)}.lrf-mobile-action-sheet.open{display:grid;gap:4px}.lrf-mobile-action-sheet a{display:flex;align-items:center;gap:10px;min-height:44px;padding:8px 10px;color:#1A2530!important;text-decoration:none;font-weight:700;border-radius:9px}
+
+/* CRM : densité / filtres */
+body.crm-body .stats-grid{grid-template-columns:1fr 1fr!important;gap:.7rem!important;margin-bottom:1rem!important}body.crm-body .stat-card{padding:.85rem!important;gap:.65rem!important}body.crm-body .stat-icon{font-size:1.25rem!important;padding:.5rem!important}body.crm-body .stat-number{font-size:1.15rem!important}body.crm-body .stat-label{font-size:.7rem!important}
+body.crm-body .crm-toolbar{gap:.65rem!important;padding:.85rem!important;margin-bottom:.9rem!important}body.crm-body .search-wrapper{min-width:100%!important;width:100%!important}
+#lrf-mobile-filter-toggle{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:42px;padding:.6rem .8rem;border:1px solid #D4AF37;border-radius:10px;background:#FFFDF7;color:#1A2530;font-weight:800}
+body.crm-body .crm-toolbar:not(.mobile-filters-open) .select-filters,body.crm-body .crm-toolbar:not(.mobile-filters-open) .partner-filter{display:none!important}body.crm-body .crm-toolbar.mobile-filters-open .select-filters{width:100%!important;display:grid!important;grid-template-columns:1fr!important;gap:.55rem!important}body.crm-body .crm-toolbar.mobile-filters-open .partner-filter{display:block!important;width:100%!important}
+body.crm-body .card-box{padding:1rem!important;margin-bottom:1rem!important;border-radius:12px!important}body.crm-body .filters-grid{grid-template-columns:1fr!important;gap:.65rem!important}body.crm-body .selection-counter-bar{flex-direction:column!important;align-items:stretch!important;gap:.65rem!important}body.crm-body .selection-counter-bar>div:first-child{display:grid!important;grid-template-columns:1fr 1fr!important;gap:.45rem!important}body.crm-body .selection-counter-bar button{width:100%!important;margin-left:0!important}
+body.crm-body .modal-content{width:calc(100vw - 18px)!important;max-width:none!important;max-height:96dvh!important;padding:1rem!important;border-radius:14px!important}
+}
+
+@media (max-width:760px){
+/* Clients : tableau en cartes */
+body.crm-body .crm-table-container{overflow:visible!important;background:transparent!important;border:0!important;box-shadow:none!important}body.crm-body .crm-table{min-width:0!important;width:100%!important}body.crm-body .crm-table thead{display:none!important}body.crm-body .crm-table,body.crm-body .crm-table tbody,body.crm-body .crm-table tr,body.crm-body .crm-table td{display:block!important;width:100%!important}
+body.crm-body #clients-table-body tr{position:relative;margin-bottom:.8rem!important;padding:.65rem!important;border:1px solid #E7E2D9!important;border-radius:13px!important;background:#fff!important;box-shadow:0 6px 20px rgba(22,28,36,.045)}body.crm-body #clients-table-body td{position:relative;min-height:32px;padding:.42rem .5rem .42rem 39%!important;border:0!important;font-size:.84rem!important;overflow-wrap:anywhere}body.crm-body #clients-table-body td::before{position:absolute;left:.5rem;top:.45rem;width:34%;color:#777;font-size:.68rem;font-weight:800;text-transform:uppercase}body.crm-body #clients-table-body td:nth-child(1)::before{content:"Statut"}body.crm-body #clients-table-body td:nth-child(2)::before{content:"Société"}body.crm-body #clients-table-body td:nth-child(3)::before{content:"Ville"}body.crm-body #clients-table-body td:nth-child(4)::before{content:"Contact"}body.crm-body #clients-table-body td:nth-child(5)::before{content:"Téléphone"}body.crm-body #clients-table-body td:nth-child(6)::before{content:"Dernier échange"}body.crm-body #clients-table-body td:nth-child(7)::before{content:"Actions"}body.crm-body #clients-table-body td:last-child{padding-left:.5rem!important;border-top:1px solid #F0ECE5!important;margin-top:.3rem}body.crm-body #clients-table-body td:last-child::before{display:none}
+/* Mails groupés : liste lisible sans défilement horizontal */
+body.crm-body #recipients-tbody{display:block!important}body.crm-body #recipients-tbody tr{display:grid!important;grid-template-columns:42px 1fr!important;margin:0 0 .55rem!important;padding:.55rem!important;background:#fff!important;border:1px solid #E7E2D9!important;border-radius:10px!important}body.crm-body #recipients-tbody td{display:block!important;width:auto!important;padding:.2rem .35rem!important;border:0!important;font-size:.78rem!important;overflow-wrap:anywhere}body.crm-body #recipients-tbody td:first-child{grid-row:1/span 5;display:grid!important;place-items:start center;padding-top:.45rem!important}body.crm-body #recipients-tbody td:nth-child(n+2){grid-column:2}body.crm-body .email-table thead{display:none!important}body.crm-body .table-responsive{max-height:none!important;overflow:visible!important;border:0!important}
+}
+@media (max-width:420px){body.crm-body .stats-grid{grid-template-columns:1fr!important}body:not(.crm-body) header nav ul,body:not(.crm-body) header nav ul.main-nav{width:90vw!important}}
