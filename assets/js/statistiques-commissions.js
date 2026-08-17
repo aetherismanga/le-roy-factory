@@ -1,3 +1,4 @@
+import './statistiques-lrf-manuel.js';
 import { db } from './firebase.js';
 import { collection, onSnapshot, doc, getDoc, setDoc } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
 import { ELIOS_STATS_CLIENTS } from './statistiques-elios-data.js';
