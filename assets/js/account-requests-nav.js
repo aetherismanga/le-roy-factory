@@ -5,6 +5,10 @@ function addNav(){
     const li=document.createElement('li');li.innerHTML='<a href="demandes-clients.html"><span class="icon">🧾</span><span class="menu-text">Demandes clients</span></a>';
     if(prospects)prospects.insertAdjacentElement('afterend',li);else menu.appendChild(li);
   }
+  if(menu){
+    const stats=[...menu.querySelectorAll('a')].find(a=>a.textContent.toLowerCase().includes('statistiques'));
+    if(stats)stats.href='statistiques.html';
+  }
   if(location.pathname.toLowerCase().endsWith('dashboard.html')){
     const quick=[...document.querySelectorAll('h2')].find(h=>h.textContent.includes('Actions rapides'))?.nextElementSibling;
     if(quick&&!quick.querySelector('a[href="demandes-clients.html"]')){
