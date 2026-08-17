@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="assets/img/logo03lrf.png">
+  <title>Ouverture / Mise à jour de compte — LE ROY FACTORY</title>
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <style>
+    body{background:#FBF9F5;color:#1A2530}.form-shell{max-width:980px;margin:2rem auto 4rem;padding:0 1rem}.brand{display:flex;align-items:center;gap:1rem;margin:1.5rem 0 2rem}.brand img{width:74px;height:74px;border-radius:50%;object-fit:cover;border:2px solid #D4AF37;background:#000}.brand h1{margin:0;font-size:1.65rem}.brand p{margin:.25rem 0 0;color:#6b7280}.card{background:#fff;border:1px solid #e5e1d8;border-radius:14px;padding:1.35rem;margin-bottom:1rem;box-shadow:0 4px 18px rgba(0,0,0,.03)}.card h2{font-size:1.05rem;margin:0 0 1rem}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.full{grid-column:1/-1}.field label{display:block;font-size:.82rem;font-weight:800;margin-bottom:.35rem}.field input,.field select,.field textarea{width:100%;box-sizing:border-box;padding:.75rem;border:1px solid #d5d0c7;border-radius:8px;font:inherit;background:#fff}.field textarea{min-height:110px;resize:vertical}.choice{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}.choice label,.partner{border:1px solid #ddd7cb;border-radius:10px;padding:.8rem;background:#faf9f6;cursor:pointer}.partner-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:.65rem}.update-only{display:none}.notice{background:#fff8df;border:1px solid #ead18a;border-radius:10px;padding:.8rem;font-size:.85rem;color:#6e5517}.files-note{font-size:.78rem;color:#777;margin-top:.35rem}.submit{width:100%;padding:1rem;background:#111;color:#FFD700;border:1px solid #D4AF37;border-radius:10px;font-weight:900;font-size:1rem;cursor:pointer}.submit:disabled{opacity:.55;cursor:wait}.msg{display:none;padding:1rem;border-radius:10px;margin-top:1rem;font-weight:700}.msg.ok{display:block;background:#eaf7ef;color:#17623a;border:1px solid #b8dec6}.msg.err{display:block;background:#fff0ef;color:#9f2f28;border:1px solid #efc3be}@media(max-width:700px){.grid,.choice{grid-template-columns:1fr}.full{grid-column:auto}}
+  </style>
+</head>
+<body>
+  <main class="form-shell">
+    <div class="brand"><img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY"><div><h1>Ouverture / Mise à jour de compte professionnel</h1><p>LE ROY FACTORY — Formulaire clients professionnels</p></div></div>
+    <form id="account-form">
+      <section class="card">
+        <h2>1. Type de demande</h2>
+        <div class="choice">
+          <label><input type="radio" name="requestType" value="ouverture" checked> <strong>Ouverture de compte</strong><br><small>Nouveau client</small></label>
+          <label><input type="radio" name="requestType" value="mise_a_jour"> <strong>Mise à jour</strong><br><small>Client déjà référencé</small></label>
+        </div>
+        <div id="update-auth" class="grid update-only" style="margin-top:1rem">
+          <div class="field"><label>Code client *</label><input id="codeClient" placeholder="LRF-00235"></div>
+          <div class="field"><label>Département *</label><input id="departementAuth" placeholder="34" maxlength="3"></div>
+          <div class="full notice">Pour une mise à jour, votre code LRF et votre département doivent correspondre à votre fiche existante.</div>
+        </div>
+      </section>
+      <section class="card">
+        <h2>2. Société</h2>
+        <div class="grid">
+          <div class="field"><label>Raison sociale / Enseigne *</label><input id="societe" required></div>
+          <div class="field"><label>Activité *</label><select id="activite" required><option value="">Choisir…</option><option>Négoce</option><option>Cuisiniste</option><option>Plombier</option><option>Carreleur</option><option>Architecte / Décorateur</option><option>Pisciniste</option><option>Constructeur</option><option>Promoteur</option><option>Groupe</option><option>Autre</option></select></div>
+          <div class="field full"><label>Adresse *</label><input id="adresse" required></div>
+          <div class="field"><label>Code postal *</label><input id="codePostal" required maxlength="5"></div>
+          <div class="field"><label>Ville *</label><input id="ville" required></div>
+          <div class="field"><label>SIRET / SIREN</label><input id="siret"></div>
+          <div class="field"><label>N° TVA intracommunautaire</label><input id="tva"></div>
+        </div>
+      </section>
+      <section class="card">
+        <h2>3. Contacts</h2>
+        <div class="grid">
+          <div class="field"><label>Nom & prénom contact principal *</label><input id="contact" required></div>
+          <div class="field"><label>Fonction</label><input id="fonction"></div>
+          <div class="field"><label>Téléphone *</label><input id="telephone" required></div>
+          <div class="field"><label>E-mail principal *</label><input id="email" type="email" required></div>
+          <div class="field full"><label>Autres e-mails</label><input id="emailsAutres" placeholder="Séparez les adresses par une virgule"></div>
+          <div class="field full"><label>Autres contacts / interlocuteurs</label><textarea id="contactsAutres" placeholder="Nom, fonction, téléphone, e-mail…"></textarea></div>
+        </div>
+      </section>
+      <section class="card">
+        <h2>4. Partenaires souhaités</h2>
+        <div id="partners" class="partner-grid"></div>
+      </section>
+      <section class="card">
+        <h2>5. Documents</h2>
+        <div class="grid">
+          <div class="field"><label>RIB</label><input id="rib" type="file" accept=".pdf,.jpg,.jpeg,.png"></div>
+          <div class="field"><label>Kbis</label><input id="kbis" type="file" accept=".pdf,.jpg,.jpeg,.png"></div>
+          <div class="field full"><label>Autres pièces jointes</label><input id="autresFichiers" type="file" multiple accept=".pdf,.jpg,.jpeg,.png"></div>
+        </div>
+        <div class="files-note">Formats acceptés : PDF, JPG, PNG. Taille totale maximale : 12 Mo.</div>
+      </section>
+      <section class="card">
+        <h2>6. Demande complémentaire</h2>
+        <div class="field"><textarea id="demande" placeholder="Précisez ici toute information ou demande complémentaire…"></textarea></div>
+      </section>
+      <label style="display:flex;gap:.6rem;align-items:flex-start;margin:1rem 0;font-size:.85rem"><input id="consent" type="checkbox" required> <span>Je certifie l'exactitude des informations transmises et autorise LE ROY FACTORY à les utiliser pour la gestion de mon compte professionnel et les demandes d'ouverture auprès des partenaires sélectionnés.</span></label>
+      <button id="submit-btn" class="submit" type="submit">Envoyer ma demande</button>
+      <div id="form-msg" class="msg"></div>
+    </form>
+  </main>
+  <script type="module" src="assets/js/ouverture-compte.js?v=20260817-1815"></script>
+</body>
+</html>
