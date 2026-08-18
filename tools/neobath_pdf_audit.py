@@ -88,6 +88,7 @@ def main() -> None:
     (OUT / "page-index.json").write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
 
     # Compact report in Actions logs, useful to locate tariff/product sections quickly.
+    print("NEOBATH_AUDIT_READY")
     for label, info in result.items():
         print(f"\n### {label}: {info['pages']} pages")
         for p in info["page_summaries"]:
