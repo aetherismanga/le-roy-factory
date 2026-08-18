@@ -29,10 +29,15 @@ jobs:
       - name: Install PDF tools
         run: python -m pip install --disable-pip-version-check pymupdf==1.26.3
 
-      - name: Extract PDF structure and build configurator data
+      - name: Extract PDF structure
         run: python tools/neobath_pdf_audit.py
 
-      - name: Commit generated audit on working branch
+      - name: Build configurator dataset
+        run: |
+          python tools/build_neobath_config_data.py
+          python tools/postprocess_neobath_config_data.py
+
+      - name: Commit generated data on working branch
         if: github.event_name == 'push'
         run: |
           git config user.name "github-actions[bot]"
