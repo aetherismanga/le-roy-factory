@@ -1,8 +1,12 @@
 import { db } from './firebase.js';
-import { collection, getDocs } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+import { collection, getDocs, addDoc } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
 
 const SEND_URL='https://us-central1-le-roy-factory.cloudfunctions.net/sendGroupEmail';
 const originalFetch=window.fetch.bind(window);
+const RECOVERED_GMAIL=[
+  {gmailMessageId:'1a00f2bfea3bc399',date:'2026-08-17T10:00:42.000Z',expediteur:'jerome@leroyfactory.fr & coryne@leroyfactory.fr',objet:'CERSAIE 2026 – Serez-vous présent ?',nbDestinataires:null,statut:'Récupéré depuis Gmail'},
+  {gmailMessageId:'1a010a1f01a6333c',date:'2026-08-17T16:50:40.000Z',expediteur:'jerome@leroyfactory.fr & coryne@leroyfactory.fr',objet:'Ouverture de votre compte LE ROY FACTORY',nbDestinataires:null,statut:'Récupéré depuis Gmail'}
+];
 
 function selectedClientIds(){
   const ids=new Set();
@@ -14,7 +18,6 @@ function selectedClientIds(){
   return [...ids];
 }
 
-// Ajoute les IDs clients aux envois immédiats sans modifier l'interface existante.
 window.fetch=async function(input,init={}){
   const url=typeof input==='string'?input:(input?.url||'');
   if(url===SEND_URL&&String(init?.method||'GET').toUpperCase()==='POST'&&init?.body){
@@ -34,6 +37,23 @@ function asDate(v){
   if(v?.seconds)return new Date(v.seconds*1000);
   const d=new Date(v);return Number.isNaN(d.getTime())?null:d;
 }
+function sameRecovered(existing,recovered){
+  if(existing.gmailMessageId===recovered.gmailMessageId)return true;
+  if(String(existing.objet||'').trim()!==recovered.objet)return false;
+  const a=asDate(existing.date)?.getTime()||0,b=new Date(recovered.date).getTime();
+  return Math.abs(a-b)<10*60000;
+}
+async function recoverKnownGmail(historyRows){
+  let changed=false;
+  for(const item of RECOVERED_GMAIL){
+    if(historyRows.some(x=>sameRecovered(x,item)))continue;
+    try{
+      const ref=await addDoc(collection(db,'historique_mails'),{...item,source:'gmail-recovery',destinataires:[]});
+      historyRows.push({id:ref.id,...item,source:'gmail-recovery'});changed=true;
+    }catch(e){console.warn('Récupération historique Gmail impossible',e)}
+  }
+  return changed;
+}
 function keyOf(x){
   const d=asDate(x.date)||asDate(x.sentAt)||asDate(x.scheduledAt)||new Date(0);
   const minute=Math.floor(d.getTime()/60000);
@@ -42,6 +62,7 @@ function keyOf(x){
 function badgeClass(status=''){
   const s=status.toLowerCase();
   if(s.includes('erreur'))return 'background:#FDECEC;color:#B42318;border:1px solid #F4B8B4';
+  if(s.includes('récupéré'))return 'background:#F2ECFF;color:#6542A5;border:1px solid #CDBBEF';
   if(s.includes('program'))return 'background:#FFF7DF;color:#8A6500;border:1px solid #E9CF76';
   if(s.includes('cours')||s.includes('tentative'))return 'background:#EAF2FD;color:#245A9B;border:1px solid #B8D2EF';
   return 'background:#E8F7EF;color:#08734A;border:1px solid #B7E2CC';
@@ -56,6 +77,7 @@ async function loadReliableHistory(){
     ]);
     const rows=[];
     historySnap.forEach(d=>rows.push({id:d.id,...d.data(),_source:'history'}));
+    await recoverKnownGmail(rows);
     const historyScheduledIds=new Set(rows.map(x=>x.scheduledMailId).filter(Boolean));
     scheduledSnap.forEach(d=>{
       if(historyScheduledIds.has(d.id))return;
@@ -73,7 +95,6 @@ async function loadReliableHistory(){
       });
     });
 
-    // Déduplique les anciennes écritures navigateur + nouvelles écritures serveur.
     rows.sort((a,b)=>(asDate(b.date)?.getTime()||0)-(asDate(a.date)?.getTime()||0));
     const unique=[];const seen=new Set();
     for(const r of rows){
@@ -89,7 +110,8 @@ async function loadReliableHistory(){
       const scheduled=asDate(i.scheduledAt);
       const detail=scheduled&&status.toLowerCase().includes('programm')?`<small style="display:block;color:#777;margin-top:3px">Prévu : ${scheduled.toLocaleString('fr-FR')}</small>`:'';
       const err=i.erreur?`<small style="display:block;color:#B42318;margin-top:3px">${esc(i.erreur)}</small>`:'';
-      return `<tr><td>${d?d.toLocaleString('fr-FR'):'—'}${detail}</td><td>${esc(i.expediteur||'—')}</td><td><strong>${esc(i.objet||'')}</strong>${err}</td><td>${Number(i.nbDestinataires||0)} contact(s)</td><td><span style="display:inline-flex;padding:.3rem .5rem;border-radius:999px;font-size:.72rem;font-weight:800;${badgeClass(status)}">${esc(status)}</span></td></tr>`;
+      const count=i.nbDestinataires==null?'Non récupérable':`${Number(i.nbDestinataires||0)} contact(s)`;
+      return `<tr><td>${d?d.toLocaleString('fr-FR'):'—'}${detail}</td><td>${esc(i.expediteur||'—')}</td><td><strong>${esc(i.objet||'')}</strong>${err}</td><td>${count}</td><td><span style="display:inline-flex;padding:.3rem .5rem;border-radius:999px;font-size:.72rem;font-weight:800;${badgeClass(status)}">${esc(status)}</span></td></tr>`;
     }).join('');
   }catch(e){console.error('Historique mails fiable',e)}
 }
@@ -98,7 +120,6 @@ function init(){
   const tab=document.getElementById('tab-history-btn');
   tab?.addEventListener('click',()=>setTimeout(loadReliableHistory,80));
   setTimeout(loadReliableHistory,600);
-  // Actualise automatiquement l'historique si on reste sur la page.
   setInterval(()=>{if(document.getElementById('section-history')?.style.display!=='none')loadReliableHistory()},30000);
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
