@@ -11,6 +11,32 @@ function ensureMobileCss() {
 
 ensureMobileCss();
 
+function installNeobathDnaTariffFix() {
+    if (!window.location.pathname.toLowerCase().endsWith('tarifs-pro.html')) return;
+
+    const patchLink = () => {
+        document.querySelectorAll('a[href="assets/pdf/neobathDNA.pdf"]').forEach(link => {
+            link.setAttribute('href', 'tarif-neobath-dna.html');
+            link.setAttribute('target', '_blank');
+            link.setAttribute('rel', 'noopener');
+
+            const row = link.closest('.pro-info-row');
+            if (!row) return;
+            const title = row.querySelector('strong');
+            const description = row.querySelector('span');
+            if (title) title.textContent = 'Tarif DNA';
+            if (description) description.textContent = 'Tarif public HT officiel de la gamme DNA.';
+        });
+    };
+
+    patchLink();
+    const grid = document.getElementById('grid-tarifs');
+    if (grid && !grid.dataset.dnaTariffObserver) {
+        grid.dataset.dnaTariffObserver = '1';
+        new MutationObserver(patchLink).observe(grid, { childList: true, subtree: true });
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const burgerBtn = document.querySelector('.burger-btn');
     const mainNav = document.querySelector('header nav ul');
@@ -38,6 +64,10 @@ document.addEventListener('DOMContentLoaded', () => {
             card.classList.add('is-selected');
         }
     });
+
+    // Corrige uniquement le lien DNA de la page Tarifs NEOBATH.
+    // Le catalogue DNA reste disponible séparément dans la page Catalogues.
+    installNeobathDnaTariffFix();
 
     // Accès Tarifs PRO personnalisé par client LRF
     if (window.location.pathname.toLowerCase().endsWith('tarifs-pro.html')) {
