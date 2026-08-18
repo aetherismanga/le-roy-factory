@@ -22,12 +22,11 @@ for(const name of files){
   catch(e){if(e?.code!=='ENOENT')throw e;}
 }
 
-// Les modules Capacitor doivent être bundlés : un WebView ne sait pas résoudre
-// directement des imports comme "@capacitor/geolocation".
 await build({entryPoints:[join(mobileRoot,'app-bridge.js')],bundle:true,platform:'browser',format:'esm',target:['es2022'],outfile:join(www,'app-bridge.js'),logLevel:'silent'});
 await build({entryPoints:[join(mobileRoot,'agenda-mobile-pro.js')],bundle:true,platform:'browser',format:'esm',target:['es2022'],outfile:join(www,'agenda-mobile-pro.js'),logLevel:'silent'});
 await cp(join(mobileRoot,'client-mobile-fix.js'),join(www,'client-mobile-fix.js'));
 await cp(join(mobileRoot,'navigation-pro.js'),join(www,'navigation-pro.js'));
+await cp(join(mobileRoot,'agenda-status-clean.js'),join(www,'agenda-status-clean.js'));
 
 for(const name of files.filter(x=>extname(x)==='.html')){
   const dest=join(www,name);
@@ -45,6 +44,7 @@ for(const name of files.filter(x=>extname(x)==='.html')){
     if(!html.includes('navigation-pro.js'))html=html.replace(/<\/body>/i,'<script src="navigation-pro.js"></script></body>');
     if(name==='clients.html'&&!html.includes('client-mobile-fix.js'))html=html.replace(/<\/body>/i,'<script src="client-mobile-fix.js"></script></body>');
     if(name==='agenda.html'&&!html.includes('agenda-mobile-pro.js'))html=html.replace(/<\/body>/i,'<script type="module" src="agenda-mobile-pro.js"></script></body>');
+    if(name==='agenda.html'&&!html.includes('agenda-status-clean.js'))html=html.replace(/<\/body>/i,'<script src="agenda-status-clean.js"></script></body>');
     await writeFile(dest,html,'utf8');
   }catch(e){if(e?.code!=='ENOENT')throw e;}
 }
