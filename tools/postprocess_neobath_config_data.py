@@ -41,22 +41,55 @@ def static_item(collection, ref, label, category, price, dims="", visual=None, s
     }
 
 
+def set_single_price(item, value, label="Tarif"):
+    item["prices"] = [{"key": "standard", "label": label, "price": float(value)}]
+
+
 def main():
     data = json.loads(DATA.read_text(encoding="utf-8"))
     items = data.get("items", [])
+
+    # The ANIMA furniture modules are only on the two dedicated furniture tariff
+    # pages. PDF text flow on page 67 can repeat a previous PL reference next to
+    # columns/accessories; those repeats must never become selectable modules.
+    items = [
+        item for item in items
+        if not (
+            item.get("collection") == "ANIMA"
+            and item.get("category") == "module"
+            and int((item.get("source") or {}).get("page") or 0) not in {65, 66}
+        )
+    ]
 
     for item in items:
         ref = str(item.get("ref") or "").upper()
         label = str(item.get("label") or "").lower()
         collection = item.get("collection")
 
-        # Explicit references beat broad section labels.
         if ref.startswith("TPC"):
             item["category"] = "finishing_top"
         if ref in ACCESSORY_REFS or any(word in label for word in ["porta asciug", "portasciug", "foro per", "foro rubinet", "supporto", "pied", "touch", "mensola"]):
             item["category"] = "accessory"
         if item.get("category") == "lighting" and not ref.startswith(LIGHT_PREFIXES):
             item["category"] = "accessory"
+
+        # Clean exact DNA accessory lines where the raw PDF text joins two rows.
+        if collection == "DNA" and ref == "SIDEBAR":
+            item["label"] = "Barre porte-serviette latérale SideBar"
+            item["dimensions"] = {"label": "40 x 5 x 2,5", "width": 40.0, "height": 5.0, "depth": 2.5}
+            set_single_price(item, 115)
+        elif collection == "DNA" and ref == "PIE35":
+            item["label"] = "Pied de support en aluminium H.35"
+            item["dimensions"] = {"label": "2,5 x 35 x 2,5", "width": 2.5, "height": 35.0, "depth": 2.5}
+            set_single_price(item, 38)
+        elif collection == "DNA" and ref == "MNS1F":
+            item["label"] = "Étagère à un trou"
+            item["dimensions"] = {"label": "20 x 13,5", "width": 20.0, "height": 13.5, "depth": None}
+            set_single_price(item, 70)
+        elif collection == "DNA" and ref == "MNS2F":
+            item["label"] = "Étagère à deux trous"
+            item["dimensions"] = {"label": "20 x 13,5", "width": 20.0, "height": 13.5, "depth": None}
+            set_single_price(item, 76)
 
         if collection == "DNA":
             if item.get("category") == "module":
@@ -112,7 +145,6 @@ def main():
         if (item["collection"], item["ref"].upper()) not in existing_refs:
             items.append(item)
 
-    # DNA finish/color visuals come from the catalogue's dedicated finish page.
     dna = data.get("finishes", {}).get("DNA", {})
     page75 = {"pdf": "assets/pdf/neobathDNA.pdf", "page": 75, "query": "Finiture"}
     dna["finishPageVisual"] = page75
@@ -135,6 +167,7 @@ def main():
         "anima": len([x for x in items if x.get("collection") == "ANIMA"]),
         "dna": len([x for x in items if x.get("collection") == "DNA"]),
     }
+    SUMMARY.parent.mkdir(parents=True, exist_ok=True)
     SUMMARY.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
     print(json.dumps(summary, ensure_ascii=False, indent=2))
 
