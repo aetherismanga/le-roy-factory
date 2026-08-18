@@ -1,0 +1,21 @@
+{
+  "total": 526,
+  "categories": {
+    "ANIMA:module": 42,
+    "ANIMA:storage": 3,
+    "ANIMA:worktop": 86,
+    "ANIMA:basin": 28,
+    "ANIMA:countertop_basin": 17,
+    "ANIMA:mirror": 36,
+    "ANIMA:lighting": 13,
+    "DNA:module": 29,
+    "DNA:storage": 10,
+    "DNA:basin": 41,
+    "DNA:worktop": 109,
+    "DNA:countertop_basin": 20,
+    "DNA:mirror": 66,
+    "DNA:lighting": 26
+  },
+  "anima": 225,
+  "dna": 301
+}
