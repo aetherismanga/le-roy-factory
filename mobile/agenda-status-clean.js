@@ -3,6 +3,9 @@
   const page=(location.pathname.split('/').pop()||'').toLowerCase();
   if(!native||page!=='agenda.html')return;
 
+  // Compatibilité avec une ancienne version déjà copiée dans l'app.
+  // Aucun MutationObserver : le statut Google est géré directement
+  // par agenda-mobile-pro.js afin d'éviter toute boucle de rendu.
   const style=document.createElement('style');
   style.textContent=`
     #lrf-google-native-note,#lrf-agenda-tip{display:none!important}
@@ -14,31 +17,6 @@
   `;
   document.head.appendChild(style);
 
-  function clean(){
-    document.getElementById('lrf-google-native-note')?.remove();
-    document.getElementById('lrf-agenda-tip')?.remove();
-    const txt=document.getElementById('sync-text');
-    const icon=document.getElementById('sync-icon');
-    const btn=document.getElementById('btn-auth-google');
-    const box=document.querySelector('.google-sync-status');
-    if(!txt)return;
-
-    const value=(txt.textContent||'').toLowerCase();
-    const connected=value.includes('connecté')&&!value.includes('non connecté')&&!value.includes('impossible');
-    const loading=value.includes('connexion');
-    if(connected){
-      txt.textContent='Google Calendar : Connectée';
-      if(icon)icon.textContent='🟢';
-      if(btn)btn.textContent='Actualiser';
-      if(box){box.style.borderColor='#10B981';box.style.background='#F0FDF4'}
-    }else if(loading){
-      if(icon)icon.textContent='🟡';
-    }else{
-      if(icon)icon.textContent='🔴';
-      if(btn)btn.textContent='Se connecter';
-    }
-  }
-
-  clean();
-  new MutationObserver(clean).observe(document.body,{subtree:true,childList:true,characterData:true});
+  document.getElementById('lrf-google-native-note')?.remove();
+  document.getElementById('lrf-agenda-tip')?.remove();
 })();
