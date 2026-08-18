@@ -51,7 +51,7 @@
   <main class="crm-main-content">
     <div class="crm-topbar"><div class="welcome-box"><h1>Statistiques commerciales</h1><p>Ventes par partenaire, période, secteur et client.</p></div></div>
 
-    <section class="stats-intro"><h2>Partenaires</h2><p>Choisis un partenaire ou la vue globale, puis l’année et le type de période à analyser.</p></section>
+    <section class="stats-intro"><h2>Partenaires</h2><p>Choisis un partenaire, une année et une période. Les périodes incomplètes restent incluses.</p></section>
     <div id="partner-tabs" class="partner-tabs"></div>
 
     <div id="stats-period-filters" class="stats-period-filters">
@@ -72,14 +72,15 @@
       <div id="stats-detail-notice" class="stats-detail-notice"></div>
       <div id="stats-empty" class="stats-empty"><strong>Données à venir</strong>Les statistiques de ce partenaire seront affichées ici dès que nous aurons son fichier de ventes.</div>
       <div id="stats-table-wrap" class="stats-table-wrap">
-        <table class="stats-table"><thead><tr><th>Client</th><th>Codes usine / magasins</th><th>Code LRF</th><th>Dép.</th><th>Commercial</th><th>CA année</th><th>CA N-1</th><th>Évolution</th></tr></thead><tbody id="stats-body"></tbody></table>
+        <table class="stats-table"><thead><tr><th>Client</th><th>N° usine</th><th>Code LRF</th><th>Dép.</th><th>Commercial</th><th>CA année</th><th>CA N-1</th><th>Évolution</th></tr></thead><tbody id="stats-body"></tbody></table>
       </div>
       <div id="stats-mobile-list" class="stats-mobile-list"></div>
     </section>
   </main>
 
-  <script type="module" src="assets/js/statistiques.js?v=20260818-1220"></script>
-  <script type="module" src="assets/js/statistiques-commissions.js?v=20260818-1220"></script>
+  <script type="module" src="assets/js/statistiques.js?v=20260818-1245"></script>
+  <script type="module" src="assets/js/statistiques-commissions.js?v=20260818-1245"></script>
+  <script type="module" src="assets/js/statistiques-ux-fix.js?v=20260818-1245"></script>
   <script>document.getElementById('logout-btn')?.addEventListener('click',()=>{localStorage.removeItem('agentLoggedIn');location.href='agent.html'})</script>
 </body>
 </html>
