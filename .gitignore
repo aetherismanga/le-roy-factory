@@ -1,0 +1,30 @@
+# IDE / OS
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+functions/node_modules/
+
+# Local package locks not used as source of truth in this repo
+functions/package-lock.json
+mobile/package-lock.json
+
+# Android local/generated files
+mobile/android/.idea/
+mobile/android/.gradle/
+mobile/android/local.properties
+mobile/android/**/build/
+mobile/android/captures/
+mobile/android/.externalNativeBuild/
+mobile/android/.cxx/
+
+# Secrets / signing
+*.jks
+*.keystore
+keystore.properties
+
+# Logs
+*.log
