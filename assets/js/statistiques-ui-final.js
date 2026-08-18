@@ -1,10 +1,11 @@
 const START_YEAR=2023;
 const MONTHS=['','Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
 let syncing=false;
+let desiredYear=null;
+let desiredPeriod='annual';
 
 function currentYear(){return new Date().getFullYear()}
 function yearOptions(){const out=[];for(let y=START_YEAR;y<=currentYear();y++)out.push(y);return out.reverse()}
-function activePartner(){return document.querySelector('.partner-tab.active')?.dataset.partner||'elios-ceramica'}
 function hiddenType(){return document.getElementById('stats-period-type')}
 function hiddenMonth(){return document.getElementById('stats-month')}
 function hiddenYear(){return document.getElementById('stats-year')}
@@ -24,11 +25,13 @@ function injectStyles(){
 
 function normalizeYears(){
   const sel=hiddenYear();if(!sel)return;
-  const wanted=yearOptions(),previous=Number(sel.value)||currentYear();
-  const signature=wanted.join('|');if(sel.dataset.fullYearSignature===signature)return;
-  sel.innerHTML=wanted.map(y=>`<option value="${y}">${y}</option>`).join('');
-  sel.value=String(wanted.includes(previous)?previous:currentYear());
-  sel.dataset.fullYearSignature=signature;
+  const wanted=yearOptions();
+  if(desiredYear==null)desiredYear=Number(sel.value)||currentYear();
+  if(!wanted.includes(desiredYear))desiredYear=currentYear();
+  const actual=[...sel.options].map(o=>Number(o.value)).filter(Boolean);
+  const same=actual.length===wanted.length&&actual.every((v,i)=>v===wanted[i]);
+  if(!same)sel.innerHTML=wanted.map(y=>`<option value="${y}">${y}</option>`).join('');
+  if(Number(sel.value)!==desiredYear)sel.value=String(desiredYear);
 }
 
 function hiddenPeriodEntries(){
@@ -40,29 +43,29 @@ function keyForMonth(month){
   return entries.find(x=>{
     const m=Number((x.value.match(/-(\d{2})(?:$|-)/)||[])[1]);
     if(m===month&&String(x.value).startsWith(String(year)))return true;
-    const t=x.text.toLowerCase();return t.includes(MONTHS[month].toLowerCase());
+    return x.text.toLowerCase().includes(MONTHS[month].toLowerCase());
   })?.value||'';
-}
-function latestAvailableKey(){
-  const entries=hiddenPeriodEntries();
-  const year=String(hiddenYear()?.value||'');
-  return entries.filter(x=>x.value.startsWith(year)).at(-1)?.value||entries.at(-1)?.value||'';
 }
 
 function ensureSimplePeriodControl(){
-  const existing=document.getElementById('stats-simple-period');
-  if(existing){existing.dataset.finalUi='1';return existing}
+  const existing=document.getElementById('stats-simple-period');if(existing)return existing;
   const yearBlock=hiddenYear()?.closest('.filter-block');if(!yearBlock)return null;
   const block=document.createElement('div');block.className='filter-block stats-simple-period-block';
-  block.innerHTML='<label for="stats-simple-period">Période</label><select id="stats-simple-period" data-final-ui="1"></select>';
+  block.innerHTML='<label for="stats-simple-period">Période</label><select id="stats-simple-period"></select>';
   yearBlock.insertAdjacentElement('afterend',block);return block.querySelector('select');
 }
+function expectedPeriodOptions(){return ['annual',...Array.from({length:12},(_,i)=>`month:${i+1}`),'custom']}
 function rebuildSimplePeriod(){
   const sel=ensureSimplePeriodControl();if(!sel)return;
-  const previous=sel.value||'annual';
-  const months=Array.from({length:12},(_,i)=>i+1).map(m=>`<option value="month:${m}">${MONTHS[m]}</option>`).join('');
-  sel.innerHTML=`<option value="annual">Année complète / en cours</option>${months}<option value="custom">Dates personnalisées</option>`;
-  if([...sel.options].some(o=>o.value===previous))sel.value=previous;else sel.value='annual';
+  const wanted=expectedPeriodOptions(),actual=[...sel.options].map(o=>o.value);
+  const same=actual.length===wanted.length&&actual.every((v,i)=>v===wanted[i]);
+  if(!same){
+    const months=Array.from({length:12},(_,i)=>i+1).map(m=>`<option value="month:${m}">${MONTHS[m]}</option>`).join('');
+    sel.innerHTML=`<option value="annual">Année complète / en cours</option>${months}<option value="custom">Dates personnalisées</option>`;
+  }
+  if(!wanted.includes(desiredPeriod))desiredPeriod='annual';
+  if(sel.value!==desiredPeriod)sel.value=desiredPeriod;
+  if(!sel.dataset.finalBound){sel.dataset.finalBound='1';sel.addEventListener('change',()=>{desiredPeriod=sel.value;applySimpleSelection()})}
 }
 
 function showUnavailable(text=''){
@@ -74,44 +77,49 @@ function clearResultsForUnavailable(month){
   const tbody=document.getElementById('stats-body');if(tbody)tbody.innerHTML='';
   const mobile=document.getElementById('stats-mobile-list');if(mobile)mobile.innerHTML='';
   const count=document.getElementById('stats-result-count');if(count)count.textContent='';
+  enforceResponsive();
 }
 
 function applySimpleSelection(){
   if(syncing)return;syncing=true;
-  try{
-    const simple=document.getElementById('stats-simple-period'),type=hiddenType(),month=hiddenMonth();if(!simple||!type||!month)return;
-    showUnavailable('');
-    if(simple.value==='annual'){
-      type.value='annual';type.dispatchEvent(new Event('change',{bubbles:true}));return;
-    }
-    if(simple.value==='custom'){
-      type.value='range';type.dispatchEvent(new Event('change',{bubbles:true}));return;
-    }
-    const m=Number(simple.value.split(':')[1]||0),key=keyForMonth(m);
-    type.value='month';type.dispatchEvent(new Event('change',{bubbles:true}));
-    setTimeout(()=>{
-      if(key){month.value=key;month.dispatchEvent(new Event('change',{bubbles:true}));showUnavailable('')}
-      else clearResultsForUnavailable(m);
-    },40);
-  } finally {setTimeout(()=>{syncing=false},80)}
+  const type=hiddenType(),month=hiddenMonth();
+  if(!type||!month){syncing=false;return}
+  showUnavailable('');
+  if(desiredPeriod==='annual'){
+    type.value='annual';type.dispatchEvent(new Event('change',{bubbles:true}));
+    setTimeout(()=>{syncing=false;enforceResponsive()},100);return;
+  }
+  if(desiredPeriod==='custom'){
+    type.value='range';type.dispatchEvent(new Event('change',{bubbles:true}));
+    setTimeout(()=>{syncing=false;enforceResponsive()},100);return;
+  }
+  const m=Number(desiredPeriod.split(':')[1]||0),key=keyForMonth(m);
+  type.value='month';type.dispatchEvent(new Event('change',{bubbles:true}));
+  setTimeout(()=>{
+    if(key){month.value=key;month.dispatchEvent(new Event('change',{bubbles:true}));showUnavailable('')}
+    else clearResultsForUnavailable(m);
+    syncing=false;enforceResponsive();
+  },70);
 }
 
 function onYearChanged(){
-  rebuildSimplePeriod();
-  const simple=document.getElementById('stats-simple-period');if(simple)simple.value='annual';
-  showUnavailable('');
+  desiredYear=Number(hiddenYear()?.value)||currentYear();
+  desiredPeriod='annual';
+  rebuildSimplePeriod();showUnavailable('');
   const type=hiddenType();if(type){type.value='annual';type.dispatchEvent(new Event('change',{bubbles:true}))}
+  setTimeout(()=>{normalizeYears();rebuildSimplePeriod();enforceResponsive()},100);
 }
 
 function enforceResponsive(){
   const table=document.getElementById('stats-table-wrap'),mobile=document.getElementById('stats-mobile-list');if(!table||!mobile)return;
-  const hasRows=!!document.querySelector('#stats-body tr');
+  const hasTableRows=!!document.querySelector('#stats-body tr');
+  const hasMobileCards=!!mobile.children.length;
   if(window.matchMedia('(max-width:760px)').matches){
     table.style.setProperty('display','none','important');
-    mobile.style.setProperty('display',hasRows?'grid':'none','important');
+    mobile.style.setProperty('display',hasMobileCards?'grid':'none','important');
   }else{
     mobile.style.setProperty('display','none','important');
-    table.style.setProperty('display',hasRows?'block':'none','important');
+    table.style.setProperty('display',hasTableRows?'block':'none','important');
   }
 }
 
@@ -121,14 +129,13 @@ function hideLegacyPeriodControls(){
   if(month?.closest('.filter-block'))month.closest('.filter-block').style.display='none';
 }
 
+function stabilize(){normalizeYears();hideLegacyPeriodControls();rebuildSimplePeriod();enforceResponsive()}
 function init(){
-  injectStyles();normalizeYears();hideLegacyPeriodControls();rebuildSimplePeriod();
-  const simple=document.getElementById('stats-simple-period');
-  if(simple&&!simple.dataset.finalBound){simple.dataset.finalBound='1';simple.addEventListener('change',applySimpleSelection)}
+  injectStyles();desiredYear=Number(hiddenYear()?.value)||currentYear();stabilize();
   const year=hiddenYear();if(year&&!year.dataset.finalBound){year.dataset.finalBound='1';year.addEventListener('change',()=>setTimeout(onYearChanged,0))}
-  document.addEventListener('click',e=>{if(e.target.closest('.partner-tab'))setTimeout(()=>{normalizeYears();rebuildSimplePeriod();showUnavailable('');enforceResponsive()},100)});
+  document.addEventListener('click',e=>{if(e.target.closest('.partner-tab'))setTimeout(()=>{stabilize();showUnavailable('')},120)});
   window.addEventListener('resize',enforceResponsive);
-  const obs=new MutationObserver(()=>{normalizeYears();hideLegacyPeriodControls();enforceResponsive()});obs.observe(document.body,{childList:true,subtree:true});
-  setTimeout(enforceResponsive,150);
+  let pending=false;const obs=new MutationObserver(()=>{if(pending)return;pending=true;requestAnimationFrame(()=>{pending=false;stabilize()})});obs.observe(document.body,{childList:true,subtree:true});
+  setTimeout(stabilize,180);
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
