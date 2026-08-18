@@ -3,6 +3,8 @@ import { collection, onSnapshot, doc, updateDoc } from 'https://www.gstatic.com/
 import { ELIOS_STATS_CLIENTS } from './statistiques-elios-data.js';
 import { VIEW_STATS_CLIENTS_2026_07 } from './statistiques-view-data.js';
 import { MI_JUIN_2025_STATS } from './statistiques-mi-juin-2025-data.js';
+import { FIN_2025_STATS } from './statistiques-fin-2025-data.js';
+import { RANDAL_FIN_2025_STATS } from './statistiques-randal-fin-2025-data.js';
 import { STATS_PERIODS } from './statistiques-periods.js';
 
 const PARTNERS=[
@@ -66,6 +68,10 @@ function ownerLabel(c,sale=null){const o=ownerOf(c,sale);return o==='jerome'?'JÃ
 
 function detailRows(){
   if(currentPeriodKey==='2025-06')return MI_JUIN_2025_STATS[currentPartner]||[];
+  if(currentPeriodKey==='2025-12'){
+    if(currentPartner==='randal-pro')return RANDAL_FIN_2025_STATS;
+    return FIN_2025_STATS[currentPartner]||[];
+  }
   if(currentPartner==='elios-ceramica'&&currentPeriodKey==='2026-07')return ELIOS_STATS_CLIENTS.map(r=>({...r,factory:r.elios}));
   if(currentPartner==='view-ceramica'&&currentPeriodKey==='2026-07')return VIEW_STATS_CLIENTS_2026_07;
   return [];
