@@ -14,6 +14,7 @@
         "price_samples": [],
         "reference_samples": [],
         "dimension_samples": [],
+        "width_samples": [],
         "image_count": 0,
         "largest_images": [],
         "text_chars": 0
@@ -37,6 +38,13 @@
         "price_samples": [],
         "reference_samples": [],
         "dimension_samples": [],
+        "width_samples": [
+          "100",
+          "104",
+          "112",
+          "115",
+          "117"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -59,6 +67,7 @@
         "price_samples": [],
         "reference_samples": [],
         "dimension_samples": [],
+        "width_samples": [],
         "image_count": 1,
         "largest_images": [
           {
@@ -89,13 +98,22 @@
           "Colors, 5 Matte Colors /",
           "Couleurs, 5 Couleurs mates",
           "LEGNI",
-          "1 Finitura Rovere"
+          "1 Finitura Rovere",
+          "Woods, 1Oak Finish /",
+          "Bois, 1 Finition chêne",
+          "Rovere Alba Verde Agave",
+          "Argilla Secca",
+          "PURA / ANTA LISCIA",
+          "Superficie liscia, luminosa,",
+          "dove la semplicità diventa equilibrio.",
+          "PURA / Smooth Door Bianco Gesso Bianco Gesso"
         ],
         "keyword_hits": [
           "anta",
           "color",
           "finish",
-          "finitur"
+          "finitur",
+          "legno"
         ],
         "price_count": 0,
         "price_samples": [],
@@ -115,6 +133,7 @@
           "ANIMA_7"
         ],
         "dimension_samples": [],
+        "width_samples": [],
         "image_count": 1,
         "largest_images": [
           {
@@ -149,6 +168,24 @@
           "ANIMA_9"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "01",
+          "02",
+          "03",
+          "04",
+          "05",
+          "06",
+          "07",
+          "08",
+          "09",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16"
+        ],
         "image_count": 17,
         "largest_images": [
           {
@@ -190,6 +227,16 @@
             "xref": 170,
             "width": 103,
             "height": 148
+          },
+          {
+            "xref": 172,
+            "width": 103,
+            "height": 148
+          },
+          {
+            "xref": 144,
+            "width": 102,
+            "height": 148
           }
         ],
         "text_chars": 571
@@ -215,10 +262,13 @@
           "10 ANIMA_11"
         ],
         "keyword_hits": [
+          "geacril",
           "lavabo",
           "led",
           "mirror",
           "mobile",
+          "ocritech",
+          "specchi",
           "specchio",
           "top"
         ],
@@ -246,9 +296,35 @@
           "D.46",
           "L.120",
           "H.52",
-          "P.46"
+          "P.46",
+          "L.120",
+          "H.52",
+          "P.46",
+          "ANIMA_11"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "01",
+          "140",
+          "70",
+          "50",
+          "100",
+          "12",
+          "50",
+          "100",
+          "12",
+          "140",
+          "140",
+          "121",
+          "46",
+          "121",
+          "46",
+          "140",
+          "46",
+          "120",
+          "52",
+          "46"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -279,6 +355,9 @@
           "ANIMA_13"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "12"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -301,6 +380,7 @@
         "price_samples": [],
         "reference_samples": [],
         "dimension_samples": [],
+        "width_samples": [],
         "image_count": 1,
         "largest_images": [
           {
@@ -324,6 +404,10 @@
         "price_samples": [],
         "reference_samples": [],
         "dimension_samples": [],
+        "width_samples": [
+          "01",
+          "16"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -360,9 +444,11 @@
           "18 ANIMA_19"
         ],
         "keyword_hits": [
+          "geacril",
           "lavabo",
           "mirror",
           "mobile",
+          "specchi",
           "specchio",
           "top"
         ],
@@ -390,9 +476,34 @@
           "W.120",
           "H.52",
           "D.46",
-          "L.120"
+          "L.120",
+          "H.52",
+          "P.46",
+          "ANIMA_19"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "02",
+          "140",
+          "70",
+          "50",
+          "100",
+          "12",
+          "50",
+          "100",
+          "12",
+          "141",
+          "46",
+          "121",
+          "46",
+          "121",
+          "46",
+          "80",
+          "60",
+          "52",
+          "46",
+          "120"
+        ],
         "image_count": 3,
         "largest_images": [
           {
@@ -428,6 +539,9 @@
           "ANIMA_21"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "20"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -451,6 +565,7 @@
         "price_samples": [],
         "reference_samples": [],
         "dimension_samples": [],
+        "width_samples": [],
         "image_count": 1,
         "largest_images": [
           {
@@ -481,9 +596,11 @@
           "24 ANIMA_25"
         ],
         "keyword_hits": [
+          "geacril",
           "lavabo",
           "mirror",
           "mobile",
+          "specchi",
           "specchio",
           "top"
         ],
@@ -511,9 +628,34 @@
           "W.120",
           "H.52",
           "D.46",
-          "L.120"
+          "L.120",
+          "H.52",
+          "P.46",
+          "ANIMA_25"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "140",
+          "70",
+          "50",
+          "100",
+          "12",
+          "50",
+          "100",
+          "12",
+          "141",
+          "46",
+          "121",
+          "46",
+          "121",
+          "46",
+          "80",
+          "60",
+          "52",
+          "46",
+          "120",
+          "52"
+        ],
         "image_count": 3,
         "largest_images": [
           {
@@ -554,10 +696,13 @@
           "26 ANIMA_27"
         ],
         "keyword_hits": [
+          "ceramica",
+          "geacril",
           "lavabo",
           "led",
           "mirror",
           "mobile",
+          "specchi",
           "specchio",
           "top"
         ],
@@ -585,9 +730,34 @@
           "W.120",
           "H.52",
           "D.46",
-          "L.120"
+          "L.120",
+          "H.52",
+          "P.46",
+          "ANIMA_27"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "03",
+          "80",
+          "80",
+          "50",
+          "100",
+          "12",
+          "50",
+          "100",
+          "12",
+          "120",
+          "46",
+          "121",
+          "46",
+          "121",
+          "46",
+          "120",
+          "52",
+          "46",
+          "120",
+          "52"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -618,6 +788,9 @@
           "ANIMA_29"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "28"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -640,6 +813,7 @@
         "price_samples": [],
         "reference_samples": [],
         "dimension_samples": [],
+        "width_samples": [],
         "image_count": 1,
         "largest_images": [
           {
@@ -671,10 +845,13 @@
           "32 ANIMA_33"
         ],
         "keyword_hits": [
+          "ceramica",
+          "geacril",
           "lavabo",
           "led",
           "mirror",
           "mobile",
+          "specchi",
           "specchio",
           "top"
         ],
@@ -702,9 +879,35 @@
           "D.46",
           "L.120",
           "H.52",
-          "P.46"
+          "P.46",
+          "L.60",
+          "H.52",
+          "P.46",
+          "ANIMA_33"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "04",
+          "120",
+          "70",
+          "50",
+          "100",
+          "12",
+          "50",
+          "100",
+          "12",
+          "30",
+          "10",
+          "121",
+          "46",
+          "121",
+          "46",
+          "121",
+          "46",
+          "120",
+          "52",
+          "46"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -735,6 +938,9 @@
           "ANIMA_35"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "34"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -757,6 +963,7 @@
         "price_samples": [],
         "reference_samples": [],
         "dimension_samples": [],
+        "width_samples": [],
         "image_count": 1,
         "largest_images": [
           {
@@ -787,14 +994,18 @@
           "Argilla Secca",
           "Base",
           "L.100 x H.26 x P.46 cm",
-          "Argilla Secca"
+          "Argilla Secca",
+          "38 ANIMA_39"
         ],
         "keyword_hits": [
           "base",
+          "ceramica",
+          "geacril",
           "lavabo",
           "led",
           "mirror",
           "mobile",
+          "specchi",
           "specchio",
           "top"
         ],
@@ -822,9 +1033,35 @@
           "P.46",
           "L.100",
           "H.26",
-          "P.46"
+          "P.46",
+          "L.100",
+          "H.26",
+          "P.46",
+          "ANIMA_39"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "05",
+          "80",
+          "50",
+          "100",
+          "12",
+          "50",
+          "100",
+          "12",
+          "80",
+          "121",
+          "46",
+          "121",
+          "46",
+          "101",
+          "46",
+          "120",
+          "52",
+          "46",
+          "120",
+          "52"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -866,6 +1103,9 @@
           "ANIMA_41"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "40"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -901,14 +1141,18 @@
           "L.100 x H.26 x P.46 cm Dune Indigo Dune Indigo",
           "Rovere Alba",
           "Base",
-          "L.100 x H.26 x P.46 cm"
+          "L.100 x H.26 x P.46 cm",
+          "Terra Rossa",
+          "42 ANIMA_43"
         ],
         "keyword_hits": [
           "base",
+          "geacril",
           "lavabo",
           "led",
           "mirror",
           "mobile",
+          "specchi",
           "specchio",
           "top"
         ],
@@ -936,9 +1180,35 @@
           "P.46",
           "L.100",
           "H.26",
-          "P.46"
+          "P.46",
+          "L.100",
+          "H.26",
+          "P.46",
+          "ANIMA_43"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "80",
+          "50",
+          "100",
+          "12",
+          "50",
+          "100",
+          "12",
+          "80",
+          "121",
+          "46",
+          "121",
+          "46",
+          "101",
+          "46",
+          "120",
+          "52",
+          "46",
+          "120",
+          "52",
+          "46"
+        ],
         "image_count": 4,
         "largest_images": [
           {
@@ -976,6 +1246,7 @@
         "price_samples": [],
         "reference_samples": [],
         "dimension_samples": [],
+        "width_samples": [],
         "image_count": 1,
         "largest_images": [
           {
@@ -1001,6 +1272,9 @@
           "ANIMA_47"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "46"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -1037,7 +1311,10 @@
         ],
         "keyword_hits": [
           "base",
+          "fenix",
+          "geacril",
           "mirror",
+          "specchi",
           "specchio",
           "top"
         ],
@@ -1065,9 +1342,33 @@
           "H.52",
           "D.46",
           "L.120",
-          "H.52"
+          "H.52",
+          "P.46",
+          "ANIMA_49"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "06",
+          "80",
+          "50",
+          "100",
+          "12",
+          "50",
+          "100",
+          "12",
+          "140",
+          "12",
+          "46",
+          "121",
+          "46",
+          "121",
+          "46",
+          "80",
+          "26",
+          "46",
+          "120",
+          "52"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -1098,6 +1399,9 @@
           "ANIMA_51"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "50"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -1129,8 +1433,11 @@
         ],
         "keyword_hits": [
           "base",
+          "geacril",
+          "hpl",
           "led",
           "mirror",
+          "specchi",
           "specchio",
           "top"
         ],
@@ -1158,9 +1465,35 @@
           "P.46",
           "W.120",
           "H.52",
-          "D.46"
+          "D.46",
+          "L.120",
+          "H.52",
+          "P.46",
+          "ANIMA_53"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "07",
+          "50",
+          "100",
+          "50",
+          "100",
+          "12",
+          "50",
+          "100",
+          "12",
+          "120",
+          "12",
+          "46",
+          "121",
+          "46",
+          "121",
+          "46",
+          "120",
+          "26",
+          "46",
+          "120"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -1191,6 +1524,9 @@
           "ANIMA_55"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "54"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -1221,9 +1557,12 @@
           "56 ANIMA_57"
         ],
         "keyword_hits": [
+          "ceramica",
+          "geacril",
           "lavabo",
           "mirror",
           "mobile",
+          "specchi",
           "specchio",
           "top"
         ],
@@ -1251,9 +1590,35 @@
           "P.46",
           "W.120",
           "H.52",
-          "D.46"
+          "D.46",
+          "L.120",
+          "H.52",
+          "P.46",
+          "ANIMA_57"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "08",
+          "50",
+          "100",
+          "50",
+          "100",
+          "12",
+          "50",
+          "100",
+          "12",
+          "100",
+          "12",
+          "46",
+          "121",
+          "46",
+          "121",
+          "46",
+          "100",
+          "52",
+          "46",
+          "120"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -1284,6 +1649,9 @@
           "ANIMA_59"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "58"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -1306,6 +1674,7 @@
         "price_samples": [],
         "reference_samples": [],
         "dimension_samples": [],
+        "width_samples": [],
         "image_count": 1,
         "largest_images": [
           {
@@ -1339,9 +1708,12 @@
           "62 ANIMA_63"
         ],
         "keyword_hits": [
+          "geacril",
           "lavabo",
           "mirror",
           "mobile",
+          "ocritech",
+          "specchi",
           "specchio",
           "top"
         ],
@@ -1369,9 +1741,37 @@
           "W.120",
           "H.52",
           "D.46",
-          "L.120"
+          "L.120",
+          "H.52",
+          "P.46",
+          "L.100",
+          "H.35",
+          "P.46",
+          "ANIMA_63"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "09",
+          "100",
+          "46",
+          "50",
+          "100",
+          "12",
+          "50",
+          "100",
+          "12",
+          "100",
+          "46",
+          "121",
+          "46",
+          "121",
+          "46",
+          "60",
+          "40",
+          "52",
+          "46",
+          "120"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -1404,6 +1804,9 @@
           "ANIMA_65"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "64"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -1430,12 +1833,17 @@
         ],
         "keyword_hits": [
           "lavabo",
+          "ocritech",
           "top"
         ],
         "price_count": 0,
         "price_samples": [],
         "reference_samples": [],
         "dimension_samples": [],
+        "width_samples": [
+          "09",
+          "66"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -1468,7 +1876,10 @@
         ],
         "keyword_hits": [
           "base",
+          "geacril",
+          "gres",
           "mirror",
+          "specchi",
           "specchio",
           "top"
         ],
@@ -1496,9 +1907,35 @@
           "P.46",
           "W.120",
           "H.52",
-          "D.46"
+          "D.46",
+          "L.120",
+          "H.52",
+          "P.46",
+          "ANIMA_69"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "10",
+          "120",
+          "70",
+          "50",
+          "100",
+          "12",
+          "50",
+          "100",
+          "12",
+          "120",
+          "14",
+          "50",
+          "121",
+          "46",
+          "121",
+          "46",
+          "60",
+          "60",
+          "26",
+          "46"
+        ],
         "image_count": 3,
         "largest_images": [
           {
@@ -1531,6 +1968,7 @@
         "price_samples": [],
         "reference_samples": [],
         "dimension_samples": [],
+        "width_samples": [],
         "image_count": 1,
         "largest_images": [
           {
@@ -1561,9 +1999,12 @@
           "72 ANIMA_73"
         ],
         "keyword_hits": [
+          "ceramica",
+          "geacril",
           "lavabo",
           "mirror",
           "mobile",
+          "specchi",
           "specchio",
           "top"
         ],
@@ -1591,9 +2032,32 @@
           "D.46",
           "L.120",
           "H.52",
-          "P.46"
+          "P.46",
+          "ANIMA_73"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "11",
+          "80",
+          "50",
+          "100",
+          "12",
+          "50",
+          "100",
+          "12",
+          "80",
+          "46",
+          "121",
+          "46",
+          "121",
+          "46",
+          "80",
+          "52",
+          "46",
+          "120",
+          "52",
+          "46"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -1624,6 +2088,9 @@
           "ANIMA_75"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "74"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -1654,13 +2121,22 @@
           "Lavabo in Ceramica W.120 x H.52 x D.46 cm L.120 x H.52 x P.46 cm",
           "L.45 x H.15 x P.35 cm Dune Indigo Dune Indigo",
           "Bianco Lucido",
-          "Mobile portalavabo"
+          "Mobile portalavabo",
+          "L.80+40 x H.52 x P.46 cm",
+          "Rovere Alba + Verde Agave",
+          "Pensile",
+          "L.40 x H.70 x P.22 cm",
+          "Verde Agave",
+          "76 ANIMA_77"
         ],
         "keyword_hits": [
+          "ceramica",
+          "geacril",
           "lavabo",
           "led",
           "mirror",
           "mobile",
+          "specchi",
           "specchio",
           "top"
         ],
@@ -1688,9 +2164,39 @@
           "D.46",
           "L.120",
           "H.52",
-          "P.46"
+          "P.46",
+          "L.45",
+          "H.15",
+          "P.35",
+          "L.80",
+          "H.52",
+          "P.46",
+          "L.40",
+          "H.70"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "12",
+          "80",
+          "70",
+          "50",
+          "100",
+          "12",
+          "50",
+          "100",
+          "12",
+          "80",
+          "80",
+          "121",
+          "46",
+          "121",
+          "46",
+          "121",
+          "46",
+          "120",
+          "52",
+          "46"
+        ],
         "image_count": 3,
         "largest_images": [
           {
@@ -1723,6 +2229,7 @@
         "price_samples": [],
         "reference_samples": [],
         "dimension_samples": [],
+        "width_samples": [],
         "image_count": 1,
         "largest_images": [
           {
@@ -1753,13 +2260,22 @@
           "Lavabo in Ceramica W.120 x H.52 x D.46 cm L.120 x H.52 x P.46 cm",
           "L.45 x H.15 x P.35 cm Dune Indigo Dune Indigo",
           "Bianco Lucido",
-          "Mobile portalavabo"
+          "Mobile portalavabo",
+          "L.80+40 x H.52 x P.46 cm",
+          "Verde Agave + Rovere Alba",
+          "Pensile",
+          "L.40 x H.70 x P.22 cm",
+          "Rovere Alba",
+          "80 ANIMA_81"
         ],
         "keyword_hits": [
+          "ceramica",
+          "geacril",
           "lavabo",
           "led",
           "mirror",
           "mobile",
+          "specchi",
           "specchio",
           "top"
         ],
@@ -1787,9 +2303,39 @@
           "D.46",
           "L.120",
           "H.52",
-          "P.46"
+          "P.46",
+          "L.45",
+          "H.15",
+          "P.35",
+          "L.80",
+          "H.52",
+          "P.46",
+          "L.40",
+          "H.70"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "80",
+          "70",
+          "50",
+          "100",
+          "12",
+          "50",
+          "100",
+          "12",
+          "80",
+          "80",
+          "121",
+          "46",
+          "121",
+          "46",
+          "121",
+          "46",
+          "120",
+          "52",
+          "46",
+          "120"
+        ],
         "image_count": 3,
         "largest_images": [
           {
@@ -1830,9 +2376,12 @@
           "82 ANIMA_83"
         ],
         "keyword_hits": [
+          "ceramica",
+          "geacril",
           "lavabo",
           "mirror",
           "mobile",
+          "specchi",
           "specchio",
           "top"
         ],
@@ -1860,9 +2409,32 @@
           "D.46",
           "L.120",
           "H.52",
-          "P.46"
+          "P.46",
+          "ANIMA_83"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "13",
+          "60",
+          "50",
+          "100",
+          "12",
+          "50",
+          "100",
+          "12",
+          "60",
+          "46",
+          "121",
+          "46",
+          "121",
+          "46",
+          "60",
+          "52",
+          "46",
+          "120",
+          "52",
+          "46"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -1888,6 +2460,7 @@
           "84 ANIMA_85"
         ],
         "keyword_hits": [
+          "ceramica",
           "lavabo",
           "top"
         ],
@@ -1897,6 +2470,10 @@
           "ANIMA_85"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "13",
+          "84"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -1927,10 +2504,13 @@
           "86 ANIMA_87"
         ],
         "keyword_hits": [
+          "geacril",
           "lavabo",
           "led",
           "mirror",
           "mobile",
+          "ocritech",
+          "specchi",
           "specchio",
           "top"
         ],
@@ -1958,9 +2538,34 @@
           "W.120",
           "H.52",
           "D.46",
-          "L.120"
+          "L.120",
+          "H.52",
+          "P.46",
+          "ANIMA_87"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "14",
+          "50",
+          "100",
+          "50",
+          "100",
+          "12",
+          "50",
+          "100",
+          "12",
+          "80",
+          "46",
+          "121",
+          "46",
+          "121",
+          "46",
+          "80",
+          "52",
+          "46",
+          "120",
+          "52"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -1988,6 +2593,7 @@
         "price_samples": [],
         "reference_samples": [],
         "dimension_samples": [],
+        "width_samples": [],
         "image_count": 1,
         "largest_images": [
           {
@@ -2018,9 +2624,12 @@
           "90 ANIMA_91"
         ],
         "keyword_hits": [
+          "ceramica",
+          "geacril",
           "lavabo",
           "mirror",
           "mobile",
+          "specchi",
           "specchio",
           "top"
         ],
@@ -2048,9 +2657,34 @@
           "W.120",
           "H.52",
           "D.46",
-          "L.120"
+          "L.120",
+          "H.52",
+          "P.46",
+          "ANIMA_91"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "15",
+          "100",
+          "70",
+          "50",
+          "100",
+          "12",
+          "50",
+          "100",
+          "12",
+          "101",
+          "46",
+          "121",
+          "46",
+          "121",
+          "46",
+          "100",
+          "52",
+          "46",
+          "120",
+          "52"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -2078,6 +2712,7 @@
         "price_samples": [],
         "reference_samples": [],
         "dimension_samples": [],
+        "width_samples": [],
         "image_count": 1,
         "largest_images": [
           {
@@ -2108,9 +2743,12 @@
           "94 ANIMA_95"
         ],
         "keyword_hits": [
+          "ceramica",
+          "geacril",
           "lavabo",
           "mirror",
           "mobile",
+          "specchi",
           "specchio",
           "top"
         ],
@@ -2138,9 +2776,32 @@
           "D.46",
           "L.120",
           "H.52",
-          "P.46"
+          "P.46",
+          "ANIMA_95"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "16",
+          "100",
+          "50",
+          "100",
+          "12",
+          "50",
+          "100",
+          "12",
+          "121",
+          "46",
+          "121",
+          "46",
+          "121",
+          "46",
+          "120",
+          "52",
+          "46",
+          "120",
+          "52",
+          "46"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -2171,6 +2832,9 @@
           "ANIMA_97"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "96"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -2193,6 +2857,7 @@
         "price_samples": [],
         "reference_samples": [],
         "dimension_samples": [],
+        "width_samples": [],
         "image_count": 1,
         "largest_images": [
           {
@@ -2219,6 +2884,10 @@
           "ANIMA_101"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "20",
+          "100"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -2246,6 +2915,10 @@
           "ANIMA_103"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "20",
+          "102"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -2276,7 +2949,15 @@
           "spazzolini, saponi e small items, adding lightness brosses à dents, savons",
           "oggettistica, aggiungendo and functionality to the space. et petits objets, apportant",
           "leggerezza e funzionalità allo légèreté et fonctionnalité à",
-          "spazio. l’espace."
+          "spazio. l’espace.",
+          "Misure disponibili: Available sizes: Dimensions disponibles:",
+          "H. cm 3,5 H. cm 3,5 H. cm 3,5",
+          "L. cm 90 / 120 W. cm 90 / 120 L. cm 90 / 120",
+          "P. cm 13,5 D. cm 13,5 P. cm 13,5",
+          "Finiture disponibili: Available finishes: Finitions disponibles:",
+          "Ral Antracite Ral Antracite Ral Antracite",
+          "Ral Bianco Traffico Ral Bianco Traffico Ral Bianco Traffico",
+          "104 ANIMA_105"
         ],
         "keyword_hits": [
           "accessor",
@@ -2290,6 +2971,18 @@
           "ANIMA_105"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "90",
+          "120",
+          "90",
+          "120",
+          "90",
+          "120",
+          "13",
+          "13",
+          "13",
+          "104"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -2320,7 +3013,15 @@
           "Un dettaglio discreto che match any style. harmonieusement à tous",
           "unisce utilità e design, A discreet detail that les styles. Un détail discret",
           "completando l’arredo con combines utility and design, qui allie utilité et design,",
-          "leggerezza. completing the bathroom with complétant le mobilier avec"
+          "leggerezza. completing the bathroom with complétant le mobilier avec",
+          "lightness. légèreté.",
+          "Misure: Sizes: Dimensions:",
+          "H. cm 2,5 H. cm 2,5 H. cm 2,5",
+          "L. cm 40 W. cm 40 L. cm 40",
+          "P. cm 5 D. cm 5 P. cm 5",
+          "Finiture disponibili: Available finishes: Finitions disponibles:",
+          "Nero Opaco Nero Opaco Nero Opaco",
+          "Bianco Opaco Bianco Opaco Bianco Opaco"
         ],
         "keyword_hits": [
           "accessor",
@@ -2334,6 +3035,12 @@
         "price_samples": [],
         "reference_samples": [],
         "dimension_samples": [],
+        "width_samples": [
+          "40",
+          "40",
+          "40",
+          "106"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -2374,6 +3081,9 @@
           "ANIMA_109"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "108"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -2409,7 +3119,15 @@
           "da bagno, diventando un both a refined furnishing de salle de bain, devenant",
           "raffinato elemento d’arredo e element and a solid support à la fois un élément raffiné",
           "allo stesso tempo una solida base. d’ameublement et une base",
-          "base di appoggio. d’appui solide."
+          "base di appoggio. d’appui solide.",
+          "Available in two heights and",
+          "Disponibile in due altezze e four widths. Disponible en deux hauteurs",
+          "quattro larghezze. et quatre largeurs.",
+          "Misure disponibili: Available sizes: Dimensions disponibles:",
+          "H. cm 15 / 35 H. cm 15 / 35 H. cm 15 / 35",
+          "L. cm 80 / 100 / 120 / 140 W. cm 80 / 100 / 120 / 140 L. cm 80 / 100 / 120 / 140",
+          "P. cm 43,5 D. cm 43,5 P. cm 43,5",
+          "Finiture disponibili: Available finishes: Finitions disponibles:"
         ],
         "keyword_hits": [
           "accessor",
@@ -2424,6 +3142,28 @@
           "ANIMA_111"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "15",
+          "35",
+          "15",
+          "35",
+          "15",
+          "35",
+          "80",
+          "100",
+          "120",
+          "140",
+          "80",
+          "100",
+          "120",
+          "140",
+          "80",
+          "100",
+          "120",
+          "140",
+          "43",
+          "43"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -2454,7 +3194,11 @@
           "Pensile (H.70 x P.22 cm) 40 40 40 40 Panca (P.43,5 cm) 80 / 100 / 120 80 / 100 / 120",
           "Colonna (H.140 x P.22 cm)",
           "Wall cabinet (H.70 x D.22 cm) Metal Frame /",
-          "Column (H.140 x D.22 cm) / H.70 Structure métallique H.35"
+          "Column (H.140 x D.22 cm) / H.70 Structure métallique H.35",
+          "Element suspendu (H.70 x P.22 cm)",
+          "Colonne (H.140 x P.22 cm) H.15",
+          "H.140",
+          "112 ANIMA_113"
         ],
         "keyword_hits": [
           "anta",
@@ -2486,9 +3230,39 @@
           "D.22",
           "H.140",
           "D.22",
-          "H.70"
+          "H.70",
+          "H.35",
+          "H.70",
+          "P.22",
+          "H.140",
+          "P.22",
+          "H.15",
+          "H.140",
+          "ANIMA_113"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "46",
+          "60",
+          "80",
+          "80",
+          "100",
+          "120",
+          "46",
+          "40",
+          "60",
+          "80",
+          "80",
+          "100",
+          "120",
+          "26",
+          "26",
+          "52",
+          "52",
+          "46",
+          "60",
+          "80"
+        ],
         "image_count": 0,
         "largest_images": [],
         "text_chars": 2373
@@ -2513,7 +3287,15 @@
           "6",
           "52",
           "45/50 25,6",
-          "6060 // 7080/ /80100/ 90/ /120100 46 23"
+          "6060 // 7080/ /80100/ 90/ /120100 46 23",
+          "H.26",
+          "6 14",
+          "26 25,6 87 cm",
+          "6060/ /7080/ 80/ 100/ 90/ /120100 54 46 61",
+          "H.52",
+          "6 14",
+          "25,6 87 cm",
+          "52"
         ],
         "keyword_hits": [],
         "price_count": 0,
@@ -2542,6 +3324,28 @@
           "ANIMA_115"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "90",
+          "13",
+          "26",
+          "25",
+          "80",
+          "100",
+          "90",
+          "40",
+          "45",
+          "46",
+          "47",
+          "52",
+          "15",
+          "90",
+          "14",
+          "25",
+          "52",
+          "45",
+          "50",
+          "25"
+        ],
         "image_count": 6,
         "largest_images": [
           {
@@ -2597,7 +3401,15 @@
           "L",
           "E",
           "C",
-          "I"
+          "I",
+          "R",
+          "P",
+          "/",
+          "O",
+          "N",
+          "I",
+          "T",
+          "S"
         ],
         "keyword_hits": [],
         "price_count": 0,
@@ -2606,6 +3418,7 @@
           "ANIMA_117"
         ],
         "dimension_samples": [],
+        "width_samples": [],
         "image_count": 0,
         "largest_images": [],
         "text_chars": 904
@@ -2630,22 +3443,35 @@
           "Column with 1 door (r-l) and 4 glass shelves /colonne avec 1 porte ARIB-CO40140 40 x 22 x 140 VERDE AGAVE n.2 cad. 660,00 Wall unit 1door (r-l) and 1 glass shelve / armoire avec 1 porte (d-g) APUR-PA4070 40 x 22 x 70 G. VULCANO n.1 335,00",
           "(d-g) et 4 etageres en verre et 1 etagere en verre",
           "PREZZO TOTALE PREZZO TOTALE 2.398,00 3.718,00 2.878,16 3.213,16Totale price / prix total Totale price / prix total",
-          "CODICE DIMENSIONI FINITURA Q. PREZZO CODICE DIMENSIONI FINITURA Q. PREZZO"
+          "CODICE DIMENSIONI FINITURA Q. PREZZO CODICE DIMENSIONI FINITURA Q. PREZZO",
+          "CODE DIMENSION FINISH Q. PRICE CODE DIMENSION FINISH Q. PRICE 02 03 CODE DIMENSION FINITION Q. PRIX CODE DIMENSION FINITION Q. PRIX",
+          "L x H x P cm L x H x P cm",
+          "PORTALAVABO CON 2 ANTE CON 2 CASSETTI ARIB-PLA8052 80 x 52 x 46 G. VULCANO n.1 470,00 PORTALAVABO ARIB-PL12052 120 x 52 x 46 TERRA ROSSA n.1 708,00Wash basin unit with 2 doors / meuble sous vasque avec 2 portes Wash basin unit with 2 drawers / meuble sous vasque avec 2 tiroirs",
+          "TOP IN GEACRIL TOP IN CERAMICA CON LAVABO INTEGRATO BIANCO LUCIDO TPGEA12 141 x 1,2 x 46,2 G. VULCANO n.1 812,16Geacril top / plan en Geacril Ceramic top with integrated wash basin / plan Ceramique avec lavabo TK120 120 x 1,8 x 46,5 GLOSSY WHITE n.1 348,00",
+          "intégré BLANC BRILLANT",
+          "VASCA IN GEACRIL B855 48 x 28 G. VULCANO n.1 731,00 SPECCHIO “OFFSET” CON TOUCH E ILLUMINAZIONE LEDGeacril basin / Vasque en Geacril “Offset” led mirror with touch control / Miroir “Offset” led avec OFFSET80 80 x 80 / n.1 693,00",
+          "BASE CON 2 CASSETTI commande tactile APUR-BA6052 60 x 52 x 46 G.VULCANO n.1 509,00Base unit with 2 drawers / element avec 2 tiroirs",
+          "COLONNA CON ANTA REVERSIBILE E 4 RIPIANI IN VETRO"
         ],
         "keyword_hits": [
           "anta",
           "base",
           "cassett",
+          "ceramica",
           "drawer",
           "finish",
           "finitur",
+          "geacril",
           "lavabo",
           "led",
           "mirror",
+          "ocritech",
           "piano",
+          "specchi",
           "specchio",
           "top",
-          "vasca"
+          "vasca",
+          "vetro"
         ],
         "price_count": 35,
         "price_samples": [
@@ -2666,7 +3492,13 @@
           "398,00",
           "718,00",
           "878,16",
-          "213,16"
+          "213,16",
+          "470,00",
+          "708,00",
+          "812,16",
+          "348,00",
+          "731,00",
+          "693,00"
         ],
         "reference_samples": [
           "ANIMA",
@@ -2690,7 +3522,15 @@
           "CODE",
           "DIMENSION",
           "FINITION",
-          "PRIX"
+          "PRIX",
+          "CODE",
+          "DIMENSION",
+          "FINITION",
+          "PRIX",
+          "PORTALAVABO",
+          "ANTEPORTALAVABO",
+          "CASSETTI",
+          "APURPLA8052"
         ],
         "dimension_samples": [
           "80 x 52 x 46",
@@ -2708,7 +3548,31 @@
           "80 x 80",
           "60 x 52 x 46",
           "140 x 70",
-          "40 x 22 x 140"
+          "40 x 22 x 140",
+          "40 x 22 x 70",
+          "40 x 22 x 70"
+        ],
+        "width_samples": [
+          "01",
+          "80",
+          "52",
+          "46",
+          "446",
+          "00",
+          "100",
+          "52",
+          "46",
+          "650",
+          "00",
+          "141",
+          "46",
+          "812",
+          "16",
+          "140",
+          "46",
+          "804",
+          "00",
+          "48"
         ],
         "image_count": 4,
         "largest_images": [
@@ -2755,24 +3619,37 @@
           "Column with 1 door (r-l) and 4 glass shelves /colonne avec 1 porte APUR-CO40140 30 x 4 x 10 ARGILLA SECCA n.2 cad. 620,00 LAMPADA MOON(d-g) et 4 etageres en verre MOON80 80 / n.1 126,00 Lamp / lampe",
           "ASTA PORTA ASCIUGAMANO SIDEBAR 40 x 2,5 x 5 CROMO n.2 cad. 115,00 ASTA PORTA ASCIUGAMANOSidebar SIDEBAR 40 x 2,5 x 5 CROMO n.1 115,00 Sidebar",
           "PREZZO TOTALE 1.972,00 3.212,00 PENSILE CON 1 ANTA REVERSIBILE E 1 RIPIANO IN VETROTotale price / prix total",
-          "Wall unit 1door (r-l) and 1 glass shelve / armoire avec 1 porte (d-g) ARIB-PA4070 40 x 22 x 70 ROVERE ALBA n.1 365,00"
+          "Wall unit 1door (r-l) and 1 glass shelve / armoire avec 1 porte (d-g) ARIB-PA4070 40 x 22 x 70 ROVERE ALBA n.1 365,00",
+          "et 1 etagere en verre",
+          "PREZZO TOTALE 2.250,00 2.615,00 Totale price / prix total",
+          "CODICE DIMENSIONI FINITURA Q. PREZZO",
+          "CODE DIMENSION FINISH Q. PRICE 05 CODE DIMENSION FINITION Q. PRIX",
+          "L x H x P cm CODICE DIMENSIONI FINITURA Q. PREZZO",
+          "CODE DIMENSION FINISH Q. PRICE 06 CODE DIMENSION FINITION Q. PRIX",
+          "L x H x P cm",
+          "PORTALAVABO CON 1 CASSETTO ARIB-PL10026 100 x 26 x 46 ARGILLA SECCA n.1 435,00Wash basin unit with 1 drawer / meuble sous vasque avec 1 tiroir"
         ],
         "keyword_hits": [
           "anta",
           "base",
           "cassett",
+          "ceramica",
           "color",
           "colore",
           "drawer",
+          "fenix",
           "finish",
           "finitur",
+          "geacril",
           "lavabo",
           "led",
           "mirror",
           "piano",
+          "specchi",
           "specchio",
           "top",
-          "vasca"
+          "vasca",
+          "vetro"
         ],
         "price_count": 36,
         "price_samples": [
@@ -2793,7 +3670,13 @@
           "212,00",
           "365,00",
           "250,00",
-          "615,00"
+          "615,00",
+          "435,00",
+          "666,00",
+          "383,00",
+          "414,00",
+          "92,00",
+          "110,00"
         ],
         "reference_samples": [
           "ANIMA",
@@ -2817,7 +3700,15 @@
           "CODE",
           "DIMENSION",
           "FINITION",
-          "PRIX"
+          "PRIX",
+          "CODE",
+          "DIMENSION",
+          "FINITION",
+          "PRIX",
+          "PORTALAVABO",
+          "CASSETTI",
+          "PORTALAVABO",
+          "CASSETTO"
         ],
         "dimension_samples": [
           "60 x 52 x 46",
@@ -2832,6 +3723,28 @@
           "140,5 x 12 x 46,5",
           "50 x 30",
           "40 x 22 x 70"
+        ],
+        "width_samples": [
+          "04",
+          "60",
+          "52",
+          "46",
+          "535",
+          "00",
+          "100",
+          "26",
+          "46",
+          "435",
+          "100",
+          "12",
+          "46",
+          "870",
+          "120",
+          "46",
+          "423",
+          "00",
+          "100",
+          "26"
         ],
         "image_count": 4,
         "largest_images": [
@@ -2878,22 +3791,37 @@
           "PREZZO TOTALE 2.665,00Totale price / prix total",
           "CODICE DIMENSIONI FINITURA Q. PREZZO",
           "CODE DIMENSION FINISH Q. PRICE 10 CODE DIMENSION FINITION Q. PRIX",
-          "CODICE DIMENSIONI FINITURA Q. PREZZO L x H x P cm"
+          "CODICE DIMENSIONI FINITURA Q. PREZZO L x H x P cm",
+          "CODE DIMENSION FINISH Q. PRICE 08 CODE DIMENSION FINITION Q. PRIX",
+          "L x H x P cm",
+          "BASE CON 1 CASSETTO ARIB-BA6026 60 x 26 x 46 TERRA ROSSA n.1 361,00 Base unit with 1 drawer / element avec 1 tiroir",
+          "BASE CON 1 CASSETTO APUR-BA6026 60 x 26 x 46 TERRA ROSSA n.1 346,00PORTALAVABO CON 2 CASSETTI Base unit with 1 drawer / element avec 1 tiroir ARIB-PL10052 100 x 52 x 46 ROVERE ALBA n.1 650,00Wash basin unit with 2 drawers / meuble sous vasque avec 2 tiroirs",
+          "TOP DI COPERTURA TPC120 120,5 x 1,8 x 46,5 TERRA ROSSA n.1 135,00 NERO OPACO Finishing top / plan de finitionLAVABO IN CERAMICA TA100 100 x 12 x 46 MATT BLACK n.1 1.167,00Ceramic washbasins / lavabo en Ceramique NOIR MAT TOP IN GRES TGRS14 120 x 14 x 50 CALACATTA ORO n.1 1.920,00 Gres top / Plan gres",
+          "SPECCHIO UP CON CORNICE IN ALLUMINIO UP 50 x 100 x 4 / n.1 918,00",
+          "Up aluminium frame mirror / Miroir Up cadre aluminium VASCA CON PILETTA IN TINTA TUTTA LUNGHEZZA",
+          "Full-lenght drain matching color / Bonde sur toute la longueur HIDE70 70 x 31,5 CALACATTA ORO n.1 1.627,00"
         ],
         "keyword_hits": [
           "anta",
           "base",
           "cassett",
+          "ceramica",
           "color",
           "drawer",
           "finish",
           "finitur",
+          "geacril",
+          "gres",
+          "hpl",
           "lavabo",
           "led",
           "mirror",
+          "ocritech",
+          "specchi",
           "specchio",
           "top",
           "vasca",
+          "vetro",
           "washbasin"
         ],
         "price_count": 31,
@@ -2915,7 +3843,13 @@
           "665,00",
           "361,00",
           "346,00",
-          "650,00"
+          "650,00",
+          "135,00",
+          "167,00",
+          "920,00",
+          "918,00",
+          "627,00",
+          "115,00"
         ],
         "reference_samples": [
           "ANIMA",
@@ -2939,7 +3873,15 @@
           "CODE",
           "DIMENSION",
           "FINITION",
-          "PRIX"
+          "PRIX",
+          "CODE",
+          "DIMENSION",
+          "FINITION",
+          "PRIX",
+          "BASE",
+          "CASSETTO",
+          "PORTALAVABO",
+          "CASSETTI"
         ],
         "dimension_samples": [
           "120 x 26 x 46",
@@ -2957,7 +3899,30 @@
           "120 x 14 x 50",
           "50 x 100",
           "70 x 31,5",
-          "40 x 22 x 140"
+          "40 x 22 x 140",
+          "120 x 70"
+        ],
+        "width_samples": [
+          "07",
+          "09",
+          "120",
+          "26",
+          "46",
+          "410",
+          "00",
+          "60",
+          "52",
+          "46",
+          "535",
+          "120",
+          "46",
+          "135",
+          "00",
+          "100",
+          "46",
+          "652",
+          "120",
+          "12"
         ],
         "image_count": 4,
         "largest_images": [
@@ -3004,21 +3969,33 @@
           "ceramique BLANC BRILLANT",
           "COLONNA CON ANTA REVERSIBILE E 4 RIPIANI IN VETRO",
           "Column with 1 door (r-l) and 4 glass shelves /colonne avec 1 porte APUR-CO40140 40 x 22 x 140 G. VULCANO n.1 620,00 FORO LAVABO MLA / / n.1 68,00(d-g) et 4 etageres en verre Hole for washbasin / Trou pour lavabo",
-          "PREZZO TOTALE SPECCHIO FILO LUCIDO TELAIO SATINATO 1.093,00 1.713,00 SFT8070 80 x 70 / n.1 149,00Totale price / prix total Simple mirror with satin frame / miroir simple avec cadre satiné"
+          "PREZZO TOTALE SPECCHIO FILO LUCIDO TELAIO SATINATO 1.093,00 1.713,00 SFT8070 80 x 70 / n.1 149,00Totale price / prix total Simple mirror with satin frame / miroir simple avec cadre satiné",
+          "LAMPADA “BARLED” BARLED80 80 x 1 x 5 CROMO n.1 131,00 “Barled” led lamp / lampe led “Barled”",
+          "PENSILE CON 1 ANTA REVERSIBILE E 1 RIPIANO IN VETRO",
+          "CODICE DIMENSIONI FINITURA Q. PREZZO Wall unit 1door (r-l) and 1 glass shelve / armoire avec 1 porte (d-g) APUR-PA4070 40 x 22 x 70 ROVERE ALBA n.1 335,00",
+          "CODE DIMENSION FINISH Q. PRICE et 1 etagere en verre 12 CODE DIMENSION FINITION Q. PRIX",
+          "L x H x P cm ASTA PORTA ASCIUGAMANO SIDEBAR 40 x 2,5 x 5 CROMO n.1 115,00 Sidebar",
+          "PREZZO TOTALE 2.389,20 2.724,20 Totale price / prix total",
+          "PORTALAVABO CON 2 CASSETTI ARIB-PL8052 80 x 52 x 46 ROVERE ALBA n.1 598,00Wash basin unit with 2 drawers / meuble sous vasque avec 2 tiroirs",
+          "CODICE DIMENSIONI FINITURA Q. PREZZO"
         ],
         "keyword_hits": [
           "anta",
           "base",
           "cassett",
+          "ceramica",
           "drawer",
           "finish",
           "finitur",
+          "geacril",
           "lavabo",
           "led",
           "mirror",
           "piano",
+          "specchi",
           "specchio",
           "top",
+          "vetro",
           "washbasin"
         ],
         "price_count": 35,
@@ -3040,7 +4017,13 @@
           "335,00",
           "115,00",
           "389,20",
-          "724,20"
+          "724,20",
+          "598,00",
+          "375,00",
+          "648,20",
+          "457,00",
+          "535,00",
+          "68,00"
         ],
         "reference_samples": [
           "ANIMA",
@@ -3064,7 +4047,15 @@
           "CODE",
           "DIMENSION",
           "FINITION",
-          "PRIX"
+          "PRIX",
+          "CODE",
+          "DIMENSION",
+          "FINITION",
+          "PRIX",
+          "PORTALAVABO",
+          "ANTE",
+          "PORTALAVABO",
+          "ANTE"
         ],
         "dimension_samples": [
           "80 x 52 x 46",
@@ -3080,6 +4071,28 @@
           "60 x 52 x 46",
           "80 x 70",
           "40 x 22 x 70"
+        ],
+        "width_samples": [
+          "11",
+          "80",
+          "52",
+          "46",
+          "446",
+          "00",
+          "80",
+          "52",
+          "46",
+          "446",
+          "80",
+          "46",
+          "200",
+          "00",
+          "40",
+          "52",
+          "46",
+          "375",
+          "00",
+          "80"
         ],
         "image_count": 4,
         "largest_images": [
@@ -3126,16 +4139,24 @@
           "L x H x P cm",
           "PORTALAVABO CON 2 CASSETTI ARIB-PL10052 100 x 52 x 46 TERRA ROSSA n.1 650,00Wash basin unit with 2 drawers / meuble sous vasque avec 2 tiroirs",
           "BIANCO LUCIDOTOP IN CERAMICA “JUST” JUST10146 101 x 7,5 x 46,5 GLOSSY WHITE n.1 603,00Just ceramic / plan en ceramique Just BLANC BRILLANT",
-          "SPECCHIO FILO LUCIDO SF10070 100 x 70 / n.1 141,00Simple mirror / miroir simple"
+          "SPECCHIO FILO LUCIDO SF10070 100 x 70 / n.1 141,00Simple mirror / miroir simple",
+          "LAMPADA PLEXY VERTICAL PLEXY 30 / n.1 108,00Lamp / lampe",
+          "ASTA PORTA ASCIUGAMANO SIDEBAR 40 x 2,5 x 5 CROMO n.1 115,00Sidebar",
+          "PREZZO TOTALE 1.617,00Totale price / prix total",
+          "Totale escluso colonne e pensili / Total price excluding columns and wall units / Prix total hors colonnes et unités murales",
+          "ANIMA_127"
         ],
         "keyword_hits": [
           "cassett",
+          "ceramica",
           "drawer",
           "finish",
           "finitur",
           "lavabo",
           "led",
           "mirror",
+          "ocritech",
+          "specchi",
           "specchio",
           "top"
         ],
@@ -3180,7 +4201,15 @@
           "CODE",
           "DIMENSION",
           "FINITION",
-          "PRIX"
+          "PRIX",
+          "CODE",
+          "DIMENSION",
+          "FINITION",
+          "PRIX",
+          "PORTALAVABO",
+          "ANTE",
+          "PORTALAVABO",
+          "CASSETTI"
         ],
         "dimension_samples": [
           "80 x 52 x 46",
@@ -3188,6 +4217,28 @@
           "50 x 100",
           "100 x 52 x 46",
           "100 x 70"
+        ],
+        "width_samples": [
+          "14",
+          "16",
+          "80",
+          "52",
+          "46",
+          "446",
+          "00",
+          "120",
+          "52",
+          "46",
+          "708",
+          "80",
+          "46",
+          "573",
+          "00",
+          "121",
+          "46",
+          "012",
+          "50",
+          "100"
         ],
         "image_count": 3,
         "largest_images": [
@@ -3229,7 +4280,15 @@
           "Cassetto Ribelle APUR-PL12052 120 x 52 x 46 661,00 Cassetto Ribelle APUR-BA12052 120 x 52 x 46 635,00",
           "H.52 ARIB-PL6052 60 x 52 x 46 561,00 H.52 ARIB-BA6052 60 x 52 x 46 530,00",
           "ARIB-PL8052 80 x 52 x 46 598,00 ARIB-BA8052 80 x 52 x 46 570,00",
-          "ARIB-PL10052 100 x 52 x 46 650,00 ARIB-BA10052 100 x 52 x 46 630,00"
+          "ARIB-PL10052 100 x 52 x 46 650,00 ARIB-BA10052 100 x 52 x 46 630,00",
+          "ARIB-PL12052 120 x 52 x 46 708,00 ARIB-BA12052 120 x 52 x 46 683,00",
+          "Anta Pura Anta Pura",
+          "PORTALAVABO CON 2 ANTE CODICE DIMENSIONI Bianco Gesso BASE CON 2 ANTE CODICE DIMENSIONI Bianco Gesso",
+          "Wash basin unit with 2 doors / Meuble sous CODE DIMENSION Argilla Secca Basin unit with 2 doors / Meuble bas CODE DIMENSION Argilla Secca",
+          "CODE DIMENSION DIMENSION avec 2 portes CODEvasque avec 2 tiroirs L x H x P cm Verde Agave L x H x P cm Verde Agave",
+          "H.52 Terra Rossa H.52 Terra Rossa Grigio Vulcano Grigio Vulcano",
+          "Rovere Alba Rovere Alba",
+          "APUR-PL8052 80 x 52 x 46 446,00 APUR-BA8052 80 x 52 x 46 446,00"
         ],
         "keyword_hits": [
           "anta",
@@ -3258,7 +4317,9 @@
           "708,00",
           "683,00",
           "446,00",
-          "446,00"
+          "446,00",
+          "470,00",
+          "470,00"
         ],
         "reference_samples": [
           "ANIMA",
@@ -3282,7 +4343,15 @@
           "H.52",
           "APUR-PL6052",
           "APUR-BA6052",
-          "APUR-PL8052"
+          "APUR-PL8052",
+          "APUR-BA8052",
+          "APUR-PL10052",
+          "APUR-BA10052",
+          "APUR-PL12052",
+          "APUR-BA12052",
+          "H.52",
+          "ARIB-PL6052",
+          "H.52"
         ],
         "dimension_samples": [
           "60 x 52 x 46",
@@ -3300,7 +4369,33 @@
           "100 x 52 x 46",
           "100 x 52 x 46",
           "120 x 52 x 46",
-          "120 x 52 x 46"
+          "120 x 52 x 46",
+          "80 x 52 x 46",
+          "80 x 52 x 46",
+          "80 x 52 x 46",
+          "80 x 52 x 46"
+        ],
+        "width_samples": [
+          "52",
+          "52",
+          "60",
+          "52",
+          "46",
+          "535",
+          "00",
+          "60",
+          "52",
+          "46",
+          "509",
+          "00",
+          "80",
+          "52",
+          "46",
+          "568",
+          "00",
+          "80",
+          "52",
+          "46"
         ],
         "image_count": 9,
         "largest_images": [
@@ -3343,6 +4438,11 @@
             "xref": 563,
             "width": 219,
             "height": 167
+          },
+          {
+            "xref": 515,
+            "width": 128,
+            "height": 14
           }
         ],
         "text_chars": 7232
@@ -3367,7 +4467,15 @@
           "APUR-PL12026 120 x 26 x 46 430,00 APUR-BA12026 120 x 26 x 46 410,00",
           "Cassetto Ribelle Cassetto Ribelle",
           "PORTALAVABO CON 1 CASSETTO CODICE DIMENSIONI Bianco Gesso BASE CON 1 CASSETTO CODICE DIMENSIONI Bianco Gesso",
-          "Wash basin unit with 1 drawer / Meuble sous CODE DIMENSION Argilla Secca Basin unit with 1 drawer / Meuble bas CODE DIMENSION Argilla Secca"
+          "Wash basin unit with 1 drawer / Meuble sous CODE DIMENSION Argilla Secca Basin unit with 1 drawer / Meuble bas CODE DIMENSION Argilla Secca",
+          "vasque avec 1 tiroir CODE DIMENSION avec 1 tiroir CODE DIMENSION L x H x P cm Verde Agave L x H x P cm Verde Agave",
+          "H.26 Terra Rossa H.26 Terra Rossa",
+          "Grigio Vulcano Grigio Vulcano",
+          "Rovere Alba Rovere Alba",
+          "APUR-PL6026 60 x 26 x 46 382,00 APUR-BA6026 60 x 26 x 46 361,00",
+          "APUR-PL8026 80 x 26 x 46 409,00 APUR-BA8026 80 x 26 x 46 383,00",
+          "APUR-PL10026 100 x 26 x 46 435,00 APUR-BA10026 100 x 26 x 46 414,00",
+          "APUR-PL12026 120 x 26 x 46 458,00 APUR-BA12026 120 x 26 x 46 440,00"
         ],
         "keyword_hits": [
           "base",
@@ -3418,7 +4526,15 @@
           "H.26",
           "H.26",
           "APUR-PL6026",
-          "APUR-BA6026"
+          "APUR-BA6026",
+          "APUR-PL8026",
+          "APUR-BA8026",
+          "APUR-PL10026",
+          "APUR-BA10026",
+          "APUR-PL12026",
+          "APUR-BA12026",
+          "PORTALAVABO",
+          "CASSETTO"
         ],
         "dimension_samples": [
           "60 x 26 x 46",
@@ -3437,6 +4553,28 @@
           "100 x 26 x 46",
           "120 x 26 x 46",
           "120 x 26 x 46"
+        ],
+        "width_samples": [
+          "26",
+          "26",
+          "60",
+          "26",
+          "46",
+          "367",
+          "00",
+          "60",
+          "26",
+          "46",
+          "346",
+          "00",
+          "80",
+          "26",
+          "46",
+          "388",
+          "00",
+          "80",
+          "26",
+          "46"
         ],
         "image_count": 6,
         "largest_images": [
@@ -3493,14 +4631,23 @@
           "ARIB-BA4052 40 x 52 x 46 393,00",
           "PENSILE CON 1 ANTA E 1 RIPIANO IN VETRO CODICE DIMENSIONI Bianco Gesso",
           "Wall unit 1door and 1 glass shelve / CODE DIMENSION Argilla Secca",
-          "CODE DIMENSION"
+          "CODE DIMENSION",
+          "Armoire avec 1 porte et 1 etagere en verre L x H x P cm Verde Agave",
+          "H.70 Terra Rossa Grigio Vulcano",
+          "Rovere Alba",
+          "Anta Pura",
+          "ARIB-PL6052 40 x 70 x 22 335,00",
+          "Anta Ribelle",
+          "ARIB-PL6052 40 x 70 x 22 365,00",
+          "COLONNA CON ANTA REVERSIBILE CODICE DIMENSIONI Bianco Gesso"
         ],
         "keyword_hits": [
           "anta",
           "base",
           "finish",
           "piano",
-          "top"
+          "top",
+          "vetro"
         ],
         "price_count": 9,
         "price_samples": [
@@ -3536,7 +4683,15 @@
           "DIMENSION",
           "H.52",
           "TPC80",
-          "APUR-BA4052"
+          "APUR-BA4052",
+          "TPC100",
+          "TPC120",
+          "ARIB-BA4052",
+          "PENSILE",
+          "ANTA",
+          "RIPIANO",
+          "VETRO",
+          "CODICE"
         ],
         "dimension_samples": [
           "40 x 52 x 46",
@@ -3545,6 +4700,28 @@
           "40 x 70 x 22",
           "40 x 140 x 22",
           "40 x 140 x 22"
+        ],
+        "width_samples": [
+          "40",
+          "52",
+          "80",
+          "46",
+          "92",
+          "00",
+          "40",
+          "52",
+          "46",
+          "375",
+          "00",
+          "100",
+          "46",
+          "110",
+          "00",
+          "120",
+          "46",
+          "135",
+          "00",
+          "40"
         ],
         "image_count": 7,
         "largest_images": [
@@ -3606,9 +4783,18 @@
           "PIC6146 61 x 1,2 x 46,5 498,00 656,00",
           "TOP IN CERAMICA “PICASSO” PIC8146 81 x 1,2 x 46,5 645,00 797,00“Picasso” Ceramic Top / Plan en céramique “Picasso”",
           "PIC10146 101 x 1,2 x 46,5 666,00 824,00",
-          "H.1,2 PIC10146DX 101 x 1,2 x 46,5 755,00 913,00"
+          "H.1,2 PIC10146DX 101 x 1,2 x 46,5 755,00 913,00",
+          "PIC10146SX 101 x 1,2 x 46,5 755,00 913,00",
+          "PIC12146 121 x 1,2 x 46,5 855,00 1.012,00",
+          "PIC12146DX 121 x 1,2 x 46,5 881,00 1.039,00",
+          "PIC12146SX 121 x 1,2 x 46,5 881,00 1.039,00",
+          "JUST6146 61 x 7,5 x 46,5 383,00 555,00",
+          "TOP IN CERAMICA “JUST” JUST8146 81 x 7,5 x 46,5 488,00 645,00",
+          "“Just” Ceramic Top / Plan en céramique “Just”",
+          "JUST10146 101 x 7,5 x 46,5 603,00 761,00"
         ],
         "keyword_hits": [
+          "ceramica",
           "lavabo",
           "top",
           "vasca",
@@ -3633,7 +4819,13 @@
           "410,00",
           "423,00",
           "989,00",
-          "410,00"
+          "410,00",
+          "498,00",
+          "656,00",
+          "645,00",
+          "797,00",
+          "666,00",
+          "824,00"
         ],
         "reference_samples": [
           "ANIMA",
@@ -3657,7 +4849,15 @@
           "DIMENSION",
           "LUCIDO",
           "OPACO",
-          "OPACO"
+          "OPACO",
+          "CODE",
+          "DIMENSION",
+          "LUCIDO",
+          "NERO",
+          "OPACO",
+          "CODE",
+          "GLOSSY",
+          "MATTE"
         ],
         "dimension_samples": [
           "60 x 12 x 46",
@@ -3665,6 +4865,28 @@
           "100 x 12 x 46",
           "120 x 12 x 46",
           "120 x 12 x 46"
+        ],
+        "width_samples": [
+          "12",
+          "61",
+          "46",
+          "176",
+          "00",
+          "547",
+          "00",
+          "60",
+          "12",
+          "46",
+          "569",
+          "00",
+          "805",
+          "00",
+          "81",
+          "46",
+          "200",
+          "00",
+          "620",
+          "00"
         ],
         "image_count": 6,
         "largest_images": [
@@ -3721,11 +4943,15 @@
           "CODE L x H x P cm BLANC MAT MATT WHITETOP IN GEACRIL COLORATO CON DOPPIA VASCA INTEGRATA Plan en Geacril coloré avec 1 et 2 vasques W x H x D cm BLANC MAT",
           "Coloured geacril top with integrated double basin / Plan en geacril coloré avec double vasque intégrée",
           "Vasca Sinistra / Left basin / Vasque gauche BNT120SX 120,5 x 12 x 46,2 760,00 990,00",
-          "Vasca Destra / Right basin / Vasque droit BNT120DX 120,5 x 12 x 46,2 760,00 990,00"
+          "Vasca Destra / Right basin / Vasque droit BNT120DX 120,5 x 12 x 46,2 760,00 990,00",
+          "Doppia vasca / Double basin / Double vasque BNT120DV 120,5 x 12 x 46,2 950,00 1.232,00",
+          "50 cm 50 cm",
+          "136 ANIMA_137"
         ],
         "keyword_hits": [
           "color",
           "colore",
+          "geacril",
           "top",
           "vasca"
         ],
@@ -3768,7 +4994,15 @@
           "WHITE",
           "CODE",
           "BLANC",
-          "MATT"
+          "MATT",
+          "WHITE",
+          "BLANC",
+          "BNT60",
+          "BNT80",
+          "BNT100",
+          "BNT120",
+          "GEACRIL",
+          "COLORATO"
         ],
         "dimension_samples": [
           "60,5 x 12 x 46,2",
@@ -3778,6 +5012,28 @@
           "120,5 x 12 x 46,2",
           "120,5 x 12 x 46,2",
           "120,5 x 12 x 46,2"
+        ],
+        "width_samples": [
+          "60",
+          "12",
+          "46",
+          "539",
+          "00",
+          "708",
+          "00",
+          "80",
+          "12",
+          "46",
+          "597",
+          "00",
+          "788",
+          "00",
+          "100",
+          "12",
+          "46",
+          "667",
+          "00",
+          "869"
         ],
         "image_count": 5,
         "largest_images": [
@@ -3829,11 +5085,20 @@
           "B855 48 x 28 1.721,00 2.163,00",
           "B452 60 x 28 1.721,00 2.163,00",
           "B574 50 x 28,5 1.721,00 2.163,00",
-          "B570 B574 B570 60 x 28,5 1.721,00 2.163,00"
+          "B570 B574 B570 60 x 28,5 1.721,00 2.163,00",
+          "H.12 TPGEA120 - / CML 6,49 / CML 8,65",
+          "1 vasca / 1 basin / 1 vasque B938 58 x 28 782,00 1.007,00",
+          "B855 48 x 28 782,00 1.007,00",
+          "B452 60 x 28 782,00 1.007,00",
+          "B574 50 x 28,5 782,00 1.007,00",
+          "B452 B570 60 x 28,5 782,00 1.007,00",
+          "2 vasche / 2 basins / 2 vasques B575 58 x 28 1.946,00 2.521,00",
+          "B855 48 x 28 1.946,00 2.521,00"
         ],
         "keyword_hits": [
           "color",
           "colore",
+          "geacril",
           "top",
           "vasca"
         ],
@@ -3856,7 +5121,13 @@
           "721,00",
           "163,00",
           "721,00",
-          "163,00"
+          "163,00",
+          "721,00",
+          "163,00",
+          "721,00",
+          "163,00",
+          "6,49",
+          "8,65"
         ],
         "reference_samples": [
           "ANIMA",
@@ -3880,7 +5151,15 @@
           "COLOUR",
           "BLANC",
           "COULEUR",
-          "TPGEA12"
+          "TPGEA12",
+          "B938",
+          "B855",
+          "B938",
+          "B855",
+          "B452",
+          "B574",
+          "B570",
+          "B575"
         ],
         "dimension_samples": [
           "58 x 28",
@@ -3898,7 +5177,33 @@
           "60 x 28",
           "50 x 28,5",
           "60 x 28,5",
-          "58 x 28"
+          "58 x 28",
+          "48 x 28",
+          "60 x 28",
+          "50 x 28,5",
+          "60 x 28,5"
+        ],
+        "width_samples": [
+          "63",
+          "76",
+          "58",
+          "28",
+          "560",
+          "00",
+          "731",
+          "00",
+          "48",
+          "28",
+          "560",
+          "00",
+          "731",
+          "00",
+          "60",
+          "28",
+          "560",
+          "00",
+          "731",
+          "00"
         ],
         "image_count": 9,
         "largest_images": [
@@ -3941,6 +5246,11 @@
             "xref": 726,
             "width": 251,
             "height": 72
+          },
+          {
+            "xref": 719,
+            "width": 251,
+            "height": 71
           }
         ],
         "text_chars": 6774
@@ -3965,11 +5275,20 @@
           "Geacril stone top by the linear cm / CODE DIMENSION OPACO NCS",
           "CODE L x H x P cm MATTE WHITE COLOUR / NCS Plan en Géacril Stone au centimètre linéaire W x H x D cm BLANC MAT COULEUR / NCS",
           "H.12 TXT120 - / CML 6,49 / CML 8,65",
-          "TOP IN GEACRIL STONE - VASCA B576 SINGOLA E DOPPIA"
+          "TOP IN GEACRIL STONE - VASCA B576 SINGOLA E DOPPIA",
+          "Geacril Stone Top, B576 Single/Double Basin / Plan Geacril Stone, vasque B576 simple/doubleStone 1 vasca / 1 basin / 1 vasque B575 50 x 31 782,00 1.007,00",
+          "B576 60 x 31 782,00 1.007,00",
+          "B576",
+          "2 vasche / 2 basins / 2 vasques B575 50 x 31 1.946,00 2.521,00",
+          "B576 60 x 31 1.946,00 2.521,00",
+          "FORO PER LAVABO",
+          "MLA 68,00 Hole for washbasin / Trou pour lavabo",
+          "FORO RUBINETTO"
         ],
         "keyword_hits": [
           "color",
           "colore",
+          "geacril",
           "lavabo",
           "top",
           "vasca",
@@ -3994,7 +5313,12 @@
           "782,00",
           "007,00",
           "946,00",
-          "521,00"
+          "521,00",
+          "946,00",
+          "521,00",
+          "68,00",
+          "66,00",
+          "80,00"
         ],
         "reference_samples": [
           "ANIMA",
@@ -4018,7 +5342,15 @@
           "DIMENSION",
           "OPACO",
           "CODE",
-          "MATTE"
+          "MATTE",
+          "WHITE",
+          "COLOUR",
+          "BLANC",
+          "COULEUR",
+          "B575",
+          "TXT12",
+          "B575",
+          "B576"
         ],
         "dimension_samples": [
           "50 x 31",
@@ -4029,6 +5361,28 @@
           "60 x 31",
           "50 x 31",
           "60 x 31"
+        ],
+        "width_samples": [
+          "63",
+          "76",
+          "50",
+          "31",
+          "560",
+          "00",
+          "731",
+          "00",
+          "60",
+          "31",
+          "560",
+          "00",
+          "731",
+          "00",
+          "50",
+          "31",
+          "721",
+          "00",
+          "163",
+          "00"
         ],
         "image_count": 7,
         "largest_images": [
@@ -4090,10 +5444,19 @@
           "Vasca Sinistra / Left basin / Vasque gauche TO120SX 120,5 x 1 x 46,2",
           "716,00",
           "Vasca Destra / Left basin / Vasque droit TO120DX 120,5 x 1 x 46,2",
-          "Doppia vasca / Double basin / Double vasque TO120DV 120,5 x 1 x 46,2 943,00"
+          "Doppia vasca / Double basin / Double vasque TO120DV 120,5 x 1 x 46,2 943,00",
+          "TOP MINERAL CODICE DIMENSIONI BIANCO OPACO / BIANCO LUCIDO",
+          "Mineral top with integrated wash basin / CODE DIMENSION MATT WHITE / GLOSSY WHITE",
+          "Plan Mineral avec lavabo intégré CODE L x H x P cm BLANC MAT / BLANC BRILLANT",
+          "W x H x D cm",
+          "TOP OCRITECH CONCA CODICE DIMENSIONI BIANCO OPACO / BIANCO LUCIDO",
+          "Ocrritech top with integrated wash basin / CODE DIMENSION MATT WHITE / GLOSSY WHITE H.10 TMS60 60 x 10 x 46 562,00",
+          "CODE L x H x P cm BLANC MAT / BLANC BRILLANTPlan Ocritech avec lavabo intégré",
+          "W x H x D cm TMS80 80 x 10 x 46 669,00"
         ],
         "keyword_hits": [
           "lavabo",
+          "ocritech",
           "top",
           "vasca"
         ],
@@ -4116,7 +5479,12 @@
           "669,00",
           "754,00",
           "934,00",
-          "684,00"
+          "684,00",
+          "803,00",
+          "983,00",
+          "946,00",
+          "047,00",
+          "270,00"
         ],
         "reference_samples": [
           "ANIMA",
@@ -4140,7 +5508,15 @@
           "DIMENSION",
           "MATT",
           "WHITE",
-          "GLOSSY"
+          "GLOSSY",
+          "WHITE",
+          "CODE",
+          "DIMENSION",
+          "MATT",
+          "WHITE",
+          "GLOSSY",
+          "WHITE",
+          "CODE"
         ],
         "dimension_samples": [
           "60 x 10 x 46",
@@ -4153,6 +5529,28 @@
           "100,5 x 12 x 46,2",
           "120,5 x 12 x 46,2",
           "120,5 x 12 x 46,2"
+        ],
+        "width_samples": [
+          "60",
+          "46",
+          "519",
+          "00",
+          "60",
+          "46",
+          "323",
+          "00",
+          "80",
+          "46",
+          "573",
+          "00",
+          "80",
+          "46",
+          "372",
+          "00",
+          "100",
+          "46",
+          "652",
+          "00"
         ],
         "image_count": 6,
         "largest_images": [
@@ -4209,12 +5607,21 @@
           "HIDE HIDE50 50 x 31,5 1.561,00",
           "con piletta in tinta tutta lunghezza",
           "Full-length drain in matching color / Bonde sur toute la HIDE70 70 x 31,5 1.627,00 longueur assortie",
-          "SIMPLY SIMPLY50 50 x 30 1.351,00"
+          "SIMPLY SIMPLY50 50 x 30 1.351,00",
+          "con scivolo fisso scarico continuo",
+          "Fixed slope with continuous drainage / Pente fixe, SIMPLY70 70 x 30 1.425,00 évacuation continue",
+          "TWOSPACE TWS110 110 x 30 3.300,00",
+          "TOP IN GRES - FINITURE",
+          "Gres Top Finishes / Finitions plan en grès",
+          "FORO PER LAVABO",
+          "MLA 66,00 Hole for washbasin / Trou pour lavabo",
+          "FORO RUBINETTO"
         ],
         "keyword_hits": [
           "color",
           "finish",
           "finitur",
+          "gres",
           "lavabo",
           "scarico",
           "top",
@@ -4258,7 +5665,15 @@
           "VASCA",
           "GRES",
           "BASIC50",
-          "1.351"
+          "1.351",
+          "BASIC",
+          "SIMPLY",
+          "TWOSPACE",
+          "BASIC70",
+          "1.425",
+          "HIDE",
+          "HIDE50",
+          "1.561"
         ],
         "dimension_samples": [
           "50 x 30",
@@ -4268,6 +5683,28 @@
           "50 x 30",
           "70 x 30",
           "110 x 30"
+        ],
+        "width_samples": [
+          "11",
+          "40",
+          "14",
+          "50",
+          "10",
+          "15",
+          "50",
+          "30",
+          "351",
+          "00",
+          "70",
+          "30",
+          "425",
+          "00",
+          "50",
+          "31",
+          "561",
+          "00",
+          "70",
+          "31"
         ],
         "image_count": 16,
         "largest_images": [
@@ -4310,6 +5747,16 @@
             "xref": 831,
             "width": 85,
             "height": 85
+          },
+          {
+            "xref": 833,
+            "width": 85,
+            "height": 85
+          },
+          {
+            "xref": 835,
+            "width": 85,
+            "height": 85
           }
         ],
         "text_chars": 7353
@@ -4334,13 +5781,23 @@
           "VASCHE PREZZO",
           "HPL / FENIX PRICE / PRICE",
           "A (Vasca con piletta rettangolare a colore) VASCA A50 50 x 30 1.059,00",
-          "Rectangular color-matched drain / Vasque avec bonde"
+          "Rectangular color-matched drain / Vasque avec bonde",
+          "rectangulaire ton sur ton VASCA A70 70 x 30 1.190,00",
+          "B (Vasca con piletta rotonda a colore) VASCA B50 50 x 30 1.059,00",
+          "Basin with round drain in the same color as the basin /",
+          "Vasque avec bonde ronde de la même couleur que la vasque VASCA B70 70 x 30 1.190,00",
+          "VASCA C50 50 x 30 1.182,00 E C (Vasca con scivolo fisso)",
+          "Fixed slope basin / Vasque à pente fixe VASCA C70 70 x 30 1.383,00",
+          "VASCA D50 50 x 30 1.009,00 D (Vasca standard)",
+          "Simple Basin / Vasque simple VASCA D70 70 x 30 1.166,00"
         ],
         "keyword_hits": [
           "color",
           "colore",
+          "fenix",
           "finish",
           "finitur",
+          "hpl",
           "lavabo",
           "top",
           "vasca",
@@ -4365,7 +5822,10 @@
           "050,00",
           "170,00",
           "890,00",
-          "975,00"
+          "975,00",
+          "66,00",
+          "66,00",
+          "50,00"
         ],
         "reference_samples": [
           "ANIMA",
@@ -4389,7 +5849,15 @@
           "AGGIUNGERE",
           "VASCA",
           "VASCHE",
-          "PREZZO"
+          "PREZZO",
+          "FENIX",
+          "PRICE",
+          "PRICE",
+          "VASCA",
+          "1.059",
+          "VASCA",
+          "1.190",
+          "VASCA"
         ],
         "dimension_samples": [
           "50 x 30",
@@ -4404,6 +5872,28 @@
           "70 x 30",
           "50 x 30",
           "70 x 30"
+        ],
+        "width_samples": [
+          "87",
+          "38",
+          "48",
+          "51",
+          "00",
+          "78",
+          "12",
+          "14",
+          "50",
+          "30",
+          "059",
+          "00",
+          "70",
+          "30",
+          "190",
+          "00",
+          "50",
+          "30",
+          "059",
+          "00"
         ],
         "image_count": 31,
         "largest_images": [
@@ -4446,6 +5936,16 @@
             "xref": 886,
             "width": 77,
             "height": 138
+          },
+          {
+            "xref": 896,
+            "width": 77,
+            "height": 138
+          },
+          {
+            "xref": 901,
+            "width": 77,
+            "height": 138
           }
         ],
         "text_chars": 10519
@@ -4470,13 +5970,22 @@
           "Codice per lavabo semincasso / Code for Semi-recessed Basin / Code pour vasque semi-encastrée",
           "DESCRIZIONE CODICE PREZZO",
           "Description / Description CODE PRICE / PRICE",
-          "CODE"
+          "CODE",
+          "TAVOLETTA IN OCRITECH BIANCO OPACO CON PIEDINI TVL116 188,00",
+          "MATTE WHITE OCRITECH SHELF, WITH FEET / TVL115 ÉTAGÈRE OCRITECH BLANC MAT, AVEC PIEDS",
+          "TVL114",
+          "SUPPORTO TAVOLETTA IN ABS NERO CON PIEDINI SUP116 105,00",
+          "BLACK ABS SHELF SUPPORT, WITH FEET / SUP115 SUPPORT ÉTAGÈRE ABS NOIR, AVEC PIEDS",
+          "SUP114",
+          "148 ANIMA_149"
         ],
         "keyword_hits": [
           "feet",
           "lavabi",
           "lavabo",
+          "ocritech",
           "pied",
+          "piedi",
           "top"
         ],
         "price_count": 10,
@@ -4514,6 +6023,14 @@
           "WASH",
           "BASIN",
           "CODE",
+          "DIMENSION",
+          "OPACO",
+          "WORKTOP",
+          "MOUNTED",
+          "OCRITECH",
+          "WASH",
+          "BASIN",
+          "CODE",
           "DIMENSION"
         ],
         "dimension_samples": [
@@ -4522,6 +6039,28 @@
           "48 x 13 x 32",
           "54 x 12 x 34",
           "54 x 12 x 34"
+        ],
+        "width_samples": [
+          "37",
+          "14",
+          "471",
+          "00",
+          "42",
+          "12",
+          "492",
+          "00",
+          "540",
+          "00",
+          "48",
+          "13",
+          "32",
+          "592",
+          "00",
+          "54",
+          "12",
+          "34",
+          "492",
+          "00"
         ],
         "image_count": 5,
         "largest_images": [
@@ -4574,7 +6113,9 @@
           "150 ANIMA_151"
         ],
         "keyword_hits": [
+          "ceramica",
           "color",
+          "geacril",
           "lavabi",
           "lavabo",
           "top"
@@ -4598,7 +6139,9 @@
           "724,00",
           "086,00",
           "457,00",
-          "656,00"
+          "656,00",
+          "750,00",
+          "128,00"
         ],
         "reference_samples": [
           "ANIMA",
@@ -4622,7 +6165,15 @@
           "CERAMIC",
           "WASH",
           "BASIN",
-          "CODE"
+          "CODE",
+          "DIMENSION",
+          "LUCIDO",
+          "OPACO",
+          "CODE",
+          "DIMENSION",
+          "WHITE",
+          "LAVABO",
+          "POSER"
         ],
         "dimension_samples": [
           "40 x 13",
@@ -4635,6 +6186,28 @@
           "57 x 28",
           "45 x 15 x 35",
           "67 x 28"
+        ],
+        "width_samples": [
+          "40",
+          "13",
+          "479",
+          "00",
+          "640",
+          "00",
+          "42",
+          "14",
+          "598",
+          "00",
+          "892",
+          "00",
+          "60",
+          "40",
+          "13",
+          "533",
+          "00",
+          "735",
+          "00",
+          "52"
         ],
         "image_count": 8,
         "largest_images": [
@@ -4701,11 +6274,20 @@
           "Backlit mirror with led lighting / CODE L x H x P cm PRIX Backlit mirror with led lighting / CODE L x H x P cm PRIX",
           "Miroir retro-eclaire avec lumiere led W x H x D cm Miroir retro-eclaire avec lumiere led W x H x D cm",
           "SFR6070 60 x 70 25 239,00 SPTR60 Ø 60 35 250,00",
-          "SFR8070 80 x 70 27 265,00 SPTR80 Ø 80 48 332,00"
+          "SFR8070 80 x 70 27 265,00 SPTR80 Ø 80 48 332,00",
+          "SFR10070 100 x 70 31 289,00 SPTR100 Ø 100 56 465,00",
+          "SFR12070 120 x 70 35 316,00 SPTR120 Ø 120 60 577,00",
+          "SPECCHIO FILO LUCIDO CON FASCIA CODICE DIMENSIONI WATT PREZZO SPECCHIO “EDEN” CODICE DIMENSIONI WATT PREZZO",
+          "SABBIATA RETROILLUMINATA CODE DIMENSION LED PRICE Eden mirror / Miroir Eden CODE DIMENSION LED PRICE",
+          "CODE L x H x P cm PRIX CODE L x H x P cm PRIXSimple mirror with led lighting /",
+          "Miroir simple avec eclairage led W x H x D cm W x H x D cm",
+          "SFI6070 60 x 70 4,5 239,00 EDN80 80 x 70 33 421,00",
+          "SFI8070 80 x 70 4,5 265,00 EDN100 100 x 70 38 462,00"
         ],
         "keyword_hits": [
           "led",
           "mirror",
+          "specchi",
           "specchio"
         ],
         "price_count": 23,
@@ -4727,7 +6309,12 @@
           "316,00",
           "577,00",
           "239,00",
-          "421,00"
+          "421,00",
+          "265,00",
+          "462,00",
+          "289,00",
+          "476,00",
+          "316,00"
         ],
         "reference_samples": [
           "ANIMA",
@@ -4751,7 +6338,15 @@
           "CODE",
           "DIMENSION",
           "PRICE",
-          "CODE"
+          "CODE",
+          "PRIX",
+          "CODE",
+          "PRIX",
+          "SF6070",
+          "SPT60",
+          "SF8070",
+          "SPT80",
+          "SF10070"
         ],
         "dimension_samples": [
           "60 x 70",
@@ -4769,6 +6364,28 @@
           "100 x 70",
           "120 x 70",
           "120 x 70"
+        ],
+        "width_samples": [
+          "60",
+          "70",
+          "110",
+          "00",
+          "60",
+          "120",
+          "00",
+          "80",
+          "70",
+          "121",
+          "00",
+          "80",
+          "180",
+          "00",
+          "100",
+          "70",
+          "141",
+          "00",
+          "100",
+          "245"
         ],
         "image_count": 6,
         "largest_images": [
@@ -4825,11 +6442,20 @@
           "Miroir de maquillage rond LED, cadre aluminium",
           "ARL100 50 x 100 34 292,00 MAKEUP Ø 80 15 675,00",
           "ROUND80",
-          "MAKEUP Ø 100 19 866,00"
+          "MAKEUP Ø 100 19 866,00",
+          "ROUND100",
+          "MAKEUP Ø 120 24 1.035,00",
+          "ROUND120",
+          "SPECCHIO “ARONA SABBIATA LED” CODICE DIMENSIONI WATT PREZZO SPECCHIO “MAKE UP RETTANGOLARE” CODICE DIMENSIONI WATT BIANCO / NERO",
+          "Arona Led mirror Sandblasted / CODE DIMENSION LED PRICE CON CORNICE IN ALLUMINIO ED CODE DIMENSION LED WHITE / BLACK",
+          "Miroir Arona Led verre sablé CODE L x H x P cm PRIX ILLUMINAZIONE LED CODE L x H x P cm 4000K BLANC / NOIR",
+          "W x H x D cm Rectangular LED Make-up Mirror, Aluminum Frame/ W x H x D cm",
+          "Miroir de maquillage rectangulaire LED, cadre aluminium"
         ],
         "keyword_hits": [
           "led",
           "mirror",
+          "specchi",
           "specchio"
         ],
         "price_count": 10,
@@ -4867,7 +6493,15 @@
           "PRICE",
           "CORNICE",
           "ALLUMINIO",
-          "CODE"
+          "CODE",
+          "DIMENSION",
+          "WHITE",
+          "BLACK",
+          "CODE",
+          "PRIX",
+          "ILLUMINAZIONE",
+          "CODE",
+          "4000K"
         ],
         "dimension_samples": [
           "50 x 100",
@@ -4877,6 +6511,28 @@
           "80 x 70",
           "100 x 70",
           "120 x 70"
+        ],
+        "width_samples": [
+          "50",
+          "100",
+          "246",
+          "00",
+          "50",
+          "100",
+          "21",
+          "700",
+          "00",
+          "50",
+          "100",
+          "34",
+          "292",
+          "00",
+          "80",
+          "15",
+          "675",
+          "00",
+          "100",
+          "19"
         ],
         "image_count": 6,
         "largest_images": [
@@ -4933,11 +6589,18 @@
           "UP 50 x 100 x 4 -- 918,00",
           "SPECCHIO FILO LUCIDO, TELAIO SATINATO CODICE DIMENSIONI PREZZO",
           "Simple mirror with Satin Frame / Miroir simple avec CODE DIMENSION PRICE",
-          "cadre satiné CODE L x H x P cm PRIX"
+          "cadre satiné CODE L x H x P cm PRIX",
+          "W x H x D cm",
+          "SFT6070 60 x 70 136,00",
+          "SFT8070 80 x 70 149,00",
+          "SFT10070 100 x 70 162,00",
+          "SFT12070 120 x 70 173,00",
+          "156 ANIMA_157"
         ],
         "keyword_hits": [
           "led",
           "mirror",
+          "specchi",
           "specchio"
         ],
         "price_count": 8,
@@ -4973,7 +6636,15 @@
           "RETROILLUMINATI",
           "CODE",
           "PRICE",
-          "CODE"
+          "CODE",
+          "4000K",
+          "PRIX",
+          "CODE",
+          "PRIX",
+          "OFFSET80",
+          "TOUCH",
+          "OFFSET100",
+          "SPECCHIO"
         ],
         "dimension_samples": [
           "80 x 80",
@@ -4983,6 +6654,28 @@
           "80 x 70",
           "100 x 70",
           "120 x 70"
+        ],
+        "width_samples": [
+          "80",
+          "80",
+          "20",
+          "693",
+          "00",
+          "70",
+          "00",
+          "100",
+          "100",
+          "22",
+          "835",
+          "00",
+          "50",
+          "100",
+          "918",
+          "00",
+          "60",
+          "70",
+          "136",
+          "00"
         ],
         "image_count": 4,
         "largest_images": [
@@ -5029,11 +6722,20 @@
           "CODE DIMENSION LED PRICE “Diamante” Led Lamp / Lampe LED “Diamante” CODE DIMENSION LED PRICE“Barled” Led Lamp / Lampe LED “Barled”",
           "CODE L x H x P cm 4000K PRIX CODE L x H x P cm 4000K PRIX",
           "W x H x D cm W x H x D cm",
-          "BARLED40 40 x 1 x 5 10 79,00 DIAMANTE30 30 x 4,5 x 12 6 69,00"
+          "BARLED40 40 x 1 x 5 10 79,00 DIAMANTE30 30 x 4,5 x 12 6 69,00",
+          "BARLED60 60 x 1 x 5 15 110,00 DIAMANTE45 45 x 4,5 x 12 8 88,00",
+          "BARLED80 80 x 1 x 5 20 131,00 DIAMANTE60 60 x 4,5 x 12 12 113,00",
+          "BARLED100 100 x 1 x 5 25 168,00",
+          "BARLED120 120 x 1 x 5 30 200,00",
+          "Solo per specchi con telaio satinato / Lamp only for satin frame",
+          "mirror / Lamp seulement pour mirror avec cadre satiné pag. 60",
+          "LAMPADA “PLEXY VERTICAL” CODICE DIMENSIONI WATT PREZZO LAMPADA “SMART” CODICE DIMENSIONI WATT CROMO / NERO",
+          "“Plexy vertical” Led Lamp / Lampe LED “Plexy vertical” CODE DIMENSION LED PRICE “Smart” Lamp / Lampe “Smart” CODE DIMENSION LED CHROME / BLACK"
         ],
         "keyword_hits": [
           "led",
-          "mirror"
+          "mirror",
+          "specchi"
         ],
         "price_count": 16,
         "price_samples": [
@@ -5076,9 +6778,39 @@
           "DIMENSION",
           "PRICE",
           "CODE",
-          "4000K"
+          "4000K",
+          "PRIX",
+          "CODE",
+          "4000K",
+          "PRIX",
+          "SOLAR",
+          "QUADRA",
+          "MOON60",
+          "SOLARQ"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "60",
+          "110",
+          "00",
+          "42",
+          "00",
+          "80",
+          "12",
+          "126",
+          "00",
+          "100",
+          "15",
+          "145",
+          "00",
+          "120",
+          "18",
+          "156",
+          "00",
+          "10",
+          "42",
+          "00"
+        ],
         "image_count": 7,
         "largest_images": [
           {
@@ -5144,6 +6876,7 @@
           "ANIMA"
         ],
         "dimension_samples": [],
+        "width_samples": [],
         "image_count": 0,
         "largest_images": [],
         "text_chars": 282
@@ -5167,6 +6900,7 @@
         "price_samples": [],
         "reference_samples": [],
         "dimension_samples": [],
+        "width_samples": [],
         "image_count": 0,
         "largest_images": [],
         "text_chars": 19
@@ -5201,6 +6935,12 @@
         "price_samples": [],
         "reference_samples": [],
         "dimension_samples": [],
+        "width_samples": [
+          "144",
+          "152",
+          "154",
+          "156"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -5223,6 +6963,7 @@
         "price_samples": [],
         "reference_samples": [],
         "dimension_samples": [],
+        "width_samples": [],
         "image_count": 1,
         "largest_images": [
           {
@@ -5252,6 +6993,8 @@
         ],
         "keyword_hits": [
           "finitur",
+          "geacril",
+          "specchi",
           "specchio",
           "top"
         ],
@@ -5265,6 +7008,12 @@
           "DNA_7"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "01",
+          "120",
+          "52",
+          "52"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -5290,6 +7039,7 @@
           "DNA_9"
         ],
         "dimension_samples": [],
+        "width_samples": [],
         "image_count": 1,
         "largest_images": [
           {
@@ -5316,6 +7066,10 @@
           "DNA_11"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "01",
+          "10"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -5348,6 +7102,9 @@
           "DNA_13"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "12"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -5387,6 +7144,10 @@
           "DNA_15"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "02",
+          "14"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -5413,6 +7174,10 @@
           "DNA_17"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "02",
+          "16"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -5439,6 +7204,10 @@
           "DNA_19"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "02",
+          "18"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -5471,6 +7240,9 @@
           "DNA_21"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "20"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -5510,6 +7282,10 @@
           "DNA_23"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "03",
+          "22"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -5536,6 +7312,10 @@
           "DNA_25"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "03",
+          "24"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -5566,6 +7346,10 @@
           "DNA_27"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "03",
+          "26"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -5605,6 +7389,10 @@
           "DNA_29"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "04",
+          "28"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -5629,6 +7417,9 @@
           "DNA_31"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "30"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -5655,6 +7446,10 @@
           "DNA_33"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "04",
+          "32"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -5694,6 +7489,10 @@
           "DNA_35"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "05",
+          "34"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -5718,6 +7517,9 @@
           "DNA_37"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "36"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -5744,6 +7546,10 @@
           "DNA_39"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "05",
+          "38"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -5783,6 +7589,10 @@
           "DNA_41"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "06",
+          "40"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -5809,6 +7619,10 @@
           "DNA_43"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "06",
+          "42"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -5835,6 +7649,10 @@
           "DNA_45"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "06",
+          "44"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -5874,6 +7692,10 @@
           "DNA_47"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "07",
+          "46"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -5900,6 +7722,10 @@
           "DNA_49"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "07",
+          "48"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -5927,6 +7753,10 @@
           "DNA_51"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "07",
+          "50"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -5953,6 +7783,10 @@
           "DNA_53"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "07",
+          "52"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -5992,6 +7826,10 @@
           "DNA_55"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "08",
+          "54"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -6018,6 +7856,10 @@
           "DNA_57"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "08",
+          "56"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -6049,6 +7891,10 @@
           "DNA_59"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "08",
+          "58"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -6081,6 +7927,9 @@
           "DNA_61"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "60"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -6120,6 +7969,10 @@
           "DNA_63"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "09",
+          "62"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -6146,6 +7999,10 @@
           "DNA_65"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "09",
+          "64"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -6185,6 +8042,10 @@
           "DNA_67"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "010",
+          "66"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -6209,6 +8070,9 @@
           "DNA_69"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "68"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -6235,6 +8099,10 @@
           "DNA_71"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "010",
+          "70"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -6275,6 +8143,10 @@
           "DNA_73"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "011",
+          "72"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -6301,6 +8173,10 @@
           "DNA_75"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "011",
+          "74"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -6331,6 +8207,10 @@
           "DNA_77"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "011",
+          "76"
+        ],
         "image_count": 3,
         "largest_images": [
           {
@@ -6375,6 +8255,10 @@
           "DNA_79"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "012",
+          "78"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -6401,6 +8285,10 @@
           "DNA_81"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "012",
+          "80"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -6427,6 +8315,10 @@
           "DNA_83"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "012",
+          "82"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -6459,6 +8351,9 @@
           "DNA_85"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "84"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -6499,6 +8394,10 @@
           "DNA_87"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "013",
+          "86"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -6525,6 +8424,10 @@
           "DNA_89"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "013",
+          "88"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -6551,6 +8454,10 @@
           "DNA_91"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "013",
+          "90"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -6583,6 +8490,9 @@
           "DNA_93"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "92"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -6622,6 +8532,10 @@
           "DNA_95"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "014",
+          "94"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -6648,6 +8562,10 @@
           "DNA_97"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "014",
+          "96"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -6674,6 +8592,10 @@
           "DNA_99"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "014",
+          "98"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -6713,6 +8635,10 @@
           "DNA_101"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "015",
+          "100"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -6739,6 +8665,10 @@
           "DNA_103"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "015",
+          "102"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -6765,6 +8695,10 @@
           "DNA_105"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "015",
+          "104"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -6804,6 +8738,10 @@
           "DNA_107"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "016",
+          "106"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -6830,6 +8768,10 @@
           "DNA_109"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "016",
+          "108"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -6856,6 +8798,10 @@
           "DNA_111"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "016",
+          "110"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -6888,6 +8834,9 @@
           "DNA_113"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "112"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -6927,6 +8876,10 @@
           "DNA_115"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "017",
+          "114"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -6953,6 +8906,10 @@
           "DNA_117"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "017",
+          "116"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -6982,6 +8939,10 @@
           "DNA_119"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "017",
+          "118"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -7016,6 +8977,10 @@
           "DNA_121"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "018",
+          "120"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -7042,6 +9007,10 @@
           "DNA_123"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "018",
+          "122"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -7068,6 +9037,10 @@
           "DNA_125"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "018",
+          "124"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -7100,6 +9073,9 @@
           "DNA_127"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "126"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -7137,6 +9113,12 @@
           "DNA_129"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "76",
+          "89",
+          "10",
+          "128"
+        ],
         "image_count": 0,
         "largest_images": [],
         "text_chars": 385
@@ -7160,6 +9142,10 @@
           "DNA_131"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "60",
+          "130"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -7194,6 +9180,10 @@
           "DNA_133"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "70",
+          "132"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -7228,6 +9218,9 @@
           "DNA_135"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "80"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -7262,6 +9255,10 @@
           "DNA_137"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "90",
+          "136"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -7294,6 +9291,10 @@
           "DNA_139"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "100",
+          "138"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -7329,7 +9330,15 @@
           "saponi e oggettistica, saponi e oggettistica, saponi e oggettistica,",
           "aggiungendo leggerezza aggiungendo leggerezza aggiungendo leggerezza",
           "e funzionalità allo e funzionalità allo e funzionalità allo",
-          "spazio. spazio. spazio."
+          "spazio. spazio. spazio.",
+          "Misure disponibili: Misure disponibili: Misure disponibili:",
+          "H. cm 3,5 H. cm 3,5 H. cm 3,5",
+          "L. cm 90 / 120 L. cm 90 / 120 L. cm 90 / 120",
+          "P. cm 13,5 P. cm 13,5 P. cm 13,5",
+          "Finiture disponibili: Finiture disponibili: Finiture disponibili:",
+          "Ral Antracite Ral Antracite Ral Antracite",
+          "Ral Bianco Traffico Ral Bianco Traffico Ral Bianco Traffico",
+          "140 DNA_141"
         ],
         "keyword_hits": [
           "accessor",
@@ -7342,6 +9351,18 @@
           "DNA_141"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "90",
+          "120",
+          "90",
+          "120",
+          "90",
+          "120",
+          "13",
+          "13",
+          "13",
+          "140"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -7379,6 +9400,9 @@
           "DNA_143"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "142"
+        ],
         "image_count": 2,
         "largest_images": [
           {
@@ -7414,7 +9438,15 @@
           "Un dettaglio discreto che match different styles. eleganza spazzolini,",
           "unisce utilità e design, A discreet detail that saponi e oggettistica,",
           "completando l’arredo combines utility and aggiungendo leggerezza",
-          "con leggerezza. design, completing the e funzionalità allo"
+          "con leggerezza. design, completing the e funzionalità allo",
+          "space with lightness. spazio.",
+          "Misure: Misure: Misure:",
+          "H. cm 2,5 H. cm 2,5 H. cm 2,5",
+          "L. cm 40 L. cm 40 L. cm 40",
+          "P. cm 5 P. cm 5 P. cm 5",
+          "Finiture disponibili: Finiture disponibili: Finiture disponibili:",
+          "Ral Antracite Ral Antracite Ral Antracite",
+          "Ral Bianco Traffico Ral Bianco Traffico Ral Bianco Traffico"
         ],
         "keyword_hits": [
           "accessor",
@@ -7430,6 +9462,12 @@
           "DNA_145"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "40",
+          "40",
+          "40",
+          "144"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -7460,7 +9498,15 @@
           "diventando un raffinato diventando un raffinato diventando un raffinato",
           "elemento d’arredo e allo elemento d’arredo e allo elemento d’arredo e allo",
           "stesso tempo una solida stesso tempo una solida stesso tempo una solida",
-          "base di appoggio. base di appoggio. base di appoggio."
+          "base di appoggio. base di appoggio. base di appoggio.",
+          "Disponibile in due Disponibile in due Disponibile in due",
+          "altezze e tre larghezze altezze e tre larghezze altezze e tre larghezze",
+          "Misure disponibili: Misure disponibili: Misure disponibili:",
+          "H. cm 15 / 35 H. cm 15 / 35 H. cm 15 / 35",
+          "L. cm 80 / 100 / 120 L. cm 80 / 100 / 120 L. cm 80 / 100 / 120",
+          "P. cm 43,5 P. cm 43,5 P. cm 43,5",
+          "Finiture disponibili: Finiture disponibili: Finiture disponibili:",
+          "Nero Opaco Nero Opaco Nero Opaco"
         ],
         "keyword_hits": [
           "accessor",
@@ -7474,6 +9520,27 @@
           "DNA_147"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "15",
+          "35",
+          "15",
+          "35",
+          "15",
+          "35",
+          "80",
+          "100",
+          "120",
+          "80",
+          "100",
+          "120",
+          "80",
+          "100",
+          "120",
+          "43",
+          "43",
+          "43",
+          "146"
+        ],
         "image_count": 1,
         "largest_images": [
           {
@@ -7517,6 +9584,9 @@
           "DNA_149"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "148"
+        ],
         "image_count": 8,
         "largest_images": [
           {
@@ -7582,14 +9652,23 @@
           "Element suspendu (H.68 x P.21 cm)",
           "Colonne (H.137 x P.37 cm)Side base unit / H.26",
           "Element latérale anta",
-          "H.52 120"
+          "H.52 120",
+          "Porta asciugamano (H.2,5 x L.40 x P.5 cm)",
+          "Wall cabinet (H.68 x P.21 cm)",
+          "Pensile (H.68 x P.21 cm) 30 35 Column (H.137 x P.37 cm) /",
+          "Colonna (H.137 x P.37 cm) Element suspendu (H.68 x P.21 cm) Colonne (H.137 x P.37 cm)",
+          "Accessori",
+          "Wall cabinet (H.68 x P.21 cm)",
+          "Column (H.137 x P.37 cm) /",
+          "Element suspendu (H.68 x P.21 cm)"
         ],
         "keyword_hits": [
           "accessor",
           "anta",
           "base",
           "lavabi",
-          "pied"
+          "pied",
+          "piede"
         ],
         "price_count": 0,
         "price_samples": [],
@@ -7615,9 +9694,39 @@
           "P.37",
           "H.68",
           "P.21",
-          "H.137"
+          "H.137",
+          "P.37",
+          "H.26",
+          "H.52",
+          "L.40",
+          "H.68",
+          "P.21",
+          "H.68",
+          "P.21"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "46",
+          "60",
+          "70",
+          "80",
+          "90",
+          "100",
+          "35",
+          "43",
+          "68",
+          "21",
+          "26",
+          "137",
+          "37",
+          "68",
+          "21",
+          "120",
+          "137",
+          "37",
+          "52",
+          "35"
+        ],
         "image_count": 0,
         "largest_images": [],
         "text_chars": 3530
@@ -7639,6 +9748,9 @@
           "DNA_153"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "152"
+        ],
         "image_count": 6,
         "largest_images": [
           {
@@ -7690,6 +9802,9 @@
           "DNA_155"
         ],
         "dimension_samples": [],
+        "width_samples": [
+          "154"
+        ],
         "image_count": 0,
         "largest_images": [],
         "text_chars": 527
@@ -7717,6 +9832,7 @@
         "price_samples": [],
         "reference_samples": [],
         "dimension_samples": [],
+        "width_samples": [],
         "image_count": 0,
         "largest_images": [],
         "text_chars": 280
