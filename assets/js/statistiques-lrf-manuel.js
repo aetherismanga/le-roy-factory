@@ -1,16 +1,28 @@
 import { db } from './firebase.js';
-import { collection, getDocs, doc, updateDoc, setDoc, onSnapshot } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+import { collection, getDocs, doc, updateDoc, setDoc, onSnapshot, runTransaction } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
 
 const manualMappings=new Map();
+let crmClients=[];
 let busy=false;
 
 function activePartner(){return document.querySelector('.partner-tab.active')?.dataset.partner||''}
 function clean(v){return String(v||'').trim()}
+function norm(v){return clean(v).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')}
+function esc(v){return String(v||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 function mappingId(partner,factory){return `${partner}__${factory}`.replace(/[^a-zA-Z0-9_-]/g,'_')}
+function formatCode(n){return `LRF-${String(n).padStart(5,'0')}`}
+function clientName(c){return c?.societe||c?.nomSociete||c?.nom||'Client sans nom'}
+function clientDept(c){let d=clean(c?.departement||c?.dept);if(!d){const cp=clean(c?.codePostal||c?.cp);if(/^\d{5}$/.test(cp))d=cp.slice(0,2)}return d}
+function partnerCode(c,partner){if(partner==='elios-ceramica')return clean(c.codeElios||c.codesPartenaires?.[partner]);if(partner==='view-ceramica')return clean(c.codeView||c.codesPartenaires?.[partner]);return clean(c.codesPartenaires?.[partner]||c.numerosPartenaires?.[partner])}
+
+function injectStyles(){
+  if(document.getElementById('lrf-manual-link-style'))return;
+  const s=document.createElement('style');s.id='lrf-manual-link-style';s.textContent=`.lrf-edit-manual{display:flex;gap:.35rem;align-items:center;flex-wrap:wrap}.lrf-link-client{border:1px solid #D4AF37;background:#fffaf0;color:#6b5200;border-radius:6px;padding:.35rem .5rem;font-size:.7rem;font-weight:800;cursor:pointer}.lrf-client-picker{max-width:290px;border:1px solid #D4AF37;border-radius:6px;padding:.35rem;background:#fff;font-size:.72rem}.lrf-link-status{font-size:.68rem;color:#6b7280}`;document.head.appendChild(s);
+}
 
 function editorHtml(partner,factory,saved=''){
   const key=`${partner}|${factory}`;
-  return `<div class="lrf-edit lrf-edit-manual" data-manual-key="${key}"><input type="text" maxlength="30" placeholder="Code LRF" value="${String(saved).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;')}" data-manual-lrf="${key}"><button type="button" class="lrf-save" data-save-manual-lrf="${key}" title="Enregistrer le code LRF">✓</button></div>`;
+  return `<div class="lrf-edit lrf-edit-manual" data-manual-key="${esc(key)}"><input type="text" maxlength="30" placeholder="Code LRF" value="${esc(saved)}" data-manual-lrf="${esc(key)}"><button type="button" class="lrf-save" data-save-manual-lrf="${esc(key)}" title="Enregistrer le code LRF">✓</button><button type="button" class="lrf-link-client" data-link-manual-client="${esc(key)}">👤 Associer à un client</button></div>`;
 }
 
 function decorateTable(){
@@ -34,7 +46,7 @@ function decorateMobile(){
     const zone=card.querySelector('.mobile-lrf');
     if(!zone||zone.querySelector('[data-lrf-input]')||zone.querySelector('[data-manual-lrf]'))return;
     const headText=card.querySelector('.client-stat-head small')?.textContent||'';
-    const match=headText.match(/\b(0*\d{5,})\b/);
+    const match=headText.match(/\b(0*\d{5,}|[A-Z][A-Z0-9-]*\d[A-Z0-9-]*)\b/);
     if(!match)return;
     const factory=match[1];
     const key=`${partner}|${factory}`;
@@ -44,7 +56,48 @@ function decorateMobile(){
   });
 }
 
-function decorate(){decorateTable();decorateMobile()}
+function decorate(){injectStyles();decorateTable();decorateMobile()}
+
+async function ensureClientCode(clientId){
+  const clientRef=doc(db,'clients',clientId),counterRef=doc(db,'crm_meta','client_codes');
+  return runTransaction(db,async tx=>{
+    const clientSnap=await tx.get(clientRef);if(!clientSnap.exists())throw new Error('Client introuvable.');
+    const data=clientSnap.data();if(/^LRF-\d{5}$/i.test(clean(data.codeClient)))return data.codeClient;
+    const counterSnap=await tx.get(counterRef);const last=Number(counterSnap.exists()?counterSnap.data().lastNumber:0)||0;const next=last+1;if(next>99999)throw new Error('Limite des codes LRF atteinte.');
+    const code=formatCode(next);tx.set(counterRef,{lastNumber:next,updatedAt:new Date().toISOString()},{merge:true});tx.update(clientRef,{codeClient:code});return code;
+  });
+}
+
+function clientOptions(){
+  return [...crmClients].sort((a,b)=>clientName(a).localeCompare(clientName(b),'fr')).map(c=>`<option value="${esc(c.id)}">${esc(c.codeClient||'Sans code')} — ${esc(clientName(c))}${clientDept(c)?` — ${esc(clientDept(c))}`:''}${c.archived===true?' — archivé':''}</option>`).join('');
+}
+
+function openClientPicker(key,btn){
+  const wrap=btn.closest('[data-manual-key]');if(!wrap)return;
+  const existing=wrap.querySelector('.lrf-client-picker');if(existing){existing.remove();return;}
+  const select=document.createElement('select');select.className='lrf-client-picker';select.innerHTML=`<option value="">Choisir une fiche client…</option>${clientOptions()}`;btn.insertAdjacentElement('afterend',select);select.focus();
+  select.addEventListener('change',()=>{if(select.value)associateToClient(key,select.value,select)});
+}
+
+async function associateToClient(key,clientId,select){
+  if(busy)return;
+  const [partner,factory]=key.split('|');const client=crmClients.find(c=>c.id===clientId);if(!client)return;
+  const existing=partnerCode(client,partner);
+  if(existing&&existing!==factory&&!confirm(`${clientName(client)} possède déjà le code ${existing} pour ce partenaire. Le remplacer par ${factory} ?`)){select.value='';return;}
+  busy=true;select.disabled=true;
+  try{
+    const codeLRF=await ensureClientCode(clientId);const patch={};
+    if(partner==='elios-ceramica')patch.codeElios=factory;
+    else if(partner==='view-ceramica')patch.codeView=factory;
+    patch[`codesPartenaires.${partner}`]=factory;
+    await updateDoc(doc(db,'clients',clientId),patch);
+    await setDoc(doc(db,'statistiques_lrf_mappings',mappingId(partner,factory)),{partner,factory,codeLRF,clientId,updatedAt:new Date().toISOString()},{merge:true});
+    manualMappings.set(key,{partner,factory,codeLRF,clientId});
+    select.insertAdjacentHTML('afterend',`<span class="lrf-link-status">✓ ${esc(codeLRF)} associé à ${esc(clientName(client))}</span>`);
+    setTimeout(()=>location.reload(),500);
+  }catch(e){console.error(e);select.disabled=false;alert(e?.message||"Impossible d'associer ce client.");}
+  finally{busy=false}
+}
 
 async function saveManual(key,btn){
   if(busy)return;
@@ -56,54 +109,35 @@ async function saveManual(key,btn){
   try{
     const snap=await getDocs(collection(db,'clients'));
     const matches=[];
-    snap.forEach(d=>{
-      const data=d.data();
-      if(clean(data.codeClient).toLowerCase()===codeLRF.toLowerCase())matches.push({id:d.id,...data});
-    });
+    snap.forEach(d=>{const data=d.data();if(clean(data.codeClient).toLowerCase()===codeLRF.toLowerCase())matches.push({id:d.id,...data});});
     if(matches.length>1)throw new Error('Plusieurs clients ont ce même code LRF.');
     if(matches.length===1){
-      const c=matches[0];
-      const patch={};
+      const c=matches[0];const patch={};
       if(partner==='elios-ceramica')patch.codeElios=factory;
       else if(partner==='view-ceramica')patch.codeView=factory;
       patch[`codesPartenaires.${partner}`]=factory;
       await updateDoc(doc(db,'clients',c.id),patch);
       await setDoc(doc(db,'statistiques_lrf_mappings',mappingId(partner,factory)),{partner,factory,codeLRF,clientId:c.id,updatedAt:new Date().toISOString()},{merge:true});
-      btn.textContent='✓';
-      setTimeout(()=>location.reload(),350);
-      return;
+      btn.textContent='✓';setTimeout(()=>location.reload(),350);return;
     }
     await setDoc(doc(db,'statistiques_lrf_mappings',mappingId(partner,factory)),{partner,factory,codeLRF,clientId:null,updatedAt:new Date().toISOString()},{merge:true});
-    manualMappings.set(key,{codeLRF,clientId:null});
-    inputs.forEach(i=>i.value=codeLRF);
-    btn.textContent='✓';
-    btn.disabled=false;
-    alert('Code LRF enregistré. Aucun client du CRM ne porte encore ce code : la ligne restera non associée jusqu’à ce que ce code existe dans une fiche client.');
-  }catch(e){
-    console.error(e);btn.textContent='!';btn.disabled=false;
-    alert(e?.message||"Impossible d'enregistrer le code LRF.");
-  }finally{busy=false}
+    manualMappings.set(key,{codeLRF,clientId:null});inputs.forEach(i=>i.value=codeLRF);btn.textContent='✓';btn.disabled=false;
+    alert('Code LRF enregistré. Aucun client du CRM ne porte encore ce code. Tu peux maintenant utiliser « Associer à un client » pour choisir directement la fiche.');
+  }catch(e){console.error(e);btn.textContent='!';btn.disabled=false;alert(e?.message||"Impossible d'enregistrer le code LRF.");}
+  finally{busy=false}
 }
 
 document.addEventListener('click',e=>{
-  const btn=e.target.closest('[data-save-manual-lrf]');
-  if(btn)saveManual(btn.dataset.saveManualLrf,btn);
+  const save=e.target.closest('[data-save-manual-lrf]');if(save){saveManual(save.dataset.saveManualLrf,save);return;}
+  const link=e.target.closest('[data-link-manual-client]');if(link)openClientPicker(link.dataset.linkManualClient,link);
 });
 
 document.addEventListener('keydown',e=>{
-  const input=e.target.closest('[data-manual-lrf]');
-  if(input&&e.key==='Enter'){
-    e.preventDefault();
-    const key=input.dataset.manualLrf;
-    document.querySelector(`[data-save-manual-lrf="${CSS.escape(key)}"]`)?.click();
-  }
+  const input=e.target.closest('[data-manual-lrf]');if(input&&e.key==='Enter'){e.preventDefault();const key=input.dataset.manualLrf;document.querySelector(`[data-save-manual-lrf="${CSS.escape(key)}"]`)?.click();}
 });
 
-onSnapshot(collection(db,'statistiques_lrf_mappings'),snap=>{
-  manualMappings.clear();
-  snap.forEach(d=>{const x=d.data();if(x.partner&&x.factory)manualMappings.set(`${x.partner}|${x.factory}`,x)});
-  decorate();
-},()=>decorate());
+onSnapshot(collection(db,'statistiques_lrf_mappings'),snap=>{manualMappings.clear();snap.forEach(d=>{const x=d.data();if(x.partner&&x.factory)manualMappings.set(`${x.partner}|${x.factory}`,x)});decorate();},()=>decorate());
+onSnapshot(collection(db,'clients'),snap=>{crmClients=[];snap.forEach(d=>crmClients.push({id:d.id,...d.data()}));decorate();},()=>decorate());
 
 const observer=new MutationObserver(()=>decorate());
 observer.observe(document.body,{childList:true,subtree:true});
