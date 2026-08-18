@@ -37,6 +37,39 @@ function installNeobathDnaTariffFix() {
     }
 }
 
+function installInspirationsNeobathPdf() {
+    const path = window.location.pathname.toLowerCase();
+    if (!path.endsWith('univers.html') && path !== '/' && !path.endsWith('/')) return;
+    if (!document.getElementById('products-grid')) return;
+
+    const loadHelper = () => {
+        if (document.getElementById('lrf-neobath-pdf-helper')) return;
+        const helper = document.createElement('script');
+        helper.id = 'lrf-neobath-pdf-helper';
+        helper.src = 'assets/js/inspirations-pdf-images.js?v=20260818e';
+        helper.defer = true;
+        document.body.appendChild(helper);
+    };
+
+    if (window.pdfjsLib) {
+        loadHelper();
+        return;
+    }
+
+    const existing = document.getElementById('lrf-pdfjs');
+    if (existing) {
+        existing.addEventListener('load', loadHelper, { once: true });
+        return;
+    }
+
+    const pdfjs = document.createElement('script');
+    pdfjs.id = 'lrf-pdfjs';
+    pdfjs.src = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js';
+    pdfjs.onload = loadHelper;
+    pdfjs.onerror = () => console.warn('Impossible de charger PDF.js pour les visuels NEOBATH.');
+    document.body.appendChild(pdfjs);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const burgerBtn = document.querySelector('.burger-btn');
     const mainNav = document.querySelector('header nav ul');
@@ -68,6 +101,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Corrige uniquement le lien DNA de la page Tarifs NEOBATH.
     // Le catalogue DNA reste disponible séparément dans la page Catalogues.
     installNeobathDnaTariffFix();
+
+    // Sur Inspirations, charge les visuels HD NEOBATH directement depuis les PDF ANIMA et DNA.
+    installInspirationsNeobathPdf();
 
     // Accès Tarifs PRO personnalisé par client LRF
     if (window.location.pathname.toLowerCase().endsWith('tarifs-pro.html')) {
