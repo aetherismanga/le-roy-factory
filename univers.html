@@ -4,191 +4,88 @@
   <meta charset="UTF-8">
   <link rel="icon" type="image/png" href="assets/img/logo03lrf.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inspirations & Univers — LE ROY FACTORY</title>
-  <meta name="description" content="Explorez nos univers décoratifs : bois, pierre, marbre, béton, terrazzo, zellige et bien plus pour vos projets d'aménagement professionnel.">
+  <title>Inspirations ELIOS & Produits — LE ROY FACTORY</title>
+  <meta name="description" content="Catalogue ELIOS Ceramica 2026 : collections, photos, recherche par couleur, format et usage, avec tarifs professionnels réservés aux comptes autorisés.">
   <link rel="stylesheet" href="assets/css/variables.css">
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/inspirations.css?v=20260818b">
+  <link rel="stylesheet" href="assets/css/inspirations-gallery.css?v=20260818b">
   <style>
-    body, html {
-      background-color: #FBF9F5 !important;
-      background-image: none !important;
-      color: #1A2530 !important;
-    }
-    header, footer {
-      background-image: url('assets/img/bandeau02.png');
-      background-size: cover;
-      background-position: center;
-      color: #ffffff;
-      border-bottom: 2px solid #D4AF37;
-    }
-    footer {
-      border-top: 2px solid #D4AF37;
-      border-bottom: none;
-      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
-    }
-    footer p {
-      color: #ffffff !important;
-    }
-    .main-nav {
-      display: flex;
-      gap: 1.5rem;
-      align-items: center;
-      justify-content: flex-end;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      flex-wrap: nowrap;
-    }
-    .main-nav li { display: flex; align-items: center; }
-    .main-nav > li > a:not(.agent-btn) {
-      text-decoration: none;
-      color: #111111 !important;
-      font-weight: 800 !important;
-      font-size: 1.15rem !important;
-      letter-spacing: 0.5px !important;
-      text-shadow: 0 1px 2px rgba(212, 175, 55, 0.6) !important;
-      position: relative;
-      padding-bottom: 4px;
-      background: transparent !important;
-      transition: color 0.25s ease;
-    }
-    .main-nav > li > a:not(.agent-btn):hover {
-      color: #D4AF37 !important;
-      background: transparent !important;
-    }
-    .main-nav > li > a.active:not(.agent-btn) {
-      color: #111111 !important;
-      font-weight: 800 !important;
-      background: transparent !important;
-      box-shadow: none !important;
-    }
-    .main-nav > li > a.active:not(.agent-btn)::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: #D4AF37;
-      box-shadow: 0 0 10px rgba(212, 175, 55, 0.9);
-      border-radius: 2px;
-    }
-    .agent-btn {
-      display: inline-flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      padding: 8px 16px !important;
-      background-color: #000000 !important;
-      color: #FFD700 !important;
-      border: 1px solid #FFD700 !important;
-      border-radius: 8px !important;
-      font-weight: 700 !important;
-      font-size: 0.95rem !important;
-      white-space: nowrap !important;
-      text-decoration: none !important;
-      transition: all 0.3s ease !important;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.5) !important;
-      text-shadow: none !important;
-    }
-    .agent-btn::after { display: none !important; }
-    .agent-btn:hover {
-      background-color: #FFD700 !important;
-      color: #000000 !important;
-      border-color: #FFD700 !important;
-    }
+    body,html{background-color:#FBF9F5!important;background-image:none!important;color:#1A2530!important}header,footer{background-image:url('assets/img/bandeau02.png');background-size:cover;background-position:center;color:#fff;border-bottom:2px solid #D4AF37}footer{border-top:2px solid #D4AF37;border-bottom:none;text-shadow:0 1px 4px rgba(0,0,0,.9)}footer p{color:#fff!important}.main-nav{display:flex;gap:1.5rem;align-items:center;justify-content:flex-end;list-style:none;margin:0;padding:0;flex-wrap:nowrap}.main-nav li{display:flex;align-items:center}.main-nav>li>a:not(.agent-btn){text-decoration:none;color:#111!important;font-weight:800!important;font-size:1.15rem!important;letter-spacing:.5px!important;text-shadow:0 1px 2px rgba(212,175,55,.6)!important;position:relative;padding-bottom:4px;background:transparent!important;transition:color .25s ease}.main-nav>li>a:not(.agent-btn):hover{color:#D4AF37!important}.main-nav>li>a.active:not(.agent-btn)::after{content:'';position:absolute;bottom:-2px;left:0;width:100%;height:3px;background:#D4AF37;box-shadow:0 0 10px rgba(212,175,55,.9);border-radius:2px}.agent-btn{display:inline-flex!important;align-items:center!important;justify-content:center!important;padding:8px 16px!important;background:#000!important;color:#FFD700!important;border:1px solid #FFD700!important;border-radius:8px!important;font-weight:700!important;font-size:.95rem!important;white-space:nowrap!important;text-decoration:none!important;box-shadow:0 2px 8px rgba(0,0,0,.5)!important}.agent-btn:hover{background:#FFD700!important;color:#000!important}.hero-banner{position:relative}.hero-banner:before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(12,19,25,.72),rgba(12,19,25,.25))}.hero-banner .container{position:relative;z-index:1}.hero-kicker{display:inline-block;background:#D4AF37;color:#121212;font-weight:900;font-size:.76rem;letter-spacing:.09em;text-transform:uppercase;border-radius:999px;padding:7px 11px;margin-bottom:10px}
   </style>
 </head>
 <body>
   <header>
-    <div class="container nav-container" style="height: 130px; display: flex; align-items: center; justify-content: space-between;">
-      <a href="index.html" class="logo" style="display: flex; align-items: center; height: 100%; padding-left: 1.5rem; flex-shrink: 0;">
-        <div style="width: 110px; height: 110px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.4); border: 2px solid #D4AF37; background-color: #000; flex-shrink: 0;">
-          <img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY" style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.35);">
+    <div class="container nav-container" style="height:130px;display:flex;align-items:center;justify-content:space-between;">
+      <a href="index.html" class="logo" style="display:flex;align-items:center;height:100%;padding-left:1.5rem;flex-shrink:0;">
+        <div style="width:110px;height:110px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.4);border:2px solid #D4AF37;background:#000;flex-shrink:0;">
+          <img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY" style="width:100%;height:100%;object-fit:cover;transform:scale(1.35);">
         </div>
       </a>
-      <nav>
-        <ul class="main-nav">
-          <li><a href="partenaires.html">Partenaires</a></li>
-          <li><a href="univers.html" class="active">Inspirations</a></li>
-          <li><a href="realisations.html">Réalisations</a></li>
-          <li><a href="catalogues.html">Catalogues</a></li>
-          <li><a href="tarifs-pro.html">Accès PRO</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="agent.html" class="agent-btn">Espace Agent</a></li>
-        </ul>
-      </nav>
-      <button class="burger-btn" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
+      <nav><ul class="main-nav">
+        <li><a href="partenaires.html">Partenaires</a></li><li><a href="univers.html" class="active">Inspirations</a></li><li><a href="realisations.html">Réalisations</a></li><li><a href="catalogues.html">Catalogues</a></li><li><a href="tarifs-pro.html">Accès PRO</a></li><li><a href="contact.html">Contact</a></li><li><a href="agent.html" class="agent-btn">Espace Agent</a></li>
+      </ul></nav>
+      <button class="burger-btn" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </header>
-  <main style="padding-bottom: 4rem;">
-    <section class="hero-banner" style="background-image: url('assets/img/03.png');">
+
+  <main>
+    <section class="hero-banner" style="background-image:url('assets/img/03.png');">
       <div class="container">
-        <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Inspirations & Univers</h1>
-        <p style="font-size: 1.1rem; opacity: 0.9; max-width: 700px;">Trouvez l'inspiration à travers nos différentes esthétiques et matières soigneusement sélectionnées.</p>
+        <span class="hero-kicker">Catalogue ELIOS 2026 · Photos & tarifs</span>
+        <h1 style="font-size:clamp(2rem,4vw,3rem);margin-bottom:.6rem;">Trouvez le bon carrelage en quelques secondes</h1>
+        <p style="font-size:1.08rem;opacity:.95;max-width:780px;">Recherchez une collection, une couleur, un format ou un usage. Ouvrez la fiche pour voir les photos en grand et, avec votre accès PRO, les tarifs ELIOS 2026.</p>
       </div>
     </section>
-    <div class="container" style="margin-top: 3rem;">
-      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem;">
-        <div class="card-premium" style="position: relative; min-height: 200px; padding: 2.5rem; overflow: hidden; border: 1px solid rgba(0,0,0,0.06); border-radius: 4px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
-          <img src="assets/img/bois01.jpg" alt="Bois" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;" onerror="this.src='assets/img/bois01.jpeg';">
-          <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.45); z-index: 2;"></div>
-          <div style="position: relative; z-index: 3; color: #ffffff;">
-            <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: #ffffff;">Bois</h3>
-            <p style="font-size: 0.9rem; color: #f1f1f1;">Chaleur et noblesse du bois naturel transposées dans la céramique.</p>
-          </div>
+
+    <section class="inspiration-shell">
+      <div class="inspiration-intro">
+        <div><h2>Catalogue ELIOS Ceramica 2026</h2><p>35 collections intégrées avec photos du catalogue, recherche rapide et fiches détaillées. Sur smartphone, faites glisser les photos à gauche ou à droite pour naviguer.</p></div>
+        <div class="brand-pill"><img src="assets/img/elios.png" alt="ELIOS"><span>Catalogue général 2026</span></div>
+      </div>
+
+      <div class="inspiration-search-panel">
+        <div class="search-main">
+          <div class="search-box"><input id="product-search" type="search" autocomplete="off" placeholder="Ex. Quercia, beige, 60x120, R11, bois…"><span class="search-icon">⌕</span></div>
+          <button id="filter-toggle" class="filter-toggle" type="button">Filtres</button>
         </div>
-        <div class="card-premium" style="position: relative; min-height: 200px; padding: 2.5rem; overflow: hidden; border: 1px solid rgba(0,0,0,0.06); border-radius: 4px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
-          <img src="assets/img/pierre01.jpg" alt="Pierre" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;" onerror="this.src='assets/img/pierre01.jpeg';">
-          <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.45); z-index: 2;"></div>
-          <div style="position: relative; z-index: 3; color: #ffffff;">
-            <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: #ffffff;">Pierre</h3>
-            <p style="font-size: 0.9rem; color: #f1f1f1;">Authenticité et robustesse des textures minérales brutes.</p>
-          </div>
+        <div id="advanced-filters" class="filter-row">
+          <select id="filter-category" aria-label="Univers"></select><select id="filter-color" aria-label="Couleur"></select><select id="filter-format" aria-label="Format"></select><select id="filter-usage" aria-label="Usage"></select>
         </div>
-        <div class="card-premium" style="padding: 2.5rem; background: #ffffff; border: 1px solid rgba(0,0,0,0.06); border-radius: 4px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
-          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: #1A2530;">Marbre</h3>
-          <p style="font-size: 0.9rem; color: #666;">Élégance intemporelle et veines graphiques d'exception.</p>
-        </div>
-        <div class="card-premium" style="padding: 2.5rem; background: #ffffff; border: 1px solid rgba(0,0,0,0.06); border-radius: 4px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
-          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: #1A2530;">Béton</h3>
-          <p style="font-size: 0.9rem; color: #666;">Esprit industriel, urbain et contemporain.</p>
-        </div>
-        <div class="card-premium" style="padding: 2.5rem; background: #ffffff; border: 1px solid rgba(0,0,0,0.06); border-radius: 4px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
-          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: #1A2530;">Terrazzo</h3>
-          <p style="font-size: 0.9rem; color: #666;">Le retour en force du granito multicolore et graphique.</p>
-        </div>
-        <div class="card-premium" style="padding: 2.5rem; background: #ffffff; border: 1px solid rgba(0,0,0,0.06); border-radius: 4px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
-          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: #1A2530;">Zellige</h3>
-          <p style="font-size: 0.9rem; color: #666;">Reflets nacrés et variations artisanales uniques.</p>
-        </div>
-        <div class="card-premium" style="padding: 2.5rem; background: #ffffff; border: 1px solid rgba(0,0,0,0.06); border-radius: 4px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
-          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: #1A2530;">Métal</h3>
-          <p style="font-size: 0.9rem; color: #666;">Effets oxydés et reflets métalliques sophistiqués.</p>
-        </div>
-        <div class="card-premium" style="padding: 2.5rem; background: #ffffff; border: 1px solid rgba(0,0,0,0.06); border-radius: 4px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
-          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: #1A2530;">Nature</h3>
-          <p style="font-size: 0.9rem; color: #666;">Tons terreux, organiques et ambiances végétales.</p>
-        </div>
-        <div class="card-premium" style="padding: 2.5rem; background: #ffffff; border: 1px solid rgba(0,0,0,0.06); border-radius: 4px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
-          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: #1A2530;">Contemporain</h3>
-          <p style="font-size: 0.9rem; color: #666;">Lignes pures et tendances actuelles du design.</p>
-        </div>
-        <div class="card-premium" style="padding: 2.5rem; background: #ffffff; border: 1px solid rgba(0,0,0,0.06); border-radius: 4px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
-          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: #1A2530;">Minimaliste</h3>
-          <p style="font-size: 0.9rem; color: #666;">L'essentiel sublimé par la simplicité formelle.</p>
+        <div class="quick-filters">
+          <button class="quick-filter active" data-category="Tous">Tout ELIOS</button>
+          <button class="quick-filter" data-category="Bois">Bois</button>
+          <button class="quick-filter" data-category="Pierre / marbre">Pierre / marbre</button>
+          <button class="quick-filter" data-category="Ciments / céramiques">Ciments / céramiques</button>
+          <button class="quick-filter" data-category="Décor / relief">Décor / relief</button>
+          <button class="quick-filter" data-category="Grandes dalles">Grandes dalles</button>
         </div>
       </div>
-    </div>
+
+      <div class="results-meta"><div><strong id="results-count">0 collection</strong> dans le catalogue</div><button id="reset-filters" class="reset-filters" type="button">Effacer les filtres</button></div>
+      <div id="products-grid" class="product-grid" aria-live="polite"></div>
+    </section>
   </main>
-  <footer>
-    <div class="container" style="text-align: center; padding: 2rem 0;">
-      <p style="color: #ffffff !important; font-weight: 600; text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);">&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p>
-    </div>
-  </footer>
+
+  <div id="product-modal" class="product-modal" role="dialog" aria-modal="true" aria-label="Fiche produit"><div id="product-dialog" class="product-dialog"></div></div>
+
+  <footer><div class="container" style="text-align:center;padding:2rem 0;"><p style="font-weight:600;">&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p></div></footer>
   <script src="assets/js/app.js"></script>
+  <script src="assets/js/elios-images/elios-images-1.js?v=20260818"></script>
+  <script src="assets/js/elios-images/elios-images-2.js?v=20260818"></script>
+  <script src="assets/js/elios-images/elios-images-3.js?v=20260818"></script>
+  <script src="assets/js/elios-images/elios-images-4.js?v=20260818"></script>
+  <script src="assets/js/elios-images/elios-images-5.js?v=20260818"></script>
+  <script src="assets/js/elios-images/elios-images-6.js?v=20260818"></script>
+  <script src="assets/js/elios-images/elios-images-7.js?v=20260818"></script>
+  <script src="assets/js/elios-images/elios-images-8.js?v=20260818"></script>
+  <script src="assets/js/elios-images/elios-images-9.js?v=20260818"></script>
+  <script src="assets/js/elios-images/elios-images-10.js?v=20260818"></script>
+  <script src="assets/js/elios-images/elios-images-11.js?v=20260818"></script>
+  <script src="assets/js/inspirations-elios-data.js?v=20260818"></script>
+  <script src="assets/js/inspirations-elios-pricing.js?v=20260818b"></script>
+  <script src="assets/js/inspirations-elios.js?v=20260818b"></script>
 </body>
 </html>
