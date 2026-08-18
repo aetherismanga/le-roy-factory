@@ -1,1 +1,0 @@
-export { FIN_2025_STATS } from './statistiques-fin-2025-data.js';
