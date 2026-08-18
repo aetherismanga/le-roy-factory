@@ -10,6 +10,13 @@ function hiddenType(){return document.getElementById('stats-period-type')}
 function hiddenMonth(){return document.getElementById('stats-month')}
 function hiddenYear(){return document.getElementById('stats-year')}
 
+// Important : mémorise l'année AVANT que les anciens scripts ne réécrivent le select.
+document.addEventListener('change',e=>{
+  if(e.target?.id!=='stats-year')return;
+  const v=Number(e.target.value);
+  if(yearOptions().includes(v))desiredYear=v;
+},true);
+
 function injectStyles(){
   if(document.getElementById('stats-ui-final-style'))return;
   const s=document.createElement('style');s.id='stats-ui-final-style';s.textContent=`
@@ -39,7 +46,7 @@ function hiddenPeriodEntries(){
   return [...sel.options].map(o=>({value:o.value,text:o.textContent||''})).filter(x=>x.value);
 }
 function keyForMonth(month){
-  const year=Number(hiddenYear()?.value||0),entries=hiddenPeriodEntries();
+  const year=desiredYear||Number(hiddenYear()?.value||0),entries=hiddenPeriodEntries();
   return entries.find(x=>{
     const m=Number((x.value.match(/-(\d{2})(?:$|-)/)||[])[1]);
     if(m===month&&String(x.value).startsWith(String(year)))return true;
@@ -73,7 +80,7 @@ function showUnavailable(text=''){
   box.textContent=text;box.style.display=text?'block':'none';
 }
 function clearResultsForUnavailable(month){
-  const year=hiddenYear()?.value||'';showUnavailable(`Aucune situation statistique importée pour ${MONTHS[month]} ${year}. Les chiffres apparaîtront dès qu’un fichier correspondant sera ajouté.`);
+  const year=desiredYear||hiddenYear()?.value||'';showUnavailable(`Aucune situation statistique importée pour ${MONTHS[month]} ${year}. Les chiffres apparaîtront dès qu’un fichier correspondant sera ajouté.`);
   const tbody=document.getElementById('stats-body');if(tbody)tbody.innerHTML='';
   const mobile=document.getElementById('stats-mobile-list');if(mobile)mobile.innerHTML='';
   const count=document.getElementById('stats-result-count');if(count)count.textContent='';
@@ -84,30 +91,40 @@ function applySimpleSelection(){
   if(syncing)return;syncing=true;
   const type=hiddenType(),month=hiddenMonth();
   if(!type||!month){syncing=false;return}
-  showUnavailable('');
+  showUnavailable('');normalizeYears();
   if(desiredPeriod==='annual'){
     type.value='annual';type.dispatchEvent(new Event('change',{bubbles:true}));
-    setTimeout(()=>{syncing=false;enforceResponsive()},100);return;
+    setTimeout(()=>{normalizeYears();forceSelectedYearText();syncing=false;enforceResponsive()},100);return;
   }
   if(desiredPeriod==='custom'){
     type.value='range';type.dispatchEvent(new Event('change',{bubbles:true}));
-    setTimeout(()=>{syncing=false;enforceResponsive()},100);return;
+    setTimeout(()=>{normalizeYears();forceSelectedYearText();syncing=false;enforceResponsive()},100);return;
   }
   const m=Number(desiredPeriod.split(':')[1]||0),key=keyForMonth(m);
   type.value='month';type.dispatchEvent(new Event('change',{bubbles:true}));
   setTimeout(()=>{
+    normalizeYears();
     if(key){month.value=key;month.dispatchEvent(new Event('change',{bubbles:true}));showUnavailable('')}
     else clearResultsForUnavailable(m);
-    syncing=false;enforceResponsive();
+    forceSelectedYearText();syncing=false;enforceResponsive();
   },70);
 }
 
+function forceSelectedYearText(){
+  if(!desiredYear)return;
+  const title=document.getElementById('stats-title');
+  if(title&&/\b20\d{2}\b/.test(title.textContent||''))title.textContent=(title.textContent||'').replace(/\b20\d{2}\b/g,String(desiredYear));
+}
+
 function onYearChanged(){
-  desiredYear=Number(hiddenYear()?.value)||currentYear();
+  // desiredYear est déjà capturé en phase capture, avant les autres listeners.
   desiredPeriod='annual';
-  rebuildSimplePeriod();showUnavailable('');
-  const type=hiddenType();if(type){type.value='annual';type.dispatchEvent(new Event('change',{bubbles:true}))}
-  setTimeout(()=>{normalizeYears();rebuildSimplePeriod();enforceResponsive()},100);
+  setTimeout(()=>{
+    normalizeYears();
+    rebuildSimplePeriod();
+    const simple=document.getElementById('stats-simple-period');if(simple)simple.value='annual';
+    showUnavailable('');forceSelectedYearText();enforceResponsive();
+  },120);
 }
 
 function enforceResponsive(){
@@ -139,14 +156,13 @@ function clarifyPartnerKpi(){
     const txt=label.textContent.trim();
     if(txt==='Partenaires inclus'||txt==='Partenaires avec données'){
       const available=String(strong.textContent||'0').split('/')[0].trim();
-      if(label.textContent!=='Partenaires avec données')label.textContent='Partenaires avec données';
-      const target=`${available} / ${total}`;if(strong.textContent.trim()!==target)strong.textContent=target;
-      const sub='pour la période sélectionnée';if(small&&small.textContent!==sub)small.textContent=sub;
+      label.textContent='Partenaires avec données';strong.textContent=`${available} / ${total}`;
+      if(small)small.textContent='pour la période sélectionnée';
     }
   });
 }
 
-function stabilize(){normalizeYears();hideLegacyPeriodControls();rebuildSimplePeriod();enforceResponsive();clarifyPartnerKpi()}
+function stabilize(){normalizeYears();hideLegacyPeriodControls();rebuildSimplePeriod();forceSelectedYearText();enforceResponsive();clarifyPartnerKpi()}
 function init(){
   injectStyles();desiredYear=Number(hiddenYear()?.value)||currentYear();stabilize();
   const year=hiddenYear();if(year&&!year.dataset.finalBound){year.dataset.finalBound='1';year.addEventListener('change',()=>setTimeout(onYearChanged,0))}
