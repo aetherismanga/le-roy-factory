@@ -283,7 +283,7 @@
 
   <script type="module">
     import { db } from "./assets/js/firebase.js";
-    import { collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { collection, doc, addDoc, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
     document.addEventListener("DOMContentLoaded", () => {
       // 1. Vérification session agent
@@ -437,17 +437,21 @@
 
         const item = clientsData.find(c => c.id === currentEditingId);
         const nomClient = item?.societe || "ce client";
-        const confirmation = confirm(`Êtes-vous sûr de vouloir supprimer ${nomClient} ?\n\nCette suppression est définitive.`);
+        const confirmation = confirm(`Êtes-vous sûr de vouloir supprimer ${nomClient} de la liste des clients ?\n\nSa fiche sera archivée et restera conservée pour les statistiques historiques.`);
         if (!confirmation) return;
 
         try {
           btnDeleteClient.disabled = true;
           btnDeleteClient.textContent = "Suppression...";
-          await deleteDoc(doc(db, "clients", currentEditingId));
+          await updateDoc(doc(db, "clients", currentEditingId), {
+            archived: true,
+            archivedAt: new Date().toISOString(),
+            archivedBy: currentAgent
+          });
           closeModal();
         } catch (err) {
-          console.error("Erreur de suppression :", err);
-          alert("Erreur lors de la suppression du client dans Firebase.");
+          console.error("Erreur d'archivage :", err);
+          alert("Erreur lors de l'archivage du client dans Firebase.");
         } finally {
           btnDeleteClient.disabled = false;
           btnDeleteClient.textContent = "🗑️ Supprimer le client";
@@ -595,6 +599,10 @@
         const depsSet = new Set();
 
         const filtered = clientsData.filter(c => {
+          // Les fiches archivées restent dans Firebase pour les statistiques,
+          // mais ne sont plus affichées ni comptées parmi les clients/prospects actifs.
+          if (c.archived === true || c.archive === true) return false;
+
           let cp = (c.codePostal || c.code_postal || "").toString().trim();
           let ville = (c.ville || "").toString().trim();
 
