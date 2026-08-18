@@ -95,13 +95,32 @@ function installInspirationsNeobathPdf() {
     if (!path.endsWith('univers.html') && path !== '/' && !path.endsWith('/')) return;
     if (!document.getElementById('products-grid')) return;
 
+    const loadSwatches = () => {
+        if (!document.getElementById('lrf-neobath-pdf-swatches-css')) {
+            const css = document.createElement('link');
+            css.id = 'lrf-neobath-pdf-swatches-css';
+            css.rel = 'stylesheet';
+            css.href = 'assets/css/neobath-pdf-swatches.css?v=20260818a';
+            document.head.appendChild(css);
+        }
+        if (!document.getElementById('lrf-neobath-pdf-swatches')) {
+            const swatches = document.createElement('script');
+            swatches.id = 'lrf-neobath-pdf-swatches';
+            swatches.src = 'assets/js/neobath-pdf-swatches.js?v=20260818a';
+            swatches.defer = true;
+            document.body.appendChild(swatches);
+        }
+    };
+
     const loadHelper = () => {
-        if (document.getElementById('lrf-neobath-pdf-helper')) return;
-        const helper = document.createElement('script');
-        helper.id = 'lrf-neobath-pdf-helper';
-        helper.src = 'assets/js/inspirations-pdf-images.js?v=20260818e';
-        helper.defer = true;
-        document.body.appendChild(helper);
+        if (!document.getElementById('lrf-neobath-pdf-helper')) {
+            const helper = document.createElement('script');
+            helper.id = 'lrf-neobath-pdf-helper';
+            helper.src = 'assets/js/inspirations-pdf-images.js?v=20260818e';
+            helper.defer = true;
+            document.body.appendChild(helper);
+        }
+        loadSwatches();
     };
 
     if (window.pdfjsLib) {
