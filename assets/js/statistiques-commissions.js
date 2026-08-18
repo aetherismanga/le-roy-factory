@@ -10,26 +10,37 @@ import { STATS_PERIODS } from './statistiques-periods.js';
 
 const JEROME_DEPTS=new Set(['11','30','34','66']);
 const SETTINGS_KEY='lrf-commission-rates-v1';
-const PARTNERS=['elios-ceramica','view-ceramica','la-fenice','reviglass','biopietra','petracers','pecchioli-firenze','bulbo','randal-pro','floor-italia','propamsa','cermed','neobath','koibath','aquahome','opal','bilt'];
 let clients=[];
 let rates={};
 
 const euro=n=>new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',maximumFractionDigits:2}).format(Number(n||0));
 const norm=v=>String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\b(sarl|sasu|sas|sa|eurl|societe|etablissement|ets|sci)\b/g,'').replace(/[^a-z0-9]/g,'');
+const clean=v=>String(v||'').trim();
 function currentPartner(){return document.querySelector('.partner-tab.active')?.dataset.partner||'elios-ceramica'}
-function currentPeriodKey(){return document.getElementById('stats-month')?.value||''}
-function info(){return STATS_PERIODS[currentPartner()]||null}
+function currentMode(){return document.getElementById('stats-period-type')?.value||'month'}
+function currentPeriodKey(){
+  const partner=currentPartner();if(partner==='all'||currentMode()==='range')return '';
+  if(currentMode()==='annual'){
+    const year=Number(document.getElementById('stats-year')?.value||0),ps=STATS_PERIODS[partner]?.periods||{};
+    return Object.entries(ps).filter(([,p])=>Number(p.y)===year&&Number(p.m)===12).sort((a,b)=>a[0].localeCompare(b[0])).at(-1)?.[0]||'';
+  }
+  return document.getElementById('stats-month')?.value||'';
+}
+function info(){const partner=currentPartner();return partner==='all'?null:STATS_PERIODS[partner]||null}
 function period(){return info()?.periods?.[currentPeriodKey()]||null}
-function factoryCode(c,partner){
-  if(!c)return '';
-  if(partner==='elios-ceramica')return String(c.codeElios||c.numeroClientElios||c.eliosCode||c.codesPartenaires?.['elios-ceramica']||c.codesPartenaires?.elios||c.numerosPartenaires?.['elios-ceramica']||'').trim();
-  if(partner==='view-ceramica')return String(c.codeView||c.numeroClientView||c.viewCode||c.codesPartenaires?.['view-ceramica']||c.codesPartenaires?.view||c.numerosPartenaires?.['view-ceramica']||'').trim();
-  return String(c.codesPartenaires?.[partner]||c.numerosPartenaires?.[partner]||'').trim();
+function flattenCodes(v){if(Array.isArray(v))return v.flatMap(flattenCodes);const s=clean(v);return s?[s]:[]}
+function factoryCodes(c,partner){
+  if(!c)return [];
+  const vals=[];
+  if(partner==='elios-ceramica')vals.push(c.codeElios,c.numeroClientElios,c.eliosCode);
+  if(partner==='view-ceramica')vals.push(c.codeView,c.numeroClientView,c.viewCode);
+  vals.push(c.codesPartenaires?.[partner],c.numerosPartenaires?.[partner],c.codesPartenairesMulti?.[partner]);
+  return [...new Set(flattenCodes(vals))];
 }
 function rowCode(r){return String(r.factory||r.elios||'').trim()}
 function matchClient(r,partner){
   const code=rowCode(r);
-  let c=code?clients.find(x=>factoryCode(x,partner)===code):null;
+  let c=code?clients.find(x=>factoryCodes(x,partner).includes(code)):null;
   if(c)return c;
   const k=norm(r.name);if(k.length<5)return null;
   const found=clients.filter(x=>{const n=norm(x.societe||x.nomSociete||x.nom);return n===k||(n.length>=6&&k.length>=6&&(n.startsWith(k)||k.startsWith(n)))});
@@ -78,8 +89,8 @@ function ensureUI(){
 function render(){
   ensureUI();
   const panel=document.getElementById('commission-panel');if(!panel)return;
-  const partner=currentPartner(),p=period();
-  if(!p){panel.style.display='none';return;}panel.style.display='block';
+  const partner=currentPartner(),mode=currentMode(),p=period();
+  if(partner==='all'||mode==='range'||!p){panel.style.display='none';return;}panel.style.display='block';
   const rate=Number(rates[partner]||0),input=document.getElementById('commission-rate');if(document.activeElement!==input)input.value=rate||'';
   const total=Number(p.ca||0),rows=detailRows(partner,currentPeriodKey());
   let j=0,c=0,u=0;
@@ -88,14 +99,14 @@ function render(){
   if(rows.length){cards.push(['Commission Jérôme',euro(j*rate/100),`CA attribué : ${euro(j)}`],['Commission Coryne',euro(c*rate/100),`CA attribué : ${euro(c)}`]);}
   document.getElementById('commission-cards').innerHTML=cards.map(x=>`<div class="commission-card"><small>${x[0]}</small><strong>${x[1]}</strong><em>${x[2]}</em></div>`).join('');
   const warning=document.getElementById('commission-warning');
-  if(!rows.length)warning.textContent='Le total usine permet de calculer la commission globale, mais cette période ne contient pas assez de détail client pour séparer Jérôme et Coryne.';
+  if(p.incomplete&&!rows.length)warning.textContent='Année incomplète : commission globale calculée sur le CA disponible uniquement. Le détail client complet n’est pas disponible pour cette période.';
+  else if(!rows.length)warning.textContent='Le total usine permet de calculer la commission globale, mais cette période ne contient pas assez de détail client pour séparer Jérôme et Coryne.';
   else if(u>0)warning.textContent=`${euro(u)} de CA reste à attribuer car certains clients n’ont pas encore de département dans le CRM.`;
   else warning.textContent='Répartition Jérôme / Coryne complète pour cette période.';
 }
 function observeUI(){
   document.addEventListener('click',e=>{if(e.target.closest('.partner-tab'))setTimeout(render,50)});
-  document.getElementById('stats-month')?.addEventListener('change',()=>setTimeout(render,20));
-  document.getElementById('stats-year')?.addEventListener('change',()=>setTimeout(render,20));
+  document.addEventListener('change',e=>{if(e.target.matches('#stats-month,#stats-year,#stats-period-type,#stats-date-from,#stats-date-to'))setTimeout(render,20)});
 }
 function init(){loadLocal();ensureUI();observeUI();onSnapshot(collection(db,'clients'),snap=>{clients=[];snap.forEach(d=>clients.push({id:d.id,...d.data()}));render();});loadRemote();render();}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
