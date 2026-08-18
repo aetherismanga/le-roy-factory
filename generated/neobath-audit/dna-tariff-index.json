@@ -1,0 +1,9603 @@
+{
+  "lines": 1610,
+  "interesting": [
+    {
+      "line": 2,
+      "text": "Finiture 4",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 6,
+      "text": "Portalavabi / Basi / Pensili / Colonne 30",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 7,
+      "text": "Lavabi in Ceramica 34",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 8,
+      "text": "Top in Geacril 36",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 9,
+      "text": "Top in Ocritech 42",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 10,
+      "text": "Top in Mineral 44",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 11,
+      "text": "Top in Gres 46",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 12,
+      "text": "Top in Hpl / Fenix 48",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 13,
+      "text": "Lavabi in appoggio 50",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 14,
+      "text": "Specchi 54",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 15,
+      "text": "Lampade / Accessori 62",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 26,
+      "text": "movimento alle superfici, donando ai mobili",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 31,
+      "text": "formed by wind-shaped sand. The Dune finish",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 47,
+      "text": "DNA / Collection / Legno",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 49,
+      "text": "Legno",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 50,
+      "text": "Texture effetto legno dal realismo",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 64,
+      "text": "Legno",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 71,
+      "text": "personalizzazione. Disponibili in 15 colori",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 73,
+      "text": "essere realizzati con finitura opaca o",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 78,
+      "text": "in 15 standard colors and the RAL range, they",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 79,
+      "text": "can be produced with a matte or glossy finish,",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 94,
+      "text": "DNA / Collection / Gres",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 95,
+      "text": "/ Gres / Gres",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 104,
+      "text": "Gres",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 106,
+      "text": "DNA / Collection / Fenix",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 107,
+      "text": "/ Fenix / Fenix",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 113,
+      "text": "Fenix",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 115,
+      "text": "DNA / Collection / Hpl",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 116,
+      "text": "/ Hpl / Hpl",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 122,
+      "text": "Hpl",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 132,
+      "text": "FINITURA",
+      "prices": [],
+      "refs": [
+        "FINITURA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 133,
+      "text": "FINISH",
+      "prices": [],
+      "refs": [
+        "FINISH"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 147,
+      "text": "FINITURA",
+      "prices": [],
+      "refs": [
+        "FINITURA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 148,
+      "text": "FINISH",
+      "prices": [],
+      "refs": [
+        "FINISH"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 157,
+      "text": "PORTALAVABO CON 2 CASSETTI BASE CON 1 CASSETTO",
+      "prices": [],
+      "refs": [
+        "PORTALAVABO",
+        "CASSETTI",
+        "BASE",
+        "CASSETTO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 158,
+      "text": "DNA-PL12052 120 x 52 x 46 INDIGO n.1 798,00 DNA-BA8026 80 x 26 x 46 ROVERE CENERE n.2 cad. 418,00",
+      "prices": [
+        "798,00",
+        "418,00"
+      ],
+      "refs": [
+        "DNA-PL12052",
+        "INDIGO",
+        "DNA-BA8026",
+        "ROVERE",
+        "CENERE"
+      ],
+      "dimensions": [
+        "120 x 52 x 46",
+        "80 x 26 x 46"
+      ]
+    },
+    {
+      "line": 159,
+      "text": "Wash basin unit with 2 drawers / meuble sous vasque avec 2 tiroirs Base unit with 1 drawer / element avec 1 tiroir",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 160,
+      "text": "TOP IN GEACRIL BIANCO OPACO TOP DI COPERTURA",
+      "prices": [],
+      "refs": [
+        "GEACRIL",
+        "BIANCO",
+        "OPACO",
+        "COPERTURA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 161,
+      "text": "BNT120 120,5 x 1,2 x 46,2 MATT WHITE n.1 737,00 TPC80 80,5 x 1,9 x 46,5 ROVERE CENERE n.2 cad. 107,00",
+      "prices": [
+        "737,00",
+        "107,00"
+      ],
+      "refs": [
+        "BNT120",
+        "MATT",
+        "WHITE",
+        "TPC80",
+        "ROVERE",
+        "CENERE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 162,
+      "text": "Geacril top / plan en Geacril Finishing top / plan de finition",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 164,
+      "text": "NERO OPACO TOP SCATOLATO IN GEACRIL STONE BIANCO OPACO",
+      "prices": [],
+      "refs": [
+        "NERO",
+        "OPACO",
+        "SCATOLATO",
+        "GEACRIL",
+        "STONE",
+        "BIANCO",
+        "OPACO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 165,
+      "text": "SPECCHIO TELAIO METALLO CON LED Boxed top in Geacril Stone / Plan de travail caisson en Geacril TXT140 140 x 12 x 46,5 MATT WHITE n.1 908,60",
+      "prices": [
+        "908,60"
+      ],
+      "refs": [
+        "SPECCHIO",
+        "TELAIO",
+        "METALLO",
+        "TXT140",
+        "MATT",
+        "WHITE"
+      ],
+      "dimensions": [
+        "140 x 12 x 46,5"
+      ]
+    },
+    {
+      "line": 166,
+      "text": "TED 100 x 50 x 12 MATT BL ACK n.1 1.520,00",
+      "prices": [
+        "520,00"
+      ],
+      "refs": [
+        "MATT",
+        "1.520"
+      ],
+      "dimensions": [
+        "100 x 50 x 12"
+      ]
+    },
+    {
+      "line": 167,
+      "text": "Led mirror with metal frame / Miroir led avec cadre métallique NOIR MAT Stone BL ANC MAT",
+      "prices": [],
+      "refs": [
+        "NOIR"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 168,
+      "text": "ASTA PORTA ASCIUGAMANO VASCA IN GEACRIL BIANCO OPACO",
+      "prices": [],
+      "refs": [
+        "ASTA",
+        "PORTA",
+        "ASCIUGAMANO",
+        "VASCA",
+        "GEACRIL",
+        "BIANCO",
+        "OPACO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 169,
+      "text": "SIDEBAR 50 x 20 x 40 CROMO n.1 115,00 B575 50 x 31 MATT WHITE n.1 782,00",
+      "prices": [
+        "115,00",
+        "782,00"
+      ],
+      "refs": [
+        "SIDEBAR",
+        "CROMO",
+        "B575",
+        "MATT",
+        "WHITE"
+      ],
+      "dimensions": [
+        "50 x 20 x 40",
+        "50 x 31"
+      ]
+    },
+    {
+      "line": 170,
+      "text": "Sidebar Basin in Geacril / Vasque en Geacril BL ANC MAT",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 172,
+      "text": "Totale price / prix total 3.170,00 SPECCHIO ROTONDO RETROILLUMINATO LED",
+      "prices": [
+        "170,00"
+      ],
+      "refs": [
+        "3.170",
+        "SPECCHIO",
+        "ROTONDO",
+        "RETROILLUMINATO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 173,
+      "text": "SPTR80 Ø 80 / n.1 358,00",
+      "prices": [
+        "358,00"
+      ],
+      "refs": [
+        "SPTR80"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 174,
+      "text": "Backlit mirror with led lighting /miroir retro-eclaire avec lumiere led",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 175,
+      "text": "COLONNA CON ANTE REVERSIBILE E 2 RIPIANI IN VETRO",
+      "prices": [],
+      "refs": [
+        "COLONNA",
+        "ANTE",
+        "REVERSIBILE",
+        "RIPIANI",
+        "VETRO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 177,
+      "text": "Column with 1 door (r-l) and 2 glass shelves /colonne avec 1 porte DNA-CO40160 40 x 160 x 22 n.3 2.426,00",
+      "prices": [
+        "426,00"
+      ],
+      "refs": [
+        "DNA-CO40160",
+        "2.426"
+      ],
+      "dimensions": [
+        "40 x 160 x 22"
+      ]
+    },
+    {
+      "line": 186,
+      "text": "FINITURA",
+      "prices": [],
+      "refs": [
+        "FINITURA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 187,
+      "text": "FINISH",
+      "prices": [],
+      "refs": [
+        "FINISH"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 196,
+      "text": "Totale price / prix total 3.098,60 5.524,60",
+      "prices": [
+        "098,60",
+        "524,60"
+      ],
+      "refs": [
+        "3.098",
+        "5.524"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 198,
+      "text": "PORTALAVABO CON 2 CASSETTI GRIGIO FERRO",
+      "prices": [],
+      "refs": [
+        "PORTALAVABO",
+        "CASSETTI",
+        "GRIGIO",
+        "FERRO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 205,
+      "text": "FINITURA",
+      "prices": [],
+      "refs": [
+        "FINITURA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 206,
+      "text": "FINISH",
+      "prices": [],
+      "refs": [
+        "FINISH"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 214,
+      "text": "Wash basin unit with 2 drawers / meuble sous vasque avec 2 tiroirs",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 215,
+      "text": "DNA-PL6052 60 x 52 x 46 OPACO n.2 cad. 836,00 W x H x D cm",
+      "prices": [
+        "836,00"
+      ],
+      "refs": [
+        "DNA-PL6052",
+        "OPACO"
+      ],
+      "dimensions": [
+        "60 x 52 x 46"
+      ]
+    },
+    {
+      "line": 216,
+      "text": "BASE CON 2 CASSETTI GRIGIO FERRO",
+      "prices": [],
+      "refs": [
+        "BASE",
+        "CASSETTI",
+        "GRIGIO",
+        "FERRO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 217,
+      "text": "DNA-BA4052 40 x 52 x 46 n.1 766,00",
+      "prices": [
+        "766,00"
+      ],
+      "refs": [
+        "DNA-BA4052"
+      ],
+      "dimensions": [
+        "40 x 52 x 46"
+      ]
+    },
+    {
+      "line": 218,
+      "text": "Base unit with 2 drawers / element avec 2 tiroirs OPACO",
+      "prices": [],
+      "refs": [
+        "OPACO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 219,
+      "text": "TOP IN GEACRIL TPGEACRIL1 GRIGIO FERRO",
+      "prices": [],
+      "refs": [
+        "GEACRIL",
+        "TPGEACRIL1",
+        "GRIGIO",
+        "FERRO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 220,
+      "text": "161 x 1,2 x 46,2 n.1 740,80",
+      "prices": [
+        "740,80"
+      ],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 221,
+      "text": "Geacril top / plan en Geacril COLOR OPACO",
+      "prices": [],
+      "refs": [
+        "COLOR",
+        "OPACO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 222,
+      "text": "PORTALAVABO CON 1 CASSETTO",
+      "prices": [],
+      "refs": [
+        "PORTALAVABO",
+        "CASSETTO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 223,
+      "text": "DOPPIA VASCA IN GEACRIL GRIGIO FERRO DNA-PL12052 120 x 26 x 46 ROVERE SABBIA n.1 535,00",
+      "prices": [
+        "535,00"
+      ],
+      "refs": [
+        "DOPPIA",
+        "VASCA",
+        "GEACRIL",
+        "GRIGIO",
+        "FERRO",
+        "DNA-PL12052",
+        "ROVERE",
+        "SABBIA"
+      ],
+      "dimensions": [
+        "120 x 26 x 46"
+      ]
+    },
+    {
+      "line": 224,
+      "text": "B855 48 x 28 n.1 2.163,00 Wash basin unit with 1 drawer / meuble sous vasque avec 1 tiroir",
+      "prices": [
+        "163,00"
+      ],
+      "refs": [
+        "B855",
+        "2.163"
+      ],
+      "dimensions": [
+        "48 x 28"
+      ]
+    },
+    {
+      "line": 225,
+      "text": "Double basin in Geacril / Double vasque en Geacril OPACO",
+      "prices": [],
+      "refs": [
+        "OPACO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 226,
+      "text": "BASE CON 1 CASSETTO BLU MARINO",
+      "prices": [],
+      "refs": [
+        "BASE",
+        "CASSETTO",
+        "MARINO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 227,
+      "text": "ARONA LED DNA-BA12026 120 x 26 x 46 n.1 656,00",
+      "prices": [
+        "656,00"
+      ],
+      "refs": [
+        "ARONA",
+        "DNA-BA12026"
+      ],
+      "dimensions": [
+        "120 x 26 x 46"
+      ]
+    },
+    {
+      "line": 228,
+      "text": "ARL100 100 x 50 / n.2 cad. 381,00 Base unit with 1 drawer / element avec 1 tiroir LUCIDO",
+      "prices": [
+        "381,00"
+      ],
+      "refs": [
+        "ARL100",
+        "LUCIDO"
+      ],
+      "dimensions": [
+        "100 x 50"
+      ]
+    },
+    {
+      "line": 229,
+      "text": "Arona Led mirror / Miroir Arona Led",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 230,
+      "text": "TOP CERAMICA PICASSO CON VASCA INTEGRATA BIANCO OPACO",
+      "prices": [],
+      "refs": [
+        "CERAMICA",
+        "PICASSO",
+        "VASCA",
+        "INTEGRATA",
+        "BIANCO",
+        "OPACO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 231,
+      "text": "ASTA PORTA ASCIUGAMANO Picasso ceramic top with integrated basin / Plan en céramique PIC12146 121 x 1,2 x 46,5 MATT WHITE n.1 855,00",
+      "prices": [
+        "855,00"
+      ],
+      "refs": [
+        "ASTA",
+        "PORTA",
+        "ASCIUGAMANO",
+        "PIC12146",
+        "MATT",
+        "WHITE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 232,
+      "text": "SIDEBAR 50 x 20 x 40 CROMO n.2 cad. 115,00",
+      "prices": [
+        "115,00"
+      ],
+      "refs": [
+        "SIDEBAR",
+        "CROMO"
+      ],
+      "dimensions": [
+        "50 x 20 x 40"
+      ]
+    },
+    {
+      "line": 233,
+      "text": "Sidebar Picasso avec lavabo intégrée BL ANC MAT",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 235,
+      "text": "Totale price / prix total 6.333,80 TOP DI COPERTURA",
+      "prices": [
+        "333,80"
+      ],
+      "refs": [
+        "6.333",
+        "COPERTURA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 236,
+      "text": "TPC120 121,5 x 1,9 x 46,5 BLU MARINO n.1 289,00",
+      "prices": [
+        "289,00"
+      ],
+      "refs": [
+        "TPC120",
+        "MARINO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 237,
+      "text": "Finishing top / plan de finition LUCIDO",
+      "prices": [],
+      "refs": [
+        "LUCIDO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 238,
+      "text": "SPECCHIO FILO LUCIDO ROTONDO",
+      "prices": [],
+      "refs": [
+        "SPECCHIO",
+        "FILO",
+        "LUCIDO",
+        "ROTONDO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 239,
+      "text": "SPTR80 Ø 80 / n.1 179,00",
+      "prices": [
+        "179,00"
+      ],
+      "refs": [
+        "SPTR80"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 240,
+      "text": "Round Simple mirror / miroir rond simple",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 241,
+      "text": "LAMPADA LED “SOLAR ROUND”",
+      "prices": [],
+      "refs": [
+        "LAMPADA",
+        "SOLAR",
+        "ROUND"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 242,
+      "text": "SOLAR ROUND Ø 10 / n.1 42,00",
+      "prices": [
+        "42,00"
+      ],
+      "refs": [
+        "SOLAR",
+        "ROUND"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 243,
+      "text": "Led Lamp / lampe Led",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 244,
+      "text": "COLONNA CON ANTE REVERSIBILE E 2 RIPIANI IN VETRO",
+      "prices": [],
+      "refs": [
+        "COLONNA",
+        "ANTE",
+        "REVERSIBILE",
+        "RIPIANI",
+        "VETRO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 246,
+      "text": "Column with 1 door (r-l) and 2 glass shelves /colonne avec 1 porte DNA-CO40160 40 x 160 x 22 n.2 1.554,00",
+      "prices": [
+        "554,00"
+      ],
+      "refs": [
+        "DNA-CO40160",
+        "1.554"
+      ],
+      "dimensions": [
+        "40 x 160 x 22"
+      ]
+    },
+    {
+      "line": 250,
+      "text": "Totale price / prix total 2.556,00 4.110,00",
+      "prices": [
+        "556,00",
+        "110,00"
+      ],
+      "refs": [
+        "2.556",
+        "4.110"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 261,
+      "text": "FINITURA",
+      "prices": [],
+      "refs": [
+        "FINITURA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 262,
+      "text": "FINISH",
+      "prices": [],
+      "refs": [
+        "FINISH"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 276,
+      "text": "FINITURA",
+      "prices": [],
+      "refs": [
+        "FINITURA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 277,
+      "text": "FINISH",
+      "prices": [],
+      "refs": [
+        "FINISH"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 286,
+      "text": "PORTALAVABO CON 2 CASSETTI VERDE SALVIA BIANCO OPACO",
+      "prices": [],
+      "refs": [
+        "PORTALAVABO",
+        "CASSETTI",
+        "VERDE",
+        "SALVIA",
+        "BIANCO",
+        "OPACO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 287,
+      "text": "DNA-PL12052 120 x 52 x 46 n.1 956,00 PORTALAVABO CON 1 CASSETTO",
+      "prices": [
+        "956,00"
+      ],
+      "refs": [
+        "DNA-PL12052",
+        "PORTALAVABO",
+        "CASSETTO"
+      ],
+      "dimensions": [
+        "120 x 52 x 46"
+      ]
+    },
+    {
+      "line": 288,
+      "text": "Wash basin unit with 2 drawers / meuble sous vasque avec 2 tiroirs OPACO DNA-PL7026 70 x 26 x 46 MATT WHITE n.1 544,00",
+      "prices": [
+        "544,00"
+      ],
+      "refs": [
+        "OPACO",
+        "DNA-PL7026",
+        "MATT",
+        "WHITE"
+      ],
+      "dimensions": [
+        "70 x 26 x 46"
+      ]
+    },
+    {
+      "line": 289,
+      "text": "Wash basin unit with 1 drawer / meuble sous vasque avec 1 tiroir BL ANC MAT",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 290,
+      "text": "TOP CERAMICA PICASSO CON VASCA INTEGRATA NERO OPACO BIANCO OPACO",
+      "prices": [],
+      "refs": [
+        "CERAMICA",
+        "PICASSO",
+        "VASCA",
+        "INTEGRATA",
+        "NERO",
+        "OPACO",
+        "BIANCO",
+        "OPACO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 291,
+      "text": "BASE CON 1 CASSETTO",
+      "prices": [],
+      "refs": [
+        "BASE",
+        "CASSETTO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 292,
+      "text": "Picasso ceramic top with integrated basin / Plan en céramique PIC12146 121 x 1,2 x 46,5 MATT BL ACK n.1 1.012,00 DNA-BA7026 70 x 26 x 46 MATT WHITE n.1 518,00",
+      "prices": [
+        "012,00",
+        "518,00"
+      ],
+      "refs": [
+        "PIC12146",
+        "MATT",
+        "1.012",
+        "DNA-BA7026",
+        "MATT",
+        "WHITE"
+      ],
+      "dimensions": [
+        "70 x 26 x 46"
+      ]
+    },
+    {
+      "line": 293,
+      "text": "Base unit with 1 drawer / element avec 1 tiroir",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 294,
+      "text": "Picasso avec lavabo intégré NOIR MAT BL ANC MAT",
+      "prices": [],
+      "refs": [
+        "NOIR"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 295,
+      "text": "BASE CON 1 CASSETTO DNA-BA7026 70 x 26 x 46 ROVERE CENERE n.2 cad. 418,00",
+      "prices": [
+        "418,00"
+      ],
+      "refs": [
+        "BASE",
+        "CASSETTO",
+        "DNA-BA7026",
+        "ROVERE",
+        "CENERE"
+      ],
+      "dimensions": [
+        "70 x 26 x 46"
+      ]
+    },
+    {
+      "line": 296,
+      "text": "SPECCHIO “FORMA ROUND” CONTENITORE CON 2 ANTE NERO OPACO Base unit with 1 drawer / element avec 1 tiroir",
+      "prices": [],
+      "refs": [
+        "SPECCHIO",
+        "FORMA",
+        "ROUND",
+        "CONTENITORE",
+        "ANTE",
+        "NERO",
+        "OPACO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 297,
+      "text": "FORMAROUND Ø 79 MATT BL ACK n .1 1931,00",
+      "prices": [
+        "1931,00"
+      ],
+      "refs": [
+        "FORMAROUND",
+        "MATT",
+        "1931"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 298,
+      "text": "Mirrored cabinet with 2 doors / NOIR MAT TOP DI COPERTURA TPC140 140,5 x 1,8 x 46,5 ROVERE CENERE n.1 161,00",
+      "prices": [
+        "161,00"
+      ],
+      "refs": [
+        "NOIR",
+        "COPERTURA",
+        "TPC140",
+        "ROVERE",
+        "CENERE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 299,
+      "text": "Finishing top / plan de finition",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 301,
+      "text": "TOP IN GEACRIL",
+      "prices": [],
+      "refs": [
+        "GEACRIL"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 302,
+      "text": "SIDEBAR 50 x 20 x 40 MATT BL ACK n.1 115,00 TPGEACRIL1 141 x 1,2 x 46,5 MATT WHITE n.1 648,20",
+      "prices": [
+        "115,00",
+        "648,20"
+      ],
+      "refs": [
+        "SIDEBAR",
+        "MATT",
+        "TPGEACRIL1",
+        "MATT",
+        "WHITE"
+      ],
+      "dimensions": [
+        "50 x 20 x 40"
+      ]
+    },
+    {
+      "line": 303,
+      "text": "Sidebar Geacril top / plan en Geacril",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 306,
+      "text": "COLONNA CON ANTE REVERSIBILE E 2 RIPIANI IN VETRO VASCA IN GEACRIL",
+      "prices": [],
+      "refs": [
+        "COLONNA",
+        "ANTE",
+        "REVERSIBILE",
+        "RIPIANI",
+        "VETRO",
+        "VASCA",
+        "GEACRIL"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 307,
+      "text": "VERDE SALVIA B860 47 x 28 MATT WHITE n.1 698,00",
+      "prices": [
+        "698,00"
+      ],
+      "refs": [
+        "VERDE",
+        "SALVIA",
+        "B860",
+        "MATT",
+        "WHITE"
+      ],
+      "dimensions": [
+        "47 x 28"
+      ]
+    },
+    {
+      "line": 308,
+      "text": "Column with 1 door (r-l) and 2 glass shelves /colonne avec 1 porte DNA-CO40160 40 x 160 x 22 n.2 1.744,00 Basin in Geacril / Vasque en Geacril",
+      "prices": [
+        "744,00"
+      ],
+      "refs": [
+        "DNA-CO40160",
+        "1.744"
+      ],
+      "dimensions": [
+        "40 x 160 x 22"
+      ]
+    },
+    {
+      "line": 311,
+      "text": "SPECCHIO UP UP 50 x 100 / n.1 918,00",
+      "prices": [
+        "918,00"
+      ],
+      "refs": [
+        "SPECCHIO"
+      ],
+      "dimensions": [
+        "50 x 100"
+      ]
+    },
+    {
+      "line": 312,
+      "text": "Up Mirror / Miroir Up",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 314,
+      "text": "Totale price / prix total 4.014,00 5.758,00 BIANCO OPACO",
+      "prices": [
+        "014,00",
+        "758,00"
+      ],
+      "refs": [
+        "4.014",
+        "5.758",
+        "BIANCO",
+        "OPACO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 315,
+      "text": "MENSOLA GEACRIL TPGEACRIL7 140 x 7 x 46,5 MATT WHITE 1.092,00",
+      "prices": [
+        "092,00"
+      ],
+      "refs": [
+        "MENSOLA",
+        "GEACRIL",
+        "TPGEACRIL7",
+        "MATT",
+        "WHITE",
+        "1.092"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 317,
+      "text": "PENSILE CON 1 ANTA REVERSIBILE E 1 RIPIANO IN VETRO",
+      "prices": [],
+      "refs": [
+        "PENSILE",
+        "ANTA",
+        "REVERSIBILE",
+        "RIPIANO",
+        "VETRO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 318,
+      "text": "Wall unit 1door (r-l) and 1 glass shelve / armoire avec 1 porte (d-g) DNA-PA4070 30 x 68 x 21 ROVERE CENERE n.3 cad. 398,00",
+      "prices": [
+        "398,00"
+      ],
+      "refs": [
+        "DNA-PA4070",
+        "ROVERE",
+        "CENERE"
+      ],
+      "dimensions": [
+        "30 x 68 x 21"
+      ]
+    },
+    {
+      "line": 326,
+      "text": "FINITURA",
+      "prices": [],
+      "refs": [
+        "FINITURA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 327,
+      "text": "FINISH",
+      "prices": [],
+      "refs": [
+        "FINISH"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 336,
+      "text": "Totale price / prix total 5.415,00 6.609,00",
+      "prices": [
+        "415,00",
+        "609,00"
+      ],
+      "refs": [
+        "5.415",
+        "6.609"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 344,
+      "text": "FINITURA",
+      "prices": [],
+      "refs": [
+        "FINITURA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 345,
+      "text": "FINISH",
+      "prices": [],
+      "refs": [
+        "FINISH"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 353,
+      "text": "BASE CON 1 CASSETTO",
+      "prices": [],
+      "refs": [
+        "BASE",
+        "CASSETTO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 356,
+      "text": "DNA-BA8026 80 x 26 x 46 n.2 cad. 529,00",
+      "prices": [
+        "529,00"
+      ],
+      "refs": [
+        "DNA-BA8026"
+      ],
+      "dimensions": [
+        "80 x 26 x 46"
+      ]
+    },
+    {
+      "line": 357,
+      "text": "Base unit with 1 drawer / element avec 1 tiroir OPACO",
+      "prices": [],
+      "refs": [
+        "OPACO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 358,
+      "text": "TOP DI COPERTURA ROSSO MATTONE",
+      "prices": [],
+      "refs": [
+        "COPERTURA",
+        "ROSSO",
+        "MATTONE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 359,
+      "text": "TPC160 160 x 1,9 x 46,5 n.1 318,00",
+      "prices": [
+        "318,00"
+      ],
+      "refs": [
+        "TPC160"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 360,
+      "text": "Finishing top / plan de finition OPACO",
+      "prices": [],
+      "refs": [
+        "OPACO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 361,
+      "text": "TOP SCATOLATO IN GRES CRISTALLO MAC-",
+      "prices": [],
+      "refs": [
+        "SCATOLATO",
+        "GRES",
+        "CRISTALLO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 362,
+      "text": "TGR14 160 x 14 x 50 n.1 2.320,00 PORTALAVABO CON 2 CASSETTI",
+      "prices": [
+        "320,00"
+      ],
+      "refs": [
+        "TGR14",
+        "2.320",
+        "PORTALAVABO",
+        "CASSETTI"
+      ],
+      "dimensions": [
+        "160 x 14 x 50"
+      ]
+    },
+    {
+      "line": 363,
+      "text": "Boxed top in Gres / Plan de travail caisson en Gres CHIA VECCHIA DNA-PL6052 60 x 52 x 46 K AFFIR n.2 cad. 689,00",
+      "prices": [
+        "689,00"
+      ],
+      "refs": [
+        "CHIA",
+        "VECCHIA",
+        "DNA-PL6052",
+        "AFFIR"
+      ],
+      "dimensions": [
+        "60 x 52 x 46"
+      ]
+    },
+    {
+      "line": 364,
+      "text": "Wash basin unit with 2 drawers / meuble sous vasque avec 2 tiroirs",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 365,
+      "text": "VASCA IN GRES HIDE CRISTALLO MAC-",
+      "prices": [],
+      "refs": [
+        "VASCA",
+        "GRES",
+        "HIDE",
+        "CRISTALLO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 366,
+      "text": "HIDE 70 x 31,5 n.1 1.627,00 BIANCO OPACO",
+      "prices": [
+        "627,00"
+      ],
+      "refs": [
+        "HIDE",
+        "1.627",
+        "BIANCO",
+        "OPACO"
+      ],
+      "dimensions": [
+        "70 x 31,5"
+      ]
+    },
+    {
+      "line": 367,
+      "text": "Basin in Gres Hide / Vasque en Gres Hide CHIA VECCHIA TOP IN CERAMICA JUST",
+      "prices": [],
+      "refs": [
+        "CHIA",
+        "VECCHIA",
+        "CERAMICA",
+        "JUST"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 368,
+      "text": "JUST6146 61 x 7,5 x 46 MATT WHITE n.2 cad. 383,00",
+      "prices": [
+        "383,00"
+      ],
+      "refs": [
+        "JUST6146",
+        "MATT",
+        "WHITE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 369,
+      "text": "Just Ceramic Top / Plan en céramique Just BL ANC MAT",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 370,
+      "text": "SPECCHIO FILO LUCIDO",
+      "prices": [],
+      "refs": [
+        "SPECCHIO",
+        "FILO",
+        "LUCIDO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 371,
+      "text": "SF16070 160 x 70 / n.1 218,00",
+      "prices": [
+        "218,00"
+      ],
+      "refs": [
+        "SF16070"
+      ],
+      "dimensions": [
+        "160 x 70"
+      ]
+    },
+    {
+      "line": 372,
+      "text": "Simple mirror / Miroir simple SPECCHIO ARONA LED",
+      "prices": [],
+      "refs": [
+        "SPECCHIO",
+        "ARONA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 373,
+      "text": "ARL100 100 x 50 / n.2 cad. 381,00",
+      "prices": [
+        "381,00"
+      ],
+      "refs": [
+        "ARL100"
+      ],
+      "dimensions": [
+        "100 x 50"
+      ]
+    },
+    {
+      "line": 374,
+      "text": "Arona Led mirror / Miroir Arona Led",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 375,
+      "text": "LAMPADA LED",
+      "prices": [],
+      "refs": [
+        "LAMPADA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 376,
+      "text": "BARLED80 80 x 1 x 5 / n.1 131,00",
+      "prices": [
+        "131,00"
+      ],
+      "refs": [
+        "BARLED80"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 377,
+      "text": "Led Lamp / lampe Led",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 379,
+      "text": "SIDE BAR 40 x 5 x 2,5 CROMO n.2 cad. 115,00",
+      "prices": [
+        "115,00"
+      ],
+      "refs": [
+        "SIDE",
+        "CROMO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 380,
+      "text": "COLONNA CON ANTE REVERSIBILE E 2 RIPIANI IN VETRO Towel bar / Barre porte-serviettes",
+      "prices": [],
+      "refs": [
+        "COLONNA",
+        "ANTE",
+        "REVERSIBILE",
+        "RIPIANI",
+        "VETRO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 382,
+      "text": "Column with 1 door (r-l) and 2 glass shelves /colonne avec 1 porte DNA-CO40160 40 x 160 x 22 n.2 1.744,00",
+      "prices": [
+        "744,00"
+      ],
+      "refs": [
+        "DNA-CO40160",
+        "1.744"
+      ],
+      "dimensions": [
+        "40 x 160 x 22"
+      ]
+    },
+    {
+      "line": 383,
+      "text": "OPACO COLONNA CON ANTE REVERSIBILE E 2 RIPIANI IN VETRO BIANCO OPACO",
+      "prices": [],
+      "refs": [
+        "OPACO",
+        "COLONNA",
+        "ANTE",
+        "REVERSIBILE",
+        "RIPIANI",
+        "VETRO",
+        "BIANCO",
+        "OPACO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 385,
+      "text": "Column with 1 door (r-l) and 2 glass shelves /colonne avec 1 porte DNA-CO40160 40 x 160 x 20 MATT WHITE n.3 cad. 872,00",
+      "prices": [
+        "872,00"
+      ],
+      "refs": [
+        "DNA-CO40160",
+        "MATT",
+        "WHITE"
+      ],
+      "dimensions": [
+        "40 x 160 x 20"
+      ]
+    },
+    {
+      "line": 388,
+      "text": "Totale price / prix total 5.672,00 7.416,00",
+      "prices": [
+        "672,00",
+        "416,00"
+      ],
+      "refs": [
+        "5.672",
+        "7.416"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 389,
+      "text": "COLONNA CON ANTE REVERSIBILE E 2 RIPIANI IN VETRO",
+      "prices": [],
+      "refs": [
+        "COLONNA",
+        "ANTE",
+        "REVERSIBILE",
+        "RIPIANI",
+        "VETRO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 390,
+      "text": "Column with 1 door (r-l) and 2 glass shelves /colonne avec 1 porte DNA-CO40160 40 x 160 x 20 K AFFIR n.1 682,00",
+      "prices": [
+        "682,00"
+      ],
+      "refs": [
+        "DNA-CO40160",
+        "AFFIR"
+      ],
+      "dimensions": [
+        "40 x 160 x 20"
+      ]
+    },
+    {
+      "line": 393,
+      "text": "Totale price / prix total 3.136,00 6.434,00",
+      "prices": [
+        "136,00",
+        "434,00"
+      ],
+      "refs": [
+        "3.136",
+        "6.434"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 404,
+      "text": "FINITURA",
+      "prices": [],
+      "refs": [
+        "FINITURA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 405,
+      "text": "FINISH",
+      "prices": [],
+      "refs": [
+        "FINISH"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 419,
+      "text": "FINITURA",
+      "prices": [],
+      "refs": [
+        "FINITURA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 420,
+      "text": "FINISH",
+      "prices": [],
+      "refs": [
+        "FINISH"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 429,
+      "text": "PORTALAVABO CON 2 CASSETTI PORTALAVABO CON 2 CASSETTI VERDE OTTANIO",
+      "prices": [],
+      "refs": [
+        "PORTALAVABO",
+        "CASSETTI",
+        "PORTALAVABO",
+        "CASSETTI",
+        "VERDE",
+        "OTTANIO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 430,
+      "text": "DNA-PL7052 70 x 52 x 46 ROVERE TABACCO n.1 710,00 DNA-PL8052 80 x 52 x 46 n.1 875,00",
+      "prices": [
+        "710,00",
+        "875,00"
+      ],
+      "refs": [
+        "DNA-PL7052",
+        "ROVERE",
+        "TABACCO",
+        "DNA-PL8052"
+      ],
+      "dimensions": [
+        "70 x 52 x 46",
+        "80 x 52 x 46"
+      ]
+    },
+    {
+      "line": 431,
+      "text": "Wash basin unit with 2 drawers / meuble sous vasque avec 2 tiroirs Wash basin unit with 2 drawers / meuble sous vasque avec 2 tiroirs OPACO",
+      "prices": [],
+      "refs": [
+        "OPACO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 432,
+      "text": "BASE CON 1 CASSETTO BASE CON 2 CASSETTI VERDE OTTANIO",
+      "prices": [],
+      "refs": [
+        "BASE",
+        "CASSETTO",
+        "BASE",
+        "CASSETTI",
+        "VERDE",
+        "OTTANIO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 433,
+      "text": "DNA-BA7026 70 x 26 x 46 ROVERE TABACCO n.1 418,00 DNA-BA4052 40 x 52 x 46 n.1 766,00",
+      "prices": [
+        "418,00",
+        "766,00"
+      ],
+      "refs": [
+        "DNA-BA7026",
+        "ROVERE",
+        "TABACCO",
+        "DNA-BA4052"
+      ],
+      "dimensions": [
+        "70 x 26 x 46",
+        "40 x 52 x 46"
+      ]
+    },
+    {
+      "line": 434,
+      "text": "Base unit with 1 drawer / element avec 1 tiroir Base unit with 2 drawers / element avec 2 tiroirs OPACO",
+      "prices": [],
+      "refs": [
+        "OPACO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 435,
+      "text": "TOP HPL TOP IN GEACRIL BIANCO OPACO",
+      "prices": [],
+      "refs": [
+        "GEACRIL",
+        "BIANCO",
+        "OPACO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 436,
+      "text": "THPL1 141 x 1 x 46,5 MAILAND n.1 827,67 Geacril top / plan en Geacril TPGEACRIL1 121 x 1,2 x 46,5 MATT WHITE n.1 560,23",
+      "prices": [
+        "827,67",
+        "560,23"
+      ],
+      "refs": [
+        "THPL1",
+        "MAILAND",
+        "TPGEACRIL1",
+        "MATT",
+        "WHITE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 437,
+      "text": "Top IN Hpl / Plan en Hpl",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 439,
+      "text": "VASCA IN HPL",
+      "prices": [],
+      "refs": [
+        "VASCA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 440,
+      "text": "VASCA A50 50 x 30 MAILAND n.1 1.059,00 LAVABO SQUARE",
+      "prices": [
+        "059,00"
+      ],
+      "refs": [
+        "VASCA",
+        "MAILAND",
+        "1.059",
+        "LAVABO",
+        "SQUARE"
+      ],
+      "dimensions": [
+        "50 x 30"
+      ]
+    },
+    {
+      "line": 441,
+      "text": "Basin in Hpl / Vasque en Hpl B571 52,5 x 14 x 29,5 VERDE OTTANIO n.1 970,00",
+      "prices": [
+        "970,00"
+      ],
+      "refs": [
+        "B571",
+        "VERDE",
+        "OTTANIO"
+      ],
+      "dimensions": [
+        "52,5 x 14 x 29,5"
+      ]
+    },
+    {
+      "line": 442,
+      "text": "Square Washbasin / Lavabo Square",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 443,
+      "text": "SPECCHIO LINE LED",
+      "prices": [],
+      "refs": [
+        "SPECCHIO",
+        "LINE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 444,
+      "text": "SFI14070 140 x 70 / n.1 332,00 SPECCHIO FILO LUCIDO",
+      "prices": [
+        "332,00"
+      ],
+      "refs": [
+        "SFI14070",
+        "SPECCHIO",
+        "FILO",
+        "LUCIDO"
+      ],
+      "dimensions": [
+        "140 x 70"
+      ]
+    },
+    {
+      "line": 445,
+      "text": "LED Lighting / Eclairage LED SF12070 120 x 68 / n.1 164,00",
+      "prices": [
+        "164,00"
+      ],
+      "refs": [
+        "SF12070"
+      ],
+      "dimensions": [
+        "120 x 68"
+      ]
+    },
+    {
+      "line": 446,
+      "text": "Simple mirror / miroir simple",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 448,
+      "text": "SIDE BAR 40 x 5 x 2,5 MATT BL ACK n.1 115,00 LAMPADA LED “PLEXY VERTICAL” ALLUMINIO",
+      "prices": [
+        "115,00"
+      ],
+      "refs": [
+        "SIDE",
+        "MATT",
+        "LAMPADA",
+        "PLEXY",
+        "VERTICAL",
+        "ALLUMINIO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 449,
+      "text": "Towel bar / Barre porte-serviettes PLEXY 30 n.1 108,00",
+      "prices": [
+        "108,00"
+      ],
+      "refs": [
+        "PLEXY"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 450,
+      "text": "NOIR MAT Led Lamp / lampe Led CROMATO",
+      "prices": [],
+      "refs": [
+        "NOIR",
+        "CROMATO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 451,
+      "text": "COLONNA CON ANTE REVERSIBILE E 2 RIPIANI IN VETRO BIANCO OPACO COLONNA CON ANTE REVERSIBILE E 2 RIPIANI IN VETRO BIANCO OPACO",
+      "prices": [],
+      "refs": [
+        "COLONNA",
+        "ANTE",
+        "REVERSIBILE",
+        "RIPIANI",
+        "VETRO",
+        "BIANCO",
+        "OPACO",
+        "COLONNA",
+        "ANTE",
+        "REVERSIBILE",
+        "RIPIANI",
+        "VETRO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 452,
+      "text": "Column with 1 door (r-l) and 2 glass shelves /colonne avec 1 porte DNA-CO40160 40 x 160 x 20 MATT WHITE n.3 cad. 872,00 Column with 1 door (r-l) and 2 glass shelves /colonne avec 1 porte DNA-CO40160 40 x 160 x 20 MATT WHITE n.2 cad. 872,00",
+      "prices": [
+        "872,00",
+        "872,00"
+      ],
+      "refs": [
+        "DNA-CO40160",
+        "MATT",
+        "WHITE",
+        "DNA-CO40160",
+        "MATT",
+        "WHITE"
+      ],
+      "dimensions": [
+        "40 x 160 x 20",
+        "40 x 160 x 20"
+      ]
+    },
+    {
+      "line": 455,
+      "text": "Totale price / prix total 3.461,67 6.077,67 Totale price / prix total 3.443,23 5.187,23",
+      "prices": [
+        "461,67",
+        "077,67",
+        "443,23",
+        "187,23"
+      ],
+      "refs": [
+        "3.461",
+        "6.077",
+        "3.443",
+        "5.187"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 462,
+      "text": "FINITURA",
+      "prices": [],
+      "refs": [
+        "FINITURA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 463,
+      "text": "FINISH",
+      "prices": [],
+      "refs": [
+        "FINISH"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 477,
+      "text": "FINITURA",
+      "prices": [],
+      "refs": [
+        "FINITURA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 478,
+      "text": "FINISH",
+      "prices": [],
+      "refs": [
+        "FINISH"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 487,
+      "text": "BASE CON 1 CASSETTIO BASE CON 1 CASSETTIO",
+      "prices": [],
+      "refs": [
+        "BASE",
+        "CASSETTIO",
+        "BASE",
+        "CASSETTIO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 488,
+      "text": "DNA-BA12026 120 x 26 x 46 MASTICE n.1 572,00 DNA-BA7026 70 x 26 x 46 ROVERE TABOCCO n.2 cad. 418,00",
+      "prices": [
+        "572,00",
+        "418,00"
+      ],
+      "refs": [
+        "DNA-BA12026",
+        "MASTICE",
+        "DNA-BA7026",
+        "ROVERE",
+        "TABOCCO"
+      ],
+      "dimensions": [
+        "120 x 26 x 46",
+        "70 x 26 x 46"
+      ]
+    },
+    {
+      "line": 489,
+      "text": "Base unit with 1 drawer / element avec 1 tiroir Base unit with 1 drawer / element avec 1 tiroir",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 490,
+      "text": "TOP DI COPERTURA TOP DI COPERTURA",
+      "prices": [],
+      "refs": [
+        "COPERTURA",
+        "COPERTURA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 491,
+      "text": "TPC120 121,5 x 1,9 x 46,5 MASTICE n.1 255,00 TPC140 140,5 x 1,8 x 46,5 ROVERE TABACCO n.1 161,00",
+      "prices": [
+        "255,00",
+        "161,00"
+      ],
+      "refs": [
+        "TPC120",
+        "MASTICE",
+        "TPC140",
+        "ROVERE",
+        "TABACCO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 492,
+      "text": "Finishing top / plan de finition Finishing top / plan de finition",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 493,
+      "text": "TOP SCATOLATO IN GRES TOP SCATOLATO IN OCRITECH BIANCO OPACO",
+      "prices": [],
+      "refs": [
+        "SCATOLATO",
+        "GRES",
+        "SCATOLATO",
+        "OCRITECH",
+        "BIANCO",
+        "OPACO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 494,
+      "text": "TGRS14 140 x 14 x 50 TRAVERTINO n.1 2.030,00 TOS140 141 x 12 x 46,5 MATT WHITE n.1 1.162,00",
+      "prices": [
+        "030,00",
+        "162,00"
+      ],
+      "refs": [
+        "TGRS14",
+        "TRAVERTINO",
+        "2.030",
+        "TOS140",
+        "MATT",
+        "WHITE",
+        "1.162"
+      ],
+      "dimensions": [
+        "140 x 14 x 50",
+        "141 x 12 x 46,5"
+      ]
+    },
+    {
+      "line": 495,
+      "text": "Boxed top in Gres / Plan de travail caisson en Gres Boxed top in Ocritech / Plan de travail caisson en Ocritech BL ANC MAT",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 496,
+      "text": "VASCA IN GRES TWO SPACE",
+      "prices": [],
+      "refs": [
+        "VASCA",
+        "GRES",
+        "SPACE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 497,
+      "text": "TWS110 110 x 30 TRAVERTINO n.1 3.300,00 LAVABO ECLISSE QUADRA",
+      "prices": [
+        "300,00"
+      ],
+      "refs": [
+        "TWS110",
+        "TRAVERTINO",
+        "3.300",
+        "LAVABO",
+        "ECLISSE",
+        "QUADRA"
+      ],
+      "dimensions": [
+        "110 x 30"
+      ]
+    },
+    {
+      "line": 498,
+      "text": "Basin in Gres Two Space / Vasque en Gres Two Space ECLISSE114 / S 54 x 12 x 34 BRONZO n.1 540,00",
+      "prices": [
+        "540,00"
+      ],
+      "refs": [
+        "ECLISSE114",
+        "BRONZO"
+      ],
+      "dimensions": [
+        "54 x 12 x 34"
+      ]
+    },
+    {
+      "line": 499,
+      "text": "Eclisse Quadra Washbasin / Lavabo Eclisse Quadra",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 500,
+      "text": "SPECCHIO GLOW",
+      "prices": [],
+      "refs": [
+        "SPECCHIO",
+        "GLOW"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 501,
+      "text": "GLOW140 140 x 70 x 4 / n.1 683,00 SPECCHIO MAKE UP ROUNDLED",
+      "prices": [
+        "683,00"
+      ],
+      "refs": [
+        "GLOW140",
+        "SPECCHIO",
+        "MAKE",
+        "ROUNDLED"
+      ],
+      "dimensions": [
+        "140 x 70"
+      ]
+    },
+    {
+      "line": 502,
+      "text": "Glow mirror / Miroir Glow MAKE UP ROUND Ø 80 / n.1 675,00",
+      "prices": [
+        "675,00"
+      ],
+      "refs": [
+        "MAKE",
+        "ROUND"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 503,
+      "text": "Led Mirror Make Up Round / Miroir Make Up Round Led",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 505,
+      "text": "Totale price / prix total 6.840,00 COLONNA CON ANTE REVERSIBILE E 2 RIPIANI IN VETRO",
+      "prices": [
+        "840,00"
+      ],
+      "refs": [
+        "6.840",
+        "COLONNA",
+        "ANTE",
+        "REVERSIBILE",
+        "RIPIANI",
+        "VETRO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 507,
+      "text": "Column with 1 door (r-l) and 2 glass shelves /colonne avec 1 porte DNA-CO40160 40 x 160 x 20 n.4 3.108,00",
+      "prices": [
+        "108,00"
+      ],
+      "refs": [
+        "DNA-CO40160",
+        "3.108"
+      ],
+      "dimensions": [
+        "40 x 160 x 20"
+      ]
+    },
+    {
+      "line": 511,
+      "text": "Totale price / prix total 3.374,00 6.482,00",
+      "prices": [
+        "374,00",
+        "482,00"
+      ],
+      "refs": [
+        "3.374",
+        "6.482"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 522,
+      "text": "FINITURA",
+      "prices": [],
+      "refs": [
+        "FINITURA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 523,
+      "text": "FINISH",
+      "prices": [],
+      "refs": [
+        "FINISH"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 537,
+      "text": "FINITURA",
+      "prices": [],
+      "refs": [
+        "FINITURA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 538,
+      "text": "FINISH",
+      "prices": [],
+      "refs": [
+        "FINISH"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 547,
+      "text": "PORTALAVABO CON 2 CASSETTI BASE CON 1 CASSETTIO",
+      "prices": [],
+      "refs": [
+        "PORTALAVABO",
+        "CASSETTI",
+        "BASE",
+        "CASSETTIO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 548,
+      "text": "DNA-PL10052 100 x 52 x 46 ROVERE AVENA n.1 765,00 DNA-BA10026 100 x 26 x 46 MUSTARD n.1 556,00",
+      "prices": [
+        "765,00",
+        "556,00"
+      ],
+      "refs": [
+        "DNA-PL10052",
+        "ROVERE",
+        "AVENA",
+        "DNA-BA10026",
+        "MUSTARD"
+      ],
+      "dimensions": [
+        "100 x 52 x 46",
+        "100 x 26 x 46"
+      ]
+    },
+    {
+      "line": 549,
+      "text": "Wash basin unit with 2 drawers / meuble sous vasque avec 2 tiroirs Base unit with 1 drawer / element avec 1 tiroir",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 550,
+      "text": "BASE CON 2 CASSETTI BASE CON 1 CASSETTIO",
+      "prices": [],
+      "refs": [
+        "BASE",
+        "CASSETTI",
+        "BASE",
+        "CASSETTIO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 551,
+      "text": "DNA-BA4052 40 x 52 x 46 DUNE K AFFIR n.1 629,00 DNA-BA4026 40 x 26 x 46 MUSTARD n.1 480,00",
+      "prices": [
+        "629,00",
+        "480,00"
+      ],
+      "refs": [
+        "DNA-BA4052",
+        "DUNE",
+        "AFFIR",
+        "DNA-BA4026",
+        "MUSTARD"
+      ],
+      "dimensions": [
+        "40 x 52 x 46",
+        "40 x 26 x 46"
+      ]
+    },
+    {
+      "line": 552,
+      "text": "Base unit with 2 drawers / element avec 2 tiroirs Base unit with 1 drawer / element avec 1 tiroir",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 553,
+      "text": "TOP IN GEACRIL BIANCO OPACO TOP DI COPERTURA",
+      "prices": [],
+      "refs": [
+        "GEACRIL",
+        "BIANCO",
+        "OPACO",
+        "COPERTURA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 554,
+      "text": "TPC140 140,5 x 1,8 x 46,5 MUSTARD n.1 280,00",
+      "prices": [
+        "280,00"
+      ],
+      "refs": [
+        "TPC140",
+        "MUSTARD"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 555,
+      "text": "Geacril top / plan en Geacril TXT12 141 x 1,2 x 46,2 MATT WHITE n.1 648,20 Finishing top / plan de finition",
+      "prices": [
+        "648,20"
+      ],
+      "refs": [
+        "TXT12",
+        "MATT",
+        "WHITE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 556,
+      "text": "BL ANC MAT TOP IN HPL",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 557,
+      "text": "THPL1 140 x 12 x 46,5 KASPIO ORO n.1 1.120,00",
+      "prices": [
+        "120,00"
+      ],
+      "refs": [
+        "THPL1",
+        "KASPIO",
+        "1.120"
+      ],
+      "dimensions": [
+        "140 x 12 x 46,5"
+      ]
+    },
+    {
+      "line": 558,
+      "text": "Top IN Hpl / Plan en Hpl",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 559,
+      "text": "VASCA IN GEACRIL BIANCO OPACO",
+      "prices": [],
+      "refs": [
+        "VASCA",
+        "GEACRIL",
+        "BIANCO",
+        "OPACO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 560,
+      "text": "B574 50 x 28,5 MATT WHITE n.1 560,00 VASCA CON PILETTA CENTRALE VASCA A50 50 x 30 K ASPIO ORO n.1 1.059,00",
+      "prices": [
+        "560,00",
+        "059,00"
+      ],
+      "refs": [
+        "B574",
+        "MATT",
+        "WHITE",
+        "VASCA",
+        "PILETTA",
+        "CENTRALE",
+        "VASCA",
+        "ASPIO",
+        "1.059"
+      ],
+      "dimensions": [
+        "50 x 28,5",
+        "50 x 30"
+      ]
+    },
+    {
+      "line": 561,
+      "text": "Geacril Basin / Vasque en Geacril BL ANC MAT",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 562,
+      "text": "SPECCHIO FILO LUCIDO",
+      "prices": [],
+      "refs": [
+        "SPECCHIO",
+        "FILO",
+        "LUCIDO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 563,
+      "text": "SPECCHIO FILO LUCIDO SF10070 100 x 70 / n.1 140,00",
+      "prices": [
+        "140,00"
+      ],
+      "refs": [
+        "SPECCHIO",
+        "FILO",
+        "LUCIDO",
+        "SF10070"
+      ],
+      "dimensions": [
+        "100 x 70"
+      ]
+    },
+    {
+      "line": 564,
+      "text": "SF10070 100 x 68 / n.1 140,00 Simple mirror / miroir simple",
+      "prices": [
+        "140,00"
+      ],
+      "refs": [
+        "SF10070"
+      ],
+      "dimensions": [
+        "100 x 68"
+      ]
+    },
+    {
+      "line": 565,
+      "text": "Simple mirror / miroir simple",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 566,
+      "text": "LAMPADA “BARLED40”",
+      "prices": [],
+      "refs": [
+        "LAMPADA",
+        "BARLED40"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 567,
+      "text": "LAMPADA LED “PLEXY VERTICAL” BARLED40 40 x 4,55 x 1,5 / n.1 39,14",
+      "prices": [
+        "4,55",
+        "39,14"
+      ],
+      "refs": [
+        "LAMPADA",
+        "PLEXY",
+        "VERTICAL",
+        "BARLED40"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 568,
+      "text": "PLEXY 30 / n.1 108,00 Led Lamp / lampe Led",
+      "prices": [
+        "108,00"
+      ],
+      "refs": [
+        "PLEXY"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 569,
+      "text": "Led Lamp / lampe Led",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 571,
+      "text": "BRIDGE140 140 x 15 x 43,5 / n.1 303,00",
+      "prices": [
+        "303,00"
+      ],
+      "refs": [
+        "BRIDGE140"
+      ],
+      "dimensions": [
+        "140 x 15 x 43,5"
+      ]
+    },
+    {
+      "line": 572,
+      "text": "PENSILE CON 1 ANTA REVERSIBILE E 1 RIPIANO IN VETRO Aluminum Frame Bench / Structure en aluminium",
+      "prices": [],
+      "refs": [
+        "PENSILE",
+        "ANTA",
+        "REVERSIBILE",
+        "RIPIANO",
+        "VETRO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 573,
+      "text": "Wall unit 1door (r-l) and 1 glass shelve / armoire avec 1 porte (d-g) DNA-PA4070 40 x 70 x 22 DUNE K AFFIR n.1 398,00 PENSILE CON 1 ANTA REVERSIBILE E 1 RIPIANO IN VETRO",
+      "prices": [
+        "398,00"
+      ],
+      "refs": [
+        "DNA-PA4070",
+        "DUNE",
+        "AFFIR",
+        "PENSILE",
+        "ANTA",
+        "REVERSIBILE",
+        "RIPIANO",
+        "VETRO"
+      ],
+      "dimensions": [
+        "40 x 70 x 22"
+      ]
+    },
+    {
+      "line": 574,
+      "text": "et 1 etagere en verre Wall unit 1door (r-l) and 1 glass shelve / armoire avec 1 porte (d-g) DNA-PA4070 40 x 70 x 22 MUSTARD n.1 560,00",
+      "prices": [
+        "560,00"
+      ],
+      "refs": [
+        "DNA-PA4070",
+        "MUSTARD"
+      ],
+      "dimensions": [
+        "40 x 70 x 22"
+      ]
+    },
+    {
+      "line": 577,
+      "text": "Totale price / prix total 2850,20 3248,20 PREZZO TOTALE",
+      "prices": [
+        "2850,20",
+        "3248,20"
+      ],
+      "refs": [
+        "2850",
+        "3248",
+        "PREZZO",
+        "TOTALE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 578,
+      "text": "Totale price / prix total 3.977,14 4.537,14",
+      "prices": [
+        "977,14",
+        "537,14"
+      ],
+      "refs": [
+        "3.977",
+        "4.537"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 585,
+      "text": "FINITURA",
+      "prices": [],
+      "refs": [
+        "FINITURA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 586,
+      "text": "FINISH",
+      "prices": [],
+      "refs": [
+        "FINISH"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 600,
+      "text": "FINITURA",
+      "prices": [],
+      "refs": [
+        "FINITURA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 601,
+      "text": "FINISH",
+      "prices": [],
+      "refs": [
+        "FINISH"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 610,
+      "text": "DNA-PL12026 TOP IN GEACRIL",
+      "prices": [],
+      "refs": [
+        "DNA-PL12026",
+        "GEACRIL"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 611,
+      "text": "PORTALAVABO CON 1 CASSETTO",
+      "prices": [],
+      "refs": [
+        "PORTALAVABO",
+        "CASSETTO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 612,
+      "text": "R.CENERE 120 x 26 x 46 ROVERE CENERE n.1 507,00 Geacril top / plan en Geacril TXT12 141 x 1,2 x 46,2 MASTICE n.1 806,40",
+      "prices": [
+        "507,00",
+        "806,40"
+      ],
+      "refs": [
+        "R.CENERE",
+        "ROVERE",
+        "CENERE",
+        "TXT12",
+        "MASTICE"
+      ],
+      "dimensions": [
+        "120 x 26 x 46"
+      ]
+    },
+    {
+      "line": 613,
+      "text": "Wash basin unit with 1 drawer / meuble sous vasque avec 1 tiroir",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 614,
+      "text": "TOP IN GEACRIL VASCA IN GEACRIL",
+      "prices": [],
+      "refs": [
+        "GEACRIL",
+        "VASCA",
+        "GEACRIL"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 615,
+      "text": "TPGEACRIL1 121 x 46 x 1,2 BLU MARINO n.1 961,96 B575 50 x 31 MASTICE n.1 731,00",
+      "prices": [
+        "961,96",
+        "731,00"
+      ],
+      "refs": [
+        "TPGEACRIL1",
+        "MARINO",
+        "B575",
+        "MASTICE"
+      ],
+      "dimensions": [
+        "121 x 46",
+        "50 x 31"
+      ]
+    },
+    {
+      "line": 616,
+      "text": "Geacril top / plan en Geacril Basin / Vasque",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 617,
+      "text": "SPECCHIO OFFSET PORTALAVABO CON 2 CASSETTI",
+      "prices": [],
+      "refs": [
+        "SPECCHIO",
+        "OFFSET",
+        "PORTALAVABO",
+        "CASSETTI"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 618,
+      "text": "OFFSET80 80 x 80 / n.1 693,00 DNA-PL7052 70 x 52 x 46 ROVERE CENERE n.1 710,00",
+      "prices": [
+        "693,00",
+        "710,00"
+      ],
+      "refs": [
+        "OFFSET80",
+        "DNA-PL7052",
+        "ROVERE",
+        "CENERE"
+      ],
+      "dimensions": [
+        "80 x 80",
+        "70 x 52 x 46"
+      ]
+    },
+    {
+      "line": 619,
+      "text": "Offset Mirror / Miroir Offset Wash basin unit with 2 drawers / meuble sous vasque avec 2 tiroirs",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 620,
+      "text": "MENSOLA GEACRIL BASE CON 2 CASSETTO",
+      "prices": [],
+      "refs": [
+        "MENSOLA",
+        "GEACRIL",
+        "BASE",
+        "CASSETTO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 621,
+      "text": "TPGEACRIL7 140 x 7 x 46,5 BLU MARINO 1.470,00 DNA-BA7052 70 x 52 x 46 ROVERE CENERE n.1 679,00",
+      "prices": [
+        "470,00",
+        "679,00"
+      ],
+      "refs": [
+        "TPGEACRIL7",
+        "MARINO",
+        "1.470",
+        "DNA-BA7052",
+        "ROVERE",
+        "CENERE"
+      ],
+      "dimensions": [
+        "70 x 52 x 46"
+      ]
+    },
+    {
+      "line": 622,
+      "text": "Shelf / Etager Base unit with 2 drawer / element avec 2 tiroir",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 623,
+      "text": "COLONNA CON ANTE REVERSIBILE E 2 RIPIANI IN VETRO SPECCHIO FILO LUCIDO",
+      "prices": [],
+      "refs": [
+        "COLONNA",
+        "ANTE",
+        "REVERSIBILE",
+        "RIPIANI",
+        "VETRO",
+        "SPECCHIO",
+        "FILO",
+        "LUCIDO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 624,
+      "text": "ROVERE CENERE SF14070 140 x 70 / n.1 187,00",
+      "prices": [
+        "187,00"
+      ],
+      "refs": [
+        "ROVERE",
+        "CENERE",
+        "SF14070"
+      ],
+      "dimensions": [
+        "140 x 70"
+      ]
+    },
+    {
+      "line": 625,
+      "text": "Column with 1 door (r-l) and 2 glass shelves /colonne avec 1 porte DNA-CO40160 40 x 160 x 20 n.2 1.554,00 Simple mirror / miroir simple",
+      "prices": [
+        "554,00"
+      ],
+      "refs": [
+        "DNA-CO40160",
+        "1.554"
+      ],
+      "dimensions": [
+        "40 x 160 x 20"
+      ]
+    },
+    {
+      "line": 627,
+      "text": "(d-g) et 2 etageres en verre LAMPADA LED “SOLAR QUADRA”",
+      "prices": [],
+      "refs": [
+        "LAMPADA",
+        "SOLAR",
+        "QUADRA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 628,
+      "text": "SOLARQ 7,5 x 7,5 x 2,5 CROMO n.2 cad. 42,00",
+      "prices": [
+        "42,00"
+      ],
+      "refs": [
+        "SOLARQ",
+        "CROMO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 629,
+      "text": "Led Lamp / lampe Led",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 631,
+      "text": "Totale price / prix total 3.631,96 5.185,96",
+      "prices": [
+        "631,96",
+        "185,96"
+      ],
+      "refs": [
+        "3.631",
+        "5.185"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 632,
+      "text": "COLONNA CON ANTA REVERSIBILE E 2 RIPIANI IN VETRO",
+      "prices": [],
+      "refs": [
+        "COLONNA",
+        "ANTA",
+        "REVERSIBILE",
+        "RIPIANI",
+        "VETRO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 634,
+      "text": "Column with 1 door (r-l) and 2 glass shelves /colonne avec 1 porte CO35137 40 x 160 x 22 n.2 1.364,00",
+      "prices": [
+        "364,00"
+      ],
+      "refs": [
+        "CO35137",
+        "1.364"
+      ],
+      "dimensions": [
+        "40 x 160 x 22"
+      ]
+    },
+    {
+      "line": 638,
+      "text": "Totale price / prix total 3.197,40 4.561,40",
+      "prices": [
+        "197,40",
+        "561,40"
+      ],
+      "refs": [
+        "3.197",
+        "4.561"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 649,
+      "text": "FINITURA",
+      "prices": [],
+      "refs": [
+        "FINITURA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 650,
+      "text": "FINISH",
+      "prices": [],
+      "refs": [
+        "FINISH"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 659,
+      "text": "BASE CON12 CASSETTO",
+      "prices": [],
+      "refs": [
+        "BASE",
+        "CON12",
+        "CASSETTO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 660,
+      "text": "DNA-BA8026 80 x 26 x 46 ROVERE AVENA n.2 cad. 440,00",
+      "prices": [
+        "440,00"
+      ],
+      "refs": [
+        "DNA-BA8026",
+        "ROVERE",
+        "AVENA"
+      ],
+      "dimensions": [
+        "80 x 26 x 46"
+      ]
+    },
+    {
+      "line": 661,
+      "text": "Base unit with 1 drawer / element avec 1 tiroir",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 662,
+      "text": "TOP DI COPERTURA",
+      "prices": [],
+      "refs": [
+        "COPERTURA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 663,
+      "text": "TPC160 160,5 x 1,8 x 46,5 ROVERE AVENA n.1 173,00",
+      "prices": [
+        "173,00"
+      ],
+      "refs": [
+        "TPC160",
+        "ROVERE",
+        "AVENA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 664,
+      "text": "Finishing top / plan de finition",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 665,
+      "text": "TOP IN FENIX",
+      "prices": [],
+      "refs": [
+        "FENIX"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 666,
+      "text": "TFX14 160 x 12 x 46,5 ROSSO NAMIB n.1 1.564,80",
+      "prices": [
+        "564,80"
+      ],
+      "refs": [
+        "TFX14",
+        "ROSSO",
+        "NAMIB",
+        "1.564"
+      ],
+      "dimensions": [
+        "160 x 12 x 46,5"
+      ]
+    },
+    {
+      "line": 667,
+      "text": "Top In Fenix / Plan en Fenix",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 668,
+      "text": "SPECCHIO FILO LUCIDO ROTONDO",
+      "prices": [],
+      "refs": [
+        "SPECCHIO",
+        "FILO",
+        "LUCIDO",
+        "ROTONDO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 669,
+      "text": "SPTR80 Ø 80 / n.1 179,00",
+      "prices": [
+        "179,00"
+      ],
+      "refs": [
+        "SPTR80"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 670,
+      "text": "Round Simple mirror / miroir rond simple",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 671,
+      "text": "LAMPADA LED “MOON 80” NERO OPACO",
+      "prices": [],
+      "refs": [
+        "LAMPADA",
+        "MOON",
+        "NERO",
+        "OPACO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 672,
+      "text": "MOON80 Ø 80 MATT BL ACK n.1 126,00",
+      "prices": [
+        "126,00"
+      ],
+      "refs": [
+        "MOON80",
+        "MATT"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 673,
+      "text": "Led Lamp / Lampe Led NOIR MAT",
+      "prices": [],
+      "refs": [
+        "NOIR"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 674,
+      "text": "COLONNA CON ANTA REVERSIBILE E 2 RIPIANI IN VETRO",
+      "prices": [],
+      "refs": [
+        "COLONNA",
+        "ANTA",
+        "REVERSIBILE",
+        "RIPIANI",
+        "VETRO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 676,
+      "text": "Column with 1 door (r-l) and24 glass shelves /colonne avec 1 porte CO35137 40 x 160 x 22 n.3 2.426,00",
+      "prices": [
+        "426,00"
+      ],
+      "refs": [
+        "CO35137",
+        "2.426"
+      ],
+      "dimensions": [
+        "40 x 160 x 22"
+      ]
+    },
+    {
+      "line": 680,
+      "text": "Totale price / prix total 2.922,80 5.348,80",
+      "prices": [
+        "922,80",
+        "348,80"
+      ],
+      "refs": [
+        "2.922",
+        "5.348"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 687,
+      "text": "FINITURA",
+      "prices": [],
+      "refs": [
+        "FINITURA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 688,
+      "text": "FINISH",
+      "prices": [],
+      "refs": [
+        "FINISH"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 697,
+      "text": "PORTALAVABO CON 2 CASSETTI",
+      "prices": [],
+      "refs": [
+        "PORTALAVABO",
+        "CASSETTI"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 698,
+      "text": "DNA-PL12052 120 x 52 x 46 MASTICE n.1 956,00",
+      "prices": [
+        "956,00"
+      ],
+      "refs": [
+        "DNA-PL12052",
+        "MASTICE"
+      ],
+      "dimensions": [
+        "120 x 52 x 46"
+      ]
+    },
+    {
+      "line": 699,
+      "text": "Wash basin unit with 2 drawers / meuble sous vasque avec 2 tiroirs",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 700,
+      "text": "VASCA IN GEACRIL BIANCO OPACO",
+      "prices": [],
+      "refs": [
+        "VASCA",
+        "GEACRIL",
+        "BIANCO",
+        "OPACO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 701,
+      "text": "B938 58 x 28 MATT WHITE n.1 560,00",
+      "prices": [
+        "560,00"
+      ],
+      "refs": [
+        "B938",
+        "MATT",
+        "WHITE"
+      ],
+      "dimensions": [
+        "58 x 28"
+      ]
+    },
+    {
+      "line": 702,
+      "text": "Geacril Basin / Vasque en Geacril BL ANC MAT",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 703,
+      "text": "TOP IN GEACRIL BIANCO OPACO",
+      "prices": [],
+      "refs": [
+        "GEACRIL",
+        "BIANCO",
+        "OPACO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 704,
+      "text": "TPGEACRIL1 121 x 46 x 1,2 MATT WHITE n.1 560,23",
+      "prices": [
+        "560,23"
+      ],
+      "refs": [
+        "TPGEACRIL1",
+        "MATT",
+        "WHITE"
+      ],
+      "dimensions": [
+        "121 x 46"
+      ]
+    },
+    {
+      "line": 705,
+      "text": "Geacril top / plan en Geacril BL ANC MAT",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 706,
+      "text": "SPECCHIO CON TELAIO SATINATO",
+      "prices": [],
+      "refs": [
+        "SPECCHIO",
+        "TELAIO",
+        "SATINATO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 707,
+      "text": "SFT12070 120 x 70 / n.1 173,00",
+      "prices": [
+        "173,00"
+      ],
+      "refs": [
+        "SFT12070"
+      ],
+      "dimensions": [
+        "120 x 70"
+      ]
+    },
+    {
+      "line": 708,
+      "text": "Satin Frame Mirror/ Miroir cadre satiné",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 709,
+      "text": "LAMPADA “BARLED120”",
+      "prices": [],
+      "refs": [
+        "LAMPADA",
+        "BARLED120"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 710,
+      "text": "BARLED120 120 x 1 x 5 / n.1 200,00",
+      "prices": [
+        "200,00"
+      ],
+      "refs": [
+        "BARLED120"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 711,
+      "text": "Led Lamp / lampe Led",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 713,
+      "text": "SIDEBAR 50 x 20 x 40 MASTICE n.1 190,00",
+      "prices": [
+        "190,00"
+      ],
+      "refs": [
+        "SIDEBAR",
+        "MASTICE"
+      ],
+      "dimensions": [
+        "50 x 20 x 40"
+      ]
+    },
+    {
+      "line": 715,
+      "text": "COLONNA CON ANTA REVERSIBILE E 2 RIPIANI IN VETRO",
+      "prices": [],
+      "refs": [
+        "COLONNA",
+        "ANTA",
+        "REVERSIBILE",
+        "RIPIANI",
+        "VETRO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 717,
+      "text": "Column with 1 door (r-l) and24 glass shelves /colonne avec 1 porte CO35137 40 x 160 x 22 n.3 2.616,00",
+      "prices": [
+        "616,00"
+      ],
+      "refs": [
+        "CO35137",
+        "2.616"
+      ],
+      "dimensions": [
+        "40 x 160 x 22"
+      ]
+    },
+    {
+      "line": 721,
+      "text": "Totale price / prix total 2.079,23 4.695,23",
+      "prices": [
+        "079,23",
+        "695,23"
+      ],
+      "refs": [
+        "2.079",
+        "4.695"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 729,
+      "text": "FINITURA",
+      "prices": [],
+      "refs": [
+        "FINITURA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 730,
+      "text": "FINISH",
+      "prices": [],
+      "refs": [
+        "FINISH"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 738,
+      "text": "FINITURA",
+      "prices": [],
+      "refs": [
+        "FINITURA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 739,
+      "text": "FINISH",
+      "prices": [],
+      "refs": [
+        "FINISH"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 745,
+      "text": "120 x 52 x 46,5 Laccato Rosa Antico Opaco 2.053,00 140 x 52 x 46,5 Dune Curry 3.657,20",
+      "prices": [
+        "053,00",
+        "657,20"
+      ],
+      "refs": [
+        "2.053",
+        "3.657"
+      ],
+      "dimensions": [
+        "120 x 52 x 46,5",
+        "140 x 52 x 46,5"
+      ]
+    },
+    {
+      "line": 751,
+      "text": "FINITURA",
+      "prices": [],
+      "refs": [
+        "FINITURA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 752,
+      "text": "FINISH",
+      "prices": [],
+      "refs": [
+        "FINISH"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 760,
+      "text": "FINITURA",
+      "prices": [],
+      "refs": [
+        "FINITURA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 761,
+      "text": "FINISH",
+      "prices": [],
+      "refs": [
+        "FINISH"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 767,
+      "text": "160 x 52 x 46,5 Laccato Grigio Ferro Opaco 8.243,60 140 x 52 x 46,5 Laccato Mustard Opaco 3.715,20",
+      "prices": [
+        "243,60",
+        "715,20"
+      ],
+      "refs": [
+        "8.243",
+        "3.715"
+      ],
+      "dimensions": [
+        "160 x 52 x 46,5",
+        "140 x 52 x 46,5"
+      ]
+    },
+    {
+      "line": 775,
+      "text": "FINITURA",
+      "prices": [],
+      "refs": [
+        "FINITURA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 776,
+      "text": "FINISH",
+      "prices": [],
+      "refs": [
+        "FINISH"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 784,
+      "text": "FINITURA",
+      "prices": [],
+      "refs": [
+        "FINITURA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 785,
+      "text": "FINISH",
+      "prices": [],
+      "refs": [
+        "FINISH"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 791,
+      "text": "60 x 52 x 46,5 Legno Rovere Sabbia 3.316,69 120 x 52 x 46,5 Legno Rovere Avena 2.096,00",
+      "prices": [
+        "316,69",
+        "096,00"
+      ],
+      "refs": [
+        "3.316",
+        "2.096"
+      ],
+      "dimensions": [
+        "60 x 52 x 46,5",
+        "120 x 52 x 46,5"
+      ]
+    },
+    {
+      "line": 797,
+      "text": "FINITURA",
+      "prices": [],
+      "refs": [
+        "FINITURA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 798,
+      "text": "FINISH",
+      "prices": [],
+      "refs": [
+        "FINISH"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 804,
+      "text": "140 x 12 x 46,5 Statuario Altissimo Opaco 5.553,00",
+      "prices": [
+        "553,00"
+      ],
+      "refs": [
+        "5.553"
+      ],
+      "dimensions": [
+        "140 x 12 x 46,5"
+      ]
+    },
+    {
+      "line": 815,
+      "text": "FINITURA",
+      "prices": [],
+      "refs": [
+        "FINITURA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 816,
+      "text": "FINISH",
+      "prices": [],
+      "refs": [
+        "FINISH"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 824,
+      "text": "FINITURA",
+      "prices": [],
+      "refs": [
+        "FINITURA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 825,
+      "text": "FINISH",
+      "prices": [],
+      "refs": [
+        "FINISH"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 831,
+      "text": "60 x 52 x 46,5 DUNE PAPRIKA 1.023,00 100 x 52 x 46,5 LEGNO ROVERE SABBIA 2.082,00",
+      "prices": [
+        "023,00",
+        "082,00"
+      ],
+      "refs": [
+        "DUNE",
+        "PAPRIKA",
+        "1.023",
+        "LEGNO",
+        "ROVERE",
+        "SABBIA",
+        "2.082"
+      ],
+      "dimensions": [
+        "60 x 52 x 46,5",
+        "100 x 52 x 46,5"
+      ]
+    },
+    {
+      "line": 837,
+      "text": "FINITURA",
+      "prices": [],
+      "refs": [
+        "FINITURA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 838,
+      "text": "FINISH",
+      "prices": [],
+      "refs": [
+        "FINISH"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 844,
+      "text": "70 x 52 x 46,5 LACCATO ARGILLA OPACO 1.751,11",
+      "prices": [
+        "751,11"
+      ],
+      "refs": [
+        "LACCATO",
+        "ARGILLA",
+        "OPACO",
+        "1.751"
+      ],
+      "dimensions": [
+        "70 x 52 x 46,5"
+      ]
+    },
+    {
+      "line": 850,
+      "text": "FINITURA",
+      "prices": [],
+      "refs": [
+        "FINITURA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 851,
+      "text": "FINISH",
+      "prices": [],
+      "refs": [
+        "FINISH"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 857,
+      "text": "80 x 52 x 46,5 DUNE KAFFIR 1.861,00",
+      "prices": [
+        "861,00"
+      ],
+      "refs": [
+        "DUNE",
+        "KAFFIR",
+        "1.861"
+      ],
+      "dimensions": [
+        "80 x 52 x 46,5"
+      ]
+    },
+    {
+      "line": 862,
+      "text": "FINITURA",
+      "prices": [],
+      "refs": [
+        "FINITURA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 863,
+      "text": "FINISH",
+      "prices": [],
+      "refs": [
+        "FINISH"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 869,
+      "text": "90 x 52 x 46,5 LACCATO GRIGIO FERRO OPACO 1.908,10",
+      "prices": [
+        "908,10"
+      ],
+      "refs": [
+        "LACCATO",
+        "GRIGIO",
+        "FERRO",
+        "OPACO",
+        "1.908"
+      ],
+      "dimensions": [
+        "90 x 52 x 46,5"
+      ]
+    },
+    {
+      "line": 873,
+      "text": "DNA / Collection / Portalavabi DNA / Collection / Basi",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 875,
+      "text": "PORTALAVABO CON 1 CASSETTO CODICE DIMENSIONI DUNE LEGNO LACCATO LACCATO BASE CON 1 CASSETTO CODICE DIMENSIONI DUNE LEGNO LACCATO LACCATO",
+      "prices": [],
+      "refs": [
+        "PORTALAVABO",
+        "CASSETTO",
+        "CODICE",
+        "DIMENSIONI",
+        "DUNE",
+        "LEGNO",
+        "LACCATO",
+        "LACCATO",
+        "BASE",
+        "CASSETTO",
+        "CODICE",
+        "DIMENSIONI"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 876,
+      "text": "Wash basin unit with 1 drawer / Meuble sous CODE / DIMENSION / WOOD / OPACO LUCIDO Basin unit with 1 drawer / Meuble bas CODE / DIMENSION / WOOD / OPACO LUCIDO",
+      "prices": [],
+      "refs": [
+        "CODE",
+        "DIMENSION",
+        "WOOD",
+        "OPACO",
+        "LUCIDO",
+        "CODE",
+        "DIMENSION",
+        "WOOD",
+        "OPACO",
+        "LUCIDO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 879,
+      "text": "H.26 - P.46 DNA-PL6026 60 447,00 537,00 612,00 H.26 - P.46 DNA-BA4026 40 377,00 480,00 558,00",
+      "prices": [
+        "447,00",
+        "537,00",
+        "612,00",
+        "377,00",
+        "480,00",
+        "558,00"
+      ],
+      "refs": [
+        "H.26",
+        "P.46",
+        "DNA-PL6026",
+        "H.26",
+        "P.46",
+        "DNA-BA4026"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 880,
+      "text": "DNA-PL7026 70 462,00 544,00 621,00 DNA-BA6026 60 404,00 505,00 582,00",
+      "prices": [
+        "462,00",
+        "544,00",
+        "621,00",
+        "404,00",
+        "505,00",
+        "582,00"
+      ],
+      "refs": [
+        "DNA-PL7026",
+        "DNA-BA6026"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 881,
+      "text": "DNA-PL8026 80 475,00 558,00 633,00 DNA-BA7026 70 418,00 518,00 597,00",
+      "prices": [
+        "475,00",
+        "558,00",
+        "633,00",
+        "418,00",
+        "518,00",
+        "597,00"
+      ],
+      "refs": [
+        "DNA-PL8026",
+        "DNA-BA7026"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 882,
+      "text": "DNA-PL9026 90 488,00 572,00 656,00 DNA-BA8026 80 440,00 529,00 612,00",
+      "prices": [
+        "488,00",
+        "572,00",
+        "656,00",
+        "440,00",
+        "529,00",
+        "612,00"
+      ],
+      "refs": [
+        "DNA-PL9026",
+        "DNA-BA8026"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 883,
+      "text": "DNA-PL10026 100 507,00 587,00 662,00 DNA-BA9026 90 462,00 540,00 629,00",
+      "prices": [
+        "507,00",
+        "587,00",
+        "662,00",
+        "462,00",
+        "540,00",
+        "629,00"
+      ],
+      "refs": [
+        "DNA-PL10026",
+        "DNA-BA9026"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 884,
+      "text": "DNA-PL12026 120 535,00 598,00 680,00 DNA-BA10026 100 478,00 556,00 640,00",
+      "prices": [
+        "535,00",
+        "598,00",
+        "680,00",
+        "478,00",
+        "556,00",
+        "640,00"
+      ],
+      "refs": [
+        "DNA-PL12026",
+        "DNA-BA10026"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 885,
+      "text": "DNA-PL12026DV 120DV 564,00 624,00 708,00 DNA-BA12026 120 498,00 572,00 656,00",
+      "prices": [
+        "564,00",
+        "624,00",
+        "708,00",
+        "498,00",
+        "572,00",
+        "656,00"
+      ],
+      "refs": [
+        "DNA-PL12026DV",
+        "120DV",
+        "DNA-BA12026"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 886,
+      "text": "PORTALAVABO CON 2 CASSETTI CODICE DIMENSIONI DUNE LEGNO LACCATO LACCATO BASE CON 2 CASSETTI CODICE DIMENSIONI DUNE LEGNO LACCATO LACCATO",
+      "prices": [],
+      "refs": [
+        "PORTALAVABO",
+        "CASSETTI",
+        "CODICE",
+        "DIMENSIONI",
+        "DUNE",
+        "LEGNO",
+        "LACCATO",
+        "LACCATO",
+        "BASE",
+        "CASSETTI",
+        "CODICE",
+        "DIMENSIONI"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 887,
+      "text": "Wash basin unit with 1 drawer / Meuble sous CODE / DIMENSION / WOOD / OPACO LUCIDO Basin unit with 2 drawers / Meuble bas CODE / DIMENSION / WOOD / OPACO LUCIDO",
+      "prices": [],
+      "refs": [
+        "CODE",
+        "DIMENSION",
+        "WOOD",
+        "OPACO",
+        "LUCIDO",
+        "CODE",
+        "DIMENSION",
+        "WOOD",
+        "OPACO",
+        "LUCIDO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 890,
+      "text": "H.52 - P.46 DNA-PL6052 60 689,00 836,00 942,00 H.52 - P.46 DNA-BA4052 40 629,00 766,00 879,00",
+      "prices": [
+        "689,00",
+        "836,00",
+        "942,00",
+        "629,00",
+        "766,00",
+        "879,00"
+      ],
+      "refs": [
+        "H.52",
+        "P.46",
+        "DNA-PL6052",
+        "H.52",
+        "P.46",
+        "DNA-BA4052"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 891,
+      "text": "DNA-PL7052 70 710,00 855,00 958,00 DNA-BA6052 60 666,00 808,00 923,00",
+      "prices": [
+        "710,00",
+        "855,00",
+        "958,00",
+        "666,00",
+        "808,00",
+        "923,00"
+      ],
+      "refs": [
+        "DNA-PL7052",
+        "DNA-BA6052"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 892,
+      "text": "DNA-PL8052 80 729,00 875,00 981,00 DNA-BA7052 70 679,00 825,00 940,00",
+      "prices": [
+        "729,00",
+        "875,00",
+        "981,00",
+        "679,00",
+        "825,00",
+        "940,00"
+      ],
+      "refs": [
+        "DNA-PL8052",
+        "DNA-BA7052"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 893,
+      "text": "DNA-PL9052 90 750,00 894,00 1.023,00 DNA-BA8052 80 704,00 846,00 969,00",
+      "prices": [
+        "750,00",
+        "894,00",
+        "023,00",
+        "704,00",
+        "846,00",
+        "969,00"
+      ],
+      "refs": [
+        "DNA-PL9052",
+        "1.023",
+        "DNA-BA8052"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 894,
+      "text": "DNA-PL10052 100 765,00 915,00 1.043,00 DNA-BA9052 90 728,00 870,00 993,00",
+      "prices": [
+        "765,00",
+        "915,00",
+        "043,00",
+        "728,00",
+        "870,00",
+        "993,00"
+      ],
+      "refs": [
+        "DNA-PL10052",
+        "1.043",
+        "DNA-BA9052"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 895,
+      "text": "DNA-PL12052 120 798,00 956,00 1.074,00 DNA-BA10052 100 740,00 889,00 1.011,00",
+      "prices": [
+        "798,00",
+        "956,00",
+        "074,00",
+        "740,00",
+        "889,00",
+        "011,00"
+      ],
+      "refs": [
+        "DNA-PL12052",
+        "1.074",
+        "DNA-BA10052",
+        "1.011"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 896,
+      "text": "DNA-PL12052DV 120DV 830,00 980,00 1.103,00 DNA-BA12052 120 766,00 921,00 1.038,00",
+      "prices": [
+        "830,00",
+        "980,00",
+        "103,00",
+        "766,00",
+        "921,00",
+        "038,00"
+      ],
+      "refs": [
+        "DNA-PL12052DV",
+        "120DV",
+        "1.103",
+        "DNA-BA12052",
+        "1.038"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 897,
+      "text": "BASE CON ANTA CODICE DIMENSIONI DUNE LEGNO LACCATO LACCATO",
+      "prices": [],
+      "refs": [
+        "BASE",
+        "ANTA",
+        "CODICE",
+        "DIMENSIONI",
+        "DUNE",
+        "LEGNO",
+        "LACCATO",
+        "LACCATO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 901,
+      "text": "H.52 - P.46 DNA-BA4052ANT 40 362,00 440,00 530,00",
+      "prices": [
+        "362,00",
+        "440,00",
+        "530,00"
+      ],
+      "refs": [
+        "H.52",
+        "P.46",
+        "DNA-BA4052ANT"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 902,
+      "text": "MAGGIORAZIONE DEL 20% PER TUTTI I COLORI RAL",
+      "prices": [],
+      "refs": [
+        "MAGGIORAZIONE",
+        "TUTTI",
+        "COLORI"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 903,
+      "text": "ADDITIONAL 20% FOR ALL RAL COLORS / SUPPLÉMENT DE 20 % POUR TOUTES LES COULEURS RAL",
+      "prices": [],
+      "refs": [
+        "ADDITIONAL",
+        "COLORS",
+        "POUR",
+        "TOUTES",
+        "COULEURS"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 907,
+      "text": "PENSILE CON 1 ANTA E 1 RIPIANO IN VETRO CODICE DIMENSIONI DUNE LEGNO LACCATO LACCATO TOP DI COPERTURA CODICE DIMENSIONI DUNE LEGNO LACCATO LACCATO",
+      "prices": [],
+      "refs": [
+        "PENSILE",
+        "ANTA",
+        "RIPIANO",
+        "VETRO",
+        "CODICE",
+        "DIMENSIONI",
+        "DUNE",
+        "LEGNO",
+        "LACCATO",
+        "LACCATO",
+        "COPERTURA",
+        "CODICE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 908,
+      "text": "Wall unit 1door and 1 glass shelve / CODE / DIMENSION / WOOD / OPACO LUCIDO Finishing top / Plan de finition CODE / DIMENSION / WOOD / OPACO LUCIDO",
+      "prices": [],
+      "refs": [
+        "CODE",
+        "DIMENSION",
+        "WOOD",
+        "OPACO",
+        "LUCIDO",
+        "CODE",
+        "DIMENSION",
+        "WOOD",
+        "OPACO",
+        "LUCIDO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 911,
+      "text": "H.70 DNA-PA4070 40 x 70 x 22 398,00 560,00 650,00 H.1,8 TPC60 60,5 x 1,8 x 46,5 96,00 168,00 201,00",
+      "prices": [
+        "398,00",
+        "560,00",
+        "650,00",
+        "96,00",
+        "168,00",
+        "201,00"
+      ],
+      "refs": [
+        "H.70",
+        "DNA-PA4070",
+        "TPC60"
+      ],
+      "dimensions": [
+        "40 x 70 x 22"
+      ]
+    },
+    {
+      "line": 912,
+      "text": "TPC70 70 ,5 x 1,8 x 46,5 107,00 186,00 216,00",
+      "prices": [
+        "107,00",
+        "186,00",
+        "216,00"
+      ],
+      "refs": [
+        "TPC70"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 913,
+      "text": "TPC80 80,5 x 1,8 x 46,5 119,00 197,00 231,00",
+      "prices": [
+        "119,00",
+        "197,00",
+        "231,00"
+      ],
+      "refs": [
+        "TPC80"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 914,
+      "text": "TPC90 90,5 x 1,8 x 46,5 127,00 210,00 245,00",
+      "prices": [
+        "127,00",
+        "210,00",
+        "245,00"
+      ],
+      "refs": [
+        "TPC90"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 915,
+      "text": "TPC100 100,5 x 1,8 x 46,5 136,00 227,00 263,00",
+      "prices": [
+        "136,00",
+        "227,00",
+        "263,00"
+      ],
+      "refs": [
+        "TPC100"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 916,
+      "text": "TPC120 120,5 x 1,8 x 46,5 148,00 255,00 289,00",
+      "prices": [
+        "148,00",
+        "255,00",
+        "289,00"
+      ],
+      "refs": [
+        "TPC120"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 917,
+      "text": "TPC140 140,5 x 1,8 x 46,5 161,00 280,00 314,00",
+      "prices": [
+        "161,00",
+        "280,00",
+        "314,00"
+      ],
+      "refs": [
+        "TPC140"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 918,
+      "text": "TPC160 160,5 x 1,8 x 46,5 173,00 318,00 341,00",
+      "prices": [
+        "173,00",
+        "318,00",
+        "341,00"
+      ],
+      "refs": [
+        "TPC160"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 919,
+      "text": "COLONNA CON ANTE REVERSIBILI CODICE DIMENSIONI DUNE LEGNO LACCATO LACCATO",
+      "prices": [],
+      "refs": [
+        "COLONNA",
+        "ANTE",
+        "REVERSIBILI",
+        "CODICE",
+        "DIMENSIONI",
+        "DUNE",
+        "LEGNO",
+        "LACCATO",
+        "LACCATO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 920,
+      "text": "E 2 RIPIANI IN VETRO CODE / DIMENSION / WOOD / OPACO LUCIDO",
+      "prices": [],
+      "refs": [
+        "RIPIANI",
+        "VETRO",
+        "CODE",
+        "DIMENSION",
+        "WOOD",
+        "OPACO",
+        "LUCIDO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 924,
+      "text": "H.160 DNA-CO40160 40 x 160 x 22 682,00 872,00 1.065,00",
+      "prices": [
+        "682,00",
+        "872,00",
+        "065,00"
+      ],
+      "refs": [
+        "H.160",
+        "DNA-CO40160",
+        "1.065"
+      ],
+      "dimensions": [
+        "40 x 160 x 22"
+      ]
+    },
+    {
+      "line": 926,
+      "text": "DNA / Collection / Lavabi in Ceramica DNA / Collection / Lavabi in Ceramica",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 927,
+      "text": "Ceramic washbasins / Lavabo en Ceramiqué Ceramic washbasins / Lavabo en Ceramiqué",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 928,
+      "text": "LAVABO IN CERAMICA CODICE DIMENSIONI BIANCO BIANCO OPACO TOP IN CERAMICA CON LAVABO INTEGRATO CODICE DIMENSIONI BIANCO BIANCO NERO",
+      "prices": [],
+      "refs": [
+        "LAVABO",
+        "CERAMICA",
+        "CODICE",
+        "DIMENSIONI",
+        "BIANCO",
+        "BIANCO",
+        "OPACO",
+        "CERAMICA",
+        "LAVABO",
+        "INTEGRATO",
+        "CODICE",
+        "DIMENSIONI"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 929,
+      "text": "Ceramic washbasins / Lavabo en Ceramiqué CODE DIMENSION LUCIDO NERO OPACO Ceramic top with integrated wash basin / CODE DIMENSION LUCIDO OPACO OPACO",
+      "prices": [],
+      "refs": [
+        "CODE",
+        "DIMENSION",
+        "LUCIDO",
+        "NERO",
+        "OPACO",
+        "CODE",
+        "DIMENSION",
+        "LUCIDO",
+        "OPACO",
+        "OPACO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 931,
+      "text": "Plan Ceramiqué avec lavabo intégré",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 937,
+      "text": "TA60 60 x 12 x 46 569,00 804,00 TK61 61 x 1,8 x 46,5 178,00 540,00",
+      "prices": [
+        "569,00",
+        "804,00",
+        "178,00",
+        "540,00"
+      ],
+      "refs": [
+        "TA60",
+        "TK61"
+      ],
+      "dimensions": [
+        "60 x 12 x 46"
+      ]
+    },
+    {
+      "line": 938,
+      "text": "TA80 80 x 12 x 46 654,00 925,00 TK71 71 x 1,8 x 46,5 190,00 569,00",
+      "prices": [
+        "654,00",
+        "925,00",
+        "190,00",
+        "569,00"
+      ],
+      "refs": [
+        "TA80",
+        "TK71"
+      ],
+      "dimensions": [
+        "80 x 12 x 46"
+      ]
+    },
+    {
+      "line": 939,
+      "text": "TA100 100 x 12 x 46 804,00 1.167,00 TK81 81 x 1,8 x 46,5 200,00 620,00",
+      "prices": [
+        "804,00",
+        "167,00",
+        "200,00",
+        "620,00"
+      ],
+      "refs": [
+        "TA100",
+        "1.167",
+        "TK81"
+      ],
+      "dimensions": [
+        "100 x 12 x 46"
+      ]
+    },
+    {
+      "line": 940,
+      "text": "TA120 120 x 12 x 46 989,00 1.409,00 TK91 91 x 1,8 x 46,5 215,00 648,00",
+      "prices": [
+        "989,00",
+        "409,00",
+        "215,00",
+        "648,00"
+      ],
+      "refs": [
+        "TA120",
+        "1.409",
+        "TK91"
+      ],
+      "dimensions": [
+        "120 x 12 x 46"
+      ]
+    },
+    {
+      "line": 941,
+      "text": "TK101 101 x 1,8 x 46,5 242,00 704,00",
+      "prices": [
+        "242,00",
+        "704,00"
+      ],
+      "refs": [
+        "TK101"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 942,
+      "text": "TK121 121 x 1,8 x 46,5 348,00 ---",
+      "prices": [
+        "348,00"
+      ],
+      "refs": [
+        "TK121"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 943,
+      "text": "Doppia vasca / Double basin / Double vasque TK121DV 121 x 1,8 x 46,5 410,00 ---",
+      "prices": [
+        "410,00"
+      ],
+      "refs": [
+        "TK121DV"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 944,
+      "text": "Vasca Sinistra / Left basin / Vasque gauche TA100SX 100 x 12 x 46 804,00 1.167,00",
+      "prices": [
+        "804,00",
+        "167,00"
+      ],
+      "refs": [
+        "TA100SX",
+        "1.167"
+      ],
+      "dimensions": [
+        "100 x 12 x 46"
+      ]
+    },
+    {
+      "line": 945,
+      "text": "TA120SX 120 x 12 x 46 989,00 1.409,00",
+      "prices": [
+        "989,00",
+        "409,00"
+      ],
+      "refs": [
+        "TA120SX",
+        "1.409"
+      ],
+      "dimensions": [
+        "120 x 12 x 46"
+      ]
+    },
+    {
+      "line": 946,
+      "text": "PIC6146 61 x 1,8 x 46,5 498,00 656,00",
+      "prices": [
+        "498,00",
+        "656,00"
+      ],
+      "refs": [
+        "PIC6146"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 947,
+      "text": "TOP IN CERAMICA “PICASSO”",
+      "prices": [],
+      "refs": [
+        "CERAMICA",
+        "PICASSO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 948,
+      "text": "PIC8146 81 x 1,8 x 46,5 645,00 797,00",
+      "prices": [
+        "645,00",
+        "797,00"
+      ],
+      "refs": [
+        "PIC8146"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 949,
+      "text": "“Picasso” Ceramic Top / Plan en céramique “Picasso”",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 950,
+      "text": "PIC10146 101 x 1,8 x 46,5 666,00 824,00",
+      "prices": [
+        "666,00",
+        "824,00"
+      ],
+      "refs": [
+        "PIC10146"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 951,
+      "text": "H.1,2 PIC10146DX 101 x 1,8 x 46,5 755,00 913,00",
+      "prices": [
+        "755,00",
+        "913,00"
+      ],
+      "refs": [
+        "PIC10146DX"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 952,
+      "text": "Vasca Destra / Right basin / Vasque droit TA100DX 100 x 12 x 46 804,00 1.167,00",
+      "prices": [
+        "804,00",
+        "167,00"
+      ],
+      "refs": [
+        "TA100DX",
+        "1.167"
+      ],
+      "dimensions": [
+        "100 x 12 x 46"
+      ]
+    },
+    {
+      "line": 953,
+      "text": "PIC10146SX 101 x 1,8 x 46,5 755,00 913,00",
+      "prices": [
+        "755,00",
+        "913,00"
+      ],
+      "refs": [
+        "PIC10146SX"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 954,
+      "text": "TA120DX 120 x 12 x 46 989,00 1.409,00",
+      "prices": [
+        "989,00",
+        "409,00"
+      ],
+      "refs": [
+        "TA120DX",
+        "1.409"
+      ],
+      "dimensions": [
+        "120 x 12 x 46"
+      ]
+    },
+    {
+      "line": 955,
+      "text": "PIC12146 121 x 1,8 x 46,5 855,00 1.012,00",
+      "prices": [
+        "855,00",
+        "012,00"
+      ],
+      "refs": [
+        "PIC12146",
+        "1.012"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 956,
+      "text": "PIC12146DX 121 x 1,8 x 46,5 881,00 1.039,00",
+      "prices": [
+        "881,00",
+        "039,00"
+      ],
+      "refs": [
+        "PIC12146DX",
+        "1.039"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 957,
+      "text": "PIC12146SX 121 x 1,8 x 46,5 881,00 1.039,00",
+      "prices": [
+        "881,00",
+        "039,00"
+      ],
+      "refs": [
+        "PIC12146SX",
+        "1.039"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 958,
+      "text": "JUST6146 61 x 1,8 x 46,5 383,00 555,00",
+      "prices": [
+        "383,00",
+        "555,00"
+      ],
+      "refs": [
+        "JUST6146"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 959,
+      "text": "Doppia vasca / Double basin / Double vasque TA120DV 120 x 12 x 46 989,00 1.409,00 TOP IN CERAMICA “JUST”",
+      "prices": [
+        "989,00",
+        "409,00"
+      ],
+      "refs": [
+        "TA120DV",
+        "1.409",
+        "CERAMICA",
+        "JUST"
+      ],
+      "dimensions": [
+        "120 x 12 x 46"
+      ]
+    },
+    {
+      "line": 960,
+      "text": "JUST7146 71 x 1,8 x 46,5 435,00 593,00",
+      "prices": [
+        "435,00",
+        "593,00"
+      ],
+      "refs": [
+        "JUST7146"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 961,
+      "text": "“Just” Ceramic Top / Plan en céramique “Just”",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 962,
+      "text": "TA140DV 140 x 12 x 46 1.173,00 1.692,00 JUST8146 81 x 1,8 x 46,5 488,00 645,00",
+      "prices": [
+        "173,00",
+        "692,00",
+        "488,00",
+        "645,00"
+      ],
+      "refs": [
+        "TA140DV",
+        "1.173",
+        "1.692",
+        "JUST8146"
+      ],
+      "dimensions": [
+        "140 x 12 x 46"
+      ]
+    },
+    {
+      "line": 963,
+      "text": "H.7,5 JUST9146 91 x 1,8 x 46,5 540,00 698,00",
+      "prices": [
+        "540,00",
+        "698,00"
+      ],
+      "refs": [
+        "JUST9146"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 964,
+      "text": "JUST10146 101 x 1,8 x 46,5 603,00 761,00",
+      "prices": [
+        "603,00",
+        "761,00"
+      ],
+      "refs": [
+        "JUST10146"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 965,
+      "text": "JUST10146DX 101 x 1,8 x 46,5 629,00 787,00",
+      "prices": [
+        "629,00",
+        "787,00"
+      ],
+      "refs": [
+        "JUST10146DX"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 966,
+      "text": "JUST10146SX 101 x 1,8 x 46,5 629,00 787,00",
+      "prices": [
+        "629,00",
+        "787,00"
+      ],
+      "refs": [
+        "JUST10146SX"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 967,
+      "text": "JUST12146 121 x 1,8 x 46,5 708,00 918,00",
+      "prices": [
+        "708,00",
+        "918,00"
+      ],
+      "refs": [
+        "JUST12146"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 969,
+      "text": "DNA / Collection / Top in Geacril DNA / Collection / Top in Geacril",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 970,
+      "text": "Geacril Top / Plan Geacril Geacril Top / Plan Geacril",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 971,
+      "text": "TOP IN GEACRIL COLORATO CON VASCA INTEGRATA",
+      "prices": [],
+      "refs": [
+        "GEACRIL",
+        "COLORATO",
+        "VASCA",
+        "INTEGRATA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 972,
+      "text": "TOP IN GEACRIL COLORATO CON 1 VASCA CODICE DIMENSIONI BIANCO OPACO COLORE OPACO",
+      "prices": [],
+      "refs": [
+        "GEACRIL",
+        "COLORATO",
+        "VASCA",
+        "CODICE",
+        "DIMENSIONI",
+        "BIANCO",
+        "OPACO",
+        "COLORE",
+        "OPACO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 973,
+      "text": "Coloured geacril top with integrated basin / Plan en geacril coloré avec vasque intégrée CODE DIMENSION MATT WHITE NCS",
+      "prices": [],
+      "refs": [
+        "CODE",
+        "DIMENSION",
+        "MATT",
+        "WHITE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 974,
+      "text": "Coloured Geacril top with 1 basin /",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 975,
+      "text": "Plan en Geacril coloré avec 1 vasque",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 978,
+      "text": "H.1,2 BNT60 60,5 x 12 x 46,2 539,00 708,00",
+      "prices": [
+        "539,00",
+        "708,00"
+      ],
+      "refs": [
+        "BNT60"
+      ],
+      "dimensions": [
+        "60,5 x 12 x 46,2"
+      ]
+    },
+    {
+      "line": 979,
+      "text": "BNT70 70,5 x 12 x 46,2 573,00 743,00",
+      "prices": [
+        "573,00",
+        "743,00"
+      ],
+      "refs": [
+        "BNT70"
+      ],
+      "dimensions": [
+        "70,5 x 12 x 46,2"
+      ]
+    },
+    {
+      "line": 980,
+      "text": "BNT80 80,5 x 12 x 46,2 597,00 788,00",
+      "prices": [
+        "597,00",
+        "788,00"
+      ],
+      "refs": [
+        "BNT80"
+      ],
+      "dimensions": [
+        "80,5 x 12 x 46,2"
+      ]
+    },
+    {
+      "line": 981,
+      "text": "BNT90 90,5 x 12 x 46,2 639,00 828,00",
+      "prices": [
+        "639,00",
+        "828,00"
+      ],
+      "refs": [
+        "BNT90"
+      ],
+      "dimensions": [
+        "90,5 x 12 x 46,2"
+      ]
+    },
+    {
+      "line": 982,
+      "text": "BNT100 100,5 x 12 x 46,2 667,00 869,00",
+      "prices": [
+        "667,00",
+        "869,00"
+      ],
+      "refs": [
+        "BNT100"
+      ],
+      "dimensions": [
+        "100,5 x 12 x 46,2"
+      ]
+    },
+    {
+      "line": 984,
+      "text": "BNT120 120,5 x 12 x 46,2 737,00 961,00",
+      "prices": [
+        "737,00",
+        "961,00"
+      ],
+      "refs": [
+        "BNT120"
+      ],
+      "dimensions": [
+        "120,5 x 12 x 46,2"
+      ]
+    },
+    {
+      "line": 985,
+      "text": "TOP IN GEACRIL COLORATO CON 1 E 2 VASCHE CODICE DIMENSIONI BIANCO OPACO COLORE OPACO",
+      "prices": [],
+      "refs": [
+        "GEACRIL",
+        "COLORATO",
+        "VASCHE",
+        "CODICE",
+        "DIMENSIONI",
+        "BIANCO",
+        "OPACO",
+        "COLORE",
+        "OPACO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 986,
+      "text": "Coloured Geacril top with 1 and 2 basins / CODE DIMENSION MATT WHITE NCS",
+      "prices": [],
+      "refs": [
+        "CODE",
+        "DIMENSION",
+        "MATT",
+        "WHITE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 987,
+      "text": "Plan en Geacril coloré avec 1 et 2 vasques",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 989,
+      "text": "TOP IN GEACRIL COLORATO CON DOPPIA VASCA INTEGRATA W x H x D cm BLANC MAT",
+      "prices": [],
+      "refs": [
+        "GEACRIL",
+        "COLORATO",
+        "DOPPIA",
+        "VASCA",
+        "INTEGRATA",
+        "BLANC"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 990,
+      "text": "Coloured geacril top with integrated double basin / Plan en geacril coloré avec double vasque intégrée",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 991,
+      "text": "Vasca Sinistra / Left basin / Vasque gauche BNT120SX 120,5 x 12 x 46,2 759,00 990,00",
+      "prices": [
+        "759,00",
+        "990,00"
+      ],
+      "refs": [
+        "BNT120SX"
+      ],
+      "dimensions": [
+        "120,5 x 12 x 46,2"
+      ]
+    },
+    {
+      "line": 992,
+      "text": "Vasca Destra / Right basin / Vasque droit BNT120DX 120,5 x 12 x 46,2 759,00 990,00",
+      "prices": [
+        "759,00",
+        "990,00"
+      ],
+      "refs": [
+        "BNT120DX"
+      ],
+      "dimensions": [
+        "120,5 x 12 x 46,2"
+      ]
+    },
+    {
+      "line": 993,
+      "text": "Doppia vasca / Double basin / Double vasque BNT120DV 120,5 x 12 x 46,2 950,00 1.232,00",
+      "prices": [
+        "950,00",
+        "232,00"
+      ],
+      "refs": [
+        "BNT120DV",
+        "1.232"
+      ],
+      "dimensions": [
+        "120,5 x 12 x 46,2"
+      ]
+    },
+    {
+      "line": 996,
+      "text": "DNA / Collection / Top in Geacril DNA / Collection / Top in Geacril",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 997,
+      "text": "Geacril Top / Plan Geacril Geacril Top / Plan Geacril",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 998,
+      "text": "TOP IN GEACRIL - VASCA SINGOLA E DOPPIA",
+      "prices": [],
+      "refs": [
+        "GEACRIL",
+        "VASCA",
+        "SINGOLA",
+        "DOPPIA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 999,
+      "text": "TOP GEACRIL AL CM LINEARE CODICE DIMENSIONI BIANCO COLORE",
+      "prices": [],
+      "refs": [
+        "GEACRIL",
+        "LINEARE",
+        "CODICE",
+        "DIMENSIONI",
+        "BIANCO",
+        "COLORE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1000,
+      "text": "Geacril top / Plan en Géacril CODE DIMENSION OPACO NCS",
+      "prices": [],
+      "refs": [
+        "CODE",
+        "DIMENSION",
+        "OPACO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1001,
+      "text": "Geacril top by the linear cm /",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1005,
+      "text": "H.1,2 TPGEA12 - / CML 4,63 / CML 5,76",
+      "prices": [
+        "4,63",
+        "5,76"
+      ],
+      "refs": [
+        "TPGEA12"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1006,
+      "text": "B938 B855 1 vasca / 1 basin / 1 vasque B938 58 x 28 560,00 731,00",
+      "prices": [
+        "560,00",
+        "731,00"
+      ],
+      "refs": [
+        "B938",
+        "B855",
+        "B938"
+      ],
+      "dimensions": [
+        "58 x 28"
+      ]
+    },
+    {
+      "line": 1007,
+      "text": "B855 48 x 28 560,00 731,00",
+      "prices": [
+        "560,00",
+        "731,00"
+      ],
+      "refs": [
+        "B855"
+      ],
+      "dimensions": [
+        "48 x 28"
+      ]
+    },
+    {
+      "line": 1008,
+      "text": "B452 60 x 28 560,00 731,00",
+      "prices": [
+        "560,00",
+        "731,00"
+      ],
+      "refs": [
+        "B452"
+      ],
+      "dimensions": [
+        "60 x 28"
+      ]
+    },
+    {
+      "line": 1009,
+      "text": "B574 50 x 28,5 560,00 731,00",
+      "prices": [
+        "560,00",
+        "731,00"
+      ],
+      "refs": [
+        "B574"
+      ],
+      "dimensions": [
+        "50 x 28,5"
+      ]
+    },
+    {
+      "line": 1010,
+      "text": "B570 60 x 28,5 560,00 731,00",
+      "prices": [
+        "560,00",
+        "731,00"
+      ],
+      "refs": [
+        "B570"
+      ],
+      "dimensions": [
+        "60 x 28,5"
+      ]
+    },
+    {
+      "line": 1011,
+      "text": "2 vasche / 2 basins / 2 vasques B575DV 58 x 28 1.721,00 2.163,00",
+      "prices": [
+        "721,00",
+        "163,00"
+      ],
+      "refs": [
+        "B575DV",
+        "1.721",
+        "2.163"
+      ],
+      "dimensions": [
+        "58 x 28"
+      ]
+    },
+    {
+      "line": 1012,
+      "text": "B855DV 48 x 28 1.721,00 2.163,00",
+      "prices": [
+        "721,00",
+        "163,00"
+      ],
+      "refs": [
+        "B855DV",
+        "1.721",
+        "2.163"
+      ],
+      "dimensions": [
+        "48 x 28"
+      ]
+    },
+    {
+      "line": 1013,
+      "text": "B452DV 60 x 28 1.721,00 2.163,00",
+      "prices": [
+        "721,00",
+        "163,00"
+      ],
+      "refs": [
+        "B452DV",
+        "1.721",
+        "2.163"
+      ],
+      "dimensions": [
+        "60 x 28"
+      ]
+    },
+    {
+      "line": 1014,
+      "text": "B574DV 50 x 28,5 1.721,00 2.163,00",
+      "prices": [
+        "721,00",
+        "163,00"
+      ],
+      "refs": [
+        "B574DV",
+        "1.721",
+        "2.163"
+      ],
+      "dimensions": [
+        "50 x 28,5"
+      ]
+    },
+    {
+      "line": 1015,
+      "text": "B570 B574 B570DV 60 x 28,5 1.721,00 2.163,00",
+      "prices": [
+        "721,00",
+        "163,00"
+      ],
+      "refs": [
+        "B570",
+        "B574",
+        "B570DV",
+        "1.721",
+        "2.163"
+      ],
+      "dimensions": [
+        "60 x 28,5"
+      ]
+    },
+    {
+      "line": 1016,
+      "text": "H.12 TPGEA120 - / CML 6,49 / CML 8,65",
+      "prices": [
+        "6,49",
+        "8,65"
+      ],
+      "refs": [
+        "H.12",
+        "TPGEA120"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1017,
+      "text": "1 vasca / 1 basin / 1 vasque B938 58 x 28 782,00 1.007,00",
+      "prices": [
+        "782,00",
+        "007,00"
+      ],
+      "refs": [
+        "B938",
+        "1.007"
+      ],
+      "dimensions": [
+        "58 x 28"
+      ]
+    },
+    {
+      "line": 1018,
+      "text": "B855 48 x 28 782,00 1.007,00",
+      "prices": [
+        "782,00",
+        "007,00"
+      ],
+      "refs": [
+        "B855",
+        "1.007"
+      ],
+      "dimensions": [
+        "48 x 28"
+      ]
+    },
+    {
+      "line": 1019,
+      "text": "B452 60 x 28 782,00 1.007,00",
+      "prices": [
+        "782,00",
+        "007,00"
+      ],
+      "refs": [
+        "B452",
+        "1.007"
+      ],
+      "dimensions": [
+        "60 x 28"
+      ]
+    },
+    {
+      "line": 1020,
+      "text": "B574 50 x 28,5 782,00 1.007,00",
+      "prices": [
+        "782,00",
+        "007,00"
+      ],
+      "refs": [
+        "B574",
+        "1.007"
+      ],
+      "dimensions": [
+        "50 x 28,5"
+      ]
+    },
+    {
+      "line": 1021,
+      "text": "B570 60 x 28,5 782,00 1.007,00",
+      "prices": [
+        "782,00",
+        "007,00"
+      ],
+      "refs": [
+        "B570",
+        "1.007"
+      ],
+      "dimensions": [
+        "60 x 28,5"
+      ]
+    },
+    {
+      "line": 1023,
+      "text": "2 vasche / 2 basins / 2 vasques B575DV 58 x 28 1.946,00 2.521,00",
+      "prices": [
+        "946,00",
+        "521,00"
+      ],
+      "refs": [
+        "B575DV",
+        "1.946",
+        "2.521"
+      ],
+      "dimensions": [
+        "58 x 28"
+      ]
+    },
+    {
+      "line": 1024,
+      "text": "B855DV 48 x 28 1.946,00 2.521,00",
+      "prices": [
+        "946,00",
+        "521,00"
+      ],
+      "refs": [
+        "B855DV",
+        "1.946",
+        "2.521"
+      ],
+      "dimensions": [
+        "48 x 28"
+      ]
+    },
+    {
+      "line": 1025,
+      "text": "B452DV 60 x 28 1.946,00 2.521,00",
+      "prices": [
+        "946,00",
+        "521,00"
+      ],
+      "refs": [
+        "B452DV",
+        "1.946",
+        "2.521"
+      ],
+      "dimensions": [
+        "60 x 28"
+      ]
+    },
+    {
+      "line": 1026,
+      "text": "B574DV 50 x 28,5 1.946,00 2.521,00",
+      "prices": [
+        "946,00",
+        "521,00"
+      ],
+      "refs": [
+        "B574DV",
+        "1.946",
+        "2.521"
+      ],
+      "dimensions": [
+        "50 x 28,5"
+      ]
+    },
+    {
+      "line": 1027,
+      "text": "B570DV 60 x 28,5 1.946,00 2.521,00",
+      "prices": [
+        "946,00",
+        "521,00"
+      ],
+      "refs": [
+        "B570DV",
+        "1.946",
+        "2.521"
+      ],
+      "dimensions": [
+        "60 x 28,5"
+      ]
+    },
+    {
+      "line": 1028,
+      "text": "TOP GEACRIL AL CM LINEARE CODICE DIMENSIONI FINITURA FINITURA",
+      "prices": [],
+      "refs": [
+        "GEACRIL",
+        "LINEARE",
+        "CODICE",
+        "DIMENSIONI",
+        "FINITURA",
+        "FINITURA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1029,
+      "text": "Geacril top by the linear cm / CODE DIMENSION OPACO COLORE",
+      "prices": [],
+      "refs": [
+        "CODE",
+        "DIMENSION",
+        "OPACO",
+        "COLORE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1031,
+      "text": "CODE L x H x P cm MATT FINISH MATT FINISH",
+      "prices": [],
+      "refs": [
+        "CODE",
+        "MATT",
+        "FINISH",
+        "MATT",
+        "FINISH"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1034,
+      "text": "TPGEACRIL7 / CML 7,80 ---",
+      "prices": [
+        "7,80"
+      ],
+      "refs": [
+        "TPGEACRIL7"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1036,
+      "text": "DNA / Collection / Top in Geacril Stone DNA / Collection / Top in Geacril Stone",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1037,
+      "text": "Geacril Stone Top / Plan Geacril Stone Geacril Stone Top / Plan Geacril Stone",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1038,
+      "text": "TOP IN GEACRIL STONE - VASCA B575 SINGOLA E DOPPIA",
+      "prices": [],
+      "refs": [
+        "GEACRIL",
+        "STONE",
+        "VASCA",
+        "B575",
+        "SINGOLA",
+        "DOPPIA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1039,
+      "text": "TOP GEACRIL STONE AL CM LINEARE CODICE DIMENSIONI BIANCO COLORE",
+      "prices": [],
+      "refs": [
+        "GEACRIL",
+        "STONE",
+        "LINEARE",
+        "CODICE",
+        "DIMENSIONI",
+        "BIANCO",
+        "COLORE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1040,
+      "text": "Geacril Stone Top, B575 Single/Double Basin / Plan Geacril Stone, vasque B575 simple/doubleStone CODE DIMENSION OPACO NCS",
+      "prices": [],
+      "refs": [
+        "B575",
+        "B575",
+        "CODE",
+        "DIMENSION",
+        "OPACO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1041,
+      "text": "Geacril stone top by the linear cm /",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1046,
+      "text": "H.1,2 TXT12 - / CML 4,63 / CML 5,76",
+      "prices": [
+        "4,63",
+        "5,76"
+      ],
+      "refs": [
+        "TXT12"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1047,
+      "text": "1 vasca / 1 basin / 1 vasque B575 50 x 31 560,00 731,00",
+      "prices": [
+        "560,00",
+        "731,00"
+      ],
+      "refs": [
+        "B575"
+      ],
+      "dimensions": [
+        "50 x 31"
+      ]
+    },
+    {
+      "line": 1048,
+      "text": "B576 60 x 31 560,00 731,00",
+      "prices": [
+        "560,00",
+        "731,00"
+      ],
+      "refs": [
+        "B576"
+      ],
+      "dimensions": [
+        "60 x 31"
+      ]
+    },
+    {
+      "line": 1050,
+      "text": "B575 50 x 31 1.721,00 2.163,00",
+      "prices": [
+        "721,00",
+        "163,00"
+      ],
+      "refs": [
+        "B575",
+        "1.721",
+        "2.163"
+      ],
+      "dimensions": [
+        "50 x 31"
+      ]
+    },
+    {
+      "line": 1051,
+      "text": "B576 60 x 31 1.721,00 2.163,00",
+      "prices": [
+        "721,00",
+        "163,00"
+      ],
+      "refs": [
+        "B576",
+        "1.721",
+        "2.163"
+      ],
+      "dimensions": [
+        "60 x 31"
+      ]
+    },
+    {
+      "line": 1052,
+      "text": "TOP GEACRIL STONE AL CM LINEARE CODICE DIMENSIONI BIANCO COLORE",
+      "prices": [],
+      "refs": [
+        "GEACRIL",
+        "STONE",
+        "LINEARE",
+        "CODICE",
+        "DIMENSIONI",
+        "BIANCO",
+        "COLORE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1053,
+      "text": "Geacril stone top by the linear cm / CODE DIMENSION OPACO NCS",
+      "prices": [],
+      "refs": [
+        "CODE",
+        "DIMENSION",
+        "OPACO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1057,
+      "text": "H.12 TXT120 - / CML 6,49 / CML 8,65",
+      "prices": [
+        "6,49",
+        "8,65"
+      ],
+      "refs": [
+        "H.12",
+        "TXT120"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1058,
+      "text": "TOP IN GEACRIL STONE - VASCA B576 SINGOLA E DOPPIA",
+      "prices": [],
+      "refs": [
+        "GEACRIL",
+        "STONE",
+        "VASCA",
+        "B576",
+        "SINGOLA",
+        "DOPPIA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1059,
+      "text": "Geacril Stone Top, B576 Single/Double Basin / Plan Geacril Stone, vasque B576 simple/doubleStone 1 vasca / 1 basin / 1 vasque B575 50 x 31 782,00 1.007,00",
+      "prices": [
+        "782,00",
+        "007,00"
+      ],
+      "refs": [
+        "B576",
+        "B576",
+        "B575",
+        "1.007"
+      ],
+      "dimensions": [
+        "50 x 31"
+      ]
+    },
+    {
+      "line": 1060,
+      "text": "B576 60 x 31 782,00 1.007,00",
+      "prices": [
+        "782,00",
+        "007,00"
+      ],
+      "refs": [
+        "B576",
+        "1.007"
+      ],
+      "dimensions": [
+        "60 x 31"
+      ]
+    },
+    {
+      "line": 1063,
+      "text": "B575 50 x 31 1.946,00 2.521,00",
+      "prices": [
+        "946,00",
+        "521,00"
+      ],
+      "refs": [
+        "B575",
+        "1.946",
+        "2.521"
+      ],
+      "dimensions": [
+        "50 x 31"
+      ]
+    },
+    {
+      "line": 1064,
+      "text": "B576 60 x 31 1.946,00 2.521,00",
+      "prices": [
+        "946,00",
+        "521,00"
+      ],
+      "refs": [
+        "B576",
+        "1.946",
+        "2.521"
+      ],
+      "dimensions": [
+        "60 x 31"
+      ]
+    },
+    {
+      "line": 1065,
+      "text": "FORO PER LAVABO",
+      "prices": [],
+      "refs": [
+        "FORO",
+        "LAVABO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1066,
+      "text": "MLA 66,00",
+      "prices": [
+        "66,00"
+      ],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1067,
+      "text": "Hole for washbasin / Trou pour lavabo",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1069,
+      "text": "MFR 66,00",
+      "prices": [
+        "66,00"
+      ],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1071,
+      "text": "Piletta click-clack con tappo MCPI - 80,00",
+      "prices": [
+        "80,00"
+      ],
+      "refs": [
+        "MCPI"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1079,
+      "text": "DNA / Collection / Top in Ocritech DNA / Collection / Top in Ocritech",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1080,
+      "text": "Ocritech Top / Plan Ocritech Ocritech Top / Plan Ocritech",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1081,
+      "text": "TOP OCRITECH CONCA CODICE DIMENSIONI BIANCO OPACO / BIANCO LUCIDO TOP OCRITECH CONCA CODICE DIMENSIONI BIANCO OPACO / BIANCO LUCIDO",
+      "prices": [],
+      "refs": [
+        "OCRITECH",
+        "CONCA",
+        "CODICE",
+        "DIMENSIONI",
+        "BIANCO",
+        "OPACO",
+        "BIANCO",
+        "LUCIDO",
+        "OCRITECH",
+        "CONCA",
+        "CODICE",
+        "DIMENSIONI"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1082,
+      "text": "Ocrritech top with integrated wash basin / CODE DIMENSION MATT WHITE / GLOSSY WHITE Ocrritech top with integrated wash basin / CODE DIMENSION MATT WHITE / GLOSSY WHITE",
+      "prices": [],
+      "refs": [
+        "CODE",
+        "DIMENSION",
+        "MATT",
+        "WHITE",
+        "GLOSSY",
+        "WHITE",
+        "CODE",
+        "DIMENSION",
+        "MATT",
+        "WHITE",
+        "GLOSSY",
+        "WHITE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1083,
+      "text": "Plan Ocritech avec lavabo intégré",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1085,
+      "text": "Plan Ocritech avec lavabo intégré",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1088,
+      "text": "H.1 TO60 60,5 x 1 x 46,2 518,00 H.12 TOS60 60,5 x 12 x 46,2 684,00",
+      "prices": [
+        "518,00",
+        "684,00"
+      ],
+      "refs": [
+        "TO60",
+        "H.12",
+        "TOS60"
+      ],
+      "dimensions": [
+        "60,5 x 12 x 46,2"
+      ]
+    },
+    {
+      "line": 1089,
+      "text": "TO70 70,5 x 1 x 46,2 543,00 TOS70 70,5 x 12 x 46,2 740,00",
+      "prices": [
+        "543,00",
+        "740,00"
+      ],
+      "refs": [
+        "TO70",
+        "TOS70"
+      ],
+      "dimensions": [
+        "70,5 x 12 x 46,2"
+      ]
+    },
+    {
+      "line": 1090,
+      "text": "T080 80,5 x 1 x 46,2 572,00 T0S80 80,5 x 12 x 46,2 802,00",
+      "prices": [
+        "572,00",
+        "802,00"
+      ],
+      "refs": [
+        "T080",
+        "T0S80"
+      ],
+      "dimensions": [
+        "80,5 x 12 x 46,2"
+      ]
+    },
+    {
+      "line": 1091,
+      "text": "TO90 90,5 x 1 x 46,2 621,00 TOS90 90,5 x 12 x 46,2 890,00",
+      "prices": [
+        "621,00",
+        "890,00"
+      ],
+      "refs": [
+        "TO90",
+        "TOS90"
+      ],
+      "dimensions": [
+        "90,5 x 12 x 46,2"
+      ]
+    },
+    {
+      "line": 1092,
+      "text": "TO100 100,5 x 1 x 46,2 651,00 TOS100 100,5 x 12 x 46,2 945,00",
+      "prices": [
+        "651,00",
+        "945,00"
+      ],
+      "refs": [
+        "TO100",
+        "TOS100"
+      ],
+      "dimensions": [
+        "100,5 x 12 x 46,2"
+      ]
+    },
+    {
+      "line": 1093,
+      "text": "TO120 120,5 x 1 x 46,2 715,00 TOS120 120,5 x 12 x 46,2 1.047,00",
+      "prices": [
+        "715,00",
+        "047,00"
+      ],
+      "refs": [
+        "TO120",
+        "TOS120",
+        "1.047"
+      ],
+      "dimensions": [
+        "120,5 x 12 x 46,2"
+      ]
+    },
+    {
+      "line": 1094,
+      "text": "TOS140 140,5 x 12 x 46,2 1.165,00",
+      "prices": [
+        "165,00"
+      ],
+      "refs": [
+        "TOS140",
+        "1.165"
+      ],
+      "dimensions": [
+        "140,5 x 12 x 46,2"
+      ]
+    },
+    {
+      "line": 1095,
+      "text": "Doppia vasca / Double basin / Double vasque TOS120DV 120,5 x 12 x 46,2 1.270,00",
+      "prices": [
+        "270,00"
+      ],
+      "refs": [
+        "TOS120DV",
+        "1.270"
+      ],
+      "dimensions": [
+        "120,5 x 12 x 46,2"
+      ]
+    },
+    {
+      "line": 1096,
+      "text": "Doppia vasca / Double basin / Double vasque TOS140DV 140,5 x 12 x 46,2 1.388,00",
+      "prices": [
+        "388,00"
+      ],
+      "refs": [
+        "TOS140DV",
+        "1.388"
+      ],
+      "dimensions": [
+        "140,5 x 12 x 46,2"
+      ]
+    },
+    {
+      "line": 1097,
+      "text": "Vasca Sinistra / Left basin / Vasque gauche TO100SX 100,5 x 1 x 46,2 651,00",
+      "prices": [
+        "651,00"
+      ],
+      "refs": [
+        "TO100SX"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1098,
+      "text": "Doppia vasca / Double basin / Double vasque TOS160DV 160,5 x 12 x 46,2 1.585,00",
+      "prices": [
+        "585,00"
+      ],
+      "refs": [
+        "TOS160DV",
+        "1.585"
+      ],
+      "dimensions": [
+        "160,5 x 12 x 46,2"
+      ]
+    },
+    {
+      "line": 1099,
+      "text": "Vasca Destra / Left basin / Vasque droit TO100DX 100,5 x 1 x 46,2 651,00",
+      "prices": [
+        "651,00"
+      ],
+      "refs": [
+        "TO100DX"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1100,
+      "text": "TOP OCRITECH AL CM LINEARE CODICE DIMENSIONI BIANCO OPACO / BIANCO LUCIDO",
+      "prices": [],
+      "refs": [
+        "OCRITECH",
+        "LINEARE",
+        "CODICE",
+        "DIMENSIONI",
+        "BIANCO",
+        "OPACO",
+        "BIANCO",
+        "LUCIDO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1101,
+      "text": "Vasca Sinistra / Left basin / Vasque gauche TO120SX 120,5 x 1 x 46,2 CODE DIMENSION MATT WHITE / GLOSSY WHITE",
+      "prices": [],
+      "refs": [
+        "TO120SX",
+        "CODE",
+        "DIMENSION",
+        "MATT",
+        "WHITE",
+        "GLOSSY",
+        "WHITE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1102,
+      "text": "715,00 Ocritech top by the linear cm /",
+      "prices": [
+        "715,00"
+      ],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1103,
+      "text": "Plan en Ocritech au centimètre linéaire",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1105,
+      "text": "Vasca Destra / Left basin / Vasque droit TO120DX 120,5 x 1 x 46,2 W x H x D cm",
+      "prices": [],
+      "refs": [
+        "TO120DX"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1106,
+      "text": "Doppia vasca / Double basin / Double vasque TO120DV 120,5 x 1 x 46,2 942,00",
+      "prices": [
+        "942,00"
+      ],
+      "refs": [
+        "TO120DV"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1107,
+      "text": "H.1,2 TOCRI1 / CML 6,09",
+      "prices": [
+        "6,09"
+      ],
+      "refs": [
+        "TOCRI1"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1108,
+      "text": "Vasca Sinistra / Left basin / Vasque gauche TO140SX 140,5 x 1 x 46,2",
+      "prices": [],
+      "refs": [
+        "TO140SX"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1109,
+      "text": "803,00",
+      "prices": [
+        "803,00"
+      ],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1110,
+      "text": "Vasca Destra / Left basin / Vasque droit TO140DX 140,5 x 1 x 46,2 H.12 TOCRI12 / CML 8,70",
+      "prices": [
+        "8,70"
+      ],
+      "refs": [
+        "TO140DX",
+        "H.12",
+        "TOCRI12"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1111,
+      "text": "Doppia vasca / Double basin / Double vasque TO140DV 140,5 x 1 x 46,2 1.015,00",
+      "prices": [
+        "015,00"
+      ],
+      "refs": [
+        "TO140DV",
+        "1.015"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1112,
+      "text": "1 vasca / 1 basin / 1 vasque",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1113,
+      "text": "PF1395100 50 x 30 475,00",
+      "prices": [
+        "475,00"
+      ],
+      "refs": [
+        "PF1395100"
+      ],
+      "dimensions": [
+        "50 x 30"
+      ]
+    },
+    {
+      "line": 1114,
+      "text": "Vasca Sinistra / Left basin / Vasque gauche TO160SX 160,5 x 1 x 46,2 955,00",
+      "prices": [
+        "955,00"
+      ],
+      "refs": [
+        "TO160SX"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1115,
+      "text": "Vasca Destra / Left basin / Vasque droit TO160DX 160,5 x 1 x 46,2 955,00 PF1485700 60 x 30 488,00",
+      "prices": [
+        "955,00",
+        "488,00"
+      ],
+      "refs": [
+        "TO160DX",
+        "PF1485700"
+      ],
+      "dimensions": [
+        "60 x 30"
+      ]
+    },
+    {
+      "line": 1116,
+      "text": "Doppia vasca / Double basin / Double vasque TO160DV 160,5 x 1 x 46,2 1.308,00 PF1395200 70 x 30 603,00",
+      "prices": [
+        "308,00",
+        "603,00"
+      ],
+      "refs": [
+        "TO160DV",
+        "1.308",
+        "PF1395200"
+      ],
+      "dimensions": [
+        "70 x 30"
+      ]
+    },
+    {
+      "line": 1117,
+      "text": "Vasca Sinistra / Left basin / Vasque gauche TO180SX 180,5 x 1 x 46,2 1.034,00",
+      "prices": [
+        "034,00"
+      ],
+      "refs": [
+        "TO180SX",
+        "1.034"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1118,
+      "text": "Vasca Destra / Left basin / Vasque droit TO180DX 180,5 x 1 x 46,2 1.034,00",
+      "prices": [
+        "034,00"
+      ],
+      "refs": [
+        "TO180DX",
+        "1.034"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1119,
+      "text": "Doppia vasca / Double basin / Double vasque TO180DV 180,5 x 1 x 46,2 1.390,00 FRESATA PORTASCIUGAMANO cad. 105,00",
+      "prices": [
+        "390,00",
+        "105,00"
+      ],
+      "refs": [
+        "TO180DV",
+        "1.390",
+        "FRESATA",
+        "PORTASCIUGAMANO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1120,
+      "text": "A towel groove can be made on boxed tops /",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1122,
+      "text": "Vasca Sinistra / Left basin / Vasque gauche TO200SX 200,5 x 1 x 46,2 1.140,00 sur les plans à cadre",
+      "prices": [
+        "140,00"
+      ],
+      "refs": [
+        "TO200SX",
+        "1.140"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1123,
+      "text": "Vasca Destra / Left basin / Vasque droit TO200DX 200,5 x 1 x 46,2 1.140,00",
+      "prices": [
+        "140,00"
+      ],
+      "refs": [
+        "TO200DX",
+        "1.140"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1124,
+      "text": "Doppia vasca / Double basin / Double vasque TO200DV 200,5 x 1 x 46,2 1.470,00",
+      "prices": [
+        "470,00"
+      ],
+      "refs": [
+        "TO200DV",
+        "1.470"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1126,
+      "text": "DNA / Collection / Top in Mineral DNA / Collection / Top in Mineral",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1127,
+      "text": "Mineral Top / Plan Mineral Mineral Top / Plan Mineral",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1128,
+      "text": "TOP MINERAL CODICE DIMENSIONI BIANCO OPACO / BIANCO LUCIDO TOP MINERAL CODICE DIMENSIONI BIANCO OPACO / BIANCO LUCIDO",
+      "prices": [],
+      "refs": [
+        "MINERAL",
+        "CODICE",
+        "DIMENSIONI",
+        "BIANCO",
+        "OPACO",
+        "BIANCO",
+        "LUCIDO",
+        "MINERAL",
+        "CODICE",
+        "DIMENSIONI",
+        "BIANCO",
+        "OPACO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1129,
+      "text": "Mineral top with integrated wash basin / CODE DIMENSION MATT WHITE / GLOSSY WHITE Mineral top with integrated wash basin / CODE DIMENSION MATT WHITE / GLOSSY WHITE",
+      "prices": [],
+      "refs": [
+        "CODE",
+        "DIMENSION",
+        "MATT",
+        "WHITE",
+        "GLOSSY",
+        "WHITE",
+        "CODE",
+        "DIMENSION",
+        "MATT",
+        "WHITE",
+        "GLOSSY",
+        "WHITE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1130,
+      "text": "Plan Mineral avec lavabo intégré CODE L x H x P cm BLANC MAT / BLANC BRILLANT Plan Mineral avec lavabo intégré CODE L x H x P cm BLANC MAT / BLANC BRILLANT",
+      "prices": [],
+      "refs": [
+        "CODE",
+        "BLANC",
+        "BLANC",
+        "BRILLANT",
+        "CODE",
+        "BLANC",
+        "BLANC",
+        "BRILLANT"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1132,
+      "text": "H.1,4 TM60 60 x 1,4 x 46 322,00 H.10 TMS60 60 x 10 x 46 561,00",
+      "prices": [
+        "322,00",
+        "561,00"
+      ],
+      "refs": [
+        "TM60",
+        "H.10",
+        "TMS60"
+      ],
+      "dimensions": [
+        "60 x 10 x 46"
+      ]
+    },
+    {
+      "line": 1133,
+      "text": "TM70 70 x 1,4 x 46 347,00 TMS70 70 x 10 x 46 593,00",
+      "prices": [
+        "347,00",
+        "593,00"
+      ],
+      "refs": [
+        "TM70",
+        "TMS70"
+      ],
+      "dimensions": [
+        "70 x 10 x 46"
+      ]
+    },
+    {
+      "line": 1134,
+      "text": "TM80 80 x 1,4 x 46 372,00 TMS80 80 x 10 x 46 668,00",
+      "prices": [
+        "372,00",
+        "668,00"
+      ],
+      "refs": [
+        "TM80",
+        "TMS80"
+      ],
+      "dimensions": [
+        "80 x 10 x 46"
+      ]
+    },
+    {
+      "line": 1135,
+      "text": "TM90 90 x 1,4 x 46 401,00 TMS90 90 x 10 x 46 709,00",
+      "prices": [
+        "401,00",
+        "709,00"
+      ],
+      "refs": [
+        "TM90",
+        "TMS90"
+      ],
+      "dimensions": [
+        "90 x 10 x 46"
+      ]
+    },
+    {
+      "line": 1136,
+      "text": "TM100 100 x 1,4 x 46 451,00 TMS100 100 x 10 x 46 754,00",
+      "prices": [
+        "451,00",
+        "754,00"
+      ],
+      "refs": [
+        "TM100",
+        "TMS100"
+      ],
+      "dimensions": [
+        "100 x 10 x 46"
+      ]
+    },
+    {
+      "line": 1137,
+      "text": "TM120 120 x 1,4 x 46 590,00 TMS120 120 x 10 x 46 933,00",
+      "prices": [
+        "590,00",
+        "933,00"
+      ],
+      "refs": [
+        "TM120",
+        "TMS120"
+      ],
+      "dimensions": [
+        "120 x 10 x 46"
+      ]
+    },
+    {
+      "line": 1138,
+      "text": "TM120SX 120 x 1,4 x 46 658,00",
+      "prices": [
+        "658,00"
+      ],
+      "refs": [
+        "TM120SX"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1139,
+      "text": "TM120DX 120 x 1,4 x 46 658,00",
+      "prices": [
+        "658,00"
+      ],
+      "refs": [
+        "TM120DX"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1140,
+      "text": "Doppia vasca / Double basin / Double vasque TMS120DV 120 x 10 x 46 709,00 Doppia vasca / Double basin / Double vasque TMS120DV 120 x 10 x 46 983,00",
+      "prices": [
+        "709,00",
+        "983,00"
+      ],
+      "refs": [
+        "TMS120DV",
+        "TMS120DV"
+      ],
+      "dimensions": [
+        "120 x 10 x 46",
+        "120 x 10 x 46"
+      ]
+    },
+    {
+      "line": 1141,
+      "text": "TM140DV 140 x 1,4 x 46 783,00 TMS140DV 140 x 10 x 46 1.105,00",
+      "prices": [
+        "783,00",
+        "105,00"
+      ],
+      "refs": [
+        "TM140DV",
+        "TMS140DV",
+        "1.105"
+      ],
+      "dimensions": [
+        "140 x 10 x 46"
+      ]
+    },
+    {
+      "line": 1143,
+      "text": "DNA / Collection / Top in Gres DNA / Collection / Top in Gres",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1144,
+      "text": "Gres Top / Plan Gres Gres Top / Plan Gres",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1145,
+      "text": "TOP IN GRES - VASCHE TOP IN GRES CODICE DIMENSIONI PREZZO",
+      "prices": [],
+      "refs": [
+        "GRES",
+        "VASCHE",
+        "GRES",
+        "CODICE",
+        "DIMENSIONI",
+        "PREZZO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1146,
+      "text": "Gres Top with Basins / Plan grès avec vasques Gres top / Plan Gres CODE DIMENSION PRICE",
+      "prices": [],
+      "refs": [
+        "CODE",
+        "DIMENSION",
+        "PRICE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1149,
+      "text": "BASIC HIDE H.2 TGRS1A / CML 11,40",
+      "prices": [
+        "11,40"
+      ],
+      "refs": [
+        "BASIC",
+        "HIDE",
+        "TGRS1A"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1150,
+      "text": "H.10 -15 TGRS14A / CML 14,50",
+      "prices": [
+        "14,50"
+      ],
+      "refs": [
+        "H.10",
+        "TGRS14A"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1151,
+      "text": "VASCA IN GRES",
+      "prices": [],
+      "refs": [
+        "VASCA",
+        "GRES"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1152,
+      "text": "Gres basin / Vasque Gres",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1153,
+      "text": "BASIC50 50 x 30 1.351,00",
+      "prices": [
+        "351,00"
+      ],
+      "refs": [
+        "BASIC50",
+        "1.351"
+      ],
+      "dimensions": [
+        "50 x 30"
+      ]
+    },
+    {
+      "line": 1156,
+      "text": "SIMPLY TWOSPACE BASIC70 70 x 30 1.425,00",
+      "prices": [
+        "425,00"
+      ],
+      "refs": [
+        "SIMPLY",
+        "TWOSPACE",
+        "BASIC70",
+        "1.425"
+      ],
+      "dimensions": [
+        "70 x 30"
+      ]
+    },
+    {
+      "line": 1157,
+      "text": "HIDE HIDE50 50 x 31,5 1.561,00",
+      "prices": [
+        "561,00"
+      ],
+      "refs": [
+        "HIDE",
+        "HIDE50",
+        "1.561"
+      ],
+      "dimensions": [
+        "50 x 31,5"
+      ]
+    },
+    {
+      "line": 1159,
+      "text": "Full-length drain in matching color / Bonde sur toute la",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1160,
+      "text": "longueur assortie HIDE70 70 x 31,5 1.627,00",
+      "prices": [
+        "627,00"
+      ],
+      "refs": [
+        "HIDE70",
+        "1.627"
+      ],
+      "dimensions": [
+        "70 x 31,5"
+      ]
+    },
+    {
+      "line": 1161,
+      "text": "SIMPLY SIMPLY50 50 x 30 1.351,00",
+      "prices": [
+        "351,00"
+      ],
+      "refs": [
+        "SIMPLY",
+        "SIMPLY50",
+        "1.351"
+      ],
+      "dimensions": [
+        "50 x 30"
+      ]
+    },
+    {
+      "line": 1162,
+      "text": "con scivolo fisso scarico continuo",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1164,
+      "text": "évacuation continue SIMPLY70 70 x 30 1.425,00",
+      "prices": [
+        "425,00"
+      ],
+      "refs": [
+        "SIMPLY70",
+        "1.425"
+      ],
+      "dimensions": [
+        "70 x 30"
+      ]
+    },
+    {
+      "line": 1165,
+      "text": "TWOSPACE TWS110 110 x 30 3.300,00",
+      "prices": [
+        "300,00"
+      ],
+      "refs": [
+        "TWOSPACE",
+        "TWS110",
+        "3.300"
+      ],
+      "dimensions": [
+        "110 x 30"
+      ]
+    },
+    {
+      "line": 1166,
+      "text": "TOP IN GRES - FINITURE",
+      "prices": [],
+      "refs": [
+        "GRES",
+        "FINITURE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1167,
+      "text": "Gres Top Finishes / Finitions plan en grès",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1168,
+      "text": "FORO PER LAVABO",
+      "prices": [],
+      "refs": [
+        "FORO",
+        "LAVABO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1169,
+      "text": "MLA 66,00",
+      "prices": [
+        "66,00"
+      ],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1170,
+      "text": "Hole for washbasin / Trou pour lavabo",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1172,
+      "text": "MFR 66,00",
+      "prices": [
+        "66,00"
+      ],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1181,
+      "text": "STF40 3 x 8 x 40 cad. 50,00",
+      "prices": [
+        "50,00"
+      ],
+      "refs": [
+        "STF40"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1183,
+      "text": "DNA / Collection / Top in Fenix - Hpl DNA / Collection / Top in Fenix - Hpl",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1184,
+      "text": "Hpl - Fenix Top / Plan Fenix - Hpl Hpl - Fenix Top / Plan Fenix - Hpl",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1185,
+      "text": "TOP IN HPL / FENIX - VASCHE",
+      "prices": [],
+      "refs": [
+        "FENIX",
+        "VASCHE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1186,
+      "text": "TOP IN HPL / FENIX CODICE DIMENSIONI HPL FENIX",
+      "prices": [],
+      "refs": [
+        "FENIX",
+        "CODICE",
+        "DIMENSIONI",
+        "FENIX"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1187,
+      "text": "Hpl / Fenix Top with Basins / Plan Hpl / Fenix avec vasques CODE DIMENSION",
+      "prices": [],
+      "refs": [
+        "CODE",
+        "DIMENSION"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1191,
+      "text": "H. 1 THPL1",
+      "prices": [],
+      "refs": [
+        "THPL1"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1192,
+      "text": "TFX1 / CML 5,87 / CML 6,38",
+      "prices": [
+        "5,87",
+        "6,38"
+      ],
+      "refs": [
+        "TFX1"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1193,
+      "text": "THPL6",
+      "prices": [],
+      "refs": [
+        "THPL6"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1194,
+      "text": "H. 6* TFX6 / CML 6,48 / CML 7,51",
+      "prices": [
+        "6,48",
+        "7,51"
+      ],
+      "refs": [
+        "TFX6"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1195,
+      "text": "THPL12",
+      "prices": [],
+      "refs": [
+        "THPL12"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1196,
+      "text": "H. 12 - 14 TFX12 / CML 8,00 / CML 9,78",
+      "prices": [
+        "8,00",
+        "9,78"
+      ],
+      "refs": [
+        "TFX12"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1197,
+      "text": "* NON POSSIBILE AGGIUNGERE VASCA",
+      "prices": [],
+      "refs": [
+        "POSSIBILE",
+        "AGGIUNGERE",
+        "VASCA"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1200,
+      "text": "HPL / FENIX PRICE / PRICE",
+      "prices": [],
+      "refs": [
+        "FENIX",
+        "PRICE",
+        "PRICE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1201,
+      "text": "A (Vasca con piletta rettangolare a colore) VASCA A50 50 x 30 1.059,00",
+      "prices": [
+        "059,00"
+      ],
+      "refs": [
+        "VASCA",
+        "1.059"
+      ],
+      "dimensions": [
+        "50 x 30"
+      ]
+    },
+    {
+      "line": 1202,
+      "text": "Rectangular color-matched drain / Vasque avec bonde",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1203,
+      "text": "rectangulaire ton sur ton VASCA A70 70 x 30 1.190,00",
+      "prices": [
+        "190,00"
+      ],
+      "refs": [
+        "VASCA",
+        "1.190"
+      ],
+      "dimensions": [
+        "70 x 30"
+      ]
+    },
+    {
+      "line": 1204,
+      "text": "B (Vasca con piletta rotonda a colore) VASCA B50 50 x 30 1.059,00",
+      "prices": [
+        "059,00"
+      ],
+      "refs": [
+        "VASCA",
+        "1.059"
+      ],
+      "dimensions": [
+        "50 x 30"
+      ]
+    },
+    {
+      "line": 1205,
+      "text": "Basin with round drain in the same color as the basin /",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1206,
+      "text": "Vasque avec bonde ronde de la même couleur que la vasque VASCA B70 70 x 30 1.190,00",
+      "prices": [
+        "190,00"
+      ],
+      "refs": [
+        "VASCA",
+        "1.190"
+      ],
+      "dimensions": [
+        "70 x 30"
+      ]
+    },
+    {
+      "line": 1207,
+      "text": "C (Vasca con scivolo fisso) VASCA C50 50 x 30 1.182,00",
+      "prices": [
+        "182,00"
+      ],
+      "refs": [
+        "VASCA",
+        "1.182"
+      ],
+      "dimensions": [
+        "50 x 30"
+      ]
+    },
+    {
+      "line": 1209,
+      "text": "Fixed slope basin / Vasque à pente fixe VASCA C70 70 x 30 1.383,00",
+      "prices": [
+        "383,00"
+      ],
+      "refs": [
+        "VASCA",
+        "1.383"
+      ],
+      "dimensions": [
+        "70 x 30"
+      ]
+    },
+    {
+      "line": 1210,
+      "text": "D (Vasca standard) VASCA D50 50 x 30 1.009,00",
+      "prices": [
+        "009,00"
+      ],
+      "refs": [
+        "VASCA",
+        "1.009"
+      ],
+      "dimensions": [
+        "50 x 30"
+      ]
+    },
+    {
+      "line": 1211,
+      "text": "Simple Basin / Vasque simple VASCA D70 70 x 30 1.166,00",
+      "prices": [
+        "166,00"
+      ],
+      "refs": [
+        "VASCA",
+        "1.166"
+      ],
+      "dimensions": [
+        "70 x 30"
+      ]
+    },
+    {
+      "line": 1212,
+      "text": "E (Vasca in Gelcoat colorata) VASCA E50 50 x 30 1.050,00",
+      "prices": [
+        "050,00"
+      ],
+      "refs": [
+        "VASCA",
+        "1.050"
+      ],
+      "dimensions": [
+        "50 x 30"
+      ]
+    },
+    {
+      "line": 1213,
+      "text": "Colored Gelcoat Basin / Vasque en Gelcoat coloré VASCA E70 70 x 30 1.170,00",
+      "prices": [
+        "170,00"
+      ],
+      "refs": [
+        "VASCA",
+        "1.170"
+      ],
+      "dimensions": [
+        "70 x 30"
+      ]
+    },
+    {
+      "line": 1214,
+      "text": "E (Vasca in Gelcoat bianca) VASCA EB50 50 x 30 890,00",
+      "prices": [
+        "890,00"
+      ],
+      "refs": [
+        "VASCA",
+        "EB50"
+      ],
+      "dimensions": [
+        "50 x 30"
+      ]
+    },
+    {
+      "line": 1215,
+      "text": "White Gelcoat Basin / Vasque en Gelcoat blanc VASCA EB70 70 x 30 975,00",
+      "prices": [
+        "975,00"
+      ],
+      "refs": [
+        "VASCA",
+        "EB70"
+      ],
+      "dimensions": [
+        "70 x 30"
+      ]
+    },
+    {
+      "line": 1216,
+      "text": "FORO PER LAVABO",
+      "prices": [],
+      "refs": [
+        "FORO",
+        "LAVABO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1217,
+      "text": "MLA 66,00",
+      "prices": [
+        "66,00"
+      ],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1218,
+      "text": "FENIX - FINITURE HPL - FINITURE Hole for washbasin / Trou pour lavabo",
+      "prices": [],
+      "refs": [
+        "FENIX",
+        "FINITURE",
+        "FINITURE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1219,
+      "text": "Fenix Finishes / Finitions Fenix Hpl Finishes / Finitions Hpl FORO RUBINETTO",
+      "prices": [],
+      "refs": [
+        "FORO",
+        "RUBINETTO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1220,
+      "text": "MFR 66,00",
+      "prices": [
+        "66,00"
+      ],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1253,
+      "text": "STF40 cad. 50,00",
+      "prices": [
+        "50,00"
+      ],
+      "refs": [
+        "STF40"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1273,
+      "text": "DNA / Collection / Lavabi in appoggio DNA / Collection / Lavabi in appoggio",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1274,
+      "text": "Countertop basins / Lavabos à poser Countertop basins / Lavabos à poser",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1275,
+      "text": "LAVABO APPOGGIO IN OCRITECH CODICE DIMENSIONI BIANCO LAVABO APPOGGIO IN OCRITECH CODICE DIMENSIONI OPACO FUME’",
+      "prices": [],
+      "refs": [
+        "LAVABO",
+        "APPOGGIO",
+        "OCRITECH",
+        "CODICE",
+        "DIMENSIONI",
+        "BIANCO",
+        "LAVABO",
+        "APPOGGIO",
+        "OCRITECH",
+        "CODICE",
+        "DIMENSIONI",
+        "OPACO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1276,
+      "text": "WORKTOP MOUNTED OCRITECH WASH BASIN / CODE DIMENSION OPACO WORKTOP MOUNTED OCRITECH WASH BASIN / CODE DIMENSION BRONZO",
+      "prices": [],
+      "refs": [
+        "WORKTOP",
+        "MOUNTED",
+        "OCRITECH",
+        "WASH",
+        "BASIN",
+        "CODE",
+        "DIMENSION",
+        "OPACO",
+        "WORKTOP",
+        "MOUNTED",
+        "OCRITECH",
+        "WASH"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1277,
+      "text": "LAVABO A POSER EN OCRITECH CODE L x H x P cm LAVABO A POSER EN OCRITECH CODE L x H x P cm",
+      "prices": [],
+      "refs": [
+        "LAVABO",
+        "POSER",
+        "OCRITECH",
+        "CODE",
+        "LAVABO",
+        "POSER",
+        "OCRITECH",
+        "CODE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1280,
+      "text": "PF132690A Ø 37 x 14 457,00 ECLISSE TONDA ECLISSE116 Ø 42 x 12 492,00 540,00",
+      "prices": [
+        "457,00",
+        "492,00",
+        "540,00"
+      ],
+      "refs": [
+        "PF132690A",
+        "ECLISSE",
+        "TONDA",
+        "ECLISSE116"
+      ],
+      "dimensions": [
+        "37 x 14",
+        "42 x 12"
+      ]
+    },
+    {
+      "line": 1282,
+      "text": "PF149380A 48 x 13 x 32 574,00 ECLISSE OVALE ECLISSE115 54 x 12 x 34 492,00 540,00",
+      "prices": [
+        "574,00",
+        "492,00",
+        "540,00"
+      ],
+      "refs": [
+        "PF149380A",
+        "ECLISSE",
+        "OVALE",
+        "ECLISSE115"
+      ],
+      "dimensions": [
+        "48 x 13 x 32",
+        "54 x 12 x 34"
+      ]
+    },
+    {
+      "line": 1284,
+      "text": "ECLISSE QUADRA ECLISSE114 54 x 12 x 34 492,00 540,00",
+      "prices": [
+        "492,00",
+        "540,00"
+      ],
+      "refs": [
+        "ECLISSE",
+        "QUADRA",
+        "ECLISSE114"
+      ],
+      "dimensions": [
+        "54 x 12 x 34"
+      ]
+    },
+    {
+      "line": 1286,
+      "text": "Codice per lavabo semincasso / Code for Semi-recessed Basin / Code pour vasque semi-encastrée",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1290,
+      "text": "TAVOLETTA IN OCRITECH BIANCO OPACO CON PIEDINI TVL116 188,00",
+      "prices": [
+        "188,00"
+      ],
+      "refs": [
+        "TAVOLETTA",
+        "OCRITECH",
+        "BIANCO",
+        "OPACO",
+        "PIEDINI",
+        "TVL116"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1291,
+      "text": "MATTE WHITE OCRITECH SHELF, WITH FEET /",
+      "prices": [],
+      "refs": [
+        "MATTE",
+        "WHITE",
+        "OCRITECH",
+        "SHELF",
+        "WITH",
+        "FEET"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1293,
+      "text": "ÉTAGÈRE OCRITECH BLANC MAT, AVEC PIEDS",
+      "prices": [],
+      "refs": [
+        "OCRITECH",
+        "BLANC",
+        "AVEC",
+        "PIEDS"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1295,
+      "text": "SUPPORTO TAVOLETTA IN ABS NERO CON PIEDINI SUP116 105,00",
+      "prices": [
+        "105,00"
+      ],
+      "refs": [
+        "SUPPORTO",
+        "TAVOLETTA",
+        "NERO",
+        "PIEDINI",
+        "SUP116"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1296,
+      "text": "BLACK ABS SHELF SUPPORT, WITH FEET /",
+      "prices": [],
+      "refs": [
+        "BLACK",
+        "SHELF",
+        "SUPPORT",
+        "WITH",
+        "FEET"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1298,
+      "text": "SUPPORT ÉTAGÈRE ABS NOIR, AVEC PIEDS",
+      "prices": [],
+      "refs": [
+        "SUPPORT",
+        "NOIR",
+        "AVEC",
+        "PIEDS"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1301,
+      "text": "DNA / Collection / Lavabi in appoggio DNA / Collection / Lavabi in appoggio",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1302,
+      "text": "Countertop basins / Lavabos à poser Countertop basins / Lavabos à poser",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1303,
+      "text": "LAVABI APPOGGIO IN CERAMICA CODICE DIMENSIONI BIANCO BIANCO / NERO LAVABI GEACRIL CODICE DIMENSIONI BIANCO COLORATO",
+      "prices": [],
+      "refs": [
+        "LAVABI",
+        "APPOGGIO",
+        "CERAMICA",
+        "CODICE",
+        "DIMENSIONI",
+        "BIANCO",
+        "BIANCO",
+        "NERO",
+        "LAVABI",
+        "GEACRIL",
+        "CODICE",
+        "DIMENSIONI"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1304,
+      "text": "WORKTOP MOUNTED CERAMIC WASH BASIN / CODE DIMENSION LUCIDO OPACO CODE DIMENSION WHITE",
+      "prices": [],
+      "refs": [
+        "WORKTOP",
+        "MOUNTED",
+        "CERAMIC",
+        "WASH",
+        "BASIN",
+        "CODE",
+        "DIMENSION",
+        "LUCIDO",
+        "OPACO",
+        "CODE",
+        "DIMENSION",
+        "WHITE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1305,
+      "text": "LAVABO A POSER EN CERAMIQUE CODE L x H x P cm GLOSSY WHITE GLOSSY WHITE CODE L x H x P cm BLANC",
+      "prices": [],
+      "refs": [
+        "LAVABO",
+        "POSER",
+        "CERAMIQUE",
+        "CODE",
+        "GLOSSY",
+        "WHITE",
+        "GLOSSY",
+        "WHITE",
+        "CODE",
+        "BLANC"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1307,
+      "text": "FO01 Ø 40 x 13 479,00 640,00 B578 Ø 42 x 14 598,00 892,00",
+      "prices": [
+        "479,00",
+        "640,00",
+        "598,00",
+        "892,00"
+      ],
+      "refs": [
+        "FO01",
+        "B578"
+      ],
+      "dimensions": [
+        "40 x 13",
+        "42 x 14"
+      ]
+    },
+    {
+      "line": 1308,
+      "text": "FO02 60 x 40 x 13 533,00 735,00 B571 52,5 x 14 x 29,5 650,00 970,00",
+      "prices": [
+        "533,00",
+        "735,00",
+        "650,00",
+        "970,00"
+      ],
+      "refs": [
+        "FO02",
+        "B571"
+      ],
+      "dimensions": [
+        "60 x 40 x 13",
+        "52,5 x 14 x 29,5"
+      ]
+    },
+    {
+      "line": 1309,
+      "text": "FO03 40 x 40 x 13 479,00 640,00",
+      "prices": [
+        "479,00",
+        "640,00"
+      ],
+      "refs": [
+        "FO03"
+      ],
+      "dimensions": [
+        "40 x 40 x 13"
+      ]
+    },
+    {
+      "line": 1310,
+      "text": "B860 47 x 28 698,00 1.044,00",
+      "prices": [
+        "698,00",
+        "044,00"
+      ],
+      "refs": [
+        "B860",
+        "1.044"
+      ],
+      "dimensions": [
+        "47 x 28"
+      ]
+    },
+    {
+      "line": 1311,
+      "text": "FO04 60 x 40 x 13 533,00 758,00",
+      "prices": [
+        "533,00",
+        "758,00"
+      ],
+      "refs": [
+        "FO04"
+      ],
+      "dimensions": [
+        "60 x 40 x 13"
+      ]
+    },
+    {
+      "line": 1312,
+      "text": "B861 57 x 28 724,00 1.086,00",
+      "prices": [
+        "724,00",
+        "086,00"
+      ],
+      "refs": [
+        "B861",
+        "1.086"
+      ],
+      "dimensions": [
+        "57 x 28"
+      ]
+    },
+    {
+      "line": 1313,
+      "text": "CVR45 45 x 15 x 35 456,00 656,00 B862 67 x 28 750,00 1.128,00",
+      "prices": [
+        "456,00",
+        "656,00",
+        "750,00",
+        "128,00"
+      ],
+      "refs": [
+        "CVR45",
+        "B862",
+        "1.128"
+      ],
+      "dimensions": [
+        "45 x 15 x 35",
+        "67 x 28"
+      ]
+    },
+    {
+      "line": 1315,
+      "text": "DNA / Collection / Specchi DNA / Collection / Specchi",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1316,
+      "text": "Mirrors / Miroirs Mirrors / Miroirs",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1317,
+      "text": "SPECCHIO FILO LUCIDO CODICE DIMENSIONI PREZZO SPECCHIO FILO LUCIDO ROTONDO CODICE DIMENSIONI PREZZO",
+      "prices": [],
+      "refs": [
+        "SPECCHIO",
+        "FILO",
+        "LUCIDO",
+        "CODICE",
+        "DIMENSIONI",
+        "PREZZO",
+        "SPECCHIO",
+        "FILO",
+        "LUCIDO",
+        "ROTONDO",
+        "CODICE",
+        "DIMENSIONI"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1318,
+      "text": "Simple mirror / Miroir simple CODE DIMENSION PRICE Round simple mirror / Miroir rond simple CODE DIMENSION PRICE",
+      "prices": [],
+      "refs": [
+        "CODE",
+        "DIMENSION",
+        "PRICE",
+        "CODE",
+        "DIMENSION",
+        "PRICE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1321,
+      "text": "SF6070 60 x 70 110,00 SPT60 Ø 60 120,00",
+      "prices": [
+        "110,00",
+        "120,00"
+      ],
+      "refs": [
+        "SF6070",
+        "SPT60"
+      ],
+      "dimensions": [
+        "60 x 70"
+      ]
+    },
+    {
+      "line": 1322,
+      "text": "SF7070 70 x 70 114,00 SPT80 Ø 80 180,00",
+      "prices": [
+        "114,00",
+        "180,00"
+      ],
+      "refs": [
+        "SF7070",
+        "SPT80"
+      ],
+      "dimensions": [
+        "70 x 70"
+      ]
+    },
+    {
+      "line": 1323,
+      "text": "SF8070 80 x 70 121,00 SPT90 Ø 90 206,00",
+      "prices": [
+        "121,00",
+        "206,00"
+      ],
+      "refs": [
+        "SF8070",
+        "SPT90"
+      ],
+      "dimensions": [
+        "80 x 70"
+      ]
+    },
+    {
+      "line": 1324,
+      "text": "SF9070 90 x 70 131,00 SPT100 Ø 100 245,00",
+      "prices": [
+        "131,00",
+        "245,00"
+      ],
+      "refs": [
+        "SF9070",
+        "SPT100"
+      ],
+      "dimensions": [
+        "90 x 70"
+      ]
+    },
+    {
+      "line": 1325,
+      "text": "SF10070 100 x 70 141,00 SPT120 Ø 120 328,00",
+      "prices": [
+        "141,00",
+        "328,00"
+      ],
+      "refs": [
+        "SF10070",
+        "SPT120"
+      ],
+      "dimensions": [
+        "100 x 70"
+      ]
+    },
+    {
+      "line": 1326,
+      "text": "SF12070 120 x 70 165,00",
+      "prices": [
+        "165,00"
+      ],
+      "refs": [
+        "SF12070"
+      ],
+      "dimensions": [
+        "120 x 70"
+      ]
+    },
+    {
+      "line": 1327,
+      "text": "SF14070 140 x 70 188,00",
+      "prices": [
+        "188,00"
+      ],
+      "refs": [
+        "SF14070"
+      ],
+      "dimensions": [
+        "140 x 70"
+      ]
+    },
+    {
+      "line": 1328,
+      "text": "SF16070 160 x 70 219,00",
+      "prices": [
+        "219,00"
+      ],
+      "refs": [
+        "SF16070"
+      ],
+      "dimensions": [
+        "160 x 70"
+      ]
+    },
+    {
+      "line": 1329,
+      "text": "SPECCHIO FILO LUCIDO CODICE DIMENSIONI WATT PREZZO SPECCHIO FILO LUCIDO ROTONDO CODICE DIMENSIONI WATT PREZZO",
+      "prices": [],
+      "refs": [
+        "SPECCHIO",
+        "FILO",
+        "LUCIDO",
+        "CODICE",
+        "DIMENSIONI",
+        "WATT",
+        "PREZZO",
+        "SPECCHIO",
+        "FILO",
+        "LUCIDO",
+        "ROTONDO",
+        "CODICE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1330,
+      "text": "RETROILLUMINATO LED CODE DIMENSION LED PRICE RETROILLUMINATO LED CODE DIMENSION LED PRICE",
+      "prices": [],
+      "refs": [
+        "RETROILLUMINATO",
+        "CODE",
+        "DIMENSION",
+        "PRICE",
+        "RETROILLUMINATO",
+        "CODE",
+        "DIMENSION",
+        "PRICE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1331,
+      "text": "Backlit mirror with led lighting / CODE L x H x P cm PRIX Backlit mirror with led lighting / CODE L x H x P cm PRIX",
+      "prices": [],
+      "refs": [
+        "CODE",
+        "PRIX",
+        "CODE",
+        "PRIX"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1332,
+      "text": "Miroir retro-eclaire avec lumiere led W x H x D cm Miroir retro-eclaire avec lumiere led W x H x D cm",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1333,
+      "text": "SFR6070 60 x 70 25 239,00 SPTR60 Ø 60 35 250,00",
+      "prices": [
+        "239,00",
+        "250,00"
+      ],
+      "refs": [
+        "SFR6070",
+        "SPTR60"
+      ],
+      "dimensions": [
+        "60 x 70"
+      ]
+    },
+    {
+      "line": 1334,
+      "text": "SFR7070 70 x 70 25 252,00 SPTR80 Ø 80 48 332,00",
+      "prices": [
+        "252,00",
+        "332,00"
+      ],
+      "refs": [
+        "SFR7070",
+        "SPTR80"
+      ],
+      "dimensions": [
+        "70 x 70"
+      ]
+    },
+    {
+      "line": 1335,
+      "text": "SFR8070 80 x 70 27 265,00 SPTR90 Ø 90 53 365,00",
+      "prices": [
+        "265,00",
+        "365,00"
+      ],
+      "refs": [
+        "SFR8070",
+        "SPTR90"
+      ],
+      "dimensions": [
+        "80 x 70"
+      ]
+    },
+    {
+      "line": 1336,
+      "text": "SFR9070 90 x 70 30 279,00 SPTR100 Ø 100 56 465,00",
+      "prices": [
+        "279,00",
+        "465,00"
+      ],
+      "refs": [
+        "SFR9070",
+        "SPTR100"
+      ],
+      "dimensions": [
+        "90 x 70"
+      ]
+    },
+    {
+      "line": 1337,
+      "text": "SFR10070 100 x 70 31 289,00 SPTR120 Ø 120 60 577,00",
+      "prices": [
+        "289,00",
+        "577,00"
+      ],
+      "refs": [
+        "SFR10070",
+        "SPTR120"
+      ],
+      "dimensions": [
+        "100 x 70"
+      ]
+    },
+    {
+      "line": 1338,
+      "text": "SFR12070 120 x 70 35 316,00",
+      "prices": [
+        "316,00"
+      ],
+      "refs": [
+        "SFR12070"
+      ],
+      "dimensions": [
+        "120 x 70"
+      ]
+    },
+    {
+      "line": 1339,
+      "text": "SFR14070 140 x 70 39 342,00",
+      "prices": [
+        "342,00"
+      ],
+      "refs": [
+        "SFR14070"
+      ],
+      "dimensions": [
+        "140 x 70"
+      ]
+    },
+    {
+      "line": 1340,
+      "text": "SFR16070 160 x 70 43 376,00",
+      "prices": [
+        "376,00"
+      ],
+      "refs": [
+        "SFR16070"
+      ],
+      "dimensions": [
+        "160 x 70"
+      ]
+    },
+    {
+      "line": 1341,
+      "text": "SPECCHIO FILO LUCIDO CON FASCIA CODICE DIMENSIONI WATT PREZZO SPECCHIO “EDEN” CODICE DIMENSIONI WATT PREZZO",
+      "prices": [],
+      "refs": [
+        "SPECCHIO",
+        "FILO",
+        "LUCIDO",
+        "FASCIA",
+        "CODICE",
+        "DIMENSIONI",
+        "WATT",
+        "PREZZO",
+        "SPECCHIO",
+        "EDEN",
+        "CODICE",
+        "DIMENSIONI"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1342,
+      "text": "SABBIATA RETROILLUMINATA CODE DIMENSION LED PRICE Eden mirror / Miroir Eden CODE DIMENSION LED PRICE",
+      "prices": [],
+      "refs": [
+        "SABBIATA",
+        "RETROILLUMINATA",
+        "CODE",
+        "DIMENSION",
+        "PRICE",
+        "CODE",
+        "DIMENSION",
+        "PRICE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1343,
+      "text": "Simple mirror with led lighting / CODE L x H x P cm PRIX CODE L x H x P cm PRIX",
+      "prices": [],
+      "refs": [
+        "CODE",
+        "PRIX",
+        "CODE",
+        "PRIX"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1344,
+      "text": "Miroir simple avec eclairage led W x H x D cm W x H x D cm",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1345,
+      "text": "SFI6070 60 x 70 4,5 239,00 EDN80 80 x 70 33 421,00",
+      "prices": [
+        "239,00",
+        "421,00"
+      ],
+      "refs": [
+        "SFI6070",
+        "EDN80"
+      ],
+      "dimensions": [
+        "60 x 70",
+        "80 x 70"
+      ]
+    },
+    {
+      "line": 1346,
+      "text": "SFI7070 70 x 70 4,5 252,00 EDN90 90 x 70 35 443,00",
+      "prices": [
+        "252,00",
+        "443,00"
+      ],
+      "refs": [
+        "SFI7070",
+        "EDN90"
+      ],
+      "dimensions": [
+        "70 x 70",
+        "90 x 70"
+      ]
+    },
+    {
+      "line": 1347,
+      "text": "SFI8070 80 x 70 4,5 265,00 EDN100 100 x 70 38 462,00",
+      "prices": [
+        "265,00",
+        "462,00"
+      ],
+      "refs": [
+        "SFI8070",
+        "EDN100"
+      ],
+      "dimensions": [
+        "80 x 70",
+        "100 x 70"
+      ]
+    },
+    {
+      "line": 1348,
+      "text": "SFI9070 90 x 70 7 279,00 EDN120 120 x 70 42 476,00",
+      "prices": [
+        "279,00",
+        "476,00"
+      ],
+      "refs": [
+        "SFI9070",
+        "EDN120"
+      ],
+      "dimensions": [
+        "90 x 70",
+        "120 x 70"
+      ]
+    },
+    {
+      "line": 1349,
+      "text": "SFI10070 100 x 70 9 289,00 EDN140 140 x 70 46 503,00",
+      "prices": [
+        "289,00",
+        "503,00"
+      ],
+      "refs": [
+        "SFI10070",
+        "EDN140"
+      ],
+      "dimensions": [
+        "100 x 70",
+        "140 x 70"
+      ]
+    },
+    {
+      "line": 1350,
+      "text": "SFI12070 120 x 70 12 316,00",
+      "prices": [
+        "316,00"
+      ],
+      "refs": [
+        "SFI12070"
+      ],
+      "dimensions": [
+        "120 x 70"
+      ]
+    },
+    {
+      "line": 1351,
+      "text": "SFI14070 140 x 70 15 342,00",
+      "prices": [
+        "342,00"
+      ],
+      "refs": [
+        "SFI14070"
+      ],
+      "dimensions": [
+        "140 x 70"
+      ]
+    },
+    {
+      "line": 1352,
+      "text": "SFI16070 160 x 70 18 376,00",
+      "prices": [
+        "376,00"
+      ],
+      "refs": [
+        "SFI16070"
+      ],
+      "dimensions": [
+        "160 x 70"
+      ]
+    },
+    {
+      "line": 1354,
+      "text": "DNA / Collection / Specchi DNA / Collection / Specchi",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1355,
+      "text": "Mirrors / Miroirs Mirrors / Miroirs",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1356,
+      "text": "SPECCHIO “ARONA” CODICE DIMENSIONI WATT PREZZO SPECCHIO CONTENITORE “KENDO” CODICE DIMENSIONI WATT NERO",
+      "prices": [],
+      "refs": [
+        "SPECCHIO",
+        "ARONA",
+        "CODICE",
+        "DIMENSIONI",
+        "WATT",
+        "PREZZO",
+        "SPECCHIO",
+        "CONTENITORE",
+        "KENDO",
+        "CODICE",
+        "DIMENSIONI",
+        "WATT"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1357,
+      "text": "Arona mirror / Miroir Arona CODE DIMENSION LED PRICE CON SCOCCA IN ALLUMINIO CODE DIMENSION LED BLACK",
+      "prices": [],
+      "refs": [
+        "CODE",
+        "DIMENSION",
+        "PRICE",
+        "SCOCCA",
+        "ALLUMINIO",
+        "CODE",
+        "DIMENSION",
+        "BLACK"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1358,
+      "text": "CODE L x H x P cm PRIX “Kendo” LED Mirror Cabinet, Aluminum Body / CODE L x H x P cm NOIR",
+      "prices": [],
+      "refs": [
+        "CODE",
+        "PRIX",
+        "CODE",
+        "NOIR"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1360,
+      "text": "AR100 50 x 100 -- 245,00 KEN90 50 x 100 x 12 -- 1.322,00",
+      "prices": [
+        "245,00",
+        "322,00"
+      ],
+      "refs": [
+        "AR100",
+        "KEN90",
+        "1.322"
+      ],
+      "dimensions": [
+        "50 x 100",
+        "50 x 100 x 12"
+      ]
+    },
+    {
+      "line": 1361,
+      "text": "SPECCHIO “ARONA LED” CODICE DIMENSIONI WATT PREZZO SPECCHIO “TED” CODICE DIMENSIONI WATT NERO",
+      "prices": [],
+      "refs": [
+        "SPECCHIO",
+        "ARONA",
+        "CODICE",
+        "DIMENSIONI",
+        "WATT",
+        "PREZZO",
+        "SPECCHIO",
+        "CODICE",
+        "DIMENSIONI",
+        "WATT",
+        "NERO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1362,
+      "text": "Arona Led mirror / Miroir Arona Led CODE DIMENSION LED PRICE CON SCOCCA IN ALLUMINIO ED CODE DIMENSION LED BLACK",
+      "prices": [],
+      "refs": [
+        "CODE",
+        "DIMENSION",
+        "PRICE",
+        "SCOCCA",
+        "ALLUMINIO",
+        "CODE",
+        "DIMENSION",
+        "BLACK"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1363,
+      "text": "CODE L x H x P cm PRIX ILLUMINAZIONE LED CODE L x H x P cm 4000K NOIR",
+      "prices": [],
+      "refs": [
+        "CODE",
+        "PRIX",
+        "ILLUMINAZIONE",
+        "CODE",
+        "4000K",
+        "NOIR"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1364,
+      "text": "W x H x D cm Ted LED Mirror, Aluminum Body / W x H x D cm",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1365,
+      "text": "Miroir Ted LED, coque aluminium",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1366,
+      "text": "ARL100 50 x 100 34 292,00 TED 50 x 100 x 12 33 1.520,00",
+      "prices": [
+        "292,00",
+        "520,00"
+      ],
+      "refs": [
+        "ARL100",
+        "1.520"
+      ],
+      "dimensions": [
+        "50 x 100",
+        "50 x 100 x 12"
+      ]
+    },
+    {
+      "line": 1367,
+      "text": "SPECCHIO “ARONA SABBIATA LED” CODICE DIMENSIONI WATT PREZZO SPECCHIO “UP” CODICE DIMENSIONI WATT NERO",
+      "prices": [],
+      "refs": [
+        "SPECCHIO",
+        "ARONA",
+        "SABBIATA",
+        "CODICE",
+        "DIMENSIONI",
+        "WATT",
+        "PREZZO",
+        "SPECCHIO",
+        "CODICE",
+        "DIMENSIONI",
+        "WATT",
+        "NERO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1368,
+      "text": "Arona Led mirror Sandblasted / CODE DIMENSION LED PRICE CON CORNICE IN ALLUMINIO CODE DIMENSION LED BLACK",
+      "prices": [],
+      "refs": [
+        "CODE",
+        "DIMENSION",
+        "PRICE",
+        "CORNICE",
+        "ALLUMINIO",
+        "CODE",
+        "DIMENSION",
+        "BLACK"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1369,
+      "text": "Miroir Arona Led verre sablé CODE L x H x P cm PRIX UP Aluminum Frame Mirror / CODE L x H x P cm NOIR",
+      "prices": [],
+      "refs": [
+        "CODE",
+        "PRIX",
+        "CODE",
+        "NOIR"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1371,
+      "text": "ARS100 50 x 100 32 503,00 UP 50 x 100 x 4 -- 918,00",
+      "prices": [
+        "503,00",
+        "918,00"
+      ],
+      "refs": [
+        "ARS100"
+      ],
+      "dimensions": [
+        "50 x 100",
+        "50 x 100"
+      ]
+    },
+    {
+      "line": 1373,
+      "text": "DNA / Collection / Specchi DNA / Collection / Specchi",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1374,
+      "text": "Mirrors / Miroirs Mirrors / Miroirs",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1375,
+      "text": "SPECCHIO CONTENITORE “TAMAGO OVALE” CODICE DIMENSIONI WATT PREZZO SPECCHIO “MAKE UP OVALE” CODICE DIMENSIONI WATT BIANCO / NERO",
+      "prices": [],
+      "refs": [
+        "SPECCHIO",
+        "CONTENITORE",
+        "TAMAGO",
+        "OVALE",
+        "CODICE",
+        "DIMENSIONI",
+        "WATT",
+        "PREZZO",
+        "SPECCHIO",
+        "MAKE",
+        "OVALE",
+        "CODICE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1376,
+      "text": "CON CORNICE IN ALLUMINIO CODE DIMENSION LED PRICE CON CORNICE IN ALLUMINIO ED CODE DIMENSION LED WHITE / BLACK",
+      "prices": [],
+      "refs": [
+        "CORNICE",
+        "ALLUMINIO",
+        "CODE",
+        "DIMENSION",
+        "PRICE",
+        "CORNICE",
+        "ALLUMINIO",
+        "CODE",
+        "DIMENSION",
+        "WHITE",
+        "BLACK"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1377,
+      "text": "Tamago Oval Aluminum Frame Cabinet Mirror / CODE L x H x P cm PRIX ILLUMINAZIONE LED CODE L x H x P cm 4000K BLANC / NOIR",
+      "prices": [],
+      "refs": [
+        "CODE",
+        "PRIX",
+        "ILLUMINAZIONE",
+        "CODE",
+        "4000K",
+        "BLANC",
+        "NOIR"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1378,
+      "text": "Miroir armoire ovale Tamago, cadre aluminium W x H x D cm Oval LED Make-up Mirror, Aluminum Frame / W x H x D cm",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1379,
+      "text": "Miroir de maquillage ovale LED, cadre aluminium",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1380,
+      "text": "TAMAGO 50 x 100 x 12 -- 1.847,00 MAKEUPOVAL 50 x 100 x 4 21 700,00",
+      "prices": [
+        "847,00",
+        "700,00"
+      ],
+      "refs": [
+        "TAMAGO",
+        "1.847",
+        "MAKEUPOVAL"
+      ],
+      "dimensions": [
+        "50 x 100 x 12",
+        "50 x 100"
+      ]
+    },
+    {
+      "line": 1381,
+      "text": "SPECCHIO CONTENITORE “FORMA ROUND” CODICE DIMENSIONI WATT PREZZO SPECCHIO “MAKE UP ROUND” CODICE DIMENSIONI WATT BIANCO / NERO",
+      "prices": [],
+      "refs": [
+        "SPECCHIO",
+        "CONTENITORE",
+        "FORMA",
+        "ROUND",
+        "CODICE",
+        "DIMENSIONI",
+        "WATT",
+        "PREZZO",
+        "SPECCHIO",
+        "MAKE",
+        "ROUND",
+        "CODICE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1382,
+      "text": "CON CORNICE IN ALLUMINIO CODE DIMENSION LED PRICE CON CORNICE IN ALLUMINIO ED CODE DIMENSION LED WHITE / BLACK",
+      "prices": [],
+      "refs": [
+        "CORNICE",
+        "ALLUMINIO",
+        "CODE",
+        "DIMENSION",
+        "PRICE",
+        "CORNICE",
+        "ALLUMINIO",
+        "CODE",
+        "DIMENSION",
+        "WHITE",
+        "BLACK"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1383,
+      "text": "Round Cabinet Mirror with Aluminum Frame / CODE L x H x P cm PRIX ILLUMINAZIONE LED CODE L x H x P cm 4000K BLANC / NOIR",
+      "prices": [],
+      "refs": [
+        "CODE",
+        "PRIX",
+        "ILLUMINAZIONE",
+        "CODE",
+        "4000K",
+        "BLANC",
+        "NOIR"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1384,
+      "text": "Armoire de toilette ronde avec cadre en aluminium W x H x D cm Round LED Aluminum Frame Make-up Mirror/ W x H x D cm",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1385,
+      "text": "Miroir de maquillage rond LED, cadre aluminium",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1386,
+      "text": "FORMAROUND Ø 79 x15 -- 1.931,00 MAKEUP Ø 80 15 675,00",
+      "prices": [
+        "931,00",
+        "675,00"
+      ],
+      "refs": [
+        "FORMAROUND",
+        "1.931",
+        "MAKEUP"
+      ],
+      "dimensions": [
+        "79 x15"
+      ]
+    },
+    {
+      "line": 1388,
+      "text": "MAKEUP Ø 100 19 866,00",
+      "prices": [
+        "866,00"
+      ],
+      "refs": [
+        "MAKEUP"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1390,
+      "text": "MAKEUP Ø 120 24 1.035,00",
+      "prices": [
+        "035,00"
+      ],
+      "refs": [
+        "MAKEUP",
+        "1.035"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1392,
+      "text": "SPECCHIO “FRAME” BORDO ALLUMINIO CODICE DIMENSIONI WATT PREZZO SPECCHIO “MAKE UP RETTANGOLARE” CODICE DIMENSIONI WATT BIANCO / NERO",
+      "prices": [],
+      "refs": [
+        "SPECCHIO",
+        "FRAME",
+        "BORDO",
+        "ALLUMINIO",
+        "CODICE",
+        "DIMENSIONI",
+        "WATT",
+        "PREZZO",
+        "SPECCHIO",
+        "MAKE",
+        "RETTANGOLARE",
+        "CODICE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1393,
+      "text": "ED ILLUMINAZIONE LED CODE DIMENSION LED PRICE CON CORNICE IN ALLUMINIO ED CODE DIMENSION LED WHITE / BLACK",
+      "prices": [],
+      "refs": [
+        "ILLUMINAZIONE",
+        "CODE",
+        "DIMENSION",
+        "PRICE",
+        "CORNICE",
+        "ALLUMINIO",
+        "CODE",
+        "DIMENSION",
+        "WHITE",
+        "BLACK"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1394,
+      "text": "LED Mirror with Aluminum Frame / CODE L x H x P cm 4000K PRIX ILLUMINAZIONE LED CODE L x H x P cm 4000K BLANC / NOIR",
+      "prices": [],
+      "refs": [
+        "CODE",
+        "4000K",
+        "PRIX",
+        "ILLUMINAZIONE",
+        "CODE",
+        "4000K",
+        "BLANC",
+        "NOIR"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1395,
+      "text": "Miroir LED, cadre aluminium W x H x D cm Rectangular LED Make-up Mirror, Aluminum Frame/ W x H x D cm",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1396,
+      "text": "Miroir de maquillage rectangulaire LED, cadre aluminium",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1397,
+      "text": "FRAME80 80 x 70 28 863,00 MAKEUP80 80 x 70 x 4 27 692,00",
+      "prices": [
+        "863,00",
+        "692,00"
+      ],
+      "refs": [
+        "FRAME80",
+        "MAKEUP80"
+      ],
+      "dimensions": [
+        "80 x 70",
+        "80 x 70"
+      ]
+    },
+    {
+      "line": 1398,
+      "text": "FRAME100 100 x 70 32 761,00 MAKEUP100 100 x 70 x 4 31 755,00",
+      "prices": [
+        "761,00",
+        "755,00"
+      ],
+      "refs": [
+        "FRAME100",
+        "MAKEUP100"
+      ],
+      "dimensions": [
+        "100 x 70",
+        "100 x 70"
+      ]
+    },
+    {
+      "line": 1399,
+      "text": "FRAME120 120 x 70 36 856,00 MAKEUP120 120 x 70 x 4 35 830,00",
+      "prices": [
+        "856,00",
+        "830,00"
+      ],
+      "refs": [
+        "FRAME120",
+        "MAKEUP120"
+      ],
+      "dimensions": [
+        "120 x 70",
+        "120 x 70"
+      ]
+    },
+    {
+      "line": 1400,
+      "text": "FRAME140 140 x 70 40 960,00 MAKEUP140 140 x 70 x 4 38 1.028,00",
+      "prices": [
+        "960,00",
+        "028,00"
+      ],
+      "refs": [
+        "FRAME140",
+        "MAKEUP140",
+        "1.028"
+      ],
+      "dimensions": [
+        "140 x 70",
+        "140 x 70"
+      ]
+    },
+    {
+      "line": 1401,
+      "text": "MAKEUP160 160 x 70 x 4 40 1.130,00",
+      "prices": [
+        "130,00"
+      ],
+      "refs": [
+        "MAKEUP160",
+        "1.130"
+      ],
+      "dimensions": [
+        "160 x 70"
+      ]
+    },
+    {
+      "line": 1403,
+      "text": "DNA / Collection / Specchi DNA / Collection / Specchi",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1404,
+      "text": "Mirrors / Miroirs Mirrors / Miroirs",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1405,
+      "text": "SPECCHIO FILO LUCIDO, TELAIO SATINATO CODICE DIMENSIONI PREZZO TOUCH DI ACCENSIONE CODICE PREZZO",
+      "prices": [],
+      "refs": [
+        "SPECCHIO",
+        "FILO",
+        "LUCIDO",
+        "TELAIO",
+        "SATINATO",
+        "CODICE",
+        "DIMENSIONI",
+        "PREZZO",
+        "TOUCH",
+        "ACCENSIONE",
+        "CODICE",
+        "PREZZO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1406,
+      "text": "Simple mirror with Satin Frame / Miroir simple avec CODE DIMENSION PRICE PER SPECCHI RETROILLUMINATI CODE PRICE",
+      "prices": [],
+      "refs": [
+        "CODE",
+        "DIMENSION",
+        "PRICE",
+        "SPECCHI",
+        "RETROILLUMINATI",
+        "CODE",
+        "PRICE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1408,
+      "text": "Touch for backlit mirrors / Touche d’allumage CODE PRIX",
+      "prices": [],
+      "refs": [
+        "CODE",
+        "PRIX"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1410,
+      "text": "SFT6070 60 x 70 136,00 TOUCH 70,00",
+      "prices": [
+        "136,00",
+        "70,00"
+      ],
+      "refs": [
+        "SFT6070",
+        "TOUCH"
+      ],
+      "dimensions": [
+        "60 x 70"
+      ]
+    },
+    {
+      "line": 1411,
+      "text": "SFT7070 70 x 70 141,00",
+      "prices": [
+        "141,00"
+      ],
+      "refs": [
+        "SFT7070"
+      ],
+      "dimensions": [
+        "70 x 70"
+      ]
+    },
+    {
+      "line": 1412,
+      "text": "SFT8070 80 x 70 149,00",
+      "prices": [
+        "149,00"
+      ],
+      "refs": [
+        "SFT8070"
+      ],
+      "dimensions": [
+        "80 x 70"
+      ]
+    },
+    {
+      "line": 1413,
+      "text": "SFT9070 90 x 70 157,00",
+      "prices": [
+        "157,00"
+      ],
+      "refs": [
+        "SFT9070"
+      ],
+      "dimensions": [
+        "90 x 70"
+      ]
+    },
+    {
+      "line": 1414,
+      "text": "SFT10070 100 x 70 162,00",
+      "prices": [
+        "162,00"
+      ],
+      "refs": [
+        "SFT10070"
+      ],
+      "dimensions": [
+        "100 x 70"
+      ]
+    },
+    {
+      "line": 1415,
+      "text": "SFT12070 120 x 70 173,00",
+      "prices": [
+        "173,00"
+      ],
+      "refs": [
+        "SFT12070"
+      ],
+      "dimensions": [
+        "120 x 70"
+      ]
+    },
+    {
+      "line": 1416,
+      "text": "SFT14070 140 x 70 190,00",
+      "prices": [
+        "190,00"
+      ],
+      "refs": [
+        "SFT14070"
+      ],
+      "dimensions": [
+        "140 x 70"
+      ]
+    },
+    {
+      "line": 1417,
+      "text": "SFT16070 160 x 70 220,00",
+      "prices": [
+        "220,00"
+      ],
+      "refs": [
+        "SFT16070"
+      ],
+      "dimensions": [
+        "160 x 70"
+      ]
+    },
+    {
+      "line": 1418,
+      "text": "SPECCHIO CORNICE IN ALLUMINIO “GLOW” CODICE DIMENSIONI PREZZO",
+      "prices": [],
+      "refs": [
+        "SPECCHIO",
+        "CORNICE",
+        "ALLUMINIO",
+        "GLOW",
+        "CODICE",
+        "DIMENSIONI",
+        "PREZZO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1419,
+      "text": "“Glow” aluminum frame mirror / Miroir “Glow” CODE DIMENSION PRICE",
+      "prices": [],
+      "refs": [
+        "CODE",
+        "DIMENSION",
+        "PRICE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1422,
+      "text": "GLOW100 100 x 70 x 4 525,00",
+      "prices": [
+        "525,00"
+      ],
+      "refs": [
+        "GLOW100"
+      ],
+      "dimensions": [
+        "100 x 70"
+      ]
+    },
+    {
+      "line": 1423,
+      "text": "GLOW120 120 x 70 x 4 578,00",
+      "prices": [
+        "578,00"
+      ],
+      "refs": [
+        "GLOW120"
+      ],
+      "dimensions": [
+        "120 x 70"
+      ]
+    },
+    {
+      "line": 1424,
+      "text": "GLOW140 140 x 70 x 4 683,00",
+      "prices": [
+        "683,00"
+      ],
+      "refs": [
+        "GLOW140"
+      ],
+      "dimensions": [
+        "140 x 70"
+      ]
+    },
+    {
+      "line": 1425,
+      "text": "SPECCHIO “OFFSET” CON TOUCH CODICE DIMENSIONI WATT PREZZO",
+      "prices": [],
+      "refs": [
+        "SPECCHIO",
+        "OFFSET",
+        "TOUCH",
+        "CODICE",
+        "DIMENSIONI",
+        "WATT",
+        "PREZZO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1426,
+      "text": "E ILLUMINAZIONE LED CODE DIMENSION LED PRICE",
+      "prices": [],
+      "refs": [
+        "ILLUMINAZIONE",
+        "CODE",
+        "DIMENSION",
+        "PRICE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1427,
+      "text": "“Offset” LED mirror with touch control / Miroir “Offset” CODE L x H x P cm 4000K PRIX",
+      "prices": [],
+      "refs": [
+        "CODE",
+        "4000K",
+        "PRIX"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1428,
+      "text": "LED avec commande tactile W x H x D cm",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1429,
+      "text": "OFFSET80 80 x 80 20 693,00",
+      "prices": [
+        "693,00"
+      ],
+      "refs": [
+        "OFFSET80"
+      ],
+      "dimensions": [
+        "80 x 80"
+      ]
+    },
+    {
+      "line": 1430,
+      "text": "OFFSET100 100 x 100 22 835,00",
+      "prices": [
+        "835,00"
+      ],
+      "refs": [
+        "OFFSET100"
+      ],
+      "dimensions": [
+        "100 x 100"
+      ]
+    },
+    {
+      "line": 1435,
+      "text": "Kendo Cabinet mirror / Miroir Kendo Cabinet CODE DIMENSION LED PRICE CODE DIMENSION LED PRICE",
+      "prices": [],
+      "refs": [
+        "CODE",
+        "DIMENSION",
+        "PRICE",
+        "CODE",
+        "DIMENSION",
+        "PRICE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1438,
+      "text": "“SOLAR QUADRA” SOLARQ 7,5 x 7,5 x 2,5 4 42,00",
+      "prices": [
+        "42,00"
+      ],
+      "refs": [
+        "SOLAR",
+        "QUADRA",
+        "SOLARQ"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1439,
+      "text": "MOON60 Ø 60 9 110,00",
+      "prices": [
+        "110,00"
+      ],
+      "refs": [
+        "MOON60"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1440,
+      "text": "“Solar Quadra” Led Lamp /",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1441,
+      "text": "MOON80 Ø 80 12,5 126,00",
+      "prices": [
+        "126,00"
+      ],
+      "refs": [
+        "MOON80"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1442,
+      "text": "MOON90 Ø 90 14 138,00",
+      "prices": [
+        "138,00"
+      ],
+      "refs": [
+        "MOON90"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1443,
+      "text": "MOON100 Ø 100 15,5 145,00",
+      "prices": [
+        "145,00"
+      ],
+      "refs": [
+        "MOON100"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1445,
+      "text": "MOON120 Ø 120 18,5 156,00 SOLARR Ø 10 4 42,00",
+      "prices": [
+        "156,00",
+        "42,00"
+      ],
+      "refs": [
+        "MOON120",
+        "SOLARR"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1446,
+      "text": "Lampe LED “Solar Round”",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1447,
+      "text": "LAMPADA “BARLED” * CODICE DIMENSIONI WATT PREZZO LAMPADA “DIAMANTE” CODICE DIMENSIONI WATT PREZZO",
+      "prices": [],
+      "refs": [
+        "LAMPADA",
+        "BARLED",
+        "CODICE",
+        "DIMENSIONI",
+        "WATT",
+        "PREZZO",
+        "LAMPADA",
+        "DIAMANTE",
+        "CODICE",
+        "DIMENSIONI",
+        "WATT",
+        "PREZZO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1448,
+      "text": "“Barled” Led Lamp / Lampe LED “Barled” CODE DIMENSION LED PRICE “Diamante” Led Lamp / Lampe LED “Diamante” CODE DIMENSION LED PRICE",
+      "prices": [],
+      "refs": [
+        "CODE",
+        "DIMENSION",
+        "PRICE",
+        "CODE",
+        "DIMENSION",
+        "PRICE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1451,
+      "text": "BARLED40 40 x 1 x 5 10 79,00 DIAMANTE30 30 x 4,5 x 12 6 69,00",
+      "prices": [
+        "79,00",
+        "69,00"
+      ],
+      "refs": [
+        "BARLED40",
+        "DIAMANTE30"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1452,
+      "text": "BARLED60 60 x 1 x 5 15 110,00 DIAMANTE45 45 x 4,5 x 12 8 88,00",
+      "prices": [
+        "110,00",
+        "88,00"
+      ],
+      "refs": [
+        "BARLED60",
+        "DIAMANTE45"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1453,
+      "text": "BARLED80 80 x 1 x 5 20 131,00 DIAMANTE60 60 x 4,5 x 12 12 113,00",
+      "prices": [
+        "131,00",
+        "113,00"
+      ],
+      "refs": [
+        "BARLED80",
+        "DIAMANTE60"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1454,
+      "text": "BARLED100 100 x 1 x 5 25 168,00",
+      "prices": [
+        "168,00"
+      ],
+      "refs": [
+        "BARLED100"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1455,
+      "text": "BARLED120 120 x 1 x 5 30 200,00",
+      "prices": [
+        "200,00"
+      ],
+      "refs": [
+        "BARLED120"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1456,
+      "text": "BARLED140 140 x 1 x 5 35 246,00",
+      "prices": [
+        "246,00"
+      ],
+      "refs": [
+        "BARLED140"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1457,
+      "text": "Solo per specchi con telaio satinato / Lamp only for satin frame",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1458,
+      "text": "mirror / Lamp seulement pour mirror avec cadre satiné pag. 60",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1460,
+      "text": "“Plexy vertical” Led Lamp / Lampe LED “Plexy vertical” CODE DIMENSION LED PRICE “Smart” Lamp / Lampe “Smart” CODE DIMENSION LED CHROME / BLACK",
+      "prices": [],
+      "refs": [
+        "CODE",
+        "DIMENSION",
+        "PRICE",
+        "CODE",
+        "DIMENSION",
+        "CHROME",
+        "BLACK"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1463,
+      "text": "PLEXY 30 4 108,00 SMART 30 x 4 x 10 5 42,00",
+      "prices": [
+        "108,00",
+        "42,00"
+      ],
+      "refs": [
+        "PLEXY",
+        "SMART"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1465,
+      "text": "DNA / Collection / Accessori DNA / Collection / Accessori",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1466,
+      "text": "Accessories / Accessories Accessories / Accessories",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1467,
+      "text": "PANCA IN ALLUMINIO “BRIDGE” CODICE DIMENSIONI PREZZO PREZZO BARRA CON ACCESSORI “TRACK” DESCRIZIONE CODICE DIMENSIONI BIANCO NERO",
+      "prices": [],
+      "refs": [
+        "PANCA",
+        "ALLUMINIO",
+        "BRIDGE",
+        "CODICE",
+        "DIMENSIONI",
+        "PREZZO",
+        "PREZZO",
+        "BARRA",
+        "ACCESSORI",
+        "TRACK",
+        "DESCRIZIONE",
+        "CODICE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1471,
+      "text": "BRIDGE70 70 x 43,5 215,00",
+      "prices": [
+        "215,00"
+      ],
+      "refs": [
+        "BRIDGE70"
+      ],
+      "dimensions": [
+        "70 x 43,5"
+      ]
+    },
+    {
+      "line": 1472,
+      "text": "BRIDGE80 80 x 43,5 236,00 BARRA 120 CM RISE1200 120 x 121,00",
+      "prices": [
+        "236,00",
+        "121,00"
+      ],
+      "refs": [
+        "BRIDGE80",
+        "BARRA",
+        "RISE1200"
+      ],
+      "dimensions": [
+        "80 x 43,5",
+        "120 x 121,00"
+      ]
+    },
+    {
+      "line": 1474,
+      "text": "BRIDGE100 100 x 43,5 262,00 BARRE EN MÉTAL",
+      "prices": [
+        "262,00"
+      ],
+      "refs": [
+        "BRIDGE100",
+        "BARRE"
+      ],
+      "dimensions": [
+        "100 x 43,5"
+      ]
+    },
+    {
+      "line": 1475,
+      "text": "BRIDGE120 120 x 43,5 289,00",
+      "prices": [
+        "289,00"
+      ],
+      "refs": [
+        "BRIDGE120"
+      ],
+      "dimensions": [
+        "120 x 43,5"
+      ]
+    },
+    {
+      "line": 1476,
+      "text": "BRIDGE140 140 x 43,5 302,00",
+      "prices": [
+        "302,00"
+      ],
+      "refs": [
+        "BRIDGE140"
+      ],
+      "dimensions": [
+        "140 x 43,5"
+      ]
+    },
+    {
+      "line": 1477,
+      "text": "BARRA 90 CM RISE900 90 x 103,00",
+      "prices": [
+        "103,00"
+      ],
+      "refs": [
+        "BARRA",
+        "RISE900"
+      ],
+      "dimensions": [
+        "90 x 103,00"
+      ]
+    },
+    {
+      "line": 1480,
+      "text": "MENSOLA 2 FORI MNS2F 20 x 13,5 76,00",
+      "prices": [
+        "76,00"
+      ],
+      "refs": [
+        "MENSOLA",
+        "FORI",
+        "MNS2F"
+      ],
+      "dimensions": [
+        "20 x 13,5"
+      ]
+    },
+    {
+      "line": 1481,
+      "text": "PIEDE IN ALLUMINIO CODICE DIMENSIONI PREZZO TWO-HOLE SHELF",
+      "prices": [],
+      "refs": [
+        "PIEDE",
+        "ALLUMINIO",
+        "CODICE",
+        "DIMENSIONI",
+        "PREZZO",
+        "TWO-HOLE",
+        "SHELF"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1484,
+      "text": "Pied de support en aluminium CODE L x H x P cm H. 35",
+      "prices": [],
+      "refs": [
+        "CODE"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1486,
+      "text": "MENSOLA 1 FORO MNS1F 20 x 13,5 70,00",
+      "prices": [
+        "70,00"
+      ],
+      "refs": [
+        "MENSOLA",
+        "FORO",
+        "MNS1F"
+      ],
+      "dimensions": [
+        "20 x 13,5"
+      ]
+    },
+    {
+      "line": 1487,
+      "text": "PIE35 2,5 x 35 x 2,5 38,00 SINGLE-HOLE SHELF /",
+      "prices": [
+        "38,00"
+      ],
+      "refs": [
+        "PIE35",
+        "SINGLE-HOLE",
+        "SHELF"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1489,
+      "text": "MENSOLA MNS 20 x 13,5 58,00",
+      "prices": [
+        "58,00"
+      ],
+      "refs": [
+        "MENSOLA"
+      ],
+      "dimensions": [
+        "20 x 13,5"
+      ]
+    },
+    {
+      "line": 1492,
+      "text": "PORTASALVIETTA PRTSALV 40 x 13,5 95,00",
+      "prices": [
+        "95,00"
+      ],
+      "refs": [
+        "PORTASALVIETTA",
+        "PRTSALV"
+      ],
+      "dimensions": [
+        "40 x 13,5"
+      ]
+    },
+    {
+      "line": 1493,
+      "text": "SHELF WITH TOWEL",
+      "prices": [],
+      "refs": [
+        "SHELF",
+        "WITH",
+        "TOWEL"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1496,
+      "text": "ASTA PORTASCIUGAMANO “SIDEBAR” CODICE DIMENSIONI CROMO COLORATA * SERVIETTES",
+      "prices": [],
+      "refs": [
+        "ASTA",
+        "PORTASCIUGAMANO",
+        "SIDEBAR",
+        "CODICE",
+        "DIMENSIONI",
+        "CROMO",
+        "COLORATA",
+        "SERVIETTES"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1497,
+      "text": "Aluminium Towel Bar / Barre porte-serviettes CODE DIMENSION BIANCO",
+      "prices": [],
+      "refs": [
+        "CODE",
+        "DIMENSION",
+        "BIANCO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1499,
+      "text": "W x H x D cm PORTAROTOLO PRTROT 20 x 13,5 88,00",
+      "prices": [
+        "88,00"
+      ],
+      "refs": [
+        "PORTAROTOLO",
+        "PRTROT"
+      ],
+      "dimensions": [
+        "20 x 13,5"
+      ]
+    },
+    {
+      "line": 1502,
+      "text": "SIDEBAR 40 x 2,5 x 5 115,00 190,00",
+      "prices": [
+        "115,00",
+        "190,00"
+      ],
+      "refs": [
+        "SIDEBAR"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1503,
+      "text": "DISPENSER DSP 5 x 5 x 18,5 144,00",
+      "prices": [
+        "144,00"
+      ],
+      "refs": [
+        "DISPENSER"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1509,
+      "text": "BICCHIERE BICCH 5 x 5 x 11,5 107,00",
+      "prices": [
+        "107,00"
+      ],
+      "refs": [
+        "BICCHIERE",
+        "BICCH"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1513,
+      "text": "Dello stesso colore del mobile / ACCIAIO",
+      "prices": [],
+      "refs": [
+        "ACCIAIO"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1514,
+      "text": "Same color as unit / Même couleur que le meuble INOX",
+      "prices": [],
+      "refs": [
+        "INOX"
+      ],
+      "dimensions": []
+    },
+    {
+      "line": 1549,
+      "text": "forniture potranno avvenire anche in più consegne sulla base • Le produit rendu ne doit pas être réalisé sur commande",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    },
+    {
+      "line": 1594,
+      "text": "arriver en plusieurs livraisons aussi sur la base des effectives",
+      "prices": [],
+      "refs": [],
+      "dimensions": []
+    }
+  ]
+}
