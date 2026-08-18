@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Tarif DNA - NEOBATH | LE ROY FACTORY</title>
+  <link rel="icon" type="image/png" href="assets/img/logo03lrf.png">
+  <style>
+    :root{--gold:#d4af37;--ink:#17222c;--paper:#fbf9f5;--muted:#6f7780}
+    *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,Helvetica,sans-serif}
+    .top{position:sticky;top:0;z-index:10;background:rgba(17,20,24,.97);color:#fff;border-bottom:2px solid var(--gold);box-shadow:0 8px 24px rgba(0,0,0,.18)}
+    .top-inner{max-width:1400px;margin:auto;padding:14px 18px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+    .brand{font-weight:900;letter-spacing:.04em}.brand span{color:var(--gold)}
+    .meta{font-size:.86rem;color:#d7d7d7;margin-right:auto}
+    .search{display:flex;gap:8px;min-width:min(100%,420px)}
+    .search input{flex:1;min-width:180px;padding:10px 12px;border-radius:8px;border:1px solid #777;font-size:16px}
+    .btn{border:1px solid var(--gold);background:var(--gold);color:#111;font-weight:800;border-radius:8px;padding:10px 14px;text-decoration:none;cursor:pointer;white-space:nowrap}
+    .btn.secondary{background:#111;color:var(--gold)}
+    main{max-width:1500px;margin:0 auto;padding:22px 14px 70px}
+    .notice{background:#fff;border:1px solid #ded8cc;border-left:5px solid var(--gold);border-radius:10px;padding:14px 16px;margin-bottom:16px;line-height:1.45}
+    .notice strong{display:block;margin-bottom:3px}.notice small{color:var(--muted)}
+    #status{padding:35px;text-align:center;color:var(--muted);font-weight:700}
+    .tariff-wrap{background:#fff;border:1px solid #ded8cc;border-radius:12px;box-shadow:0 8px 28px rgba(0,0,0,.06);overflow:auto}
+    pre{margin:0;padding:24px;min-width:1050px;white-space:pre;font:12px/1.5 "Courier New",monospace;color:#111;tab-size:4}
+    mark{background:#ffe277;color:#111;border-radius:2px;padding:0 1px}
+    @media(max-width:700px){.top-inner{align-items:stretch}.brand,.meta{width:100%}.search{width:100%;min-width:0}.btn{padding:10px}.tariff-wrap{border-radius:8px}pre{padding:16px;font-size:11px}}
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="top-inner">
+      <div class="brand">NEOBATH <span>DNA</span> - TARIF</div>
+      <div class="meta">Tarif public HT fourni par NEOBATH - consultation professionnelle</div>
+      <div class="search">
+        <input id="search" type="search" placeholder="Référence, dimension, produit, prix…" aria-label="Rechercher dans le tarif DNA">
+        <button class="btn" id="searchBtn" type="button">Rechercher</button>
+      </div>
+      <a class="btn secondary" href="tarifs-pro.html">← Tarifs</a>
+    </div>
+  </header>
+  <main>
+    <div class="notice">
+      <strong>Tarif DNA NEOBATH</strong>
+      Cette page remplace l’ancien lien qui ouvrait par erreur le catalogue DNA dans la rubrique Tarifs.
+      <small>Le catalogue DNA reste disponible dans la page Catalogues. Dans Inspirations, les prix publics HT ne sont pas affichés.</small>
+    </div>
+    <div id="status">Chargement du tarif DNA…</div>
+    <div class="tariff-wrap" id="viewer" hidden><pre id="tariff"></pre></div>
+  </main>
+  <script>
+    const parts = [0,1,2,3,4].map(n => `assets/data/neobath-dna-tarif/part-${String(n).padStart(2,'0')}.txt`);
+    const statusEl = document.getElementById('status');
+    const viewer = document.getElementById('viewer');
+    const pre = document.getElementById('tariff');
+    const input = document.getElementById('search');
+    let rawText = '';
+
+    const escapeHtml = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    const escapeRegExp = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+    async function gunzipBase64(b64){
+      const bin = atob(b64.replace(/\s/g,''));
+      const bytes = new Uint8Array(bin.length);
+      for(let i=0;i<bin.length;i++) bytes[i]=bin.charCodeAt(i);
+      if(!('DecompressionStream' in window)) throw new Error('Navigateur trop ancien pour ouvrir ce tarif.');
+      const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
+      return new TextDecoder('utf-8').decode(await new Response(stream).arrayBuffer());
+    }
+
+    function renderSearch(){
+      const q = input.value.trim();
+      if(!q){pre.textContent = rawText;return;}
+      const re = new RegExp(escapeRegExp(q),'gi');
+      pre.innerHTML = escapeHtml(rawText).replace(re, m => `<mark>${m}</mark>`);
+      const mark = pre.querySelector('mark');
+      if(mark) mark.scrollIntoView({behavior:'smooth',block:'center'});
+    }
+
+    async function init(){
+      try{
+        const chunks = await Promise.all(parts.map(p => fetch(p,{cache:'force-cache'}).then(r => {if(!r.ok) throw new Error('Donnée tarif manquante'); return r.text();})));
+        rawText = await gunzipBase64(chunks.join(''));
+        pre.textContent = rawText;
+        statusEl.hidden = true;
+        viewer.hidden = false;
+      }catch(err){
+        console.error(err);
+        statusEl.textContent = 'Impossible de charger le tarif DNA. Rechargez la page ou contactez LE ROY FACTORY.';
+      }
+    }
+    document.getElementById('searchBtn').addEventListener('click', renderSearch);
+    input.addEventListener('keydown', e => {if(e.key==='Enter') renderSearch();});
+    input.addEventListener('search', renderSearch);
+    init();
+  </script>
+</body>
+</html>
