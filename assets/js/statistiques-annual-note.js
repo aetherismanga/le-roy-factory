@@ -1,3 +1,4 @@
+import './statistiques-ui-final.js?v=20260818-1315';
 import './statistiques-lrf-multi.js';
 
 const PARTNERS=[
