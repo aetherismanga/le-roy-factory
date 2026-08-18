@@ -3,11 +3,14 @@ import { db } from './firebase.js';
 import { collection, onSnapshot, doc, getDoc, setDoc } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
 import { ELIOS_STATS_CLIENTS } from './statistiques-elios-data.js';
 import { VIEW_STATS_CLIENTS_2026_07 } from './statistiques-view-data.js';
+import { MI_JUIN_2025_STATS } from './statistiques-mi-juin-2025-data.js';
+import { FIN_2025_STATS } from './statistiques-fin-2025-data.js';
+import { RANDAL_FIN_2025_STATS } from './statistiques-randal-fin-2025-data.js';
 import { STATS_PERIODS } from './statistiques-periods.js';
 
 const JEROME_DEPTS=new Set(['11','30','34','66']);
 const SETTINGS_KEY='lrf-commission-rates-v1';
-const PARTNERS=['elios-ceramica','view-ceramica','la-fenice','reviglass','biopietra','petracers','pecchioli-firenze','bulbo','randal-pro','neobath','koibath','aquahome','opal','bilt'];
+const PARTNERS=['elios-ceramica','view-ceramica','la-fenice','reviglass','biopietra','petracers','pecchioli-firenze','bulbo','randal-pro','floor-italia','propamsa','cermed','neobath','koibath','aquahome','opal','bilt'];
 let clients=[];
 let rates={};
 
@@ -30,20 +33,28 @@ function matchClient(r,partner){
   if(c)return c;
   const k=norm(r.name);if(k.length<5)return null;
   const found=clients.filter(x=>{const n=norm(x.societe||x.nomSociete||x.nom);return n===k||(n.length>=6&&k.length>=6&&(n.startsWith(k)||k.startsWith(n)))});
-  return found.length===1?found[0]:null;
+  if(found.length===1)return found[0];
+  if(r.dept&&found.length>1){const d=String(r.dept).toUpperCase();const same=found.filter(x=>dept(x)===d);if(same.length===1)return same[0];}
+  return null;
 }
-function dept(c){
-  if(!c)return '';
-  let d=String(c.departement||c.department||c.dept||'').trim().toUpperCase();
-  if(!d){const cp=String(c.codePostal||c.cp||c.postalCode||'').trim();if(/^\d{5}$/.test(cp))d=cp.slice(0,2);}
+function dept(c,r=null){
+  let d='';
+  if(c){d=String(c.departement||c.department||c.dept||'').trim().toUpperCase();if(!d){const cp=String(c.codePostal||c.cp||c.postalCode||'').trim();if(/^\d{5}$/.test(cp))d=cp.slice(0,2);}}
+  if(!d&&r?.dept)d=String(r.dept).trim().toUpperCase();
   if(/^\d$/.test(d))d='0'+d;
   return d;
 }
 function detailRows(partner,key){
+  if(key==='2025-06')return MI_JUIN_2025_STATS[partner]||[];
+  if(key==='2025-12'){
+    if(partner==='randal-pro')return RANDAL_FIN_2025_STATS;
+    return FIN_2025_STATS[partner]||[];
+  }
   if(partner==='elios-ceramica'&&key==='2026-07')return ELIOS_STATS_CLIENTS.map(r=>({...r,factory:r.elios}));
   if(partner==='view-ceramica'&&key==='2026-07')return VIEW_STATS_CLIENTS_2026_07;
   return [];
 }
+function rowCurrentValue(r,p){const y=Number(p?.y||2026);return Number(r[`ca${y}`]??r.ca2026??0)}
 function loadLocal(){try{rates=JSON.parse(localStorage.getItem(SETTINGS_KEY)||'{}')||{}}catch{rates={}}}
 async function loadRemote(){
   try{const snap=await getDoc(doc(db,'parametres','statistiques-commissions'));if(snap.exists()){rates={...rates,...(snap.data().rates||{})};localStorage.setItem(SETTINGS_KEY,JSON.stringify(rates));render();}}catch(e){console.warn('Taux commissions: stockage local utilisé',e)}
@@ -72,7 +83,7 @@ function render(){
   const rate=Number(rates[partner]||0),input=document.getElementById('commission-rate');if(document.activeElement!==input)input.value=rate||'';
   const total=Number(p.ca||0),rows=detailRows(partner,currentPeriodKey());
   let j=0,c=0,u=0;
-  for(const r of rows){const ca=Number(r.ca2026||0),cl=matchClient(r,partner),d=dept(cl);if(!d)u+=ca;else if(JEROME_DEPTS.has(d))j+=ca;else c+=ca;}
+  for(const r of rows){const ca=rowCurrentValue(r,p),cl=matchClient(r,partner),d=dept(cl,r);if(!d)u+=ca;else if(JEROME_DEPTS.has(d))j+=ca;else c+=ca;}
   const cards=[['CA période',euro(total),`${p.label}`],['Commission totale',euro(total*rate/100),rate?`${rate.toFixed(2).replace('.',',')} %`:'Saisis le taux usine']];
   if(rows.length){cards.push(['Commission Jérôme',euro(j*rate/100),`CA attribué : ${euro(j)}`],['Commission Coryne',euro(c*rate/100),`CA attribué : ${euro(c)}`]);}
   document.getElementById('commission-cards').innerHTML=cards.map(x=>`<div class="commission-card"><small>${x[0]}</small><strong>${x[1]}</strong><em>${x[2]}</em></div>`).join('');
