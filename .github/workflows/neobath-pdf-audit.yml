@@ -19,7 +19,6 @@ jobs:
       - name: Checkout branch
         uses: actions/checkout@v4
         with:
-          ref: agent/neobath-configurateur-v2
           fetch-depth: 0
 
       - name: Setup Python
@@ -33,7 +32,8 @@ jobs:
       - name: Extract PDF structure
         run: python tools/neobath_pdf_audit.py
 
-      - name: Commit generated audit
+      - name: Commit generated audit on working branch
+        if: github.event_name == 'push'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -42,5 +42,5 @@ jobs:
             echo "No generated changes"
           else
             git commit -m "Audit des tarifs NEOBATH"
-            git push origin HEAD:agent/neobath-configurateur-v2
+            git push origin HEAD:${GITHUB_REF_NAME}
           fi
