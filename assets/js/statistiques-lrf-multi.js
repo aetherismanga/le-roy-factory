@@ -49,20 +49,26 @@ function closeModal(){document.getElementById('stats-lrf-multi-modal')?.classLis
 function factoryText(button){return clean(button.textContent).replace(/\s*[✎✏]\s*$/,'')}
 function makeFactoryReadonly(container){
   const buttons=[...container.querySelectorAll('[data-edit-codes-client]')];
-  let clientId=buttons[0]?.dataset.editCodesClient||'';
+  const clientId=buttons[0]?.dataset.editCodesClient||container.dataset.clientId||'';
+  if(clientId)container.dataset.clientId=clientId;
   for(const b of buttons){
     const span=document.createElement('span');span.className='stats-factory-readonly';span.textContent=factoryText(b);b.replaceWith(span);
   }
   return clientId;
 }
 function lrfButton(c){
-  const codes=allLRFCodes(c);const main=codes[0]||'Code LRF';
-  const more=Math.max(0,codes.length-1);
+  const codes=allLRFCodes(c),main=codes[0]||'Code LRF',more=Math.max(0,codes.length-1);
   return `<button type="button" class="stats-lrf-multi-btn" data-edit-lrf-client="${esc(c.id)}" title="Voir ou ajouter des codes LRF"><span>${esc(main)}</span>${more?`<span class="stats-lrf-more">+${more}</span>`:''}<span class="edit">✎</span></button>`;
 }
 function findClientFromLRFCell(cell){
   const code=clean(cell?.textContent).match(/LRF-\d{5}/i)?.[0]||'';
   return code?findClientByAnyLRF(code):null;
+}
+function decorateLRFCell(cell,c,labelHtml=''){
+  const signature=`${c.id}|${allLRFCodes(c).join('|')}`;
+  if(cell.dataset.lrfMultiSignature===signature&&cell.querySelector('[data-edit-lrf-client]'))return;
+  cell.dataset.lrfMultiSignature=signature;
+  cell.innerHTML=labelHtml+lrfButton(c);
 }
 
 function decorateTable(){
@@ -72,9 +78,8 @@ function decorateTable(){
     let c=clientId?clients.find(x=>x.id===clientId):null;
     if(!c)c=findClientFromLRFCell(cells[2]);
     const meta=cells[0].querySelector('small')?.textContent||'';
-    if(!c||!meta.includes('Associé au CRM'))return;
-    if(cells[2].querySelector('[data-manual-lrf]'))return;
-    cells[2].innerHTML=lrfButton(c);
+    if(!c||!meta.includes('Associé au CRM')||cells[2].querySelector('[data-manual-lrf]'))return;
+    decorateLRFCell(cells[2],c);
   });
 }
 
@@ -88,7 +93,7 @@ function decorateMobile(){
     if(!c)c=findClientFromLRFCell(lrfZone);
     if(!c||!lrfZone||lrfZone.querySelector('[data-manual-lrf]'))return;
     const label=lrfZone.querySelector('small')?.outerHTML||'<small>Code LRF</small>';
-    lrfZone.innerHTML=label+lrfButton(c);
+    decorateLRFCell(lrfZone,c,label);
   });
 }
 function decorate(){ensureStyles();ensureModal();decorateTable();decorateMobile()}
@@ -100,7 +105,8 @@ async function createAdditionalCode(){
   try{
     const maxKnown=clients.reduce((m,c)=>Math.max(m,...allLRFCodes(c).map(codeNumber)),0);
     const code=await runTransaction(db,async tx=>{
-      const [clientSnap,counterSnap]=await Promise.all([tx.get(clientRef),tx.get(counterRef)]);
+      const clientSnap=await tx.get(clientRef);
+      const counterSnap=await tx.get(counterRef);
       if(!clientSnap.exists())throw new Error('Client introuvable.');
       const data=clientSnap.data();
       const last=Math.max(Number(counterSnap.exists()?counterSnap.data().lastNumber:0)||0,maxKnown);
@@ -112,15 +118,20 @@ async function createAdditionalCode(){
       else tx.update(clientRef,{codesLRF:extras});
       return newCode;
     });
-    btn.textContent=`✓ ${code} créé`;
-  }catch(e){console.error(e);alert(e?.message||'Impossible de créer le nouveau code LRF.');btn.disabled=false;btn.textContent='+ Créer un nouveau code LRF';creating=false;return;}
-  creating=false;
+    btn.disabled=false;btn.textContent=`✓ ${code} créé`;
+    setTimeout(()=>{if(btn){btn.textContent='+ Créer un nouveau code LRF'}},1200);
+  }catch(e){
+    console.error(e);alert(e?.message||'Impossible de créer le nouveau code LRF.');
+    btn.disabled=false;btn.textContent='+ Créer un nouveau code LRF';
+  }finally{creating=false;}
 }
 
 document.addEventListener('click',e=>{
-  const edit=e.target.closest('[data-edit-lrf-client]');if(edit){openModal(edit.dataset.editLrfClient);return;}
-  if(e.target.id==='stats-lrf-multi-close'||e.target===document.getElementById('stats-lrf-multi-modal')){closeModal();return;}
-  if(e.target.id==='stats-lrf-multi-create'){createAdditionalCode();return;}
+  const factoryEdit=e.target.closest('[data-edit-codes-client]');
+  if(factoryEdit){e.preventDefault();e.stopImmediatePropagation();return;}
+  const edit=e.target.closest('[data-edit-lrf-client]');if(edit){e.preventDefault();e.stopImmediatePropagation();openModal(edit.dataset.editLrfClient);return;}
+  if(e.target.id==='stats-lrf-multi-close'||e.target===document.getElementById('stats-lrf-multi-modal')){e.preventDefault();e.stopImmediatePropagation();closeModal();return;}
+  if(e.target.id==='stats-lrf-multi-create'){e.preventDefault();e.stopImmediatePropagation();createAdditionalCode();return;}
 },true);
 
 onSnapshot(collection(db,'clients'),snap=>{
@@ -129,6 +140,8 @@ onSnapshot(collection(db,'clients'),snap=>{
   setTimeout(decorate,0);
 });
 
-const observer=new MutationObserver(()=>setTimeout(decorate,0));
+let decorationScheduled=false;
+function scheduleDecorate(){if(decorationScheduled)return;decorationScheduled=true;requestAnimationFrame(()=>{decorationScheduled=false;decorate()})}
+const observer=new MutationObserver(scheduleDecorate);
 if(document.body)observer.observe(document.body,{childList:true,subtree:true});
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',decorate,{once:true});else decorate();
