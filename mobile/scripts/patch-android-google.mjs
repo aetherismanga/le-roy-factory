@@ -14,9 +14,8 @@ await mkdir(javaDir, { recursive: true });
 let gradle = await readFile(appGradle, 'utf8');
 const authDependency = "implementation 'com.google.android.gms:play-services-auth:21.6.0'";
 if (!gradle.includes('com.google.android.gms:play-services-auth')) {
-  const idx = gradle.lastIndexOf('}');
-  if (idx < 0) throw new Error('Bloc Gradle introuvable');
-  gradle = gradle.slice(0, idx) + `\n    ${authDependency}\n` + gradle.slice(idx);
+  if (!gradle.includes('dependencies {')) throw new Error('Bloc dependencies Gradle introuvable');
+  gradle = gradle.replace('dependencies {', `dependencies {\n    ${authDependency}`);
   await writeFile(appGradle, gradle, 'utf8');
 }
 
@@ -39,7 +38,6 @@ const plugin = `package fr.leroyfactory.crm;
 
 import android.app.Activity;
 import android.app.PendingIntent;
-import android.content.Intent;
 
 import androidx.activity.ComponentActivity;
 import androidx.activity.result.ActivityResultLauncher;
