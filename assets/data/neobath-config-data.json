@@ -1967,41 +1967,6 @@
       }
     },
     {
-      "id": "anima-apur-ba4052-67",
-      "collection": "ANIMA",
-      "category": "module",
-      "subtype": "base",
-      "ref": "APUR-BA4052",
-      "label": "Base unit with door and 1 glass shelve / Element CODE DIMENSION Argilla Secca Finishing top / Plan de finition CODE DIMENSION Argilla Secca",
-      "dimensions": {
-        "label": "40 x 52 x 46",
-        "width": 40.0,
-        "height": 52.0,
-        "depth": 46.0
-      },
-      "facade": "PURA",
-      "unit": "unit",
-      "prices": [
-        {
-          "key": "standard",
-          "label": "Tarif",
-          "price": 375.0
-        }
-      ],
-      "source": {
-        "pdf": "assets/pdf/neobathANIMA.pdf",
-        "page": 67,
-        "line": 10,
-        "ref": "APUR-BA4052"
-      },
-      "visual": {
-        "pdf": "assets/pdf/neobathANIMA.pdf",
-        "page": 67,
-        "query": "APUR-BA4052",
-        "image": "assets/img/neobath-config/anima-apur-ba4052-513cfa7fbc.webp"
-      }
-    },
-    {
       "id": "anima-tpc100-67",
       "collection": "ANIMA",
       "category": "finishing_top",
@@ -2069,181 +2034,6 @@
         "page": 67,
         "query": "TPC120",
         "image": "assets/img/neobath-config/anima-tpc120-72dd17b599.webp"
-      }
-    },
-    {
-      "id": "anima-arib-ba4052-67",
-      "collection": "ANIMA",
-      "category": "module",
-      "subtype": "base",
-      "ref": "ARIB-BA4052",
-      "label": "Base unit with door and 1 glass shelve / Element CODE DIMENSION Argilla Secca Finishing top / Plan de finition CODE DIMENSION Argilla Secca",
-      "dimensions": {
-        "label": "40 x 52 x 46",
-        "width": 40.0,
-        "height": 52.0,
-        "depth": 46.0
-      },
-      "facade": "RIBELLE",
-      "unit": "unit",
-      "prices": [
-        {
-          "key": "standard",
-          "label": "Tarif",
-          "price": 393.0
-        }
-      ],
-      "source": {
-        "pdf": "assets/pdf/neobathANIMA.pdf",
-        "page": 67,
-        "line": 13,
-        "ref": "ARIB-BA4052"
-      },
-      "visual": {
-        "pdf": "assets/pdf/neobathANIMA.pdf",
-        "page": 67,
-        "query": "ARIB-BA4052",
-        "image": "assets/img/neobath-config/anima-arib-ba4052-0f9ac2b3b9.webp"
-      }
-    },
-    {
-      "id": "anima-arib-pl6052-67",
-      "collection": "ANIMA",
-      "category": "module",
-      "subtype": "portalavabo",
-      "ref": "ARIB-PL6052",
-      "label": "PENSILE CON 1 ANTA E 1 RIPIANO IN VETRO CODICE DIMENSIONI Bianco Gesso",
-      "dimensions": {
-        "label": "40 x 70 x 22",
-        "width": 40.0,
-        "height": 70.0,
-        "depth": 22.0
-      },
-      "facade": "RIBELLE",
-      "unit": "unit",
-      "prices": [
-        {
-          "key": "standard",
-          "label": "Tarif",
-          "price": 335.0
-        }
-      ],
-      "source": {
-        "pdf": "assets/pdf/neobathANIMA.pdf",
-        "page": 67,
-        "line": 21,
-        "ref": "ARIB-PL6052"
-      },
-      "visual": {
-        "pdf": "assets/pdf/neobathANIMA.pdf",
-        "page": 67,
-        "query": "ARIB-PL6052",
-        "image": "assets/img/neobath-config/anima-arib-pl6052-3916add3c4.webp"
-      }
-    },
-    {
-      "id": "anima-arib-pl6052-67",
-      "collection": "ANIMA",
-      "category": "module",
-      "subtype": "portalavabo",
-      "ref": "ARIB-PL6052",
-      "label": "PENSILE CON 1 ANTA E 1 RIPIANO IN VETRO CODICE DIMENSIONI Bianco Gesso",
-      "dimensions": {
-        "label": "40 x 70 x 22",
-        "width": 40.0,
-        "height": 70.0,
-        "depth": 22.0
-      },
-      "facade": "RIBELLE",
-      "unit": "unit",
-      "prices": [
-        {
-          "key": "standard",
-          "label": "Tarif",
-          "price": 365.0
-        }
-      ],
-      "source": {
-        "pdf": "assets/pdf/neobathANIMA.pdf",
-        "page": 67,
-        "line": 23,
-        "ref": "ARIB-PL6052"
-      },
-      "visual": {
-        "pdf": "assets/pdf/neobathANIMA.pdf",
-        "page": 67,
-        "query": "ARIB-PL6052",
-        "image": "assets/img/neobath-config/anima-arib-pl6052-3916add3c4.webp"
-      }
-    },
-    {
-      "id": "anima-apur-pl6052-67",
-      "collection": "ANIMA",
-      "category": "module",
-      "subtype": "portalavabo",
-      "ref": "APUR-PL6052",
-      "label": "COLONNA CON ANTA REVERSIBILE CODICE DIMENSIONI Bianco Gesso",
-      "dimensions": {
-        "label": "40 x 140 x 22",
-        "width": 40.0,
-        "height": 140.0,
-        "depth": 22.0
-      },
-      "facade": "PURA",
-      "unit": "unit",
-      "prices": [
-        {
-          "key": "standard",
-          "label": "Tarif",
-          "price": 620.0
-        }
-      ],
-      "source": {
-        "pdf": "assets/pdf/neobathANIMA.pdf",
-        "page": 67,
-        "line": 32,
-        "ref": "APUR-PL6052"
-      },
-      "visual": {
-        "pdf": "assets/pdf/neobathANIMA.pdf",
-        "page": 67,
-        "query": "APUR-PL6052",
-        "image": "assets/img/neobath-config/anima-apur-pl6052-5542e8a9df.webp"
-      }
-    },
-    {
-      "id": "anima-arib-pl6052-67",
-      "collection": "ANIMA",
-      "category": "module",
-      "subtype": "portalavabo",
-      "ref": "ARIB-PL6052",
-      "label": "COLONNA CON ANTA REVERSIBILE CODICE DIMENSIONI Bianco Gesso",
-      "dimensions": {
-        "label": "40 x 140 x 22",
-        "width": 40.0,
-        "height": 140.0,
-        "depth": 22.0
-      },
-      "facade": "RIBELLE",
-      "unit": "unit",
-      "prices": [
-        {
-          "key": "standard",
-          "label": "Tarif",
-          "price": 660.0
-        }
-      ],
-      "source": {
-        "pdf": "assets/pdf/neobathANIMA.pdf",
-        "page": 67,
-        "line": 34,
-        "ref": "ARIB-PL6052"
-      },
-      "visual": {
-        "pdf": "assets/pdf/neobathANIMA.pdf",
-        "page": 67,
-        "query": "ARIB-PL6052",
-        "image": "assets/img/neobath-config/anima-arib-pl6052-3916add3c4.webp"
       }
     },
     {
@@ -19895,7 +19685,7 @@
       "category": "accessory",
       "subtype": null,
       "ref": "MNS2F",
-      "label": "LAMPADA “PLEXY VERTICAL” CODICE DIMENSIONI WATT PREZZO LAMPADA “SMART” CODICE DIMENSIONI WATT CROMO / NERO",
+      "label": "Étagère à deux trous",
       "dimensions": {
         "label": "20 x 13,5",
         "width": 20.0,
@@ -19929,7 +19719,7 @@
       "category": "accessory",
       "subtype": null,
       "ref": "MNS1F",
-      "label": "PIEDE IN ALLUMINIO CODICE DIMENSIONI PREZZO TWO-HOLE SHELF",
+      "label": "Étagère à un trou",
       "dimensions": {
         "label": "20 x 13,5",
         "width": 20.0,
@@ -19963,7 +19753,7 @@
       "category": "accessory",
       "subtype": null,
       "ref": "PIE35",
-      "label": "PIEDE IN ALLUMINIO CODICE DIMENSIONI PREZZO TWO-HOLE SHELF",
+      "label": "Pied de support en aluminium H.35",
       "dimensions": {
         "label": "2,5 x 35 x 2,5",
         "width": 2.5,
@@ -19997,25 +19787,20 @@
       "category": "accessory",
       "subtype": null,
       "ref": "SIDEBAR",
-      "label": "PIEDE IN ALLUMINIO CODICE DIMENSIONI PREZZO TWO-HOLE SHELF",
+      "label": "Barre porte-serviette latérale SideBar",
       "dimensions": {
-        "label": "40 x 2,5 x 5",
+        "label": "40 x 5 x 2,5",
         "width": 40.0,
-        "height": 2.5,
-        "depth": 5.0
+        "height": 5.0,
+        "depth": 2.5
       },
       "facade": null,
       "unit": "unit",
       "prices": [
         {
-          "key": "v1",
-          "label": "Tarif 1",
+          "key": "standard",
+          "label": "Tarif",
           "price": 115.0
-        },
-        {
-          "key": "v2",
-          "label": "Tarif 2",
-          "price": 190.0
         }
       ],
       "source": {
