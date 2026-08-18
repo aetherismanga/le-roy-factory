@@ -11,6 +11,15 @@ function ensureMobileCss() {
 
 ensureMobileCss();
 
+function installProSessionBridge() {
+    if (document.getElementById('lrf-pro-session-bridge')) return;
+    const script = document.createElement('script');
+    script.id = 'lrf-pro-session-bridge';
+    script.src = 'assets/js/pro-session-bridge.js?v=20260818b';
+    script.defer = true;
+    document.head.appendChild(script);
+}
+
 function installNeobathDnaTariffFix() {
     if (!window.location.pathname.toLowerCase().endsWith('tarifs-pro.html')) return;
 
@@ -70,6 +79,8 @@ function installInspirationsNeobathPdf() {
     document.body.appendChild(pdfjs);
 }
 
+installProSessionBridge();
+
 document.addEventListener('DOMContentLoaded', () => {
     const burgerBtn = document.querySelector('.burger-btn');
     const mainNav = document.querySelector('header nav ul');
@@ -80,7 +91,6 @@ document.addEventListener('DOMContentLoaded', () => {
             mainNav.classList.toggle('active');
         });
 
-        // Fermeture automatique du menu au clic sur un lien mobile
         mainNav.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 burgerBtn.classList.remove('active');
@@ -89,7 +99,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Gestion de la sélection unique des cartes
     document.addEventListener('click', (e) => {
         const card = e.target.closest('.card-premium, .card, .partner-card, .inspiration-card, .realisation-card, #grid-catalogues > div');
         if (card) {
@@ -98,14 +107,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Corrige uniquement le lien DNA de la page Tarifs NEOBATH.
-    // Le catalogue DNA reste disponible séparément dans la page Catalogues.
     installNeobathDnaTariffFix();
-
-    // Sur Inspirations, charge les visuels HD NEOBATH directement depuis les PDF ANIMA et DNA.
     installInspirationsNeobathPdf();
 
-    // Accès Tarifs PRO personnalisé par client LRF
     if (window.location.pathname.toLowerCase().endsWith('tarifs-pro.html')) {
         import('./tarifs-pro-client-access.js?v=20260817-1720')
             .catch(err => console.error('Erreur chargement accès tarifs PRO client :', err));
