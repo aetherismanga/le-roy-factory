@@ -12,6 +12,8 @@
     html.lrf-native-app #lrf-mobile-fab{bottom:18px!important}
     html.lrf-native-app .lrf-mobile-action-sheet{bottom:82px!important;right:14px!important;max-height:62vh!important;overflow:auto!important}
     html.lrf-native-app body[data-lrf-page="clients"] .stats-grid{display:none!important}
+    #lrf-tarifs-back{position:fixed;top:14px;left:14px;z-index:200000;width:48px;height:48px;border-radius:14px;border:1px solid #D4AF37;background:#111;color:#FFD700;font-size:1.35rem;box-shadow:0 7px 20px rgba(0,0,0,.2)}
+    html.lrf-native-app body[data-lrf-page="tarifs-pro"] main{padding-top:62px!important}
   `;
   document.head.appendChild(style);
 
@@ -46,7 +48,6 @@
     const fab=document.getElementById('lrf-mobile-fab');
     const sheet=document.querySelector('.lrf-mobile-action-sheet');
     if(!fab||!sheet)return;
-
     sheet.innerHTML=`
       <a href="clients.html?action=new-client"><span>➕</span><span>Nouveau client</span></a>
       <a href="mails-groupes.html"><span>✉️</span><span>Envoyer un mail</span></a>
@@ -64,16 +65,12 @@
     try{if(typeof window.renderTarifs==='function')window.renderTarifs();else if(typeof renderTarifs==='function')renderTarifs();}catch(e){console.warn('Tarifs pro',e)}
     document.querySelector('header')?.remove();
     document.querySelector('footer')?.remove();
+    if(!document.getElementById('lrf-tarifs-back')){
+      const back=document.createElement('button');back.id='lrf-tarifs-back';back.type='button';back.textContent='←';back.setAttribute('aria-label','Retour au CRM');back.onclick=()=>location.href='dashboard.html';document.body.appendChild(back);
+    }
   }
 
-  function apply(){
-    removeProspectLinks();
-    addTarifsPro();
-    simplifyClients();
-    rebuildQuickActions();
-    unlockTarifs();
-  }
-
+  function apply(){removeProspectLinks();addTarifsPro();simplifyClients();rebuildQuickActions();unlockTarifs();}
   apply();
   let n=0;const timer=setInterval(()=>{n++;apply();if(n>40)clearInterval(timer)},150);
 })();
