@@ -129,7 +129,24 @@ function hideLegacyPeriodControls(){
   if(month?.closest('.filter-block'))month.closest('.filter-block').style.display='none';
 }
 
-function stabilize(){normalizeYears();hideLegacyPeriodControls();rebuildSimplePeriod();enforceResponsive()}
+function clarifyPartnerKpi(){
+  const tabs=[...document.querySelectorAll('.partner-tab[data-partner]')];
+  const total=tabs.filter(t=>t.dataset.partner!=='all').length;
+  if(!total)return;
+  document.querySelectorAll('#stats-kpis .kpi-card').forEach(card=>{
+    const label=card.querySelector('span'),strong=card.querySelector('strong'),small=card.querySelector('small');
+    if(!label||!strong)return;
+    const txt=label.textContent.trim();
+    if(txt==='Partenaires inclus'||txt==='Partenaires avec données'){
+      const available=String(strong.textContent||'0').split('/')[0].trim();
+      if(label.textContent!=='Partenaires avec données')label.textContent='Partenaires avec données';
+      const target=`${available} / ${total}`;if(strong.textContent.trim()!==target)strong.textContent=target;
+      const sub='pour la période sélectionnée';if(small&&small.textContent!==sub)small.textContent=sub;
+    }
+  });
+}
+
+function stabilize(){normalizeYears();hideLegacyPeriodControls();rebuildSimplePeriod();enforceResponsive();clarifyPartnerKpi()}
 function init(){
   injectStyles();desiredYear=Number(hiddenYear()?.value)||currentYear();stabilize();
   const year=hiddenYear();if(year&&!year.dataset.finalBound){year.dataset.finalBound='1';year.addEventListener('change',()=>setTimeout(onYearChanged,0))}
