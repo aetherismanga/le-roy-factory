@@ -1,6 +1,7 @@
 import { cp, mkdir, rm, writeFile, readFile } from 'node:fs/promises';
 import { dirname, join, resolve, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { build } from 'esbuild';
 
 const here=dirname(fileURLToPath(import.meta.url));
 const mobileRoot=resolve(here,'..');
@@ -21,7 +22,10 @@ for(const name of files){
   catch(e){if(e?.code!=='ENOENT')throw e;}
 }
 
-await cp(join(mobileRoot,'app-bridge.js'),join(www,'app-bridge.js'));
+// Les modules Capacitor doivent être bundlés : un WebView ne sait pas résoudre
+// directement des imports comme "@capacitor/geolocation".
+await build({entryPoints:[join(mobileRoot,'app-bridge.js')],bundle:true,platform:'browser',format:'esm',target:['es2022'],outfile:join(www,'app-bridge.js'),logLevel:'silent'});
+await build({entryPoints:[join(mobileRoot,'agenda-mobile-pro.js')],bundle:true,platform:'browser',format:'esm',target:['es2022'],outfile:join(www,'agenda-mobile-pro.js'),logLevel:'silent'});
 await cp(join(mobileRoot,'client-mobile-fix.js'),join(www,'client-mobile-fix.js'));
 
 for(const name of files.filter(x=>extname(x)==='.html')){
@@ -29,19 +33,20 @@ for(const name of files.filter(x=>extname(x)==='.html')){
   try{
     let html=await readFile(dest,'utf8');
 
-    // Dans l'application, l'agenda doit être pensé smartphone et non grille PC compressée.
     if(name==='agenda.html'){
       html=html.replace("initialView: 'timeGridWeek'","initialView: window.innerWidth <= 900 ? 'listWeek' : 'timeGridWeek'");
       html=html.replace("right: 'dayGridMonth,timeGridWeek,timeGridDay'","right: window.innerWidth <= 900 ? 'listWeek,timeGridDay,dayGridMonth' : 'dayGridMonth,timeGridWeek,timeGridDay'");
       html=html.replace("day: 'Jour'","day: 'Jour',\n          list: 'Liste'");
+      html=html.replace('calendar.render();','window.__lrfCalendar = calendar;\n      calendar.render();');
     }
 
     if(!html.includes('app-bridge.js'))html=html.replace(/<\/body>/i,'<script type="module" src="app-bridge.js"></script></body>');
     if(name==='clients.html'&&!html.includes('client-mobile-fix.js'))html=html.replace(/<\/body>/i,'<script src="client-mobile-fix.js"></script></body>');
+    if(name==='agenda.html'&&!html.includes('agenda-mobile-pro.js'))html=html.replace(/<\/body>/i,'<script type="module" src="agenda-mobile-pro.js"></script></body>');
     await writeFile(dest,html,'utf8');
   }catch(e){if(e?.code!=='ENOENT')throw e;}
 }
 
 const shell=`<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#111111"><title>Le Roy Factory</title><style>html,body{height:100%;margin:0;background:#111;color:#fff;font-family:Inter,Arial,sans-serif;display:grid;place-items:center}.boot{text-align:center}.logo{width:96px;height:96px;border-radius:50%;object-fit:cover;border:2px solid #D4AF37}.txt{margin-top:14px;font-weight:700;letter-spacing:.03em}</style></head><body><div class="boot"><img class="logo" src="assets/img/logo03lrf.png" alt="Le Roy Factory"><div class="txt">LE ROY FACTORY</div></div><script>setTimeout(()=>{location.replace(localStorage.getItem('agentLoggedIn')?'dashboard.html':'agent.html')},350)</script><script type="module" src="app-bridge.js"></script></body></html>`;
 await writeFile(join(www,'index.html'),shell,'utf8');
-console.log('Web CRM synchronisé dans mobile/www avec optimisations application');
+console.log('Web CRM synchronisé dans mobile/www avec modules natifs bundlés');
