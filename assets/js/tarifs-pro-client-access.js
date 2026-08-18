@@ -1,6 +1,7 @@
 import { db } from "./firebase.js";
 import { collection, getDocs, query, where, limit } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
+const SESSION_KEY="lrfProSession";
 const PARTNER_NAMES={
   "elios-ceramica":"Elios Ceramica","view-ceramica":"View Ceramica","la-fenice":"La Fenice","reviglass":"Reviglass",
   "biopietra":"Biopietra","petracers":"Petracer's","pecchioli-firenze":"Pecchioli Firenze","bulbo":"Bulbo",
@@ -12,6 +13,16 @@ const depFromCp=cp=>{const s=String(cp||"").replace(/\s/g,"");if(!/^\d{5}$/.test
 const clientDep=c=>String(c.departement||depFromCp(c.codePostal||c.code_postal)||"").trim().toUpperCase();
 
 let currentClient=null;
+
+function readSession(){
+  try{const raw=sessionStorage.getItem(SESSION_KEY);if(!raw)return null;const value=JSON.parse(raw);return value&&value.codeClient?value:null}catch(_){return null}
+}
+function saveSession(client,partners,activity){
+  const safe={codeClient:client.codeClient||"",clientId:client.id||"",societe:client.societe||"Client professionnel",departement:clientDep(client),activite:activity||"Professionnel",partenaires:[...new Set(partners||[])]};
+  sessionStorage.setItem(SESSION_KEY,JSON.stringify(safe));
+  return safe;
+}
+function clearSession(){sessionStorage.removeItem(SESSION_KEY);window.LRF_PRO_CONTEXT=null}
 
 function injectStyles(){
   if(document.getElementById("pro-client-access-style"))return;
@@ -49,11 +60,17 @@ function showLockedPartner(partnerName){
 function replaceLogin(){
   const box=document.getElementById("login-section");if(!box)return;
   box.style.display="block";
-  document.getElementById("pro-content").style.display="none";
-  box.innerHTML=`<h2 style="font-size:1.75rem;margin-bottom:.6rem;color:#1A2530">Accès professionnel</h2><p style="color:#666;font-size:.95rem">Saisissez votre identifiant client LRF et votre département.</p><div class="pro-login-grid"><input id="pro-lrf-code" type="text" inputmode="text" autocomplete="off" placeholder="LRF-00235"><input id="pro-dept" type="text" inputmode="text" autocomplete="off" placeholder="Département (ex. 34)"></div><button id="pro-client-login" class="pro-login-btn" type="button">Accéder à mes tarifs</button><p id="pro-client-error" style="display:none;color:#b42318;margin-top:1rem;font-size:.85rem;font-weight:700"></p><p class="pro-access-note">Tous les partenaires sont visibles. Les tarifs sont accessibles uniquement pour les partenaires associés à votre compte professionnel.</p>`;
+  const content=document.getElementById("pro-content");if(content)content.style.display="none";
+  box.innerHTML=`<h2 style="font-size:1.75rem;margin-bottom:.6rem;color:#1A2530">Accès professionnel</h2><p style="color:#666;font-size:.95rem">Saisissez votre identifiant client LRF et votre département.</p><div class="pro-login-grid"><input id="pro-lrf-code" type="text" inputmode="text" autocomplete="off" placeholder="LRF-00235"><input id="pro-dept" type="text" inputmode="text" autocomplete="off" placeholder="Département (ex. 34)"></div><button id="pro-client-login" class="pro-login-btn" type="button">Accéder à mes tarifs</button><p id="pro-client-error" style="display:none;color:#b42318;margin-top:1rem;font-size:.85rem;font-weight:700"></p><p class="pro-access-note">Tous les partenaires sont visibles. Les tarifs sont accessibles uniquement pour les partenaires associés à votre compte professionnel. La connexion reste active pendant votre session de navigation.</p>`;
   box.querySelector("#pro-lrf-code").addEventListener("input",e=>{let v=e.target.value.toUpperCase().replace(/\s/g,"");if(/^\d{1,5}$/.test(v))v=`LRF-${v.padStart(5,"0")}`;e.target.value=v});
   box.querySelector("#pro-client-login").addEventListener("click",authenticate);
   box.querySelectorAll("input").forEach(i=>i.addEventListener("keydown",e=>{if(e.key==="Enter")authenticate()}));
+}
+
+async function findClient(code){
+  const snap=await getDocs(query(collection(db,"clients"),where("codeClient","==",code),limit(2)));
+  if(snap.empty)return null;
+  const d=snap.docs[0];return{id:d.id,...d.data()};
 }
 
 async function authenticate(){
@@ -63,9 +80,8 @@ async function authenticate(){
   if(err){err.style.display="none";err.textContent=""}
   if(!/^LRF-\d{5}$/.test(code)||!dep){showError("Vérifiez l'identifiant LRF et le département.");return}
   try{
-    const snap=await getDocs(query(collection(db,"clients"),where("codeClient","==",code),limit(2)));
-    if(snap.empty){showError("Identifiant client inconnu.");return}
-    const d=snap.docs[0];const client={id:d.id,...d.data()};
+    const client=await findClient(code);
+    if(!client){showError("Identifiant client inconnu.");return}
     if(String(client.type||"client").toLowerCase()==="prospect"){showError("Cet accès est réservé aux clients professionnels actifs.");return}
     if(clientDep(client)!==dep){showError("Le département ne correspond pas à ce compte client.");return}
     openForClient(client);
@@ -77,6 +93,10 @@ function openForClient(client){
   currentClient=client;
   const partners=[...new Set(Array.isArray(client.partenaires)?client.partenaires:[])];
   const allowedNames=new Set(partners.map(p=>norm(PARTNER_NAMES[p]||p)));
+  const activity=client.categorieActivite||client.sousCategorie||client.segmentation||"Professionnel";
+  const session=saveSession(client,partners,activity);
+  window.LRF_PRO_CONTEXT=session;
+
   const login=document.getElementById("login-section"),content=document.getElementById("pro-content");if(login)login.style.display="none";if(content)content.style.display="block";
   if(typeof window.renderTarifs==="function")window.renderTarifs();
   const grid=document.getElementById("grid-tarifs");if(!grid)return;
@@ -102,14 +122,23 @@ function openForClient(client){
   });
 
   let summary=document.getElementById("pro-client-summary");if(!summary){summary=document.createElement("div");summary.id="pro-client-summary";summary.className="pro-client-summary";content.insertBefore(summary,grid)}
-  const activity=client.categorieActivite||client.sousCategorie||client.segmentation||"Professionnel";
   summary.innerHTML=`<div><div class="pro-client-name">${esc(client.societe||"Client professionnel")}</div><div class="pro-client-meta">${esc(client.codeClient||"")} · Département ${esc(clientDep(client))} · ${esc(activity)} · ${partners.length} partenaire(s) avec accès tarif</div></div><button type="button" class="pro-logout" id="pro-logout">Se déconnecter</button>`;
-  summary.querySelector("#pro-logout").onclick=()=>{currentClient=null;replaceLogin()};
-  window.LRF_PRO_CONTEXT={codeClient:client.codeClient,clientId:client.id,departement:clientDep(client),activite:activity,partenaires:partners};
+  summary.querySelector("#pro-logout").onclick=()=>{currentClient=null;clearSession();summary.remove();replaceLogin()};
 }
 
-function init(){
-  sessionStorage.removeItem("lrfProSession");
-  injectStyles();ensureLockModal();replaceLogin();
+async function restoreSession(saved){
+  try{
+    const client=await findClient(String(saved.codeClient||"").toUpperCase());
+    if(!client||String(client.type||"client").toLowerCase()==="prospect"||clientDep(client)!==String(saved.departement||"").toUpperCase())throw new Error("Session invalide");
+    openForClient(client);
+    return true;
+  }catch(e){console.warn("Session PRO expirée",e);clearSession();return false}
 }
-if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();
+
+async function init(){
+  injectStyles();ensureLockModal();
+  const saved=readSession();
+  if(saved&&await restoreSession(saved))return;
+  replaceLogin();
+}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",()=>{init()},{once:true});else init();
