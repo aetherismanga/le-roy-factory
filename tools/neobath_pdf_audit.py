@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import base64
+import gzip
 import json
 import re
 from pathlib import Path
@@ -83,12 +85,42 @@ def audit_pdf(label: str, path: Path) -> dict:
     }
 
 
+def decode_dna_tariff() -> str:
+    part_dir = ROOT / "assets" / "data" / "neobath-dna-tarif"
+    parts = sorted(part_dir.glob("part-*.txt"))
+    if not parts:
+        return ""
+    encoded = "".join(part.read_text(encoding="utf-8").strip() for part in parts)
+    raw = gzip.decompress(base64.b64decode(encoded)).decode("utf-8", errors="replace")
+    (OUT / "dna-tariff-layout.txt").write_text(raw, encoding="utf-8")
+
+    lines = [clean_line(line) for line in raw.splitlines() if clean_line(line)]
+    interesting = []
+    for idx, line in enumerate(lines, start=1):
+        low = line.lower()
+        if any(keyword in low for keyword in KEYWORDS) or PRICE_RE.search(line):
+            interesting.append({
+                "line": idx,
+                "text": line,
+                "prices": PRICE_RE.findall(line),
+                "refs": REF_RE.findall(line)[:12],
+                "dimensions": DIM_RE.findall(line)[:8],
+            })
+    (OUT / "dna-tariff-index.json").write_text(
+        json.dumps({"lines": len(lines), "interesting": interesting}, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    return raw
+
+
 def main() -> None:
     result = {label: audit_pdf(label, path) for label, path in PDFS.items()}
     (OUT / "page-index.json").write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
+    dna_tariff = decode_dna_tariff()
 
     # Compact report in Actions logs, useful to locate tariff/product sections quickly.
     print("NEOBATH_AUDIT_READY")
+    print(f"DNA tariff decoded: {len(dna_tariff):,} characters")
     for label, info in result.items():
         print(f"\n### {label}: {info['pages']} pages")
         for p in info["page_summaries"]:
