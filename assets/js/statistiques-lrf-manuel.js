@@ -14,6 +14,7 @@ function formatCode(n){return `LRF-${String(n).padStart(5,'0')}`}
 function clientName(c){return c?.societe||c?.nomSociete||c?.nom||'Client sans nom'}
 function clientDept(c){let d=clean(c?.departement||c?.dept);if(!d){const cp=clean(c?.codePostal||c?.cp);if(/^\d{5}$/.test(cp))d=cp.slice(0,2)}return d}
 function flattenCodes(v){if(Array.isArray(v))return v.flatMap(flattenCodes);const s=clean(v);return s?[s]:[]}
+function clientLRFCodes(c){return [...new Set([clean(c?.codeClient),...flattenCodes(c?.codesLRF)].filter(Boolean))]}
 function partnerCodes(c,partner){
   const vals=[];
   if(partner==='elios-ceramica')vals.push(c.codeElios,c.numeroClientElios,c.eliosCode);
@@ -21,7 +22,6 @@ function partnerCodes(c,partner){
   vals.push(c.codesPartenaires?.[partner],c.numerosPartenaires?.[partner],c.codesPartenairesMulti?.[partner]);
   return [...new Set(flattenCodes(vals))];
 }
-function partnerCode(c,partner){return partnerCodes(c,partner)[0]||''}
 
 function injectStyles(){
   if(document.getElementById('lrf-manual-link-style'))return;
@@ -79,7 +79,10 @@ async function ensureClientCode(clientId){
 }
 
 function clientOptions(){
-  return [...crmClients].sort((a,b)=>clientName(a).localeCompare(clientName(b),'fr')).map(c=>`<option value="${esc(c.id)}">${esc(c.codeClient||'Sans code')} — ${esc(clientName(c))}${clientDept(c)?` — ${esc(clientDept(c))}`:''}${c.archived===true?' — archivé':''}</option>`).join('');
+  return [...crmClients].sort((a,b)=>clientName(a).localeCompare(clientName(b),'fr')).map(c=>{
+    const codes=clientLRFCodes(c),extra=Math.max(0,codes.length-1);
+    return `<option value="${esc(c.id)}">${esc(codes[0]||'Sans code')}${extra?` (+${extra})`:''} — ${esc(clientName(c))}${clientDept(c)?` — ${esc(clientDept(c))}`:''}${c.archived===true?' — archivé':''}</option>`;
+  }).join('');
 }
 
 function openClientPicker(key,btn){
@@ -110,7 +113,7 @@ async function associateToClient(key,clientId,select){
     await updateDoc(doc(db,'clients',clientId),partnerPatch(client,partner,factory));
     await setDoc(doc(db,'statistiques_lrf_mappings',mappingId(partner,factory)),{partner,factory,codeLRF,clientId,updatedAt:new Date().toISOString()},{merge:true});
     manualMappings.set(key,{partner,factory,codeLRF,clientId});
-    select.insertAdjacentHTML('afterend',`<span class="lrf-link-status">✓ ${esc(codeLRF)} associé à ${esc(clientName(client))} — code ajouté sans supprimer les autres magasins</span>`);
+    select.insertAdjacentHTML('afterend',`<span class="lrf-link-status">✓ ${esc(codeLRF)} associé à ${esc(clientName(client))}</span>`);
     setTimeout(()=>location.reload(),500);
   }catch(e){console.error(e);select.disabled=false;alert(e?.message||"Impossible d'associer ce client.");}
   finally{busy=false}
@@ -126,7 +129,7 @@ async function saveManual(key,btn){
   try{
     const snap=await getDocs(collection(db,'clients'));
     const matches=[];
-    snap.forEach(d=>{const data=d.data();if(clean(data.codeClient).toLowerCase()===codeLRF.toLowerCase())matches.push({id:d.id,...data});});
+    snap.forEach(d=>{const data=d.data();if(clientLRFCodes(data).some(code=>norm(code)===norm(codeLRF)))matches.push({id:d.id,...data});});
     if(matches.length>1)throw new Error('Plusieurs clients ont ce même code LRF.');
     if(matches.length===1){
       const c=matches[0];
