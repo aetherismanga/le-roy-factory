@@ -39,7 +39,10 @@
 
   function simplifyClients(){
     if(page!=='clients.html')return;
-    document.querySelector('.stats-grid')?.remove();
+    // IMPORTANT : on masque les compteurs, on ne les supprime pas.
+    // clients.html continue d'écrire dans leurs IDs pendant renderTable().
+    const stats=document.querySelector('.stats-grid');
+    if(stats)stats.style.setProperty('display','none','important');
     document.getElementById('nav-prospects')?.closest('li')?.remove();
   }
 
