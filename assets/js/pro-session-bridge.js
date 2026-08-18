@@ -1,5 +1,7 @@
 (() => {
   'use strict';
+  if (window.__LRF_PRO_SESSION_BRIDGE__) return;
+  window.__LRF_PRO_SESSION_BRIDGE__ = true;
 
   const KEY = 'lrfProSession';
   const LEGACY_CODE = '2026';
@@ -81,8 +83,6 @@
   }
 
   function watchOtherLoginSystems() {
-    // The client-code login used by Inspirations writes directly to sessionStorage.
-    // Mirror it to localStorage so the same valid session survives navigation/tabs.
     setInterval(() => {
       let raw = '';
       try { raw = sessionStorage.getItem(KEY) || ''; } catch (_) {}
