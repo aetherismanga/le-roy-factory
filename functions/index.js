@@ -291,7 +291,6 @@ exports.processScheduledEmails = onSchedule({
   const programmed = await db.collection("scheduled_mails").where("status", "==", "programme").limit(100).get();
   for (const docSnap of programmed.docs) await processScheduledDoc(docSnap, now);
 
-  // Récupère aussi un éventuel mail resté bloqué "en_cours" après une interruption de fonction.
   const running = await db.collection("scheduled_mails").where("status", "==", "en_cours").limit(50).get();
   const staleBefore = Date.now() - 10 * 60000;
   for (const docSnap of running.docs) {
@@ -304,3 +303,4 @@ exports.processScheduledEmails = onSchedule({
 });
 
 Object.assign(exports, require("./account-requests"));
+Object.assign(exports, require("./jarvis-ai"));
