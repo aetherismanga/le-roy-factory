@@ -22,6 +22,7 @@ let clients = [];
 let selectedPartners = new Set();
 let editingId = null;
 let autoGroupsDone = false;
+let autoIndependentDone = false;
 
 const norm = v => String(v || "").trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 const esc = v => String(v || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
@@ -143,6 +144,20 @@ async function autoClassifyGroups() {
   }
 }
 
+async function autoClassifyIndependent() {
+  if (autoIndependentDone) return;
+  autoIndependentDone = true;
+  const todo = clients.filter(c => {
+    const activity = norm(c.categorieActivite || c.sousCategorie);
+    if (activity) return false;
+    return !GROUP_PATTERNS.some(r => r.test(c.societe || ""));
+  });
+  for (const c of todo) {
+    try { await updateDoc(doc(db,"clients",c.id), { categorieActivite:"negoce-independant" }); }
+    catch (e) { console.warn("Classement négoce indépendant", c.societe, e); }
+  }
+}
+
 function init() {
   styles();
   injectActivity();
@@ -183,6 +198,7 @@ function init() {
     snap.forEach(d => clients.push({ id:d.id, ...d.data() }));
     setTimeout(decorateRows, 0);
     autoClassifyGroups();
+    autoClassifyIndependent();
   });
 }
 
