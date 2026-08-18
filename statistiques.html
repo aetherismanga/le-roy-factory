@@ -50,38 +50,28 @@
 
   <main class="crm-main-content">
     <div class="crm-topbar"><div class="welcome-box"><h1>Statistiques commerciales</h1><p>Ventes par partenaire, période, secteur et client.</p></div></div>
-
     <section class="stats-intro"><h2>Partenaires</h2><p>Choisis un partenaire, une année et une période. Les périodes incomplètes restent incluses.</p></section>
     <div id="partner-tabs" class="partner-tabs"></div>
-
     <div id="stats-period-filters" class="stats-period-filters">
       <div class="filter-block"><label for="stats-year">Année</label><select id="stats-year"></select></div>
       <div class="filter-block"><label for="stats-month">Période</label><select id="stats-month"></select></div>
       <div class="filter-block"><label for="stats-owner">Commercial</label><select id="stats-owner"><option value="all">Tous</option><option value="jerome">Jérôme — 11, 30, 34, 66</option><option value="coryne">Coryne — autres départements</option><option value="unknown">Département à compléter</option></select></div>
       <div class="filter-block"><label for="stats-dept">Département</label><select id="stats-dept"><option value="all">Tous les départements</option></select></div>
     </div>
-
     <div id="stats-kpis" class="stats-kpis"></div>
-
     <section class="stats-panel">
-      <div class="stats-panel-head">
-        <div><h2 id="stats-title">Statistiques</h2><p id="stats-period"></p></div>
-        <div id="stats-tools" class="stats-tools"><input id="stats-search" type="search" placeholder="Client, N° usine, code LRF, département…"><select id="stats-filter"><option value="all">Tous les clients</option><option value="up">En hausse</option><option value="down">En baisse</option><option value="new">Nouveaux</option><option value="stop">Sans vente</option></select></div>
-      </div>
+      <div class="stats-panel-head"><div><h2 id="stats-title">Statistiques</h2><p id="stats-period"></p></div><div id="stats-tools" class="stats-tools"><input id="stats-search" type="search" placeholder="Client, N° usine, code LRF, département…"><select id="stats-filter"><option value="all">Tous les clients</option><option value="up">En hausse</option><option value="down">En baisse</option><option value="new">Nouveaux</option><option value="stop">Sans vente</option></select></div></div>
       <div class="stats-subtools"><div id="stats-result-count" class="stats-count"></div><div id="stats-sector-tools" class="stats-sector-tools"></div></div>
       <div id="stats-detail-notice" class="stats-detail-notice"></div>
       <div id="stats-empty" class="stats-empty"><strong>Données à venir</strong>Les statistiques de ce partenaire seront affichées ici dès que nous aurons son fichier de ventes.</div>
-      <div id="stats-table-wrap" class="stats-table-wrap">
-        <table class="stats-table"><thead><tr><th>Client</th><th>N° usine</th><th>Code LRF</th><th>Dép.</th><th>Commercial</th><th>CA année</th><th>CA N-1</th><th>Évolution</th></tr></thead><tbody id="stats-body"></tbody></table>
-      </div>
+      <div id="stats-table-wrap" class="stats-table-wrap"><table class="stats-table"><thead><tr><th>Client</th><th>N° usine</th><th>Code LRF</th><th>Dép.</th><th>Commercial</th><th>CA année</th><th>CA N-1</th><th>Évolution</th></tr></thead><tbody id="stats-body"></tbody></table></div>
       <div id="stats-mobile-list" class="stats-mobile-list"></div>
     </section>
   </main>
-
-  <script type="module" src="assets/js/statistiques.js?v=20260818-1320"></script>
-  <script type="module" src="assets/js/statistiques-commissions.js?v=20260818-1320"></script>
-  <script type="module" src="assets/js/statistiques-ux-fix.js?v=20260818-1320"></script>
-  <script type="module" src="assets/js/statistiques-ui-final.js?v=20260818-1320"></script>
+  <script type="module" src="assets/js/statistiques.js?v=20260818-1348"></script>
+  <script type="module" src="assets/js/statistiques-commissions.js?v=20260818-1348"></script>
+  <script type="module" src="assets/js/statistiques-ux-fix.js?v=20260818-1348"></script>
+  <script type="module" src="assets/js/statistiques-ui-final.js?v=20260818-1348"></script>
   <script>document.getElementById('logout-btn')?.addEventListener('click',()=>{localStorage.removeItem('agentLoggedIn');location.href='agent.html'})</script>
 </body>
 </html>
