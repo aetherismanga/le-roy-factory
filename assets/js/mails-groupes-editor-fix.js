@@ -1,3 +1,5 @@
+import './mails-groupes-reliability.js?v=20260818-1445';
+
 // Correctif isolé pour l'éditeur des mails groupés :
 // - affiche réellement les images collées dans le navigateur ;
 // - place le curseur juste après l'image pour continuer à écrire ;
