@@ -4,6 +4,7 @@
   const KEY = 'lrfProSession';
   const LEGACY_CODE = '2026';
   const MAX_AGE = 12 * 60 * 60 * 1000;
+  let lastSessionRaw = '';
 
   function parse(raw) {
     try { return raw ? JSON.parse(raw) : null; } catch (_) { return null; }
@@ -20,18 +21,19 @@
     return session;
   }
 
-  function write(session) {
+  function write(session, emit = true) {
     const next = { ...session, unlockedAt: Number(session.unlockedAt || Date.now()) };
     const raw = JSON.stringify(next);
     try { sessionStorage.setItem(KEY, raw); } catch (_) {}
     try { localStorage.setItem(KEY, raw); } catch (_) {}
-    window.dispatchEvent(new CustomEvent('lrf-pro-session-changed', { detail: next }));
+    lastSessionRaw = raw;
+    if (emit) window.dispatchEvent(new CustomEvent('lrf-pro-session-changed', { detail: next }));
     return next;
   }
 
   function sync() {
     const session = read();
-    if (session) write(session);
+    if (session) write(session, false);
     return session;
   }
 
@@ -59,8 +61,6 @@
     api.getPrice = (partner, product, format) => {
       const session = sync();
       if (wildcard(session)) {
-        // The original ELIOS pricing code reads sessionStorage. Synchronising a
-        // wildcard session there makes the same code entered elsewhere valid.
         try { sessionStorage.setItem(KEY, JSON.stringify(session)); } catch (_) {}
       }
       return originalGetPrice ? originalGetPrice(partner, product, format) : null;
@@ -80,9 +80,24 @@
     });
   }
 
+  function watchOtherLoginSystems() {
+    // The client-code login used by Inspirations writes directly to sessionStorage.
+    // Mirror it to localStorage so the same valid session survives navigation/tabs.
+    setInterval(() => {
+      let raw = '';
+      try { raw = sessionStorage.getItem(KEY) || ''; } catch (_) {}
+      if (!raw || raw === lastSessionRaw) return;
+      const session = parse(raw);
+      if (!session) return;
+      write(session);
+    }, 700);
+  }
+
   function init() {
-    sync();
+    const initial = sync();
+    lastSessionRaw = initial ? JSON.stringify(initial) : '';
     bindLegacyTariffPage();
+    watchOtherLoginSystems();
     if (!patchPricingApi()) {
       let tries = 0;
       const timer = setInterval(() => {
