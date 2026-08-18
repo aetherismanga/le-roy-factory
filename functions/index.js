@@ -39,6 +39,47 @@ function smtpConfig(senderMode) {
   return { smtpUser, smtpPass, fromHeader, replyToHeader };
 }
 
+function senderLabels(senderMode) {
+  return {
+    agentLabel: senderMode === "coryne" ? "Coryne" : senderMode === "both" ? "Jérôme & Coryne" : "Jérôme",
+    senderEmail: senderMode === "coryne" ? "coryne@leroyfactory.fr" : senderMode === "both" ? "jerome@leroyfactory.fr & coryne@leroyfactory.fr" : "jerome@leroyfactory.fr"
+  };
+}
+
+async function appendClientHistory(clientIds, senderMode, subject, extra = {}) {
+  const ids = [...new Set(Array.isArray(clientIds) ? clientIds.filter(Boolean) : [])];
+  if (!ids.length) return;
+  const { agentLabel } = senderLabels(senderMode);
+  const dateFr = new Date().toLocaleDateString("fr-FR", { timeZone:"Europe/Paris" });
+  const batch = db.batch();
+  ids.forEach(clientId => {
+    batch.update(db.collection("clients").doc(clientId), {
+      historiqueMails: admin.firestore.FieldValue.arrayUnion({
+        date: dateFr,
+        expediteur: agentLabel,
+        objet: subject,
+        ...extra
+      })
+    });
+  });
+  await batch.commit();
+}
+
+async function writeMailHistory(payload, fields = {}) {
+  const { senderMode = "jerome", bccRecipients = [], subject = "" } = payload || {};
+  const { senderEmail } = senderLabels(senderMode);
+  return db.collection("historique_mails").add({
+    date: new Date().toISOString(),
+    expediteur: senderEmail,
+    objet: subject,
+    nbDestinataires: Array.isArray(bccRecipients) ? bccRecipients.length : 0,
+    destinataires: Array.isArray(bccRecipients) ? bccRecipients : [],
+    statut: "Succès",
+    source: "serveur",
+    ...fields
+  });
+}
+
 async function sendPayload(payload) {
   const { senderMode, bccRecipients, subject, htmlContent, attachments } = payload;
   if (!Array.isArray(bccRecipients) || bccRecipients.length === 0 || !subject || !htmlContent) {
@@ -46,6 +87,8 @@ async function sendPayload(payload) {
   }
 
   const { smtpUser, smtpPass, fromHeader, replyToHeader } = smtpConfig(senderMode);
+  if (!smtpPass) throw new Error("Mot de passe SMTP indisponible pour cet expéditeur.");
+
   const transporter = nodemailer.createTransport({
     host: "ssl0.ovh.net",
     port: 465,
@@ -65,7 +108,7 @@ async function sendPayload(payload) {
         }))
     : [];
 
-  await transporter.sendMail({
+  const info = await transporter.sendMail({
     from: fromHeader,
     to: smtpUser,
     replyTo: replyToHeader,
@@ -74,19 +117,38 @@ async function sendPayload(payload) {
     html: htmlContent,
     attachments: safeAttachments
   });
+  return info;
 }
 
 exports.sendGroupEmail = onRequest({
-  secrets: ["SMTP_PASSWORD_JEROME", "SMTP_PASSWORD_CORYNE"]
+  secrets: ["SMTP_PASSWORD_JEROME", "SMTP_PASSWORD_CORYNE"],
+  timeoutSeconds: 180,
+  memory: "512MiB"
 }, async (req, res) => {
   if (cors(req, res)) return;
   if (req.method !== "POST") return res.status(405).json({ error: "Méthode non autorisée" });
 
+  const payload = req.body || {};
   try {
-    await sendPayload(req.body || {});
-    res.status(200).json({ success: true });
+    const info = await sendPayload(payload);
+    const historyRef = await writeMailHistory(payload, {
+      statut: "Succès",
+      messageId: info?.messageId || null,
+      typeEnvoi: "immediat",
+      sentAt: admin.firestore.FieldValue.serverTimestamp()
+    });
+    await appendClientHistory(payload.clientIds, payload.senderMode, payload.subject, { programme:false }).catch(err => {
+      console.warn("Historique client non bloquant:", err);
+    });
+    res.status(200).json({ success: true, historyId: historyRef.id, messageId: info?.messageId || null });
   } catch (error) {
     console.error("Erreur d'envoi:", error);
+    await writeMailHistory(payload, {
+      statut: "Erreur",
+      typeEnvoi: "immediat",
+      erreur: String(error.message || error),
+      failedAt: admin.firestore.FieldValue.serverTimestamp()
+    }).catch(() => {});
     res.status(500).json({ success: false, error: error.message });
   }
 });
@@ -127,6 +189,13 @@ exports.scheduleGroupEmail = onRequest({
       metadata: { cacheControl: "no-store" }
     });
 
+    const historyRef = await writeMailHistory(cleanPayload, {
+      statut: "Programmé",
+      typeEnvoi: "programme",
+      scheduledMailId: ref.id,
+      scheduledAt: admin.firestore.Timestamp.fromDate(date)
+    });
+
     await ref.set({
       scheduledAt: admin.firestore.Timestamp.fromDate(date),
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
@@ -136,15 +205,80 @@ exports.scheduleGroupEmail = onRequest({
       nbDestinataires: bccRecipients.length,
       destinataires: bccRecipients,
       clientIds: cleanPayload.clientIds,
-      storagePath
+      storagePath,
+      historyId: historyRef.id,
+      attempts: 0
     });
 
-    res.status(200).json({ success:true, id:ref.id, scheduledAt:date.toISOString() });
+    res.status(200).json({ success:true, id:ref.id, historyId:historyRef.id, scheduledAt:date.toISOString() });
   } catch (error) {
     console.error("Erreur programmation mail:", error);
     res.status(500).json({ success:false, error:error.message });
   }
 });
+
+async function processScheduledDoc(docSnap, now) {
+  const data = docSnap.data();
+  if (!data.scheduledAt || data.scheduledAt.toMillis() > now.toMillis()) return;
+
+  const ref = docSnap.ref;
+  const historyRef = data.historyId ? db.collection("historique_mails").doc(data.historyId) : null;
+  try {
+    await ref.update({
+      status:"en_cours",
+      startedAt:admin.firestore.FieldValue.serverTimestamp(),
+      attempts:admin.firestore.FieldValue.increment(1)
+    });
+    if (historyRef) await historyRef.update({ statut:"Envoi en cours" }).catch(() => {});
+
+    const file = bucket.file(data.storagePath);
+    const [buffer] = await file.download();
+    const payload = JSON.parse(buffer.toString("utf8"));
+    const info = await sendPayload(payload);
+    const sentAt = new Date();
+
+    if (historyRef) {
+      await historyRef.update({
+        date: sentAt.toISOString(),
+        statut:"Succès — programmé",
+        sentAt:admin.firestore.FieldValue.serverTimestamp(),
+        messageId:info?.messageId || null
+      });
+    } else {
+      await writeMailHistory(payload, {
+        statut:"Succès — programmé",
+        typeEnvoi:"programme",
+        scheduledMailId:docSnap.id,
+        messageId:info?.messageId || null,
+        sentAt:admin.firestore.FieldValue.serverTimestamp()
+      });
+    }
+
+    await appendClientHistory(payload.clientIds, payload.senderMode, payload.subject, { programme:true }).catch(err => {
+      console.warn("Historique client programmé non bloquant:", err);
+    });
+
+    await ref.update({ status:"envoye", sentAt:admin.firestore.FieldValue.serverTimestamp(), lastError:admin.firestore.FieldValue.delete() });
+    await file.delete().catch(() => {});
+  } catch (error) {
+    console.error(`Erreur mail programmé ${docSnap.id}:`, error);
+    const attempts = Number(data.attempts || 0) + 1;
+    const retry = attempts < 3;
+    await ref.update({
+      status: retry ? "programme" : "erreur",
+      error:String(error.message || error),
+      lastError:String(error.message || error),
+      failedAt:admin.firestore.FieldValue.serverTimestamp(),
+      scheduledAt: retry ? admin.firestore.Timestamp.fromMillis(Date.now() + 2 * 60000) : data.scheduledAt
+    }).catch(() => {});
+    if (historyRef) {
+      await historyRef.update({
+        statut: retry ? `Nouvelle tentative (${attempts}/3)` : "Erreur — programmé",
+        erreur:String(error.message || error)
+      }).catch(() => {});
+    }
+  }
+}
 
 exports.processScheduledEmails = onSchedule({
   schedule: "every 1 minutes",
@@ -154,65 +288,17 @@ exports.processScheduledEmails = onSchedule({
   memory: "512MiB"
 }, async () => {
   const now = admin.firestore.Timestamp.now();
-  const snap = await db.collection("scheduled_mails")
-    .where("status", "==", "programme")
-    .limit(100)
-    .get();
+  const programmed = await db.collection("scheduled_mails").where("status", "==", "programme").limit(100).get();
+  for (const docSnap of programmed.docs) await processScheduledDoc(docSnap, now);
 
-  for (const docSnap of snap.docs) {
+  // Récupère aussi un éventuel mail resté bloqué "en_cours" après une interruption de fonction.
+  const running = await db.collection("scheduled_mails").where("status", "==", "en_cours").limit(50).get();
+  const staleBefore = Date.now() - 10 * 60000;
+  for (const docSnap of running.docs) {
     const data = docSnap.data();
-    if (!data.scheduledAt || data.scheduledAt.toMillis() > now.toMillis()) continue;
-
-    const ref = docSnap.ref;
-    try {
-      await ref.update({ status:"en_cours", startedAt:admin.firestore.FieldValue.serverTimestamp() });
-
-      const file = bucket.file(data.storagePath);
-      const [buffer] = await file.download();
-      const payload = JSON.parse(buffer.toString("utf8"));
-      await sendPayload(payload);
-
-      const sentAt = new Date();
-      const agentLabel = payload.senderMode === "coryne" ? "Coryne" : payload.senderMode === "both" ? "Jérôme & Coryne" : "Jérôme";
-      const senderEmail = payload.senderMode === "coryne" ? "coryne@leroyfactory.fr" : payload.senderMode === "both" ? "jerome@leroyfactory.fr & coryne@leroyfactory.fr" : "jerome@leroyfactory.fr";
-
-      await db.collection("historique_mails").add({
-        date: sentAt.toISOString(),
-        expediteur: senderEmail,
-        objet: payload.subject,
-        nbDestinataires: payload.bccRecipients.length,
-        destinataires: payload.bccRecipients,
-        statut: "Succès — programmé",
-        scheduledMailId: docSnap.id
-      });
-
-      const dateFr = sentAt.toLocaleDateString("fr-FR", { timeZone:"Europe/Paris" });
-      const batch = db.batch();
-      for (const clientId of new Set(payload.clientIds || [])) {
-        const clientRef = db.collection("clients").doc(clientId);
-        batch.update(clientRef, {
-          historiqueMails: admin.firestore.FieldValue.arrayUnion({
-            date: dateFr,
-            expediteur: agentLabel,
-            objet: payload.subject,
-            programme: true
-          })
-        });
-      }
-      if ((payload.clientIds || []).length) await batch.commit();
-
-      await ref.update({
-        status:"envoye",
-        sentAt:admin.firestore.FieldValue.serverTimestamp()
-      });
-      await file.delete().catch(() => {});
-    } catch (error) {
-      console.error(`Erreur mail programmé ${docSnap.id}:`, error);
-      await ref.update({
-        status:"erreur",
-        error:String(error.message || error),
-        failedAt:admin.firestore.FieldValue.serverTimestamp()
-      }).catch(() => {});
+    const started = data.startedAt?.toMillis?.() || 0;
+    if (started && started < staleBefore) {
+      await docSnap.ref.update({ status:"programme", scheduledAt:admin.firestore.Timestamp.now() }).catch(() => {});
     }
   }
 });
