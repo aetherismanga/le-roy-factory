@@ -2,10 +2,11 @@ import { db } from './firebase.js';
 import { collection, onSnapshot, doc, updateDoc } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
 import { ELIOS_STATS_CLIENTS } from './statistiques-elios-data.js';
 import { VIEW_STATS_CLIENTS_2026_07 } from './statistiques-view-data.js';
+import { MI_JUIN_2025_STATS } from './statistiques-mi-juin-2025-data.js';
 import { STATS_PERIODS } from './statistiques-periods.js';
 
 const PARTNERS=[
-  ['elios-ceramica','ELIOS CERAMICA'],['view-ceramica','VIEW CERAMICA'],['la-fenice','LA FENICE'],['reviglass','REVIGLASS'],['biopietra','BIOPIETRA'],['petracers',"PETRACER'S"],['pecchioli-firenze','PECCHIOLI FIRENZE'],['bulbo','BULBO'],['randal-pro','RANDAL PRO'],['neobath','NEOBATH'],['koibath','KOIBATH'],['aquahome','AQUAHOME'],['opal','OPAL'],['bilt','BILT']
+  ['elios-ceramica','ELIOS CERAMICA'],['view-ceramica','VIEW CERAMICA'],['la-fenice','LA FENICE'],['reviglass','REVIGLASS'],['biopietra','BIOPIETRA'],['petracers',"PETRACER'S"],['pecchioli-firenze','PECCHIOLI FIRENZE'],['bulbo','BULBO'],['randal-pro','RANDAL PRO'],['floor-italia','FLOOR ITALIA'],['propamsa','PROPAMSA'],['cermed','CERMED'],['neobath','NEOBATH'],['koibath','KOIBATH'],['aquahome','AQUAHOME'],['opal','OPAL'],['bilt','BILT']
 ];
 const JEROME_DEPTS=new Set(['11','30','34','66']);
 const MONTHS=['','Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
@@ -38,28 +39,45 @@ function matchClient(sale){
   if(c)return c;
   const k=norm(sale.name); if(k.length<5)return null;
   const candidates=crmClients.filter(x=>{const n=norm(x.societe||x.nomSociete||x.nom);return n===k||(n.length>=6&&k.length>=6&&(n.startsWith(k)||k.startsWith(n)))});
-  return candidates.length===1?candidates[0]:null;
-}
-function departmentOf(c){
-  if(!c)return '';
-  let d=String(c.departement||c.department||c.dept||'').trim().toUpperCase();
-  if(!d){
-    const cp=String(c.codePostal||c.cp||c.postalCode||'').trim().toUpperCase();
-    if(/^20[01]/.test(cp)) d=cp.startsWith('200')?'2A':'2B';
-    else if(/^\d{5}$/.test(cp)) d=cp.slice(0,2);
+  if(candidates.length===1)return candidates[0];
+  if(sale.dept&&candidates.length>1){
+    const d=String(sale.dept).toUpperCase();
+    const sameDept=candidates.filter(x=>departmentOf(x)===d);
+    if(sameDept.length===1)return sameDept[0];
   }
+  return null;
+}
+function departmentOf(c,sale=null){
+  let d='';
+  if(c){
+    d=String(c.departement||c.department||c.dept||'').trim().toUpperCase();
+    if(!d){
+      const cp=String(c.codePostal||c.cp||c.postalCode||'').trim().toUpperCase();
+      if(/^20[01]/.test(cp)) d=cp.startsWith('200')?'2A':'2B';
+      else if(/^\d{5}$/.test(cp)) d=cp.slice(0,2);
+    }
+  }
+  if(!d&&sale?.dept)d=String(sale.dept).trim().toUpperCase();
   if(/^\d$/.test(d))d='0'+d;
   return d;
 }
-function ownerOf(c){const d=departmentOf(c);if(!d)return 'unknown';return JEROME_DEPTS.has(d)?'jerome':'coryne'}
-function ownerLabel(c){const o=ownerOf(c);return o==='jerome'?'Jérôme':o==='coryne'?'Coryne':'À compléter'}
+function ownerOf(c,sale=null){const d=departmentOf(c,sale);if(!d)return 'unknown';return JEROME_DEPTS.has(d)?'jerome':'coryne'}
+function ownerLabel(c,sale=null){const o=ownerOf(c,sale);return o==='jerome'?'Jérôme':o==='coryne'?'Coryne':'À compléter'}
 
 function detailRows(){
+  if(currentPeriodKey==='2025-06')return MI_JUIN_2025_STATS[currentPartner]||[];
   if(currentPartner==='elios-ceramica'&&currentPeriodKey==='2026-07')return ELIOS_STATS_CLIENTS.map(r=>({...r,factory:r.elios}));
   if(currentPartner==='view-ceramica'&&currentPeriodKey==='2026-07')return VIEW_STATS_CLIENTS_2026_07;
   return [];
 }
-function values(r){return {current:Number(r.ca2026||0),previous:Number(r.ca2025||0),evolution:r.evolution}}
+function values(r){
+  const y=currentPeriod()?.y||2026;
+  const currentKey=`ca${y}`,previousKey=`ca${y-1}`;
+  const current=Number(r[currentKey]??r.ca2026??0);
+  const previous=Number(r[previousKey]??r.ca2025??0);
+  const evolution=r.evolution!=null?r.evolution:(previous?((current-previous)/previous):null);
+  return {current,previous,evolution};
+}
 function statusOf(r){const v=values(r);if(v.current<=0&&v.previous>0)return 'stop';if(v.previous===0&&v.current>0)return 'new';if((v.evolution??0)>0)return 'up';return 'down'}
 
 function renderPartners(){
@@ -91,7 +109,7 @@ function renderPeriodSelectors(){
 function renderDepartmentOptions(){
   const select=document.getElementById('stats-dept');
   const current=select.value;
-  const deps=[...new Set(detailRows().map(r=>departmentOf(matchClient(r))).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'fr',{numeric:true}));
+  const deps=[...new Set(detailRows().map(r=>departmentOf(matchClient(r),r)).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'fr',{numeric:true}));
   select.innerHTML='<option value="all">Tous les départements</option>'+deps.map(d=>`<option value="${esc(d)}">${esc(d)}</option>`).join('');
   if([...select.options].some(o=>o.value===current))select.value=current;
 }
@@ -117,8 +135,8 @@ function filteredRows(){
   const owner=document.getElementById('stats-owner')?.value||'all';
   const dept=document.getElementById('stats-dept')?.value||'all';
   return detailRows().filter(r=>{
-    const c=matchClient(r), d=departmentOf(c), o=ownerOf(c);
-    const text=norm(`${r.name} ${rowFactoryCode(r)} ${c?.societe||''} ${c?.codeClient||''} ${d} ${ownerLabel(c)}`);
+    const c=matchClient(r), d=departmentOf(c,r), o=ownerOf(c,r);
+    const text=norm(`${r.name} ${rowFactoryCode(r)} ${c?.societe||''} ${c?.codeClient||''} ${d} ${ownerLabel(c,r)}`);
     return (!q||text.includes(q))&&(f==='all'||statusOf(r)===f)&&(owner==='all'||o===owner)&&(dept==='all'||d===dept);
   }).sort((a,b)=>values(b).current-values(a).current);
 }
@@ -128,7 +146,7 @@ function lrfEditor(c){
   if(c.codeClient)return `<strong class="lrf-code">${esc(c.codeClient)}</strong>`;
   return `<div class="lrf-edit"><input type="text" maxlength="30" placeholder="Code LRF" data-lrf-input="${esc(c.id)}"><button type="button" class="lrf-save" data-save-lrf="${esc(c.id)}" title="Enregistrer">✓</button></div>`;
 }
-function rowMeta(c){const d=departmentOf(c);return `${d?`Dép. ${esc(d)} · `:''}${esc(ownerLabel(c))}`}
+function rowMeta(c,r){const d=departmentOf(c,r);return `${d?`Dép. ${esc(d)} · `:''}${esc(ownerLabel(c,r))}`}
 
 function renderClients(){
   const tbody=document.getElementById('stats-body');
@@ -146,11 +164,11 @@ function renderClients(){
   document.getElementById('stats-result-count').textContent=all.length?`${rows.length} client${rows.length>1?'s':''} affiché${rows.length>1?'s':''}`:'';
   tbody.innerHTML=rows.map(r=>{
     const c=matchClient(r), st=statusOf(r), v=values(r), ev=pct(v.evolution);
-    return `<tr><td><strong>${esc(c?.societe||r.name)}</strong><small>${c?'Associé au CRM':'Non associé au CRM'} · ${rowMeta(c)}</small></td><td>${esc(rowFactoryCode(r))}</td><td>${lrfEditor(c)}</td><td>${esc(departmentOf(c)||'—')}</td><td>${esc(ownerLabel(c))}</td><td>${euro(v.current)}</td><td>${euro(v.previous)}</td><td><span class="evo ${st}">${ev}</span></td></tr>`;
+    return `<tr><td><strong>${esc(c?.societe||r.name)}</strong><small>${c?'Associé au CRM':'Non associé au CRM'} · ${rowMeta(c,r)}</small></td><td>${esc(rowFactoryCode(r))}</td><td>${lrfEditor(c)}</td><td>${esc(departmentOf(c,r)||'—')}</td><td>${esc(ownerLabel(c,r))}</td><td>${euro(v.current)}</td><td>${euro(v.previous)}</td><td><span class="evo ${st}">${ev}</span></td></tr>`;
   }).join('')||(all.length?'<tr><td colspan="8" class="no-data">Aucun résultat avec ces filtres</td></tr>':'');
   cards.innerHTML=rows.map(r=>{
     const c=matchClient(r), st=statusOf(r), v=values(r), ev=pct(v.evolution);
-    return `<article class="client-stat-card"><div class="client-stat-head"><div><strong>${esc(c?.societe||r.name)}</strong><small>${esc(partnerInfo()?.numberLabel||'N° usine')} ${esc(rowFactoryCode(r))} · ${rowMeta(c)}</small></div><span class="evo ${st}">${ev}</span></div><div class="client-stat-values"><div><small>CA ${y}</small><b>${euro(v.current)}</b></div><div><small>CA ${y-1}</small><b>${euro(v.previous)}</b></div></div><div class="mobile-lrf"><small>Code LRF</small>${lrfEditor(c)}</div></article>`;
+    return `<article class="client-stat-card"><div class="client-stat-head"><div><strong>${esc(c?.societe||r.name)}</strong><small>${esc(partnerInfo()?.numberLabel||'N° usine')} ${esc(rowFactoryCode(r))} · ${rowMeta(c,r)}</small></div><span class="evo ${st}">${ev}</span></div><div class="client-stat-values"><div><small>CA ${y}</small><b>${euro(v.current)}</b></div><div><small>CA ${y-1}</small><b>${euro(v.previous)}</b></div></div><div class="mobile-lrf"><small>Code LRF</small>${lrfEditor(c)}</div></article>`;
   }).join('')||(all.length?'<div class="no-data">Aucun résultat avec ces filtres</div>':'');
 }
 
