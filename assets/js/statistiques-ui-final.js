@@ -1,16 +1,16 @@
 const START_YEAR=2023;
 const MONTHS=['','Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
-let syncing=false;
-let desiredYear=null;
+let desiredYear=new Date().getFullYear();
 let desiredPeriod='annual';
+let applying=false;
 
-function currentYear(){return new Date().getFullYear()}
-function yearOptions(){const out=[];for(let y=START_YEAR;y<=currentYear();y++)out.push(y);return out.reverse()}
-function hiddenType(){return document.getElementById('stats-period-type')}
-function hiddenMonth(){return document.getElementById('stats-month')}
-function hiddenYear(){return document.getElementById('stats-year')}
+const currentYear=()=>new Date().getFullYear();
+const years=()=>{const out=[];for(let y=START_YEAR;y<=currentYear();y++)out.push(y);return out.reverse()};
+const yearEl=()=>document.getElementById('stats-year');
+const typeEl=()=>document.getElementById('stats-period-type');
+const monthEl=()=>document.getElementById('stats-month');
 
-function injectStyles(){
+function addStyles(){
   if(document.getElementById('stats-ui-final-style'))return;
   const s=document.createElement('style');s.id='stats-ui-final-style';s.textContent=`
     .stats-period-filters{grid-template-columns:minmax(120px,.7fr) minmax(220px,1.3fr) minmax(150px,1fr) minmax(170px,1fr)!important}
@@ -19,145 +19,96 @@ function injectStyles(){
     @media(min-width:761px){#stats-mobile-list{display:none!important}}
     @media(max-width:760px){#stats-table-wrap{display:none!important}}
   `;document.head.appendChild(s);
-  const filters=document.getElementById('stats-period-filters');
-  if(filters&&!document.getElementById('stats-period-unavailable'))filters.insertAdjacentHTML('afterend','<div id="stats-period-unavailable" class="stats-period-unavailable"></div>');
 }
 
-function normalizeYears(){
-  const sel=hiddenYear();if(!sel)return;
-  const wanted=yearOptions();
-  if(desiredYear==null)desiredYear=Number(sel.value)||currentYear();
-  if(!wanted.includes(desiredYear))desiredYear=currentYear();
-  const actual=[...sel.options].map(o=>Number(o.value)).filter(Boolean);
-  const same=actual.length===wanted.length&&actual.every((v,i)=>v===wanted[i]);
-  if(!same)sel.innerHTML=wanted.map(y=>`<option value="${y}">${y}</option>`).join('');
-  if(Number(sel.value)!==desiredYear)sel.value=String(desiredYear);
+function setYears(){
+  const sel=yearEl();if(!sel)return;
+  const opts=years();
+  const values=[...sel.options].map(o=>Number(o.value));
+  if(values.length!==opts.length||values.some((v,i)=>v!==opts[i]))sel.innerHTML=opts.map(y=>`<option value="${y}">${y}</option>`).join('');
+  if(opts.includes(desiredYear))sel.value=String(desiredYear);
 }
 
-function hiddenPeriodEntries(){
-  const sel=hiddenMonth();if(!sel)return [];
-  return [...sel.options].map(o=>({value:o.value,text:o.textContent||''})).filter(x=>x.value);
-}
-function keyForMonth(month){
-  const year=Number(hiddenYear()?.value||0),entries=hiddenPeriodEntries();
-  return entries.find(x=>{
-    const m=Number((x.value.match(/-(\d{2})(?:$|-)/)||[])[1]);
-    if(m===month&&String(x.value).startsWith(String(year)))return true;
-    return x.text.toLowerCase().includes(MONTHS[month].toLowerCase());
-  })?.value||'';
-}
-
-function ensureSimplePeriodControl(){
-  const existing=document.getElementById('stats-simple-period');if(existing)return existing;
-  const yearBlock=hiddenYear()?.closest('.filter-block');if(!yearBlock)return null;
-  const block=document.createElement('div');block.className='filter-block stats-simple-period-block';
-  block.innerHTML='<label for="stats-simple-period">Période</label><select id="stats-simple-period"></select>';
-  yearBlock.insertAdjacentElement('afterend',block);return block.querySelector('select');
-}
-function expectedPeriodOptions(){return ['annual',...Array.from({length:12},(_,i)=>`month:${i+1}`),'custom']}
-function rebuildSimplePeriod(){
-  const sel=ensureSimplePeriodControl();if(!sel)return;
-  const wanted=expectedPeriodOptions(),actual=[...sel.options].map(o=>o.value);
-  const same=actual.length===wanted.length&&actual.every((v,i)=>v===wanted[i]);
-  if(!same){
-    const months=Array.from({length:12},(_,i)=>i+1).map(m=>`<option value="month:${m}">${MONTHS[m]}</option>`).join('');
-    sel.innerHTML=`<option value="annual">Année complète / en cours</option>${months}<option value="custom">Dates personnalisées</option>`;
+function ensureSimplePeriod(){
+  let sel=document.getElementById('stats-simple-period');
+  if(!sel){
+    const yb=yearEl()?.closest('.filter-block');if(!yb)return null;
+    const block=document.createElement('div');block.className='filter-block stats-simple-period-block';
+    block.innerHTML='<label for="stats-simple-period">Période</label><select id="stats-simple-period"></select>';
+    yb.insertAdjacentElement('afterend',block);sel=block.querySelector('select');
   }
-  if(!wanted.includes(desiredPeriod))desiredPeriod='annual';
-  if(sel.value!==desiredPeriod)sel.value=desiredPeriod;
-  if(!sel.dataset.finalBound){sel.dataset.finalBound='1';sel.addEventListener('change',()=>{desiredPeriod=sel.value;applySimpleSelection()})}
+  const wanted=['annual',...Array.from({length:12},(_,i)=>`month:${i+1}`),'custom'];
+  const actual=[...sel.options].map(o=>o.value);
+  if(actual.length!==wanted.length||actual.some((v,i)=>v!==wanted[i])){
+    sel.innerHTML=`<option value="annual">Année complète / en cours</option>${MONTHS.slice(1).map((m,i)=>`<option value="month:${i+1}">${m}</option>`).join('')}<option value="custom">Dates personnalisées</option>`;
+  }
+  sel.value=desiredPeriod;
+  return sel;
 }
 
-function showUnavailable(text=''){
-  const box=document.getElementById('stats-period-unavailable');if(!box)return;
+function hideLegacy(){
+  const t=typeEl(),m=monthEl();
+  if(t?.closest('.filter-block'))t.closest('.filter-block').style.display='none';
+  if(m?.closest('.filter-block'))m.closest('.filter-block').style.display='none';
+}
+
+function availableMonthKey(month){
+  const y=String(desiredYear),m=String(month).padStart(2,'0');
+  const options=[...(monthEl()?.options||[])];
+  return options.find(o=>o.value.startsWith(`${y}-${m}`))?.value||options.find(o=>(o.textContent||'').toLowerCase().includes(MONTHS[month].toLowerCase()))?.value||'';
+}
+
+function showMessage(text=''){
+  let box=document.getElementById('stats-period-unavailable');
+  if(!box){const filters=document.getElementById('stats-period-filters');if(!filters)return;filters.insertAdjacentHTML('afterend','<div id="stats-period-unavailable" class="stats-period-unavailable"></div>');box=document.getElementById('stats-period-unavailable')}
   box.textContent=text;box.style.display=text?'block':'none';
 }
-function clearResultsForUnavailable(month){
-  const year=hiddenYear()?.value||'';showUnavailable(`Aucune situation statistique importée pour ${MONTHS[month]} ${year}. Les chiffres apparaîtront dès qu’un fichier correspondant sera ajouté.`);
-  const tbody=document.getElementById('stats-body');if(tbody)tbody.innerHTML='';
-  const mobile=document.getElementById('stats-mobile-list');if(mobile)mobile.innerHTML='';
-  const count=document.getElementById('stats-result-count');if(count)count.textContent='';
-  enforceResponsive();
-}
 
-function applySimpleSelection(){
-  if(syncing)return;syncing=true;
-  const type=hiddenType(),month=hiddenMonth();
-  if(!type||!month){syncing=false;return}
-  showUnavailable('');
+function applyPeriod(){
+  if(applying)return;applying=true;
+  const t=typeEl(),m=monthEl();if(!t||!m){applying=false;return}
+  showMessage('');
   if(desiredPeriod==='annual'){
-    type.value='annual';type.dispatchEvent(new Event('change',{bubbles:true}));
-    setTimeout(()=>{syncing=false;enforceResponsive()},100);return;
+    t.value='annual';t.dispatchEvent(new Event('change',{bubbles:true}));
+  }else if(desiredPeriod==='custom'){
+    t.value='range';t.dispatchEvent(new Event('change',{bubbles:true}));
+  }else{
+    const month=Number(desiredPeriod.split(':')[1]);
+    const key=availableMonthKey(month);
+    t.value='month';t.dispatchEvent(new Event('change',{bubbles:true}));
+    setTimeout(()=>{
+      if(key){m.value=key;m.dispatchEvent(new Event('change',{bubbles:true}))}
+      else showMessage(`Aucune situation statistique importée pour ${MONTHS[month]} ${desiredYear}.`);
+    },30);
   }
-  if(desiredPeriod==='custom'){
-    type.value='range';type.dispatchEvent(new Event('change',{bubbles:true}));
-    setTimeout(()=>{syncing=false;enforceResponsive()},100);return;
-  }
-  const m=Number(desiredPeriod.split(':')[1]||0),key=keyForMonth(m);
-  type.value='month';type.dispatchEvent(new Event('change',{bubbles:true}));
-  setTimeout(()=>{
-    if(key){month.value=key;month.dispatchEvent(new Event('change',{bubbles:true}));showUnavailable('')}
-    else clearResultsForUnavailable(m);
-    syncing=false;enforceResponsive();
-  },70);
-}
-
-function onYearChanged(){
-  if(desiredYear==null)desiredYear=Number(hiddenYear()?.value)||currentYear();
-  desiredPeriod='annual';
-  normalizeYears();rebuildSimplePeriod();showUnavailable('');
-  const type=hiddenType();if(type){type.value='annual';type.dispatchEvent(new Event('change',{bubbles:true}))}
-  setTimeout(()=>{normalizeYears();rebuildSimplePeriod();enforceResponsive()},100);
+  setTimeout(()=>{setYears();ensureSimplePeriod();enforceResponsive();applying=false},80);
 }
 
 function enforceResponsive(){
   const table=document.getElementById('stats-table-wrap'),mobile=document.getElementById('stats-mobile-list');if(!table||!mobile)return;
-  const hasTableRows=!!document.querySelector('#stats-body tr');
-  const hasMobileCards=!!mobile.children.length;
-  if(window.matchMedia('(max-width:760px)').matches){
-    table.style.setProperty('display','none','important');
-    mobile.style.setProperty('display',hasMobileCards?'grid':'none','important');
-  }else{
-    mobile.style.setProperty('display','none','important');
-    table.style.setProperty('display',hasTableRows?'block':'none','important');
-  }
+  if(matchMedia('(max-width:760px)').matches){table.style.setProperty('display','none','important');if(mobile.children.length)mobile.style.setProperty('display','grid','important')}
+  else{mobile.style.setProperty('display','none','important');if(document.querySelector('#stats-body tr'))table.style.setProperty('display','block','important')}
 }
 
-function hideLegacyPeriodControls(){
-  const type=hiddenType(),month=hiddenMonth();
-  if(type?.closest('.filter-block'))type.closest('.filter-block').style.display='none';
-  if(month?.closest('.filter-block'))month.closest('.filter-block').style.display='none';
-}
-
-function clarifyPartnerKpi(){
-  const tabs=[...document.querySelectorAll('.partner-tab[data-partner]')];
-  const total=tabs.filter(t=>t.dataset.partner!=='all').length;
-  if(!total)return;
-  document.querySelectorAll('#stats-kpis .kpi-card').forEach(card=>{
-    const label=card.querySelector('span'),strong=card.querySelector('strong'),small=card.querySelector('small');
-    if(!label||!strong)return;
-    const txt=label.textContent.trim();
-    if(txt==='Partenaires inclus'||txt==='Partenaires avec données'){
-      const available=String(strong.textContent||'0').split('/')[0].trim();
-      if(label.textContent!=='Partenaires avec données')label.textContent='Partenaires avec données';
-      const target=`${available} / ${total}`;if(strong.textContent.trim()!==target)strong.textContent=target;
-      const sub='pour la période sélectionnée';if(small&&small.textContent!==sub)small.textContent=sub;
-    }
-  });
-}
-
-function stabilize(){normalizeYears();hideLegacyPeriodControls();rebuildSimplePeriod();enforceResponsive();clarifyPartnerKpi()}
 function init(){
-  injectStyles();desiredYear=Number(hiddenYear()?.value)||currentYear();stabilize();
-  const year=hiddenYear();
-  if(year&&!year.dataset.finalCaptureBound){
-    year.dataset.finalCaptureBound='1';
-    year.addEventListener('change',e=>{desiredYear=Number(e.target.value)||currentYear();desiredPeriod='annual'},true);
-  }
-  if(year&&!year.dataset.finalBound){year.dataset.finalBound='1';year.addEventListener('change',()=>setTimeout(onYearChanged,0))}
-  document.addEventListener('click',e=>{if(e.target.closest('.partner-tab'))setTimeout(()=>{stabilize();showUnavailable('')},120)});
+  addStyles();
+  desiredYear=Number(yearEl()?.value)||currentYear();
+  setYears();hideLegacy();const simple=ensureSimplePeriod();enforceResponsive();
+
+  const y=yearEl();
+  y?.addEventListener('change',e=>{
+    desiredYear=Number(e.target.value)||currentYear();
+    desiredPeriod='annual';
+    const s=ensureSimplePeriod();if(s)s.value='annual';
+    setTimeout(()=>{setYears();applyPeriod()},0);
+  },true);
+
+  simple?.addEventListener('change',e=>{desiredPeriod=e.target.value;applyPeriod()});
+
+  document.addEventListener('click',e=>{
+    if(e.target.closest('.partner-tab'))setTimeout(()=>{setYears();hideLegacy();ensureSimplePeriod();applyPeriod()},80);
+  });
   window.addEventListener('resize',enforceResponsive);
-  let pending=false;const obs=new MutationObserver(()=>{if(pending)return;pending=true;requestAnimationFrame(()=>{pending=false;stabilize()})});obs.observe(document.body,{childList:true,subtree:true});
-  setTimeout(stabilize,180);
 }
+
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
