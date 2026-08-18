@@ -38,6 +38,31 @@ jobs:
           python tools/postprocess_neobath_config_data.py
           python tools/render_neobath_config_visuals.py
 
+      - name: Validate configurator JavaScript
+        run: |
+          node --check assets/js/meubles-configurateur.js
+          node --check assets/js/pro-session-bridge.js
+          node --check assets/js/app.js
+
+      - name: Validate tariff dataset
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data=json.loads(Path('assets/data/neobath-config-data.json').read_text(encoding='utf-8'))
+          items=data['items']
+          assert data['proDiscount']['factor'] == 0.45
+          assert len([x for x in items if x['collection']=='ANIMA' and x['category']=='module']) >= 30
+          assert len([x for x in items if x['collection']=='DNA' and x['category']=='module']) >= 20
+          assert len([x for x in items if x['category']=='worktop' and x['unit']=='cm']) >= 5
+          assert len([x for x in items if x['category']=='mirror']) >= 20
+          assert len([x for x in items if x['category']=='accessory']) >= 10
+          refs={(x['collection'],x['ref']) for x in items}
+          for required in [('DNA','SIDEBAR'),('DNA','PIE35'),('DNA','MNS1F')]:
+              assert required in refs, required
+          print('Dataset valid:', len(items), 'items')
+          PY
+
       - name: Commit generated data on working branch
         if: github.event_name == 'push'
         run: |
