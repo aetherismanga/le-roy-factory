@@ -27,6 +27,14 @@ for(const name of files.filter(x=>extname(x)==='.html')){
   const dest=join(www,name);
   try{
     let html=await readFile(dest,'utf8');
+
+    // Dans l'application, l'agenda doit être pensé smartphone et non grille PC compressée.
+    if(name==='agenda.html'){
+      html=html.replace("initialView: 'timeGridWeek'","initialView: window.innerWidth <= 900 ? 'listWeek' : 'timeGridWeek'");
+      html=html.replace("right: 'dayGridMonth,timeGridWeek,timeGridDay'","right: window.innerWidth <= 900 ? 'listWeek,timeGridDay,dayGridMonth' : 'dayGridMonth,timeGridWeek,timeGridDay'");
+      html=html.replace("day: 'Jour'","day: 'Jour',\n          list: 'Liste'");
+    }
+
     if(!html.includes('app-bridge.js'))html=html.replace(/<\/body>/i,'<script type="module" src="app-bridge.js"></script></body>');
     await writeFile(dest,html,'utf8');
   }catch(e){if(e?.code!=='ENOENT')throw e;}
@@ -34,4 +42,4 @@ for(const name of files.filter(x=>extname(x)==='.html')){
 
 const shell=`<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#111111"><title>Le Roy Factory</title><style>html,body{height:100%;margin:0;background:#111;color:#fff;font-family:Inter,Arial,sans-serif;display:grid;place-items:center}.boot{text-align:center}.logo{width:96px;height:96px;border-radius:50%;object-fit:cover;border:2px solid #D4AF37}.txt{margin-top:14px;font-weight:700;letter-spacing:.03em}</style></head><body><div class="boot"><img class="logo" src="assets/img/logo03lrf.png" alt="Le Roy Factory"><div class="txt">LE ROY FACTORY</div></div><script>setTimeout(()=>{location.replace(localStorage.getItem('agentLoggedIn')?'dashboard.html':'agent.html')},350)</script><script type="module" src="app-bridge.js"></script></body></html>`;
 await writeFile(join(www,'index.html'),shell,'utf8');
-console.log('Web CRM synchronisé dans mobile/www');
+console.log('Web CRM synchronisé dans mobile/www avec optimisations application');
