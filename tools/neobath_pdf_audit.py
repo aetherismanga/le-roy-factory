@@ -118,7 +118,10 @@ def main() -> None:
     (OUT / "page-index.json").write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
     dna_tariff = decode_dna_tariff()
 
-    # Compact report in Actions logs, useful to locate tariff/product sections quickly.
+    # Build the production-ready tariff/configurator dataset from the audited sources.
+    import build_neobath_config_data
+    build_neobath_config_data.main()
+
     print("NEOBATH_AUDIT_READY")
     print(f"DNA tariff decoded: {len(dna_tariff):,} characters")
     for label, info in result.items():
