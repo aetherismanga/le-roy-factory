@@ -273,6 +273,7 @@
         </div>
 
         <div class="modal-footer">
+          <button type="button" id="btn-delete-client" style="display:none; margin-right:auto; padding:0.65rem 1rem; border:1px solid #DC2626; border-radius:6px; background:#FEF2F2; color:#B91C1C; font-weight:700; cursor:pointer;">🗑️ Supprimer le client</button>
           <button type="button" id="btn-cancel-modal" class="filter-btn">Annuler</button>
           <button type="submit" class="btn-primary-gold">💾 Enregistrer la fiche</button>
         </div>
@@ -282,7 +283,7 @@
 
   <script type="module">
     import { db } from "./assets/js/firebase.js";
-    import { collection, doc, addDoc, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
     document.addEventListener("DOMContentLoaded", () => {
       // 1. Vérification session agent
@@ -352,6 +353,7 @@
       const btnAddClient = document.getElementById("btn-add-client");
       const btnCloseModal = document.getElementById("btn-close-modal");
       const btnCancelModal = document.getElementById("btn-cancel-modal");
+      const btnDeleteClient = document.getElementById("btn-delete-client");
       const phonesContainer = document.getElementById("phones-container");
       const btnAddPhone = document.getElementById("btn-add-phone");
       const editTypeSelect = document.getElementById("edit-type");
@@ -375,6 +377,7 @@
         phonesContainer.innerHTML = "";
         currentDocList = [];
         currentCRList = [];
+        if (btnDeleteClient) btnDeleteClient.style.display = docId ? "inline-flex" : "none";
 
         document.getElementById("cr-date-input").value = new Date().toISOString().split('T')[0];
         document.getElementById("cr-text-input").value = "";
@@ -429,6 +432,27 @@
       btnAddClient?.addEventListener("click", () => openModal());
       btnCloseModal?.addEventListener("click", closeModal);
       btnCancelModal?.addEventListener("click", closeModal);
+      btnDeleteClient?.addEventListener("click", async () => {
+        if (!currentEditingId) return;
+
+        const item = clientsData.find(c => c.id === currentEditingId);
+        const nomClient = item?.societe || "ce client";
+        const confirmation = confirm(`Êtes-vous sûr de vouloir supprimer ${nomClient} ?\n\nCette suppression est définitive.`);
+        if (!confirmation) return;
+
+        try {
+          btnDeleteClient.disabled = true;
+          btnDeleteClient.textContent = "Suppression...";
+          await deleteDoc(doc(db, "clients", currentEditingId));
+          closeModal();
+        } catch (err) {
+          console.error("Erreur de suppression :", err);
+          alert("Erreur lors de la suppression du client dans Firebase.");
+        } finally {
+          btnDeleteClient.disabled = false;
+          btnDeleteClient.textContent = "🗑️ Supprimer le client";
+        }
+      });
 
       // Gestion téléphone dynamique
       function addPhoneRow(value = "") {
