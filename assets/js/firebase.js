@@ -1,6 +1,7 @@
 // Importation des SDK Firebase nécessaires depuis le CDN officiel
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import "./carte-mobile-enhancements.js?v=20260818-1425";
 
 // Configuration Firebase de Le Roy Factory
 const firebaseConfig = {
