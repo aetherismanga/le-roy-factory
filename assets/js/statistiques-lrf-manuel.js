@@ -1,3 +1,4 @@
+import './statistiques-ux-fix.js';
 import { db } from './firebase.js';
 import { collection, getDocs, doc, updateDoc, setDoc, onSnapshot, runTransaction, arrayUnion } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
 
