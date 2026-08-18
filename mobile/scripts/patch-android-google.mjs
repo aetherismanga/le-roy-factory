@@ -21,10 +21,17 @@ if (!gradle.includes('com.google.android.gms:play-services-auth')) {
 }
 
 let manifest = await readFile(manifestPath, 'utf8');
-if (!manifest.includes('android.permission.RECORD_AUDIO')) {
-  manifest = manifest.replace(/<manifest([^>]*)>/, '<manifest$1>\n    <uses-permission android:name="android.permission.RECORD_AUDIO" />');
-  await writeFile(manifestPath, manifest, 'utf8');
+const permissions = [
+  'android.permission.RECORD_AUDIO',
+  'android.permission.ACCESS_FINE_LOCATION',
+  'android.permission.ACCESS_COARSE_LOCATION'
+];
+for (const permission of permissions) {
+  if (!manifest.includes(permission)) {
+    manifest = manifest.replace(/<manifest([^>]*)>/, `<manifest$1>\n    <uses-permission android:name="${permission}" />`);
+  }
 }
+await writeFile(manifestPath, manifest, 'utf8');
 
 const mainActivity = `package fr.leroyfactory.crm;
 
@@ -46,12 +53,10 @@ const googlePlugin = `package fr.leroyfactory.crm;
 
 import android.app.Activity;
 import android.app.PendingIntent;
-
 import androidx.activity.ComponentActivity;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.IntentSenderRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
-
 import com.getcapacitor.JSObject;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
@@ -63,7 +68,6 @@ import com.google.android.gms.auth.api.identity.AuthorizationResult;
 import com.google.android.gms.auth.api.identity.Identity;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.Scope;
-
 import java.util.Collections;
 import java.util.List;
 
@@ -74,52 +78,31 @@ public class GoogleCalendarNativePlugin extends Plugin {
     private ActivityResultLauncher<IntentSenderRequest> authorizationLauncher;
     private PluginCall pendingCall;
 
-    @Override
-    public void load() {
+    @Override public void load() {
         authorizationClient = Identity.getAuthorizationClient(getActivity());
         authorizationLauncher = ((ComponentActivity) getActivity()).registerForActivityResult(
-            new ActivityResultContracts.StartIntentSenderForResult(),
-            result -> {
-                PluginCall call = pendingCall;
-                pendingCall = null;
-                if (call == null) return;
-                if (result.getResultCode() != Activity.RESULT_OK || result.getData() == null) {
-                    call.reject("Autorisation Google annulée");
-                    return;
-                }
-                try {
-                    AuthorizationResult authResult = authorizationClient.getAuthorizationResultFromIntent(result.getData());
-                    resolveAuthorization(call, authResult);
-                } catch (ApiException e) {
-                    call.reject("Autorisation Google impossible", e);
-                }
-            }
-        );
+            new ActivityResultContracts.StartIntentSenderForResult(), result -> {
+                PluginCall call = pendingCall; pendingCall = null; if (call == null) return;
+                if (result.getResultCode() != Activity.RESULT_OK || result.getData() == null) { call.reject("Autorisation Google annulée"); return; }
+                try { resolveAuthorization(call, authorizationClient.getAuthorizationResultFromIntent(result.getData())); }
+                catch (ApiException e) { call.reject("Autorisation Google impossible", e); }
+            });
     }
 
-    @PluginMethod
-    public void authorize(PluginCall call) {
+    @PluginMethod public void authorize(PluginCall call) {
         List<Scope> scopes = Collections.singletonList(new Scope(CALENDAR_SCOPE));
         AuthorizationRequest request = AuthorizationRequest.builder().setRequestedScopes(scopes).build();
-        authorizationClient.authorize(request)
-            .addOnSuccessListener(result -> {
-                if (result.hasResolution()) {
-                    PendingIntent pendingIntent = result.getPendingIntent();
-                    if (pendingIntent == null) { call.reject("Autorisation Google indisponible"); return; }
-                    pendingCall = call;
-                    authorizationLauncher.launch(new IntentSenderRequest.Builder(pendingIntent.getIntentSender()).build());
-                } else resolveAuthorization(call, result);
-            })
-            .addOnFailureListener(error -> call.reject("Connexion Google Calendar impossible", error));
+        authorizationClient.authorize(request).addOnSuccessListener(result -> {
+            if (result.hasResolution()) {
+                PendingIntent p = result.getPendingIntent(); if (p == null) { call.reject("Autorisation Google indisponible"); return; }
+                pendingCall = call; authorizationLauncher.launch(new IntentSenderRequest.Builder(p.getIntentSender()).build());
+            } else resolveAuthorization(call, result);
+        }).addOnFailureListener(error -> call.reject("Connexion Google Calendar impossible", error));
     }
 
     private void resolveAuthorization(PluginCall call, AuthorizationResult result) {
-        String token = result.getAccessToken();
-        if (token == null || token.isEmpty()) { call.reject("Google n'a pas fourni de jeton Calendar"); return; }
-        JSObject ret = new JSObject();
-        ret.put("connected", true);
-        ret.put("accessToken", token);
-        call.resolve(ret);
+        String token = result.getAccessToken(); if (token == null || token.isEmpty()) { call.reject("Google n'a pas fourni de jeton Calendar"); return; }
+        JSObject ret = new JSObject(); ret.put("connected", true); ret.put("accessToken", token); call.resolve(ret);
     }
 }
 `;
@@ -132,18 +115,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.speech.RecognizerIntent;
-
 import androidx.activity.ComponentActivity;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.content.ContextCompat;
-
 import com.getcapacitor.JSObject;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
-
 import java.util.ArrayList;
 
 @CapacitorPlugin(name = "VoiceNative")
@@ -153,41 +133,24 @@ public class VoiceNativePlugin extends Plugin {
     private PluginCall pendingCall;
     private String pendingLanguage = "fr-FR";
 
-    @Override
-    public void load() {
+    @Override public void load() {
         ComponentActivity activity = (ComponentActivity) getActivity();
         speechLauncher = activity.registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-            PluginCall call = pendingCall;
-            pendingCall = null;
-            if (call == null) return;
-            if (result.getResultCode() != Activity.RESULT_OK || result.getData() == null) {
-                call.reject("Dictée annulée");
-                return;
-            }
+            PluginCall call = pendingCall; pendingCall = null; if (call == null) return;
+            if (result.getResultCode() != Activity.RESULT_OK || result.getData() == null) { call.reject("Dictée annulée"); return; }
             ArrayList<String> results = result.getData().getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             if (results == null || results.isEmpty()) { call.reject("Aucun texte reconnu"); return; }
-            JSObject ret = new JSObject();
-            ret.put("text", results.get(0));
-            call.resolve(ret);
+            JSObject ret = new JSObject(); ret.put("text", results.get(0)); call.resolve(ret);
         });
         permissionLauncher = activity.registerForActivityResult(new ActivityResultContracts.RequestPermission(), granted -> {
-            if (granted) startSpeech();
-            else {
-                PluginCall call = pendingCall;
-                pendingCall = null;
-                if (call != null) call.reject("Permission microphone refusée");
-            }
+            if (granted) startSpeech(); else { PluginCall call = pendingCall; pendingCall = null; if (call != null) call.reject("Permission microphone refusée"); }
         });
     }
 
-    @PluginMethod
-    public void listen(PluginCall call) {
+    @PluginMethod public void listen(PluginCall call) {
         if (pendingCall != null) { call.reject("Une dictée est déjà en cours"); return; }
-        pendingCall = call;
-        pendingLanguage = call.getString("language", "fr-FR");
-        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-            permissionLauncher.launch(Manifest.permission.RECORD_AUDIO);
-        } else startSpeech();
+        pendingCall = call; pendingLanguage = call.getString("language", "fr-FR");
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) permissionLauncher.launch(Manifest.permission.RECORD_AUDIO); else startSpeech();
     }
 
     private void startSpeech() {
@@ -198,14 +161,10 @@ public class VoiceNativePlugin extends Plugin {
             intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_PREFERENCE, pendingLanguage);
             intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Parlez maintenant");
             speechLauncher.launch(intent);
-        } catch (Exception e) {
-            PluginCall call = pendingCall;
-            pendingCall = null;
-            if (call != null) call.reject("Reconnaissance vocale indisponible", e);
-        }
+        } catch (Exception e) { PluginCall call = pendingCall; pendingCall = null; if (call != null) call.reject("Reconnaissance vocale indisponible", e); }
     }
 }
 `;
 await writeFile(join(javaDir, 'VoiceNativePlugin.java'), voicePlugin, 'utf8');
 
-console.log('Pont Google Calendar + reconnaissance vocale Android installés');
+console.log('Pont Google Calendar + voix + localisation Jarvis installés');
