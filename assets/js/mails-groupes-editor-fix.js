@@ -1,7 +1,8 @@
-// Correctif isolé pour l'éditeur des mails groupés :
-// - affiche réellement les images collées dans le navigateur ;
-// - place le curseur juste après l'image pour continuer à écrire ;
-// - remet temporairement les sources CID au moment de préparer/envoyer l'e-mail.
+// Renfort d'interface pour les mails groupés :
+// - garantit la sélection de plusieurs pièces jointes ;
+// - rend explicite la sélection de plusieurs départements ;
+// - affiche réellement les images collées dans le corps du message ;
+// - conserve les sources CID au moment de préparer/envoyer l'e-mail.
 
 const previewSources = new Map();
 
@@ -44,49 +45,126 @@ function temporarilyUseCidSources() {
   setTimeout(restorePreviewImages, 0);
 }
 
+function enhanceAttachmentInput() {
+  const input = document.getElementById("file-attachment");
+  if (!input) return false;
+
+  input.multiple = true;
+  input.setAttribute("multiple", "multiple");
+
+  const block = input.parentElement;
+  const label = block?.querySelector("label");
+  if (label) {
+    label.textContent = "📎 Pièces jointes — plusieurs fichiers possibles (10 Mo max par fichier)";
+  }
+
+  if (block && !block.querySelector(".multi-files-help")) {
+    const help = document.createElement("div");
+    help.className = "multi-files-help";
+    help.style.cssText = "font-size:.78rem;color:#666;margin-top:.4rem";
+    help.textContent = "Vous pouvez sélectionner plusieurs PDF, images ou documents en une seule fois, puis en ajouter d'autres ensuite.";
+    input.insertAdjacentElement("afterend", help);
+  }
+
+  return true;
+}
+
+function enhanceDepartmentPicker() {
+  const box = document.getElementById("filter-dept-multi");
+  if (!box) return false;
+
+  if (!document.querySelector(".multi-dept-help")) {
+    const help = document.createElement("div");
+    help.className = "multi-dept-help";
+    help.style.cssText = "font-size:.75rem;color:#666;margin-top:.35rem";
+    help.textContent = "Cochez autant de départements que nécessaire.";
+    box.insertAdjacentElement("afterend", help);
+  }
+
+  const button = document.getElementById("filter-dept-button");
+  if (button) button.setAttribute("aria-label", "Sélectionner un ou plusieurs départements");
+
+  return true;
+}
+
+function retryEnhancements() {
+  let tries = 0;
+  const timer = setInterval(() => {
+    const attachmentsReady = enhanceAttachmentInput();
+    const departmentsReady = enhanceDepartmentPicker();
+    tries += 1;
+    if ((attachmentsReady && departmentsReady) || tries >= 40) clearInterval(timer);
+  }, 250);
+}
+
 document.addEventListener("paste", (event) => {
   const editor = event.target?.closest?.("#email-body-editor");
   if (!editor) return;
 
-  const imageItem = Array.from(event.clipboardData?.items || []).find(item => item.type.startsWith("image/"));
-  if (!imageItem) return;
+  const imageItems = Array.from(event.clipboardData?.items || []).filter(item => item.type.startsWith("image/"));
+  if (!imageItems.length) return;
 
-  const file = imageItem.getAsFile();
-  if (!file) return;
+  const previewPromises = imageItems.map(item => new Promise(resolve => {
+    const file = item.getAsFile();
+    if (!file) return resolve(null);
 
-  const reader = new FileReader();
-  reader.onload = () => {
-    const previewDataUrl = reader.result;
+    if (file.size > 10 * 1024 * 1024) {
+      alert(`L'image « ${file.name || "collée"} » dépasse 10 Mo et ne peut pas être intégrée.`);
+      return resolve(null);
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = () => resolve(null);
+    reader.readAsDataURL(file);
+  }));
+
+  Promise.all(previewPromises).then(previews => {
+    const validPreviews = previews.filter(Boolean);
+    if (!validPreviews.length) return;
+
     let attempts = 0;
-
-    const findInsertedImage = () => {
+    const findInsertedImages = () => {
       const candidates = Array.from(editor.querySelectorAll('img[src^="cid:"]')).filter(img => !img.dataset.emailCid);
-      const img = candidates[candidates.length - 1];
 
-      if (img) {
-        const cid = img.getAttribute("src").slice(4);
-        img.dataset.emailCid = cid;
-        previewSources.set(cid, previewDataUrl);
-        img.src = previewDataUrl;
-        img.style.maxWidth = "100%";
-        img.style.height = "auto";
-        img.style.display = "block";
-        img.style.margin = "12px 0";
-        placeCaretAfter(img);
+      if (candidates.length) {
+        candidates.forEach((img, index) => {
+          const cid = img.getAttribute("src")?.slice(4);
+          if (!cid) return;
+
+          const preview = validPreviews[Math.min(index, validPreviews.length - 1)];
+          img.dataset.emailCid = cid;
+          previewSources.set(cid, preview);
+          img.src = preview;
+          img.style.maxWidth = "100%";
+          img.style.height = "auto";
+          img.style.display = "block";
+          img.style.margin = "12px 0";
+        });
+
+        placeCaretAfter(candidates[candidates.length - 1]);
         return;
       }
 
       attempts += 1;
-      if (attempts < 40) setTimeout(findInsertedImage, 50);
+      if (attempts < 40) setTimeout(findInsertedImages, 50);
     };
 
-    setTimeout(findInsertedImage, 0);
-  };
-
-  reader.readAsDataURL(file);
+    setTimeout(findInsertedImages, 0);
+  });
 }, true);
 
 document.addEventListener("click", (event) => {
   const target = event.target?.closest?.("#btn-open-confirm, #btn-confirm-send");
   if (target) temporarilyUseCidSources();
 }, true);
+
+document.addEventListener("DOMContentLoaded", () => {
+  enhanceAttachmentInput();
+  retryEnhancements();
+});
+
+if (document.readyState !== "loading") {
+  enhanceAttachmentInput();
+  retryEnhancements();
+}
