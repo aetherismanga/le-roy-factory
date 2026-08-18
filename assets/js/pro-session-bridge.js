@@ -6,10 +6,20 @@
   const KEY = 'lrfProSession';
   const LEGACY_CODE = '2026';
   const MAX_AGE = 12 * 60 * 60 * 1000;
+  const GLOBAL_PARTNERS = ['*', 'elios-ceramica', 'neobath'];
   let lastSessionRaw = '';
 
   function parse(raw) {
     try { return raw ? JSON.parse(raw) : null; } catch (_) { return null; }
+  }
+
+  function normalizeSession(session) {
+    if (!session || typeof session !== 'object') return session;
+    const partners = Array.isArray(session.partenaires) ? [...session.partenaires] : [];
+    if (session.legacyPro || partners.includes('*')) {
+      GLOBAL_PARTNERS.forEach(partner => { if (!partners.includes(partner)) partners.push(partner); });
+    }
+    return { ...session, partenaires: partners };
   }
 
   function read() {
@@ -20,11 +30,12 @@
       try { sessionStorage.removeItem(KEY); localStorage.removeItem(KEY); } catch (_) {}
       return null;
     }
-    return session;
+    return normalizeSession(session);
   }
 
   function write(session, emit = true) {
-    const next = { ...session, unlockedAt: Number(session.unlockedAt || Date.now()) };
+    const normalized = normalizeSession(session);
+    const next = { ...normalized, unlockedAt: Number(normalized.unlockedAt || Date.now()) };
     const raw = JSON.stringify(next);
     try { sessionStorage.setItem(KEY, raw); } catch (_) {}
     try { localStorage.setItem(KEY, raw); } catch (_) {}
@@ -41,7 +52,7 @@
 
   function unlockLegacy(code) {
     if (String(code || '').trim() !== LEGACY_CODE) return false;
-    write({ legacyPro: true, societe: 'Accès PRO LE ROY FACTORY', partenaires: ['*'] });
+    write({ legacyPro: true, societe: 'Accès PRO LE ROY FACTORY', partenaires: GLOBAL_PARTNERS });
     return true;
   }
 
@@ -62,7 +73,7 @@
     };
     api.getPrice = (partner, product, format) => {
       const session = sync();
-      if (wildcard(session)) {
+      if (session) {
         try { sessionStorage.setItem(KEY, JSON.stringify(session)); } catch (_) {}
       }
       return originalGetPrice ? originalGetPrice(partner, product, format) : null;
