@@ -75,7 +75,7 @@ exports.jarvisAi=onRequest({secrets:[OPENAI_API_KEY],timeoutSeconds:120,memory:"
     const body=req.body||{}, message=String(body.message||"").trim(); if(!message)return res.status(400).json({success:false,error:"Message manquant"});
     const history=Array.isArray(body.history)?body.history.slice(-16):[]; const input=history.filter(x=>x&&(x.user||x.assistant)).flatMap(x=>{const a=[];if(x.user)a.push({role:"user",content:String(x.user)});if(x.assistant)a.push({role:"assistant",content:String(x.assistant)});return a}); input.push({role:"user",content:message});
     const vectorStoreId=String(process.env.JARVIS_VECTOR_STORE_ID||"").trim(); const tools=[...FUNCTION_TOOLS,{type:"web_search"}]; if(vectorStoreId)tools.push({type:"file_search",vector_store_ids:[vectorStoreId],max_num_results:8});
-    const model=process.env.JARVIS_MODEL||"gpt-5.1"; const actions=[];
+    const model=process.env.JARVIS_MODEL||"gpt-5-pro"; const actions=[];
     let response=await openaiRequest(OPENAI_API_KEY.value(),{model,reasoning:{effort:"high"},instructions:SYSTEM_PROMPT,input,tools,tool_choice:"auto"});
     for(let pass=0;pass<6;pass++){const calls=(response.output||[]).filter(x=>x.type==="function_call");if(!calls.length)break;const outputs=[];for(const call of calls){const result=await runTool(call,actions);outputs.push({type:"function_call_output",call_id:call.call_id,output:JSON.stringify(result)})}response=await openaiRequest(OPENAI_API_KEY.value(),{model,reasoning:{effort:"high"},instructions:SYSTEM_PROMPT,previous_response_id:response.id,input:outputs,tools,tool_choice:"auto"});}
     const answer=extractText(response)||"Demande traitée.";
