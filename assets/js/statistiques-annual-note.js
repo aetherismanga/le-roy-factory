@@ -30,14 +30,22 @@ function refresh(){
   const active=document.querySelector('.partner-tab.active')?.dataset.partner||'';
   const year=Number(document.getElementById('stats-year')?.value||0);
   const notice=document.getElementById('stats-detail-notice');
-  if(!notice||mode!=='annual'||!year)return;
   const annualOption=document.querySelector('#stats-period-type option[value="annual"]');
   if(annualOption)annualOption.textContent='Année — cumul disponible';
+  if(mode!=='annual'||!year)return;
+
+  document.querySelectorAll('#stats-kpis .kpi-card').forEach(card=>{
+    if(card.querySelector('span')?.textContent?.trim()==='Partenaires inclus'){
+      const small=card.querySelector('small');if(small)small.textContent='Complets + incomplets disponibles';
+    }
+  });
+
+  if(!notice)return;
   const notes=active==='all'?PARTNERS.map(([id])=>noteFor(id,year)):[noteFor(active,year)];
   const full=notes.filter(x=>x.kind==='full'),partial=notes.filter(x=>x.kind==='partial'),none=notes.filter(x=>x.kind==='none');
   const blocks=[];
   if(full.length)blocks.push(`Complet : ${full.map(x=>x.text.replace(/ : année complète$/,'')).join(', ')}`);
-  if(partial.length)blocks.push(`Incomplet : ${partial.map(x=>x.text).join(' • ')}`);
+  if(partial.length)blocks.push(`Incomplet mais inclus dans le total : ${partial.map(x=>x.text).join(' • ')}`);
   if(none.length)blocks.push(`Sans données : ${none.map(x=>x.text.replace(` : aucune donnée ${year}`,'' )).join(', ')}`);
   if(blocks.length){notice.style.display='block';notice.textContent=blocks.join(' | ')}
 }
