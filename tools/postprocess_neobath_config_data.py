@@ -8,7 +8,7 @@ DATA = ROOT / "assets" / "data" / "neobath-config-data.json"
 SUMMARY = ROOT / "generated" / "neobath-audit" / "config-build-summary.json"
 
 LIGHT_PREFIXES = ("BARLED", "MOON", "SOLAR", "DIAMANTE", "PLEXY", "SMART")
-ACCESSORY_REFS = {"TOUCH", "SIDEBAR", "SIDE", "MLA", "MFR", "MCPI"}
+ACCESSORY_REFS = {"TOUCH", "SIDEBAR", "SIDE", "MLA", "MFR", "MCPI", "PIE35", "MNS1F", "MNS2F"}
 
 
 def item_id(collection: str, ref: str) -> str:
@@ -53,7 +53,7 @@ def main():
         # Explicit references beat broad section labels.
         if ref.startswith("TPC"):
             item["category"] = "finishing_top"
-        if ref in ACCESSORY_REFS or any(word in label for word in ["porta asciug", "portasciug", "foro per", "foro rubinet", "supporto", "pied", "touch"]):
+        if ref in ACCESSORY_REFS or any(word in label for word in ["porta asciug", "portasciug", "foro per", "foro rubinet", "supporto", "pied", "touch", "mensola"]):
             item["category"] = "accessory"
         if item.get("category") == "lighting" and not ref.startswith(LIGHT_PREFIXES):
             item["category"] = "accessory"
@@ -66,6 +66,10 @@ def main():
                     item["visual"] = {"pdf": "assets/pdf/neobathDNA.pdf", "page": 73, "query": "SideBar"}
                 elif ref.startswith("BRIDGE"):
                     item["visual"] = {"pdf": "assets/pdf/neobathDNA.pdf", "page": 74, "query": "Bridge"}
+                elif ref == "PIE35":
+                    item["visual"] = {"pdf": "assets/pdf/neobathDNA.pdf", "page": 76, "query": "Piede"}
+                elif ref.startswith("MNS"):
+                    item["visual"] = {"pdf": "assets/pdf/neobathDNA.pdf", "page": 72, "query": "Mensola"}
                 else:
                     item["visual"] = {"pdf": "assets/pdf/neobathDNA.pdf", "page": 71, "query": ref}
             elif item.get("category") == "finishing_top":
@@ -87,6 +91,21 @@ def main():
             "DNA", "BRIDGE140", "Structure / banc aluminium Bridge 140",
             "accessory", 303, "140 x 15 x 43,5", visual={"pdf": "assets/pdf/neobathDNA.pdf", "page": 74, "query": "Bridge"},
             source={"tariff": "DNA", "line": 571}
+        ),
+        static_item(
+            "DNA", "PIE35", "Pied de support en aluminium H.35",
+            "accessory", 38, "2,5 x 35 x 2,5", visual={"pdf": "assets/pdf/neobathDNA.pdf", "page": 76, "query": "Piede"},
+            source={"tariff": "DNA", "note": "PIE35 · pied aluminium H.35"}
+        ),
+        static_item(
+            "DNA", "MNS1F", "Étagère à un trou",
+            "accessory", 70, "20 x 13,5", visual={"pdf": "assets/pdf/neobathDNA.pdf", "page": 72, "query": "Mensola"},
+            source={"tariff": "DNA", "note": "MNS1F · mensola 1 foro"}
+        ),
+        static_item(
+            "DNA", "MNS2F", "Étagère à deux trous",
+            "accessory", 76, "20 x 13,5", visual={"pdf": "assets/pdf/neobathDNA.pdf", "page": 72, "query": "Mensola"},
+            source={"tariff": "DNA", "note": "MNS2F · mensola 2 fori"}
         ),
     ]
     for item in manual:
