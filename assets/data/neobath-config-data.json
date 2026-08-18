@@ -21,7 +21,8 @@
           "visual": {
             "pdf": "assets/pdf/neobathANIMA.pdf",
             "page": 4,
-            "query": "PURA"
+            "query": "PURA",
+            "image": "assets/img/neobath-config/anima-facade-pura-c14c3d4728.webp"
           }
         },
         {
@@ -30,7 +31,8 @@
           "visual": {
             "pdf": "assets/pdf/neobathANIMA.pdf",
             "page": 4,
-            "query": "RIBELLE"
+            "query": "RIBELLE",
+            "image": "assets/img/neobath-config/anima-facade-ribelle-fe70209e54.webp"
           }
         }
       ],
@@ -40,7 +42,8 @@
           "visual": {
             "pdf": "assets/pdf/neobathANIMA.pdf",
             "page": 4,
-            "query": "Bianco Gesso"
+            "query": "Bianco Gesso",
+            "image": "assets/img/neobath-config/anima-color-bianco-gesso-f06b3aa0c5.webp"
           }
         },
         {
@@ -48,7 +51,8 @@
           "visual": {
             "pdf": "assets/pdf/neobathANIMA.pdf",
             "page": 4,
-            "query": "Argilla Secca"
+            "query": "Argilla Secca",
+            "image": "assets/img/neobath-config/anima-color-argilla-secca-1cef8dee26.webp"
           }
         },
         {
@@ -56,7 +60,8 @@
           "visual": {
             "pdf": "assets/pdf/neobathANIMA.pdf",
             "page": 4,
-            "query": "Verde Agave"
+            "query": "Verde Agave",
+            "image": "assets/img/neobath-config/anima-color-verde-agave-1658dd806a.webp"
           }
         },
         {
@@ -64,7 +69,8 @@
           "visual": {
             "pdf": "assets/pdf/neobathANIMA.pdf",
             "page": 4,
-            "query": "Terra Rossa"
+            "query": "Terra Rossa",
+            "image": "assets/img/neobath-config/anima-color-terra-rossa-156339fb69.webp"
           }
         },
         {
@@ -72,7 +78,8 @@
           "visual": {
             "pdf": "assets/pdf/neobathANIMA.pdf",
             "page": 4,
-            "query": "Grigio Vulcano"
+            "query": "Grigio Vulcano",
+            "image": "assets/img/neobath-config/anima-color-grigio-vulcano-f5b3434d01.webp"
           }
         },
         {
@@ -80,7 +87,8 @@
           "visual": {
             "pdf": "assets/pdf/neobathANIMA.pdf",
             "page": 4,
-            "query": "Rovere Alba"
+            "query": "Rovere Alba",
+            "image": "assets/img/neobath-config/anima-color-rovere-alba-cace06067f.webp"
           }
         }
       ]
@@ -115,7 +123,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "DUNE"
+              "query": "DUNE",
+              "image": "assets/img/neobath-config/dna-dune-curry-0feba60647.webp"
             }
           },
           {
@@ -123,7 +132,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 4,
-              "query": "Indigo"
+              "query": "Indigo",
+              "image": "assets/img/neobath-config/dna-dune-indigo-0f6d650618.webp"
             }
           },
           {
@@ -131,7 +141,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "DUNE"
+              "query": "DUNE",
+              "image": "assets/img/neobath-config/dna-dune-curry-0feba60647.webp"
             }
           },
           {
@@ -139,7 +150,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "DUNE"
+              "query": "DUNE",
+              "image": "assets/img/neobath-config/dna-dune-curry-0feba60647.webp"
             }
           }
         ],
@@ -149,7 +161,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "LEGNO"
+              "query": "LEGNO",
+              "image": "assets/img/neobath-config/dna-legno-rovere-cenere-6343416e4c.webp"
             }
           },
           {
@@ -157,7 +170,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "LEGNO"
+              "query": "LEGNO",
+              "image": "assets/img/neobath-config/dna-legno-rovere-cenere-6343416e4c.webp"
             }
           },
           {
@@ -165,7 +179,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "LEGNO"
+              "query": "LEGNO",
+              "image": "assets/img/neobath-config/dna-legno-rovere-cenere-6343416e4c.webp"
             }
           },
           {
@@ -173,7 +188,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "LEGNO"
+              "query": "LEGNO",
+              "image": "assets/img/neobath-config/dna-legno-rovere-cenere-6343416e4c.webp"
             }
           }
         ],
@@ -183,7 +199,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 4,
-              "query": "Bianco"
+              "query": "Bianco",
+              "image": "assets/img/neobath-config/dna-laccato-bianco-0685c0709f.webp"
             }
           },
           {
@@ -191,7 +208,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "LACCATO"
+              "query": "LACCATO",
+              "image": "assets/img/neobath-config/dna-laccato-grigio-chiaro-66e4386624.webp"
             }
           },
           {
@@ -199,7 +217,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "LACCATO"
+              "query": "LACCATO",
+              "image": "assets/img/neobath-config/dna-laccato-grigio-chiaro-66e4386624.webp"
             }
           },
           {
@@ -207,7 +226,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "LACCATO"
+              "query": "LACCATO",
+              "image": "assets/img/neobath-config/dna-laccato-grigio-chiaro-66e4386624.webp"
             }
           },
           {
@@ -215,7 +235,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "LACCATO"
+              "query": "LACCATO",
+              "image": "assets/img/neobath-config/dna-laccato-grigio-chiaro-66e4386624.webp"
             }
           },
           {
@@ -223,7 +244,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "LACCATO"
+              "query": "LACCATO",
+              "image": "assets/img/neobath-config/dna-laccato-grigio-chiaro-66e4386624.webp"
             }
           },
           {
@@ -231,7 +253,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "LACCATO"
+              "query": "LACCATO",
+              "image": "assets/img/neobath-config/dna-laccato-grigio-chiaro-66e4386624.webp"
             }
           },
           {
@@ -239,7 +262,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "LACCATO"
+              "query": "LACCATO",
+              "image": "assets/img/neobath-config/dna-laccato-grigio-chiaro-66e4386624.webp"
             }
           },
           {
@@ -247,7 +271,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "LACCATO"
+              "query": "LACCATO",
+              "image": "assets/img/neobath-config/dna-laccato-grigio-chiaro-66e4386624.webp"
             }
           },
           {
@@ -255,7 +280,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "LACCATO"
+              "query": "LACCATO",
+              "image": "assets/img/neobath-config/dna-laccato-grigio-chiaro-66e4386624.webp"
             }
           },
           {
@@ -263,7 +289,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "LACCATO"
+              "query": "LACCATO",
+              "image": "assets/img/neobath-config/dna-laccato-grigio-chiaro-66e4386624.webp"
             }
           },
           {
@@ -271,7 +298,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "LACCATO"
+              "query": "LACCATO",
+              "image": "assets/img/neobath-config/dna-laccato-grigio-chiaro-66e4386624.webp"
             }
           },
           {
@@ -279,7 +307,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "LACCATO"
+              "query": "LACCATO",
+              "image": "assets/img/neobath-config/dna-laccato-grigio-chiaro-66e4386624.webp"
             }
           },
           {
@@ -287,7 +316,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "LACCATO"
+              "query": "LACCATO",
+              "image": "assets/img/neobath-config/dna-laccato-grigio-chiaro-66e4386624.webp"
             }
           },
           {
@@ -295,7 +325,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 4,
-              "query": "Nero"
+              "query": "Nero",
+              "image": "assets/img/neobath-config/dna-laccato-nero-0e311d6449.webp"
             }
           }
         ],
@@ -305,7 +336,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "GRES"
+              "query": "GRES",
+              "image": "assets/img/neobath-config/dna-gres-calacatta-oro-3980f49c2d.webp"
             }
           },
           {
@@ -313,7 +345,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "GRES"
+              "query": "GRES",
+              "image": "assets/img/neobath-config/dna-gres-calacatta-oro-3980f49c2d.webp"
             }
           },
           {
@@ -321,7 +354,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "GRES"
+              "query": "GRES",
+              "image": "assets/img/neobath-config/dna-gres-calacatta-oro-3980f49c2d.webp"
             }
           },
           {
@@ -329,7 +363,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "GRES"
+              "query": "GRES",
+              "image": "assets/img/neobath-config/dna-gres-calacatta-oro-3980f49c2d.webp"
             }
           },
           {
@@ -337,7 +372,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "GRES"
+              "query": "GRES",
+              "image": "assets/img/neobath-config/dna-gres-calacatta-oro-3980f49c2d.webp"
             }
           },
           {
@@ -345,7 +381,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "GRES"
+              "query": "GRES",
+              "image": "assets/img/neobath-config/dna-gres-calacatta-oro-3980f49c2d.webp"
             }
           },
           {
@@ -353,7 +390,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "GRES"
+              "query": "GRES",
+              "image": "assets/img/neobath-config/dna-gres-calacatta-oro-3980f49c2d.webp"
             }
           },
           {
@@ -361,7 +399,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "GRES"
+              "query": "GRES",
+              "image": "assets/img/neobath-config/dna-gres-calacatta-oro-3980f49c2d.webp"
             }
           },
           {
@@ -369,7 +408,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "GRES"
+              "query": "GRES",
+              "image": "assets/img/neobath-config/dna-gres-calacatta-oro-3980f49c2d.webp"
             }
           },
           {
@@ -377,7 +417,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "GRES"
+              "query": "GRES",
+              "image": "assets/img/neobath-config/dna-gres-calacatta-oro-3980f49c2d.webp"
             }
           },
           {
@@ -385,7 +426,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "GRES"
+              "query": "GRES",
+              "image": "assets/img/neobath-config/dna-gres-calacatta-oro-3980f49c2d.webp"
             }
           }
         ],
@@ -395,7 +437,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "FENIX"
+              "query": "FENIX",
+              "image": "assets/img/neobath-config/dna-fenix-rosso-namib-b26dbbff66.webp"
             }
           },
           {
@@ -403,7 +446,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "FENIX"
+              "query": "FENIX",
+              "image": "assets/img/neobath-config/dna-fenix-rosso-namib-b26dbbff66.webp"
             }
           },
           {
@@ -411,7 +455,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "FENIX"
+              "query": "FENIX",
+              "image": "assets/img/neobath-config/dna-fenix-rosso-namib-b26dbbff66.webp"
             }
           },
           {
@@ -419,7 +464,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "FENIX"
+              "query": "FENIX",
+              "image": "assets/img/neobath-config/dna-fenix-rosso-namib-b26dbbff66.webp"
             }
           },
           {
@@ -427,7 +473,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "FENIX"
+              "query": "FENIX",
+              "image": "assets/img/neobath-config/dna-fenix-rosso-namib-b26dbbff66.webp"
             }
           },
           {
@@ -435,7 +482,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "FENIX"
+              "query": "FENIX",
+              "image": "assets/img/neobath-config/dna-fenix-rosso-namib-b26dbbff66.webp"
             }
           },
           {
@@ -443,7 +491,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "FENIX"
+              "query": "FENIX",
+              "image": "assets/img/neobath-config/dna-fenix-rosso-namib-b26dbbff66.webp"
             }
           },
           {
@@ -451,7 +500,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "FENIX"
+              "query": "FENIX",
+              "image": "assets/img/neobath-config/dna-fenix-rosso-namib-b26dbbff66.webp"
             }
           },
           {
@@ -459,7 +509,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "FENIX"
+              "query": "FENIX",
+              "image": "assets/img/neobath-config/dna-fenix-rosso-namib-b26dbbff66.webp"
             }
           },
           {
@@ -467,7 +518,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "FENIX"
+              "query": "FENIX",
+              "image": "assets/img/neobath-config/dna-fenix-rosso-namib-b26dbbff66.webp"
             }
           },
           {
@@ -475,7 +527,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "FENIX"
+              "query": "FENIX",
+              "image": "assets/img/neobath-config/dna-fenix-rosso-namib-b26dbbff66.webp"
             }
           }
         ],
@@ -485,7 +538,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "HPL"
+              "query": "HPL",
+              "image": "assets/img/neobath-config/dna-hpl-travertino-tivoli-f0c74a4c54.webp"
             }
           },
           {
@@ -493,7 +547,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "HPL"
+              "query": "HPL",
+              "image": "assets/img/neobath-config/dna-hpl-travertino-tivoli-f0c74a4c54.webp"
             }
           },
           {
@@ -501,7 +556,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "HPL"
+              "query": "HPL",
+              "image": "assets/img/neobath-config/dna-hpl-travertino-tivoli-f0c74a4c54.webp"
             }
           },
           {
@@ -509,7 +565,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "HPL"
+              "query": "HPL",
+              "image": "assets/img/neobath-config/dna-hpl-travertino-tivoli-f0c74a4c54.webp"
             }
           },
           {
@@ -517,7 +574,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "HPL"
+              "query": "HPL",
+              "image": "assets/img/neobath-config/dna-hpl-travertino-tivoli-f0c74a4c54.webp"
             }
           },
           {
@@ -525,7 +583,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "HPL"
+              "query": "HPL",
+              "image": "assets/img/neobath-config/dna-hpl-travertino-tivoli-f0c74a4c54.webp"
             }
           },
           {
@@ -533,7 +592,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "HPL"
+              "query": "HPL",
+              "image": "assets/img/neobath-config/dna-hpl-travertino-tivoli-f0c74a4c54.webp"
             }
           },
           {
@@ -541,7 +601,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "HPL"
+              "query": "HPL",
+              "image": "assets/img/neobath-config/dna-hpl-travertino-tivoli-f0c74a4c54.webp"
             }
           },
           {
@@ -549,7 +610,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "HPL"
+              "query": "HPL",
+              "image": "assets/img/neobath-config/dna-hpl-travertino-tivoli-f0c74a4c54.webp"
             }
           },
           {
@@ -557,7 +619,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "HPL"
+              "query": "HPL",
+              "image": "assets/img/neobath-config/dna-hpl-travertino-tivoli-f0c74a4c54.webp"
             }
           },
           {
@@ -565,7 +628,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "HPL"
+              "query": "HPL",
+              "image": "assets/img/neobath-config/dna-hpl-travertino-tivoli-f0c74a4c54.webp"
             }
           },
           {
@@ -573,7 +637,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "HPL"
+              "query": "HPL",
+              "image": "assets/img/neobath-config/dna-hpl-travertino-tivoli-f0c74a4c54.webp"
             }
           },
           {
@@ -581,7 +646,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "HPL"
+              "query": "HPL",
+              "image": "assets/img/neobath-config/dna-hpl-travertino-tivoli-f0c74a4c54.webp"
             }
           },
           {
@@ -589,7 +655,8 @@
             "visual": {
               "pdf": "assets/pdf/neobathDNA.pdf",
               "page": 75,
-              "query": "HPL"
+              "query": "HPL",
+              "image": "assets/img/neobath-config/dna-hpl-travertino-tivoli-f0c74a4c54.webp"
             }
           }
         ]
@@ -598,7 +665,8 @@
       "finishPageVisual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 75,
-        "query": "Finiture"
+        "query": "Finiture",
+        "image": "assets/img/neobath-config/dna-finitions-3b8195eede.webp"
       }
     }
   },
@@ -634,7 +702,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 65,
-        "query": "APUR-PL6052"
+        "query": "APUR-PL6052",
+        "image": "assets/img/neobath-config/anima-apur-pl6052-87c3c06181.webp"
       }
     },
     {
@@ -668,7 +737,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 65,
-        "query": "APUR-BA6052"
+        "query": "APUR-BA6052",
+        "image": "assets/img/neobath-config/anima-apur-ba6052-4fedb0ce30.webp"
       }
     },
     {
@@ -702,7 +772,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 65,
-        "query": "APUR-PL8052"
+        "query": "APUR-PL8052",
+        "image": "assets/img/neobath-config/anima-apur-pl8052-83b1cb673e.webp"
       }
     },
     {
@@ -736,7 +807,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 65,
-        "query": "APUR-BA8052"
+        "query": "APUR-BA8052",
+        "image": "assets/img/neobath-config/anima-apur-ba8052-4ce0763c5a.webp"
       }
     },
     {
@@ -770,7 +842,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 65,
-        "query": "APUR-PL10052"
+        "query": "APUR-PL10052",
+        "image": "assets/img/neobath-config/anima-apur-pl10052-cfa4d87fd8.webp"
       }
     },
     {
@@ -804,7 +877,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 65,
-        "query": "APUR-BA10052"
+        "query": "APUR-BA10052",
+        "image": "assets/img/neobath-config/anima-apur-ba10052-3ec21869ed.webp"
       }
     },
     {
@@ -838,7 +912,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 65,
-        "query": "APUR-PL12052"
+        "query": "APUR-PL12052",
+        "image": "assets/img/neobath-config/anima-apur-pl12052-63f98b53b8.webp"
       }
     },
     {
@@ -872,7 +947,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 65,
-        "query": "APUR-BA12052"
+        "query": "APUR-BA12052",
+        "image": "assets/img/neobath-config/anima-apur-ba12052-00b9abf7f7.webp"
       }
     },
     {
@@ -906,7 +982,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 65,
-        "query": "ARIB-PL6052"
+        "query": "ARIB-PL6052",
+        "image": "assets/img/neobath-config/anima-arib-pl6052-0d752be11a.webp"
       }
     },
     {
@@ -940,7 +1017,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 65,
-        "query": "ARIB-BA6052"
+        "query": "ARIB-BA6052",
+        "image": "assets/img/neobath-config/anima-arib-ba6052-03586d38e9.webp"
       }
     },
     {
@@ -974,7 +1052,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 65,
-        "query": "ARIB-PL8052"
+        "query": "ARIB-PL8052",
+        "image": "assets/img/neobath-config/anima-arib-pl8052-0863e4cad2.webp"
       }
     },
     {
@@ -1008,7 +1087,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 65,
-        "query": "ARIB-BA8052"
+        "query": "ARIB-BA8052",
+        "image": "assets/img/neobath-config/anima-arib-ba8052-18fd85b567.webp"
       }
     },
     {
@@ -1042,7 +1122,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 65,
-        "query": "ARIB-PL10052"
+        "query": "ARIB-PL10052",
+        "image": "assets/img/neobath-config/anima-arib-pl10052-2a655659ac.webp"
       }
     },
     {
@@ -1076,7 +1157,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 65,
-        "query": "ARIB-BA10052"
+        "query": "ARIB-BA10052",
+        "image": "assets/img/neobath-config/anima-arib-ba10052-14415f90a9.webp"
       }
     },
     {
@@ -1110,7 +1192,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 65,
-        "query": "ARIB-PL12052"
+        "query": "ARIB-PL12052",
+        "image": "assets/img/neobath-config/anima-arib-pl12052-933113face.webp"
       }
     },
     {
@@ -1144,7 +1227,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 65,
-        "query": "ARIB-BA12052"
+        "query": "ARIB-BA12052",
+        "image": "assets/img/neobath-config/anima-arib-ba12052-b01ac031e8.webp"
       }
     },
     {
@@ -1178,7 +1262,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 65,
-        "query": "APUR-PL8052"
+        "query": "APUR-PL8052",
+        "image": "assets/img/neobath-config/anima-apur-pl8052-83b1cb673e.webp"
       }
     },
     {
@@ -1212,7 +1297,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 65,
-        "query": "APUR-BA8052"
+        "query": "APUR-BA8052",
+        "image": "assets/img/neobath-config/anima-apur-ba8052-4ce0763c5a.webp"
       }
     },
     {
@@ -1246,7 +1332,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 65,
-        "query": "ARIB-PL8052"
+        "query": "ARIB-PL8052",
+        "image": "assets/img/neobath-config/anima-arib-pl8052-0863e4cad2.webp"
       }
     },
     {
@@ -1280,7 +1367,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 65,
-        "query": "ARIB-BA8052"
+        "query": "ARIB-BA8052",
+        "image": "assets/img/neobath-config/anima-arib-ba8052-18fd85b567.webp"
       }
     },
     {
@@ -1314,7 +1402,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 66,
-        "query": "APUR-PL6026"
+        "query": "APUR-PL6026",
+        "image": "assets/img/neobath-config/anima-apur-pl6026-87f30197bf.webp"
       }
     },
     {
@@ -1348,7 +1437,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 66,
-        "query": "APUR-BA6026"
+        "query": "APUR-BA6026",
+        "image": "assets/img/neobath-config/anima-apur-ba6026-f078a8cd64.webp"
       }
     },
     {
@@ -1382,7 +1472,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 66,
-        "query": "APUR-PL8026"
+        "query": "APUR-PL8026",
+        "image": "assets/img/neobath-config/anima-apur-pl8026-ffd149b55e.webp"
       }
     },
     {
@@ -1416,7 +1507,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 66,
-        "query": "APUR-BA8026"
+        "query": "APUR-BA8026",
+        "image": "assets/img/neobath-config/anima-apur-ba8026-56b7bac7e5.webp"
       }
     },
     {
@@ -1450,7 +1542,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 66,
-        "query": "APUR-PL10026"
+        "query": "APUR-PL10026",
+        "image": "assets/img/neobath-config/anima-apur-pl10026-d9bc8d728c.webp"
       }
     },
     {
@@ -1484,7 +1577,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 66,
-        "query": "APUR-BA10026"
+        "query": "APUR-BA10026",
+        "image": "assets/img/neobath-config/anima-apur-ba10026-2d806fccb9.webp"
       }
     },
     {
@@ -1518,7 +1612,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 66,
-        "query": "APUR-PL12026"
+        "query": "APUR-PL12026",
+        "image": "assets/img/neobath-config/anima-apur-pl12026-92836fd6cc.webp"
       }
     },
     {
@@ -1552,7 +1647,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 66,
-        "query": "APUR-BA12026"
+        "query": "APUR-BA12026",
+        "image": "assets/img/neobath-config/anima-apur-ba12026-e0457285f3.webp"
       }
     },
     {
@@ -1586,7 +1682,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 66,
-        "query": "APUR-PL6026"
+        "query": "APUR-PL6026",
+        "image": "assets/img/neobath-config/anima-apur-pl6026-87f30197bf.webp"
       }
     },
     {
@@ -1620,7 +1717,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 66,
-        "query": "APUR-BA6026"
+        "query": "APUR-BA6026",
+        "image": "assets/img/neobath-config/anima-apur-ba6026-f078a8cd64.webp"
       }
     },
     {
@@ -1654,7 +1752,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 66,
-        "query": "APUR-PL8026"
+        "query": "APUR-PL8026",
+        "image": "assets/img/neobath-config/anima-apur-pl8026-ffd149b55e.webp"
       }
     },
     {
@@ -1688,7 +1787,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 66,
-        "query": "APUR-BA8026"
+        "query": "APUR-BA8026",
+        "image": "assets/img/neobath-config/anima-apur-ba8026-56b7bac7e5.webp"
       }
     },
     {
@@ -1722,7 +1822,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 66,
-        "query": "APUR-PL10026"
+        "query": "APUR-PL10026",
+        "image": "assets/img/neobath-config/anima-apur-pl10026-d9bc8d728c.webp"
       }
     },
     {
@@ -1756,7 +1857,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 66,
-        "query": "APUR-BA10026"
+        "query": "APUR-BA10026",
+        "image": "assets/img/neobath-config/anima-apur-ba10026-2d806fccb9.webp"
       }
     },
     {
@@ -1790,7 +1892,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 66,
-        "query": "APUR-PL12026"
+        "query": "APUR-PL12026",
+        "image": "assets/img/neobath-config/anima-apur-pl12026-92836fd6cc.webp"
       }
     },
     {
@@ -1824,7 +1927,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 66,
-        "query": "APUR-BA12026"
+        "query": "APUR-BA12026",
+        "image": "assets/img/neobath-config/anima-apur-ba12026-e0457285f3.webp"
       }
     },
     {
@@ -1858,7 +1962,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 67,
-        "query": "TPC80"
+        "query": "TPC80",
+        "image": "assets/img/neobath-config/anima-tpc80-0a0d176b8b.webp"
       }
     },
     {
@@ -1892,7 +1997,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 67,
-        "query": "APUR-BA4052"
+        "query": "APUR-BA4052",
+        "image": "assets/img/neobath-config/anima-apur-ba4052-513cfa7fbc.webp"
       }
     },
     {
@@ -1926,7 +2032,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 67,
-        "query": "TPC100"
+        "query": "TPC100",
+        "image": "assets/img/neobath-config/anima-tpc100-d90ee87fe3.webp"
       }
     },
     {
@@ -1960,7 +2067,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 67,
-        "query": "TPC120"
+        "query": "TPC120",
+        "image": "assets/img/neobath-config/anima-tpc120-72dd17b599.webp"
       }
     },
     {
@@ -1994,7 +2102,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 67,
-        "query": "ARIB-BA4052"
+        "query": "ARIB-BA4052",
+        "image": "assets/img/neobath-config/anima-arib-ba4052-0f9ac2b3b9.webp"
       }
     },
     {
@@ -2028,7 +2137,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 67,
-        "query": "ARIB-PL6052"
+        "query": "ARIB-PL6052",
+        "image": "assets/img/neobath-config/anima-arib-pl6052-3916add3c4.webp"
       }
     },
     {
@@ -2062,7 +2172,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 67,
-        "query": "ARIB-PL6052"
+        "query": "ARIB-PL6052",
+        "image": "assets/img/neobath-config/anima-arib-pl6052-3916add3c4.webp"
       }
     },
     {
@@ -2096,7 +2207,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 67,
-        "query": "APUR-PL6052"
+        "query": "APUR-PL6052",
+        "image": "assets/img/neobath-config/anima-apur-pl6052-5542e8a9df.webp"
       }
     },
     {
@@ -2130,7 +2242,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 67,
-        "query": "ARIB-PL6052"
+        "query": "ARIB-PL6052",
+        "image": "assets/img/neobath-config/anima-arib-pl6052-3916add3c4.webp"
       }
     },
     {
@@ -2169,7 +2282,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 68,
-        "query": "TK60"
+        "query": "TK60",
+        "image": "assets/img/neobath-config/anima-tk60-d351d8e0ee.webp"
       }
     },
     {
@@ -2208,7 +2322,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 68,
-        "query": "TA60"
+        "query": "TA60",
+        "image": "assets/img/neobath-config/anima-ta60-198d535e35.webp"
       }
     },
     {
@@ -2247,7 +2362,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 68,
-        "query": "TK80"
+        "query": "TK80",
+        "image": "assets/img/neobath-config/anima-tk80-2ab80a1bcf.webp"
       }
     },
     {
@@ -2286,7 +2402,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 68,
-        "query": "TA80"
+        "query": "TA80",
+        "image": "assets/img/neobath-config/anima-ta80-19194731b3.webp"
       }
     },
     {
@@ -2325,7 +2442,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 68,
-        "query": "TK100"
+        "query": "TK100",
+        "image": "assets/img/neobath-config/anima-tk100-842963b8be.webp"
       }
     },
     {
@@ -2364,7 +2482,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 68,
-        "query": "TA100"
+        "query": "TA100",
+        "image": "assets/img/neobath-config/anima-ta100-a189a2edf0.webp"
       }
     },
     {
@@ -2398,7 +2517,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 68,
-        "query": "TK120"
+        "query": "TK120",
+        "image": "assets/img/neobath-config/anima-tk120-c92ee86e4e.webp"
       }
     },
     {
@@ -2437,7 +2557,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 68,
-        "query": "TA120"
+        "query": "TA120",
+        "image": "assets/img/neobath-config/anima-ta120-7b70b391e9.webp"
       }
     },
     {
@@ -2471,7 +2592,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 68,
-        "query": "TK120DV"
+        "query": "TK120DV",
+        "image": "assets/img/neobath-config/anima-tk120dv-5b529a4750.webp"
       }
     },
     {
@@ -2510,7 +2632,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 68,
-        "query": "TA120DV"
+        "query": "TA120DV",
+        "image": "assets/img/neobath-config/anima-ta120dv-7ba9d076e1.webp"
       }
     },
     {
@@ -2549,7 +2672,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 68,
-        "query": "PIC6146"
+        "query": "PIC6146",
+        "image": "assets/img/neobath-config/anima-pic6146-13e92d8c85.webp"
       }
     },
     {
@@ -2588,7 +2712,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 68,
-        "query": "PIC8146"
+        "query": "PIC8146",
+        "image": "assets/img/neobath-config/anima-pic8146-8258270b68.webp"
       }
     },
     {
@@ -2627,7 +2752,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 68,
-        "query": "PIC10146"
+        "query": "PIC10146",
+        "image": "assets/img/neobath-config/anima-pic10146-d33d4bc6da.webp"
       }
     },
     {
@@ -2666,7 +2792,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 68,
-        "query": "PIC10146DX"
+        "query": "PIC10146DX",
+        "image": "assets/img/neobath-config/anima-pic10146dx-c58a6565d7.webp"
       }
     },
     {
@@ -2705,7 +2832,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 68,
-        "query": "PIC10146SX"
+        "query": "PIC10146SX",
+        "image": "assets/img/neobath-config/anima-pic10146sx-5faa920f66.webp"
       }
     },
     {
@@ -2744,7 +2872,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 68,
-        "query": "PIC12146"
+        "query": "PIC12146",
+        "image": "assets/img/neobath-config/anima-pic12146-5d6338eb11.webp"
       }
     },
     {
@@ -2783,7 +2912,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 68,
-        "query": "PIC12146DX"
+        "query": "PIC12146DX",
+        "image": "assets/img/neobath-config/anima-pic12146dx-185578b9f2.webp"
       }
     },
     {
@@ -2822,7 +2952,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 68,
-        "query": "PIC12146SX"
+        "query": "PIC12146SX",
+        "image": "assets/img/neobath-config/anima-pic12146sx-dfbf54cb8e.webp"
       }
     },
     {
@@ -2861,7 +2992,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 68,
-        "query": "JUST6146"
+        "query": "JUST6146",
+        "image": "assets/img/neobath-config/anima-just6146-e7ce44e15d.webp"
       }
     },
     {
@@ -2900,7 +3032,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 68,
-        "query": "JUST8146"
+        "query": "JUST8146",
+        "image": "assets/img/neobath-config/anima-just8146-94e6f05ddc.webp"
       }
     },
     {
@@ -2939,7 +3072,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 68,
-        "query": "JUST10146"
+        "query": "JUST10146",
+        "image": "assets/img/neobath-config/anima-just10146-e37eabe551.webp"
       }
     },
     {
@@ -2978,7 +3112,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 68,
-        "query": "JUST10146DX"
+        "query": "JUST10146DX",
+        "image": "assets/img/neobath-config/anima-just10146dx-fa731db805.webp"
       }
     },
     {
@@ -3017,7 +3152,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 68,
-        "query": "JUST10146SX"
+        "query": "JUST10146SX",
+        "image": "assets/img/neobath-config/anima-just10146sx-e5cb883fc6.webp"
       }
     },
     {
@@ -3056,7 +3192,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 68,
-        "query": "JUST12146"
+        "query": "JUST12146",
+        "image": "assets/img/neobath-config/anima-just12146-da865d21ca.webp"
       }
     },
     {
@@ -3095,7 +3232,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 69,
-        "query": "BNT60"
+        "query": "BNT60",
+        "image": "assets/img/neobath-config/anima-bnt60-4090e4d5fe.webp"
       }
     },
     {
@@ -3134,7 +3272,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 69,
-        "query": "BNT80"
+        "query": "BNT80",
+        "image": "assets/img/neobath-config/anima-bnt80-3f40912f18.webp"
       }
     },
     {
@@ -3173,7 +3312,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 69,
-        "query": "BNT100"
+        "query": "BNT100",
+        "image": "assets/img/neobath-config/anima-bnt100-55ccf99218.webp"
       }
     },
     {
@@ -3212,7 +3352,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 69,
-        "query": "BNT120"
+        "query": "BNT120",
+        "image": "assets/img/neobath-config/anima-bnt120-a68da98e14.webp"
       }
     },
     {
@@ -3251,7 +3392,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 69,
-        "query": "BNT120SX"
+        "query": "BNT120SX",
+        "image": "assets/img/neobath-config/anima-bnt120sx-a8fcbdce34.webp"
       }
     },
     {
@@ -3290,7 +3432,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 69,
-        "query": "BNT120DX"
+        "query": "BNT120DX",
+        "image": "assets/img/neobath-config/anima-bnt120dx-642a94e806.webp"
       }
     },
     {
@@ -3329,7 +3472,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 69,
-        "query": "BNT120DV"
+        "query": "BNT120DV",
+        "image": "assets/img/neobath-config/anima-bnt120dv-fa1c6d3a0d.webp"
       }
     },
     {
@@ -3368,7 +3512,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TPGEA12"
+        "query": "TPGEA12",
+        "image": "assets/img/neobath-config/anima-tpgea12-3aa7af3b1c.webp"
       }
     },
     {
@@ -3407,7 +3552,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B938"
+        "query": "B938",
+        "image": "assets/img/neobath-config/anima-b938-98220a5592.webp"
       }
     },
     {
@@ -3446,7 +3592,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B855"
+        "query": "B855",
+        "image": "assets/img/neobath-config/anima-b855-4a27a5b036.webp"
       }
     },
     {
@@ -3485,7 +3632,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B452"
+        "query": "B452",
+        "image": "assets/img/neobath-config/anima-b452-8ae44ac9b1.webp"
       }
     },
     {
@@ -3524,7 +3672,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B574"
+        "query": "B574",
+        "image": "assets/img/neobath-config/anima-b574-dbaeabce6a.webp"
       }
     },
     {
@@ -3563,7 +3712,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B570"
+        "query": "B570",
+        "image": "assets/img/neobath-config/anima-b570-f63bee447a.webp"
       }
     },
     {
@@ -3602,7 +3752,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B575"
+        "query": "B575",
+        "image": "assets/img/neobath-config/anima-b575-748beed84d.webp"
       }
     },
     {
@@ -3641,7 +3792,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B855"
+        "query": "B855",
+        "image": "assets/img/neobath-config/anima-b855-4a27a5b036.webp"
       }
     },
     {
@@ -3680,7 +3832,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B452"
+        "query": "B452",
+        "image": "assets/img/neobath-config/anima-b452-8ae44ac9b1.webp"
       }
     },
     {
@@ -3719,7 +3872,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B574"
+        "query": "B574",
+        "image": "assets/img/neobath-config/anima-b574-dbaeabce6a.webp"
       }
     },
     {
@@ -3758,7 +3912,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B570"
+        "query": "B570",
+        "image": "assets/img/neobath-config/anima-b570-f63bee447a.webp"
       }
     },
     {
@@ -3797,7 +3952,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TPGEA120"
+        "query": "TPGEA120",
+        "image": "assets/img/neobath-config/anima-tpgea120-13a5a84ea0.webp"
       }
     },
     {
@@ -3836,7 +3992,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B938"
+        "query": "B938",
+        "image": "assets/img/neobath-config/anima-b938-98220a5592.webp"
       }
     },
     {
@@ -3875,7 +4032,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B855"
+        "query": "B855",
+        "image": "assets/img/neobath-config/anima-b855-4a27a5b036.webp"
       }
     },
     {
@@ -3914,7 +4072,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B452"
+        "query": "B452",
+        "image": "assets/img/neobath-config/anima-b452-8ae44ac9b1.webp"
       }
     },
     {
@@ -3953,7 +4112,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B574"
+        "query": "B574",
+        "image": "assets/img/neobath-config/anima-b574-dbaeabce6a.webp"
       }
     },
     {
@@ -3992,7 +4152,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B570"
+        "query": "B570",
+        "image": "assets/img/neobath-config/anima-b570-f63bee447a.webp"
       }
     },
     {
@@ -4031,7 +4192,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B575"
+        "query": "B575",
+        "image": "assets/img/neobath-config/anima-b575-748beed84d.webp"
       }
     },
     {
@@ -4070,7 +4232,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B855"
+        "query": "B855",
+        "image": "assets/img/neobath-config/anima-b855-4a27a5b036.webp"
       }
     },
     {
@@ -4109,7 +4272,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B452"
+        "query": "B452",
+        "image": "assets/img/neobath-config/anima-b452-8ae44ac9b1.webp"
       }
     },
     {
@@ -4148,7 +4312,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B574"
+        "query": "B574",
+        "image": "assets/img/neobath-config/anima-b574-dbaeabce6a.webp"
       }
     },
     {
@@ -4187,7 +4352,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B570"
+        "query": "B570",
+        "image": "assets/img/neobath-config/anima-b570-f63bee447a.webp"
       }
     },
     {
@@ -4226,7 +4392,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 71,
-        "query": "TXT12"
+        "query": "TXT12",
+        "image": "assets/img/neobath-config/anima-txt12-4eb1b99ca8.webp"
       }
     },
     {
@@ -4265,7 +4432,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 71,
-        "query": "B575"
+        "query": "B575",
+        "image": "assets/img/neobath-config/anima-b575-0b4e206958.webp"
       }
     },
     {
@@ -4304,7 +4472,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 71,
-        "query": "B576"
+        "query": "B576",
+        "image": "assets/img/neobath-config/anima-b576-997281c7fe.webp"
       }
     },
     {
@@ -4343,7 +4512,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 71,
-        "query": "B575"
+        "query": "B575",
+        "image": "assets/img/neobath-config/anima-b575-0b4e206958.webp"
       }
     },
     {
@@ -4382,7 +4552,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 71,
-        "query": "B576"
+        "query": "B576",
+        "image": "assets/img/neobath-config/anima-b576-997281c7fe.webp"
       }
     },
     {
@@ -4421,7 +4592,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 71,
-        "query": "TXT120"
+        "query": "TXT120",
+        "image": "assets/img/neobath-config/anima-txt120-3ad3fb6745.webp"
       }
     },
     {
@@ -4460,7 +4632,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 71,
-        "query": "B575"
+        "query": "B575",
+        "image": "assets/img/neobath-config/anima-b575-0b4e206958.webp"
       }
     },
     {
@@ -4499,7 +4672,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 71,
-        "query": "B576"
+        "query": "B576",
+        "image": "assets/img/neobath-config/anima-b576-997281c7fe.webp"
       }
     },
     {
@@ -4538,7 +4712,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 71,
-        "query": "B575"
+        "query": "B575",
+        "image": "assets/img/neobath-config/anima-b575-0b4e206958.webp"
       }
     },
     {
@@ -4577,7 +4752,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 71,
-        "query": "B576"
+        "query": "B576",
+        "image": "assets/img/neobath-config/anima-b576-997281c7fe.webp"
       }
     },
     {
@@ -4611,7 +4787,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 72,
-        "query": "TO60"
+        "query": "TO60",
+        "image": "assets/img/neobath-config/anima-to60-8ff04569e7.webp"
       }
     },
     {
@@ -4645,7 +4822,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 72,
-        "query": "TM60"
+        "query": "TM60",
+        "image": "assets/img/neobath-config/anima-tm60-4adcfd0865.webp"
       }
     },
     {
@@ -4679,7 +4857,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 72,
-        "query": "T080"
+        "query": "T080",
+        "image": "assets/img/neobath-config/anima-t080-7f0b1689be.webp"
       }
     },
     {
@@ -4713,7 +4892,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 72,
-        "query": "TM80"
+        "query": "TM80",
+        "image": "assets/img/neobath-config/anima-tm80-2ae8754419.webp"
       }
     },
     {
@@ -4747,7 +4927,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 72,
-        "query": "TO100"
+        "query": "TO100",
+        "image": "assets/img/neobath-config/anima-to100-756bb48d42.webp"
       }
     },
     {
@@ -4781,7 +4962,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 72,
-        "query": "TM100"
+        "query": "TM100",
+        "image": "assets/img/neobath-config/anima-tm100-ad73e187fc.webp"
       }
     },
     {
@@ -4815,7 +4997,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 72,
-        "query": "TO120"
+        "query": "TO120",
+        "image": "assets/img/neobath-config/anima-to120-a177bbaac4.webp"
       }
     },
     {
@@ -4849,7 +5032,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 72,
-        "query": "TM120"
+        "query": "TM120",
+        "image": "assets/img/neobath-config/anima-tm120-bfbffa8b86.webp"
       }
     },
     {
@@ -4883,7 +5067,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 72,
-        "query": "TM120DV"
+        "query": "TM120DV",
+        "image": "assets/img/neobath-config/anima-tm120dv-2dae99a154.webp"
       }
     },
     {
@@ -4917,7 +5102,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 72,
-        "query": "TO100SX"
+        "query": "TO100SX",
+        "image": "assets/img/neobath-config/anima-to100sx-5481ca2488.webp"
       }
     },
     {
@@ -4951,7 +5137,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 72,
-        "query": "TO100DX"
+        "query": "TO100DX",
+        "image": "assets/img/neobath-config/anima-to100dx-1b7f21dbcd.webp"
       }
     },
     {
@@ -4985,7 +5172,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 72,
-        "query": "TO120DV"
+        "query": "TO120DV",
+        "image": "assets/img/neobath-config/anima-to120dv-2a48d72181.webp"
       }
     },
     {
@@ -5019,7 +5207,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 72,
-        "query": "TMS60"
+        "query": "TMS60",
+        "image": "assets/img/neobath-config/anima-tms60-81ae7b4eff.webp"
       }
     },
     {
@@ -5053,7 +5242,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 72,
-        "query": "TMS80"
+        "query": "TMS80",
+        "image": "assets/img/neobath-config/anima-tms80-5cc271f070.webp"
       }
     },
     {
@@ -5087,7 +5277,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 72,
-        "query": "TMS100"
+        "query": "TMS100",
+        "image": "assets/img/neobath-config/anima-tms100-59336ba169.webp"
       }
     },
     {
@@ -5121,7 +5312,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 72,
-        "query": "TMS120"
+        "query": "TMS120",
+        "image": "assets/img/neobath-config/anima-tms120-74da895d27.webp"
       }
     },
     {
@@ -5155,7 +5347,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 72,
-        "query": "TOS60"
+        "query": "TOS60",
+        "image": "assets/img/neobath-config/anima-tos60-7acc60b63a.webp"
       }
     },
     {
@@ -5189,7 +5382,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 72,
-        "query": "T0S80"
+        "query": "T0S80",
+        "image": "assets/img/neobath-config/anima-t0s80-012cdd0c06.webp"
       }
     },
     {
@@ -5223,7 +5417,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 72,
-        "query": "TMS120DV"
+        "query": "TMS120DV",
+        "image": "assets/img/neobath-config/anima-tms120dv-44c28f2a4d.webp"
       }
     },
     {
@@ -5257,7 +5452,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 72,
-        "query": "TOS100"
+        "query": "TOS100",
+        "image": "assets/img/neobath-config/anima-tos100-2c8e55bc0e.webp"
       }
     },
     {
@@ -5291,7 +5487,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 72,
-        "query": "TOS120"
+        "query": "TOS120",
+        "image": "assets/img/neobath-config/anima-tos120-4ad4e04fa7.webp"
       }
     },
     {
@@ -5325,7 +5522,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 72,
-        "query": "TOS120DV"
+        "query": "TOS120DV",
+        "image": "assets/img/neobath-config/anima-tos120dv-617da33043.webp"
       }
     },
     {
@@ -5359,7 +5557,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 73,
-        "query": "TGRS1A"
+        "query": "TGRS1A",
+        "image": "assets/img/neobath-config/anima-tgrs1a-36f72831ec.webp"
       }
     },
     {
@@ -5393,7 +5592,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 73,
-        "query": "TGRS14A"
+        "query": "TGRS14A",
+        "image": "assets/img/neobath-config/anima-tgrs14a-83b145c9a9.webp"
       }
     },
     {
@@ -5427,7 +5627,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 73,
-        "query": "BASIC50"
+        "query": "BASIC50",
+        "image": "assets/img/neobath-config/anima-basic50-24c5b25466.webp"
       }
     },
     {
@@ -5461,7 +5662,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 73,
-        "query": "BASIC70"
+        "query": "BASIC70",
+        "image": "assets/img/neobath-config/anima-basic70-bd96b0f4e5.webp"
       }
     },
     {
@@ -5495,7 +5697,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 73,
-        "query": "HIDE50"
+        "query": "HIDE50",
+        "image": "assets/img/neobath-config/anima-hide50-180d869178.webp"
       }
     },
     {
@@ -5529,7 +5732,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 73,
-        "query": "HIDE70"
+        "query": "HIDE70",
+        "image": "assets/img/neobath-config/anima-hide70-e57b5b1bb5.webp"
       }
     },
     {
@@ -5563,7 +5767,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 73,
-        "query": "SIMPLY50"
+        "query": "SIMPLY50",
+        "image": "assets/img/neobath-config/anima-simply50-1c4d1a20c1.webp"
       }
     },
     {
@@ -5597,7 +5802,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 73,
-        "query": "SIMPLY70"
+        "query": "SIMPLY70",
+        "image": "assets/img/neobath-config/anima-simply70-a91b6ef34e.webp"
       }
     },
     {
@@ -5631,7 +5837,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 73,
-        "query": "TWS110"
+        "query": "TWS110",
+        "image": "assets/img/neobath-config/anima-tws110-cbbde69623.webp"
       }
     },
     {
@@ -5665,7 +5872,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 73,
-        "query": "STF40"
+        "query": "STF40",
+        "image": "assets/img/neobath-config/anima-stf40-2d1a60616e.webp"
       }
     },
     {
@@ -5699,7 +5907,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 74,
-        "query": "THPL1"
+        "query": "THPL1",
+        "image": "assets/img/neobath-config/anima-thpl1-8290b62f60.webp"
       }
     },
     {
@@ -5733,7 +5942,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 74,
-        "query": "TFX1"
+        "query": "TFX1",
+        "image": "assets/img/neobath-config/anima-tfx1-df5a35f494.webp"
       }
     },
     {
@@ -5767,7 +5977,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 74,
-        "query": "THPL6"
+        "query": "THPL6",
+        "image": "assets/img/neobath-config/anima-thpl6-a624ed7a52.webp"
       }
     },
     {
@@ -5801,7 +6012,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 74,
-        "query": "TFX6"
+        "query": "TFX6",
+        "image": "assets/img/neobath-config/anima-tfx6-0bb860ecbd.webp"
       }
     },
     {
@@ -5835,7 +6047,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 74,
-        "query": "THPL12"
+        "query": "THPL12",
+        "image": "assets/img/neobath-config/anima-thpl12-94f0afd3f7.webp"
       }
     },
     {
@@ -5869,7 +6082,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 74,
-        "query": "TFX12"
+        "query": "TFX12",
+        "image": "assets/img/neobath-config/anima-tfx12-a011e0c335.webp"
       }
     },
     {
@@ -5903,7 +6117,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 74,
-        "query": "A50"
+        "query": "A50",
+        "image": "assets/img/neobath-config/anima-a50-cfe10345cd.webp"
       }
     },
     {
@@ -5937,7 +6152,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 74,
-        "query": "A70"
+        "query": "A70",
+        "image": "assets/img/neobath-config/anima-a70-f61558eded.webp"
       }
     },
     {
@@ -5971,7 +6187,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 74,
-        "query": "B50"
+        "query": "B50",
+        "image": "assets/img/neobath-config/anima-b50-81b28d669e.webp"
       }
     },
     {
@@ -6005,7 +6222,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 74,
-        "query": "B70"
+        "query": "B70",
+        "image": "assets/img/neobath-config/anima-b70-ef8503a25b.webp"
       }
     },
     {
@@ -6039,7 +6257,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 74,
-        "query": "C50"
+        "query": "C50",
+        "image": "assets/img/neobath-config/anima-c50-abd56bfd91.webp"
       }
     },
     {
@@ -6073,7 +6292,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 74,
-        "query": "C70"
+        "query": "C70",
+        "image": "assets/img/neobath-config/anima-c70-11b00e3528.webp"
       }
     },
     {
@@ -6107,7 +6327,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 74,
-        "query": "D50"
+        "query": "D50",
+        "image": "assets/img/neobath-config/anima-d50-f7da7425c8.webp"
       }
     },
     {
@@ -6141,7 +6362,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 74,
-        "query": "D70"
+        "query": "D70",
+        "image": "assets/img/neobath-config/anima-d70-bd5dfba884.webp"
       }
     },
     {
@@ -6175,7 +6397,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 74,
-        "query": "E50"
+        "query": "E50",
+        "image": "assets/img/neobath-config/anima-e50-b695129b8c.webp"
       }
     },
     {
@@ -6209,7 +6432,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 74,
-        "query": "E70"
+        "query": "E70",
+        "image": "assets/img/neobath-config/anima-e70-e70eb2cb92.webp"
       }
     },
     {
@@ -6243,7 +6467,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 74,
-        "query": "EB50"
+        "query": "EB50",
+        "image": "assets/img/neobath-config/anima-eb50-73534390ff.webp"
       }
     },
     {
@@ -6277,7 +6502,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 74,
-        "query": "EB70"
+        "query": "EB70",
+        "image": "assets/img/neobath-config/anima-eb70-f2115fb529.webp"
       }
     },
     {
@@ -6311,7 +6537,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 74,
-        "query": "STF40"
+        "query": "STF40",
+        "image": "assets/img/neobath-config/anima-stf40-2e8ab293ac.webp"
       }
     },
     {
@@ -6345,7 +6572,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 75,
-        "query": "PF132690A"
+        "query": "PF132690A",
+        "image": "assets/img/neobath-config/anima-pf132690a-c9d64ea800.webp"
       }
     },
     {
@@ -6384,7 +6612,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 75,
-        "query": "ECLISSE116"
+        "query": "ECLISSE116",
+        "image": "assets/img/neobath-config/anima-eclisse116-9fc584039f.webp"
       }
     },
     {
@@ -6418,7 +6647,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 75,
-        "query": "PF149380A"
+        "query": "PF149380A",
+        "image": "assets/img/neobath-config/anima-pf149380a-da94c26cb2.webp"
       }
     },
     {
@@ -6457,7 +6687,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 75,
-        "query": "ECLISSE115"
+        "query": "ECLISSE115",
+        "image": "assets/img/neobath-config/anima-eclisse115-6488fc8cd5.webp"
       }
     },
     {
@@ -6496,7 +6727,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 75,
-        "query": "ECLISSE114"
+        "query": "ECLISSE114",
+        "image": "assets/img/neobath-config/anima-eclisse114-dc9033f0ed.webp"
       }
     },
     {
@@ -6530,7 +6762,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 75,
-        "query": "TVL116"
+        "query": "TVL116",
+        "image": "assets/img/neobath-config/anima-tvl116-a6ffa59678.webp"
       }
     },
     {
@@ -6564,7 +6797,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 75,
-        "query": "SUP116"
+        "query": "SUP116",
+        "image": "assets/img/neobath-config/anima-sup116-c1722f660f.webp"
       }
     },
     {
@@ -6603,7 +6837,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 76,
-        "query": "FO01"
+        "query": "FO01",
+        "image": "assets/img/neobath-config/anima-fo01-25836b3f5c.webp"
       }
     },
     {
@@ -6642,7 +6877,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 76,
-        "query": "B578"
+        "query": "B578",
+        "image": "assets/img/neobath-config/anima-b578-c7f9a4da6e.webp"
       }
     },
     {
@@ -6681,7 +6917,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 76,
-        "query": "FO02"
+        "query": "FO02",
+        "image": "assets/img/neobath-config/anima-fo02-7ec8de856f.webp"
       }
     },
     {
@@ -6720,7 +6957,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 76,
-        "query": "B571"
+        "query": "B571",
+        "image": "assets/img/neobath-config/anima-b571-4c1e4b4b42.webp"
       }
     },
     {
@@ -6759,7 +6997,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 76,
-        "query": "FO03"
+        "query": "FO03",
+        "image": "assets/img/neobath-config/anima-fo03-0ac36cf0bd.webp"
       }
     },
     {
@@ -6798,7 +7037,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 76,
-        "query": "B860"
+        "query": "B860",
+        "image": "assets/img/neobath-config/anima-b860-ae03c49ec1.webp"
       }
     },
     {
@@ -6837,7 +7077,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 76,
-        "query": "FO04"
+        "query": "FO04",
+        "image": "assets/img/neobath-config/anima-fo04-17fb7788b9.webp"
       }
     },
     {
@@ -6876,7 +7117,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 76,
-        "query": "B861"
+        "query": "B861",
+        "image": "assets/img/neobath-config/anima-b861-ca6ca3066d.webp"
       }
     },
     {
@@ -6915,7 +7157,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 76,
-        "query": "CVR45"
+        "query": "CVR45",
+        "image": "assets/img/neobath-config/anima-cvr45-e7621102b0.webp"
       }
     },
     {
@@ -6954,7 +7197,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 76,
-        "query": "B862"
+        "query": "B862",
+        "image": "assets/img/neobath-config/anima-b862-09b9bb1fa9.webp"
       }
     },
     {
@@ -6988,7 +7232,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SF6070"
+        "query": "SF6070",
+        "image": "assets/img/neobath-config/anima-sf6070-d6b2b5fcf5.webp"
       }
     },
     {
@@ -7022,7 +7267,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SPT60"
+        "query": "SPT60",
+        "image": "assets/img/neobath-config/anima-spt60-ae113f1643.webp"
       }
     },
     {
@@ -7056,7 +7302,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SF8070"
+        "query": "SF8070",
+        "image": "assets/img/neobath-config/anima-sf8070-df242a3b3f.webp"
       }
     },
     {
@@ -7090,7 +7337,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SPT80"
+        "query": "SPT80",
+        "image": "assets/img/neobath-config/anima-spt80-214e725fe0.webp"
       }
     },
     {
@@ -7124,7 +7372,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SF10070"
+        "query": "SF10070",
+        "image": "assets/img/neobath-config/anima-sf10070-2b78ab7e46.webp"
       }
     },
     {
@@ -7158,7 +7407,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SPT100"
+        "query": "SPT100",
+        "image": "assets/img/neobath-config/anima-spt100-b15f8bb22b.webp"
       }
     },
     {
@@ -7192,7 +7442,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SF12070"
+        "query": "SF12070",
+        "image": "assets/img/neobath-config/anima-sf12070-8744e512aa.webp"
       }
     },
     {
@@ -7226,7 +7477,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SPT120"
+        "query": "SPT120",
+        "image": "assets/img/neobath-config/anima-spt120-f9c04333e9.webp"
       }
     },
     {
@@ -7260,7 +7512,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SFR6070"
+        "query": "SFR6070",
+        "image": "assets/img/neobath-config/anima-sfr6070-4af5b336e6.webp"
       }
     },
     {
@@ -7294,7 +7547,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SPTR60"
+        "query": "SPTR60",
+        "image": "assets/img/neobath-config/anima-sptr60-d20b0f6551.webp"
       }
     },
     {
@@ -7328,7 +7582,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SFR8070"
+        "query": "SFR8070",
+        "image": "assets/img/neobath-config/anima-sfr8070-e06ef9644a.webp"
       }
     },
     {
@@ -7362,7 +7617,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SPTR80"
+        "query": "SPTR80",
+        "image": "assets/img/neobath-config/anima-sptr80-dd0e53fff2.webp"
       }
     },
     {
@@ -7396,7 +7652,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SFR10070"
+        "query": "SFR10070",
+        "image": "assets/img/neobath-config/anima-sfr10070-39315fe14d.webp"
       }
     },
     {
@@ -7430,7 +7687,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SPTR100"
+        "query": "SPTR100",
+        "image": "assets/img/neobath-config/anima-sptr100-e82f78e5cb.webp"
       }
     },
     {
@@ -7464,7 +7722,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SFR12070"
+        "query": "SFR12070",
+        "image": "assets/img/neobath-config/anima-sfr12070-19eac97514.webp"
       }
     },
     {
@@ -7498,7 +7757,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SPTR120"
+        "query": "SPTR120",
+        "image": "assets/img/neobath-config/anima-sptr120-86dc8bdf08.webp"
       }
     },
     {
@@ -7532,7 +7792,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SFI6070"
+        "query": "SFI6070",
+        "image": "assets/img/neobath-config/anima-sfi6070-8db93060f2.webp"
       }
     },
     {
@@ -7566,7 +7827,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "EDN80"
+        "query": "EDN80",
+        "image": "assets/img/neobath-config/anima-edn80-47d3008a5a.webp"
       }
     },
     {
@@ -7600,7 +7862,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SFI8070"
+        "query": "SFI8070",
+        "image": "assets/img/neobath-config/anima-sfi8070-0c786082d5.webp"
       }
     },
     {
@@ -7634,7 +7897,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "EDN100"
+        "query": "EDN100",
+        "image": "assets/img/neobath-config/anima-edn100-f9c42e6087.webp"
       }
     },
     {
@@ -7668,7 +7932,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SFI10070"
+        "query": "SFI10070",
+        "image": "assets/img/neobath-config/anima-sfi10070-bc1f17c6ae.webp"
       }
     },
     {
@@ -7702,7 +7967,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "EDN120"
+        "query": "EDN120",
+        "image": "assets/img/neobath-config/anima-edn120-cbb04ef6ce.webp"
       }
     },
     {
@@ -7736,7 +8002,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SFI12070"
+        "query": "SFI12070",
+        "image": "assets/img/neobath-config/anima-sfi12070-514b880b89.webp"
       }
     },
     {
@@ -7775,7 +8042,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 78,
-        "query": "AR100"
+        "query": "AR100",
+        "image": "assets/img/neobath-config/anima-ar100-0ed8075e16.webp"
       }
     },
     {
@@ -7814,7 +8082,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 78,
-        "query": "ARL100"
+        "query": "ARL100",
+        "image": "assets/img/neobath-config/anima-arl100-f9821f0b5e.webp"
       }
     },
     {
@@ -7848,7 +8117,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 78,
-        "query": "ARS100"
+        "query": "ARS100",
+        "image": "assets/img/neobath-config/anima-ars100-ef371792a4.webp"
       }
     },
     {
@@ -7882,7 +8152,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 78,
-        "query": "MAKEUP80"
+        "query": "MAKEUP80",
+        "image": "assets/img/neobath-config/anima-makeup80-d11959c8e4.webp"
       }
     },
     {
@@ -7916,7 +8187,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 78,
-        "query": "MAKEUP100"
+        "query": "MAKEUP100",
+        "image": "assets/img/neobath-config/anima-makeup100-61840aff50.webp"
       }
     },
     {
@@ -7950,7 +8222,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 78,
-        "query": "MAKEUP120"
+        "query": "MAKEUP120",
+        "image": "assets/img/neobath-config/anima-makeup120-8b96f79a4b.webp"
       }
     },
     {
@@ -7984,7 +8257,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 79,
-        "query": "OFFSET80"
+        "query": "OFFSET80",
+        "image": "assets/img/neobath-config/anima-offset80-dd17eea2dc.webp"
       }
     },
     {
@@ -8018,7 +8292,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 79,
-        "query": "TOUCH"
+        "query": "TOUCH",
+        "image": "assets/img/neobath-config/anima-touch-ec6121355b.webp"
       }
     },
     {
@@ -8052,7 +8327,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 79,
-        "query": "OFFSET100"
+        "query": "OFFSET100",
+        "image": "assets/img/neobath-config/anima-offset100-3e5192d12e.webp"
       }
     },
     {
@@ -8086,7 +8362,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 79,
-        "query": "SFT6070"
+        "query": "SFT6070",
+        "image": "assets/img/neobath-config/anima-sft6070-84866d0112.webp"
       }
     },
     {
@@ -8120,7 +8397,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 79,
-        "query": "SFT8070"
+        "query": "SFT8070",
+        "image": "assets/img/neobath-config/anima-sft8070-1d846068f0.webp"
       }
     },
     {
@@ -8154,7 +8432,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 79,
-        "query": "SFT10070"
+        "query": "SFT10070",
+        "image": "assets/img/neobath-config/anima-sft10070-5119196895.webp"
       }
     },
     {
@@ -8188,7 +8467,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 79,
-        "query": "SFT12070"
+        "query": "SFT12070",
+        "image": "assets/img/neobath-config/anima-sft12070-fa1f8af2f6.webp"
       }
     },
     {
@@ -8227,7 +8507,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 80,
-        "query": "MOON60"
+        "query": "MOON60",
+        "image": "assets/img/neobath-config/anima-moon60-23b26e5fe5.webp"
       }
     },
     {
@@ -8261,7 +8542,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 80,
-        "query": "MOON80"
+        "query": "MOON80",
+        "image": "assets/img/neobath-config/anima-moon80-f45a4914da.webp"
       }
     },
     {
@@ -8295,7 +8577,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 80,
-        "query": "MOON100"
+        "query": "MOON100",
+        "image": "assets/img/neobath-config/anima-moon100-ba7620eb58.webp"
       }
     },
     {
@@ -8329,7 +8612,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 80,
-        "query": "MOON120"
+        "query": "MOON120",
+        "image": "assets/img/neobath-config/anima-moon120-c18d826a48.webp"
       }
     },
     {
@@ -8363,7 +8647,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 80,
-        "query": "BARLED40"
+        "query": "BARLED40",
+        "image": "assets/img/neobath-config/anima-barled40-4ded78d428.webp"
       }
     },
     {
@@ -8397,7 +8682,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 80,
-        "query": "DIAMANTE30"
+        "query": "DIAMANTE30",
+        "image": "assets/img/neobath-config/anima-diamante30-4ff5148f8b.webp"
       }
     },
     {
@@ -8431,7 +8717,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 80,
-        "query": "BARLED60"
+        "query": "BARLED60",
+        "image": "assets/img/neobath-config/anima-barled60-7d580a06ed.webp"
       }
     },
     {
@@ -8465,7 +8752,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 80,
-        "query": "DIAMANTE45"
+        "query": "DIAMANTE45",
+        "image": "assets/img/neobath-config/anima-diamante45-2a0340ca71.webp"
       }
     },
     {
@@ -8499,7 +8787,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 80,
-        "query": "BARLED80"
+        "query": "BARLED80",
+        "image": "assets/img/neobath-config/anima-barled80-214a4f5394.webp"
       }
     },
     {
@@ -8533,7 +8822,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 80,
-        "query": "DIAMANTE60"
+        "query": "DIAMANTE60",
+        "image": "assets/img/neobath-config/anima-diamante60-f30b5d989a.webp"
       }
     },
     {
@@ -8567,7 +8857,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 80,
-        "query": "BARLED100"
+        "query": "BARLED100",
+        "image": "assets/img/neobath-config/anima-barled100-a1b4e53d1c.webp"
       }
     },
     {
@@ -8601,7 +8892,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 80,
-        "query": "BARLED120"
+        "query": "BARLED120",
+        "image": "assets/img/neobath-config/anima-barled120-11c4b37a6d.webp"
       }
     },
     {
@@ -8640,7 +8932,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 80,
-        "query": "PLEXY"
+        "query": "PLEXY",
+        "image": "assets/img/neobath-config/anima-plexy-a0bff14050.webp"
       }
     },
     {
@@ -8683,7 +8976,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
-        "query": "60.0"
+        "query": "60.0",
+        "image": "assets/img/neobath-config/dna-dna-pl6026-7040ad416c.webp"
       }
     },
     {
@@ -8726,7 +9020,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
-        "query": "40.0"
+        "query": "40.0",
+        "image": "assets/img/neobath-config/dna-dna-ba4026-39c98d0450.webp"
       }
     },
     {
@@ -8769,7 +9064,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
-        "query": "70.0"
+        "query": "70.0",
+        "image": "assets/img/neobath-config/dna-dna-pl7026-ce5d3bd479.webp"
       }
     },
     {
@@ -8812,7 +9108,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
-        "query": "60.0"
+        "query": "60.0",
+        "image": "assets/img/neobath-config/dna-dna-pl6026-7040ad416c.webp"
       }
     },
     {
@@ -8855,7 +9152,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
-        "query": "80.0"
+        "query": "80.0",
+        "image": "assets/img/neobath-config/dna-dna-pl8026-6f85034212.webp"
       }
     },
     {
@@ -8898,7 +9196,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
-        "query": "70.0"
+        "query": "70.0",
+        "image": "assets/img/neobath-config/dna-dna-pl7026-ce5d3bd479.webp"
       }
     },
     {
@@ -8941,7 +9240,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
-        "query": "90.0"
+        "query": "90.0",
+        "image": "assets/img/neobath-config/dna-dna-pl9026-9cfa1f628f.webp"
       }
     },
     {
@@ -8984,7 +9284,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
-        "query": "80.0"
+        "query": "80.0",
+        "image": "assets/img/neobath-config/dna-dna-pl8026-6f85034212.webp"
       }
     },
     {
@@ -9027,7 +9328,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
-        "query": "100.0"
+        "query": "100.0",
+        "image": "assets/img/neobath-config/dna-dna-pl10026-328b5cd726.webp"
       }
     },
     {
@@ -9070,7 +9372,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
-        "query": "90.0"
+        "query": "90.0",
+        "image": "assets/img/neobath-config/dna-dna-pl9026-9cfa1f628f.webp"
       }
     },
     {
@@ -9113,7 +9416,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
-        "query": "120.0"
+        "query": "120.0",
+        "image": "assets/img/neobath-config/dna-dna-pl12026-e11344a86e.webp"
       }
     },
     {
@@ -9156,7 +9460,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
-        "query": "100.0"
+        "query": "100.0",
+        "image": "assets/img/neobath-config/dna-dna-pl10026-328b5cd726.webp"
       }
     },
     {
@@ -9199,7 +9504,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
-        "query": "120.0"
+        "query": "120.0",
+        "image": "assets/img/neobath-config/dna-dna-pl12026-e11344a86e.webp"
       }
     },
     {
@@ -9242,7 +9548,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
-        "query": "120.0"
+        "query": "120.0",
+        "image": "assets/img/neobath-config/dna-dna-pl12026-e11344a86e.webp"
       }
     },
     {
@@ -9285,7 +9592,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
-        "query": "60.0"
+        "query": "60.0",
+        "image": "assets/img/neobath-config/dna-dna-pl6026-7040ad416c.webp"
       }
     },
     {
@@ -9328,7 +9636,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
-        "query": "40.0"
+        "query": "40.0",
+        "image": "assets/img/neobath-config/dna-dna-ba4026-39c98d0450.webp"
       }
     },
     {
@@ -9371,7 +9680,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
-        "query": "70.0"
+        "query": "70.0",
+        "image": "assets/img/neobath-config/dna-dna-pl7026-ce5d3bd479.webp"
       }
     },
     {
@@ -9414,7 +9724,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
-        "query": "60.0"
+        "query": "60.0",
+        "image": "assets/img/neobath-config/dna-dna-pl6026-7040ad416c.webp"
       }
     },
     {
@@ -9457,7 +9768,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
-        "query": "80.0"
+        "query": "80.0",
+        "image": "assets/img/neobath-config/dna-dna-pl8026-6f85034212.webp"
       }
     },
     {
@@ -9500,7 +9812,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
-        "query": "70.0"
+        "query": "70.0",
+        "image": "assets/img/neobath-config/dna-dna-pl7026-ce5d3bd479.webp"
       }
     },
     {
@@ -9543,7 +9856,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
-        "query": "90.0"
+        "query": "90.0",
+        "image": "assets/img/neobath-config/dna-dna-pl9026-9cfa1f628f.webp"
       }
     },
     {
@@ -9586,7 +9900,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
-        "query": "80.0"
+        "query": "80.0",
+        "image": "assets/img/neobath-config/dna-dna-pl8026-6f85034212.webp"
       }
     },
     {
@@ -9629,7 +9944,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
-        "query": "100.0"
+        "query": "100.0",
+        "image": "assets/img/neobath-config/dna-dna-pl10026-328b5cd726.webp"
       }
     },
     {
@@ -9672,7 +9988,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
-        "query": "90.0"
+        "query": "90.0",
+        "image": "assets/img/neobath-config/dna-dna-pl9026-9cfa1f628f.webp"
       }
     },
     {
@@ -9715,7 +10032,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
-        "query": "120.0"
+        "query": "120.0",
+        "image": "assets/img/neobath-config/dna-dna-pl12026-e11344a86e.webp"
       }
     },
     {
@@ -9758,7 +10076,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
-        "query": "100.0"
+        "query": "100.0",
+        "image": "assets/img/neobath-config/dna-dna-pl10026-328b5cd726.webp"
       }
     },
     {
@@ -9801,7 +10120,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
-        "query": "120.0"
+        "query": "120.0",
+        "image": "assets/img/neobath-config/dna-dna-pl12026-e11344a86e.webp"
       }
     },
     {
@@ -9844,7 +10164,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
-        "query": "120.0"
+        "query": "120.0",
+        "image": "assets/img/neobath-config/dna-dna-pl12026-e11344a86e.webp"
       }
     },
     {
@@ -9887,7 +10208,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
-        "query": "40.0"
+        "query": "40.0",
+        "image": "assets/img/neobath-config/dna-dna-ba4026-39c98d0450.webp"
       }
     },
     {
@@ -9930,7 +10252,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 67,
-        "query": "DNA-PA4070"
+        "query": "DNA-PA4070",
+        "image": "assets/img/neobath-config/dna-dna-pa4070-2a26d29caf.webp"
       }
     },
     {
@@ -9973,7 +10296,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
-        "query": "Basi"
+        "query": "Basi",
+        "image": "assets/img/neobath-config/dna-tpc60-4e8292fbd8.webp"
       }
     },
     {
@@ -10016,7 +10340,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
-        "query": "Basi"
+        "query": "Basi",
+        "image": "assets/img/neobath-config/dna-tpc60-4e8292fbd8.webp"
       }
     },
     {
@@ -10059,7 +10384,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
-        "query": "Basi"
+        "query": "Basi",
+        "image": "assets/img/neobath-config/dna-tpc60-4e8292fbd8.webp"
       }
     },
     {
@@ -10102,7 +10428,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
-        "query": "Basi"
+        "query": "Basi",
+        "image": "assets/img/neobath-config/dna-tpc60-4e8292fbd8.webp"
       }
     },
     {
@@ -10145,7 +10472,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
-        "query": "Basi"
+        "query": "Basi",
+        "image": "assets/img/neobath-config/dna-tpc60-4e8292fbd8.webp"
       }
     },
     {
@@ -10188,7 +10516,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
-        "query": "Basi"
+        "query": "Basi",
+        "image": "assets/img/neobath-config/dna-tpc60-4e8292fbd8.webp"
       }
     },
     {
@@ -10231,7 +10560,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
-        "query": "Basi"
+        "query": "Basi",
+        "image": "assets/img/neobath-config/dna-tpc60-4e8292fbd8.webp"
       }
     },
     {
@@ -10274,7 +10604,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
-        "query": "Basi"
+        "query": "Basi",
+        "image": "assets/img/neobath-config/dna-tpc60-4e8292fbd8.webp"
       }
     },
     {
@@ -10317,7 +10648,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 67,
-        "query": "DNA-CO40160"
+        "query": "DNA-CO40160",
+        "image": "assets/img/neobath-config/dna-dna-co40160-cdc014dcdf.webp"
       }
     },
     {
@@ -10355,7 +10687,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TA60"
+        "query": "TA60",
+        "image": "assets/img/neobath-config/dna-ta60-e9676e6e88.webp"
       }
     },
     {
@@ -10393,7 +10726,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TK61"
+        "query": "TK61",
+        "image": "assets/img/neobath-config/dna-tk61-718c108115.webp"
       }
     },
     {
@@ -10431,7 +10765,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TA80"
+        "query": "TA80",
+        "image": "assets/img/neobath-config/dna-ta80-9f2f89c78c.webp"
       }
     },
     {
@@ -10469,7 +10804,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TK71"
+        "query": "TK71",
+        "image": "assets/img/neobath-config/dna-tk71-fd6906c1ce.webp"
       }
     },
     {
@@ -10507,7 +10843,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TA100"
+        "query": "TA100",
+        "image": "assets/img/neobath-config/dna-ta100-d65cbdaafa.webp"
       }
     },
     {
@@ -10545,7 +10882,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TK81"
+        "query": "TK81",
+        "image": "assets/img/neobath-config/dna-tk81-28ffee94fc.webp"
       }
     },
     {
@@ -10583,7 +10921,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TA120"
+        "query": "TA120",
+        "image": "assets/img/neobath-config/dna-ta120-119d6810fb.webp"
       }
     },
     {
@@ -10621,7 +10960,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TK91"
+        "query": "TK91",
+        "image": "assets/img/neobath-config/dna-tk91-0330d4da58.webp"
       }
     },
     {
@@ -10659,7 +10999,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TK101"
+        "query": "TK101",
+        "image": "assets/img/neobath-config/dna-tk101-71d7569259.webp"
       }
     },
     {
@@ -10692,7 +11033,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TK121"
+        "query": "TK121",
+        "image": "assets/img/neobath-config/dna-tk121-8cbaa37674.webp"
       }
     },
     {
@@ -10725,7 +11067,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TK121DV"
+        "query": "TK121DV",
+        "image": "assets/img/neobath-config/dna-tk121dv-c6cbe7729a.webp"
       }
     },
     {
@@ -10763,7 +11106,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TA100SX"
+        "query": "TA100SX",
+        "image": "assets/img/neobath-config/dna-ta100sx-54ce572550.webp"
       }
     },
     {
@@ -10801,7 +11145,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TA120SX"
+        "query": "TA120SX",
+        "image": "assets/img/neobath-config/dna-ta120sx-0d1367783e.webp"
       }
     },
     {
@@ -10839,7 +11184,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "PIC6146"
+        "query": "PIC6146",
+        "image": "assets/img/neobath-config/dna-pic6146-2427b25129.webp"
       }
     },
     {
@@ -10877,7 +11223,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "PIC8146"
+        "query": "PIC8146",
+        "image": "assets/img/neobath-config/dna-pic8146-60c77c216f.webp"
       }
     },
     {
@@ -10915,7 +11262,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "PIC10146"
+        "query": "PIC10146",
+        "image": "assets/img/neobath-config/dna-pic10146-a5a9c2a335.webp"
       }
     },
     {
@@ -10953,7 +11301,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "PIC10146DX"
+        "query": "PIC10146DX",
+        "image": "assets/img/neobath-config/dna-pic10146dx-cdc7a499dd.webp"
       }
     },
     {
@@ -10991,7 +11340,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TA100DX"
+        "query": "TA100DX",
+        "image": "assets/img/neobath-config/dna-ta100dx-f3026893c9.webp"
       }
     },
     {
@@ -11029,7 +11379,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "PIC10146SX"
+        "query": "PIC10146SX",
+        "image": "assets/img/neobath-config/dna-pic10146sx-d54891a562.webp"
       }
     },
     {
@@ -11067,7 +11418,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TA120DX"
+        "query": "TA120DX",
+        "image": "assets/img/neobath-config/dna-ta120dx-d2378f4cfe.webp"
       }
     },
     {
@@ -11105,7 +11457,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "PIC12146"
+        "query": "PIC12146",
+        "image": "assets/img/neobath-config/dna-pic12146-b0093f68fa.webp"
       }
     },
     {
@@ -11143,7 +11496,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "PIC12146DX"
+        "query": "PIC12146DX",
+        "image": "assets/img/neobath-config/dna-pic12146dx-f63babfe06.webp"
       }
     },
     {
@@ -11181,7 +11535,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "PIC12146SX"
+        "query": "PIC12146SX",
+        "image": "assets/img/neobath-config/dna-pic12146sx-7abc0747f7.webp"
       }
     },
     {
@@ -11219,7 +11574,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "JUST6146"
+        "query": "JUST6146",
+        "image": "assets/img/neobath-config/dna-just6146-89a00b5081.webp"
       }
     },
     {
@@ -11257,7 +11613,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TA120DV"
+        "query": "TA120DV",
+        "image": "assets/img/neobath-config/dna-ta120dv-6d50b7b48c.webp"
       }
     },
     {
@@ -11295,7 +11652,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "JUST7146"
+        "query": "JUST7146",
+        "image": "assets/img/neobath-config/dna-just7146-4c60a7a7c3.webp"
       }
     },
     {
@@ -11333,7 +11691,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TA140DV"
+        "query": "TA140DV",
+        "image": "assets/img/neobath-config/dna-ta140dv-6458406ac5.webp"
       }
     },
     {
@@ -11371,7 +11730,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "JUST8146"
+        "query": "JUST8146",
+        "image": "assets/img/neobath-config/dna-just8146-7e5969ed7c.webp"
       }
     },
     {
@@ -11409,7 +11769,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "JUST9146"
+        "query": "JUST9146",
+        "image": "assets/img/neobath-config/dna-just9146-17c55f9bab.webp"
       }
     },
     {
@@ -11447,7 +11808,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "JUST10146"
+        "query": "JUST10146",
+        "image": "assets/img/neobath-config/dna-just10146-ac5ddbb81c.webp"
       }
     },
     {
@@ -11485,7 +11847,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "JUST10146DX"
+        "query": "JUST10146DX",
+        "image": "assets/img/neobath-config/dna-just10146dx-c9401763e7.webp"
       }
     },
     {
@@ -11523,7 +11886,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "JUST10146SX"
+        "query": "JUST10146SX",
+        "image": "assets/img/neobath-config/dna-just10146sx-7671c31447.webp"
       }
     },
     {
@@ -11561,7 +11925,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "JUST12146"
+        "query": "JUST12146",
+        "image": "assets/img/neobath-config/dna-just12146-df175cf977.webp"
       }
     },
     {
@@ -11599,7 +11964,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "BNT60"
+        "query": "BNT60",
+        "image": "assets/img/neobath-config/dna-bnt60-3282ca9126.webp"
       }
     },
     {
@@ -11637,7 +12003,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "BNT70"
+        "query": "BNT70",
+        "image": "assets/img/neobath-config/dna-bnt70-7de521e9ee.webp"
       }
     },
     {
@@ -11675,7 +12042,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "BNT80"
+        "query": "BNT80",
+        "image": "assets/img/neobath-config/dna-bnt80-e15649e110.webp"
       }
     },
     {
@@ -11713,7 +12081,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "BNT90"
+        "query": "BNT90",
+        "image": "assets/img/neobath-config/dna-bnt90-559fa61496.webp"
       }
     },
     {
@@ -11751,7 +12120,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "BNT100"
+        "query": "BNT100",
+        "image": "assets/img/neobath-config/dna-bnt100-4a7c7ed72d.webp"
       }
     },
     {
@@ -11789,7 +12159,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "BNT120"
+        "query": "BNT120",
+        "image": "assets/img/neobath-config/dna-bnt120-b1a0c85d16.webp"
       }
     },
     {
@@ -11827,7 +12198,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "BNT120SX"
+        "query": "BNT120SX",
+        "image": "assets/img/neobath-config/dna-bnt120sx-1548775b8a.webp"
       }
     },
     {
@@ -11865,7 +12237,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "BNT120DX"
+        "query": "BNT120DX",
+        "image": "assets/img/neobath-config/dna-bnt120dx-1b0aa332f2.webp"
       }
     },
     {
@@ -11903,7 +12276,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "BNT120DV"
+        "query": "BNT120DV",
+        "image": "assets/img/neobath-config/dna-bnt120dv-086db49b78.webp"
       }
     },
     {
@@ -11941,7 +12315,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TPGEA12"
+        "query": "TPGEA12",
+        "image": "assets/img/neobath-config/anima-tpgea12-3aa7af3b1c.webp"
       }
     },
     {
@@ -11979,7 +12354,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B938"
+        "query": "B938",
+        "image": "assets/img/neobath-config/anima-b938-98220a5592.webp"
       }
     },
     {
@@ -12017,7 +12393,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B855"
+        "query": "B855",
+        "image": "assets/img/neobath-config/anima-b855-4a27a5b036.webp"
       }
     },
     {
@@ -12055,7 +12432,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B452"
+        "query": "B452",
+        "image": "assets/img/neobath-config/anima-b452-8ae44ac9b1.webp"
       }
     },
     {
@@ -12093,7 +12471,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B574"
+        "query": "B574",
+        "image": "assets/img/neobath-config/anima-b574-dbaeabce6a.webp"
       }
     },
     {
@@ -12131,7 +12510,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B570"
+        "query": "B570",
+        "image": "assets/img/neobath-config/anima-b570-f63bee447a.webp"
       }
     },
     {
@@ -12169,7 +12549,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B575DV"
+        "query": "B575DV",
+        "image": "assets/img/neobath-config/dna-b575dv-873a1b742b.webp"
       }
     },
     {
@@ -12207,7 +12588,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B855DV"
+        "query": "B855DV",
+        "image": "assets/img/neobath-config/dna-b855dv-1cc41edb68.webp"
       }
     },
     {
@@ -12245,7 +12627,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B452DV"
+        "query": "B452DV",
+        "image": "assets/img/neobath-config/dna-b452dv-d5d49eefea.webp"
       }
     },
     {
@@ -12283,7 +12666,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B574DV"
+        "query": "B574DV",
+        "image": "assets/img/neobath-config/dna-b574dv-94feb6f6b8.webp"
       }
     },
     {
@@ -12321,7 +12705,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B570DV"
+        "query": "B570DV",
+        "image": "assets/img/neobath-config/dna-b570dv-f31e1cb7ab.webp"
       }
     },
     {
@@ -12359,7 +12744,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TPGEA120"
+        "query": "TPGEA120",
+        "image": "assets/img/neobath-config/anima-tpgea120-13a5a84ea0.webp"
       }
     },
     {
@@ -12397,7 +12783,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B938"
+        "query": "B938",
+        "image": "assets/img/neobath-config/anima-b938-98220a5592.webp"
       }
     },
     {
@@ -12435,7 +12822,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B855"
+        "query": "B855",
+        "image": "assets/img/neobath-config/anima-b855-4a27a5b036.webp"
       }
     },
     {
@@ -12473,7 +12861,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B452"
+        "query": "B452",
+        "image": "assets/img/neobath-config/anima-b452-8ae44ac9b1.webp"
       }
     },
     {
@@ -12511,7 +12900,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B574"
+        "query": "B574",
+        "image": "assets/img/neobath-config/anima-b574-dbaeabce6a.webp"
       }
     },
     {
@@ -12549,7 +12939,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B570"
+        "query": "B570",
+        "image": "assets/img/neobath-config/anima-b570-f63bee447a.webp"
       }
     },
     {
@@ -12587,7 +12978,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B575DV"
+        "query": "B575DV",
+        "image": "assets/img/neobath-config/dna-b575dv-873a1b742b.webp"
       }
     },
     {
@@ -12625,7 +13017,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B855DV"
+        "query": "B855DV",
+        "image": "assets/img/neobath-config/dna-b855dv-1cc41edb68.webp"
       }
     },
     {
@@ -12663,7 +13056,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B452DV"
+        "query": "B452DV",
+        "image": "assets/img/neobath-config/dna-b452dv-d5d49eefea.webp"
       }
     },
     {
@@ -12701,7 +13095,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B574DV"
+        "query": "B574DV",
+        "image": "assets/img/neobath-config/dna-b574dv-94feb6f6b8.webp"
       }
     },
     {
@@ -12739,7 +13134,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B570DV"
+        "query": "B570DV",
+        "image": "assets/img/neobath-config/dna-b570dv-f31e1cb7ab.webp"
       }
     },
     {
@@ -12772,7 +13168,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TPGEACRIL7"
+        "query": "TPGEACRIL7",
+        "image": "assets/img/neobath-config/dna-tpgeacril7-f734ad8423.webp"
       }
     },
     {
@@ -12810,7 +13207,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TXT12"
+        "query": "TXT12",
+        "image": "assets/img/neobath-config/dna-txt12-631f9d9787.webp"
       }
     },
     {
@@ -12848,7 +13246,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B575"
+        "query": "B575",
+        "image": "assets/img/neobath-config/anima-b575-748beed84d.webp"
       }
     },
     {
@@ -12886,7 +13285,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B576"
+        "query": "B576",
+        "image": "assets/img/neobath-config/dna-b576-157b026a31.webp"
       }
     },
     {
@@ -12924,7 +13324,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B575"
+        "query": "B575",
+        "image": "assets/img/neobath-config/anima-b575-748beed84d.webp"
       }
     },
     {
@@ -12962,7 +13363,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B576"
+        "query": "B576",
+        "image": "assets/img/neobath-config/dna-b576-157b026a31.webp"
       }
     },
     {
@@ -13000,7 +13402,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TXT120"
+        "query": "TXT120",
+        "image": "assets/img/neobath-config/dna-txt120-c23ee13fee.webp"
       }
     },
     {
@@ -13038,7 +13441,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B575"
+        "query": "B575",
+        "image": "assets/img/neobath-config/anima-b575-748beed84d.webp"
       }
     },
     {
@@ -13076,7 +13480,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B576"
+        "query": "B576",
+        "image": "assets/img/neobath-config/dna-b576-157b026a31.webp"
       }
     },
     {
@@ -13114,7 +13519,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B575"
+        "query": "B575",
+        "image": "assets/img/neobath-config/anima-b575-748beed84d.webp"
       }
     },
     {
@@ -13152,7 +13558,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B576"
+        "query": "B576",
+        "image": "assets/img/neobath-config/dna-b576-157b026a31.webp"
       }
     },
     {
@@ -13185,7 +13592,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TO60"
+        "query": "TO60",
+        "image": "assets/img/neobath-config/dna-to60-6dfed909a3.webp"
       }
     },
     {
@@ -13218,7 +13626,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TOS60"
+        "query": "TOS60",
+        "image": "assets/img/neobath-config/dna-tos60-d13ff94a63.webp"
       }
     },
     {
@@ -13251,7 +13660,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TO70"
+        "query": "TO70",
+        "image": "assets/img/neobath-config/dna-to70-bb9d824623.webp"
       }
     },
     {
@@ -13284,7 +13694,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TOS70"
+        "query": "TOS70",
+        "image": "assets/img/neobath-config/dna-tos70-6729275071.webp"
       }
     },
     {
@@ -13317,7 +13728,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "T080"
+        "query": "T080",
+        "image": "assets/img/neobath-config/dna-t080-8dc8b633b2.webp"
       }
     },
     {
@@ -13350,7 +13762,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "T0S80"
+        "query": "T0S80",
+        "image": "assets/img/neobath-config/dna-t0s80-8db6682341.webp"
       }
     },
     {
@@ -13383,7 +13796,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TO90"
+        "query": "TO90",
+        "image": "assets/img/neobath-config/dna-to90-d584311c50.webp"
       }
     },
     {
@@ -13416,7 +13830,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TOS90"
+        "query": "TOS90",
+        "image": "assets/img/neobath-config/dna-tos90-cf264ea9ad.webp"
       }
     },
     {
@@ -13449,7 +13864,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TO100"
+        "query": "TO100",
+        "image": "assets/img/neobath-config/dna-to100-577605e08c.webp"
       }
     },
     {
@@ -13482,7 +13898,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TOS100"
+        "query": "TOS100",
+        "image": "assets/img/neobath-config/dna-tos100-dc3e8581d9.webp"
       }
     },
     {
@@ -13515,7 +13932,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TO120"
+        "query": "TO120",
+        "image": "assets/img/neobath-config/dna-to120-2e94c7cc42.webp"
       }
     },
     {
@@ -13548,7 +13966,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TOS120"
+        "query": "TOS120",
+        "image": "assets/img/neobath-config/dna-tos120-da3f262124.webp"
       }
     },
     {
@@ -13581,7 +14000,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TOS140"
+        "query": "TOS140",
+        "image": "assets/img/neobath-config/dna-tos140-a9e858aaf3.webp"
       }
     },
     {
@@ -13614,7 +14034,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TOS120DV"
+        "query": "TOS120DV",
+        "image": "assets/img/neobath-config/dna-tos120dv-ff9e922c7e.webp"
       }
     },
     {
@@ -13647,7 +14068,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TOS140DV"
+        "query": "TOS140DV",
+        "image": "assets/img/neobath-config/dna-tos140dv-eadd0adcce.webp"
       }
     },
     {
@@ -13680,7 +14102,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TO100SX"
+        "query": "TO100SX",
+        "image": "assets/img/neobath-config/dna-to100sx-bf331f0445.webp"
       }
     },
     {
@@ -13713,7 +14136,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TOS160DV"
+        "query": "TOS160DV",
+        "image": "assets/img/neobath-config/dna-tos160dv-c3b9ad581d.webp"
       }
     },
     {
@@ -13746,7 +14170,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TO100DX"
+        "query": "TO100DX",
+        "image": "assets/img/neobath-config/dna-to100dx-04ca1c6659.webp"
       }
     },
     {
@@ -13779,7 +14204,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TO120DV"
+        "query": "TO120DV",
+        "image": "assets/img/neobath-config/dna-to120dv-d61b9ee5e2.webp"
       }
     },
     {
@@ -13812,7 +14238,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TOCRI1"
+        "query": "TOCRI1",
+        "image": "assets/img/neobath-config/dna-tocri1-91d1ec894a.webp"
       }
     },
     {
@@ -13845,7 +14272,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TO140DX"
+        "query": "TO140DX",
+        "image": "assets/img/neobath-config/dna-to140dx-d0758efb10.webp"
       }
     },
     {
@@ -13878,7 +14306,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TO140DV"
+        "query": "TO140DV",
+        "image": "assets/img/neobath-config/dna-to140dv-15a93eb27e.webp"
       }
     },
     {
@@ -13911,7 +14340,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 76,
-        "query": "PF1395100"
+        "query": "PF1395100",
+        "image": "assets/img/neobath-config/dna-pf1395100-921bdfce4a.webp"
       }
     },
     {
@@ -13944,7 +14374,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TO160SX"
+        "query": "TO160SX",
+        "image": "assets/img/neobath-config/dna-to160sx-610e709e9f.webp"
       }
     },
     {
@@ -13977,7 +14408,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TO160DX"
+        "query": "TO160DX",
+        "image": "assets/img/neobath-config/dna-to160dx-0fa24991e7.webp"
       }
     },
     {
@@ -14010,7 +14442,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 76,
-        "query": "PF1485700"
+        "query": "PF1485700",
+        "image": "assets/img/neobath-config/dna-pf1485700-c0bc75b118.webp"
       }
     },
     {
@@ -14043,7 +14476,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TO160DV"
+        "query": "TO160DV",
+        "image": "assets/img/neobath-config/dna-to160dv-8c88422a58.webp"
       }
     },
     {
@@ -14076,7 +14510,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 76,
-        "query": "PF1395200"
+        "query": "PF1395200",
+        "image": "assets/img/neobath-config/dna-pf1395200-3eeca51439.webp"
       }
     },
     {
@@ -14109,7 +14544,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TO180SX"
+        "query": "TO180SX",
+        "image": "assets/img/neobath-config/dna-to180sx-3ce283a18e.webp"
       }
     },
     {
@@ -14142,7 +14578,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TO180DX"
+        "query": "TO180DX",
+        "image": "assets/img/neobath-config/dna-to180dx-f5e6019bd1.webp"
       }
     },
     {
@@ -14180,7 +14617,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TO180DV"
+        "query": "TO180DV",
+        "image": "assets/img/neobath-config/dna-to180dv-6f761bdf60.webp"
       }
     },
     {
@@ -14213,7 +14651,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TO200SX"
+        "query": "TO200SX",
+        "image": "assets/img/neobath-config/dna-to200sx-ea2da33813.webp"
       }
     },
     {
@@ -14246,7 +14685,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TO200DX"
+        "query": "TO200DX",
+        "image": "assets/img/neobath-config/dna-to200dx-b1e04c8811.webp"
       }
     },
     {
@@ -14279,7 +14719,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TO200DV"
+        "query": "TO200DV",
+        "image": "assets/img/neobath-config/dna-to200dv-c2fae3519d.webp"
       }
     },
     {
@@ -14312,7 +14753,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TM60"
+        "query": "TM60",
+        "image": "assets/img/neobath-config/dna-tm60-a05eae37be.webp"
       }
     },
     {
@@ -14345,7 +14787,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TMS60"
+        "query": "TMS60",
+        "image": "assets/img/neobath-config/dna-tms60-7d4c5940d1.webp"
       }
     },
     {
@@ -14378,7 +14821,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TM70"
+        "query": "TM70",
+        "image": "assets/img/neobath-config/dna-tm70-f35f4ee4cc.webp"
       }
     },
     {
@@ -14411,7 +14855,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TMS70"
+        "query": "TMS70",
+        "image": "assets/img/neobath-config/dna-tms70-014f926b58.webp"
       }
     },
     {
@@ -14444,7 +14889,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TM80"
+        "query": "TM80",
+        "image": "assets/img/neobath-config/dna-tm80-f4e57d3409.webp"
       }
     },
     {
@@ -14477,7 +14923,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TMS80"
+        "query": "TMS80",
+        "image": "assets/img/neobath-config/dna-tms80-05534b6248.webp"
       }
     },
     {
@@ -14510,7 +14957,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TM90"
+        "query": "TM90",
+        "image": "assets/img/neobath-config/dna-tm90-bc2dae4b2d.webp"
       }
     },
     {
@@ -14543,7 +14991,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TMS90"
+        "query": "TMS90",
+        "image": "assets/img/neobath-config/dna-tms90-51aeddc4f8.webp"
       }
     },
     {
@@ -14576,7 +15025,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TM100"
+        "query": "TM100",
+        "image": "assets/img/neobath-config/dna-tm100-9340d12d21.webp"
       }
     },
     {
@@ -14609,7 +15059,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TMS100"
+        "query": "TMS100",
+        "image": "assets/img/neobath-config/dna-tms100-98bb08a669.webp"
       }
     },
     {
@@ -14642,7 +15093,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TM120"
+        "query": "TM120",
+        "image": "assets/img/neobath-config/dna-tm120-3741f2359e.webp"
       }
     },
     {
@@ -14675,7 +15127,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TMS120"
+        "query": "TMS120",
+        "image": "assets/img/neobath-config/dna-tms120-4c5497d129.webp"
       }
     },
     {
@@ -14708,7 +15161,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TM120SX"
+        "query": "TM120SX",
+        "image": "assets/img/neobath-config/dna-tm120sx-c9c0150aa3.webp"
       }
     },
     {
@@ -14741,7 +15195,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TM120DX"
+        "query": "TM120DX",
+        "image": "assets/img/neobath-config/dna-tm120dx-39dbb0988f.webp"
       }
     },
     {
@@ -14774,7 +15229,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TMS120DV"
+        "query": "TMS120DV",
+        "image": "assets/img/neobath-config/dna-tms120dv-41f2aa3cfc.webp"
       }
     },
     {
@@ -14807,7 +15263,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TMS120DV"
+        "query": "TMS120DV",
+        "image": "assets/img/neobath-config/dna-tms120dv-41f2aa3cfc.webp"
       }
     },
     {
@@ -14840,7 +15297,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TM140DV"
+        "query": "TM140DV",
+        "image": "assets/img/neobath-config/dna-tm140dv-364a99c70c.webp"
       }
     },
     {
@@ -14873,7 +15331,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TMS140DV"
+        "query": "TMS140DV",
+        "image": "assets/img/neobath-config/dna-tms140dv-ce84e86247.webp"
       }
     },
     {
@@ -14906,7 +15365,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TGRS1A"
+        "query": "TGRS1A",
+        "image": "assets/img/neobath-config/dna-tgrs1a-d962fde4cd.webp"
       }
     },
     {
@@ -14939,7 +15399,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TGRS14A"
+        "query": "TGRS14A",
+        "image": "assets/img/neobath-config/dna-tgrs14a-1489ddb0f9.webp"
       }
     },
     {
@@ -14972,7 +15433,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "BASIC50"
+        "query": "BASIC50",
+        "image": "assets/img/neobath-config/dna-basic50-443fb9fdb8.webp"
       }
     },
     {
@@ -15005,7 +15467,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "BASIC70"
+        "query": "BASIC70",
+        "image": "assets/img/neobath-config/dna-basic70-7e125226e9.webp"
       }
     },
     {
@@ -15038,7 +15501,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "HIDE50"
+        "query": "HIDE50",
+        "image": "assets/img/neobath-config/dna-hide50-072f8d415f.webp"
       }
     },
     {
@@ -15071,7 +15535,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "HIDE70"
+        "query": "HIDE70",
+        "image": "assets/img/neobath-config/dna-hide70-9067d7ee1e.webp"
       }
     },
     {
@@ -15104,7 +15569,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "SIMPLY50"
+        "query": "SIMPLY50",
+        "image": "assets/img/neobath-config/dna-simply50-8570abe1f4.webp"
       }
     },
     {
@@ -15137,7 +15603,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "SIMPLY70"
+        "query": "SIMPLY70",
+        "image": "assets/img/neobath-config/dna-simply70-ebe72c5c60.webp"
       }
     },
     {
@@ -15170,7 +15637,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TWS110"
+        "query": "TWS110",
+        "image": "assets/img/neobath-config/dna-tws110-5d610e47d2.webp"
       }
     },
     {
@@ -15203,7 +15671,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 71,
-        "query": "STF40"
+        "query": "STF40",
+        "image": "assets/img/neobath-config/dna-stf40-73a89ee687.webp"
       }
     },
     {
@@ -15241,7 +15710,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TFX1"
+        "query": "TFX1",
+        "image": "assets/img/neobath-config/dna-tfx1-7d9fa8a02c.webp"
       }
     },
     {
@@ -15279,7 +15749,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TFX6"
+        "query": "TFX6",
+        "image": "assets/img/neobath-config/dna-tfx6-173164abb6.webp"
       }
     },
     {
@@ -15317,7 +15788,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "TFX12"
+        "query": "TFX12",
+        "image": "assets/img/neobath-config/dna-tfx12-e42d0b418a.webp"
       }
     },
     {
@@ -15350,7 +15822,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "A50"
+        "query": "A50",
+        "image": "assets/img/neobath-config/dna-a50-8808cb85eb.webp"
       }
     },
     {
@@ -15383,7 +15856,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "A70"
+        "query": "A70",
+        "image": "assets/img/neobath-config/dna-a70-639e394e3d.webp"
       }
     },
     {
@@ -15416,7 +15890,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B50"
+        "query": "B50",
+        "image": "assets/img/neobath-config/dna-b50-a0fe8cca56.webp"
       }
     },
     {
@@ -15449,7 +15924,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "B70"
+        "query": "B70",
+        "image": "assets/img/neobath-config/dna-b70-2e0c0a2ed5.webp"
       }
     },
     {
@@ -15482,7 +15958,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "C50"
+        "query": "C50",
+        "image": "assets/img/neobath-config/dna-c50-7a50a2cde4.webp"
       }
     },
     {
@@ -15515,7 +15992,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "C70"
+        "query": "C70",
+        "image": "assets/img/neobath-config/dna-c70-1e9f5e53f7.webp"
       }
     },
     {
@@ -15548,7 +16026,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "D50"
+        "query": "D50",
+        "image": "assets/img/neobath-config/dna-d50-93fa8b3bdd.webp"
       }
     },
     {
@@ -15581,7 +16060,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "D70"
+        "query": "D70",
+        "image": "assets/img/neobath-config/dna-d70-dd541ef02b.webp"
       }
     },
     {
@@ -15614,7 +16094,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "E50"
+        "query": "E50",
+        "image": "assets/img/neobath-config/dna-e50-58e693f9a4.webp"
       }
     },
     {
@@ -15647,7 +16128,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "E70"
+        "query": "E70",
+        "image": "assets/img/neobath-config/dna-e70-9cd82e4caa.webp"
       }
     },
     {
@@ -15680,7 +16162,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "EB50"
+        "query": "EB50",
+        "image": "assets/img/neobath-config/dna-eb50-f15cf0b778.webp"
       }
     },
     {
@@ -15713,7 +16196,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 70,
-        "query": "EB70"
+        "query": "EB70",
+        "image": "assets/img/neobath-config/dna-eb70-04b84c3439.webp"
       }
     },
     {
@@ -15746,7 +16230,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 71,
-        "query": "STF40"
+        "query": "STF40",
+        "image": "assets/img/neobath-config/dna-stf40-73a89ee687.webp"
       }
     },
     {
@@ -15779,7 +16264,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 76,
-        "query": "PF132690A"
+        "query": "PF132690A",
+        "image": "assets/img/neobath-config/dna-pf132690a-56d63825df.webp"
       }
     },
     {
@@ -15817,7 +16303,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 76,
-        "query": "ECLISSE116"
+        "query": "ECLISSE116",
+        "image": "assets/img/neobath-config/dna-eclisse116-43d0288bc0.webp"
       }
     },
     {
@@ -15850,7 +16337,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 76,
-        "query": "PF149380A"
+        "query": "PF149380A",
+        "image": "assets/img/neobath-config/dna-pf149380a-1b419446be.webp"
       }
     },
     {
@@ -15888,7 +16376,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 76,
-        "query": "ECLISSE115"
+        "query": "ECLISSE115",
+        "image": "assets/img/neobath-config/dna-eclisse115-8f330ed191.webp"
       }
     },
     {
@@ -15926,7 +16415,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 76,
-        "query": "ECLISSE114"
+        "query": "ECLISSE114",
+        "image": "assets/img/neobath-config/dna-eclisse114-76659cf352.webp"
       }
     },
     {
@@ -15959,7 +16449,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 76,
-        "query": "TVL116"
+        "query": "TVL116",
+        "image": "assets/img/neobath-config/dna-tvl116-e443328973.webp"
       }
     },
     {
@@ -15992,7 +16483,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 76,
-        "query": "SUP116"
+        "query": "SUP116",
+        "image": "assets/img/neobath-config/dna-sup116-9a0642f9a7.webp"
       }
     },
     {
@@ -16030,7 +16522,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 76,
-        "query": "FO01"
+        "query": "FO01",
+        "image": "assets/img/neobath-config/anima-fo01-25836b3f5c.webp"
       }
     },
     {
@@ -16068,7 +16561,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 76,
-        "query": "B578"
+        "query": "B578",
+        "image": "assets/img/neobath-config/anima-b578-c7f9a4da6e.webp"
       }
     },
     {
@@ -16106,7 +16600,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 76,
-        "query": "FO02"
+        "query": "FO02",
+        "image": "assets/img/neobath-config/anima-fo02-7ec8de856f.webp"
       }
     },
     {
@@ -16144,7 +16639,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 76,
-        "query": "B571"
+        "query": "B571",
+        "image": "assets/img/neobath-config/anima-b571-4c1e4b4b42.webp"
       }
     },
     {
@@ -16182,7 +16678,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 76,
-        "query": "FO03"
+        "query": "FO03",
+        "image": "assets/img/neobath-config/anima-fo03-0ac36cf0bd.webp"
       }
     },
     {
@@ -16220,7 +16717,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 76,
-        "query": "B860"
+        "query": "B860",
+        "image": "assets/img/neobath-config/anima-b860-ae03c49ec1.webp"
       }
     },
     {
@@ -16258,7 +16756,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 76,
-        "query": "FO04"
+        "query": "FO04",
+        "image": "assets/img/neobath-config/anima-fo04-17fb7788b9.webp"
       }
     },
     {
@@ -16296,7 +16795,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 76,
-        "query": "B861"
+        "query": "B861",
+        "image": "assets/img/neobath-config/anima-b861-ca6ca3066d.webp"
       }
     },
     {
@@ -16334,7 +16834,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 76,
-        "query": "CVR45"
+        "query": "CVR45",
+        "image": "assets/img/neobath-config/anima-cvr45-e7621102b0.webp"
       }
     },
     {
@@ -16372,7 +16873,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 76,
-        "query": "B862"
+        "query": "B862",
+        "image": "assets/img/neobath-config/anima-b862-09b9bb1fa9.webp"
       }
     },
     {
@@ -16405,7 +16907,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SF6070"
+        "query": "SF6070",
+        "image": "assets/img/neobath-config/anima-sf6070-d6b2b5fcf5.webp"
       }
     },
     {
@@ -16438,7 +16941,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SPT60"
+        "query": "SPT60",
+        "image": "assets/img/neobath-config/anima-spt60-ae113f1643.webp"
       }
     },
     {
@@ -16471,7 +16975,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SF7070"
+        "query": "SF7070",
+        "image": "assets/img/neobath-config/dna-sf7070-3fa0cca176.webp"
       }
     },
     {
@@ -16504,7 +17009,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SPT80"
+        "query": "SPT80",
+        "image": "assets/img/neobath-config/anima-spt80-214e725fe0.webp"
       }
     },
     {
@@ -16537,7 +17043,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SF8070"
+        "query": "SF8070",
+        "image": "assets/img/neobath-config/anima-sf8070-df242a3b3f.webp"
       }
     },
     {
@@ -16570,7 +17077,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SPT90"
+        "query": "SPT90",
+        "image": "assets/img/neobath-config/dna-spt90-c396c19624.webp"
       }
     },
     {
@@ -16603,7 +17111,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SF9070"
+        "query": "SF9070",
+        "image": "assets/img/neobath-config/dna-sf9070-b0dea83549.webp"
       }
     },
     {
@@ -16636,7 +17145,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SPT100"
+        "query": "SPT100",
+        "image": "assets/img/neobath-config/anima-spt100-b15f8bb22b.webp"
       }
     },
     {
@@ -16669,7 +17179,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SF10070"
+        "query": "SF10070",
+        "image": "assets/img/neobath-config/anima-sf10070-2b78ab7e46.webp"
       }
     },
     {
@@ -16702,7 +17213,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SPT120"
+        "query": "SPT120",
+        "image": "assets/img/neobath-config/anima-spt120-f9c04333e9.webp"
       }
     },
     {
@@ -16735,7 +17247,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SF12070"
+        "query": "SF12070",
+        "image": "assets/img/neobath-config/anima-sf12070-8744e512aa.webp"
       }
     },
     {
@@ -16768,7 +17281,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SF14070"
+        "query": "SF14070",
+        "image": "assets/img/neobath-config/dna-sf14070-c7af3e646c.webp"
       }
     },
     {
@@ -16801,7 +17315,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SF16070"
+        "query": "SF16070",
+        "image": "assets/img/neobath-config/dna-sf16070-9672950b43.webp"
       }
     },
     {
@@ -16834,7 +17349,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SFR6070"
+        "query": "SFR6070",
+        "image": "assets/img/neobath-config/anima-sfr6070-4af5b336e6.webp"
       }
     },
     {
@@ -16867,7 +17383,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SPTR60"
+        "query": "SPTR60",
+        "image": "assets/img/neobath-config/anima-sptr60-d20b0f6551.webp"
       }
     },
     {
@@ -16900,7 +17417,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SFR7070"
+        "query": "SFR7070",
+        "image": "assets/img/neobath-config/dna-sfr7070-f0868568c3.webp"
       }
     },
     {
@@ -16933,7 +17451,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SPTR80"
+        "query": "SPTR80",
+        "image": "assets/img/neobath-config/anima-sptr80-dd0e53fff2.webp"
       }
     },
     {
@@ -16966,7 +17485,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SFR8070"
+        "query": "SFR8070",
+        "image": "assets/img/neobath-config/anima-sfr8070-e06ef9644a.webp"
       }
     },
     {
@@ -16999,7 +17519,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SPTR90"
+        "query": "SPTR90",
+        "image": "assets/img/neobath-config/dna-sptr90-dec5bef84c.webp"
       }
     },
     {
@@ -17032,7 +17553,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SFR9070"
+        "query": "SFR9070",
+        "image": "assets/img/neobath-config/dna-sfr9070-fbf1e9349f.webp"
       }
     },
     {
@@ -17065,7 +17587,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SPTR100"
+        "query": "SPTR100",
+        "image": "assets/img/neobath-config/anima-sptr100-e82f78e5cb.webp"
       }
     },
     {
@@ -17098,7 +17621,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SFR10070"
+        "query": "SFR10070",
+        "image": "assets/img/neobath-config/anima-sfr10070-39315fe14d.webp"
       }
     },
     {
@@ -17131,7 +17655,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SPTR120"
+        "query": "SPTR120",
+        "image": "assets/img/neobath-config/anima-sptr120-86dc8bdf08.webp"
       }
     },
     {
@@ -17164,7 +17689,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SFR12070"
+        "query": "SFR12070",
+        "image": "assets/img/neobath-config/anima-sfr12070-19eac97514.webp"
       }
     },
     {
@@ -17197,7 +17723,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SFR14070"
+        "query": "SFR14070",
+        "image": "assets/img/neobath-config/dna-sfr14070-e76661b575.webp"
       }
     },
     {
@@ -17230,7 +17757,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SFR16070"
+        "query": "SFR16070",
+        "image": "assets/img/neobath-config/dna-sfr16070-139c742ed5.webp"
       }
     },
     {
@@ -17263,7 +17791,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SFI6070"
+        "query": "SFI6070",
+        "image": "assets/img/neobath-config/anima-sfi6070-8db93060f2.webp"
       }
     },
     {
@@ -17296,7 +17825,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "EDN80"
+        "query": "EDN80",
+        "image": "assets/img/neobath-config/anima-edn80-47d3008a5a.webp"
       }
     },
     {
@@ -17329,7 +17859,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SFI7070"
+        "query": "SFI7070",
+        "image": "assets/img/neobath-config/dna-sfi7070-f3b344c3ef.webp"
       }
     },
     {
@@ -17362,7 +17893,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "EDN90"
+        "query": "EDN90",
+        "image": "assets/img/neobath-config/dna-edn90-df9e0fa0d3.webp"
       }
     },
     {
@@ -17395,7 +17927,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SFI8070"
+        "query": "SFI8070",
+        "image": "assets/img/neobath-config/anima-sfi8070-0c786082d5.webp"
       }
     },
     {
@@ -17428,7 +17961,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "EDN100"
+        "query": "EDN100",
+        "image": "assets/img/neobath-config/anima-edn100-f9c42e6087.webp"
       }
     },
     {
@@ -17461,7 +17995,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SFI9070"
+        "query": "SFI9070",
+        "image": "assets/img/neobath-config/dna-sfi9070-3a25de2520.webp"
       }
     },
     {
@@ -17494,7 +18029,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "EDN120"
+        "query": "EDN120",
+        "image": "assets/img/neobath-config/anima-edn120-cbb04ef6ce.webp"
       }
     },
     {
@@ -17527,7 +18063,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SFI10070"
+        "query": "SFI10070",
+        "image": "assets/img/neobath-config/anima-sfi10070-bc1f17c6ae.webp"
       }
     },
     {
@@ -17560,7 +18097,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "EDN140"
+        "query": "EDN140",
+        "image": "assets/img/neobath-config/dna-edn140-92292bb04f.webp"
       }
     },
     {
@@ -17593,7 +18131,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SFI12070"
+        "query": "SFI12070",
+        "image": "assets/img/neobath-config/anima-sfi12070-514b880b89.webp"
       }
     },
     {
@@ -17626,7 +18165,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SFI14070"
+        "query": "SFI14070",
+        "image": "assets/img/neobath-config/dna-sfi14070-95062826fa.webp"
       }
     },
     {
@@ -17659,7 +18199,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SFI16070"
+        "query": "SFI16070",
+        "image": "assets/img/neobath-config/dna-sfi16070-8388fec5f1.webp"
       }
     },
     {
@@ -17692,7 +18233,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "AR100"
+        "query": "AR100",
+        "image": "assets/img/neobath-config/dna-ar100-e5c7ba979d.webp"
       }
     },
     {
@@ -17725,7 +18267,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "KEN90"
+        "query": "KEN90",
+        "image": "assets/img/neobath-config/dna-ken90-bad0964e33.webp"
       }
     },
     {
@@ -17763,7 +18306,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "ARL100"
+        "query": "ARL100",
+        "image": "assets/img/neobath-config/dna-arl100-820c8636ad.webp"
       }
     },
     {
@@ -17801,7 +18345,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "ARS100"
+        "query": "ARS100",
+        "image": "assets/img/neobath-config/dna-ars100-a4387a4809.webp"
       }
     },
     {
@@ -17834,7 +18379,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "FRAME80"
+        "query": "FRAME80",
+        "image": "assets/img/neobath-config/dna-frame80-743bc9b8e4.webp"
       }
     },
     {
@@ -17867,7 +18413,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "MAKEUP80"
+        "query": "MAKEUP80",
+        "image": "assets/img/neobath-config/dna-makeup80-aa058139df.webp"
       }
     },
     {
@@ -17900,7 +18447,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "FRAME100"
+        "query": "FRAME100",
+        "image": "assets/img/neobath-config/dna-frame100-54b5d0efef.webp"
       }
     },
     {
@@ -17933,7 +18481,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "MAKEUP100"
+        "query": "MAKEUP100",
+        "image": "assets/img/neobath-config/dna-makeup100-dfcdb93498.webp"
       }
     },
     {
@@ -17966,7 +18515,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "FRAME120"
+        "query": "FRAME120",
+        "image": "assets/img/neobath-config/dna-frame120-7b5b25b33a.webp"
       }
     },
     {
@@ -17999,7 +18549,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "MAKEUP120"
+        "query": "MAKEUP120",
+        "image": "assets/img/neobath-config/dna-makeup120-98b825abfa.webp"
       }
     },
     {
@@ -18032,7 +18583,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "FRAME140"
+        "query": "FRAME140",
+        "image": "assets/img/neobath-config/dna-frame140-e340b54940.webp"
       }
     },
     {
@@ -18065,7 +18617,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "MAKEUP140"
+        "query": "MAKEUP140",
+        "image": "assets/img/neobath-config/dna-makeup140-16312691dd.webp"
       }
     },
     {
@@ -18098,7 +18651,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "MAKEUP160"
+        "query": "MAKEUP160",
+        "image": "assets/img/neobath-config/dna-makeup160-dc63dd996a.webp"
       }
     },
     {
@@ -18131,7 +18685,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SFT6070"
+        "query": "SFT6070",
+        "image": "assets/img/neobath-config/dna-sft6070-e3f8a8c7fb.webp"
       }
     },
     {
@@ -18164,7 +18719,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 71,
-        "query": "TOUCH"
+        "query": "TOUCH",
+        "image": "assets/img/neobath-config/dna-touch-08c6f70a2e.webp"
       }
     },
     {
@@ -18197,7 +18753,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SFT7070"
+        "query": "SFT7070",
+        "image": "assets/img/neobath-config/dna-sft7070-d4b3025368.webp"
       }
     },
     {
@@ -18230,7 +18787,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SFT8070"
+        "query": "SFT8070",
+        "image": "assets/img/neobath-config/dna-sft8070-60921ffcd9.webp"
       }
     },
     {
@@ -18263,7 +18821,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SFT9070"
+        "query": "SFT9070",
+        "image": "assets/img/neobath-config/dna-sft9070-2bcc891003.webp"
       }
     },
     {
@@ -18296,7 +18855,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SFT10070"
+        "query": "SFT10070",
+        "image": "assets/img/neobath-config/dna-sft10070-7c3a567cc1.webp"
       }
     },
     {
@@ -18329,7 +18889,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SFT12070"
+        "query": "SFT12070",
+        "image": "assets/img/neobath-config/dna-sft12070-143731b5cb.webp"
       }
     },
     {
@@ -18362,7 +18923,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SFT14070"
+        "query": "SFT14070",
+        "image": "assets/img/neobath-config/dna-sft14070-ac2cddab18.webp"
       }
     },
     {
@@ -18395,7 +18957,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "SFT16070"
+        "query": "SFT16070",
+        "image": "assets/img/neobath-config/dna-sft16070-fe48118f2f.webp"
       }
     },
     {
@@ -18428,7 +18991,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "GLOW100"
+        "query": "GLOW100",
+        "image": "assets/img/neobath-config/dna-glow100-df58a2ddbc.webp"
       }
     },
     {
@@ -18461,7 +19025,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "GLOW120"
+        "query": "GLOW120",
+        "image": "assets/img/neobath-config/dna-glow120-0fb9443cc8.webp"
       }
     },
     {
@@ -18494,7 +19059,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 77,
-        "query": "GLOW140"
+        "query": "GLOW140",
+        "image": "assets/img/neobath-config/dna-glow140-5fcc562758.webp"
       }
     },
     {
@@ -18527,7 +19093,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 71,
-        "query": "OFFSET80"
+        "query": "OFFSET80",
+        "image": "assets/img/neobath-config/dna-offset80-5c61aada2e.webp"
       }
     },
     {
@@ -18560,7 +19127,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 71,
-        "query": "OFFSET100"
+        "query": "OFFSET100",
+        "image": "assets/img/neobath-config/dna-offset100-a82abfb695.webp"
       }
     },
     {
@@ -18593,7 +19161,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 80,
-        "query": "MOON60"
+        "query": "MOON60",
+        "image": "assets/img/neobath-config/anima-moon60-23b26e5fe5.webp"
       }
     },
     {
@@ -18626,7 +19195,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 80,
-        "query": "MOON80"
+        "query": "MOON80",
+        "image": "assets/img/neobath-config/anima-moon80-f45a4914da.webp"
       }
     },
     {
@@ -18659,7 +19229,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 80,
-        "query": "MOON90"
+        "query": "MOON90",
+        "image": "assets/img/neobath-config/dna-moon90-3ad56f32c0.webp"
       }
     },
     {
@@ -18692,7 +19263,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 80,
-        "query": "MOON100"
+        "query": "MOON100",
+        "image": "assets/img/neobath-config/anima-moon100-ba7620eb58.webp"
       }
     },
     {
@@ -18730,7 +19302,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 80,
-        "query": "MOON120"
+        "query": "MOON120",
+        "image": "assets/img/neobath-config/anima-moon120-c18d826a48.webp"
       }
     },
     {
@@ -18763,7 +19336,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 80,
-        "query": "BARLED40"
+        "query": "BARLED40",
+        "image": "assets/img/neobath-config/anima-barled40-4ded78d428.webp"
       }
     },
     {
@@ -18796,7 +19370,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 80,
-        "query": "DIAMANTE30"
+        "query": "DIAMANTE30",
+        "image": "assets/img/neobath-config/anima-diamante30-4ff5148f8b.webp"
       }
     },
     {
@@ -18829,7 +19404,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 80,
-        "query": "BARLED60"
+        "query": "BARLED60",
+        "image": "assets/img/neobath-config/anima-barled60-7d580a06ed.webp"
       }
     },
     {
@@ -18862,7 +19438,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 80,
-        "query": "DIAMANTE45"
+        "query": "DIAMANTE45",
+        "image": "assets/img/neobath-config/anima-diamante45-2a0340ca71.webp"
       }
     },
     {
@@ -18895,7 +19472,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 80,
-        "query": "BARLED80"
+        "query": "BARLED80",
+        "image": "assets/img/neobath-config/anima-barled80-214a4f5394.webp"
       }
     },
     {
@@ -18928,7 +19506,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 80,
-        "query": "DIAMANTE60"
+        "query": "DIAMANTE60",
+        "image": "assets/img/neobath-config/anima-diamante60-f30b5d989a.webp"
       }
     },
     {
@@ -18961,7 +19540,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 80,
-        "query": "BARLED100"
+        "query": "BARLED100",
+        "image": "assets/img/neobath-config/anima-barled100-a1b4e53d1c.webp"
       }
     },
     {
@@ -18994,7 +19574,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 80,
-        "query": "BARLED120"
+        "query": "BARLED120",
+        "image": "assets/img/neobath-config/anima-barled120-11c4b37a6d.webp"
       }
     },
     {
@@ -19027,7 +19608,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 80,
-        "query": "BARLED140"
+        "query": "BARLED140",
+        "image": "assets/img/neobath-config/dna-barled140-dabe96c442.webp"
       }
     },
     {
@@ -19065,7 +19647,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathANIMA.pdf",
         "page": 80,
-        "query": "PLEXY"
+        "query": "PLEXY",
+        "image": "assets/img/neobath-config/anima-plexy-a0bff14050.webp"
       }
     },
     {
@@ -19098,7 +19681,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 74,
-        "query": "Bridge"
+        "query": "Bridge",
+        "image": "assets/img/neobath-config/dna-bridge70-adee7a6c39.webp"
       }
     },
     {
@@ -19131,7 +19715,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 74,
-        "query": "Bridge"
+        "query": "Bridge",
+        "image": "assets/img/neobath-config/dna-bridge70-adee7a6c39.webp"
       }
     },
     {
@@ -19164,7 +19749,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 71,
-        "query": "RISE1200"
+        "query": "RISE1200",
+        "image": "assets/img/neobath-config/dna-rise1200-e796a1e3d0.webp"
       }
     },
     {
@@ -19197,7 +19783,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 74,
-        "query": "Bridge"
+        "query": "Bridge",
+        "image": "assets/img/neobath-config/dna-bridge70-adee7a6c39.webp"
       }
     },
     {
@@ -19230,7 +19817,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 74,
-        "query": "Bridge"
+        "query": "Bridge",
+        "image": "assets/img/neobath-config/dna-bridge70-adee7a6c39.webp"
       }
     },
     {
@@ -19263,7 +19851,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 74,
-        "query": "Bridge"
+        "query": "Bridge",
+        "image": "assets/img/neobath-config/dna-bridge70-adee7a6c39.webp"
       }
     },
     {
@@ -19296,7 +19885,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 71,
-        "query": "RISE900"
+        "query": "RISE900",
+        "image": "assets/img/neobath-config/dna-rise900-566ac8e42f.webp"
       }
     },
     {
@@ -19329,7 +19919,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 72,
-        "query": "Mensola"
+        "query": "Mensola",
+        "image": "assets/img/neobath-config/dna-mns2f-74758007c7.webp"
       }
     },
     {
@@ -19362,7 +19953,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 72,
-        "query": "Mensola"
+        "query": "Mensola",
+        "image": "assets/img/neobath-config/dna-mns2f-74758007c7.webp"
       }
     },
     {
@@ -19395,7 +19987,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
-        "query": "Piede"
+        "query": "Piede",
+        "image": "assets/img/neobath-config/dna-pie35-e89c33afa7.webp"
       }
     },
     {
@@ -19433,7 +20026,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 73,
-        "query": "SideBar"
+        "query": "SideBar",
+        "image": "assets/img/neobath-config/dna-sidebar-41cd9b9830.webp"
       }
     },
     {
@@ -19465,7 +20059,8 @@
       "visual": {
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 73,
-        "query": "porta asciugamano"
+        "query": "porta asciugamano",
+        "image": "assets/img/neobath-config/dna-fresata-portasciugamano-7a1d19fdc8.webp"
       }
     }
   ]
