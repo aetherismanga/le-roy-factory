@@ -17,6 +17,16 @@ const PARTNERS={
   "pecchioli-firenze":["Pecchioli Firenze","pecchioli.png"],"bulbo":["Bulbo","bulbo.png"],"randal-pro":["Randal Pro","randal.png"],
   "neobath":["Neobath","neobath.png"],"koibath":["Koibath","koibath.png"],"aquahome":["Aquahome","aquahome.png"],"opal":["Opal","opal.png"],"bilt":["Bilt","bilt.png"]
 };
+const ACTIVITIES=[
+  ["all","Toutes les activités"],
+  ["negoce-independant","Négoce indépendant"],
+  ["groupe","Groupe"],
+  ["pisciniste","Pisciniste"],
+  ["architecte","Architecte"],
+  ["cuisiniste","Cuisiniste"],
+  ["carreleur","Carreleur"],
+  ["plombier","Plombier"]
+];
 const SIGNATURES={
   jerome:`<br><br><table style="border-collapse:collapse;font-family:Arial,sans-serif;font-size:14px;color:#1A2530"><tr><td style="padding-right:20px"><strong>Jérôme Hugol</strong><br><em>Agence Le Roy Factory</em><br>Téléphone : <a href="tel:0766040361">07 66 04 03 61</a><br>E-mail : <a href="mailto:jerome@leroyfactory.fr">jerome@leroyfactory.fr</a><br>Site : <a href="https://leroyfactory.fr">https://leroyfactory.fr</a></td><td style="padding-left:20px;border-left:2px solid #D4AF37"><img src="https://leroyfactory.fr/assets/img/logo03lrf.png" width="120"></td></tr></table>`,
   coryne:`<br><br><table style="border-collapse:collapse;font-family:Arial,sans-serif;font-size:14px;color:#1A2530"><tr><td style="padding-right:20px"><strong>Coryne</strong><br><em>Agence Le Roy Factory</em><br>Téléphone : <a href="tel:0613093606">06 13 09 36 06</a><br>E-mail : <a href="mailto:coryne@leroyfactory.fr">coryne@leroyfactory.fr</a><br>Site : <a href="https://leroyfactory.fr">https://leroyfactory.fr</a></td><td style="padding-left:20px;border-left:2px solid #D4AF37"><img src="https://leroyfactory.fr/assets/img/logo03lrf.png" width="120"></td></tr></table>`,
@@ -25,7 +35,21 @@ const SIGNATURES={
 
 const validEmail=v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(v||"").trim());
 const norm=v=>String(v||"").trim().toLowerCase();
+const normActivity=v=>String(v||"").trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
 const esc=v=>String(v||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+
+function activityKey(data){
+  const raw=normActivity(data.categorieActivite||data.sousCategorie||"");
+  if(!raw)return "negoce-independant";
+  if(raw==="negoce-independant"||raw.includes("negoce"))return "negoce-independant";
+  if(raw.includes("groupe"))return "groupe";
+  if(raw.includes("piscin"))return "pisciniste";
+  if(raw.includes("architect"))return "architecte";
+  if(raw.includes("cuisin"))return "cuisiniste";
+  if(raw.includes("carrel"))return "carreleur";
+  if(raw.includes("plomb"))return "plombier";
+  return raw.replace(/\s+/g,"-");
+}
 
 function emailEntries(data){
   const out=[];const seen=new Set();
@@ -60,14 +84,26 @@ function getEditor(){return document.getElementById("email-body-editor")}
 async function handleEditorPaste(e){const items=[...(e.clipboardData?.items||[])].filter(i=>i.type.startsWith("image/"));if(!items.length)return;e.preventDefault();for(const item of items){const file=item.getAsFile();if(!file||file.size>MAX_FILE_SIZE||getTotalPayloadSize()+file.size>MAX_TOTAL_SIZE)continue;const dataUrl=await readFileAsDataURL(file);const cid=`inline-${Date.now()}-${Math.random().toString(36).slice(2)}@leroyfactory`;inlineImages.push({filename:`image-message-${inlineImages.length+1}.png`,size:file.size,content:dataUrl.split(",")[1],encoding:"base64",contentType:file.type,cid,inline:true});insertHtmlAtCursor(`<img src="cid:${cid}" alt="Image intégrée">`)}}
 function insertHtmlAtCursor(html){const editor=getEditor();if(!editor)return;editor.focus();const sel=window.getSelection();if(!sel||!sel.rangeCount){editor.insertAdjacentHTML("beforeend",html);return}let range=sel.getRangeAt(0);if(!editor.contains(range.commonAncestorContainer)){editor.insertAdjacentHTML("beforeend",html);return}range.deleteContents();const tmp=document.createElement("div");tmp.innerHTML=html;const frag=document.createDocumentFragment();let node,last=null;while((node=tmp.firstChild))last=frag.appendChild(node);range.insertNode(frag);if(last){range=range.cloneRange();range.setStartAfter(last);range.collapse(true);sel.removeAllRanges();sel.addRange(range)}}
 
+function injectActivityFilter(){
+  if(document.getElementById("filter-activity"))return;
+  const grid=document.querySelector(".filters-grid");if(!grid)return;
+  const wrap=document.createElement("div");
+  wrap.className="form-group-custom";
+  wrap.innerHTML=`<label for="filter-activity">Activité</label><select id="filter-activity" class="crm-select">${ACTIVITIES.map(([value,label])=>`<option value="${value}">${label}</option>`).join("")}</select>`;
+  const search=document.getElementById("search-input")?.closest(".form-group-custom");
+  if(search)grid.insertBefore(wrap,search);else grid.appendChild(wrap);
+}
+
 async function loadContacts(){
   const tbody=document.getElementById("recipients-tbody");if(tbody)tbody.innerHTML=`<tr><td colspan="6" style="text-align:center;padding:20px">Chargement des contacts...</td></tr>`;
   const snap=await getDocs(collection(db,"clients"));allContacts=[];
   snap.forEach(ds=>{
-    const data=ds.data();const societe=data.societe||data.nomSociete||data.entreprise||data.nom||data.nomContact||"Sans nom";
+    const data=ds.data();
+    if(data.archived===true||data.archive===true)return;
+    const societe=data.societe||data.nomSociete||data.entreprise||data.nom||data.nomContact||"Sans nom";
     let rawDept=String(data.departement||data.Dept||"").trim();if(!rawDept&&(data.codePostal||data.cp))rawDept=String(data.codePostal||data.cp).trim().substring(0,2);let departement="-";if(rawDept){const n=rawDept.replace(/[^0-9A-Ba-b]/g,"");departement=n?"FR-"+n.toUpperCase():rawDept.toUpperCase()}
-    const agentRaw=norm(data.agent||data.secteur||data.Agent);const agent=agentRaw.includes("coryne")?"Coryne":"Jérôme";const typeRaw=norm(data.type||data.Type||"client");const type=typeRaw.includes("prospect")?"prospect":"client";const partenaires=Array.isArray(data.partenaires)?data.partenaires:[];
-    emailEntries(data).forEach((entry,index)=>allContacts.push({key:`${ds.id}|${norm(entry.email)}`,clientId:ds.id,nom:societe,type,departement,agent,email:entry.email,label:entry.label,kind:entry.kind,partenaires,index}));
+    const agentRaw=norm(data.agent||data.secteur||data.Agent);const agent=agentRaw.includes("coryne")?"Coryne":"Jérôme";const typeRaw=norm(data.type||data.Type||"client");const type=typeRaw.includes("prospect")?"prospect":"client";const partenaires=Array.isArray(data.partenaires)?data.partenaires:[];const activite=activityKey(data);
+    emailEntries(data).forEach((entry,index)=>allContacts.push({key:`${ds.id}|${norm(entry.email)}`,clientId:ds.id,nom:societe,type,departement,agent,email:entry.email,label:entry.label,kind:entry.kind,partenaires,activite,index}));
   });
   allContacts.sort((a,b)=>a.nom.localeCompare(b.nom,"fr")||a.email.localeCompare(b.email,"fr"));
   populateDepartmentFilter();injectPartnerFilter();applyFilters();
@@ -86,8 +122,8 @@ function injectPartnerFilter(){
 function updatePartnerLabel(){const l=document.getElementById("mgp-label");if(l)l.textContent=selectedPartners.size?`${selectedPartners.size} partenaire(s) sélectionné(s)`:"Tous les partenaires"}
 
 function applyFilters(){
-  const type=document.getElementById("filter-type")?.value||"all";const sector=norm(document.getElementById("filter-sector")?.value||"all");const q=norm(document.getElementById("search-input")?.value||"");
-  filteredContacts=allContacts.filter(c=>{const mt=type==="all"||c.type===type;const md=!selectedDepartments.size||selectedDepartments.has(c.departement);const ms=sector==="all"||norm(c.agent).includes(sector);const mq=!q||norm(`${c.nom} ${c.email} ${c.label}`).includes(q);const mp=!selectedPartners.size||[...selectedPartners].some(p=>c.partenaires.includes(p));return mt&&md&&ms&&mq&&mp});renderTable();
+  const type=document.getElementById("filter-type")?.value||"all";const sector=norm(document.getElementById("filter-sector")?.value||"all");const activity=document.getElementById("filter-activity")?.value||"all";const q=norm(document.getElementById("search-input")?.value||"");
+  filteredContacts=allContacts.filter(c=>{const mt=type==="all"||c.type===type;const md=!selectedDepartments.size||selectedDepartments.has(c.departement);const ms=sector==="all"||norm(c.agent).includes(sector);const ma=activity==="all"||c.activite===activity;const mq=!q||norm(`${c.nom} ${c.email} ${c.label}`).includes(q);const mp=!selectedPartners.size||[...selectedPartners].some(p=>c.partenaires.includes(p));return mt&&md&&ms&&ma&&mq&&mp});renderTable();
 }
 
 function renderTable(){
@@ -96,7 +132,7 @@ function renderTable(){
 }
 
 function setupEvents(){
-  document.getElementById("filter-type")?.addEventListener("change",applyFilters);document.getElementById("filter-sector")?.addEventListener("change",applyFilters);document.getElementById("search-input")?.addEventListener("input",applyFilters);
+  document.getElementById("filter-type")?.addEventListener("change",applyFilters);document.getElementById("filter-sector")?.addEventListener("change",applyFilters);document.getElementById("filter-activity")?.addEventListener("change",applyFilters);document.getElementById("search-input")?.addEventListener("input",applyFilters);
   document.getElementById("header-select-all")?.addEventListener("change",e=>{filteredContacts.forEach(c=>e.target.checked?selectedContacts.set(c.key,c):selectedContacts.delete(c.key));renderTable()});
   document.getElementById("btn-select-all")?.addEventListener("click",()=>{filteredContacts.forEach(c=>selectedContacts.set(c.key,c));renderTable()});document.getElementById("btn-deselect-all")?.addEventListener("click",()=>{selectedContacts.clear();renderTable()});
   document.getElementById("select-sender")?.addEventListener("change",updateSignature);document.getElementById("file-attachment")?.addEventListener("change",handleFileSelect);document.getElementById("btn-open-confirm")?.addEventListener("click",openConfirmModal);document.getElementById("btn-cancel-send")?.addEventListener("click",closeModal);document.getElementById("btn-confirm-send")?.addEventListener("click",executeEmailSending);
@@ -118,5 +154,5 @@ async function executeEmailSending(){
 
 async function loadHistory(){const tbody=document.getElementById("history-tbody");if(!tbody)return;try{const snap=await getDocs(collection(db,"historique_mails"));if(snap.empty){tbody.innerHTML=`<tr><td colspan="5" style="text-align:center;padding:20px">Aucun envoi enregistré.</td></tr>`;return}const list=[];snap.forEach(d=>list.push(d.data()));list.sort((a,b)=>new Date(b.date)-new Date(a.date));tbody.innerHTML=list.map(i=>`<tr><td>${new Date(i.date).toLocaleString("fr-FR")}</td><td>${esc(i.expediteur)}</td><td><strong>${esc(i.objet)}</strong></td><td>${i.nbDestinataires} contact(s)</td><td><span class="badge badge-client">${esc(i.statut||"Envoyé")}</span></td></tr>`).join("")}catch(e){console.error(e)}}
 
-async function init(){if(!localStorage.getItem("agentLoggedIn")){location.href="agent.html";return}injectStyles();updateDateTime();setInterval(updateDateTime,1000);document.getElementById("logout-btn")?.addEventListener("click",()=>{localStorage.removeItem("agentLoggedIn");location.href="agent.html"});setupTabs();setupRichEditor();const file=document.getElementById("file-attachment");if(file)file.multiple=true;setupEvents();await loadContacts();await loadHistory();updateSignature();renderFilePreview()}
+async function init(){if(!localStorage.getItem("agentLoggedIn")){location.href="agent.html";return}injectStyles();updateDateTime();setInterval(updateDateTime,1000);document.getElementById("logout-btn")?.addEventListener("click",()=>{localStorage.removeItem("agentLoggedIn");location.href="agent.html"});setupTabs();setupRichEditor();injectActivityFilter();const file=document.getElementById("file-attachment");if(file)file.multiple=true;setupEvents();await loadContacts();await loadHistory();updateSignature();renderFilePreview()}
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();
