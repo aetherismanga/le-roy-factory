@@ -22,6 +22,7 @@ for(const name of files){
 }
 
 await cp(join(mobileRoot,'app-bridge.js'),join(www,'app-bridge.js'));
+await cp(join(mobileRoot,'client-mobile-fix.js'),join(www,'client-mobile-fix.js'));
 
 for(const name of files.filter(x=>extname(x)==='.html')){
   const dest=join(www,name);
@@ -36,6 +37,7 @@ for(const name of files.filter(x=>extname(x)==='.html')){
     }
 
     if(!html.includes('app-bridge.js'))html=html.replace(/<\/body>/i,'<script type="module" src="app-bridge.js"></script></body>');
+    if(name==='clients.html'&&!html.includes('client-mobile-fix.js'))html=html.replace(/<\/body>/i,'<script src="client-mobile-fix.js"></script></body>');
     await writeFile(dest,html,'utf8');
   }catch(e){if(e?.code!=='ENOENT')throw e;}
 }
