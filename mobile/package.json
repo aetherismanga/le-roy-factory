@@ -7,7 +7,8 @@
     "prepare:web": "node scripts/sync-web.mjs",
     "cap:add:android": "npx cap add android",
     "patch:android": "node scripts/patch-android-google.mjs",
-    "cap:sync": "npm run prepare:web && npx cap sync android && npm run patch:android",
+    "patch:jarvis": "node scripts/patch-android-jarvis.mjs",
+    "cap:sync": "npm run prepare:web && npx cap sync android && npm run patch:android && npm run patch:jarvis",
     "cap:open": "npx cap open android",
     "android": "npm run cap:sync && npm run cap:open"
   },
