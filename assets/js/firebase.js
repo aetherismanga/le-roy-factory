@@ -2,7 +2,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import "./carte-mobile-enhancements.js?v=20260818-1425";
-import "./carte-proximity.js?v=20260818-1432";
+import "./carte-proximity.js?v=20260818-1448";
 
 // Configuration Firebase de Le Roy Factory
 const firebaseConfig = {
@@ -31,7 +31,6 @@ function ensureMobileCss() {
 }
 ensureMobileCss();
 
-// Lien Statistiques fiable sur toutes les pages CRM, même si une ancienne page contient encore href="#".
 document.addEventListener("click", e => {
   const link = e.target.closest(".sidebar-menu a");
   if (!link) return;
@@ -61,7 +60,6 @@ if (currentPage.endsWith("mails-groupes.html")) {
   import("./mails-groupes-programmation.js?v=20260817-1145").catch(err => console.error("Erreur chargement mails programmés :", err));
 }
 
-// Ergonomie CRM sur smartphone uniquement. Aucune modification n'est injectée sur desktop.
 function initCrmMobile() {
   if (!window.matchMedia("(max-width: 900px)").matches || !document.body.classList.contains("crm-body")) return;
   const sidebar = document.querySelector(".crm-sidebar");
