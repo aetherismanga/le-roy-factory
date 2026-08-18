@@ -112,7 +112,11 @@
         "DUNE": [
           {
             "name": "Curry",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "DUNE"
+            }
           },
           {
             "name": "Indigo",
@@ -124,29 +128,53 @@
           },
           {
             "name": "Paprika",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "DUNE"
+            }
           },
           {
             "name": "Kaffir",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "DUNE"
+            }
           }
         ],
         "LEGNO": [
           {
             "name": "Rovere Cenere",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "LEGNO"
+            }
           },
           {
             "name": "Rovere Sabbia",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "LEGNO"
+            }
           },
           {
             "name": "Rovere Tabacco",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "LEGNO"
+            }
           },
           {
             "name": "Rovere Avena",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "LEGNO"
+            }
           }
         ],
         "LACCATO": [
@@ -160,55 +188,107 @@
           },
           {
             "name": "Grigio Chiaro",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "LACCATO"
+            }
           },
           {
             "name": "Argilla",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "LACCATO"
+            }
           },
           {
             "name": "Grigio Tundra",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "LACCATO"
+            }
           },
           {
             "name": "Visone",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "LACCATO"
+            }
           },
           {
             "name": "Ginger",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "LACCATO"
+            }
           },
           {
             "name": "Mastice",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "LACCATO"
+            }
           },
           {
             "name": "Rosso Mattone",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "LACCATO"
+            }
           },
           {
             "name": "Mustard",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "LACCATO"
+            }
           },
           {
             "name": "Rosa Antico",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "LACCATO"
+            }
           },
           {
             "name": "Verde Salvia",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "LACCATO"
+            }
           },
           {
             "name": "Grigio Ferro",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "LACCATO"
+            }
           },
           {
             "name": "Verde Ottanio",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "LACCATO"
+            }
           },
           {
             "name": "Blu Marino",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "LACCATO"
+            }
           },
           {
             "name": "Nero",
@@ -222,155 +302,304 @@
         "GRES": [
           {
             "name": "Calacatta Oro",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "GRES"
+            }
           },
           {
             "name": "Bianco Statuario",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "GRES"
+            }
           },
           {
             "name": "Pietra Grey",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "GRES"
+            }
           },
           {
             "name": "Ossido Bruno",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "GRES"
+            }
           },
           {
             "name": "Pietra Piasentina Grigio",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "GRES"
+            }
           },
           {
             "name": "Pietra Piasentina Taupe",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "GRES"
+            }
           },
           {
             "name": "Macchia Vecchia",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "GRES"
+            }
           },
           {
             "name": "Emperador Extra",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "GRES"
+            }
           },
           {
             "name": "Ceppo Pietra d’Iseo",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "GRES"
+            }
           },
           {
             "name": "Anima Nero Atlante",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "GRES"
+            }
           },
           {
             "name": "Travertino",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "GRES"
+            }
           }
         ],
         "FENIX": [
           {
             "name": "Rosso Namib",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "FENIX"
+            }
           },
           {
             "name": "Blu Shaba",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "FENIX"
+            }
           },
           {
             "name": "Viola Orissa",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "FENIX"
+            }
           },
           {
             "name": "Verde Comodoro",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "FENIX"
+            }
           },
           {
             "name": "Grigio Efeso",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "FENIX"
+            }
           },
           {
             "name": "Verde Kitami",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "FENIX"
+            }
           },
           {
             "name": "Cacao Orinoco",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "FENIX"
+            }
           },
           {
             "name": "Castoro Ottawa",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "FENIX"
+            }
           },
           {
             "name": "Beige Arizona",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "FENIX"
+            }
           },
           {
             "name": "Beige Luxor",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "FENIX"
+            }
           },
           {
             "name": "Grigio Antrim",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "FENIX"
+            }
           }
         ],
         "HPL": [
           {
             "name": "Travertino Tivoli",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "HPL"
+            }
           },
           {
             "name": "Terrazzo",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "HPL"
+            }
           },
           {
             "name": "Kaspio Oro",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "HPL"
+            }
           },
           {
             "name": "Elite",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "HPL"
+            }
           },
           {
             "name": "Botticino",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "HPL"
+            }
           },
           {
             "name": "Mailand",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "HPL"
+            }
           },
           {
             "name": "White Yule",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "HPL"
+            }
           },
           {
             "name": "Noce",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "HPL"
+            }
           },
           {
             "name": "Rovere Naturale",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "HPL"
+            }
           },
           {
             "name": "Noce Sinfonia",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "HPL"
+            }
           },
           {
             "name": "Olmo",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "HPL"
+            }
           },
           {
             "name": "Rovere Valweg",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "HPL"
+            }
           },
           {
             "name": "Statuario",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "HPL"
+            }
           },
           {
             "name": "Nero Ardesia",
-            "visual": null
+            "visual": {
+              "pdf": "assets/pdf/neobathDNA.pdf",
+              "page": 75,
+              "query": "HPL"
+            }
           }
         ]
       },
-      "ralSurcharge": 0.2
+      "ralSurcharge": 0.2,
+      "finishPageVisual": {
+        "pdf": "assets/pdf/neobathDNA.pdf",
+        "page": 75,
+        "query": "Finiture"
+      }
     }
   },
   "items": [
@@ -1601,7 +1830,7 @@
     {
       "id": "anima-tpc80-67",
       "collection": "ANIMA",
-      "category": "storage",
+      "category": "finishing_top",
       "subtype": null,
       "ref": "TPC80",
       "label": "Base unit with door and 1 glass shelve / Element CODE DIMENSION Argilla Secca Finishing top / Plan de finition CODE DIMENSION Argilla Secca",
@@ -1669,7 +1898,7 @@
     {
       "id": "anima-tpc100-67",
       "collection": "ANIMA",
-      "category": "storage",
+      "category": "finishing_top",
       "subtype": null,
       "ref": "TPC100",
       "label": "Base unit with door and 1 glass shelve / Element CODE DIMENSION Argilla Secca Finishing top / Plan de finition CODE DIMENSION Argilla Secca",
@@ -1703,7 +1932,7 @@
     {
       "id": "anima-tpc120-67",
       "collection": "ANIMA",
-      "category": "storage",
+      "category": "finishing_top",
       "subtype": null,
       "ref": "TPC120",
       "label": "Base unit with door and 1 glass shelve / Element CODE DIMENSION Argilla Secca Finishing top / Plan de finition CODE DIMENSION Argilla Secca",
@@ -5408,7 +5637,7 @@
     {
       "id": "anima-stf40-73",
       "collection": "ANIMA",
-      "category": "worktop",
+      "category": "accessory",
       "subtype": null,
       "ref": "STF40",
       "label": "FORO RUBINETTO",
@@ -6054,7 +6283,7 @@
     {
       "id": "anima-stf40-74",
       "collection": "ANIMA",
-      "category": "worktop",
+      "category": "accessory",
       "subtype": null,
       "ref": "STF40",
       "label": "Fenix Finishes / Finitions Fenix Hpl Finishes / Finitions Hpl FORO RUBINETTO",
@@ -7761,7 +7990,7 @@
     {
       "id": "anima-touch-79",
       "collection": "ANIMA",
-      "category": "mirror",
+      "category": "accessory",
       "subtype": null,
       "ref": "TOUCH",
       "label": "E ILLUMINAZIONE LED CODE DIMENSION LED PRICE PER SPECCHI RETROILLUMINATI CODE PRICE",
@@ -8452,7 +8681,6 @@
         "ref": "DNA-PL6026"
       },
       "visual": {
-        "type": "module",
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
         "query": "60.0"
@@ -8496,7 +8724,6 @@
         "ref": "DNA-BA4026"
       },
       "visual": {
-        "type": "module",
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
         "query": "40.0"
@@ -8540,7 +8767,6 @@
         "ref": "DNA-PL7026"
       },
       "visual": {
-        "type": "module",
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
         "query": "70.0"
@@ -8584,7 +8810,6 @@
         "ref": "DNA-BA6026"
       },
       "visual": {
-        "type": "module",
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
         "query": "60.0"
@@ -8628,7 +8853,6 @@
         "ref": "DNA-PL8026"
       },
       "visual": {
-        "type": "module",
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
         "query": "80.0"
@@ -8672,7 +8896,6 @@
         "ref": "DNA-BA7026"
       },
       "visual": {
-        "type": "module",
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
         "query": "70.0"
@@ -8716,7 +8939,6 @@
         "ref": "DNA-PL9026"
       },
       "visual": {
-        "type": "module",
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
         "query": "90.0"
@@ -8760,7 +8982,6 @@
         "ref": "DNA-BA8026"
       },
       "visual": {
-        "type": "module",
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
         "query": "80.0"
@@ -8804,7 +9025,6 @@
         "ref": "DNA-PL10026"
       },
       "visual": {
-        "type": "module",
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
         "query": "100.0"
@@ -8848,7 +9068,6 @@
         "ref": "DNA-BA9026"
       },
       "visual": {
-        "type": "module",
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
         "query": "90.0"
@@ -8892,7 +9111,6 @@
         "ref": "DNA-PL12026"
       },
       "visual": {
-        "type": "module",
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
         "query": "120.0"
@@ -8936,7 +9154,6 @@
         "ref": "DNA-BA10026"
       },
       "visual": {
-        "type": "module",
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
         "query": "100.0"
@@ -8980,7 +9197,6 @@
         "ref": "DNA-PL12026DV"
       },
       "visual": {
-        "type": "module",
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
         "query": "120.0"
@@ -9024,7 +9240,6 @@
         "ref": "DNA-BA12026"
       },
       "visual": {
-        "type": "module",
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
         "query": "120.0"
@@ -9068,7 +9283,6 @@
         "ref": "DNA-PL6052"
       },
       "visual": {
-        "type": "module",
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
         "query": "60.0"
@@ -9112,7 +9326,6 @@
         "ref": "DNA-BA4052"
       },
       "visual": {
-        "type": "module",
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
         "query": "40.0"
@@ -9156,7 +9369,6 @@
         "ref": "DNA-PL7052"
       },
       "visual": {
-        "type": "module",
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
         "query": "70.0"
@@ -9200,7 +9412,6 @@
         "ref": "DNA-BA6052"
       },
       "visual": {
-        "type": "module",
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
         "query": "60.0"
@@ -9244,7 +9455,6 @@
         "ref": "DNA-PL8052"
       },
       "visual": {
-        "type": "module",
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
         "query": "80.0"
@@ -9288,7 +9498,6 @@
         "ref": "DNA-BA7052"
       },
       "visual": {
-        "type": "module",
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
         "query": "70.0"
@@ -9332,7 +9541,6 @@
         "ref": "DNA-PL9052"
       },
       "visual": {
-        "type": "module",
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
         "query": "90.0"
@@ -9376,7 +9584,6 @@
         "ref": "DNA-BA8052"
       },
       "visual": {
-        "type": "module",
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
         "query": "80.0"
@@ -9420,7 +9627,6 @@
         "ref": "DNA-PL10052"
       },
       "visual": {
-        "type": "module",
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
         "query": "100.0"
@@ -9464,7 +9670,6 @@
         "ref": "DNA-BA9052"
       },
       "visual": {
-        "type": "module",
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
         "query": "90.0"
@@ -9508,7 +9713,6 @@
         "ref": "DNA-PL12052"
       },
       "visual": {
-        "type": "module",
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
         "query": "120.0"
@@ -9552,7 +9756,6 @@
         "ref": "DNA-BA10052"
       },
       "visual": {
-        "type": "module",
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
         "query": "100.0"
@@ -9596,7 +9799,6 @@
         "ref": "DNA-PL12052DV"
       },
       "visual": {
-        "type": "module",
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
         "query": "120.0"
@@ -9640,7 +9842,6 @@
         "ref": "DNA-BA12052"
       },
       "visual": {
-        "type": "module",
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
         "query": "120.0"
@@ -9684,7 +9885,6 @@
         "ref": "DNA-BA4052ANT"
       },
       "visual": {
-        "type": "module",
         "pdf": "assets/pdf/neobathDNA.pdf",
         "page": 76,
         "query": "40.0"
@@ -9736,7 +9936,7 @@
     {
       "id": "dna-tpc60-78",
       "collection": "DNA",
-      "category": "storage",
+      "category": "finishing_top",
       "subtype": null,
       "ref": "TPC60",
       "label": "Wall unit 1door and 1 glass shelve / CODE / DIMENSION / WOOD / OPACO LUCIDO Finishing top / Plan de finition CODE / DIMENSION / WOOD / OPACO",
@@ -9771,15 +9971,15 @@
         "ref": "TPC60"
       },
       "visual": {
-        "pdf": "assets/pdf/neobathANIMA.pdf",
-        "page": 67,
-        "query": "TPC60"
+        "pdf": "assets/pdf/neobathDNA.pdf",
+        "page": 76,
+        "query": "Basi"
       }
     },
     {
       "id": "dna-tpc70-79",
       "collection": "DNA",
-      "category": "storage",
+      "category": "finishing_top",
       "subtype": null,
       "ref": "TPC70",
       "label": "Wall unit 1door and 1 glass shelve / CODE / DIMENSION / WOOD / OPACO LUCIDO Finishing top / Plan de finition CODE / DIMENSION / WOOD / OPACO",
@@ -9814,15 +10014,15 @@
         "ref": "TPC70"
       },
       "visual": {
-        "pdf": "assets/pdf/neobathANIMA.pdf",
-        "page": 67,
-        "query": "TPC70"
+        "pdf": "assets/pdf/neobathDNA.pdf",
+        "page": 76,
+        "query": "Basi"
       }
     },
     {
       "id": "dna-tpc80-80",
       "collection": "DNA",
-      "category": "storage",
+      "category": "finishing_top",
       "subtype": null,
       "ref": "TPC80",
       "label": "Wall unit 1door and 1 glass shelve / CODE / DIMENSION / WOOD / OPACO LUCIDO Finishing top / Plan de finition CODE / DIMENSION / WOOD / OPACO",
@@ -9857,15 +10057,15 @@
         "ref": "TPC80"
       },
       "visual": {
-        "pdf": "assets/pdf/neobathANIMA.pdf",
-        "page": 67,
-        "query": "TPC80"
+        "pdf": "assets/pdf/neobathDNA.pdf",
+        "page": 76,
+        "query": "Basi"
       }
     },
     {
       "id": "dna-tpc90-81",
       "collection": "DNA",
-      "category": "storage",
+      "category": "finishing_top",
       "subtype": null,
       "ref": "TPC90",
       "label": "Wall unit 1door and 1 glass shelve / CODE / DIMENSION / WOOD / OPACO LUCIDO Finishing top / Plan de finition CODE / DIMENSION / WOOD / OPACO",
@@ -9900,15 +10100,15 @@
         "ref": "TPC90"
       },
       "visual": {
-        "pdf": "assets/pdf/neobathANIMA.pdf",
-        "page": 67,
-        "query": "TPC90"
+        "pdf": "assets/pdf/neobathDNA.pdf",
+        "page": 76,
+        "query": "Basi"
       }
     },
     {
       "id": "dna-tpc100-82",
       "collection": "DNA",
-      "category": "storage",
+      "category": "finishing_top",
       "subtype": null,
       "ref": "TPC100",
       "label": "Wall unit 1door and 1 glass shelve / CODE / DIMENSION / WOOD / OPACO LUCIDO Finishing top / Plan de finition CODE / DIMENSION / WOOD / OPACO",
@@ -9943,15 +10143,15 @@
         "ref": "TPC100"
       },
       "visual": {
-        "pdf": "assets/pdf/neobathANIMA.pdf",
-        "page": 67,
-        "query": "TPC100"
+        "pdf": "assets/pdf/neobathDNA.pdf",
+        "page": 76,
+        "query": "Basi"
       }
     },
     {
       "id": "dna-tpc120-83",
       "collection": "DNA",
-      "category": "storage",
+      "category": "finishing_top",
       "subtype": null,
       "ref": "TPC120",
       "label": "Wall unit 1door and 1 glass shelve / CODE / DIMENSION / WOOD / OPACO LUCIDO Finishing top / Plan de finition CODE / DIMENSION / WOOD / OPACO",
@@ -9986,15 +10186,15 @@
         "ref": "TPC120"
       },
       "visual": {
-        "pdf": "assets/pdf/neobathANIMA.pdf",
-        "page": 67,
-        "query": "TPC120"
+        "pdf": "assets/pdf/neobathDNA.pdf",
+        "page": 76,
+        "query": "Basi"
       }
     },
     {
       "id": "dna-tpc140-84",
       "collection": "DNA",
-      "category": "storage",
+      "category": "finishing_top",
       "subtype": null,
       "ref": "TPC140",
       "label": "Wall unit 1door and 1 glass shelve / CODE / DIMENSION / WOOD / OPACO LUCIDO Finishing top / Plan de finition CODE / DIMENSION / WOOD / OPACO",
@@ -10029,15 +10229,15 @@
         "ref": "TPC140"
       },
       "visual": {
-        "pdf": "assets/pdf/neobathANIMA.pdf",
-        "page": 67,
-        "query": "TPC140"
+        "pdf": "assets/pdf/neobathDNA.pdf",
+        "page": 76,
+        "query": "Basi"
       }
     },
     {
       "id": "dna-tpc160-85",
       "collection": "DNA",
-      "category": "storage",
+      "category": "finishing_top",
       "subtype": null,
       "ref": "TPC160",
       "label": "Wall unit 1door and 1 glass shelve / CODE / DIMENSION / WOOD / OPACO LUCIDO Finishing top / Plan de finition CODE / DIMENSION / WOOD / OPACO",
@@ -10072,9 +10272,9 @@
         "ref": "TPC160"
       },
       "visual": {
-        "pdf": "assets/pdf/neobathANIMA.pdf",
-        "page": 67,
-        "query": "TPC160"
+        "pdf": "assets/pdf/neobathDNA.pdf",
+        "page": 76,
+        "query": "Basi"
       }
     },
     {
@@ -14976,7 +15176,7 @@
     {
       "id": "dna-stf40-540",
       "collection": "DNA",
-      "category": "worktop",
+      "category": "accessory",
       "subtype": null,
       "ref": "STF40",
       "label": "FORO RUBINETTO",
@@ -15001,8 +15201,8 @@
         "ref": "STF40"
       },
       "visual": {
-        "pdf": "assets/pdf/neobathANIMA.pdf",
-        "page": 70,
+        "pdf": "assets/pdf/neobathDNA.pdf",
+        "page": 71,
         "query": "STF40"
       }
     },
@@ -15519,7 +15719,7 @@
     {
       "id": "dna-stf40-702",
       "collection": "DNA",
-      "category": "worktop",
+      "category": "accessory",
       "subtype": null,
       "ref": "STF40",
       "label": "Fenix Finishes / Finitions Fenix Hpl Finishes / Finitions Hpl FORO RUBINETTO",
@@ -15544,8 +15744,8 @@
         "ref": "STF40"
       },
       "visual": {
-        "pdf": "assets/pdf/neobathANIMA.pdf",
-        "page": 70,
+        "pdf": "assets/pdf/neobathDNA.pdf",
+        "page": 71,
         "query": "STF40"
       }
     },
@@ -17937,7 +18137,7 @@
     {
       "id": "dna-touch-1033",
       "collection": "DNA",
-      "category": "mirror",
+      "category": "accessory",
       "subtype": null,
       "ref": "TOUCH",
       "label": "Simple mirror with Satin Frame / Miroir simple avec CODE DIMENSION PRICE PER SPECCHI RETROILLUMINATI CODE PRICE",
@@ -17962,8 +18162,8 @@
         "ref": "TOUCH"
       },
       "visual": {
-        "pdf": "assets/pdf/neobathANIMA.pdf",
-        "page": 77,
+        "pdf": "assets/pdf/neobathDNA.pdf",
+        "page": 71,
         "query": "TOUCH"
       }
     },
@@ -18300,7 +18500,7 @@
     {
       "id": "dna-offset80-1064",
       "collection": "DNA",
-      "category": "mirror",
+      "category": "accessory",
       "subtype": null,
       "ref": "OFFSET80",
       "label": "SPECCHIO “OFFSET” CON TOUCH CODICE DIMENSIONI WATT PREZZO",
@@ -18325,15 +18525,15 @@
         "ref": "OFFSET80"
       },
       "visual": {
-        "pdf": "assets/pdf/neobathANIMA.pdf",
-        "page": 77,
+        "pdf": "assets/pdf/neobathDNA.pdf",
+        "page": 71,
         "query": "OFFSET80"
       }
     },
     {
       "id": "dna-offset100-1065",
       "collection": "DNA",
-      "category": "mirror",
+      "category": "accessory",
       "subtype": null,
       "ref": "OFFSET100",
       "label": "SPECCHIO “OFFSET” CON TOUCH CODICE DIMENSIONI WATT PREZZO",
@@ -18358,8 +18558,8 @@
         "ref": "OFFSET100"
       },
       "visual": {
-        "pdf": "assets/pdf/neobathANIMA.pdf",
-        "page": 77,
+        "pdf": "assets/pdf/neobathDNA.pdf",
+        "page": 71,
         "query": "OFFSET100"
       }
     },
@@ -18871,7 +19071,7 @@
     {
       "id": "dna-bridge70-1141",
       "collection": "DNA",
-      "category": "lighting",
+      "category": "accessory",
       "subtype": null,
       "ref": "BRIDGE70",
       "label": "LAMPADA “PLEXY VERTICAL” CODICE DIMENSIONI WATT PREZZO LAMPADA “SMART” CODICE DIMENSIONI WATT CROMO / NERO",
@@ -18896,15 +19096,15 @@
         "ref": "BRIDGE70"
       },
       "visual": {
-        "pdf": "assets/pdf/neobathANIMA.pdf",
-        "page": 80,
-        "query": "BRIDGE70"
+        "pdf": "assets/pdf/neobathDNA.pdf",
+        "page": 74,
+        "query": "Bridge"
       }
     },
     {
       "id": "dna-bridge80-1142",
       "collection": "DNA",
-      "category": "lighting",
+      "category": "accessory",
       "subtype": null,
       "ref": "BRIDGE80",
       "label": "LAMPADA “PLEXY VERTICAL” CODICE DIMENSIONI WATT PREZZO LAMPADA “SMART” CODICE DIMENSIONI WATT CROMO / NERO",
@@ -18929,15 +19129,15 @@
         "ref": "BRIDGE80"
       },
       "visual": {
-        "pdf": "assets/pdf/neobathANIMA.pdf",
-        "page": 80,
-        "query": "BRIDGE80"
+        "pdf": "assets/pdf/neobathDNA.pdf",
+        "page": 74,
+        "query": "Bridge"
       }
     },
     {
       "id": "dna-rise1200-1142",
       "collection": "DNA",
-      "category": "lighting",
+      "category": "accessory",
       "subtype": null,
       "ref": "RISE1200",
       "label": "LAMPADA “PLEXY VERTICAL” CODICE DIMENSIONI WATT PREZZO LAMPADA “SMART” CODICE DIMENSIONI WATT CROMO / NERO",
@@ -18962,15 +19162,15 @@
         "ref": "RISE1200"
       },
       "visual": {
-        "pdf": "assets/pdf/neobathANIMA.pdf",
-        "page": 80,
+        "pdf": "assets/pdf/neobathDNA.pdf",
+        "page": 71,
         "query": "RISE1200"
       }
     },
     {
       "id": "dna-bridge100-1144",
       "collection": "DNA",
-      "category": "lighting",
+      "category": "accessory",
       "subtype": null,
       "ref": "BRIDGE100",
       "label": "LAMPADA “PLEXY VERTICAL” CODICE DIMENSIONI WATT PREZZO LAMPADA “SMART” CODICE DIMENSIONI WATT CROMO / NERO",
@@ -18995,15 +19195,15 @@
         "ref": "BRIDGE100"
       },
       "visual": {
-        "pdf": "assets/pdf/neobathANIMA.pdf",
-        "page": 80,
-        "query": "BRIDGE100"
+        "pdf": "assets/pdf/neobathDNA.pdf",
+        "page": 74,
+        "query": "Bridge"
       }
     },
     {
       "id": "dna-bridge120-1146",
       "collection": "DNA",
-      "category": "lighting",
+      "category": "accessory",
       "subtype": null,
       "ref": "BRIDGE120",
       "label": "LAMPADA “PLEXY VERTICAL” CODICE DIMENSIONI WATT PREZZO LAMPADA “SMART” CODICE DIMENSIONI WATT CROMO / NERO",
@@ -19028,15 +19228,15 @@
         "ref": "BRIDGE120"
       },
       "visual": {
-        "pdf": "assets/pdf/neobathANIMA.pdf",
-        "page": 80,
-        "query": "BRIDGE120"
+        "pdf": "assets/pdf/neobathDNA.pdf",
+        "page": 74,
+        "query": "Bridge"
       }
     },
     {
       "id": "dna-bridge140-1147",
       "collection": "DNA",
-      "category": "lighting",
+      "category": "accessory",
       "subtype": null,
       "ref": "BRIDGE140",
       "label": "LAMPADA “PLEXY VERTICAL” CODICE DIMENSIONI WATT PREZZO LAMPADA “SMART” CODICE DIMENSIONI WATT CROMO / NERO",
@@ -19061,15 +19261,15 @@
         "ref": "BRIDGE140"
       },
       "visual": {
-        "pdf": "assets/pdf/neobathANIMA.pdf",
-        "page": 80,
-        "query": "BRIDGE140"
+        "pdf": "assets/pdf/neobathDNA.pdf",
+        "page": 74,
+        "query": "Bridge"
       }
     },
     {
       "id": "dna-rise900-1148",
       "collection": "DNA",
-      "category": "lighting",
+      "category": "accessory",
       "subtype": null,
       "ref": "RISE900",
       "label": "LAMPADA “PLEXY VERTICAL” CODICE DIMENSIONI WATT PREZZO LAMPADA “SMART” CODICE DIMENSIONI WATT CROMO / NERO",
@@ -19094,15 +19294,15 @@
         "ref": "RISE900"
       },
       "visual": {
-        "pdf": "assets/pdf/neobathANIMA.pdf",
-        "page": 80,
+        "pdf": "assets/pdf/neobathDNA.pdf",
+        "page": 71,
         "query": "RISE900"
       }
     },
     {
       "id": "dna-mns2f-1155",
       "collection": "DNA",
-      "category": "lighting",
+      "category": "accessory",
       "subtype": null,
       "ref": "MNS2F",
       "label": "LAMPADA “PLEXY VERTICAL” CODICE DIMENSIONI WATT PREZZO LAMPADA “SMART” CODICE DIMENSIONI WATT CROMO / NERO",
@@ -19127,15 +19327,15 @@
         "ref": "MNS2F"
       },
       "visual": {
-        "pdf": "assets/pdf/neobathANIMA.pdf",
-        "page": 80,
+        "pdf": "assets/pdf/neobathDNA.pdf",
+        "page": 71,
         "query": "MNS2F"
       }
     },
     {
       "id": "dna-mns1f-1162",
       "collection": "DNA",
-      "category": "lighting",
+      "category": "accessory",
       "subtype": null,
       "ref": "MNS1F",
       "label": "PIEDE IN ALLUMINIO CODICE DIMENSIONI PREZZO TWO-HOLE SHELF",
@@ -19160,15 +19360,15 @@
         "ref": "MNS1F"
       },
       "visual": {
-        "pdf": "assets/pdf/neobathANIMA.pdf",
-        "page": 80,
+        "pdf": "assets/pdf/neobathDNA.pdf",
+        "page": 71,
         "query": "MNS1F"
       }
     },
     {
       "id": "dna-pie35-1163",
       "collection": "DNA",
-      "category": "lighting",
+      "category": "accessory",
       "subtype": null,
       "ref": "PIE35",
       "label": "PIEDE IN ALLUMINIO CODICE DIMENSIONI PREZZO TWO-HOLE SHELF",
@@ -19193,15 +19393,15 @@
         "ref": "PIE35"
       },
       "visual": {
-        "pdf": "assets/pdf/neobathANIMA.pdf",
-        "page": 80,
+        "pdf": "assets/pdf/neobathDNA.pdf",
+        "page": 71,
         "query": "PIE35"
       }
     },
     {
       "id": "dna-sidebar-1186",
       "collection": "DNA",
-      "category": "lighting",
+      "category": "accessory",
       "subtype": null,
       "ref": "SIDEBAR",
       "label": "PIEDE IN ALLUMINIO CODICE DIMENSIONI PREZZO TWO-HOLE SHELF",
@@ -19231,9 +19431,41 @@
         "ref": "SIDEBAR"
       },
       "visual": {
-        "pdf": "assets/pdf/neobathANIMA.pdf",
-        "page": 80,
-        "query": "SIDEBAR"
+        "pdf": "assets/pdf/neobathDNA.pdf",
+        "page": 73,
+        "query": "SideBar"
+      }
+    },
+    {
+      "id": "dna-fresata-portasciugamano-manual",
+      "collection": "DNA",
+      "category": "accessory",
+      "subtype": null,
+      "ref": "FRESATA-PORTASCIUGAMANO",
+      "label": "Rainure porte-serviette sur plan caisson",
+      "dimensions": {
+        "label": "",
+        "width": null,
+        "height": null,
+        "depth": null
+      },
+      "facade": null,
+      "unit": "unit",
+      "prices": [
+        {
+          "key": "standard",
+          "label": "Tarif",
+          "price": 105.0
+        }
+      ],
+      "source": {
+        "tariff": "DNA",
+        "note": "FRESATA PORTASCIUGAMANO · cad. 105,00"
+      },
+      "visual": {
+        "pdf": "assets/pdf/neobathDNA.pdf",
+        "page": 73,
+        "query": "porta asciugamano"
       }
     }
   ]
