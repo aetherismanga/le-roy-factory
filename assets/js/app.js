@@ -64,6 +64,16 @@ function installProSessionBridge() {
     document.head.appendChild(script);
 }
 
+function installJarvisWeb() {
+    if (window.Capacitor?.isNativePlatform?.()) return;
+    if (document.getElementById('lrf-jarvis-web-loader')) return;
+    const script = document.createElement('script');
+    script.id = 'lrf-jarvis-web-loader';
+    script.src = 'assets/js/jarvis-web.js?v=20260819-0230';
+    script.defer = true;
+    document.head.appendChild(script);
+}
+
 function installNeobathDnaTariffFix() {
     if (!window.location.pathname.toLowerCase().endsWith('tarifs-pro.html')) return;
 
@@ -144,6 +154,7 @@ function installInspirationsNeobathPdf() {
 
 installNeobathConfigDataNormalizer();
 installProSessionBridge();
+installJarvisWeb();
 
 document.addEventListener('DOMContentLoaded', () => {
     const burgerBtn = document.querySelector('.burger-btn');
