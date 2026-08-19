@@ -64,13 +64,24 @@ function installProSessionBridge() {
     document.head.appendChild(script);
 }
 
-function installJarvisWeb() {
+function installJarvisWeb(force = false) {
     if (window.Capacitor?.isNativePlatform?.()) return;
-    if (document.getElementById('lrf-jarvis-web-loader')) return;
+    if (document.getElementById('lrf-web-jarvis')) return;
+    const existing = document.getElementById('lrf-jarvis-web-loader');
+    if (existing) {
+        if (!force) return;
+        existing.remove();
+    }
     const script = document.createElement('script');
     script.id = 'lrf-jarvis-web-loader';
-    script.src = 'assets/js/jarvis-web.js?v=20260819-0230';
-    script.defer = true;
+    script.src = 'assets/js/jarvis-web.js?v=20260819-0248';
+    script.async = false;
+    script.onload = () => {
+        if (!document.getElementById('lrf-web-jarvis')) {
+            setTimeout(() => installJarvisWeb(true), 350);
+        }
+    };
+    script.onerror = () => console.warn('Chargement Jarvis IA web impossible.');
     document.head.appendChild(script);
 }
 
@@ -156,7 +167,13 @@ installNeobathConfigDataNormalizer();
 installProSessionBridge();
 installJarvisWeb();
 
+// Deuxième passage : garantit Jarvis sur toutes les variantes de pages du site.
 document.addEventListener('DOMContentLoaded', () => {
+    installJarvisWeb();
+    setTimeout(() => {
+        if (!document.getElementById('lrf-web-jarvis')) installJarvisWeb(true);
+    }, 600);
+
     const burgerBtn = document.querySelector('.burger-btn');
     const mainNav = document.querySelector('header nav ul');
 
