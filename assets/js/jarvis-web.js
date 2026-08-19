@@ -19,7 +19,7 @@
 
   const style=document.createElement('style');
   style.textContent=`
-    #lrf-web-jarvis{position:relative;z-index:12000;width:100%;box-sizing:border-box;padding:10px 16px;background:rgba(17,17,17,.96);border-bottom:1px solid #D4AF37;box-shadow:0 4px 14px rgba(0,0,0,.14);font-family:Inter,Arial,sans-serif}
+    #lrf-web-jarvis{position:relative;z-index:50;width:100%;box-sizing:border-box;padding:10px 16px;background:rgba(17,17,17,.96);border-top:1px solid #D4AF37;border-bottom:1px solid #D4AF37;box-shadow:0 4px 14px rgba(0,0,0,.14);font-family:Inter,Arial,sans-serif}
     #lrf-web-jarvis .lrf-jw-inner{width:min(860px,100%);margin:0 auto}
     #lrf-web-jarvis .lrf-jw-form{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;background:#fff;border:1px solid #D4AF37;border-radius:999px;padding:5px 6px 5px 14px;box-shadow:0 3px 12px rgba(0,0,0,.16)}
     #lrf-web-jarvis .lrf-jw-label{font-size:.83rem;font-weight:900;color:#111;white-space:nowrap;letter-spacing:.01em}
@@ -30,7 +30,7 @@
     #lrf-web-jarvis .lrf-jw-answer{display:none;margin:8px auto 0;background:#fff;color:#17202A;border:1px solid #E4D7A8;border-radius:14px;padding:12px 14px;line-height:1.48;font-size:.92rem;white-space:pre-wrap;box-shadow:0 3px 12px rgba(0,0,0,.12)}
     #lrf-web-jarvis .lrf-jw-answer.open{display:block}
     #lrf-web-jarvis .lrf-jw-meta{display:block;margin-top:7px;font-size:.7rem;color:#777}
-    body.crm-body #lrf-web-jarvis{position:sticky;top:0}
+    body.crm-body #lrf-web-jarvis{position:sticky;top:0;z-index:12000}
     @media(max-width:700px){
       #lrf-web-jarvis{padding:8px 10px}
       #lrf-web-jarvis .lrf-jw-form{grid-template-columns:1fr auto;padding-left:12px;gap:5px}
@@ -55,10 +55,14 @@
   </div>`;
 
   const crmTarget=document.querySelector('.crm-main,.crm-content,.main-content');
-  const header=document.querySelector('header');
+  const main=document.querySelector('main');
   if(document.body.classList.contains('crm-body')&&crmTarget)crmTarget.insertBefore(root,crmTarget.firstChild);
-  else if(header?.parentNode)header.insertAdjacentElement('afterend',root);
-  else document.body.insertBefore(root,document.body.firstChild);
+  else if(main)main.insertBefore(root,main.firstChild);
+  else {
+    const header=document.querySelector('header');
+    if(header?.parentNode)header.insertAdjacentElement('afterend',root);
+    else document.body.insertBefore(root,document.body.firstChild);
+  }
 
   const form=root.querySelector('form');
   const input=root.querySelector('input');
