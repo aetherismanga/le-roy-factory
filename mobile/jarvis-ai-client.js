@@ -10,15 +10,8 @@ const VoiceNative = registerPlugin('VoiceNative');
   const MEMORY_KEY='lrfJarvisMemoryV2';
   const HISTORY_MAX=30;
 
-  function loadMemory(){
-    try{return JSON.parse(localStorage.getItem(MEMORY_KEY)||'{}')||{}}
-    catch{return{}}
-  }
-  function saveMemory(m){
-    m.updatedAt=new Date().toISOString();
-    m.history=(Array.isArray(m.history)?m.history:[]).slice(-HISTORY_MAX);
-    localStorage.setItem(MEMORY_KEY,JSON.stringify(m));
-  }
+  function loadMemory(){try{return JSON.parse(localStorage.getItem(MEMORY_KEY)||'{}')||{}}catch{return{}}}
+  function saveMemory(m){m.updatedAt=new Date().toISOString();m.history=(Array.isArray(m.history)?m.history:[]).slice(-HISTORY_MAX);localStorage.setItem(MEMORY_KEY,JSON.stringify(m))}
   function remember(user,assistant){const m=loadMemory();m.history=Array.isArray(m.history)?m.history:[];m.history.push({at:new Date().toISOString(),user,assistant,intent:'ai'});saveMemory(m)}
 
   function ui(){return{panel:document.getElementById('lrf-jarvis-panel'),answer:document.getElementById('lrf-jarvis-answer'),heard:document.getElementById('lrf-jarvis-heard'),input:document.getElementById('lrf-jarvis-input'),send:document.getElementById('lrf-jarvis-send'),mic:document.getElementById('lrf-jarvis-mic')}}
@@ -43,24 +36,36 @@ const VoiceNative = registerPlugin('VoiceNative');
     return false;
   }
 
+  function friendlyError(err,status=0){
+    const m=String(err?.message||err||'').toLowerCase();
+    if(status===429||m.includes('quota')||m.includes('billing')||m.includes('credit'))return "Jarvis IA est bien connecté, mais le compte API OpenAI n'a pas encore de crédits disponibles. Il faut activer la facturation API pour que je puisse répondre.";
+    if(m.includes('api key')||m.includes('authentication')||status===401)return "Jarvis IA n'arrive pas à utiliser la clé OpenAI enregistrée dans Firebase. La clé doit être vérifiée.";
+    if(m.includes('model')||m.includes('access'))return "Le modèle IA demandé n'est pas disponible sur ce compte. Jarvis essaie normalement un modèle de secours ; si ce message revient, il faudra vérifier l'accès API.";
+    if(m.includes('failed to fetch')||m.includes('network'))return "Jarvis IA n'arrive pas à joindre son serveur pour le moment. Vérifiez la connexion Internet.";
+    return `Jarvis IA a rencontré un problème : ${err?.message||err}`;
+  }
+
   async function askAi(raw){
     const text=String(raw||'').trim();if(!text)return;
-    show('Jarvis réfléchit…',text);
+    show('Jarvis IA réfléchit…',text);
     const memory=loadMemory();
     try{
       const r=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:text,history:Array.isArray(memory.history)?memory.history.slice(-16):[],page:(location.pathname.split('/').pop()||'')})});
       const data=await r.json().catch(()=>({}));
-      if(!r.ok||!data.success)throw new Error(data.error||`Serveur ${r.status}`);
+      if(!r.ok||!data.success){const e=new Error(data.error||`Serveur ${r.status}`);e.status=r.status;throw e}
       const answer=String(data.answer||'Demande traitée.');
       show(answer,text);remember(text,answer);
       const actions=Array.isArray(data.actions)?data.actions:[];
       if(actions.length)executeAction(actions[0]);
       return data;
     }catch(err){
-      console.warn('Jarvis AI indisponible, secours local',err);
-      const fallback=window.__lrfJarvisLegacy;
-      if(typeof fallback==='function')return fallback(text);
-      show(`Le cerveau IA n'est pas encore disponible : ${err?.message||err}`,text);
+      console.warn('Jarvis AI',err);
+      const msg=friendlyError(err,err?.status||0);
+      show(msg,text);
+      // L'ancien moteur ne sert plus de cerveau pour les questions métier. Il reste uniquement comme secours de navigation hors ligne.
+      const simpleNav=/\b(ouvre|agenda|carte|clients|statistiques|catalogue|tarifs|mail)\b/i.test(text);
+      if(simpleNav&&typeof window.__lrfJarvisLegacy==='function')setTimeout(()=>window.__lrfJarvisLegacy(text),700);
+      return null;
     }
   }
 
