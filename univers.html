@@ -32,89 +32,22 @@
 <body>
   <header>
     <div class="container nav-container" style="height:130px;display:flex;align-items:center;justify-content:space-between;">
-      <a href="index.html" class="logo" style="display:flex;align-items:center;height:100%;padding-left:1.5rem;flex-shrink:0;">
-        <div style="width:110px;height:110px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.4);border:2px solid #D4AF37;background:#000;flex-shrink:0;">
-          <img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY" style="width:100%;height:100%;object-fit:cover;transform:scale(1.35);">
-        </div>
-      </a>
-      <nav><ul class="main-nav">
-        <li><a href="partenaires.html">Partenaires</a></li><li><a href="univers.html" class="active">Inspirations</a></li><li><a href="realisations.html">Réalisations</a></li><li><a href="catalogues.html">Catalogues</a></li><li><a href="tarifs-pro.html">Accès PRO</a></li><li><a href="contact.html">Contact</a></li><li><a href="agent.html" class="agent-btn">Espace Agent</a></li>
-      </ul></nav>
+      <a href="index.html" class="logo" style="display:flex;align-items:center;height:100%;padding-left:1.5rem;flex-shrink:0;"><div style="width:110px;height:110px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.4);border:2px solid #D4AF37;background:#000;flex-shrink:0;"><img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY" style="width:100%;height:100%;object-fit:cover;transform:scale(1.35);"></div></a>
+      <nav><ul class="main-nav"><li><a href="partenaires.html">Partenaires</a></li><li><a href="univers.html" class="active">Inspirations</a></li><li><a href="realisations.html">Réalisations</a></li><li><a href="catalogues.html">Catalogues</a></li><li><a href="tarifs-pro.html">Accès PRO</a></li><li><a href="contact.html">Contact</a></li><li><a href="agent.html" class="agent-btn">Espace Agent</a></li></ul></nav>
       <button class="burger-btn" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </header>
-
   <main>
-    <section class="hero-banner">
-      <div class="container">
-        <span class="hero-kicker">INSPIRATIONS & PRODUITS · LE ROY FACTORY</span>
-        <h1 style="font-size:clamp(2rem,4vw,3rem);margin-bottom:.6rem;">Choisissez une inspiration, nous trouvons les produits</h1>
-        <p style="font-size:1.08rem;opacity:.95;max-width:830px;">Recherchez une ambiance, une matière, une couleur ou un produit. Les résultats mélangent tous nos partenaires. Le fabricant reste un filtre facultatif si vous souhaitez cibler une marque.</p>
-      </div>
-    </section>
-
-    <section class="inspiration-shell">
-      <div class="inspiration-intro">
-        <div>
-          <h2>Inspirez votre projet, sans choisir l'usine d'abord</h2>
-          <p>Carrelage, meubles de salle de bain et bientôt mosaïque, pierre, miroirs et sanitaires : la recherche part du besoin et non du fabricant.</p>
-          <div class="partner-strip">
-            <span><img src="assets/img/elios.png" alt="ELIOS">ELIOS</span>
-            <span><img src="assets/img/neobath.png" alt="NEOBATH">NEOBATH · Design italien</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="inspiration-search-panel">
-        <div class="search-main">
-          <div class="search-box"><input id="product-search" type="search" autocomplete="off" placeholder="Ex. salle de bain beige et bois, meuble cannelé vert, marbre clair…"><span class="search-icon">⌕</span></div>
-          <button id="filter-toggle" class="filter-toggle" type="button">Filtres</button>
-        </div>
-        <div id="advanced-filters" class="filter-row" style="grid-template-columns:repeat(5,minmax(0,1fr));">
-          <select id="filter-inspiration" aria-label="Inspiration"></select>
-          <select id="filter-product-type" aria-label="Type de produit"></select>
-          <select id="filter-color" aria-label="Couleur"></select>
-          <select id="filter-dimension" aria-label="Dimensions"></select>
-          <select id="filter-manufacturer" aria-label="Fabricant"></select>
-        </div>
-        <div class="quick-filters">
-          <button class="quick-filter active" data-inspiration="Tous">Toutes les inspirations</button>
-          <button class="quick-filter" data-inspiration="Salle de bain">Salle de bain</button>
-          <button class="quick-filter" data-inspiration="Meubles">Meubles</button>
-          <button class="quick-filter" data-inspiration="Bois">Bois</button>
-          <button class="quick-filter" data-inspiration="Pierre & marbre">Pierre & marbre</button>
-          <button class="quick-filter" data-inspiration="Couleurs & décors">Couleurs & décors</button>
-          <button class="quick-filter" data-inspiration="Grandes dalles">Grandes dalles</button>
-        </div>
-      </div>
-
-      <div class="results-meta"><div><strong id="results-count">0 produit</strong> correspondant à votre inspiration</div><button id="reset-filters" class="reset-filters" type="button">Effacer les filtres</button></div>
-      <div id="products-grid" class="product-grid" aria-live="polite"></div>
-    </section>
+    <section class="hero-banner"><div class="container"><span class="hero-kicker">INSPIRATIONS & PRODUITS · LE ROY FACTORY</span><h1 style="font-size:clamp(2rem,4vw,3rem);margin-bottom:.6rem;">Choisissez une inspiration, nous trouvons les produits</h1><p style="font-size:1.08rem;opacity:.95;max-width:830px;">Recherchez une ambiance, une matière, une couleur ou un produit. Les résultats mélangent tous nos partenaires. Le fabricant reste un filtre facultatif si vous souhaitez cibler une marque.</p></div></section>
+    <section class="inspiration-shell"><div class="inspiration-intro"><div><h2>Inspirez votre projet, sans choisir l'usine d'abord</h2><p>Carrelage, meubles de salle de bain et bientôt mosaïque, pierre, miroirs et sanitaires : la recherche part du besoin et non du fabricant.</p><div class="partner-strip"><span><img src="assets/img/elios.png" alt="ELIOS">ELIOS</span><span><img src="assets/img/neobath.png" alt="NEOBATH">NEOBATH · Design italien</span></div></div></div>
+      <div class="inspiration-search-panel"><div class="search-main"><div class="search-box"><input id="product-search" type="search" autocomplete="off" placeholder="Ex. salle de bain beige et bois, meuble cannelé vert, marbre clair…"><span class="search-icon">⌕</span></div><button id="filter-toggle" class="filter-toggle" type="button">Filtres</button></div><div id="advanced-filters" class="filter-row" style="grid-template-columns:repeat(5,minmax(0,1fr));"><select id="filter-inspiration" aria-label="Inspiration"></select><select id="filter-product-type" aria-label="Type de produit"></select><select id="filter-color" aria-label="Couleur"></select><select id="filter-dimension" aria-label="Dimensions"></select><select id="filter-manufacturer" aria-label="Fabricant"></select></div><div class="quick-filters"><button class="quick-filter active" data-inspiration="Tous">Toutes les inspirations</button><button class="quick-filter" data-inspiration="Salle de bain">Salle de bain</button><button class="quick-filter" data-inspiration="Meubles">Meubles</button><button class="quick-filter" data-inspiration="Bois">Bois</button><button class="quick-filter" data-inspiration="Pierre & marbre">Pierre & marbre</button><button class="quick-filter" data-inspiration="Couleurs & décors">Couleurs & décors</button><button class="quick-filter" data-inspiration="Grandes dalles">Grandes dalles</button></div></div>
+      <div class="results-meta"><div><strong id="results-count">0 produit</strong> correspondant à votre inspiration</div><button id="reset-filters" class="reset-filters" type="button">Effacer les filtres</button></div><div id="products-grid" class="product-grid" aria-live="polite"></div></section>
   </main>
-
   <div id="product-modal" class="product-modal" role="dialog" aria-modal="true" aria-label="Fiche produit"><div id="product-dialog" class="product-dialog"></div></div>
   <footer><div class="container" style="text-align:center;padding:2rem 0;"><p style="font-weight:600;">&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p></div></footer>
-
-  <script src="assets/js/app.js"></script>
-  <script src="assets/js/elios-images/elios-images-1.js?v=20260818"></script>
-  <script src="assets/js/elios-images/elios-images-2.js?v=20260818"></script>
-  <script src="assets/js/elios-images/elios-images-3.js?v=20260818"></script>
-  <script src="assets/js/elios-images/elios-images-4.js?v=20260818"></script>
-  <script src="assets/js/elios-images/elios-images-5.js?v=20260818"></script>
-  <script src="assets/js/elios-images/elios-images-6.js?v=20260818"></script>
-  <script src="assets/js/elios-images/elios-images-7.js?v=20260818"></script>
-  <script src="assets/js/elios-images/elios-images-8.js?v=20260818"></script>
-  <script src="assets/js/elios-images/elios-images-9.js?v=20260818"></script>
-  <script src="assets/js/elios-images/elios-images-10.js?v=20260818"></script>
-  <script src="assets/js/elios-images/elios-images-11.js?v=20260818"></script>
-  <script src="assets/js/inspirations-elios-hd-remote.js?v=20260818e"></script>
-  <script src="assets/js/inspirations-elios-data.js?v=20260818e"></script>
-  <script src="assets/js/inspirations-neobath-data.js?v=20260818e"></script>
-  <script src="assets/js/inspirations-elios-pricing.js?v=20260818e"></script>
-  <script src="assets/js/pro-session-bridge.js?v=20260818b"></script>
-  <script src="assets/js/inspirations-general.js?v=20260818e"></script>
-  <script src="assets/js/meubles-configurateur.js?v=20260818b"></script>
-  <script type="module" src="assets/js/inspirations-inline-pro.js?v=20260818e"></script>
+  <script src="assets/js/app.js?v=20260819-0300"></script>
+  <script src="assets/js/jarvis-web.js?v=20260819-0300"></script>
+  <script src="assets/js/elios-images/elios-images-1.js?v=20260818"></script><script src="assets/js/elios-images/elios-images-2.js?v=20260818"></script><script src="assets/js/elios-images/elios-images-3.js?v=20260818"></script><script src="assets/js/elios-images/elios-images-4.js?v=20260818"></script><script src="assets/js/elios-images/elios-images-5.js?v=20260818"></script><script src="assets/js/elios-images/elios-images-6.js?v=20260818"></script><script src="assets/js/elios-images/elios-images-7.js?v=20260818"></script><script src="assets/js/elios-images/elios-images-8.js?v=20260818"></script><script src="assets/js/elios-images/elios-images-9.js?v=20260818"></script><script src="assets/js/elios-images/elios-images-10.js?v=20260818"></script><script src="assets/js/elios-images/elios-images-11.js?v=20260818"></script>
+  <script src="assets/js/inspirations-elios-hd-remote.js?v=20260818e"></script><script src="assets/js/inspirations-elios-data.js?v=20260818e"></script><script src="assets/js/inspirations-neobath-data.js?v=20260818e"></script><script src="assets/js/inspirations-elios-pricing.js?v=20260818e"></script><script src="assets/js/pro-session-bridge.js?v=20260818b"></script><script src="assets/js/inspirations-general.js?v=20260818e"></script><script src="assets/js/meubles-configurateur.js?v=20260818b"></script><script type="module" src="assets/js/inspirations-inline-pro.js?v=20260818e"></script>
 </body>
 </html>
