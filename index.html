@@ -11,233 +11,24 @@
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
   <style>
-    header, footer {
-      background-image: url('assets/img/bandeau02.png');
-      background-size: cover;
-      background-position: center;
-      color: #ffffff;
-      border-bottom: 2px solid #D4AF37;
-    }
-    footer {
-      border-top: 2px solid #D4AF37;
-      border-bottom: none;
-      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
-    }
-    footer p {
-      color: #ffffff !important;
-    }
-    .hero-video-section {
-      position: relative;
-      width: 100%;
-      height: 100vh;
-      overflow: hidden;
-      background-color: #000000;
-    }
-    .bg-video {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: 0;
-    }
-    .hero-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.45);
-      z-index: 1;
-    }
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: white;
-      padding: 0 1rem;
-    }
-    .hero-logo-wrapper {
-      position: relative;
-      display: inline-block;
-      margin-bottom: 1.5rem;
-    }
-    .hero-logo {
-      width: auto;
-      height: auto;
-      max-width: 680px;
-      display: block;
-      animation: subtleFloat 4s ease-in-out infinite;
-    }
-    @keyframes subtleFloat {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
-      100% { transform: translateY(0px); }
-    }
-    @media (max-width: 768px) {
-      .hero-logo { max-width: 90%; }
-    }
-    .hero-buttons {
-      display: flex;
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-    .hero-btn {
-      padding: 0.8rem 2rem;
-      border-radius: 4px;
-      font-weight: 600;
-      text-transform: uppercase;
-      font-size: 0.9rem;
-      letter-spacing: 1px;
-      transition: background 0.2s, color 0.2s, transform 0.2s;
-    }
-    .hero-btn:hover {
-      transform: translateY(-2px);
-    }
-    .btn-gold {
-      background-color: #d4af37;
-      color: #000000;
-      border: 2px solid #d4af37;
-    }
-    .btn-gold:hover {
-      background-color: transparent;
-      color: #ffffff !important;
-    }
-    .btn-outline-white {
-      background-color: transparent;
-      color: #ffffff;
-      border: 2px solid #ffffff;
-    }
-    .btn-outline-white:hover {
-      background-color: #ffffff;
-      color: #000000 !important;
-    }
-    .main-nav {
-      display: flex;
-      gap: 1.5rem;
-      align-items: center;
-      justify-content: flex-end;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      flex-wrap: nowrap;
-    }
-    .main-nav li { display: flex; align-items: center; }
-    .main-nav > li > a:not(.agent-btn) {
-      text-decoration: none;
-      color: #111111 !important;
-      font-weight: 800 !important;
-      font-size: 1.15rem !important;
-      letter-spacing: 0.5px !important;
-      text-shadow: 0 1px 2px rgba(212, 175, 55, 0.6) !important;
-      position: relative;
-      padding-bottom: 4px;
-      background: transparent !important;
-      transition: color 0.25s ease;
-    }
-    .main-nav > li > a:not(.agent-btn):hover {
-      color: #D4AF37 !important;
-      background: transparent !important;
-    }
-    .main-nav > li > a.active:not(.agent-btn) {
-      color: #111111 !important;
-      font-weight: 800 !important;
-      background: transparent !important;
-      box-shadow: none !important;
-    }
-    .main-nav > li > a.active:not(.agent-btn)::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: #D4AF37;
-      box-shadow: 0 0 10px rgba(212, 175, 55, 0.9);
-      border-radius: 2px;
-    }
-    .agent-btn {
-      display: inline-flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      padding: 9px 18px !important;
-      background-color: #111111 !important;
-      color: #FFD700 !important;
-      border: 2px solid #D4AF37 !important;
-      border-radius: 8px !important;
-      font-weight: 800 !important;
-      font-size: 1.05rem !important;
-      white-space: nowrap !important;
-      text-decoration: none !important;
-      transition: all 0.3s ease !important;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.4) !important;
-      text-shadow: none !important;
-    }
-    .agent-btn::after { display: none !important; }
-    .agent-btn:hover {
-      background-color: #D4AF37 !important;
-      color: #111111 !important;
-      border-color: #D4AF37 !important;
-    }
+    header, footer {background-image:url('assets/img/bandeau02.png');background-size:cover;background-position:center;color:#ffffff;border-bottom:2px solid #D4AF37}
+    footer{border-top:2px solid #D4AF37;border-bottom:none;text-shadow:0 1px 4px rgba(0,0,0,.9)} footer p{color:#fff!important}
+    .hero-video-section{position:relative;width:100%;height:100vh;overflow:hidden;background:#000}.bg-video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0}.hero-overlay{position:absolute;inset:0;background:rgba(0,0,0,.45);z-index:1}.hero-content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:white;padding:0 1rem}.hero-logo-wrapper{position:relative;display:inline-block;margin-bottom:1.5rem}.hero-logo{width:auto;height:auto;max-width:680px;display:block;animation:subtleFloat 4s ease-in-out infinite}@keyframes subtleFloat{0%{transform:translateY(0)}50%{transform:translateY(-10px)}100%{transform:translateY(0)}}@media(max-width:768px){.hero-logo{max-width:90%}}.hero-buttons{display:flex;gap:1.5rem;margin-top:2rem}.hero-btn{padding:.8rem 2rem;border-radius:4px;font-weight:600;text-transform:uppercase;font-size:.9rem;letter-spacing:1px;transition:background .2s,color .2s,transform .2s}.hero-btn:hover{transform:translateY(-2px)}.btn-gold{background:#d4af37;color:#000;border:2px solid #d4af37}.btn-gold:hover{background:transparent;color:#fff!important}.btn-outline-white{background:transparent;color:#fff;border:2px solid #fff}.btn-outline-white:hover{background:#fff;color:#000!important}.main-nav{display:flex;gap:1.5rem;align-items:center;justify-content:flex-end;list-style:none;margin:0;padding:0;flex-wrap:nowrap}.main-nav li{display:flex;align-items:center}.main-nav>li>a:not(.agent-btn){text-decoration:none;color:#111!important;font-weight:800!important;font-size:1.15rem!important;letter-spacing:.5px!important;text-shadow:0 1px 2px rgba(212,175,55,.6)!important;position:relative;padding-bottom:4px;background:transparent!important;transition:color .25s ease}.main-nav>li>a:not(.agent-btn):hover{color:#D4AF37!important;background:transparent!important}.main-nav>li>a.active:not(.agent-btn){color:#111!important;font-weight:800!important;background:transparent!important;box-shadow:none!important}.main-nav>li>a.active:not(.agent-btn)::after{content:'';position:absolute;bottom:-2px;left:0;width:100%;height:3px;background:#D4AF37;box-shadow:0 0 10px rgba(212,175,55,.9);border-radius:2px}.agent-btn{display:inline-flex!important;align-items:center!important;justify-content:center!important;padding:9px 18px!important;background:#111!important;color:#FFD700!important;border:2px solid #D4AF37!important;border-radius:8px!important;font-weight:800!important;font-size:1.05rem!important;white-space:nowrap!important;text-decoration:none!important;transition:all .3s ease!important;box-shadow:0 4px 12px rgba(0,0,0,.4)!important;text-shadow:none!important}.agent-btn::after{display:none!important}.agent-btn:hover{background:#D4AF37!important;color:#111!important;border-color:#D4AF37!important}
   </style>
 </head>
 <body>
   <header>
-    <div class="container nav-container" style="height: 130px; display: flex; align-items: center; justify-content: space-between;">
-      <a href="index.html" class="logo" style="display: flex; align-items: center; height: 100%; padding-left: 1.5rem; flex-shrink: 0;">
-        <div style="width: 110px; height: 110px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.4); border: 2px solid #D4AF37; background-color: #000; flex-shrink: 0;">
-          <img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY" style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.35);">
-        </div>
-      </a>
-      <nav>
-        <ul class="main-nav">
-          <li><a href="partenaires.html">Partenaires</a></li>
-          <li><a href="univers.html">Inspirations</a></li>
-          <li><a href="realisations.html">Réalisations</a></li>
-          <li><a href="catalogues.html">Catalogues</a></li>
-          <li><a href="tarifs-pro.html">Accès PRO</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="agent.html" class="agent-btn">Espace Agent</a></li>
-        </ul>
-      </nav>
-      <button class="burger-btn" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
+    <div class="container nav-container" style="height:130px;display:flex;align-items:center;justify-content:space-between;">
+      <a href="index.html" class="logo" style="display:flex;align-items:center;height:100%;padding-left:1.5rem;flex-shrink:0;"><div style="width:110px;height:110px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.4);border:2px solid #D4AF37;background:#000;flex-shrink:0;"><img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY" style="width:100%;height:100%;object-fit:cover;transform:scale(1.35);"></div></a>
+      <nav><ul class="main-nav"><li><a href="partenaires.html">Partenaires</a></li><li><a href="univers.html">Inspirations</a></li><li><a href="realisations.html">Réalisations</a></li><li><a href="catalogues.html">Catalogues</a></li><li><a href="tarifs-pro.html">Accès PRO</a></li><li><a href="contact.html">Contact</a></li><li><a href="agent.html" class="agent-btn">Espace Agent</a></li></ul></nav>
+      <button class="burger-btn" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </header>
   <main>
-    <section class="hero-video-section">
-      <video autoplay muted loop playsinline class="bg-video">
-        <source src="assets/videos/video01.mp4" type="video/mp4">
-        Votre navigateur ne supporte pas la lecture de vidéo.
-      </video>
-      <div class="hero-overlay"></div>
-      <div class="hero-content">
-        <div class="hero-logo-wrapper">
-          <img src="assets/img/logo01.png" alt="LE ROY FACTORY" class="hero-logo">
-        </div>
-        <h2>Votre solution Carrelage & Bain</h2>
-        <p style="font-size: 1.1rem; max-width: 700px; color: #f1f1f1; margin-bottom: 1rem;">
-          Nous sélectionnons les meilleurs fabricants italiens et espagnols afin d'accompagner les professionnels dans leurs projets de décoration, d'aménagement et de salle de bain.
-        </p>
-        <div class="hero-buttons">
-          <a href="partenaires.html" class="hero-btn btn-gold">Partenaires</a>
-          <a href="contact.html" class="hero-btn btn-outline-white">Contact</a>
-        </div>
-      </div>
-    </section>
+    <section class="hero-video-section"><video autoplay muted loop playsinline class="bg-video"><source src="assets/videos/video01.mp4" type="video/mp4">Votre navigateur ne supporte pas la lecture de vidéo.</video><div class="hero-overlay"></div><div class="hero-content"><div class="hero-logo-wrapper"><img src="assets/img/logo01.png" alt="LE ROY FACTORY" class="hero-logo"></div><h2>Votre solution Carrelage & Bain</h2><p style="font-size:1.1rem;max-width:700px;color:#f1f1f1;margin-bottom:1rem;">Nous sélectionnons les meilleurs fabricants italiens et espagnols afin d'accompagner les professionnels dans leurs projets de décoration, d'aménagement et de salle de bain.</p><div class="hero-buttons"><a href="partenaires.html" class="hero-btn btn-gold">Partenaires</a><a href="contact.html" class="hero-btn btn-outline-white">Contact</a></div></div></section>
   </main>
-  <footer>
-    <div class="container" style="text-align: center; padding: 2rem 0;">
-      <p>&copy; 2026 LE ROY FACTORY. Tous droits réservés.</p>
-    </div>
-  </footer>
-  <script src="assets/js/app.js"></script>
+  <footer><div class="container" style="text-align:center;padding:2rem 0;"><p>&copy; 2026 LE ROY FACTORY. Tous droits réservés.</p></div></footer>
+  <script src="assets/js/app.js?v=20260819-0300"></script>
+  <script src="assets/js/jarvis-web.js?v=20260819-0300"></script>
 </body>
 </html>
