@@ -18,6 +18,7 @@ const PARTNERS=[
 const $=s=>document.querySelector(s);
 let challengeId='';
 let verificationToken='';
+let verificationExpiresAt=0;
 let verifiedIdentityKey='';
 let prefillLoadedKey='';
 
@@ -64,14 +65,13 @@ function setIdentityLocked(locked){
   const requestBtn=$('#request-update-code');if(requestBtn){requestBtn.disabled=locked;requestBtn.textContent=locked?'Identité vérifiée':'Recevoir le code'}
 }
 
-function resetUpdateVerification({clearState=true}={}){
-  if(clearState){challengeId='';verificationToken='';verifiedIdentityKey='';prefillLoadedKey=''}
+function resetUpdateVerification({clearState=true,message='Votre identité doit être vérifiée par e-mail avant le préremplissage.'}={}){
+  if(clearState){challengeId='';verificationToken='';verificationExpiresAt=0;verifiedIdentityKey='';prefillLoadedKey=''}
   setIdentityLocked(false);
   const otp=$('#update-otp-code');if(otp)otp.value='';
   if($('#update-otp-wrap'))$('#update-otp-wrap').style.display='none';
   if($('#update-verified')){$('#update-verified').style.display='none';$('#update-verified').textContent=''}
-  if(requestType()==='mise_a_jour')setPrefillState('Votre identité doit être vérifiée par e-mail avant le préremplissage.','loading');
-  else setPrefillState('','');
+  if(requestType()==='mise_a_jour')setPrefillState(message,'loading');else setPrefillState('','');
 }
 
 function toggleUpdate(){
@@ -80,7 +80,7 @@ function toggleUpdate(){
   $('#update-auth').style.display=update?'grid':'none';
   $('#codeClient').required=update;$('#departementAuth').required=update;
   resetUpdateVerification();
-  if(!update){renderPartners();}
+  if(!update)renderPartners();
 }
 
 function depFromCp(cp){
@@ -119,7 +119,7 @@ function fillExisting(c){
 
 async function jsonPost(url,payload){
   const res=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload||{})});const data=await res.json().catch(()=>({}));
-  if(!res.ok||!data.success)throw new Error(data.error||'Service momentanément indisponible.');return data;
+  if(!res.ok||!data.success){const error=new Error(data.error||'Service momentanément indisponible.');error.status=res.status;throw error}return data;
 }
 
 async function requestUpdateCode(){
@@ -127,7 +127,7 @@ async function requestUpdateCode(){
   const requestBtn=$('#request-update-code'),resend=$('#resend-update-code');
   try{
     if(requestBtn){requestBtn.disabled=true;requestBtn.textContent='Envoi…'}if(resend)resend.disabled=true;
-    challengeId='';verificationToken='';verifiedIdentityKey='';prefillLoadedKey='';
+    challengeId='';verificationToken='';verificationExpiresAt=0;verifiedIdentityKey='';prefillLoadedKey='';
     const d=await jsonPost(REQUEST_VERIFY_API,{purpose:'account_update',codeClient:identity.code,departement:identity.dep});
     challengeId=d.challengeId;verifiedIdentityKey=identity.key;
     $('#update-otp-wrap').style.display='block';
@@ -146,13 +146,13 @@ async function verifyUpdateCode(){
   try{
     if(btn){btn.disabled=true;btn.textContent='Vérification…'}
     const verified=await jsonPost(VERIFY_API,{challengeId,code});if(verified.purpose!=='account_update')throw new Error('Vérification invalide.');
-    verificationToken=verified.verificationToken;
+    verificationToken=verified.verificationToken;verificationExpiresAt=Date.parse(verified.expiresAt||'')||Date.now()+20*60000;
     const prefill=await jsonPost(PREFILL_API,{verificationToken});
     fillExisting(prefill.client||{});prefillLoadedKey=identity.key;setIdentityLocked(true);
     $('#update-otp-wrap').style.display='none';
     $('#update-verified').style.display='block';$('#update-verified').textContent='✓ Identité vérifiée par e-mail. Votre fiche a été chargée en toute sécurité.';
     setPrefillState('✓ Fiche client chargée. Vérifiez les informations puis modifiez uniquement ce qui doit l’être.','ok');
-  }catch(err){verificationToken='';prefillLoadedKey='';setPrefillState(err.message||'Code incorrect ou expiré.','err')}
+  }catch(err){verificationToken='';verificationExpiresAt=0;prefillLoadedKey='';setIdentityLocked(false);setPrefillState(err.message||'Code incorrect ou expiré.','err')}
   finally{if(btn){btn.disabled=false;btn.textContent='Vérifier'}}
 }
 
@@ -171,10 +171,10 @@ $('#account-form').addEventListener('submit',async e=>{
     if(type==='mise_a_jour'){
       const identity=currentIdentity();
       if(!verificationToken||prefillLoadedKey!==identity.key)throw new Error('Votre identité doit être vérifiée par e-mail avant l’envoi de la mise à jour.');
+      if(verificationExpiresAt&&verificationExpiresAt<=Date.now()){resetUpdateVerification({message:'Votre vérification a expiré. Demandez un nouveau code pour poursuivre.'});throw new Error('Votre vérification de sécurité a expiré. Demandez un nouveau code.')}
     }
     const payload={
-      requestType:type,
-      verificationToken:type==='mise_a_jour'?verificationToken:'',
+      requestType:type,verificationToken:type==='mise_a_jour'?verificationToken:'',
       societe:$('#societe').value.trim(),activite:$('#activite').value.trim(),adresse:$('#adresse').value.trim(),codePostal:cp,ville:$('#ville').value.trim(),departement:depFromCp(cp),
       siret:$('#siret').value.trim(),tva,chiffreAffaires:$('#chiffreAffaires').value.trim(),contact:$('#contact').value.trim(),fonction:$('#fonction').value.trim(),telephone:$('#telephone').value.trim(),email:$('#email').value.trim(),
       emailsAutres:$('#emailsAutres').value.split(',').map(x=>x.trim()).filter(Boolean),contactsAutres:$('#contactsAutres').value.trim(),
@@ -182,8 +182,11 @@ $('#account-form').addEventListener('submit',async e=>{
       attachments:await collectFiles(),source:'formulaire_public',submittedAt:new Date().toISOString()
     };
     const data=await jsonPost(API,payload);
-    $('#account-form').reset();challengeId='';verificationToken='';verifiedIdentityKey='';prefillLoadedKey='';renderPartners();toggleUpdate();
+    $('#account-form').reset();challengeId='';verificationToken='';verificationExpiresAt=0;verifiedIdentityKey='';prefillLoadedKey='';renderPartners();toggleUpdate();
     showMsg(`Votre demande a bien été transmise à LE ROY FACTORY. Référence : ${data.reference||data.id||''}`,true);window.scrollTo({top:0,behavior:'smooth'});
-  }catch(err){console.error(err);showMsg(err.message||'Une erreur est survenue.');}
-  finally{btn.disabled=false}
+  }catch(err){
+    console.error(err);
+    if(requestType()==='mise_a_jour'&&err.status===401)resetUpdateVerification({message:'Votre vérification a expiré. Demandez un nouveau code pour poursuivre.'});
+    showMsg(err.message||'Une erreur est survenue.');
+  }finally{btn.disabled=false}
 });
