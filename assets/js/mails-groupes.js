@@ -1,5 +1,5 @@
-import { db } from "./firebase.js";
-import { collection, getDocs, addDoc, doc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { db, requireAgentSession, authFetch } from "./firebase.js";
+import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 let allContacts=[];
 let filteredContacts=[];
@@ -149,10 +149,23 @@ function openConfirmModal(){const subject=document.getElementById("email-subject
 function closeModal(){document.getElementById("modal-confirm").style.display="none"}
 
 async function executeEmailSending(){
-  const btn=document.getElementById("btn-confirm-send");btn.disabled=true;btn.textContent="Envoi en cours...";const sender=document.getElementById("select-sender")?.value||"jerome";const subject=document.getElementById("email-subject")?.value?.trim();const bcc=[...new Map([...selectedContacts.values()].map(c=>[norm(c.email),c.email])).values()];const htmlContent=`${getMessageHtml()}${SIGNATURES[sender]||SIGNATURES.jerome}`;
-  try{const res=await fetch("https://us-central1-le-roy-factory.cloudfunctions.net/sendGroupEmail",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({senderMode:sender,bccRecipients:bcc,subject,htmlContent,attachments:[...attachedFiles,...inlineImages]})});const result=await res.json();if(!result.success)throw new Error(result.error||"Erreur inconnue");const exp=sender==="coryne"?"coryne@leroyfactory.fr":sender==="both"?"jerome@leroyfactory.fr & coryne@leroyfactory.fr":"jerome@leroyfactory.fr";await addDoc(collection(db,"historique_mails"),{date:new Date().toISOString(),expediteur:exp,objet:subject,nbDestinataires:bcc.length,destinataires:bcc,statut:"Succès"});const dateStr=new Date().toLocaleDateString("fr-FR");const agent=sender==="coryne"?"Coryne":sender==="both"?"Jérôme & Coryne":"Jérôme";for(const clientId of new Set([...selectedContacts.values()].map(c=>c.clientId))){try{await updateDoc(doc(db,"clients",clientId),{historiqueMails:arrayUnion({date:dateStr,expediteur:agent,objet:subject})})}catch(e){console.warn(e)}}alert(`✅ E-mail envoyé avec succès à ${bcc.length} destinataire(s) !`);closeModal();location.reload()}catch(err){console.error(err);alert(`❌ Échec de l'envoi : ${err.message||"Erreur réseau"}`)}finally{btn.disabled=false;btn.textContent="✓ Confirmer et envoyer"}}
+  const btn=document.getElementById("btn-confirm-send");btn.disabled=true;btn.textContent="Envoi en cours...";
+  const sender=document.getElementById("select-sender")?.value||"jerome";
+  const subject=document.getElementById("email-subject")?.value?.trim();
+  const bcc=[...new Map([...selectedContacts.values()].map(c=>[norm(c.email),c.email])).values()];
+  const clientIds=[...new Set([...selectedContacts.values()].map(c=>c.clientId).filter(Boolean))];
+  const htmlContent=`${getMessageHtml()}${SIGNATURES[sender]||SIGNATURES.jerome}`;
+  try{
+    const res=await authFetch("https://us-central1-le-roy-factory.cloudfunctions.net/sendGroupEmail",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({senderMode:sender,bccRecipients:bcc,clientIds,subject,htmlContent,attachments:[...attachedFiles,...inlineImages]})});
+    const result=await res.json().catch(()=>({}));if(!res.ok||!result.success)throw new Error(result.error||"Erreur inconnue");
+    alert(`✅ E-mail envoyé avec succès à ${bcc.length} destinataire(s) !`);closeModal();location.reload();
+  }catch(err){console.error(err);alert(`❌ Échec de l'envoi : ${err.message||"Erreur réseau"}`)}finally{btn.disabled=false;btn.textContent="✓ Confirmer et envoyer"}
+}
 
 async function loadHistory(){const tbody=document.getElementById("history-tbody");if(!tbody)return;try{const snap=await getDocs(collection(db,"historique_mails"));if(snap.empty){tbody.innerHTML=`<tr><td colspan="5" style="text-align:center;padding:20px">Aucun envoi enregistré.</td></tr>`;return}const list=[];snap.forEach(d=>list.push(d.data()));list.sort((a,b)=>new Date(b.date)-new Date(a.date));tbody.innerHTML=list.map(i=>`<tr><td>${new Date(i.date).toLocaleString("fr-FR")}</td><td>${esc(i.expediteur)}</td><td><strong>${esc(i.objet)}</strong></td><td>${i.nbDestinataires} contact(s)</td><td><span class="badge badge-client">${esc(i.statut||"Envoyé")}</span></td></tr>`).join("")}catch(e){console.error(e)}}
 
-async function init(){if(!localStorage.getItem("agentLoggedIn")){location.href="agent.html";return}injectStyles();updateDateTime();setInterval(updateDateTime,1000);document.getElementById("logout-btn")?.addEventListener("click",()=>{localStorage.removeItem("agentLoggedIn");location.href="agent.html"});setupTabs();setupRichEditor();injectActivityFilter();const file=document.getElementById("file-attachment");if(file)file.multiple=true;setupEvents();await loadContacts();await loadHistory();updateSignature();renderFilePreview()}
+async function init(){
+  const user=await requireAgentSession({redirect:true});if(!user)return;
+  injectStyles();updateDateTime();setInterval(updateDateTime,1000);setupTabs();setupRichEditor();injectActivityFilter();const file=document.getElementById("file-attachment");if(file)file.multiple=true;setupEvents();await loadContacts();await loadHistory();updateSignature();renderFilePreview();
+}
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();

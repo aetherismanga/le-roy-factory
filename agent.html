@@ -4,289 +4,45 @@
   <meta charset="UTF-8">
   <link rel="icon" type="image/png" href="assets/img/logo03lrf.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex,nofollow">
   <title>Espace Agent — LE ROY FACTORY</title>
   <link rel="stylesheet" href="assets/css/variables.css">
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
   <style>
-    body, html {
-      background-color: #FBF9F5 !important;
-      background-image: none !important;
-      color: #1A2530 !important;
-    }
-    header, footer {
-      background-image: url('assets/img/bandeau02.png');
-      background-size: cover;
-      background-position: center;
-      color: #ffffff;
-      border-bottom: 2px solid #D4AF37;
-    }
-    footer {
-      border-top: 2px solid #D4AF37;
-      border-bottom: none;
-      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
-    }
-    footer p {
-      color: #ffffff !important;
-    }
-    .main-nav {
-      display: flex;
-      gap: 1.5rem;
-      align-items: center;
-      justify-content: flex-end;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      flex-wrap: nowrap;
-    }
-    .main-nav li { display: flex; align-items: center; }
-    .main-nav > li > a:not(.agent-btn) {
-      text-decoration: none;
-      color: #111111 !important;
-      font-weight: 800 !important;
-      font-size: 1.15rem !important;
-      letter-spacing: 0.5px !important;
-      text-shadow: 0 1px 2px rgba(212, 175, 55, 0.6) !important;
-      position: relative;
-      padding-bottom: 4px;
-      background: transparent !important;
-      transition: color 0.25s ease;
-    }
-    .main-nav > li > a:not(.agent-btn):hover {
-      color: #D4AF37 !important;
-      background: transparent !important;
-    }
-    .main-nav > li > a.active:not(.agent-btn) {
-      color: #111111 !important;
-      font-weight: 800 !important;
-      background: transparent !important;
-      box-shadow: none !important;
-    }
-    .main-nav > li > a.active:not(.agent-btn)::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: #D4AF37;
-      box-shadow: 0 0 10px rgba(212, 175, 55, 0.9);
-      border-radius: 2px;
-    }
-    .agent-btn {
-      display: inline-flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      padding: 8px 16px !important;
-      background-color: #000000 !important;
-      color: #FFD700 !important;
-      border: 1px solid #FFD700 !important;
-      border-radius: 8px !important;
-      font-weight: 700 !important;
-      font-size: 0.95rem !important;
-      white-space: nowrap !important;
-      text-decoration: none !important;
-      transition: all 0.3s ease !important;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.5) !important;
-      text-shadow: none !important;
-    }
-    .agent-btn::after { display: none !important; }
-    .agent-btn:hover {
-      background-color: #FFD700 !important;
-      color: #000000 !important;
-      border-color: #FFD700 !important;
-    }
-    .login-wrapper {
-      max-width: 480px;
-      margin: 0 auto;
-      background: #FFFFFF;
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      border-radius: 8px;
-      padding: 3rem;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
-      transition: all 0.3s ease;
-    }
-    .login-wrapper:hover {
-      border-color: #FFD700;
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.25), 0 10px 30px rgba(0, 0, 0, 0.05);
-    }
-    .login-header-title {
-      text-align: center;
-      margin-bottom: 2.5rem;
-    }
-    .login-header-title h1 {
-      font-size: 1.8rem;
-      color: #1A2530;
-      margin: 0 0 0.5rem 0;
-      letter-spacing: 0.05em;
-    }
-    .login-header-title p {
-      font-size: 0.95rem;
-      color: #666;
-      margin: 0;
-    }
-    .form-group {
-      margin-bottom: 1.5rem;
-    }
-    .form-group label {
-      display: block;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: #1A2530;
-      margin-bottom: 0.5rem;
-    }
-    .form-group input {
-      width: 100%;
-      padding: 0.85rem 1rem;
-      border: 1px solid #D1D5DB;
-      border-radius: 4px;
-      font-size: 0.95rem;
-      background-color: #FAFAFA;
-      transition: all 0.25s ease;
-      box-sizing: border-box;
-    }
-    .form-group input:focus {
-      outline: none;
-      border-color: #FFD700;
-      background-color: #FFFFFF;
-      box-shadow: 0 0 12px rgba(255, 215, 0, 0.25);
-    }
-    .form-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.85rem;
-      margin-bottom: 2rem;
-    }
-    .checkbox-container {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      cursor: pointer;
-      color: #4B5563;
-    }
-    .forgot-link {
-      color: #D4AF37;
-      text-decoration: none;
-      font-weight: 600;
-    }
-    .forgot-link:hover {
-      text-decoration: underline;
-    }
-    .btn-login-submit {
-      width: 100%;
-      padding: 1rem;
-      background-color: #111111;
-      color: #FFD700;
-      border: 1px solid #FFD700;
-      border-radius: 4px;
-      font-weight: 700;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: all 0.25s ease;
-    }
-    .btn-login-submit:hover {
-      background-color: #FFD700;
-      color: #111111;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(255, 215, 0, 0.3);
-    }
-    .notification-error {
-      background-color: #FDF2F2;
-      border: 1px solid #F5C6CB;
-      color: #721C24;
-      padding: 0.75rem 1rem;
-      border-radius: 4px;
-      font-size: 0.85rem;
-      margin-bottom: 1.5rem;
-      text-align: center;
-      animation: fadeIn 0.3s ease;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-5px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    body,html{background-color:#FBF9F5!important;background-image:none!important;color:#1A2530!important}header,footer{background-image:url('assets/img/bandeau02.png');background-size:cover;background-position:center;color:#fff;border-bottom:2px solid #D4AF37}footer{border-top:2px solid #D4AF37;border-bottom:none;text-shadow:0 1px 4px rgba(0,0,0,.9)}footer p{color:#fff!important}.main-nav{display:flex;gap:1.5rem;align-items:center;justify-content:flex-end;list-style:none;margin:0;padding:0;flex-wrap:nowrap}.main-nav li{display:flex;align-items:center}.main-nav>li>a:not(.agent-btn){text-decoration:none;color:#111!important;font-weight:800!important;font-size:1.15rem!important;letter-spacing:.5px!important;text-shadow:0 1px 2px rgba(212,175,55,.6)!important;position:relative;padding-bottom:4px;background:transparent!important;transition:color .25s ease}.main-nav>li>a:not(.agent-btn):hover{color:#D4AF37!important;background:transparent!important}.main-nav>li>a.active:not(.agent-btn){color:#111!important;font-weight:800!important;background:transparent!important;box-shadow:none!important}.main-nav>li>a.active:not(.agent-btn)::after{content:'';position:absolute;bottom:-2px;left:0;width:100%;height:3px;background:#D4AF37;box-shadow:0 0 10px rgba(212,175,55,.9);border-radius:2px}.agent-btn{display:inline-flex!important;align-items:center!important;justify-content:center!important;padding:8px 16px!important;background:#000!important;color:#FFD700!important;border:1px solid #FFD700!important;border-radius:8px!important;font-weight:700!important;font-size:.95rem!important;white-space:nowrap!important;text-decoration:none!important;transition:all .3s ease!important;box-shadow:0 2px 8px rgba(0,0,0,.5)!important;text-shadow:none!important}.agent-btn::after{display:none!important}.agent-btn:hover{background:#FFD700!important;color:#000!important}.login-wrapper{max-width:480px;margin:0 auto;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:3rem;box-shadow:0 12px 34px rgba(0,0,0,.06)}.login-header-title{text-align:center;margin-bottom:2.5rem}.login-header-title h1{font-size:1.8rem;color:#1A2530;margin:0 0 .5rem;letter-spacing:.05em}.login-header-title p{font-size:.95rem;color:#666;margin:0}.security-note{margin-top:.7rem;font-size:.78rem;color:#777;line-height:1.45}.form-group{margin-bottom:1.5rem}.form-group label{display:block;font-size:.85rem;font-weight:600;color:#1A2530;margin-bottom:.5rem}.form-group input{width:100%;padding:.85rem 1rem;border:1px solid #D1D5DB;border-radius:6px;font-size:.95rem;background:#FAFAFA;transition:all .25s ease;box-sizing:border-box}.form-group input:focus{outline:none;border-color:#D4AF37;background:#fff;box-shadow:0 0 0 3px rgba(212,175,55,.15)}.form-row{display:flex;justify-content:space-between;align-items:center;font-size:.85rem;margin-bottom:2rem;gap:1rem}.checkbox-container{display:flex;align-items:center;gap:.5rem;cursor:pointer;color:#4B5563}.forgot-link{color:#9B7916;text-decoration:none;font-weight:700}.forgot-link:hover{text-decoration:underline}.btn-login-submit{width:100%;padding:1rem;background:#111;color:#FFD700;border:1px solid #FFD700;border-radius:6px;font-weight:800;font-size:1rem;cursor:pointer;transition:all .25s ease}.btn-login-submit:hover:not(:disabled){background:#FFD700;color:#111;transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,215,0,.3)}.btn-login-submit:disabled{opacity:.6;cursor:wait}.notification-error{background:#FDF2F2;border:1px solid #F5C6CB;color:#721C24;padding:.75rem 1rem;border-radius:6px;font-size:.85rem;margin-bottom:1.5rem;text-align:center}.login-lock{display:flex;align-items:center;justify-content:center;gap:.4rem;margin-top:1rem;color:#667085;font-size:.76rem}@media(max-width:600px){.login-wrapper{padding:2rem 1.25rem}.form-row{align-items:flex-start;flex-direction:column}}
   </style>
 </head>
 <body>
   <header>
-    <div class="container nav-container" style="height: 130px; display: flex; align-items: center; justify-content: space-between;">
-      <a href="index.html" class="logo" style="display: flex; align-items: center; height: 100%; padding-left: 1.5rem; flex-shrink: 0;">
-        <div style="width: 110px; height: 110px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.4); border: 2px solid #D4AF37; background-color: #000; flex-shrink: 0;">
-          <img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY" style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.35);">
-        </div>
-      </a>
-      <nav>
-        <ul class="main-nav">
-          <li><a href="partenaires.html">Partenaires</a></li>
-          <li><a href="univers.html">Inspirations</a></li>
-          <li><a href="realisations.html">Réalisations</a></li>
-          <li><a href="catalogues.html">Catalogues</a></li>
-          <li><a href="tarifs-pro.html">Accès PRO</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="agent.html" class="agent-btn active">Espace Agent</a></li>
-        </ul>
-      </nav>
-      <button class="burger-btn" aria-label="Menu" id="burgerMenu">
-        <span></span><span></span><span></span>
-      </button>
+    <div class="container nav-container" style="height:130px;display:flex;align-items:center;justify-content:space-between;">
+      <a href="index.html" class="logo" style="display:flex;align-items:center;height:100%;padding-left:1.5rem;flex-shrink:0;"><div style="width:110px;height:110px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.4);border:2px solid #D4AF37;background:#000;flex-shrink:0;"><img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY" style="width:100%;height:100%;object-fit:cover;transform:scale(1.35);"></div></a>
+      <nav><ul class="main-nav"><li><a href="partenaires.html">Partenaires</a></li><li><a href="univers.html">Inspirations</a></li><li><a href="realisations.html">Réalisations</a></li><li><a href="catalogues.html">Catalogues</a></li><li><a href="tarifs-pro.html">Accès PRO</a></li><li><a href="contact.html">Contact</a></li><li><a href="agent.html" class="agent-btn active">Espace Agent</a></li></ul></nav>
+      <button class="burger-btn" aria-label="Menu" id="burgerMenu"><span></span><span></span><span></span></button>
     </div>
   </header>
-  <main style="padding-top: 140px; padding-bottom: 5rem;">
+  <main style="padding-top:140px;padding-bottom:5rem;">
     <div class="container">
       <div class="login-wrapper">
         <div class="login-header-title">
           <h1>ESPACE AGENT</h1>
-          <p>Connexion sécurisée réservée aux agents commerciaux.</p>
+          <p>Accès réservé aux comptes commerciaux autorisés.</p>
+          <div class="security-note">La connexion utilise désormais une authentification réelle avec session sécurisée et réinitialisation du mot de passe.</div>
         </div>
-        <div id="error-notification" class="notification-error" style="display: none;"></div>
+        <div id="error-notification" class="notification-error" role="status" aria-live="polite" style="display:none;"></div>
         <form id="login-form">
-          <div class="form-group">
-            <label for="email">Adresse e-mail</label>
-            <input type="email" id="email" required placeholder="nom@exemple.com">
-          </div>
-          <div class="form-group">
-            <label for="password">Mot de passe</label>
-            <input type="password" id="password" required placeholder="••••••••">
-          </div>
-          <div class="form-row">
-            <label class="checkbox-container">
-              <input type="checkbox" id="remember">
-              <span>Se souvenir de moi</span>
-            </label>
-            <a href="#" class="forgot-link">Mot de passe oublié ?</a>
-          </div>
+          <div class="form-group"><label for="email">Adresse e-mail professionnelle</label><input type="email" id="email" required autocomplete="username" inputmode="email" placeholder="nom@leroyfactory.fr"></div>
+          <div class="form-group"><label for="password">Mot de passe</label><input type="password" id="password" required autocomplete="current-password" placeholder="••••••••"></div>
+          <div class="form-row"><label class="checkbox-container"><input type="checkbox" id="remember"><span>Se souvenir de moi</span></label><a href="#" class="forgot-link">Mot de passe oublié ?</a></div>
           <button type="submit" class="btn-login-submit">Se connecter</button>
+          <div class="login-lock">🔒 Session protégée — LE ROY FACTORY</div>
         </form>
       </div>
     </div>
   </main>
-  <footer>
-    <div class="container" style="text-align: center; padding: 2rem 0;">
-      <p>&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p>
-    </div>
-  </footer>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const loginForm = document.getElementById("login-form");
-      const errorNotification = document.getElementById("error-notification");
-      loginForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const email = document.getElementById("email").value.trim();
-        const password = document.getElementById("password").value.trim();
-        if (email && password) {
-          localStorage.setItem("agentLoggedIn", "true");
-          localStorage.setItem("agentEmail", email);
-          localStorage.setItem("agentName", email.includes("coryne") ? "Coryne" : "Jérôme Hugol");
-          window.location.href = "dashboard.html";
-        } else {
-          errorNotification.textContent = "Veuillez remplir tous les champs.";
-          errorNotification.style.display = "block";
-        }
-      });
-    });
-  </script>
-  <script src="assets/js/app.js"></script>
+  <footer><div class="container" style="text-align:center;padding:2rem 0;"><p>&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p></div></footer>
+  <script src="assets/js/app.js?v=20260825-1200"></script>
+  <script type="module" src="assets/js/agent.js?v=20260825-1200"></script>
 </body>
 </html>

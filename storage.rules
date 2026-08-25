@@ -1,0 +1,40 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function email() {
+      return signedIn() && request.auth.token.email != null
+        ? request.auth.token.email
+        : "";
+    }
+
+    function isAgent() {
+      return signedIn() && (
+        email() == "jerome@leroyfactory.fr" ||
+        email() == "coryne@leroyfactory.fr" ||
+        request.auth.token.role == "agent" ||
+        request.auth.token.role == "admin"
+      );
+    }
+
+    match /account-requests/{allPaths=**} {
+      allow read: if isAgent();
+      allow write: if false;
+    }
+
+    match /scheduled-mails/{allPaths=**} {
+      allow read, write: if false;
+    }
+
+    match /pro-tarifs/{allPaths=**} {
+      allow read, write: if false;
+    }
+
+    match /{allPaths=**} {
+      allow read, write: if isAgent();
+    }
+  }
+}
