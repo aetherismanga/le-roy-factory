@@ -7,7 +7,7 @@ service cloud.firestore {
 
     function email() {
       return isSignedIn() && request.auth.token.email != null
-        ? request.auth.token.email.lower()
+        ? request.auth.token.email
         : "";
     }
 
@@ -34,8 +34,7 @@ service cloud.firestore {
     }
 
     match /historique_mails/{document=**} {
-      allow read: if isAgent();
-      allow write: if isAgent();
+      allow read, write: if isAgent();
     }
 
     match /account_requests/{document=**} {
@@ -43,8 +42,7 @@ service cloud.firestore {
     }
 
     match /scheduled_mails/{document=**} {
-      allow read: if isAgent();
-      allow write: if isAgent();
+      allow read, write: if isAgent();
     }
 
     match /comptes_rendus/{document=**} {
@@ -83,7 +81,8 @@ service cloud.firestore {
       allow read, write: if false;
     }
 
-    // Tout ce qui n'est pas explicitement prévu est fermé par défaut.
+    // Tout ce qui n'est pas explicitement prévu est fermé aux anonymes et
+    // accessible aux agents authentifiés pour préserver les modules CRM existants.
     match /{document=**} {
       allow read, write: if isAgent();
     }
