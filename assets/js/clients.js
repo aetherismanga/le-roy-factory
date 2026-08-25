@@ -70,7 +70,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       societe:document.getElementById("edit-societe")?.value||"",contact:document.getElementById("edit-contact")?.value||"",type:document.getElementById("edit-type")?.value||"Client",agent:document.getElementById("edit-agent")?.value||firstName,
       telephone:document.getElementById("edit-telephone")?.value||"",email:document.getElementById("edit-email")?.value||"",adresse:document.getElementById("edit-adresse")?.value||"",codePostal:document.getElementById("edit-code-postal")?.value||"",ville:document.getElementById("edit-ville")?.value||"",departement:document.getElementById("edit-departement")?.value||""
     };
-    const patch={...canonicalClientPatch(raw),updatedAt:serverTimestamp(),updatedBy:user.email||"agent"};
+    const existing=docId&&docId!=="-1"?clientsCache.find(c=>c.id===docId)||{}:{};
+    const patch={...canonicalClientPatch({...existing,...raw}),updatedAt:serverTimestamp(),updatedBy:user.email||"agent"};
     if(!patch.societe)return alert("La société est obligatoire.");
     try{
       if(docId&&docId!=="-1"){await updateDoc(doc(db,"clients",docId),patch);alert("✅ Fiche mise à jour avec succès !")}
