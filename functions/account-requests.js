@@ -5,6 +5,7 @@ const crypto = require('crypto');
 const db = admin.firestore();
 const bucket = admin.storage().bucket();
 const { setCors, requireAgent, enforceSenderMode } = require('./security');
+const { resolveClientVerification } = require('./client-verification');
 
 const ALLOWED_DOCUMENT_TYPES = new Set(['application/pdf','image/jpeg','image/png','image/webp']);
 const MAX_REQUEST_TOTAL = 12 * 1024 * 1024;
@@ -15,6 +16,13 @@ function clean(v,max=500){return String(v||'').trim().slice(0,max)}
 function html(v){return clean(v,5000).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;')}
 function safeFilename(name){return String(name||'document').replace(/[^a-zA-Z0-9._-]/g,'_').slice(0,120)}
 function validEmail(value){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value||'').trim())}
+function fileSignatureMatches(buffer,type){
+  if(type==='application/pdf')return buffer.slice(0,5).toString('ascii')==='%PDF-';
+  if(type==='image/jpeg')return buffer.length>=3&&buffer[0]===0xff&&buffer[1]===0xd8&&buffer[2]===0xff;
+  if(type==='image/png')return buffer.length>=8&&buffer.slice(0,8).equals(Buffer.from([0x89,0x50,0x4e,0x47,0x0d,0x0a,0x1a,0x0a]));
+  if(type==='image/webp')return buffer.length>=12&&buffer.slice(0,4).toString('ascii')==='RIFF'&&buffer.slice(8,12).toString('ascii')==='WEBP';
+  return false;
+}
 
 function smtp(senderMode='both'){
   let user='jerome@leroyfactory.fr',pass=process.env.SMTP_PASSWORD_JEROME,from='"Jérôme Hugol - Le Roy Factory" <jerome@leroyfactory.fr>',reply='jerome@leroyfactory.fr';
@@ -32,23 +40,26 @@ async function publicRateLimit(req,key,max){
   await db.runTransaction(async tx=>{const snap=await tx.get(ref);const count=Number(snap.data()?.count||0);if(count>=max)throw new Error('Trop de tentatives. Réessayez plus tard.');tx.set(ref,{count:count+1,key,hour,updatedAt:admin.firestore.FieldValue.serverTimestamp()},{merge:true})});
 }
 
-async function verifiedClient(codeRaw,depRaw){
-  const code=clean(codeRaw,20).toUpperCase(),dep=clean(depRaw,3).toUpperCase();
-  if(!/^LRF-\d{5}$/.test(code)||!dep)return null;
-  const snap=await db.collection('clients').where('codeClient','==',code).limit(1).get();if(snap.empty)return null;
-  const doc=snap.docs[0],c=doc.data();const clientDep=String(c.departement||depFromCp(c.codePostal||c.code_postal)||'').toUpperCase();
-  if(clientDep!==dep||String(c.type||'client').toLowerCase()==='prospect'||c.archived===true||c.archive===true)return null;
-  return{id:doc.id,...c,departement:clientDep};
+function safeClientPrefill(c){
+  return {
+    societe:clean(c.societe),activite:clean(c.activite||c.categorieActivite),adresse:clean(c.adresse),
+    codePostal:clean(c.codePostal||c.code_postal,5),ville:clean(c.ville),siret:clean(c.siret,30),tva:clean(c.tva,40),
+    chiffreAffaires:clean(c.chiffreAffaires||c.chiffre_affaires,50),contact:clean(c.contact),fonction:clean(c.fonction),
+    telephone:clean(c.telephone||(Array.isArray(c.telephones)?c.telephones[0]:''),40),email:clean(c.email,200),
+    emails:Array.isArray(c.emails)?c.emails.map(x=>clean(x,200)).filter(Boolean):Array.isArray(c.emailsAutres)?c.emailsAutres.map(x=>clean(x,200)).filter(Boolean):[],
+    contactsAutres:clean(c.contactsAutres,3000),partenaires:Array.isArray(c.partenaires)?c.partenaires.map(x=>clean(x,100)).filter(Boolean):[]
+  };
 }
 
 const getAccountClientPrefill = onRequest({timeoutSeconds:30,memory:'256MiB'},async(req,res)=>{
   if(setCors(req,res,{publicEndpoint:true}))return;if(req.method!=='POST')return res.status(405).json({error:'Méthode non autorisée'});
   try{
     await publicRateLimit(req,'account_prefill',20);
-    const c=await verifiedClient(req.body?.codeClient,req.body?.departement);
-    if(!c)return res.status(403).json({success:false,error:'Code client ou département incorrect.'});
-    res.json({success:true,client:{societe:clean(c.societe),activite:clean(c.activite||c.categorieActivite),adresse:clean(c.adresse),codePostal:clean(c.codePostal||c.code_postal,5),ville:clean(c.ville),siret:clean(c.siret,30),tva:clean(c.tva,40),chiffreAffaires:clean(c.chiffreAffaires||c.chiffre_affaires,50),contact:clean(c.contact),fonction:clean(c.fonction),telephone:clean(c.telephone||(Array.isArray(c.telephones)?c.telephones[0]:''),40),email:clean(c.email,200),emails:Array.isArray(c.emails)?c.emails.map(x=>clean(x,200)).filter(Boolean):Array.isArray(c.emailsAutres)?c.emailsAutres.map(x=>clean(x,200)).filter(Boolean):[],contactsAutres:clean(c.contactsAutres,3000),partenaires:Array.isArray(c.partenaires)?c.partenaires.map(x=>clean(x,100)).filter(Boolean):[]}});
-  }catch(e){console.error('getAccountClientPrefill',e);res.status(429).json({success:false,error:e.message||'Impossible de charger la fiche pour le moment.'})}
+    const c=await resolveClientVerification(req.body?.verificationToken,'account_update',{consume:false});
+    if(!c)return res.status(401).json({success:false,error:'Vérification expirée ou invalide. Demandez un nouveau code.'});
+    if(String(c.type||'client').toLowerCase()==='prospect'||c.archived===true||c.archive===true)return res.status(403).json({success:false,error:'Ce compte ne peut pas être mis à jour en ligne.'});
+    res.json({success:true,client:safeClientPrefill(c)});
+  }catch(e){console.error('getAccountClientPrefill',e);res.status(e.message?.includes('tentatives')?429:500).json({success:false,error:e.message||'Impossible de charger la fiche pour le moment.'})}
 });
 
 const submitAccountRequest = onRequest({secrets:['SMTP_PASSWORD_JEROME','SMTP_PASSWORD_CORYNE'],timeoutSeconds:120,memory:'512MiB'},async(req,res)=>{
@@ -56,30 +67,62 @@ const submitAccountRequest = onRequest({secrets:['SMTP_PASSWORD_JEROME','SMTP_PA
   try{
     await publicRateLimit(req,'account_submit',10);
     const p=req.body||{};const type=p.requestType==='mise_a_jour'?'mise_a_jour':'ouverture';
+    if(p.consent!==true)return res.status(400).json({success:false,error:'Votre accord est nécessaire pour transmettre cette demande.'});
     if(!clean(p.societe)||!validEmail(p.email)||!/^\d{5}$/.test(clean(p.codePostal,5)))return res.status(400).json({success:false,error:'Société, e-mail valide et code postal sont obligatoires.'});
-    let existingClientId='';
-    if(type==='mise_a_jour'){
-      const c=await verifiedClient(p.codeClient,p.departementAuth);if(!c)return res.status(403).json({success:false,error:'Code client ou département incorrect.'});existingClientId=c.id;
-    }
+
     const rawFiles=Array.isArray(p.attachments)?p.attachments.slice(0,8):[];
     const roles=new Set(rawFiles.map(a=>String(a?.role||'').toLowerCase()));
     if(!roles.has('rib')||!roles.has('kbis'))return res.status(400).json({success:false,error:'Le RIB et le Kbis sont obligatoires.'});
-    const ref=db.collection('account_requests').doc();const date=new Date();const reference=`DMD-${date.toISOString().slice(0,10).replace(/-/g,'')}-${ref.id.slice(0,5).toUpperCase()}`;
-    const attachments=[];let totalBytes=0;
+
+    const preparedFiles=[];let totalBytes=0;
     for(let i=0;i<rawFiles.length;i++){
       const a=rawFiles[i]||{};if(!a.content||!a.filename)continue;
+      const role=clean(a.role,30).toLowerCase();if(!['rib','kbis','autre'].includes(role))throw new Error('Type de document invalide.');
       const contentType=clean(a.contentType,120).toLowerCase();if(!ALLOWED_DOCUMENT_TYPES.has(contentType))throw new Error('Format de document non autorisé. Utilisez PDF, JPG, PNG ou WEBP.');
       const buf=Buffer.from(String(a.content),'base64');if(!buf.length||buf.length>MAX_SINGLE_FILE)throw new Error('Un fichier dépasse la taille autorisée.');
+      if(!fileSignatureMatches(buf,contentType))throw new Error(`Le contenu du fichier ${safeFilename(a.filename)} ne correspond pas à son format déclaré.`);
       totalBytes+=buf.length;if(totalBytes>MAX_REQUEST_TOTAL)throw new Error('Pièces jointes trop volumineuses (12 Mo maximum).');
-      const path=`account-requests/${ref.id}/${String(i+1).padStart(2,'0')}-${safeFilename(a.filename)}`;
-      await bucket.file(path).save(buf,{resumable:false,contentType,metadata:{cacheControl:'private, no-store',metadata:{requestId:ref.id}}});
-      attachments.push({filename:safeFilename(a.filename),contentType,role:clean(a.role,30).toLowerCase(),size:buf.length,storagePath:path});
+      preparedFiles.push({filename:safeFilename(a.filename),contentType,role,size:buf.length,buffer:buf});
     }
-    const storedRoles=new Set(attachments.map(a=>a.role));if(!storedRoles.has('rib')||!storedRoles.has('kbis'))return res.status(400).json({success:false,error:'Le RIB et le Kbis n’ont pas pu être enregistrés.'});
-    const data={requestType:type,status:'a_valider',reference,existingClientId,codeClient:type==='mise_a_jour'?clean(p.codeClient,20).toUpperCase():'',departementAuth:type==='mise_a_jour'?clean(p.departementAuth,3).toUpperCase():'',societe:clean(p.societe),activite:clean(p.activite),adresse:clean(p.adresse),codePostal:clean(p.codePostal,5),ville:clean(p.ville),departement:depFromCp(p.codePostal),siret:clean(p.siret,30),tva:clean(p.tva,40),chiffreAffaires:clean(p.chiffreAffaires,50),contact:clean(p.contact),fonction:clean(p.fonction),telephone:clean(p.telephone,40),email:clean(p.email,200),emailsAutres:Array.isArray(p.emailsAutres)?p.emailsAutres.map(x=>clean(x,200)).filter(validEmail).slice(0,10):[],contactsAutres:clean(p.contactsAutres,3000),partenaires:Array.isArray(p.partenaires)?p.partenaires.map(x=>clean(x,100)).filter(Boolean).slice(0,30):[],demande:clean(p.demande,5000),attachments,consent:Boolean(p.consent!==false),submittedAt:admin.firestore.FieldValue.serverTimestamp(),source:'formulaire_public'};
+    const validatedRoles=new Set(preparedFiles.map(a=>a.role));if(!validatedRoles.has('rib')||!validatedRoles.has('kbis'))return res.status(400).json({success:false,error:'Le RIB et le Kbis n’ont pas pu être validés.'});
+
+    let existingClient=null;
+    if(type==='mise_a_jour'){
+      existingClient=await resolveClientVerification(p.verificationToken,'account_update',{consume:true});
+      if(!existingClient)return res.status(401).json({success:false,error:'Votre vérification de sécurité a expiré. Demandez un nouveau code avant l’envoi.'});
+      if(String(existingClient.type||'client').toLowerCase()==='prospect'||existingClient.archived===true||existingClient.archive===true)return res.status(403).json({success:false,error:'Ce compte ne peut pas être mis à jour en ligne.'});
+    }
+
+    const ref=db.collection('account_requests').doc();const date=new Date();const reference=`DMD-${date.toISOString().slice(0,10).replace(/-/g,'')}-${ref.id.slice(0,5).toUpperCase()}`;
+    const attachments=[];
+    try{
+      for(let i=0;i<preparedFiles.length;i++){
+        const a=preparedFiles[i];const path=`account-requests/${ref.id}/${String(i+1).padStart(2,'0')}-${a.filename}`;
+        await bucket.file(path).save(a.buffer,{resumable:false,contentType:a.contentType,metadata:{cacheControl:'private, no-store',metadata:{requestId:ref.id}}});
+        attachments.push({filename:a.filename,contentType:a.contentType,role:a.role,size:a.size,storagePath:path});
+      }
+    }catch(storageError){
+      await Promise.allSettled(attachments.map(a=>bucket.file(a.storagePath).delete()));
+      throw storageError;
+    }
+
+    const existingCode=type==='mise_a_jour'?clean(existingClient?.codeClient,20).toUpperCase():'';
+    const existingDept=type==='mise_a_jour'?clean(existingClient?.departement||depFromCp(existingClient?.codePostal||existingClient?.code_postal),3).toUpperCase():'';
+    const data={
+      requestType:type,status:'a_valider',reference,existingClientId:type==='mise_a_jour'?existingClient.id:'',
+      codeClient:existingCode,departementAuth:existingDept,
+      societe:clean(p.societe),activite:clean(p.activite),adresse:clean(p.adresse),codePostal:clean(p.codePostal,5),ville:clean(p.ville),departement:depFromCp(p.codePostal),
+      siret:clean(p.siret,30),tva:clean(p.tva,40),chiffreAffaires:clean(p.chiffreAffaires,50),contact:clean(p.contact),fonction:clean(p.fonction),telephone:clean(p.telephone,40),email:clean(p.email,200),
+      emailsAutres:Array.isArray(p.emailsAutres)?p.emailsAutres.map(x=>clean(x,200)).filter(validEmail).slice(0,10):[],contactsAutres:clean(p.contactsAutres,3000),
+      partenaires:Array.isArray(p.partenaires)?p.partenaires.map(x=>clean(x,100)).filter(Boolean).slice(0,30):[],demande:clean(p.demande,5000),attachments,consent:true,
+      security:type==='mise_a_jour'?{identityVerified:true,method:'email_otp'}:{identityVerified:false,method:'new_account'},
+      submittedAt:admin.firestore.FieldValue.serverTimestamp(),source:'formulaire_public'
+    };
     await ref.set(data);
+    await db.collection('audit_logs').add({action:type==='mise_a_jour'?'account_update_request_submitted':'account_open_request_submitted',requestId:ref.id,clientId:data.existingClientId||null,codeClient:data.codeClient||null,createdAt:admin.firestore.FieldValue.serverTimestamp()}).catch(()=>{});
+
     const {t,from,reply}=transporter('both');const adminUrl=`https://leroyfactory.fr/demandes-clients.html?request=${encodeURIComponent(ref.id)}`;
-    await t.sendMail({from,to:['jerome@leroyfactory.fr','coryne@leroyfactory.fr'],replyTo:reply,subject:`${type==='mise_a_jour'?'Mise à jour':'Ouverture'} de compte — ${clean(data.societe,120)}`,html:`<p>Nouvelle demande client reçue.</p><p><strong>${html(data.societe)}</strong><br>${type==='mise_a_jour'?`Client : ${html(data.codeClient)}<br>`:''}Département : ${html(data.departement||data.departementAuth)}<br>Contact : ${html(data.contact)}<br>Email : ${html(data.email)}<br>CA annuel : ${html(data.chiffreAffaires||'Non renseigné')}<br>N° TVA : ${html(data.tva||'Non renseigné')}</p><p>Partenaires : ${data.partenaires.map(html).join(', ')||'Aucun'}</p><p>Documents joints : ${attachments.length} (RIB et Kbis présents)</p><p><a href="${adminUrl}">Voir et valider la demande dans le CRM</a></p><p>Référence : ${html(reference)}</p>`});
+    await t.sendMail({from,to:['jerome@leroyfactory.fr','coryne@leroyfactory.fr'],replyTo:reply,subject:`${type==='mise_a_jour'?'Mise à jour':'Ouverture'} de compte — ${clean(data.societe,120)}`,html:`<p>Nouvelle demande client reçue.</p><p><strong>${html(data.societe)}</strong><br>${type==='mise_a_jour'?`Client vérifié par e-mail : ${html(data.codeClient)}<br>`:''}Département : ${html(data.departement||data.departementAuth)}<br>Contact : ${html(data.contact)}<br>Email : ${html(data.email)}<br>CA annuel : ${html(data.chiffreAffaires||'Non renseigné')}<br>N° TVA : ${html(data.tva||'Non renseigné')}</p><p>Partenaires : ${data.partenaires.map(html).join(', ')||'Aucun'}</p><p>Documents joints : ${attachments.length} (RIB et Kbis validés)</p><p><a href="${adminUrl}">Voir et valider la demande dans le CRM</a></p><p>Référence : ${html(reference)}</p>`});
     res.status(200).json({success:true,id:ref.id,reference});
   }catch(e){console.error('submitAccountRequest',e);res.status(e.message?.includes('tentatives')?429:400).json({success:false,error:e.message||'Erreur serveur'})}
 });
