@@ -1,0 +1,41 @@
+name: Security hardening checks
+
+on:
+  push:
+    branches:
+      - security-hardening-20260825
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  syntax:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check Cloud Functions syntax
+        run: |
+          node --check functions/security.js
+          node --check functions/index.js
+          node --check functions/main.js
+          node --check functions/client-verification.js
+          node --check functions/account-requests.js
+          node --check functions/pro-access.js
+          node --check functions/jarvis-ai.js
+          node --check functions/statistics.js
+      - name: Check security front-end syntax
+        run: |
+          node --check assets/js/tarifs-pro-client-access.js
+          node --check assets/js/ouverture-compte.js
+          node --check assets/js/agent-auth.js
+      - name: Validate Firebase JSON
+        run: node -e "JSON.parse(require('fs').readFileSync('firebase.json','utf8')); JSON.parse(require('fs').readFileSync('functions/package.json','utf8')); console.log('JSON OK')"
+      - name: Reject legacy shared credentials
+        run: |
+          ! grep -R --line-number --exclude-dir=.git --exclude='*.md' -E "agentLoggedIn|passwordInput\.value\.trim\(\).*2026|password:\s*['\"]0000['\"]" agent.html assets/js functions || (echo 'Legacy credential pattern found' && exit 1)
