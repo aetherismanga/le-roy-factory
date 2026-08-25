@@ -25,6 +25,7 @@ jobs:
           node --check functions/index.js
           node --check functions/main.js
           node --check functions/client-verification.js
+          node --check functions/client-schema-migration.js
           node --check functions/account-requests.js
           node --check functions/pro-access.js
           node --check functions/jarvis-ai.js
@@ -33,9 +34,15 @@ jobs:
         run: |
           node --check assets/js/tarifs-pro-client-access.js
           node --check assets/js/ouverture-compte.js
+          node --check assets/js/account-form-send.js
+          node --check assets/js/client-schema.js
+          node --check assets/js/clients.js
           node --check assets/js/agent.js
       - name: Validate Firebase JSON
         run: node -e "JSON.parse(require('fs').readFileSync('firebase.json','utf8')); JSON.parse(require('fs').readFileSync('functions/package.json','utf8')); console.log('JSON OK')"
       - name: Reject legacy shared credentials
         run: |
           ! grep -R --line-number -E "passwordInput\.value\.trim\(\).*2026|password:\s*['\"]0000['\"]|localStorage\.setItem\(['\"]agentLoggedIn['\"]\s*,\s*['\"]true['\"]\)" agent.html assets/js/agent.js assets/js/tarifs-pro-client-access.js || (echo 'Legacy credential bypass found' && exit 1)
+      - name: Reject fake dashboard values
+        run: |
+          ! grep -n -E "26°C|3 rendez-vous showroom|5 prospects à relancer|Objectif atteint à 78|Ciffreo Bona|MP CETIN EDEN|Balitrand Biot" dashboard.html || (echo 'Fake dashboard content found' && exit 1)
