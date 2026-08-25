@@ -33,7 +33,7 @@ jobs:
         run: |
           node --check assets/js/tarifs-pro-client-access.js
           node --check assets/js/ouverture-compte.js
-          node --check assets/js/agent-auth.js
+          node --check assets/js/agent.js
       - name: Validate Firebase JSON
         run: node -e "JSON.parse(require('fs').readFileSync('firebase.json','utf8')); JSON.parse(require('fs').readFileSync('functions/package.json','utf8')); console.log('JSON OK')"
       - name: Reject legacy shared credentials
