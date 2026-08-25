@@ -58,7 +58,8 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
-    // Collections techniques : écriture uniquement par Admin SDK serveur.
+    // Collections exclusivement serveur : aucun navigateur, même agent, n'écrit
+    // directement les jetons, limites, audits ou statistiques privées.
     match /rate_limits/{document=**} {
       allow read, write: if false;
     }
@@ -77,12 +78,20 @@ service cloud.firestore {
       allow read, write: if false;
     }
 
-    match /pro_login_challenges/{document=**} {
+    match /client_verification_challenges/{document=**} {
       allow read, write: if false;
     }
 
-    // Tout ce qui n'est pas explicitement prévu est fermé aux anonymes et
-    // accessible aux agents authentifiés pour préserver les modules CRM existants.
+    match /client_verifications/{document=**} {
+      allow read, write: if false;
+    }
+
+    match /commercial_stats/{document=**} {
+      allow read, write: if false;
+    }
+
+    // Tout ce qui n'est pas explicitement prévu reste fermé aux anonymes et
+    // accessible aux agents authentifiés afin de préserver les modules CRM existants.
     match /{document=**} {
       allow read, write: if isAgent();
     }
