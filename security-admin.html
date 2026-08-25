@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <link rel="icon" type="image/png" href="assets/img/logo03lrf.png">
+  <title>Administration sécurité — LE ROY FACTORY</title>
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/clients.css">
+  <style>
+    body.crm-body{background:#FBF9F5!important;color:#1A2530!important}.crm-topbar{background-image:url('assets/img/bandeau02.png')!important;background-size:cover!important;background-position:center!important;border-bottom:2px solid #D4AF37!important}.crm-topbar h1,.crm-topbar p{color:#fff!important;text-shadow:0 1px 4px rgba(0,0,0,.9)}
+    .security-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem}.security-card{background:#fff;border:1px solid #e6dfd1;border-radius:14px;padding:1.2rem;box-shadow:0 5px 18px rgba(0,0,0,.035)}.security-card h2{font-size:1rem;margin:0 0 .45rem}.security-card p{font-size:.82rem;color:#68635b;line-height:1.5;min-height:3.8em}.security-actions{display:flex;gap:.55rem;flex-wrap:wrap}.security-btn{border:1px solid #D4AF37;background:#111;color:#FFD700;border-radius:8px;padding:.65rem .8rem;font-weight:800;cursor:pointer}.security-btn.secondary{background:#fff;color:#1A2530;border-color:#d7d0c2}.security-btn.danger{border-color:#ba3a32;color:#fff;background:#a52f29}.security-btn:disabled{opacity:.5;cursor:wait}.security-output{margin-top:1rem;background:#111;color:#e8e8e8;border-radius:12px;padding:1rem;min-height:220px;max-height:520px;overflow:auto;font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap}.security-warning{margin-bottom:1rem;padding:.9rem 1rem;background:#fff5d8;border:1px solid #e8cc72;border-radius:10px;color:#674e00;font-size:.84rem;line-height:1.5}.security-status{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;margin-bottom:1rem}.security-pill{padding:.4rem .65rem;border-radius:999px;background:#fff;border:1px solid #ddd6c9;font-size:.75rem;font-weight:800}.security-pill.ok{background:#eaf7ef;border-color:#b8dec6;color:#17623a}.security-pill.bad{background:#fff0ef;border-color:#efc3be;color:#9f2f28}
+  </style>
+</head>
+<body class="crm-body">
+  <aside class="crm-sidebar">
+    <div class="sidebar-brand"><a href="dashboard.html"><div class="logo-circle" style="width:60px;height:60px"><img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY"></div></a></div>
+    <ul class="sidebar-menu">
+      <li><a href="dashboard.html"><span class="icon">🏠</span><span class="menu-text">Accueil</span></a></li>
+      <li><a href="clients.html"><span class="icon">👥</span><span class="menu-text">Clients</span></a></li>
+      <li><a href="statistiques.html"><span class="icon">📊</span><span class="menu-text">Statistiques</span></a></li>
+      <li><a href="security-admin.html" class="active"><span class="icon">🛡️</span><span class="menu-text">Sécurité</span></a></li>
+    </ul>
+    <div class="sidebar-footer"><button id="logout-btn" class="btn-logout-sidebar"><span>🚪</span><span class="menu-text">Déconnexion</span></button></div>
+  </aside>
+  <main class="crm-main-content">
+    <div class="crm-topbar"><div class="welcome-box"><h1>Administration sécurité</h1><p>Migrations et contrôles de pré-production — accès administrateur uniquement.</p></div></div>
+    <div id="security-status" class="security-status"><span class="security-pill">Vérification de la session…</span></div>
+    <div class="security-warning"><strong>Important :</strong> exécuter les migrations statistiques et tarifs <strong>avant</strong> de retirer leurs anciennes copies publiques. La migration Client V2 doit toujours être prévisualisée avant application.</div>
+    <section class="security-grid">
+      <article class="security-card"><h2>📊 Statistiques commerciales</h2><p>Copie les anciens jeux de données encore servis en production vers Firestore privé.</p><div class="security-actions"><button class="security-btn" data-action="migrate-stats">Migrer les statistiques</button></div></article>
+      <article class="security-card"><h2>📄 Tarifs professionnels</h2><p>Copie chaque PDF tarifaire public vers Firebase Storage privé, sans supprimer la source.</p><div class="security-actions"><button class="security-btn" data-action="migrate-tariffs">Migrer les tarifs</button></div></article>
+      <article class="security-card"><h2>👥 Schéma Client V2</h2><p>Normalise les champs historiques sans supprimer les anciennes propriétés utilisées par les modules existants.</p><div class="security-actions"><button class="security-btn secondary" data-action="preview-clients">Prévisualiser</button><button class="security-btn danger" data-action="apply-clients">Appliquer V2</button></div></article>
+    </section>
+    <pre id="security-output" class="security-output">Aucune opération lancée.</pre>
+  </main>
+  <script type="module" src="assets/js/security-admin.js?v=20260825"></script>
+</body>
+</html>
