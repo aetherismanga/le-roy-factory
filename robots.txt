@@ -10,6 +10,8 @@ Disallow: /mails-groupes.html
 Disallow: /carte.html
 Disallow: /statistiques.html
 Disallow: /demandes-clients.html
+Disallow: /ouverture-compte.html
 Disallow: /tarifs-pro.html
+Disallow: /security-admin.html
 
 Sitemap: https://leroyfactory.fr/sitemap.xml
