@@ -1,4 +1,5 @@
 const { onRequest } = require("firebase-functions/v2/https");
+const { onSchedule } = require("firebase-functions/v2/scheduler");
 const admin = require("firebase-admin");
 const nodemailer = require("nodemailer");
 const crypto = require("crypto");
@@ -14,6 +15,7 @@ function depFromCp(cp){const s=String(cp||'').replace(/\s/g,'');if(!/^\d{5}$/.te
 function sha(v){return crypto.createHash("sha256").update(String(v||"")).digest("hex")}
 function validEmail(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(v||'').trim())}
 function maskEmail(value){const email=String(value||'');const [local,domain]=email.split('@');if(!local||!domain)return'';const shown=local.length<=2?local[0]||'*':local.slice(0,2);return `${shown}${'*'.repeat(Math.max(2,Math.min(8,local.length-shown.length)))}@${domain}`}
+function isActiveClient(c){return String(c?.type||'client').toLowerCase()!=='prospect'&&c?.archived!==true&&c?.archive!==true}
 
 function primaryEmail(c){
   const candidates=[c.email,c.mail,c.eMail,c.Email,c.Mail,...(Array.isArray(c.emails)?c.emails:[]),...(Array.isArray(c.emailsAutres)?c.emailsAutres:[])];
@@ -25,8 +27,8 @@ async function verifiedClient(codeRaw,depRaw){
   if(!/^LRF-\d{5}$/.test(code)||!/^(?:\d{2,3}|2A|2B)$/i.test(dep))return null;
   const snap=await db.collection('clients').where('codeClient','==',code).limit(1).get();if(snap.empty)return null;
   const doc=snap.docs[0],c=doc.data();const clientDep=String(c.departement||depFromCp(c.codePostal||c.code_postal)||'').toUpperCase();
-  if(clientDep!==dep||String(c.type||'client').toLowerCase()==='prospect'||c.archived===true||c.archive===true)return null;
-  return{id:doc.id,...c,departement:clientDep};
+  if(clientDep!==dep||!isActiveClient(c))return null;
+  return{id:doc.id,...c,codeClient:code,departement:clientDep};
 }
 
 async function rateLimit(req,key,max){
@@ -44,9 +46,7 @@ function mailTransport(){
 async function sendCode(email,code,purpose){
   const label=purpose==='account_update'?'mise à jour de votre compte':'accès à vos tarifs professionnels';
   await mailTransport().sendMail({
-    from:'"LE ROY FACTORY" <jerome@leroyfactory.fr>',
-    to:email,
-    replyTo:'jerome@leroyfactory.fr',
+    from:'"LE ROY FACTORY" <jerome@leroyfactory.fr>',to:email,replyTo:'jerome@leroyfactory.fr',
     subject:`Votre code de vérification LE ROY FACTORY : ${code}`,
     text:`Votre code de vérification LE ROY FACTORY est ${code}. Il est valable ${CHALLENGE_MINUTES} minutes pour ${label}. Si vous n'êtes pas à l'origine de cette demande, ignorez ce message.`,
     html:`<p>Bonjour,</p><p>Votre code de vérification LE ROY FACTORY est :</p><p style="font-size:28px;font-weight:800;letter-spacing:5px">${code}</p><p>Il est valable <strong>${CHALLENGE_MINUTES} minutes</strong> pour ${label}.</p><p>Si vous n'êtes pas à l'origine de cette demande, ignorez ce message.</p>`
@@ -66,13 +66,9 @@ exports.requestClientVerification = onRequest({secrets:["SMTP_PASSWORD_JEROME"],
     const ref=db.collection('client_verification_challenges').doc();
     const code=String(crypto.randomInt(100000,1000000));
     const expiresAt=new Date(Date.now()+CHALLENGE_MINUTES*60000);
-    await ref.set({clientId:client.id,codeClient:clean(client.codeClient,20),departement:client.departement,purpose,emailHash:sha(email),codeHash:sha(`${ref.id}:${code}`),attempts:0,used:false,createdAt:admin.firestore.FieldValue.serverTimestamp(),expiresAt:admin.firestore.Timestamp.fromDate(expiresAt)});
-    try{
-      await sendCode(email,code,purpose);
-    }catch(error){
-      await ref.delete().catch(()=>{});
-      throw error;
-    }
+    await ref.set({clientId:client.id,codeClient:client.codeClient,departement:client.departement,purpose,emailHash:sha(email),codeHash:sha(`${ref.id}:${code}`),attempts:0,used:false,createdAt:admin.firestore.FieldValue.serverTimestamp(),expiresAt:admin.firestore.Timestamp.fromDate(expiresAt)});
+    try{await sendCode(email,code,purpose)}catch(error){await ref.delete().catch(()=>{});throw error}
+    await db.collection('audit_logs').add({action:'client_verification_requested',clientId:client.id,codeClient:client.codeClient,purpose,createdAt:admin.firestore.FieldValue.serverTimestamp()}).catch(()=>{});
     res.json({success:true,challengeId:ref.id,maskedEmail:maskEmail(email),expiresAt:expiresAt.toISOString()});
   }catch(error){console.error('requestClientVerification',error);res.status(error.message?.includes('Trop de tentatives')?429:500).json({success:false,error:error.message||'Impossible d’envoyer le code.'})}
 });
@@ -84,26 +80,29 @@ exports.verifyClientVerification = onRequest({timeoutSeconds:30,memory:"256MiB"}
     const challengeId=clean(req.body?.challengeId,120),code=clean(req.body?.code,12);if(!challengeId||!/^\d{6}$/.test(code))return res.status(400).json({success:false,error:'Code de vérification invalide.'});
     const ref=db.collection('client_verification_challenges').doc(challengeId);
     const result=await db.runTransaction(async tx=>{
-      const snap=await tx.get(ref);
-      if(!snap.exists)return{error:'Vérification expirée.'};
-      const d=snap.data();
+      const snap=await tx.get(ref);if(!snap.exists)return{error:'Vérification expirée.'};const d=snap.data();
       if(d.used===true||!d.expiresAt||d.expiresAt.toMillis()<=Date.now())return{error:'Vérification expirée.'};
-      const attempts=Number(d.attempts||0);
-      if(attempts>=5)return{error:'Trop de codes incorrects. Demandez un nouveau code.'};
-      if(d.codeHash!==sha(`${challengeId}:${code}`)){
-        tx.update(ref,{attempts:attempts+1,lastFailedAt:admin.firestore.FieldValue.serverTimestamp()});
-        return{error:attempts+1>=5?'Trop de codes incorrects. Demandez un nouveau code.':'Code incorrect.'};
-      }
+      const attempts=Number(d.attempts||0);if(attempts>=5)return{error:'Trop de codes incorrects. Demandez un nouveau code.'};
+      if(d.codeHash!==sha(`${challengeId}:${code}`)){tx.update(ref,{attempts:attempts+1,lastFailedAt:admin.firestore.FieldValue.serverTimestamp()});return{error:attempts+1>=5?'Trop de codes incorrects. Demandez un nouveau code.':'Code incorrect.'}}
       tx.update(ref,{used:true,verifiedAt:admin.firestore.FieldValue.serverTimestamp()});
-      return{clientId:d.clientId,purpose:d.purpose};
+      return{clientId:d.clientId,purpose:d.purpose,departement:d.departement,codeClient:d.codeClient};
     });
     if(result.error)throw new Error(result.error);
 
     const token=crypto.randomBytes(32).toString('base64url');const tokenHash=sha(token);const expiresAt=new Date(Date.now()+VERIFICATION_MINUTES*60000);
-    await db.collection('client_verifications').doc(tokenHash).set({clientId:result.clientId,purpose:result.purpose,used:false,createdAt:admin.firestore.FieldValue.serverTimestamp(),expiresAt:admin.firestore.Timestamp.fromDate(expiresAt)});
+    await db.collection('client_verifications').doc(tokenHash).set({clientId:result.clientId,purpose:result.purpose,departement:clean(result.departement,3),codeClient:clean(result.codeClient,20),used:false,createdAt:admin.firestore.FieldValue.serverTimestamp(),expiresAt:admin.firestore.Timestamp.fromDate(expiresAt)});
+    await db.collection('audit_logs').add({action:'client_verification_succeeded',clientId:result.clientId,codeClient:clean(result.codeClient,20),purpose:result.purpose,createdAt:admin.firestore.FieldValue.serverTimestamp()}).catch(()=>{});
     res.json({success:true,verificationToken:token,purpose:result.purpose,expiresAt:expiresAt.toISOString()});
   }catch(error){console.error('verifyClientVerification',error);const msg=String(error.message||'Vérification impossible.');res.status(msg.includes('Trop de tentatives')?429:400).json({success:false,error:msg})}
 });
+
+async function fetchVerifiedClient(d){
+  const clientSnap=await db.collection('clients').doc(String(d?.clientId||'')).get();if(!clientSnap.exists)return null;
+  const c=clientSnap.data();if(!isActiveClient(c))return null;
+  const derivedDep=String(d?.departement||c.departement||depFromCp(c.codePostal||c.code_postal)||'').toUpperCase();
+  const codeClient=clean(d?.codeClient||c.codeClient,20).toUpperCase();
+  return{id:clientSnap.id,...c,departement:derivedDep,codeClient};
+}
 
 async function resolveClientVerification(token,purpose,{consume=false}={}){
   const raw=String(token||'').trim();if(!raw)return null;const ref=db.collection('client_verifications').doc(sha(raw));
@@ -112,16 +111,22 @@ async function resolveClientVerification(token,purpose,{consume=false}={}){
       const snap=await tx.get(ref);if(!snap.exists)return null;const d=snap.data();
       if(d.purpose!==purpose||!d.expiresAt||d.expiresAt.toMillis()<=Date.now()||d.used===true)return null;
       tx.update(ref,{used:true,usedAt:admin.firestore.FieldValue.serverTimestamp()});
-      return{clientId:d.clientId};
+      return{clientId:d.clientId,purpose:d.purpose,departement:d.departement,codeClient:d.codeClient};
     });
-    if(!result?.clientId)return null;
-    const clientSnap=await db.collection('clients').doc(String(result.clientId)).get();
-    return clientSnap.exists?{id:clientSnap.id,...clientSnap.data()}:null;
+    return result?fetchVerifiedClient(result):null;
   }
   const snap=await ref.get();if(!snap.exists)return null;const d=snap.data();
   if(d.purpose!==purpose||!d.expiresAt||d.expiresAt.toMillis()<=Date.now()||d.used===true)return null;
-  const clientSnap=await db.collection('clients').doc(String(d.clientId||'')).get();return clientSnap.exists?{id:clientSnap.id,...clientSnap.data()}:null;
+  return fetchVerifiedClient(d);
 }
+
+exports.cleanupClientVerifications = onSchedule({schedule:'every 24 hours',timeZone:'Europe/Paris',timeoutSeconds:120,memory:'256MiB'},async()=>{
+  const cutoff=admin.firestore.Timestamp.fromMillis(Date.now()-24*60*60*1000);
+  for(const collectionName of ['client_verification_challenges','client_verifications']){
+    const snap=await db.collection(collectionName).where('expiresAt','<',cutoff).limit(500).get();
+    if(snap.empty)continue;const batch=db.batch();snap.docs.forEach(doc=>batch.delete(doc.ref));await batch.commit();
+  }
+});
 
 module.exports.resolveClientVerification=resolveClientVerification;
 module.exports.verifiedClient=verifiedClient;
