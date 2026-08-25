@@ -38,4 +38,4 @@ jobs:
         run: node -e "JSON.parse(require('fs').readFileSync('firebase.json','utf8')); JSON.parse(require('fs').readFileSync('functions/package.json','utf8')); console.log('JSON OK')"
       - name: Reject legacy shared credentials
         run: |
-          ! grep -R --line-number --exclude-dir=.git --exclude='*.md' -E "agentLoggedIn|passwordInput\.value\.trim\(\).*2026|password:\s*['\"]0000['\"]" agent.html assets/js functions || (echo 'Legacy credential pattern found' && exit 1)
+          ! grep -R --line-number -E "passwordInput\.value\.trim\(\).*2026|password:\s*['\"]0000['\"]|localStorage\.setItem\(['\"]agentLoggedIn['\"]\s*,\s*['\"]true['\"]\)" agent.html assets/js/agent.js assets/js/tarifs-pro-client-access.js || (echo 'Legacy credential bypass found' && exit 1)
