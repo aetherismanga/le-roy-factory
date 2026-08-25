@@ -6,17 +6,12 @@ const nodemailer = require("nodemailer");
 admin.initializeApp();
 const db = admin.firestore();
 const bucket = admin.storage().bucket();
+const { setCors, requireAgent, enforceSenderMode } = require("./security");
 
-function cors(req, res) {
-  res.set("Access-Control-Allow-Origin", "*");
-  res.set("Access-Control-Allow-Headers", "Content-Type");
-  res.set("Access-Control-Allow-Methods", "POST, OPTIONS");
-  if (req.method === "OPTIONS") {
-    res.status(204).send("");
-    return true;
-  }
-  return false;
-}
+const MAX_RECIPIENTS = 100;
+const MAX_SUBJECT_LENGTH = 200;
+const MAX_HTML_LENGTH = 2 * 1024 * 1024;
+const MAX_ATTACHMENT_TOTAL = 18 * 1024 * 1024;
 
 function smtpConfig(senderMode) {
   let smtpUser = "jerome@leroyfactory.fr";
@@ -44,6 +39,70 @@ function senderLabels(senderMode) {
     agentLabel: senderMode === "coryne" ? "Coryne" : senderMode === "both" ? "Jérôme & Coryne" : "Jérôme",
     senderEmail: senderMode === "coryne" ? "coryne@leroyfactory.fr" : senderMode === "both" ? "jerome@leroyfactory.fr & coryne@leroyfactory.fr" : "jerome@leroyfactory.fr"
   };
+}
+
+function cleanEmailPayload(raw = {}, user) {
+  const senderMode = enforceSenderMode(user, raw.senderMode);
+  if (!senderMode) throw new Error("Expéditeur non autorisé.");
+
+  const bccRecipients = [...new Set((Array.isArray(raw.bccRecipients) ? raw.bccRecipients : [])
+    .map(v => String(v || "").trim())
+    .filter(v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)))]
+    .slice(0, MAX_RECIPIENTS);
+
+  const subject = String(raw.subject || "").trim().slice(0, MAX_SUBJECT_LENGTH);
+  const htmlContent = String(raw.htmlContent || "").slice(0, MAX_HTML_LENGTH);
+  const clientIds = [...new Set((Array.isArray(raw.clientIds) ? raw.clientIds : [])
+    .map(v => String(v || "").trim())
+    .filter(Boolean))].slice(0, MAX_RECIPIENTS);
+
+  const attachments = [];
+  let attachmentBytes = 0;
+  for (const att of Array.isArray(raw.attachments) ? raw.attachments : []) {
+    if (!att?.filename || !att?.content) continue;
+    const base64 = String(att.content || "");
+    const estimatedBytes = Math.floor(base64.length * 0.75);
+    attachmentBytes += estimatedBytes;
+    if (attachmentBytes > MAX_ATTACHMENT_TOTAL) throw new Error("Pièces jointes trop volumineuses.");
+    attachments.push({
+      filename: String(att.filename).replace(/[\r\n]/g, " ").slice(0, 150),
+      content: base64,
+      contentType: att.contentType ? String(att.contentType).slice(0, 120) : undefined,
+      cid: att.cid ? String(att.cid).slice(0, 180) : undefined,
+      inline: Boolean(att.inline)
+    });
+  }
+
+  if (!bccRecipients.length || !subject || !htmlContent) throw new Error("Paramètres manquants.");
+  return { senderMode, bccRecipients, subject, htmlContent, attachments, clientIds };
+}
+
+async function enforceHourlyLimit(user, key, max = 30) {
+  const hour = new Date().toISOString().slice(0, 13).replace(/[^0-9]/g, "");
+  const uid = String(user.uid || user.email || "agent").replace(/[^a-zA-Z0-9_-]/g, "_");
+  const ref = db.collection("rate_limits").doc(`${key}_${uid}_${hour}`);
+  await db.runTransaction(async tx => {
+    const snap = await tx.get(ref);
+    const count = Number(snap.data()?.count || 0);
+    if (count >= max) throw new Error("Limite temporaire atteinte. Réessayez plus tard.");
+    tx.set(ref, {
+      count: count + 1,
+      user: user.email,
+      key,
+      hour,
+      updatedAt: admin.firestore.FieldValue.serverTimestamp()
+    }, { merge: true });
+  });
+}
+
+async function audit(user, action, details = {}) {
+  return db.collection("audit_logs").add({
+    action,
+    actorUid: user?.uid || null,
+    actorEmail: user?.email || null,
+    createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    ...details
+  }).catch(err => console.warn("Audit non bloquant:", err?.message || err));
 }
 
 async function appendClientHistory(clientIds, senderMode, subject, extra = {}) {
@@ -108,7 +167,7 @@ async function sendPayload(payload) {
         }))
     : [];
 
-  const info = await transporter.sendMail({
+  return transporter.sendMail({
     from: fromHeader,
     to: smtpUser,
     replyTo: replyToHeader,
@@ -117,7 +176,6 @@ async function sendPayload(payload) {
     html: htmlContent,
     attachments: safeAttachments
   });
-  return info;
 }
 
 exports.sendGroupEmail = onRequest({
@@ -125,31 +183,40 @@ exports.sendGroupEmail = onRequest({
   timeoutSeconds: 180,
   memory: "512MiB"
 }, async (req, res) => {
-  if (cors(req, res)) return;
+  if (setCors(req, res)) return;
   if (req.method !== "POST") return res.status(405).json({ error: "Méthode non autorisée" });
+  const user = await requireAgent(req, res);
+  if (!user) return;
 
-  const payload = req.body || {};
+  let payload;
   try {
+    await enforceHourlyLimit(user, "group_mail", 30);
+    payload = cleanEmailPayload(req.body || {}, user);
     const info = await sendPayload(payload);
     const historyRef = await writeMailHistory(payload, {
       statut: "Succès",
       messageId: info?.messageId || null,
       typeEnvoi: "immediat",
+      actorEmail: user.email,
       sentAt: admin.firestore.FieldValue.serverTimestamp()
     });
     await appendClientHistory(payload.clientIds, payload.senderMode, payload.subject, { programme:false }).catch(err => {
       console.warn("Historique client non bloquant:", err);
     });
+    await audit(user, "group_email_sent", { historyId: historyRef.id, recipientCount: payload.bccRecipients.length });
     res.status(200).json({ success: true, historyId: historyRef.id, messageId: info?.messageId || null });
   } catch (error) {
     console.error("Erreur d'envoi:", error);
-    await writeMailHistory(payload, {
-      statut: "Erreur",
-      typeEnvoi: "immediat",
-      erreur: String(error.message || error),
-      failedAt: admin.firestore.FieldValue.serverTimestamp()
-    }).catch(() => {});
-    res.status(500).json({ success: false, error: error.message });
+    if (payload) {
+      await writeMailHistory(payload, {
+        statut: "Erreur",
+        typeEnvoi: "immediat",
+        actorEmail: user.email,
+        erreur: String(error.message || error),
+        failedAt: admin.firestore.FieldValue.serverTimestamp()
+      }).catch(() => {});
+    }
+    res.status(400).json({ success: false, error: error.message });
   }
 });
 
@@ -157,41 +224,31 @@ exports.scheduleGroupEmail = onRequest({
   timeoutSeconds: 120,
   memory: "512MiB"
 }, async (req, res) => {
-  if (cors(req, res)) return;
+  if (setCors(req, res)) return;
   if (req.method !== "POST") return res.status(405).json({ error: "Méthode non autorisée" });
+  const user = await requireAgent(req, res);
+  if (!user) return;
 
   try {
-    const payload = req.body || {};
-    const { senderMode, bccRecipients, subject, htmlContent, attachments, scheduledAt, clientIds } = payload;
-    const date = new Date(scheduledAt);
-
-    if (!Array.isArray(bccRecipients) || !bccRecipients.length || !subject || !htmlContent || Number.isNaN(date.getTime())) {
-      return res.status(400).json({ success:false, error:"Paramètres de programmation manquants." });
-    }
-    if (date.getTime() <= Date.now()) {
-      return res.status(400).json({ success:false, error:"La date d'envoi doit être dans le futur." });
-    }
+    await enforceHourlyLimit(user, "schedule_mail", 30);
+    const payload = cleanEmailPayload(req.body || {}, user);
+    const date = new Date(req.body?.scheduledAt);
+    if (Number.isNaN(date.getTime())) return res.status(400).json({ success:false, error:"Date de programmation invalide." });
+    if (date.getTime() <= Date.now()) return res.status(400).json({ success:false, error:"La date d'envoi doit être dans le futur." });
 
     const ref = db.collection("scheduled_mails").doc();
     const storagePath = `scheduled-mails/${ref.id}.json`;
-    const cleanPayload = {
-      senderMode: senderMode || "jerome",
-      bccRecipients,
-      subject,
-      htmlContent,
-      attachments: Array.isArray(attachments) ? attachments : [],
-      clientIds: Array.isArray(clientIds) ? clientIds : []
-    };
 
-    await bucket.file(storagePath).save(JSON.stringify(cleanPayload), {
+    await bucket.file(storagePath).save(JSON.stringify(payload), {
       resumable: false,
       contentType: "application/json",
       metadata: { cacheControl: "no-store" }
     });
 
-    const historyRef = await writeMailHistory(cleanPayload, {
+    const historyRef = await writeMailHistory(payload, {
       statut: "Programmé",
       typeEnvoi: "programme",
+      actorEmail: user.email,
       scheduledMailId: ref.id,
       scheduledAt: admin.firestore.Timestamp.fromDate(date)
     });
@@ -199,21 +256,23 @@ exports.scheduleGroupEmail = onRequest({
     await ref.set({
       scheduledAt: admin.firestore.Timestamp.fromDate(date),
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
+      createdBy: user.email,
       status: "programme",
-      senderMode: cleanPayload.senderMode,
-      subject,
-      nbDestinataires: bccRecipients.length,
-      destinataires: bccRecipients,
-      clientIds: cleanPayload.clientIds,
+      senderMode: payload.senderMode,
+      subject: payload.subject,
+      nbDestinataires: payload.bccRecipients.length,
+      destinataires: payload.bccRecipients,
+      clientIds: payload.clientIds,
       storagePath,
       historyId: historyRef.id,
       attempts: 0
     });
 
+    await audit(user, "group_email_scheduled", { scheduledMailId: ref.id, recipientCount: payload.bccRecipients.length });
     res.status(200).json({ success:true, id:ref.id, historyId:historyRef.id, scheduledAt:date.toISOString() });
   } catch (error) {
     console.error("Erreur programmation mail:", error);
-    res.status(500).json({ success:false, error:error.message });
+    res.status(400).json({ success:false, error:error.message });
   }
 });
 
