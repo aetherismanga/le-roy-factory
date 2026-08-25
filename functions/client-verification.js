@@ -67,7 +67,12 @@ exports.requestClientVerification = onRequest({secrets:["SMTP_PASSWORD_JEROME"],
     const code=String(crypto.randomInt(100000,1000000));
     const expiresAt=new Date(Date.now()+CHALLENGE_MINUTES*60000);
     await ref.set({clientId:client.id,codeClient:clean(client.codeClient,20),departement:client.departement,purpose,emailHash:sha(email),codeHash:sha(`${ref.id}:${code}`),attempts:0,used:false,createdAt:admin.firestore.FieldValue.serverTimestamp(),expiresAt:admin.firestore.Timestamp.fromDate(expiresAt)});
-    await sendCode(email,code,purpose);
+    try{
+      await sendCode(email,code,purpose);
+    }catch(error){
+      await ref.delete().catch(()=>{});
+      throw error;
+    }
     res.json({success:true,challengeId:ref.id,maskedEmail:maskEmail(email),expiresAt:expiresAt.toISOString()});
   }catch(error){console.error('requestClientVerification',error);res.status(error.message?.includes('Trop de tentatives')?429:500).json({success:false,error:error.message||'Impossible d’envoyer le code.'})}
 });
@@ -78,26 +83,44 @@ exports.verifyClientVerification = onRequest({timeoutSeconds:30,memory:"256MiB"}
     await rateLimit(req,'verify',20);
     const challengeId=clean(req.body?.challengeId,120),code=clean(req.body?.code,12);if(!challengeId||!/^\d{6}$/.test(code))return res.status(400).json({success:false,error:'Code de vérification invalide.'});
     const ref=db.collection('client_verification_challenges').doc(challengeId);
-    let clientId='',purpose='';
-    await db.runTransaction(async tx=>{
-      const snap=await tx.get(ref);if(!snap.exists)throw new Error('Vérification expirée.');const d=snap.data();
-      if(d.used===true||!d.expiresAt||d.expiresAt.toMillis()<=Date.now())throw new Error('Vérification expirée.');
-      if(Number(d.attempts||0)>=5)throw new Error('Trop de codes incorrects. Demandez un nouveau code.');
-      if(d.codeHash!==sha(`${challengeId}:${code}`)){tx.update(ref,{attempts:admin.firestore.FieldValue.increment(1)});throw new Error('Code incorrect.');}
-      clientId=d.clientId;purpose=d.purpose;tx.update(ref,{used:true,verifiedAt:admin.firestore.FieldValue.serverTimestamp()});
+    const result=await db.runTransaction(async tx=>{
+      const snap=await tx.get(ref);
+      if(!snap.exists)return{error:'Vérification expirée.'};
+      const d=snap.data();
+      if(d.used===true||!d.expiresAt||d.expiresAt.toMillis()<=Date.now())return{error:'Vérification expirée.'};
+      const attempts=Number(d.attempts||0);
+      if(attempts>=5)return{error:'Trop de codes incorrects. Demandez un nouveau code.'};
+      if(d.codeHash!==sha(`${challengeId}:${code}`)){
+        tx.update(ref,{attempts:attempts+1,lastFailedAt:admin.firestore.FieldValue.serverTimestamp()});
+        return{error:attempts+1>=5?'Trop de codes incorrects. Demandez un nouveau code.':'Code incorrect.'};
+      }
+      tx.update(ref,{used:true,verifiedAt:admin.firestore.FieldValue.serverTimestamp()});
+      return{clientId:d.clientId,purpose:d.purpose};
     });
+    if(result.error)throw new Error(result.error);
+
     const token=crypto.randomBytes(32).toString('base64url');const tokenHash=sha(token);const expiresAt=new Date(Date.now()+VERIFICATION_MINUTES*60000);
-    await db.collection('client_verifications').doc(tokenHash).set({clientId,purpose,createdAt:admin.firestore.FieldValue.serverTimestamp(),expiresAt:admin.firestore.Timestamp.fromDate(expiresAt)});
-    res.json({success:true,verificationToken:token,purpose,expiresAt:expiresAt.toISOString()});
+    await db.collection('client_verifications').doc(tokenHash).set({clientId:result.clientId,purpose:result.purpose,used:false,createdAt:admin.firestore.FieldValue.serverTimestamp(),expiresAt:admin.firestore.Timestamp.fromDate(expiresAt)});
+    res.json({success:true,verificationToken:token,purpose:result.purpose,expiresAt:expiresAt.toISOString()});
   }catch(error){console.error('verifyClientVerification',error);const msg=String(error.message||'Vérification impossible.');res.status(msg.includes('Trop de tentatives')?429:400).json({success:false,error:msg})}
 });
 
 async function resolveClientVerification(token,purpose,{consume=false}={}){
-  const raw=String(token||'').trim();if(!raw)return null;const ref=db.collection('client_verifications').doc(sha(raw));const snap=await ref.get();if(!snap.exists)return null;const d=snap.data();
+  const raw=String(token||'').trim();if(!raw)return null;const ref=db.collection('client_verifications').doc(sha(raw));
+  if(consume){
+    const result=await db.runTransaction(async tx=>{
+      const snap=await tx.get(ref);if(!snap.exists)return null;const d=snap.data();
+      if(d.purpose!==purpose||!d.expiresAt||d.expiresAt.toMillis()<=Date.now()||d.used===true)return null;
+      tx.update(ref,{used:true,usedAt:admin.firestore.FieldValue.serverTimestamp()});
+      return{clientId:d.clientId};
+    });
+    if(!result?.clientId)return null;
+    const clientSnap=await db.collection('clients').doc(String(result.clientId)).get();
+    return clientSnap.exists?{id:clientSnap.id,...clientSnap.data()}:null;
+  }
+  const snap=await ref.get();if(!snap.exists)return null;const d=snap.data();
   if(d.purpose!==purpose||!d.expiresAt||d.expiresAt.toMillis()<=Date.now()||d.used===true)return null;
-  const clientSnap=await db.collection('clients').doc(String(d.clientId||'')).get();if(!clientSnap.exists)return null;
-  if(consume)await ref.update({used:true,usedAt:admin.firestore.FieldValue.serverTimestamp()});
-  return{id:clientSnap.id,...clientSnap.data()};
+  const clientSnap=await db.collection('clients').doc(String(d.clientId||'')).get();return clientSnap.exists?{id:clientSnap.id,...clientSnap.data()}:null;
 }
 
 module.exports.resolveClientVerification=resolveClientVerification;
