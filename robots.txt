@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+Disallow: /agent.html
+Disallow: /dashboard.html
+Disallow: /clients.html
+Disallow: /agenda.html
+Disallow: /comptes-rendus.html
+Disallow: /nouveau-compte-rendu.html
+Disallow: /mails-groupes.html
+Disallow: /carte.html
+Disallow: /statistiques.html
+Disallow: /demandes-clients.html
+Disallow: /tarifs-pro.html
+
+Sitemap: https://leroyfactory.fr/sitemap.xml
