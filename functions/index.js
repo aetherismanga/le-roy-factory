@@ -363,3 +363,4 @@ exports.processScheduledEmails = onSchedule({
 
 Object.assign(exports, require("./account-requests"));
 Object.assign(exports, require("./jarvis-ai"));
+Object.assign(exports, require("./pro-access"));
