@@ -1,17 +1,13 @@
 const { onRequest } = require("firebase-functions/v2/https");
 const { defineSecret } = require("firebase-functions/params");
 const admin = require("firebase-admin");
+const crypto = require("crypto");
+const { setCors, AGENT_EMAILS, normalizeEmail } = require("./security");
 
 const OPENAI_API_KEY = defineSecret("OPENAI_API_KEY");
 const db = admin.firestore();
-
-function cors(req, res) {
-  res.set("Access-Control-Allow-Origin", "*");
-  res.set("Access-Control-Allow-Headers", "Content-Type");
-  res.set("Access-Control-Allow-Methods", "POST, OPTIONS");
-  if (req.method === "OPTIONS") { res.status(204).send(""); return true; }
-  return false;
-}
+const MAX_MESSAGE_LENGTH = 5000;
+const MAX_HISTORY_ITEMS = 12;
 
 const SYSTEM_PROMPT = `
 Tu es JARVIS, l'intelligence métier centrale de LE ROY FACTORY.
@@ -34,7 +30,7 @@ RÈGLES ABSOLUES DE FIABILITÉ
 - Pour un PRIX, une RÉFÉRENCE fabricant, une DISPONIBILITÉ, une DIMENSION ou un COLORIS réellement proposé, ou un NUMÉRO DE PAGE catalogue LE ROY FACTORY : n'invente jamais. Utilise File Search lorsqu'il est disponible.
 - Si les documents ne confirment pas une donnée commerciale précise, dis exactement que tu ne la trouves pas dans les documents LE ROY FACTORY indexés.
 - Quand une donnée documentaire est trouvée, cite le document et la page/le passage quand disponible.
-- Les informations clients doivent venir des outils CRM.
+- Les informations clients doivent venir des outils CRM et ne sont disponibles qu'aux agents authentifiés.
 - Garde le contexte : "ses tarifs", "ce modèle", "celui-là", "ce client" se réfèrent aux échanges précédents quand c'est logique.
 - Si l'utilisateur demande d'ouvrir une partie de l'application/site, utilise open_app_page.
 - Si l'utilisateur demande de préparer un mail groupé, utilise prepare_group_mail. L'envoi réel nécessite toujours une validation humaine.
@@ -43,6 +39,34 @@ RÈGLES ABSOLUES DE FIABILITÉ
 `;
 
 function normalize(v) { return String(v || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim(); }
+
+async function optionalAgent(req) {
+  const header = String(req.headers.authorization || "");
+  const match = header.match(/^Bearer\s+(.+)$/i);
+  if (!match) return null;
+  try {
+    const decoded = await admin.auth().verifyIdToken(match[1].trim(), true);
+    const email = normalizeEmail(decoded.email);
+    const role = String(decoded.role || "").toLowerCase();
+    if (!AGENT_EMAILS.has(email) && role !== "agent" && role !== "admin") return null;
+    return { ...decoded, email, isAdmin: role === "admin" || email === "jerome@leroyfactory.fr" };
+  } catch (_) {
+    return null;
+  }
+}
+
+async function publicRateLimit(req) {
+  const ip = String(req.headers['x-forwarded-for'] || req.ip || 'unknown').split(',')[0].trim();
+  const ipHash = crypto.createHash('sha256').update(ip).digest('hex').slice(0,20);
+  const hour = new Date().toISOString().slice(0,13).replace(/[^0-9]/g,'');
+  const ref = db.collection('rate_limits').doc(`jarvis_public_${ipHash}_${hour}`);
+  await db.runTransaction(async tx => {
+    const snap = await tx.get(ref);
+    const count = Number(snap.data()?.count || 0);
+    if (count >= 20) throw new Error('Limite JARVIS atteinte pour le moment.');
+    tx.set(ref, { count: count + 1, hour, updatedAt: admin.firestore.FieldValue.serverTimestamp() }, { merge: true });
+  });
+}
 
 function chooseModel(message) {
   const t = normalize(message);
@@ -78,27 +102,33 @@ const CRM_TOOLS=[
 ];
 
 const OPEN_PAGE_TOOL={type:"function",name:"open_app_page",description:"Ouvre directement une page ou une fiche dans LE ROY FACTORY.",parameters:{type:"object",properties:{page:{type:"string",enum:["clients","client","agenda","carte","statistiques","comptes-rendus","mails","tarifs","catalogues","partenaires"]},partner:{type:"string"},clientId:{type:"string"}},required:["page"],additionalProperties:false}};
+const CRM_PAGES=new Set(["clients","client","agenda","carte","statistiques","comptes-rendus","mails"]);
 
 async function runTool(call, actions, allowCrm) {
   let args={}; try{args=JSON.parse(call.arguments||"{}")}catch(_){}
-  if(call.name==="search_clients")return allowCrm?searchClients(args):{error:"CRM indisponible sur le site public"};
-  if(call.name==="get_client")return allowCrm?getClient(args):{error:"CRM indisponible sur le site public"};
-  if(call.name==="open_app_page"){actions.push({type:"open_app_page",...args});return {ok:true,action_queued:true};}
-  if(call.name==="prepare_group_mail"){if(!allowCrm)return {error:"Mails CRM indisponibles sur le site public"};actions.push({type:"prepare_group_mail",...args});return {ok:true,action_queued:true,requires_final_confirmation:true};}
+  if(call.name==="search_clients")return allowCrm?searchClients(args):{error:"CRM indisponible sans connexion agent"};
+  if(call.name==="get_client")return allowCrm?getClient(args):{error:"CRM indisponible sans connexion agent"};
+  if(call.name==="open_app_page"){
+    if(!allowCrm&&CRM_PAGES.has(args.page))return {error:"Connexion agent requise pour cette page"};
+    actions.push({type:"open_app_page",...args});return {ok:true,action_queued:true};
+  }
+  if(call.name==="prepare_group_mail"){if(!allowCrm)return {error:"Mails CRM indisponibles sans connexion agent"};actions.push({type:"prepare_group_mail",...args});return {ok:true,action_queued:true,requires_final_confirmation:true};}
   return {error:`Outil inconnu: ${call.name}`};
 }
 
 async function openaiRequest(apiKey,body){const r=await fetch("https://api.openai.com/v1/responses",{method:"POST",headers:{Authorization:`Bearer ${apiKey}`,"Content-Type":"application/json"},body:JSON.stringify(body)});const data=await r.json().catch(()=>({}));if(!r.ok)throw new Error(data?.error?.message||`OpenAI HTTP ${r.status}`);return data;}
 function extractText(response){if(typeof response?.output_text==="string"&&response.output_text.trim())return response.output_text.trim();const parts=[];for(const item of response?.output||[]){if(item.type!=="message")continue;for(const c of item.content||[])if(c.type==="output_text"&&c.text)parts.push(c.text)}return parts.join("\n").trim();}
+function cleanHistory(history){return (Array.isArray(history)?history:[]).slice(-MAX_HISTORY_ITEMS).map(x=>({user:String(x?.user||'').slice(0,MAX_MESSAGE_LENGTH),assistant:String(x?.assistant||'').slice(0,MAX_MESSAGE_LENGTH)}));}
 
 exports.jarvisAi=onRequest({secrets:[OPENAI_API_KEY],timeoutSeconds:120,memory:"1GiB"},async(req,res)=>{
-  if(cors(req,res))return; if(req.method!=="POST")return res.status(405).json({success:false,error:"Méthode non autorisée"});
+  if(setCors(req,res,{publicEndpoint:true}))return; if(req.method!=="POST")return res.status(405).json({success:false,error:"Méthode non autorisée"});
   try{
-    const body=req.body||{}, message=String(body.message||"").trim(); if(!message)return res.status(400).json({success:false,error:"Message manquant"});
-    const surface=String(body.surface||"android");
-    const allowCrm=surface!=="public_web";
-    const history=Array.isArray(body.history)?body.history.slice(-16):[];
-    const input=history.filter(x=>x&&(x.user||x.assistant)).flatMap(x=>{const a=[];if(x.user)a.push({role:"user",content:String(x.user)});if(x.assistant)a.push({role:"assistant",content:String(x.assistant)});return a});
+    const body=req.body||{}, message=String(body.message||"").trim().slice(0,MAX_MESSAGE_LENGTH); if(!message)return res.status(400).json({success:false,error:"Message manquant"});
+    const user=await optionalAgent(req);
+    const allowCrm=Boolean(user);
+    if(!allowCrm)await publicRateLimit(req);
+    const history=cleanHistory(body.history);
+    const input=history.filter(x=>x&&(x.user||x.assistant)).flatMap(x=>{const a=[];if(x.user)a.push({role:"user",content:x.user});if(x.assistant)a.push({role:"assistant",content:x.assistant});return a});
     input.push({role:"user",content:message});
 
     const route=chooseModel(message);
@@ -114,6 +144,7 @@ exports.jarvisAi=onRequest({secrets:[OPENAI_API_KEY],timeoutSeconds:120,memory:"
       response=await openaiRequest(OPENAI_API_KEY.value(),{model:route.model,reasoning:{effort:route.effort},instructions:SYSTEM_PROMPT,previous_response_id:response.id,input:outputs,tools,tool_choice:"auto"});
     }
     const answer=extractText(response)||"Demande traitée.";
-    res.status(200).json({success:true,answer,actions,responseId:response.id||null,documentSearchEnabled:Boolean(vectorStoreId),model:route.model,modelTier:route.tier});
-  }catch(error){console.error("Jarvis AI:",error);res.status(500).json({success:false,error:String(error?.message||error)});}
+    await db.collection('jarvis_audit').add({actorEmail:user?.email||null,authenticated:Boolean(user),surface:String(body.surface||'web').slice(0,30),model:route.model,createdAt:admin.firestore.FieldValue.serverTimestamp()}).catch(()=>{});
+    res.status(200).json({success:true,answer,actions,responseId:response.id||null,documentSearchEnabled:Boolean(vectorStoreId),model:route.model,modelTier:route.tier,crmAccess:allowCrm});
+  }catch(error){console.error("Jarvis AI:",error);const status=String(error?.message||'').includes('Limite JARVIS')?429:500;res.status(status).json({success:false,error:status===429?error.message:"JARVIS est momentanément indisponible."});}
 });
