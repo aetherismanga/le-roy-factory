@@ -1,11 +1,10 @@
-// Importation des SDK Firebase nécessaires depuis le CDN officiel
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import "./carte-mobile-enhancements.js?v=20260818-1425";
 import "./carte-proximity.js?v=20260818-1448";
-import "./jarvis-web.js?v=20260819-0230";
+import "./jarvis-web.js?v=20260825-1200";
 
-// Configuration Firebase de Le Roy Factory
 const firebaseConfig = {
   apiKey: "AIzaSyAiUk5Ua8kF" + "cCUrSqLihiLshHnhA4rm2Is",
   authDomain: "le-roy-factory.firebaseapp.com",
@@ -17,8 +16,149 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
+export const auth = getAuth(app);
 
-console.log("🔥 Firebase est initialisé avec succès pour Le Roy Factory !");
+const AGENT_PROFILES = {
+  "jerome@leroyfactory.fr": { name: "Jérôme Hugol", role: "admin" },
+  "coryne@leroyfactory.fr": { name: "Coryne", role: "agent" }
+};
+
+const PROTECTED_CRM_PAGES = new Set([
+  "dashboard.html",
+  "clients.html",
+  "agenda.html",
+  "comptes-rendus.html",
+  "nouveau-compte-rendu.html",
+  "mails-groupes.html",
+  "carte.html",
+  "statistiques.html",
+  "demandes-clients.html"
+]);
+
+const AGENT_ONLY_FUNCTIONS = new Set([
+  "sendGroupEmail",
+  "scheduleGroupEmail",
+  "getAccountRequestAttachment",
+  "sendAccountPartnerMail"
+]);
+
+const OPTIONAL_AUTH_FUNCTIONS = new Set(["jarvisAi"]);
+
+function normalizedEmail(user) {
+  return String(user?.email || "").trim().toLowerCase();
+}
+
+export function agentProfile(user = auth.currentUser) {
+  return AGENT_PROFILES[normalizedEmail(user)] || null;
+}
+
+function syncLegacySession(user) {
+  const profile = agentProfile(user);
+  if (!user || !profile) {
+    localStorage.removeItem("agentLoggedIn");
+    localStorage.removeItem("agentName");
+    localStorage.removeItem("agentEmail");
+    localStorage.removeItem("agentRole");
+    return;
+  }
+  localStorage.setItem("agentLoggedIn", "true");
+  localStorage.setItem("agentName", profile.name);
+  localStorage.setItem("agentEmail", normalizedEmail(user));
+  localStorage.setItem("agentRole", profile.role);
+}
+
+export const authReady = new Promise(resolve => {
+  const unsubscribe = onAuthStateChanged(auth, user => {
+    syncLegacySession(user);
+    unsubscribe();
+    resolve(user);
+  });
+});
+
+export async function requireAgentSession({ redirect = true } = {}) {
+  const user = auth.currentUser || await authReady;
+  const profile = agentProfile(user);
+  if (user && profile) return user;
+  syncLegacySession(null);
+  if (redirect) {
+    const next = encodeURIComponent(location.pathname.split("/").pop() + location.search + location.hash);
+    location.replace(`agent.html?next=${next}`);
+  }
+  return null;
+}
+
+export async function getAgentToken({ required = true } = {}) {
+  const user = required ? await requireAgentSession({ redirect: false }) : (auth.currentUser || await authReady);
+  if (!user) {
+    if (required) throw new Error("Connexion agent requise.");
+    return "";
+  }
+  if (required && !agentProfile(user)) throw new Error("Compte agent non autorisé.");
+  return user.getIdToken();
+}
+
+export async function authFetch(url, options = {}, { required = true } = {}) {
+  const token = await getAgentToken({ required });
+  const headers = new Headers(options.headers || {});
+  if (token) headers.set("Authorization", `Bearer ${token}`);
+  return fetch(url, { ...options, headers });
+}
+
+function functionNameFromUrl(value) {
+  try {
+    const u = new URL(String(value), location.href);
+    if (!/\.cloudfunctions\.net$/i.test(u.hostname)) return "";
+    return u.pathname.split("/").filter(Boolean).pop() || "";
+  } catch (_) {
+    return "";
+  }
+}
+
+const nativeFetch = window.fetch.bind(window);
+window.fetch = async function securedFetch(input, init = {}) {
+  const rawUrl = typeof input === "string" || input instanceof URL ? String(input) : String(input?.url || "");
+  const fn = functionNameFromUrl(rawUrl);
+  const shouldRequireAuth = AGENT_ONLY_FUNCTIONS.has(fn);
+  const shouldAttachIfAvailable = shouldRequireAuth || OPTIONAL_AUTH_FUNCTIONS.has(fn);
+
+  if (!shouldAttachIfAvailable) return nativeFetch(input, init);
+
+  const user = auth.currentUser || await authReady;
+  const profile = agentProfile(user);
+  if (shouldRequireAuth && (!user || !profile)) {
+    syncLegacySession(null);
+    throw new Error("Votre session a expiré. Reconnectez-vous à l’espace Agent.");
+  }
+
+  if (!user || !profile) return nativeFetch(input, init);
+  const token = await user.getIdToken();
+  const headers = new Headers(init.headers || (input instanceof Request ? input.headers : {}));
+  headers.set("Authorization", `Bearer ${token}`);
+
+  if (input instanceof Request) {
+    const request = new Request(input, { ...init, headers });
+    return nativeFetch(request);
+  }
+  return nativeFetch(input, { ...init, headers });
+};
+
+async function enforceCrmAuthentication() {
+  const page = (location.pathname.split("/").pop() || "index.html").toLowerCase();
+  if (!PROTECTED_CRM_PAGES.has(page) && !document.body?.classList.contains("crm-body")) return;
+  await requireAgentSession({ redirect: true });
+}
+
+async function secureLogout(event) {
+  const button = event.target.closest("#logout-btn, .btn-logout-sidebar, [data-lrf-logout]");
+  if (!button) return;
+  event.preventDefault();
+  event.stopImmediatePropagation();
+  try { await signOut(auth); } catch (error) { console.warn("Déconnexion Firebase:", error); }
+  syncLegacySession(null);
+  location.replace("agent.html?logout=1");
+}
+
+document.addEventListener("click", secureLogout, true);
 
 function ensureMobileCss() {
   if (!window.matchMedia("(max-width: 900px)").matches) return;
@@ -43,22 +183,22 @@ document.addEventListener("click", e => {
 }, true);
 
 const currentPage = window.location.pathname.toLowerCase();
-import("./account-requests-nav.js?v=20260817-2008").catch(err => console.error("Erreur chargement navigation demandes clients :", err));
+import("./account-requests-nav.js?v=20260825-1200").catch(err => console.error("Erreur chargement navigation demandes clients :", err));
 if (currentPage.endsWith("clients.html")) {
-  import("./client-direct-email.js?v=20260817-1845").catch(err => console.error("Erreur chargement module e-mail client :", err));
+  import("./client-direct-email.js?v=20260825-1200").catch(err => console.error("Erreur chargement module e-mail client :", err));
   import("./crm-moovago.js?v=20260817-1845").catch(err => console.error("Erreur chargement module CRM Moovago :", err));
   import("./crm-client-enhancements.js?v=20260817-1845").catch(err => console.error("Erreur chargement améliorations Clients :", err));
   import("./crm-ui-modern.js?v=20260817-1845").catch(err => console.error("Erreur chargement interface moderne CRM :", err));
   import("./clients-operations.js?v=20260817-1845").catch(err => console.error("Erreur chargement outils opérationnels Clients :", err));
   import("./client-codes.js?v=20260817-1845").catch(err => console.error("Erreur chargement codes clients LRF :", err));
   import("./clients-export.js?v=20260817-1845").catch(err => console.error("Erreur chargement impression/export clients :", err));
-  import("./account-form-send.js?v=20260817-1845").catch(err => console.error("Erreur chargement envoi formulaire ouverture/mise à jour :", err));
+  import("./account-form-send.js?v=20260825-1200").catch(err => console.error("Erreur chargement envoi formulaire ouverture/mise à jour :", err));
 }
 if (currentPage.endsWith("dashboard.html")) {
   import("./dashboard-commercial.js?v=20260817-1845").catch(err => console.error("Erreur chargement dashboard commercial :", err));
 }
 if (currentPage.endsWith("mails-groupes.html")) {
-  import("./mails-groupes-programmation.js?v=20260817-1145").catch(err => console.error("Erreur chargement mails programmés :", err));
+  import("./mails-groupes-programmation.js?v=20260825-1200").catch(err => console.error("Erreur chargement mails programmés :", err));
 }
 
 function initCrmMobile() {
@@ -158,5 +298,10 @@ function initCrmMobile() {
   }
 }
 
-if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initCrmMobile, { once: true });
-else initCrmMobile();
+async function init() {
+  await enforceCrmAuthentication();
+  initCrmMobile();
+}
+
+if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init, { once: true });
+else init();
