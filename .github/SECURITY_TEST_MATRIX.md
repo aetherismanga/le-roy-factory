@@ -1,0 +1,25 @@
+# Security regression matrix
+
+- [ ] Agent login: Jérôme
+- [ ] Agent login: Coryne
+- [ ] Password reset
+- [ ] Unauthorized CRM redirect
+- [ ] Client CRUD
+- [ ] Prospect CRUD
+- [ ] Grouped mail
+- [ ] Scheduled mail
+- [ ] Direct client mail
+- [ ] Account request submission
+- [ ] Account update OTP
+- [ ] RIB/Kbis protected download
+- [ ] Partner account mail
+- [ ] PRO access OTP
+- [ ] Authorized tariff signed link
+- [ ] Unauthorized partner tariff denied
+- [ ] Statistics private loader
+- [ ] JARVIS public mode
+- [ ] JARVIS CRM mode
+- [ ] Firestore anonymous access denied
+- [ ] Storage anonymous access denied
+- [ ] Mobile CRM navigation
+- [ ] Public homepage mobile/desktop
