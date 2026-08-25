@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex,nofollow">
   <link rel="icon" type="image/png" href="assets/img/logo03lrf.png">
   <title>Ouverture / Mise à jour de compte — LE ROY FACTORY</title>
   <link rel="stylesheet" href="assets/css/variables.css">
@@ -23,9 +24,9 @@
           <label><input type="radio" name="requestType" value="mise_a_jour"> <strong>Mise à jour</strong><br><small>Client déjà référencé</small></label>
         </div>
         <div id="update-auth" class="grid update-only" style="margin-top:1rem">
-          <div class="field"><label>Code client *</label><input id="codeClient" placeholder="LRF-00235"></div>
-          <div class="field"><label>Département *</label><input id="departementAuth" placeholder="34" maxlength="3"></div>
-          <div class="full notice">Saisissez votre code LRF et votre département. Une fois reconnus, vos informations existantes seront automatiquement chargées.</div>
+          <div class="field"><label>Code client *</label><input id="codeClient" placeholder="LRF-00235" autocomplete="off"></div>
+          <div class="field"><label>Département *</label><input id="departementAuth" placeholder="34" maxlength="3" autocomplete="off"></div>
+          <div class="full notice">Pour protéger votre fiche, le code LRF et le département ne suffisent plus. Un code de vérification à 6 chiffres sera envoyé à l’e-mail déjà enregistré dans le CRM avant d’afficher vos informations.</div>
           <div id="prefill-state" class="full prefill-state"></div>
         </div>
       </section>
@@ -35,7 +36,7 @@
           <div class="field"><label>Raison sociale / Enseigne *</label><input id="societe" required></div>
           <div class="field"><label>Activité *</label><select id="activite" required><option value="">Choisir…</option><option>Négoce</option><option>Cuisiniste</option><option>Plombier</option><option>Carreleur</option><option>Architecte / Décorateur</option><option>Pisciniste</option><option>Constructeur</option><option>Promoteur</option><option>Groupe</option><option>Autre</option></select></div>
           <div class="field full"><label>Adresse *</label><input id="adresse" required></div>
-          <div class="field"><label>Code postal *</label><input id="codePostal" required maxlength="5"></div>
+          <div class="field"><label>Code postal *</label><input id="codePostal" required maxlength="5" inputmode="numeric"></div>
           <div class="field"><label>Ville *</label><input id="ville" required></div>
           <div class="field"><label>SIRET / SIREN</label><input id="siret"></div>
           <div class="field"><label>N° TVA intracommunautaire</label><input id="tva" placeholder="Si applicable"></div>
@@ -60,21 +61,21 @@
       <section class="card">
         <h2>5. Documents obligatoires</h2>
         <div class="grid">
-          <div class="field"><label>RIB *</label><input id="rib" type="file" required accept=".pdf,.jpg,.jpeg,.png"><span class="required-note">* Obligatoire — la demande ne peut pas être envoyée sans RIB.</span></div>
-          <div class="field"><label>Kbis *</label><input id="kbis" type="file" required accept=".pdf,.jpg,.jpeg,.png"><span class="required-note">* Obligatoire — la demande ne peut pas être envoyée sans Kbis.</span></div>
-          <div class="field full"><label>Autres pièces jointes</label><input id="autresFichiers" type="file" multiple accept=".pdf,.jpg,.jpeg,.png"></div>
+          <div class="field"><label>RIB *</label><input id="rib" type="file" required accept=".pdf,.jpg,.jpeg,.png,.webp"><span class="required-note">* Obligatoire — la demande ne peut pas être envoyée sans RIB.</span></div>
+          <div class="field"><label>Kbis *</label><input id="kbis" type="file" required accept=".pdf,.jpg,.jpeg,.png,.webp"><span class="required-note">* Obligatoire — la demande ne peut pas être envoyée sans Kbis.</span></div>
+          <div class="field full"><label>Autres pièces jointes</label><input id="autresFichiers" type="file" multiple accept=".pdf,.jpg,.jpeg,.png,.webp"></div>
         </div>
-        <div class="files-note">Formats acceptés : PDF, JPG, PNG. Taille totale maximale : 12 Mo.</div>
+        <div class="files-note">Formats acceptés : PDF, JPG, PNG, WEBP. 8 Mo maximum par fichier et 12 Mo au total. Les fichiers sont contrôlés côté serveur avant stockage.</div>
       </section>
       <section class="card">
         <h2>6. Demande complémentaire</h2>
         <div class="field"><textarea id="demande" placeholder="Précisez ici toute information ou demande complémentaire…"></textarea></div>
       </section>
-      <label style="display:flex;gap:.6rem;align-items:flex-start;margin:1rem 0;font-size:.85rem"><input id="consent" type="checkbox" required> <span>Je certifie l'exactitude des informations transmises et autorise LE ROY FACTORY à les utiliser pour la gestion de mon compte professionnel et les demandes d'ouverture auprès des partenaires sélectionnés.</span></label>
+      <label style="display:flex;gap:.6rem;align-items:flex-start;margin:1rem 0;font-size:.85rem"><input id="consent" type="checkbox" required> <span>Je certifie l'exactitude des informations transmises et autorise LE ROY FACTORY à les utiliser pour la gestion de mon compte professionnel et les demandes d'ouverture auprès des partenaires sélectionnés. <a href="politique-confidentialite.html" target="_blank" rel="noopener">Politique de confidentialité</a>.</span></label>
       <button id="submit-btn" class="submit" type="submit">Envoyer ma demande</button>
       <div id="form-msg" class="msg"></div>
     </form>
   </main>
-  <script type="module" src="assets/js/ouverture-compte.js?v=20260817-1900"></script>
+  <script type="module" src="assets/js/ouverture-compte.js?v=20260825-otp"></script>
 </body>
 </html>
