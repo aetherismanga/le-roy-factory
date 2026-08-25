@@ -27,8 +27,6 @@ service cloud.firestore {
       );
     }
 
-    // Données CRM : aucun accès anonyme. Les Cloud Functions utilisent l'Admin SDK
-    // et ne sont pas soumises à ces règles.
     match /clients/{document=**} {
       allow read, write: if isAgent();
     }
@@ -58,8 +56,7 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
-    // Collections exclusivement serveur : aucun navigateur, même agent, n'écrit
-    // directement les jetons, limites, audits ou statistiques privées.
+    // Collections exclusivement gérées par les Cloud Functions / Admin SDK.
     match /rate_limits/{document=**} {
       allow read, write: if false;
     }
@@ -86,12 +83,12 @@ service cloud.firestore {
       allow read, write: if false;
     }
 
-    match /commercial_stats/{document=**} {
+    match /commercial_statistics/{document=**} {
       allow read, write: if false;
     }
 
-    // Tout ce qui n'est pas explicitement prévu reste fermé aux anonymes et
-    // accessible aux agents authentifiés afin de préserver les modules CRM existants.
+    // Compatibilité CRM : les collections historiques non encore normalisées restent
+    // accessibles uniquement aux agents authentifiés. Aucun accès anonyme.
     match /{document=**} {
       allow read, write: if isAgent();
     }
