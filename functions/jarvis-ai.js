@@ -42,6 +42,15 @@ RÈGLES ABSOLUES DE FIABILITÉ
 - Ne réponds jamais "je n'ai pas compris" à une question métier normale : explique, demande une précision seulement si elle est indispensable.
 `;
 
+const PUBLIC_CATALOGUE_PROMPT = `
+SURFACE PUBLIQUE / CATALOGUES
+- Tu es sur une surface publique de LE ROY FACTORY.
+- Les recherches File Search sont techniquement limitées aux documents marqués type=catalogue.
+- Ne révèle jamais de prix, remises, coefficients, codes prix ou informations tarifaires internes.
+- Pour une question sur une collection, un format, un coloris, une finition ou une caractéristique fabricant, utilise d'abord les catalogues indexés.
+- Sur la page Catalogues, si l'information n'est pas confirmée par les documents indexés, dis-le clairement au lieu de compléter avec une supposition.
+`;
+
 function normalize(v) { return String(v || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim(); }
 
 function chooseModel(message) {
@@ -91,29 +100,70 @@ async function runTool(call, actions, allowCrm) {
 async function openaiRequest(apiKey,body){const r=await fetch("https://api.openai.com/v1/responses",{method:"POST",headers:{Authorization:`Bearer ${apiKey}`,"Content-Type":"application/json"},body:JSON.stringify(body)});const data=await r.json().catch(()=>({}));if(!r.ok)throw new Error(data?.error?.message||`OpenAI HTTP ${r.status}`);return data;}
 function extractText(response){if(typeof response?.output_text==="string"&&response.output_text.trim())return response.output_text.trim();const parts=[];for(const item of response?.output||[]){if(item.type!=="message")continue;for(const c of item.content||[])if(c.type==="output_text"&&c.text)parts.push(c.text)}return parts.join("\n").trim();}
 
+function extractSources(response) {
+  const byKey = new Map();
+  const add = (filename, attrs={}) => {
+    const clean = String(filename || attrs.filename || "").trim();
+    if (!clean) return;
+    const key = `${clean}|${attrs.source_url || ""}`;
+    if (byKey.has(key)) return;
+    byKey.set(key, {
+      filename: clean,
+      title: attrs.title || clean.replace(/[_-]+/g, " ").replace(/\.pdf$/i, ""),
+      manufacturer: attrs.manufacturer || "",
+      year: attrs.year || null,
+      sourceUrl: attrs.source_url || null
+    });
+  };
+
+  for (const item of response?.output || []) {
+    if (item.type === "file_search_call") {
+      for (const result of item.results || []) add(result.filename, result.attributes || {});
+    }
+    if (item.type !== "message") continue;
+    for (const content of item.content || []) {
+      for (const annotation of content.annotations || []) {
+        if (annotation.type === "file_citation") add(annotation.filename, {});
+      }
+    }
+  }
+  return [...byKey.values()].slice(0, 8);
+}
+
+function buildFileSearchTool(vectorStoreId, allowCrm) {
+  const tool = {type:"file_search", vector_store_ids:[vectorStoreId], max_num_results:8};
+  if (!allowCrm) tool.filters = {type:"eq", key:"type", value:"catalogue"};
+  return tool;
+}
+
 exports.jarvisAi=onRequest({secrets:[OPENAI_API_KEY],timeoutSeconds:120,memory:"1GiB"},async(req,res)=>{
   if(cors(req,res))return; if(req.method!=="POST")return res.status(405).json({success:false,error:"Méthode non autorisée"});
   try{
     const body=req.body||{}, message=String(body.message||"").trim(); if(!message)return res.status(400).json({success:false,error:"Message manquant"});
     const surface=String(body.surface||"android");
+    const page=String(body.page||"").toLowerCase();
     const allowCrm=surface!=="public_web";
+    const cataloguePage=surface==="public_web" && page.includes("catalogues");
     const history=Array.isArray(body.history)?body.history.slice(-16):[];
     const input=history.filter(x=>x&&(x.user||x.assistant)).flatMap(x=>{const a=[];if(x.user)a.push({role:"user",content:String(x.user)});if(x.assistant)a.push({role:"assistant",content:String(x.assistant)});return a});
     input.push({role:"user",content:message});
 
     const route=chooseModel(message);
     const vectorStoreId=String(process.env.JARVIS_VECTOR_STORE_ID||"").trim();
-    const tools=[OPEN_PAGE_TOOL,{type:"web_search"},...(allowCrm?CRM_TOOLS:[])];
-    if(vectorStoreId)tools.push({type:"file_search",vector_store_ids:[vectorStoreId],max_num_results:8});
+    const tools=[OPEN_PAGE_TOOL,...(cataloguePage?[]:[{type:"web_search"}]),...(allowCrm?CRM_TOOLS:[])];
+    if(vectorStoreId)tools.push(buildFileSearchTool(vectorStoreId, allowCrm));
     const actions=[];
+    const instructions = SYSTEM_PROMPT + (allowCrm ? "" : PUBLIC_CATALOGUE_PROMPT);
+    const include = vectorStoreId ? ["file_search_call.results"] : undefined;
 
-    let response=await openaiRequest(OPENAI_API_KEY.value(),{model:route.model,reasoning:{effort:route.effort},instructions:SYSTEM_PROMPT,input,tools,tool_choice:"auto"});
+    let response=await openaiRequest(OPENAI_API_KEY.value(),{model:route.model,reasoning:{effort:route.effort},instructions,input,tools,tool_choice:"auto",...(include?{include}:{})});
     for(let pass=0;pass<6;pass++){
       const calls=(response.output||[]).filter(x=>x.type==="function_call");if(!calls.length)break;
       const outputs=[];for(const call of calls){const result=await runTool(call,actions,allowCrm);outputs.push({type:"function_call_output",call_id:call.call_id,output:JSON.stringify(result)})}
-      response=await openaiRequest(OPENAI_API_KEY.value(),{model:route.model,reasoning:{effort:route.effort},instructions:SYSTEM_PROMPT,previous_response_id:response.id,input:outputs,tools,tool_choice:"auto"});
+      response=await openaiRequest(OPENAI_API_KEY.value(),{model:route.model,reasoning:{effort:route.effort},instructions,previous_response_id:response.id,input:outputs,tools,tool_choice:"auto",...(include?{include}:{})});
     }
     const answer=extractText(response)||"Demande traitée.";
-    res.status(200).json({success:true,answer,actions,responseId:response.id||null,documentSearchEnabled:Boolean(vectorStoreId),model:route.model,modelTier:route.tier});
+    const sources=extractSources(response);
+    res.status(200).json({success:true,answer,actions,sources,responseId:response.id||null,documentSearchEnabled:Boolean(vectorStoreId),publicCatalogueFilter:!allowCrm&&Boolean(vectorStoreId),model:route.model,modelTier:route.tier});
   }catch(error){console.error("Jarvis AI:",error);res.status(500).json({success:false,error:String(error?.message||error)});}
 });
