@@ -1,5 +1,11 @@
 (()=>{
   if (window.Capacitor?.isNativePlatform?.()) return;
+  const currentPage=(location.pathname.split('/').pop()||'index.html').toLowerCase();
+  const crmPages=new Set(['dashboard.html','clients.html','agenda.html','comptes-rendus.html','mails-groupes.html','carte.html','statistiques.html','demandes-clients.html','nouveau-compte-rendu.html']);
+  if (crmPages.has(currentPage) || document.body?.classList.contains('crm-body')) {
+    document.getElementById('lrf-web-jarvis')?.remove();
+    return;
+  }
   if (document.getElementById('lrf-web-jarvis')) return;
 
   const ENDPOINT='https://us-central1-le-roy-factory.cloudfunctions.net/jarvisAi';
@@ -24,7 +30,6 @@
     #lrf-web-jarvis .lrf-jw-answer{display:none;margin:8px auto 0;background:#fff;color:#17202A;border:1px solid #E4D7A8;border-radius:14px;padding:12px 14px;line-height:1.48;font-size:.92rem;white-space:pre-wrap;box-shadow:0 3px 12px rgba(0,0,0,.12)}
     #lrf-web-jarvis .lrf-jw-answer.open{display:block}
     #lrf-web-jarvis .lrf-jw-meta{display:block;margin-top:7px;font-size:.7rem;color:#777}
-    body.crm-body #lrf-web-jarvis{position:sticky;top:0;z-index:12000;margin-top:0}
     @media(max-width:700px){#lrf-web-jarvis{padding:8px 10px}#lrf-web-jarvis.lrf-jw-offset{margin-top:130px}#lrf-web-jarvis .lrf-jw-form{grid-template-columns:1fr auto;padding-left:12px;gap:5px}#lrf-web-jarvis .lrf-jw-label{grid-column:1/-1;font-size:.72rem;color:#9A7A00;padding:3px 4px 0}#lrf-web-jarvis input{font-size:.9rem;padding:5px 3px 8px}#lrf-web-jarvis button{width:36px;height:36px}#lrf-web-jarvis .lrf-jw-answer{font-size:.88rem}}
   `;
   document.head.appendChild(style);
@@ -34,10 +39,8 @@
   root.setAttribute('aria-label','Jarvis IA');
   root.innerHTML=`<div class="lrf-jw-inner"><form class="lrf-jw-form" autocomplete="off"><span class="lrf-jw-label">JARVIS IA</span><input type="search" maxlength="1200" placeholder="Posez votre question métier…" aria-label="Question à Jarvis IA"><button type="submit" aria-label="Envoyer à Jarvis">➤</button></form><div class="lrf-jw-answer" role="status" aria-live="polite"></div></div>`;
 
-  const crmTarget=document.querySelector('.crm-main,.crm-content,.main-content');
   const main=document.querySelector('main');
-  if(document.body.classList.contains('crm-body')&&crmTarget){crmTarget.insertBefore(root,crmTarget.firstChild)}
-  else if(main){
+  if(main){
     const paddingTop=parseFloat(getComputedStyle(main).paddingTop)||0;
     if(paddingTop<100)root.classList.add('lrf-jw-offset');
     main.insertBefore(root,main.firstChild);
@@ -52,5 +55,5 @@
 
   function executeAction(a){if(!a||!a.type)return;if(a.type==='open_app_page'){const map={clients:'clients.html',agenda:'agenda.html',carte:'carte.html',statistiques:'statistiques.html','comptes-rendus':'comptes-rendus.html',mails:'mails-groupes.html',partenaires:'partenaires.html',tarifs:'tarifs-pro.html',catalogues:'catalogues.html'};let url=map[a.page]||'';if(a.page==='client'&&a.clientId)url=`clients.html?edit=${encodeURIComponent(a.clientId)}`;if(url&&a.partner&&(a.page==='tarifs'||a.page==='catalogues'))url+=`?jarvis=${encodeURIComponent(a.partner)}`;if(url)setTimeout(()=>location.href=url,700)}if(a.type==='prepare_group_mail'){const q=new URLSearchParams({jarvisPrepare:'1',jarvisType:a.recipientType||'client'});if(a.partner)q.set('jarvisPartner',a.partner);if(a.year)q.set('jarvisYear',a.year);if(a.departement)q.set('jarvisDept',String(a.departement).replace(/^FR-/i,''));if(a.documentType)q.set('jarvisDocumentType',a.documentType);setTimeout(()=>location.href=`mails-groupes.html?${q}`,800)}}
 
-  form.addEventListener('submit',async e=>{e.preventDefault();const text=input.value.trim();if(!text)return;button.disabled=true;setAnswer('Jarvis réfléchit…');const memory=readMemory();const isAgent=Boolean(localStorage.getItem('agentLoggedIn'))||document.body.classList.contains('crm-body');try{const r=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:text,history:(memory.history||[]).slice(-12),page:location.pathname.split('/').pop()||'index.html',surface:isAgent?'agent_web':'public_web'})});const data=await r.json().catch(()=>({}));if(!r.ok||!data.success)throw new Error(data.error||`Serveur ${r.status}`);setAnswer(data.answer||'Demande traitée.',data.model?`Modèle : ${data.model.replace('gpt-5.6-','')}`:'');remember(text,data.answer||'Demande traitée.');input.value='';const actions=Array.isArray(data.actions)?data.actions:[];if(actions.length)executeAction(actions[0])}catch(err){setAnswer(`Jarvis IA est momentanément indisponible : ${err?.message||err}`)}finally{button.disabled=false;input.focus()}});
+  form.addEventListener('submit',async e=>{e.preventDefault();const text=input.value.trim();if(!text)return;button.disabled=true;setAnswer('Jarvis réfléchit…');const memory=readMemory();try{const r=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:text,history:(memory.history||[]).slice(-12),page:currentPage,surface:'public_web'})});const data=await r.json().catch(()=>({}));if(!r.ok||!data.success)throw new Error(data.error||`Serveur ${r.status}`);setAnswer(data.answer||'Demande traitée.',data.model?`Modèle : ${data.model.replace('gpt-5.6-','')}`:'');remember(text,data.answer||'Demande traitée.');input.value='';const actions=Array.isArray(data.actions)?data.actions:[];if(actions.length)executeAction(actions[0])}catch(err){setAnswer(`Jarvis IA est momentanément indisponible : ${err?.message||err}`)}finally{button.disabled=false;input.focus()}});
 })();
