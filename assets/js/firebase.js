@@ -105,10 +105,10 @@ document.addEventListener("click", e => {
   }
 }, true);
 
-import("./account-requests-nav.js?v=20260817-2008").catch(err => console.error("Erreur chargement navigation demandes clients :", err));
+import("./account-requests-nav.js?v=20260901-partners1").catch(err => console.error("Erreur chargement navigation demandes clients :", err));
 if (currentPage === "clients.html") {
   import("./client-direct-email.js?v=20260817-1845").catch(err => console.error("Erreur chargement module e-mail client :", err));
-  import("./crm-moovago.js?v=20260817-1845").catch(err => console.error("Erreur chargement module CRM Moovago :", err));
+  import("./crm-moovago.js?v=20260901-partners1").catch(err => console.error("Erreur chargement module CRM Moovago :", err));
   import("./crm-client-enhancements.js?v=20260817-1845").catch(err => console.error("Erreur chargement améliorations Clients :", err));
   import("./crm-ui-modern.js?v=20260817-1845").catch(err => console.error("Erreur chargement interface moderne CRM :", err));
   import("./clients-operations.js?v=20260817-1845").catch(err => console.error("Erreur chargement outils opérationnels Clients :", err));
