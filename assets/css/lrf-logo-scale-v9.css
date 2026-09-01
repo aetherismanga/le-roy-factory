@@ -1,6 +1,11 @@
 /* LE ROY FACTORY — V9 logo sizing override */
 
-/* Logo rond du header : plus visible sur PC */
+/* Logo rond du header : x2 visuellement sur toutes les pages, sans pousser le menu. */
+body.lrf-premium-v2 header,
+body.lrf-premium-v2 header .nav-container,
+body.lrf-premium-v2 header .logo{
+  overflow:visible!important;
+}
 body.lrf-premium-v2 header .nav-container{
   height:98px!important;
 }
@@ -12,6 +17,8 @@ body.lrf-premium-v2 header .logo{
   display:flex!important;
   align-items:center!important;
   justify-content:center!important;
+  position:relative!important;
+  z-index:1004!important;
 }
 body.lrf-premium-v2 .lrf-monogram-header,
 body.lrf-premium-v2 header .logo>img{
@@ -20,7 +27,10 @@ body.lrf-premium-v2 header .logo>img{
   max-width:none!important;
   object-fit:contain!important;
   border-radius:50%!important;
-  filter:drop-shadow(0 0 12px rgba(255,196,35,.48))!important;
+  transform:scale(2)!important;
+  transform-origin:center center!important;
+  filter:drop-shadow(0 0 14px rgba(255,196,35,.62))!important;
+  pointer-events:none!important;
 }
 
 /* Signature centrale LE ROY factory */
@@ -49,6 +59,7 @@ body.lrf-page-index .hero-logo-wrapper{
   body.lrf-premium-v2 header .logo>img{
     width:72px!important;
     height:72px!important;
+    transform:scale(2)!important;
   }
   body.lrf-page-index .hero-video-section{
     height:calc(100svh - 84px)!important;
@@ -70,6 +81,7 @@ body.lrf-page-index .hero-logo-wrapper{
   body.lrf-premium-v2 header .logo>img{
     width:70px!important;
     height:70px!important;
+    transform:scale(2)!important;
   }
   body.lrf-page-index .hero-logo{
     width:92vw!important;
