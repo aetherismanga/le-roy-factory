@@ -183,6 +183,32 @@ function installInspirationsNeobathPdf() {
     document.body.appendChild(pdfjs);
 }
 
+function installContactPriority() {
+    if (!window.location.pathname.toLowerCase().endsWith('contact.html')) return;
+
+    const intro = document.querySelector('.contact-intro');
+    if (intro) intro.textContent = intro.textContent.replace('Jérôme et Coryne', 'Coryne et Jérôme');
+
+    const select = document.getElementById('agent-select');
+    if (select) {
+        const both = [...select.options].find(o => o.value === 'deux');
+        const jerome = [...select.options].find(o => o.value === 'jerome');
+        const coryne = [...select.options].find(o => o.value === 'coryne');
+        if (both) both.textContent = 'Coryne & Jérôme';
+        if (coryne && jerome) select.insertBefore(coryne, jerome);
+    }
+
+    const stack = document.querySelector('.agent-stack');
+    if (stack) {
+        const cards = [...stack.querySelectorAll('.agent-info-card')];
+        const coryneCard = cards.find(card => /coryne/i.test(card.textContent));
+        const jeromeCard = cards.find(card => /jérôme|jerome/i.test(card.textContent));
+        const teamCard = stack.querySelector('.team-card');
+        if (coryneCard && teamCard) teamCard.insertAdjacentElement('afterend', coryneCard);
+        if (jeromeCard && coryneCard) coryneCard.insertAdjacentElement('afterend', jeromeCard);
+    }
+}
+
 installNeobathConfigDataNormalizer();
 installProSessionBridge();
 installJarvisWeb();
@@ -217,6 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     installNeobathDnaTariffFix();
     installInspirationsNeobathPdf();
+    installContactPriority();
 
     if (window.location.pathname.toLowerCase().endsWith('tarifs-pro.html')) {
         import('./tarifs-pro-client-access.js?v=20260901-profix1')
