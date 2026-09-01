@@ -30,6 +30,29 @@ body.lrf-premium-v2 header .main-nav>li>a:not(.agent-btn)::before,
 body.lrf-premium-v2 header .main-nav>li>a:not(.agent-btn):hover::before,
 body.lrf-premium-v2 header .main-nav>li>a:not(.agent-btn):focus::before{background:transparent!important;box-shadow:none!important}
 
+/* ACCES PRO : menu strictement identique aux autres pages desktop. */
+@media(min-width:901px){
+  body.lrf-premium-v2:has(#grid-tarifs) .main-nav{
+    gap:1.55rem!important;
+  }
+  body.lrf-premium-v2:has(#grid-tarifs) .main-nav>li>a:not(.agent-btn){
+    padding:31px 0 25px!important;
+    font-size:.89rem!important;
+    font-weight:700!important;
+    letter-spacing:.045em!important;
+    line-height:normal!important;
+  }
+  body.lrf-premium-v2:has(#grid-tarifs) .main-nav>li>a.active:not(.agent-btn)::after{
+    bottom:20px!important;
+    height:2px!important;
+    left:0!important;
+    right:0!important;
+    background:linear-gradient(90deg,#FFB300,#FFF08A,#FFD700)!important;
+    box-shadow:0 0 14px rgba(255,193,7,.95)!important;
+    border-radius:2px!important;
+  }
+}
+
 @media(max-width:900px){
   body.lrf-premium-v2 header nav .main-nav a:not(.agent-btn),
   body.lrf-premium-v2 header nav .main-nav a:not(.agent-btn):hover,
