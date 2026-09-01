@@ -85,6 +85,21 @@
     }).observe(target,{childList:true,subtree:true});
   };
 
+  const installContactProfessionalCopy = () => {
+    if (page !== 'contact.html' || window.__LRF_CONTACT_PRO_COPY__) return;
+    window.__LRF_CONTACT_PRO_COPY__ = true;
+    const guidance = document.getElementById('contact-guidance');
+    if (!guidance) return;
+    const apply = () => {
+      const type = document.querySelector('input[name="contact-type"]:checked')?.value || 'professionnel';
+      if (type === 'professionnel') {
+        guidance.innerHTML = '<strong>Vous êtes professionnel ?</strong>Besoin d\'un catalogue, d\'un échantillon, d\'une disponibilité produit, d\'une prise de rendez-vous ou d\'un accompagnement sur un projet ? Expliquez-nous votre besoin, nous revenons vers vous rapidement.';
+      }
+    };
+    document.querySelectorAll('input[name="contact-type"]').forEach(el => el.addEventListener('change', apply));
+    apply();
+  };
+
   const setBrand = () => {
     if (!document.body) return;
     document.body.classList.add('lrf-premium-v2', pageClass);
@@ -159,6 +174,7 @@
     }
 
     installProContactsAccordion();
+    installContactProfessionalCopy();
   };
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', setBrand, {once:true});
