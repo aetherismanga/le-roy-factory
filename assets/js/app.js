@@ -7,6 +7,15 @@ function ensureMobileCss() {
     link.rel = 'stylesheet';
     link.href = 'assets/css/mobile-enhancements.css?v=20260817-1935';
     document.head.appendChild(link);
+
+    // Toujours charger le correctif public final APRES les anciens styles.
+    const previousFinal = document.getElementById('lrf-mobile-public-v8-late');
+    if (previousFinal) previousFinal.remove();
+    const finalMobile = document.createElement('link');
+    finalMobile.id = 'lrf-mobile-public-v8-late';
+    finalMobile.rel = 'stylesheet';
+    finalMobile.href = 'assets/css/mobile-public-v8.css?v=20260901-2';
+    document.head.appendChild(finalMobile);
 }
 
 ensureMobileCss();
@@ -75,7 +84,7 @@ function installJarvisWeb(force = false) {
         existing.remove();
     }
     const script = document.createElement('script');
-    script.id = 'lrf-jarvis-web-loader';
+    script.id = 'lrf-web-jarvis-loader';
     script.src = 'assets/js/jarvis-web.js?v=20260819-0248';
     script.async = false;
     script.onload = () => {
@@ -212,7 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!premiumPages.has(page) || document.getElementById('lrf-premium-public-theme')) return;
     const script = document.createElement('script');
     script.id = 'lrf-premium-public-theme';
-    script.src = 'assets/js/premium-public-theme.js?v=20260901-5';
+    script.src = 'assets/js/premium-public-theme.js?v=20260901-9';
     script.defer = true;
     document.head.appendChild(script);
 })();
