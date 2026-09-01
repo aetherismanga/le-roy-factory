@@ -143,8 +143,9 @@ footer p,
    puisse apparaître entre deux pages. Le CRM n'est pas concerné.
    ========================================================================== */
 html:not(.lrf-premium-ready) body:has(> header .main-nav) {
-  opacity: 0 !important;
-  visibility: hidden !important;
+  opacity: 0;
+  visibility: hidden;
+  animation: lrf-public-failsafe .01s linear 1.2s forwards;
 }
 
 html.lrf-premium-ready body:has(> header .main-nav) {
@@ -155,6 +156,10 @@ html.lrf-premium-ready body:has(> header .main-nav) {
 @keyframes lrf-public-first-paint {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+@keyframes lrf-public-failsafe {
+  to { opacity: 1; visibility: visible; }
 }
 
 @media (prefers-reduced-motion: reduce) {
