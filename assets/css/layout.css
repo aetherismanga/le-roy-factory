@@ -10,6 +10,11 @@ body {
   min-height: 100vh;
 }
 
+/* JARVIS reste désactivé dans le CRM pour le moment */
+body.crm-body #lrf-web-jarvis {
+  display: none !important;
+}
+
 main {
   flex: 1;
 }
