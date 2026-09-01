@@ -4,20 +4,194 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact — LE ROY FACTORY</title>
-  <meta name="description" content="Contactez l'équipe LE ROY FACTORY pour toute demande professionnelle, devis ou information sur nos fabricants.">
+  <meta name="description" content="Contactez LE ROY FACTORY pour vos projets carrelage, salle de bain et aménagement en Languedoc, PACA et Corse.">
+  <link rel="icon" type="image/png" href="assets/brand-v2/assetlogorond.png">
   <link rel="stylesheet" href="assets/css/variables.css">
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
   <style>
-    body,html{background-color:#FBF9F5!important;background-image:none!important;color:#1A2530!important}header,footer{background-image:url('assets/img/bandeau02.png');background-size:cover;background-position:center;color:#fff;border-bottom:2px solid #D4AF37}footer{border-top:2px solid #D4AF37;border-bottom:none;text-shadow:0 1px 4px rgba(0,0,0,.9)}footer p{color:#fff!important}.main-nav{display:flex;gap:1.5rem;align-items:center;justify-content:flex-end;list-style:none;margin:0;padding:0;flex-wrap:nowrap}.main-nav li{display:flex;align-items:center}.main-nav>li>a:not(.agent-btn){text-decoration:none;color:#111!important;font-weight:800!important;font-size:1.15rem!important;letter-spacing:.5px!important;text-shadow:0 1px 2px rgba(212,175,55,.6)!important;position:relative;padding-bottom:4px;background:transparent!important;transition:color .25s ease}.main-nav>li>a:not(.agent-btn):hover{color:#D4AF37!important;background:transparent!important}.main-nav>li>a.active:not(.agent-btn){color:#111!important;font-weight:800!important;background:transparent!important;box-shadow:none!important}.main-nav>li>a.active:not(.agent-btn)::after{content:'';position:absolute;bottom:-2px;left:0;width:100%;height:3px;background:#D4AF37;box-shadow:0 0 10px rgba(212,175,55,.9);border-radius:2px}.agent-btn{display:inline-flex!important;align-items:center!important;justify-content:center!important;padding:8px 16px!important;background:#000!important;color:#FFD700!important;border:1px solid #FFD700!important;border-radius:8px!important;font-weight:700!important;font-size:.95rem!important;white-space:nowrap!important;text-decoration:none!important;transition:all .3s ease!important;box-shadow:0 2px 8px rgba(0,0,0,.5)!important;text-shadow:none!important}.agent-btn::after{display:none!important}.agent-btn:hover{background:#FFD700!important;color:#000!important;border-color:#FFD700!important}.contact-layout{display:grid;grid-template-columns:2fr 1fr;gap:2.5rem;align-items:start}@media(max-width:900px){.contact-layout{grid-template-columns:1fr}}.agent-info-card{background:#fff;padding:2rem;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,.05);border-left:4px solid var(--color-anthracite,#1A2530)}.agent-info-card h3{margin-top:0;margin-bottom:.5rem;color:var(--color-anthracite,#1A2530);font-size:1.2rem}.agent-info-card p{margin:0 0 1rem;color:#555;font-size:.95rem}
+    body,html{background-color:#FBF9F5!important;background-image:none!important;color:#1A2530!important}
+    header,footer{background-image:url('assets/img/bandeau02.png');background-size:cover;background-position:center;color:#fff;border-bottom:2px solid #D4AF37}
+    footer{border-top:2px solid #D4AF37;border-bottom:none;text-shadow:0 1px 4px rgba(0,0,0,.9)}
+    footer p{color:#fff!important}
+    .main-nav{display:flex;gap:1.5rem;align-items:center;justify-content:flex-end;list-style:none;margin:0;padding:0;flex-wrap:nowrap}
+    .main-nav li{display:flex;align-items:center}
+    .main-nav>li>a:not(.agent-btn){text-decoration:none;color:#111!important;font-weight:800!important;font-size:1.15rem!important;letter-spacing:.5px!important;text-shadow:0 1px 2px rgba(212,175,55,.6)!important;position:relative;padding-bottom:4px;background:transparent!important;transition:color .25s ease}
+    .main-nav>li>a:not(.agent-btn):hover{color:#D4AF37!important;background:transparent!important}
+    .main-nav>li>a.active:not(.agent-btn){color:#111!important;font-weight:800!important;background:transparent!important;box-shadow:none!important}
+    .main-nav>li>a.active:not(.agent-btn)::after{content:'';position:absolute;bottom:-2px;left:0;width:100%;height:3px;background:#D4AF37;box-shadow:0 0 10px rgba(212,175,55,.9);border-radius:2px}
+    .agent-btn{display:inline-flex!important;align-items:center!important;justify-content:center!important;padding:8px 16px!important;background:#000!important;color:#FFD700!important;border:1px solid #FFD700!important;border-radius:8px!important;font-weight:700!important;font-size:.95rem!important;white-space:nowrap!important;text-decoration:none!important;transition:all .3s ease!important;box-shadow:0 2px 8px rgba(0,0,0,.5)!important;text-shadow:none!important}
+    .agent-btn::after{display:none!important}.agent-btn:hover{background:#FFD700!important;color:#000!important;border-color:#FFD700!important}
+
+    .contact-intro{max-width:850px;margin:.8rem auto 0;text-align:center;font-size:1.02rem;line-height:1.65;color:#5f584f}
+    .contact-zone{display:inline-flex;align-items:center;gap:.45rem;margin-top:1rem;padding:.55rem 1rem;border:1px solid rgba(182,128,24,.35);border-radius:999px;background:rgba(255,255,255,.64);color:#785515;font-size:.88rem;font-weight:800;letter-spacing:.025em}
+    .contact-layout{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(280px,.85fr);gap:2.25rem;align-items:start}
+    .contact-form-card{display:flex;flex-direction:column;gap:1.25rem;background:rgba(255,255,255,.94);padding:2.25rem;border-radius:18px;box-shadow:0 12px 34px rgba(67,48,24,.08);border:1px solid rgba(190,145,62,.18)}
+    .contact-form-card label{display:block;font-weight:700;margin-bottom:.5rem;color:#252b33}
+    .contact-form-card input,.contact-form-card select,.contact-form-card textarea{width:100%;padding:.82rem .9rem;border:1px solid #d9cbb5;border-radius:10px;background:#fff;color:#1A2530;font:inherit}
+    .contact-form-card textarea{resize:vertical;min-height:140px}
+    .contact-form-card input:focus,.contact-form-card select:focus,.contact-form-card textarea:focus{outline:none;border-color:#d1a52f;box-shadow:0 0 0 3px rgba(209,165,47,.12)}
+    .contact-type{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+    .contact-type label{margin:0;cursor:pointer}
+    .contact-type input{position:absolute;opacity:0;pointer-events:none}
+    .contact-type span{display:flex;align-items:center;justify-content:center;min-height:52px;padding:.75rem 1rem;border:1px solid #d9cbb5;border-radius:12px;background:#fbfaf7;font-weight:800;transition:.2s ease}
+    .contact-type input:checked+span{background:linear-gradient(135deg,#fff2a2,#ffd51f 50%,#f0aa00);color:#17120a;border-color:#e2b113;box-shadow:0 5px 18px rgba(196,137,0,.18)}
+    .contact-guidance{padding:1rem 1.1rem;border-radius:12px;background:#faf6ed;border-left:3px solid #d4af37;color:#544a3c;line-height:1.5;font-size:.92rem}
+    .contact-guidance strong{display:block;color:#6f4c12;margin-bottom:.25rem}
+    .agent-stack{display:flex;flex-direction:column;gap:1rem}
+    .agent-info-card{background:rgba(255,255,255,.94);padding:1.45rem 1.55rem;border-radius:16px;box-shadow:0 8px 26px rgba(0,0,0,.05);border:1px solid rgba(190,145,62,.14);border-left:4px solid #1A2530}
+    .agent-info-card.gold{border-left-color:#d4af37}
+    .agent-info-card h3{margin:0 0 .3rem;color:#1A2530;font-size:1.2rem}
+    .agent-info-card p{margin:0;color:#666;font-size:.9rem;line-height:1.55}
+    .agent-info-card a{display:inline-block;margin-top:.5rem;color:#7a5615;font-weight:700;text-decoration:none}
+    .agent-info-card a:hover{text-decoration:underline}
+    .team-card{background:linear-gradient(145deg,#141414,#070707);color:#fff;padding:1.5rem;border-radius:16px;border:1px solid rgba(255,205,37,.42);box-shadow:0 10px 28px rgba(0,0,0,.13)}
+    .team-card strong{display:block;color:#ffd72c;font-size:1.05rem;margin-bottom:.35rem}.team-card p{margin:0;color:#eee;line-height:1.55;font-size:.9rem}
+    .contact-submit{background:linear-gradient(135deg,#fff18c,#ffd000 42%,#f2a800);color:#17120a;padding:.86rem 1.6rem;border:1px solid #e3b20d;border-radius:999px;font-weight:800;cursor:pointer;align-self:flex-start;box-shadow:0 7px 20px rgba(191,126,0,.17)}
+    .contact-submit:hover{transform:translateY(-1px);box-shadow:0 9px 25px rgba(191,126,0,.25)}
+    @media(max-width:900px){.contact-layout{grid-template-columns:1fr}.agent-stack{display:grid;grid-template-columns:1fr 1fr}.team-card{grid-column:1/-1}}
+    @media(max-width:600px){.contact-type{grid-template-columns:1fr}.contact-form-card{padding:1.35rem}.agent-stack{display:flex}.contact-submit{width:100%;text-align:center}.contact-intro{font-size:.93rem}.contact-zone{font-size:.8rem}}
   </style>
 </head>
 <body>
-  <header><div class="container nav-container" style="height:130px;display:flex;align-items:center;justify-content:space-between;"><a href="index.html" class="logo" style="display:flex;align-items:center;height:100%;padding-left:1.5rem;flex-shrink:0;"><div style="width:110px;height:110px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.4);border:2px solid #D4AF37;background:#000;flex-shrink:0;"><img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY" style="width:100%;height:100%;object-fit:cover;transform:scale(1.35);"></div></a><nav><ul class="main-nav"><li><a href="partenaires.html">Partenaires</a></li><li><a href="univers.html">Inspirations</a></li><li><a href="realisations.html">Réalisations</a></li><li><a href="catalogues.html">Catalogues</a></li><li><a href="tarifs-pro.html">Accès PRO</a></li><li><a href="contact.html" class="active">Contact</a></li><li><a href="agent.html" class="agent-btn">Espace Agent</a></li></ul></nav><button class="burger-btn" aria-label="Menu"><span></span><span></span><span></span></button></div></header>
-  <main style="padding-bottom:4rem;"><section class="hero-banner" style="background-image:url('assets/img/02.png');"><div class="container"><h1 style="font-size:2.5rem;margin-bottom:.5rem;">Contactez-nous</h1><p style="font-size:1.1rem;opacity:.9;max-width:700px;">Notre équipe est à votre disposition pour répondre à toutes vos demandes professionnelles.</p></div></section><div class="container" style="margin-top:3rem;max-width:1100px;"><div class="contact-layout"><form id="contact-form" style="display:flex;flex-direction:column;gap:1.5rem;background:#fff;padding:2.5rem;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,.05);"><div><label style="display:block;font-weight:600;margin-bottom:.5rem;">Destinataire (Agent)</label><select id="agent-select" required style="width:100%;padding:.75rem;border:1px solid #ccc;border-radius:4px;background:#fff;"><option value="" disabled selected>-- Choisissez un agent --</option><option value="jerome">Jérôme (jerome@leroyfactory.fr)</option><option value="coryne">Coryne (coryne@leroyfactory.fr)</option><option value="deux">Les deux (Jérôme & Coryne)</option></select></div><div><label style="display:block;font-weight:600;margin-bottom:.5rem;">Nom / Société</label><input type="text" id="contact-name" required style="width:100%;padding:.75rem;border:1px solid #ccc;border-radius:4px;"></div><div><label style="display:block;font-weight:600;margin-bottom:.5rem;">Email professionnel</label><input type="email" id="contact-email" required style="width:100%;padding:.75rem;border:1px solid #ccc;border-radius:4px;"></div><div><label style="display:block;font-weight:600;margin-bottom:.5rem;">Message</label><textarea id="contact-message" rows="5" required style="width:100%;padding:.75rem;border:1px solid #ccc;border-radius:4px;"></textarea></div><button type="submit" class="btn" style="background:var(--color-anthracite,#1A2530);color:#fff;padding:.75rem 2rem;border:none;border-radius:4px;font-weight:600;cursor:pointer;align-self:flex-start;">Envoyer le message</button></form><div style="display:flex;flex-direction:column;gap:1.5rem;"><div class="agent-info-card"><h3>Jérôme Hugol</h3><p><strong>Secteur / Départements :</strong><br>30 - 34 - 11 - 66</p><p style="margin:0;font-size:.85rem;color:#777;">Email : jerome@leroyfactory.fr</p></div><div class="agent-info-card" style="border-left-color:#d4af37;"><h3>Coryne Le Roy</h3><p><strong>Secteur / Départements :</strong><br>13 - 83 - 84 - 04 - 06 - 05 - 2A - 2B</p><p style="margin:0;font-size:.85rem;color:#777;">Email : coryne@leroyfactory.fr</p></div></div></div></div></main>
-  <footer><div class="container" style="text-align:center;padding:2rem 0;"><p style="color:#fff!important;font-weight:600;text-shadow:0 1px 4px rgba(0,0,0,.9);">&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p></div></footer>
-  <script>document.getElementById('contact-form').addEventListener('submit',function(e){e.preventDefault();const agentChoice=document.getElementById('agent-select').value;const name=document.getElementById('contact-name').value;const email=document.getElementById('contact-email').value;const message=document.getElementById('contact-message').value;let targetEmail='';if(agentChoice==='jerome')targetEmail='jerome@leroyfactory.fr';else if(agentChoice==='coryne')targetEmail='coryne@leroyfactory.fr';else if(agentChoice==='deux')targetEmail='jerome@leroyfactory.fr,coryne@leroyfactory.fr';const subject=encodeURIComponent(`Demande de contact de ${name} (Le Roy Factory)`);const body=encodeURIComponent(`Nom / Société : ${name}\nEmail : ${email}\n\nMessage :\n${message}`);window.location.href=`mailto:${targetEmail}?subject=${subject}&body=${body}`});</script>
+  <header>
+    <div class="container nav-container" style="height:130px;display:flex;align-items:center;justify-content:space-between;">
+      <a href="index.html" class="logo" style="display:flex;align-items:center;height:100%;padding-left:1.5rem;flex-shrink:0;">
+        <div style="width:110px;height:110px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.4);border:2px solid #D4AF37;background:#000;flex-shrink:0;">
+          <img src="assets/brand-v2/assetlogorond.png" alt="LE ROY FACTORY" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+      </a>
+      <nav><ul class="main-nav"><li><a href="partenaires.html">Partenaires</a></li><li><a href="univers.html">Inspirations</a></li><li><a href="realisations.html">Réalisations</a></li><li><a href="catalogues.html">Catalogues</a></li><li><a href="tarifs-pro.html">Accès PRO</a></li><li><a href="contact.html" class="active">Contact</a></li><li><a href="agent.html" class="agent-btn">Espace Agent</a></li></ul></nav>
+      <button class="burger-btn" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main style="padding-bottom:4rem;">
+    <section class="hero-banner">
+      <div class="container" style="text-align:center;">
+        <h1>Contactez-nous</h1>
+        <p class="contact-intro">Un projet, une question ou une référence à retrouver ? Jérôme et Coryne vous accompagnent avec simplicité et réactivité pour vos projets carrelage, salle de bain et aménagement.</p>
+        <div class="contact-zone">📍 Languedoc • PACA • Corse</div>
+      </div>
+    </section>
+
+    <div class="container" style="margin-top:2.5rem;max-width:1120px;">
+      <div class="contact-layout">
+        <form id="contact-form" class="contact-form-card">
+          <div>
+            <label>Vous êtes :</label>
+            <div class="contact-type">
+              <label><input type="radio" name="contact-type" value="particulier" id="type-particulier"><span>🏠 Un particulier</span></label>
+              <label><input type="radio" name="contact-type" value="professionnel" id="type-professionnel" checked><span>🏢 Un professionnel</span></label>
+            </div>
+          </div>
+
+          <div id="contact-guidance" class="contact-guidance">
+            <strong>Vous êtes professionnel ?</strong>
+            Besoin d'un tarif, d'un catalogue, d'un échantillon, d'une disponibilité produit ou d'un accompagnement sur un projet ? Expliquez-nous votre besoin, nous revenons vers vous rapidement.
+          </div>
+
+          <div>
+            <label for="agent-select">Qui souhaitez-vous contacter ?</label>
+            <select id="agent-select" required>
+              <option value="deux" selected>Jérôme & Coryne</option>
+              <option value="jerome">Jérôme</option>
+              <option value="coryne">Coryne</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="contact-name" id="name-label">Nom / Société</label>
+            <input type="text" id="contact-name" required>
+          </div>
+
+          <div id="location-field" style="display:none;">
+            <label for="contact-location">Ville / Code postal</label>
+            <input type="text" id="contact-location" placeholder="Ex. Montpellier 34000">
+          </div>
+
+          <div>
+            <label for="contact-email">Adresse e-mail</label>
+            <input type="email" id="contact-email" required>
+          </div>
+
+          <div>
+            <label for="contact-message" id="message-label">Votre demande</label>
+            <textarea id="contact-message" rows="5" required placeholder="Décrivez votre projet ou votre besoin..."></textarea>
+          </div>
+
+          <button type="submit" class="contact-submit">Envoyer le message</button>
+        </form>
+
+        <div class="agent-stack">
+          <div class="team-card">
+            <strong>LE ROY FACTORY à vos côtés</strong>
+            <p>Nous accompagnons ensemble nos clients sur le Languedoc, la région PACA et la Corse. Un seul objectif : vous orienter rapidement vers la bonne solution et le bon interlocuteur.</p>
+          </div>
+          <div class="agent-info-card">
+            <h3>Jérôme Hugol</h3>
+            <p>Conseil, accompagnement projet et suivi commercial.</p>
+            <a href="mailto:jerome@leroyfactory.fr">✉ jerome@leroyfactory.fr</a>
+          </div>
+          <div class="agent-info-card gold">
+            <h3>Coryne Le Roy</h3>
+            <p>Conseil, accompagnement projet et suivi commercial.</p>
+            <a href="mailto:coryne@leroyfactory.fr">✉ coryne@leroyfactory.fr</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer><div class="container" style="text-align:center;padding:2rem 0;"><p>&copy; 2026 LE ROY FACTORY. Tous droits réservés.</p></div></footer>
+
+  <script>
+    const guidance=document.getElementById('contact-guidance');
+    const locationField=document.getElementById('location-field');
+    const locationInput=document.getElementById('contact-location');
+    const nameLabel=document.getElementById('name-label');
+    const messageLabel=document.getElementById('message-label');
+    const messageInput=document.getElementById('contact-message');
+
+    function updateContactType(){
+      const type=document.querySelector('input[name="contact-type"]:checked')?.value || 'professionnel';
+      if(type==='particulier'){
+        guidance.innerHTML='<strong>Vous êtes particulier ?</strong>Vous recherchez une référence, un coloris ou un produit dans votre secteur ? Indiquez-nous ce que vous cherchez et votre ville ou code postal : nous vous dirigerons vers le négoce partenaire le plus proche de chez vous.';
+        locationField.style.display='block';
+        locationInput.required=true;
+        nameLabel.textContent='Nom / Prénom';
+        messageLabel.textContent='Référence ou produit recherché';
+        messageInput.placeholder='Ex. référence du carrelage, nom de collection, coloris, photo ou description du produit recherché...';
+      }else{
+        guidance.innerHTML='<strong>Vous êtes professionnel ?</strong>Besoin d\'un tarif, d\'un catalogue, d\'un échantillon, d\'une disponibilité produit ou d\'un accompagnement sur un projet ? Expliquez-nous votre besoin, nous revenons vers vous rapidement.';
+        locationField.style.display='none';
+        locationInput.required=false;
+        nameLabel.textContent='Nom / Société';
+        messageLabel.textContent='Votre demande';
+        messageInput.placeholder='Décrivez votre projet ou votre besoin...';
+      }
+    }
+    document.querySelectorAll('input[name="contact-type"]').forEach(el=>el.addEventListener('change',updateContactType));
+    updateContactType();
+
+    document.getElementById('contact-form').addEventListener('submit',function(e){
+      e.preventDefault();
+      const type=document.querySelector('input[name="contact-type"]:checked')?.value || 'professionnel';
+      const agentChoice=document.getElementById('agent-select').value;
+      const name=document.getElementById('contact-name').value;
+      const email=document.getElementById('contact-email').value;
+      const location=document.getElementById('contact-location').value;
+      const message=document.getElementById('contact-message').value;
+      let targetEmail='';
+      if(agentChoice==='jerome')targetEmail='jerome@leroyfactory.fr';
+      else if(agentChoice==='coryne')targetEmail='coryne@leroyfactory.fr';
+      else targetEmail='jerome@leroyfactory.fr,coryne@leroyfactory.fr';
+      const subject=encodeURIComponent(`${type==='particulier'?'Demande particulier':'Demande professionnelle'} - ${name} (LE ROY FACTORY)`);
+      const body=encodeURIComponent(`Type : ${type==='particulier'?'Particulier':'Professionnel'}\nNom / Société : ${name}\nEmail : ${email}${location?`\nVille / Code postal : ${location}`:''}\n\nDemande :\n${message}`);
+      window.location.href=`mailto:${targetEmail}?subject=${subject}&body=${body}`;
+    });
+  </script>
   <script src="assets/js/app.js?v=20260819-0300"></script>
   <script src="assets/js/jarvis-web.js?v=20260819-0300"></script>
 </body>
