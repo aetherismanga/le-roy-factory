@@ -207,3 +207,15 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(err => console.error('Erreur chargement accès tarifs PRO client :', err));
     }
 });
+
+// Thème visuel premium public V2 — isolé du CRM, de Firebase et des formulaires métier.
+(() => {
+    const page = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
+    const premiumPages = new Set(['index.html','partenaires.html','univers.html','realisations.html','catalogues.html','tarifs-pro.html','contact.html']);
+    if (!premiumPages.has(page) || document.getElementById('lrf-premium-public-theme')) return;
+    const script = document.createElement('script');
+    script.id = 'lrf-premium-public-theme';
+    script.src = 'assets/js/premium-public-theme.js?v=20260901-1';
+    script.defer = true;
+    document.head.appendChild(script);
+})();
