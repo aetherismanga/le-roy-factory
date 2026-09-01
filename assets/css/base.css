@@ -139,21 +139,27 @@ footer p,
 /* ========================================================================== 
    PUBLIC — ANTI-FLASH / PREMIER AFFICHAGE
    Les pages publiques possèdent le menu .main-nav. Elles restent masquées
-   jusqu'à ce que le thème premium soit complètement chargé et appliqué.
-   Le CRM n'est pas concerné.
+   pendant le chargement du thème premium afin qu'aucun ancien visuel ne
+   puisse apparaître entre deux pages. Le CRM n'est pas concerné.
    ========================================================================== */
-html:not(.lrf-first-paint-ready) body:has(> header .main-nav) {
+html:not(.lrf-premium-ready) body:has(> header .main-nav) {
   opacity: 0 !important;
   visibility: hidden !important;
 }
 
-html.lrf-first-paint-ready body:has(> header .main-nav) {
-  opacity: 1 !important;
+html.lrf-premium-ready body:has(> header .main-nav) {
   visibility: visible !important;
+  animation: lrf-public-first-paint .12s ease .08s both !important;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  html.lrf-first-paint-ready body:has(> header .main-nav) {
-    transition: opacity 0.08s linear !important;
+@keyframes lrf-public-first-paint {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.lrf-premium-ready body:has(> header .main-nav) {
+    animation-duration: .01s !important;
+    animation-delay: .04s !important;
   }
 }
