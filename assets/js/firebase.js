@@ -107,6 +107,7 @@ document.addEventListener("click", e => {
 
 import("./account-requests-nav.js?v=20260901-partners1").catch(err => console.error("Erreur chargement navigation demandes clients :", err));
 if (currentPage === "clients.html") {
+  import("./seed-bilt-annexe-clients.js?v=20260901").catch(err => console.error("Erreur chargement clients Annexe 1 BILT :", err));
   import("./client-direct-email.js?v=20260817-1845").catch(err => console.error("Erreur chargement module e-mail client :", err));
   import("./crm-moovago.js?v=20260901-partners1").catch(err => console.error("Erreur chargement module CRM Moovago :", err));
   import("./crm-client-enhancements.js?v=20260817-1845").catch(err => console.error("Erreur chargement améliorations Clients :", err));
