@@ -48,3 +48,10 @@ function addNav(){
   }
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',addNav,{once:true});else addNav();
+
+// La sélection de partenaires dans une fiche client doit être répercutée immédiatement
+// dans le champ Firestore `partenaires`, utilisé par l'Accès PRO.
+if(location.pathname.toLowerCase().endsWith('clients.html')){
+  import('./client-partners-sync.js?v=20260901-1')
+    .catch(err=>console.error('Erreur synchronisation partenaires client :',err));
+}
