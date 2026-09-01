@@ -2,6 +2,7 @@ const { onRequest } = require("firebase-functions/v2/https");
 const { onSchedule } = require("firebase-functions/v2/scheduler");
 const admin = require("firebase-admin");
 const nodemailer = require("nodemailer");
+const { requireAgent } = require("./auth");
 
 admin.initializeApp();
 const db = admin.firestore();
@@ -9,7 +10,7 @@ const bucket = admin.storage().bucket();
 
 function cors(req, res) {
   res.set("Access-Control-Allow-Origin", "*");
-  res.set("Access-Control-Allow-Headers", "Content-Type");
+  res.set("Access-Control-Allow-Headers", "Content-Type, Authorization");
   res.set("Access-Control-Allow-Methods", "POST, OPTIONS");
   if (req.method === "OPTIONS") {
     res.status(204).send("");
@@ -127,6 +128,8 @@ exports.sendGroupEmail = onRequest({
 }, async (req, res) => {
   if (cors(req, res)) return;
   if (req.method !== "POST") return res.status(405).json({ error: "Méthode non autorisée" });
+  const agent = await requireAgent(req, res);
+  if (!agent) return;
 
   const payload = req.body || {};
   try {
@@ -135,7 +138,8 @@ exports.sendGroupEmail = onRequest({
       statut: "Succès",
       messageId: info?.messageId || null,
       typeEnvoi: "immediat",
-      sentAt: admin.firestore.FieldValue.serverTimestamp()
+      sentAt: admin.firestore.FieldValue.serverTimestamp(),
+      authenticatedAgent: agent.email
     });
     await appendClientHistory(payload.clientIds, payload.senderMode, payload.subject, { programme:false }).catch(err => {
       console.warn("Historique client non bloquant:", err);
@@ -147,7 +151,8 @@ exports.sendGroupEmail = onRequest({
       statut: "Erreur",
       typeEnvoi: "immediat",
       erreur: String(error.message || error),
-      failedAt: admin.firestore.FieldValue.serverTimestamp()
+      failedAt: admin.firestore.FieldValue.serverTimestamp(),
+      authenticatedAgent: agent.email
     }).catch(() => {});
     res.status(500).json({ success: false, error: error.message });
   }
@@ -159,6 +164,8 @@ exports.scheduleGroupEmail = onRequest({
 }, async (req, res) => {
   if (cors(req, res)) return;
   if (req.method !== "POST") return res.status(405).json({ error: "Méthode non autorisée" });
+  const agent = await requireAgent(req, res);
+  if (!agent) return;
 
   try {
     const payload = req.body || {};
@@ -193,7 +200,8 @@ exports.scheduleGroupEmail = onRequest({
       statut: "Programmé",
       typeEnvoi: "programme",
       scheduledMailId: ref.id,
-      scheduledAt: admin.firestore.Timestamp.fromDate(date)
+      scheduledAt: admin.firestore.Timestamp.fromDate(date),
+      authenticatedAgent: agent.email
     });
 
     await ref.set({
@@ -207,7 +215,8 @@ exports.scheduleGroupEmail = onRequest({
       clientIds: cleanPayload.clientIds,
       storagePath,
       historyId: historyRef.id,
-      attempts: 0
+      attempts: 0,
+      authenticatedAgent: agent.email
     });
 
     res.status(200).json({ success:true, id:ref.id, historyId:historyRef.id, scheduledAt:date.toISOString() });
