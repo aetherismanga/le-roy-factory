@@ -27,7 +27,7 @@ function requestType(){return document.querySelector('input[name="requestType"]:
 function toggleUpdate(){
   const update=requestType()==='mise_a_jour';
   $('#update-auth').style.display=update?'grid':'none';
-  $('#codeClient').required=update;$('#departementAuth').required=update;$('#emailAuth').required=update;
+  $('#codeClient').required=update;$('#departementAuth').required=update;
   if(!update){prefillLoadedKey='';setPrefillState('','');}
   else schedulePrefill();
 }
@@ -49,7 +49,6 @@ async function collectFiles(){
 }
 function showMsg(text,ok=false){const el=$('#form-msg');el.textContent=text;el.className=`msg ${ok?'ok':'err'}`}
 function normalizeCode(v){let s=String(v||'').trim().toUpperCase().replace(/\s/g,'');if(/^\d{1,5}$/.test(s))s=`LRF-${s.padStart(5,'0')}`;return s}
-function normalizeEmail(v){return String(v||'').trim().toLowerCase()}
 function setPrefillState(text,type=''){const el=$('#prefill-state');if(!el)return;el.textContent=text;el.className=`full prefill-state ${type}`}
 function setSelectValue(select,value){if(!value)return;const exact=[...select.options].find(o=>o.value.toLowerCase()===String(value).toLowerCase());if(exact)select.value=exact.value;else{select.value='Autre'}}
 function fillExisting(c){
@@ -57,14 +56,14 @@ function fillExisting(c){
 }
 function schedulePrefill(){clearTimeout(prefillTimer);if(requestType()!=='mise_a_jour')return;prefillTimer=setTimeout(loadExisting,450)}
 async function loadExisting(){
-  const code=normalizeCode($('#codeClient').value),dep=$('#departementAuth').value.trim().toUpperCase(),emailAuth=normalizeEmail($('#emailAuth').value);
-  if(!/^LRF-\d{5}$/.test(code)||!dep||!/^\S+@\S+\.\S+$/.test(emailAuth)){setPrefillState('','');return}
-  const key=`${code}|${dep}|${emailAuth}`;if(key===prefillLoadedKey)return;
-  setPrefillState('Vérification sécurisée de votre fiche client…','loading');
+  const code=normalizeCode($('#codeClient').value),dep=$('#departementAuth').value.trim().toUpperCase();
+  if(!/^LRF-\d{5}$/.test(code)||!dep){setPrefillState('','');return}
+  const key=`${code}|${dep}`;if(key===prefillLoadedKey)return;
+  setPrefillState('Recherche de votre fiche client…','loading');
   try{
-    const res=await fetch(PREFILL_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({codeClient:code,departement:dep,emailAuth})});const d=await res.json().catch(()=>({}));
+    const res=await fetch(PREFILL_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({codeClient:code,departement:dep})});const d=await res.json().catch(()=>({}));
     if(!res.ok||!d.success)throw new Error(d.error||'Compte introuvable.');
-    fillExisting(d.client||{});prefillLoadedKey=key;setPrefillState('✓ Identité vérifiée. Votre fiche a été chargée. Vérifiez les informations et complétez uniquement ce qui doit être mis à jour.','ok');
+    fillExisting(d.client||{});prefillLoadedKey=key;setPrefillState('✓ Votre fiche a été retrouvée. Vérifiez les informations et complétez uniquement ce qui doit être mis à jour.','ok');
   }catch(err){prefillLoadedKey='';setPrefillState(err.message||'Impossible de retrouver votre fiche.','err')}
 }
 
@@ -73,7 +72,6 @@ renderPartners();toggleUpdate();
 document.querySelectorAll('input[name="requestType"]').forEach(r=>r.addEventListener('change',toggleUpdate));
 $('#codeClient').addEventListener('input',e=>{e.target.value=normalizeCode(e.target.value);prefillLoadedKey='';schedulePrefill()});
 $('#departementAuth').addEventListener('input',()=>{prefillLoadedKey='';schedulePrefill()});
-$('#emailAuth').addEventListener('input',()=>{prefillLoadedKey='';schedulePrefill()});
 $('#codePostal').addEventListener('input',e=>{if(/^\d{5}$/.test(e.target.value)){fetch(`https://geo.api.gouv.fr/communes?codePostal=${e.target.value}&fields=nom&format=json`).then(r=>r.json()).then(d=>{if(d?.[0]?.nom&&!$('#ville').value)$('#ville').value=d[0].nom}).catch(()=>{})}});
 
 $('#account-form').addEventListener('submit',async e=>{
@@ -81,12 +79,11 @@ $('#account-form').addEventListener('submit',async e=>{
   try{
     const type=requestType();const cp=$('#codePostal').value.trim();const tva=$('#tva').value.trim();
     if(type==='mise_a_jour'&&!prefillLoadedKey)await loadExisting();
-    if(type==='mise_a_jour'&&!prefillLoadedKey)throw new Error('Votre code client, votre département et votre e-mail enregistré doivent être reconnus avant l’envoi.');
+    if(type==='mise_a_jour'&&!prefillLoadedKey)throw new Error('Votre code client et votre département doivent être reconnus avant l’envoi.');
     const payload={
       requestType:type,
       codeClient:type==='mise_a_jour'?normalizeCode($('#codeClient').value):'',
       departementAuth:type==='mise_a_jour'?$('#departementAuth').value.trim().toUpperCase():'',
-      emailAuth:type==='mise_a_jour'?normalizeEmail($('#emailAuth').value):'',
       societe:$('#societe').value.trim(),activite:$('#activite').value.trim(),adresse:$('#adresse').value.trim(),codePostal:cp,ville:$('#ville').value.trim(),departement:depFromCp(cp),
       siret:$('#siret').value.trim(),tva,chiffreAffaires:$('#chiffreAffaires').value.trim(),contact:$('#contact').value.trim(),fonction:$('#fonction').value.trim(),telephone:$('#telephone').value.trim(),email:$('#email').value.trim(),
       emailsAutres:$('#emailsAutres').value.split(',').map(x=>x.trim()).filter(Boolean),contactsAutres:$('#contactsAutres').value.trim(),
