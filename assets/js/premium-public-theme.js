@@ -19,6 +19,9 @@
   addStylesheet('lrf-soft-pages-v3-css', 'assets/css/lrf-soft-pages-v3.css?v=20260901-2');
   addStylesheet('lrf-final-v4-css', 'assets/css/lrf-final-v4.css?v=20260901-2');
   addStylesheet('lrf-hotfix-v5-css', 'assets/css/lrf-hotfix-v5.css?v=20260901-4');
+  if (window.matchMedia('(max-width: 900px)').matches) {
+    addStylesheet('lrf-mobile-public-v6-css', 'assets/css/mobile-public-v6.css?v=20260901-1');
+  }
   document.documentElement.classList.add('lrf-premium-ready');
 
   const pageClass = `lrf-page-${page.replace('.html','').replace(/[^a-z0-9-]/g,'-')}`;
