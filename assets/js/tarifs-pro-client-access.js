@@ -1,7 +1,5 @@
-import { db } from "./firebase.js";
-import { collection, getDocs, query, where, limit } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
 const SESSION_KEY="lrfProSession";
+const PREFILL_URL="https://getaccountclientprefill-5m3lsyu7bq-uc.a.run.app";
 const PARTNER_NAMES={
   "elios-ceramica":"Elios Ceramica","view-ceramica":"View Ceramica","la-fenice":"La Fenice","reviglass":"Reviglass",
   "biopietra":"Biopietra","petracers":"Petracer's","pecchioli-firenze":"Pecchioli Firenze","bulbo":"Bulbo",
@@ -67,10 +65,18 @@ function replaceLogin(){
   box.querySelectorAll("input").forEach(i=>i.addEventListener("keydown",e=>{if(e.key==="Enter")authenticate()}));
 }
 
-async function findClient(code){
-  const snap=await getDocs(query(collection(db,"clients"),where("codeClient","==",code),limit(2)));
-  if(snap.empty)return null;
-  const d=snap.docs[0];return{id:d.id,...d.data()};
+async function findClient(code,dep){
+  const response=await fetch(PREFILL_URL,{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({codeClient:code,departement:dep})
+  });
+  let data={};
+  try{data=await response.json()}catch(_){data={}}
+  if(response.status===403||response.status===404)return null;
+  if(!response.ok)throw new Error(data.error||`Erreur serveur ${response.status}`);
+  if(!data?.success||!data?.client)return null;
+  return {codeClient:code,departement:dep,type:"client",...data.client};
 }
 
 async function authenticate(){
@@ -79,13 +85,14 @@ async function authenticate(){
   const err=document.getElementById("pro-client-error");
   if(err){err.style.display="none";err.textContent=""}
   if(!/^LRF-\d{5}$/.test(code)||!dep){showError("Vérifiez l'identifiant LRF et le département.");return}
+  const btn=document.getElementById("pro-client-login");
+  if(btn){btn.disabled=true;btn.textContent="Vérification…"}
   try{
-    const client=await findClient(code);
-    if(!client){showError("Identifiant client inconnu.");return}
-    if(String(client.type||"client").toLowerCase()==="prospect"){showError("Cet accès est réservé aux clients professionnels actifs.");return}
-    if(clientDep(client)!==dep){showError("Le département ne correspond pas à ce compte client.");return}
+    const client=await findClient(code,dep);
+    if(!client){showError("Identifiant client ou département incorrect.");return}
     openForClient(client);
-  }catch(e){console.error(e);showError("Impossible de vérifier le compte pour le moment.")}
+  }catch(e){console.error("Accès PRO",e);showError("Impossible de vérifier le compte pour le moment.")}
+  finally{if(btn){btn.disabled=false;btn.textContent="Accéder à mes tarifs"}}
 }
 function showError(msg){const e=document.getElementById("pro-client-error");if(e){e.textContent=msg;e.style.display="block"}}
 
@@ -93,7 +100,7 @@ function openForClient(client){
   currentClient=client;
   const partners=[...new Set(Array.isArray(client.partenaires)?client.partenaires:[])];
   const allowedNames=new Set(partners.map(p=>norm(PARTNER_NAMES[p]||p)));
-  const activity=client.categorieActivite||client.sousCategorie||client.segmentation||"Professionnel";
+  const activity=client.categorieActivite||client.activite||client.sousCategorie||client.segmentation||"Professionnel";
   const session=saveSession(client,partners,activity);
   window.LRF_PRO_CONTEXT=session;
 
@@ -128,8 +135,8 @@ function openForClient(client){
 
 async function restoreSession(saved){
   try{
-    const client=await findClient(String(saved.codeClient||"").toUpperCase());
-    if(!client||String(client.type||"client").toLowerCase()==="prospect"||clientDep(client)!==String(saved.departement||"").toUpperCase())throw new Error("Session invalide");
+    const client=await findClient(String(saved.codeClient||"").toUpperCase(),String(saved.departement||"").toUpperCase());
+    if(!client)throw new Error("Session invalide");
     openForClient(client);
     return true;
   }catch(e){console.warn("Session PRO expirée",e);clearSession();return false}
