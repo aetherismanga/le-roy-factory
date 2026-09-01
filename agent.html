@@ -24,6 +24,7 @@
     .form-row{display:flex;justify-content:space-between;align-items:center;gap:1rem;font-size:.85rem;margin-bottom:1.5rem}.checkbox-container{display:flex;align-items:center;gap:.5rem;cursor:pointer;color:#4B5563}.forgot-link{border:0;background:none;color:#9b7c16;text-decoration:none;font-weight:700;cursor:pointer;padding:0}.forgot-link:hover{text-decoration:underline}
     .btn-login-submit{width:100%;padding:1rem;background:#111;color:#FFD700;border:1px solid #FFD700;border-radius:7px;font-weight:800;font-size:1rem;cursor:pointer;transition:.2s}.btn-login-submit:hover{background:#FFD700;color:#111}.btn-login-submit:disabled{opacity:.55;cursor:wait}
     .notification{padding:.75rem 1rem;border-radius:7px;font-size:.85rem;margin-bottom:1.25rem;text-align:center;display:none}.notification.error{display:block;background:#FDF2F2;border:1px solid #F5C6CB;color:#721C24}.notification.ok{display:block;background:#ecf8f0;border:1px solid #bfe1ca;color:#17623a}
+    .error-code{display:block;margin-top:.45rem;font-size:.72rem;font-family:monospace;opacity:.8;word-break:break-word}
     @media(max-width:600px){.login-wrapper{padding:1.5rem;margin:0 .75rem}.form-row{align-items:flex-start;flex-direction:column}.main-nav{display:none}}
   </style>
 </head>
@@ -55,7 +56,7 @@
   <footer><div class="container" style="text-align:center;padding:2rem 0;"><p>&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p></div></footer>
 
   <script type="module">
-    import { auth, getAgentProfile } from "./assets/js/firebase.js?v=20260901-auth";
+    import { auth, getAgentProfile } from "./assets/js/firebase.js?v=20260901-auth2";
     import {
       signInWithEmailAndPassword, sendPasswordResetEmail, setPersistence,
       browserLocalPersistence, browserSessionPersistence, onAuthStateChanged, signOut
@@ -72,8 +73,14 @@
     const safeReturn = /^(dashboard|clients|agenda|comptes-rendus|mails-groupes|carte|statistiques|demandes-clients|nouveau-compte-rendu)\.html(?:[?#].*)?$/.test(returnTo) ? returnTo : "dashboard.html";
     let loginInProgress = false;
 
-    function show(text, type = "error") {
+    function show(text, type = "error", code = "") {
       notification.textContent = text;
+      if (code) {
+        const small = document.createElement("span");
+        small.className = "error-code";
+        small.textContent = `Diagnostic : ${code}`;
+        notification.appendChild(small);
+      }
       notification.className = `notification ${type}`;
     }
     function clearNotice() { notification.className = "notification"; notification.textContent = ""; }
@@ -110,12 +117,16 @@
         show(`Connexion réussie. Bonjour ${profile.name.split(" ")[0]}.`, "ok");
         location.replace(safeReturn);
       } catch (error) {
-        const code = String(error?.code || error?.message || "");
-        if (code.includes("operation-not-allowed")) show("La connexion e-mail/mot de passe doit être activée dans Firebase Authentication.");
-        else if (code.includes("invalid-credential") || code.includes("wrong-password") || code.includes("user-not-found")) show("E-mail ou mot de passe incorrect.");
-        else if (code.includes("too-many-requests")) show("Trop de tentatives. Réessayez plus tard ou utilisez « Mot de passe oublié ».");
-        else if (code.includes("unauthorized-agent")) show("Ce compte n'est pas autorisé à accéder au CRM LE ROY FACTORY.");
-        else show("Connexion impossible pour le moment.");
+        console.error("Firebase Auth login error", error);
+        const code = String(error?.code || error?.message || "erreur-inconnue");
+        if (code.includes("operation-not-allowed")) show("La connexion e-mail/mot de passe doit être activée dans Firebase Authentication.", "error", code);
+        else if (code.includes("invalid-credential") || code.includes("wrong-password") || code.includes("user-not-found")) show("E-mail ou mot de passe incorrect.", "error", code);
+        else if (code.includes("too-many-requests")) show("Trop de tentatives. Réessayez plus tard ou utilisez « Mot de passe oublié ».", "error", code);
+        else if (code.includes("unauthorized-domain")) show("Le domaine leroyfactory.fr n'est pas encore autorisé dans Firebase Authentication.", "error", code);
+        else if (code.includes("network-request-failed")) show("Firebase n'arrive pas à joindre le service d'authentification. Vérifiez le réseau ou un bloqueur navigateur.", "error", code);
+        else if (code.includes("api-key-not-valid") || code.includes("invalid-api-key")) show("La clé API Firebase du site n'est pas acceptée. Il faut corriger sa configuration.", "error", code);
+        else if (code.includes("unauthorized-agent")) show("La connexion Firebase a réussi, mais ce compte n'est pas autorisé à accéder au CRM LE ROY FACTORY.", "error", code);
+        else show("Connexion impossible pour le moment.", "error", code);
       } finally {
         loginInProgress = false;
         submit.disabled = false;
@@ -132,9 +143,10 @@
         await sendPasswordResetEmail(auth, email);
         show("Un e-mail de réinitialisation du mot de passe vient d'être envoyé.", "ok");
       } catch (error) {
-        const code = String(error?.code || "");
-        if (code.includes("operation-not-allowed")) show("La connexion e-mail/mot de passe doit d'abord être activée dans Firebase Authentication.");
-        else show("Impossible d'envoyer l'e-mail de réinitialisation pour le moment.");
+        console.error("Firebase Auth reset error", error);
+        const code = String(error?.code || error?.message || "erreur-inconnue");
+        if (code.includes("operation-not-allowed")) show("La connexion e-mail/mot de passe doit d'abord être activée dans Firebase Authentication.", "error", code);
+        else show("Impossible d'envoyer l'e-mail de réinitialisation pour le moment.", "error", code);
       }
     });
 
@@ -144,6 +156,6 @@
       if (profile) location.replace(safeReturn);
     });
   </script>
-  <script src="assets/js/app.js?v=20260901-auth"></script>
+  <script src="assets/js/app.js?v=20260901-auth2"></script>
 </body>
 </html>
