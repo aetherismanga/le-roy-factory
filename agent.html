@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <link rel="icon" type="image/png" href="assets/img/logo03lrf.png">
+  <link rel="icon" type="image/svg+xml" href="assets/brand-v2/monogram-lrf.svg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Espace Agent — LE ROY FACTORY</title>
   <link rel="stylesheet" href="assets/css/variables.css">
@@ -10,19 +10,19 @@
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
   <style>
-    body,html{background:#FBF9F5!important;color:#1A2530!important}
-    header,footer{background-image:url('assets/img/bandeau02.png');background-size:cover;background-position:center;color:#fff;border-bottom:2px solid #D4AF37}
-    footer{border-top:2px solid #D4AF37;border-bottom:0}footer p{color:#fff!important}
+    body,html{background:#F6F0E8!important;color:#1A2530!important}
+    header,footer{background:#070707;color:#fff;border-bottom:1px solid #FFD000}
+    footer{border-top:1px solid #FFD000;border-bottom:0}footer p{color:#fff!important}
     .main-nav{display:flex;gap:1.5rem;align-items:center;justify-content:flex-end;list-style:none;margin:0;padding:0;flex-wrap:nowrap}.main-nav li{display:flex;align-items:center}
-    .main-nav>li>a:not(.agent-btn){text-decoration:none;color:#111!important;font-weight:800!important;font-size:1.15rem!important;letter-spacing:.5px!important;text-shadow:0 1px 2px rgba(212,175,55,.6)!important;position:relative;padding-bottom:4px;background:transparent!important}
+    .main-nav>li>a:not(.agent-btn){text-decoration:none;color:#fff!important;font-weight:700!important;font-size:.95rem!important;letter-spacing:.4px!important;position:relative;padding-bottom:4px;background:transparent!important}
     .agent-btn{display:inline-flex!important;align-items:center!important;justify-content:center!important;padding:8px 16px!important;background:#000!important;color:#FFD700!important;border:1px solid #FFD700!important;border-radius:8px!important;font-weight:700!important;font-size:.95rem!important;text-decoration:none!important}
-    .login-wrapper{max-width:480px;margin:0 auto;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:3rem;box-shadow:0 10px 30px rgba(0,0,0,.05)}
+    .login-wrapper{max-width:480px;margin:0 auto;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:18px;padding:2.5rem;box-shadow:0 10px 30px rgba(0,0,0,.06)}
     .login-header-title{text-align:center;margin-bottom:2rem}.login-header-title h1{font-size:1.8rem;margin:0 0 .5rem}.login-header-title p{font-size:.95rem;color:#666;margin:0}
-    .secure-note{margin:0 0 1.5rem;padding:.75rem 1rem;border-radius:8px;background:#f8f6f1;border:1px solid #eadfb7;font-size:.8rem;color:#625c4e;text-align:center}
-    .form-group{margin-bottom:1.35rem}.form-group label{display:block;font-size:.85rem;font-weight:700;margin-bottom:.5rem}.form-group input{width:100%;box-sizing:border-box;padding:.85rem 1rem;border:1px solid #D1D5DB;border-radius:7px;font-size:.95rem;background:#FAFAFA}.form-group input:focus{outline:none;border-color:#D4AF37;background:#fff;box-shadow:0 0 0 3px rgba(212,175,55,.14)}
+    .secure-note{margin:0 0 1.5rem;padding:.75rem 1rem;border-radius:10px;background:#f8f6f1;border:1px solid #eadfb7;font-size:.8rem;color:#625c4e;text-align:center}
+    .form-group{margin-bottom:1.35rem}.form-group label{display:block;font-size:.85rem;font-weight:700;margin-bottom:.5rem}.form-group input{width:100%;box-sizing:border-box;padding:.85rem 1rem;border:1px solid #D1D5DB;border-radius:9px;font-size:.95rem;background:#FAFAFA}.form-group input:focus{outline:none;border-color:#D4AF37;background:#fff;box-shadow:0 0 0 3px rgba(212,175,55,.14)}
     .password-wrap{position:relative}.password-wrap input{padding-right:3.2rem}.toggle-password{position:absolute;right:.45rem;top:50%;transform:translateY(-50%);width:38px;height:34px;border:0;background:transparent;cursor:pointer;font-size:1rem;border-radius:6px}.toggle-password:hover{background:#f0ede5}
     .form-row{display:flex;justify-content:space-between;align-items:center;gap:1rem;font-size:.85rem;margin-bottom:1.5rem}.checkbox-container{display:flex;align-items:center;gap:.5rem;cursor:pointer;color:#4B5563}.forgot-link{border:0;background:none;color:#9b7c16;text-decoration:none;font-weight:700;cursor:pointer;padding:0}.forgot-link:hover{text-decoration:underline}
-    .btn-login-submit{width:100%;padding:1rem;background:#111;color:#FFD700;border:1px solid #FFD700;border-radius:7px;font-weight:800;font-size:1rem;cursor:pointer;transition:.2s}.btn-login-submit:hover{background:#FFD700;color:#111}.btn-login-submit:disabled{opacity:.55;cursor:wait}
+    .btn-login-submit{width:100%;padding:1rem;background:#111;color:#FFD700;border:1px solid #FFD700;border-radius:9px;font-weight:800;font-size:1rem;cursor:pointer;transition:.2s}.btn-login-submit:hover{background:#FFD700;color:#111}.btn-login-submit:disabled{opacity:.55;cursor:wait}
     .notification{padding:.75rem 1rem;border-radius:7px;font-size:.85rem;margin-bottom:1.25rem;text-align:center;display:none}.notification.error{display:block;background:#FDF2F2;border:1px solid #F5C6CB;color:#721C24}.notification.ok{display:block;background:#ecf8f0;border:1px solid #bfe1ca;color:#17623a}
     .error-code{display:block;margin-top:.45rem;font-size:.72rem;font-family:monospace;opacity:.8;word-break:break-word}
     @media(max-width:600px){.login-wrapper{padding:1.5rem;margin:0 .75rem}.form-row{align-items:flex-start;flex-direction:column}.main-nav{display:none}}
@@ -30,14 +30,14 @@
 </head>
 <body>
   <header>
-    <div class="container nav-container" style="height:130px;display:flex;align-items:center;justify-content:space-between;">
-      <a href="index.html" class="logo" style="display:flex;align-items:center;height:100%;padding-left:1.5rem;flex-shrink:0;"><div style="width:110px;height:110px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.4);border:2px solid #D4AF37;background:#000;"><img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY" style="width:100%;height:100%;object-fit:cover;transform:scale(1.35);"></div></a>
+    <div class="container nav-container" style="height:86px;display:flex;align-items:center;justify-content:space-between;">
+      <a href="index.html" class="logo"><img src="assets/brand-v2/monogram-lrf.svg" alt="LRF" style="width:74px;height:74px"></a>
       <nav><ul class="main-nav"><li><a href="partenaires.html">Partenaires</a></li><li><a href="univers.html">Inspirations</a></li><li><a href="realisations.html">Réalisations</a></li><li><a href="catalogues.html">Catalogues</a></li><li><a href="tarifs-pro.html">Accès PRO</a></li><li><a href="contact.html">Contact</a></li><li><a href="agent.html" class="agent-btn active">Espace Agent</a></li></ul></nav>
       <button class="burger-btn" aria-label="Menu" id="burgerMenu"><span></span><span></span><span></span></button>
     </div>
   </header>
 
-  <main style="padding-top:140px;padding-bottom:5rem;">
+  <main style="padding-top:72px;padding-bottom:72px;">
     <div class="container">
       <div class="login-wrapper">
         <div class="login-header-title"><h1>ESPACE AGENT</h1><p>Connexion réservée à l'équipe LE ROY FACTORY.</p></div>
@@ -53,7 +53,7 @@
     </div>
   </main>
 
-  <footer><div class="container" style="text-align:center;padding:2rem 0;"><p>&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p></div></footer>
+  <footer><div class="container" style="text-align:center;padding:1.4rem 0;"><p>&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p></div></footer>
 
   <script type="module">
     import { auth, getAgentProfile } from "./assets/js/firebase.js?v=20260901-auth2";
@@ -156,6 +156,7 @@
       if (profile) location.replace(safeReturn);
     });
   </script>
-  <script src="assets/js/app.js?v=20260901-auth2"></script>
+  <script id="lrf-premium-public-theme" src="assets/js/premium-public-theme.js?v=20260901-4"></script>
+  <script src="assets/js/app.js?v=20260901-agent-v4"></script>
 </body>
 </html>
