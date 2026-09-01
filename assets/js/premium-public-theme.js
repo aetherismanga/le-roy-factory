@@ -150,6 +150,14 @@
       document.body.appendChild(module);
     }
 
+    if (page === 'tarifs-pro.html' && !document.getElementById('lrf-secure-tariff-links')) {
+      const secure = document.createElement('script');
+      secure.id = 'lrf-secure-tariff-links';
+      secure.src = 'assets/js/secure-tariff-links.js?v=20260901-1';
+      secure.defer = true;
+      document.body.appendChild(secure);
+    }
+
     installProContactsAccordion();
   };
 
