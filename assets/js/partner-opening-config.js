@@ -1,18 +1,22 @@
-export const PARTNER_OPENING_EMAILS={
-  'Elios Ceramica':'ouverture.elios@example.com',
-  'View Ceramica':'ouverture.view@example.com',
-  'La Fenice':'ouverture.lafenice@example.com',
-  'Reviglass':'ouverture.reviglass@example.com',
-  'Biopietra':'ouverture.biopietra@example.com',
-  "Petracer's":'ouverture.petracers@example.com',
-  'Pecchioli Firenze':'ouverture.pecchioli@example.com',
-  'Bulbo':'ouverture.bulbo@example.com',
-  'Randal Pro':'ouverture.randal@example.com',
-  'Neobath':'ouverture.neobath@example.com',
-  'Koibath':'ouverture.koibath@example.com',
-  'Aquahome':'ouverture.aquahome@example.com',
-  'Opal':'ouverture.opal@example.com',
-  'Bilt':'ouverture.bilt@example.com'
+import { primaryPartnerEmail } from './partner-contacts.js';
+
+export const PARTNER_OPENING_EMAILS = {
+  'Elios Ceramica': 'glebreton@eliosceramica.it',
+  'View Ceramica': 'alessio@viewceramiche.com',
+  'La Fenice': '',
+  'Reviglass': 'export@reviglass.es',
+  'Biopietra': '',
+  "Petracer's": '',
+  'Pecchioli Firenze': '',
+  'Bulbo': 'giovanni@bulbo.it',
+  'Randal Pro': 'help.pro.fr@randal.group',
+  'Neobath': 'g.bonci@neobathdesign.it',
+  'Koibath': 'direccioncomercial@koibath.com',
+  'Aquahome': 'direccioncomercial@aquahomebs.com',
+  'Opal': 'direccioncomercial@koibath.com',
+  'Bilt': ''
 };
 
-export function partnerOpeningEmail(name){return PARTNER_OPENING_EMAILS[name]||'ouverture.partenaire@example.com'}
+export function partnerOpeningEmail(name) {
+  return PARTNER_OPENING_EMAILS[name] || primaryPartnerEmail(name) || '';
+}
