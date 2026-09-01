@@ -1,3 +1,5 @@
+import { partnerContacts } from "./partner-contacts.js?v=20260901-2";
+
 const SESSION_KEY="lrfProSession";
 const PREFILL_URL="https://getaccountclientprefill-5m3lsyu7bq-uc.a.run.app";
 const PARTNER_NAMES={
@@ -30,6 +32,7 @@ function injectStyles(){
     .pro-client-summary{margin-bottom:1.5rem;padding:1rem 1.2rem;background:#fff;border:1px solid #e5dfd2;border-left:4px solid #D4AF37;border-radius:10px;display:flex;justify-content:space-between;gap:1rem;align-items:center;flex-wrap:wrap}.pro-client-name{font-weight:900;font-size:1.05rem;color:#1A2530}.pro-client-meta{font-size:.82rem;color:#666;margin-top:.2rem}.pro-logout{border:1px solid #ddd3bf;background:#fff;border-radius:8px;padding:.5rem .8rem;font-weight:700;cursor:pointer}.pro-access-note{font-size:.78rem;color:#777;line-height:1.45;margin-top:.7rem}
     .pro-locked-card{opacity:.82}.pro-locked-card .pro-info-row:first-of-type{background:#f5f3ef!important}.pro-locked-btn{background:#f3f1ed!important;color:#7a7368!important;border-color:#cfc8bc!important;cursor:pointer!important}.pro-access-badge{display:inline-flex;margin-top:.45rem;padding:.25rem .55rem;border-radius:999px;font-size:.7rem;font-weight:800;background:#f2efe8;color:#70685c;border:1px solid #ddd5c7}.pro-access-badge.allowed{background:#e8f5ed;color:#17623a;border-color:#b8dec6}
     .pro-lock-overlay{position:fixed;inset:0;background:rgba(0,0,0,.58);z-index:99999;display:none;align-items:center;justify-content:center;padding:1rem}.pro-lock-dialog{width:min(520px,94vw);background:#fff;border-radius:14px;padding:1.5rem;box-shadow:0 20px 60px rgba(0,0,0,.3);border:1px solid rgba(212,175,55,.45)}.pro-lock-dialog h3{margin:0 0 .6rem;color:#1A2530}.pro-lock-dialog p{color:#555;line-height:1.55}.pro-agent-links{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin:1.1rem 0}.pro-agent-link{display:flex;align-items:center;justify-content:center;text-align:center;padding:.8rem;border-radius:9px;background:#111;color:#FFD700!important;text-decoration:none;font-weight:800;border:1px solid #D4AF37}.pro-agent-link:hover{background:#FFD700;color:#111!important}.pro-lock-close{width:100%;padding:.7rem;border-radius:8px;border:1px solid #d8d1c5;background:#fff;font-weight:700;cursor:pointer}
+    .pro-contact-list{display:grid;gap:.6rem;width:100%}.pro-contact-person{padding-bottom:.55rem;border-bottom:1px solid #e6e0d5}.pro-contact-person:last-child{padding-bottom:0;border-bottom:0}.pro-contact-name{font-weight:900;color:#1A2530;font-size:.82rem}.pro-contact-role{display:block;font-size:.72rem;color:#6b7280;margin:.08rem 0 .22rem}.pro-contact-links{display:flex;flex-wrap:wrap;gap:.35rem .8rem;font-size:.76rem}.pro-contact-links a{font-weight:700;color:#1A2530;text-decoration:none}.pro-contact-links a:hover{color:#9a6a10;text-decoration:underline}
     @media(max-width:600px){.pro-login-grid{grid-template-columns:1fr}.pro-agent-links{grid-template-columns:1fr}}
   `;document.head.appendChild(s);
 }
@@ -96,6 +99,14 @@ async function authenticate(){
 }
 function showError(msg){const e=document.getElementById("pro-client-error");if(e){e.textContent=msg;e.style.display="block"}}
 
+function applyPartnerContacts(card,partnerName){
+  const row=card.querySelector('.contact-row');
+  if(!row)return;
+  const contacts=partnerContacts(partnerName).filter(c=>c&&c.name&&(c.email||c.phone));
+  if(!contacts.length){row.remove();return}
+  row.innerHTML=`<div style="width:100%"><strong style="display:block;font-size:.85rem;color:#1A2530;margin-bottom:.45rem">Contacts usine</strong><div class="pro-contact-list">${contacts.map(c=>`<div class="pro-contact-person"><div class="pro-contact-name">${esc(c.name)}</div>${c.role?`<span class="pro-contact-role">${esc(c.role)}</span>`:""}<div class="pro-contact-links">${c.email?`<a href="mailto:${esc(c.email)}">✉ ${esc(c.email)}</a>`:""}${c.phone?`<a href="tel:${esc(String(c.phone).replace(/[^+\d]/g,""))}">☎ ${esc(c.phone)}</a>`:""}</div></div>`).join("")}</div></div>`;
+}
+
 function openForClient(client){
   currentClient=client;
   const partners=[...new Set(Array.isArray(client.partenaires)?client.partenaires:[])];
@@ -112,6 +123,7 @@ function openForClient(client){
     card.style.display="flex";
     card.removeAttribute("hidden");
     const partnerName=card.querySelector("h3")?.textContent?.trim()||"ce partenaire";
+    applyPartnerContacts(card,partnerName);
     const allowed=allowedNames.has(norm(partnerName));
     card.classList.toggle("pro-locked-card",!allowed);
     let badge=card.querySelector(".pro-access-badge");
@@ -121,7 +133,7 @@ function openForClient(client){
 
     card.querySelectorAll('a[href]').forEach(a=>{
       const href=a.getAttribute('href')||"";
-      const isTariff=a.textContent.trim().toLowerCase().includes("tarif")||/\.pdf($|\?)/i.test(href)||href.startsWith("mailto:");
+      const isTariff=a.textContent.trim().toLowerCase().includes("tarif")||/\.pdf($|\?)/i.test(href)||href.startsWith("mailto:jerome@leroyfactory.fr");
       if(!isTariff)return;
       if(allowed){a.classList.remove("pro-locked-btn");a.onclick=null}
       else{a.classList.add("pro-locked-btn");a.removeAttribute("target");a.onclick=e=>{e.preventDefault();e.stopPropagation();showLockedPartner(partnerName)}}
