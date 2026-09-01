@@ -1,13 +1,14 @@
 const { onRequest } = require("firebase-functions/v2/https");
 const { defineSecret } = require("firebase-functions/params");
 const admin = require("firebase-admin");
+const { getAgentFromRequest } = require("./auth");
 
 const OPENAI_API_KEY = defineSecret("OPENAI_API_KEY");
 const db = admin.firestore();
 
 function cors(req, res) {
   res.set("Access-Control-Allow-Origin", "*");
-  res.set("Access-Control-Allow-Headers", "Content-Type");
+  res.set("Access-Control-Allow-Headers", "Content-Type, Authorization");
   res.set("Access-Control-Allow-Methods", "POST, OPTIONS");
   if (req.method === "OPTIONS") { res.status(204).send(""); return true; }
   return false;
@@ -95,8 +96,8 @@ exports.jarvisAi=onRequest({secrets:[OPENAI_API_KEY],timeoutSeconds:120,memory:"
   if(cors(req,res))return; if(req.method!=="POST")return res.status(405).json({success:false,error:"Méthode non autorisée"});
   try{
     const body=req.body||{}, message=String(body.message||"").trim(); if(!message)return res.status(400).json({success:false,error:"Message manquant"});
-    const surface=String(body.surface||"android");
-    const allowCrm=surface!=="public_web";
+    const agent=await getAgentFromRequest(req);
+    const allowCrm=Boolean(agent);
     const history=Array.isArray(body.history)?body.history.slice(-16):[];
     const input=history.filter(x=>x&&(x.user||x.assistant)).flatMap(x=>{const a=[];if(x.user)a.push({role:"user",content:String(x.user)});if(x.assistant)a.push({role:"assistant",content:String(x.assistant)});return a});
     input.push({role:"user",content:message});
@@ -114,6 +115,6 @@ exports.jarvisAi=onRequest({secrets:[OPENAI_API_KEY],timeoutSeconds:120,memory:"
       response=await openaiRequest(OPENAI_API_KEY.value(),{model:route.model,reasoning:{effort:route.effort},instructions:SYSTEM_PROMPT,previous_response_id:response.id,input:outputs,tools,tool_choice:"auto"});
     }
     const answer=extractText(response)||"Demande traitée.";
-    res.status(200).json({success:true,answer,actions,responseId:response.id||null,documentSearchEnabled:Boolean(vectorStoreId),model:route.model,modelTier:route.tier});
+    res.status(200).json({success:true,answer,actions,responseId:response.id||null,documentSearchEnabled:Boolean(vectorStoreId),model:route.model,modelTier:route.tier,crmAccess:allowCrm});
   }catch(error){console.error("Jarvis AI:",error);res.status(500).json({success:false,error:String(error?.message||error)});}
 });
