@@ -4,60 +4,74 @@
   window.__LRF_PRO_SESSION_BRIDGE__ = true;
 
   const KEY = 'lrfProSession';
-  const LEGACY_CODE = '2026';
-  const MAX_AGE = 12 * 60 * 60 * 1000;
-  const GLOBAL_PARTNERS = ['*', 'elios-ceramica', 'neobath'];
-  let lastSessionRaw = '';
+  const MAX_AGE = 2 * 60 * 60 * 1000;
+
+  function purgeLegacy() {
+    try { localStorage.removeItem(KEY); } catch (_) {}
+  }
 
   function parse(raw) {
     try { return raw ? JSON.parse(raw) : null; } catch (_) { return null; }
   }
 
-  function normalizeSession(session) {
-    if (!session || typeof session !== 'object') return session;
-    const partners = Array.isArray(session.partenaires) ? [...session.partenaires] : [];
-    if (session.legacyPro || partners.includes('*')) {
-      GLOBAL_PARTNERS.forEach(partner => { if (!partners.includes(partner)) partners.push(partner); });
-    }
-    return { ...session, partenaires: partners };
+  function sanitize(session) {
+    if (!session || typeof session !== 'object') return null;
+    const codeClient = String(session.codeClient || '').trim().toUpperCase();
+    const departement = String(session.departement || '').trim().toUpperCase();
+    if (!/^LRF-\d{5}$/.test(codeClient) || !departement) return null;
+    const partenaires = Array.isArray(session.partenaires)
+      ? [...new Set(session.partenaires.filter(p => p && p !== '*'))]
+      : [];
+    return {
+      codeClient,
+      clientId: String(session.clientId || ''),
+      societe: String(session.societe || 'Client professionnel'),
+      departement,
+      activite: String(session.activite || 'Professionnel'),
+      partenaires,
+      verifiedAt: Number(session.verifiedAt || session.unlockedAt || Date.now())
+    };
   }
 
   function read() {
-    let session = parse(sessionStorage.getItem(KEY));
-    if (!session) session = parse(localStorage.getItem(KEY));
-    if (!session) return null;
-    if (session.unlockedAt && Date.now() - Number(session.unlockedAt) > MAX_AGE) {
-      try { sessionStorage.removeItem(KEY); localStorage.removeItem(KEY); } catch (_) {}
+    purgeLegacy();
+    let session = null;
+    try { session = parse(sessionStorage.getItem(KEY)); } catch (_) {}
+    session = sanitize(session);
+    if (!session) {
+      try { sessionStorage.removeItem(KEY); } catch (_) {}
       return null;
     }
-    return normalizeSession(session);
-  }
-
-  function write(session, emit = true) {
-    const normalized = normalizeSession(session);
-    const next = { ...normalized, unlockedAt: Number(normalized.unlockedAt || Date.now()) };
-    const raw = JSON.stringify(next);
-    try { sessionStorage.setItem(KEY, raw); } catch (_) {}
-    try { localStorage.setItem(KEY, raw); } catch (_) {}
-    lastSessionRaw = raw;
-    if (emit) window.dispatchEvent(new CustomEvent('lrf-pro-session-changed', { detail: next }));
-    return next;
-  }
-
-  function sync() {
-    const session = read();
-    if (session) write(session, false);
+    if (Date.now() - session.verifiedAt > MAX_AGE) {
+      try { sessionStorage.removeItem(KEY); } catch (_) {}
+      return null;
+    }
     return session;
   }
 
-  function unlockLegacy(code) {
-    if (String(code || '').trim() !== LEGACY_CODE) return false;
-    write({ legacyPro: true, societe: 'Accès PRO LE ROY FACTORY', partenaires: GLOBAL_PARTNERS });
-    return true;
+  function write(session, emit = true) {
+    purgeLegacy();
+    const safe = sanitize({ ...session, verifiedAt: Date.now() });
+    if (!safe) return null;
+    try { sessionStorage.setItem(KEY, JSON.stringify(safe)); } catch (_) {}
+    if (emit) window.dispatchEvent(new CustomEvent('lrf-pro-session-changed', { detail: safe }));
+    return safe;
   }
 
-  function wildcard(session) {
-    return !!session && (session.legacyPro || (Array.isArray(session.partenaires) && session.partenaires.includes('*')));
+  function clear() {
+    try { sessionStorage.removeItem(KEY); } catch (_) {}
+    purgeLegacy();
+    window.LRF_PRO_CONTEXT = null;
+  }
+
+  function sync() {
+    return read();
+  }
+
+  // Ancien code universel définitivement désactivé.
+  function unlockLegacy() {
+    clear();
+    return false;
   }
 
   function patchPricingApi() {
@@ -67,48 +81,24 @@
     const originalGetPrice = api.getPrice?.bind(api);
     api.getSession = read;
     api.canAccess = partner => {
-      const session = sync();
-      if (wildcard(session)) return true;
-      return originalCanAccess ? originalCanAccess(partner) : !!session;
+      const session = read();
+      if (!session) return false;
+      return originalCanAccess ? originalCanAccess(partner) : session.partenaires.includes(partner);
     };
     api.getPrice = (partner, product, format) => {
-      const session = sync();
-      if (session) {
-        try { sessionStorage.setItem(KEY, JSON.stringify(session)); } catch (_) {}
-      }
+      const session = read();
+      if (!session) return null;
       return originalGetPrice ? originalGetPrice(partner, product, format) : null;
     };
     api.__sessionBridgePatched = true;
     return true;
   }
 
-  function bindLegacyTariffPage() {
-    const input = document.getElementById('password-input');
-    const button = document.getElementById('login-btn');
-    if (!input || !button || button.dataset.proBridgeBound) return;
-    button.dataset.proBridgeBound = '1';
-    button.addEventListener('click', () => unlockLegacy(input.value));
-    input.addEventListener('keydown', event => {
-      if (event.key === 'Enter') unlockLegacy(input.value);
-    });
-  }
-
-  function watchOtherLoginSystems() {
-    setInterval(() => {
-      let raw = '';
-      try { raw = sessionStorage.getItem(KEY) || ''; } catch (_) {}
-      if (!raw || raw === lastSessionRaw) return;
-      const session = parse(raw);
-      if (!session) return;
-      write(session);
-    }, 700);
-  }
-
   function init() {
-    const initial = sync();
-    lastSessionRaw = initial ? JSON.stringify(initial) : '';
-    bindLegacyTariffPage();
-    watchOtherLoginSystems();
+    purgeLegacy();
+    // Une session sans code LRF + département vérifiés est rejetée.
+    const session = read();
+    if (!session) clear();
     if (!patchPricingApi()) {
       let tries = 0;
       const timer = setInterval(() => {
@@ -118,7 +108,7 @@
     }
   }
 
-  window.LRF_PRO_SESSION = { key: KEY, read, write, unlockLegacy, sync };
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  window.LRF_PRO_SESSION = { key: KEY, read, write, clear, unlockLegacy, sync };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
   else init();
 })();
