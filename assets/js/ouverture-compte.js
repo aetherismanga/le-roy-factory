@@ -17,18 +17,22 @@ const PARTNERS=[
   {name:'Bilt',logo:'bilt.png'}
 ];
 const $=s=>document.querySelector(s);
-let prefillTimer=null,prefillLoadedKey='';
+let prefillTimer=null,prefillLoadedKey='',identityLocked=false;
 
 function renderPartners(selected=[]){
   const set=new Set((selected||[]).map(String));
   $('#partners').innerHTML=PARTNERS.map(p=>`<label class="partner"><input type="checkbox" name="partner" value="${p.name.replace(/"/g,'&quot;')}" ${set.has(p.name)?'checked':''}><span class="partner-main"><img class="partner-logo" src="assets/img/${p.logo}" alt="${p.name.replace(/"/g,'&quot;')}" onerror="this.style.display='none'"><span class="partner-name">${p.name}</span></span></label>`).join('');
 }
 function requestType(){return document.querySelector('input[name="requestType"]:checked')?.value||'ouverture'}
+function setIdentityLocked(locked){
+  identityLocked=Boolean(locked);
+  ['#codeClient','#departementAuth'].forEach(sel=>{const el=$(sel);if(!el)return;el.readOnly=identityLocked;el.setAttribute('aria-readonly',identityLocked?'true':'false');el.style.background=identityLocked?'#f1f3f5':'#fff';el.style.color=identityLocked?'#4b5563':'';el.style.cursor=identityLocked?'not-allowed':''});
+}
 function toggleUpdate(){
   const update=requestType()==='mise_a_jour';
   $('#update-auth').style.display=update?'grid':'none';
   $('#codeClient').required=update;$('#departementAuth').required=update;
-  if(!update){prefillLoadedKey='';setPrefillState('','');}
+  if(!update){prefillLoadedKey='';setPrefillState('','');setIdentityLocked(false);}
   else schedulePrefill();
 }
 function depFromCp(cp){
@@ -52,9 +56,9 @@ function normalizeCode(v){let s=String(v||'').trim().toUpperCase().replace(/\s/g
 function setPrefillState(text,type=''){const el=$('#prefill-state');if(!el)return;el.textContent=text;el.className=`full prefill-state ${type}`}
 function setSelectValue(select,value){if(!value)return;const exact=[...select.options].find(o=>o.value.toLowerCase()===String(value).toLowerCase());if(exact)select.value=exact.value;else{select.value='Autre'}}
 function fillExisting(c){
-  $('#societe').value=c.societe||'';setSelectValue($('#activite'),c.activite||c.categorieActivite||'');$('#adresse').value=c.adresse||'';$('#codePostal').value=c.codePostal||c.code_postal||'';$('#ville').value=c.ville||'';$('#siret').value=c.siret||'';$('#tva').value=c.tva||'';$('#chiffreAffaires').value=c.chiffreAffaires||c.chiffre_affaires||'';$('#contact').value=c.contact||'';$('#fonction').value=c.fonction||'';$('#telephone').value=c.telephone||(Array.isArray(c.telephones)?c.telephones[0]:'')||'';$('#email').value=c.email||'';$('#emailsAutres').value=Array.isArray(c.emails)?c.emails.join(', '):Array.isArray(c.emailsAutres)?c.emailsAutres.join(', '):'';$('#contactsAutres').value=c.contactsAutres||'';renderPartners(c.partenaires||[]);
+  $('#societe').value=c.societe||'';setSelectValue($('#activite'),c.activite||c.categorieActivite||'');$('#adresse').value=c.adresse||'';$('#codePostal').value=c.codePostal||c.code_postal||'';$('#ville').value=c.ville||'';$('#siret').value=c.siret||'';$('#tva').value=c.tva||'';$('#chiffreAffaires').value=c.chiffreAffaires||c.chiffre_affaires||'';$('#contact').value=c.contact||'';$('#fonction').value=c.fonction||'';$('#telephone').value=c.telephone||(Array.isArray(c.telephones)?c.telephones[0]:'')||'';$('#email').value=c.email||'';$('#emailsAutres').value=Array.isArray(c.emails)?c.emails.join(', '):Array.isArray(c.emailsAutres)?c.emailsAutres.join(', '):'';$('#contactsAutres').value=c.contactsAutres||'';renderPartners(c.partenaires||[]);setIdentityLocked(true);
 }
-function schedulePrefill(){clearTimeout(prefillTimer);if(requestType()!=='mise_a_jour')return;prefillTimer=setTimeout(loadExisting,450)}
+function schedulePrefill(){clearTimeout(prefillTimer);if(requestType()!=='mise_a_jour')return;prefillTimer=setTimeout(loadExisting,250)}
 async function loadExisting(){
   const code=normalizeCode($('#codeClient').value),dep=$('#departementAuth').value.trim().toUpperCase();
   if(!/^LRF-\d{5}$/.test(code)||!dep){setPrefillState('','');return}
@@ -63,15 +67,21 @@ async function loadExisting(){
   try{
     const res=await fetch(PREFILL_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({codeClient:code,departement:dep})});const d=await res.json().catch(()=>({}));
     if(!res.ok||!d.success)throw new Error(d.error||'Compte introuvable.');
-    fillExisting(d.client||{});prefillLoadedKey=key;setPrefillState('✓ Votre fiche a été retrouvée. Vérifiez les informations et complétez uniquement ce qui doit être mis à jour.','ok');
+    fillExisting(d.client||{});prefillLoadedKey=key;setPrefillState('✓ Votre fiche a été retrouvée et préremplie. Le code client et le département sont verrouillés. Modifiez uniquement les informations à mettre à jour.','ok');
   }catch(err){prefillLoadedKey='';setPrefillState(err.message||'Impossible de retrouver votre fiche.','err')}
 }
 
-const params=new URLSearchParams(location.search);if(params.get('type')==='mise_a_jour')document.querySelector('input[name="requestType"][value="mise_a_jour"]').checked=true;
+const params=new URLSearchParams(location.search);
+const updateFromLink=params.get('type')==='mise_a_jour';
+if(updateFromLink)document.querySelector('input[name="requestType"][value="mise_a_jour"]').checked=true;
+if(updateFromLink){
+  const linkCode=normalizeCode(params.get('code')||''),linkDep=String(params.get('dep')||'').trim().toUpperCase();
+  if(/^LRF-\d{5}$/.test(linkCode)&&linkDep){$('#codeClient').value=linkCode;$('#departementAuth').value=linkDep;setIdentityLocked(true);}
+}
 renderPartners();toggleUpdate();
 document.querySelectorAll('input[name="requestType"]').forEach(r=>r.addEventListener('change',toggleUpdate));
-$('#codeClient').addEventListener('input',e=>{e.target.value=normalizeCode(e.target.value);prefillLoadedKey='';schedulePrefill()});
-$('#departementAuth').addEventListener('input',()=>{prefillLoadedKey='';schedulePrefill()});
+$('#codeClient').addEventListener('input',e=>{if(identityLocked)return;e.target.value=normalizeCode(e.target.value);prefillLoadedKey='';schedulePrefill()});
+$('#departementAuth').addEventListener('input',()=>{if(identityLocked)return;prefillLoadedKey='';schedulePrefill()});
 $('#codePostal').addEventListener('input',e=>{if(/^\d{5}$/.test(e.target.value)){fetch(`https://geo.api.gouv.fr/communes?codePostal=${e.target.value}&fields=nom&format=json`).then(r=>r.json()).then(d=>{if(d?.[0]?.nom&&!$('#ville').value)$('#ville').value=d[0].nom}).catch(()=>{})}});
 
 $('#account-form').addEventListener('submit',async e=>{
@@ -93,7 +103,7 @@ $('#account-form').addEventListener('submit',async e=>{
     if(type==='mise_a_jour'&&!/^LRF-\d{5}$/.test(payload.codeClient))throw new Error('Le code client doit être au format LRF-00000.');
     const res=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});const data=await res.json().catch(()=>({}));
     if(!res.ok||!data.success)throw new Error(data.error||'Impossible d’envoyer la demande.');
-    $('#account-form').reset();prefillLoadedKey='';toggleUpdate();renderPartners();showMsg(`Votre demande a bien été transmise à LE ROY FACTORY. Référence : ${data.reference||data.id||''}`,true);window.scrollTo({top:0,behavior:'smooth'});
+    $('#account-form').reset();prefillLoadedKey='';setIdentityLocked(false);toggleUpdate();renderPartners();showMsg(`Votre demande a bien été transmise à LE ROY FACTORY. Référence : ${data.reference||data.id||''}`,true);window.scrollTo({top:0,behavior:'smooth'});
   }catch(err){console.error(err);showMsg(err.message||'Une erreur est survenue.');}
   finally{btn.disabled=false}
 });
