@@ -7,6 +7,81 @@
   const catalogue = Array.isArray(window.ELIOS_CATALOGUE) ? window.ELIOS_CATALOGUE : [];
   const remote = window.ELIOS_HD_REMOTE || {};
 
+  // Galeries officielles Elios validées. Roma reste le modèle de référence.
+  // Les collections listées ici utilisent uniquement des visuels officiels HD.
+  const OFFICIAL_GALLERIES = {
+    dolomiti: [
+      'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_bianco_greige.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_CAMERA_beige.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_BAGNO_beige.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_beige_lappato.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_beige1.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_CUCINA_greige.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_CAMERAgreige.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_CAMERA_greige_chevron.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_greige.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_greige_lappato.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_grigio.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_grigio_chevron.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_grigio1.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_antracite.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_antracite_out.jpg'
+    ],
+    sedimenti: [
+      'https://eliosceramica.com/wp-content/uploads/2024/02/SEDIMENTI-MODULO-BEIGE-TUMBLED-1.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2024/02/Elios-Sedimenti-1.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2024/02/Elios-Sedimenti-2.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2024/02/Elios-Sedimenti-3.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2024/02/TROIABASSA-NEWTON-SEDIMENTI-BEIGE-SAND-LOIRE-BEIGE-14X76-2.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2024/02/SEDIMENTI-GREY-TUMBLED-1.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2024/02/Elios-Sedimenti-4.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2024/02/Elios-Sedimenti-5.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2024/02/SEDIMENTI-MODULO-GREY-TUMBLED.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2024/02/Elios-Sedimenti-6.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2024/02/Elios-Sedimenti-7.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2024/02/Elios-Sedimenti-8.jpg'
+    ],
+    yosemite: [
+      'https://eliosceramica.com/wp-content/uploads/2022/11/YOSEMITE_amb4.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2022/11/yosemite_honey_amb1.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2022/11/YOSEMITE_amb5.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2022/11/YOSEMITE_amb3.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2022/11/yosemite_netural_amb2.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2022/11/YOSEMITE_amb7.jpg'
+    ],
+    'millennium-quartz': [
+      'https://eliosceramica.com/wp-content/uploads/2023/10/Millenium_Quartz_Amb_5.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2023/10/Millenium_Quartz_Amb_11-scaled.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2023/10/Millenium_Quartz_Amb_6-scaled.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2023/10/Millenium_Quartz_Amb_4-scaled.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2023/10/Millenium_Quartz_Amb_1.jpg'
+    ],
+    manhattan: [
+      'https://eliosceramica.com/wp-content/uploads/2021/06/Manhattan_Grey_amb-scaled.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/06/Manhattan_Dark_grey_amb2-scaled.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/06/Manhattan_Sand_amb2-scaled.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/06/Manhattan_Pearl_amb2-scaled.jpg'
+    ],
+    mysterium: [
+      'https://eliosceramica.com/wp-content/uploads/2025/05/ELIOS_MYSTERIUM_SABBIA_BAGNO.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2025/05/ELIOS_MYSTERIUM_CASELLI_sabbia.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2025/05/ELIOS_MYSTERIUM_ACQUA_LIVING.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2025/05/ELIOS_MYSTERIUM_ACQUA_SPA.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2025/05/ELIOS_MYSTERIUM_OCEANO_GIARDINO.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2025/05/ELIOS_MYSTERIUM_OCEANO_LIVING.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2025/05/ELIOS_MYSTERIUM_TERRA_CUCINA.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2025/05/ELIOS_MYSTERIUM_TERRA_UFFICIO.jpg'
+    ],
+    'bavaria-stone': [
+      'https://eliosceramica.com/wp-content/uploads/2021/01/Elios_Bavaria_Stone_3.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/01/Elios_Bavaria_Stone_2.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/01/Elios_Bavaria_Stone_1.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/01/BAVARIA-STONE_White_beige_grey.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/01/bavaria_stone_noce_amb1-scaled.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/01/bavaria_stone_noce_amb3-scaled.jpg'
+    ]
+  };
+
   const VERIFIED_VARIANTS = {
     roma: {
       Aventino: [
@@ -29,6 +104,65 @@
         'https://eliosceramica.com/wp-content/uploads/2021/02/Roma_palatino_esterno2.jpg',
         'https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Palatino_PART.jpg',
         'https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Palatino_riv.jpg'
+      ]
+    },
+    dolomiti: {
+      Bianco: ['https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_bianco_greige.jpg'],
+      Beige: [
+        'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_CAMERA_beige.jpg',
+        'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_BAGNO_beige.jpg',
+        'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_beige_lappato.jpg',
+        'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_beige1.jpg'
+      ],
+      Greige: [
+        'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_bianco_greige.jpg',
+        'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_CUCINA_greige.jpg',
+        'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_CAMERAgreige.jpg',
+        'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_CAMERA_greige_chevron.jpg',
+        'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_greige.jpg',
+        'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_greige_lappato.jpg'
+      ],
+      Grigio: [
+        'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_grigio.jpg',
+        'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_grigio_chevron.jpg',
+        'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_grigio1.jpg'
+      ],
+      Antracite: [
+        'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_antracite.jpg',
+        'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_antracite_out.jpg'
+      ]
+    },
+    sedimenti: {
+      Beige: [
+        'https://eliosceramica.com/wp-content/uploads/2024/02/SEDIMENTI-MODULO-BEIGE-TUMBLED-1.jpg',
+        'https://eliosceramica.com/wp-content/uploads/2024/02/TROIABASSA-NEWTON-SEDIMENTI-BEIGE-SAND-LOIRE-BEIGE-14X76-2.jpg'
+      ],
+      Sand: ['https://eliosceramica.com/wp-content/uploads/2024/02/TROIABASSA-NEWTON-SEDIMENTI-BEIGE-SAND-LOIRE-BEIGE-14X76-2.jpg'],
+      Grey: [
+        'https://eliosceramica.com/wp-content/uploads/2024/02/SEDIMENTI-GREY-TUMBLED-1.jpg',
+        'https://eliosceramica.com/wp-content/uploads/2024/02/SEDIMENTI-MODULO-GREY-TUMBLED.jpg'
+      ]
+    },
+    yosemite: {
+      Honey: ['https://eliosceramica.com/wp-content/uploads/2022/11/yosemite_honey_amb1.jpg'],
+      Natural: ['https://eliosceramica.com/wp-content/uploads/2022/11/yosemite_netural_amb2.jpg']
+    },
+    manhattan: {
+      Pearl: ['https://eliosceramica.com/wp-content/uploads/2021/06/Manhattan_Pearl_amb2-scaled.jpg'],
+      Sand: ['https://eliosceramica.com/wp-content/uploads/2021/06/Manhattan_Sand_amb2-scaled.jpg'],
+      Ash: [
+        'https://eliosceramica.com/wp-content/uploads/2021/06/Manhattan_Grey_amb-scaled.jpg',
+        'https://eliosceramica.com/wp-content/uploads/2021/06/Manhattan_Dark_grey_amb2-scaled.jpg'
+      ]
+    },
+    mysterium: {
+      Acqua: [
+        'https://eliosceramica.com/wp-content/uploads/2025/05/ELIOS_MYSTERIUM_ACQUA_LIVING.jpg',
+        'https://eliosceramica.com/wp-content/uploads/2025/05/ELIOS_MYSTERIUM_ACQUA_SPA.jpg'
+      ],
+      Ocean: [
+        'https://eliosceramica.com/wp-content/uploads/2025/05/ELIOS_MYSTERIUM_OCEANO_GIARDINO.jpg',
+        'https://eliosceramica.com/wp-content/uploads/2025/05/ELIOS_MYSTERIUM_OCEANO_LIVING.jpg'
       ]
     }
   };
@@ -61,9 +195,10 @@
   }
 
   function baseGallery(slug, product) {
-    // Même règle pour toutes les collections :
-    // 1 visuel officiel HD + uniquement le meilleur visuel local issu du catalogue.
-    // Les anciennes petites vignettes compressées ne sont plus envoyées dans la galerie.
+    // Dès qu'une galerie officielle HD est validée, on n'affiche plus les anciennes
+    // miniatures PDF de cette collection. Sinon : 1 HD principal + meilleur secours local.
+    const official = OFFICIAL_GALLERIES[slug] || [];
+    if (official.length) return unique(official);
     const hd = remote[slug] ? [remote[slug]] : [];
     const localBest = bestLocalImage(product);
     return unique([...hd, ...(localBest ? [localBest] : [])]);
@@ -85,7 +220,6 @@
     const verified = VERIFIED_VARIANTS[slug] || {};
     let currentImages = collectionImages;
     let currentIndex = 0;
-    let selectedColor = '';
 
     const gallery = document.createElement('div');
     gallery.className = 'elios-gallery-v2';
@@ -183,7 +317,7 @@
       colorBox.addEventListener('click', e => {
         const button = e.target.closest('[data-elios-color]');
         if (!button) return;
-        selectedColor = button.dataset.eliosColor || '';
+        const selectedColor = button.dataset.eliosColor || '';
         colorBox.querySelectorAll('button').forEach(b => b.classList.toggle('active', b === button));
         const variantImages = verified[selectedColor];
         if (Array.isArray(variantImages) && variantImages.length) {
