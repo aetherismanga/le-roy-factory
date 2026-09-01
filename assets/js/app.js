@@ -64,7 +64,9 @@ function installProSessionBridge() {
     document.head.appendChild(script);
 }
 
+const JARVIS_ENABLED = false;
 function installJarvisWeb(force = false) {
+    if (!JARVIS_ENABLED) return;
     if (window.Capacitor?.isNativePlatform?.()) return;
     if (document.getElementById('lrf-web-jarvis')) return;
     const existing = document.getElementById('lrf-jarvis-web-loader');
@@ -167,12 +169,8 @@ installNeobathConfigDataNormalizer();
 installProSessionBridge();
 installJarvisWeb();
 
-// Deuxième passage : garantit Jarvis sur toutes les variantes de pages du site.
 document.addEventListener('DOMContentLoaded', () => {
     installJarvisWeb();
-    setTimeout(() => {
-        if (!document.getElementById('lrf-web-jarvis')) installJarvisWeb(true);
-    }, 600);
 
     const burgerBtn = document.querySelector('.burger-btn');
     const mainNav = document.querySelector('header nav ul');
@@ -203,19 +201,18 @@ document.addEventListener('DOMContentLoaded', () => {
     installInspirationsNeobathPdf();
 
     if (window.location.pathname.toLowerCase().endsWith('tarifs-pro.html')) {
-        import('./tarifs-pro-client-access.js?v=20260817-1720')
+        import('./tarifs-pro-client-access.js?v=20260901-profix1')
             .catch(err => console.error('Erreur chargement accès tarifs PRO client :', err));
     }
 });
 
-// Thème visuel premium public V2 — isolé du CRM, de Firebase et des formulaires métier.
 (() => {
     const page = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
     const premiumPages = new Set(['index.html','partenaires.html','univers.html','realisations.html','catalogues.html','tarifs-pro.html','contact.html']);
     if (!premiumPages.has(page) || document.getElementById('lrf-premium-public-theme')) return;
     const script = document.createElement('script');
     script.id = 'lrf-premium-public-theme';
-    script.src = 'assets/js/premium-public-theme.js?v=20260901-1';
+    script.src = 'assets/js/premium-public-theme.js?v=20260901-5';
     script.defer = true;
     document.head.appendChild(script);
 })();
