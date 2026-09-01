@@ -1,5 +1,5 @@
 import { db } from './firebase.js';
-import { collection,onSnapshot,doc,updateDoc,query,where,getDocs,limit,runTransaction,serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+import { collection,onSnapshot,doc,updateDoc,query,where,getDocs,getDoc,limit,runTransaction,serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
 import { partnerOpeningEmail } from './partner-opening-config.js';
 
 const SEND='https://us-central1-le-roy-factory.cloudfunctions.net/sendGroupEmail';
@@ -21,7 +21,18 @@ function render(){const st=$('#status-filter').value,ty=$('#type-filter').value,
 ['status-filter','type-filter','search'].forEach(id=>$('#'+id).addEventListener(id==='search'?'input':'change',render));
 onSnapshot(collection(db,'account_requests'),snap=>{requests=[];snap.forEach(d=>requests.push({id:d.id,...d.data()}));requests.sort((a,b)=>{const ad=a.submittedAt?.toMillis?.()||Date.parse(a.submittedAt||0),bd=b.submittedAt?.toMillis?.()||Date.parse(b.submittedAt||0);return bd-ad});render()});
 
-async function findExisting(r){if(r.requestType!=='mise_a_jour'||!r.codeClient)return null;const s=await getDocs(query(collection(db,'clients'),where('codeClient','==',r.codeClient),limit(1)));if(s.empty)return null;const d=s.docs[0];return{id:d.id,...d.data()}}
+async function findExisting(r){
+  if(r.requestType!=='mise_a_jour')return null;
+  if(r.existingClientId){
+    const direct=await getDoc(doc(db,'clients',String(r.existingClientId)));
+    if(direct.exists()){
+      const data=direct.data();
+      if(!r.codeClient||String(data.codeClient||'').toUpperCase()===String(r.codeClient||'').toUpperCase())return{id:direct.id,...data};
+    }
+  }
+  if(!r.codeClient)return null;
+  const s=await getDocs(query(collection(db,'clients'),where('codeClient','==',r.codeClient),limit(1)));if(s.empty)return null;const d=s.docs[0];return{id:d.id,...d.data()}
+}
 async function openRequest(id){current=requests.find(x=>x.id===id);if(!current)return;currentClient=await findExisting(current);$('#panel-title').textContent=`${current.requestType==='mise_a_jour'?'Mise à jour':'Ouverture'} — ${current.societe||''}`;$('#panel-sub').textContent=`Réf. ${id} · ${statusLabel(current.status)}`;renderPanel();$('#drawer').classList.add('open')}
 function partnerChips(){return (current.partenaires||[]).map(p=>`<span class="chip">${esc(p)}</span>`).join('')||'<span class="req-meta">Aucun partenaire demandé</span>'}
 function diffBlock(label,oldV,newV){if(current.requestType!=='mise_a_jour')return'';return `<div class="full"><label>${esc(label)} — comparaison</label><div class="diff"><div class="old">Actuel : ${esc(oldV||'—')}</div><div class="new">Demandé : ${esc(newV||'—')}</div></div></div>`}
@@ -55,14 +66,38 @@ function renderPanel(){const r=current,c=currentClient||{};const docs=(r.attachm
 function edited(){return{societe:$('#f-societe').value.trim(),activite:$('#f-activite').value.trim(),adresse:$('#f-adresse').value.trim(),codePostal:$('#f-cp').value.trim(),ville:$('#f-ville').value.trim(),siret:$('#f-siret').value.trim(),tva:$('#f-tva').value.trim(),chiffreAffaires:$('#f-ca').value.trim(),contact:$('#f-contact').value.trim(),fonction:$('#f-fonction').value.trim(),telephone:$('#f-tel').value.trim(),email:$('#f-email').value.trim(),emailsAutres:$('#f-emails').value.split(',').map(x=>x.trim()).filter(Boolean),contactsAutres:$('#f-contacts').value.trim(),demande:$('#f-demande').value.trim()}}
 async function saveEdits(){const e=edited();await updateDoc(doc(db,'account_requests',current.id),{...e,reviewEditedAt:serverTimestamp(),reviewEditedBy:localStorage.getItem('agentName')||'Agent'});Object.assign(current,e);}
 async function allocateCode(clientRef,data){const counterRef=doc(db,'crm_meta','client_codes');return runTransaction(db,async tx=>{const cs=await tx.get(counterRef);const last=Number(cs.exists()?cs.data().lastNumber:0)||0;const next=last+1;if(next>99999)throw new Error('Limite codes LRF atteinte.');const code=fmtCode(next);tx.set(counterRef,{lastNumber:next,updatedAt:new Date().toISOString()},{merge:true});tx.set(clientRef,{...data,codeClient:code},{merge:true});return code})}
+function mergedPhones(newPrimary,existing){
+  const oldPrimary=String(existing?.telephone||'').trim();
+  const oldList=Array.isArray(existing?.telephones)?existing.telephones.map(x=>String(x||'').trim()).filter(Boolean):(oldPrimary?[oldPrimary]:[]);
+  const secondary=oldList.filter(x=>x!==oldPrimary);
+  return [...new Set([String(newPrimary||'').trim(),...secondary].filter(Boolean))];
+}
 async function validateRequest(){
   if(current.status==='validee')return;
-  const e=edited();if(!requiredDocsOk()){alert('Validation impossible : le RIB et le Kbis sont obligatoires.');return}
-  await saveEdits();let code=current.codeClient,clientId=currentClient?.id;
-  const clientData={type:'client',societe:e.societe,activite:e.activite,categorieActivite:e.activite,adresse:e.adresse,codePostal:e.codePostal,ville:e.ville,departement:depFromCp(e.codePostal)||current.departement||current.departementAuth||'',siret:e.siret,tva:e.tva,chiffreAffaires:e.chiffreAffaires,contact:e.contact,fonction:e.fonction,telephone:e.telephone,telephones:[e.telephone].filter(Boolean),email:e.email,emails:e.emailsAutres,contactsAutres:e.contactsAutres,partenaires:current.partenaires||[],documentsDemande:(current.attachments||[]).map(a=>({nom:a.filename,role:a.role,storagePath:a.storagePath||''})),updatedAt:new Date().toISOString()};
-  if(current.requestType==='mise_a_jour'){if(!currentClient)throw new Error('Fiche existante introuvable.');clientId=currentClient.id;await updateDoc(doc(db,'clients',clientId),clientData);code=currentClient.codeClient}else{const ref=doc(collection(db,'clients'));clientId=ref.id;code=await allocateCode(ref,clientData)}
-  await updateDoc(doc(db,'account_requests',current.id),{status:'validee',validatedAt:serverTimestamp(),validatedBy:localStorage.getItem('agentName')||'Agent',clientId,codeClientFinal:code,departementFinal:clientData.departement});current.status='validee';current.codeClientFinal=code;current.departementFinal=clientData.departement;
-  await sendClientConfirmation(e.email,code,clientData.departement,e.societe).catch(err=>console.error('Mail confirmation',err));alert(`Demande validée. Client ${code}. Le mail de confirmation a été envoyé.`);renderPanel()}
+  const button=$('#validate-request');if(button)button.disabled=true;
+  try{
+    const e=edited();if(!requiredDocsOk())throw new Error('Le RIB et le Kbis sont obligatoires.');
+    await saveEdits();let code=current.codeClient,clientId=currentClient?.id;
+    if(current.requestType==='mise_a_jour'&&!currentClient)throw new Error('Fiche existante introuvable.');
+    const lockedDepartment=current.requestType==='mise_a_jour'
+      ? String(currentClient?.departement||depFromCp(currentClient?.codePostal||currentClient?.code_postal)||current.departementAuth||'').replace(/^FR-/i,'').trim().toUpperCase()
+      : depFromCp(e.codePostal);
+    const phones=mergedPhones(e.telephone,current.requestType==='mise_a_jour'?currentClient:null);
+    const clientData={type:'client',societe:e.societe,activite:e.activite,categorieActivite:e.activite,adresse:e.adresse,codePostal:e.codePostal,ville:e.ville,departement:lockedDepartment,siret:e.siret,tva:e.tva,chiffreAffaires:e.chiffreAffaires,contact:e.contact,fonction:e.fonction,telephone:e.telephone,telephones:phones,email:e.email,emails:e.emailsAutres,contactsAutres:e.contactsAutres,partenaires:current.partenaires||[],documentsDemande:(current.attachments||[]).map(a=>({nom:a.filename,role:a.role,storagePath:a.storagePath||''})),updatedAt:new Date().toISOString()};
+    if(current.requestType==='mise_a_jour'){
+      clientId=currentClient.id;
+      await updateDoc(doc(db,'clients',clientId),clientData);
+      code=currentClient.codeClient;
+      currentClient={...currentClient,...clientData,codeClient:code};
+    }else{
+      if(e.siret){const dup=await getDocs(query(collection(db,'clients'),where('siret','==',e.siret),limit(1)));if(!dup.empty)throw new Error(`Un client avec ce SIRET existe déjà (${dup.docs[0].data().codeClient||'code LRF existant'}).`)}
+      const ref=doc(collection(db,'clients'));clientId=ref.id;code=await allocateCode(ref,clientData);
+    }
+    await updateDoc(doc(db,'account_requests',current.id),{status:'validee',validatedAt:serverTimestamp(),validatedBy:localStorage.getItem('agentName')||'Agent',clientId,codeClientFinal:code,departementFinal:lockedDepartment});current.status='validee';current.codeClientFinal=code;current.departementFinal=lockedDepartment;
+    await sendClientConfirmation(e.email,code,lockedDepartment,e.societe).catch(err=>console.error('Mail confirmation',err));alert(`Demande validée. Client ${code}. Le mail de confirmation a été envoyé.`);renderPanel();
+  }catch(err){console.error('Validation demande client',err);alert(`Validation impossible : ${err?.message||err}`)}
+  finally{if(button&&current?.status!=='validee')button.disabled=false}
+}
 async function sendMail(to,subject,html){const r=await fetch(SEND,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({senderMode:'both',bccRecipients:[to],subject,htmlContent:html,attachments:[]})});if(!r.ok)throw new Error('Échec mail')}
 async function sendClientConfirmation(email,code,dep,societe){if(!email)return;return sendMail(email,'Votre compte professionnel LE ROY FACTORY est actif',`<p>Bonjour,</p><p>Votre compte professionnel <strong>${esc(societe)}</strong> a été créé ou mis à jour.</p><p><strong>Identifiant client : ${esc(code)}</strong><br><strong>Département : ${esc(dep)}</strong></p><p>Ces informations vous permettent d'accéder à votre espace Tarifs PRO.</p><p><a href="https://leroyfactory.fr/tarifs-pro.html">Accéder aux tarifs professionnels</a></p><p>Cordialement,<br>LE ROY FACTORY</p>`)}
 async function askComplement(){const email=$('#f-email').value.trim();const text=prompt('Quel complément souhaitez-vous demander au client ?');if(!text)return;await sendMail(email,'Complément nécessaire pour votre demande LE ROY FACTORY',`<p>Bonjour,</p><p>Nous avons bien reçu votre demande concernant <strong>${esc($('#f-societe').value)}</strong>.</p><p>${esc(text)}</p><p>Merci de nous transmettre les éléments complémentaires.</p><p>Cordialement,<br>LE ROY FACTORY</p>`);await updateDoc(doc(db,'account_requests',current.id),{status:'complement',complementMessage:text,complementAt:serverTimestamp()});current.status='complement';renderPanel()}
