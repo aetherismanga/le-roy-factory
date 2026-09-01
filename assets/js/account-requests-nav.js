@@ -28,10 +28,19 @@ if (!window.__lrfSecureCloudFetchInstalled) {
 
 function addNav(){
   const menu=document.querySelector('.sidebar-menu');
+  if(menu){
+    // L'ancien onglet Prospects n'est plus utilisé.
+    [...menu.querySelectorAll('a')].filter(a=>a.getAttribute('href')?.includes('filter=prospect')).forEach(a=>a.closest('li')?.remove());
+  }
   if(menu&&!menu.querySelector('a[href="demandes-clients.html"]')){
-    const prospects=[...menu.querySelectorAll('a')].find(a=>a.getAttribute('href')?.includes('filter=prospect'))?.closest('li');
+    const clients=[...menu.querySelectorAll('a')].find(a=>a.getAttribute('href')==='clients.html')?.closest('li');
     const li=document.createElement('li');li.innerHTML='<a href="demandes-clients.html"><span class="icon">🧾</span><span class="menu-text">Demandes clients</span></a>';
-    if(prospects)prospects.insertAdjacentElement('afterend',li);else menu.appendChild(li);
+    if(clients)clients.insertAdjacentElement('afterend',li);else menu.appendChild(li);
+  }
+  if(menu&&!menu.querySelector('a[href="contacts-partenaires.html"]')){
+    const mails=[...menu.querySelectorAll('a')].find(a=>a.getAttribute('href')==='mails-groupes.html')?.closest('li');
+    const li=document.createElement('li');li.innerHTML='<a href="contacts-partenaires.html"><span class="icon">🏭</span><span class="menu-text">Contacts partenaires</span></a>';
+    if(mails)mails.insertAdjacentElement('afterend',li);else menu.appendChild(li);
   }
   if(menu){
     const stats=[...menu.querySelectorAll('a')].find(a=>a.textContent.toLowerCase().includes('statistiques'));
