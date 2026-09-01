@@ -221,7 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!premiumPages.has(page) || document.getElementById('lrf-premium-public-theme')) return;
     const script = document.createElement('script');
     script.id = 'lrf-premium-public-theme';
-    script.src = 'assets/js/premium-public-theme.js?v=20260901-9';
+    script.src = 'assets/js/premium-public-theme.js?v=20260901-lrf1';
     script.defer = true;
     document.head.appendChild(script);
 })();
