@@ -8,6 +8,15 @@ const bucket = admin.storage().bucket();
 function cors(req,res){res.set('Access-Control-Allow-Origin','*');res.set('Access-Control-Allow-Headers','Content-Type, Authorization');res.set('Access-Control-Allow-Methods','POST, OPTIONS');if(req.method==='OPTIONS'){res.status(204).send('');return true}return false}
 function depFromCp(cp){const s=String(cp||'').replace(/\s/g,'');if(!/^\d{5}$/.test(s))return'';if(s.startsWith('97')||s.startsWith('98'))return s.slice(0,3);if(s.startsWith('20'))return Number(s)>=20200?'2B':'2A';return s.slice(0,2)}
 function clean(v,max=500){return String(v||'').trim().slice(0,max)}
+function normalizeEmail(v){return clean(v,200).toLowerCase()}
+function clientEmails(c){
+  const emails=[];const add=v=>{const e=normalizeEmail(v);if(e&&/^\S+@\S+\.\S+$/.test(e)&&!emails.includes(e))emails.push(e)};
+  add(c?.email);add(c?.mail);add(c?.eMail);
+  (Array.isArray(c?.emails)?c.emails:[]).forEach(add);
+  (Array.isArray(c?.emailsAutres)?c.emailsAutres:[]).forEach(add);
+  (Array.isArray(c?.interlocuteurs)?c.interlocuteurs:[]).forEach(i=>add(i?.email));
+  return emails;
+}
 function smtp(senderMode='both'){
   let user='jerome@leroyfactory.fr',pass=process.env.SMTP_PASSWORD_JEROME,from='"Jérôme Hugol - Le Roy Factory" <jerome@leroyfactory.fr>',reply='jerome@leroyfactory.fr';
   if(senderMode==='coryne'){user='coryne@leroyfactory.fr';pass=process.env.SMTP_PASSWORD_CORYNE;from='"Coryne - Le Roy Factory" <coryne@leroyfactory.fr>';reply='coryne@leroyfactory.fr'}
@@ -16,19 +25,20 @@ function smtp(senderMode='both'){
 }
 function transporter(senderMode){const s=smtp(senderMode);return{t:nodemailer.createTransport({host:'ssl0.ovh.net',port:465,secure:true,auth:{user:s.user,pass:s.pass}}),...s}}
 function safeFilename(name){return String(name||'document').replace(/[^a-zA-Z0-9._-]/g,'_').slice(0,120)}
-async function verifiedClient(codeRaw,depRaw){
-  const code=clean(codeRaw,20).toUpperCase(),dep=clean(depRaw,3).toUpperCase();
-  if(!/^LRF-\d{5}$/.test(code)||!dep)return null;
+async function verifiedClient(codeRaw,depRaw,emailRaw){
+  const code=clean(codeRaw,20).toUpperCase(),dep=clean(depRaw,3).toUpperCase(),email=normalizeEmail(emailRaw);
+  if(!/^LRF-\d{5}$/.test(code)||!dep||!/^\S+@\S+\.\S+$/.test(email))return null;
   const snap=await db.collection('clients').where('codeClient','==',code).limit(1).get();if(snap.empty)return null;
   const doc=snap.docs[0],c=doc.data();const clientDep=String(c.departement||depFromCp(c.codePostal||c.code_postal)||'').toUpperCase();
-  if(clientDep!==dep)return null;return{id:doc.id,...c,departement:clientDep};
+  if(clientDep!==dep||!clientEmails(c).includes(email))return null;
+  return{id:doc.id,...c,departement:clientDep};
 }
 
 const getAccountClientPrefill = onRequest({timeoutSeconds:30,memory:'256MiB'},async(req,res)=>{
   if(cors(req,res))return;if(req.method!=='POST')return res.status(405).json({error:'Méthode non autorisée'});
   try{
-    const c=await verifiedClient(req.body?.codeClient,req.body?.departement);
-    if(!c)return res.status(403).json({success:false,error:'Code client ou département incorrect.'});
+    const c=await verifiedClient(req.body?.codeClient,req.body?.departement,req.body?.emailAuth);
+    if(!c)return res.status(403).json({success:false,error:'Les informations d’identification ne correspondent pas à votre compte.'});
     res.json({success:true,client:{societe:clean(c.societe),activite:clean(c.activite||c.categorieActivite),adresse:clean(c.adresse),codePostal:clean(c.codePostal||c.code_postal,5),ville:clean(c.ville),siret:clean(c.siret,30),tva:clean(c.tva,40),chiffreAffaires:clean(c.chiffreAffaires||c.chiffre_affaires,50),contact:clean(c.contact),fonction:clean(c.fonction),telephone:clean(c.telephone||(Array.isArray(c.telephones)?c.telephones[0]:''),40),email:clean(c.email,200),emails:Array.isArray(c.emails)?c.emails.map(x=>clean(x,200)).filter(Boolean):Array.isArray(c.emailsAutres)?c.emailsAutres.map(x=>clean(x,200)).filter(Boolean):[],contactsAutres:clean(c.contactsAutres,3000),partenaires:Array.isArray(c.partenaires)?c.partenaires.map(x=>clean(x,100)).filter(Boolean):[]}});
   }catch(e){console.error('getAccountClientPrefill',e);res.status(500).json({success:false,error:'Impossible de charger la fiche pour le moment.'})}
 });
@@ -40,7 +50,7 @@ const submitAccountRequest = onRequest({secrets:['SMTP_PASSWORD_JEROME','SMTP_PA
     if(!clean(p.societe)||!clean(p.email)||!clean(p.codePostal))return res.status(400).json({success:false,error:'Société, e-mail et code postal sont obligatoires.'});
     let existingClientId='';
     if(type==='mise_a_jour'){
-      const c=await verifiedClient(p.codeClient,p.departementAuth);if(!c)return res.status(403).json({success:false,error:'Code client ou département incorrect.'});existingClientId=c.id;
+      const c=await verifiedClient(p.codeClient,p.departementAuth,p.emailAuth);if(!c)return res.status(403).json({success:false,error:'Les informations d’identification ne correspondent pas à votre compte.'});existingClientId=c.id;
     }
     const rawFiles=Array.isArray(p.attachments)?p.attachments:[];
     const roles=new Set(rawFiles.map(a=>String(a?.role||'').toLowerCase()));
