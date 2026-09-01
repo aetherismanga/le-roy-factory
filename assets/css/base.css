@@ -135,3 +135,25 @@ footer p,
 .lrf-mobile-action-sheet a[href="clients.html#new-prospect"] {
   display: none !important;
 }
+
+/* ========================================================================== 
+   PUBLIC — ANTI-FLASH / PREMIER AFFICHAGE
+   Les pages publiques possèdent le menu .main-nav. Elles restent masquées
+   jusqu'à ce que le thème premium soit complètement chargé et appliqué.
+   Le CRM n'est pas concerné.
+   ========================================================================== */
+html:not(.lrf-first-paint-ready) body:has(> header .main-nav) {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+html.lrf-first-paint-ready body:has(> header .main-nav) {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.lrf-first-paint-ready body:has(> header .main-nav) {
+    transition: opacity 0.08s linear !important;
+  }
+}
