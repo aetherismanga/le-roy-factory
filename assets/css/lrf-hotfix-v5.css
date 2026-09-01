@@ -1,0 +1,49 @@
+/* LE ROY factory — Hotfix V5 : fond accueil exact + navigation transparente */
+
+/* Le fond de l'accueil est le visuel fondsite fourni par le client. Le paramètre v force le navigateur à oublier l'ancien fichier mis en cache. */
+body.lrf-page-index .hero-video-section{
+  background:
+    linear-gradient(90deg,rgba(0,0,0,.09),rgba(0,0,0,.015) 50%,rgba(0,0,0,.08)),
+    linear-gradient(180deg,rgba(0,0,0,.015),rgba(0,0,0,.08) 76%,rgba(0,0,0,.32)),
+    url('../brand-v2/fondsite.jpg?v=20260901-2') center center/cover no-repeat!important;
+}
+body.lrf-page-index .hero-overlay{
+  background:radial-gradient(circle at 50% 44%,rgba(0,0,0,0),rgba(0,0,0,.10) 74%)!important;
+}
+
+/* Les catégories du menu ne doivent jamais devenir un pavé jaune. Le doré reste uniquement sur le texte / soulignement. */
+body.lrf-premium-v2 header .main-nav>li>a:not(.agent-btn),
+body.lrf-premium-v2 header .main-nav>li>a:not(.agent-btn):hover,
+body.lrf-premium-v2 header .main-nav>li>a:not(.agent-btn):focus,
+body.lrf-premium-v2 header .main-nav>li>a:not(.agent-btn):active,
+body.lrf-premium-v2 header .main-nav>li>a.active:not(.agent-btn){
+  background:transparent!important;
+  background-color:transparent!important;
+  box-shadow:none!important;
+  border-radius:0!important;
+  transform:none!important;
+}
+body.lrf-premium-v2 header .main-nav>li>a:not(.agent-btn):hover,
+body.lrf-premium-v2 header .main-nav>li>a:not(.agent-btn):focus,
+body.lrf-premium-v2 header .main-nav>li>a.active:not(.agent-btn){
+  color:#FFD700!important;
+}
+body.lrf-premium-v2 header .main-nav>li>a:not(.agent-btn)::before,
+body.lrf-premium-v2 header .main-nav>li>a:not(.agent-btn):hover::before,
+body.lrf-premium-v2 header .main-nav>li>a:not(.agent-btn):focus::before{
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+/* Mobile : même règle, aucun gros rectangle au toucher. */
+@media(max-width:900px){
+  body.lrf-premium-v2 header nav .main-nav a:not(.agent-btn),
+  body.lrf-premium-v2 header nav .main-nav a:not(.agent-btn):hover,
+  body.lrf-premium-v2 header nav .main-nav a:not(.agent-btn):focus,
+  body.lrf-premium-v2 header nav .main-nav a:not(.agent-btn):active{
+    background:transparent!important;
+    background-color:transparent!important;
+    box-shadow:none!important;
+  }
+  body.lrf-page-index .hero-video-section{background-position:46% center!important;}
+}
