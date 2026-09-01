@@ -1,10 +1,11 @@
 const { onRequest } = require('firebase-functions/v2/https');
 const admin = require('firebase-admin');
 const nodemailer = require('nodemailer');
+const { requireAgent } = require('./auth');
 const db = admin.firestore();
 const bucket = admin.storage().bucket();
 
-function cors(req,res){res.set('Access-Control-Allow-Origin','*');res.set('Access-Control-Allow-Headers','Content-Type');res.set('Access-Control-Allow-Methods','POST, OPTIONS');if(req.method==='OPTIONS'){res.status(204).send('');return true}return false}
+function cors(req,res){res.set('Access-Control-Allow-Origin','*');res.set('Access-Control-Allow-Headers','Content-Type, Authorization');res.set('Access-Control-Allow-Methods','POST, OPTIONS');if(req.method==='OPTIONS'){res.status(204).send('');return true}return false}
 function depFromCp(cp){const s=String(cp||'').replace(/\s/g,'');if(!/^\d{5}$/.test(s))return'';if(s.startsWith('97')||s.startsWith('98'))return s.slice(0,3);if(s.startsWith('20'))return Number(s)>=20200?'2B':'2A';return s.slice(0,2)}
 function clean(v,max=500){return String(v||'').trim().slice(0,max)}
 function smtp(senderMode='both'){
@@ -62,17 +63,19 @@ const submitAccountRequest = onRequest({secrets:['SMTP_PASSWORD_JEROME','SMTP_PA
 
 const getAccountRequestAttachment = onRequest({timeoutSeconds:60,memory:'256MiB'},async(req,res)=>{
   if(cors(req,res))return;if(req.method!=='POST')return res.status(405).json({error:'Méthode non autorisée'});
+  const agent=await requireAgent(req,res);if(!agent)return;
   try{const {requestId,index}=req.body||{};const snap=await db.collection('account_requests').doc(String(requestId||'')).get();if(!snap.exists)return res.status(404).json({success:false,error:'Demande introuvable'});const a=(snap.data().attachments||[])[Number(index)];if(!a?.storagePath)return res.status(404).json({success:false,error:'Document introuvable'});const[b]=await bucket.file(a.storagePath).download();res.json({success:true,content:b.toString('base64'),filename:a.filename,contentType:a.contentType})}catch(e){console.error(e);res.status(500).json({success:false,error:e.message})}
 });
 
 const sendAccountPartnerMail = onRequest({secrets:['SMTP_PASSWORD_JEROME','SMTP_PASSWORD_CORYNE'],timeoutSeconds:120,memory:'512MiB'},async(req,res)=>{
   if(cors(req,res))return;if(req.method!=='POST')return res.status(405).json({error:'Méthode non autorisée'});
+  const agent=await requireAgent(req,res);if(!agent)return;
   try{
     const {requestId,partner,recipient,message,senderMode}=req.body||{};if(!requestId||!partner||!recipient||!message)return res.status(400).json({success:false,error:'Paramètres manquants'});
     const snap=await db.collection('account_requests').doc(String(requestId)).get();if(!snap.exists)return res.status(404).json({success:false,error:'Demande introuvable'});const d=snap.data();if(d.status!=='validee')return res.status(409).json({success:false,error:'La demande doit être validée avant envoi partenaire.'});
     const at=[];for(const a of d.attachments||[]){if(!a.storagePath)continue;const[b]=await bucket.file(a.storagePath).download();at.push({filename:a.filename,content:b,contentType:a.contentType||undefined})}
     const {t,from,reply}=transporter(senderMode||'both');await t.sendMail({from,to:String(recipient),replyTo:reply,subject:`Ouverture de compte ${d.societe||''} — ${partner}`,text:String(message),attachments:at});
-    await snap.ref.set({partnerMails:{[String(partner).replace(/[.]/g,'_')]:{sentAt:admin.firestore.FieldValue.serverTimestamp(),recipient:String(recipient)}}},{merge:true});
+    await snap.ref.set({partnerMails:{[String(partner).replace(/[.]/g,'_')]:{sentAt:admin.firestore.FieldValue.serverTimestamp(),recipient:String(recipient),sentBy:agent.email}}},{merge:true});
     res.json({success:true});
   }catch(e){console.error('sendAccountPartnerMail',e);res.status(500).json({success:false,error:e.message})}
 });
