@@ -1,0 +1,21 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAgent() {
+      return request.auth != null
+        && request.auth.token.email != null
+        && request.auth.token.email in [
+          'jerome@leroyfactory.fr',
+          'coryne@leroyfactory.fr'
+        ];
+    }
+
+    // CRM LE ROY FACTORY : aucune donnée Firestore n'est exposée publiquement.
+    // Les deux agents authentifiés peuvent lire et modifier les données CRM.
+    // Les Cloud Functions utilisant l'Admin SDK ne sont pas bloquées par ces règles.
+    match /{document=**} {
+      allow read, write: if isAgent();
+    }
+  }
+}
