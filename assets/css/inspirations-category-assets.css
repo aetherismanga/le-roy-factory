@@ -1,17 +1,20 @@
-/* Premium category artwork for Inspirations */
+/* Premium category artwork for Inspirations — fixed image sprite */
+.category-grid{
+  align-items:stretch;
+}
 .category-card{
   position:relative;
-  aspect-ratio:4/3;
+  aspect-ratio:8/3;
   min-height:0!important;
   padding:0!important;
   overflow:hidden;
   border:0!important;
-  border-radius:18px!important;
+  border-radius:16px!important;
   background-color:#f7f3ea!important;
-  background-image:url('../img/inspirations/categories-sprite.webp?v=20260901-2')!important;
+  background-image:url('../img/inspirations/categories-sprite.webp?v=20260901-3')!important;
   background-repeat:no-repeat!important;
   background-size:400% 200%!important;
-  box-shadow:0 8px 24px rgba(43,34,20,.08)!important;
+  box-shadow:0 4px 13px rgba(43,34,20,.06)!important;
 }
 .category-card .category-icon,.category-card .category-name,.category-card .category-meta{display:none!important}
 .category-card[data-cat='carrelage']{background-position:0% 0%!important}
@@ -22,7 +25,12 @@
 .category-card[data-cat='robinetterie']{background-position:33.3333% 100%!important}
 .category-card[data-cat='sanitaire']{background-position:66.6667% 100%!important}
 .category-card[data-custom-cat='outillages'],.category-card[data-cat='outillages']{background-position:100% 100%!important}
-.category-card:hover{transform:translateY(-2px)!important;box-shadow:0 12px 28px rgba(43,34,20,.14)!important}
-.category-card.active{transform:translateY(-2px)!important;box-shadow:0 0 0 3px #D4AF37,0 13px 30px rgba(43,34,20,.16)!important}
-@media(max-width:900px){.category-grid{gap:.55rem!important}.category-card{border-radius:14px!important;box-shadow:0 4px 14px rgba(43,34,20,.07)!important}}
-@media(max-width:560px){.category-card{min-height:0!important}}
+.category-card:hover{transform:translateY(-1px)!important;box-shadow:0 6px 16px rgba(43,34,20,.09)!important}
+.category-card.active{transform:none!important;box-shadow:0 0 0 2px #D4AF37,0 5px 16px rgba(43,34,20,.08)!important}
+@media(max-width:900px){
+  .category-grid{gap:.5rem!important}
+  .category-card{aspect-ratio:8/3;border-radius:13px!important;box-shadow:0 3px 10px rgba(43,34,20,.055)!important}
+}
+@media(max-width:560px){
+  .category-card{min-height:0!important;aspect-ratio:8/3}
+}
