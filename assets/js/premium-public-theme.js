@@ -1,26 +1,51 @@
 (() => {
   const page = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
-  const allowed = new Set(['index.html','partenaires.html','univers.html','realisations.html','catalogues.html','tarifs-pro.html','contact.html']);
+  const allowed = new Set([
+    'index.html','partenaires.html','univers.html','realisations.html',
+    'catalogues.html','tarifs-pro.html','contact.html','ouverture-compte.html'
+  ]);
   if (!allowed.has(page)) return;
 
-  const css = document.createElement('link');
-  css.rel = 'stylesheet';
-  css.href = 'assets/css/lrf-premium-v2.css?v=20260901-1';
-  css.id = 'lrf-premium-v2-css';
-  if (!document.getElementById(css.id)) document.head.appendChild(css);
+  const addStylesheet = (id, href) => {
+    if (document.getElementById(id)) return;
+    const link = document.createElement('link');
+    link.id = id;
+    link.rel = 'stylesheet';
+    link.href = href;
+    document.head.appendChild(link);
+  };
+
+  addStylesheet('lrf-premium-v2-css', 'assets/css/lrf-premium-v2.css?v=20260901-2');
+  addStylesheet('lrf-soft-pages-v3-css', 'assets/css/lrf-soft-pages-v3.css?v=20260901-1');
   document.documentElement.classList.add('lrf-premium-ready');
+
+  const pageClass = `lrf-page-${page.replace('.html','').replace(/[^a-z0-9-]/g,'-')}`;
 
   const setBrand = () => {
     if (!document.body) return;
-    document.body.classList.add('lrf-premium-v2');
+    document.body.classList.add('lrf-premium-v2', pageClass);
+    if (page !== 'index.html') document.body.classList.add('lrf-light-page');
 
     const favicon = document.querySelector('link[rel="icon"]');
-    if (favicon) { favicon.href = 'assets/brand-v2/monogram-lr.svg'; favicon.type = 'image/svg+xml'; }
+    if (favicon) {
+      favicon.href = 'assets/brand-v2/monogram-lr.svg';
+      favicon.type = 'image/svg+xml';
+    }
 
+    // En-tête public : LR rond à gauche, LE ROY factory centré.
+    const navContainer = document.querySelector('header .nav-container');
     const logoLink = document.querySelector('header .logo');
-    if (logoLink && !logoLink.querySelector('.lrf-brand-header')) {
-      logoLink.innerHTML = '<img class="lrf-brand-header" src="assets/brand-v2/logo-le-roy-factory.svg" alt="LE ROY factory">';
+    if (logoLink) {
+      logoLink.innerHTML = '<img class="lrf-monogram-header" src="assets/brand-v2/monogram-lr.svg" alt="LR">';
       logoLink.removeAttribute('style');
+    }
+    if (navContainer && !navContainer.querySelector('.lrf-center-brand')) {
+      const centerBrand = document.createElement('a');
+      centerBrand.className = 'lrf-center-brand';
+      centerBrand.href = 'index.html';
+      centerBrand.setAttribute('aria-label', 'LE ROY factory - Accueil');
+      centerBrand.innerHTML = '<img src="assets/brand-v2/logo-le-roy-factory.svg" alt="LE ROY factory">';
+      navContainer.appendChild(centerBrand);
     }
 
     const heroLogo = document.querySelector('.hero-logo');
@@ -28,6 +53,13 @@
       heroLogo.src = 'assets/brand-v2/logo-le-roy-factory.svg';
       heroLogo.alt = 'LE ROY factory';
       heroLogo.removeAttribute('style');
+    }
+
+    // Formulaire client : même monogramme et même identité claire.
+    const clientBrand = document.querySelector('.brand img');
+    if (page === 'ouverture-compte.html' && clientBrand) {
+      clientBrand.src = 'assets/brand-v2/monogram-lr.svg';
+      clientBrand.alt = 'LR';
     }
 
     const footer = document.querySelector('footer');
