@@ -1,1 +1,35 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 230" role="img" aria-labelledby="t d"><title id="t">LE ROY factory</title><desc id="d">Logo noir et or brillant LE ROY factory, sans couronne.</desc><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF4A8"/><stop offset=".16" stop-color="#FFD700"/><stop offset=".48" stop-color="#FFB300"/><stop offset=".72" stop-color="#FFE878"/><stop offset="1" stop-color="#C97900"/></linearGradient><filter id="glow" x="-20%" y="-30%" width="140%" height="160%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><g fill="url(#g)" filter="url(#glow)"><text x="380" y="122" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-size="108" font-weight="700" letter-spacing="8">LE ROY</text><rect x="112" y="166" width="170" height="3" rx="1.5"/><rect x="478" y="166" width="170" height="3" rx="1.5"/><text x="380" y="187" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="37" font-weight="500" letter-spacing="14">factory</text></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 220" role="img" aria-labelledby="t d">
+  <title id="t">LE ROY factory</title>
+  <desc id="d">Logo LE ROY factory fin et élégant, or métallique brillant, sans couronne.</desc>
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFF8D2"/>
+      <stop offset="0.12" stop-color="#FFF0A0"/>
+      <stop offset="0.30" stop-color="#FFD84D"/>
+      <stop offset="0.50" stop-color="#F6B51F"/>
+      <stop offset="0.68" stop-color="#FFE680"/>
+      <stop offset="0.84" stop-color="#C88312"/>
+      <stop offset="1" stop-color="#FFF0A0"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#B97108"/>
+      <stop offset="0.32" stop-color="#FFE77B"/>
+      <stop offset="0.52" stop-color="#FFFDF0"/>
+      <stop offset="0.68" stop-color="#FFD43B"/>
+      <stop offset="1" stop-color="#A86106"/>
+    </linearGradient>
+    <filter id="softGlow" x="-25%" y="-35%" width="150%" height="170%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2.5" result="blur"/>
+      <feFlood flood-color="#FFB300" flood-opacity="0.30" result="color"/>
+      <feComposite in="color" in2="blur" operator="in" result="glow"/>
+      <feMerge><feMergeNode in="glow"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <g filter="url(#softGlow)">
+    <text x="380" y="118" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-size="106" font-weight="400" letter-spacing="13" fill="url(#gold)" stroke="#8D5708" stroke-width="0.7">LE ROY</text>
+    <text x="380" y="118" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-size="106" font-weight="400" letter-spacing="13" fill="none" stroke="#FFF7C8" stroke-opacity="0.42" stroke-width="0.35">LE ROY</text>
+    <rect x="108" y="164" width="176" height="2" rx="1" fill="url(#shine)"/>
+    <rect x="476" y="164" width="176" height="2" rx="1" fill="url(#shine)"/>
+    <text x="380" y="187" text-anchor="middle" font-family="'Helvetica Neue',Arial,sans-serif" font-size="34" font-weight="300" letter-spacing="17" fill="url(#gold)">factory</text>
+  </g>
+</svg>
