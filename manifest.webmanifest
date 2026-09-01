@@ -1,0 +1,27 @@
+{
+  "name": "LE ROY FACTORY",
+  "short_name": "Leroy Factory",
+  "description": "L'application LE ROY FACTORY pour accéder au site, aux partenaires, aux tarifs PRO et à l'espace agent.",
+  "start_url": "/index.html?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone"],
+  "background_color": "#0b0b0b",
+  "theme_color": "#0b0b0b",
+  "orientation": "portrait-primary",
+  "lang": "fr-FR",
+  "icons": [
+    {
+      "src": "/assets/img/logo03lrf.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/img/logo03lrf.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
