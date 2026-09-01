@@ -1,3 +1,12 @@
+(()=>{
+    if(document.getElementById('lrf-pwa-install-loader')) return;
+    const script=document.createElement('script');
+    script.id='lrf-pwa-install-loader';
+    script.src='assets/js/pwa-install.js?v=20260901-1';
+    script.defer=true;
+    document.head.appendChild(script);
+})();
+
 function ensureMobileCss() {
     if (!window.matchMedia('(max-width: 900px)').matches) return;
     const old = document.getElementById('lrf-mobile-enhancements');
