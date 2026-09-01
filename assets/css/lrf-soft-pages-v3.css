@@ -1,0 +1,163 @@
+/* LE ROY factory — V3 : accueil noir/or + rubriques claires et douces. Couche visuelle uniquement. */
+
+/* JARVIS web masqué pour l'instant, sans supprimer le code métier. */
+#lrf-web-jarvis,[id^="lrf-web-jarvis"],.jarvis-web,.jarvis-bar,.jarvis-search-bar{display:none!important}
+
+/* Header : monogramme LR à gauche, LE ROY factory réellement centré. */
+body.lrf-premium-v2 header .nav-container{position:relative!important}
+body.lrf-premium-v2 header .logo{min-width:68px!important;width:68px!important;height:68px!important;padding:0!important;z-index:3}
+body.lrf-premium-v2 .lrf-monogram-header{display:block;width:62px;height:62px;object-fit:contain;filter:drop-shadow(0 0 8px rgba(255,184,0,.28))}
+body.lrf-premium-v2 .lrf-center-brand{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:block;width:220px;max-width:24vw;z-index:1;pointer-events:auto}
+body.lrf-premium-v2 .lrf-center-brand img{display:block;width:100%;height:auto;filter:drop-shadow(0 0 8px rgba(255,179,0,.24))}
+body.lrf-premium-v2 header nav{margin-left:auto;z-index:2}
+
+/* Accueil : plus de vidéo, visuel fixe élégant et plus haut dans la page. */
+body.lrf-page-index .hero-video-section{
+  height:min(72vh,690px)!important;
+  min-height:520px!important;
+  background:
+    linear-gradient(90deg,rgba(3,3,3,.72),rgba(3,3,3,.28) 50%,rgba(3,3,3,.68)),
+    radial-gradient(circle at 50% 34%,rgba(255,190,30,.16),transparent 34%),
+    url('../img/02.png') center 54%/cover no-repeat!important;
+}
+body.lrf-page-index .bg-video{display:none!important}
+body.lrf-page-index .hero-overlay{background:linear-gradient(180deg,rgba(0,0,0,.10),rgba(0,0,0,.28) 65%,rgba(0,0,0,.72))!important}
+body.lrf-page-index .hero-content{justify-content:center!important;padding-top:0!important;transform:translateY(-12px)}
+body.lrf-page-index .hero-logo{width:min(590px,78vw)!important;filter:drop-shadow(0 0 10px rgba(255,205,55,.30)) drop-shadow(0 8px 26px rgba(0,0,0,.72))!important}
+body.lrf-page-index .hero-content h2{font-weight:400!important;letter-spacing:.035em!important;font-size:clamp(1.75rem,2.5vw,3rem)!important}
+body.lrf-page-index .hero-content p{max-width:680px!important}
+body.lrf-page-index .hero-btn{border-radius:999px!important;padding:.88rem 1.85rem!important}
+body.lrf-page-index .premium-value-grid{border-radius:0 0 24px 24px;overflow:hidden}
+body.lrf-page-index .premium-universe-card{border-radius:24px!important}
+
+/* Rubriques publiques : ambiance claire, douce et légèrement transparente. */
+body.lrf-premium-v2.lrf-light-page{
+  --lrf-soft-bg:url('../img/pierre01.jpg');
+  --lrf-soft-pos:center;
+  --lrf-ink:#28241f;
+  --lrf-ink-soft:#625a50;
+  --lrf-ivory:rgba(255,253,249,.88);
+  --lrf-ivory-solid:#fbf8f2;
+  background:#f4efe7!important;
+  background-image:none!important;
+  color:var(--lrf-ink)!important;
+}
+body.lrf-premium-v2.lrf-light-page::before{
+  content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;opacity:1!important;
+  background:
+    linear-gradient(135deg,rgba(255,253,249,.92),rgba(248,242,232,.86)),
+    var(--lrf-soft-bg) var(--lrf-soft-pos)/cover fixed no-repeat!important;
+}
+body.lrf-premium-v2.lrf-light-page::after{
+  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(circle at 13% 18%,rgba(255,208,88,.15),transparent 27%),radial-gradient(circle at 90% 70%,rgba(184,143,69,.08),transparent 24%);
+}
+
+/* Un fond différent pour chaque univers. */
+body.lrf-page-partenaires{--lrf-soft-bg:url('../img/pierre01.jpg');--lrf-soft-pos:center 40%}
+body.lrf-page-univers{--lrf-soft-bg:url('../img/bois01.jpg');--lrf-soft-pos:center}
+body.lrf-page-realisations{--lrf-soft-bg:url('../img/01.png');--lrf-soft-pos:center}
+body.lrf-page-catalogues{--lrf-soft-bg:url('../img/03.png');--lrf-soft-pos:center}
+body.lrf-page-tarifs-pro{--lrf-soft-bg:url('../img/neobath-config/dna-gres-calacatta-oro-3980f49c2d.webp');--lrf-soft-pos:center}
+body.lrf-page-contact{--lrf-soft-bg:url('../img/05.png');--lrf-soft-pos:center}
+body.lrf-page-ouverture-compte{--lrf-soft-bg:url('../img/neobath-config/dna-hpl-travertino-tivoli-f0c74a4c54.webp');--lrf-soft-pos:center}
+
+body.lrf-premium-v2.lrf-light-page main:not(:has(.hero-video-section)){background:transparent!important;color:var(--lrf-ink)!important}
+body.lrf-premium-v2.lrf-light-page .hero-banner{
+  min-height:210px!important;
+  background:
+    linear-gradient(100deg,rgba(255,253,249,.93),rgba(255,251,244,.72)),
+    var(--lrf-soft-bg) var(--lrf-soft-pos)/cover no-repeat!important;
+  border-bottom:1px solid rgba(181,128,33,.28)!important;
+  box-shadow:0 12px 34px rgba(72,54,27,.07)!important;
+}
+body.lrf-premium-v2.lrf-light-page .hero-banner::after{content:"";position:absolute;left:7%;right:7%;bottom:0;height:1px;background:linear-gradient(90deg,transparent,#e7bd50,#fff1a2,#d79a22,transparent);box-shadow:0 0 10px rgba(218,158,30,.25)}
+body.lrf-premium-v2.lrf-light-page .hero-banner h1{color:#6f4d10!important;text-shadow:0 1px 0 rgba(255,255,255,.85),0 0 18px rgba(223,169,57,.16)!important;font-weight:400!important}
+body.lrf-premium-v2.lrf-light-page .hero-banner p{color:#574f45!important}
+
+/* Cartes : verre ivoire, coins doux, contenu au premier plan. */
+body.lrf-premium-v2.lrf-light-page .card-premium,
+body.lrf-premium-v2.lrf-light-page .partner-card,
+body.lrf-premium-v2.lrf-light-page .inspiration-card,
+body.lrf-premium-v2.lrf-light-page .realisation-card,
+body.lrf-premium-v2.lrf-light-page #grid-catalogues>div,
+body.lrf-premium-v2.lrf-light-page .card{
+  background:rgba(255,255,255,.86)!important;
+  backdrop-filter:blur(9px) saturate(1.05);
+  -webkit-backdrop-filter:blur(9px) saturate(1.05);
+  border:1px solid rgba(183,139,57,.24)!important;
+  border-radius:22px!important;
+  color:var(--lrf-ink)!important;
+  box-shadow:0 16px 38px rgba(84,64,34,.09),inset 0 1px 0 rgba(255,255,255,.9)!important;
+}
+body.lrf-premium-v2.lrf-light-page .card-premium:hover,
+body.lrf-premium-v2.lrf-light-page .partner-card:hover,
+body.lrf-premium-v2.lrf-light-page .inspiration-card:hover,
+body.lrf-premium-v2.lrf-light-page .realisation-card:hover,
+body.lrf-premium-v2.lrf-light-page #grid-catalogues>div:hover{
+  transform:translateY(-3px)!important;border-color:rgba(213,164,55,.52)!important;
+  box-shadow:0 20px 45px rgba(84,64,34,.12),0 0 24px rgba(224,172,52,.08)!important;
+}
+body.lrf-premium-v2.lrf-light-page .card-premium h1,
+body.lrf-premium-v2.lrf-light-page .card-premium h2,
+body.lrf-premium-v2.lrf-light-page .card-premium h3,
+body.lrf-premium-v2.lrf-light-page .partner-card h3,
+body.lrf-premium-v2.lrf-light-page .inspiration-card h3,
+body.lrf-premium-v2.lrf-light-page .realisation-card h3{color:#6c4b12!important;font-weight:500!important}
+body.lrf-premium-v2.lrf-light-page .card-premium p,
+body.lrf-premium-v2.lrf-light-page .partner-card p,
+body.lrf-premium-v2.lrf-light-page .inspiration-card p,
+body.lrf-premium-v2.lrf-light-page .realisation-card p{color:var(--lrf-ink-soft)!important}
+
+body.lrf-premium-v2.lrf-light-page input,
+body.lrf-premium-v2.lrf-light-page select,
+body.lrf-premium-v2.lrf-light-page textarea{
+  background:rgba(255,255,255,.90)!important;color:#2d2924!important;border:1px solid rgba(158,124,60,.28)!important;border-radius:13px!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.85)!important;
+}
+body.lrf-premium-v2.lrf-light-page input:focus,
+body.lrf-premium-v2.lrf-light-page select:focus,
+body.lrf-premium-v2.lrf-light-page textarea:focus{border-color:#d8a632!important;box-shadow:0 0 0 3px rgba(218,166,50,.13)!important}
+body.lrf-premium-v2.lrf-light-page .btn-outline,
+body.lrf-premium-v2.lrf-light-page .btn-outline-white{background:rgba(255,255,255,.78)!important;color:#6b4b12!important;border:1px solid rgba(176,128,36,.50)!important;border-radius:999px!important}
+body.lrf-premium-v2.lrf-light-page .btn-outline:hover,
+body.lrf-premium-v2.lrf-light-page .btn-outline-white:hover{background:#fff9ea!important;color:#38270a!important;box-shadow:0 8px 20px rgba(181,130,34,.12)!important}
+
+/* Formulaire espace client : léger, clair, rassurant. */
+body.lrf-page-ouverture-compte .form-shell{max-width:1040px!important;margin-top:1.2rem!important}
+body.lrf-page-ouverture-compte .brand{background:rgba(255,255,255,.76);backdrop-filter:blur(10px);border:1px solid rgba(185,139,52,.18);border-radius:26px;padding:1rem 1.2rem;box-shadow:0 14px 32px rgba(78,58,28,.08)}
+body.lrf-page-ouverture-compte .brand img{content:url('../brand-v2/monogram-lr.svg');width:70px!important;height:70px!important;border:0!important;background:transparent!important;object-fit:contain!important}
+body.lrf-page-ouverture-compte .brand h1{font-family:Georgia,'Times New Roman',serif;font-weight:400!important;color:#65460f!important}
+body.lrf-page-ouverture-compte .brand p{color:#71685e!important}
+body.lrf-page-ouverture-compte .choice label,
+body.lrf-page-ouverture-compte .partner{background:rgba(255,255,255,.65)!important;border-color:rgba(177,133,50,.20)!important;border-radius:16px!important}
+body.lrf-page-ouverture-compte .partner:hover{background:rgba(255,255,255,.92)!important;border-color:#d5a63b!important}
+body.lrf-page-ouverture-compte .submit{border-radius:999px!important;background:linear-gradient(135deg,#fff2aa,#ffd64b 35%,#e7a51d 72%,#fff1a0)!important;color:#2b1c03!important;border:1px solid #e4b541!important;box-shadow:inset 0 1px 1px rgba(255,255,255,.85),0 8px 25px rgba(199,142,30,.20)!important}
+
+/* Mobile : matières plus discrètes, interface plus lisible. */
+@media(max-width:1180px){
+  body.lrf-premium-v2 .lrf-center-brand{width:175px;max-width:19vw}
+}
+@media(max-width:900px){
+  body.lrf-premium-v2 header .logo{width:52px!important;height:52px!important}
+  body.lrf-premium-v2 .lrf-monogram-header{width:48px;height:48px}
+  body.lrf-premium-v2 .lrf-center-brand{width:145px;max-width:42vw}
+  body.lrf-page-index .hero-video-section{height:calc(100svh - 72px)!important;min-height:560px!important;background-position:center!important}
+  body.lrf-page-index .hero-content{transform:translateY(-5px);padding:0 18px!important}
+  body.lrf-page-index .hero-logo{width:min(430px,86vw)!important}
+  body.lrf-premium-v2.lrf-light-page::before{background:linear-gradient(rgba(255,253,249,.93),rgba(248,242,232,.91)),var(--lrf-soft-bg) var(--lrf-soft-pos)/cover fixed no-repeat!important}
+  body.lrf-premium-v2.lrf-light-page .hero-banner{min-height:175px!important}
+}
+@media(max-width:560px){
+  body.lrf-premium-v2 .lrf-center-brand{width:128px;max-width:45vw}
+  body.lrf-page-index .hero-video-section{min-height:540px!important}
+  body.lrf-page-index .hero-content h2{font-size:1.65rem!important}
+  body.lrf-page-index .hero-buttons{width:100%;flex-direction:column;gap:.65rem!important;padding:0 12px;box-sizing:border-box}
+  body.lrf-page-index .hero-btn{width:100%;box-sizing:border-box;text-align:center}
+  body.lrf-premium-v2.lrf-light-page .card-premium,
+  body.lrf-premium-v2.lrf-light-page .partner-card,
+  body.lrf-premium-v2.lrf-light-page .inspiration-card,
+  body.lrf-premium-v2.lrf-light-page .realisation-card,
+  body.lrf-premium-v2.lrf-light-page #grid-catalogues>div,
+  body.lrf-premium-v2.lrf-light-page .card{border-radius:18px!important}
+}
