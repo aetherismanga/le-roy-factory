@@ -5,6 +5,7 @@
 
   const KEY = 'lrfProSession';
   const MAX_AGE = 2 * 60 * 60 * 1000;
+  const isTariffPage = window.location.pathname.toLowerCase().endsWith('tarifs-pro.html');
 
   function purgeLegacy() {
     try { localStorage.removeItem(KEY); } catch (_) {}
@@ -74,6 +75,18 @@
     return false;
   }
 
+  function neutralizeLegacyTariffLogin() {
+    if (!isTariffPage) return;
+    clear();
+    const box = document.getElementById('login-section');
+    const content = document.getElementById('pro-content');
+    if (content) content.style.display = 'none';
+    if (box) {
+      box.style.display = 'block';
+      box.innerHTML = '<h2 style="font-size:1.75rem;margin-bottom:.6rem;color:#1A2530">Accès professionnel</h2><p style="color:#666;font-size:.95rem">Chargement du contrôle sécurisé…</p>';
+    }
+  }
+
   function patchPricingApi() {
     const api = window.LRF_INSPIRATIONS_PRICING;
     if (!api || api.__sessionBridgePatched) return false;
@@ -96,9 +109,13 @@
 
   function init() {
     purgeLegacy();
-    // Une session sans code LRF + département vérifiés est rejetée.
-    const session = read();
-    if (!session) clear();
+    if (isTariffPage) {
+      // Sur Accès PRO : aucune restauration automatique. LRF + département obligatoires à chaque entrée.
+      neutralizeLegacyTariffLogin();
+    } else {
+      const session = read();
+      if (!session) clear();
+    }
     if (!patchPricingApi()) {
       let tries = 0;
       const timer = setInterval(() => {
