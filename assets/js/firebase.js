@@ -1,11 +1,11 @@
-// Importation des SDK Firebase nécessaires depuis le CDN officiel
+// Firebase central — LE ROY FACTORY
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import "./carte-mobile-enhancements.js?v=20260818-1425";
 import "./carte-proximity.js?v=20260818-1448";
 import "./jarvis-web.js?v=20260819-0230";
 
-// Configuration Firebase de Le Roy Factory
 const firebaseConfig = {
   apiKey: "AIzaSyAiUk5Ua8kF" + "cCUrSqLihiLshHnhA4rm2Is",
   authDomain: "le-roy-factory.firebaseapp.com",
@@ -17,8 +17,71 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
+export const auth = getAuth(app);
 
-console.log("🔥 Firebase est initialisé avec succès pour Le Roy Factory !");
+const AGENTS = new Map([
+  ["jerome@leroyfactory.fr", "Jérôme Hugol"],
+  ["coryne@leroyfactory.fr", "Coryne"]
+]);
+
+export function getAgentProfile(user = auth.currentUser) {
+  const email = String(user?.email || "").trim().toLowerCase();
+  if (!email || !AGENTS.has(email)) return null;
+  return { email, name: AGENTS.get(email), uid: user.uid };
+}
+
+const CRM_PAGES = new Set([
+  "dashboard.html", "clients.html", "agenda.html", "comptes-rendus.html",
+  "mails-groupes.html", "carte.html", "statistiques.html", "demandes-clients.html",
+  "nouveau-compte-rendu.html"
+]);
+const currentPage = (location.pathname.split("/").pop() || "index.html").toLowerCase();
+const isCrmPage = CRM_PAGES.has(currentPage);
+
+// Empêche d'afficher brièvement des données CRM avant la vérification Firebase Auth.
+if (isCrmPage) document.documentElement.style.visibility = "hidden";
+
+onAuthStateChanged(auth, async user => {
+  const profile = getAgentProfile(user);
+  if (profile) {
+    localStorage.setItem("agentLoggedIn", "true");
+    localStorage.setItem("agentEmail", profile.email);
+    localStorage.setItem("agentName", profile.name);
+    localStorage.setItem("agentUid", profile.uid);
+    if (isCrmPage) document.documentElement.style.visibility = "visible";
+    window.dispatchEvent(new CustomEvent("lrf-agent-auth-ready", { detail: profile }));
+    return;
+  }
+
+  localStorage.removeItem("agentLoggedIn");
+  localStorage.removeItem("agentEmail");
+  localStorage.removeItem("agentName");
+  localStorage.removeItem("agentUid");
+
+  // Un utilisateur Firebase qui n'est pas dans l'équipe ne doit pas conserver une session.
+  if (user) {
+    try { await signOut(auth); } catch (_) {}
+  }
+
+  if (isCrmPage) {
+    const returnTo = encodeURIComponent(currentPage + location.search + location.hash);
+    location.replace(`agent.html?return=${returnTo}`);
+  }
+});
+
+// Intercepte toutes les déconnexions CRM existantes pour fermer aussi la session Firebase.
+document.addEventListener("click", async event => {
+  const btn = event.target.closest("#logout-btn, .btn-logout-sidebar");
+  if (!btn) return;
+  event.preventDefault();
+  event.stopImmediatePropagation();
+  try { await signOut(auth); } catch (err) { console.warn("Déconnexion Firebase", err); }
+  localStorage.removeItem("agentLoggedIn");
+  localStorage.removeItem("agentEmail");
+  localStorage.removeItem("agentName");
+  localStorage.removeItem("agentUid");
+  location.href = "agent.html";
+}, true);
 
 function ensureMobileCss() {
   if (!window.matchMedia("(max-width: 900px)").matches) return;
@@ -27,7 +90,7 @@ function ensureMobileCss() {
   const link = document.createElement("link");
   link.id = "lrf-mobile-enhancements";
   link.rel = "stylesheet";
-  link.href = "assets/css/mobile-enhancements.css?v=20260817-2008";
+  link.href = "assets/css/mobile-enhancements.css?v=20260901-auth";
   document.head.appendChild(link);
 }
 ensureMobileCss();
@@ -42,9 +105,8 @@ document.addEventListener("click", e => {
   }
 }, true);
 
-const currentPage = window.location.pathname.toLowerCase();
 import("./account-requests-nav.js?v=20260817-2008").catch(err => console.error("Erreur chargement navigation demandes clients :", err));
-if (currentPage.endsWith("clients.html")) {
+if (currentPage === "clients.html") {
   import("./client-direct-email.js?v=20260817-1845").catch(err => console.error("Erreur chargement module e-mail client :", err));
   import("./crm-moovago.js?v=20260817-1845").catch(err => console.error("Erreur chargement module CRM Moovago :", err));
   import("./crm-client-enhancements.js?v=20260817-1845").catch(err => console.error("Erreur chargement améliorations Clients :", err));
@@ -54,10 +116,10 @@ if (currentPage.endsWith("clients.html")) {
   import("./clients-export.js?v=20260817-1845").catch(err => console.error("Erreur chargement impression/export clients :", err));
   import("./account-form-send.js?v=20260817-1845").catch(err => console.error("Erreur chargement envoi formulaire ouverture/mise à jour :", err));
 }
-if (currentPage.endsWith("dashboard.html")) {
+if (currentPage === "dashboard.html") {
   import("./dashboard-commercial.js?v=20260817-1845").catch(err => console.error("Erreur chargement dashboard commercial :", err));
 }
-if (currentPage.endsWith("mails-groupes.html")) {
+if (currentPage === "mails-groupes.html") {
   import("./mails-groupes-programmation.js?v=20260817-1145").catch(err => console.error("Erreur chargement mails programmés :", err));
 }
 
@@ -95,7 +157,7 @@ function initCrmMobile() {
   document.addEventListener("keydown", e => { if (e.key === "Escape") closeMenu(); });
   document.body.append(backdrop, menuBtn);
 
-  const page = (location.pathname.split("/").pop() || "").toLowerCase();
+  const page = currentPage;
   const isProspect = page === "clients.html" && new URLSearchParams(location.search).get("filter") === "prospect";
   const actions = [
     ["👥", "Clients", "clients.html", page === "clients.html" && !isProspect],
