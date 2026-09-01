@@ -114,3 +114,15 @@ footer p,
   color: #1A2530 !important;
   text-shadow: none !important;
 }
+
+/* ========================================================================== 
+   CRM — suppression de l'entrée Prospects dans la navigation
+   Les prospects restent exploitables dans la base clients si nécessaire,
+   mais l'entrée de menu dédiée n'est plus affichée.
+   ========================================================================== */
+.crm-sidebar a[href="clients.html?filter=prospect"],
+.crm-sidebar a[href$="clients.html?filter=prospect"],
+.lrf-mobile-actions a[href="clients.html?filter=prospect"],
+.lrf-mobile-action-sheet a[href="clients.html#new-prospect"] {
+  display: none !important;
+}
