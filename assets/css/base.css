@@ -74,6 +74,15 @@ header img {
   object-fit: cover !important;
 }
 
+/* Un seul asset officiel pour le logo sur tout le site + CRM */
+.logo > img,
+.logo-circle > img,
+.sidebar-brand img,
+.site-header a.logo > img,
+header a.logo > img {
+  content: url('../brand-v2/monogram-lrf.svg?v=20260901-newlogo') !important;
+}
+
 .logo-circle {
   width: 75px !important;
   height: 75px !important;
