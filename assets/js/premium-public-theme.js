@@ -27,6 +27,64 @@
 
   const pageClass = `lrf-page-${page.replace('.html','').replace(/[^a-z0-9-]/g,'-')}`;
 
+  const installProContactsAccordion = () => {
+    if (page !== 'tarifs-pro.html' || window.__LRF_PRO_CONTACTS_ACCORDION__) return;
+    window.__LRF_PRO_CONTACTS_ACCORDION__ = true;
+
+    if (!document.getElementById('lrf-pro-contacts-accordion-style')) {
+      const style = document.createElement('style');
+      style.id = 'lrf-pro-contacts-accordion-style';
+      style.textContent = `
+        .contact-row.lrf-contact-accordion{display:block!important;padding:0!important;border-left:0!important;background:transparent!important;overflow:hidden;border-radius:9px!important}
+        .lrf-contact-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:.72rem .9rem;border:0;border-left:3px solid #047857;border-radius:7px;background:#f8f6f2;color:#1A2530;font-weight:800;font-size:.82rem;cursor:pointer;text-align:left;transition:background .2s ease,border-color .2s ease}
+        .lrf-contact-toggle:hover{background:#f1eee8;border-left-color:#D4AF37}
+        .lrf-contact-arrow{font-size:1rem;color:#9a6a10;transition:transform .2s ease;line-height:1}
+        .lrf-contact-toggle[aria-expanded="true"] .lrf-contact-arrow{transform:rotate(180deg)}
+        .lrf-contact-panel{margin-top:.45rem;padding:.8rem .9rem;background:#fbfaf7;border:1px solid #e7e0d5;border-radius:8px}
+        .lrf-contact-panel[hidden]{display:none!important}
+        .lrf-contact-panel>div>strong:first-child{display:none!important}
+        @media(max-width:600px){.lrf-contact-toggle{padding:.78rem .85rem;font-size:.84rem}.lrf-contact-panel{padding:.75rem}}
+      `;
+      document.head.appendChild(style);
+    }
+
+    const closeOthers = current => {
+      document.querySelectorAll('.lrf-contact-toggle[aria-expanded="true"]').forEach(btn => {
+        if (btn === current) return;
+        btn.setAttribute('aria-expanded','false');
+        const panel = btn.parentElement?.querySelector('.lrf-contact-panel');
+        if (panel) panel.hidden = true;
+      });
+    };
+
+    const enhance = root => {
+      root.querySelectorAll?.('.contact-row:not([data-lrf-contact-accordion])').forEach(row => {
+        if (!row.innerHTML.trim()) return;
+        row.dataset.lrfContactAccordion = '1';
+        row.classList.add('lrf-contact-accordion');
+        const original = row.innerHTML;
+        row.innerHTML = `<button type="button" class="lrf-contact-toggle" aria-expanded="false"><span>Contacts usine</span><span class="lrf-contact-arrow" aria-hidden="true">⌄</span></button><div class="lrf-contact-panel" hidden>${original}</div>`;
+        const button = row.querySelector('.lrf-contact-toggle');
+        const panel = row.querySelector('.lrf-contact-panel');
+        button?.addEventListener('click', () => {
+          const opening = button.getAttribute('aria-expanded') !== 'true';
+          closeOthers(button);
+          button.setAttribute('aria-expanded', opening ? 'true' : 'false');
+          if (panel) panel.hidden = !opening;
+        });
+      });
+    };
+
+    enhance(document);
+    const target = document.getElementById('grid-tarifs') || document.body;
+    new MutationObserver(mutations => {
+      mutations.forEach(m => m.addedNodes.forEach(node => {
+        if (node.nodeType === 1) enhance(node);
+      }));
+      enhance(document);
+    }).observe(target,{childList:true,subtree:true});
+  };
+
   const setBrand = () => {
     if (!document.body) return;
     document.body.classList.add('lrf-premium-v2', pageClass);
@@ -91,6 +149,8 @@
       module.src = 'assets/js/tarifs-pro-client-access.js?v=20260901-profix1';
       document.body.appendChild(module);
     }
+
+    installProContactsAccordion();
   };
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', setBrand, {once:true});
