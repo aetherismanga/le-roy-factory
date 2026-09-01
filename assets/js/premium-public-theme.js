@@ -17,7 +17,8 @@
 
   addStylesheet('lrf-premium-v2-css', 'assets/css/lrf-premium-v2.css?v=20260901-3');
   addStylesheet('lrf-soft-pages-v3-css', 'assets/css/lrf-soft-pages-v3.css?v=20260901-2');
-  addStylesheet('lrf-final-v4-css', 'assets/css/lrf-final-v4.css?v=20260901-1');
+  addStylesheet('lrf-final-v4-css', 'assets/css/lrf-final-v4.css?v=20260901-2');
+  addStylesheet('lrf-hotfix-v5-css', 'assets/css/lrf-hotfix-v5.css?v=20260901-1');
   document.documentElement.classList.add('lrf-premium-ready');
 
   const pageClass = `lrf-page-${page.replace('.html','').replace(/[^a-z0-9-]/g,'-')}`;
@@ -34,7 +35,6 @@
       favicon.type = 'image/svg+xml';
     }
 
-    // Header : uniquement le monogramme rond LRF à gauche. Aucun logo derrière le menu.
     const logoLink = document.querySelector('header .logo');
     if (logoLink) {
       logoLink.innerHTML = '<img class="lrf-monogram-header" src="assets/brand-v2/monogram-lrf.svg" alt="LRF">';
@@ -68,7 +68,6 @@
       }
     }
 
-    // Accueil volontairement épuré : suppression complète des blocs ajoutés précédemment.
     if (page === 'index.html') {
       document.getElementById('premium-value-strip')?.remove();
       document.querySelectorAll('.premium-univers').forEach(el => el.remove());
