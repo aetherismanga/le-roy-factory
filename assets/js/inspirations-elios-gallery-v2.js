@@ -7,18 +7,6 @@
   const catalogue = Array.isArray(window.ELIOS_CATALOGUE) ? window.ELIOS_CATALOGUE : [];
   const remote = window.ELIOS_HD_REMOTE || {};
 
-  // Pour Roma on n'utilise plus les anciens roma-2 / roma-3 embarqués, trop compressés.
-  // Les visuels ci-dessous sont les originaux de la galerie officielle Elios, les mêmes sources
-  // que celles utilisées pour l'image principale, et correspondent aux ambiances du catalogue Roma.
-  const OFFICIAL_COLLECTION_GALLERIES = {
-    roma: [
-      'https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Aventino_pav.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2021/02/Roma_CELIO-1.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Viminale_cucina.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2021/02/ROMA_PALATINO_amb.jpg'
-    ]
-  };
-
   const VERIFIED_VARIANTS = {
     roma: {
       Aventino: [
@@ -36,7 +24,11 @@
       Palatino: [
         'https://eliosceramica.com/wp-content/uploads/2021/02/ROMA_PALATINO_amb.jpg',
         'https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Palatino_1.jpg',
-        'https://eliosceramica.com/wp-content/uploads/2021/02/Roma_palatino_esterno2.jpg'
+        'https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Palatino_2.jpg',
+        'https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Palatino_3.jpg',
+        'https://eliosceramica.com/wp-content/uploads/2021/02/Roma_palatino_esterno2.jpg',
+        'https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Palatino_PART.jpg',
+        'https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Palatino_riv.jpg'
       ]
     }
   };
@@ -60,12 +52,21 @@
     return product ? { slug, product } : null;
   }
 
+  function bestLocalImage(product) {
+    const candidates = (product.gallery || [])
+      .map(key => images[key])
+      .filter(Boolean)
+      .sort((a, b) => String(b).length - String(a).length);
+    return candidates[0] || '';
+  }
+
   function baseGallery(slug, product) {
-    const official = OFFICIAL_COLLECTION_GALLERIES[slug];
-    if (Array.isArray(official) && official.length) return unique(official);
-    const local = (product.gallery || []).map(key => images[key]).filter(Boolean);
+    // Même règle pour toutes les collections :
+    // 1 visuel officiel HD + uniquement le meilleur visuel local issu du catalogue.
+    // Les anciennes petites vignettes compressées ne sont plus envoyées dans la galerie.
     const hd = remote[slug] ? [remote[slug]] : [];
-    return unique([...hd, ...local]);
+    const localBest = bestLocalImage(product);
+    return unique([...hd, ...(localBest ? [localBest] : [])]);
   }
 
   function buildGallery(card, id) {
@@ -84,6 +85,7 @@
     const verified = VERIFIED_VARIANTS[slug] || {};
     let currentImages = collectionImages;
     let currentIndex = 0;
+    let selectedColor = '';
 
     const gallery = document.createElement('div');
     gallery.className = 'elios-gallery-v2';
@@ -124,7 +126,7 @@
       thumbs.hidden = currentImages.length < 2;
       thumbs.innerHTML = currentImages.map((src, i) => `
         <button type="button" class="elios-gallery-thumb ${i === currentIndex ? 'active' : ''}" data-gallery-index="${i}" aria-label="Voir l'image ${i + 1}">
-          <img src="${esc(src)}" alt="" loading="lazy" draggable="false" onerror="this.closest('button').style.display='none'">
+          <img src="${esc(src)}" alt="" loading="lazy" draggable="false">
         </button>
       `).join('');
     }
@@ -161,7 +163,7 @@
     }, { passive: true });
 
     const headings = [...info.querySelectorAll('h4')];
-    const colorHeading = headings.find(h => h.textContent.trim().toLowerCase() === 'couleurs');
+    const colorHeading = headings.find(h => h.textContent.trim().toLowerCase().startsWith('couleurs'));
     const oldColorChips = colorHeading?.nextElementSibling?.classList.contains('chips') ? colorHeading.nextElementSibling : null;
 
     if (colorHeading && oldColorChips && Array.isArray(product.colors) && product.colors.length) {
@@ -169,39 +171,38 @@
       colorBox.className = 'elios-variant-colors';
       colorBox.innerHTML = product.colors.map((color, index) => {
         const isVerified = Array.isArray(verified[color]) && verified[color].length;
-        return `<button type="button" data-elios-color="${esc(color)}" data-color-index="${index}" class="${isVerified ? 'verified' : ''}" title="${isVerified ? 'Visuels officiels pour cette couleur' : 'Visuels de collection disponibles'}">${esc(color)}</button>`;
+        return `<button type="button" data-elios-color="${esc(color)}" data-color-index="${index}" class="${isVerified ? 'verified' : ''}" title="${isVerified ? 'Visuels HD vérifiés pour cette couleur' : 'Visuels HD de la collection'}">${esc(color)}</button>`;
       }).join('');
       oldColorChips.replaceWith(colorBox);
 
       const note = document.createElement('div');
       note.className = 'elios-variant-note';
-      note.textContent = 'Choisissez une couleur pour afficher ses visuels officiels.';
+      note.textContent = 'Choisissez une couleur pour afficher ses visuels lorsqu’ils sont disponibles.';
       colorBox.after(note);
 
       colorBox.addEventListener('click', e => {
         const button = e.target.closest('[data-elios-color]');
         if (!button) return;
-        const selectedColor = button.dataset.eliosColor || '';
+        selectedColor = button.dataset.eliosColor || '';
         colorBox.querySelectorAll('button').forEach(b => b.classList.toggle('active', b === button));
         const variantImages = verified[selectedColor];
         if (Array.isArray(variantImages) && variantImages.length) {
           currentImages = unique(variantImages);
-          note.textContent = `${selectedColor} · visuels officiels Elios`;
+          note.textContent = `${selectedColor} · visuels HD officiels Elios`;
         } else {
           currentImages = collectionImages;
-          note.textContent = `${selectedColor} · galerie de collection`;
+          note.textContent = `${selectedColor} · visuels HD de la collection`;
         }
         currentIndex = 0;
         render();
       });
     }
 
-    const keyHandler = event => {
+    document.addEventListener('keydown', event => {
       if (!modal.classList.contains('open')) return;
       if (event.key === 'ArrowLeft') go(-1);
       if (event.key === 'ArrowRight') go(1);
-    };
-    document.addEventListener('keydown', keyHandler);
+    }, { once: false });
 
     card.dataset.galleryEnhanced = id;
     render();
