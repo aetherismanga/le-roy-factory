@@ -1,0 +1,137 @@
+/* LE ROY factory — V4 final visual override. No business logic. */
+
+/* JARVIS : complètement invisible pour le moment. */
+#lrf-web-jarvis,[id^="lrf-web-jarvis"],.jarvis-web,.jarvis-bar,.jarvis-search-bar{display:none!important}
+
+/* HEADER : LRF plus gros à gauche, aucun logo derrière le menu. */
+body.lrf-premium-v2 header .nav-container{height:86px!important;position:relative!important;padding:0 26px!important}
+body.lrf-premium-v2 header .logo{width:78px!important;min-width:78px!important;height:78px!important;padding:0!important;display:flex!important;align-items:center!important;justify-content:center!important;z-index:5!important}
+body.lrf-premium-v2 .lrf-monogram-header{width:74px!important;height:74px!important;display:block!important;filter:drop-shadow(0 0 10px rgba(255,194,0,.38))!important}
+body.lrf-premium-v2 .lrf-center-brand{display:none!important}
+body.lrf-premium-v2 header nav{margin-left:auto!important;position:relative!important;z-index:4!important}
+body.lrf-premium-v2 .main-nav{gap:1.55rem!important}
+body.lrf-premium-v2 .main-nav>li>a:not(.agent-btn){font-size:.89rem!important;letter-spacing:.045em!important;padding:31px 0 25px!important}
+
+/* ACCUEIL : fond utilisateur fondsite, aucune section sous le hero hormis le footer. */
+body.lrf-page-index .hero-video-section{
+  height:calc(100vh - 86px)!important;
+  min-height:610px!important;
+  max-height:900px!important;
+  background-image:
+    linear-gradient(90deg,rgba(0,0,0,.16),rgba(0,0,0,.03) 48%,rgba(0,0,0,.13)),
+    linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.20) 78%,rgba(0,0,0,.58)),
+    url('../brand-v2/fondsite.jpg')!important;
+  background-position:center center!important;
+  background-size:cover!important;
+  background-repeat:no-repeat!important;
+}
+body.lrf-page-index .hero-overlay{background:radial-gradient(circle at 50% 43%,rgba(0,0,0,.02),rgba(0,0,0,.18) 72%)!important}
+body.lrf-page-index .hero-content{transform:none!important;justify-content:center!important;padding:0 1rem 3vh!important}
+body.lrf-page-index .hero-logo{width:min(570px,76vw)!important;filter:drop-shadow(0 1px 0 #fff2aa) drop-shadow(0 0 12px rgba(255,185,0,.42)) drop-shadow(0 9px 28px rgba(0,0,0,.7))!important}
+body.lrf-page-index .hero-logo-wrapper{margin-bottom:.25rem!important}
+body.lrf-page-index .hero-content h2{font-size:clamp(1.7rem,2.45vw,2.85rem)!important;font-weight:400!important;letter-spacing:.045em!important;margin:.3rem 0 .8rem!important;text-shadow:0 3px 15px rgba(0,0,0,.92)!important}
+body.lrf-page-index .hero-content p{font-size:1rem!important;max-width:660px!important;line-height:1.55!important;text-shadow:0 2px 10px rgba(0,0,0,.95)!important}
+body.lrf-page-index .hero-buttons{margin-top:1rem!important}
+body.lrf-page-index .premium-value-strip,body.lrf-page-index .premium-univers{display:none!important}
+body.lrf-page-index footer{margin-top:0!important}
+
+/* PAGES INTERNES : bannières beaucoup plus compactes et textées au centre. */
+body.lrf-premium-v2.lrf-light-page:not(.lrf-agent-page) .hero-banner{
+  min-height:138px!important;
+  height:auto!important;
+  padding:26px 0!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  background-image:
+    linear-gradient(90deg,rgba(255,253,249,.80),rgba(255,250,241,.64)),
+    var(--lrf-soft-bg)!important;
+  background-position:var(--lrf-soft-pos)!important;
+  background-size:cover!important;
+  box-shadow:0 10px 28px rgba(73,53,29,.07)!important;
+}
+body.lrf-premium-v2.lrf-light-page:not(.lrf-agent-page) .hero-banner:before{background:linear-gradient(90deg,rgba(255,252,246,.40),rgba(255,252,246,.18))!important}
+body.lrf-premium-v2.lrf-light-page:not(.lrf-agent-page) .hero-banner .container{text-align:center!important;max-width:930px!important;margin:0 auto!important;padding:0 20px!important}
+body.lrf-premium-v2.lrf-light-page:not(.lrf-agent-page) .hero-banner h1{font-size:clamp(1.55rem,2.3vw,2.3rem)!important;line-height:1.15!important;margin:.15rem auto .35rem!important;max-width:850px!important;color:#6b4a14!important;text-align:center!important}
+body.lrf-premium-v2.lrf-light-page:not(.lrf-agent-page) .hero-banner p{font-size:.94rem!important;line-height:1.45!important;margin:.15rem auto!important;max-width:760px!important;text-align:center!important;color:#5f584f!important}
+body.lrf-premium-v2.lrf-light-page:not(.lrf-agent-page) .hero-kicker{font-size:.66rem!important;padding:6px 10px!important;margin:0 auto 8px!important;background:linear-gradient(135deg,#FFE986,#FFD000,#F0A800)!important;box-shadow:0 3px 12px rgba(183,126,16,.18)!important}
+
+/* Pages sans hero-banner, comme Catalogues : remonter titre et contenu. */
+body.lrf-page-catalogues main{padding-top:112px!important;padding-bottom:3.2rem!important;position:relative!important;background:transparent!important}
+body.lrf-page-catalogues main>.container>h1{margin-top:0!important;margin-bottom:.35rem!important;text-align:center!important;font-size:clamp(1.7rem,2.5vw,2.4rem)!important;color:#694813!important;font-family:Georgia,'Times New Roman',serif!important;font-weight:500!important}
+body.lrf-page-catalogues main>.container>p{text-align:center!important;margin:0 auto 2rem!important;max-width:720px!important;color:#625b51!important;font-size:.96rem!important}
+
+/* Fonds clairs : image visible mais douce derrière le contenu. */
+body.lrf-premium-v2.lrf-light-page:not(.lrf-agent-page)::before{
+  background:
+    linear-gradient(135deg,rgba(255,253,249,.84),rgba(249,244,236,.78)),
+    var(--lrf-soft-bg) var(--lrf-soft-pos)/cover fixed no-repeat!important;
+}
+body.lrf-premium-v2.lrf-light-page:not(.lrf-agent-page) main{background:transparent!important}
+
+/* ESPACE AGENT : même identité, fond doux, aucune fleur, aucune barre Jarvis. */
+body.lrf-agent-page{
+  --lrf-soft-bg:url('../img/neobath-config/dna-hpl-travertino-tivoli-f0c74a4c54.webp');
+  --lrf-soft-pos:center;
+  min-height:100vh!important;
+  background:#f6f0e8!important;
+  color:#26221d!important;
+}
+body.lrf-agent-page::before{
+  content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background:
+    linear-gradient(135deg,rgba(255,253,249,.87),rgba(247,239,228,.80)),
+    var(--lrf-soft-bg) center/cover fixed no-repeat!important;
+}
+body.lrf-agent-page header,body.lrf-agent-page footer{
+  background:#070707 url('../brand-v2/marble-black-gold.svg') center/cover!important;
+  border-color:#FFD000!important;
+}
+body.lrf-agent-page main{padding-top:72px!important;padding-bottom:72px!important;background:transparent!important;min-height:calc(100vh - 172px)!important;display:flex!important;align-items:center!important}
+body.lrf-agent-page main>.container{width:100%!important}
+body.lrf-agent-page .login-wrapper{
+  max-width:460px!important;
+  margin:0 auto!important;
+  padding:2.35rem 2.45rem!important;
+  background:rgba(255,255,255,.90)!important;
+  backdrop-filter:blur(12px)!important;
+  -webkit-backdrop-filter:blur(12px)!important;
+  border:1px solid rgba(193,143,42,.30)!important;
+  border-radius:24px!important;
+  box-shadow:0 22px 60px rgba(69,49,26,.15),inset 0 1px 0 rgba(255,255,255,.96)!important;
+}
+body.lrf-agent-page .login-header-title h1{font-family:Georgia,'Times New Roman',serif!important;font-weight:500!important;letter-spacing:.045em!important;color:#694813!important;font-size:1.9rem!important}
+body.lrf-agent-page .login-header-title p{color:#625b51!important}
+body.lrf-agent-page .secure-note{background:rgba(255,248,224,.82)!important;border-color:rgba(211,165,61,.42)!important;border-radius:14px!important}
+body.lrf-agent-page .form-group input{background:rgba(255,255,255,.94)!important;border:1px solid rgba(152,116,50,.28)!important;border-radius:13px!important;color:#28231e!important}
+body.lrf-agent-page .form-group input:focus{border-color:#D5A329!important;box-shadow:0 0 0 3px rgba(213,163,41,.14)!important}
+body.lrf-agent-page .btn-login-submit{border-radius:999px!important;background:linear-gradient(135deg,#FFF18C,#FFD000 38%,#F2A800 74%,#FFE778)!important;color:#15100a!important;border:1px solid #FFD95B!important;box-shadow:0 8px 24px rgba(191,126,0,.22),inset 0 1px 1px rgba(255,255,255,.8)!important}
+body.lrf-agent-page .btn-login-submit:hover{transform:translateY(-1px)!important;box-shadow:0 10px 28px rgba(191,126,0,.32),0 0 18px rgba(255,205,30,.18)!important}
+body.lrf-agent-page footer{margin-top:0!important}
+
+/* MOBILE */
+@media(max-width:900px){
+  body.lrf-premium-v2 header .nav-container{height:72px!important;padding:0 14px!important}
+  body.lrf-premium-v2 header .logo{width:62px!important;min-width:62px!important;height:62px!important}
+  body.lrf-premium-v2 .lrf-monogram-header{width:58px!important;height:58px!important}
+  body.lrf-premium-v2 header nav .main-nav{top:72px!important}
+  body.lrf-page-index .hero-video-section{height:calc(100svh - 72px)!important;min-height:560px!important;background-position:center center!important}
+  body.lrf-page-index .hero-content{padding:0 18px 3vh!important}
+  body.lrf-page-index .hero-logo{width:min(440px,86vw)!important}
+  body.lrf-page-index .hero-content h2{font-size:clamp(1.45rem,6vw,2rem)!important}
+  body.lrf-page-index .hero-content p{font-size:.92rem!important}
+  body.lrf-page-index .hero-buttons{gap:.65rem!important;flex-wrap:wrap!important;justify-content:center!important}
+  body.lrf-premium-v2.lrf-light-page:not(.lrf-agent-page) .hero-banner{min-height:118px!important;padding:20px 0!important}
+  body.lrf-premium-v2.lrf-light-page:not(.lrf-agent-page) .hero-banner h1{font-size:1.55rem!important}
+  body.lrf-page-catalogues main{padding-top:92px!important}
+  body.lrf-agent-page main{padding-top:34px!important;padding-bottom:34px!important;min-height:calc(100svh - 144px)!important}
+  body.lrf-agent-page .login-wrapper{margin:0 14px!important;padding:1.65rem 1.35rem!important;border-radius:20px!important}
+}
+
+@media(max-width:560px){
+  body.lrf-page-index .hero-video-section{background-position:42% center!important}
+  body.lrf-page-index .hero-content p{max-width:94vw!important}
+  body.lrf-page-index .hero-btn{width:min(300px,84vw)!important;text-align:center!important}
+  body.lrf-premium-v2.lrf-light-page:not(.lrf-agent-page) .hero-banner{padding:16px 0!important;min-height:104px!important}
+  body.lrf-premium-v2.lrf-light-page:not(.lrf-agent-page) .hero-banner p{font-size:.84rem!important}
+}
