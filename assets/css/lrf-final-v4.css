@@ -56,8 +56,8 @@ body.lrf-premium-v2.lrf-light-page:not(.lrf-agent-page) .hero-banner h1{font-siz
 body.lrf-premium-v2.lrf-light-page:not(.lrf-agent-page) .hero-banner p{font-size:.94rem!important;line-height:1.45!important;margin:.15rem auto!important;max-width:760px!important;text-align:center!important;color:#5f584f!important}
 body.lrf-premium-v2.lrf-light-page:not(.lrf-agent-page) .hero-kicker{font-size:.66rem!important;padding:6px 10px!important;margin:0 auto 8px!important;background:linear-gradient(135deg,#FFE986,#FFD000,#F0A800)!important;box-shadow:0 3px 12px rgba(183,126,16,.18)!important}
 
-/* Pages sans hero-banner, comme Catalogues : remonter titre et contenu. */
-body.lrf-page-catalogues main{padding-top:112px!important;padding-bottom:3.2rem!important;position:relative!important;background:transparent!important}
+/* Pages sans hero-banner, comme Catalogues : remonter franchement titre et contenu. */
+body.lrf-page-catalogues main{padding-top:64px!important;padding-bottom:3.2rem!important;position:relative!important;background:transparent!important}
 body.lrf-page-catalogues main>.container>h1{margin-top:0!important;margin-bottom:.35rem!important;text-align:center!important;font-size:clamp(1.7rem,2.5vw,2.4rem)!important;color:#694813!important;font-family:Georgia,'Times New Roman',serif!important;font-weight:500!important}
 body.lrf-page-catalogues main>.container>p{text-align:center!important;margin:0 auto 2rem!important;max-width:720px!important;color:#625b51!important;font-size:.96rem!important}
 
@@ -123,7 +123,7 @@ body.lrf-agent-page footer{margin-top:0!important}
   body.lrf-page-index .hero-buttons{gap:.65rem!important;flex-wrap:wrap!important;justify-content:center!important}
   body.lrf-premium-v2.lrf-light-page:not(.lrf-agent-page) .hero-banner{min-height:118px!important;padding:20px 0!important}
   body.lrf-premium-v2.lrf-light-page:not(.lrf-agent-page) .hero-banner h1{font-size:1.55rem!important}
-  body.lrf-page-catalogues main{padding-top:92px!important}
+  body.lrf-page-catalogues main{padding-top:36px!important}
   body.lrf-agent-page main{padding-top:34px!important;padding-bottom:34px!important;min-height:calc(100svh - 144px)!important}
   body.lrf-agent-page .login-wrapper{margin:0 14px!important;padding:1.65rem 1.35rem!important;border-radius:20px!important}
 }
