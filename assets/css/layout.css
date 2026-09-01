@@ -207,3 +207,119 @@ footer p {
   background-color: #FFFFFF !important;
   box-shadow: 0 0 18px rgba(255, 215, 0, 0.5), 0 8px 25px rgba(0, 0, 0, 0.04) !important;
 }
+
+/* --- Correctif spécifique ACCÈS PRO --- */
+body:has(#grid-tarifs) #login-section {
+  max-width: 560px !important;
+}
+
+body:has(#grid-tarifs) .pro-login-grid {
+  grid-template-columns: minmax(0, 1fr) 190px !important;
+}
+
+body:has(#grid-tarifs) #pro-dept {
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+@media (min-width: 901px) {
+  body:has(#grid-tarifs) .nav-container {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    height: 86px !important;
+  }
+
+  body:has(#grid-tarifs) header nav {
+    margin-left: auto !important;
+  }
+
+  body:has(#grid-tarifs) .main-nav {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    flex-wrap: nowrap !important;
+    gap: 1.35rem !important;
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  body:has(#grid-tarifs) .main-nav li {
+    display: flex !important;
+    align-items: center !important;
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  body:has(#grid-tarifs) .main-nav > li > a:not(.agent-btn) {
+    display: inline-flex !important;
+    align-items: center !important;
+    padding: .45rem 0 !important;
+    background: transparent !important;
+    color: #fff !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    text-decoration: none !important;
+    font-size: .98rem !important;
+    font-weight: 800 !important;
+    white-space: nowrap !important;
+    position: relative !important;
+  }
+
+  body:has(#grid-tarifs) .main-nav > li > a:not(.agent-btn):hover,
+  body:has(#grid-tarifs) .main-nav > li > a.active:not(.agent-btn) {
+    background: transparent !important;
+    color: #FFD700 !important;
+    box-shadow: none !important;
+  }
+
+  body:has(#grid-tarifs) .main-nav > li > a.active:not(.agent-btn)::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -3px;
+    height: 2px;
+    background: #FFD700;
+    box-shadow: 0 0 8px rgba(255,215,0,.85);
+  }
+
+  body:has(#grid-tarifs) .agent-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 9px 17px !important;
+    background: #000 !important;
+    color: #FFD700 !important;
+    border: 1px solid #FFD700 !important;
+    border-radius: 8px !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    text-decoration: none !important;
+    font-size: .95rem !important;
+    font-weight: 800 !important;
+    white-space: nowrap !important;
+  }
+
+  body:has(#grid-tarifs) .agent-btn:hover {
+    background: #FFD700 !important;
+    color: #000 !important;
+  }
+
+  body:has(#grid-tarifs) .logo img {
+    width: 88px !important;
+    height: 88px !important;
+    max-width: none !important;
+    object-fit: contain !important;
+  }
+}
+
+@media (max-width: 600px) {
+  body:has(#grid-tarifs) .pro-login-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
