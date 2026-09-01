@@ -63,7 +63,7 @@ header a.logo {
   display: flex !important;
   align-items: center !important;
   height: 100% !important;
-  padding-left: 1rem !important;
+  padding-left: .65rem !important;
 }
 
 .logo > img,
@@ -71,15 +71,26 @@ header a.logo {
 .sidebar-brand img,
 .site-header a.logo > img,
 header a.logo > img {
-  content: url('../brand-v2/assetlogorond.png?v=20260901-official') !important;
+  content: url('../brand-v2/assetlogorond.png?v=20260901-official-big') !important;
   object-fit: contain !important;
   border-radius: 0 !important;
   background: transparent !important;
 }
 
+/* Site public desktop : logo plus grand */
+header a.logo > img,
+.site-header a.logo > img,
+.logo > img {
+  width: 92px !important;
+  height: 92px !important;
+  max-width: none !important;
+  max-height: none !important;
+}
+
+/* CRM : logo de la barre latérale plus grand */
 .logo-circle {
-  width: 75px !important;
-  height: 75px !important;
+  width: 82px !important;
+  height: 82px !important;
   overflow: visible !important;
   display: flex;
   align-items: center;
@@ -93,6 +104,21 @@ header a.logo > img {
   width: 100%;
   height: 100%;
   object-fit: contain !important;
+}
+
+@media (max-width: 900px) {
+  /* Mobile : logo agrandi sans toucher aux proportions */
+  body:not(.crm-body) header a.logo > img,
+  body:not(.crm-body) .site-header a.logo > img,
+  body:not(.crm-body) .logo > img {
+    width: 78px !important;
+    height: 78px !important;
+  }
+
+  body.crm-body .logo-circle {
+    width: 72px !important;
+    height: 72px !important;
+  }
 }
 
 /* 5. Effet de survol doré sur toutes les cartes du site */
