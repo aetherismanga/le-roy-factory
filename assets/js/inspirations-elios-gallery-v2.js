@@ -6,6 +6,8 @@
   const images = window.ELIOS_IMAGE_DATA || {};
   const catalogue = Array.isArray(window.ELIOS_CATALOGUE) ? window.ELIOS_CATALOGUE : [];
   const remote = window.ELIOS_HD_REMOTE || {};
+  const extraOfficial = window.ELIOS_OFFICIAL_GALLERIES || {};
+  const extraVariants = window.ELIOS_VERIFIED_VARIANTS || {};
 
   // Galeries officielles Elios validées. Roma reste le modèle de référence.
   // Les collections listées ici utilisent uniquement des visuels officiels HD.
@@ -197,7 +199,7 @@
   function baseGallery(slug, product) {
     // Dès qu'une galerie officielle HD est validée, on n'affiche plus les anciennes
     // miniatures PDF de cette collection. Sinon : 1 HD principal + meilleur secours local.
-    const official = OFFICIAL_GALLERIES[slug] || [];
+    const official = extraOfficial[slug] || OFFICIAL_GALLERIES[slug] || [];
     if (official.length) return unique(official);
     const hd = remote[slug] ? [remote[slug]] : [];
     const localBest = bestLocalImage(product);
@@ -217,7 +219,7 @@
     const collectionImages = baseGallery(slug, product);
     if (!collectionImages.length) return;
 
-    const verified = VERIFIED_VARIANTS[slug] || {};
+    const verified = { ...(VERIFIED_VARIANTS[slug] || {}), ...(extraVariants[slug] || {}) };
     let currentImages = collectionImages;
     let currentIndex = 0;
 
