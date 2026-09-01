@@ -18,7 +18,7 @@
   addStylesheet('lrf-premium-v2-css', 'assets/css/lrf-premium-v2.css?v=20260901-3');
   addStylesheet('lrf-soft-pages-v3-css', 'assets/css/lrf-soft-pages-v3.css?v=20260901-2');
   addStylesheet('lrf-final-v4-css', 'assets/css/lrf-final-v4.css?v=20260901-2');
-  addStylesheet('lrf-hotfix-v5-css', 'assets/css/lrf-hotfix-v5.css?v=20260901-2');
+  addStylesheet('lrf-hotfix-v5-css', 'assets/css/lrf-hotfix-v5.css?v=20260901-4');
   document.documentElement.classList.add('lrf-premium-ready');
 
   const pageClass = `lrf-page-${page.replace('.html','').replace(/[^a-z0-9-]/g,'-')}`;
@@ -42,7 +42,6 @@
     }
     document.querySelectorAll('.lrf-center-brand').forEach(el => el.remove());
 
-    // Accès PRO : lien explicite et cache-busté pour éviter une ancienne page/script en cache.
     document.querySelectorAll('a[href="tarifs-pro.html"],a[href^="tarifs-pro.html?"]').forEach(link => {
       link.setAttribute('href', 'tarifs-pro.html?v=20260901-pro2');
       link.style.pointerEvents = 'auto';
@@ -81,8 +80,6 @@
       document.querySelectorAll('.premium-univers').forEach(el => el.remove());
     }
 
-    // La page PRO charge elle-même le module code LRF + département.
-    // La même URL est utilisée par app.js : le navigateur ne l'exécute qu'une fois.
     if (page === 'tarifs-pro.html' && !document.getElementById('lrf-pro-access-direct')) {
       const module = document.createElement('script');
       module.id = 'lrf-pro-access-direct';
