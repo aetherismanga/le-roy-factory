@@ -4,11 +4,26 @@ import { collection,onSnapshot } from 'https://www.gstatic.com/firebasejs/10.8.0
 const SEND='https://us-central1-le-roy-factory.cloudfunctions.net/sendGroupEmail';
 const FORM='https://leroyfactory.fr/ouverture-compte.html';
 let clients=[];
+let emailLookupTimer=null;
 const norm=v=>String(v||'').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+const normEmail=v=>String(v||'').trim().toLowerCase();
 const esc=v=>String(v||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 const depFromCp=cp=>{const s=String(cp||'').replace(/\s/g,'');if(!/^\d{5}$/.test(s))return'';if(s.startsWith('97')||s.startsWith('98'))return s.slice(0,3);if(s.startsWith('20'))return Number(s)>=20200?'2B':'2A';return s.slice(0,2)};
 const clientDep=c=>String(c?.departement||depFromCp(c?.codePostal||c?.code_postal)||'').trim().toUpperCase();
 
+function clientEmails(c){
+  const out=[];
+  const add=v=>{const e=normEmail(v);if(e&&/^\S+@\S+\.\S+$/.test(e)&&!out.includes(e))out.push(e)};
+  add(c?.email);add(c?.mail);add(c?.eMail);
+  (Array.isArray(c?.emails)?c.emails:[]).forEach(add);
+  (Array.isArray(c?.emailsAutres)?c.emailsAutres:[]).forEach(add);
+  (Array.isArray(c?.interlocuteurs)?c.interlocuteurs:[]).forEach(i=>add(i?.email));
+  return out;
+}
+function findClientByEmail(email){
+  const e=normEmail(email);if(!/^\S+@\S+\.\S+$/.test(e))return null;
+  return clients.find(c=>clientEmails(c).includes(e))||null;
+}
 function currentClient(){
   const title=document.getElementById('modal-title')?.textContent||'';const name=title.replace(/^Édition\s*:\s*/i,'').trim();
   if(!name||/Nouveau Client/i.test(title))return null;
@@ -17,19 +32,47 @@ function currentClient(){
 function injectStyles(){if(document.getElementById('account-send-style'))return;const s=document.createElement('style');s.id='account-send-style';s.textContent=`
 .account-send-overlay{position:fixed;inset:0;background:rgba(0,0,0,.58);z-index:100000;display:none;align-items:center;justify-content:center;padding:1rem}.account-send-box{width:min(620px,95vw);background:#fff;border-radius:14px;padding:1.35rem;box-shadow:0 20px 60px rgba(0,0,0,.3);border:1px solid rgba(212,175,55,.45)}.account-send-box h3{margin:0 0 .8rem}.account-send-grid{display:grid;grid-template-columns:1fr 180px;gap:.75rem}.account-send-box label{display:block;font-size:.78rem;font-weight:800;margin:.65rem 0 .3rem}.account-send-box input,.account-send-box select,.account-send-box textarea{width:100%;box-sizing:border-box;padding:.7rem;border:1px solid #d8d1c5;border-radius:8px;font:inherit}.account-send-box textarea{min-height:170px;resize:vertical}.account-send-actions{display:flex;gap:.65rem;justify-content:flex-end;margin-top:1rem;flex-wrap:wrap}.account-send-btn{border:1px solid #D4AF37;background:#111;color:#FFD700;border-radius:8px;padding:.7rem 1rem;font-weight:800;cursor:pointer}.account-send-cancel{border:1px solid #d8d1c5;background:#fff;border-radius:8px;padding:.7rem 1rem;font-weight:700;cursor:pointer}#btn-send-account-form{width:auto!important;max-width:max-content!important;flex:0 0 auto!important;display:inline-flex!important;align-items:center;justify-content:center;white-space:nowrap;padding:.72rem 1.15rem!important}#btn-send-account-form-client{width:auto!important;flex:0 0 auto!important;white-space:nowrap}@media(max-width:620px){.account-send-grid{grid-template-columns:1fr}#btn-send-account-form{max-width:100%!important;white-space:normal}}
 `;document.head.appendChild(s)}
-function ensureDialog(){if(document.getElementById('account-send-overlay'))return;const d=document.createElement('div');d.id='account-send-overlay';d.className='account-send-overlay';d.innerHTML=`<div class="account-send-box"><h3>✉ Envoyer ouverture / mise à jour</h3><div class="account-send-grid"><div><label>E-mail du client</label><input id="account-send-email" type="email" placeholder="client@entreprise.fr"></div><div><label>Type de demande</label><select id="account-send-type"><option value="ouverture">Ouverture de compte</option><option value="mise_a_jour">Mise à jour</option></select></div></div><label>Objet</label><input id="account-send-subject"><label>Message</label><textarea id="account-send-message"></textarea><div class="account-send-actions"><button type="button" class="account-send-cancel" id="account-send-cancel">Annuler</button><button type="button" class="account-send-btn" id="account-send-submit">Envoyer au client</button></div></div>`;document.body.appendChild(d);d.addEventListener('click',e=>{if(e.target===d)closeDialog()});document.getElementById('account-send-cancel').onclick=closeDialog;document.getElementById('account-send-type').onchange=()=>fillMessage(window.__ACCOUNT_SEND_CLIENT||null);document.getElementById('account-send-submit').onclick=sendForm}
+function ensureDialog(){
+  if(document.getElementById('account-send-overlay'))return;
+  const d=document.createElement('div');d.id='account-send-overlay';d.className='account-send-overlay';
+  d.innerHTML=`<div class="account-send-box"><h3>✉ Envoyer ouverture / mise à jour</h3><div class="account-send-grid"><div><label>E-mail du client</label><input id="account-send-email" type="email" placeholder="client@entreprise.fr"></div><div><label>Type de demande</label><select id="account-send-type"><option value="ouverture">Ouverture de compte</option><option value="mise_a_jour">Mise à jour</option></select></div></div><label>Objet</label><input id="account-send-subject"><label>Message</label><textarea id="account-send-message"></textarea><div class="account-send-actions"><button type="button" class="account-send-cancel" id="account-send-cancel">Annuler</button><button type="button" class="account-send-btn" id="account-send-submit">Envoyer au client</button></div></div>`;
+  document.body.appendChild(d);d.addEventListener('click',e=>{if(e.target===d)closeDialog()});
+  document.getElementById('account-send-cancel').onclick=closeDialog;
+  document.getElementById('account-send-type').onchange=syncDialogClient;
+  document.getElementById('account-send-email').addEventListener('input',()=>{clearTimeout(emailLookupTimer);emailLookupTimer=setTimeout(syncDialogClient,180)});
+  document.getElementById('account-send-email').addEventListener('change',syncDialogClient);
+  document.getElementById('account-send-submit').onclick=sendForm;
+}
 function closeDialog(){document.getElementById('account-send-overlay').style.display='none';window.__ACCOUNT_SEND_CLIENT=null}
 function fillMessage(c){
   const type=document.getElementById('account-send-type').value;const update=type==='mise_a_jour';const code=c?.codeClient||'';const dep=clientDep(c);
   const link=update?`${FORM}?type=mise_a_jour${code&&dep?`&code=${encodeURIComponent(code)}&dep=${encodeURIComponent(dep)}`:''}`:FORM;
   document.getElementById('account-send-subject').value=update?'Mise à jour de votre compte LE ROY FACTORY':'Ouverture de votre compte LE ROY FACTORY';
-  document.getElementById('account-send-message').value=update?`Bonjour,\n\nAfin de mettre à jour votre compte professionnel LE ROY FACTORY, merci de compléter le formulaire suivant :\n\n${link}\n\nVos identifiants :\nCode client : ${code||'LRF-xxxxx'}\nDépartement : ${dep||'--'}\n\nEn ouvrant ce lien depuis votre fiche client, vos informations existantes seront automatiquement chargées. Le code client et le département restent verrouillés ; vous pouvez uniquement corriger ou compléter les autres informations. Merci de joindre obligatoirement votre RIB et votre Kbis.\n\nCordialement,\nLE ROY FACTORY`:`Bonjour,\n\nAfin de procéder à l'ouverture de votre compte professionnel LE ROY FACTORY, merci de compléter le formulaire suivant :\n\n${link}\n\nMerci de renseigner l'ensemble des informations demandées et de joindre obligatoirement votre RIB et votre Kbis.\n\nCordialement,\nLE ROY FACTORY`;
+  document.getElementById('account-send-message').value=update?`Bonjour,\n\nAfin de mettre à jour votre compte professionnel LE ROY FACTORY, merci de compléter le formulaire suivant :\n\n${link}\n\nVos identifiants :\nCode client : ${code||'LRF-xxxxx'}\nDépartement : ${dep||'--'}\n\nEn ouvrant ce lien, vos informations existantes seront automatiquement chargées. Le code client et le département restent verrouillés ; vous pouvez uniquement corriger ou compléter les autres informations. Merci de joindre obligatoirement votre RIB et votre Kbis.\n\nCordialement,\nLE ROY FACTORY`:`Bonjour,\n\nAfin de procéder à l'ouverture de votre compte professionnel LE ROY FACTORY, merci de compléter le formulaire suivant :\n\n${link}\n\nMerci de renseigner l'ensemble des informations demandées et de joindre obligatoirement votre RIB et votre Kbis.\n\nCordialement,\nLE ROY FACTORY`;
 }
-function openDialog(c=null){ensureDialog();window.__ACCOUNT_SEND_CLIENT=c;document.getElementById('account-send-email').value=c?.email||'';document.getElementById('account-send-type').value=c?.codeClient?'mise_a_jour':'ouverture';fillMessage(c);document.getElementById('account-send-overlay').style.display='flex'}
+function syncDialogClient(){
+  const type=document.getElementById('account-send-type')?.value;
+  if(type!=='mise_a_jour'){window.__ACCOUNT_SEND_CLIENT=null;fillMessage(null);return}
+  const email=document.getElementById('account-send-email')?.value||'';
+  let c=window.__ACCOUNT_SEND_CLIENT||null;
+  if(!c||!clientEmails(c).includes(normEmail(email)))c=findClientByEmail(email);
+  window.__ACCOUNT_SEND_CLIENT=c||null;
+  fillMessage(c||null);
+}
+function openDialog(c=null){
+  ensureDialog();window.__ACCOUNT_SEND_CLIENT=c;
+  document.getElementById('account-send-email').value=c?.email||'';
+  document.getElementById('account-send-type').value=c?.codeClient?'mise_a_jour':'ouverture';
+  if(c)fillMessage(c);else syncDialogClient();
+  document.getElementById('account-send-overlay').style.display='flex';
+}
 async function sendForm(){const email=document.getElementById('account-send-email').value.trim(),subject=document.getElementById('account-send-subject').value.trim(),text=document.getElementById('account-send-message').value.trim();if(!email||!subject||!text){alert('E-mail, objet et message sont obligatoires.');return}const btn=document.getElementById('account-send-submit');btn.disabled=true;btn.textContent='Envoi…';try{const html=`<div style="font-family:Arial,sans-serif;white-space:pre-line;line-height:1.6">${esc(text).replace(/\n/g,'<br>')}</div>`;const r=await fetch(SEND,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({senderMode:'both',bccRecipients:[email],subject,htmlContent:html,attachments:[]})});if(!r.ok)throw new Error('Échec de l’envoi');alert('Formulaire envoyé au client.');closeDialog()}catch(e){console.error(e);alert(e.message||'Impossible d’envoyer le formulaire.')}finally{btn.disabled=false;btn.textContent='Envoyer au client'}}
 function injectButtons(){
   const toolbar=document.querySelector('.crm-toolbar');if(toolbar&&!document.getElementById('btn-send-account-form')){const b=document.createElement('button');b.id='btn-send-account-form';b.type='button';b.className='btn-primary-gold';b.style.cssText='width:auto!important;max-width:max-content!important;flex:0 0 auto!important;display:inline-flex!important;align-items:center;justify-content:center;white-space:nowrap;padding:.72rem 1.15rem!important';b.textContent='✉ Envoyer ouverture / mise à jour';b.onclick=()=>openDialog(null);toolbar.insertBefore(b,toolbar.children[1]||null)}
   const footer=document.querySelector('#client-modal .modal-footer');if(footer&&!document.getElementById('btn-send-account-form-client')){const b=document.createElement('button');b.id='btn-send-account-form-client';b.type='button';b.className='filter-btn';b.textContent='✉ Envoyer ouverture / mise à jour';b.onclick=()=>openDialog(currentClient());footer.insertBefore(b,footer.firstChild)}
 }
-function init(){injectStyles();ensureDialog();injectButtons();onSnapshot(collection(db,'clients'),s=>{clients=[];s.forEach(d=>clients.push({id:d.id,...d.data()}));injectButtons()})}
+function init(){
+  injectStyles();ensureDialog();injectButtons();
+  onSnapshot(collection(db,'clients'),s=>{clients=[];s.forEach(d=>clients.push({id:d.id,...d.data()}));injectButtons();const overlay=document.getElementById('account-send-overlay');if(overlay?.style.display==='flex'&&document.getElementById('account-send-type')?.value==='mise_a_jour')syncDialogClient()})
+}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
