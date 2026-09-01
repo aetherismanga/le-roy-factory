@@ -7,10 +7,10 @@ import "./carte-proximity.js?v=20260818-1448";
 import "./jarvis-web.js?v=20260819-0230";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAiUk5Ua8kF" + "cCUrSqLihiLshHnhA4rm2Is",
+  apiKey: "AIzaSyA3iuK5Ua8kFccURSqLihLshHnhA4rm2is",
   authDomain: "le-roy-factory.firebaseapp.com",
   projectId: "le-roy-factory",
-  storageBucket: "le-roy-factory.appspot.com",
+  storageBucket: "le-roy-factory.firebasestorage.app",
   messagingSenderId: "249878619253",
   appId: "1:249878619253:web:05f051710b6251dbfa843c"
 };
