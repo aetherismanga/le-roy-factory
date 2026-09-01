@@ -41,7 +41,6 @@
   Object.entries(hd).forEach(([slug, src]) => {
     if (slug === 'montreal' && images['montreal-1']) return;
     images[`${slug}-1`] = src;
-    for (let i = 2; i <= 6; i++) delete images[`${slug}-${i}`];
   });
 
   window.ELIOS_HD_REMOTE = hd;
