@@ -1,3 +1,31 @@
+import { auth } from './firebase.js';
+
+// Tous les appels vers les Cloud Functions LE ROY FACTORY effectués depuis le CRM
+// transportent automatiquement le jeton Firebase de l'agent connecté.
+// Les pages publiques qui ne chargent pas firebase.js continuent à fonctionner sans jeton.
+if (!window.__lrfSecureCloudFetchInstalled) {
+  window.__lrfSecureCloudFetchInstalled = true;
+  const nativeFetch = window.fetch.bind(window);
+
+  window.fetch = async (input, init = {}) => {
+    const url = typeof input === 'string' ? input : String(input?.url || '');
+    const isLrfCloudFunction = url.startsWith('https://us-central1-le-roy-factory.cloudfunctions.net/');
+
+    if (isLrfCloudFunction && auth.currentUser) {
+      try {
+        const token = await auth.currentUser.getIdToken();
+        const headers = new Headers(init.headers || (input instanceof Request ? input.headers : undefined));
+        headers.set('Authorization', `Bearer ${token}`);
+        return nativeFetch(input, { ...init, headers });
+      } catch (error) {
+        console.warn('Impossible d’ajouter le jeton Firebase à la requête CRM :', error);
+      }
+    }
+
+    return nativeFetch(input, init);
+  };
+}
+
 function addNav(){
   const menu=document.querySelector('.sidebar-menu');
   if(menu&&!menu.querySelector('a[href="demandes-clients.html"]')){
