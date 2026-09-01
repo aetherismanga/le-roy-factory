@@ -17,10 +17,10 @@
 
   addStylesheet('lrf-premium-v2-css', 'assets/css/lrf-premium-v2.css?v=20260901-3');
   addStylesheet('lrf-soft-pages-v3-css', 'assets/css/lrf-soft-pages-v3.css?v=20260901-2');
-  addStylesheet('lrf-final-v4-css', 'assets/css/lrf-final-v4.css?v=20260901-2');
+  addStylesheet('lrf-final-v4-css', 'assets/css/lrf-final-v4.css?v=20260901-3');
   addStylesheet('lrf-hotfix-v5-css', 'assets/css/lrf-hotfix-v5.css?v=20260901-5');
   if (window.matchMedia('(max-width: 900px)').matches) {
-    addStylesheet('lrf-mobile-public-v8-css', 'assets/css/mobile-public-v8.css?v=20260901-1');
+    addStylesheet('lrf-mobile-public-v8-css', 'assets/css/mobile-public-v8.css?v=20260901-2');
   }
   document.documentElement.classList.add('lrf-premium-ready');
 
@@ -34,13 +34,13 @@
 
     const favicon = document.querySelector('link[rel="icon"]');
     if (favicon) {
-      favicon.href = 'assets/brand-v2/monogram-lrf.svg';
-      favicon.type = 'image/svg+xml';
+      favicon.href = 'assets/brand-v2/assetlogorond.png';
+      favicon.type = 'image/png';
     }
 
     const logoLink = document.querySelector('header .logo');
     if (logoLink) {
-      logoLink.innerHTML = '<img class="lrf-monogram-header" src="assets/brand-v2/monogram-lrf.svg" alt="LRF">';
+      logoLink.innerHTML = '<img class="lrf-monogram-header" src="assets/brand-v2/assetlogorond.png?v=20260901-logo2" alt="LRF">';
       logoLink.removeAttribute('style');
     }
     document.querySelectorAll('.lrf-center-brand').forEach(el => el.remove());
@@ -61,7 +61,7 @@
 
     const clientBrand = document.querySelector('.brand img');
     if (page === 'ouverture-compte.html' && clientBrand) {
-      clientBrand.src = 'assets/brand-v2/monogram-lrf.svg';
+      clientBrand.src = 'assets/brand-v2/assetlogorond.png?v=20260901-logo2';
       clientBrand.alt = 'LRF';
     }
 
