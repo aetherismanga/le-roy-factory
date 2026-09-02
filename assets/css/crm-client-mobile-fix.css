@@ -93,16 +93,29 @@
     min-width: 0 !important;
   }
 
-  /* Le menu principal CRM et le bouton + ne doivent jamais recouvrir une fiche ouverte. */
+  /* La barre d'actions du bas et le bouton + ne recouvrent pas la fiche.
+     Le bouton burger, lui, reste volontairement disponible. */
   body.crm-body:has(#client-modal:not([style*="display: none"])) .lrf-mobile-actions,
   body.crm-body:has(#client-modal:not([style*="display:none"])) .lrf-mobile-actions,
   body.crm-body:has(#client-modal:not([style*="display: none"])) #lrf-mobile-fab,
   body.crm-body:has(#client-modal:not([style*="display:none"])) #lrf-mobile-fab,
   body.crm-body:has(#client-modal:not([style*="display: none"])) .lrf-mobile-action-sheet,
-  body.crm-body:has(#client-modal:not([style*="display:none"])) .lrf-mobile-action-sheet,
-  body.crm-body:has(#client-modal:not([style*="display: none"])) #crm-mobile-menu-btn,
-  body.crm-body:has(#client-modal:not([style*="display:none"])) #crm-mobile-menu-btn {
+  body.crm-body:has(#client-modal:not([style*="display:none"])) .lrf-mobile-action-sheet {
     display: none !important;
+  }
+
+  /* Burger toujours visible sur smartphone, y compris fiche client ouverte. */
+  body.crm-body #crm-mobile-menu-btn {
+    display: grid !important;
+    position: fixed !important;
+    top: 12px !important;
+    left: 12px !important;
+    z-index: 100040 !important;
+  }
+
+  /* Le titre de fiche laisse la place au burger à gauche et au X à droite. */
+  body.crm-body #client-modal .modal-header {
+    padding-left: 52px !important;
   }
 
   /* Sécurité si le navigateur ne gère pas :has() : le contenu garde assez d'espace en bas. */
