@@ -11,19 +11,36 @@
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
   <style>
-    body, html { background-color: #FBF9F5 !important; background-image: none !important; color: #1A2530 !important; }
-    header, footer { background-image: url('assets/img/bandeau02.png'); background-size: cover; background-position: center; color: #ffffff; border-bottom: 2px solid #D4AF37; }
-    footer { border-top: 2px solid #D4AF37; border-bottom: none; text-shadow: 0 1px 4px rgba(0,0,0,0.9); }
-    footer p { color: #ffffff !important; }
+    body, html { background-color:#FBF9F5 !important; background-image:none !important; color:#1A2530 !important; }
+    header, footer { background-image:url('assets/img/bandeau02.png'); background-size:cover; background-position:center; color:#fff; border-bottom:2px solid #D4AF37; }
+    footer { border-top:2px solid #D4AF37; border-bottom:none; text-shadow:0 1px 4px rgba(0,0,0,.9); }
+    footer p { color:#fff !important; }
     .main-nav { display:flex; gap:1.5rem; align-items:center; justify-content:flex-end; list-style:none; margin:0; padding:0; flex-wrap:nowrap; }
     .main-nav li { display:flex; align-items:center; }
-    .main-nav > li > a:not(.agent-btn) { text-decoration:none; color:#111111 !important; font-weight:800 !important; font-size:1.15rem !important; letter-spacing:.5px !important; text-shadow:0 1px 2px rgba(212,175,55,.6) !important; position:relative; padding-bottom:4px; background:transparent !important; transition:color .25s ease; }
-    .main-nav > li > a:not(.agent-btn):hover { color:#D4AF37 !important; background:transparent !important; }
-    .main-nav > li > a.active:not(.agent-btn) { color:#111111 !important; font-weight:800 !important; background:transparent !important; box-shadow:none !important; }
+    .main-nav > li > a:not(.agent-btn) { text-decoration:none; color:#111 !important; font-weight:800 !important; font-size:1.15rem !important; letter-spacing:.5px !important; text-shadow:0 1px 2px rgba(212,175,55,.6) !important; position:relative; padding-bottom:4px; background:transparent !important; transition:color .25s ease; }
+    .main-nav > li > a:not(.agent-btn):hover { color:#D4AF37 !important; }
+    .main-nav > li > a.active:not(.agent-btn) { color:#111 !important; font-weight:800 !important; background:transparent !important; box-shadow:none !important; }
     .main-nav > li > a.active:not(.agent-btn)::after { content:''; position:absolute; bottom:-2px; left:0; width:100%; height:3px; background:#D4AF37; box-shadow:0 0 10px rgba(212,175,55,.9); border-radius:2px; }
     .agent-btn { display:inline-flex !important; align-items:center !important; justify-content:center !important; padding:8px 16px !important; background:#000 !important; color:#FFD700 !important; border:1px solid #FFD700 !important; border-radius:8px !important; font-weight:700 !important; font-size:.95rem !important; white-space:nowrap !important; text-decoration:none !important; transition:all .3s ease !important; box-shadow:0 2px 8px rgba(0,0,0,.5) !important; text-shadow:none !important; }
     .agent-btn::after { display:none !important; }
-    .agent-btn:hover { background:#FFD700 !important; color:#111 !important; border-color:#FFD700 !important; }
+    .agent-btn:hover { background:#FFD700 !important; color:#111 !important; }
+
+    .catalogue-picker { position:relative; z-index:3; }
+    .catalogue-picker summary { list-style:none; cursor:pointer; user-select:none; display:flex; align-items:center; justify-content:space-between; gap:.75rem; min-height:46px; padding:.7rem .9rem; border:1px solid #d6bd72; border-radius:7px; background:#f8f6f2; color:#1a2530; font-size:.82rem; font-weight:800; transition:.2s ease; }
+    .catalogue-picker summary::-webkit-details-marker { display:none; }
+    .catalogue-picker summary::after { content:'⌄'; color:#9a6a12; font-size:1.15rem; line-height:1; transition:transform .2s ease; }
+    .catalogue-picker[open] summary::after { transform:rotate(180deg); }
+    .catalogue-picker summary:hover { border-color:#c99b28; background:#fffaf0; }
+    .catalogue-menu { display:flex; flex-direction:column; gap:.55rem; margin-top:.6rem; padding:.65rem; border:1px solid rgba(212,175,55,.35); border-radius:8px; background:#fff; box-shadow:0 10px 25px rgba(0,0,0,.08); }
+    .catalogue-row { background:#f8f6f2; padding:.65rem .75rem; border-radius:5px; display:flex; justify-content:space-between; align-items:center; gap:.8rem; }
+    .catalogue-row strong { display:block; font-size:.82rem; color:#1a2530; }
+    .catalogue-row span { display:block; margin-top:.12rem; font-size:.72rem; color:#666; line-height:1.25; }
+    .catalogue-link { font-size:.72rem; padding:.36rem .72rem; border:1px solid #b88922; color:#74510c; text-decoration:none; border-radius:999px; white-space:nowrap; background:#fff; font-weight:700; }
+    .catalogue-link:hover { background:#111; color:#FFD700; border-color:#111; }
+    @media (max-width:700px) {
+      .catalogue-menu { max-height:55vh; overflow:auto; }
+      .catalogue-row { align-items:flex-start; }
+    }
   </style>
 </head>
 <body>
@@ -78,6 +95,7 @@
           { titre:'Ardenne', desc:'Catalogue View Ceramica — collection Ardenne.', lien:'assets/pdf/view%20Ardenne.pdf' },
           { titre:'Dorset', desc:'Catalogue View Ceramica — collection Dorset.', lien:'assets/pdf/View%20Dorset_.pdf' },
           { titre:'Marais', desc:'Catalogue View Ceramica — collection Marais.', lien:'assets/pdf/View_.marais.pdf' },
+          { titre:'Digione', desc:'Catalogue View Ceramica — collection Digione.', lien:'assets/pdf/View-DIGIONE.pdf' },
           { titre:'Extérieur', desc:'Catalogue View Ceramica dédié aux solutions extérieures.', lien:'assets/pdf/VIEW-EXTERIEUR.pdf' }
         ]},
         { nom:'La Fenice', pays:'Italie', presentation:"Tradition et modernité italienne au service de l'architecture intérieure.", fichiers:[
@@ -127,6 +145,11 @@
       const grid = document.getElementById('grid-catalogues');
       if (!grid) return;
 
+      const renderFile = file => {
+        const isPdf = file.lien.toLowerCase().includes('.pdf');
+        return `<div class="catalogue-row"><div><strong>${file.titre}</strong><span>${file.desc}</span></div><a href="${file.lien}" target="_blank" rel="noopener" class="catalogue-link">${isPdf ? 'PDF' : 'Lien'}</a></div>`;
+      };
+
       grid.innerHTML = cataloguesData.map(fab => {
         let logoFile = '';
         const nameLower = fab.nom.toLowerCase();
@@ -146,28 +169,19 @@
         else if (nameLower.includes('bilt')) logoFile = 'bilt.png';
 
         const logoStyle = logoFile ? `background-image:url('assets/img/${logoFile}');` : '';
+        const fichiersHtml = fab.fichiers.length > 1
+          ? `<details class="catalogue-picker"><summary>☰ Voir les catalogues <span style="font-weight:600;color:#80611c;">${fab.fichiers.length}</span></summary><div class="catalogue-menu">${fab.fichiers.map(renderFile).join('')}</div></details>`
+          : `<div style="display:flex;flex-direction:column;gap:.75rem;">${fab.fichiers.map(renderFile).join('')}</div>`;
 
         return `
-          <div class="card-premium" style="background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:4px; padding:2rem; display:flex; flex-direction:column; justify-content:space-between; position:relative; box-shadow:0 4px 20px rgba(0,0,0,.03);">
+          <div class="card-premium" style="background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:4px; padding:2rem; display:flex; flex-direction:column; justify-content:space-between; position:relative; box-shadow:0 4px 20px rgba(0,0,0,.03); min-height:260px;">
             <div style="position:absolute; top:1.5rem; right:1.5rem; width:110px; height:50px; ${logoStyle} background-repeat:no-repeat; background-position:right top; background-size:contain; opacity:1; pointer-events:none; z-index:1;"></div>
             <div style="position:relative; z-index:2; padding-right:90px;">
               <span style="font-size:.75rem; text-transform:uppercase; letter-spacing:.1em; color:#708273; font-weight:600;">${fab.pays}</span>
               <h3 style="font-size:1.25rem; margin:.5rem 0 1rem; color:#1a2530;">${fab.nom}</h3>
               <p style="font-size:.9rem; color:#555; margin-bottom:1.5rem;">${fab.presentation}</p>
             </div>
-            <div style="display:flex; flex-direction:column; gap:.75rem; position:relative; z-index:2;">
-              ${fab.fichiers.map(file => {
-                const isPdf = file.lien.toLowerCase().includes('.pdf');
-                return `
-                  <div style="background:#f8f6f2; padding:.75rem 1rem; border-radius:4px; display:flex; justify-content:space-between; align-items:center; gap:1rem;">
-                    <div>
-                      <strong style="display:block; font-size:.85rem; color:#1a2530;">${file.titre}</strong>
-                      <span style="font-size:.75rem; color:#666;">${file.desc}</span>
-                    </div>
-                    <a href="${file.lien}" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:.75rem; padding:.4rem .8rem; border:1px solid #1a2530; color:#1a2530; text-decoration:none; border-radius:4px; white-space:nowrap;">${isPdf ? 'PDF' : 'Lien'}</a>
-                  </div>`;
-              }).join('')}
-            </div>
+            <div style="position:relative; z-index:2;">${fichiersHtml}</div>
           </div>`;
       }).join('');
     });
