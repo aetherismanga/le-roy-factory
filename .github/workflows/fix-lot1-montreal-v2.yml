@@ -1,0 +1,38 @@
+name: Fix Montreal Lot 1 v2
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/fix-lot1-montreal-v2.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Correct Montreal PDF path
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('.github/workflows/extract-elios-lot1-hd.yml')
+          s=p.read_text()
+          old='2024/02/Elios_catalogo_Montreal.pdf'
+          new='2021/03/Elios_catalogo_Montreal.pdf'
+          if old not in s:
+              raise SystemExit('Montreal old path not found')
+          p.write_text(s.replace(old,new))
+          PY
+          grep -q '2021/03/Elios_catalogo_Montreal.pdf' .github/workflows/extract-elios-lot1-hd.yml
+      - name: Commit and relaunch lot 1
+        run: |
+          git config user.name 'aetherismanga'
+          git config user.email 'ccjacou@gmail.com'
+          git add .github/workflows/extract-elios-lot1-hd.yml
+          git commit -m 'Corrige le chemin PDF Montreal'
+          git push origin HEAD:main
