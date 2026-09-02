@@ -2,7 +2,7 @@
   const page = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
   const allowed = new Set([
     'index.html','partenaires.html','univers.html','realisations.html',
-    'catalogues.html','tarifs-pro.html','contact.html','agent.html','ouverture-compte.html'
+    'catalogues.html','configurateurs.html','tarifs-pro.html','contact.html','agent.html','ouverture-compte.html'
   ]);
   if (!allowed.has(page)) return;
 
@@ -26,6 +26,21 @@
   document.documentElement.classList.add('lrf-premium-ready');
 
   const pageClass = `lrf-page-${page.replace('.html','').replace(/[^a-z0-9-]/g,'-')}`;
+
+  const installConfigurateursNav = () => {
+    const nav = document.querySelector('header nav ul');
+    if (!nav || nav.querySelector('a[href="configurateurs.html"]')) return;
+    const catalogues = nav.querySelector('a[href="catalogues.html"]');
+    const pro = nav.querySelector('a[href="tarifs-pro.html"],a[href^="tarifs-pro.html?"]');
+    const li = document.createElement('li');
+    const link = document.createElement('a');
+    link.href = 'configurateurs.html';
+    link.textContent = 'Configurateurs';
+    li.appendChild(link);
+    if (pro?.parentElement) nav.insertBefore(li, pro.parentElement);
+    else if (catalogues?.parentElement?.nextSibling) nav.insertBefore(li, catalogues.parentElement.nextSibling);
+    else nav.appendChild(li);
+  };
 
   const installProContactsAccordion = () => {
     if (page !== 'tarifs-pro.html' || window.__LRF_PRO_CONTACTS_ACCORDION__) return;
@@ -118,6 +133,8 @@
       logoLink.removeAttribute('style');
     }
     document.querySelectorAll('.lrf-center-brand').forEach(el => el.remove());
+
+    installConfigurateursNav();
 
     document.querySelectorAll('a[href="tarifs-pro.html"],a[href^="tarifs-pro.html?"]').forEach(link => {
       link.setAttribute('href', 'tarifs-pro.html?v=20260901-pro2');
