@@ -1,0 +1,29 @@
+name: Fix Montreal Lot 1
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/fix-lot1-montreal.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Correct Montreal official PDF URL
+        run: |
+          sed -i 's#https://eliosceramica.com/wp-content/uploads/2024/02/Elios_catalogo_Montreal.pdf#https://eliosceramica.com/wp-content/uploads/2021/03/Elios_catalogo_Montreal.pdf#g' .github/workflows/extract-elios-lot1-hd.yml
+          grep -q '2021/03/Elios_catalogo_Montreal.pdf' .github/workflows/extract-elios-lot1-hd.yml
+      - name: Commit and trigger lot 1 again
+        run: |
+          git config user.name 'aetherismanga'
+          git config user.email 'ccjacou@gmail.com'
+          git add .github/workflows/extract-elios-lot1-hd.yml
+          git commit -m 'Utilise le PDF officiel Montreal disponible'
+          git push origin HEAD:main
