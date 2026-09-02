@@ -82,6 +82,12 @@
     const slug = norm(product.slug);
     const f = norm(format);
 
+    // ROMA: le 60x120 du catalogue 2026 est la version extérieure R11 en 20 mm.
+    // Ne jamais lui appliquer le tarif générique du 60x120 standard.
+    if (slug === 'roma' && f === '60x120') {
+      return result(24, { note: 'ROMA 60×120 — épaisseur 20 mm, version R11. Tarif spécifique 20 mm.' });
+    }
+
     if (slug === 'venere' && (f === '33.3x100' || f === '33x100')) {
       return result(17, { note: 'Finition Matt. Décor : 19,00 € net/m².' });
     }
