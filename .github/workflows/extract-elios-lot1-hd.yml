@@ -24,7 +24,7 @@ jobs:
           python-version: '3.12'
 
       - name: Install dependencies
-        run: python -m pip install --disable-pip-version-check requests beautifulsoup4 pillow
+        run: python -m pip install --disable-pip-version-check requests beautifulsoup4 pillow pymupdf
 
       - name: Download official Elios images without recompression
         shell: bash
@@ -34,6 +34,7 @@ jobs:
           from urllib.parse import urljoin, urlparse
           import hashlib, io, json, re, time
           import requests
+          import pymupdf as fitz
           from bs4 import BeautifulSoup
           from PIL import Image
 
@@ -47,7 +48,7 @@ jobs:
               'colors': ['Canyon Rust','Forest Green','Clay Red','Sandstone Beige','Ocean Blue','Moon White','Sunset Rose'],
             },
             'montreal': {
-              'url': f'{BASE}/collezione/montreal/',
+              'pdf': f'{BASE}/wp-content/uploads/2024/02/Elios_catalogo_Montreal.pdf',
               'colors': ['White','Taupe','Grey','Beige','Dark'],
             },
             'allure': {
@@ -76,7 +77,7 @@ jobs:
             last = None
             for n in range(attempts):
               try:
-                r = s.get(url, timeout=45, allow_redirects=True, headers={'Referer': BASE + '/'})
+                r = s.get(url, timeout=60, allow_redirects=True, headers={'Referer': BASE + '/'})
                 if r.status_code == 200:
                   return r.content if binary else r.text
                 last = RuntimeError(f'{url}: HTTP {r.status_code}')
@@ -91,10 +92,9 @@ jobs:
           def color_aliases(color):
             c = norm(color)
             vals = {c, c.replace(' ', '')}
-            # Common web/PDF aliases.
             vals.add(c.replace('grey','gray'))
             vals.add(c.replace('gray','grey'))
-            if c == 'décors': vals |= {'decor', 'decori', 'decors'}
+            if c == 'decors': vals |= {'decor', 'decori', 'decors'}
             if c.startswith('fenix '): vals.add(c.replace('fenix ', ''))
             if c.startswith('duplex '): vals.add(c.replace(' ', '_'))
             return [v for v in vals if v]
@@ -111,11 +111,10 @@ jobs:
             low = p.path.lower()
             if not re.search(r'\.(jpe?g|png|webp)$', low): return
             if any(x in low for x in ('logo','favicon','icon','cookie','certific','qr-code','placeholder')): return
-            key = url
-            prev = items.get(key)
             rec = {'url': url, 'context': context, 'score': score}
+            prev = items.get(url)
             if prev is None or score > prev['score']:
-              items[key] = rec
+              items[url] = rec
 
           def best_srcset(value):
             if not value: return []
@@ -123,12 +122,11 @@ jobs:
             for part in value.split(','):
               bits=part.strip().split()
               if not bits: continue
-              url=bits[0]
               width=0
               if len(bits)>1:
                 m=re.match(r'(\d+)w', bits[1])
                 if m: width=int(m.group(1))
-              vals.append((width,url))
+              vals.append((width,bits[0]))
             return [u for _,u in sorted(vals, reverse=True)]
 
           def collect_page(slug, cfg):
@@ -148,7 +146,7 @@ jobs:
                 ancestry.append(' '.join(parent.get('class') or []))
                 ancestry.append(parent.get('id') or '')
                 if not parent_text:
-                  parent_text=' '.join(parent.stripped_strings)[:400]
+                  parent_text=' '.join(parent.stripped_strings)[:500]
               context=' '.join([slug, classes, ident, alt, parent_text] + ancestry)
               c_norm=norm(context)
               score=0
@@ -163,79 +161,90 @@ jobs:
             return sorted(items.values(), key=lambda r: r['score'], reverse=True)
 
           def original_candidate(url):
-            # WordPress often exposes resized gallery derivatives. Prefer the original URL when it exists.
             return re.sub(r'-\d+x\d+(?=\.(?:jpe?g|png|webp)$)', '', url, flags=re.I)
 
-          def ext_for(url, content_type=''):
+          def ext_for(url):
             ext=Path(urlparse(url).path).suffix.lower()
-            if ext in ('.jpg','.jpeg','.png','.webp'):
-              return '.jpg' if ext=='.jpeg' else ext
-            if 'png' in content_type: return '.png'
-            if 'webp' in content_type: return '.webp'
-            return '.jpg'
+            return '.jpg' if ext=='.jpeg' else (ext if ext in ('.jpg','.png','.webp') else '.jpg')
 
           def select_and_save(slug, records, max_count=14):
             outdir=OUTROOT/slug
             outdir.mkdir(parents=True, exist_ok=True)
             selected=[]; seen=set()
             for rec in records:
-              candidates=[original_candidate(rec['url']), rec['url']]
               data=None; used=None
-              for u in dict.fromkeys(candidates):
+              for u in dict.fromkeys([original_candidate(rec['url']), rec['url']]):
                 try:
-                  data=get(u,binary=True,attempts=3)
-                  used=u
-                  break
-                except Exception:
-                  continue
+                  data=get(u,binary=True,attempts=3); used=u; break
+                except Exception: pass
               if not data: continue
               digest=hashlib.sha1(data).hexdigest()
               if digest in seen: continue
               try:
-                im=Image.open(io.BytesIO(data))
-                w,h=im.size
+                im=Image.open(io.BytesIO(data)); w,h=im.size
               except Exception:
                 continue
-              area=w*h
-              # Keep real gallery/room images and large material visuals, skip tiny swatches/icons.
-              if max(w,h) < 850 or area < 650_000:
-                continue
+              if max(w,h)<850 or w*h<650_000: continue
               seen.add(digest)
-              ext=ext_for(used)
-              path=outdir/f'lot1-{len(selected)+1:02d}{ext}'
-              path.write_bytes(data)  # exact source bytes: no resize, no recompression
-              selected.append({
-                'src': path.as_posix(), 'url': used, 'context': rec['context'],
-                'w': w, 'h': h, 'bytes': len(data), 'score': rec['score']
-              })
+              path=outdir/f'lot1-{len(selected)+1:02d}{ext_for(used)}'
+              path.write_bytes(data)
+              selected.append({'src':path.as_posix(),'url':used,'context':rec['context'],'w':w,'h':h,'bytes':len(data),'score':rec['score']})
               print(f'{slug}: {path.name} <- {used} ({w}x{h}, {len(data)/1024:.0f} KiB)')
               if len(selected)>=max_count: break
-            # If the collection has unusually small official gallery images, relax only the dimensions, never recompress.
-            if len(selected)<4:
-              for rec in records:
-                if any(x['url']==rec['url'] for x in selected): continue
-                try:
-                  data=get(rec['url'],binary=True,attempts=2)
-                  digest=hashlib.sha1(data).hexdigest()
-                  if digest in seen: continue
-                  im=Image.open(io.BytesIO(data)); w,h=im.size
-                  if max(w,h)<600 or w*h<300_000: continue
-                  seen.add(digest)
-                  ext=ext_for(rec['url'])
-                  path=outdir/f'lot1-{len(selected)+1:02d}{ext}'
-                  path.write_bytes(data)
-                  selected.append({'src':path.as_posix(),'url':rec['url'],'context':rec['context'],'w':w,'h':h,'bytes':len(data),'score':rec['score']})
-                  if len(selected)>=6: break
-                except Exception: pass
             if len(selected)<3:
               raise RuntimeError(f'{slug}: only {len(selected)} valid official images found')
             return selected
 
+          def select_pdf(slug, cfg, max_count=14):
+            pdf_bytes=get(cfg['pdf'],binary=True)
+            print(f'{slug}: official PDF {len(pdf_bytes)/1024/1024:.1f} MiB')
+            doc=fitz.open(stream=pdf_bytes,filetype='pdf')
+            outdir=OUTROOT/slug
+            outdir.mkdir(parents=True,exist_ok=True)
+            candidates=[]; seen_x=set()
+            for pno,page in enumerate(doc):
+              text=' '.join(page.get_text('text').split())[:1200]
+              page_area=max(1,page.rect.width*page.rect.height)
+              for item in page.get_images(full=True):
+                xref=item[0]
+                if xref in seen_x: continue
+                seen_x.add(xref)
+                try:
+                  info=doc.extract_image(xref)
+                  w=int(info.get('width') or 0); h=int(info.get('height') or 0)
+                  if max(w,h)<850 or w*h<650_000: continue
+                  rects=page.get_image_rects(xref)
+                  display=max((abs(r.width*r.height) for r in rects), default=0)
+                  ratio=display/page_area
+                  candidates.append({'info':info,'w':w,'h':h,'page':pno+1,'context':text,'display':ratio})
+                except Exception: pass
+            candidates.sort(key=lambda x:(x['display'],x['w']*x['h']),reverse=True)
+            selected=[]; hashes=set()
+            for c in candidates:
+              # Prefer images occupying a meaningful area on catalogue pages.
+              if c['display'] < 0.08 and len(selected)>=5: continue
+              data=c['info']['image']; digest=hashlib.sha1(data).hexdigest()
+              if digest in hashes: continue
+              hashes.add(digest)
+              ext='.'+(c['info'].get('ext') or 'jpg').lower().replace('jpeg','jpg')
+              path=outdir/f'lot1-{len(selected)+1:02d}{ext}'
+              path.write_bytes(data)
+              selected.append({'src':path.as_posix(),'url':cfg['pdf']+f'#page={c["page"]}','context':c['context'],'w':c['w'],'h':c['h'],'bytes':len(data),'score':int(c['display']*1000)})
+              print(f'{slug}: {path.name} <- PDF page {c["page"]} ({c["w"]}x{c["h"]}, {len(data)/1024:.0f} KiB)')
+              if len(selected)>=max_count: break
+            doc.close()
+            if len(selected)<3:
+              raise RuntimeError(f'{slug}: only {len(selected)} large original PDF images found')
+            return selected
+
           official={}; variants={}; manifest={}
           for slug,cfg in CONFIG.items():
-            records=collect_page(slug,cfg)
-            print(f'{slug}: {len(records)} official upload candidates')
-            selected=select_and_save(slug,records)
+            if 'pdf' in cfg:
+              selected=select_pdf(slug,cfg)
+            else:
+              records=collect_page(slug,cfg)
+              print(f'{slug}: {len(records)} official upload candidates')
+              selected=select_and_save(slug,records)
             official[slug]=[x['src'] for x in selected]
             manifest[slug]=selected
             per={}
@@ -248,11 +257,10 @@ jobs:
                   matches.append(x['src'])
               if matches:
                 per[color]=matches
-            # Only declare color mappings that are actually identifiable from official source metadata.
             if per: variants[slug]=per
 
           js=(
-            '// ELIOS lot 1 HD — images natives du site officiel, téléchargées sans recompression.\n'
+            '// ELIOS lot 1 HD — sources officielles uniquement, fichiers natifs sans recompression.\n'
             + 'Object.assign(window.ELIOS_OFFICIAL_GALLERIES ||= {}, '
             + json.dumps(official,ensure_ascii=False,indent=2) + ');\n\n'
             + 'Object.assign(window.ELIOS_VERIFIED_VARIANTS ||= {}, '
@@ -263,15 +271,15 @@ jobs:
 
           univers=ROOT/'univers.html'
           html=univers.read_text(encoding='utf-8')
-          script='  <script src="assets/js/inspirations-elios-lot1-hd.js?v=20260902-lot1hd1"></script>\n'
+          script='  <script src="assets/js/inspirations-elios-lot1-hd.js?v=20260902-lot1hd2"></script>\n'
           if 'inspirations-elios-lot1-hd.js' not in html:
             marker='  <script src="assets/js/inspirations-elios-slate-hd.js'
             pos=html.find(marker)
             if pos<0: raise RuntimeError('Slate script marker not found')
             html=html[:pos]+script+html[pos:]
           else:
-            html=re.sub(r'assets/js/inspirations-elios-lot1-hd\.js\?v=[^\"]+', 'assets/js/inspirations-elios-lot1-hd.js?v=20260902-lot1hd1', html)
-          html=re.sub(r'assets/js/inspirations-elios-gallery-v2\.js\?v=[^\"]+', 'assets/js/inspirations-elios-gallery-v2.js?v=20260902-lot1hd1', html)
+            html=re.sub(r'assets/js/inspirations-elios-lot1-hd\.js\?v=[^\"]+', 'assets/js/inspirations-elios-lot1-hd.js?v=20260902-lot1hd2', html)
+          html=re.sub(r'assets/js/inspirations-elios-gallery-v2\.js\?v=[^\"]+', 'assets/js/inspirations-elios-gallery-v2.js?v=20260902-lot1hd2', html)
           univers.write_text(html,encoding='utf-8')
           PY
 
@@ -285,8 +293,8 @@ jobs:
             echo "$d: $COUNT images"
             test "$COUNT" -ge 3
           done
-          grep -q 'inspirations-elios-lot1-hd.js?v=20260902-lot1hd1' univers.html
-          grep -q 'inspirations-elios-gallery-v2.js?v=20260902-lot1hd1' univers.html
+          grep -q 'inspirations-elios-lot1-hd.js?v=20260902-lot1hd2' univers.html
+          grep -q 'inspirations-elios-gallery-v2.js?v=20260902-lot1hd2' univers.html
 
       - name: Commit lot 1 to main
         run: |
