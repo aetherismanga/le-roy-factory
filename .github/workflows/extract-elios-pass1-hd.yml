@@ -31,7 +31,7 @@ jobs:
         run: |
           python <<'PY'
           from pathlib import Path
-          import fitz
+          import pymupdf as fitz
           import hashlib
           import json
           import re
@@ -42,19 +42,21 @@ jobs:
           TMP.mkdir(exist_ok=True)
 
           def download(url, dest):
-              req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+              req = urllib.request.Request(url, headers={
+                  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/152 Safari/537.36',
+                  'Accept': 'application/pdf,*/*;q=0.8',
+                  'Referer': 'https://eliosceramica.com/download/'
+              })
               with urllib.request.urlopen(req, timeout=120) as r:
                   dest.write_bytes(r.read())
-              if dest.stat().st_size < 500_000:
+              if dest.stat().st_size < 300_000:
                   raise RuntimeError(f'PDF download too small: {url} -> {dest.stat().st_size} bytes')
+              print(f'Downloaded {url}: {dest.stat().st_size / 1024 / 1024:.1f} MB')
 
-          general_pdf = TMP / 'elios-general-2026.pdf'
+          quercia_pdf = TMP / 'elios-quercia.pdf'
           yosemite_pdf = TMP / 'elios-yosemite.pdf'
-          download('https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf', general_pdf)
+          download('https://eliosceramica.com/wp-content/uploads/2022/11/Elios_catalogo_QUERCIA.pdf', quercia_pdf)
           download('https://eliosceramica.com/wp-content/uploads/2023/12/Elios_YOSEMITE_catalogo_completo_converted.pdf', yosemite_pdf)
-
-          def norm_text(page):
-              return ' '.join(page.get_text('text').upper().replace('×', 'X').split())
 
           def page_candidates(doc, page):
               found = []
@@ -73,202 +75,134 @@ jobs:
                   if w < 500 or h < 500:
                       continue
                   rects = page.get_image_rects(xref)
+                  display = 0
                   if rects:
-                      rect = max(rects, key=lambda r: abs(r.width * r.height))
-                      rect_area = abs(rect.width * rect.height)
-                      center_x = (rect.x0 + rect.x1) / 2
-                  else:
-                      rect_area = 0
-                      center_x = page.rect.width / 2
-                  found.append({
-                      'xref': xref,
-                      'w': w,
-                      'h': h,
-                      'pixels': w * h,
-                      'rect_area': rect_area,
-                      'center_x': center_x,
-                      'info': info,
-                  })
-              return sorted(found, key=lambda x: (x['rect_area'], x['pixels']), reverse=True)
-
-          def find_page(doc, terms):
-              terms = [t.upper() for t in terms]
-              for i, page in enumerate(doc):
-                  txt = norm_text(page)
-                  if all(t in txt for t in terms):
-                      return i
-              raise RuntimeError(f'Could not find PDF page with terms: {terms}')
+                      display = max(abs(r.width * r.height) for r in rects)
+                  found.append({'xref': xref, 'pixels': w*h, 'display': display, 'info': info})
+              return sorted(found, key=lambda x: (x['display'], x['pixels']), reverse=True)
 
           def save_candidate(candidate, stem):
               info = candidate['info']
               ext = (info.get('ext') or 'jpg').lower()
-              if ext == 'jpeg':
-                  ext = 'jpg'
+              if ext == 'jpeg': ext = 'jpg'
               path = Path(str(stem) + '.' + ext)
               path.parent.mkdir(parents=True, exist_ok=True)
+              # Exact embedded stream from the official PDF: no resize, no re-encode.
               path.write_bytes(info['image'])
               return path.as_posix()
 
-          # ---------- QUERCIA: exact original embedded PDF images ----------
-          qdoc = fitz.open(general_pdf)
-          qout = ROOT / 'assets/img/elios/quercia'
-          qout.mkdir(parents=True, exist_ok=True)
+          def extract_sections(pdf_path, out_dir, prefix, ranges):
+              doc = fitz.open(pdf_path)
+              out_dir.mkdir(parents=True, exist_ok=True)
+              variants = {}
+              for color, pages in ranges.items():
+                  saved = []
+                  hashes = set()
+                  for page_no in pages:
+                      if page_no >= len(doc):
+                          continue
+                      candidates = page_candidates(doc, doc[page_no])
+                      if not candidates:
+                          continue
+                      # The largest displayed raster on each official GALLERY page is the ambience image.
+                      candidate = candidates[0]
+                      raw = candidate['info']['image']
+                      digest = hashlib.sha1(raw).hexdigest()
+                      if digest in hashes:
+                          continue
+                      hashes.add(digest)
+                      saved.append(save_candidate(candidate, out_dir / f'{prefix}-{color.lower()}-{len(saved)+1:02d}'))
+                  if not saved:
+                      raise RuntimeError(f'{prefix}: no image for {color}, pages={pages}')
+                  variants[color] = saved
+              doc.close()
+              return variants
 
-          honey_page = find_page(qdoc, ['FLOOR HONEY'])
-          natural_page = find_page(qdoc, ['NATURAL 24X120'])
-          split_page = None
-          for i, page in enumerate(qdoc):
-              txt = norm_text(page)
-              if 'FLOOR AMBER' in txt and 'FLOOR WHITE' in txt:
-                  split_page = i
-                  break
-          if split_page is None:
-              raise RuntimeError('Could not find Quercia Amber/White page')
+          # Standalone Elios catalogues: page ranges confirmed by the official GALLERY labels.
+          quercia = extract_sections(
+              quercia_pdf,
+              ROOT / 'assets/img/elios/quercia',
+              'quercia',
+              {
+                  'Honey': [7,8,9],
+                  'Amber': [10,11,12],
+                  'Natural': [13,14,15],
+                  'White': [16,17,18],
+              }
+          )
 
-          honey_candidates = page_candidates(qdoc, qdoc[honey_page])
-          natural_candidates = page_candidates(qdoc, qdoc[natural_page])
-          split_candidates = page_candidates(qdoc, qdoc[split_page])
-          if not honey_candidates or not natural_candidates or len(split_candidates) < 2:
-              raise RuntimeError('Quercia: missing large embedded images')
+          yosemite = extract_sections(
+              yosemite_pdf,
+              ROOT / 'assets/img/elios/yosemite',
+              'yosemite',
+              {
+                  'Honey': [7,8,9],
+                  'Amber': [10,11,12],
+                  'Natural': [13,14,15],
+                  'White': [16,17,18],
+              }
+          )
 
-          max_area = split_candidates[0]['rect_area'] or split_candidates[0]['pixels']
-          large_split = [c for c in split_candidates if (c['rect_area'] or c['pixels']) >= max_area * 0.45]
-          if len(large_split) < 2:
-              large_split = split_candidates[:2]
-          large_split = sorted(large_split[:2], key=lambda c: c['center_x'])
-          amber_candidate, white_candidate = large_split[0], large_split[1]
-
-          quercia = {
-              'Honey': [save_candidate(honey_candidates[0], qout / 'quercia-honey')],
-              'Amber': [save_candidate(amber_candidate, qout / 'quercia-amber')],
-              'White': [save_candidate(white_candidate, qout / 'quercia-white')],
-              'Natural': [save_candidate(natural_candidates[0], qout / 'quercia-natural')],
-          }
-          qdoc.close()
-
-          # ---------- YOSEMITE: original embedded images by official PDF color sections ----------
-          ydoc = fitz.open(yosemite_pdf)
-          yout = ROOT / 'assets/img/elios/yosemite'
-          yout.mkdir(parents=True, exist_ok=True)
-          fallback_ranges = {
-              'Honey': [7, 8, 9],
-              'Amber': [10, 11, 12],
-              'Natural': [13, 14, 15],
-              'White': [16, 17, 18],
-          }
-
-          def section_pages(doc, color, fallback):
-              hits = []
-              for i, page in enumerate(doc):
-                  txt = norm_text(page)
-                  if color.upper() in txt and 'GALLERY' in txt:
-                      hits.append(i)
-              if hits:
-                  lo, hi = min(hits), max(hits)
-                  # Official catalogue uses contiguous three-page gallery sections.
-                  expanded = list(range(lo, min(len(doc), max(hi + 1, lo + 3))))
-                  return expanded[:3]
-              return [i for i in fallback if i < len(doc)]
-
-          yosemite = {}
-          for color, fallback in fallback_ranges.items():
-              pages = section_pages(ydoc, color, fallback)
-              saved = []
-              hashes = set()
-              for page_no in pages:
-                  candidates = page_candidates(ydoc, ydoc[page_no])
-                  if not candidates:
-                      continue
-                  candidate = candidates[0]
-                  data = candidate['info']['image']
-                  digest = hashlib.sha1(data).hexdigest()
-                  if digest in hashes:
-                      continue
-                  hashes.add(digest)
-                  saved.append(save_candidate(candidate, yout / f'yosemite-{color.lower()}-{len(saved)+1:02d}'))
-              if not saved:
-                  raise RuntimeError(f'Yosemite: no original image extracted for {color} from pages {pages}')
-              yosemite[color] = saved
-          ydoc.close()
-
-          # ---------- MYSTERIUM: exact current official Elios gallery URLs ----------
+          # Exact current gallery URLs from eliosceramica.com, associated with Catalogue 2026 colours.
           mysterium = {
               'Acqua': [
                   'https://eliosceramica.com/wp-content/uploads/2023/10/ELIOS_MYSTERIUM_ACQUA_LIVING.jpg',
-                  'https://eliosceramica.com/wp-content/uploads/2023/10/mysterium_amb_2-1.jpg',
+                  'https://eliosceramica.com/wp-content/uploads/2023/10/mysterium_amb_2-1.jpg'
               ],
+              'White': ['https://eliosceramica.com/wp-content/uploads/2023/10/Mysterium_White_amb3.jpg'],
+              'Amber': ['https://eliosceramica.com/wp-content/uploads/2023/10/mysterium_amb_3-1.jpg'],
               'Ocean': [
                   'https://eliosceramica.com/wp-content/uploads/2023/10/ELIOS_MYSTERIUM_OCEAN_BAGNO.jpg',
-                  'https://eliosceramica.com/wp-content/uploads/2023/10/mysterium_amb_3-1.jpg',
-              ],
-              'Amber': [
-                  'https://eliosceramica.com/wp-content/uploads/2023/10/mysterium_amb_3-1.jpg',
+                  'https://eliosceramica.com/wp-content/uploads/2023/10/mysterium_amb_3-1.jpg'
               ],
               'Pearl': [
                   'https://eliosceramica.com/wp-content/uploads/2023/10/ELIOS_MYSTERIUM_PEARL_COMMERCIALE.jpg',
                   'https://eliosceramica.com/wp-content/uploads/2023/10/Mysterium_Pearl_amb2.jpg',
-                  'https://eliosceramica.com/wp-content/uploads/2023/10/Mysterium_Pearl_amb1.jpg',
+                  'https://eliosceramica.com/wp-content/uploads/2023/10/Mysterium_Pearl_amb1.jpg'
               ],
-              'Black': [
-                  'https://eliosceramica.com/wp-content/uploads/2023/10/mysterium_amb_2-1.jpg',
-              ],
-              'White': [
-                  'https://eliosceramica.com/wp-content/uploads/2023/10/Mysterium_White_amb3.jpg',
-              ],
+              'Black': ['https://eliosceramica.com/wp-content/uploads/2023/10/mysterium_amb_2-1.jpg']
           }
 
-          def flatten(variants, order):
-              out = []
+          def flatten(d, order):
+              out=[]
               for key in order:
-                  for src in variants[key]:
-                      if src not in out:
-                          out.append(src)
+                  for src in d[key]:
+                      if src not in out: out.append(src)
               return out
 
           official = {
-              'quercia': flatten(quercia, ['White', 'Natural', 'Honey', 'Amber']),
-              'yosemite': flatten(yosemite, ['Natural', 'Honey', 'White', 'Amber']),
-              'mysterium': flatten(mysterium, ['Acqua', 'White', 'Amber', 'Ocean', 'Pearl', 'Black']),
+              'quercia': flatten(quercia, ['White','Natural','Honey','Amber']),
+              'yosemite': flatten(yosemite, ['Natural','Honey','White','Amber']),
+              'mysterium': flatten(mysterium, ['Acqua','White','Amber','Ocean','Pearl','Black'])
           }
-          variants = {
-              'quercia': quercia,
-              'yosemite': yosemite,
-              'mysterium': mysterium,
-          }
+          variants = {'quercia': quercia, 'yosemite': yosemite, 'mysterium': mysterium}
 
           js = (
-              "// ELIOS pass 1 HD — sources officielles uniquement.\n"
-              "// Quercia et Yosemite : images originales extraites des PDF Elios, sans recompression.\n"
-              "// Mysterium : URLs natives de la galerie officielle Elios.\n"
-              "Object.assign(window.ELIOS_OFFICIAL_GALLERIES ||= {}, "
+              '// ELIOS pass 1 HD — sources officielles uniquement.\n'
+              '// Quercia/Yosemite: streams originaux extraits des catalogues Elios, sans recompression.\n'
+              '// Mysterium: URLs natives de la galerie officielle Elios.\n'
+              'Object.assign(window.ELIOS_OFFICIAL_GALLERIES ||= {}, '
               + json.dumps(official, ensure_ascii=False, indent=2)
-              + ");\n\nObject.assign(window.ELIOS_VERIFIED_VARIANTS ||= {}, "
+              + ');\n\nObject.assign(window.ELIOS_VERIFIED_VARIANTS ||= {}, '
               + json.dumps(variants, ensure_ascii=False, indent=2)
-              + ");\n"
+              + ');\n'
           )
-          js_path = ROOT / 'assets/js/inspirations-elios-pass1-hd.js'
-          js_path.write_text(js, encoding='utf-8')
+          (ROOT/'assets/js/inspirations-elios-pass1-hd.js').write_text(js, encoding='utf-8')
 
-          # Load this override last, before gallery-v2, and force a fresh cache version.
-          univers = ROOT / 'univers.html'
+          univers = ROOT/'univers.html'
           html = univers.read_text(encoding='utf-8')
-          script = '  <script src="assets/js/inspirations-elios-pass1-hd.js?v=20260902-pass1hd1"></script>\n'
+          script = '  <script src="assets/js/inspirations-elios-pass1-hd.js?v=20260902-pass1hd2"></script>\n'
           if 'inspirations-elios-pass1-hd.js' not in html:
               marker = '  <script src="assets/js/inspirations-elios-slate-hd.js'
               pos = html.find(marker)
-              if pos < 0:
-                  raise RuntimeError('Could not locate Slate script marker in univers.html')
+              if pos < 0: raise RuntimeError('Slate script marker missing')
               html = html[:pos] + script + html[pos:]
-          html = re.sub(
-              r'assets/js/inspirations-elios-gallery-v2\.js\?v=[^\"]+',
-              'assets/js/inspirations-elios-gallery-v2.js?v=20260902-pass1hd1',
-              html,
-          )
+          else:
+              html = re.sub(r'<script src="assets/js/inspirations-elios-pass1-hd\.js\?v=[^"]+"></script>', '<script src="assets/js/inspirations-elios-pass1-hd.js?v=20260902-pass1hd2"></script>', html)
+          html = re.sub(r'assets/js/inspirations-elios-gallery-v2\.js\?v=[^"]+', 'assets/js/inspirations-elios-gallery-v2.js?v=20260902-pass1hd2', html)
           univers.write_text(html, encoding='utf-8')
 
-          print('Quercia:', json.dumps(quercia, indent=2))
-          print('Yosemite:', json.dumps(yosemite, indent=2))
-          print('Mysterium:', json.dumps(mysterium, indent=2))
+          print(json.dumps(variants, indent=2))
           PY
 
       - name: Verify generated source files
@@ -276,9 +210,9 @@ jobs:
           test -s assets/js/inspirations-elios-pass1-hd.js
           test -d assets/img/elios/quercia
           test -d assets/img/elios/yosemite
-          grep -q 'inspirations-elios-pass1-hd.js?v=20260902-pass1hd1' univers.html
-          grep -q 'inspirations-elios-gallery-v2.js?v=20260902-pass1hd1' univers.html
-          find assets/img/elios/quercia assets/img/elios/yosemite -type f -maxdepth 2 -print -exec ls -lh {} \;
+          grep -q 'inspirations-elios-pass1-hd.js?v=20260902-pass1hd2' univers.html
+          grep -q 'inspirations-elios-gallery-v2.js?v=20260902-pass1hd2' univers.html
+          find assets/img/elios/quercia assets/img/elios/yosemite -type f -print -exec ls -lh {} \;
 
       - name: Commit HD pass 1 to main
         run: |
