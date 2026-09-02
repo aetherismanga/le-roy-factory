@@ -1,0 +1,55 @@
+name: Run Elios Lot 1 Five
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/run-elios-lot1-five.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  run-five:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: python -m pip install --disable-pip-version-check requests beautifulsoup4 pillow pymupdf
+      - name: Execute official native extractor without Montreal
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re, textwrap
+          source=Path('.github/workflows/extract-elios-lot1-hd.yml').read_text(encoding='utf-8')
+          m=re.search(r"python <<'PY'\n(.*?)\n          PY", source, re.S)
+          if not m:
+              raise SystemExit('Embedded extractor not found')
+          script=textwrap.dedent(m.group(1))
+          marker='official={}; variants={}; manifest={}'
+          if marker not in script:
+              raise SystemExit('Extractor marker not found')
+          script=script.replace(marker, "CONFIG.pop('montreal', None)\n"+marker, 1)
+          exec(compile(script,'elios-lot1-five','exec'), {'__name__':'__main__'})
+          PY
+      - name: Verify five galleries
+        run: |
+          test -s assets/js/inspirations-elios-lot1-hd.js
+          for d in domus allure creta deco segmento; do
+            COUNT=$(find "assets/img/elios/$d" -maxdepth 1 -type f -name 'lot1-*' | wc -l)
+            echo "$d: $COUNT images"
+            test "$COUNT" -ge 3
+          done
+      - name: Commit five galleries to main
+        run: |
+          git config user.name 'aetherismanga'
+          git config user.email 'ccjacou@gmail.com'
+          git add assets/img/elios/domus assets/img/elios/allure assets/img/elios/creta assets/img/elios/deco assets/img/elios/segmento assets/js/inspirations-elios-lot1-hd.js assets/js/inspirations-elios-lot1-manifest.json univers.html
+          git diff --cached --stat
+          git commit -m 'Corrige Domus Allure Creta Deco et Segmento en HD officiel'
+          git push origin HEAD:main
