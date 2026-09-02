@@ -7,6 +7,18 @@
     document.head.appendChild(script);
 })();
 
+/* Barre de défilement PC commune à toutes les pages publiques. */
+(()=>{
+    if(!window.matchMedia('(min-width: 901px)').matches) return;
+    if(document.body?.classList?.contains('crm-body')) return;
+    if(document.getElementById('lrf-global-scrollbar-loader')) return;
+    const script=document.createElement('script');
+    script.id='lrf-global-scrollbar-loader';
+    script.src='assets/js/public-scrollbar.js?v=20260902-scroll5';
+    script.defer=true;
+    (document.head||document.documentElement).appendChild(script);
+})();
+
 function ensureMobileCss() {
     if (!window.matchMedia('(max-width: 900px)').matches) return;
     const old = document.getElementById('lrf-mobile-enhancements');
