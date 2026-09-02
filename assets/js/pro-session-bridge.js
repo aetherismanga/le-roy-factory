@@ -4,8 +4,8 @@
   window.__LRF_PRO_SESSION_BRIDGE__ = true;
 
   const KEY = 'lrfProSession';
+  const BACKUP_KEY = 'lrfProSession1h';
   const MAX_AGE = 60 * 60 * 1000;
-  const isTariffPage = window.location.pathname.toLowerCase().endsWith('tarifs-pro.html');
 
   function purgeLegacy() {
     try { localStorage.removeItem(KEY); } catch (_) {}
@@ -34,21 +34,41 @@
     };
   }
 
+  function expired(session) {
+    return !session || !Number.isFinite(session.verifiedAt) || Date.now() - session.verifiedAt >= MAX_AGE;
+  }
+
+  function removeStored() {
+    try {
+      sessionStorage.removeItem(KEY);
+      sessionStorage.removeItem(BACKUP_KEY);
+    } catch (_) {}
+  }
+
+  function store(session) {
+    try {
+      const raw = JSON.stringify(session);
+      sessionStorage.setItem(KEY, raw);
+      sessionStorage.setItem(BACKUP_KEY, raw);
+    } catch (_) {}
+  }
+
   function read() {
     purgeLegacy();
     let session = null;
-    try { session = parse(sessionStorage.getItem(KEY)); } catch (_) {}
-    session = sanitize(session);
-    if (!session) {
-      try { sessionStorage.removeItem(KEY); } catch (_) {}
-      return null;
-    }
-    if (Date.now() - session.verifiedAt >= MAX_AGE) {
-      try { sessionStorage.removeItem(KEY); } catch (_) {}
+    try {
+      session = sanitize(parse(sessionStorage.getItem(KEY)));
+      if (!session) session = sanitize(parse(sessionStorage.getItem(BACKUP_KEY)));
+    } catch (_) {}
+
+    if (!session || expired(session)) {
+      removeStored();
       window.LRF_PRO_CONTEXT = null;
-      window.dispatchEvent(new CustomEvent('lrf-pro-session-expired'));
       return null;
     }
+
+    // Répare automatiquement la clé principale si une ancienne page l'a effacée.
+    store(session);
     return session;
   }
 
@@ -56,13 +76,13 @@
     purgeLegacy();
     const safe = sanitize({ ...session, verifiedAt: Date.now() });
     if (!safe) return null;
-    try { sessionStorage.setItem(KEY, JSON.stringify(safe)); } catch (_) {}
+    store(safe);
     if (emit) window.dispatchEvent(new CustomEvent('lrf-pro-session-changed', { detail: safe }));
     return safe;
   }
 
   function clear() {
-    try { sessionStorage.removeItem(KEY); } catch (_) {}
+    removeStored();
     purgeLegacy();
     window.LRF_PRO_CONTEXT = null;
   }
@@ -109,7 +129,16 @@
     }
   }
 
-  window.LRF_PRO_SESSION = { key: KEY, maxAge: MAX_AGE, read, write, clear, unlockLegacy, sync };
+  window.LRF_PRO_SESSION = {
+    key: KEY,
+    backupKey: BACKUP_KEY,
+    maxAge: MAX_AGE,
+    read,
+    write,
+    clear,
+    unlockLegacy,
+    sync
+  };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
   else init();
 })();
