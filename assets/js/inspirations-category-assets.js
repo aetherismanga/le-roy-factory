@@ -53,9 +53,7 @@
   renamePierre();ensureOutillages();
 })();
 
-/* Barre de défilement PC fiable pour la page Inspirations.
-   La scrollbar native d'Edge/Windows peut devenir une barre overlay invisible/non saisissable.
-   Cette piste reste visible à droite et le curseur est réellement draggable. */
+/* Barre de défilement PC fiable pour la page Inspirations. */
 (() => {
   if (!document.body.classList.contains('insp-v2') || !window.matchMedia('(min-width: 901px)').matches) return;
   if (document.getElementById('lrf-desktop-scrollbar')) return;
@@ -66,11 +64,12 @@
     @media(min-width:901px){
       html{scrollbar-width:none!important;overflow-y:scroll!important;scrollbar-gutter:auto!important}
       html::-webkit-scrollbar,body::-webkit-scrollbar{width:0!important;height:0!important;display:none!important}
-      body.insp-v2{overflow-y:visible!important;padding-right:16px!important;box-sizing:border-box!important}
-      #lrf-desktop-scrollbar{position:fixed;right:0;top:0;bottom:0;width:16px;z-index:2147483000;background:#eee7db;border-left:1px solid #d7cdb9;box-shadow:inset 1px 0 3px rgba(0,0,0,.08);cursor:pointer;user-select:none}
-      #lrf-desktop-scrollbar-thumb{position:absolute;left:2px;top:0;width:11px;min-height:60px;border-radius:999px;background:linear-gradient(180deg,#dfc262,#9b7119);border:1px solid rgba(111,77,10,.35);box-shadow:0 1px 4px rgba(0,0,0,.22);cursor:grab}
-      #lrf-desktop-scrollbar-thumb:hover{background:linear-gradient(180deg,#efd878,#89610e)}
-      #lrf-desktop-scrollbar-thumb.dragging{cursor:grabbing;background:linear-gradient(180deg,#f4df86,#7c5609)}
+      body.insp-v2{overflow-y:visible!important;padding-right:22px!important;box-sizing:border-box!important}
+      #lrf-desktop-scrollbar{position:fixed;right:0;top:0;bottom:0;width:22px;z-index:2147483000;background:#e4dccd;border-left:2px solid #bcae91;box-shadow:inset 2px 0 5px rgba(0,0,0,.16),-2px 0 8px rgba(0,0,0,.08);cursor:pointer;user-select:none}
+      #lrf-desktop-scrollbar-thumb{position:absolute;left:3px;top:0;width:15px;min-height:80px;border-radius:10px;background:linear-gradient(180deg,#ffd85a 0%,#d4af37 42%,#8b6410 100%);border:2px solid #3a2a08;box-shadow:0 2px 8px rgba(0,0,0,.48),inset 0 0 0 1px rgba(255,255,255,.35);cursor:grab;opacity:1!important;visibility:visible!important}
+      #lrf-desktop-scrollbar-thumb::after{content:'';position:absolute;left:50%;top:50%;width:7px;height:26px;transform:translate(-50%,-50%);border-top:2px solid rgba(40,28,4,.58);border-bottom:2px solid rgba(40,28,4,.58);box-shadow:0 -5px 0 rgba(40,28,4,.58),0 5px 0 rgba(40,28,4,.58)}
+      #lrf-desktop-scrollbar-thumb:hover{background:linear-gradient(180deg,#ffe77c 0%,#e1bd46 42%,#76520a 100%);box-shadow:0 2px 11px rgba(0,0,0,.58),0 0 10px rgba(212,175,55,.42)}
+      #lrf-desktop-scrollbar-thumb.dragging{cursor:grabbing;background:linear-gradient(180deg,#fff0a2 0%,#e8c85b 45%,#694707 100%)}
     }
   `;
   document.head.appendChild(style);
@@ -83,15 +82,15 @@
   track.appendChild(thumb);
   document.body.appendChild(track);
 
-  let thumbHeight=60;
+  let thumbHeight=80;
   const metrics=()=>{
     const doc=Math.max(document.documentElement.scrollHeight,document.body.scrollHeight);
     const view=window.innerHeight;
     const maxScroll=Math.max(0,doc-view);
     const trackH=track.clientHeight||view;
-    thumbHeight=maxScroll>0?Math.max(60,Math.round(trackH*(view/doc))):trackH;
+    thumbHeight=maxScroll>0?Math.max(80,Math.round(trackH*(view/doc))):trackH;
     const travel=Math.max(0,trackH-thumbHeight);
-    return {doc,view,maxScroll,trackH,travel};
+    return {doc,view,maxScroll,trackH,travel,thumbHeight};
   };
 
   const sync=()=>{
