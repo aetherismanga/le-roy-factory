@@ -1,0 +1,126 @@
+/* LE ROY FACTORY CRM — fiche client mobile : contenu totalement accessible */
+@media (max-width: 900px) {
+  /* La modale devient une vraie page défilable, sans moitié haute figée. */
+  body.crm-body #client-modal.crm-modal {
+    align-items: flex-start !important;
+    justify-content: center !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding: 6px 6px calc(18px + env(safe-area-inset-bottom)) !important;
+    box-sizing: border-box !important;
+  }
+
+  body.crm-body #client-modal .modal-content {
+    position: relative !important;
+    top: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 0 !important;
+    height: auto !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: 0.9rem 0.9rem calc(1.5rem + env(safe-area-inset-bottom)) !important;
+    overflow: visible !important;
+    transform: none !important;
+    border-radius: 16px !important;
+  }
+
+  /* Aucun sous-bloc de tête ne doit rester sticky/fixed dans la fiche. */
+  body.crm-body #client-modal .modal-header,
+  body.crm-body #client-modal .client-detail-header,
+  body.crm-body #client-modal .client-summary,
+  body.crm-body #client-modal .client-hero,
+  body.crm-body #client-modal form,
+  body.crm-body #client-modal .modal-grid-edit {
+    position: static !important;
+    top: auto !important;
+    bottom: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  /* Tête plus compacte pour ne plus manger presque la moitié de l'écran. */
+  body.crm-body #client-modal .modal-header {
+    min-height: 0 !important;
+    padding: 0.75rem 3.2rem 0.75rem 0 !important;
+    margin: 0 0 0.85rem !important;
+    gap: 0.55rem !important;
+  }
+
+  body.crm-body #client-modal .modal-header h2,
+  body.crm-body #client-modal #modal-title {
+    font-size: clamp(1.2rem, 6vw, 1.55rem) !important;
+    line-height: 1.12 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  body.crm-body #client-modal #modal-status-badge {
+    margin: 0 !important;
+  }
+
+  /* Le X reste facile à trouver, sans créer un bandeau fixe. */
+  body.crm-body #client-modal .modal-close,
+  body.crm-body #client-modal #btn-close-modal {
+    position: absolute !important;
+    top: 10px !important;
+    right: 10px !important;
+    z-index: 20 !important;
+    width: 44px !important;
+    height: 44px !important;
+    display: grid !important;
+    place-items: center !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+  }
+
+  /* Une colonne : aucune information ne part sous un autre bloc. */
+  body.crm-body #client-modal .modal-grid-edit {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 0.85rem !important;
+  }
+
+  body.crm-body #client-modal .modal-grid-edit .form-field,
+  body.crm-body #client-modal .modal-grid-edit .form-field.full-width {
+    grid-column: 1 !important;
+    min-width: 0 !important;
+  }
+
+  /* Le menu principal CRM et le bouton + ne doivent jamais recouvrir une fiche ouverte. */
+  body.crm-body:has(#client-modal:not([style*="display: none"])) .lrf-mobile-actions,
+  body.crm-body:has(#client-modal:not([style*="display:none"])) .lrf-mobile-actions,
+  body.crm-body:has(#client-modal:not([style*="display: none"])) #lrf-mobile-fab,
+  body.crm-body:has(#client-modal:not([style*="display:none"])) #lrf-mobile-fab,
+  body.crm-body:has(#client-modal:not([style*="display: none"])) .lrf-mobile-action-sheet,
+  body.crm-body:has(#client-modal:not([style*="display:none"])) .lrf-mobile-action-sheet,
+  body.crm-body:has(#client-modal:not([style*="display: none"])) #crm-mobile-menu-btn,
+  body.crm-body:has(#client-modal:not([style*="display:none"])) #crm-mobile-menu-btn {
+    display: none !important;
+  }
+
+  /* Sécurité si le navigateur ne gère pas :has() : le contenu garde assez d'espace en bas. */
+  body.crm-body #client-modal #client-form {
+    padding-bottom: 1rem !important;
+  }
+
+  body.crm-body #client-modal .modal-footer {
+    position: static !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 0.65rem !important;
+    margin-top: 1rem !important;
+    padding: 1rem 0 0 !important;
+    background: transparent !important;
+  }
+
+  body.crm-body #client-modal .modal-footer > * {
+    min-height: 46px !important;
+  }
+}
