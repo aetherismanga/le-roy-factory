@@ -1,0 +1,147 @@
+name: Run Elios Montreal HD
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/run-elios-montreal-hd.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  montreal-hd:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install PyMuPDF
+        run: python -m pip install --disable-pip-version-check requests pymupdf
+      - name: Extract Montreal originals from official Elios 2026 PDF
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib, json, re, requests
+          import pymupdf as fitz
+
+          BASE='https://eliosceramica.com/wp-content/uploads/2026/02/'
+          urls=[
+            BASE+'ELIOS_CATALOGO-GENERALE-2026-1.pdf',
+            BASE+'ELIOS_CATALOGO-GENERALE-2026.pdf',
+          ]
+          s=requests.Session(); s.headers.update({'User-Agent':'Mozilla/5.0','Referer':'https://eliosceramica.com/'})
+          data=None; used=None
+          for url in urls:
+            try:
+              r=s.get(url,timeout=120)
+              print(url, r.status_code, len(r.content))
+              if r.status_code==200 and len(r.content)>5_000_000 and r.content[:4]==b'%PDF':
+                data=r.content; used=url; break
+            except Exception as e:
+              print('download error',url,e)
+          if not data:
+            raise RuntimeError('Official Elios 2026 PDF unavailable')
+
+          doc=fitz.open(stream=data,filetype='pdf')
+          out=Path('assets/img/elios/montreal'); out.mkdir(parents=True,exist_ok=True)
+
+          def txt(page): return ' '.join(page.get_text('text').upper().replace('×','X').split())
+          def candidates(page):
+            arr=[]; seen=set()
+            for item in page.get_images(full=True):
+              xref=item[0]
+              if xref in seen: continue
+              seen.add(xref)
+              try:
+                info=doc.extract_image(xref); w=int(info.get('width') or 0); h=int(info.get('height') or 0)
+                if max(w,h)<650 or w*h<400_000: continue
+                rects=page.get_image_rects(xref)
+                area=max((abs(r.width*r.height) for r in rects),default=0)
+                arr.append((area,w*h,xref,info))
+              except Exception: pass
+            return sorted(arr,reverse=True)
+
+          def page_with(*terms):
+            terms=[t.upper() for t in terms]
+            for i,p in enumerate(doc):
+              t=txt(p)
+              if all(x in t for x in terms): return i
+            raise RuntimeError('Montreal page not found: '+str(terms))
+
+          # The 2026 catalogue labels each Montreal ambiance explicitly.
+          pages={
+            'Grey': page_with('MONTREAL','FLOOR GREY','100X100'),
+            'BeigeDark': page_with('MONTREAL','FLOOR BEIGE','WALL/FLOOR DARK'),
+            'TaupeWhite': page_with('MONTREAL','FLOOR TAUPE','FLOOR WHITE'),
+          }
+          print('pages',pages)
+
+          result={}
+          # Grey: dominant ambiance image.
+          c=candidates(doc[pages['Grey']])
+          if not c: raise RuntimeError('Grey image missing')
+          result['Grey']=c[0][3]
+
+          # Split pages contain two large ambience images. Use placement center X to map left/right.
+          def split_images(pageno,left_name,right_name):
+            page=doc[pageno]; found=[]
+            for area,pixels,xref,info in candidates(page):
+              rects=page.get_image_rects(xref)
+              if not rects: continue
+              r=max(rects,key=lambda x:abs(x.width*x.height))
+              found.append(((r.x0+r.x1)/2, area, info))
+            if len(found)<2: raise RuntimeError(f'{left_name}/{right_name}: two images missing')
+            # Keep the two largest displayed images, then sort left-to-right.
+            found=sorted(found,key=lambda x:x[1],reverse=True)[:2]
+            found=sorted(found,key=lambda x:x[0])
+            result[left_name]=found[0][2]; result[right_name]=found[1][2]
+
+          split_images(pages['BeigeDark'],'Beige','Dark')
+          split_images(pages['TaupeWhite'],'Taupe','White')
+
+          variants={}; allsrc=[]
+          for color in ['White','Grey','Beige','Taupe','Dark']:
+            info=result[color]
+            ext=(info.get('ext') or 'jpg').lower(); ext='jpg' if ext=='jpeg' else ext
+            path=out/f'montreal-{color.lower()}.{ext}'
+            path.write_bytes(info['image'])  # original embedded stream; no resize/recompression
+            print(color,path,info.get('width'),info.get('height'),len(info['image']))
+            src=path.as_posix(); variants[color]=[src]; allsrc.append(src)
+          doc.close()
+
+          js=(
+            '// Montreal HD — images originales du Catalogue Général Elios 2026, sans recompression.\n'
+            'Object.assign(window.ELIOS_OFFICIAL_GALLERIES ||= {}, '+json.dumps({'montreal':allsrc},indent=2)+');\n\n'
+            'Object.assign(window.ELIOS_VERIFIED_VARIANTS ||= {}, '+json.dumps({'montreal':variants},indent=2)+');\n'
+          )
+          Path('assets/js/inspirations-elios-montreal-hd.js').write_text(js,encoding='utf-8')
+
+          p=Path('univers.html'); html=p.read_text(encoding='utf-8')
+          script='  <script src="assets/js/inspirations-elios-montreal-hd.js?v=20260902-montreal1"></script>\n'
+          if 'inspirations-elios-montreal-hd.js' not in html:
+            marker='  <script src="assets/js/inspirations-elios-slate-hd.js'
+            pos=html.find(marker)
+            if pos<0: raise RuntimeError('Slate marker missing')
+            html=html[:pos]+script+html[pos:]
+          else:
+            html=re.sub(r'assets/js/inspirations-elios-montreal-hd\.js\?v=[^\"]+','assets/js/inspirations-elios-montreal-hd.js?v=20260902-montreal1',html)
+          html=re.sub(r'assets/js/inspirations-elios-gallery-v2\.js\?v=[^\"]+','assets/js/inspirations-elios-gallery-v2.js?v=20260902-montreal1',html)
+          p.write_text(html,encoding='utf-8')
+          PY
+      - name: Verify Montreal
+        run: |
+          test -s assets/js/inspirations-elios-montreal-hd.js
+          for c in white grey beige taupe dark; do test -s "assets/img/elios/montreal/montreal-$c.jpg"; done
+          grep -q 'inspirations-elios-montreal-hd.js?v=20260902-montreal1' univers.html
+      - name: Commit Montreal to main
+        run: |
+          git config user.name 'aetherismanga'
+          git config user.email 'ccjacou@gmail.com'
+          git add assets/img/elios/montreal assets/js/inspirations-elios-montreal-hd.js univers.html
+          git diff --cached --stat
+          git commit -m 'Corrige Montreal en HD officiel Elios 2026'
+          git push origin HEAD:main
