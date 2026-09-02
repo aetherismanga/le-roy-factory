@@ -1,18 +1,21 @@
 Object.assign(window.ELIOS_OFFICIAL_GALLERIES ||= {}, {
   slate: [
-    'https://eliosceramica.com/wp-content/uploads/2023/05/slate_amb_2-scaled.jpg',
-    'https://eliosceramica.com/wp-content/uploads/2023/05/slate_amb_1-scaled.jpg',
-    'https://eliosceramica.com/wp-content/uploads/2023/05/slate_amb_3-scaled.jpg'
+    'assets/img/elios/slate/slate-river-hd.svg',
+    'assets/img/elios/slate/slate-dark-hd.svg',
+    'assets/img/elios/slate/slate-flame-hd.svg',
+    'assets/img/elios/slate/slate-natural-hd.svg',
+    'assets/img/elios/slate/slate-gold-hd.svg',
+    'assets/img/elios/slate/slate-grey-hd.svg'
   ]
 });
 
 Object.assign(window.ELIOS_VERIFIED_VARIANTS ||= {}, {
   slate: {
-    River: ['https://eliosceramica.com/wp-content/uploads/2023/05/slate_amb_2-scaled.jpg'],
-    Dark: ['https://eliosceramica.com/wp-content/uploads/2023/05/slate_amb_1-scaled.jpg'],
-    Flame: ['https://eliosceramica.com/wp-content/uploads/2023/05/slate_amb_3-scaled.jpg'],
-    Natural: ['https://eliosceramica.com/wp-content/uploads/2023/05/slate_amb_3-scaled.jpg'],
-    Gold: ['https://eliosceramica.com/wp-content/uploads/2023/05/slate_amb_1-scaled.jpg'],
-    Grey: ['https://eliosceramica.com/wp-content/uploads/2023/05/slate_amb_1-scaled.jpg']
+    River: ['assets/img/elios/slate/slate-river-hd.svg'],
+    Dark: ['assets/img/elios/slate/slate-dark-hd.svg'],
+    Flame: ['assets/img/elios/slate/slate-flame-hd.svg'],
+    Natural: ['assets/img/elios/slate/slate-natural-hd.svg'],
+    Gold: ['assets/img/elios/slate/slate-gold-hd.svg'],
+    Grey: ['assets/img/elios/slate/slate-grey-hd.svg']
   }
 });
