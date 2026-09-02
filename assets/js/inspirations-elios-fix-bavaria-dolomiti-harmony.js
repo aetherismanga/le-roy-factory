@@ -1,13 +1,13 @@
 // Correctif prioritaire ELIOS — 2026-09-02
-// Chargé après les lots de galeries précédents afin de remplacer les chemins cassés.
+// URLs relevées directement dans les galeries officielles Elios. Aucune compression locale.
 Object.assign(window.ELIOS_OFFICIAL_GALLERIES ||= {}, {
   'bavaria-stone': [
     'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Bavaria_Stone_1.jpg',
     'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Bavaria_Stone_2.jpg',
-    'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Bavaria_Stone_3.jpg',
-    'https://eliosceramica.com/wp-content/uploads/2021/02/BAVARIA-STONE_White_beige_grey.jpg',
-    'https://eliosceramica.com/wp-content/uploads/2021/02/bavaria_stone_noce_amb1-scaled.jpg',
-    'https://eliosceramica.com/wp-content/uploads/2021/02/bavaria_stone_noce_amb3-scaled.jpg'
+    'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Bavaria_Stone_3-1-scaled.jpg',
+    'https://eliosceramica.com/wp-content/uploads/2021/02/BAVARIA_ESTERNO.jpg',
+    'https://eliosceramica.com/wp-content/uploads/2021/02/BAVARIA_STONE_OUTDOOR.jpg',
+    'https://eliosceramica.com/wp-content/uploads/2021/02/Bavaria_Stone_DETTAGLIO.jpg'
   ],
   dolomiti: [
     'https://eliosceramica.com/wp-content/uploads/2021/11/DOLOMITI_LIVING_bianco_greige.jpg',
@@ -28,10 +28,28 @@ Object.assign(window.ELIOS_OFFICIAL_GALLERIES ||= {}, {
   ],
   harmony: [
     'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_White_1.jpg',
+    'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_White_2.jpg',
+    'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_White_3-scaled.jpg',
+    'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_White_4.jpg',
+    'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_White_5-scaled.jpg',
     'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Grey_1.jpg',
+    'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Grey_2.jpg',
+    'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Grey_3.jpg',
+    'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Grey_4-scaled.jpg',
+    'https://eliosceramica.com/wp-content/uploads/2021/02/Harmony_Grey_1.jpg',
     'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Black_1.jpg',
+    'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Black_2-scaled.jpg',
+    'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Black_3.jpg',
+    'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Black_4.jpg',
     'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Cream_1.jpg',
-    'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Taupe_1.jpg'
+    'https://eliosceramica.com/wp-content/uploads/2021/02/Harmony_Cream_1.jpg',
+    'https://eliosceramica.com/wp-content/uploads/2021/02/Harmony_Cream_3.jpg',
+    'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Cream_3.jpg',
+    'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Taupe_1-scaled.jpg',
+    'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Taupe_2.jpg',
+    'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Taupe_3.jpg',
+    'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Taupe_4.jpg',
+    'https://eliosceramica.com/wp-content/uploads/2021/02/Harmony_Taupe_1.jpg'
   ]
 });
 
@@ -40,10 +58,10 @@ Object.assign(window.ELIOS_VERIFIED_VARIANTS ||= {}, {
     'Bavaria Stone': [
       'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Bavaria_Stone_1.jpg',
       'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Bavaria_Stone_2.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Bavaria_Stone_3.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2021/02/BAVARIA-STONE_White_beige_grey.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2021/02/bavaria_stone_noce_amb1-scaled.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2021/02/bavaria_stone_noce_amb3-scaled.jpg'
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Bavaria_Stone_3-1-scaled.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/02/BAVARIA_ESTERNO.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/02/BAVARIA_STONE_OUTDOOR.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Bavaria_Stone_DETTAGLIO.jpg'
     ]
   },
   dolomiti: {
@@ -72,10 +90,55 @@ Object.assign(window.ELIOS_VERIFIED_VARIANTS ||= {}, {
     ]
   },
   harmony: {
-    White: ['https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_White_1.jpg'],
-    Grey: ['https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Grey_1.jpg'],
-    Black: ['https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Black_1.jpg'],
-    Cream: ['https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Cream_1.jpg'],
-    Taupe: ['https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Taupe_1.jpg']
+    White: [
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_White_1.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_White_2.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_White_3-scaled.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_White_4.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_White_5-scaled.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_White_6-scaled.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_White_7-scaled.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_White_8.jpg'
+    ],
+    Grey: [
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Grey_1.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Grey_2.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Grey_3.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Grey_4-scaled.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Grey_5-scaled.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Grey_6.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Harmony_Grey_1.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/02/HARMONY_GRAY.jpg'
+    ],
+    Black: [
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Black_1.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Black_2-scaled.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Black_3.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Black_4.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Black_5-scaled.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Black_6.jpg'
+    ],
+    Cream: [
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Cream_1.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Harmony_Cream_1.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Harmony_Cream_3.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Cream_3.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Harmony_Cream_2.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Cream_4-scaled.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Cream_5-scaled.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/02/HARMONY_CREAM.jpg'
+    ],
+    Taupe: [
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Taupe_1-scaled.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Taupe_2.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Taupe_3.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Taupe_4.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Taupe_5.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Taupe_6-scaled.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Taupe_7-scaled.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Harmony_Taupe_1.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/02/harmony_taupe.jpg',
+      'https://eliosceramica.com/wp-content/uploads/2021/02/Harmony_Taupe_2.jpg'
+    ]
   }
 });
