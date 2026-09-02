@@ -8,8 +8,8 @@
     .cersaie26-btn:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 0 26px rgba(35,196,123,.38),0 0 15px rgba(255,205,48,.25)}
     .cersaie26-btn strong{display:block;color:#ffe06a;font:700 1.02rem Georgia,serif;line-height:1.05}.cersaie26-btn small{display:block;font-size:.7rem;line-height:1.25;margin-top:4px}
     .cersaie26-desktop{position:absolute;right:clamp(18px,5vw,72px);top:50%;width:195px;padding:12px 14px;border-radius:18px;text-align:left}
-    .cersaie26-mobile{display:none;min-width:138px;max-width:154px;padding:7px 9px;border-radius:15px;text-align:center;margin-left:auto;margin-right:4px}
-    .cersaie26-mobile strong{font-size:.9rem}.cersaie26-mobile small{font-size:.61rem;margin-top:3px}
+    .cersaie26-mobile{display:none;width:190px;min-width:190px;max-width:190px;min-height:68px;padding:10px 14px;border-radius:19px;text-align:center;margin-left:auto;margin-right:8px;box-shadow:0 0 24px rgba(35,196,123,.34),0 0 15px rgba(255,205,48,.22)}
+    .cersaie26-mobile strong{font-size:1.08rem;letter-spacing:.2px}.cersaie26-mobile small{font-size:.76rem;line-height:1.3;margin-top:5px}
     .cersaie26-modal{position:fixed;inset:0;z-index:10060;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(0,0,0,.8);backdrop-filter:blur(8px)}.cersaie26-modal.open{display:flex}
     .cersaie26-box{position:relative;width:min(900px,96vw);max-height:92vh;overflow:auto;background:linear-gradient(160deg,#11120f,#080908);border:1px solid rgba(212,175,55,.72);border-radius:21px;padding:25px;color:#fff;box-shadow:0 25px 80px rgba(0,0,0,.75)}
     .cersaie26-close{position:absolute;right:14px;top:12px;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,215,0,.55);background:#111;color:#fff;font-size:1.5rem;cursor:pointer}
@@ -17,8 +17,9 @@
     .cersaie26-images{display:grid;grid-template-columns:.78fr 1.22fr;gap:14px}.cersaie26-card{background:#f7f2e9;border-radius:13px;overflow:hidden;border:1px solid rgba(212,175,55,.45)}.cersaie26-card b{display:block;color:#222;text-align:center;padding:7px;font-size:.76rem;text-transform:uppercase}.cersaie26-card img{display:block;width:100%;height:320px;object-fit:contain;background:#f7f2e9}
     .cersaie26-actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}.cersaie26-actions button{border-radius:999px;padding:12px 16px;font-weight:900;text-transform:uppercase;cursor:pointer}.cersaie26-yes{background:linear-gradient(#ffe36e,#d5a728);border:1px solid #ffe783;color:#111}.cersaie26-no{background:#111;border:1px solid #c9a43c;color:#fff}.cersaie26-note{text-align:center;font-size:.78rem;color:#c9c9c9;margin:11px 0 0}
     body.cersaie26-lock{overflow:hidden}
-    @media(max-width:900px){header .nav-container{gap:7px!important;padding-left:8px!important;padding-right:8px!important}.cersaie26-desktop{display:none}.cersaie26-mobile{display:block}.cersaie26-images{grid-template-columns:1fr}.cersaie26-card img{height:auto;max-height:52vh}.cersaie26-box{padding:21px 13px 17px}.cersaie26-actions{grid-template-columns:1fr;gap:8px}.cersaie26-copy{font-size:.91rem}}
-    @media(max-width:390px){.cersaie26-mobile{min-width:124px;max-width:132px;padding:6px}.cersaie26-mobile strong{font-size:.8rem}.cersaie26-mobile small{font-size:.56rem}}
+    @media(max-width:900px){header .nav-container{gap:8px!important;padding-left:8px!important;padding-right:8px!important}.cersaie26-desktop{display:none}.cersaie26-mobile{display:block}.cersaie26-images{grid-template-columns:1fr}.cersaie26-card img{height:auto;max-height:52vh}.cersaie26-box{padding:21px 13px 17px}.cersaie26-actions{grid-template-columns:1fr;gap:8px}.cersaie26-copy{font-size:.91rem}}
+    @media(max-width:410px){.cersaie26-mobile{width:174px;min-width:174px;max-width:174px;min-height:64px;padding:9px 10px;margin-right:4px}.cersaie26-mobile strong{font-size:1rem}.cersaie26-mobile small{font-size:.7rem}}
+    @media(max-width:365px){.cersaie26-mobile{width:160px;min-width:160px;max-width:160px;min-height:60px;padding:8px}.cersaie26-mobile strong{font-size:.94rem}.cersaie26-mobile small{font-size:.65rem}}
   `;
   document.head.appendChild(style);
 
