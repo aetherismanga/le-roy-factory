@@ -6,6 +6,12 @@
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
     .toLowerCase().replace(/,/g, '.').replace(/\s+/g, '').trim();
 
+  const baseFormat = value => {
+    const m = String(value || '').replace(/,/g, '.').match(/\d+(?:\.\d+)?x\d+(?:\.\d+)?/i);
+    return m ? m[0].toLowerCase() : norm(value);
+  };
+  const is20mmFormat = value => /20\s*mm/i.test(String(value || ''));
+
   const money = amount => Number(amount).toLocaleString('fr-FR', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
@@ -70,84 +76,54 @@
     '25x22': 23
   };
 
+  const price20 = {
+    '60x60': 21,
+    '60x120': 24,
+    '40x120': 24,
+    '100x100': 28,
+    '50x100': 28
+  };
+
   function isPolished(product) {
     return (product.finishes || []).some(f => /poli/i.test(f));
   }
 
-  function has20mm(product) {
-    return (product.finishes || []).some(f => /20\s*mm|2\s*cm/i.test(f));
-  }
-
   function specialPrice(product, format) {
     const slug = norm(product.slug);
-    const f = norm(format);
+    const f = baseFormat(format);
 
-    // ROMA: le 60x120 du catalogue 2026 est la version extérieure R11 en 20 mm.
-    // Ne jamais lui appliquer le tarif générique du 60x120 standard.
-    if (slug === 'roma' && f === '60x120') {
-      return result(24, { note: 'ROMA 60×120 — épaisseur 20 mm, version R11. Tarif spécifique 20 mm.' });
+    if (is20mmFormat(format)) {
+      const p20 = price20[f];
+      if (p20 !== undefined) return result(p20, { note: `${f.replace('x','×')} — épaisseur 20 mm, version extérieure R11.` });
     }
 
     if (slug === 'venere' && (f === '33.3x100' || f === '33x100')) {
       return result(17, { note: 'Finition Matt. Décor : 19,00 € net/m².' });
     }
-
     if (slug === 'loveanddecors' && f === '120x278') {
-      return result(29, {
-        note: 'MAGNUS Matt. Version polie : 38,00 € net/m². Décor : 43,00 € net/m². Emballage caisse bois selon quantité.'
-      });
+      return result(29, { note: 'MAGNUS Matt. Version polie : 38,00 € net/m². Décor : 43,00 € net/m². Emballage caisse bois selon quantité.' });
     }
-
     if (slug === 'yosemite') {
       if (f === '7.5x40' || f === '7.5x40.7') return result(19);
       if (f === '15x85') return result(17.5);
       if (f === '23.4x95.7') return result(32);
       if (f === '23.4x148') return result(17.5);
     }
-
     if (slug === 'allure' && f === '60x120') return result(24);
     if (slug === 'segmento' && f === '15x15') return result(25);
-
-    if (slug === 'clay' && f === '10x10') {
-      return result(23, { note: 'Uni. Décor PAT : +5,00 € net/pièce ; décor FLO : +7,00 € net/pièce.' });
-    }
-
-    if (slug === 'd-esign-evo' && f === '20x20') {
-      return result(20, { note: 'Uni. Décor : 23,00 € net/m².' });
-    }
-
-    if (slug === 'loveanddecors-creative' && f === '60x120') {
-      return result(179, { unit: 'net / 2 pièces', label: '179,00 € net / 2 pièces' });
-    }
-
-    if (slug === 'creta' && f === '60x120') {
-      return result(15, { note: 'Version décor CRETA indiquée au tarif : 22,00 € net/m².' });
-    }
-
+    if (slug === 'clay' && f === '10x10') return result(23, { note: 'Uni. Décor PAT : +5,00 € net/pièce ; décor FLO : +7,00 € net/pièce.' });
+    if (slug === 'd-esign-evo' && f === '20x20') return result(20, { note: 'Uni. Décor : 23,00 € net/m².' });
+    if (slug === 'loveanddecors-creative' && f === '60x120') return result(179, { unit: 'net / 2 pièces', label: '179,00 € net / 2 pièces' });
+    if (slug === 'creta' && f === '60x120') return result(15, { note: 'Version décor CRETA indiquée au tarif : 22,00 € net/m².' });
     return null;
   }
 
   function genericPrice(product, format) {
-    const f = norm(format);
-    if (f === '40x120' && has20mm(product)) return result(24, { note: 'Version 20 mm.' });
+    const f = baseFormat(format);
     const price = generic[f];
     if (price === undefined) return null;
-
-    if (f === '60x120' && isPolished(product)) {
-      return result(23, { note: 'Finition polie rectifiée.' });
-    }
-
-    if (has20mm(product)) {
-      if (f === '60x60') return result(price, { note: 'Version standard. Version 20 mm : 21,00 € net/m².' });
-      if (f === '60x120' || f === '40x120') return result(price, { note: 'Version standard. Version 20 mm : 24,00 € net/m².' });
-      if (f === '100x100' || f === '50x100') return result(price, { note: 'Version standard. Version 20 mm : 28,00 € net/m².' });
-    }
-
-    if (f === '60x60') return result(price, { note: 'Lisse / R11 selon série. Version 20 mm : 21,00 € net/m².' });
-    if (f === '60x120') return result(price, { note: 'Lisse / R11. Version 20 mm : 24,00 € net/m².' });
-    if (f === '100x100' || f === '50x100') return result(price, { note: 'Lisse / R11. Version 20 mm : 28,00 € net/m².' });
-
-    return result(price);
+    if (f === '60x120' && isPolished(product)) return result(23, { note: 'Finition polie rectifiée.' });
+    return result(price, { note: /8[,.]5\s*mm/i.test(String(format)) ? 'Épaisseur standard 8,5 mm.' : '' });
   }
 
   function lookup(product, format) {
