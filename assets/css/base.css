@@ -189,3 +189,49 @@ html.lrf-premium-ready body:has(> header .main-nav) {
     animation-delay: .04s !important;
   }
 }
+
+/* ========================================================================== 
+   SCROLLBAR — visible en permanence sur PC
+   ========================================================================== */
+html {
+  overflow-y: scroll !important;
+  scrollbar-gutter: stable;
+  scrollbar-width: auto !important;
+  scrollbar-color: #b79232 #eee7db;
+}
+
+body {
+  min-height: 100vh;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 14px !important;
+  display: block !important;
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track {
+  background: #eee7db;
+  border-left: 1px solid #d9cfbd;
+}
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg,#d6b453,#a67b1f);
+  border-radius: 999px;
+  border: 3px solid #eee7db;
+  min-height: 48px;
+}
+
+html::-webkit-scrollbar-thumb:hover,
+body::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg,#e4c668,#8f6817);
+}
+
+@media (max-width: 900px) {
+  html {
+    overflow-y: auto !important;
+    scrollbar-gutter: auto;
+  }
+}
