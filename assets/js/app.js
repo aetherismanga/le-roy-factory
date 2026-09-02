@@ -19,6 +19,17 @@
     (document.head||document.documentElement).appendChild(script);
 })();
 
+/* Curseur gant blanc et doré 3D sur PC — remplace le maillet. */
+(()=>{
+    if(!window.matchMedia('(pointer: fine) and (min-width: 901px)').matches) return;
+    if(document.getElementById('lrf-glove-cursor-loader')) return;
+    const script=document.createElement('script');
+    script.id='lrf-glove-cursor-loader';
+    script.src='assets/js/lrf-glove-cursor.js?v=20260902-glove1';
+    script.defer=true;
+    (document.head||document.documentElement).appendChild(script);
+})();
+
 function ensureMobileCss() {
     if (!window.matchMedia('(max-width: 900px)').matches) return;
     const old = document.getElementById('lrf-mobile-enhancements');
