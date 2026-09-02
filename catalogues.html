@@ -11,101 +11,27 @@
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
   <style>
-    body, html {
-      background-color: #FBF9F5 !important;
-      background-image: none !important;
-      color: #1A2530 !important;
-    }
-    header, footer {
-      background-image: url('assets/img/bandeau02.png');
-      background-size: cover;
-      background-position: center;
-      color: #ffffff;
-      border-bottom: 2px solid #D4AF37;
-    }
-    footer {
-      border-top: 2px solid #D4AF37;
-      border-bottom: none;
-      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
-    }
-    footer p {
-      color: #ffffff !important;
-    }
-    .main-nav {
-      display: flex;
-      gap: 1.5rem;
-      align-items: center;
-      justify-content: flex-end;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      flex-wrap: nowrap;
-    }
-    .main-nav li { display: flex; align-items: center; }
-    .main-nav > li > a:not(.agent-btn) {
-      text-decoration: none;
-      color: #111111 !important;
-      font-weight: 800 !important;
-      font-size: 1.15rem !important;
-      letter-spacing: 0.5px !important;
-      text-shadow: 0 1px 2px rgba(212, 175, 55, 0.6) !important;
-      position: relative;
-      padding-bottom: 4px;
-      background: transparent !important;
-      transition: color 0.25s ease;
-    }
-    .main-nav > li > a:not(.agent-btn):hover {
-      color: #D4AF37 !important;
-      background: transparent !important;
-    }
-    .main-nav > li > a.active:not(.agent-btn) {
-      color: #111111 !important;
-      font-weight: 800 !important;
-      background: transparent !important;
-      box-shadow: none !important;
-    }
-    .main-nav > li > a.active:not(.agent-btn)::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: #D4AF37;
-      box-shadow: 0 0 10px rgba(212, 175, 55, 0.9);
-      border-radius: 2px;
-    }
-    .agent-btn {
-      display: inline-flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      padding: 8px 16px !important;
-      background-color: #000000 !important;
-      color: #FFD700 !important;
-      border: 1px solid #FFD700 !important;
-      border-radius: 8px !important;
-      font-weight: 700 !important;
-      font-size: 0.95rem !important;
-      white-space: nowrap !important;
-      text-decoration: none !important;
-      transition: all 0.3s ease !important;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.5) !important;
-      text-shadow: none !important;
-    }
-    .agent-btn::after { display: none !important; }
-    .agent-btn:hover {
-      background-color: #FFD700 !important;
-      color: #111111 !important;
-      border-color: #FFD700 !important;
-    }
+    body, html { background-color: #FBF9F5 !important; background-image: none !important; color: #1A2530 !important; }
+    header, footer { background-image: url('assets/img/bandeau02.png'); background-size: cover; background-position: center; color: #ffffff; border-bottom: 2px solid #D4AF37; }
+    footer { border-top: 2px solid #D4AF37; border-bottom: none; text-shadow: 0 1px 4px rgba(0,0,0,0.9); }
+    footer p { color: #ffffff !important; }
+    .main-nav { display:flex; gap:1.5rem; align-items:center; justify-content:flex-end; list-style:none; margin:0; padding:0; flex-wrap:nowrap; }
+    .main-nav li { display:flex; align-items:center; }
+    .main-nav > li > a:not(.agent-btn) { text-decoration:none; color:#111111 !important; font-weight:800 !important; font-size:1.15rem !important; letter-spacing:.5px !important; text-shadow:0 1px 2px rgba(212,175,55,.6) !important; position:relative; padding-bottom:4px; background:transparent !important; transition:color .25s ease; }
+    .main-nav > li > a:not(.agent-btn):hover { color:#D4AF37 !important; background:transparent !important; }
+    .main-nav > li > a.active:not(.agent-btn) { color:#111111 !important; font-weight:800 !important; background:transparent !important; box-shadow:none !important; }
+    .main-nav > li > a.active:not(.agent-btn)::after { content:''; position:absolute; bottom:-2px; left:0; width:100%; height:3px; background:#D4AF37; box-shadow:0 0 10px rgba(212,175,55,.9); border-radius:2px; }
+    .agent-btn { display:inline-flex !important; align-items:center !important; justify-content:center !important; padding:8px 16px !important; background:#000 !important; color:#FFD700 !important; border:1px solid #FFD700 !important; border-radius:8px !important; font-weight:700 !important; font-size:.95rem !important; white-space:nowrap !important; text-decoration:none !important; transition:all .3s ease !important; box-shadow:0 2px 8px rgba(0,0,0,.5) !important; text-shadow:none !important; }
+    .agent-btn::after { display:none !important; }
+    .agent-btn:hover { background:#FFD700 !important; color:#111 !important; border-color:#FFD700 !important; }
   </style>
 </head>
 <body>
   <header>
-    <div class="container nav-container" style="height: 130px; display: flex; align-items: center; justify-content: space-between;">
-      <a href="index.html" class="logo" style="display: flex; align-items: center; height: 100%; padding-left: 1.5rem; flex-shrink: 0;">
-        <div style="width: 110px; height: 110px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.4); border: 2px solid #D4AF37; background-color: #000; flex-shrink: 0;">
-          <img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY" style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.35);">
+    <div class="container nav-container" style="height:130px; display:flex; align-items:center; justify-content:space-between;">
+      <a href="index.html" class="logo" style="display:flex; align-items:center; height:100%; padding-left:1.5rem; flex-shrink:0;">
+        <div style="width:110px; height:110px; border-radius:50%; overflow:hidden; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.4); border:2px solid #D4AF37; background:#000; flex-shrink:0;">
+          <img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY" style="width:100%; height:100%; object-fit:cover; transform:scale(1.35);">
         </div>
       </a>
       <nav>
@@ -119,198 +45,127 @@
           <li><a href="agent.html" class="agent-btn">Espace Agent</a></li>
         </ul>
       </nav>
-      <button class="burger-btn" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
+      <button class="burger-btn" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </header>
-  <main style="padding-top: 140px; padding-bottom: 4rem;">
+
+  <main style="padding-top:140px; padding-bottom:4rem;">
     <div class="container">
-      <h1 style="font-size: 2.5rem; margin-bottom: 1rem; color: #1A2530;">Catalogues Partenaires</h1>
-      <p style="font-size: 1.1rem; color: #666; margin-bottom: 3rem; max-width: 700px;">Consultez et téléchargez l'ensemble des catalogues officiels et documentations de nos fabricants.</p>
-      
-      <div id="grid-catalogues" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem;">
-        <!-- Injection dynamique via JS -->
-      </div>
+      <h1 style="font-size:2.5rem; margin-bottom:1rem; color:#1A2530;">Catalogues Partenaires</h1>
+      <p style="font-size:1.1rem; color:#666; margin-bottom:3rem; max-width:700px;">Consultez et téléchargez l'ensemble des catalogues officiels et documentations de nos fabricants.</p>
+      <div id="grid-catalogues" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:2rem;"></div>
     </div>
   </main>
+
   <footer>
-    <div class="container" style="text-align: center; padding: 2rem 0;">
-      <p style="color: #ffffff !important; font-weight: 600; text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);">&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p>
+    <div class="container" style="text-align:center; padding:2rem 0;">
+      <p style="color:#fff !important; font-weight:600; text-shadow:0 1px 4px rgba(0,0,0,.9);">&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p>
     </div>
   </footer>
+
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener('DOMContentLoaded', function () {
       const cataloguesData = [
-        {
-          nom: "Elios Ceramica",
-          pays: "Italie",
-          presentation: "Fabricant italien spécialisé dans les petits formats et la céramique décorative haut de gamme.",
-          fichiers: [
-            { titre: "Catalogue Général", desc: "Toutes les collections 2026.", lien: "https://eliosceramica.com/wp-content/uploads/2018/02/ELIOS_CATALOGO-GENERALE-2026-1.pdf" },
-            { titre: "Coverings 2026", desc: "Revêtements et dernières tendances.", lien: "https://eliosceramica.com/wp-content/uploads/2001/04/ELIOS_CATALOGO-COVERINGS-2026.pdf" },
-            { titre: "Outdoor 2026", desc: "Solutions et carrelages pour l'extérieur.", lien: "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_OUTDOOR_2026.pdf" }
-          ]
-        },
-        {
-          nom: "View Ceramica",
-          pays: "Italie",
-          presentation: "Design contemporain et solutions céramiques innovantes pour les professionnels exigeants.",
-          fichiers: [
-            { titre: "Corso 2026", desc: "Catalogue de la série Corso.", lien: "https://viewceramiche.com/wp-content/uploads/2023/12/View_catalogo_serie_Corso_2024_LR.pdf" },
-            { titre: "Tibur 2026", desc: "Catalogue de la série Tibur.", lien: "https://viewceramiche.com/wp-content/uploads/2023/11/Catalogo-Tibur_01-2025_LR.pdf" },
-            { titre: "Golden Stone 2026", desc: "Catalogue de la série Golden Stone.", lien: "https://viewceramiche.com/wp-content/uploads/2025/10/View_catalogo_serie_Golden_Stone_2026_LR.pdf" }
-          ]
-        },
-        {
-          nom: "La Fenice",
-          pays: "Italie",
-          presentation: "Tradition et modernité italienne au service de l'architecture intérieure.",
-          fichiers: [
-            { titre: "Catalogues", desc: "La Fenice srl", lien: "https://lafenicegc.com/fr/catalogues/" }
-          ]
-        },
-        {
-          nom: "Reviglass",
-          pays: "Espagne",
-          presentation: "Spécialiste de la mosaïque en verre recyclé haut de gamme.",
-          fichiers: [
-            { titre: "Catalogues Officiels", desc: "Téléchargements officiels Reviglass.", lien: "https://reviglass.es/en/telecharger/" },
-            { titre: "Configurateur Virtuel Piscine", desc: "Créez votre design de piscine en ligne.", lien: "https://myvirtualpool.reviglass.es/" }
-          ]
-        },
-        {
-          nom: "Biopietra",
-          pays: "Italie",
-          presentation: "Pierre reconstituée écologique et certifiée pour l'aménagement décoratif.",
-          fichiers: [
-            { titre: "Catalogue Pierre Écologique", desc: "Revêtements muraux et sols texturés.", lien: "https://www.biopietra.com" }
-          ]
-        },
-        {
-          nom: "Petracer's",
-          pays: "Italie",
-          presentation: "L'expression ultime du luxe à l'italienne dans le carrelage d'exception.",
-          fichiers: [
-            { titre: "Catalogue Intérieur", desc: "Collections de luxe et décors d'apparat.", lien: "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf" },
-            { titre: "Catalogue Général", desc: "Sélection complète et tarifs mail.", lien: "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf" }
-          ]
-        },
-        {
-          nom: "Pecchioli Firenze",
-          pays: "Italie",
-          presentation: "Céramique artistique et historique faite à Florence.",
-          fichiers: [
-            { titre: "Céramique Artistique", desc: "Faïences d'art et créations sur mesure.", lien: "assets/pdf/pecchioli2022.pdf" }
-          ]
-        },
-        {
-          nom: "Bulbo",
-          pays: "Italie",
-          presentation: "Créations céramiques audacieuses et design avant-gardiste.",
-          fichiers: [
-            { titre: "Catalogue Design 1", desc: "Lignes avant-gardistes et colorées.", lien: "https://heyzine.com/flip-book/50766f6757.html" },
-            { titre: "Catalogue Design 2", desc: "Collections et ambiances.", lien: "https://heyzine.com/flip-book/890ffb683e.html" }
-          ]
-        },
-        {
-          nom: "Randal Pro",
-          pays: "Espagne",
-          presentation: "Mobilier de salle de bain sur mesure haut de gamme.",
-          fichiers: [
-            { titre: "Catalogues Randal", desc: "Collections et téléchargements officiels.", lien: "https://randal.group/colecciones/" },
-            { titre: "Configurateur Meuble", desc: "Créez votre meuble sur mesure en ligne.", lien: "https://conf.randalsa.com/studio/register.php" }
-          ]
-        },
-        {
-          nom: "Neobath",
-          pays: "Italie",
-          presentation: "Fabricant italien de meubles de salle de bain design.",
-          fichiers: [
-            { titre: "Catalogues Neobath", desc: "Collections et catalogue officiel à télécharger.", lien: "https://neobathdesign.fr/catalogues/" }
-          ]
-        },
-        {
-          nom: "Koibath",
-          pays: "Espagne",
-          presentation: "Solutions innovantes et esthétiques pour la salle de bain moderne.",
-          fichiers: [
-            { titre: "Catalogue Salle de Bain", desc: "Équipements et aménagements modernes.", lien: "https://www.koibath.com/wp-content/uploads/2025-Catalogo-Espana-muebles-de-bano.pdf" }
-          ]
-        },
-        {
-          nom: "Aquahome",
-          pays: "Robinetterie",
-          presentation: "Robinetterie haut de gamme alliant design et performance technique.",
-          fichiers: [
-            { titre: "Catalogue Robinetterie", desc: "Catalogue momentanément indisponible — contactez LE ROY FACTORY.", lien: "contact.html" }
-          ]
-        },
-        {
-          nom: "Opal",
-          pays: "International",
-          presentation: "Fabricant de miroirs lumineux et décoratifs pour espaces d'eau.",
-          fichiers: [
-            { titre: "Miroirs & Éclairages", desc: "Gamme de miroirs lumineux et accessoires.", lien: "https://www.koibath.com/wp-content/uploads/CATALOGO-ESPEJOS-2025.pdf" }
-          ]
-        },
-        {
-          nom: "Bilt",
-          pays: "International",
-          presentation: "Croisillons autonivelants et accessoires de pose professionnels.",
-          fichiers: [
-            { titre: "Outillage & Pose", desc: "Systèmes de nivellement et accessoires de chantier.", lien: "https://static1.squarespace.com/static/6303350848baf04643f47e75/t/695e81a2f7247e0c195e5394/1767801250391/Cata%CC%81logo+2025_ES_3.2.pdf" }
-          ]
-        }
+        { nom:'Elios Ceramica', pays:'Italie', presentation:'Fabricant italien spécialisé dans les petits formats et la céramique décorative haut de gamme.', fichiers:[
+          { titre:'Catalogue Général', desc:'Toutes les collections 2026.', lien:'https://eliosceramica.com/wp-content/uploads/2018/02/ELIOS_CATALOGO-GENERALE-2026-1.pdf' },
+          { titre:'Coverings 2026', desc:'Revêtements et dernières tendances.', lien:'https://eliosceramica.com/wp-content/uploads/2001/04/ELIOS_CATALOGO-COVERINGS-2026.pdf' },
+          { titre:'Outdoor 2026', desc:"Solutions et carrelages pour l'extérieur.", lien:'https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_OUTDOOR_2026.pdf' }
+        ]},
+        { nom:'View Ceramica', pays:'Italie', presentation:'Design contemporain et solutions céramiques innovantes pour les professionnels exigeants.', fichiers:[
+          { titre:'Corso 2026', desc:'Catalogue de la série Corso.', lien:'https://viewceramiche.com/wp-content/uploads/2023/12/View_catalogo_serie_Corso_2024_LR.pdf' },
+          { titre:'Tibur 2026', desc:'Catalogue de la série Tibur.', lien:'https://viewceramiche.com/wp-content/uploads/2023/11/Catalogo-Tibur_01-2025_LR.pdf' },
+          { titre:'Golden Stone 2026', desc:'Catalogue de la série Golden Stone.', lien:'https://viewceramiche.com/wp-content/uploads/2025/10/View_catalogo_serie_Golden_Stone_2026_LR.pdf' }
+        ]},
+        { nom:'La Fenice', pays:'Italie', presentation:"Tradition et modernité italienne au service de l'architecture intérieure.", fichiers:[
+          { titre:'Catalogues', desc:'La Fenice srl', lien:'https://lafenicegc.com/fr/catalogues/' }
+        ]},
+        { nom:'Reviglass', pays:'Espagne', presentation:'Spécialiste de la mosaïque en verre recyclé haut de gamme.', fichiers:[
+          { titre:'Catalogue Général', desc:'Catalogue général Reviglass.', lien:'assets/pdf/REVIGLASS_catalogue%20general-baja.pdf' },
+          { titre:'Ambiances', desc:'Inspirations et réalisations Reviglass.', lien:'assets/pdf/reviglass%20ambiances.pdf' },
+          { titre:'Pool', desc:'Catalogue piscine Reviglass.', lien:'assets/pdf/web_Reviglass_Pool.pdf' },
+          { titre:'Configurateur Virtuel Piscine', desc:'Créez votre design de piscine en ligne.', lien:'https://myvirtualpool.reviglass.es/' }
+        ]},
+        { nom:'Biopietra', pays:'Italie', presentation:"Pierre reconstituée écologique et certifiée pour l'aménagement décoratif.", fichiers:[
+          { titre:'Catalogue Pierre Écologique', desc:'Revêtements muraux et sols texturés.', lien:'https://www.biopietra.com' }
+        ]},
+        { nom:"Petracer's", pays:'Italie', presentation:"L'expression ultime du luxe à l'italienne dans le carrelage d'exception.", fichiers:[
+          { titre:'Catalogue Intérieur', desc:"Collections de luxe et décors d'apparat.", lien:'https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf' },
+          { titre:'Catalogue Général', desc:'Sélection complète et tarifs mail.', lien:'https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf' }
+        ]},
+        { nom:'Pecchioli Firenze', pays:'Italie', presentation:'Céramique artistique et historique faite à Florence.', fichiers:[
+          { titre:'Catalogue Pecchioli 2026', desc:"Faïences d'art et créations sur mesure.", lien:'assets/pdf/catalogue%20pecchioli%202026.pdf' }
+        ]},
+        { nom:'Bulbo', pays:'Italie', presentation:'Créations céramiques audacieuses et design avant-gardiste.', fichiers:[
+          { titre:'Catalogue Design 1', desc:'Lignes avant-gardistes et colorées.', lien:'https://heyzine.com/flip-book/50766f6757.html' },
+          { titre:'Catalogue Design 2', desc:'Collections et ambiances.', lien:'https://heyzine.com/flip-book/890ffb683e.html' }
+        ]},
+        { nom:'Randal Pro', pays:'Espagne', presentation:'Mobilier de salle de bain sur mesure haut de gamme.', fichiers:[
+          { titre:'Catalogues Randal', desc:'Collections et téléchargements officiels.', lien:'https://randal.group/colecciones/' },
+          { titre:'Configurateur Meuble', desc:'Créez votre meuble sur mesure en ligne.', lien:'https://conf.randalsa.com/studio/register.php' }
+        ]},
+        { nom:'Neobath', pays:'Italie', presentation:'Fabricant italien de meubles de salle de bain design.', fichiers:[
+          { titre:'Catalogues Neobath', desc:'Collections et catalogue officiel à télécharger.', lien:'https://neobathdesign.fr/catalogues/' }
+        ]},
+        { nom:'Koibath', pays:'Espagne', presentation:'Solutions innovantes et esthétiques pour la salle de bain moderne.', fichiers:[
+          { titre:'Catalogue Salle de Bain', desc:'Équipements et aménagements modernes.', lien:'https://www.koibath.com/wp-content/uploads/2025-Catalogo-Espana-muebles-de-bano.pdf' }
+        ]},
+        { nom:'Aquahome', pays:'Robinetterie', presentation:'Robinetterie haut de gamme alliant design et performance technique.', fichiers:[
+          { titre:'Catalogue Robinetterie', desc:'Catalogue momentanément indisponible — contactez LE ROY FACTORY.', lien:'contact.html' }
+        ]},
+        { nom:'Opal', pays:'International', presentation:"Fabricant de miroirs lumineux et décoratifs pour espaces d'eau.", fichiers:[
+          { titre:'Miroirs & Éclairages', desc:'Gamme de miroirs lumineux et accessoires.', lien:'https://www.koibath.com/wp-content/uploads/CATALOGO-ESPEJOS-2025.pdf' }
+        ]},
+        { nom:'Bilt', pays:'International', presentation:'Croisillons autonivelants et accessoires de pose professionnels.', fichiers:[
+          { titre:'Outillage & Pose', desc:'Systèmes de nivellement et accessoires de chantier.', lien:'https://static1.squarespace.com/static/6303350848baf04643f47e75/t/695e81a2f7247e0c195e5394/1767801250391/Cata%CC%81logo+2025_ES_3.2.pdf' }
+        ]}
       ];
 
       const grid = document.getElementById('grid-catalogues');
-      if (grid) {
-        grid.innerHTML = cataloguesData.map(fab => {
-          let logoFile = '';
-          const nameLower = fab.nom.toLowerCase();
-          if (nameLower.includes('elios')) logoFile = 'elios.png';
-          else if (nameLower.includes('view')) logoFile = 'view.png';
-          else if (nameLower.includes('fenice')) logoFile = 'lafenice.png';
-          else if (nameLower.includes('reviglass')) logoFile = 'reviglass.png';
-          else if (nameLower.includes('biopietra')) logoFile = 'biopietra.png';
-          else if (nameLower.includes('petracer')) logoFile = 'petracer.png';
-          else if (nameLower.includes('pecchioli')) logoFile = 'pecchioli.png';
-          else if (nameLower.includes('bulbo')) logoFile = 'bulbo.png';
-          else if (nameLower.includes('randal')) logoFile = 'randal.png';
-          else if (nameLower.includes('neobath')) logoFile = 'neobath.png';
-          else if (nameLower.includes('koibath')) logoFile = 'koibath.png';
-          else if (nameLower.includes('aquahome')) logoFile = 'aquahome.png';
-          else if (nameLower.includes('opal')) logoFile = 'opal.png';
-          else if (nameLower.includes('bilt')) logoFile = 'bilt.png';
+      if (!grid) return;
 
-          let logoStyle = logoFile ? `background-image: url('assets/img/${logoFile}');` : '';
+      grid.innerHTML = cataloguesData.map(fab => {
+        let logoFile = '';
+        const nameLower = fab.nom.toLowerCase();
+        if (nameLower.includes('elios')) logoFile = 'elios.png';
+        else if (nameLower.includes('view')) logoFile = 'view.png';
+        else if (nameLower.includes('fenice')) logoFile = 'lafenice.png';
+        else if (nameLower.includes('reviglass')) logoFile = 'reviglass.png';
+        else if (nameLower.includes('biopietra')) logoFile = 'biopietra.png';
+        else if (nameLower.includes('petracer')) logoFile = 'petracer.png';
+        else if (nameLower.includes('pecchioli')) logoFile = 'pecchioli.png';
+        else if (nameLower.includes('bulbo')) logoFile = 'bulbo.png';
+        else if (nameLower.includes('randal')) logoFile = 'randal.png';
+        else if (nameLower.includes('neobath')) logoFile = 'neobath.png';
+        else if (nameLower.includes('koibath')) logoFile = 'koibath.png';
+        else if (nameLower.includes('aquahome')) logoFile = 'aquahome.png';
+        else if (nameLower.includes('opal')) logoFile = 'opal.png';
+        else if (nameLower.includes('bilt')) logoFile = 'bilt.png';
 
-          return `
-            <div class="card-premium" style="background: #ffffff; border: 1px solid rgba(0,0,0,0.06); border-radius: 4px; padding: 2rem; display: flex; flex-direction: column; justify-content: space-between; position: relative; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
-              <div style="position: absolute; top: 1.5rem; right: 1.5rem; width: 110px; height: 50px; ${logoStyle} background-repeat: no-repeat; background-position: right top; background-size: contain; opacity: 1; pointer-events: none; z-index: 1;"></div>
-              
-              <div style="position: relative; z-index: 2; padding-right: 90px;">
-                <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #708273; font-weight: 600;">${fab.pays}</span>
-                <h3 style="font-size: 1.25rem; margin: 0.5rem 0 1rem; color: #1a2530;">${fab.nom}</h3>
-                <p style="font-size: 0.9rem; color: #555; margin-bottom: 1.5rem;">${fab.presentation}</p>
-              </div>
-              
-              <div style="display: flex; flex-direction: column; gap: 0.75rem; position: relative; z-index: 2;">
-                ${fab.fichiers.map(file => `
-                  <div style="background: #f8f6f2; padding: 0.75rem 1rem; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
-                    <div>
-                      <strong style="display: block; font-size: 0.85rem; color: #1a2530;">${file.titre}</strong>
-                      <span style="font-size: 0.75rem; color: #666;">${file.desc}</span>
-                    </div>
-                    <a href="${file.lien}" target="_blank" rel="noopener" class="btn btn-outline" style="font-size: 0.75rem; padding: 0.4rem 0.8rem; border: 1px solid #1a2530; color: #1a2530; text-decoration: none; border-radius: 4px; white-space: nowrap;">Lien</a>
-                  </div>
-                `).join('')}
-              </div>
+        const logoStyle = logoFile ? `background-image:url('assets/img/${logoFile}');` : '';
+
+        return `
+          <div class="card-premium" style="background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:4px; padding:2rem; display:flex; flex-direction:column; justify-content:space-between; position:relative; box-shadow:0 4px 20px rgba(0,0,0,.03);">
+            <div style="position:absolute; top:1.5rem; right:1.5rem; width:110px; height:50px; ${logoStyle} background-repeat:no-repeat; background-position:right top; background-size:contain; opacity:1; pointer-events:none; z-index:1;"></div>
+            <div style="position:relative; z-index:2; padding-right:90px;">
+              <span style="font-size:.75rem; text-transform:uppercase; letter-spacing:.1em; color:#708273; font-weight:600;">${fab.pays}</span>
+              <h3 style="font-size:1.25rem; margin:.5rem 0 1rem; color:#1a2530;">${fab.nom}</h3>
+              <p style="font-size:.9rem; color:#555; margin-bottom:1.5rem;">${fab.presentation}</p>
             </div>
-          `;
-        }).join('');
-      }
+            <div style="display:flex; flex-direction:column; gap:.75rem; position:relative; z-index:2;">
+              ${fab.fichiers.map(file => {
+                const isPdf = file.lien.toLowerCase().includes('.pdf');
+                return `
+                  <div style="background:#f8f6f2; padding:.75rem 1rem; border-radius:4px; display:flex; justify-content:space-between; align-items:center; gap:1rem;">
+                    <div>
+                      <strong style="display:block; font-size:.85rem; color:#1a2530;">${file.titre}</strong>
+                      <span style="font-size:.75rem; color:#666;">${file.desc}</span>
+                    </div>
+                    <a href="${file.lien}" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:.75rem; padding:.4rem .8rem; border:1px solid #1a2530; color:#1a2530; text-decoration:none; border-radius:4px; white-space:nowrap;">${isPdf ? 'PDF' : 'Lien'}</a>
+                  </div>`;
+              }).join('')}
+            </div>
+          </div>`;
+      }).join('');
     });
   </script>
   <script src="assets/js/app.js"></script>
