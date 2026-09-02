@@ -4,7 +4,7 @@
   window.__LRF_PRO_SESSION_BRIDGE__ = true;
 
   const KEY = 'lrfProSession';
-  const MAX_AGE = 2 * 60 * 60 * 1000;
+  const MAX_AGE = 60 * 60 * 1000;
   const isTariffPage = window.location.pathname.toLowerCase().endsWith('tarifs-pro.html');
 
   function purgeLegacy() {
@@ -43,8 +43,10 @@
       try { sessionStorage.removeItem(KEY); } catch (_) {}
       return null;
     }
-    if (Date.now() - session.verifiedAt > MAX_AGE) {
+    if (Date.now() - session.verifiedAt >= MAX_AGE) {
       try { sessionStorage.removeItem(KEY); } catch (_) {}
+      window.LRF_PRO_CONTEXT = null;
+      window.dispatchEvent(new CustomEvent('lrf-pro-session-expired'));
       return null;
     }
     return session;
@@ -69,22 +71,9 @@
     return read();
   }
 
-  // Ancien code universel définitivement désactivé.
   function unlockLegacy() {
     clear();
     return false;
-  }
-
-  function neutralizeLegacyTariffLogin() {
-    if (!isTariffPage) return;
-    clear();
-    const box = document.getElementById('login-section');
-    const content = document.getElementById('pro-content');
-    if (content) content.style.display = 'none';
-    if (box) {
-      box.style.display = 'block';
-      box.innerHTML = '<h2 style="font-size:1.75rem;margin-bottom:.6rem;color:#1A2530">Accès professionnel</h2><p style="color:#666;font-size:.95rem">Chargement du contrôle sécurisé…</p>';
-    }
   }
 
   function patchPricingApi() {
@@ -109,13 +98,8 @@
 
   function init() {
     purgeLegacy();
-    if (isTariffPage) {
-      // Sur Accès PRO : aucune restauration automatique. LRF + département obligatoires à chaque entrée.
-      neutralizeLegacyTariffLogin();
-    } else {
-      const session = read();
-      if (!session) clear();
-    }
+    const session = read();
+    if (!session) clear();
     if (!patchPricingApi()) {
       let tries = 0;
       const timer = setInterval(() => {
@@ -125,7 +109,7 @@
     }
   }
 
-  window.LRF_PRO_SESSION = { key: KEY, read, write, clear, unlockLegacy, sync };
+  window.LRF_PRO_SESSION = { key: KEY, maxAge: MAX_AGE, read, write, clear, unlockLegacy, sync };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
   else init();
 })();
