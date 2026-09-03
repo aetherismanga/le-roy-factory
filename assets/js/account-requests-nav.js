@@ -85,7 +85,7 @@ if(new Set(['clients.html','mails-groupes.html']).has(lrfCurrentPage)){
 if(lrfCurrentPage==='dashboard.html'){
   import('./dashboard-ui-fixes.js?v=20260903-1')
     .catch(err=>console.error('Erreur correctifs dashboard :',err));
-  import('./dashboard-agent-avatar.js?v=20260903-2')
+  import('./dashboard-agent-avatar.js?v=20260904-avatar3')
     .catch(err=>console.error('Erreur avatar agent dashboard :',err));
 }
 
@@ -93,7 +93,7 @@ if(lrfCurrentPage==='dashboard.html'){
 // Agenda volontairement exclu pour garder la page calendrier la plus légère et compacte possible.
 const lrfClockPages=new Set(['dashboard.html','clients.html','mails-groupes.html','comptes-rendus.html','tournees.html']);
 if(lrfClockPages.has(lrfCurrentPage)){
-  import('./dashboard-clock-tools.js?v=20260903-5').then(async()=>{
+  import('./dashboard-clock-tools.js?v=20260904-header1').then(async()=>{
     await import('./dashboard-clock-state-fix.js?v=20260903-1')
       .catch(err=>console.error('Erreur état des outils horloge :',err));
     if(lrfCurrentPage==='dashboard.html'||document.getElementById('lrf-clock-page-layout-fix'))return;
