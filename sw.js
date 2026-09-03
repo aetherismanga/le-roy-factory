@@ -1,4 +1,4 @@
-const CACHE='lrf-pwa-v2';
+const CACHE='lrf-pwa-v3-logo-fix';
 const CORE=['/','/index.html','/assets/brand-v2/assetlogorond.png'];
 
 self.addEventListener('install',event=>{
