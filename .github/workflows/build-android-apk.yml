@@ -36,6 +36,25 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
+      - name: Restore stable Android signing key
+        uses: actions/cache@v4
+        with:
+          path: ~/.android/debug.keystore
+          key: lrf-android-debug-keystore-v1
+
+      - name: Ensure stable Android signing key
+        run: |
+          mkdir -p "$HOME/.android"
+          if [ ! -f "$HOME/.android/debug.keystore" ]; then
+            keytool -genkeypair -v \
+              -keystore "$HOME/.android/debug.keystore" \
+              -storepass android \
+              -alias androiddebugkey \
+              -keypass android \
+              -dname "CN=Android Debug,O=Le Roy Factory,C=FR" \
+              -keyalg RSA -keysize 2048 -validity 10000
+          fi
+
       - name: Install mobile dependencies
         working-directory: mobile
         run: npm install
@@ -47,6 +66,19 @@ jobs:
       - name: Sync CRM and native plugins
         working-directory: mobile
         run: npm run cap:sync
+
+      - name: Set Android version
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import os, re
+          p=Path('mobile/android/app/build.gradle')
+          s=p.read_text()
+          run=int(os.environ.get('GITHUB_RUN_NUMBER','1'))
+          s=re.sub(r'versionCode\s+\d+', f'versionCode {run}', s)
+          s=re.sub(r'versionName\s+"[^"]+"', f'versionName "1.0.{run}"', s)
+          p.write_text(s)
+          PY
 
       - name: Build debug APK
         working-directory: mobile/android
