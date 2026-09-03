@@ -12,8 +12,9 @@
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
   <link rel="stylesheet" href="assets/css/clients.css">
-  <link rel="stylesheet" href="assets/css/tournees.css?v=20260903-3">
-  <link rel="stylesheet" href="assets/css/tournees-v3.css?v=20260903-3">
+  <link rel="stylesheet" href="assets/css/tournees.css?v=20260903-4">
+  <link rel="stylesheet" href="assets/css/tournees-v3.css?v=20260903-4">
+  <link rel="stylesheet" href="assets/css/tournees-v4.css?v=20260903-4">
 </head>
 <body class="crm-body">
   <aside class="crm-sidebar">
@@ -46,11 +47,11 @@
       <div>
         <section class="tour-card tour-config">
           <h2>🧭 Paramètres de la tournée</h2>
-          <p class="tour-lead">Chaque visite est prévue sur <strong>1 h 30</strong>. Choisissez une période : le CRM répartit les clients sur plusieurs jours avec une pause <strong>12 h–14 h</strong> chaque journée.</p>
+          <p class="tour-lead">Chaque visite est prévue sur <strong>1 h 30</strong>. Choisissez une période et <strong>un ou plusieurs départements</strong> : le CRM optimise ensuite l’ensemble de la tournée avec une pause <strong>12 h–14 h</strong> chaque journée.</p>
           <div class="tour-form-grid">
             <div class="tour-field"><label for="tour-date">Du</label><input id="tour-date" type="date"></div>
             <div class="tour-field"><label for="tour-end-date">Au</label><input id="tour-end-date" type="date"></div>
-            <div class="tour-field"><label for="tour-dep">Département</label><select id="tour-dep"><option value="">Choisir…</option></select></div>
+            <div class="tour-deps-wrap"><label>Départements à visiter</label><div id="tour-deps" class="tour-deps"></div></div>
             <div class="tour-field"><label for="tour-start-time">Début de journée</label><input id="tour-start-time" type="time" value="07:30"></div>
             <div class="tour-field"><label for="tour-end-time">Fin de journée</label><input id="tour-end-time" type="time" value="19:00"></div>
             <div class="tour-field full"><label for="tour-start-address">Point de départ</label><input id="tour-start-address" type="text" placeholder="Adresse de départ ou utilisez Ma position"></div>
@@ -61,15 +62,15 @@
           <h3 style="margin-top:18px">🏭 Usines représentées</h3>
           <div id="tour-partners" class="tour-partners"></div>
           <p class="tour-note">Vous pouvez sélectionner plusieurs usines. Elles seront indiquées sur la feuille de route pour préparer vos présentations chez chaque client.</p>
-          <div id="tour-status" class="tour-status">Choisissez un département pour afficher les clients disponibles.</div>
+          <div id="tour-status" class="tour-status">Sélectionnez un ou plusieurs départements.</div>
         </section>
 
         <section class="tour-card tour-client-picker" style="margin-top:18px">
           <h2>👥 Clients à visiter</h2>
-          <div class="tour-client-tools"><input id="tour-client-search" type="search" placeholder="Rechercher un client, une ville…"><button id="tour-smart-select" type="button" class="tour-btn secondary">✨ Sélection intelligente</button><button id="tour-clear-select" type="button" class="tour-btn secondary">Effacer</button></div>
-          <div id="tour-client-list" class="tour-client-list"><div class="tour-empty">Sélectionnez d'abord un département.</div></div>
+          <div class="tour-client-tools"><input id="tour-client-search" type="search" placeholder="Rechercher un client, une ville ou un département…"><button id="tour-smart-select" type="button" class="tour-btn secondary">✨ Sélection intelligente</button><button id="tour-clear-select" type="button" class="tour-btn secondary">Effacer</button></div>
+          <div id="tour-client-list" class="tour-client-list"><div class="tour-empty">Sélectionnez d'abord un ou plusieurs départements.</div></div>
           <div class="tour-actions"><button id="tour-calculate" class="tour-btn teal" type="button">⚡ Calculer l’itinéraire optimal</button></div>
-          <p class="tour-note">Le CRM optimise chaque journée séparément et répartit les clients sur toute la période en privilégiant les secteurs proches et les temps de route réalistes.</p>
+          <p class="tour-note">Le CRM mélange les clients des départements choisis et les répartit par proximité sur toute la période, afin d’éviter les allers-retours inutiles entre secteurs.</p>
         </section>
       </div>
 
@@ -78,13 +79,13 @@
         <div class="tour-result-head"><div><h2>📋 Feuille de route</h2><p class="tour-lead" id="tour-result-sub">Aucune tournée calculée pour le moment.</p></div><div class="tour-actions" style="margin-top:0"><button id="tour-save" type="button" class="tour-btn" disabled>💾 Enregistrer</button><button id="tour-print" type="button" class="tour-btn dark" disabled>🖨 Imprimer</button></div></div>
         <div id="tour-summary" class="tour-summary"></div>
         <div id="tour-map" class="tour-map"></div>
-        <div id="tour-route" class="route-list"><div class="tour-empty">Le CRM affichera ici chaque journée, l’ordre optimal des visites, les horaires, les temps de trajet et le bouton de compte-rendu pour chaque client.</div></div>
+        <div id="tour-route" class="route-list"><div class="tour-empty">Le CRM affichera ici chaque journée, les départements visités, l’ordre optimal des clients, les horaires, les temps de trajet et le bouton de compte-rendu.</div></div>
         <div class="tour-saved"><h3>🗂 Tournées enregistrées</h3><div id="tour-saved-list"><div class="tour-empty">Chargement…</div></div></div>
       </section>
     </div>
   </main>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script type="module" src="assets/js/tournees-v3.js?v=20260903-3"></script>
+  <script type="module" src="assets/js/tournees-v4.js?v=20260903-4"></script>
 </body>
 </html>
