@@ -154,3 +154,164 @@ nav.active a:not(.agent-btn):hover,
   top: 1.5rem !important;
   right: 1.5rem !important;
 }
+
+/* ==========================================================================
+   RÉALISATIONS — CARTES FERMÉES
+   Standard visuel commun pour les réalisations actuelles et futures.
+   Le lightbox plein écran n'est volontairement pas modifié ici.
+   ========================================================================== */
+.realisation-card .realisation-content {
+  position: absolute !important;
+  inset: 0 !important;
+  padding: 0 !important;
+  color: #fff !important;
+  pointer-events: none !important;
+}
+
+/* Le descriptif n'est pas utile sur les vignettes. */
+.realisation-card .realisation-content > p {
+  display: none !important;
+}
+
+/* Logo usine : emplacement commun en haut à gauche. */
+.realisation-card .realisation-brand {
+  position: absolute !important;
+  top: 18px !important;
+  left: 18px !important;
+  z-index: 3 !important;
+  width: 112px !important;
+  height: 58px !important;
+  margin: 0 !important;
+  padding: 7px 10px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: 1px solid rgba(212,175,55,.72) !important;
+  border-radius: 12px !important;
+  background-color: rgba(255,255,255,.94) !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: contain !important;
+  box-shadow: 0 5px 18px rgba(0,0,0,.22) !important;
+  backdrop-filter: blur(5px) !important;
+  color: #6b5014 !important; /* fallback si une nouvelle usine n'a pas encore de mapping logo */
+  font-size: .66rem !important;
+  line-height: 1.05 !important;
+  text-align: center !important;
+  font-weight: 850 !important;
+  letter-spacing: .04em !important;
+  text-transform: uppercase !important;
+}
+
+/* Vrais logos des usines. Les cartes utilisent déjà data-usine :
+   toute future réalisation d'une usine connue récupère donc son logo automatiquement. */
+.realisation-card[data-usine*="VIEW" i] .realisation-brand {
+  background-image: url('../img/view.png') !important;
+  color: transparent !important;
+  font-size: 0 !important;
+}
+.realisation-card[data-usine*="ELIOS" i] .realisation-brand {
+  background-image: url('../img/elios.png') !important;
+  color: transparent !important;
+  font-size: 0 !important;
+}
+.realisation-card[data-usine*="FENICE" i] .realisation-brand {
+  background-image: url('../img/lafenice.png') !important;
+  color: transparent !important;
+  font-size: 0 !important;
+}
+.realisation-card[data-usine*="REVIGLASS" i] .realisation-brand {
+  background-image: url('../img/reviglass.png') !important;
+  color: transparent !important;
+  font-size: 0 !important;
+}
+.realisation-card[data-usine*="BIOPIETRA" i] .realisation-brand {
+  background-image: url('../img/biopietra.png') !important;
+  color: transparent !important;
+  font-size: 0 !important;
+}
+.realisation-card[data-usine*="PETRACER" i] .realisation-brand {
+  background-image: url('../img/petracer.png') !important;
+  color: transparent !important;
+  font-size: 0 !important;
+}
+.realisation-card[data-usine*="PECCHIOLI" i] .realisation-brand {
+  background-image: url('../img/pecchioli.png') !important;
+  color: transparent !important;
+  font-size: 0 !important;
+}
+.realisation-card[data-usine*="BULBO" i] .realisation-brand {
+  background-image: url('../img/bulbo.png') !important;
+  color: transparent !important;
+  font-size: 0 !important;
+}
+.realisation-card[data-usine*="RANDAL" i] .realisation-brand {
+  background-image: url('../img/randal.png') !important;
+  color: transparent !important;
+  font-size: 0 !important;
+}
+.realisation-card[data-usine*="NEOBATH" i] .realisation-brand {
+  background-image: url('../img/neobath.png') !important;
+  color: transparent !important;
+  font-size: 0 !important;
+}
+.realisation-card[data-usine*="AQUAHOME" i] .realisation-brand {
+  background-image: url('../img/aquahome.png') !important;
+  color: transparent !important;
+  font-size: 0 !important;
+}
+.realisation-card[data-usine*="KOIBATH" i] .realisation-brand {
+  background-image: url('../img/koibath.png') !important;
+  color: transparent !important;
+  font-size: 0 !important;
+}
+
+/* Titre produit : doré, lisible, sans masquer inutilement la photo. */
+.realisation-card .realisation-content > h3 {
+  position: absolute !important;
+  left: 18px !important;
+  right: 18px !important;
+  bottom: 66px !important;
+  margin: 0 !important;
+  color: #FFD54A !important;
+  font-size: 1.32rem !important;
+  line-height: 1.12 !important;
+  font-weight: 900 !important;
+  letter-spacing: .005em !important;
+  text-shadow: 0 2px 3px rgba(0,0,0,.95), 0 0 12px rgba(0,0,0,.72) !important;
+}
+
+.realisation-card .realisation-tags {
+  position: absolute !important;
+  left: 18px !important;
+  right: 18px !important;
+  bottom: 16px !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: .4rem !important;
+}
+
+@media (max-width: 700px) {
+  .realisation-card .realisation-brand {
+    top: 14px !important;
+    left: 14px !important;
+    width: 96px !important;
+    height: 50px !important;
+    padding: 6px 8px !important;
+  }
+
+  .realisation-card .realisation-content > h3 {
+    left: 14px !important;
+    right: 14px !important;
+    bottom: 64px !important;
+    font-size: 1.18rem !important;
+  }
+
+  .realisation-card .realisation-tags {
+    left: 14px !important;
+    right: 14px !important;
+    bottom: 14px !important;
+  }
+}
