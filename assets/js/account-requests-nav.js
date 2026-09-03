@@ -37,6 +37,11 @@ function addNav(){
     const li=document.createElement('li');li.innerHTML='<a href="demandes-clients.html"><span class="icon">🧾</span><span class="menu-text">Demandes clients</span></a>';
     if(clients)clients.insertAdjacentElement('afterend',li);else menu.appendChild(li);
   }
+  if(menu&&!menu.querySelector('a[href="tournees.html"]')){
+    const agenda=[...menu.querySelectorAll('a')].find(a=>a.getAttribute('href')==='agenda.html')?.closest('li');
+    const li=document.createElement('li');li.innerHTML='<a href="tournees.html"><span class="icon">🧭</span><span class="menu-text">Tournées</span></a>';
+    if(agenda)agenda.insertAdjacentElement('afterend',li);else menu.appendChild(li);
+  }
   if(menu&&!menu.querySelector('a[href="contacts-partenaires.html"]')){
     const mails=[...menu.querySelectorAll('a')].find(a=>a.getAttribute('href')==='mails-groupes.html')?.closest('li');
     const li=document.createElement('li');li.innerHTML='<a href="contacts-partenaires.html"><span class="icon">🏭</span><span class="menu-text">Contacts partenaires</span></a>';
@@ -50,6 +55,9 @@ function addNav(){
     const quick=[...document.querySelectorAll('h2')].find(h=>h.textContent.includes('Actions rapides'))?.nextElementSibling;
     if(quick&&!quick.querySelector('a[href="demandes-clients.html"]')){
       const a=document.createElement('a');a.href='demandes-clients.html';a.className='btn-primary-gold';a.style.cssText='text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.25rem';a.textContent='🧾 Demandes clients';quick.appendChild(a);
+    }
+    if(quick&&!quick.querySelector('a[href="tournees.html"]')){
+      const a=document.createElement('a');a.href='tournees.html';a.className='btn-primary-gold';a.style.cssText='text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.25rem';a.textContent='🧭 Créer une tournée';quick.appendChild(a);
     }
     if(quick&&!quick.querySelector('a[href="ouverture-compte.html"]')){
       const a=document.createElement('a');a.href='ouverture-compte.html';a.target='_blank';a.className='btn-primary-gold';a.style.cssText='text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.25rem';a.textContent='🔗 Formulaire ouverture / mise à jour';quick.appendChild(a);
