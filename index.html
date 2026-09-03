@@ -27,7 +27,10 @@
     @keyframes lrfLightPulse{0%{opacity:.58;filter:brightness(.92)}100%{opacity:1;filter:brightness(1.15)}}
     @keyframes lrfGoldSweep{0%,24%{transform:translateX(-38%);opacity:0}42%{opacity:.35}58%{opacity:.48}78%,100%{transform:translateX(38%);opacity:0}}
     @keyframes lrfLogoGlow{0%{opacity:.45;transform:scaleX(.92)}100%{opacity:.88;transform:scaleX(1.06)}}
-    @media(max-width:900px){.hero-video-section{height:calc(100svh - 84px);min-height:640px;background-image:linear-gradient(180deg,rgba(0,0,0,.02),rgba(0,0,0,.10) 54%,rgba(0,0,0,.34)),url('assets/brand-v2/accueil-mobile.png?v=20260901-hd2');background-position:center center;background-size:cover}.hero-video-section::before{background:radial-gradient(circle at 82% 28%,rgba(255,196,68,.22),rgba(255,170,34,.08) 8%,transparent 20%),linear-gradient(180deg,rgba(255,189,70,.07),transparent 24%)}.hero-video-section::after{opacity:.24;animation-duration:13s}.hero-logo{width:92vw;max-width:92vw}.hero-logo-wrapper{filter:drop-shadow(0 0 10px rgba(255,194,39,.20))}.hero-buttons{flex-wrap:wrap;justify-content:center}}
+    @media(max-width:900px){
+      html,body{scrollbar-width:none!important;-ms-overflow-style:none!important}
+      html::-webkit-scrollbar,body::-webkit-scrollbar{display:none!important;width:0!important;height:0!important;background:transparent!important}
+      .hero-video-section{height:calc(100svh - 84px);min-height:640px;background-image:linear-gradient(180deg,rgba(0,0,0,.02),rgba(0,0,0,.10) 54%,rgba(0,0,0,.34)),url('assets/brand-v2/accueil-mobile.png?v=20260901-hd2');background-position:center center;background-size:cover}.hero-video-section::before{background:radial-gradient(circle at 82% 28%,rgba(255,196,68,.22),rgba(255,170,34,.08) 8%,transparent 20%),linear-gradient(180deg,rgba(255,189,70,.07),transparent 24%)}.hero-video-section::after{opacity:.24;animation-duration:13s}.hero-logo{width:92vw;max-width:92vw}.hero-logo-wrapper{filter:drop-shadow(0 0 10px rgba(255,194,39,.20))}.hero-buttons{flex-wrap:wrap;justify-content:center}}
     @media(prefers-reduced-motion:reduce){.hero-video-section::before,.hero-video-section::after,.hero-logo-wrapper::after{animation:none!important}.hero-video-section::after{display:none}}
   </style>
 </head>
