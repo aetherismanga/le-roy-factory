@@ -55,6 +55,16 @@
   html body.lrf-premium-v2.lrf-premium-v2.lrf-light-page:not(.lrf-agent-page) .hero-banner h1{font-size:clamp(1.65rem,7vw,2.05rem)!important;line-height:1.08!important;margin:0 auto .45rem!important}
   html body.lrf-premium-v2.lrf-premium-v2.lrf-light-page:not(.lrf-agent-page) .hero-banner p{font-size:.93rem!important;line-height:1.45!important;max-width:92vw!important}
 
+  /* Réalisations : mobile beaucoup plus compact, photos visibles dès le premier écran */
+  body main:has(.realisations-filters){padding-top:24px!important;padding-bottom:32px!important}
+  body main:has(.realisations-filters)>.container{padding-left:14px!important;padding-right:14px!important}
+  body main:has(.realisations-filters)>.container>h1{font-size:clamp(2rem,9vw,2.55rem)!important;line-height:1.03!important;margin:0 0 .65rem!important;letter-spacing:-.025em!important}
+  body main:has(.realisations-filters)>.container>p{font-size:.98rem!important;line-height:1.38!important;margin:0 0 1rem!important;max-width:100%!important}
+  body .realisations-filters{gap:.42rem!important;margin:0 0 1rem!important;display:flex!important;flex-wrap:wrap!important}
+  body .realisations-filters .btn{font-size:.78rem!important;line-height:1.1!important;padding:.48rem .72rem!important;min-height:38px!important;border-radius:999px!important}
+  body .realisations-grid{grid-template-columns:1fr!important;gap:14px!important}
+  body .realisation-card{min-height:330px!important;border-radius:16px!important}
+
   /* Conteneurs / cartes sans débordement */
   html body.lrf-premium-v2.lrf-premium-v2.lrf-light-page main .container{width:100%!important;max-width:100%!important;padding-left:14px!important;padding-right:14px!important;box-sizing:border-box!important}
   html body.lrf-premium-v2.lrf-premium-v2.lrf-light-page #grid-partenaires,
@@ -105,4 +115,10 @@
   html body.lrf-page-index.lrf-premium-v2 .hero-content h2{font-size:1.75rem!important}
   html body.lrf-page-index.lrf-premium-v2 .hero-content p{font-size:.94rem!important}
   html body.lrf-agent-page.lrf-premium-v2 .login-wrapper{padding:22px 16px!important}
+  body main:has(.realisations-filters){padding-top:18px!important}
+  body main:has(.realisations-filters)>.container>h1{font-size:2.05rem!important;margin-bottom:.5rem!important}
+  body main:has(.realisations-filters)>.container>p{font-size:.92rem!important;line-height:1.32!important;margin-bottom:.8rem!important}
+  body .realisations-filters{gap:.36rem!important;margin-bottom:.85rem!important}
+  body .realisations-filters .btn{font-size:.73rem!important;padding:.43rem .62rem!important;min-height:34px!important}
+  body .realisation-card{min-height:300px!important}
 }
