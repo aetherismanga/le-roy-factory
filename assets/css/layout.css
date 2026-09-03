@@ -46,7 +46,6 @@ header {
   height: 80px;
 }
 
-/* Logo LE ROY FACTORY : Or vif, brillant et lumineux */
 .logo {
   font-weight: 800;
   font-size: 1.4rem;
@@ -55,7 +54,6 @@ header {
   letter-spacing: 0.08em;
 }
 
-/* Onglets du menu : Noirs, plus grands et bien lisibles */
 header nav a {
   transition: var(--transition-smooth);
   padding: 0.6rem 1rem;
@@ -80,7 +78,6 @@ header nav a.active {
   text-shadow: none;
 }
 
-/* Bannière Hero commune pour les pages intérieures */
 .hero-banner {
   padding: 160px 0 80px;
   background-size: cover;
@@ -105,7 +102,6 @@ header nav a.active {
   z-index: 2;
 }
 
-/* Menu Burger & Responsive */
 .burger-btn {
   display: none;
   background: none;
@@ -125,18 +121,9 @@ header nav a.active {
   transition: var(--transition-smooth);
 }
 
-/* Animation des barres du menu burger en croix (X) */
-.burger-btn.active span:nth-child(1) {
-  transform: rotate(45deg) translate(6px, 6px);
-}
-
-.burger-btn.active span:nth-child(2) {
-  opacity: 0;
-}
-
-.burger-btn.active span:nth-child(3) {
-  transform: rotate(-45deg) translate(6px, -6px);
-}
+.burger-btn.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
+.burger-btn.active span:nth-child(2) { opacity: 0; }
+.burger-btn.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
 
 @media (max-width: 900px) {
   header nav ul {
@@ -155,26 +142,12 @@ header nav a.active {
     z-index: 1000;
   }
 
-  header nav ul.active {
-    right: 0;
-  }
-
-  header nav ul.active a {
-    color: #000000 !important;
-    text-shadow: none;
-  }
-
-  header nav ul.active a:hover {
-    background-color: #FFD700 !important;
-    color: #000000 !important;
-  }
-
-  .burger-btn {
-    display: flex;
-  }
+  header nav ul.active { right: 0; }
+  header nav ul.active a { color: #000000 !important; text-shadow: none; }
+  header nav ul.active a:hover { background-color: #FFD700 !important; color: #000000 !important; }
+  .burger-btn { display: flex; }
 }
 
-/* Footer : Bandeau fleuri avec texte en noir */
 footer {
   background-image: url('../img/bandeau01.png');
   background-size: cover;
@@ -189,7 +162,6 @@ footer p {
   text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
 }
 
-/* --- EFFET CHIC : TRAIT DORÉ OR VIF & SURBRILLANCE SANS CHANGEMENT DE FOND --- */
 .card-premium, .card, .partner-card, .inspiration-card, .realisation-card, #grid-catalogues > div {
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   border: 1px solid rgba(0, 0, 0, 0.08);
@@ -208,118 +180,33 @@ footer p {
   box-shadow: 0 0 18px rgba(255, 215, 0, 0.5), 0 8px 25px rgba(0, 0, 0, 0.04) !important;
 }
 
-/* --- Correctif spécifique ACCÈS PRO --- */
-body:has(#grid-tarifs) #login-section {
-  max-width: 560px !important;
-}
-
-body:has(#grid-tarifs) .pro-login-grid {
-  grid-template-columns: minmax(0, 1fr) 190px !important;
-}
-
-body:has(#grid-tarifs) #pro-dept {
-  width: 100% !important;
-  min-width: 0 !important;
-}
+body:has(#grid-tarifs) #login-section { max-width: 560px !important; }
+body:has(#grid-tarifs) .pro-login-grid { grid-template-columns: minmax(0, 1fr) 190px !important; }
+body:has(#grid-tarifs) #pro-dept { width: 100% !important; min-width: 0 !important; }
 
 @media (min-width: 901px) {
-  body:has(#grid-tarifs) .nav-container {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    height: 86px !important;
-  }
-
-  body:has(#grid-tarifs) header nav {
-    margin-left: auto !important;
-  }
-
-  body:has(#grid-tarifs) .main-nav {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    justify-content: flex-end !important;
-    flex-wrap: nowrap !important;
-    gap: 1.35rem !important;
-    list-style: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-
-  body:has(#grid-tarifs) .main-nav li {
-    display: flex !important;
-    align-items: center !important;
-    list-style: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-
-  body:has(#grid-tarifs) .main-nav > li > a:not(.agent-btn) {
-    display: inline-flex !important;
-    align-items: center !important;
-    padding: .45rem 0 !important;
-    background: transparent !important;
-    color: #fff !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    text-shadow: none !important;
-    text-decoration: none !important;
-    font-size: .98rem !important;
-    font-weight: 800 !important;
-    white-space: nowrap !important;
-    position: relative !important;
-  }
-
+  body:has(#grid-tarifs) .nav-container { display:flex!important;align-items:center!important;justify-content:space-between!important;height:86px!important; }
+  body:has(#grid-tarifs) header nav { margin-left:auto!important; }
+  body:has(#grid-tarifs) .main-nav { display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:flex-end!important;flex-wrap:nowrap!important;gap:1.35rem!important;list-style:none!important;margin:0!important;padding:0!important; }
+  body:has(#grid-tarifs) .main-nav li { display:flex!important;align-items:center!important;list-style:none!important;margin:0!important;padding:0!important; }
+  body:has(#grid-tarifs) .main-nav > li > a:not(.agent-btn) { display:inline-flex!important;align-items:center!important;padding:.45rem 0!important;background:transparent!important;color:#fff!important;border-radius:0!important;box-shadow:none!important;text-shadow:none!important;text-decoration:none!important;font-size:.98rem!important;font-weight:800!important;white-space:nowrap!important;position:relative!important; }
   body:has(#grid-tarifs) .main-nav > li > a:not(.agent-btn):hover,
-  body:has(#grid-tarifs) .main-nav > li > a.active:not(.agent-btn) {
-    background: transparent !important;
-    color: #FFD700 !important;
-    box-shadow: none !important;
-  }
-
-  body:has(#grid-tarifs) .main-nav > li > a.active:not(.agent-btn)::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -3px;
-    height: 2px;
-    background: #FFD700;
-    box-shadow: 0 0 8px rgba(255,215,0,.85);
-  }
-
-  body:has(#grid-tarifs) .agent-btn {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    padding: 9px 17px !important;
-    background: #000 !important;
-    color: #FFD700 !important;
-    border: 1px solid #FFD700 !important;
-    border-radius: 8px !important;
-    box-shadow: none !important;
-    text-shadow: none !important;
-    text-decoration: none !important;
-    font-size: .95rem !important;
-    font-weight: 800 !important;
-    white-space: nowrap !important;
-  }
-
-  body:has(#grid-tarifs) .agent-btn:hover {
-    background: #FFD700 !important;
-    color: #000 !important;
-  }
-
-  body:has(#grid-tarifs) .logo img {
-    width: 88px !important;
-    height: 88px !important;
-    max-width: none !important;
-    object-fit: contain !important;
-  }
+  body:has(#grid-tarifs) .main-nav > li > a.active:not(.agent-btn) { background:transparent!important;color:#FFD700!important;box-shadow:none!important; }
+  body:has(#grid-tarifs) .main-nav > li > a.active:not(.agent-btn)::after { content:'';position:absolute;left:0;right:0;bottom:-3px;height:2px;background:#FFD700;box-shadow:0 0 8px rgba(255,215,0,.85); }
+  body:has(#grid-tarifs) .agent-btn { display:inline-flex!important;align-items:center!important;justify-content:center!important;padding:9px 17px!important;background:#000!important;color:#FFD700!important;border:1px solid #FFD700!important;border-radius:8px!important;box-shadow:none!important;text-shadow:none!important;text-decoration:none!important;font-size:.95rem!important;font-weight:800!important;white-space:nowrap!important; }
+  body:has(#grid-tarifs) .agent-btn:hover { background:#FFD700!important;color:#000!important; }
+  body:has(#grid-tarifs) .logo img { width:88px!important;height:88px!important;max-width:none!important;object-fit:contain!important; }
 }
 
 @media (max-width: 600px) {
-  body:has(#grid-tarifs) .pro-login-grid {
-    grid-template-columns: 1fr !important;
-  }
+  body:has(#grid-tarifs) .pro-login-grid { grid-template-columns: 1fr !important; }
+
+  /* CRM : une vraie barre de recherche mobile, sans grand rectangle vide */
+  body.crm-body .crm-toolbar { gap:.7rem!important;padding:.8rem!important;align-items:stretch!important; }
+  body.crm-body .crm-toolbar .search-wrapper { flex:0 0 100%!important;min-width:0!important;width:100%!important;height:auto!important;min-height:0!important; }
+  body.crm-body .crm-toolbar .search-box { min-height:48px!important;height:48px!important;padding:.55rem .8rem!important;border-radius:12px!important;align-items:center!important; }
+  body.crm-body .crm-toolbar .search-box input { min-height:0!important;height:32px!important;padding:0!important;font-size:16px!important;line-height:32px!important; }
+  body.crm-body .crm-toolbar .search-box span { flex:0 0 auto!important;font-size:1rem!important; }
+  body.crm-body .crm-toolbar .select-filters { width:100%!important;display:grid!important;grid-template-columns:1fr!important;gap:.55rem!important; }
+  body.crm-body .crm-toolbar .crm-select { width:100%!important;min-height:46px!important; }
 }
