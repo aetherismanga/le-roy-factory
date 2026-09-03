@@ -81,10 +81,12 @@ if(new Set(['clients.html','mails-groupes.html']).has(lrfCurrentPage)){
     .catch(err=>console.error('Erreur archivage détaillé des mails :',err));
 }
 
-// Dashboard : actions homogènes + activités commerciales ouvrables.
+// Dashboard : actions homogènes + activités commerciales ouvrables + avatar de l'agent connecté.
 if(lrfCurrentPage==='dashboard.html'){
   import('./dashboard-ui-fixes.js?v=20260903-1')
     .catch(err=>console.error('Erreur correctifs dashboard :',err));
+  import('./dashboard-agent-avatar.js?v=20260903-1')
+    .catch(err=>console.error('Erreur avatar agent dashboard :',err));
 }
 
 // En-tête premium : calendrier cliquable, horloge numérique et outils temps.
