@@ -1,10 +1,11 @@
-import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { readFile, writeFile, mkdir, cp } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { dirname } from 'node:path';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const mobileRoot = resolve(here, '..');
+const repoRoot = resolve(mobileRoot, '..');
 const androidRoot = join(mobileRoot, 'android');
 const appGradle = join(androidRoot, 'app', 'build.gradle');
 const manifestPath = join(androidRoot, 'app', 'src', 'main', 'AndroidManifest.xml');
@@ -30,6 +31,14 @@ for (const permission of permissions) {
     manifest = manifest.replace(/<manifest([^>]*)>/, `<manifest$1>\n    <uses-permission android:name="${permission}" />`);
   }
 }
+
+// Icône Android officielle LRF : on utilise directement le logo rond du site.
+const iconDir = join(androidRoot, 'app', 'src', 'main', 'res', 'drawable-nodpi');
+await mkdir(iconDir, { recursive: true });
+await cp(join(repoRoot, 'assets', 'brand-v2', 'logoLRF.png'), join(iconDir, 'lrf_launcher.png'));
+manifest = manifest
+  .replace(/android:icon="[^"]+"/g, 'android:icon="@drawable/lrf_launcher"')
+  .replace(/android:roundIcon="[^"]+"/g, 'android:roundIcon="@drawable/lrf_launcher"');
 await writeFile(manifestPath, manifest, 'utf8');
 
 const mainActivity = `package fr.leroyfactory.crm;
@@ -110,4 +119,4 @@ public class GoogleCalendarNativePlugin extends Plugin {
 `;
 await writeFile(join(javaDir, 'GoogleCalendarNativePlugin.java'), googlePlugin, 'utf8');
 
-console.log('Pont Google Calendar + localisation Android installés (sans Jarvis / plugin voix)');
+console.log('Pont Google Calendar + localisation + icone LRF Android installés');
