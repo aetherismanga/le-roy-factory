@@ -13,24 +13,21 @@
   --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* CRM mobile : le logo de la sidebar ne doit jamais flotter sur le dashboard.
-   Sélecteur volontairement plus spécifique que les styles injectés par
-   dashboard-commercial.js afin d'empêcher tout display:flex parasite. */
+/* CRM mobile : suppression définitive du logo sidebar qui flottait sur le dashboard.
+   Le sélecteur est volontairement plus spécifique que les styles injectés par
+   dashboard-commercial.js et son display:flex!important. */
 @media (max-width: 900px) {
   html body.crm-body aside.crm-sidebar > div.sidebar-brand.sidebar-brand {
     display: none !important;
     visibility: hidden !important;
     opacity: 0 !important;
     pointer-events: none !important;
-  }
-
-  /* Si le menu mobile utilise bien l'état crm-menu-open, le logo reste autorisé
-     uniquement à l'intérieur du panneau ouvert. */
-  html body.crm-body.crm-menu-open aside.crm-sidebar > div.sidebar-brand.sidebar-brand {
-    display: flex !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    pointer-events: auto !important;
+    width: 0 !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
   }
 }
 
