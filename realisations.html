@@ -58,6 +58,7 @@
 
       <div class="realisations-filters" aria-label="Filtrer les réalisations">
         <button class="btn btn-primary is-active" type="button" data-filter="tous">Tous</button>
+        <button class="btn btn-outline" type="button" data-filter="interieur">Intérieur</button>
         <button class="btn btn-outline" type="button" data-filter="cuisine">Cuisine</button>
         <button class="btn btn-outline" type="button" data-filter="salon">Salon</button>
         <button class="btn btn-outline" type="button" data-filter="salle-de-bain">Salle de bain</button>
@@ -89,6 +90,26 @@
           </div>
         </article>
 
+        <article class="realisation-card" tabindex="0" role="button" data-categories="interieur residentiel" data-usine="VIEW Ceramica" data-reference="CORSO Beige" data-format="60×90" aria-label="Agrandir VIEW CORSO Beige 60x90 — intérieur 1">
+          <img src="assets/img/View%20-%20corso%20beige%2060x90.jpeg" alt="Réalisation intérieure VIEW CORSO Beige 60x90" loading="lazy">
+          <div class="realisation-content">
+            <span class="realisation-brand">VIEW Ceramica</span>
+            <h3>CORSO Beige 60×90 — Intérieur</h3>
+            <p>Ambiance intérieure en CORSO Beige, format 60×90.</p>
+            <div class="realisation-tags"><span>Intérieur</span><span>Résidentiel</span></div>
+          </div>
+        </article>
+
+        <article class="realisation-card" tabindex="0" role="button" data-categories="interieur residentiel" data-usine="VIEW Ceramica" data-reference="CORSO Beige" data-format="60×90" aria-label="Agrandir VIEW CORSO Beige 60x90 — intérieur 2">
+          <img src="assets/img/view%20corso%20beige%2060x90%2002.jpeg" alt="Seconde réalisation intérieure VIEW CORSO Beige 60x90" loading="lazy">
+          <div class="realisation-content">
+            <span class="realisation-brand">VIEW Ceramica</span>
+            <h3>CORSO Beige 60×90 — Intérieur</h3>
+            <p>Seconde ambiance intérieure de la collection CORSO Beige en 60×90.</p>
+            <div class="realisation-tags"><span>Intérieur</span><span>Résidentiel</span></div>
+          </div>
+        </article>
+
         <div class="gallery-empty" id="gallery-empty">Aucune réalisation n'est encore intégrée dans cette catégorie.</div>
       </div>
     </div>
@@ -106,7 +127,7 @@
 
   <footer><div class="container" style="text-align:center;padding:2rem 0;"><p style="color:#fff!important;font-weight:600;text-shadow:0 1px 4px rgba(0,0,0,.9);">&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p></div></footer>
 
-  <script src="assets/js/app.js?v=20260903-realisations2"></script>
+  <script src="assets/js/app.js?v=20260903-realisations3"></script>
   <script>
     (()=>{
       const buttons=[...document.querySelectorAll('[data-filter]')];
