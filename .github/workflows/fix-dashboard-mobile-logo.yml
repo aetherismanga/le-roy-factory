@@ -1,0 +1,74 @@
+name: Fix dashboard mobile logo
+
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-dashboard-mobile-logo.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Patch dashboard mobile chrome
+        shell: python
+        run: |
+          from pathlib import Path
+
+          js = Path('assets/js/dashboard-commercial.js')
+          text = js.read_text(encoding='utf-8')
+
+          text = text.replace(
+              "@media(max-width:650px){body.crm-body .crm-sidebar .sidebar-brand,body.crm-body .crm-mobile-logo,body.crm-body #crm-mobile-logo,body.crm-body .lrf-mobile-logo{display:none!important}",
+              "@media(max-width:650px){body.crm-body .crm-sidebar .sidebar-brand{display:flex!important}body.crm-body .crm-mobile-logo,body.crm-body #crm-mobile-logo,body.crm-body .lrf-mobile-logo{display:none!important}"
+          )
+
+          old = """function cleanupMobileChrome(){
+            if(!window.matchMedia('(max-width: 900px)').matches)return;
+            document.querySelectorAll('.lrf-mobile-actions,.crm-mobile-logo,#crm-mobile-logo,.lrf-mobile-logo').forEach(el=>el.remove());
+            const brand=document.querySelector('.crm-sidebar .sidebar-brand');if(brand)brand.style.display='none';
+          }"""
+          new = """function cleanupMobileChrome(){
+            if(!window.matchMedia('(max-width: 900px)').matches)return;
+            document.querySelectorAll('.lrf-mobile-actions,.crm-mobile-logo,#crm-mobile-logo,.lrf-mobile-logo').forEach(el=>el.remove());
+            const brand=document.querySelector('.crm-sidebar .sidebar-brand');
+            if(brand){brand.style.removeProperty('display');brand.style.display='flex';}
+            document.querySelectorAll('img').forEach(img=>{
+              if(img.closest('.crm-sidebar'))return;
+              const src=String(img.getAttribute('src')||'').toLowerCase();
+              if(src.includes('logo03lrf')||src.includes('assetlogorond')){
+                const rect=img.getBoundingClientRect();
+                if(rect.width<=110&&rect.height<=110&&rect.top<220){
+                  const host=img.closest('a,button,div');
+                  (host&&host!==document.body?host:img).remove();
+                }
+              }
+            });
+          }"""
+          if old not in text:
+              raise SystemExit('Bloc cleanupMobileChrome introuvable')
+          text = text.replace(old, new)
+          js.write_text(text, encoding='utf-8')
+
+          css = Path('assets/css/layout.css')
+          c = css.read_text(encoding='utf-8')
+          c = c.replace(
+              "body.crm-body .crm-sidebar .sidebar-brand,\n  body.crm-body .crm-mobile-logo,",
+              "body.crm-body .crm-sidebar .sidebar-brand {\n    display: flex !important;\n  }\n\n  body.crm-body .crm-mobile-logo,"
+          )
+          css.write_text(c, encoding='utf-8')
+
+      - name: Commit fix
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/js/dashboard-commercial.js assets/css/layout.css
+          git diff --cached --quiet && exit 0
+          git commit -m "fix: restaure logo menu et retire seulement logo central"
+          git push
