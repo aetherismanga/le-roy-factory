@@ -101,7 +101,7 @@ document.addEventListener("click", e => {
   }
 }, true);
 
-import("./account-requests-nav.js?v=20260903-header3").catch(err => console.error("Erreur chargement navigation demandes clients :", err));
+import("./account-requests-nav.js?v=20260904-avatar3").catch(err => console.error("Erreur chargement navigation demandes clients :", err));
 if (currentPage === "clients.html") {
   import("./seed-bilt-annexe-clients.js?v=20260901").catch(err => console.error("Erreur chargement clients Annexe 1 BILT :", err));
   import("./client-direct-email.js?v=20260817-1845").catch(err => console.error("Erreur chargement module e-mail client :", err));
