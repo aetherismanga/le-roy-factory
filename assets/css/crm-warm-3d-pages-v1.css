@@ -1,0 +1,218 @@
+/* LE ROY FACTORY CRM — finitions pages Accueil + Clients/Prospects */
+
+/* ========================= ACCUEIL ========================= */
+html body.crm-body:has(#dash-clients-actifs) .crm-topbar {
+  max-width:none !important;
+}
+
+html body.crm-body:has(#dash-clients-actifs) .crm-topbar + div {
+  margin-bottom:18px !important;
+  padding:15px !important;
+  border:1px solid var(--crm-line) !important;
+  border-radius:18px !important;
+  background:linear-gradient(145deg,#fffefb,#fff8ee) !important;
+  box-shadow:var(--crm-shadow-soft),var(--crm-inset) !important;
+}
+html body.crm-body:has(#dash-clients-actifs) .crm-topbar + div > h2 {
+  margin:0 0 12px !important;
+  font-size:.78rem !important;
+  letter-spacing:.06em !important;
+  text-transform:uppercase !important;
+  color:#6c6257 !important;
+}
+html body.crm-body:has(#dash-clients-actifs) .crm-topbar + div > div {
+  display:grid !important;
+  grid-template-columns:repeat(5,minmax(125px,1fr)) !important;
+  gap:10px !important;
+}
+html body.crm-body:has(#dash-clients-actifs) .crm-topbar + div a.btn-primary-gold {
+  min-height:72px !important;
+  padding:11px 10px !important;
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:center !important;
+  text-align:center !important;
+  gap:5px !important;
+  border-radius:14px !important;
+  font-size:.82rem !important;
+  line-height:1.18 !important;
+}
+
+/* KPI principaux accueil : relief + pictogramme couleur */
+html body.crm-body:has(#dash-clients-actifs) .crm-main-content > div[style*="grid-template-columns"]:has(#dash-clients-actifs) > div,
+html body.crm-body:has(#dash-prospects) .crm-main-content > div[style*="grid-template-columns"]:has(#dash-prospects) > div {
+  padding:18px 18px 18px 82px !important;
+  min-height:116px !important;
+}
+html body.crm-body:has(#dash-clients-actifs) .crm-main-content > div[style*="grid-template-columns"]:has(#dash-clients-actifs) > div::before {
+  position:absolute;
+  left:18px;
+  top:50%;
+  transform:translateY(-50%);
+  width:48px;
+  height:48px;
+  display:grid;
+  place-items:center;
+  border-radius:14px;
+  color:#fff;
+  font-size:1.35rem;
+  box-shadow:inset 0 1px rgba(255,255,255,.55),inset 0 -3px 4px rgba(0,0,0,.12),0 7px 14px rgba(0,0,0,.14);
+}
+html body.crm-body:has(#dash-clients-actifs) .crm-main-content > div[style*="grid-template-columns"]:has(#dash-clients-actifs) > div:nth-child(1)::before{content:"🏢";background:linear-gradient(145deg,#42c8c0,#087d77)}
+html body.crm-body:has(#dash-clients-actifs) .crm-main-content > div[style*="grid-template-columns"]:has(#dash-clients-actifs) > div:nth-child(2)::before{content:"🎯";background:linear-gradient(145deg,#ff8b70,#d74b34)}
+html body.crm-body:has(#dash-clients-actifs) .crm-main-content > div[style*="grid-template-columns"]:has(#dash-clients-actifs) > div:nth-child(3)::before{content:"📅";background:linear-gradient(145deg,#67a4f4,#2b68c2)}
+
+html body.crm-body:has(#dash-clients-actifs) #dash-clients-actifs,
+html body.crm-body:has(#dash-prospects) #dash-prospects {
+  color:var(--crm-ink) !important;
+  letter-spacing:-.04em !important;
+}
+
+/* Cartes secondaires accueil */
+html body.crm-body:has(#dash-clients-actifs) .crm-main-content > div[style*="grid-template-columns"]:not(:has(#dash-clients-actifs)) > div {
+  border-top-width:1px !important;
+}
+html body.crm-body:has(#dash-clients-actifs) .crm-main-content > div[style*="grid-template-columns"]:not(:has(#dash-clients-actifs)) > div:nth-child(1){border-left:4px solid var(--crm-gold)!important}
+html body.crm-body:has(#dash-clients-actifs) .crm-main-content > div[style*="grid-template-columns"]:not(:has(#dash-clients-actifs)) > div:nth-child(2){border-left:4px solid var(--crm-teal)!important}
+html body.crm-body:has(#dash-clients-actifs) .crm-main-content > div[style*="grid-template-columns"]:not(:has(#dash-clients-actifs)) > div:nth-child(3){border-left:4px solid var(--crm-coral)!important}
+
+/* Barre objectif plus vive */
+html body.crm-body:has(#dash-clients-actifs) .crm-main-content div[style*="width: 78%"] {
+  background:linear-gradient(90deg,#f5a914,#ffcb4d,#ef6848) !important;
+  box-shadow:0 0 12px rgba(243,173,24,.28) !important;
+}
+
+/* ========================= CLIENTS / PROSPECTS ========================= */
+html body.crm-body:has(#clients-table-body) .stats-grid {
+  grid-template-columns:repeat(3,minmax(190px,1fr)) !important;
+}
+html body.crm-body:has(#clients-table-body) .stat-card {
+  position:relative !important;
+  overflow:hidden !important;
+}
+html body.crm-body:has(#clients-table-body) .stat-card::after {
+  content:"";
+  position:absolute;
+  width:82px;height:82px;
+  right:-28px;top:-30px;
+  border-radius:50%;
+  opacity:.12;
+  background:currentColor;
+}
+html body.crm-body:has(#clients-table-body) .stat-card:nth-child(1){color:var(--crm-teal)!important}
+html body.crm-body:has(#clients-table-body) .stat-card:nth-child(2){color:var(--crm-coral)!important}
+html body.crm-body:has(#clients-table-body) .stat-card:nth-child(3){color:#3d9a7f!important}
+
+html body.crm-body:has(#clients-table-body) #btn-add-client {
+  min-height:48px !important;
+  padding:10px 18px !important;
+  white-space:nowrap !important;
+}
+html body.crm-body:has(#clients-table-body) .search-wrapper {
+  flex:1 1 320px !important;
+}
+html body.crm-body:has(#clients-table-body) .search-box {
+  min-height:46px !important;
+  display:flex !important;
+  align-items:center !important;
+  padding:0 12px !important;
+}
+html body.crm-body:has(#clients-table-body) .search-box input {
+  min-height:42px !important;
+  box-shadow:none !important;
+  border:0 !important;
+  background:transparent !important;
+}
+html body.crm-body:has(#clients-table-body) .select-filters {
+  gap:8px !important;
+}
+html body.crm-body:has(#clients-table-body) .crm-select {
+  min-height:46px !important;
+}
+
+/* Bouton éditer : petit bouton tactile relief */
+html body.crm-body:has(#clients-table-body) .btn-edit-row {
+  min-height:34px !important;
+  padding:6px 10px !important;
+  background:linear-gradient(180deg,#fffdf8,#fff1da) !important;
+  border-color:#e6b34c !important;
+  color:#5d4930 !important;
+  box-shadow:inset 0 1px #fff,0 4px 9px rgba(126,82,22,.09) !important;
+}
+
+/* ========================= MOBILE ========================= */
+@media(max-width:900px){
+  html body.crm-body:has(#dash-clients-actifs) .crm-topbar + div {
+    padding:12px !important;
+  }
+  html body.crm-body:has(#dash-clients-actifs) .crm-topbar + div > div {
+    grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+    gap:8px !important;
+  }
+  html body.crm-body:has(#dash-clients-actifs) .crm-topbar + div a.btn-primary-gold {
+    min-width:0 !important;
+    min-height:82px !important;
+    padding:10px 5px !important;
+    font-size:.69rem !important;
+    white-space:normal !important;
+  }
+  html body.crm-body:has(#dash-clients-actifs) .crm-topbar + div a.btn-primary-gold:nth-child(5){grid-column:span 1}
+
+  html body.crm-body:has(#dash-clients-actifs) .crm-main-content > div[style*="grid-template-columns"]:has(#dash-clients-actifs) {
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+    gap:8px !important;
+  }
+  html body.crm-body:has(#dash-clients-actifs) .crm-main-content > div[style*="grid-template-columns"]:has(#dash-clients-actifs) > div {
+    min-width:0 !important;
+    min-height:138px !important;
+    padding:12px 6px 10px !important;
+    text-align:center !important;
+  }
+  html body.crm-body:has(#dash-clients-actifs) .crm-main-content > div[style*="grid-template-columns"]:has(#dash-clients-actifs) > div::before {
+    position:static !important;
+    transform:none !important;
+    width:43px !important;
+    height:43px !important;
+    margin:0 auto 8px !important;
+    font-size:1.15rem !important;
+  }
+  html body.crm-body:has(#dash-clients-actifs) .crm-main-content > div[style*="grid-template-columns"]:has(#dash-clients-actifs) h3 {
+    font-size:.63rem !important;
+    line-height:1.15 !important;
+    margin-bottom:5px !important;
+  }
+  html body.crm-body:has(#dash-clients-actifs) .crm-main-content > div[style*="grid-template-columns"]:has(#dash-clients-actifs) p[id] {
+    font-size:1.5rem !important;
+    margin-bottom:2px !important;
+  }
+  html body.crm-body:has(#dash-clients-actifs) .crm-main-content > div[style*="grid-template-columns"]:has(#dash-clients-actifs) p:not([id]),
+  html body.crm-body:has(#dash-clients-actifs) .crm-main-content > div[style*="grid-template-columns"]:has(#dash-clients-actifs) a {
+    font-size:.62rem !important;
+    line-height:1.15 !important;
+  }
+
+  html body.crm-body:has(#clients-table-body) .stats-grid {
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  }
+  html body.crm-body:has(#clients-table-body) .crm-toolbar {
+    display:flex !important;
+    flex-direction:column !important;
+    align-items:stretch !important;
+  }
+  html body.crm-body:has(#clients-table-body) #btn-add-client {
+    order:0 !important;
+    width:100% !important;
+    min-height:52px !important;
+  }
+  html body.crm-body:has(#clients-table-body) .search-wrapper {order:1!important;min-width:100%!important;width:100%!important}
+  html body.crm-body:has(#clients-table-body) #lrf-mobile-filter-toggle{order:2!important;min-height:46px!important}
+  html body.crm-body:has(#clients-table-body) .select-filters{order:3!important}
+}
+
+@media(max-width:520px){
+  html body.crm-body:has(#dash-clients-actifs) .crm-topbar + div > div {
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  }
+  html body.crm-body:has(#dash-clients-actifs) .crm-topbar + div a.btn-primary-gold:nth-child(5){grid-column:span 1}
+}
