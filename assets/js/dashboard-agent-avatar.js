@@ -5,22 +5,34 @@
 
   function install(){
     const topbar=document.querySelector('.crm-topbar');
-    if(!topbar||document.getElementById('lrf-agent-avatar'))return;
+    if(!topbar)return;
 
     const email=String(localStorage.getItem('agentEmail')||'').toLowerCase();
     const name=String(localStorage.getItem('agentName')||'').toLowerCase();
     const isCoryne=email.includes('coryne@')||name.includes('coryne');
-    const file=isCoryne?'assets/img/corynelogo.png':'assets/img/jeromelogo.png';
+    const file=isCoryne?'assets/corynelogo.png?v=20260903-2':'assets/jeromelogo.png?v=20260903-2';
     const label=isCoryne?'Coryne':'Jérôme';
 
-    const avatar=document.createElement('img');
-    avatar.id='lrf-agent-avatar';
-    avatar.src=file;
+    let avatar=document.getElementById('lrf-agent-avatar');
+    if(!avatar){
+      avatar=document.createElement('img');
+      avatar.id='lrf-agent-avatar';
+      avatar.loading='eager';
+      avatar.decoding='async';
+      avatar.setAttribute('aria-label',`Profil de ${label}`);
+      topbar.appendChild(avatar);
+    }
+
     avatar.alt=`Avatar de ${label}`;
-    avatar.loading='eager';
-    avatar.decoding='async';
-    avatar.setAttribute('aria-label',`Profil de ${label}`);
-    topbar.appendChild(avatar);
+    avatar.src=file;
+    avatar.dataset.agent=label.toLowerCase();
+
+    // Compatibilité avec l'ancien emplacement si un déploiement est encore en cache.
+    avatar.onerror=()=>{
+      if(avatar.dataset.fallbackTried==='1')return;
+      avatar.dataset.fallbackTried='1';
+      avatar.src=isCoryne?'assets/img/corynelogo.png?v=20260903-2':'assets/img/jeromelogo.png?v=20260903-2';
+    };
 
     if(!document.getElementById('lrf-agent-avatar-style')){
       const style=document.createElement('style');
@@ -62,5 +74,5 @@
   }
 
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install,{once:true});else install();
-  window.addEventListener('lrf-agent-auth-ready',()=>setTimeout(install,0),{once:true});
+  window.addEventListener('lrf-agent-auth-ready',()=>setTimeout(install,0));
 })();
