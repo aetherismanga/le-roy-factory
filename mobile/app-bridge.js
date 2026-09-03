@@ -7,6 +7,20 @@
   document.documentElement.classList.toggle('lrf-native-app',isNative);
   if(!isNative)return;
 
+  // Dans l'application native, le contenu vient directement de l'APK.
+  // On supprime les anciens service workers/caches PWA qui pourraient conserver
+  // une ancienne version de firebase.js après une mise à jour Android.
+  try{
+    if('serviceWorker' in navigator){
+      const registrations=await navigator.serviceWorker.getRegistrations();
+      await Promise.all(registrations.map(r=>r.unregister().catch(()=>false)));
+    }
+    if('caches' in window){
+      const keys=await caches.keys();
+      await Promise.all(keys.map(key=>caches.delete(key)));
+    }
+  }catch(e){console.warn('Nettoyage cache Android',e)}
+
   try{
     const [{App},{Network},{StatusBar,Style},{Geolocation}]=await Promise.all([
       import('@capacitor/app'),
