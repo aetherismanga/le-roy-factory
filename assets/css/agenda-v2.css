@@ -1,0 +1,89 @@
+/* Agenda V2 — LE ROY FACTORY */
+body.crm-body{background:#fbf9f5!important;color:#1a2530!important}
+.crm-topbar{background-image:url('../img/bandeau02.png')!important;background-size:cover!important;background-position:center!important;background-repeat:no-repeat!important;border-bottom:2px solid #d4af37!important;color:#fff!important}
+.crm-topbar h1,.crm-topbar p,.welcome-box h1,.welcome-box p{color:#fff!important;text-shadow:0 1px 4px rgba(0,0,0,.9)}
+.agenda-shell{padding:16px 18px 26px}
+.agenda-card{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:16px;box-shadow:0 8px 28px rgba(32,27,18,.06);padding:14px 16px 16px;min-width:0}
+.agenda-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.agenda-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.agenda-sync{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:#fbfaf7;border:1px solid #dfc26b;border-radius:12px;padding:8px 10px;font-size:.82rem;font-weight:750;min-height:42px}
+.agenda-sync .sync-dot{width:10px;height:10px;border-radius:50%;background:#c63b32;box-shadow:0 0 0 3px rgba(198,59,50,.12)}
+.agenda-sync.connected .sync-dot{background:#22a66f;box-shadow:0 0 0 3px rgba(34,166,111,.12)}
+.agenda-sync.working .sync-dot{background:#d99b16;box-shadow:0 0 0 3px rgba(217,155,22,.14)}
+.agenda-google-btn{border:1px solid #cfa52b;border-radius:9px;background:#111;color:#ffd54a;font-weight:800;padding:7px 10px;cursor:pointer;min-height:34px}
+.calendar-legend-wrap{display:flex;align-items:flex-start;gap:10px;padding:8px 0 12px;border-top:1px solid #eee7dc;border-bottom:1px solid #eee7dc;margin-bottom:8px}
+.calendar-legend-title{font-size:.72rem;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:#786c5c;white-space:nowrap;padding-top:6px}
+#calendar-legend{display:flex;align-items:center;gap:7px;flex-wrap:wrap;min-width:0}
+.calendar-chip{display:inline-flex;align-items:center;gap:6px;border:1px solid #ddd4c8;background:#fff;border-radius:999px;padding:5px 9px;font-size:.72rem;font-weight:750;color:#463f36;cursor:pointer;user-select:none}
+.calendar-chip input{accent-color:#111;margin:0}
+.calendar-chip-dot{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+.calendar-chip.unavailable{opacity:.58;border-style:dashed;cursor:default}
+.calendar-chip.tour-chip{background:#f8f4ed}
+.agenda-help{font-size:.72rem;color:#796f64;margin:0 0 8px}
+.agenda-help strong{color:#40372e}
+#calendar{min-width:0}
+.fc{font-size:.84rem}
+.fc .fc-toolbar.fc-header-toolbar{margin-bottom:.65rem;gap:8px}
+.fc .fc-toolbar-title{font-size:1.12rem!important;color:#17212b;font-weight:850!important;text-transform:none}
+.fc .fc-button{min-height:34px;border-radius:9px!important;box-shadow:none!important}
+.fc .fc-button-primary{background:#111!important;border-color:#cfa52b!important;color:#ffd54a!important;font-weight:800!important}
+.fc .fc-button-primary:hover,.fc .fc-button-primary.fc-button-active{background:#f0ad12!important;border-color:#f0ad12!important;color:#18120a!important}
+.fc .fc-day-today{background:rgba(255,213,74,.12)!important}
+.fc .fc-col-header-cell-cushion{padding:6px 2px;color:#5e4a29;font-weight:800}
+.fc .fc-timegrid-slot{height:22px!important}
+.fc .fc-timegrid-slot-label-cushion{font-size:.72rem;color:#6d6257}
+.fc .fc-timegrid-axis-cushion{font-size:.7rem}
+.fc .fc-timegrid-now-indicator-line{border-color:#d43930}
+.fc .fc-timegrid-now-indicator-arrow{border-top-color:#d43930;border-bottom-color:#d43930}
+.fc-event{border-radius:7px!important;padding:1px 3px!important;cursor:pointer;font-weight:700;box-shadow:0 2px 5px rgba(0,0,0,.08)}
+.fc-event.tour-event{border-style:dashed!important;border-width:2px!important}
+.fc-event .fc-event-time{font-weight:900}
+.fc-event .fc-event-title{font-weight:750}
+.agenda-empty-state{padding:8px 0;color:#7a7067;font-size:.78rem}
+.crm-modal .modal-content.agenda-modal-content{width:min(720px,calc(100vw - 28px));max-height:90vh;overflow:auto}
+.event-source-note{border-left:4px solid #d4af37;background:#fffaf0;border-radius:8px;padding:8px 10px;margin-bottom:12px;font-size:.78rem;color:#625643}
+.event-readonly{opacity:.86}
+.event-readonly input,.event-readonly textarea,.event-readonly select{background:#f4f4f4!important}
+.modal-grid-edit{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.full-width{grid-column:1/-1}
+.form-field label{display:block;font-size:.74rem;font-weight:800;margin-bottom:5px;color:#554b40}
+.form-field input,.form-field textarea,.form-field select{width:100%;border:1px solid #d8d0c6;border-radius:9px;padding:9px 10px;font:inherit;background:#fff;color:#1c2732;min-height:42px}
+.form-field textarea{min-height:88px;resize:vertical}
+.agenda-error{color:#a52820;font-weight:700}
+.agenda-ok{color:#127257;font-weight:700}
+@media(max-width:1100px){
+  .agenda-shell{padding:12px}
+  .agenda-card{padding:12px}
+  .fc .fc-toolbar-title{font-size:1rem!important}
+}
+@media(max-width:760px){
+  .agenda-shell{padding:8px 8px 92px}
+  .agenda-card{padding:10px;border-radius:13px}
+  .agenda-toolbar{align-items:stretch;margin-bottom:8px}
+  .agenda-actions{width:100%;display:grid;grid-template-columns:1fr auto}
+  .agenda-actions .btn-primary-gold{width:100%;min-height:44px}
+  .agenda-sync{width:100%;justify-content:flex-start;padding:8px}
+  .agenda-google-btn{margin-left:auto}
+  .calendar-legend-wrap{display:block;padding:7px 0 9px}
+  .calendar-legend-title{display:block;padding:0 0 6px}
+  #calendar-legend{gap:6px}
+  .calendar-chip{font-size:.68rem;padding:5px 8px;min-height:34px}
+  .agenda-help{font-size:.68rem;line-height:1.35}
+  .fc .fc-toolbar.fc-header-toolbar{display:grid;grid-template-columns:1fr auto;grid-template-areas:'title title' 'left right';align-items:center}
+  .fc .fc-toolbar-chunk:nth-child(1){grid-area:left}
+  .fc .fc-toolbar-chunk:nth-child(2){grid-area:title;text-align:center}
+  .fc .fc-toolbar-chunk:nth-child(3){grid-area:right}
+  .fc .fc-toolbar-title{font-size:1rem!important}
+  .fc .fc-button{min-height:38px;padding:.35em .55em!important;font-size:.78rem!important}
+  .fc .fc-list-event-title,.fc .fc-list-event-time{font-size:.82rem}
+  .modal-grid-edit{grid-template-columns:1fr}
+  .full-width{grid-column:1}
+  .crm-modal .modal-content.agenda-modal-content{width:calc(100vw - 18px);max-height:88vh;padding:16px}
+}
+@media(max-width:420px){
+  .agenda-actions{grid-template-columns:1fr}
+  .agenda-sync{font-size:.74rem}
+  .agenda-google-btn{width:100%;margin-left:0}
+  .fc .fc-toolbar-chunk:nth-child(3){justify-self:end}
+  .fc .fc-button{padding:.32em .48em!important}
+}
