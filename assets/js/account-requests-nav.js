@@ -75,6 +75,6 @@ if(location.pathname.toLowerCase().endsWith('clients.html')){
 
 // Dashboard uniquement : calendrier cliquable, horloge numérique et outils temps.
 if(location.pathname.toLowerCase().endsWith('dashboard.html')){
-  import('./dashboard-clock-tools.js?v=20260903-1')
+  import('./dashboard-clock-tools.js?v=20260903-3')
     .catch(err=>console.error('Erreur chargement outils horloge du dashboard :',err));
 }
