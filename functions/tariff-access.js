@@ -1,6 +1,7 @@
 const { onRequest } = require('firebase-functions/v2/https');
 const admin = require('firebase-admin');
 const zlib = require('zlib');
+const { getAgentFromRequest } = require('./auth');
 
 const db = admin.firestore();
 const bucket = admin.storage().bucket();
@@ -42,7 +43,7 @@ function cors(req,res){
   const allowed=['https://leroyfactory.fr','https://www.leroyfactory.fr'];
   res.set('Access-Control-Allow-Origin',allowed.includes(origin)?origin:'https://leroyfactory.fr');
   res.set('Vary','Origin');
-  res.set('Access-Control-Allow-Headers','Content-Type');
+  res.set('Access-Control-Allow-Headers','Content-Type, Authorization');
   res.set('Access-Control-Allow-Methods','GET, POST, OPTIONS');
   if(req.method==='OPTIONS'){ res.status(204).send(''); return true; }
   return false;
@@ -85,6 +86,10 @@ const getTariffPdf=onRequest({timeoutSeconds:120,memory:'512MiB'},async(req,res)
     const {codeClient,departement,tariffId}=req.body||{};
     const def=TARIFFS[String(tariffId||'')];
     if(!def) return res.status(404).json({success:false,error:'Tarif inconnu'});
+
+    const agent=await getAgentFromRequest(req);
+    if(agent) return streamPrivateFile(res,bucket.file(def.storagePath),def.filename,'application/pdf');
+
     const client=await verifiedClient(codeClient,departement);
     if(!client) return res.status(403).json({success:false,error:'Identifiant client ou département incorrect.'});
     if(!clientCanAccess(client,def.partner)) return res.status(403).json({success:false,error:'Ce tarif n’est pas autorisé pour ce compte.'});
@@ -97,6 +102,9 @@ const getNeobathDnaTariff=onRequest({timeoutSeconds:60,memory:'256MiB'},async(re
   if(req.method!=='POST') return res.status(405).json({success:false,error:'Méthode non autorisée'});
   try{
     const {codeClient,departement}=req.body||{};
+    const agent=await getAgentFromRequest(req);
+    if(agent) return streamPrivateFile(res,bucket.file(DNA_STORAGE),'NEOBATH-DNA-Tarif.txt','text/plain; charset=utf-8');
+
     const client=await verifiedClient(codeClient,departement);
     if(!client) return res.status(403).json({success:false,error:'Identifiant client ou département incorrect.'});
     if(!clientCanAccess(client,'neobath')) return res.status(403).json({success:false,error:'Le tarif NEOBATH n’est pas autorisé pour ce compte.'});
