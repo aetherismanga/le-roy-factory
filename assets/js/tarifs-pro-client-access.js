@@ -1,17 +1,40 @@
 import { partnerContacts } from "./partner-contacts.js?v=20260901-2";
+import { initializeApp, getApp, getApps } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
 const SESSION_KEY = "lrfProSession";
 const PREFILL_URL = "https://getaccountclientprefill-5m3lsyu7bq-uc.a.run.app";
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyA3iuK5Ua8kFccURSqLihLshHnhA4rm2is",
+  authDomain: "le-roy-factory.firebaseapp.com",
+  projectId: "le-roy-factory",
+  storageBucket: "le-roy-factory.firebasestorage.app",
+  messagingSenderId: "249878619253",
+  appId: "1:249878619253:web:05f051710b6251dbfa843c"
+};
+const ADMINS = new Map([
+  ["jerome@leroyfactory.fr", "Jérôme Hugol"],
+  ["coryne@leroyfactory.fr", "Coryne"]
+]);
 const PARTNER_NAMES = {
   "elios-ceramica":"Elios Ceramica","view-ceramica":"View Ceramica","la-fenice":"La Fenice","reviglass":"Reviglass",
   "biopietra":"Biopietra","petracers":"Petracer's","pecchioli-firenze":"Pecchioli Firenze","bulbo":"Bulbo",
   "randal-pro":"Randal Pro","neobath":"Neobath","koibath":"Koibath","aquahome":"Aquahome","opal":"Opal","bilt":"Bilt"
 };
+
+const firebaseApp = getApps().length ? getApp() : initializeApp(FIREBASE_CONFIG);
+const auth = getAuth(firebaseApp);
 const norm=v=>String(v||"").trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]/g,"");
 const esc=v=>String(v||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;");
 const depFromCp=cp=>{const s=String(cp||"").replace(/\s/g,"");if(!/^\d{5}$/.test(s))return"";if(s.startsWith("97")||s.startsWith("98"))return s.slice(0,3);if(s.startsWith("20"))return Number(s)>=20200?"2B":"2A";return s.slice(0,2)};
 const clientDep=c=>String(c.departement||depFromCp(c.codePostal||c.code_postal)||"").trim().toUpperCase();
 let currentClient=null;
+
+function getAdminProfile(user){
+  const email=String(user?.email||"").trim().toLowerCase();
+  if(!email||!ADMINS.has(email))return null;
+  return {email,name:ADMINS.get(email),uid:user.uid};
+}
 
 function clearSession(){
   try{sessionStorage.removeItem(SESSION_KEY)}catch(_){}
@@ -34,8 +57,8 @@ function injectStyles(){
   const s=document.createElement("style");s.id="pro-client-access-style";s.textContent=`
     .pro-login-grid{display:grid;grid-template-columns:1fr 140px;gap:.75rem;margin:1.4rem 0}.pro-login-grid input{padding:.8rem 1rem;border:1px solid #d5d0c7;border-radius:10px;font-size:1rem;outline:none}.pro-login-grid input:focus{border-color:#D4AF37;box-shadow:0 0 0 3px rgba(212,175,55,.12)}
     .pro-login-btn{width:100%;padding:.9rem 1rem;border:1px solid #D4AF37;border-radius:10px;background:#111;color:#FFD700;font-weight:800;cursor:pointer}.pro-login-btn:hover{background:#FFD700;color:#111}.pro-login-btn:disabled{opacity:.65;cursor:wait}
-    .pro-client-summary{margin-bottom:1.5rem;padding:1rem 1.2rem;background:#fff;border:1px solid #e5dfd2;border-left:4px solid #D4AF37;border-radius:12px;display:flex;justify-content:space-between;gap:1rem;align-items:center;flex-wrap:wrap}.pro-client-name{font-weight:900;font-size:1.05rem;color:#1A2530}.pro-client-meta{font-size:.82rem;color:#666;margin-top:.2rem}.pro-logout{border:1px solid #ddd3bf;background:#fff;border-radius:8px;padding:.5rem .8rem;font-weight:700;cursor:pointer}.pro-access-note{font-size:.78rem;color:#777;line-height:1.45;margin-top:.7rem}
-    .pro-locked-card{opacity:.82}.pro-locked-btn{background:#f3f1ed!important;color:#7a7368!important;border-color:#cfc8bc!important;cursor:pointer!important}.pro-access-badge{display:inline-flex;margin-top:.45rem;padding:.25rem .55rem;border-radius:999px;font-size:.7rem;font-weight:800;background:#f2efe8;color:#70685c;border:1px solid #ddd5c7}.pro-access-badge.allowed{background:#e8f5ed;color:#17623a;border-color:#b8dec6}
+    .pro-client-summary{margin-bottom:1.5rem;padding:1rem 1.2rem;background:#fff;border:1px solid #e5dfd2;border-left:4px solid #D4AF37;border-radius:12px;display:flex;justify-content:space-between;gap:1rem;align-items:center;flex-wrap:wrap}.pro-client-summary.admin{border-left-color:#111;background:linear-gradient(135deg,#fffdf8,#fff)}.pro-client-name{font-weight:900;font-size:1.05rem;color:#1A2530}.pro-client-meta{font-size:.82rem;color:#666;margin-top:.2rem}.pro-logout{border:1px solid #ddd3bf;background:#fff;border-radius:8px;padding:.5rem .8rem;font-weight:700;cursor:pointer}.pro-access-note{font-size:.78rem;color:#777;line-height:1.45;margin-top:.7rem}
+    .pro-locked-card{opacity:.82}.pro-locked-btn{background:#f3f1ed!important;color:#7a7368!important;border-color:#cfc8bc!important;cursor:pointer!important}.pro-access-badge{display:inline-flex;margin-top:.45rem;padding:.25rem .55rem;border-radius:999px;font-size:.7rem;font-weight:800;background:#f2efe8;color:#70685c;border:1px solid #ddd5c7}.pro-access-badge.allowed{background:#e8f5ed;color:#17623a;border-color:#b8dec6}.pro-access-badge.admin{background:#111;color:#FFD700;border-color:#D4AF37}
     .pro-lock-overlay{position:fixed;inset:0;background:rgba(0,0,0,.58);z-index:99999;display:none;align-items:center;justify-content:center;padding:1rem}.pro-lock-dialog{width:min(520px,94vw);background:#fff;border-radius:14px;padding:1.5rem;box-shadow:0 20px 60px rgba(0,0,0,.3);border:1px solid rgba(212,175,55,.45)}.pro-agent-links{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin:1.1rem 0}.pro-agent-link{display:flex;align-items:center;justify-content:center;text-align:center;padding:.8rem;border-radius:9px;background:#111;color:#FFD700!important;text-decoration:none;font-weight:800;border:1px solid #D4AF37}.pro-lock-close{width:100%;padding:.7rem;border-radius:8px;border:1px solid #d8d1c5;background:#fff;font-weight:700;cursor:pointer}
     .pro-contact-list{display:grid;gap:.6rem;width:100%}.pro-contact-person{padding-bottom:.55rem;border-bottom:1px solid #e6e0d5}.pro-contact-person:last-child{padding-bottom:0;border-bottom:0}.pro-contact-name{font-weight:900;color:#1A2530;font-size:.82rem}.pro-contact-role{display:block;font-size:.72rem;color:#6b7280;margin:.08rem 0 .22rem}.pro-contact-links{display:flex;flex-wrap:wrap;gap:.35rem .8rem;font-size:.76rem}.pro-contact-links a{font-weight:700;color:#1A2530;text-decoration:none}
     @media(max-width:600px){.pro-login-grid{grid-template-columns:1fr}.pro-agent-links{grid-template-columns:1fr}}
@@ -56,8 +79,10 @@ function showLockedPartner(partnerName){
 }
 
 function replaceLogin(){
+  currentClient=null;
+  const old=document.getElementById("pro-client-summary");if(old)old.remove();
   const box=document.getElementById("login-section");if(!box)return;box.style.display="block";const content=document.getElementById("pro-content");if(content)content.style.display="none";
-  box.innerHTML=`<h2 style="font-size:1.75rem;margin-bottom:.6rem;color:#1A2530">Accès professionnel</h2><p style="color:#666;font-size:.95rem">Saisissez votre identifiant client LRF et votre département.</p><div class="pro-login-grid"><input id="pro-lrf-code" type="text" autocomplete="off" placeholder="LRF-00235"><input id="pro-dept" type="text" autocomplete="off" placeholder="Département (ex. 34)"></div><button id="pro-client-login" class="pro-login-btn" type="button">Accéder à mes tarifs</button><p id="pro-client-error" style="display:none;color:#b42318;margin-top:1rem;font-size:.85rem;font-weight:700"></p><p class="pro-access-note">L'accès est vérifié par Code LRF + département. Aucune ancienne session n'est réutilisée sur cette page.</p>`;
+  box.innerHTML=`<h2 style="font-size:1.75rem;margin-bottom:.6rem;color:#1A2530">Accès professionnel</h2><p style="color:#666;font-size:.95rem">Saisissez votre identifiant client LRF et votre département.</p><div class="pro-login-grid"><input id="pro-lrf-code" type="text" autocomplete="off" placeholder="LRF-00235"><input id="pro-dept" type="text" autocomplete="off" placeholder="Département (ex. 34)"></div><button id="pro-client-login" class="pro-login-btn" type="button">Accéder à mes tarifs</button><p id="pro-client-error" style="display:none;color:#b42318;margin-top:1rem;font-size:.85rem;font-weight:700"></p><p class="pro-access-note">L'accès est vérifié par Code LRF + département. Les administrateurs connectés à l'Espace Agent accèdent automatiquement à tous les tarifs.</p>`;
   box.querySelector("#pro-lrf-code").addEventListener("input",e=>{let v=e.target.value.toUpperCase().replace(/\s/g,"");if(/^\d{1,5}$/.test(v))v=`LRF-${v.padStart(5,"0")}`;e.target.value=v});
   box.querySelector("#pro-client-login").addEventListener("click",authenticate);box.querySelectorAll("input").forEach(i=>i.addEventListener("keydown",e=>{if(e.key==="Enter")authenticate()}));
 }
@@ -78,17 +103,68 @@ function applyPartnerContacts(card,partnerName){
   const row=card.querySelector('.contact-row');if(!row)return;const contacts=partnerContacts(partnerName).filter(c=>c&&c.name&&(c.email||c.phone));if(!contacts.length){row.remove();return}
   row.innerHTML=`<div style="width:100%"><strong style="display:block;font-size:.85rem;color:#1A2530;margin-bottom:.45rem">Contacts usine</strong><div class="pro-contact-list">${contacts.map(c=>`<div class="pro-contact-person"><div class="pro-contact-name">${esc(c.name)}</div>${c.role?`<span class="pro-contact-role">${esc(c.role)}</span>`:""}<div class="pro-contact-links">${c.email?`<a href="mailto:${esc(c.email)}">✉ ${esc(c.email)}</a>`:""}${c.phone?`<a href="tel:${esc(String(c.phone).replace(/[^+\d]/g,""))}">☎ ${esc(c.phone)}</a>`:""}</div></div>`).join("")}</div></div>`;
 }
-function openForClient(client){
-  currentClient=client;const partners=[...new Set(Array.isArray(client.partenaires)?client.partenaires:[])];const allowedNames=new Set(partners.map(p=>norm(PARTNER_NAMES[p]||p)));const activity=client.categorieActivite||client.activite||client.sousCategorie||client.segmentation||"Professionnel";saveVerifiedSession(client,partners,activity);
-  const login=document.getElementById("login-section"),content=document.getElementById("pro-content");if(login)login.style.display="none";if(content)content.style.display="block";if(typeof window.renderTarifs==="function")window.renderTarifs();const grid=document.getElementById("grid-tarifs");if(!grid)return;
-  [...grid.children].forEach(card=>{card.style.display="flex";card.removeAttribute("hidden");const partnerName=card.querySelector("h3")?.textContent?.trim()||"ce partenaire";applyPartnerContacts(card,partnerName);const allowed=allowedNames.has(norm(partnerName));card.classList.toggle("pro-locked-card",!allowed);let badge=card.querySelector(".pro-access-badge");if(!badge){badge=document.createElement("span");badge.className="pro-access-badge";card.querySelector("h3")?.insertAdjacentElement("afterend",badge)}badge.className=`pro-access-badge${allowed?" allowed":""}`;badge.textContent=allowed?"✓ Tarif accessible":"🔒 Tarif sur demande";
-    card.querySelectorAll('a[href]').forEach(a=>{const href=a.getAttribute('href')||"";const isTariff=a.textContent.trim().toLowerCase().includes("tarif")||/\.pdf($|\?)/i.test(href)||href.startsWith("mailto:jerome@leroyfactory.fr");if(!isTariff)return;if(allowed){a.classList.remove("pro-locked-btn");a.onclick=null}else{a.classList.add("pro-locked-btn");a.removeAttribute("target");a.onclick=e=>{e.preventDefault();e.stopPropagation();showLockedPartner(partnerName)}}});
+
+function prepareTariffGrid(){
+  const login=document.getElementById("login-section"),content=document.getElementById("pro-content");
+  if(login)login.style.display="none";
+  if(content)content.style.display="block";
+  if(typeof window.renderTarifs==="function")window.renderTarifs();
+  return {content,grid:document.getElementById("grid-tarifs")};
+}
+
+function setCardAccess(card,allowed,admin=false){
+  card.style.display="flex";card.removeAttribute("hidden");
+  const partnerName=card.querySelector("h3")?.textContent?.trim()||"ce partenaire";
+  applyPartnerContacts(card,partnerName);
+  card.classList.toggle("pro-locked-card",!allowed);
+  let badge=card.querySelector(".pro-access-badge");
+  if(!badge){badge=document.createElement("span");badge.className="pro-access-badge";card.querySelector("h3")?.insertAdjacentElement("afterend",badge)}
+  badge.className=`pro-access-badge${allowed?" allowed":""}${admin?" admin":""}`;
+  badge.textContent=admin?"★ Accès administrateur":allowed?"✓ Tarif accessible":"🔒 Tarif sur demande";
+  card.querySelectorAll('a[href]').forEach(a=>{
+    const href=a.getAttribute('href')||"";
+    const isTariff=a.textContent.trim().toLowerCase().includes("tarif")||/\.pdf($|\?)/i.test(href)||href.startsWith("mailto:jerome@leroyfactory.fr");
+    if(!isTariff)return;
+    if(allowed){
+      a.classList.remove("pro-locked-btn");a.onclick=null;
+      if(!href.startsWith("mailto:")){a.setAttribute("target","_blank");a.setAttribute("rel","noopener")}
+    }else{
+      a.classList.add("pro-locked-btn");a.removeAttribute("target");a.onclick=e=>{e.preventDefault();e.stopPropagation();showLockedPartner(partnerName)};
+    }
   });
-  let summary=document.getElementById("pro-client-summary");if(!summary){summary=document.createElement("div");summary.id="pro-client-summary";summary.className="pro-client-summary";content.insertBefore(summary,grid)}summary.innerHTML=`<div><div class="pro-client-name">${esc(client.societe||"Client professionnel")}</div><div class="pro-client-meta">${esc(client.codeClient||"")} · Département ${esc(clientDep(client))} · ${esc(activity)} · ${partners.length} partenaire(s) avec accès tarif</div></div><button type="button" class="pro-logout" id="pro-logout">Se déconnecter</button>`;summary.querySelector("#pro-logout").onclick=()=>{currentClient=null;clearSession();summary.remove();replaceLogin()};
+}
+
+function openForAdmin(profile){
+  currentClient=null;clearSession();
+  const {content,grid}=prepareTariffGrid();if(!grid||!content)return;
+  [...grid.children].forEach(card=>setCardAccess(card,true,true));
+  let summary=document.getElementById("pro-client-summary");if(!summary){summary=document.createElement("div");summary.id="pro-client-summary";content.insertBefore(summary,grid)}
+  summary.className="pro-client-summary admin";
+  summary.innerHTML=`<div><div class="pro-client-name">★ ${esc(profile.name)} — Administrateur</div><div class="pro-client-meta">${esc(profile.email)} · Accès complet à tous les tarifs LE ROY FACTORY · Aucun code requis</div></div><button type="button" class="pro-logout" id="pro-admin-dashboard">Espace Agent</button>`;
+  summary.querySelector("#pro-admin-dashboard").onclick=()=>{location.href="dashboard.html"};
+}
+
+function openForClient(client){
+  currentClient=client;
+  const partners=[...new Set(Array.isArray(client.partenaires)?client.partenaires:[])];
+  const allowedNames=new Set(partners.map(p=>norm(PARTNER_NAMES[p]||p)));
+  const activity=client.categorieActivite||client.activite||client.sousCategorie||client.segmentation||"Professionnel";
+  saveVerifiedSession(client,partners,activity);
+  const {content,grid}=prepareTariffGrid();if(!grid||!content)return;
+  [...grid.children].forEach(card=>{const partnerName=card.querySelector("h3")?.textContent?.trim()||"ce partenaire";setCardAccess(card,allowedNames.has(norm(partnerName)),false)});
+  let summary=document.getElementById("pro-client-summary");if(!summary){summary=document.createElement("div");summary.id="pro-client-summary";content.insertBefore(summary,grid)}
+  summary.className="pro-client-summary";
+  summary.innerHTML=`<div><div class="pro-client-name">${esc(client.societe||"Client professionnel")}</div><div class="pro-client-meta">${esc(client.codeClient||"")} · Département ${esc(clientDep(client))} · ${esc(activity)} · ${partners.length} partenaire(s) avec accès tarif</div></div><button type="button" class="pro-logout" id="pro-logout">Se déconnecter</button>`;
+  summary.querySelector("#pro-logout").onclick=()=>{currentClient=null;clearSession();summary.remove();replaceLogin()};
 }
 
 function init(){
-  // Sécurité : jamais de restauration automatique sur Accès PRO.
-  clearSession();injectStyles();ensureLockModal();replaceLogin();
+  // Les anciennes sessions client sont toujours supprimées. En revanche, une session Firebase Agent valide
+  // pour Jérôme ou Coryne donne immédiatement un accès administrateur complet, sans code LRF.
+  clearSession();injectStyles();ensureLockModal();
+  onAuthStateChanged(auth,user=>{
+    const admin=getAdminProfile(user);
+    if(admin)openForAdmin(admin);else replaceLogin();
+  });
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();
