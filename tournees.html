@@ -10,11 +10,12 @@
   <link rel="stylesheet" href="assets/css/variables.css">
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/components.css">
-  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/layout.css?v=20260903-5">
   <link rel="stylesheet" href="assets/css/clients.css">
-  <link rel="stylesheet" href="assets/css/tournees.css?v=20260903-4">
-  <link rel="stylesheet" href="assets/css/tournees-v3.css?v=20260903-4">
-  <link rel="stylesheet" href="assets/css/tournees-v4.css?v=20260903-4">
+  <link rel="stylesheet" href="assets/css/tournees.css?v=20260903-5">
+  <link rel="stylesheet" href="assets/css/tournees-v3.css?v=20260903-5">
+  <link rel="stylesheet" href="assets/css/tournees-v4.css?v=20260903-5">
+  <link rel="stylesheet" href="assets/css/tournees-v5.css?v=20260903-5">
 </head>
 <body class="crm-body">
   <aside class="crm-sidebar">
@@ -39,7 +40,7 @@
 
   <main class="crm-main-content">
     <div class="crm-topbar">
-      <div class="welcome-box"><h1>Créer une tournée</h1><p>Construisez une vraie feuille de route optimisée à partir de vos clients CRM.</p></div>
+      <div class="welcome-box"><h1>Créer une tournée</h1><p>Choisissez vos magasins, l’ordre de visite et enregistrez une vraie fiche de route.</p></div>
       <div class="info-widgets"><div class="widget-item">📅 <span id="current-date">--</span></div><div class="widget-item">⏰ <span id="current-time">--</span></div></div>
     </div>
 
@@ -47,45 +48,45 @@
       <div>
         <section class="tour-card tour-config">
           <h2>🧭 Paramètres de la tournée</h2>
-          <p class="tour-lead">Chaque visite est prévue sur <strong>1 h 30</strong>. Choisissez une période et <strong>un ou plusieurs départements</strong> : le CRM optimise ensuite l’ensemble de la tournée avec une pause <strong>12 h–14 h</strong> chaque journée.</p>
+          <p class="tour-lead">Préparez une journée ou plusieurs jours. Une visite est prévue sur <strong>1 h 30</strong> avec une pause déjeuner entre <strong>12 h et 14 h</strong>.</p>
           <div class="tour-form-grid">
             <div class="tour-field"><label for="tour-date">Du</label><input id="tour-date" type="date"></div>
             <div class="tour-field"><label for="tour-end-date">Au</label><input id="tour-end-date" type="date"></div>
             <div class="tour-deps-wrap"><label>Départements à visiter</label><div id="tour-deps" class="tour-deps"></div></div>
-            <div class="tour-field"><label for="tour-start-time">Début de journée</label><input id="tour-start-time" type="time" value="07:30"></div>
-            <div class="tour-field"><label for="tour-end-time">Fin de journée</label><input id="tour-end-time" type="time" value="19:00"></div>
-            <div class="tour-field full"><label for="tour-start-address">Point de départ</label><input id="tour-start-address" type="text" placeholder="Adresse de départ ou utilisez Ma position"></div>
+            <div class="tour-field"><label for="tour-start-time">Début de journée</label><input id="tour-start-time" type="time" value="08:00"></div>
+            <div class="tour-field"><label for="tour-end-time">Fin de journée</label><input id="tour-end-time" type="time" value="18:00"></div>
+            <div class="tour-field full"><label for="tour-start-address">Point de départ</label><input id="tour-start-address" type="text" placeholder="Ex : 345 route de Montpellier, 34740 Vendargues"></div>
             <div class="tour-field full"><label><input id="tour-return" type="checkbox" style="width:auto;min-height:0;margin-right:7px"> Revenir au point de départ en fin de journée</label></div>
           </div>
           <div class="tour-actions"><button id="tour-use-location" class="tour-btn secondary" type="button">📍 Ma position</button></div>
 
           <h3 style="margin-top:18px">🏭 Usines représentées</h3>
           <div id="tour-partners" class="tour-partners"></div>
-          <p class="tour-note">Vous pouvez sélectionner plusieurs usines. Elles seront indiquées sur la feuille de route pour préparer vos présentations chez chaque client.</p>
+          <p class="tour-note">Les usines choisies apparaîtront sur la fiche de route pour préparer les rendez-vous.</p>
           <div id="tour-status" class="tour-status">Sélectionnez un ou plusieurs départements.</div>
         </section>
 
         <section class="tour-card tour-client-picker" style="margin-top:18px">
-          <h2>👥 Clients à visiter</h2>
-          <div class="tour-client-tools"><input id="tour-client-search" type="search" placeholder="Rechercher un client, une ville ou un département…"><button id="tour-smart-select" type="button" class="tour-btn secondary">✨ Sélection intelligente</button><button id="tour-clear-select" type="button" class="tour-btn secondary">Effacer</button></div>
+          <h2>👥 Magasins à visiter</h2>
+          <div class="tour-client-tools"><input id="tour-client-search" type="search" placeholder="Rechercher un magasin, une ville ou un code postal…"><button id="tour-smart-select" type="button" class="tour-btn secondary">✨ Sélection rapide</button><button id="tour-clear-select" type="button" class="tour-btn secondary">Effacer</button></div>
           <div id="tour-client-list" class="tour-client-list"><div class="tour-empty">Sélectionnez d'abord un ou plusieurs départements.</div></div>
-          <div class="tour-actions"><button id="tour-calculate" class="tour-btn teal" type="button">⚡ Calculer l’itinéraire optimal</button></div>
-          <p class="tour-note">Le CRM mélange les clients des départements choisis et les répartit par proximité sur toute la période, afin d’éviter les allers-retours inutiles entre secteurs.</p>
+          <div class="tour-actions"><button id="tour-calculate" class="tour-btn teal" type="button">📍 Valider ma tournée</button></div>
+          <p class="tour-note">En mode manuel, cliquez les magasins dans l’ordre souhaité. En mode optimisé, sélectionnez-les en vrac et le CRM calcule le meilleur enchaînement routier.</p>
         </section>
       </div>
 
       <section class="tour-card tour-result">
         <div class="tour-print-title"><h1>LE ROY FACTORY — Feuille de route commerciale</h1></div>
-        <div class="tour-result-head"><div><h2>📋 Feuille de route</h2><p class="tour-lead" id="tour-result-sub">Aucune tournée calculée pour le moment.</p></div><div class="tour-actions" style="margin-top:0"><button id="tour-save" type="button" class="tour-btn" disabled>💾 Enregistrer</button><button id="tour-print" type="button" class="tour-btn dark" disabled>🖨 Imprimer</button></div></div>
+        <div class="tour-result-head"><div><h2>📋 Feuille de route</h2><p class="tour-lead" id="tour-result-sub">Aucune tournée calculée pour le moment.</p></div><div class="tour-actions" style="margin-top:0"><button id="tour-save" type="button" class="tour-btn" disabled>💾 Enregistrer</button><button id="tour-print" type="button" class="tour-btn dark" disabled>🖨 Fiche de route</button></div></div>
         <div id="tour-summary" class="tour-summary"></div>
         <div id="tour-map" class="tour-map"></div>
-        <div id="tour-route" class="route-list"><div class="tour-empty">Le CRM affichera ici chaque journée, les départements visités, l’ordre optimal des clients, les horaires, les temps de trajet et le bouton de compte-rendu.</div></div>
+        <div id="tour-route" class="route-list"><div class="tour-empty">Votre tournée apparaîtra ici avec l’ordre 1, 2, 3…, les horaires et les temps de trajet.</div></div>
         <div class="tour-saved"><h3>🗂 Tournées enregistrées</h3><div id="tour-saved-list"><div class="tour-empty">Chargement…</div></div></div>
       </section>
     </div>
   </main>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script type="module" src="assets/js/tournees-v4.js?v=20260903-4"></script>
+  <script type="module" src="assets/js/tournees-v5.js?v=20260903-5"></script>
 </body>
 </html>
