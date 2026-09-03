@@ -4,7 +4,6 @@ import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import "./carte-mobile-enhancements.js?v=20260818-1425";
 import "./carte-proximity.js?v=20260818-1448";
-import "./jarvis-web.js?v=20260819-0230";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA3iuK5Ua8kFccURSqLihLshHnhA4rm2is",
@@ -38,7 +37,6 @@ const CRM_PAGES = new Set([
 const currentPage = (location.pathname.split("/").pop() || "index.html").toLowerCase();
 const isCrmPage = CRM_PAGES.has(currentPage);
 
-// Empêche d'afficher brièvement des données CRM avant la vérification Firebase Auth.
 if (isCrmPage) document.documentElement.style.visibility = "hidden";
 
 onAuthStateChanged(auth, async user => {
@@ -58,7 +56,6 @@ onAuthStateChanged(auth, async user => {
   localStorage.removeItem("agentName");
   localStorage.removeItem("agentUid");
 
-  // Un utilisateur Firebase qui n'est pas dans l'équipe ne doit pas conserver une session.
   if (user) {
     try { await signOut(auth); } catch (_) {}
   }
@@ -69,7 +66,6 @@ onAuthStateChanged(auth, async user => {
   }
 });
 
-// Intercepte toutes les déconnexions CRM existantes pour fermer aussi la session Firebase.
 document.addEventListener("click", async event => {
   const btn = event.target.closest("#logout-btn, .btn-logout-sidebar");
   if (!btn) return;
