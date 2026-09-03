@@ -1,4 +1,4 @@
-const CACHE='lrf-pwa-v6-crm-mobile-no-logo';
+const CACHE='lrf-pwa-v7-crm-mobile-logo-correct';
 const CORE=['/','/index.html','/assets/brand-v2/assetlogorond.png'];
 
 self.addEventListener('install',event=>{
