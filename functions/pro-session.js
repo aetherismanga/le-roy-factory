@@ -4,6 +4,7 @@ const crypto = require('crypto');
 
 const db = admin.firestore();
 const SESSION_COLLECTION = 'pro_sessions';
+// Session d'appareil persistante : 180 jours glissants, revérifiée côté serveur à chaque reprise.
 const SESSION_TTL_MS = 180 * 24 * 60 * 60 * 1000;
 
 function clean(v, max = 120) {
