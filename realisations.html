@@ -21,14 +21,25 @@
 
     .realisations-filters{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:3rem}.realisations-filters .btn{font-size:.85rem;padding:.5rem 1rem}.realisations-filters .btn.is-active{background:#111!important;color:#FFD700!important;border-color:#D4AF37!important}
     .realisations-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(350px,1fr));gap:2rem}
-    .realisation-card{position:relative;min-height:390px;overflow:hidden;border-radius:18px;background:#ddd;box-shadow:0 12px 30px rgba(33,28,19,.12);isolation:isolate;transition:transform .25s ease,box-shadow .25s ease}
+    .realisation-card{position:relative;min-height:390px;overflow:hidden;border-radius:18px;background:#ddd;box-shadow:0 12px 30px rgba(33,28,19,.12);isolation:isolate;transition:transform .25s ease,box-shadow .25s ease;cursor:zoom-in;outline:none}
     .realisation-card:hover{transform:translateY(-4px);box-shadow:0 18px 38px rgba(33,28,19,.17)}
+    .realisation-card:focus-visible{box-shadow:0 0 0 3px #D4AF37,0 18px 38px rgba(33,28,19,.17)}
     .realisation-card[hidden]{display:none!important}
     .realisation-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;z-index:-2;transition:transform .45s ease}.realisation-card:hover img{transform:scale(1.025)}
     .realisation-card::after{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(0,0,0,.02) 35%,rgba(0,0,0,.78) 100%)}
     .realisation-content{position:absolute;left:0;right:0;bottom:0;padding:1.5rem 1.6rem;color:#fff}.realisation-brand{display:inline-flex;align-items:center;gap:.4rem;padding:.3rem .6rem;margin-bottom:.55rem;border:1px solid rgba(255,215,0,.7);border-radius:999px;background:rgba(0,0,0,.62);color:#FFD700;font-size:.7rem;font-weight:850;letter-spacing:.06em;text-transform:uppercase;backdrop-filter:blur(6px)}.realisation-content h3{font-size:1.35rem;color:#fff;margin:.15rem 0 .35rem;text-shadow:0 2px 8px rgba(0,0,0,.7)}.realisation-content p{margin:0;color:rgba(255,255,255,.9);font-size:.85rem;line-height:1.4}.realisation-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.85rem}.realisation-tags span{padding:.27rem .55rem;border-radius:999px;background:rgba(255,255,255,.92);color:#3f331e;font-size:.68rem;font-weight:800}
     .gallery-empty{display:none;grid-column:1/-1;padding:2rem;border:1px dashed #d2c7b3;border-radius:14px;text-align:center;color:#766d5e;background:rgba(255,255,255,.65)}
-    @media(max-width:700px){.realisations-grid{grid-template-columns:1fr}.realisation-card{min-height:330px}.realisations-filters{gap:.5rem;margin-bottom:1.5rem}.realisations-filters .btn{font-size:.76rem;padding:.48rem .75rem}}
+
+    .realisation-lightbox{position:fixed;inset:0;z-index:250000;background:#050505;display:none;align-items:center;justify-content:center;overflow:hidden}
+    .realisation-lightbox.open{display:flex}
+    .realisation-lightbox-image{width:100%;height:100%;object-fit:contain;display:block;user-select:none;-webkit-user-drag:none}
+    .realisation-lightbox-caption{position:absolute;left:max(24px,env(safe-area-inset-left));bottom:max(22px,env(safe-area-inset-bottom));z-index:3;display:flex;align-items:center;gap:.55rem;flex-wrap:wrap;max-width:calc(100% - 90px);padding:.58rem .78rem;border-radius:10px;background:rgba(0,0,0,.58);color:#fff;backdrop-filter:blur(8px);font-size:.9rem;letter-spacing:.01em;box-shadow:0 4px 18px rgba(0,0,0,.25)}
+    .realisation-lightbox-caption strong{color:#FFD700;font-weight:900}.realisation-lightbox-caption span+span::before{content:'/';margin-right:.55rem;color:rgba(255,255,255,.55)}
+    .realisation-lightbox-close{position:absolute;top:max(18px,env(safe-area-inset-top));right:max(18px,env(safe-area-inset-right));z-index:4;width:46px;height:46px;border:1px solid rgba(255,255,255,.35);border-radius:50%;background:rgba(0,0,0,.48);color:#fff;font-size:2rem;line-height:1;display:grid;place-items:center;cursor:pointer;backdrop-filter:blur(7px)}
+    .realisation-lightbox-close:hover,.realisation-lightbox-close:focus-visible{border-color:#D4AF37;color:#FFD700;outline:none}
+    body.lightbox-open{overflow:hidden!important}
+
+    @media(max-width:700px){.realisations-grid{grid-template-columns:1fr}.realisation-card{min-height:330px}.realisations-filters{gap:.5rem;margin-bottom:1.5rem}.realisations-filters .btn{font-size:.76rem;padding:.48rem .75rem}.realisation-lightbox-caption{left:max(14px,env(safe-area-inset-left));bottom:max(14px,env(safe-area-inset-bottom));max-width:calc(100% - 74px);gap:.4rem;font-size:.78rem;padding:.5rem .62rem}.realisation-lightbox-caption span+span::before{margin-right:.4rem}.realisation-lightbox-close{width:42px;height:42px;top:max(12px,env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));font-size:1.8rem}}
   </style>
 </head>
 <body>
@@ -58,7 +69,7 @@
       </div>
 
       <div class="realisations-grid" id="realisations-grid">
-        <article class="realisation-card" data-categories="terrasse piscine residentiel" aria-label="VIEW COCO Beige 40x60 — piscine et terrasse">
+        <article class="realisation-card" tabindex="0" role="button" data-categories="terrasse piscine residentiel" data-usine="VIEW Ceramica" data-reference="COCO Beige" data-format="40×60" aria-label="Agrandir VIEW COCO Beige 40x60 — piscine et terrasse">
           <img src="assets/img/View_Coco_Beige_40x60_piscine_03.jpg" alt="Réalisation piscine et terrasse en VIEW COCO Beige 40x60" loading="eager">
           <div class="realisation-content">
             <span class="realisation-brand">VIEW Ceramica</span>
@@ -68,7 +79,7 @@
           </div>
         </article>
 
-        <article class="realisation-card" data-categories="villa terrasse residentiel" aria-label="VIEW COCO Light 40x60 — villa et terrasse">
+        <article class="realisation-card" tabindex="0" role="button" data-categories="villa terrasse residentiel" data-usine="VIEW Ceramica" data-reference="COCO Light" data-format="40×60" aria-label="Agrandir VIEW COCO Light 40x60 — villa et terrasse">
           <img src="assets/img/View_Coco_Light_40x60_villa%20in%26out_HD_02.jpg" alt="Réalisation villa intérieur extérieur et terrasse en VIEW COCO Light 40x60" loading="eager">
           <div class="realisation-content">
             <span class="realisation-brand">VIEW Ceramica</span>
@@ -83,15 +94,33 @@
     </div>
   </main>
 
+  <div class="realisation-lightbox" id="realisation-lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Réalisation en plein écran">
+    <img class="realisation-lightbox-image" id="realisation-lightbox-image" alt="">
+    <button class="realisation-lightbox-close" id="realisation-lightbox-close" type="button" aria-label="Fermer le plein écran">×</button>
+    <div class="realisation-lightbox-caption" aria-live="polite">
+      <strong id="realisation-lightbox-usine"></strong>
+      <span id="realisation-lightbox-reference"></span>
+      <span id="realisation-lightbox-format"></span>
+    </div>
+  </div>
+
   <footer><div class="container" style="text-align:center;padding:2rem 0;"><p style="color:#fff!important;font-weight:600;text-shadow:0 1px 4px rgba(0,0,0,.9);">&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p></div></footer>
 
-  <script src="assets/js/app.js?v=20260903-realisations1"></script>
+  <script src="assets/js/app.js?v=20260903-realisations2"></script>
   <script>
     (()=>{
       const buttons=[...document.querySelectorAll('[data-filter]')];
       const cards=[...document.querySelectorAll('.realisation-card[data-categories]')];
       const empty=document.getElementById('gallery-empty');
+      const lightbox=document.getElementById('realisation-lightbox');
+      const lightboxImage=document.getElementById('realisation-lightbox-image');
+      const closeButton=document.getElementById('realisation-lightbox-close');
+      const usineEl=document.getElementById('realisation-lightbox-usine');
+      const referenceEl=document.getElementById('realisation-lightbox-reference');
+      const formatEl=document.getElementById('realisation-lightbox-format');
+      let lastFocused=null;
       const normalize=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
+
       function applyFilter(filter){
         let visible=0;
         cards.forEach(card=>{
@@ -109,7 +138,51 @@
           btn.setAttribute('aria-pressed',String(active));
         });
       }
+
+      async function openLightbox(card){
+        const image=card.querySelector('img');
+        if(!image)return;
+        lastFocused=document.activeElement;
+        lightboxImage.src=image.currentSrc||image.src;
+        lightboxImage.alt=image.alt||'';
+        usineEl.textContent=card.dataset.usine||'';
+        referenceEl.textContent=card.dataset.reference||'';
+        formatEl.textContent=card.dataset.format||'';
+        lightbox.classList.add('open');
+        lightbox.setAttribute('aria-hidden','false');
+        document.body.classList.add('lightbox-open');
+        closeButton.focus({preventScroll:true});
+        try{
+          if(lightbox.requestFullscreen && !document.fullscreenElement) await lightbox.requestFullscreen();
+        }catch(_){ }
+      }
+
+      async function closeLightbox(fromFullscreenChange=false){
+        if(!lightbox.classList.contains('open'))return;
+        lightbox.classList.remove('open');
+        lightbox.setAttribute('aria-hidden','true');
+        document.body.classList.remove('lightbox-open');
+        lightboxImage.removeAttribute('src');
+        if(!fromFullscreenChange && document.fullscreenElement===lightbox){
+          try{await document.exitFullscreen();}catch(_){ }
+        }
+        if(lastFocused?.focus)lastFocused.focus({preventScroll:true});
+      }
+
       buttons.forEach(btn=>btn.addEventListener('click',()=>applyFilter(normalize(btn.dataset.filter))));
+      cards.forEach(card=>{
+        card.addEventListener('click',()=>openLightbox(card));
+        card.addEventListener('keydown',e=>{
+          if(e.key==='Enter'||e.key===' '){e.preventDefault();openLightbox(card);}
+        });
+      });
+      closeButton.addEventListener('click',e=>{e.stopPropagation();closeLightbox();});
+      lightbox.addEventListener('click',e=>{if(e.target===lightbox)closeLightbox();});
+      document.addEventListener('keydown',e=>{if(e.key==='Escape'&&lightbox.classList.contains('open'))closeLightbox();});
+      document.addEventListener('fullscreenchange',()=>{
+        if(!document.fullscreenElement&&lightbox.classList.contains('open'))closeLightbox(true);
+      });
+
       applyFilter('tous');
     })();
   </script>
