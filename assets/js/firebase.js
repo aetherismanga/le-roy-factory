@@ -31,9 +31,9 @@ export function getAgentProfile(user = auth.currentUser) {
 }
 
 const CRM_PAGES = new Set([
-  "dashboard.html", "clients.html", "agenda.html", "comptes-rendus.html",
+  "dashboard.html", "clients.html", "agenda.html", "tournees.html", "comptes-rendus.html",
   "mails-groupes.html", "carte.html", "statistiques.html", "demandes-clients.html",
-  "nouveau-compte-rendu.html"
+  "nouveau-compte-rendu.html", "contacts-partenaires.html"
 ]);
 const currentPage = (location.pathname.split("/").pop() || "index.html").toLowerCase();
 const isCrmPage = CRM_PAGES.has(currentPage);
@@ -90,7 +90,7 @@ function ensureMobileCss() {
   const link = document.createElement("link");
   link.id = "lrf-mobile-enhancements";
   link.rel = "stylesheet";
-  link.href = "assets/css/mobile-enhancements.css?v=20260901-auth";
+  link.href = "assets/css/mobile-enhancements.css?v=20260903-tournees";
   document.head.appendChild(link);
 }
 ensureMobileCss();
@@ -109,16 +109,17 @@ import("./account-requests-nav.js?v=20260901-partners1").catch(err => console.er
 if (currentPage === "clients.html") {
   import("./seed-bilt-annexe-clients.js?v=20260901").catch(err => console.error("Erreur chargement clients Annexe 1 BILT :", err));
   import("./client-direct-email.js?v=20260817-1845").catch(err => console.error("Erreur chargement module e-mail client :", err));
-  import("./crm-moovago.js?v=20260901-partners1").catch(err => console.error("Erreur chargement module CRM Moovago :", err));
+  import("./crm-moovago.js?v=20260901-partners1").catch(err => console.error("Erreur chargement enrichissement CRM :", err));
   import("./crm-client-enhancements.js?v=20260817-1845").catch(err => console.error("Erreur chargement améliorations Clients :", err));
-  import("./crm-ui-modern.js?v=20260817-1845").catch(err => console.error("Erreur chargement interface moderne CRM :", err));
+  import("./crm-ui-modern.js?v=20260903-tournees").catch(err => console.error("Erreur chargement interface moderne CRM :", err));
+  import("./clients-tournee-ui.js?v=20260903-1").catch(err => console.error("Erreur chargement accès tournées :", err));
   import("./clients-operations.js?v=20260817-1845").catch(err => console.error("Erreur chargement outils opérationnels Clients :", err));
   import("./client-codes.js?v=20260817-1845").catch(err => console.error("Erreur chargement codes clients LRF :", err));
   import("./clients-export.js?v=20260817-1845").catch(err => console.error("Erreur chargement impression/export clients :", err));
   import("./account-form-send.js?v=20260817-1845").catch(err => console.error("Erreur chargement envoi formulaire ouverture/mise à jour :", err));
 }
 if (currentPage === "dashboard.html") {
-  import("./dashboard-commercial.js?v=20260817-1845").catch(err => console.error("Erreur chargement dashboard commercial :", err));
+  import("./dashboard-commercial.js?v=20260903-tournees1").catch(err => console.error("Erreur chargement dashboard commercial :", err));
 }
 if (currentPage === "mails-groupes.html") {
   import("./mails-groupes-programmation.js?v=20260817-1145").catch(err => console.error("Erreur chargement mails programmés :", err));
@@ -162,7 +163,7 @@ function initCrmMobile() {
   const isProspect = page === "clients.html" && new URLSearchParams(location.search).get("filter") === "prospect";
   const actions = [
     ["👥", "Clients", "clients.html", page === "clients.html" && !isProspect],
-    ["🎯", "Prospects", "clients.html?filter=prospect", isProspect],
+    ["🧭", "Tournée", "tournees.html", page === "tournees.html"],
     ["✉️", "Mail", "mails-groupes.html", page === "mails-groupes.html"],
     ["📞", "CR", "comptes-rendus.html", page === "comptes-rendus.html"],
     ["📅", "Agenda", "agenda.html", page === "agenda.html"]
@@ -180,7 +181,7 @@ function initCrmMobile() {
   fab.textContent = "+";
   const sheet = document.createElement("div");
   sheet.className = "lrf-mobile-action-sheet";
-  sheet.innerHTML = '<a href="clients.html#new-client">➕ Nouveau client</a><a href="clients.html#new-prospect">🎯 Nouveau prospect</a><a href="nouveau-compte-rendu.html">📞 Nouveau compte-rendu</a><a href="mails-groupes.html">✉️ Nouveau mail groupé</a>';
+  sheet.innerHTML = '<a href="clients.html#new-client">➕ Nouveau client</a><a href="tournees.html">🧭 Créer une tournée</a><a href="nouveau-compte-rendu.html">📞 Nouveau compte-rendu</a><a href="mails-groupes.html">✉️ Nouveau mail groupé</a>';
   fab.addEventListener("click", () => sheet.classList.toggle("open"));
   document.addEventListener("click", e => { if (e.target !== fab && !sheet.contains(e.target)) sheet.classList.remove("open"); });
   document.body.append(sheet, fab);
