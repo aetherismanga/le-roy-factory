@@ -22,7 +22,6 @@ if (!gradle.includes('com.google.android.gms:play-services-auth')) {
 
 let manifest = await readFile(manifestPath, 'utf8');
 const permissions = [
-  'android.permission.RECORD_AUDIO',
   'android.permission.ACCESS_FINE_LOCATION',
   'android.permission.ACCESS_COARSE_LOCATION'
 ];
@@ -42,7 +41,6 @@ public class MainActivity extends BridgeActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         registerPlugin(GoogleCalendarNativePlugin.class);
-        registerPlugin(VoiceNativePlugin.class);
         super.onCreate(savedInstanceState);
     }
 }
@@ -101,70 +99,15 @@ public class GoogleCalendarNativePlugin extends Plugin {
     }
 
     private void resolveAuthorization(PluginCall call, AuthorizationResult result) {
-        String token = result.getAccessToken(); if (token == null || token.isEmpty()) { call.reject("Google n'a pas fourni de jeton Calendar"); return; }
-        JSObject ret = new JSObject(); ret.put("connected", true); ret.put("accessToken", token); call.resolve(ret);
+        String token = result.getAccessToken();
+        if (token == null || token.isEmpty()) { call.reject("Google n'a pas fourni de jeton Calendar"); return; }
+        JSObject ret = new JSObject();
+        ret.put("connected", true);
+        ret.put("accessToken", token);
+        call.resolve(ret);
     }
 }
 `;
 await writeFile(join(javaDir, 'GoogleCalendarNativePlugin.java'), googlePlugin, 'utf8');
 
-const voicePlugin = `package fr.leroyfactory.crm;
-
-import android.Manifest;
-import android.app.Activity;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.speech.RecognizerIntent;
-import androidx.activity.ComponentActivity;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.core.content.ContextCompat;
-import com.getcapacitor.JSObject;
-import com.getcapacitor.Plugin;
-import com.getcapacitor.PluginCall;
-import com.getcapacitor.PluginMethod;
-import com.getcapacitor.annotation.CapacitorPlugin;
-import java.util.ArrayList;
-
-@CapacitorPlugin(name = "VoiceNative")
-public class VoiceNativePlugin extends Plugin {
-    private ActivityResultLauncher<Intent> speechLauncher;
-    private ActivityResultLauncher<String> permissionLauncher;
-    private PluginCall pendingCall;
-    private String pendingLanguage = "fr-FR";
-
-    @Override public void load() {
-        ComponentActivity activity = (ComponentActivity) getActivity();
-        speechLauncher = activity.registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-            PluginCall call = pendingCall; pendingCall = null; if (call == null) return;
-            if (result.getResultCode() != Activity.RESULT_OK || result.getData() == null) { call.reject("Dictée annulée"); return; }
-            ArrayList<String> results = result.getData().getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-            if (results == null || results.isEmpty()) { call.reject("Aucun texte reconnu"); return; }
-            JSObject ret = new JSObject(); ret.put("text", results.get(0)); call.resolve(ret);
-        });
-        permissionLauncher = activity.registerForActivityResult(new ActivityResultContracts.RequestPermission(), granted -> {
-            if (granted) startSpeech(); else { PluginCall call = pendingCall; pendingCall = null; if (call != null) call.reject("Permission microphone refusée"); }
-        });
-    }
-
-    @PluginMethod public void listen(PluginCall call) {
-        if (pendingCall != null) { call.reject("Une dictée est déjà en cours"); return; }
-        pendingCall = call; pendingLanguage = call.getString("language", "fr-FR");
-        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) permissionLauncher.launch(Manifest.permission.RECORD_AUDIO); else startSpeech();
-    }
-
-    private void startSpeech() {
-        try {
-            Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, pendingLanguage);
-            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_PREFERENCE, pendingLanguage);
-            intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Parlez maintenant");
-            speechLauncher.launch(intent);
-        } catch (Exception e) { PluginCall call = pendingCall; pendingCall = null; if (call != null) call.reject("Reconnaissance vocale indisponible", e); }
-    }
-}
-`;
-await writeFile(join(javaDir, 'VoiceNativePlugin.java'), voicePlugin, 'utf8');
-
-console.log('Pont Google Calendar + voix + localisation Jarvis installés');
+console.log('Pont Google Calendar + localisation Android installés (sans Jarvis / plugin voix)');
