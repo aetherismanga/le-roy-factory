@@ -78,6 +78,16 @@ if(location.pathname.toLowerCase().endsWith('clients.html')){
 const lrfClockPages=new Set(['dashboard.html','clients.html','mails-groupes.html','comptes-rendus.html','tournees.html']);
 const lrfCurrentPage=(location.pathname.split('/').pop()||'').toLowerCase();
 if(lrfClockPages.has(lrfCurrentPage)){
-  import('./dashboard-clock-tools.js?v=20260903-4')
-    .catch(err=>console.error('Erreur chargement outils horloge du CRM :',err));
+  import('./dashboard-clock-tools.js?v=20260903-5').then(()=>{
+    if(lrfCurrentPage==='dashboard.html'||document.getElementById('lrf-clock-page-layout-fix'))return;
+    const style=document.createElement('style');
+    style.id='lrf-clock-page-layout-fix';
+    style.textContent=`@media(max-width:760px){
+      html body.crm-body .crm-topbar{align-items:flex-start!important;text-align:left!important}
+      html body.crm-body .crm-topbar .welcome-box{padding-left:13px!important;border-left:4px solid var(--crm-gold,#f3ad18)!important;text-align:left!important}
+      html body.crm-body .crm-topbar .welcome-box p{text-align:left!important;margin:0!important;max-width:none!important}
+      html body.crm-body .info-widgets.lrf-premium-status{justify-content:center!important}
+    }`;
+    document.head.appendChild(style);
+  }).catch(err=>console.error('Erreur chargement outils horloge du CRM :',err));
 }
