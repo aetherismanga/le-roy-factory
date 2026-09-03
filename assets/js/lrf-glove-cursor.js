@@ -114,6 +114,7 @@
     const glove = document.createElement('img');
     glove.alt = '';
     glove.decoding = 'async';
+    glove.fetchPriority = 'low';
     glove.src = 'assets/img/gantlrf.png?v=20260902-glove1';
     cursor.appendChild(glove);
     document.body.appendChild(cursor);
