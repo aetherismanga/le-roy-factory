@@ -31,12 +31,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: npm
-          cache-dependency-path: functions/package-lock.json
 
       - name: Install function dependencies
         working-directory: functions
-        run: npm ci
+        run: npm install --omit=dev
 
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
