@@ -73,12 +73,27 @@ if(location.pathname.toLowerCase().endsWith('clients.html')){
     .catch(err=>console.error('Erreur synchronisation partenaires client :',err));
 }
 
+const lrfCurrentPage=(location.pathname.split('/').pop()||'').toLowerCase();
+
+// Archive le contenu complet des nouveaux mails afin qu'ils puissent être relus depuis le dashboard.
+if(new Set(['clients.html','mails-groupes.html']).has(lrfCurrentPage)){
+  import('./mail-archive-enhancer.js?v=20260903-1')
+    .catch(err=>console.error('Erreur archivage détaillé des mails :',err));
+}
+
+// Dashboard : actions homogènes + activités commerciales ouvrables.
+if(lrfCurrentPage==='dashboard.html'){
+  import('./dashboard-ui-fixes.js?v=20260903-1')
+    .catch(err=>console.error('Erreur correctifs dashboard :',err));
+}
+
 // En-tête premium : calendrier cliquable, horloge numérique et outils temps.
 // Agenda volontairement exclu pour garder la page calendrier la plus légère et compacte possible.
 const lrfClockPages=new Set(['dashboard.html','clients.html','mails-groupes.html','comptes-rendus.html','tournees.html']);
-const lrfCurrentPage=(location.pathname.split('/').pop()||'').toLowerCase();
 if(lrfClockPages.has(lrfCurrentPage)){
-  import('./dashboard-clock-tools.js?v=20260903-5').then(()=>{
+  import('./dashboard-clock-tools.js?v=20260903-5').then(async()=>{
+    await import('./dashboard-clock-state-fix.js?v=20260903-1')
+      .catch(err=>console.error('Erreur état des outils horloge :',err));
     if(lrfCurrentPage==='dashboard.html'||document.getElementById('lrf-clock-page-layout-fix'))return;
     const style=document.createElement('style');
     style.id='lrf-clock-page-layout-fix';
