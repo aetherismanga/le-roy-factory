@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
   <link rel="stylesheet" href="assets/css/clients.css">
-  <link rel="stylesheet" href="assets/css/tournees.css?v=20260903-1">
+  <link rel="stylesheet" href="assets/css/tournees.css?v=20260903-2">
 </head>
 <body class="crm-body">
   <aside class="crm-sidebar">
@@ -45,12 +45,12 @@
       <div>
         <section class="tour-card tour-config">
           <h2>🧭 Paramètres de la tournée</h2>
-          <p class="tour-lead">Chaque visite est limitée à <strong>30 minutes</strong>. Le calcul tient compte du temps de route entre les clients.</p>
+          <p class="tour-lead">Chaque visite est prévue sur <strong>1 h 30</strong>. Le CRM optimise séparément le matin et l’après-midi et bloque automatiquement la <strong>pause de 12 h à 14 h</strong>.</p>
           <div class="tour-form-grid">
             <div class="tour-field"><label for="tour-date">Jour</label><input id="tour-date" type="date"></div>
             <div class="tour-field"><label for="tour-dep">Département</label><select id="tour-dep"><option value="">Choisir…</option></select></div>
-            <div class="tour-field"><label for="tour-start-time">Début de journée</label><input id="tour-start-time" type="time" value="08:30"></div>
-            <div class="tour-field"><label for="tour-end-time">Fin de journée</label><input id="tour-end-time" type="time" value="18:00"></div>
+            <div class="tour-field"><label for="tour-start-time">Début de journée</label><input id="tour-start-time" type="time" value="07:30"></div>
+            <div class="tour-field"><label for="tour-end-time">Fin de journée</label><input id="tour-end-time" type="time" value="19:00"></div>
             <div class="tour-field full"><label for="tour-start-address">Point de départ</label><input id="tour-start-address" type="text" placeholder="Adresse de départ ou utilisez Ma position"></div>
             <div class="tour-field full"><label><input id="tour-return" type="checkbox" style="width:auto;min-height:0;margin-right:7px"> Revenir au point de départ en fin de tournée</label></div>
           </div>
@@ -67,7 +67,7 @@
           <div class="tour-client-tools"><input id="tour-client-search" type="search" placeholder="Rechercher un client, une ville…"><button id="tour-smart-select" type="button" class="tour-btn secondary">✨ Sélection intelligente</button><button id="tour-clear-select" type="button" class="tour-btn secondary">Effacer</button></div>
           <div id="tour-client-list" class="tour-client-list"><div class="tour-empty">Sélectionnez d'abord un département.</div></div>
           <div class="tour-actions"><button id="tour-calculate" class="tour-btn teal" type="button">⚡ Calculer l’itinéraire optimal</button></div>
-          <p class="tour-note">Si aucun client n’est coché, le CRM choisit automatiquement les dossiers les plus pertinents et les ordonne pour limiter les kilomètres et le temps perdu.</p>
+          <p class="tour-note">Objectif : regrouper les clients proches et remplir intelligemment le matin puis l’après-midi, sans dépasser 4 visites par demi-journée et sans empiéter sur la pause déjeuner.</p>
         </section>
       </div>
 
@@ -84,5 +84,6 @@
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script type="module" src="assets/js/tournees.js?v=20260903-1"></script>
+  <script type="module" src="assets/js/tournees-v2.js?v=20260903-2"></script>
 </body>
 </html>
