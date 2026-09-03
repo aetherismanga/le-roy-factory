@@ -3,6 +3,14 @@
   const ENDPOINT = 'https://gettariffpdf-5m3lsyu7bq-uc.a.run.app';
   const SESSION_KEY = 'lrfProSession';
   const ADMIN_EMAILS = new Set(['jerome@leroyfactory.fr','coryne@leroyfactory.fr']);
+  const FIREBASE_CONFIG = {
+    apiKey: 'AIzaSyA3iuK5Ua8kFccURSqLihLshHnhA4rm2is',
+    authDomain: 'le-roy-factory.firebaseapp.com',
+    projectId: 'le-roy-factory',
+    storageBucket: 'le-roy-factory.firebasestorage.app',
+    messagingSenderId: '249878619253',
+    appId: '1:249878619253:web:05f051710b6251dbfa843c'
+  };
   const MAP = new Map([
     ['assets/pdf/elios2026.pdf','elios-2026'],
     ['assets/pdf/view2026.pdf','view-2026'],
@@ -32,18 +40,37 @@
       return value;
     }catch(_){return null}
   }
+
+  function isAdminSession(s){
+    if(!s)return false;
+    const email=String(s.email||s.adminEmail||'').trim().toLowerCase();
+    return (s.isAdmin===true||s.admin===true)&&ADMIN_EMAILS.has(email);
+  }
+
+  async function adminToken(){
+    const [appModule,authModule]=await Promise.all([
+      import('https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js'),
+      import('https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js')
+    ]);
+    const app=appModule.getApps().length?appModule.getApp():appModule.initializeApp(FIREBASE_CONFIG);
+    const auth=authModule.getAuth(app);
+    const user=auth.currentUser;
+    const email=String(user?.email||'').trim().toLowerCase();
+    if(!user||!ADMIN_EMAILS.has(email))throw new Error('Session administrateur Firebase introuvable. Reconnectez-vous à l’Espace Agent.');
+    return user.getIdToken(true);
+  }
+
   function tariffIdFromHref(href){
     const clean=String(href||'').split('?')[0].replace(/^\.\//,'').toLowerCase();
     return MAP.get(clean)||null;
   }
+
   function patchLinks(root=document){
     root.querySelectorAll?.('a[href]').forEach(a=>{
       if(a.dataset.secureTariffId)return;
-      const originalHref=a.getAttribute('href')||'';
-      const id=tariffIdFromHref(originalHref);
+      const id=tariffIdFromHref(a.getAttribute('href'));
       if(!id)return;
       a.dataset.secureTariffId=id;
-      a.dataset.secureTariffHref=originalHref;
       a.dataset.secureTariffLabel=a.textContent.trim()||'Tarif';
       a.setAttribute('href','#');
       a.removeAttribute('target');
@@ -51,11 +78,7 @@
       a.title='Tarif sécurisé LE ROY FACTORY';
     });
   }
-  function isAdminSession(s){
-    if(!s)return false;
-    const email=String(s.email||s.adminEmail||'').trim().toLowerCase();
-    return (s.isAdmin===true||s.admin===true)&&ADMIN_EMAILS.has(email);
-  }
+
   async function openSecureTariff(anchor){
     const card=anchor.closest('.card-premium');
     if(card&&!card.querySelector('.pro-access-badge.allowed'))return;
@@ -63,16 +86,6 @@
     if(!s){
       alert('Votre accès PRO a expiré. Saisissez à nouveau votre Code LRF et votre département.');
       location.href='tarifs-pro.html';
-      return;
-    }
-
-    if(isAdminSession(s)){
-      const href=anchor.dataset.secureTariffHref;
-      if(!href){
-        alert('Impossible d’ouvrir ce tarif.');
-        return;
-      }
-      window.open(href,'_blank','noopener');
       return;
     }
 
@@ -84,8 +97,19 @@
     anchor.setAttribute('aria-busy','true');
     const old=anchor.textContent;
     anchor.textContent='Ouverture…';
+
     try{
-      const response=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({codeClient:s.codeClient,departement:s.departement,tariffId:anchor.dataset.secureTariffId})});
+      const headers={'Content-Type':'application/json'};
+      const body={tariffId:anchor.dataset.secureTariffId};
+
+      if(isAdminSession(s)){
+        headers.Authorization=`Bearer ${await adminToken()}`;
+      }else{
+        body.codeClient=s.codeClient;
+        body.departement=s.departement;
+      }
+
+      const response=await fetch(ENDPOINT,{method:'POST',headers,body:JSON.stringify(body)});
       if(!response.ok){
         let message='Impossible d’ouvrir ce tarif.';
         try{const j=await response.json();if(j?.error)message=j.error}catch(_){}
