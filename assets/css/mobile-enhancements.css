@@ -16,6 +16,11 @@ body:not(.crm-body) .main-nav .agent-btn:hover,body:not(.crm-body) .main-nav .ag
 body.crm-body{display:block!important;padding-bottom:76px!important;overflow-x:hidden!important}
 body.crm-body .crm-sidebar{width:min(86vw,320px)!important;transform:translateX(-105%);transition:transform .24s ease!important;box-shadow:16px 0 38px rgba(0,0,0,.24);z-index:100020!important}
 body.crm-body .crm-sidebar.mobile-open{transform:translateX(0)}
+/* Le logo LRF de la sidebar ne doit JAMAIS flotter au centre de l'écran.
+   Il n'est visible que lorsque le menu latéral est réellement ouvert. */
+body.crm-body:not(.crm-menu-open) .crm-sidebar .sidebar-brand{display:none!important;visibility:hidden!important;pointer-events:none!important}
+body.crm-body.crm-menu-open .crm-sidebar.mobile-open .sidebar-brand{display:flex!important;visibility:visible!important;pointer-events:auto!important}
+body.crm-body:not(.crm-menu-open) .crm-mobile-logo,body.crm-body:not(.crm-menu-open) #crm-mobile-logo,body.crm-body:not(.crm-menu-open) .lrf-mobile-logo,body.crm-body:not(.crm-menu-open) .mobile-brand-logo,body.crm-body:not(.crm-menu-open) .mobile-logo-lrf{display:none!important;visibility:hidden!important}
 body.crm-body .sidebar-menu span.menu-text,body.crm-body .sidebar-footer span.menu-text{display:inline!important}
 body.crm-body .crm-main-content{width:100%!important;max-width:none!important;margin-left:0!important;padding:68px 12px 20px!important;box-sizing:border-box!important}
 body.crm-body .crm-topbar{margin-bottom:1rem!important;padding:1rem!important;border-radius:12px!important;gap:.75rem!important}
