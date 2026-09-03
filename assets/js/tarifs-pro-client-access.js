@@ -3,6 +3,11 @@ import { initializeApp, getApp, getApps } from "https://www.gstatic.com/firebase
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
 const SESSION_KEY = "lrfProSession";
+const REMEMBER_TOKEN_KEY = "lrfProRememberToken";
+const TRANSIENT_TOKEN_KEY = "lrfProSessionToken";
+const CREATE_SESSION_URL = "https://us-central1-le-roy-factory.cloudfunctions.net/createProSession";
+const VALIDATE_SESSION_URL = "https://us-central1-le-roy-factory.cloudfunctions.net/validateProSession";
+const REVOKE_SESSION_URL = "https://us-central1-le-roy-factory.cloudfunctions.net/revokeProSession";
 const PREFILL_URL = "https://getaccountclientprefill-5m3lsyu7bq-uc.a.run.app";
 const FIREBASE_CONFIG = {
   apiKey: "AIzaSyA3iuK5Ua8kFccURSqLihLshHnhA4rm2is",
@@ -29,6 +34,7 @@ const esc=v=>String(v||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>
 const depFromCp=cp=>{const s=String(cp||"").replace(/\s/g,"");if(!/^\d{5}$/.test(s))return"";if(s.startsWith("97")||s.startsWith("98"))return s.slice(0,3);if(s.startsWith("20"))return Number(s)>=20200?"2B":"2A";return s.slice(0,2)};
 const clientDep=c=>String(c.departement||depFromCp(c.codePostal||c.code_postal)||"").trim().toUpperCase();
 let currentClient=null;
+let restoringDevice=false;
 
 function getAdminProfile(user){
   const email=String(user?.email||"").trim().toLowerCase();
@@ -36,19 +42,41 @@ function getAdminProfile(user){
   return {email,name:ADMINS.get(email),uid:user.uid};
 }
 
-function clearSession(){
+function currentDeviceToken(){
+  try{
+    return sessionStorage.getItem(TRANSIENT_TOKEN_KEY)||localStorage.getItem(REMEMBER_TOKEN_KEY)||"";
+  }catch(_){return ""}
+}
+function storeDeviceToken(token,remember){
+  try{
+    sessionStorage.removeItem(TRANSIENT_TOKEN_KEY);
+    localStorage.removeItem(REMEMBER_TOKEN_KEY);
+    if(!token)return;
+    if(remember)localStorage.setItem(REMEMBER_TOKEN_KEY,token);
+    else sessionStorage.setItem(TRANSIENT_TOKEN_KEY,token);
+  }catch(_){}
+}
+function clearDeviceToken(){
+  try{sessionStorage.removeItem(TRANSIENT_TOKEN_KEY)}catch(_){}
+  try{localStorage.removeItem(REMEMBER_TOKEN_KEY)}catch(_){}
+}
+function clearSession({forgetDevice=false}={}){
   try{sessionStorage.removeItem(SESSION_KEY)}catch(_){}
+  // Supprime seulement les anciennes sessions en clair éventuellement laissées par une ancienne version.
   try{localStorage.removeItem(SESSION_KEY)}catch(_){}
+  if(forgetDevice)clearDeviceToken();
   window.LRF_PRO_CONTEXT=null;
 }
-function saveVerifiedSession(client,partners,activity){
+function saveVerifiedSession(client,partners,activity,sessionToken=""){
   const safe={
     codeClient:String(client.codeClient||"").toUpperCase(),clientId:client.id||"",societe:client.societe||"Client professionnel",
-    departement:clientDep(client),activite:activity||"Professionnel",partenaires:[...new Set(partners||[])],verifiedAt:Date.now()
+    departement:clientDep(client),activite:activity||"Professionnel",partenaires:[...new Set(partners||[])],
+    sessionToken:String(sessionToken||currentDeviceToken()||""),verifiedAt:Date.now()
   };
   try{sessionStorage.setItem(SESSION_KEY,JSON.stringify(safe))}catch(_){}
   try{localStorage.removeItem(SESSION_KEY)}catch(_){}
   window.LRF_PRO_CONTEXT=safe;
+  window.dispatchEvent(new CustomEvent("lrf-pro-session-changed",{detail:safe}));
   return safe;
 }
 
@@ -57,7 +85,9 @@ function injectStyles(){
   const s=document.createElement("style");s.id="pro-client-access-style";s.textContent=`
     .pro-login-grid{display:grid;grid-template-columns:1fr 140px;gap:.75rem;margin:1.4rem 0}.pro-login-grid input{padding:.8rem 1rem;border:1px solid #d5d0c7;border-radius:10px;font-size:1rem;outline:none}.pro-login-grid input:focus{border-color:#D4AF37;box-shadow:0 0 0 3px rgba(212,175,55,.12)}
     .pro-login-btn{width:100%;padding:.9rem 1rem;border:1px solid #D4AF37;border-radius:10px;background:#111;color:#FFD700;font-weight:800;cursor:pointer}.pro-login-btn:hover{background:#FFD700;color:#111}.pro-login-btn:disabled{opacity:.65;cursor:wait}
-    .pro-client-summary{margin-bottom:1.5rem;padding:1rem 1.2rem;background:#fff;border:1px solid #e5dfd2;border-left:4px solid #D4AF37;border-radius:12px;display:flex;justify-content:space-between;gap:1rem;align-items:center;flex-wrap:wrap}.pro-client-summary.admin{border-left-color:#111;background:linear-gradient(135deg,#fffdf8,#fff)}.pro-client-name{font-weight:900;font-size:1.05rem;color:#1A2530}.pro-client-meta{font-size:.82rem;color:#666;margin-top:.2rem}.pro-logout{border:1px solid #ddd3bf;background:#fff;border-radius:8px;padding:.5rem .8rem;font-weight:700;cursor:pointer}.pro-access-note{font-size:.78rem;color:#777;line-height:1.45;margin-top:.7rem}
+    .pro-remember{display:flex;align-items:flex-start;gap:.65rem;text-align:left;margin:.85rem 0 1.05rem;padding:.85rem .9rem;border-radius:11px;background:#fffaf0;border:1px solid #ead7ad;color:#3f392f}.pro-remember input{width:20px;height:20px;accent-color:#D4AF37;margin-top:1px;flex:0 0 auto}.pro-remember strong{display:block;font-size:.88rem}.pro-remember small{display:block;color:#756b5d;font-size:.73rem;line-height:1.35;margin-top:.15rem}
+    .pro-restoring{display:flex;align-items:center;justify-content:center;gap:.6rem;padding:1rem;color:#655a4a;font-weight:700}.pro-restoring-dot{width:9px;height:9px;border-radius:50%;background:#D4AF37;box-shadow:0 0 0 0 rgba(212,175,55,.5);animation:proPulse 1.2s infinite}@keyframes proPulse{70%{box-shadow:0 0 0 9px rgba(212,175,55,0)}100%{box-shadow:0 0 0 0 rgba(212,175,55,0)}}
+    .pro-client-summary{margin-bottom:1.5rem;padding:1rem 1.2rem;background:#fff;border:1px solid #e5dfd2;border-left:4px solid #D4AF37;border-radius:12px;display:flex;justify-content:space-between;gap:1rem;align-items:center;flex-wrap:wrap}.pro-client-summary.admin{border-left-color:#111;background:linear-gradient(135deg,#fffdf8,#fff)}.pro-client-name{font-weight:900;font-size:1.05rem;color:#1A2530}.pro-client-meta{font-size:.82rem;color:#666;margin-top:.2rem}.pro-device-ok{display:inline-flex;align-items:center;gap:.25rem;margin-top:.35rem;padding:.22rem .5rem;border-radius:999px;background:#eaf7ef;color:#17623a;border:1px solid #b8dec6;font-size:.68rem;font-weight:800}.pro-logout{border:1px solid #ddd3bf;background:#fff;border-radius:8px;padding:.5rem .8rem;font-weight:700;cursor:pointer}.pro-access-note{font-size:.78rem;color:#777;line-height:1.45;margin-top:.7rem}
     .pro-locked-card{opacity:.82}.pro-locked-btn{background:#f3f1ed!important;color:#7a7368!important;border-color:#cfc8bc!important;cursor:pointer!important}.pro-access-badge{display:inline-flex;margin-top:.45rem;padding:.25rem .55rem;border-radius:999px;font-size:.7rem;font-weight:800;background:#f2efe8;color:#70685c;border:1px solid #ddd5c7}.pro-access-badge.allowed{background:#e8f5ed;color:#17623a;border-color:#b8dec6}.pro-access-badge.admin{background:#111;color:#FFD700;border-color:#D4AF37}
     .pro-lock-overlay{position:fixed;inset:0;background:rgba(0,0,0,.58);z-index:99999;display:none;align-items:center;justify-content:center;padding:1rem}.pro-lock-dialog{width:min(520px,94vw);background:#fff;border-radius:14px;padding:1.5rem;box-shadow:0 20px 60px rgba(0,0,0,.3);border:1px solid rgba(212,175,55,.45)}.pro-agent-links{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin:1.1rem 0}.pro-agent-link{display:flex;align-items:center;justify-content:center;text-align:center;padding:.8rem;border-radius:9px;background:#111;color:#FFD700!important;text-decoration:none;font-weight:800;border:1px solid #D4AF37}.pro-lock-close{width:100%;padding:.7rem;border-radius:8px;border:1px solid #d8d1c5;background:#fff;font-weight:700;cursor:pointer}
     .pro-contact-list{display:grid;gap:.6rem;width:100%}.pro-contact-person{padding-bottom:.55rem;border-bottom:1px solid #e6e0d5}.pro-contact-person:last-child{padding-bottom:0;border-bottom:0}.pro-contact-name{font-weight:900;color:#1A2530;font-size:.82rem}.pro-contact-role{display:block;font-size:.72rem;color:#6b7280;margin:.08rem 0 .22rem}.pro-contact-links{display:flex;flex-wrap:wrap;gap:.35rem .8rem;font-size:.76rem}.pro-contact-links a{font-weight:700;color:#1A2530;text-decoration:none}
@@ -73,7 +103,7 @@ function ensureLockModal(){
 }
 function showLockedPartner(partnerName){
   ensureLockModal();const ov=document.getElementById("pro-lock-overlay");const code=currentClient?.codeClient||"";const societe=currentClient?.societe||"Client professionnel";
-  const subject=`Demande d'accès tarif ${partnerName} - ${code}`;const body=`Bonjour,\n\nJe souhaite accéder au tarif ${partnerName}.\nSociété : ${societe}\nIdentifiant client : ${code}\nDépartement : ${clientDep(currentClient||{})}\n\nMerci.`;const mail=`?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  const subject=`Demande d'accès tarif ${partnerName}${code?` - ${code}`:""}`;const body=`Bonjour,\n\nJe souhaite accéder au tarif ${partnerName}.\nSociété : ${societe}${code?`\nIdentifiant client : ${code}`:""}\nDépartement : ${clientDep(currentClient||{})}\n\nMerci.`;const mail=`?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   document.getElementById("pro-lock-message").innerHTML=`Pour accéder au tarif <strong>${esc(partnerName)}</strong>, veuillez contacter votre agent.`;
   document.getElementById("pro-mail-jerome").href=`mailto:jerome@leroyfactory.fr${mail}`;document.getElementById("pro-mail-coryne").href=`mailto:coryne@leroyfactory.fr${mail}`;ov.style.display="flex";
 }
@@ -82,22 +112,75 @@ function replaceLogin(){
   currentClient=null;
   const old=document.getElementById("pro-client-summary");if(old)old.remove();
   const box=document.getElementById("login-section");if(!box)return;box.style.display="block";const content=document.getElementById("pro-content");if(content)content.style.display="none";
-  box.innerHTML=`<h2 style="font-size:1.75rem;margin-bottom:.6rem;color:#1A2530">Accès professionnel</h2><p style="color:#666;font-size:.95rem">Saisissez votre identifiant client LRF et votre département.</p><div class="pro-login-grid"><input id="pro-lrf-code" type="text" autocomplete="off" placeholder="LRF-00235"><input id="pro-dept" type="text" autocomplete="off" placeholder="Département (ex. 34)"></div><button id="pro-client-login" class="pro-login-btn" type="button">Accéder à mes tarifs</button><p id="pro-client-error" style="display:none;color:#b42318;margin-top:1rem;font-size:.85rem;font-weight:700"></p><p class="pro-access-note">L'accès est vérifié par Code LRF + département. Les administrateurs connectés à l'Espace Agent accèdent automatiquement à tous les tarifs.</p>`;
+  box.innerHTML=`<h2 style="font-size:1.75rem;margin-bottom:.6rem;color:#1A2530">Accès professionnel</h2><p style="color:#666;font-size:.95rem">Saisissez votre identifiant client LRF et votre département.</p><div class="pro-login-grid"><input id="pro-lrf-code" type="text" autocomplete="off" placeholder="LRF-00235"><input id="pro-dept" type="text" autocomplete="off" placeholder="Département (ex. 34)"></div><label class="pro-remember"><input id="pro-remember-device" type="checkbox" checked><span><strong>Mémoriser cet appareil</strong><small>Sur votre PC ou téléphone personnel, votre accès sera retrouvé automatiquement à la prochaine ouverture. N’activez pas cette option sur un appareil partagé.</small></span></label><button id="pro-client-login" class="pro-login-btn" type="button">Accéder à mes tarifs</button><p id="pro-client-error" style="display:none;color:#b42318;margin-top:1rem;font-size:.85rem;font-weight:700"></p><p class="pro-access-note">L'accès est vérifié par Code LRF + département. La mémorisation conserve uniquement un jeton sécurisé, jamais votre Code LRF en clair. Les administrateurs connectés à l'Espace Agent accèdent automatiquement à tous les tarifs.</p>`;
   box.querySelector("#pro-lrf-code").addEventListener("input",e=>{let v=e.target.value.toUpperCase().replace(/\s/g,"");if(/^\d{1,5}$/.test(v))v=`LRF-${v.padStart(5,"0")}`;e.target.value=v});
-  box.querySelector("#pro-client-login").addEventListener("click",authenticate);box.querySelectorAll("input").forEach(i=>i.addEventListener("keydown",e=>{if(e.key==="Enter")authenticate()}));
+  box.querySelector("#pro-client-login").addEventListener("click",authenticate);box.querySelectorAll("input[type=text]").forEach(i=>i.addEventListener("keydown",e=>{if(e.key==="Enter")authenticate()}));
 }
 
 async function findClient(code,dep){
   const response=await fetch(PREFILL_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({codeClient:code,departement:dep})});let data={};try{data=await response.json()}catch(_){}
   if(response.status===403||response.status===404)return null;if(!response.ok)throw new Error(data.error||`Erreur serveur ${response.status}`);if(!data?.success||!data?.client)return null;return {codeClient:code,departement:dep,type:"client",...data.client};
 }
+async function createDeviceSession(code,dep){
+  const response=await fetch(CREATE_SESSION_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({codeClient:code,departement:dep})});let data={};try{data=await response.json()}catch(_){}
+  if(response.status===403||response.status===404&&data?.error)return null;
+  if(!response.ok)throw new Error(data.error||`Erreur serveur ${response.status}`);
+  if(!data?.success||!data?.client||!data?.sessionToken)throw new Error("Session sécurisée non créée.");
+  return data;
+}
 async function authenticate(){
   const code=String(document.getElementById("pro-lrf-code")?.value||"").trim().toUpperCase();const dep=String(document.getElementById("pro-dept")?.value||"").trim().toUpperCase();const err=document.getElementById("pro-client-error");if(err){err.style.display="none";err.textContent=""}
   if(!/^LRF-\d{5}$/.test(code)||!dep){showError("Vérifiez l'identifiant LRF et le département.");return}
   const btn=document.getElementById("pro-client-login");if(btn){btn.disabled=true;btn.textContent="Vérification…"}
-  try{const client=await findClient(code,dep);if(!client){showError("Identifiant client ou département incorrect.");return}openForClient(client)}catch(e){console.error("Accès PRO",e);showError("Impossible de vérifier le compte pour le moment.")}finally{if(btn){btn.disabled=false;btn.textContent="Accéder à mes tarifs"}}
+  const remember=!!document.getElementById("pro-remember-device")?.checked;
+  try{
+    const result=await createDeviceSession(code,dep);
+    if(!result){showError("Identifiant client ou département incorrect.");return}
+    storeDeviceToken(result.sessionToken,remember);
+    openForClient(result.client,result.sessionToken,remember);
+  }catch(e){
+    console.error("Accès PRO sécurisé",e);
+    // Repli temporaire : garde l'accès actuel fonctionnel si la fonction de session vient juste d'être déployée.
+    try{
+      const client=await findClient(code,dep);
+      if(!client){showError("Identifiant client ou département incorrect.");return}
+      clearDeviceToken();
+      openForClient(client,"",false);
+      showTransientNotice("Connexion ouverte, mais la mémorisation de l’appareil est momentanément indisponible.");
+    }catch(fallbackError){console.error("Accès PRO",fallbackError);showError("Impossible de vérifier le compte pour le moment.")}
+  }finally{if(btn){btn.disabled=false;btn.textContent="Accéder à mes tarifs"}}
 }
 function showError(msg){const e=document.getElementById("pro-client-error");if(e){e.textContent=msg;e.style.display="block"}}
+function showTransientNotice(msg){const summary=document.getElementById("pro-client-summary");if(!summary)return;const meta=summary.querySelector(".pro-client-meta");if(meta)meta.insertAdjacentHTML("beforeend",`<div style="color:#9a6500;margin-top:.35rem">⚠ ${esc(msg)}</div>`)}
+
+async function validateDeviceToken(token){
+  const response=await fetch(VALIDATE_SESSION_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({sessionToken:token})});let data={};try{data=await response.json()}catch(_){}
+  if(response.status===401||response.status===403||response.status===404)return null;
+  if(!response.ok)throw new Error(data.error||`Erreur serveur ${response.status}`);
+  return data?.success&&data?.client?data:null;
+}
+async function restoreRememberedDevice(){
+  const token=currentDeviceToken();if(!token)return false;
+  if(restoringDevice)return true;restoringDevice=true;
+  const box=document.getElementById("login-section");
+  if(box){box.style.display="block";box.innerHTML=`<div class="pro-restoring"><span class="pro-restoring-dot"></span>Connexion automatique à votre espace PRO…</div>`}
+  try{
+    const result=await validateDeviceToken(token);
+    if(!result){clearDeviceToken();clearSession();return false}
+    openForClient(result.client,token,!!localStorage.getItem(REMEMBER_TOKEN_KEY));
+    return true;
+  }catch(e){
+    console.warn("Restauration session PRO",e);
+    // Une panne réseau ponctuelle ne doit pas effacer le jeton mémorisé.
+    clearSession();
+    return false;
+  }finally{restoringDevice=false}
+}
+async function revokeCurrentDevice(){
+  const token=currentDeviceToken();
+  if(token){fetch(REVOKE_SESSION_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({sessionToken:token}),keepalive:true}).catch(()=>{})}
+  clearSession({forgetDevice:true});
+}
 
 function applyPartnerContacts(card,partnerName){
   const row=card.querySelector('.contact-row');if(!row)return;const contacts=partnerContacts(partnerName).filter(c=>c&&c.name&&(c.email||c.phone));if(!contacts.length){row.remove();return}
@@ -144,27 +227,29 @@ function openForAdmin(profile){
   summary.querySelector("#pro-admin-dashboard").onclick=()=>{location.href="dashboard.html"};
 }
 
-function openForClient(client){
+function openForClient(client,sessionToken="",remembered=false){
   currentClient=client;
   const partners=[...new Set(Array.isArray(client.partenaires)?client.partenaires:[])];
   const allowedNames=new Set(partners.map(p=>norm(PARTNER_NAMES[p]||p)));
   const activity=client.categorieActivite||client.activite||client.sousCategorie||client.segmentation||"Professionnel";
-  saveVerifiedSession(client,partners,activity);
+  saveVerifiedSession(client,partners,activity,sessionToken);
   const {content,grid}=prepareTariffGrid();if(!grid||!content)return;
   [...grid.children].forEach(card=>{const partnerName=card.querySelector("h3")?.textContent?.trim()||"ce partenaire";setCardAccess(card,allowedNames.has(norm(partnerName)),false)});
   let summary=document.getElementById("pro-client-summary");if(!summary){summary=document.createElement("div");summary.id="pro-client-summary";content.insertBefore(summary,grid)}
   summary.className="pro-client-summary";
-  summary.innerHTML=`<div><div class="pro-client-name">${esc(client.societe||"Client professionnel")}</div><div class="pro-client-meta">${esc(client.codeClient||"")} · Département ${esc(clientDep(client))} · ${esc(activity)} · ${partners.length} partenaire(s) avec accès tarif</div></div><button type="button" class="pro-logout" id="pro-logout">Se déconnecter</button>`;
-  summary.querySelector("#pro-logout").onclick=()=>{currentClient=null;clearSession();summary.remove();replaceLogin()};
+  const deviceBadge=sessionToken?`<span class="pro-device-ok">✓ ${remembered?"Appareil mémorisé":"Session sécurisée"}</span>`:"";
+  summary.innerHTML=`<div><div class="pro-client-name">${esc(client.societe||"Client professionnel")}</div><div class="pro-client-meta">${esc(client.codeClient||"")} · Département ${esc(clientDep(client))} · ${esc(activity)} · ${partners.length} partenaire(s) avec accès tarif<br>${deviceBadge}</div></div><button type="button" class="pro-logout" id="pro-logout">Se déconnecter</button>`;
+  summary.querySelector("#pro-logout").onclick=async()=>{currentClient=null;await revokeCurrentDevice();summary.remove();replaceLogin()};
 }
 
 function init(){
-  // Les anciennes sessions client sont toujours supprimées. En revanche, une session Firebase Agent valide
-  // pour Jérôme ou Coryne donne immédiatement un accès administrateur complet, sans code LRF.
+  // La page peut effacer l'ancienne session en clair à son chargement : le jeton d'appareil sécurisé reste, lui, séparé.
   clearSession();injectStyles();ensureLockModal();
-  onAuthStateChanged(auth,user=>{
+  onAuthStateChanged(auth,async user=>{
     const admin=getAdminProfile(user);
-    if(admin)openForAdmin(admin);else replaceLogin();
+    if(admin){openForAdmin(admin);return}
+    const restored=await restoreRememberedDevice();
+    if(!restored)replaceLogin();
   });
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();
