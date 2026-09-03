@@ -146,6 +146,22 @@ header nav a.active {
   header nav ul.active a { color: #000000 !important; text-shadow: none; }
   header nav ul.active a:hover { background-color: #FFD700 !important; color: #000000 !important; }
   .burger-btn { display: flex; }
+
+  /* CRM smartphone : le burger suffit. Le logo central et la barre noire basse sont retirés. */
+  body.crm-body .crm-sidebar .sidebar-brand,
+  body.crm-body .crm-mobile-logo,
+  body.crm-body #crm-mobile-logo,
+  body.crm-body .lrf-mobile-logo {
+    display: none !important;
+  }
+
+  body.crm-body .lrf-mobile-actions {
+    display: none !important;
+  }
+
+  body.crm-body {
+    padding-bottom: 0 !important;
+  }
 }
 
 footer {
