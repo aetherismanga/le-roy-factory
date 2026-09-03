@@ -85,7 +85,7 @@
         </article>
 
         <article class="realisation-card" tabindex="0" role="button" data-categories="villa terrasse residentiel" data-usine="VIEW Ceramica" data-reference="COCO Light" data-format="40×60" aria-label="Agrandir VIEW COCO Light 40x60 — villa et terrasse">
-          <img src="assets/img/View_Coco_Light_40x60_villa%20in%26out_HD_02.jpg" alt="Réalisation villa intérieur extérieur et terrasse en VIEW COCO Light 40x60" loading="lazy" fetchpriority="low" decoding="async">
+          <img src="https://raw.githubusercontent.com/aetherismanga/le-roy-factory/main/assets/img/View_Coco_Light_40x60_villa%20in%26out_HD_02.jpg" alt="Réalisation villa intérieur extérieur et terrasse en VIEW COCO Light 40x60" loading="eager" fetchpriority="high" decoding="async">
           <div class="realisation-content">
             <span class="realisation-brand">VIEW Ceramica</span>
             <h3>COCO Light 40×60 — Villa In & Out</h3>
@@ -237,7 +237,6 @@
           if(e.key==='Enter'||e.key===' '){e.preventDefault();openLightbox(card);}
         });
       });
-
       prevButton.addEventListener('click',e=>{e.stopPropagation();go(-1);});
       nextButton.addEventListener('click',e=>{e.stopPropagation();go(1);});
       closeButton.addEventListener('click',e=>{e.stopPropagation();closeLightbox();});
