@@ -1,0 +1,180 @@
+/* LE ROY FACTORY CRM — modules complémentaires du thème Warm 3D */
+
+/* Surfaces métier communes */
+html body.crm-body :is(.agenda-card,.cr-card,.map-card,.req-card,.section,.partner-card,.email-card,.compose-card,.recipient-card,.panel) {
+  border:1px solid var(--crm-line) !important;
+  border-radius:18px !important;
+  background:linear-gradient(145deg,#fffefb,#fff8ef) !important;
+  box-shadow:var(--crm-shadow-soft),var(--crm-inset) !important;
+}
+
+html body.crm-body :is(.agenda-card,.cr-card,.req-card,.partner-card) {
+  transition:transform .17s ease,box-shadow .17s ease,border-color .17s ease !important;
+}
+html body.crm-body :is(.agenda-card,.cr-card,.req-card,.partner-card):hover {
+  transform:translateY(-2px);
+  border-color:#e7bd63 !important;
+  box-shadow:var(--crm-shadow) !important;
+}
+
+/* Agenda */
+html body.crm-body .agenda-card{padding:18px!important}
+html body.crm-body .fc .fc-toolbar-title{color:var(--crm-ink)!important;font-weight:850!important;letter-spacing:-.03em}
+html body.crm-body .fc .fc-button-primary {
+  border-color:#d98c09 !important;
+  border-radius:10px !important;
+  background:linear-gradient(180deg,#ffc246,#eea111 55%,#d88607) !important;
+  color:#fff !important;
+  box-shadow:inset 0 1px rgba(255,255,255,.55),0 5px 11px rgba(174,103,7,.18) !important;
+}
+html body.crm-body .fc .fc-button-primary:not(:disabled):active,
+html body.crm-body .fc .fc-button-primary.fc-button-active{background:linear-gradient(180deg,#239e94,#117f78)!important;border-color:#0d746e!important}
+html body.crm-body .fc-theme-standard td,
+html body.crm-body .fc-theme-standard th{border-color:#eadfce!important}
+html body.crm-body .fc .fc-col-header-cell{background:#fff4e3!important;color:#66533d!important}
+html body.crm-body .fc .fc-daygrid-day.fc-day-today{background:rgba(243,173,24,.12)!important}
+html body.crm-body .fc-event{border-radius:7px!important;box-shadow:0 3px 8px rgba(0,0,0,.12)!important}
+
+/* Comptes-rendus */
+html body.crm-body .cr-card{overflow:hidden!important}
+html body.crm-body .cr-card::before{
+  content:"";
+  display:block;
+  height:4px;
+  margin:-1px -1px 12px;
+  background:linear-gradient(90deg,var(--crm-gold),var(--crm-coral),var(--crm-teal));
+}
+html body.crm-body .cr-card h3,
+html body.crm-body .cr-card strong{color:var(--crm-ink)!important}
+
+/* Mails groupés */
+html body.crm-body .nav-tabs{border-bottom-color:#eadfce!important;gap:5px!important}
+html body.crm-body .tab-btn{
+  border-radius:11px 11px 0 0 !important;
+  color:#756c62 !important;
+  transition:background .15s ease,color .15s ease !important;
+}
+html body.crm-body .tab-btn:hover{background:#fff3df!important;color:#4d4033!important}
+html body.crm-body .tab-btn.active{
+  color:#9a6404 !important;
+  border-bottom-color:var(--crm-gold)!important;
+  background:linear-gradient(180deg,#fff9ef,#fff2db)!important;
+}
+html body.crm-body .selection-counter-bar{
+  border-radius:13px!important;
+  background:linear-gradient(145deg,#fff7e7,#fffdf8)!important;
+  border-color:#ead5a8!important;
+  box-shadow:inset 0 1px #fff!important;
+}
+html body.crm-body .email-table thead th{background:linear-gradient(180deg,#fff6e8,#f6ead8)!important;color:#685844!important}
+
+/* Demandes clients */
+html body.crm-body .req-toolbar,
+html body.crm-body .contacts-toolbar,
+html body.crm-body .filter-bar {
+  padding:11px !important;
+  border:1px solid var(--crm-line) !important;
+  border-radius:15px !important;
+  background:linear-gradient(145deg,#fffefb,#fff9f1) !important;
+  box-shadow:var(--crm-shadow-soft),var(--crm-inset) !important;
+}
+html body.crm-body .req-toolbar :is(input,select),
+html body.crm-body .contacts-toolbar :is(input,select){min-height:44px!important}
+html body.crm-body .req-card{position:relative!important;overflow:hidden!important}
+html body.crm-body .req-card::before{
+  content:"";
+  position:absolute;
+  left:0;top:12px;bottom:12px;
+  width:4px;border-radius:0 5px 5px 0;
+  background:linear-gradient(180deg,#ffc43e,#ef654a);
+}
+html body.crm-body .status{border:1px solid rgba(0,0,0,.055)!important;box-shadow:inset 0 1px rgba(255,255,255,.7),0 3px 8px rgba(0,0,0,.05)!important}
+html body.crm-body .panel{background:linear-gradient(155deg,#fffdf8,#f8efe3)!important}
+html body.crm-body .panel-head{background:rgba(255,250,243,.94)!important;backdrop-filter:blur(9px)}
+html body.crm-body .panel-close{border-color:#dda82e!important;background:linear-gradient(180deg,#fffdf7,#fff0d3)!important;box-shadow:0 4px 10px rgba(109,70,15,.08)!important}
+html body.crm-body .btn-main{background:linear-gradient(180deg,#ffc140,#ec9f0f,#d48205)!important;border-color:#d88b08!important;color:#fff!important;box-shadow:inset 0 1px rgba(255,255,255,.58),0 6px 13px rgba(187,110,4,.2)!important}
+html body.crm-body .btn-alt{background:linear-gradient(180deg,#fffefb,#fff3df)!important;border-color:#e0b451!important}
+
+/* Contacts partenaires — logos fabricants laissés strictement intacts */
+html body.crm-body .partner-card{padding:14px!important}
+html body.crm-body .partner-head{border-bottom-color:#eee0cf!important}
+html body.crm-body .partner-head h2{color:var(--crm-ink)!important;font-weight:850!important}
+html body.crm-body .contact{border-bottom-color:#f0e4d6!important}
+html body.crm-body .contact-actions a{
+  border-radius:10px!important;
+  border-color:#dfd2c1!important;
+  background:linear-gradient(180deg,#fffefb,#fff6e9)!important;
+  box-shadow:inset 0 1px #fff,0 4px 8px rgba(69,43,17,.05)!important;
+}
+html body.crm-body .contact-actions a:hover{color:#fff!important;border-color:#b96f05!important;background:linear-gradient(180deg,#f8b62f,#dc8a08)!important}
+html body.crm-body .partner-logo{
+  /* volontairement aucune transformation, aucun filtre, aucun remplacement */
+  object-fit:contain !important;
+}
+
+/* Carte commerciale */
+html body.crm-body .map-card{padding:14px!important}
+html body.crm-body #map{
+  border-radius:14px!important;
+  border:1px solid #dfd2c0!important;
+  box-shadow:inset 0 1px rgba(255,255,255,.7),0 7px 18px rgba(60,43,24,.10)!important;
+}
+html body.crm-body .btn-filter,
+html body.crm-body #fullscreen-btn{
+  min-height:38px!important;
+  border-radius:10px!important;
+  border-color:#dfbd72!important;
+  background:linear-gradient(180deg,#fffdf7,#fff2dd)!important;
+  color:#574938!important;
+  box-shadow:inset 0 1px #fff,0 4px 9px rgba(93,61,19,.07)!important;
+}
+html body.crm-body .btn-filter.active,
+html body.crm-body .btn-filter:hover{
+  color:#fff!important;
+  border-color:#d98908!important;
+  background:linear-gradient(180deg,#fbbb34,#de8b08)!important;
+}
+
+/* Statistiques */
+html body.crm-body .stats-period-filters,
+html body.crm-body .stats-range-block{
+  border-color:var(--crm-line)!important;
+  border-radius:15px!important;
+  background:linear-gradient(145deg,#fffefb,#fff8ef)!important;
+  box-shadow:var(--crm-shadow-soft),var(--crm-inset)!important;
+}
+html body.crm-body .kpi-card{position:relative!important;overflow:hidden!important}
+html body.crm-body .kpi-card:nth-child(1){border-top:4px solid var(--crm-gold)!important}
+html body.crm-body .kpi-card:nth-child(2){border-top:4px solid var(--crm-teal)!important}
+html body.crm-body .kpi-card:nth-child(3){border-top:4px solid var(--crm-coral)!important}
+html body.crm-body .kpi-card:nth-child(4){border-top:4px solid var(--crm-blue)!important}
+html body.crm-body .kpi-card:nth-child(5){border-top:4px solid var(--crm-purple)!important}
+html body.crm-body .evo{border:1px solid rgba(0,0,0,.04)!important;box-shadow:inset 0 1px rgba(255,255,255,.65)!important}
+
+/* Logo LRF discret dans la barre mobile, sans modifier le DOM */
+@media(max-width:900px){
+  html body.crm-body .crm-main-content::before{
+    content:"";
+    position:fixed;
+    top:8px;
+    left:50%;
+    transform:translateX(-50%);
+    width:50px;
+    height:50px;
+    z-index:100000;
+    pointer-events:none;
+    background:url('../brand-v2/assetlogorond.png?v=20260901-official-big') center/contain no-repeat;
+    filter:drop-shadow(0 5px 8px rgba(0,0,0,.20));
+  }
+  html body.crm-menu-open .crm-main-content::before{opacity:.22}
+
+  html body.crm-body :is(.agenda-card,.cr-card,.map-card,.req-card,.section,.partner-card,.card-box){border-radius:16px!important}
+  html body.crm-body .req-toolbar,
+  html body.crm-body .contacts-toolbar{display:grid!important;grid-template-columns:1fr!important;gap:8px!important}
+  html body.crm-body .req-toolbar :is(input,select),
+  html body.crm-body .contacts-toolbar :is(input,select){width:100%!important;min-width:0!important;box-sizing:border-box!important}
+  html body.crm-body .fc .fc-toolbar{gap:8px!important;flex-wrap:wrap!important}
+  html body.crm-body .fc .fc-toolbar-title{font-size:1.05rem!important}
+  html body.crm-body .map-card{padding:9px!important}
+  html body.crm-body #map{height:58vh!important;min-height:420px!important}
+}
