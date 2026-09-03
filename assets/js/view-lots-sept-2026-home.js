@@ -45,7 +45,7 @@
   const modal=document.createElement('div');
   modal.className='viewlots26-modal';
   modal.setAttribute('aria-hidden','true');
-  modal.innerHTML='<div class="viewlots26-box" role="dialog" aria-modal="true" aria-label="Lots VIEW Septembre 2026"><button class="viewlots26-close" type="button" aria-label="Fermer">×</button><iframe class="viewlots26-frame" title="Lots VIEW Septembre 2026" src="view-lots-septembre-2026.html?v=20260902-modal1"></iframe><div class="viewlots26-loading">Chargement des lots VIEW…</div></div>';
+  modal.innerHTML='<div class="viewlots26-box" role="dialog" aria-modal="true" aria-label="Lots VIEW Septembre 2026"><button class="viewlots26-close" type="button" aria-label="Fermer">×</button><iframe class="viewlots26-frame" title="Lots VIEW Septembre 2026" data-src="view-lots-septembre-2026.html?v=20260902-modal1" loading="lazy"></iframe><div class="viewlots26-loading">Chargement des lots VIEW…</div></div>';
   document.body.appendChild(modal);
   const frame=modal.querySelector('.viewlots26-frame');
   frame.addEventListener('load',()=>{
@@ -61,7 +61,12 @@
     }catch(_){ }
   });
 
-  const open=(e)=>{if(e)e.preventDefault();modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.classList.add('viewlots26-lock')};
+  const ensureFrameLoaded=()=>{
+    if(frame.getAttribute('src')) return;
+    frame.classList.remove('ready');
+    frame.setAttribute('src',frame.dataset.src);
+  };
+  const open=(e)=>{if(e)e.preventDefault();ensureFrameLoaded();modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.classList.add('viewlots26-lock')};
   const close=()=>{modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.classList.remove('viewlots26-lock')};
   modal.querySelector('.viewlots26-close').addEventListener('click',close);
   modal.addEventListener('click',e=>{if(e.target===modal)close()});
@@ -85,7 +90,7 @@
     desktop.className='viewlots26-desktop';
     desktop.href='view-lots-septembre-2026.html';
     desktop.setAttribute('aria-label','Découvrir les lots VIEW Septembre 2026');
-    desktop.innerHTML='<div class="viewlots26-desktop-copy"><div class="viewlots26-desktop-kicker">Offre pro · Septembre 2026</div><div class="viewlots26-desktop-title">LOTS VIEW<br>CHOIX MS</div><div class="viewlots26-desktop-sub">22 lots disponibles · tarifs réservés aux clients identifiés</div><span class="viewlots26-desktop-cta">Voir les lots</span></div><div class="viewlots26-desktop-logo"><img src="assets/img/view.png" alt="VIEW Ceramiche"></div>';
+    desktop.innerHTML='<div class="viewlots26-desktop-copy"><div class="viewlots26-desktop-kicker">Offre pro · Septembre 2026</div><div class="viewlots26-desktop-title">LOTS VIEW<br>CHOIX MS</div><div class="viewlots26-desktop-sub">22 lots disponibles · tarifs réservés aux clients identifiés</div><span class="viewlots26-desktop-cta">Voir les lots</span></div><div class="viewlots26-desktop-logo"><img src="assets/img/view.png" alt="VIEW Ceramiche" loading="lazy" decoding="async"></div>';
     desktop.addEventListener('click',open);
     hero.appendChild(desktop);
   }
