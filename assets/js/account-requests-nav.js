@@ -85,7 +85,7 @@ if(new Set(['clients.html','mails-groupes.html']).has(lrfCurrentPage)){
 if(lrfCurrentPage==='dashboard.html'){
   import('./dashboard-ui-fixes.js?v=20260903-1')
     .catch(err=>console.error('Erreur correctifs dashboard :',err));
-  import('./dashboard-agent-avatar.js?v=20260903-1')
+  import('./dashboard-agent-avatar.js?v=20260903-2')
     .catch(err=>console.error('Erreur avatar agent dashboard :',err));
 }
 
