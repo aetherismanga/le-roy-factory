@@ -5,7 +5,10 @@
 
   const KEY = 'lrfProSession';
   const BACKUP_KEY = 'lrfProSession1h';
-  const MAX_AGE = 60 * 60 * 1000;
+  const TOKEN_KEY = 'lrfProRememberToken';
+  const TRANSIENT_TOKEN_KEY = 'lrfProSessionToken';
+  const VALIDATE_URL = 'https://us-central1-le-roy-factory.cloudfunctions.net/validateProSession';
+  const MAX_AGE = 12 * 60 * 60 * 1000;
   const ADMINS = new Map([
     ['jerome@leroyfactory.fr', 'Jérôme Hugol'],
     ['coryne@leroyfactory.fr', 'Coryne']
@@ -23,13 +26,21 @@
     messagingSenderId: '249878619253',
     appId: '1:249878619253:web:05f051710b6251dbfa843c'
   };
+  let restoring = null;
 
   function purgeLegacy() {
+    // Ancienne version : la fiche client complète pouvait être placée dans localStorage.
+    // Elle est supprimée ; seule la clé opaque TOKEN_KEY peut désormais y rester.
     try { localStorage.removeItem(KEY); } catch (_) {}
   }
 
   function parse(raw) {
     try { return raw ? JSON.parse(raw) : null; } catch (_) { return null; }
+  }
+
+  function storedToken() {
+    try { return sessionStorage.getItem(TRANSIENT_TOKEN_KEY) || localStorage.getItem(TOKEN_KEY) || ''; }
+    catch (_) { return ''; }
   }
 
   function sanitize(session) {
@@ -49,12 +60,14 @@
         clientId: String(session.clientId || ''),
         departement: 'ADMIN',
         partenaires: ALL_PARTNERS.slice(),
+        sessionToken: '',
         verifiedAt: Number(session.verifiedAt || session.unlockedAt || Date.now())
       };
     }
 
     const codeClient = String(session.codeClient || '').trim().toUpperCase();
     const departement = String(session.departement || '').trim().toUpperCase();
+    const sessionToken = String(session.sessionToken || storedToken() || '');
     if (!/^LRF-\d{5}$/.test(codeClient) || !departement) return null;
     const partenaires = Array.isArray(session.partenaires)
       ? [...new Set(session.partenaires.filter(p => p && p !== '*'))]
@@ -63,11 +76,12 @@
       isAdmin: false,
       admin: false,
       codeClient,
-      clientId: String(session.clientId || ''),
+      clientId: String(session.clientId || session.id || ''),
       societe: String(session.societe || 'Client professionnel'),
       departement,
-      activite: String(session.activite || 'Professionnel'),
+      activite: String(session.activite || session.categorieActivite || 'Professionnel'),
       partenaires,
+      sessionToken,
       verifiedAt: Number(session.verifiedAt || session.unlockedAt || Date.now())
     };
   }
@@ -81,6 +95,11 @@
       sessionStorage.removeItem(KEY);
       sessionStorage.removeItem(BACKUP_KEY);
     } catch (_) {}
+  }
+
+  function removeToken() {
+    try { sessionStorage.removeItem(TRANSIENT_TOKEN_KEY); } catch (_) {}
+    try { localStorage.removeItem(TOKEN_KEY); } catch (_) {}
   }
 
   function store(session) {
@@ -120,16 +139,18 @@
     }
   }
 
+  function emitSession(safe) {
+    window.dispatchEvent(new CustomEvent('lrf-pro-session-changed', { detail: safe }));
+    refreshConsumers();
+  }
+
   function write(session, emit = true) {
     purgeLegacy();
     const safe = sanitize({ ...session, verifiedAt: Date.now() });
     if (!safe) return null;
     store(safe);
     window.LRF_PRO_CONTEXT = safe;
-    if (emit) {
-      window.dispatchEvent(new CustomEvent('lrf-pro-session-changed', { detail: safe }));
-      refreshConsumers();
-    }
+    if (emit) emitSession(safe);
     return safe;
   }
 
@@ -143,9 +164,10 @@
     }, emit);
   }
 
-  function clear() {
+  function clear(options = {}) {
     removeStored();
     purgeLegacy();
+    if (options.forgetDevice === true) removeToken();
     window.LRF_PRO_CONTEXT = null;
   }
 
@@ -156,6 +178,48 @@
   function unlockLegacy() {
     clear();
     return false;
+  }
+
+  async function restore() {
+    const existing = read();
+    if (existing) return existing;
+    const token = storedToken();
+    if (!token) return null;
+    if (restoring) return restoring;
+
+    restoring = (async () => {
+      try {
+        const response = await fetch(VALIDATE_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ sessionToken: token })
+        });
+        let data = {};
+        try { data = await response.json(); } catch (_) {}
+        if (response.status === 401 || response.status === 403 || response.status === 404) {
+          removeToken();
+          clear();
+          return null;
+        }
+        if (!response.ok || !data?.success || !data?.client) return null;
+        const client = data.client;
+        return write({
+          codeClient: client.codeClient,
+          clientId: client.id,
+          societe: client.societe,
+          departement: client.departement,
+          activite: client.categorieActivite || client.activite || 'Professionnel',
+          partenaires: client.partenaires || [],
+          sessionToken: token
+        });
+      } catch (error) {
+        console.warn('Restauration accès PRO indisponible :', error);
+        return null;
+      } finally {
+        restoring = null;
+      }
+    })();
+    return restoring;
   }
 
   function patchPricingApi() {
@@ -198,7 +262,10 @@
           return;
         }
         const current = read();
-        if (current?.isAdmin) clear();
+        if (current?.isAdmin) {
+          clear();
+          restore();
+        }
       });
     } catch (error) {
       console.warn('Synchronisation administrateur PRO indisponible :', error);
@@ -208,6 +275,7 @@
   function init() {
     purgeLegacy();
     read();
+    restore();
     if (!patchPricingApi()) {
       let tries = 0;
       const timer = setInterval(() => {
@@ -221,17 +289,19 @@
   window.LRF_PRO_SESSION = {
     key: KEY,
     backupKey: BACKUP_KEY,
+    tokenKey: TOKEN_KEY,
     maxAge: MAX_AGE,
     read,
     write,
     writeAdmin,
     clear,
+    restore,
     unlockLegacy,
     sync
   };
 
-  // Lit immédiatement une session déjà validée avant le rendu des pages Inspirations.
   read();
+  restore();
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
   else init();
 })();
