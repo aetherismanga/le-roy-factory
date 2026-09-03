@@ -73,8 +73,11 @@ if(location.pathname.toLowerCase().endsWith('clients.html')){
     .catch(err=>console.error('Erreur synchronisation partenaires client :',err));
 }
 
-// Dashboard uniquement : calendrier cliquable, horloge numérique et outils temps.
-if(location.pathname.toLowerCase().endsWith('dashboard.html')){
-  import('./dashboard-clock-tools.js?v=20260903-3')
-    .catch(err=>console.error('Erreur chargement outils horloge du dashboard :',err));
+// En-tête premium : calendrier cliquable, horloge numérique et outils temps.
+// Agenda volontairement exclu pour garder la page calendrier la plus légère et compacte possible.
+const lrfClockPages=new Set(['dashboard.html','clients.html','mails-groupes.html','comptes-rendus.html','tournees.html']);
+const lrfCurrentPage=(location.pathname.split('/').pop()||'').toLowerCase();
+if(lrfClockPages.has(lrfCurrentPage)){
+  import('./dashboard-clock-tools.js?v=20260903-4')
+    .catch(err=>console.error('Erreur chargement outils horloge du CRM :',err));
 }
