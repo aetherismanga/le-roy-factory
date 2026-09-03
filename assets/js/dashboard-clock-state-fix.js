@@ -5,6 +5,7 @@
 
   const ACTIVE='is-active';
   const $=id=>document.getElementById(id);
+  let suppressNativeCancel=false;
 
   function installCss(){
     if(document.getElementById('lrf-clock-state-fix-css'))return;
@@ -82,6 +83,15 @@
     }
   }
 
+  // Une fois l'alarme Android programmée, on supprime le setTimeout du navigateur
+  // afin de ne pas entendre deux sonneries si le CRM est encore ouvert.
+  function clearWebAlarmOnly(){
+    const cancel=$('lrf-alarm-cancel');
+    if(!cancel)return;
+    suppressNativeCancel=true;
+    try{cancel.click();}finally{suppressNativeCancel=false;}
+  }
+
   document.addEventListener('click',async e=>{
     if(e.target.closest('#lrf-alarm-set')){
       setTimeout(syncAlarmButton,0);
@@ -91,6 +101,7 @@
         try{
           const result=await window.__lrfNativeAlarm.schedule({at:target.getTime(),label:`Alarme ${target.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}`});
           if(result?.scheduled){
+            clearWebAlarmOnly();
             setActive('lrf-alarm-set',true);
             if(status)status.textContent=`Alarme Android active pour ${target.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})} — même application fermée.`;
           }else if(result?.needsExactPermission){
@@ -106,6 +117,7 @@
       return;
     }
     if(e.target.closest('#lrf-alarm-cancel')){
+      if(suppressNativeCancel)return;
       setActive('lrf-alarm-set',false);
       if(window.__lrfNativeAlarm?.available)window.__lrfNativeAlarm.cancel().catch(err=>console.warn('Annulation alarme Android',err));
       return;
