@@ -80,6 +80,7 @@
 </main>
 <footer>© 2026 LE ROY FACTORY — Lots VIEW Septembre 2026</footer>
 
+<script src="assets/js/pro-session-bridge.js?v=20260903-admin1"></script>
 <script>
 const PREFILL_URL='https://getaccountclientprefill-5m3lsyu7bq-uc.a.run.app';
 const lots=[
@@ -117,6 +118,19 @@ function render(){
 function selectedLots(){return [...document.querySelectorAll('.lot-check:checked')].map(c=>lots.find(l=>l.id===c.closest('tr').dataset.id)).filter(Boolean)}
 function updateSelection(){const selected=selectedLots();const bar=document.getElementById('selection-bar');bar.hidden=selected.length===0;document.getElementById('selected-count').textContent=selected.length+(selected.length>1?' lots sélectionnés':' lot sélectionné')}
 function setMessage(text,type){const el=document.getElementById('login-msg');el.className='login-msg '+type;el.textContent=text}
+function applySharedProSession(){
+  const session=window.LRF_PRO_SESSION?.read?.();
+  if(!session)return;
+  const partners=Array.isArray(session.partenaires)?session.partenaires:[];
+  const allowed=session.isAdmin||partners.some(p=>['view','viewceramica','viewceramiche'].includes(norm(p)));
+  if(!allowed)return;
+  currentClient=session;pricesVisible=true;render();
+  const fields=document.querySelector('.login-fields');if(fields)fields.style.display='none';
+  const icon=document.querySelector('.lock-icon');if(icon)icon.textContent='🔓';
+  const title=document.querySelector('.login-title');if(title)title.lastChild.textContent='Tarifs VIEW affichés';
+  const msg=session.isAdmin?`Accès administrateur reconnu — tarifs VIEW affichés pour ${session.name||session.email||'LE ROY FACTORY'}.`:`Tarifs VIEW affichés pour ${session.societe||session.codeClient}.`;
+  setMessage(msg,'ok');
+}
 async function authenticate(){
   let code=document.getElementById('client-code').value.trim().toUpperCase().replace(/\s/g,'');const dep=document.getElementById('client-dep').value.trim().toUpperCase();if(/^\d{1,5}$/.test(code))code='LRF-'+code.padStart(5,'0');document.getElementById('client-code').value=code;
   if(!/^LRF-\d{5}$/.test(code)||!dep){setMessage('Vérifiez votre identifiant LRF et votre département.','error');return}
@@ -125,13 +139,15 @@ async function authenticate(){
     if(!r.ok||!data?.success||!data?.client){setMessage('Identifiant client ou département incorrect.','error');return}
     const client={...data.client,codeClient:code,departement:dep};const partners=Array.isArray(client.partenaires)?client.partenaires:[];const allowed=partners.some(p=>['view','viewceramica','viewceramiche'].includes(norm(p)));
     if(!allowed){currentClient=client;pricesVisible=false;render();setMessage('Compte identifié, mais le tarif VIEW n’est pas autorisé pour ce compte. Contactez Coryne ou Jérôme.','error');return}
-    currentClient=client;pricesVisible=true;render();setMessage(`Tarifs VIEW affichés pour ${client.societe||code}.`,'ok');btn.textContent='Tarifs affichés';
+    currentClient=client;pricesVisible=true;window.LRF_PRO_SESSION?.write?.({...client,codeClient:code,departement:dep});render();setMessage(`Tarifs VIEW affichés pour ${client.societe||code}.`,'ok');btn.textContent='Tarifs affichés';
   }catch(e){console.error(e);setMessage('Impossible de vérifier le compte pour le moment.','error')}finally{btn.disabled=false;if(!pricesVisible)btn.textContent='Voir mes tarifs'}
 }
 document.getElementById('login-btn').addEventListener('click',authenticate);document.querySelectorAll('#client-code,#client-dep').forEach(i=>i.addEventListener('keydown',e=>{if(e.key==='Enter')authenticate()}));
 document.getElementById('select-all').addEventListener('click',()=>{document.querySelectorAll('.lot-check').forEach(c=>c.checked=true);updateSelection()});document.getElementById('clear-all').addEventListener('click',()=>{document.querySelectorAll('.lot-check').forEach(c=>c.checked=false);updateSelection()});document.getElementById('clear-bottom').addEventListener('click',()=>{document.querySelectorAll('.lot-check').forEach(c=>c.checked=false);updateSelection();scrollTo({top:document.querySelector('.section-head').offsetTop-90,behavior:'smooth'})});
-document.getElementById('request-btn').addEventListener('click',()=>{const selected=selectedLots();if(!selected.length)return;const who=currentClient?`${currentClient.societe||'Client professionnel'} — ${currentClient.codeClient} — département ${currentClient.departement}`:'Client non identifié sur la page';const lines=selected.map((l,i)=>`${i+1}. ${l.series} ${l.name} — ${l.format} — quantité annoncée : ${l.qty}`).join('\n');const subject=encodeURIComponent(`Demande disponibilité VIEW — ${selected.length} lot${selected.length>1?'s':''}`);const mailBody=encodeURIComponent(`Bonjour Coryne, bonjour Jérôme,\n\nJe souhaite connaître la disponibilité des lots VIEW suivants :\n\n${lines}\n\nClient : ${who}\n\nMerci.\nCordialement`);location.href=`mailto:coryne@leroyfactory.fr,jerome@leroyfactory.fr?subject=${subject}&body=${mailBody}`});
-const burger=document.getElementById('burger'),nav=document.getElementById('nav');burger.addEventListener('click',()=>{const open=nav.classList.toggle('mobile-open');burger.setAttribute('aria-expanded',String(open))});render();
+document.getElementById('request-btn').addEventListener('click',()=>{const selected=selectedLots();if(!selected.length)return;const who=currentClient?.isAdmin?`${currentClient.name||currentClient.email||'Administrateur'} — Administrateur LE ROY FACTORY`:currentClient?`${currentClient.societe||'Client professionnel'} — ${currentClient.codeClient} — département ${currentClient.departement}`:'Client non identifié sur la page';const lines=selected.map((l,i)=>`${i+1}. ${l.series} ${l.name} — ${l.format} — quantité annoncée : ${l.qty}`).join('\n');const subject=encodeURIComponent(`Demande disponibilité VIEW — ${selected.length} lot${selected.length>1?'s':''}`);const mailBody=encodeURIComponent(`Bonjour Coryne, bonjour Jérôme,\n\nJe souhaite connaître la disponibilité des lots VIEW suivants :\n\n${lines}\n\nClient : ${who}\n\nMerci.\nCordialement`);location.href=`mailto:coryne@leroyfactory.fr,jerome@leroyfactory.fr?subject=${subject}&body=${mailBody}`});
+const burger=document.getElementById('burger'),nav=document.getElementById('nav');burger.addEventListener('click',()=>{const open=nav.classList.toggle('mobile-open');burger.setAttribute('aria-expanded',String(open))});
+window.addEventListener('lrf-pro-session-changed',applySharedProSession);
+render();applySharedProSession();
 </script>
 </body>
 </html>
