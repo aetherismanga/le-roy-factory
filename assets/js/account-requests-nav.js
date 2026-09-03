@@ -72,3 +72,9 @@ if(location.pathname.toLowerCase().endsWith('clients.html')){
   import('./client-partners-sync.js?v=20260901-1')
     .catch(err=>console.error('Erreur synchronisation partenaires client :',err));
 }
+
+// Dashboard uniquement : calendrier cliquable, horloge numérique et outils temps.
+if(location.pathname.toLowerCase().endsWith('dashboard.html')){
+  import('./dashboard-clock-tools.js?v=20260903-1')
+    .catch(err=>console.error('Erreur chargement outils horloge du dashboard :',err));
+}
