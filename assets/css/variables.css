@@ -9,7 +9,12 @@
   --color-dark-blue: #1A2530;
   --color-sage: #8A9A86;
   --color-floral: #E8D7D8;
-  
   --font-primary: 'Inter', system-ui, -apple-system, sans-serif;
   --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Ancien outil d'import Moovago retiré de l'interface CRM. */
+body.crm-body #btn-import-moovago,
+body.crm-body #moovago-overlay {
+  display: none !important;
 }
