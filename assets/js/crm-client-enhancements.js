@@ -43,11 +43,72 @@ function clientForRow(row) {
   return findClientBySociete(td[1]?.childNodes?.[0]?.textContent?.trim() || td[1]?.textContent?.trim() || "");
 }
 
+function firstPhone(c) {
+  const values = [
+    ...(Array.isArray(c?.telephones) ? c.telephones : []),
+    c?.telephone,
+    c?.mobile,
+    c?.portable
+  ].map(v => String(v || "").trim()).filter(Boolean);
+  return values[0] || "";
+}
+
+function fullAddress(c) {
+  return [c?.adresse, c?.codePostal || c?.code_postal, c?.ville]
+    .map(v => String(v || "").trim())
+    .filter(Boolean)
+    .join(", ");
+}
+
+function mountMobileQuickActions(c) {
+  const modal = document.getElementById("client-modal");
+  const header = modal?.querySelector(".modal-header");
+  if (!modal || !header) return;
+
+  let box = document.getElementById("lrf-client-mobile-quick-actions");
+  if (!box) {
+    box = document.createElement("div");
+    box.id = "lrf-client-mobile-quick-actions";
+    box.className = "lrf-client-mobile-quick-actions";
+    header.insertAdjacentElement("afterend", box);
+  }
+
+  const summary = document.getElementById("lrf-client-summary");
+  if (summary?.parentNode && box.nextElementSibling !== summary) {
+    summary.parentNode.insertBefore(box, summary);
+  }
+
+  if (!c) {
+    box.hidden = true;
+    box.innerHTML = "";
+    return;
+  }
+
+  const phone = firstPhone(c);
+  const address = fullAddress(c);
+  box.hidden = false;
+  box.innerHTML = `
+    <button type="button" class="lrf-client-quick-btn lrf-client-call" ${phone ? "" : "disabled"}>📞 <span>Appeler</span></button>
+    <button type="button" class="lrf-client-quick-btn lrf-client-go" ${address ? "" : "disabled"}>📍 <span>Y aller</span></button>`;
+
+  const call = box.querySelector(".lrf-client-call");
+  const go = box.querySelector(".lrf-client-go");
+  if (phone) call.addEventListener("click", () => {
+    const tel = phone.replace(/[^+\d]/g, "");
+    window.location.href = `tel:${tel}`;
+  });
+  if (address) go.addEventListener("click", () => {
+    const url = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}`;
+    const w = window.open(url, "_blank", "noopener");
+    if (!w) window.location.href = url;
+  });
+}
+
 function styles() {
   if (document.getElementById("crm-enhance-style")) return;
   const s = document.createElement("style");
   s.id = "crm-enhance-style";
-  s.textContent = `.partner-filter{position:relative;min-width:210px}.partner-filter-btn{width:100%;padding:.65rem .8rem;background:#fff;border:1px solid #D1D5DB;border-radius:7px;display:flex;justify-content:space-between;cursor:pointer}.partner-filter-panel{display:none;position:absolute;z-index:5000;right:0;top:calc(100% + 5px);width:330px;max-height:420px;overflow:auto;background:#fff;border:1px solid #ddd;border-radius:10px;padding:.65rem;box-shadow:0 12px 35px rgba(0,0,0,.18)}.partner-filter-panel.open{display:block}.pf-row{display:flex;align-items:center;gap:.6rem;padding:.45rem;border-radius:7px;cursor:pointer}.pf-row:hover{background:#faf7ed}.pf-row img{width:42px;height:28px;object-fit:contain}.row-partners{display:flex;gap:4px;flex-wrap:wrap;margin-top:5px}.row-partners img{width:30px;height:20px;object-fit:contain;border:1px solid #eee;border-radius:4px;background:white;padding:2px}.activity-pill{display:inline-block;margin-left:6px;padding:2px 6px;border-radius:999px;background:#F3F4F6;color:#374151;font-size:.68rem;font-weight:700}.form-field.activity-field select{width:100%}`;
+  s.textContent = `.partner-filter{position:relative;min-width:210px}.partner-filter-btn{width:100%;padding:.65rem .8rem;background:#fff;border:1px solid #D1D5DB;border-radius:7px;display:flex;justify-content:space-between;cursor:pointer}.partner-filter-panel{display:none;position:absolute;z-index:5000;right:0;top:calc(100% + 5px);width:330px;max-height:420px;overflow:auto;background:#fff;border:1px solid #ddd;border-radius:10px;padding:.65rem;box-shadow:0 12px 35px rgba(0,0,0,.18)}.partner-filter-panel.open{display:block}.pf-row{display:flex;align-items:center;gap:.6rem;padding:.45rem;border-radius:7px;cursor:pointer}.pf-row:hover{background:#faf7ed}.pf-row img{width:42px;height:28px;object-fit:contain}.row-partners{display:flex;gap:4px;flex-wrap:wrap;margin-top:5px}.row-partners img{width:30px;height:20px;object-fit:contain;border:1px solid #eee;border-radius:4px;background:white;padding:2px}.activity-pill{display:inline-block;margin-left:6px;padding:2px 6px;border-radius:999px;background:#F3F4F6;color:#374151;font-size:.68rem;font-weight:700}.form-field.activity-field select{width:100%}.lrf-client-mobile-quick-actions{display:none}@media(max-width:900px){.lrf-client-mobile-quick-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 14px 4px;padding:0}.lrf-client-mobile-quick-actions[hidden]{display:none!important}.lrf-client-quick-btn{min-height:54px;border-radius:13px;font:inherit;font-size:1rem;font-weight:850;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer}.lrf-client-call{border:1px solid #087b66;background:linear-gradient(180deg,#19a786,#087b66);color:#fff;box-shadow:inset 0 1px rgba(255,255,255,.35),0 5px 12px rgba(8,123,102,.18)}.lrf-client-go{border:1px solid #d4af37;background:linear-gradient(180deg,#1c1c1c,#0d0d0d);color:#ffd43b;box-shadow:inset 0 1px rgba(255,255,255,.08),0 5px 12px rgba(0,0,0,.16)}.lrf-client-quick-btn:disabled{opacity:.42;cursor:not-allowed;box-shadow:none}}`;
   document.head.appendChild(s);
 }
 
@@ -158,6 +219,14 @@ async function autoClassifyIndependent() {
   }
 }
 
+function refreshOpenClient() {
+  const c = clients.find(x => x.id === editingId) || null;
+  setActivity(c);
+  mountMobileQuickActions(c);
+  setTimeout(() => mountMobileQuickActions(c), 120);
+  setTimeout(() => mountMobileQuickActions(c), 350);
+}
+
 function init() {
   styles();
   injectActivity();
@@ -173,15 +242,15 @@ function init() {
 
   const modal = document.getElementById("client-modal");
   if (modal) new MutationObserver(() => {
-    if (getComputedStyle(modal).display !== "none") {
-      const c = clients.find(x => x.id === editingId) || null;
-      setTimeout(() => setActivity(c), 0);
-    }
+    if (getComputedStyle(modal).display !== "none") refreshOpenClient();
   }).observe(modal, { attributes:true, attributeFilter:["style"] });
 
   document.getElementById("btn-add-client")?.addEventListener("click", () => {
     editingId = null;
-    setTimeout(() => setActivity(null), 0);
+    setTimeout(() => {
+      setActivity(null);
+      mountMobileQuickActions(null);
+    }, 0);
   }, true);
 
   document.getElementById("client-form")?.addEventListener("submit", () => {
@@ -197,6 +266,7 @@ function init() {
     clients = [];
     snap.forEach(d => clients.push({ id:d.id, ...d.data() }));
     setTimeout(decorateRows, 0);
+    if (modal && getComputedStyle(modal).display !== "none") setTimeout(refreshOpenClient, 0);
     autoClassifyGroups();
     autoClassifyIndependent();
   });
