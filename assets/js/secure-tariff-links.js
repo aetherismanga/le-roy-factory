@@ -2,6 +2,7 @@
   'use strict';
   const ENDPOINT = 'https://gettariffpdf-5m3lsyu7bq-uc.a.run.app';
   const SESSION_KEY = 'lrfProSession';
+  const ADMIN_EMAILS = new Set(['jerome@leroyfactory.fr','coryne@leroyfactory.fr']);
   const MAP = new Map([
     ['assets/pdf/elios2026.pdf','elios-2026'],
     ['assets/pdf/view2026.pdf','view-2026'],
@@ -21,8 +22,13 @@
 
   function session(){
     try{
+      const bridge=window.LRF_PRO_SESSION?.read?.();
+      if(bridge)return bridge;
       const value=JSON.parse(sessionStorage.getItem(SESSION_KEY)||'null');
-      if(!value||!/^LRF-\d{5}$/.test(String(value.codeClient||'').toUpperCase())||!value.departement)return null;
+      if(!value)return null;
+      const email=String(value.email||value.adminEmail||'').trim().toLowerCase();
+      if((value.isAdmin===true||value.admin===true)&&ADMIN_EMAILS.has(email))return value;
+      if(!/^LRF-\d{5}$/.test(String(value.codeClient||'').toUpperCase())||!value.departement)return null;
       return value;
     }catch(_){return null}
   }
@@ -33,15 +39,22 @@
   function patchLinks(root=document){
     root.querySelectorAll?.('a[href]').forEach(a=>{
       if(a.dataset.secureTariffId)return;
-      const id=tariffIdFromHref(a.getAttribute('href'));
+      const originalHref=a.getAttribute('href')||'';
+      const id=tariffIdFromHref(originalHref);
       if(!id)return;
       a.dataset.secureTariffId=id;
+      a.dataset.secureTariffHref=originalHref;
       a.dataset.secureTariffLabel=a.textContent.trim()||'Tarif';
       a.setAttribute('href','#');
       a.removeAttribute('target');
       a.setAttribute('rel','nofollow');
       a.title='Tarif sécurisé LE ROY FACTORY';
     });
+  }
+  function isAdminSession(s){
+    if(!s)return false;
+    const email=String(s.email||s.adminEmail||'').trim().toLowerCase();
+    return (s.isAdmin===true||s.admin===true)&&ADMIN_EMAILS.has(email);
   }
   async function openSecureTariff(anchor){
     const card=anchor.closest('.card-premium');
@@ -52,6 +65,17 @@
       location.href='tarifs-pro.html';
       return;
     }
+
+    if(isAdminSession(s)){
+      const href=anchor.dataset.secureTariffHref;
+      if(!href){
+        alert('Impossible d’ouvrir ce tarif.');
+        return;
+      }
+      window.open(href,'_blank','noopener');
+      return;
+    }
+
     const popup=window.open('about:blank','_blank');
     if(popup){
       popup.document.write('<!doctype html><title>LE ROY FACTORY</title><body style="font-family:Arial;padding:30px">Ouverture du tarif sécurisé…</body>');
