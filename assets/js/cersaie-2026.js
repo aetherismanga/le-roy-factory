@@ -43,10 +43,16 @@
 
   const modal = document.createElement('div');
   modal.className='cersaie26-modal'; modal.setAttribute('aria-hidden','true');
-  modal.innerHTML=`<div class="cersaie26-box" role="dialog" aria-modal="true" aria-labelledby="cersaie26-title"><button class="cersaie26-close" aria-label="Fermer">×</button><h2 id="cersaie26-title">CERSAIE 2026</h2><div class="cersaie26-meta">21–25 SEPTEMBRE · BOLOGNE, ITALIE</div><p class="cersaie26-copy">Le Cersaie est le salon international de la céramique pour l’architecture et l’aménagement de salle de bains. Retrouvez LE ROY FACTORY à Bologne du 21 au 25 septembre 2026 sur les stands de nos partenaires.</p><div class="cersaie26-images"><div class="cersaie26-card"><b>Plan du salon</b><img data-cersaie26-img="plan" src="assets/img/cersaie%20plan%202026.png?v=20260902-original" alt="Plan CERSAIE 2026"></div><div class="cersaie26-card"><b>Nos partenaires</b><img data-cersaie26-img="partners" src="assets/img/cersaie2026.png?v=20260902-original" alt="Partenaires LE ROY FACTORY au CERSAIE 2026"></div></div><div class="cersaie26-actions"><button class="cersaie26-yes" data-answer="Je viens">Je viens</button><button class="cersaie26-no" data-answer="Je ne viens pas">Je ne viens pas</button></div><p class="cersaie26-note">✉ Réponse adressée à Coryne Le Roy et Jérôme Hugol.</p></div>`;
+  modal.innerHTML=`<div class="cersaie26-box" role="dialog" aria-modal="true" aria-labelledby="cersaie26-title"><button class="cersaie26-close" aria-label="Fermer">×</button><h2 id="cersaie26-title">CERSAIE 2026</h2><div class="cersaie26-meta">21–25 SEPTEMBRE · BOLOGNE, ITALIE</div><p class="cersaie26-copy">Le Cersaie est le salon international de la céramique pour l’architecture et l’aménagement de salle de bains. Retrouvez LE ROY FACTORY à Bologne du 21 au 25 septembre 2026 sur les stands de nos partenaires.</p><div class="cersaie26-images"><div class="cersaie26-card"><b>Plan du salon</b><img data-cersaie26-img="plan" data-src="assets/img/cersaie%20plan%202026.png?v=20260902-original" loading="lazy" decoding="async" alt="Plan CERSAIE 2026"></div><div class="cersaie26-card"><b>Nos partenaires</b><img data-cersaie26-img="partners" data-src="assets/img/cersaie2026.png?v=20260902-original" loading="lazy" decoding="async" alt="Partenaires LE ROY FACTORY au CERSAIE 2026"></div></div><div class="cersaie26-actions"><button class="cersaie26-yes" data-answer="Je viens">Je viens</button><button class="cersaie26-no" data-answer="Je ne viens pas">Je ne viens pas</button></div><p class="cersaie26-note">✉ Réponse adressée à Coryne Le Roy et Jérôme Hugol.</p></div>`;
   document.body.appendChild(modal);
 
-  const open=()=>{modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.classList.add('cersaie26-lock')};
+  const ensureImages=()=>{
+    modal.querySelectorAll('img[data-src]').forEach(img=>{
+      if(img.getAttribute('src')) return;
+      img.setAttribute('src',img.dataset.src);
+    });
+  };
+  const open=()=>{ensureImages();modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.classList.add('cersaie26-lock')};
   const close=()=>{modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.classList.remove('cersaie26-lock')};
   mobile.addEventListener('click',open); desktop.addEventListener('click',open); modal.querySelector('.cersaie26-close').addEventListener('click',close); modal.addEventListener('click',e=>{if(e.target===modal)close()}); document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
   modal.querySelectorAll('[data-answer]').forEach(btn=>btn.addEventListener('click',()=>{
