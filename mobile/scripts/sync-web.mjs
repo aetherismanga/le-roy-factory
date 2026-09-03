@@ -11,8 +11,8 @@ const www=join(mobileRoot,'www');
 await rm(www,{recursive:true,force:true});
 await mkdir(www,{recursive:true});
 
-// L'application Android doit embarquer le site LE ROY FACTORY actuel dans son intégralité,
-// et non un ancien shell CRM. On prend toutes les pages HTML du dépôt + les ressources du site.
+// L'application Android embarque le site LE ROY FACTORY actuel dans son intégralité,
+// puis le CRM accessible depuis l'Espace Agent.
 const rootEntries=await readdir(repoRoot,{withFileTypes:true});
 const htmlFiles=rootEntries
   .filter(entry=>entry.isFile()&&entry.name.toLowerCase().endsWith('.html'))
@@ -22,8 +22,7 @@ const supportCandidates=[
   'assets','data','sw.js','manifest.webmanifest','site.webmanifest','manifest.json','favicon.ico'
 ];
 
-const files=[...htmlFiles,...supportCandidates];
-for(const name of files){
+for(const name of [...htmlFiles,...supportCandidates]){
   try{
     await cp(join(repoRoot,name),join(www,name),{recursive:true});
   }catch(e){
@@ -31,7 +30,9 @@ for(const name of files){
   }
 }
 
-// Capacités natives Android. Aucun ancien module Jarvis/voix n'est injecté.
+// Aucun ancien module Jarvis n'est conservé dans l'application Android.
+await rm(join(www,'assets','js','jarvis-web.js'),{force:true}).catch(()=>{});
+
 await build({
   entryPoints:[join(mobileRoot,'app-bridge.js')],
   bundle:true,
@@ -51,12 +52,14 @@ await build({
   logLevel:'silent'
 });
 
-// Ajout du pont natif à toutes les pages pour le bouton Retour/GPS/réseau.
-// Le pont d'alarme est léger et reste disponible uniquement quand le CRM en a besoin.
 for(const name of htmlFiles){
   const dest=join(www,name);
   try{
     let html=await readFile(dest,'utf8');
+
+    // Retire d'éventuelles références Jarvis héritées du site historique uniquement dans l'APK.
+    html=html.replace(/\s*<script[^>]+src=["'][^"']*jarvis[^"']*["'][^>]*><\/script>/gi,'');
+
     if(!html.includes('app-bridge.js')){
       html=html.replace(/<\/body>/i,'<script type="module" src="app-bridge.js"></script></body>');
     }
@@ -70,5 +73,5 @@ for(const name of htmlFiles){
 }
 
 // IMPORTANT : index.html reste l'accueil réel du site.
-// Aucune redirection automatique vers le CRM et aucun ancien shell mobile.
-console.log(`Site complet LE ROY FACTORY synchronisé dans mobile/www : ${htmlFiles.length} pages HTML + ressources + capacités Android natives.`);
+// Aucune redirection automatique vers le CRM, aucun ancien shell mobile et aucun Jarvis.
+console.log(`Application Android synchronisée : site complet LE ROY FACTORY + CRM actuel (${htmlFiles.length} pages), sans Jarvis.`);
