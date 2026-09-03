@@ -1,4 +1,4 @@
-const CACHE='lrf-pwa-v4-agenda';
+const CACHE='lrf-pwa-v5-dashboard-logo';
 const CORE=['/','/index.html','/assets/brand-v2/assetlogorond.png'];
 
 self.addEventListener('install',event=>{
