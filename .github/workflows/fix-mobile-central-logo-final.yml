@@ -1,0 +1,81 @@
+name: Fix mobile central logo final
+
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-mobile-central-logo-final.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Remove central mobile logo and keep dedicated menu logo
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('dashboard.html')
+          s = p.read_text(encoding='utf-8')
+
+          marker = "    .crm-topbar h1, .crm-topbar p, .welcome-box h1, .welcome-box p {"
+          css = '''
+    /* Mobile : aucun logo flottant/central. Le retour site reste uniquement dans le menu. */
+    .lrf-mobile-return-site { display: none; }
+    @media (max-width: 900px) {
+      body.crm-body > .crm-sidebar > .sidebar-brand {
+        display: none !important;
+        visibility: hidden !important;
+        width: 0 !important;
+        height: 0 !important;
+        min-height: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        overflow: hidden !important;
+        pointer-events: none !important;
+      }
+      body.crm-body .lrf-mobile-return-site {
+        display: block !important;
+      }
+      body.crm-body .lrf-mobile-return-site > a {
+        display: flex !important;
+        align-items: center !important;
+        gap: 14px !important;
+        color: #FFD54A !important;
+        text-decoration: none !important;
+      }
+      body.crm-body .lrf-mobile-return-site img {
+        width: 46px !important;
+        height: 46px !important;
+        min-width: 46px !important;
+        border-radius: 50% !important;
+        object-fit: cover !important;
+        border: 1px solid #D4AF37 !important;
+        box-shadow: 0 3px 10px rgba(0,0,0,.35) !important;
+      }
+    }
+'''
+          if 'lrf-mobile-return-site' not in s:
+              s = s.replace(marker, css + '\n' + marker, 1)
+
+              menu = '    <ul class="sidebar-menu">\n'
+              item = '''    <ul class="sidebar-menu">\n      <li class="lrf-mobile-return-site"><a href="index.html" aria-label="Retour au site LE ROY FACTORY"><img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY"><span class="menu-text">Retour au site</span></a></li>\n'''
+              s = s.replace(menu, item, 1)
+          else:
+              # Ensure the strong hide rule exists even if a previous partial patch added the menu item.
+              if 'body.crm-body > .crm-sidebar > .sidebar-brand' not in s:
+                  s = s.replace(marker, css + '\n' + marker, 1)
+
+          p.write_text(s, encoding='utf-8')
+          PY
+
+      - name: Commit fix
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add dashboard.html
+          git diff --cached --quiet && exit 0
+          git commit -m "fix: supprime définitivement le logo central mobile"
+          git push
