@@ -1,4 +1,4 @@
-const CACHE='lrf-pwa-v8-dashboard-activities-clock';
+const CACHE='lrf-pwa-v9-auth-android-icon';
 const CORE=['/','/index.html','/assets/brand-v2/assetlogorond.png'];
 
 self.addEventListener('install',event=>{
