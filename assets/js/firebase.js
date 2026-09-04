@@ -115,6 +115,9 @@ if (currentPage === "clients.html") {
   import("./account-form-send.js?v=20260817-1845").catch(err => console.error("Erreur chargement envoi formulaire ouverture/mise à jour :", err));
 }
 if (currentPage === "dashboard.html") {
+  import("./dashboard-clock-tools.js?v=20260904-weather1")
+    .then(() => import("./dashboard-weather-daily.js?v=20260904-weather1"))
+    .catch(err => console.error("Erreur chargement horloge / météo dashboard :", err));
   import("./dashboard-commercial.js?v=20260903-tournees1").catch(err => console.error("Erreur chargement dashboard commercial :", err));
 }
 if (currentPage === "mails-groupes.html") {
