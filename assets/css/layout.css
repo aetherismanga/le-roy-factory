@@ -257,7 +257,7 @@ body:not(.crm-body) .agent-stack > .agent-info-card::after {
   height: 4.7rem;
   border-radius: 50%;
   border: 2px solid #D4AF37;
-  background-color: #111;
+  background-color: #fff;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -265,11 +265,11 @@ body:not(.crm-body) .agent-stack > .agent-info-card::after {
 }
 
 body:not(.crm-body) .agent-stack > .agent-info-card:nth-child(2)::after {
-  background-image: url('../img/jeromelogo.png?v=20260904-contact1');
+  background-image: url('../jeromelogo.png?v=20260904-contact2');
 }
 
 body:not(.crm-body) .agent-stack > .agent-info-card:nth-child(3)::after {
-  background-image: url('../img/corynelogo.png?v=20260904-contact1');
+  background-image: url('https://raw.githubusercontent.com/aetherismanga/le-roy-factory/40ff096762bdf7646c9df721c49d052a39736cc0/assets/img/corynelogo.png');
 }
 
 @media (max-width: 600px) {
