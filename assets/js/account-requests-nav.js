@@ -29,7 +29,6 @@ if (!window.__lrfSecureCloudFetchInstalled) {
 function addNav(){
   const menu=document.querySelector('.sidebar-menu');
   if(menu){
-    // L'ancien onglet Prospects n'est plus utilisé.
     [...menu.querySelectorAll('a')].filter(a=>a.getAttribute('href')?.includes('filter=prospect')).forEach(a=>a.closest('li')?.remove());
   }
   if(menu&&!menu.querySelector('a[href="demandes-clients.html"]')){
@@ -66,8 +65,6 @@ function addNav(){
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',addNav,{once:true});else addNav();
 
-// La sélection de partenaires dans une fiche client doit être répercutée immédiatement
-// dans le champ Firestore `partenaires`, utilisé par l'Accès PRO.
 if(location.pathname.toLowerCase().endsWith('clients.html')){
   import('./client-partners-sync.js?v=20260901-1')
     .catch(err=>console.error('Erreur synchronisation partenaires client :',err));
@@ -75,19 +72,22 @@ if(location.pathname.toLowerCase().endsWith('clients.html')){
 
 const lrfCurrentPage=(location.pathname.split('/').pop()||'').toLowerCase();
 
-// Comptes-rendus : sélection client par recherche, puis saisie directe sans ouvrir la fiche client.
 if(lrfCurrentPage==='comptes-rendus.html'){
   import('./comptes-rendus-simple.js?v=20260904-1')
     .catch(err=>console.error('Erreur saisie simple compte-rendu :',err));
 }
 
-// Archive le contenu complet des nouveaux mails afin qu'ils puissent être relus depuis le dashboard.
+// Nouveau compte-rendu : recherche tactile du client + sélection usine/contact + envoi direct du mail.
+if(lrfCurrentPage==='nouveau-compte-rendu.html'){
+  import('./nouveau-cr-client-mail.js?v=20260904-1')
+    .catch(err=>console.error('Erreur nouveau compte-rendu client/mail :',err));
+}
+
 if(new Set(['clients.html','mails-groupes.html']).has(lrfCurrentPage)){
   import('./mail-archive-enhancer.js?v=20260903-1')
     .catch(err=>console.error('Erreur archivage détaillé des mails :',err));
 }
 
-// Dashboard : actions homogènes + activités commerciales + avatar + radio intégrée.
 if(lrfCurrentPage==='dashboard.html'){
   import('./dashboard-ui-fixes.js?v=20260903-1')
     .catch(err=>console.error('Erreur correctifs dashboard :',err));
@@ -97,8 +97,6 @@ if(lrfCurrentPage==='dashboard.html'){
     .catch(err=>console.error('Erreur lecteur radio CRM :',err));
 }
 
-// En-tête premium : calendrier cliquable, horloge numérique et outils temps.
-// Agenda volontairement exclu pour garder la page calendrier la plus légère et compacte possible.
 const lrfClockPages=new Set(['dashboard.html','clients.html','mails-groupes.html','comptes-rendus.html','tournees.html']);
 if(lrfClockPages.has(lrfCurrentPage)){
   import('./dashboard-clock-tools.js?v=20260904-header1').then(async()=>{
