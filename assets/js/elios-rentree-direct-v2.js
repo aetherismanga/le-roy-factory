@@ -70,6 +70,13 @@
     });
   }
 
+  function openMailClient(href){
+    try{
+      const topDoc=window.top.document;
+      const a=topDoc.createElement('a');a.href=href;a.target='_self';a.style.display='none';topDoc.body.appendChild(a);a.click();a.remove();
+    }catch(_){window.location.href=href}
+  }
+
   function interceptMail(){
     const request=document.getElementById('request-btn');if(!request||request.dataset.paletteMail==='1')return;
     request.dataset.paletteMail='1';
@@ -92,7 +99,7 @@
       const clientInfo=loginMsg||[code,dep&&`département ${dep}`].filter(Boolean).join(' — ')||'Client non identifié sur la page';
       const subject=encodeURIComponent(`Demande disponibilité ELIOS — ${totalPalettes} palette${totalPalettes>1?'s':''}`);
       const body=encodeURIComponent(`Bonjour Coryne, bonjour Jérôme,\n\nJe souhaite connaître la disponibilité des lots ELIOS suivants :\n\n${lines}\n\nTOTAL : ${totalPalettes} palette${totalPalettes>1?'s':''} — ${totalM2} m².\nCondition : palettes complètes uniquement.\n\nClient : ${clientInfo}\n\nMerci.\nCordialement`);
-      location.href=`mailto:coryne@leroyfactory.fr,jerome@leroyfactory.fr?subject=${subject}&body=${body}`;
+      openMailClient(`mailto:coryne@leroyfactory.fr,jerome@leroyfactory.fr?subject=${subject}&body=${body}`);
     },true);
   }
 
