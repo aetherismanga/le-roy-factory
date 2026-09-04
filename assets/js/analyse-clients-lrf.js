@@ -1,4 +1,5 @@
 import { auth, getAgentProfile } from './firebase.js';
+import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
 
 const ENDPOINT='https://us-central1-le-roy-factory.cloudfunctions.net/getLrfAnalytics';
 const $=s=>document.querySelector(s);
@@ -10,12 +11,37 @@ function fmtDate(ms){if(!ms)return'Jamais';return new Date(ms).toLocaleString('f
 function heatClass(label){return label==='Très chaud'?'veryhot':label==='Chaud'?'hot':label==='Tiède'?'warm':'cold';}
 function heatIcon(label){return label==='Très chaud'?'🔥':label==='Chaud'?'🟠':label==='Tiède'?'🟢':'⚪';}
 
-async function waitUser(){if(auth.currentUser)return auth.currentUser;return new Promise(resolve=>{let tries=0;const t=setInterval(()=>{tries++;if(auth.currentUser||tries>40){clearInterval(t);resolve(auth.currentUser);}},100);});}
+function waitUser(){
+  if(auth.currentUser) return Promise.resolve(auth.currentUser);
+  return new Promise(resolve=>{
+    let settled=false;
+    const stop=onAuthStateChanged(auth,user=>{
+      if(settled) return;
+      if(user){settled=true;stop();resolve(user);}
+    });
+    setTimeout(()=>{
+      if(settled) return;
+      settled=true;
+      try{stop();}catch(_){ }
+      resolve(auth.currentUser||null);
+    },12000);
+  });
+}
+
+function showReconnect(){
+  const root=$('#lrf-analysis-root');
+  if(root) root.innerHTML=`<div class="lrf-analysis-card"><div class="lrf-empty"><strong>Votre session sécurisée doit être réactivée.</strong><br><small>Vous restez dans le CRM : aucune redirection vers l'accueil.</small><br><br><a class="lrf-open-client" href="agent.html?return=analyse-clients-lrf.html">🔐 Reconnecter l'analyse clients LRF</a></div></div>`;
+}
+
 async function load(){
   const user=await waitUser();
   const p=profile();
-  if(!user||!['jerome@leroyfactory.fr','coryne@leroyfactory.fr'].includes(String(p.email||'').toLowerCase())){location.replace('agent.html');return;}
-  const g=$('#lrf-analysis-greeting');if(g)g.textContent=`Analyse privée — ${p.name||p.email}`;
+  const allowed=['jerome@leroyfactory.fr','coryne@leroyfactory.fr'];
+  if(!user){showReconnect();return;}
+  const current=getAgentProfile(user);
+  const email=String(current?.email||p.email||user.email||'').toLowerCase();
+  if(!allowed.includes(email)){showReconnect();return;}
+  const g=$('#lrf-analysis-greeting');if(g)g.textContent=`Analyse privée — ${current?.name||p.name||email}`;
   try{
     const token=await user.getIdToken(true);
     const r=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${token}`},body:'{}',cache:'no-store'});
