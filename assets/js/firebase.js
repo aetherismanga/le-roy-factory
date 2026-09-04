@@ -114,6 +114,7 @@ if (currentPage === "clients.html") {
   import("./client-codes.js?v=20260817-1845").catch(err => console.error("Erreur chargement codes clients LRF :", err));
   import("./clients-export.js?v=20260817-1845").catch(err => console.error("Erreur chargement impression/export clients :", err));
   import("./account-form-send.js?v=20260817-1845").catch(err => console.error("Erreur chargement envoi formulaire ouverture/mise à jour :", err));
+  import("./client-contact-import.js?v=20260904-1").catch(err => console.error("Erreur import contact téléphone :", err));
 }
 if (currentPage === "dashboard.html") {
   import("./dashboard-clock-tools.js?v=20260904-weather2")
