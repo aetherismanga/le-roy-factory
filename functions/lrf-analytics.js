@@ -6,6 +6,7 @@ const { writeClientActivity, EVENTS } = require('./lrf-analytics-core');
 
 const db = admin.firestore();
 const ALLOWED_ORIGINS = ['https://leroyfactory.fr', 'https://www.leroyfactory.fr'];
+const VIEW_ACTIONS = new Set(['page_view','partner_view','product_view','tariff_view']);
 
 function cors(req, res, agent = false) {
   const origin = String(req.headers.origin || '');
@@ -21,6 +22,7 @@ function cors(req, res, agent = false) {
 function clean(v, max = 180) { return String(v || '').trim().slice(0, max); }
 function tsMs(v) { return v?.toMillis?.() || (v ? new Date(v).getTime() : 0) || 0; }
 function dateKey(ms) { const d = new Date(ms); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
+function emptyStats(){return{lastSeen:0,views7:0,views30:0,views90:0,tariffs30:0,pages:new Map(),activeDays:new Set(),lastAction:'',lastPage:''};}
 
 function pageLabel(page, title) {
   const p = clean(page, 180);
@@ -87,30 +89,39 @@ const getLrfAnalytics = onRequest({ timeoutSeconds: 60, memory: '512MiB' }, asyn
       db.collection(EVENTS).orderBy('createdAt', 'desc').limit(6000).get()
     ]);
     const clients = new Map();
-    clientSnap.forEach(doc => clients.set(doc.id, { id: doc.id, ...doc.data() }));
+    clientSnap.forEach(doc => {
+      const c={id:doc.id,...doc.data()};
+      if(/^LRF-\d{5}$/i.test(String(c.codeClient||'').trim())) clients.set(doc.id,c);
+    });
     const byClient = new Map();
     const pageCounts30 = new Map();
     let views7 = 0, views30 = 0;
 
     eventSnap.forEach(doc => {
       const e = doc.data() || {}, ms = tsMs(e.createdAt);
-      if (!ms || ms < d90 || !e.clientId) return;
-      if (!byClient.has(e.clientId)) byClient.set(e.clientId, { lastSeen:0, views7:0, views30:0, views90:0, tariffs30:0, pages:new Map(), activeDays:new Set(), lastAction:'', lastPage:'' });
+      if (!ms || ms < d90 || !e.clientId || !clients.has(String(e.clientId))) return;
+      if (!byClient.has(e.clientId)) byClient.set(e.clientId, emptyStats());
       const s = byClient.get(e.clientId);
-      s.lastSeen = Math.max(s.lastSeen, ms); s.views90 += 1; s.lastAction = e.action || ''; s.lastPage = e.page || '';
+      s.lastSeen = Math.max(s.lastSeen, ms);
+      if (ms >= (s.lastSeen || 0)) { s.lastAction = e.action || ''; s.lastPage = e.page || ''; }
+      const isView=VIEW_ACTIONS.has(String(e.action||''));
+      if (!isView) return;
+      s.views90 += 1;
       if (ms >= d30) {
         s.views30 += 1; views30 += 1; s.activeDays.add(dateKey(ms));
-        const label = pageLabel(e.page, e.title); s.pages.set(label, (s.pages.get(label)||0)+1); pageCounts30.set(label, (pageCounts30.get(label)||0)+1);
+        const label = pageLabel(e.page, e.title);
+        s.pages.set(label, (s.pages.get(label)||0)+1);
+        pageCounts30.set(label, (pageCounts30.get(label)||0)+1);
         if (e.action === 'tariff_view') s.tariffs30 += 1;
       }
       if (ms >= d7) { s.views7 += 1; views7 += 1; }
     });
 
     const rows = [];
-    for (const [clientId, stats] of byClient) {
-      const c = clients.get(clientId) || {};
+    for (const [clientId, c] of clients) {
+      const stats = byClient.get(clientId) || emptyStats();
       const heat = scoreClient(stats, now);
-      const topPage = [...stats.pages.entries()].sort((a,b)=>b[1]-a[1])[0]?.[0] || pageLabel(stats.lastPage,'');
+      const topPage = [...stats.pages.entries()].sort((a,b)=>b[1]-a[1])[0]?.[0] || (stats.lastPage ? pageLabel(stats.lastPage,'') : '—');
       rows.push({
         id: clientId,
         codeClient: String(c.codeClient || '').toUpperCase(),
@@ -133,7 +144,7 @@ const getLrfAnalytics = onRequest({ timeoutSeconds: 60, memory: '512MiB' }, asyn
         heatReasons: heat.reasons
       });
     }
-    rows.sort((a,b)=>b.heatScore-a.heatScore || b.lastSeenAt-a.lastSeenAt);
+    rows.sort((a,b)=>b.heatScore-a.heatScore || b.lastSeenAt-a.lastSeenAt || a.societe.localeCompare(b.societe,'fr'));
     const hotClients = rows.filter(r=>r.heatScore>=45);
     const active7 = rows.filter(r=>r.lastSeenAt>=d7).length;
     const active30 = rows.filter(r=>r.lastSeenAt>=d30).length;
