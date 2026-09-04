@@ -75,6 +75,12 @@ if(location.pathname.toLowerCase().endsWith('clients.html')){
 
 const lrfCurrentPage=(location.pathname.split('/').pop()||'').toLowerCase();
 
+// Comptes-rendus : sélection client par recherche, puis saisie directe sans ouvrir la fiche client.
+if(lrfCurrentPage==='comptes-rendus.html'){
+  import('./comptes-rendus-simple.js?v=20260904-1')
+    .catch(err=>console.error('Erreur saisie simple compte-rendu :',err));
+}
+
 // Archive le contenu complet des nouveaux mails afin qu'ils puissent être relus depuis le dashboard.
 if(new Set(['clients.html','mails-groupes.html']).has(lrfCurrentPage)){
   import('./mail-archive-enhancer.js?v=20260903-1')
