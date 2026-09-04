@@ -20,7 +20,7 @@ permissions:
 
 jobs:
   deploy:
-    name: Deploy tariff functions
+    name: Deploy secured CRM functions
     runs-on: ubuntu-latest
 
     steps:
@@ -44,9 +44,9 @@ jobs:
       - name: Install Firebase CLI
         run: npm install --global firebase-tools
 
-      - name: Deploy secured tariff and remembered-device functions
+      - name: Deploy secured tariff, session and LRF analytics functions
         run: >-
           firebase deploy
           --project le-roy-factory
-          --only functions:getTariffPdf,functions:getNeobathDnaTariff,functions:createProSession,functions:validateProSession,functions:revokeProSession
+          --only functions:getTariffPdf,functions:getNeobathDnaTariff,functions:createProSession,functions:validateProSession,functions:revokeProSession,functions:trackLrfActivity,functions:getLrfAnalytics
           --non-interactive
