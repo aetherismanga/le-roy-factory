@@ -29,8 +29,6 @@
   let restoring = null;
 
   function purgeLegacy() {
-    // Ancienne version : la fiche client complète pouvait être placée dans localStorage.
-    // Elle est supprimée ; seule la clé opaque TOKEN_KEY peut désormais y rester.
     try { localStorage.removeItem(KEY); } catch (_) {}
   }
 
@@ -45,43 +43,30 @@
 
   function sanitize(session) {
     if (!session || typeof session !== 'object') return null;
-
     if (session.isAdmin === true || session.admin === true) {
       const email = String(session.email || session.adminEmail || '').trim().toLowerCase();
       if (!ADMINS.has(email)) return null;
       return {
-        isAdmin: true,
-        admin: true,
-        email,
+        isAdmin: true, admin: true, email,
         name: String(session.name || ADMINS.get(email)),
         societe: String(session.societe || ADMINS.get(email)),
-        activite: 'Administrateur LE ROY FACTORY',
-        codeClient: '',
-        clientId: String(session.clientId || ''),
-        departement: 'ADMIN',
-        partenaires: ALL_PARTNERS.slice(),
-        sessionToken: '',
+        activite: 'Administrateur LE ROY FACTORY', codeClient: '',
+        clientId: String(session.clientId || ''), departement: 'ADMIN',
+        partenaires: ALL_PARTNERS.slice(), sessionToken: '',
         verifiedAt: Number(session.verifiedAt || session.unlockedAt || Date.now())
       };
     }
-
     const codeClient = String(session.codeClient || '').trim().toUpperCase();
     const departement = String(session.departement || '').trim().toUpperCase();
     const sessionToken = String(session.sessionToken || storedToken() || '');
     if (!/^LRF-\d{5}$/.test(codeClient) || !departement) return null;
-    const partenaires = Array.isArray(session.partenaires)
-      ? [...new Set(session.partenaires.filter(p => p && p !== '*'))]
-      : [];
+    const partenaires = Array.isArray(session.partenaires) ? [...new Set(session.partenaires.filter(p => p && p !== '*'))] : [];
     return {
-      isAdmin: false,
-      admin: false,
-      codeClient,
+      isAdmin: false, admin: false, codeClient,
       clientId: String(session.clientId || session.id || ''),
-      societe: String(session.societe || 'Client professionnel'),
-      departement,
+      societe: String(session.societe || 'Client professionnel'), departement,
       activite: String(session.activite || session.categorieActivite || 'Professionnel'),
-      partenaires,
-      sessionToken,
+      partenaires, sessionToken,
       verifiedAt: Number(session.verifiedAt || session.unlockedAt || Date.now())
     };
   }
@@ -91,23 +76,14 @@
   }
 
   function removeStored() {
-    try {
-      sessionStorage.removeItem(KEY);
-      sessionStorage.removeItem(BACKUP_KEY);
-    } catch (_) {}
+    try { sessionStorage.removeItem(KEY); sessionStorage.removeItem(BACKUP_KEY); } catch (_) {}
   }
-
   function removeToken() {
     try { sessionStorage.removeItem(TRANSIENT_TOKEN_KEY); } catch (_) {}
     try { localStorage.removeItem(TOKEN_KEY); } catch (_) {}
   }
-
   function store(session) {
-    try {
-      const raw = JSON.stringify(session);
-      sessionStorage.setItem(KEY, raw);
-      sessionStorage.setItem(BACKUP_KEY, raw);
-    } catch (_) {}
+    try { const raw = JSON.stringify(session); sessionStorage.setItem(KEY, raw); sessionStorage.setItem(BACKUP_KEY, raw); } catch (_) {}
   }
 
   function read() {
@@ -117,16 +93,10 @@
       session = sanitize(parse(sessionStorage.getItem(KEY)));
       if (!session) session = sanitize(parse(sessionStorage.getItem(BACKUP_KEY)));
     } catch (_) {}
-
     if (!session || expired(session)) {
-      removeStored();
-      window.LRF_PRO_CONTEXT = null;
-      return null;
+      removeStored(); window.LRF_PRO_CONTEXT = null; return null;
     }
-
-    store(session);
-    window.LRF_PRO_CONTEXT = session;
-    return session;
+    store(session); window.LRF_PRO_CONTEXT = session; return session;
   }
 
   function refreshConsumers() {
@@ -138,47 +108,28 @@
       });
     }
   }
-
   function emitSession(safe) {
     window.dispatchEvent(new CustomEvent('lrf-pro-session-changed', { detail: safe }));
     refreshConsumers();
   }
-
   function write(session, emit = true) {
     purgeLegacy();
     const safe = sanitize({ ...session, verifiedAt: Date.now() });
     if (!safe) return null;
-    store(safe);
-    window.LRF_PRO_CONTEXT = safe;
+    store(safe); window.LRF_PRO_CONTEXT = safe;
     if (emit) emitSession(safe);
     return safe;
   }
-
   function writeAdmin(profile, emit = true) {
-    return write({
-      isAdmin: true,
-      admin: true,
-      email: profile?.email,
-      name: profile?.name,
-      partenaires: ALL_PARTNERS
-    }, emit);
+    return write({ isAdmin: true, admin: true, email: profile?.email, name: profile?.name, partenaires: ALL_PARTNERS }, emit);
   }
-
   function clear(options = {}) {
-    removeStored();
-    purgeLegacy();
+    removeStored(); purgeLegacy();
     if (options.forgetDevice === true) removeToken();
     window.LRF_PRO_CONTEXT = null;
   }
-
-  function sync() {
-    return read();
-  }
-
-  function unlockLegacy() {
-    clear();
-    return false;
-  }
+  function sync() { return read(); }
+  function unlockLegacy() { clear(); return false; }
 
   async function restore() {
     const existing = read();
@@ -186,38 +137,27 @@
     const token = storedToken();
     if (!token) return null;
     if (restoring) return restoring;
-
     restoring = (async () => {
       try {
         const response = await fetch(VALIDATE_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ sessionToken: token })
         });
-        let data = {};
-        try { data = await response.json(); } catch (_) {}
+        let data = {}; try { data = await response.json(); } catch (_) {}
         if (response.status === 401 || response.status === 403 || response.status === 404) {
-          removeToken();
-          clear();
-          return null;
+          removeToken(); clear(); return null;
         }
         if (!response.ok || !data?.success || !data?.client) return null;
         const client = data.client;
         return write({
-          codeClient: client.codeClient,
-          clientId: client.id,
-          societe: client.societe,
+          codeClient: client.codeClient, clientId: client.id, societe: client.societe,
           departement: client.departement,
           activite: client.categorieActivite || client.activite || 'Professionnel',
-          partenaires: client.partenaires || [],
-          sessionToken: token
+          partenaires: client.partenaires || [], sessionToken: token
         });
       } catch (error) {
-        console.warn('Restauration accès PRO indisponible :', error);
-        return null;
-      } finally {
-        restoring = null;
-      }
+        console.warn('Restauration accès PRO indisponible :', error); return null;
+      } finally { restoring = null; }
     })();
     return restoring;
   }
@@ -229,18 +169,14 @@
     const originalGetPrice = api.getPrice?.bind(api);
     api.getSession = read;
     api.canAccess = partner => {
-      const session = read();
-      if (!session) return false;
-      if (session.isAdmin) return true;
+      const session = read(); if (!session) return false; if (session.isAdmin) return true;
       return originalCanAccess ? originalCanAccess(partner) : session.partenaires.includes(partner);
     };
     api.getPrice = (partner, product, format) => {
-      const session = read();
-      if (!session) return null;
+      const session = read(); if (!session) return null;
       return originalGetPrice ? originalGetPrice(partner, product, format) : null;
     };
-    api.__sessionBridgePatched = true;
-    return true;
+    api.__sessionBridgePatched = true; return true;
   }
 
   async function watchFirebaseAdmin() {
@@ -251,57 +187,41 @@
         import('https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js'),
         import('https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js')
       ]);
-      const firebaseApp = appModule.getApps().length
-        ? appModule.getApp()
-        : appModule.initializeApp(FIREBASE_CONFIG);
+      const firebaseApp = appModule.getApps().length ? appModule.getApp() : appModule.initializeApp(FIREBASE_CONFIG);
       const auth = authModule.getAuth(firebaseApp);
       authModule.onAuthStateChanged(auth, user => {
         const email = String(user?.email || '').trim().toLowerCase();
-        if (email && ADMINS.has(email)) {
-          writeAdmin({ email, name: ADMINS.get(email) });
-          return;
-        }
-        const current = read();
-        if (current?.isAdmin) {
-          clear();
-          restore();
-        }
+        if (email && ADMINS.has(email)) { writeAdmin({ email, name: ADMINS.get(email) }); return; }
+        const current = read(); if (current?.isAdmin) { clear(); restore(); }
       });
-    } catch (error) {
-      console.warn('Synchronisation administrateur PRO indisponible :', error);
-    }
+    } catch (error) { console.warn('Synchronisation administrateur PRO indisponible :', error); }
+  }
+
+  function loadAnalyticsTracker() {
+    if (document.getElementById('lrf-client-analytics-tracker')) return;
+    const s = document.createElement('script');
+    s.id = 'lrf-client-analytics-tracker';
+    s.src = 'assets/js/lrf-client-analytics-tracker.js?v=20260904-1';
+    s.defer = true;
+    document.head.appendChild(s);
   }
 
   function init() {
-    purgeLegacy();
-    read();
-    restore();
+    purgeLegacy(); read(); restore();
     if (!patchPricingApi()) {
       let tries = 0;
-      const timer = setInterval(() => {
-        tries += 1;
-        if (patchPricingApi() || tries > 40) clearInterval(timer);
-      }, 100);
+      const timer = setInterval(() => { tries += 1; if (patchPricingApi() || tries > 40) clearInterval(timer); }, 100);
     }
     watchFirebaseAdmin();
+    loadAnalyticsTracker();
   }
 
   window.LRF_PRO_SESSION = {
-    key: KEY,
-    backupKey: BACKUP_KEY,
-    tokenKey: TOKEN_KEY,
-    maxAge: MAX_AGE,
-    read,
-    write,
-    writeAdmin,
-    clear,
-    restore,
-    unlockLegacy,
-    sync
+    key: KEY, backupKey: BACKUP_KEY, tokenKey: TOKEN_KEY, maxAge: MAX_AGE,
+    read, write, writeAdmin, clear, restore, unlockLegacy, sync
   };
 
-  read();
-  restore();
+  read(); restore();
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
   else init();
 })();
