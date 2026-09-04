@@ -70,7 +70,7 @@
     const remember = document.getElementById("remember");
     const returnTo = new URLSearchParams(location.search).get("return") || "dashboard.html";
 
-    const safeReturn = /^(dashboard|clients|agenda|comptes-rendus|mails-groupes|carte|statistiques|demandes-clients|nouveau-compte-rendu)\.html(?:[?#].*)?$/.test(returnTo) ? returnTo : "dashboard.html";
+    const safeReturn = /^(dashboard|clients|agenda|tournees|comptes-rendus|mails-groupes|carte|statistiques|demandes-clients|nouveau-compte-rendu|contacts-partenaires|analyse-clients-lrf)\.html(?:[?#].*)?$/.test(returnTo) ? returnTo : "dashboard.html";
     let loginInProgress = false;
 
     function show(text, type = "error", code = "") {
