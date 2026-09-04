@@ -26,14 +26,26 @@ if (!window.__lrfSecureCloudFetchInstalled) {
   };
 }
 
-function openMaStation(){
+async function openMaStation(){
   const ua=navigator.userAgent||'';
   if(/Android/i.test(ua)){
-    // Ouvre directement l'activité déjà installée de MA STATION.
-    // Cette méthode ne dépend pas du nouveau lien mastation:// et fonctionne donc
-    // également avec l'APK actuellement installé si son package est présent.
-    const intent='intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;component=fr.mastation.ma_station/.MainActivity;package=fr.mastation.ma_station;end';
-    window.location.assign(intent);
+    try{
+      // Dans l'APK LE ROY FACTORY, AppLauncher ouvre MA STATION directement par son package Android.
+      // Cela évite Chrome et ne nécessite pas que l'ancienne version de MA STATION connaisse mastation://.
+      const launcher=window.Capacitor?.Plugins?.AppLauncher;
+      if(launcher){
+        const check=await launcher.canOpenUrl({url:'fr.mastation.ma_station'}).catch(()=>({value:true}));
+        if(check?.value!==false){
+          await launcher.openUrl({url:'fr.mastation.ma_station'});
+          return;
+        }
+      }
+    }catch(error){
+      console.warn('Ouverture native de MA STATION impossible :',error);
+    }
+
+    // Secours pour un accès CRM depuis Chrome plutôt que depuis l'application native.
+    window.location.href='intent://open#Intent;scheme=mastation;package=fr.mastation.ma_station;end';
     return;
   }
   window.location.href='mastation://open';
