@@ -206,6 +206,17 @@
     document.head.appendChild(s);
   }
 
+  function loadEliosRentreeDirectEnhancements() {
+    const path = window.location.pathname.toLowerCase();
+    if (!path.endsWith('elios-rentree-r11-2026.html')) return;
+    if (document.getElementById('lrf-elios-rentree-direct-v2')) return;
+    const s = document.createElement('script');
+    s.id = 'lrf-elios-rentree-direct-v2';
+    s.src = 'assets/js/elios-rentree-direct-v2.js?v=20260904-2';
+    s.defer = true;
+    document.head.appendChild(s);
+  }
+
   function init() {
     purgeLegacy(); read(); restore();
     if (!patchPricingApi()) {
@@ -214,6 +225,7 @@
     }
     watchFirebaseAdmin();
     loadAnalyticsTracker();
+    loadEliosRentreeDirectEnhancements();
   }
 
   window.LRF_PRO_SESSION = {
