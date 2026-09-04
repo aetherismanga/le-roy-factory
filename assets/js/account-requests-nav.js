@@ -29,7 +29,11 @@ if (!window.__lrfSecureCloudFetchInstalled) {
 function openMaStation(){
   const ua=navigator.userAgent||'';
   if(/Android/i.test(ua)){
-    window.location.href='intent://open#Intent;scheme=mastation;package=fr.mastation.ma_station;end';
+    // Ouvre directement l'activité déjà installée de MA STATION.
+    // Cette méthode ne dépend pas du nouveau lien mastation:// et fonctionne donc
+    // également avec l'APK actuellement installé si son package est présent.
+    const intent='intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;component=fr.mastation.ma_station/.MainActivity;package=fr.mastation.ma_station;end';
+    window.location.assign(intent);
     return;
   }
   window.location.href='mastation://open';
