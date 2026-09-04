@@ -1,6 +1,7 @@
 const { onRequest } = require('firebase-functions/v2/https');
 const admin = require('firebase-admin');
 const crypto = require('crypto');
+const { writeClientActivity } = require('./lrf-analytics-core');
 
 const db = admin.firestore();
 const SESSION_COLLECTION = 'pro_sessions';
@@ -146,6 +147,7 @@ const createProSession = onRequest({ timeoutSeconds: 30, memory: '256MiB' }, asy
       expiresAt: admin.firestore.Timestamp.fromMillis(expiresAt),
       revoked: false
     });
+    await writeClientActivity(client, { action:'login', page:'/tarifs-pro.html', title:'Connexion Accès PRO' }).catch(() => {});
 
     return res.json({ success: true, sessionToken: token, expiresAt, client: safeClient(client) });
   } catch (error) {
@@ -161,6 +163,7 @@ const validateProSession = onRequest({ timeoutSeconds: 30, memory: '256MiB' }, a
   try {
     const result = await clientFromSessionToken(req.body?.sessionToken, { renew: true });
     if (!result) return res.status(401).json({ success: false, error: 'Session expirée ou révoquée.' });
+    await writeClientActivity(result.client, { action:'session_resume', page:'/tarifs-pro.html', title:'Reconnexion automatique Accès PRO' }).catch(() => {});
     return res.json({ success: true, expiresAt: result.expiresAt, client: safeClient(result.client) });
   } catch (error) {
     console.error('validateProSession', error);
