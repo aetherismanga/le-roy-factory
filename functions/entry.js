@@ -2,8 +2,9 @@ const { onRequest } = require('firebase-functions/v2/https');
 const base = require('./index');
 const tariffAccess = require('./tariff-access');
 const proSession = require('./pro-session');
+const lrfAnalytics = require('./lrf-analytics');
 
-Object.assign(exports, base, tariffAccess, proSession);
+Object.assign(exports, base, tariffAccess, proSession, lrfAnalytics);
 
 // La migration vers Storage privé est terminée. Cet endpoint temporaire reste
 // présent uniquement pour éviter une suppression de fonction lors du déploiement,
