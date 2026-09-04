@@ -1,4 +1,39 @@
 (() => {
+  // Safari/iOS refuse actuellement le certificat du sous-domaine www.biopietra.com.
+  // On conserve intégralement les chemins (dont les PDF) et on utilise le domaine racine.
+  const normalizeBiopietraLink = link => {
+    if (!link) return;
+    const raw = link.getAttribute('href');
+    if (!raw || !/biopietra\.com/i.test(raw)) return;
+    try {
+      const url = new URL(raw, location.href);
+      if (url.hostname.toLowerCase() === 'www.biopietra.com') {
+        url.hostname = 'biopietra.com';
+        link.setAttribute('href', url.toString());
+      }
+    } catch (_) {}
+  };
+
+  const normalizeBiopietraLinks = root => {
+    if (root?.matches?.('a[href]')) normalizeBiopietraLink(root);
+    root?.querySelectorAll?.('a[href]').forEach(normalizeBiopietraLink);
+  };
+
+  const startBiopietraGuard = () => {
+    normalizeBiopietraLinks(document);
+    if (!document.documentElement || window.__LRF_BIOPIETRA_LINK_GUARD__) return;
+    window.__LRF_BIOPIETRA_LINK_GUARD__ = true;
+    new MutationObserver(mutations => {
+      mutations.forEach(mutation => mutation.addedNodes.forEach(node => {
+        if (node.nodeType === 1) normalizeBiopietraLinks(node);
+      }));
+    }).observe(document.documentElement, { childList: true, subtree: true });
+    document.addEventListener('click', event => normalizeBiopietraLink(event.target.closest?.('a[href]')), true);
+  };
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', startBiopietraGuard, { once: true });
+  else startBiopietraGuard();
+
   const page = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
   const allowed = new Set([
     'index.html','partenaires.html','univers.html','realisations.html',
