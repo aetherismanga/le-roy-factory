@@ -241,7 +241,7 @@ body:has(#grid-tarifs) #pro-dept { width: 100% !important; min-width: 0 !importa
   body.crm-body .crm-toolbar .crm-select { width:100%!important;min-height:46px!important; }
 }
 
-/* Contact public : avatars officiels existants Jérôme / Coryne */
+/* Contact public : associer les logos selon l'adresse e-mail, pas selon l'ordre des cartes */
 body:not(.crm-body) .agent-stack > .agent-info-card {
   position: relative !important;
   padding-right: 6.8rem !important;
@@ -264,11 +264,11 @@ body:not(.crm-body) .agent-stack > .agent-info-card::after {
   box-shadow: 0 5px 14px rgba(0,0,0,.18), 0 0 0 3px rgba(255,255,255,.85);
 }
 
-body:not(.crm-body) .agent-stack > .agent-info-card:nth-child(2)::after {
-  background-image: url('../jeromelogo.png?v=20260904-contact2');
+body:not(.crm-body) .agent-stack > .agent-info-card:has(a[href^="mailto:jerome@leroyfactory.fr"])::after {
+  background-image: url('../jeromelogo.png?v=20260904-contact3');
 }
 
-body:not(.crm-body) .agent-stack > .agent-info-card:nth-child(3)::after {
+body:not(.crm-body) .agent-stack > .agent-info-card:has(a[href^="mailto:coryne@leroyfactory.fr"])::after {
   background-image: url('https://raw.githubusercontent.com/aetherismanga/le-roy-factory/40ff096762bdf7646c9df721c49d052a39736cc0/assets/img/corynelogo.png');
 }
 
