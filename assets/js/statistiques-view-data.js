@@ -1,6 +1,6 @@
-export const VIEW_STATS_CLIENTS_2026_07=[
+export const VIEW_STATS_CLIENTS_2026_08=[
 {"name":"CASA CERAM CONCEPT EURL","factory":"0072622","ca2026":0,"ca2025":154.66},
-{"name":"CARRELAGE DU MONDE SAS","factory":"0072623","ca2026":6163.80,"ca2025":3538.62},
+{"name":"CARRELAGE DU MONDE SAS","factory":"0072623","ca2026":7966.39,"ca2025":3538.62},
 {"name":"AS DE CARREAUX SARL COLOMBIER","factory":"0072642","ca2026":13923.00,"ca2025":0},
 {"name":"CMA EXPERT HABITAT SAS","factory":"0073214","ca2026":1857.88,"ca2025":468.97},
 {"name":"MUFRAGGI MATERIAUX SAS","factory":"0073249","ca2026":4795.11,"ca2025":4341.60},
@@ -11,11 +11,11 @@ export const VIEW_STATS_CLIENTS_2026_07=[
 {"name":"AUBAGNE MATERIAUX","factory":"0073299","ca2026":575.64,"ca2025":9015.46},
 {"name":"SERVICE CARRELAGE SAS","factory":"0073351","ca2026":0,"ca2025":17.17},
 {"name":"TDS CONCEPT SAS","factory":"0073358","ca2026":0,"ca2025":604.20},
-{"name":"LOPEZ CSA EURL LE ROI DU CARRO","factory":"0073363","ca2026":11016.54,"ca2025":0},
+{"name":"LOPEZ CSA EURL LE ROI DU CARRO","factory":"0073363","ca2026":11318.94,"ca2025":1944.00},
 {"name":"DCB DEPOT CARREAUX & BAINS SARL","factory":"0073372","ca2026":4328.64,"ca2025":0},
 {"name":"TENDANCE CARRELAGE SARL","factory":"0073377","ca2026":1814.40,"ca2025":0},
 {"name":"R.C.B. DES CARRELAGES BEC SAS","factory":"0073381","ca2026":0,"ca2025":1304.54},
-{"name":"AZZURRA CERAMICHE SARL","factory":"0073384","ca2026":3339.19,"ca2025":3638.95},
+{"name":"AZZURRA CERAMICHE SARL","factory":"0073384","ca2026":3339.19,"ca2025":4576.39},
 {"name":"L'ART DU CARREAU SARL","factory":"0073389","ca2026":1429.30,"ca2025":12033.97},
 {"name":"FERRATO SOL ET BAIN SARL","factory":"0073390","ca2026":0,"ca2025":11627.64},
 {"name":"CARRELAGE MARKET SAS","factory":"0073403","ca2026":8053.70,"ca2025":5310.14},
@@ -25,9 +25,9 @@ export const VIEW_STATS_CLIENTS_2026_07=[
 {"name":"MASTERCERAM SAS","factory":"0073426","ca2026":35671.32,"ca2025":47929.32},
 {"name":"DM HOME","factory":"0073430","ca2026":4233.60,"ca2025":8934.84},
 {"name":"MILLE COULEURS D'EAU","factory":"0073443","ca2026":27750.79,"ca2025":12462.82},
-{"name":"CAP MATERIAUX SCI","factory":"0073445","ca2026":9961.34,"ca2025":6618.59},
+{"name":"CAP MATERIAUX SCI","factory":"0073445","ca2026":10279.94,"ca2025":6618.59},
 {"name":"DESIGN HABITAT SAS","factory":"0073465","ca2026":1748.88,"ca2025":5645.34},
-{"name":"SOLMAT CARMAT SAS AUBAGNE","factory":"0073467","ca2026":19810.76,"ca2025":25046.35},
+{"name":"SOLMAT CARMAT SAS AUBAGNE","factory":"0073467","ca2026":25455.56,"ca2025":25297.45},
 {"name":"TOUT POUR LE PAYSAGE SAS","factory":"0073475","ca2026":0,"ca2025":6745.57},
 {"name":"PARODI CARRELAGES SDCM","factory":"0073476","ca2026":0,"ca2025":418.39},
 {"name":"MS MATERIAUX PROPRIANO","factory":"0073509","ca2026":50.40,"ca2025":4400.13},
@@ -39,6 +39,6 @@ export const VIEW_STATS_CLIENTS_2026_07=[
 {"name":"SOLMAT CARMAT SAS VITROLLES","factory":"0073572","ca2026":4838.40,"ca2025":0},
 {"name":"RAIBALDI ETS AMB SARL","factory":"0073577","ca2026":11768.41,"ca2025":0},
 {"name":"SOL EVOLUTION SAS","factory":"0073606","ca2026":3388.14,"ca2025":0},
-{"name":"CERAMIQUE STORE SARL - FRANCE","factory":"0073607","ca2026":7132.76,"ca2025":0},
+{"name":"CERAMIQUE STORE SARL - FRANCE","factory":"0073607","ca2026":9058.24,"ca2025":0},
 {"name":"CERAMICA STORE SRL - BELGIQUE","factory":"0073613","ca2026":1982.88,"ca2025":0}
 ].map(r=>({...r,evolution:r.ca2025===0?(r.ca2026>0?null:0):(r.ca2026-r.ca2025)/r.ca2025}));
