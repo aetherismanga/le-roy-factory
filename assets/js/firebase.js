@@ -32,7 +32,7 @@ export function getAgentProfile(user = auth.currentUser) {
 const CRM_PAGES = new Set([
   "dashboard.html", "clients.html", "agenda.html", "tournees.html", "comptes-rendus.html",
   "mails-groupes.html", "carte.html", "statistiques.html", "demandes-clients.html",
-  "nouveau-compte-rendu.html", "contacts-partenaires.html"
+  "nouveau-compte-rendu.html", "contacts-partenaires.html", "analyse-clients-lrf.html"
 ]);
 const currentPage = (location.pathname.split("/").pop() || "index.html").toLowerCase();
 const isCrmPage = CRM_PAGES.has(currentPage);
@@ -102,6 +102,7 @@ document.addEventListener("click", e => {
 }, true);
 
 import("./account-requests-nav.js?v=20260904-avatar3").catch(err => console.error("Erreur chargement navigation demandes clients :", err));
+import("./crm-settings-nav.js?v=20260904-1").catch(err => console.error("Erreur chargement sous-menu Paramètres :", err));
 if (currentPage === "clients.html") {
   import("./seed-bilt-annexe-clients.js?v=20260901").catch(err => console.error("Erreur chargement clients Annexe 1 BILT :", err));
   import("./client-direct-email.js?v=20260817-1845").catch(err => console.error("Erreur chargement module e-mail client :", err));
