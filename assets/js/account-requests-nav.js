@@ -26,6 +26,15 @@ if (!window.__lrfSecureCloudFetchInstalled) {
   };
 }
 
+function openMaStation(){
+  const ua=navigator.userAgent||'';
+  if(/Android/i.test(ua)){
+    window.location.href='intent://open#Intent;scheme=mastation;package=fr.mastation.ma_station;end';
+    return;
+  }
+  window.location.href='mastation://open';
+}
+
 function addNav(){
   const menu=document.querySelector('.sidebar-menu');
   if(menu){
@@ -49,6 +58,15 @@ function addNav(){
   if(menu){
     const stats=[...menu.querySelectorAll('a')].find(a=>a.textContent.toLowerCase().includes('statistiques'));
     if(stats)stats.href='statistiques.html';
+    if(!menu.querySelector('[data-open-ma-station]')){
+      const statsLi=stats?.closest('li');
+      const settings=[...menu.querySelectorAll('a')].find(a=>a.textContent.toLowerCase().includes('paramètres'))?.closest('li');
+      const li=document.createElement('li');
+      li.innerHTML='<a href="#" data-open-ma-station="1"><span class="icon">⛽</span><span class="menu-text">Ma Station</span></a>';
+      if(statsLi)statsLi.insertAdjacentElement('afterend',li);
+      else if(settings)settings.insertAdjacentElement('beforebegin',li);
+      else menu.appendChild(li);
+    }
   }
   if(location.pathname.toLowerCase().endsWith('dashboard.html')){
     const quick=[...document.querySelectorAll('h2')].find(h=>h.textContent.includes('Actions rapides'))?.nextElementSibling;
@@ -64,6 +82,13 @@ function addNav(){
   }
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',addNav,{once:true});else addNav();
+
+document.addEventListener('click',e=>{
+  const a=e.target.closest('[data-open-ma-station]');
+  if(!a)return;
+  e.preventDefault();
+  openMaStation();
+});
 
 if(location.pathname.toLowerCase().endsWith('clients.html')){
   import('./client-partners-sync.js?v=20260901-1')
