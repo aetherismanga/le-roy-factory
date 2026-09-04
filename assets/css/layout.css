@@ -240,3 +240,52 @@ body:has(#grid-tarifs) #pro-dept { width: 100% !important; min-width: 0 !importa
   body.crm-body .crm-toolbar .select-filters { width:100%!important;display:grid!important;grid-template-columns:1fr!important;gap:.55rem!important; }
   body.crm-body .crm-toolbar .crm-select { width:100%!important;min-height:46px!important; }
 }
+
+/* Contact public : avatars officiels existants Jérôme / Coryne */
+body:not(.crm-body) .agent-stack > .agent-info-card {
+  position: relative !important;
+  padding-right: 6.8rem !important;
+  min-height: 7.2rem;
+}
+
+body:not(.crm-body) .agent-stack > .agent-info-card::after {
+  content: '';
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 4.7rem;
+  height: 4.7rem;
+  border-radius: 50%;
+  border: 2px solid #D4AF37;
+  background-color: #111;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  box-shadow: 0 5px 14px rgba(0,0,0,.18), 0 0 0 3px rgba(255,255,255,.85);
+}
+
+body:not(.crm-body) .agent-stack > .agent-info-card:nth-child(2)::after {
+  background-image: url('../img/jeromelogo.png?v=20260904-contact1');
+}
+
+body:not(.crm-body) .agent-stack > .agent-info-card:nth-child(3)::after {
+  background-image: url('../img/corynelogo.png?v=20260904-contact1');
+}
+
+@media (max-width: 600px) {
+  body:not(.crm-body) .agent-stack > .agent-info-card {
+    padding-right: 7.6rem !important;
+    min-height: 8.4rem;
+  }
+
+  body:not(.crm-body) .agent-stack > .agent-info-card::after {
+    width: 5.6rem;
+    height: 5.6rem;
+    top: 1rem;
+    right: 1rem;
+  }
+
+  body:not(.crm-body) .agent-stack > .agent-info-card h3 {
+    max-width: calc(100% - 1rem);
+  }
+}
