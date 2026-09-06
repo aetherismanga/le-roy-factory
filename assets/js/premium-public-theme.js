@@ -35,9 +35,17 @@
   else startBiopietraGuard();
 
   const page = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+  const configuratorPages = new Set([
+    'configurateurs.html',
+    'configurateur-elios-pose.html',
+    'configurateur-croisillons.html',
+    'configurateur-plots.html'
+  ]);
   const allowed = new Set([
     'index.html','partenaires.html','univers.html','realisations.html',
-    'catalogues.html','configurateurs.html','tarifs-pro.html','contact.html','agent.html','ouverture-compte.html'
+    'catalogues.html','configurateurs.html','configurateur-elios-pose.html',
+    'configurateur-croisillons.html','configurateur-plots.html',
+    'tarifs-pro.html','contact.html','agent.html','ouverture-compte.html'
   ]);
   if (!allowed.has(page)) return;
 
@@ -61,6 +69,58 @@
   document.documentElement.classList.add('lrf-premium-ready');
 
   const pageClass = `lrf-page-${page.replace('.html','').replace(/[^a-z0-9-]/g,'-')}`;
+
+  const installConfiguratorNoFloralTheme = () => {
+    if (!configuratorPages.has(page) || document.getElementById('lrf-configurator-no-floral-theme')) return;
+    const style = document.createElement('style');
+    style.id = 'lrf-configurator-no-floral-theme';
+    style.textContent = `
+      body.lrf-configurator-page header,
+      body.lrf-configurator-page footer{
+        position:relative!important;
+        overflow:hidden!important;
+        background-image:none!important;
+        background-color:#090909!important;
+        background:
+          linear-gradient(118deg,transparent 0 28%,rgba(212,175,55,.10) 28.15% 28.35%,transparent 28.5% 67%,rgba(212,175,55,.08) 67.15% 67.35%,transparent 67.5%),
+          radial-gradient(circle at 18% 25%,rgba(212,175,55,.10),transparent 28%),
+          linear-gradient(135deg,#050505 0%,#111 48%,#171717 100%)!important;
+        color:#fff!important;
+        border-color:#d4af37!important;
+      }
+      body.lrf-configurator-page header::before,
+      body.lrf-configurator-page footer::before{
+        content:"";
+        position:absolute;
+        inset:0;
+        pointer-events:none;
+        background:linear-gradient(90deg,transparent,rgba(255,216,92,.035),transparent);
+      }
+      body.lrf-configurator-page header .container,
+      body.lrf-configurator-page footer .container{position:relative;z-index:1}
+      body.lrf-configurator-page header .main-nav a:not(.agent-btn),
+      body.lrf-configurator-page header .main-nav>li>a:not(.agent-btn){
+        color:#f4f1e8!important;
+        text-shadow:none!important;
+      }
+      body.lrf-configurator-page header .main-nav a:not(.agent-btn):hover,
+      body.lrf-configurator-page header .main-nav>li>a:not(.agent-btn):hover{
+        color:#f0c85c!important;
+      }
+      body.lrf-configurator-page header .agent-btn{
+        background:#050505!important;
+        color:#ffd84f!important;
+        border:1px solid #d4af37!important;
+        box-shadow:0 0 18px rgba(212,175,55,.12)!important;
+      }
+      body.lrf-configurator-page header .agent-btn:hover{
+        background:#d4af37!important;
+        color:#050505!important;
+      }
+      body.lrf-configurator-page footer p{color:#f3efe4!important;text-shadow:none!important}
+    `;
+    document.head.appendChild(style);
+  };
 
   const installConfigurateursNav = () => {
     const nav = document.querySelector('header nav ul');
@@ -155,6 +215,9 @@
     document.body.classList.add('lrf-premium-v2', pageClass);
     if (page !== 'index.html') document.body.classList.add('lrf-light-page');
     if (page === 'agent.html') document.body.classList.add('lrf-agent-page');
+    if (configuratorPages.has(page)) document.body.classList.add('lrf-configurator-page');
+
+    installConfiguratorNoFloralTheme();
 
     const favicon = document.querySelector('link[rel="icon"]');
     if (favicon) {
