@@ -1,0 +1,1 @@
+import{renderSvg}from'./svg-engine.js';export function renderPreview(root,pattern){root.innerHTML=`<span class="v2-badge">APERÇU SVG V2</span><h2>${pattern?.label||'Schéma à venir'}</h2><div class="v2-preview">${renderSvg(pattern,{preview:true})}</div><div class="v2-status">Structure SVG V2 active. Le tracé fidèle de ce schéma sera branché dans son fichier pattern dédié.</div>`;}

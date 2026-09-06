@@ -1,0 +1,1 @@
+import{FAMILIES}from'../constants.js';export function renderTabs(root,activeFamily){root.innerHTML=FAMILIES.map(f=>`<button class="v2-tab${f.id===activeFamily?' active':''}" data-family="${f.id}" type="button"><b>${f.label}</b><small>${f.range}</small></button>`).join('');}
