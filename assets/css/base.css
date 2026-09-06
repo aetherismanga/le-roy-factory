@@ -2,6 +2,44 @@
 @import url('./crm-client-mobile-fix.css?v=20260902-1');
 
 /* ========================================================================== 
+   MOBILE — SUPPRESSION DU CADRE BLEU AU TAP
+   Android/Chrome peut afficher une surbrillance bleue derrière les liens,
+   boutons, logos et icônes au toucher. On la neutralise sans supprimer le
+   focus clavier accessible sur ordinateur.
+   ========================================================================== */
+a,
+button,
+[role="button"],
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+summary,
+label[for],
+.logo,
+.logo-circle,
+.menu-toggle,
+.nav-toggle,
+.close,
+.close-btn,
+.btn,
+[onclick] {
+  -webkit-tap-highlight-color: transparent !important;
+  -webkit-touch-callout: none;
+}
+
+/* Empêche le contour de focus créé uniquement par un clic/tap, tout en
+   conservant un vrai indicateur de focus pour la navigation au clavier. */
+:focus:not(:focus-visible) {
+  outline: none !important;
+  box-shadow: none;
+}
+
+:focus-visible {
+  outline: 2px solid #D4AF37;
+  outline-offset: 3px;
+}
+
+/* ========================================================================== 
    LE ROY FACTORY — DESIGN GLOBAL (Bandeaux, Fond & Logo Rond)
    ========================================================================== */
 
