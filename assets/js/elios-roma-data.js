@@ -19,10 +19,10 @@
     {kind:'Modulo extérieur', format:'Multiformat pré-emballé', finish:'Outdoor R11 · 10 mm', pcsBox:6, sqmBox:0.75, kgBox:14.5, boxesPal:80, sqmPal:59.6, kgPal:1175, codes:{Aventino:'085M141',Celio:'085M106'}},
 
     {kind:'Mosaïque', format:'30,4 × 30,4 cm · tesselles 5 × 5', finish:'R10 · 10 mm · sur trame', pcsBox:6, sqmBox:0.55, kgBox:8.2, boxesPal:null, sqmPal:null, kgPal:null, codes:{Aventino:'085H140',Celio:'085H105',Viminale:'085H100',Palatino:'085H170'}},
-    {kind:'Plinthe', format:'6,5 × 61 cm', finish:'R10 · 10 mm', pcsBox:15, sqmBox:0.59, kgBox:16.5, boxesPal:null, sqmPal:null, kgPal:null, codes:{Aventino:'085B140',Celio:'085B105',Viminale:'085B100',Palatino:'085B170'}},
-    {kind:'Plinthe', format:'7,5 × 40,5 cm', finish:'R10 · 10 mm', pcsBox:24, sqmBox:null, kgBox:15, boxesPal:null, sqmPal:null, kgPal:null, codes:{Aventino:'085BC40',Celio:'085BC05',Viminale:'085BC00',Palatino:'085BC70'}},
-    {kind:'Pièce spéciale', format:'Gradino costa retta 33 × 60 cm', finish:'R10 · 10 mm', pcsBox:1, sqmBox:null, kgBox:null, boxesPal:null, sqmPal:null, kgPal:null, orderOnly:true, codes:{}},
-    {kind:'Pièce spéciale', format:'Gradino costa retta angolo DX/SX 33 × 60 cm', finish:'R10 · 10 mm', pcsBox:1, sqmBox:null, kgBox:null, boxesPal:null, sqmPal:null, kgPal:null, orderOnly:true, codes:{}}
+    {kind:'Plinthe', format:'6,5 × 61 cm', finish:'R10 · 10 mm', pcsBox:15, sqmBox:0.59, kgBox:16.5, boxesPal:null, sqmPal:null, kgPal:null, orderUnit:'ML', orderPerBox:9.15, codes:{Aventino:'085B140',Celio:'085B105',Viminale:'085B100',Palatino:'085B170'}},
+    {kind:'Plinthe', format:'7,5 × 40,5 cm', finish:'R10 · 10 mm', pcsBox:24, sqmBox:null, kgBox:15, boxesPal:null, sqmPal:null, kgPal:null, orderUnit:'ML', orderPerBox:9.72, codes:{Aventino:'085BC40',Celio:'085BC05',Viminale:'085BC00',Palatino:'085BC70'}},
+    {kind:'Pièce spéciale', format:'Gradino costa retta 33 × 60 cm', finish:'R10 · 10 mm', pcsBox:1, sqmBox:null, kgBox:null, boxesPal:null, sqmPal:null, kgPal:null, orderUnit:'PZ', orderPerBox:1, orderOnly:true, codes:{}},
+    {kind:'Pièce spéciale', format:'Gradino costa retta angolo DX/SX 33 × 60 cm', finish:'R10 · 10 mm', pcsBox:1, sqmBox:null, kgBox:null, boxesPal:null, sqmPal:null, kgPal:null, orderUnit:'PZ', orderPerBox:1, orderOnly:true, codes:{}}
   ];
 
   const rows = [];
@@ -45,6 +45,8 @@
         boxesPal:def.boxesPal,
         sqmPal:def.sqmPal,
         kgPal:def.kgPal,
+        orderUnit:def.orderUnit || null,
+        orderPerBox:def.orderPerBox || null,
         orderOnly:Boolean(def.orderOnly),
         stock:null,
         production:null,
