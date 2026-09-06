@@ -1,0 +1,1 @@
+export function renderResults(root,state){root.innerHTML=`<h3>Structure calcul V2</h3><p>Surface : <b>${state.surface} m²</b> · Marge : <b>${state.waste}%</b></p><p class="v2-footer-note">À l'étape suivante, ce bloc réutilisera les données métier validées de la V1.</p>`;}

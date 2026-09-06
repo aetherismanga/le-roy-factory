@@ -1,0 +1,1 @@
+export const segmentoPatterns=[];/* Étape V2.2 : pattern-01.js à pattern-12.js */

@@ -1,0 +1,1 @@
+export const smallFormatPatterns=[];/* Étape V2.2 : schema-23.js à schema-28.js */

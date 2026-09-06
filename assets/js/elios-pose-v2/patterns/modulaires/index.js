@@ -1,0 +1,1 @@
+export const modularPatterns=[];/* Étape V2.2 : schema-01.js à schema-22.js */

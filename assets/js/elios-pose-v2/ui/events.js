@@ -1,0 +1,1 @@
+export function bindEvents(root,{onFamily,onPattern}){root.addEventListener('click',e=>{const tab=e.target.closest('[data-family]');if(tab){onFamily?.(tab.dataset.family);return;}const card=e.target.closest('[data-pattern-id]');if(card)onPattern?.(card.dataset.patternId);});}
