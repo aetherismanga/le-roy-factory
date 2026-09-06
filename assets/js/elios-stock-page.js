@@ -21,6 +21,14 @@
   const fr = (value, digits = 2) => Number(value).toLocaleString('fr-FR', { maximumFractionDigits:digits, minimumFractionDigits:0 });
   const show = (value, suffix = '', digits = 2) => Number.isFinite(Number(value)) ? `${fr(value, digits)}${suffix}` : '—';
 
+  function unitLabel(unit, value) {
+    const u = String(unit || 'MQ').toUpperCase();
+    if (u === 'MQ' || u === 'M2' || u === 'M²') return 'm²';
+    if (u === 'PZ' || u === 'PCE' || u === 'PCS') return Number(value) === 1 ? 'pièce' : 'pièces';
+    if (u === 'ML' || u === 'M') return 'ml';
+    return u;
+  }
+
   function installFilters() {
     if (!colorFilter) return;
     colorFilter.innerHTML = '<option value="Tous">Toutes les couleurs</option>' +
@@ -53,9 +61,11 @@
     if (Number.isFinite(Number(row.stock))) {
       const value = Number(row.stock);
       const production = Number(row.production || 0);
+      const stockUnit = unitLabel(row.stockUnit, value);
+      const productionUnit = unitLabel(row.productionUnit || row.stockUnit, production);
       const when = row.updatedAt ? new Date(row.updatedAt).toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'}) : '';
-      return `<span class="stock-value ${value <= 0 ? 'zero' : ''}">${fr(value,2)} m²</span>` +
-        (production > 0 ? `<span class="production">Production prévue : +${fr(production,2)} m²</span>` : '<span class="production none">Aucune production prévue</span>') +
+      return `<span class="stock-value ${value <= 0 ? 'zero' : ''}">${fr(value,2)} ${esc(stockUnit)}</span>` +
+        (production > 0 ? `<span class="production">Production prévue : +${fr(production,2)} ${esc(productionUnit)}</span>` : '<span class="production none">Aucune production prévue</span>') +
         `<small class="stock-note">${row.cached ? 'Résultat en cache' : 'EliosBOT en direct'}${when ? ` · ${esc(when)}` : ''}</small>` +
         `<button class="stock-btn refresh-one" type="button" data-stock-key="${esc(row._key)}">↻ Actualiser</button>`;
     }
@@ -116,11 +126,15 @@
       const data = await response.json().catch(() => ({}));
       if (!response.ok || !data?.success || !data?.product) throw new Error(data?.error || `Erreur HTTP ${response.status}`);
       row.stock = Number(data.product.stock);
+      row.stockUnit = data.product.stockUnit || 'MQ';
       row.production = Number(data.product.production || 0);
+      row.productionUnit = data.product.productionUnit || row.stockUnit;
       row.updatedAt = data.updatedAt || new Date().toISOString();
       row.cached = Boolean(data.cached);
       row.telegramDescription = data.product.description || '';
-      setStatus(`${row.ref} : ${fr(row.stock,2)} m² disponibles${row.production > 0 ? ` · ${fr(row.production,2)} m² en production` : ''}.`, 'live');
+      const stockUnit = unitLabel(row.stockUnit, row.stock);
+      const productionUnit = unitLabel(row.productionUnit, row.production);
+      setStatus(`${row.ref} : ${fr(row.stock,2)} ${stockUnit} disponibles${row.production > 0 ? ` · ${fr(row.production,2)} ${productionUnit} en production` : ''}.`, 'live');
     } catch (error) {
       row.error = 'Stock indisponible pour le moment.';
       setStatus(`Impossible de récupérer ${row.ref}. Vous pouvez réessayer sans lancer les autres références.`, 'error');
