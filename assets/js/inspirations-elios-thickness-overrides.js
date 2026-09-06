@@ -78,4 +78,11 @@
     source: 'ELIOS Catalogue Général 2026',
     updated: '2026-09-02'
   };
+
+  // Test isolé : ajoute le bouton « Voir les disponibilités » uniquement sur ROMA.
+  // Le script est chargé séparément afin de ne pas modifier le moteur Inspirations.
+  const stockScript = document.createElement('script');
+  stockScript.src = 'assets/js/elios-stock-roma-test.js?v=20260906-test1';
+  stockScript.defer = true;
+  document.head.appendChild(stockScript);
 })();
