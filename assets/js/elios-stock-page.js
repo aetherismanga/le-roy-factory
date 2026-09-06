@@ -15,8 +15,15 @@
   const title = document.getElementById('collection-title');
   const count = document.getElementById('stock-count');
   const categoryBar = document.getElementById('category-filters');
+  const cartButton = document.getElementById('order-cart-open');
+  const cartCount = document.getElementById('order-cart-count');
+
   let activeCategory = '';
-  let orderRow = null;
+  const cart = new Map();
+  let customerContext = null;
+  let customerLoadPromise = null;
+  let customerError = '';
+  let sessionToken = '';
 
   if (title) title.textContent = source.collection || 'ROMA';
 
@@ -44,15 +51,29 @@
   }
 
   function orderInfo(row) {
-    if (row.orderUnit) {
-      const perBox = Number(row.orderPerBox || 0);
-      return { unit:String(row.orderUnit).toUpperCase(), perBox:perBox > 0 ? perBox : 1 };
-    }
-    if (categoryOf(row) === 'plinthes' || categoryOf(row) === 'speciales') {
-      return { unit:'PZ', perBox:Math.max(1, Number(row.pcsBox || 1)) };
+    if (row.orderUnit && isNum(row.orderPerBox) && Number(row.orderPerBox) > 0) {
+      return { unit:String(row.orderUnit).toUpperCase(), perBox:Number(row.orderPerBox) };
     }
     if (isNum(row.sqmBox) && Number(row.sqmBox) > 0) return { unit:'MQ', perBox:Number(row.sqmBox) };
     return { unit:'PZ', perBox:Math.max(1, Number(row.pcsBox || 1)) };
+  }
+
+  function calculate(row, requestedRaw) {
+    const info = orderInfo(row);
+    let requested = Number(requestedRaw);
+    if (!Number.isFinite(requested) || requested <= 0) return null;
+    if (info.unit === 'PZ') requested = Math.ceil(requested);
+    const boxes = Math.max(1, Math.ceil((requested - 1e-9) / info.perBox));
+    const ordered = Number((boxes * info.perBox).toFixed(3));
+    const pieces = isNum(row.pcsBox) ? boxes * Number(row.pcsBox) : null;
+    return { ...info, requested, boxes, ordered, pieces };
+  }
+
+  function packagingText(row) {
+    const info = orderInfo(row);
+    const bits = [`1 carton = ${fr(info.perBox, 3)} ${unitLabel(info.unit, info.perBox)}`];
+    if (isNum(row.pcsBox)) bits.push(`${fr(row.pcsBox,0)} pcs/carton`);
+    return bits.join(' · ');
   }
 
   function installFilters() {
@@ -73,7 +94,8 @@
   function packageCell(row) {
     const pieces = isNum(row.pcsBox) ? `${fr(row.pcsBox, 0)} pcs/carton` : '—';
     const sqm = isNum(row.sqmBox) ? `${fr(row.sqmBox, 3)} m²/carton` : '';
-    return `<strong>${pieces}</strong>${sqm ? `<small>${sqm}</small>` : ''}`;
+    const ml = String(row.orderUnit || '').toUpperCase() === 'ML' && isNum(row.orderPerBox) ? `${fr(row.orderPerBox,3)} ml/carton` : '';
+    return `<strong>${pieces}</strong>${sqm ? `<small>${sqm}</small>` : ''}${ml ? `<small>${ml}</small>` : ''}`;
   }
 
   function paletteCell(row) {
@@ -86,17 +108,14 @@
   }
 
   function orderButton(row) {
-    return `<button class="order-btn" type="button" data-order-key="${esc(row._key)}">Commander</button>`;
+    const inCart = cart.has(row._key);
+    return `<button class="order-btn${inCart?' in-cart':''}" type="button" data-order-key="${esc(row._key)}">${inCart?'✓ Dans le panier':'Commander'}</button>`;
   }
 
   function stockCell(row) {
-    if (row.orderOnly) {
-      return `<span class="order-badge">Sur commande</span>${orderButton(row)}`;
-    }
-    if (row.loading) return '<button class="stock-btn loading" type="button" disabled><span class="hourglass">⌛</span> Recherche…</button>';
-    if (row.error) {
-      return `<span class="stock-error">Stock indisponible.</span><button class="stock-btn retry" type="button" data-stock-key="${esc(row._key)}">Réessayer</button>${orderButton(row)}`;
-    }
+    if (row.orderOnly) return `<span class="order-badge">Sur commande</span>${orderButton(row)}`;
+    if (row.loading) return `<div class="stock-actions"><button class="stock-btn loading" type="button" disabled><span class="hourglass">⌛</span> Recherche…</button>${orderButton(row)}</div>`;
+    if (row.error) return `<span class="stock-error">Stock indisponible.</span><div class="stock-actions"><button class="stock-btn retry" type="button" data-stock-key="${esc(row._key)}">Réessayer</button>${orderButton(row)}</div>`;
     if (isNum(row.stock)) {
       const value = Number(row.stock);
       const production = isNum(row.production) ? Number(row.production) : 0;
@@ -156,9 +175,7 @@
   async function requestStock(key) {
     const row = rows.find(item => item._key === key);
     if (!row || !row.ref || row.orderOnly || row.loading) return;
-    row.loading = true;
-    row.error = '';
-    render();
+    row.loading = true; row.error = ''; render();
     setStatus(`Recherche du stock de ${row.ref}…`, 'working');
     try {
       const response = await fetch(`${STOCK_API}?collection=ROMA&ref=${encodeURIComponent(row.ref)}`, { cache:'no-store' });
@@ -169,16 +186,17 @@
       row.production = Number(data.product.production || 0);
       row.productionUnit = data.product.productionUnit || row.stockUnit;
       row.updatedAt = data.updatedAt || new Date().toISOString();
-      row.cached = Boolean(data.cached);
-      row.telegramDescription = data.product.description || '';
       setStatus(`${row.ref} : stock actualisé.`, 'live');
     } catch (error) {
       row.error = 'Stock indisponible pour le moment.';
       setStatus(`Impossible de récupérer le stock de ${row.ref}.`, 'error');
-    } finally {
-      row.loading = false;
-      render();
-    }
+    } finally { row.loading = false; render(); }
+  }
+
+  function updateCartButton() {
+    if (!cartButton || !cartCount) return;
+    cartCount.textContent = String(cart.size);
+    cartButton.hidden = cart.size === 0;
   }
 
   function ensureOrderModal() {
@@ -187,127 +205,243 @@
     overlay.id = 'order-overlay';
     overlay.className = 'order-overlay';
     overlay.innerHTML = `<div class="order-modal">
-      <div class="order-head"><div><span class="kicker">COMMANDE USINE</span><h2 id="order-title">Commander</h2></div><button type="button" class="order-close" id="order-close">×</button></div>
-      <div id="order-product" class="order-product"></div>
-      <div class="order-grid">
-        <div><label id="order-qty-label">Quantité souhaitée</label><input id="order-qty" type="number" min="0.01" step="0.01"></div>
-        <div><label>Cartons complets</label><input id="order-boxes" type="number" readonly></div>
+      <div class="order-head"><div><span class="kicker">COMMANDE USINE</span><h2>Panier ELIOS</h2><p id="order-cart-subtitle" class="order-subtitle"></p></div><button type="button" class="order-close" id="order-close" aria-label="Fermer">×</button></div>
+      <div id="order-customer" class="order-customer loading">Chargement de votre compte professionnel…</div>
+      <div class="order-section-title"><strong>Références à commander</strong><span id="order-lines-count"></span></div>
+      <div id="order-cart-list" class="order-cart-list"></div>
+      <button type="button" class="order-add-more" id="order-add-more">＋ Ajouter une référence</button>
+      <div id="order-contact-section" class="order-contact-section">
+        <div class="order-grid">
+          <div><label>Contact</label><select id="order-contact"></select></div>
+          <div><label>Adresse e-mail</label><select id="order-email"></select></div>
+          <div class="full"><label>Téléphone</label><select id="order-phone"></select></div>
+          <div class="full"><label>Note / précision</label><textarea id="order-note" placeholder="Référence chantier, délai souhaité, commentaire…"></textarea></div>
+        </div>
       </div>
-      <div class="order-summary" id="order-summary"></div>
-      <div class="order-grid">
-        <div><label>Société *</label><input id="order-company" autocomplete="organization"></div>
-        <div><label>Code client LRF</label><input id="order-code" placeholder="LRF-00000"></div>
-        <div><label>Contact *</label><input id="order-contact" autocomplete="name"></div>
-        <div><label>E-mail *</label><input id="order-email" type="email" autocomplete="email"></div>
-        <div class="full"><label>Téléphone</label><input id="order-phone" autocomplete="tel"></div>
-        <div class="full"><label>Note / précision</label><textarea id="order-note" placeholder="Référence chantier, délai souhaité, commentaire…"></textarea></div>
-      </div>
-      <div class="order-actions"><button type="button" class="order-cancel" id="order-cancel">Annuler</button><button type="button" class="order-send" id="order-send">Envoyer la commande</button></div>
+      <div class="order-actions"><button type="button" class="order-cancel" id="order-cancel">Fermer</button><button type="button" class="order-send" id="order-send">Envoyer la commande</button></div>
       <div id="order-result" class="order-result" hidden></div>
     </div>`;
     document.body.appendChild(overlay);
-    const close = () => { overlay.classList.remove('open'); orderRow = null; };
-    document.getElementById('order-close').onclick = close;
-    document.getElementById('order-cancel').onclick = close;
+
+    const close = () => overlay.classList.remove('open');
+    document.getElementById('order-close').addEventListener('click', close);
+    document.getElementById('order-cancel').addEventListener('click', close);
+    document.getElementById('order-add-more').addEventListener('click', close);
     overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
-    document.getElementById('order-qty').addEventListener('input', updateOrderCalc);
     document.getElementById('order-send').addEventListener('click', sendOrder);
+    document.getElementById('order-contact').addEventListener('change', syncContactDefaults);
+    document.getElementById('order-cart-list').addEventListener('input', handleCartInput);
+    document.getElementById('order-cart-list').addEventListener('click', handleCartClick);
   }
 
-  function savedCustomer() {
-    try { return JSON.parse(localStorage.getItem('lrfEliosOrderCustomer') || '{}') || {}; } catch (_) { return {}; }
-  }
-  function saveCustomer(data) {
-    try { localStorage.setItem('lrfEliosOrderCustomer', JSON.stringify(data)); } catch (_) {}
-  }
-
-  function openOrder(key) {
+  function addToCart(key) {
     const row = rows.find(item => item._key === key);
     if (!row) return;
-    ensureOrderModal();
-    orderRow = row;
+    if (!cart.has(key)) {
+      const info = orderInfo(row);
+      cart.set(key, { key, row, requested:info.perBox });
+    }
+    updateCartButton();
+    render();
+  }
+
+  function removeFromCart(key) {
+    cart.delete(key);
+    updateCartButton();
+    render();
+    renderCart();
+    if (!cart.size) document.getElementById('order-overlay')?.classList.remove('open');
+  }
+
+  function cartItemHtml(item) {
+    const row = item.row;
     const info = orderInfo(row);
+    const calc = calculate(row, item.requested);
     const label = unitLabel(info.unit, 2);
-    document.getElementById('order-title').textContent = `Commander · ${row.color}`;
-    document.getElementById('order-product').innerHTML = `<strong>${esc(row.ref || 'Pièce spéciale')} — ${esc(row.kind)}</strong><span>${esc(row.format)} · ${esc(row.finish || '')}</span><span>${fr(info.perBox,3)} ${esc(label)} par carton</span>`;
-    document.getElementById('order-qty-label').textContent = `Quantité souhaitée (${label})`;
-    const q = document.getElementById('order-qty');
-    q.step = info.unit === 'PZ' ? '1' : '0.01';
-    q.min = info.unit === 'PZ' ? '1' : '0.01';
-    q.value = info.perBox;
-    const c = savedCustomer();
-    document.getElementById('order-company').value = c.societe || '';
-    document.getElementById('order-code').value = c.codeClient || '';
-    document.getElementById('order-contact').value = c.contact || '';
-    document.getElementById('order-email').value = c.email || '';
-    document.getElementById('order-phone').value = c.telephone || '';
-    document.getElementById('order-note').value = '';
-    document.getElementById('order-result').hidden = true;
-    document.getElementById('order-send').disabled = false;
-    document.getElementById('order-send').textContent = 'Envoyer la commande';
-    updateOrderCalc();
-    document.getElementById('order-overlay').classList.add('open');
+    const step = info.unit === 'PZ' ? '1' : '0.01';
+    const min = info.unit === 'PZ' ? '1' : '0.01';
+    return `<div class="order-cart-item" data-cart-key="${esc(item.key)}">
+      <div class="order-cart-head"><div><strong>${esc(row.ref || 'Pièce spéciale')} · ${esc(row.color)}</strong><span>${esc(row.kind)} · ${esc(row.format)}</span></div><button type="button" class="order-remove" data-remove-key="${esc(item.key)}" aria-label="Retirer">×</button></div>
+      <div class="calc-grid">
+        <div class="calc-input"><label>Besoin souhaité (${esc(label)})</label><input class="cart-qty" data-qty-key="${esc(item.key)}" type="number" min="${min}" step="${step}" value="${esc(item.requested)}"></div>
+        <div class="calc-box"><span>Boîtage</span><strong>${esc(packagingText(row))}</strong></div>
+        <div class="calc-box"><span>Cartons complets</span><strong data-calc-boxes>${calc ? calc.boxes : '—'}</strong></div>
+        <div class="calc-box calc-final"><span>Quantité commandée</span><strong data-calc-ordered>${calc ? `${fr(calc.ordered,3)} ${esc(unitLabel(calc.unit,calc.ordered))}` : '—'}</strong><small data-calc-pieces>${calc?.pieces ? `${fr(calc.pieces,0)} pièces au total` : ''}</small></div>
+      </div>
+    </div>`;
   }
 
-  function orderCalculation() {
-    if (!orderRow) return null;
-    const info = orderInfo(orderRow);
-    const requested = Number(document.getElementById('order-qty')?.value || 0);
-    if (!Number.isFinite(requested) || requested <= 0) return null;
-    const boxes = Math.max(1, Math.ceil((requested - 1e-9) / info.perBox));
-    const ordered = boxes * info.perBox;
-    return { ...info, requested, boxes, ordered };
+  function renderCart() {
+    ensureOrderModal();
+    const list = document.getElementById('order-cart-list');
+    const lineCount = document.getElementById('order-lines-count');
+    const subtitle = document.getElementById('order-cart-subtitle');
+    const items = [...cart.values()];
+    if (lineCount) lineCount.textContent = `${items.length} référence${items.length>1?'s':''}`;
+    if (subtitle) subtitle.textContent = items.length ? 'Saisissez votre besoin : le boîtage et la quantité réellement commandée sont calculés automatiquement.' : 'Votre panier est vide.';
+    if (list) list.innerHTML = items.length ? items.map(cartItemHtml).join('') : '<div class="order-cart-empty">Aucune référence dans le panier.</div>';
+    updateSendButton();
   }
 
-  function updateOrderCalc() {
-    const calc = orderCalculation();
-    if (!calc) return;
-    document.getElementById('order-boxes').value = calc.boxes;
-    const unit = unitLabel(calc.unit, calc.ordered);
-    document.getElementById('order-summary').innerHTML = `Commande arrondie au carton complet : <strong>${calc.boxes} carton${calc.boxes > 1 ? 's' : ''}</strong> = <strong>${fr(calc.ordered,3)} ${esc(unit)}</strong>.`;
+  function updateCardCalculation(card, item) {
+    const calc = calculate(item.row, item.requested);
+    const boxes = card.querySelector('[data-calc-boxes]');
+    const ordered = card.querySelector('[data-calc-ordered]');
+    const pieces = card.querySelector('[data-calc-pieces]');
+    if (boxes) boxes.textContent = calc ? String(calc.boxes) : '—';
+    if (ordered) ordered.textContent = calc ? `${fr(calc.ordered,3)} ${unitLabel(calc.unit,calc.ordered)}` : '—';
+    if (pieces) pieces.textContent = calc?.pieces ? `${fr(calc.pieces,0)} pièces au total` : '';
+    card.classList.toggle('invalid', !calc);
+    updateSendButton();
+  }
+
+  function handleCartInput(event) {
+    const input = event.target.closest('[data-qty-key]');
+    if (!input) return;
+    const item = cart.get(input.dataset.qtyKey);
+    if (!item) return;
+    item.requested = input.value;
+    updateCardCalculation(input.closest('.order-cart-item'), item);
+  }
+
+  function handleCartClick(event) {
+    const button = event.target.closest('[data-remove-key]');
+    if (button) removeFromCart(button.dataset.removeKey);
+  }
+
+  async function readProSession() {
+    let session = window.LRF_PRO_SESSION?.read?.() || null;
+    if (!session && window.LRF_PRO_SESSION?.restore) session = await window.LRF_PRO_SESSION.restore();
+    if (!session || session.isAdmin || !session.sessionToken) throw new Error('Connexion PRO client requise pour passer une commande.');
+    return session;
+  }
+
+  async function loadCustomerContext(force = false) {
+    if (customerContext && !force) return customerContext;
+    if (customerLoadPromise && !force) return customerLoadPromise;
+    customerLoadPromise = (async () => {
+      customerError = '';
+      try {
+        const session = await readProSession();
+        sessionToken = session.sessionToken;
+        const response = await fetch(ORDER_API, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({action:'context',sessionToken}) });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok || !data?.success || !data?.customer) throw new Error(data?.error || 'Compte professionnel indisponible.');
+        customerContext = data.customer;
+        renderCustomer();
+        return customerContext;
+      } catch (error) {
+        customerContext = null;
+        sessionToken = '';
+        customerError = error?.message || 'Connexion professionnelle requise.';
+        renderCustomer();
+        return null;
+      } finally { customerLoadPromise = null; }
+    })();
+    return customerLoadPromise;
+  }
+
+  function renderCustomer() {
+    ensureOrderModal();
+    const box = document.getElementById('order-customer');
+    const contactSection = document.getElementById('order-contact-section');
+    if (!box) return;
+    if (!customerContext) {
+      box.className = 'order-customer error';
+      box.innerHTML = `<strong>${esc(customerError || 'Connexion PRO requise.')}</strong><span>Connectez-vous avec votre code client LRF pour récupérer automatiquement votre société, vos contacts, vos e-mails et vos téléphones.</span><a href="tarifs-pro.html" class="order-login-link">Se connecter à l’espace PRO</a>`;
+      if (contactSection) contactSection.hidden = true;
+      updateSendButton();
+      return;
+    }
+    box.className = 'order-customer ready';
+    box.innerHTML = `<div><span>Client</span><strong>${esc(customerContext.societe || '')}</strong></div><div><span>Code LRF</span><strong>${esc(customerContext.codeClient || '')}</strong></div>`;
+    if (contactSection) contactSection.hidden = false;
+
+    const contact = document.getElementById('order-contact');
+    const email = document.getElementById('order-email');
+    const phone = document.getElementById('order-phone');
+    if (contact) contact.innerHTML = (customerContext.contacts || []).map(c => `<option value="${esc(c.id)}">${esc(c.name)}${c.fonction?` — ${esc(c.fonction)}`:''}</option>`).join('');
+    if (email) email.innerHTML = (customerContext.emails || []).map(v => `<option value="${esc(v)}">${esc(v)}</option>`).join('');
+    if (phone) phone.innerHTML = '<option value="">Aucun numéro</option>' + (customerContext.phones || []).map(v => `<option value="${esc(v)}">${esc(v)}</option>`).join('');
+    syncContactDefaults();
+    updateSendButton();
+  }
+
+  function syncContactDefaults() {
+    if (!customerContext) return;
+    const contactSelect = document.getElementById('order-contact');
+    const emailSelect = document.getElementById('order-email');
+    const phoneSelect = document.getElementById('order-phone');
+    const selected = (customerContext.contacts || []).find(c => c.id === contactSelect?.value);
+    if (selected?.email && [...(emailSelect?.options || [])].some(o => o.value === selected.email)) emailSelect.value = selected.email;
+    if (selected?.telephone && [...(phoneSelect?.options || [])].some(o => o.value === selected.telephone)) phoneSelect.value = selected.telephone;
+  }
+
+  function updateSendButton() {
+    const btn = document.getElementById('order-send');
+    if (!btn) return;
+    const validCart = cart.size > 0 && [...cart.values()].every(item => calculate(item.row,item.requested));
+    const validCustomer = Boolean(customerContext && (customerContext.contacts||[]).length && (customerContext.emails||[]).length);
+    btn.disabled = !(validCart && validCustomer);
+    btn.textContent = cart.size ? `Envoyer la commande · ${cart.size} référence${cart.size>1?'s':''}` : 'Envoyer la commande';
+  }
+
+  async function openCart(addKey = '') {
+    ensureOrderModal();
+    if (addKey) addToCart(addKey);
+    renderCart();
+    const result = document.getElementById('order-result');
+    if (result) result.hidden = true;
+    const overlay = document.getElementById('order-overlay');
+    overlay?.classList.add('open');
+    const customer = document.getElementById('order-customer');
+    if (!customerContext && customer) {
+      customer.className = 'order-customer loading';
+      customer.textContent = 'Chargement de votre compte professionnel…';
+    }
+    await loadCustomerContext();
   }
 
   async function sendOrder() {
-    if (!orderRow) return;
-    const calc = orderCalculation();
-    const societe = document.getElementById('order-company').value.trim();
-    const codeClient = document.getElementById('order-code').value.trim();
-    const contact = document.getElementById('order-contact').value.trim();
-    const email = document.getElementById('order-email').value.trim();
-    const telephone = document.getElementById('order-phone').value.trim();
-    const note = document.getElementById('order-note').value.trim();
-    if (!calc) return alert('Indiquez une quantité valide.');
-    if (!societe || !contact || !/^\S+@\S+\.\S+$/.test(email)) return alert('Société, contact et e-mail sont obligatoires.');
+    const items = [...cart.values()].map(item => {
+      const calc = calculate(item.row,item.requested);
+      if (!calc) return null;
+      return {
+        ref:item.row.ref || '', color:item.row.color, kind:item.row.kind, format:item.row.format, finish:item.row.finish,
+        orderOnly:Boolean(item.row.orderOnly), requestedQty:calc.requested,
+        stock:isNum(item.row.stock)?Number(item.row.stock):null, stockUnit:item.row.stockUnit || null
+      };
+    });
+    if (!items.length || items.some(x => !x)) return alert('Vérifiez les quantités du panier.');
+    if (!customerContext || !sessionToken) return alert('Reconnectez-vous à votre espace PRO.');
+
+    const contactId = document.getElementById('order-contact')?.value || '';
+    const email = document.getElementById('order-email')?.value || '';
+    const telephone = document.getElementById('order-phone')?.value || '';
+    const note = document.getElementById('order-note')?.value.trim() || '';
+    if (!contactId || !email) return alert('Choisissez le contact et l’adresse e-mail à utiliser.');
+
     const btn = document.getElementById('order-send');
-    btn.disabled = true;
-    btn.textContent = 'Envoi…';
     const result = document.getElementById('order-result');
+    btn.disabled = true; btn.textContent = 'Envoi de la commande…';
     result.hidden = true;
-    saveCustomer({societe,codeClient,contact,email,telephone});
     try {
       const response = await fetch(ORDER_API, {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({
-          ref:orderRow.ref || '', color:orderRow.color, kind:orderRow.kind, format:orderRow.format, finish:orderRow.finish,
-          orderOnly:Boolean(orderRow.orderOnly), pcsBox:orderRow.pcsBox, sqmBox:orderRow.sqmBox,
-          requestedQty:calc.requested, boxes:calc.boxes, orderQty:calc.ordered, orderUnit:calc.unit,
-          societe, codeClient, contact, email, telephone, note,
-          stock:isNum(orderRow.stock)?Number(orderRow.stock):null, stockUnit:orderRow.stockUnit || null
-        })
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({action:'submit',sessionToken,items,contactId,email,telephone,note})
       });
       const data = await response.json().catch(() => ({}));
+      if (response.status === 401) { customerContext = null; sessionToken = ''; throw new Error(data?.error || 'Session expirée.'); }
       if (!response.ok || !data?.success) throw new Error(data?.error || 'Envoi impossible.');
       result.className = 'order-result success';
-      result.innerHTML = `✓ Commande envoyée à l’usine et enregistrée dans le CRM.<br><small>Référence CRM : ${esc(data.requestId || '')}</small>`;
+      result.innerHTML = `✓ Commande envoyée à Caterina et enregistrée dans le CRM.<br><small>${items.length} référence${items.length>1?'s':''} · ${data.totalBoxes || ''} carton${Number(data.totalBoxes)>1?'s':''} · Réf. CRM ${esc(data.requestId || '')}</small>`;
       result.hidden = false;
-      btn.textContent = 'Commande envoyée ✓';
+      cart.clear(); updateCartButton(); render();
+      btn.textContent = 'Commande envoyée ✓'; btn.disabled = true;
     } catch (error) {
-      result.className = 'order-result error';
-      result.textContent = error?.message || 'Impossible d’envoyer la commande.';
-      result.hidden = false;
-      btn.disabled = false;
-      btn.textContent = 'Réessayer l’envoi';
+      result.className = 'order-result error'; result.textContent = error?.message || 'Impossible d’envoyer la commande.'; result.hidden = false;
+      if (!customerContext) await loadCustomerContext(true);
+      updateSendButton();
     }
   }
 
@@ -315,12 +449,14 @@
     const stockButton = event.target.closest('[data-stock-key]');
     if (stockButton) { requestStock(stockButton.dataset.stockKey); return; }
     const orderButtonEl = event.target.closest('[data-order-key]');
-    if (orderButtonEl) openOrder(orderButtonEl.dataset.orderKey);
+    if (orderButtonEl) openCart(orderButtonEl.dataset.orderKey);
   });
+  cartButton?.addEventListener('click', () => openCart());
   search?.addEventListener('input', render);
   colorFilter?.addEventListener('change', render);
 
   installFilters();
+  updateCartButton();
   render();
   setStatus('');
 })();
