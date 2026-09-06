@@ -21,21 +21,17 @@
     .config-hero{padding:55px 20px 35px;text-align:center;background:linear-gradient(180deg,#fffdf8,#f3ede2);border-bottom:1px solid #e1d5bd}
     .config-hero h1{font-family:Georgia,serif;font-size:clamp(2.2rem,5vw,4rem);margin:0;color:#17202a}.config-hero h1 span{color:#b78620}.config-hero p{max-width:780px;margin:14px auto 0;color:#5b5b5b;line-height:1.6}
     .config-wrap{max-width:1180px;margin:0 auto;padding:38px 20px 65px}
-    .config-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:30px}
+    .config-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
     .config-card{background:#fff;border:1px solid rgba(183,134,32,.22);border-radius:20px;padding:28px;box-shadow:0 12px 35px rgba(39,31,15,.07);display:flex;flex-direction:column;min-height:330px;transition:.22s transform,.22s box-shadow}
     .config-card:hover{transform:translateY(-4px);box-shadow:0 18px 45px rgba(39,31,15,.13)}
-    .config-card.elios-feature{background:linear-gradient(145deg,#111,#1c1913);border-color:#d4af37;color:#fff}.config-card.elios-feature h2{color:#f0c85c}.config-card.elios-feature p{color:#ddd}.config-card.elios-feature .config-logo img{background:#fff;border-radius:14px;padding:12px;box-sizing:border-box}
-    .config-logo{height:92px;display:flex;align-items:center;justify-content:center;margin-bottom:22px}.config-logo img{max-width:190px;max-height:82px;object-fit:contain}
-    .config-card h2{font-size:1.45rem;margin:0 0 10px;color:#1a2530}.config-card p{color:#666;line-height:1.55;margin:0 0 24px;flex:1}
+    .config-logo{height:92px;display:flex;align-items:center;justify-content:center;margin-bottom:22px}
+    .config-logo img{max-width:190px;max-height:82px;object-fit:contain}
+    .config-logo.lrf img{width:82px;height:82px;border-radius:50%;object-fit:contain}
+    .config-card h2{font-size:1.45rem;margin:0 0 10px;color:#1a2530}
+    .config-card p{color:#666;line-height:1.55;margin:0 0 24px;flex:1}
     .config-open{display:flex;align-items:center;justify-content:center;text-align:center;border-radius:999px;padding:13px 18px;background:linear-gradient(180deg,#f9d86f,#c99828);color:#111!important;font-weight:900;text-decoration:none;text-transform:uppercase;letter-spacing:.5px;border:1px solid #e5bd51;box-shadow:0 6px 18px rgba(183,134,32,.22)}
-    .bilt-box{background:linear-gradient(145deg,#111,#1b1b1b);border:1px solid #d4af37;border-radius:24px;padding:30px;color:#fff;box-shadow:0 18px 50px rgba(0,0,0,.18)}
-    .bilt-head{display:grid;grid-template-columns:180px 1fr;gap:24px;align-items:center;margin-bottom:24px}.bilt-head img{width:160px;max-height:90px;object-fit:contain;background:#fff;border-radius:14px;padding:12px}.bilt-head h2{font:700 2rem Georgia,serif;color:#f0c85c;margin:0 0 8px}.bilt-head p{margin:0;color:#ddd;line-height:1.5}
-    .bilt-form{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.field label{display:block;font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#e3c36a;margin-bottom:7px}.field input,.field select{width:100%;box-sizing:border-box;padding:13px 12px;border-radius:11px;border:1px solid #555;background:#0d0d0d;color:#fff;font-size:1rem;outline:none}.field input:focus,.field select:focus{border-color:#d4af37;box-shadow:0 0 0 3px rgba(212,175,55,.12)}
-    .bilt-actions{display:flex;gap:12px;margin-top:18px}.calc-btn{border:0;border-radius:999px;padding:13px 25px;background:#f1ca57;color:#111;font-weight:900;text-transform:uppercase;cursor:pointer}.reset-btn{border:1px solid #777;border-radius:999px;padding:13px 22px;background:#151515;color:#fff;font-weight:800;cursor:pointer}
-    .bilt-results{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:24px}.result{background:#080808;border:1px solid #363636;border-radius:15px;padding:18px;text-align:center}.result strong{display:block;color:#f2ca58;font-size:1.7rem;margin-bottom:4px}.result span{font-size:.8rem;color:#bbb;text-transform:uppercase;letter-spacing:.5px}.result.highlight{border-color:#d4af37;background:linear-gradient(145deg,#15120a,#090909)}
-    .bilt-note{margin:16px 0 0;color:#aaa;font-size:.78rem;line-height:1.5}.bilt-note b{color:#ddd}
-    @media(max-width:900px){.config-grid{grid-template-columns:1fr}.config-card{min-height:auto}.bilt-head{grid-template-columns:1fr;text-align:center}.bilt-head img{margin:auto}.bilt-form,.bilt-results{grid-template-columns:1fr 1fr}.bilt-actions{flex-direction:column}.calc-btn,.reset-btn{width:100%}}
-    @media(max-width:540px){.bilt-form,.bilt-results{grid-template-columns:1fr}.config-wrap{padding-left:13px;padding-right:13px}.bilt-box{padding:20px 15px}.config-card{padding:22px}.config-hero{padding-top:35px}}
+    @media(max-width:900px){.config-grid{grid-template-columns:1fr}.config-card{min-height:auto}}
+    @media(max-width:540px){.config-wrap{padding-left:13px;padding-right:13px}.config-card{padding:22px}.config-hero{padding-top:35px}}
   </style>
 </head>
 <body>
@@ -44,62 +40,18 @@
   <section class="config-hero"><h1>Nos <span>Configurateurs</span></h1><p>Visualisez, composez et préparez vos projets avec les outils de nos partenaires et les calculateurs techniques LE ROY FACTORY.</p></section>
   <div class="config-wrap">
     <section class="config-grid">
-      <article class="config-card elios-feature"><div class="config-logo"><img src="assets/img/elios.png" alt="Elios Ceramica"></div><h2>Elios — Schémas de pose</h2><p>Choisissez parmi 44 schémas de pose, sélectionnez la série et la couleur Elios, saisissez votre surface et obtenez automatiquement les références, les m² par format et le nombre de boîtes à commander.</p><a class="config-open" href="configurateur-elios-pose.html">Configurer ma pose Elios</a></article>
+      <article class="config-card"><div class="config-logo"><img src="assets/img/elios.png" alt="Elios Ceramica"></div><h2>Elios — Schémas de pose</h2><p>Choisissez parmi 44 schémas de pose, sélectionnez la série et la couleur Elios, saisissez votre surface et obtenez automatiquement les références, les m² par format et le nombre de boîtes à commander.</p><a class="config-open" href="configurateur-elios-pose.html">Ouvrir le configurateur</a></article>
       <article class="config-card"><div class="config-logo"><img src="assets/img/randal.png" alt="Randal"></div><h2>Randal Studio</h2><p>Configurez vos meubles et compositions Randal directement avec l’outil Studio du fabricant.</p><a class="config-open" href="https://conf.randalsa.com/studio/register.php" target="_blank" rel="noopener">Ouvrir Randal Studio</a></article>
       <article class="config-card"><div class="config-logo"><img src="assets/img/biopietra.png" alt="Biopietra"></div><h2>Biopietra — Visite 3D</h2><p>Découvrez l’univers Biopietra à travers sa visite virtuelle 3D et explorez les ambiances de la marque.</p><a class="config-open" href="https://biopietra.com/VT/index.htm" target="_blank" rel="noopener">Lancer la visite 3D</a></article>
       <article class="config-card"><div class="config-logo"><img src="assets/img/reviglass.png" alt="Reviglass"></div><h2>Reviglass — Mon Pool Virtuel</h2><p>Visualisez différentes mosaïques Reviglass dans une piscine grâce au configurateur My Virtual Pool.</p><a class="config-open" href="https://myvirtualpool.reviglass.es/" target="_blank" rel="noopener">Configurer une piscine</a></article>
-    </section>
-
-    <section class="bilt-box" id="bilt-calculateur">
-      <div class="bilt-head"><img src="assets/img/bilt.png" alt="BILT"><div><h2>Calculateur de croisillons autonivelants</h2><p>Indiquez la surface et le format du carreau. Le calculateur estime la quantité de clips/croisillons nécessaire et arrondit automatiquement la commande au nombre de sacs de 200 pièces.</p></div></div>
-      <div class="bilt-form">
-        <div class="field"><label for="surface">Surface à poser (m²)</label><input id="surface" type="number" min="0.1" step="0.1" value="50"></div>
-        <div class="field"><label for="tileL">Longueur carreau (cm)</label><input id="tileL" type="number" min="5" step="0.1" value="60"></div>
-        <div class="field"><label for="tileW">Largeur carreau (cm)</label><input id="tileW" type="number" min="5" step="0.1" value="60"></div>
-        <div class="field"><label for="waste">Marge chantier</label><select id="waste"><option value="0">0 %</option><option value="5">5 %</option><option value="10" selected>10 %</option><option value="15">15 %</option></select></div>
-      </div>
-      <div class="bilt-actions"><button type="button" class="calc-btn" id="calcBilt">Calculer</button><button type="button" class="reset-btn" id="resetBilt">Réinitialiser</button></div>
-      <div class="bilt-results" aria-live="polite">
-        <div class="result"><strong id="rTiles">—</strong><span>carreaux estimés</span></div>
-        <div class="result"><strong id="rClips">—</strong><span>clips à utiliser</span></div>
-        <div class="result highlight"><strong id="rBags">—</strong><span>sacs de 200 à prendre</span></div>
-        <div class="result"><strong id="rBought">—</strong><span>pièces disponibles</span></div>
-      </div>
-      <p class="bilt-note"><b>Méthode d’estimation :</b> nombre de carreaux calculé à partir de la surface et du format. Densité automatique des clips selon la longueur des côtés (environ un point de nivellement tous les 40 cm, joints partagés), puis application de la marge chantier sélectionnée. Le résultat est arrondi au sac supérieur de 200 pièces.</p>
+      <article class="config-card"><div class="config-logo"><img src="assets/img/bilt.png" alt="BILT"></div><h2>Calculateur de croisillons</h2><p>Estimez rapidement la quantité de clips/croisillons autonivelants en fonction de la surface, du format du carreau et de la marge chantier.</p><a class="config-open" href="configurateur-croisillons.html">Ouvrir le calculateur</a></article>
+      <article class="config-card"><div class="config-logo lrf"><img src="assets/brand-v2/logoLRF.png?v=20260901-lrf1" alt="LE ROY FACTORY"></div><h2>Calculateur de plots</h2><p>Calculez le nombre de plots nécessaires pour une terrasse sur dalles selon les dimensions, le format, les renforts éventuels et la réserve chantier.</p><a class="config-open" href="configurateur-plots.html">Ouvrir le calculateur</a></article>
     </section>
   </div>
 </main>
 <footer><div class="container" style="text-align:center;padding:2rem 0;"><p style="color:#fff!important;font-weight:600;">&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p></div></footer>
-<script id="lrf-premium-public-theme" src="assets/js/premium-public-theme.js?v=20260902-config1"></script>
+<script id="lrf-premium-public-theme" src="assets/js/premium-public-theme.js?v=20260902-config2"></script>
 <script src="assets/js/app.js?v=20260901-public-v8"></script>
 <script src="assets/js/public-scrollbar.js?v=20260902-scroll4"></script>
-<script src="assets/js/calculateur-plots.js?v=20260906-1"></script>
-<script>
-(() => {
-  const $ = id => document.getElementById(id);
-  const clipsOnSide = cm => Math.max(2, Math.ceil(cm / 40));
-  const calculate = () => {
-    const surface = Number($('surface').value);
-    const length = Number($('tileL').value);
-    const width = Number($('tileW').value);
-    const waste = Number($('waste').value) / 100;
-    if (!(surface > 0 && length > 0 && width > 0)) return;
-    const tileArea = (length / 100) * (width / 100);
-    const tiles = Math.ceil(surface / tileArea);
-    const equivalentClipsPerTile = clipsOnSide(length) + clipsOnSide(width);
-    const clips = Math.ceil(tiles * equivalentClipsPerTile * (1 + waste));
-    const bags = Math.ceil(clips / 200);
-    const bought = bags * 200;
-    $('rTiles').textContent = tiles.toLocaleString('fr-FR');
-    $('rClips').textContent = clips.toLocaleString('fr-FR');
-    $('rBags').textContent = bags.toLocaleString('fr-FR');
-    $('rBought').textContent = bought.toLocaleString('fr-FR');
-  };
-  $('calcBilt').addEventListener('click', calculate);
-  $('resetBilt').addEventListener('click', () => { $('surface').value='50'; $('tileL').value='60'; $('tileW').value='60'; $('waste').value='10'; calculate(); });
-  ['surface','tileL','tileW','waste'].forEach(id => $(id).addEventListener('input', calculate));
-  calculate();
-})();
-</script>
 </body>
 </html>
