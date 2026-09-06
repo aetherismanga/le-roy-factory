@@ -1,0 +1,1 @@
+export const DEFAULT_PALETTE=['#e8e3d9','#d8c8a7','#c2b596','#9e9178'];export function colorForGroup(index,palette=DEFAULT_PALETTE){return palette[index%palette.length];}

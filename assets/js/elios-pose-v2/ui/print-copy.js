@@ -1,0 +1,1 @@
+export function printPage(){window.print();}export async function copyText(text){if(navigator.clipboard?.writeText)return navigator.clipboard.writeText(text);throw new Error('Presse-papiers non disponible');}

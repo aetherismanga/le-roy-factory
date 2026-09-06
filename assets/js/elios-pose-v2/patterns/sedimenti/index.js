@@ -1,0 +1,1 @@
+export const sedimentiPatterns=[];/* Étape V2.2 : schema-29.js à schema-32.js */

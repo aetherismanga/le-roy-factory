@@ -1,0 +1,1 @@
+export const PATTERNS_META=[{id:'schema-01',family:'modulaires',label:'Schéma 1',formats:['40.5x61','40.5x40.5','20.3x40.5'],ratios:[50,33,17],status:'svg-pending'},{id:'schema-02',family:'modulaires',label:'Schéma 2',formats:['40.5x40.5','20.3x40.5'],ratios:[67,33],status:'svg-pending'}];export const patternsForFamily=family=>PATTERNS_META.filter(p=>p.family===family);

@@ -1,0 +1,1 @@
+import{renderSvg}from'./svg-engine.js';export function renderThumbnails(root,patterns,activeId){root.innerHTML=patterns.map(p=>`<button class="v2-pattern-card${p.id===activeId?' active':''}" data-pattern-id="${p.id}" type="button">${renderSvg(p)}<b>${p.label}</b></button>`).join('');}

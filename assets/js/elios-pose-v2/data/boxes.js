@@ -1,0 +1,1 @@
+export const BOXES={};export const getBox=(seriesId,format,colorId='default')=>BOXES[`${seriesId}|${format}|${colorId}`]||null;/* Les vrais boîtages V1 seront migrés ici à l'étape données V2, sans dupliquer les calculs pendant la structure. */
