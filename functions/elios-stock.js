@@ -46,15 +46,33 @@ function parseNumber(raw) {
   return Number.isFinite(value) ? value : null;
 }
 
+function normalizeUnit(raw) {
+  const unit = String(raw || '').trim().toUpperCase().replace(/[^A-Z0-9²]/g, '');
+  if (unit === 'M2') return 'MQ';
+  return unit || '';
+}
+
+function findAvailability(text) {
+  // EliosBOT utilise MQ pour les carreaux/mosaïques et peut utiliser PZ pour les pièces.
+  // On accepte volontairement l'unité renvoyée par le bot au lieu de forcer MQ.
+  return text.match(/Totale\s+Disponibilit[aà]:\s*([\d.,]+)\s*([A-Z0-9²]{1,8})/i)
+    || text.match(/Disponibilit[aà]:\s*([\d.,]+)\s*([A-Z0-9²]{1,8})/i);
+}
+
+function findProduction(text) {
+  return text.match(/Totale\s+Disp\.\s+su\s+piano\s+produzione:\s*([\d.,]+)\s*([A-Z0-9²]{1,8})/i);
+}
+
 function parseAvailability(messages) {
   const text = messages.map(textOf).filter(Boolean).join('\n');
-  const total = text.match(/Totale\s+Disponibilit[aà]:\s*([\d.,]+)\s*MQ/i)
-    || text.match(/Disponibilit[aà]:\s*([\d.,]+)\s*MQ/i);
-  const production = text.match(/Totale\s+Disp\.\s+su\s+piano\s+produzione:\s*([\d.,]+)\s*MQ/i);
+  const total = findAvailability(text);
+  const production = findProduction(text);
   const description = text.match(/Descrizione:\s*([^\n]+)/i);
   return {
     stock: total ? parseNumber(total[1]) : null,
+    stockUnit: total ? normalizeUnit(total[2]) : '',
     production: production ? parseNumber(production[1]) : 0,
+    productionUnit: production ? normalizeUnit(production[2]) : (total ? normalizeUnit(total[2]) : ''),
     description: description ? String(description[1]).trim() : ''
   };
 }
@@ -124,7 +142,9 @@ async function queryReference(client, ref) {
     searchRef: ref,
     description: parsed.description,
     stock: parsed.stock,
+    stockUnit: parsed.stockUnit,
     production: parsed.production,
+    productionUnit: parsed.productionUnit,
     verified: true
   };
 }
