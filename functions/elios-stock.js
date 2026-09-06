@@ -6,8 +6,20 @@ const ALLOWED_ORIGINS = new Set([
   'https://www.leroyfactory.fr'
 ]);
 
-let cache = null;
-const CACHE_MS = 60 * 1000;
+// Références ROMA imprimées dans le Catalogue Général ELIOS 2026, pp. 156–157.
+// La liste blanche empêche l'endpoint d'être utilisé pour interroger arbitrairement EliosBOT.
+const ROMA_REFS = new Set([
+  '0852040','0852005','0852640','0852605','0854240','0854205',
+  '0856140','0856105','0856100','0856170','0854640','0854605','0854600','0854670',
+  '085M140','085M105','085M100','085M170',
+  '0852042','0852007','0852642','0852607','0854242','0854207',
+  '0856C40','0856C05','0854642','0854607','0854602','0854672','085M141','085M106',
+  '085H140','085H105','085H100','085H170',
+  '085B140','085B105','085B100','085B170','085BC40','085BC05','085BC00','085BC70'
+]);
+
+const CACHE_MS = 10 * 60 * 1000;
+const cache = new Map();
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 function applyCors(req, res) {
@@ -30,65 +42,94 @@ function textOf(message) {
 }
 
 function parseNumber(raw) {
-  const n = Number(String(raw || '').replace(',', '.'));
-  return Number.isFinite(n) ? n : null;
+  const value = Number(String(raw || '').replace(',', '.'));
+  return Number.isFinite(value) ? value : null;
 }
 
-function parseStock(messages) {
+function parseAvailability(messages) {
   const text = messages.map(textOf).filter(Boolean).join('\n');
   const total = text.match(/Totale\s+Disponibilit[aà]:\s*([\d.,]+)\s*MQ/i)
     || text.match(/Disponibilit[aà]:\s*([\d.,]+)\s*MQ/i);
   const production = text.match(/Totale\s+Disp\.\s+su\s+piano\s+produzione:\s*([\d.,]+)\s*MQ/i);
+  const description = text.match(/Descrizione:\s*([^\n]+)/i);
   return {
     stock: total ? parseNumber(total[1]) : null,
-    production: production ? parseNumber(production[1]) : 0
+    production: production ? parseNumber(production[1]) : 0,
+    description: description ? String(description[1]).trim() : ''
   };
 }
 
-async function recentMessages(client, limit = 8) {
+function messageId(message) {
+  const value = Number(message?.id || 0);
+  return Number.isFinite(value) ? value : 0;
+}
+
+function maxMessageId(messages, fallback = 0) {
+  return messages.reduce((max, message) => Math.max(max, messageId(message)), fallback);
+}
+
+async function recentMessages(client, afterId = 0, limit = 14) {
   const out = [];
-  for await (const message of client.iterMessages(BOT, { limit })) out.push(message);
+  for await (const message of client.iterMessages(BOT, { limit })) {
+    if (messageId(message) > afterId) out.push(message);
+  }
   return out;
 }
 
-async function queryRomaAventino(client) {
-  const searchRef = '085M140';
+function buttonsOf(message) {
+  return Array.isArray(message?.buttons) ? message.buttons.flat().filter(Boolean) : [];
+}
 
-  await client.sendMessage(BOT, { message: searchRef });
+async function queryReference(client, ref) {
+  const sent = await client.sendMessage(BOT, { message: ref });
+  const sentId = messageId(sent);
   await wait(1800);
 
-  let messages = await recentMessages(client, 8);
-  const productMessage = messages.find(msg => Array.isArray(msg.buttons) && msg.buttons.flat().length);
-  if (!productMessage) throw new Error('Aucun bouton produit reçu pour 085M140.');
+  let messages = await recentMessages(client, sentId, 14);
+  const noProduct = messages.some(message => /Nessun\s+Prodotto\s+Trovato/i.test(textOf(message)));
+  if (noProduct) throw new Error(`Aucun produit ELIOS trouvé pour ${ref}.`);
 
-  await productMessage.click({ i: 0 });
+  const productMessage = messages.find(message =>
+    buttonsOf(message).some(button => String(button?.text || '').toUpperCase().includes(ref.toUpperCase()))
+  ) || messages.find(message => buttonsOf(message).length > 0);
+
+  if (!productMessage) throw new Error(`Aucun bouton produit reçu pour ${ref}.`);
+
+  const matchingButton = buttonsOf(productMessage).find(button => String(button?.text || '').toUpperCase().includes(ref.toUpperCase()));
+  if (matchingButton) {
+    await productMessage.click({ text: text => String(text || '').toUpperCase().includes(ref.toUpperCase()) });
+  } else {
+    await productMessage.click({ i: 0 });
+  }
+
+  const afterProductId = maxMessageId(messages, messageId(productMessage));
   await wait(1600);
+  messages = await recentMessages(client, afterProductId, 14);
 
-  messages = await recentMessages(client, 8);
-  const availabilityMessage = messages.find(msg =>
-    Array.isArray(msg.buttons) && msg.buttons.flat().some(btn => /disponibil/i.test(String(btn?.text || '')))
+  const availabilityMessage = messages.find(message =>
+    buttonsOf(message).some(button => /^Disponibilit/i.test(String(button?.text || '')))
   );
-  if (!availabilityMessage) throw new Error('Bouton Disponibilità introuvable.');
+  if (!availabilityMessage) throw new Error(`Bouton Disponibilità introuvable pour ${ref}.`);
 
-  await availabilityMessage.click({ text: text => /disponibil/i.test(String(text || '')) });
+  const beforeAvailabilityId = maxMessageId(messages, messageId(availabilityMessage));
+  await availabilityMessage.click({ text: text => /^Disponibilit/i.test(String(text || '')) });
   await wait(1900);
 
-  messages = await recentMessages(client, 10);
-  const parsed = parseStock(messages);
-  if (parsed.stock === null) throw new Error('Stock ELIOS non détecté dans la réponse Telegram.');
+  messages = await recentMessages(client, beforeAvailabilityId, 16);
+  const parsed = parseAvailability(messages);
+  if (parsed.stock === null) throw new Error(`Stock ELIOS non détecté pour ${ref}.`);
 
   return {
-    ref: '085M140P',
-    searchRef,
-    name: 'ROMA AVENTINO MOD 40 5X61MO',
-    format: '40,5 × 61 MO',
+    ref,
+    searchRef: ref,
+    description: parsed.description,
     stock: parsed.stock,
     production: parsed.production,
     verified: true
   };
 }
 
-async function fetchRomaStock() {
+async function fetchStock(ref) {
   const apiId = Number(process.env.TELEGRAM_API_ID);
   const apiHash = String(process.env.TELEGRAM_API_HASH || '').trim();
   const session = String(process.env.TELEGRAM_SESSION || '').trim();
@@ -99,23 +140,11 @@ async function fetchRomaStock() {
 
   const { TelegramClient } = await import('teleproto');
   const { StringSession } = await import('teleproto/sessions/index.js');
-
-  const client = new TelegramClient(
-    new StringSession(session),
-    apiId,
-    apiHash,
-    { connectionRetries: 5 }
-  );
+  const client = new TelegramClient(new StringSession(session), apiId, apiHash, { connectionRetries: 5 });
 
   try {
     await client.connect();
-    const product = await queryRomaAventino(client);
-    return {
-      collection: 'ROMA',
-      products: [product],
-      updatedAt: new Date().toISOString(),
-      source: 'EliosBOT / Telegram'
-    };
+    return await queryReference(client, ref);
   } finally {
     try { await client.disconnect(); } catch (_) {}
   }
@@ -130,21 +159,26 @@ exports.eliosStock = onRequest({
   secrets: ['TELEGRAM_API_ID', 'TELEGRAM_API_HASH', 'TELEGRAM_SESSION']
 }, async (req, res) => {
   if (applyCors(req, res)) return;
-  if (req.method !== 'GET') return res.status(405).json({ success: false, error: 'Méthode non autorisée.' });
+  if (req.method !== 'GET') return res.status(405).json({ success:false, error:'Méthode non autorisée.' });
 
   const collection = String(req.query.collection || 'ROMA').trim().toUpperCase();
-  if (collection !== 'ROMA') return res.status(400).json({ success: false, error: 'Test disponible uniquement pour ROMA.' });
+  const ref = String(req.query.ref || '').trim().toUpperCase();
+  if (collection !== 'ROMA') return res.status(400).json({ success:false, error:'Test disponible uniquement pour ROMA.' });
+  if (!ref) return res.status(400).json({ success:false, error:'Référence ELIOS manquante.' });
+  if (!ROMA_REFS.has(ref)) return res.status(400).json({ success:false, error:'Référence non autorisée pour le test ROMA.' });
 
   try {
-    if (cache && Date.now() - cache.time < CACHE_MS) {
-      return res.status(200).json({ success: true, cached: true, ...cache.data });
+    const cached = cache.get(ref);
+    if (cached && Date.now() - cached.time < CACHE_MS) {
+      return res.status(200).json({ success:true, cached:true, collection:'ROMA', product:cached.product, updatedAt:cached.updatedAt, source:'EliosBOT / Telegram' });
     }
 
-    const data = await fetchRomaStock();
-    cache = { time: Date.now(), data };
-    return res.status(200).json({ success: true, cached: false, ...data });
-  } catch (err) {
-    console.error('ELIOS STOCK', err);
-    return res.status(502).json({ success: false, error: 'Impossible d’interroger EliosBOT pour le moment.' });
+    const product = await fetchStock(ref);
+    const updatedAt = new Date().toISOString();
+    cache.set(ref, { time:Date.now(), product, updatedAt });
+    return res.status(200).json({ success:true, cached:false, collection:'ROMA', product, updatedAt, source:'EliosBOT / Telegram' });
+  } catch (error) {
+    console.error('ELIOS STOCK', ref, error);
+    return res.status(502).json({ success:false, error:'Impossible d’interroger EliosBOT pour cette référence pour le moment.' });
   }
 });
