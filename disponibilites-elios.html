@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Disponibilités ELIOS — ROMA | LE ROY FACTORY</title>
+  <link rel="icon" type="image/png" href="assets/brand-v2/logoLRF.png?v=20260901-lrf1">
+  <style>
+    :root{--ink:#1a2530;--gold:#d4af37;--green:#17623a;--cream:#fbf9f5;--muted:#6c746f;--line:#e5e2da}
+    *{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font-family:Arial,Helvetica,sans-serif}.top{background:#12171b;border-bottom:2px solid var(--gold);color:#fff}.topin{max-width:1100px;margin:auto;padding:14px 18px;display:flex;align-items:center;gap:14px}.logo{width:54px;height:54px;border-radius:50%;border:1px solid var(--gold);object-fit:cover}.back{margin-left:auto;color:#fff;text-decoration:none;border:1px solid #6d6550;border-radius:9px;padding:9px 12px;font-weight:800}.wrap{max-width:1100px;margin:auto;padding:26px 18px 48px}.kicker{font-size:.72rem;font-weight:900;color:#7b6720;letter-spacing:.12em}.head{display:flex;justify-content:space-between;gap:18px;align-items:flex-end;margin:8px 0 20px}.head h1{font-size:clamp(1.8rem,5vw,2.7rem);margin:0}.head p{margin:7px 0 0;color:var(--muted)}.refresh{border:0;background:var(--green);color:#fff;border-radius:10px;padding:11px 15px;font-weight:900;cursor:pointer}.status{display:flex;gap:10px;align-items:center;margin:0 0 18px;padding:12px 14px;border-radius:12px;background:#edf8f1;border:1px solid #bbdcc6;color:#185d39;font-size:.84rem}.dot{width:10px;height:10px;border-radius:50%;background:#20a15c;box-shadow:0 0 0 4px rgba(32,161,92,.12)}.status.test{background:#fff7dc;border-color:#ecd58c;color:#6a5719}.status.test .dot{background:#d5a71d}.panel{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 10px 28px rgba(22,28,31,.06);overflow:hidden}.toolbar{padding:14px;display:flex;gap:10px;border-bottom:1px solid var(--line)}.search{flex:1;border:1px solid #d8d7d2;border-radius:10px;padding:11px 12px;font-size:.95rem}.tablewrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:720px}th,td{text-align:left;padding:13px 15px;border-bottom:1px solid #efede8}th{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;background:#f7f5f0;color:#6b6d68}td{font-size:.88rem}.ref{font-family:monospace;font-weight:800}.stock{font-weight:950;color:var(--green);font-size:1rem}.zero{color:#a03b34}.badge{display:inline-block;border-radius:999px;padding:5px 8px;background:#eef5f0;color:#276644;font-size:.7rem;font-weight:900}.empty{padding:28px;text-align:center;color:var(--muted)}.footnote{margin:14px 3px 0;color:#7b7f7c;font-size:.76rem;line-height:1.5}@media(max-width:700px){.head{display:block}.refresh{margin-top:14px;width:100%}.topin strong{font-size:.9rem}.back{font-size:.78rem}.wrap{padding:20px 12px 40px}}
+  </style>
+</head>
+<body>
+  <header class="top"><div class="topin"><img class="logo" src="assets/brand-v2/logoLRF.png?v=20260901-lrf1" alt="LE ROY FACTORY"><strong>LE ROY FACTORY · ELIOS CERAMICA</strong><a class="back" href="univers.html">← Inspirations</a></div></header>
+  <main class="wrap">
+    <span class="kicker">DISPONIBILITÉS USINE</span>
+    <div class="head"><div><h1 id="collection-title">ROMA</h1><p>Références, désignation et stock disponible en m².</p></div><button class="refresh" id="refresh-stock" type="button">↻ Actualiser le stock</button></div>
+    <div class="status test" id="stock-status"><span class="dot"></span><span id="status-text">Connexion à EliosBOT en cours de préparation — affichage du test validé.</span></div>
+    <section class="panel">
+      <div class="toolbar"><input class="search" id="stock-search" type="search" placeholder="Rechercher une référence, une couleur ou un format…"></div>
+      <div class="tablewrap"><table><thead><tr><th>Référence</th><th>Carreau / désignation</th><th>Format</th><th>Stock ELIOS</th></tr></thead><tbody id="stock-body"></tbody></table></div>
+      <div class="empty" id="stock-empty" hidden>Aucune référence trouvée.</div>
+    </section>
+    <p class="footnote">Test ROMA uniquement. Le stock final sera interrogé directement auprès d’EliosBOT et ne sera pas enregistré comme une valeur fixe. La quantité affichée ici pour la ligne test correspond à la réponse EliosBOT fournie lors de la mise en place.</p>
+  </main>
+  <script src="assets/js/elios-stock-page.js?v=20260906-test1"></script>
+</body>
+</html>
