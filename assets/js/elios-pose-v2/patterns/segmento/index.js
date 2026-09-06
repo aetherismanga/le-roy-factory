@@ -1,1 +1,1 @@
-export const segmentoPatterns=[];/* Étape V2.2 : pattern-01.js à pattern-12.js */
+import p01 from'./pattern-01.js';import p02 from'./pattern-02.js';import p03 from'./pattern-03.js';import p04 from'./pattern-04.js';import p05 from'./pattern-05.js';import p06 from'./pattern-06.js';import p07 from'./pattern-07.js';import p08 from'./pattern-08.js';import p09 from'./pattern-09.js';import p10 from'./pattern-10.js';import p11 from'./pattern-11.js';import p12 from'./pattern-12.js';export const segmentoPatterns=[p01,p02,p03,p04,p05,p06,p07,p08,p09,p10,p11,p12];
