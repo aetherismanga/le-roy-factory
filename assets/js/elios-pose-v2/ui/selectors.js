@@ -1,0 +1,1 @@
+export const qs=(s,r=document)=>r.querySelector(s);export const qsa=(s,r=document)=>[...r.querySelectorAll(s)];export function getUi(root){return{tabs:qs('[data-v2-tabs]',root),patterns:qs('[data-v2-patterns]',root),preview:qs('[data-v2-preview]',root),results:qs('[data-v2-results]',root)};}
