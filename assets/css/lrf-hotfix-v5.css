@@ -65,3 +65,67 @@ body.lrf-premium-v2 header .main-nav>li>a:not(.agent-btn):focus::before{backgrou
     background-repeat:no-repeat!important;
   }
 }
+
+/* CONFIGURATEURS : garde-fou pour que la navigation globale LRF reste toujours visible. */
+body.lrf-configurator-page > header{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  width:100%!important;
+  min-height:98px!important;
+  height:auto!important;
+  flex:0 0 auto!important;
+  position:relative!important;
+  top:auto!important;
+  left:auto!important;
+  z-index:10000!important;
+  overflow:visible!important;
+  background:#070707 url('../brand-v2/marble-black-gold.svg') center 45%/cover!important;
+  border-bottom:1px solid #FFD700!important;
+  box-shadow:0 10px 35px rgba(0,0,0,.38),0 1px 14px rgba(255,183,0,.18)!important;
+}
+body.lrf-configurator-page > header .nav-container{
+  display:flex!important;
+  visibility:visible!important;
+  opacity:1!important;
+  width:100%!important;
+  min-height:98px!important;
+  height:98px!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+}
+body.lrf-configurator-page > header nav{
+  visibility:visible!important;
+  opacity:1!important;
+}
+body.lrf-configurator-page > header .main-nav>li>a:not(.agent-btn){
+  color:#f4f1e8!important;
+}
+body.lrf-configurator-page > header .main-nav>li>a[href="configurateurs.html"]{
+  color:#FFD700!important;
+}
+@media(min-width:901px){
+  body.lrf-configurator-page > header nav{display:block!important}
+  body.lrf-configurator-page > header .main-nav{
+    display:flex!important;
+    visibility:visible!important;
+    opacity:1!important;
+  }
+  body.lrf-configurator-page > header .burger-btn{display:none!important}
+}
+@media(max-width:900px){
+  body.lrf-configurator-page > header{
+    min-height:84px!important;
+    position:sticky!important;
+    top:0!important;
+  }
+  body.lrf-configurator-page > header .nav-container{
+    min-height:84px!important;
+    height:84px!important;
+  }
+  body.lrf-configurator-page > header .burger-btn{
+    display:flex!important;
+    visibility:visible!important;
+    opacity:1!important;
+  }
+}
