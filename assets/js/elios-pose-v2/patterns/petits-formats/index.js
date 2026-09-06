@@ -1,1 +1,1 @@
-export const smallFormatPatterns=[];/* Étape V2.2 : schema-23.js à schema-28.js */
+import schema23 from'./schema-23.js';import schema24 from'./schema-24.js';import schema25 from'./schema-25.js';import schema26 from'./schema-26.js';import schema27 from'./schema-27.js';import schema28 from'./schema-28.js';export const smallFormatPatterns=[schema23,schema24,schema25,schema26,schema27,schema28];
