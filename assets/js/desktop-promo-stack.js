@@ -9,6 +9,7 @@
   const style=document.createElement('style');
   style.id='lrf-desktop-promo-stack-style';
   style.textContent=`
+    @keyframes lrfDesktopPromoSway{0%,100%{translate:-7px 0}50%{translate:7px 0}}
     @media (min-width:901px){
       .lrf-desktop-promo-stack{
         position:absolute;
@@ -44,6 +45,7 @@
         border-radius:28px!important;
         grid-template-columns:1fr 82px!important;
         gap:14px!important;
+        animation:lrfDesktopPromoSway 5.4s ease-in-out infinite,eliosRentreeGlow 4.8s ease-in-out infinite!important;
       }
       .lrf-desktop-promo-stack>.elios-rentree-desktop .elios-rentree-logo{height:68px!important;padding:8px!important}
     }
@@ -84,6 +86,9 @@
       .lrf-desktop-promo-stack>.elios-rentree-desktop .elios-rentree-title{font-size:1.62rem!important}
       .lrf-desktop-promo-stack>.elios-rentree-desktop .elios-rentree-sub{font-size:.76rem!important}
       .lrf-desktop-promo-stack>.elios-rentree-desktop .elios-rentree-logo{height:78px!important;padding:9px!important}
+    }
+    @media(prefers-reduced-motion:reduce){
+      .lrf-desktop-promo-stack>.elios-rentree-desktop{animation:none!important;translate:0 0!important}
     }
   `;
   document.head.appendChild(style);
