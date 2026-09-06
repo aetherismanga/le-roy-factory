@@ -113,6 +113,11 @@ if(location.pathname.toLowerCase().endsWith('clients.html')){
 
 const lrfCurrentPage=(location.pathname.split('/').pop()||'').toLowerCase();
 
+if(lrfCurrentPage==='demandes-clients.html'){
+  import('./elios-order-crm.js?v=20260907-order1')
+    .catch(err=>console.error('Erreur commandes ELIOS CRM :',err));
+}
+
 if(lrfCurrentPage==='comptes-rendus.html'){
   import('./comptes-rendus-simple.js?v=20260904-1')
     .catch(err=>console.error('Erreur saisie simple compte-rendu :',err));
