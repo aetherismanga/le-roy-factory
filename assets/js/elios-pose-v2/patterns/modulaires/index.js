@@ -1,1 +1,1 @@
-export const modularPatterns=[];/* Étape V2.2 : schema-01.js à schema-22.js */
+import schema01 from'./schema-01.js';import schema02 from'./schema-02.js';import schema03 from'./schema-03.js';import schema04 from'./schema-04.js';import schema05 from'./schema-05.js';import schema06 from'./schema-06.js';export const modularPatterns=[schema01,schema02,schema03,schema04,schema05,schema06];
