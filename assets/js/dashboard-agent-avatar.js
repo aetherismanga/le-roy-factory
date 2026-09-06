@@ -10,8 +10,8 @@
     const email=String(localStorage.getItem('agentEmail')||'').toLowerCase();
     const name=String(localStorage.getItem('agentName')||'').toLowerCase();
     const isCoryne=email.includes('coryne@')||name.includes('coryne');
-    const stamp='20260904-avatar3';
-    const file=isCoryne?`assets/corynelogo.png?v=${stamp}`:`assets/jeromelogo.png?v=${stamp}`;
+    const stamp='20260907-avatar4';
+    const file=isCoryne?`assets/img/corynelogo.png?v=${stamp}`:`assets/img/jeromelogo.png?v=${stamp}`;
     const label=isCoryne?'Coryne':'Jérôme';
 
     let avatar=document.getElementById('lrf-agent-avatar');
@@ -29,11 +29,11 @@
     avatar.dataset.agent=label.toLowerCase();
     avatar.dataset.fallbackTried='0';
 
-    // Compatibilité si les avatars sont rangés dans assets/img/ sur un ancien déploiement.
+    // Compatibilité avec les anciens déploiements où les avatars étaient à la racine de assets/.
     avatar.onerror=()=>{
       if(avatar.dataset.fallbackTried==='1')return;
       avatar.dataset.fallbackTried='1';
-      avatar.src=isCoryne?`assets/img/corynelogo.png?v=${stamp}`:`assets/img/jeromelogo.png?v=${stamp}`;
+      avatar.src=isCoryne?`assets/corynelogo.png?v=${stamp}`:`assets/jeromelogo.png?v=${stamp}`;
     };
 
     if(!document.getElementById('lrf-agent-avatar-style')){
