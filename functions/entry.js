@@ -3,8 +3,9 @@ const base = require('./index');
 const tariffAccess = require('./tariff-access');
 const proSession = require('./pro-session');
 const lrfAnalytics = require('./lrf-analytics');
+const eliosStock = require('./elios-stock');
 
-Object.assign(exports, base, tariffAccess, proSession, lrfAnalytics);
+Object.assign(exports, base, tariffAccess, proSession, lrfAnalytics, eliosStock);
 
 // La migration vers Storage privé est terminée. Cet endpoint temporaire reste
 // présent uniquement pour éviter une suppression de fonction lors du déploiement,
