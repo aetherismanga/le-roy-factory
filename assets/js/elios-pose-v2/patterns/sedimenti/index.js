@@ -1,1 +1,1 @@
-export const sedimentiPatterns=[];/* Étape V2.2 : schema-29.js à schema-32.js */
+import schema29 from'./schema-29.js';import schema30 from'./schema-30.js';import schema31 from'./schema-31.js';import schema32 from'./schema-32.js';export const sedimentiPatterns=[schema29,schema30,schema31,schema32];
