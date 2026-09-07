@@ -4,9 +4,27 @@
   window.__LRF_VIEW_V2_POLISH__ = true;
 
   const modal = document.getElementById('product-modal-v2');
+  const grid = document.getElementById('partner-products');
   if (!modal) return;
 
-  function polish() {
+  const norm = value => String(value || '')
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+
+  function polishCards() {
+    if (!grid || !Array.isArray(window.VIEW_CATALOGUE) || !window.VIEW_HD_GALLERIES) return;
+    grid.querySelectorAll('[data-view-id]').forEach(card => {
+      const product = window.VIEW_CATALOGUE.find(p => p.id === card.dataset.viewId);
+      const hero = window.VIEW_HD_GALLERIES[norm(product?.name || product?.collection)]?.[0];
+      const img = card.querySelector(':scope > img');
+      if (img && hero && img.dataset.viewHdHero !== hero) {
+        img.dataset.viewHdHero = hero;
+        img.src = hero;
+      }
+    });
+  }
+
+  function polishModal() {
     const card = modal.querySelector('.view-modal-card[data-view-modal="1"]');
     if (!card) return;
 
@@ -25,7 +43,9 @@
     }
   }
 
-  new MutationObserver(polish).observe(modal, {childList:true, subtree:true, attributes:true, attributeFilter:['class']});
+  const polish = () => { polishCards(); polishModal(); };
+  new MutationObserver(polishModal).observe(modal, {childList:true, subtree:true, attributes:true, attributeFilter:['class']});
+  if (grid) new MutationObserver(polishCards).observe(grid, {childList:true, subtree:true});
   document.addEventListener('click', () => setTimeout(polish, 0), true);
   polish();
 })();
