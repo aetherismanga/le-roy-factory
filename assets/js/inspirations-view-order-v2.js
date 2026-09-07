@@ -122,7 +122,7 @@
     d.addEventListener('click', e => { if (e.target === d) closeDialog(); });
     $('#view-order-add', d).addEventListener('click', () => addLine());
     $('#view-order-lines', d).addEventListener('change', handleLineEvent);
-    $('#view-order-lines', d).addEventListener('input', handleLineEvent);
+    $('#view-order-lines', d).addEventListener('input', handleQtyInput);
     $('#view-order-lines', d).addEventListener('click', e => {
       const btn = e.target.closest('[data-view-order-remove]');
       if (!btn) return;
@@ -213,6 +213,24 @@
     updateTotals();
   }
 
+  function updateRowCalc(row, line) {
+    const calc = lineCalculation(line);
+    const values = $$('.view-order-stat strong', row);
+    if (values[2]) values[2].textContent = calc.boxes == null ? 'À confirmer' : String(calc.boxes);
+    if (values[3]) values[3].textContent = `${fr(calc.real)} m²`;
+  }
+
+  function handleQtyInput(e) {
+    if (e.target?.dataset?.field !== 'qty') return;
+    const row = e.target.closest('[data-view-order-line]');
+    if (!row) return;
+    const line = lines.find(x => x.id === Number(row.dataset.viewOrderLine));
+    if (!line) return;
+    line.qty = Number(e.target.value || 0);
+    updateRowCalc(row, line);
+    updateTotals();
+  }
+
   function handleLineEvent(e) {
     const el = e.target.closest('[data-field]');
     const row = e.target.closest('[data-view-order-line]');
@@ -240,7 +258,8 @@
     }
     if (field === 'qty') {
       line.qty = Number(el.value || 0);
-      renderLines();
+      updateRowCalc(row, line);
+      updateTotals();
     }
   }
 
@@ -287,7 +306,7 @@
 
   function closeDialog() {
     $('#view-order-v2')?.classList.remove('open');
-    document.body.style.overflow = '';
+    document.body.style.overflow = $('#product-modal-v2')?.classList.contains('open') ? 'hidden' : '';
   }
 
   function submitRequest(e) {
