@@ -1,9 +1,46 @@
 (() => {
   'use strict';
 
-  const PAGE = 'disponibilites-elios.html?collection=ROMA';
   const STYLE_ID = 'lrf-elios-stock-cta-style';
+  const PAGE = 'disponibilites-elios.html';
+  const ALIASES = {
+    'design-evo':'d-esign-evo',
+    'd_esign-evo':'d-esign-evo',
+    'd-esign-evo':'d-esign-evo',
+    'love-decors':'love-decors-magnus',
+    'loveanddecors-magnus':'love-decors-magnus',
+    'love-decors-magnus':'love-decors-magnus'
+  };
+  const NAME_TO_SLUG = new Map([
+    ['lithos','lithos'],['love&decors magnus','love-decors-magnus'],['love&decors — magnus','love-decors-magnus'],
+    ['manhattan','manhattan'],['mysterium','mysterium'],['quercia','quercia'],['yosemite','yosemite'],
+    ['bavaria stone','bavaria-stone'],['dolomiti','dolomiti'],['grand place','grand-place'],['harmony','harmony'],
+    ['millennium quartz','millennium-quartz'],['roma','roma'],['sedimenti','sedimenti'],['slate','slate'],
+    ['brooklyn','brooklyn'],['clay','clay'],['creta','creta'],['deco','deco'],['d_esign evo','d-esign-evo'],
+    ['d-esign evo','d-esign-evo'],['domus','domus'],['glow','glow'],['golden hour','golden-hour'],
+    ['hexagon','hexagon'],['horizon','horizon'],['marechiaro','marechiaro'],['montreal','montreal'],['shell','shell'],
+    ['terre etrusche','terre-etrusche'],['allure','allure'],['dust','dust'],['segmento','segmento'],
+    ['tropical','tropical'],['twist','twist'],['venere','venere']
+  ]);
 
+  let currentSlug = '';
+
+  function norm(v) {
+    return String(v || '').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  }
+  function cleanSlug(v) {
+    const raw = String(v || '').trim().toLowerCase().replace(/^elios-/, '');
+    return ALIASES[raw] || raw;
+  }
+  function titleSlug(card) {
+    const title = norm(card?.querySelector('h2,h3')?.textContent || '');
+    if (!title) return '';
+    if (NAME_TO_SLUG.has(title)) return NAME_TO_SLUG.get(title);
+    for (const [name, slug] of NAME_TO_SLUG) {
+      if (title === name || title.includes(name)) return slug;
+    }
+    return '';
+  }
   function installStyle() {
     if (document.getElementById(STYLE_ID)) return;
     const style = document.createElement('style');
@@ -17,38 +54,55 @@
     `;
     document.head.appendChild(style);
   }
-
-  function isRomaModal(card) {
-    const title = card.querySelector('h2,h3')?.textContent || '';
-    return /\broma\b/i.test(title) || /\broma\b/i.test(card.textContent || '');
-  }
-
-  function injectRomaButton() {
+  function injectButton() {
     const card = document.getElementById('product-modal-v2-card');
-    if (!card || !isRomaModal(card) || card.querySelector('.lrf-elios-stock-cta')) return;
+    if (!card) return;
+    const slug = cleanSlug(currentSlug || titleSlug(card));
+    if (!slug) {
+      card.querySelector('.lrf-elios-stock-cta')?.remove();
+      return;
+    }
+    const existing = card.querySelector('.lrf-elios-stock-cta');
+    if (existing?.dataset.collection === slug) return;
+    existing?.remove();
 
+    const title = String(card.querySelector('h2,h3')?.textContent || slug).trim();
     const cta = document.createElement('div');
     cta.className = 'lrf-elios-stock-cta';
+    cta.dataset.collection = slug;
     cta.innerHTML = `
-      <strong>Disponibilités usine ELIOS</strong>
-      <p>Voir les références de la collection ROMA et le stock disponible en m².</p>
-      <button type="button" class="lrf-elios-stock-btn">● Voir les disponibilités</button>
+      <strong>Disponibilités & commande ELIOS</strong>
+      <p>Voir toutes les références, conditionnements, stocks usine et pièces spéciales de ${title}.</p>
+      <button type="button" class="lrf-elios-stock-btn">● Voir les stocks & commander</button>
     `;
     cta.querySelector('button').addEventListener('click', () => {
-      window.location.href = PAGE;
+      window.location.href = `${PAGE}?collection=${encodeURIComponent(slug)}`;
     });
-
     card.appendChild(cta);
   }
-
   function start() {
     installStyle();
-    injectRomaButton();
-    const card = document.getElementById('product-modal-v2-card');
-    if (card) new MutationObserver(injectRomaButton).observe(card, { childList: true, subtree: true, characterData: true });
-    else new MutationObserver(injectRomaButton).observe(document.body, { childList: true, subtree: true });
+    document.addEventListener('click', event => {
+      const card = event.target.closest?.('.product-card-v2[data-id^="elios-"]');
+      if (card) {
+        currentSlug = cleanSlug(card.dataset.id || '');
+        setTimeout(injectButton, 0);
+      }
+    }, true);
+    const modal = document.getElementById('product-modal-v2-card');
+    if (modal) {
+      new MutationObserver(() => setTimeout(injectButton, 0)).observe(modal, {childList:true,subtree:true,characterData:true});
+      injectButton();
+    } else {
+      new MutationObserver(() => {
+        const created = document.getElementById('product-modal-v2-card');
+        if (created) {
+          new MutationObserver(() => setTimeout(injectButton, 0)).observe(created, {childList:true,subtree:true,characterData:true});
+          injectButton();
+        }
+      }).observe(document.body,{childList:true,subtree:true});
+    }
   }
-
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start, { once: true });
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start, {once:true});
   else start();
 })();
