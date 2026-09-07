@@ -1,0 +1,60 @@
+name: ELIOS Lot 1 Smoke Test
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/elios-lot1-smoke-test.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    name: Test catalogue and live stock
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Test four catalogues
+        shell: bash
+        run: |
+          set -euo pipefail
+          for collection in lithos mysterium quercia dolomiti; do
+            echo "== Catalogue $collection =="
+            body="$(curl -sS --fail --max-time 30 "https://us-central1-le-roy-factory.cloudfunctions.net/eliosCatalog?collection=$collection")"
+            BODY="$body" python - <<'PY'
+          import json, os
+          data=json.loads(os.environ['BODY'])
+          assert data.get('success') is True, data
+          rows=(data.get('collection') or {}).get('rows') or []
+          assert rows, data
+          print('OK rows=',len(rows))
+          PY
+          done
+
+      - name: Test one live stock reference per series sequentially
+        shell: bash
+        run: |
+          set -euo pipefail
+          test_stock () {
+            collection="$1"
+            ref="$2"
+            echo "== Stock $collection / $ref =="
+            body="$(curl -sS --fail --max-time 75 "https://us-central1-le-roy-factory.cloudfunctions.net/eliosStock?collection=$collection&ref=$ref")"
+            BODY="$body" COLLECTION="$collection" REF="$ref" python - <<'PY'
+          import json, os
+          data=json.loads(os.environ['BODY'])
+          assert data.get('success') is True, data
+          product=data.get('product') or {}
+          assert str(product.get('ref','')).upper()==os.environ['REF'].upper(), data
+          assert product.get('stock') is not None, data
+          print('OK',os.environ['COLLECTION'],product.get('ref'),'stock=',product.get('stock'),product.get('stockUnit',''),'production=',product.get('production'),product.get('productionUnit',''))
+          PY
+            sleep 2
+          }
+          test_stock lithos LD1203
+          test_stock mysterium 03U6A05
+          test_stock quercia 00Y2C40
+          test_stock dolomiti 00M6A40
