@@ -82,7 +82,7 @@
   // Disponibilités ELIOS : Roma + séries activées par lots.
   if (!document.querySelector('script[data-lrf-elios-stock-roma]')) {
     const stockScript = document.createElement('script');
-    stockScript.src = 'assets/js/elios-stock-roma-test.js?v=20260907-lot1';
+    stockScript.src = 'assets/js/elios-stock-roma-test.js?v=20260907-lot2';
     stockScript.defer = true;
     stockScript.dataset.lrfEliosStockRoma = '1';
     document.head.appendChild(stockScript);
