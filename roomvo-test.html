@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Test configurateur Elios | Le Roy Factory</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <style>
+    :root{--bg:#f5f1ea;--ink:#1d1d1b;--gold:#b7975a;--card:#fff;--muted:#6f6a61}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(135deg,#faf7f1,#efe9df);color:var(--ink);min-height:100vh;display:grid;place-items:center;padding:24px}
+    .card{width:min(760px,100%);background:rgba(255,255,255,.92);border:1px solid rgba(183,151,90,.35);border-radius:24px;padding:36px;box-shadow:0 18px 60px rgba(0,0,0,.10);text-align:center}
+    .brand{font-size:14px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font-weight:700}
+    h1{font-size:clamp(30px,5vw,52px);line-height:1.05;margin:14px 0 12px}
+    p{font-size:17px;line-height:1.6;color:var(--muted);margin:0 auto 24px;max-width:590px}
+    button{appearance:none;border:0;border-radius:999px;padding:17px 28px;font-size:16px;font-weight:700;cursor:pointer;background:var(--ink);color:#fff;box-shadow:0 10px 25px rgba(0,0,0,.18);transition:.2s ease}
+    button:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(0,0,0,.24)}
+    button:active{transform:translateY(0)}
+    .status{margin-top:18px;font-size:14px;color:var(--muted)}
+    .ok{color:#2f7a45}.err{color:#a13a32}
+    .back{display:inline-block;margin-top:26px;color:var(--ink);text-decoration:none;font-size:14px;border-bottom:1px solid rgba(0,0,0,.25)}
+  </style>
+
+  <!-- Script Roomvo public utilisé par Elios Ceramica -->
+  <script src="https://www.roomvo.com/static/scripts/b2b/eliosceramicait.js" defer></script>
+</head>
+<body>
+  <main class="card">
+    <div class="brand">Le Roy Factory × Elios Ceramica</div>
+    <h1>Visualisez Elios dans votre pièce</h1>
+    <p>Importez une photo de votre intérieur ou utilisez une pièce de démonstration pour essayer les collections Elios avec le configurateur Roomvo.</p>
+
+    <button id="launchRoomvo" type="button">OUVRIR LE CONFIGURATEUR</button>
+    <div id="status" class="status">Chargement du configurateur…</div>
+
+    <a class="back" href="/">Retour au site Le Roy Factory</a>
+  </main>
+
+  <script>
+    const btn = document.getElementById('launchRoomvo');
+    const status = document.getElementById('status');
+
+    function roomvoReady(){
+      return typeof window.roomvo !== 'undefined' &&
+             typeof window.roomvo.startStandaloneVisualizer === 'function';
+    }
+
+    const timer = setInterval(() => {
+      if(roomvoReady()){
+        clearInterval(timer);
+        status.textContent = 'Configurateur prêt.';
+        status.className = 'status ok';
+      }
+    }, 300);
+
+    setTimeout(() => {
+      if(!roomvoReady()){
+        status.textContent = "Le configurateur n’a pas pu être initialisé sur ce domaine. Le test permet de confirmer si Roomvo doit autoriser leroyfactory.fr.";
+        status.className = 'status err';
+      }
+    }, 8000);
+
+    btn.addEventListener('click', () => {
+      if(roomvoReady()){
+        try{
+          window.roomvo.startStandaloneVisualizer();
+        }catch(e){
+          console.error(e);
+          status.textContent = "Roomvo est chargé mais le lancement a été refusé. Vérifiez la console pour le détail.";
+          status.className = 'status err';
+        }
+      }else{
+        status.textContent = "Roomvo n’est pas encore disponible sur cette page. Attendez quelques secondes puis réessayez.";
+        status.className = 'status err';
+      }
+    });
+  </script>
+</body>
+</html>
