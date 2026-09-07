@@ -24,16 +24,12 @@
     .config-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
     .config-card{background:#fff;border:1px solid rgba(183,134,32,.22);border-radius:20px;padding:28px;box-shadow:0 12px 35px rgba(39,31,15,.07);display:flex;flex-direction:column;min-height:330px;transition:.22s transform,.22s box-shadow}
     .config-card:hover{transform:translateY(-4px);box-shadow:0 18px 45px rgba(39,31,15,.13)}
-    .config-card.roomvo-card{border-color:rgba(0,76,124,.28);box-shadow:0 12px 35px rgba(0,76,124,.08)}
-    .config-card.roomvo-card:hover{box-shadow:0 18px 45px rgba(0,76,124,.15)}
     .config-logo{height:92px;display:flex;align-items:center;justify-content:center;margin-bottom:22px}
     .config-logo img{max-width:190px;max-height:82px;object-fit:contain}
     .config-logo.lrf img{width:82px;height:82px;border-radius:50%;object-fit:contain}
     .config-card h2{font-size:1.45rem;margin:0 0 10px;color:#1a2530}
     .config-card p{color:#666;line-height:1.55;margin:0 0 24px;flex:1}
     .config-open{display:flex;align-items:center;justify-content:center;text-align:center;border-radius:999px;padding:13px 18px;background:linear-gradient(180deg,#f9d86f,#c99828);color:#111!important;font-weight:900;text-decoration:none;text-transform:uppercase;letter-spacing:.5px;border:1px solid #e5bd51;box-shadow:0 6px 18px rgba(183,134,32,.22);cursor:pointer;font:inherit;width:100%;box-sizing:border-box}
-    .config-open.roomvo-open{background:linear-gradient(180deg,#0c6ba1,#034e7c);color:#fff!important;border-color:#0b6598;box-shadow:0 6px 18px rgba(0,76,124,.22)}
-    .roomvo-note{font-size:.82rem;color:#7a7a7a;text-align:center;margin-top:10px!important;flex:0!important}
     @media(max-width:900px){.config-grid{grid-template-columns:1fr}.config-card{min-height:auto}}
     @media(max-width:540px){.config-wrap{padding-left:13px;padding-right:13px}.config-card{padding:22px}.config-hero{padding-top:35px}}
   </style>
@@ -44,7 +40,7 @@
   <section class="config-hero"><h1>Nos <span>Configurateurs</span></h1><p>Visualisez, composez et préparez vos projets avec les outils de nos partenaires et les calculateurs techniques LE ROY FACTORY.</p></section>
   <div class="config-wrap">
     <section class="config-grid">
-      <article class="config-card roomvo-card"><div class="config-logo"><img src="assets/img/elios.png" alt="Elios Ceramica"></div><h2>Elios — Visualisez dans votre pièce</h2><p>Importez une photo de votre intérieur ou utilisez une pièce de démonstration pour visualiser directement les collections Elios dans votre projet grâce au configurateur Roomvo.</p><button class="config-open roomvo-open" type="button" id="openEliosRoomvo">Visualiser dans ma pièce</button><p class="roomvo-note">Le configurateur s’ouvre directement depuis LE ROY FACTORY.</p></article>
+      <article class="config-card"><div class="config-logo"><img src="assets/img/elios.png" alt="Elios Ceramica"></div><h2>Elios — Visualisez dans votre pièce</h2><p>Importez une photo de votre intérieur ou utilisez une pièce de démonstration pour visualiser directement les collections Elios dans votre projet grâce au configurateur Roomvo.</p><button class="config-open" type="button" id="openEliosRoomvo">Visualiser dans ma pièce</button></article>
       <article class="config-card"><div class="config-logo"><img src="assets/img/elios.png" alt="Elios Ceramica"></div><h2>Elios — Schémas de pose</h2><p>Choisissez parmi 44 schémas de pose, sélectionnez la série et la couleur Elios, saisissez votre surface et obtenez automatiquement les références, les m² par format et le nombre de boîtes à commander.</p><a class="config-open" href="configurateur-elios-pose.html">Ouvrir le configurateur</a></article>
       <article class="config-card"><div class="config-logo"><img src="assets/img/randal.png" alt="Randal"></div><h2>Randal Studio</h2><p>Configurez vos meubles et compositions Randal directement avec l’outil Studio du fabricant.</p><a class="config-open" href="https://conf.randalsa.com/studio/register.php" target="_blank" rel="noopener">Ouvrir Randal Studio</a></article>
       <article class="config-card"><div class="config-logo"><img src="assets/img/biopietra.png" alt="Biopietra"></div><h2>Biopietra — Visite 3D</h2><p>Découvrez l’univers Biopietra à travers sa visite virtuelle 3D et explorez les ambiances de la marque.</p><a class="config-open" href="https://biopietra.com/VT/index.htm" target="_blank" rel="noopener">Lancer la visite 3D</a></article>
