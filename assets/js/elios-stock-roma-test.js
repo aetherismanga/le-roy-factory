@@ -1,54 +1,16 @@
 (() => {
   'use strict';
-
-  const PAGE = 'disponibilites-elios.html?collection=ROMA';
-  const STYLE_ID = 'lrf-elios-stock-cta-style';
-
-  function installStyle() {
-    if (document.getElementById(STYLE_ID)) return;
-    const style = document.createElement('style');
-    style.id = STYLE_ID;
-    style.textContent = `
-      .lrf-elios-stock-cta{margin:18px 0 4px;padding:15px;border:1px solid #b9dcc6;background:#f1faf4;border-radius:14px}
-      .lrf-elios-stock-cta strong{display:block;color:#17623a;font-size:.92rem;margin-bottom:5px}
-      .lrf-elios-stock-cta p{margin:0 0 11px;color:#536259;font-size:.78rem;line-height:1.45}
-      .lrf-elios-stock-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;border:0;border-radius:10px;padding:12px 15px;background:#17623a;color:#fff;font-weight:900;font-size:.92rem;cursor:pointer;box-shadow:0 5px 14px rgba(23,98,58,.18)}
-      .lrf-elios-stock-btn:hover{background:#104d2d}
-    `;
-    document.head.appendChild(style);
-  }
-
-  function isRomaModal(card) {
-    const title = card.querySelector('h2,h3')?.textContent || '';
-    return /\broma\b/i.test(title) || /\broma\b/i.test(card.textContent || '');
-  }
-
-  function injectRomaButton() {
-    const card = document.getElementById('product-modal-v2-card');
-    if (!card || !isRomaModal(card) || card.querySelector('.lrf-elios-stock-cta')) return;
-
-    const cta = document.createElement('div');
-    cta.className = 'lrf-elios-stock-cta';
-    cta.innerHTML = `
-      <strong>Disponibilités usine ELIOS</strong>
-      <p>Voir les références de la collection ROMA et le stock disponible en m².</p>
-      <button type="button" class="lrf-elios-stock-btn">● Voir les disponibilités</button>
-    `;
-    cta.querySelector('button').addEventListener('click', () => {
-      window.location.href = PAGE;
-    });
-
-    card.appendChild(cta);
-  }
-
-  function start() {
-    installStyle();
-    injectRomaButton();
-    const card = document.getElementById('product-modal-v2-card');
-    if (card) new MutationObserver(injectRomaButton).observe(card, { childList: true, subtree: true, characterData: true });
-    else new MutationObserver(injectRomaButton).observe(document.body, { childList: true, subtree: true });
-  }
-
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start, { once: true });
-  else start();
+  const STYLE_ID='lrf-elios-stock-cta-style';
+  const ACTIVE=new Set(['roma','lithos','mysterium','quercia','dolomiti']);
+  const NAME_TO_SLUG=new Map([
+    ['roma','roma'],['lithos','lithos'],['mysterium','mysterium'],['quercia','quercia'],['dolomiti','dolomiti']
+  ]);
+  let currentSlug='';
+  const norm=v=>String(v||'').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  const cleanSlug=v=>String(v||'').trim().toLowerCase().replace(/^elios-/,'');
+  function titleSlug(card){const title=norm(card?.querySelector('h2,h3')?.textContent||'');for(const [name,slug] of NAME_TO_SLUG)if(title===name||title.includes(name))return slug;return ''}
+  function installStyle(){if(document.getElementById(STYLE_ID))return;const style=document.createElement('style');style.id=STYLE_ID;style.textContent=`.lrf-elios-stock-cta{margin:18px 0 4px;padding:15px;border:1px solid #b9dcc6;background:#f1faf4;border-radius:14px}.lrf-elios-stock-cta strong{display:block;color:#17623a;font-size:.92rem;margin-bottom:5px}.lrf-elios-stock-cta p{margin:0 0 11px;color:#536259;font-size:.78rem;line-height:1.45}.lrf-elios-stock-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;border:0;border-radius:10px;padding:12px 15px;background:#17623a;color:#fff;font-weight:900;font-size:.92rem;cursor:pointer;box-shadow:0 5px 14px rgba(23,98,58,.18)}.lrf-elios-stock-btn:hover{background:#104d2d}`;document.head.appendChild(style)}
+  function injectButton(){const card=document.getElementById('product-modal-v2-card');if(!card)return;const slug=cleanSlug(currentSlug||titleSlug(card));if(!ACTIVE.has(slug)){card.querySelector('.lrf-elios-stock-cta')?.remove();return}const existing=card.querySelector('.lrf-elios-stock-cta');if(existing?.dataset.collection===slug)return;existing?.remove();const title=String(card.querySelector('h2,h3')?.textContent||slug).trim();const cta=document.createElement('div');cta.className='lrf-elios-stock-cta';cta.dataset.collection=slug;cta.innerHTML=`<strong>Disponibilités & commande ELIOS</strong><p>Voir toutes les références, conditionnements, stocks usine et pièces spéciales de ${title}.</p><button type="button" class="lrf-elios-stock-btn">● Voir les stocks & commander</button>`;cta.querySelector('button').addEventListener('click',()=>{window.location.href=slug==='roma'?'disponibilites-elios.html?collection=ROMA':`disponibilites-elios-lot1.html?collection=${encodeURIComponent(slug)}`});card.appendChild(cta)}
+  function start(){installStyle();document.addEventListener('click',event=>{const card=event.target.closest?.('.product-card-v2[data-id^="elios-"]');if(card){currentSlug=cleanSlug(card.dataset.id||'');setTimeout(injectButton,0)}},true);const modal=document.getElementById('product-modal-v2-card');if(modal){new MutationObserver(()=>setTimeout(injectButton,0)).observe(modal,{childList:true,subtree:true,characterData:true});injectButton()}else{new MutationObserver(()=>{const created=document.getElementById('product-modal-v2-card');if(created){new MutationObserver(()=>setTimeout(injectButton,0)).observe(created,{childList:true,subtree:true,characterData:true});injectButton()}}).observe(document.body,{childList:true,subtree:true})}}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
 })();
