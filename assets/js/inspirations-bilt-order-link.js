@@ -4,6 +4,15 @@
   const session=()=>window.LRF_PRO_SESSION?.read?.()||(()=>{try{return JSON.parse(sessionStorage.getItem('lrfProSession')||'null')}catch{return null}})();
   const allowed=()=>{const s=session();return !!(s&&(s.isAdmin||Array.isArray(s.partenaires)&&s.partenaires.some(p=>norm(p)==='bilt')))};
 
+  function loadSelectionScrollbarFix(){
+    if(document.getElementById('lrf-selection-scrollbar-fix'))return;
+    const link=document.createElement('link');
+    link.id='lrf-selection-scrollbar-fix';
+    link.rel='stylesheet';
+    link.href='assets/css/selection-scrollbar-fix.css?v=20260908-1';
+    document.head.appendChild(link);
+  }
+
   function patch(){
     const title=document.getElementById('workspace-title');
     if(norm(title?.textContent)!=='bilt')return;
@@ -19,6 +28,7 @@
     }
   }
 
+  loadSelectionScrollbarFix();
   const root=document.getElementById('partner-workspace');
   if(root)new MutationObserver(()=>setTimeout(patch,0)).observe(root,{childList:true,subtree:true,characterData:true});
   document.getElementById('insp-categories')?.addEventListener('click',()=>setTimeout(patch,30),true);
