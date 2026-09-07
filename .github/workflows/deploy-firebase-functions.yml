@@ -41,6 +41,10 @@ jobs:
         with:
           credentials_json: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_LE_ROY_FACTORY }}'
 
+      - name: Inspect LRF numbering for Union Materiaux
+        working-directory: functions
+        run: node oneoff-lrf-mondy-2026-09-07.js
+
       - name: Install Firebase CLI
         run: npm install --global firebase-tools
 
