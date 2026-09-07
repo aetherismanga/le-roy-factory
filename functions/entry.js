@@ -7,10 +7,11 @@ const eliosStock = require('./elios-stock');
 const eliosOrder = require('./elios-order');
 const eliosCatalog = require('./elios-catalog-api');
 const biltOrder = require('./bilt-order');
+const biltAdminPreview = require('./bilt-admin-preview');
 const biltAutoTask = require('./bilt-auto-task');
 const biltSchedule = require('./bilt-schedule');
 
-Object.assign(exports, base, tariffAccess, proSession, lrfAnalytics, eliosStock, eliosOrder, eliosCatalog, biltOrder, biltAutoTask, biltSchedule);
+Object.assign(exports, base, tariffAccess, proSession, lrfAnalytics, eliosStock, eliosOrder, eliosCatalog, biltOrder, biltAdminPreview, biltAutoTask, biltSchedule);
 
 // La migration vers Storage privé est terminée. Cet endpoint temporaire reste
 // présent uniquement pour éviter une suppression de fonction lors du déploiement,
