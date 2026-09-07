@@ -41,6 +41,12 @@ jobs:
         with:
           credentials_json: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_LE_ROY_FACTORY }}'
 
+      - name: Add Union Materiaux Montpellier CRM report
+        working-directory: functions
+        env:
+          GOOGLE_CLOUD_PROJECT: le-roy-factory
+        run: node oneoff-add-cr-union-materiaux-2026-09-07.js
+
       - name: Install Firebase CLI
         run: npm install --global firebase-tools
 
