@@ -80,14 +80,6 @@
   addProducts(window.VIEW_CATALOGUE, 'View Ceramica', 'Produit View');
   addProducts(window.NEOBATH_CATALOGUE, 'Neobath', 'Produit Neobath');
 
-  // COCO reste également proposé : son intégration détaillée sera complétée avec le lot VIEW suivant.
-  add({
-    type:'Collection View', icon:'▦', title:'COCO',
-    desc:'View Ceramica · effet travertin · 40×60',
-    url:`univers.html?partner=${u('View Ceramica')}&search=${u('COCO')}`,
-    aliases:['coco beige','coco light','travertin','40x60','40 x 60','view']
-  });
-
   const haystack = item => norm([item.title,item.desc,...item.aliases].join(' '));
   const score = (item, rawQuery) => {
     const q = norm(rawQuery);
