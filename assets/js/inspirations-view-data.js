@@ -73,7 +73,7 @@
       description:'Grand format rectifié 100×100 au caractère minéral. Version intérieure 8,5 mm et extérieure 20 mm Grip.',
       formats:['100×100'],colors:['Sabbia','Grigio','Antracite'],colorFamilies:['Beige','Gris','Noir'],finishes:['Naturel R10/A+B','Grip R11/A+B+C'],
       images:[img('https://viewceramiche.com/wp-content/uploads/2023/11/Docks-Grigio-700x-300x300.jpg','Docks Grigio · View Ceramica')],
-      sourceUrl:'https://viewceramiche.com/prodotto/docks-en/',sourceLabel:'Listino VIEW n°24 · Prix nets FR CL 0226',availability:'Disponibilité à confirmer auprès de VIEW',
+      sourceUrl:'https://viewceramiche.com/prodotto/docks-fr/',sourceLabel:'Listino VIEW n°24 · Prix nets FR CL 0226',availability:'Disponibilité à confirmer auprès de VIEW',
       variants:[
         v('docks-100','100×100','8,5 mm','Naturel R10/A+B',74,18,{colors:['Sabbia','Grigio','Antracite'],refs:{Sabbia:'VDK10020R',Grigio:'VDK10040R',Antracite:'VDK10070R'},pack:pack(2,2,40,24,48,960)}),
         v('docks-100-20','100×100','20 mm','Grip R11/A+B+C',100,null,{colors:['Sabbia','Grigio','Antracite'],refs:{Sabbia:'VDK1002020R',Grigio:'VDK1004020R',Antracite:'VDK1007020R'},proPalette:29.5,proDetail:31.5,pack:pack(1,1,46.6,21,21,979)})
@@ -88,7 +88,7 @@
       sourceLabel:'Listino VIEW n°24 · Prix nets FR CL 0226',availability:'Disponibilité à confirmer auprès de VIEW',
       variants:[
         v('dig-6090','60×90','10 mm','Naturel R10/A+B',60,15.5,{colors:['Oro','Perla','Grigio'],refs:{Oro:'VDJ6920LR',Perla:'VDJ6930LR',Grigio:'VDJ6940LR'},pack:pack(1.08,2,23.55,45,48.6,1060)}),
-        v('dig-6090-20','60×90','20 mm','Grip R11/A+B+C',90,null,{colors:['Oro'],refs:{Oro:'VDJ6920L20R'},proPalette:33,proDetail:35,pack:pack(.54,1,24.1,48,25.92,1157),note:'Tarif net 20 mm série « Pietre ».'})
+        v('dig-6090-20','60×90','20 mm','Grip R11/A+B+C',90,null,{colors:['Oro'],refs:{Oro:'VDJ6920L20R'},proPalette:25,proDetail:27,pack:pack(.54,1,24.1,48,25.92,1157),note:'Tarif net 20 mm 60×90 : 1 palette et plus / détail selon FR CL 0226.'})
       ]
     },
     {
@@ -112,7 +112,7 @@
         v('corso-3060-v','30×60','10 mm','Vintage',60,18,{colors:['Avorio','Beige'],refs:{Avorio:'VCR610LPR',Beige:'VCR620LPR'},pack:pack(1.08,6,24,40,43.2,960)}),
         v('corso-burattato','60×90','10 mm','Burattato+',128,34,{colors:['Avorio','Beige'],refs:{Avorio:'VCR6910LRB',Beige:'VCR6920LRB'},pack:pack(1.08,2,25,45,48.6,1125)}),
         v('corso-modulo','Modulo A 30×60 / 60×60 / 60×90','10 mm','Burattato+',135,33,{colors:['Avorio','Beige'],refs:{Avorio:'VCR6910MDB',Beige:'VCR6920MDB'}}),
-        v('corso-6090-20','60×90','20 mm','Grip R11/A+B+C',90,null,{colors:['Avorio','Beige'],refs:{Avorio:'VCR6910L20R',Beige:'VCR6920L20R'},proPalette:33,proDetail:35,pack:pack(.54,1,24,48,25.92,1152),note:'Tarif net 20 mm série « Pietre ».'})
+        v('corso-6090-20','60×90','20 mm','Grip R11/A+B+C',90,null,{colors:['Avorio','Beige'],refs:{Avorio:'VCR6910L20R',Beige:'VCR6920L20R'},proPalette:25,proDetail:27,pack:pack(.54,1,24,48,25.92,1152),note:'Tarif net 20 mm 60×90 : 1 palette et plus / détail selon FR CL 0226.'})
       ]
     }
   ];
