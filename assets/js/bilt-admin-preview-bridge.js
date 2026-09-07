@@ -2,7 +2,7 @@
   'use strict';
 
   const ORDER_API = 'https://us-central1-le-roy-factory.cloudfunctions.net/biltOrder';
-  const ADMIN_API = 'https://us-central1-le-roy-factory.cloudfunctions.net/biltAdminPreview';
+  const ADMIN_API = ORDER_API;
   const SENTINEL = '__LRF_BILT_ADMIN_PREVIEW__';
   const ADMIN_EMAILS = new Set(['jerome@leroyfactory.fr', 'coryne@leroyfactory.fr']);
   const FIREBASE_CONFIG = {
@@ -42,11 +42,12 @@
     let user = auth.currentUser;
     if (!user) {
       user = await new Promise((resolve, reject) => {
+        let unsubscribe = () => {};
         const timer = setTimeout(() => {
           try { unsubscribe(); } catch (_) {}
           reject(new Error('Session administrateur Firebase indisponible. Rechargez la page.'));
         }, 5000);
-        const unsubscribe = authModule.onAuthStateChanged(auth, current => {
+        unsubscribe = authModule.onAuthStateChanged(auth, current => {
           if (!current) return;
           clearTimeout(timer);
           unsubscribe();
