@@ -37,15 +37,15 @@
         v('golden-7575','7,5×7,5','9,5 mm','Naturel R10/A+B',37,{colors:['Ivory','Sand','Pearl','Oxid','Carbon']}),
         v('golden-7530','7,5×30','9,5 mm','Naturel R10/A+B',21,{colors:['Ivory','Sand','Pearl','Oxid','Carbon']}),
         v('golden-3030','30×30','9,5 mm','Naturel R10/A+B',18.5,{colors:['Ivory','Sand','Pearl','Oxid','Carbon']}),
-        v('golden-3060','30×60','9,5 mm','Naturel R10/A+B',13,{colors:['Ivory','Sand','Pearl','Oxid','Carbon'],pack:pack(1.44,8,28.5,32,46.08,860)}),
-        v('golden-6060','60×60','9,5 mm','Naturel R10/A+B',13,{colors:['Ivory','Sand','Pearl','Oxid','Carbon'],pack:pack(1.44,4,28.5,30,43.20,860)}),
-        v('golden-60120','60×120','9,5 mm','Naturel R10/A+B',15.5,{colors:['Ivory','Sand','Pearl','Oxid','Carbon'],pack:pack(1.44,2,29,36,51.84,1065)}),
-        v('golden-120120','120×120','9,5 mm','Naturel R10/A+B',20,{colors:['Ivory','Sand','Pearl','Oxid','Carbon'],pack:pack(2.88,2,55.5,18,51.84,1020)}),
-        v('golden-satin-3060','30×60','9,5 mm','Satinato / Honed',null,{colors:['Ivory','Sand','Pearl','Oxid','Carbon'],pack:pack(1.44,8,28.5,32,46.08,860),note:'Tarif net à confirmer : la finition Satinato/Honed est présente au catalogue, sans montant lisible distinct dans la grille FR CL 0226.'}),
-        v('golden-satin-6060','60×60','9,5 mm','Satinato / Honed',null,{colors:['Ivory','Sand','Pearl','Oxid','Carbon'],pack:pack(1.44,4,28.5,30,43.20,860)}),
-        v('golden-satin-60120','60×120','9,5 mm','Satinato / Honed',null,{colors:['Ivory','Sand','Pearl','Oxid','Carbon'],pack:pack(1.44,2,29,36,51.84,1065)}),
-        v('golden-6060-20','60×60','20 mm','Grip R11/A+B+C',null,{colors:['Sand','Pearl','Carbon'],proPalette:22,proDetail:24,pack:pack(.72,2,32.5,32,23.04,1040)}),
-        v('golden-60120-20','60×120','20 mm','Grip R11/A+B+C',null,{colors:['Ivory','Sand','Pearl'],proPalette:26,proDetail:28,pack:pack(.72,1,31.8,30,21.60,954)})
+        v('golden-3060','30×60','9,5 mm','Naturel R10/A+B',13,{colors:['Ivory','Sand','Pearl','Oxid','Carbon'],pack:pack(1.44,8,null,32,46.08,null)}),
+        v('golden-6060','60×60','9,5 mm','Naturel R10/A+B',13,{colors:['Ivory','Sand','Pearl','Oxid','Carbon'],pack:pack(1.44,4,null,30,43.20,null)}),
+        v('golden-60120','60×120','9,5 mm','Naturel R10/A+B',15.5,{colors:['Ivory','Sand','Pearl','Oxid','Carbon'],pack:pack(1.44,2,null,36,51.84,null)}),
+        v('golden-120120','120×120','9,5 mm','Naturel R10/A+B',20,{colors:['Ivory','Sand','Pearl','Oxid','Carbon'],pack:pack(2.88,2,null,18,51.84,null)}),
+        v('golden-satin-3060','30×60','9,5 mm','Satinato / Honed',null,{colors:['Ivory','Sand','Pearl','Oxid','Carbon'],pack:pack(1.44,8,null,32,46.08,null),note:'Tarif net à confirmer : la finition Satinato/Honed est présente au catalogue, sans montant lisible distinct dans la grille FR CL 0226.'}),
+        v('golden-satin-6060','60×60','9,5 mm','Satinato / Honed',null,{colors:['Ivory','Sand','Pearl','Oxid','Carbon'],pack:pack(1.44,4,null,30,43.20,null)}),
+        v('golden-satin-60120','60×120','9,5 mm','Satinato / Honed',null,{colors:['Ivory','Sand','Pearl','Oxid','Carbon'],pack:pack(1.44,2,null,36,51.84,null)}),
+        v('golden-6060-20','60×60','20 mm','Grip R11/A+B+C',null,{colors:['Sand','Pearl','Carbon'],proPalette:22,proDetail:24,pack:pack(.72,2,null,32,23.04,null)}),
+        v('golden-60120-20','60×120','20 mm','Grip R11/A+B+C',null,{colors:['Ivory','Sand','Pearl'],proPalette:26,proDetail:28,pack:pack(.72,1,null,30,21.60,null)})
       ]
     },
     {
