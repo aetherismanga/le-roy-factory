@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="icon" type="image/png" href="assets/brand-v2/logoLRF.png?v=20260901-lrf1">
+  <title>Commande BILT — LE ROY FACTORY</title>
+  <meta name="description" content="Catalogue professionnel BILT, tarifs NET HT, panier, commande et historique LE ROY FACTORY.">
+  <style>
+    :root{--green:#0c5736;--green2:#164c36;--gold:#d4af37;--ink:#18232d;--muted:#6a726f;--paper:#fbf8f0;--line:#e3dccd;--ok:#167344;--warn:#9a6710;--danger:#a53535}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,Arial,sans-serif;color:var(--ink);background:#f7f2e8;background-image:radial-gradient(circle at 15% 0%,rgba(255,255,255,.85),transparent 34%),linear-gradient(135deg,rgba(212,175,55,.06),transparent 44%)}
+    a{color:inherit}.top{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}.topin{max-width:1440px;margin:auto;padding:12px 22px;display:flex;align-items:center;justify-content:space-between;gap:18px}.brand{display:flex;align-items:center;gap:14px}.brand img{height:52px;width:auto}.brand strong{display:block;font-size:1.05rem}.brand small{color:var(--muted)}.back{border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 12px;text-decoration:none;font-weight:800}
+    .hero{background:linear-gradient(120deg,#083c28,#0c5736 55%,#173e2e);color:#fff}.heroin{max-width:1440px;margin:auto;padding:28px 22px;display:grid;grid-template-columns:1fr auto;gap:25px;align-items:center}.hero h1{margin:0 0 7px;font-size:clamp(1.8rem,4vw,3rem)}.hero p{margin:0;opacity:.9;max-width:800px}.hero img{width:150px;max-height:80px;object-fit:contain;background:#fff;border-radius:12px;padding:10px}.kicker{display:inline-flex;background:var(--gold);color:#111;font-weight:900;border-radius:999px;padding:6px 10px;font-size:.72rem;letter-spacing:.08em;margin-bottom:9px}
+    .shell{max-width:1440px;margin:20px auto 60px;padding:0 22px}.notice{display:none;border-radius:14px;padding:14px 16px;margin-bottom:16px;border:1px solid}.notice.show{display:block}.notice.ok{background:#eef9f2;border-color:#b8dfc7;color:#115f38}.notice.warn{background:#fff8df;border-color:#e7d394;color:#6e5310}.notice.error{background:#fff0f0;border-color:#e3b2b2;color:#8a2d2d}
+    .account{display:grid;grid-template-columns:1fr auto;gap:15px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 18px;box-shadow:0 8px 25px rgba(37,33,24,.06);margin-bottom:18px}.account h2{margin:0 0 5px;font-size:1.05rem}.account p{margin:0;color:var(--muted);font-size:.88rem}.discount{display:flex;flex-direction:column;align-items:flex-end;gap:4px}.discount .pill{display:inline-flex;border-radius:999px;padding:8px 12px;font-size:.8rem;font-weight:900;background:#eef8f1;color:var(--ok);border:1px solid #b6dfc6}.discount .pill.base{background:#f6f2e7;color:#5c5031;border-color:#ddd1ae}.discount small{color:var(--muted)}
+    .layout{display:grid;grid-template-columns:minmax(0,1fr) 390px;gap:18px;align-items:start}.catalog,.cart,.history{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 8px 25px rgba(37,33,24,.055)}.catalog{overflow:hidden}.tools{padding:16px;border-bottom:1px solid var(--line)}.search{width:100%;height:44px;border:1px solid #d7d0c3;border-radius:10px;padding:0 13px;font-size:.95rem;background:#fff}.groups{display:flex;gap:8px;overflow:auto;padding:12px 0 2px;scrollbar-width:thin}.group{flex:0 0 auto;border:1px solid #d9d2c4;background:#fff;border-radius:999px;padding:8px 11px;font-size:.78rem;font-weight:800;cursor:pointer}.group.active{background:var(--green);border-color:var(--green);color:#fff}
+    .tablewrap{overflow:auto}.products{width:100%;border-collapse:collapse;min-width:900px}.products th{position:sticky;top:77px;background:#f6f3ec;color:#52605b;font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;text-align:left;padding:10px;border-bottom:1px solid var(--line);z-index:3}.products td{padding:11px 10px;border-bottom:1px solid #eee9df;vertical-align:middle}.products tr:hover td{background:#fcfaf5}.ref{font-weight:900;color:var(--green)}.pname{font-weight:800}.sub{display:block;color:var(--muted);font-size:.75rem;margin-top:3px}.price{font-weight:900;white-space:nowrap}.oldprice{text-decoration:line-through;color:#8a918d;font-size:.72rem;display:block}.finalprice{color:var(--ok)}.min{font-size:.78rem;font-weight:700}.qty{width:88px;height:38px;border:1px solid #d1cabd;border-radius:8px;padding:0 8px;text-align:center;font-weight:800}.add{height:38px;border:0;border-radius:9px;background:var(--green);color:#fff;font-weight:900;padding:0 12px;cursor:pointer}.add:hover{filter:brightness(1.08)}
+    .cart{position:sticky;top:90px;overflow:hidden}.carthead{padding:16px 17px;background:#11271f;color:#fff;display:flex;justify-content:space-between;align-items:center}.carthead h2{margin:0;font-size:1.05rem}.cartbody{padding:15px}.empty{color:var(--muted);text-align:center;padding:22px 10px}.cartline{border-bottom:1px solid #eee8dd;padding:10px 0;display:grid;grid-template-columns:1fr auto;gap:8px}.cartline strong{font-size:.82rem}.cartline small{display:block;color:var(--muted);margin-top:3px}.remove{border:0;background:none;color:var(--danger);font-size:1rem;cursor:pointer}.sum{border-top:2px solid var(--green);margin-top:12px;padding-top:12px;display:grid;gap:7px}.sumrow{display:flex;justify-content:space-between;gap:10px}.sumrow.total{font-size:1.06rem;font-weight:900}.discountrow{color:var(--ok);font-weight:800}.form{display:grid;gap:9px;margin-top:15px}.form label{font-size:.72rem;font-weight:900;color:#56615d;text-transform:uppercase}.form select,.form textarea{width:100%;border:1px solid #d5cec1;border-radius:9px;background:#fff;padding:9px;font:inherit}.form textarea{min-height:70px;resize:vertical}.submit{margin-top:10px;width:100%;border:1px solid #9b7800;background:linear-gradient(#f4d55d,#d9a91e);color:#16140c;border-radius:10px;padding:12px;font-weight:950;cursor:pointer}.submit:disabled{opacity:.45;cursor:not-allowed}.fine{font-size:.71rem;color:var(--muted);line-height:1.4;margin:9px 0 0}.pendingbox{padding:13px;border:1px solid #ead18e;background:#fff7da;border-radius:10px;font-size:.8rem;color:#6b5111;margin-top:10px}
+    .history{margin-top:18px;padding:18px}.history h2{margin:0 0 12px}.historytable{width:100%;border-collapse:collapse}.historytable th,.historytable td{padding:10px;border-bottom:1px solid #eee8dc;text-align:left;font-size:.82rem}.historytable th{font-size:.69rem;text-transform:uppercase;color:#6a726f}.status{display:inline-flex;border-radius:999px;padding:5px 8px;font-size:.7rem;font-weight:900;background:#f1eee7}.status.sent{background:#eaf7ef;color:#12603a}.status.pending{background:#fff4cf;color:#805f08}.status.error{background:#ffeded;color:#8b3030}
+    .loading{min-height:300px;display:grid;place-items:center;color:var(--muted);font-weight:800}.spinner{width:30px;height:30px;border:3px solid #ddd;border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 8px}@keyframes spin{to{transform:rotate(360deg)}}
+    @media(max-width:1050px){.layout{grid-template-columns:1fr}.cart{position:static}.products th{top:0}}
+    @media(max-width:700px){.topin,.heroin,.shell{padding-left:12px;padding-right:12px}.heroin{grid-template-columns:1fr}.hero img{display:none}.brand strong{font-size:.9rem}.brand small{display:none}.account{grid-template-columns:1fr}.discount{align-items:flex-start}.tablewrap{overflow:visible}.products{min-width:0;display:block}.products thead{display:none}.products tbody{display:grid;gap:10px;padding:10px}.products tr{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:12px;padding:10px;background:#fff}.products td{border:0;padding:5px}.products td:nth-child(1),.products td:nth-child(2){grid-column:span 1}.products td:nth-child(3),.products td:nth-child(4){grid-column:span 1}.products td:nth-child(5),.products td:nth-child(6){grid-column:span 1}.qty,.add{width:100%}.history{overflow:auto}.historytable{min-width:650px}}
+  </style>
+</head>
+<body>
+  <header class="top"><div class="topin"><div class="brand"><img src="assets/brand-v2/logoLRF.png?v=20260901-lrf1" alt="LE ROY FACTORY"><div><strong>LE ROY FACTORY</strong><small>Commande professionnelle BILT</small></div></div><a class="back" href="univers.html">← Retour aux Sélections</a></div></header>
+  <section class="hero"><div class="heroin"><div><span class="kicker">ESPACE PRO · BILT</span><h1>Catalogue & commande BILT</h1><p>Tarifs NET HT uniquement. Les minimums de livraison BILT sont intégrés au panier. Votre avantage exceptionnel LRF, lorsqu’il est actif, est appliqué automatiquement.</p></div><img src="assets/img/bilt.png" alt="BILT Building Solutions"></div></section>
+
+  <main class="shell">
+    <div id="notice" class="notice"></div>
+    <section class="account"><div><h2 id="client-name">Chargement du compte…</h2><p id="client-meta"></p></div><div class="discount"><span id="discount-pill" class="pill base">Tarif NET BILT</span><small id="discount-expiry"></small></div></section>
+
+    <div class="layout">
+      <section class="catalog">
+        <div class="tools"><input id="search" class="search" type="search" placeholder="Rechercher une référence ou un produit BILT…"><div id="groups" class="groups"></div></div>
+        <div id="catalog-content" class="loading"><div><div class="spinner"></div>Chargement du catalogue BILT…</div></div>
+      </section>
+
+      <aside class="cart">
+        <div class="carthead"><h2>Ma commande</h2><strong id="cart-count">0</strong></div>
+        <div class="cartbody"><div id="cart-lines" class="empty">Ajoutez des produits depuis le catalogue.</div><div id="cart-summary"></div>
+          <div id="order-form" class="form" hidden>
+            <label for="contact">Contact</label><select id="contact"></select>
+            <label for="email">E-mail client</label><select id="email"></select>
+            <label for="phone">Téléphone</label><select id="phone"><option value="">Aucun</option></select>
+            <label for="note">Note pour BILT</label><textarea id="note" maxlength="800" placeholder="Référence chantier, précision de livraison…"></textarea>
+            <button id="submit-order" class="submit" type="button">ENVOYER LA COMMANDE BILT</button>
+            <p class="fine">La première commande d’un compte est soumise à validation commerciale LE ROY FACTORY. Sans réponse sous 3 jours, elle est envoyée automatiquement au tarif NET BILT. Les commandes suivantes partent directement.</p>
+          </div>
+          <div id="pending-box"></div>
+        </div>
+      </aside>
+    </div>
+
+    <section id="historique" class="history"><h2>Historique BILT</h2><div id="history-content"><div class="loading" style="min-height:100px"><div><div class="spinner"></div>Chargement…</div></div></div></section>
+  </main>
+
+  <script src="assets/js/pro-session-bridge.js?v=20260907-bilt1"></script>
+  <script src="assets/js/bilt-order.js?v=20260907-bilt1"></script>
+</body>
+</html>
