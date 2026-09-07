@@ -32,6 +32,41 @@
   window.addEventListener('appinstalled',()=>{btn.style.display='none';deferredPrompt=null;});
 })();
 
+/* Ajoute le catalogue ELIOS Pool Surfaces 2026 dans la page Catalogues. */
+(()=>{
+  const path=window.location.pathname.toLowerCase();
+  if(!path.endsWith('catalogues.html'))return;
+
+  let tries=0;
+  const patch=()=>{
+    const grid=document.getElementById('grid-catalogues');
+    if(!grid){if(tries++<40)setTimeout(patch,100);return;}
+
+    const cards=[...grid.querySelectorAll('.card-premium')];
+    const eliosCard=cards.find(card=>/elios ceramica/i.test(card.querySelector('h3')?.textContent||''));
+    if(!eliosCard){if(tries++<40)setTimeout(patch,100);return;}
+    if(eliosCard.querySelector('[data-elios-pool-catalogue]'))return;
+
+    const row=document.createElement('div');
+    row.className='catalogue-row';
+    row.dataset.eliosPoolCatalogue='1';
+    row.innerHTML='<div><strong>Pool Surfaces 2026</strong><span>Catalogue piscine ELIOS — 12 collections, format principal 15×15 cm.</span></div><a href="assets/pdf/ELIOS_CATALOGO%20PISCINE_2026.pdf" target="_blank" rel="noopener" class="catalogue-link">PDF</a>';
+
+    const menu=eliosCard.querySelector('.catalogue-menu');
+    if(menu){
+      menu.appendChild(row);
+      const count=eliosCard.querySelector('.catalogue-picker summary span');
+      if(count)count.textContent=String(menu.querySelectorAll('.catalogue-row').length);
+    }else{
+      const holder=eliosCard.querySelector(':scope > div:last-child')||eliosCard;
+      holder.appendChild(row);
+    }
+  };
+
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(patch,0),{once:true});
+  else setTimeout(patch,0);
+})();
+
 /* Routeur de recherche publique LE ROY FACTORY. */
 (()=>{
   if(document.getElementById('lrf-global-search-router-loader'))return;
