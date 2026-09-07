@@ -12,7 +12,7 @@ on:
       - '.github/workflows/deploy-firebase-functions.yml'
 
 concurrency:
-  group: firebase-functions-production
+  group: crm-lrf-union-materiaux-audit
   cancel-in-progress: false
 
 permissions:
@@ -20,7 +20,7 @@ permissions:
 
 jobs:
   deploy:
-    name: Deploy secured CRM functions
+    name: Audit LRF numbering
     runs-on: ubuntu-latest
 
     steps:
@@ -44,13 +44,3 @@ jobs:
       - name: Inspect LRF numbering for Union Materiaux
         working-directory: functions
         run: node oneoff-lrf-mondy-2026-09-07.js
-
-      - name: Install Firebase CLI
-        run: npm install --global firebase-tools
-
-      - name: Deploy secured tariff, session, analytics and ELIOS functions
-        run: >-
-          firebase deploy
-          --project le-roy-factory
-          --only functions:getTariffPdf,functions:getNeobathDnaTariff,functions:createProSession,functions:validateProSession,functions:revokeProSession,functions:trackLrfActivity,functions:getLrfAnalytics,functions:eliosStock,functions:eliosOrder,functions:eliosCatalog
-          --non-interactive
