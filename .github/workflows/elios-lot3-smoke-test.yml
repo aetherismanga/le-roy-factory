@@ -1,0 +1,20 @@
+name: ELIOS Lot 3 Smoke Test
+on:
+  push:
+    branches: [test/elios-lot3-smoke]
+    paths:
+      - 'scripts/elios-lot3-smoke.js'
+      - '.github/workflows/elios-lot3-smoke-test.yml'
+permissions:
+  contents: read
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test lot 3 catalogues and live stock
+        run: node scripts/elios-lot3-smoke.js
