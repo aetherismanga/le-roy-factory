@@ -42,14 +42,15 @@
       const button=document.createElement('button');
       button.type='button';button.id='lrf-open-search';button.className=old.className;button.innerHTML='🔍 Rechercher';
       old.replaceWith(button);
-      addCss('assets/css/site-search.css?v=20260907-search8','lrf-site-search-css');
+      addCss('assets/css/site-search.css?v=20260907-search9','lrf-site-search-css');
       try {
-        await loadScript('assets/js/inspirations-elios-data.js?v=20260907-search8','lrf-search-elios-data');
+        await loadScript('assets/js/inspirations-elios-data.js?v=20260907-search9','lrf-search-elios-data');
         await loadScript('assets/js/inspirations-view-data.js?v=20260907-view-lot1-final','lrf-search-view-data');
         await loadScript('assets/js/inspirations-view-elios-parity.js?v=20260907-view-parity3','lrf-search-view-parity');
         await loadScript('assets/js/inspirations-view-data-lot2.js?v=20260907-view-lot2','lrf-search-view-data-lot2');
-        await loadScript('assets/js/inspirations-neobath-data.js?v=20260907-search8','lrf-search-neobath-data');
-        await loadScript('assets/js/site-search.js?v=20260907-search8','lrf-site-search-js');
+        await loadScript('assets/js/inspirations-view-data-lot3.js?v=20260907-view-lot3','lrf-search-view-data-lot3');
+        await loadScript('assets/js/inspirations-neobath-data.js?v=20260907-search9','lrf-search-neobath-data');
+        await loadScript('assets/js/site-search.js?v=20260907-search9','lrf-site-search-js');
       } catch (err) { console.warn('LRF search load',err); }
     };
     if (document.readyState==='loading') document.addEventListener('DOMContentLoaded',start,{once:true}); else start();
@@ -59,7 +60,7 @@
   if (file==='univers.html') {
     installViewInspirationsGuard();
     loadScript('assets/js/inspirations-view-mobile-safe.js?v=20260907-view-safe1','lrf-view-mobile-safe').catch(()=>{});
-    loadScript('assets/js/inspirations-search-bridge.js?v=20260907-search8','lrf-inspirations-search-bridge').catch(()=>{});
+    loadScript('assets/js/inspirations-search-bridge.js?v=20260907-search9','lrf-inspirations-search-bridge').catch(()=>{});
   }
-  if (file==='tarifs-pro.html') loadScript('assets/js/tarifs-search-bridge.js?v=20260907-search8','lrf-tarifs-search-bridge').catch(()=>{});
+  if (file==='tarifs-pro.html') loadScript('assets/js/tarifs-search-bridge.js?v=20260907-search9','lrf-tarifs-search-bridge').catch(()=>{});
 })();
