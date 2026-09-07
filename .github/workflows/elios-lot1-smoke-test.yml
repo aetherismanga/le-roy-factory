@@ -37,13 +37,21 @@ jobs:
       - name: Test one live stock reference per series sequentially
         shell: bash
         run: |
-          set -euo pipefail
+          set -u
+          failures=0
           test_stock () {
             collection="$1"
             ref="$2"
             echo "== Stock $collection / $ref =="
-            body="$(curl -sS --fail --max-time 75 "https://us-central1-le-roy-factory.cloudfunctions.net/eliosStock?collection=$collection&ref=$ref")"
-            BODY="$body" COLLECTION="$collection" REF="$ref" python - <<'PY'
+            tmp="$(mktemp)"
+            code="$(curl -sS --max-time 75 -o "$tmp" -w '%{http_code}' "https://us-central1-le-roy-factory.cloudfunctions.net/eliosStock?collection=$collection&ref=$ref" || true)"
+            body="$(cat "$tmp")"
+            rm -f "$tmp"
+            if [ "$code" != "200" ]; then
+              echo "FAIL $collection / $ref HTTP=$code BODY=$body"
+              failures=$((failures+1))
+            else
+              if BODY="$body" COLLECTION="$collection" REF="$ref" python - <<'PY'
           import json, os
           data=json.loads(os.environ['BODY'])
           assert data.get('success') is True, data
@@ -52,9 +60,16 @@ jobs:
           assert product.get('stock') is not None, data
           print('OK',os.environ['COLLECTION'],product.get('ref'),'stock=',product.get('stock'),product.get('stockUnit',''),'production=',product.get('production'),product.get('productionUnit',''))
           PY
+              then :
+              else
+                failures=$((failures+1))
+              fi
+            fi
             sleep 2
           }
           test_stock lithos LD1203
           test_stock mysterium 03U6A05
           test_stock quercia 00Y2C40
           test_stock dolomiti 00M6A40
+          echo "Failures: $failures"
+          test "$failures" -eq 0
