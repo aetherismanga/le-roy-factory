@@ -32,11 +32,18 @@
   setFormats('terre-etrusche', ['40,6x40,6 · 9 mm R10/R11','20,3x40,6 · 9 mm R10/R11','20,3x20,3 · 9 mm R10/R11','25x22 · 9 mm','35x38 mosaïque']);
   setFormats('allure', ['60x120 · 7 mm']);
 
+  // Lot 6 — dernières séries du Catalogue Général ELIOS 2026.
+  setFormats('dust', ['5x20 · 8/9/14 mm','17,5x20 · 9 mm'], ['Soft','Gloss','Dune','Line','Chevron','Exa']);
+  setFormats('segmento', ['15x15 · 8,5 mm R9']);
+  setFormats('tropical', ['20x20 · 10 mm','6x25 · 10 mm','25x22 · 9,5 mm R10 B'], ['Lucido','Exa']);
+  setFormats('twist', ['20x20 · 8,5 mm R10'], ['Mix','Evo','Classic','Pop']);
+  setFormats('venere', ['33,3x100 · 7 mm R9'], ['Materica','Dorica','Optica']);
+
   window.ELIOS_THICKNESS_OVERRIDES = { source: 'ELIOS Catalogue Général 2026', updated: '2026-09-07' };
 
   if (!document.querySelector('script[data-lrf-elios-stock-roma]')) {
     const stockScript = document.createElement('script');
-    stockScript.src = 'assets/js/elios-stock-roma-test.js?v=20260907-lot5';
+    stockScript.src = 'assets/js/elios-stock-roma-test.js?v=20260907-lot6';
     stockScript.defer = true;
     stockScript.dataset.lrfEliosStockRoma = '1';
     document.head.appendChild(stockScript);
