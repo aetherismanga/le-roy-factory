@@ -2,6 +2,7 @@
   'use strict';
 
   const API = 'https://us-central1-le-roy-factory.cloudfunctions.net/biltOrder';
+  const SCHEDULE_API = 'https://us-central1-le-roy-factory.cloudfunctions.net/biltScheduleAutoRelease';
   const $ = id => document.getElementById(id);
   const cart = new Map();
   let context = null;
@@ -29,11 +30,11 @@
     return session;
   }
 
-  async function api(payload) {
+  async function post(url, payload) {
     const session = await getSession();
     if (!session) throw new Error('Accès PRO expiré. Reconnectez-vous depuis la page Accès PRO.');
     if (session.isAdmin && !session.sessionToken) throw new Error('Pour tester une commande BILT, ouvrez une session avec un LRF client autorisé BILT. Le compte administrateur ne passe pas de commande client.');
-    const response = await fetch(API, {
+    const response = await fetch(url, {
       method: 'POST', headers: { 'Content-Type':'application/json' },
       body: JSON.stringify({ ...payload, sessionToken: session.sessionToken })
     });
@@ -41,6 +42,9 @@
     if (!response.ok || !data?.success) throw new Error(data?.error || `Erreur ${response.status}`);
     return data;
   }
+
+  const api = payload => post(API, payload);
+  const scheduleAutoRelease = orderId => post(SCHEDULE_API, { orderId });
 
   function priceFor(product) {
     const percent = Number(context?.discount?.percent || 0);
@@ -144,14 +148,27 @@
     clearNotice(); cart.set(ref, { ref, quantity }); renderCatalog(); renderCart();
   }
 
+  async function ensureAutoRelease(orderId, silent = false) {
+    if (!orderId) return false;
+    try { await scheduleAutoRelease(orderId); return true; }
+    catch (error) {
+      console.error('Programmation BILT 72h', error);
+      if (!silent) notice(`<strong>Commande enregistrée, mais la programmation automatique à 3 jours doit être relancée.</strong><br>${esc(error.message || error)}. Le lien de validation reçu par LE ROY FACTORY reste utilisable.`, 'error');
+      return false;
+    }
+  }
+
   async function submitOrder() {
     if (!cart.size || context.pendingFirstOrder) return;
     const btn = $('submit-order'); btn.disabled = true; const old = btn.textContent; btn.textContent = 'ENVOI EN COURS…'; clearNotice();
     try {
       const result = await api({ action:'submit', items:[...cart.values()], contactId:$('contact').value, email:$('email').value, telephone:$('phone').value, note:$('note').value });
       cart.clear();
-      if (result.pendingApproval) notice(`<strong>Commande enregistrée.</strong> Comme il s’agit de votre première commande BILT, elle est en validation LE ROY FACTORY. Sans réponse, elle partira automatiquement sous 3 jours au tarif NET.`, 'warn');
-      else notice(`<strong>Commande BILT envoyée.</strong> Total NET HT : ${money(result.totalFinal)}${result.discountPercent ? ` avec votre remise exceptionnelle LRF de ${result.discountPercent}%.` : '.'}`, 'ok');
+      if (result.pendingApproval) {
+        const scheduled = await ensureAutoRelease(result.orderId, true);
+        if (scheduled) notice(`<strong>Commande enregistrée.</strong> Comme il s’agit de votre première commande BILT, elle est en validation LE ROY FACTORY. Sans réponse, elle partira automatiquement sous 3 jours au tarif NET.`, 'warn');
+        else notice(`<strong>Commande enregistrée et en attente de validation LRF.</strong> La programmation automatique à 3 jours n’a pas pu être confirmée immédiatement ; elle sera retentée à la prochaine ouverture de cette page.`, 'error');
+      } else notice(`<strong>Commande BILT envoyée.</strong> Total NET HT : ${money(result.totalFinal)}${result.discountPercent ? ` avec votre remise exceptionnelle LRF de ${result.discountPercent}%.` : '.'}`, 'ok');
       await loadContext();
     } catch (error) { notice(esc(error.message || error), 'error'); }
     finally { btn.disabled = false; btn.textContent = old; }
@@ -166,7 +183,9 @@
   }
 
   async function loadContext() {
-    const data = await api({ action:'context' }); context=data; catalog=data.catalog || {groups:[],products:[]}; renderAccount(); renderGroups(); renderCatalog(); fillCustomerForm(); renderPending(); renderCart(); renderHistory();
+    const data = await api({ action:'context' }); context=data; catalog=data.catalog || {groups:[],products:[]};
+    if (data.pendingFirstOrder?.id) await ensureAutoRelease(data.pendingFirstOrder.id, true);
+    renderAccount(); renderGroups(); renderCatalog(); fillCustomerForm(); renderPending(); renderCart(); renderHistory();
   }
 
   document.addEventListener('DOMContentLoaded', async () => {
