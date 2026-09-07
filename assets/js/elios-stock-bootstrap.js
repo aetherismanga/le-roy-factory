@@ -1,16 +1,28 @@
 (() => {
   'use strict';
   const ACTIVE = new Set(['roma','lithos','mysterium','quercia','dolomiti','bavaria-stone','grand-place','harmony','millennium-quartz','sedimenti','slate','brooklyn','clay','creta','deco','d-esign-evo','domus','glow','golden-hour','hexagon','horizon','marechiaro','montreal']);
+  const MANUAL_STOCK = new Set(['horizon','montreal']);
   const CATALOG_API = 'https://us-central1-le-roy-factory.cloudfunctions.net/eliosCatalog';
   const params = new URLSearchParams(location.search);
   const slug = String(params.get('collection') || 'roma').trim().toLowerCase();
   const originalFetch = window.fetch.bind(window);
+  window.ELIOS_MANUAL_STOCK = MANUAL_STOCK.has(slug);
 
   function injectMain() {
     const script = document.createElement('script');
-    script.src = 'assets/js/elios-stock-page.js?v=20260907-lot4';
+    script.src = 'assets/js/elios-stock-page.js?v=20260907-manual1';
     script.defer = false;
     document.body.appendChild(script);
+  }
+
+  function injectManualGuardThenMain() {
+    if (!window.ELIOS_MANUAL_STOCK) { injectMain(); return; }
+    const guard = document.createElement('script');
+    guard.src = 'assets/js/elios-manual-stock.js?v=20260907-manual1';
+    guard.defer = false;
+    guard.onload = injectMain;
+    guard.onerror = injectMain;
+    document.body.appendChild(guard);
   }
 
   function installFetchBridge() {
@@ -51,7 +63,7 @@
     installFetchBridge();
     if (slug === 'roma') {
       updateMeta(window.ELIOS_ROMA_STOCK_DATA);
-      injectMain();
+      injectManualGuardThenMain();
       return;
     }
     try {
@@ -60,7 +72,7 @@
       if (!response.ok || !data?.success || !data?.collection) throw new Error(data?.error || 'Catalogue indisponible.');
       window.ELIOS_ROMA_STOCK_DATA = data.collection;
       updateMeta(data.collection);
-      injectMain();
+      injectManualGuardThenMain();
     } catch (error) {
       const empty = document.getElementById('stock-empty');
       if (empty) { empty.hidden = false; empty.textContent = 'Impossible de charger cette série ELIOS pour le moment.'; }
