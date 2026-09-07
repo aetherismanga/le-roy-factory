@@ -38,20 +38,24 @@
       const button=document.createElement('button');
       button.type='button';button.id='lrf-open-search';button.className=old.className;button.innerHTML='🔍 Rechercher';
       old.replaceWith(button);
-      addCss('assets/css/site-search.css?v=20260907-search6','lrf-site-search-css');
+      addCss('assets/css/site-search.css?v=20260907-search7','lrf-site-search-css');
       try {
-        await loadScript('assets/js/inspirations-elios-data.js?v=20260907-search6','lrf-search-elios-data');
+        await loadScript('assets/js/inspirations-elios-data.js?v=20260907-search7','lrf-search-elios-data');
         await loadScript('assets/js/inspirations-view-data.js?v=20260907-view-lot1-final','lrf-search-view-data');
-        await loadScript('assets/js/inspirations-view-elios-parity.js?v=20260907-view-parity2','lrf-search-view-parity');
+        await loadScript('assets/js/inspirations-view-elios-parity.js?v=20260907-view-parity3','lrf-search-view-parity');
         await loadScript('assets/js/inspirations-view-data-lot2.js?v=20260907-view-lot2','lrf-search-view-data-lot2');
-        await loadScript('assets/js/inspirations-neobath-data.js?v=20260907-search6','lrf-search-neobath-data');
-        await loadScript('assets/js/site-search.js?v=20260907-search6','lrf-site-search-js');
+        await loadScript('assets/js/inspirations-neobath-data.js?v=20260907-search7','lrf-search-neobath-data');
+        await loadScript('assets/js/site-search.js?v=20260907-search7','lrf-site-search-js');
       } catch (err) { console.warn('LRF search load',err); }
     };
     if (document.readyState==='loading') document.addEventListener('DOMContentLoaded',start,{once:true}); else start();
   }
 
   if (file==='index.html' || file==='') installHomeSearch();
-  if (file==='univers.html') {installViewInspirationsGuard();loadScript('assets/js/inspirations-search-bridge.js?v=20260907-search6','lrf-inspirations-search-bridge').catch(()=>{});}
-  if (file==='tarifs-pro.html') loadScript('assets/js/tarifs-search-bridge.js?v=20260907-search6','lrf-tarifs-search-bridge').catch(()=>{});
+  if (file==='univers.html') {
+    installViewInspirationsGuard();
+    loadScript('assets/js/inspirations-view-v2-polish.js?v=20260907-view-polish1','lrf-view-v2-polish').catch(()=>{});
+    loadScript('assets/js/inspirations-search-bridge.js?v=20260907-search7','lrf-inspirations-search-bridge').catch(()=>{});
+  }
+  if (file==='tarifs-pro.html') loadScript('assets/js/tarifs-search-bridge.js?v=20260907-search7','lrf-tarifs-search-bridge').catch(()=>{});
 })();
