@@ -1,6 +1,5 @@
 'use strict';
 
-const { onDocumentCreated } = require('firebase-functions/v2/firestore');
 const { onTaskDispatched } = require('firebase-functions/v2/tasks');
 const admin = require('firebase-admin');
 const { getFunctions } = require('firebase-admin/functions');
@@ -51,14 +50,6 @@ async function finalize(orderRef,order,sent){
 }
 
 async function claim(orderRef){return db.runTransaction(async tx=>{const snap=await tx.get(orderRef);if(!snap.exists)return null;const data=snap.data();if(data.status!=='pending_approval')return null;const deadline=Number(data.approvalDeadlineMs||0);if(deadline&&Date.now()+5000<deadline)return {tooEarly:true,data,deadline};tx.update(orderRef,{status:'processing',processingAt:admin.firestore.FieldValue.serverTimestamp(),autoReleaseTaskStatus:'processing'});return {data}})}
-
-exports.biltQueueFirstOrder = onDocumentCreated({document:'bilt_orders/{orderId}',region:REGION,retry:true},async event=>{
-  const data=event.data?.data?.();if(!data||data.status!=='pending_approval')return;
-  const orderId=event.params.orderId,deadline=Number(data.approvalDeadlineMs||0),delay=Math.max(0,Math.ceil(((deadline||Date.now()+72*3600000)-Date.now())/1000));
-  const queue=getFunctions().taskQueue(TASK_NAME);
-  try{await queue.enqueue({orderId},{scheduleDelaySeconds:delay,dispatchDeadlineSeconds:300,uri:TASK_URI});await event.data.ref.update({autoReleaseTaskStatus:'queued',autoReleaseTaskQueuedAt:admin.firestore.FieldValue.serverTimestamp()})}
-  catch(error){await event.data.ref.update({autoReleaseTaskStatus:'queue_error',autoReleaseTaskError:String(error.message||error)}).catch(()=>{});throw error}
-});
 
 exports.biltAutoReleaseTask = onTaskDispatched({region:REGION,retryConfig:{maxAttempts:8,minBackoffSeconds:60,maxBackoffSeconds:3600,maxDoublings:5},rateLimits:{maxConcurrentDispatches:2},timeoutSeconds:300,memory:'256MiB',secrets:['SMTP_PASSWORD_JEROME']},async req=>{
   const orderId=clean(req?.data?.orderId,120);if(!orderId)return;
