@@ -61,24 +61,55 @@
     return user.getIdToken();
   }
 
+  async function getAdminIdTokenSafe() {
+    let timer;
+    try {
+      return await Promise.race([
+        getAdminIdToken(),
+        new Promise((_, reject) => {
+          timer = setTimeout(() => reject(new Error('Le mode administrateur BILT met trop de temps à répondre. Rechargez la page.')), 8000);
+        })
+      ]);
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
   window.fetch = async (input, init = {}) => {
     const url = typeof input === 'string' ? input : input?.url;
     if (url === ORDER_API && String(init?.method || 'GET').toUpperCase() === 'POST') {
       let payload = null;
       try { payload = JSON.parse(String(init?.body || '{}')); } catch (_) {}
       if (payload?.sessionToken === SENTINEL) {
-        const adminToken = await getAdminIdToken();
+        const adminToken = await getAdminIdTokenSafe();
         const nextPayload = { ...payload, adminToken };
         delete nextPayload.sessionToken;
-        return originalFetch(ADMIN_API, { ...init, body: JSON.stringify(nextPayload) });
+
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), 12000);
+        try {
+          return await originalFetch(ADMIN_API, {
+            ...init,
+            signal: controller.signal,
+            body: JSON.stringify(nextPayload)
+          });
+        } catch (error) {
+          if (error?.name === 'AbortError') throw new Error('Le catalogue BILT ne répond pas. Rechargez la page dans quelques secondes.');
+          throw error;
+        } finally {
+          clearTimeout(timer);
+        }
       }
     }
     return originalFetch(input, init);
   };
 
+  const ADMIN_BUTTON_TEXT = 'MODE ADMIN — ENVOI E-MAIL BLOQUÉ';
+  const ADMIN_FINE_TEXT = 'Mode administrateur de démonstration : vous pouvez ajouter les produits, vérifier les minimums, les tarifs et le total du panier. L’envoi réel et tous les e-mails sont bloqués.';
+
   function applyAdminUi() {
     const session = originalRead();
-    if (!session?.isAdmin) return;
+    if (!session?.isAdmin) return false;
 
     let banner = document.getElementById('bilt-admin-preview-banner');
     const account = document.querySelector('.account');
@@ -92,20 +123,28 @@
 
     const button = document.getElementById('submit-order');
     if (button) {
-      button.disabled = true;
-      button.textContent = 'MODE ADMIN — ENVOI E-MAIL BLOQUÉ';
-      button.title = 'Sécurité administrateur : aucun e-mail ni commande réelle ne peut partir.';
+      if (!button.disabled) button.disabled = true;
+      if (button.textContent !== ADMIN_BUTTON_TEXT) button.textContent = ADMIN_BUTTON_TEXT;
+      const title = 'Sécurité administrateur : aucun e-mail ni commande réelle ne peut partir.';
+      if (button.title !== title) button.title = title;
     }
 
     const fine = document.querySelector('#order-form .fine');
-    if (fine) {
-      fine.textContent = 'Mode administrateur de démonstration : vous pouvez ajouter les produits, vérifier les minimums, les tarifs et le total du panier. L’envoi réel et tous les e-mails sont bloqués.';
-    }
+    if (fine && fine.textContent !== ADMIN_FINE_TEXT) fine.textContent = ADMIN_FINE_TEXT;
+
+    return Boolean(banner && button && fine);
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
+  function initAdminUi() {
+    // Important : ne pas observer tout le DOM en boucle. L'ancienne version
+    // réécrivait le bouton à chaque mutation et pouvait saturer le navigateur,
+    // ce qui bloquait le catalogue, le scroll et les changements de page.
     applyAdminUi();
-    const observer = new MutationObserver(applyAdminUi);
-    observer.observe(document.body, { childList: true, subtree: true });
-  }, { once: true });
+    setTimeout(applyAdminUi, 100);
+    setTimeout(applyAdminUi, 700);
+    setTimeout(applyAdminUi, 1800);
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initAdminUi, { once: true });
+  else initAdminUi();
 })();
