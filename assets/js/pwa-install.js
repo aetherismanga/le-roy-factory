@@ -31,3 +31,13 @@
   });
   window.addEventListener('appinstalled',()=>{btn.style.display='none';deferredPrompt=null;});
 })();
+
+/* Routeur de recherche publique LE ROY FACTORY. */
+(()=>{
+  if(document.getElementById('lrf-global-search-router-loader'))return;
+  const script=document.createElement('script');
+  script.id='lrf-global-search-router-loader';
+  script.src='assets/js/global-search-router.js?v=20260907-search1';
+  script.async=false;
+  (document.head||document.documentElement).appendChild(script);
+})();
