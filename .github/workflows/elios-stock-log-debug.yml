@@ -1,0 +1,24 @@
+name: ELIOS Stock Log Debug
+on:
+  push:
+    branches: [test/elios-lot4-smoke]
+    paths:
+      - '.github/workflows/elios-stock-log-debug.yml'
+permissions:
+  contents: read
+jobs:
+  logs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_LE_ROY_FACTORY }}'
+      - name: Install Firebase CLI
+        run: npm install --global firebase-tools
+      - name: Read recent eliosStock logs
+        run: firebase functions:log --project le-roy-factory --only eliosStock --lines 120
