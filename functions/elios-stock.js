@@ -18,6 +18,7 @@ function messageId(message){const value=Number(message?.id||0);return Number.isF
 function maxMessageId(messages,fallback=0){return messages.reduce((max,message)=>Math.max(max,messageId(message)),fallback)}
 async function recentMessages(client,afterId=0,limit=14){const out=[];for await(const message of client.iterMessages(BOT,{limit}))if(messageId(message)>afterId)out.push(message);return out}
 function buttonsOf(message){return Array.isArray(message?.buttons)?message.buttons.flat().filter(Boolean):[]}
+function safeFailureReason(error){const message=String(error?.message||'');if(/Aucun produit ELIOS trouvé/i.test(message))return 'product_not_found';if(/Aucun bouton produit reçu/i.test(message))return 'product_button_missing';if(/Bouton Disponibilit/i.test(message))return 'availability_button_missing';if(/Stock ELIOS non détecté/i.test(message))return 'stock_not_parsed';if(/Secrets Telegram/i.test(message))return 'service_configuration';return 'upstream_error'}
 async function queryReference(client,ref){
   const sent=await client.sendMessage(BOT,{message:ref});const sentId=messageId(sent);await wait(1800);
   let messages=await recentMessages(client,sentId,14);
@@ -43,5 +44,5 @@ exports.eliosStock=onRequest({region:'us-central1',timeoutSeconds:60,memory:'512
   if(!ref)return res.status(400).json({success:false,error:'Référence ELIOS manquante.'});
   if(!allowedRef(collection,ref))return res.status(400).json({success:false,error:'Référence non autorisée pour cette collection.'});
   const cacheKey=`${collection}:${ref}`;
-  try{const cached=cache.get(cacheKey);if(cached&&Date.now()-cached.time<CACHE_MS)return res.status(200).json({success:true,cached:true,collection:displayName(collection),product:cached.product,updatedAt:cached.updatedAt});const product=await fetchStock(ref);const updatedAt=new Date().toISOString();cache.set(cacheKey,{time:Date.now(),product,updatedAt});return res.status(200).json({success:true,cached:false,collection:displayName(collection),product,updatedAt})}catch(error){console.error('ELIOS STOCK',collection,ref,error);return res.status(502).json({success:false,error:'Impossible de récupérer le stock ELIOS pour cette référence pour le moment.'})}
+  try{const cached=cache.get(cacheKey);if(cached&&Date.now()-cached.time<CACHE_MS)return res.status(200).json({success:true,cached:true,collection:displayName(collection),product:cached.product,updatedAt:cached.updatedAt});const product=await fetchStock(ref);const updatedAt=new Date().toISOString();cache.set(cacheKey,{time:Date.now(),product,updatedAt});return res.status(200).json({success:true,cached:false,collection:displayName(collection),product,updatedAt})}catch(error){const reason=safeFailureReason(error);console.error('ELIOS STOCK',collection,ref,reason,error);return res.status(502).json({success:false,error:'Impossible de récupérer le stock ELIOS pour cette référence pour le moment.',reason})}
 });
