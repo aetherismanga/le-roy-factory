@@ -1,5 +1,17 @@
 (()=>{
   'use strict';
+
+  // Chargé en dernier sur l'accueil : on s'en sert aussi pour lancer le
+  // contrôleur de fond PC / smartphone après tous les thèmes qui utilisent
+  // des règles !important.
+  if(!document.querySelector('script[data-lrf-home-background-switcher]')){
+    const bgScript=document.createElement('script');
+    bgScript.src='assets/js/home-background-switcher.js?v=20260907-home2';
+    bgScript.async=false;
+    bgScript.dataset.lrfHomeBackgroundSwitcher='1';
+    document.head.appendChild(bgScript);
+  }
+
   if(window.__LRF_DESKTOP_PROMO_STACK__)return;
   window.__LRF_DESKTOP_PROMO_STACK__=true;
 
