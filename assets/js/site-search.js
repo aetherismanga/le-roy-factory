@@ -78,6 +78,15 @@
   addProducts(window.ELIOS_CATALOGUE, 'Elios Ceramica', 'Produit Elios');
   addProducts(window.NEOBATH_CATALOGUE, 'Neobath', 'Produit Neobath');
 
+  // Collection View déjà connue commercialement, même si la fiche View détaillée
+  // n'est pas encore alimentée dans le catalogue Inspirations V2.
+  add({
+    type:'Collection View', icon:'▦', title:'COCO',
+    desc:'View Ceramica · effet travertin · 40×60',
+    url:`univers.html?partner=${u('View Ceramica')}&search=${u('COCO')}`,
+    aliases:['coco beige','coco light','travertin','40x60','40 x 60','view']
+  });
+
   const haystack = item => norm([item.title,item.desc,...item.aliases].join(' '));
   const score = (item, rawQuery) => {
     const q = norm(rawQuery);
@@ -122,7 +131,7 @@
         </div>
         <button class="lrf-search-close" type="button" aria-label="Fermer">×</button>
       </div>
-      <div class="lrf-search-box"><input class="lrf-search-input" type="search" autocomplete="off" spellcheck="false" placeholder="Ex. Roma, tarif Elios, Neobath…" aria-label="Rechercher dans le site"></div>
+      <div class="lrf-search-box"><input class="lrf-search-input" type="search" autocomplete="off" spellcheck="false" placeholder="Ex. Roma, tarif Elios, Coco…" aria-label="Rechercher dans le site"></div>
       <div class="lrf-search-results" aria-live="polite"></div>
       <div class="lrf-search-footer"><span><b>Entrée</b> ouvrir le meilleur résultat</span><span><b>Échap</b> fermer</span></div>
     </div>`;
