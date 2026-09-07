@@ -5,7 +5,8 @@ const lot3=require('./elios-lot3');
 const lot4=require('./elios-lot4');
 const lot5=require('./elios-lot5');
 const lot6=require('./elios-lot6');
-const catalogue={...lot1,...lot2,...lot3,...lot4,...lot5,...lot6};
+const pool=require('./elios-pool');
+const catalogue={...lot1,...lot2,...lot3,...lot4,...lot5,...lot6,...pool};
 const ACTIVE=new Set(['roma',...Object.keys(catalogue)]);
 const ALIASES={'design-evo':'d-esign-evo','d_esign-evo':'d-esign-evo','d-esign-evo':'d-esign-evo','love-decors':'love-decors','loveanddecors':'love-decors'};
 function keyOf(v){const k=String(v||'').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');return ALIASES[k]||k}
@@ -24,7 +25,7 @@ addRoma(['085BC40','085BC05','085BC00','085BC70'],'ML',9.72,24);
 const ROMA_SPECIALS=[];
 for(const color of ['Aventino','Celio','Viminale','Palatino']){ROMA_SPECIALS.push([color,'Pièce spéciale','Gradino costa retta 33 × 60 cm','PZ',1,1]);ROMA_SPECIALS.push([color,'Pièce spéciale','Gradino costa retta angolo DX/SX 33 × 60 cm','PZ',1,1])}
 function unpackRow(a){return {ref:a[0]||'',color:a[1]||'',kind:a[2]||'Carreau',format:a[3]||'',finish:a[4]||'',pcsBox:a[5],sqmBox:a[6],kgBox:a[7],boxesPal:a[8],sqmPal:a[9],kgPal:a[10],orderUnit:a[11]||null,orderPerBox:a[12],orderOnly:Boolean(a[13]),sqmPiece:a[14],kgPiece:a[15],pcsPal:a[16],stock:null,production:null,updatedAt:null}}
-function publicCollection(value){const k=keyOf(value);if(k==='roma')return null;const c=catalogue[k];if(!c)return null;return {key:k,collection:c.n,source:`Catalogue Général ELIOS 2026 · ${c.n} · pages ${c.p}`,colors:c.c||[],rows:(c.r||[]).map(unpackRow)}}
+function publicCollection(value){const k=keyOf(value);if(k==='roma')return null;const c=catalogue[k];if(!c)return null;const source=k.startsWith('pool-')?`Catalogue ELIOS Pool Surfaces 2026 · ${c.n} · pages ${c.p}`:`Catalogue Général ELIOS 2026 · ${c.n} · pages ${c.p}`;return {key:k,collection:c.n,source,colors:c.c||[],rows:(c.r||[]).map(unpackRow)}}
 function rowPack(a){return {unit:a[11]||((a[6]!=null)?'MQ':'PZ'),perBox:Number(a[12]??a[6]??a[5]??1),pcsBox:a[5]==null?null:Number(a[5])}}
 function collectionExists(value){return ACTIVE.has(keyOf(value))}
 function allowedRef(value,ref){const k=keyOf(value),wanted=String(ref||'').trim().toUpperCase();if(!wanted||!ACTIVE.has(k))return false;if(k==='roma')return Boolean(ROMA_REFS[wanted]);const c=catalogue[k];return Boolean(c&&(c.r||[]).some(a=>String(a[0]||'').toUpperCase()===wanted))}
