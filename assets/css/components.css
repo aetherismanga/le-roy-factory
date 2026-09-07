@@ -1,4 +1,4 @@
-/* ==========================================================================
+/* ========================================================================== 
    LE ROY FACTORY — COMPOSANTS (Bouton Agent, Navigation & Menu Burger Mobile)
    ========================================================================== */
 
@@ -68,7 +68,7 @@
   text-align: center !important;
 }
 
-/* ==========================================================================
+/* ========================================================================== 
    BOUTON BURGER (MOBILE) — ESPACEMENT ET VISIBILITÉ
    ========================================================================== */
 .burger-btn {
@@ -99,7 +99,7 @@
   }
 }
 
-/* ==========================================================================
+/* ========================================================================== 
    CENTRAGE ET REMONTÉE FORCÉE DU MENU BURGER MOBILE
    ========================================================================== */
 .mobile-menu, 
@@ -155,7 +155,7 @@ nav.active a:not(.agent-btn):hover,
   right: 1.5rem !important;
 }
 
-/* ==========================================================================
+/* ========================================================================== 
    RÉALISATIONS — CARTES FERMÉES
    Standard visuel commun pour les réalisations actuelles et futures.
    Le lightbox plein écran n'est volontairement pas modifié ici.
@@ -313,5 +313,43 @@ nav.active a:not(.agent-btn):hover,
     left: 14px !important;
     right: 14px !important;
     bottom: 14px !important;
+  }
+}
+
+/* ========================================================================== 
+   CONTACT — avatar Coryne
+   Utilise le fichier officiel placé dans assets/img/corynelogo.png.
+   ========================================================================== */
+body.lrf-page-contact .agent-info-card.gold {
+  position: relative !important;
+  padding-right: 104px !important;
+}
+body.lrf-page-contact .agent-info-card.gold::after {
+  content: "" !important;
+  position: absolute !important;
+  top: 50% !important;
+  right: 18px !important;
+  width: 62px !important;
+  height: 62px !important;
+  transform: translateY(-50%) !important;
+  border-radius: 50% !important;
+  border: 1px solid #D4AF37 !important;
+  background-color: #fff !important;
+  background-image: url('../img/corynelogo.png?v=20260907-coryne1') !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  box-shadow: 0 5px 14px rgba(84,54,10,.18) !important;
+  z-index: 2 !important;
+}
+
+@media (max-width: 600px) {
+  body.lrf-page-contact .agent-info-card.gold {
+    padding-right: 86px !important;
+  }
+  body.lrf-page-contact .agent-info-card.gold::after {
+    right: 14px !important;
+    width: 54px !important;
+    height: 54px !important;
   }
 }
