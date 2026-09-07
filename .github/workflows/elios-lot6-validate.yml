@@ -1,0 +1,53 @@
+name: ELIOS Lot 6 Validate
+on:
+  push:
+    branches: [feature/elios-lot6]
+    paths:
+      - 'functions/elios-lot6.js'
+      - 'functions/elios-catalog.js'
+      - '.github/workflows/elios-lot6-validate.yml'
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate catalogue data
+        run: |
+          node <<'NODE'
+          const data=require('./functions/elios-lot6');
+          const catalog=require('./functions/elios-catalog');
+          const expected=['dust','segmento','tropical','twist','venere'];
+          if(JSON.stringify(Object.keys(data))!==JSON.stringify(expected)) throw new Error('Collections lot 6 incorrectes: '+Object.keys(data));
+          const refs=new Map(); let rows=0,coded=0,orderOnly=0;
+          const expectedCounts={dust:72,segmento:16,tropical:45,twist:25,venere:18};
+          for(const [key,c] of Object.entries(data)){
+            if(!c.n||!c.p||!Array.isArray(c.r)||!c.r.length) throw new Error(`Collection invalide ${key}`);
+            if(c.r.length!==expectedCounts[key]) throw new Error(`${key}: ${c.r.length} lignes, attendu ${expectedCounts[key]}`);
+            const pub=catalog.publicCollection(key);
+            if(!pub||pub.rows.length!==c.r.length) throw new Error(`Catalogue public non raccordé ${key}`);
+            rows+=c.r.length;
+            for(const r of c.r){
+              const ref=String(r[0]||'').toUpperCase();
+              if(ref){ coded++; if(refs.has(ref)) throw new Error(`Doublon interne ${ref} dans ${key} et ${refs.get(ref)}`); refs.set(ref,key); if(!catalog.allowedRef(key,ref)) throw new Error(`Référence non autorisée ${key}/${ref}`); }
+              else { orderOnly++; if(!r[13]) throw new Error(`${key}: ligne sans référence non marquée sur commande`); }
+              if(r[12]==null || Number(r[12])<=0) throw new Error(`${key}: boîtage commande invalide ${ref||r[3]}`);
+            }
+            console.log(`${key}: ${c.r.length} lignes`);
+          }
+          const spot=[
+            ['dust','03E5080'],['dust','03E5081'],['dust','03E5D80'],['dust','03EE180'],['dust','03EJ181'],
+            ['segmento','04I1500'],['segmento','04I15F0'],
+            ['tropical','0992000'],['tropical','0996B80'],['tropical','099ES85'],['tropical','09920D1'],
+            ['twist','00T2030'],['twist','00T2054'],['twist','00T2093'],
+            ['venere','04H3X05'],['venere','04H3X39']
+          ];
+          for(const [key,ref] of spot) if(!catalog.allowedRef(key,ref)) throw new Error(`Spot check manquant ${key}/${ref}`);
+          if(rows!==176||coded!==160||orderOnly!==16) throw new Error(`Totaux inattendus rows=${rows} coded=${coded} orderOnly=${orderOnly}`);
+          for(const key of expected) if(!catalog.allCollectionKeys().includes(key)) throw new Error(`Collection active manquante ${key}`);
+          console.log(`OK lot6: ${rows} lignes, ${coded} références, ${orderOnly} lignes sur commande`);
+          NODE
