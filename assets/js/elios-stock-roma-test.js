@@ -1,9 +1,10 @@
 (() => {
   'use strict';
   const STYLE_ID='lrf-elios-stock-cta-style';
-  const ACTIVE=new Set(['roma','lithos','mysterium','quercia','dolomiti']);
+  const ACTIVE=new Set(['roma','lithos','mysterium','quercia','dolomiti','bavaria-stone','grand-place','harmony','millennium-quartz','sedimenti','slate']);
   const NAME_TO_SLUG=new Map([
-    ['roma','roma'],['lithos','lithos'],['mysterium','mysterium'],['quercia','quercia'],['dolomiti','dolomiti']
+    ['roma','roma'],['lithos','lithos'],['mysterium','mysterium'],['quercia','quercia'],['dolomiti','dolomiti'],
+    ['bavaria stone','bavaria-stone'],['grand place','grand-place'],['harmony','harmony'],['millennium quartz','millennium-quartz'],['sedimenti','sedimenti'],['slate','slate']
   ]);
   let currentSlug='';
   const norm=v=>String(v||'').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
