@@ -1,17 +1,5 @@
 (()=>{
   'use strict';
-
-  // Chargé en dernier sur l'accueil : on s'en sert aussi pour lancer le
-  // contrôleur de fond PC / smartphone après tous les thèmes qui utilisent
-  // des règles !important.
-  if(!document.querySelector('script[data-lrf-home-background-switcher]')){
-    const bgScript=document.createElement('script');
-    bgScript.src='assets/js/home-background-switcher.js?v=20260907-home2';
-    bgScript.async=false;
-    bgScript.dataset.lrfHomeBackgroundSwitcher='1';
-    document.head.appendChild(bgScript);
-  }
-
   if(window.__LRF_DESKTOP_PROMO_STACK__)return;
   window.__LRF_DESKTOP_PROMO_STACK__=true;
 
@@ -51,13 +39,33 @@
         margin:0!important;
         flex:0 0 150px!important;
         box-sizing:border-box!important;
+        -webkit-backdrop-filter:blur(5px) saturate(1.06)!important;
+        backdrop-filter:blur(5px) saturate(1.06)!important;
+      }
+
+      /* Fond translucide uniquement : contenu, texte, logos et boutons restent opaques. */
+      .lrf-desktop-promo-stack>.viewlots26-desktop{
+        background:
+          radial-gradient(circle at 88% 18%,rgba(255,214,120,.15),transparent 31%),
+          linear-gradient(145deg,rgba(111,59,18,.82),rgba(139,80,27,.84) 58%,rgba(92,46,13,.82))!important;
+      }
+      .lrf-desktop-promo-stack>.cersaie26-desktop{
+        background:linear-gradient(145deg,rgba(6,40,30,.82),rgba(12,74,53,.84) 72%,rgba(8,45,34,.82))!important;
       }
       .lrf-desktop-promo-stack>.elios-rentree-desktop{
+        background:
+          radial-gradient(circle at 88% 18%,rgba(255,226,142,.12),transparent 31%),
+          linear-gradient(145deg,rgba(84,21,43,.82),rgba(122,32,60,.84) 58%,rgba(66,16,33,.82))!important;
         padding:24px 28px!important;
         border-radius:28px!important;
         grid-template-columns:1fr 82px!important;
         gap:14px!important;
         animation:lrfDesktopPromoSway 5.4s ease-in-out infinite,eliosRentreeGlow 4.8s ease-in-out infinite!important;
+      }
+      .lrf-desktop-promo-stack>.viewlots26-desktop>*,
+      .lrf-desktop-promo-stack>.cersaie26-desktop>*,
+      .lrf-desktop-promo-stack>.elios-rentree-desktop>*{
+        opacity:1!important;
       }
       .lrf-desktop-promo-stack>.elios-rentree-desktop .elios-rentree-logo{height:68px!important;padding:8px!important}
     }
