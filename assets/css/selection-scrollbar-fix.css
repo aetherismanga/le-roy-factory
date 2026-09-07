@@ -1,0 +1,43 @@
+/* Sélections — corrige la double scrollbar HTML/BODY sur PC.
+   Une seule zone de défilement pilote désormais le curseur doré à droite. */
+@media (min-width: 901px) {
+  html {
+    overflow-y: scroll !important;
+    scrollbar-gutter: stable !important;
+    scrollbar-width: auto !important;
+    scrollbar-color: #b79232 #eee7db !important;
+  }
+
+  body.insp-v2 {
+    overflow-y: visible !important;
+    height: auto !important;
+    min-height: 100vh !important;
+  }
+
+  body.insp-v2::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0 !important;
+    display: none !important;
+  }
+
+  html::-webkit-scrollbar {
+    width: 14px !important;
+    display: block !important;
+  }
+
+  html::-webkit-scrollbar-track {
+    background: #eee7db !important;
+    border-left: 1px solid #d9cfbd !important;
+  }
+
+  html::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #d6b453, #a67b1f) !important;
+    border-radius: 999px !important;
+    border: 3px solid #eee7db !important;
+    min-height: 48px !important;
+  }
+
+  html::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #e4c668, #8f6817) !important;
+  }
+}
