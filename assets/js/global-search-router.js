@@ -20,6 +20,10 @@
   function installViewInspirationsGuard(){
     if(window.__LRF_VIEW_EARLY_GUARD__)return;
     window.__LRF_VIEW_EARLY_GUARD__=true;
+
+    /* Neutralise l'ancien contrôleur VIEW instable : le contrôleur mobile safe prend la main. */
+    window.__LRF_VIEW_INSPIRATIONS_V2__=true;
+
     const compact=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'');
     const filter=value=>Array.isArray(value)?value.filter(p=>{
       const name=compact(p?.name),collection=compact(p?.collection),source=compact(p?.sourceLabel);
@@ -28,7 +32,7 @@
     const d=Object.getOwnPropertyDescriptor(window,'VIEW_CATALOGUE');
     if(Array.isArray(window.VIEW_CATALOGUE))window.VIEW_CATALOGUE=filter(window.VIEW_CATALOGUE);
     else if(!d||d.configurable){let catalogue=window.VIEW_CATALOGUE;Object.defineProperty(window,'VIEW_CATALOGUE',{configurable:true,enumerable:true,get(){return catalogue},set(value){catalogue=filter(value)}})}
-    const style=document.createElement('style');style.id='lrf-view-early-parity-style';style.textContent='.view-product-card .view-card-note,.view-product-card .view-card-price{display:none!important}.view-product-card{cursor:pointer}';document.head.appendChild(style);
+    const style=document.createElement('style');style.id='lrf-view-early-parity-style';style.textContent='.view-product-card .view-card-note,.view-product-card .view-card-price{display:none!important}.view-product-card,.view-safe-card{cursor:pointer;touch-action:manipulation}';document.head.appendChild(style);
   }
 
   async function installHomeSearch() {
@@ -38,14 +42,14 @@
       const button=document.createElement('button');
       button.type='button';button.id='lrf-open-search';button.className=old.className;button.innerHTML='🔍 Rechercher';
       old.replaceWith(button);
-      addCss('assets/css/site-search.css?v=20260907-search7','lrf-site-search-css');
+      addCss('assets/css/site-search.css?v=20260907-search8','lrf-site-search-css');
       try {
-        await loadScript('assets/js/inspirations-elios-data.js?v=20260907-search7','lrf-search-elios-data');
+        await loadScript('assets/js/inspirations-elios-data.js?v=20260907-search8','lrf-search-elios-data');
         await loadScript('assets/js/inspirations-view-data.js?v=20260907-view-lot1-final','lrf-search-view-data');
         await loadScript('assets/js/inspirations-view-elios-parity.js?v=20260907-view-parity3','lrf-search-view-parity');
         await loadScript('assets/js/inspirations-view-data-lot2.js?v=20260907-view-lot2','lrf-search-view-data-lot2');
-        await loadScript('assets/js/inspirations-neobath-data.js?v=20260907-search7','lrf-search-neobath-data');
-        await loadScript('assets/js/site-search.js?v=20260907-search7','lrf-site-search-js');
+        await loadScript('assets/js/inspirations-neobath-data.js?v=20260907-search8','lrf-search-neobath-data');
+        await loadScript('assets/js/site-search.js?v=20260907-search8','lrf-site-search-js');
       } catch (err) { console.warn('LRF search load',err); }
     };
     if (document.readyState==='loading') document.addEventListener('DOMContentLoaded',start,{once:true}); else start();
@@ -54,8 +58,8 @@
   if (file==='index.html' || file==='') installHomeSearch();
   if (file==='univers.html') {
     installViewInspirationsGuard();
-    loadScript('assets/js/inspirations-view-v2-polish.js?v=20260907-view-polish1','lrf-view-v2-polish').catch(()=>{});
-    loadScript('assets/js/inspirations-search-bridge.js?v=20260907-search7','lrf-inspirations-search-bridge').catch(()=>{});
+    loadScript('assets/js/inspirations-view-mobile-safe.js?v=20260907-view-safe1','lrf-view-mobile-safe').catch(()=>{});
+    loadScript('assets/js/inspirations-search-bridge.js?v=20260907-search8','lrf-inspirations-search-bridge').catch(()=>{});
   }
-  if (file==='tarifs-pro.html') loadScript('assets/js/tarifs-search-bridge.js?v=20260907-search7','lrf-tarifs-search-bridge').catch(()=>{});
+  if (file==='tarifs-pro.html') loadScript('assets/js/tarifs-search-bridge.js?v=20260907-search8','lrf-tarifs-search-bridge').catch(()=>{});
 })();
