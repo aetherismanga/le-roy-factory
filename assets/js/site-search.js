@@ -11,7 +11,7 @@
 
   const partnerAliases = {
     'Elios Ceramica':['elios','elios ceramica'],
-    'View Ceramica':['view','view ceramica'],
+    'View Ceramica':['view','view ceramica','view ceramiche'],
     'La Fenice':['fenice','la fenice'],
     "Petracer's":['petracer','petracers'],
     'Pecchioli Firenze':['pecchioli','firenze'],
@@ -62,11 +62,12 @@
       const name = p.name || p.collection || `Produit ${i + 1}`;
       const searchBits = [
         p.collection,p.catalogueLabel,p.slug,p.description,p.category,p.productType,
-        ...(p.formats || p.dimensions || []),...(p.colors || []),...(p.finishes || [])
+        ...(p.formats || p.dimensions || []),...(p.colors || []),...(p.finishes || []),
+        ...(p.variants || []).flatMap(v => [v.format,v.finish,...Object.values(v.refs || {})])
       ].filter(Boolean);
       add({
         type:defaultType,
-        icon:partner === 'Elios Ceramica' ? '▦' : '▥',
+        icon:'▦',
         title:name,
         desc:`${partner}${p.category ? ` · ${p.category}` : (p.productType ? ` · ${p.productType}` : '')}`,
         url:`univers.html?partner=${u(partner)}&search=${u(name)}&open=1`,
@@ -76,10 +77,10 @@
   };
 
   addProducts(window.ELIOS_CATALOGUE, 'Elios Ceramica', 'Produit Elios');
+  addProducts(window.VIEW_CATALOGUE, 'View Ceramica', 'Produit View');
   addProducts(window.NEOBATH_CATALOGUE, 'Neobath', 'Produit Neobath');
 
-  // Collection View déjà connue commercialement, même si la fiche View détaillée
-  // n'est pas encore alimentée dans le catalogue Inspirations V2.
+  // COCO reste également proposé : son intégration détaillée sera complétée avec le lot VIEW suivant.
   add({
     type:'Collection View', icon:'▦', title:'COCO',
     desc:'View Ceramica · effet travertin · 40×60',
@@ -131,7 +132,7 @@
         </div>
         <button class="lrf-search-close" type="button" aria-label="Fermer">×</button>
       </div>
-      <div class="lrf-search-box"><input class="lrf-search-input" type="search" autocomplete="off" spellcheck="false" placeholder="Ex. Roma, tarif Elios, Coco…" aria-label="Rechercher dans le site"></div>
+      <div class="lrf-search-box"><input class="lrf-search-input" type="search" autocomplete="off" spellcheck="false" placeholder="Ex. Roma, tarif Elios, Coco, Corso…" aria-label="Rechercher dans le site"></div>
       <div class="lrf-search-results" aria-live="polite"></div>
       <div class="lrf-search-footer"><span><b>Entrée</b> ouvrir le meilleur résultat</span><span><b>Échap</b> fermer</span></div>
     </div>`;
@@ -159,7 +160,8 @@
         items.find(x => x.title === 'Inspirations & Produits'),
         items.find(x => x.title === 'Accès PRO & Tarifs'),
         items.find(x => x.title === 'Catalogues'),
-        items.find(x => x.title === 'Elios Ceramica')
+        items.find(x => x.title === 'Elios Ceramica'),
+        items.find(x => x.title === 'View Ceramica')
       ].filter(Boolean);
       results.innerHTML = `<div class="lrf-search-hint">Suggestions rapides</div>${current.map(resultMarkup).join('')}`;
       return;
