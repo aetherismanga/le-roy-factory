@@ -70,6 +70,47 @@
 
   const pageClass = `lrf-page-${page.replace('.html','').replace(/[^a-z0-9-]/g,'-')}`;
 
+  // Rubrique publique renommée : « Inspirations » devient « Sélections ».
+  // On conserve univers.html pour ne casser aucun lien existant, mais tous les
+  // libellés de navigation (y compris ceux créés dynamiquement sur mobile)
+  // affichent désormais le nouveau nom.
+  const applySelectionsLabel = root => {
+    const links = [];
+    if (root?.matches?.('a[href]')) links.push(root);
+    root?.querySelectorAll?.('a[href]').forEach(link => links.push(link));
+
+    links.forEach(link => {
+      const rawHref = (link.getAttribute('href') || '').trim();
+      let targetPage = '';
+      try {
+        targetPage = (new URL(rawHref, location.href).pathname.split('/').pop() || '').toLowerCase();
+      } catch (_) {
+        targetPage = rawHref.split('?')[0].split('#')[0].split('/').pop().toLowerCase();
+      }
+      if (targetPage !== 'univers.html') return;
+
+      const current = (link.textContent || '').trim();
+      if (/^inspirations?$/i.test(current) || /^sélections?$/i.test(current) || /^selections?$/i.test(current)) {
+        link.textContent = 'Sélections';
+      }
+      link.setAttribute('aria-label', link.getAttribute('aria-label')?.replace(/inspirations?/gi, 'Sélections') || link.getAttribute('aria-label') || 'Sélections');
+      if (link.getAttribute('title')) {
+        link.setAttribute('title', link.getAttribute('title').replace(/inspirations?/gi, 'Sélections'));
+      }
+    });
+  };
+
+  const startSelectionsLabelGuard = () => {
+    applySelectionsLabel(document);
+    if (window.__LRF_SELECTIONS_LABEL_GUARD__ || !document.documentElement) return;
+    window.__LRF_SELECTIONS_LABEL_GUARD__ = true;
+    new MutationObserver(mutations => {
+      mutations.forEach(mutation => mutation.addedNodes.forEach(node => {
+        if (node.nodeType === 1) applySelectionsLabel(node);
+      }));
+    }).observe(document.documentElement, { childList: true, subtree: true });
+  };
+
   const installConfiguratorNoFloralTheme = () => {
     if (!configuratorPages.has(page) || document.getElementById('lrf-configurator-no-floral-theme')) return;
     const style = document.createElement('style');
@@ -217,6 +258,7 @@
     if (page === 'agent.html') document.body.classList.add('lrf-agent-page');
     if (configuratorPages.has(page)) document.body.classList.add('lrf-configurator-page');
 
+    startSelectionsLabelGuard();
     installConfiguratorNoFloralTheme();
 
     const favicon = document.querySelector('link[rel="icon"]');
