@@ -3,9 +3,10 @@ const lot1=require('./elios-lot1');
 const lot2=require('./elios-lot2');
 const lot3=require('./elios-lot3');
 const lot4=require('./elios-lot4');
-const catalogue={...lot1,...lot2,...lot3,...lot4};
+const lot5=require('./elios-lot5');
+const catalogue={...lot1,...lot2,...lot3,...lot4,...lot5};
 const ACTIVE=new Set(['roma',...Object.keys(catalogue)]);
-const ALIASES={'design-evo':'d-esign-evo','d_esign-evo':'d-esign-evo','d-esign-evo':'d-esign-evo'};
+const ALIASES={'design-evo':'d-esign-evo','d_esign-evo':'d-esign-evo','d-esign-evo':'d-esign-evo','love-decors':'love-decors','loveanddecors':'love-decors'};
 function keyOf(v){const k=String(v||'').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');return ALIASES[k]||k}
 const ROMA_REFS={};
 function addRoma(refs,unit,perBox,pcsBox){refs.forEach(ref=>ROMA_REFS[ref]=[unit,perBox,pcsBox])}

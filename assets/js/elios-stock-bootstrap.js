@@ -1,6 +1,6 @@
 (() => {
   'use strict';
-  const ACTIVE = new Set(['roma','lithos','mysterium','quercia','dolomiti','bavaria-stone','grand-place','harmony','millennium-quartz','sedimenti','slate','brooklyn','clay','creta','deco','d-esign-evo','domus','glow','golden-hour','hexagon','horizon','marechiaro','montreal']);
+  const ACTIVE = new Set(['roma','lithos','mysterium','quercia','dolomiti','bavaria-stone','grand-place','harmony','millennium-quartz','sedimenti','slate','brooklyn','clay','creta','deco','d-esign-evo','domus','glow','golden-hour','hexagon','horizon','marechiaro','montreal','love-decors','manhattan','yosemite','shell','terre-etrusche','allure']);
   const MANUAL_STOCK = new Set(['horizon','montreal']);
   const CATALOG_API = 'https://us-central1-le-roy-factory.cloudfunctions.net/eliosCatalog';
   const params = new URLSearchParams(location.search);
@@ -10,7 +10,7 @@
 
   function injectMain() {
     const script = document.createElement('script');
-    script.src = 'assets/js/elios-stock-page.js?v=20260907-manual1';
+    script.src = 'assets/js/elios-stock-page.js?v=20260907-lot5';
     script.defer = false;
     document.body.appendChild(script);
   }
