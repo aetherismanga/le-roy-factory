@@ -1,0 +1,43 @@
+name: ELIOS Lot 4 Validate
+on:
+  push:
+    branches: [feature/elios-lot4]
+    paths:
+      - 'functions/elios-lot4.js'
+      - '.github/workflows/elios-lot4-validate.yml'
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate catalogue data
+        run: |
+          node <<'NODE'
+          const l1=require('./functions/elios-lot1');
+          const l2=require('./functions/elios-lot2');
+          const l3=require('./functions/elios-lot3');
+          const l4=require('./functions/elios-lot4');
+          const expected={glow:10,'golden-hour':24,hexagon:22,horizon:36,marechiaro:8,montreal:66};
+          if(JSON.stringify(Object.keys(l4))!==JSON.stringify(Object.keys(expected))) throw new Error('Collections lot 4 incorrectes');
+          let rows=0,coded=0,orderOnly=0;
+          for(const [key,c] of Object.entries(l4)){
+            if(!c.n||!c.p||!Array.isArray(c.r)||!c.r.length) throw new Error(`Collection invalide ${key}`);
+            if(c.r.length!==expected[key]) throw new Error(`${key}: ${c.r.length} lignes au lieu de ${expected[key]}`);
+            rows+=c.r.length;
+            for(const r of c.r){const ref=String(r[0]||'').toUpperCase();if(ref)coded++;else{orderOnly++;if(!r[13])throw new Error(`${key}: ligne sans référence non marquée sur commande`);}}
+            console.log(`${key}: ${c.r.length} lignes`);
+          }
+          if(rows!==166||coded!==158||orderOnly!==8) throw new Error(`Totaux lot4 inattendus rows=${rows} coded=${coded} orderOnly=${orderOnly}`);
+          const refs=new Map();
+          for(const [lotName,lot] of Object.entries({lot1:l1,lot2:l2,lot3:l3,lot4:l4})) for(const [key,c] of Object.entries(lot)) for(const r of c.r||[]){
+            const ref=String(r[0]||'').toUpperCase(); if(!ref) continue;
+            if(refs.has(ref)) throw new Error(`Doublon global ${ref}: ${refs.get(ref)} / ${lotName}:${key}`);
+            refs.set(ref,`${lotName}:${key}`);
+          }
+          console.log(`OK lot4: ${rows} lignes, ${coded} références, ${orderOnly} lignes sur commande, aucun doublon global`);
+          NODE
