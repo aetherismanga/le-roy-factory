@@ -1,6 +1,6 @@
 (() => {
   'use strict';
-  const ACTIVE = new Set(['roma','lithos','mysterium','quercia','dolomiti']);
+  const ACTIVE = new Set(['roma','lithos','mysterium','quercia','dolomiti','bavaria-stone','grand-place','harmony','millennium-quartz','sedimenti','slate']);
   const CATALOG_API = 'https://us-central1-le-roy-factory.cloudfunctions.net/eliosCatalog';
   const params = new URLSearchParams(location.search);
   const slug = String(params.get('collection') || 'roma').trim().toLowerCase();
@@ -8,7 +8,7 @@
 
   function injectMain() {
     const script = document.createElement('script');
-    script.src = 'assets/js/elios-stock-page.js?v=20260907-lot1';
+    script.src = 'assets/js/elios-stock-page.js?v=20260907-lot2';
     script.defer = false;
     document.body.appendChild(script);
   }
@@ -64,7 +64,7 @@
     } catch (error) {
       const empty = document.getElementById('stock-empty');
       if (empty) { empty.hidden = false; empty.textContent = 'Impossible de charger cette série ELIOS pour le moment.'; }
-      console.error('ELIOS LOT1 BOOTSTRAP', error);
+      console.error('ELIOS CATALOGUE BOOTSTRAP', error);
     }
   }
 
