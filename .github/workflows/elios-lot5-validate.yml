@@ -1,0 +1,37 @@
+name: ELIOS Lot 5 Validate
+on:
+  push:
+    branches: [feature/elios-lot5]
+    paths:
+      - 'functions/elios-lot5.js'
+      - '.github/workflows/elios-lot5-validate.yml'
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate catalogue data
+        run: |
+          node <<'NODE'
+          const data=require('./functions/elios-lot5');
+          const expected=['love-decors','manhattan','yosemite','shell','terre-etrusche','allure'];
+          if(JSON.stringify(Object.keys(data))!==JSON.stringify(expected)) throw new Error('Collections lot 5 incorrectes: '+Object.keys(data));
+          const refs=new Map(); let rows=0,coded=0,orderOnly=0;
+          for(const [key,c] of Object.entries(data)){
+            if(!c.n||!c.p||!Array.isArray(c.r)||!c.r.length) throw new Error(`Collection invalide ${key}`);
+            rows+=c.r.length;
+            for(const r of c.r){
+              const ref=String(r[0]||'').toUpperCase();
+              if(ref){ coded++; if(refs.has(ref)) throw new Error(`Doublon interne ${ref} dans ${key} et ${refs.get(ref)}`); refs.set(ref,key); }
+              else { orderOnly++; if(!r[13]) throw new Error(`${key}: ligne sans référence non marquée sur commande`); }
+              if(r[12]==null || Number(r[12])<=0) throw new Error(`${key}: boîtage commande invalide ${ref||r[3]}`);
+            }
+            console.log(`${key}: ${c.r.length} lignes`);
+          }
+          console.log(`OK lot5: ${rows} lignes, ${coded} références, ${orderOnly} lignes sur commande`);
+          NODE
