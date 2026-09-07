@@ -7,7 +7,7 @@ const A=(ref,color,kind,format,finish,pcs,sqm,kg,bp,sp,kp,unit,per,orderOnly=fal
   const r=[];
   const C={Terrae:'80',Blush:'30',Dove:'40',Ice:'00',Sage:'60',Pine:'70',Niagara:'50',Ink:'90'};
   for(const [c,s] of Object.entries(C)){
-    r.push(A(`03E50${s[0]}`,c,'Carreau','5 × 20 cm','Soft · 8 mm',50,.50,7.53,120,60,903,'MQ',.50));
+    r.push(A(`03E50${s}`,c,'Carreau','5 × 20 cm','Soft · 8 mm',50,.50,7.53,120,60,903,'MQ',.50));
     r.push(A(`03E50${s[0]}1`,c,'Carreau','5 × 20 cm','Gloss · 8 mm',50,.50,7.53,120,60,903,'MQ',.50));
     r.push(A(`03E5D${s}`,c,'Carreau','Dune 5 × 20 cm','Soft · 14 mm',44,.44,6.35,120,52.8,779,'MQ',.44));
     r.push(A(`03E5D${s[0]}1`,c,'Carreau','Dune 5 × 20 cm','Gloss · 14 mm',44,.44,6.35,120,52.8,779,'MQ',.44));
