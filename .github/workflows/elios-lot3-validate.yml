@@ -1,0 +1,38 @@
+name: ELIOS Lot 3 Validate
+on:
+  push:
+    branches: [feature/elios-lot3]
+    paths:
+      - 'functions/elios-lot3.js'
+      - '.github/workflows/elios-lot3-validate.yml'
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate catalogue data
+        run: |
+          node <<'NODE'
+          const data=require('./functions/elios-lot3');
+          const expected={brooklyn:83,clay:25,creta:64,deco:23,'d-esign-evo':33,domus:7};
+          if(JSON.stringify(Object.keys(data))!==JSON.stringify(Object.keys(expected))) throw new Error('Collections lot 3 incorrectes');
+          const refs=new Map(); let rows=0, coded=0, orderOnly=0;
+          for(const [key,c] of Object.entries(data)){
+            if(!c.n||!c.p||!Array.isArray(c.r)||!c.r.length) throw new Error(`Collection invalide ${key}`);
+            if(c.r.length!==expected[key]) throw new Error(`${key}: ${c.r.length} lignes au lieu de ${expected[key]}`);
+            rows+=c.r.length;
+            for(const r of c.r){
+              const ref=String(r[0]||'').toUpperCase();
+              if(ref){coded++; if(refs.has(ref)) throw new Error(`Doublon ${ref} dans ${key} et ${refs.get(ref)}`); refs.set(ref,key);}
+              else {orderOnly++; if(!r[13]) throw new Error(`${key}: ligne sans référence non marquée sur commande`);}
+            }
+            console.log(`${key}: ${c.r.length} lignes`);
+          }
+          if(rows!==235||coded!==191||orderOnly!==44) throw new Error(`Totaux inattendus rows=${rows} coded=${coded} orderOnly=${orderOnly}`);
+          console.log(`OK lot3: ${rows} lignes, ${coded} références, ${orderOnly} lignes sur commande`);
+          NODE
