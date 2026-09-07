@@ -76,13 +76,13 @@
 
   window.ELIOS_THICKNESS_OVERRIDES = {
     source: 'ELIOS Catalogue Général 2026',
-    updated: '2026-09-02'
+    updated: '2026-09-07'
   };
 
-  // Test isolé ROMA : le bouton de disponibilité est chargé uniquement sur Inspirations.
+  // Disponibilités ELIOS : Roma + séries activées par lots.
   if (!document.querySelector('script[data-lrf-elios-stock-roma]')) {
     const stockScript = document.createElement('script');
-    stockScript.src = 'assets/js/elios-stock-roma-test.js?v=20260906-test3';
+    stockScript.src = 'assets/js/elios-stock-roma-test.js?v=20260907-lot1';
     stockScript.defer = true;
     stockScript.dataset.lrfEliosStockRoma = '1';
     document.head.appendChild(stockScript);
