@@ -6,6 +6,7 @@ const ALLOWED_ORIGINS = new Set(['https://leroyfactory.fr','https://www.leroyfac
 const CACHE_MS = 10 * 60 * 1000;
 const cache = new Map();
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+const MANUAL_STOCK_COLLECTIONS = new Set(['horizon','montreal']);
 
 function applyCors(req,res){const origin=String(req.headers.origin||'');res.set('Access-Control-Allow-Origin',ALLOWED_ORIGINS.has(origin)?origin:'https://leroyfactory.fr');res.set('Vary','Origin');res.set('Access-Control-Allow-Headers','Content-Type');res.set('Access-Control-Allow-Methods','GET, OPTIONS');res.set('Cache-Control','no-store');if(req.method==='OPTIONS'){res.status(204).send('');return true}return false}
 function textOf(message){return String(message?.message||'')}
@@ -42,6 +43,7 @@ exports.eliosStock=onRequest({region:'us-central1',timeoutSeconds:60,memory:'512
   if(!collectionExists(collection))return res.status(400).json({success:false,error:'Collection ELIOS non activée.'});
   if(!ref)return res.status(400).json({success:false,error:'Référence ELIOS manquante.'});
   if(!allowedRef(collection,ref))return res.status(400).json({success:false,error:'Référence non autorisée pour cette collection.'});
+  if(MANUAL_STOCK_COLLECTIONS.has(collection))return res.status(200).json({success:true,manual:true,collection:displayName(collection),ref,message:'Consulter l’usine'});
   const cacheKey=`${collection}:${ref}`;
   try{const cached=cache.get(cacheKey);if(cached&&Date.now()-cached.time<CACHE_MS)return res.status(200).json({success:true,cached:true,collection:displayName(collection),product:cached.product,updatedAt:cached.updatedAt});const product=await fetchStock(ref);const updatedAt=new Date().toISOString();cache.set(cacheKey,{time:Date.now(),product,updatedAt});return res.status(200).json({success:true,cached:false,collection:displayName(collection),product,updatedAt})}catch(error){console.error('ELIOS STOCK',collection,ref,error);return res.status(502).json({success:false,error:'Impossible de récupérer le stock ELIOS pour cette référence pour le moment.'})}
 });
