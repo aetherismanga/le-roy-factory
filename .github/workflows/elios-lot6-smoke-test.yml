@@ -1,0 +1,20 @@
+name: ELIOS Lot 6 Smoke Test
+on:
+  push:
+    branches: [test/elios-lot6-smoke]
+    paths:
+      - 'scripts/elios-lot6-smoke.js'
+      - '.github/workflows/elios-lot6-smoke-test.yml'
+permissions:
+  contents: read
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test final ELIOS catalogues and live stock
+        run: node scripts/elios-lot6-smoke.js
