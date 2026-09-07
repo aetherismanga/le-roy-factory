@@ -1,0 +1,77 @@
+name: ELIOS Lot 2 Smoke Test
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/elios-lot2-smoke-test.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    name: Test lot 2 catalogues and live stock
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Test six catalogues
+        shell: bash
+        run: |
+          set -euo pipefail
+          for collection in bavaria-stone grand-place harmony millennium-quartz sedimenti slate; do
+            echo "== Catalogue $collection =="
+            body="$(curl -sS --fail --max-time 30 "https://us-central1-le-roy-factory.cloudfunctions.net/eliosCatalog?collection=$collection")"
+            BODY="$body" python - <<'PY'
+          import json, os
+          data=json.loads(os.environ['BODY'])
+          assert data.get('success') is True, data
+          rows=(data.get('collection') or {}).get('rows') or []
+          assert rows, data
+          print('OK rows=',len(rows))
+          PY
+          done
+
+      - name: Test one live stock reference per series sequentially
+        shell: bash
+        run: |
+          set -u
+          failures=0
+          test_stock () {
+            collection="$1"
+            ref="$2"
+            echo "== Stock $collection / $ref =="
+            tmp="$(mktemp)"
+            code="$(curl -sS --max-time 75 -o "$tmp" -w '%{http_code}' "https://us-central1-le-roy-factory.cloudfunctions.net/eliosStock?collection=$collection&ref=$ref" || true)"
+            body="$(cat "$tmp")"
+            rm -f "$tmp"
+            if [ "$code" != "200" ]; then
+              echo "FAIL $collection / $ref HTTP=$code BODY=$body"
+              failures=$((failures+1))
+            else
+              if BODY="$body" COLLECTION="$collection" REF="$ref" python - <<'PY'
+          import json, os
+          data=json.loads(os.environ['BODY'])
+          assert data.get('success') is True, data
+          product=data.get('product') or {}
+          assert str(product.get('ref','')).upper()==os.environ['REF'].upper(), data
+          assert product.get('stock') is not None, data
+          print('OK',os.environ['COLLECTION'],product.get('ref'),'stock=',product.get('stock'),product.get('stockUnit',''),'production=',product.get('production'),product.get('productionUnit',''))
+          PY
+              then :
+              else
+                failures=$((failures+1))
+              fi
+            fi
+            sleep 2
+          }
+          test_stock bavaria-stone 0936A45
+          test_stock grand-place R441280
+          test_stock harmony 0946000
+          test_stock millennium-quartz 03Q6A10
+          test_stock sedimenti 03Z6A01
+          test_stock slate 03F6A60
+          echo "Failures: $failures"
+          test "$failures" -eq 0
