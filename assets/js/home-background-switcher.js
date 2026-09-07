@@ -152,9 +152,9 @@
           background:rgba(0,0,0,.25);
         }
         .lrf-home-mode-toggle{
-          right:50%;
-          transform:translateX(50%);
+          right:0;
           top:calc(100% + 8px);
+          transform:none;
           font-size:8px;
         }
       }
