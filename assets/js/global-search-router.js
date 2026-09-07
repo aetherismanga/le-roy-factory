@@ -40,7 +40,11 @@
       const old=[...document.querySelectorAll('.hero-buttons a')].find(a => /partenaires\.html/i.test(a.getAttribute('href')||''));
       if (!old || document.getElementById('lrf-open-search')) return;
       const button=document.createElement('button');
-      button.type='button';button.id='lrf-open-search';button.className=old.className;button.innerHTML='🔍 Rechercher';
+      button.type='button';
+      button.id='lrf-open-search';
+      button.className=old.className;
+      button.setAttribute('aria-label','Rechercher sur LE ROY FACTORY');
+      button.innerHTML='<svg class="lrf-search-trigger-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 15.5 21 21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Rechercher</span>';
       old.replaceWith(button);
       addCss('assets/css/site-search.css?v=20260907-search9','lrf-site-search-css');
       try {
