@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="assets/img/logo03lrf.png">
+  <title>Paramètres — LE ROY FACTORY CRM</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/layout.css?v=20260908-settings2">
+  <style>
+    body.crm-body{background:#f7f5f1;color:#18212b}
+    .settings-page{min-height:100vh}
+    .settings-topbar{background:linear-gradient(135deg,#171717,#29261f);border-bottom:2px solid #d4af37;color:#fff}
+    .settings-topbar h1,.settings-topbar p{color:#fff!important}
+    .settings-shell{padding:28px;max-width:1320px;margin:0 auto}
+    .settings-intro{margin-bottom:22px}
+    .settings-intro h2{margin:0 0 6px;font-size:1.2rem;color:#18212b}
+    .settings-intro p{margin:0;color:#6b7280;font-size:.92rem}
+    .settings-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,360px));gap:20px;align-items:stretch}
+    .settings-folder{position:relative;display:flex;flex-direction:column;min-height:205px;padding:24px;text-decoration:none;color:inherit;background:#fff;border:1px solid #e7e1d6;border-radius:18px;box-shadow:0 10px 32px rgba(24,33,43,.07);overflow:hidden;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+    .settings-folder:before{content:"";position:absolute;left:24px;top:-1px;width:94px;height:13px;background:#d4af37;border-radius:0 0 9px 9px;opacity:.9}
+    .settings-folder:hover,.settings-folder:focus-visible{transform:translateY(-3px);box-shadow:0 16px 38px rgba(24,33,43,.12);border-color:#d4af37;outline:none}
+    .settings-folder-icon{width:64px;height:64px;display:grid;place-items:center;margin-top:10px;margin-bottom:17px;border-radius:16px;background:#fbf5df;font-size:2rem;box-shadow:inset 0 0 0 1px rgba(212,175,55,.3)}
+    .settings-folder h3{font-size:1.08rem;margin:0 0 8px;color:#18212b}
+    .settings-folder p{font-size:.88rem;line-height:1.55;color:#68707b;margin:0 0 20px}
+    .settings-folder-open{margin-top:auto;display:flex;align-items:center;justify-content:space-between;font-size:.85rem;font-weight:800;color:#8b6d16;text-transform:uppercase;letter-spacing:.04em}
+    .settings-folder-open span:last-child{font-size:1.2rem;transition:transform .18s ease}
+    .settings-folder:hover .settings-folder-open span:last-child{transform:translateX(4px)}
+    @media(max-width:900px){.settings-shell{padding:18px 14px 28px}.settings-grid{grid-template-columns:1fr}.settings-folder{min-height:185px;padding:21px}.settings-folder:before{left:21px}.crm-main-content.settings-page{padding-bottom:24px}}
+  </style>
+</head>
+<body class="crm-body">
+  <aside class="crm-sidebar">
+    <div class="sidebar-brand"><a href="index.html" class="logo-link"><div class="logo-circle"><img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY"></div></a></div>
+    <ul class="sidebar-menu">
+      <li><a href="dashboard.html"><span class="icon">🏠</span><span class="menu-text">Accueil</span></a></li>
+      <li><a href="clients.html"><span class="icon">👥</span><span class="menu-text">Clients</span></a></li>
+      <li><a href="demandes-clients.html"><span class="icon">🧾</span><span class="menu-text">Demandes clients</span></a></li>
+      <li><a href="agenda.html"><span class="icon">📅</span><span class="menu-text">Agenda</span></a></li>
+      <li><a href="tournees.html"><span class="icon">🧭</span><span class="menu-text">Tournées</span></a></li>
+      <li><a href="comptes-rendus.html"><span class="icon">📞</span><span class="menu-text">Comptes-rendus</span></a></li>
+      <li><a href="catalogues.html"><span class="icon">📂</span><span class="menu-text">Catalogues</span></a></li>
+      <li><a href="partenaires.html"><span class="icon">🏭</span><span class="menu-text">Fabricants</span></a></li>
+      <li><a href="mails-groupes.html"><span class="icon">✉️</span><span class="menu-text">Mails groupés</span></a></li>
+      <li><a href="contacts-partenaires.html"><span class="icon">🏭</span><span class="menu-text">Contacts partenaire</span></a></li>
+      <li><a href="carte.html"><span class="icon">🗺</span><span class="menu-text">Carte</span></a></li>
+      <li><a href="statistiques.html"><span class="icon">📊</span><span class="menu-text">Statistiques</span></a></li>
+      <li class="lrf-settings-parent"><a href="parametres.html" class="active"><span class="icon">⚙</span><span class="menu-text">Paramètres</span></a></li>
+    </ul>
+    <div class="sidebar-footer"><button id="logout-btn" class="btn-logout-sidebar">🚪 <span class="menu-text">Déconnexion</span></button></div>
+  </aside>
+
+  <main class="crm-main-content settings-page">
+    <div class="crm-topbar settings-topbar">
+      <div class="welcome-box">
+        <h1>Paramètres</h1>
+        <p id="settings-greeting">Outils et réglages internes LE ROY FACTORY</p>
+      </div>
+    </div>
+
+    <div class="settings-shell">
+      <div class="settings-intro">
+        <h2>Outils internes</h2>
+        <p>Choisissez le dossier que vous souhaitez ouvrir.</p>
+      </div>
+
+      <div class="settings-grid">
+        <a class="settings-folder" href="analyse-clients-lrf.html" aria-label="Ouvrir Analyse clients LRF">
+          <div class="settings-folder-icon">📊</div>
+          <h3>Analyse clients LRF</h3>
+          <p>Suivi de l’activité des comptes LRF, clients chauds, pages, fabricants, produits et stocks consultés.</p>
+          <div class="settings-folder-open"><span>Ouvrir le dossier</span><span>→</span></div>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <script src="assets/js/crm-settings-nav.js?v=20260908-settings2"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const isLoggedIn = localStorage.getItem('agentLoggedIn');
+      if (!isLoggedIn) {
+        window.location.href = 'agent.html';
+        return;
+      }
+      const agentName = localStorage.getItem('agentName') || 'Agent';
+      const greeting = document.getElementById('settings-greeting');
+      if (greeting) greeting.textContent = `Connecté en tant que ${agentName} — outils et réglages internes`;
+      document.getElementById('logout-btn')?.addEventListener('click', () => {
+        localStorage.removeItem('agentLoggedIn');
+        localStorage.removeItem('agentName');
+        localStorage.removeItem('agentEmail');
+        window.location.href = 'agent.html';
+      });
+    });
+  </script>
+</body>
+</html>
