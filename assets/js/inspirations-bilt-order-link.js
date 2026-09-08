@@ -13,6 +13,107 @@
     document.head.appendChild(link);
   }
 
+  /*
+   * Stabilisation du sélecteur "Sélections" sur mobile.
+   * Le panneau des fabricants pouvait rester ouvert après un changement
+   * d'univers, ce qui affichait à la fois le bouton "Choisir une usine"
+   * et l'ancienne/nouvelle carte fabricant. On ferme systématiquement les
+   * panneaux mobiles avant le changement d'univers, puis on resynchronise
+   * l'affichage après le rendu d'inspirations-v2.js.
+   */
+  function installSelectionMobileFix(){
+    if(document.getElementById('lrf-selection-mobile-stability'))return;
+    const style=document.createElement('style');
+    style.id='lrf-selection-mobile-stability';
+    style.textContent=`
+      @media (max-width:900px){
+        #partner-panel:not(.mobile-open) #partner-grid{display:none!important}
+        #partner-panel.mobile-open #partner-grid{display:grid!important}
+        #partner-panel:not(.mobile-open) #mobile-partner-trigger{display:block!important}
+        #partner-grid .partner-card{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+        #insp-categories .category-card{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+      }
+    `;
+    document.head.appendChild(style);
+
+    const categories=document.getElementById('insp-categories');
+    const partnerPanel=document.getElementById('partner-panel');
+    const partnerGrid=document.getElementById('partner-grid');
+    const partnerTrigger=document.getElementById('mobile-partner-trigger');
+    const filters=document.getElementById('v2-filters');
+    if(!categories||!partnerPanel||!partnerGrid||!partnerTrigger)return;
+
+    const closeMobilePanels=()=>{
+      partnerPanel.classList.remove('mobile-open');
+      filters?.classList.remove('mobile-open');
+      partnerTrigger.setAttribute('aria-expanded','false');
+      document.getElementById('mobile-filter-trigger')?.setAttribute('aria-expanded','false');
+    };
+
+    const sync=()=>{
+      if(window.innerWidth>900){
+        closeMobilePanels();
+        return;
+      }
+      const activePartner=partnerGrid.querySelector('.partner-card.active[data-partner]');
+      const firstPartner=partnerGrid.querySelector('.partner-card[data-partner]');
+      const selected=activePartner||firstPartner;
+      if(selected?.dataset.partner){
+        partnerTrigger.textContent=`☰ Choisir une usine — ${selected.dataset.partner}`;
+      }else{
+        partnerTrigger.textContent='☰ Choisir une usine';
+      }
+      if(!partnerPanel.classList.contains('mobile-open')){
+        partnerGrid.style.removeProperty('display');
+      }
+    };
+
+    /* Capture = fermeture AVANT le gestionnaire principal qui change l'univers. */
+    categories.addEventListener('click',e=>{
+      if(!e.target.closest('[data-cat]'))return;
+      closeMobilePanels();
+      setTimeout(sync,0);
+      setTimeout(sync,80);
+      setTimeout(sync,220);
+    },true);
+
+    partnerGrid.addEventListener('click',e=>{
+      if(!e.target.closest('[data-partner]'))return;
+      setTimeout(()=>{
+        partnerPanel.classList.remove('mobile-open');
+        partnerTrigger.setAttribute('aria-expanded','false');
+        sync();
+      },0);
+    },true);
+
+    partnerTrigger.addEventListener('click',()=>{
+      requestAnimationFrame(()=>{
+        partnerTrigger.setAttribute('aria-expanded',partnerPanel.classList.contains('mobile-open')?'true':'false');
+      });
+    });
+
+    document.getElementById('mobile-filter-trigger')?.addEventListener('click',()=>{
+      requestAnimationFrame(()=>{
+        document.getElementById('mobile-filter-trigger')?.setAttribute('aria-expanded',filters?.classList.contains('mobile-open')?'true':'false');
+      });
+    });
+
+    let resizeTimer=0;
+    window.addEventListener('resize',()=>{
+      clearTimeout(resizeTimer);
+      resizeTimer=setTimeout(sync,120);
+    },{passive:true});
+
+    const observer=new MutationObserver(()=>{
+      clearTimeout(observer._t);
+      observer._t=setTimeout(sync,20);
+    });
+    observer.observe(partnerGrid,{childList:true,subtree:true,attributes:true,attributeFilter:['class']});
+
+    closeMobilePanels();
+    sync();
+  }
+
   function patch(){
     const title=document.getElementById('workspace-title');
     if(norm(title?.textContent)!=='bilt')return;
@@ -29,6 +130,7 @@
   }
 
   loadSelectionScrollbarFix();
+  installSelectionMobileFix();
   const root=document.getElementById('partner-workspace');
   if(root)new MutationObserver(()=>setTimeout(patch,0)).observe(root,{childList:true,subtree:true,characterData:true});
   document.getElementById('insp-categories')?.addEventListener('click',()=>setTimeout(patch,30),true);
