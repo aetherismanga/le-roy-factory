@@ -103,6 +103,9 @@ document.addEventListener("click", e => {
 
 import("./account-requests-nav.js?v=20260904-avatar3").catch(err => console.error("Erreur chargement navigation demandes clients :", err));
 import("./crm-settings-nav.js?v=20260904-1").catch(err => console.error("Erreur chargement sous-menu Paramètres :", err));
+if (currentPage === "clients.html" || currentPage === "comptes-rendus.html") {
+  import("./cmr-unified.js?v=20260908-1").catch(err => console.error("Erreur chargement CMR unifié :", err));
+}
 if (currentPage === "clients.html") {
   import("./seed-bilt-annexe-clients.js?v=20260901").catch(err => console.error("Erreur chargement clients Annexe 1 BILT :", err));
   import("./client-direct-email.js?v=20260817-1845").catch(err => console.error("Erreur chargement module e-mail client :", err));
@@ -183,7 +186,7 @@ function initCrmMobile() {
   fab.textContent = "+";
   const sheet = document.createElement("div");
   sheet.className = "lrf-mobile-action-sheet";
-  sheet.innerHTML = '<a href="clients.html#new-client">➕ Nouveau client</a><a href="tournees.html">🧭 Créer une tournée</a><a href="nouveau-compte-rendu.html">📞 Nouveau compte-rendu</a><a href="mails-groupes.html">✉️ Nouveau mail groupé</a>';
+  sheet.innerHTML = '<a href="clients.html#new-client">➕ Nouveau client</a><a href="tournees.html">🧭 Créer une tournée</a><a href="comptes-rendus.html?new=1">📞 Nouveau compte-rendu</a><a href="mails-groupes.html">✉️ Nouveau mail groupé</a>';
   fab.addEventListener("click", () => sheet.classList.toggle("open"));
   document.addEventListener("click", e => { if (e.target !== fab && !sheet.contains(e.target)) sheet.classList.remove("open"); });
   document.body.append(sheet, fab);
