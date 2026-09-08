@@ -206,6 +206,15 @@
     document.head.appendChild(s);
   }
 
+  function loadTariffVisibilityToggle() {
+    if (document.getElementById('lrf-tariff-visibility-toggle')) return;
+    const s = document.createElement('script');
+    s.id = 'lrf-tariff-visibility-toggle';
+    s.src = 'assets/js/tariff-visibility-toggle.js?v=20260908-1';
+    s.defer = true;
+    document.head.appendChild(s);
+  }
+
   function loadEliosRentreeDirectEnhancements() {
     const path = window.location.pathname.toLowerCase();
     if (!path.endsWith('elios-rentree-r11-2026.html')) return;
@@ -225,6 +234,7 @@
     }
     watchFirebaseAdmin();
     loadAnalyticsTracker();
+    loadTariffVisibilityToggle();
     loadEliosRentreeDirectEnhancements();
   }
 
@@ -233,6 +243,7 @@
     read, write, writeAdmin, clear, restore, unlockLegacy, sync
   };
 
+  loadTariffVisibilityToggle();
   read(); restore();
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
   else init();
