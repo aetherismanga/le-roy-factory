@@ -201,7 +201,7 @@
     if (document.getElementById('lrf-client-analytics-tracker')) return;
     const s = document.createElement('script');
     s.id = 'lrf-client-analytics-tracker';
-    s.src = 'assets/js/lrf-client-analytics-tracker.js?v=20260904-1';
+    s.src = 'assets/js/lrf-client-analytics-tracker.js?v=20260908-2';
     s.defer = true;
     document.head.appendChild(s);
   }
