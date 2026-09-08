@@ -182,6 +182,11 @@ function installWeekDisplay() {
   };
   dateInput.addEventListener('change', refresh);
   dateInput.addEventListener('input', refresh);
+  document.addEventListener('click', event => {
+    if (event.target.closest('#btn-open-cr-modal, .cr-card, .cr-edit-btn')) {
+      setTimeout(refresh, 0);
+    }
+  });
   refresh();
 
   // Le numéro de semaine reste présent dans le texte enregistré, comme demandé dans le CRM.
@@ -206,6 +211,12 @@ function handleCentralCrDeepLink() {
   const openBtn = document.getElementById('btn-open-cr-modal');
   const search = document.getElementById('cr-search-input');
   if (!select) return;
+
+  // Cas du bouton + général : ouvrir le même formulaire central sans client pré-sélectionné.
+  if (wantNew && !wantedId && !wantedName) {
+    openBtn?.click();
+    return;
+  }
 
   let done = false;
   const tryApply = () => {
