@@ -1,0 +1,87 @@
+name: Add CRM report - Flash Carrelage 2026-09-08
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/add-cr-flash-carrelage-2026-09-08.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  add-report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install Firebase dependencies
+        working-directory: functions
+        run: npm install --omit=dev
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_LE_ROY_FACTORY }}'
+
+      - name: Add visit report
+        working-directory: functions
+        env:
+          GOOGLE_CLOUD_PROJECT: le-roy-factory
+        run: |
+          node <<'NODE'
+          const admin = require('firebase-admin');
+          admin.initializeApp({ projectId: 'le-roy-factory' });
+          const db = admin.firestore();
+
+          const normalize = (v) => String(v || '')
+            .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+
+          const report = {
+            date: '2026-09-08',
+            author: 'Jérôme Hugol',
+            usine: 'BILT',
+            text: `Semaine 37 — Bon rendez-vous de premier contact chez Flash Carrelage. Présentation de l'usine BILT et du site Leroy Factory. Le client est intéressé par les croisillons BILT. Un sachet de 200 pièces en 2 mm a été laissé pour test, ainsi que deux petits échantillons. À prévoir : retour après essai des croisillons.`
+          };
+
+          (async () => {
+            const snap = await db.collection('clients').get();
+            const rows = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+            const exact = rows.filter(c => normalize(c.societe || c.nom || c.entreprise) === 'flash carrelage');
+            let candidates = exact.length ? exact : rows.filter(c => normalize(c.societe || c.nom || c.entreprise).includes('flash carrelage'));
+
+            if (candidates.length !== 1) {
+              console.error('CLIENT_MATCH_COUNT=' + candidates.length);
+              for (const c of candidates) console.error('CANDIDATE', c.id, c.codeClient || '', c.societe || c.nom || '', c.ville || '', c.codePostal || c.code_postal || '');
+              process.exit(2);
+            }
+
+            const client = candidates[0];
+            const ref = db.collection('clients').doc(client.id);
+            const fresh = await ref.get();
+            const data = fresh.data() || {};
+            const field = Array.isArray(data.comptes_rendus) ? 'comptes_rendus' : (Array.isArray(data.comptesRendus) ? 'comptesRendus' : 'comptes_rendus');
+            const existing = Array.isArray(data[field]) ? data[field] : [];
+            const signature = normalize(report.text).slice(0, 160);
+            const duplicate = existing.some(cr => cr && cr.date === report.date && normalize(cr.usine || '') === 'bilt' && normalize(cr.text || cr.texte || cr.notes).slice(0, 160) === signature);
+
+            if (duplicate) {
+              console.log('ALREADY_PRESENT client=' + client.id + ' codeClient=' + (client.codeClient || '') + ' societe=' + (client.societe || client.nom || ''));
+              return;
+            }
+
+            await ref.update({ [field]: [report, ...existing] });
+            const verify = await ref.get();
+            const verifiedList = Array.isArray(verify.data()?.[field]) ? verify.data()[field] : [];
+            const ok = verifiedList.some(cr => cr && cr.date === report.date && normalize(cr.usine || '') === 'bilt' && normalize(cr.text || cr.texte || cr.notes).slice(0, 160) === signature);
+            if (!ok) throw new Error('VERIFY_FAILED');
+            console.log('REPORT_ADDED client=' + client.id + ' codeClient=' + (client.codeClient || '') + ' societe=' + (client.societe || client.nom || '') + ' total=' + verifiedList.length);
+          })().catch(err => { console.error(err); process.exit(1); });
+          NODE
