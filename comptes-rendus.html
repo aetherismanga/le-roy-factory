@@ -128,12 +128,41 @@
         const txt=String(raw.text||raw.texte||raw.notes||"").toLowerCase();
         return defaultUsines.find(u=>txt.includes(u.toLowerCase()))||"";
       }
+
+      function parseCrDate(value){
+        const raw=String(value||"").trim();
+        if(!raw)return {iso:"",time:0,date:null};
+        let y,m,d,match;
+        match=raw.match(/^(\d{4})-(\d{2})-(\d{2})(?:[T\s].*)?$/);
+        if(match){y=Number(match[1]);m=Number(match[2]);d=Number(match[3]);}
+        else{
+          match=raw.match(/^(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{4})$/);
+          if(match){d=Number(match[1]);m=Number(match[2]);y=Number(match[3]);}
+        }
+        if(y&&m&&d){
+          const dt=new Date(Date.UTC(y,m-1,d,12));
+          if(dt.getUTCFullYear()===y&&dt.getUTCMonth()===m-1&&dt.getUTCDate()===d){
+            return {iso:`${String(y).padStart(4,"0")}-${String(m).padStart(2,"0")}-${String(d).padStart(2,"0")}`,time:dt.getTime(),date:dt};
+          }
+        }
+        const t=Date.parse(raw);
+        if(Number.isNaN(t))return {iso:"",time:0,date:null};
+        const dt=new Date(t);
+        return {iso:dt.toISOString().slice(0,10),time:t,date:dt};
+      }
+      const dateValue=v=>parseCrDate(v).time;
+      const isoDate=v=>parseCrDate(v).iso;
+      const formatCrDate=v=>{const p=parseCrDate(v);return p.date?p.date.toLocaleDateString("fr-FR",{day:"numeric",month:"long",year:"numeric",timeZone:"UTC"}):esc(v||"")};
+      const createdValue=cr=>{const t=Date.parse(cr.createdAt||"");return Number.isNaN(t)?0:t};
+      const compareRecent=(a,b)=>{const byVisit=dateValue(b.date)-dateValue(a.date);return byVisit||createdValue(b)-createdValue(a)||a.crIndex-b.crIndex};
+      const compareOld=(a,b)=>{const byVisit=dateValue(a.date)-dateValue(b.date);return byVisit||createdValue(a)-createdValue(b)||b.crIndex-a.crIndex};
+
       function setDefaultAuthor(){authorSelect.value=currentAgent.toLowerCase().includes("coryne")?"Coryne":"Jérôme Hugol"}
       function resetForm(){editing=null;form.reset();dateInput.value=today();setDefaultAuthor();$("cr-modal-title").textContent="Nouveau compte-rendu";$("btn-save-cr").textContent="✓ Enregistrer"}
       function openNew(){resetForm();modal.style.display="flex"}
       function openEdit(cr){
         editing={...cr};
-        clientSelect.value=cr.clientId;dateInput.value=cr.date||today();authorSelect.value=(cr.author||"").toLowerCase().includes("coryne")?"Coryne":"Jérôme Hugol";usineInput.value=cr.usine||"";textInput.value=cr.text||"";
+        clientSelect.value=cr.clientId;dateInput.value=isoDate(cr.date)||today();authorSelect.value=(cr.author||"").toLowerCase().includes("coryne")?"Coryne":"Jérôme Hugol";usineInput.value=cr.usine||"";textInput.value=cr.text||"";
         $("cr-modal-title").innerHTML='Modifier le compte-rendu <span class="modal-mode-badge">MODIFICATION</span>';$("btn-save-cr").textContent="✓ Enregistrer les modifications";modal.style.display="flex";
       }
       function closeModal(){modal.style.display="none";resetForm()}
@@ -146,18 +175,19 @@
         $("cr-usines-list").innerHTML=names.map(n=>`<option value="${esc(n)}"></option>`).join("");
       }
       const norm=v=>String(v||"").toLocaleLowerCase("fr").normalize("NFD").replace(/[\u0300-\u036f]/g,"");
-      const dateValue=v=>{const t=Date.parse(v||"");return Number.isNaN(t)?0:t};
       function filteredSorted(){
         const q=norm(searchInput.value.trim()),agent=norm(filterAgent.value),usine=norm(filterUsine.value),date=filterDate.value;
-        const arr=allCRs.filter(cr=>(!agent||norm(cr.author).includes(agent))&&(!usine||norm(cr.usine)===usine)&&(!date||cr.date===date)&&(!q||[cr.societe,cr.ville,cr.code_postal,cr.text,cr.usine,cr.author].some(v=>norm(v).includes(q))));
-        const mode=sortSelect.value;arr.sort((a,b)=>mode==="date-asc"?dateValue(a.date)-dateValue(b.date):mode==="usine-asc"?(a.usine||"zzz").localeCompare(b.usine||"zzz","fr",{sensitivity:"base"})||b.date.localeCompare(a.date):mode==="client-asc"?(a.societe||"").localeCompare(b.societe||"","fr",{sensitivity:"base"})||b.date.localeCompare(a.date):dateValue(b.date)-dateValue(a.date));return arr;
+        const arr=allCRs.filter(cr=>(!agent||norm(cr.author).includes(agent))&&(!usine||norm(cr.usine)===usine)&&(!date||isoDate(cr.date)===date)&&(!q||[cr.societe,cr.ville,cr.code_postal,cr.text,cr.usine,cr.author].some(v=>norm(v).includes(q))));
+        const mode=sortSelect.value;
+        arr.sort((a,b)=>mode==="date-asc"?compareOld(a,b):mode==="usine-asc"?(a.usine||"zzz").localeCompare(b.usine||"zzz","fr",{sensitivity:"base"})||compareRecent(a,b):mode==="client-asc"?(a.societe||"").localeCompare(b.societe||"","fr",{sensitivity:"base"})||compareRecent(a,b):compareRecent(a,b));
+        return arr;
       }
       function render(){
         const rows=filteredSorted();$("cr-results-count").textContent=`${rows.length} compte${rows.length>1?"s":""}-rendu${rows.length>1?"s":""} trouvé${rows.length>1?"s":""}`;
         if(!rows.length){feed.innerHTML='<div style="background:#FFF;padding:3rem;text-align:center;border-radius:8px;color:#666;border:1px solid rgba(0,0,0,.08)">Aucun compte-rendu ne correspond à vos critères.<br><small>Essayez de réinitialiser les filtres.</small></div>';return}
         feed.innerHTML="";
         rows.forEach(cr=>{
-          const d=cr.date?new Date(cr.date+"T12:00:00"):null,fd=d&&!Number.isNaN(d.getTime())?d.toLocaleDateString("fr-FR",{day:"numeric",month:"long",year:"numeric"}):esc(cr.date||"");
+          const fd=formatCrDate(cr.date);
           const card=document.createElement("article");card.className="cr-card";card.tabIndex=0;card.setAttribute("role","button");card.setAttribute("aria-label",`Modifier le compte-rendu ${cr.societe} du ${fd}`);
           card.innerHTML=`<div class="cr-header"><span class="cr-client-name">🏢 <a class="cr-client-link" href="clients.html?edit=${encodeURIComponent(cr.clientId)}">${esc(cr.societe)}</a> <small style="font-weight:400;font-size:.85rem;color:#666">(${esc((cr.code_postal?cr.code_postal+" ":"")+(cr.ville||""))})</small></span><div class="cr-meta"><span>👤 <strong>${esc(cr.author||"Agent")}</strong></span><span>📅 ${fd}</span></div></div><div class="cr-text">${esc(cr.text||"")}</div>${cr.usine?`<div class="cr-usine">🏭 ${esc(cr.usine)}</div>`:""}<div class="cr-edit-hint">Touchez la fiche pour modifier</div><button type="button" class="cr-edit-btn" title="Modifier" aria-label="Modifier">✏️</button>`;
           const edit=()=>openEdit(cr);card.addEventListener("click",edit);card.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();edit()}});card.querySelector(".cr-client-link").addEventListener("click",e=>e.stopPropagation());card.querySelector(".cr-edit-btn").addEventListener("click",e=>{e.stopPropagation();edit()});feed.appendChild(card);
@@ -171,7 +201,7 @@
           const data=ds.data(),id=ds.id,societe=data.societe||"Entreprise sans nom";let cp=String(data.codePostal||data.code_postal||"").trim(),ville=String(data.ville||"").trim();if(/^\d{5}$/.test(ville)&&!/^\d{5}$/.test(cp)){[cp,ville]=[ville,cp]}if(!ville&&/^\d{5}$/.test(cp))ville=await villeFromCP(cp);
           const field=Array.isArray(data.comptes_rendus)?"comptes_rendus":Array.isArray(data.comptesRendus)?"comptesRendus":"comptes_rendus",list=Array.isArray(data[field])?data[field]:[];clientCache.set(id,{data,field,list});
           const opt=document.createElement("option");opt.value=id;opt.textContent=`${societe} (${cp?cp+" ":""}${ville})`;clientSelect.appendChild(opt);
-          list.forEach((raw,index)=>allCRs.push({clientId:id,crIndex:index,crField:field,societe,ville,code_postal:cp,author:raw.author||raw.auteur||"Agent",date:raw.date||"",text:raw.text||raw.texte||raw.notes||"",usine:detectUsine(raw),raw}));
+          list.forEach((raw,index)=>allCRs.push({clientId:id,crIndex:index,crField:field,societe,ville,code_postal:cp,author:raw.author||raw.auteur||"Agent",date:raw.date||"",text:raw.text||raw.texte||raw.notes||"",usine:detectUsine(raw),createdAt:raw.createdAt||raw.created_at||"",raw}));
         }
         refreshUsineChoices();render();
       },err=>{console.error(err);feed.innerHTML='<div style="background:#fff;padding:2rem;border-radius:8px">Impossible de charger les comptes-rendus.</div>'});
@@ -181,6 +211,8 @@
         const btn=$("btn-save-cr");btn.disabled=true;btn.textContent=editing?"Modification…":"Enregistrement…";
         try{
           const newCR={date,author,text};if(usine)newCR.usine=usine;
+          if(editing){if(editing.createdAt)newCR.createdAt=editing.createdAt;newCR.updatedAt=new Date().toISOString();}
+          else newCR.createdAt=new Date().toISOString();
           if(editing){
             const sourceRef=doc(db,"clients",editing.clientId),sourceSnap=await getDoc(sourceRef);if(!sourceSnap.exists())throw new Error("client source introuvable");const sourceData=sourceSnap.data(),sourceField=editing.crField|| (Array.isArray(sourceData.comptes_rendus)?"comptes_rendus":"comptesRendus"),sourceList=[...(sourceData[sourceField]||[])];
             if(editing.clientId===targetId){if(editing.crIndex<0||editing.crIndex>=sourceList.length)throw new Error("compte-rendu introuvable");sourceList[editing.crIndex]=newCR;await updateDoc(sourceRef,{[sourceField]:sourceList});}
