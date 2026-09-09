@@ -101,7 +101,7 @@ document.addEventListener("click", e => {
   }
 }, true);
 
-import("./account-requests-nav.js?v=20260909-integrity3").catch(err => console.error("Erreur chargement navigation demandes clients :", err));
+import("./account-requests-nav.js?v=20260909-integrity4").catch(err => console.error("Erreur chargement navigation demandes clients :", err));
 import("./crm-settings-nav.js?v=20260904-1").catch(err => console.error("Erreur chargement sous-menu Paramètres :", err));
 if (currentPage === "clients.html" || currentPage === "comptes-rendus.html") {
   import("./cmr-unified.js?v=20260908-1").catch(err => console.error("Erreur chargement CMR unifié :", err));
@@ -109,7 +109,7 @@ if (currentPage === "clients.html" || currentPage === "comptes-rendus.html") {
 if (currentPage === "clients.html") {
   import("./seed-bilt-annexe-clients.js?v=20260901").catch(err => console.error("Erreur chargement clients Annexe 1 BILT :", err));
   import("./client-direct-email.js?v=20260817-1845").catch(err => console.error("Erreur chargement module e-mail client :", err));
-  import("./crm-moovago.js?v=20260901-partners1").catch(err => console.error("Erreur chargement enrichissement CRM :", err));
+  import("./crm-moovago.js?v=20260909-exact-client1").catch(err => console.error("Erreur chargement enrichissement CRM :", err));
   import("./crm-client-enhancements.js?v=20260817-1845").catch(err => console.error("Erreur chargement améliorations Clients :", err));
   import("./crm-ui-modern.js?v=20260903-tournees").catch(err => console.error("Erreur chargement interface moderne CRM :", err));
   import("./clients-tournee-ui.js?v=20260903-1").catch(err => console.error("Erreur chargement accès tournées :", err));
