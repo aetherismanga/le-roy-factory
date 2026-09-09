@@ -53,6 +53,11 @@ function rememberExactClient(id){
   try{sessionStorage.setItem("lrfExactClientId",c.id);}catch{}
   return c;
 }
+function clearExactClient(){
+  activeClientId=null;
+  window.__LRF_EXACT_CLIENT_ID__="";
+  try{sessionStorage.removeItem("lrfExactClientId");}catch{}
+}
 function splitPartners(value){
   return [...new Set(clean(value).split(/[;,|]+/).map(v=>MOOVAGO_PARTNER_MAP[clean(v).toUpperCase()]).filter(Boolean))];
 }
@@ -225,9 +230,13 @@ function setupClientModal(){
     }
   }).observe(modal,{attributes:true,attributeFilter:["style"]});
 
-  // Un clic sur une ligne doit conserver l'ID Firebase exact déjà posé sur la ligne.
-  // Le nom + CP ne sert plus qu'en secours et uniquement parmi les fiches actives.
   document.addEventListener("click",e=>{
+    if(e.target.closest("#btn-add-client")){
+      clearExactClient();
+      contactDraft=[];
+      partnerDraft=[];
+      return;
+    }
     const row=e.target.closest("#clients-table-body tr"); if(!row)return;
     const rowId=clean(row.dataset.clientId||row.getAttribute("data-client-id")||row.dataset.id||row.getAttribute("data-id"));
     if(rowId&&rememberExactClient(rowId))return;
@@ -237,7 +246,6 @@ function setupClientModal(){
     if(c)rememberExactClient(c.id);
   },true);
 
-  // La recherche intelligente et les liens directs annoncent toujours l'ID exact ici.
   window.addEventListener("lrf-client-opened",e=>{
     const id=clean(e.detail?.clientId); if(!id)return;
     const c=rememberExactClient(id); if(!c)return;
