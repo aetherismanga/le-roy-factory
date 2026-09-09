@@ -4,6 +4,10 @@
   window.__LRF_ELIOS_RENTREE_DIRECT_V2__=true;
 
   const PALETTE_M2=61.92;
+  const SERIES_PAGES={
+    '03F':'disponibilites-elios-lot1.html?collection=slate',
+    '03Q':'disponibilites-elios-lot1.html?collection=millennium-quartz'
+  };
   const formatM2=n=>Number(n||0).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2});
 
   function addStyles(){
@@ -28,6 +32,22 @@
       location.href='index.html';
     });
     document.body.appendChild(btn);
+  }
+
+  function installSeriesLinks(){
+    document.querySelectorAll('#lots-body tr').forEach(row=>{
+      const ref=String(row.dataset.id||'').toUpperCase();
+      const prefix=ref.slice(0,3);
+      const href=SERIES_PAGES[prefix];
+      const link=row.querySelector('a.link-btn');
+      if(!href||!link)return;
+      link.href=href;
+      link.target='_top';
+      link.removeAttribute('rel');
+      const series=prefix==='03F'?'SLATE':'MILLENNIUM QUARTZ';
+      link.setAttribute('aria-label',`Voir la série ${series} chez ELIOS`);
+      link.title=`Voir la série ${series} chez ELIOS`;
+    });
   }
 
   function parseStock(text){
@@ -104,8 +124,8 @@
   }
 
   function init(){
-    addStyles();addClose();installRows();interceptMail();
-    const tbody=document.getElementById('lots-body');if(tbody&&!tbody.dataset.directPaletteObserver){tbody.dataset.directPaletteObserver='1';new MutationObserver(()=>{installRows();interceptMail()}).observe(tbody,{childList:true,subtree:false})}
+    addStyles();addClose();installSeriesLinks();installRows();interceptMail();
+    const tbody=document.getElementById('lots-body');if(tbody&&!tbody.dataset.directPaletteObserver){tbody.dataset.directPaletteObserver='1';new MutationObserver(()=>{installSeriesLinks();installRows();interceptMail()}).observe(tbody,{childList:true,subtree:false})}
     ['select-all','clear-all','clear-bottom'].forEach(id=>{const el=document.getElementById(id);if(el&&!el.dataset.directPaletteSync){el.dataset.directPaletteSync='1';el.addEventListener('click',()=>setTimeout(syncVisibility,0))}});
   }
 
