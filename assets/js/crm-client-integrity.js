@@ -291,6 +291,8 @@ function formPatch() {
   // Les champs injectés ne sont copiés que s'ils sont réellement présents dans la modale.
   if (document.getElementById('edit-activity')) patch.categorieActivite = val('edit-activity');
   if (document.getElementById('crm-contacts-list')) patch.contacts = readContactsFromModal();
+  const partnerGrid = document.getElementById('crm-partner-grid');
+  if (partnerGrid) patch.partenaires = uniquePrimitive([...partnerGrid.querySelectorAll('.partner-card-mini.active[data-pid]')].map(x => clean(x.dataset.pid)).filter(Boolean));
   return patch;
 }
 
