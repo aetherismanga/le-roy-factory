@@ -26,10 +26,33 @@ const norm = v => lower(v).normalize("NFD").replace(/[\u0300-\u036f]/g,"").repla
 const esc = v => clean(v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
 const validEmail = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(clean(v));
 const firstNonEmpty = (...vals) => vals.map(clean).find(Boolean) || "";
+const isActive = c => !!c && c.archived !== true && c.archive !== true;
 
 function normalizeCp(v){ const s=clean(v).replace(/\.0$/,""); return /^\d+$/.test(s) ? s.padStart(5,"0") : s; }
 function companyKey(name, cp, city){ return `${norm(name)}|${normalizeCp(cp)}|${norm(city)}`; }
 function companyAddressKey(name, address){ return `${norm(name)}|${norm(address)}`; }
+function exactClient(id){
+  const wanted=clean(id); if(!wanted)return null;
+  const direct=clients.find(c=>c.id===wanted); if(!direct)return null;
+  const canonicalId=clean(direct.canonicalClientId||direct.duplicateOf);
+  if((!isActive(direct)||canonicalId)&&canonicalId){
+    const canonical=clients.find(c=>c.id===canonicalId);
+    if(canonical)return canonical;
+  }
+  return direct;
+}
+function rememberedExactId(){
+  const globalId=clean(window.__LRF_EXACT_CLIENT_ID__);
+  if(globalId)return globalId;
+  try{return clean(sessionStorage.getItem("lrfExactClientId"));}catch{return "";}
+}
+function rememberExactClient(id){
+  const c=exactClient(id); if(!c)return null;
+  activeClientId=c.id;
+  window.__LRF_EXACT_CLIENT_ID__=c.id;
+  try{sessionStorage.setItem("lrfExactClientId",c.id);}catch{}
+  return c;
+}
 function splitPartners(value){
   return [...new Set(clean(value).split(/[;,|]+/).map(v=>MOOVAGO_PARTNER_MAP[clean(v).toUpperCase()]).filter(Boolean))];
 }
@@ -149,8 +172,19 @@ function renderContacts(){ const box=document.getElementById("crm-contacts-list"
   box.querySelectorAll("input[data-k]").forEach(inp=>inp.oninput=()=>{const row=inp.closest("[data-ci]"); contactDraft[+row.dataset.ci][inp.dataset.k]=inp.value}); box.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{contactDraft.splice(+b.dataset.del,1);renderContacts()}); }
 function renderPartners(){ const box=document.getElementById("crm-partner-grid"); if(!box)return; box.innerHTML=fabricants.map(f=>{const active=partnerDraft.includes(f.id);const logo=PARTNER_LOGOS[f.id];return `<div class="partner-card-mini ${active?"active":""}" data-pid="${esc(f.id)}">${logo?`<img src="assets/img/${logo}" alt="${esc(f.nom)}">`:""}<span>${esc(f.nom)}</span></div>`}).join(""); box.querySelectorAll("[data-pid]").forEach(el=>el.onclick=()=>{const id=el.dataset.pid;partnerDraft=partnerDraft.includes(id)?partnerDraft.filter(x=>x!==id):[...partnerDraft,id];renderPartners()}); }
 function renderHistory(client){ const box=document.getElementById("crm-history-list"); if(!box)return; const list=[...(client?.comptes_rendus||client?.comptesRendus||[])].sort((a,b)=>clean(b.dateCreation||b.date).localeCompare(clean(a.dateCreation||a.date))); box.innerHTML=list.length?list.map(cr=>`<div class="history-card"><div class="history-meta">${esc(cr.date||"")} • ${esc(cr.type||"Compte-rendu")} • ${esc(cr.author||"Agent")}</div><div class="history-text">${esc(cr.text||cr.note||"")}</div></div>`).join(""):`<div style="color:#777;font-style:italic;font-size:.85rem">Aucun historique commercial.</div>`; }
-function currentClientFromForm(){ const soc=clean(document.getElementById("edit-societe")?.value), cp=normalizeCp(document.getElementById("edit-code-postal")?.value), city=clean(document.getElementById("edit-ville")?.value); return clients.find(c=>companyKey(c.societe,c.codePostal||c.code_postal,c.ville)===companyKey(soc,cp,city))||null; }
-function populateExtras(){ const c=activeClientId?clients.find(x=>x.id===activeClientId):currentClientFromForm(); contactDraft=(c?.contacts||[]).map(x=>({...x})); partnerDraft=[...(c?.partenaires||[])]; renderContacts();renderPartners();renderHistory(c); }
+function currentClientFromForm(){
+  const forced=rememberedExactId();
+  const exact=exactClient(forced); if(exact&&isActive(exact))return exact;
+  const soc=clean(document.getElementById("edit-societe")?.value), cp=normalizeCp(document.getElementById("edit-code-postal")?.value), city=clean(document.getElementById("edit-ville")?.value);
+  return clients.find(c=>isActive(c)&&companyKey(c.societe,c.codePostal||c.code_postal,c.ville)===companyKey(soc,cp,city))||null;
+}
+function populateExtras(){
+  const c=exactClient(activeClientId)||currentClientFromForm();
+  if(c)rememberExactClient(c.id);
+  contactDraft=(c?.contacts||[]).map(x=>({...x}));
+  partnerDraft=[...(c?.partenaires||[])];
+  renderContacts();renderPartners();renderHistory(c);
+}
 
 async function analyseImport(){
   const fs=[document.getElementById("moovago-soc").files[0],document.getElementById("moovago-contact").files[0],document.getElementById("moovago-cr").files[0]];
@@ -182,16 +216,59 @@ async function applyImport(){
 }
 
 function setupClientModal(){
-  injectClientExtras(); const modal=document.getElementById("client-modal"); if(modal)new MutationObserver(()=>{if(getComputedStyle(modal).display!=="none")setTimeout(populateExtras,0)}).observe(modal,{attributes:true,attributeFilter:["style"]});
-  document.addEventListener("click",e=>{const row=e.target.closest("#clients-table-body tr");if(!row)return; const cells=row.querySelectorAll("td");const s=clean(cells[1]?.textContent),cpCity=clean(cells[2]?.textContent);const c=clients.find(x=>norm(x.societe)===norm(s)&&cpCity.includes(normalizeCp(x.codePostal||x.code_postal)));if(c)activeClientId=c.id;},true);
-  const form=document.getElementById("client-form"); form?.addEventListener("submit",()=>{const c=activeClientId?clients.find(x=>x.id===activeClientId):currentClientFromForm();if(c){setTimeout(()=>updateDoc(doc(db,"clients",c.id),{contacts:contactDraft,partenaires:partnerDraft}).catch(console.error),50)}else{pendingNewExtras={societe:clean(document.getElementById("edit-societe")?.value),cp:normalizeCp(document.getElementById("edit-code-postal")?.value),ville:clean(document.getElementById("edit-ville")?.value),contacts:contactDraft,partenaires:partnerDraft,at:Date.now()};}},true);
+  injectClientExtras();
+  const modal=document.getElementById("client-modal");
+  if(modal)new MutationObserver(()=>{
+    if(getComputedStyle(modal).display!=="none"){
+      const remembered=rememberedExactId(); if(remembered)rememberExactClient(remembered);
+      setTimeout(populateExtras,0);
+    }
+  }).observe(modal,{attributes:true,attributeFilter:["style"]});
+
+  // Un clic sur une ligne doit conserver l'ID Firebase exact déjà posé sur la ligne.
+  // Le nom + CP ne sert plus qu'en secours et uniquement parmi les fiches actives.
+  document.addEventListener("click",e=>{
+    const row=e.target.closest("#clients-table-body tr"); if(!row)return;
+    const rowId=clean(row.dataset.clientId||row.getAttribute("data-client-id")||row.dataset.id||row.getAttribute("data-id"));
+    if(rowId&&rememberExactClient(rowId))return;
+    const cells=row.querySelectorAll("td");
+    const s=clean(cells[1]?.textContent),cpCity=clean(cells[2]?.textContent);
+    const c=clients.find(x=>isActive(x)&&norm(x.societe)===norm(s)&&cpCity.includes(normalizeCp(x.codePostal||x.code_postal)));
+    if(c)rememberExactClient(c.id);
+  },true);
+
+  // La recherche intelligente et les liens directs annoncent toujours l'ID exact ici.
+  window.addEventListener("lrf-client-opened",e=>{
+    const id=clean(e.detail?.clientId); if(!id)return;
+    const c=rememberExactClient(id); if(!c)return;
+    if(modal&&getComputedStyle(modal).display!=="none")setTimeout(populateExtras,0);
+  });
+
+  const form=document.getElementById("client-form");
+  form?.addEventListener("submit",()=>{
+    const c=exactClient(activeClientId)||currentClientFromForm();
+    if(c){
+      setTimeout(()=>updateDoc(doc(db,"clients",c.id),{contacts:contactDraft,partenaires:partnerDraft}).catch(console.error),50);
+    }else{
+      pendingNewExtras={societe:clean(document.getElementById("edit-societe")?.value),cp:normalizeCp(document.getElementById("edit-code-postal")?.value),ville:clean(document.getElementById("edit-ville")?.value),contacts:contactDraft,partenaires:partnerDraft,at:Date.now()};
+    }
+  },true);
 }
-function checkPending(){if(!pendingNewExtras||Date.now()-pendingNewExtras.at>15000)return;const c=clients.find(x=>companyKey(x.societe,x.codePostal||x.code_postal,x.ville)===companyKey(pendingNewExtras.societe,pendingNewExtras.cp,pendingNewExtras.ville));if(c){updateDoc(doc(db,"clients",c.id),{contacts:pendingNewExtras.contacts,partenaires:pendingNewExtras.partenaires}).catch(console.error);pendingNewExtras=null;}}
+function checkPending(){
+  if(!pendingNewExtras||Date.now()-pendingNewExtras.at>15000)return;
+  const c=clients.find(x=>isActive(x)&&companyKey(x.societe,x.codePostal||x.code_postal,x.ville)===companyKey(pendingNewExtras.societe,pendingNewExtras.cp,pendingNewExtras.ville));
+  if(c){updateDoc(doc(db,"clients",c.id),{contacts:pendingNewExtras.contacts,partenaires:pendingNewExtras.partenaires}).catch(console.error);pendingNewExtras=null;}
+}
 
 async function init(){
   injectStyles(); injectImportUI();
   try{fabricants=await fetch("data/fabricants.json").then(r=>r.json());}catch{fabricants=[];}
   setupClientModal();
-  onSnapshot(collection(db,"clients"),snap=>{clients=[];snap.forEach(d=>clients.push({id:d.id,...d.data()}));checkPending();if(document.getElementById("client-modal")&&getComputedStyle(document.getElementById("client-modal")).display!=="none")populateExtras();});
+  onSnapshot(collection(db,"clients"),snap=>{
+    clients=[];snap.forEach(d=>clients.push({id:d.id,...d.data()}));
+    const remembered=rememberedExactId(); if(remembered)rememberExactClient(remembered);
+    checkPending();
+    if(document.getElementById("client-modal")&&getComputedStyle(document.getElementById("client-modal")).display!=="none")populateExtras();
+  });
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();
