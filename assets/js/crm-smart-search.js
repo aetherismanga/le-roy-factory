@@ -113,7 +113,6 @@ if (!window.__LRF_CRM_SMART_SEARCH__) {
       const fields = [c.societe, c.codeClient, c.ville, c.codePostal || c.code_postal, c.contact, c.telephone, ...(c.telephones || [])].filter(Boolean);
       let best = 0;
       fields.forEach(v => { best = Math.max(best, score(q, v)); });
-      // Le nom de société doit peser le plus lourd.
       best = Math.max(best, score(q, c.societe || '') * 1.04);
       return { c, s:Math.min(1, best) };
     }).filter(x => accepted(q, x.s)).sort((a, b) => b.s - a.s || String(a.c.societe || '').localeCompare(String(b.c.societe || ''), 'fr')).slice(0, limit);
@@ -188,7 +187,8 @@ if (!window.__LRF_CRM_SMART_SEARCH__) {
     input.addEventListener('focus', render);
     document.addEventListener('click', e => { if (!wrap.contains(e.target)) box.classList.remove('open'); });
 
-    // Correction du lien direct : attendre que le tableau soit réellement rempli avant de cliquer la fiche.
+    // Ouverture directe stricte : on ne choisit plus jamais une ligne uniquement par son nom.
+    // Le data-client-id est posé par le contrôle d'intégrité et représente l'ID Firebase canonique.
     const editId = new URLSearchParams(location.search).get('edit');
     if (editId) {
       const target = list.find(c => c.id === editId);
@@ -196,8 +196,9 @@ if (!window.__LRF_CRM_SMART_SEARCH__) {
         let done = false;
         const tryOpen = () => {
           if (done) return true;
-          const rows = [...document.querySelectorAll('#clients-table-body tr')];
-          const row = rows.find(r => compact(r.querySelector('td:nth-child(2) strong')?.textContent) === compact(target.societe));
+          const row = [...document.querySelectorAll('#clients-table-body tr')].find(r =>
+            String(r.dataset.clientId || r.getAttribute('data-client-id') || r.dataset.id || r.getAttribute('data-id') || '') === String(editId)
+          );
           if (!row) return false;
           done = true;
           row.click();
@@ -210,7 +211,7 @@ if (!window.__LRF_CRM_SMART_SEARCH__) {
         if (!tryOpen()) {
           const observer = new MutationObserver(() => { if (tryOpen()) observer.disconnect(); });
           const tbody = document.getElementById('clients-table-body');
-          if (tbody) observer.observe(tbody, {childList:true, subtree:true});
+          if (tbody) observer.observe(tbody, {childList:true, subtree:true, attributes:true, attributeFilter:['data-client-id','data-id']});
           setTimeout(() => { tryOpen(); observer.disconnect(); }, 5000);
         }
       }
