@@ -4,6 +4,28 @@
   window.__LRF_CR_SIMPLE__=true;
 
   const esc=v=>String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  const norm=v=>String(v??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim().replace(/\s+/g,' ');
+  const compact=v=>norm(v).replace(/\s+/g,'');
+  function lev(a,b){
+    a=String(a||'');b=String(b||'');if(a===b)return 0;if(!a.length)return b.length;if(!b.length)return a.length;
+    const prev=Array.from({length:b.length+1},(_,i)=>i),cur=new Array(b.length+1);
+    for(let i=1;i<=a.length;i++){
+      cur[0]=i;
+      for(let j=1;j<=b.length;j++)cur[j]=Math.min(cur[j-1]+1,prev[j]+1,prev[j-1]+(a[i-1]===b[j-1]?0:1));
+      for(let j=0;j<=b.length;j++)prev[j]=cur[j];
+    }
+    return prev[b.length];
+  }
+  function fuzzyScore(query,label){
+    const qw=norm(query),lw=norm(label),q=compact(query),l=compact(label);if(!q)return 1;if(!l)return 0;
+    if(q===l)return 1;if(l.includes(q))return .98;
+    const terms=qw.split(' ').filter(Boolean);if(terms.length>1&&terms.every(t=>l.includes(t)))return .94;
+    if(q.length<=3)return l.includes(q)?.9:0;
+    const parts=new Set([l]);const w=lw.split(' ').filter(Boolean);
+    for(let i=0;i<w.length;i++){let p='';for(let j=i;j<Math.min(w.length,i+4);j++){p+=w[j];if(p.length>=Math.max(3,q.length-3)&&p.length<=q.length+5)parts.add(p)}}
+    let best=0;parts.forEach(p=>{best=Math.max(best,1-lev(q,p)/Math.max(q.length,p.length,1))});return best;
+  }
+  function fuzzyAccept(query,value){const n=compact(query).length;if(!n)return true;if(n<=3)return value>=.9;if(n<=5)return value>=.64;return value>=.58}
 
   function addStyle(){
     if(document.getElementById('lrf-cr-simple-style'))return;
@@ -68,8 +90,8 @@
 
     const options=()=>[...select.options].filter(o=>o.value);
     function render(q=''){
-      const term=q.trim().toLocaleLowerCase('fr');
-      const matches=options().filter(o=>!term||o.textContent.toLocaleLowerCase('fr').includes(term)).slice(0,40);
+      const term=q.trim();
+      const matches=options().map(o=>({o,s:fuzzyScore(term,o.textContent)})).filter(x=>!term||fuzzyAccept(term,x.s)).sort((a,b)=>b.s-a.s||a.o.textContent.localeCompare(b.o.textContent,'fr')).slice(0,40).map(x=>x.o);
       results.innerHTML=matches.length?matches.map(o=>{
         const txt=o.textContent.trim();
         const m=txt.match(/^(.*?)\s*\((.*?)\)\s*$/);
