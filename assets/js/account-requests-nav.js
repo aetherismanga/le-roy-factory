@@ -52,7 +52,7 @@ document.addEventListener('click',e=>{const a=e.target.closest('[data-open-ma-st
 
 const lrfCurrentPage=(location.pathname.split('/').pop()||'').toLowerCase();
 const lrfClientIntegrityReady=lrfCurrentPage==='clients.html'
-  ? import('./crm-client-integrity.js?v=20260909-integrity1')
+  ? import('./crm-client-integrity.js?v=20260909-integrity2')
       .then(m=>m.ready)
       .catch(err=>{console.error('Erreur contrôle intégrité fiches clients :',err);})
   : Promise.resolve();
