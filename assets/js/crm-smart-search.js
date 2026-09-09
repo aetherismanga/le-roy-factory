@@ -39,6 +39,7 @@ if (!window.__LRF_CRM_SMART_SEARCH__) {
     for (let i = 0; i < s.length - 1; i += 1) out.push(s.slice(i, i + 2));
     return out;
   }
+
   function dice(a, b) {
     const aa = bigrams(a), bb = bigrams(b);
     if (!aa.length || !bb.length) return 0;
@@ -61,7 +62,6 @@ if (!window.__LRF_CRM_SMART_SEARCH__) {
     if (terms.length > 1 && terms.every(t => c.includes(t))) return .93;
     if (q.length <= 3) return c.includes(q) ? .9 : 0;
 
-    // Compare aussi au début du nom et à chaque groupe de mots, utile pour « solmaat » → « solmat aubagne ».
     const candidates = new Set([c]);
     const cWords = cw.split(' ').filter(Boolean);
     for (let i = 0; i < cWords.length; i += 1) {
@@ -115,7 +115,9 @@ if (!window.__LRF_CRM_SMART_SEARCH__) {
       fields.forEach(v => { best = Math.max(best, score(q, v)); });
       best = Math.max(best, score(q, c.societe || '') * 1.04);
       return { c, s:Math.min(1, best) };
-    }).filter(x => accepted(q, x.s)).sort((a, b) => b.s - a.s || String(a.c.societe || '').localeCompare(String(b.c.societe || ''), 'fr')).slice(0, limit);
+    }).filter(x => accepted(q, x.s))
+      .sort((a, b) => b.s - a.s || String(a.c.societe || '').localeCompare(String(b.c.societe || ''), 'fr'))
+      .slice(0, limit);
   }
 
   function installStyles() {
@@ -123,10 +125,58 @@ if (!window.__LRF_CRM_SMART_SEARCH__) {
     const s = document.createElement('style');
     s.id = 'lrf-smart-search-style';
     s.textContent = `
-      .lrf-smart-wrap{position:relative!important}.lrf-smart-results{position:absolute;z-index:12000;left:0;right:0;top:calc(100% + 6px);display:none;max-height:340px;overflow:auto;background:#fffdf9;border:1px solid #dcccae;border-radius:14px;box-shadow:0 16px 38px rgba(54,37,17,.18);padding:6px}.lrf-smart-results.open{display:block}.lrf-smart-result{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;padding:11px 12px;border:0;border-bottom:1px solid #eee7dc;border-radius:9px;background:#fff;text-align:left;text-decoration:none;color:#252525;cursor:pointer}.lrf-smart-result:last-child{border-bottom:0}.lrf-smart-result:hover,.lrf-smart-result:focus{background:#fff7df;outline:none}.lrf-smart-result strong{display:block;font-size:.84rem}.lrf-smart-result small{display:block;margin-top:3px;color:#746b5e;font-size:.7rem}.lrf-smart-badge{flex:none;padding:4px 7px;border-radius:999px;background:#eef8f2;color:#226442;font-size:.6rem;font-weight:850}.lrf-smart-empty{padding:13px;text-align:center;color:#7a7267;font-size:.75rem}
+      .lrf-smart-wrap{position:relative!important}.lrf-smart-results{position:absolute;z-index:12000;left:0;right:0;top:calc(100% + 6px);display:none;max-height:340px;overflow:auto;background:#fffdf9;border:1px solid #dcccae;border-radius:14px;box-shadow:0 16px 38px rgba(54,37,17,.18);padding:6px}.lrf-smart-results.open{display:block}.lrf-smart-result{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;padding:11px 12px;border:0;border-bottom:1px solid #eee7dc;border-radius:9px;background:#fff;text-align:left;text-decoration:none;color:#252525;cursor:pointer;font:inherit}.lrf-smart-result:last-child{border-bottom:0}.lrf-smart-result:hover,.lrf-smart-result:focus{background:#fff7df;outline:none}.lrf-smart-result strong{display:block;font-size:.84rem}.lrf-smart-result small{display:block;margin-top:3px;color:#746b5e;font-size:.7rem}.lrf-smart-badge{flex:none;padding:4px 7px;border-radius:999px;background:#eef8f2;color:#226442;font-size:.6rem;font-weight:850}.lrf-smart-empty{padding:13px;text-align:center;color:#7a7267;font-size:.75rem}
       @media(max-width:700px){.lrf-smart-results{position:static;margin-top:6px;box-shadow:0 8px 22px rgba(54,37,17,.10)}.lrf-smart-result{padding:13px 11px}.lrf-smart-result strong{font-size:.92rem}}
     `;
     document.head.appendChild(s);
+  }
+
+  function rowForClientId(clientId) {
+    const id = String(clientId || '');
+    if (!id) return null;
+    return [...document.querySelectorAll('#clients-table-body tr')].find(r =>
+      String(r.dataset.clientId || r.getAttribute('data-client-id') || r.dataset.id || r.getAttribute('data-id') || '') === id
+    ) || null;
+  }
+
+  function notifyExactClient(clientId, source = 'smart-search') {
+    const id = String(clientId || '');
+    if (!id) return;
+    window.__LRF_EXACT_CLIENT_ID__ = id;
+    try { sessionStorage.setItem('lrfExactClientId', id); } catch (_) {}
+    window.dispatchEvent(new CustomEvent('lrf-client-opened', { detail:{ clientId:id, source } }));
+  }
+
+  function openExactRow(clientId) {
+    const row = rowForClientId(clientId);
+    if (!row) return false;
+    notifyExactClient(clientId);
+    row.click();
+    return true;
+  }
+
+  function waitAndOpenExactRow(clientId, fallbackHref = '') {
+    if (openExactRow(clientId)) return;
+    const tbody = document.getElementById('clients-table-body');
+    if (!tbody) {
+      if (fallbackHref) location.href = fallbackHref;
+      return;
+    }
+    let done = false;
+    const finish = () => {
+      if (done) return true;
+      if (!openExactRow(clientId)) return false;
+      done = true;
+      observer.disconnect();
+      return true;
+    };
+    const observer = new MutationObserver(finish);
+    observer.observe(tbody, { childList:true, subtree:true, attributes:true, attributeFilter:['data-client-id','data-id'] });
+    setTimeout(() => {
+      if (finish()) return;
+      observer.disconnect();
+      if (fallbackHref) location.href = fallbackHref;
+    }, 1800);
   }
 
   async function enhanceDashboard() {
@@ -180,41 +230,31 @@ if (!window.__LRF_CRM_SMART_SEARCH__) {
       const q = input.value.trim();
       if (compact(q).length < 2) { box.classList.remove('open'); box.innerHTML = ''; return; }
       const hits = rankClients(list, q, 8);
-      box.innerHTML = hits.length ? hits.map(({c}) => `<a class="lrf-smart-result" href="clients.html?edit=${encodeURIComponent(c.id)}"><span><strong>${esc(c.societe || 'Client')}</strong><small>${esc([c.codeClient, c.ville, c.codePostal || c.code_postal].filter(Boolean).join(' · '))}</small></span><span class="lrf-smart-badge">Trouvé</span></a>`).join('') : '';
+      box.innerHTML = hits.length ? hits.map(({c}) => `<button type="button" class="lrf-smart-result" data-client-id="${esc(c.id)}"><span><strong>${esc(c.societe || 'Client')}</strong><small>${esc([c.codeClient, c.ville, c.codePostal || c.code_postal].filter(Boolean).join(' · '))}</small></span><span class="lrf-smart-badge">Trouvé</span></button>`).join('') : '';
       box.classList.toggle('open', hits.length > 0);
     };
+
     input.addEventListener('input', render);
     input.addEventListener('focus', render);
+    box.addEventListener('click', event => {
+      const btn = event.target.closest('[data-client-id]');
+      if (!btn) return;
+      event.preventDefault();
+      event.stopPropagation();
+      const id = btn.dataset.clientId || '';
+      box.classList.remove('open');
+      // Important : on ouvre exactement la même ligne que lorsqu'on passe par les filtres département.
+      // Aucun rechargement de page, donc aucun risque qu'un autre module choisisse une fiche homonyme.
+      waitAndOpenExactRow(id, `clients.html?edit=${encodeURIComponent(id)}`);
+    });
     document.addEventListener('click', e => { if (!wrap.contains(e.target)) box.classList.remove('open'); });
 
-    // Ouverture directe stricte : on ne choisit plus jamais une ligne uniquement par son nom.
-    // Le data-client-id est posé par le contrôle d'intégrité et représente l'ID Firebase canonique.
+    // Pour les liens provenant du dashboard ou d'une autre page, on force ensuite un vrai clic
+    // sur la ligne Firebase exacte. Cela remet tous les modules CRM sur le même client.
     const editId = new URLSearchParams(location.search).get('edit');
     if (editId) {
-      const target = list.find(c => c.id === editId);
-      if (target) {
-        let done = false;
-        const tryOpen = () => {
-          if (done) return true;
-          const row = [...document.querySelectorAll('#clients-table-body tr')].find(r =>
-            String(r.dataset.clientId || r.getAttribute('data-client-id') || r.dataset.id || r.getAttribute('data-id') || '') === String(editId)
-          );
-          if (!row) return false;
-          done = true;
-          row.click();
-          const params = new URLSearchParams(location.search);
-          params.delete('edit');
-          const qs = params.toString();
-          history.replaceState(null, '', `${location.pathname}${qs ? `?${qs}` : ''}${location.hash || ''}`);
-          return true;
-        };
-        if (!tryOpen()) {
-          const observer = new MutationObserver(() => { if (tryOpen()) observer.disconnect(); });
-          const tbody = document.getElementById('clients-table-body');
-          if (tbody) observer.observe(tbody, {childList:true, subtree:true, attributes:true, attributeFilter:['data-client-id','data-id']});
-          setTimeout(() => { tryOpen(); observer.disconnect(); }, 5000);
-        }
-      }
+      notifyExactClient(editId, 'direct-link');
+      setTimeout(() => waitAndOpenExactRow(editId), 80);
     }
   }
 
