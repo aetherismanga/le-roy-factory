@@ -20,7 +20,7 @@
     const qw=norm(query),lw=norm(label),q=compact(query),l=compact(label);if(!q)return 1;if(!l)return 0;
     if(q===l)return 1;if(l.includes(q))return .98;
     const terms=qw.split(' ').filter(Boolean);if(terms.length>1&&terms.every(t=>l.includes(t)))return .94;
-    if(q.length<=3)return l.includes(q)?.9:0;
+    if(q.length<=3)return l.includes(q) ? .9 : 0;
     const parts=new Set([l]);const w=lw.split(' ').filter(Boolean);
     for(let i=0;i<w.length;i++){let p='';for(let j=i;j<Math.min(w.length,i+4);j++){p+=w[j];if(p.length>=Math.max(3,q.length-3)&&p.length<=q.length+5)parts.add(p)}}
     let best=0;parts.forEach(p=>{best=Math.max(best,1-lev(q,p)/Math.max(q.length,p.length,1))});return best;
