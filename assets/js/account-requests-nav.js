@@ -160,3 +160,8 @@ if(lrfClockPages.has(lrfCurrentPage)){
     document.head.appendChild(style);
   }).catch(err=>console.error('Erreur chargement outils horloge du CRM :',err));
 }
+
+if(new Set(['dashboard.html','clients.html','comptes-rendus.html']).has(lrfCurrentPage)){
+  import('./crm-smart-search.js?v=20260909-smart1')
+    .catch(err=>console.error('Erreur recherche intelligente CRM :',err));
+}
