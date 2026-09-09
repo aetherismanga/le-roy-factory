@@ -2,15 +2,12 @@ import { auth } from './firebase.js';
 
 // Tous les appels vers les Cloud Functions LE ROY FACTORY effectués depuis le CRM
 // transportent automatiquement le jeton Firebase de l'agent connecté.
-// Les pages publiques qui ne chargent pas firebase.js continuent à fonctionner sans jeton.
 if (!window.__lrfSecureCloudFetchInstalled) {
   window.__lrfSecureCloudFetchInstalled = true;
   const nativeFetch = window.fetch.bind(window);
-
   window.fetch = async (input, init = {}) => {
     const url = typeof input === 'string' ? input : String(input?.url || '');
     const isLrfCloudFunction = url.startsWith('https://us-central1-le-roy-factory.cloudfunctions.net/');
-
     if (isLrfCloudFunction && auth.currentUser) {
       try {
         const token = await auth.currentUser.getIdToken();
@@ -21,7 +18,6 @@ if (!window.__lrfSecureCloudFetchInstalled) {
         console.warn('Impossible d’ajouter le jeton Firebase à la requête CRM :', error);
       }
     }
-
     return nativeFetch(input, init);
   };
 }
@@ -54,11 +50,18 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 
 document.addEventListener('click',e=>{const a=e.target.closest('[data-open-ma-station]');if(!a)return;e.preventDefault();openMaStation();});
 
-if(location.pathname.toLowerCase().endsWith('clients.html')){
-  import('./client-partners-sync.js?v=20260909-fix1').catch(err=>console.error('Erreur synchronisation partenaires client :',err));
+const lrfCurrentPage=(location.pathname.split('/').pop()||'').toLowerCase();
+const lrfClientIntegrityReady=lrfCurrentPage==='clients.html'
+  ? import('./crm-client-integrity.js?v=20260909-integrity1')
+      .then(m=>m.ready)
+      .catch(err=>{console.error('Erreur contrôle intégrité fiches clients :',err);})
+  : Promise.resolve();
+
+if(lrfCurrentPage==='clients.html'){
+  lrfClientIntegrityReady.then(()=>import('./client-partners-sync.js?v=20260909-fix2'))
+    .catch(err=>console.error('Erreur synchronisation partenaires client :',err));
 }
 
-const lrfCurrentPage=(location.pathname.split('/').pop()||'').toLowerCase();
 if(lrfCurrentPage==='demandes-clients.html'){import('./elios-order-crm.js?v=20260907-order1').catch(err=>console.error('Erreur commandes ELIOS CRM :',err));}
 if(lrfCurrentPage==='comptes-rendus.html'){import('./comptes-rendus-simple.js?v=20260904-1').catch(err=>console.error('Erreur saisie simple compte-rendu :',err));}
 if(lrfCurrentPage==='nouveau-compte-rendu.html'){import('./nouveau-cr-client-mail.js?v=20260904-1').catch(err=>console.error('Erreur nouveau compte-rendu client/mail :',err));}
@@ -76,4 +79,7 @@ if(lrfClockPages.has(lrfCurrentPage)){
     const style=document.createElement('style');style.id='lrf-clock-page-layout-fix';style.textContent=`@media(max-width:760px){html body.crm-body .crm-topbar{align-items:flex-start!important;text-align:left!important}html body.crm-body .crm-topbar .welcome-box{padding-left:13px!important;border-left:4px solid var(--crm-gold,#f3ad18)!important;text-align:left!important}html body.crm-body .crm-topbar .welcome-box p{text-align:left!important;margin:0!important;max-width:none!important}.info-widgets.lrf-premium-status{justify-content:center!important}}`;document.head.appendChild(style);
   }).catch(err=>console.error('Erreur chargement outils horloge du CRM :',err));
 }
-if(new Set(['dashboard.html','clients.html','comptes-rendus.html']).has(lrfCurrentPage)){import('./crm-smart-search.js?v=20260909-smart1').catch(err=>console.error('Erreur recherche intelligente CRM :',err));}
+if(new Set(['dashboard.html','clients.html','comptes-rendus.html']).has(lrfCurrentPage)){
+  const loadSmart=()=>import('./crm-smart-search.js?v=20260909-smart2').catch(err=>console.error('Erreur recherche intelligente CRM :',err));
+  if(lrfCurrentPage==='clients.html')lrfClientIntegrityReady.then(loadSmart);else loadSmart();
+}
