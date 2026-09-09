@@ -80,6 +80,6 @@ if(lrfClockPages.has(lrfCurrentPage)){
   }).catch(err=>console.error('Erreur chargement outils horloge du CRM :',err));
 }
 if(new Set(['dashboard.html','clients.html','comptes-rendus.html']).has(lrfCurrentPage)){
-  const loadSmart=()=>import('./crm-smart-search.js?v=20260909-smart3').catch(err=>console.error('Erreur recherche intelligente CRM :',err));
+  const loadSmart=()=>import('./crm-smart-search.js?v=20260909-smart4').catch(err=>console.error('Erreur recherche intelligente CRM :',err));
   if(lrfCurrentPage==='clients.html')lrfClientIntegrityReady.then(loadSmart);else loadSmart();
 }
