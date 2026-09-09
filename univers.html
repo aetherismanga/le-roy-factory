@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="assets/css/inspirations-v2.css?v=20260901-phasea1">
   <link rel="stylesheet" href="assets/css/inspirations-elios-gallery-v2.css?v=20260902-clean1">
   <link rel="stylesheet" href="assets/css/inspirations-category-assets.css?v=20260901-5">
+  <link id="lrf-selection-scrollbar-fix" rel="stylesheet" href="assets/css/selection-scrollbar-fix.css?v=20260909-stability1">
   <style>
     body,html{background-color:#FBF9F5!important;background-image:none!important;color:#1A2530!important}
     header,footer{background-image:url('assets/img/bandeau02.png');background-size:cover;background-position:center;color:#fff;border-bottom:2px solid #D4AF37}
@@ -24,12 +25,13 @@
     .main-nav>li>a.active:not(.agent-btn)::after{content:'';position:absolute;bottom:-2px;left:0;width:100%;height:3px;background:#D4AF37;border-radius:2px}
     .agent-btn{display:inline-flex!important;align-items:center!important;justify-content:center!important;padding:8px 16px!important;background:#000!important;color:#FFD700!important;border:1px solid #FFD700!important;border-radius:8px!important;font-weight:700!important;font-size:.95rem!important;white-space:nowrap!important;text-decoration:none!important}
     .hero-banner{position:relative;background-image:url('assets/img/02.png')}.hero-banner:before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(12,19,25,.80),rgba(12,19,25,.32))}.hero-banner .container{position:relative;z-index:1}.hero-kicker{display:inline-block;background:#D4AF37;color:#121212;font-weight:900;font-size:.76rem;letter-spacing:.09em;text-transform:uppercase;border-radius:999px;padding:7px 11px;margin-bottom:10px}
+    @supports (content-visibility:auto){.product-card-v2{content-visibility:auto;contain-intrinsic-size:360px 430px}}
   </style>
 </head>
 <body class="insp-v2">
   <header>
     <div class="container nav-container" style="height:130px;display:flex;align-items:center;justify-content:space-between;">
-      <a href="index.html" class="logo" style="display:flex;align-items:center;height:100%;padding-left:1.5rem;flex-shrink:0;"><div style="width:110px;height:110px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.4);border:2px solid #D4AF37;background:#000;flex-shrink:0;"><img src="assets/brand-v2/logoLRF.png?v=20260901-lrf1" alt="LE ROY FACTORY" style="width:100%;height:100%;object-fit:cover;transform:scale(1.35);"></div></a>
+      <a href="index.html" class="logo" style="display:flex;align-items:center;height:100%;padding-left:1.5rem;flex-shrink:0;"><div style="width:110px;height:110px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.4);border:2px solid #D4AF37;background:#000;flex-shrink:0;"><img src="assets/brand-v2/logoLRF.png?v=20260901-lrf1" alt="LE ROY FACTORY" decoding="async" style="width:100%;height:100%;object-fit:cover;transform:scale(1.35);"></div></a>
       <nav><ul class="main-nav"><li><a href="partenaires.html">Partenaires</a></li><li><a href="univers.html" class="active">Sélections</a></li><li><a href="realisations.html">Réalisations</a></li><li><a href="catalogues.html">Catalogues</a></li><li><a href="tarifs-pro.html">Accès PRO</a></li><li><a href="contact.html">Contact</a></li><li><a href="agent.html" class="agent-btn">Espace Agent</a></li></ul></nav>
       <button class="burger-btn" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
@@ -83,28 +85,9 @@
   <script defer src="assets/js/inspirations-elios-data.js?v=20260818e"></script>
   <script defer src="assets/js/inspirations-elios-thickness-overrides.js?v=20260902-20mm1"></script>
   <script defer src="assets/js/inspirations-neobath-data.js?v=20260818e"></script>
-  <script defer src="assets/js/inspirations-view-data.js?v=20260907-view-lot1-final"></script>
-  <script defer src="assets/js/inspirations-view-elios-parity.js?v=20260907-view-parity3"></script>
-  <script defer src="assets/js/inspirations-view-data-lot2.js?v=20260907-view-lot2"></script>
-  <script defer src="assets/js/inspirations-view-data-lot3.js?v=20260907-view-lot3"></script>
-  <script defer src="assets/js/inspirations-view-hd.js?v=20260907-view-hd1"></script>
-  <script defer src="assets/js/inspirations-elios-pricing.js?v=20260902-20mm1"></script>
-  <script defer src="assets/js/inspirations-v2.js?v=20260901-phasea1"></script>
-  <script defer src="assets/js/inspirations-elios-pool-integrated.js?v=20260907-pool2"></script>
-  <script defer src="assets/js/inspirations-view-mobile-safe.js?v=20260907-view-safe1"></script>
-  <script defer src="assets/js/inspirations-view-order-v3.js?v=20260907-view-order4"></script>
-  <script defer src="assets/js/inspirations-elios-official-galleries.js?v=20260902-batch2"></script>
-  <script defer src="assets/js/inspirations-elios-official-galleries-2.js?v=20260902-batch3"></script>
-  <script defer src="assets/js/inspirations-elios-official-galleries-3.js?v=20260902-batch4"></script>
-  <script defer src="assets/js/inspirations-elios-official-galleries-4.js?v=20260902-batch5"></script>
-  <script defer src="assets/js/inspirations-elios-official-galleries-5.js?v=20260902-stones1"></script>
-  <script defer src="assets/js/inspirations-elios-official-galleries-6.js?v=20260902-stones2"></script>
-  <script defer src="assets/js/inspirations-elios-fix-bavaria-dolomiti-harmony.js?v=20260902-fix4"></script>
-  <script defer src="assets/js/inspirations-elios-pass1-hd.js?v=20260902-pass1hd2"></script>
-  <script defer src="assets/js/inspirations-elios-lot1-hd.js?v=20260902-lot1hd2"></script>
-  <script defer src="assets/js/inspirations-elios-slate-hd.js?v=20260902-slatehq1"></script>
-  <script defer src="assets/js/inspirations-elios-gallery-v2.js?v=20260902-lot1hd2"></script>
-  <script defer src="assets/js/inspirations-category-assets.js?v=20260901-3"></script>
+  <script defer src="assets/js/inspirations-v2.js?v=20260909-stability1"></script>
+  <script defer src="assets/js/selections-stability.js?v=20260909-stability1"></script>
   <script defer src="assets/js/inspirations-bilt-order-link.js?v=20260907-bilt1"></script>
+  <script defer src="assets/js/selections-lazy-enhancements.js?v=20260909-stability1"></script>
 </body>
 </html>
