@@ -70,4 +70,14 @@ const A=(ref,color,kind,format,finish,pcs,sqm,kg,bp,sp,kp,unit,per,orderOnly=fal
   O.venere={n:'Venere',p:'422–439',c:[...base.map(x=>x[1]),...decors.map(x=>x[1])],r};
 }
 
+// AZULI MOOD · Catalogue dédié 2026
+// Les codes 04Q5500 et 04Q1000 correspondent aux deux références de base repérées pour les formats principaux.
+{
+  const r=[
+    A('04Q5500','Toutes couleurs','Carreau','5 × 15 cm','Brillant · 8 mm',66,.50,null,null,null,null,'MQ',.50),
+    A('04Q1000','Toutes couleurs','Carreau','10 × 10 cm','Brillant · 8,5 mm',60,.60,null,null,null,null,'MQ',.60)
+  ];
+  O['azuli-mood']={n:'Azuli Mood',p:'Catalogue dédié 2026',c:['Toutes couleurs'],r};
+}
+
 module.exports=O;
