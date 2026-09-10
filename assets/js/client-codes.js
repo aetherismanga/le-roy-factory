@@ -68,6 +68,19 @@ function injectStyles(){
   if(document.getElementById("client-code-style"))return;
   const s=document.createElement("style");s.id="client-code-style";s.textContent=`
   .lrf-code-badge{display:inline-flex;align-items:center;margin-top:5px;padding:3px 8px;border-radius:999px;background:#161616;color:#F0C84A;border:1px solid #D4AF37;font-size:.68rem;font-weight:900;letter-spacing:.04em;white-space:nowrap}.lrf-dept-badge{display:inline-flex;margin-left:5px;padding:3px 7px;border-radius:999px;background:#F5F2EB;color:#5E5546;border:1px solid #E2DBCD;font-size:.68rem;font-weight:800}.lrf-readonly{background:#F5F3EE!important;color:#575149!important;font-weight:800}.lrf-code-search{height:40px;min-width:165px;border:1px solid #DED9CC;border-radius:9px;background:#fff;padding:0 .8rem;font:inherit;color:#27303a;outline:none}.lrf-code-search:focus{border-color:#D4AF37;box-shadow:0 0 0 2px rgba(212,175,55,.12)}
+  .lrf-mobile-unified-search{display:none}
+  @media(max-width:700px){
+    body.crm-body .crm-toolbar{display:flex!important;flex-direction:column!important;gap:.75rem!important;min-height:0!important;height:auto!important;padding:1rem!important;margin-bottom:1rem!important}
+    body.crm-body .crm-toolbar>.search-wrapper{display:none!important}
+    body.crm-body #client-ops-bar .lrf-code-search{display:none!important}
+    body.crm-body .lrf-mobile-unified-search{display:flex!important;align-items:center;width:100%!important;min-height:56px!important;order:-50!important;background:rgba(255,255,255,.92)!important;border:1px solid #d9cfbd!important;border-radius:16px!important;padding:0 .95rem!important;box-sizing:border-box!important;box-shadow:0 5px 16px rgba(50,42,31,.06)!important}
+    body.crm-body .lrf-mobile-unified-search span{font-size:1.15rem;flex:0 0 auto;margin-right:.55rem}
+    body.crm-body .lrf-mobile-unified-search input{width:100%!important;min-width:0!important;border:0!important;outline:0!important;background:transparent!important;color:#282b31!important;font:inherit!important;font-size:16px!important;padding:0!important;height:52px!important}
+    body.crm-body .lrf-mobile-unified-search input::placeholder{color:#807d76!important}
+    body.crm-body #client-ops-bar{min-height:0!important;height:auto!important;margin:0!important;gap:.7rem!important}
+    body.crm-body .crm-toolbar .mobile-filter-toggle,body.crm-body .crm-toolbar button[data-mobile-filter-toggle]{position:static!important;inset:auto!important;margin:0!important;min-height:50px!important;order:90!important}
+    body.crm-body .crm-table-container{margin-top:0!important;min-height:0!important}
+  }
   `;document.head.appendChild(s);
 }
 
@@ -128,12 +141,43 @@ function applyCodeSearch(){
   });
 }
 
+function installMobileUnifiedSearch(){
+  if(!window.matchMedia('(max-width:700px)').matches)return;
+  const toolbar=document.querySelector('.crm-toolbar');
+  if(!toolbar||document.getElementById('lrf-mobile-unified-search-input'))return;
+  const wrap=document.createElement('div');
+  wrap.className='lrf-mobile-unified-search';
+  wrap.innerHTML='<span aria-hidden="true">🔎</span><input id="lrf-mobile-unified-search-input" type="search" autocomplete="off" placeholder="Nom, ville, contact ou Code LRF…" aria-label="Rechercher un client ou un code LRF">';
+  toolbar.prepend(wrap);
+  const unified=wrap.querySelector('input');
+  const general=document.getElementById('search-input');
+  const sync=()=>{
+    const value=unified.value.trim();
+    const compact=value.replace(/\s/g,'').toUpperCase();
+    const looksCode=/^(LRF[- ]?)?\d{1,5}$/i.test(compact)||/^LRF-/i.test(compact);
+    const code=document.getElementById('lrf-code-search');
+    if(looksCode){
+      if(general){general.value='';general.dispatchEvent(new Event('input',{bubbles:true}));}
+      if(code){code.value=value;code.dispatchEvent(new Event('input',{bubbles:true}));}
+    }else{
+      if(code){code.value='';code.dispatchEvent(new Event('input',{bubbles:true}));}
+      if(general){general.value=value;general.dispatchEvent(new Event('input',{bubbles:true}));}
+    }
+  };
+  unified.addEventListener('input',sync);
+  setTimeout(()=>{
+    const filterBtn=[...toolbar.querySelectorAll('button')].find(b=>/filtres/i.test(b.textContent||''));
+    if(filterBtn){filterBtn.dataset.mobileFilterToggle='1';filterBtn.style.position='static';filterBtn.style.marginTop='0';}
+  },250);
+}
+
 function init(){
   injectStyles();injectModalFields();
-  const tbody=document.getElementById("clients-table-body");if(tbody)new MutationObserver(()=>setTimeout(()=>{decorateRows();injectCodeSearch()},0)).observe(tbody,{childList:true});
+  const tbody=document.getElementById("clients-table-body");if(tbody)new MutationObserver(()=>setTimeout(()=>{decorateRows();injectCodeSearch();installMobileUnifiedSearch()},0)).observe(tbody,{childList:true});
   document.addEventListener("click",e=>{const row=e.target.closest("#clients-table-body tr");if(row){const c=findClientForRow(row);activeClientId=c?.id||null;setTimeout(fillModal,30)}},true);
   document.getElementById("btn-add-client")?.addEventListener("click",()=>{activeClientId=null;setTimeout(fillModal,30)},true);
   const modal=document.getElementById("client-modal");if(modal)new MutationObserver(()=>setTimeout(fillModal,0)).observe(modal,{attributes:true,attributeFilter:["style"]});
-  onSnapshot(collection(db,"clients"),snap=>{clients=[];snap.forEach(d=>clients.push({id:d.id,...d.data()}));setTimeout(()=>{decorateRows();injectCodeSearch();fillModal()},0);assignMissingCodes()});
+  onSnapshot(collection(db,"clients"),snap=>{clients=[];snap.forEach(d=>clients.push({id:d.id,...d.data()}));setTimeout(()=>{decorateRows();injectCodeSearch();fillModal();installMobileUnifiedSearch()},0);assignMissingCodes()});
+  setTimeout(()=>{injectCodeSearch();installMobileUnifiedSearch()},150);
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();
