@@ -1,0 +1,61 @@
+/* Correctifs WebKit / iOS pour la page Sélections. N'affecte ni Android ni le bureau. */
+@supports (-webkit-touch-callout: none) {
+  @media (max-width: 900px) {
+    body.lrf-ios #insp-categories {
+      display:grid!important;
+      grid-template-columns:repeat(2,minmax(0,1fr))!important;
+      gap:.5rem!important;
+      align-items:stretch!important;
+    }
+    body.lrf-ios .category-card {
+      display:block!important;
+      width:100%!important;
+      height:clamp(72px,19vw,110px)!important;
+      min-height:72px!important;
+      aspect-ratio:auto!important;
+      background-size:cover!important;
+      background-position:center!important;
+      background-repeat:no-repeat!important;
+      -webkit-appearance:none!important;
+      appearance:none!important;
+      transform:translateZ(0);
+      -webkit-transform:translateZ(0);
+    }
+    body.lrf-ios .mobile-partner-trigger,
+    body.lrf-ios .mobile-filter-trigger {
+      display:block!important;
+      width:100%!important;
+      -webkit-appearance:none!important;
+      appearance:none!important;
+      touch-action:manipulation;
+    }
+    body.lrf-ios .partner-grid.mobile-open { display:grid!important; }
+    body.lrf-ios .workspace.open { display:block!important; }
+    body.lrf-ios .product-grid-v2 { display:grid!important; }
+    body.lrf-ios .product-card-v2 {
+      content-visibility:visible!important;
+      contain:none!important;
+      contain-intrinsic-size:auto!important;
+      visibility:visible!important;
+      opacity:1!important;
+      -webkit-transform:translateZ(0);
+      transform:translateZ(0);
+    }
+    body.lrf-ios .product-card-v2 img,
+    body.lrf-ios .workspace img,
+    body.lrf-ios .partner-grid img {
+      visibility:visible!important;
+      opacity:1!important;
+    }
+    body.lrf-ios .insp-v2-shell,
+    body.lrf-ios .partner-panel,
+    body.lrf-ios .workspace {
+      max-width:100%!important;
+      overflow:visible!important;
+    }
+    body.lrf-ios .builder-shell,
+    body.lrf-ios .insp-v2-shell {
+      padding-bottom:calc(1rem + env(safe-area-inset-bottom));
+    }
+  }
+}
