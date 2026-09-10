@@ -48,5 +48,5 @@ jobs:
         run: >-
           firebase deploy
           --project le-roy-factory
-          --only functions:getTariffPdf,functions:getNeobathDnaTariff,functions:createProSession,functions:validateProSession,functions:revokeProSession,functions:trackLrfActivity,functions:getLrfAnalytics,functions:eliosStock,functions:eliosOrder,functions:eliosCatalog,functions:biltOrder,functions:biltDecision,functions:biltScheduleAutoRelease,functions:biltAutoReleaseTask
+          --only functions:getTariffPdf,functions:getNeobathDnaTariff,functions:createProSession,functions:validateProSession,functions:revokeProSession,functions:trackLrfActivity,functions:getLrfAnalytics,functions:eliosStock,functions:eliosOrder,functions:eliosPoseOrder,functions:eliosCatalog,functions:biltOrder,functions:biltDecision,functions:biltScheduleAutoRelease,functions:biltAutoReleaseTask
           --non-interactive
