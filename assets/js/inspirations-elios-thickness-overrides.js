@@ -189,7 +189,7 @@
         <div class="chips" style="margin-bottom:.7rem"><span>5x15 · 04Q5500</span><span>10x10 · 04Q1000</span></div>
         <p style="margin:0 0 .65rem;font-size:.82rem;color:#6c746f">Conditionnement : 5x15 = 66 pièces / 0,50 m² · 10x10 = 60 pièces / 0,60 m².</p>
         <div style="display:flex;gap:.55rem;flex-wrap:wrap">
-          <a class="pro-link" href="disponibilites-elios.html?collection=azuli-mood">Vérifier le stock</a>
+          <a class="pro-link" href="disponibilites-elios-lot1.html?collection=azuli-mood">Vérifier le stock</a>
           <a class="pro-link" href="${AZULI_PDF}" target="_blank" rel="noopener">Ouvrir le catalogue Azuli Mood</a>
         </div>`;
       info.appendChild(stock);
