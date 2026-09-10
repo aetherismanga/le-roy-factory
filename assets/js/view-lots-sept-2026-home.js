@@ -45,7 +45,7 @@
   const modal=document.createElement('div');
   modal.className='viewlots26-modal';
   modal.setAttribute('aria-hidden','true');
-  modal.innerHTML='<div class="viewlots26-box" role="dialog" aria-modal="true" aria-label="Lots VIEW Septembre 2026"><button class="viewlots26-close" type="button" aria-label="Fermer">×</button><iframe class="viewlots26-frame" title="Lots VIEW Septembre 2026" data-src="view-lots-septembre-2026.html?v=20260902-modal1" loading="lazy"></iframe><div class="viewlots26-loading">Chargement des lots VIEW…</div></div>';
+  modal.innerHTML='<div class="viewlots26-box" role="dialog" aria-modal="true" aria-label="Lots VIEW Septembre 2026"><button class="viewlots26-close" type="button" aria-label="Fermer">×</button><iframe class="viewlots26-frame" title="Lots VIEW Septembre 2026" data-src="view-lots-septembre-2026.html?v=20260910-pricefix1" loading="lazy"></iframe><div class="viewlots26-loading">Chargement des lots VIEW…</div></div>';
   document.body.appendChild(modal);
   const frame=modal.querySelector('.viewlots26-frame');
   frame.addEventListener('load',()=>{
