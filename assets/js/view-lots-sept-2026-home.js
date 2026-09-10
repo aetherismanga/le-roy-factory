@@ -45,7 +45,7 @@
   const modal=document.createElement('div');
   modal.className='viewlots26-modal';
   modal.setAttribute('aria-hidden','true');
-  modal.innerHTML='<div class="viewlots26-box" role="dialog" aria-modal="true" aria-label="Lots VIEW Septembre 2026"><button class="viewlots26-close" type="button" aria-label="Fermer">×</button><iframe class="viewlots26-frame" title="Lots VIEW Septembre 2026" data-src="view-lots-septembre-2026.html?v=20260910-pricefix1" loading="lazy"></iframe><div class="viewlots26-loading">Chargement des lots VIEW…</div></div>';
+  modal.innerHTML='<div class="viewlots26-box" role="dialog" aria-modal="true" aria-label="Lots VIEW Septembre 2026"><button class="viewlots26-close" type="button" aria-label="Fermer">×</button><iframe class="viewlots26-frame" title="Lots VIEW Septembre 2026" data-src="view-lots-septembre-2026.html?v=20260910-pricefix2" loading="lazy"></iframe><div class="viewlots26-loading">Chargement des lots VIEW…</div></div>';
   document.body.appendChild(modal);
   const frame=modal.querySelector('.viewlots26-frame');
   frame.addEventListener('load',()=>{
@@ -56,7 +56,7 @@
       const header=doc.querySelector('header'); if(header)header.style.display='none';
       const footer=doc.querySelector('footer'); if(footer)footer.style.display='none';
       const injected=doc.createElement('style');
-      injected.textContent='html,body{background:#f7f5f0!important}body{overflow-x:hidden!important}.hero-inner{min-height:260px!important;padding-top:30px!important;padding-bottom:30px!important}.content{padding-top:20px!important}@media(max-width:680px){.hero-inner{padding-top:20px!important;padding-bottom:22px!important}.view-logo{width:130px!important;height:72px!important}.hero h1{font-size:2rem!important}.content{padding-top:14px!important}}';
+      injected.textContent='html,body{background:#f7f5f0!important}body{overflow-x:hidden!important}.hero-inner{min-height:260px!important;padding-top:30px!important;padding-bottom:30px!important}.content{padding-top:20px!important}@media(max-width:680px){.hero-inner{padding-top:20px!important;padding-bottom:22px!important}.view-logo{width:130px!important;height:72px!important}.hero h1{font-size:2rem!important}.content{padding-top:14px!important}td.price{display:block!important;visibility:visible!important;opacity:1!important;min-height:34px!important}.price .value,.price .locked{display:inline!important;visibility:visible!important;opacity:1!important}.price .value{color:#76581e!important;font-weight:900!important}}';
       doc.head.appendChild(injected);
     }catch(_){ }
   });
