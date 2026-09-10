@@ -40,7 +40,6 @@ function ensureMobileCss() {
     link.href = 'assets/css/mobile-enhancements.css?v=20260817-1935';
     document.head.appendChild(link);
 
-    // Toujours charger le correctif public final APRES les anciens styles.
     const previousFinal = document.getElementById('lrf-mobile-public-v8-late');
     if (previousFinal) previousFinal.remove();
     const finalMobile = document.createElement('link');
@@ -152,6 +151,23 @@ function installNeobathDnaTariffFix() {
         grid.dataset.dnaTariffObserver = '1';
         new MutationObserver(patchLink).observe(grid, { childList: true, subtree: true });
     }
+}
+
+function installProEmptyPlaceholders() {
+    if (!window.location.pathname.toLowerCase().endsWith('tarifs-pro.html')) return;
+    const login = document.getElementById('login-section');
+    if (!login || login.dataset.emptyPlaceholderObserver) return;
+
+    const clearExamples = () => {
+        const code = document.getElementById('pro-lrf-code');
+        const dep = document.getElementById('pro-dept');
+        if (code) code.setAttribute('placeholder', '');
+        if (dep) dep.setAttribute('placeholder', '');
+    };
+
+    clearExamples();
+    login.dataset.emptyPlaceholderObserver = '1';
+    new MutationObserver(clearExamples).observe(login, { childList: true, subtree: true });
 }
 
 function installInspirationsNeobathPdf() {
@@ -267,9 +283,11 @@ document.addEventListener('DOMContentLoaded', () => {
     installNeobathDnaTariffFix();
     installInspirationsNeobathPdf();
     installContactPriority();
+    installProEmptyPlaceholders();
 
     if (window.location.pathname.toLowerCase().endsWith('tarifs-pro.html')) {
         import('./tarifs-pro-client-access.js?v=20260901-profix1')
+            .then(() => installProEmptyPlaceholders())
             .catch(err => console.error('Erreur chargement accès tarifs PRO client :', err));
     }
 });
