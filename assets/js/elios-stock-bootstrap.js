@@ -1,6 +1,6 @@
 (() => {
   'use strict';
-  const ACTIVE = new Set(['roma','lithos','mysterium','quercia','dolomiti','bavaria-stone','grand-place','harmony','millennium-quartz','sedimenti','slate','brooklyn','clay','creta','deco','d-esign-evo','domus','glow','golden-hour','hexagon','horizon','marechiaro','montreal','love-decors','manhattan','yosemite','shell','terre-etrusche','allure','dust','segmento','tropical','twist','venere']);
+  const ACTIVE = new Set(['roma','lithos','mysterium','quercia','dolomiti','bavaria-stone','grand-place','harmony','millennium-quartz','sedimenti','slate','brooklyn','clay','creta','deco','d-esign-evo','domus','glow','golden-hour','hexagon','horizon','marechiaro','montreal','love-decors','manhattan','yosemite','shell','terre-etrusche','allure','dust','segmento','tropical','twist','venere','azuli-mood']);
   const MANUAL_STOCK = new Set(['horizon','montreal']);
   const CATALOG_API = 'https://us-central1-le-roy-factory.cloudfunctions.net/eliosCatalog';
   const params = new URLSearchParams(location.search);
