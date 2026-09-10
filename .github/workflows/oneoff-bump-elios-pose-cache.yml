@@ -1,0 +1,28 @@
+name: One-off Elios pose cache refresh
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/oneoff-bump-elios-pose-cache.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bump configurator loader cache key
+        run: |
+          sed -i 's/elios-pose-configurator-v1.js?v=20260911-pose2/elios-pose-configurator-v1.js?v=20260911-pose3/' configurateur-elios-pose.html
+          if git diff --quiet; then
+            echo 'Cache key already current.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add configurateur-elios-pose.html
+          git commit -m 'fix: refresh Elios pose R10 R11 loader cache'
+          git push
