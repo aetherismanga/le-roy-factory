@@ -41,4 +41,5 @@ S.modules={
   'sedimenti-tumbled-r11-sand':{ref:'03ZM106',label:'Modulo extérieur pré-boxé · 0,75 m²',boxM2:.75,pcs:6,finish:'Tumbled · Outdoor R11 · 8,5 mm'}
 };
 state.modularId=D.modularOptions[0].id;
+const stepNote=document.querySelector('.ep-left .ep-step small');if(stepNote)stepNote.textContent='Collection, finition R10/R11, modèle / couleur puis conditionnement.';
 })();
