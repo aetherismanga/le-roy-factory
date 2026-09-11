@@ -1,0 +1,38 @@
+name: Fix VIEW email recap cache
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/fix-view-email-recap-cache.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Refresh VIEW selection cache
+        run: |
+          python <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('univers.html')
+          s=p.read_text(encoding='utf-8')
+          s=re.sub(r'selections-lazy-enhancements\.js\?v=[^"\']+', 'selections-lazy-enhancements.js?v=20260911-view-mail-recap1', s)
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Syntax check
+        run: |
+          node --check assets/js/selections-lazy-enhancements.js
+          node --check assets/js/inspirations-view-order-email-recap-fix.js
+      - name: Commit and self-clean
+        run: |
+          git config user.name 'aetherismanga'
+          git config user.email 'ccjacou@gmail.com'
+          git rm .github/workflows/fix-view-email-recap-cache.yml
+          git add univers.html
+          git diff --cached --quiet || git commit -m 'fix: show VIEW selected products in email recap'
+          git push origin main
