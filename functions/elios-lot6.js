@@ -71,13 +71,28 @@ const A=(ref,color,kind,format,finish,pcs,sqm,kg,bp,sp,kp,unit,per,orderOnly=fal
 }
 
 // AZULI MOOD · Catalogue dédié 2026
-// Les codes 04Q5500 et 04Q1000 correspondent aux deux références de base repérées pour les formats principaux.
 {
-  const r=[
-    A('04Q5500','Toutes couleurs','Carreau','5 × 15 cm','Brillant · 8 mm',66,.50,null,null,null,null,'MQ',.50),
-    A('04Q1000','Toutes couleurs','Carreau','10 × 10 cm','Brillant · 8,5 mm',60,.60,null,null,null,null,'MQ',.60)
+  const r=[];
+  const C=[['Bone','00'],['Bottle Green','01'],['Burgundy','02'],['Chalk','03'],['Coffee Bean','04'],['Dawn','05'],['Dusk','06'],['Sand','07'],['Thyme Green','08'],['Turquoise','09'],['Blue','10']];
+  for(const [c,s] of C){
+    r.push(A(`04Q10${s}`,c,'Carreau','10 × 10 cm','Brillant · 8,5 mm',60,.60,11.76,98,58.8,1170,'MQ',.60));
+    r.push(A(`04Q55${s}`,c,'Carreau','5 × 15 cm','Brillant · 8 mm',66,.50,8.94,120,60,1072,'MQ',.50));
+    r.push(A(`04Q12${s}`,c,'Pièce spéciale','Quarter round 1,2 × 20 cm','Brillant · 8 mm',22,.05,.86,400,null,null,'PZ',22));
+  }
+  const mosaics=[
+    ['04QH100','Bone - Coffee Bean','Cassettone 30,3 × 30,3 cm',.92,18,33.12,648],
+    ['04QH101','Thyme Green - Bottle Green','Cassettone 30,3 × 30,3 cm',.92,18,33.12,648],
+    ['04QH102','Turquoise - Blue','Cassettone 30,3 × 30,3 cm',.92,18,33.12,648],
+    ['04QH103','Sand - Burgundy','Cassettone 30,3 × 30,3 cm',.92,18,33.12,648],
+    ['04QH104','Bone - Coffee Bean','Ottagona 30,5 × 27,2 cm',.83,16.2,29.88,583.2],
+    ['04QH105','Thyme Green - Bottle Green','Ottagona 30,5 × 27,2 cm',.83,16.2,29.88,583.2],
+    ['04QH106','Turquoise - Blue','Ottagona 30,5 × 27,2 cm',.83,16.2,29.88,583.2],
+    ['04QH107','Sand - Burgundy','Ottagona 30,5 × 27,2 cm',.83,16.2,29.88,583.2],
+    ['04QH108','Bone - Dusk','Losanghe 23,4 × 23,4 cm',.55,10.7,19.8,385.2],
+    ['04QH109','Chalk - Dawn','Losanghe 23,4 × 23,4 cm',.55,10.7,19.8,385.2]
   ];
-  O['azuli-mood']={n:'Azuli Mood',p:'Catalogue dédié 2026',c:['Toutes couleurs'],r};
+  mosaics.forEach(([ref,c,format,sqm,kg,sqmPal,kgPal])=>r.push(A(ref,c,'Mosaïque',format,'Brillant · 8,5 mm',10,sqm,kg,36,sqmPal,kgPal,'MQ',sqm)));
+  O['azuli-mood']={n:'Azuli Mood',p:'Catalogue dédié 2026 · pages 64–67',c:C.map(x=>x[0]),r};
 }
 
 module.exports=O;
