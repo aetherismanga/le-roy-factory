@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css?v=20260908-lrfanalysis2">
   <link rel="stylesheet" href="assets/css/clients.css">
-  <link rel="stylesheet" href="assets/css/analyse-clients-lrf.css?v=20260908-2">
+  <link rel="stylesheet" href="assets/css/analyse-clients-lrf.css?v=20260911-simple1">
 </head>
 <body class="crm-body">
   <aside class="crm-sidebar">
@@ -36,17 +36,21 @@
 
   <main class="crm-main-content lrf-analysis-page">
     <div class="crm-topbar lrf-analysis-topbar">
-      <div class="welcome-box"><h1>Radar clients LRF</h1><p id="lrf-analysis-greeting">Analyse privée — connexion sécurisée…</p></div>
+      <div class="welcome-box"><h1>Analyse clients LRF</h1><p id="lrf-analysis-greeting">Analyse privée — connexion sécurisée…</p></div>
       <div class="lrf-top-actions"><span id="lrf-load-summary">Préparation de l’analyse…</span><button id="lrf-refresh-analysis" type="button" class="btn-primary-gold">↻ Actualiser</button></div>
     </div>
 
     <div id="lrf-analysis-root" class="lrf-analytics-shell">
-      <div class="lrf-private-note"><span>🔒</span><div><strong>Données strictement internes.</strong> Activité des comptes LRF visible uniquement par Jérôme et Coryne. Les clients ne voient jamais ces statistiques ni leur score commercial.</div></div>
+      <div class="lrf-private-note"><span>🔒</span><div><strong>Données internes.</strong> Les statistiques sont visibles uniquement par Jérôme et Coryne. Leurs propres visites sont exclues des résultats.</div></div>
 
-      <section class="lrf-filter-card" aria-label="Filtres d'analyse">
-        <div class="lrf-filter-head"><div><strong>Filtres d’analyse</strong><small>Combinez période, département, fabricant, action et client.</small></div><button id="lrf-reset-filters" type="button" class="lrf-secondary-btn">Réinitialiser</button></div>
+      <section class="lrf-quick-filter" aria-label="Période et filtres">
+        <label><span>Période</span><select id="lrf-period"><option value="today">Aujourd’hui</option><option value="yesterday">Hier</option><option value="7d" selected>7 derniers jours</option><option value="30d">30 derniers jours</option><option value="month">Ce mois</option><option value="prev_month">Mois précédent</option><option value="90d">90 derniers jours</option><option value="custom">Période personnalisée</option></select></label>
+        <button id="lrf-toggle-filters" class="lrf-soft-btn" type="button" aria-expanded="false">⚙️ Filtres</button>
+      </section>
+
+      <section class="lrf-filter-card" id="lrf-advanced-filters" aria-label="Filtres d'analyse" hidden>
+        <div class="lrf-filter-head"><div><strong>Filtres avancés</strong><small>Affinez seulement si nécessaire.</small></div><button id="lrf-reset-filters" type="button" class="lrf-secondary-btn">Réinitialiser</button></div>
         <div class="lrf-filter-grid">
-          <label><span>Période</span><select id="lrf-period"><option value="today">Aujourd’hui</option><option value="yesterday">Hier</option><option value="7d" selected>7 derniers jours</option><option value="30d">30 derniers jours</option><option value="month">Ce mois</option><option value="prev_month">Mois précédent</option><option value="90d">90 derniers jours</option><option value="custom">Période personnalisée</option></select></label>
           <label class="lrf-custom-date" hidden><span>Du</span><input id="lrf-date-start" type="date"></label>
           <label class="lrf-custom-date" hidden><span>Au</span><input id="lrf-date-end" type="date"></label>
           <label><span>Département</span><select id="lrf-department"><option value="">Tous les départements</option></select></label>
@@ -63,49 +67,41 @@
       <div class="lrf-analytics-tabs" role="tablist">
         <button class="lrf-analytics-tab active" data-panel="overview" type="button">📊 Vue générale</button>
         <button class="lrf-analytics-tab" data-panel="clients" type="button">👥 Clients</button>
+        <button class="lrf-analytics-tab" data-panel="orders" type="button">🛒 Commandes</button>
         <button class="lrf-analytics-tab" data-panel="activity" type="button">🕒 Activité</button>
-        <button class="lrf-analytics-tab" data-panel="products" type="button">🧱 Produits & stocks</button>
-        <button class="lrf-analytics-tab" data-panel="departments" type="button">🗺 Départements</button>
-        <button class="lrf-analytics-tab" data-panel="hot" type="button">🔥 Clients chauds</button>
       </div>
 
       <section class="lrf-analytics-panel active" id="panel-overview">
-        <div class="lrf-overview-grid">
-          <div class="lrf-analysis-card"><div class="lrf-card-title"><h2>🟢 Actifs maintenant</h2><small>Activité dans les 5 dernières minutes</small></div><div id="lrf-online-list" class="lrf-online-list"><div class="lrf-loading">Analyse…</div></div></div>
-          <div class="lrf-analysis-card"><div class="lrf-card-title"><h2>🔥 Priorités commerciales</h2><small>Clients à rappeler en premier</small></div><div class="lrf-hot-list" id="lrf-overview-hot"><div class="lrf-loading">Calcul du score…</div></div></div>
+        <div class="lrf-overview-grid lrf-overview-primary">
+          <div class="lrf-analysis-card"><div class="lrf-card-title"><div><h2>🔥 Clients à contacter en priorité</h2><small>Les clients les plus actifs commercialement.</small></div><button class="lrf-inline-link" type="button" data-open-panel="clients">Voir tous</button></div><div class="lrf-hot-list" id="lrf-overview-hot"><div class="lrf-loading">Analyse…</div></div></div>
+          <div class="lrf-analysis-card"><div class="lrf-card-title"><div><h2>🛒 Commandes récentes</h2><small>Commandes repérées sur la période.</small></div><button class="lrf-inline-link" type="button" data-open-panel="orders">Voir toutes</button></div><div id="lrf-overview-orders" class="lrf-order-list"><div class="lrf-loading">Chargement…</div></div></div>
         </div>
-        <div class="lrf-analysis-card"><div class="lrf-card-title"><h2>🏭 Fabricants les plus consultés</h2><small>Selon les filtres sélectionnés</small></div><div class="lrf-page-bars" id="lrf-partner-bars"><div class="lrf-loading">Chargement…</div></div></div>
+        <div class="lrf-overview-grid">
+          <div class="lrf-analysis-card"><div class="lrf-card-title"><div><h2>👀 Produits les plus consultés</h2><small>Ce qui intéresse le plus vos clients.</small></div></div><div id="lrf-top-products" class="lrf-simple-list"><div class="lrf-loading">Chargement…</div></div></div>
+          <div class="lrf-analysis-card"><div class="lrf-card-title"><div><h2>🏭 Fabricants les plus consultés</h2><small>Répartition de l’intérêt client.</small></div></div><div class="lrf-page-bars" id="lrf-partner-bars"><div class="lrf-loading">Chargement…</div></div></div>
+        </div>
+        <div class="lrf-analysis-card lrf-live-card"><div class="lrf-card-title"><div><h2>🟢 Actifs maintenant</h2><small>Activité client dans les 5 dernières minutes.</small></div></div><div id="lrf-online-list" class="lrf-online-list"><div class="lrf-loading">Analyse…</div></div></div>
       </section>
 
       <section class="lrf-analytics-panel" id="panel-clients">
         <div class="lrf-analysis-card">
-          <div class="lrf-analysis-toolbar"><div><h2>Liste des clients LRF</h2><small id="lrf-generated-at"></small></div><div class="lrf-toolbar-fields"><input id="lrf-client-search" class="lrf-analysis-search" type="search" placeholder="Société, LRF, ville, produit…"><select id="lrf-client-status" class="lrf-analysis-select"><option value="all">Tous les actifs</option><option value="online">Actifs maintenant</option><option value="today">Actifs aujourd’hui</option><option value="inactive">Jamais vus sur la période</option></select><select id="lrf-client-heat" class="lrf-analysis-select"><option value="all">Tous les scores</option><option>Très chaud</option><option>Chaud</option><option>Tiède</option><option>Froid</option></select></div></div>
-          <div class="lrf-table-caption"><strong id="lrf-client-count">0 client</strong><span>Cliquez sur un client pour ouvrir sa chronologie détaillée.</span></div>
-          <div class="lrf-table-wrap"><table class="lrf-analysis-table"><thead><tr><th>Client</th><th>Dernière activité</th><th>Connexions</th><th>Pages</th><th>Produits</th><th>Stocks</th><th>Tarifs</th><th>Produit favori</th><th>Intérêt</th><th>Action</th></tr></thead><tbody id="lrf-clients-table-body"><tr><td colspan="10">Chargement…</td></tr></tbody></table></div>
+          <div class="lrf-analysis-toolbar"><div><h2>Clients</h2><small id="lrf-generated-at"></small></div><div class="lrf-toolbar-fields"><input id="lrf-client-search" class="lrf-analysis-search" type="search" placeholder="Société, LRF, ville, produit…"><select id="lrf-client-status" class="lrf-analysis-select"><option value="all">Tous les actifs</option><option value="online">Actifs maintenant</option><option value="today">Actifs aujourd’hui</option><option value="inactive">Sans activité sur la période</option></select><select id="lrf-client-heat" class="lrf-analysis-select"><option value="all">Tous les niveaux</option><option value="Très chaud">Très actif</option><option value="Chaud">À suivre</option><option value="Tiède">Actif</option><option value="Froid">Peu actif</option></select></div></div>
+          <div class="lrf-table-caption"><strong id="lrf-client-count">0 client</strong><span>Ouvrez un client pour voir l’essentiel et sa chronologie.</span></div>
+          <div class="lrf-table-wrap"><table class="lrf-analysis-table"><thead><tr><th>Client</th><th>Dernière activité</th><th>Visites</th><th>Produits</th><th>Tarifs</th><th>Stocks</th><th>Commandes</th><th>Intérêt principal</th><th>Niveau</th><th>Action</th></tr></thead><tbody id="lrf-clients-table-body"><tr><td colspan="10">Chargement…</td></tr></tbody></table></div>
         </div>
+      </section>
+
+      <section class="lrf-analytics-panel" id="panel-orders">
+        <div class="lrf-analysis-card"><div class="lrf-card-title"><div><h2>🛒 Commandes</h2><small>Les commandes apparaissent dès qu’elles sont enregistrées par le suivi LRF.</small></div></div><div id="lrf-orders-list" class="lrf-order-list"><div class="lrf-loading">Chargement…</div></div></div>
       </section>
 
       <section class="lrf-analytics-panel" id="panel-activity">
-        <div class="lrf-analysis-card"><div class="lrf-analysis-toolbar"><div><h2>🕒 Fil d’activité client</h2><small>Connexions, pages, fabricants, produits, stocks et tarifs.</small></div><input id="lrf-activity-search" class="lrf-analysis-search" type="search" placeholder="Filtrer le fil par client, produit, référence…"></div><div id="lrf-timeline" class="lrf-timeline"><div class="lrf-loading">Chargement de la chronologie…</div></div></div>
+        <div class="lrf-analysis-card"><div class="lrf-analysis-toolbar"><div><h2>🕒 Activité récente</h2><small>Une chronologie lisible, regroupée autour des actions utiles.</small></div><input id="lrf-activity-search" class="lrf-analysis-search" type="search" placeholder="Client, produit, référence…"></div><div id="lrf-timeline" class="lrf-timeline"><div class="lrf-loading">Chargement de la chronologie…</div></div></div>
       </section>
 
-      <section class="lrf-analytics-panel" id="panel-products">
-        <div class="lrf-products-grid">
-          <div class="lrf-analysis-card"><div class="lrf-card-title"><h2>🧱 Produits les plus regardés</h2><small>Les nouveaux clics produits sont suivis précisément.</small></div><div class="lrf-table-wrap"><table class="lrf-analysis-table lrf-small-table"><thead><tr><th>Référence</th><th>Produit</th><th>Fabricant</th><th>Vues</th></tr></thead><tbody id="lrf-products-table"><tr><td colspan="4">Chargement…</td></tr></tbody></table></div></div>
-          <div class="lrf-analysis-card"><div class="lrf-card-title"><h2>📦 Consultations de stock</h2><small>Référence, collection et dernière disponibilité vue.</small></div><div class="lrf-table-wrap"><table class="lrf-analysis-table lrf-small-table"><thead><tr><th>Référence</th><th>Produit</th><th>Dernier stock vu</th><th>Consultations</th></tr></thead><tbody id="lrf-stocks-table"><tr><td colspan="4">Chargement…</td></tr></tbody></table></div></div>
-        </div>
-      </section>
-
-      <section class="lrf-analytics-panel" id="panel-departments">
-        <div class="lrf-products-grid">
-          <div class="lrf-analysis-card"><div class="lrf-card-title"><h2>🗺 Activité par département</h2><small>Nombre total d’événements enregistrés.</small></div><div class="lrf-page-bars" id="lrf-department-bars"><div class="lrf-loading">Chargement…</div></div></div>
-          <div class="lrf-analysis-card"><div class="lrf-card-title"><h2>👁 Pages les plus consultées</h2><small>Pages vues pendant la période choisie.</small></div><div class="lrf-page-bars" id="lrf-page-bars"><div class="lrf-loading">Chargement…</div></div></div>
-        </div>
-      </section>
-
-      <section class="lrf-analytics-panel" id="panel-hot">
-        <div class="lrf-analysis-card"><div class="lrf-card-title"><h2>🔥 Clients chauds — ordre de priorité</h2><small>Le score renforce les consultations de stock, tarifs, produits répétés et récence.</small></div><div class="lrf-hot-list lrf-hot-grid" id="lrf-hot-list"><div class="lrf-loading">Calcul en cours…</div></div></div>
-      </section>
+      <div class="lrf-hidden-data" aria-hidden="true">
+        <div id="lrf-products-table"></div><div id="lrf-stocks-table"></div><div id="lrf-department-bars"></div><div id="lrf-page-bars"></div><div id="lrf-hot-list"></div>
+      </div>
     </div>
   </main>
 
@@ -114,14 +110,16 @@
     <div class="lrf-drawer-head"><div><h2 id="lrf-detail-title">Client</h2><p id="lrf-detail-meta"></p></div><button id="lrf-detail-close" type="button" aria-label="Fermer">×</button></div>
     <div class="lrf-drawer-body">
       <div id="lrf-detail-score"></div>
+      <div id="lrf-detail-order-highlight"></div>
       <div id="lrf-detail-metrics" class="lrf-detail-metrics"></div>
-      <div class="lrf-detail-signal"><strong>Pourquoi ce score ?</strong><p id="lrf-detail-reasons"></p></div>
-      <div class="lrf-drawer-section"><h3>Chronologie sur la période</h3><div id="lrf-detail-timeline" class="lrf-detail-timeline"></div></div>
+      <div class="lrf-detail-signal"><strong>À retenir</strong><p id="lrf-detail-reasons"></p></div>
+      <div id="lrf-detail-ca-anchor"></div>
+      <div class="lrf-drawer-section"><h3>Chronologie récente</h3><div id="lrf-detail-timeline" class="lrf-detail-timeline"></div></div>
       <a id="lrf-detail-fiche" class="lrf-open-client lrf-full-btn" href="clients.html">Ouvrir la fiche CRM du client</a>
     </div>
   </aside>
 
   <script src="assets/js/crm-settings-nav.js?v=20260908-settings2"></script>
-  <script type="module" src="assets/js/analyse-clients-lrf.js?v=20260908-2"></script>
+  <script type="module" src="assets/js/analyse-clients-lrf.js?v=20260911-simple1"></script>
 </body>
 </html>
