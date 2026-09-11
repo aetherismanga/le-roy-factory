@@ -1,5 +1,6 @@
 name: BILT Auto Release
 
+# Every change to this workflow also triggers an immediate self-test.
 on:
   workflow_dispatch:
   schedule:
