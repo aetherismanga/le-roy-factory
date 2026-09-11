@@ -1,16 +1,132 @@
 (() => {
   'use strict';
+  if (window.__LRF_REVIGLASS_UI_20260911__) return;
+  window.__LRF_REVIGLASS_UI_20260911__ = true;
+
+  const $=(s,r=document)=>r.querySelector(s);
+  const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+  const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const norm=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');
-  const restore=()=>{
-    const title=document.getElementById('workspace-title');
-    if(norm(title?.textContent)==='reviglass') return;
-    const host=document.getElementById('partner-products');
-    if(host?.classList.contains('reviglass-grid')) host.className='product-grid-v2';
-    const search=document.getElementById('v2-search');
-    if(search) search.placeholder='Rechercher une collection ou un produit…';
-    const finish=document.getElementById('v2-finish');
-    if(finish) finish.disabled=false;
-  };
-  const title=document.getElementById('workspace-title');
-  if(title) new MutationObserver(()=>setTimeout(restore,0)).observe(title,{childList:true,subtree:true,characterData:true});
+  const fr=(v,d=2)=>Number(v||0).toLocaleString('fr-FR',{minimumFractionDigits:d,maximumFractionDigits:d});
+  const isReviglass=()=>norm($('#workspace-title')?.textContent)==='reviglass';
+  const readSession=()=>{try{return window.LRF_PRO_SESSION?.read?.()||JSON.parse(sessionStorage.getItem('lrfProSession')||'null')}catch{return null}};
+  const hasAccess=()=>{const s=readSession();if(!s)return false;const mail=norm(s.email);if(mail===norm('jerome@leroyfactory.fr')||mail===norm('coryne@leroyfactory.fr'))return true;return (Array.isArray(s.partenaires)?s.partenaires:[]).some(v=>norm(v)==='reviglass')};
+
+  const DATA=[
+    {id:'serie-ps-25',name:'Série PS',format:'2,5 × 2,5',rows:[[['PS50','PS53','PS40','PS41'],['Cordon polyuréthane','PVC','Papier']],[['PS21','PS22','PS23','PS24','PS51','PS52','PS56','PS59'],['Cordon polyuréthane','PVC']],[['PS25','PS54','PS55','PS60'],['Cordon polyuréthane','PVC']],[['PS26','PS27','PS63'],['Cordon polyuréthane','PVC']]]},
+    {id:'anti-derapant-25',name:'Antidérapant Cat. C · Classe 3 · R11',format:'2,5 × 2,5',rows:[[['PS40','PS41','PS50','PS53','PS56','PS59'],['Cordon polyuréthane','PVC']],[['PS25','PS55','PS60'],['Cordon polyuréthane','PVC']]]},
+    {id:'serie-ps-mezcla',name:'Série PS · Mezcla',format:'2,5 × 2,5',rows:[[['TANGANIKA','VICTORIA','NESS','MIX AQUA'],['Cordon polyuréthane']]]},
+    {id:'serie-ps-iris',name:'Série PS · Iris',format:'2,5 × 2,5',rows:[[['PS50','PS53','PS55','PS60','AB02','AB03','AB14'],['Cordon polyuréthane']]]},
+    {id:'serie-ps-mix-iris',name:'Série PS · Mix Iris',format:'2,5 × 2,5',rows:[[['UROLA','ORIA','URUMEA','BIDASOA','ERNIO','DEBA','CHAVON','ADUR'],['Cordon polyuréthane']]]},
+    {id:'pool-selection-2',name:'Pool Selection 2',format:'2,5 × 2,5',rows:[[['DK-72','DK-74','DK-70','DK-75','DK-84','DK-87','DK-92','GRIS','GIAVA','TAHITI','COCOS','SAMOA','PLUTON','TAMESIS','TIGRIS','NILO','DANUBIO','TIBER','VOLGA','TER','SENA','INDO','ORINOCO','EBRO','MURRAY','LENA','MARKINA'],['Cordon polyuréthane']]]},
+    {id:'mix-luminis-5',name:'Mix Luminis · 5% luminescent',format:'2,5 × 2,5',rows:[[['LU-31 ARRAKIS','LU-33 CASTOR','LU-35 GATRIA','LU-39 NAOS','LU-32 BETRIA','LU-34 ELECTRA','LU-36 KUMA','LU-37 LUCIDA','LU-38 MERAK','LU-40 REGULUS','LU-41 SEAT','LU-42 TABIT','LU-44 BLUE TABIT','LU-46 NEREIDA','LU-47 STELLA','LU-48 TANIA'],['Cordon polyuréthane']]]},
+    {id:'luminis-100',name:'Luminis · 100% luminescent',format:'2,5 × 2,5',rows:[[['LU-01','LU-02','LU-03','LU-04','LU-11','LU-12','LU-13','LU-14','LU-15','LU-16','LU-17','LU-18','LU-19'],['Cordon polyuréthane']]]},
+    {id:'paradise-stones-25',name:'Paradise Stones',format:'2,5 × 2,5',rows:[[['AGUAMARINA','JADE','ZAFIRO','BLUE BALI','SANDY BALI','GREEN BALI','DEEP RIVER','TURQUESE LAGOON','OK STONE','APATITE'],['Cordon polyuréthane']]]},
+    {id:'karma-25',name:'Karma',format:'2,5 × 2,5',rows:[[['URA','MOANA','BALI STONE','ALOHA','BLUE MOON','CALACATTA','TRAVERTINE','SMOKY','BLACK MARBLE','WALLIS','AQUARELA','MEGHAN'],['Cordon polyuréthane']]]},
+    {id:'lumak-25',name:'Lumak',format:'2,5 × 2,5',rows:[[['SWAN','DOVE','ALBATROS','KIWI','FLAMINGO','FALCON'],['Cordon polyuréthane']]]},
+    {id:'serie-ps-55',name:'Série PS',format:'5 × 5',rows:[[['PS25','PS50','PS53','PS56','DK72','PS27','COCOS'],['Cordon polyuréthane']]]},
+    {id:'mix-iris-55',name:'Mix Iris',format:'5 × 5',rows:[[['ORIA','URUMEA','DEBA','UROLA','ERNIO','VOLGA','NILO','DANUBIO','MURRAY','LENA','ORINOCO'],['Cordon polyuréthane']]]},
+    {id:'paradise-stones-55',name:'Paradise Stones',format:'5 × 5',rows:[[['AGUAMARINA','JADE','ZAFIRO','SANDY BALI','GREEN BALI'],['Cordon polyuréthane']]]},
+    {id:'karma-55',name:'Karma',format:'5 × 5',rows:[[['URA','MOANA','BALI STONE','ALOHA','BLUE MOON','CALACATTA','TRAVERTINE','SMOKY','BLACK MARBLE','WALLIS','AQUARELA','MEGHAN'],['Cordon polyuréthane']]]},
+    {id:'lumak-55',name:'Lumak',format:'5 × 5',rows:[[['SWAN','DOVE','ALBATROS','KIWI','FLAMINGO','FALCON'],['Cordon polyuréthane']]]},
+    {id:'nez-marche',name:'Nez de marche antidérapant',format:'Nez de marche',unit:'ml',rows:[[['PS25','PS26','PS27','PS50','PS53','PS55','AGUAMARINA','JADE','ZAFIRO','LU-16 YELLOW','LU-18 TURCHESE','LU-11 POLAR'],['€/ml']]]}
+  ];
+
+  let priceVisible=true;
+  let mode='availability';
+  let lines=[];
+  let nextId=1;
+
+  function installStyle(){
+    if($('#reviglass-clean-style'))return;
+    const st=document.createElement('style');st.id='reviglass-clean-style';st.textContent=`
+      #v2-effect.rev-hide,#v2-finish.rev-hide{display:none!important}.rev-field-hidden{display:none!important}
+      .reviglass-source{display:none!important}.reviglass-work-actions{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto}.reviglass-action{border:1px solid #d4af37;background:#111;color:#f1cf62;border-radius:10px;padding:10px 13px;font-weight:900;cursor:pointer}.reviglass-action.light{background:#fff;color:#222;border-color:#d9d0c2}.reviglass-action.green{background:#17653d;color:#fff;border-color:#17653d}.reviglass-eye{min-width:44px}.reviglass-prices-hidden .reviglass-price{font-size:0!important;color:transparent!important}.reviglass-prices-hidden .reviglass-price:after{content:'Tarif masqué';font-size:.75rem;color:#6b655c;font-weight:850}.reviglass-modal-footer{gap:8px}.reviglass-modal-footer a,.reviglass-modal-footer button{border-radius:10px;padding:10px 13px;font-weight:900;cursor:pointer;text-decoration:none}.reviglass-modal-footer .reviglass-catalogue{display:none!important}
+      .rev-order{position:fixed;inset:0;z-index:1000030;display:none;background:rgba(8,9,10,.76);padding:14px;overflow:auto}.rev-order.open{display:block}.rev-order-shell{width:min(1120px,100%);margin:18px auto;background:#fbfaf7;border:1px solid #d4af37;border-radius:22px;overflow:hidden;box-shadow:0 30px 90px rgba(0,0,0,.4)}.rev-order-head{display:flex;justify-content:space-between;gap:15px;padding:20px 22px;background:#111;color:#fff;border-bottom:3px solid #d4af37}.rev-order-head .eyebrow{display:block;color:#d4af37;font-size:.7rem;font-weight:950;letter-spacing:.12em}.rev-order-head h2{margin:4px 0 0;font-size:1.55rem}.rev-order-head p{margin:6px 0 0;color:#d6d2ca;font-size:.85rem}.rev-order-close{width:44px;height:44px;border-radius:50%;border:1px solid #d4af37;background:#111;color:#fff;font-size:1.5rem}.rev-order-body{padding:18px 20px 24px}.rev-order-lines{display:grid;gap:12px}.rev-line{border:1px solid #ded7ca;background:#fff;border-radius:14px;padding:13px}.rev-line-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.rev-line-grid{display:grid;grid-template-columns:1.25fr 1fr 1fr .7fr;gap:9px}.rev-field{display:flex;flex-direction:column;gap:5px}.rev-field label{font-size:.66rem;text-transform:uppercase;font-weight:900;color:#6c665d}.rev-field select,.rev-field input,.rev-contact input,.rev-contact textarea{width:100%;box-sizing:border-box;border:1px solid #d8d0c4;border-radius:9px;padding:10px 11px;background:#fff;font:inherit}.rev-calc{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:2px}.rev-stat{background:#f5f1e9;border-radius:9px;padding:9px}.rev-stat span{display:block;font-size:.62rem;text-transform:uppercase;color:#777067;font-weight:850}.rev-stat strong{display:block;margin-top:3px;color:#17653d}.rev-remove{border:1px solid #e0c1bb;background:#fff7f5;color:#963628;border-radius:8px;padding:6px 9px;font-weight:850}.rev-add{margin-top:12px;border:1px solid #b89529;background:#fff;color:#6f5611;border-radius:10px;padding:10px 13px;font-weight:950}.rev-total{margin-top:16px;display:grid;grid-template-columns:repeat(3,1fr);gap:9px;padding:13px;border:1px solid #ddcf9f;background:#fffdf6;border-radius:13px}.rev-total span{display:block;font-size:.66rem;text-transform:uppercase;color:#766e5f;font-weight:900}.rev-total strong{display:block;margin-top:3px}.rev-contact{margin-top:17px;padding-top:16px;border-top:1px solid #e4ddd0;display:grid;grid-template-columns:1fr 1fr;gap:10px}.rev-contact .full{grid-column:1/-1}.rev-contact label{display:block;margin-bottom:5px;font-size:.7rem;font-weight:900;color:#625c53}.rev-contact textarea{min-height:88px;resize:vertical}.rev-routing{grid-column:1/-1;background:#f2eee6;border-radius:9px;padding:10px;font-size:.76rem;line-height:1.45}.rev-submit{grid-column:1/-1;border:1px solid #17653d;background:#17653d;color:#fff;border-radius:11px;padding:13px;font-weight:950;font-size:1rem}.rev-preview{display:none;margin-top:14px;border-top:1px solid #ddd5c8;padding-top:14px}.rev-preview.show{display:block}.rev-preview textarea{width:100%;min-height:300px;box-sizing:border-box;border:1px solid #d5ccbe;border-radius:10px;padding:12px;font:inherit}.rev-preview-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.rev-history-item{border:1px solid #ddd6cb;border-radius:12px;background:#fff;padding:12px;margin-bottom:10px}.rev-history-item strong{display:block}.rev-history-item small{color:#776f66}.rev-history-empty{padding:18px;text-align:center;color:#777}
+      @media(max-width:800px){.workspace-head{align-items:flex-start!important}.reviglass-work-actions{width:100%;margin-left:0}.reviglass-action{flex:1 1 auto}.rev-order{padding:0;background:#fbfaf7}.rev-order-shell{margin:0;border:0;border-radius:0;min-height:100dvh}.rev-order-head{position:sticky;top:0;z-index:5;padding:15px}.rev-order-body{padding:13px 11px 20px}.rev-line-grid{grid-template-columns:1fr 1fr}.rev-calc{grid-template-columns:1fr 1fr}.rev-contact{grid-template-columns:1fr}.rev-contact .full,.rev-routing,.rev-submit{grid-column:auto}.rev-total{grid-template-columns:1fr 1fr}.rev-total>div:last-child{grid-column:1/-1}}@media(max-width:520px){.rev-line-grid{grid-template-columns:1fr}.rev-calc{grid-template-columns:1fr 1fr}}
+    `;document.head.appendChild(st);
+  }
+
+  function seriesOptions(){return DATA.map(x=>`<option value="${esc(x.id)}">${esc(x.name)} — ${esc(x.format)}</option>`).join('')}
+  function flatRefs(s){return [...new Set((s?.rows||[]).flatMap(r=>r[0]||[]))]}
+  function supportsFor(s,ref){const out=[];(s?.rows||[]).forEach(r=>{if((r[0]||[]).includes(ref))out.push(...(r[1]||[]))});return [...new Set(out)]}
+  function packFor(s,support){if(s?.unit==='ml')return {unit:'ml',perBox:5};if(s?.format==='5 × 5')return {unit:'m²',perBox:1.5};if(s?.format==='2,5 × 2,5')return {unit:'m²',perBox:norm(support)==='pvc'?2.05:2};return {unit:'m²',perBox:null}}
+
+  function simplifyFilters(){
+    if(!isReviglass())return;
+    const inner=$('#v2-filters .filters-inner');if(!inner)return;
+    let search=$('#v2-search');
+    if(search && search.tagName!=='SELECT'){
+      const sel=document.createElement('select');sel.id='v2-search';sel.innerHTML='<option value="">Toutes les séries Reviglass</option>'+seriesOptions();search.replaceWith(sel);search=sel;
+      sel.addEventListener('change',()=>{
+        const s=DATA.find(x=>x.id===sel.value);const target=s?`[data-reviglass-id="${CSS.escape(s.id)}"]`:null;
+        if(s){const card=$(target);if(card)card.scrollIntoView({behavior:'smooth',block:'center'});}
+      });
+    }
+    const type=$('#v2-effect'),finish=$('#v2-finish');
+    [type,finish].forEach(el=>{if(!el)return;el.classList.add('rev-hide');const wrap=el.closest('.filter-group,.filter-field,label');if(wrap&&wrap!==inner)wrap.classList.add('rev-field-hidden')});
+    $('.reviglass-source')?.remove();
+  }
+
+  function installWorkspaceActions(){
+    if(!isReviglass())return;
+    const state=$('.pro-state');if(!state||$('#reviglass-work-actions'))return;
+    const box=document.createElement('div');box.id='reviglass-work-actions';box.className='reviglass-work-actions';box.innerHTML=`<button type="button" class="reviglass-action light reviglass-eye" id="reviglass-eye">🙈 Cacher tarifs</button><button type="button" class="reviglass-action light" data-rev-open="availability">Disponibilité</button><button type="button" class="reviglass-action green" data-rev-open="order">Commande</button><button type="button" class="reviglass-action" id="reviglass-history-btn">Historique commandes</button>`;state.parentElement?.appendChild(box);syncEye();
+  }
+
+  function syncEye(){const btn=$('#reviglass-eye');if(btn)btn.textContent=priceVisible?'🙈 Cacher tarifs':'👁 Afficher tarifs';document.documentElement.classList.toggle('reviglass-prices-hidden',!priceVisible)}
+  function togglePrices(){priceVisible=!priceVisible;syncEye()}
+
+  function patchSeriesModal(){
+    if(!isReviglass())return;
+    const modal=$('#reviglass-pool-modal');if(!modal)return;
+    const footer=$('.reviglass-modal-footer',modal);if(!footer||footer.dataset.revPatched)return;
+    footer.dataset.revPatched='1';footer.innerHTML=`<button type="button" class="reviglass-pro" data-rev-modal-action="availability">Demande de disponibilité</button><button type="button" class="reviglass-catalogue" style="display:inline-flex!important" data-rev-modal-action="order">Commande</button><button type="button" class="reviglass-pro" data-rev-eye>${priceVisible?'🙈 Cacher les tarifs':'👁 Afficher les tarifs'}</button>`;
+    const title=$('#reviglass-modal-title',modal)?.textContent||'';const sub=$('#reviglass-modal-sub',modal)?.textContent||'';const s=DATA.find(x=>norm(x.name)===norm(title)&&sub.includes(x.format))||DATA.find(x=>norm(x.name)===norm(title));if(s)modal.dataset.revSeries=s.id;
+  }
+
+  function ensureOrder(){
+    if($('#rev-order'))return;
+    const d=document.createElement('div');d.id='rev-order';d.className='rev-order';d.innerHTML=`<div class="rev-order-shell"><header class="rev-order-head"><div><span class="eyebrow">REVIGLASS · LE ROY FACTORY</span><h2 id="rev-order-title">Commande Reviglass</h2><p id="rev-order-sub">Sélectionnez les références et les quantités.</p></div><button class="rev-order-close" type="button">×</button></header><div class="rev-order-body"><div id="rev-order-lines" class="rev-order-lines"></div><button id="rev-add" class="rev-add" type="button">＋ Ajouter un produit Reviglass</button><div class="rev-total"><div><span>Besoin total</span><strong id="rev-total-need">0,00 m²</strong></div><div><span>Total cartons</span><strong id="rev-total-boxes">0</strong></div><div><span>M²/ml réels</span><strong id="rev-total-real">0,00</strong></div></div><form id="rev-form" class="rev-contact"><div><label>Société</label><input id="rev-company" required></div><div><label>Contact</label><input id="rev-contact" required></div><div><label>E-mail</label><input id="rev-email" type="email"></div><div><label>Téléphone</label><input id="rev-phone"></div><div class="full"><label>Observation</label><textarea id="rev-note" placeholder="Informations complémentaires…"></textarea></div><div class="rev-routing"><strong>Commande / disponibilité Reviglass :</strong> export@reviglass.es<br><strong>Copie :</strong> coryne@leroyfactory.fr · jerome@leroyfactory.fr</div><button class="rev-submit" type="submit" id="rev-prepare">Préparer la commande</button></form><section id="rev-preview" class="rev-preview"><h3>Aperçu du message</h3><textarea id="rev-preview-text"></textarea><div class="rev-preview-actions"><button type="button" class="reviglass-action light" id="rev-back-edit">Modifier la sélection</button><button type="button" class="reviglass-action green" id="rev-send-mail">Ouvrir l’e-mail et enregistrer</button></div></section></div></div>`;document.body.appendChild(d);
+    $('.rev-order-close',d).onclick=closeOrder;$('#rev-add').onclick=()=>addLine();$('#rev-order-lines').addEventListener('change',onLineChange);$('#rev-order-lines').addEventListener('input',onLineInput);$('#rev-order-lines').addEventListener('click',e=>{const b=e.target.closest('[data-rev-remove]');if(!b)return;lines=lines.filter(x=>x.id!==Number(b.dataset.revRemove));if(!lines.length)addLine();else renderLines()});$('#rev-form').addEventListener('submit',prepareMessage);$('#rev-back-edit').onclick=()=>{$('#rev-preview').classList.remove('show');$('#rev-form').style.display='grid'};$('#rev-send-mail').onclick=sendMail;
+  }
+
+  function normalizeLine(l){const s=DATA.find(x=>x.id===l.seriesId)||DATA[0];l.seriesId=s.id;const refs=flatRefs(s);if(!refs.includes(l.ref))l.ref=refs[0]||'';const sups=supportsFor(s,l.ref);if(!sups.includes(l.support))l.support=sups[0]||'';l.qty=Number(l.qty||0);return l}
+  function addLine(seriesId){lines.push(normalizeLine({id:nextId++,seriesId:seriesId||DATA[0].id,ref:'',support:'',qty:0}));renderLines()}
+  function calc(l){const s=DATA.find(x=>x.id===l.seriesId);const p=packFor(s,l.support);const need=Math.max(0,Number(l.qty||0));if(p.perBox){const boxes=need?Math.ceil((need/p.perBox)-1e-10):0;return {need,boxes,real:boxes*p.perBox,unit:p.unit,perBox:p.perBox}}return {need,boxes:null,real:need,unit:p.unit,perBox:null}}
+  function renderLines(){const host=$('#rev-order-lines');if(!host)return;lines=lines.map(normalizeLine);host.innerHTML=lines.map((l,i)=>{const s=DATA.find(x=>x.id===l.seriesId);const refs=flatRefs(s),sups=supportsFor(s,l.ref),c=calc(l);return `<section class="rev-line" data-rev-line="${l.id}"><div class="rev-line-head"><strong>Produit ${i+1}</strong>${lines.length>1?`<button type="button" class="rev-remove" data-rev-remove="${l.id}">Supprimer</button>`:''}</div><div class="rev-line-grid"><div class="rev-field"><label>Série</label><select data-field="series">${DATA.map(x=>`<option value="${esc(x.id)}"${x.id===l.seriesId?' selected':''}>${esc(x.name)} — ${esc(x.format)}</option>`).join('')}</select></div><div class="rev-field"><label>Référence</label><select data-field="ref">${refs.map(x=>`<option${x===l.ref?' selected':''}>${esc(x)}</option>`).join('')}</select></div><div class="rev-field"><label>Support</label><select data-field="support">${sups.map(x=>`<option${x===l.support?' selected':''}>${esc(x)}</option>`).join('')}</select></div><div class="rev-field"><label>Besoin (${s.unit==='ml'?'ml':'m²'})</label><input data-field="qty" type="number" min="0" step="0.01" inputmode="decimal" value="${l.qty||''}"></div><div class="rev-calc"><div class="rev-stat"><span>Format</span><strong>${esc(s.format)}</strong></div><div class="rev-stat"><span>Conditionnement</span><strong>${c.perBox?`${fr(c.perBox)} ${c.unit}/carton`:'À confirmer'}</strong></div><div class="rev-stat"><span>Commande calculée</span><strong>${c.boxes==null?`${fr(c.real)} ${c.unit}`:`${c.boxes} carton${c.boxes>1?'s':''} = ${fr(c.real)} ${c.unit}`}</strong></div></div></div></section>`}).join('');updateTotals()}
+  function updateTotals(){const cc=lines.map(calc),need=cc.reduce((a,c)=>a+c.need,0),boxes=cc.filter(c=>c.boxes!=null).reduce((a,c)=>a+c.boxes,0),real=cc.reduce((a,c)=>a+c.real,0);$('#rev-total-need').textContent=`${fr(need)} m²/ml`;$('#rev-total-boxes').textContent=String(boxes);$('#rev-total-real').textContent=fr(real)}
+  function onLineChange(e){const row=e.target.closest('[data-rev-line]'),field=e.target.dataset.field;if(!row||!field)return;const l=lines.find(x=>x.id===Number(row.dataset.revLine));if(!l)return;if(field==='series'){l.seriesId=e.target.value;l.ref='';l.support=''}else if(field==='ref'){l.ref=e.target.value;l.support=''}else if(field==='support')l.support=e.target.value;renderLines()}
+  function onLineInput(e){if(e.target.dataset.field!=='qty')return;const row=e.target.closest('[data-rev-line]'),l=lines.find(x=>x.id===Number(row?.dataset.revLine));if(!l)return;l.qty=Number(e.target.value||0);renderLines()}
+
+  function openOrder(kind,seriesId){ensureOrder();mode=kind==='order'?'order':'availability';lines=[];nextId=1;addLine(seriesId);const s=readSession()||{};$('#rev-order-title').textContent=mode==='order'?'Commande Reviglass':'Demande de disponibilité Reviglass';$('#rev-order-sub').textContent=mode==='order'?'Composez la commande comme pour VIEW : série, référence, support et besoin.':'Sélectionnez les références et les quantités à vérifier.';$('#rev-prepare').textContent=mode==='order'?'Préparer la commande':'Préparer la demande';$('#rev-company').value=s.societe||s.company||'';$('#rev-contact').value=s.name||s.contact||'';$('#rev-email').value=s.email||'';$('#rev-phone').value=s.phone||s.telephone||'';$('#rev-note').value='';$('#rev-preview').classList.remove('show');$('#rev-form').style.display='grid';$('#rev-order').classList.add('open');document.body.style.overflow='hidden'}
+  function closeOrder(){$('#rev-order')?.classList.remove('open');document.body.style.overflow=$('#reviglass-pool-modal')?.classList.contains('open')?'hidden':''}
+
+  function buildMessage(){const valid=lines.filter(l=>Number(l.qty)>0);if(!valid.length)return null;const company=$('#rev-company').value.trim(),contact=$('#rev-contact').value.trim(),email=$('#rev-email').value.trim(),phone=$('#rev-phone').value.trim(),note=$('#rev-note').value.trim(),sess=readSession()||{};const blocks=valid.map((l,i)=>{const s=DATA.find(x=>x.id===l.seriesId),c=calc(l);return [`PRODUIT ${i+1} — ${s.name}`,`Format : ${s.format}`,`Référence : ${l.ref}`,`Support : ${l.support||'—'}`,`Besoin : ${fr(c.need)} ${c.unit}`,c.boxes==null?`Quantité : ${fr(c.real)} ${c.unit}`:`Conditionnement : ${fr(c.perBox)} ${c.unit}/carton`,`Quantité calculée : ${c.boxes==null?'à confirmer':`${c.boxes} carton${c.boxes>1?'s':''} = ${fr(c.real)} ${c.unit}`}`].join('\n')});return {company,contact,email,phone,note,sess,valid,subject:`${mode==='order'?'[COMMANDE REVIGLASS]':'[DISPONIBILITÉ REVIGLASS]'} ${company||contact||'LE ROY FACTORY'} — ${valid.length} produit${valid.length>1?'s':''}`,body:[mode==='order'?'COMMANDE REVIGLASS':'DEMANDE DE DISPONIBILITÉ REVIGLASS','',...blocks.flatMap((b,i)=>[b,i<blocks.length-1?'------------------------------':'']),'','CLIENT / CONTACT',`Société : ${company||'—'}`,`Contact : ${contact||'—'}`,`E-mail : ${email||'—'}`,`Téléphone : ${phone||'—'}`,`Code client LRF : ${sess.codeClient||'—'}`,note?`Observation : ${note}`:'','',mode==='order'?'Merci de préparer la commande suivante et de confirmer la disponibilité.':'Merci de confirmer la disponibilité des références ci-dessus.'].filter(Boolean).join('\n')}}
+  function prepareMessage(e){e.preventDefault();const m=buildMessage();if(!m){alert('Indiquez une quantité pour au moins un produit.');return}$('#rev-preview-text').value=m.body;$('#rev-form').style.display='none';$('#rev-preview').classList.add('show')}
+
+  function historyKey(){const s=readSession()||{};return norm(s.codeClient||s.email||s.societe||'invite')||'invite'}
+  function localHistory(){try{return JSON.parse(localStorage.getItem(`lrfReviglassOrders:${historyKey()}`)||'[]')}catch{return []}}
+  function saveLocal(rec){const a=localHistory();a.unshift(rec);localStorage.setItem(`lrfReviglassOrders:${historyKey()}`,JSON.stringify(a.slice(0,100)))}
+  async function saveRemote(rec){try{const [{db},fs]=await Promise.all([import('./firebase.js'),import('https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js')]);const key=historyKey();await fs.setDoc(fs.doc(db,'reviglass_order_history',key,'orders',rec.id),rec)}catch(err){console.warn('Historique Reviglass distant non disponible',err)}}
+  async function sendMail(){const m=buildMessage();if(!m)return;const body=$('#rev-preview-text').value.trim()||m.body;const rec={id:`REV-${Date.now()}`,createdAt:new Date().toISOString(),type:mode,subject:m.subject,company:m.company,contact:m.contact,email:m.email,clientKey:historyKey(),codeClient:m.sess.codeClient||'',items:m.valid.map(l=>{const s=DATA.find(x=>x.id===l.seriesId),c=calc(l);return {series:s.name,format:s.format,ref:l.ref,support:l.support,need:c.need,boxes:c.boxes,real:c.real,unit:c.unit}})};saveLocal(rec);saveRemote(rec);const to='export@reviglass.es',cc='coryne@leroyfactory.fr,jerome@leroyfactory.fr';location.href=`mailto:${to}?cc=${encodeURIComponent(cc)}&subject=${encodeURIComponent(m.subject)}&body=${encodeURIComponent(body)}`}
+
+  function ensureHistory(){let d=$('#rev-history');if(d)return d;d=document.createElement('div');d.id='rev-history';d.className='rev-order';d.innerHTML=`<div class="rev-order-shell"><header class="rev-order-head"><div><span class="eyebrow">REVIGLASS</span><h2>Historique commandes</h2><p>Commandes enregistrées pour le client connecté.</p></div><button class="rev-order-close" type="button">×</button></header><div class="rev-order-body" id="rev-history-body"></div></div>`;document.body.appendChild(d);$('.rev-order-close',d).onclick=()=>{d.classList.remove('open');document.body.style.overflow=''};return d}
+  async function remoteHistory(){try{const [{db},fs]=await Promise.all([import('./firebase.js'),import('https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js')]);const snap=await fs.getDocs(fs.collection(db,'reviglass_order_history',historyKey(),'orders'));return snap.docs.map(x=>x.data())}catch{return []}}
+  async function openHistory(){const d=ensureHistory(),host=$('#rev-history-body',d);d.classList.add('open');document.body.style.overflow='hidden';host.innerHTML='<div class="rev-history-empty">Chargement…</div>';const local=localHistory(),remote=await remoteHistory(),map=new Map([...local,...remote].map(x=>[x.id,x])),all=[...map.values()].sort((a,b)=>String(b.createdAt).localeCompare(String(a.createdAt)));host.innerHTML=all.length?all.map(x=>`<article class="rev-history-item"><strong>${x.type==='order'?'Commande':'Disponibilité'} · ${esc(x.id)}</strong><small>${new Date(x.createdAt).toLocaleString('fr-FR')} · ${esc(x.company||x.contact||'Client')}</small><div style="margin-top:7px">${(x.items||[]).map(i=>`${esc(i.series)} · ${esc(i.ref)} · ${fr(i.real)} ${esc(i.unit||'m²')}`).join('<br>')}</div></article>`).join(''):'<div class="rev-history-empty">Aucune commande Reviglass enregistrée pour ce client.</div>'}
+
+  function apply(){installStyle();if(!isReviglass()){const host=$('#partner-products');if(host?.classList.contains('reviglass-grid'))host.className='product-grid-v2';const old=$('#reviglass-work-actions');if(old)old.remove();const search=$('#v2-search');if(search?.tagName==='SELECT'){const input=document.createElement('input');input.id='v2-search';input.type='search';input.placeholder='Rechercher une collection ou un produit…';search.replaceWith(input)}return}simplifyFilters();installWorkspaceActions();$('.reviglass-source')?.remove();patchSeriesModal();syncEye()}
+
+  document.addEventListener('click',e=>{
+    if(!isReviglass() && !e.target.closest('#rev-order,#rev-history'))return;
+    const eye=e.target.closest('#reviglass-eye,[data-rev-eye]');if(eye){e.preventDefault();togglePrices();if(eye.hasAttribute('data-rev-eye'))eye.textContent=priceVisible?'🙈 Cacher les tarifs':'👁 Afficher les tarifs';return}
+    const open=e.target.closest('[data-rev-open]');if(open){e.preventDefault();openOrder(open.dataset.revOpen);return}
+    const modalAction=e.target.closest('[data-rev-modal-action]');if(modalAction){e.preventDefault();const sid=$('#reviglass-pool-modal')?.dataset.revSeries||'';openOrder(modalAction.dataset.revModalAction,sid);return}
+    if(e.target.closest('#reviglass-history-btn')){e.preventDefault();openHistory();return}
+    if(e.target.closest('[data-reviglass-id]'))setTimeout(patchSeriesModal,0);
+  },true);
+
+  const title=$('#workspace-title');if(title)new MutationObserver(()=>setTimeout(apply,0)).observe(title,{childList:true,subtree:true,characterData:true});
+  const products=$('#partner-products');if(products)new MutationObserver(()=>{if(isReviglass())setTimeout(apply,0)}).observe(products,{childList:true,subtree:true});
+  document.addEventListener('DOMContentLoaded',apply,{once:true});setTimeout(apply,0);
 })();
