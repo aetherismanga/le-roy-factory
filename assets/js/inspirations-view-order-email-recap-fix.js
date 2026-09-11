@@ -15,13 +15,12 @@
         label: clean($('span', box)?.textContent),
         value: clean($('strong', box)?.textContent)
       })).filter(x => x.label || x.value);
-      return [
-        `ARTICLE ${i + 1}`,
-        `Produit : ${title}`,
-        `Type : ${kind}`,
-        ...metas.map(x => `${x.label || 'Information'} : ${x.value || '—'}`)
-      ].join('\n');
-    }).filter(Boolean);
+      return {
+        title,
+        kind,
+        metas
+      };
+    });
 
     const cards = $$('.view-review-card', overlay).map(card => ({
       label: clean($('span', card)?.textContent),
@@ -29,6 +28,36 @@
     })).filter(x => x.label && x.value && x.value !== '—');
 
     return { rows, cards };
+  }
+
+  function metaValue(row, pattern) {
+    return row.metas.find(x => pattern.test(x.label))?.value || '—';
+  }
+
+  function productBlock(row, i) {
+    const color = metaValue(row, /^couleur$/i);
+    const ref = metaValue(row, /^référence$/i);
+    const qty = metaValue(row, /^quantité demandée$/i);
+    const final = row.metas.find(x => !/^couleur$|^référence$|^quantité demandée$/i.test(x.label));
+    return [
+      `${i + 1}. ${row.title}`,
+      `Type : ${row.kind}`,
+      `Couleur : ${color}`,
+      `Référence : ${ref}`,
+      `Quantité demandée : ${qty}`,
+      final ? `${final.label} : ${final.value}` : null
+    ].filter(Boolean).join('\n');
+  }
+
+  function openMail(href) {
+    const link = document.createElement('a');
+    link.href = href;
+    link.target = '_self';
+    link.rel = 'noopener';
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    setTimeout(() => link.remove(), 1200);
   }
 
   function sendMail(overlay) {
@@ -43,14 +72,16 @@
       ? 'Bonjour Maura,\n\nMerci de nous préparer la commande suivante :'
       : 'Bonjour Maura,\n\nMerci de nous confirmer la disponibilité des articles suivants :';
 
-    const contactLines = cards.map(x => `${x.label} : ${x.value}`);
+    const contactCards = cards.filter(x => !/^envoi$/i.test(x.label));
+    const contactLines = contactCards.map(x => `${x.label} : ${x.value}`);
+    const products = rows.map(productBlock).join('\n\n------------------------------\n\n');
     const body = [
       intro,
       '',
       'RÉCAPITULATIF DES PRODUITS SÉLECTIONNÉS',
       '========================================',
       '',
-      rows.join('\n\n------------------------------\n\n'),
+      products,
       '',
       'CLIENT / CONTACT',
       '----------------',
@@ -63,7 +94,11 @@
 
     const to = 'maura@viewceramiche.com';
     const cc = 'jerome@leroyfactory.fr,coryne@leroyfactory.fr';
-    window.location.href = `mailto:${to}?cc=${encodeURIComponent(cc)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const href = `mailto:${to}?cc=${encodeURIComponent(cc)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    // L'ouverture par lien est plus fiable que location.href sur Android/iOS :
+    // le sujet ET le corps du message sont transmis ensemble au client mail.
+    openMail(href);
     return true;
   }
 
