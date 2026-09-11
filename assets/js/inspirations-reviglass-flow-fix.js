@@ -8,6 +8,7 @@
   const norm=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');
   const isRev=()=>norm($('#workspace-title')?.textContent)==='reviglass';
   let selectedRef='';
+  let selectedSeries='';
 
   function style(){
     if($('#rev-flow-fix-style')) return;
@@ -37,6 +38,15 @@
     if(!isRev()) return;
     const modal=$('#reviglass-pool-modal');
     if(!modal || !modal.classList.contains('open')) return;
+
+    const sid=modal.dataset.revSeries||'';
+    if(sid!==selectedSeries){
+      selectedSeries=sid;
+      selectedRef='';
+      $('.rev-ref-choice',modal)?.remove();
+      $$('.reviglass-ref-list span',modal).forEach(x=>x.classList.remove('rev-selected-ref'));
+    }
+
     $$('.reviglass-ref-list span',modal).forEach(sp=>{
       if(sp.dataset.revRefReady) return;
       sp.dataset.revRefReady='1';
@@ -58,13 +68,18 @@
 
   function showRefActions(modal){
     let box=$('.rev-ref-choice',modal);
-    if(!box){box=document.createElement('div');box.className='rev-ref-choice';$('#reviglass-modal-body',modal)?.appendChild(box)}
+    if(!box){
+      box=document.createElement('div');
+      box.className='rev-ref-choice';
+      $('#reviglass-modal-body',modal)?.appendChild(box);
+    }
+    if(box.dataset.selectedRef===selectedRef) return;
+    box.dataset.selectedRef=selectedRef;
     box.innerHTML=`<strong>Référence sélectionnée : ${selectedRef}</strong><div class="rev-ref-choice-actions"><button type="button" class="avail" data-rev-ref-jump="availability">Demande de disponibilité</button><button type="button" class="order" data-rev-ref-jump="order">Commander cette référence</button></div>`;
   }
 
   function jumpTo(kind){
     const modal=$('#reviglass-pool-modal');
-    const sid=modal?.dataset.revSeries||'';
     const hidden=$(`[data-rev-modal-action="${kind}"]`,modal);
     if(!hidden) return;
     hidden.click();
