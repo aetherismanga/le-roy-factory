@@ -1,0 +1,1 @@
+Brick Design: visuels officiels G88, Agata et Rosso Vintage ajoutés en fallback; fermeture modale et suppression du texte (-40%) sécurisées sur toutes les fiches Biopietra.
