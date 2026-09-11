@@ -15,7 +15,7 @@
     const s=document.createElement('style');s.id='rev-flow-fix-style';s.textContent=`
       .rev-filter-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
       .reviglass-ref-list span{cursor:pointer;transition:.15s ease}
-      .reviglass-ref-list span.rev-selected-ref{background:#171512!important;color:#f2cf5b!important;border-color:#d4af37!important;box-shadow:0 0 0 2px rgba(212,175,55,.16)}
+      .reviglass-ref-list span.rev-selected-ref{background:#fff4cf!important;color:#6b5010!important;border-color:#d4af37!important;box-shadow:0 0 0 2px rgba(212,175,55,.18)!important}
       .rev-ref-choice{margin:14px 0 0;padding:12px;border:1px solid #d7c470;border-radius:12px;background:#fffaf0}
       .rev-ref-choice strong{display:block;margin-bottom:9px;color:#2b271f}
       .rev-ref-choice-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
