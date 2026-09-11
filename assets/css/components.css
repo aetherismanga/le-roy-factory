@@ -318,38 +318,68 @@ nav.active a:not(.agent-btn):hover,
 
 /* ========================================================================== 
    CONTACT — avatar Coryne
-   Utilise le fichier officiel placé dans assets/img/corynelogo.png.
+   Même gabarit que Jérôme sur desktop et mobile.
    ========================================================================== */
 body.lrf-page-contact .agent-info-card.gold {
   position: relative !important;
-  padding-right: 104px !important;
+  padding-right: 6.8rem !important;
+  min-height: 7.2rem !important;
 }
 body.lrf-page-contact .agent-info-card.gold::after {
   content: "" !important;
   position: absolute !important;
-  top: 50% !important;
-  right: 18px !important;
-  width: 62px !important;
-  height: 62px !important;
-  transform: translateY(-50%) !important;
+  top: 1rem !important;
+  right: 1rem !important;
+  width: 4.7rem !important;
+  height: 4.7rem !important;
+  transform: none !important;
   border-radius: 50% !important;
-  border: 1px solid #D4AF37 !important;
+  border: 2px solid #D4AF37 !important;
   background-color: #fff !important;
-  background-image: url('../img/corynelogo.png?v=20260907-coryne1') !important;
+  background-image: url('../img/corynelogo.png?v=20260911-coryne-size2') !important;
   background-position: center !important;
   background-repeat: no-repeat !important;
   background-size: cover !important;
-  box-shadow: 0 5px 14px rgba(84,54,10,.18) !important;
+  box-shadow: 0 5px 14px rgba(84,54,10,.18), 0 0 0 3px rgba(255,255,255,.85) !important;
   z-index: 2 !important;
 }
 
 @media (max-width: 600px) {
   body.lrf-page-contact .agent-info-card.gold {
-    padding-right: 86px !important;
+    padding-right: 7.6rem !important;
+    min-height: 8.4rem !important;
   }
   body.lrf-page-contact .agent-info-card.gold::after {
-    right: 14px !important;
-    width: 54px !important;
-    height: 54px !important;
+    top: 1rem !important;
+    right: 1rem !important;
+    width: 5.6rem !important;
+    height: 5.6rem !important;
+  }
+}
+
+/* Sécurité : même si la classe de page n'est pas présente, Coryne garde exactement le gabarit de Jérôme. */
+body:not(.crm-body) .agent-stack > .agent-info-card.gold {
+  position: relative !important;
+  padding-right: 6.8rem !important;
+  min-height: 7.2rem !important;
+}
+body:not(.crm-body) .agent-stack > .agent-info-card.gold::after {
+  top: 1rem !important;
+  right: 1rem !important;
+  width: 4.7rem !important;
+  height: 4.7rem !important;
+  transform: none !important;
+  border-width: 2px !important;
+}
+@media (max-width: 600px) {
+  body:not(.crm-body) .agent-stack > .agent-info-card.gold {
+    padding-right: 7.6rem !important;
+    min-height: 8.4rem !important;
+  }
+  body:not(.crm-body) .agent-stack > .agent-info-card.gold::after {
+    top: 1rem !important;
+    right: 1rem !important;
+    width: 5.6rem !important;
+    height: 5.6rem !important;
   }
 }
