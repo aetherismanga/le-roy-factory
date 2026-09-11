@@ -1,7 +1,7 @@
 (() => {
   'use strict';
-  if (window.__LRF_REVIGLASS_REF_SWIPE_20260911__) return;
-  window.__LRF_REVIGLASS_REF_SWIPE_20260911__ = true;
+  if (window.__LRF_REVIGLASS_REF_SWIPE_20260911_FIX1__) return;
+  window.__LRF_REVIGLASS_REF_SWIPE_20260911_FIX1__ = true;
 
   const $=(s,r=document)=>r.querySelector(s);
   const $$=(s,r=document)=>[...r.querySelectorAll(s)];
@@ -15,22 +15,26 @@
     return m?.[1]?.toUpperCase() || $('.reviglass-ref-list .rev-selected-ref')?.textContent?.trim() || '';
   }
   function refs(){
-    const all=$$('.reviglass-ref-list span').map(x=>x.textContent.trim()).filter(x=>/^PS\d+$/i.test(x));
+    const all=$$('.reviglass-ref-list span').map(x=>x.textContent.trim().toUpperCase()).filter(x=>/^PS\d+$/.test(x));
     return [...new Set(all)];
   }
   function updateBadge(){
     const lb=lightbox();if(!lb)return;
+    const ref=currentRef();if(!ref)return;
     let badge=$('.rev-ps-ref-badge',lb);
     if(!badge){badge=document.createElement('div');badge.className='rev-ps-ref-badge';lb.appendChild(badge)}
-    badge.textContent=currentRef();
+    if(badge.textContent!==ref) badge.textContent=ref;
   }
   function goRef(delta){
     if(!isOpen())return;
     const list=refs(),cur=currentRef();if(!list.length||!cur)return;
-    const i=list.findIndex(x=>x.toUpperCase()===cur.toUpperCase());if(i<0)return;
+    const i=list.findIndex(x=>x===cur.toUpperCase());if(i<0)return;
     const next=list[(i+delta+list.length)%list.length];
-    const target=$$('.reviglass-ref-list span').find(x=>x.textContent.trim().toUpperCase()===next.toUpperCase());
-    if(target){target.click();setTimeout(updateBadge,80)}
+    const target=$$('.reviglass-ref-list span').find(x=>x.textContent.trim().toUpperCase()===next);
+    if(target){
+      target.click();
+      setTimeout(updateBadge,100);
+    }
   }
 
   function installStyle(){
@@ -43,7 +47,11 @@
     `;document.head.appendChild(st)
   }
 
+  // Mise à jour du badge uniquement sur des actions explicites : aucun MutationObserver global.
   document.addEventListener('click',e=>{
+    const ref=e.target.closest?.('.reviglass-ref-list span');
+    if(ref) setTimeout(updateBadge,100);
+
     const nav=e.target.closest?.('.rev-ps-lightbox-nav');
     if(nav&&isOpen()){
       e.preventDefault();e.stopImmediatePropagation();
@@ -58,7 +66,7 @@
   document.addEventListener('touchend',e=>{
     if(!isOpen()||!e.changedTouches?.length)return;
     const dx=e.changedTouches[0].clientX-startX,dy=e.changedTouches[0].clientY-startY;
-    if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)*1.15){
+    if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.2){
       e.preventDefault();
       goRef(dx<0?1:-1);
     }
@@ -74,6 +82,7 @@
     const dx=e.clientX-startX,dy=e.clientY-startY;dragging=false;pointerId=null;lightbox()?.classList.remove('dragging');
     if(Math.abs(dx)>70&&Math.abs(dx)>Math.abs(dy)*1.1)goRef(dx<0?1:-1);
   },true);
+  document.addEventListener('pointercancel',()=>{dragging=false;pointerId=null;lightbox()?.classList.remove('dragging')},true);
 
   document.addEventListener('keydown',e=>{
     if(!isOpen())return;
@@ -81,7 +90,5 @@
     if(e.key==='ArrowRight'){e.preventDefault();e.stopImmediatePropagation();goRef(1)}
   },true);
 
-  const observer=new MutationObserver(()=>{if(isOpen())updateBadge()});
-  observer.observe(document.documentElement,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['class']});
   installStyle();
 })();
