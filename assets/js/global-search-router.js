@@ -43,6 +43,7 @@
         await loadScript('assets/js/inspirations-view-accessories.js?v=20260911-view-accessories1','lrf-view-accessories-boot');
         await loadScript('assets/js/inspirations-view-hd.js?v=20260907-view-hd1','lrf-view-hd-boot');
         await loadScript('assets/js/inspirations-view-mobile-safe.js?v=20260911-view-safe-stable2','lrf-view-mobile-safe');
+        await loadScript('assets/js/inspirations-view-pallet-info.js?v=20260912-pallet1','lrf-view-pallet-info');
         window.dispatchEvent(new CustomEvent('lrf-view-bootstrap-ready'));
       }catch(err){
         console.warn('LRF VIEW bootstrap',err);
