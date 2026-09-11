@@ -24,6 +24,7 @@ function injectStyles(){
   .lrf-tab-pane{display:none!important;margin-top:18px!important}.lrf-tab-pane.active{display:block!important}.modal-grid-edit.lrf-tab-pane.active{display:grid!important}.crm-extra-section.lrf-tab-pane{border-top:0!important;padding-top:0!important;margin-top:18px!important}.documents-section.lrf-tab-pane{border-top:0!important;margin-top:18px!important;padding-top:0!important}
   .modal-grid-edit{gap:14px!important}.modal-grid-edit .form-field{background:#FCFBF9;border:1px solid #EEEAE3;border-radius:10px;padding:10px}.modal-grid-edit .form-field label{font-size:.75rem!important;color:#665f56!important}.modal-grid-edit .form-field input,.modal-grid-edit .form-field select{background:#fff!important;border-radius:8px!important;min-height:42px}
   .crm-extra-title,.documents-title{font-size:1.05rem!important;margin-bottom:12px!important}.contact-card{border-radius:12px!important;background:#FCFBF9!important;padding:10px!important}.partner-card-mini{border-radius:12px!important;min-height:64px!important;transition:.15s}.partner-card-mini:hover{transform:translateY(-1px);border-color:#D4AF37!important}.partner-card-mini.active{box-shadow:0 0 0 2px rgba(212,175,55,.15)}.partner-card-mini img{width:58px!important;height:38px!important}.history-card{border-left:0!important;border:1px solid #ECE7DD!important;border-radius:12px!important;background:#FCFBF9!important;position:relative;padding:12px 14px 12px 20px!important}.history-card:before{content:"";position:absolute;left:0;top:12px;bottom:12px;width:4px;border-radius:4px;background:#D4AF37}
+  #crm-extra-history{display:none!important}
   #client-modal .modal-footer{position:sticky;bottom:-88px;margin:22px -26px -88px!important;padding:14px 26px!important;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-top:1px solid var(--lrf-line);z-index:20;display:flex;justify-content:flex-end;gap:10px}
   .lrf-empty-pane{padding:30px;text-align:center;background:#FCFBF9;border:1px dashed #D8D2C7;border-radius:12px;color:#777}
   @media(max-width:1050px){.lrf-client-summary{grid-template-columns:1fr 1fr}.lrf-summary-main{grid-column:1/-1}}
@@ -32,18 +33,35 @@ function injectStyles(){
   document.head.appendChild(s);
 }
 
-function sectionByTitle(regex){
-  return [...document.querySelectorAll("#client-modal .crm-extra-section, #client-modal .documents-section")].find(sec=>regex.test(sec.textContent||""));
+function countContacts(){
+  const cards=document.querySelectorAll("#crm-contacts-list .contact-card");
+  if(cards.length) return cards.length;
+  return field("edit-contact") ? 1 : 0;
 }
-function countContacts(){const sec=sectionByTitle(/interlocuteur/i);return sec?sec.querySelectorAll(".contact-card").length:0}
-function countPartners(){const sec=sectionByTitle(/partenaire/i);return sec?sec.querySelectorAll(".partner-card-mini.active").length:0}
-function countHistory(){const sec=sectionByTitle(/historique|compte.?rendu|visites|échanges/i);return sec?sec.querySelectorAll(".history-card").length:0}
+function countPartners(){
+  return document.querySelectorAll("#crm-partner-grid .partner-card-mini.active").length;
+}
+function nativeHistoryEntries(){
+  return [...document.querySelectorAll("#cr-history-list > div")];
+}
+function countHistory(){
+  const native=nativeHistoryEntries();
+  if(native.length) return native.length;
+  return document.querySelectorAll("#crm-history-list .history-card").length;
+}
 function field(id){return (document.getElementById(id)?.value||"").trim()}
 
 function latestHistoryText(){
-  const cards=[...document.querySelectorAll("#client-modal .history-card")];
-  if(!cards.length) return "Aucun";
-  const meta=cards[0].querySelector(".history-meta")?.textContent?.trim();
+  const native=nativeHistoryEntries();
+  if(native.length){
+    const head=native[0].querySelector(":scope > div:first-child");
+    const date=head?.querySelector("span")?.textContent?.trim()||"";
+    if(date) return `${date} • Visite / échange`;
+    return "Historique présent";
+  }
+  const card=document.querySelector("#crm-history-list .history-card");
+  if(!card) return "Aucun";
+  const meta=card.querySelector(".history-meta")?.textContent?.trim();
   return meta||"Historique présent";
 }
 
@@ -53,16 +71,16 @@ function updateSummary(){
   const cp=field("edit-code-postal"),city=field("edit-ville"),type=field("edit-type");
   const activity=document.getElementById("edit-activity")?.selectedOptions?.[0]?.textContent||"Non renseigné";
   const contactCount=countContacts(),partnerCount=countPartners(),historyCount=countHistory();
+  const last=latestHistoryText();
   root.innerHTML=`
     <div class="lrf-summary-main"><div class="lrf-summary-name">${esc(company)}</div><div class="lrf-summary-sub">📍 ${esc([cp,city].filter(Boolean).join(" ")||"Adresse à compléter")}<br>${type==="prospect"?"🎯 Prospect":"🏢 Client"} · ${esc(activity)}</div></div>
     <div class="lrf-summary-card"><small>Interlocuteurs</small><strong>👤 ${contactCount}</strong></div>
     <div class="lrf-summary-card"><small>Partenaires</small><strong>🏭 ${partnerCount}</strong></div>
     <div class="lrf-summary-card"><small>Historique</small><strong>🕘 ${historyCount} échange${historyCount>1?"s":""}</strong></div>
-    <div class="lrf-summary-card" title="${esc(latestHistoryText())}"><small>Dernier contact</small><strong>${esc(latestHistoryText())}</strong></div>`;
+    <div class="lrf-summary-card" title="${esc(last)}"><small>Dernier contact</small><strong>${esc(last)}</strong></div>`;
   updateTabCounts();
 }
 
-function paneFor(key){return document.querySelector(`#client-modal [data-lrf-pane="${key}"]`)}
 function activateTab(key){
   document.querySelectorAll("#client-modal .lrf-tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===key));
   document.querySelectorAll("#client-modal .lrf-tab-pane").forEach(p=>p.classList.toggle("active",p.dataset.lrfPane===key));
@@ -78,17 +96,22 @@ function classifySections(){
   const extras=[...modal.querySelectorAll(".crm-extra-section")];
   extras.forEach(sec=>{
     const t=(sec.textContent||"").toLowerCase();
-    if(t.includes("interlocuteur")){sec.classList.add("lrf-tab-pane");sec.dataset.lrfPane="contacts";}
-    else if(t.includes("partenaire")){sec.classList.add("lrf-tab-pane");sec.dataset.lrfPane="partners";}
-    else if(t.includes("historique")){sec.classList.add("lrf-tab-pane");sec.dataset.lrfPane="history";}
+    if(t.includes("interlocuteur")){sec.hidden=false;sec.classList.add("lrf-tab-pane");sec.dataset.lrfPane="contacts";}
+    else if(t.includes("partenaire")){sec.hidden=false;sec.classList.add("lrf-tab-pane");sec.dataset.lrfPane="partners";}
+    else if(t.includes("historique")){
+      // Historique Moovago dupliqué : la section native Comptes-Rendus reste la référence unique.
+      sec.classList.remove("lrf-tab-pane","active");
+      sec.removeAttribute("data-lrf-pane");
+      sec.hidden=true;
+    }
   });
   const docs=[...modal.querySelectorAll(".documents-section")];
   docs.forEach(sec=>{
     const t=(sec.textContent||"").toLowerCase();
     if(t.includes("documents joints")){sec.classList.add("lrf-tab-pane");sec.dataset.lrfPane="documents";}
     else if(t.includes("compte")||t.includes("visites")||t.includes("échanges")){
-      // Le formulaire de nouveau compte-rendu fait partie de l'historique.
-      sec.classList.add("lrf-tab-pane");sec.dataset.lrfPane="history";
+      // Une seule zone Historique : formulaire + liste des visites/échanges.
+      sec.classList.add("lrf-tab-pane");sec.dataset.lrfPane="history";sec.hidden=false;
     }
   });
 }
@@ -117,8 +140,14 @@ function buildShell(){
 function watchModal(){
   const modal=document.getElementById("client-modal");if(!modal)return;
   let timer;
-  const refresh=()=>{clearTimeout(timer);timer=setTimeout(()=>{if(getComputedStyle(modal).display!=="none"){buildShell();updateSummary();}},40)};
-  new MutationObserver(refresh).observe(modal,{attributes:true,attributeFilter:["style"],childList:true,subtree:true});
+  const refreshShell=()=>{clearTimeout(timer);timer=setTimeout(()=>{if(getComputedStyle(modal).display!=="none")buildShell();},40)};
+  new MutationObserver(refreshShell).observe(modal,{attributes:true,attributeFilter:["style"]});
+
+  const form=document.getElementById("client-form");
+  if(form){
+    const refreshData=()=>{clearTimeout(timer);timer=setTimeout(()=>{if(getComputedStyle(modal).display!=="none"){classifySections();updateSummary();}},35)};
+    new MutationObserver(refreshData).observe(form,{childList:true,subtree:true,attributes:true,attributeFilter:["class"]});
+  }
   modal.addEventListener("input",()=>setTimeout(updateSummary,30));
   modal.addEventListener("change",()=>setTimeout(updateSummary,30));
 }
