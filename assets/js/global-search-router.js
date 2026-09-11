@@ -83,6 +83,7 @@
     bootstrapViewInspirations();
     loadScript('assets/js/inspirations-biopietra-2026.js?v=20260912-bio2','lrf-biopietra-2026')
       .then(()=>loadScript('assets/js/inspirations-biopietra-fix.js?v=20260912-bio2','lrf-biopietra-fix'))
+      .then(()=>loadScript('assets/js/inspirations-biopietra-actions.js?v=20260912-bio3','lrf-biopietra-actions'))
       .catch(()=>{});
     loadScript('assets/js/reviglass-search-index.js?v=20260911-ref1','lrf-univers-reviglass-index')
       .then(()=>loadScript('assets/js/inspirations-search-bridge-v2.js?v=20260911-ref1','lrf-inspirations-search-bridge-v2'))
