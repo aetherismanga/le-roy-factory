@@ -48,18 +48,28 @@ if (!window.__LRF_CLIENT_PARTNER_ACCESS__) {
       #crm-partner-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:9px}
       #crm-partner-grid .partner-card-mini{border:1px solid #ddd4c5;background:#fff;border-radius:12px;min-height:58px;padding:9px;display:flex;align-items:center;gap:8px;cursor:pointer;transition:.15s;text-align:left}
       #crm-partner-grid .partner-card-mini img{width:50px;height:34px;object-fit:contain;background:#fff;border-radius:6px}
-      #crm-partner-grid .partner-card-mini span{font-size:.72rem;font-weight:800;color:#39342c}
+      #crm-partner-grid .partner-card-mini .partner-name{font-size:.72rem;font-weight:800;color:#39342c}
       #crm-partner-grid .partner-card-mini.active{border:2px solid #d4af37;background:#fff7dc;box-shadow:0 0 0 2px rgba(212,175,55,.12)}
+      .opal-mirror-logo{width:50px;height:34px;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#f9fbff,#dce8ef);border-radius:8px;position:relative;flex:0 0 auto;box-shadow:inset 0 0 0 1px #d7e0e6}
+      .opal-mirror-logo::before{content:'';width:20px;height:25px;border:2px solid #788a96;border-radius:50% 50% 46% 46%;background:linear-gradient(135deg,#ffffff 0 35%,#cfe0e9 36% 60%,#f8fbfd 61%);box-shadow:inset 0 0 0 2px rgba(255,255,255,.55)}
+      .opal-mirror-logo::after{content:'';position:absolute;width:10px;height:2px;background:#788a96;border-radius:2px;bottom:3px;left:20px;box-shadow:0 -3px 0 -1px #788a96}
       .lrf-partner-save-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px}.lrf-partner-state{font-size:.75rem;color:#6f6659}.lrf-partner-save{border:1px solid #c5a12d;background:#fff4c8;color:#6f5510;border-radius:10px;padding:10px 13px;font-weight:850;cursor:pointer}
-      .lrf-client-partners-open{border:1px solid #c5a12d!important;background:linear-gradient(180deg,#fff7d9,#f3df98)!important;color:#5f4a0d!important;box-shadow:none!important}
+      .lrf-client-partners-open{border:1px solid #d8c57d!important;background:linear-gradient(180deg,#fffdf6,#f7edcb)!important;color:#5f4a0d!important;box-shadow:0 5px 14px rgba(124,94,24,.10)!important}
       .lrf-client-focus{outline:3px solid rgba(212,175,55,.52)!important;outline-offset:4px!important;box-shadow:0 10px 28px rgba(126,91,14,.14)!important}
       @media(max-width:900px){
-        #lrf-client-mobile-quick-actions{grid-template-columns:repeat(3,1fr)!important}
-        #lrf-client-mobile-quick-actions .lrf-client-quick-btn{font-size:.86rem!important;padding:7px!important;min-width:0!important}
+        #lrf-client-mobile-quick-actions{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:8px!important;margin:12px 14px 8px!important}
+        #lrf-client-mobile-quick-actions .lrf-client-quick-btn{min-width:0!important;min-height:50px!important;border-radius:14px!important;padding:8px 5px!important;font-size:0!important;font-weight:800!important;letter-spacing:-.01em!important;box-shadow:0 5px 14px rgba(70,58,30,.08)!important}
+        #lrf-client-mobile-quick-actions .lrf-client-quick-btn span{font-size:.83rem!important;line-height:1.05!important;white-space:nowrap!important}
+        #lrf-client-mobile-quick-actions .lrf-client-call{border:1px solid #b8d9cf!important;background:linear-gradient(180deg,#f1fbf8,#dff3ed)!important;color:#176a58!important}
+        #lrf-client-mobile-quick-actions .lrf-client-go{border:1px solid #dfd0a5!important;background:linear-gradient(180deg,#fffdf8,#f6eedc)!important;color:#6b571c!important}
+        #lrf-client-mobile-quick-actions .lrf-client-partners-open{border:1px solid #d8c57d!important;background:linear-gradient(180deg,#fff8dc,#f6e8b5)!important;color:#654f12!important}
+        #lrf-client-mobile-quick-actions .lrf-client-quick-btn:active{transform:scale(.985)}
         #lrf-partner-access-section{margin:14px 12px;padding:13px;border-radius:14px}
+        #lrf-partner-access-section h3{font-size:1.08rem;line-height:1.18;margin-bottom:7px}
         #crm-partner-grid{grid-template-columns:1fr 1fr;gap:8px}
-        #crm-partner-grid .partner-card-mini{min-height:62px;padding:8px}
-        #crm-partner-grid .partner-card-mini img{width:44px;height:30px}
+        #crm-partner-grid .partner-card-mini{min-height:60px;padding:8px;border-radius:14px;gap:7px}
+        #crm-partner-grid .partner-card-mini img,.opal-mirror-logo{width:44px;height:32px}
+        #crm-partner-grid .partner-card-mini .partner-name{font-size:.78rem;line-height:1.1}
         #lrf-partner-access-section[data-collapsed="1"] #crm-partner-grid,#lrf-partner-access-section[data-collapsed="1"] .lrf-partner-save-row,#lrf-partner-access-section[data-collapsed="1"] p{display:none!important}
       }
     `;
@@ -75,7 +85,7 @@ if (!window.__LRF_CLIENT_PARTNER_ACCESS__) {
       section.id = 'lrf-partner-access-section';
       section.dataset.collapsed = window.matchMedia('(max-width:900px)').matches ? '1' : '0';
       section.innerHTML = `
-        <h3>🏭 Partenaires / autorisations tarifs</h3>
+        <h3>Partenaires / autorisations tarifs</h3>
         <p>Sélectionnez les fabricants autorisés pour ce client. Les tarifs PRO suivent exactement cette sélection.</p>
         <div id="crm-partner-grid"></div>
         <div class="lrf-partner-save-row"><span class="lrf-partner-state">Aucune modification.</span><button class="lrf-partner-save" type="button">Enregistrer les autorisations</button></div>`;
@@ -86,6 +96,11 @@ if (!window.__LRF_CLIENT_PARTNER_ACCESS__) {
     return section;
   }
 
+  function partnerVisual(id, logo) {
+    if (id === 'opal') return '<span class="opal-mirror-logo" aria-label="Opal — miroir"></span>';
+    return `<img src="assets/img/${esc(logo)}" alt="">`;
+  }
+
   function renderPartners() {
     const section = ensureSection();
     const grid = section?.querySelector('#crm-partner-grid');
@@ -94,7 +109,7 @@ if (!window.__LRF_CLIENT_PARTNER_ACCESS__) {
     draft = new Set(Array.isArray(client.partenaires) ? client.partenaires.filter(id => PARTNERS[id]) : []);
     grid.innerHTML = Object.entries(PARTNERS).map(([id,[name,logo]]) => `
       <button type="button" class="partner-card-mini${draft.has(id)?' active':''}" data-pid="${esc(id)}" aria-pressed="${draft.has(id)?'true':'false'}">
-        <img src="assets/img/${esc(logo)}" alt=""><span>${esc(name)}</span>
+        ${partnerVisual(id,logo)}<span class="partner-name">${esc(name)}</span>
       </button>`).join('');
     grid.querySelectorAll('.partner-card-mini').forEach(btn => btn.addEventListener('click', e => {
       e.preventDefault(); e.stopPropagation();
@@ -133,7 +148,7 @@ if (!window.__LRF_CLIENT_PARTNER_ACCESS__) {
     const section = document.querySelector('#lrf-partner-access-section');
     if (!box || !section || box.querySelector('.lrf-client-partners-open')) return;
     const btn = document.createElement('button');
-    btn.type='button'; btn.className='lrf-client-quick-btn lrf-client-partners-open'; btn.innerHTML='🏭 <span>Partenaires</span>';
+    btn.type='button'; btn.className='lrf-client-quick-btn lrf-client-partners-open'; btn.innerHTML='<span>Partenaires</span>';
     btn.addEventListener('click', () => {
       section.dataset.collapsed = '0';
       section.scrollIntoView({behavior:'smooth',block:'start'});
