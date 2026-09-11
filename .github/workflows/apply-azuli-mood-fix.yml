@@ -77,8 +77,8 @@ jobs:
       - name: Verify Azuli data
         run: |
           test "$(find assets/img/elios/azuli-mood -type f -name '*.jpg' | wc -l)" -eq 22
-          grep -q '04Q1010' functions/elios-lot6.js
-          grep -q '04Q5510' functions/elios-lot6.js
+          grep -Fq '04Q10${s}' functions/elios-lot6.js
+          grep -Fq '04Q55${s}' functions/elios-lot6.js
           grep -q '04QH109' functions/elios-lot6.js
           grep -q 'assets/img/elios/azuli-mood/chalk-01.jpg' assets/js/inspirations-elios-thickness-overrides.js
           grep -q 'inspirations-elios-azuli-hd.js' assets/js/selections-lazy-enhancements.js
