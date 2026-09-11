@@ -31,7 +31,7 @@
       'assets/js/inspirations-view-accessories-ui.js?v=20260911-view-accessories-ui1',
       'assets/js/inspirations-view-order-v4.js?v=20260911-view-order-v4',
       'assets/js/inspirations-view-order-v5-polish.js?v=20260911-view-order-v5',
-      'assets/js/inspirations-view-order-email-recap-fix.js?v=20260911-view-mail-recap1'
+      'assets/js/inspirations-view-order-email-recap-fix.js?v=20260911-view-mail-recap2'
     ]
   };
 
