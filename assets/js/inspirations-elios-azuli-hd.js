@@ -86,7 +86,6 @@
 
     block.innerHTML = `
       <h4 style="margin:.05rem 0 .45rem">Références catalogue / stock</h4>
-      <p style="margin:0 0 .75rem;font-size:.82rem;color:#5f6863"><strong>Tarif pro :</strong> 10x10 = 23,00 € HT/m² · 5x15 = 23,00 € HT/m²</p>
       <div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
         <table style="width:100%;border-collapse:collapse;font-size:.78rem;min-width:500px">
           <thead><tr><th style="padding:7px 6px;text-align:left">Couleur</th><th>10x10</th><th>5x15</th><th>1,2x20</th></tr></thead>
