@@ -1,0 +1,61 @@
+name: Add Contact Phone Links
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/add-contact-phone-links.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Add clickable phone numbers
+        run: |
+          python <<'PY'
+          from pathlib import Path
+
+          p = Path('contact.html')
+          s = p.read_text(encoding='utf-8')
+
+          jerome_old = '<a href="mailto:jerome@leroyfactory.fr">✉ jerome@leroyfactory.fr</a>'
+          jerome_new = jerome_old + '\n            <br><a href="tel:+33766059922" aria-label="Appeler Jérôme Hugol au 07 66 05 99 22">☎ 07 66 05 99 22</a>'
+          coryne_old = '<a href="mailto:coryne@leroyfactory.fr">✉ coryne@leroyfactory.fr</a>'
+          coryne_new = coryne_old + '\n            <br><a href="tel:+33617966720" aria-label="Appeler Coryne Le Roy au 06 17 96 67 20">☎ 06 17 96 67 20</a>'
+
+          if 'tel:+33766059922' not in s:
+              if jerome_old not in s:
+                  raise RuntimeError('Lien e-mail Jérôme introuvable')
+              s = s.replace(jerome_old, jerome_new, 1)
+
+          if 'tel:+33617966720' not in s:
+              if coryne_old not in s:
+                  raise RuntimeError('Lien e-mail Coryne introuvable')
+              s = s.replace(coryne_old, coryne_new, 1)
+
+          p.write_text(s, encoding='utf-8')
+          PY
+
+      - name: Verify
+        run: |
+          grep -q 'tel:+33766059922' contact.html
+          grep -q 'tel:+33617966720' contact.html
+          grep -q '07 66 05 99 22' contact.html
+          grep -q '06 17 96 67 20' contact.html
+
+      - name: Commit and push
+        run: |
+          git config user.name 'aetherismanga'
+          git config user.email 'ccjacou@gmail.com'
+          git add contact.html
+          git diff --cached --quiet && exit 0
+          git commit -m 'feat: add clickable phone numbers to contact cards'
+          git push origin main
