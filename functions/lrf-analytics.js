@@ -7,9 +7,10 @@ const { EVENTS, SUMMARIES } = require('./lrf-analytics-core');
 const db = admin.firestore();
 const ALLOWED_ORIGINS = ['https://leroyfactory.fr', 'https://www.leroyfactory.fr'];
 const ALLOWED_AGENTS = new Set(['jerome@leroyfactory.fr', 'coryne@leroyfactory.fr']);
+const INTERNAL_EMAILS = new Set(['jerome@leroyfactory.fr', 'coryne@leroyfactory.fr']);
 const TRACK_ACTIONS = new Set(['session_start','page_view','partner_view','product_view','stock_view','tariff_view','cart_add','order_view']);
 const VIEW_ACTIONS = new Set(['page_view','partner_view','product_view','stock_view','tariff_view','cart_add','order_view']);
-const WEIGHTS = { page_view:1, partner_view:2, product_view:6, stock_view:16, tariff_view:10, cart_add:10, order_view:18 };
+const WEIGHTS = { page_view:1, partner_view:2, product_view:6, stock_view:16, tariff_view:10, cart_add:10, order_view:40 };
 const DAY = 86400000;
 
 function cors(req, res, agent = false) {
@@ -32,10 +33,17 @@ function endOfDay(ms = Date.now()) { const d = new Date(ms); d.setHours(23,59,59
 function monthStart(ms = Date.now()) { const d = new Date(ms); return new Date(d.getFullYear(), d.getMonth(), 1).getTime(); }
 function previousMonthRange(ms = Date.now()) { const d = new Date(ms); const start = new Date(d.getFullYear(), d.getMonth()-1, 1).getTime(); const end = new Date(d.getFullYear(), d.getMonth(), 1).getTime()-1; return {start,end}; }
 function depFromClient(c){ return clean(c?.departement || '', 4).toUpperCase(); }
+function isInternalClient(c){
+  if(!c) return false;
+  const emails=[c.email,c.mail,c.emailPro,c.emailContact,c.contactEmail].map(v=>clean(v,180).toLowerCase()).filter(Boolean);
+  if(emails.some(e=>INTERNAL_EMAILS.has(e))) return true;
+  const identity=norm([c.societe,c.contact,c.interlocuteur,c.nom,c.prenom].filter(Boolean).join(' '));
+  return identity.includes('jerome hugol') || identity.includes('coryne leroy factory') || identity === 'coryne';
+}
 
 function finiteNumber(v) { const n = Number(v); return Number.isFinite(n) ? n : null; }
 async function writeTrackedActivity(client, activity = {}) {
-  if (!client?.id) return;
+  if (!client?.id || isInternalClient(client)) return;
   const action = clean(activity.action || 'page_view', 40) || 'page_view';
   const now = admin.firestore.FieldValue.serverTimestamp();
   const stock = finiteNumber(activity.stock);
@@ -55,6 +63,7 @@ async function writeTrackedActivity(client, activity = {}) {
   if(action==='stock_view') summary.stockViewCount=admin.firestore.FieldValue.increment(1);
   if(action==='product_view') summary.productViewCount=admin.firestore.FieldValue.increment(1);
   if(action==='session_start') summary.sessionCount=admin.firestore.FieldValue.increment(1);
+  if(action==='order_view') summary.orderCount=admin.firestore.FieldValue.increment(1);
   await Promise.all([
     db.collection(EVENTS).add(event),
     db.collection(SUMMARIES).doc(String(client.id)).set(summary,{merge:true})
@@ -95,11 +104,9 @@ function pageLabel(page, title) {
 }
 
 function actionLabel(action) {
-  return ({session_start:'Connexion',page_view:'Page consultée',partner_view:'Fabricant consulté',product_view:'Produit consulté',stock_view:'Stock consulté',tariff_view:'Tarif consulté',cart_add:'Ajout panier',order_view:'Commande'})[action] || action || 'Activité';
+  return ({session_start:'Visite du site',page_view:'Page consultée',partner_view:'Fabricant consulté',product_view:'Produit consulté',stock_view:'Stock consulté',tariff_view:'Tarif consulté',cart_add:'Ajout panier',order_view:'Commande passée'})[action] || action || 'Activité';
 }
-
 function emptyStats(){return{lastSeen:0,views:0,sessions:0,tariffs:0,products:0,stocks:0,partners:0,carts:0,orders:0,pages:new Map(),productsMap:new Map(),stocksMap:new Map(),partnersMap:new Map(),activeDays:new Set(),events:[],interest:0};}
-
 function scoreClient(s, now) {
   if (!s.lastSeen) return {score:0,label:'Froid',reasons:[]};
   const days = (now - s.lastSeen) / DAY;
@@ -108,6 +115,7 @@ function scoreClient(s, now) {
   let score = recency + Math.min(45, Math.round(s.interest)) + Math.min(12, Math.max(0, repeatedProduct - 1) * 4) + Math.min(9, s.activeDays.size * 2);
   score = Math.min(100, Math.round(score));
   const reasons=[];
+  if(s.orders) reasons.push(`${s.orders} commande${s.orders>1?'s':''} passée${s.orders>1?'s':''}`);
   if(days<=1) reasons.push('activité aujourd’hui'); else if(days<=3) reasons.push('activité très récente'); else if(days<=7) reasons.push('activité cette semaine');
   if(s.stocks) reasons.push(`${s.stocks} consultation${s.stocks>1?'s':''} de stock`);
   if(s.tariffs) reasons.push(`${s.tariffs} tarif${s.tariffs>1?'s':''} consulté${s.tariffs>1?'s':''}`);
@@ -115,11 +123,9 @@ function scoreClient(s, now) {
   if(repeatedProduct>=2) reasons.push('retour sur un même produit');
   return {score,label:score>=75?'Très chaud':score>=50?'Chaud':score>=25?'Tiède':'Froid',reasons};
 }
-
 function mapTop(map, limit = 25) {
   return [...map.entries()].map(([name, value]) => typeof value === 'number' ? {name,count:value} : {name,...value}).sort((a,b)=>(b.count||0)-(a.count||0)).slice(0,limit);
 }
-
 function inferSessions(events) {
   const sorted = [...events].sort((a,b)=>a.ms-b.ms);
   let count=0,last=0;
@@ -171,7 +177,7 @@ const getLrfAnalytics = onRequest({timeoutSeconds:60,memory:'512MiB'}, async (re
     ]);
 
     const clients=new Map();
-    clientSnap.forEach(doc=>{const c={id:doc.id,...doc.data()};if(/^LRF-\d{5}$/i.test(clean(c.codeClient,20)))clients.set(doc.id,c);});
+    clientSnap.forEach(doc=>{const c={id:doc.id,...doc.data()};if(/^LRF-\d{5}$/i.test(clean(c.codeClient,20))&&!isInternalClient(c))clients.set(doc.id,c);});
     const summaries=new Map(); summarySnap.forEach(doc=>summaries.set(doc.id,doc.data()||{}));
 
     const rawEvents=[];
@@ -245,7 +251,7 @@ const getLrfAnalytics = onRequest({timeoutSeconds:60,memory:'512MiB'}, async (re
 
     return res.json({
       success:true,generatedAt:now,agent:agentEmail,range,
-      general:{totalClients:clientRows.length,activeClients:activeRows.length,connections:activeRows.reduce((n,c)=>n+c.sessions,0),events:events.length,pageViews:events.filter(e=>e.action==='page_view').length,productViews:events.filter(e=>e.action==='product_view').length,stockViews:events.filter(e=>e.action==='stock_view').length,tariffViews:events.filter(e=>e.action==='tariff_view').length,hotClients:hotClients.length,onlineNow:connectedRecent.length},
+      general:{totalClients:clientRows.length,activeClients:activeRows.length,connections:activeRows.reduce((n,c)=>n+c.sessions,0),events:events.length,pageViews:events.filter(e=>e.action==='page_view').length,productViews:events.filter(e=>e.action==='product_view').length,stockViews:events.filter(e=>e.action==='stock_view').length,tariffViews:events.filter(e=>e.action==='tariff_view').length,orders:events.filter(e=>e.action==='order_view').length,hotClients:hotClients.length,onlineNow:connectedRecent.length},
       clients:clientRows,hotClients,connectedRecent,timeline,
       pages:mapTop(pageCounts,30),products:mapTop(productCounts,40),stocks:mapTop(stockCounts,40),partners:mapTop(partnerCounts,30),departments:mapTop(departmentCounts,50),actions:mapTop(actionCounts,20),
       filters:{departments,partners,actions:actions.map(value=>({value,label:actionLabel(value)}))}
