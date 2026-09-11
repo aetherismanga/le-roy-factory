@@ -1,8 +1,7 @@
 'use strict';
 
-const { onTaskDispatched } = require('firebase-functions/v2/tasks');
+const { onSchedule } = require('firebase-functions/v2/scheduler');
 const admin = require('firebase-admin');
-const { getFunctions } = require('firebase-admin/functions');
 const nodemailer = require('nodemailer');
 const { productByRef } = require('./bilt-catalog');
 
@@ -12,8 +11,6 @@ const CORYNE = 'coryne@leroyfactory.fr';
 const CARLES = 'carlesb@biltbs.com';
 const CC = [JEROME, CORYNE];
 const REGION = 'us-central1';
-const TASK_NAME = `locations/${REGION}/functions/biltAutoReleaseTask`;
-const TASK_URI = 'https://us-central1-le-roy-factory.cloudfunctions.net/biltAutoReleaseTask';
 
 function clean(v,max=500){return String(v??'').trim().slice(0,max)}
 function esc(v){return clean(v,1600).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
@@ -44,16 +41,29 @@ async function sendOrder(order){
 async function finalize(orderRef,order,sent){
   const customerRef=db.collection('bilt_customers').doc(order.customer.clientId);const batch=db.batch();
   batch.set(customerRef,{clientId:order.customer.clientId,codeClient:order.customer.codeClient,societe:order.customer.societe,firstOrderReviewed:true,firstOrderPending:false,discountPercent:0,discountStartsAt:null,discountExpiresAt:null,updatedAt:admin.firestore.FieldValue.serverTimestamp()},{merge:true});
-  batch.update(orderRef,{status:'sent',statusLabel:'Envoyée automatiquement après 3 jours',sentAt:admin.firestore.FieldValue.serverTimestamp(),discountPercent:0,totalNet:sent.totals.totalNet,totalFinal:sent.totals.totalFinal,items:sent.items,mailMessageId:sent.messageId,decisionSource:'auto_72h_task',autoReleased:true,approvalTokenHash:admin.firestore.FieldValue.delete(),processedAt:admin.firestore.FieldValue.serverTimestamp(),autoReleaseTaskStatus:'done'});
+  batch.update(orderRef,{status:'sent',statusLabel:'Envoyée automatiquement après 3 jours',sentAt:admin.firestore.FieldValue.serverTimestamp(),discountPercent:0,totalNet:sent.totals.totalNet,totalFinal:sent.totals.totalFinal,items:sent.items,mailMessageId:sent.messageId,decisionSource:'auto_72h_scheduler',autoReleased:true,approvalTokenHash:admin.firestore.FieldValue.delete(),processedAt:admin.firestore.FieldValue.serverTimestamp(),autoReleaseTaskStatus:'done',autoReleaseMode:'firestore_scheduler'});
   await batch.commit();
-  await db.collection('account_requests').add({requestType:'commande_bilt',status:'envoyee',clientId:order.customer.clientId,societe:order.customer.societe,codeClient:order.customer.codeClient,contact:order.contact?.name||'',email:order.selectedEmail||'',telephone:order.selectedPhone||'',partenaire:'Bilt',submittedAt:admin.firestore.FieldValue.serverTimestamp(),demande:`Commande BILT — ${sent.items.length} référence${sent.items.length>1?'s':''} — ${euro(sent.totals.totalFinal)} HT`,commande:{orderId:orderRef.id,items:sent.items,totalNet:sent.totals.totalNet,totalFinal:sent.totals.totalFinal,discountPercent:0,note:order.note||'',decisionSource:'auto_72h_task'},recipients:{to:CARLES,cc:CC},mailMessageId:sent.messageId,source:'commande-bilt'}).catch(e=>console.warn('Historique BILT auto non bloquant',e));
+  await db.collection('account_requests').add({requestType:'commande_bilt',status:'envoyee',clientId:order.customer.clientId,societe:order.customer.societe,codeClient:order.customer.codeClient,contact:order.contact?.name||'',email:order.selectedEmail||'',telephone:order.selectedPhone||'',partenaire:'Bilt',submittedAt:admin.firestore.FieldValue.serverTimestamp(),demande:`Commande BILT — ${sent.items.length} référence${sent.items.length>1?'s':''} — ${euro(sent.totals.totalFinal)} HT`,commande:{orderId:orderRef.id,items:sent.items,totalNet:sent.totals.totalNet,totalFinal:sent.totals.totalFinal,discountPercent:0,note:order.note||'',decisionSource:'auto_72h_scheduler'},recipients:{to:CARLES,cc:CC},mailMessageId:sent.messageId,source:'commande-bilt'}).catch(e=>console.warn('Historique BILT auto non bloquant',e));
 }
 
-async function claim(orderRef){return db.runTransaction(async tx=>{const snap=await tx.get(orderRef);if(!snap.exists)return null;const data=snap.data();if(data.status!=='pending_approval')return null;const deadline=Number(data.approvalDeadlineMs||0);if(deadline&&Date.now()+5000<deadline)return {tooEarly:true,data,deadline};tx.update(orderRef,{status:'processing',processingAt:admin.firestore.FieldValue.serverTimestamp(),autoReleaseTaskStatus:'processing'});return {data}})}
+async function claim(orderRef){return db.runTransaction(async tx=>{const snap=await tx.get(orderRef);if(!snap.exists)return null;const data=snap.data();if(data.status!=='pending_approval')return null;const deadline=Number(data.approvalDeadlineMs||0);if(!deadline||Date.now()+5000<deadline)return {tooEarly:true,data,deadline};tx.update(orderRef,{status:'processing',processingAt:admin.firestore.FieldValue.serverTimestamp(),autoReleaseTaskStatus:'processing',autoReleaseMode:'firestore_scheduler'});return {data}})}
 
-exports.biltAutoReleaseTask = onTaskDispatched({region:REGION,retryConfig:{maxAttempts:8,minBackoffSeconds:60,maxBackoffSeconds:3600,maxDoublings:5},rateLimits:{maxConcurrentDispatches:2},timeoutSeconds:300,memory:'256MiB',secrets:['SMTP_PASSWORD_JEROME']},async req=>{
-  const orderId=clean(req?.data?.orderId,120);if(!orderId)return;
-  const orderRef=db.collection('bilt_orders').doc(orderId),claimed=await claim(orderRef);if(!claimed)return;
-  if(claimed.tooEarly){const delay=Math.max(5,Math.ceil((claimed.deadline-Date.now())/1000));await getFunctions().taskQueue(TASK_NAME).enqueue({orderId},{scheduleDelaySeconds:delay,dispatchDeadlineSeconds:300,uri:TASK_URI});return}
-  try{const sent=await sendOrder(claimed.data);await finalize(orderRef,claimed.data,sent)}catch(error){await orderRef.update({status:'pending_approval',processingAt:admin.firestore.FieldValue.delete(),autoReleaseTaskStatus:'retrying',autoReleaseTaskError:String(error.message||error)}).catch(()=>{});throw error}
+exports.biltAutoReleaseScheduler = onSchedule({schedule:'every 5 minutes',timeZone:'Europe/Paris',region:REGION,timeoutSeconds:300,memory:'256MiB',secrets:['SMTP_PASSWORD_JEROME']},async()=>{
+  const snap=await db.collection('bilt_orders').where('status','==','pending_approval').limit(200).get();
+  const now=Date.now();
+  for(const doc of snap.docs){
+    const data=doc.data();
+    const deadline=Number(data.approvalDeadlineMs||0);
+    if(!deadline||deadline>now)continue;
+    const orderRef=doc.ref;
+    const claimed=await claim(orderRef);
+    if(!claimed||claimed.tooEarly)continue;
+    try{
+      const sent=await sendOrder(claimed.data);
+      await finalize(orderRef,claimed.data,sent);
+    }catch(error){
+      console.error('BILT AUTO RELEASE SCHEDULER',doc.id,error);
+      await orderRef.update({status:'pending_approval',processingAt:admin.firestore.FieldValue.delete(),autoReleaseTaskStatus:'retrying',autoReleaseTaskError:String(error.message||error),autoReleaseMode:'firestore_scheduler'}).catch(()=>{});
+    }
+  }
 });
