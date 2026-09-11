@@ -45,6 +45,7 @@ jobs:
         run: npm install --global firebase-tools
 
       - name: Deploy secured tariff, session, analytics, ELIOS and BILT functions
+        # Includes the full Azuli Mood colour/reference catalogue used by eliosCatalog and eliosStock.
         run: >-
           firebase deploy
           --project le-roy-factory
