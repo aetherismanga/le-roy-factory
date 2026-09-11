@@ -29,7 +29,8 @@
       'assets/js/inspirations-view-hd.js?v=20260907-view-hd1',
       'assets/js/inspirations-view-mobile-safe.js?v=20260907-view-safe1',
       'assets/js/inspirations-view-accessories-ui.js?v=20260911-view-accessories-ui1',
-      'assets/js/inspirations-view-order-v4.js?v=20260911-view-order-v4'
+      'assets/js/inspirations-view-order-v4.js?v=20260911-view-order-v4',
+      'assets/js/inspirations-view-order-v5-polish.js?v=20260911-view-order-v5'
     ]
   };
 
@@ -66,16 +67,13 @@
   }
 
   function idle(callback, timeout = 1200) {
-    if ('requestIdleCallback' in window) {
-      return window.requestIdleCallback(callback, { timeout });
-    }
+    if ('requestIdleCallback' in window) return window.requestIdleCallback(callback, { timeout });
     return setTimeout(callback, 260);
   }
 
   document.addEventListener('pointerdown', e => {
     const partner = e.target.closest?.('[data-partner]');
     if (partner && /view/i.test(partner.dataset.partner || '')) loadGroup('view', true);
-
     const card = e.target.closest?.('.product-card-v2');
     const title = document.getElementById('workspace-title')?.textContent || '';
     if (card && /elios/i.test(title)) loadGroup('elios', true);
@@ -83,9 +81,7 @@
 
   const startBackgroundLoad = () => {
     idle(() => {
-      loadGroup('elios').finally(() => {
-        idle(() => loadGroup('view'), 1800);
-      });
+      loadGroup('elios').finally(() => { idle(() => loadGroup('view'), 1800); });
     }, 1000);
   };
 
