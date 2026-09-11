@@ -1,7 +1,7 @@
 (() => {
   'use strict';
-  if (window.__LRF_REVIGLASS_PS_GALLERY_V2__) return;
-  window.__LRF_REVIGLASS_PS_GALLERY_V2__ = true;
+  if (window.__LRF_REVIGLASS_PS_GALLERY_V3__) return;
+  window.__LRF_REVIGLASS_PS_GALLERY_V3__ = true;
 
   const $=(s,r=document)=>r.querySelector(s);
   const $$=(s,r=document)=>[...r.querySelectorAll(s)];
@@ -9,6 +9,26 @@
   const isRev=()=>$('#reviglass-pool-modal')?.classList.contains('open')||norm($('#workspace-title')?.textContent)==='reviglass';
 
   const GALLERIES={
+    'PS21':[
+      'https://reviglass.es/wp-content/uploads/2018/11/PS-21web1.jpg',
+      'https://reviglass.es/wp-content/uploads/2018/11/PS-21web2.jpg',
+      'https://reviglass.es/wp-content/uploads/2018/11/PS_21_photo.jpg'
+    ],
+    'PS22':[
+      'https://reviglass.es/wp-content/uploads/2019/06/PS-22web1.jpg',
+      'https://reviglass.es/wp-content/uploads/2019/06/PS-22web2.jpg',
+      'https://reviglass.es/wp-content/uploads/2018/11/PS_22_photo.jpg'
+    ],
+    'PS23':[
+      'https://reviglass.es/wp-content/uploads/2019/06/PS-23web1.jpg',
+      'https://reviglass.es/wp-content/uploads/2019/06/PS-23web2.jpg',
+      'https://reviglass.es/wp-content/uploads/2018/11/PS_23_photo.jpg'
+    ],
+    'PS24':[
+      'https://reviglass.es/wp-content/uploads/2018/11/PS-24web1.jpg',
+      'https://reviglass.es/wp-content/uploads/2018/11/PS-24web2.jpg',
+      'https://reviglass.es/wp-content/uploads/2018/11/PS_24_photo.jpg'
+    ],
     'PS25':[
       'https://reviglass.es/wp-content/uploads/2018/11/PS-25web1-1.jpg',
       'https://reviglass.es/wp-content/uploads/2018/11/PS-25web2-1.jpg',
@@ -17,16 +37,76 @@
       'https://reviglass.es/wp-content/uploads/2018/11/PS_25_photo.jpg',
       'https://reviglass.es/wp-content/uploads/2018/11/RV_PS25_01.jpg'
     ],
+    'PS26':[
+      'https://reviglass.es/wp-content/uploads/2018/11/PS-26web1.jpg',
+      'https://reviglass.es/wp-content/uploads/2018/11/PS-26web2.jpg',
+      'https://reviglass.es/wp-content/uploads/2018/11/PS_26_photo.jpg'
+    ],
     'PS27':[
       'https://reviglass.es/wp-content/uploads/2018/11/PS-27web1.jpg',
       'https://reviglass.es/wp-content/uploads/2018/11/PS-27web2.jpg',
       'https://reviglass.es/wp-content/uploads/2018/11/PS_27_photo.jpg',
       'https://reviglass.es/wp-content/uploads/2021/06/ps27_01.jpg'
     ],
+    'PS40':[
+      'https://reviglass.es/wp-content/uploads/2018/11/PS-40web1.jpg',
+      'https://reviglass.es/wp-content/uploads/2018/11/PS-40web2.jpg',
+      'https://reviglass.es/wp-content/uploads/2018/11/PS_40_photo.jpg'
+    ],
+    'PS41':[
+      'https://reviglass.es/wp-content/uploads/2020/02/PS-41web1.jpg',
+      'https://reviglass.es/wp-content/uploads/2020/02/PS-41web2.jpg',
+      'https://reviglass.es/wp-content/uploads/2020/02/RV_PS41_02.jpg'
+    ],
+    'PS50':[
+      'https://reviglass.es/wp-content/uploads/2018/11/PS-50web1.jpg',
+      'https://reviglass.es/wp-content/uploads/2018/11/PS-50web2.jpg',
+      'https://reviglass.es/wp-content/uploads/2018/11/RV_PS50_02.jpg'
+    ],
+    'PS51':[
+      'https://reviglass.es/wp-content/uploads/2018/11/PS-51web1.jpg',
+      'https://reviglass.es/wp-content/uploads/2018/11/PS-51web2.jpg',
+      'https://reviglass.es/wp-content/uploads/2018/11/RV_PS51_02.jpg'
+    ],
+    'PS52':[
+      'https://reviglass.es/wp-content/uploads/2018/11/PS-52web1.jpg',
+      'https://reviglass.es/wp-content/uploads/2018/11/PS-52web2.jpg',
+      'https://reviglass.es/wp-content/uploads/2018/11/PS_52_photo.jpg'
+    ],
     'PS53':[
       'https://reviglass.es/wp-content/uploads/2018/11/PS-53web1.jpg',
       'https://reviglass.es/wp-content/uploads/2018/11/PS-53web2.jpg',
       'https://reviglass.es/wp-content/uploads/2018/11/PS_53_photo.jpg'
+    ],
+    'PS54':[
+      'https://reviglass.es/wp-content/uploads/2018/11/PS-54web1.jpg',
+      'https://reviglass.es/wp-content/uploads/2018/11/PS-54web2.jpg',
+      'https://reviglass.es/wp-content/uploads/2018/11/ps54_01-700x394.jpg'
+    ],
+    'PS55':[
+      'https://reviglass.es/wp-content/uploads/2018/11/PS-55web1.jpg',
+      'https://reviglass.es/wp-content/uploads/2018/11/PS-55web2.jpg',
+      'https://reviglass.es/wp-content/uploads/2018/11/PS_55_photo.jpg'
+    ],
+    'PS56':[
+      'https://reviglass.es/wp-content/uploads/2018/11/PS-56web1.jpg',
+      'https://reviglass.es/wp-content/uploads/2018/11/PS-56web2.jpg',
+      'https://reviglass.es/wp-content/uploads/2018/11/PS_56_photo.jpg'
+    ],
+    'PS59':[
+      'https://reviglass.es/wp-content/uploads/2018/11/PS-59web1.jpg',
+      'https://reviglass.es/wp-content/uploads/2018/11/PS-59web2.jpg',
+      'https://reviglass.es/wp-content/uploads/2018/11/PS_59_photo.jpg'
+    ],
+    'PS60':[
+      'https://reviglass.es/wp-content/uploads/2018/11/PS-60web1.jpg',
+      'https://reviglass.es/wp-content/uploads/2018/11/PS-60web2.jpg',
+      'https://reviglass.es/wp-content/uploads/2018/11/PS_60_photo.jpg'
+    ],
+    'PS63':[
+      'https://reviglass.es/wp-content/uploads/2020/02/PS-63web1.jpg',
+      'https://reviglass.es/wp-content/uploads/2020/02/PS-63web2.jpg',
+      'https://reviglass.es/wp-content/uploads/2020/02/PS_63_photo.jpg'
     ]
   };
 
