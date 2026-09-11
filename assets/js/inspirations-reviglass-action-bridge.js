@@ -1,10 +1,64 @@
 (() => {
   'use strict';
-  if (window.__LRF_REVIGLASS_ACTION_BRIDGE_20260911_V2__) return;
-  window.__LRF_REVIGLASS_ACTION_BRIDGE_20260911_V2__ = true;
+  if (window.__LRF_REVIGLASS_ACTION_BRIDGE_20260911_V3__) return;
+  window.__LRF_REVIGLASS_ACTION_BRIDGE_20260911_V3__ = true;
 
   const $=(s,r=document)=>r.querySelector(s);
   const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+
+  function installMobileOrderFix(){
+    if($('#reviglass-mobile-order-fix')) return;
+    const st=document.createElement('style');
+    st.id='reviglass-mobile-order-fix';
+    st.textContent=`
+      @media(max-width:700px){
+        #rev-order .rev-order-shell{overflow:visible!important}
+        #rev-order .rev-order-head{
+          position:relative!important;
+          top:auto!important;
+          height:auto!important;
+          min-height:0!important;
+          padding:18px 82px 20px 18px!important;
+          box-sizing:border-box!important;
+          overflow:visible!important;
+        }
+        #rev-order .rev-order-head .eyebrow{font-size:.68rem!important;line-height:1.2!important;margin:0 0 8px!important}
+        #rev-order .rev-order-head h2{
+          display:block!important;
+          position:static!important;
+          margin:0!important;
+          max-width:100%!important;
+          font-size:clamp(1.55rem,7.2vw,2rem)!important;
+          line-height:1.08!important;
+          white-space:normal!important;
+          overflow:visible!important;
+          color:#fff!important;
+        }
+        #rev-order .rev-order-head p{
+          display:block!important;
+          position:static!important;
+          margin:10px 0 0!important;
+          max-width:100%!important;
+          font-size:.88rem!important;
+          line-height:1.35!important;
+          white-space:normal!important;
+          overflow:visible!important;
+          color:#d6d2ca!important;
+        }
+        #rev-order .rev-order-close{right:14px!important;top:14px!important}
+        #rev-order .rev-order-body{
+          position:relative!important;
+          margin-top:0!important;
+          padding:16px 11px 24px!important;
+          background:#fbfaf7!important;
+        }
+        #rev-order .rev-order-lines{margin-top:0!important}
+      }
+    `;
+    document.head.appendChild(st);
+  }
+
+  installMobileOrderFix();
 
   function selectedRef(){
     return $('.reviglass-ref-list .rev-selected-ref')?.textContent?.trim() ||
