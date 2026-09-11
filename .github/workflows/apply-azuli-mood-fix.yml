@@ -1,0 +1,284 @@
+name: Apply Azuli Mood HD Fix
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-azuli-mood-fix.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install image extraction tools
+        run: python -m pip install --quiet pymupdf pillow
+
+      - name: Extract native Azuli Mood catalogue images
+        run: |
+          python <<'PY'
+          from pathlib import Path
+          from io import BytesIO
+          import fitz
+          from PIL import Image
+
+          pdf = Path('assets/pdf/AZULI-MOOD_new.pdf')
+          out = Path('assets/img/elios/azuli-mood')
+          out.mkdir(parents=True, exist_ok=True)
+          doc = fitz.open(pdf)
+          page_map = {
+              'chalk': [8, 9],
+              'sand': [10, 11],
+              'bone': [12, 13],
+              'thyme-green': [14, 15],
+              'burgundy': [16, 17],
+              'coffee-bean': [18, 19],
+              'blue': [20, 21],
+              'bottle-green': [22, 23],
+              'turquoise': [24, 25],
+              'dusk': [26, 27],
+              'dawn': [28, 29],
+          }
+
+          for color, pages in page_map.items():
+              for idx, page_no in enumerate(pages, 1):
+                  page = doc[page_no - 1]
+                  candidates = []
+                  for image in page.get_images(full=True):
+                      xref = image[0]
+                      try:
+                          data = doc.extract_image(xref)
+                          w = int(data.get('width') or 0)
+                          h = int(data.get('height') or 0)
+                          if w >= 180 and h >= 180:
+                              candidates.append((w*h, w, h, data['image']))
+                      except Exception:
+                          pass
+                  if not candidates:
+                      raise RuntimeError(f'No usable image on PDF page {page_no}')
+                  _, w, h, raw = max(candidates, key=lambda x: x[0])
+                  im = Image.open(BytesIO(raw)).convert('RGB')
+                  target = out / f'{color}-{idx:02d}.jpg'
+                  im.save(target, 'JPEG', quality=95, optimize=True)
+                  print(f'{target}: {w}x{h}')
+          PY
+
+      - name: Add Azuli Mood HD gallery and full references
+        run: |
+          cat > assets/js/inspirations-elios-azuli-hd.js <<'JS'
+          (() => {
+            'use strict';
+
+            const ROOT = 'assets/img/elios/azuli-mood/';
+            const galleries = {
+              Chalk: [ROOT+'chalk-01.jpg', ROOT+'chalk-02.jpg'],
+              Sand: [ROOT+'sand-01.jpg', ROOT+'sand-02.jpg'],
+              Bone: [ROOT+'bone-01.jpg', ROOT+'bone-02.jpg'],
+              'Thyme Green': [ROOT+'thyme-green-01.jpg', ROOT+'thyme-green-02.jpg'],
+              Burgundy: [ROOT+'burgundy-01.jpg', ROOT+'burgundy-02.jpg'],
+              'Coffee Bean': [ROOT+'coffee-bean-01.jpg', ROOT+'coffee-bean-02.jpg'],
+              Blue: [ROOT+'blue-01.jpg', ROOT+'blue-02.jpg'],
+              'Bottle Green': [ROOT+'bottle-green-01.jpg', ROOT+'bottle-green-02.jpg'],
+              Turquoise: [ROOT+'turquoise-01.jpg', ROOT+'turquoise-02.jpg'],
+              Dusk: [ROOT+'dusk-01.jpg', ROOT+'dusk-02.jpg'],
+              Dawn: [ROOT+'dawn-01.jpg', ROOT+'dawn-02.jpg']
+            };
+            const allImages = Object.values(galleries).flat();
+
+            window.ELIOS_OFFICIAL_GALLERIES = window.ELIOS_OFFICIAL_GALLERIES || {};
+            window.ELIOS_OFFICIAL_GALLERIES['azuli-mood'] = allImages;
+            window.ELIOS_VERIFIED_VARIANTS = window.ELIOS_VERIFIED_VARIANTS || {};
+            window.ELIOS_VERIFIED_VARIANTS['azuli-mood'] = galleries;
+            window.ELIOS_IMAGE_DATA = window.ELIOS_IMAGE_DATA || {};
+            allImages.forEach((src, i) => { window.ELIOS_IMAGE_DATA[`azuli-mood-hd-${i+1}`] = src; });
+            window.ELIOS_IMAGE_DATA['azuli-mood-1'] = ROOT + 'chalk-01.jpg';
+
+            const refs = [
+              ['Bone','04Q1000','04Q5500','04Q1200'],
+              ['Bottle Green','04Q1001','04Q5501','04Q1201'],
+              ['Burgundy','04Q1002','04Q5502','04Q1202'],
+              ['Chalk','04Q1003','04Q5503','04Q1203'],
+              ['Coffee Bean','04Q1004','04Q5504','04Q1204'],
+              ['Dawn','04Q1005','04Q5505','04Q1205'],
+              ['Dusk','04Q1006','04Q5506','04Q1206'],
+              ['Sand','04Q1007','04Q5507','04Q1207'],
+              ['Thyme Green','04Q1008','04Q5508','04Q1208'],
+              ['Turquoise','04Q1009','04Q5509','04Q1209'],
+              ['Blue','04Q1010','04Q5510','04Q1210']
+            ];
+
+            const catalogue = Array.isArray(window.ELIOS_CATALOGUE) ? window.ELIOS_CATALOGUE : [];
+            const product = catalogue.find(p => p && p.slug === 'azuli-mood');
+            if (product) {
+              product.gallery = allImages.map((_, i) => `azuli-mood-hd-${i+1}`);
+              product.stockRefs = refs.flatMap(([color, r10, r5, rq]) => [
+                { color, format:'10x10', ref:r10, pcsBox:60, sqmBox:0.60 },
+                { color, format:'5x15', ref:r5, pcsBox:66, sqmBox:0.50 },
+                { color, format:'Quarter round 1,2x20', ref:rq, pcsBox:22, sqmBox:0.05 }
+              ]);
+            }
+
+            function esc(value) {
+              return String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+            }
+
+            function isAzuliModal(box) {
+              return /azuli\s*mood/i.test(box?.querySelector('h2')?.textContent || '');
+            }
+
+            function enhanceReferenceBlock() {
+              const box = document.getElementById('product-modal-v2-card');
+              if (!box || !isAzuliModal(box)) return;
+              const info = box.querySelector('.modal-v2-info');
+              if (!info) return;
+              let block = info.querySelector('[data-azuli-stock-block]');
+              if (!block) {
+                block = document.createElement('div');
+                block.dataset.azuliStockBlock = '1';
+                info.appendChild(block);
+              }
+              if (block.dataset.azuliComplete === '1') return;
+              block.dataset.azuliComplete = '1';
+              block.style.cssText = 'margin-top:1rem;padding:12px;border:1px solid #e5e2da;border-radius:12px;background:#fffdf9;overflow:hidden';
+              const rows = refs.map(([color,r10,r5,rq]) => `<tr><td>${esc(color)}</td><td><strong>${r10}</strong></td><td><strong>${r5}</strong></td><td>${rq}</td></tr>`).join('');
+              block.innerHTML = `
+                <h4 style="margin:.05rem 0 .45rem">Références catalogue / stock</h4>
+                <p style="margin:0 0 .75rem;font-size:.82rem;color:#5f6863"><strong>Tarif pro :</strong> 10x10 = 23,00 € HT/m² · 5x15 = 23,00 € HT/m²</p>
+                <div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
+                  <table style="width:100%;border-collapse:collapse;font-size:.78rem;min-width:500px">
+                    <thead><tr><th style="text-align:left">Couleur</th><th>10x10</th><th>5x15</th><th>1,2x20</th></tr></thead>
+                    <tbody>${rows}</tbody>
+                  </table>
+                </div>
+                <p style="margin:.7rem 0 .35rem;font-size:.76rem;color:#6c746f">Conditionnement : 10x10 = 60 pièces / 0,60 m² · 5x15 = 66 pièces / 0,50 m² · Quarter round 1,2x20 = 22 pièces.</p>
+                <details style="margin:.45rem 0 .75rem"><summary style="cursor:pointer;font-weight:700">Mosaïques Azuli Mood</summary>
+                  <div style="margin-top:.5rem;font-size:.76rem;line-height:1.6">
+                    <strong>Cassettone 30,3x30,3 :</strong> 04QH100 Bone–Coffee Bean · 04QH101 Thyme Green–Bottle Green · 04QH102 Turquoise–Blue · 04QH103 Sand–Burgundy<br>
+                    <strong>Ottagona 30,5x27,2 :</strong> 04QH104 Bone–Coffee Bean · 04QH105 Thyme Green–Bottle Green · 04QH106 Turquoise–Blue · 04QH107 Sand–Burgundy<br>
+                    <strong>Losanghe 23,4x23,4 :</strong> 04QH108 Bone–Dusk · 04QH109 Chalk–Dawn
+                  </div>
+                </details>
+                <div style="display:flex;gap:.55rem;flex-wrap:wrap">
+                  <a class="pro-link" href="disponibilites-elios-lot1.html?collection=azuli-mood">Vérifier le stock</a>
+                  <a class="pro-link" href="assets/pdf/AZULI-MOOD_new.pdf" target="_blank" rel="noopener">Ouvrir le catalogue Azuli Mood</a>
+                </div>`;
+            }
+
+            function install() {
+              const box = document.getElementById('product-modal-v2-card');
+              if (box) new MutationObserver(() => setTimeout(enhanceReferenceBlock, 0)).observe(box, {childList:true,subtree:true});
+              document.addEventListener('click', e => {
+                if (e.target.closest?.('.product-card-v2[data-id="elios-azuli-mood"]')) setTimeout(enhanceReferenceBlock, 30);
+              });
+              setTimeout(enhanceReferenceBlock, 0);
+            }
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', install, {once:true});
+            else install();
+          })();
+          JS
+
+      - name: Update Azuli data, stock catalogue and cache versions
+        run: |
+          python <<'PY'
+          from pathlib import Path
+          import re
+
+          # 1. Load Azuli HD module before generic Elios gallery enhancer.
+          p = Path('assets/js/selections-lazy-enhancements.js')
+          s = p.read_text(encoding='utf-8')
+          gallery = "      'assets/js/inspirations-elios-gallery-v2.js?v=20260902-lot1hd2'"
+          hd = "      'assets/js/inspirations-elios-azuli-hd.js?v=20260911-azuli-hd1',\n"
+          if 'inspirations-elios-azuli-hd.js' not in s:
+              s = s.replace(gallery, hd + gallery)
+          p.write_text(s, encoding='utf-8')
+
+          # 2. Stop rendering a catalogue PDF page as the product image; use native photo.
+          p = Path('assets/js/inspirations-elios-thickness-overrides.js')
+          s = p.read_text(encoding='utf-8')
+          s = re.sub(
+              r"window\.ELIOS_IMAGE_DATA\['azuli-mood-1'\]\s*=\s*window\.ELIOS_IMAGE_DATA\['azuli-mood-1'\]\s*\|\|\s*'[^']+';",
+              "window.ELIOS_IMAGE_DATA['azuli-mood-1'] = 'assets/img/elios/azuli-mood/chalk-01.jpg';",
+              s
+          )
+          s, n = re.subn(
+              r"async function azuliVisual\(\) \{.*?\n  \}\n  function hydrateAzuliCard\(\)",
+              "async function azuliVisual() {\n    return 'assets/img/elios/azuli-mood/chalk-01.jpg';\n  }\n  function hydrateAzuliCard()",
+              s,
+              flags=re.S
+          )
+          if n != 1:
+              raise RuntimeError(f'azuliVisual patch count={n}')
+          s = s.replace(
+              "// Références de base repérées pour la vérification stock : 04Q5500 (5×15) et 04Q1000 (10×10).",
+              "// Références couleur complètes vérifiées dans le catalogue officiel Azuli Mood 2026."
+          )
+          p.write_text(s, encoding='utf-8')
+
+          # 3. Replace the generic two-row stock catalogue with all official colour + trim + mosaic refs.
+          p = Path('functions/elios-lot6.js')
+          s = p.read_text(encoding='utf-8')
+          block = r'''// AZULI MOOD · Catalogue dédié 2026
+{
+  const r=[];
+  const C=[
+    ['Bone','00'],['Bottle Green','01'],['Burgundy','02'],['Chalk','03'],['Coffee Bean','04'],['Dawn','05'],
+    ['Dusk','06'],['Sand','07'],['Thyme Green','08'],['Turquoise','09'],['Blue','10']
+  ];
+  for(const [c,s] of C){
+    r.push(A(`04Q10${s}`,c,'Carreau','10 × 10 cm','Brillant · 8,5 mm',60,.60,11.76,98,58.8,1170,'MQ',.60));
+    r.push(A(`04Q55${s}`,c,'Carreau','5 × 15 cm','Brillant · 8 mm',66,.50,8.94,120,60,1072,'MQ',.50));
+    r.push(A(`04Q12${s}`,c,'Pièce spéciale','Quarter round 1,2 × 20 cm','Brillant · 8 mm',22,.05,.86,400,null,null,'PZ',22));
+  }
+  [
+    ['04QH100','Bone - Coffee Bean','Cassettone 30,3 × 30,3 cm',.92,18,33.12,648],
+    ['04QH101','Thyme Green - Bottle Green','Cassettone 30,3 × 30,3 cm',.92,18,33.12,648],
+    ['04QH102','Turquoise - Blue','Cassettone 30,3 × 30,3 cm',.92,18,33.12,648],
+    ['04QH103','Sand - Burgundy','Cassettone 30,3 × 30,3 cm',.92,18,33.12,648],
+    ['04QH104','Bone - Coffee Bean','Ottagona 30,5 × 27,2 cm',.83,16.2,29.88,583.2],
+    ['04QH105','Thyme Green - Bottle Green','Ottagona 30,5 × 27,2 cm',.83,16.2,29.88,583.2],
+    ['04QH106','Turquoise - Blue','Ottagona 30,5 × 27,2 cm',.83,16.2,29.88,583.2],
+    ['04QH107','Sand - Burgundy','Ottagona 30,5 × 27,2 cm',.83,16.2,29.88,583.2],
+    ['04QH108','Bone - Dusk','Losanghe 23,4 × 23,4 cm',.55,10.7,19.8,385.2],
+    ['04QH109','Chalk - Dawn','Losanghe 23,4 × 23,4 cm',.55,10.7,19.8,385.2]
+  ].forEach(([ref,c,format,sqm,kg,sqmPal,kgPal])=>r.push(A(ref,c,'Mosaïque',format,'Brillant · 8,5 mm',10,sqm,kg,36,sqmPal,kgPal,'MQ',sqm)));
+  O['azuli-mood']={n:'Azuli Mood',p:'Catalogue dédié 2026 · pages 64–67',c:C.map(x=>x[0]),r};
+}
+'''
+          s, n = re.subn(r"// AZULI MOOD · Catalogue dédié 2026.*?\n\}\n\nmodule\.exports=O;", block + "\nmodule.exports=O;", s, flags=re.S)
+          if n != 1:
+              raise RuntimeError(f'Azuli lot6 patch count={n}')
+          p.write_text(s, encoding='utf-8')
+
+          # 4. Bust browser cache for the files modified above.
+          p = Path('univers.html')
+          s = p.read_text(encoding='utf-8')
+          s = re.sub(r'inspirations-elios-thickness-overrides\.js\?v=[^"\']+', 'inspirations-elios-thickness-overrides.js?v=20260911-azuli-hd1', s)
+          s = re.sub(r'selections-lazy-enhancements\.js\?v=[^"\']+', 'selections-lazy-enhancements.js?v=20260911-azuli-hd1', s)
+          p.write_text(s, encoding='utf-8')
+          PY
+
+      - name: Verify generated data
+        run: |
+          test -f assets/img/elios/azuli-mood/chalk-01.jpg
+          test -f assets/img/elios/azuli-mood/dawn-02.jpg
+          test "$(find assets/img/elios/azuli-mood -type f -name '*.jpg' | wc -l)" -eq 22
+          grep -q '04Q1010' functions/elios-lot6.js
+          grep -q '04Q5510' functions/elios-lot6.js
+          grep -q '04QH109' functions/elios-lot6.js
+          grep -q 'inspirations-elios-azuli-hd.js' assets/js/selections-lazy-enhancements.js
+          grep -q 'assets/img/elios/azuli-mood/chalk-01.jpg' assets/js/inspirations-elios-thickness-overrides.js
+
+      - name: Commit and push complete Azuli Mood fix
+        run: |
+          git config user.name 'aetherismanga'
+          git config user.email 'ccjacou@gmail.com'
+          git add assets/img/elios/azuli-mood assets/js/inspirations-elios-azuli-hd.js assets/js/inspirations-elios-thickness-overrides.js assets/js/selections-lazy-enhancements.js functions/elios-lot6.js univers.html
+          git commit -m 'fix: complete Azuli Mood HD gallery and color references'
+          git push origin main
