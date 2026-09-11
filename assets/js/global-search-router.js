@@ -20,10 +20,7 @@
   function installViewInspirationsGuard(){
     if(window.__LRF_VIEW_EARLY_GUARD__)return;
     window.__LRF_VIEW_EARLY_GUARD__=true;
-
-    /* Neutralise l'ancien contrôleur VIEW instable : le contrôleur mobile safe prend la main. */
     window.__LRF_VIEW_INSPIRATIONS_V2__=true;
-
     const compact=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'');
     const filter=value=>Array.isArray(value)?value.filter(p=>{
       const name=compact(p?.name),collection=compact(p?.collection),source=compact(p?.sourceLabel);
@@ -39,9 +36,6 @@
     if(window.__LRF_VIEW_BOOTSTRAP_PROMISE__) return window.__LRF_VIEW_BOOTSTRAP_PROMISE__;
     window.__LRF_VIEW_BOOTSTRAP_PROMISE__=(async()=>{
       try{
-        /* IMPORTANT : le contrôleur VIEW doit être chargé APRES toutes les données.
-           Avant ce correctif, mobile-safe pouvait démarrer avec VIEW_CATALOGUE vide,
-           laissant apparaître aléatoirement la carte "catalogue à intégrer" jusqu'à actualisation. */
         await loadScript('assets/js/inspirations-view-data.js?v=20260907-view-lot1-final','lrf-view-data-boot');
         await loadScript('assets/js/inspirations-view-elios-parity.js?v=20260907-view-parity3','lrf-view-parity-boot');
         await loadScript('assets/js/inspirations-view-data-lot2.js?v=20260907-view-lot2','lrf-view-data2-boot');
@@ -52,10 +46,7 @@
         window.dispatchEvent(new CustomEvent('lrf-view-bootstrap-ready'));
       }catch(err){
         console.warn('LRF VIEW bootstrap',err);
-        /* Une seconde tentative légère évite qu'un chargement réseau ponctuel bloque VIEW. */
-        setTimeout(()=>{
-          loadScript('assets/js/inspirations-view-mobile-safe.js?v=20260911-view-safe-stable2','lrf-view-mobile-safe-retry').catch(()=>{});
-        },500);
+        setTimeout(()=>{loadScript('assets/js/inspirations-view-mobile-safe.js?v=20260911-view-safe-stable2','lrf-view-mobile-safe-retry').catch(()=>{});},500);
       }
     })();
     return window.__LRF_VIEW_BOOTSTRAP_PROMISE__;
@@ -66,9 +57,7 @@
       const old=[...document.querySelectorAll('.hero-buttons a')].find(a => /partenaires\.html/i.test(a.getAttribute('href')||''));
       if (!old || document.getElementById('lrf-open-search')) return;
       const button=document.createElement('button');
-      button.type='button';
-      button.id='lrf-open-search';
-      button.className=old.className;
+      button.type='button';button.id='lrf-open-search';button.className=old.className;
       button.setAttribute('aria-label','Rechercher sur LE ROY FACTORY');
       button.innerHTML='<svg class="lrf-search-trigger-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 15.5 21 21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Rechercher</span>';
       old.replaceWith(button);
@@ -80,7 +69,8 @@
         await loadScript('assets/js/inspirations-view-data-lot2.js?v=20260907-view-lot2','lrf-search-view-data-lot2');
         await loadScript('assets/js/inspirations-view-data-lot3.js?v=20260907-view-lot3','lrf-search-view-data-lot3');
         await loadScript('assets/js/inspirations-neobath-data.js?v=20260907-search9','lrf-search-neobath-data');
-        await loadScript('assets/js/site-search.js?v=20260907-search9','lrf-site-search-js');
+        await loadScript('assets/js/reviglass-search-index.js?v=20260911-ref1','lrf-search-reviglass-index');
+        await loadScript('assets/js/site-search-v2.js?v=20260911-ref1','lrf-site-search-js-v2');
       } catch (err) { console.warn('LRF search load',err); }
     };
     if (document.readyState==='loading') document.addEventListener('DOMContentLoaded',start,{once:true}); else start();
@@ -90,7 +80,9 @@
   if (file==='univers.html') {
     installViewInspirationsGuard();
     bootstrapViewInspirations();
-    loadScript('assets/js/inspirations-search-bridge.js?v=20260907-search9','lrf-inspirations-search-bridge').catch(()=>{});
+    loadScript('assets/js/reviglass-search-index.js?v=20260911-ref1','lrf-univers-reviglass-index')
+      .then(()=>loadScript('assets/js/inspirations-search-bridge-v2.js?v=20260911-ref1','lrf-inspirations-search-bridge-v2'))
+      .catch(()=>{});
   }
   if (file==='tarifs-pro.html') loadScript('assets/js/tarifs-search-bridge.js?v=20260907-search9','lrf-tarifs-search-bridge').catch(()=>{});
 })();
