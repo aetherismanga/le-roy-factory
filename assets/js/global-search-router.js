@@ -12,7 +12,7 @@
   }
   function loadScript(src,id) {
     return new Promise((resolve,reject) => {
-      if (document.getElementById(id)) { resolve(); return; }
+      if (document.getElementById(id) || [...document.scripts].some(s => s.src && s.src.includes(src.split('?')[0]))) { resolve(); return; }
       const s=document.createElement('script');s.id=id;s.src=src;s.async=false;s.onload=resolve;s.onerror=reject;(document.head||document.documentElement).appendChild(s);
     });
   }
@@ -33,6 +33,32 @@
     if(Array.isArray(window.VIEW_CATALOGUE))window.VIEW_CATALOGUE=filter(window.VIEW_CATALOGUE);
     else if(!d||d.configurable){let catalogue=window.VIEW_CATALOGUE;Object.defineProperty(window,'VIEW_CATALOGUE',{configurable:true,enumerable:true,get(){return catalogue},set(value){catalogue=filter(value)}})}
     const style=document.createElement('style');style.id='lrf-view-early-parity-style';style.textContent='.view-product-card .view-card-note,.view-product-card .view-card-price{display:none!important}.view-product-card,.view-safe-card{cursor:pointer;touch-action:manipulation}';document.head.appendChild(style);
+  }
+
+  async function bootstrapViewInspirations(){
+    if(window.__LRF_VIEW_BOOTSTRAP_PROMISE__) return window.__LRF_VIEW_BOOTSTRAP_PROMISE__;
+    window.__LRF_VIEW_BOOTSTRAP_PROMISE__=(async()=>{
+      try{
+        /* IMPORTANT : le contrôleur VIEW doit être chargé APRES toutes les données.
+           Avant ce correctif, mobile-safe pouvait démarrer avec VIEW_CATALOGUE vide,
+           laissant apparaître aléatoirement la carte "catalogue à intégrer" jusqu'à actualisation. */
+        await loadScript('assets/js/inspirations-view-data.js?v=20260907-view-lot1-final','lrf-view-data-boot');
+        await loadScript('assets/js/inspirations-view-elios-parity.js?v=20260907-view-parity3','lrf-view-parity-boot');
+        await loadScript('assets/js/inspirations-view-data-lot2.js?v=20260907-view-lot2','lrf-view-data2-boot');
+        await loadScript('assets/js/inspirations-view-data-lot3.js?v=20260907-view-lot3','lrf-view-data3-boot');
+        await loadScript('assets/js/inspirations-view-accessories.js?v=20260911-view-accessories1','lrf-view-accessories-boot');
+        await loadScript('assets/js/inspirations-view-hd.js?v=20260907-view-hd1','lrf-view-hd-boot');
+        await loadScript('assets/js/inspirations-view-mobile-safe.js?v=20260911-view-safe-stable2','lrf-view-mobile-safe');
+        window.dispatchEvent(new CustomEvent('lrf-view-bootstrap-ready'));
+      }catch(err){
+        console.warn('LRF VIEW bootstrap',err);
+        /* Une seconde tentative légère évite qu'un chargement réseau ponctuel bloque VIEW. */
+        setTimeout(()=>{
+          loadScript('assets/js/inspirations-view-mobile-safe.js?v=20260911-view-safe-stable2','lrf-view-mobile-safe-retry').catch(()=>{});
+        },500);
+      }
+    })();
+    return window.__LRF_VIEW_BOOTSTRAP_PROMISE__;
   }
 
   async function installHomeSearch() {
@@ -63,7 +89,7 @@
   if (file==='index.html' || file==='') installHomeSearch();
   if (file==='univers.html') {
     installViewInspirationsGuard();
-    loadScript('assets/js/inspirations-view-mobile-safe.js?v=20260907-view-safe1','lrf-view-mobile-safe').catch(()=>{});
+    bootstrapViewInspirations();
     loadScript('assets/js/inspirations-search-bridge.js?v=20260907-search9','lrf-inspirations-search-bridge').catch(()=>{});
   }
   if (file==='tarifs-pro.html') loadScript('assets/js/tarifs-search-bridge.js?v=20260907-search9','lrf-tarifs-search-bridge').catch(()=>{});
