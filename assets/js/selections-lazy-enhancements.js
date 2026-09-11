@@ -25,9 +25,11 @@
       'assets/js/inspirations-view-elios-parity.js?v=20260907-view-parity3',
       'assets/js/inspirations-view-data-lot2.js?v=20260907-view-lot2',
       'assets/js/inspirations-view-data-lot3.js?v=20260907-view-lot3',
+      'assets/js/inspirations-view-accessories.js?v=20260911-view-accessories1',
       'assets/js/inspirations-view-hd.js?v=20260907-view-hd1',
       'assets/js/inspirations-view-mobile-safe.js?v=20260907-view-safe1',
-      'assets/js/inspirations-view-order-v3.js?v=20260907-view-order4'
+      'assets/js/inspirations-view-accessories-ui.js?v=20260911-view-accessories-ui1',
+      'assets/js/inspirations-view-order-v4.js?v=20260911-view-order-v4'
     ]
   };
 
@@ -43,7 +45,7 @@
       script.async = false;
       script.dataset.lrfLazySelection = '1';
       script.onload = resolve;
-      script.onerror = resolve; // Un module optionnel ne doit jamais bloquer la page.
+      script.onerror = resolve;
       document.body.appendChild(script);
     });
   }
@@ -54,7 +56,6 @@
       const list = GROUPS[name] || [];
       for (const src of list) {
         await loadScript(src);
-        // Rend la main au navigateur entre deux modules pour éviter les longues tâches.
         if (urgent) await nextFrame();
         else await wait(45);
       }
@@ -71,7 +72,6 @@
     return setTimeout(callback, 260);
   }
 
-  // Si l'utilisateur choisit VIEW avant le chargement de fond, priorité immédiate.
   document.addEventListener('pointerdown', e => {
     const partner = e.target.closest?.('[data-partner]');
     if (partner && /view/i.test(partner.dataset.partner || '')) loadGroup('view', true);
@@ -81,8 +81,6 @@
     if (card && /elios/i.test(title)) loadGroup('elios', true);
   }, { capture: true, passive: true });
 
-  // Chargement de fond après le premier affichage. Les groupes sont séparés
-  // pour ne plus exécuter une vingtaine de scripts dans la même tâche.
   const startBackgroundLoad = () => {
     idle(() => {
       loadGroup('elios').finally(() => {
