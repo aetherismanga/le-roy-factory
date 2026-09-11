@@ -52,7 +52,7 @@
   function loadClientPartnerAccess() {
     if (!isClientsPage() || window.__LRF_CLIENT_PARTNER_ACCESS_LOADER__) return;
     window.__LRF_CLIENT_PARTNER_ACCESS_LOADER__=true;
-    import('./crm-client-partner-access.js?v=20260911-partners1').catch(error=>{window.__LRF_CLIENT_PARTNER_ACCESS_LOADER__=false;console.error('Gestion partenaires client : chargement impossible',error)});
+    import('./crm-client-partner-access.js?v=20260912-mobile2').catch(error=>{window.__LRF_CLIENT_PARTNER_ACCESS_LOADER__=false;console.error('Gestion partenaires client : chargement impossible',error)});
   }
 
   function install() {
