@@ -40,7 +40,7 @@
   setFormats('venere', ['33,3x100 · 7 mm R9'], ['Materica','Dorica','Optica']);
 
   // AZULI MOOD — catalogue dédié 2026 déjà présent dans assets/pdf.
-  // Références de base repérées pour la vérification stock : 04Q5500 (5×15) et 04Q1000 (10×10).
+  // Références couleur complètes vérifiées dans le catalogue officiel Azuli Mood 2026.
   if (!bySlug('azuli-mood')) {
     catalogue.push({
       name: 'Azuli Mood',
@@ -64,7 +64,7 @@
     });
   }
   window.ELIOS_IMAGE_DATA = window.ELIOS_IMAGE_DATA || {};
-  window.ELIOS_IMAGE_DATA['azuli-mood-1'] = window.ELIOS_IMAGE_DATA['azuli-mood-1'] || 'assets/img/03.png';
+  window.ELIOS_IMAGE_DATA['azuli-mood-1'] = 'assets/img/elios/azuli-mood/chalk-01.jpg';
 
   // Tarif demandé pour Azuli Mood : 23 € HT/m² sur les deux formats.
   // Le tarif reste masqué pour les comptes qui n'ont pas l'accès Elios.
@@ -123,25 +123,7 @@
     });
   }
   async function azuliVisual() {
-    if (azuliVisualPromise) return azuliVisualPromise;
-    azuliVisualPromise = (async () => {
-      const pdfjs = await loadPdfJs();
-      if (!pdfjs) throw new Error('PDF.js indisponible');
-      if (pdfjs.GlobalWorkerOptions) pdfjs.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
-      azuliPdfDoc = azuliPdfDoc || await pdfjs.getDocument(AZULI_PDF).promise;
-      const pageNo = Math.min(3, azuliPdfDoc.numPages || 1);
-      const page = await azuliPdfDoc.getPage(pageNo);
-      const viewport = page.getViewport({ scale: 1.25 });
-      const canvas = document.createElement('canvas');
-      canvas.width = Math.ceil(viewport.width);
-      canvas.height = Math.ceil(viewport.height);
-      const ctx = canvas.getContext('2d', { alpha: false });
-      ctx.fillStyle = '#fff';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      await page.render({ canvasContext: ctx, viewport }).promise;
-      return canvas.toDataURL('image/jpeg', 0.90);
-    })();
-    return azuliVisualPromise;
+    return 'assets/img/elios/azuli-mood/chalk-01.jpg';
   }
   function hydrateAzuliCard() {
     const card = document.querySelector('.product-card-v2[data-id="elios-azuli-mood"]');
