@@ -101,7 +101,7 @@
     }).join(''); updateTotals();
   }
 
-  function qtyInput(e){if(e.target?.dataset?.field!=='qty')return;const row=e.target.closest('[data-line]'),line=lines.find(x=>x.id===Number(row?.dataset.line));if(!line)return;line.qty=Number(e.target.value||0);render();}
+  function qtyInput(e){if(e.target?.dataset?.field!=='qty')return;const row=e.target.closest('[data-line]'),line=lines.find(x=>x.id===Number(row?.dataset.line));if(!line)return;line.qty=Number(e.target.value||0);const c=calc(line),values=$$('.view-order-stat strong',row);if(c.type==='accessory'){if(values[2])values[2].textContent=`${c.pieces} pièce${c.pieces>1?'s':''}`;}else{if(values[2])values[2].textContent=c.boxes==null?'À confirmer':String(c.boxes);if(values[3])values[3].textContent=`${fr(c.real)} m²`;}updateTotals();}
   function changeLine(e){
     const el=e.target.closest('[data-field]'),row=e.target.closest('[data-line]'); if(!el||!row)return;
     const line=lines.find(x=>x.id===Number(row.dataset.line)); if(!line)return;
