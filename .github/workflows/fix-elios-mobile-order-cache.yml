@@ -1,0 +1,48 @@
+name: Fix ELIOS mobile order cache
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/fix-elios-mobile-order-cache.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Refresh ELIOS mobile order cache
+        run: |
+          python <<'PY'
+          from pathlib import Path
+          import re
+
+          p=Path('disponibilites-elios-lot1.html')
+          s=p.read_text(encoding='utf-8')
+          s=re.sub(r'elios-stock-bootstrap\.js\?v=[^"\']+', 'elios-stock-bootstrap.js?v=20260911-mobile-order2', s)
+          p.write_text(s,encoding='utf-8')
+
+          p=Path('disponibilites-elios.html')
+          s=p.read_text(encoding='utf-8')
+          fix='<script src="assets/js/elios-order-mobile-scroll-fix.js?v=20260911-mobile-order2"></script>'
+          if fix not in s:
+              m=re.search(r'<script src="assets/js/elios-stock-schema-polish\.js\?v=[^"]+"></script>',s)
+              if m:
+                  s=s[:m.end()]+'\n  '+fix+s[m.end():]
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Syntax check
+        run: |
+          node --check assets/js/elios-order-mobile-scroll-fix.js
+          node --check assets/js/elios-stock-bootstrap.js
+      - name: Commit and self-clean
+        run: |
+          git config user.name 'aetherismanga'
+          git config user.email 'ccjacou@gmail.com'
+          git rm .github/workflows/fix-elios-mobile-order-cache.yml
+          git add disponibilites-elios-lot1.html disponibilites-elios.html
+          git commit -m 'fix: restore ELIOS mobile order access'
+          git push origin main
