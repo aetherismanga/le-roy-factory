@@ -42,7 +42,7 @@
   function loadAnalysisLiveFixes() {
     if (!isAnalysisPage() || window.__LRF_ANALYSIS_FIX_LOADER__) return;
     window.__LRF_ANALYSIS_FIX_LOADER__=true;
-    import('./lrf-analysis-live-fixes.js?v=20260911-orders2').catch(error=>{window.__LRF_ANALYSIS_FIX_LOADER__=false;console.error('Correctifs analyse clients LRF : chargement impossible',error)});
+    import('./lrf-analysis-live-fixes.js?v=20260911-orders3').catch(error=>{window.__LRF_ANALYSIS_FIX_LOADER__=false;console.error('Correctifs analyse clients LRF : chargement impossible',error)});
   }
   function loadRetiredClientGuard() {
     if (!isClientsPage() || window.__LRF_RETIRED_CLIENT_GUARD_LOADER__) return;
