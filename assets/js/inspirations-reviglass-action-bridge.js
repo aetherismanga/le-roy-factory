@@ -1,10 +1,19 @@
 (() => {
   'use strict';
-  if (window.__LRF_REVIGLASS_ACTION_BRIDGE_20260911_V3__) return;
-  window.__LRF_REVIGLASS_ACTION_BRIDGE_20260911_V3__ = true;
+  if (window.__LRF_REVIGLASS_ACTION_BRIDGE_20260911_V4__) return;
+  window.__LRF_REVIGLASS_ACTION_BRIDGE_20260911_V4__ = true;
 
   const $=(s,r=document)=>r.querySelector(s);
   const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+
+  function loadAllSeriesGallery(){
+    if(document.querySelector('script[data-rev-all-series-gallery]')) return;
+    const sc=document.createElement('script');
+    sc.defer=true;
+    sc.dataset.revAllSeriesGallery='1';
+    sc.src='assets/js/inspirations-reviglass-all-series-gallery.js?v=20260911-all-series1';
+    document.head.appendChild(sc);
+  }
 
   function installMobileOrderFix(){
     if($('#reviglass-mobile-order-fix')) return;
@@ -59,6 +68,7 @@
   }
 
   installMobileOrderFix();
+  loadAllSeriesGallery();
 
   function selectedRef(){
     return $('.reviglass-ref-list .rev-selected-ref')?.textContent?.trim() ||
@@ -123,6 +133,7 @@
       clearInterval(timer);
       order.scrollTop=0;
       $('#rev-ps-lightbox')?.classList.remove('open');
+      $('#rev-all-lightbox')?.classList.remove('open');
       $('#reviglass-pool-modal')?.classList.remove('open');
       document.body.style.overflow='hidden';
     },60);
