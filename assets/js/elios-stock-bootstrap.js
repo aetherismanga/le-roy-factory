@@ -8,11 +8,24 @@
   const originalFetch = window.fetch.bind(window);
   window.ELIOS_MANUAL_STOCK = MANUAL_STOCK.has(slug);
 
+  function injectMobileFix() {
+    if ([...document.scripts].some(s => s.src?.includes('elios-order-mobile-scroll-fix.js'))) return;
+    const fix = document.createElement('script');
+    fix.src = 'assets/js/elios-order-mobile-scroll-fix.js?v=20260911-mobile-order1';
+    fix.defer = false;
+    document.body.appendChild(fix);
+  }
+
   function injectPolish() {
-    if ([...document.scripts].some(s => s.src?.includes('elios-stock-schema-polish.js'))) return;
+    if ([...document.scripts].some(s => s.src?.includes('elios-stock-schema-polish.js'))) {
+      injectMobileFix();
+      return;
+    }
     const polish = document.createElement('script');
     polish.src = 'assets/js/elios-stock-schema-polish.js?v=20260911-schema-style1';
     polish.defer = false;
+    polish.onload = injectMobileFix;
+    polish.onerror = injectMobileFix;
     document.body.appendChild(polish);
   }
 
