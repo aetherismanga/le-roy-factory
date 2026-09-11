@@ -1,1 +1,0 @@
-window.__LRF_BIOPIETRA_BUILD__='20260912-bio8';
