@@ -16,6 +16,11 @@
     return path.endsWith('/parametres.html') || path.endsWith('parametres.html');
   }
 
+  function isAnalysisPage() {
+    const path = location.pathname.toLowerCase();
+    return path.endsWith('/analyse-clients-lrf.html') || path.endsWith('analyse-clients-lrf.html');
+  }
+
   function fixSettingsPagePosition() {
     if (!isSettingsPage()) return;
 
@@ -94,9 +99,7 @@
   }
 
   function loadClientRevenueAnalysis() {
-    const path = location.pathname.toLowerCase();
-    const isAnalysis = path.endsWith('/analyse-clients-lrf.html') || path.endsWith('analyse-clients-lrf.html');
-    if (!isAnalysis || window.__LRF_CLIENT_CA_LOADER__) return;
+    if (!isAnalysisPage() || window.__LRF_CLIENT_CA_LOADER__) return;
     window.__LRF_CLIENT_CA_LOADER__ = true;
     import('./analyse-clients-ca.js?v=20260909-ca1').catch(error => {
       window.__LRF_CLIENT_CA_LOADER__ = false;
@@ -104,12 +107,19 @@
     });
   }
 
+  function loadAnalysisLiveFixes() {
+    if (!isAnalysisPage() || window.__LRF_ANALYSIS_FIX_LOADER__) return;
+    window.__LRF_ANALYSIS_FIX_LOADER__ = true;
+    import('./lrf-analysis-live-fixes.js?v=20260911-jem1').catch(error => {
+      window.__LRF_ANALYSIS_FIX_LOADER__ = false;
+      console.error('Correctifs analyse clients LRF : chargement impossible', error);
+    });
+  }
+
   function install() {
     const menu = document.querySelector('.sidebar-menu');
     if (!menu) return false;
 
-    // L'ancien système ouvrait un sous-menu sous « Paramètres ».
-    // On le supprime : Paramètres est désormais une vraie page du CRM.
     menu.querySelectorAll('.lrf-settings-sub').forEach(item => item.remove());
 
     const settingsLink = [...menu.querySelectorAll('li > a')]
@@ -126,12 +136,12 @@
     delete settingsLink.dataset.lrfSettingsBound;
 
     const path = location.pathname.toLowerCase();
-    const inSettings = path.endsWith('/parametres.html') || path.endsWith('parametres.html') ||
-      path.endsWith('/analyse-clients-lrf.html') || path.endsWith('analyse-clients-lrf.html');
+    const inSettings = path.endsWith('/parametres.html') || path.endsWith('parametres.html') || isAnalysisPage();
     settingsLink.classList.toggle('active', inSettings);
 
     fixSettingsPagePosition();
     loadClientRevenueAnalysis();
+    loadAnalysisLiveFixes();
     return true;
   }
 
@@ -148,7 +158,7 @@
     if (isSettingsPage()) fixSettingsPagePosition();
   }, { once:true });
 
-  // Certaines pages du CRM construisent la navigation après le chargement.
   setTimeout(install, 350);
   setTimeout(loadClientRevenueAnalysis, 500);
+  setTimeout(loadAnalysisLiveFixes, 550);
 })();
