@@ -5,6 +5,7 @@ const { writeClientActivity } = require('./lrf-analytics-core');
 
 const db = admin.firestore();
 const SESSION_COLLECTION = 'pro_sessions';
+const BLOCKED_CODES = new Set(['LRF-00001']);
 // Session d'appareil persistante : 180 jours glissants, revérifiée côté serveur à chaque reprise.
 const SESSION_TTL_MS = 180 * 24 * 60 * 60 * 1000;
 
@@ -46,7 +47,7 @@ function newToken() {
 async function findClient(codeRaw, depRaw) {
   const code = clean(codeRaw, 20).toUpperCase();
   const dep = clean(depRaw, 3).toUpperCase();
-  if (!/^LRF-\d{5}$/.test(code) || !dep) return null;
+  if (!/^LRF-\d{5}$/.test(code) || !dep || BLOCKED_CODES.has(code)) return null;
 
   const snap = await db.collection('clients').where('codeClient', '==', code).limit(1).get();
   if (snap.empty) return null;
@@ -104,7 +105,7 @@ async function clientFromSessionToken(rawToken, { renew = true } = {}) {
 
   const actualDep = String(clientData.departement || depFromCp(clientData.codePostal || clientData.code_postal) || '').trim().toUpperCase();
   const actualCode = String(clientData.codeClient || '').trim().toUpperCase();
-  if (!/^LRF-\d{5}$/.test(actualCode) || actualDep !== String(session.departement || '').toUpperCase()) {
+  if (BLOCKED_CODES.has(actualCode) || !/^LRF-\d{5}$/.test(actualCode) || actualDep !== String(session.departement || '').toUpperCase()) {
     await ref.delete().catch(() => {});
     return null;
   }

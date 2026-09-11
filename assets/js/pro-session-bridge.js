@@ -9,6 +9,7 @@
   const TRANSIENT_TOKEN_KEY = 'lrfProSessionToken';
   const VALIDATE_URL = 'https://us-central1-le-roy-factory.cloudfunctions.net/validateProSession';
   const MAX_AGE = 12 * 60 * 60 * 1000;
+  const BLOCKED_CODES = new Set(['LRF-00001']);
   const ADMINS = new Map([
     ['jerome@leroyfactory.fr', 'Jérôme Hugol'],
     ['coryne@leroyfactory.fr', 'Coryne']
@@ -59,6 +60,7 @@
     const codeClient = String(session.codeClient || '').trim().toUpperCase();
     const departement = String(session.departement || '').trim().toUpperCase();
     const sessionToken = String(session.sessionToken || storedToken() || '');
+    if (BLOCKED_CODES.has(codeClient)) return null;
     if (!/^LRF-\d{5}$/.test(codeClient) || !departement) return null;
     const partenaires = Array.isArray(session.partenaires) ? [...new Set(session.partenaires.filter(p => p && p !== '*'))] : [];
     return {
@@ -149,6 +151,9 @@
         }
         if (!response.ok || !data?.success || !data?.client) return null;
         const client = data.client;
+        if (BLOCKED_CODES.has(String(client.codeClient || '').toUpperCase())) {
+          removeToken(); clear(); return null;
+        }
         return write({
           codeClient: client.codeClient, clientId: client.id, societe: client.societe,
           departement: client.departement,
@@ -206,6 +211,15 @@
     document.head.appendChild(s);
   }
 
+  function loadOrderAnalyticsBridge() {
+    if (document.getElementById('lrf-order-analytics-bridge')) return;
+    const s = document.createElement('script');
+    s.id = 'lrf-order-analytics-bridge';
+    s.src = 'assets/js/lrf-order-analytics-bridge.js?v=20260911-orders1';
+    s.defer = true;
+    document.head.appendChild(s);
+  }
+
   function loadTariffVisibilityToggle() {
     if (document.getElementById('lrf-tariff-visibility-toggle')) return;
     const s = document.createElement('script');
@@ -234,6 +248,7 @@
     }
     watchFirebaseAdmin();
     loadAnalyticsTracker();
+    loadOrderAnalyticsBridge();
     loadTariffVisibilityToggle();
     loadEliosRentreeDirectEnhancements();
   }
