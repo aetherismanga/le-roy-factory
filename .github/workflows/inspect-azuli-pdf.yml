@@ -17,13 +17,14 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install PDF tools
         run: sudo apt-get update -qq && sudo apt-get install -y poppler-utils
-      - name: Extract catalogue text and image inventory
+      - name: Extract technical table and gallery page labels
         run: |
           set -e
           PDF='assets/pdf/AZULI-MOOD_new.pdf'
-          pdfinfo "$PDF" | sed -n '1,30p'
-          pdftotext -layout "$PDF" /tmp/azuli.txt
-          echo '===== REFERENCES / CONTEXT ====='
-          grep -Ein -C 3 '04Q|CHALK|SAND|BONE|THYME|BURGUNDY|COFFEE|BOTTLE|TURQUOISE|DUSK|DAWN|CASSETTONE|OTTAGONA|LOSANGHE' /tmp/azuli.txt | head -n 1200 || true
-          echo '===== IMAGE INVENTORY ====='
-          pdfimages -list "$PDF" | head -n 1200
+          echo '===== TECHNICAL TABLE PAGES 32-34 ====='
+          pdftotext -f 32 -l 34 -layout "$PDF" - | sed -n '1,500p'
+          echo '===== GALLERY PAGE LABELS 8-29 ====='
+          for p in $(seq 8 29); do
+            echo "--- PDF PAGE $p ---"
+            pdftotext -f "$p" -l "$p" -layout "$PDF" - | grep -Ei 'CHALK|SAND|BONE|THYME GREEN|BURGUNDY|COFFEE BEAN|BLUE|BOTTLE GREEN|TURQUOISE|DUSK|DAWN|WALL|FURNITURE|FLOOR' | head -n 30 || true
+          done
