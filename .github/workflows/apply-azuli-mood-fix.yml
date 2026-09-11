@@ -1,4 +1,4 @@
-name: Apply Azuli Mood HD Fix
+name: Apply Azuli Mood Final Data
 
 on:
   workflow_dispatch:
@@ -18,54 +18,76 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install extraction tools
-        run: python -m pip install --quiet pymupdf pillow
-
-      - name: Extract native catalogue photos
+      - name: Patch Azuli product image, stock catalogue and cache
         run: |
           python <<'PY'
           from pathlib import Path
-          from io import BytesIO
-          import fitz
-          from PIL import Image
-          pdf = Path('assets/pdf/AZULI-MOOD_new.pdf')
-          out = Path('assets/img/elios/azuli-mood')
-          out.mkdir(parents=True, exist_ok=True)
-          doc = fitz.open(pdf)
-          page_map = {
-              'chalk': [8, 9], 'sand': [10, 11], 'bone': [12, 13],
-              'thyme-green': [14, 15], 'burgundy': [16, 17],
-              'coffee-bean': [18, 19], 'blue': [20, 21],
-              'bottle-green': [22, 23], 'turquoise': [24, 25],
-              'dusk': [26, 27], 'dawn': [28, 29]
-          }
-          for color, pages in page_map.items():
-              for idx, page_no in enumerate(pages, 1):
-                  page = doc[page_no - 1]
-                  candidates = []
-                  for image in page.get_images(full=True):
-                      try:
-                          data = doc.extract_image(image[0])
-                          w = int(data.get('width') or 0)
-                          h = int(data.get('height') or 0)
-                          if w >= 180 and h >= 180:
-                              candidates.append((w*h, w, h, data['image']))
-                      except Exception:
-                          pass
-                  if not candidates:
-                      raise RuntimeError(f'No usable image on PDF page {page_no}')
-                  _, w, h, raw = max(candidates, key=lambda x: x[0])
-                  target = out / f'{color}-{idx:02d}.jpg'
-                  Image.open(BytesIO(raw)).convert('RGB').save(target, 'JPEG', quality=95, optimize=True)
-                  print(f'{target}: {w}x{h}')
-          if len(list(out.glob('*.jpg'))) != 22:
-              raise RuntimeError('Expected 22 Azuli Mood photos')
+          import re
+
+          p = Path('assets/js/inspirations-elios-thickness-overrides.js')
+          s = p.read_text(encoding='utf-8')
+          s = re.sub(r"window\.ELIOS_IMAGE_DATA\['azuli-mood-1'\]\s*=\s*window\.ELIOS_IMAGE_DATA\['azuli-mood-1'\]\s*\|\|\s*'[^']+';", "window.ELIOS_IMAGE_DATA['azuli-mood-1'] = 'assets/img/elios/azuli-mood/chalk-01.jpg';", s)
+          s, count = re.subn(r"async function azuliVisual\(\) \{.*?\n  \}\n  function hydrateAzuliCard\(\)", "async function azuliVisual() {\n    return 'assets/img/elios/azuli-mood/chalk-01.jpg';\n  }\n  function hydrateAzuliCard()", s, flags=re.S)
+          if count != 1:
+              raise RuntimeError(f'Unable to replace azuliVisual: {count}')
+          s = s.replace('// Références de base repérées pour la vérification stock : 04Q5500 (5×15) et 04Q1000 (10×10).', '// Références couleur complètes vérifiées dans le catalogue officiel Azuli Mood 2026.')
+          p.write_text(s, encoding='utf-8')
+
+          p = Path('functions/elios-lot6.js')
+          s = p.read_text(encoding='utf-8')
+          lines = [
+              '// AZULI MOOD · Catalogue dédié 2026',
+              '{',
+              '  const r=[];',
+              "  const C=[['Bone','00'],['Bottle Green','01'],['Burgundy','02'],['Chalk','03'],['Coffee Bean','04'],['Dawn','05'],['Dusk','06'],['Sand','07'],['Thyme Green','08'],['Turquoise','09'],['Blue','10']];",
+              '  for(const [c,s] of C){',
+              "    r.push(A(`04Q10${s}`,c,'Carreau','10 × 10 cm','Brillant · 8,5 mm',60,.60,11.76,98,58.8,1170,'MQ',.60));",
+              "    r.push(A(`04Q55${s}`,c,'Carreau','5 × 15 cm','Brillant · 8 mm',66,.50,8.94,120,60,1072,'MQ',.50));",
+              "    r.push(A(`04Q12${s}`,c,'Pièce spéciale','Quarter round 1,2 × 20 cm','Brillant · 8 mm',22,.05,.86,400,null,null,'PZ',22));",
+              '  }',
+              '  const mosaics=[',
+              "    ['04QH100','Bone - Coffee Bean','Cassettone 30,3 × 30,3 cm',.92,18,33.12,648],",
+              "    ['04QH101','Thyme Green - Bottle Green','Cassettone 30,3 × 30,3 cm',.92,18,33.12,648],",
+              "    ['04QH102','Turquoise - Blue','Cassettone 30,3 × 30,3 cm',.92,18,33.12,648],",
+              "    ['04QH103','Sand - Burgundy','Cassettone 30,3 × 30,3 cm',.92,18,33.12,648],",
+              "    ['04QH104','Bone - Coffee Bean','Ottagona 30,5 × 27,2 cm',.83,16.2,29.88,583.2],",
+              "    ['04QH105','Thyme Green - Bottle Green','Ottagona 30,5 × 27,2 cm',.83,16.2,29.88,583.2],",
+              "    ['04QH106','Turquoise - Blue','Ottagona 30,5 × 27,2 cm',.83,16.2,29.88,583.2],",
+              "    ['04QH107','Sand - Burgundy','Ottagona 30,5 × 27,2 cm',.83,16.2,29.88,583.2],",
+              "    ['04QH108','Bone - Dusk','Losanghe 23,4 × 23,4 cm',.55,10.7,19.8,385.2],",
+              "    ['04QH109','Chalk - Dawn','Losanghe 23,4 × 23,4 cm',.55,10.7,19.8,385.2]",
+              '  ];',
+              "  mosaics.forEach(([ref,c,format,sqm,kg,sqmPal,kgPal])=>r.push(A(ref,c,'Mosaïque',format,'Brillant · 8,5 mm',10,sqm,kg,36,sqmPal,kgPal,'MQ',sqm)));",
+              "  O['azuli-mood']={n:'Azuli Mood',p:'Catalogue dédié 2026 · pages 64–67',c:C.map(x=>x[0]),r};",
+              '}'
+          ]
+          block = '\n'.join(lines)
+          s, count = re.subn(r'// AZULI MOOD · Catalogue dédié 2026.*?\n\}\n\nmodule\.exports=O;', block + '\n\nmodule.exports=O;', s, flags=re.S)
+          if count != 1:
+              raise RuntimeError(f'Unable to replace Azuli lot6: {count}')
+          p.write_text(s, encoding='utf-8')
+
+          p = Path('univers.html')
+          s = p.read_text(encoding='utf-8')
+          s = re.sub(r'inspirations-elios-thickness-overrides\.js\?v=[^"\']+', 'inspirations-elios-thickness-overrides.js?v=20260911-azuli-hd1', s)
+          s = re.sub(r'selections-lazy-enhancements\.js\?v=[^"\']+', 'selections-lazy-enhancements.js?v=20260911-azuli-hd1', s)
+          p.write_text(s, encoding='utf-8')
           PY
 
-      - name: Commit native photos
+      - name: Verify Azuli data
+        run: |
+          test "$(find assets/img/elios/azuli-mood -type f -name '*.jpg' | wc -l)" -eq 22
+          grep -q '04Q1010' functions/elios-lot6.js
+          grep -q '04Q5510' functions/elios-lot6.js
+          grep -q '04QH109' functions/elios-lot6.js
+          grep -q 'assets/img/elios/azuli-mood/chalk-01.jpg' assets/js/inspirations-elios-thickness-overrides.js
+          grep -q 'inspirations-elios-azuli-hd.js' assets/js/selections-lazy-enhancements.js
+          grep -q '20260911-azuli-hd1' univers.html
+
+      - name: Commit final Azuli Mood data
         run: |
           git config user.name 'aetherismanga'
           git config user.email 'ccjacou@gmail.com'
-          git add assets/img/elios/azuli-mood
-          git commit -m 'feat: add native Azuli Mood catalogue photos'
+          git add assets/js/inspirations-elios-thickness-overrides.js functions/elios-lot6.js univers.html
+          git commit -m 'fix: complete Azuli Mood color references and HD display'
           git push origin main
