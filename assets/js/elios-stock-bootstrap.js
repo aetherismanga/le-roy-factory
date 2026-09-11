@@ -8,10 +8,20 @@
   const originalFetch = window.fetch.bind(window);
   window.ELIOS_MANUAL_STOCK = MANUAL_STOCK.has(slug);
 
+  function injectPolish() {
+    if ([...document.scripts].some(s => s.src?.includes('elios-stock-schema-polish.js'))) return;
+    const polish = document.createElement('script');
+    polish.src = 'assets/js/elios-stock-schema-polish.js?v=20260911-schema-style1';
+    polish.defer = false;
+    document.body.appendChild(polish);
+  }
+
   function injectMain() {
     const script = document.createElement('script');
     script.src = 'assets/js/elios-stock-page.js?v=20260907-lot6';
     script.defer = false;
+    script.onload = injectPolish;
+    script.onerror = injectPolish;
     document.body.appendChild(script);
   }
 
