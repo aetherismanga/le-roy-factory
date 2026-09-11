@@ -97,6 +97,20 @@
     }, { passive:true, capture:true });
   }
 
+  function installOrderTracking() {
+    document.addEventListener('submit', event => {
+      const form = event.target;
+      if (!(form instanceof HTMLFormElement)) return;
+      if (form.id !== 'view-order-form') return;
+      const title = clean(document.querySelector('#view-order-title')?.textContent || '', 120);
+      if (!norm(title).startsWith('commande view')) return;
+      const first = document.querySelector('#view-order-lines .view-order-line');
+      const productName = clean(first?.querySelector('[data-field="product"] option:checked')?.textContent || 'Commande VIEW', 180);
+      const productRef = clean(first?.querySelector('input[readonly]')?.value || '', 80);
+      send('order_view', { partner:'view-ceramica', productName, productRef, source:'view-order' });
+    }, { capture:true });
+  }
+
   function installStockTracking() {
     const original = window.fetch.bind(window);
     window.fetch = async function(input, init) {
@@ -128,6 +142,7 @@
     ensureSessionStart();
     setTimeout(() => send('page_view'), 450);
     installClickTracking();
+    installOrderTracking();
     installStockTracking();
     window.addEventListener('lrf-pro-session-changed', () => { setTimeout(ensureSessionStart, 80); setTimeout(() => send('page_view'), 180); });
     document.addEventListener('visibilitychange', () => { if (!document.hidden) ensureSessionStart(); });
