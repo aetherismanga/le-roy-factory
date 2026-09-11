@@ -88,6 +88,7 @@
       .then(()=>loadScript('assets/js/inspirations-biopietra-gallery.js?v=20260912-bio4','lrf-biopietra-gallery'))
       .then(()=>loadScript('assets/js/inspirations-biopietra-stable.js?v=20260912-bio5','lrf-biopietra-stable'))
       .then(()=>loadScript('assets/js/inspirations-biopietra-product-details.js?v=20260912-bio5','lrf-biopietra-details'))
+      .then(()=>loadScript('assets/js/inspirations-biopietra-overview-consumables.js?v=20260912-bio6','lrf-biopietra-overview-consumables'))
       .catch(()=>{});
     loadScript('assets/js/reviglass-search-index.js?v=20260911-ref1','lrf-univers-reviglass-index')
       .then(()=>loadScript('assets/js/inspirations-search-bridge-v2.js?v=20260911-ref1','lrf-inspirations-search-bridge-v2'))
