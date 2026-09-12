@@ -44,5 +44,5 @@ jobs:
         run: >-
           firebase deploy
           --project le-roy-factory
-          --only storage
+          --only storage:main
           --non-interactive
