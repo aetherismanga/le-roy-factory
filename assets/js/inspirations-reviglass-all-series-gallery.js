@@ -1,12 +1,13 @@
 (() => {
   'use strict';
-  if (window.__LRF_REVIGLASS_ALL_SERIES_GALLERY_20260911__) return;
-  window.__LRF_REVIGLASS_ALL_SERIES_GALLERY_20260911__ = true;
+  if (window.__LRF_REVIGLASS_ALL_SERIES_GALLERY_20260912__) return;
+  window.__LRF_REVIGLASS_ALL_SERIES_GALLERY_20260912__ = true;
 
   const $=(s,r=document)=>r.querySelector(s);
   const $$=(s,r=document)=>[...r.querySelectorAll(s)];
   const clean=v=>String(v||'').trim();
   const key=v=>clean(v).toUpperCase();
+  const slugify=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 
   const CODES={
     'AGUAMARINA':'PA-01','JADE':'PA-02','ZAFIRO':'PA-03','SANDY BALI':'PA-04','BLUE BALI':'PA-05','GREEN BALI':'PA-06','DEEP RIVER':'PA-07','TURQUESE LAGOON':'PA-10','OK STONE':'PA-11','APATITE':'PA-12',
@@ -18,8 +19,18 @@
     'TANGANIKA':['TANGANICA','TANGANIKA'],
     'MIX AQUA':['AQUA','MIX25-PS-AQUA'],
     'UROLA':['UROLA','MIX-IRIS-UROLA'], 'ORIA':['ORIA','MIX-IRIS-ORIA'], 'URUMEA':['URUMEA','MIX-IRIS-URUMEA'], 'BIDASOA':['BIDASOA','MIX-IRIS-BIDASOA'],
-    'ERNIO':['ERNIO','MIX-IRIS-ERNIO'], 'DEBA':['DEBA','MIX-IRIS-DEBA'], 'CHAVON':['CHAVON','MIX-IRIS-CHAVON'], 'ADUR':['ADUR','MIX-IRIS-ADUR']
+    'ERNIO':['ERNIO','MIX-IRIS-ERNIO'], 'DEBA':['DEBA','MIX-IRIS-DEBA'], 'CHAVON':['CHAVON','MIX-IRIS-CHAVON'], 'ADUR':['ADUR','MIX-IRIS-ADUR'],
+    'TAMESIS':['TAMESIS','MIX-IRIS-TAMESIS'],'TIGRIS':['TIGRIS','MIX-IRIS-TIGRIS'],'NILO':['NILO','MIX-IRIS-NILO'],'DANUBIO':['DANUBIO','MIX-IRIS-DANUBIO'],
+    'TIBER':['TIBER','MIX-IRIS-TIBER'],'VOLGA':['VOLGA','MIX-IRIS-VOLGA'],'TER':['TER','MIX-IRIS-TER'],'SENA':['SENA','MIX-IRIS-SENA'],
+    'INDO':['INDO','MIX-IRIS-INDO'],'ORINOCO':['ORINOCO','MIX-IRIS-ORINOCO'],'EBRO':['EBRO','MIX-IRIS-EBRO'],'MURRAY':['MURRAY','MIX-IRIS-MURRAY'],
+    'LENA':['LENA','MIX-IRIS-LENA'],'MARKINA':['MARKINA','MIX-IRIS-MARKINA']
   };
+  const PRODUCT_SLUG={
+    'GRIS':'gris','DK-70':'dk-70','DK-72':'dk-72','DK-74':'dk-74','DK-75':'dk-75','DK-84':'dk-84','DK-87':'dk-87','DK-92':'dk-92',
+    'GIAVA':'giava','TAHITI':'tahiti','COCOS':'cocos','SAMOA':'samoa','PLUTON':'pluton-fn-109',
+    'TAMESIS':'mix-iris-tamesis','TIGRIS':'mix-iris-tigris','NILO':'mix-iris-nilo','DANUBIO':'mix-iris-danubio','TIBER':'mix-iris-tiber','VOLGA':'mix-iris-volga','TER':'mix-iris-ter','SENA':'mix-iris-sena','INDO':'mix-iris-indo','ORINOCO':'mix-iris-orinoco','EBRO':'mix-iris-ebro','MURRAY':'mix-iris-murray','LENA':'mix-iris-lena','MARKINA':'mix-iris-markina'
+  };
+
   const cache=new Map();
   let activeRef='',activeImages=[],activeIndex=0,touchX=0,touchY=0;
 
@@ -56,25 +67,64 @@
   }
 
   function candidates(ref){
-    const years=['2018/11','2019/06','2020/02','2021/06'];
+    const years=['2018/11','2019/06','2020/02','2021/06','2022/04','2023/01','2024/05','2024/10','2025/03'];
     const files=[];
     for(const b0 of basesFor(ref)){
-      const b=b0.replace(/\s+/g,'-');
-      const simple=b.replace(/-/g,'');
-      const low=b.toLowerCase();
-      const names=[`${b}web1.jpg`,`${b}web2.jpg`,`${b}-web1.jpg`,`${b}-web2.jpg`,`${b}_01.jpg`,`${b}_02.jpg`,`${low}_01.jpg`,`${low}_02.jpg`,`${simple}web1.jpg`,`${simple}web2.jpg`];
+      const b=b0.replace(/\s+/g,'-'),simple=b.replace(/-/g,''),low=b.toLowerCase();
+      const names=[`${b}web1.jpg`,`${b}web2.jpg`,`${b}-web1.jpg`,`${b}-web2.jpg`,`${b}_01.jpg`,`${b}_02.jpg`,`${low}_01.jpg`,`${low}_02.jpg`,`${simple}web1.jpg`,`${simple}web2.jpg`,`${b}.jpg`,`${low}.jpg`,`${b}.jpeg`,`${low}.jpeg`];
       for(const y of years) for(const n of names) files.push(`https://reviglass.es/wp-content/uploads/${y}/${n}`);
     }
     return [...new Set(files)];
   }
 
-  function probe(url){return new Promise(resolve=>{const im=new Image();let done=false;const finish=v=>{if(done)return;done=true;clearTimeout(t);im.onload=im.onerror=null;resolve(v)};const t=setTimeout(()=>finish(false),2200);im.onload=()=>finish(im.naturalWidth>180&&im.naturalHeight>120);im.onerror=()=>finish(false);im.src=url})}
+  function probe(url){return new Promise(resolve=>{const im=new Image();let done=false;const finish=v=>{if(done)return;done=true;clearTimeout(t);im.onload=im.onerror=null;resolve(v)};const t=setTimeout(()=>finish(false),1800);im.onload=()=>finish(im.naturalWidth>180&&im.naturalHeight>120);im.onerror=()=>finish(false);im.src=url})}
+  async function restImages(ref){
+    const r=key(ref),queries=[r,...(SPECIAL[r]||[])],found=[];
+    for(const q of queries){
+      try{
+        const u='https://reviglass.es/wp-json/wp/v2/media?media_type=image&per_page=20&search='+encodeURIComponent(q);
+        const res=await fetch(u,{mode:'cors',credentials:'omit'});if(!res.ok)continue;
+        const rows=await res.json();
+        for(const m of rows){
+          const src=m?.media_details?.sizes?.full?.source_url||m?.media_details?.sizes?.large?.source_url||m?.source_url||'';
+          const txt=key((m?.title?.rendered||'')+' '+(m?.slug||'')+' '+src);
+          if(src&&txt.includes(r.replace(/\s+/g,''))||src&&txt.includes(r))found.push(src);
+        }
+      }catch{}
+      if(found.length>=3)break;
+    }
+    return [...new Set(found)].slice(0,3);
+  }
+  async function productMedia(ref){
+    const r=key(ref),slug=PRODUCT_SLUG[r]||slugify(ref),found=[];
+    try{
+      const searchUrl='https://reviglass.es/wp-json/wp/v2/search?search='+encodeURIComponent(ref)+'&per_page=10&subtype=product';
+      const sr=await fetch(searchUrl,{mode:'cors',credentials:'omit'});if(sr.ok){
+        const hits=await sr.json();
+        const hit=hits.find(x=>slugify(x.title||'')===slug||key(x.title||'').includes(r))||hits[0];
+        if(hit?.id){
+          const pr=await fetch('https://reviglass.es/wp-json/wp/v2/product/'+hit.id+'?_embed=1',{mode:'cors',credentials:'omit'});
+          if(pr.ok){
+            const p=await pr.json();
+            const fm=p?._embedded?.['wp:featuredmedia']?.[0];
+            const fsrc=fm?.media_details?.sizes?.full?.source_url||fm?.source_url;if(fsrc)found.push(fsrc);
+            const html=String(p?.content?.rendered||'');
+            for(const m of html.matchAll(/<img[^>]+src=["']([^"']+)["']/gi)){if(m[1])found.push(m[1].replace(/&amp;/g,'&'));if(found.length>=3)break}
+          }
+        }
+      }
+    }catch{}
+    return [...new Set(found)].slice(0,3);
+  }
   async function discover(ref){
     const k=key(ref);if(cache.has(k)) return cache.get(k);
-    const urls=candidates(ref),found=[];
-    for(let i=0;i<urls.length&&found.length<3;i+=8){
-      const batch=urls.slice(i,i+8),ok=await Promise.all(batch.map(probe));
-      ok.forEach((v,j)=>{if(v&&found.length<3)found.push(batch[j])});
+    let found=[...await productMedia(ref),...await restImages(ref)];found=[...new Set(found)].slice(0,3);
+    if(found.length<3){
+      const urls=candidates(ref);
+      for(let i=0;i<urls.length&&found.length<3;i+=10){
+        const batch=urls.slice(i,i+10),ok=await Promise.all(batch.map(probe));
+        ok.forEach((v,j)=>{if(v&&!found.includes(batch[j])&&found.length<3)found.push(batch[j])});
+      }
     }
     cache.set(k,found);return found;
   }
@@ -94,11 +144,11 @@
   async function render(ref){
     const modal=$('#reviglass-pool-modal');if(!modal)return;
     let box=$('.rev-all-gallery',modal);if(!box){box=document.createElement('section');box.className='rev-all-gallery';const action=$('.rev-ref-choice',modal);(action?.parentNode||$('#reviglass-modal-body',modal))?.insertBefore(box,action||null)}
-    box.innerHTML=`<div class="rev-all-loading">Recherche des photos HD officielles Reviglass pour ${ref}…</div>`;
+    box.innerHTML=`<div class="rev-all-loading">Chargement des visuels HD officiels Reviglass pour ${ref}…</div>`;
     const imgs=await discover(ref);if(key($('.reviglass-ref-list .rev-selected-ref',modal)?.textContent||ref)!==key(ref))return;
-    if(!imgs.length){box.innerHTML=`<h3>${ref}</h3><small>Photo HD officielle non trouvée automatiquement. La référence reste sélectionnée pour disponibilité ou commande.</small>`;return}
+    if(!imgs.length){box.innerHTML=`<h3>${ref}</h3><small>Aucun visuel officiel exploitable n’a encore été trouvé automatiquement pour cette référence. La référence reste sélectionnée pour disponibilité ou commande.</small>`;return}
     activeRef=ref;activeImages=imgs;activeIndex=0;
-    box.innerHTML=`<h3>Photos HD — ${ref}</h3><small>Photos officielles Reviglass · appuyez sur l’image pour l’agrandir.</small><div class="rev-all-main" data-rev-all-open="0"><span class="rev-all-ref">${ref}</span><img src="${imgs[0]}" alt="${ref} Reviglass" loading="eager"><span class="rev-all-zoom">🔍 Agrandir</span></div><div class="rev-all-thumbs">${imgs.map((u,i)=>`<button type="button" class="rev-all-thumb${i===0?' active':''}" data-rev-all-thumb="${i}"><img src="${u}" alt="" loading="lazy"></button>`).join('')}</div>`;
+    box.innerHTML=`<h3>Photos HD — ${ref}</h3><small>Visuels officiels Reviglass · appuyez sur l’image pour l’agrandir.</small><div class="rev-all-main" data-rev-all-open="0"><span class="rev-all-ref">${ref}</span><img src="${imgs[0]}" alt="${ref} Reviglass" loading="eager"><span class="rev-all-zoom">🔍 Agrandir</span></div><div class="rev-all-thumbs">${imgs.map((u,i)=>`<button type="button" class="rev-all-thumb${i===0?' active':''}" data-rev-all-thumb="${i}"><img src="${u}" alt="${ref} visuel ${i+1}" loading="lazy"></button>`).join('')}</div>`;
     setTimeout(()=>showPhoto(0),0);
   }
 
