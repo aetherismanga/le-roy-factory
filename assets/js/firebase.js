@@ -108,6 +108,7 @@ if (currentPage === "clients.html" || currentPage === "comptes-rendus.html") {
   import("./cmr-unified.js?v=20260908-1").catch(err => console.error("Erreur chargement CMR unifié :", err));
 }
 if (currentPage === "clients.html") {
+  import("./crm-client-dedupe-hotfix.js?v=20260912-dedupe1").catch(err => console.error("Erreur contrôle doublons clients :", err));
   import("./seed-bilt-annexe-clients.js?v=20260901").catch(err => console.error("Erreur chargement clients Annexe 1 BILT :", err));
   import("./client-direct-email.js?v=20260817-1845").catch(err => console.error("Erreur chargement module e-mail client :", err));
   import("./crm-moovago.js?v=20260909-exact-client1").catch(err => console.error("Erreur chargement enrichissement CRM :", err));
