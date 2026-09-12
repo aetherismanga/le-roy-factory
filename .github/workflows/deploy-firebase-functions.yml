@@ -44,10 +44,9 @@ jobs:
       - name: Install Firebase CLI
         run: npm install --global firebase-tools
 
-      - name: Deploy secured tariff, session, analytics, ELIOS and BILT functions
-        # Includes the full Azuli Mood colour/reference catalogue used by eliosCatalog and eliosStock.
+      - name: Deploy secured tariff, session, analytics, ELIOS, BILT and CRM file functions
         run: >-
           firebase deploy
           --project le-roy-factory
-          --only functions:getTariffPdf,functions:getNeobathDnaTariff,functions:createProSession,functions:validateProSession,functions:revokeProSession,functions:trackLrfActivity,functions:getLrfAnalytics,functions:eliosStock,functions:eliosOrder,functions:eliosPoseOrder,functions:eliosCatalog,functions:biltOrder,functions:biltDecision,functions:biltScheduleAutoRelease,functions:biltAutoReleaseSweep
+          --only functions:getTariffPdf,functions:getNeobathDnaTariff,functions:createProSession,functions:validateProSession,functions:revokeProSession,functions:trackLrfActivity,functions:getLrfAnalytics,functions:eliosStock,functions:eliosOrder,functions:eliosPoseOrder,functions:eliosCatalog,functions:biltOrder,functions:biltDecision,functions:biltScheduleAutoRelease,functions:biltAutoReleaseSweep,functions:crmFilesUpload
           --non-interactive
