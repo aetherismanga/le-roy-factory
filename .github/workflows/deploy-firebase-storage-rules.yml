@@ -7,31 +7,42 @@ on:
     paths:
       - 'storage.rules'
       - 'firebase.json'
+      - '.firebaserc'
       - '.github/workflows/deploy-firebase-storage-rules.yml'
   workflow_dispatch:
 
+concurrency:
+  group: firebase-storage-rules-production
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
 jobs:
   deploy:
+    name: Deploy secured Storage rules
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node.js 22
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_LE_ROY_FACTORY }}'
 
       - name: Install Firebase CLI
-        run: npm install -g firebase-tools
+        run: npm install --global firebase-tools
 
       - name: Deploy Storage rules
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/firebase-service-account.json
-          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          printf '%s' "$FIREBASE_SERVICE_ACCOUNT" > "$GOOGLE_APPLICATION_CREDENTIALS"
-          trap 'rm -f "$GOOGLE_APPLICATION_CREDENTIALS"' EXIT
-          firebase deploy --only storage --project le-roy-factory --non-interactive
+        run: >-
+          firebase deploy
+          --project le-roy-factory
+          --only storage
+          --non-interactive
