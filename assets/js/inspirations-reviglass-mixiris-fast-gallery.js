@@ -34,4 +34,11 @@
   document.addEventListener('click',e=>{const el=e.target.closest?.('.reviglass-ref-list span');if(!el)return;const k=key(el.textContent).replace(/[^A-Z0-9]/g,'');if(!G[k])return;e.stopImmediatePropagation();setTimeout(()=>render(el.textContent.trim()),0)},true);
   document.addEventListener('keydown',e=>{if(!$('#rev-mixfast-lb')?.classList.contains('open'))return;if(e.key==='Escape')close();if(e.key==='ArrowLeft')show(idx-1);if(e.key==='ArrowRight')show(idx+1)});
   style();
+
+  if(!window.__LRF_REVIGLASS_PARADISE_GALLERY__){
+    const p=document.createElement('script');
+    p.src='assets/js/inspirations-reviglass-paradise-gallery.js?v=20260912-paradise1';
+    p.defer=true;
+    document.head.appendChild(p);
+  }
 })();
