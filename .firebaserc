@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "le-roy-factory"
+  },
+  "targets": {
+    "le-roy-factory": {
+      "storage": {
+        "main": [
+          "le-roy-factory.firebasestorage.app"
+        ]
+      }
+    }
   }
 }
