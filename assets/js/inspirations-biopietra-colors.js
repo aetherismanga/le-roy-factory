@@ -3,7 +3,7 @@
   if(window.__LRF_BIOPIETRA_COLORS__)return;
   window.__LRF_BIOPIETRA_COLORS__=true;
   const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
-  const esc=v=>String(v||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const esc=v=>String(v||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#39;'}[c]));
   function style(){if($('#bio-colors-style'))return;const s=document.createElement('style');s.id='bio-colors-style';s.textContent=`
     .bio-colors{margin:0 0 14px;border:1px solid #ddd5c7;border-radius:16px;background:#fff;padding:14px}.bio-colors h3{margin:0 0 4px;color:#17623a;font-size:1.05rem}.bio-colors-intro{margin:0 0 12px;color:#746d62;font-size:.78rem;line-height:1.4}.bio-colors-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(135px,1fr));gap:10px}.bio-color-card{border:2px solid #ece4d5;border-radius:13px;background:#faf8f3;overflow:hidden;padding:0;cursor:pointer;text-align:left;color:#211f1b}.bio-color-card.active{border-color:#D4AF37;box-shadow:0 0 0 2px rgba(212,175,55,.18)}.bio-color-photo{position:relative;aspect-ratio:1.18/1;background:linear-gradient(135deg,#f1ede4,#faf8f3);display:flex;align-items:center;justify-content:center;overflow:hidden}.bio-color-photo img{width:100%;height:100%;object-fit:cover;display:block}.bio-color-photo span{padding:10px;text-align:center;color:#8b8377;font-size:.68rem;font-weight:800}.bio-color-name{display:block;padding:8px 9px;font-size:.72rem;font-weight:900;line-height:1.2}.bio-color-card.active .bio-color-name{color:#17623a}.bio-selected-color{margin-top:10px;padding:10px 12px;border-radius:11px;background:#fffaf0;border:1px solid #d9bf5b;font-weight:900;font-size:.78rem}.bio-selected-color:empty{display:none}@media(max-width:650px){.bio-colors{padding:11px}.bio-colors-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.bio-color-name{font-size:.7rem}}
   `;document.head.appendChild(s)}
@@ -17,4 +17,8 @@
   }
   let t;const scan=()=>{clearTimeout(t);t=setTimeout(()=>$$('.bio-modal.open').forEach(enhance),50)};
   document.addEventListener('click',scan,true);window.addEventListener('lrf-biopietra-rerendered',scan);new MutationObserver(scan).observe(document.documentElement,{subtree:true,childList:true});style();setTimeout(scan,400);
+
+  if(!document.getElementById('lrf-biopietra-final-ui')){
+    const s=document.createElement('script');s.id='lrf-biopietra-final-ui';s.src='assets/js/inspirations-biopietra-final-ui.js?v=20260912-bio-final2';s.async=false;(document.head||document.documentElement).appendChild(s);
+  }
 })();
