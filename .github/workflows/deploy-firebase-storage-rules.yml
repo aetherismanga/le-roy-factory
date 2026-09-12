@@ -37,6 +37,25 @@ jobs:
         with:
           credentials_json: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_LE_ROY_FACTORY }}'
 
+      - name: Ensure minimal Firebase Rules permissions
+        shell: bash
+        run: |
+          set -euo pipefail
+          SA_EMAIL="$(python - <<'PY'
+          import json, os
+          with open(os.environ['GOOGLE_APPLICATION_CREDENTIALS'], 'r', encoding='utf-8') as f:
+              print(json.load(f)['client_email'])
+          PY
+          )"
+          gcloud projects add-iam-policy-binding le-roy-factory \
+            --member="serviceAccount:${SA_EMAIL}" \
+            --role="roles/firebaserules.admin" \
+            --quiet
+          gcloud projects add-iam-policy-binding le-roy-factory \
+            --member="serviceAccount:${SA_EMAIL}" \
+            --role="roles/firebasestorage.viewer" \
+            --quiet
+
       - name: Install Firebase CLI
         run: npm install --global firebase-tools
 
