@@ -1,6 +1,40 @@
 rules_version = '2';
 service firebase.storage {
   match /b/{bucket}/o {
+    function isCrmAgent() {
+      return request.auth != null
+        && request.auth.token.email != null
+        && (request.auth.token.email == 'jerome@leroyfactory.fr'
+          || request.auth.token.email == 'coryne@leroyfactory.fr');
+    }
+
+    function validUpload() {
+      return request.resource != null
+        && request.resource.size < 100 * 1024 * 1024;
+    }
+
+    // Documents joints aux fiches clients historiques.
+    match /client-documents/{allPaths=**} {
+      allow read: if isCrmAgent();
+      allow create, update: if isCrmAgent() && validUpload();
+      allow delete: if isCrmAgent();
+    }
+
+    // Photos, PDF et autres documents liés aux expositions clients.
+    match /expo-clients/{allPaths=**} {
+      allow read: if isCrmAgent();
+      allow create, update: if isCrmAgent() && validUpload();
+      allow delete: if isCrmAgent();
+    }
+
+    // Catalogues, images, PDF et documents merchandising usine.
+    match /merchandising/{allPaths=**} {
+      allow read: if isCrmAgent();
+      allow create, update: if isCrmAgent() && validUpload();
+      allow delete: if isCrmAgent();
+    }
+
+    // Tout le reste reste interdit.
     match /{allPaths=**} {
       allow read, write: if false;
     }
