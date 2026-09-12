@@ -84,3 +84,13 @@
   window.addEventListener('resize',scheduleRepair);
   window.addEventListener('orientationchange',function(){setTimeout(repair,180);});
 })();
+
+// Reviglass AB02 / AB03 / AB14: galerie directe, sans recherche lente des médias.
+(function(){
+  if(document.querySelector('script[data-lrf-ab-fast]')) return;
+  var s=document.createElement('script');
+  s.src='assets/js/inspirations-reviglass-ab-fast-gallery.js?v=20260912-abfast1';
+  s.defer=true;
+  s.dataset.lrfAbFast='1';
+  document.head.appendChild(s);
+})();
