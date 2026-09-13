@@ -1,0 +1,150 @@
+name: Fix Reitano integration
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/fix-reitano-integration.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Fix Reitano integration
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import json, re
+
+          # 1) PARTENAIRES : source de données directe, bonne catégorie + lien site officiel.
+          p = Path('data/fabricants.json')
+          data = json.loads(p.read_text(encoding='utf-8'))
+          data = [x for x in data if x.get('id') != 'reitano-rubinetterie']
+          reitano = {
+              'id': 'reitano-rubinetterie',
+              'nom': 'Reitano Rubinetterie',
+              'categorie': 'robinetterie',
+              'pays': 'Italie',
+              'site': 'https://www.reitano-rubinetteria.com/',
+              'presentation': "Fabricant italien de robinetterie et d'accessoires de salle de bain, avec des collections contemporaines et classiques."
+          }
+          # Positionne Reitano avec Aquahome / Opal plutôt qu'en fin de liste.
+          out=[]
+          inserted=False
+          for item in data:
+              out.append(item)
+              if item.get('id') == 'aquahome':
+                  out.append(reitano); inserted=True
+          if not inserted: out.append(reitano)
+          p.write_text(json.dumps(out, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+
+          p = Path('partenaires.html')
+          s = p.read_text(encoding='utf-8')
+          s = re.sub(r"fetch\('data/fabricants\.json(?:\?[^']*)?'\)", "fetch('data/fabricants.json?v=20260913-reitano-fix3',{cache:'no-store'})", s)
+          # Si une variante fetch avec options existe déjà, la normaliser.
+          s = re.sub(r"fetch\('data/fabricants\.json(?:\?[^']*)?'\s*,\s*\{[^}]*\}\)", "fetch('data/fabricants.json?v=20260913-reitano-fix3',{cache:'no-store'})", s)
+          if "fab.id==='reitano-rubinetterie'" not in s:
+              s = s.replace("else if(fab.id==='bilt')logoFile='bilt.png';", "else if(fab.id==='reitano-rubinetterie')logoFile='reitano.svg';else if(fab.id==='bilt')logoFile='bilt.png';")
+          p.write_text(s, encoding='utf-8')
+
+          # 2) CATALOGUES : intégration DIRECTE dans catalogues.html (plus de dépendance au patch PWA).
+          p = Path('catalogues.html')
+          s = p.read_text(encoding='utf-8')
+          if "nom:'Reitano Rubinetteria'" not in s:
+              marker = "        { nom:'Bilt', pays:'International'"
+              block = """        { nom:'Reitano Rubinetteria', pays:'Italie', presentation:'Robinetterie italienne et accessoires de salle de bain.', fichiers:[
+          { titre:'Catalogue Robinetterie 2026', desc:'Catalogue général Reitano Rubinetteria 2026.', lien:'assets/pdf/REITANO-Robinetterie-2026.pdf' },
+          { titre:'Catalogue Accessoires 2026', desc:'Accessoires et compléments Reitano pour la salle de bain.', lien:'assets/pdf/REITANO-Accessoire-2026-Catalogue.pdf' }
+        ]},
+"""
+              if marker not in s:
+                  raise SystemExit('Insertion Reitano catalogues : repère Bilt introuvable')
+              s = s.replace(marker, block + marker, 1)
+          if "nameLower.includes('reitano')" not in s:
+              needle = "        else if (nameLower.includes('bilt')) logoFile = 'bilt.png';"
+              repl = "        else if (nameLower.includes('reitano')) logoFile = 'reitano.svg';\n" + needle
+              if needle not in s: raise SystemExit('Mapping logo catalogue Bilt introuvable')
+              s = s.replace(needle, repl, 1)
+          p.write_text(s, encoding='utf-8')
+
+          # 3) TARIFS : intégration DIRECTE dans le tableau principal pour passer dans le même contrôle d'accès que les autres partenaires.
+          p = Path('tarifs-pro.html')
+          s = p.read_text(encoding='utf-8')
+          if '{nom:"Reitano Rubinetteria"' not in s:
+              marker = '      {nom:"Bilt",pays:"International"'
+              block = '      {nom:"Reitano Rubinetteria",pays:"Italie",presentation:"Robinetterie italienne et accessoires de salle de bain.",fichiers:[{titre:"Tarif général 2026",desc:"Tarif professionnel Reitano Rubinetteria 2026.",lien:"assets/pdf/Reitano%20tarif%20general%202026.pdf"},{titre:"Tarif Accessoires 2026",desc:"Tarif professionnel des accessoires Reitano.",lien:"assets/pdf/REITANO-Accessoire-2026-Tarif.pdf"}],conditions:"",contacts:[]},\n'
+              if marker not in s: raise SystemExit('Insertion tarif Reitano : repère Bilt introuvable')
+              s = s.replace(marker, block + marker, 1)
+          if "n.includes('reitano')" not in s:
+              needle = "else if(n.includes('bilt'))logoFile='bilt.png';"
+              repl = "else if(n.includes('reitano'))logoFile='reitano.svg';" + needle
+              if needle not in s: raise SystemExit('Mapping logo tarif Bilt introuvable')
+              s = s.replace(needle, repl, 1)
+          p.write_text(s, encoding='utf-8')
+
+          # 4) Contrôle d'accès PRO : Reitano suit exactement le mécanisme normal.
+          p = Path('assets/js/tarifs-pro-client-access.js')
+          s = p.read_text(encoding='utf-8')
+          if '"reitano-rubinetterie":"Reitano Rubinetterie"' not in s:
+              needle = '"aquahome":"Aquahome","opal":"Opal","bilt":"Bilt"'
+              repl = '"aquahome":"Aquahome","opal":"Opal","reitano-rubinetterie":"Reitano Rubinetterie","bilt":"Bilt"'
+              if needle not in s: raise SystemExit('PARTNER_NAMES : repère introuvable')
+              s = s.replace(needle, repl, 1)
+          p.write_text(s, encoding='utf-8')
+
+          # 5) SELECTION : Reitano dans Robinetterie & miroir, jamais dans Sanitaire.
+          p = Path('assets/js/inspirations-v2.js')
+          s = p.read_text(encoding='utf-8')
+          s = s.replace("{id:'robinetterie',label:'Robinetterie & miroir',icon:'◉',partners:['Aquahome','Opal']},",
+                        "{id:'robinetterie',label:'Robinetterie & miroir',icon:'◉',partners:['Aquahome','Opal','Reitano Rubinetterie']},")
+          s = s.replace("{id:'robinetterie',label:'Robinetterie & miroir',icon:'◉',partners:['Aquahome','Opal','Reitano Rubinetterie','Reitano Rubinetterie']},",
+                        "{id:'robinetterie',label:'Robinetterie & miroir',icon:'◉',partners:['Aquahome','Opal','Reitano Rubinetterie']},")
+          if "'Reitano Rubinetterie':" not in s:
+              needle = "    'Opal':{slug:'opal',logo:'assets/img/opal.png',country:'Espagne'}"
+              repl = needle + ",\n    'Reitano Rubinetterie':{slug:'reitano-rubinetterie',logo:'assets/img/reitano.svg',country:'Italie'}"
+              if needle not in s: raise SystemExit('PARTNERS Selection : repère Opal introuvable')
+              s = s.replace(needle, repl, 1)
+          if "slug==='reitano-rubinetterie'" not in s:
+              needle = "(slug==='elios-ceramica'&&(n==='elios'||n==='eliosceramica'))})};"
+              repl = "(slug==='elios-ceramica'&&(n==='elios'||n==='eliosceramica'))||(slug==='reitano-rubinetterie'&&(n==='reitano'||n==='reitanorubinetteria'))})};"
+              if needle not in s: raise SystemExit('hasAccess Selection : repère introuvable')
+              s = s.replace(needle, repl, 1)
+          p.write_text(s, encoding='utf-8')
+
+          p = Path('univers.html')
+          s = p.read_text(encoding='utf-8')
+          s = re.sub(r'assets/js/inspirations-v2\.js\?v=[^"\']+', 'assets/js/inspirations-v2.js?v=20260913-reitano-fix3', s)
+          p.write_text(s, encoding='utf-8')
+
+          # 6) Supprime le chargement dynamique Reitano devenu inutile : catalogues/tarifs sont maintenant dans les sources principales.
+          p = Path('assets/js/pwa-install.js')
+          s = p.read_text(encoding='utf-8')
+          s = re.sub(r"\n\s*scripts\.push\(\['lrf-reitano-catalogues-loader',[^\n]+\);", '', s)
+          s = re.sub(r"\n\s*scripts\.push\(\['lrf-reitano-tarifs-loader',[^\n]+\);", '', s)
+          s = s.replace('/* Intégration UPTREND + REITANO : catalogues et tarifs PRO. UPTREND reste seul dans Sanitaire. */', '/* Intégration UPTREND : catalogues, tarifs PRO et sanitaire. Reitano est intégré directement aux pages concernées. */')
+          p.write_text(s, encoding='utf-8')
+
+          # Bump cache du loader public pour forcer la mise à jour mobile.
+          p = Path('assets/js/app.js')
+          s = p.read_text(encoding='utf-8')
+          s = re.sub(r"assets/js/pwa-install\.js\?v=[^'\"]+", 'assets/js/pwa-install.js?v=20260913-reitano-fix3', s, count=1)
+          p.write_text(s, encoding='utf-8')
+          PY
+
+          # Les anciens patchs Reitano deviennent inutiles après intégration directe.
+          rm -f assets/js/reitano-catalogues.js assets/js/reitano-tarifs.js
+
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/fabricants.json partenaires.html catalogues.html tarifs-pro.html assets/js/tarifs-pro-client-access.js assets/js/inspirations-v2.js univers.html assets/js/pwa-install.js assets/js/app.js
+          git add -u assets/js/reitano-catalogues.js assets/js/reitano-tarifs.js || true
+          git commit -m 'Corrige complètement intégration Reitano et accès admin' || exit 0
+          git push
