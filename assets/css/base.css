@@ -339,6 +339,19 @@ body::-webkit-scrollbar-thumb:hover {
     overflow-y: auto !important;
     scrollbar-gutter: auto;
   }
+
+  /* Paramètres et sous-pages : le bouton/flèche retour doit rester sous la zone
+     système de l'iPhone et disposer d'une vraie zone tactile. */
+  a.back[href="parametres.html"] {
+    display: inline-flex !important;
+    align-items: center !important;
+    min-height: 44px !important;
+    padding: 8px 10px !important;
+    margin-top: max(12px, env(safe-area-inset-top)) !important;
+    position: relative !important;
+    z-index: 20 !important;
+    touch-action: manipulation;
+  }
 }
 
 /* L'ancien curseur maillet a été supprimé. Le curseur public PC est désormais géré exclusivement par lrf-glove-cursor.js. */
