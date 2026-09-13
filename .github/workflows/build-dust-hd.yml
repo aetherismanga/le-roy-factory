@@ -1,0 +1,166 @@
+name: Build Dust HD galleries
+
+on:
+  push:
+    paths:
+      - '.github/workflows/build-dust-hd.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-dust-hd:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install PDF/image tools
+        run: python -m pip install --upgrade pymupdf pillow
+
+      - name: Download official ELIOS Dust catalogue
+        run: |
+          curl -fL --retry 6 --retry-delay 3 --retry-all-errors \
+            -A 'Mozilla/5.0' \
+            'https://eliosceramica.com/wp-content/uploads/2023/10/DUST_catalogo.pdf' \
+            -o /tmp/DUST_catalogo.pdf
+          test -s /tmp/DUST_catalogo.pdf
+
+      - name: Extract HD images by Dust colour
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import fitz, io, hashlib
+          from PIL import Image
+
+          pdf = fitz.open('/tmp/DUST_catalogo.pdf')
+          root = Path('assets/img/elios/dust')
+          root.mkdir(parents=True, exist_ok=True)
+
+          # PDF page indexes from the official Dust catalogue.
+          page_ranges = {
+              'Terrae':  [5, 6, 7, 8],
+              'Niagara': [10, 11, 12, 13, 14],
+              'Blush':   [15, 16, 17, 18, 19],
+              'Dove':    [21, 22, 23, 24],
+              'Ink':     [25, 26, 27, 28],
+              'Ice':     [30, 31, 32, 33],
+              'Sage':    [34, 35, 36, 37],
+              'Pine':    [39, 40, 41, 42],
+          }
+
+          def slug(s):
+              return s.lower().replace(' ', '-')
+
+          galleries = {}
+          for color, pages in page_ranges.items():
+              seen = set()
+              candidates = []
+              for page_no in pages:
+                  page = pdf[page_no]
+                  for info in page.get_images(full=True):
+                      xref = info[0]
+                      if xref in seen:
+                          continue
+                      seen.add(xref)
+                      try:
+                          blob = pdf.extract_image(xref)['image']
+                          im = Image.open(io.BytesIO(blob)).convert('RGB')
+                      except Exception:
+                          continue
+                      w, h = im.size
+                      area = w * h
+                      # Ignore icons, logos and tiny tile chips.
+                      if min(w, h) < 550 or area < 700000:
+                          continue
+                      digest = hashlib.sha1(im.resize((64,64)).tobytes()).hexdigest()
+                      candidates.append((area, digest, page_no, im.copy()))
+
+              # Biggest unique photographic assets first.
+              chosen = []
+              digests = set()
+              for area, digest, page_no, im in sorted(candidates, key=lambda x: x[0], reverse=True):
+                  if digest in digests:
+                      continue
+                  digests.add(digest)
+                  chosen.append(im)
+                  if len(chosen) >= 5:
+                      break
+
+              # Fallback: render catalogue pages if a colour has too few embedded photos.
+              if len(chosen) < 3:
+                  for page_no in pages:
+                      page = pdf[page_no]
+                      pix = page.get_pixmap(matrix=fitz.Matrix(1.8, 1.8), alpha=False)
+                      im = Image.frombytes('RGB', (pix.width, pix.height), pix.samples)
+                      chosen.append(im)
+                      if len(chosen) >= 4:
+                          break
+
+              paths = []
+              s = slug(color)
+              for i, im in enumerate(chosen, 1):
+                  # Keep good quality while avoiding unnecessarily huge mobile downloads.
+                  max_w = 2200
+                  if im.width > max_w:
+                      nh = round(im.height * max_w / im.width)
+                      im = im.resize((max_w, nh), Image.Resampling.LANCZOS)
+                  out = root / f'{s}-{i:02d}.jpg'
+                  im.save(out, 'JPEG', quality=91, optimize=True, progressive=True)
+                  paths.append(str(out).replace('\\', '/'))
+              galleries[color] = paths
+
+          order = ['Terrae','Blush','Dove','Ice','Sage','Pine','Niagara','Ink']
+          all_images = [p for c in order for p in galleries.get(c, [])]
+
+          lines = [
+              "(() => {",
+              "  'use strict';",
+              "  const galleries = {",
+          ]
+          for color in order:
+              vals = ', '.join(repr(p) for p in galleries.get(color, []))
+              lines.append(f"    {color!r}: [{vals}],")
+          lines += [
+              "  };",
+              "  const allImages = Object.values(galleries).flat();",
+              "  window.ELIOS_OFFICIAL_GALLERIES = window.ELIOS_OFFICIAL_GALLERIES || {};",
+              "  window.ELIOS_OFFICIAL_GALLERIES.dust = allImages;",
+              "  window.ELIOS_VERIFIED_VARIANTS = window.ELIOS_VERIFIED_VARIANTS || {};",
+              "  window.ELIOS_VERIFIED_VARIANTS.dust = galleries;",
+              "  window.ELIOS_IMAGE_DATA = window.ELIOS_IMAGE_DATA || {};",
+              "  allImages.forEach((src, i) => { window.ELIOS_IMAGE_DATA[`dust-hd-${i + 1}`] = src; });",
+              "  const first = galleries.Terrae?.[0] || allImages[0];",
+              "  if (first) window.ELIOS_IMAGE_DATA['dust-1'] = first;",
+              "  const catalogue = Array.isArray(window.ELIOS_CATALOGUE) ? window.ELIOS_CATALOGUE : [];",
+              "  const product = catalogue.find(p => p && p.slug === 'dust');",
+              "  if (product) {",
+              "    product.colors = ['Terrae','Blush','Dove','Ice','Sage','Pine','Niagara','Ink'];",
+              "    product.gallery = allImages.map((_, i) => `dust-hd-${i + 1}`);",
+              "  }",
+              "})();",
+              "",
+          ]
+          Path('assets/js/inspirations-elios-dust-hd.js').write_text('\n'.join(lines), encoding='utf-8')
+
+          for color in order:
+              print(color, len(galleries.get(color, [])), galleries.get(color, []))
+          PY
+
+      - name: Commit Dust HD galleries
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/img/elios/dust assets/js/inspirations-elios-dust-hd.js
+          if git diff --cached --quiet; then
+            echo 'No Dust changes to commit.'
+            exit 0
+          fi
+          git commit -m 'Ajoute les visuels HD par couleur pour Dust'
+          git push
