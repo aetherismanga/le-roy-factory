@@ -33,7 +33,8 @@ const CRM_PAGES = new Set([
   "dashboard.html", "clients.html", "agenda.html", "tournees.html", "comptes-rendus.html",
   "mails-groupes.html", "carte.html", "statistiques.html", "demandes-clients.html",
   "nouveau-compte-rendu.html", "contacts-partenaires.html", "analyse-clients-lrf.html",
-  "parametres.html", "contrats-usine-jerome.html", "merchandising-usines.html", "expo-clients.html"
+  "parametres.html", "contrats-usine-jerome.html", "merchandising-usines.html", "expo-clients.html",
+  "document-usines.html"
 ]);
 const currentPage = (location.pathname.split("/").pop() || "index.html").toLowerCase();
 const isCrmPage = CRM_PAGES.has(currentPage);
