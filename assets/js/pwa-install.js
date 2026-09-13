@@ -67,16 +67,14 @@
   else setTimeout(patch,0);
 })();
 
-/* Intégration UPTREND + REITANO : catalogues et tarifs PRO. UPTREND reste seul dans Sanitaire. */
+/* Intégration UPTREND : catalogues, tarifs PRO et sanitaire. Reitano est intégré directement aux pages concernées. */
 (()=>{
   const path=window.location.pathname.toLowerCase();
   const scripts=[];
   if(path.endsWith('catalogues.html')){
     scripts.push(['lrf-uptrend-catalogues-loader','assets/js/uptrend-catalogues.js?v=20260913-1']);
-    scripts.push(['lrf-reitano-catalogues-loader','assets/js/reitano-catalogues.js?v=20260913-robinetterie1']);
   }else if(path.endsWith('tarifs-pro.html')){
     scripts.push(['lrf-uptrend-tarifs-loader','assets/js/uptrend-tarifs.js?v=20260913-2']);
-    scripts.push(['lrf-reitano-tarifs-loader','assets/js/reitano-tarifs.js?v=20260913-robinetterie1']);
   }else if(path.endsWith('univers.html')){
     scripts.push(['lrf-uptrend-selection-loader','assets/js/uptrend-selection.js?v=20260913-1']);
   }

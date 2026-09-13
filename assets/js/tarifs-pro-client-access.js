@@ -24,7 +24,7 @@ const ADMINS = new Map([
 const PARTNER_NAMES = {
   "elios-ceramica":"Elios Ceramica","view-ceramica":"View Ceramica","la-fenice":"La Fenice","reviglass":"Reviglass",
   "biopietra":"Biopietra","petracers":"Petracer's","pecchioli-firenze":"Pecchioli Firenze","bulbo":"Bulbo",
-  "randal-pro":"Randal Pro","neobath":"Neobath","koibath":"Koibath","aquahome":"Aquahome","opal":"Opal","bilt":"Bilt"
+  "randal-pro":"Randal Pro","neobath":"Neobath","koibath":"Koibath","aquahome":"Aquahome","opal":"Opal","reitano-rubinetterie":"Reitano Rubinetterie","bilt":"Bilt"
 };
 
 const firebaseApp = getApps().length ? getApp() : initializeApp(FIREBASE_CONFIG);
