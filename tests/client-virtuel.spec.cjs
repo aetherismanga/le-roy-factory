@@ -1,13 +1,21 @@
 const { test, expect } = require('@playwright/test');
 
-const pagesPubliques = [
-  '/',
-  '/partenaires.html',
-  '/univers.html',
-  '/configurateurs.html',
-  '/catalogues.html',
-  '/contact.html'
-];
+const scope = String(process.env.LRF_SCOPE || 'all').toLowerCase();
+const intensity = String(process.env.LRF_INTENSITY || 'normal').toLowerCase();
+
+const pagesParZone = {
+  all: ['/', '/partenaires.html', '/univers.html', '/configurateurs.html', '/catalogues.html', '/contact.html'],
+  navigation: ['/', '/partenaires.html', '/univers.html', '/catalogues.html', '/contact.html'],
+  accueil: ['/'],
+  selections: ['/univers.html'],
+  elios: ['/univers.html?search=elios'],
+  configurateurs: ['/configurateurs.html'],
+  catalogues: ['/catalogues.html'],
+  contact: ['/contact.html']
+};
+
+const pagesPubliques = pagesParZone[scope] || pagesParZone.all;
+const veut = (...zones) => scope === 'all' || zones.includes(scope);
 
 async function ouvrir(page, url) {
   const response = await page.goto(url, { waitUntil: 'domcontentloaded' });
@@ -18,14 +26,15 @@ async function ouvrir(page, url) {
 
 async function imagesCassees(page) {
   await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight)).catch(() => {});
-  await page.waitForTimeout(300);
+  await page.waitForTimeout(intensity === 'quick' ? 150 : 350);
   return page.locator('img').evaluateAll(images => images
     .filter(img => img.src && img.complete && img.naturalWidth === 0)
     .map(img => img.currentSrc || img.src));
 }
 
-test.describe('Client virtuel LE ROY FACTORY', () => {
+test.describe(`Client virtuel LE ROY FACTORY — ${scope} / ${intensity}`, () => {
   test('accueil visible sans erreur majeure', async ({ page }) => {
+    test.skip(!veut('navigation', 'accueil'), 'Accueil hors de la zone sélectionnée');
     const erreurs = [];
     page.on('pageerror', err => erreurs.push(err.message));
     await ouvrir(page, '/');
@@ -36,6 +45,7 @@ test.describe('Client virtuel LE ROY FACTORY', () => {
   });
 
   test('le client peut ouvrir Contact depuis la page accueil', async ({ page }) => {
+    test.skip(!veut('navigation', 'accueil', 'contact'), 'Navigation Contact hors de la zone sélectionnée');
     await ouvrir(page, '/');
 
     const burger = page.locator('header .burger-btn').first();
@@ -59,7 +69,7 @@ test.describe('Client virtuel LE ROY FACTORY', () => {
     await expect(page).toHaveTitle(/contact/i);
   });
 
-  test('les pages publiques essentielles et leurs images fonctionnent', async ({ page }) => {
+  test('les pages choisies et leurs images fonctionnent', async ({ page }) => {
     for (const url of pagesPubliques) {
       await test.step(url, async () => {
         await ouvrir(page, url);
@@ -70,7 +80,17 @@ test.describe('Client virtuel LE ROY FACTORY', () => {
     }
   });
 
-  test('les liens internes visibles ne renvoient pas de page 404', async ({ page, request }) => {
+  test('la zone Elios se charge dans les Sélections', async ({ page }) => {
+    test.skip(!veut('elios'), 'Elios hors de la zone sélectionnée');
+    await ouvrir(page, '/univers.html?search=elios');
+    await expect(page).toHaveTitle(/Sélections|Produits/i);
+    await expect(page.locator('#insp-categories')).toBeVisible();
+    await expect(page.locator('#partner-grid')).toBeAttached();
+    expect(await imagesCassees(page)).toEqual([]);
+  });
+
+  test('les liens internes de la zone ne renvoient pas de page 404', async ({ page, request }) => {
+    test.skip(intensity === 'quick', 'Contrôle des liens désactivé en mode rapide');
     const origine = new URL(process.env.BASE_URL || 'https://leroyfactory.fr').origin;
     const liens = new Set();
 
@@ -88,8 +108,9 @@ test.describe('Client virtuel LE ROY FACTORY', () => {
       }
     }
 
+    const limite = intensity === 'full' ? 180 : 80;
     const erreurs = [];
-    for (const href of [...liens].slice(0, 80)) {
+    for (const href of [...liens].slice(0, limite)) {
       const response = await request.get(href, { timeout: 20000, failOnStatusCode: false });
       if (response.status() >= 400) erreurs.push(`${response.status()} ${href}`);
     }
