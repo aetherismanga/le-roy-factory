@@ -1,0 +1,108 @@
+name: Import Reitano catalogue 2026
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/import-reitano-catalog-2026.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  import-catalogue:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Find and download official 2026 catalogue
+        shell: bash
+        run: |
+          set -euo pipefail
+          PAGE_URL='https://www.reitano-rubinetteria.com/it/catalogo-2026'
+          mkdir -p assets/pdf /tmp/reitano
+          curl -fL --retry 3 -A 'Mozilla/5.0' "$PAGE_URL" -o /tmp/reitano/page
+
+          # If the route itself is already a PDF, use it directly.
+          if head -c 5 /tmp/reitano/page | grep -q '%PDF-'; then
+            cp /tmp/reitano/page assets/pdf/REITANO-Robinetterie-2026.pdf
+          else
+            # Extract PDF candidates from href/src/data attributes and inline scripts.
+            python3 - <<'PY'
+          import re, html
+          from urllib.parse import urljoin
+          base='https://www.reitano-rubinetteria.com/it/catalogo-2026'
+          raw=open('/tmp/reitano/page','rb').read().decode('utf-8','ignore')
+          raw=html.unescape(raw).replace('\\/','/')
+          pats=[
+              r'https?://[^\"\'<>\\s]+?\.pdf(?:\?[^\"\'<>\\s]*)?',
+              r'(?:href|src|data-src|data-pdf|data-url)=[\"\']([^\"\']+\.pdf(?:\?[^\"\']*)?)[\"\']',
+              r'[^\"\'<>\\s]+?\.pdf(?:\?[^\"\'<>\\s]*)?'
+          ]
+          found=[]
+          for pat in pats:
+              for m in re.finditer(pat, raw, re.I):
+                  u=m.group(1) if m.groups() else m.group(0)
+                  u=urljoin(base,u)
+                  if u not in found: found.append(u)
+          open('/tmp/reitano/candidates','w').write('\n'.join(found))
+          print('PDF candidates:')
+          print('\n'.join(found) if found else '(none)')
+          PY
+
+            ok=''
+            if [[ -s /tmp/reitano/candidates ]]; then
+              while IFS= read -r url; do
+                [[ -z "$url" ]] && continue
+                echo "Trying: $url"
+                if curl -fL --retry 2 -A 'Mozilla/5.0' "$url" -o /tmp/reitano/candidate; then
+                  if head -c 5 /tmp/reitano/candidate | grep -q '%PDF-'; then
+                    cp /tmp/reitano/candidate assets/pdf/REITANO-Robinetterie-2026.pdf
+                    ok=1
+                    break
+                  fi
+                fi
+              done < /tmp/reitano/candidates
+            fi
+
+            # Fallback: search the official site's HTML for likely 2026 PDF asset paths.
+            if [[ -z "$ok" ]]; then
+              for url in \
+                'https://www.reitano-rubinetteria.com/images/reitano/Catalogo2026.pdf' \
+                'https://www.reitano-rubinetteria.com/images/reitano/Catalogo_2026.pdf' \
+                'https://www.reitano-rubinetteria.com/images/reitano/REITANO-Robinetterie-2026.pdf' \
+                'https://www.reitano-rubinetteria.com/images/reitano/catalogo2026.pdf' \
+                'https://www.reitano-rubinetteria.com/images/reitano/catalogo_2026.pdf'; do
+                echo "Fallback trying: $url"
+                if curl -fL --retry 1 -A 'Mozilla/5.0' "$url" -o /tmp/reitano/candidate 2>/dev/null && head -c 5 /tmp/reitano/candidate | grep -q '%PDF-'; then
+                  cp /tmp/reitano/candidate assets/pdf/REITANO-Robinetterie-2026.pdf
+                  ok=1
+                  break
+                fi
+              done
+            fi
+
+            if [[ -z "$ok" ]]; then
+              echo 'Unable to locate a PDF behind the official 2026 catalogue page.' >&2
+              echo 'First 200 lines of official page for diagnosis:' >&2
+              sed -n '1,200p' /tmp/reitano/page >&2
+              exit 2
+            fi
+          fi
+
+          test -s assets/pdf/REITANO-Robinetterie-2026.pdf
+          head -c 5 assets/pdf/REITANO-Robinetterie-2026.pdf | grep -q '%PDF-'
+          ls -lh assets/pdf/REITANO-Robinetterie-2026.pdf
+
+      - name: Commit catalogue to repository
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/pdf/REITANO-Robinetterie-2026.pdf
+          git diff --cached --quiet && exit 0
+          git commit -m 'Ajoute catalogue Reitano Rubinetterie 2026'
+          git push origin HEAD:main
