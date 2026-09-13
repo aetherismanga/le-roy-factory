@@ -1,7 +1,7 @@
 (() => {
   'use strict';
   const PDF_URL='assets/pdf/aquahome2026.pdf';
-  const DATA_URL='assets/data/aquahome-products.json?v=20260913-1';
+  const DATA_URL='assets/data/aquahome-products.json?v=20260913-2';
   const API='https://us-central1-le-roy-factory.cloudfunctions.net/aquahomeCatalog';
   const CART_KEY='lrfAquahomeCartV1';
   const FIREBASE_CONFIG={apiKey:'AIzaSyA3iuK5Ua8kFccURSqLihLshHnhA4rm2is',authDomain:'le-roy-factory.firebaseapp.com',projectId:'le-roy-factory',storageBucket:'le-roy-factory.firebasestorage.app',messagingSenderId:'249878619253',appId:'1:249878619253:web:05f051710b6251dbfa843c'};
