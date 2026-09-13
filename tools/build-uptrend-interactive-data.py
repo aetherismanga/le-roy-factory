@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-"""Build the public, price-free UPTREND catalogue index and click zones.
+"""Build the public UPTREND catalogue index and click zones.
 
-Prices are deliberately never exported. They stay in the secured tariff PDF and
-are read in the browser only after the existing PRO access check succeeds.
+Only the public VAT-inclusive price is exported. The professional price remains
+in the secured tariff PDF and is read only after the existing access check.
+UPTREND's 2026 professional price is 50% off the public price before 20% VAT, so
+the public VAT-inclusive price is: professional net price * 2 * 1.20.
 """
 
 from __future__ import annotations
@@ -77,6 +79,7 @@ def extract_tariff_rows(path: Path):
             price_text = join_words(price_words)
             if not re.fullmatch(r"\d+[.,]\d{2}", price_text):
                 continue
+            professional_net_price = float(price_text.replace(",", "."))
             rows.append(
                 {
                     "reference": ref,
@@ -85,6 +88,7 @@ def extract_tariff_rows(path: Path):
                     "designation": designation,
                     "pageCatalogue": page_catalogue,
                     "pageTarif": page_index + 1,
+                    "prixPublicTTC": round(professional_net_price * 2.4, 2),
                 }
             )
     doc.close()
@@ -180,6 +184,7 @@ def main():
             "designation": row.get("designation", ""),
             "pageCatalogue": (hotspot or {}).get("page") or expected,
             "pageTarif": row.get("pageTarif"),
+            "prixPublicTTC": row.get("prixPublicTTC"),
             "dansCatalogue": bool(hotspot),
             "dansTarif": key in tariff,
             "hotspot": hotspot,

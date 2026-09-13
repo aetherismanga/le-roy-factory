@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#651f2a">
+  <title>Panier UPTREND | LE ROY FACTORY</title>
+  <link rel="icon" type="image/png" href="assets/img/logo03lrf.png">
+  <link rel="stylesheet" href="assets/css/uptrend-order.css?v=20260914-1">
+</head>
+<body>
+  <header><a href="univers.html?partner=uptrend"><img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY"><span><strong>Panier UPTREND</strong><small>Commande 2026</small></span></a><a class="back" href="uptrend-catalogue-interactif.html">← Catalogue virtuel</a></header>
+  <main>
+    <section class="intro"><img src="assets/img/uptrend.svg" alt="UPTREND"><h1>Votre panier</h1><p id="price-mode">Vérification de votre tarif…</p></section>
+    <section class="card" aria-live="polite"><div id="cart-lines"></div><div class="total"><span>Total</span><strong id="cart-total">0,00 €</strong><small id="total-label">TTC</small></div></section>
+    <section class="card order-card">
+      <h2>Passer la commande</h2>
+      <p>Vérifiez les quantités puis complétez vos coordonnées. La demande sera préparée pour Leroy Factory afin de confirmer la disponibilité et le transport.</p>
+      <form id="order-form">
+        <label>Nom ou société<input id="order-name" required autocomplete="organization"></label>
+        <label>Adresse e-mail<input id="order-email" type="email" required autocomplete="email"></label>
+        <label>Téléphone<input id="order-phone" type="tel" autocomplete="tel"></label>
+        <label>Informations de livraison / message<textarea id="order-note" rows="4"></textarea></label>
+        <button type="submit" id="order-submit">Préparer la commande</button>
+      </form>
+      <p class="order-help">Votre application de messagerie s’ouvrira avec la commande complète. Aucun envoi n’est effectué sans votre validation.</p>
+    </section>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+  <script src="assets/js/uptrend-order.js?v=20260914-1"></script>
+</body>
+</html>
