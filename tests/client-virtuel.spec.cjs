@@ -37,22 +37,23 @@ test.describe('Client virtuel LE ROY FACTORY', () => {
 
   test('le client peut ouvrir Contact depuis la page accueil', async ({ page }) => {
     await ouvrir(page, '/');
-    let lien = page.locator('header a[href*="contact.html"]:visible').first();
 
-    if (await lien.count() === 0) {
-      const burger = page.locator('header .burger-btn:visible').first();
-      if (await burger.count()) {
-        await burger.click();
-        await page.waitForTimeout(200);
-      }
-      lien = page.locator('header a[href*="contact.html"]:visible').first();
+    const burger = page.locator('header .burger-btn').first();
+    if (await burger.isVisible()) {
+      await burger.click();
+      await expect(burger).toHaveClass(/active/);
+      await page.waitForTimeout(250);
     }
 
-    if (await lien.count() === 0) {
-      lien = page.locator('a[href*="contact.html"]:visible').first();
-    }
-
+    const lien = page.locator('header a[href*="contact.html"]').first();
     await expect(lien).toBeVisible();
+
+    const dansEcran = await lien.evaluate(element => {
+      const r = element.getBoundingClientRect();
+      return r.width > 0 && r.height > 0 && r.left < innerWidth && r.right > 0 && r.top < innerHeight && r.bottom > 0;
+    });
+    expect(dansEcran, 'Le lien Contact est présent mais hors de la zone visible').toBe(true);
+
     await lien.click();
     await page.waitForURL(/contact\.html/i);
     await expect(page).toHaveTitle(/contact/i);
