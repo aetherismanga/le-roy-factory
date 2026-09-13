@@ -2,7 +2,7 @@
     if(document.getElementById('lrf-pwa-install-loader')) return;
     const script=document.createElement('script');
     script.id='lrf-pwa-install-loader';
-    script.src='assets/js/pwa-install.js?v=20260913-uptrend2';
+    script.src='assets/js/pwa-install.js?v=20260913-reitano-robinetterie1';
     script.defer=true;
     document.head.appendChild(script);
 })();

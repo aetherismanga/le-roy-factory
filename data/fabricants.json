@@ -110,5 +110,13 @@
     "pays": "International",
     "site": "https://www.biltbs.com",
     "presentation": "Croisillons autonivelants et accessoires de pose professionnels."
+  },
+  {
+    "id": "reitano-rubinetterie",
+    "nom": "Reitano Rubinetterie",
+    "categorie": "robinetterie",
+    "pays": "Italie",
+    "site": "https://www.reitano-rubinetteria.com",
+    "presentation": "Fabricant italien de robinetterie et d'accessoires de salle de bain, avec des collections contemporaines et classiques."
   }
 ]
