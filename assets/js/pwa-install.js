@@ -67,20 +67,27 @@
   else setTimeout(patch,0);
 })();
 
-/* Intégration UPTREND : catalogues, tarifs PRO et sanitaire dans Sélections. */
+/* Intégration UPTREND + REITANO : catalogues, tarifs PRO et sanitaire dans Sélections. */
 (()=>{
   const path=window.location.pathname.toLowerCase();
-  let src='';
-  let id='';
-  if(path.endsWith('catalogues.html')){src='assets/js/uptrend-catalogues.js?v=20260913-1';id='lrf-uptrend-catalogues-loader';}
-  else if(path.endsWith('tarifs-pro.html')){src='assets/js/uptrend-tarifs.js?v=20260913-2';id='lrf-uptrend-tarifs-loader';}
-  else if(path.endsWith('univers.html')){src='assets/js/uptrend-selection.js?v=20260913-1';id='lrf-uptrend-selection-loader';}
-  if(!src||document.getElementById(id))return;
-  const script=document.createElement('script');
-  script.id=id;
-  script.src=src;
-  script.defer=true;
-  (document.head||document.documentElement).appendChild(script);
+  const scripts=[];
+  if(path.endsWith('catalogues.html')){
+    scripts.push(['lrf-uptrend-catalogues-loader','assets/js/uptrend-catalogues.js?v=20260913-1']);
+    scripts.push(['lrf-reitano-catalogues-loader','assets/js/reitano-catalogues.js?v=20260913-1']);
+  }else if(path.endsWith('tarifs-pro.html')){
+    scripts.push(['lrf-uptrend-tarifs-loader','assets/js/uptrend-tarifs.js?v=20260913-2']);
+    scripts.push(['lrf-reitano-tarifs-loader','assets/js/reitano-tarifs.js?v=20260913-1']);
+  }else if(path.endsWith('univers.html')){
+    scripts.push(['lrf-uptrend-selection-loader','assets/js/uptrend-selection.js?v=20260913-reitano1']);
+  }
+  scripts.forEach(([id,src])=>{
+    if(document.getElementById(id))return;
+    const script=document.createElement('script');
+    script.id=id;
+    script.src=src;
+    script.defer=true;
+    (document.head||document.documentElement).appendChild(script);
+  });
 })();
 
 /* Routeur de recherche publique LE ROY FACTORY. */
