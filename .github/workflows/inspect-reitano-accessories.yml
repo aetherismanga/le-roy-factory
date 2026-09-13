@@ -11,30 +11,32 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Test official PDF paths
+      - name: Locate accessories catalogue source
         shell: bash
         run: |
           set -u
-          base='https://www.reitano-rubinetteria.com/images/cataloghi/full'
-          candidates=(
-            'Accessori%202026.pdf'
-            'ACCESSORI%202026.pdf'
-            'Catalogo%20Accessori%202026.pdf'
-            'Catalogo%20accessori%202026.pdf'
-            'Catalogo%20ACCESSORI%202026.pdf'
-            'Accessori%20Bagno%202026.pdf'
-            'Accessori%20bagno%202026.pdf'
-            'Catalogo%20Accessori%20Bagno%202026.pdf'
-            'Catalogo%20accessori%20bagno%202026.pdf'
-            'Catalogo%20Accessori%20bagno%202026.pdf'
-            'REITANO%20Accessori%202026.pdf'
-            'REITANO-Accessori-2026.pdf'
-            'Reitano%20Accessori%202026.pdf'
+          base='https://www.reitano-rubinetteria.com'
+          echo '--- robots/sitemap ---'
+          for u in "$base/robots.txt" "$base/sitemap.xml" "$base/sitemap_index.xml"; do
+            echo "URL $u"
+            curl -L -A 'Mozilla/5.0' -s "$u" | grep -Ei 'sitemap|accessor|catalog' | head -80 || true
+          done
+          echo '--- candidate pages ---'
+          pages=(
+            '/it/catalogo-accessori-2026'
+            '/it/accessori-2026'
+            '/it/catalogo-accessori'
+            '/it/cataloghi'
+            '/it/prodotti/accessori'
+            '/it/prodotti/accessori-bagno'
+            '/en/accessories-2026'
+            '/en/accessories'
+            '/en/catalogues'
           )
-          for f in "${candidates[@]}"; do
-            url="$base/$f"
-            code=$(curl -L -A 'Mozilla/5.0' -s -o /tmp/candidate -w '%{http_code}' "$url")
-            bytes=$(wc -c </tmp/candidate 2>/dev/null || echo 0)
-            head5=$(head -c 5 /tmp/candidate 2>/dev/null || true)
-            echo "$code $bytes $head5 $url"
+          for p in "${pages[@]}"; do
+            u="$base$p"
+            code=$(curl -L -A 'Mozilla/5.0' -s -o /tmp/page -w '%{http_code}' "$u")
+            title=$(grep -io '<title>[^<]*' /tmp/page | head -1 | sed 's/<title>//I' || true)
+            echo "PAGE $code $u :: $title"
+            grep -Eio 'atob\("[A-Za-z0-9+/=]+"\)|https?://[^"'"'"'<> ]+\.pdf[^"'"'"'<> ]*' /tmp/page | head -20 || true
           done
