@@ -1,35 +1,10 @@
 (() => {
-  const PARTNERS = {
-    uptrend: {
-      key: 'uptrend',
-      name: 'UPTREND',
-      country: 'International',
-      subtitle: 'International · céramique sanitaire',
-      logo: 'assets/img/uptrend.svg',
-      description: 'Consultez le catalogue 2026 et les fiches techniques pour les vasques, WC, bidets et références sanitaires UPTREND.',
-      docs: [
-        ['Catalogue 2026', 'https://artesinna.fr/wp-content/uploads/2026/02/2026-Uptrend-France-Catalogue-Sanitaire-Ceramique.pdf'],
-        ['Fiches techniques', 'https://artesinna.fr/wp-content/uploads/2023/09/UPTREND-Photo-Schema-Technique-2023.pdf']
-      ],
-      tariffLabel: 'Tarif PRO UPTREND'
-    },
-    reitano: {
-      key: 'reitano',
-      name: 'Reitano Rubinetterie',
-      country: 'Italie',
-      subtitle: 'Italie · robinetterie & accessoires',
-      logo: 'assets/img/reitano.svg',
-      description: 'Consultez les catalogues Reitano 2026 pour la robinetterie et les accessoires de salle de bain.',
-      docs: [
-        ['Catalogue Robinetterie 2026', 'assets/pdf/REITANO-Robinetterie-2026.pdf'],
-        ['Catalogue Accessoires 2026', 'assets/pdf/REITANO-Accessoire-2026-Catalogue.pdf']
-      ],
-      tariffLabel: 'Tarifs PRO Reitano'
-    }
-  };
-
+  const CATALOGUE_URL = 'https://artesinna.fr/wp-content/uploads/2026/02/2026-Uptrend-France-Catalogue-Sanitaire-Ceramique.pdf';
+  const TECH_URL = 'https://artesinna.fr/wp-content/uploads/2023/09/UPTREND-Photo-Schema-Technique-2023.pdf';
+  const LOGO = 'assets/img/uptrend.svg';
+  const norm = value => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]/g, '');
   let sanitaryActive = false;
-  let activePartner = 'uptrend';
+
   const $ = selector => document.querySelector(selector);
 
   function hasProAccess() {
@@ -51,64 +26,7 @@
     const card = document.querySelector('#insp-categories [data-cat="sanitaire"]');
     if (!card) return;
     const meta = card.querySelector('.category-meta');
-    if (meta && meta.textContent !== 'UPTREND · REITANO') meta.textContent = 'UPTREND · REITANO';
-  }
-
-  function renderPartnerCards(grid, allowed) {
-    grid.innerHTML = Object.values(PARTNERS).map(partner => `
-      <button class="partner-card ${partner.key === activePartner ? 'active' : ''}" type="button" data-sanitary-partner="${partner.key}">
-        <img src="${partner.logo}" alt="${partner.name}">
-        <span><strong>${partner.name}</strong><small>${partner.country}</small><span class="access ${allowed ? '' : 'locked'}">${allowed ? '✓ Tarif PRO autorisé' : '🔒 Accès PRO requis'}</span></span>
-      </button>`).join('');
-
-    grid.querySelectorAll('[data-sanitary-partner]').forEach(button => {
-      button.addEventListener('click', () => {
-        activePartner = button.dataset.sanitaryPartner || 'uptrend';
-        renderSanitary();
-      });
-    });
-  }
-
-  function renderWorkspace(partner, allowed) {
-    const workspace = $('#partner-workspace');
-    if (!workspace) return;
-    workspace.classList.add('open');
-
-    const logo = $('#workspace-logo');
-    if (logo) { logo.src = partner.logo; logo.alt = partner.name; }
-    if ($('#workspace-title')) $('#workspace-title').textContent = partner.name;
-    if ($('#workspace-sub')) $('#workspace-sub').textContent = partner.subtitle;
-
-    const badge = $('#workspace-pro-badge');
-    if (badge) {
-      badge.textContent = allowed ? '✓ Tarif PRO accessible' : '🔒 Accès PRO requis';
-      badge.className = `pro-badge${allowed ? ' allowed' : ''}`;
-    }
-
-    const proLink = $('#workspace-pro-link');
-    if (proLink) {
-      proLink.href = 'tarifs-pro.html';
-      proLink.textContent = partner.tariffLabel;
-      proLink.style.display = 'inline-flex';
-    }
-
-    const count = $('#partner-count');
-    if (count) count.textContent = `Documentation ${partner.name}`;
-
-    const products = $('#partner-products');
-    if (products) {
-      const docs = partner.docs.map(([label, href]) => `<a class="pro-link" href="${href}" target="_blank" rel="noopener">${label}</a>`).join('');
-      products.innerHTML = `
-        <div class="empty-partner">
-          <img src="${partner.logo}" alt="${partner.name}">
-          <strong>${partner.name} — sanitaire</strong>
-          <p>${partner.description}</p>
-          <div style="display:flex;flex-wrap:wrap;gap:.65rem;justify-content:center;">
-            ${docs}
-            <a class="pro-link" href="tarifs-pro.html">${partner.tariffLabel}</a>
-          </div>
-        </div>`;
-    }
+    if (meta && meta.textContent !== 'UPTREND') meta.textContent = 'UPTREND';
   }
 
   function renderSanitary() {
@@ -127,12 +45,49 @@
     const panelTitle = $('#partner-panel-title');
     if (panelTitle) panelTitle.textContent = 'Sanitaire';
     const trigger = $('#mobile-partner-trigger');
-    if (trigger) trigger.textContent = '☰ Choisir une usine — UPTREND / REITANO';
+    if (trigger) trigger.textContent = '☰ Choisir une usine — UPTREND';
 
     const allowed = hasProAccess();
-    if (!PARTNERS[activePartner]) activePartner = 'uptrend';
-    renderPartnerCards(grid, allowed);
-    renderWorkspace(PARTNERS[activePartner], allowed);
+    grid.innerHTML = `
+      <button class="partner-card active" type="button" data-uptrend-partner="1">
+        <img src="${LOGO}" alt="UPTREND">
+        <span><strong>UPTREND</strong><small>International</small><span class="access ${allowed ? '' : 'locked'}">${allowed ? '✓ Tarif PRO autorisé' : '🔒 Accès PRO requis'}</span></span>
+      </button>`;
+
+    workspace.classList.add('open');
+    const logo = $('#workspace-logo');
+    if (logo) { logo.src = LOGO; logo.alt = 'UPTREND'; }
+    if ($('#workspace-title')) $('#workspace-title').textContent = 'UPTREND';
+    if ($('#workspace-sub')) $('#workspace-sub').textContent = 'International · céramique sanitaire';
+
+    const badge = $('#workspace-pro-badge');
+    if (badge) {
+      badge.textContent = allowed ? '✓ Tarif PRO accessible' : '🔒 Accès PRO requis';
+      badge.className = `pro-badge${allowed ? ' allowed' : ''}`;
+    }
+    const proLink = $('#workspace-pro-link');
+    if (proLink) {
+      proLink.href = 'tarifs-pro.html';
+      proLink.textContent = 'Voir tarif PRO UPTREND';
+      proLink.style.display = 'inline-flex';
+    }
+
+    const count = $('#partner-count');
+    if (count) count.textContent = 'Documentation UPTREND';
+    const products = $('#partner-products');
+    if (products) {
+      products.innerHTML = `
+        <div class="empty-partner">
+          <img src="${LOGO}" alt="UPTREND">
+          <strong>UPTREND — sanitaire céramique</strong>
+          <p>Consultez le catalogue 2026 et les fiches techniques pour les vasques, WC, bidets et références sanitaires UPTREND.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:.65rem;justify-content:center;">
+            <a class="pro-link" href="${CATALOGUE_URL}" target="_blank" rel="noopener">Catalogue 2026</a>
+            <a class="pro-link" href="${TECH_URL}" target="_blank" rel="noopener">Fiches techniques</a>
+            <a class="pro-link" href="tarifs-pro.html">Tarif PRO UPTREND</a>
+          </div>
+        </div>`;
+    }
   }
 
   function install() {
