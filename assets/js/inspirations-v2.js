@@ -5,7 +5,7 @@
     {id:'mosaique',label:'Mosaïque',icon:'◈',partners:['Reviglass']},
     {id:'parement',label:'Parement',icon:'▤',partners:['Biopietra']},
     {id:'meubles',label:'Meubles',icon:'▥',partners:['Neobath','Randal Pro']},
-    {id:'robinetterie',label:'Robinetterie & miroir',icon:'◉',partners:['Aquahome','Opal']},
+    {id:'robinetterie',label:'Robinetterie & miroir',icon:'◉',partners:['Aquahome','Opal','Reitano Rubinetterie']},
     {id:'sanitaire',label:'Sanitaire',icon:'○',partners:[]}
   ];
   const PARTNERS={
@@ -20,13 +20,14 @@
     'Neobath':{slug:'neobath',logo:'assets/img/neobath.png',country:'Italie',data:'neobath'},
     'Randal Pro':{slug:'randal-pro',logo:'assets/img/randal.png',country:'Espagne'},
     'Aquahome':{slug:'aquahome',logo:'assets/img/aquahome.png',country:'Espagne'},
-    'Opal':{slug:'opal',logo:'assets/img/opal.png',country:'Espagne'}
+    'Opal':{slug:'opal',logo:'assets/img/opal.png',country:'Espagne'},
+    'Reitano Rubinetterie':{slug:'reitano-rubinetterie',logo:'assets/img/reitano.svg',country:'Italie'}
   };
   const $=(s,r=document)=>r.querySelector(s);
   const esc=v=>String(v??'').replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c]));
   const norm=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');
   const session=()=>{try{return JSON.parse(sessionStorage.getItem('lrfProSession')||'null')}catch{return null}};
-  const hasAccess=slug=>{const s=session();if(!s||!Array.isArray(s.partenaires))return false;return s.partenaires.some(p=>{const n=norm(p),w=norm(slug);return n===w||n===norm(PARTNERS_BY_SLUG[slug]?.name||'')||(slug==='elios-ceramica'&&(n==='elios'||n==='eliosceramica'))})};
+  const hasAccess=slug=>{const s=session();if(!s||!Array.isArray(s.partenaires))return false;return s.partenaires.some(p=>{const n=norm(p),w=norm(slug);return n===w||n===norm(PARTNERS_BY_SLUG[slug]?.name||'')||(slug==='elios-ceramica'&&(n==='elios'||n==='eliosceramica'))||(slug==='reitano-rubinetterie'&&(n==='reitano'||n==='reitanorubinetteria'))})};
   const PARTNERS_BY_SLUG={};Object.entries(PARTNERS).forEach(([name,p])=>PARTNERS_BY_SLUG[p.slug]={...p,name});
 
   const COLOR_RULES=[
