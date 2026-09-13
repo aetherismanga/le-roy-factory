@@ -67,11 +67,13 @@
   else setTimeout(patch,0);
 })();
 
-/* Intégration UPTREND + REITANO : catalogues, tarifs PRO et sanitaire dans Sélections. */
+/* Intégration UPTREND + REITANO : partenaires, catalogues, tarifs PRO et sanitaire dans Sélections. */
 (()=>{
   const path=window.location.pathname.toLowerCase();
   const scripts=[];
-  if(path.endsWith('catalogues.html')){
+  if(path.endsWith('partenaires.html')){
+    scripts.push(['lrf-reitano-partenaire-loader','assets/js/reitano-partenaire.js?v=20260913-1']);
+  }else if(path.endsWith('catalogues.html')){
     scripts.push(['lrf-uptrend-catalogues-loader','assets/js/uptrend-catalogues.js?v=20260913-1']);
     scripts.push(['lrf-reitano-catalogues-loader','assets/js/reitano-catalogues.js?v=20260913-1']);
   }else if(path.endsWith('tarifs-pro.html')){
