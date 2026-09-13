@@ -100,7 +100,7 @@
     state.observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting)renderCataloguePage(entry.target,Number(entry.target.dataset.page))}),{rootMargin:'1400px 0px'});root.querySelectorAll('.up-page').forEach(p=>state.observer.observe(p));
     const pageObserver=new IntersectionObserver(entries=>{const visible=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];if(visible){state.currentPage=Number(visible.target.dataset.page);$('page-input').value=state.currentPage}},{rootMargin:'-36% 0px -52% 0px',threshold:[0,.25,.5,1]});root.querySelectorAll('.up-page').forEach(p=>pageObserver.observe(p));
   }
-  function goPage(page,behavior='smooth'){page=Math.max(1,Math.min(state.catalogue.numPages,Number(page)||1));document.querySelector(`.up-page[data-page="${page}"]`)?.scrollIntoView({behavior,block:'start'})}
+  function goPage(page,behavior='auto'){page=Math.max(1,Math.min(state.catalogue.numPages,Number(page)||1));document.querySelector(`.up-page[data-page="${page}"]`)?.scrollIntoView({behavior,block:'start'})}
   function findProduct(query){const q=norm(query);if(!q)return null;return Object.values(state.data.products).find(p=>p.dansCatalogue&&(norm(p.reference)===q||norm(p.nom).includes(q)))||Object.values(state.data.products).find(p=>p.dansCatalogue&&(norm(p.reference).includes(q)||norm(p.nom).includes(q)))}
   function runSearch(){const product=findProduct($('product-search').value);if(!product){$('product-search').setCustomValidity('Aucun produit trouvé');$('product-search').reportValidity();return}$('product-search').setCustomValidity('');goPage(product.pageCatalogue);setTimeout(()=>openProduct(product),650)}
   async function showTariff(){
