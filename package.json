@@ -1,0 +1,14 @@
+{
+  "name": "lrf-client-virtuel-tests",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Tests Playwright du client virtuel LE ROY FACTORY",
+  "scripts": {
+    "test:e2e": "playwright test",
+    "test:e2e:desktop": "playwright test --project=desktop-chrome",
+    "test:e2e:mobile": "playwright test --project=iphone-webkit --project=android-chrome"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.55.0"
+  }
+}
