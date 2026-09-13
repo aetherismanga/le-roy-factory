@@ -7,15 +7,15 @@
   <meta name="theme-color" content="#651f2a">
   <title>Catalogue UPTREND interactif | LE ROY FACTORY</title>
   <link rel="icon" type="image/png" href="assets/img/logo03lrf.png">
-  <link rel="stylesheet" href="assets/css/uptrend-interactive.css?v=20260913-1">
+  <link rel="stylesheet" href="assets/css/uptrend-interactive.css?v=20260914-1">
 </head>
 <body>
   <header class="up-header">
-    <a class="up-brand" href="catalogues.html" aria-label="Retour aux catalogues LE ROY FACTORY">
+    <a class="up-brand" href="univers.html?partner=uptrend" aria-label="Retour à UPTREND">
       <img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY">
       <span><strong>Catalogue interactif</strong><small>UPTREND 2026</small></span>
     </a>
-    <a class="up-exit" href="catalogues.html">Quitter</a>
+    <a class="up-exit" href="univers.html?partner=uptrend">Quitter</a>
   </header>
 
   <div class="up-toolbar" id="catalogue-toolbar">
@@ -33,18 +33,13 @@
 
   <main>
     <section id="catalogue-view" aria-label="Catalogue UPTREND">
-      <div class="up-help"><span class="up-pulse"></span> Touchez une référence UPTREND pour afficher son tarif PRO HT.</div>
+      <div class="up-help"><span class="up-pulse"></span> Touchez une référence pour voir le prix et l’ajouter au panier.</div>
       <div id="catalogue-pages" class="up-pages" aria-live="polite"></div>
     </section>
 
-    <section id="tariff-view" class="up-tariff-view" hidden aria-label="Tarif professionnel UPTREND">
-      <div class="up-tariff-bar">
-        <button type="button" id="back-to-catalogue">← Retour au catalogue</button>
-        <div><strong id="tariff-title">Tarif UPTREND</strong><span id="tariff-page-label"></span></div>
-      </div>
-      <div id="tariff-page" class="up-tariff-page"></div>
-    </section>
   </main>
+
+  <a class="up-cart-bar" href="uptrend-commande.html"><span data-cart-label>Voir le panier</span><b><span data-cart-count>0</span> ›</b></a>
 
   <div id="loading" class="up-loading" role="status">
     <span></span><strong>Chargement du catalogue UPTREND…</strong>
@@ -53,20 +48,20 @@
   <dialog id="product-dialog" class="up-dialog" aria-labelledby="dialog-name">
     <button type="button" class="up-dialog-close" id="dialog-close" aria-label="Fermer">×</button>
     <img src="assets/img/uptrend.svg" alt="UPTREND" class="up-dialog-logo">
-    <p class="up-dialog-kicker">Tarif professionnel 2026</p>
+    <p class="up-dialog-kicker">Collection UPTREND 2026</p>
     <h2 id="dialog-name">Produit UPTREND</h2>
     <p class="up-ref">Référence : <strong id="dialog-ref"></strong></p>
     <dl id="dialog-details"></dl>
-    <div class="up-price"><span>Tarif PRO HT</span><strong id="dialog-price">Chargement…</strong></div>
+    <div class="up-price"><span id="dialog-price-label">Prix public TTC</span><strong id="dialog-price">Chargement…</strong></div>
     <p id="dialog-message" class="up-dialog-message" hidden></p>
     <div class="up-dialog-actions">
-      <button type="button" id="view-in-tariff" class="up-primary">Voir dans le tarif</button>
+      <button type="button" id="add-to-cart" class="up-primary">Ajouter au panier</button>
       <a id="pro-login" class="up-primary" href="tarifs-pro.html" hidden>Accéder à l’espace PRO</a>
       <button type="button" id="dialog-cancel" class="up-secondary">Fermer</button>
     </div>
   </dialog>
 
   <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
-  <script src="assets/js/uptrend-interactive.js?v=20260913-3"></script>
+  <script src="assets/js/uptrend-interactive.js?v=20260914-1"></script>
 </body>
 </html>

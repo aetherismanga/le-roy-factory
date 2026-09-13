@@ -251,6 +251,7 @@
       "designation": "Vasque à poser/murale blanc brillant, avec trou pour robinet et trop-plein - 38° x 380 x 130",
       "pageCatalogue": null,
       "pageTarif": 5,
+      "prixPublicTTC": 88.8,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -261,6 +262,7 @@
       "designation": "",
       "pageCatalogue": 28,
       "pageTarif": null,
+      "prixPublicTTC": null,
       "dansCatalogue": true,
       "dansTarif": false,
       "hotspot": {
@@ -282,6 +284,7 @@
       "designation": "Vasque murale blanc brillant, avec trou pour robinet et trop-plein, côté gauche - 270 x 405 x 140",
       "pageCatalogue": 28,
       "pageTarif": 7,
+      "prixPublicTTC": 92.4,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -303,6 +306,7 @@
       "designation": "Vasque murale blanc brillant, avec trou pour robinet et trop-plein - 445 x 320 x 125",
       "pageCatalogue": 32,
       "pageTarif": 8,
+      "prixPublicTTC": 88.8,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -324,6 +328,7 @@
       "designation": "Vasque murale/à poser blanc brillant, avec trou pour robinet - 435 x 345 x 130",
       "pageCatalogue": 31,
       "pageTarif": 7,
+      "prixPublicTTC": 120.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -345,6 +350,7 @@
       "designation": "Vasque murale/à poser blanc brillant, avec trou de robinetterie et trop-plein - 550 x 310x 125",
       "pageCatalogue": 30,
       "pageTarif": 7,
+      "prixPublicTTC": 114.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -366,6 +372,7 @@
       "designation": "Vasque murale blanc brillant, avec trou pour robinet, côté gauche - 585 x 295 x 130",
       "pageCatalogue": 28,
       "pageTarif": 7,
+      "prixPublicTTC": 105.6,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -387,6 +394,7 @@
       "designation": "Vasque murale blanc brillant, avec trou pour robinet et trop-plein, côté droit - 270 x 405 x 140",
       "pageCatalogue": 28,
       "pageTarif": 7,
+      "prixPublicTTC": 92.4,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -397,6 +405,7 @@
       "designation": "Cuvette de toilettes blanc brillant - 495 x 405 x 350",
       "pageCatalogue": null,
       "pageTarif": 12,
+      "prixPublicTTC": 243.6,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -407,6 +416,7 @@
       "designation": "Cuvette de toilettes blanc brillant, sans rebord - 555 x 370 x 340",
       "pageCatalogue": null,
       "pageTarif": 12,
+      "prixPublicTTC": 243.6,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -417,6 +427,7 @@
       "designation": "Cuvette de toilettes compact blanc brillant - 690 x 375 x 800",
       "pageCatalogue": null,
       "pageTarif": 12,
+      "prixPublicTTC": 342.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -427,6 +438,7 @@
       "designation": "Cuvette de toilettes blanc brillant - 490 x 360 x 360",
       "pageCatalogue": 44,
       "pageTarif": 11,
+      "prixPublicTTC": 261.6,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -448,6 +460,7 @@
       "designation": "Cuvette de toilettes blanc brillant, système VORTEX - 490 x 360 x 360",
       "pageCatalogue": 44,
       "pageTarif": 11,
+      "prixPublicTTC": 261.6,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -469,6 +482,7 @@
       "designation": "Cuvette de toilettes noir mat, système VORTEX - 490 x 360 x 360",
       "pageCatalogue": 45,
       "pageTarif": 11,
+      "prixPublicTTC": 309.6,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -490,6 +504,7 @@
       "designation": "",
       "pageCatalogue": 45,
       "pageTarif": null,
+      "prixPublicTTC": null,
       "dansCatalogue": true,
       "dansTarif": false,
       "hotspot": {
@@ -511,6 +526,7 @@
       "designation": "Cuvette de toilettes noir mat - 490 x 360 x 360",
       "pageCatalogue": 45,
       "pageTarif": 11,
+      "prixPublicTTC": 309.6,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -521,6 +537,7 @@
       "designation": "Cuvette de toilettes blanc brillant, RIMLESS - 500 x 360 x 355",
       "pageCatalogue": 46,
       "pageTarif": 11,
+      "prixPublicTTC": 228.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -542,6 +559,7 @@
       "designation": "Cuvette de toilettes blanc brillant, système VORTEX - 520 x 360 x 360",
       "pageCatalogue": 47,
       "pageTarif": 11,
+      "prixPublicTTC": 270.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -563,6 +581,7 @@
       "designation": "Cuvette de toilettes blanc brillant - 505 x 350 x 345",
       "pageCatalogue": 46,
       "pageTarif": 11,
+      "prixPublicTTC": 276.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -584,6 +603,7 @@
       "designation": "Cuvette de toilettes blanc brillant, système VORTEX - 505 x 350 x 345",
       "pageCatalogue": 46,
       "pageTarif": 11,
+      "prixPublicTTC": 276.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -605,6 +625,7 @@
       "designation": "Cuvette de toilettes blanc brillant - 480 x 360 x 360",
       "pageCatalogue": 44,
       "pageTarif": 11,
+      "prixPublicTTC": 261.6,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -626,6 +647,7 @@
       "designation": "Cuvette de toilettes blanc brillant, système VORTEX - 480 x 360 x 360",
       "pageCatalogue": 44,
       "pageTarif": 11,
+      "prixPublicTTC": 261.6,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -647,6 +669,7 @@
       "designation": "Cuvette de toilettes noir mat, système VORTEX - 480 x 360 x 360",
       "pageCatalogue": 44,
       "pageTarif": 11,
+      "prixPublicTTC": 309.6,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -668,6 +691,7 @@
       "designation": "Cuvette de toilettes blanc mat, système VORTEX - 480 x 360 x 360",
       "pageCatalogue": null,
       "pageTarif": 12,
+      "prixPublicTTC": 309.6,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -678,6 +702,7 @@
       "designation": "Cuvette de toilettes compact, blanc brillant, RIMLESS - 615 x 360 x 745",
       "pageCatalogue": 54,
       "pageTarif": 12,
+      "prixPublicTTC": 300.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -699,6 +724,7 @@
       "designation": "Cuvette de toilettes fonction bidet, blanc brillant, RIMLESS - 510 x 350 x 350",
       "pageCatalogue": 47,
       "pageTarif": 11,
+      "prixPublicTTC": 426.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -720,6 +746,7 @@
       "designation": "Cuvette de toilettes fonction bidet, blanc brillant, RIMLESS - 500 x 355 x 350",
       "pageCatalogue": 47,
       "pageTarif": 11,
+      "prixPublicTTC": 408.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -741,6 +768,7 @@
       "designation": "Cuvette de toilettes blanc brillant, système VORTEX - 500 x 355 x 350",
       "pageCatalogue": 46,
       "pageTarif": 11,
+      "prixPublicTTC": 270.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -762,6 +790,7 @@
       "designation": "Cuvette de toilettes, blanc brillant, texture décorative, système VORTEX - 490 x 355 x 340",
       "pageCatalogue": null,
       "pageTarif": 12,
+      "prixPublicTTC": 282.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -772,6 +801,7 @@
       "designation": "Cuvette de toilettes, blanc mat, texture cannelée, système VORTEX - 490 x 355 x 340",
       "pageCatalogue": null,
       "pageTarif": 12,
+      "prixPublicTTC": 322.8,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -782,6 +812,7 @@
       "designation": "Vasque sous-plan ovale blanc brillant, avec trop-plein - 570 x 420 x 210",
       "pageCatalogue": 37,
       "pageTarif": 11,
+      "prixPublicTTC": 114.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -803,6 +834,7 @@
       "designation": "Vasque murale blanc brillant, avec trou pour robinet - 570 x 400 x 130",
       "pageCatalogue": 27,
       "pageTarif": 7,
+      "prixPublicTTC": 126.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -824,6 +856,7 @@
       "designation": "Vasque à poser blanc brillant - 285 x 270 x 140",
       "pageCatalogue": null,
       "pageTarif": 6,
+      "prixPublicTTC": 84.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -834,6 +867,7 @@
       "designation": "Vasque à poser blanc brillant - 395 x 240 x 110",
       "pageCatalogue": null,
       "pageTarif": 6,
+      "prixPublicTTC": 114.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -844,6 +878,7 @@
       "designation": "Vasque à poser blanc brillant avec trou de robinetterie et trop-plein - 560 x 460 x 140",
       "pageCatalogue": 21,
       "pageTarif": 4,
+      "prixPublicTTC": 138.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -865,6 +900,7 @@
       "designation": "Vasque murale/à poser blanc brillant, avec trou pour robinet et trop-plein - 465 x 465 x 135",
       "pageCatalogue": null,
       "pageTarif": 8,
+      "prixPublicTTC": 138.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -875,6 +911,7 @@
       "designation": "Vasque murale blanc brillant, avec trou pour robinet et trop-plein - 425 x 400 x 150",
       "pageCatalogue": null,
       "pageTarif": 8,
+      "prixPublicTTC": 116.4,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -885,6 +922,7 @@
       "designation": "Vasque à poser blanc brillant - 390 x 325 x 140",
       "pageCatalogue": 21,
       "pageTarif": 4,
+      "prixPublicTTC": 93.6,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -906,6 +944,7 @@
       "designation": "Vasque murale blanc brillant, avec trou pour robinet et trop-plein - 655 x 485 x 160",
       "pageCatalogue": 32,
       "pageTarif": 8,
+      "prixPublicTTC": 132.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -927,6 +966,7 @@
       "designation": "Vasque à poser blanc brillant, avec trou pour robinet et trop-plein - 405 x 385 x 165",
       "pageCatalogue": null,
       "pageTarif": 6,
+      "prixPublicTTC": 114.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -937,6 +977,7 @@
       "designation": "Vasque sous-plan rectangulaire blanc brillant, avec trop- plein - 460 x 340 x 190",
       "pageCatalogue": 37,
       "pageTarif": 11,
+      "prixPublicTTC": 123.6,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -958,6 +999,7 @@
       "designation": "Vasque à poser blanc brillant - 460 x 410 x 160",
       "pageCatalogue": null,
       "pageTarif": 5,
+      "prixPublicTTC": 136.8,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -968,6 +1010,7 @@
       "designation": "Vasque d'angle murale blanc brillant, avec trou pour robinet et trop-plein - 500 x 340 x 130",
       "pageCatalogue": null,
       "pageTarif": 8,
+      "prixPublicTTC": 102.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -978,6 +1021,7 @@
       "designation": "Vasque murale blanc brillant, avec trou pour robinet, côté droit - 310 x 235 x 125",
       "pageCatalogue": null,
       "pageTarif": 8,
+      "prixPublicTTC": 66.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -988,6 +1032,7 @@
       "designation": "Vasque à poser blanc brillant, avec trou de robinetterie et trop-plein - 465 x 465 x 140",
       "pageCatalogue": 16,
       "pageTarif": 3,
+      "prixPublicTTC": 118.8,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -1009,6 +1054,7 @@
       "designation": "Vasque sur meuble blanc brillant, avec trou pour robinet et trop-plein - 603 x 385 x 160",
       "pageCatalogue": 34,
       "pageTarif": 9,
+      "prixPublicTTC": 127.2,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -1030,6 +1076,7 @@
       "designation": "Vasque sur meuble blanc brillant, avec trou pour robinet et trop-plein - 803 x 385 x 160",
       "pageCatalogue": 35,
       "pageTarif": 9,
+      "prixPublicTTC": 183.6,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -1051,6 +1098,7 @@
       "designation": "Vasque sur meuble blanc brillant, avec trou pour robinet et trop-plein - 903 x 385 x 160",
       "pageCatalogue": 35,
       "pageTarif": 9,
+      "prixPublicTTC": 218.4,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -1072,6 +1120,7 @@
       "designation": "Vasque d’angle murale blanc brillant, avec trou pour robinet et trop-plein - 560 x 480 x 195",
       "pageCatalogue": null,
       "pageTarif": 8,
+      "prixPublicTTC": 92.4,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -1082,6 +1131,7 @@
       "designation": "Vasque murale blanc brillant, avec trou pour robinet et côté droit - 360 x 240 x 155",
       "pageCatalogue": null,
       "pageTarif": 8,
+      "prixPublicTTC": 64.8,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -1092,6 +1142,7 @@
       "designation": "Vasque à poser blanc brillant - 610 x 345 x 110",
       "pageCatalogue": 24,
       "pageTarif": 4,
+      "prixPublicTTC": 150.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -1113,6 +1164,7 @@
       "designation": "Vasque à poser noir mat - 610 x 345 x 110",
       "pageCatalogue": 24,
       "pageTarif": 4,
+      "prixPublicTTC": 180.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -1134,6 +1186,7 @@
       "designation": "Vasque à poser blanc mat - 610 x 345 x 110",
       "pageCatalogue": 24,
       "pageTarif": 4,
+      "prixPublicTTC": 172.8,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -1155,6 +1208,7 @@
       "designation": "Vasque à poser blanc brillant - 490 x 300 x 135",
       "pageCatalogue": 25,
       "pageTarif": 4,
+      "prixPublicTTC": 84.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -1176,6 +1230,7 @@
       "designation": "Vasque à poser blanc brillant avec trou de robinetterie - 440 x 260 x 100",
       "pageCatalogue": 25,
       "pageTarif": 4,
+      "prixPublicTTC": 90.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -1197,6 +1252,7 @@
       "designation": "Vasque à poser blanc brillant avec trou de robinetterie - 430 x 430 x 140",
       "pageCatalogue": null,
       "pageTarif": 5,
+      "prixPublicTTC": 132.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -1207,6 +1263,7 @@
       "designation": "Vasque murale blanc brillant, avec trou pour robinet et trop-plein, côté gauche - 500 x 255 x 145",
       "pageCatalogue": null,
       "pageTarif": 8,
+      "prixPublicTTC": 108.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -1217,6 +1274,7 @@
       "designation": "Vasque murale blanc brillant, avec trou pour robinet et trop-plein, côté droit - 500 x 255 x 145",
       "pageCatalogue": null,
       "pageTarif": 8,
+      "prixPublicTTC": 108.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -1227,6 +1285,7 @@
       "designation": "Vasque murale blanc brillant, avec trou pour robinet - 425 x 300 x 130",
       "pageCatalogue": 31,
       "pageTarif": 7,
+      "prixPublicTTC": 117.6,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -1248,6 +1307,7 @@
       "designation": "Vasque à poser blanc brillant - 675 x 420 x 120",
       "pageCatalogue": 21,
       "pageTarif": 4,
+      "prixPublicTTC": 152.4,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -1269,6 +1329,7 @@
       "designation": "Vasque à poser blanc brillant - 490 x 395 x 135",
       "pageCatalogue": null,
       "pageTarif": 5,
+      "prixPublicTTC": 140.4,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -1279,6 +1340,7 @@
       "designation": "Vasque à poser blanc brillant - 455 x 330 x 135",
       "pageCatalogue": 23,
       "pageTarif": 4,
+      "prixPublicTTC": 129.6,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -1300,6 +1362,7 @@
       "designation": "Vasque à poser noir mat - 455 x 330 x 135",
       "pageCatalogue": 24,
       "pageTarif": 4,
+      "prixPublicTTC": 168.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -1321,6 +1384,7 @@
       "designation": "Vasque à poser blanc brillant - 430 x 430 x 135",
       "pageCatalogue": null,
       "pageTarif": 5,
+      "prixPublicTTC": 138.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -1331,6 +1395,7 @@
       "designation": "Vasque à poser blanc brillant - 510 x 400 x 130",
       "pageCatalogue": null,
       "pageTarif": 5,
+      "prixPublicTTC": 142.8,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -1341,6 +1406,7 @@
       "designation": "Vasque à poser blanc brillant - 550 x 390 x 145",
       "pageCatalogue": 24,
       "pageTarif": 4,
+      "prixPublicTTC": 169.2,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -1362,6 +1428,7 @@
       "designation": "Vasque à poser blanc brillant, avec trou pour robinet et trop-plein - 595 x 400 x 155",
       "pageCatalogue": 25,
       "pageTarif": 4,
+      "prixPublicTTC": 168.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -1383,6 +1450,7 @@
       "designation": "Vasque à poser/encastrable blanc brillant, avec trou pour robinet et trop-plein - 400 x 400 x 180",
       "pageCatalogue": null,
       "pageTarif": 5,
+      "prixPublicTTC": 129.6,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -1393,6 +1461,7 @@
       "designation": "Vasque à poser blanc brillant avec trou de robinetterie et trop-plein - 600 x 400 x 145",
       "pageCatalogue": 21,
       "pageTarif": 4,
+      "prixPublicTTC": 162.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -1414,6 +1483,7 @@
       "designation": "Vasque à poser blanc brillant - 430 x 300 x 120",
       "pageCatalogue": 25,
       "pageTarif": 4,
+      "prixPublicTTC": 120.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -1435,6 +1505,7 @@
       "designation": "Vasque à poser noir mat - 430 x 300 x 120",
       "pageCatalogue": 25,
       "pageTarif": 4,
+      "prixPublicTTC": 186.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -1456,6 +1527,7 @@
       "designation": "Vasque à poser blanc brillant - 345 x 345 x 120",
       "pageCatalogue": 22,
       "pageTarif": 4,
+      "prixPublicTTC": 120.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -1477,6 +1549,7 @@
       "designation": "Meuble vasque blanc brillant, avec trou pour robinet, gauche-droite - 405 x 220 x 95",
       "pageCatalogue": null,
       "pageTarif": 9,
+      "prixPublicTTC": 74.4,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -1487,6 +1560,7 @@
       "designation": "Vasque à poser blanc brillant - 650 x 345 x 125",
       "pageCatalogue": null,
       "pageTarif": 6,
+      "prixPublicTTC": 150.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -1497,6 +1571,7 @@
       "designation": "Vasque à poser blanc brillant - 555 x 220 x 90",
       "pageCatalogue": null,
       "pageTarif": 5,
+      "prixPublicTTC": 126.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -1507,6 +1582,7 @@
       "designation": "Vasque à poser blanc brillant - 500 x 300 x 140",
       "pageCatalogue": 22,
       "pageTarif": 4,
+      "prixPublicTTC": 144.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -1528,6 +1604,7 @@
       "designation": "Vasque à poser noir mat - 500 x 300 x 140",
       "pageCatalogue": 22,
       "pageTarif": 4,
+      "prixPublicTTC": 186.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -1549,6 +1626,7 @@
       "designation": "Vasque à poser blanc mat - 500 x 300 x 140",
       "pageCatalogue": null,
       "pageTarif": 6,
+      "prixPublicTTC": 156.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -1559,6 +1637,7 @@
       "designation": "Vasque à poser blanc brillant - 400 x 400 x 140",
       "pageCatalogue": 15,
       "pageTarif": 3,
+      "prixPublicTTC": 123.6,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -1580,6 +1659,7 @@
       "designation": "Vasque murale blanc brillant, avec trou pour robinet - 510 x 360 x 120",
       "pageCatalogue": 31,
       "pageTarif": 7,
+      "prixPublicTTC": 120.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -1601,6 +1681,7 @@
       "designation": "Vasque à poser rectangulaire, blanc brillant, avec texture décorative - 360 x 360 x 125",
       "pageCatalogue": null,
       "pageTarif": 6,
+      "prixPublicTTC": 138.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -1611,6 +1692,7 @@
       "designation": "Vasque à poser rectangulaire, blanc mat, avec texture décorative - 360 x 360 x 125",
       "pageCatalogue": null,
       "pageTarif": 6,
+      "prixPublicTTC": 186.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -1621,6 +1703,7 @@
       "designation": "Vasque à poser semi-circulaire, blanc brillant, avec texture décorative - 400 x 350 x 125",
       "pageCatalogue": null,
       "pageTarif": 6,
+      "prixPublicTTC": 138.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -1631,6 +1714,7 @@
       "designation": "Vasque à poser semi-circulaire, blanc mat, avec texture décorative - 400 x 350 x 125",
       "pageCatalogue": null,
       "pageTarif": 6,
+      "prixPublicTTC": 186.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -1641,6 +1725,7 @@
       "designation": "Vasque à poser, semi-circulaire, blanc brillant, avec texture décorative - 490 x 305 x 125",
       "pageCatalogue": null,
       "pageTarif": 5,
+      "prixPublicTTC": 140.4,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -1651,6 +1736,7 @@
       "designation": "Vasque à poser, semi-circulaire, blanc mat, avec texture décorative - 490 x 305 x 125",
       "pageCatalogue": null,
       "pageTarif": 5,
+      "prixPublicTTC": 180.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -1661,6 +1747,7 @@
       "designation": "Vasque à poser rectangulaire, blanc brillant, avec texture décorative structurée - 500 x 355 x 125",
       "pageCatalogue": null,
       "pageTarif": 5,
+      "prixPublicTTC": 150.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -1671,6 +1758,7 @@
       "designation": "Vasque à poser rectangulaire, blanc mat, avec texture décorative structurée - 500 x 355 x 125",
       "pageCatalogue": null,
       "pageTarif": 6,
+      "prixPublicTTC": 192.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -1681,6 +1769,7 @@
       "designation": "Vasque murale/à poser blanc brillant, avec trou pour robinet et trop-plein - 380 x 380 x 130",
       "pageCatalogue": 31,
       "pageTarif": 7,
+      "prixPublicTTC": 104.4,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -1702,6 +1791,7 @@
       "designation": "Vasque à poser blanc brillant - 405 x 405 x 125",
       "pageCatalogue": 15,
       "pageTarif": 3,
+      "prixPublicTTC": 92.4,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -1723,6 +1813,7 @@
       "designation": "Vasque à poser blanc brillant - 385 x 395 x 150",
       "pageCatalogue": null,
       "pageTarif": 6,
+      "prixPublicTTC": 126.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -1733,6 +1824,7 @@
       "designation": "Vasque à poser blanc brillant, avec trou pour robinet et trop-plein - 380 x 380 x 135",
       "pageCatalogue": 18,
       "pageTarif": 3,
+      "prixPublicTTC": 99.6,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -1754,6 +1846,7 @@
       "designation": "Vasque murale blanc brillant, avec trou pour robinet et trop-plein - 800 x 470 x 175",
       "pageCatalogue": null,
       "pageTarif": 8,
+      "prixPublicTTC": 210.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -1764,6 +1857,7 @@
       "designation": "Vasque murale blanc brillant, avec trou pour robinet et trop-plein - 600 x 470 x 175",
       "pageCatalogue": null,
       "pageTarif": 8,
+      "prixPublicTTC": 156.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -1774,6 +1868,7 @@
       "designation": "Vasque à poser blanc brillant - 585 x 405 x 145",
       "pageCatalogue": null,
       "pageTarif": 5,
+      "prixPublicTTC": 146.4,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -1784,6 +1879,7 @@
       "designation": "Vasque murale blanc brillant, avec trou pour robinet et trop-plein - 445 x 295 x 130",
       "pageCatalogue": 27,
       "pageTarif": 7,
+      "prixPublicTTC": 102.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -1805,6 +1901,7 @@
       "designation": "Vasque murale/à poser blanc brillant, avec trou pour robinet, côté gauche - 660 x 375 x 125",
       "pageCatalogue": 33,
       "pageTarif": 8,
+      "prixPublicTTC": 148.8,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -1826,6 +1923,7 @@
       "designation": "",
       "pageCatalogue": 32,
       "pageTarif": null,
+      "prixPublicTTC": null,
       "dansCatalogue": true,
       "dansTarif": false,
       "hotspot": {
@@ -1847,6 +1945,7 @@
       "designation": "Vasque murale blanc brillant, avec trou pour robinet, côté gauche - 370 x 235 x 125",
       "pageCatalogue": 32,
       "pageTarif": 7,
+      "prixPublicTTC": 92.4,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -1868,6 +1967,7 @@
       "designation": "Vasque murale blanc brillant, avec trou pour robinet et trop-plein - 400 x 300 x 125",
       "pageCatalogue": 28,
       "pageTarif": 7,
+      "prixPublicTTC": 92.4,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -1889,6 +1989,7 @@
       "designation": "Vasque à poser blanc brillant - 350 x 350 x 110",
       "pageCatalogue": 17,
       "pageTarif": 3,
+      "prixPublicTTC": 84.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -1910,6 +2011,7 @@
       "designation": "Vasque à poser blanc brillant avec trou de robinetterie et trop-plein - 540 x 405 x 130",
       "pageCatalogue": null,
       "pageTarif": 5,
+      "prixPublicTTC": 136.8,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -1920,6 +2022,7 @@
       "designation": "Vasque murale blanc brillant, avec trou pour robinet et trop-plein, côté gauche - 400 x 280 x 140",
       "pageCatalogue": 27,
       "pageTarif": 7,
+      "prixPublicTTC": 86.4,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -1941,6 +2044,7 @@
       "designation": "Vasque murale blanc brillant, avec trou pour robinet et trop-plein, avec porte-serviettes - 440 x 270 x 150",
       "pageCatalogue": 29,
       "pageTarif": 7,
+      "prixPublicTTC": 138.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -1962,6 +2066,7 @@
       "designation": "Vasque murale blanc brillant, avec trou pour robinet et trop-plein, côté droit - 485 x 385 x 165",
       "pageCatalogue": null,
       "pageTarif": 8,
+      "prixPublicTTC": 114.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -1972,6 +2077,7 @@
       "designation": "Vasque murale blanc brillant, avec trou pour robinet et trop-plein, côté droit - 485 x 385 x 165",
       "pageCatalogue": null,
       "pageTarif": 8,
+      "prixPublicTTC": 114.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -1982,6 +2088,7 @@
       "designation": "Vasque d’angle murale blanc brillant, avec trou pour robinet et trop-plein - 370 x 385 x 135",
       "pageCatalogue": null,
       "pageTarif": 8,
+      "prixPublicTTC": 99.6,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -1992,6 +2099,7 @@
       "designation": "Vasque murale blanc brillant, avec trou pour robinet et trop-plein, côté droit - 420 x 290 x 140",
       "pageCatalogue": 27,
       "pageTarif": 7,
+      "prixPublicTTC": 108.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2013,6 +2121,7 @@
       "designation": "Vasque murale blanc brillant, avec trou pour robinet, côté gauche - 420 x 290 x 140",
       "pageCatalogue": 27,
       "pageTarif": 7,
+      "prixPublicTTC": 100.8,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2034,6 +2143,7 @@
       "designation": "Vasque murale blanc brillant, avec trou pour robinet et trop-plein, côté gauche - 425 x 265 x 125",
       "pageCatalogue": 28,
       "pageTarif": 7,
+      "prixPublicTTC": 90.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2055,6 +2165,7 @@
       "designation": "Vasque murale blanc brillant, avec trou pour robinet et trop-plein, côté droit - 425 x 265 x 125",
       "pageCatalogue": 26,
       "pageTarif": 7,
+      "prixPublicTTC": 90.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2076,6 +2187,7 @@
       "designation": "Vasque murale blanc brillant, côté droit - 450 x 250 x 120",
       "pageCatalogue": null,
       "pageTarif": 8,
+      "prixPublicTTC": 96.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -2086,6 +2198,7 @@
       "designation": "Vasque à poser blanc brillant - 425 x 425 x 230",
       "pageCatalogue": null,
       "pageTarif": 5,
+      "prixPublicTTC": 138.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -2096,6 +2209,7 @@
       "designation": "Vasque murale/à poser blanc brillant, avec trou pour robinet - 335 x 290 x 115",
       "pageCatalogue": 31,
       "pageTarif": 7,
+      "prixPublicTTC": 90.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2117,6 +2231,7 @@
       "designation": "Vasque à poser blanc brillant - 470 x 380 x 130",
       "pageCatalogue": null,
       "pageTarif": 5,
+      "prixPublicTTC": 111.6,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -2127,6 +2242,7 @@
       "designation": "Vasque à poser blanc brillant - 380 x 380 x 135",
       "pageCatalogue": 22,
       "pageTarif": 4,
+      "prixPublicTTC": 104.4,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2148,6 +2264,7 @@
       "designation": "Vasque à poser blanc brillant, avec trou pour robinet - 490 x 380 x 130",
       "pageCatalogue": null,
       "pageTarif": 6,
+      "prixPublicTTC": 138.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -2158,6 +2275,7 @@
       "designation": "Vasque à poser blanc brillant avec trop-plein - 415 x 415 x 160",
       "pageCatalogue": null,
       "pageTarif": 5,
+      "prixPublicTTC": 110.4,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -2168,6 +2286,7 @@
       "designation": "Vasque sur meuble blanc brillant, avec trou pour robinet et trop-plein - 422 x 422 x 175",
       "pageCatalogue": null,
       "pageTarif": 9,
+      "prixPublicTTC": 93.6,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -2178,6 +2297,7 @@
       "designation": "Vasque à poser blanc brillant, avec trou de robinetterie et trop-plein - 405 x 205 x 130",
       "pageCatalogue": null,
       "pageTarif": 5,
+      "prixPublicTTC": 72.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -2188,6 +2308,7 @@
       "designation": "Vasque à poser blanc brillant - 590 x 410 x 140",
       "pageCatalogue": 22,
       "pageTarif": 4,
+      "prixPublicTTC": 150.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2209,6 +2330,7 @@
       "designation": "Vasque à poser blanc brillant - 395 x 395 x 150",
       "pageCatalogue": null,
       "pageTarif": 6,
+      "prixPublicTTC": 115.2,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -2219,6 +2341,7 @@
       "designation": "Vasque à poser blanc brillant - 585 x 385 x 140",
       "pageCatalogue": null,
       "pageTarif": 5,
+      "prixPublicTTC": 130.8,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -2229,6 +2352,7 @@
       "designation": "Vasque à poser blanc brillant - 500 x 305 x 135",
       "pageCatalogue": 21,
       "pageTarif": 4,
+      "prixPublicTTC": 102.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2250,6 +2374,7 @@
       "designation": "Vasque à poser blanc brillant - 405 x 405 x 120",
       "pageCatalogue": null,
       "pageTarif": 5,
+      "prixPublicTTC": 106.8,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -2260,6 +2385,7 @@
       "designation": "Bidet blanc brillant - 495 x 400 x 340",
       "pageCatalogue": null,
       "pageTarif": 13,
+      "prixPublicTTC": 183.6,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -2270,6 +2396,7 @@
       "designation": "Bidet blanc brillant - 555 x 370 x 240",
       "pageCatalogue": null,
       "pageTarif": 13,
+      "prixPublicTTC": 183.6,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -2280,6 +2407,7 @@
       "designation": "Bidet blanc brillant - 490 x 360 x 315",
       "pageCatalogue": 51,
       "pageTarif": 13,
+      "prixPublicTTC": 183.6,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2301,6 +2429,7 @@
       "designation": "Bidet noir mat - 490 x 360 x 315",
       "pageCatalogue": null,
       "pageTarif": 13,
+      "prixPublicTTC": 218.4,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -2311,6 +2440,7 @@
       "designation": "Bidet blanc brillant - 500 x 360 x 245",
       "pageCatalogue": 50,
       "pageTarif": 13,
+      "prixPublicTTC": 183.6,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2332,6 +2462,7 @@
       "designation": "Bidet blanc brillant - 510 x 360 x 320",
       "pageCatalogue": 50,
       "pageTarif": 13,
+      "prixPublicTTC": 183.6,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2353,6 +2484,7 @@
       "designation": "Bidet blanc brillant - 485 x 360 x 330",
       "pageCatalogue": 50,
       "pageTarif": 13,
+      "prixPublicTTC": 183.6,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2374,6 +2506,7 @@
       "designation": "Bidet noir mat - 485 x 360 x 330",
       "pageCatalogue": 50,
       "pageTarif": 13,
+      "prixPublicTTC": 218.4,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2395,6 +2528,7 @@
       "designation": "Vasque encastrable blanc brillant, avec trou pour robinet et trop-plein - 560 x 460 x 200",
       "pageCatalogue": null,
       "pageTarif": 9,
+      "prixPublicTTC": 117.6,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -2405,6 +2539,7 @@
       "designation": "Vasque sous-plan ovale blanc brillant, avec trop-plein - 570 x 420 x 210",
       "pageCatalogue": 37,
       "pageTarif": 11,
+      "prixPublicTTC": 114.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2426,6 +2561,7 @@
       "designation": "Vasque à poser ronde, blanche et or mat, avec texture décorative - 410 x 410 x 155",
       "pageCatalogue": 14,
       "pageTarif": 3,
+      "prixPublicTTC": 210.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2447,6 +2583,7 @@
       "designation": "Vasque à poser ronde, doré brillant, avec texture décorative - 405 x 405 x 140",
       "pageCatalogue": 15,
       "pageTarif": 3,
+      "prixPublicTTC": 210.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2468,6 +2605,7 @@
       "designation": "Vasque à poser blanc brillant - 385 x 385 x 140",
       "pageCatalogue": 20,
       "pageTarif": 4,
+      "prixPublicTTC": 126.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2489,6 +2627,7 @@
       "designation": "Vasque à poser noir brillant - 385 x 385 x 140",
       "pageCatalogue": 20,
       "pageTarif": 4,
+      "prixPublicTTC": 162.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2510,6 +2649,7 @@
       "designation": "Vasque à poser noir mat - 385 x385 x 140",
       "pageCatalogue": 19,
       "pageTarif": 4,
+      "prixPublicTTC": 156.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2531,6 +2671,7 @@
       "designation": "Vasque à poser blanc mat - 385 x 385 x 140",
       "pageCatalogue": 20,
       "pageTarif": 4,
+      "prixPublicTTC": 150.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2552,6 +2693,7 @@
       "designation": "Vasque à poser blanc brillant - 330 x 330 x 140",
       "pageCatalogue": 20,
       "pageTarif": 4,
+      "prixPublicTTC": 126.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2573,6 +2715,7 @@
       "designation": "Vasque à poser blanc brillant - 280 x 280 x 140",
       "pageCatalogue": 20,
       "pageTarif": 4,
+      "prixPublicTTC": 150.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2594,6 +2737,7 @@
       "designation": "Vasque à poser blanc brillant avec design texturé - 385 x 385 x 145",
       "pageCatalogue": 16,
       "pageTarif": 3,
+      "prixPublicTTC": 104.4,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2615,6 +2759,7 @@
       "designation": "Vasque à poser noir brillant avec design texturé - 385 x 385 x 145",
       "pageCatalogue": 16,
       "pageTarif": 3,
+      "prixPublicTTC": 140.4,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2636,6 +2781,7 @@
       "designation": "Vasque à poser blanc brillant avec design texturé - 325 x 325 x 145",
       "pageCatalogue": 16,
       "pageTarif": 3,
+      "prixPublicTTC": 87.6,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2657,6 +2803,7 @@
       "designation": "Vasque à poser blanc brillant avec design texturé - 280 x 280 x 240",
       "pageCatalogue": 16,
       "pageTarif": 3,
+      "prixPublicTTC": 67.2,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2678,6 +2825,7 @@
       "designation": "Vasque à poser blanc brillant - 475 x 475 x 120",
       "pageCatalogue": null,
       "pageTarif": 5,
+      "prixPublicTTC": 162.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -2688,6 +2836,7 @@
       "designation": "Vasque à poser blanc mat - 475 x 475 x 121",
       "pageCatalogue": null,
       "pageTarif": 5,
+      "prixPublicTTC": 174.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -2698,6 +2847,7 @@
       "designation": "Vasque à poser blanc brillant - 385 x 385 x 140",
       "pageCatalogue": 17,
       "pageTarif": 3,
+      "prixPublicTTC": 120.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2719,6 +2869,7 @@
       "designation": "Vasque à poser finition macchiato brillant - 385 x 385 x 140",
       "pageCatalogue": 17,
       "pageTarif": 3,
+      "prixPublicTTC": 150.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2740,6 +2891,7 @@
       "designation": "Vasque à poser blanc brillant - 330 x 330 x 140",
       "pageCatalogue": 17,
       "pageTarif": 3,
+      "prixPublicTTC": 114.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2761,6 +2913,7 @@
       "designation": "Vasque à poser blanc brillant - 280 x 280 x 140",
       "pageCatalogue": 17,
       "pageTarif": 3,
+      "prixPublicTTC": 90.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2782,6 +2935,7 @@
       "designation": "Vasque à poser blanc brillant - 385 x 385 x 145",
       "pageCatalogue": 18,
       "pageTarif": 3,
+      "prixPublicTTC": 120.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2803,6 +2957,7 @@
       "designation": "Vasque à poser blanc brillant avec design texturé - 420 x 420 x 140",
       "pageCatalogue": 15,
       "pageTarif": 3,
+      "prixPublicTTC": 140.4,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2824,6 +2979,7 @@
       "designation": "Vasque à poser noir brillant avec design texturé - 420 x 420 x 140",
       "pageCatalogue": 15,
       "pageTarif": 3,
+      "prixPublicTTC": 153.6,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2845,6 +3001,7 @@
       "designation": "Vasque à poser blanc brillant avec design texturé - 330 x 330 x 135",
       "pageCatalogue": null,
       "pageTarif": 5,
+      "prixPublicTTC": 108.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -2855,6 +3012,7 @@
       "designation": "Vasque à poser blanc brillant - 400 x 400 x 140",
       "pageCatalogue": 18,
       "pageTarif": 3,
+      "prixPublicTTC": 106.8,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2876,6 +3034,7 @@
       "designation": "Vasque à poser blanc brillant texturé - 400 x 400 x 120",
       "pageCatalogue": 18,
       "pageTarif": 3,
+      "prixPublicTTC": 102.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2897,6 +3056,7 @@
       "designation": "Vasque à poser blanc brillant - 400 x 400 x 135",
       "pageCatalogue": 18,
       "pageTarif": 3,
+      "prixPublicTTC": 108.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2918,6 +3078,7 @@
       "designation": "Vasque sur meuble blanc brillant, avec trou pour robinet et trop-plein - 1010 x 470 x 155",
       "pageCatalogue": 35,
       "pageTarif": 9,
+      "prixPublicTTC": 276.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2939,6 +3100,7 @@
       "designation": "Vasque sur meuble blanc brillant, avec trou pour robinet et trop-plein - 610 x 470 x 155",
       "pageCatalogue": 35,
       "pageTarif": 9,
+      "prixPublicTTC": 163.2,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2960,6 +3122,7 @@
       "designation": "Vasque sur meuble blanc brillant, avec trou pour robinet et trop-plein - 810 x 470 x 155",
       "pageCatalogue": 35,
       "pageTarif": 9,
+      "prixPublicTTC": 216.0,
       "dansCatalogue": true,
       "dansTarif": true,
       "hotspot": {
@@ -2981,6 +3144,7 @@
       "designation": "Vasque sur meuble blanc brillant, avec trou pour robinet et trop-plein, côté gauche - 903 x 460 x 175",
       "pageCatalogue": null,
       "pageTarif": 9,
+      "prixPublicTTC": 228.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -2991,6 +3155,7 @@
       "designation": "Vasque sur meuble blanc brillant, avec trou pour robinet et trop-plein - 1000 x 460 x 170",
       "pageCatalogue": null,
       "pageTarif": 10,
+      "prixPublicTTC": 256.8,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -3001,6 +3166,7 @@
       "designation": "Vasque sur meuble blanc brillant, avec trou pour robinet et trop-plein - 1200 x 460 x 170",
       "pageCatalogue": null,
       "pageTarif": 10,
+      "prixPublicTTC": 369.6,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -3011,6 +3177,7 @@
       "designation": "Vasque sur meuble blanc brillant, avec trou pour robinet et trop-plein - 600 x 460 x 170",
       "pageCatalogue": null,
       "pageTarif": 10,
+      "prixPublicTTC": 139.2,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -3021,6 +3188,7 @@
       "designation": "Vasque sur meuble blanc brillant, avec trou pour robinet et trop-plein - 700 x 460 x 170",
       "pageCatalogue": null,
       "pageTarif": 10,
+      "prixPublicTTC": 168.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -3031,6 +3199,7 @@
       "designation": "Vasque sur meuble blanc brillant, avec trou pour robinet et trop-plein - 800 x 460 x 170",
       "pageCatalogue": null,
       "pageTarif": 10,
+      "prixPublicTTC": 186.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -3041,6 +3210,7 @@
       "designation": "Vasque sur meuble blanc brillant, avec trou pour robinet et trop-plein - 900 x 460 x 170",
       "pageCatalogue": null,
       "pageTarif": 10,
+      "prixPublicTTC": 234.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -3051,6 +3221,7 @@
       "designation": "Vasque double sur meuble blanc brillant, avec trou pour robinet et trop-plein - 1200 x 460 x 170",
       "pageCatalogue": null,
       "pageTarif": 10,
+      "prixPublicTTC": 402.0,
       "dansCatalogue": false,
       "dansTarif": true,
       "hotspot": null
@@ -3152,7 +3323,8 @@
           "nom": "Oaza Bloom",
           "designation": "Vasque à poser, semi-circulaire, blanc brillant, avec texture décorative - 490 x 305 x 125",
           "pageCatalogue": null,
-          "pageTarif": 5
+          "pageTarif": 5,
+          "prixPublicTTC": 140.4
         },
         "ignored": {
           "reference": "TR41422",
@@ -3160,7 +3332,8 @@
           "nom": "Oaza Bloom",
           "designation": "Vasque à poser, semi-circulaire, blanc brillant, avec texture décorative - 490 x 305 x 125",
           "pageCatalogue": null,
-          "pageTarif": 6
+          "pageTarif": 6,
+          "prixPublicTTC": 140.4
         }
       },
       {
@@ -3171,7 +3344,8 @@
           "nom": "Oaza Bloom",
           "designation": "Vasque à poser, semi-circulaire, blanc mat, avec texture décorative - 490 x 305 x 125",
           "pageCatalogue": null,
-          "pageTarif": 5
+          "pageTarif": 5,
+          "prixPublicTTC": 180.0
         },
         "ignored": {
           "reference": "TR41422-U20",
@@ -3179,7 +3353,8 @@
           "nom": "Oaza Bloom",
           "designation": "Vasque à poser, semi-circulaire, blanc mat, avec texture décorative - 490 x 305 x 125",
           "pageCatalogue": null,
-          "pageTarif": 6
+          "pageTarif": 6,
+          "prixPublicTTC": 180.0
         }
       },
       {
@@ -3190,7 +3365,8 @@
           "nom": "Oaza Jasmin",
           "designation": "Vasque à poser rectangulaire, blanc brillant, avec texture décorative structurée - 500 x 355 x 125",
           "pageCatalogue": null,
-          "pageTarif": 5
+          "pageTarif": 5,
+          "prixPublicTTC": 150.0
         },
         "ignored": {
           "reference": "TR41423",
@@ -3198,7 +3374,8 @@
           "nom": "Oaza Jasmin",
           "designation": "Vasque à poser rectangulaire, blanc brillant, avec texture décorative structurée - 500 x 355 x 125",
           "pageCatalogue": null,
-          "pageTarif": 6
+          "pageTarif": 6,
+          "prixPublicTTC": 150.0
         }
       },
       {
@@ -3209,7 +3386,8 @@
           "nom": "Amaro Black Vortex",
           "designation": "Cuvette de toilettes noir mat, système VORTEX - 480 x 360 x 360",
           "pageCatalogue": 44,
-          "pageTarif": 11
+          "pageTarif": 11,
+          "prixPublicTTC": 309.6
         },
         "ignored": {
           "reference": "TR2217R-U18",
@@ -3217,7 +3395,8 @@
           "nom": "Amaro Black Vortex",
           "designation": "Cuvette de toilettes noir mat, système VORTEX - 480 x 360 x 360",
           "pageCatalogue": null,
-          "pageTarif": 12
+          "pageTarif": 12,
+          "prixPublicTTC": 309.6
         }
       }
     ]

@@ -6,6 +6,8 @@
   const PRO_URL = 'tarifs-pro.html?partner=UPTREND';
   const LOGO = 'assets/img/uptrend.svg';
   const COVER = 'assets/img/uptrend-catalogue-2026.jpg?v=20260913-ui2';
+  const CART_URL = 'uptrend-commande.html';
+  const CART_KEY = 'lrfUptrendCartV1';
   let sanitaryActive = false;
 
   const $ = selector => document.querySelector(selector);
@@ -72,9 +74,8 @@
       .uptrend-action-arrow{font-size:2rem;line-height:1;color:#ad8223;text-align:right}
       .uptrend-action-pro.is-open{background:linear-gradient(135deg,#f1fbf5,#eaf8ef);border-color:#b6ddc5}
       .uptrend-action-pro.is-open .uptrend-action-icon{background:#e0f4e7;border-color:#b6ddc5;color:#24714d}
-      .uptrend-doc-foot{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:20px;padding-top:17px;border-top:1px solid rgba(190,151,55,.18)}
-      .uptrend-doc-foot span{display:flex;align-items:center;justify-content:center;gap:8px;color:#766e62;font-size:.78rem;text-align:center;padding:0 10px}
-      .uptrend-doc-foot span+span{border-left:1px solid rgba(190,151,55,.22)}.uptrend-doc-foot b{color:#a3781d;font-size:1.15rem}
+      .uptrend-cart-button{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:20px;padding:15px 18px;border-radius:16px;background:#651f2a;color:#fff;text-decoration:none;font-weight:850;box-shadow:0 8px 22px rgba(71,21,29,.18)}
+      .uptrend-cart-button b{color:#f1d398}
       @media(max-width:700px){
         body.lrf-uptrend-view #partner-panel{background:rgba(255,255,255,.90)!important}
         body.lrf-uptrend-view #mobile-partner-trigger{min-height:62px!important;padding:13px 18px!important;font-size:1rem!important}
@@ -85,10 +86,10 @@
         .uptrend-doc-layout{grid-template-columns:minmax(116px,.62fr) minmax(0,1.38fr);gap:10px}
         .uptrend-cover-card,.uptrend-cover-card>img{min-height:285px}.uptrend-cover-card{border-radius:17px}.uptrend-cover-caption{left:7px;right:7px;bottom:7px;padding:8px 9px;border-radius:11px}.uptrend-cover-caption strong{font-size:.78rem}.uptrend-cover-caption small{font-size:.65rem}
         .uptrend-actions{gap:8px}.uptrend-action{grid-template-columns:40px 1fr 14px;gap:8px;min-height:84px;padding:10px 9px;border-radius:16px}.uptrend-action-icon{width:40px;height:40px;font-size:1rem}.uptrend-action-copy strong{font-size:.86rem}.uptrend-action-copy small{font-size:.68rem;line-height:1.2}.uptrend-action-arrow{font-size:1.45rem}
-        .uptrend-doc-foot{margin-top:15px;padding-top:13px}.uptrend-doc-foot span{font-size:.66rem;gap:4px;padding:0 5px}.uptrend-doc-foot b{font-size:.95rem}
+        .uptrend-cart-button{margin-top:15px;padding:13px 15px}
       }
       @media(max-width:375px){
-        .uptrend-doc-intro{display:block}.uptrend-doc-logo{display:none}.uptrend-doc-layout{grid-template-columns:1fr}.uptrend-cover-card,.uptrend-cover-card>img{min-height:0;max-height:none}.uptrend-cover-card>img{aspect-ratio:3/4;object-fit:cover}.uptrend-action{min-height:76px}.uptrend-doc-foot{grid-template-columns:1fr;gap:8px}.uptrend-doc-foot span+span{border-left:0}.uptrend-doc-foot span{justify-content:flex-start}
+        .uptrend-doc-intro{display:block}.uptrend-doc-logo{display:none}.uptrend-doc-layout{grid-template-columns:1fr}.uptrend-cover-card,.uptrend-cover-card>img{min-height:0;max-height:none}.uptrend-cover-card>img{aspect-ratio:3/4;object-fit:cover}.uptrend-action{min-height:76px}
       }
       @media(prefers-reduced-motion:reduce){.uptrend-cover-card>img,.uptrend-action{transition:none!important}}
     `;
@@ -203,13 +204,14 @@
             </div>
           </div>
 
-          <div class="uptrend-doc-foot" aria-label="Les atouts UPTREND">
-            <span><b>◇</b> Céramique haut de gamme</span>
-            <span><b>⌁</b> Design contemporain</span>
-            <span><b>◎</b> Collection internationale</span>
-          </div>
+          <a class="uptrend-cart-button" href="${CART_URL}"><span>Voir le panier</span><b>${cartQuantity()} article${cartQuantity()>1?'s':''} ›</b></a>
         </section>`;
     }
+  }
+
+  function cartQuantity() {
+    try { return JSON.parse(localStorage.getItem(CART_KEY) || '[]').reduce((sum, item) => sum + (Number(item.quantite) || 0), 0); }
+    catch (_) { return 0; }
   }
 
   function leaveSanitary() {

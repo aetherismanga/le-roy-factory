@@ -107,11 +107,11 @@
   const path=window.location.pathname.toLowerCase();
   const scripts=[];
   if(path.endsWith('catalogues.html')){
-    scripts.push(['lrf-uptrend-catalogues-loader','assets/js/uptrend-catalogues.js?v=20260913-interactive1']);
+    scripts.push(['lrf-uptrend-catalogues-loader','assets/js/uptrend-catalogues.js?v=20260914-pdf1']);
   }else if(path.endsWith('tarifs-pro.html')){
     scripts.push(['lrf-uptrend-tarifs-loader','assets/js/uptrend-tarifs.js?v=20260913-secure3']);
   }else if(path.endsWith('univers.html')){
-    scripts.push(['lrf-uptrend-selection-loader','assets/js/uptrend-selection.js?v=20260913-ui2']);
+    scripts.push(['lrf-uptrend-selection-loader','assets/js/uptrend-selection.js?v=20260914-cart1']);
   }
   scripts.forEach(([id,src])=>{
     if(document.getElementById(id))return;
