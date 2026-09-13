@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <link rel="icon" type="image/png" href="assets/img/logo03lrf.png">
+  <title>Documents usine — LE ROY FACTORY CRM</title>
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <style>
+    :root{--gold:#d4af37;--gold-dark:#8a6b10;--ink:#18212b;--muted:#6c7480;--line:#e8e0d2;--soft:#f7f4ed}
+    *{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#f8f5ee,#fff 52%,#f3eee4);color:var(--ink);font-family:Inter,Arial,sans-serif}.page{max-width:1180px;margin:auto;padding:28px}.back{color:var(--gold-dark);font-weight:800;text-decoration:none}.hero{margin:20px 0;background:linear-gradient(135deg,#171717,#29261f);color:#fff;padding:26px;border-radius:22px;border-bottom:3px solid var(--gold)}.hero h1{margin:0 0 8px}.hero p{margin:0;color:#eee}.toolbar{display:flex;gap:12px;align-items:center;margin-bottom:18px}.toolbar input{width:100%;padding:13px 15px;border:1px solid #ddd3c3;border-radius:13px;background:#fff;font:inherit}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.factory{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 12px 30px #0000000c;display:flex;flex-direction:column;min-height:235px}.factory-head{display:flex;align-items:center;gap:13px;padding:18px;border-bottom:1px solid #eee7db;background:#fbf8f1}.factory-logo{width:76px;height:52px;border-radius:11px;background:#fff;border:1px solid #ece6db;display:flex;align-items:center;justify-content:center;overflow:hidden;flex:0 0 auto}.factory-logo img{width:90%;height:80%;object-fit:contain}.factory-logo span{font-weight:900;color:#876914;font-size:.8rem;text-align:center}.factory-head h2{font-size:1rem;margin:0}.factory-head small{color:#777}.factory-body{padding:14px 16px 16px;display:flex;flex-direction:column;flex:1}.docs{display:grid;gap:8px}.empty{font-size:.82rem;color:#888;padding:10px 0}.doc{display:grid;grid-template-columns:auto minmax(0,1fr);gap:9px;align-items:center;padding:9px;border-radius:11px;background:#f7f4ed}.doc-icon{font-size:1.2rem}.doc a{font-weight:750;color:#6f5711;text-decoration:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.doc small{display:block;color:#81786b;font-size:.68rem;margin-top:2px}.thumb{width:48px;height:48px;object-fit:cover;border-radius:8px;border:1px solid #ddd}.add{margin-top:auto;padding-top:14px}.btn{border:0;border-radius:11px;padding:11px 14px;background:#9b7917;color:#fff;font-weight:850;cursor:pointer}.btn:disabled{opacity:.6;cursor:wait}.modal{position:fixed;inset:0;background:#0009;display:none;align-items:center;justify-content:center;padding:16px;z-index:100000}.modal.open{display:flex}.panel{width:min(620px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:20px;padding:22px}.panel h2{margin-top:0}.panel label{display:block;font-weight:750;margin:12px 0 6px}.panel input,.panel textarea{width:100%;padding:12px;border:1px solid #ddd3c3;border-radius:11px;font:inherit}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.status{display:none;margin-top:10px;color:#765d12;font-weight:750}.status.show{display:block}@media(max-width:950px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:650px){.page{padding:14px}.grid{grid-template-columns:1fr}.hero{padding:20px}.factory{min-height:0}.btn{width:100%}.panel{border-radius:18px}.modal{align-items:flex-start;padding-top:24px}}
+  </style>
+</head>
+<body>
+<main class="page">
+  <a class="back" href="parametres.html">← Retour aux paramètres</a>
+  <section class="hero"><h1>Documents usine</h1><p>Documents internes partagés entre Jérôme et Coryne. PDF, images, tableaux, présentations et autres fichiers restent disponibles sur tous vos appareils.</p></section>
+  <div class="toolbar"><input id="search" type="search" placeholder="🔎 Rechercher une usine ou un document…"></div>
+  <div id="grid" class="grid"></div>
+</main>
+<div id="modal" class="modal"><form id="form" class="panel"><h2 id="modalTitle">Ajouter des documents</h2><input type="hidden" id="factoryId"><label>Description / note</label><textarea id="note" rows="3" placeholder="Ex. tarif spécial, présentation commerciale, bon de commande…"></textarea><label>Fichiers</label><input id="files" type="file" multiple required accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.csv,.txt,.zip"><p style="color:#777;font-size:.8rem">Plusieurs fichiers possibles — 20 Mo maximum par fichier.</p><div id="status" class="status">Envoi en cours…</div><div class="actions"><button class="btn" type="submit">Enregistrer</button><button class="btn" style="background:#777" type="button" id="cancel">Annuler</button></div></form></div>
+<script type="module">
+import {db,auth,getAgentProfile} from './assets/js/firebase.js?v=20260913-doc-usines1';
+import {collection,addDoc,onSnapshot,query,orderBy,serverTimestamp} from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+
+const UPLOAD_URL='https://us-central1-le-roy-factory.cloudfunctions.net/crmFilesUpload';
+const FACTORIES=[
+ ['elios-ceramica','Elios Ceramica','assets/img/elios.png'],
+ ['view-ceramica','View Ceramica','assets/img/view.png'],
+ ['reviglass','Reviglass','assets/img/reviglass.png'],
+ ['biopietra','Biopietra','assets/img/biopietra.png'],
+ ['petracers',"Petracer's",'assets/img/petracer.png'],
+ ['pecchioli-firenze','Pecchioli Firenze','assets/img/pecchioli.png'],
+ ['la-fenice','La Fenice','assets/img/lafenice.png'],
+ ['bulbo','Bulbo','assets/img/bulbo.png'],
+ ['randal-pro','Randal Pro','assets/img/randal.png'],
+ ['neobath','Neobath','assets/img/neobath.png'],
+ ['koibath','Koibath','assets/img/koibath.png'],
+ ['aquahome','Aquahome','assets/img/aquahome.png'],
+ ['opal','Opal','assets/img/opal.png'],
+ ['bilt','BILT','assets/img/bilt.png'],
+ ['uptrend','UPTREND','assets/img/uptrend.svg'],
+ ['reitano','Reitano','']
+];
+const grid=document.querySelector('#grid'),search=document.querySelector('#search'),modal=document.querySelector('#modal'),form=document.querySelector('#form'),files=document.querySelector('#files'),status=document.querySelector('#status');
+let docs=[];
+const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const fmtSize=n=>n>=1048576?(n/1048576).toFixed(1)+' Mo':n>=1024?Math.round(n/1024)+' Ko':n+' o';
+function logoHtml(id,name,src){return src?`<img src="${src}" alt="${esc(name)}" onerror="this.parentElement.innerHTML='<span>${esc(name)}</span>'">`:`<span>${esc(name)}</span>`}
+function icon(type=''){if(type.startsWith('image/'))return'🖼️';if(type.includes('pdf'))return'📕';if(type.includes('sheet')||type.includes('excel')||type.includes('csv'))return'📊';if(type.includes('word'))return'📘';if(type.includes('presentation')||type.includes('powerpoint'))return'📙';if(type.includes('zip'))return'🗜️';return'📎'}
+function render(){const q=search.value.trim().toLowerCase();const filtered=FACTORIES.filter(([id,name])=>{const related=docs.filter(d=>d.factoryId===id);return !q||name.toLowerCase().includes(q)||related.some(d=>[d.name,d.note,d.uploadedBy].join(' ').toLowerCase().includes(q))});grid.innerHTML=filtered.map(([id,name,logo])=>{const related=docs.filter(d=>d.factoryId===id);return `<section class="factory"><div class="factory-head"><div class="factory-logo">${logoHtml(id,name,logo)}</div><div><h2>${esc(name)}</h2><small>${related.length} document${related.length>1?'s':''}</small></div></div><div class="factory-body"><div class="docs">${related.length?related.map(d=>{const isImg=(d.type||'').startsWith('image/');return `<div class="doc">${isImg?`<a href="${esc(d.url)}" target="_blank" rel="noopener"><img class="thumb" src="${esc(d.url)}" alt=""></a>`:`<span class="doc-icon">${icon(d.type)}</span>`}<div><a href="${esc(d.url)}" target="_blank" rel="noopener" title="${esc(d.name)}">${esc(d.name)}</a><small>${d.note?esc(d.note)+' · ':''}${fmtSize(Number(d.size)||0)}${d.uploadedBy?' · '+esc(d.uploadedBy):''}</small></div></div>`}).join(''):'<div class="empty">Aucun document pour le moment.</div>'}</div><div class="add"><button class="btn addBtn" data-id="${id}" data-name="${esc(name)}">+ Ajouter des documents</button></div></div></section>`}).join('')}
+search.addEventListener('input',render);
+grid.addEventListener('click',e=>{const b=e.target.closest('.addBtn');if(!b)return;form.reset();document.querySelector('#factoryId').value=b.dataset.id;document.querySelector('#modalTitle').textContent='Ajouter — '+b.dataset.name;status.classList.remove('show');modal.classList.add('open')});
+document.querySelector('#cancel').onclick=()=>modal.classList.remove('open');
+modal.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('open')});
+function fileToBase64(file){return new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>{const s=String(r.result||'');resolve(s.includes(',')?s.slice(s.indexOf(',')+1):s)};r.onerror=()=>reject(new Error('Impossible de lire '+file.name));r.readAsDataURL(file)})}
+async function upload(factoryId,file,profile){if(file.size>20*1024*1024)throw new Error(file.name+' dépasse 20 Mo.');const user=auth.currentUser;if(!user)throw new Error('Session CRM expirée.');const token=await user.getIdToken();const base64=await fileToBase64(file);const response=await fetch(UPLOAD_URL,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify({scope:'usine-documents',parentId:factoryId,fileName:file.name,contentType:file.type||'application/octet-stream',base64})});const payload=await response.json().catch(()=>({}));if(!response.ok||!payload.success||!payload.file)throw new Error(payload.error||'Échec de l’envoi de '+file.name);return payload.file}
+form.addEventListener('submit',async e=>{e.preventDefault();const profile=getAgentProfile(auth.currentUser);if(!profile){alert('Session CRM expirée. Reconnectez-vous.');return}const factoryId=document.querySelector('#factoryId').value;const factory=FACTORIES.find(x=>x[0]===factoryId);const selected=Array.from(files.files||[]);if(!factory||!selected.length)return;const submit=form.querySelector('button[type="submit"]');submit.disabled=true;status.classList.add('show');try{for(let i=0;i<selected.length;i++){status.textContent=`Envoi ${i+1}/${selected.length} : ${selected[i].name}…`;const f=await upload(factoryId,selected[i],profile);await addDoc(collection(db,'usineDocuments'),{factoryId,factoryName:factory[1],name:f.name,url:f.url,type:f.type,size:f.size,path:f.path,note:document.querySelector('#note').value.trim(),uploadedBy:profile.name,uploadedByEmail:profile.email,createdAt:serverTimestamp()})}modal.classList.remove('open');form.reset()}catch(err){console.error(err);alert(err?.message||'Impossible d’enregistrer le document.')}finally{submit.disabled=false;status.classList.remove('show');status.textContent='Envoi en cours…'}});
+onSnapshot(query(collection(db,'usineDocuments'),orderBy('createdAt','desc')),snap=>{docs=snap.docs.map(d=>({id:d.id,...d.data()}));render()},err=>{console.error(err);grid.innerHTML='<div class="factory" style="padding:20px">Impossible de charger les documents. Vérifiez les droits Firebase.</div>'});
+render();
+</script>
+</body>
+</html>
