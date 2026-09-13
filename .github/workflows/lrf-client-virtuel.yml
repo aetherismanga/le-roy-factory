@@ -9,48 +9,130 @@ on:
       - 'tests/**'
       - 'package.json'
       - 'playwright.config.cjs'
+      - 'scripts/resolve-site-control.cjs'
       - '.github/workflows/lrf-client-virtuel.yml'
   schedule:
-    - cron: '15 5 * * *'
+    - cron: '*/5 * * * *'
   workflow_dispatch:
+    inputs:
+      runs:
+        description: 'Nombre de passages (1 a 20)'
+        required: false
+        default: '1'
+      devices:
+        description: 'Appareils separes par des virgules'
+        required: false
+        default: 'desktop-chrome,iphone-webkit,android-chrome'
+      scope:
+        description: 'Zone: all, navigation, accueil, selections, elios, configurateurs, catalogues, contact'
+        required: false
+        default: 'all'
+      intensity:
+        description: 'Intensite: quick, normal ou full'
+        required: false
+        default: 'normal'
 
 permissions:
   contents: read
 
 concurrency:
-  group: lrf-client-virtuel-${{ github.ref }}
-  cancel-in-progress: true
+  group: lrf-client-virtuel
+  cancel-in-progress: false
+
+env:
+  BASE_URL: https://leroyfactory.fr
+  CONTROL_URL: https://us-central1-le-roy-factory.cloudfunctions.net/siteControl
 
 jobs:
   client-virtuel:
     name: Navigation client + PC + mobile + images
     runs-on: ubuntu-latest
-    timeout-minutes: 25
-    env:
-      BASE_URL: https://leroyfactory.fr
+    timeout-minutes: 60
     steps:
       - name: Recuperer le site
         uses: actions/checkout@v4
 
+      - name: Lire les commandes du Test Center
+        if: github.event_name == 'schedule'
+        run: |
+          if ! curl --fail --silent --show-error --max-time 20 "$CONTROL_URL" > control.json; then
+            echo '{"config":{"enabled":false,"schedule":{"enabled":false}}}' > control.json
+          fi
+
+      - name: Resoudre le controle a executer
+        id: control
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          GITHUB_SHA: ${{ github.sha }}
+          GITHUB_RUN_ID: ${{ github.run_id }}
+          INPUT_RUNS: ${{ inputs.runs }}
+          INPUT_DEVICES: ${{ inputs.devices }}
+          INPUT_SCOPE: ${{ inputs.scope }}
+          INPUT_INTENSITY: ${{ inputs.intensity }}
+          CONTROL_FILE: control.json
+        run: node scripts/resolve-site-control.cjs
+
+      - name: Verifier si ce controle a deja ete lance
+        if: steps.control.outputs.should_run == 'true' && github.event_name == 'schedule'
+        id: dedupe
+        uses: actions/cache/restore@v4
+        with:
+          path: .lrf-client-control
+          key: lrf-test-${{ steps.control.outputs.run_key }}
+
+      - name: Autoriser le passage
+        id: gate
+        env:
+          SHOULD_RUN: ${{ steps.control.outputs.should_run }}
+          CACHE_HIT: ${{ steps.dedupe.outputs.cache-hit }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          if [ "$SHOULD_RUN" != "true" ]; then
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if [ "$EVENT_NAME" = "schedule" ] && [ "$CACHE_HIT" = "true" ]; then
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          mkdir -p .lrf-client-control
+          printf '%s\n' "${{ steps.control.outputs.run_key }}" > .lrf-client-control/last-run-key.txt
+          echo "run=true" >> "$GITHUB_OUTPUT"
+
       - name: Installer Node.js
+        if: steps.gate.outputs.run == 'true'
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: Installer Playwright
+        if: steps.gate.outputs.run == 'true'
         run: |
           npm install --no-audit --no-fund
           npx playwright install --with-deps chromium webkit
 
       - name: Laisser le site public se mettre a jour
-        if: github.event_name == 'push'
+        if: steps.gate.outputs.run == 'true' && github.event_name == 'push'
         run: sleep 45
 
       - name: Faire naviguer le client virtuel
+        if: steps.gate.outputs.run == 'true'
+        env:
+          LRF_RUNS: ${{ steps.control.outputs.runs }}
+          LRF_DEVICES: ${{ steps.control.outputs.devices }}
+          LRF_SCOPE: ${{ steps.control.outputs.scope }}
+          LRF_INTENSITY: ${{ steps.control.outputs.intensity }}
         run: npm run test:e2e
 
+      - name: Memoriser le controle programme
+        if: always() && steps.gate.outputs.run == 'true' && github.event_name == 'schedule'
+        uses: actions/cache/save@v4
+        with:
+          path: .lrf-client-control
+          key: lrf-test-${{ steps.control.outputs.run_key }}
+
       - name: Conserver rapport captures traces et videos
-        if: always()
+        if: always() && steps.gate.outputs.run == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: lrf-client-virtuel-${{ github.run_number }}
