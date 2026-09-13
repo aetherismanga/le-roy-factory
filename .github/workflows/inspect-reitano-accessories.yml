@@ -11,22 +11,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Decode catalogue links
+      - name: Inspect catalogue page links
         shell: bash
         run: |
           set -euo pipefail
           curl -fL -A 'Mozilla/5.0' 'https://www.reitano-rubinetteria.com/it/cataloghi' -o /tmp/cataloghi.html
           python3 - <<'PY'
-          import re,base64,html
+          import re,html
           raw=html.unescape(open('/tmp/cataloghi.html',encoding='utf-8',errors='ignore').read()).replace('\\/','/')
-          vals=re.findall(r'atob\(["\']([^"\']+)["\']\)',raw,re.I)
-          print('ATOB COUNT',len(vals))
-          for v in vals:
-              try:
-                  print(base64.b64decode(v).decode('utf-8','ignore'))
-              except Exception as e:
-                  print('DECODE ERROR',e)
-          print('DIRECT PDF URLS')
-          for u in re.findall(r'https?://[^"\'<>\s]+?\.pdf(?:\?[^"\'<>\s]*)?',raw,re.I):
-              print(u)
+          for m in re.finditer(r'<a\b[^>]*href=["\']([^"\']+)["\'][^>]*>(.*?)</a>',raw,re.I|re.S):
+              href=m.group(1)
+              text=re.sub('<[^>]+>',' ',m.group(2))
+              text=' '.join(text.split())
+              if any(k in (href+' '+text).lower() for k in ['catalog','accessor','sfoglia','2026']):
+                  print('LINK',href,'TEXT',text[:160])
+          print('--- lines with catalogue/accessory/iframe/data ---')
+          for line in raw.splitlines():
+              lo=line.lower()
+              if any(k in lo for k in ['accessor','catalogo','cataloghi','iframe','data-url','data-src','dearflip','dflip']):
+                  print(line[:1000])
           PY
