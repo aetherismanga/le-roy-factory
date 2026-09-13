@@ -1,0 +1,61 @@
+name: LRF - Client virtuel
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**/*.html'
+      - 'assets/**'
+      - 'tests/**'
+      - 'package.json'
+      - 'playwright.config.cjs'
+      - '.github/workflows/lrf-client-virtuel.yml'
+  schedule:
+    - cron: '15 5 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lrf-client-virtuel-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  client-virtuel:
+    name: Navigation client + PC + mobile + images
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      BASE_URL: https://leroyfactory.fr
+    steps:
+      - name: Recuperer le site
+        uses: actions/checkout@v4
+
+      - name: Installer Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Installer Playwright
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium webkit
+
+      - name: Laisser le site public se mettre a jour
+        if: github.event_name == 'push'
+        run: sleep 45
+
+      - name: Faire naviguer le client virtuel
+        run: npm run test:e2e
+
+      - name: Conserver rapport captures traces et videos
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lrf-client-virtuel-${{ github.run_number }}
+          path: |
+            playwright-report/
+            test-results/
+          if-no-files-found: ignore
+          retention-days: 14
