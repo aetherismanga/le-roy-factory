@@ -26,55 +26,41 @@
     return '';
   }
 
-  function readProduct(target) {
-    const scope = target?.closest?.('[data-product-ref],[data-ref],[data-product],[data-collection],form,.modal,.dialog') || document;
-    const ref = clean(scope.querySelector?.('[data-product-ref],[data-ref]')?.dataset?.productRef || scope.querySelector?.('[data-ref]')?.dataset?.ref || '');
-    const name = clean(scope.querySelector?.('[data-product-name],[data-product]')?.dataset?.productName || scope.querySelector?.('[data-product]')?.dataset?.product || scope.querySelector?.('h2,h3,.product-name,.pname')?.textContent || '');
-    const collection = clean(scope.querySelector?.('[data-collection]')?.dataset?.collection || '');
-    return { productRef: ref, productName: name, collection };
-  }
-
-  function trackOrder(partner, target, source) {
+  function trackConfirmedOrder(partner, extras = {}) {
     const api = window.LRF_ANALYTICS;
     const session = window.LRF_PRO_SESSION?.read?.() || window.LRF_PRO_CONTEXT || null;
     if (!api?.track || !session || session.isAdmin || !session.sessionToken) return;
-    const extras = readProduct(target);
-    extras.partner = partner || partnerFromPage();
-    extras.source = source || 'order-confirmation';
-    const key = [session.codeClient, extras.partner, extras.productRef, extras.productName, Math.floor(Date.now()/10000)].join('|');
+
+    const payload = {
+      partner: clean(partner || extras.partner || partnerFromPage(), 80),
+      productRef: clean(extras.productRef, 80),
+      productName: clean(extras.productName, 180),
+      collection: clean(extras.collection, 120),
+      orderId: clean(extras.orderId, 120),
+      source: clean(extras.source || 'order-confirmed', 50)
+    };
+
+    const key = [session.codeClient, payload.partner, payload.orderId, payload.productRef, payload.productName].join('|');
     if (sent.has(key)) return;
     sent.set(key, Date.now());
-    api.track('order_view', extras);
+    api.track('order_view', payload);
   }
 
-  function looksLikeOrder(text) {
-    const t = norm(text);
-    return t.includes('commande') && !t.includes('disponibilite');
-  }
+  // IMPORTANT : aucune commande n'est déduite d'un clic, d'un formulaire ouvert,
+  // d'un aperçu ou d'un simple submit. Le suivi n'est déclenché qu'après confirmation
+  // explicite du code métier qu'une commande a réellement été envoyée/enregistrée.
+  window.addEventListener('lrf-order-sent', event => {
+    const detail = event?.detail || {};
+    trackConfirmedOrder(detail.partner, detail);
+  });
 
-  document.addEventListener('submit', event => {
-    const form = event.target;
-    if (!(form instanceof HTMLFormElement)) return;
-    const text = `${form.id} ${form.className} ${form.textContent || ''} ${document.querySelector('#view-order-title')?.textContent || ''}`;
-    if (!looksLikeOrder(text)) return;
-    trackOrder(partnerFromPage(), form, `submit:${form.id || 'order-form'}`);
-  }, true);
-
-  document.addEventListener('click', event => {
-    const target = event.target instanceof Element ? event.target.closest('button,a,[role="button"]') : null;
-    if (!target) return;
-    const text = `${target.id} ${target.className} ${target.getAttribute('aria-label') || ''} ${target.textContent || ''}`;
-    const id = String(target.id || '');
-    const known = ['order-review-confirm','submit-order','rev-prepare','view-order-submit'].includes(id);
-    if (!known && !looksLikeOrder(text)) return;
-    if (/modifier|retour|historique|annuler|disponibilit/i.test(text)) return;
-    const partner = id === 'submit-order' ? 'bilt' : id.startsWith('rev-') ? 'reviglass' : partnerFromPage();
-    setTimeout(() => trackOrder(partner, target, `click:${id || 'order-button'}`), 0);
-  }, true);
-
-  window.LRF_ORDER_ANALYTICS = { track: (partner, extras = {}) => {
-    const api = window.LRF_ANALYTICS;
-    if (!api?.track) return;
-    api.track('order_view', { partner: clean(partner, 80), ...extras, source: extras.source || 'explicit-order' });
-  }};
+  window.LRF_ORDER_ANALYTICS = {
+    trackConfirmed: (partner, extras = {}) => trackConfirmedOrder(partner, extras),
+    // Compatibilité : track() reste disponible mais exige une source explicitement confirmée.
+    track: (partner, extras = {}) => {
+      const source = clean(extras.source, 50).toLowerCase();
+      if (!/(confirmed|sent|success|envoy)/.test(source)) return;
+      trackConfirmedOrder(partner, extras);
+    }
+  };
 })();
