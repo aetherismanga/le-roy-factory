@@ -12,19 +12,36 @@ permissions:
   contents: read
 
 jobs:
-  identify-service-account:
+  import-uptrend:
     runs-on: ubuntu-latest
     steps:
-      - name: Authenticate to Google Cloud
+      - name: Authenticate to Google Cloud and Drive
         id: auth
         uses: google-github-actions/auth@v2
         with:
           credentials_json: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_LE_ROY_FACTORY }}'
-      - name: Identify Firebase deployment service account
+          token_format: access_token
+          access_token_scopes: 'https://www.googleapis.com/auth/cloud-platform,https://www.googleapis.com/auth/drive.readonly'
+
+      - name: Download exact UPTREND PDF from private Drive bridge
+        env:
+          ACCESS_TOKEN: '${{ steps.auth.outputs.access_token }}'
         shell: bash
         run: |
-          python - <<'PY'
-          import json, os
-          with open(os.environ['GOOGLE_APPLICATION_CREDENTIALS'], 'r', encoding='utf-8') as f:
-              print('LRF_SERVICE_ACCOUNT=' + json.load(f)['client_email'])
-          PY
+          set -euo pipefail
+          curl --fail --location --retry 3 \
+            -H "Authorization: Bearer ${ACCESS_TOKEN}" \
+            'https://www.googleapis.com/drive/v3/files/1BW2GKn_OApS12EsA4q645mLH1ff9aCx4?alt=media' \
+            --output /tmp/uptrend2026.pdf
+          test "$(sha256sum /tmp/uptrend2026.pdf | awk '{print $1}')" = 'e5fd7b6492327091e971120c22b3734cdd298c3cae9c7a8e4c8a885080e0a761'
+          test "$(stat -c%s /tmp/uptrend2026.pdf)" = '1356942'
+
+      - name: Store UPTREND in private Firebase tariff storage
+        shell: bash
+        run: |
+          set -euo pipefail
+          gcloud storage cp /tmp/uptrend2026.pdf 'gs://le-roy-factory.firebasestorage.app/private-tariffs/uptrend/uptrend2026.pdf'
+          gcloud storage objects update 'gs://le-roy-factory.firebasestorage.app/private-tariffs/uptrend/uptrend2026.pdf' \
+            --content-type='application/pdf' \
+            --cache-control='private,no-store,max-age=0'
+          gcloud storage ls -l 'gs://le-roy-factory.firebasestorage.app/private-tariffs/uptrend/uptrend2026.pdf'
