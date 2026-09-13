@@ -1,0 +1,14 @@
+.aq-cover-mode {
+  position: absolute;
+  z-index: 5;
+  left: 35%;
+  bottom: 2.1%;
+  width: 30%;
+  padding: .5% 1%;
+  border-radius: 999px;
+  background: rgba(58, 38, 36, .92);
+  color: #fff;
+  text-align: center;
+  font: 800 clamp(8px, calc(var(--page-base) * .013), 16px)/1.2 Arial, sans-serif;
+  letter-spacing: .08em;
+}
