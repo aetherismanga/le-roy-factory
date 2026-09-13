@@ -1,5 +1,5 @@
 (() => {
-  const TARIF_URL = 'assets/pdf/UPTREND_2026_Tarif_PRO_HT_-50_CONDITIONS.pdf';
+  const TARIF_URL = 'assets/pdf/uptrend2026.pdf';
 
   function appendCard() {
     const grid = document.getElementById('grid-tarifs');

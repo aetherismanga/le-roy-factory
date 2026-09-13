@@ -1,0 +1,3225 @@
+{
+  "version": "2026-09-13",
+  "cataloguePages": 60,
+  "tarifPages": 17,
+  "pageSizes": {
+    "1": [
+      595.28,
+      841.89
+    ],
+    "2": [
+      595.28,
+      841.89
+    ],
+    "3": [
+      595.28,
+      841.89
+    ],
+    "4": [
+      595.28,
+      841.89
+    ],
+    "5": [
+      595.28,
+      841.89
+    ],
+    "6": [
+      595.28,
+      841.89
+    ],
+    "7": [
+      595.28,
+      841.89
+    ],
+    "8": [
+      595.28,
+      841.89
+    ],
+    "9": [
+      595.28,
+      841.89
+    ],
+    "10": [
+      595.28,
+      841.89
+    ],
+    "11": [
+      595.28,
+      841.89
+    ],
+    "12": [
+      595.28,
+      841.89
+    ],
+    "13": [
+      595.28,
+      841.89
+    ],
+    "14": [
+      595.28,
+      841.89
+    ],
+    "15": [
+      595.28,
+      841.89
+    ],
+    "16": [
+      595.28,
+      841.89
+    ],
+    "17": [
+      595.28,
+      841.89
+    ],
+    "18": [
+      595.28,
+      841.89
+    ],
+    "19": [
+      595.28,
+      841.89
+    ],
+    "20": [
+      595.28,
+      841.89
+    ],
+    "21": [
+      595.28,
+      841.89
+    ],
+    "22": [
+      595.28,
+      841.89
+    ],
+    "23": [
+      595.28,
+      841.89
+    ],
+    "24": [
+      595.28,
+      841.89
+    ],
+    "25": [
+      595.28,
+      841.89
+    ],
+    "26": [
+      595.28,
+      841.89
+    ],
+    "27": [
+      595.28,
+      841.89
+    ],
+    "28": [
+      595.28,
+      841.89
+    ],
+    "29": [
+      595.28,
+      841.89
+    ],
+    "30": [
+      595.28,
+      841.89
+    ],
+    "31": [
+      595.28,
+      841.89
+    ],
+    "32": [
+      595.28,
+      841.89
+    ],
+    "33": [
+      595.28,
+      841.89
+    ],
+    "34": [
+      595.28,
+      841.89
+    ],
+    "35": [
+      595.28,
+      841.89
+    ],
+    "36": [
+      595.28,
+      841.89
+    ],
+    "37": [
+      595.28,
+      841.89
+    ],
+    "38": [
+      595.28,
+      841.89
+    ],
+    "39": [
+      595.28,
+      841.89
+    ],
+    "40": [
+      595.28,
+      841.89
+    ],
+    "41": [
+      595.28,
+      841.89
+    ],
+    "42": [
+      595.28,
+      841.89
+    ],
+    "43": [
+      595.28,
+      841.89
+    ],
+    "44": [
+      595.28,
+      841.89
+    ],
+    "45": [
+      595.28,
+      841.89
+    ],
+    "46": [
+      595.28,
+      841.89
+    ],
+    "47": [
+      595.28,
+      841.89
+    ],
+    "48": [
+      595.28,
+      841.89
+    ],
+    "49": [
+      595.28,
+      841.89
+    ],
+    "50": [
+      595.28,
+      841.89
+    ],
+    "51": [
+      595.28,
+      841.89
+    ],
+    "52": [
+      595.28,
+      841.89
+    ],
+    "53": [
+      595.28,
+      841.89
+    ],
+    "54": [
+      595.28,
+      841.89
+    ],
+    "55": [
+      595.28,
+      841.89
+    ],
+    "56": [
+      595.28,
+      841.89
+    ],
+    "57": [
+      595.28,
+      841.89
+    ],
+    "58": [
+      595.28,
+      841.89
+    ],
+    "59": [
+      595.28,
+      841.89
+    ],
+    "60": [
+      595.28,
+      841.89
+    ]
+  },
+  "products": {
+    "STR4148A": {
+      "reference": "STR4148A",
+      "nom": "Medusa L",
+      "designation": "Vasque à poser/murale blanc brillant, avec trou pour robinet et trop-plein - 38° x 380 x 130",
+      "pageCatalogue": null,
+      "pageTarif": 5,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "STR4295": {
+      "reference": "STR4295",
+      "nom": "",
+      "designation": "",
+      "pageCatalogue": 28,
+      "pageTarif": null,
+      "dansCatalogue": true,
+      "dansTarif": false,
+      "hotspot": {
+        "reference": "STR4295",
+        "page": 28,
+        "bbox": [
+          368.06,
+          349.59,
+          431.3,
+          380.74
+        ],
+        "fontSize": 12.0,
+        "text": "STR4295"
+      }
+    },
+    "STR4295A": {
+      "reference": "STR4295A",
+      "nom": "Devo Left",
+      "designation": "Vasque murale blanc brillant, avec trou pour robinet et trop-plein, côté gauche - 270 x 405 x 140",
+      "pageCatalogue": 28,
+      "pageTarif": 7,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "STR4295A",
+        "page": 28,
+        "bbox": [
+          26.020000000000003,
+          203.32,
+          97.49,
+          234.47
+        ],
+        "fontSize": 12.0,
+        "text": "STR4295A"
+      }
+    },
+    "STR4299": {
+      "reference": "STR4299",
+      "nom": "Cherry L",
+      "designation": "Vasque murale blanc brillant, avec trou pour robinet et trop-plein - 445 x 320 x 125",
+      "pageCatalogue": 32,
+      "pageTarif": 8,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "STR4299",
+        "page": 32,
+        "bbox": [
+          368.06,
+          349.31,
+          431.74,
+          380.46
+        ],
+        "fontSize": 12.0,
+        "text": "STR4299"
+      }
+    },
+    "STR4318": {
+      "reference": "STR4318",
+      "nom": "Pascal",
+      "designation": "Vasque murale/à poser blanc brillant, avec trou pour robinet - 435 x 345 x 130",
+      "pageCatalogue": 31,
+      "pageTarif": 7,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "STR4318",
+        "page": 31,
+        "bbox": [
+          396.41,
+          640.76,
+          458.84,
+          671.92
+        ],
+        "fontSize": 12.0,
+        "text": "STR4318"
+      }
+    },
+    "STR4335": {
+      "reference": "STR4335",
+      "nom": "Dalia",
+      "designation": "Vasque murale/à poser blanc brillant, avec trou de robinetterie et trop-plein - 550 x 310x 125",
+      "pageCatalogue": 30,
+      "pageTarif": 7,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "STR4335",
+        "page": 30,
+        "bbox": [
+          368.06,
+          218.77,
+          439.91,
+          252.62
+        ],
+        "fontSize": 14.0,
+        "text": "STR4335"
+      }
+    },
+    "STR4381": {
+      "reference": "STR4381",
+      "nom": "Zeva",
+      "designation": "Vasque murale blanc brillant, avec trou pour robinet, côté gauche - 585 x 295 x 130",
+      "pageCatalogue": 28,
+      "pageTarif": 7,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "STR4381",
+        "page": 28,
+        "bbox": [
+          368.06,
+          642.12,
+          431.29,
+          673.28
+        ],
+        "fontSize": 12.0,
+        "text": "STR4381"
+      }
+    },
+    "STRA4295": {
+      "reference": "STRA4295",
+      "nom": "Devo Right",
+      "designation": "Vasque murale blanc brillant, avec trou pour robinet et trop-plein, côté droit - 270 x 405 x 140",
+      "pageCatalogue": 28,
+      "pageTarif": 7,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR2085": {
+      "reference": "TR2085",
+      "nom": "Ovo",
+      "designation": "Cuvette de toilettes blanc brillant - 495 x 405 x 350",
+      "pageCatalogue": null,
+      "pageTarif": 12,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR2122D": {
+      "reference": "TR2122D",
+      "nom": "Accord",
+      "designation": "Cuvette de toilettes blanc brillant, sans rebord - 555 x 370 x 340",
+      "pageCatalogue": null,
+      "pageTarif": 12,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR2155P": {
+      "reference": "TR2155-P",
+      "nom": "Kano",
+      "designation": "Cuvette de toilettes compact blanc brillant - 690 x 375 x 800",
+      "pageCatalogue": null,
+      "pageTarif": 12,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR2196D": {
+      "reference": "TR2196D",
+      "nom": "Caneo",
+      "designation": "Cuvette de toilettes blanc brillant - 490 x 360 x 360",
+      "pageCatalogue": 44,
+      "pageTarif": 11,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR2196D",
+        "page": 44,
+        "bbox": [
+          368.06,
+          544.61,
+          431.67,
+          575.76
+        ],
+        "fontSize": 12.0,
+        "text": "TR2196D"
+      }
+    },
+    "TR2196DF": {
+      "reference": "TR2196DF",
+      "nom": "Caneo Vortex",
+      "designation": "Cuvette de toilettes blanc brillant, système VORTEX - 490 x 360 x 360",
+      "pageCatalogue": 44,
+      "pageTarif": 11,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR2196DF",
+        "page": 44,
+        "bbox": [
+          368.06,
+          677.06,
+          437.51,
+          708.22
+        ],
+        "fontSize": 12.0,
+        "text": "TR2196DF"
+      }
+    },
+    "TR2196DFU18": {
+      "reference": "TR2196DF-U18",
+      "nom": "Caneo Black Vortex",
+      "designation": "Cuvette de toilettes noir mat, système VORTEX - 490 x 360 x 360",
+      "pageCatalogue": 45,
+      "pageTarif": 11,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR2196DF-U18",
+        "page": 45,
+        "bbox": [
+          396.41,
+          619.33,
+          490.14,
+          650.48
+        ],
+        "fontSize": 12.0,
+        "text": "TR2196DF-U18"
+      }
+    },
+    "TR2196DU18": {
+      "reference": "TR2196D-U18",
+      "nom": "",
+      "designation": "",
+      "pageCatalogue": 45,
+      "pageTarif": null,
+      "dansCatalogue": true,
+      "dansTarif": false,
+      "hotspot": {
+        "reference": "TR2196D-U18",
+        "page": 45,
+        "bbox": [
+          396.41,
+          141.72,
+          496.57,
+          175.57
+        ],
+        "fontSize": 14.0,
+        "text": "TR2196D-U18"
+      }
+    },
+    "TR2196U18": {
+      "reference": "TR2196-U18",
+      "nom": "Caneo Black",
+      "designation": "Cuvette de toilettes noir mat - 490 x 360 x 360",
+      "pageCatalogue": 45,
+      "pageTarif": 11,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR2197": {
+      "reference": "TR2197",
+      "nom": "Corona",
+      "designation": "Cuvette de toilettes blanc brillant, RIMLESS - 500 x 360 x 355",
+      "pageCatalogue": 46,
+      "pageTarif": 11,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR2197",
+        "page": 46,
+        "bbox": [
+          368.06,
+          83.88,
+          423.66,
+          115.03
+        ],
+        "fontSize": 12.0,
+        "text": "TR2197"
+      }
+    },
+    "TR2210": {
+      "reference": "TR2210",
+      "nom": "Milagro Vortex",
+      "designation": "Cuvette de toilettes blanc brillant, système VORTEX - 520 x 360 x 360",
+      "pageCatalogue": 47,
+      "pageTarif": 11,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR2210",
+        "page": 47,
+        "bbox": [
+          396.41,
+          83.9,
+          452.39,
+          115.05
+        ],
+        "fontSize": 12.0,
+        "text": "TR2210"
+      }
+    },
+    "TR2216": {
+      "reference": "TR2216",
+      "nom": "Gravis",
+      "designation": "Cuvette de toilettes blanc brillant - 505 x 350 x 345",
+      "pageCatalogue": 46,
+      "pageTarif": 11,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR2216",
+        "page": 46,
+        "bbox": [
+          26.020000000000003,
+          300.83,
+          81.7,
+          331.98
+        ],
+        "fontSize": 12.0,
+        "text": "TR2216"
+      }
+    },
+    "TR2216R": {
+      "reference": "TR2216R",
+      "nom": "Gravis Vortex",
+      "designation": "Cuvette de toilettes blanc brillant, système VORTEX - 505 x 350 x 345",
+      "pageCatalogue": 46,
+      "pageTarif": 11,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR2216R",
+        "page": 46,
+        "bbox": [
+          26.020000000000003,
+          433.28,
+          88.55,
+          464.44
+        ],
+        "fontSize": 12.0,
+        "text": "TR2216R"
+      }
+    },
+    "TR2217": {
+      "reference": "TR2217",
+      "nom": "NOM Amaro",
+      "designation": "DESIGNATION PRODUIT Cuvette de toilettes blanc brillant - 480 x 360 x 360",
+      "pageCatalogue": 44,
+      "pageTarif": 11,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR2217",
+        "page": 44,
+        "bbox": [
+          368.06,
+          57.05,
+          423.66,
+          88.21
+        ],
+        "fontSize": 12.0,
+        "text": "TR2217"
+      }
+    },
+    "TR2217R": {
+      "reference": "TR2217R",
+      "nom": "Amaro Vortex",
+      "designation": "Cuvette de toilettes blanc brillant, système VORTEX - 480 x 360 x 360",
+      "pageCatalogue": 44,
+      "pageTarif": 11,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR2217R",
+        "page": 44,
+        "bbox": [
+          368.06,
+          189.5,
+          430.6,
+          220.66
+        ],
+        "fontSize": 12.0,
+        "text": "TR2217R"
+      }
+    },
+    "TR2217RU18": {
+      "reference": "TR2217R-U18",
+      "nom": "Amaro Black Vortex",
+      "designation": "Cuvette de toilettes noir mat, système VORTEX - 480 x 360 x 360",
+      "pageCatalogue": 44,
+      "pageTarif": 11,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR2217R-U18",
+        "page": 44,
+        "bbox": [
+          26.020000000000003,
+          347.67,
+          112.67,
+          378.82
+        ],
+        "fontSize": 12.0,
+        "text": "TR2217R-U18"
+      }
+    },
+    "TR2217RU20": {
+      "reference": "TR2217R-U20",
+      "nom": "Amaro",
+      "designation": "Cuvette de toilettes blanc mat, système VORTEX - 480 x 360 x 360",
+      "pageCatalogue": null,
+      "pageTarif": 12,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR2224": {
+      "reference": "TR2224",
+      "nom": "NOM Kral",
+      "designation": "DESIGNATION PRODUIT Cuvette de toilettes compact, blanc brillant, RIMLESS - 615 x 360 x 745",
+      "pageCatalogue": 54,
+      "pageTarif": 12,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR2224",
+        "page": 54,
+        "bbox": [
+          396.41,
+          261.72,
+          460.79,
+          295.56
+        ],
+        "fontSize": 14.0,
+        "text": "TR2224"
+      }
+    },
+    "TR2237": {
+      "reference": "TR2237",
+      "nom": "Orion",
+      "designation": "Cuvette de toilettes fonction bidet, blanc brillant, RIMLESS - 510 x 350 x 350",
+      "pageCatalogue": 47,
+      "pageTarif": 11,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR2237",
+        "page": 47,
+        "bbox": [
+          396.41,
+          571.56,
+          453.28,
+          602.71
+        ],
+        "fontSize": 12.0,
+        "text": "TR2237"
+      }
+    },
+    "TR2239": {
+      "reference": "TR2239",
+      "nom": "Monesi",
+      "designation": "Cuvette de toilettes fonction bidet, blanc brillant, RIMLESS - 500 x 355 x 350",
+      "pageCatalogue": 47,
+      "pageTarif": 11,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR2239",
+        "page": 47,
+        "bbox": [
+          54.36,
+          327.78,
+          111.31,
+          358.94
+        ],
+        "fontSize": 12.0,
+        "text": "TR2239"
+      }
+    },
+    "TR2241": {
+      "reference": "TR2241",
+      "nom": "Loano Vortex",
+      "designation": "Cuvette de toilettes blanc brillant, système VORTEX - 500 x 355 x 350",
+      "pageCatalogue": 46,
+      "pageTarif": 11,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR2241",
+        "page": 46,
+        "bbox": [
+          368.06,
+          571.54,
+          424.66,
+          602.69
+        ],
+        "fontSize": 12.0,
+        "text": "TR2241"
+      }
+    },
+    "TR2263": {
+      "reference": "TR2263",
+      "nom": "Nubia",
+      "designation": "Cuvette de toilettes, blanc brillant, texture décorative, système VORTEX - 490 x 355 x 340",
+      "pageCatalogue": null,
+      "pageTarif": 12,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR2263U20": {
+      "reference": "TR2263-U20",
+      "nom": "Nubia",
+      "designation": "Cuvette de toilettes, blanc mat, texture cannelée, système VORTEX - 490 x 355 x 340",
+      "pageCatalogue": null,
+      "pageTarif": 12,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR4008": {
+      "reference": "TR4008",
+      "nom": "Coma",
+      "designation": "Vasque sous-plan ovale blanc brillant, avec trop-plein - 570 x 420 x 210",
+      "pageCatalogue": 37,
+      "pageTarif": 11,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR4008",
+        "page": 37,
+        "bbox": [
+          54.36,
+          203.32,
+          112.04,
+          234.47
+        ],
+        "fontSize": 12.0,
+        "text": "TR4008"
+      }
+    },
+    "TR40152": {
+      "reference": "TR40152",
+      "nom": "Amigo",
+      "designation": "Vasque murale blanc brillant, avec trou pour robinet - 570 x 400 x 130",
+      "pageCatalogue": 27,
+      "pageTarif": 7,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR40152",
+        "page": 27,
+        "bbox": [
+          54.36,
+          203.32,
+          116.74,
+          234.47
+        ],
+        "fontSize": 12.0,
+        "text": "TR40152"
+      }
+    },
+    "TR40166": {
+      "reference": "TR40166",
+      "nom": "Smoll",
+      "designation": "Vasque à poser blanc brillant - 285 x 270 x 140",
+      "pageCatalogue": null,
+      "pageTarif": 6,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR40182": {
+      "reference": "TR40182",
+      "nom": "Shell",
+      "designation": "Vasque à poser blanc brillant - 395 x 240 x 110",
+      "pageCatalogue": null,
+      "pageTarif": 6,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR4031": {
+      "reference": "TR4031",
+      "nom": "Melia",
+      "designation": "Vasque à poser blanc brillant avec trou de robinetterie et trop-plein - 560 x 460 x 140",
+      "pageCatalogue": 21,
+      "pageTarif": 4,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR4031",
+        "page": 21,
+        "bbox": [
+          54.36,
+          494.07,
+          110.79,
+          525.22
+        ],
+        "fontSize": 12.0,
+        "text": "TR4031"
+      }
+    },
+    "TR4032": {
+      "reference": "TR4032",
+      "nom": "Vasque Medusa XL robinet",
+      "designation": "murale/à poser blanc brillant, avec trou pour et trop-plein - 465 x 465 x 135",
+      "pageCatalogue": null,
+      "pageTarif": 8,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR4033": {
+      "reference": "TR4033",
+      "nom": "Vasque Rio trop-plein",
+      "designation": "murale blanc brillant, avec trou pour robinet et - 425 x 400 x 150",
+      "pageCatalogue": null,
+      "pageTarif": 8,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR4047": {
+      "reference": "TR4047",
+      "nom": "Alma",
+      "designation": "Vasque à poser blanc brillant - 390 x 325 x 140",
+      "pageCatalogue": 21,
+      "pageTarif": 4,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR4047",
+        "page": 21,
+        "bbox": [
+          396.41,
+          57.05,
+          453.55,
+          88.21
+        ],
+        "fontSize": 12.0,
+        "text": "TR4047"
+      }
+    },
+    "TR4053": {
+      "reference": "TR4053",
+      "nom": "Cherry XL",
+      "designation": "Vasque murale blanc brillant, avec trou pour robinet et trop-plein - 655 x 485 x 160",
+      "pageCatalogue": 32,
+      "pageTarif": 8,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR4053",
+        "page": 32,
+        "bbox": [
+          26.020000000000003,
+          495.57,
+          83.17,
+          526.72
+        ],
+        "fontSize": 12.0,
+        "text": "TR4053"
+      }
+    },
+    "TR4065": {
+      "reference": "TR4065",
+      "nom": "Tulip",
+      "designation": "Vasque à poser blanc brillant, avec trou pour robinet et trop-plein - 405 x 385 x 165",
+      "pageCatalogue": null,
+      "pageTarif": 6,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR4070": {
+      "reference": "TR4070",
+      "nom": "Tremo",
+      "designation": "Vasque sous-plan rectangulaire blanc brillant, avec trop- plein - 460 x 340 x 190",
+      "pageCatalogue": 37,
+      "pageTarif": 11,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR4070",
+        "page": 37,
+        "bbox": [
+          396.41,
+          349.59,
+          453.06,
+          380.74
+        ],
+        "fontSize": 12.0,
+        "text": "TR4070"
+      }
+    },
+    "TR41010": {
+      "reference": "TR41010",
+      "nom": "Apollo",
+      "designation": "Vasque à poser blanc brillant - 460 x 410 x 160",
+      "pageCatalogue": null,
+      "pageTarif": 5,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR4101D": {
+      "reference": "TR4101D",
+      "nom": "Vasque Kona robinet",
+      "designation": "d'angle murale blanc brillant, avec trou pour et trop-plein - 500 x 340 x 130",
+      "pageCatalogue": null,
+      "pageTarif": 8,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR41037": {
+      "reference": "TR41037",
+      "nom": "Vasque Bambino droit",
+      "designation": "murale blanc brillant, avec trou pour robinet, côté - 310 x 235 x 125",
+      "pageCatalogue": null,
+      "pageTarif": 8,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR4104": {
+      "reference": "TR4104",
+      "nom": "Eros",
+      "designation": "Vasque à poser blanc brillant, avec trou de robinetterie et trop-plein - 465 x 465 x 140",
+      "pageCatalogue": 16,
+      "pageTarif": 3,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR4104",
+        "page": 16,
+        "bbox": [
+          368.06,
+          642.12,
+          423.64,
+          673.28
+        ],
+        "fontSize": 12.0,
+        "text": "TR4104"
+      }
+    },
+    "TR411600": {
+      "reference": "TR411-600",
+      "nom": "Charo 60",
+      "designation": "Vasque sur meuble blanc brillant, avec trou pour robinet et trop-plein - 603 x 385 x 160",
+      "pageCatalogue": 34,
+      "pageTarif": 9,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR411-600",
+        "page": 34,
+        "bbox": [
+          368.06,
+          251.10000000000002,
+          449.21,
+          284.94
+        ],
+        "fontSize": 14.0,
+        "text": "TR411-600"
+      }
+    },
+    "TR411800": {
+      "reference": "TR411-800",
+      "nom": "Charo 80",
+      "designation": "Vasque sur meuble blanc brillant, avec trou pour robinet et trop-plein - 803 x 385 x 160",
+      "pageCatalogue": 35,
+      "pageTarif": 9,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR411-800",
+        "page": 35,
+        "bbox": [
+          396.41,
+          56.59,
+          477.55,
+          90.43
+        ],
+        "fontSize": 14.0,
+        "text": "TR411-800"
+      }
+    },
+    "TR411900L": {
+      "reference": "TR411-900L",
+      "nom": "Charo 90L",
+      "designation": "Vasque sur meuble blanc brillant, avec trou pour robinet et trop-plein - 903 x 385 x 160",
+      "pageCatalogue": 35,
+      "pageTarif": 9,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR411-900L",
+        "page": 35,
+        "bbox": [
+          54.36,
+          203.32,
+          130.74,
+          234.47
+        ],
+        "fontSize": 12.0,
+        "text": "TR411-900L"
+      }
+    },
+    "TR41196": {
+      "reference": "TR41196",
+      "nom": "Vasque Corner robinet",
+      "designation": "d’angle murale blanc brillant, avec trou pour et trop-plein - 560 x 480 x 195",
+      "pageCatalogue": null,
+      "pageTarif": 8,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR41203": {
+      "reference": "TR41203",
+      "nom": "Vasque Ines côté",
+      "designation": "murale blanc brillant, avec trou pour robinet et droit - 360 x 240 x 155",
+      "pageCatalogue": null,
+      "pageTarif": 8,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR41206": {
+      "reference": "TR41206",
+      "nom": "Athena",
+      "designation": "Vasque à poser blanc brillant - 610 x 345 x 110",
+      "pageCatalogue": 24,
+      "pageTarif": 4,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR41206",
+        "page": 24,
+        "bbox": [
+          368.06,
+          349.59,
+          430.42,
+          380.74
+        ],
+        "fontSize": 12.0,
+        "text": "TR41206"
+      }
+    },
+    "TR41206U18": {
+      "reference": "TR41206-U18",
+      "nom": "Athena Black",
+      "designation": "Vasque à poser noir mat - 610 x 345 x 110",
+      "pageCatalogue": 24,
+      "pageTarif": 4,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR41206-U18",
+        "page": 24,
+        "bbox": [
+          368.06,
+          57.05,
+          455.17,
+          88.21
+        ],
+        "fontSize": 12.0,
+        "text": "TR41206-U18"
+      }
+    },
+    "TR41206U20": {
+      "reference": "TR41206-U20",
+      "nom": "Athena",
+      "designation": "Vasque à poser blanc mat - 610 x 345 x 110",
+      "pageCatalogue": 24,
+      "pageTarif": 4,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR41206-U20",
+        "page": 24,
+        "bbox": [
+          26.020000000000003,
+          203.32,
+          114.45,
+          234.47
+        ],
+        "fontSize": 12.0,
+        "text": "TR41206-U20"
+      }
+    },
+    "TR4120A": {
+      "reference": "TR4120A",
+      "nom": "Midea Basic",
+      "designation": "Vasque à poser blanc brillant - 490 x 300 x 135",
+      "pageCatalogue": 25,
+      "pageTarif": 4,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR4120A",
+        "page": 25,
+        "bbox": [
+          54.36,
+          203.32,
+          117.96,
+          234.47
+        ],
+        "fontSize": 12.0,
+        "text": "TR4120A"
+      }
+    },
+    "TR4121": {
+      "reference": "TR4121",
+      "nom": "Midea",
+      "designation": "Vasque à poser blanc brillant avec trou de robinetterie - 440 x 260 x 100",
+      "pageCatalogue": 25,
+      "pageTarif": 4,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR4121",
+        "page": 25,
+        "bbox": [
+          396.41,
+          57.05,
+          450.92,
+          88.21
+        ],
+        "fontSize": 12.0,
+        "text": "TR4121"
+      }
+    },
+    "TR41267": {
+      "reference": "TR41267",
+      "nom": "Marina",
+      "designation": "Vasque à poser blanc brillant avec trou de robinetterie - 430 x 430 x 140",
+      "pageCatalogue": null,
+      "pageTarif": 5,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR4127": {
+      "reference": "TR4127",
+      "nom": "Vasque Auris L trop-plein,",
+      "designation": "murale blanc brillant, avec trou pour robinet et côté gauche - 500 x 255 x 145",
+      "pageCatalogue": null,
+      "pageTarif": 8,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR4127A": {
+      "reference": "TR4127A",
+      "nom": "Vasque Auris P trop-plein,",
+      "designation": "murale blanc brillant, avec trou pour robinet et côté droit - 500 x 255 x 145",
+      "pageCatalogue": null,
+      "pageTarif": 8,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR4128": {
+      "reference": "TR4128",
+      "nom": "Nino",
+      "designation": "Vasque murale blanc brillant, avec trou pour robinet - 425 x 300 x 130",
+      "pageCatalogue": 31,
+      "pageTarif": 7,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR4128",
+        "page": 31,
+        "bbox": [
+          54.36,
+          495.86,
+          109.47,
+          527.01
+        ],
+        "fontSize": 12.0,
+        "text": "TR4128"
+      }
+    },
+    "TR41280": {
+      "reference": "TR41280",
+      "nom": "Mona",
+      "designation": "Vasque à poser blanc brillant - 675 x 420 x 120",
+      "pageCatalogue": 21,
+      "pageTarif": 4,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR41280",
+        "page": 21,
+        "bbox": [
+          396.41,
+          640.41,
+          458.73,
+          671.56
+        ],
+        "fontSize": 12.0,
+        "text": "TR41280"
+      }
+    },
+    "TR41286": {
+      "reference": "TR41286",
+      "nom": "Hermos",
+      "designation": "Vasque à poser blanc brillant - 490 x 395 x 135",
+      "pageCatalogue": null,
+      "pageTarif": 5,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR41287": {
+      "reference": "TR41287",
+      "nom": "Hapi",
+      "designation": "Vasque à poser blanc brillant - 455 x 330 x 135",
+      "pageCatalogue": 23,
+      "pageTarif": 4,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR41287",
+        "page": 23,
+        "bbox": [
+          396.41,
+          253.76,
+          465.93,
+          287.6
+        ],
+        "fontSize": 14.0,
+        "text": "TR41287"
+      }
+    },
+    "TR41287U18": {
+      "reference": "TR41287-U18",
+      "nom": "Hapi Black",
+      "designation": "Vasque à poser noir mat - 455 x 330 x 135",
+      "pageCatalogue": 24,
+      "pageTarif": 4,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR41287-U18",
+        "page": 24,
+        "bbox": [
+          368.06,
+          642.12,
+          453.26,
+          673.28
+        ],
+        "fontSize": 12.0,
+        "text": "TR41287-U18"
+      }
+    },
+    "TR41288": {
+      "reference": "TR41288",
+      "nom": "Hermos",
+      "designation": "Vasque à poser blanc brillant - 430 x 430 x 135",
+      "pageCatalogue": null,
+      "pageTarif": 5,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR41290": {
+      "reference": "TR41290",
+      "nom": "Hebe",
+      "designation": "Vasque à poser blanc brillant - 510 x 400 x 130",
+      "pageCatalogue": null,
+      "pageTarif": 5,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR41292": {
+      "reference": "TR41292",
+      "nom": "Fiesta",
+      "designation": "Vasque à poser blanc brillant - 550 x 390 x 145",
+      "pageCatalogue": 24,
+      "pageTarif": 4,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR41292",
+        "page": 24,
+        "bbox": [
+          26.020000000000003,
+          495.86,
+          88.28,
+          527.01
+        ],
+        "fontSize": 12.0,
+        "text": "TR41292"
+      }
+    },
+    "TR41297": {
+      "reference": "TR41297",
+      "nom": "Torino",
+      "designation": "Vasque à poser blanc brillant, avec trou pour robinet et trop-plein - 595 x 400 x 155",
+      "pageCatalogue": 25,
+      "pageTarif": 4,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR41297",
+        "page": 25,
+        "bbox": [
+          396.41,
+          642.12,
+          458.48,
+          673.28
+        ],
+        "fontSize": 12.0,
+        "text": "TR41297"
+      }
+    },
+    "TR41299": {
+      "reference": "TR41299",
+      "nom": "Juno",
+      "designation": "Vasque à poser/encastrable blanc brillant, avec trou pour robinet et trop-plein - 400 x 400 x 180",
+      "pageCatalogue": null,
+      "pageTarif": 5,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR41302": {
+      "reference": "TR41302",
+      "nom": "Gloria",
+      "designation": "Vasque à poser blanc brillant avec trou de robinetterie et trop-plein - 600 x 400 x 145",
+      "pageCatalogue": 21,
+      "pageTarif": 4,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR41302",
+        "page": 21,
+        "bbox": [
+          54.36,
+          203.32,
+          116.88,
+          234.47
+        ],
+        "fontSize": 12.0,
+        "text": "TR41302"
+      }
+    },
+    "TR41313": {
+      "reference": "TR41313",
+      "nom": "Roma",
+      "designation": "Vasque à poser blanc brillant - 430 x 300 x 120",
+      "pageCatalogue": 25,
+      "pageTarif": 4,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR41313",
+        "page": 25,
+        "bbox": [
+          396.41,
+          346.1,
+          457.2,
+          377.25
+        ],
+        "fontSize": 12.0,
+        "text": "TR41313"
+      }
+    },
+    "TR41313U18": {
+      "reference": "TR41313-U18",
+      "nom": "Roma Black",
+      "designation": "Vasque à poser noir mat - 430 x 300 x 120",
+      "pageCatalogue": 25,
+      "pageTarif": 4,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR41313-U18",
+        "page": 25,
+        "bbox": [
+          54.36,
+          495.86,
+          139.68,
+          527.01
+        ],
+        "fontSize": 12.0,
+        "text": "TR41313-U18"
+      }
+    },
+    "TR41314": {
+      "reference": "TR41314",
+      "nom": "Roma",
+      "designation": "Vasque à poser blanc brillant - 345 x 345 x 120",
+      "pageCatalogue": 22,
+      "pageTarif": 4,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR41314",
+        "page": 22,
+        "bbox": [
+          368.06,
+          640.2,
+          428.87,
+          671.35
+        ],
+        "fontSize": 12.0,
+        "text": "TR41314"
+      }
+    },
+    "TR41355": {
+      "reference": "TR41355",
+      "nom": "Fika",
+      "designation": "Meuble vasque blanc brillant, avec trou pour robinet, gauche-droite - 405 x 220 x 95",
+      "pageCatalogue": null,
+      "pageTarif": 9,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR41363": {
+      "reference": "TR41363",
+      "nom": "Peonia",
+      "designation": "Vasque à poser blanc brillant - 650 x 345 x 125",
+      "pageCatalogue": null,
+      "pageTarif": 6,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR41366": {
+      "reference": "TR41366",
+      "nom": "Anya XL",
+      "designation": "Vasque à poser blanc brillant - 555 x 220 x 90",
+      "pageCatalogue": null,
+      "pageTarif": 5,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR41385": {
+      "reference": "TR41385",
+      "nom": "Sparrow",
+      "designation": "Vasque à poser blanc brillant - 500 x 300 x 140",
+      "pageCatalogue": 22,
+      "pageTarif": 4,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR41385",
+        "page": 22,
+        "bbox": [
+          26.020000000000003,
+          203.32,
+          88.44,
+          234.47
+        ],
+        "fontSize": 12.0,
+        "text": "TR41385"
+      }
+    },
+    "TR41385U18": {
+      "reference": "TR41385-U18",
+      "nom": "Sparrow Black",
+      "designation": "Vasque à poser noir mat - 500 x 300 x 140",
+      "pageCatalogue": 22,
+      "pageTarif": 4,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR41385-U18",
+        "page": 22,
+        "bbox": [
+          368.06,
+          57.05,
+          455.09,
+          88.21
+        ],
+        "fontSize": 12.0,
+        "text": "TR41385-U18"
+      }
+    },
+    "TR41385U20": {
+      "reference": "TR41385-U20",
+      "nom": "Sparrow",
+      "designation": "Vasque à poser blanc mat - 500 x 300 x 140",
+      "pageCatalogue": null,
+      "pageTarif": 6,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR41386": {
+      "reference": "TR41386",
+      "nom": "Axel",
+      "designation": "Vasque à poser blanc brillant - 400 x 400 x 140",
+      "pageCatalogue": 15,
+      "pageTarif": 3,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR41386",
+        "page": 15,
+        "bbox": [
+          396.41,
+          349.59,
+          458.67,
+          380.74
+        ],
+        "fontSize": 12.0,
+        "text": "TR41386"
+      }
+    },
+    "TR414": {
+      "reference": "TR414",
+      "nom": "Corfu",
+      "designation": "Vasque murale blanc brillant, avec trou pour robinet - 510 x 360 x 120",
+      "pageCatalogue": 31,
+      "pageTarif": 7,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR414",
+        "page": 31,
+        "bbox": [
+          54.36,
+          203.32,
+          102.69,
+          234.47
+        ],
+        "fontSize": 12.0,
+        "text": "TR414"
+      }
+    },
+    "TR41420": {
+      "reference": "TR41420",
+      "nom": "Oaza Lagoon",
+      "designation": "Vasque à poser rectangulaire, blanc brillant, avec texture décorative - 360 x 360 x 125",
+      "pageCatalogue": null,
+      "pageTarif": 6,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR41420U20": {
+      "reference": "TR41420-U20",
+      "nom": "Oaza Lagoon",
+      "designation": "Vasque à poser rectangulaire, blanc mat, avec texture décorative - 360 x 360 x 125",
+      "pageCatalogue": null,
+      "pageTarif": 6,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR41421": {
+      "reference": "TR41421",
+      "nom": "Oaza Rosa",
+      "designation": "Vasque à poser semi-circulaire, blanc brillant, avec texture décorative - 400 x 350 x 125",
+      "pageCatalogue": null,
+      "pageTarif": 6,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR41421U20": {
+      "reference": "TR41421-U20",
+      "nom": "Oaza Rosa",
+      "designation": "Vasque à poser semi-circulaire, blanc mat, avec texture décorative - 400 x 350 x 125",
+      "pageCatalogue": null,
+      "pageTarif": 6,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR41422": {
+      "reference": "TR41422",
+      "nom": "Oaza Bloom",
+      "designation": "Vasque à poser, semi-circulaire, blanc brillant, avec texture décorative - 490 x 305 x 125",
+      "pageCatalogue": null,
+      "pageTarif": 5,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR41422U20": {
+      "reference": "TR41422-U20",
+      "nom": "Oaza Bloom",
+      "designation": "Vasque à poser, semi-circulaire, blanc mat, avec texture décorative - 490 x 305 x 125",
+      "pageCatalogue": null,
+      "pageTarif": 5,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR41423": {
+      "reference": "TR41423",
+      "nom": "Oaza Jasmin",
+      "designation": "Vasque à poser rectangulaire, blanc brillant, avec texture décorative structurée - 500 x 355 x 125",
+      "pageCatalogue": null,
+      "pageTarif": 5,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR41423U20": {
+      "reference": "TR41423-U20",
+      "nom": "Oaza Jasmin",
+      "designation": "Vasque à poser rectangulaire, blanc mat, avec texture décorative structurée - 500 x 355 x 125",
+      "pageCatalogue": null,
+      "pageTarif": 6,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR4148": {
+      "reference": "TR4148",
+      "nom": "Medusa L",
+      "designation": "Vasque murale/à poser blanc brillant, avec trou pour robinet et trop-plein - 380 x 380 x 130",
+      "pageCatalogue": 31,
+      "pageTarif": 7,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR4148",
+        "page": 31,
+        "bbox": [
+          396.41,
+          57.05,
+          451.83,
+          88.21
+        ],
+        "fontSize": 12.0,
+        "text": "TR4148"
+      }
+    },
+    "TR415": {
+      "reference": "TR415",
+      "nom": "Carino",
+      "designation": "Vasque à poser blanc brillant - 405 x 405 x 125",
+      "pageCatalogue": 15,
+      "pageTarif": 3,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR415",
+        "page": 15,
+        "bbox": [
+          54.36,
+          495.86,
+          102.63,
+          527.01
+        ],
+        "fontSize": 12.0,
+        "text": "TR415"
+      }
+    },
+    "TR4153": {
+      "reference": "TR4153",
+      "nom": "Violet",
+      "designation": "Vasque à poser blanc brillant - 385 x 395 x 150",
+      "pageCatalogue": null,
+      "pageTarif": 6,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR4161": {
+      "reference": "TR4161",
+      "nom": "Vesta",
+      "designation": "Vasque à poser blanc brillant, avec trou pour robinet et trop-plein - 380 x 380 x 135",
+      "pageCatalogue": 18,
+      "pageTarif": 3,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR4161",
+        "page": 18,
+        "bbox": [
+          368.06,
+          642.12,
+          422.21,
+          673.28
+        ],
+        "fontSize": 12.0,
+        "text": "TR4161"
+      }
+    },
+    "TR4270B": {
+      "reference": "TR4270B",
+      "nom": "Vasque Gemini 80 trop-plein",
+      "designation": "murale blanc brillant, avec trou pour robinet et - 800 x 470 x 175",
+      "pageCatalogue": null,
+      "pageTarif": 8,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR4270D": {
+      "reference": "TR4270D",
+      "nom": "Vasque Gemini 60 trop-plein",
+      "designation": "murale blanc brillant, avec trou pour robinet et - 600 x 470 x 175",
+      "pageCatalogue": null,
+      "pageTarif": 8,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR428": {
+      "reference": "TR428",
+      "nom": "Luna",
+      "designation": "Vasque à poser blanc brillant - 585 x 405 x 145",
+      "pageCatalogue": null,
+      "pageTarif": 5,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR4291": {
+      "reference": "TR4291",
+      "nom": "Batumi",
+      "designation": "Vasque murale blanc brillant, avec trou pour robinet et trop-plein - 445 x 295 x 130",
+      "pageCatalogue": 27,
+      "pageTarif": 7,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR4291",
+        "page": 27,
+        "bbox": [
+          396.41,
+          640.76,
+          452.56,
+          671.92
+        ],
+        "fontSize": 12.0,
+        "text": "TR4291"
+      }
+    },
+    "TR4310": {
+      "reference": "TR4310",
+      "nom": "Reno",
+      "designation": "Vasque murale/à poser blanc brillant, avec trou pour robinet, côté gauche - 660 x 375 x 125",
+      "pageCatalogue": 33,
+      "pageTarif": 8,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR4310",
+        "page": 33,
+        "bbox": [
+          396.41,
+          263.43,
+          458.72,
+          297.27
+        ],
+        "fontSize": 14.0,
+        "text": "TR4310"
+      }
+    },
+    "TR4331": {
+      "reference": "TR4331",
+      "nom": "",
+      "designation": "",
+      "pageCatalogue": 32,
+      "pageTarif": null,
+      "dansCatalogue": true,
+      "dansTarif": false,
+      "hotspot": {
+        "reference": "TR4331",
+        "page": 32,
+        "bbox": [
+          26.020000000000003,
+          201.39,
+          82.27,
+          232.55
+        ],
+        "fontSize": 12.0,
+        "text": "TR4331"
+      }
+    },
+    "TR4331A": {
+      "reference": "TR4331A",
+      "nom": "Rosa Left",
+      "designation": "Vasque murale blanc brillant, avec trou pour robinet, côté gauche - 370 x 235 x 125",
+      "pageCatalogue": 32,
+      "pageTarif": 7,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR4331A",
+        "page": 32,
+        "bbox": [
+          368.06,
+          57.05,
+          432.13,
+          88.21
+        ],
+        "fontSize": 12.0,
+        "text": "TR4331A"
+      }
+    },
+    "TR4358": {
+      "reference": "TR4358",
+      "nom": "Neko",
+      "designation": "Vasque murale blanc brillant, avec trou pour robinet et trop-plein - 400 x 300 x 125",
+      "pageCatalogue": 28,
+      "pageTarif": 7,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR4358",
+        "page": 28,
+        "bbox": [
+          26.020000000000003,
+          495.86,
+          83.03,
+          527.01
+        ],
+        "fontSize": 12.0,
+        "text": "TR4358"
+      }
+    },
+    "TR4361": {
+      "reference": "TR4361",
+      "nom": "Kaya",
+      "designation": "Vasque à poser blanc brillant - 350 x 350 x 110",
+      "pageCatalogue": 17,
+      "pageTarif": 3,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR4361",
+        "page": 17,
+        "bbox": [
+          396.41,
+          55.41,
+          452.32,
+          86.56
+        ],
+        "fontSize": 12.0,
+        "text": "TR4361"
+      }
+    },
+    "TR4394": {
+      "reference": "TR4394",
+      "nom": "Fortis",
+      "designation": "Vasque à poser blanc brillant avec trou de robinetterie et trop-plein - 540 x 405 x 130",
+      "pageCatalogue": null,
+      "pageTarif": 5,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR4413": {
+      "reference": "TR4413",
+      "nom": "Roxa",
+      "designation": "Vasque murale blanc brillant, avec trou pour robinet et trop-plein, côté gauche - 400 x 280 x 140",
+      "pageCatalogue": 27,
+      "pageTarif": 7,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR4413",
+        "page": 27,
+        "bbox": [
+          396.41,
+          57.05,
+          452.15,
+          88.21
+        ],
+        "fontSize": 12.0,
+        "text": "TR4413"
+      }
+    },
+    "TR443": {
+      "reference": "TR443",
+      "nom": "Trixie",
+      "designation": "Vasque murale blanc brillant, avec trou pour robinet et trop-plein, avec porte-serviettes - 440 x 270 x 150",
+      "pageCatalogue": 29,
+      "pageTarif": 7,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR443",
+        "page": 29,
+        "bbox": [
+          396.41,
+          250.05,
+          452.66,
+          283.89
+        ],
+        "fontSize": 14.0,
+        "text": "TR443"
+      }
+    },
+    "TR4506": {
+      "reference": "TR4506",
+      "nom": "Vasque Aster L trop-plein,",
+      "designation": "murale blanc brillant, avec trou pour robinet et côté droit - 485 x 385 x 165",
+      "pageCatalogue": null,
+      "pageTarif": 8,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR4506A": {
+      "reference": "TR4506A",
+      "nom": "Vasque Aster P trop-plein,",
+      "designation": "murale blanc brillant, avec trou pour robinet et côté droit - 485 x 385 x 165",
+      "pageCatalogue": null,
+      "pageTarif": 8,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR4518": {
+      "reference": "TR4518",
+      "nom": "NOM Vasque Amur robinet",
+      "designation": "DESIGNATION PRODUIT d’angle murale blanc brillant, avec trou pour et trop-plein - 370 x 385 x 135",
+      "pageCatalogue": null,
+      "pageTarif": 8,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR4519": {
+      "reference": "TR4519",
+      "nom": "Avo Right",
+      "designation": "Vasque murale blanc brillant, avec trou pour robinet et trop-plein, côté droit - 420 x 290 x 140",
+      "pageCatalogue": 27,
+      "pageTarif": 7,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR4519",
+        "page": 27,
+        "bbox": [
+          54.36,
+          495.86,
+          110.16,
+          527.01
+        ],
+        "fontSize": 12.0,
+        "text": "TR4519"
+      }
+    },
+    "TR4519A": {
+      "reference": "TR4519A",
+      "nom": "Avo Left",
+      "designation": "Vasque murale blanc brillant, avec trou pour robinet, côté gauche - 420 x 290 x 140",
+      "pageCatalogue": 27,
+      "pageTarif": 7,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR4519A",
+        "page": 27,
+        "bbox": [
+          396.41,
+          349.59,
+          460.03,
+          380.74
+        ],
+        "fontSize": 12.0,
+        "text": "TR4519A"
+      }
+    },
+    "TR4522": {
+      "reference": "TR4522",
+      "nom": "Coral Left",
+      "designation": "Vasque murale blanc brillant, avec trou pour robinet et trop-plein, côté gauche - 425 x 265 x 125",
+      "pageCatalogue": 28,
+      "pageTarif": 7,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR4522",
+        "page": 28,
+        "bbox": [
+          368.06,
+          57.05,
+          425.16,
+          88.21
+        ],
+        "fontSize": 12.0,
+        "text": "TR4522"
+      }
+    },
+    "TR4522B": {
+      "reference": "TR4522B",
+      "nom": "Coral Right",
+      "designation": "Vasque murale blanc brillant, avec trou pour robinet et trop-plein, côté droit - 425 x 265 x 125",
+      "pageCatalogue": 26,
+      "pageTarif": 7,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR4522B",
+        "page": 26,
+        "bbox": [
+          368.06,
+          263.43,
+          439.74,
+          297.27
+        ],
+        "fontSize": 14.0,
+        "text": "TR4522B"
+      }
+    },
+    "TR4523B": {
+      "reference": "TR4523B",
+      "nom": "Ana Vasque",
+      "designation": "murale blanc brillant, côté droit - 450 x 250 x 120",
+      "pageCatalogue": null,
+      "pageTarif": 8,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR4545": {
+      "reference": "TR4545",
+      "nom": "Nana",
+      "designation": "Vasque à poser blanc brillant - 425 x 425 x 230",
+      "pageCatalogue": null,
+      "pageTarif": 5,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR4549": {
+      "reference": "TR4549",
+      "nom": "Medusa S",
+      "designation": "Vasque murale/à poser blanc brillant, avec trou pour robinet - 335 x 290 x 115",
+      "pageCatalogue": 31,
+      "pageTarif": 7,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR4549",
+        "page": 31,
+        "bbox": [
+          396.41,
+          349.59,
+          453.54,
+          380.74
+        ],
+        "fontSize": 12.0,
+        "text": "TR4549"
+      }
+    },
+    "TR4565": {
+      "reference": "TR4565",
+      "nom": "Aura",
+      "designation": "Vasque à poser blanc brillant - 470 x 380 x 130",
+      "pageCatalogue": null,
+      "pageTarif": 5,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR4566": {
+      "reference": "TR4566",
+      "nom": "Duff",
+      "designation": "Vasque à poser blanc brillant - 380 x 380 x 135",
+      "pageCatalogue": 22,
+      "pageTarif": 4,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR4566",
+        "page": 22,
+        "bbox": [
+          26.020000000000003,
+          493.36,
+          83.27,
+          524.51
+        ],
+        "fontSize": 12.0,
+        "text": "TR4566"
+      }
+    },
+    "TR4569A": {
+      "reference": "TR4569A",
+      "nom": "Torvi",
+      "designation": "Vasque à poser blanc brillant, avec trou pour robinet - 490 x 380 x 130",
+      "pageCatalogue": null,
+      "pageTarif": 6,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR4570": {
+      "reference": "TR4570",
+      "nom": "Neo",
+      "designation": "Vasque à poser blanc brillant avec trop-plein - 415 x 415 x 160",
+      "pageCatalogue": null,
+      "pageTarif": 5,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR4583": {
+      "reference": "TR4583",
+      "nom": "NOM Bodo 42",
+      "designation": "DESIGNATION PRODUIT Vasque sur meuble blanc brillant, avec trou pour robinet et trop-plein - 422 x 422 x 175",
+      "pageCatalogue": null,
+      "pageTarif": 9,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR4800": {
+      "reference": "TR4800",
+      "nom": "Cute",
+      "designation": "Vasque à poser blanc brillant, avec trou de robinetterie et trop-plein - 405 x 205 x 130",
+      "pageCatalogue": null,
+      "pageTarif": 5,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR4916": {
+      "reference": "TR4916",
+      "nom": "Venus",
+      "designation": "Vasque à poser blanc brillant - 590 x 410 x 140",
+      "pageCatalogue": 22,
+      "pageTarif": 4,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR4916",
+        "page": 22,
+        "bbox": [
+          368.06,
+          349.59,
+          423.38,
+          380.74
+        ],
+        "fontSize": 12.0,
+        "text": "TR4916"
+      }
+    },
+    "TR4921": {
+      "reference": "TR4921",
+      "nom": "Oslo",
+      "designation": "Vasque à poser blanc brillant - 395 x 395 x 150",
+      "pageCatalogue": null,
+      "pageTarif": 6,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR4925": {
+      "reference": "TR4925",
+      "nom": "Diana",
+      "designation": "Vasque à poser blanc brillant - 585 x 385 x 140",
+      "pageCatalogue": null,
+      "pageTarif": 5,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR4958": {
+      "reference": "TR4958",
+      "nom": "Hebe",
+      "designation": "Vasque à poser blanc brillant - 500 x 305 x 135",
+      "pageCatalogue": 21,
+      "pageTarif": 4,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR4958",
+        "page": 21,
+        "bbox": [
+          396.41,
+          349.59,
+          452.71,
+          380.74
+        ],
+        "fontSize": 12.0,
+        "text": "TR4958"
+      }
+    },
+    "TR4965": {
+      "reference": "TR4965",
+      "nom": "Athos",
+      "designation": "Vasque à poser blanc brillant - 405 x 405 x 120",
+      "pageCatalogue": null,
+      "pageTarif": 5,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR5037": {
+      "reference": "TR5037",
+      "nom": "Ovo",
+      "designation": "Bidet blanc brillant - 495 x 400 x 340",
+      "pageCatalogue": null,
+      "pageTarif": 13,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR5072": {
+      "reference": "TR5072",
+      "nom": "NOM Accord",
+      "designation": "DESIGNATION PRODUIT Bidet blanc brillant - 555 x 370 x 240",
+      "pageCatalogue": null,
+      "pageTarif": 13,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR5151": {
+      "reference": "TR5151",
+      "nom": "Caneo",
+      "designation": "Bidet blanc brillant - 490 x 360 x 315",
+      "pageCatalogue": 51,
+      "pageTarif": 13,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR5151",
+        "page": 51,
+        "bbox": [
+          396.41,
+          261.72,
+          457.48,
+          295.56
+        ],
+        "fontSize": 14.0,
+        "text": "TR5151"
+      }
+    },
+    "TR5151U18": {
+      "reference": "TR5151-U18",
+      "nom": "Caneo",
+      "designation": "Bidet noir mat - 490 x 360 x 315",
+      "pageCatalogue": null,
+      "pageTarif": 13,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR5152": {
+      "reference": "TR5152",
+      "nom": "Corona",
+      "designation": "Bidet blanc brillant - 500 x 360 x 245",
+      "pageCatalogue": 50,
+      "pageTarif": 13,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR5152",
+        "page": 50,
+        "bbox": [
+          368.06,
+          441.31,
+          423.17,
+          472.47
+        ],
+        "fontSize": 12.0,
+        "text": "TR5152"
+      }
+    },
+    "TR5154": {
+      "reference": "TR5154",
+      "nom": "Gravis",
+      "designation": "Bidet blanc brillant - 510 x 360 x 320",
+      "pageCatalogue": 50,
+      "pageTarif": 13,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR5154",
+        "page": 50,
+        "bbox": [
+          26.020000000000003,
+          624.15,
+          81.36,
+          655.3
+        ],
+        "fontSize": 12.0,
+        "text": "TR5154"
+      }
+    },
+    "TR5155": {
+      "reference": "TR5155",
+      "nom": "Amaro",
+      "designation": "Bidet blanc brillant - 485 x 360 x 330",
+      "pageCatalogue": 50,
+      "pageTarif": 13,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR5155",
+        "page": 50,
+        "bbox": [
+          26.020000000000003,
+          257.75,
+          81.37,
+          288.9
+        ],
+        "fontSize": 12.0,
+        "text": "TR5155"
+      }
+    },
+    "TR5155U18": {
+      "reference": "TR5155-U18",
+      "nom": "Amaro Black",
+      "designation": "Bidet noir mat - 485 x 360 x 330",
+      "pageCatalogue": 50,
+      "pageTarif": 13,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR5155-U18",
+        "page": 50,
+        "bbox": [
+          368.06,
+          82.73,
+          448.03,
+          113.88
+        ],
+        "fontSize": 12.0,
+        "text": "TR5155-U18"
+      }
+    },
+    "TR902": {
+      "reference": "TR902",
+      "nom": "Yana",
+      "designation": "Vasque encastrable blanc brillant, avec trou pour robinet et trop-plein - 560 x 460 x 200",
+      "pageCatalogue": null,
+      "pageTarif": 9,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "TR90818": {
+      "reference": "TR908-18",
+      "nom": "Coma S",
+      "designation": "Vasque sous-plan ovale blanc brillant, avec trop-plein - 570 x 420 x 210",
+      "pageCatalogue": 37,
+      "pageTarif": 11,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR908-18",
+        "page": 37,
+        "bbox": [
+          396.41,
+          57.05,
+          462.08,
+          88.21
+        ],
+        "fontSize": 12.0,
+        "text": "TR908-18"
+      }
+    },
+    "TRT310": {
+      "reference": "TR-T310",
+      "nom": "Celia Antic",
+      "designation": "Vasque à poser ronde, blanche et or mat, avec texture décorative - 410 x 410 x 155",
+      "pageCatalogue": 14,
+      "pageTarif": 3,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR-T310",
+        "page": 14,
+        "bbox": [
+          368.06,
+          278.46,
+          431.13,
+          312.31
+        ],
+        "fontSize": 14.0,
+        "text": "TR-T310"
+      }
+    },
+    "TRT339": {
+      "reference": "TR-T339",
+      "nom": "Celia Gold",
+      "designation": "Vasque à poser ronde, doré brillant, avec texture décorative - 405 x 405 x 140",
+      "pageCatalogue": 15,
+      "pageTarif": 3,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "TR-T339",
+        "page": 15,
+        "bbox": [
+          396.41,
+          642.12,
+          453.94,
+          673.28
+        ],
+        "fontSize": 12.0,
+        "text": "TR-T339"
+      }
+    },
+    "UP40032": {
+      "reference": "UP4003-2",
+      "nom": "Sofia L",
+      "designation": "Vasque à poser blanc brillant - 385 x 385 x 140",
+      "pageCatalogue": 20,
+      "pageTarif": 4,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "UP4003-2",
+        "page": 20,
+        "bbox": [
+          368.06,
+          642.12,
+          437.01,
+          673.28
+        ],
+        "fontSize": 12.0,
+        "text": "UP4003-2"
+      }
+    },
+    "UP40032B18": {
+      "reference": "UP4003-2-B18",
+      "nom": "Sofia L Black",
+      "designation": "Vasque à poser noir brillant - 385 x 385 x 140",
+      "pageCatalogue": 20,
+      "pageTarif": 4,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "UP4003-2-B18",
+        "page": 20,
+        "bbox": [
+          368.06,
+          57.05,
+          458.98,
+          88.21
+        ],
+        "fontSize": 12.0,
+        "text": "UP4003-2-B18"
+      }
+    },
+    "UP40032U18": {
+      "reference": "UP4003-2-U18",
+      "nom": "Sofia L Black",
+      "designation": "Vasque à poser noir mat - 385 x385 x 140",
+      "pageCatalogue": 19,
+      "pageTarif": 4,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "UP4003-2-U18",
+        "page": 19,
+        "bbox": [
+          396.41,
+          246.29,
+          502.04,
+          280.13
+        ],
+        "fontSize": 14.0,
+        "text": "UP4003-2-U18"
+      }
+    },
+    "UP40032U20": {
+      "reference": "UP4003-2-U20",
+      "nom": "Sofia L",
+      "designation": "Vasque à poser blanc mat - 385 x 385 x 140",
+      "pageCatalogue": 20,
+      "pageTarif": 4,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "UP4003-2-U20",
+        "page": 20,
+        "bbox": [
+          26.020000000000003,
+          495.86,
+          120.28,
+          527.01
+        ],
+        "fontSize": 12.0,
+        "text": "UP4003-2-U20"
+      }
+    },
+    "UP40033": {
+      "reference": "UP4003-3",
+      "nom": "Sofia M",
+      "designation": "Vasque à poser blanc brillant - 330 x 330 x 140",
+      "pageCatalogue": 20,
+      "pageTarif": 4,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "UP4003-3",
+        "page": 20,
+        "bbox": [
+          368.06,
+          349.59,
+          437.68,
+          380.74
+        ],
+        "fontSize": 12.0,
+        "text": "UP4003-3"
+      }
+    },
+    "UP40034": {
+      "reference": "UP4003-4",
+      "nom": "Sofia S",
+      "designation": "Vasque à poser blanc brillant - 280 x 280 x 140",
+      "pageCatalogue": 20,
+      "pageTarif": 4,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "UP4003-4",
+        "page": 20,
+        "bbox": [
+          26.020000000000003,
+          203.32,
+          95.58,
+          234.47
+        ],
+        "fontSize": 12.0,
+        "text": "UP4003-4"
+      }
+    },
+    "UP40042": {
+      "reference": "UP4004-2",
+      "nom": "Cleo L",
+      "designation": "Vasque à poser blanc brillant avec design texturé - 385 x 385 x 145",
+      "pageCatalogue": 16,
+      "pageTarif": 3,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "UP4004-2",
+        "page": 16,
+        "bbox": [
+          26.020000000000003,
+          495.86,
+          95.09,
+          527.01
+        ],
+        "fontSize": 12.0,
+        "text": "UP4004-2"
+      }
+    },
+    "UP40042B18": {
+      "reference": "UP4004-2-B18",
+      "nom": "Cleo Black",
+      "designation": "Vasque à poser noir brillant avec design texturé - 385 x 385 x 145",
+      "pageCatalogue": 16,
+      "pageTarif": 3,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "UP4004-2-B18",
+        "page": 16,
+        "bbox": [
+          368.06,
+          57.05,
+          459.1,
+          88.21
+        ],
+        "fontSize": 12.0,
+        "text": "UP4004-2-B18"
+      }
+    },
+    "UP40043": {
+      "reference": "UP4004-3",
+      "nom": "Cleo M",
+      "designation": "Vasque à poser blanc brillant avec design texturé - 325 x 325 x 145",
+      "pageCatalogue": 16,
+      "pageTarif": 3,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "UP4004-3",
+        "page": 16,
+        "bbox": [
+          368.06,
+          349.59,
+          437.8,
+          380.74
+        ],
+        "fontSize": 12.0,
+        "text": "UP4004-3"
+      }
+    },
+    "UP40044": {
+      "reference": "UP4004-4",
+      "nom": "Cleo S",
+      "designation": "Vasque à poser blanc brillant avec design texturé - 280 x 280 x 240",
+      "pageCatalogue": 16,
+      "pageTarif": 3,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "UP4004-4",
+        "page": 16,
+        "bbox": [
+          26.020000000000003,
+          203.32,
+          95.7,
+          234.47
+        ],
+        "fontSize": 12.0,
+        "text": "UP4004-4"
+      }
+    },
+    "UP40051": {
+      "reference": "UP4005-1",
+      "nom": "Lena XL",
+      "designation": "Vasque à poser blanc brillant - 475 x 475 x 120",
+      "pageCatalogue": null,
+      "pageTarif": 5,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "UP40051U20": {
+      "reference": "UP4005-1-U20",
+      "nom": "Lena XL",
+      "designation": "Vasque à poser blanc mat - 475 x 475 x 121",
+      "pageCatalogue": null,
+      "pageTarif": 5,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "UP40052": {
+      "reference": "UP4005-2",
+      "nom": "Lena L",
+      "designation": "Vasque à poser blanc brillant - 385 x 385 x 140",
+      "pageCatalogue": 17,
+      "pageTarif": 3,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "UP4005-2",
+        "page": 17,
+        "bbox": [
+          54.36,
+          495.86,
+          123.34,
+          527.01
+        ],
+        "fontSize": 12.0,
+        "text": "UP4005-2"
+      }
+    },
+    "UP40052B4": {
+      "reference": "UP4005-2-B4",
+      "nom": "Lena L Macchiato",
+      "designation": "Vasque à poser finition macchiato brillant - 385 x 385 x 140",
+      "pageCatalogue": 17,
+      "pageTarif": 3,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "UP4005-2-B4",
+        "page": 17,
+        "bbox": [
+          396.41,
+          642.12,
+          482.27,
+          673.28
+        ],
+        "fontSize": 12.0,
+        "text": "UP4005-2-B4"
+      }
+    },
+    "UP40053": {
+      "reference": "UP4005-3",
+      "nom": "Lena M",
+      "designation": "Vasque à poser blanc brillant - 330 x 330 x 140",
+      "pageCatalogue": 17,
+      "pageTarif": 3,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "UP4005-3",
+        "page": 17,
+        "bbox": [
+          396.41,
+          349.59,
+          466.05,
+          380.74
+        ],
+        "fontSize": 12.0,
+        "text": "UP4005-3"
+      }
+    },
+    "UP40054": {
+      "reference": "UP4005-4",
+      "nom": "Lena S",
+      "designation": "Vasque à poser blanc brillant - 280 x 280 x 140",
+      "pageCatalogue": 17,
+      "pageTarif": 3,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "UP4005-4",
+        "page": 17,
+        "bbox": [
+          54.36,
+          203.32,
+          123.95,
+          234.47
+        ],
+        "fontSize": 12.0,
+        "text": "UP4005-4"
+      }
+    },
+    "UP40062": {
+      "reference": "UP4006-2",
+      "nom": "Linda",
+      "designation": "Vasque à poser blanc brillant - 385 x 385 x 145",
+      "pageCatalogue": 18,
+      "pageTarif": 3,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "UP4006-2",
+        "page": 18,
+        "bbox": [
+          368.06,
+          57.05,
+          437.19,
+          88.21
+        ],
+        "fontSize": 12.0,
+        "text": "UP4006-2"
+      }
+    },
+    "UP40102": {
+      "reference": "UP4010-2",
+      "nom": "Arya L",
+      "designation": "Vasque à poser blanc brillant avec design texturé - 420 x 420 x 140",
+      "pageCatalogue": 15,
+      "pageTarif": 3,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "UP4010-2",
+        "page": 15,
+        "bbox": [
+          54.36,
+          203.32,
+          121.73,
+          234.47
+        ],
+        "fontSize": 12.0,
+        "text": "UP4010-2"
+      }
+    },
+    "UP40102B18": {
+      "reference": "UP4010-2-B18",
+      "nom": "Arya L Black",
+      "designation": "Vasque à poser noir brillant avec design texturé - 420 x 420 x 140",
+      "pageCatalogue": 15,
+      "pageTarif": 3,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "UP4010-2-B18",
+        "page": 15,
+        "bbox": [
+          396.41,
+          57.05,
+          485.74,
+          88.21
+        ],
+        "fontSize": 12.0,
+        "text": "UP4010-2-B18"
+      }
+    },
+    "UP40103": {
+      "reference": "UP4010-3",
+      "nom": "Arya M",
+      "designation": "Vasque à poser blanc brillant avec design texturé - 330 x 330 x 135",
+      "pageCatalogue": null,
+      "pageTarif": 5,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "UP4024": {
+      "reference": "UP4024",
+      "nom": "Lynx",
+      "designation": "Vasque à poser blanc brillant - 400 x 400 x 140",
+      "pageCatalogue": 18,
+      "pageTarif": 3,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "UP4024",
+        "page": 18,
+        "bbox": [
+          26.020000000000003,
+          203.32,
+          84.86,
+          234.47
+        ],
+        "fontSize": 12.0,
+        "text": "UP4024"
+      }
+    },
+    "UP40402": {
+      "reference": "UP4040-2",
+      "nom": "Mars",
+      "designation": "Vasque à poser blanc brillant texturé - 400 x 400 x 120",
+      "pageCatalogue": 18,
+      "pageTarif": 3,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "UP4040-2",
+        "page": 18,
+        "bbox": [
+          368.06,
+          349.59,
+          436.97,
+          380.74
+        ],
+        "fontSize": 12.0,
+        "text": "UP4040-2"
+      }
+    },
+    "UP40442": {
+      "reference": "UP4044-2",
+      "nom": "Paris",
+      "designation": "Vasque à poser blanc brillant - 400 x 400 x 135",
+      "pageCatalogue": 18,
+      "pageTarif": 3,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "UP4044-2",
+        "page": 18,
+        "bbox": [
+          26.020000000000003,
+          495.86,
+          95.09,
+          527.01
+        ],
+        "fontSize": 12.0,
+        "text": "UP4044-2"
+      }
+    },
+    "UP4101000": {
+      "reference": "UP410-1000",
+      "nom": "Venta 100",
+      "designation": "Vasque sur meuble blanc brillant, avec trou pour robinet et trop-plein - 1010 x 470 x 155",
+      "pageCatalogue": 35,
+      "pageTarif": 9,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "UP410-1000",
+        "page": 35,
+        "bbox": [
+          396.41,
+          642.12,
+          477.27,
+          673.28
+        ],
+        "fontSize": 12.0,
+        "text": "UP410-1000"
+      }
+    },
+    "UP410600": {
+      "reference": "UP410-600",
+      "nom": "Venta 60",
+      "designation": "Vasque sur meuble blanc brillant, avec trou pour robinet et trop-plein - 610 x 470 x 155",
+      "pageCatalogue": 35,
+      "pageTarif": 9,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "UP410-600",
+        "page": 35,
+        "bbox": [
+          396.41,
+          349.59,
+          471.77,
+          380.74
+        ],
+        "fontSize": 12.0,
+        "text": "UP410-600"
+      }
+    },
+    "UP410800": {
+      "reference": "UP410-800",
+      "nom": "Venta 80",
+      "designation": "Vasque sur meuble blanc brillant, avec trou pour robinet et trop-plein - 810 x 470 x 155",
+      "pageCatalogue": 35,
+      "pageTarif": 9,
+      "dansCatalogue": true,
+      "dansTarif": true,
+      "hotspot": {
+        "reference": "UP410-800",
+        "page": 35,
+        "bbox": [
+          54.36,
+          495.86,
+          129.72,
+          527.01
+        ],
+        "fontSize": 12.0,
+        "text": "UP410-800"
+      }
+    },
+    "UP410900": {
+      "reference": "UP410-900",
+      "nom": "Venta 90L",
+      "designation": "Vasque sur meuble blanc brillant, avec trou pour robinet et trop-plein, côté gauche - 903 x 460 x 175",
+      "pageCatalogue": null,
+      "pageTarif": 9,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "UP45301000": {
+      "reference": "UP4530-1000",
+      "nom": "Neva 100",
+      "designation": "Vasque sur meuble blanc brillant, avec trou pour robinet et trop-plein - 1000 x 460 x 170",
+      "pageCatalogue": null,
+      "pageTarif": 10,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "UP45301200": {
+      "reference": "UP4530-1200",
+      "nom": "Neva 120",
+      "designation": "Vasque sur meuble blanc brillant, avec trou pour robinet et trop-plein - 1200 x 460 x 170",
+      "pageCatalogue": null,
+      "pageTarif": 10,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "UP4530600": {
+      "reference": "UP4530-600",
+      "nom": "Neva 60",
+      "designation": "Vasque sur meuble blanc brillant, avec trou pour robinet et trop-plein - 600 x 460 x 170",
+      "pageCatalogue": null,
+      "pageTarif": 10,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "UP4530700": {
+      "reference": "UP4530-700",
+      "nom": "Neva 70",
+      "designation": "Vasque sur meuble blanc brillant, avec trou pour robinet et trop-plein - 700 x 460 x 170",
+      "pageCatalogue": null,
+      "pageTarif": 10,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "UP4530800": {
+      "reference": "UP4530-800",
+      "nom": "Neva 80",
+      "designation": "Vasque sur meuble blanc brillant, avec trou pour robinet et trop-plein - 800 x 460 x 170",
+      "pageCatalogue": null,
+      "pageTarif": 10,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "UP4530900": {
+      "reference": "UP4530-900",
+      "nom": "Neva 90",
+      "designation": "Vasque sur meuble blanc brillant, avec trou pour robinet et trop-plein - 900 x 460 x 170",
+      "pageCatalogue": null,
+      "pageTarif": 10,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    },
+    "UP45961200": {
+      "reference": "UP4596-1200",
+      "nom": "Neva 120-2",
+      "designation": "Vasque double sur meuble blanc brillant, avec trou pour robinet et trop-plein - 1200 x 460 x 170",
+      "pageCatalogue": null,
+      "pageTarif": 10,
+      "dansCatalogue": false,
+      "dansTarif": true,
+      "hotspot": null
+    }
+  },
+  "stats": {
+    "catalogueReferences": 100,
+    "tariffReferences": 168,
+    "matchedReferences": 97,
+    "catalogueOnly": 3,
+    "tariffOnly": 71
+  },
+  "anomalies": {
+    "catalogueOnly": [
+      "STR4295",
+      "TR2196D-U18",
+      "TR4331"
+    ],
+    "tariffOnly": [
+      "STR4148A",
+      "STRA4295",
+      "TR2085",
+      "TR2122D",
+      "TR2155-P",
+      "TR2196-U18",
+      "TR2217R-U20",
+      "TR2263",
+      "TR2263-U20",
+      "TR40166",
+      "TR40182",
+      "TR4032",
+      "TR4033",
+      "TR4065",
+      "TR41010",
+      "TR4101D",
+      "TR41037",
+      "TR41196",
+      "TR41203",
+      "TR41267",
+      "TR4127",
+      "TR4127A",
+      "TR41286",
+      "TR41288",
+      "TR41290",
+      "TR41299",
+      "TR41355",
+      "TR41363",
+      "TR41366",
+      "TR41385-U20",
+      "TR41420",
+      "TR41420-U20",
+      "TR41421",
+      "TR41421-U20",
+      "TR41422",
+      "TR41422-U20",
+      "TR41423",
+      "TR41423-U20",
+      "TR4153",
+      "TR4270B",
+      "TR4270D",
+      "TR428",
+      "TR4394",
+      "TR4506",
+      "TR4506A",
+      "TR4518",
+      "TR4523B",
+      "TR4545",
+      "TR4565",
+      "TR4569A",
+      "TR4570",
+      "TR4583",
+      "TR4800",
+      "TR4921",
+      "TR4925",
+      "TR4965",
+      "TR5037",
+      "TR5072",
+      "TR5151-U18",
+      "TR902",
+      "UP4005-1",
+      "UP4005-1-U20",
+      "UP4010-3",
+      "UP410-900",
+      "UP4530-1000",
+      "UP4530-1200",
+      "UP4530-600",
+      "UP4530-700",
+      "UP4530-800",
+      "UP4530-900",
+      "UP4596-1200"
+    ],
+    "pageMismatch": [],
+    "duplicateTariffRows": [
+      {
+        "reference": "TR41422",
+        "kept": {
+          "reference": "TR41422",
+          "referenceKey": "TR41422",
+          "nom": "Oaza Bloom",
+          "designation": "Vasque à poser, semi-circulaire, blanc brillant, avec texture décorative - 490 x 305 x 125",
+          "pageCatalogue": null,
+          "pageTarif": 5
+        },
+        "ignored": {
+          "reference": "TR41422",
+          "referenceKey": "TR41422",
+          "nom": "Oaza Bloom",
+          "designation": "Vasque à poser, semi-circulaire, blanc brillant, avec texture décorative - 490 x 305 x 125",
+          "pageCatalogue": null,
+          "pageTarif": 6
+        }
+      },
+      {
+        "reference": "TR41422-U20",
+        "kept": {
+          "reference": "TR41422-U20",
+          "referenceKey": "TR41422U20",
+          "nom": "Oaza Bloom",
+          "designation": "Vasque à poser, semi-circulaire, blanc mat, avec texture décorative - 490 x 305 x 125",
+          "pageCatalogue": null,
+          "pageTarif": 5
+        },
+        "ignored": {
+          "reference": "TR41422-U20",
+          "referenceKey": "TR41422U20",
+          "nom": "Oaza Bloom",
+          "designation": "Vasque à poser, semi-circulaire, blanc mat, avec texture décorative - 490 x 305 x 125",
+          "pageCatalogue": null,
+          "pageTarif": 6
+        }
+      },
+      {
+        "reference": "TR41423",
+        "kept": {
+          "reference": "TR41423",
+          "referenceKey": "TR41423",
+          "nom": "Oaza Jasmin",
+          "designation": "Vasque à poser rectangulaire, blanc brillant, avec texture décorative structurée - 500 x 355 x 125",
+          "pageCatalogue": null,
+          "pageTarif": 5
+        },
+        "ignored": {
+          "reference": "TR41423",
+          "referenceKey": "TR41423",
+          "nom": "Oaza Jasmin",
+          "designation": "Vasque à poser rectangulaire, blanc brillant, avec texture décorative structurée - 500 x 355 x 125",
+          "pageCatalogue": null,
+          "pageTarif": 6
+        }
+      },
+      {
+        "reference": "TR2217R-U18",
+        "kept": {
+          "reference": "TR2217R-U18",
+          "referenceKey": "TR2217RU18",
+          "nom": "Amaro Black Vortex",
+          "designation": "Cuvette de toilettes noir mat, système VORTEX - 480 x 360 x 360",
+          "pageCatalogue": 44,
+          "pageTarif": 11
+        },
+        "ignored": {
+          "reference": "TR2217R-U18",
+          "referenceKey": "TR2217RU18",
+          "nom": "Amaro Black Vortex",
+          "designation": "Cuvette de toilettes noir mat, système VORTEX - 480 x 360 x 360",
+          "pageCatalogue": null,
+          "pageTarif": 12
+        }
+      }
+    ]
+  }
+}
