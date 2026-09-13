@@ -21,7 +21,11 @@ jobs:
         with:
           credentials_json: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_LE_ROY_FACTORY }}'
           token_format: access_token
-          access_token_scopes: 'https://www.googleapis.com/auth/cloud-platform,https://www.googleapis.com/auth/drive.readonly'
+          access_token_scopes: 'https://www.googleapis.com/auth/drive.readonly'
+
+      - name: Ensure Google Drive API is enabled
+        shell: bash
+        run: gcloud services enable drive.googleapis.com --project le-roy-factory
 
       - name: Download exact UPTREND PDF from private Drive bridge
         env:
@@ -31,7 +35,7 @@ jobs:
           set -euo pipefail
           curl --fail --location --retry 3 \
             -H "Authorization: Bearer ${ACCESS_TOKEN}" \
-            'https://www.googleapis.com/drive/v3/files/1BW2GKn_OApS12EsA4q645mLH1ff9aCx4?alt=media' \
+            'https://www.googleapis.com/drive/v3/files/1BW2GKn_OApS12EsA4q645mLH1ff9aCx4?alt=media&supportsAllDrives=true' \
             --output /tmp/uptrend2026.pdf
           test "$(sha256sum /tmp/uptrend2026.pdf | awk '{print $1}')" = 'e5fd7b6492327091e971120c22b3734cdd298c3cae9c7a8e4c8a885080e0a761'
           test "$(stat -c%s /tmp/uptrend2026.pdf)" = '1356942'
