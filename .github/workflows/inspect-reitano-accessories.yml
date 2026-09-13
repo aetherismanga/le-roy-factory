@@ -14,4 +14,4 @@ jobs:
       - name: Read official page
         run: |
           curl -fL -A 'Mozilla/5.0' 'https://www.reitano-rubinetteria.com/it/prodotti' -o page.html
-          grep -n 'source:' page.html | tail -20
+          grep -Ein 'atob|pdf|dflip|flip' page.html | tail -120
