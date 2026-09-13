@@ -11,7 +11,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Read official page
+      - name: Test official PDF paths
+        shell: bash
         run: |
-          curl -fL -A 'Mozilla/5.0' 'https://www.reitano-rubinetteria.com/it/prodotti' -o page.html
-          grep -Ein -A25 -B15 'Nuovo catalogo accessori|Accessori bagno|accessori 2026' page.html | tail -180
+          set -u
+          base='https://www.reitano-rubinetteria.com/images/cataloghi/full'
+          candidates=(
+            'Accessori%202026.pdf'
+            'ACCESSORI%202026.pdf'
+            'Catalogo%20Accessori%202026.pdf'
+            'Catalogo%20accessori%202026.pdf'
+            'Catalogo%20ACCESSORI%202026.pdf'
+            'Accessori%20Bagno%202026.pdf'
+            'Accessori%20bagno%202026.pdf'
+            'Catalogo%20Accessori%20Bagno%202026.pdf'
+            'Catalogo%20accessori%20bagno%202026.pdf'
+            'Catalogo%20Accessori%20bagno%202026.pdf'
+            'REITANO%20Accessori%202026.pdf'
+            'REITANO-Accessori-2026.pdf'
+            'Reitano%20Accessori%202026.pdf'
+          )
+          for f in "${candidates[@]}"; do
+            url="$base/$f"
+            code=$(curl -L -A 'Mozilla/5.0' -s -o /tmp/candidate -w '%{http_code}' "$url")
+            bytes=$(wc -c </tmp/candidate 2>/dev/null || echo 0)
+            head5=$(head -c 5 /tmp/candidate 2>/dev/null || true)
+            echo "$code $bytes $head5 $url"
+          done
