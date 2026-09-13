@@ -149,6 +149,10 @@
         { nom:'Opal', pays:'International', presentation:"Fabricant de miroirs lumineux et décoratifs pour espaces d'eau.", fichiers:[
           { titre:'Miroirs & Éclairages', desc:'Gamme de miroirs lumineux et accessoires.', lien:'https://www.koibath.com/wp-content/uploads/CATALOGO-ESPEJOS-2025.pdf' }
         ]},
+        { nom:'Reitano Rubinetteria', pays:'Italie', presentation:'Robinetterie italienne et accessoires de salle de bain.', fichiers:[
+          { titre:'Catalogue Robinetterie 2026', desc:'Catalogue général Reitano Rubinetteria 2026.', lien:'assets/pdf/REITANO-Robinetterie-2026.pdf' },
+          { titre:'Catalogue Accessoires 2026', desc:'Accessoires et compléments Reitano pour la salle de bain.', lien:'assets/pdf/REITANO-Accessoire-2026-Catalogue.pdf' }
+        ]},
         { nom:'Bilt', pays:'International', presentation:'Croisillons autonivelants et accessoires de pose professionnels.', fichiers:[
           { titre:'Outillage & Pose', desc:'Systèmes de nivellement et accessoires de chantier.', lien:'https://static1.squarespace.com/static/6303350848baf04643f47e75/t/695e81a2f7247e0c195e5394/1767801250391/Cata%CC%81logo+2025_ES_3.2.pdf' }
         ]}
@@ -178,6 +182,7 @@
         else if (nameLower.includes('koibath')) logoFile = 'koibath.png';
         else if (nameLower.includes('aquahome')) logoFile = 'aquahome.png';
         else if (nameLower.includes('opal')) logoFile = 'opal.png';
+        else if (nameLower.includes('reitano')) logoFile = 'reitano.svg';
         else if (nameLower.includes('bilt')) logoFile = 'bilt.png';
 
         const logoStyle = logoFile ? `background-image:url('assets/img/${logoFile}');` : '';
