@@ -6,7 +6,7 @@ const { requireAgent } = require('./auth');
 if (!admin.apps.length) admin.initializeApp();
 
 const MAX_BYTES = 20 * 1024 * 1024;
-const ALLOWED_SCOPES = new Set(['expo-clients', 'merchandising', 'client-documents']);
+const ALLOWED_SCOPES = new Set(['expo-clients', 'merchandising', 'client-documents', 'usine-documents']);
 const ALLOWED_ORIGINS = new Set([
   'https://leroyfactory.fr',
   'https://www.leroyfactory.fr',
