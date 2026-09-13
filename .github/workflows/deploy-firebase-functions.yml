@@ -41,6 +41,15 @@ jobs:
         with:
           credentials_json: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_LE_ROY_FACTORY }}'
 
+      - name: Show Firebase service account email
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json, os
+          with open(os.environ['GOOGLE_APPLICATION_CREDENTIALS'], 'r', encoding='utf-8') as f:
+              print('LRF_SERVICE_ACCOUNT=' + json.load(f)['client_email'])
+          PY
+
       - name: Install Firebase CLI
         run: npm install --global firebase-tools
 
