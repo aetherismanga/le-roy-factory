@@ -6,7 +6,6 @@
   const ENDPOINT = 'https://us-central1-le-roy-factory.cloudfunctions.net/trackLrfActivity';
   const recent = new Map();
   const clean = (v, max = 180) => String(v ?? '').trim().slice(0, max);
-  const norm = v => clean(v, 180).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 
   function deviceType() {
     const w = Math.min(window.innerWidth || 0, window.screen?.width || 9999);
@@ -97,20 +96,6 @@
     }, { passive:true, capture:true });
   }
 
-  function installOrderTracking() {
-    document.addEventListener('submit', event => {
-      const form = event.target;
-      if (!(form instanceof HTMLFormElement)) return;
-      if (form.id !== 'view-order-form') return;
-      const title = clean(document.querySelector('#view-order-title')?.textContent || '', 120);
-      if (!norm(title).startsWith('commande view')) return;
-      const first = document.querySelector('#view-order-lines .view-order-line');
-      const productName = clean(first?.querySelector('[data-field="product"] option:checked')?.textContent || 'Commande VIEW', 180);
-      const productRef = clean(first?.querySelector('input[readonly]')?.value || '', 80);
-      send('order_view', { partner:'view-ceramica', productName, productRef, source:'view-order' });
-    }, { capture:true });
-  }
-
   function installStockTracking() {
     const original = window.fetch.bind(window);
     window.fetch = async function(input, init) {
@@ -142,7 +127,9 @@
     ensureSessionStart();
     setTimeout(() => send('page_view'), 450);
     installClickTracking();
-    installOrderTracking();
+    // Les commandes ne sont plus déduites d'un submit ou d'un aperçu de formulaire.
+    // Elles sont envoyées à l'analytics uniquement via lrf-order-analytics-bridge
+    // après confirmation explicite du code métier qu'une commande a réellement été envoyée.
     installStockTracking();
     window.addEventListener('lrf-pro-session-changed', () => { setTimeout(ensureSessionStart, 80); setTimeout(() => send('page_view'), 180); });
     document.addEventListener('visibilitychange', () => { if (!document.hidden) ensureSessionStart(); });
