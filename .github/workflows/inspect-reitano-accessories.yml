@@ -1,31 +1,38 @@
-name: Inspect Reitano accessories
+name: Import Reitano accessories 2026
 on:
   push:
     branches: [main]
     paths:
       - '.github/workflows/inspect-reitano-accessories.yml'
 permissions:
-  contents: read
+  contents: write
 jobs:
-  inspect:
+  import-accessories:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Decode accessories PDF source
+        with:
+          fetch-depth: 0
+      - name: Download official accessories catalogue
         shell: bash
         run: |
           set -euo pipefail
-          URL='https://www.reitano-rubinetteria.com/it/accessori-bagno-2026'
-          curl -fL -A 'Mozilla/5.0' "$URL" -o /tmp/page.html
-          python3 - <<'PY'
-          import re,base64,html
-          raw=html.unescape(open('/tmp/page.html',encoding='utf-8',errors='ignore').read()).replace('\\/','/')
-          print('TITLE', re.findall(r'<title>(.*?)</title>',raw,re.I|re.S)[:1])
-          vals=re.findall(r'atob\(["\']([^"\']+)["\']\)',raw,re.I)
-          print('ATOB COUNT',len(vals))
-          for v in vals:
-              try: print('DECODED',base64.b64decode(v).decode('utf-8','ignore'))
-              except Exception as e: print('DECODE ERROR',e)
-          print('DIRECT PDF URLS')
-          for u in re.findall(r'https?://[^"\'<>\s]+?\.pdf(?:\?[^"\'<>\s]*)?',raw,re.I): print(u)
-          PY
+          mkdir -p assets/pdf
+          URL='https://www.reitano-rubinetteria.com/images/cataloghi/full/Catalogo%20accessori.pdf'
+          curl -fL --retry 3 -A 'Mozilla/5.0' "$URL" -o assets/pdf/REITANO-Accessoire-2026-Catalogue.pdf
+          test -s assets/pdf/REITANO-Accessoire-2026-Catalogue.pdf
+          head -c 5 assets/pdf/REITANO-Accessoire-2026-Catalogue.pdf | grep -q '%PDF-'
+          bytes=$(wc -c < assets/pdf/REITANO-Accessoire-2026-Catalogue.pdf)
+          echo "PDF bytes: $bytes"
+          test "$bytes" -gt 1000000
+          ls -lh assets/pdf/REITANO-Accessoire-2026-Catalogue.pdf
+      - name: Commit accessories catalogue
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/pdf/REITANO-Accessoire-2026-Catalogue.pdf
+          git diff --cached --quiet && exit 0
+          git commit -m 'Ajoute catalogue Accessoires Reitano 2026'
+          git push origin HEAD:main
