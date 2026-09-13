@@ -73,7 +73,7 @@
   let src='';
   let id='';
   if(path.endsWith('catalogues.html')){src='assets/js/uptrend-catalogues.js?v=20260913-1';id='lrf-uptrend-catalogues-loader';}
-  else if(path.endsWith('tarifs-pro.html')){src='assets/js/uptrend-tarifs.js?v=20260913-1';id='lrf-uptrend-tarifs-loader';}
+  else if(path.endsWith('tarifs-pro.html')){src='assets/js/uptrend-tarifs.js?v=20260913-2';id='lrf-uptrend-tarifs-loader';}
   else if(path.endsWith('univers.html')){src='assets/js/uptrend-selection.js?v=20260913-1';id='lrf-uptrend-selection-loader';}
   if(!src||document.getElementById(id))return;
   const script=document.createElement('script');
