@@ -25,7 +25,8 @@
     ['assets/pdf/neobathanima.pdf','neobath-anima'],
     ['assets/pdf/neobathdna.pdf','neobath-dna-pdf'],
     ['assets/pdf/aquahome.pdf','aquahome'],
-    ['assets/pdf/bilt.pdf','bilt']
+    ['assets/pdf/bilt.pdf','bilt'],
+    ['assets/pdf/uptrend2026.pdf','uptrend-2026']
   ]);
 
   function session(){
@@ -79,9 +80,15 @@
     });
   }
 
-  async function openSecureTariff(anchor){
+  function cardAllowsSecureOpen(anchor){
     const card=anchor.closest('.card-premium');
-    if(card&&!card.querySelector('.pro-access-badge.allowed'))return;
+    if(!card)return true;
+    if(anchor.dataset.secureTariffId==='uptrend-2026')return true;
+    return !!card.querySelector('.pro-access-badge.allowed');
+  }
+
+  async function openSecureTariff(anchor){
+    if(!cardAllowsSecureOpen(anchor))return;
     const s=session();
     if(!s){
       alert('Votre accès PRO a expiré. Saisissez à nouveau votre Code LRF et votre département.');
@@ -131,8 +138,7 @@
   document.addEventListener('click',e=>{
     const a=e.target.closest('a[data-secure-tariff-id]');
     if(!a)return;
-    const card=a.closest('.card-premium');
-    if(card&&!card.querySelector('.pro-access-badge.allowed'))return;
+    if(!cardAllowsSecureOpen(a))return;
     e.preventDefault();e.stopImmediatePropagation();
     openSecureTariff(a);
   },true);
