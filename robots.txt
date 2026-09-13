@@ -1,0 +1,41 @@
+User-agent: *
+Allow: /
+
+# Zones internes et outils commerciaux : hors indexation publique.
+Disallow: /agent.html
+Disallow: /dashboard.html
+Disallow: /clients.html
+Disallow: /agenda.html
+Disallow: /tournees.html
+Disallow: /comptes-rendus.html
+Disallow: /nouveau-compte-rendu.html
+Disallow: /mails-groupes.html
+Disallow: /carte.html
+Disallow: /statistiques.html
+Disallow: /demandes-clients.html
+Disallow: /contacts-partenaires.html
+Disallow: /analyse-clients-lrf.html
+Disallow: /parametres.html
+Disallow: /controle-site.html
+Disallow: /contrats-usine-jerome.html
+Disallow: /expo-clients.html
+Disallow: /merchandising-usines.html
+Disallow: /ouverture-compte.html
+
+# Pages de test, de commande ou de disponibilité non destinées aux résultats Google.
+Disallow: /accueil-test.html
+Disallow: /roomvo-test.html
+Disallow: /univers-elios-preview.html
+Disallow: /configurateur-elios-pose-v2.html
+Disallow: /commande-bilt.html
+Disallow: /bilt-remise.html
+Disallow: /biopietra-commande.html
+Disallow: /biopietra-disponibilite.html
+Disallow: /disponibilites-elios.html
+Disallow: /disponibilites-elios-lot1.html
+Disallow: /tarif-neobath-dna.html
+Disallow: /elios-rentree-r11-2026.html
+Disallow: /view-lots-septembre-2026.html
+Disallow: /confidentialite-ma-station.html
+
+Sitemap: https://leroyfactory.fr/sitemap.xml
