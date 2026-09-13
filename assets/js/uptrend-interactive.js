@@ -46,7 +46,7 @@
   function extractInfo(product){
     const d=product.designation||'';
     const dimensions=(d.match(/\b\d+(?:[,.]\d+)?\s*[x×]\s*\d+(?:[,.]\d+)?(?:\s*[x×]\s*\d+(?:[,.]\d+)?)?/i)||[])[0]||'';
-    const colour=(d.match(/\b(?:blanc|noir|doré|or|beige|gris|vert|bleu|rose|macchiato)(?:\s+(?:et\s+)?(?:blanc|noir|doré|or|beige|gris|vert|bleu|rose|mat|brillant|macchiato)){0,3}/i)||[])[0]||'';
+    const colour=(d.match(/\b(?:blanc(?:he)?|noir|doré(?:e)?|or|beige|gris|vert|bleu|rose|macchiato)(?:\s+(?:et\s+)?(?:blanc(?:he)?|noir|doré(?:e)?|or|beige|gris|vert|bleu|rose|mat|brillant|macchiato)){0,3}/i)||[])[0]||'';
     return {dimensions,colour};
   }
   function linesFromText(items){
@@ -118,7 +118,7 @@
   function updatePageBase(){$('catalogue-pages')?.style.setProperty('--page-base',`${Math.min(innerWidth-(innerWidth<=760?16:32),780)}px`)}
   function setZoom(value){state.zoom=Math.max(.7,Math.min(2.2,Math.round(value*100)/100));$('catalogue-pages').style.setProperty('--zoom',state.zoom);$('zoom-value').textContent=`${Math.round(state.zoom*100)} %`;const keep=state.currentPage;state.rendered.clear();document.querySelectorAll('.up-page canvas,.up-hotspot').forEach(e=>e.remove());goPage(keep,'auto');document.querySelectorAll('.up-page').forEach(p=>state.observer.unobserve(p));document.querySelectorAll('.up-page').forEach(p=>state.observer.observe(p))}
   async function init(){
-    try{bind();updatePageBase();addEventListener('resize',updatePageBase,{passive:true});const [data,catalogue]=await Promise.all([fetch(DATA_URL,{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('Index UPTREND indisponible');return r.json()}),pdfjsLib.getDocument({url:CATALOGUE_URL,disableAutoFetch:false}).promise]);state.data=data;state.catalogue=catalogue;createPages();$('loading').hidden=true;const params=new URLSearchParams(location.search);const ref=params.get('ref');if(ref){const product=findProduct(ref);if(product){$('product-search').value=product.reference;setTimeout(()=>{goPage(product.pageCatalogue,'auto');openProduct(product)},200)}}}
+    try{bind();updatePageBase();addEventListener('resize',updatePageBase,{passive:true});const [data,catalogue]=await Promise.all([fetch(DATA_URL,{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('Index UPTREND indisponible');return r.json()}),pdfjsLib.getDocument({url:CATALOGUE_URL,disableRange:true,disableStream:true}).promise]);state.data=data;state.catalogue=catalogue;createPages();$('loading').hidden=true;const params=new URLSearchParams(location.search);const ref=params.get('ref');if(ref){const product=findProduct(ref);if(product){$('product-search').value=product.reference;setTimeout(()=>{goPage(product.pageCatalogue,'auto');openProduct(product)},200)}}}
     catch(error){$('loading').innerHTML=`<strong>Le catalogue interactif n’est pas encore disponible.</strong><span style="animation:none;border:0;width:auto;height:auto">${escapeHtml(error.message)}</span><a href="catalogues.html" style="color:#651f2a">Retour aux catalogues</a>`;console.error(error)}
   }
   addEventListener('beforeunload',()=>{if(state.tariffBlobUrl)URL.revokeObjectURL(state.tariffBlobUrl)});
