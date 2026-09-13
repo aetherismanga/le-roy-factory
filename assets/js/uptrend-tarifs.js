@@ -1,5 +1,5 @@
 (() => {
-  const TARIF_URL = 'https://artesinna.fr/wp-content/uploads/2026/03/2026-Uptrend-France-Sanitaire-Ceramique-Tarif-P-HT_.pdf';
+  const TARIF_URL = 'assets/pdf/uptrend2026.pdf';
 
   function appendCard() {
     const grid = document.getElementById('grid-tarifs');
@@ -17,7 +17,7 @@
         <p style="font-size:.9rem;color:#555;margin-bottom:1.5rem;">Céramique sanitaire : vasques, WC, bidets et solutions design pour la salle de bain.</p>
       </div>
       <div style="display:flex;flex-direction:column;gap:.75rem;">
-        <div class="pro-info-row"><div><strong style="display:block;font-size:.85rem;color:#1A2530;">Grille Tarifaire 2026</strong><span style="font-size:.75rem;color:#666;">Tarif public HT France — sanitaire &amp; céramique.</span></div><a href="${TARIF_URL}" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:.75rem;padding:.4rem .8rem;white-space:nowrap;">Tarifs</a></div>
+        <div class="pro-info-row"><div><strong style="display:block;font-size:.85rem;color:#1A2530;">Grille Tarifaire 2026</strong><span style="font-size:.75rem;color:#666;">Tarif public HT France — sanitaire &amp; céramique.</span></div><a href="${TARIF_URL}" class="btn btn-outline" style="font-size:.75rem;padding:.4rem .8rem;white-space:nowrap;">Tarifs</a></div>
         <div class="pro-info-row condition-row"><div><strong style="display:block;font-size:.85rem;color:#1A2530;">Condition</strong><span style="font-size:.78rem;color:#444;"></span></div></div>
       </div>`;
     grid.appendChild(card);
