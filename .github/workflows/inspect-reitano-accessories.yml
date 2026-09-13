@@ -14,4 +14,4 @@ jobs:
       - name: Read official page
         run: |
           curl -fL -A 'Mozilla/5.0' 'https://www.reitano-rubinetteria.com/it/prodotti' -o page.html
-          grep -Ein 'atob|pdf|dflip|flip' page.html | tail -120
+          grep -Ein -A25 -B15 'Nuovo catalogo accessori|Accessori bagno|accessori 2026' page.html | tail -180
