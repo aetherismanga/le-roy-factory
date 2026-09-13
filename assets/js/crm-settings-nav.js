@@ -10,6 +10,15 @@
   function isAnalysisPage() { const p=location.pathname.toLowerCase(); return p.endsWith('/analyse-clients-lrf.html') || p.endsWith('analyse-clients-lrf.html'); }
   function isClientsPage() { const p=location.pathname.toLowerCase(); return p.endsWith('/clients.html') || p.endsWith('clients.html'); }
 
+  function ensureSettingsCrmLayout() {
+    if (!isSettingsPage() || document.querySelector('link[data-lrf-settings-crm-layout]')) return;
+    const link=document.createElement('link');
+    link.rel='stylesheet';
+    link.href='assets/css/clients.css?v=20260913-settings-layout1';
+    link.dataset.lrfSettingsCrmLayout='1';
+    document.head.appendChild(link);
+  }
+
   function installSettingsCloseButton() {
     if (!isSettingsPage() || document.getElementById('lrf-settings-close')) return;
     const topbar = document.querySelector('.settings-topbar'); if (!topbar) return;
@@ -21,6 +30,7 @@
 
   function fixSettingsPagePosition() {
     if (!isSettingsPage()) return;
+    ensureSettingsCrmLayout();
     try { history.scrollRestoration='manual'; } catch (_) {}
     if (!document.getElementById('lrf-settings-mobile-fix')) {
       const style=document.createElement('style'); style.id='lrf-settings-mobile-fix'; style.textContent=`
