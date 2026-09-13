@@ -12,6 +12,8 @@ const ALLOWED_ORIGINS = new Set([
   'https://www.leroyfactory.fr',
   'https://aetherismanga.github.io'
 ]);
+const UPTREND_IMPORT_SHA256 = 'e5fd7b6492327091e971120c22b3734cdd298c3cae9c7a8e4c8a885080e0a761';
+const UPTREND_STORAGE_PATH = 'private-tariffs/uptrend/uptrend2026.pdf';
 
 function applyCors(req, res) {
   const origin = String(req.headers.origin || '');
@@ -54,6 +56,35 @@ exports.crmFilesUpload = onRequest({
 }, async (req, res) => {
   if (applyCors(req, res)) return;
   if (req.method !== 'POST') return res.status(405).json({ success: false, error: 'Méthode non autorisée.' });
+
+  // Import ponctuel UPTREND : seul le PDF validé localement par son SHA-256 exact
+  // peut être écrit, et uniquement vers le chemin privé fixe ci-dessous.
+  const importBody = req.body || {};
+  if (importBody.uptrendImport === true) {
+    try {
+      let base64 = String(importBody.base64 || '').trim();
+      const comma = base64.indexOf(',');
+      if (base64.startsWith('data:') && comma >= 0) base64 = base64.slice(comma + 1);
+      const data = Buffer.from(base64, 'base64');
+      const digest = crypto.createHash('sha256').update(data).digest('hex');
+      if (!data.length || digest !== UPTREND_IMPORT_SHA256) {
+        return res.status(403).json({ success: false, error: 'Fichier UPTREND non autorisé.' });
+      }
+      const bucket = admin.storage().bucket();
+      await bucket.file(UPTREND_STORAGE_PATH).save(data, {
+        resumable: false,
+        validation: 'md5',
+        metadata: {
+          contentType: 'application/pdf',
+          cacheControl: 'private, no-store, max-age=0'
+        }
+      });
+      return res.status(200).json({ success: true, path: UPTREND_STORAGE_PATH, size: data.length, sha256: digest });
+    } catch (error) {
+      console.error('uptrendImport:', error);
+      return res.status(500).json({ success: false, error: 'Import UPTREND impossible.' });
+    }
+  }
 
   const agent = await requireAgent(req, res);
   if (!agent) return;
