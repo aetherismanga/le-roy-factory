@@ -1,5 +1,5 @@
 (() => {
-  const CATALOGUE_URL = 'https://artesinna.fr/wp-content/uploads/2026/02/2026-Uptrend-France-Catalogue-Sanitaire-Ceramique.pdf';
+  const CATALOGUE_URL = 'uptrend-catalogue-interactif.html';
   const TECH_URL = 'https://artesinna.fr/wp-content/uploads/2023/09/UPTREND-Photo-Schema-Technique-2023.pdf';
   const LOGO = 'assets/img/uptrend.svg';
   const norm = value => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -82,7 +82,7 @@
           <strong>UPTREND — sanitaire céramique</strong>
           <p>Consultez le catalogue 2026 et les fiches techniques pour les vasques, WC, bidets et références sanitaires UPTREND.</p>
           <div style="display:flex;flex-wrap:wrap;gap:.65rem;justify-content:center;">
-            <a class="pro-link" href="${CATALOGUE_URL}" target="_blank" rel="noopener">Catalogue 2026</a>
+            <a class="pro-link" href="${CATALOGUE_URL}">Catalogue interactif 2026</a>
             <a class="pro-link" href="${TECH_URL}" target="_blank" rel="noopener">Fiches techniques</a>
             <a class="pro-link" href="tarifs-pro.html">Tarif PRO UPTREND</a>
           </div>

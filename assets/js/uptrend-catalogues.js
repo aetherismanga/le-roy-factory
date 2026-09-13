@@ -1,5 +1,5 @@
 (() => {
-  const CATALOGUE_URL = 'https://artesinna.fr/wp-content/uploads/2026/02/2026-Uptrend-France-Catalogue-Sanitaire-Ceramique.pdf';
+  const CATALOGUE_URL = 'uptrend-catalogue-interactif.html';
   const TECH_URL = 'https://artesinna.fr/wp-content/uploads/2023/09/UPTREND-Photo-Schema-Technique-2023.pdf';
 
   function install() {
@@ -21,7 +21,7 @@
         <details class="catalogue-picker">
           <summary>☰ Voir les catalogues <span style="font-weight:600;color:#80611c;">2</span></summary>
           <div class="catalogue-menu">
-            <div class="catalogue-row"><div><strong>Catalogue Sanitaire Céramique 2026</strong><span>Catalogue produits UPTREND France 2026.</span></div><a href="${CATALOGUE_URL}" target="_blank" rel="noopener" class="catalogue-link">PDF</a></div>
+            <div class="catalogue-row"><div><strong>Catalogue interactif 2026</strong><span>Cliquez sur une référence pour afficher son tarif PRO HT.</span></div><a href="${CATALOGUE_URL}" class="catalogue-link">Ouvrir</a></div>
             <div class="catalogue-row"><div><strong>Fiches techniques &amp; schémas</strong><span>Dimensions et schémas techniques des produits sanitaires.</span></div><a href="${TECH_URL}" target="_blank" rel="noopener" class="catalogue-link">PDF</a></div>
           </div>
         </details>
