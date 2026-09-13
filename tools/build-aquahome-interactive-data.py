@@ -184,7 +184,12 @@ def main():
             ref_word = max(candidates, key=lambda w: w[2], default=None)
             source_ht = round(float(price[4][:-1].replace(",", ".")), 2)
             if not ref_word or px0 - ref_word[2] > 95:
-                missing_ref.append({"page": page_index + 1, "priceSourceHT": source_ht, "bbox": [px0, py0, px1, py1]})
+                missing_ref.append({
+                    "page": page_index + 1, "priceSourceHT": source_ht,
+                    "publicTTC": round(source_ht * 1.20 + 1e-8, 2),
+                    "bbox": [px0, py0, px1, py1],
+                    "priceBox": [round((px0 - 3) / width, 6), round((py0 - 2) / height, 6), round((px1 - px0 + 6) / width, 6), round((py1 - py0 + 4) / height, 6)],
+                })
                 continue
             ref = ref_word[4].upper()
             finish = finish_from_words(words, ref_word[0], px0, py0)
@@ -236,7 +241,8 @@ def main():
     PUBLIC_OUT.parent.mkdir(parents=True, exist_ok=True)
     PRIVATE_OUT.parent.mkdir(parents=True, exist_ok=True)
     REPORT_OUT.parent.mkdir(parents=True, exist_ok=True)
-    PUBLIC_OUT.write_text(json.dumps({"version": "2026-09-13", "pageCount": len(doc), "pages": pages, "products": public_rows}, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    public_unmatched = [{k: v for k, v in item.items() if k not in {"priceSourceHT", "bbox"}} for item in missing_ref]
+    PUBLIC_OUT.write_text(json.dumps({"version": "2026-09-13", "pageCount": len(doc), "pages": pages, "products": public_rows, "unmatchedPrices": public_unmatched}, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     PRIVATE_OUT.write_text(json.dumps({"version": "2026-09-13", "products": private_products}, ensure_ascii=False, indent=2), encoding="utf-8")
     report = {
         "pdfPages": len(doc), "priceTokens": len(rows) + len(missing_ref), "linkedPriceRows": len(rows),
