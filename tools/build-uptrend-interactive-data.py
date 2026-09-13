@@ -69,8 +69,10 @@ def extract_tariff_rows(path: Path):
             ref = canonical_ref(join_words(code_words))
             if not ref or not re.match(r"^(?:STR|TR|UP)", ref):
                 continue
-            name = join_words(words_in(row_words, 164.5, 235, top, bottom))
-            designation = join_words(words_in(row_words, 235, 508, top, bottom))
+            content_top = max(top, center - 14)
+            content_bottom = min(bottom, center + 14)
+            name = join_words(words_in(row_words, 164.5, 230, content_top, content_bottom))
+            designation = join_words(words_in(row_words, 230, 508, content_top, content_bottom))
             price_words = words_in(row_words, 508, 546, center - 5, center + 5)
             price_text = join_words(price_words)
             if not re.fullmatch(r"\d+[.,]\d{2}", price_text):
