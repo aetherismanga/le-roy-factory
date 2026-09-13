@@ -67,6 +67,41 @@
   else setTimeout(patch,0);
 })();
 
+/* Relie Aquahome au catalogue PDF 2026 présent dans le dépôt. */
+(()=>{
+  const path=window.location.pathname.toLowerCase();
+  if(!path.endsWith('catalogues.html'))return;
+
+  let tries=0;
+  const patchAquahome=()=>{
+    const grid=document.getElementById('grid-catalogues');
+    if(!grid){if(tries++<50)setTimeout(patchAquahome,100);return;}
+
+    const cards=[...grid.querySelectorAll('.card-premium')];
+    const card=cards.find(item=>/^aquahome$/i.test((item.querySelector('h3')?.textContent||'').trim()));
+    if(!card){if(tries++<50)setTimeout(patchAquahome,100);return;}
+
+    const rows=[...card.querySelectorAll('.catalogue-row')];
+    const row=rows.find(item=>/catalogue robinetterie/i.test(item.querySelector('strong')?.textContent||''))||rows[0];
+    if(!row)return;
+
+    const title=row.querySelector('strong');
+    const desc=row.querySelector('span');
+    const link=row.querySelector('a.catalogue-link, a');
+    if(title)title.textContent='Catalogue Aquahome 2026';
+    if(desc)desc.textContent='Catalogue officiel Aquahome 2026 — robinetterie.';
+    if(link){
+      link.href='assets/pdf/aquahome2026.pdf';
+      link.target='_blank';
+      link.rel='noopener';
+      link.textContent='PDF';
+    }
+  };
+
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(patchAquahome,0),{once:true});
+  else setTimeout(patchAquahome,0);
+})();
+
 /* Intégration UPTREND : catalogues, tarifs PRO et sanitaire. Reitano est intégré directement aux pages concernées. */
 (()=>{
   const path=window.location.pathname.toLowerCase();
