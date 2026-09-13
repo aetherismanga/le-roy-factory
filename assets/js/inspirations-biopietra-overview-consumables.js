@@ -125,16 +125,22 @@
     }finally{busy=false}
   }
 
+  function cleanup(){
+    $('#bio-about')?.remove();
+    $('#bio-products-section')?.remove();
+    $('#bio-consumables-section')?.remove();
+  }
+
   function sync(){
-    if(!isBio())return;
+    if(!isBio()){
+      cleanup();
+      return;
+    }
     style();ensureIntro();ensureSections();
   }
   function schedule(){clearTimeout(timer);timer=setTimeout(sync,90)}
   document.addEventListener('click',schedule,true);
   document.addEventListener('input',e=>{if(e.target?.id==='bio-search')schedule()},true);
-  new MutationObserver(muts=>{
-    if(busy)return;
-    if(muts.some(m=>[...m.addedNodes].some(n=>n.nodeType===1&&(n.matches?.('.bio-card,#partner-products')||n.querySelector?.('.bio-card')))))schedule();
-  }).observe(document.documentElement,{childList:true,subtree:true});
+  new MutationObserver(()=>schedule()).observe(document.documentElement,{childList:true,subtree:true,characterData:true});
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(sync,350),{once:true});else setTimeout(sync,350);
 })();
