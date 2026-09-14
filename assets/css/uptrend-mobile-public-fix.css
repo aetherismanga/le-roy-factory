@@ -1,0 +1,25 @@
+/* UPTREND — correction visiteur public + recherche smartphone */
+.up-public-mode #add-to-cart,
+.up-public-mode #pro-login,
+.up-public-mode .up-cart-bar{display:none!important}
+.up-dealer-button{display:inline-flex;align-items:center;justify-content:center;text-align:center}
+
+@media(max-width:760px){
+  .up-toolbar{grid-template-columns:38px minmax(116px,auto) 38px 38px 52px 38px;column-gap:7px;row-gap:8px;padding:8px max(8px,env(safe-area-inset-right)) 8px max(8px,env(safe-area-inset-left))}
+  .up-search{grid-column:1/-1;grid-row:2;display:grid;grid-template-columns:92px minmax(0,1fr) 86px;gap:7px;width:100%;margin:0;min-width:0}
+  .up-search .up-lexicon-button{display:flex!important;align-items:center;justify-content:center;gap:5px;width:92px!important;min-width:92px!important;padding:0 8px!important;background:#fff7e8!important;border-color:#d7b56c!important;color:#5a3b16!important;font-size:.77rem!important;white-space:nowrap;overflow:visible}
+  .up-search .up-lexicon-button span{display:inline!important}
+  .up-search input{width:100%;min-width:0!important;height:42px;padding:0 11px;font-size:16px;border-radius:10px}
+  .up-search #search-button{width:86px!important;min-width:86px!important;height:42px;padding:0 8px!important;font-size:.74rem!important;white-space:nowrap}
+  .up-help{top:156px;max-width:calc(100% - 16px);width:auto;margin:10px 8px;padding:8px 11px;border-radius:13px;text-align:center;line-height:1.25}
+  .up-dialog-actions{display:grid;grid-template-columns:1fr;gap:10px}
+  .up-dialog-actions>*{width:100%;min-height:50px}
+  .up-public-mode .up-dialog-actions #dealer-open{order:1}
+  .up-public-mode .up-dialog-actions #dialog-cancel{order:2}
+}
+
+@media(max-width:390px){
+  .up-search{grid-template-columns:84px minmax(0,1fr) 76px}
+  .up-search .up-lexicon-button{width:84px!important;min-width:84px!important;font-size:.72rem!important}
+  .up-search #search-button{width:76px!important;min-width:76px!important;font-size:.68rem!important}
+}
