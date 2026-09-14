@@ -1,0 +1,155 @@
+/* LE ROY FACTORY — Sélections · finition claire premium · 2026-09-14 */
+body.insp-v2{
+  --lrf-ivory:#fffdf8;
+  --lrf-cream:#f8f3e9;
+  --lrf-gold:#c9a646;
+  --lrf-gold-dark:#8b691b;
+  --lrf-ink:#202733;
+  --lrf-muted:#746d63;
+  --lrf-line:#e4d8bb;
+}
+
+/* Blocs principaux plus lumineux */
+.insp-v2 .partner-panel,
+.insp-v2 .workspace,
+.insp-v2 .filters-bar{
+  background:transparent!important;
+}
+.insp-v2 .partner-panel{
+  background:rgba(255,255,255,.82)!important;
+  border:1px solid rgba(201,166,70,.25)!important;
+  box-shadow:0 12px 30px rgba(69,52,20,.055)!important;
+}
+.insp-v2 .workspace-head{
+  padding:.35rem 0 .25rem;
+}
+.insp-v2 .workspace-brand img{
+  background:#fff!important;
+  border:1px solid rgba(201,166,70,.22)!important;
+  box-shadow:0 8px 20px rgba(50,40,20,.055)!important;
+}
+
+/* CTA principal : remplace le noir massif par un ivoire premium */
+.insp-v2 .mobile-partner-trigger,
+.insp-v2 .mobile-filter-trigger,
+.insp-v2 .pro-link,
+.insp-v2 #mobile-lexique-trigger,
+.insp-v2 [id*="lexique"].mobile-filter-trigger,
+.insp-v2 [class*="lexique-trigger"],
+.insp-v2 [data-lexique-trigger]{
+  background:linear-gradient(180deg,#ffffff 0%,#fbf6eb 100%)!important;
+  color:var(--lrf-ink)!important;
+  border:1.5px solid var(--lrf-gold)!important;
+  box-shadow:0 7px 18px rgba(96,73,25,.07)!important;
+  text-shadow:none!important;
+  font-weight:850!important;
+  transition:transform .18s ease,box-shadow .18s ease,background .18s ease!important;
+}
+.insp-v2 .mobile-partner-trigger:hover,
+.insp-v2 .mobile-filter-trigger:hover,
+.insp-v2 .pro-link:hover,
+.insp-v2 #mobile-lexique-trigger:hover,
+.insp-v2 [class*="lexique-trigger"]:hover{
+  background:linear-gradient(180deg,#fffdf8 0%,#f4e9cf 100%)!important;
+  color:#171b22!important;
+  box-shadow:0 10px 24px rgba(96,73,25,.11)!important;
+  transform:translateY(-1px);
+}
+
+/* Icône dorée sans bloc sombre */
+.insp-v2 .mobile-partner-trigger,
+.insp-v2 .mobile-filter-trigger,
+.insp-v2 #mobile-lexique-trigger,
+.insp-v2 [class*="lexique-trigger"]{
+  border-radius:16px!important;
+  min-height:58px;
+  color:var(--lrf-ink)!important;
+}
+
+/* Tarif PRO : discret et premium */
+.insp-v2 .pro-link{
+  border-radius:12px!important;
+  padding:.62rem .85rem!important;
+  color:#6e5011!important;
+}
+.insp-v2 .pro-badge{
+  background:rgba(255,253,248,.88)!important;
+  color:#6d6559!important;
+  border:1px solid #ddd2bb!important;
+  box-shadow:0 4px 12px rgba(50,40,20,.035)!important;
+}
+.insp-v2 .pro-badge.allowed{
+  background:#eef8f1!important;
+  color:#24623d!important;
+  border-color:#bfdcc8!important;
+}
+
+/* Filtres : carte claire, légère, lisible */
+.insp-v2 .filters-bar.mobile-open{
+  background:rgba(255,255,255,.86)!important;
+  border:1px solid rgba(201,166,70,.22)!important;
+  border-radius:18px!important;
+  padding:.7rem!important;
+  box-shadow:0 12px 30px rgba(69,52,20,.055)!important;
+  backdrop-filter:blur(10px)!important;
+}
+.insp-v2 .filters-inner input,
+.insp-v2 .filters-inner select{
+  background:#fff!important;
+  color:var(--lrf-ink)!important;
+  border:1px solid #ded5c5!important;
+  border-radius:14px!important;
+  box-shadow:0 3px 10px rgba(40,32,18,.025)!important;
+}
+.insp-v2 .filters-inner input:focus,
+.insp-v2 .filters-inner select:focus{
+  border-color:var(--lrf-gold)!important;
+  box-shadow:0 0 0 3px rgba(201,166,70,.11)!important;
+}
+
+/* Cartes produits plus nettes */
+.insp-v2 .product-card-v2{
+  border-color:rgba(201,166,70,.16)!important;
+  box-shadow:0 9px 24px rgba(44,35,20,.055)!important;
+}
+.insp-v2 .product-card-v2:hover{
+  border-color:rgba(201,166,70,.65)!important;
+  box-shadow:0 12px 30px rgba(44,35,20,.085)!important;
+}
+
+/* Les CTA injectés dynamiquement (Reviglass, Aquahome, etc.) restent cohérents */
+.insp-v2 button:not(.category-card):not(.partner-card):not(.modal-v2-close)[style*="background:#111"],
+.insp-v2 a[style*="background:#111"]{
+  background:linear-gradient(180deg,#fff 0%,#faf4e7 100%)!important;
+  color:var(--lrf-ink)!important;
+  border-color:var(--lrf-gold)!important;
+  text-shadow:none!important;
+}
+
+@media(max-width:900px){
+  .insp-v2 .partner-panel{
+    background:rgba(255,255,255,.80)!important;
+    border-radius:22px!important;
+    padding:1rem!important;
+  }
+  .insp-v2 .mobile-partner-trigger,
+  .insp-v2 .mobile-filter-trigger,
+  .insp-v2 #mobile-lexique-trigger,
+  .insp-v2 [class*="lexique-trigger"]{
+    width:100%!important;
+    text-align:center!important;
+    justify-content:center!important;
+    padding:.9rem 1rem!important;
+    font-size:1rem!important;
+  }
+  .insp-v2 .pro-state{
+    gap:.55rem!important;
+  }
+  .insp-v2 .pro-link{
+    background:linear-gradient(180deg,#fff 0%,#f9f3e7 100%)!important;
+    color:#6c5014!important;
+  }
+  .insp-v2 .workspace-brand{
+    gap:.9rem!important;
+  }
+}
