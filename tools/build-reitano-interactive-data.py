@@ -162,14 +162,19 @@ def french_description(rows, marker):
 
 
 def price_variants(block):
+    # Les grilles contiennent aussi des valeurs techniques masquées (souvent
+    # 570/630). Les prix réellement imprimés des groupes sont centrés ; une
+    # ligne de tirets signifie que le groupe n'est pas commercialisé.
     direct = {}
+    simple_codes = {"INOX", "PVD", "ABS", "BRASS"}
     for row in block:
-        code = next((c for c in FINISH_CODES if re.search(rf"(?<![A-Z0-9]){re.escape(c)}(?![A-Z0-9])", row["text"].upper())), None)
+        upper = row["text"].upper()
+        code = next((c for c in FINISH_CODES if re.search(rf"(?<![A-Z0-9]){re.escape(c)}(?![A-Z0-9])", upper)), None)
         value = amount(row["text"])
-        if code and value is not None:
-            direct[code.replace("CRO/O", "CR/O")] = value
-    markers = []
-    prices = []
+        if code in simple_codes and value is not None:
+            direct[code] = value
+
+    markers, prices = [], []
     for row in block:
         code = finish_code(row["text"])
         cx = (row["bbox"][0] + row["bbox"][2]) / 2
@@ -178,31 +183,41 @@ def price_variants(block):
             markers.append((code, cx, cy))
         value = amount(row["text"])
         if value is not None and row["bbox"][0] >= 330:
-            prices.append((value, cx, cy))
+            prices.append((value, cx, cy, row))
     result = dict(direct)
-    left_prices = [p for p in prices if p[1] < 445]
-    right_prices = [p for p in prices if p[1] >= 445]
-    groups = [
-        ({"BRO", "RAM", "NIK"}, "RAM"),
-        ({"DOR", "D/SO", "D/NL", "D/NO"}, None),
-    ]
-    for code, cx, cy in markers:
-        if code in result:
+    grouped = ({"BRO", "RAM", "NIK"}, {"DOR", "D/SO", "D/NL", "D/NO"})
+    grouped_codes = set().union(*grouped)
+
+    for members in grouped:
+        present = [m for m in markers if m[0] in members]
+        if not present:
             continue
-        lane = left_prices if cx < 430 else right_prices
+        left = sum(m[1] for m in present) / len(present) < 430
+        lane_prices = [p for p in prices if (p[1] < 445) == left]
+        low, high = min(m[2] for m in present) - 7, max(m[2] for m in present) + 7
+        lane_x0, lane_x1 = (365, 430) if left else (465, 535)
+        unavailable = any(
+            lane_x0 <= (r["bbox"][0] + r["bbox"][2]) / 2 <= lane_x1
+            and low <= (r["bbox"][1] + r["bbox"][3]) / 2 <= high
+            and "---" in r["text"]
+            for r in block
+        )
+        if unavailable or not lane_prices:
+            continue
+        target_y = sum(m[2] for m in present) / len(present)
+        selected = min(lane_prices, key=lambda p: abs(p[2] - target_y))
+        if abs(selected[2] - target_y) <= 28:
+            for code, _, _ in present:
+                result[code] = selected[0]
+
+    for code, cx, cy in markers:
+        if code in result or code in grouped_codes:
+            continue
+        lane = [p for p in prices if (p[1] < 445) == (cx < 430)]
         if not lane:
             continue
-        target_y = cy
-        for members, anchor in groups:
-            present = [m for m in markers if m[0] in members and (m[1] < 430) == (cx < 430)]
-            if code in members and present:
-                if anchor:
-                    target_y = min(present, key=lambda m: 0 if m[0] == anchor else 1)[2]
-                else:
-                    target_y = sum(m[2] for m in present) / len(present)
-                break
-        candidate = min(lane, key=lambda p: abs(p[2] - target_y))
-        if abs(candidate[2] - target_y) <= 34:
+        candidate = min(lane, key=lambda p: abs(p[2] - cy))
+        if abs(candidate[2] - cy) <= 8:
             result[code] = candidate[0]
     return result
 
