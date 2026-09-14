@@ -66,7 +66,7 @@
   window.ELIOS_IMAGE_DATA = window.ELIOS_IMAGE_DATA || {};
   window.ELIOS_IMAGE_DATA['azuli-mood-1'] = 'assets/img/elios/azuli-mood/chalk-01.jpg';
 
-  // Tarif demandé pour Azuli Mood : 23 € HT/m² sur les deux formats.
+  // Tarifs Azuli Mood corrigés le 14/09/2026 : 10x10 = 23 € HT/m² ; 5x15 = 29 € HT/m².
   // Le tarif reste masqué pour les comptes qui n'ont pas l'accès Elios.
   function normalise(value) {
     return String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -87,7 +87,8 @@
       const f = String(format || '').replace(',', '.').match(/\d+(?:\.\d+)?x\d+(?:\.\d+)?/i)?.[0]?.toLowerCase() || normalise(format);
       if (slug === 'azulimood' && (f === '5x15' || f === '10x10')) {
         if (!canSeeEliosPrice()) return { locked: true };
-        return { amount: 23, unit: 'net/m²', label: '23,00 € HT/m²', note: 'Tarif Azuli Mood' };
+        if (f === '5x15') return { amount: 29, unit: 'net/m²', label: '29,00 € HT/m²', note: 'Tarif Azuli Mood 5×15' };
+        return { amount: 23, unit: 'net/m²', label: '23,00 € HT/m²', note: 'Tarif Azuli Mood 10×10' };
       }
       return original(partner, product, format);
     };
@@ -158,7 +159,8 @@
     if (canSeeEliosPrice()) {
       info.querySelectorAll('.formats-table tbody tr').forEach(row => {
         const f = normalise(row.cells?.[0]?.textContent);
-        if (f === '5x15' || f === '10x10') row.cells[1].innerHTML = '<span class="price-ok">23,00 € HT/m²</span>';
+        if (f === '5x15') row.cells[1].innerHTML = '<span class="price-ok">29,00 € HT/m²</span>';
+        if (f === '10x10') row.cells[1].innerHTML = '<span class="price-ok">23,00 € HT/m²</span>';
       });
     }
 
@@ -192,7 +194,7 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', installAzuliUi, { once: true });
   else installAzuliUi();
 
-  window.ELIOS_THICKNESS_OVERRIDES = { source: 'ELIOS Catalogue Général 2026 + Azuli Mood 2026', updated: '2026-09-11' };
+  window.ELIOS_THICKNESS_OVERRIDES = { source: 'ELIOS Catalogue Général 2026 + Azuli Mood 2026', updated: '2026-09-14' };
 
   if (!document.querySelector('script[data-lrf-elios-stock-roma]')) {
     const stockScript = document.createElement('script');
