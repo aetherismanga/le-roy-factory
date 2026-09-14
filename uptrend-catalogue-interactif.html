@@ -8,6 +8,7 @@
   <title>Catalogue UPTREND interactif | LE ROY FACTORY</title>
   <link rel="icon" type="image/png" href="assets/img/logo03lrf.png">
   <link rel="stylesheet" href="assets/css/uptrend-interactive.css?v=20260914-1">
+  <link rel="stylesheet" href="assets/css/uptrend-lexicon.css?v=20260914-1">
 </head>
 <body>
   <header class="up-header">
@@ -23,6 +24,7 @@
     <label>Page <input id="page-input" inputmode="numeric" value="1" aria-label="Numéro de page"> <span>/ 60</span></label>
     <button type="button" id="next-page" aria-label="Page suivante">›</button>
     <div class="up-search">
+      <button type="button" id="lexicon-button" class="up-lexicon-button" aria-haspopup="dialog">▦ <span>Catégories</span></button>
       <input id="product-search" type="search" autocomplete="off" placeholder="Référence ou produit…" aria-label="Rechercher un produit">
       <button type="button" id="search-button">Rechercher</button>
     </div>
@@ -61,7 +63,16 @@
     </div>
   </dialog>
 
+  <dialog id="lexicon-dialog" class="up-dialog up-lexicon-dialog" aria-labelledby="lexicon-title">
+    <button type="button" class="up-dialog-close" id="lexicon-close" aria-label="Fermer">×</button>
+    <img src="assets/img/uptrend.svg" alt="UPTREND" class="up-dialog-logo">
+    <p class="up-dialog-kicker">Accès rapide au catalogue</p>
+    <h2 id="lexicon-title">Choisir une catégorie</h2>
+    <p class="up-lexicon-intro">Touchez une famille de produits pour accéder directement à sa collection.</p>
+    <div id="lexicon-grid" class="up-lexicon-grid"></div>
+  </dialog>
+
   <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
-  <script src="assets/js/uptrend-interactive.js?v=20260914-2"></script>
+  <script src="assets/js/uptrend-interactive.js?v=20260914-lexicon1"></script>
 </body>
 </html>

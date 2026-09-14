@@ -3,6 +3,15 @@
   const CATALOGUE_URL='assets/pdf/UPTREND_Catalogue_2026_FR.pdf';
   const DATA_URL='assets/data/uptrend-products.json?v=20260914-1';
   const CART_KEY='lrfUptrendCartV1';
+  const CATEGORIES=[
+    {name:'Vasques à poser',page:14,image:'vasques-a-poser.webp',description:'Modèles ronds, ovales et design'},
+    {name:'Vasques murales',page:26,image:'vasques-murales.webp',description:'Solutions suspendues et gain de place'},
+    {name:'Vasques encastrées',page:34,image:'vasques-encastrees.webp',description:'Intégration élégante au meuble'},
+    {name:'Vasques sous plan',page:36,image:'vasques-sous-plan.webp',description:'Finition discrète et raffinée'},
+    {name:'WC suspendus',page:38,image:'wc-suspendus.webp',description:'Cuvettes modernes et fonctionnelles'},
+    {name:'Bidets',page:48,image:'bidets.webp',description:'Confort et harmonie dans la salle de bains'},
+    {name:'Accessoires',page:52,image:'accessoires.webp',description:'Compléments et solutions UPTREND'}
+  ];
   const TARIFF_ENDPOINT='https://gettariffpdf-5m3lsyu7bq-uc.a.run.app';
   const FIREBASE_CONFIG={apiKey:'AIzaSyA3iuK5Ua8kFccURSqLihLshHnhA4rm2is',authDomain:'le-roy-factory.firebaseapp.com',projectId:'le-roy-factory',storageBucket:'le-roy-factory.firebasestorage.app',messagingSenderId:'249878619253',appId:'1:249878619253:web:05f051710b6251dbfa843c'};
   const ADMIN_EMAILS=new Set(['jerome@leroyfactory.fr','coryne@leroyfactory.fr']);
@@ -30,11 +39,28 @@
   async function renderPage(holder,pageNumber){if(state.rendered.has(pageNumber)||holder.dataset.rendering)return;holder.dataset.rendering='1';try{const page=await state.catalogue.getPage(pageNumber),base=page.getViewport({scale:1}),scale=holder.getBoundingClientRect().width/base.width,dpr=Math.min(devicePixelRatio||1,2),viewport=page.getViewport({scale:scale*dpr}),canvas=document.createElement('canvas');canvas.width=Math.ceil(viewport.width);canvas.height=Math.ceil(viewport.height);holder.prepend(canvas);await page.render({canvasContext:canvas.getContext('2d',{alpha:false}),viewport}).promise;addHotspots(holder,pageNumber);state.rendered.add(pageNumber)}catch(error){holder.innerHTML=`<p style="padding:20px">Page ${pageNumber} indisponible.</p>`;console.error(error)}finally{delete holder.dataset.rendering}}
   function createPages(){const root=$('catalogue-pages');for(let page=1;page<=state.catalogue.numPages;page++){const holder=document.createElement('article');holder.className='up-page';holder.dataset.page=page;holder.innerHTML=`<span class="up-page-number">${page}</span>`;root.appendChild(holder)}state.observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting)renderPage(entry.target,Number(entry.target.dataset.page))}),{rootMargin:'1400px 0px'});root.querySelectorAll('.up-page').forEach(page=>state.observer.observe(page));const current=new IntersectionObserver(entries=>{const visible=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];if(visible){state.currentPage=Number(visible.target.dataset.page);$('page-input').value=state.currentPage}},{rootMargin:'-36% 0px -52% 0px',threshold:[0,.25,.5,1]});root.querySelectorAll('.up-page').forEach(page=>current.observe(page))}
   function goPage(page,behavior='auto'){page=Math.max(1,Math.min(state.catalogue.numPages,Number(page)||1));document.querySelector(`.up-page[data-page="${page}"]`)?.scrollIntoView({behavior,block:'start'})}
+  function renderLexicon(){if($('lexicon-grid').children.length)return;$('lexicon-grid').innerHTML=CATEGORIES.map(category=>`<button type="button" class="up-lexicon-card" data-page="${category.page}"><img src="assets/img/uptrend-lexicon/${category.image}" alt="${category.name}" loading="lazy"><span><strong>${category.name}</strong><small>${category.description}</small></span><b>›</b></button>`).join('')}
+  function openLexicon(){renderLexicon();$('lexicon-dialog').showModal()}
   function findProduct(query){const q=norm(query);if(!q)return null;const all=Object.values(state.data.products).filter(p=>p.dansCatalogue);return all.find(p=>norm(p.reference)===q||norm(p.nom).includes(q))||all.find(p=>norm(p.reference).includes(q)||norm(p.nom).includes(q))}
   function runSearch(){const product=findProduct($('product-search').value);if(!product){$('product-search').setCustomValidity('Aucun produit trouvé');$('product-search').reportValidity();return}$('product-search').setCustomValidity('');goPage(product.pageCatalogue);setTimeout(()=>openProduct(product),650)}
   function updatePageBase(){$('catalogue-pages')?.style.setProperty('--page-base',`${Math.min(innerWidth-(innerWidth<=760?16:32),780)}px`)}
   function setZoom(value){state.zoom=Math.max(.7,Math.min(2.2,Math.round(value*100)/100));$('catalogue-pages').style.setProperty('--zoom',state.zoom);$('zoom-value').textContent=`${Math.round(state.zoom*100)} %`;const keep=state.currentPage;state.rendered.clear();document.querySelectorAll('.up-page canvas,.up-hotspot').forEach(e=>e.remove());goPage(keep);document.querySelectorAll('.up-page').forEach(page=>{state.observer.unobserve(page);state.observer.observe(page)})}
-  function bind(){$('previous-page').onclick=()=>goPage(state.currentPage-1);$('next-page').onclick=()=>goPage(state.currentPage+1);$('page-input').onchange=e=>goPage(e.target.value);$('search-button').onclick=runSearch;$('product-search').onkeydown=e=>{if(e.key==='Enter')runSearch()};$('zoom-in').onclick=()=>setZoom(state.zoom+.15);$('zoom-out').onclick=()=>setZoom(state.zoom-.15);$('dialog-close').onclick=$('dialog-cancel').onclick=()=>$('product-dialog').close();$('add-to-cart').onclick=addToCart;$('product-dialog').onclick=e=>{if(e.target===$('product-dialog'))$('product-dialog').close()}}
+  function bind(){
+    $('previous-page').onclick=()=>goPage(state.currentPage-1);
+    $('next-page').onclick=()=>goPage(state.currentPage+1);
+    $('page-input').onchange=e=>goPage(e.target.value);
+    $('search-button').onclick=runSearch;
+    $('product-search').onkeydown=e=>{if(e.key==='Enter')runSearch()};
+    $('lexicon-button').onclick=openLexicon;
+    $('lexicon-close').onclick=()=>$('lexicon-dialog').close();
+    $('lexicon-grid').onclick=e=>{const card=e.target.closest('.up-lexicon-card');if(!card)return;$('lexicon-dialog').close();goPage(Number(card.dataset.page),'smooth')};
+    $('zoom-in').onclick=()=>setZoom(state.zoom+.15);
+    $('zoom-out').onclick=()=>setZoom(state.zoom-.15);
+    $('dialog-close').onclick=$('dialog-cancel').onclick=()=>$('product-dialog').close();
+    $('add-to-cart').onclick=addToCart;
+    $('product-dialog').onclick=e=>{if(e.target===$('product-dialog'))$('product-dialog').close()};
+    $('lexicon-dialog').onclick=e=>{if(e.target===$('lexicon-dialog'))$('lexicon-dialog').close()};
+  }
   async function init(){try{bind();updateCartCount();updatePageBase();addEventListener('resize',updatePageBase,{passive:true});const [data,catalogue]=await Promise.all([fetch(DATA_URL,{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('Index UPTREND indisponible');return r.json()}),pdfjsLib.getDocument({url:CATALOGUE_URL,disableRange:true,disableStream:true}).promise]);state.data=data;state.catalogue=catalogue;createPages();$('loading').hidden=true;const ref=new URLSearchParams(location.search).get('ref');if(ref){const product=findProduct(ref);if(product){$('product-search').value=product.reference;setTimeout(()=>{goPage(product.pageCatalogue);openProduct(product)},200)}}}catch(error){$('loading').innerHTML=`<strong>Le catalogue interactif n’est pas encore disponible.</strong><span>${escapeHtml(error.message)}</span><a href="univers.html?partner=uptrend">Retour à UPTREND</a>`;console.error(error)}}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
