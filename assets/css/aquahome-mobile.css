@@ -28,6 +28,10 @@ body,
   image-rendering: auto;
 }
 
+.aq-page {
+  scroll-margin-top: 145px;
+}
+
 .aq-price-overlay {
   overflow: hidden;
   line-height: 1 !important;
@@ -293,6 +297,7 @@ body,
     min-height: 0;
     transform-origin: top left;
     box-shadow: 0 5px 22px rgba(29, 31, 34, .14);
+    scroll-margin-top: 154px;
   }
 
   .aq-page-number {
