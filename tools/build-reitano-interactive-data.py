@@ -118,7 +118,7 @@ def catalogue_rows():
         for index, row in enumerate(rows):
             x0, y0, x1, y1 = row["bbox"]
             text = clean(row["text"]).upper()
-            bold = "BOLD" in row["font"].upper() or "DEMI" in row["font"].upper()
+            bold = any(weight in row["font"].upper() for weight in ("BOLD", "DEMI", "BLACK"))
             if y0 > page.rect.height - 32 or not bold or not (7 <= row["size"] <= 15) or not valid_ref(text):
                 continue
             next_rows = [candidate for candidate in rows[index + 1:index + 5] if candidate["bbox"][1] <= y1 + 42]
