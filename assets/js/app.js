@@ -222,6 +222,29 @@ function installInspirationsNeobathPdf() {
     document.body.appendChild(pdfjs);
 }
 
+function installCurrentContactNumbers() {
+    const JEROME_OLD = ['+33766059922', '+33 7 66 05 99 22', '07 66 05 99 22'];
+    const JEROME_TEL = '+33766040361';
+    const JEROME_DISPLAY = '07 66 04 03 61';
+
+    document.querySelectorAll('a[href^="tel:"]').forEach(link => {
+        const href = String(link.getAttribute('href') || '');
+        const text = String(link.textContent || '');
+        if (JEROME_OLD.some(value => href.includes(value.replace(/\s+/g, ''))) || text.includes('07 66 05 99 22')) {
+            link.setAttribute('href', `tel:${JEROME_TEL}`);
+            link.textContent = text.replace('07 66 05 99 22', JEROME_DISPLAY);
+            const aria = link.getAttribute('aria-label');
+            if (aria) link.setAttribute('aria-label', aria.replace('07 66 05 99 22', JEROME_DISPLAY));
+        }
+    });
+
+    document.querySelectorAll('script[type="application/ld+json"]').forEach(script => {
+        let text = script.textContent || '';
+        JEROME_OLD.forEach(value => { text = text.split(value).join(value.startsWith('+33 ') ? '+33 7 66 04 03 61' : value.startsWith('+337') ? JEROME_TEL : JEROME_DISPLAY); });
+        script.textContent = text;
+    });
+}
+
 function installContactPriority() {
     if (!window.location.pathname.toLowerCase().endsWith('contact.html')) return;
 
@@ -282,6 +305,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     installNeobathDnaTariffFix();
     installInspirationsNeobathPdf();
+    installCurrentContactNumbers();
     installContactPriority();
     installProEmptyPlaceholders();
 
