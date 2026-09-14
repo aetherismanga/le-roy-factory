@@ -73,6 +73,117 @@
     return setTimeout(callback, 260);
   }
 
+  /* Lexique produits : accès rapide aux collections depuis le bloc Produits. */
+  function installProductLexicon() {
+    if (document.getElementById('lrf-product-lexicon-btn')) return true;
+    const filters = document.querySelector('#v2-filters .filters-inner');
+    if (!filters) return false;
+
+    const style = document.createElement('style');
+    style.id = 'lrf-product-lexicon-style';
+    style.textContent = `
+      .lrf-lexicon-btn{min-height:46px;padding:0 18px;border:1px solid #c9a438;border-radius:12px;background:#151515;color:#ffd632;font-weight:900;cursor:pointer;white-space:nowrap;box-shadow:0 5px 14px rgba(0,0,0,.08)}
+      .lrf-lexicon-btn:hover{background:#222}
+      .lrf-lexicon-overlay{position:fixed;inset:0;z-index:99999;background:rgba(12,12,12,.55);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:18px}
+      .lrf-lexicon-overlay.open{display:flex}
+      .lrf-lexicon-card{width:min(720px,100%);max-height:min(78vh,760px);display:flex;flex-direction:column;background:#fff;border-radius:22px;border:1px solid #e0d5bf;box-shadow:0 22px 70px rgba(0,0,0,.3);overflow:hidden}
+      .lrf-lexicon-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 20px;border-bottom:1px solid #eee6d9;background:#fffdf8}
+      .lrf-lexicon-head h3{margin:0;font-size:1.3rem;color:#1a2530}.lrf-lexicon-head small{display:block;margin-top:3px;color:#81786b;font-weight:600}
+      .lrf-lexicon-close{width:42px;height:42px;border:0;border-radius:50%;background:#f1eee8;font-size:1.7rem;line-height:1;cursor:pointer}
+      .lrf-lexicon-search{margin:14px 18px 8px;width:calc(100% - 36px);min-height:48px;border:1px solid #d8cdbb;border-radius:12px;padding:0 14px;font:inherit;font-size:16px}
+      .lrf-lexicon-list{padding:10px 18px 20px;overflow:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+      .lrf-lexicon-item{display:flex;align-items:center;gap:10px;text-align:left;border:1px solid #e5dfd4;background:#fff;border-radius:12px;padding:11px 12px;font:inherit;font-weight:850;color:#222;cursor:pointer;min-height:48px}
+      .lrf-lexicon-item:before{content:'›';color:#b58b35;font-size:1.4rem;font-weight:900}.lrf-lexicon-item:hover{border-color:#c9a438;background:#fffaf0}
+      .lrf-lexicon-empty{grid-column:1/-1;text-align:center;padding:24px;color:#81786b}
+      @media(max-width:760px){#v2-filters .filters-inner{align-items:stretch}.lrf-lexicon-btn{width:100%;min-height:52px}.lrf-lexicon-card{max-height:84vh;border-radius:18px}.lrf-lexicon-list{grid-template-columns:1fr}.lrf-lexicon-head{padding:15px 16px}.lrf-lexicon-search{margin:12px 14px 6px;width:calc(100% - 28px)}}`;
+    document.head.appendChild(style);
+
+    const btn = document.createElement('button');
+    btn.id = 'lrf-product-lexicon-btn';
+    btn.className = 'lrf-lexicon-btn';
+    btn.type = 'button';
+    btn.textContent = '☰ Lexique des carreaux';
+    filters.insertBefore(btn, filters.firstChild);
+
+    const overlay = document.createElement('div');
+    overlay.className = 'lrf-lexicon-overlay';
+    overlay.innerHTML = `<div class="lrf-lexicon-card" role="dialog" aria-modal="true" aria-label="Lexique des produits"><div class="lrf-lexicon-head"><div><h3>Lexique des carreaux</h3><small id="lrf-lexicon-sub">Accès rapide aux collections</small></div><button type="button" class="lrf-lexicon-close" aria-label="Fermer">×</button></div><input class="lrf-lexicon-search" type="search" placeholder="Rechercher un nom de carreau…"><div class="lrf-lexicon-list"></div></div>`;
+    document.body.appendChild(overlay);
+
+    const search = overlay.querySelector('.lrf-lexicon-search');
+    const list = overlay.querySelector('.lrf-lexicon-list');
+    const sub = overlay.querySelector('#lrf-lexicon-sub');
+    let entries = [];
+
+    const normalise = value => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+
+    function currentEntries() {
+      const partner = document.getElementById('workspace-title')?.textContent?.trim() || '';
+      if (/elios/i.test(partner) && Array.isArray(window.ELIOS_CATALOGUE)) {
+        return window.ELIOS_CATALOGUE.map(p => ({
+          id: `elios-${p.slug}`,
+          name: p.name || p.catalogueLabel || p.slug
+        })).filter(x => x.id && x.name).sort((a,b) => a.name.localeCompare(b.name,'fr',{sensitivity:'base'}));
+      }
+      return [...document.querySelectorAll('#partner-products .product-card-v2')].map(card => ({
+        id: card.dataset.id,
+        name: card.querySelector('h3')?.textContent?.trim() || card.dataset.id
+      })).filter(x => x.id && x.name).sort((a,b) => a.name.localeCompare(b.name,'fr',{sensitivity:'base'}));
+    }
+
+    function renderLexicon(query='') {
+      const q = normalise(query).trim();
+      const shown = entries.filter(x => !q || normalise(x.name).includes(q));
+      list.innerHTML = shown.length ? shown.map(x => `<button type="button" class="lrf-lexicon-item" data-lex-id="${String(x.id).replace(/"/g,'&quot;')}">${String(x.name).replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]))}</button>`).join('') : '<div class="lrf-lexicon-empty">Aucun produit trouvé.</div>';
+    }
+
+    function closeLexicon() {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    btn.addEventListener('click', () => {
+      entries = currentEntries();
+      const partner = document.getElementById('workspace-title')?.textContent?.trim() || 'ce fabricant';
+      sub.textContent = `${entries.length} produit${entries.length>1?'s':''} · ${partner}`;
+      search.value = '';
+      renderLexicon();
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => search.focus({preventScroll:true}), 50);
+    });
+    search.addEventListener('input', () => renderLexicon(search.value));
+    overlay.querySelector('.lrf-lexicon-close').addEventListener('click', closeLexicon);
+    overlay.addEventListener('click', e => { if (e.target === overlay) closeLexicon(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && overlay.classList.contains('open')) closeLexicon(); });
+
+    list.addEventListener('click', e => {
+      const item = e.target.closest('[data-lex-id]');
+      if (!item) return;
+      const id = item.dataset.lexId;
+      closeLexicon();
+
+      const searchBox = document.getElementById('v2-search');
+      if (searchBox) {
+        const entry = entries.find(x => x.id === id);
+        searchBox.value = entry?.name || '';
+        searchBox.dispatchEvent(new Event('input', {bubbles:true}));
+      }
+      ['v2-format','v2-color','v2-effect','v2-finish'].forEach(selectId => {
+        const el = document.getElementById(selectId);
+        if (el && el.value !== 'Tous') { el.value = 'Tous'; el.dispatchEvent(new Event('change',{bubbles:true})); }
+      });
+      setTimeout(() => {
+        const card = document.querySelector(`#partner-products .product-card-v2[data-id="${CSS.escape(id)}"]`);
+        if (card) {
+          card.scrollIntoView({behavior:'smooth',block:'center'});
+          setTimeout(() => card.click(), 180);
+        }
+      }, 120);
+    });
+    return true;
+  }
+
   document.addEventListener('pointerdown', e => {
     const partner = e.target.closest?.('[data-partner]');
     if (partner && /view/i.test(partner.dataset.partner || '')) loadGroup('view', true);
@@ -82,6 +193,7 @@
   }, { capture: true, passive: true });
 
   const startBackgroundLoad = () => {
+    installProductLexicon();
     idle(() => {
       loadGroup('elios').finally(() => { idle(() => loadGroup('view'), 1800); });
     }, 1000);
@@ -89,4 +201,10 @@
 
   if (document.readyState === 'complete') startBackgroundLoad();
   else window.addEventListener('load', startBackgroundLoad, { once: true, passive: true });
+
+  let lexiconTries = 0;
+  const lexiconTimer = setInterval(() => {
+    lexiconTries += 1;
+    if (installProductLexicon() || lexiconTries > 40) clearInterval(lexiconTimer);
+  }, 250);
 })();
