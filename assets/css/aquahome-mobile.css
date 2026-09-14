@@ -1,0 +1,188 @@
+/* Correctif mobile AQUAHOME : pages simples, commandes compactes et rendu net. */
+html,
+body,
+.aq-toolbar,
+.aq-page,
+.aq-price-overlay,
+.aq-cart-bar {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+.aq-cover-mode {
+  position: absolute;
+  z-index: 5;
+  left: 35%;
+  bottom: 2.1%;
+  width: 30%;
+  padding: .6% 1%;
+  border-radius: 999px;
+  background: rgba(58, 38, 36, .92);
+  color: #fff;
+  text-align: center;
+  font: 800 clamp(8px, 1.3vw, 16px)/1.2 Arial, sans-serif;
+  letter-spacing: .08em;
+}
+
+.aq-page canvas {
+  image-rendering: auto;
+}
+
+.aq-price-overlay {
+  overflow: hidden;
+  line-height: 1 !important;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+@media (max-width: 760px) {
+  body {
+    padding-bottom: 62px;
+    overflow-x: auto;
+  }
+
+  .aq-header {
+    height: 56px;
+    padding: 6px 9px;
+  }
+
+  .aq-brand {
+    gap: 7px;
+    min-width: 0;
+  }
+
+  .aq-brand img {
+    width: 36px;
+    height: 36px;
+  }
+
+  .aq-brand strong {
+    font-size: .78rem;
+    white-space: nowrap;
+  }
+
+  .aq-brand small {
+    font-size: .66rem;
+  }
+
+  .aq-header-actions {
+    gap: 7px;
+  }
+
+  .aq-header-actions .aq-mode {
+    position: static;
+    padding: 5px 7px;
+    font-size: .66rem;
+    line-height: 1.05;
+    text-align: center;
+    max-width: 82px;
+  }
+
+  .aq-header-actions a {
+    font-size: .72rem;
+  }
+
+  .aq-toolbar {
+    top: 56px;
+    display: grid;
+    grid-template-columns: 38px minmax(96px, 1fr) 38px 38px 48px 38px;
+    grid-template-areas:
+      "prev page next minus zoom plus"
+      "search search search search search search";
+    gap: 6px;
+    padding: 7px 8px 8px;
+  }
+
+  #previous-page { grid-area: prev; }
+  .aq-toolbar label { grid-area: page; text-align: center; font-size: .78rem; }
+  #next-page { grid-area: next; }
+  #zoom-out { grid-area: minus; }
+  #zoom-value { grid-area: zoom; text-align: center; font-size: .72rem; white-space: nowrap; }
+  #zoom-in { grid-area: plus; }
+  .aq-search { grid-area: search; min-width: 0; max-width: none; margin: 0; }
+
+  .aq-toolbar button,
+  .aq-toolbar input {
+    min-height: 36px;
+    border-radius: 8px;
+    font-size: .82rem;
+  }
+
+  .aq-toolbar button {
+    padding: 0 8px;
+    font-size: 1rem;
+  }
+
+  .aq-toolbar label input {
+    width: 40px;
+    min-height: 34px;
+    padding: 0 3px;
+    font-size: .82rem;
+  }
+
+  .aq-search input {
+    min-width: 0;
+    padding: 0 10px;
+    border-radius: 8px 0 0 8px;
+  }
+
+  .aq-search button {
+    flex: 0 0 auto;
+    padding: 0 11px;
+    border-radius: 0 8px 8px 0;
+    font-size: .78rem;
+  }
+
+  .aq-help {
+    display: none;
+  }
+
+  .aq-pages {
+    --page-base: calc(100vw - 12px);
+    gap: 12px;
+    justify-content: start;
+    padding: 10px 6px 72px;
+    width: max-content;
+    min-width: 100%;
+  }
+
+  .aq-page {
+    min-height: 0;
+    transform-origin: top left;
+    box-shadow: 0 5px 22px rgba(29, 31, 34, .14);
+  }
+
+  .aq-page-number {
+    top: 5px;
+    left: 5px;
+    padding: 2px 6px;
+    font-size: .65rem;
+  }
+
+  .aq-hotspot:active {
+    border-color: #9d7625;
+    background: rgba(229, 200, 120, .2);
+  }
+
+  .aq-cart-bar {
+    bottom: max(5px, env(safe-area-inset-bottom));
+    width: calc(100% - 12px);
+    min-height: 50px;
+    padding: 9px 15px;
+    border-radius: 12px;
+    align-items: center;
+    font-size: .9rem;
+  }
+
+  .aq-dialog {
+    max-height: calc(100dvh - 18px);
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 370px) {
+  .aq-brand strong { font-size: .7rem; }
+  .aq-header-actions .aq-mode { max-width: 70px; font-size: .59rem; }
+  .aq-toolbar { grid-template-columns: 36px minmax(86px, 1fr) 36px 36px 44px 36px; gap: 4px; }
+  .aq-search button { padding-inline: 8px; }
+}
