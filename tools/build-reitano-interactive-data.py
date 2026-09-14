@@ -21,10 +21,10 @@ SERIES = [
     ("RX Steel", 13), ("Golf", 42), ("Polo", 52), ("Mastermax", 58),
     ("Round", 68), ("Rhapsody", 78), ("Rhapsody Design", 86),
     ("Dandy", 92), ("Nausika", 96), ("Elle", 104), ("Sky", 110),
-    ("Airtech", 114), ("Delux", 120), ("Axia", 126),
-    ("Axia Quadro", 132), ("Epoca", 138), ("Antea", 152),
+    ("Airtech", 114), ("Airtech Deluxe", 120), ("Axia", 126),
+    ("Axia Quadro", 132), ("Epoca", 138), ("Epoca Deluxe", 146), ("Antea", 152),
     ("Robinets électroniques", 161), ("Robinets temporisés", 164),
-    ("Douche", 165), ("Barres de douche", 173),
+    ("Douche", 165), ("Douchette WC", 171), ("Barres de douche", 173),
     ("Colonnes de douche", 177), ("Cuisine", 185),
 ]
 FINISH_NAMES = {
