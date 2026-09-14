@@ -113,6 +113,7 @@
   }else if(path.endsWith('univers.html')){
     scripts.push(['lrf-uptrend-selection-loader','assets/js/uptrend-selection.js?v=20260914-cart1']);
     scripts.push(['lrf-aquahome-selection-loader','assets/js/aquahome-selection.js?v=20260914-2']);
+    scripts.push(['lrf-reitano-selection-loader','assets/js/reitano-selection.js?v=20260914-1']);
   }
   scripts.forEach(([id,src])=>{
     if(document.getElementById(id))return;

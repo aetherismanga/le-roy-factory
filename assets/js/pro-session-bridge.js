@@ -17,7 +17,7 @@
   const ALL_PARTNERS = [
     'elios-ceramica', 'view-ceramica', 'la-fenice', 'reviglass', 'biopietra',
     'petracers', 'pecchioli-firenze', 'bulbo', 'randal-pro', 'neobath',
-    'koibath', 'aquahome', 'opal', 'bilt'
+    'koibath', 'aquahome', 'opal', 'reitano-rubinetterie', 'bilt'
   ];
   const FIREBASE_CONFIG = {
     apiKey: 'AIzaSyA3iuK5Ua8kFccURSqLihLshHnhA4rm2is',
