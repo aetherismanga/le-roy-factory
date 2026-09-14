@@ -1,7 +1,7 @@
 (() => {
   'use strict';
-  if (window.__LRF_REVIGLASS_PALETTE_QTY__) return;
-  window.__LRF_REVIGLASS_PALETTE_QTY__ = true;
+  if (window.__LRF_REVIGLASS_PALETTE_QTY_STABLE_20260914__) return;
+  window.__LRF_REVIGLASS_PALETTE_QTY_STABLE_20260914__ = true;
 
   const norm = value => String(value || '')
     .normalize('NFD')
@@ -51,6 +51,10 @@
     document.head.appendChild(style);
   }
 
+  let scheduled = false;
+  let modalObserver = null;
+  let discoveryObserver = null;
+
   function apply() {
     const modal = document.getElementById('reviglass-pool-modal');
     if (!modal || !modal.classList.contains('open')) return;
@@ -67,8 +71,18 @@
       const paletteCell = cells[1];
       if (!paletteCell) return;
 
-      paletteCell.querySelector('.reviglass-palette-qty')?.remove();
-      if (!qty) return;
+      const existing = paletteCell.querySelector('.reviglass-palette-qty');
+      if (!qty) {
+        if (existing) existing.remove();
+        return;
+      }
+
+      // IMPORTANT : ne jamais supprimer/recréer le badge s'il est déjà correct.
+      // L'ancienne version provoquait ainsi une boucle MutationObserver infinie.
+      if (existing) {
+        if (existing.textContent !== qty) existing.textContent = qty;
+        return;
+      }
 
       const badge = document.createElement('span');
       badge.className = 'reviglass-palette-qty';
@@ -77,12 +91,56 @@
     });
   }
 
+  function scheduleApply() {
+    if (scheduled) return;
+    scheduled = true;
+    requestAnimationFrame(() => {
+      scheduled = false;
+      apply();
+    });
+  }
+
+  function observeModal() {
+    const modal = document.getElementById('reviglass-pool-modal');
+    if (!modal) return false;
+    if (modal.dataset.lrfPaletteObserver === '1') {
+      scheduleApply();
+      return true;
+    }
+
+    modal.dataset.lrfPaletteObserver = '1';
+    modalObserver = new MutationObserver(scheduleApply);
+    modalObserver.observe(modal, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['class']
+    });
+    scheduleApply();
+    return true;
+  }
+
   function install() {
     ensureStyle();
-    const observer = new MutationObserver(() => requestAnimationFrame(apply));
-    observer.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] });
-    document.addEventListener('click', () => setTimeout(apply, 0), true);
-    apply();
+
+    if (!observeModal()) {
+      discoveryObserver = new MutationObserver(() => {
+        if (observeModal()) {
+          discoveryObserver.disconnect();
+          discoveryObserver = null;
+        }
+      });
+      discoveryObserver.observe(document.body, { childList: true, subtree: true });
+    }
+
+    document.addEventListener('click', event => {
+      if (event.target.closest('[data-reviglass-id], .reviglass-ref-list span')) {
+        setTimeout(() => {
+          observeModal();
+          scheduleApply();
+        }, 0);
+      }
+    }, true);
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', install, { once: true });
