@@ -50,7 +50,9 @@ export const PARTNER_CONTACTS = {
     { name: 'Ruth Ballano', role: 'Commandes', email: 'pedidos@koibath.com', phone: '' },
     { name: 'María Antonia', role: 'Direction commerciale', email: 'direccioncomercial@koibath.com', phone: '' }
   ]},
-  'Bilt': { logo: 'assets/img/bilt.png', contacts: [] }
+  'Bilt': { logo: 'assets/img/bilt.png', contacts: [
+    { name: 'Carles Bofarull', role: 'Export Manager', email: ['carlesb','biltbs.com'].join('@'), phone: ['+34','650','068','495'].join(' ') }
+  ]}
 };
 
 export function partnerContacts(name) { return PARTNER_CONTACTS[name]?.contacts || []; }
