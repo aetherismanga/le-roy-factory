@@ -8,7 +8,7 @@ const catalogue = require('./reitano-products.json');
 const ALLOWED = new Set(['https://leroyfactory.fr','https://www.leroyfactory.fr']);
 const RECIPIENTS = ['jerome@leroyfactory.fr','coryne@leroyfactory.fr'];
 const attempts = new Map();
-function cors(req,res){const origin=String(req.headers.origin||'');res.set('Access-Control-Allow-Origin',ALLOWED.has(origin)?origin:'https://leroyfactory.fr');res.set('Vary','Origin');res.set('Access-Control-Allow-Headers','Content-Type, Authorization');res.set('Access-Control-Allow-Methods','POST, OPTIONS');res.set('Cache-Control','no-store, private');if(req.method==='OPTIONS'){res.status(204).send('');return true}return false}
+function cors(req,res){const origin=String(req.headers.origin||'');res.set('Access-Control-Allow-Origin',ALLOWED.has(origin)?origin:'https://leroyfactory.fr');res.set('Vary','Origin');res.set('Access-Control-Allow-Headers','Content-Type, Authorization');res.set('Access-Control-Allow-Methods','POST, OPTIONS');res.set('Cache-Control','no-store, private');res.set('X-Reitano-Catalog-Version',catalogue.version||'2026');if(req.method==='OPTIONS'){res.status(204).send('');return true}return false}
 function clean(value,max=160){return String(value??'').trim().slice(0,max)}
 function esc(value){return clean(value,1200).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 function validEmail(value){return /^\S+@\S+\.\S+$/.test(clean(value,180))}
