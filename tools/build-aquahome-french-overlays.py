@@ -104,6 +104,17 @@ FINISHES = {
     "Blanco mate", "Acero inoxidable", "Latón envejecido",
 }
 
+FINISH_REPLACEMENTS = {
+    "Cromo brillo": "Chrome brillant",
+    "Negro mate": "Noir mat",
+    "Oro cepillado": "Or brossé",
+    "Inox cepillado": "Inox brossé",
+    "Blanco mate": "Blanc mat",
+    "Acero inoxidable": "Acier inoxydable",
+    "Latón envejecido": "Laiton vieilli",
+    "Copper cepillado": "Cuivre brossé",
+}
+
 
 def main() -> None:
     document = fitz.open(PDF)
@@ -115,10 +126,18 @@ def main() -> None:
             x0, y0, x1, y1, raw = block[:5]
             source = " ".join(raw.split())
             translated = TRANSLATIONS.get(source)
+            compound_finish = False
+            if not translated and not any(character.isdigit() for character in source):
+                translated = source
+                for spanish, french in FINISH_REPLACEMENTS.items():
+                    translated = translated.replace(spanish, french)
+                compound_finish = translated != source
+                if not compound_finish:
+                    translated = None
             if not translated:
                 continue
             title = not source.startswith("-") and source.upper() == source
-            finish = source in FINISHES
+            finish = source in FINISHES or compound_finish
             # Les traductions françaises sont parfois plus longues : la zone peut
             # s'étendre jusqu'à la colonne suivante sans recouvrir les références.
             available = 60 if finish else (220 if x0 >= width / 2 else 260)

@@ -2,7 +2,7 @@
   'use strict';
   const PDF_URL='assets/pdf/aquahome2026.pdf';
   const DATA_URL='assets/data/aquahome-products.json?v=20260913-2';
-  const TRANSLATIONS_URL='assets/data/aquahome-french-overlays.json?v=20260914-1';
+  const TRANSLATIONS_URL='assets/data/aquahome-french-overlays.json?v=20260914-2';
   const API='https://us-central1-le-roy-factory.cloudfunctions.net/aquahomeCatalog';
   const CART_KEY='lrfAquahomeCartV1';
   const SERIES=[
@@ -90,7 +90,7 @@
     let canvas;
     try{
       const page=await state.pdf.getPage(view.pdfPage),base=page.getViewport({scale:1}),sourceWidth=view.side?base.width/2:base.width;
-      const dpr=Math.min(devicePixelRatio||1,3),requestedScale=Math.max(.1,holder.clientWidth/sourceWidth)*dpr,maxCanvasWidth=6000,scale=requestedScale*Math.min(1,maxCanvasWidth/(base.width*requestedScale)),viewport=page.getViewport({scale});
+      const screenDpr=devicePixelRatio||1,dpr=state.mobile?Math.min(Math.max(screenDpr,2),3):Math.min(Math.max(screenDpr,2.5),3),requestedScale=Math.max(.1,holder.clientWidth/sourceWidth)*dpr,maxCanvasWidth=6000,scale=requestedScale*Math.min(1,maxCanvasWidth/(base.width*requestedScale)),viewport=page.getViewport({scale});
       canvas=document.createElement('canvas');canvas.width=Math.ceil(view.side?viewport.width/2:viewport.width);canvas.height=Math.ceil(viewport.height);canvas.style.aspectRatio=`${sourceWidth}/${base.height}`;holder.prepend(canvas);
       const renderOptions={canvasContext:canvas.getContext('2d',{alpha:false}),viewport};
       if(view.side==='right')renderOptions.transform=[1,0,0,1,-viewport.width/2,0];
