@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CATALOGUE = ROOT / "assets/pdf/REITANO-Robinetterie-2026.pdf"
 TARIFF = ROOT / "assets/pdf/Reitano tarif general 2026.pdf"
 PUBLIC_OUT = ROOT / "assets/data/reitano-products.json"
+PRIVATE_OUT = ROOT / "functions/reitano-products.json"
 REPORT_OUT = ROOT / "reports/reitano-extraction-report.json"
 
 SERIES = [
@@ -294,6 +295,7 @@ def main():
         "products": products,
     }
     PUBLIC_OUT.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    PRIVATE_OUT.write_text(json.dumps({"version": "2026-09-14", "products": private}, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     report = {
         "cataloguePages": len(cat_doc), "tariffPages": len(tariff_doc),
         "catalogueReferenceKeys": len(catalogue), "tariffProductRows": len(tariffs),

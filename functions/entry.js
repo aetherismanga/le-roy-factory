@@ -13,8 +13,9 @@ const biltSchedule = require('./bilt-schedule');
 const crmFiles = require('./crm-files');
 const siteControl = require('./site-control');
 const aquahomeCatalog = require('./aquahome-catalog');
+const reitanoCatalog = require('./reitano-catalog');
 
-Object.assign(exports, base, tariffAccess, proSession, lrfAnalytics, eliosStock, eliosOrder, eliosPoseOrder, eliosCatalog, biltOrder, biltAutoTask, biltSchedule, crmFiles, siteControl, aquahomeCatalog);
+Object.assign(exports, base, tariffAccess, proSession, lrfAnalytics, eliosStock, eliosOrder, eliosPoseOrder, eliosCatalog, biltOrder, biltAutoTask, biltSchedule, crmFiles, siteControl, aquahomeCatalog, reitanoCatalog);
 
 // La migration vers Storage privé est terminée. Cet endpoint temporaire reste
 // présent uniquement pour éviter une suppression de fonction lors du déploiement,
