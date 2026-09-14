@@ -3,22 +3,22 @@
   "tariffPages": 185,
   "catalogueReferenceKeys": 309,
   "tariffProductRows": 400,
-  "variants": 3274,
-  "variantsWithCatalogueHotspot": 2229,
+  "variants": 2881,
+  "variantsWithCatalogueHotspot": 1979,
   "uniqueBaseReferences": 399,
   "finishCounts": {
     "INOX": 67,
     "PVD": 67,
-    "BRO": 320,
-    "COL": 288,
-    "CR/O": 251,
+    "BRO": 251,
+    "COL": 229,
+    "CR/O": 179,
     "CRO": 267,
-    "D/NL": 288,
-    "D/NO": 320,
-    "D/SO": 262,
-    "DOR": 258,
-    "NIK": 320,
-    "RAM": 320,
+    "D/NL": 274,
+    "D/NO": 306,
+    "D/SO": 248,
+    "DOR": 245,
+    "NIK": 251,
+    "RAM": 251,
     "VL": 246
   },
   "conflicts": [],
@@ -4645,16 +4645,6 @@
       "finish": "Couleur liquide",
       "sourceHT": 360.0
     },
-    "8702::BRO": {
-      "key": "8702::BRO",
-      "reference": "8702",
-      "orderReference": "8702 BRO",
-      "name": "Mitigeur lavabo avec click clack",
-      "collection": "Mastermax",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
-    },
     "8702::COL": {
       "key": "8702::COL",
       "reference": "8702",
@@ -4725,26 +4715,6 @@
       "finish": "Or",
       "sourceHT": 370.0
     },
-    "8702::NIK": {
-      "key": "8702::NIK",
-      "reference": "8702",
-      "orderReference": "8702 NIK",
-      "name": "Mitigeur lavabo avec click clack",
-      "collection": "Mastermax",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "8702::RAM": {
-      "key": "8702::RAM",
-      "reference": "8702",
-      "orderReference": "8702 RAM",
-      "name": "Mitigeur lavabo avec click clack",
-      "collection": "Mastermax",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
-    },
     "8702::VL": {
       "key": "8702::VL",
       "reference": "8702",
@@ -4754,16 +4724,6 @@
       "finishCode": "VL",
       "finish": "Couleur liquide",
       "sourceHT": 360.0
-    },
-    "8702L::BRO": {
-      "key": "8702L::BRO",
-      "reference": "8702L",
-      "orderReference": "8702L BRO",
-      "name": "Mitigeur lavabo haut avec click clack",
-      "collection": "Mastermax",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 555.0
     },
     "8702L::COL": {
       "key": "8702L::COL",
@@ -4835,26 +4795,6 @@
       "finish": "Or",
       "sourceHT": 430.0
     },
-    "8702L::NIK": {
-      "key": "8702L::NIK",
-      "reference": "8702L",
-      "orderReference": "8702L NIK",
-      "name": "Mitigeur lavabo haut avec click clack",
-      "collection": "Mastermax",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 555.0
-    },
-    "8702L::RAM": {
-      "key": "8702L::RAM",
-      "reference": "8702L",
-      "orderReference": "8702L RAM",
-      "name": "Mitigeur lavabo haut avec click clack",
-      "collection": "Mastermax",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 555.0
-    },
     "8702L::VL": {
       "key": "8702L::VL",
       "reference": "8702L",
@@ -4864,16 +4804,6 @@
       "finishCode": "VL",
       "finish": "Couleur liquide",
       "sourceHT": 420.0
-    },
-    "8702LL::BRO": {
-      "key": "8702LL::BRO",
-      "reference": "8702LL",
-      "orderReference": "8702LL BRO",
-      "name": "Mitigeur lavabo haut - bec long avec click clack",
-      "collection": "Mastermax",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
     },
     "8702LL::COL": {
       "key": "8702LL::COL",
@@ -4945,26 +4875,6 @@
       "finish": "Or",
       "sourceHT": 495.0
     },
-    "8702LL::NIK": {
-      "key": "8702LL::NIK",
-      "reference": "8702LL",
-      "orderReference": "8702LL NIK",
-      "name": "Mitigeur lavabo haut - bec long avec click clack",
-      "collection": "Mastermax",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "8702LL::RAM": {
-      "key": "8702LL::RAM",
-      "reference": "8702LL",
-      "orderReference": "8702LL RAM",
-      "name": "Mitigeur lavabo haut - bec long avec click clack",
-      "collection": "Mastermax",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
-    },
     "8702LL::VL": {
       "key": "8702LL::VL",
       "reference": "8702LL",
@@ -4974,16 +4884,6 @@
       "finishCode": "VL",
       "finish": "Couleur liquide",
       "sourceHT": 480.0
-    },
-    "8752::BRO": {
-      "key": "8752::BRO",
-      "reference": "8752",
-      "orderReference": "8752 BRO",
-      "name": "Mitigeur lavabo mural sans vidage",
-      "collection": "Mastermax",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 205.0
     },
     "8752::COL": {
       "key": "8752::COL",
@@ -5055,26 +4955,6 @@
       "finish": "Or",
       "sourceHT": 489.0
     },
-    "8752::NIK": {
-      "key": "8752::NIK",
-      "reference": "8752",
-      "orderReference": "8752 NIK",
-      "name": "Mitigeur lavabo mural sans vidage",
-      "collection": "Mastermax",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 205.0
-    },
-    "8752::RAM": {
-      "key": "8752::RAM",
-      "reference": "8752",
-      "orderReference": "8752 RAM",
-      "name": "Mitigeur lavabo mural sans vidage",
-      "collection": "Mastermax",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 205.0
-    },
     "8752::VL": {
       "key": "8752::VL",
       "reference": "8752",
@@ -5084,16 +4964,6 @@
       "finishCode": "VL",
       "finish": "Couleur liquide",
       "sourceHT": 470.0
-    },
-    "8703::BRO": {
-      "key": "8703::BRO",
-      "reference": "8703",
-      "orderReference": "8703 BRO",
-      "name": "Mitigeur bidet avec click clack",
-      "collection": "Mastermax",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
     },
     "8703::COL": {
       "key": "8703::COL",
@@ -5165,26 +5035,6 @@
       "finish": "Or",
       "sourceHT": 370.0
     },
-    "8703::NIK": {
-      "key": "8703::NIK",
-      "reference": "8703",
-      "orderReference": "8703 NIK",
-      "name": "Mitigeur bidet avec click clack",
-      "collection": "Mastermax",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "8703::RAM": {
-      "key": "8703::RAM",
-      "reference": "8703",
-      "orderReference": "8703 RAM",
-      "name": "Mitigeur bidet avec click clack",
-      "collection": "Mastermax",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
-    },
     "8703::VL": {
       "key": "8703::VL",
       "reference": "8703",
@@ -5194,36 +5044,6 @@
       "finishCode": "VL",
       "finish": "Couleur liquide",
       "sourceHT": 360.0
-    },
-    "8761P::BRO": {
-      "key": "8761P::BRO",
-      "reference": "8761P",
-      "orderReference": "8761P BRO",
-      "name": "Mitiguer bain pour montage sur sol",
-      "collection": "Mastermax",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 555.0
-    },
-    "8761P::COL": {
-      "key": "8761P::COL",
-      "reference": "8761P",
-      "orderReference": "8761P COL",
-      "name": "Mitiguer bain pour montage sur sol",
-      "collection": "Mastermax",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 218.0
-    },
-    "8761P::CR/O": {
-      "key": "8761P::CR/O",
-      "reference": "8761P",
-      "orderReference": "8761P CR/O",
-      "name": "Mitiguer bain pour montage sur sol",
-      "collection": "Mastermax",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 1625.0
     },
     "8761P::CRO": {
       "key": "8761P::CRO",
@@ -5235,66 +5055,6 @@
       "finish": "Chrome",
       "sourceHT": 1625.0
     },
-    "8761P::D/NL": {
-      "key": "8761P::D/NL",
-      "reference": "8761P",
-      "orderReference": "8761P D/NL",
-      "name": "Mitiguer bain pour montage sur sol",
-      "collection": "Mastermax",
-      "finishCode": "D/NL",
-      "finish": "Nickel noir",
-      "sourceHT": 630.0
-    },
-    "8761P::D/NO": {
-      "key": "8761P::D/NO",
-      "reference": "8761P",
-      "orderReference": "8761P D/NO",
-      "name": "Mitiguer bain pour montage sur sol",
-      "collection": "Mastermax",
-      "finishCode": "D/NO",
-      "finish": "Noir-or",
-      "sourceHT": 630.0
-    },
-    "8761P::D/SO": {
-      "key": "8761P::D/SO",
-      "reference": "8761P",
-      "orderReference": "8761P D/SO",
-      "name": "Mitiguer bain pour montage sur sol",
-      "collection": "Mastermax",
-      "finishCode": "D/SO",
-      "finish": "Or satiné",
-      "sourceHT": 630.0
-    },
-    "8761P::DOR": {
-      "key": "8761P::DOR",
-      "reference": "8761P",
-      "orderReference": "8761P DOR",
-      "name": "Mitiguer bain pour montage sur sol",
-      "collection": "Mastermax",
-      "finishCode": "DOR",
-      "finish": "Or",
-      "sourceHT": 630.0
-    },
-    "8761P::NIK": {
-      "key": "8761P::NIK",
-      "reference": "8761P",
-      "orderReference": "8761P NIK",
-      "name": "Mitiguer bain pour montage sur sol",
-      "collection": "Mastermax",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 555.0
-    },
-    "8761P::RAM": {
-      "key": "8761P::RAM",
-      "reference": "8761P",
-      "orderReference": "8761P RAM",
-      "name": "Mitiguer bain pour montage sur sol",
-      "collection": "Mastermax",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 555.0
-    },
     "8761P::VL": {
       "key": "8761P::VL",
       "reference": "8761P",
@@ -5304,16 +5064,6 @@
       "finishCode": "VL",
       "finish": "Couleur liquide",
       "sourceHT": 2440.0
-    },
-    "87701::BRO": {
-      "key": "87701::BRO",
-      "reference": "87701",
-      "orderReference": "87701 BRO",
-      "name": "Mitigeur bain-douche",
-      "collection": "Mastermax",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
     },
     "87701::COL": {
       "key": "87701::COL",
@@ -5385,26 +5135,6 @@
       "finish": "Or",
       "sourceHT": 470.0
     },
-    "87701::NIK": {
-      "key": "87701::NIK",
-      "reference": "87701",
-      "orderReference": "87701 NIK",
-      "name": "Mitigeur bain-douche",
-      "collection": "Mastermax",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "87701::RAM": {
-      "key": "87701::RAM",
-      "reference": "87701",
-      "orderReference": "87701 RAM",
-      "name": "Mitigeur bain-douche",
-      "collection": "Mastermax",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
-    },
     "87701::VL": {
       "key": "87701::VL",
       "reference": "87701",
@@ -5414,16 +5144,6 @@
       "finishCode": "VL",
       "finish": "Couleur liquide",
       "sourceHT": 460.0
-    },
-    "87781::BRO": {
-      "key": "87781::BRO",
-      "reference": "87781",
-      "orderReference": "87781 BRO",
-      "name": "Mitigeur bain-douche nu",
-      "collection": "Mastermax",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 205.0
     },
     "87781::COL": {
       "key": "87781::COL",
@@ -5495,26 +5215,6 @@
       "finish": "Or",
       "sourceHT": 410.0
     },
-    "87781::NIK": {
-      "key": "87781::NIK",
-      "reference": "87781",
-      "orderReference": "87781 NIK",
-      "name": "Mitigeur bain-douche nu",
-      "collection": "Mastermax",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 205.0
-    },
-    "87781::RAM": {
-      "key": "87781::RAM",
-      "reference": "87781",
-      "orderReference": "87781 RAM",
-      "name": "Mitigeur bain-douche nu",
-      "collection": "Mastermax",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 205.0
-    },
     "87781::VL": {
       "key": "87781::VL",
       "reference": "87781",
@@ -5524,16 +5224,6 @@
       "finishCode": "VL",
       "finish": "Couleur liquide",
       "sourceHT": 400.0
-    },
-    "87702::BRO": {
-      "key": "87702::BRO",
-      "reference": "87702",
-      "orderReference": "87702 BRO",
-      "name": "Mitigeur lavabo avec vidage autom.",
-      "collection": "Mastermax",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
     },
     "87702::COL": {
       "key": "87702::COL",
@@ -5604,26 +5294,6 @@
       "finishCode": "DOR",
       "finish": "Or",
       "sourceHT": 290.0
-    },
-    "87702::NIK": {
-      "key": "87702::NIK",
-      "reference": "87702",
-      "orderReference": "87702 NIK",
-      "name": "Mitigeur lavabo avec vidage autom.",
-      "collection": "Mastermax",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "87702::RAM": {
-      "key": "87702::RAM",
-      "reference": "87702",
-      "orderReference": "87702 RAM",
-      "name": "Mitigeur lavabo avec vidage autom.",
-      "collection": "Mastermax",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
     },
     "87702::VL": {
       "key": "87702::VL",
@@ -5765,16 +5435,6 @@
       "finish": "Couleur",
       "sourceHT": 315.0
     },
-    "87752::CR/O": {
-      "key": "87752::CR/O",
-      "reference": "87752",
-      "orderReference": "87752 CR/O",
-      "name": "Mitigeur lavabo mural sans vidage",
-      "collection": "Mastermax",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 315.0
-    },
     "87752::CRO": {
       "key": "87752::CRO",
       "reference": "87752",
@@ -5855,16 +5515,6 @@
       "finish": "Couleur liquide",
       "sourceHT": 360.0
     },
-    "87703::BRO": {
-      "key": "87703::BRO",
-      "reference": "87703",
-      "orderReference": "87703 BRO",
-      "name": "Mitigeur bidet avec vidage autom.",
-      "collection": "Mastermax",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
-    },
     "87703::COL": {
       "key": "87703::COL",
       "reference": "87703",
@@ -5935,26 +5585,6 @@
       "finish": "Or",
       "sourceHT": 290.0
     },
-    "87703::NIK": {
-      "key": "87703::NIK",
-      "reference": "87703",
-      "orderReference": "87703 NIK",
-      "name": "Mitigeur bidet avec vidage autom.",
-      "collection": "Mastermax",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "87703::RAM": {
-      "key": "87703::RAM",
-      "reference": "87703",
-      "orderReference": "87703 RAM",
-      "name": "Mitigeur bidet avec vidage autom.",
-      "collection": "Mastermax",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
-    },
     "87703::VL": {
       "key": "87703::VL",
       "reference": "87703",
@@ -5964,16 +5594,6 @@
       "finishCode": "VL",
       "finish": "Couleur liquide",
       "sourceHT": 280.0
-    },
-    "87705::BRO": {
-      "key": "87705::BRO",
-      "reference": "87705",
-      "orderReference": "87705 BRO",
-      "name": "Mitigeur douche à encastrer",
-      "collection": "Mastermax",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 205.0
     },
     "87705::COL": {
       "key": "87705::COL",
@@ -6045,26 +5665,6 @@
       "finish": "Or",
       "sourceHT": 220.0
     },
-    "87705::NIK": {
-      "key": "87705::NIK",
-      "reference": "87705",
-      "orderReference": "87705 NIK",
-      "name": "Mitigeur douche à encastrer",
-      "collection": "Mastermax",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 205.0
-    },
-    "87705::RAM": {
-      "key": "87705::RAM",
-      "reference": "87705",
-      "orderReference": "87705 RAM",
-      "name": "Mitigeur douche à encastrer",
-      "collection": "Mastermax",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 205.0
-    },
     "87705::VL": {
       "key": "87705::VL",
       "reference": "87705",
@@ -6074,16 +5674,6 @@
       "finishCode": "VL",
       "finish": "Couleur liquide",
       "sourceHT": 210.0
-    },
-    "87785::BRO": {
-      "key": "87785::BRO",
-      "reference": "87785",
-      "orderReference": "87785 BRO",
-      "name": "Mitigeur douche à encastrer avec inverseur",
-      "collection": "Mastermax",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
     },
     "87785::COL": {
       "key": "87785::COL",
@@ -6155,26 +5745,6 @@
       "finish": "Or",
       "sourceHT": 260.0
     },
-    "87785::NIK": {
-      "key": "87785::NIK",
-      "reference": "87785",
-      "orderReference": "87785 NIK",
-      "name": "Mitigeur douche à encastrer avec inverseur",
-      "collection": "Mastermax",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "87785::RAM": {
-      "key": "87785::RAM",
-      "reference": "87785",
-      "orderReference": "87785 RAM",
-      "name": "Mitigeur douche à encastrer avec inverseur",
-      "collection": "Mastermax",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
-    },
     "87785::VL": {
       "key": "87785::VL",
       "reference": "87785",
@@ -6184,16 +5754,6 @@
       "finishCode": "VL",
       "finish": "Couleur liquide",
       "sourceHT": 250.0
-    },
-    "87744::BRO": {
-      "key": "87744::BRO",
-      "reference": "87744",
-      "orderReference": "87744 BRO",
-      "name": "Mitigeur douche extérieur",
-      "collection": "Mastermax",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 555.0
     },
     "87744::COL": {
       "key": "87744::COL",
@@ -6265,26 +5825,6 @@
       "finish": "Or",
       "sourceHT": 440.0
     },
-    "87744::NIK": {
-      "key": "87744::NIK",
-      "reference": "87744",
-      "orderReference": "87744 NIK",
-      "name": "Mitigeur douche extérieur",
-      "collection": "Mastermax",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 555.0
-    },
-    "87744::RAM": {
-      "key": "87744::RAM",
-      "reference": "87744",
-      "orderReference": "87744 RAM",
-      "name": "Mitigeur douche extérieur",
-      "collection": "Mastermax",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 555.0
-    },
     "87744::VL": {
       "key": "87744::VL",
       "reference": "87744",
@@ -6294,16 +5834,6 @@
       "finishCode": "VL",
       "finish": "Couleur liquide",
       "sourceHT": 430.0
-    },
-    "87784::BRO": {
-      "key": "87784::BRO",
-      "reference": "87784",
-      "orderReference": "87784 BRO",
-      "name": "Mitigeur douche extérieur nu",
-      "collection": "Mastermax",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
     },
     "87784::COL": {
       "key": "87784::COL",
@@ -6375,26 +5905,6 @@
       "finish": "Or",
       "sourceHT": 380.0
     },
-    "87784::NIK": {
-      "key": "87784::NIK",
-      "reference": "87784",
-      "orderReference": "87784 NIK",
-      "name": "Mitigeur douche extérieur nu",
-      "collection": "Mastermax",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "87784::RAM": {
-      "key": "87784::RAM",
-      "reference": "87784",
-      "orderReference": "87784 RAM",
-      "name": "Mitigeur douche extérieur nu",
-      "collection": "Mastermax",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
-    },
     "87784::VL": {
       "key": "87784::VL",
       "reference": "87784",
@@ -6404,16 +5914,6 @@
       "finishCode": "VL",
       "finish": "Couleur liquide",
       "sourceHT": 370.0
-    },
-    "8744::BRO": {
-      "key": "8744::BRO",
-      "reference": "8744",
-      "orderReference": "8744 BRO",
-      "name": "Mitigeur douche extérieur nu",
-      "collection": "Mastermax",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 205.0
     },
     "8744::COL": {
       "key": "8744::COL",
@@ -6485,26 +5985,6 @@
       "finish": "Or",
       "sourceHT": 380.0
     },
-    "8744::NIK": {
-      "key": "8744::NIK",
-      "reference": "8744",
-      "orderReference": "8744 NIK",
-      "name": "Mitigeur douche extérieur nu",
-      "collection": "Mastermax",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 205.0
-    },
-    "8744::RAM": {
-      "key": "8744::RAM",
-      "reference": "8744",
-      "orderReference": "8744 RAM",
-      "name": "Mitigeur douche extérieur nu",
-      "collection": "Mastermax",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 205.0
-    },
     "8744::VL": {
       "key": "8744::VL",
       "reference": "8744",
@@ -6514,16 +5994,6 @@
       "finishCode": "VL",
       "finish": "Couleur liquide",
       "sourceHT": 370.0
-    },
-    "8730::BRO": {
-      "key": "8730::BRO",
-      "reference": "8730",
-      "orderReference": "8730 BRO",
-      "name": "Mitigeur bain-douche 3 trous sur gorge avec ensemble de douche",
-      "collection": "Mastermax",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 205.0
     },
     "8730::COL": {
       "key": "8730::COL",
@@ -6595,26 +6065,6 @@
       "finish": "Or",
       "sourceHT": 730.0
     },
-    "8730::NIK": {
-      "key": "8730::NIK",
-      "reference": "8730",
-      "orderReference": "8730 NIK",
-      "name": "Mitigeur bain-douche 3 trous sur gorge avec ensemble de douche",
-      "collection": "Mastermax",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 205.0
-    },
-    "8730::RAM": {
-      "key": "8730::RAM",
-      "reference": "8730",
-      "orderReference": "8730 RAM",
-      "name": "Mitigeur bain-douche 3 trous sur gorge avec ensemble de douche",
-      "collection": "Mastermax",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 205.0
-    },
     "8730::VL": {
       "key": "8730::VL",
       "reference": "8730",
@@ -6624,16 +6074,6 @@
       "finishCode": "VL",
       "finish": "Couleur liquide",
       "sourceHT": 720.0
-    },
-    "8731::BRO": {
-      "key": "8731::BRO",
-      "reference": "8731",
-      "orderReference": "8731 BRO",
-      "name": "Mitigeur bain-douche 3 trous sur gorge avec bec cascade",
-      "collection": "Mastermax",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
     },
     "8731::COL": {
       "key": "8731::COL",
@@ -6705,26 +6145,6 @@
       "finish": "Or",
       "sourceHT": 1280.0
     },
-    "8731::NIK": {
-      "key": "8731::NIK",
-      "reference": "8731",
-      "orderReference": "8731 NIK",
-      "name": "Mitigeur bain-douche 3 trous sur gorge avec bec cascade",
-      "collection": "Mastermax",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "8731::RAM": {
-      "key": "8731::RAM",
-      "reference": "8731",
-      "orderReference": "8731 RAM",
-      "name": "Mitigeur bain-douche 3 trous sur gorge avec bec cascade",
-      "collection": "Mastermax",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
-    },
     "8731::VL": {
       "key": "8731::VL",
       "reference": "8731",
@@ -6734,16 +6154,6 @@
       "finishCode": "VL",
       "finish": "Couleur liquide",
       "sourceHT": 1270.0
-    },
-    "8732::BRO": {
-      "key": "8732::BRO",
-      "reference": "8732",
-      "orderReference": "8732 BRO",
-      "name": "Mitigeur bain-douche 3 trous sur gorge avec bec cascade",
-      "collection": "Mastermax",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 205.0
     },
     "8732::COL": {
       "key": "8732::COL",
@@ -6815,26 +6225,6 @@
       "finish": "Or",
       "sourceHT": 1280.0
     },
-    "8732::NIK": {
-      "key": "8732::NIK",
-      "reference": "8732",
-      "orderReference": "8732 NIK",
-      "name": "Mitigeur bain-douche 3 trous sur gorge avec bec cascade",
-      "collection": "Mastermax",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 205.0
-    },
-    "8732::RAM": {
-      "key": "8732::RAM",
-      "reference": "8732",
-      "orderReference": "8732 RAM",
-      "name": "Mitigeur bain-douche 3 trous sur gorge avec bec cascade",
-      "collection": "Mastermax",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 205.0
-    },
     "8732::VL": {
       "key": "8732::VL",
       "reference": "8732",
@@ -6844,16 +6234,6 @@
       "finishCode": "VL",
       "finish": "Couleur liquide",
       "sourceHT": 1270.0
-    },
-    "8782::BRO": {
-      "key": "8782::BRO",
-      "reference": "8782",
-      "orderReference": "8782 BRO",
-      "name": "Mitigeur de lavabo pour montage sur gorge avec bec cascade",
-      "collection": "Mastermax",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
     },
     "8782::COL": {
       "key": "8782::COL",
@@ -6925,26 +6305,6 @@
       "finish": "Or",
       "sourceHT": 1260.0
     },
-    "8782::NIK": {
-      "key": "8782::NIK",
-      "reference": "8782",
-      "orderReference": "8782 NIK",
-      "name": "Mitigeur de lavabo pour montage sur gorge avec bec cascade",
-      "collection": "Mastermax",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "8782::RAM": {
-      "key": "8782::RAM",
-      "reference": "8782",
-      "orderReference": "8782 RAM",
-      "name": "Mitigeur de lavabo pour montage sur gorge avec bec cascade",
-      "collection": "Mastermax",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
-    },
     "8782::VL": {
       "key": "8782::VL",
       "reference": "8782",
@@ -6954,16 +6314,6 @@
       "finishCode": "VL",
       "finish": "Couleur liquide",
       "sourceHT": 1250.0
-    },
-    "8787::BRO": {
-      "key": "8787::BRO",
-      "reference": "8787",
-      "orderReference": "8787 BRO",
-      "name": "Mitigeur commande sur gorge",
-      "collection": "Mastermax",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 555.0
     },
     "8787::COL": {
       "key": "8787::COL",
@@ -7035,26 +6385,6 @@
       "finish": "Or",
       "sourceHT": 340.0
     },
-    "8787::NIK": {
-      "key": "8787::NIK",
-      "reference": "8787",
-      "orderReference": "8787 NIK",
-      "name": "Mitigeur commande sur gorge",
-      "collection": "Mastermax",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 555.0
-    },
-    "8787::RAM": {
-      "key": "8787::RAM",
-      "reference": "8787",
-      "orderReference": "8787 RAM",
-      "name": "Mitigeur commande sur gorge",
-      "collection": "Mastermax",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 555.0
-    },
     "8787::VL": {
       "key": "8787::VL",
       "reference": "8787",
@@ -7064,16 +6394,6 @@
       "finishCode": "VL",
       "finish": "Couleur liquide",
       "sourceHT": 330.0
-    },
-    "8762::BRO": {
-      "key": "8762::BRO",
-      "reference": "8762",
-      "orderReference": "8762 BRO",
-      "name": "Mitigeur de lavabo pour montage sur gorge avec bec cascade",
-      "collection": "Mastermax",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 555.0
     },
     "8762::COL": {
       "key": "8762::COL",
@@ -7145,26 +6465,6 @@
       "finish": "Or",
       "sourceHT": 1240.0
     },
-    "8762::NIK": {
-      "key": "8762::NIK",
-      "reference": "8762",
-      "orderReference": "8762 NIK",
-      "name": "Mitigeur de lavabo pour montage sur gorge avec bec cascade",
-      "collection": "Mastermax",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 555.0
-    },
-    "8762::RAM": {
-      "key": "8762::RAM",
-      "reference": "8762",
-      "orderReference": "8762 RAM",
-      "name": "Mitigeur de lavabo pour montage sur gorge avec bec cascade",
-      "collection": "Mastermax",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 555.0
-    },
     "8762::VL": {
       "key": "8762::VL",
       "reference": "8762",
@@ -7174,16 +6474,6 @@
       "finishCode": "VL",
       "finish": "Couleur liquide",
       "sourceHT": 1230.0
-    },
-    "8772::BRO": {
-      "key": "8772::BRO",
-      "reference": "8772",
-      "orderReference": "8772 BRO",
-      "name": "Mitigeur de lavabo pour montage sur gorge avec bec cascade",
-      "collection": "Mastermax",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
     },
     "8772::COL": {
       "key": "8772::COL",
@@ -7255,26 +6545,6 @@
       "finish": "Or",
       "sourceHT": 1240.0
     },
-    "8772::NIK": {
-      "key": "8772::NIK",
-      "reference": "8772",
-      "orderReference": "8772 NIK",
-      "name": "Mitigeur de lavabo pour montage sur gorge avec bec cascade",
-      "collection": "Mastermax",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "8772::RAM": {
-      "key": "8772::RAM",
-      "reference": "8772",
-      "orderReference": "8772 RAM",
-      "name": "Mitigeur de lavabo pour montage sur gorge avec bec cascade",
-      "collection": "Mastermax",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
-    },
     "8772::VL": {
       "key": "8772::VL",
       "reference": "8772",
@@ -7284,16 +6554,6 @@
       "finishCode": "VL",
       "finish": "Couleur liquide",
       "sourceHT": 1230.0
-    },
-    "8762P::BRO": {
-      "key": "8762P::BRO",
-      "reference": "8762P",
-      "orderReference": "8762P BRO",
-      "name": "Mitigeur de lavabo pour montage sur gorge avec bec cascade",
-      "collection": "Mastermax",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 205.0
     },
     "8762P::COL": {
       "key": "8762P::COL",
@@ -7365,26 +6625,6 @@
       "finish": "Or",
       "sourceHT": 1150.0
     },
-    "8762P::NIK": {
-      "key": "8762P::NIK",
-      "reference": "8762P",
-      "orderReference": "8762P NIK",
-      "name": "Mitigeur de lavabo pour montage sur gorge avec bec cascade",
-      "collection": "Mastermax",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 205.0
-    },
-    "8762P::RAM": {
-      "key": "8762P::RAM",
-      "reference": "8762P",
-      "orderReference": "8762P RAM",
-      "name": "Mitigeur de lavabo pour montage sur gorge avec bec cascade",
-      "collection": "Mastermax",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 205.0
-    },
     "8762P::VL": {
       "key": "8762P::VL",
       "reference": "8762P",
@@ -7395,16 +6635,6 @@
       "finish": "Couleur liquide",
       "sourceHT": 1140.0
     },
-    "5101::BRO": {
-      "key": "5101::BRO",
-      "reference": "5101",
-      "orderReference": "5101 BRO",
-      "name": "Bec cascade a encastrer 1/2”cascade",
-      "collection": "Mastermax",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
-    },
     "5101::COL": {
       "key": "5101::COL",
       "reference": "5101",
@@ -7413,16 +6643,6 @@
       "collection": "Mastermax",
       "finishCode": "COL",
       "finish": "Couleur",
-      "sourceHT": 770.0
-    },
-    "5101::CR/O": {
-      "key": "5101::CR/O",
-      "reference": "5101",
-      "orderReference": "5101 CR/O",
-      "name": "Bec cascade a encastrer 1/2”cascade",
-      "collection": "Mastermax",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
       "sourceHT": 770.0
     },
     "5101::CRO": {
@@ -7475,26 +6695,6 @@
       "finish": "Or",
       "sourceHT": 830.0
     },
-    "5101::NIK": {
-      "key": "5101::NIK",
-      "reference": "5101",
-      "orderReference": "5101 NIK",
-      "name": "Bec cascade a encastrer 1/2”cascade",
-      "collection": "Mastermax",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "5101::RAM": {
-      "key": "5101::RAM",
-      "reference": "5101",
-      "orderReference": "5101 RAM",
-      "name": "Bec cascade a encastrer 1/2”cascade",
-      "collection": "Mastermax",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
-    },
     "5101::VL": {
       "key": "5101::VL",
       "reference": "5101",
@@ -7505,16 +6705,6 @@
       "finish": "Couleur liquide",
       "sourceHT": 825.0
     },
-    "5102::BRO": {
-      "key": "5102::BRO",
-      "reference": "5102",
-      "orderReference": "5102 BRO",
-      "name": "Bec cascade a encastrer 1/2”cascade",
-      "collection": "Mastermax",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 205.0
-    },
     "5102::COL": {
       "key": "5102::COL",
       "reference": "5102",
@@ -7523,16 +6713,6 @@
       "collection": "Mastermax",
       "finishCode": "COL",
       "finish": "Couleur",
-      "sourceHT": 770.0
-    },
-    "5102::CR/O": {
-      "key": "5102::CR/O",
-      "reference": "5102",
-      "orderReference": "5102 CR/O",
-      "name": "Bec cascade a encastrer 1/2”cascade",
-      "collection": "Mastermax",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
       "sourceHT": 770.0
     },
     "5102::CRO": {
@@ -7585,26 +6765,6 @@
       "finish": "Or",
       "sourceHT": 830.0
     },
-    "5102::NIK": {
-      "key": "5102::NIK",
-      "reference": "5102",
-      "orderReference": "5102 NIK",
-      "name": "Bec cascade a encastrer 1/2”cascade",
-      "collection": "Mastermax",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 205.0
-    },
-    "5102::RAM": {
-      "key": "5102::RAM",
-      "reference": "5102",
-      "orderReference": "5102 RAM",
-      "name": "Bec cascade a encastrer 1/2”cascade",
-      "collection": "Mastermax",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 205.0
-    },
     "5102::VL": {
       "key": "5102::VL",
       "reference": "5102",
@@ -7615,16 +6775,6 @@
       "finish": "Couleur liquide",
       "sourceHT": 825.0
     },
-    "5103::BRO": {
-      "key": "5103::BRO",
-      "reference": "5103",
-      "orderReference": "5103 BRO",
-      "name": "Bec cascade sur gorge 1/2”",
-      "collection": "Mastermax",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
-    },
     "5103::COL": {
       "key": "5103::COL",
       "reference": "5103",
@@ -7633,16 +6783,6 @@
       "collection": "Mastermax",
       "finishCode": "COL",
       "finish": "Couleur",
-      "sourceHT": 830.0
-    },
-    "5103::CR/O": {
-      "key": "5103::CR/O",
-      "reference": "5103",
-      "orderReference": "5103 CR/O",
-      "name": "Bec cascade sur gorge 1/2”",
-      "collection": "Mastermax",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
       "sourceHT": 830.0
     },
     "5103::CRO": {
@@ -7695,26 +6835,6 @@
       "finish": "Or",
       "sourceHT": 890.0
     },
-    "5103::NIK": {
-      "key": "5103::NIK",
-      "reference": "5103",
-      "orderReference": "5103 NIK",
-      "name": "Bec cascade sur gorge 1/2”",
-      "collection": "Mastermax",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "5103::RAM": {
-      "key": "5103::RAM",
-      "reference": "5103",
-      "orderReference": "5103 RAM",
-      "name": "Bec cascade sur gorge 1/2”",
-      "collection": "Mastermax",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
-    },
     "5103::VL": {
       "key": "5103::VL",
       "reference": "5103",
@@ -7725,16 +6845,6 @@
       "finish": "Couleur liquide",
       "sourceHT": 885.0
     },
-    "5104::BRO": {
-      "key": "5104::BRO",
-      "reference": "5104",
-      "orderReference": "5104 BRO",
-      "name": "Bec cascade sur gorge 1/2”",
-      "collection": "Mastermax",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 555.0
-    },
     "5104::COL": {
       "key": "5104::COL",
       "reference": "5104",
@@ -7743,16 +6853,6 @@
       "collection": "Mastermax",
       "finishCode": "COL",
       "finish": "Couleur",
-      "sourceHT": 830.0
-    },
-    "5104::CR/O": {
-      "key": "5104::CR/O",
-      "reference": "5104",
-      "orderReference": "5104 CR/O",
-      "name": "Bec cascade sur gorge 1/2”",
-      "collection": "Mastermax",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
       "sourceHT": 830.0
     },
     "5104::CRO": {
@@ -7805,26 +6905,6 @@
       "finish": "Or",
       "sourceHT": 890.0
     },
-    "5104::NIK": {
-      "key": "5104::NIK",
-      "reference": "5104",
-      "orderReference": "5104 NIK",
-      "name": "Bec cascade sur gorge 1/2”",
-      "collection": "Mastermax",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 555.0
-    },
-    "5104::RAM": {
-      "key": "5104::RAM",
-      "reference": "5104",
-      "orderReference": "5104 RAM",
-      "name": "Bec cascade sur gorge 1/2”",
-      "collection": "Mastermax",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 555.0
-    },
     "5104::VL": {
       "key": "5104::VL",
       "reference": "5104",
@@ -7835,16 +6915,6 @@
       "finish": "Couleur liquide",
       "sourceHT": 885.0
     },
-    "5111::BRO": {
-      "key": "5111::BRO",
-      "reference": "5111",
-      "orderReference": "5111 BRO",
-      "name": "Bec cascade mural 1/2” pour lavabo",
-      "collection": "Mastermax",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
-    },
     "5111::COL": {
       "key": "5111::COL",
       "reference": "5111",
@@ -7853,16 +6923,6 @@
       "collection": "Mastermax",
       "finishCode": "COL",
       "finish": "Couleur",
-      "sourceHT": 680.0
-    },
-    "5111::CR/O": {
-      "key": "5111::CR/O",
-      "reference": "5111",
-      "orderReference": "5111 CR/O",
-      "name": "Bec cascade mural 1/2” pour lavabo",
-      "collection": "Mastermax",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
       "sourceHT": 680.0
     },
     "5111::CRO": {
@@ -7915,26 +6975,6 @@
       "finish": "Or",
       "sourceHT": 740.0
     },
-    "5111::NIK": {
-      "key": "5111::NIK",
-      "reference": "5111",
-      "orderReference": "5111 NIK",
-      "name": "Bec cascade mural 1/2” pour lavabo",
-      "collection": "Mastermax",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "5111::RAM": {
-      "key": "5111::RAM",
-      "reference": "5111",
-      "orderReference": "5111 RAM",
-      "name": "Bec cascade mural 1/2” pour lavabo",
-      "collection": "Mastermax",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
-    },
     "5111::VL": {
       "key": "5111::VL",
       "reference": "5111",
@@ -7945,16 +6985,6 @@
       "finish": "Couleur liquide",
       "sourceHT": 735.0
     },
-    "5113::BRO": {
-      "key": "5113::BRO",
-      "reference": "5113",
-      "orderReference": "5113 BRO",
-      "name": "Bec cascade 1/2” pour lavabo",
-      "collection": "Mastermax",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 205.0
-    },
     "5113::COL": {
       "key": "5113::COL",
       "reference": "5113",
@@ -7963,16 +6993,6 @@
       "collection": "Mastermax",
       "finishCode": "COL",
       "finish": "Couleur",
-      "sourceHT": 750.0
-    },
-    "5113::CR/O": {
-      "key": "5113::CR/O",
-      "reference": "5113",
-      "orderReference": "5113 CR/O",
-      "name": "Bec cascade 1/2” pour lavabo",
-      "collection": "Mastermax",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
       "sourceHT": 750.0
     },
     "5113::CRO": {
@@ -8025,26 +7045,6 @@
       "finish": "Or",
       "sourceHT": 810.0
     },
-    "5113::NIK": {
-      "key": "5113::NIK",
-      "reference": "5113",
-      "orderReference": "5113 NIK",
-      "name": "Bec cascade 1/2” pour lavabo",
-      "collection": "Mastermax",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 205.0
-    },
-    "5113::RAM": {
-      "key": "5113::RAM",
-      "reference": "5113",
-      "orderReference": "5113 RAM",
-      "name": "Bec cascade 1/2” pour lavabo",
-      "collection": "Mastermax",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 205.0
-    },
     "5113::VL": {
       "key": "5113::VL",
       "reference": "5113",
@@ -8055,16 +7055,6 @@
       "finish": "Couleur liquide",
       "sourceHT": 810.0
     },
-    "5113L::BRO": {
-      "key": "5113L::BRO",
-      "reference": "5113L",
-      "orderReference": "5113L BRO",
-      "name": "Bec cascade 1/2” pour lavabo haut",
-      "collection": "Mastermax",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
-    },
     "5113L::COL": {
       "key": "5113L::COL",
       "reference": "5113L",
@@ -8073,16 +7063,6 @@
       "collection": "Mastermax",
       "finishCode": "COL",
       "finish": "Couleur",
-      "sourceHT": 752.0
-    },
-    "5113L::CR/O": {
-      "key": "5113L::CR/O",
-      "reference": "5113L",
-      "orderReference": "5113L CR/O",
-      "name": "Bec cascade 1/2” pour lavabo haut",
-      "collection": "Mastermax",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
       "sourceHT": 752.0
     },
     "5113L::CRO": {
@@ -8134,26 +7114,6 @@
       "finishCode": "DOR",
       "finish": "Or",
       "sourceHT": 815.0
-    },
-    "5113L::NIK": {
-      "key": "5113L::NIK",
-      "reference": "5113L",
-      "orderReference": "5113L NIK",
-      "name": "Bec cascade 1/2” pour lavabo haut",
-      "collection": "Mastermax",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "5113L::RAM": {
-      "key": "5113L::RAM",
-      "reference": "5113L",
-      "orderReference": "5113L RAM",
-      "name": "Bec cascade 1/2” pour lavabo haut",
-      "collection": "Mastermax",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
     },
     "5113L::VL": {
       "key": "5113L::VL",
@@ -8265,16 +7225,6 @@
       "finish": "Cuivre",
       "sourceHT": 570.0
     },
-    "5101TT::BRO": {
-      "key": "5101TT::BRO",
-      "reference": "5101TT",
-      "orderReference": "5101TT BRO",
-      "name": "Mitigeur bain-douche",
-      "collection": "Round",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
-    },
     "5101TT::D/NO": {
       "key": "5101TT::D/NO",
       "reference": "5101TT",
@@ -8284,26 +7234,6 @@
       "finishCode": "D/NO",
       "finish": "Noir-or",
       "sourceHT": 630.0
-    },
-    "5101TT::NIK": {
-      "key": "5101TT::NIK",
-      "reference": "5101TT",
-      "orderReference": "5101TT NIK",
-      "name": "Mitigeur bain-douche",
-      "collection": "Round",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "5101TT::RAM": {
-      "key": "5101TT::RAM",
-      "reference": "5101TT",
-      "orderReference": "5101TT RAM",
-      "name": "Mitigeur bain-douche",
-      "collection": "Round",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
     },
     "5130RR::BRO": {
       "key": "5130RR::BRO",
@@ -8405,16 +7335,6 @@
       "finish": "Cuivre",
       "sourceHT": 570.0
     },
-    "5130TT::BRO": {
-      "key": "5130TT::BRO",
-      "reference": "5130TT",
-      "orderReference": "5130TT BRO",
-      "name": "Mitigeur bain-douche 4 trous sur gorge avec ensemble de douche",
-      "collection": "Round",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
-    },
     "5130TT::D/NO": {
       "key": "5130TT::D/NO",
       "reference": "5130TT",
@@ -8424,26 +7344,6 @@
       "finishCode": "D/NO",
       "finish": "Noir-or",
       "sourceHT": 630.0
-    },
-    "5130TT::NIK": {
-      "key": "5130TT::NIK",
-      "reference": "5130TT",
-      "orderReference": "5130TT NIK",
-      "name": "Mitigeur bain-douche 4 trous sur gorge avec ensemble de douche",
-      "collection": "Round",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "5130TT::RAM": {
-      "key": "5130TT::RAM",
-      "reference": "5130TT",
-      "orderReference": "5130TT RAM",
-      "name": "Mitigeur bain-douche 4 trous sur gorge avec ensemble de douche",
-      "collection": "Round",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
     },
     "5102RR::BRO": {
       "key": "5102RR::BRO",
@@ -8545,16 +7445,6 @@
       "finish": "Cuivre",
       "sourceHT": 570.0
     },
-    "5102TT::BRO": {
-      "key": "5102TT::BRO",
-      "reference": "5102TT",
-      "orderReference": "5102TT BRO",
-      "name": "Mitigeur lavabo avec vidage autom.",
-      "collection": "Round",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
-    },
     "5102TT::D/NO": {
       "key": "5102TT::D/NO",
       "reference": "5102TT",
@@ -8564,26 +7454,6 @@
       "finishCode": "D/NO",
       "finish": "Noir-or",
       "sourceHT": 630.0
-    },
-    "5102TT::NIK": {
-      "key": "5102TT::NIK",
-      "reference": "5102TT",
-      "orderReference": "5102TT NIK",
-      "name": "Mitigeur lavabo avec vidage autom.",
-      "collection": "Round",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "5102TT::RAM": {
-      "key": "5102TT::RAM",
-      "reference": "5102TT",
-      "orderReference": "5102TT RAM",
-      "name": "Mitigeur lavabo avec vidage autom.",
-      "collection": "Round",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
     },
     "5122AQ::BRO": {
       "key": "5122AQ::BRO",
@@ -9025,16 +7895,6 @@
       "finish": "Cuivre",
       "sourceHT": 570.0
     },
-    "5102LTT::BRO": {
-      "key": "5102LTT::BRO",
-      "reference": "5102L TT",
-      "orderReference": "5102L TT BRO",
-      "name": "Mitigeur lavabo haut avec vidage autom.",
-      "collection": "Round",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
-    },
     "5102LTT::D/NO": {
       "key": "5102LTT::D/NO",
       "reference": "5102L TT",
@@ -9044,26 +7904,6 @@
       "finishCode": "D/NO",
       "finish": "Noir-or",
       "sourceHT": 630.0
-    },
-    "5102LTT::NIK": {
-      "key": "5102LTT::NIK",
-      "reference": "5102L TT",
-      "orderReference": "5102L TT NIK",
-      "name": "Mitigeur lavabo haut avec vidage autom.",
-      "collection": "Round",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "5102LTT::RAM": {
-      "key": "5102LTT::RAM",
-      "reference": "5102L TT",
-      "orderReference": "5102L TT RAM",
-      "name": "Mitigeur lavabo haut avec vidage autom.",
-      "collection": "Round",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
     },
     "5152RR::BRO": {
       "key": "5152RR::BRO",
@@ -9165,16 +8005,6 @@
       "finish": "Cuivre",
       "sourceHT": 570.0
     },
-    "5152TT::BRO": {
-      "key": "5152TT::BRO",
-      "reference": "5152TT",
-      "orderReference": "5152TT BRO",
-      "name": "Mitigeur lavabo mural sans vidage",
-      "collection": "Round",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
-    },
     "5152TT::D/NO": {
       "key": "5152TT::D/NO",
       "reference": "5152TT",
@@ -9184,26 +8014,6 @@
       "finishCode": "D/NO",
       "finish": "Noir-or",
       "sourceHT": 630.0
-    },
-    "5152TT::NIK": {
-      "key": "5152TT::NIK",
-      "reference": "5152TT",
-      "orderReference": "5152TT NIK",
-      "name": "Mitigeur lavabo mural sans vidage",
-      "collection": "Round",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "5152TT::RAM": {
-      "key": "5152TT::RAM",
-      "reference": "5152TT",
-      "orderReference": "5152TT RAM",
-      "name": "Mitigeur lavabo mural sans vidage",
-      "collection": "Round",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
     },
     "5103RR::BRO": {
       "key": "5103RR::BRO",
@@ -9305,16 +8115,6 @@
       "finish": "Cuivre",
       "sourceHT": 570.0
     },
-    "5103TT::BRO": {
-      "key": "5103TT::BRO",
-      "reference": "5103TT",
-      "orderReference": "5103TT BRO",
-      "name": "Mitigeur bidet avec vidage autom.",
-      "collection": "Round",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
-    },
     "5103TT::D/NO": {
       "key": "5103TT::D/NO",
       "reference": "5103TT",
@@ -9324,26 +8124,6 @@
       "finishCode": "D/NO",
       "finish": "Noir-or",
       "sourceHT": 630.0
-    },
-    "5103TT::NIK": {
-      "key": "5103TT::NIK",
-      "reference": "5103TT",
-      "orderReference": "5103TT NIK",
-      "name": "Mitigeur bidet avec vidage autom.",
-      "collection": "Round",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "5103TT::RAM": {
-      "key": "5103TT::RAM",
-      "reference": "5103TT",
-      "orderReference": "5103TT RAM",
-      "name": "Mitigeur bidet avec vidage autom.",
-      "collection": "Round",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
     },
     "5105XRR::BRO": {
       "key": "5105XRR::BRO",
@@ -9445,16 +8225,6 @@
       "finish": "Cuivre",
       "sourceHT": 570.0
     },
-    "5105XTT::BRO": {
-      "key": "5105XTT::BRO",
-      "reference": "5105XTT",
-      "orderReference": "5105XTT BRO",
-      "name": "Mitigeur douche à encastrer",
-      "collection": "Round",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
-    },
     "5105XTT::D/NO": {
       "key": "5105XTT::D/NO",
       "reference": "5105XTT",
@@ -9464,26 +8234,6 @@
       "finishCode": "D/NO",
       "finish": "Noir-or",
       "sourceHT": 630.0
-    },
-    "5105XTT::NIK": {
-      "key": "5105XTT::NIK",
-      "reference": "5105XTT",
-      "orderReference": "5105XTT NIK",
-      "name": "Mitigeur douche à encastrer",
-      "collection": "Round",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "5105XTT::RAM": {
-      "key": "5105XTT::RAM",
-      "reference": "5105XTT",
-      "orderReference": "5105XTT RAM",
-      "name": "Mitigeur douche à encastrer",
-      "collection": "Round",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
     },
     "5185XRR::BRO": {
       "key": "5185XRR::BRO",
@@ -9585,16 +8335,6 @@
       "finish": "Cuivre",
       "sourceHT": 570.0
     },
-    "5185XTT::BRO": {
-      "key": "5185XTT::BRO",
-      "reference": "5185XTT",
-      "orderReference": "5185XTT BRO",
-      "name": "Mitigeur douche à encastrer avec inverseur",
-      "collection": "Round",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
-    },
     "5185XTT::D/NO": {
       "key": "5185XTT::D/NO",
       "reference": "5185XTT",
@@ -9604,26 +8344,6 @@
       "finishCode": "D/NO",
       "finish": "Noir-or",
       "sourceHT": 630.0
-    },
-    "5185XTT::NIK": {
-      "key": "5185XTT::NIK",
-      "reference": "5185XTT",
-      "orderReference": "5185XTT NIK",
-      "name": "Mitigeur douche à encastrer avec inverseur",
-      "collection": "Round",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "5185XTT::RAM": {
-      "key": "5185XTT::RAM",
-      "reference": "5185XTT",
-      "orderReference": "5185XTT RAM",
-      "name": "Mitigeur douche à encastrer avec inverseur",
-      "collection": "Round",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
     },
     "5521::BRO": {
       "key": "5521::BRO",
@@ -12173,16 +10893,6 @@
       "collection": "Rhapsody",
       "finishCode": "COL",
       "finish": "Couleur",
-      "sourceHT": 1950.0
-    },
-    "5561P::CR/O": {
-      "key": "5561P::CR/O",
-      "reference": "5561P",
-      "orderReference": "5561P CR/O",
-      "name": "Mitiguer bain pour montage sur sol",
-      "collection": "Rhapsody",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
       "sourceHT": 1950.0
     },
     "5561P::CRO": {
@@ -20365,16 +19075,6 @@
       "finish": "Couleur",
       "sourceHT": 180.0
     },
-    "486R::CR/O": {
-      "key": "486R::CR/O",
-      "reference": "486R",
-      "orderReference": "486R CR/O",
-      "name": "Douche murale sans complexe",
-      "collection": "Airtech",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 180.0
-    },
     "486R::CRO": {
       "key": "486R::CRO",
       "reference": "486R",
@@ -20463,16 +19163,6 @@
       "collection": "Delux",
       "finishCode": "BRO",
       "finish": "Bronze",
-      "sourceHT": 570.0
-    },
-    "401H::COL": {
-      "key": "401H::COL",
-      "reference": "401H",
-      "orderReference": "401H COL",
-      "name": "Mèlangeur bain douche avec douchette link",
-      "collection": "Delux",
-      "finishCode": "COL",
-      "finish": "Couleur",
       "sourceHT": 570.0
     },
     "401H::CR/O": {
@@ -20565,16 +19255,6 @@
       "finish": "Bronze",
       "sourceHT": 205.0
     },
-    "501H::COL": {
-      "key": "501H::COL",
-      "reference": "501H",
-      "orderReference": "501H COL",
-      "name": "Mèlangeur bain douche avec douchette link",
-      "collection": "Delux",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 205.0
-    },
     "501H::CR/O": {
       "key": "501H::CR/O",
       "reference": "501H",
@@ -20663,16 +19343,6 @@
       "collection": "Delux",
       "finishCode": "BRO",
       "finish": "Bronze",
-      "sourceHT": 570.0
-    },
-    "430H::COL": {
-      "key": "430H::COL",
-      "reference": "430H",
-      "orderReference": "430H COL",
-      "name": "Batteria bordo vasca 5 fori con doccia link",
-      "collection": "Delux",
-      "finishCode": "COL",
-      "finish": "Couleur",
       "sourceHT": 570.0
     },
     "430H::CR/O": {
@@ -20765,16 +19435,6 @@
       "finish": "Bronze",
       "sourceHT": 218.0
     },
-    "402H::COL": {
-      "key": "402H::COL",
-      "reference": "402H",
-      "orderReference": "402H COL",
-      "name": "Produit REITANO",
-      "collection": "Delux",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 218.0
-    },
     "402H::CR/O": {
       "key": "402H::CR/O",
       "reference": "402H",
@@ -20865,16 +19525,6 @@
       "finish": "Bronze",
       "sourceHT": 570.0
     },
-    "552H::COL": {
-      "key": "552H::COL",
-      "reference": "552H",
-      "orderReference": "552H COL",
-      "name": "Produit REITANO",
-      "collection": "Delux",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 545.0
-    },
     "552H::CR/O": {
       "key": "552H::CR/O",
       "reference": "552H",
@@ -20963,16 +19613,6 @@
       "collection": "Delux",
       "finishCode": "BRO",
       "finish": "Bronze",
-      "sourceHT": 205.0
-    },
-    "417H::COL": {
-      "key": "417H::COL",
-      "reference": "417H",
-      "orderReference": "417H COL",
-      "name": "Produit REITANO",
-      "collection": "Delux",
-      "finishCode": "COL",
-      "finish": "Couleur",
       "sourceHT": 205.0
     },
     "417H::CR/O": {
@@ -21065,16 +19705,6 @@
       "finish": "Bronze",
       "sourceHT": 570.0
     },
-    "517H::COL": {
-      "key": "517H::COL",
-      "reference": "517H",
-      "orderReference": "517H COL",
-      "name": "Produit REITANO",
-      "collection": "Delux",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 570.0
-    },
     "517H::CR/O": {
       "key": "517H::CR/O",
       "reference": "517H",
@@ -21163,16 +19793,6 @@
       "collection": "Delux",
       "finishCode": "BRO",
       "finish": "Bronze",
-      "sourceHT": 218.0
-    },
-    "418H::COL": {
-      "key": "418H::COL",
-      "reference": "418H",
-      "orderReference": "418H COL",
-      "name": "Produit REITANO",
-      "collection": "Delux",
-      "finishCode": "COL",
-      "finish": "Couleur",
       "sourceHT": 218.0
     },
     "418H::CR/O": {
@@ -21265,16 +19885,6 @@
       "finish": "Bronze",
       "sourceHT": 570.0
     },
-    "518H::COL": {
-      "key": "518H::COL",
-      "reference": "518H",
-      "orderReference": "518H COL",
-      "name": "Produit REITANO",
-      "collection": "Delux",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 570.0
-    },
     "518H::CR/O": {
       "key": "518H::CR/O",
       "reference": "518H",
@@ -21365,16 +19975,6 @@
       "finish": "Bronze",
       "sourceHT": 205.0
     },
-    "446H::COL": {
-      "key": "446H::COL",
-      "reference": "446H",
-      "orderReference": "446H COL",
-      "name": "Douche murale avec douchette link",
-      "collection": "Delux",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 205.0
-    },
     "446H::CR/O": {
       "key": "446H::CR/O",
       "reference": "446H",
@@ -21463,16 +20063,6 @@
       "collection": "Delux",
       "finishCode": "BRO",
       "finish": "Bronze",
-      "sourceHT": 570.0
-    },
-    "546H::COL": {
-      "key": "546H::COL",
-      "reference": "546H",
-      "orderReference": "546H COL",
-      "name": "Douche murale avec douchette link",
-      "collection": "Delux",
-      "finishCode": "COL",
-      "finish": "Couleur",
       "sourceHT": 570.0
     },
     "546H::CR/O": {
@@ -21673,16 +20263,6 @@
       "collection": "Axia",
       "finishCode": "COL",
       "finish": "Couleur",
-      "sourceHT": 135.0
-    },
-    "586R::CR/O": {
-      "key": "586R::CR/O",
-      "reference": "586R",
-      "orderReference": "586R CR/O",
-      "name": "Douche murale sans complexe",
-      "collection": "Axia",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
       "sourceHT": 135.0
     },
     "586R::CRO": {
@@ -22065,16 +20645,6 @@
       "finish": "Bronze",
       "sourceHT": 1223.0
     },
-    "801Y::COL": {
-      "key": "801Y::COL",
-      "reference": "801Y",
-      "orderReference": "801Y COL",
-      "name": "Produit REITANO",
-      "collection": "Epoca",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 570.0
-    },
     "801Y::CR/O": {
       "key": "801Y::CR/O",
       "reference": "801Y",
@@ -22165,16 +20735,6 @@
       "finish": "Bronze",
       "sourceHT": 1393.0
     },
-    "831Y::COL": {
-      "key": "831Y::COL",
-      "reference": "831Y",
-      "orderReference": "831Y COL",
-      "name": "Batterie bain douche 5 trous",
-      "collection": "Epoca",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 205.0
-    },
     "831Y::CR/O": {
       "key": "831Y::CR/O",
       "reference": "831Y",
@@ -22263,16 +20823,6 @@
       "collection": "Epoca",
       "finishCode": "BRO",
       "finish": "Bronze",
-      "sourceHT": 570.0
-    },
-    "822Y::COL": {
-      "key": "822Y::COL",
-      "reference": "822Y",
-      "orderReference": "822Y COL",
-      "name": "Mitigeur lavabo avec vidage autom.",
-      "collection": "Epoca",
-      "finishCode": "COL",
-      "finish": "Couleur",
       "sourceHT": 570.0
     },
     "822Y::CR/O": {
@@ -22365,16 +20915,6 @@
       "finish": "Bronze",
       "sourceHT": 218.0
     },
-    "852Y::COL": {
-      "key": "852Y::COL",
-      "reference": "852Y",
-      "orderReference": "852Y COL",
-      "name": "Produit REITANO",
-      "collection": "Epoca",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 218.0
-    },
     "852Y::CR/O": {
       "key": "852Y::CR/O",
       "reference": "852Y",
@@ -22465,16 +21005,6 @@
       "finish": "Bronze",
       "sourceHT": 9.0
     },
-    "827Y::COL": {
-      "key": "827Y::COL",
-      "reference": "827Y",
-      "orderReference": "827Y COL",
-      "name": "Produit REITANO",
-      "collection": "Epoca",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 570.0
-    },
     "827Y::CR/O": {
       "key": "827Y::CR/O",
       "reference": "827Y",
@@ -22563,16 +21093,6 @@
       "collection": "Epoca",
       "finishCode": "BRO",
       "finish": "Bronze",
-      "sourceHT": 205.0
-    },
-    "818Y::COL": {
-      "key": "818Y::COL",
-      "reference": "818Y",
-      "orderReference": "818Y COL",
-      "name": "Produit REITANO",
-      "collection": "Epoca",
-      "finishCode": "COL",
-      "finish": "Couleur",
       "sourceHT": 205.0
     },
     "818Y::CR/O": {
@@ -22665,16 +21185,6 @@
       "finish": "Bronze",
       "sourceHT": 570.0
     },
-    "137Y::COL": {
-      "key": "137Y::COL",
-      "reference": "137Y",
-      "orderReference": "137Y COL",
-      "name": "Produit REITANO",
-      "collection": "Epoca",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 570.0
-    },
     "137Y::CR/O": {
       "key": "137Y::CR/O",
       "reference": "137Y",
@@ -22763,16 +21273,6 @@
       "collection": "Epoca",
       "finishCode": "BRO",
       "finish": "Bronze",
-      "sourceHT": 218.0
-    },
-    "138Y::COL": {
-      "key": "138Y::COL",
-      "reference": "138Y",
-      "orderReference": "138Y COL",
-      "name": "Produit REITANO",
-      "collection": "Epoca",
-      "finishCode": "COL",
-      "finish": "Couleur",
       "sourceHT": 218.0
     },
     "138Y::CR/O": {
@@ -22865,16 +21365,6 @@
       "finish": "Bronze",
       "sourceHT": 570.0
     },
-    "801W::COL": {
-      "key": "801W::COL",
-      "reference": "801W",
-      "orderReference": "801W COL",
-      "name": "Produit REITANO",
-      "collection": "Epoca",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 570.0
-    },
     "801W::CR/O": {
       "key": "801W::CR/O",
       "reference": "801W",
@@ -22963,16 +21453,6 @@
       "collection": "Epoca",
       "finishCode": "BRO",
       "finish": "Bronze",
-      "sourceHT": 205.0
-    },
-    "831W::COL": {
-      "key": "831W::COL",
-      "reference": "831W",
-      "orderReference": "831W COL",
-      "name": "Batterie bain douche 5 trous",
-      "collection": "Epoca",
-      "finishCode": "COL",
-      "finish": "Couleur",
       "sourceHT": 205.0
     },
     "831W::CR/O": {
@@ -23065,16 +21545,6 @@
       "finish": "Bronze",
       "sourceHT": 570.0
     },
-    "822W::COL": {
-      "key": "822W::COL",
-      "reference": "822W",
-      "orderReference": "822W COL",
-      "name": "Mitigeur lavabo avec vidage autom.",
-      "collection": "Epoca",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 570.0
-    },
     "822W::CR/O": {
       "key": "822W::CR/O",
       "reference": "822W",
@@ -23163,16 +21633,6 @@
       "collection": "Epoca",
       "finishCode": "BRO",
       "finish": "Bronze",
-      "sourceHT": 218.0
-    },
-    "852W::COL": {
-      "key": "852W::COL",
-      "reference": "852W",
-      "orderReference": "852W COL",
-      "name": "Produit REITANO",
-      "collection": "Epoca",
-      "finishCode": "COL",
-      "finish": "Couleur",
       "sourceHT": 218.0
     },
     "852W::CR/O": {
@@ -23265,16 +21725,6 @@
       "finish": "Bronze",
       "sourceHT": 570.0
     },
-    "827W::COL": {
-      "key": "827W::COL",
-      "reference": "827W",
-      "orderReference": "827W COL",
-      "name": "Produit REITANO",
-      "collection": "Epoca",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 570.0
-    },
     "827W::CR/O": {
       "key": "827W::CR/O",
       "reference": "827W",
@@ -23363,16 +21813,6 @@
       "collection": "Epoca",
       "finishCode": "BRO",
       "finish": "Bronze",
-      "sourceHT": 205.0
-    },
-    "818W::COL": {
-      "key": "818W::COL",
-      "reference": "818W",
-      "orderReference": "818W COL",
-      "name": "Produit REITANO",
-      "collection": "Epoca",
-      "finishCode": "COL",
-      "finish": "Couleur",
       "sourceHT": 205.0
     },
     "818W::CR/O": {
@@ -23465,16 +21905,6 @@
       "finish": "Bronze",
       "sourceHT": 570.0
     },
-    "137W::COL": {
-      "key": "137W::COL",
-      "reference": "137W",
-      "orderReference": "137W COL",
-      "name": "Produit REITANO",
-      "collection": "Epoca",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 570.0
-    },
     "137W::CR/O": {
       "key": "137W::CR/O",
       "reference": "137W",
@@ -23564,16 +21994,6 @@
       "finishCode": "BRO",
       "finish": "Bronze",
       "sourceHT": 3.0
-    },
-    "138W::COL": {
-      "key": "138W::COL",
-      "reference": "138W",
-      "orderReference": "138W COL",
-      "name": "Produit REITANO",
-      "collection": "Epoca",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 218.0
     },
     "138W::CR/O": {
       "key": "138W::CR/O",
@@ -23995,16 +22415,6 @@
       "finish": "Bronze",
       "sourceHT": 570.0
     },
-    "TR84::COL": {
-      "key": "TR84::COL",
-      "reference": "TR84",
-      "orderReference": "TR84 COL",
-      "name": "Mitigeur thermostatique douche nue",
-      "collection": "Antea",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 570.0
-    },
     "TR84::CR/O": {
       "key": "TR84::CR/O",
       "reference": "TR84",
@@ -24115,16 +22525,6 @@
       "finish": "Couleur",
       "sourceHT": 520.0
     },
-    "SE001::CR/O": {
-      "key": "SE001::CR/O",
-      "reference": "SE001",
-      "orderReference": "SE001 CR/O",
-      "name": "Rubinetto elettronico per lavabo pre-miscelato - alimentazione a corrente",
-      "collection": "Robinets électroniques",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 520.0
-    },
     "SE001::CRO": {
       "key": "SE001::CRO",
       "reference": "SE001",
@@ -24223,16 +22623,6 @@
       "collection": "Robinets électroniques",
       "finishCode": "COL",
       "finish": "Couleur",
-      "sourceHT": 610.0
-    },
-    "SE002::CR/O": {
-      "key": "SE002::CR/O",
-      "reference": "SE002",
-      "orderReference": "SE002 CR/O",
-      "name": "Rubinetto elettronico per lavabo pre-miscelato - alimentazione a corrente",
-      "collection": "Robinets électroniques",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
       "sourceHT": 610.0
     },
     "SE002::CRO": {
@@ -24335,16 +22725,6 @@
       "finish": "Couleur",
       "sourceHT": 610.0
     },
-    "SE003::CR/O": {
-      "key": "SE003::CR/O",
-      "reference": "SE003",
-      "orderReference": "SE003 CR/O",
-      "name": "Rubinetto elettronico per lavabo pre-miscelato - alimentazione a corrente",
-      "collection": "Robinets électroniques",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 610.0
-    },
     "SE003::CRO": {
       "key": "SE003::CRO",
       "reference": "SE003",
@@ -24443,16 +22823,6 @@
       "collection": "Robinets temporisés",
       "finishCode": "COL",
       "finish": "Couleur",
-      "sourceHT": 210.0
-    },
-    "TE001::CR/O": {
-      "key": "TE001::CR/O",
-      "reference": "TE001",
-      "orderReference": "TE001 CR/O",
-      "name": "Rubinetto lavabo a pulsante monoacqua temporizzato 8-12 secondi",
-      "collection": "Robinets temporisés",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
       "sourceHT": 210.0
     },
     "TE001::CRO": {
@@ -24555,16 +22925,6 @@
       "finish": "Couleur",
       "sourceHT": 410.0
     },
-    "SE004::CR/O": {
-      "key": "SE004::CR/O",
-      "reference": "SE004",
-      "orderReference": "SE004 CR/O",
-      "name": "Canna elettronica a parete",
-      "collection": "Robinets électroniques",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 410.0
-    },
     "SE004::CRO": {
       "key": "SE004::CRO",
       "reference": "SE004",
@@ -24663,16 +23023,6 @@
       "collection": "Robinets électroniques",
       "finishCode": "COL",
       "finish": "Couleur",
-      "sourceHT": 495.0
-    },
-    "SE005::CR/O": {
-      "key": "SE005::CR/O",
-      "reference": "SE005",
-      "orderReference": "SE005 CR/O",
-      "name": "Canna elettronica d’appoggio",
-      "collection": "Robinets électroniques",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
       "sourceHT": 495.0
     },
     "SE005::CRO": {
@@ -24775,16 +23125,6 @@
       "finish": "Couleur",
       "sourceHT": 500.0
     },
-    "SE006::CR/O": {
-      "key": "SE006::CR/O",
-      "reference": "SE006",
-      "orderReference": "SE006 CR/O",
-      "name": "Canna elettronica d’appoggio",
-      "collection": "Robinets électroniques",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 500.0
-    },
     "SE006::CRO": {
       "key": "SE006::CRO",
       "reference": "SE006",
@@ -24865,36 +23205,6 @@
       "finish": "Couleur liquide",
       "sourceHT": 540.0
     },
-    "SOF503Q::BRO": {
-      "key": "SOF503Q::BRO",
-      "reference": "SOF503Q",
-      "orderReference": "SOF503Q BRO",
-      "name": "Soffione quadro a soffitto con cascata e nebulizzatore",
-      "collection": "Douche",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
-    },
-    "SOF503Q::COL": {
-      "key": "SOF503Q::COL",
-      "reference": "SOF503Q",
-      "orderReference": "SOF503Q COL",
-      "name": "Soffione quadro a soffitto con cascata e nebulizzatore",
-      "collection": "Douche",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 570.0
-    },
-    "SOF503Q::CR/O": {
-      "key": "SOF503Q::CR/O",
-      "reference": "SOF503Q",
-      "orderReference": "SOF503Q CR/O",
-      "name": "Soffione quadro a soffitto con cascata e nebulizzatore",
-      "collection": "Douche",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 1550.0
-    },
     "SOF503Q::CRO": {
       "key": "SOF503Q::CRO",
       "reference": "SOF503Q",
@@ -24904,96 +23214,6 @@
       "finishCode": "CRO",
       "finish": "Chrome",
       "sourceHT": 1550.0
-    },
-    "SOF503Q::D/NL": {
-      "key": "SOF503Q::D/NL",
-      "reference": "SOF503Q",
-      "orderReference": "SOF503Q D/NL",
-      "name": "Soffione quadro a soffitto con cascata e nebulizzatore",
-      "collection": "Douche",
-      "finishCode": "D/NL",
-      "finish": "Nickel noir",
-      "sourceHT": 630.0
-    },
-    "SOF503Q::D/NO": {
-      "key": "SOF503Q::D/NO",
-      "reference": "SOF503Q",
-      "orderReference": "SOF503Q D/NO",
-      "name": "Soffione quadro a soffitto con cascata e nebulizzatore",
-      "collection": "Douche",
-      "finishCode": "D/NO",
-      "finish": "Noir-or",
-      "sourceHT": 630.0
-    },
-    "SOF503Q::D/SO": {
-      "key": "SOF503Q::D/SO",
-      "reference": "SOF503Q",
-      "orderReference": "SOF503Q D/SO",
-      "name": "Soffione quadro a soffitto con cascata e nebulizzatore",
-      "collection": "Douche",
-      "finishCode": "D/SO",
-      "finish": "Or satiné",
-      "sourceHT": 630.0
-    },
-    "SOF503Q::DOR": {
-      "key": "SOF503Q::DOR",
-      "reference": "SOF503Q",
-      "orderReference": "SOF503Q DOR",
-      "name": "Soffione quadro a soffitto con cascata e nebulizzatore",
-      "collection": "Douche",
-      "finishCode": "DOR",
-      "finish": "Or",
-      "sourceHT": 630.0
-    },
-    "SOF503Q::NIK": {
-      "key": "SOF503Q::NIK",
-      "reference": "SOF503Q",
-      "orderReference": "SOF503Q NIK",
-      "name": "Soffione quadro a soffitto con cascata e nebulizzatore",
-      "collection": "Douche",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "SOF503Q::RAM": {
-      "key": "SOF503Q::RAM",
-      "reference": "SOF503Q",
-      "orderReference": "SOF503Q RAM",
-      "name": "Soffione quadro a soffitto con cascata e nebulizzatore",
-      "collection": "Douche",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
-    },
-    "SOF500::BRO": {
-      "key": "SOF500::BRO",
-      "reference": "SOF500",
-      "orderReference": "SOF500 BRO",
-      "name": "Soffione tondo a soffitto ø 500mm",
-      "collection": "Douche",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
-    },
-    "SOF500::COL": {
-      "key": "SOF500::COL",
-      "reference": "SOF500",
-      "orderReference": "SOF500 COL",
-      "name": "Soffione tondo a soffitto ø 500mm",
-      "collection": "Douche",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 570.0
-    },
-    "SOF500::CR/O": {
-      "key": "SOF500::CR/O",
-      "reference": "SOF500",
-      "orderReference": "SOF500 CR/O",
-      "name": "Soffione tondo a soffitto ø 500mm",
-      "collection": "Douche",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 1100.0
     },
     "SOF500::CRO": {
       "key": "SOF500::CRO",
@@ -25005,66 +23225,6 @@
       "finish": "Chrome",
       "sourceHT": 1100.0
     },
-    "SOF500::D/NL": {
-      "key": "SOF500::D/NL",
-      "reference": "SOF500",
-      "orderReference": "SOF500 D/NL",
-      "name": "Soffione tondo a soffitto ø 500mm",
-      "collection": "Douche",
-      "finishCode": "D/NL",
-      "finish": "Nickel noir",
-      "sourceHT": 630.0
-    },
-    "SOF500::D/NO": {
-      "key": "SOF500::D/NO",
-      "reference": "SOF500",
-      "orderReference": "SOF500 D/NO",
-      "name": "Soffione tondo a soffitto ø 500mm",
-      "collection": "Douche",
-      "finishCode": "D/NO",
-      "finish": "Noir-or",
-      "sourceHT": 630.0
-    },
-    "SOF500::D/SO": {
-      "key": "SOF500::D/SO",
-      "reference": "SOF500",
-      "orderReference": "SOF500 D/SO",
-      "name": "Soffione tondo a soffitto ø 500mm",
-      "collection": "Douche",
-      "finishCode": "D/SO",
-      "finish": "Or satiné",
-      "sourceHT": 630.0
-    },
-    "SOF500::DOR": {
-      "key": "SOF500::DOR",
-      "reference": "SOF500",
-      "orderReference": "SOF500 DOR",
-      "name": "Soffione tondo a soffitto ø 500mm",
-      "collection": "Douche",
-      "finishCode": "DOR",
-      "finish": "Or",
-      "sourceHT": 630.0
-    },
-    "SOF500::NIK": {
-      "key": "SOF500::NIK",
-      "reference": "SOF500",
-      "orderReference": "SOF500 NIK",
-      "name": "Soffione tondo a soffitto ø 500mm",
-      "collection": "Douche",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "SOF500::RAM": {
-      "key": "SOF500::RAM",
-      "reference": "SOF500",
-      "orderReference": "SOF500 RAM",
-      "name": "Soffione tondo a soffitto ø 500mm",
-      "collection": "Douche",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
-    },
     "SOF500::VL": {
       "key": "SOF500::VL",
       "reference": "SOF500",
@@ -25074,36 +23234,6 @@
       "finishCode": "VL",
       "finish": "Couleur liquide",
       "sourceHT": 1650.0
-    },
-    "SOF380::BRO": {
-      "key": "SOF380::BRO",
-      "reference": "SOF380",
-      "orderReference": "SOF380 BRO",
-      "name": "Soffione tondo a soffitto ø 380mm",
-      "collection": "Douche",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 195.0
-    },
-    "SOF380::COL": {
-      "key": "SOF380::COL",
-      "reference": "SOF380",
-      "orderReference": "SOF380 COL",
-      "name": "Soffione tondo a soffitto ø 380mm",
-      "collection": "Douche",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 218.0
-    },
-    "SOF380::CR/O": {
-      "key": "SOF380::CR/O",
-      "reference": "SOF380",
-      "orderReference": "SOF380 CR/O",
-      "name": "Soffione tondo a soffitto ø 380mm",
-      "collection": "Douche",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 900.0
     },
     "SOF380::CRO": {
       "key": "SOF380::CRO",
@@ -25115,66 +23245,6 @@
       "finish": "Chrome",
       "sourceHT": 900.0
     },
-    "SOF380::D/NL": {
-      "key": "SOF380::D/NL",
-      "reference": "SOF380",
-      "orderReference": "SOF380 D/NL",
-      "name": "Soffione tondo a soffitto ø 380mm",
-      "collection": "Douche",
-      "finishCode": "D/NL",
-      "finish": "Nickel noir",
-      "sourceHT": 630.0
-    },
-    "SOF380::D/NO": {
-      "key": "SOF380::D/NO",
-      "reference": "SOF380",
-      "orderReference": "SOF380 D/NO",
-      "name": "Soffione tondo a soffitto ø 380mm",
-      "collection": "Douche",
-      "finishCode": "D/NO",
-      "finish": "Noir-or",
-      "sourceHT": 630.0
-    },
-    "SOF380::D/SO": {
-      "key": "SOF380::D/SO",
-      "reference": "SOF380",
-      "orderReference": "SOF380 D/SO",
-      "name": "Soffione tondo a soffitto ø 380mm",
-      "collection": "Douche",
-      "finishCode": "D/SO",
-      "finish": "Or satiné",
-      "sourceHT": 630.0
-    },
-    "SOF380::DOR": {
-      "key": "SOF380::DOR",
-      "reference": "SOF380",
-      "orderReference": "SOF380 DOR",
-      "name": "Soffione tondo a soffitto ø 380mm",
-      "collection": "Douche",
-      "finishCode": "DOR",
-      "finish": "Or",
-      "sourceHT": 630.0
-    },
-    "SOF380::NIK": {
-      "key": "SOF380::NIK",
-      "reference": "SOF380",
-      "orderReference": "SOF380 NIK",
-      "name": "Soffione tondo a soffitto ø 380mm",
-      "collection": "Douche",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 195.0
-    },
-    "SOF380::RAM": {
-      "key": "SOF380::RAM",
-      "reference": "SOF380",
-      "orderReference": "SOF380 RAM",
-      "name": "Soffione tondo a soffitto ø 380mm",
-      "collection": "Douche",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 195.0
-    },
     "SOF380::VL": {
       "key": "SOF380::VL",
       "reference": "SOF380",
@@ -25184,36 +23254,6 @@
       "finishCode": "VL",
       "finish": "Couleur liquide",
       "sourceHT": 1400.0
-    },
-    "SOF380Q::BRO": {
-      "key": "SOF380Q::BRO",
-      "reference": "SOF380Q",
-      "orderReference": "SOF380Q BRO",
-      "name": "Soffione quadro a soffitto ø 380mm",
-      "collection": "Douche",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
-    },
-    "SOF380Q::COL": {
-      "key": "SOF380Q::COL",
-      "reference": "SOF380Q",
-      "orderReference": "SOF380Q COL",
-      "name": "Soffione quadro a soffitto ø 380mm",
-      "collection": "Douche",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 570.0
-    },
-    "SOF380Q::CR/O": {
-      "key": "SOF380Q::CR/O",
-      "reference": "SOF380Q",
-      "orderReference": "SOF380Q CR/O",
-      "name": "Soffione quadro a soffitto ø 380mm",
-      "collection": "Douche",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 990.0
     },
     "SOF380Q::CRO": {
       "key": "SOF380Q::CRO",
@@ -25225,96 +23265,6 @@
       "finish": "Chrome",
       "sourceHT": 990.0
     },
-    "SOF380Q::D/NL": {
-      "key": "SOF380Q::D/NL",
-      "reference": "SOF380Q",
-      "orderReference": "SOF380Q D/NL",
-      "name": "Soffione quadro a soffitto ø 380mm",
-      "collection": "Douche",
-      "finishCode": "D/NL",
-      "finish": "Nickel noir",
-      "sourceHT": 630.0
-    },
-    "SOF380Q::D/NO": {
-      "key": "SOF380Q::D/NO",
-      "reference": "SOF380Q",
-      "orderReference": "SOF380Q D/NO",
-      "name": "Soffione quadro a soffitto ø 380mm",
-      "collection": "Douche",
-      "finishCode": "D/NO",
-      "finish": "Noir-or",
-      "sourceHT": 630.0
-    },
-    "SOF380Q::D/SO": {
-      "key": "SOF380Q::D/SO",
-      "reference": "SOF380Q",
-      "orderReference": "SOF380Q D/SO",
-      "name": "Soffione quadro a soffitto ø 380mm",
-      "collection": "Douche",
-      "finishCode": "D/SO",
-      "finish": "Or satiné",
-      "sourceHT": 630.0
-    },
-    "SOF380Q::DOR": {
-      "key": "SOF380Q::DOR",
-      "reference": "SOF380Q",
-      "orderReference": "SOF380Q DOR",
-      "name": "Soffione quadro a soffitto ø 380mm",
-      "collection": "Douche",
-      "finishCode": "DOR",
-      "finish": "Or",
-      "sourceHT": 630.0
-    },
-    "SOF380Q::NIK": {
-      "key": "SOF380Q::NIK",
-      "reference": "SOF380Q",
-      "orderReference": "SOF380Q NIK",
-      "name": "Soffione quadro a soffitto ø 380mm",
-      "collection": "Douche",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "SOF380Q::RAM": {
-      "key": "SOF380Q::RAM",
-      "reference": "SOF380Q",
-      "orderReference": "SOF380Q RAM",
-      "name": "Soffione quadro a soffitto ø 380mm",
-      "collection": "Douche",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
-    },
-    "SOF500T::BRO": {
-      "key": "SOF500T::BRO",
-      "reference": "SOF500T",
-      "orderReference": "SOF500T BRO",
-      "name": "Soffione tondo a soffitto ø 500mm",
-      "collection": "Douche",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 205.0
-    },
-    "SOF500T::COL": {
-      "key": "SOF500T::COL",
-      "reference": "SOF500T",
-      "orderReference": "SOF500T COL",
-      "name": "Soffione tondo a soffitto ø 500mm",
-      "collection": "Douche",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 205.0
-    },
-    "SOF500T::CR/O": {
-      "key": "SOF500T::CR/O",
-      "reference": "SOF500T",
-      "orderReference": "SOF500T CR/O",
-      "name": "Soffione tondo a soffitto ø 500mm",
-      "collection": "Douche",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 770.0
-    },
     "SOF500T::CRO": {
       "key": "SOF500T::CRO",
       "reference": "SOF500T",
@@ -25324,66 +23274,6 @@
       "finishCode": "CRO",
       "finish": "Chrome",
       "sourceHT": 770.0
-    },
-    "SOF500T::D/NL": {
-      "key": "SOF500T::D/NL",
-      "reference": "SOF500T",
-      "orderReference": "SOF500T D/NL",
-      "name": "Soffione tondo a soffitto ø 500mm",
-      "collection": "Douche",
-      "finishCode": "D/NL",
-      "finish": "Nickel noir",
-      "sourceHT": 630.0
-    },
-    "SOF500T::D/NO": {
-      "key": "SOF500T::D/NO",
-      "reference": "SOF500T",
-      "orderReference": "SOF500T D/NO",
-      "name": "Soffione tondo a soffitto ø 500mm",
-      "collection": "Douche",
-      "finishCode": "D/NO",
-      "finish": "Noir-or",
-      "sourceHT": 630.0
-    },
-    "SOF500T::D/SO": {
-      "key": "SOF500T::D/SO",
-      "reference": "SOF500T",
-      "orderReference": "SOF500T D/SO",
-      "name": "Soffione tondo a soffitto ø 500mm",
-      "collection": "Douche",
-      "finishCode": "D/SO",
-      "finish": "Or satiné",
-      "sourceHT": 630.0
-    },
-    "SOF500T::DOR": {
-      "key": "SOF500T::DOR",
-      "reference": "SOF500T",
-      "orderReference": "SOF500T DOR",
-      "name": "Soffione tondo a soffitto ø 500mm",
-      "collection": "Douche",
-      "finishCode": "DOR",
-      "finish": "Or",
-      "sourceHT": 630.0
-    },
-    "SOF500T::NIK": {
-      "key": "SOF500T::NIK",
-      "reference": "SOF500T",
-      "orderReference": "SOF500T NIK",
-      "name": "Soffione tondo a soffitto ø 500mm",
-      "collection": "Douche",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 205.0
-    },
-    "SOF500T::RAM": {
-      "key": "SOF500T::RAM",
-      "reference": "SOF500T",
-      "orderReference": "SOF500T RAM",
-      "name": "Soffione tondo a soffitto ø 500mm",
-      "collection": "Douche",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 205.0
     },
     "SOF500T::VL": {
       "key": "SOF500T::VL",
@@ -25395,36 +23285,6 @@
       "finish": "Couleur liquide",
       "sourceHT": 1150.0
     },
-    "SOF500Q::BRO": {
-      "key": "SOF500Q::BRO",
-      "reference": "SOF500Q",
-      "orderReference": "SOF500Q BRO",
-      "name": "Soffione quadro a soffitto ø 500mm",
-      "collection": "Douche",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
-    },
-    "SOF500Q::COL": {
-      "key": "SOF500Q::COL",
-      "reference": "SOF500Q",
-      "orderReference": "SOF500Q COL",
-      "name": "Soffione quadro a soffitto ø 500mm",
-      "collection": "Douche",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 2.0
-    },
-    "SOF500Q::CR/O": {
-      "key": "SOF500Q::CR/O",
-      "reference": "SOF500Q",
-      "orderReference": "SOF500Q CR/O",
-      "name": "Soffione quadro a soffitto ø 500mm",
-      "collection": "Douche",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 800.0
-    },
     "SOF500Q::CRO": {
       "key": "SOF500Q::CRO",
       "reference": "SOF500Q",
@@ -25434,66 +23294,6 @@
       "finishCode": "CRO",
       "finish": "Chrome",
       "sourceHT": 800.0
-    },
-    "SOF500Q::D/NL": {
-      "key": "SOF500Q::D/NL",
-      "reference": "SOF500Q",
-      "orderReference": "SOF500Q D/NL",
-      "name": "Soffione quadro a soffitto ø 500mm",
-      "collection": "Douche",
-      "finishCode": "D/NL",
-      "finish": "Nickel noir",
-      "sourceHT": 630.0
-    },
-    "SOF500Q::D/NO": {
-      "key": "SOF500Q::D/NO",
-      "reference": "SOF500Q",
-      "orderReference": "SOF500Q D/NO",
-      "name": "Soffione quadro a soffitto ø 500mm",
-      "collection": "Douche",
-      "finishCode": "D/NO",
-      "finish": "Noir-or",
-      "sourceHT": 630.0
-    },
-    "SOF500Q::D/SO": {
-      "key": "SOF500Q::D/SO",
-      "reference": "SOF500Q",
-      "orderReference": "SOF500Q D/SO",
-      "name": "Soffione quadro a soffitto ø 500mm",
-      "collection": "Douche",
-      "finishCode": "D/SO",
-      "finish": "Or satiné",
-      "sourceHT": 630.0
-    },
-    "SOF500Q::DOR": {
-      "key": "SOF500Q::DOR",
-      "reference": "SOF500Q",
-      "orderReference": "SOF500Q DOR",
-      "name": "Soffione quadro a soffitto ø 500mm",
-      "collection": "Douche",
-      "finishCode": "DOR",
-      "finish": "Or",
-      "sourceHT": 630.0
-    },
-    "SOF500Q::NIK": {
-      "key": "SOF500Q::NIK",
-      "reference": "SOF500Q",
-      "orderReference": "SOF500Q NIK",
-      "name": "Soffione quadro a soffitto ø 500mm",
-      "collection": "Douche",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "SOF500Q::RAM": {
-      "key": "SOF500Q::RAM",
-      "reference": "SOF500Q",
-      "orderReference": "SOF500Q RAM",
-      "name": "Soffione quadro a soffitto ø 500mm",
-      "collection": "Douche",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
     },
     "SOF500Q::VL": {
       "key": "SOF500Q::VL",
@@ -25523,16 +23323,6 @@
       "collection": "Douche",
       "finishCode": "COL",
       "finish": "Couleur",
-      "sourceHT": 430.0
-    },
-    "BRSS300::CR/O": {
-      "key": "BRSS300::CR/O",
-      "reference": "BRSS300",
-      "orderReference": "BRSS300 CR/O",
-      "name": "Braccio doccia a soffitto con soffione ø 300mm",
-      "collection": "Douche",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
       "sourceHT": 430.0
     },
     "BRSS300::CRO": {
@@ -25635,16 +23425,6 @@
       "finish": "Couleur",
       "sourceHT": 570.0
     },
-    "BRSS400::CR/O": {
-      "key": "BRSS400::CR/O",
-      "reference": "BRSS400",
-      "orderReference": "BRSS400 CR/O",
-      "name": "Braccio doccia a soffitto con soffione ø 400mm",
-      "collection": "Douche",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 570.0
-    },
     "BRSS400::CRO": {
       "key": "BRSS400::CRO",
       "reference": "BRSS400",
@@ -25743,16 +23523,6 @@
       "collection": "Douche",
       "finishCode": "COL",
       "finish": "Couleur",
-      "sourceHT": 570.0
-    },
-    "BRSS300Q::CR/O": {
-      "key": "BRSS300Q::CR/O",
-      "reference": "BRSS300Q",
-      "orderReference": "BRSS300Q CR/O",
-      "name": "Braccio doccia a soffitto con soffione quadrato mm 300x300",
-      "collection": "Douche",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
       "sourceHT": 570.0
     },
     "BRSS300Q::CRO": {
@@ -25855,16 +23625,6 @@
       "finish": "Couleur",
       "sourceHT": 760.0
     },
-    "BRSS400Q::CR/O": {
-      "key": "BRSS400Q::CR/O",
-      "reference": "BRSS400Q",
-      "orderReference": "BRSS400Q CR/O",
-      "name": "Braccio doccia a soffitto con soffione quadrato mm 400x400",
-      "collection": "Douche",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 650.0
-    },
     "BRSS400Q::CRO": {
       "key": "BRSS400Q::CRO",
       "reference": "BRSS400Q",
@@ -25945,16 +23705,6 @@
       "finish": "Couleur liquide",
       "sourceHT": 790.0
     },
-    "974S200::BRO": {
-      "key": "974S200::BRO",
-      "reference": "974S200",
-      "orderReference": "974S200 BRO",
-      "name": "Bras de douche 200x200 mm",
-      "collection": "Douche",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 218.0
-    },
     "974S200::COL": {
       "key": "974S200::COL",
       "reference": "974S200",
@@ -25963,16 +23713,6 @@
       "collection": "Douche",
       "finishCode": "COL",
       "finish": "Couleur",
-      "sourceHT": 420.0
-    },
-    "974S200::CR/O": {
-      "key": "974S200::CR/O",
-      "reference": "974S200",
-      "orderReference": "974S200 CR/O",
-      "name": "Bras de douche 200x200 mm",
-      "collection": "Douche",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
       "sourceHT": 420.0
     },
     "974S200::CRO": {
@@ -26025,26 +23765,6 @@
       "finish": "Or",
       "sourceHT": 500.0
     },
-    "974S200::NIK": {
-      "key": "974S200::NIK",
-      "reference": "974S200",
-      "orderReference": "974S200 NIK",
-      "name": "Bras de douche 200x200 mm",
-      "collection": "Douche",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 218.0
-    },
-    "974S200::RAM": {
-      "key": "974S200::RAM",
-      "reference": "974S200",
-      "orderReference": "974S200 RAM",
-      "name": "Bras de douche 200x200 mm",
-      "collection": "Douche",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 218.0
-    },
     "974S200::VL": {
       "key": "974S200::VL",
       "reference": "974S200",
@@ -26054,36 +23774,6 @@
       "finishCode": "VL",
       "finish": "Couleur liquide",
       "sourceHT": 490.0
-    },
-    "964202::BRO": {
-      "key": "964202::BRO",
-      "reference": "964202",
-      "orderReference": "964202 BRO",
-      "name": "Bras de douche ø 200",
-      "collection": "Douche",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 218.0
-    },
-    "964202::COL": {
-      "key": "964202::COL",
-      "reference": "964202",
-      "orderReference": "964202 COL",
-      "name": "Bras de douche ø 200",
-      "collection": "Douche",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 325.0
-    },
-    "964202::CR/O": {
-      "key": "964202::CR/O",
-      "reference": "964202",
-      "orderReference": "964202 CR/O",
-      "name": "Bras de douche ø 200",
-      "collection": "Douche",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 150.0
     },
     "964202::CRO": {
       "key": "964202::CRO",
@@ -26095,96 +23785,6 @@
       "finish": "Chrome",
       "sourceHT": 150.0
     },
-    "964202::D/NL": {
-      "key": "964202::D/NL",
-      "reference": "964202",
-      "orderReference": "964202 D/NL",
-      "name": "Bras de douche ø 200",
-      "collection": "Douche",
-      "finishCode": "D/NL",
-      "finish": "Nickel noir",
-      "sourceHT": 630.0
-    },
-    "964202::D/NO": {
-      "key": "964202::D/NO",
-      "reference": "964202",
-      "orderReference": "964202 D/NO",
-      "name": "Bras de douche ø 200",
-      "collection": "Douche",
-      "finishCode": "D/NO",
-      "finish": "Noir-or",
-      "sourceHT": 630.0
-    },
-    "964202::D/SO": {
-      "key": "964202::D/SO",
-      "reference": "964202",
-      "orderReference": "964202 D/SO",
-      "name": "Bras de douche ø 200",
-      "collection": "Douche",
-      "finishCode": "D/SO",
-      "finish": "Or satiné",
-      "sourceHT": 630.0
-    },
-    "964202::DOR": {
-      "key": "964202::DOR",
-      "reference": "964202",
-      "orderReference": "964202 DOR",
-      "name": "Bras de douche ø 200",
-      "collection": "Douche",
-      "finishCode": "DOR",
-      "finish": "Or",
-      "sourceHT": 630.0
-    },
-    "964202::NIK": {
-      "key": "964202::NIK",
-      "reference": "964202",
-      "orderReference": "964202 NIK",
-      "name": "Bras de douche ø 200",
-      "collection": "Douche",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 218.0
-    },
-    "964202::RAM": {
-      "key": "964202::RAM",
-      "reference": "964202",
-      "orderReference": "964202 RAM",
-      "name": "Bras de douche ø 200",
-      "collection": "Douche",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 218.0
-    },
-    "964302::BRO": {
-      "key": "964302::BRO",
-      "reference": "964302",
-      "orderReference": "964302 BRO",
-      "name": "Bras de douche ø 300",
-      "collection": "Douche",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
-    },
-    "964302::COL": {
-      "key": "964302::COL",
-      "reference": "964302",
-      "orderReference": "964302 COL",
-      "name": "Bras de douche ø 300",
-      "collection": "Douche",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 570.0
-    },
-    "964302::CR/O": {
-      "key": "964302::CR/O",
-      "reference": "964302",
-      "orderReference": "964302 CR/O",
-      "name": "Bras de douche ø 300",
-      "collection": "Douche",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 210.0
-    },
     "964302::CRO": {
       "key": "964302::CRO",
       "reference": "964302",
@@ -26194,66 +23794,6 @@
       "finishCode": "CRO",
       "finish": "Chrome",
       "sourceHT": 210.0
-    },
-    "964302::D/NL": {
-      "key": "964302::D/NL",
-      "reference": "964302",
-      "orderReference": "964302 D/NL",
-      "name": "Bras de douche ø 300",
-      "collection": "Douche",
-      "finishCode": "D/NL",
-      "finish": "Nickel noir",
-      "sourceHT": 630.0
-    },
-    "964302::D/NO": {
-      "key": "964302::D/NO",
-      "reference": "964302",
-      "orderReference": "964302 D/NO",
-      "name": "Bras de douche ø 300",
-      "collection": "Douche",
-      "finishCode": "D/NO",
-      "finish": "Noir-or",
-      "sourceHT": 630.0
-    },
-    "964302::D/SO": {
-      "key": "964302::D/SO",
-      "reference": "964302",
-      "orderReference": "964302 D/SO",
-      "name": "Bras de douche ø 300",
-      "collection": "Douche",
-      "finishCode": "D/SO",
-      "finish": "Or satiné",
-      "sourceHT": 630.0
-    },
-    "964302::DOR": {
-      "key": "964302::DOR",
-      "reference": "964302",
-      "orderReference": "964302 DOR",
-      "name": "Bras de douche ø 300",
-      "collection": "Douche",
-      "finishCode": "DOR",
-      "finish": "Or",
-      "sourceHT": 630.0
-    },
-    "964302::NIK": {
-      "key": "964302::NIK",
-      "reference": "964302",
-      "orderReference": "964302 NIK",
-      "name": "Bras de douche ø 300",
-      "collection": "Douche",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "964302::RAM": {
-      "key": "964302::RAM",
-      "reference": "964302",
-      "orderReference": "964302 RAM",
-      "name": "Bras de douche ø 300",
-      "collection": "Douche",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
     },
     "964200::BRO": {
       "key": "964200::BRO",
@@ -26273,16 +23813,6 @@
       "collection": "Douche",
       "finishCode": "COL",
       "finish": "Couleur",
-      "sourceHT": 290.0
-    },
-    "964200::CR/O": {
-      "key": "964200::CR/O",
-      "reference": "964200",
-      "orderReference": "964200 CR/O",
-      "name": "Bras de douche ø 200",
-      "collection": "Douche",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
       "sourceHT": 290.0
     },
     "964200::CRO": {
@@ -26385,16 +23915,6 @@
       "finish": "Couleur",
       "sourceHT": 350.0
     },
-    "964300::CR/O": {
-      "key": "964300::CR/O",
-      "reference": "964300",
-      "orderReference": "964300 CR/O",
-      "name": "Bras de douche ø 300",
-      "collection": "Douche",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 350.0
-    },
     "964300::CRO": {
       "key": "964300::CRO",
       "reference": "964300",
@@ -26475,36 +23995,6 @@
       "finish": "Couleur liquide",
       "sourceHT": 680.0
     },
-    "974202::BRO": {
-      "key": "974202::BRO",
-      "reference": "974202",
-      "orderReference": "974202 BRO",
-      "name": "Bras de douche 200x200",
-      "collection": "Douche",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 218.0
-    },
-    "974202::COL": {
-      "key": "974202::COL",
-      "reference": "974202",
-      "orderReference": "974202 COL",
-      "name": "Bras de douche 200x200",
-      "collection": "Douche",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 218.0
-    },
-    "974202::CR/O": {
-      "key": "974202::CR/O",
-      "reference": "974202",
-      "orderReference": "974202 CR/O",
-      "name": "Bras de douche 200x200",
-      "collection": "Douche",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 200.0
-    },
     "974202::CRO": {
       "key": "974202::CRO",
       "reference": "974202",
@@ -26514,96 +24004,6 @@
       "finishCode": "CRO",
       "finish": "Chrome",
       "sourceHT": 200.0
-    },
-    "974202::D/NL": {
-      "key": "974202::D/NL",
-      "reference": "974202",
-      "orderReference": "974202 D/NL",
-      "name": "Bras de douche 200x200",
-      "collection": "Douche",
-      "finishCode": "D/NL",
-      "finish": "Nickel noir",
-      "sourceHT": 630.0
-    },
-    "974202::D/NO": {
-      "key": "974202::D/NO",
-      "reference": "974202",
-      "orderReference": "974202 D/NO",
-      "name": "Bras de douche 200x200",
-      "collection": "Douche",
-      "finishCode": "D/NO",
-      "finish": "Noir-or",
-      "sourceHT": 630.0
-    },
-    "974202::D/SO": {
-      "key": "974202::D/SO",
-      "reference": "974202",
-      "orderReference": "974202 D/SO",
-      "name": "Bras de douche 200x200",
-      "collection": "Douche",
-      "finishCode": "D/SO",
-      "finish": "Or satiné",
-      "sourceHT": 630.0
-    },
-    "974202::DOR": {
-      "key": "974202::DOR",
-      "reference": "974202",
-      "orderReference": "974202 DOR",
-      "name": "Bras de douche 200x200",
-      "collection": "Douche",
-      "finishCode": "DOR",
-      "finish": "Or",
-      "sourceHT": 630.0
-    },
-    "974202::NIK": {
-      "key": "974202::NIK",
-      "reference": "974202",
-      "orderReference": "974202 NIK",
-      "name": "Bras de douche 200x200",
-      "collection": "Douche",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 218.0
-    },
-    "974202::RAM": {
-      "key": "974202::RAM",
-      "reference": "974202",
-      "orderReference": "974202 RAM",
-      "name": "Bras de douche 200x200",
-      "collection": "Douche",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 218.0
-    },
-    "974302::BRO": {
-      "key": "974302::BRO",
-      "reference": "974302",
-      "orderReference": "974302 BRO",
-      "name": "Bras de douche 300x300",
-      "collection": "Douche",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
-    },
-    "974302::COL": {
-      "key": "974302::COL",
-      "reference": "974302",
-      "orderReference": "974302 COL",
-      "name": "Bras de douche 300x300",
-      "collection": "Douche",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 570.0
-    },
-    "974302::CR/O": {
-      "key": "974302::CR/O",
-      "reference": "974302",
-      "orderReference": "974302 CR/O",
-      "name": "Bras de douche 300x300",
-      "collection": "Douche",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 280.0
     },
     "974302::CRO": {
       "key": "974302::CRO",
@@ -26615,76 +24015,6 @@
       "finish": "Chrome",
       "sourceHT": 280.0
     },
-    "974302::D/NL": {
-      "key": "974302::D/NL",
-      "reference": "974302",
-      "orderReference": "974302 D/NL",
-      "name": "Bras de douche 300x300",
-      "collection": "Douche",
-      "finishCode": "D/NL",
-      "finish": "Nickel noir",
-      "sourceHT": 630.0
-    },
-    "974302::D/NO": {
-      "key": "974302::D/NO",
-      "reference": "974302",
-      "orderReference": "974302 D/NO",
-      "name": "Bras de douche 300x300",
-      "collection": "Douche",
-      "finishCode": "D/NO",
-      "finish": "Noir-or",
-      "sourceHT": 630.0
-    },
-    "974302::D/SO": {
-      "key": "974302::D/SO",
-      "reference": "974302",
-      "orderReference": "974302 D/SO",
-      "name": "Bras de douche 300x300",
-      "collection": "Douche",
-      "finishCode": "D/SO",
-      "finish": "Or satiné",
-      "sourceHT": 630.0
-    },
-    "974302::DOR": {
-      "key": "974302::DOR",
-      "reference": "974302",
-      "orderReference": "974302 DOR",
-      "name": "Bras de douche 300x300",
-      "collection": "Douche",
-      "finishCode": "DOR",
-      "finish": "Or",
-      "sourceHT": 630.0
-    },
-    "974302::NIK": {
-      "key": "974302::NIK",
-      "reference": "974302",
-      "orderReference": "974302 NIK",
-      "name": "Bras de douche 300x300",
-      "collection": "Douche",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "974302::RAM": {
-      "key": "974302::RAM",
-      "reference": "974302",
-      "orderReference": "974302 RAM",
-      "name": "Bras de douche 300x300",
-      "collection": "Douche",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
-    },
-    "974200::BRO": {
-      "key": "974200::BRO",
-      "reference": "974200",
-      "orderReference": "974200 BRO",
-      "name": "Bras de douche 200x200",
-      "collection": "Douche",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 185.0
-    },
     "974200::COL": {
       "key": "974200::COL",
       "reference": "974200",
@@ -26693,16 +24023,6 @@
       "collection": "Douche",
       "finishCode": "COL",
       "finish": "Couleur",
-      "sourceHT": 420.0
-    },
-    "974200::CR/O": {
-      "key": "974200::CR/O",
-      "reference": "974200",
-      "orderReference": "974200 CR/O",
-      "name": "Bras de douche 200x200",
-      "collection": "Douche",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
       "sourceHT": 420.0
     },
     "974200::CRO": {
@@ -26755,26 +24075,6 @@
       "finish": "Or",
       "sourceHT": 500.0
     },
-    "974200::NIK": {
-      "key": "974200::NIK",
-      "reference": "974200",
-      "orderReference": "974200 NIK",
-      "name": "Bras de douche 200x200",
-      "collection": "Douche",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 185.0
-    },
-    "974200::RAM": {
-      "key": "974200::RAM",
-      "reference": "974200",
-      "orderReference": "974200 RAM",
-      "name": "Bras de douche 200x200",
-      "collection": "Douche",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 185.0
-    },
     "974200::VL": {
       "key": "974200::VL",
       "reference": "974200",
@@ -26785,16 +24085,6 @@
       "finish": "Couleur liquide",
       "sourceHT": 490.0
     },
-    "974300::BRO": {
-      "key": "974300::BRO",
-      "reference": "974300",
-      "orderReference": "974300 BRO",
-      "name": "Bras de douche 300x300",
-      "collection": "Douche",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
-    },
     "974300::COL": {
       "key": "974300::COL",
       "reference": "974300",
@@ -26803,16 +24093,6 @@
       "collection": "Douche",
       "finishCode": "COL",
       "finish": "Couleur",
-      "sourceHT": 490.0
-    },
-    "974300::CR/O": {
-      "key": "974300::CR/O",
-      "reference": "974300",
-      "orderReference": "974300 CR/O",
-      "name": "Bras de douche 300x300",
-      "collection": "Douche",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
       "sourceHT": 490.0
     },
     "974300::CRO": {
@@ -26865,26 +24145,6 @@
       "finish": "Or",
       "sourceHT": 520.0
     },
-    "974300::NIK": {
-      "key": "974300::NIK",
-      "reference": "974300",
-      "orderReference": "974300 NIK",
-      "name": "Bras de douche 300x300",
-      "collection": "Douche",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "974300::RAM": {
-      "key": "974300::RAM",
-      "reference": "974300",
-      "orderReference": "974300 RAM",
-      "name": "Bras de douche 300x300",
-      "collection": "Douche",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
-    },
     "974300::VL": {
       "key": "974300::VL",
       "reference": "974300",
@@ -26904,26 +24164,6 @@
       "finishCode": "BRO",
       "finish": "Bronze",
       "sourceHT": 218.0
-    },
-    "913200::COL": {
-      "key": "913200::COL",
-      "reference": "913200",
-      "orderReference": "913200 COL",
-      "name": "Bras de douche ø 200",
-      "collection": "Douche",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 218.0
-    },
-    "913200::CR/O": {
-      "key": "913200::CR/O",
-      "reference": "913200",
-      "orderReference": "913200 CR/O",
-      "name": "Bras de douche ø 200",
-      "collection": "Douche",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 180.0
     },
     "913200::CRO": {
       "key": "913200::CRO",
@@ -27014,26 +24254,6 @@
       "finishCode": "BRO",
       "finish": "Bronze",
       "sourceHT": 570.0
-    },
-    "913300::COL": {
-      "key": "913300::COL",
-      "reference": "913300",
-      "orderReference": "913300 COL",
-      "name": "Bras de douche ø 300",
-      "collection": "Douche",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 570.0
-    },
-    "913300::CR/O": {
-      "key": "913300::CR/O",
-      "reference": "913300",
-      "orderReference": "913300 CR/O",
-      "name": "Bras de douche ø 300",
-      "collection": "Douche",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 480.0
     },
     "913300::CRO": {
       "key": "913300::CRO",
@@ -27155,16 +24375,6 @@
       "finish": "PVD",
       "sourceHT": 420.0
     },
-    "909Q5::BRO": {
-      "key": "909Q5::BRO",
-      "reference": "909Q5",
-      "orderReference": "909Q5 BRO",
-      "name": "Prise d’eau avec douchette et tuyan",
-      "collection": "Douche",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
-    },
     "909Q5::COL": {
       "key": "909Q5::COL",
       "reference": "909Q5",
@@ -27234,26 +24444,6 @@
       "finishCode": "DOR",
       "finish": "Or",
       "sourceHT": 310.0
-    },
-    "909Q5::NIK": {
-      "key": "909Q5::NIK",
-      "reference": "909Q5",
-      "orderReference": "909Q5 NIK",
-      "name": "Prise d’eau avec douchette et tuyan",
-      "collection": "Douche",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "909Q5::RAM": {
-      "key": "909Q5::RAM",
-      "reference": "909Q5",
-      "orderReference": "909Q5 RAM",
-      "name": "Prise d’eau avec douchette et tuyan",
-      "collection": "Douche",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
     },
     "909Q5::VL": {
       "key": "909Q5::VL",
@@ -27835,16 +25025,6 @@
       "finish": "Couleur",
       "sourceHT": 100.0
     },
-    "981Q5::CR/O": {
-      "key": "981Q5::CR/O",
-      "reference": "981Q5",
-      "orderReference": "981Q5 CR/O",
-      "name": "Prise eau carre",
-      "collection": "Shutt Off",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 100.0
-    },
     "981Q5::CRO": {
       "key": "981Q5::CRO",
       "reference": "981Q5",
@@ -28215,26 +25395,6 @@
       "finish": "Couleur liquide",
       "sourceHT": 305.0
     },
-    "986RHAPSODY::BRO": {
-      "key": "986RHAPSODY::BRO",
-      "reference": "986 RHAPSODY",
-      "orderReference": "986 RHAPSODY BRO",
-      "name": "Barre de douche rhapsody",
-      "collection": "Saliscendi",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
-    },
-    "986RHAPSODY::COL": {
-      "key": "986RHAPSODY::COL",
-      "reference": "986 RHAPSODY",
-      "orderReference": "986 RHAPSODY COL",
-      "name": "Barre de douche rhapsody",
-      "collection": "Saliscendi",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 570.0
-    },
     "986RHAPSODY::D/NL": {
       "key": "986RHAPSODY::D/NL",
       "reference": "986 RHAPSODY",
@@ -28254,26 +25414,6 @@
       "finishCode": "D/NO",
       "finish": "Noir-or",
       "sourceHT": 630.0
-    },
-    "986RHAPSODY::NIK": {
-      "key": "986RHAPSODY::NIK",
-      "reference": "986 RHAPSODY",
-      "orderReference": "986 RHAPSODY NIK",
-      "name": "Barre de douche rhapsody",
-      "collection": "Saliscendi",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "986RHAPSODY::RAM": {
-      "key": "986RHAPSODY::RAM",
-      "reference": "986 RHAPSODY",
-      "orderReference": "986 RHAPSODY RAM",
-      "name": "Barre de douche rhapsody",
-      "collection": "Saliscendi",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
     },
     "987RHAPSODY::BRO": {
       "key": "987RHAPSODY::BRO",
@@ -28355,26 +25495,6 @@
       "finish": "Couleur liquide",
       "sourceHT": 290.0
     },
-    "920FLASH::BRO": {
-      "key": "920FLASH::BRO",
-      "reference": "920 FLASH",
-      "orderReference": "920 FLASH BRO",
-      "name": "Barre de douche flash",
-      "collection": "Saliscendi",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
-    },
-    "920FLASH::COL": {
-      "key": "920FLASH::COL",
-      "reference": "920 FLASH",
-      "orderReference": "920 FLASH COL",
-      "name": "Barre de douche flash",
-      "collection": "Saliscendi",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 570.0
-    },
     "920FLASH::D/NL": {
       "key": "920FLASH::D/NL",
       "reference": "920 FLASH",
@@ -28395,26 +25515,6 @@
       "finish": "Noir-or",
       "sourceHT": 630.0
     },
-    "920FLASH::NIK": {
-      "key": "920FLASH::NIK",
-      "reference": "920 FLASH",
-      "orderReference": "920 FLASH NIK",
-      "name": "Barre de douche flash",
-      "collection": "Saliscendi",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "920FLASH::RAM": {
-      "key": "920FLASH::RAM",
-      "reference": "920 FLASH",
-      "orderReference": "920 FLASH RAM",
-      "name": "Barre de douche flash",
-      "collection": "Saliscendi",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
-    },
     "956ANTEA::BRO": {
       "key": "956ANTEA::BRO",
       "reference": "956 ANTEA",
@@ -28423,16 +25523,6 @@
       "collection": "Saliscendi",
       "finishCode": "BRO",
       "finish": "Bronze",
-      "sourceHT": 570.0
-    },
-    "956ANTEA::COL": {
-      "key": "956ANTEA::COL",
-      "reference": "956 ANTEA",
-      "orderReference": "956 ANTEA COL",
-      "name": "Barre de douche antea",
-      "collection": "Saliscendi",
-      "finishCode": "COL",
-      "finish": "Couleur",
       "sourceHT": 570.0
     },
     "956ANTEA::D/NL": {
@@ -28495,16 +25585,6 @@
       "finish": "Bronze",
       "sourceHT": 570.0
     },
-    "996EPOCA::COL": {
-      "key": "996EPOCA::COL",
-      "reference": "996 EPOCA",
-      "orderReference": "996 EPOCA COL",
-      "name": "Barre de douche epoca",
-      "collection": "Saliscendi",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 570.0
-    },
     "996EPOCA::CR/O": {
       "key": "996EPOCA::CR/O",
       "reference": "996 EPOCA",
@@ -28565,16 +25645,6 @@
       "finish": "Couleur liquide",
       "sourceHT": 190.0
     },
-    "981Q::BRO": {
-      "key": "981Q::BRO",
-      "reference": "981Q",
-      "orderReference": "981Q BRO",
-      "name": "Prise eau carre",
-      "collection": "Colonnes de douche",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
-    },
     "981Q::D/NO": {
       "key": "981Q::D/NO",
       "reference": "981Q",
@@ -28584,26 +25654,6 @@
       "finishCode": "D/NO",
       "finish": "Noir-or",
       "sourceHT": 630.0
-    },
-    "981Q::NIK": {
-      "key": "981Q::NIK",
-      "reference": "981Q",
-      "orderReference": "981Q NIK",
-      "name": "Prise eau carre",
-      "collection": "Colonnes de douche",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "981Q::RAM": {
-      "key": "981Q::RAM",
-      "reference": "981Q",
-      "orderReference": "981Q RAM",
-      "name": "Prise eau carre",
-      "collection": "Colonnes de douche",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
     },
     "981Q::VL": {
       "key": "981Q::VL",
@@ -28725,26 +25775,6 @@
       "finish": "Couleur liquide",
       "sourceHT": 100.0
     },
-    "991200SD::BRO": {
-      "key": "991200SD::BRO",
-      "reference": "991200SD",
-      "orderReference": "991200SD BRO",
-      "name": "Shower column with handshower and shower 200x200 without diverter",
-      "collection": "Colonne Doccia",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
-    },
-    "991200SD::COL": {
-      "key": "991200SD::COL",
-      "reference": "991200SD",
-      "orderReference": "991200SD COL",
-      "name": "Shower column with handshower and shower 200x200 without diverter",
-      "collection": "Colonne Doccia",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 570.0
-    },
     "991200SD::D/NL": {
       "key": "991200SD::D/NL",
       "reference": "991200SD",
@@ -28765,46 +25795,6 @@
       "finish": "Noir-or",
       "sourceHT": 630.0
     },
-    "991200SD::NIK": {
-      "key": "991200SD::NIK",
-      "reference": "991200SD",
-      "orderReference": "991200SD NIK",
-      "name": "Shower column with handshower and shower 200x200 without diverter",
-      "collection": "Colonne Doccia",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "991200SD::RAM": {
-      "key": "991200SD::RAM",
-      "reference": "991200SD",
-      "orderReference": "991200SD RAM",
-      "name": "Shower column with handshower and shower 200x200 without diverter",
-      "collection": "Colonne Doccia",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
-    },
-    "991300SD::BRO": {
-      "key": "991300SD::BRO",
-      "reference": "991300SD",
-      "orderReference": "991300SD BRO",
-      "name": "Produit REITANO",
-      "collection": "Colonne Doccia",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
-    },
-    "991300SD::COL": {
-      "key": "991300SD::COL",
-      "reference": "991300SD",
-      "orderReference": "991300SD COL",
-      "name": "Produit REITANO",
-      "collection": "Colonne Doccia",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 570.0
-    },
     "991300SD::CR/O": {
       "key": "991300SD::CR/O",
       "reference": "991300SD",
@@ -28814,76 +25804,6 @@
       "finishCode": "CR/O",
       "finish": "Chrome-or",
       "sourceHT": 990.0
-    },
-    "991300SD::D/NL": {
-      "key": "991300SD::D/NL",
-      "reference": "991300SD",
-      "orderReference": "991300SD D/NL",
-      "name": "Produit REITANO",
-      "collection": "Colonne Doccia",
-      "finishCode": "D/NL",
-      "finish": "Nickel noir",
-      "sourceHT": 630.0
-    },
-    "991300SD::D/NO": {
-      "key": "991300SD::D/NO",
-      "reference": "991300SD",
-      "orderReference": "991300SD D/NO",
-      "name": "Produit REITANO",
-      "collection": "Colonne Doccia",
-      "finishCode": "D/NO",
-      "finish": "Noir-or",
-      "sourceHT": 630.0
-    },
-    "991300SD::D/SO": {
-      "key": "991300SD::D/SO",
-      "reference": "991300SD",
-      "orderReference": "991300SD D/SO",
-      "name": "Produit REITANO",
-      "collection": "Colonne Doccia",
-      "finishCode": "D/SO",
-      "finish": "Or satiné",
-      "sourceHT": 630.0
-    },
-    "991300SD::NIK": {
-      "key": "991300SD::NIK",
-      "reference": "991300SD",
-      "orderReference": "991300SD NIK",
-      "name": "Produit REITANO",
-      "collection": "Colonne Doccia",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "991300SD::RAM": {
-      "key": "991300SD::RAM",
-      "reference": "991300SD",
-      "orderReference": "991300SD RAM",
-      "name": "Produit REITANO",
-      "collection": "Colonne Doccia",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
-    },
-    "991400SD::BRO": {
-      "key": "991400SD::BRO",
-      "reference": "991400SD",
-      "orderReference": "991400SD BRO",
-      "name": "Produit REITANO",
-      "collection": "Colonne Doccia",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
-    },
-    "991400SD::COL": {
-      "key": "991400SD::COL",
-      "reference": "991400SD",
-      "orderReference": "991400SD COL",
-      "name": "Produit REITANO",
-      "collection": "Colonne Doccia",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 570.0
     },
     "991400SD::D/NL": {
       "key": "991400SD::D/NL",
@@ -28904,26 +25824,6 @@
       "finishCode": "D/NO",
       "finish": "Noir-or",
       "sourceHT": 630.0
-    },
-    "991400SD::NIK": {
-      "key": "991400SD::NIK",
-      "reference": "991400SD",
-      "orderReference": "991400SD NIK",
-      "name": "Produit REITANO",
-      "collection": "Colonne Doccia",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "991400SD::RAM": {
-      "key": "991400SD::RAM",
-      "reference": "991400SD",
-      "orderReference": "991400SD RAM",
-      "name": "Produit REITANO",
-      "collection": "Colonne Doccia",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
     },
     "994200SD::BRO": {
       "key": "994200SD::BRO",
@@ -28995,16 +25895,6 @@
       "finish": "Couleur liquide",
       "sourceHT": 630.0
     },
-    "994300SD::BRO": {
-      "key": "994300SD::BRO",
-      "reference": "994300SD",
-      "orderReference": "994300SD BRO",
-      "name": "Produit REITANO",
-      "collection": "Colonne Doccia",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 780.0
-    },
     "994300SD::COL": {
       "key": "994300SD::COL",
       "reference": "994300SD",
@@ -29054,26 +25944,6 @@
       "finishCode": "D/SO",
       "finish": "Or satiné",
       "sourceHT": 630.0
-    },
-    "994300SD::NIK": {
-      "key": "994300SD::NIK",
-      "reference": "994300SD",
-      "orderReference": "994300SD NIK",
-      "name": "Produit REITANO",
-      "collection": "Colonne Doccia",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 780.0
-    },
-    "994300SD::RAM": {
-      "key": "994300SD::RAM",
-      "reference": "994300SD",
-      "orderReference": "994300SD RAM",
-      "name": "Produit REITANO",
-      "collection": "Colonne Doccia",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 780.0
     },
     "994300SD::VL": {
       "key": "994300SD::VL",
@@ -29245,16 +26115,6 @@
       "finish": "Couleur",
       "sourceHT": 910.0
     },
-    "990300::CR/O": {
-      "key": "990300::CR/O",
-      "reference": "990300",
-      "orderReference": "990300 CR/O",
-      "name": "Produit REITANO",
-      "collection": "Colonnes de douche",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 910.0
-    },
     "990300::D/NL": {
       "key": "990300::D/NL",
       "reference": "990300",
@@ -29395,16 +26255,6 @@
       "finish": "Bronze",
       "sourceHT": 50.0
     },
-    "CRO3::COL": {
-      "key": "CRO3::COL",
-      "reference": "CRO3",
-      "orderReference": "CRO3 COL",
-      "name": "Produit REITANO",
-      "collection": "Colonne Doccia",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 35.0
-    },
     "CRO3::CR/O": {
       "key": "CRO3::CR/O",
       "reference": "CRO3",
@@ -29503,16 +26353,6 @@
       "collection": "Colonne Doccia",
       "finishCode": "COL",
       "finish": "Couleur",
-      "sourceHT": 60.0
-    },
-    "981IM::CR/O": {
-      "key": "981IM::CR/O",
-      "reference": "981 I M",
-      "orderReference": "981 I M CR/O",
-      "name": "Presa acqua ad incasso per colonna doccia",
-      "collection": "Colonne Doccia",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
       "sourceHT": 60.0
     },
     "981IM::CRO": {
@@ -29615,16 +26455,6 @@
       "finish": "Couleur",
       "sourceHT": 60.0
     },
-    "981EM::CR/O": {
-      "key": "981EM::CR/O",
-      "reference": "981EM",
-      "orderReference": "981EM CR/O",
-      "name": "Presa acqua esterna per colonna doccia",
-      "collection": "Colonnes de douche",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 60.0
-    },
     "981EM::CRO": {
       "key": "981EM::CRO",
       "reference": "981EM",
@@ -29723,16 +26553,6 @@
       "collection": "Colonne Doccia",
       "finishCode": "COL",
       "finish": "Couleur",
-      "sourceHT": 65.0
-    },
-    "981IQ::CR/O": {
-      "key": "981IQ::CR/O",
-      "reference": "981 I Q",
-      "orderReference": "981 I Q CR/O",
-      "name": "Presa acqua ad incasso per colonna doccia",
-      "collection": "Colonne Doccia",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
       "sourceHT": 65.0
     },
     "981IQ::CRO": {
@@ -29835,16 +26655,6 @@
       "finish": "Couleur",
       "sourceHT": 65.0
     },
-    "981EQ::CR/O": {
-      "key": "981EQ::CR/O",
-      "reference": "981EQ",
-      "orderReference": "981EQ CR/O",
-      "name": "Presa acqua esterna per colonna doccia",
-      "collection": "Colonnes de douche",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 65.0
-    },
     "981EQ::CRO": {
       "key": "981EQ::CRO",
       "reference": "981EQ",
@@ -29945,16 +26755,6 @@
       "finish": "Couleur",
       "sourceHT": 60.0
     },
-    "981IR::CR/O": {
-      "key": "981IR::CR/O",
-      "reference": "981 I R",
-      "orderReference": "981 I R CR/O",
-      "name": "Presa acqua ad incasso per colonna doccia",
-      "collection": "Colonne Doccia",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 60.0
-    },
     "981IR::CRO": {
       "key": "981IR::CRO",
       "reference": "981 I R",
@@ -30053,16 +26853,6 @@
       "collection": "Colonnes de douche",
       "finishCode": "COL",
       "finish": "Couleur",
-      "sourceHT": 60.0
-    },
-    "981ER::CR/O": {
-      "key": "981ER::CR/O",
-      "reference": "981ER",
-      "orderReference": "981ER CR/O",
-      "name": "Produit REITANO",
-      "collection": "Colonnes de douche",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
       "sourceHT": 60.0
     },
     "981ER::CRO": {
@@ -30415,16 +27205,6 @@
       "finish": "Couleur",
       "sourceHT": 93.0
     },
-    "DOC50::CR/O": {
-      "key": "DOC50::CR/O",
-      "reference": "DOC50",
-      "orderReference": "DOC50 CR/O",
-      "name": "Douchette max laiton",
-      "collection": "Accessori",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 93.0
-    },
     "DOC50::CRO": {
       "key": "DOC50::CRO",
       "reference": "DOC50",
@@ -30525,16 +27305,6 @@
       "finish": "Couleur",
       "sourceHT": 78.0
     },
-    "DOC51::CR/O": {
-      "key": "DOC51::CR/O",
-      "reference": "DOC51",
-      "orderReference": "DOC51 CR/O",
-      "name": "Douchette link laiton",
-      "collection": "Accessori",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 78.0
-    },
     "DOC51::CRO": {
       "key": "DOC51::CRO",
       "reference": "DOC51",
@@ -30614,26 +27384,6 @@
       "finishCode": "BRO",
       "finish": "Bronze",
       "sourceHT": 40.0
-    },
-    "DOC25::COL": {
-      "key": "DOC25::COL",
-      "reference": "DOC25",
-      "orderReference": "DOC25 COL",
-      "name": "Douchette flash",
-      "collection": "Accessori",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 570.0
-    },
-    "DOC25::CR/O": {
-      "key": "DOC25::CR/O",
-      "reference": "DOC25",
-      "orderReference": "DOC25 CR/O",
-      "name": "Douchette flash",
-      "collection": "Accessori",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 25.0
     },
     "DOC25::CRO": {
       "key": "DOC25::CRO",
@@ -30735,26 +27485,6 @@
       "finish": "Bronze",
       "sourceHT": 570.0
     },
-    "FLE1::COL": {
-      "key": "FLE1::COL",
-      "reference": "FLE1",
-      "orderReference": "FLE1 COL",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 570.0
-    },
-    "FLE1::CR/O": {
-      "key": "FLE1::CR/O",
-      "reference": "FLE1",
-      "orderReference": "FLE1 CR/O",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 26.0
-    },
     "FLE1::CRO": {
       "key": "FLE1::CRO",
       "reference": "FLE1",
@@ -30834,26 +27564,6 @@
       "finishCode": "BRO",
       "finish": "Bronze",
       "sourceHT": 570.0
-    },
-    "FLE6::COL": {
-      "key": "FLE6::COL",
-      "reference": "FLE6",
-      "orderReference": "FLE6 COL",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 570.0
-    },
-    "FLE6::CR/O": {
-      "key": "FLE6::CR/O",
-      "reference": "FLE6",
-      "orderReference": "FLE6 CR/O",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 20.0
     },
     "FLE6::CRO": {
       "key": "FLE6::CRO",
@@ -30935,26 +27645,6 @@
       "finish": "Bronze",
       "sourceHT": 40.0
     },
-    "FLE10::COL": {
-      "key": "FLE10::COL",
-      "reference": "FLE10",
-      "orderReference": "FLE10 COL",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 570.0
-    },
-    "FLE10::CR/O": {
-      "key": "FLE10::CR/O",
-      "reference": "FLE10",
-      "orderReference": "FLE10 CR/O",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 25.0
-    },
     "FLE10::CRO": {
       "key": "FLE10::CRO",
       "reference": "FLE10",
@@ -30964,46 +27654,6 @@
       "finishCode": "CRO",
       "finish": "Chrome",
       "sourceHT": 25.0
-    },
-    "FLE10::D/NL": {
-      "key": "FLE10::D/NL",
-      "reference": "FLE10",
-      "orderReference": "FLE10 D/NL",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "D/NL",
-      "finish": "Nickel noir",
-      "sourceHT": 630.0
-    },
-    "FLE10::D/NO": {
-      "key": "FLE10::D/NO",
-      "reference": "FLE10",
-      "orderReference": "FLE10 D/NO",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "D/NO",
-      "finish": "Noir-or",
-      "sourceHT": 630.0
-    },
-    "FLE10::D/SO": {
-      "key": "FLE10::D/SO",
-      "reference": "FLE10",
-      "orderReference": "FLE10 D/SO",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "D/SO",
-      "finish": "Or satiné",
-      "sourceHT": 630.0
-    },
-    "FLE10::DOR": {
-      "key": "FLE10::DOR",
-      "reference": "FLE10",
-      "orderReference": "FLE10 DOR",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "DOR",
-      "finish": "Or",
-      "sourceHT": 630.0
     },
     "FLE10::NIK": {
       "key": "FLE10::NIK",
@@ -31034,26 +27684,6 @@
       "finishCode": "BRO",
       "finish": "Bronze",
       "sourceHT": 570.0
-    },
-    "FLE15::COL": {
-      "key": "FLE15::COL",
-      "reference": "FLE15",
-      "orderReference": "FLE15 COL",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 570.0
-    },
-    "FLE15::CR/O": {
-      "key": "FLE15::CR/O",
-      "reference": "FLE15",
-      "orderReference": "FLE15 CR/O",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 30.0
     },
     "FLE15::CRO": {
       "key": "FLE15::CRO",
@@ -31135,26 +27765,6 @@
       "finish": "Bronze",
       "sourceHT": 570.0
     },
-    "FLE12::COL": {
-      "key": "FLE12::COL",
-      "reference": "FLE12",
-      "orderReference": "FLE12 COL",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 570.0
-    },
-    "FLE12::CR/O": {
-      "key": "FLE12::CR/O",
-      "reference": "FLE12",
-      "orderReference": "FLE12 CR/O",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 20.0
-    },
     "FLE12::CRO": {
       "key": "FLE12::CRO",
       "reference": "FLE12",
@@ -31225,16 +27835,6 @@
       "finish": "Cuivre",
       "sourceHT": 570.0
     },
-    "FLE6PVC::BRO": {
-      "key": "FLE6PVC::BRO",
-      "reference": "FLE6 PVC",
-      "orderReference": "FLE6 PVC BRO",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
-    },
     "FLE6PVC::COL": {
       "key": "FLE6PVC::COL",
       "reference": "FLE6 PVC",
@@ -31243,16 +27843,6 @@
       "collection": "Accessori",
       "finishCode": "COL",
       "finish": "Couleur",
-      "sourceHT": 35.0
-    },
-    "FLE6PVC::CR/O": {
-      "key": "FLE6PVC::CR/O",
-      "reference": "FLE6 PVC",
-      "orderReference": "FLE6 PVC CR/O",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
       "sourceHT": 35.0
     },
     "FLE6PVC::CRO": {
@@ -31264,96 +27854,6 @@
       "finishCode": "CRO",
       "finish": "Chrome",
       "sourceHT": 35.0
-    },
-    "FLE6PVC::D/NL": {
-      "key": "FLE6PVC::D/NL",
-      "reference": "FLE6 PVC",
-      "orderReference": "FLE6 PVC D/NL",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "D/NL",
-      "finish": "Nickel noir",
-      "sourceHT": 630.0
-    },
-    "FLE6PVC::D/NO": {
-      "key": "FLE6PVC::D/NO",
-      "reference": "FLE6 PVC",
-      "orderReference": "FLE6 PVC D/NO",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "D/NO",
-      "finish": "Noir-or",
-      "sourceHT": 630.0
-    },
-    "FLE6PVC::D/SO": {
-      "key": "FLE6PVC::D/SO",
-      "reference": "FLE6 PVC",
-      "orderReference": "FLE6 PVC D/SO",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "D/SO",
-      "finish": "Or satiné",
-      "sourceHT": 630.0
-    },
-    "FLE6PVC::DOR": {
-      "key": "FLE6PVC::DOR",
-      "reference": "FLE6 PVC",
-      "orderReference": "FLE6 PVC DOR",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "DOR",
-      "finish": "Or",
-      "sourceHT": 630.0
-    },
-    "FLE6PVC::NIK": {
-      "key": "FLE6PVC::NIK",
-      "reference": "FLE6 PVC",
-      "orderReference": "FLE6 PVC NIK",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "FLE6PVC::RAM": {
-      "key": "FLE6PVC::RAM",
-      "reference": "FLE6 PVC",
-      "orderReference": "FLE6 PVC RAM",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
-    },
-    "SUP2::BRO": {
-      "key": "SUP2::BRO",
-      "reference": "SUP2",
-      "orderReference": "SUP2 BRO",
-      "name": "Patère laiton antea",
-      "collection": "Accessori",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 34.0
-    },
-    "SUP2::COL": {
-      "key": "SUP2::COL",
-      "reference": "SUP2",
-      "orderReference": "SUP2 COL",
-      "name": "Patère laiton antea",
-      "collection": "Accessori",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 570.0
-    },
-    "SUP2::CR/O": {
-      "key": "SUP2::CR/O",
-      "reference": "SUP2",
-      "orderReference": "SUP2 CR/O",
-      "name": "Patère laiton antea",
-      "collection": "Accessori",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 30.0
     },
     "SUP2::CRO": {
       "key": "SUP2::CRO",
@@ -31405,26 +27905,6 @@
       "finish": "Or",
       "sourceHT": 40.0
     },
-    "SUP2::NIK": {
-      "key": "SUP2::NIK",
-      "reference": "SUP2",
-      "orderReference": "SUP2 NIK",
-      "name": "Patère laiton antea",
-      "collection": "Accessori",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 34.0
-    },
-    "SUP2::RAM": {
-      "key": "SUP2::RAM",
-      "reference": "SUP2",
-      "orderReference": "SUP2 RAM",
-      "name": "Patère laiton antea",
-      "collection": "Accessori",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 34.0
-    },
     "SUP2::VL": {
       "key": "SUP2::VL",
       "reference": "SUP2",
@@ -31453,16 +27933,6 @@
       "collection": "Accessori",
       "finishCode": "COL",
       "finish": "Couleur",
-      "sourceHT": 40.0
-    },
-    "SUP4::CR/O": {
-      "key": "SUP4::CR/O",
-      "reference": "SUP4",
-      "orderReference": "SUP4 CR/O",
-      "name": "Patère laiton",
-      "collection": "Accessori",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
       "sourceHT": 40.0
     },
     "SUP4::CRO": {
@@ -31925,16 +28395,6 @@
       "finish": "Couleur",
       "sourceHT": 6.0
     },
-    "AER1::CR/O": {
-      "key": "AER1::CR/O",
-      "reference": "AER1",
-      "orderReference": "AER1 CR/O",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 6.0
-    },
     "AER1::CRO": {
       "key": "AER1::CRO",
       "reference": "AER1",
@@ -32015,16 +28475,6 @@
       "finish": "Couleur liquide",
       "sourceHT": 9.0
     },
-    "AER2::BRO": {
-      "key": "AER2::BRO",
-      "reference": "AER2",
-      "orderReference": "AER2 BRO",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 10.0
-    },
     "AER2::COL": {
       "key": "AER2::COL",
       "reference": "AER2",
@@ -32033,16 +28483,6 @@
       "collection": "Accessori",
       "finishCode": "COL",
       "finish": "Couleur",
-      "sourceHT": 9.0
-    },
-    "AER2::CR/O": {
-      "key": "AER2::CR/O",
-      "reference": "AER2",
-      "orderReference": "AER2 CR/O",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
       "sourceHT": 9.0
     },
     "AER2::CRO": {
@@ -32095,26 +28535,6 @@
       "finish": "Or",
       "sourceHT": 12.0
     },
-    "AER2::NIK": {
-      "key": "AER2::NIK",
-      "reference": "AER2",
-      "orderReference": "AER2 NIK",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 10.0
-    },
-    "AER2::RAM": {
-      "key": "AER2::RAM",
-      "reference": "AER2",
-      "orderReference": "AER2 RAM",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 10.0
-    },
     "AER2::VL": {
       "key": "AER2::VL",
       "reference": "AER2",
@@ -32125,16 +28545,6 @@
       "finish": "Couleur liquide",
       "sourceHT": 11.0
     },
-    "AER3::BRO": {
-      "key": "AER3::BRO",
-      "reference": "AER3",
-      "orderReference": "AER3 BRO",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 8.0
-    },
     "AER3::COL": {
       "key": "AER3::COL",
       "reference": "AER3",
@@ -32143,16 +28553,6 @@
       "collection": "Accessori",
       "finishCode": "COL",
       "finish": "Couleur",
-      "sourceHT": 6.0
-    },
-    "AER3::CR/O": {
-      "key": "AER3::CR/O",
-      "reference": "AER3",
-      "orderReference": "AER3 CR/O",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
       "sourceHT": 6.0
     },
     "AER3::CRO": {
@@ -32205,26 +28605,6 @@
       "finish": "Or",
       "sourceHT": 10.0
     },
-    "AER3::NIK": {
-      "key": "AER3::NIK",
-      "reference": "AER3",
-      "orderReference": "AER3 NIK",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 8.0
-    },
-    "AER3::RAM": {
-      "key": "AER3::RAM",
-      "reference": "AER3",
-      "orderReference": "AER3 RAM",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 8.0
-    },
     "AER3::VL": {
       "key": "AER3::VL",
       "reference": "AER3",
@@ -32253,16 +28633,6 @@
       "collection": "Accessori",
       "finishCode": "COL",
       "finish": "Couleur",
-      "sourceHT": 11.0
-    },
-    "ASN4::CR/O": {
-      "key": "ASN4::CR/O",
-      "reference": "ASN4",
-      "orderReference": "ASN4 CR/O",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
       "sourceHT": 11.0
     },
     "ASN4::CRO": {
@@ -32365,16 +28735,6 @@
       "finish": "Couleur",
       "sourceHT": 25.0
     },
-    "SCA1::CR/O": {
-      "key": "SCA1::CR/O",
-      "reference": "SCA1",
-      "orderReference": "SCA1 CR/O",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 25.0
-    },
     "SCA1::CRO": {
       "key": "SCA1::CRO",
       "reference": "SCA1",
@@ -32473,16 +28833,6 @@
       "collection": "Accessori",
       "finishCode": "COL",
       "finish": "Couleur",
-      "sourceHT": 70.0
-    },
-    "SCA5T::CR/O": {
-      "key": "SCA5T::CR/O",
-      "reference": "SCA5T",
-      "orderReference": "SCA5T CR/O",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
       "sourceHT": 70.0
     },
     "SCA5T::CRO": {
@@ -32585,26 +28935,6 @@
       "finish": "Bronze",
       "sourceHT": 570.0
     },
-    "TUB3::COL": {
-      "key": "TUB3::COL",
-      "reference": "TUB3",
-      "orderReference": "TUB3 COL",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 570.0
-    },
-    "TUB3::CR/O": {
-      "key": "TUB3::CR/O",
-      "reference": "TUB3",
-      "orderReference": "TUB3 CR/O",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 5.0
-    },
     "TUB3::CRO": {
       "key": "TUB3::CRO",
       "reference": "TUB3",
@@ -32695,16 +29025,6 @@
       "finish": "Chrome",
       "sourceHT": 6.0
     },
-    "959M::BRO": {
-      "key": "959M::BRO",
-      "reference": "959M",
-      "orderReference": "959M BRO",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 120.0
-    },
     "959M::COL": {
       "key": "959M::COL",
       "reference": "959M",
@@ -32713,16 +29033,6 @@
       "collection": "Accessori",
       "finishCode": "COL",
       "finish": "Couleur",
-      "sourceHT": 115.0
-    },
-    "959M::CR/O": {
-      "key": "959M::CR/O",
-      "reference": "959M",
-      "orderReference": "959M CR/O",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
       "sourceHT": 115.0
     },
     "959M::CRO": {
@@ -32775,26 +29085,6 @@
       "finish": "Or",
       "sourceHT": 130.0
     },
-    "959M::NIK": {
-      "key": "959M::NIK",
-      "reference": "959M",
-      "orderReference": "959M NIK",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 120.0
-    },
-    "959M::RAM": {
-      "key": "959M::RAM",
-      "reference": "959M",
-      "orderReference": "959M RAM",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 120.0
-    },
     "959M::VL": {
       "key": "959M::VL",
       "reference": "959M",
@@ -32805,16 +29095,6 @@
       "finish": "Couleur liquide",
       "sourceHT": 130.0
     },
-    "959Q::BRO": {
-      "key": "959Q::BRO",
-      "reference": "959Q",
-      "orderReference": "959Q BRO",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 140.0
-    },
     "959Q::COL": {
       "key": "959Q::COL",
       "reference": "959Q",
@@ -32823,16 +29103,6 @@
       "collection": "Accessori",
       "finishCode": "COL",
       "finish": "Couleur",
-      "sourceHT": 135.0
-    },
-    "959Q::CR/O": {
-      "key": "959Q::CR/O",
-      "reference": "959Q",
-      "orderReference": "959Q CR/O",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
       "sourceHT": 135.0
     },
     "959Q::CRO": {
@@ -32885,26 +29155,6 @@
       "finish": "Or",
       "sourceHT": 150.0
     },
-    "959Q::NIK": {
-      "key": "959Q::NIK",
-      "reference": "959Q",
-      "orderReference": "959Q NIK",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 140.0
-    },
-    "959Q::RAM": {
-      "key": "959Q::RAM",
-      "reference": "959Q",
-      "orderReference": "959Q RAM",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 140.0
-    },
     "959Q::VL": {
       "key": "959Q::VL",
       "reference": "959Q",
@@ -32915,16 +29165,6 @@
       "finish": "Couleur liquide",
       "sourceHT": 150.0
     },
-    "RTG001::BRO": {
-      "key": "RTG001::BRO",
-      "reference": "RTG001",
-      "orderReference": "RTG001 BRO",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 570.0
-    },
     "RTG001::COL": {
       "key": "RTG001::COL",
       "reference": "RTG001",
@@ -32933,16 +29173,6 @@
       "collection": "Accessori",
       "finishCode": "COL",
       "finish": "Couleur",
-      "sourceHT": 40.0
-    },
-    "RTG001::CR/O": {
-      "key": "RTG001::CR/O",
-      "reference": "RTG001",
-      "orderReference": "RTG001 CR/O",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
       "sourceHT": 40.0
     },
     "RTG001::CRO": {
@@ -32995,26 +29225,6 @@
       "finish": "Or",
       "sourceHT": 55.0
     },
-    "RTG001::NIK": {
-      "key": "RTG001::NIK",
-      "reference": "RTG001",
-      "orderReference": "RTG001 NIK",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 570.0
-    },
-    "RTG001::RAM": {
-      "key": "RTG001::RAM",
-      "reference": "RTG001",
-      "orderReference": "RTG001 RAM",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 570.0
-    },
     "RTG001::VL": {
       "key": "RTG001::VL",
       "reference": "RTG001",
@@ -33024,36 +29234,6 @@
       "finishCode": "VL",
       "finish": "Couleur liquide",
       "sourceHT": 100.0
-    },
-    "DEV5::BRO": {
-      "key": "DEV5::BRO",
-      "reference": "DEV5",
-      "orderReference": "DEV5 BRO",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 15.0
-    },
-    "DEV5::COL": {
-      "key": "DEV5::COL",
-      "reference": "DEV5",
-      "orderReference": "DEV5 COL",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 570.0
-    },
-    "DEV5::CR/O": {
-      "key": "DEV5::CR/O",
-      "reference": "DEV5",
-      "orderReference": "DEV5 CR/O",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
-      "sourceHT": 10.0
     },
     "DEV5::CRO": {
       "key": "DEV5::CRO",
@@ -33105,26 +29285,6 @@
       "finish": "Or",
       "sourceHT": 20.0
     },
-    "DEV5::NIK": {
-      "key": "DEV5::NIK",
-      "reference": "DEV5",
-      "orderReference": "DEV5 NIK",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 15.0
-    },
-    "DEV5::RAM": {
-      "key": "DEV5::RAM",
-      "reference": "DEV5",
-      "orderReference": "DEV5 RAM",
-      "name": "Produit REITANO",
-      "collection": "Accessori",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 15.0
-    },
     "DEV5::VL": {
       "key": "DEV5::VL",
       "reference": "DEV5",
@@ -33135,16 +29295,6 @@
       "finish": "Couleur liquide",
       "sourceHT": 20.0
     },
-    "2020::BRO": {
-      "key": "2020::BRO",
-      "reference": "2020",
-      "orderReference": "2020 BRO",
-      "name": "Robinet filtre pour mitigeur",
-      "collection": "Accessori",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 54.0
-    },
     "2020::COL": {
       "key": "2020::COL",
       "reference": "2020",
@@ -33153,16 +29303,6 @@
       "collection": "Accessori",
       "finishCode": "COL",
       "finish": "Couleur",
-      "sourceHT": 35.0
-    },
-    "2020::CR/O": {
-      "key": "2020::CR/O",
-      "reference": "2020",
-      "orderReference": "2020 CR/O",
-      "name": "Robinet filtre pour mitigeur",
-      "collection": "Accessori",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
       "sourceHT": 35.0
     },
     "2020::CRO": {
@@ -33215,26 +29355,6 @@
       "finish": "Or",
       "sourceHT": 60.0
     },
-    "2020::NIK": {
-      "key": "2020::NIK",
-      "reference": "2020",
-      "orderReference": "2020 NIK",
-      "name": "Robinet filtre pour mitigeur",
-      "collection": "Accessori",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 54.0
-    },
-    "2020::RAM": {
-      "key": "2020::RAM",
-      "reference": "2020",
-      "orderReference": "2020 RAM",
-      "name": "Robinet filtre pour mitigeur",
-      "collection": "Accessori",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 54.0
-    },
     "2020::VL": {
       "key": "2020::VL",
       "reference": "2020",
@@ -33245,16 +29365,6 @@
       "finish": "Couleur liquide",
       "sourceHT": 60.0
     },
-    "CR210::BRO": {
-      "key": "CR210::BRO",
-      "reference": "CR210",
-      "orderReference": "CR210 BRO",
-      "name": "Bec de remplissage encastré",
-      "collection": "Accessori",
-      "finishCode": "BRO",
-      "finish": "Bronze",
-      "sourceHT": 78.0
-    },
     "CR210::COL": {
       "key": "CR210::COL",
       "reference": "CR210",
@@ -33263,16 +29373,6 @@
       "collection": "Accessori",
       "finishCode": "COL",
       "finish": "Couleur",
-      "sourceHT": 75.0
-    },
-    "CR210::CR/O": {
-      "key": "CR210::CR/O",
-      "reference": "CR210",
-      "orderReference": "CR210 CR/O",
-      "name": "Bec de remplissage encastré",
-      "collection": "Accessori",
-      "finishCode": "CR/O",
-      "finish": "Chrome-or",
       "sourceHT": 75.0
     },
     "CR210::CRO": {
@@ -33325,26 +29425,6 @@
       "finish": "Or",
       "sourceHT": 85.0
     },
-    "CR210::NIK": {
-      "key": "CR210::NIK",
-      "reference": "CR210",
-      "orderReference": "CR210 NIK",
-      "name": "Bec de remplissage encastré",
-      "collection": "Accessori",
-      "finishCode": "NIK",
-      "finish": "Nickel",
-      "sourceHT": 78.0
-    },
-    "CR210::RAM": {
-      "key": "CR210::RAM",
-      "reference": "CR210",
-      "orderReference": "CR210 RAM",
-      "name": "Bec de remplissage encastré",
-      "collection": "Accessori",
-      "finishCode": "RAM",
-      "finish": "Cuivre",
-      "sourceHT": 78.0
-    },
     "CR210::VL": {
       "key": "CR210::VL",
       "reference": "CR210",
@@ -33364,16 +29444,6 @@
       "finishCode": "BRO",
       "finish": "Bronze",
       "sourceHT": 290.0
-    },
-    "951RK::COL": {
-      "key": "951RK::COL",
-      "reference": "951RK",
-      "orderReference": "951RK COL",
-      "name": "Vidage de baignoire",
-      "collection": "Accessori",
-      "finishCode": "COL",
-      "finish": "Couleur",
-      "sourceHT": 570.0
     },
     "951RK::CR/O": {
       "key": "951RK::CR/O",
