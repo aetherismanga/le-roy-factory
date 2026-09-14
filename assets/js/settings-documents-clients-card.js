@@ -8,7 +8,7 @@
     card.href='documents-clients.html';
     card.dataset.lrfClientDocuments='1';
     card.setAttribute('aria-label','Ouvrir Documents clients');
-    card.innerHTML='<div class="settings-folder-top"><div class="settings-folder-icon">📁</div><span class="settings-badge">Clients</span></div><h3>Documents clients</h3><p>Recherchez un client et classez ses Kbis, RIB, attestations TVA, devis, images, tableaux et autres documents privés.</p><div class="settings-folder-open"><span>Ouvrir</span><span>→</span></div>';
+    card.innerHTML='<div class="settings-folder-top"><div class="settings-folder-icon">📁</div><span class="settings-badge">Clients</span></div><h3>Documents clients</h3><p>Retrouvez les documents associés à chaque client.</p><div class="settings-folder-open"><span>Ouvrir</span><span>→</span></div>';
     const usine=[...grid.querySelectorAll('.settings-folder')].find(a=>(a.getAttribute('href')||'').includes('document-usines.html'));
     if(usine) grid.insertBefore(card,usine); else grid.appendChild(card);
     const count=document.querySelector('.settings-count');
