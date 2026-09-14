@@ -8,6 +8,8 @@ const $$ = s => [...document.querySelectorAll(s)];
 const esc = v => String(v ?? '').replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':'&quot;',"'":'&#039;'}[c]));
 let data = null;
 let loading = false;
+let reloadPending = false;
+let pendingPreserveFilters = true;
 let detailClientId = '';
 
 function profile(user = auth.currentUser) {
@@ -66,14 +68,21 @@ async function fetchAnalytics(){
   } finally { clearTimeout(timer); }
 }
 async function load({preserveFilters=true}={}){
-  if(loading)return; loading=true;
+  if(loading){reloadPending=true;pendingPreserveFilters=preserveFilters;return;}
+  loading=true;
   const btn=$('#lrf-refresh-analysis'); if(btn){btn.disabled=true;btn.textContent='↻ Chargement…';}
   $('#lrf-load-state')?.classList.add('show');
   try{
     const json=await fetchAnalytics(); if(!json)return;
+    if(reloadPending)return;
     data=json; fillFilters(preserveFilters); renderAll();
   }catch(err){console.error(err);showMessage('Analyse indisponible',err?.name==='AbortError'?'Le serveur met trop de temps à répondre. Réessayez dans quelques secondes.':(err.message||'Impossible de charger les données.'),false);}
-  finally{loading=false;if(btn){btn.disabled=false;btn.textContent='↻ Actualiser';}$('#lrf-load-state')?.classList.remove('show');}
+  finally{
+    loading=false;
+    if(btn){btn.disabled=false;btn.textContent='↻ Actualiser';}
+    $('#lrf-load-state')?.classList.remove('show');
+    if(reloadPending){const preserve=pendingPreserveFilters;reloadPending=false;pendingPreserveFilters=true;queueMicrotask(()=>load({preserveFilters:preserve}));}
+  }
 }
 function setOptions(select, values, current, mapper=v=>({value:v,label:v})){
   if(!select)return;
