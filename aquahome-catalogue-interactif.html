@@ -7,8 +7,8 @@
   <meta name="theme-color" content="#202225">
   <title>Catalogue AQUAHOME interactif 2026 | LE ROY FACTORY</title>
   <link rel="icon" type="image/png" href="assets/img/logo03lrf.png">
-  <link rel="stylesheet" href="assets/css/aquahome-interactive.css?v=20260914-1">
-  <link rel="stylesheet" href="assets/css/aquahome-mobile.css?v=20260914-1">
+  <link rel="stylesheet" href="assets/css/aquahome-interactive.css?v=20260914-2">
+  <link rel="stylesheet" href="assets/css/aquahome-mobile.css?v=20260914-2">
   <link rel="stylesheet" href="assets/css/aquahome-cover.css?v=20260913-1">
 </head>
 <body>
@@ -20,7 +20,7 @@
     <button type="button" id="previous-page" aria-label="Page précédente">‹</button>
     <label>Page <input id="page-input" inputmode="numeric" value="1" aria-label="Numéro de page"> <span id="page-total">/ 61</span></label>
     <button type="button" id="next-page" aria-label="Page suivante">›</button>
-    <div class="aq-search"><input id="product-search" type="search" autocomplete="off" placeholder="Référence ou produit…" aria-label="Rechercher un produit"><button type="button" id="search-button">Rechercher</button></div>
+    <div class="aq-search"><button type="button" id="series-button" class="aq-series-button" aria-haspopup="dialog">☰ <span>Séries</span></button><input id="product-search" type="search" autocomplete="off" placeholder="Référence ou produit…" aria-label="Rechercher un produit"><button type="button" id="search-button">Rechercher</button></div>
     <button type="button" id="zoom-out" aria-label="Réduire">−</button><output id="zoom-value">100 %</output><button type="button" id="zoom-in" aria-label="Agrandir">+</button>
   </div>
   <main><div class="aq-help"><span></span>Touchez une référence ou son prix pour consulter le produit.</div><section id="catalogue-pages" class="aq-pages" aria-label="Catalogue AQUAHOME"></section></main>
@@ -37,6 +37,14 @@
     <div class="aq-actions"><button id="dealer-open" class="aq-primary" type="button">Trouver votre magasin revendeur</button><button id="add-to-cart" class="aq-primary" type="button" hidden>Ajouter au panier</button><button class="aq-secondary" data-close="product-dialog" type="button">Fermer</button></div>
   </dialog>
 
+  <dialog id="series-dialog" class="aq-dialog aq-series-dialog" aria-labelledby="series-title">
+    <button type="button" class="aq-close" data-close="series-dialog" aria-label="Fermer">×</button>
+    <p class="aq-kicker">Lexique AQUAHOME</p>
+    <h2 id="series-title">Choisir une série</h2>
+    <p class="aq-series-intro">Sélectionnez une collection pour accéder directement à sa présentation dans le catalogue.</p>
+    <div id="series-grid" class="aq-series-grid"></div>
+  </dialog>
+
   <dialog id="dealer-dialog" class="aq-dialog aq-dealer" aria-labelledby="dealer-title">
     <button type="button" class="aq-close" data-close="dealer-dialog" aria-label="Fermer">×</button><p class="aq-kicker">LE ROY FACTORY</p><h2 id="dealer-title">Trouver votre magasin revendeur</h2>
     <p id="dealer-product" class="aq-selected-product"></p>
@@ -45,6 +53,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
   <script src="assets/js/pro-session-bridge.js?v=20260818b"></script>
-  <script src="assets/js/aquahome-interactive.js?v=20260914-1"></script>
+  <script src="assets/js/aquahome-interactive.js?v=20260914-2"></script>
 </body>
 </html>
