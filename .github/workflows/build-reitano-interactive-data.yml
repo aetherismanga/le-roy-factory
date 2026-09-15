@@ -10,6 +10,9 @@ on:
       - '.github/workflows/build-reitano-interactive-data.yml'
       - 'assets/pdf/REITANO-Robinetterie-2026.pdf'
       - 'assets/pdf/Reitano tarif general 2026.pdf'
+      - 'assets/js/reitano-interactive.js'
+      - 'functions/reitano-catalog.js'
+      - 'tests/test_reitano_data.py'
 
 permissions:
   contents: write

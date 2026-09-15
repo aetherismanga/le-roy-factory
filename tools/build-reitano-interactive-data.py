@@ -69,6 +69,15 @@ def amount(value):
         return None
 
 
+def span_visible(span):
+    """Ignore les textes blancs/transparents des gabarits tarifaires."""
+    alpha = int(span.get("alpha", 255))
+    color = int(span.get("color", 0))
+    red, green, blue = (color >> 16) & 255, (color >> 8) & 255, color & 255
+    luminance = 0.2126 * red + 0.7152 * green + 0.0722 * blue
+    return alpha > 8 and luminance < 245
+
+
 def lines(page):
     result = []
     for block in page.get_text("dict", sort=True).get("blocks", []):
@@ -85,6 +94,7 @@ def lines(page):
                 "bbox": [float(v) for v in line["bbox"]],
                 "size": float(biggest.get("size", 0)),
                 "font": clean(biggest.get("font", "")),
+                "visible": any(span_visible(span) for span in spans),
             })
     return result
 
@@ -169,6 +179,8 @@ def price_variants(block):
     direct = {}
     simple_codes = {"INOX", "PVD", "ABS", "BRASS"}
     for row in block:
+        if not row.get("visible", True):
+            continue
         upper = row["text"].upper()
         code = next((c for c in FINISH_CODES if re.search(rf"(?<![A-Z0-9]){re.escape(c)}(?![A-Z0-9])", upper)), None)
         value = amount(row["text"])
@@ -177,6 +189,8 @@ def price_variants(block):
 
     markers, prices = [], []
     for row in block:
+        if not row.get("visible", True):
+            continue
         code = finish_code(row["text"])
         cx = (row["bbox"][0] + row["bbox"][2]) / 2
         cy = (row["bbox"][1] + row["bbox"][3]) / 2
@@ -200,6 +214,7 @@ def price_variants(block):
         unavailable = any(
             lane_x0 <= (r["bbox"][0] + r["bbox"][2]) / 2 <= lane_x1
             and low <= (r["bbox"][1] + r["bbox"][3]) / 2 <= high
+            and r.get("visible", True)
             and "---" in r["text"]
             for r in block
         )
@@ -254,59 +269,228 @@ def tariff_rows():
     return document, products
 
 
+def near_reference(left, right):
+    """Signale les références proches sans jamais les associer."""
+    if left == right or abs(len(left) - len(right)) > 1:
+        return False
+    if len(left) == len(right):
+        return sum(a != b for a, b in zip(left, right)) == 1
+    short, long = (left, right) if len(left) < len(right) else (right, left)
+    i = j = differences = 0
+    while i < len(short) and j < len(long):
+        if short[i] == long[j]:
+            i += 1
+        else:
+            differences += 1
+            if differences > 1:
+                return False
+        j += 1
+    return True
+
+
 def main():
     cat_doc, page_meta, catalogue = catalogue_rows()
     tariff_doc, tariffs = tariff_rows()
-    products, private, conflicts, unmatched = [], {}, [], []
-    seen = set()
+    candidates = defaultdict(list)
+    unmatched_tariff = []
+    tariff_norms = set()
+
     for item in tariffs:
+        tariff_norms.add(item["normalized"])
         matches = catalogue.get(item["normalized"], [])
         catalog = matches[0] if matches else None
         if not catalog:
-            unmatched.append({"reference": item["reference"], "tariffPage": item["tariffPage"]})
+            unmatched_tariff.append({"reference": item["reference"], "tariffPage": item["tariffPage"]})
         for code, source_ht in sorted(item["variants"].items()):
             canonical = code.replace("CRO/O", "CR/O")
             product_key = f'{item["normalized"]}::{canonical}'
-            value = {
-                "key": product_key, "reference": item["reference"],
-                "orderReference": f'{item["reference"]} {canonical}',
-                "name": item["name"], "collection": catalog["collection"] if catalog else item["collection"],
-                "finishCode": canonical, "finish": FINISH_NAMES.get(canonical, canonical),
-                "page": catalog["page"] if catalog else None,
-                "hotspot": catalog["hotspot"] if catalog else None,
-                "publicTTC": round(source_ht * 1.2 + 1e-8, 2),
-            }
-            if product_key in seen:
-                if private[product_key]["sourceHT"] != source_ht:
-                    conflicts.append({"key": product_key, "first": private[product_key]["sourceHT"], "second": source_ht})
-                continue
-            seen.add(product_key)
-            products.append(value)
-            private[product_key] = {
-                "key": product_key, "reference": item["reference"], "orderReference": value["orderReference"],
-                "name": item["name"], "collection": value["collection"], "finishCode": canonical,
-                "finish": value["finish"], "sourceHT": source_ht,
-            }
+            candidates[product_key].append({
+                "item": item, "catalog": catalog, "sourceHT": source_ht,
+                "finishCode": canonical,
+            })
+
+    products, private = [], {}
+    conflicts, duplicates, anomalies = [], [], []
+    source_by_key = {}
+
+    for product_key, entries in sorted(candidates.items()):
+        first = entries[0]
+        item, catalog, canonical = first["item"], first["catalog"], first["finishCode"]
+        unique_prices = sorted({entry["sourceHT"] for entry in entries})
+        source_ht = unique_prices[0] if len(unique_prices) == 1 else None
+        if len(entries) > 1:
+            duplicates.append({
+                "key": product_key, "occurrences": len(entries),
+                "prices": unique_prices,
+                "status": "identical" if len(unique_prices) == 1 else "conflict",
+            })
+        if len(unique_prices) > 1:
+            conflicts.append({"key": product_key, "prices": unique_prices})
+            anomalies.append({"key": product_key, "reason": "tarifs contradictoires", "prices": unique_prices})
+        if source_ht is not None and source_ht <= 2:
+            anomalies.append({"key": product_key, "reason": "prix anormalement faible neutralisé", "sourceHT": source_ht})
+            source_ht = None
+
+        value = {
+            "key": product_key, "reference": item["reference"],
+            "orderReference": f'{item["reference"]} {canonical}',
+            "name": item["name"],
+            "collection": catalog["collection"] if catalog else item["collection"],
+            "finishCode": canonical, "finish": FINISH_NAMES.get(canonical, canonical),
+            "page": catalog["page"] if catalog else None,
+            "hotspot": catalog["hotspot"] if catalog else None,
+            "tariffPage": item["tariffPage"],
+            "publicTTC": round(source_ht * 1.2 + 1e-8, 2) if source_ht is not None else None,
+        }
+        products.append(value)
+        private[product_key] = {
+            "key": product_key, "reference": item["reference"],
+            "orderReference": value["orderReference"], "name": item["name"],
+            "collection": value["collection"], "finishCode": canonical,
+            "finish": value["finish"], "tariffPage": item["tariffPage"],
+            "sourceHT": source_ht,
+        }
+        source_by_key[product_key] = source_ht
+
+    unmatched_catalogue = []
+    for normalized, matches in sorted(catalogue.items()):
+        if normalized in tariff_norms:
+            continue
+        catalog = matches[0]
+        placeholder_key = f"{normalized}::ASK"
+        unmatched_catalogue.append({
+            "reference": catalog["reference"], "cataloguePage": catalog["page"],
+            "collection": catalog["collection"],
+        })
+        products.append({
+            "key": placeholder_key, "reference": catalog["reference"],
+            "orderReference": catalog["reference"],
+            "name": catalog["catalogueDescription"] or "Produit REITANO",
+            "collection": catalog["collection"], "finishCode": "ASK",
+            "finish": "Finition à confirmer", "page": catalog["page"],
+            "hotspot": catalog["hotspot"], "tariffPage": None, "publicTTC": None,
+        })
+        private[placeholder_key] = {
+            "key": placeholder_key, "reference": catalog["reference"],
+            "orderReference": catalog["reference"],
+            "name": catalog["catalogueDescription"] or "Produit REITANO",
+            "collection": catalog["collection"], "finishCode": "ASK",
+            "finish": "Finition à confirmer", "tariffPage": None, "sourceHT": None,
+        }
+        source_by_key[placeholder_key] = None
+
+    tariff_unmatched_keys = sorted({key(item["reference"]) for item in unmatched_tariff})
+    catalogue_unmatched_keys = sorted({key(item["reference"]) for item in unmatched_catalogue})
+    near_warnings = []
+    for catalog_ref in catalogue_unmatched_keys:
+        for tariff_ref in tariff_unmatched_keys:
+            if near_reference(catalog_ref, tariff_ref):
+                near_warnings.append({
+                    "catalogueReference": catalog_ref,
+                    "tariffReference": tariff_ref,
+                    "action": "aucune association automatique",
+                })
+
+    base_prices = defaultdict(list)
+    for product in products:
+        source_ht = source_by_key[product["key"]]
+        if source_ht is not None:
+            base_prices[key(product["reference"])].append(source_ht)
+    badge_summary = {"from": 0, "exact": 0, "onRequest": 0, "validationErrors": []}
+    badge_by_base = {}
+    for base_ref in {key(product["reference"]) for product in products}:
+        unique = sorted(set(base_prices.get(base_ref, [])))
+        if not unique:
+            mode, minimum = "onRequest", None
+        elif len(unique) == 1:
+            mode, minimum = "exact", unique[0]
+        else:
+            mode, minimum = "from", unique[0]
+        badge_summary[mode] += 1
+        badge_by_base[base_ref] = {"mode": mode, "minimumHT": minimum}
+
+    sample = []
+    used_refs = set()
+    for collection, _ in SERIES:
+        options = [
+            product for product in products
+            if product["collection"] == collection
+            and source_by_key[product["key"]] is not None
+            and key(product["reference"]) not in used_refs
+        ]
+        options.sort(key=lambda product: (
+            0 if product["finishCode"] == "BRO" else 1 if product["finishCode"] == "CRO" else 2,
+            product["reference"], product["finishCode"],
+        ))
+        if not options:
+            continue
+        product = options[0]
+        source_ht = source_by_key[product["key"]]
+        badge = badge_by_base[key(product["reference"])]
+        sample.append({
+            "reference": product["reference"], "name": product["name"],
+            "collection": product["collection"], "finish": product["finish"],
+            "finishCode": product["finishCode"], "tariffPage": product["tariffPage"],
+            "sourceHT": source_ht,
+            "publicTTC": round(source_ht * 1.2 + 1e-8, 2),
+            "proHT": round(source_ht * 0.5 + 1e-8, 2),
+            "badgeMode": badge["mode"],
+            "badgeMinimumPublicTTC": (
+                round(badge["minimumHT"] * 1.2 + 1e-8, 2)
+                if badge["minimumHT"] is not None else None
+            ),
+            "badgeMinimumProHT": (
+                round(badge["minimumHT"] * 0.5 + 1e-8, 2)
+                if badge["minimumHT"] is not None else None
+            ),
+        })
+        used_refs.add(key(product["reference"]))
+        if len(sample) == 20:
+            break
+
+    low_prices = [
+        {
+            "key": product["key"], "reference": product["reference"],
+            "finishCode": product["finishCode"], "sourceHT": source_by_key[product["key"]],
+            "tariffPage": product["tariffPage"],
+        }
+        for product in products
+        if source_by_key[product["key"]] is not None and source_by_key[product["key"]] <= 20
+    ]
+    finish_counts = Counter(product["finishCode"] for product in products if product["finishCode"] != "ASK")
+
     PUBLIC_OUT.parent.mkdir(parents=True, exist_ok=True)
     REPORT_OUT.parent.mkdir(parents=True, exist_ok=True)
     payload = {
-        "version": "2026-09-14", "pageCount": len(cat_doc), "pages": page_meta,
+        "version": "2026-09-15", "pageCount": len(cat_doc), "pages": page_meta,
         "series": [{"name": name, "page": page} for name, page in SERIES],
         "products": products,
     }
     PUBLIC_OUT.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
-    PRIVATE_OUT.write_text(json.dumps({"version": "2026-09-14", "products": private}, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    PRIVATE_OUT.write_text(
+        json.dumps({"version": "2026-09-15", "products": private}, ensure_ascii=False, separators=(",", ":")),
+        encoding="utf-8",
+    )
     report = {
         "cataloguePages": len(cat_doc), "tariffPages": len(tariff_doc),
         "catalogueReferenceKeys": len(catalogue), "tariffProductRows": len(tariffs),
-        "variants": len(products), "variantsWithCatalogueHotspot": sum(bool(p["page"]) for p in products),
-        "uniqueBaseReferences": len({p["reference"] for p in products}),
-        "finishCounts": Counter(p["finishCode"] for p in products),
-        "conflicts": conflicts, "unmatchedTariffProducts": unmatched,
+        "variants": len(products),
+        "pricedVariants": sum(source is not None for source in source_by_key.values()),
+        "variantsOnRequest": sum(source is None for source in source_by_key.values()),
+        "variantsWithCatalogueHotspot": sum(bool(product["page"]) for product in products),
+        "uniqueBaseReferences": len({product["reference"] for product in products}),
+        "finishCounts": finish_counts,
+        "conflicts": conflicts, "duplicates": duplicates,
+        "anomalies": anomalies, "lowPriceVariants": low_prices,
+        "unmatchedCatalogueProducts": unmatched_catalogue,
+        "unmatchedTariffProducts": unmatched_tariff,
+        "nearReferenceWarnings": near_warnings,
+        "badgeAudit": badge_summary,
+        "controlSample20": sample,
         "privateProducts": private,
     }
     REPORT_OUT.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(json.dumps({k: v for k, v in report.items() if k != "privateProducts"}, ensure_ascii=False, indent=2, default=dict))
+    print(json.dumps({key_: value for key_, value in report.items() if key_ != "privateProducts"}, ensure_ascii=False, indent=2, default=dict))
 
 
 if __name__ == "__main__":
