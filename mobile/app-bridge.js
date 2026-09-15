@@ -1,15 +1,26 @@
 // Pont natif minimal LE ROY FACTORY pour Capacitor Android.
 // L'application conserve exactement l'interface du site web et du CRM.
-// Ce fichier ajoute uniquement les capacités natives utiles (GPS, bouton retour, réseau).
+// Ce fichier ajoute uniquement les capacités natives utiles (GPS, bouton retour, réseau)
+// et sécurise le démarrage de l'application Android.
 
 (async()=>{
   const isNative=!!window.Capacitor?.isNativePlatform?.();
   document.documentElement.classList.toggle('lrf-native-app',isNative);
   if(!isNative)return;
 
+  // Le splash ne doit jamais pouvoir bloquer l'application. On le masque explicitement
+  // dès que le pont natif démarre, en plus de l'auto-hide configuré côté Capacitor.
+  try{
+    const {SplashScreen}=await import('@capacitor/splash-screen');
+    await SplashScreen.hide({fadeOutDuration:120}).catch(()=>{});
+    window.__LRF_NATIVE_SPLASH_HIDDEN__=true;
+  }catch(e){
+    console.warn('Masquage splash Android',e);
+  }
+
   // Dans l'application native, le contenu vient directement de l'APK.
-  // On supprime les anciens service workers/caches PWA qui pourraient conserver
-  // une ancienne version de firebase.js après une mise à jour Android.
+  // On supprime les anciens service workers/caches PWA qui peuvent conserver
+  // une ancienne version après une mise à jour Android.
   try{
     if('serviceWorker' in navigator){
       const registrations=await navigator.serviceWorker.getRegistrations();
@@ -29,7 +40,7 @@
       import('@capacitor/geolocation')
     ]);
 
-    await StatusBar.setStyle({style:Style.Dark}).catch(()=>{});
+    await StatusBar.setStyle({style:Style.Light}).catch(()=>{});
 
     // Géolocalisation Android native utilisée par les pages Carte / Clients / Tournées.
     const nativeGetPosition=async(success,error,options={})=>{
