@@ -67,6 +67,23 @@ jobs:
         working-directory: mobile
         run: npm run cap:sync
 
+      - name: Apply official Android app icon
+        run: |
+          mkdir -p mobile/android/app/src/main/res/drawable-nodpi
+          cp assets/brand-v2/assetlogorond.png mobile/android/app/src/main/res/drawable-nodpi/lrf_icon.png
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('mobile/android/app/src/main/AndroidManifest.xml')
+          s=p.read_text()
+          s=re.sub(r'android:icon="[^"]+"', 'android:icon="@drawable/lrf_icon"', s, count=1)
+          if 'android:roundIcon=' in s:
+              s=re.sub(r'android:roundIcon="[^"]+"', 'android:roundIcon="@drawable/lrf_icon"', s, count=1)
+          else:
+              s=s.replace('<application', '<application android:roundIcon="@drawable/lrf_icon"', 1)
+          p.write_text(s)
+          PY
+
       - name: Set Android version
         run: |
           python - <<'PY'
