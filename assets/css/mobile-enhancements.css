@@ -3,7 +3,7 @@
 /* Site public */
 body:not(.crm-body) header .nav-container{height:88px!important;min-height:88px!important;padding:0 14px!important}
 body:not(.crm-body) header .logo{padding-left:0!important}
-body:not(.crm-body) header .logo>div{width:56px!important;height:56px!important}
+body:not(.crm-body) header .logo>div{width:58px!important;height:58px!important}
 body:not(.crm-body) .burger-btn{margin-right:0!important;padding:10px!important;border-radius:10px!important;z-index:100002!important}
 body:not(.crm-body) header nav ul,body:not(.crm-body) header nav ul.main-nav{position:fixed!important;top:0!important;right:-100%!important;left:auto!important;width:min(86vw,370px)!important;height:100dvh!important;margin:0!important;padding:92px 20px 24px!important;box-sizing:border-box!important;display:flex!important;flex-direction:column!important;justify-content:flex-start!important;align-items:stretch!important;gap:0!important;overflow-y:auto!important;background:#FBF9F5!important;border-left:1px solid rgba(212,175,55,.45)!important;box-shadow:-18px 0 42px rgba(0,0,0,.18)!important;transition:right .25s ease!important;z-index:100001!important}
 body:not(.crm-body) header nav ul.active{right:0!important}

@@ -1,6 +1,6 @@
-const CACHE='lrf-pwa-v13-brand-final-20260915';
+const CACHE='lrf-pwa-20260915-brand-final3';
 const BRAND_VERSION='20260915-brand-final5';
-const CORE=['/','/index.html','/assets/brand-v2/assetlogorond.png?v=20260915-lrf-green-standard','/assets/img/logo03lrf.png?v=20260915-lrf-green-standard','/manifest.webmanifest'];
+const CORE=['/','/index.html','/assets/icons/lrf-192.png?v=20260915-brand-final3','/assets/icons/lrf-512.png?v=20260915-brand-final3','/apple-touch-icon.png?v=20260915-brand-final3'];
 
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).catch(()=>{}));
