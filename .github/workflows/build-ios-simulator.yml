@@ -1,0 +1,130 @@
+name: Build iPhone iPad Simulator
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'mobile/**'
+      - 'assets/**'
+      - '*.html'
+      - 'data/**'
+      - 'manifest.webmanifest'
+      - 'sw.js'
+      - '.github/workflows/build-ios-simulator.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-ios:
+    runs-on: macos-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install mobile dependencies
+        working-directory: mobile
+        run: npm install
+
+      - name: Create iOS project
+        working-directory: mobile
+        run: npx cap add ios
+
+      - name: Sync site and CRM into iOS
+        working-directory: mobile
+        run: npm run cap:sync:ios
+
+      - name: Apply official LRF icon and launch artwork
+        run: |
+          python3 -m pip install --quiet pillow
+          python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          import json, re
+
+          repo = Path('.')
+          source = Image.open(repo/'assets/brand-v2/assetlogorond.png').convert('RGBA')
+          ios = repo/'mobile/ios'
+
+          # App icons: generate every filename declared by Xcode's asset catalog.
+          for catalog in ios.rglob('AppIcon.appiconset/Contents.json'):
+              data = json.loads(catalog.read_text())
+              folder = catalog.parent
+              for item in data.get('images', []):
+                  filename = item.get('filename')
+                  if not filename:
+                      continue
+                  size = item.get('size', '1024x1024').split('x')[0]
+                  scale = item.get('scale', '1x').replace('x','')
+                  try:
+                      px = max(1, round(float(size) * float(scale)))
+                  except Exception:
+                      px = 1024
+                  icon = source.resize((px, px), Image.Resampling.LANCZOS)
+                  icon.convert('RGB').save(folder/filename, 'PNG')
+
+          # Capacitor currently uses a 1024 icon on modern iOS; ensure it exists even
+          # when Contents.json contains only a universal entry.
+          for folder in ios.rglob('AppIcon.appiconset'):
+              fallback = folder/'AppIcon-512@2x.png'
+              if not fallback.exists():
+                  source.resize((1024,1024), Image.Resampling.LANCZOS).convert('RGB').save(fallback,'PNG')
+
+          # Launch/splash assets: black background + official green/floral logo,
+          # centered and intentionally smaller so it never fills the screen.
+          for catalog in ios.rglob('Splash.imageset/Contents.json'):
+              data = json.loads(catalog.read_text())
+              folder = catalog.parent
+              for item in data.get('images', []):
+                  filename = item.get('filename')
+                  if not filename:
+                      continue
+                  scale_text = item.get('scale','1x').replace('x','')
+                  try: scale = max(1, int(float(scale_text)))
+                  except Exception: scale = 1
+                  w, h = 2732//scale, 2732//scale
+                  canvas = Image.new('RGBA',(w,h),(11,11,11,255))
+                  target = int(min(w,h)*0.34)
+                  mark = source.copy()
+                  mark.thumbnail((target,target),Image.Resampling.LANCZOS)
+                  canvas.alpha_composite(mark,((w-mark.width)//2,(h-mark.height)//2))
+                  canvas.convert('RGB').save(folder/filename,'PNG')
+
+          # iPhone + iPad: do not force portrait-only mode.
+          for plist in ios.rglob('Info.plist'):
+              text = plist.read_text()
+              text = text.replace('<string>UIInterfaceOrientationPortrait</string>\n', '')
+              plist.write_text(text)
+          PY
+
+      - name: Build unsigned simulator app
+        run: |
+          cd mobile/ios/App
+          xcodebuild \
+            -workspace App.xcworkspace \
+            -scheme App \
+            -configuration Debug \
+            -sdk iphonesimulator \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO \
+            build
+
+      - name: Package simulator app
+        run: |
+          cd mobile/ios/App/build/Build/Products/Debug-iphonesimulator
+          ditto -c -k --sequesterRsrc --keepParent App.app "$GITHUB_WORKSPACE/le-roy-factory-ios-simulator.zip"
+
+      - name: Upload simulator build
+        uses: actions/upload-artifact@v4
+        with:
+          name: le-roy-factory-ios-simulator
+          path: le-roy-factory-ios-simulator.zip
+          if-no-files-found: error
+          retention-days: 14
