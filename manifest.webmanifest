@@ -12,13 +12,13 @@
   "lang": "fr-FR",
   "icons": [
     {
-      "src": "/assets/img/logo03lrf.png",
+      "src": "/assets/img/logo03lrf.png?v=20260915-lrf-green-standard",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/assets/img/logo03lrf.png",
+      "src": "/assets/img/logo03lrf.png?v=20260915-lrf-green-standard",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"

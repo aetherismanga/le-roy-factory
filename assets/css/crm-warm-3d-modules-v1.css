@@ -163,7 +163,7 @@ html body.crm-body .evo{border:1px solid rgba(0,0,0,.04)!important;box-shadow:in
     height:50px;
     z-index:100000;
     pointer-events:none;
-    background:url('../brand-v2/assetlogorond.png?v=20260901-official-big') center/contain no-repeat;
+    background:url('../brand-v2/assetlogorond.png?v=20260915-lrf-green-standard') center/contain no-repeat;
     filter:drop-shadow(0 5px 8px rgba(0,0,0,.20));
   }
   html body.crm-menu-open .crm-main-content::before{opacity:.22}

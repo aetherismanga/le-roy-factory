@@ -1,5 +1,5 @@
-const CACHE='lrf-pwa-v9-auth-android-icon';
-const CORE=['/','/index.html','/assets/brand-v2/assetlogorond.png'];
+const CACHE='lrf-pwa-v10-green-logo-20260915';
+const CORE=['/','/index.html','/assets/brand-v2/assetlogorond.png?v=20260915-lrf-green-standard'];
 
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).catch(()=>{}));
