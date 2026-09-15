@@ -212,17 +212,29 @@ header a.logo > img,
 }
 
 @media (max-width: 900px) {
-  /* Mobile : logo agrandi sans toucher aux proportions */
+  /* Mobile : logo officiel LRF plus compact */
   body:not(.crm-body) header a.logo > img,
   body:not(.crm-body) .site-header a.logo > img,
   body:not(.crm-body) .logo > img {
-    width: 78px !important;
-    height: 78px !important;
+    width: 56px !important;
+    height: 56px !important;
+    max-width: 56px !important;
+    max-height: 56px !important;
   }
 
   body.crm-body .logo-circle {
-    width: 72px !important;
-    height: 72px !important;
+    width: 58px !important;
+    height: 58px !important;
+    max-width: 58px !important;
+    max-height: 58px !important;
+  }
+
+  body.crm-body .logo-circle img,
+  body.crm-body .sidebar-brand img {
+    width: 58px !important;
+    height: 58px !important;
+    max-width: 58px !important;
+    max-height: 58px !important;
   }
 }
 
