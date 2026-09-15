@@ -199,6 +199,32 @@ def price_variants(block):
         value = amount(row["text"])
         if value is not None and row["bbox"][0] >= 330:
             prices.append((value, cx, cy, row))
+
+    # Certains PDF superposent un ancien montant ou un fragment masqué au
+    # montant imprimé (ex. 230,00 + 2,00). On regroupe d'abord ces objets
+    # géométriquement identiques et on conserve le montant complet.
+    deduplicated = []
+    for candidate in sorted(prices, key=lambda p: (p[2], p[1])):
+        row = candidate[3]
+        x0, y0, x1, y1 = row["bbox"]
+        overlap_index = next((
+            index for index, existing in enumerate(deduplicated)
+            if abs(existing[2] - candidate[2]) <= 2.2
+            and min(existing[3]["bbox"][2], x1) - max(existing[3]["bbox"][0], x0) > 8
+        ), None)
+        if overlap_index is None:
+            deduplicated.append(candidate)
+            continue
+        existing = deduplicated[overlap_index]
+        def strength(price):
+            match = AMOUNT_RE.search(price[3]["text"])
+            raw = match.group(1) if match else ""
+            integer = re.split(r"[,.]", raw)[0].replace(".", "")
+            width = price[3]["bbox"][2] - price[3]["bbox"][0]
+            return (len(integer.lstrip("0")), width, price[0])
+        if strength(candidate) > strength(existing):
+            deduplicated[overlap_index] = candidate
+    prices = deduplicated
     result = dict(direct)
     grouped = ({"BRO", "RAM", "NIK"}, {"DOR", "D/SO", "D/NL", "D/NO"})
     grouped_codes = set().union(*grouped)
