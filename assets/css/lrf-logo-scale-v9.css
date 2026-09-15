@@ -92,9 +92,9 @@ body.lrf-page-index .hero-logo-wrapper{
   body.lrf-premium-v2 header a.logo>img{
     width:58px!important;
     min-width:58px!important;
+    max-width:58px!important;
     height:58px!important;
     min-height:58px!important;
-    max-width:58px!important;
     max-height:58px!important;
     transform:none!important;
     scale:1!important;
