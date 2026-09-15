@@ -35,7 +35,9 @@ jobs:
           if not m:
               raise SystemExit('Embedded approved LRF logo not found')
 
-          raw = base64.b64decode(m.group(1), validate=True)
+          payload = ''.join(m.group(1).split()).rstrip('=')
+          payload += '=' * (-len(payload) % 4)
+          raw = base64.b64decode(payload)
           if not (raw[:4] == b'RIFF' and raw[8:12] == b'WEBP'):
               raise SystemExit('Approved LRF image is not a valid WebP payload')
 
@@ -78,7 +80,6 @@ jobs:
               if text != original:
                   path.write_text(text, encoding='utf-8')
 
-          # Remove staging chunks from an earlier transfer attempt; they are not site assets.
           staging = Path('.github/logo-assets')
           if staging.exists():
               for child in staging.iterdir():
