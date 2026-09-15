@@ -2,7 +2,7 @@
   "name": "LE ROY FACTORY",
   "short_name": "Leroy Factory",
   "description": "L'application LE ROY FACTORY pour accéder au site, aux partenaires, aux tarifs PRO et à l'espace agent.",
-  "start_url": "/index.html?source=pwa",
+  "start_url": "/index.html?source=pwa&brand=20260915-final4",
   "scope": "/",
   "display": "standalone",
   "display_override": ["window-controls-overlay", "standalone"],
@@ -12,16 +12,16 @@
   "lang": "fr-FR",
   "icons": [
     {
-      "src": "/assets/img/logo03lrf.png?v=20260915-lrf-green-standard",
-      "sizes": "192x192",
+      "src": "/assets/brand-v2/assetlogorond.png?v=20260915-brand-final4",
+      "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/assets/img/logo03lrf.png?v=20260915-lrf-green-standard",
+      "src": "/assets/brand-v2/assetlogorond.png?v=20260915-brand-final4",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "maskable"
     }
   ]
 }
