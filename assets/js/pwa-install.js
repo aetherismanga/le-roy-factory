@@ -1,72 +1,13 @@
 (()=>{
   if(window.__LRF_PWA_INSTALL__)return;window.__LRF_PWA_INSTALL__=true;
-  const VERSION='20260915-brand-final6';
-  const ua=navigator.userAgent||'';
-  const isIOS=/iphone|ipad|ipod/i.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
-  const isMobile=/android|iphone|ipad|ipod/i.test(ua)||isIOS;
+  const manifest=document.createElement('link');manifest.rel='manifest';manifest.href='/manifest.webmanifest?v=20260903-logo-fix';document.head.appendChild(manifest);
+  const theme=document.createElement('meta');theme.name='theme-color';theme.content='#0b0b0b';document.head.appendChild(theme);
+  const apple=document.createElement('meta');apple.name='apple-mobile-web-app-capable';apple.content='yes';document.head.appendChild(apple);
+  const appleStatus=document.createElement('meta');appleStatus.name='apple-mobile-web-app-status-bar-style';appleStatus.content='black-translucent';document.head.appendChild(appleStatus);
+  const appleTitle=document.createElement('meta');appleTitle.name='apple-mobile-web-app-title';appleTitle.content='Leroy Factory';document.head.appendChild(appleTitle);
+  const icon=document.createElement('link');icon.rel='apple-touch-icon';icon.href='/assets/img/logo03lrf.png';document.head.appendChild(icon);
 
-  const ensureHead=()=>{
-    let manifest=document.querySelector('link[rel="manifest"]');
-    if(!manifest){manifest=document.createElement('link');manifest.rel='manifest';document.head.appendChild(manifest);}
-    manifest.href='/manifest.webmanifest?v='+VERSION;
-
-    let theme=document.querySelector('meta[name="theme-color"]');
-    if(!theme){theme=document.createElement('meta');theme.name='theme-color';document.head.appendChild(theme);}
-    theme.content='#0b0b0b';
-
-    const metas={
-      'apple-mobile-web-app-capable':'yes',
-      'mobile-web-app-capable':'yes',
-      'apple-mobile-web-app-status-bar-style':'black-translucent',
-      'apple-mobile-web-app-title':'LE ROY FACTORY'
-    };
-    Object.entries(metas).forEach(([name,content])=>{
-      let meta=document.querySelector(`meta[name="${name}"]`);
-      if(!meta){meta=document.createElement('meta');meta.name=name;document.head.appendChild(meta);}
-      meta.content=content;
-    });
-
-    let apple=document.querySelector('link[rel="apple-touch-icon"]');
-    if(!apple){apple=document.createElement('link');apple.rel='apple-touch-icon';document.head.appendChild(apple);}
-    apple.href='/apple-touch-icon.png?v='+VERSION;
-
-    let icon=document.querySelector('link[rel="icon"]');
-    if(!icon){icon=document.createElement('link');icon.rel='icon';icon.type='image/png';document.head.appendChild(icon);}
-    icon.href='/assets/icons/lrf-192.png?v='+VERSION;
-  };
-  ensureHead();
-
-  const clearLegacyCaches=async()=>{
-    try{
-      if('caches' in window){
-        const keys=await caches.keys();
-        await Promise.all(keys.filter(k=>/^lrf-pwa-/i.test(k)).map(k=>caches.delete(k)));
-      }
-    }catch(e){console.warn('Nettoyage cache LRF',e)}
-  };
-
-  // Sur iPhone/iPad, le site installé sur l'écran d'accueil reste plus fiable sans
-  // service worker persistant : Safari peut conserver un ancien shell après mise à jour.
-  // On supprime donc les anciens SW/caches iOS et on laisse le site fonctionner en réseau direct.
-  if(isIOS){
-    (async()=>{
-      try{
-        if('serviceWorker' in navigator){
-          const regs=await navigator.serviceWorker.getRegistrations();
-          await Promise.all(regs.map(r=>r.unregister().catch(()=>false)));
-        }
-        await clearLegacyCaches();
-        if(navigator.serviceWorker?.controller&&!sessionStorage.getItem('lrf-ios-sw-reset-'+VERSION)){
-          sessionStorage.setItem('lrf-ios-sw-reset-'+VERSION,'1');
-          setTimeout(()=>location.reload(),80);
-        }
-      }catch(e){console.warn('Réinitialisation PWA iOS',e)}
-    })();
-  }else if('serviceWorker' in navigator){
-    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js?v='+VERSION,{updateViaCache:'none'})
-      .then(async reg=>{await reg.update().catch(()=>{});})
-      .catch(console.warn));
-  }
+  if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js?v=20260903-logo-fix',{updateViaCache:'none'}).then(reg=>reg.update()).catch(console.warn));}
 
   const standalone=window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true;
   if(standalone)return;
@@ -77,10 +18,9 @@
   btn.style.cssText='position:fixed;right:18px;bottom:18px;z-index:99998;background:#0b0b0b;color:#FFD700;border:1px solid #D4AF37;border-radius:999px;padding:12px 16px;font-weight:800;box-shadow:0 8px 24px rgba(0,0,0,.28);cursor:pointer;display:none;font-family:inherit';
   document.body.appendChild(btn);
 
-  if(isIOS){
-    btn.style.display='block';
-    btn.onclick=()=>alert('Sur iPhone ou iPad : ouvrez le site dans Safari, appuyez sur Partager, puis « Sur l’écran d’accueil ».');
-  }
+  const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+  const isMobile=/android|iphone|ipad|ipod/i.test(navigator.userAgent);
+  if(isIOS){btn.style.display='block';btn.onclick=()=>alert('Sur iPhone : appuyez sur le bouton Partager de Safari, puis « Sur l’écran d’accueil » pour installer Leroy Factory.');}
 
   window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;if(isMobile)btn.style.display='block';});
   btn.addEventListener('click',async()=>{

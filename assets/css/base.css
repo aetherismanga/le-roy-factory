@@ -161,7 +161,7 @@ body.crm-body header.test-topbar {
   }
 }
 
-/* 4. Logo officiel unique : assetlogorond.png?v=20260915-lrf-green-standard */
+/* 4. Logo officiel unique : assetlogorond.png */
 .logo,
 .site-header a.logo,
 header a.logo {
@@ -176,7 +176,7 @@ header a.logo {
 .sidebar-brand img,
 .site-header a.logo > img,
 header a.logo > img {
-  content: url('../brand-v2/assetlogorond.png?v=20260915-lrf-green-standard') !important;
+  content: url('../brand-v2/assetlogorond.png?v=20260901-official-big') !important;
   object-fit: contain !important;
   border-radius: 0 !important;
   background: transparent !important;
@@ -212,29 +212,17 @@ header a.logo > img,
 }
 
 @media (max-width: 900px) {
-  /* Mobile : logo officiel LRF plus compact */
+  /* Mobile : logo agrandi sans toucher aux proportions */
   body:not(.crm-body) header a.logo > img,
   body:not(.crm-body) .site-header a.logo > img,
   body:not(.crm-body) .logo > img {
-    width: 56px !important;
-    height: 56px !important;
-    max-width: 56px !important;
-    max-height: 56px !important;
+    width: 78px !important;
+    height: 78px !important;
   }
 
   body.crm-body .logo-circle {
-    width: 58px !important;
-    height: 58px !important;
-    max-width: 58px !important;
-    max-height: 58px !important;
-  }
-
-  body.crm-body .logo-circle img,
-  body.crm-body .sidebar-brand img {
-    width: 58px !important;
-    height: 58px !important;
-    max-width: 58px !important;
-    max-height: 58px !important;
+    width: 72px !important;
+    height: 72px !important;
   }
 }
 

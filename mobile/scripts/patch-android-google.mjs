@@ -23,8 +23,6 @@ if (!gradle.includes('com.google.android.gms:play-services-auth')) {
 
 let manifest = await readFile(manifestPath, 'utf8');
 const permissions = [
-  'android.permission.INTERNET',
-  'android.permission.ACCESS_NETWORK_STATE',
   'android.permission.ACCESS_FINE_LOCATION',
   'android.permission.ACCESS_COARSE_LOCATION'
 ];
@@ -34,10 +32,10 @@ for (const permission of permissions) {
   }
 }
 
-// Icône Android officielle LRF : nouveau logo rond vert/floral du site.
+// Icône Android officielle LRF : on utilise directement le logo rond du site.
 const iconDir = join(androidRoot, 'app', 'src', 'main', 'res', 'drawable-nodpi');
 await mkdir(iconDir, { recursive: true });
-await cp(join(repoRoot, 'assets', 'brand-v2', 'assetlogorond.png'), join(iconDir, 'lrf_launcher.png'));
+await cp(join(repoRoot, 'assets', 'brand-v2', 'logoLRF.png'), join(iconDir, 'lrf_launcher.png'));
 manifest = manifest
   .replace(/android:icon="[^"]+"/g, 'android:icon="@drawable/lrf_launcher"')
   .replace(/android:roundIcon="[^"]+"/g, 'android:roundIcon="@drawable/lrf_launcher"');
@@ -121,4 +119,4 @@ public class GoogleCalendarNativePlugin extends Plugin {
 `;
 await writeFile(join(javaDir, 'GoogleCalendarNativePlugin.java'), googlePlugin, 'utf8');
 
-console.log('Pont Google Calendar + réseau + localisation + icone LRF Android installés');
+console.log('Pont Google Calendar + localisation + icone LRF Android installés');

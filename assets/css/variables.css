@@ -13,20 +13,6 @@
   --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* URGENCE AFFICHAGE PUBLIC MOBILE/TABLETTE
-   Le site ne doit jamais dépendre d'une animation ou d'un JS pour devenir visible.
-   Ceci neutralise l'ancien anti-flash qui pouvait laisser Google/Chrome Custom Tabs
-   sur un écran blanc si une ressource mettait trop longtemps à finir de charger. */
-@media (max-width: 1180px), (hover: none) and (pointer: coarse) {
-  html body:not(.crm-body),
-  html:not(.lrf-premium-ready) body:not(.crm-body),
-  html.lrf-premium-ready body:not(.crm-body) {
-    opacity: 1 !important;
-    visibility: visible !important;
-    animation: none !important;
-  }
-}
-
 /* CRM mobile : le vrai logo reste dans le menu latéral uniquement.
    Le médaillon central provenait de .crm-main-content::before dans
    crm-warm-3d-modules-v1.css : on le neutralise explicitement ici. */
