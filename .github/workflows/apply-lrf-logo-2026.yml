@@ -96,14 +96,12 @@ jobs:
               if text != original:
                   path.write_text(text, encoding='utf-8')
 
-          # Replace the temporary embedded SVG with a clean wrapper around the final PNG.
           wrapper = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Logo officiel LRF">
             <image href="lrf-logo-officiel-2026.png" width="512" height="512" preserveAspectRatio="xMidYMid meet"/>
           </svg>
           '''
           Path('assets/brand-v2/lrf-logo-officiel-2026.svg').write_text(wrapper, encoding='utf-8')
 
-          # Staging chunks are no longer needed after the official assets are generated.
           staging = Path('.github/logo-assets')
           if staging.exists():
               for child in staging.iterdir():
@@ -113,7 +111,6 @@ jobs:
                   staging.rmdir()
               except OSError:
                   pass
-          PY
 
       - name: Verify official assets
         shell: bash
