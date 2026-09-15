@@ -1,6 +1,6 @@
 /* LE ROY FACTORY — V9 logo sizing override */
 
-/* Logo rond du header desktop : rendu historique conservé. */
+/* Logo rond du header desktop : rendu historique conservé uniquement pour les vrais écrans desktop. */
 body.lrf-premium-v2 header,
 body.lrf-premium-v2 header .nav-container,
 body.lrf-premium-v2 header .logo{
@@ -44,32 +44,38 @@ body.lrf-page-index .hero-logo-wrapper{
   margin-bottom:.35rem!important;
 }
 
-/* Smartphone / tablette : même présence visuelle que l'espace agent.
-   IMPORTANT : aucun scale x2 sur mobile. */
-@media(max-width:900px){
+/* Smartphone + tablette, y compris iPhone/iPad en paysage et tablettes Android.
+   Même présence visuelle que l'espace agent, sans aucun zoom x2. */
+@media (max-width:1180px), (hover:none) and (pointer:coarse){
   body.lrf-premium-v2 header,
   body.lrf-premium-v2 header .nav-container{
     height:84px!important;
     min-height:84px!important;
   }
-  body.lrf-premium-v2 header .logo{
+  body.lrf-premium-v2 header .logo,
+  body.lrf-premium-v2 header a.logo{
     width:58px!important;
     min-width:58px!important;
-    height:58px!important;
     max-width:58px!important;
+    height:58px!important;
+    min-height:58px!important;
     max-height:58px!important;
     padding:0!important;
+    margin-left:10px!important;
     overflow:hidden!important;
+    transform:none!important;
   }
   body.lrf-premium-v2 .lrf-monogram-header,
-  body.lrf-premium-v2 header .logo>img{
+  body.lrf-premium-v2 header .logo>img,
+  body.lrf-premium-v2 header a.logo>img{
     width:58px!important;
-    height:58px!important;
     min-width:58px!important;
-    min-height:58px!important;
     max-width:58px!important;
+    height:58px!important;
+    min-height:58px!important;
     max-height:58px!important;
     transform:none!important;
+    scale:1!important;
     object-fit:contain!important;
     border-radius:50%!important;
     filter:drop-shadow(0 3px 6px rgba(0,0,0,.24))!important;
@@ -80,8 +86,10 @@ body.lrf-page-index .hero-logo-wrapper{
 
 @media(max-width:430px){
   body.lrf-premium-v2 header .logo,
+  body.lrf-premium-v2 header a.logo,
   body.lrf-premium-v2 .lrf-monogram-header,
-  body.lrf-premium-v2 header .logo>img{
+  body.lrf-premium-v2 header .logo>img,
+  body.lrf-premium-v2 header a.logo>img{
     width:58px!important;
     min-width:58px!important;
     height:58px!important;
@@ -89,6 +97,7 @@ body.lrf-page-index .hero-logo-wrapper{
     max-width:58px!important;
     max-height:58px!important;
     transform:none!important;
+    scale:1!important;
   }
   body.lrf-page-index .hero-logo{width:92vw!important;max-width:92vw!important;}
 }
