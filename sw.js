@@ -1,5 +1,6 @@
-const CACHE='lrf-pwa-v10-green-logo-20260915';
-const CORE=['/','/index.html','/assets/brand-v2/assetlogorond.png?v=20260915-lrf-green-standard'];
+const CACHE='lrf-pwa-v12-brand-final-20260915';
+const BRAND_VERSION='20260915-brand-final4';
+const CORE=['/','/index.html','/assets/brand-v2/assetlogorond.png?v=20260915-lrf-green-standard','/assets/img/logo03lrf.png?v=20260915-lrf-green-standard','/manifest.webmanifest'];
 
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).catch(()=>{}));
@@ -28,15 +29,99 @@ async function networkFirst(request){
   }
 }
 
+function brandPatchHtml(html){
+  if(!html||!/<html/i.test(html))return html;
+
+  const headPatch=`
+<link rel="icon" type="image/png" href="/assets/img/logo03lrf.png?v=${BRAND_VERSION}">
+<link rel="apple-touch-icon" href="/assets/img/logo03lrf.png?v=${BRAND_VERSION}">
+<link rel="manifest" href="/manifest.webmanifest?v=${BRAND_VERSION}">
+<style id="lrf-brand-mobile-final">
+@media(max-width:900px){
+  html body:not(.crm-body) header .logo,
+  html body:not(.crm-body) header a.logo,
+  html body.lrf-premium-v2:not(.crm-body) header .logo{
+    width:58px!important;min-width:58px!important;max-width:58px!important;
+    height:58px!important;min-height:58px!important;max-height:58px!important;
+    padding:0!important;margin-left:10px!important;overflow:hidden!important;
+    transform:none!important;display:flex!important;align-items:center!important;justify-content:center!important;
+  }
+  html body:not(.crm-body) header .logo>img,
+  html body:not(.crm-body) header a.logo>img,
+  html body.lrf-premium-v2:not(.crm-body) header .logo>img,
+  html body.lrf-premium-v2:not(.crm-body) .lrf-monogram-header{
+    width:58px!important;min-width:58px!important;max-width:58px!important;
+    height:58px!important;min-height:58px!important;max-height:58px!important;
+    transform:none!important;scale:1!important;object-fit:contain!important;border-radius:50%!important;
+    filter:drop-shadow(0 2px 5px rgba(0,0,0,.2))!important;
+  }
+}
+</style>`;
+
+  const bodyPatch=`
+<script id="lrf-mobile-logo-runtime-final">
+(function(){
+  function apply(){
+    if(window.innerWidth>900)return;
+    var body=document.body;
+    if(!body||body.classList.contains('crm-body'))return;
+    var logo=document.querySelector('header .logo');
+    if(!logo)return;
+    ['width','min-width','max-width','height','min-height','max-height'].forEach(function(p){logo.style.setProperty(p,'58px','important');});
+    logo.style.setProperty('padding','0','important');
+    logo.style.setProperty('margin-left','10px','important');
+    logo.style.setProperty('overflow','hidden','important');
+    logo.style.setProperty('transform','none','important');
+    var img=logo.querySelector('img');
+    if(img){
+      ['width','min-width','max-width','height','min-height','max-height'].forEach(function(p){img.style.setProperty(p,'58px','important');});
+      img.style.setProperty('transform','none','important');
+      img.style.setProperty('scale','1','important');
+      img.style.setProperty('object-fit','contain','important');
+      img.src='/assets/brand-v2/assetlogorond.png?v=${BRAND_VERSION}';
+    }
+  }
+  apply();
+  document.addEventListener('DOMContentLoaded',apply,{once:true});
+  window.addEventListener('resize',apply);
+  new MutationObserver(apply).observe(document.documentElement,{childList:true,subtree:true,attributes:true});
+  setTimeout(apply,50);setTimeout(apply,300);setTimeout(apply,1000);
+})();
+</script>`;
+
+  if(/<\/head>/i.test(html)) html=html.replace(/<\/head>/i,headPatch+'\n</head>');
+  if(/<\/body>/i.test(html)) html=html.replace(/<\/body>/i,bodyPatch+'\n</body>');
+  return html;
+}
+
+async function navigationResponse(request){
+  try{
+    const response=await fetch(request,{cache:'no-store'});
+    const type=response.headers.get('content-type')||'';
+    if(response.ok&&type.includes('text/html')){
+      const html=brandPatchHtml(await response.text());
+      return new Response(html,{status:response.status,statusText:response.statusText,headers:response.headers});
+    }
+    return response;
+  }catch(error){
+    const cached=await caches.match(request)||await caches.match('/index.html');
+    if(!cached)throw error;
+    const type=cached.headers.get('content-type')||'';
+    if(type.includes('text/html')){
+      const html=brandPatchHtml(await cached.text());
+      return new Response(html,{status:cached.status,statusText:cached.statusText,headers:cached.headers});
+    }
+    return cached;
+  }
+}
+
 self.addEventListener('fetch',event=>{
   if(event.request.method!=='GET')return;
   const url=new URL(event.request.url);
   if(url.origin!==location.origin)return;
 
   if(event.request.mode==='navigate'){
-    event.respondWith(
-      networkFirst(event.request).catch(()=>caches.match('/index.html'))
-    );
+    event.respondWith(navigationResponse(event.request));
     return;
   }
 
