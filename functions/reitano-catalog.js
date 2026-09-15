@@ -38,7 +38,7 @@ exports.reitanoCatalog=onRequest({region:'us-central1',timeoutSeconds:60,memory:
     }
     const identity=await auth(req);
     if(!identity)return res.status(401).json({success:false,error:'Accès REITANO non autorisé ou session expirée.'});
-    if(action==='context')return res.json({success:true,admin:identity.admin,customer:identity.customer,prices:prices()});
+    if(action==='context')return res.json({success:true,catalogVersion:catalogue.version,admin:identity.admin,customer:identity.customer,prices:prices()});
     if(action!=='order')return res.status(400).json({success:false,error:'Action inconnue.'});
     if(identity.admin)return res.status(400).json({success:false,error:'Connectez le compte LRF du client pour envoyer sa commande.'});
     const raw=Array.isArray(req.body?.items)?req.body.items:[];
