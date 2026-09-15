@@ -1,0 +1,117 @@
+name: Apply official LRF logo 2026
+
+on:
+  push:
+    paths:
+      - '.github/workflows/apply-lrf-logo-2026.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply-logo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Build PNG assets from the approved LRF logo
+        shell: bash
+        run: |
+          python -m pip install --quiet pillow
+          python - <<'PY'
+          from pathlib import Path
+          import base64, io, re
+          from PIL import Image
+
+          src = Path('assets/brand-v2/lrf-logo-officiel-2026.svg')
+          text = src.read_text(encoding='utf-8')
+          m = re.search(r'data:image/webp;base64,([^\"]+)', text)
+          if not m:
+              raise SystemExit('Embedded approved LRF logo not found')
+
+          raw = base64.b64decode(m.group(1), validate=True)
+          if not (raw[:4] == b'RIFF' and raw[8:12] == b'WEBP'):
+              raise SystemExit('Approved LRF image is not a valid WebP payload')
+
+          im = Image.open(io.BytesIO(raw)).convert('RGBA')
+          im = im.resize((512, 512), Image.Resampling.LANCZOS)
+
+          targets = [
+              Path('assets/brand-v2/assetlogorond.png'),
+              Path('assets/img/logo03lrf.png'),
+              Path('assets/brand-v2/lrf-logo-officiel-2026.png'),
+          ]
+          for target in targets:
+              target.parent.mkdir(parents=True, exist_ok=True)
+              im.save(target, format='PNG', optimize=True)
+          PY
+
+      - name: Keep every existing logo slot and size, only refresh the graphic
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+
+          VERSION = '20260915-lrf-green-standard'
+          allowed = {'.html', '.css', '.js', '.svg', '.webmanifest', '.json'}
+
+          for path in Path('.').rglob('*'):
+              if not path.is_file() or path.suffix.lower() not in allowed:
+                  continue
+              if '.git' in path.parts or '.github' in path.parts:
+                  continue
+              try:
+                  text = path.read_text(encoding='utf-8')
+              except UnicodeDecodeError:
+                  continue
+              original = text
+              text = re.sub(r'assetlogorond\.png(?:\?v=[^\"\'\)\s]+)?', f'assetlogorond.png?v={VERSION}', text)
+              text = re.sub(r'logo03lrf\.png(?:\?v=[^\"\'\)\s]+)?', f'logo03lrf.png?v={VERSION}', text)
+              if path.name == 'sw.js':
+                  text = re.sub(r"const CACHE='[^']+';", "const CACHE='lrf-pwa-v10-green-logo-20260915';", text, count=1)
+              if text != original:
+                  path.write_text(text, encoding='utf-8')
+
+          # Remove staging chunks from an earlier transfer attempt; they are not site assets.
+          staging = Path('.github/logo-assets')
+          if staging.exists():
+              for child in staging.iterdir():
+                  if child.is_file():
+                      child.unlink()
+              try:
+                  staging.rmdir()
+              except OSError:
+                  pass
+          PY
+
+      - name: Verify official assets
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          for p in ['assets/brand-v2/assetlogorond.png','assets/img/logo03lrf.png','assets/brand-v2/lrf-logo-officiel-2026.png']:
+              path=Path(p)
+              if not path.exists() or path.stat().st_size < 10000:
+                  raise SystemExit(f'Invalid logo asset: {p}')
+              with Image.open(path) as im:
+                  if im.size != (512,512) or im.format != 'PNG':
+                      raise SystemExit(f'Unexpected logo format: {p} {im.size} {im.format}')
+          print('LRF logo assets OK')
+          PY
+
+      - name: Commit new LRF standard
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet && exit 0
+          git commit -m "brand: set green botanical LRF logo as official standard"
+          git push
