@@ -43,17 +43,18 @@ jobs:
 
       - name: Apply official LRF icon and launch artwork
         run: |
-          python3 -m pip install --quiet pillow
-          python3 - <<'PY'
+          python3 -m venv .venv-ios
+          source .venv-ios/bin/activate
+          python -m pip install --quiet --upgrade pip pillow
+          python - <<'PY'
           from pathlib import Path
           from PIL import Image
-          import json, re
+          import json
 
           repo = Path('.')
           source = Image.open(repo/'assets/brand-v2/assetlogorond.png').convert('RGBA')
           ios = repo/'mobile/ios'
 
-          # App icons: generate every filename declared by Xcode's asset catalog.
           for catalog in ios.rglob('AppIcon.appiconset/Contents.json'):
               data = json.loads(catalog.read_text())
               folder = catalog.parent
@@ -67,18 +68,13 @@ jobs:
                       px = max(1, round(float(size) * float(scale)))
                   except Exception:
                       px = 1024
-                  icon = source.resize((px, px), Image.Resampling.LANCZOS)
-                  icon.convert('RGB').save(folder/filename, 'PNG')
+                  source.resize((px, px), Image.Resampling.LANCZOS).convert('RGB').save(folder/filename, 'PNG')
 
-          # Capacitor currently uses a 1024 icon on modern iOS; ensure it exists even
-          # when Contents.json contains only a universal entry.
           for folder in ios.rglob('AppIcon.appiconset'):
               fallback = folder/'AppIcon-512@2x.png'
               if not fallback.exists():
                   source.resize((1024,1024), Image.Resampling.LANCZOS).convert('RGB').save(fallback,'PNG')
 
-          # Launch/splash assets: black background + official green/floral logo,
-          # centered and intentionally smaller so it never fills the screen.
           for catalog in ios.rglob('Splash.imageset/Contents.json'):
               data = json.loads(catalog.read_text())
               folder = catalog.parent
@@ -96,12 +92,6 @@ jobs:
                   mark.thumbnail((target,target),Image.Resampling.LANCZOS)
                   canvas.alpha_composite(mark,((w-mark.width)//2,(h-mark.height)//2))
                   canvas.convert('RGB').save(folder/filename,'PNG')
-
-          # iPhone + iPad: do not force portrait-only mode.
-          for plist in ios.rglob('Info.plist'):
-              text = plist.read_text()
-              text = text.replace('<string>UIInterfaceOrientationPortrait</string>\n', '')
-              plist.write_text(text)
           PY
 
       - name: Build unsigned simulator app
