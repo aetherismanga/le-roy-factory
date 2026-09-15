@@ -5,7 +5,7 @@
   const apple=document.createElement('meta');apple.name='apple-mobile-web-app-capable';apple.content='yes';document.head.appendChild(apple);
   const appleStatus=document.createElement('meta');appleStatus.name='apple-mobile-web-app-status-bar-style';appleStatus.content='black-translucent';document.head.appendChild(appleStatus);
   const appleTitle=document.createElement('meta');appleTitle.name='apple-mobile-web-app-title';appleTitle.content='Leroy Factory';document.head.appendChild(appleTitle);
-  const icon=document.createElement('link');icon.rel='apple-touch-icon';icon.href='/assets/img/logo03lrf.png';document.head.appendChild(icon);
+  const icon=document.createElement('link');icon.rel='apple-touch-icon';icon.href='/assets/img/logo03lrf.png?v=20260915-lrf-green-standard';document.head.appendChild(icon);
 
   if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js?v=20260903-logo-fix',{updateViaCache:'none'}).then(reg=>reg.update()).catch(console.warn));}
 

@@ -161,7 +161,7 @@ body.crm-body header.test-topbar {
   }
 }
 
-/* 4. Logo officiel unique : assetlogorond.png */
+/* 4. Logo officiel unique : assetlogorond.png?v=20260915-lrf-green-standard */
 .logo,
 .site-header a.logo,
 header a.logo {
@@ -176,7 +176,7 @@ header a.logo {
 .sidebar-brand img,
 .site-header a.logo > img,
 header a.logo > img {
-  content: url('../brand-v2/assetlogorond.png?v=20260901-official-big') !important;
+  content: url('../brand-v2/assetlogorond.png?v=20260915-lrf-green-standard') !important;
   object-fit: contain !important;
   border-radius: 0 !important;
   background: transparent !important;
