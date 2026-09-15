@@ -28,13 +28,20 @@ jobs:
           node-version: '22'
 
       - name: Setup Java
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '21'
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
+        with:
+          packages: platform-tools
+
+      - name: Install Android platform
+        run: |
+          yes | sdkmanager --licenses >/dev/null || true
+          sdkmanager "platform-tools" "platforms;android-36" "build-tools;36.0.0"
 
       - name: Restore stable Android signing key
         uses: actions/cache@v4
@@ -67,21 +74,60 @@ jobs:
         working-directory: mobile
         run: npm run cap:sync
 
-      - name: Apply official Android app icon
+      - name: Apply official LRF splash and launcher icon
         run: |
-          mkdir -p mobile/android/app/src/main/res/drawable-nodpi
-          cp assets/brand-v2/assetlogorond.png mobile/android/app/src/main/res/drawable-nodpi/lrf_icon.png
+          python -m pip install --quiet pillow
           python - <<'PY'
           from pathlib import Path
+          from PIL import Image
           import re
-          p=Path('mobile/android/app/src/main/AndroidManifest.xml')
-          s=p.read_text()
-          s=re.sub(r'android:icon="[^"]+"', 'android:icon="@drawable/lrf_icon"', s, count=1)
+
+          source = Path('assets/brand-v2/assetlogorond.png')
+          res = Path('mobile/android/app/src/main/res')
+          drawable = res / 'drawable-nodpi'
+          drawable.mkdir(parents=True, exist_ok=True)
+
+          logo = Image.open(source).convert('RGBA')
+          logo.save(drawable / 'lrf_launcher.png', optimize=True)
+
+          # Remplace toutes les images de splash générées par Capacitor.
+          for splash in res.rglob('splash.png'):
+              try:
+                  old = Image.open(splash)
+                  w, h = old.size
+                  canvas = Image.new('RGBA', (w, h), (11, 11, 11, 255))
+                  target = max(1, int(min(w, h) * 0.46))
+                  mark = logo.copy()
+                  mark.thumbnail((target, target), Image.Resampling.LANCZOS)
+                  x = (w - mark.width) // 2
+                  y = (h - mark.height) // 2
+                  canvas.alpha_composite(mark, (x, y))
+                  canvas.convert('RGB').save(splash, quality=95)
+              except Exception as exc:
+                  print(f'Warning splash {splash}: {exc}')
+
+          manifest = Path('mobile/android/app/src/main/AndroidManifest.xml')
+          s = manifest.read_text()
+          s = re.sub(r'android:icon="[^"]+"', 'android:icon="@drawable/lrf_launcher"', s, count=1)
           if 'android:roundIcon=' in s:
-              s=re.sub(r'android:roundIcon="[^"]+"', 'android:roundIcon="@drawable/lrf_icon"', s, count=1)
+              s = re.sub(r'android:roundIcon="[^"]+"', 'android:roundIcon="@drawable/lrf_launcher"', s, count=1)
           else:
-              s=s.replace('<application', '<application android:roundIcon="@drawable/lrf_icon"', 1)
-          p.write_text(s)
+              s = s.replace('<application', '<application android:roundIcon="@drawable/lrf_launcher"', 1)
+          manifest.write_text(s)
+
+          # Android 12+ : si Capacitor a créé les propriétés de splash système,
+          # on force le nouveau logo vert et le fond noir.
+          for styles in res.rglob('styles.xml'):
+              text = styles.read_text()
+              text = re.sub(
+                  r'(<item\s+name="(?:android:)?windowSplashScreenAnimatedIcon">).*?(</item>)',
+                  r'\1@drawable/lrf_launcher\2', text
+              )
+              text = re.sub(
+                  r'(<item\s+name="(?:android:)?windowSplashScreenBackground">).*?(</item>)',
+                  r'\1#0b0b0b\2', text
+              )
+              styles.write_text(text)
           PY
 
       - name: Set Android version
