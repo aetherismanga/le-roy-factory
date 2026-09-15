@@ -58,6 +58,7 @@ body.lrf-page-index .hero-logo-wrapper{
     height:58px!important;
     max-width:58px!important;
     max-height:58px!important;
+    padding:0!important;
     overflow:hidden!important;
   }
   body.lrf-premium-v2 .lrf-monogram-header,
@@ -73,36 +74,21 @@ body.lrf-page-index .hero-logo-wrapper{
     border-radius:50%!important;
     filter:drop-shadow(0 3px 6px rgba(0,0,0,.24))!important;
   }
-  body.lrf-page-index .hero-video-section{
-    height:calc(100svh - 84px)!important;
-  }
-  body.lrf-page-index .hero-logo{
-    width:min(390px,90vw)!important;
-    max-width:90vw!important;
-    max-height:none!important;
-  }
+  body.lrf-page-index .hero-video-section{height:calc(100svh - 84px)!important;}
+  body.lrf-page-index .hero-logo{width:min(390px,90vw)!important;max-width:90vw!important;max-height:none!important;}
 }
 
 @media(max-width:430px){
-  body.lrf-premium-v2 header .logo{
-    width:58px!important;
-    min-width:58px!important;
-    height:58px!important;
-    max-width:58px!important;
-    max-height:58px!important;
-  }
+  body.lrf-premium-v2 header .logo,
   body.lrf-premium-v2 .lrf-monogram-header,
   body.lrf-premium-v2 header .logo>img{
     width:58px!important;
-    height:58px!important;
     min-width:58px!important;
+    height:58px!important;
     min-height:58px!important;
     max-width:58px!important;
     max-height:58px!important;
     transform:none!important;
   }
-  body.lrf-page-index .hero-logo{
-    width:92vw!important;
-    max-width:92vw!important;
-  }
+  body.lrf-page-index .hero-logo{width:92vw!important;max-width:92vw!important;}
 }
