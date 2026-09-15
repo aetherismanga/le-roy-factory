@@ -1,5 +1,5 @@
-const CACHE='lrf-pwa-v12-brand-final-20260915';
-const BRAND_VERSION='20260915-brand-final4';
+const CACHE='lrf-pwa-v13-brand-final-20260915';
+const BRAND_VERSION='20260915-brand-final5';
 const CORE=['/','/index.html','/assets/brand-v2/assetlogorond.png?v=20260915-lrf-green-standard','/assets/img/logo03lrf.png?v=20260915-lrf-green-standard','/manifest.webmanifest'];
 
 self.addEventListener('install',event=>{
@@ -61,7 +61,22 @@ function brandPatchHtml(html){
   const bodyPatch=`
 <script id="lrf-mobile-logo-runtime-final">
 (function(){
-  function apply(){
+  var VERSION='${BRAND_VERSION}';
+  function ensureBrandHead(){
+    var head=document.head;if(!head)return;
+    var icon=head.querySelector('link[rel="icon"]');
+    if(!icon){icon=document.createElement('link');icon.rel='icon';icon.type='image/png';head.appendChild(icon);}
+    icon.href='/assets/img/logo03lrf.png?v='+VERSION;
+    var apple=head.querySelector('link[rel="apple-touch-icon"]');
+    if(!apple){apple=document.createElement('link');apple.rel='apple-touch-icon';head.appendChild(apple);}
+    apple.href='/assets/img/logo03lrf.png?v='+VERSION;
+    var manifests=head.querySelectorAll('link[rel="manifest"]');
+    var manifest=manifests[0];
+    if(!manifest){manifest=document.createElement('link');manifest.rel='manifest';head.appendChild(manifest);}
+    manifest.href='/manifest.webmanifest?v='+VERSION;
+    for(var i=1;i<manifests.length;i++)manifests[i].remove();
+  }
+  function applyLogo(){
     if(window.innerWidth>900)return;
     var body=document.body;
     if(!body||body.classList.contains('crm-body'))return;
@@ -78,14 +93,16 @@ function brandPatchHtml(html){
       img.style.setProperty('transform','none','important');
       img.style.setProperty('scale','1','important');
       img.style.setProperty('object-fit','contain','important');
-      img.src='/assets/brand-v2/assetlogorond.png?v=${BRAND_VERSION}';
+      img.style.setProperty('border-radius','50%','important');
+      img.src='/assets/brand-v2/assetlogorond.png?v='+VERSION;
     }
   }
+  function apply(){ensureBrandHead();applyLogo();}
   apply();
   document.addEventListener('DOMContentLoaded',apply,{once:true});
   window.addEventListener('resize',apply);
   new MutationObserver(apply).observe(document.documentElement,{childList:true,subtree:true,attributes:true});
-  setTimeout(apply,50);setTimeout(apply,300);setTimeout(apply,1000);
+  setTimeout(apply,50);setTimeout(apply,300);setTimeout(apply,1000);setTimeout(apply,2500);
 })();
 </script>`;
 
