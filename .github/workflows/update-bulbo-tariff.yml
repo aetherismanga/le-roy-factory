@@ -1,0 +1,44 @@
+name: Update BULBO private tariff
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/update-bulbo-tariff.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  update-bulbo-tariff:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_LE_ROY_FACTORY }}'
+
+      - name: Setup Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Download official BULBO tariff received 2026-09-15
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 3 --output /tmp/bulbo2026.pdf 'https://sdmntpreastus2.oaiusercontent.com/files/00000000-7d7c-81f6-bfd3-8f0549a7e238/raw?se=2026-09-15T09%3A01%3A37Z&sp=r&sv=2026-02-06&sr=b&scid=7d41fb19-31f5-5110-82f8-2df630f1a958&skoid=b5d2651b-fef3-4bb0-a03b-ca59cc22929b&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-14T20%3A16%3A59Z&ske=2026-09-15T20%3A16%3A59Z&sks=b&skv=2026-02-06&sig=lP8H/mPdTRqO39Jwlue/ep4DJ4VzvhnzXYLih0gI8bQ%3D'
+          test "$(head -c 4 /tmp/bulbo2026.pdf)" = '%PDF'
+          test "$(stat -c%s /tmp/bulbo2026.pdf)" -eq 487507
+          echo '808dcdc6d1c866f700dd332f8bf9fb1b101743462fd263de3fb7b9631bdde462  /tmp/bulbo2026.pdf' | sha256sum -c -
+
+      - name: Replace private BULBO tariff in Firebase Storage
+        shell: bash
+        run: |
+          set -euo pipefail
+          gsutil -h 'Content-Type:application/pdf' -h 'Cache-Control:private,no-store,max-age=0' cp /tmp/bulbo2026.pdf gs://le-roy-factory.firebasestorage.app/private-tariffs/bulbo/bulbo2026.pdf
+
+      - name: Verify uploaded object
+        shell: bash
+        run: |
+          set -euo pipefail
+          gsutil stat gs://le-roy-factory.firebasestorage.app/private-tariffs/bulbo/bulbo2026.pdf
