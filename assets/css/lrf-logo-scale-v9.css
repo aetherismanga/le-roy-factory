@@ -1,6 +1,6 @@
 /* LE ROY FACTORY — V9 logo sizing override */
 
-/* Logo rond du header desktop : rendu historique conservé uniquement pour les vrais écrans desktop. */
+/* Logo rond du header : x2 visuellement sur toutes les pages, sans pousser le menu. */
 body.lrf-premium-v2 header,
 body.lrf-premium-v2 header .nav-container,
 body.lrf-premium-v2 header .logo{
@@ -44,60 +44,47 @@ body.lrf-page-index .hero-logo-wrapper{
   margin-bottom:.35rem!important;
 }
 
-/* Smartphone + tablette, y compris iPhone/iPad en paysage et tablettes Android.
-   Même présence visuelle que l'espace agent, sans aucun zoom x2. */
-@media (max-width:1180px), (hover:none) and (pointer:coarse){
+@media(max-width:900px){
   body.lrf-premium-v2 header,
   body.lrf-premium-v2 header .nav-container{
     height:84px!important;
     min-height:84px!important;
   }
-  body.lrf-premium-v2 header .logo,
-  body.lrf-premium-v2 header a.logo{
-    width:58px!important;
-    min-width:58px!important;
-    max-width:58px!important;
-    height:58px!important;
-    min-height:58px!important;
-    max-height:58px!important;
-    padding:0!important;
-    margin-left:10px!important;
-    overflow:hidden!important;
-    transform:none!important;
+  body.lrf-premium-v2 header .logo{
+    width:76px!important;
+    min-width:76px!important;
+    height:76px!important;
   }
   body.lrf-premium-v2 .lrf-monogram-header,
-  body.lrf-premium-v2 header .logo>img,
-  body.lrf-premium-v2 header a.logo>img{
-    width:58px!important;
-    min-width:58px!important;
-    max-width:58px!important;
-    height:58px!important;
-    min-height:58px!important;
-    max-height:58px!important;
-    transform:none!important;
-    scale:1!important;
-    object-fit:contain!important;
-    border-radius:50%!important;
-    filter:drop-shadow(0 3px 6px rgba(0,0,0,.24))!important;
+  body.lrf-premium-v2 header .logo>img{
+    width:72px!important;
+    height:72px!important;
+    transform:scale(2)!important;
   }
-  body.lrf-page-index .hero-video-section{height:calc(100svh - 84px)!important;}
-  body.lrf-page-index .hero-logo{width:min(390px,90vw)!important;max-width:90vw!important;max-height:none!important;}
+  body.lrf-page-index .hero-video-section{
+    height:calc(100svh - 84px)!important;
+  }
+  body.lrf-page-index .hero-logo{
+    width:min(390px,90vw)!important;
+    max-width:90vw!important;
+    max-height:none!important;
+  }
 }
 
 @media(max-width:430px){
-  body.lrf-premium-v2 header .logo,
-  body.lrf-premium-v2 header a.logo,
-  body.lrf-premium-v2 .lrf-monogram-header,
-  body.lrf-premium-v2 header .logo>img,
-  body.lrf-premium-v2 header a.logo>img{
-    width:58px!important;
-    min-width:58px!important;
-    max-width:58px!important;
-    height:58px!important;
-    min-height:58px!important;
-    max-height:58px!important;
-    transform:none!important;
-    scale:1!important;
+  body.lrf-premium-v2 header .logo{
+    width:74px!important;
+    min-width:74px!important;
+    height:74px!important;
   }
-  body.lrf-page-index .hero-logo{width:92vw!important;max-width:92vw!important;}
+  body.lrf-premium-v2 .lrf-monogram-header,
+  body.lrf-premium-v2 header .logo>img{
+    width:70px!important;
+    height:70px!important;
+    transform:scale(2)!important;
+  }
+  body.lrf-page-index .hero-logo{
+    width:92vw!important;
+    max-width:92vw!important;
+  }
 }
