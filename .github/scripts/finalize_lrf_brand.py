@@ -3,7 +3,7 @@ from PIL import Image
 import json
 import re
 
-VERSION = '20260915-brand-final3'
+VERSION = '20260915-brand-final6'
 ROOT = Path('.')
 OFFICIAL_REL = f'assets/brand-v2/assetlogorond.png?v={VERSION}'
 OFFICIAL_ABS = f'/assets/brand-v2/assetlogorond.png?v={VERSION}'
@@ -35,66 +35,76 @@ s = re.sub(r"assets/js/premium-public-theme\.js\?v=[^'\"]+", f"assets/js/premium
 s = re.sub(r"assets/js/pwa-install\.js\?v=[^'\"]+", f"assets/js/pwa-install.js?v={VERSION}", s)
 p.write_text(s, encoding='utf-8')
 
-# 4) PWA bootstrap: fresh manifest, icon and service worker.
+# 4) PWA bootstrap: fresh manifest/icon/service-worker references.
 p = ROOT / 'assets/js/pwa-install.js'
 s = p.read_text(encoding='utf-8')
-s = re.sub(r"/manifest\.webmanifest\?v=[^'\"]+", f"/manifest.webmanifest?v={VERSION}", s)
-s = re.sub(r"icon\.href='[^']+'", f"icon.href='/apple-touch-icon.png?v={VERSION}'", s)
-s = re.sub(r"/sw\.js\?v=[^'\"]+", f"/sw.js?v={VERSION}", s)
+s = re.sub(r"const VERSION='[^']+';", f"const VERSION='{VERSION}';", s, count=1)
+s = re.sub(r"/manifest\.webmanifest\?v=[^'\"+]+", f"/manifest.webmanifest?v={VERSION}", s)
+s = re.sub(r"/sw\.js\?v=[^'\"+]+", f"/sw.js?v={VERSION}", s)
 p.write_text(s, encoding='utf-8')
 
-# 5) Mobile sizing: keep site public logo exactly 58x58 with no transform.
+# 5) Phone + tablet sizing: 58x58, no transform, including iPad landscape and coarse-pointer tablets.
 p = ROOT / 'assets/css/lrf-logo-scale-v9.css'
 s = p.read_text(encoding='utf-8')
-# Replace the full mobile section defensively.
-mobile = f'''@media(max-width:900px){{
+mobile = '''@media (max-width:1180px), (hover:none) and (pointer:coarse){
   body.lrf-premium-v2 header,
-  body.lrf-premium-v2 header .nav-container{{
+  body.lrf-premium-v2 header .nav-container{
     height:84px!important;
     min-height:84px!important;
-  }}
-  body.lrf-premium-v2 header .logo{{
+  }
+  body.lrf-premium-v2 header .logo,
+  body.lrf-premium-v2 header a.logo{
     width:58px!important;
     min-width:58px!important;
-    height:58px!important;
     max-width:58px!important;
+    height:58px!important;
+    min-height:58px!important;
     max-height:58px!important;
     padding:0!important;
+    margin-left:10px!important;
     overflow:hidden!important;
-  }}
+    transform:none!important;
+  }
   body.lrf-premium-v2 .lrf-monogram-header,
-  body.lrf-premium-v2 header .logo>img{{
+  body.lrf-premium-v2 header .logo>img,
+  body.lrf-premium-v2 header a.logo>img{
     width:58px!important;
-    height:58px!important;
     min-width:58px!important;
-    min-height:58px!important;
     max-width:58px!important;
+    height:58px!important;
+    min-height:58px!important;
     max-height:58px!important;
     transform:none!important;
+    scale:1!important;
     object-fit:contain!important;
     border-radius:50%!important;
     filter:drop-shadow(0 3px 6px rgba(0,0,0,.24))!important;
-  }}
-  body.lrf-page-index .hero-video-section{{height:calc(100svh - 84px)!important;}}
-  body.lrf-page-index .hero-logo{{width:min(390px,90vw)!important;max-width:90vw!important;max-height:none!important;}}
-}}
+  }
+  body.lrf-page-index .hero-video-section{height:calc(100svh - 84px)!important;}
+  body.lrf-page-index .hero-logo{width:min(390px,90vw)!important;max-width:90vw!important;max-height:none!important;}
+}
 
-@media(max-width:430px){{
+@media(max-width:430px){
   body.lrf-premium-v2 header .logo,
+  body.lrf-premium-v2 header a.logo,
   body.lrf-premium-v2 .lrf-monogram-header,
-  body.lrf-premium-v2 header .logo>img{{
+  body.lrf-premium-v2 header .logo>img,
+  body.lrf-premium-v2 header a.logo>img{
     width:58px!important;
     min-width:58px!important;
+    max-width:58px!important;
     height:58px!important;
     min-height:58px!important;
-    max-width:58px!important;
     max-height:58px!important;
     transform:none!important;
-  }}
-  body.lrf-page-index .hero-logo{{width:92vw!important;max-width:92vw!important;}}
-}}
+    scale:1!important;
+  }
+  body.lrf-page-index .hero-logo{width:92vw!important;max-width:92vw!important;}
+}
 '''
-s = re.sub(r"@media\(max-width:900px\)\{.*\Z", mobile, s, flags=re.S)
+s = re.sub(r"@media\s*\(max-width:1180px\),\s*\(hover:none\)\s*and\s*\(pointer:coarse\)\{.*\Z", mobile, s, flags=re.S)
+if s == p.read_text(encoding='utf-8'):
+    s = re.sub(r"@media\(max-width:900px\)\{.*\Z", mobile, s, flags=re.S)
 p.write_text(s, encoding='utf-8')
 
 p = ROOT / 'assets/css/mobile-enhancements.css'
@@ -103,14 +113,13 @@ s = re.sub(r"body:not\(\.crm-body\) header \.logo>div\{width:\d+px!important;hei
            "body:not(.crm-body) header .logo>div{width:58px!important;height:58px!important}", s)
 p.write_text(s, encoding='utf-8')
 
-# 6) Every root HTML page: cache-bust the controlling JS and use official icon metadata.
+# 6) Every root HTML page: fresh controlling JS + Apple/PWA metadata.
 for p in ROOT.glob('*.html'):
     s = p.read_text(encoding='utf-8')
     s = re.sub(r"assets/js/premium-public-theme\.js\?v=[^\"']+", f"assets/js/premium-public-theme.js?v={VERSION}", s)
     s = re.sub(r"assets/js/app\.js\?v=[^\"']+", f"assets/js/app.js?v={VERSION}", s)
     s = re.sub(r"assets/brand-v2/logoLRF\.png\?v=[^\"']+", OFFICIAL_REL, s)
     s = re.sub(r"assets/brand-v2/assetlogorond\.png\?v=[^\"']+", OFFICIAL_REL, s)
-    # Existing icon tags -> official icon.
     s = re.sub(r'(<link[^>]*rel=["\']icon["\'][^>]*href=["\'])[^"\']+(["\'][^>]*>)',
                rf'\1/assets/icons/lrf-192.png?v={VERSION}\2', s, flags=re.I)
     s = re.sub(r'(<link[^>]*href=["\'])[^"\']+(["\'][^>]*rel=["\']icon["\'][^>]*>)',
@@ -120,62 +129,44 @@ for p in ROOT.glob('*.html'):
         extras.append(f'<link rel="apple-touch-icon" href="/apple-touch-icon.png?v={VERSION}">')
     if 'rel="manifest"' not in s and "rel='manifest'" not in s:
         extras.append(f'<link rel="manifest" href="/manifest.webmanifest?v={VERSION}">')
+    if 'apple-mobile-web-app-capable' not in s:
+        extras.append('<meta name="apple-mobile-web-app-capable" content="yes">')
+    if 'apple-mobile-web-app-status-bar-style' not in s:
+        extras.append('<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">')
+    if 'apple-mobile-web-app-title' not in s:
+        extras.append('<meta name="apple-mobile-web-app-title" content="LE ROY FACTORY">')
     if extras and '</head>' in s:
         s = s.replace('</head>', '  ' + '\n  '.join(extras) + '\n</head>', 1)
     p.write_text(s, encoding='utf-8')
 
-# 7) Manifest uses dedicated fresh icon files.
+# 7) Manifest for phone + tablet, portrait or landscape.
 manifest = {
     'name': 'LE ROY FACTORY',
-    'short_name': 'Leroy Factory',
+    'short_name': 'LRF',
     'description': "L'application LE ROY FACTORY pour accéder au site, aux partenaires, aux tarifs PRO et à l'espace agent.",
-    'start_url': '/index.html?source=pwa',
+    'start_url': f'/index.html?source=pwa&v={VERSION}',
     'scope': '/',
     'display': 'standalone',
-    'display_override': ['window-controls-overlay', 'standalone'],
+    'display_override': ['standalone', 'minimal-ui'],
     'background_color': '#0b0b0b',
     'theme_color': '#0b0b0b',
-    'orientation': 'portrait-primary',
+    'orientation': 'any',
     'lang': 'fr-FR',
     'icons': [
         {'src': f'/assets/icons/lrf-192.png?v={VERSION}', 'sizes': '192x192', 'type': 'image/png', 'purpose': 'any'},
-        {'src': f'/assets/icons/lrf-512.png?v={VERSION}', 'sizes': '512x512', 'type': 'image/png', 'purpose': 'any maskable'}
+        {'src': f'/assets/icons/lrf-512.png?v={VERSION}', 'sizes': '512x512', 'type': 'image/png', 'purpose': 'any'},
+        {'src': f'/assets/icons/lrf-512.png?v={VERSION}', 'sizes': '512x512', 'type': 'image/png', 'purpose': 'maskable'}
     ]
 }
 (ROOT / 'manifest.webmanifest').write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
 
-# 8) Service worker fresh cache.
+# 8) Service worker: only update cache version/references; keep the simplified network-first logic.
 p = ROOT / 'sw.js'
 s = p.read_text(encoding='utf-8')
 s = re.sub(r"const CACHE='[^']+';", f"const CACHE='lrf-pwa-{VERSION}';", s, count=1)
-s = re.sub(r"const CORE=\[[^;]+;", f"const CORE=['/','/index.html','/assets/icons/lrf-192.png?v={VERSION}','/assets/icons/lrf-512.png?v={VERSION}','/apple-touch-icon.png?v={VERSION}'];", s, count=1)
+s = re.sub(r"'/assets/icons/lrf-192\.png\?v=[^']+'", f"'/assets/icons/lrf-192.png?v={VERSION}'", s)
+s = re.sub(r"'/assets/icons/lrf-512\.png\?v=[^']+'", f"'/assets/icons/lrf-512.png?v={VERSION}'", s)
+s = re.sub(r"'/apple-touch-icon\.png\?v=[^']+'", f"'/apple-touch-icon.png?v={VERSION}'", s)
 p.write_text(s, encoding='utf-8')
 
-# 9) Future native Android APKs: apply same logo as launcher icon after Capacitor sync.
-p = ROOT / '.github/workflows/build-android-apk.yml'
-s = p.read_text(encoding='utf-8')
-if 'Apply official Android app icon' not in s:
-    marker = '      - name: Set Android version\n'
-    step = '''      - name: Apply official Android app icon
-        run: |
-          mkdir -p mobile/android/app/src/main/res/drawable-nodpi
-          cp assets/brand-v2/assetlogorond.png mobile/android/app/src/main/res/drawable-nodpi/lrf_icon.png
-          python - <<'PYICON'
-          from pathlib import Path
-          import re
-          p=Path('mobile/android/app/src/main/AndroidManifest.xml')
-          s=p.read_text()
-          s=re.sub(r'android:icon="[^"]+"', 'android:icon="@drawable/lrf_icon"', s, count=1)
-          if 'android:roundIcon=' in s:
-              s=re.sub(r'android:roundIcon="[^"]+"', 'android:roundIcon="@drawable/lrf_icon"', s, count=1)
-          else:
-              s=s.replace('<application', '<application android:roundIcon="@drawable/lrf_icon"', 1)
-          p.write_text(s)
-          PYICON
-
-'''
-    if marker in s:
-        s = s.replace(marker, step + marker, 1)
-p.write_text(s, encoding='utf-8')
-
-print('LRF final brand applied')
+print('LRF final phone/tablet/iOS brand applied')
