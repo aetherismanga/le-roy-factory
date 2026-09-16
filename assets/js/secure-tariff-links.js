@@ -24,6 +24,7 @@
     ['assets/pdf/randal03.pdf','randal'],
     ['assets/pdf/neobathanima.pdf','neobath-anima'],
     ['assets/pdf/neobathdna.pdf','neobath-dna-pdf'],
+    ['tarif-neobath-dna.html','neobath-dna-pdf'],
     ['assets/pdf/aquahome.pdf','aquahome'],
     ['assets/pdf/bilt.pdf','bilt'],
     ['assets/pdf/uptrend2026.pdf','uptrend-2026']
