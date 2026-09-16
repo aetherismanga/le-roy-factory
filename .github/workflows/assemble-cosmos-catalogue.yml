@@ -1,0 +1,90 @@
+name: Assemble COSMOS catalogue
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/assemble-cosmos-catalogue.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  assemble:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Assemble PDF from staged base64 chunks
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import base64, re, sys
+
+          root = Path('tmp/cosmos_upload')
+          files = list(root.glob('*.b64'))
+          if not files:
+              raise SystemExit('No staged COSMOS chunks found')
+
+          def natural_key(p):
+              return [int(x) if x.isdigit() else x.lower() for x in re.split(r'(\d+)', p.name)]
+
+          files.sort(key=natural_key)
+          print('Chunk order:')
+          for p in files:
+              print(' -', p.name, p.stat().st_size)
+
+          joined = ''.join(''.join(p.read_text(encoding='utf-8').split()) for p in files)
+          try:
+              data = base64.b64decode(joined, validate=True)
+          except Exception as e:
+              raise SystemExit(f'Invalid base64 assembly: {e}')
+
+          if not data.startswith(b'%PDF-'):
+              raise SystemExit('Assembled file does not start with %PDF-')
+          if b'%%EOF' not in data[-2048:]:
+              raise SystemExit('Assembled file has no PDF EOF marker')
+          if len(data) < 100_000:
+              raise SystemExit(f'Assembled PDF unexpectedly small: {len(data)} bytes')
+
+          out = Path('assets/pdf/CIELO-MOLLE-COSMOS-Sans-tarif-BD.pdf')
+          out.parent.mkdir(parents=True, exist_ok=True)
+          out.write_bytes(data)
+          print('PDF written:', out, len(data), 'bytes')
+          PY
+
+      - name: Add catalogue link under Reitano
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('catalogues.html')
+          s = p.read_text(encoding='utf-8')
+          marker = "          { titre:'Catalogue Accessoires 2026', desc:'Accessoires et compléments Reitano pour la salle de bain.', lien:'assets/pdf/REITANO-Accessoire-2026-Catalogue.pdf' }"
+          addition = marker + ",\n          { titre:'CIELO • MOLLE • COSMOS', desc:'Catalogue des ciels de douche COSMOS avec système SpringFix — version sans tarif.', lien:'assets/pdf/CIELO-MOLLE-COSMOS-Sans-tarif-BD.pdf' }"
+          if 'CIELO-MOLLE-COSMOS-Sans-tarif-BD.pdf' not in s:
+              if marker not in s:
+                  raise SystemExit('Reitano catalogue marker not found in catalogues.html')
+              s = s.replace(marker, addition, 1)
+              p.write_text(s, encoding='utf-8')
+          PY
+
+      - name: Commit PDF and catalogue entry
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/pdf/CIELO-MOLLE-COSMOS-Sans-tarif-BD.pdf catalogues.html
+          git rm -r --ignore-unmatch tmp/cosmos_upload
+          if git diff --cached --quiet; then
+            echo "Nothing to commit"
+            exit 0
+          fi
+          git commit -m "feat: add CIELO MOLLE COSMOS catalogue to Reitano"
+          git push origin HEAD:main
