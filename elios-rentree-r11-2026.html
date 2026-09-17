@@ -76,7 +76,7 @@
 <script src="assets/js/pro-session-bridge.js?v=20260903-admin1"></script>
 <script>
 const PREFILL_URL='https://getaccountclientprefill-5m3lsyu7bq-uc.a.run.app';
-const PROMO_PRICE='9,80 € / m²';
+const PROMO_PRICE='8,00 € / m²';
 const PALETTE='61,92 m²';
 const lots=[
 {id:'03F3161',series:'SLATE',name:'RIVER · R11',ref:'03F3161',format:'30,5×60,5',qty:'1 001,04 m²',price:PROMO_PRICE,url:'univers-elios-preview.html',palette:PALETTE},
@@ -93,7 +93,7 @@ const norm=v=>String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u03
 const esc=v=>String(v||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const body=document.getElementById('lots-body');
 function render(){
-  document.querySelectorAll('.price-promo').forEach(el=>{el.textContent=pricesVisible?'9,80 €':'🔒 Masqué'});
+  document.querySelectorAll('.price-promo').forEach(el=>{el.textContent=pricesVisible?'8,00 €':'🔒 Masqué'});
   body.innerHTML=lots.map(l=>`<tr data-id="${l.id}"><td><input class="check lot-check" type="checkbox" aria-label="Sélectionner ${esc(l.series+' '+l.name)}"></td><td class="product"><strong>${esc(l.series)} ${esc(l.name)} <span class="collection-tag">1ER CHOIX</span></strong><span>Réf. Elios : ${esc(l.ref)}</span></td><td class="format">${esc(l.format)}</td><td class="qty">${esc(l.qty)}</td><td class="palette">${esc(l.palette)}<span class="palette-detail">48 boîtes · palette complète uniquement</span></td><td class="price">${pricesVisible?`<span class="value">${esc(l.price)} HT</span>`:'<span class="locked">🔒 Masqué</span>'}</td><td><a class="btn link-btn" href="${l.url}" target="_blank" rel="noopener">Voir ELIOS</a></td></tr>`).join('');
   document.querySelectorAll('.lot-check').forEach(c=>c.addEventListener('change',updateSelection));updateSelection();
 }
@@ -122,7 +122,7 @@ function openMailClient(href){
 }
 document.getElementById('login-btn').addEventListener('click',authenticate);document.querySelectorAll('#client-code,#client-dep').forEach(i=>i.addEventListener('keydown',e=>{if(e.key==='Enter')authenticate()}));
 document.getElementById('select-all').addEventListener('click',()=>{document.querySelectorAll('.lot-check').forEach(c=>c.checked=true);updateSelection()});document.getElementById('clear-all').addEventListener('click',()=>{document.querySelectorAll('.lot-check').forEach(c=>c.checked=false);updateSelection()});document.getElementById('clear-bottom').addEventListener('click',()=>{document.querySelectorAll('.lot-check').forEach(c=>c.checked=false);updateSelection();scrollTo({top:document.querySelector('.section-head').offsetTop-90,behavior:'smooth'})});
-document.getElementById('request-btn').addEventListener('click',()=>{const selected=selectedLots();if(!selected.length)return;const who=currentClient?.isAdmin?`${currentClient.name||currentClient.email||'Administrateur'} — Administrateur LE ROY FACTORY`:currentClient?`${currentClient.societe||'Client professionnel'} — ${currentClient.codeClient} — département ${currentClient.departement}`:'Client non identifié sur la page';const lines=selected.map((l,i)=>`${i+1}. ${l.ref} — ${l.series} ${l.name} — ${l.format} — stock annoncé : ${l.qty} — palette : ${l.palette} (48 boîtes)`).join('\n');const subject=encodeURIComponent(`Demande disponibilité ELIOS — Promo rentrée — ${selected.length} lot${selected.length>1?'s':''}`);const mailBody=encodeURIComponent(`Bonjour Coryne, bonjour Jérôme,\n\nJe souhaite connaître la disponibilité des lots ELIOS suivants :\n\n${lines}\n\nCondition : palettes complètes uniquement.\n${pricesVisible?'Tarif promo affiché : 9,80 € HT / m².\n':''}\nClient : ${who}\n\nMerci.\nCordialement`);openMailClient(`mailto:coryne@leroyfactory.fr,jerome@leroyfactory.fr?subject=${subject}&body=${mailBody}`)});
+document.getElementById('request-btn').addEventListener('click',()=>{const selected=selectedLots();if(!selected.length)return;const who=currentClient?.isAdmin?`${currentClient.name||currentClient.email||'Administrateur'} — Administrateur LE ROY FACTORY`:currentClient?`${currentClient.societe||'Client professionnel'} — ${currentClient.codeClient} — département ${currentClient.departement}`:'Client non identifié sur la page';const lines=selected.map((l,i)=>`${i+1}. ${l.ref} — ${l.series} ${l.name} — ${l.format} — stock annoncé : ${l.qty} — palette : ${l.palette} (48 boîtes)`).join('\n');const subject=encodeURIComponent(`Demande disponibilité ELIOS — Promo rentrée — ${selected.length} lot${selected.length>1?'s':''}`);const mailBody=encodeURIComponent(`Bonjour Coryne, bonjour Jérôme,\n\nJe souhaite connaître la disponibilité des lots ELIOS suivants :\n\n${lines}\n\nCondition : palettes complètes uniquement.\n${pricesVisible?'Tarif promo affiché : 8,00 € HT / m².\n':''}\nClient : ${who}\n\nMerci.\nCordialement`);openMailClient(`mailto:coryne@leroyfactory.fr,jerome@leroyfactory.fr?subject=${subject}&body=${mailBody}`)});
 const burger=document.getElementById('burger'),nav=document.getElementById('nav');burger.addEventListener('click',()=>{const open=nav.classList.toggle('mobile-open');burger.setAttribute('aria-expanded',String(open))});window.addEventListener('lrf-pro-session-changed',applySharedProSession);render();applySharedProSession();
 </script>
 </body>
