@@ -83,8 +83,8 @@
     const style = document.createElement('style');
     style.id = 'lrf-product-lexicon-style';
     style.textContent = `
-      .lrf-lexicon-btn{min-height:46px;padding:0 18px;border:1px solid #c9a438;border-radius:12px;background:#151515;color:#ffd632;font-weight:900;cursor:pointer;white-space:nowrap;box-shadow:0 5px 14px rgba(0,0,0,.08)}
-      .lrf-lexicon-btn:hover{background:#222}
+      .lrf-lexicon-btn{min-height:46px;padding:0 18px;border:1px solid #8fa892;border-radius:12px;background:linear-gradient(135deg,#b8c9b8,#a8bda9);color:#243126;font-weight:900;cursor:pointer;white-space:nowrap;box-shadow:0 5px 14px rgba(72,101,77,.12)}
+      .lrf-lexicon-btn:hover{background:linear-gradient(135deg,#c5d4c4,#b3c6b4);color:#1d2a20}
       .lrf-lexicon-overlay{position:fixed;inset:0;z-index:99999;background:rgba(12,12,12,.55);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:18px}
       .lrf-lexicon-overlay.open{display:flex}
       .lrf-lexicon-card{width:min(720px,100%);max-height:min(78vh,760px);display:flex;flex-direction:column;background:#fff;border-radius:22px;border:1px solid #e0d5bf;box-shadow:0 22px 70px rgba(0,0,0,.3);overflow:hidden}
