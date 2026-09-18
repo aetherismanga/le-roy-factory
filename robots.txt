@@ -41,3 +41,4 @@ Disallow: /confidentialite-ma-station.html
 Sitemap: https://leroyfactory.fr/sitemap.xml
 
 Disallow: /promo-cersaie.html
+Disallow: /promo-fenice-participation.html
