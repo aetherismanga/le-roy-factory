@@ -1,0 +1,57 @@
+name: Build La Fenice general web PDF
+on:
+  push:
+    paths:
+      - '.github/workflows/build-fenice-general-web.yml'
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Download official general catalogue
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -L --fail --retry 3 -A 'Mozilla/5.0'             'https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf'             -o /tmp/fenice-general.pdf
+          test "$(head -c 4 /tmp/fenice-general.pdf)" = '%PDF'
+          echo "Source size: $(stat -c%s /tmp/fenice-general.pdf)"
+      - name: Optimize for web without rasterizing text
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p assets/pdf
+          out='assets/pdf/LA_FENICE_GENERAL_2026_2027_WEB.pdf'
+          build_pdf () {
+            dpi="$1"; quality="$2"
+            rm -f "$out"
+            gs -q -dNOPAUSE -dBATCH -dSAFER               -sDEVICE=pdfwrite               -dCompatibilityLevel=1.6               -dDetectDuplicateImages=true               -dCompressFonts=true               -dSubsetFonts=true               -dDownsampleColorImages=true               -dColorImageDownsampleType=/Bicubic               -dColorImageResolution="$dpi"               -dDownsampleGrayImages=true               -dGrayImageDownsampleType=/Bicubic               -dGrayImageResolution="$dpi"               -dMonoImageResolution=300               -dAutoFilterColorImages=false               -dColorImageFilter=/DCTEncode               -dJPEGQ="$quality"               -sOutputFile="$out" /tmp/fenice-general.pdf
+          }
+          build_pdf 180 90
+          size=$(stat -c%s "$out")
+          echo "180dpi size: $size"
+          if [ "$size" -ge 95000000 ]; then
+            build_pdf 160 88
+            size=$(stat -c%s "$out")
+            echo "160dpi size: $size"
+          fi
+          if [ "$size" -ge 95000000 ]; then
+            build_pdf 145 86
+            size=$(stat -c%s "$out")
+            echo "145dpi size: $size"
+          fi
+          test "$size" -lt 95000000
+          test "$(head -c 4 "$out")" = '%PDF'
+          echo "Final size: $size"
+      - name: Commit web PDF
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/pdf/LA_FENICE_GENERAL_2026_2027_WEB.pdf
+          git commit -m 'Add optimized La Fenice general 2026-2027 catalogue'
+          git push
