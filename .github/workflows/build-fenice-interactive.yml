@@ -1,0 +1,177 @@
+name: Build La Fenice interactive catalogue
+
+on:
+  push:
+    paths:
+      - '.github/workflows/build-fenice-interactive.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install PyMuPDF
+        run: python -m pip install --disable-pip-version-check pymupdf
+
+      - name: Build premium interactive PDF
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import fitz
+          from pathlib import Path
+
+          src = Path('assets/pdf/LA_FENICE_CERSAIE_2026.pdf')
+          out = Path('assets/pdf/LA_FENICE_CERSAIE_2026_INTERACTIF.pdf')
+          doc = fitz.open(src)
+
+          dest = {
+              'Allure': 3,
+              'Aspen': 13,
+              'City Loft': 25,
+              'Heritage': 41,
+              'Oykos': 53,
+              'Oykos Fossil': 55,
+          }
+
+          doc.set_toc([
+              [1, 'Sommaire', 2],
+              [2, 'Index des collections', 2],
+              [2, 'Index des formats', 3],
+              [1, 'Allure', 4],
+              [1, 'Aspen', 14],
+              [1, 'City Loft', 26],
+              [1, 'Heritage', 42],
+              [1, 'Oykos', 54],
+              [1, 'Oykos Fossil', 56],
+          ])
+
+          try:
+              doc.set_pagemode('UseOutlines')
+          except Exception:
+              pass
+
+          meta = doc.metadata or {}
+          meta.update({
+              'title': 'La Fenice - Cersaie 2026 - Catalogue interactif',
+              'author': 'La Fenice / Le Roy Factory',
+              'subject': 'Catalogue Cersaie 2026 interactif optimise PC et smartphone',
+              'keywords': 'La Fenice, Cersaie 2026, carrelage, catalogue interactif, Le Roy Factory',
+          })
+          doc.set_metadata(meta)
+
+          def padded(r, xpad=5, ypad=3):
+              return fitz.Rect(r.x0-xpad, r.y0-ypad, r.x1+xpad, r.y1+ypad)
+
+          def goto(page, rect, target):
+              page.insert_link({'kind': fitz.LINK_GOTO, 'from': rect, 'page': target, 'zoom': 0})
+
+          cover = doc[0]
+          cover_hits = cover.search_for('Cersaie/26') + cover.search_for('Novità')
+          if cover_hits:
+              r = cover_hits[0]
+              for rr in cover_hits[1:]:
+                  r |= rr
+              goto(cover, padded(r, 20, 12), 1)
+          else:
+              goto(cover, fitz.Rect(40, 40, cover.rect.width-40, cover.rect.height*0.35), 1)
+
+          p2 = doc[1]
+          fossil_rects = p2.search_for('Oykos Fossil')
+          for term, target in dest.items():
+              rects = p2.search_for(term)
+              if term == 'Oykos':
+                  rects = [r for r in rects if not any(abs(r.y0-fr.y0)<1.5 and r.x0>=fr.x0 and r.x1<=fr.x1 for fr in fossil_rects)]
+              for r in rects:
+                  goto(p2, padded(r, 12, 4), target)
+          for num, target in {'02':3,'12':13,'24':25,'40':41,'52':53,'54':55}.items():
+              for r in p2.search_for(num):
+                  goto(p2, padded(r, 8, 4), target)
+
+          p3 = doc[2]
+          fossil_rects = p3.search_for('Oykos Fossil')
+          for term, target in dest.items():
+              rects = p3.search_for(term)
+              if term == 'Oykos':
+                  rects = [r for r in rects if not any(abs(r.y0-fr.y0)<1.5 and r.x0>=fr.x0 and r.x1<=fr.x1 for fr in fossil_rects)]
+              for r in rects:
+                  goto(p3, padded(r, 12, 4), target)
+          for num, target in {'02':3,'12':13,'24':25,'40':41,'52':53,'54':55}.items():
+              for r in p3.search_for(num):
+                  if 300 < r.y0 < 730 and r.x0 > 100:
+                      goto(p3, padded(r, 8, 3), target)
+
+          for i in range(3, doc.page_count):
+              page = doc[i]
+              words = page.get_text('words')
+              candidates = []
+              for w in words:
+                  x0,y0,x1,y1,text,*_ = w
+                  t = str(text).strip()
+                  if t.isdigit() and y0 > page.rect.height*0.84 and len(t) <= 3:
+                      candidates.append((y0, x0, fitz.Rect(x0,y0,x1,y1)))
+              if candidates:
+                  candidates.sort(key=lambda a:(a[0], min(a[1], page.rect.width-a[1])), reverse=True)
+                  goto(page, padded(candidates[0][2], 18, 8), 1)
+
+          doc.save(
+              out,
+              garbage=4,
+              clean=1,
+              deflate=1,
+              deflate_images=0,
+              deflate_fonts=1,
+              use_objstms=1,
+              compression_effort=100,
+          )
+          doc.close()
+
+          check = fitz.open(out)
+          total_links = sum(len(check[i].get_links()) for i in range(check.page_count))
+          size = out.stat().st_size
+          assert check.page_count == 68
+          assert len(check.get_toc()) >= 9
+          assert total_links >= 100
+          assert size < 25_000_000
+          print(f'Built {out} - {size} bytes - {total_links} links')
+          check.close()
+          PY
+
+      - name: Point catalogue page to interactive PDF
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('catalogues.html')
+          s=p.read_text(encoding='utf-8')
+          old="lien:'assets/pdf/LA_FENICE_CERSAIE_2026.pdf'"
+          new="lien:'assets/pdf/LA_FENICE_CERSAIE_2026_INTERACTIF.pdf'"
+          if new not in s:
+              if old not in s:
+                  raise SystemExit('Lien La Fenice attendu introuvable')
+              s=s.replace(old,new,1)
+          s=s.replace(
+              "desc:'Nouveau catalogue La Fenice présenté au Cersaie 2026.'",
+              "desc:'Catalogue La Fenice Cersaie 2026 interactif - index cliquable, navigation optimisée PC et smartphone.'",
+              1
+          )
+          p.write_text(s,encoding='utf-8')
+          PY
+
+      - name: Commit interactive catalogue
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/pdf/LA_FENICE_CERSAIE_2026_INTERACTIF.pdf catalogues.html
+          git commit -m 'Publish premium interactive La Fenice Cersaie 2026 catalogue'
+          git push
