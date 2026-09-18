@@ -1,0 +1,14 @@
+name: Check La Fenice PDF delivery
+on:
+  push:
+    paths:
+      - '.github/workflows/check-fenice-pdf-delivery.yml'
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check official PDF headers
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -sSIL -A 'Mozilla/5.0' 'https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf' | sed -n '1,80p'
