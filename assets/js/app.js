@@ -2,7 +2,7 @@
     if(document.getElementById('lrf-pwa-install-loader')) return;
     const script=document.createElement('script');
     script.id='lrf-pwa-install-loader';
-    script.src='assets/js/pwa-install.js?v=20260914-reitano1';
+    script.src='assets/js/pwa-install.js?v=20260918-crm-floral-1';
     script.defer=true;
     document.head.appendChild(script);
 })();

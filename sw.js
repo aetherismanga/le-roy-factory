@@ -1,5 +1,5 @@
-const CACHE='lrf-pwa-v9-auth-android-icon';
-const CORE=['/','/index.html','/assets/brand-v2/assetlogorond.png'];
+const CACHE='lrf-pwa-v12-crm-floral-20260918';
+const CORE=['/','/index.html','/assets/brand-v2/lrf-logo-officiel-2026.png?v=20260918-crm-floral-1'];
 
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).catch(()=>{}));
@@ -41,6 +41,12 @@ self.addEventListener('fetch',event=>{
   }
 
   if(['script','style','worker'].includes(event.request.destination)){
+    event.respondWith(networkFirst(event.request));
+    return;
+  }
+
+  // Logos LRF : toujours vérifier le réseau pour éviter tout retour d'un ancien visuel.
+  if(url.pathname.includes('logo03lrf') || url.pathname.includes('assetlogorond') || url.pathname.includes('lrf-logo-officiel-2026')){
     event.respondWith(networkFirst(event.request));
     return;
   }
