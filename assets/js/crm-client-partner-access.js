@@ -9,7 +9,7 @@ if (!window.__LRF_CLIENT_PARTNER_ACCESS__) {
     'reviglass':['Reviglass','reviglass.png'], 'biopietra':['Biopietra','biopietra.png'], 'petracers':["Petracer's",'petracer.png'],
     'pecchioli-firenze':['Pecchioli Firenze','pecchioli.png'], 'bulbo':['Bulbo','bulbo.png'], 'randal-pro':['Randal Pro','randal.png'],
     'neobath':['Neobath','neobath.png'], 'koibath':['Koibath','koibath.png'], 'aquahome':['Aquahome','aquahome.png'],
-    'opal':['Opal','opal.png'], 'bilt':['BILT','bilt.png']
+    'opal':['Opal','opal.png'], 'bilt':['BILT','bilt.png'], 'reitano-rubinetterie':['Reitano Rubinetterie','reitano.svg'], 'uptrend':['UPTREND','uptrend.svg']
   };
 
   let clients = [];
