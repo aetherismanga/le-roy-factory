@@ -66,7 +66,6 @@
     addStylesheet('lrf-mobile-public-v8-css', 'assets/css/mobile-public-v8.css?v=20260901-2');
   }
   addStylesheet('lrf-logo-scale-v9-css', 'assets/css/lrf-logo-scale-v9.css?v=20260918-pc-logo2');
-  addStylesheet('lrf-promo-cersaie-nav-asset-css', 'assets/css/promo-cersaie-nav-asset.css?v=20260918-compact1');
   document.documentElement.classList.add('lrf-premium-ready');
 
   const pageClass = `lrf-page-${page.replace('.html','').replace(/[^a-z0-9-]/g,'-')}`;
@@ -162,28 +161,6 @@
       body.lrf-configurator-page footer p{color:#f3efe4!important;text-shadow:none!important}
     `;
     document.head.appendChild(style);
-  };
-
-  const installPromoCersaieNav = () => {
-    const nav = document.querySelector('header nav ul');
-    if (!nav) return;
-    let link = nav.querySelector('a[href="promo-cersaie.html"]');
-    if (!link) {
-      const li = document.createElement('li');
-      li.className = 'lrf-promo-cersaie-li';
-      link = document.createElement('a');
-      link.href = 'promo-cersaie.html';
-      link.className = 'lrf-promo-cersaie-nav';
-      link.setAttribute('aria-label','Promo Cersaie — Offres Pro 2026');
-      link.textContent = 'PROMO CERSAIE';
-      li.appendChild(link);
-      nav.insertBefore(li, nav.firstElementChild);
-    } else {
-      link.classList.add('lrf-promo-cersaie-nav');
-      link.parentElement?.classList.add('lrf-promo-cersaie-li');
-      link.setAttribute('aria-label','Promo Cersaie — Offres Pro 2026');
-    }
-    if (page === 'promo-cersaie.html') link.setAttribute('aria-current','page');
   };
 
   const installConfigurateursNav = () => {
@@ -315,8 +292,6 @@
     enforceHeaderLogo();
     startHeaderLogoGuard();
     document.querySelectorAll('.lrf-center-brand').forEach(el => el.remove());
-
-    installPromoCersaieNav();
     installConfigurateursNav();
 
     document.querySelectorAll('a[href="tarifs-pro.html"],a[href^="tarifs-pro.html?"]').forEach(link => {
