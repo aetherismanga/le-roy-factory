@@ -1,0 +1,47 @@
+name: Add La Fenice Cersaie 2026 catalogue
+on:
+  push:
+    paths:
+      - '.github/workflows/add-fenice-cersaie.yml'
+permissions:
+  contents: write
+jobs:
+  add-catalogue:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download and validate PDF
+        env:
+          PDF_URL: "https://sdmntprnortheu.oaiusercontent.com/files/00000000-ade8-81f4-9694-ba8b509b14d0/raw?se=2026-09-18T12%3A54%3A11Z&sp=r&sv=2026-02-06&sr=b&scid=bf7d1502-5e13-5ac0-9cbf-cdf16d8902b6&skoid=a0b9f82a-c86e-4064-a822-2aa38890bb37&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-18T06%3A06%3A13Z&ske=2026-09-19T06%3A06%3A13Z&sks=b&skv=2026-02-06&sig=JN%2BNnvniIWLKyQBVuL6YtR0swd0gtKqqo9EY1DOjy%2B0%3D"
+        run: |
+          set -euo pipefail
+          mkdir -p assets/pdf
+          curl -L --fail --retry 3 "$PDF_URL" -o "assets/pdf/LA_FENICE_CERSAIE_2026.pdf"
+          size=$(stat -c%s "assets/pdf/LA_FENICE_CERSAIE_2026.pdf")
+          echo "PDF size: $size bytes"
+          test "$size" -lt 25000000
+          head -c 4 "assets/pdf/LA_FENICE_CERSAIE_2026.pdf" | grep -q '%PDF'
+      - name: Add catalogue entry
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path("catalogues.html")
+          s=p.read_text(encoding="utf-8")
+          old="""        { nom:'La Fenice', pays:'Italie', presentation:"Tradition et modernité italienne au service de l'architecture intérieure.", fichiers:[
+          { titre:'Catalogues', desc:'La Fenice srl', lien:'https://lafenicegc.com/fr/catalogues/' }
+        ]},"""
+          new="""        { nom:'La Fenice', pays:'Italie', presentation:"Tradition et modernité italienne au service de l'architecture intérieure.", fichiers:[
+          { titre:'Nouveautés Cersaie 2026', desc:'Nouveau catalogue La Fenice présenté au Cersaie 2026.', lien:'assets/pdf/LA_FENICE_CERSAIE_2026.pdf' },
+          { titre:'Catalogues officiels', desc:'Tous les catalogues La Fenice.', lien:'https://lafenicegc.com/fr/catalogues/' }
+        ]},"""
+          if old not in s:
+              raise SystemExit("Bloc La Fenice attendu introuvable; aucun changement appliqué.")
+          p.write_text(s.replace(old,new,1),encoding="utf-8")
+          PY
+      - name: Commit catalogue
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/pdf/LA_FENICE_CERSAIE_2026.pdf catalogues.html
+          git commit -m "Add La Fenice Cersaie 2026 catalogue"
+          git push
