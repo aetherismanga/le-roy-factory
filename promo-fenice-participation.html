@@ -79,14 +79,22 @@
     offer3:{label:'OFFRE 3 — 10 palettes payantes + 1 gratuite + prime Hi-Tech',paid:10,free:1,priceIndex:2,prime:true}
   };
   const baseProducts=[
-    {id:'clao-120',models:['City Loft','Allure','Oykos'],format:'120×120',before:16,promo:[13.70,13.33,13.23],free:true},
-    {id:'clao-9090',models:['City Loft','Allure','Oykos'],format:'90×90',before:14,promo:[12.00,11.67,10.90],free:true},
-    {id:'clao-60120',models:['City Loft','Allure','Oykos'],format:'60×120',before:14,promo:[12.00,11.67,10.90],free:true},
+    {id:'cityloft-120',models:['City Loft'],format:'120×120',before:16,promo:[13.70,13.33,13.23],free:true},
+    {id:'allure-120',models:['Allure'],format:'120×120',before:16,promo:[13.70,13.33,13.23],free:true},
+    {id:'oykos-120',models:['Oykos'],format:'120×120',before:16,promo:[13.70,13.33,13.23],free:true},
+    {id:'cityloft-9090',models:['City Loft'],format:'90×90',before:14,promo:[12.00,11.67,10.90],free:true},
+    {id:'allure-9090',models:['Allure'],format:'90×90',before:14,promo:[12.00,11.67,10.90],free:true},
+    {id:'oykos-9090',models:['Oykos'],format:'90×90',before:14,promo:[12.00,11.67,10.90],free:true},
+    {id:'cityloft-60120',models:['City Loft'],format:'60×120',before:14,promo:[12.00,11.67,10.90],free:true},
+    {id:'allure-60120',models:['Allure'],format:'60×120',before:14,promo:[12.00,11.67,10.90],free:true},
+    {id:'oykos-60120',models:['Oykos'],format:'60×120',before:14,promo:[12.00,11.67,10.90],free:true},
     {id:'aspen-20120',models:['Aspen'],format:'20×120',before:12.50,promo:[10.70,10.40,null],free:true},
     {id:'decor-120',models:['Décor'],format:'120×120',before:23,promo:[23,23,23],free:false,note:'Valable pour la promo — jamais gratuit'},
     {id:'decor-60120',models:['Décor'],format:'60×120',before:18,promo:[18,18,18],free:false,note:'Valable pour la promo — jamais gratuit'},
-    {id:'cass-9090',models:['Cassettone Aspen','Cassettone Briccole','Cassettone Le Doghe'],format:'90×90',before:16,promo:[16,16,16],free:false,note:'Valable pour la promo — jamais gratuit'},
-    {id:'cass-6060',models:['Cassettone Aspen'],format:'60×60',before:13,promo:[13,13,13],free:false,note:'Valable pour la promo — jamais gratuit'}
+    {id:'cass-aspen-9090',models:['Cassettone Aspen'],format:'90×90',before:16,promo:[16,16,16],free:false,note:'Valable pour la promo — jamais gratuit'},
+    {id:'cass-briccole-9090',models:['Cassettone Briccole'],format:'90×90',before:16,promo:[16,16,16],free:false,note:'Valable pour la promo — jamais gratuit'},
+    {id:'cass-doghe-9090',models:['Cassettone Le Doghe'],format:'90×90',before:16,promo:[16,16,16],free:false,note:'Valable pour la promo — jamais gratuit'},
+    {id:'cass-aspen-6060',models:['Cassettone Aspen'],format:'60×60',before:13,promo:[13,13,13],free:false,note:'Valable pour la promo — jamais gratuit'}
   ];
   const gate=document.getElementById('gate'),app=document.getElementById('app'),sessionEl=document.getElementById('session'),msg=document.getElementById('msg');
   const productsEl=document.getElementById('products'),freeGrid=document.getElementById('free-grid'),counter=document.getElementById('paid-counter'),validation=document.getElementById('validation');
