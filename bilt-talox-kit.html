@@ -11,15 +11,15 @@
   <style>
     :root{--blue:#0a4f87;--blue2:#0d73b8;--ink:#18252e;--cream:#f7f3ea;--paper:#fff;--sage:#dfe8dc;--gold:#d6b24f;--line:#dde3e7}
     *{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:linear-gradient(180deg,#f7f4ec,#edf3f5);color:var(--ink)}
-    .wrap{width:min(1180px,calc(100% - 28px));margin:auto}.top{position:sticky;top:0;z-index:30;background:linear-gradient(180deg,#9eb397,#6f896f);border-bottom:1px solid var(--gold);box-shadow:0 5px 18px rgba(30,55,40,.16)}.topin{height:72px;display:flex;align-items:center;justify-content:space-between}.top a{color:#fff;text-decoration:none;font-weight:850}.top img{height:54px}.back{border:1px solid rgba(255,255,255,.55);border-radius:999px;padding:9px 14px;background:rgba(255,255,255,.12)}
+    .wrap{width:min(1180px,calc(100% - 28px));margin:auto}.top{position:sticky;top:0;z-index:30;background:linear-gradient(180deg,#9eb397,#6f896f);border-bottom:1px solid var(--gold);box-shadow:0 5px 18px rgba(30,55,40,.16)}.topin{height:72px;display:flex;align-items:center;justify-content:space-between}.top a{color:#fff;text-decoration:none;font-weight:850}.top img{height:54px}.back{border:1px solid rgba(49,74,55,.34);border-radius:999px;padding:10px 16px;background:#fffdf5!important;color:#314b37!important;box-shadow:0 4px 14px rgba(38,61,43,.14);text-shadow:none!important}.back:hover{background:#f3f7ef!important;color:#203b29!important}
     .hero{position:relative;overflow:hidden;background:radial-gradient(circle at 82% 18%,rgba(55,183,255,.30),transparent 28%),linear-gradient(135deg,#063963,#0b5f9a 55%,#073d69);color:#fff}
     .hero:before{content:"";position:absolute;inset:-40% -20%;background:linear-gradient(115deg,transparent 39%,rgba(255,255,255,.13) 49%,transparent 59%);transform:rotate(-5deg)}
-    .hero-in{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(420px,.9fr);gap:36px;align-items:center;padding:48px 0}.kicker{display:inline-block;padding:7px 11px;border-radius:999px;background:#d7f4ff;color:#084c7f;font-size:.72rem;font-weight:950;letter-spacing:.1em}.brandline{display:flex;align-items:center;gap:15px;margin:16px 0 6px}.brandline img{width:125px;background:#fff;border-radius:13px;padding:10px}.hero h1{font:700 clamp(2.5rem,5vw,4.6rem) Georgia,serif;line-height:.95;margin:0}.hero p{font-size:1.05rem;line-height:1.55;max-width:660px;color:#eff9ff}.hero-photo{border-radius:24px;overflow:hidden;border:1px solid rgba(255,255,255,.55);box-shadow:0 26px 60px rgba(0,0,0,.28);background:#fff}.hero-photo img{display:block;width:100%;height:auto}.hero-badges{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}.hero-badges span{padding:8px 11px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);font-size:.75rem;font-weight:850}
+    .hero-in{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(420px,.9fr);gap:36px;align-items:center;padding:48px 0}.kicker{display:inline-block;padding:7px 11px;border-radius:999px;background:#d7f4ff;color:#084c7f;font-size:.72rem;font-weight:950;letter-spacing:.1em}.brandline{display:flex;align-items:center;gap:15px;margin:16px 0 6px}.brandline img{width:125px;background:#fff;border-radius:13px;padding:10px}.hero h1{font:700 clamp(2.5rem,5vw,4.6rem) Georgia,serif;line-height:.95;margin:0}.hero p{font-size:1.05rem;line-height:1.55;max-width:660px;color:#eff9ff}.talox-gallery{position:relative;border-radius:24px;overflow:hidden;border:1px solid rgba(255,255,255,.55);box-shadow:0 26px 60px rgba(0,0,0,.28);background:#fff;min-height:360px}.talox-gallery-main{position:relative;height:360px;background:#eef2f3;overflow:hidden}.talox-gallery-main img{display:block;width:100%;height:100%;object-fit:cover;transition:opacity .18s ease}.talox-gallery-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:4;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.72);background:rgba(9,63,100,.78);color:#fff;font-size:1.7rem;display:grid;place-items:center;cursor:pointer}.talox-gallery-nav.prev{left:12px}.talox-gallery-nav.next{right:12px}.talox-gallery-count{position:absolute;right:12px;bottom:12px;z-index:3;padding:5px 9px;border-radius:999px;background:rgba(8,58,92,.78);color:#fff;font-size:.72rem;font-weight:900}.talox-thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:9px;background:#fff}.talox-thumb{border:2px solid transparent;border-radius:10px;overflow:hidden;padding:0;background:#eee;cursor:pointer;height:72px}.talox-thumb.active{border-color:#0b73b8}.talox-thumb img{width:100%;height:100%;object-fit:cover;display:block}.hero-badges{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}.hero-badges span{padding:8px 11px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);font-size:.75rem;font-weight:850}
     main{padding:28px 0 60px}.grid{display:grid;grid-template-columns:1.25fr .75fr;gap:22px}.card{background:#fff;border:1px solid #dfe5e7;border-radius:20px;padding:22px;box-shadow:0 14px 38px rgba(30,54,70,.08)}.card h2{margin:0 0 10px;font-size:1.35rem}.lead{color:#61707a;line-height:1.55}.features{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}.feature{padding:15px;border-radius:15px;background:#f5f9fb;border:1px solid #dfe9ef}.feature b{display:block;color:#0a5d95}.feature span{font-size:.84rem;color:#65717a;line-height:1.4}.sizes{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin-top:14px}.size{padding:14px 8px;text-align:center;border-radius:14px;background:#f7f4eb;border:1px solid #e0d7c4;font-weight:900}.size small{display:block;margin-top:4px;color:#766d5d;font-weight:700}
-    .price-card{background:linear-gradient(145deg,#fff7da,#f0d88f);border-color:#d5b24e}.price-label{text-transform:uppercase;font-size:.73rem;font-weight:950;letter-spacing:.1em;color:#705819}.price{font-size:2.45rem;font-weight:950;line-height:1;margin:9px 0;color:#17324a}.price.locked{font-size:1.05rem;line-height:1.4;color:#4a4a45}.price-note{font-size:.8rem;color:#6d613f}.fair{margin-top:14px;padding:12px 14px;border-radius:12px;background:#fff7df;border:1px dashed #bd9631;color:#654d13;font-weight:850}.actions{display:grid;gap:9px;margin-top:18px}.btn{display:flex;align-items:center;justify-content:center;min-height:46px;border-radius:12px;text-decoration:none;font-weight:900;border:1px solid #0a5d95;background:#0a5d95;color:#fff}.btn.alt{background:#fff;color:#0a5d95}.btn.disabled{background:#87949b;border-color:#87949b;pointer-events:none}
+    .price-card{background:linear-gradient(145deg,#fff7da,#f0d88f);border-color:#d5b24e}.price-label{text-transform:uppercase;font-size:.73rem;font-weight:950;letter-spacing:.1em;color:#705819}.price{font-size:2.45rem;font-weight:950;line-height:1;margin:9px 0;color:#17324a}.price.locked{font-size:1.05rem;line-height:1.4;color:#4a4a45}.price-note{font-size:.8rem;color:#6d613f}.fair{margin-top:14px;padding:12px 14px;border-radius:12px;background:#fff7df;border:1px dashed #bd9631;color:#654d13;font-weight:850}.actions{display:grid;gap:10px;margin-top:18px}.contact-person{border:1px solid rgba(130,105,39,.24);background:rgba(255,255,255,.58);border-radius:14px;padding:12px}.contact-person strong{display:block;color:#17324a;margin-bottom:7px}.contact-links{display:grid;grid-template-columns:1fr 1fr;gap:8px}.btn{display:flex;align-items:center;justify-content:center;min-height:44px;border-radius:11px;text-decoration:none;font-weight:900;border:1px solid #0a5d95;background:#0a5d95;color:#fff;font-size:.82rem}.btn.alt{background:#fff;color:#0a5d95}.contact-hint{font-size:.76rem;color:#6d613f;line-height:1.4;margin-top:10px}
     .gallery{margin-top:22px}.gallery-photo{border-radius:18px;overflow:hidden;border:1px solid #dfe5e7}.gallery-photo img{display:block;width:100%}
     .official{margin-top:22px;padding:18px;border-radius:16px;background:#eef5eb;border:1px solid #cad9c7}.official b{color:#38503c}.official p{margin:5px 0 0;color:#5f6e61;line-height:1.5}
-    @media(max-width:900px){.hero-in,.grid{grid-template-columns:1fr}.hero-in{padding:30px 0}.hero-photo{order:-1}.sizes{grid-template-columns:repeat(2,1fr)}.features{grid-template-columns:1fr}.brandline img{width:105px}.hero h1{font-size:2.5rem}}
+    @media(max-width:900px){.hero-in,.grid{grid-template-columns:1fr}.hero-in{padding:30px 0}.talox-gallery{order:-1;min-height:0}.talox-gallery-main{height:280px}.talox-thumb{height:58px}.sizes{grid-template-columns:repeat(2,1fr)}.features{grid-template-columns:1fr}.brandline img{width:105px}.hero h1{font-size:2.5rem}.contact-links{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
@@ -33,7 +33,19 @@
       <p>Un kit intelligent pour le rangement, le transport et le changement rapide des lames. Un système professionnel compact, pensé pour rester organisé et efficace sur le chantier.</p>
       <div class="hero-badges"><span>5 lames en 1</span><span>Acier inoxydable</span><span>Changement rapide</span><span>Mallette de rangement</span></div>
     </div>
-    <div class="hero-photo"><img src="assets/img/bilt-talox-kit-main.svg" alt="Talox Kit BILT avec mallette et lames interchangeables"></div>
+    <div class="talox-gallery" id="talox-gallery">
+      <div class="talox-gallery-main">
+        <img id="talox-main-image" src="assets/img/talofix01.jpeg" alt="Talox Kit BILT — vue 1">
+        <button class="talox-gallery-nav prev" id="talox-prev" type="button" aria-label="Image précédente">‹</button>
+        <button class="talox-gallery-nav next" id="talox-next" type="button" aria-label="Image suivante">›</button>
+        <span class="talox-gallery-count" id="talox-count">1 / 3</span>
+      </div>
+      <div class="talox-thumbs">
+        <button class="talox-thumb active" type="button" data-talox-index="0"><img src="assets/img/talofix01.jpeg" alt="Talox Kit vue 1"></button>
+        <button class="talox-thumb" type="button" data-talox-index="1"><img src="assets/img/talofix02.jpeg" alt="Talox Kit vue 2"></button>
+        <button class="talox-thumb" type="button" data-talox-index="2"><img src="assets/img/talofix03.jpeg" alt="Talox Kit vue 3"></button>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -65,8 +77,21 @@
       <div class="price-note">Le prix est volontairement masqué pour les visiteurs non connectés ou les comptes sans autorisation BILT.</div>
       <div class="fair">🎪 Remise foire sur consultation</div>
       <div class="actions">
-        <a id="talox-order" class="btn disabled" href="tarifs-pro.html">Accès PRO BILT requis</a>
-        <a class="btn alt" href="contact.html">Demander la remise foire</a>
+        <div class="contact-person">
+          <strong>Jérôme Hugol</strong>
+          <div class="contact-links">
+            <a class="btn" href="tel:+33766040361">📞 Appeler Jérôme</a>
+            <a class="btn alt" href="mailto:jerome@leroyfactory.fr?subject=BILT%20Talox%20Kit%20-%20demande%20d'information">✉️ Envoyer un e-mail</a>
+          </div>
+        </div>
+        <div class="contact-person">
+          <strong>Coryne Le Roy</strong>
+          <div class="contact-links">
+            <a class="btn" href="tel:+33613093606">📞 Appeler Coryne</a>
+            <a class="btn alt" href="mailto:coryne@leroyfactory.fr?subject=BILT%20Talox%20Kit%20-%20demande%20d'information">✉️ Envoyer un e-mail</a>
+          </div>
+        </div>
+        <div class="contact-hint">Pour connaître la remise foire ou obtenir une information sur le Talox Kit, contactez directement Jérôme ou Coryne.</div>
       </div>
     </aside>
   </div>
@@ -79,25 +104,43 @@
   const render=()=>{
     const s=read();
     const ok=!!(s&&(s.isAdmin||s.admin||(Array.isArray(s.partenaires)&&s.partenaires.some(p=>norm(p)==='bilt'))));
-    const price=document.getElementById('talox-price'),order=document.getElementById('talox-order');
+    const price=document.getElementById('talox-price');
     if(ok){
       price.textContent='49,85 € / mallette';
       price.classList.remove('locked');
-      order.textContent='Commander / consulter BILT';
-      order.href='commande-bilt.html';
-      order.classList.remove('disabled');
     }else{
       price.textContent='🔒 Tarif réservé aux comptes LRF autorisés BILT';
       price.classList.add('locked');
-      order.textContent='Accès PRO BILT requis';
-      order.href='tarifs-pro.html';
-      order.classList.add('disabled');
     }
   };
+
+  const images=[
+    {src:'assets/img/talofix01.jpeg',alt:'Talox Kit BILT — vue de la mallette et de la taloche'},
+    {src:'assets/img/talofix02.jpeg',alt:'Talox Kit BILT — lames interchangeables'},
+    {src:'assets/img/talofix03.jpeg',alt:'Talox Kit BILT — taloche sur sa mallette'}
+  ];
+  let current=0;
+  const main=document.getElementById('talox-main-image');
+  const count=document.getElementById('talox-count');
+  const thumbs=[...document.querySelectorAll('[data-talox-index]')];
+  const show=i=>{
+    current=(i+images.length)%images.length;
+    main.src=images[current].src;
+    main.alt=images[current].alt;
+    count.textContent=(current+1)+' / '+images.length;
+    thumbs.forEach((b,n)=>b.classList.toggle('active',n===current));
+  };
+  document.getElementById('talox-prev')?.addEventListener('click',()=>show(current-1));
+  document.getElementById('talox-next')?.addEventListener('click',()=>show(current+1));
+  thumbs.forEach(b=>b.addEventListener('click',()=>show(Number(b.dataset.taloxIndex)||0)));
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowLeft')show(current-1);
+    if(e.key==='ArrowRight')show(current+1);
+  });
+
   render();
   window.addEventListener('lrf-pro-session-changed',render);
   setTimeout(render,500);
-})();
-</script>
+})();</script>
 </body>
 </html>
