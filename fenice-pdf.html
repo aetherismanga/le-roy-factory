@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#111111">
+  <title>Catalogue La Fenice | Le Roy Factory</title>
+  <link rel="icon" type="image/png" href="assets/img/logo03lrf.png">
+  <link rel="stylesheet" href="assets/css/fenice-pdf-viewer.css?v=20260918-1">
+</head>
+<body>
+  <header class="fpv-head">
+    <button id="fpv-back" class="fpv-icon-btn" type="button" aria-label="Retour">←</button>
+    <div class="fpv-brand">
+      <img src="assets/img/lafenice.png" alt="La Fenice">
+      <div>
+        <strong id="fpv-title">Catalogue La Fenice</strong>
+        <small id="fpv-subtitle">Chargement…</small>
+      </div>
+    </div>
+    <a id="fpv-native" class="fpv-icon-btn fpv-link-btn" href="#" target="_blank" rel="noopener" aria-label="Ouvrir le PDF original">↗</a>
+  </header>
+
+  <main class="fpv-main">
+    <div id="fpv-status" class="fpv-status">Chargement du catalogue…</div>
+    <div id="fpv-stage" class="fpv-stage" aria-live="polite">
+      <canvas id="fpv-canvas"></canvas>
+    </div>
+  </main>
+
+  <nav class="fpv-toolbar" aria-label="Navigation du catalogue">
+    <button id="fpv-prev" class="fpv-tool" type="button">‹</button>
+    <label class="fpv-pagebox">
+      <span>Page</span>
+      <input id="fpv-page" type="number" min="1" step="1" inputmode="numeric">
+      <span id="fpv-total">/ —</span>
+    </label>
+    <button id="fpv-next" class="fpv-tool" type="button">›</button>
+    <span class="fpv-sep"></span>
+    <button id="fpv-zoom-out" class="fpv-tool fpv-text" type="button">−</button>
+    <button id="fpv-fit" class="fpv-tool fpv-text" type="button">Ajuster</button>
+    <button id="fpv-zoom-in" class="fpv-tool fpv-text" type="button">+</button>
+  </nav>
+
+  <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+  <script src="assets/js/fenice-pdf-viewer.js?v=20260918-1"></script>
+</body>
+</html>
