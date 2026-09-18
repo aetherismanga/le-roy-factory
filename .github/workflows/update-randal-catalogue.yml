@@ -25,8 +25,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          URL='https://randalsa-my.sharepoint.com/:b:/g/personal/zahra_terrar_randal_group/IQA0wkWf5CD8QYHWQ0oCJgWDAXNDSTHDLQ8FH7CDYqqoSKc?download=1'
+          URL='https://randalsa-my.sharepoint.com/:b:/g/personal/zahra_terrar_randal_group/IQA0wkWf5CD8QYHWQ0oCJgWDAXNDSTHDLQ8FH7CDYqqoSKc?e=aLENbv&download=1'
           curl -fL --retry 3 --retry-delay 2 -A 'Mozilla/5.0' "$URL" -o /tmp/randal-latest.pdf
+          echo "Downloaded content type: $(file -b --mime-type /tmp/randal-latest.pdf)"
           test "$(head -c 4 /tmp/randal-latest.pdf)" = '%PDF'
           SIZE=$(stat -c%s /tmp/randal-latest.pdf)
           echo "Randal PDF size: $SIZE bytes"
