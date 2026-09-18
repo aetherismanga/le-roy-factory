@@ -207,7 +207,8 @@
       closeLexicon();
 
       if (entry?.pdf && entry?.page) {
-        const target = `${entry.pdf}#page=${entry.page}`;
+        const viewerCatalogue = /general_2026_2027|Generale_2026-2027|catalogo_Generale/i.test(entry.pdf) ? 'general' : 'cersaie';
+        const target = `fenice-pdf.html?catalogue=${encodeURIComponent(viewerCatalogue)}&page=${encodeURIComponent(entry.page)}&title=${encodeURIComponent(entry.name || 'La Fenice')}`;
         const win = window.open(target, '_blank');
         if (win) win.opener = null;
         else window.location.href = target;
