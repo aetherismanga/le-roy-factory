@@ -1,0 +1,22 @@
+name: Validate Fenice persistent lexicon
+on:
+  push:
+    paths:
+      - '.github/workflows/validate-fenice-persistent.yml'
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --check assets/js/fenice-pdf-viewer.js
+          node --check assets/js/fenice-lexicon-data.js
+          grep -q "fpv-lexicon" fenice-pdf.html
+          grep -q "margin-left:var(--fpv-side)" assets/css/fenice-pdf-viewer.css
+          grep -q "fenice-pdf.html?catalogue=general" catalogues.html
+          grep -q "fenice-pdf.html?catalogue=cersaie" catalogues.html
