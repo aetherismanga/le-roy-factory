@@ -42,7 +42,7 @@
     stage.setAttribute('aria-hidden','true');
 
     const video = document.createElement('video');
-    video.src = 'assets/videos/cameleon-site-transparent.webm?v=20260918-video1';
+    video.src = 'assets/videos/cameleon-site-transparent.webm?v=20260918-video2';
     video.muted = true;
     video.playsInline = true;
     video.preload = 'auto';
