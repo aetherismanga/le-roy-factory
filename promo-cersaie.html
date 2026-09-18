@@ -9,12 +9,12 @@
   <style>
     :root{--ink:#26302a;--muted:#6f746f;--paper:#fff;--cream:#f7f3eb;--sage:#dfe8dc;--sage2:#cbd9c9;--gold:#b79a54;--line:#ddd4c4;--shadow:0 16px 42px rgba(50,42,28,.10)}
     *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(180deg,#f7f3eb,#f2efe8);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}.wrap{width:min(1180px,calc(100% - 32px));margin:auto}
-    header{position:sticky;top:0;z-index:40;background:#0d0e0d;color:#fff;border-bottom:1px solid #c6a84e}.top{height:82px;display:flex;align-items:center;justify-content:space-between;gap:18px}.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:#fff}.brand img{width:64px;height:64px;object-fit:contain}.brand strong{font-size:.95rem}.close{padding:10px 15px;border:1px solid #cbb57c;border-radius:999px;color:#f6e8b5;text-decoration:none;font-weight:800}
+    header{position:sticky;top:0;z-index:40;background:linear-gradient(135deg,#dfe8dc,#f8f5ee);color:#314237;border-bottom:1px solid #b9c9b6;box-shadow:0 4px 18px rgba(72,101,77,.10)}.top{height:82px;display:flex;align-items:center;justify-content:space-between;gap:18px}.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:#314237}.brand img{width:64px;height:64px;object-fit:contain}.brand strong{font-size:.95rem}.close{padding:10px 15px;border:1px solid #aebfac;border-radius:999px;color:#314237;background:#fffdf9;text-decoration:none;font-weight:800}
     .gate{min-height:calc(100vh - 82px);display:grid;place-items:center;padding:30px}.gate-card{width:min(560px,100%);background:#fff;border:1px solid var(--line);border-radius:24px;padding:28px;box-shadow:var(--shadow)}.gate-card h1{font:500 2.15rem Georgia,serif;margin:0 0 8px}.gate-card p{color:var(--muted);line-height:1.55}.fields{display:grid;grid-template-columns:1fr 140px;gap:10px;margin:18px 0 10px}.fields input{height:48px;border:1px solid #d5cdbf;border-radius:12px;padding:0 13px;font:inherit}.login-btn{width:100%;height:48px;border:1px solid #9fb5a1;border-radius:12px;background:linear-gradient(135deg,#dfe8dc,#cbd9c9);color:#314237;font-weight:900;cursor:pointer}.gate-msg{min-height:22px;margin-top:10px;font-weight:800;font-size:.84rem}.gate-msg.error{color:#a33b31}.gate-note{font-size:.78rem;color:#7c786f;margin-top:12px}
     #promo-content[hidden]{display:none}.hero{background:radial-gradient(circle at 80% 15%,rgba(190,161,86,.20),transparent 30%),linear-gradient(135deg,#fffdf8,#eef4ec);border-bottom:1px solid var(--line)}.hero-in{padding:48px 0 42px}.eyebrow{display:inline-flex;padding:7px 11px;border-radius:999px;background:#314237;color:#fff;font-size:.68rem;letter-spacing:.11em;text-transform:uppercase;font-weight:900}.hero h1{font:500 clamp(2.8rem,6vw,5.2rem)/.95 Georgia,serif;margin:14px 0 16px;color:#3f3428}.hero h1 span{color:#8a6b2f}.hero p{max-width:760px;color:#5d605b;font-size:1.03rem;line-height:1.55;margin:0}.session-pill{display:inline-flex;margin-top:18px;padding:8px 12px;border-radius:999px;background:#fff;border:1px solid #d7cebd;color:#4a554c;font-size:.78rem;font-weight:800}
     main{padding:28px 0 70px}.brand-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.brand-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:0 8px 24px rgba(50,42,28,.06);text-decoration:none;color:inherit;transition:.18s}.brand-card:hover{transform:translateY(-3px);border-color:#b9c9b6}.brand-card img{height:64px;max-width:170px;object-fit:contain}.brand-card h2{margin:13px 0 5px;font-size:1.35rem}.brand-card p{margin:0;color:#706d66;font-size:.88rem;line-height:1.45}.brand-card .cta{display:inline-flex;margin-top:15px;padding:8px 11px;border-radius:999px;background:#eef3ec;color:#314237;border:1px solid #c5d3c3;font-size:.76rem;font-weight:900}
     .fenice{margin-top:26px;background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);overflow:hidden}.fenice-head{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:22px 24px;background:linear-gradient(135deg,#f8f4ec,#eef3ec);border-bottom:1px solid var(--line)}.fenice-head img{height:54px;object-fit:contain}.fenice-head h2{font:500 2rem Georgia,serif;margin:0}.fenice-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.participate-btn{display:inline-flex;align-items:center;justify-content:center;padding:11px 16px;border-radius:999px;background:linear-gradient(135deg,#314237,#4a5f4d);color:#fff;text-decoration:none;font-weight:900;border:1px solid #26372c;box-shadow:0 8px 20px rgba(49,66,55,.18)}.participate-btn:hover{transform:translateY(-1px);background:linear-gradient(135deg,#3a4d3f,#566a59)}.fenice-body{padding:22px 24px}.collections{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:22px}.collection-link{display:block;padding:14px;border-radius:14px;background:#f8f6f1;border:1px solid #ddd3c2;text-decoration:none;color:#39443b;font-weight:900}.collection-link small{display:block;margin-top:4px;color:#837d72;font-weight:600}.collection-link:hover{background:#eef3ec;border-color:#b9c9b6}
-    .offers{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.offer{border:1px solid #ddd3c2;border-radius:16px;padding:16px;background:#fffaf3}.offer b{display:block;color:#6e5a2c;font-size:1.05rem}.offer strong{display:block;margin:7px 0 2px;font-size:1.35rem;color:#314237}.offer small{color:#777067}.prices{margin-top:18px;overflow:auto;border:1px solid var(--line);border-radius:14px}.prices table{width:100%;border-collapse:collapse;min-width:760px;background:#fff}.prices th,.prices td{padding:11px 12px;border-bottom:1px solid #ece6db;text-align:left;font-size:.82rem}.prices th{background:#f1f5ef;color:#3c4a3f}.prices tr:last-child td{border-bottom:0}.conditions{margin-top:18px;padding:16px;border-radius:14px;background:#f7f4ee;border-left:4px solid #b9c9b6}.conditions h3{margin:0 0 8px}.conditions ul{margin:0;padding-left:20px;color:#625f58;line-height:1.55}
+    .offers{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.offer{border:1px solid #ddd3c2;border-radius:16px;padding:16px;background:#fffaf3}.offer b{display:block;color:#6e5a2c;font-size:1.05rem}.offer strong{display:block;margin:7px 0 2px;font-size:1.35rem;color:#314237}.offer small{color:#777067}.prices{margin-top:18px;overflow:auto;border:1px solid var(--line);border-radius:14px}.prices table{width:100%;border-collapse:collapse;min-width:760px;background:#fff}.prices th,.prices td{padding:11px 12px;border-bottom:1px solid #ece6db;text-align:left;font-size:.82rem}.prices th{background:#f1f5ef;color:#3c4a3f}.prices tr:last-child td{border-bottom:0}.price-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.price-toggle{border:1px solid #b9c9b6;background:#fff;border-radius:999px;padding:5px 9px;color:#415446;font-weight:900;font-size:.7rem;cursor:pointer}.price-toggle:hover{background:#eaf2e7}.price-locked{display:inline-flex;align-items:center;gap:5px;color:#7d7a73;font-weight:800}.promo-price-stack{display:grid;gap:3px}.promo-price-stack .promo-line{display:grid;grid-template-columns:72px auto;gap:8px;align-items:center}.promo-price-stack .promo-line b{font-size:.69rem;color:#647568;text-transform:uppercase;letter-spacing:.04em}.promo-price-stack .promo-line span{font-weight:900;color:#314237}.promo-price-stack.locked .promo-line span{color:#7d7a73;font-weight:800}.promo-price-stack.locked .promo-line span::before{content:"🔒 Masqué";font-weight:800}.promo-price-stack.locked .promo-line span{font-size:0}.invoice-price{font-weight:900;color:#314237}.invoice-price.locked{font-size:0;color:#7d7a73}.invoice-price.locked::before{content:"🔒 Masqué";font-size:.82rem;font-weight:800}.promo-note{font-size:.72rem;color:#7f786d;margin-top:4px}.conditions{margin-top:18px;padding:16px;border-radius:14px;background:#f7f4ee;border-left:4px solid #b9c9b6}.conditions h3{margin:0 0 8px}.conditions ul{margin:0;padding-left:20px;color:#625f58;line-height:1.55}
     @media(max-width:850px){.brand-grid,.offers{grid-template-columns:1fr}.collections{grid-template-columns:1fr 1fr}.fenice-head{align-items:flex-start;flex-direction:column}.fields{grid-template-columns:1fr}.hero-in{padding-top:34px}}
     @media(max-width:520px){.collections{grid-template-columns:1fr}.wrap{width:min(100% - 22px,1180px)}.gate{padding:16px}.gate-card{padding:20px}.hero h1{font-size:2.55rem}}
   </style>
@@ -77,14 +77,59 @@
         </div>
 
         <div class="prices"><table>
-          <thead><tr><th>Collection</th><th>Format</th><th>Prix net facture</th><th>Prix net promo selon offre</th></tr></thead>
+          <thead><tr>
+            <th>Collection</th>
+            <th>Format</th>
+            <th><div class="price-head">Prix net facture <button id="fenice-price-toggle" class="price-toggle" type="button">👁 Voir</button></div></th>
+            <th>Prix net promo selon offre</th>
+          </tr></thead>
           <tbody>
-            <tr><td>City Loft / Allure / Oykos</td><td>120×120</td><td>16,00 €</td><td>13,70 € / 13,33 € / 13,23 €</td></tr>
-            <tr><td>City Loft / Allure / Oykos</td><td>90×90</td><td>14,00 €</td><td>12,00 € / 11,67 € / 10,90 €</td></tr>
-            <tr><td>City Loft / Allure / Oykos</td><td>60×120</td><td>14,00 €</td><td>12,00 € / 11,67 € / 10,90 €</td></tr>
-            <tr><td>Aspen</td><td>20×120</td><td>12,50 €</td><td>10,70 € / 10,40 €</td></tr>
-            <tr><td>Décors</td><td>120×120 / 60×120</td><td>23,00 € / 18,00 €</td><td>Valables promo, non gratuits</td></tr>
-            <tr><td>Cassettone Aspen / Briccole / Le Doghe</td><td>90×90 / 60×60</td><td>16,00 € / 13,00 €</td><td>Valables promo, non gratuits</td></tr>
+            <tr>
+              <td>City Loft / Allure / Oykos</td><td>120×120</td>
+              <td><span class="invoice-price locked" data-price="16,00 €">16,00 €</span></td>
+              <td><div class="promo-price-stack locked">
+                <div class="promo-line"><b>Offre 1</b><span data-price="13,70 €">13,70 €</span></div>
+                <div class="promo-line"><b>Offre 2</b><span data-price="13,33 €">13,33 €</span></div>
+                <div class="promo-line"><b>Offre 3</b><span data-price="13,23 €">13,23 €</span></div>
+              </div></td>
+            </tr>
+            <tr>
+              <td>City Loft / Allure / Oykos</td><td>90×90</td>
+              <td><span class="invoice-price locked" data-price="14,00 €">14,00 €</span></td>
+              <td><div class="promo-price-stack locked">
+                <div class="promo-line"><b>Offre 1</b><span data-price="12,00 €">12,00 €</span></div>
+                <div class="promo-line"><b>Offre 2</b><span data-price="11,67 €">11,67 €</span></div>
+                <div class="promo-line"><b>Offre 3</b><span data-price="10,90 €">10,90 €</span></div>
+              </div></td>
+            </tr>
+            <tr>
+              <td>City Loft / Allure / Oykos</td><td>60×120</td>
+              <td><span class="invoice-price locked" data-price="14,00 €">14,00 €</span></td>
+              <td><div class="promo-price-stack locked">
+                <div class="promo-line"><b>Offre 1</b><span data-price="12,00 €">12,00 €</span></div>
+                <div class="promo-line"><b>Offre 2</b><span data-price="11,67 €">11,67 €</span></div>
+                <div class="promo-line"><b>Offre 3</b><span data-price="10,90 €">10,90 €</span></div>
+              </div></td>
+            </tr>
+            <tr>
+              <td>Aspen</td><td>20×120</td>
+              <td><span class="invoice-price locked" data-price="12,50 €">12,50 €</span></td>
+              <td><div class="promo-price-stack locked">
+                <div class="promo-line"><b>Offre 1</b><span data-price="10,70 €">10,70 €</span></div>
+                <div class="promo-line"><b>Offre 2</b><span data-price="10,40 €">10,40 €</span></div>
+                <div class="promo-line"><b>Offre 3</b><span data-price="—">—</span></div>
+              </div></td>
+            </tr>
+            <tr>
+              <td>Décors</td><td>120×120 / 60×120</td>
+              <td><span class="invoice-price locked" data-price="23,00 € / 18,00 €">23,00 € / 18,00 €</span></td>
+              <td><span class="promo-note">Valables promo, non gratuits</span></td>
+            </tr>
+            <tr>
+              <td>Cassettone Aspen / Briccole / Le Doghe</td><td>90×90 / 60×60</td>
+              <td><span class="invoice-price locked" data-price="16,00 € / 13,00 €">16,00 € / 13,00 €</span></td>
+              <td><span class="promo-note">Valables promo, non gratuits</span></td>
+            </tr>
           </tbody>
         </table></div>
 
@@ -110,7 +155,21 @@
   const gate=document.getElementById('promo-gate'),content=document.getElementById('promo-content'),msg=document.getElementById('promo-msg'),sessionEl=document.getElementById('promo-session');
   const CREATE='https://us-central1-le-roy-factory.cloudfunctions.net/createProSession';
   const norm=v=>String(v||'').trim().toUpperCase();
-  function show(s){gate.style.display='none';content.hidden=false;sessionEl.textContent=s.isAdmin?'Accès administrateur · '+(s.name||s.societe||'LE ROY FACTORY'):'Compte '+(s.societe||s.codeClient)+' · '+s.codeClient;}
+  let fenicePricesVisible=false;
+  function syncFenicePrices(){
+    document.querySelectorAll('.invoice-price').forEach(el=>el.classList.toggle('locked',!fenicePricesVisible));
+    document.querySelectorAll('.promo-price-stack').forEach(el=>el.classList.toggle('locked',!fenicePricesVisible));
+    const btn=document.getElementById('fenice-price-toggle');
+    if(btn)btn.textContent=fenicePricesVisible?'🙈 Masquer':'👁 Voir';
+  }
+  function installFenicePriceToggle(){
+    const btn=document.getElementById('fenice-price-toggle');
+    if(!btn||btn.dataset.ready==='1')return;
+    btn.dataset.ready='1';
+    btn.addEventListener('click',()=>{fenicePricesVisible=!fenicePricesVisible;syncFenicePrices()});
+    syncFenicePrices();
+  }
+  function show(s){gate.style.display='none';content.hidden=false;sessionEl.textContent=s.isAdmin?'Accès administrateur · '+(s.name||s.societe||'LE ROY FACTORY'):'Compte '+(s.societe||s.codeClient)+' · '+s.codeClient;installFenicePriceToggle();}
   function current(){return window.LRF_PRO_SESSION?.read?.()||null}
   async function tryOpen(){
     let s=current(); if(s){show(s);return true}
