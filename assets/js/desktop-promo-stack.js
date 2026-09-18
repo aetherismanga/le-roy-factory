@@ -91,7 +91,7 @@
           linear-gradient(145deg,rgba(111,59,18,.82),rgba(139,80,27,.84) 58%,rgba(92,46,13,.82))!important;
       }
       .lrf-desktop-promo-stack>.cersaie26-desktop{
-        background:linear-gradient(145deg,rgba(6,40,30,.82),rgba(12,74,53,.84) 72%,rgba(8,45,34,.82))!important;
+        background:radial-gradient(circle at 88% 18%,rgba(108,205,255,.18),transparent 30%),linear-gradient(145deg,rgba(7,54,96,.88),rgba(10,96,159,.90) 65%,rgba(6,46,83,.88))!important;
       }
       .lrf-desktop-promo-stack>.elios-rentree-desktop{
         background:
