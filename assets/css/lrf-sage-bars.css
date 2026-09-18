@@ -72,10 +72,19 @@ html body:not(.crm-body) > .site-header .main-nav > li > a.active:not(.agent-btn
 }
 
 html body:not(.crm-body) > header .main-nav > li > a.lrf-promo-cersaie-tab{
-  color:#fffdf7!important;
-  border-color:#e3c35d!important;
-  background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(52,78,55,.10))!important;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.20),0 2px 7px rgba(35,52,38,.15)!important;
+  color:#f6d85f!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  text-shadow:0 1px 2px rgba(25,42,28,.72),0 0 9px rgba(246,216,95,.20)!important;
+}
+html body:not(.crm-body) > header .main-nav > li > a.lrf-promo-cersaie-tab:hover,
+html body:not(.crm-body) > header .main-nav > li > a.lrf-promo-cersaie-tab:focus{
+  color:#ffe98f!important;
+  background:transparent!important;
+  box-shadow:inset 0 -2px 0 rgba(255,215,0,.95)!important;
+  text-shadow:0 1px 2px rgba(25,42,28,.72),0 0 12px rgba(255,229,119,.30)!important;
 }
 
 html body:not(.crm-body) > header .agent-btn,
