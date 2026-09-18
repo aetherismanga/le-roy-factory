@@ -59,13 +59,20 @@ jobs:
         working-directory: mobile
         run: npm install
 
+      - name: Prepare embedded web app
+        working-directory: mobile
+        run: npm run prepare:web
+
       - name: Create Android project
         working-directory: mobile
         run: npx cap add android
 
       - name: Sync CRM and native plugins
         working-directory: mobile
-        run: npm run cap:sync
+        run: |
+          npx cap sync android
+          npm run patch:android
+          npm run patch:alarm
 
       - name: Set Android version
         run: |
