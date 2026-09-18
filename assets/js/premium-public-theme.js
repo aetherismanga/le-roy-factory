@@ -66,7 +66,7 @@
     addStylesheet('lrf-mobile-public-v8-css', 'assets/css/mobile-public-v8.css?v=20260901-2');
   }
   addStylesheet('lrf-logo-scale-v9-css', 'assets/css/lrf-logo-scale-v9.css?v=20260918-pc-logo2');
-  addStylesheet('lrf-promo-cersaie-nav-asset-css', 'assets/css/promo-cersaie-nav-asset.css?v=20260918-badge3');
+  addStylesheet('lrf-promo-cersaie-nav-asset-css', 'assets/css/promo-cersaie-nav-asset.css?v=20260918-compact1');
   document.documentElement.classList.add('lrf-premium-ready');
 
   const pageClass = `lrf-page-${page.replace('.html','').replace(/[^a-z0-9-]/g,'-')}`;
