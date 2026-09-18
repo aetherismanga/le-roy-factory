@@ -78,8 +78,22 @@
     body.lrf-page-contact .agent-stack>.agent-info-card.gold{padding-right:6.8rem!important;min-height:7.2rem!important}
     body.lrf-page-contact .agent-stack>.agent-info-card.gold::after{top:1rem!important;right:1rem!important;width:4.7rem!important;height:4.7rem!important;transform:none!important;border-width:2px!important}
 
+    /* Avatars Contact : vrais boutons cliquables pour agrandissement. */
+    body.lrf-page-contact .agent-stack>.agent-info-card{position:relative!important;padding-right:6.8rem!important;min-height:7.2rem!important}
+    body.lrf-page-contact .agent-stack>.agent-info-card::after{display:none!important;content:none!important}
+    .agent-avatar-button{position:absolute;top:1rem;right:1rem;width:4.7rem;height:4.7rem;padding:0;border:2px solid #D4AF37;border-radius:50%;overflow:hidden;background:#fff;box-shadow:0 5px 14px rgba(0,0,0,.18),0 0 0 3px rgba(255,255,255,.82);cursor:zoom-in;transition:transform .18s ease,box-shadow .18s ease}
+    .agent-avatar-button:hover,.agent-avatar-button:focus-visible{transform:scale(1.06);box-shadow:0 8px 22px rgba(0,0,0,.23),0 0 0 4px rgba(212,175,55,.18)}
+    .agent-avatar-button img{display:block;width:100%;height:100%;object-fit:cover}
+    .agent-avatar-modal{position:fixed;inset:0;z-index:5000;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(10,14,12,.82);backdrop-filter:blur(7px)}
+    .agent-avatar-modal.open{display:flex}
+    .agent-avatar-dialog{position:relative;display:flex;flex-direction:column;align-items:center;gap:14px;max-width:min(92vw,620px);max-height:92vh}
+    .agent-avatar-large{display:block;width:min(72vw,460px);height:min(72vw,460px);max-width:460px;max-height:460px;object-fit:cover;border-radius:50%;border:4px solid #D4AF37;background:#fff;box-shadow:0 22px 70px rgba(0,0,0,.55),0 0 0 7px rgba(255,255,255,.12)}
+    .agent-avatar-caption{color:#fffaf0;font-size:1.15rem;font-weight:900;text-shadow:0 2px 5px rgba(0,0,0,.65)}
+    .agent-avatar-close{position:absolute;top:-12px;right:-12px;width:46px;height:46px;border:1px solid rgba(255,255,255,.45);border-radius:50%;background:#fff;color:#1A2530;font-size:1.7rem;font-weight:800;line-height:1;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.28)}
+    body.avatar-modal-open{overflow:hidden!important}
+
     @media(max-width:900px){.contact-layout{grid-template-columns:1fr}.agent-stack{display:grid;grid-template-columns:1fr 1fr}.team-card{grid-column:1/-1}}
-    @media(max-width:600px){.contact-type{grid-template-columns:1fr}.contact-form-card{padding:1.35rem}.agent-stack{display:flex}.contact-submit{width:100%;text-align:center}.contact-intro{font-size:.93rem}.contact-zone{font-size:.8rem}body.lrf-page-contact .agent-stack>.agent-info-card.gold{padding-right:7.6rem!important;min-height:8.4rem!important}body.lrf-page-contact .agent-stack>.agent-info-card.gold::after{width:5.6rem!important;height:5.6rem!important;top:1rem!important;right:1rem!important}}
+    @media(max-width:600px){.contact-type{grid-template-columns:1fr}.contact-form-card{padding:1.35rem}.agent-stack{display:flex}.contact-submit{width:100%;text-align:center}.contact-intro{font-size:.93rem}.contact-zone{font-size:.8rem}body.lrf-page-contact .agent-stack>.agent-info-card{padding-right:7.6rem!important;min-height:8.4rem!important}.agent-avatar-button{width:5.6rem;height:5.6rem;top:1rem;right:1rem}.agent-avatar-large{width:min(82vw,420px);height:min(82vw,420px)}.agent-avatar-modal{padding:18px}.agent-avatar-close{top:-8px;right:-4px}}
   </style>
   <link rel="stylesheet" href="assets/css/lrf-sage-bars.css?v=20260918-sage3d1">
 </head>
@@ -159,12 +173,18 @@
             <p>Nous accompagnons ensemble nos clients sur le Languedoc, la région PACA et la Corse. Un seul objectif : vous orienter rapidement vers la bonne solution et le bon interlocuteur.</p>
           </div>
           <div class="agent-info-card">
+            <button type="button" class="agent-avatar-button" data-avatar-src="assets/img/jeromelogo.png?v=20260918-contact-avatar1" data-avatar-name="Jérôme Hugol" aria-label="Agrandir la photo de Jérôme Hugol">
+              <img src="assets/img/jeromelogo.png?v=20260918-contact-avatar1" alt="Jérôme Hugol">
+            </button>
             <h3>Jérôme Hugol</h3>
             <p>Conseil, accompagnement projet et suivi commercial.</p>
             <a href="mailto:jerome@leroyfactory.fr">✉ jerome@leroyfactory.fr</a>
             <br><a href="tel:+33766059922" aria-label="Appeler Jérôme Hugol au 07 66 05 99 22">☎ 07 66 05 99 22</a>
           </div>
           <div class="agent-info-card gold">
+            <button type="button" class="agent-avatar-button" data-avatar-src="assets/img/corynelogo.png?v=20260918-contact-avatar1" data-avatar-name="Coryne Le Roy" aria-label="Agrandir la photo de Coryne Le Roy">
+              <img src="assets/img/corynelogo.png?v=20260918-contact-avatar1" alt="Coryne Le Roy">
+            </button>
             <h3>Coryne Le Roy</h3>
             <p>Conseil, accompagnement projet et suivi commercial.</p>
             <a href="mailto:coryne@leroyfactory.fr">✉ coryne@leroyfactory.fr</a>
@@ -174,6 +194,14 @@
       </div>
     </div>
   </main>
+
+  <div id="agent-avatar-modal" class="agent-avatar-modal" aria-hidden="true">
+    <div class="agent-avatar-dialog" role="dialog" aria-modal="true" aria-labelledby="agent-avatar-caption">
+      <button type="button" class="agent-avatar-close" aria-label="Fermer l'image">×</button>
+      <img id="agent-avatar-large" class="agent-avatar-large" src="" alt="">
+      <div id="agent-avatar-caption" class="agent-avatar-caption"></div>
+    </div>
+  </div>
 
   <footer><div class="container" style="text-align:center;padding:2rem 0;"><p>&copy; 2026 LE ROY FACTORY. Tous droits réservés.</p></div></footer>
 
@@ -222,6 +250,38 @@
       const body=encodeURIComponent(`Type : ${type==='particulier'?'Particulier':'Professionnel'}\nNom / Société : ${name}\nEmail : ${email}${location?`\nVille / Code postal : ${location}`:''}\n\nDemande :\n${message}`);
       window.location.href=`mailto:${targetEmail}?subject=${subject}&body=${body}`;
     });
+
+    const avatarModal=document.getElementById('agent-avatar-modal');
+    const avatarLarge=document.getElementById('agent-avatar-large');
+    const avatarCaption=document.getElementById('agent-avatar-caption');
+    const avatarClose=avatarModal.querySelector('.agent-avatar-close');
+    let avatarLastTrigger=null;
+
+    function closeAvatarModal(){
+      avatarModal.classList.remove('open');
+      avatarModal.setAttribute('aria-hidden','true');
+      document.body.classList.remove('avatar-modal-open');
+      avatarLarge.src='';
+      if(avatarLastTrigger) avatarLastTrigger.focus({preventScroll:true});
+    }
+
+    document.querySelectorAll('.agent-avatar-button').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        avatarLastTrigger=btn;
+        const src=btn.dataset.avatarSrc;
+        const name=btn.dataset.avatarName || 'LE ROY FACTORY';
+        avatarLarge.src=src;
+        avatarLarge.alt=name;
+        avatarCaption.textContent=name;
+        avatarModal.classList.add('open');
+        avatarModal.setAttribute('aria-hidden','false');
+        document.body.classList.add('avatar-modal-open');
+        avatarClose.focus({preventScroll:true});
+      });
+    });
+    avatarClose.addEventListener('click',closeAvatarModal);
+    avatarModal.addEventListener('click',e=>{if(e.target===avatarModal)closeAvatarModal();});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&avatarModal.classList.contains('open'))closeAvatarModal();});
   </script>
   <script src="assets/js/app.js?v=20260819-0300"></script>
   <script src="assets/js/jarvis-web.js?v=20260819-0300"></script>
