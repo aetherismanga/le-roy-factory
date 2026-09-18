@@ -1,6 +1,7 @@
 name: Run Elios Montreal HD
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
     paths:
@@ -120,28 +121,19 @@ jobs:
           )
           Path('assets/js/inspirations-elios-montreal-hd.js').write_text(js,encoding='utf-8')
 
-          p=Path('univers.html'); html=p.read_text(encoding='utf-8')
-          script='  <script src="assets/js/inspirations-elios-montreal-hd.js?v=20260902-montreal1"></script>\n'
-          if 'inspirations-elios-montreal-hd.js' not in html:
-            marker='  <script src="assets/js/inspirations-elios-slate-hd.js'
-            pos=html.find(marker)
-            if pos<0: raise RuntimeError('Slate marker missing')
-            html=html[:pos]+script+html[pos:]
-          else:
-            html=re.sub(r'assets/js/inspirations-elios-montreal-hd\.js\?v=[^\"]+','assets/js/inspirations-elios-montreal-hd.js?v=20260902-montreal1',html)
-          html=re.sub(r'assets/js/inspirations-elios-gallery-v2\.js\?v=[^\"]+','assets/js/inspirations-elios-gallery-v2.js?v=20260902-montreal1',html)
-          p.write_text(html,encoding='utf-8')
+          # La page Sélections charge désormais Montreal via selections-lazy-enhancements.js.
+          # Ici on ne génère que les fichiers HD natifs et leur mapping couleur.
           PY
       - name: Verify Montreal
         run: |
           test -s assets/js/inspirations-elios-montreal-hd.js
           for c in white grey beige taupe dark; do test -s "assets/img/elios/montreal/montreal-$c.jpg"; done
-          grep -q 'inspirations-elios-montreal-hd.js?v=20260902-montreal1' univers.html
+          test -s assets/js/inspirations-elios-montreal-hd.js
       - name: Commit Montreal to main
         run: |
           git config user.name 'aetherismanga'
           git config user.email 'ccjacou@gmail.com'
-          git add assets/img/elios/montreal assets/js/inspirations-elios-montreal-hd.js univers.html
+          git add assets/img/elios/montreal assets/js/inspirations-elios-montreal-hd.js
           git diff --cached --stat
           git commit -m 'Corrige Montreal en HD officiel Elios 2026'
           git push origin HEAD:main
