@@ -4,7 +4,7 @@
   window.__LRF_DESKTOP_PROMO_STACK__=true;
 
   const DESKTOP='(min-width: 901px)';
-  const SELECTORS=['.viewlots26-desktop','.cersaie26-desktop','.elios-rentree-desktop'];
+  const SELECTORS=['.viewlots26-desktop','.bilt-talox-desktop','.cersaie26-desktop','.elios-rentree-desktop'];
 
   const style=document.createElement('style');
   style.id='lrf-desktop-promo-stack-style';
@@ -41,6 +41,7 @@
       }
 
       .lrf-desktop-promo-stack>.viewlots26-desktop,
+      .lrf-desktop-promo-stack>.bilt-talox-desktop,
       .lrf-desktop-promo-stack>.cersaie26-desktop,
       .lrf-desktop-promo-stack>.elios-rentree-desktop{
         position:relative!important;
@@ -103,6 +104,7 @@
         animation:lrfDesktopPromoSway 5.4s ease-in-out infinite,eliosRentreeGlow 4.8s ease-in-out infinite!important;
       }
       .lrf-desktop-promo-stack>.viewlots26-desktop>*,
+      .lrf-desktop-promo-stack>.bilt-talox-desktop>*,
       .lrf-desktop-promo-stack>.cersaie26-desktop>*,
       .lrf-desktop-promo-stack>.elios-rentree-desktop>*{
         opacity:1!important;
@@ -130,6 +132,7 @@
         gap:clamp(8px,1.2vw,12px)!important;
       }
       .lrf-desktop-promo-stack>.viewlots26-desktop,
+      .lrf-desktop-promo-stack>.bilt-talox-desktop,
       .lrf-desktop-promo-stack>.cersaie26-desktop,
       .lrf-desktop-promo-stack>.elios-rentree-desktop{
         width:auto!important;
@@ -141,6 +144,7 @@
         border-radius:18px!important;
       }
       .lrf-desktop-promo-stack>.viewlots26-desktop,
+      .lrf-desktop-promo-stack>.bilt-talox-desktop,
       .lrf-desktop-promo-stack>.elios-rentree-desktop{
         grid-template-columns:minmax(0,1fr) 54px!important;
         gap:9px!important;
@@ -178,6 +182,7 @@
     @media (min-width:901px) and (max-width:1199px) and (max-height:700px){
       .lrf-desktop-promo-stack{bottom:9px!important;gap:7px!important}
       .lrf-desktop-promo-stack>.viewlots26-desktop,
+      .lrf-desktop-promo-stack>.bilt-talox-desktop,
       .lrf-desktop-promo-stack>.cersaie26-desktop,
       .lrf-desktop-promo-stack>.elios-rentree-desktop{
         height:92px!important;
@@ -201,6 +206,7 @@
         --lrf-promo-safe-gap:clamp(20px,2vw,30px);
       }
       .lrf-desktop-promo-stack>.viewlots26-desktop,
+      .lrf-desktop-promo-stack>.bilt-talox-desktop,
       .lrf-desktop-promo-stack>.elios-rentree-desktop{
         grid-template-columns:minmax(0,1fr) clamp(56px,5vw,72px)!important;
       }
@@ -225,6 +231,7 @@
       }
       .lrf-desktop-promo-stack{gap:16px}
       .lrf-desktop-promo-stack>.viewlots26-desktop,
+      .lrf-desktop-promo-stack>.bilt-talox-desktop,
       .lrf-desktop-promo-stack>.cersaie26-desktop,
       .lrf-desktop-promo-stack>.elios-rentree-desktop{
         height:clamp(145px,17.5vh,170px)!important;
@@ -232,6 +239,7 @@
         flex-basis:clamp(145px,17.5vh,170px)!important;
       }
       .lrf-desktop-promo-stack>.viewlots26-desktop,
+      .lrf-desktop-promo-stack>.bilt-talox-desktop,
       .lrf-desktop-promo-stack>.elios-rentree-desktop{
         grid-template-columns:minmax(0,1fr) 94px!important;
       }
@@ -245,6 +253,7 @@
     @media (min-width:1200px) and (max-height:720px){
       .lrf-desktop-promo-stack{gap:8px!important}
       .lrf-desktop-promo-stack>.viewlots26-desktop,
+      .lrf-desktop-promo-stack>.bilt-talox-desktop,
       .lrf-desktop-promo-stack>.cersaie26-desktop,
       .lrf-desktop-promo-stack>.elios-rentree-desktop{
         height:104px!important;
@@ -264,6 +273,41 @@
 
     @media (max-width:900px){
       .lrf-desktop-promo-stack{display:none!important}
+    }
+
+    @media (min-width:901px){
+      .lrf-desktop-promo-stack>.bilt-talox-desktop{
+        position:relative!important;top:auto!important;right:auto!important;left:auto!important;bottom:auto!important;
+        width:100%!important;height:clamp(108px,17.5vh,150px)!important;min-height:clamp(108px,17.5vh,150px)!important;
+        flex:0 0 clamp(108px,17.5vh,150px)!important;margin:0!important;box-sizing:border-box!important;
+        -webkit-backdrop-filter:blur(5px) saturate(1.06)!important;backdrop-filter:blur(5px) saturate(1.06)!important;
+      }
+    }
+    @media (min-width:901px) and (max-width:1199px){
+      .lrf-desktop-promo-stack>.bilt-talox-desktop{width:auto!important;min-width:0!important;height:110px!important;min-height:110px!important;flex:1 1 0!important;padding:13px 14px!important;border-radius:18px!important;grid-template-columns:minmax(0,1fr) 62px!important;gap:8px!important}
+      .lrf-desktop-promo-stack>.bilt-talox-desktop .bilt-talox-title{font-size:1rem!important}
+      .lrf-desktop-promo-stack>.bilt-talox-desktop .bilt-talox-sub{font-size:.56rem!important}
+      .lrf-desktop-promo-stack>.bilt-talox-desktop .bilt-talox-visual{height:68px!important}
+      .lrf-desktop-promo-stack>.bilt-talox-desktop .bilt-talox-price{font-size:.5rem!important}
+    }
+    @media (min-width:901px) and (max-width:1199px) and (max-height:700px){
+      .lrf-desktop-promo-stack>.bilt-talox-desktop{height:92px!important;min-height:92px!important;padding:10px 12px!important}
+      .lrf-desktop-promo-stack>.bilt-talox-desktop .bilt-talox-sub{display:none!important}
+      .lrf-desktop-promo-stack>.bilt-talox-desktop .bilt-talox-visual{height:60px!important}
+    }
+    @media (min-width:1200px) and (max-width:1499px){
+      .lrf-desktop-promo-stack>.bilt-talox-desktop{grid-template-columns:minmax(0,1fr) clamp(72px,6vw,96px)!important;padding:clamp(14px,2vh,20px) clamp(16px,1.6vw,22px)!important}
+      .lrf-desktop-promo-stack>.bilt-talox-desktop .bilt-talox-title{font-size:clamp(1.05rem,1.3vw,1.28rem)!important}
+      .lrf-desktop-promo-stack>.bilt-talox-desktop .bilt-talox-visual{height:clamp(72px,10vh,94px)!important}
+    }
+    @media (min-width:1500px){
+      .lrf-desktop-promo-stack>.bilt-talox-desktop{height:clamp(145px,17.5vh,170px)!important;min-height:clamp(145px,17.5vh,170px)!important;flex-basis:clamp(145px,17.5vh,170px)!important;grid-template-columns:minmax(0,1fr) 118px!important}
+      .lrf-desktop-promo-stack>.bilt-talox-desktop .bilt-talox-visual{height:112px!important}
+    }
+    @media (min-width:1200px) and (max-height:720px){
+      .lrf-desktop-promo-stack>.bilt-talox-desktop{height:104px!important;min-height:104px!important;flex-basis:104px!important;padding-top:11px!important;padding-bottom:11px!important}
+      .lrf-desktop-promo-stack>.bilt-talox-desktop .bilt-talox-sub{display:none!important}
+      .lrf-desktop-promo-stack>.bilt-talox-desktop .bilt-talox-visual{height:72px!important}
     }
 
     @media(prefers-reduced-motion:reduce){
