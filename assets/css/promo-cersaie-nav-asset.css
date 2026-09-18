@@ -1,89 +1,82 @@
-/* Badge PROMO CERSAIE — rendu CSS fiable, sans dépendance image */
+/* Bouton PROMO CERSAIE compact, premium et stable */
 .main-nav>li.lrf-promo-cersaie-li{
-  margin-right:28px!important;
+  margin:0 18px 0 8px!important;
+  padding:0!important;
   flex:0 0 auto!important;
-  position:relative!important;
+  display:flex!important;
+  align-items:center!important;
 }
 .main-nav>li>a.lrf-promo-cersaie-nav{
-  width:196px!important;
-  height:62px!important;
-  min-width:196px!important;
+  width:154px!important;
+  min-width:154px!important;
+  height:44px!important;
   display:flex!important;
   flex-direction:column!important;
   align-items:flex-start!important;
   justify-content:center!important;
+  padding:5px 11px 5px 38px!important;
+  margin:0!important;
   position:relative!important;
   overflow:hidden!important;
-  padding:9px 18px 8px 52px!important;
-  border-radius:17px!important;
+  border-radius:12px!important;
   border:1px solid #d6b94f!important;
-  background:
-    radial-gradient(circle at 18% 30%,rgba(255,226,126,.35),transparent 22%),
-    linear-gradient(135deg,#163e31 0%,#205441 50%,#102e25 100%)!important;
-  box-shadow:
-    inset 0 0 0 1px rgba(255,255,255,.08),
-    0 0 0 2px rgba(214,185,79,.12),
-    0 8px 24px rgba(23,63,49,.28)!important;
+  background:linear-gradient(135deg,#1b4939 0%,#2e634e 54%,#173b30 100%)!important;
+  box-shadow:0 5px 14px rgba(31,72,56,.22),inset 0 1px 0 rgba(255,255,255,.08)!important;
   color:#fff6d2!important;
-  text-indent:0!important;
   text-decoration:none!important;
+  text-indent:0!important;
   white-space:nowrap!important;
-  transform:none!important;
-  transition:transform .18s ease,filter .18s ease,box-shadow .18s ease!important;
   font-size:0!important;
+  line-height:1!important;
   letter-spacing:0!important;
+  transform:none!important;
   animation:none!important;
+  transition:transform .16s ease,filter .16s ease,box-shadow .16s ease!important;
 }
 .main-nav>li>a.lrf-promo-cersaie-nav::before{
   content:"★"!important;
   position:absolute!important;
-  left:15px!important;
+  left:10px!important;
   top:50%!important;
   transform:translateY(-50%)!important;
-  width:27px!important;
-  height:27px!important;
+  width:21px!important;
+  height:21px!important;
   display:grid!important;
   place-items:center!important;
   border-radius:50%!important;
-  background:linear-gradient(145deg,#f7dd7b,#bd8f22)!important;
-  color:#173c30!important;
-  box-shadow:0 0 14px rgba(241,203,84,.35)!important;
-  font-size:14px!important;
-  line-height:1!important;
+  background:linear-gradient(145deg,#f6de82,#c09129)!important;
+  color:#173d31!important;
+  font-size:10px!important;
+  box-shadow:0 0 9px rgba(241,203,84,.25)!important;
 }
 .main-nav>li>a.lrf-promo-cersaie-nav::after{
-  content:"PROMO CERSAIE\A OFFRES PRO 2026  →"!important;
+  content:"PROMO CERSAIE\A CERSAIE 2026"!important;
   white-space:pre!important;
   display:block!important;
   color:#fff5cf!important;
-  font-size:13px!important;
-  line-height:1.23!important;
+  font-size:10px!important;
+  line-height:1.18!important;
   font-weight:900!important;
-  letter-spacing:.045em!important;
-  text-shadow:0 1px 1px rgba(0,0,0,.18)!important;
+  letter-spacing:.04em!important;
+  text-shadow:none!important;
 }
 .main-nav>li>a.lrf-promo-cersaie-nav:hover,
 .main-nav>li>a.lrf-promo-cersaie-nav:focus{
-  transform:translateY(-2px) scale(1.025)!important;
-  filter:brightness(1.08)!important;
-  border-color:#f0cf62!important;
-  box-shadow:
-    inset 0 0 0 1px rgba(255,255,255,.10),
-    0 0 0 3px rgba(214,185,79,.16),
-    0 10px 28px rgba(23,63,49,.34)!important;
-  color:#fff6d2!important;
+  transform:translateY(-1px)!important;
+  filter:brightness(1.06)!important;
+  box-shadow:0 7px 18px rgba(31,72,56,.28),inset 0 1px 0 rgba(255,255,255,.10)!important;
 }
 @media(max-width:900px){
   .main-nav>li.lrf-promo-cersaie-li{
     width:100%!important;
-    margin:0 0 10px!important;
-    display:flex!important;
+    margin:0 0 8px!important;
     justify-content:center!important;
     order:-20!important;
   }
   .main-nav>li>a.lrf-promo-cersaie-nav{
-    width:210px!important;
-    min-width:210px!important;
-    height:64px!important;
+    width:170px!important;
+    min-width:170px!important;
+    height:46px!important;
+    align-items:flex-start!important;
   }
 }
