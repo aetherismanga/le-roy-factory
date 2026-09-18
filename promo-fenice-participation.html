@@ -180,20 +180,30 @@
     bindProductEvents();
   }
   function bindProductEvents(){
-    productsEl.querySelectorAll('.qty').forEach(i=>i.addEventListener('input',onQtyInput));
-    productsEl.querySelectorAll('.color-select,.color-input').forEach(i=>i.addEventListener('input',onColorChange));
-    productsEl.querySelectorAll('.add-color-btn').forEach(btn=>btn.addEventListener('click',()=>{
-      const p=baseProducts.find(x=>x.id===btn.dataset.addColor),o=currentOffer();
-      if(!p||!o||priceFor(p,o)==null)return;
-      const list=productsEl.querySelector('[data-choice-list="'+p.id+'"]');
-      list.insertAdjacentHTML('beforeend',choiceRowHtml(p,false,true));
-      bindProductEvents();
-      update();
-    }));
-    productsEl.querySelectorAll('.remove-color-btn:not([disabled])').forEach(btn=>btn.addEventListener('click',()=>{
-      productsEl.querySelector('[data-choice-row="'+btn.dataset.removeChoice+'"]')?.remove();
-      update();
-    }));
+    productsEl.querySelectorAll('.qty').forEach(i=>{
+      if(i.dataset.bound==='1')return;i.dataset.bound='1';i.addEventListener('input',onQtyInput);
+    });
+    productsEl.querySelectorAll('.color-select,.color-input').forEach(i=>{
+      if(i.dataset.bound==='1')return;i.dataset.bound='1';i.addEventListener('input',onColorChange);
+    });
+    productsEl.querySelectorAll('.add-color-btn').forEach(btn=>{
+      if(btn.dataset.bound==='1')return;btn.dataset.bound='1';
+      btn.addEventListener('click',()=>{
+        const p=baseProducts.find(x=>x.id===btn.dataset.addColor),o=currentOffer();
+        if(!p||!o||priceFor(p,o)==null)return;
+        const list=productsEl.querySelector('[data-choice-list="'+p.id+'"]');
+        list.insertAdjacentHTML('beforeend',choiceRowHtml(p,false,true));
+        bindProductEvents();
+        update();
+      });
+    });
+    productsEl.querySelectorAll('.remove-color-btn:not([disabled])').forEach(btn=>{
+      if(btn.dataset.bound==='1')return;btn.dataset.bound='1';
+      btn.addEventListener('click',()=>{
+        productsEl.querySelector('[data-choice-row="'+btn.dataset.removeChoice+'"]')?.remove();
+        update();
+      });
+    });
   }
   function onColorChange(e){
     const row=productsEl.querySelector('[data-choice-row="'+e.target.dataset.choice+'"]');
