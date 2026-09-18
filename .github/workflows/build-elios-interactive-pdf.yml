@@ -1,0 +1,47 @@
+name: Build ELIOS interactive catalogue PDF
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'tools/build-elios-interactive-pdf.py'
+      - '.github/workflows/build-elios-interactive-pdf.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install PDF tooling
+        run: python -m pip install --disable-pip-version-check pymupdf requests
+      - name: Build interactive ELIOS PDF
+        run: |
+          python tools/build-elios-interactive-pdf.py \
+            --output assets/pdf/ELIOS_Catalogue_General_2026_INTERACTIF.pdf
+          test -s assets/pdf/ELIOS_Catalogue_General_2026_INTERACTIF.pdf
+      - name: Point Catalogues page to the interactive PDF
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('catalogues.html')
+          s=p.read_text(encoding='utf-8')
+          old="{ titre:'Catalogue Général', desc:'Toutes les collections 2026.', lien:'https://eliosceramica.com/wp-content/uploads/2018/02/ELIOS_CATALOGO-GENERALE-2026-1.pdf' }"
+          new="{ titre:'Catalogue Général interactif', desc:'Toutes les collections 2026 avec lexique cliquable intégré au PDF.', lien:'assets/pdf/ELIOS_Catalogue_General_2026_INTERACTIF.pdf' }"
+          if old not in s and new not in s:
+              raise SystemExit('ELIOS catalogue entry not found in catalogues.html')
+          if old in s:
+              p.write_text(s.replace(old,new),encoding='utf-8')
+          PY
+      - name: Commit generated interactive PDF
+        run: |
+          git config user.name "LRF Catalogue Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add assets/pdf/ELIOS_Catalogue_General_2026_INTERACTIF.pdf catalogues.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Publie le catalogue ELIOS 2026 en PDF interactif"
+          git push
