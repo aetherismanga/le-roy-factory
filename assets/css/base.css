@@ -182,10 +182,38 @@ header a.logo > img {
   background: transparent !important;
 }
 
-/* Site public desktop : logo plus grand */
-header a.logo > img,
-.site-header a.logo > img,
-.logo > img {
+/* Site public : logo floral officiel, version de cache 18/09/2026.
+   Cette règle ne s'applique jamais au CRM. */
+body:not(.crm-body) header a.logo > img,
+body:not(.crm-body) .site-header a.logo > img,
+body:not(.crm-body) .logo > img {
+  content: url('../brand-v2/logoLRF.png?v=20260918-pc-logo3') !important;
+  width: 76px !important;
+  height: 76px !important;
+  max-width: 76px !important;
+  max-height: 76px !important;
+  object-fit: contain !important;
+  border-radius: 50% !important;
+  transform: none !important;
+  background: transparent !important;
+}
+
+body:not(.crm-body) header a.logo > div,
+body:not(.crm-body) .site-header a.logo > div {
+  width: 82px !important;
+  height: 82px !important;
+  min-width: 82px !important;
+  max-width: 82px !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Site public desktop : logo compact */
+
+body.crm-body header a.logo > img,
+body.crm-body .site-header a.logo > img,
+body.crm-body .logo > img {
   width: 92px !important;
   height: 92px !important;
   max-width: none !important;
