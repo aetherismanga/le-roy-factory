@@ -1,7 +1,13 @@
 (() => {
   'use strict';
-  const GENERAL_PDF='https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf';
   const CERSAIE_PDF='assets/pdf/LA_FENICE_CERSAIE_2026_INTERACTIF.pdf';
+  const GENERAL_SECTIONS=[
+    {id:'marble',start:20,end:101,file:'assets/pdf/fenice-general/marble.pdf'},
+    {id:'stone',start:102,end:255,file:'assets/pdf/fenice-general/stone.pdf'},
+    {id:'metal',start:256,end:337,file:'assets/pdf/fenice-general/metal.pdf'},
+    {id:'wood',start:338,end:383,file:'assets/pdf/fenice-general/wood.pdf'},
+    {id:'decor',start:384,end:421,file:'assets/pdf/fenice-general/decor.pdf'}
+  ];
 
   const general = [
     ['Amazing',104],['Antique Aurea',22],['Apache',112],['Briccole',340],
@@ -17,15 +23,19 @@
     ['Slate',244],['Steel Art',288],['Stone',250],['Suveya',96],
     ['Tendance',380],['Touch',294],['Touch Evo',306],['Walk Materials',316],
     ['Woodland',382],['X Beton',322],['X Metal',330]
-  ].map(([name, printedPage]) => ({
-    id:'fenice-general-'+name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''),
-    name,
-    pdf:GENERAL_PDF,
-    page:printedPage+2,
-    printedPage,
-    meta:`Catalogue général · p. ${printedPage}`,
-    keywords:name
-  }));
+  ].map(([name, printedPage]) => {
+    const section=GENERAL_SECTIONS.find(x=>printedPage>=x.start&&printedPage<=x.end);
+    return {
+      id:'fenice-general-'+name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''),
+      name,
+      pdf:section?.file||'',
+      section:section?.id||'',
+      page:section ? (printedPage-section.start+1) : 1,
+      printedPage,
+      meta:`Catalogue général · p. ${printedPage}`,
+      keywords:name
+    };
+  });
 
   const c = (name,page,meta,keywords='') => ({
     id:'fenice-cersaie-'+name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''),
