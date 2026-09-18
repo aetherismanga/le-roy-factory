@@ -15,13 +15,13 @@
     main{padding:24px 0 70px}.panel{background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:var(--shadow);margin-bottom:18px}.panel h2{margin:0 0 5px;font-size:1.25rem}.panel>p{margin:0 0 16px;color:var(--muted);font-size:.86rem}.admin-client-panel[hidden]{display:none}.client-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:10px}.client-grid input,.client-grid select{height:44px;border:1px solid #d8d0c2;border-radius:10px;background:#fff;padding:0 10px;font:inherit}.client-picked{margin-top:10px;padding:10px 12px;background:#f3f7f1;border:1px solid #cbd8c8;border-radius:10px;color:#415246;font-size:.8rem;font-weight:800}
     .offers{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.offer input{display:none}.offer span{display:block;height:100%;border:1px solid #ddd4c4;border-radius:15px;padding:15px;background:#faf8f4;cursor:pointer}.offer b{display:block;color:#6f592b;font-size:.78rem}.offer strong{display:block;margin-top:5px;font-size:1.02rem}.offer small{display:block;margin-top:6px;color:#77736d;line-height:1.35}.offer input:checked+span{background:#eaf2e7;border-color:#aebfac;box-shadow:0 0 0 3px rgba(117,145,120,.12)}
     .counter{margin:14px 0 0;padding:12px 14px;border-radius:13px;background:#f4f7f2;border:1px solid #cfdbcd;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.counter strong{color:#314237}.counter .ok{color:#287047}.counter .warn{color:#996b17}.counter .bad{color:#a33b31}
-    .products{display:grid;gap:9px}.product{display:grid;grid-template-columns:150px minmax(250px,1fr) 180px 110px;gap:10px;align-items:center;border:1px solid #e1d9cb;border-radius:13px;padding:11px 12px;background:#fff}.product.disabled{opacity:.48;background:#f5f3ef}.model-select,.color-select,.color-input,.palettes{width:100%;height:40px;border:1px solid #d8d0c2;border-radius:9px;padding:0 9px;font:inherit;background:#fff}.model-select:disabled,.color-select:disabled,.color-input:disabled,.palettes:disabled{background:#f3f1ed;color:#aaa}.product-copy strong{display:block}.product-copy small{display:block;margin-top:3px;color:#7b776f}.price-before{text-decoration:line-through;color:#8c877e}.price-now{font-weight:900;color:#47614d}.no-discount{font-weight:800;color:#6e6250}.color-required{color:#9b6b22;font-size:.7rem;font-weight:800;margin-top:3px}
+    .products{display:grid;gap:9px}.product{border:1px solid #e1d9cb;border-radius:13px;padding:11px 12px;background:#fff}.product.disabled{opacity:.48;background:#f5f3ef}.product-head{display:grid;grid-template-columns:150px minmax(250px,1fr) auto;gap:10px;align-items:center;margin-bottom:9px}.product-choices{display:grid;gap:7px}.product-choice{display:grid;grid-template-columns:minmax(220px,1fr) 110px 42px;gap:9px;align-items:center;padding-top:7px;border-top:1px dashed #e6dfd3}.product-choice:first-child{border-top:0;padding-top:0}.add-color-btn,.remove-color-btn{height:38px;border-radius:9px;border:1px solid #b9c9b6;background:#eef4ec;color:#314237;font-weight:900;cursor:pointer}.add-color-btn{padding:0 11px;white-space:nowrap}.remove-color-btn{width:42px;background:#fff7f3;border-color:#dbc5bd;color:#8d5142}.add-color-btn:disabled,.remove-color-btn:disabled{opacity:.4;cursor:not-allowed}.model-select,.color-select,.color-input,.palettes{width:100%;height:40px;border:1px solid #d8d0c2;border-radius:9px;padding:0 9px;font:inherit;background:#fff}.model-select:disabled,.color-select:disabled,.color-input:disabled,.palettes:disabled{background:#f3f1ed;color:#aaa}.product-copy strong{display:block}.product-copy small{display:block;margin-top:3px;color:#7b776f}.price-before{text-decoration:line-through;color:#8c877e}.price-now{font-weight:900;color:#47614d}.no-discount{font-weight:800;color:#6e6250}.color-required{color:#9b6b22;font-size:.7rem;font-weight:800;margin-top:3px}
     .free-grid{display:grid;gap:10px}.free-row{display:grid;grid-template-columns:1.3fr 1fr;gap:10px;align-items:center;padding:12px;border:1px solid #d8ded4;border-radius:13px;background:#f7faf5}.free-row select{width:100%;height:42px;border:1px solid #cfd7cd;border-radius:9px;padding:0 9px;font:inherit;background:#fff}.free-row select:disabled{background:#f0f0ed;color:#aaa}.free-note{margin-top:10px;padding:11px 13px;border-radius:12px;background:#fff8ec;border:1px solid #ead8b7;color:#6f6044;font-size:.78rem;line-height:1.45}
     .prime-wrap{display:none;margin-top:16px}.prime-wrap.show{display:block}.prime-wrap label{font-weight:800;font-size:.82rem}.prime-wrap select,.notes textarea{width:100%;margin-top:7px;border:1px solid #d8d0c2;border-radius:10px;background:#fff;font:inherit}.prime-wrap select{height:44px;padding:0 10px}.notes textarea{min-height:100px;padding:11px;resize:vertical}
     .summary{background:#f6f8f4;border:1px solid #cbd7c9;border-radius:15px;padding:16px}.summary h3{margin:0 0 8px}.summary pre{white-space:pre-wrap;margin:0;font:inherit;font-size:.84rem;line-height:1.5;color:#414841}.validation{margin-top:12px;font-size:.82rem;font-weight:800}.validation.ok{color:#287047}.validation.error{color:#a33b31}
     .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.btn{min-height:46px;border-radius:11px;padding:0 16px;border:1px solid #b9c9b6;background:#e5ede2;color:#314237;font-weight:900;cursor:pointer}.btn:disabled{opacity:.4;cursor:not-allowed}.btn.secondary{background:#fff;border-color:#d1c6b2;color:#5a5142}.btn.mail{background:#4a604e;color:#fff;border-color:#4a604e}
     .conditions{font-size:.76rem;color:#706c64;line-height:1.5}.conditions strong{color:#4c4a45}
-    @media(max-width:920px){.offers{grid-template-columns:1fr}.product{grid-template-columns:1fr 1fr}.product-copy{grid-column:1/-1}.free-row,.client-grid{grid-template-columns:1fr}.fields{grid-template-columns:1fr}}
+    @media(max-width:920px){.offers{grid-template-columns:1fr}.product-head{grid-template-columns:1fr}.product-choice{grid-template-columns:1fr 110px 42px}.free-row,.client-grid{grid-template-columns:1fr}.fields{grid-template-columns:1fr}}
     @media(max-width:560px){.product{grid-template-columns:1fr}.actions{display:grid}.btn{width:100%}}
     @media print{header,.gate,.actions{display:none!important}body{background:#fff}.wrap{width:100%}.panel{box-shadow:none;break-inside:avoid}.hero{border:0}.hero-in{padding:0 0 15px}.hero .session{display:none}}
   </style>
@@ -145,15 +145,22 @@
     return session?.departement||'';
   }
   function resetSelections(){
-    productsEl.querySelectorAll('.qty').forEach(i=>i.value='');
-    productsEl.querySelectorAll('.color-select,.color-input').forEach(i=>i.value='');
     freeGrid.innerHTML='';
     document.getElementById('prime').value='';
   }
   function priceFor(p,o){if(!o)return null;return p.promo[o.priceIndex]??null}
-  function colorField(p,disabled){
-    if(p.manualRef)return '<input class="color-input" data-color="'+p.id+'" type="text" placeholder="Référence / coloris" '+(disabled?'disabled':'')+'>';
-    return '<select class="color-select" data-color="'+p.id+'" '+(disabled?'disabled':'')+'><option value="">Choisir le coloris…</option>'+p.colors.map(x=>'<option value="'+x+'">'+x+'</option>').join('')+'</select>';
+  let choiceSeq=0;
+  function colorField(p,disabled,rowId){
+    if(p.manualRef)return '<input class="color-input" data-choice="'+rowId+'" type="text" placeholder="Référence / coloris" '+(disabled?'disabled':'')+'>';
+    return '<select class="color-select" data-choice="'+rowId+'" '+(disabled?'disabled':'')+'><option value="">Choisir le coloris…</option>'+p.colors.map(x=>'<option value="'+x+'">'+x+'</option>').join('')+'</select>';
+  }
+  function choiceRowHtml(p,disabled,removable){
+    const rowId='choice-'+(++choiceSeq);
+    return '<div class="product-choice" data-choice-row="'+rowId+'" data-product-id="'+p.id+'">'+
+      colorField(p,disabled,rowId)+
+      '<input class="qty palettes" data-choice="'+rowId+'" type="number" min="0" step="1" placeholder="Palettes" disabled>'+
+      '<button class="remove-color-btn" type="button" data-remove-choice="'+rowId+'" '+(!removable?'disabled aria-hidden="true"':'')+' title="Supprimer ce coloris">×</button>'+
+    '</div>';
   }
   function renderProducts(){
     const o=currentOffer();
@@ -161,27 +168,47 @@
       const promo=o?priceFor(p,o):null,unavailable=!!o&&promo==null,disabled=!o||unavailable;
       const modelOptions=p.models.map(m=>'<option>'+m+'</option>').join('');
       const priceLine=!o?'Choisissez une offre':unavailable?'Non disponible dans cette offre':(p.note?'<span class="no-discount">'+p.note+' · Prix net '+euro(p.before)+'</span>':'Avant promo <span class="price-before">'+euro(p.before)+'</span> · <span class="price-now">Prix promo '+euro(promo)+'</span>');
-      return '<div class="product '+(unavailable?'disabled':'')+'" data-id="'+p.id+'">'+
-        '<select class="model-select" data-model="'+p.id+'" '+(disabled?'disabled':'')+'>'+modelOptions+'</select>'+
-        '<div class="product-copy"><strong>'+p.format+'</strong><small>'+priceLine+'</small><div class="color-required">Coloris obligatoire avant quantité</div></div>'+
-        colorField(p,disabled)+
-        '<input class="qty palettes" data-qty="'+p.id+'" type="number" min="0" step="1" placeholder="Palettes" disabled>'+
+      return '<div class="product '+(unavailable?'disabled':'')+'" data-product="'+p.id+'">'+
+        '<div class="product-head">'+
+          '<select class="model-select" disabled>'+modelOptions+'</select>'+
+          '<div class="product-copy"><strong>'+p.format+'</strong><small>'+priceLine+'</small><div class="color-required">Vous pouvez ajouter plusieurs coloris sur ce même format</div></div>'+
+          '<button class="add-color-btn" type="button" data-add-color="'+p.id+'" '+(disabled?'disabled':'')+'>+ Ajouter un coloris</button>'+
+        '</div>'+
+        '<div class="product-choices" data-choice-list="'+p.id+'">'+choiceRowHtml(p,disabled,false)+'</div>'+
       '</div>';
     }).join('');
+    bindProductEvents();
+  }
+  function bindProductEvents(){
     productsEl.querySelectorAll('.qty').forEach(i=>i.addEventListener('input',onQtyInput));
     productsEl.querySelectorAll('.color-select,.color-input').forEach(i=>i.addEventListener('input',onColorChange));
+    productsEl.querySelectorAll('.add-color-btn').forEach(btn=>btn.addEventListener('click',()=>{
+      const p=baseProducts.find(x=>x.id===btn.dataset.addColor),o=currentOffer();
+      if(!p||!o||priceFor(p,o)==null)return;
+      const list=productsEl.querySelector('[data-choice-list="'+p.id+'"]');
+      list.insertAdjacentHTML('beforeend',choiceRowHtml(p,false,true));
+      bindProductEvents();
+      update();
+    }));
+    productsEl.querySelectorAll('.remove-color-btn:not([disabled])').forEach(btn=>btn.addEventListener('click',()=>{
+      productsEl.querySelector('[data-choice-row="'+btn.dataset.removeChoice+'"]')?.remove();
+      update();
+    }));
   }
   function onColorChange(e){
-    const id=e.target.dataset.color,qty=document.querySelector('[data-qty="'+id+'"]');
+    const row=productsEl.querySelector('[data-choice-row="'+e.target.dataset.choice+'"]');
+    const qty=row?.querySelector('.qty');
     const ok=String(e.target.value||'').trim()!=='';
     if(qty){qty.disabled=!ok;if(!ok)qty.value='';}
     update();
   }
   function paidLines(){
     const o=currentOffer();if(!o)return[];
-    return baseProducts.map(p=>{
-      const qty=Math.max(0,parseInt(document.querySelector('[data-qty="'+p.id+'"]')?.value||'0',10)||0);
-      const price=priceFor(p,o),color=(document.querySelector('[data-color="'+p.id+'"]')?.value||'').trim();
+    return [...productsEl.querySelectorAll('.product-choice')].map(row=>{
+      const p=baseProducts.find(x=>x.id===row.dataset.productId);
+      if(!p)return null;
+      const qty=Math.max(0,parseInt(row.querySelector('.qty')?.value||'0',10)||0);
+      const price=priceFor(p,o),color=(row.querySelector('.color-select,.color-input')?.value||'').trim();
       if(!qty||price==null||!color)return null;
       return {p,qty,price,model:p.models[0],color};
     }).filter(Boolean);
@@ -189,7 +216,8 @@
   function paidTotal(){return paidLines().reduce((s,x)=>s+x.qty,0)}
   function onQtyInput(e){
     const o=currentOffer();if(!o)return;
-    const id=e.target.dataset.qty,color=(document.querySelector('[data-color="'+id+'"]')?.value||'').trim();
+    const row=productsEl.querySelector('[data-choice-row="'+e.target.dataset.choice+'"]');
+    const color=(row?.querySelector('.color-select,.color-input')?.value||'').trim();
     if(!color){e.target.value='';e.target.disabled=true;return}
     let val=Math.max(0,parseInt(e.target.value||'0',10)||0);
     const others=[...productsEl.querySelectorAll('.qty')].filter(x=>x!==e.target).reduce((s,x)=>s+(parseInt(x.value||'0',10)||0),0);
