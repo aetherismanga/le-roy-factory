@@ -1,356 +1,311 @@
 (() => {
+  'use strict';
+  if (window.__LRF_ELIOS_GALLERY_V3__) return;
+  window.__LRF_ELIOS_GALLERY_V3__ = true;
+
   const grid = document.getElementById('partner-products');
   const modal = document.getElementById('product-modal-v2');
-  if (!grid || !modal) return;
+  const modalCard = document.getElementById('product-modal-v2-card');
+  if (!grid || !modal || !modalCard) return;
 
-  const images = window.ELIOS_IMAGE_DATA || {};
-  const catalogue = Array.isArray(window.ELIOS_CATALOGUE) ? window.ELIOS_CATALOGUE : [];
-  const remote = window.ELIOS_HD_REMOTE || {};
-  const extraOfficial = window.ELIOS_OFFICIAL_GALLERIES || {};
-  const extraVariants = window.ELIOS_VERIFIED_VARIANTS || {};
-
-  // Galeries officielles Elios validées. Roma reste le modèle de référence.
-  // Les collections listées ici utilisent uniquement des visuels officiels HD.
-  const OFFICIAL_GALLERIES = {
-    dolomiti: [
-      'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_bianco_greige.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_CAMERA_beige.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_BAGNO_beige.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_beige_lappato.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_beige1.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_CUCINA_greige.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_CAMERAgreige.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_CAMERA_greige_chevron.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_greige.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_greige_lappato.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_grigio.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_grigio_chevron.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_grigio1.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_antracite.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_antracite_out.jpg'
-    ],
-    sedimenti: [
-      'https://eliosceramica.com/wp-content/uploads/2024/02/SEDIMENTI-MODULO-BEIGE-TUMBLED-1.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2024/02/Elios-Sedimenti-1.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2024/02/Elios-Sedimenti-2.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2024/02/Elios-Sedimenti-3.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2024/02/TROIABASSA-NEWTON-SEDIMENTI-BEIGE-SAND-LOIRE-BEIGE-14X76-2.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2024/02/SEDIMENTI-GREY-TUMBLED-1.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2024/02/Elios-Sedimenti-4.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2024/02/Elios-Sedimenti-5.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2024/02/SEDIMENTI-MODULO-GREY-TUMBLED.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2024/02/Elios-Sedimenti-6.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2024/02/Elios-Sedimenti-7.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2024/02/Elios-Sedimenti-8.jpg'
-    ],
-    yosemite: [
-      'https://eliosceramica.com/wp-content/uploads/2022/11/YOSEMITE_amb4.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2022/11/yosemite_honey_amb1.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2022/11/YOSEMITE_amb5.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2022/11/YOSEMITE_amb3.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2022/11/yosemite_netural_amb2.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2022/11/YOSEMITE_amb7.jpg'
-    ],
-    'millennium-quartz': [
-      'https://eliosceramica.com/wp-content/uploads/2023/10/Millenium_Quartz_Amb_5.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2023/10/Millenium_Quartz_Amb_11-scaled.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2023/10/Millenium_Quartz_Amb_6-scaled.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2023/10/Millenium_Quartz_Amb_4-scaled.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2023/10/Millenium_Quartz_Amb_1.jpg'
-    ],
-    manhattan: [
-      'https://eliosceramica.com/wp-content/uploads/2021/06/Manhattan_Grey_amb-scaled.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2021/06/Manhattan_Dark_grey_amb2-scaled.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2021/06/Manhattan_Sand_amb2-scaled.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2021/06/Manhattan_Pearl_amb2-scaled.jpg'
-    ],
-    mysterium: [
-      'https://eliosceramica.com/wp-content/uploads/2025/05/ELIOS_MYSTERIUM_SABBIA_BAGNO.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2025/05/ELIOS_MYSTERIUM_CASELLI_sabbia.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2025/05/ELIOS_MYSTERIUM_ACQUA_LIVING.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2025/05/ELIOS_MYSTERIUM_ACQUA_SPA.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2025/05/ELIOS_MYSTERIUM_OCEANO_GIARDINO.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2025/05/ELIOS_MYSTERIUM_OCEANO_LIVING.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2025/05/ELIOS_MYSTERIUM_TERRA_CUCINA.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2025/05/ELIOS_MYSTERIUM_TERRA_UFFICIO.jpg'
-    ],
-    'bavaria-stone': [
-      'https://eliosceramica.com/wp-content/uploads/2021/01/Elios_Bavaria_Stone_3.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2021/01/Elios_Bavaria_Stone_2.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2021/01/Elios_Bavaria_Stone_1.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2021/01/BAVARIA-STONE_White_beige_grey.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2021/01/bavaria_stone_noce_amb1-scaled.jpg',
-      'https://eliosceramica.com/wp-content/uploads/2021/01/bavaria_stone_noce_amb3-scaled.jpg'
-    ]
-  };
-
-  const VERIFIED_VARIANTS = {
-    roma: {
-      Aventino: [
-        'https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Aventino_pav.jpg',
-        'https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Aventino_2.jpg'
-      ],
-      Celio: [
-        'https://eliosceramica.com/wp-content/uploads/2021/02/Roma_CELIO-1.jpg',
-        'https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Celio_pav_Cop.jpg'
-      ],
-      Viminale: [
-        'https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Viminale_cucina.jpg',
-        'https://eliosceramica.com/wp-content/uploads/2021/02/Roma_viminale-1.jpg'
-      ],
-      Palatino: [
-        'https://eliosceramica.com/wp-content/uploads/2021/02/ROMA_PALATINO_amb.jpg',
-        'https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Palatino_1.jpg',
-        'https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Palatino_2.jpg',
-        'https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Palatino_3.jpg',
-        'https://eliosceramica.com/wp-content/uploads/2021/02/Roma_palatino_esterno2.jpg',
-        'https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Palatino_PART.jpg',
-        'https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Palatino_riv.jpg'
-      ]
-    },
-    dolomiti: {
-      Bianco: ['https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_bianco_greige.jpg'],
-      Beige: [
-        'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_CAMERA_beige.jpg',
-        'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_BAGNO_beige.jpg',
-        'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_beige_lappato.jpg',
-        'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_beige1.jpg'
-      ],
-      Greige: [
-        'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_bianco_greige.jpg',
-        'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_CUCINA_greige.jpg',
-        'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_CAMERAgreige.jpg',
-        'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_CAMERA_greige_chevron.jpg',
-        'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_greige.jpg',
-        'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_greige_lappato.jpg'
-      ],
-      Grigio: [
-        'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_grigio.jpg',
-        'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_grigio_chevron.jpg',
-        'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_grigio1.jpg'
-      ],
-      Antracite: [
-        'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_antracite.jpg',
-        'https://eliosceramica.com/wp-content/uploads/2021/01/DOLOMITI_LIVING_antracite_out.jpg'
-      ]
-    },
-    sedimenti: {
-      Beige: [
-        'https://eliosceramica.com/wp-content/uploads/2024/02/SEDIMENTI-MODULO-BEIGE-TUMBLED-1.jpg',
-        'https://eliosceramica.com/wp-content/uploads/2024/02/TROIABASSA-NEWTON-SEDIMENTI-BEIGE-SAND-LOIRE-BEIGE-14X76-2.jpg'
-      ],
-      Sand: ['https://eliosceramica.com/wp-content/uploads/2024/02/TROIABASSA-NEWTON-SEDIMENTI-BEIGE-SAND-LOIRE-BEIGE-14X76-2.jpg'],
-      Grey: [
-        'https://eliosceramica.com/wp-content/uploads/2024/02/SEDIMENTI-GREY-TUMBLED-1.jpg',
-        'https://eliosceramica.com/wp-content/uploads/2024/02/SEDIMENTI-MODULO-GREY-TUMBLED.jpg'
-      ]
-    },
-    yosemite: {
-      Honey: ['https://eliosceramica.com/wp-content/uploads/2022/11/yosemite_honey_amb1.jpg'],
-      Natural: ['https://eliosceramica.com/wp-content/uploads/2022/11/yosemite_netural_amb2.jpg']
-    },
-    manhattan: {
-      Pearl: ['https://eliosceramica.com/wp-content/uploads/2021/06/Manhattan_Pearl_amb2-scaled.jpg'],
-      Sand: ['https://eliosceramica.com/wp-content/uploads/2021/06/Manhattan_Sand_amb2-scaled.jpg'],
-      Ash: [
-        'https://eliosceramica.com/wp-content/uploads/2021/06/Manhattan_Grey_amb-scaled.jpg',
-        'https://eliosceramica.com/wp-content/uploads/2021/06/Manhattan_Dark_grey_amb2-scaled.jpg'
-      ]
-    },
-    mysterium: {
-      Acqua: [
-        'https://eliosceramica.com/wp-content/uploads/2025/05/ELIOS_MYSTERIUM_ACQUA_LIVING.jpg',
-        'https://eliosceramica.com/wp-content/uploads/2025/05/ELIOS_MYSTERIUM_ACQUA_SPA.jpg'
-      ],
-      Ocean: [
-        'https://eliosceramica.com/wp-content/uploads/2025/05/ELIOS_MYSTERIUM_OCEANO_GIARDINO.jpg',
-        'https://eliosceramica.com/wp-content/uploads/2025/05/ELIOS_MYSTERIUM_OCEANO_LIVING.jpg'
-      ]
-    }
-  };
-
-  const esc = value => String(value ?? '').replace(/[&<>\"']/g, c => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', '\"': '&quot;', "'": '&#39;'
+  const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
   }[c]));
-
-  function unique(list) {
-    const seen = new Set();
-    return list.filter(src => {
-      if (!src || seen.has(src)) return false;
-      seen.add(src);
-      return true;
+  const norm = value => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim().toLowerCase();
+  const unique = list => {
+    const seen=new Set();
+    return (list||[]).filter(src => {
+      src=String(src||'').trim();
+      if(!src || seen.has(src)) return false;
+      seen.add(src); return true;
     });
+  };
+
+  let activeId = '';
+  let activeGallery = null;
+
+  function catalogue(){ return Array.isArray(window.ELIOS_CATALOGUE) ? window.ELIOS_CATALOGUE : []; }
+  function imageData(){ return window.ELIOS_IMAGE_DATA || {}; }
+  function remote(){ return window.ELIOS_HD_REMOTE || {}; }
+  function official(){ return window.ELIOS_OFFICIAL_GALLERIES || {}; }
+  function variants(){ return window.ELIOS_VERIFIED_VARIANTS || {}; }
+
+  function productFromId(id){
+    const slug=String(id||'').replace(/^elios-/,'');
+    const product=catalogue().find(p=>p.slug===slug);
+    return product ? {slug,product,id:'elios-'+slug} : null;
   }
 
-  function productFromId(id) {
-    const slug = String(id || '').replace(/^elios-/, '');
-    const product = catalogue.find(p => p.slug === slug);
-    return product ? { slug, product } : null;
+  function productFromOpenModal(){
+    if(activeId){
+      const found=productFromId(activeId);
+      if(found) return found;
+    }
+    const title=modalCard.querySelector('.modal-v2-info h2, h2')?.textContent?.trim();
+    if(!title) return null;
+    const p=catalogue().find(x=>norm(x.name)===norm(title) || norm(x.catalogueLabel)===norm(title));
+    return p ? {slug:p.slug,product:p,id:'elios-'+p.slug} : null;
   }
 
-  function bestLocalImage(product) {
-    const candidates = (product.gallery || [])
-      .map(key => images[key])
-      .filter(Boolean)
-      .sort((a, b) => String(b).length - String(a).length);
-    return candidates[0] || '';
+  function bestLocal(product){
+    const data=imageData();
+    const arr=(product.gallery||[]).map(k=>data[k]).filter(Boolean);
+    return arr;
   }
 
-  function baseGallery(slug, product) {
-    // Dès qu'une galerie officielle HD est validée, on n'affiche plus les anciennes
-    // miniatures PDF de cette collection. Sinon : 1 HD principal + meilleur secours local.
-    const official = extraOfficial[slug] || OFFICIAL_GALLERIES[slug] || [];
-    if (official.length) return unique(official);
-    const hd = remote[slug] ? [remote[slug]] : [];
-    const localBest = bestLocalImage(product);
-    return unique([...hd, ...(localBest ? [localBest] : [])]);
+  function variantMap(slug){
+    return variants()[slug] || {};
   }
 
-  function buildGallery(card, id) {
-    const found = productFromId(id);
-    if (!found || card.dataset.galleryEnhanced === id) return;
+  function sourceColorMap(slug){
+    const out=new Map();
+    const vm=variantMap(slug);
+    Object.entries(vm).forEach(([color,arr]) => (arr||[]).forEach(src => {
+      if(src && !out.has(src)) out.set(src,color);
+    }));
+    return out;
+  }
 
-    const { slug, product } = found;
-    const main = card.querySelector('.modal-v2-main');
-    const oldMainImage = main?.querySelector(':scope > img');
-    const info = card.querySelector('.modal-v2-info');
-    if (!main || !oldMainImage || !info) return;
+  function collectionImages(slug,product){
+    const vm=variantMap(slug);
+    const allVariants=Object.values(vm).flat();
+    return unique([
+      ...(official()[slug]||[]),
+      ...allVariants,
+      ...(remote()[slug] ? [remote()[slug]] : []),
+      ...bestLocal(product)
+    ]);
+  }
 
-    const collectionImages = baseGallery(slug, product);
-    if (!collectionImages.length) return;
+  function ensureLightbox(){
+    let box=document.getElementById('elios-gallery-lightbox');
+    if(box) return box;
+    box=document.createElement('div');
+    box.id='elios-gallery-lightbox';
+    box.className='elios-lightbox';
+    box.setAttribute('aria-hidden','true');
+    box.innerHTML=`
+      <button class="elios-lightbox-close" type="button" aria-label="Fermer">×</button>
+      <button class="elios-lightbox-nav prev" type="button" aria-label="Image précédente">‹</button>
+      <div class="elios-lightbox-inner">
+        <img class="elios-lightbox-image" alt="">
+        <div class="elios-lightbox-caption"></div>
+      </div>
+      <button class="elios-lightbox-nav next" type="button" aria-label="Image suivante">›</button>
+    `;
+    document.body.appendChild(box);
+    box.querySelector('.elios-lightbox-close').addEventListener('click',()=>closeLightbox());
+    box.addEventListener('click',e=>{ if(e.target===box) closeLightbox(); });
+    box.querySelector('.prev').addEventListener('click',e=>{e.stopPropagation();activeGallery?.go(-1,true)});
+    box.querySelector('.next').addEventListener('click',e=>{e.stopPropagation();activeGallery?.go(1,true)});
+    return box;
+  }
 
-    const verified = { ...(VERIFIED_VARIANTS[slug] || {}), ...(extraVariants[slug] || {}) };
-    let currentImages = collectionImages;
-    let currentIndex = 0;
+  function closeLightbox(){
+    const box=document.getElementById('elios-gallery-lightbox');
+    if(!box) return;
+    box.classList.remove('open');
+    box.setAttribute('aria-hidden','true');
+    document.body.classList.remove('elios-lightbox-open');
+  }
 
-    const gallery = document.createElement('div');
-    gallery.className = 'elios-gallery-v2';
-    gallery.innerHTML = `
-      <div class="elios-gallery-stage" aria-label="Galerie ${esc(product.name)}">
+  function inferColor(src,slug,selectedColor){
+    if(selectedColor) return selectedColor;
+    return sourceColorMap(slug).get(src) || '';
+  }
+
+  function enhance(found){
+    if(!found) return false;
+    const {slug,product,id}=found;
+    const main=modalCard.querySelector('.modal-v2-main');
+    const info=modalCard.querySelector('.modal-v2-info');
+    if(!main || !info) return false;
+
+    const existing=main.querySelector('.elios-gallery-v3');
+    if(existing && existing.dataset.productId===id) return true;
+
+    const oldImg=main.querySelector(':scope > img, .modal-v2-main > img');
+    if(!oldImg && !existing) return false;
+    if(existing) existing.remove();
+
+    const all=collectionImages(slug,product);
+    if(!all.length) return false;
+    const vm=variantMap(slug);
+    let currentImages=all.slice();
+    let currentIndex=0;
+    let selectedColor='';
+
+    const gallery=document.createElement('div');
+    gallery.className='elios-gallery-v3';
+    gallery.dataset.productId=id;
+    gallery.innerHTML=`
+      <div class="elios-gallery-stage" title="Cliquer pour agrandir">
         <img class="elios-gallery-main" alt="${esc(product.name)}" draggable="false">
         <button class="elios-gallery-nav prev" type="button" aria-label="Image précédente">‹</button>
         <button class="elios-gallery-nav next" type="button" aria-label="Image suivante">›</button>
         <span class="elios-gallery-counter"></span>
+        <div class="elios-gallery-image-label"></div>
+        <span class="elios-gallery-zoom-hint">⤢ Agrandir</span>
       </div>
-      <div class="elios-gallery-thumbs" aria-label="Miniatures"></div>
-      <div class="elios-gallery-caption">Glissez l'image sur smartphone · cliquez sur les miniatures sur PC</div>
+      <div class="elios-gallery-thumbs"></div>
     `;
-    oldMainImage.replaceWith(gallery);
+    if(oldImg) oldImg.replaceWith(gallery); else main.prepend(gallery);
 
-    const stage = gallery.querySelector('.elios-gallery-stage');
-    const mainImage = gallery.querySelector('.elios-gallery-main');
-    const thumbs = gallery.querySelector('.elios-gallery-thumbs');
-    const counter = gallery.querySelector('.elios-gallery-counter');
-    const prev = gallery.querySelector('.prev');
-    const next = gallery.querySelector('.next');
+    const stage=gallery.querySelector('.elios-gallery-stage');
+    const mainImg=gallery.querySelector('.elios-gallery-main');
+    const thumbs=gallery.querySelector('.elios-gallery-thumbs');
+    const counter=gallery.querySelector('.elios-gallery-counter');
+    const label=gallery.querySelector('.elios-gallery-image-label');
+    const prev=gallery.querySelector('.prev');
+    const next=gallery.querySelector('.next');
 
-    function safeSetImage(src) {
-      mainImage.onerror = () => {
-        const fallback = collectionImages.find(x => x !== src);
-        mainImage.onerror = null;
-        mainImage.src = fallback || 'assets/img/03.png';
+    function caption(){
+      const src=currentImages[currentIndex]||'';
+      const color=inferColor(src,slug,selectedColor);
+      return color ? `${product.name} · ${color}` : product.name;
+    }
+
+    function updateLightbox(){
+      const box=document.getElementById('elios-gallery-lightbox');
+      if(!box?.classList.contains('open')) return;
+      box.querySelector('.elios-lightbox-image').src=currentImages[currentIndex]||'';
+      box.querySelector('.elios-lightbox-image').alt=caption();
+      box.querySelector('.elios-lightbox-caption').textContent=`${caption()} · ${currentIndex+1} / ${currentImages.length}`;
+      box.querySelector('.prev').hidden=box.querySelector('.next').hidden=currentImages.length<2;
+    }
+
+    function render(){
+      if(!currentImages.length) currentImages=all.slice();
+      currentIndex=Math.max(0,Math.min(currentIndex,currentImages.length-1));
+      const src=currentImages[currentIndex]||'assets/img/03.png';
+      mainImg.onerror=()=>{
+        const fallback=all.find(x=>x!==src);
+        mainImg.onerror=null;
+        mainImg.src=fallback||'assets/img/03.png';
       };
-      mainImage.src = src || 'assets/img/03.png';
-    }
-
-    function render() {
-      if (!currentImages.length) currentImages = collectionImages;
-      if (currentIndex >= currentImages.length) currentIndex = 0;
-      safeSetImage(currentImages[currentIndex]);
-      counter.textContent = `${currentIndex + 1} / ${currentImages.length}`;
-      prev.hidden = next.hidden = currentImages.length < 2;
-      thumbs.hidden = currentImages.length < 2;
-      thumbs.innerHTML = currentImages.map((src, i) => `
-        <button type="button" class="elios-gallery-thumb ${i === currentIndex ? 'active' : ''}" data-gallery-index="${i}" aria-label="Voir l'image ${i + 1}">
+      mainImg.src=src;
+      mainImg.alt=caption();
+      counter.textContent=`${currentIndex+1} / ${currentImages.length}`;
+      label.textContent=caption();
+      prev.hidden=next.hidden=currentImages.length<2;
+      thumbs.innerHTML=currentImages.map((src,i)=>`
+        <button type="button" class="elios-gallery-thumb ${i===currentIndex?'active':''}" data-gallery-index="${i}" aria-label="${esc(caption())} image ${i+1}">
           <img src="${esc(src)}" alt="" loading="lazy" draggable="false">
-        </button>
-      `).join('');
+        </button>`).join('');
+      updateLightbox();
     }
 
-    function go(delta) {
-      if (currentImages.length < 2) return;
-      currentIndex = (currentIndex + delta + currentImages.length) % currentImages.length;
+    function go(delta,fromLightbox=false){
+      if(currentImages.length<2) return;
+      currentIndex=(currentIndex+delta+currentImages.length)%currentImages.length;
       render();
+      if(fromLightbox) updateLightbox();
     }
 
-    prev.addEventListener('click', e => { e.stopPropagation(); go(-1); });
-    next.addEventListener('click', e => { e.stopPropagation(); go(1); });
-    thumbs.addEventListener('click', e => {
-      const button = e.target.closest('[data-gallery-index]');
-      if (!button) return;
-      currentIndex = Number(button.dataset.galleryIndex) || 0;
-      render();
+    function openLightbox(){
+      const box=ensureLightbox();
+      activeGallery=api;
+      box.querySelector('.elios-lightbox-image').src=currentImages[currentIndex]||'';
+      box.querySelector('.elios-lightbox-image').alt=caption();
+      box.querySelector('.elios-lightbox-caption').textContent=`${caption()} · ${currentIndex+1} / ${currentImages.length}`;
+      box.querySelector('.prev').hidden=box.querySelector('.next').hidden=currentImages.length<2;
+      box.classList.add('open');
+      box.setAttribute('aria-hidden','false');
+      document.body.classList.add('elios-lightbox-open');
+    }
+
+    const api={go,render,openLightbox};
+    activeGallery=api;
+
+    prev.addEventListener('click',e=>{e.stopPropagation();go(-1)});
+    next.addEventListener('click',e=>{e.stopPropagation();go(1)});
+    thumbs.addEventListener('click',e=>{
+      const b=e.target.closest('[data-gallery-index]'); if(!b) return;
+      currentIndex=Number(b.dataset.galleryIndex)||0; render();
+    });
+    stage.addEventListener('click',e=>{
+      if(e.target.closest('.elios-gallery-nav')) return;
+      openLightbox();
     });
 
-    let touchX = null;
-    let touchY = null;
-    stage.addEventListener('touchstart', e => {
-      const t = e.touches[0];
-      touchX = t.clientX;
-      touchY = t.clientY;
-    }, { passive: true });
-    stage.addEventListener('touchend', e => {
-      if (touchX === null || touchY === null) return;
-      const t = e.changedTouches[0];
-      const dx = t.clientX - touchX;
-      const dy = t.clientY - touchY;
-      touchX = touchY = null;
-      if (Math.abs(dx) > 42 && Math.abs(dx) > Math.abs(dy)) go(dx < 0 ? 1 : -1);
-    }, { passive: true });
+    let tx=null,ty=null;
+    stage.addEventListener('touchstart',e=>{const t=e.touches[0];tx=t.clientX;ty=t.clientY},{passive:true});
+    stage.addEventListener('touchend',e=>{
+      if(tx===null||ty===null)return;
+      const t=e.changedTouches[0],dx=t.clientX-tx,dy=t.clientY-ty;tx=ty=null;
+      if(Math.abs(dx)>42&&Math.abs(dx)>Math.abs(dy))go(dx<0?1:-1);
+    },{passive:true});
 
-    const headings = [...info.querySelectorAll('h4')];
-    const colorHeading = headings.find(h => h.textContent.trim().toLowerCase().startsWith('couleurs'));
-    const oldColorChips = colorHeading?.nextElementSibling?.classList.contains('chips') ? colorHeading.nextElementSibling : null;
+    // Remplace les simples chips par des cartes couleur avec aperçu image.
+    const headings=[...info.querySelectorAll('h4')];
+    const colorHeading=headings.find(h=>norm(h.textContent).startsWith('couleurs'));
+    const oldColors=colorHeading?.nextElementSibling;
+    const productColors=Array.isArray(product.colors)?product.colors:[];
+    const colors=unique([...productColors,...Object.keys(vm)]);
 
-    if (colorHeading && oldColorChips && Array.isArray(product.colors) && product.colors.length) {
-      const colorBox = document.createElement('div');
-      colorBox.className = 'elios-variant-colors';
-      colorBox.innerHTML = product.colors.map((color, index) => {
-        const isVerified = Array.isArray(verified[color]) && verified[color].length;
-        return `<button type="button" data-elios-color="${esc(color)}" data-color-index="${index}" class="${isVerified ? 'verified' : ''}" title="${isVerified ? 'Visuels HD vérifiés pour cette couleur' : 'Visuels HD de la collection'}">${esc(color)}</button>`;
+    if(colorHeading && colors.length){
+      const colorBox=document.createElement('div');
+      colorBox.className='elios-variant-colors-v3';
+      colorBox.innerHTML=colors.map(color=>{
+        const imgs=Array.isArray(vm[color])?unique(vm[color]):[];
+        const thumb=imgs[0]||'';
+        return `<button type="button" data-elios-color="${esc(color)}" class="${imgs.length?'verified':''}">
+          ${thumb?`<img src="${esc(thumb)}" alt="" loading="lazy">`:''}
+          <span>${esc(color)}</span>
+          ${imgs.length?`<small>${imgs.length} image${imgs.length>1?'s':''}</small>`:'<small>Collection</small>'}
+        </button>`;
       }).join('');
-      oldColorChips.replaceWith(colorBox);
+      if(oldColors && (oldColors.classList.contains('chips')||oldColors.classList.contains('elios-variant-colors')||oldColors.classList.contains('elios-variant-colors-v3'))) oldColors.replaceWith(colorBox);
+      else colorHeading.insertAdjacentElement('afterend',colorBox);
 
-      const note = document.createElement('div');
-      note.className = 'elios-variant-note';
-      note.textContent = 'Choisissez une couleur pour afficher ses visuels lorsqu’ils sont disponibles.';
-      colorBox.after(note);
-
-      colorBox.addEventListener('click', e => {
-        const button = e.target.closest('[data-elios-color]');
-        if (!button) return;
-        const selectedColor = button.dataset.eliosColor || '';
-        colorBox.querySelectorAll('button').forEach(b => b.classList.toggle('active', b === button));
-        const variantImages = verified[selectedColor];
-        if (Array.isArray(variantImages) && variantImages.length) {
-          currentImages = unique(variantImages);
-          note.textContent = `${selectedColor} · visuels HD officiels Elios`;
-        } else {
-          currentImages = collectionImages;
-          note.textContent = `${selectedColor} · visuels HD de la collection`;
-        }
-        currentIndex = 0;
-        render();
+      colorBox.addEventListener('click',e=>{
+        const b=e.target.closest('[data-elios-color]'); if(!b)return;
+        selectedColor=b.dataset.eliosColor||'';
+        colorBox.querySelectorAll('button').forEach(x=>x.classList.toggle('active',x===b));
+        const imgs=Array.isArray(vm[selectedColor])?unique(vm[selectedColor]):[];
+        currentImages=imgs.length?imgs:all.slice();
+        currentIndex=0; render();
       });
     }
 
-    document.addEventListener('keydown', event => {
-      if (!modal.classList.contains('open')) return;
-      if (event.key === 'ArrowLeft') go(-1);
-      if (event.key === 'ArrowRight') go(1);
-    }, { once: false });
-
-    card.dataset.galleryEnhanced = id;
     render();
+    return true;
   }
 
-  grid.addEventListener('click', event => {
-    const productCard = event.target.closest('[data-id^="elios-"]');
-    if (!productCard) return;
-    const id = productCard.dataset.id;
-    window.setTimeout(() => {
-      const modalCard = document.getElementById('product-modal-v2-card');
-      if (modalCard) buildGallery(modalCard, id);
-    }, 0);
+  function attemptEnhance(){
+    if(!modal.classList.contains('open') && getComputedStyle(modal).display==='none') return;
+    enhance(productFromOpenModal());
+  }
+
+  grid.addEventListener('pointerdown',e=>{
+    const card=e.target.closest('[data-id^="elios-"]');
+    if(card) activeId=card.dataset.id||'';
+  },true);
+  grid.addEventListener('click',e=>{
+    const card=e.target.closest('[data-id^="elios-"]');
+    if(!card)return;
+    activeId=card.dataset.id||'';
+    setTimeout(attemptEnhance,0);
+    setTimeout(attemptEnhance,120);
+    setTimeout(attemptEnhance,350);
   });
+
+  new MutationObserver(()=>setTimeout(attemptEnhance,0)).observe(modalCard,{childList:true,subtree:true});
+
+  document.addEventListener('keydown',e=>{
+    const lb=document.getElementById('elios-gallery-lightbox');
+    if(lb?.classList.contains('open')){
+      if(e.key==='Escape'){closeLightbox();return}
+      if(e.key==='ArrowLeft'){e.preventDefault();activeGallery?.go(-1,true)}
+      if(e.key==='ArrowRight'){e.preventDefault();activeGallery?.go(1,true)}
+      return;
+    }
+    if(!modal.classList.contains('open'))return;
+    if(e.key==='ArrowLeft')activeGallery?.go(-1);
+    if(e.key==='ArrowRight')activeGallery?.go(1);
+  });
+
+  ensureLightbox();
+  setTimeout(attemptEnhance,0);
+  setTimeout(attemptEnhance,250);
 })();
