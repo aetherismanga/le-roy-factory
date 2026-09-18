@@ -7,11 +7,14 @@
   <meta name="theme-color" content="#111111">
   <title>Catalogue La Fenice | Le Roy Factory</title>
   <link rel="icon" type="image/png" href="assets/img/logo03lrf.png">
-  <link rel="stylesheet" href="assets/css/fenice-pdf-viewer.css?v=20260918-1">
+  <link rel="stylesheet" href="assets/css/fenice-pdf-viewer.css?v=20260918-lexicon1">
 </head>
 <body>
   <header class="fpv-head">
-    <button id="fpv-back" class="fpv-icon-btn" type="button" aria-label="Retour">←</button>
+    <div class="fpv-head-left">
+      <button id="fpv-lexicon-toggle" class="fpv-icon-btn fpv-menu-btn" type="button" aria-label="Ouvrir le lexique" aria-expanded="false">☰</button>
+      <button id="fpv-back" class="fpv-icon-btn" type="button" aria-label="Retour">←</button>
+    </div>
     <div class="fpv-brand">
       <img src="assets/img/lafenice.png" alt="La Fenice">
       <div>
@@ -21,6 +24,23 @@
     </div>
     <a id="fpv-native" class="fpv-icon-btn fpv-link-btn" href="#" target="_blank" rel="noopener" aria-label="Ouvrir le PDF original">↗</a>
   </header>
+
+  <aside id="fpv-lexicon" class="fpv-lexicon" aria-label="Lexique La Fenice">
+    <div class="fpv-lexicon-head">
+      <div>
+        <strong>Lexique La Fenice</strong>
+        <small>Accès direct aux collections</small>
+      </div>
+      <button id="fpv-lexicon-close" class="fpv-lexicon-close" type="button" aria-label="Fermer">×</button>
+    </div>
+    <label class="fpv-lexicon-catalogue-wrap">
+      <span>Catalogue</span>
+      <select id="fpv-lexicon-catalogue"></select>
+    </label>
+    <input id="fpv-lexicon-search" class="fpv-lexicon-search" type="search" placeholder="Rechercher une collection…">
+    <div id="fpv-lexicon-list" class="fpv-lexicon-list"></div>
+  </aside>
+  <div id="fpv-lexicon-scrim" class="fpv-lexicon-scrim"></div>
 
   <main class="fpv-main">
     <div id="fpv-status" class="fpv-status">Chargement du catalogue…</div>
@@ -44,6 +64,7 @@
   </nav>
 
   <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
-  <script src="assets/js/fenice-pdf-viewer.js?v=20260918-2"></script>
+  <script src="assets/js/fenice-lexicon-data.js?v=20260918-lexicon1"></script>
+  <script src="assets/js/fenice-pdf-viewer.js?v=20260918-lexicon1"></script>
 </body>
 </html>
