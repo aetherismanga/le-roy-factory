@@ -289,3 +289,44 @@ body:not(.crm-body) .agent-stack > .agent-info-card:has(a[href^="mailto:coryne@l
     max-width: calc(100% - 1rem);
   }
 }
+
+
+/* Onglet Promo Cersaie 2026 : texte simple, sans asset. */
+html body .main-nav > li > a.lrf-promo-cersaie-tab {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 42px !important;
+  padding: .62rem 1.05rem !important;
+  border: 1px solid #D4AF37 !important;
+  border-radius: 8px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+  white-space: nowrap !important;
+  font-size: 1.06rem !important;
+  font-weight: 900 !important;
+  letter-spacing: .025em !important;
+  line-height: 1 !important;
+  transform: none !important;
+}
+html body .main-nav > li > a.lrf-promo-cersaie-tab::before,
+html body .main-nav > li > a.lrf-promo-cersaie-tab::after {
+  content: none !important;
+  display: none !important;
+}
+html body .main-nav > li > a.lrf-promo-cersaie-tab:hover,
+html body .main-nav > li > a.lrf-promo-cersaie-tab:focus {
+  border-color: #FFD700 !important;
+  color: #FFD700 !important;
+  background: transparent !important;
+  box-shadow: 0 0 0 1px rgba(255,215,0,.18) !important;
+}
+@media (max-width: 900px) {
+  html body .main-nav > li > a.lrf-promo-cersaie-tab {
+    min-height: 46px !important;
+    padding: .72rem 1.1rem !important;
+    font-size: 1.08rem !important;
+  }
+}
+
