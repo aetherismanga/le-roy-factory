@@ -1,6 +1,6 @@
 /* LE ROY FACTORY — V9 logo sizing override */
 
-/* Logo rond du header : x2 visuellement sur toutes les pages, sans pousser le menu. */
+/* Logo rond du header : taille PC compacte et stable sur toutes les pages. */
 body.lrf-premium-v2 header,
 body.lrf-premium-v2 header .nav-container,
 body.lrf-premium-v2 header .logo{
@@ -10,9 +10,9 @@ body.lrf-premium-v2 header .nav-container{
   height:98px!important;
 }
 body.lrf-premium-v2 header .logo{
-  width:94px!important;
-  min-width:94px!important;
-  height:94px!important;
+  width:82px!important;
+  min-width:82px!important;
+  height:82px!important;
   padding:0!important;
   display:flex!important;
   align-items:center!important;
@@ -22,14 +22,14 @@ body.lrf-premium-v2 header .logo{
 }
 body.lrf-premium-v2 .lrf-monogram-header,
 body.lrf-premium-v2 header .logo>img{
-  width:90px!important;
-  height:90px!important;
-  max-width:none!important;
+  width:76px!important;
+  height:76px!important;
+  max-width:76px!important;
   object-fit:contain!important;
   border-radius:50%!important;
-  transform:scale(2)!important;
+  transform:none!important;
   transform-origin:center center!important;
-  filter:drop-shadow(0 0 14px rgba(255,196,35,.62))!important;
+  filter:drop-shadow(0 2px 8px rgba(0,0,0,.32))!important;
   pointer-events:none!important;
 }
 
