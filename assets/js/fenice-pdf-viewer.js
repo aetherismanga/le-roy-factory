@@ -2,15 +2,26 @@
   'use strict';
   const params = new URLSearchParams(location.search);
   const catalogue = (params.get('catalogue') || 'cersaie').toLowerCase();
+  const section = (params.get('section') || '').toLowerCase();
   const titleParam = params.get('title') || '';
+  const GENERAL_SECTIONS = {
+    marble:'assets/pdf/fenice-general/marble.pdf',
+    stone:'assets/pdf/fenice-general/stone.pdf',
+    metal:'assets/pdf/fenice-general/metal.pdf',
+    wood:'assets/pdf/fenice-general/wood.pdf',
+    decor:'assets/pdf/fenice-general/decor.pdf'
+  };
+  const OFFICIAL_GENERAL='https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf';
   const SOURCES = {
     cersaie: {
       label: 'Nouveautés Cersaie 2026',
-      url: 'assets/pdf/LA_FENICE_CERSAIE_2026_INTERACTIF.pdf'
+      url: 'assets/pdf/LA_FENICE_CERSAIE_2026_INTERACTIF.pdf',
+      native: 'assets/pdf/LA_FENICE_CERSAIE_2026_INTERACTIF.pdf'
     },
     general: {
       label: 'Catalogue Général 2026/2027',
-      url: 'assets/pdf/LA_FENICE_GENERAL_2026_2027_WEB.pdf'
+      url: GENERAL_SECTIONS[section] || GENERAL_SECTIONS.marble,
+      native: OFFICIAL_GENERAL
     }
   };
   const source = SOURCES[catalogue] || SOURCES.cersaie;
@@ -38,7 +49,7 @@
 
   title.textContent = titleParam ? titleParam : source.label;
   subtitle.textContent = source.label;
-  nativeLink.href = source.url;
+  nativeLink.href = source.native || source.url;
   document.title = (titleParam ? titleParam + ' · ' : '') + source.label + ' | Le Roy Factory';
 
   if (!window.pdfjsLib) {
