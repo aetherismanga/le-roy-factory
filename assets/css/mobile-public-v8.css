@@ -4,14 +4,14 @@
   html body.lrf-premium-v2.lrf-premium-v2{width:100%!important}
 
   /* Header mobile compact */
-  html body.lrf-premium-v2.lrf-premium-v2 header{height:76px!important;min-height:76px!important;position:relative!important;z-index:100000!important;background:#090909!important}
+  html body.lrf-premium-v2.lrf-premium-v2 header{height:76px!important;min-height:76px!important;position:relative!important;z-index:100000!important;background:linear-gradient(180deg,#b7c6ae 0%,#91a78b 20%,#71896f 58%,#536b55 100%)!important;border-bottom:1px solid #d4af37!important;box-shadow:inset 0 2px 0 rgba(255,255,255,.28),inset 0 -2px 0 rgba(42,64,45,.28),0 5px 18px rgba(32,48,35,.20)!important}
   html body.lrf-premium-v2.lrf-premium-v2 header .nav-container{height:76px!important;min-height:76px!important;width:100%!important;max-width:none!important;padding:0 12px 0 14px!important;box-sizing:border-box!important}
   html body.lrf-premium-v2.lrf-premium-v2 header .logo{width:64px!important;min-width:64px!important;height:64px!important;margin:0!important;padding:0!important;display:flex!important;align-items:center!important;justify-content:center!important;z-index:100004!important}
   html body.lrf-premium-v2.lrf-premium-v2 .lrf-monogram-header,
   html body.lrf-premium-v2.lrf-premium-v2 header .logo img{width:62px!important;height:62px!important;object-fit:contain!important;filter:drop-shadow(0 0 8px rgba(255,205,30,.42))!important}
 
   /* Burger */
-  html body.lrf-premium-v2.lrf-premium-v2 .burger-btn{display:flex!important;width:52px!important;height:52px!important;margin:0!important;padding:0!important;align-items:center!important;justify-content:center!important;flex-direction:column!important;gap:6px!important;border:1px solid #D6A90E!important;border-radius:13px!important;background:#111!important;box-shadow:none!important;z-index:100020!important}
+  html body.lrf-premium-v2.lrf-premium-v2 .burger-btn{display:flex!important;width:52px!important;height:52px!important;margin:0!important;padding:0!important;align-items:center!important;justify-content:center!important;flex-direction:column!important;gap:6px!important;border:1px solid #D6A90E!important;border-radius:13px!important;background:linear-gradient(180deg,#7f987b,#5f765f)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 3px 10px rgba(36,58,40,.18)!important;z-index:100020!important}
   html body.lrf-premium-v2.lrf-premium-v2 .burger-btn span{width:25px!important;height:2px!important;background:#FFD000!important;border-radius:2px!important}
   html body.lrf-premium-v2.lrf-premium-v2 .burger-btn.active span:nth-child(1){transform:translateY(8px) rotate(45deg)!important}
   html body.lrf-premium-v2.lrf-premium-v2 .burger-btn.active span:nth-child(2){opacity:0!important}
