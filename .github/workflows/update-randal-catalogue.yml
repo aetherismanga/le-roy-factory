@@ -1,15 +1,19 @@
 name: Update Randal catalogue
 
 on:
+  issues:
+    types: [opened]
   push:
     paths:
       - '.github/workflows/update-randal-catalogue.yml'
 
 permissions:
   contents: write
+  issues: write
 
 jobs:
   update-randal:
+    if: github.event_name == 'push' || github.event.issue.title == 'RUN-RANDAL-CATALOGUE-UPDATE'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -59,9 +63,14 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -A
-          if git diff --cached --quiet; then
-            echo 'No changes to commit.'
-            exit 0
+          if ! git diff --cached --quiet; then
+            git commit -m "Update Randal catalogue 2026 (${RANDAL_SIZE} bytes)"
+            git push
           fi
-          git commit -m "Update Randal catalogue 2026 (${RANDAL_SIZE} bytes)"
-          git push
+
+      - name: Close trigger issue
+        if: github.event_name == 'issues'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: gh issue close "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --comment "Catalogue Randal update workflow completed."
