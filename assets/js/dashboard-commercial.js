@@ -58,7 +58,7 @@ function cleanupMobileChrome(){
   document.querySelectorAll('img').forEach(img=>{
     if(img.closest('.crm-sidebar'))return;
     const src=String(img.getAttribute('src')||'').toLowerCase();
-    if(src.includes('logo03lrf')||src.includes('assetlogorond')){
+    if(src.includes('logo03lrf')||src.includes('assetlogorond')||src.includes('lrf-logo-officiel-2026')){
       const rect=img.getBoundingClientRect();
       if(rect.width<=110&&rect.height<=110&&rect.top<220){
         const host=img.closest('a,button,div');

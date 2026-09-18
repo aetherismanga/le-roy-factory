@@ -7,7 +7,7 @@
   const appleTitle=document.createElement('meta');appleTitle.name='apple-mobile-web-app-title';appleTitle.content='Leroy Factory';document.head.appendChild(appleTitle);
   const icon=document.createElement('link');icon.rel='apple-touch-icon';icon.href='/assets/img/logo03lrf.png';document.head.appendChild(icon);
 
-  if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js?v=20260903-logo-fix',{updateViaCache:'none'}).then(reg=>reg.update()).catch(console.warn));}
+  if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js?v=20260918-crm-floral-1',{updateViaCache:'none'}).then(reg=>reg.update()).catch(console.warn));}
 
   const standalone=window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true;
   if(standalone)return;
