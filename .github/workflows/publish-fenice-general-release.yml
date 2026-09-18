@@ -1,0 +1,37 @@
+name: Publish La Fenice general PDF asset
+on:
+  push:
+    paths:
+      - '.github/workflows/publish-fenice-general-release.yml'
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download official catalogue
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -L --fail --retry 3 -A 'Mozilla/5.0'             'https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf'             -o /tmp/LA_FENICE_GENERAL_2026_2027.pdf
+          test "$(head -c 4 /tmp/LA_FENICE_GENERAL_2026_2027.pdf)" = '%PDF'
+          echo "PDF size: $(stat -c%s /tmp/LA_FENICE_GENERAL_2026_2027.pdf)"
+      - name: Create release and upload PDF
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          TAG='fenice-general-2026-2027'
+          if gh release view "$TAG" --repo "${{ github.repository }}" >/dev/null 2>&1; then
+            gh release upload "$TAG" /tmp/LA_FENICE_GENERAL_2026_2027.pdf --repo "${{ github.repository }}" --clobber
+          else
+            gh release create "$TAG" /tmp/LA_FENICE_GENERAL_2026_2027.pdf               --repo "${{ github.repository }}"               --title 'La Fenice Catalogue Général 2026/2027'               --notes 'PDF officiel utilisé par le lecteur catalogue Le Roy Factory.'
+          fi
+      - name: Check delivery headers
+        shell: bash
+        run: |
+          set -euo pipefail
+          URL='https://github.com/aetherismanga/le-roy-factory/releases/download/fenice-general-2026-2027/LA_FENICE_GENERAL_2026_2027.pdf'
+          curl -sSIL -L "$URL" | grep -Ei 'HTTP/|content-length|accept-ranges|access-control-allow-origin|content-type|location:' || true
