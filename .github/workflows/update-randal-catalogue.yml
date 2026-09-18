@@ -1,0 +1,67 @@
+name: Update Randal catalogue
+
+on:
+  push:
+    paths:
+      - '.github/workflows/update-randal-catalogue.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  update-randal:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download latest Randal PDF
+        shell: bash
+        run: |
+          set -euo pipefail
+          URL='https://randalsa-my.sharepoint.com/:b:/g/personal/zahra_terrar_randal_group/IQA0wkWf5CD8QYHWQ0oCJgWDAXNDSTHDLQ8FH7CDYqqoSKc?download=1'
+          curl -fL --retry 3 --retry-delay 2 -A 'Mozilla/5.0' "$URL" -o /tmp/randal-latest.pdf
+          test "$(head -c 4 /tmp/randal-latest.pdf)" = '%PDF'
+          SIZE=$(stat -c%s /tmp/randal-latest.pdf)
+          echo "Randal PDF size: $SIZE bytes"
+          if [ "$SIZE" -ge 25000000 ]; then
+            echo "ERROR: file is 25 MB or larger; catalogue not replaced."
+            exit 42
+          fi
+          echo "RANDAL_SIZE=$SIZE" >> "$GITHUB_ENV"
+
+      - name: Replace old catalogue
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p assets/pdf
+          while IFS= read -r f; do
+            [ "$f" = "assets/pdf/RANDAL03.pdf" ] || git rm -f --ignore-unmatch "$f"
+          done < <(git ls-files 'assets/pdf/*' | grep -Ei '/randal.*\.pdf$' || true)
+          cp /tmp/randal-latest.pdf assets/pdf/RANDAL03.pdf
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('catalogues.html')
+          s = p.read_text(encoding='utf-8')
+          old = "{ titre:'Catalogues Randal', desc:'Collections et téléchargements officiels.', lien:'https://randal.group/colecciones/' }"
+          new = "{ titre:'Catalogue Randal 2026', desc:'Catalogue Randal Pro 2026 — mise à jour du 31/08/2026.', lien:'assets/pdf/RANDAL03.pdf' }"
+          if old not in s:
+              raise SystemExit('Bloc Randal attendu introuvable dans catalogues.html')
+          p.write_text(s.replace(old, new, 1), encoding='utf-8')
+          PY
+
+      - name: Commit update
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          if git diff --cached --quiet; then
+            echo 'No changes to commit.'
+            exit 0
+          fi
+          git commit -m "Update Randal catalogue 2026 (${RANDAL_SIZE} bytes)"
+          git push
