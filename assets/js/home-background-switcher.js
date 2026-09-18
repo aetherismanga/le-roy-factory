@@ -143,9 +143,13 @@
   };
 
   let cameoRunning = false;
+  let cameoToggleCount = 0;
   const maybePlayScreenCameleon = () => {
-    if (cameoRunning || window.innerWidth < 1000 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    if (Math.floor(Math.random() * 3) !== 0) return;
+    if (window.innerWidth < 1000 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    cameoToggleCount += 1;
+    if (cameoToggleCount < 3) return;
+    cameoToggleCount = 0;
+    if (cameoRunning) return;
 
     cameoRunning = true;
     const stage = document.createElement('div');
@@ -153,10 +157,10 @@
     stage.style.cssText = 'position:fixed;inset:0;z-index:2147482999;pointer-events:none;overflow:hidden;background:transparent';
 
     const video = document.createElement('video');
-    video.src = 'assets/videos/cameleon-ecran-clair-alpha.webm?v=20260918-screen1';
+    video.src = 'assets/videos/cameleon-ecran-clair-alpha.webm?v=20260918-screen2';
     video.muted = true;
     video.playsInline = true;
-    video.preload = 'metadata';
+    video.preload = 'auto';
     video.disablePictureInPicture = true;
     video.style.cssText = 'position:absolute;left:0;bottom:-9vh;width:100vw;height:auto;max-width:none;display:block;background:transparent;object-fit:contain;object-position:center bottom';
 
