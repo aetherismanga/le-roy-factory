@@ -1,0 +1,54 @@
+/* LRF CRM — Sidebar sauge globale, chargée en dernier sur toutes les pages CRM */
+html body.crm-body > aside.crm-sidebar,
+html body.crm-body aside.crm-sidebar{
+  background:
+    radial-gradient(circle at 80% 8%,rgba(255,255,255,.24),transparent 28%),
+    linear-gradient(165deg,#b9c7b8 0%,#aabaaa 52%,#97aa99 100%) !important;
+  border-right:1px solid rgba(79,103,85,.32) !important;
+  box-shadow:14px 0 36px rgba(55,75,61,.13),inset -1px 0 rgba(255,255,255,.34) !important;
+}
+html body.crm-body aside.crm-sidebar .sidebar-brand{
+  background:linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,.04)) !important;
+  border-bottom:1px solid rgba(78,104,84,.16) !important;
+}
+html body.crm-body aside.crm-sidebar .sidebar-menu li>a{
+  color:#203127 !important;
+  font-weight:750 !important;
+  text-shadow:0 1px 0 rgba(255,255,255,.25) !important;
+  border-color:transparent !important;
+}
+html body.crm-body aside.crm-sidebar .sidebar-menu li>a .menu-text{color:inherit !important}
+html body.crm-body aside.crm-sidebar .sidebar-menu li>a:hover{
+  color:#15231a !important;
+  background:linear-gradient(90deg,rgba(255,255,255,.44),rgba(238,244,238,.18)) !important;
+  border-color:rgba(82,110,89,.22) !important;
+  box-shadow:0 5px 14px rgba(74,96,79,.10) !important;
+}
+html body.crm-body aside.crm-sidebar .sidebar-menu li>a.active{
+  color:#fff !important;
+  background:linear-gradient(90deg,#6f8b73 0%,#809981 100%) !important;
+  border-color:#607e66 !important;
+  box-shadow:inset 4px 0 0 #f0d27d,0 8px 20px rgba(55,79,62,.16) !important;
+  text-shadow:0 1px 1px rgba(26,49,34,.28) !important;
+}
+html body.crm-body aside.crm-sidebar .sidebar-footer{
+  border-top:1px solid rgba(78,104,84,.18) !important;
+  background:rgba(255,255,255,.06) !important;
+}
+html body.crm-body aside.crm-sidebar .btn-logout-sidebar{
+  border:1px solid #6f8b73 !important;
+  color:#23402d !important;
+  background:linear-gradient(180deg,#dfe8dc,#c7d5c6) !important;
+  box-shadow:inset 0 1px rgba(255,255,255,.65),0 7px 18px rgba(57,84,65,.14) !important;
+  font-weight:800 !important;
+}
+html body.crm-body aside.crm-sidebar .btn-logout-sidebar:hover{
+  background:linear-gradient(180deg,#cbd9c9,#b8c9b8) !important;
+  color:#17351f !important;
+}
+html body.crm-body aside.crm-sidebar::-webkit-scrollbar,
+html body.crm-body aside.crm-sidebar .sidebar-menu::-webkit-scrollbar{width:8px}
+html body.crm-body aside.crm-sidebar::-webkit-scrollbar-track,
+html body.crm-body aside.crm-sidebar .sidebar-menu::-webkit-scrollbar-track{background:rgba(255,255,255,.10)}
+html body.crm-body aside.crm-sidebar::-webkit-scrollbar-thumb,
+html body.crm-body aside.crm-sidebar .sidebar-menu::-webkit-scrollbar-thumb{background:#6f8b73;border-radius:999px}
