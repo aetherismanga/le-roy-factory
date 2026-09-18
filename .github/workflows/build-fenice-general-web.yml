@@ -12,6 +12,11 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: Install Ghostscript
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y ghostscript
+
       - name: Download official general catalogue
         shell: bash
         run: |
