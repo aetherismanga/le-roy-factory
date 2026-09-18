@@ -23,18 +23,60 @@ jobs:
 
       - name: Download ELIOS Coverings and Outdoor
         run: |
-          curl -fL --retry 5 --retry-delay 3 --retry-all-errors \
-            -A 'Mozilla/5.0' \
-            -e 'https://eliosceramica.com/' \
-            'https://eliosceramica.com/wp-content/uploads/2001/04/ELIOS_CATALOGO-COVERINGS-2026.pdf' \
-            -o /tmp/ELIOS_COVERINGS_2026.pdf
-          test -s /tmp/ELIOS_COVERINGS_2026.pdf
+          python - <<'PY'
+          import html, re, requests
+          from pathlib import Path
+          from urllib.parse import urljoin
 
-          curl -fL --retry 5 --retry-delay 3 --retry-all-errors \
-            -A 'Mozilla/5.0' \
-            -e 'https://eliosceramica.com/' \
-            'https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_OUTDOOR_2026.pdf' \
-            -o /tmp/ELIOS_OUTDOOR_2026.pdf
+          session=requests.Session()
+          session.headers.update({'User-Agent':'Mozilla/5.0','Referer':'https://eliosceramica.com/'})
+
+          def candidates(kind):
+              out=[]
+              try:
+                  r=session.get('https://eliosceramica.com/download/',timeout=40)
+                  if r.ok:
+                      for href in re.findall(r'href=["\\\']([^"\\\']+\\.pdf(?:\\?[^"\\\']*)?)["\\\']',r.text,re.I):
+                          u=urljoin(r.url,html.unescape(href))
+                          n=u.lower()
+                          if kind=='coverings' and 'coverings' in n:
+                              out.append(u)
+                          if kind=='outdoor' and 'outdoor' in n:
+                              out.append(u)
+              except Exception as e:
+                  print('Download page scan warning:',e)
+
+              months=['02','03','04','05','06','07','08','09']
+              if kind=='coverings':
+                  names=['ELIOS_CATALOGO-COVERINGS-2026.pdf','ELIOS_CATALOGO_COVERINGS_2026.pdf']
+                  out += ['https://eliosceramica.com/wp-content/uploads/2001/04/ELIOS_CATALOGO-COVERINGS-2026.pdf']
+              else:
+                  names=['ELIOS_CATALOGO_OUTDOOR_2026.pdf','ELIOS_CATALOGO-OUTDOOR-2026.pdf']
+              for m in months:
+                  for n in names:
+                      out.append(f'https://eliosceramica.com/wp-content/uploads/2026/{m}/{n}')
+              return list(dict.fromkeys(out))
+
+          def fetch(kind,dest):
+              errors=[]
+              for url in candidates(kind):
+                  try:
+                      print('Trying',url)
+                      r=session.get(url,timeout=90,allow_redirects=True)
+                      ctype=(r.headers.get('content-type') or '').lower()
+                      if r.ok and len(r.content)>500_000 and (r.content[:4]==b'%PDF' or 'pdf' in ctype):
+                          Path(dest).write_bytes(r.content)
+                          print('Downloaded',kind,len(r.content),'bytes from',url)
+                          return
+                      errors.append((url,r.status_code,len(r.content),ctype))
+                  except Exception as e:
+                      errors.append((url,str(e)))
+              raise SystemExit(f'Unable to download {kind}: {errors[-8:]}')
+
+          fetch('coverings','/tmp/ELIOS_COVERINGS_2026.pdf')
+          fetch('outdoor','/tmp/ELIOS_OUTDOOR_2026.pdf')
+          PY
+          test -s /tmp/ELIOS_COVERINGS_2026.pdf
           test -s /tmp/ELIOS_OUTDOOR_2026.pdf
 
       - name: Build interactive PDFs
