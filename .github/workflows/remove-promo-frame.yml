@@ -1,0 +1,129 @@
+name: Remove Promo Cersaie frame permanently
+
+on:
+  push:
+    paths:
+      - '.github/workflows/remove-promo-frame.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Apply final no-frame CSS and bust cache
+        shell: python
+        run: |
+          from pathlib import Path
+
+          css_path=Path('assets/css/lrf-sage-bars.css')
+          css=css_path.read_text(encoding='utf-8')
+          marker='/* FINAL PROMO CERSAIE NO FRAME V4 */'
+          block=r'''
+/* FINAL PROMO CERSAIE NO FRAME V4 */
+html body:not(.crm-body) > header .container nav > ul.main-nav > li:has(> a.lrf-promo-cersaie-tab),
+html body:not(.crm-body) > .site-header .container nav > ul.main-nav > li:has(> a.lrf-promo-cersaie-tab){
+  border:0!important;
+  border-left:0!important;
+  border-right:0!important;
+  border-top:0!important;
+  border-bottom:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  background:transparent!important;
+  border-radius:0!important;
+}
+html body:not(.crm-body) > header .container nav > ul.main-nav > li:has(> a.lrf-promo-cersaie-tab)::before,
+html body:not(.crm-body) > header .container nav > ul.main-nav > li:has(> a.lrf-promo-cersaie-tab)::after,
+html body:not(.crm-body) > .site-header .container nav > ul.main-nav > li:has(> a.lrf-promo-cersaie-tab)::before,
+html body:not(.crm-body) > .site-header .container nav > ul.main-nav > li:has(> a.lrf-promo-cersaie-tab)::after{
+  content:none!important;
+  display:none!important;
+  border:0!important;
+  box-shadow:none!important;
+  background:none!important;
+}
+html body:not(.crm-body) > header .container nav > ul.main-nav > li > a.lrf-promo-cersaie-tab,
+html body:not(.crm-body) > .site-header .container nav > ul.main-nav > li > a.lrf-promo-cersaie-tab{
+  border:0!important;
+  border-left:0!important;
+  border-right:0!important;
+  border-top:0!important;
+  border-bottom:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  background:transparent!important;
+  border-radius:0!important;
+  color:#f6d85f!important;
+  padding-left:.35rem!important;
+  padding-right:.35rem!important;
+}
+html body:not(.crm-body) > header .container nav > ul.main-nav > li > a.lrf-promo-cersaie-tab::before,
+html body:not(.crm-body) > header .container nav > ul.main-nav > li > a.lrf-promo-cersaie-tab::after,
+html body:not(.crm-body) > .site-header .container nav > ul.main-nav > li > a.lrf-promo-cersaie-tab::before,
+html body:not(.crm-body) > .site-header .container nav > ul.main-nav > li > a.lrf-promo-cersaie-tab::after{
+  content:none!important;
+  display:none!important;
+}
+html body:not(.crm-body) > header .container nav > ul.main-nav > li > a.lrf-promo-cersaie-tab:hover,
+html body:not(.crm-body) > header .container nav > ul.main-nav > li > a.lrf-promo-cersaie-tab:focus{
+  border:0!important;
+  outline:0!important;
+  background:transparent!important;
+  box-shadow:inset 0 -2px 0 rgba(255,215,0,.95)!important;
+  color:#ffe98f!important;
+}
+'''
+          if marker not in css:
+              css += '\n'+block+'\n'
+          css_path.write_text(css,encoding='utf-8')
+
+          changed=[]
+          for path in Path('.').glob('*.html'):
+              text=path.read_text(encoding='utf-8')
+              if 'lrf-sage-bars.css' not in text:
+                  continue
+              new=text.replace('assets/css/lrf-sage-bars.css?v=20260918-sage3d1',
+                               'assets/css/lrf-sage-bars.css?v=20260918-sage3d4')
+              new=new.replace('assets/css/lrf-sage-bars.css?v=20260918-sage3d2',
+                              'assets/css/lrf-sage-bars.css?v=20260918-sage3d4')
+              new=new.replace('assets/css/lrf-sage-bars.css?v=20260918-sage3d3',
+                              'assets/css/lrf-sage-bars.css?v=20260918-sage3d4')
+              if new!=text:
+                  path.write_text(new,encoding='utf-8')
+                  changed.append(path.name)
+          print('Cache-busted pages:',len(changed))
+          print('\n'.join(changed))
+
+      - name: Validate
+        shell: python
+        run: |
+          from pathlib import Path
+          css=Path('assets/css/lrf-sage-bars.css').read_text(encoding='utf-8')
+          assert 'FINAL PROMO CERSAIE NO FRAME V4' in css
+          assert 'li:has(> a.lrf-promo-cersaie-tab)' in css
+          count=0
+          for path in Path('.').glob('*.html'):
+              text=path.read_text(encoding='utf-8')
+              if 'lrf-promo-cersaie-tab' in text and 'lrf-sage-bars.css' in text:
+                  count+=1
+                  assert 'sage3d4' in text
+          print('Promo pages checked:',count)
+          assert count>=10
+
+      - name: Commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/css/lrf-sage-bars.css '*.html'
+          git commit -m 'Remove Promo Cersaie frame permanently'
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
