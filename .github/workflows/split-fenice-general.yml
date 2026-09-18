@@ -1,0 +1,56 @@
+name: Split La Fenice general catalogue for web
+on:
+  push:
+    paths:
+      - '.github/workflows/split-fenice-general.yml'
+permissions:
+  contents: write
+jobs:
+  split:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - run: python -m pip install --disable-pip-version-check pymupdf
+      - name: Download and split without quality loss
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -L --fail --retry 3 -A 'Mozilla/5.0'             'https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf'             -o /tmp/fenice-general.pdf
+          test "$(head -c 4 /tmp/fenice-general.pdf)" = '%PDF'
+          mkdir -p assets/pdf/fenice-general
+          python - <<'PY'
+          import fitz, os
+          src=fitz.open('/tmp/fenice-general.pdf')
+          # PDF pages are 0-based. Printed page N is PDF page N+2 (1-based).
+          # Each chunk starts at the category opener and ends immediately before the next category.
+          chunks={
+            'marble': (21, 102),   # printed 20..101
+            'stone':  (103, 256),  # printed 102..255
+            'metal':  (257, 338),  # printed 256..337
+            'wood':   (339, 384),  # printed 338..383
+            'decor':  (385, 422),  # printed 384..421
+          }
+          for name,(start,end) in chunks.items():
+              out=fitz.open()
+              out.insert_pdf(src, from_page=start, to_page=end)
+              path=f'assets/pdf/fenice-general/{name}.pdf'
+              out.save(path, garbage=1, deflate=False)
+              out.close()
+              size=os.path.getsize(path)
+              pages=end-start+1
+              print(name, pages, size)
+              assert size < 100_000_000, (name,size)
+              assert pages > 0
+          src.close()
+          PY
+      - name: Commit section PDFs
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/pdf/fenice-general/*.pdf
+          git commit -m 'Add full-quality La Fenice general catalogue sections'
+          git push
