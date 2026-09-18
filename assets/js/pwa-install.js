@@ -50,7 +50,7 @@
     const row=document.createElement('div');
     row.className='catalogue-row';
     row.dataset.eliosPoolCatalogue='1';
-    row.innerHTML='<div><strong>Pool Surfaces 2026</strong><span>Catalogue piscine ELIOS — 12 collections, format principal 15×15 cm.</span></div><a href="assets/pdf/ELIOS_CATALOGO%20PISCINE_2026.pdf" target="_blank" rel="noopener" class="catalogue-link">PDF</a>';
+    row.innerHTML='<div><strong>Pool Surfaces 2026</strong><span>Catalogue piscine ELIOS — 12 collections, format principal 15×15 cm.</span></div><a href="assets/pdf/ELIOS_Pool_Surfaces_2026_INTERACTIF.pdf" target="_blank" rel="noopener" class="catalogue-link">PDF</a>';
 
     const menu=eliosCard.querySelector('.catalogue-menu');
     if(menu){
