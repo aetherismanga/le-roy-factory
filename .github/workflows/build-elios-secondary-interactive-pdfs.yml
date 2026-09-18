@@ -19,7 +19,7 @@ jobs:
           fetch-depth: 0
 
       - name: Install PDF tooling
-        run: python -m pip install --disable-pip-version-check pymupdf
+        run: python -m pip install --disable-pip-version-check pymupdf requests
 
       - name: Download ELIOS Coverings and Outdoor
         run: |
