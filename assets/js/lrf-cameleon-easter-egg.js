@@ -45,7 +45,7 @@
     video.src = 'assets/videos/cameleon-site-alpha-v2.webm?v=20260918-alpha2';
     video.muted = true;
     video.playsInline = true;
-    video.preload = 'auto';
+    video.preload = 'metadata';
     video.disablePictureInPicture = true;
     video.setAttribute('playsinline','');
     video.setAttribute('webkit-playsinline','');
