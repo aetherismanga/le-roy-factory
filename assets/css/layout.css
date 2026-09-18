@@ -297,16 +297,16 @@ html body .main-nav > li > a.lrf-promo-cersaie-tab {
   align-items: center !important;
   justify-content: center !important;
   min-height: 42px !important;
-  padding: .62rem 1.05rem !important;
-  border: 1px solid #D4AF37 !important;
-  border-radius: 8px !important;
+  padding: .62rem .35rem !important;
+  border: 0 !important;
+  border-radius: 0 !important;
   background: transparent !important;
   box-shadow: none !important;
   text-decoration: none !important;
   white-space: nowrap !important;
-  font-size: 1.06rem !important;
+  font-size: 1.08rem !important;
   font-weight: 900 !important;
-  letter-spacing: .025em !important;
+  letter-spacing: .035em !important;
   line-height: 1 !important;
   transform: none !important;
 }
@@ -317,10 +317,9 @@ html body .main-nav > li > a.lrf-promo-cersaie-tab::after {
 }
 html body .main-nav > li > a.lrf-promo-cersaie-tab:hover,
 html body .main-nav > li > a.lrf-promo-cersaie-tab:focus {
-  border-color: #FFD700 !important;
-  color: #FFD700 !important;
+  color: #FFE36E !important;
   background: transparent !important;
-  box-shadow: 0 0 0 1px rgba(255,215,0,.18) !important;
+  box-shadow: inset 0 -2px 0 rgba(255,215,0,.95) !important;
 }
 @media (max-width: 900px) {
   html body .main-nav > li > a.lrf-promo-cersaie-tab {
