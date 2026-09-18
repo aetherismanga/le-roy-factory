@@ -23,7 +23,19 @@
     .conditions{font-size:.76rem;color:#706c64;line-height:1.5}.conditions strong{color:#4c4a45}
     @media(max-width:920px){.offers{grid-template-columns:1fr}.product-head{grid-template-columns:1fr}.product-choice{grid-template-columns:1fr 110px 42px}.free-row,.client-grid{grid-template-columns:1fr}.fields{grid-template-columns:1fr}}
     @media(max-width:560px){.product{grid-template-columns:1fr}.actions{display:grid}.btn{width:100%}}
-    @media print{header,.gate,.actions{display:none!important}body{background:#fff}.wrap{width:100%}.panel{box-shadow:none;break-inside:avoid}.hero{border:0}.hero-in{padding:0 0 15px}.hero .session{display:none}}
+    @media print{
+  @page{size:A4 portrait;margin:12mm}
+  body{background:#fff!important;color:#222!important}
+  header,.gate,.hero,main,.actions{display:none!important}
+  #print-sheet{display:block!important}
+  #print-sheet{font-family:Inter,Arial,sans-serif;color:#222;background:#fff}
+  .print-head{display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid #9eb49f;padding-bottom:10px;margin-bottom:14px}
+  .print-head img{width:62px;height:62px;object-fit:contain}.print-title{font-size:22px;font-weight:900;color:#314237}.print-sub{font-size:12px;color:#666;margin-top:3px}
+  .print-box{border:1px solid #cfd8cd;border-radius:10px;padding:12px;margin-bottom:12px;break-inside:avoid}
+  .print-box h3{margin:0 0 8px;font-size:14px;color:#314237}.print-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px 18px;font-size:11px}
+  .print-grid div{line-height:1.35}.print-lines{font-size:11px;line-height:1.45;white-space:pre-wrap}
+  .print-footer{margin-top:14px;padding-top:8px;border-top:1px solid #ddd;font-size:10px;color:#666}
+}
   </style>
 </head>
 <body>
@@ -75,6 +87,18 @@
     </section>
   </div></main>
 </div>
+
+<section id="print-sheet" style="display:none">
+  <div class="print-head">
+    <div><div class="print-title">Commande Promo La Fenice — Cersaie 2026</div><div class="print-sub">LE ROY FACTORY · Code promo PROMO 100</div></div>
+    <img src="assets/brand-v2/logoLRF.png?v=20260918-print1" alt="LRF">
+  </div>
+  <div class="print-box"><h3>Coordonnées client</h3><div id="print-client" class="print-grid"></div></div>
+  <div class="print-box"><h3>Offre sélectionnée</h3><div id="print-offer" class="print-lines"></div></div>
+  <div class="print-box"><h3>Détail de la commande</h3><div id="print-order" class="print-lines"></div></div>
+  <div class="print-box"><h3>Informations complémentaires</h3><div id="print-notes" class="print-lines"></div></div>
+  <div class="print-footer">Commande enregistrée dans le cadre de la promotion La Fenice Cersaie 2026 — période 21/09/2026 au 10/11/2026.</div>
+</section>
 
 <script src="assets/js/pro-session-bridge.js?v=20260918-promo4"></script>
 <script type="module">
@@ -284,6 +308,53 @@
     if(o.prime&&!document.getElementById('prime').value)return{ok:false,msg:'Choisissez la prime Hi-Tech souhaitée.'};
     return{ok:true,msg:'Sélection cohérente et complète.'};
   }
+  function firstValue(obj,keys){
+    for(const k of keys){const v=obj?.[k];if(v!==undefined&&v!==null&&String(v).trim()!=='')return String(v).trim();}
+    return '';
+  }
+  function activeClientObject(){
+    if(session?.isAdmin)return selectedClient||{};
+    return session||{};
+  }
+  function clientCoordinates(){
+    const c=activeClientObject();
+    const name=firstValue(c,['societe','enseigne','nomSociete','raisonSociale','nom']);
+    const contact=firstValue(c,['contact','nomContact','responsable','prenom']);
+    const address=firstValue(c,['adresse','address','adresse1','rue']);
+    const address2=firstValue(c,['adresse2','complementAdresse','complement']);
+    const postal=firstValue(c,['codePostal','cp','postalCode']);
+    const city=firstValue(c,['ville','city']);
+    const phone=firstValue(c,['telephone','phone','tel','mobile','portable']);
+    const email=firstValue(c,['email','mail','emailContact']);
+    const code=clientCode();
+    const dep=clientDep();
+    return {name,contact,address,address2,postal,city,phone,email,code,dep};
+  }
+  function populatePrintSheet(){
+    const cc=clientCoordinates();
+    const clientHtml=[
+      ['Société',cc.name],['Contact',cc.contact],['Code LRF',cc.code],['Département',cc.dep],
+      ['Adresse',cc.address],['Complément',cc.address2],['Code postal',cc.postal],['Ville',cc.city],
+      ['Téléphone',cc.phone],['E-mail',cc.email]
+    ].filter(x=>x[1]).map(x=>'<div><strong>'+x[0]+' :</strong> '+String(x[1]).replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]))+'</div>').join('');
+    document.getElementById('print-client').innerHTML=clientHtml||'<div>Coordonnées non disponibles dans la fiche client.</div>';
+
+    const o=currentOffer(),paid=paidLines(),free=freeSelections();
+    const offerLines=[
+      o?.label||'Offre non sélectionnée',
+      o?.prime?'Prime Hi-Tech : '+(document.getElementById('prime').value||'Non choisie'):'',
+      'Palettes payantes : '+paidTotal()+'/'+(o?.paid||0),
+      'Palettes gratuites : '+free.length+'/'+(o?.free||0)
+    ].filter(Boolean).join('\n');
+    document.getElementById('print-offer').textContent=offerLines;
+
+    const orderLines=[];
+    paid.forEach(x=>orderLines.push(x.qty+' palette(s) — '+x.model+' — '+x.color+' — '+x.p.format+' — avant promo '+euro(x.p.before)+'/m² — promo '+euro(x.price)+'/m²'));
+    if(free.length){orderLines.push('','PALETTE(S) GRATUITE(S) :');free.forEach(x=>orderLines.push('1 palette — '+x.model+' — '+x.color+' — '+x.p.format+' — gratuite'))}
+    document.getElementById('print-order').textContent=orderLines.join('\n')||'Aucune ligne de commande.';
+    document.getElementById('print-notes').textContent=document.getElementById('notes').value.trim()||'Aucune.';
+  }
+
   function buildSummary(){
     const o=currentOffer(),paid=paidLines(),free=freeSelections(),notes=document.getElementById('notes').value.trim();
     const lines=['PROMO LA FENICE — CERSAIE 2026','', 'Client : '+clientLabel()];
@@ -348,7 +419,7 @@
   renderProducts();
   document.querySelectorAll('input[name=offer]').forEach(r=>r.addEventListener('change',()=>{resetSelections();document.getElementById('prime-wrap').classList.toggle('show',currentOffer()?.prime===true);renderProducts();update()}));
   document.getElementById('prime').addEventListener('change',()=>update(false));document.getElementById('notes').addEventListener('input',()=>update(false));
-  document.getElementById('print').addEventListener('click',()=>{if(isValid().ok)window.print()});
+  document.getElementById('print').addEventListener('click',()=>{if(!isValid().ok)return;populatePrintSheet();window.print()});
   document.getElementById('mail').addEventListener('click',()=>{
     if(!isValid().ok)return;
     const subject='Commande promo La Fenice Cersaie 2026 — '+clientLabel();
