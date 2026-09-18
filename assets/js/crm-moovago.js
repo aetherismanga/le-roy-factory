@@ -4,12 +4,12 @@ import { collection, getDocs, doc, setDoc, updateDoc, onSnapshot } from "https:/
 const PARTNER_LOGOS = {
   "elios-ceramica":"elios.png","view-ceramica":"view.png","la-fenice":"lafenice.png","reviglass":"reviglass.png",
   "biopietra":"biopietra.png","petracers":"petracer.png","pecchioli-firenze":"pecchioli.png","bulbo":"bulbo.png",
-  "randal-pro":"randal.png","neobath":"neobath.png","koibath":"koibath.png","aquahome":"aquahome.png","opal":"opal.png","bilt":"bilt.png"
+  "randal-pro":"randal.png","neobath":"neobath.png","koibath":"koibath.png","aquahome":"aquahome.png","opal":"opal.png","bilt":"bilt.png","reitano-rubinetterie":"reitano.svg","uptrend":"uptrend.svg"
 };
 const MOOVAGO_PARTNER_MAP = {
   "ELIOS":"elios-ceramica","VIEW":"view-ceramica","LA FENICE":"la-fenice","REVIGLASS":"reviglass","BIOPIETRA":"biopietra",
   "PETRACER":"petracers","PETRACER'S":"petracers","PECCHIOLLI":"pecchioli-firenze","PECCHIOLI":"pecchioli-firenze","BULBO":"bulbo",
-  "RANDAL":"randal-pro","RANDAL PRO":"randal-pro","NEOBATH":"neobath","KOIBATH":"koibath","AQUAHOME":"aquahome","OPAL":"opal","BILT":"bilt"
+  "RANDAL":"randal-pro","RANDAL PRO":"randal-pro","NEOBATH":"neobath","KOIBATH":"koibath","AQUAHOME":"aquahome","OPAL":"opal","BILT":"bilt","REITANO":"reitano-rubinetterie","REITANO RUBINETTERIE":"reitano-rubinetterie","UPTREND":"uptrend"
 };
 
 let clients = [];
@@ -168,7 +168,6 @@ function injectClientExtras(){
   const footer=form.querySelector(".modal-footer"); if(!footer)return;
   const wrap=document.createElement("div"); wrap.innerHTML=`
   <div id="crm-extra-contacts" class="crm-extra-section"><div style="display:flex;justify-content:space-between;align-items:center"><h3 class="crm-extra-title">👤 Interlocuteurs</h3><button id="btn-add-contact-crm" type="button" class="btn-add-phone-link">+ Ajouter un interlocuteur</button></div><div id="crm-contacts-list"></div></div>
-  <div id="crm-extra-partners" class="crm-extra-section"><h3 class="crm-extra-title">🏭 Partenaires travaillés</h3><div style="color:#666;font-size:.8rem;margin-bottom:.6rem">Cliquez sur un logo pour ajouter ou enlever le partenaire.</div><div id="crm-partner-grid" class="partner-grid"></div></div>
   <div id="crm-extra-history" class="crm-extra-section"><h3 class="crm-extra-title">🕘 Historique commercial Moovago / CRM</h3><div id="crm-history-list"></div></div>`;
   footer.insertAdjacentElement("beforebegin",wrap);
   document.getElementById("btn-add-contact-crm").onclick=()=>{contactDraft.push({prenom:"",nom:"",fonction:"",mobile:"",fixe:"",email:""});renderContacts()};
@@ -188,7 +187,7 @@ function populateExtras(){
   if(c)rememberExactClient(c.id);
   contactDraft=(c?.contacts||[]).map(x=>({...x}));
   partnerDraft=[...(c?.partenaires||[])];
-  renderContacts();renderPartners();renderHistory(c);
+  renderContacts();renderHistory(c);
 }
 
 async function analyseImport(){
@@ -256,16 +255,16 @@ function setupClientModal(){
   form?.addEventListener("submit",()=>{
     const c=exactClient(activeClientId)||currentClientFromForm();
     if(c){
-      setTimeout(()=>updateDoc(doc(db,"clients",c.id),{contacts:contactDraft,partenaires:partnerDraft}).catch(console.error),50);
+      setTimeout(()=>updateDoc(doc(db,"clients",c.id),{contacts:contactDraft}).catch(console.error),50);
     }else{
-      pendingNewExtras={societe:clean(document.getElementById("edit-societe")?.value),cp:normalizeCp(document.getElementById("edit-code-postal")?.value),ville:clean(document.getElementById("edit-ville")?.value),contacts:contactDraft,partenaires:partnerDraft,at:Date.now()};
+      pendingNewExtras={societe:clean(document.getElementById("edit-societe")?.value),cp:normalizeCp(document.getElementById("edit-code-postal")?.value),ville:clean(document.getElementById("edit-ville")?.value),contacts:contactDraft,at:Date.now()};
     }
   },true);
 }
 function checkPending(){
   if(!pendingNewExtras||Date.now()-pendingNewExtras.at>15000)return;
   const c=clients.find(x=>isActive(x)&&companyKey(x.societe,x.codePostal||x.code_postal,x.ville)===companyKey(pendingNewExtras.societe,pendingNewExtras.cp,pendingNewExtras.ville));
-  if(c){updateDoc(doc(db,"clients",c.id),{contacts:pendingNewExtras.contacts,partenaires:pendingNewExtras.partenaires}).catch(console.error);pendingNewExtras=null;}
+  if(c){updateDoc(doc(db,"clients",c.id),{contacts:pendingNewExtras.contacts}).catch(console.error);pendingNewExtras=null;}
 }
 
 async function init(){
