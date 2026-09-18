@@ -76,11 +76,11 @@
           <article class="offer"><b>OFFRE 3</b><strong>10 palettes + 1 gratuite + prime Hi-Tech</strong><small>Prime selon conditions La Fenice.</small></article>
         </div>
 
-        <div class="prices"><table>
+        <div class="prices"><table data-lrf-tariff-controlled="fenice-all">
           <thead><tr>
             <th>Collection</th>
             <th>Format</th>
-            <th><div class="price-head">Prix net facture <button id="fenice-price-toggle" class="price-toggle" type="button">👁 Voir</button></div></th>
+            <th><div class="price-head">Prix net facture <button id="fenice-price-toggle" class="price-toggle" type="button">👁 Voir tous les prix</button></div></th>
             <th>Prix net promo selon offre</th>
           </tr></thead>
           <tbody>
@@ -160,7 +160,7 @@
     document.querySelectorAll('.invoice-price').forEach(el=>el.classList.toggle('locked',!fenicePricesVisible));
     document.querySelectorAll('.promo-price-stack').forEach(el=>el.classList.toggle('locked',!fenicePricesVisible));
     const btn=document.getElementById('fenice-price-toggle');
-    if(btn)btn.textContent=fenicePricesVisible?'🙈 Masquer':'👁 Voir';
+    if(btn)btn.textContent=fenicePricesVisible?'🙈 Masquer tous les prix':'👁 Voir tous les prix';
   }
   function installFenicePriceToggle(){
     const btn=document.getElementById('fenice-price-toggle');
