@@ -142,10 +142,43 @@
     }
   };
 
+  let cameoRunning = false;
+  const maybePlayScreenCameleon = () => {
+    if (cameoRunning || window.innerWidth < 1000 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (Math.floor(Math.random() * 3) !== 0) return;
+
+    cameoRunning = true;
+    const stage = document.createElement('div');
+    stage.setAttribute('aria-hidden','true');
+    stage.style.cssText = 'position:fixed;inset:0;z-index:2147482999;pointer-events:none;overflow:hidden;background:transparent';
+
+    const video = document.createElement('video');
+    video.src = 'assets/videos/cameleon-ecran-clair-alpha.webm?v=20260918-screen1';
+    video.muted = true;
+    video.playsInline = true;
+    video.preload = 'metadata';
+    video.disablePictureInPicture = true;
+    video.style.cssText = 'position:absolute;left:0;bottom:-9vh;width:100vw;height:auto;max-width:none;display:block;background:transparent;object-fit:contain;object-position:center bottom';
+
+    stage.appendChild(video);
+    document.body.appendChild(stage);
+
+    const cleanup = () => {
+      try { video.pause(); } catch (_) {}
+      stage.remove();
+      cameoRunning = false;
+    };
+    video.addEventListener('ended', cleanup, {once:true});
+    video.addEventListener('error', cleanup, {once:true});
+    video.play().catch(cleanup);
+    setTimeout(cleanup, 13000);
+  };
+
   const toggleMode = () => {
     mode = mode === 'light' ? 'dark' : 'light';
     saveMode();
     applyBackground();
+    maybePlayScreenCameleon();
   };
 
   testButton.addEventListener('click', toggleMode);
