@@ -47,10 +47,10 @@ html body.crm-body .crm-main-content {
 
 html body.crm-body .crm-sidebar {
   background:
-    radial-gradient(circle at 82% 9%,rgba(243,173,24,.13),transparent 28%),
-    linear-gradient(165deg,#17191b 0%,#0d0f10 62%,#151311 100%) !important;
-  border-right:1px solid rgba(243,173,24,.55) !important;
-  box-shadow:14px 0 40px rgba(25,17,8,.18),inset -1px 0 rgba(255,210,99,.12) !important;
+    radial-gradient(circle at 82% 8%,rgba(255,255,255,.22),transparent 27%),
+    linear-gradient(165deg,#b9c7b8 0%,#aabaaa 52%,#97aa99 100%) !important;
+  border-right:1px solid rgba(92,112,96,.35) !important;
+  box-shadow:14px 0 40px rgba(58,76,63,.14),inset -1px 0 rgba(255,255,255,.35) !important;
 }
 
 html body.crm-body .sidebar-brand {
@@ -70,23 +70,27 @@ html body.crm-body .sidebar-menu li > a {
   min-height:50px !important;
   padding:8px 11px !important;
   border-radius:13px !important;
-  color:#e9e5df !important;
+  color:#203127 !important;
   border:1px solid transparent !important;
+  font-weight:750 !important;
+  text-shadow:0 1px 0 rgba(255,255,255,.28) !important;
   transition:transform .18s ease,background .18s ease,box-shadow .18s ease !important;
 }
 
 html body.crm-body .sidebar-menu li > a:hover {
-  color:#fff !important;
-  background:linear-gradient(90deg,rgba(243,173,24,.13),rgba(255,255,255,.025)) !important;
-  border-color:rgba(243,173,24,.18) !important;
+  color:#15231a !important;
+  background:linear-gradient(90deg,rgba(255,255,255,.42),rgba(236,243,235,.18)) !important;
+  border-color:rgba(82,110,89,.24) !important;
+  box-shadow:0 5px 14px rgba(74,96,79,.10) !important;
   transform:translateX(2px);
 }
 
 html body.crm-body .sidebar-menu li > a.active {
-  color:#ffd65e !important;
-  background:linear-gradient(90deg,rgba(243,173,24,.26),rgba(243,173,24,.055)) !important;
-  border-color:rgba(243,173,24,.32) !important;
-  box-shadow:inset 4px 0 0 #ffc329,0 8px 20px rgba(0,0,0,.12),0 0 20px rgba(243,173,24,.06) !important;
+  color:#ffffff !important;
+  background:linear-gradient(90deg,#6f8b73 0%,#809981 100%) !important;
+  border-color:#607e66 !important;
+  box-shadow:inset 4px 0 0 #f0d27d,0 8px 20px rgba(55,79,62,.16),0 0 18px rgba(255,255,255,.10) !important;
+  text-shadow:0 1px 1px rgba(26,49,34,.28) !important;
 }
 
 html body.crm-body .sidebar-menu .icon {
@@ -116,12 +120,13 @@ html body.crm-body .sidebar-menu li:nth-child(11) .icon{background:linear-gradie
 html body.crm-body .btn-logout-sidebar {
   min-height:48px !important;
   border-radius:13px !important;
-  border:1px solid rgba(243,173,24,.78) !important;
-  color:#ffc62a !important;
-  background:linear-gradient(180deg,#1d1d1d,#101010) !important;
-  box-shadow:inset 0 1px rgba(255,255,255,.08),0 7px 18px rgba(0,0,0,.24) !important;
+  border:1px solid #6f8b73 !important;
+  color:#23402d !important;
+  background:linear-gradient(180deg,#dfe8dc,#c7d5c6) !important;
+  box-shadow:inset 0 1px rgba(255,255,255,.65),0 7px 18px rgba(57,84,65,.14) !important;
+  font-weight:800 !important;
 }
-html body.crm-body .btn-logout-sidebar:hover{background:linear-gradient(180deg,#f6b821,#d88a08)!important;color:#161616!important}
+html body.crm-body .btn-logout-sidebar:hover{background:linear-gradient(180deg,#cbd9c9,#b8c9b8)!important;color:#17351f!important}
 
 /* ----- Header CRM : compact, chaud, sans fleur ----- */
 html body.crm-body .crm-topbar {
@@ -452,3 +457,24 @@ html body.crm-body .lrf-mobile-action-sheet{border-radius:16px!important;backgro
 @media (prefers-reduced-motion:reduce){
   html body.crm-body *,html body.crm-body *::before,html body.crm-body *::after{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}
 }
+
+
+/* ----- Sidebar sauge : finition ----- */
+html body.crm-body .sidebar-brand{
+  background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.04)) !important;
+  border-bottom:1px solid rgba(78,104,84,.16) !important;
+}
+html body.crm-body .crm-sidebar .menu-text{
+  color:inherit !important;
+  font-weight:750 !important;
+}
+html body.crm-body .crm-sidebar .sidebar-footer{
+  border-top:1px solid rgba(78,104,84,.18) !important;
+  background:rgba(255,255,255,.06) !important;
+}
+html body.crm-body .crm-sidebar::-webkit-scrollbar,
+html body.crm-body .sidebar-menu::-webkit-scrollbar{width:8px}
+html body.crm-body .crm-sidebar::-webkit-scrollbar-track,
+html body.crm-body .sidebar-menu::-webkit-scrollbar-track{background:rgba(255,255,255,.10)}
+html body.crm-body .crm-sidebar::-webkit-scrollbar-thumb,
+html body.crm-body .sidebar-menu::-webkit-scrollbar-thumb{background:#6f8b73;border-radius:999px}
