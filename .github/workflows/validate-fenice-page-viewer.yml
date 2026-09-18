@@ -1,0 +1,19 @@
+name: Validate Fenice page viewer
+on:
+  push:
+    paths:
+      - '.github/workflows/validate-fenice-page-viewer.yml'
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate viewer files
+        run: |
+          node --check assets/js/fenice-pdf-viewer.js
+          node --check assets/js/selections-lazy-enhancements.js
+          grep -q 'fenice-pdf.html?catalogue=' assets/js/selections-lazy-enhancements.js
+          grep -q 'LA_FENICE_CERSAIE_2026_INTERACTIF.pdf' assets/js/fenice-pdf-viewer.js
+          grep -q 'LA_FENICE_GENERAL_2026_2027_WEB.pdf' assets/js/fenice-pdf-viewer.js
