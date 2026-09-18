@@ -1,0 +1,132 @@
+name: Build ELIOS secondary interactive PDFs
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'tools/build-elios-secondary-interactive-pdfs.py'
+      - '.github/workflows/build-elios-secondary-interactive-pdfs.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install PDF tooling
+        run: python -m pip install --disable-pip-version-check pymupdf
+
+      - name: Download ELIOS Coverings and Outdoor
+        run: |
+          curl -fL --retry 5 --retry-delay 3 --retry-all-errors \
+            -A 'Mozilla/5.0' \
+            -e 'https://eliosceramica.com/' \
+            'https://eliosceramica.com/wp-content/uploads/2001/04/ELIOS_CATALOGO-COVERINGS-2026.pdf' \
+            -o /tmp/ELIOS_COVERINGS_2026.pdf
+          test -s /tmp/ELIOS_COVERINGS_2026.pdf
+
+          curl -fL --retry 5 --retry-delay 3 --retry-all-errors \
+            -A 'Mozilla/5.0' \
+            -e 'https://eliosceramica.com/' \
+            'https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_OUTDOOR_2026.pdf' \
+            -o /tmp/ELIOS_OUTDOOR_2026.pdf
+          test -s /tmp/ELIOS_OUTDOOR_2026.pdf
+
+      - name: Build interactive PDFs
+        run: |
+          python tools/build-elios-secondary-interactive-pdfs.py \
+            --source /tmp/ELIOS_COVERINGS_2026.pdf \
+            --output assets/pdf/ELIOS_Coverings_2026_INTERACTIF.pdf \
+            --label 'Coverings 2026' \
+            --mode general \
+            --min-collections 2
+
+          python tools/build-elios-secondary-interactive-pdfs.py \
+            --source /tmp/ELIOS_OUTDOOR_2026.pdf \
+            --output assets/pdf/ELIOS_Outdoor_2026_INTERACTIF.pdf \
+            --label 'Outdoor 2026' \
+            --mode general \
+            --min-collections 3
+
+          python tools/build-elios-secondary-interactive-pdfs.py \
+            --source 'assets/pdf/ELIOS_CATALOGO PISCINE_2026.pdf' \
+            --output assets/pdf/ELIOS_Pool_Surfaces_2026_INTERACTIF.pdf \
+            --label 'Pool Surfaces 2026' \
+            --mode pool \
+            --min-collections 12
+
+          test -s assets/pdf/ELIOS_Coverings_2026_INTERACTIF.pdf
+          test -s assets/pdf/ELIOS_Outdoor_2026_INTERACTIF.pdf
+          test -s assets/pdf/ELIOS_Pool_Surfaces_2026_INTERACTIF.pdf
+
+      - name: Verify generated PDFs and links
+        run: |
+          python - <<'PY'
+          import fitz
+          from pathlib import Path
+
+          files = {
+              'Coverings': Path('assets/pdf/ELIOS_Coverings_2026_INTERACTIF.pdf'),
+              'Outdoor': Path('assets/pdf/ELIOS_Outdoor_2026_INTERACTIF.pdf'),
+              'Pool': Path('assets/pdf/ELIOS_Pool_Surfaces_2026_INTERACTIF.pdf'),
+          }
+          for name, path in files.items():
+              doc = fitz.open(path)
+              links = []
+              for pno in range(min(4, doc.page_count)):
+                  links.extend(l for l in doc[pno].get_links() if l.get('kind') == fitz.LINK_GOTO)
+              if not links:
+                  raise SystemExit(f'{name}: no internal links found')
+              bad = [l for l in links if l.get('page', -1) < 0 or l.get('page', -1) >= doc.page_count]
+              if bad:
+                  raise SystemExit(f'{name}: invalid link target(s)')
+              print(f'{name}: OK - {len(links)} internal link(s), {doc.page_count} pages')
+          PY
+
+      - name: Update public catalogue links only after successful validation
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          p = Path('catalogues.html')
+          s = p.read_text(encoding='utf-8')
+          replacements = {
+              "{ titre:'Coverings 2026', desc:'Revêtements et dernières tendances.', lien:'https://eliosceramica.com/wp-content/uploads/2001/04/ELIOS_CATALOGO-COVERINGS-2026.pdf' }":
+              "{ titre:'Coverings 2026 interactif', desc:'Revêtements et dernières tendances avec lexique cliquable intégré au PDF.', lien:'assets/pdf/ELIOS_Coverings_2026_INTERACTIF.pdf' }",
+
+              "{ titre:'Outdoor 2026', desc:\"Solutions et carrelages pour l'extérieur.\", lien:'https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_OUTDOOR_2026.pdf' }":
+              "{ titre:'Outdoor 2026 interactif', desc:\"Solutions et carrelages pour l'extérieur avec lexique cliquable intégré au PDF.\", lien:'assets/pdf/ELIOS_Outdoor_2026_INTERACTIF.pdf' }",
+          }
+          for old, new in replacements.items():
+              if old not in s and new not in s:
+                  raise SystemExit(f'catalogues.html entry not found: {old[:70]}')
+              s = s.replace(old, new)
+          p.write_text(s, encoding='utf-8')
+
+          p = Path('assets/js/pwa-install.js')
+          s = p.read_text(encoding='utf-8')
+          old = 'assets/pdf/ELIOS_CATALOGO%20PISCINE_2026.pdf'
+          new = 'assets/pdf/ELIOS_Pool_Surfaces_2026_INTERACTIF.pdf'
+          if old not in s and new not in s:
+              raise SystemExit('Pool Surfaces link not found in pwa-install.js')
+          p.write_text(s.replace(old, new), encoding='utf-8')
+          PY
+
+      - name: Commit generated PDFs
+        run: |
+          git config user.name "LRF Catalogue Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add \
+            assets/pdf/ELIOS_Coverings_2026_INTERACTIF.pdf \
+            assets/pdf/ELIOS_Outdoor_2026_INTERACTIF.pdf \
+            assets/pdf/ELIOS_Pool_Surfaces_2026_INTERACTIF.pdf \
+            catalogues.html \
+            assets/js/pwa-install.js
+          git diff --cached --quiet && exit 0
+          git commit -m "Publie les autres catalogues ELIOS en PDF interactif"
+          git push
