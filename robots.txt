@@ -39,3 +39,5 @@ Disallow: /view-lots-septembre-2026.html
 Disallow: /confidentialite-ma-station.html
 
 Sitemap: https://leroyfactory.fr/sitemap.xml
+
+Disallow: /promo-cersaie.html
