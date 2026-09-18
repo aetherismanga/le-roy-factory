@@ -4,6 +4,7 @@
   const catalogue = (params.get('catalogue') || 'cersaie').toLowerCase();
   const section = (params.get('section') || '').toLowerCase();
   const titleParam = params.get('title') || '';
+  const returnTarget = params.get('return') || '';
   const GENERAL_SECTIONS = {
     marble:'assets/pdf/fenice-general/marble.pdf',
     stone:'assets/pdf/fenice-general/stone.pdf',
@@ -81,6 +82,7 @@
     if (entry.section) u.searchParams.set('section', entry.section);
     u.searchParams.set('page', String(entry.page || 1));
     u.searchParams.set('title', entry.name || 'La Fenice');
+    if (returnTarget) u.searchParams.set('return', returnTarget);
     return u.pathname.split('/').pop() + '?' + u.searchParams.toString();
   }
 
@@ -230,6 +232,17 @@
   zoomOut.addEventListener('click', () => { fitMode=false; zoom=Math.max(.65,zoom-0.25); renderPage({preserveScroll:true}); });
   fit.addEventListener('click', () => { fitMode=true; zoom=1; renderPage({preserveScroll:true}); });
   document.getElementById('fpv-back').addEventListener('click', () => {
+    if (returnTarget) {
+      location.href = returnTarget;
+      return;
+    }
+    try {
+      const ref = document.referrer ? new URL(document.referrer, location.href) : null;
+      if (ref && ref.origin === location.origin && /promo-cersaie\.html$/i.test(ref.pathname)) {
+        location.href = 'promo-cersaie.html#la-fenice';
+        return;
+      }
+    } catch (_) {}
     if (history.length > 1) history.back();
     else location.href = 'univers.html';
   });
