@@ -48,6 +48,13 @@
   const lexiconList = document.getElementById('fpv-lexicon-list');
   const lexiconData = window.LRF_FENICE_LEXICON || {catalogues:[]};
 
+  let pdf = null;
+  let pageNo = Math.max(1, Number.parseInt(params.get('page') || '1', 10) || 1);
+  let zoom = 1;
+  let fitMode = true;
+  let rendering = null;
+  let renderToken = 0;
+
   const currentCatalogueId = catalogue === 'general' ? 'general-2026-2027' : 'cersaie-2026';
 
   function openLexicon() {
@@ -138,13 +145,6 @@
   }
   lexiconSearch?.addEventListener('input', () => renderLexicon(lexiconSearch.value));
   renderLexicon('');
-
-  let pdf = null;
-  let pageNo = Math.max(1, Number.parseInt(params.get('page') || '1', 10) || 1);
-  let zoom = 1;
-  let fitMode = true;
-  let rendering = null;
-  let renderToken = 0;
 
   title.textContent = titleParam ? titleParam : source.label;
   subtitle.textContent = source.label;
