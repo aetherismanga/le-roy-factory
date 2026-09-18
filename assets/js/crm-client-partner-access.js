@@ -208,7 +208,7 @@ if (!window.__LRF_CLIENT_PARTNER_ACCESS__) {
   }, true);
 
   const modal = document.querySelector('#client-modal');
-  if (modal) new MutationObserver(() => { if (modalOpen()) setTimeout(refreshModal, 20); }).observe(modal,{attributes:true,attributeFilter:['style'],childList:true,subtree:true});
+  if (modal) new MutationObserver(() => { if (modalOpen()) setTimeout(refreshModal, 20); }).observe(modal,{attributes:true,attributeFilter:['style','class'],subtree:false});
   const quickObserver = new MutationObserver(() => { if (modalOpen()) ensureMobilePartnerButton(); });
   quickObserver.observe(document.body,{childList:true,subtree:true});
 
