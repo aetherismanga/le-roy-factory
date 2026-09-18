@@ -1,4 +1,4 @@
-name: Validate Fenice page viewer
+name: Validate Fenice direct-page viewer
 on:
   push:
     paths:
@@ -10,10 +10,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Validate viewer files
+      - name: Validate JavaScript and section files
+        shell: bash
         run: |
+          set -euo pipefail
           node --check assets/js/fenice-pdf-viewer.js
+          node --check assets/js/fenice-lexicon-data.js
           node --check assets/js/selections-lazy-enhancements.js
-          grep -q 'fenice-pdf.html?catalogue=' assets/js/selections-lazy-enhancements.js
-          grep -q 'LA_FENICE_CERSAIE_2026_INTERACTIF.pdf' assets/js/fenice-pdf-viewer.js
-          grep -q 'LA_FENICE_GENERAL_2026_2027_WEB.pdf' assets/js/fenice-pdf-viewer.js
+          test -s assets/pdf/fenice-general/marble.pdf
+          test -s assets/pdf/fenice-general/stone.pdf
+          test -s assets/pdf/fenice-general/metal.pdf
+          test -s assets/pdf/fenice-general/wood.pdf
+          test -s assets/pdf/fenice-general/decor.pdf
+          grep -q "sectionParam" assets/js/selections-lazy-enhancements.js
+          grep -q "GENERAL_SECTIONS" assets/js/fenice-pdf-viewer.js
+          grep -q "GENERAL_SECTIONS" assets/js/fenice-lexicon-data.js
+          grep -q "20260918-fenice-page3" univers.html
+          grep -q "20260918-2" fenice-pdf.html
