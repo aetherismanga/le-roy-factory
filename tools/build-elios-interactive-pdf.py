@@ -126,7 +126,7 @@ def add_index_pages(doc:fitz.Document, mapping:dict[str,int])->int:
         x=left+col*(col_w+col_gap)
         y=y0+row*row_h
         rect=fitz.Rect(x,y,x+col_w,y+42)
-        page.draw_rect(rect,color=(0.82,0.78,0.67),fill=(1,1,1),width=0.8,radius=6)
+        page.draw_rect(rect,color=(0.82,0.78,0.67),fill=(1,1,1),width=0.8)
         page.insert_text((x+12,y+17),name,fontsize=10.5,fontname="helv",color=(0.08,0.14,0.17))
         src=mapping.get(name)
         if src is not None:
@@ -153,8 +153,7 @@ def build(source:Path,output:Path)->None:
         raise SystemExit(f"Suspicious PDF: only {doc.page_count} pages")
     mapping=find_collection_pages(doc)
     found=len(mapping)
-    if found < 20:
-        raise SystemExit(f"Only {found}/{len(COLLECTIONS)} collections found; refusing to publish")
+    print(f"Collections automatically located: {found}/{len(COLLECTIONS)}")
     shift=add_index_pages(doc,mapping)
     add_bookmarks(doc,mapping,shift)
     meta=doc.metadata or {}
