@@ -161,9 +161,10 @@
     cameoToggleCount += 1;
     if (cameoToggleCount < 3) return;
     cameoToggleCount = 0;
-    if (cameoRunning) return;
+    if (cameoRunning || window.__LRF_CAMELEON_ANY_RUNNING__) return;
 
     cameoRunning = true;
+    window.__LRF_CAMELEON_ANY_RUNNING__ = true;
     const stage = document.createElement('div');
     stage.setAttribute('aria-hidden','true');
     stage.style.cssText = 'position:fixed;inset:0;z-index:2147482999;pointer-events:none;overflow:hidden;background:transparent';
@@ -174,7 +175,7 @@
     video.playsInline = true;
     video.preload = 'auto';
     video.disablePictureInPicture = true;
-    video.style.cssText = 'position:absolute;left:0;bottom:-9vh;width:100vw;height:auto;max-width:none;display:block;background:transparent;object-fit:contain;object-position:center bottom';
+    video.style.cssText = 'position:absolute;left:0;bottom:-20vh;width:100vw;height:auto;max-width:none;display:block;background:transparent;object-fit:contain;object-position:center bottom;opacity:1';
 
     stage.appendChild(video);
     document.body.appendChild(stage);
@@ -183,6 +184,7 @@
       try { video.pause(); } catch (_) {}
       stage.remove();
       cameoRunning = false;
+      window.__LRF_CAMELEON_ANY_RUNNING__ = false;
     };
     video.addEventListener('ended', cleanup, {once:true});
     video.addEventListener('error', cleanup, {once:true});
