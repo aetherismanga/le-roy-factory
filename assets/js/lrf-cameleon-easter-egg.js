@@ -17,7 +17,7 @@
         overflow:hidden; background:transparent!important;
       }
       #lrf-cameleon-video-stage video{
-        position:absolute; left:0; bottom:0;
+        position:absolute; left:0; bottom:-9vh;
         width:100vw; height:auto; max-width:none;
         display:block; background:transparent!important;
         object-fit:contain; object-position:center bottom;
