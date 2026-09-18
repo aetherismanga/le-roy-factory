@@ -65,7 +65,7 @@
   if (window.matchMedia('(max-width: 900px)').matches) {
     addStylesheet('lrf-mobile-public-v8-css', 'assets/css/mobile-public-v8.css?v=20260901-2');
   }
-  addStylesheet('lrf-logo-scale-v9-css', 'assets/css/lrf-logo-scale-v9.css?v=20260901-3');
+  addStylesheet('lrf-logo-scale-v9-css', 'assets/css/lrf-logo-scale-v9.css?v=20260918-pc-logo2');
   document.documentElement.classList.add('lrf-premium-ready');
 
   const pageClass = `lrf-page-${page.replace('.html','').replace(/[^a-z0-9-]/g,'-')}`;
@@ -251,6 +251,28 @@
     apply();
   };
 
+  const enforceHeaderLogo = () => {
+    const logoLink = document.querySelector('header .logo');
+    if (!logoLink) return;
+    let img = logoLink.querySelector('img');
+    if (!img || !img.classList.contains('lrf-monogram-header')) {
+      logoLink.innerHTML = '<img class="lrf-monogram-header" src="assets/brand-v2/logoLRF.png?v=20260918-pc-logo2" alt="LRF">';
+      img = logoLink.querySelector('img');
+    }
+    if (img && img.getAttribute('src') !== 'assets/brand-v2/logoLRF.png?v=20260918-pc-logo2') {
+      img.setAttribute('src','assets/brand-v2/logoLRF.png?v=20260918-pc-logo2');
+    }
+    logoLink.removeAttribute('style');
+  };
+
+  const startHeaderLogoGuard = () => {
+    enforceHeaderLogo();
+    const header = document.querySelector('header');
+    if (!header || window.__LRF_HEADER_LOGO_GUARD__) return;
+    window.__LRF_HEADER_LOGO_GUARD__ = true;
+    new MutationObserver(() => enforceHeaderLogo()).observe(header,{childList:true,subtree:true,attributes:true,attributeFilter:['src','class']});
+  };
+
   const setBrand = () => {
     if (!document.body) return;
     document.body.classList.add('lrf-premium-v2', pageClass);
@@ -263,15 +285,12 @@
 
     const favicon = document.querySelector('link[rel="icon"]');
     if (favicon) {
-      favicon.href = 'assets/brand-v2/logoLRF.png?v=20260901-lrf1';
+      favicon.href = 'assets/brand-v2/logoLRF.png?v=20260918-pc-logo2';
       favicon.type = 'image/png';
     }
 
-    const logoLink = document.querySelector('header .logo');
-    if (logoLink) {
-      logoLink.innerHTML = '<img class="lrf-monogram-header" src="assets/brand-v2/logoLRF.png?v=20260901-lrf1" alt="LRF">';
-      logoLink.removeAttribute('style');
-    }
+    enforceHeaderLogo();
+    startHeaderLogoGuard();
     document.querySelectorAll('.lrf-center-brand').forEach(el => el.remove());
 
     installConfigurateursNav();
@@ -292,7 +311,7 @@
 
     const clientBrand = document.querySelector('.brand img');
     if (page === 'ouverture-compte.html' && clientBrand) {
-      clientBrand.src = 'assets/brand-v2/logoLRF.png?v=20260901-lrf1';
+      clientBrand.src = 'assets/brand-v2/logoLRF.png?v=20260918-pc-logo2';
       clientBrand.alt = 'LRF';
     }
 
