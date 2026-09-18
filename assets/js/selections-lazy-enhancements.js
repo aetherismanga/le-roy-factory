@@ -16,10 +16,11 @@
       'assets/js/inspirations-elios-fix-bavaria-dolomiti-harmony.js?v=20260902-fix4',
       'assets/js/inspirations-elios-pass1-hd.js?v=20260902-pass1hd2',
       'assets/js/inspirations-elios-lot1-hd.js?v=20260902-lot1hd2',
+      'assets/js/inspirations-elios-montreal-hd.js?v=20260918-montreal2',
       'assets/js/inspirations-elios-slate-hd.js?v=20260902-slatehq1',
       'assets/js/inspirations-elios-azuli-hd.js?v=20260911-azuli-hd2',
       'assets/js/inspirations-elios-dust-hd.js?v=20260913-dusthd2',
-      'assets/js/inspirations-elios-gallery-v2.js?v=20260913-dusthd2'
+      'assets/js/inspirations-elios-gallery-v2.js?v=20260918-gallery3'
     ],
     view: [
       'assets/js/inspirations-view-data.js?v=20260907-view-lot1-final',
