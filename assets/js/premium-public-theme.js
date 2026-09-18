@@ -66,6 +66,7 @@
     addStylesheet('lrf-mobile-public-v8-css', 'assets/css/mobile-public-v8.css?v=20260901-2');
   }
   addStylesheet('lrf-logo-scale-v9-css', 'assets/css/lrf-logo-scale-v9.css?v=20260918-pc-logo2');
+  addStylesheet('lrf-promo-cersaie-nav-asset-css', 'assets/css/promo-cersaie-nav-asset.css?v=20260918-asset1');
   document.documentElement.classList.add('lrf-premium-ready');
 
   const pageClass = `lrf-page-${page.replace('.html','').replace(/[^a-z0-9-]/g,'-')}`;
@@ -165,46 +166,24 @@
 
   const installPromoCersaieNav = () => {
     const nav = document.querySelector('header nav ul');
-    if (!nav || nav.querySelector('a[href="promo-cersaie.html"]')) return;
-
-    if (!document.getElementById('lrf-promo-cersaie-nav-style')) {
-      const style = document.createElement('style');
-      style.id = 'lrf-promo-cersaie-nav-style';
-      style.textContent = `
-        .main-nav>li.lrf-promo-cersaie-li{margin-right:.35rem!important}
-        .main-nav>li>a.lrf-promo-cersaie-nav{
-          display:inline-flex!important;align-items:center!important;justify-content:center!important;
-          gap:.35rem!important;padding:.62rem .95rem!important;border-radius:999px!important;
-          background:linear-gradient(135deg,#dfe8dc,#c9d8c7)!important;
-          color:#2f4135!important;border:1px solid #b5c8b4!important;
-          box-shadow:0 0 0 2px rgba(255,255,255,.08),0 7px 18px rgba(72,101,77,.18)!important;
-          text-shadow:none!important;font-weight:900!important;letter-spacing:.04em!important;
-          white-space:nowrap!important;text-decoration:none!important;position:relative!important;
-          animation:lrfPromoPulse 2.8s ease-in-out infinite!important;
-        }
-        .main-nav>li>a.lrf-promo-cersaie-nav::before{content:'✦';font-size:.78rem}
-        .main-nav>li>a.lrf-promo-cersaie-nav:hover{
-          transform:translateY(-1px)!important;background:linear-gradient(135deg,#e9f0e6,#d5e2d3)!important;
-          color:#24352b!important;border-color:#9fb69f!important
-        }
-        @keyframes lrfPromoPulse{0%,100%{box-shadow:0 0 0 2px rgba(255,255,255,.06),0 7px 18px rgba(72,101,77,.14)}50%{box-shadow:0 0 0 4px rgba(185,201,182,.20),0 8px 24px rgba(72,101,77,.22)}}
-        @media(max-width:900px){
-          .main-nav>li.lrf-promo-cersaie-li{order:-20;width:100%;margin:0 0 .3rem!important}
-          .main-nav>li>a.lrf-promo-cersaie-nav{width:100%!important;padding:.8rem 1rem!important}
-        }
-      `;
-      document.head.appendChild(style);
+    if (!nav) return;
+    let link = nav.querySelector('a[href="promo-cersaie.html"]');
+    if (!link) {
+      const li = document.createElement('li');
+      li.className = 'lrf-promo-cersaie-li';
+      link = document.createElement('a');
+      link.href = 'promo-cersaie.html';
+      link.className = 'lrf-promo-cersaie-nav';
+      link.setAttribute('aria-label','Promo Cersaie — Offres Pro 2026');
+      link.textContent = 'PROMO CERSAIE';
+      li.appendChild(link);
+      nav.insertBefore(li, nav.firstElementChild);
+    } else {
+      link.classList.add('lrf-promo-cersaie-nav');
+      link.parentElement?.classList.add('lrf-promo-cersaie-li');
+      link.setAttribute('aria-label','Promo Cersaie — Offres Pro 2026');
     }
-
-    const li = document.createElement('li');
-    li.className = 'lrf-promo-cersaie-li';
-    const link = document.createElement('a');
-    link.href = 'promo-cersaie.html';
-    link.className = 'lrf-promo-cersaie-nav';
-    link.textContent = 'PROMO CERSAIE';
     if (page === 'promo-cersaie.html') link.setAttribute('aria-current','page');
-    li.appendChild(link);
-    nav.insertBefore(li, nav.firstElementChild);
   };
 
   const installConfigurateursNav = () => {
