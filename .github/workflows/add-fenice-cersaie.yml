@@ -3,9 +3,6 @@ name: Add La Fenice Cersaie 2026 catalogue
 on:
   issues:
     types: [opened]
-  push:
-    paths:
-      - '.github/workflows/add-fenice-cersaie.yml'
 
 permissions:
   contents: write
@@ -13,7 +10,7 @@ permissions:
 
 jobs:
   add-fenice:
-    if: github.event_name == 'push' || github.event.issue.title == 'RUN-FENICE-CERSAIE-2026'
+    if: github.event.issue.title == 'RUN-FENICE-CERSAIE-2026'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -21,22 +18,20 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Download latest La Fenice Cersaie PDF
+      - name: Download and validate PDF
         shell: bash
+        env:
+          PDF_URL: ${{ github.event.issue.body }}
         run: |
           set -euo pipefail
-          URL='https://sdmntprdenmarkeast.oaiusercontent.com/files/00000000-edf0-8210-98c8-0ca7909c67f6/raw?se=2026-09-18T12%3A56%3A19Z&sp=r&sv=2026-02-06&sr=b&scid=523f6a35-bae8-54df-bb15-95d33bea2c6e&skoid=a0b9f82a-c86e-4064-a822-2aa38890bb37&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-18T09%3A28%3A53Z&ske=2026-09-19T09%3A28%3A53Z&sks=b&skv=2026-02-06&sig=U7h2gyzh76sDnZC9CjF4NDXnRi0hiDc5eVIOBC%2B7eMg%3D'
-          curl -fL --retry 3 --retry-delay 2 "$URL" -o /tmp/la-fenice-cersaie-2026.pdf
+          curl -fL --retry 3 --retry-delay 2 "$PDF_URL" -o /tmp/la-fenice-cersaie-2026.pdf
           test "$(head -c 4 /tmp/la-fenice-cersaie-2026.pdf)" = '%PDF'
           SIZE=$(stat -c%s /tmp/la-fenice-cersaie-2026.pdf)
           echo "La Fenice PDF size: $SIZE bytes"
-          if [ "$SIZE" -ge 25000000 ]; then
-            echo "ERROR: file is 25 MB or larger; catalogue not added."
-            exit 42
-          fi
+          test "$SIZE" -lt 25000000
           echo "FENICE_SIZE=$SIZE" >> "$GITHUB_ENV"
 
-      - name: Add PDF and catalogue entry
+      - name: Add catalogue
         shell: bash
         run: |
           set -euo pipefail
@@ -44,36 +39,27 @@ jobs:
           cp /tmp/la-fenice-cersaie-2026.pdf assets/pdf/LA_FENICE_CERSAIE_2026.pdf
           python3 - <<'PY'
           from pathlib import Path
-          p = Path('catalogues.html')
-          s = p.read_text(encoding='utf-8')
-          old = """        { nom:'La Fenice', pays:'Italie', presentation:"Tradition et modernité italienne au service de l'architecture intérieure.", fichiers:[
+          p=Path('catalogues.html')
+          s=p.read_text(encoding='utf-8')
+          old="""        { nom:'La Fenice', pays:'Italie', presentation:"Tradition et modernité italienne au service de l'architecture intérieure.", fichiers:[
           { titre:'Catalogues', desc:'La Fenice srl', lien:'https://lafenicegc.com/fr/catalogues/' }
         ]},"""
-          new = """        { nom:'La Fenice', pays:'Italie', presentation:"Tradition et modernité italienne au service de l'architecture intérieure.", fichiers:[
+          new="""        { nom:'La Fenice', pays:'Italie', presentation:"Tradition et modernité italienne au service de l'architecture intérieure.", fichiers:[
           { titre:'Nouveautés Cersaie 2026', desc:'Nouveau catalogue La Fenice présenté au Cersaie 2026.', lien:'assets/pdf/LA_FENICE_CERSAIE_2026.pdf' },
           { titre:'Catalogues officiels', desc:'Tous les catalogues La Fenice.', lien:'https://lafenicegc.com/fr/catalogues/' }
         ]},"""
-          if "assets/pdf/LA_FENICE_CERSAIE_2026.pdf" not in s:
+          if 'assets/pdf/LA_FENICE_CERSAIE_2026.pdf' not in s:
               if old not in s:
-                  raise SystemExit('Bloc La Fenice attendu introuvable dans catalogues.html')
-              s = s.replace(old, new, 1)
-              p.write_text(s, encoding='utf-8')
+                  raise SystemExit('Bloc La Fenice introuvable')
+              p.write_text(s.replace(old,new,1),encoding='utf-8')
           PY
-
-      - name: Commit update
-        shell: bash
-        run: |
-          set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add assets/pdf/LA_FENICE_CERSAIE_2026.pdf catalogues.html
-          if ! git diff --cached --quiet; then
-            git commit -m "Add La Fenice Cersaie 2026 catalogue (${FENICE_SIZE} bytes)"
-            git push
-          fi
+          git commit -m "Add La Fenice Cersaie 2026 catalogue (${FENICE_SIZE} bytes)"
+          git push
 
       - name: Close trigger issue
-        if: github.event_name == 'issues'
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
