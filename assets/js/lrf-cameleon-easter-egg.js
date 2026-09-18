@@ -3,7 +3,7 @@
   if (window.__LRF_CAMELEON_EASTER_EGG__) return;
   window.__LRF_CAMELEON_EASTER_EGG__ = true;
 
-  const desktop = () => window.matchMedia('(min-width: 1000px) and (pointer: fine)').matches;
+  const desktop = () => window.innerWidth >= 1000;
   const reduced = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
   const frameSrc = n => `assets/img/cameleon${String(n).padStart(2,'0')}.png?v=20260918-easter1`;
@@ -112,11 +112,39 @@
   function bind() {
     if (!desktop()) return;
     preload();
-    const logo=document.querySelector('header .logo img, header .lrf-monogram-header');
-    if (!logo || logo.dataset.lrfCameleonBound) return;
-    logo.dataset.lrfCameleonBound='1';
-    logo.style.cursor='pointer';
-    logo.addEventListener('dblclick', e => { e.preventDefault(); e.stopPropagation(); run(logo); });
+    const logoLink=document.querySelector('header .logo');
+    const logo=logoLink?.querySelector('img') || document.querySelector('header .lrf-monogram-header');
+    if (!logo || !logoLink || logoLink.dataset.lrfCameleonBound) return;
+    logoLink.dataset.lrfCameleonBound='1';
+    logoLink.style.cursor='pointer';
+
+    let clicks=0, clickTimer=0;
+    logoLink.addEventListener('click', e => {
+      if (!desktop()) return;
+      clicks++;
+      clearTimeout(clickTimer);
+      if (clicks >= 2) {
+        clicks=0;
+        e.preventDefault();
+        e.stopPropagation();
+        run(logo);
+        return;
+      }
+      e.preventDefault();
+      clickTimer=setTimeout(() => {
+        clicks=0;
+        location.href=logoLink.href || 'index.html';
+      }, 320);
+    }, true);
+
+    logoLink.addEventListener('dblclick', e => {
+      if (!desktop()) return;
+      e.preventDefault();
+      e.stopPropagation();
+      clicks=0;
+      clearTimeout(clickTimer);
+      run(logo);
+    }, true);
   }
 
   if (document.readyState==='loading') document.addEventListener('DOMContentLoaded',bind,{once:true});
