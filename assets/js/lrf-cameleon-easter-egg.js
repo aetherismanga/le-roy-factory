@@ -33,7 +33,8 @@
   }
 
   function playAnimation() {
-    if (running || !isDesktop() || reduceMotion()) return;
+    if (running || window.__LRF_CAMELEON_ANY_RUNNING__ || !isDesktop() || reduceMotion()) return;
+    window.__LRF_CAMELEON_ANY_RUNNING__ = true;
     running = true;
     installStyle();
 
@@ -57,6 +58,7 @@
       try { video.pause(); } catch (_) {}
       stage.remove();
       running = false;
+      window.__LRF_CAMELEON_ANY_RUNNING__ = false;
     };
 
     video.addEventListener('ended', cleanup, {once:true});
