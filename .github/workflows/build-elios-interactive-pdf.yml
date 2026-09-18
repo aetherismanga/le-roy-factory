@@ -22,8 +22,48 @@ jobs:
       - name: Build interactive ELIOS PDF
         run: |
           python tools/build-elios-interactive-pdf.py \
+            --source assets/pdf/ELIOS_CATALOGUE-GENERALE-2026-1.pdf \
             --output assets/pdf/ELIOS_Catalogue_General_2026_INTERACTIF.pdf
           test -s assets/pdf/ELIOS_Catalogue_General_2026_INTERACTIF.pdf
+      - name: Validate internal collection links
+        run: |
+          python - <<'PY'
+          import fitz
+          import re
+
+          path = 'assets/pdf/ELIOS_Catalogue_General_2026_INTERACTIF.pdf'
+          doc = fitz.open(path)
+          failures = []
+          for collection in ('Creta', 'Roma', 'Glow', 'Yosemite'):
+              matches = []
+              for page_number in (1, 2):
+                  page = doc[page_number]
+                  for hit in page.search_for(collection):
+                      for link in page.get_links():
+                          if (
+                              link.get('kind') == fitz.LINK_GOTO
+                              and fitz.Rect(link['from']).intersects(hit)
+                          ):
+                              matches.append(link)
+              if len(matches) != 1:
+                  failures.append(
+                      f'{collection}: expected one internal link, found {len(matches)}'
+                  )
+                  continue
+              target_page = matches[0]['page']
+              target_text = doc[target_page].get_text('text')
+              if not re.search(
+                  rf'(?i)\b{re.escape(collection)}\b',
+                  target_text,
+              ):
+                  failures.append(
+                      f'{collection}: title missing from target page {target_page + 1}'
+                  )
+                  continue
+              print(f'{collection}: OK -> page {target_page + 1}')
+          if failures:
+              raise SystemExit('\n'.join(failures))
+          PY
       - name: Point Catalogues page to the interactive PDF
         run: |
           python - <<'PY'
