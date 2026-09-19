@@ -33,7 +33,7 @@
   const modal=document.createElement('div');
   modal.className='elios-rentree-modal';
   modal.setAttribute('aria-hidden','true');
-  modal.innerHTML='<div class="elios-rentree-box" role="dialog" aria-modal="true" aria-label="Promo Cersaie 2026 Elios"><button class="elios-rentree-close" type="button" aria-label="Fermer">×</button><iframe class="elios-rentree-frame" title="Promo Cersaie 2026 Elios" data-src="elios-rentree-r11-2026.html?v=20260919-cersaie1" loading="lazy"></iframe><div class="elios-rentree-loading">Chargement de la promo ELIOS Cersaie…</div></div>';
+  modal.innerHTML='<div class="elios-rentree-box" role="dialog" aria-modal="true" aria-label="Promo rentrée Elios R11"><button class="elios-rentree-close" type="button" aria-label="Fermer">×</button><iframe class="elios-rentree-frame" title="Promo rentrée Elios R11" data-src="elios-rentree-r11-2026.html?v=20260919-r11restore1" loading="lazy"></iframe><div class="elios-rentree-loading">Chargement de la promo ELIOS…</div></div>';
   document.body.appendChild(modal);
   const frame=modal.querySelector('.elios-rentree-frame');
   const burger=document.querySelector('header .burger-btn');
@@ -150,12 +150,12 @@
 
   const hero=document.querySelector('.hero-video-section');
   if(hero){
-    const desktop=document.createElement('a');desktop.className='elios-rentree-desktop';desktop.href='elios-rentree-r11-2026.html';desktop.setAttribute('aria-label',"Découvrir la Promo Cersaie 2026 Elios");desktop.innerHTML='<div class="elios-rentree-copy"><div class="elios-rentree-kicker">PROMO CERSAIE 2026</div><div class="elios-rentree-title">ELIOS VOUS EMMÈNE<br>AU LAC DE GARDE</div><div class="elios-rentree-sub">6 palettes minimum · jusqu’à 4 tickets · voyage avril 2027</div><span class="elios-rentree-cta">Voir la promo</span></div><div class="elios-rentree-logo"><img src="assets/img/elios.png" alt="ELIOS Ceramica" loading="lazy" decoding="async"></div>';desktop.addEventListener('click',open);hero.appendChild(desktop);
+    const desktop=document.createElement('a');desktop.className='elios-rentree-desktop';desktop.href='elios-rentree-r11-2026.html';desktop.setAttribute('aria-label',"Découvrir la promo rentrée Elios R11");desktop.innerHTML='<div class="elios-rentree-copy"><div class="elios-rentree-kicker">Lots 1er choix · R11</div><div class="elios-rentree-title">C\'EST LA RENTRÉE<br>AVEC ELIOS !</div><div class="elios-rentree-sub">30,5×60,5 · palettes complètes · quantités limitées</div><span class="elios-rentree-cta">Voir les lots</span></div><div class="elios-rentree-logo"><img src="assets/img/elios.png" alt="ELIOS Ceramica" loading="lazy" decoding="async"></div>';desktop.addEventListener('click',open);hero.appendChild(desktop);
   }
 
   const header=document.querySelector('header');
   if(header){
-    mobileBanner=document.createElement('a');mobileBanner.className='elios-rentree-mobile';mobileBanner.href='elios-rentree-r11-2026.html';mobileBanner.setAttribute('aria-label',"Découvrir la Promo Cersaie 2026 Elios");mobileBanner.innerHTML='<strong>ELIOS · PROMO CERSAIE 2026</strong><span>Lac de Garde 2027 · <b>Voir l’offre</b></span>';mobileBanner.addEventListener('click',open);header.appendChild(mobileBanner);
+    mobileBanner=document.createElement('a');mobileBanner.className='elios-rentree-mobile';mobileBanner.href='elios-rentree-r11-2026.html';mobileBanner.setAttribute('aria-label',"Découvrir la promo rentrée Elios R11");mobileBanner.innerHTML='<strong>C\'EST LA RENTRÉE AVEC ELIOS !</strong><span>R11 · 1er choix · <b>Voir les lots</b></span>';mobileBanner.addEventListener('click',open);header.appendChild(mobileBanner);
   }
 
   if(burger){
