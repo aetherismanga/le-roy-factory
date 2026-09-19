@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#edf5eb">
+  <link rel="icon" type="image/png" href="assets/brand-v2/lrf-logo-officiel-2026.png?v=20260918-crm-floral-1">
+  <title>Ma Station — LE ROY FACTORY CRM</title>
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <style>
+    :root{--green:#1f5b43;--green2:#2f7659;--sage:#edf5eb;--ink:#18261f;--muted:#66736c;--gold:#d6a322;--red:#c93c3c;--orange:#d87822;--line:#dfe8df;--card:#fff}
+    *{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:#f7faf6}
+    button,select{font:inherit}.top{position:sticky;top:0;z-index:1000;display:flex;align-items:center;gap:12px;padding:12px 14px calc(12px + env(safe-area-inset-top));background:rgba(237,245,235,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+    .back{border:0;background:#17211c;color:#f7c84c;border-radius:14px;width:46px;height:46px;font-size:22px;box-shadow:0 5px 15px #0002}.brand{display:flex;align-items:center;gap:10px;min-width:0}.brand img{width:46px;height:46px;border-radius:50%;object-fit:cover;border:2px solid #fff;box-shadow:0 3px 10px #0002}.brand h1{font-size:19px;margin:0}.brand p{font-size:12px;color:var(--muted);margin:2px 0 0}
+    .wrap{max-width:1100px;margin:auto;padding:14px}.controls{display:flex;gap:8px;overflow:auto;padding-bottom:8px}.chip,.select{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;padding:10px 14px;font-weight:700;white-space:nowrap}.chip.active{background:var(--green);color:#fff;border-color:var(--green)}.select{border-radius:13px}
+    .status{margin:5px 0 12px;padding:11px 13px;border-radius:14px;background:#fff;border:1px solid var(--line);font-size:13px;color:var(--muted)}.status.error{color:#9b2525;background:#fff4f4;border-color:#f1caca}
+    #map{height:44vh;min-height:300px;border-radius:20px;border:1px solid var(--line);box-shadow:0 8px 28px #243d2f12;overflow:hidden;background:#e8eee9}.panel{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 8px 28px #243d2f0d}.panelHead{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 15px;border-bottom:1px solid var(--line)}.panelHead strong{font-size:16px}.refresh{border:0;border-radius:12px;background:var(--sage);color:var(--green);padding:9px 12px;font-weight:800}
+    .list{display:grid}.station{display:grid;grid-template-columns:1fr auto;gap:10px;padding:14px 15px;border-bottom:1px solid #edf1ed;cursor:pointer}.station:last-child{border-bottom:0}.name{font-weight:800;font-size:14px}.addr{font-size:12px;color:var(--muted);margin-top:4px}.meta{font-size:12px;color:var(--muted);margin-top:6px}.price{text-align:right;font-size:18px;font-weight:900}.go{display:inline-block;margin-top:8px;text-decoration:none;background:var(--green);color:#fff;padding:7px 10px;border-radius:10px;font-size:12px;font-weight:800}.empty{padding:28px;text-align:center;color:var(--muted)}
+    .leaflet-popup-content{margin:12px}.popTitle{font-weight:900;margin-bottom:5px}.popPrice{font-size:19px;font-weight:900;color:var(--green);margin:7px 0}
+    @media(min-width:850px){.grid{display:grid;grid-template-columns:1.25fr .75fr;gap:14px;align-items:start}#map{height:calc(100vh - 175px);min-height:590px;position:sticky;top:92px}.panel{margin-top:0;max-height:calc(100vh - 175px);overflow:auto}.controls{overflow:visible;flex-wrap:wrap}}
+  </style>
+</head>
+<body>
+<header class="top">
+  <button class="back" id="backBtn" aria-label="Retour au CRM">←</button>
+  <div class="brand">
+    <img src="assets/brand-v2/lrf-logo-officiel-2026.png?v=20260918-crm-floral-1" alt="LRF">
+    <div><h1>Ma Station</h1><p>Prix carburants autour de vous</p></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="controls" aria-label="Choix du carburant">
+    <button class="chip active" data-fuel="gazole">Gazole</button>
+    <button class="chip" data-fuel="e10">E10</button>
+    <button class="chip" data-fuel="sp98">SP98</button>
+    <button class="chip" data-fuel="sp95">SP95</button>
+    <button class="chip" data-fuel="e85">E85</button>
+    <button class="chip" data-fuel="gplc">GPL</button>
+    <select id="sort" class="select" aria-label="Trier">
+      <option value="price">Moins cher</option>
+      <option value="distance">Plus proche</option>
+    </select>
+  </div>
+  <div id="status" class="status">Autorisez la localisation pour afficher les stations autour de vous.</div>
+  <div class="grid">
+    <div id="map"></div>
+    <section class="panel">
+      <div class="panelHead"><strong id="count">Stations autour de vous</strong><button id="refresh" class="refresh">↻ Actualiser</button></div>
+      <div id="list" class="list"><div class="empty">Recherche de votre position…</div></div>
+    </section>
+  </div>
+</main>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+(() => {
+  if (!localStorage.getItem('agentLoggedIn')) { location.replace('agent.html'); return; }
+
+  const API='https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/prix-des-carburants-en-france-flux-instantane-v2/records';
+  const fuelLabels={gazole:'Gazole',e10:'E10',sp98:'SP98',sp95:'SP95',e85:'E85',gplc:'GPL'};
+  let fuel='gazole', sort='price', user=null, stations=[], markers=[];
+  const status=document.getElementById('status'), list=document.getElementById('list'), count=document.getElementById('count');
+  const back=()=>{ if(history.length>1) history.back(); else location.href='dashboard.html'; };
+  document.getElementById('backBtn').onclick=back;
+
+  const map=L.map('map',{zoomControl:true}).setView([43.61,3.88],11);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap • Données prix : DGCCRF'}).addTo(map);
+  const layer=L.layerGroup().addTo(map);
+
+  function distanceKm(a,b){
+    const R=6371,toRad=x=>x*Math.PI/180;
+    const dLat=toRad(b.lat-a.lat),dLon=toRad(b.lon-a.lon);
+    const q=Math.sin(dLat/2)**2+Math.cos(toRad(a.lat))*Math.cos(toRad(b.lat))*Math.sin(dLon/2)**2;
+    return 2*R*Math.asin(Math.sqrt(q));
+  }
+  function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+  function brand(s){
+    const u=((s.adresse||'')+' '+(s.ville||'')).toUpperCase();
+    const tests=[['LECLERC','E.Leclerc'],['TOTAL','TotalEnergies'],['ACCESS','TotalEnergies'],['INTERMARCH','Intermarché'],['CARREFOUR','Carrefour'],['SUPER U','Système U'],['HYPER U','Système U'],['U EXPRESS','Système U'],['AUCHAN','Auchan'],['ESSO','Esso'],['AVIA','Avia'],['SHELL','Shell'],['CASINO','Casino'],['NETTO','Netto'],['CORA','Cora'],['AGIP','Eni'],['ENI','Eni']];
+    return (tests.find(([k])=>u.includes(k))||[])[1]||'Station-service';
+  }
+  function priceColor(p,min,max){ if(p===min)return '#198754'; if(p===max)return '#c93c3c'; return '#d87822'; }
+  function gpsUrl(s){ return 'https://www.google.com/maps/dir/?api=1&destination='+encodeURIComponent(s.lat+','+s.lon)+'&travelmode=driving'; }
+
+  function normalize(r){
+    const lat=Number(r.latitude),lon=Number(r.longitude);
+    const p=Number(r[fuel+'_prix']);
+    return {...r,lat,lon,price:p,distance:user?distanceKm(user,{lat,lon}):999};
+  }
+  function render(){
+    const usable=stations.map(normalize).filter(s=>Number.isFinite(s.lat)&&Number.isFinite(s.lon)&&Number.isFinite(s.price)&&s.price>0);
+    usable.sort(sort==='distance' ? (a,b)=>a.distance-b.distance : (a,b)=>a.price-b.price||a.distance-b.distance);
+    count.textContent=usable.length+' station'+(usable.length>1?'s':'')+' — '+fuelLabels[fuel];
+    layer.clearLayers(); markers=[];
+    if(user)L.circleMarker([user.lat,user.lon],{radius:8,color:'#fff',weight:3,fillColor:'#2463eb',fillOpacity:1}).addTo(layer).bindTooltip('Votre position');
+    if(!usable.length){list.innerHTML='<div class="empty">Aucun prix disponible pour '+fuelLabels[fuel]+' dans un rayon de 20 km.</div>';return}
+    const min=usable[0].price,max=Math.max(...usable.map(s=>s.price));
+    list.innerHTML=usable.map((s,i)=>{
+      const c=priceColor(s.price,min,max),n=brand(s);
+      return '<article class="station" data-i="'+i+'"><div><div class="name">'+esc(n)+'</div><div class="addr">'+esc(s.adresse||'')+' '+esc(s.cp||'')+' '+esc(s.ville||'')+'</div><div class="meta">'+s.distance.toFixed(1)+' km</div></div><div><div class="price" style="color:'+c+'">'+s.price.toFixed(3)+' €</div><a class="go" target="_blank" rel="noopener" href="'+gpsUrl(s)+'">Y aller</a></div></article>';
+    }).join('');
+    usable.forEach((s,i)=>{
+      const c=priceColor(s.price,min,max);
+      const marker=L.circleMarker([s.lat,s.lon],{radius:10,color:'#fff',weight:3,fillColor:c,fillOpacity:1}).addTo(layer);
+      marker.bindPopup('<div class="popTitle">'+esc(brand(s))+'</div><div>'+esc(s.adresse||'')+' '+esc(s.ville||'')+'</div><div class="popPrice">'+s.price.toFixed(3)+' €/L</div><div>'+s.distance.toFixed(1)+' km</div><a class="go" target="_blank" rel="noopener" href="'+gpsUrl(s)+'">Y aller (GPS)</a>');
+      markers.push(marker);
+    });
+    list.querySelectorAll('.station').forEach(el=>el.addEventListener('click',e=>{if(e.target.closest('a'))return;const i=Number(el.dataset.i);map.setView([usable[i].lat,usable[i].lon],15);markers[i].openPopup();}));
+  }
+
+  async function load(){
+    if(!user)return;
+    status.className='status';status.textContent='Chargement des prix officiels autour de vous…';
+    const where="within_distance(geom, GEOM'POINT("+user.lon+" "+user.lat+")', 20km)";
+    const select='id,latitude,longitude,cp,adresse,ville,gazole_maj,gazole_prix,sp95_maj,sp95_prix,e85_maj,e85_prix,gplc_maj,gplc_prix,e10_maj,e10_prix,sp98_maj,sp98_prix';
+    const url=API+'?where='+encodeURIComponent(where)+'&select='+encodeURIComponent(select)+'&limit=100';
+    try{
+      const res=await fetch(url,{headers:{'Accept':'application/json'}});
+      if(!res.ok)throw new Error('HTTP '+res.status);
+      const json=await res.json();
+      stations=Array.isArray(json.results)?json.results:[];
+      status.textContent='Données officielles DGCCRF • rayon 20 km • prix actualisés régulièrement';
+      render();
+      map.setView([user.lat,user.lon],12);
+    }catch(err){
+      console.error(err);
+      status.className='status error';
+      status.textContent='Impossible de charger les prix pour le moment. Vérifiez la connexion puis touchez « Actualiser ».';
+      list.innerHTML='<div class="empty">Données temporairement indisponibles.</div>';
+    }
+  }
+
+  function locate(){
+    if(!navigator.geolocation){status.className='status error';status.textContent='La géolocalisation n’est pas disponible sur ce téléphone.';return}
+    status.className='status';status.textContent='Recherche de votre position…';
+    navigator.geolocation.getCurrentPosition(
+      p=>{user={lat:p.coords.latitude,lon:p.coords.longitude};load();},
+      ()=>{status.className='status error';status.textContent='Localisation refusée ou indisponible. Autorisez la localisation du site leroyfactory.fr dans les réglages du navigateur.';list.innerHTML='<div class="empty">Autorisez la localisation puis touchez « Actualiser ».</div>';},
+      {enableHighAccuracy:true,timeout:12000,maximumAge:120000}
+    );
+  }
+
+  document.querySelectorAll('[data-fuel]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-fuel]').forEach(x=>x.classList.remove('active'));b.classList.add('active');fuel=b.dataset.fuel;render()});
+  document.getElementById('sort').onchange=e=>{sort=e.target.value;render()};
+  document.getElementById('refresh').onclick=locate;
+  locate();
+})();
+</script>
+</body>
+</html>
