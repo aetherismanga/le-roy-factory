@@ -23,23 +23,9 @@ if (!window.__lrfSecureCloudFetchInstalled) {
 }
 
 async function openMaStation(){
-  const ua=navigator.userAgent||'';
-  if(/Android/i.test(ua)){
-    try{
-      const launcher=window.Capacitor?.Plugins?.AppLauncher;
-      if(launcher){
-        const check=await launcher.canOpenUrl({url:'fr.mastation.ma_station'}).catch(()=>({value:true}));
-        if(check?.value!==false){await launcher.openUrl({url:'fr.mastation.ma_station'});return;}
-      }
-    }catch(error){console.warn('Ouverture native de MA STATION impossible :',error);}
-
-    // Depuis Chrome / une PWA, l'ancienne version de MA STATION ne déclare pas
-    // forcément le lien mastation://. On lance donc directement son activité Android.
-    const intent='intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;component=fr.mastation.ma_station/.MainActivity;package=fr.mastation.ma_station;end';
-    window.location.assign(intent);
-    return;
-  }
-  window.location.href='mastation://open';
+  // Version universelle CRM : fonctionne sur Android, iPhone et ordinateur,
+  // sans dépendre de l'application MA STATION installée sur le téléphone.
+  window.location.href='ma-station.html';
 }
 
 function addNav(){
