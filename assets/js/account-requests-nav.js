@@ -32,7 +32,12 @@ async function openMaStation(){
         if(check?.value!==false){await launcher.openUrl({url:'fr.mastation.ma_station'});return;}
       }
     }catch(error){console.warn('Ouverture native de MA STATION impossible :',error);}
-    window.location.href='intent://open#Intent;scheme=mastation;package=fr.mastation.ma_station;end';return;
+
+    // Depuis Chrome / une PWA, l'ancienne version de MA STATION ne déclare pas
+    // forcément le lien mastation://. On lance donc directement son activité Android.
+    const intent='intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;component=fr.mastation.ma_station/.MainActivity;package=fr.mastation.ma_station;end';
+    window.location.assign(intent);
+    return;
   }
   window.location.href='mastation://open';
 }
