@@ -33,7 +33,7 @@
   const modal=document.createElement('div');
   modal.className='elios-rentree-modal';
   modal.setAttribute('aria-hidden','true');
-  modal.innerHTML='<div class="elios-rentree-box" role="dialog" aria-modal="true" aria-label="Promo rentrée Elios R11"><button class="elios-rentree-close" type="button" aria-label="Fermer">×</button><iframe class="elios-rentree-frame" title="Promo rentrée Elios R11" data-src="elios-rentree-r11-2026.html?v=20260904-mobile2" loading="lazy"></iframe><div class="elios-rentree-loading">Chargement de la promo ELIOS…</div></div>';
+  modal.innerHTML='<div class="elios-rentree-box" role="dialog" aria-modal="true" aria-label="Promo Cersaie 2026 Elios"><button class="elios-rentree-close" type="button" aria-label="Fermer">×</button><iframe class="elios-rentree-frame" title="Promo Cersaie 2026 Elios" data-src="elios-rentree-r11-2026.html?v=20260919-cersaie1" loading="lazy"></iframe><div class="elios-rentree-loading">Chargement de la promo ELIOS Cersaie…</div></div>';
   document.body.appendChild(modal);
   const frame=modal.querySelector('.elios-rentree-frame');
   const burger=document.querySelector('header .burger-btn');
