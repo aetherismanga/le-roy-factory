@@ -9,10 +9,10 @@
   if (!logoWrap || document.getElementById('bulbo-mobile-trigger')) return;
 
   const SLIDES = [
-    'assets/img/bulbo/diapo-01.svg?v=20260921-1',
-    'assets/img/bulbo/diapo-02.svg?v=20260921-1',
-    'assets/img/bulbo/diapo-03.svg?v=20260921-1',
-    'assets/img/bulbo/diapo-04.svg?v=20260921-1'
+    'assets/img/bulbo/diapo-01.webp?v=20260921-2',
+    'assets/img/bulbo/diapo-02.webp?v=20260921-2',
+    'assets/img/bulbo/diapo-03.webp?v=20260921-2',
+    'assets/img/bulbo/diapo-04.webp?v=20260921-2'
   ];
 
   const badge = document.createElement('button');
