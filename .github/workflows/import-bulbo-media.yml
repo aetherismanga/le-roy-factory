@@ -1,0 +1,32 @@
+name: Import Bulbo media
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/import-bulbo-media.yml'
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download Bulbo assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p assets/videos assets/img
+          curl -fL --retry 3 --retry-delay 2 'https://sdmntprukwest.oaiusercontent.com/files/00000000-3db8-8243-8db4-806b5e2bc8a0/raw?se=2026-09-20T17%3A30%3A57Z&sp=r&sv=2026-02-06&sr=b&scid=5bf35918-2cd6-5cc2-80bb-095e1a563b83&skoid=c30e7ce7-1f51-4051-a377-288cdba21c02&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-20T16%3A50%3A17Z&ske=2026-09-21T16%3A50%3A17Z&sks=b&skv=2026-02-06&sig=sDypGVpITp/bRubiOgg0a%2B1FPIFVYEIU25zjt1CN%2B2o%3D' -o assets/videos/bulbo-serpent.mp4
+          curl -fL --retry 3 --retry-delay 2 'https://sdmntprnortheu.oaiusercontent.com/files/00000000-fa9c-81f4-b7b2-8aeac1d8be20/raw?se=2026-09-20T17%3A31%3A00Z&sp=r&sv=2026-02-06&sr=b&scid=af97e1c8-1a55-57b9-8025-2c7ec1768619&skoid=c30e7ce7-1f51-4051-a377-288cdba21c02&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-20T07%3A23%3A21Z&ske=2026-09-21T07%3A23%3A21Z&sks=b&skv=2026-02-06&sig=/gDbPNz7jxsLbyVUUC55eYaS0Y/EONNRjVQN0IsZDzg%3D' -o assets/videos/bulbo-cameleon.mp4
+          curl -fL --retry 3 --retry-delay 2 'https://sdmntprnortheu.oaiusercontent.com/files/00000000-f394-81f4-b321-19aa694c731d/raw?se=2026-09-20T17%3A31%3A01Z&sp=r&sv=2026-02-06&sr=b&scid=f1af4291-04b7-5396-9be2-916a9453056c&skoid=c30e7ce7-1f51-4051-a377-288cdba21c02&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-20T10%3A41%3A07Z&ske=2026-09-21T10%3A41%3A07Z&sks=b&skv=2026-02-06&sig=7f%2B9wPWy/3N8iUbiIenHUIk8xRVs8rT2uz6hCag2gzE%3D' -o assets/img/bulbo-videos-badge.png
+          test -s assets/videos/bulbo-serpent.mp4
+          test -s assets/videos/bulbo-cameleon.mp4
+          test -s assets/img/bulbo-videos-badge.png
+      - name: Commit media
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/videos/bulbo-serpent.mp4 assets/videos/bulbo-cameleon.mp4 assets/img/bulbo-videos-badge.png
+          git commit -m "Add Bulbo showcase media"
+          git push
