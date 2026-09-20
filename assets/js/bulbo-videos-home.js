@@ -8,6 +8,13 @@
   const logoWrap = document.querySelector('.hero-logo-wrapper');
   if (!logoWrap || document.getElementById('bulbo-mobile-trigger')) return;
 
+  const SLIDES = [
+    'assets/img/bulbo/diapo-01.svg?v=20260921-1',
+    'assets/img/bulbo/diapo-02.svg?v=20260921-1',
+    'assets/img/bulbo/diapo-03.svg?v=20260921-1',
+    'assets/img/bulbo/diapo-04.svg?v=20260921-1'
+  ];
+
   const badge = document.createElement('button');
   badge.type = 'button';
   badge.id = 'bulbo-mobile-trigger';
@@ -36,14 +43,20 @@
   overlay.setAttribute('role', 'dialog');
   overlay.setAttribute('aria-modal', 'true');
   overlay.setAttribute('aria-labelledby', 'bulbo-video-title');
+
+  const slidesMarkup = SLIDES.map((src, index) =>
+    '<div class="bulbo-bg-slide' + (index === 0 ? ' is-active' : '') + '" data-bg="' + src + '"></div>'
+  ).join('');
+
   overlay.innerHTML =
+    '<div class="bulbo-bg-slideshow" aria-hidden="true">' + slidesMarkup + '</div>' +
+    '<button type="button" class="bulbo-video-close" aria-label="Fermer">×</button>' +
     '<section class="bulbo-video-panel" role="document">' +
-      '<button type="button" class="bulbo-video-close" aria-label="Fermer">×</button>' +
-      '<header class="bulbo-video-head">' +
+      '<div class="bulbo-video-head">' +
         '<span class="bulbo-video-kicker">BULBO × LE ROY FACTORY</span>' +
         '<h2 class="bulbo-video-title" id="bulbo-video-title">Vidéos BULBO</h2>' +
         '<p class="bulbo-video-subtitle">Découvrez nos univers vidéo</p>' +
-      '</header>' +
+      '</div>' +
       '<div class="bulbo-video-choices">' +
         '<button type="button" class="bulbo-video-card" data-video="/assets/videos/bulbo-serpent.mp4" data-poster="/assets/img/bulbo-serpent-poster.jpg" data-title="Le serpent">' +
           '<span class="bulbo-video-thumb"><img src="assets/img/bulbo-serpent-poster.jpg?v=20260920-bulbo2" alt="Aperçu de la vidéo Le serpent" loading="lazy" decoding="async"></span>' +
@@ -72,9 +85,43 @@
   const playerView = overlay.querySelector('.bulbo-video-player-view');
   const backButton = overlay.querySelector('.bulbo-video-back');
   const playerTitle = overlay.querySelector('.bulbo-player-title');
+  const title = overlay.querySelector('.bulbo-video-title');
+  const subtitle = overlay.querySelector('.bulbo-video-subtitle');
   const video = overlay.querySelector('video');
+  const slides = Array.from(overlay.querySelectorAll('.bulbo-bg-slide'));
+
   let lastFocus = null;
   let closeTimer = 0;
+  let slideIndex = 0;
+  let slideshowTimer = 0;
+  let slidesHydrated = false;
+
+  const hydrateSlides = () => {
+    if (slidesHydrated) return;
+    slidesHydrated = true;
+    slides.forEach(slide => {
+      const src = slide.getAttribute('data-bg');
+      if (src) slide.style.backgroundImage = 'url("' + src + '")';
+    });
+  };
+
+  const setSlide = (index) => {
+    slides.forEach((slide, i) => slide.classList.toggle('is-active', i === index));
+  };
+
+  const startSlideshow = () => {
+    window.clearInterval(slideshowTimer);
+    if (slides.length < 2 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    slideshowTimer = window.setInterval(() => {
+      slideIndex = (slideIndex + 1) % slides.length;
+      setSlide(slideIndex);
+    }, 4300);
+  };
+
+  const stopSlideshow = () => {
+    window.clearInterval(slideshowTimer);
+    slideshowTimer = 0;
+  };
 
   const stopVideo = () => {
     if (!video) return;
@@ -88,13 +135,16 @@
     stopVideo();
     if (playerView) playerView.hidden = true;
     if (choices) choices.hidden = false;
-    overlay.querySelector('.bulbo-video-title').textContent = 'Vidéos BULBO';
-    overlay.querySelector('.bulbo-video-subtitle').textContent = 'Découvrez nos univers vidéo';
+    if (title) title.textContent = 'Vidéos BULBO';
+    if (subtitle) subtitle.textContent = 'Découvrez nos univers vidéo';
   };
 
   const openOverlay = () => {
     window.clearTimeout(closeTimer);
     lastFocus = document.activeElement;
+    hydrateSlides();
+    setSlide(slideIndex);
+    startSlideshow();
     showChoices();
     overlay.hidden = false;
     document.body.classList.add('bulbo-video-open');
@@ -106,6 +156,7 @@
 
   const closeOverlay = () => {
     stopVideo();
+    stopSlideshow();
     overlay.classList.remove('is-open');
     document.body.classList.remove('bulbo-video-open');
     closeTimer = window.setTimeout(() => {
@@ -113,18 +164,20 @@
       if (lastFocus && typeof lastFocus.focus === 'function') {
         lastFocus.focus({ preventScroll: true });
       }
-    }, 230);
+    }, 280);
   };
 
   const playCard = (card) => {
     if (!card || !video || !playerView || !choices) return;
     const src = card.getAttribute('data-video');
     const poster = card.getAttribute('data-poster');
-    const title = card.getAttribute('data-title') || 'Vidéo BULBO';
+    const label = card.getAttribute('data-title') || 'Vidéo BULBO';
 
     choices.hidden = true;
     playerView.hidden = false;
-    if (playerTitle) playerTitle.textContent = title;
+    if (playerTitle) playerTitle.textContent = label;
+    if (title) title.textContent = label;
+    if (subtitle) subtitle.textContent = 'Lecture vidéo';
     if (poster) video.setAttribute('poster', poster);
     if (src) video.setAttribute('src', src);
     video.load();
@@ -137,17 +190,19 @@
   closeButton && closeButton.addEventListener('click', closeOverlay);
   backButton && backButton.addEventListener('click', showChoices);
 
-  overlay.querySelectorAll('.bulbo-video-card').forEach((card) => {
+  overlay.querySelectorAll('.bulbo-video-card').forEach(card => {
     card.addEventListener('click', () => playCard(card));
   });
 
-  overlay.addEventListener('click', (event) => {
-    if (event.target === overlay) closeOverlay();
+  overlay.addEventListener('click', event => {
+    if (event.target === overlay || event.target.classList.contains('bulbo-bg-slideshow') || event.target.classList.contains('bulbo-bg-slide')) {
+      closeOverlay();
+    }
   });
 
-  panel && panel.addEventListener('click', (event) => event.stopPropagation());
+  panel && panel.addEventListener('click', event => event.stopPropagation());
 
-  document.addEventListener('keydown', (event) => {
+  document.addEventListener('keydown', event => {
     if (overlay.hidden) return;
     if (event.key === 'Escape') {
       event.preventDefault();
