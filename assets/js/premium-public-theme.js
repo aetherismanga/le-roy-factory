@@ -45,7 +45,7 @@
     'index.html','partenaires.html','univers.html','realisations.html',
     'catalogues.html','configurateurs.html','configurateur-elios-pose.html',
     'configurateur-croisillons.html','configurateur-plots.html',
-    'tarifs-pro.html','contact.html','agent.html','ouverture-compte.html','promo-cersaie.html'
+    'tarifs-pro.html','contact.html','agent.html','ouverture-compte.html','promo-cersaie.html','actualite-cersaie.html'
   ]);
   if (!allowed.has(page)) return;
 
@@ -162,6 +162,21 @@
     `;
     document.head.appendChild(style);
   };
+
+  function installCersaieNewsNav(){
+    const nav=document.querySelector('header nav ul, header .main-nav');
+    if(!nav || nav.querySelector('a[href="actualite-cersaie.html"]')) return;
+    const li=document.createElement('li');
+    const a=document.createElement('a');
+    a.href='actualite-cersaie.html';
+    a.textContent='Actualité Cersaie';
+    a.className='lrf-cersaie-news-tab';
+    if(page==='actualite-cersaie.html') a.classList.add('active');
+    li.appendChild(a);
+    const promo=nav.querySelector('a[href="promo-cersaie.html"]');
+    if(promo?.parentElement) nav.insertBefore(li,promo.parentElement);
+    else nav.prepend(li);
+  }
 
   const installConfigurateursNav = () => {
     const nav = document.querySelector('header nav ul');
@@ -292,6 +307,7 @@
     enforceHeaderLogo();
     startHeaderLogoGuard();
     document.querySelectorAll('.lrf-center-brand').forEach(el => el.remove());
+    installCersaieNewsNav();
     installConfigurateursNav();
 
     document.querySelectorAll('a[href="tarifs-pro.html"],a[href^="tarifs-pro.html?"]').forEach(link => {
