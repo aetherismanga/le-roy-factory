@@ -99,9 +99,20 @@
   const hydrateSlides = () => {
     if (slidesHydrated) return;
     slidesHydrated = true;
-    slides.forEach(slide => {
+    slides.forEach((slide, index) => {
       const src = slide.getAttribute('data-bg');
-      if (src) slide.style.backgroundImage = 'url("' + src + '")';
+      if (!src) return;
+      const image = new Image();
+      image.decoding = 'async';
+      image.onload = () => {
+        slide.style.backgroundImage = 'url("' + src + '")';
+        slide.classList.add('is-loaded');
+        if (index === slideIndex) slide.classList.add('is-active');
+      };
+      image.onerror = () => {
+        slide.classList.add('is-error');
+      };
+      image.src = src;
     });
   };
 
