@@ -2,6 +2,15 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
+  <script>
+    (function(){
+      var ua=navigator.userAgent||'';
+      var ios=/iPad|iPhone|iPod/.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+      if(ios && !/univers-ios\.html$/.test(location.pathname)){
+        location.replace('univers-ios.html');
+      }
+    })();
+  </script>
   <link rel="icon" type="image/png" href="assets/brand-v2/logoLRF.png?v=20260918-pc-logo2">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sélections carrelage, mosaïque & bain | LE ROY FACTORY</title>
@@ -163,7 +172,7 @@ html body:not(.crm-body) header .main-nav>li>a.lrf-promo-cersaie-tab:focus{
   <script defer src="assets/js/inspirations-bilt-order-link.js?v=20260907-bilt1"></script>
   <script defer src="assets/js/fenice-lexicon-data.js?v=20260918-fenice-page3"></script>
   <script defer src="assets/js/selections-lazy-enhancements.js?v=20260921-ios-memory1"></script>
-  <script defer src="assets/js/selections-ios-fix.js?v=20260921-ios-memory1"></script>
+  <script defer src="assets/js/selections-ios-fix.js?v=20260921-ios-memory2"></script>
   <script defer src="assets/js/products-alphabetical-order.js?v=20260913-alpha1"></script>
   <script defer src="assets/js/azuli-mood-badge.js?v=20260913-azuli1"></script>
   <script defer src="assets/js/biopietra-ui-hotfix-20260913.js?v=20260913-bio-ui1"></script>
