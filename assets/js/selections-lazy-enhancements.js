@@ -246,8 +246,16 @@
     if (card && /elios/i.test(title)) loadGroup('elios', true);
   }, { capture: true, passive: true });
 
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent || '') ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
   const startBackgroundLoad = () => {
     installProductLexicon();
+
+    // Safari iOS has a tighter per-tab memory budget. Load heavy galleries only
+    // when the user actually selects/opens the relevant manufacturer/product.
+    if (isIOS) return;
+
     idle(() => {
       loadGroup('elios').finally(() => { idle(() => loadGroup('view'), 1800); });
     }, 1000);
