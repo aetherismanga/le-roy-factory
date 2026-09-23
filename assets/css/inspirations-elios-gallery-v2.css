@@ -39,3 +39,49 @@ body.elios-lightbox-open{overflow:hidden!important}
   .elios-gallery-stage{max-height:320px}.elios-gallery-nav{width:36px;height:36px}.elios-gallery-thumbs{padding:.5rem}.elios-gallery-thumb{width:60px;height:46px;flex-basis:60px}.modal-v2-main>img{min-height:220px!important}
   .elios-gallery-image-label{font-size:.68rem;max-width:72%}.elios-gallery-zoom-hint{font-size:.6rem}
 }
+
+/* 2026-09-23 · ELIOS responsive hardening — Android / iPhone / desktop */
+#product-modal-v2{overscroll-behavior:contain}
+#product-modal-v2 .modal-v2-card{box-sizing:border-box;max-width:980px;overflow-x:hidden}
+#product-modal-v2 .modal-v2-main,
+#product-modal-v2 .modal-v2-info,
+#product-modal-v2 .elios-gallery-v3,
+#product-modal-v2 .elios-gallery-stage{min-width:0;max-width:100%;box-sizing:border-box}
+#product-modal-v2 .modal-v2-info{overflow-wrap:anywhere}
+#product-modal-v2 .elios-gallery-stage{width:100%}
+#product-modal-v2 .elios-gallery-main{position:absolute;inset:0;width:100%!important;height:100%!important;object-fit:contain!important;background:#f4f1eb}
+#product-modal-v2 .elios-gallery-thumbs{width:100%;max-width:100%;box-sizing:border-box;overscroll-behavior-inline:contain;-webkit-overflow-scrolling:touch}
+#product-modal-v2 .elios-variant-colors-v3{grid-template-columns:repeat(2,minmax(0,1fr))}
+#product-modal-v2 .elios-variant-colors-v3 button{min-width:0;width:100%;overflow:hidden}
+#product-modal-v2 .elios-variant-colors-v3 button span,
+#product-modal-v2 .elios-variant-colors-v3 button small{min-width:0;overflow-wrap:anywhere}
+#product-modal-v2 .modal-v2-close{position:sticky;float:right;right:10px;top:10px;margin:10px 10px -48px 0;z-index:30;box-shadow:0 3px 12px rgba(0,0,0,.22)}
+@media(min-width:901px){
+  #product-modal-v2 .modal-v2-main{grid-template-columns:minmax(0,1.08fr) minmax(0,1fr)}
+  #product-modal-v2 .elios-gallery-stage{min-height:430px;aspect-ratio:4/3}
+  #product-modal-v2 .elios-variant-colors-v3{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:900px){
+  #product-modal-v2{padding:max(10px,env(safe-area-inset-top)) 10px max(10px,env(safe-area-inset-bottom));align-items:center}
+  #product-modal-v2 .modal-v2-card{width:100%;max-width:680px;max-height:calc(100dvh - 20px);border-radius:22px}
+  #product-modal-v2 .modal-v2-main{display:block;width:100%}
+  #product-modal-v2 .elios-gallery-stage{aspect-ratio:16/10;min-height:240px;max-height:none}
+  #product-modal-v2 .modal-v2-info{width:100%;padding:18px 16px 24px!important}
+  #product-modal-v2 .modal-v2-info h2{font-size:clamp(1.7rem,7vw,2.25rem);line-height:1.08}
+  #product-modal-v2 .modal-v2-info>p{font-size:1rem;line-height:1.42}
+  #product-modal-v2 .elios-variant-colors-v3{gap:10px}
+  #product-modal-v2 .elios-variant-colors-v3 button{grid-template-columns:58px minmax(0,1fr);min-height:76px;padding:7px}
+  #product-modal-v2 .elios-variant-colors-v3 button img{width:58px;height:62px}
+  #product-modal-v2 .elios-variant-colors-v3 button span{font-size:.82rem}
+  #product-modal-v2 .elios-gallery-thumb{width:72px;height:54px;flex-basis:72px}
+}
+@media(max-width:560px){
+  #product-modal-v2{padding:8px}
+  #product-modal-v2 .modal-v2-card{max-height:calc(100dvh - 16px);border-radius:18px}
+  #product-modal-v2 .elios-gallery-stage{aspect-ratio:4/3;min-height:210px}
+  #product-modal-v2 .elios-variant-colors-v3{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #product-modal-v2 .elios-variant-colors-v3 button{grid-template-columns:48px minmax(0,1fr);min-height:68px;padding:6px;column-gap:7px}
+  #product-modal-v2 .elios-variant-colors-v3 button img{width:48px;height:54px}
+  #product-modal-v2 .elios-variant-colors-v3 button span{font-size:.76rem}
+  #product-modal-v2 .elios-gallery-image-label{max-width:62%}
+}
