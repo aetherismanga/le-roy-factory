@@ -48,8 +48,51 @@
     .catalogue-link { font-size:.72rem; padding:.36rem .72rem; border:1px solid #b88922; color:#74510c; text-decoration:none; border-radius:999px; white-space:nowrap; background:#fff; font-weight:700; }
     .catalogue-link:hover { background:#111; color:#FFD700; border-color:#111; }
     @media (max-width:700px) {
-      .catalogue-menu { max-height:55vh; overflow:auto; }
+      .catalogue-menu { max-height:55vh; overflow:auto; -webkit-overflow-scrolling:touch; }
       .catalogue-row { align-items:flex-start; }
+    }
+
+    /* lrf-life-responsive-v1 */
+    .catalogues-page{padding-top:140px;padding-bottom:4rem}
+    .catalogues-title{font-size:clamp(2rem,4vw,2.8rem);margin-bottom:1rem;color:#1A2530}
+    .catalogues-intro{font-size:clamp(1rem,2vw,1.1rem);color:#666;margin-bottom:3rem;max-width:760px;line-height:1.55}
+    .catalogues-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(1rem,2.2vw,2rem)}
+    .catalogue-card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:18px;padding:2rem;display:flex;flex-direction:column;justify-content:space-between;position:relative;box-shadow:0 6px 28px rgba(0,0,0,.045);min-height:260px;overflow:hidden}
+    .catalogue-card-copy{position:relative;z-index:2;padding-right:100px}
+    .catalogue-card-logo{position:absolute;top:1.35rem;right:1.35rem;width:116px;height:58px;background-repeat:no-repeat;background-position:right center;background-size:contain;pointer-events:none;z-index:1}
+    .catalogue-country{font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:#708273;font-weight:700}
+    .catalogue-card h3{font-size:1.28rem;margin:.5rem 0 1rem;color:#1a2530}
+    .catalogue-description{font-size:.92rem;color:#555;margin-bottom:1.5rem;line-height:1.5}
+    .catalogue-actions{position:relative;z-index:2}
+    .catalogue-link{min-height:42px;display:inline-flex;align-items:center;justify-content:center;touch-action:manipulation}
+    .catalogue-picker summary{touch-action:manipulation}
+    .catalogue-index-hint{display:block;margin-top:.3rem;font-size:.68rem;color:#7a6851;font-weight:650}
+    @media (max-width:700px){
+      html,body{max-width:100%;overflow-x:hidden}
+      .catalogues-page{padding-top:104px;padding-bottom:calc(2.5rem + env(safe-area-inset-bottom));padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}
+      .catalogues-page>.container{padding-left:16px!important;padding-right:16px!important}
+      .catalogues-intro{margin-bottom:1.6rem}
+      .catalogues-grid{grid-template-columns:minmax(0,1fr);gap:1rem}
+      .catalogue-card{padding:1.25rem;border-radius:18px;min-height:0}
+      .catalogue-card-copy{padding-right:86px}
+      .catalogue-card-logo{top:1.1rem;right:1.1rem;width:88px;height:52px}
+      .catalogue-card h3{font-size:1.18rem;margin-top:.45rem;margin-bottom:.8rem}
+      .catalogue-description{font-size:.9rem;margin-bottom:1.15rem}
+      .catalogue-picker summary{min-height:52px;padding:.8rem .9rem;font-size:.88rem;border-radius:12px}
+      .catalogue-menu{border-radius:12px;padding:.55rem}
+      .catalogue-row{gap:.65rem;padding:.75rem;border-radius:10px}
+      .catalogue-row strong{font-size:.86rem}
+      .catalogue-row span{font-size:.74rem;line-height:1.35}
+      .catalogue-link{min-width:64px;min-height:44px;padding:.5rem .75rem}
+    }
+    @media (max-width:430px){
+      .catalogue-card-copy{padding-right:72px}
+      .catalogue-card-logo{width:74px;height:45px}
+      .catalogue-row{flex-direction:column}
+      .catalogue-link{width:100%;box-sizing:border-box}
+    }
+    @media (min-width:1100px){
+      .catalogues-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
     }
   </style>
   <link rel="stylesheet" href="assets/css/lrf-sage-bars.css?v=20260918-sage-mobile1">
@@ -105,11 +148,11 @@ html body:not(.crm-body) header .main-nav>li>a.lrf-promo-cersaie-tab:focus{
     </div>
   </header>
 
-  <main style="padding-top:140px; padding-bottom:4rem;">
+  <main class="catalogues-page">
     <div class="container">
-      <h1 style="font-size:2.5rem; margin-bottom:1rem; color:#1A2530;">Catalogues Partenaires</h1>
-      <p style="font-size:1.1rem; color:#666; margin-bottom:3rem; max-width:700px;">Consultez et téléchargez l'ensemble des catalogues officiels et documentations de nos fabricants.</p>
-      <div id="grid-catalogues" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:2rem;"></div>
+      <h1 class="catalogues-title">Catalogues Partenaires</h1>
+      <p class="catalogues-intro">Consultez et téléchargez l'ensemble des catalogues officiels et documentations de nos fabricants.</p>
+      <div id="grid-catalogues" class="catalogues-grid"></div>
     </div>
   </main>
 
@@ -130,6 +173,9 @@ html body:not(.crm-body) header .main-nav>li>a.lrf-promo-cersaie-tab:focus{
           { titre:'Cersaie 2026 · Living Gallery', desc:'Nouveautés ELIOS présentées au Cersaie 2026.', lien:'assets/pdf/ELIOS%20CERSAIE%202026.pdf' },
           { titre:'Skultura', desc:'Catalogue ELIOS Skultura / ArgillaKotta.', lien:'assets/pdf/ELIOS%20SKULTURA.pdf' },
           { titre:'Dynasty', desc:'Catalogue officiel ELIOS Dynasty.', lien:'assets/pdf/ELIOS_DYNASTY%20%281%29.pdf' },
+        ]},
+        { nom:'Life Cerámica', pays:'Espagne', forcePicker:true, presentation:'Fabricant espagnol de solutions céramiques innovantes, notamment le système de pose à sec ONDABLOCK.', fichiers:[
+          { titre:'ONDABLOCK 2026 · Français interactif', desc:'Version française optimisée avec sommaire cliquable et accès direct aux collections.', lien:'assets/pdf/Catalogue_ONDABLOCK_2026_FR_INTERACTIF.pdf', index:true }
         ]},
         { nom:'View Ceramica', pays:'Italie', presentation:'Design contemporain et solutions céramiques innovantes pour les professionnels exigeants.', fichiers:[
           { titre:'Corso 2026', desc:'Catalogue de la série Corso.', lien:'https://viewceramiche.com/wp-content/uploads/2023/12/View_catalogo_serie_Corso_2024_LR.pdf' },
@@ -200,13 +246,14 @@ html body:not(.crm-body) header .main-nav>li>a.lrf-promo-cersaie-tab:focus{
 
       const renderFile = file => {
         const isPdf = file.lien.toLowerCase().includes('.pdf');
-        return `<div class="catalogue-row"><div><strong>${file.titre}</strong><span>${file.desc}</span></div><a href="${file.lien}" target="_blank" rel="noopener" class="catalogue-link">${isPdf ? 'PDF' : 'Lien'}</a></div>`;
+        return `<div class="catalogue-row"><div><strong>${file.titre}</strong><span>${file.desc}</span>${file.index ? '<small class="catalogue-index-hint">Index intégré : Aniet · Ketra · Luksy · Tekny · Woods · Arendal · Heritage · Larvik · Vita</small>' : ''}</div><a href="${file.lien}" target="_blank" rel="noopener" class="catalogue-link" aria-label="Ouvrir ${file.titre}">${isPdf ? 'PDF' : 'Lien'}</a></div>`;
       };
 
       grid.innerHTML = cataloguesData.map(fab => {
         let logoFile = '';
         const nameLower = fab.nom.toLowerCase();
         if (nameLower.includes('elios')) logoFile = 'elios.png';
+        else if (nameLower.includes('life')) logoFile = 'life-ceramica.svg';
         else if (nameLower.includes('view')) logoFile = 'view.png';
         else if (nameLower.includes('fenice')) logoFile = 'lafenice.png';
         else if (nameLower.includes('reviglass')) logoFile = 'reviglass.png';
@@ -223,20 +270,20 @@ html body:not(.crm-body) header .main-nav>li>a.lrf-promo-cersaie-tab:focus{
         else if (nameLower.includes('bilt')) logoFile = 'bilt.png';
 
         const logoStyle = logoFile ? `background-image:url('assets/img/${logoFile}');` : '';
-        const fichiersHtml = fab.fichiers.length > 1
+        const fichiersHtml = (fab.forcePicker || fab.fichiers.length > 1)
           ? `<details class="catalogue-picker"><summary>☰ Voir les catalogues <span style="font-weight:600;color:#80611c;">${fab.fichiers.length}</span></summary><div class="catalogue-menu">${fab.fichiers.map(renderFile).join('')}</div></details>`
           : `<div style="display:flex;flex-direction:column;gap:.75rem;">${fab.fichiers.map(renderFile).join('')}</div>`;
 
         return `
-          <div class="card-premium" style="background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:4px; padding:2rem; display:flex; flex-direction:column; justify-content:space-between; position:relative; box-shadow:0 4px 20px rgba(0,0,0,.03); min-height:260px;">
-            <div style="position:absolute; top:1.5rem; right:1.5rem; width:110px; height:50px; ${logoStyle} background-repeat:no-repeat; background-position:right top; background-size:contain; opacity:1; pointer-events:none; z-index:1;"></div>
-            <div style="position:relative; z-index:2; padding-right:90px;">
-              <span style="font-size:.75rem; text-transform:uppercase; letter-spacing:.1em; color:#708273; font-weight:600;">${fab.pays}</span>
-              <h3 style="font-size:1.25rem; margin:.5rem 0 1rem; color:#1a2530;">${fab.nom}</h3>
-              <p style="font-size:.9rem; color:#555; margin-bottom:1.5rem;">${fab.presentation}</p>
+          <article class="card-premium catalogue-card">
+            <div class="catalogue-card-logo" style="${logoStyle}" aria-hidden="true"></div>
+            <div class="catalogue-card-copy">
+              <span class="catalogue-country">${fab.pays}</span>
+              <h3>${fab.nom}</h3>
+              <p class="catalogue-description">${fab.presentation}</p>
             </div>
-            <div style="position:relative; z-index:2;">${fichiersHtml}</div>
-          </div>`;
+            <div class="catalogue-actions">${fichiersHtml}</div>
+          </article>`;
       }).join('');
     });
   </script>
