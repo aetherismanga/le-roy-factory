@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1260 360" role="img" aria-labelledby="title desc">
+<title id="title">Life Cerámica by Santarela</title>
+<desc id="desc">Logo Life Cerámica avec arbre vert stylisé.</desc>
+<g transform="translate(20 15)">
+  <path d="M165 8c-54 0-91 29-113 69C17 96 0 133 0 176c0 64 38 118 94 139 23 9 47 13 71 13s48-4 71-13c56-21 94-75 94-139 0-43-17-80-52-99-22-40-59-69-113-69Z" fill="#79c600"/>
+  <path d="M165 22c-48 0-80 25-101 63-34 18-50 51-50 91 0 58 34 107 85 126 21 8 43 12 66 12s45-4 66-12c51-19 85-68 85-126 0-40-16-73-50-91-21-38-53-63-101-63Z" fill="none" stroke="#fff" stroke-width="9"/>
+  <path d="M165 39c-42 0-70 21-88 54-30 16-44 44-44 83 0 50 30 92 73 108 19 7 39 10 59 10s40-3 59-10c43-16 73-58 73-108 0-39-14-67-44-83-18-33-46-54-88-54Z" fill="none" stroke="#fff" stroke-width="8"/>
+  <path d="M165 276V128" stroke="#111" stroke-width="17" stroke-linecap="round"/>
+  <path d="M165 280c-11 10-24 19-40 27h80c-16-8-29-17-40-27Z" fill="#111"/>
+  <path d="M163 151c-27-41-88-51-116-13-19 25-10 66 18 76 28 10 57-7 57-34 0-19-17-32-34-27-13 4-19 20-12 31 5 8 16 11 23 4 5-5 4-14-2-18" fill="none" stroke="#111" stroke-width="9" stroke-linecap="round"/>
+  <path d="M167 151c27-41 88-51 116-13 19 25 10 66-18 76-28 10-57-7-57-34 0-19 17-32 34-27 13 4 19 20 12 31-5 8-16 11-23 4-5-5-4-14 2-18" fill="none" stroke="#111" stroke-width="9" stroke-linecap="round"/>
+</g>
+<text x="370" y="190" fill="#111" font-family="Georgia, 'Times New Roman', serif" font-size="118" font-weight="700" letter-spacing="-3">LIFE</text>
+<text x="655" y="190" fill="#111" font-family="Georgia, 'Times New Roman', serif" font-size="108" font-weight="400" letter-spacing="-2">CERÁMICA</text>
+<text x="900" y="270" fill="#111" font-family="Arial, Helvetica, sans-serif" font-size="43" font-weight="700">BY SANTARELA</text>
+</svg>
