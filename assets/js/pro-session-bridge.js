@@ -103,7 +103,7 @@
 
   function refreshConsumers() {
     const path = window.location.pathname.toLowerCase();
-    if (path.endsWith('univers.html') || path === '/' || path.endsWith('/')) {
+    if (path.endsWith('univers.html') || path.endsWith('univers-ios.html') || path === '/' || path.endsWith('/')) {
       requestAnimationFrame(() => {
         const active = document.querySelector('#partner-grid .partner-card.active');
         if (active) active.click();
