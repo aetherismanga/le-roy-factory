@@ -125,7 +125,7 @@ html body:not(.crm-body) header .main-nav>li>a.lrf-promo-cersaie-tab:focus{
 }
 </style>
 </head>
-<body>
+<body data-catalogues-version="20260924-render-fix1">
   <header>
     <div class="container nav-container" style="height:130px; display:flex; align-items:center; justify-content:space-between;">
       <a href="index.html" class="logo" style="display:flex; align-items:center; height:100%; padding-left:1.5rem; flex-shrink:0;">
@@ -163,7 +163,7 @@ html body:not(.crm-body) header .main-nav>li>a.lrf-promo-cersaie-tab:focus{
   </footer>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    function renderCatalogues() {
       const cataloguesData = [
         { nom:'Elios Ceramica', pays:'Italie', presentation:'Fabricant italien spécialisé dans les petits formats et la céramique décorative haut de gamme.', fichiers:[
           { titre:'Catalogue Général interactif', desc:'Toutes les collections 2026 avec lexique cliquable intégré au PDF.', lien:'assets/pdf/ELIOS_Catalogue_General_2026_INTERACTIF.pdf' },
@@ -285,8 +285,14 @@ html body:not(.crm-body) header .main-nav>li>a.lrf-promo-cersaie-tab:focus{
             <div class="catalogue-actions">${fichiersHtml}</div>
           </article>`;
       }).join('');
-    });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', renderCatalogues, { once:true });
+    } else {
+      renderCatalogues();
+    }
   </script>
-  <script defer src="assets/js/app.js"></script>
+  <script defer src="assets/js/app.js?v=20260924-catalogues-render-fix1"></script>
 </body>
 </html>
