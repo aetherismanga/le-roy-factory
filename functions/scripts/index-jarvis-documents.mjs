@@ -33,8 +33,6 @@ function localMeta(file) {
   if (n === 'view2026.pdf') return { manufacturer:'View Ceramica', type:'tarif', year:2026 };
   if (n === 'lafenice2026.pdf') return { manufacturer:'La Fenice', type:'tarif', year:2026 };
   if (n === 'reviglass2026.pdf') return { manufacturer:'Reviglass', type:'tarif', year:2026 };
-  if (n === 'biopietra2026.pdf') return { manufacturer:'Biopietra', type:'tarif_catalogue', year:2026 };
-  if (n === 'biopietracodeprix.pdf') return { manufacturer:'Biopietra', type:'code_prix', year:2026 };
   if (n === 'bulbo2026.pdf') return { manufacturer:'Bulbo', type:'tarif', year:2026 };
   if (n === 'randal03.pdf') return { manufacturer:'Randal Pro', type:'catalogue_tarif', year:null };
   if (n === 'neobathanima.pdf') return { manufacturer:'Neobath', type:'catalogue_tarif', year:null, collection:'ANIMA' };
