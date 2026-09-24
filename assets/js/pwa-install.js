@@ -7,7 +7,7 @@
   const appleTitle=document.createElement('meta');appleTitle.name='apple-mobile-web-app-title';appleTitle.content='Leroy Factory';document.head.appendChild(appleTitle);
   const icon=document.createElement('link');icon.rel='apple-touch-icon';icon.href='/assets/img/logo03lrf.png';document.head.appendChild(icon);
 
-  if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js?v=20260918-crm-floral-1',{updateViaCache:'none'}).then(reg=>reg.update()).catch(console.warn));}
+  if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js?v=20260924-catalogues-fallback2',{updateViaCache:'none'}).then(reg=>reg.update()).catch(console.warn));}
 
   const standalone=window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true;
   if(standalone)return;
@@ -107,7 +107,8 @@
   const path=window.location.pathname.toLowerCase();
   const scripts=[];
   if(path.endsWith('catalogues.html')){
-    scripts.push(['lrf-uptrend-catalogues-loader','assets/js/uptrend-catalogues.js?v=20260914-pdf1']);
+    scripts.push(['lrf-catalogues-renderer-loader','assets/js/catalogues-renderer.js?v=20260924-fallback2']);
+    scripts.push(['lrf-uptrend-catalogues-loader','assets/js/uptrend-catalogues.js?v=20260924-fallback2']);
   }else if(path.endsWith('tarifs-pro.html')){
     scripts.push(['lrf-uptrend-tarifs-loader','assets/js/uptrend-tarifs.js?v=20260913-secure3']);
   }else if(path.endsWith('univers.html')){
@@ -120,6 +121,7 @@
     const script=document.createElement('script');
     script.id=id;
     script.src=src;
+    script.async=false;
     script.defer=true;
     (document.head||document.documentElement).appendChild(script);
   });
