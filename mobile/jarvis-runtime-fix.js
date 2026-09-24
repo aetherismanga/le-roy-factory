@@ -16,7 +16,6 @@ const VoiceNative = registerPlugin('VoiceNative');
     view:{name:'View Ceramica',file:'assets/pdf/view2026.pdf'},
     lafenice:{name:'La Fenice',file:'assets/pdf/lafenice2026.pdf'},
     reviglass:{name:'Reviglass',file:'assets/pdf/reviglass2026.pdf'},
-    biopietra:{name:'Biopietra',file:'assets/pdf/biopietra2026.pdf'},
     bulbo:{name:'Bulbo',file:'assets/pdf/bulbo2026.pdf'},
     petracer:{name:"Petracer's",file:'assets/pdf/petracer2023.pdf'},
     pecchioli:{name:'Pecchioli Firenze',file:'assets/pdf/pecchioli2022.pdf'},
