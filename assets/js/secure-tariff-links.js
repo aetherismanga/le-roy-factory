@@ -16,8 +16,6 @@
     ['assets/pdf/view2026.pdf','view-2026'],
     ['assets/pdf/lafenice2026.pdf','lafenice-2026'],
     ['assets/pdf/reviglass2026.pdf','reviglass-2026'],
-    ['assets/pdf/biopietra2026.pdf','biopietra-2026'],
-    ['assets/pdf/biopietracodeprix.pdf','biopietra-code-prix'],
     ['assets/pdf/petracer2023.pdf','petracers'],
     ['assets/pdf/pecchioli2022.pdf','pecchioli'],
     ['assets/pdf/bulbo2026.pdf','bulbo-2026'],
