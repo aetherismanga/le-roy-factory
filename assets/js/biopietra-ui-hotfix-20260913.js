@@ -7,14 +7,12 @@
   const $$ = (s, r=document) => [...r.querySelectorAll(s)];
   const norm = v => String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
   const isBio = () => norm($('#workspace-title')?.textContent) === 'biopietra';
-
   let timer = 0;
 
   function ensureIntro(){
     if(!isBio()) return;
     const workspace = $('#partner-workspace');
     if(!workspace || $('#bio-about')) return;
-
     const box = document.createElement('section');
     box.id = 'bio-about';
     box.className = 'bio-about';
@@ -27,7 +25,6 @@
         <div class="bio-about-points"><span>Intérieur & extérieur</span><span>Respirant</span><span>Faible épaisseur</span><span>100 % Made in Italy</span><span>Recyclable</span><span>Marquage CE</span></div>
         <a class="bio-about-link" href="https://biopietra.com/fr/biopietra-pierre-regeneree-bioarchitecture/" target="_blank" rel="noopener">Découvrir la technologie Biopietra ↗</a>
       </div>`;
-
     const filters = $('#v2-filters');
     const products = $('#partner-products');
     if(filters?.parentNode) filters.parentNode.insertBefore(box, filters);
@@ -35,59 +32,32 @@
     else workspace.appendChild(box);
   }
 
-  function cleanupIntro(){
-    if(isBio()) return;
-    $('#bio-about')?.remove();
-  }
-
-  function restoreHiddenPrices(){
-    $$('[data-lrf-bio-price-hidden="1"]').forEach(el => {
-      el.style.visibility = el.dataset.lrfBioOldVisibility || '';
-      delete el.dataset.lrfBioPriceHidden;
-      delete el.dataset.lrfBioOldVisibility;
+  function scrubPrices(){
+    if(!isBio()) return;
+    $$('.bio-card-price,.bio-price-row,[data-bio-price],.price-ok,.price-lock').forEach(el=>el.remove());
+    $$('.bio-modal *, #partner-workspace *').forEach(el=>{
+      if(el.children.length) return;
+      const t=String(el.textContent||'').trim();
+      if(/\b(prix|tarif)s?\b/i.test(t) || /\d[\d\s]*[,.]\d{2}\s*€/.test(t)) el.remove();
     });
-  }
-
-  function syncModalPriceVisibility(){
-    const hidden = document.body.classList.contains('lrf-biopietra-price-hidden');
-    if(!hidden){ restoreHiddenPrices(); return; }
-
-    $$('.bio-modal.open, .bio-modal').forEach(modal => {
-      $$('*', modal).forEach(el => {
-        if(el.children.length) return;
-        const txt = String(el.textContent||'').trim();
-        if(!/\d[\d\s]*[,.]\d{2}\s*€/.test(txt)) return;
-        if(el.dataset.lrfBioPriceHidden === '1') return;
-        el.dataset.lrfBioPriceHidden = '1';
-        el.dataset.lrfBioOldVisibility = el.style.visibility || '';
-        el.style.visibility = 'hidden';
-      });
+    $$('a[href*="tarifs-pro"],a[href*="biopietra2026"],a[href*="biopietracodeprix"]').forEach(a=>{
+      if(a.closest('#partner-workspace') || a.closest('.bio-modal')) a.remove();
+    });
+    $$('[href],[src]').forEach(el=>{
+      for(const attr of ['href','src']){
+        const v=el.getAttribute?.(attr)||'';
+        if(/biopietra(?:2026|codeprix).*\.pdf/i.test(v)) el.remove();
+      }
     });
   }
 
   function sync(){
     if(isBio()) ensureIntro();
-    else cleanupIntro();
-    syncModalPriceVisibility();
+    else $('#bio-about')?.remove();
+    scrubPrices();
   }
-
-  function schedule(delay=50){
-    clearTimeout(timer);
-    timer = setTimeout(sync, delay);
-  }
-
-  document.addEventListener('click', () => schedule(70), true);
-  document.addEventListener('input', () => schedule(70), true);
-  document.addEventListener('change', () => schedule(70), true);
-
-  new MutationObserver(() => schedule(60)).observe(document.documentElement, {
-    childList:true,
-    subtree:true,
-    characterData:true,
-    attributes:true,
-    attributeFilter:['class']
-  });
-
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => schedule(250), {once:true});
-  else schedule(250);
+  function schedule(delay=50){ clearTimeout(timer); timer=setTimeout(sync,delay); }
+  document.addEventListener('click',()=>schedule(30),true);
+  new MutationObserver(()=>schedule(20)).observe(document.documentElement,{childList:true,subtree:true,characterData:true});
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>schedule(100),{once:true});else schedule(100);
 })();
