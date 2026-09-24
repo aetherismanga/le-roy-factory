@@ -42,13 +42,13 @@
     'assets/js/inspirations-biopietra-gallery.js?v=20260923-ios-parity1',
     'assets/js/inspirations-biopietra-stable.js?v=20260923-ios-parity1',
     'assets/js/inspirations-biopietra-product-details.js?v=20260923-ios-parity1',
-    'assets/js/inspirations-biopietra-overview-consumables.js?v=20260923-ios-parity1',
+    'assets/js/inspirations-biopietra-overview-consumables.js?v=20260924-bio-about2',
     'assets/js/inspirations-biopietra-modal-safety.js?v=20260923-ios-parity1',
     'assets/js/inspirations-biopietra-batch2.js?v=20260923-ios-parity1',
     'assets/js/inspirations-biopietra-stability-hotfix.js?v=20260923-ios-parity1',
     'assets/js/biopietra-product-options.js?v=20260923-ios-parity1',
     'assets/js/inspirations-biopietra-colors.js?v=20260923-ios-parity1',
-    'assets/js/biopietra-ui-hotfix-20260913.js?v=20260923-ios-parity1'
+    'assets/js/biopietra-ui-hotfix-20260913.js?v=20260924-bio-about2'
   ];
 
   const REV = [
