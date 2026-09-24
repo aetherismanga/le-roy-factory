@@ -24,6 +24,14 @@
     "presentation": "Tradition et modernité italienne au service de l'architecture intérieure."
   },
   {
+    "id": "life-ceramica",
+    "nom": "Life Cerámica",
+    "categorie": "carrelage",
+    "pays": "Espagne",
+    "site": "https://www.lifeceramica.com/",
+    "presentation": "Fabricant espagnol spécialisé dans les revêtements céramiques de petit format, les pièces spéciales et les collections décoratives."
+  },
+  {
     "id": "reviglass",
     "nom": "Reviglass",
     "categorie": "mosaique-pierre",
