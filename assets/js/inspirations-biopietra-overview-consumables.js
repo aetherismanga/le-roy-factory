@@ -75,8 +75,8 @@
         <div class="bio-about-media"><img id="bio-about-img" src="https://biopietra.com/wp-content/uploads/2016/08/Acropoli-M96-Torre-870x870.jpg" alt="Réalisation officielle Biopietra" loading="lazy"></div>
         <div class="bio-about-copy">
           <div class="bio-about-kicker">Biopietra, c’est quoi ?</div>
-          <h3>La pierre régénérée italienne pensée pour construire durablement.</h3>
-          <p>Biopietra conçoit des parements écologiques en pierre naturelle régénérée pour l’intérieur comme l’extérieur. La marque associe l’esthétique minérale de la pierre à une solution plus légère, respirante et facile à mettre en œuvre, avec une fabrication 100 % Made in Italy, un marquage CE et une démarche orientée bioarchitecture. Les produits sont conçus pour durer, résister aux variations climatiques et limiter l’impact environnemental, sans COV, résines ni formaldéhyde.</p>
+          <h3>La pierre naturelle régénérée italienne pour construire durablement.</h3>
+          <p>Fabriquée en Italie, Biopietra est une pierre naturelle régénérée conçue pour la construction écologique et l’architecture durable. Adaptée à l’intérieur comme à l’extérieur, elle associe l’esthétique de la pierre naturelle à une solution légère, résistante et facile à poser. Certifiée CE et conforme aux normes UNI EN ISO, elle répond aux exigences des projets résidentiels, de rénovation et d’aménagement qui recherchent à la fois design, performance, qualité et respect de l’environnement.</p>
           <div class="bio-about-points"><span>Intérieur & extérieur</span><span>Respirant</span><span>Faible épaisseur</span><span>100 % Made in Italy</span><span>Recyclable</span><span>Marquage CE</span></div>
           <a class="bio-about-link" href="https://biopietra.com/fr/biopietra-pierre-regeneree-bioarchitecture/" target="_blank" rel="noopener">Découvrir la technologie Biopietra ↗</a>
         </div>`;
