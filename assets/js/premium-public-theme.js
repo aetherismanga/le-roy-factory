@@ -165,17 +165,26 @@
 
   function installCersaieNewsNav(){
     const nav=document.querySelector('header nav ul, header .main-nav');
-    if(!nav || nav.querySelector('a[href="actualite-cersaie.html"]')) return;
-    const li=document.createElement('li');
-    const a=document.createElement('a');
-    a.href='actualite-cersaie.html';
-    a.textContent='Actualité Cersaie';
-    a.className='lrf-cersaie-news-tab';
-    if(page==='actualite-cersaie.html') a.classList.add('active');
-    li.appendChild(a);
+    if(!nav) return;
     const promo=nav.querySelector('a[href="promo-cersaie.html"]');
-    if(promo?.parentElement) nav.insertBefore(li,promo.parentElement);
-    else nav.prepend(li);
+    const news=nav.querySelector('a[href="actualite-cersaie.html"]');
+    let li=news?.parentElement || promo?.parentElement;
+    if(!li){
+      li=document.createElement('li');
+      nav.prepend(li);
+    }
+    const a=news || document.createElement('a');
+    a.href='actualite-cersaie.html';
+    a.textContent='CERSAIE 2026 · ACTUALITÉS & PROMOS';
+    a.className='lrf-cersaie-news-tab';
+    if(page==='actualite-cersaie.html' || page==='promo-cersaie.html') a.classList.add('active');
+    else a.classList.remove('active');
+    if(!a.parentElement) li.appendChild(a);
+    if(promo && promo!==a){
+      const promoLi=promo.parentElement;
+      promo.remove();
+      if(promoLi && !promoLi.children.length) promoLi.remove();
+    }
   }
 
   const installConfigurateursNav = () => {
