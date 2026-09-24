@@ -4,7 +4,7 @@
   window.__LRF_DESKTOP_PROMO_STACK__=true;
 
   const DESKTOP='(min-width: 901px)';
-  const SELECTORS=['.viewlots26-desktop','.bilt-talox-desktop','.cersaie26-desktop','.elios-rentree-desktop'];
+  const SELECTORS=['.viewlots26-desktop','.bilt-talox-desktop','.elios-rentree-desktop'];
 
   const style=document.createElement('style');
   style.id='lrf-desktop-promo-stack-style';
@@ -334,6 +334,8 @@
       hero.appendChild(stack);
     }
     stack.style.removeProperty('display');
+
+    hero.querySelectorAll('.cersaie26-desktop').forEach(card=>card.remove());
 
     SELECTORS.forEach(selector=>{
       const card=hero.querySelector(selector) || document.querySelector(selector);
