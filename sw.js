@@ -1,4 +1,4 @@
-const CACHE='lrf-pwa-v12-crm-floral-20260918';
+const CACHE='lrf-pwa-v13-catalogues-20260924-fallback2';
 const CORE=['/','/index.html','/assets/brand-v2/lrf-logo-officiel-2026.png?v=20260918-crm-floral-1'];
 
 self.addEventListener('install',event=>{
