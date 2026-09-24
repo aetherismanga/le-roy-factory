@@ -6,8 +6,7 @@
   const $=(s,r=document)=>r.querySelector(s);
   const $$=(s,r=document)=>[...r.querySelectorAll(s)];
   const norm=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
-  const money=v=>Number(v).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
-
+  
   const META={
     'acropoli':{type:'revetement',refs:'c64 c51',units:'m2 ml',special:false},
     'bergamo mix ber':{type:'revetement',refs:'c64 c51',units:'m2 ml',special:false},
@@ -37,7 +36,7 @@
     'biofin':{type:'accessoire pose',refs:'c17 c56 c84',units:'piece',special:false}
   };
 
-  let lastBio=false,timer=0,pricesVisible=true;
+  let lastBio=false,timer=0;
 
   function isBio(){ return norm($('#workspace-title')?.textContent)==='biopietra'; }
   function metaForCard(card){
@@ -56,12 +55,6 @@
       .bio-filter-panel{display:grid;grid-template-columns:minmax(220px,1.8fr) repeat(3,minmax(135px,1fr)) auto;gap:.55rem;align-items:center}
       .bio-filter-panel input,.bio-filter-panel select{width:100%;box-sizing:border-box;border:1px solid #d9d2c5;background:#fff;border-radius:12px;padding:.72rem .78rem;font:inherit;min-height:46px}
       .bio-filter-panel input:focus,.bio-filter-panel select:focus{outline:none;border-color:#c7a33b;box-shadow:0 0 0 2px rgba(199,163,59,.08)}
-      .bio-eye{width:46px;height:46px;border:1px solid #D4AF37;border-radius:50%;background:#111;color:#FFD700;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
-      .bio-eye[aria-pressed="false"]{background:#fff;color:#6d5410}
-      body.lrf-biopietra-price-hidden .bio-card-price,
-      body.lrf-biopietra-price-hidden .bio-price-row .bio-price,
-      body.lrf-biopietra-price-hidden .bio-price-row [data-bio-price],
-      body.lrf-biopietra-price-hidden .bio-price-row>strong:last-child{visibility:hidden!important}
       .bio-head{position:relative!important;padding-right:84px!important}
       .bio-close{position:absolute!important;top:16px!important;right:16px!important;margin:0!important;z-index:3!important}
       @media(max-width:900px){
@@ -90,17 +83,12 @@
       panel=document.createElement('div');
       panel.id='bio-filter-panel';panel.className='bio-filter-panel';
       panel.innerHTML=`
-        <div class="bio-search-wrap"><input id="bio-search" type="search" placeholder="Rechercher produit ou référence (ex. C64)…" autocomplete="off"><button id="bio-eye" class="bio-eye" type="button" aria-label="Cacher les tarifs" aria-pressed="true" title="Cacher les tarifs">👁</button></div>
+        <div class="bio-search-wrap"><input id="bio-search" type="search" placeholder="Rechercher produit ou référence (ex. C64)…" autocomplete="off"></div>
         <select id="bio-filter-type" class="bio-filter-type" aria-label="Filtrer par famille"><option value="">Toutes les familles</option><option value="revetement">Revêtements</option><option value="listello">Listello</option><option value="composition">Compositions</option><option value="piece speciale">Pièces spéciales</option><option value="accessoire pose">Accessoires de pose</option></select>
-        <select id="bio-filter-unit" class="bio-filter-unit" aria-label="Filtrer par unité"><option value="">Toutes les unités</option><option value="m2">Prix au m²</option><option value="ml">Prix au ml</option><option value="piece">Prix à la pièce</option><option value="sac">Prix au sac</option><option value="boite">Prix à la boîte</option></select>
+        <select id="bio-filter-unit" class="bio-filter-unit" aria-label="Filtrer par unité"><option value="">Toutes les unités</option><option value="m2">Unité m²</option><option value="ml">Unité ml</option><option value="piece">Unité pièce</option><option value="sac">Unité sac</option><option value="boite">Unité boîte</option></select>
         <select id="bio-filter-special" class="bio-filter-special" aria-label="Filtrer les coloris"><option value="">Tous les coloris</option><option value="standard">Coloris standards</option><option value="special">Avec coloris spéciaux</option></select>`;
       bar.appendChild(panel);
       ['bio-search','bio-filter-type','bio-filter-unit','bio-filter-special'].forEach(id=>$('#'+id)?.addEventListener(id==='bio-search'?'input':'change',filterCards));
-      $('#bio-eye')?.addEventListener('click',()=>{
-        pricesVisible=!pricesVisible;
-        document.body.classList.toggle('lrf-biopietra-price-hidden',!pricesVisible);
-        const b=$('#bio-eye');if(b){b.textContent=pricesVisible?'👁':'🙈';b.setAttribute('aria-pressed',pricesVisible?'true':'false');b.setAttribute('aria-label',pricesVisible?'Cacher les tarifs':'Afficher les tarifs');b.title=pricesVisible?'Cacher les tarifs':'Afficher les tarifs'}
-      });
     }
     return panel;
   }
@@ -124,28 +112,6 @@
     const count=$('#partner-count');if(count)count.textContent=`${visible} produit${visible>1?'s':''}`;
   }
 
-  function applyDiscount(root=document){
-    if(!isBio()&&!root.closest?.('.bio-modal'))return;
-    const candidates=[...root.querySelectorAll?.('.bio-card-price,.bio-price-row strong,.bio-price-row .price,.bio-price-row [class*="price"]')||[]];
-    candidates.forEach(el=>{
-      if(el.dataset.bioDiscount40==='1')return;
-      const txt=String(el.textContent||'').trim();
-      const m=txt.match(/(\d+[\d\s]*[,.]\d{2})\s*€/);
-      if(!m)return;
-      const raw=Number(m[1].replace(/\s/g,'').replace(',','.'));
-      if(!Number.isFinite(raw))return;
-      const pro=Math.round(raw*0.60*100)/100;
-      el.textContent=txt.replace(m[0],money(pro));
-      el.dataset.bioDiscount40='1';
-      el.dataset.bioPublicPrice=String(raw);
-    });
-    $$('.bio-price-row',root).forEach(row=>{
-      const unitText=norm(row.textContent);
-      const label=[...row.querySelectorAll('div,span,p,small')].find(x=>/^prix\s*\//i.test(String(x.textContent||'').trim()));
-      if(label&&!/pro/i.test(label.textContent)) label.textContent=label.textContent.replace(/^Prix\s*\//i,'Prix PRO /')+' (-40 %)';
-    });
-  }
-
   function cleanSource(){ $$('.bio-source').forEach(x=>x.remove()); }
 
   function tagCards(){
@@ -158,8 +124,8 @@
   function sync(){
     const bio=isBio();
     document.body.classList.toggle('lrf-biopietra-active',bio);
-    if(!bio){lastBio=false;document.body.classList.remove('lrf-biopietra-price-hidden');return}
-    installStyle();ensureFilters();cleanSource();tagCards();applyDiscount(document);filterCards();lastBio=true;
+    if(!bio){lastBio=false;return}
+    installStyle();ensureFilters();cleanSource();tagCards();filterCards();lastBio=true;
   }
 
   const schedule=()=>{clearTimeout(timer);timer=setTimeout(sync,80)};
