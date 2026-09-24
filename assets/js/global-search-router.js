@@ -88,7 +88,7 @@
       .then(()=>loadScript('assets/js/inspirations-biopietra-gallery.js?v=20260912-bio4','lrf-biopietra-gallery'))
       .then(()=>loadScript('assets/js/inspirations-biopietra-stable.js?v=20260912-bio5','lrf-biopietra-stable'))
       .then(()=>loadScript('assets/js/inspirations-biopietra-product-details.js?v=20260912-bio8','lrf-biopietra-details'))
-      .then(()=>loadScript('assets/js/inspirations-biopietra-overview-consumables.js?v=20260912-bio7','lrf-biopietra-overview-consumables'))
+      .then(()=>loadScript('assets/js/inspirations-biopietra-overview-consumables.js?v=20260924-bio-about2','lrf-biopietra-overview-consumables'))
       .then(()=>loadScript('assets/js/inspirations-biopietra-modal-safety.js?v=20260912-bio8','lrf-biopietra-modal-safety'))
       .then(()=>loadScript('assets/js/inspirations-biopietra-batch2.js?v=20260912-bio9','lrf-biopietra-batch2'))
       .then(()=>loadScript('assets/js/inspirations-biopietra-stability-hotfix.js?v=20260913-bio-stability1','lrf-biopietra-stability-hotfix'))
