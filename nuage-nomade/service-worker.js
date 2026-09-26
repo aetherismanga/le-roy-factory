@@ -1,5 +1,8 @@
-const CACHE_NAME='nuage-nomade-v4-fullscreen';
-const CORE=["./","./index.html","./manifest.webmanifest","./icon.svg","./install.html","./parts/part-000.txt","./parts/part-001.txt","./parts/part-002.txt","./parts/part-003.txt","./parts/part-004.txt","./parts/part-005.txt","./parts/part-006.txt","./parts/part-007.txt","./parts/part-008.txt","./parts/part-009.txt","./parts/part-010.txt"];
-self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE_NAME).then(c=>c.addAll(CORE)));self.skipWaiting();});
-self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE_NAME).map(k=>caches.delete(k)))));self.clients.claim();});
-self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;e.respondWith(fetch(e.request).then(r=>{const copy=r.clone();caches.open(CACHE_NAME).then(c=>c.put(e.request,copy)).catch(()=>{});return r;}).catch(()=>caches.match(e.request).then(hit=>hit||caches.match('./index.html'))));});
+const CACHE_NAME='nuage-nomade-20260927-final-live-2';
+const CORE=['./','./index.html?v=20260927-final-live-2','./manifest.webmanifest','./icon.svg','./install.html','./hotfix.js?v=20260927-final-live-2'];
+self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(CACHE_NAME).then(c=>c.addAll(CORE).catch(()=>{})));});
+self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE_NAME).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
+self.addEventListener('fetch',e=>{
+ if(e.request.method!=='GET')return;
+ e.respondWith(fetch(e.request,{cache:'no-store'}).then(r=>{const copy=r.clone();caches.open(CACHE_NAME).then(c=>c.put(e.request,copy)).catch(()=>{});return r;}).catch(()=>caches.match(e.request).then(hit=>hit||caches.match('./index.html?v=20260927-final-live-2')||caches.match('./'))));
+});
