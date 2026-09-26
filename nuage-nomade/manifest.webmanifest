@@ -1,0 +1,25 @@
+{
+  "name": "Nuage Nomade",
+  "short_name": "Nuage Nomade",
+  "description": "Aventure céleste à travers les îles flottantes.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#caf2ff",
+  "theme_color": "#18a8f5",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}
