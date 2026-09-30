@@ -1,6 +1,6 @@
 (()=>{
 'use strict';
-const V='20260930-endless-full-assets-score-5';
+const V='20260930-endless-full-assets-score-6';
 window.NuageNomadeHotfixVersion=V;
 const lv=()=>state.mode==='endless'?0:(state.levelIndex+1);
 const ready=i=>!!(i&&i.complete&&i.naturalWidth>0);
@@ -45,9 +45,9 @@ body{display:block!important;position:fixed!important;inset:0!important;padding:
 #home .page-ribbon{display:none!important}
 #home .home-shell{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;min-height:0!important;max-width:none!important;margin:0!important;border-radius:0!important;padding:0!important;box-shadow:none!important}
 #home .home-hero-art{inset:0!important;width:100%!important;height:100%!important;border-radius:0!important;background-size:cover!important;background-position:center center!important}
-.score-banner::before{display:block!important;content:''!important;position:absolute!important;left:39%!important;right:7%!important;top:52%!important;height:39%!important;background:linear-gradient(180deg,#20b7fb 0%,#119eea 100%)!important;border-radius:18px!important;z-index:1!important}
+.score-banner::before{display:block!important;content:''!important;position:absolute!important;left:31%!important;right:5%!important;top:27%!important;height:58%!important;background:linear-gradient(180deg,#20b7fb 0%,#119eea 100%)!important;border-radius:20px!important;z-index:1!important}
 .score-banner::after{display:none!important;content:none!important}
-.score-banner #bestEndless{position:absolute!important;left:39%!important;right:7%!important;top:54%!important;bottom:auto!important;z-index:3!important;background:transparent!important;border-radius:0!important;text-align:center!important;line-height:1!important;color:#ffd51f!important;text-shadow:0 4px 0 #0b61ad,0 0 3px #fff!important}
+.score-banner #bestEndless{position:absolute!important;left:31%!important;right:5%!important;top:25%!important;bottom:auto!important;z-index:3!important;background:transparent!important;border-radius:0!important;text-align:center!important;line-height:1!important;color:#ffd51f!important;text-shadow:0 4px 0 #0b61ad,0 0 3px #fff!important}
 .score-banner #bestEndless ~ *{display:none!important}
 canvas,#gameCanvas{display:block!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;border-radius:0!important}
 @supports(height:100svh){#app{height:100svh!important}}
