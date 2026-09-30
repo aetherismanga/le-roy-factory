@@ -1,6 +1,6 @@
 (()=>{
 'use strict';
-const V='20260927-hd-8-10-final-4';
+const V='20260930-fullscreen-endless-hd-1';
 window.NuageNomadeHotfixVersion=V;
 const lv=()=>state.mode==='endless'?0:(state.levelIndex+1);
 const ready=i=>!!(i&&i.complete&&i.naturalWidth>0);
@@ -36,11 +36,60 @@ if(typeof startLevel==='function'){
 }
 try{LEVELS[9].name='Le Roi des Tempetes';LEVELS[9].desc='Le combat final au coeur de la tempete.';}catch(e){}
 const css=document.createElement('style');
-css.textContent='.score-banner::before{display:none!important;content:none!important}.score-banner #bestEndless{z-index:3!important;background:transparent!important}';
+css.textContent=`
+html,body{margin:0!important;width:100%!important;height:100%!important;min-height:100dvh!important;overflow:hidden!important;background:#8edfff!important}
+body{display:block!important}
+#app{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;max-width:none!important;aspect-ratio:auto!important;border-radius:0!important;box-shadow:none!important}
+.overlay{inset:0!important}
+#home.home-screen{padding:0!important}
+#home .page-ribbon{display:none!important}
+#home .home-shell{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;min-height:0!important;max-width:none!important;margin:0!important;border-radius:0!important;padding:0!important;box-shadow:none!important}
+#home .home-hero-art{inset:0!important;width:100%!important;height:100%!important;border-radius:0!important;background-size:cover!important;background-position:center center!important}
+.score-banner::before{display:block!important;content:''!important;position:absolute!important;left:41%!important;top:30%!important;width:44%!important;height:55%!important;background:linear-gradient(180deg,#2ab7ff 0%,#1da4ef 100%)!important;border-radius:18px!important;z-index:2!important}
+.score-banner #bestEndless{z-index:3!important;background:transparent!important}
+canvas{width:100%!important;height:100%!important}
+@supports(height:100svh){#app{height:100svh!important}}
+`;
 document.head.appendChild(css);
+
+
+/* 2026-09-30: the home score is ONLY the endless-mode record. */
+refreshHomeScore=function(){
+  const el=document.getElementById('bestEndless');
+  if(el) el.textContent=fmt(Number(state.progressData.bestEndless||state.bestEndless||0));
+};
+
+/* Endless mode now progresses through the same HD visual worlds as levels 1-7.
+   A new visual/difficulty chapter starts every 35 seconds, then stays on level 7
+   while the native endless difficulty continues increasing with score. */
+function endlessStage(){
+  if(state.mode!=='endless') return 1;
+  return Math.min(7,1+Math.floor((state.progress||0)/35));
+}
+function syncEndlessStage(){
+  if(state.mode!=='endless') return;
+  const idx=endlessStage()-1;
+  if(state.levelIndex!==idx){
+    state.levelIndex=idx;
+    try{initBackground(levelTheme(idx).theme);showToast('Mode infini · Zone '+(idx+1));}catch(e){}
+  }
+}
 
 const oldDrawBg=drawBg;
 drawBg=function(theme){
+  if(state.mode==='endless'){
+    const s=endlessStage();
+    try{
+      if(s===1&&level1AssetsReady()){drawLevel1BackdropHD();return;}
+      if(s===2&&level2AssetsReady()){drawLevel2BackdropHD();return;}
+      if(s===3&&level3AssetsReady()){drawLevel3BackdropHD();return;}
+      if(s===4&&level4AssetsReady()){drawLevel4BackdropHD();return;}
+      if(s===5&&level5AssetsReady()){drawLevel5BackdropHD();return;}
+      if(s===6&&level6AssetsReady()){drawLevel6BackdropHD();return;}
+      if(s===7&&level7AssetsReady()){drawLevel7BackdropHD();return;}
+    }catch(e){}
+    return oldDrawBg(levelTheme(s-1).theme);
+  }
   const n=lv(),im=bg[n];
   if(n>=8&&n<=10&&ready(im)){
     ctx.clearRect(0,0,W,H);
@@ -217,7 +266,7 @@ const oldResetLevel=resetLevel;
 resetLevel=function(index,mode='adventure'){state.hfBossDefeated=false;state.hfBossHp=4;state.hfBossStart=0;state.hfBossLastCycle=-1;return oldResetLevel(index,mode)};
 
 let last=performance.now(),extraStormAt=0;
-function tune(now){const dt=Math.min(.05,(now-last)/1000||.016);last=now;try{if(state.running&&!state.paused&&state.mode!=='endless'){const n=lv(),p=state.player;if(n>=8&&n<=10){for(const o of state.obstacles){if(o.type==='bird'||o.type==='birdfast'||o.type==='owl'){if(o.hfDive===undefined)o.hfDive=Math.random()<(n===8?.25:n===9?.47:.57);if(o.hfDive){if(!o.hfDiveStart&&o.x<W*.78){o.hfDiveStart=true;o.hfDiveTarget=clamp((p?p.y:o.y)+rand(-40,72),160,H-185)}if(o.hfDiveStart&&o.x>W*.30)o.y+=(o.hfDiveTarget-o.y)*Math.min(1,dt*(n===10?2.25:1.72))}}if(o.type==='storm'&&o.canBolt!==false){const cap=n===8?1.55:n===9?1.18:1.05;if(o.warn<=0&&o.bolt<=0&&o.flashCd>cap)o.flashCd=cap+Math.random()*.20}}}if(n===10&&state.bossSpawned&&!state.hfBossDefeated){const b=finalBoss();if(b){b.x+=(W*.79-b.x)*Math.min(1,dt*4.8);b.y+=(H*.31+Math.sin(state.time*1.45)*48-b.y)*Math.min(1,dt*2.2);b.vx=0;const ph=bossPhase(b),elapsed=(now-(state.hfBossStart||now))/1000,span=ph===1?5.4:ph===2?4.7:4.15,cy=Math.floor(elapsed/span),local=elapsed-cy*span;if(cy!==state.hfBossLastCycle){state.hfBossLastCycle=cy;b.hfHitCycle=false}const openStart=ph===1?3.35:ph===2?2.85:2.45;b.hfOpen=!b.hfHitCycle&&local>openStart&&local<openStart+(ph===1?1.42:ph===2?1.20:1.02);const boltCap=ph===1?1.35:ph===2?1.02:.78;if(b.warn<=0&&b.bolt<=0&&b.flashCd>boltCap)b.flashCd=boltCap+Math.random()*.16;if(now>extraStormAt){extraStormAt=now+(ph===3?2200:2900)}let c=0,s=0,b=0;for(const o of state.obstacles){if((o.type==='bird'||o.type==='birdfast'||o.type==='owl')&&o.x>-80){c++;if(c>5)o.x=-120}else if(o.type==='storm'&&o.x>-100){s++;if(s>3)o.x=-140}else if(o.type==='boss'){b++;if(b>1)o.x=-999}}}}}}catch(e){console.error('[NN hotfix]',e)}requestAnimationFrame(tune)}
+function tune(now){const dt=Math.min(.05,(now-last)/1000||.016);last=now;try{if(state.running&&!state.paused&&state.mode==='endless')syncEndlessStage();if(state.running&&!state.paused&&state.mode!=='endless'){const n=lv(),p=state.player;if(n>=8&&n<=10){for(const o of state.obstacles){if(o.type==='bird'||o.type==='birdfast'||o.type==='owl'){if(o.hfDive===undefined)o.hfDive=Math.random()<(n===8?.25:n===9?.47:.57);if(o.hfDive){if(!o.hfDiveStart&&o.x<W*.78){o.hfDiveStart=true;o.hfDiveTarget=clamp((p?p.y:o.y)+rand(-40,72),160,H-185)}if(o.hfDiveStart&&o.x>W*.30)o.y+=(o.hfDiveTarget-o.y)*Math.min(1,dt*(n===10?2.25:1.72))}}if(o.type==='storm'&&o.canBolt!==false){const cap=n===8?1.55:n===9?1.18:1.05;if(o.warn<=0&&o.bolt<=0&&o.flashCd>cap)o.flashCd=cap+Math.random()*.20}}}if(n===10&&state.bossSpawned&&!state.hfBossDefeated){const b=finalBoss();if(b){b.x+=(W*.79-b.x)*Math.min(1,dt*4.8);b.y+=(H*.31+Math.sin(state.time*1.45)*48-b.y)*Math.min(1,dt*2.2);b.vx=0;const ph=bossPhase(b),elapsed=(now-(state.hfBossStart||now))/1000,span=ph===1?5.4:ph===2?4.7:4.15,cy=Math.floor(elapsed/span),local=elapsed-cy*span;if(cy!==state.hfBossLastCycle){state.hfBossLastCycle=cy;b.hfHitCycle=false}const openStart=ph===1?3.35:ph===2?2.85:2.45;b.hfOpen=!b.hfHitCycle&&local>openStart&&local<openStart+(ph===1?1.42:ph===2?1.20:1.02);const boltCap=ph===1?1.35:ph===2?1.02:.78;if(b.warn<=0&&b.bolt<=0&&b.flashCd>boltCap)b.flashCd=boltCap+Math.random()*.16;if(now>extraStormAt){extraStormAt=now+(ph===3?2200:2900)}let c=0,s=0,b=0;for(const o of state.obstacles){if((o.type==='bird'||o.type==='birdfast'||o.type==='owl')&&o.x>-80){c++;if(c>5)o.x=-120}else if(o.type==='storm'&&o.x>-100){s++;if(s>3)o.x=-140}else if(o.type==='boss'){b++;if(b>1)o.x=-999}}}}}}catch(e){console.error('[NN hotfix]',e)}requestAnimationFrame(tune)}
 requestAnimationFrame(tune);
 try{renderLevelGrid();refreshHomeScore()}catch(e){}
 console.info('[Nuage Nomade] HOTFIX LIVE',V);
