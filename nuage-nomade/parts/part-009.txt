@@ -14,7 +14,7 @@ pKjv4fq6j3I138zRmgmYTtCNx8d8is/R8FzZLssS6GYLMEUVhBMdsx5d1dN256FdmuWw361808Z8NIeg
     return level6PreloadPromise;
   }
   preloadLevel6HD();
-  function isLevel6HD(){ return state&&state.mode!=='endless'&&state.levelIndex===5; }
+  function isLevel6HD(){ return state&&state.levelIndex===5; }
   function drawLevel6NightEffects(){
     ctx.save();
     ctx.globalCompositeOperation='lighter';
@@ -78,7 +78,7 @@ pKjv4fq6j3I138zRmgmYTtCNx8d8is/R8FzZLssS6GYLMEUVhBMdsx5d1dN256FdmuWw361808Z8NIeg
     return level7PreloadPromise;
   }
   preloadLevel7HD();
-  function isLevel7HD(){ return state&&state.mode!=='endless'&&state.levelIndex===6; }
+  function isLevel7HD(){ return state&&state.levelIndex===6; }
   function drawLevel7SnowEffects(){
     ctx.save();
     for(let i=0;i<58;i++){
@@ -116,7 +116,7 @@ pKjv4fq6j3I138zRmgmYTtCNx8d8is/R8FzZLssS6GYLMEUVhBMdsx5d1dN256FdmuWw361808Z8NIeg
   }
 
   function isLevel1HD(){
-    return state && state.mode !== 'endless' && state.levelIndex === 0;
+    return state && state.levelIndex === 0;
   }
   function drawSpriteCenter(img, rect, cx, cy, scale=1, rot=0, alpha=1, flip=false, anchorX=.5, anchorY=.5){
     if(!img || !img.complete || !img.naturalWidth) return false;
@@ -264,7 +264,7 @@ pKjv4fq6j3I138zRmgmYTtCNx8d8is/R8FzZLssS6GYLMEUVhBMdsx5d1dN256FdmuWw361808Z8NIeg
   }
   function refreshHomeScore(){
     const el=document.getElementById('bestEndless');
-    if(el) el.textContent=fmt(bestOverallScore());
+    if(el) el.textContent=fmt(Number(state.progressData.bestEndless||state.bestEndless||0));
   }
   state.difficulty = state.progressData.difficulty === 'easy' ? 'easy' : 'normal';
 
@@ -635,7 +635,9 @@ pKjv4fq6j3I138zRmgmYTtCNx8d8is/R8FzZLssS6GYLMEUVhBMdsx5d1dN256FdmuWw361808Z8NIeg
   }
 
   function resetEndless(){
-    resetLevel(0, 'endless');
+    Promise.all([preloadLevel1HD(),preloadLevel2HD(),preloadLevel3HD(),preloadLevel4HD(),preloadLevel5HD(),preloadLevel6HD(),preloadLevel7HD()])
+      .then(()=>resetLevel(0,'endless'))
+      .catch(()=>resetLevel(0,'endless'));
   }
 
   function updateHUD(){
@@ -820,6 +822,14 @@ pKjv4fq6j3I138zRmgmYTtCNx8d8is/R8FzZLssS6GYLMEUVhBMdsx5d1dN256FdmuWw361808Z8NIeg
   }
 
   function update(dt){
+    if(state.mode==='endless'){
+      const endlessIndex=Math.min(6,Math.floor(state.progress/35));
+      if(state.levelIndex!==endlessIndex){
+        state.levelIndex=endlessIndex;
+        initBackground(levelTheme(endlessIndex).theme);
+        try{showToast('Mode infini · Zone '+(endlessIndex+1));}catch(e){}
+      }
+    }
     const level = levelTheme(state.levelIndex);
     const theme = level.theme;
 
