@@ -689,10 +689,10 @@ pKjv4fq6j3I138zRmgmYTtCNx8d8is/R8FzZLssS6GYLMEUVhBMdsx5d1dN256FdmuWw361808Z8NIeg
     const type=theme.theme==='night'||theme.theme==='aurora'?(Math.random()<.4?'owl':'bird'):kinds[Math.floor(Math.random()*2)];
     const y=rand(170,H-220);
     const speed=levelTheme(state.levelIndex).speed+(type==='birdfast'?46:type==='owl'?12:24);
-    const core=state.mode!=='endless';
+    const core=state.levelIndex<=6;
     state.obstacles.push({
       type,x:W+90,y,vx:speed,r:core?22:(type==='owl'?32:26),phase:rand(0,6.2),amp:rand(10,24),warned:false,passed:false,near:false,
-      variant:(state.mode!=='endless'&&state.levelIndex>=1)?Math.floor(Math.random()*4):0
+      variant:(state.levelIndex>=1&&state.levelIndex<=6)?Math.floor(Math.random()*4):0
     });
   }
   function spawnStorm(theme){
@@ -1363,7 +1363,7 @@ pKjv4fq6j3I138zRmgmYTtCNx8d8is/R8FzZLssS6GYLMEUVhBMdsx5d1dN256FdmuWw361808Z8NIeg
   }
 
   function drawBird(o){
-    if(state.mode!=='endless'&&state.levelIndex<=6&&level1AssetsReady()){drawAdventureBirdAnimated(o);return;}
+    if(state.levelIndex<=6&&level1AssetsReady()){drawAdventureBirdAnimated(o);return;}
     ctx.save(); ctx.translate(o.x,o.y);
     const wing = Math.sin(o.phase);
     const tint = o.type==='owl' ? ['#6a4d3e','#402b26'] : o.type==='birdfast' ? ['#12203a','#0a1222'] : ['#304870','#152235'];
@@ -1497,7 +1497,7 @@ pKjv4fq6j3I138zRmgmYTtCNx8d8is/R8FzZLssS6GYLMEUVhBMdsx5d1dN256FdmuWw361808Z8NIeg
 
   function drawPlayer(){
     if(state.bonusType && drawFeatherBonusPlayer()) return;
-    if(state.mode!=='endless'&&state.levelIndex<=6&&level1AssetsReady()){
+    if(state.levelIndex<=6&&level1AssetsReady()){
       const p=state.player;if(!p)return;const bob=Math.sin(p.bob)*3,pose=p.hit?3:(p.wink>0||p.blink>0?2:(p.vy<-60?1:0)),rect=HD_L1_RECTS.player[pose],rot=p.hit?p.rot+p.deadRot:p.rot;
       ctx.save();ctx.translate(p.x,p.y+bob);ctx.rotate(rot);ctx.shadowColor='rgba(24,94,142,.20)';ctx.shadowBlur=18;ctx.shadowOffsetY=8;const [sx,sy,sw,sh]=rect,sc=pose===1?.24:.235,dw=sw*sc,dh=sh*sc;ctx.drawImage(HD_L1.player,sx,sy,sw,sh,-dw*.48,-dh*.56,dw,dh);ctx.restore();return;
     }
