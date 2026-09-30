@@ -1,6 +1,6 @@
 (()=>{
 'use strict';
-const V='20260930-fullscreen-endless-hd-1';
+const V='20260930-fullscreen-endless-hd-2';
 window.NuageNomadeHotfixVersion=V;
 const lv=()=>state.mode==='endless'?0:(state.levelIndex+1);
 const ready=i=>!!(i&&i.complete&&i.naturalWidth>0);
@@ -38,16 +38,16 @@ try{LEVELS[9].name='Le Roi des Tempetes';LEVELS[9].desc='Le combat final au coeu
 const css=document.createElement('style');
 css.textContent=`
 html,body{margin:0!important;width:100%!important;height:100%!important;min-height:100dvh!important;overflow:hidden!important;background:#8edfff!important}
-body{display:block!important}
-#app{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;max-width:none!important;aspect-ratio:auto!important;border-radius:0!important;box-shadow:none!important}
-.overlay{inset:0!important}
+body{display:block!important;position:fixed!important;inset:0!important;padding:0!important}
+#app{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;min-height:100dvh!important;max-width:none!important;max-height:none!important;aspect-ratio:auto!important;border-radius:0!important;box-shadow:none!important;transform:none!important}
+.screen,.overlay,#game,#home,#map{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;border-radius:0!important}
 #home.home-screen{padding:0!important}
 #home .page-ribbon{display:none!important}
 #home .home-shell{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;min-height:0!important;max-width:none!important;margin:0!important;border-radius:0!important;padding:0!important;box-shadow:none!important}
 #home .home-hero-art{inset:0!important;width:100%!important;height:100%!important;border-radius:0!important;background-size:cover!important;background-position:center center!important}
-.score-banner::before{display:block!important;content:''!important;position:absolute!important;left:41%!important;top:30%!important;width:44%!important;height:55%!important;background:linear-gradient(180deg,#2ab7ff 0%,#1da4ef 100%)!important;border-radius:18px!important;z-index:2!important}
-.score-banner #bestEndless{z-index:3!important;background:transparent!important}
-canvas{width:100%!important;height:100%!important}
+.score-banner::before,.score-banner::after{display:none!important;content:none!important}
+.score-banner #bestEndless{position:relative!important;z-index:3!important;background:transparent!important}
+canvas,#gameCanvas{display:block!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;border-radius:0!important}
 @supports(height:100svh){#app{height:100svh!important}}
 `;
 document.head.appendChild(css);
