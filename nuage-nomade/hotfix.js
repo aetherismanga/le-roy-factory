@@ -158,9 +158,9 @@ function crowSprite(o,n){
 const oldDrawBird=drawBird;
 drawBird=function(o){
   const n=state.mode==='endless'?endlessStage():lv();
-  if(state.mode==='endless'&&n<=7){
-    const saved=state.mode;state.mode='adventure';
-    try{return oldDrawBird(o);}finally{state.mode=saved;}
+  if(state.mode==='endless'&&n<=7&&level1AssetsReady()){
+    /* Use the exact animated HD bird atlas used by adventure levels 1-7. */
+    return drawAdventureBirdAnimated(o);
   }
   if(n>=8&&n<=10&&(o.type==='bird'||o.type==='birdfast'||o.type==='owl')){if(crowSprite(o,n))return}
   return oldDrawBird(o);
