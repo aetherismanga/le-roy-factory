@@ -98,3 +98,26 @@ body.elios-lightbox-open{overflow:hidden!important}
  #product-modal-v2 .elios-variant-colors-v3 button span{font-size:.78rem;line-height:1.08}
  #product-modal-v2 .elios-variant-colors-v3 button small{font-size:.64rem}
 }
+
+
+/* 2026-09-30 · ELIOS mobile — recalibrage des cartes Couleurs / déclinaisons */
+@media(max-width:560px){
+  #product-modal-v2 .elios-variant-colors-v3{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;width:100%}
+  #product-modal-v2 .elios-variant-colors-v3 button{
+    display:grid;grid-template-columns:1fr;grid-template-rows:132px auto auto;
+    min-width:0;width:100%;height:auto;min-height:198px;padding:7px 7px 10px;
+    gap:6px;align-items:start;text-align:left;overflow:hidden
+  }
+  #product-modal-v2 .elios-variant-colors-v3 button img{
+    grid-row:auto;width:100%!important;height:132px!important;max-width:none!important;max-height:none!important;
+    border-radius:10px;object-fit:cover!important;object-position:center;background:#eee
+  }
+  #product-modal-v2 .elios-variant-colors-v3 button span{font-size:.84rem;line-height:1.12;padding:0 3px;overflow-wrap:normal;word-break:normal}
+  #product-modal-v2 .elios-variant-colors-v3 button small{font-size:.68rem;line-height:1.1;padding:0 3px;color:#777}
+}
+@media(max-width:380px){
+  #product-modal-v2 .elios-variant-colors-v3{gap:8px}
+  #product-modal-v2 .elios-variant-colors-v3 button{grid-template-rows:118px auto auto;min-height:184px;padding:6px}
+  #product-modal-v2 .elios-variant-colors-v3 button img{height:118px!important}
+  #product-modal-v2 .elios-variant-colors-v3 button span{font-size:.78rem}
+}
