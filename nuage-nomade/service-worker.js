@@ -1,16 +1,16 @@
-const CACHE_NAME='nuage-nomade-20260930-endless-full-assets-score-5';
+const CACHE_NAME='nuage-nomade-20260930-endless-full-assets-score-6';
 const CORE=[
  './',
- './index.html?v=20260930-endless-full-assets-score-5',
+ './index.html?v=20260930-endless-full-assets-score-6',
  './manifest.webmanifest',
  './icon.svg',
  './install.html',
- './hotfix.js?v=20260930-endless-full-assets-score-5',
- './assets/level8.webp?v=20260930-endless-full-assets-score-5',
- './assets/vortex.webp?v=20260930-endless-full-assets-score-5',
- './assets/crows_atlas.webp?v=20260930-endless-full-assets-score-5',
- './assets/storms_atlas.webp?v=20260930-endless-full-assets-score-5',
- './assets/boss_atlas.webp?v=20260930-endless-full-assets-score-5'
+ './hotfix.js?v=20260930-endless-full-assets-score-6',
+ './assets/level8.webp?v=20260930-endless-full-assets-score-6',
+ './assets/vortex.webp?v=20260930-endless-full-assets-score-6',
+ './assets/crows_atlas.webp?v=20260930-endless-full-assets-score-6',
+ './assets/storms_atlas.webp?v=20260930-endless-full-assets-score-6',
+ './assets/boss_atlas.webp?v=20260930-endless-full-assets-score-6'
 ];
 self.addEventListener('install',e=>{
  self.skipWaiting();
@@ -24,6 +24,6 @@ self.addEventListener('fetch',e=>{
  e.respondWith(
   fetch(e.request,{cache:'no-store'})
    .then(r=>{const copy=r.clone();caches.open(CACHE_NAME).then(c=>c.put(e.request,copy)).catch(()=>{});return r;})
-   .catch(()=>caches.match(e.request).then(hit=>hit||caches.match('./index.html?v=20260930-endless-full-assets-score-5')||caches.match('./')))
+   .catch(()=>caches.match(e.request).then(hit=>hit||caches.match('./index.html?v=20260930-endless-full-assets-score-6')||caches.match('./')))
  );
 });
