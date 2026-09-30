@@ -18,7 +18,7 @@
     return level3PreloadPromise;
   }
   preloadLevel3HD();
-  function isLevel3HD(){ return state&&state.mode!=='endless'&&state.levelIndex===2; }
+  function isLevel3HD(){ return state&&state.levelIndex===2; }
   function drawLevel3BackdropHD(){
     ctx.clearRect(0,0,W,H);
     if(!drawImageCover(HD_L3.bg,Math.sin(state.time*.09)*5,Math.cos(state.time*.07)*4,1)){ctx.fillStyle=skyGradient('sunset');ctx.fillRect(0,0,W,H);}
