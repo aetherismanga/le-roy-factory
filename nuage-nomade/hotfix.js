@@ -1,6 +1,6 @@
 (()=>{
 'use strict';
-const V='20260930-fullscreen-endless-hd-2';
+const V='20260930-fullscreen-endless-hd-3';
 window.NuageNomadeHotfixVersion=V;
 const lv=()=>state.mode==='endless'?0:(state.levelIndex+1);
 const ready=i=>!!(i&&i.complete&&i.naturalWidth>0);
@@ -76,19 +76,14 @@ function syncEndlessStage(){
 }
 
 const oldDrawBg=drawBg;
+/* IMPORTANT: HD backdrops are selected by the native drawBg from state.levelIndex.
+   Do not call private HD renderer names here: they are not global in the bundled game. */
 drawBg=function(theme){
   if(state.mode==='endless'){
     const s=endlessStage();
-    try{
-      if(s===1&&level1AssetsReady()){drawLevel1BackdropHD();return;}
-      if(s===2&&level2AssetsReady()){drawLevel2BackdropHD();return;}
-      if(s===3&&level3AssetsReady()){drawLevel3BackdropHD();return;}
-      if(s===4&&level4AssetsReady()){drawLevel4BackdropHD();return;}
-      if(s===5&&level5AssetsReady()){drawLevel5BackdropHD();return;}
-      if(s===6&&level6AssetsReady()){drawLevel6BackdropHD();return;}
-      if(s===7&&level7AssetsReady()){drawLevel7BackdropHD();return;}
-    }catch(e){}
-    return oldDrawBg(levelTheme(s-1).theme);
+    const wanted=s-1;
+    if(state.levelIndex!==wanted) state.levelIndex=wanted;
+    return oldDrawBg(levelTheme(wanted).theme);
   }
   const n=lv(),im=bg[n];
   if(n>=8&&n<=10&&ready(im)){
