@@ -75,14 +75,17 @@ function syncEndlessStage(){
 }
 
 const oldDrawBg=drawBg;
-/* IMPORTANT: HD backdrops are selected by the native drawBg from state.levelIndex.
-   Do not call private HD renderer names here: they are not global in the bundled game. */
+/* Endless HD: temporarily render as the matching adventure level.
+   Native level 1-7 renderer checks mode as well as levelIndex, so merely changing
+   levelIndex was insufficient and fell back to the legacy endless artwork. */
 drawBg=function(theme){
   if(state.mode==='endless'){
-    const s=endlessStage();
-    const wanted=s-1;
-    if(state.levelIndex!==wanted) state.levelIndex=wanted;
-    return oldDrawBg(levelTheme(wanted).theme);
+    const wanted=endlessStage()-1;
+    state.levelIndex=wanted;
+    const savedMode=state.mode;
+    state.mode='adventure';
+    try{return oldDrawBg(levelTheme(wanted).theme);}
+    finally{state.mode=savedMode;}
   }
   const n=lv(),im=bg[n];
   if(n>=8&&n<=10&&ready(im)){
