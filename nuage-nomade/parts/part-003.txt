@@ -8,9 +8,9 @@ xOPXGyBa1AzOelbG/B/R6dg6M50hMkvPDxq37z9P6//e+//N6Ln7v11ntRMV9gsTv3ngxuHey9w3C20R
 .icon-action *{display:none !important;}
 #resetProgress{background:transparent !important;border:none !important;box-shadow:none !important;}
 .score-banner{position:absolute !important;left:14.2% !important;right:14.2% !important;bottom:2.8% !important;height:10.2% !important;background:transparent !important;border:none !important;box-shadow:none !important;z-index:16 !important;pointer-events:none !important;overflow:visible !important;display:block !important;padding:0 !important;}
-.score-banner::before{content:'' !important;position:absolute !important;left:41% !important;top:36% !important;width:44% !important;height:40% !important;background:linear-gradient(180deg,#2ab7ff 0%, #1da4ef 100%) !important;border-radius:18px !important;z-index:0 !important;}
+.score-banner::before{content:'' !important;position:absolute !important;left:39% !important;top:4% !important;width:48% !important;height:92% !important;background:linear-gradient(180deg,#20b7fb 0%,#119eea 100%) !important;border-radius:18px !important;z-index:2 !important;}
 .score-banner > :not(#bestEndless){display:none !important;}
-.score-banner #bestEndless{position:absolute !important;left:41% !important;top:27% !important;width:44% !important;height:auto !important;display:block !important;text-align:center !important;color:#ffe24c !important;font-size:clamp(30px,7.5vw,48px) !important;font-weight:1000 !important;letter-spacing:.06em !important;line-height:1 !important;text-shadow:0 4px 0 #0b6fbe,0 0 10px rgba(255,241,133,.38) !important;transform:none !important;z-index:1 !important;}
+.score-banner #bestEndless{position:absolute !important;left:39% !important;top:31% !important;width:48% !important;height:auto !important;display:block !important;text-align:center !important;color:#ffe24c !important;font-size:clamp(30px,7.5vw,48px) !important;font-weight:1000 !important;letter-spacing:.06em !important;line-height:1 !important;text-shadow:0 4px 0 #0b6fbe,0 0 10px rgba(255,241,133,.38) !important;transform:none !important;z-index:3 !important;}
 @media(max-width:430px){
   .home-shell{width:min(96vw,420px) !important;height:min(84vh,760px) !important;}
   .home-settings-fab{width:64px !important;height:64px !important;right:7px !important;top:7px !important;}
