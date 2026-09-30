@@ -26,7 +26,7 @@ fXMy6m80W1W9dR3ONDYXFJvSsKbhwxfuixTqej2IMAmehLDL7ET4zs681CD1Svx8zhFS/PXAVHw1s0AY
   }
   preloadLevel2HD();
   function isLevel2HD(){
-    return state && state.mode !== 'endless' && state.levelIndex === 1;
+    return state && state.levelIndex === 1;
   }
   function drawLevel2BackdropHD(){
     ctx.clearRect(0,0,W,H);
