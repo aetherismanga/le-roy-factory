@@ -1,6 +1,6 @@
 (()=>{
 'use strict';
-const V='20260930-endless-native-hd-4';
+const V='20260930-endless-full-assets-score-5';
 window.NuageNomadeHotfixVersion=V;
 const lv=()=>state.mode==='endless'?0:(state.levelIndex+1);
 const ready=i=>!!(i&&i.complete&&i.naturalWidth>0);
@@ -45,7 +45,10 @@ body{display:block!important;position:fixed!important;inset:0!important;padding:
 #home .page-ribbon{display:none!important}
 #home .home-shell{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;min-height:0!important;max-width:none!important;margin:0!important;border-radius:0!important;padding:0!important;box-shadow:none!important}
 #home .home-hero-art{inset:0!important;width:100%!important;height:100%!important;border-radius:0!important;background-size:cover!important;background-position:center center!important}
-.score-banner::before,.score-banner::after{display:none!important;content:none!important}\n.score-banner #bestEndless{position:absolute!important;left:39%!important;right:7%!important;bottom:16%!important;z-index:10!important;background:#19aaf4!important;border-radius:18px!important;text-align:center!important;line-height:1!important}\n.score-banner #bestEndless ~ *{display:none!important}
+.score-banner::before{display:block!important;content:''!important;position:absolute!important;left:39%!important;right:7%!important;top:52%!important;height:39%!important;background:linear-gradient(180deg,#20b7fb 0%,#119eea 100%)!important;border-radius:18px!important;z-index:1!important}
+.score-banner::after{display:none!important;content:none!important}
+.score-banner #bestEndless{position:absolute!important;left:39%!important;right:7%!important;top:54%!important;bottom:auto!important;z-index:3!important;background:transparent!important;border-radius:0!important;text-align:center!important;line-height:1!important;color:#ffd51f!important;text-shadow:0 4px 0 #0b61ad,0 0 3px #fff!important}
+.score-banner #bestEndless ~ *{display:none!important}
 canvas,#gameCanvas{display:block!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;border-radius:0!important}
 @supports(height:100svh){#app{height:100svh!important}}
 `;
@@ -153,11 +156,23 @@ function crowSprite(o,n){
   return true;
 }
 const oldDrawBird=drawBird;
-drawBird=function(o){const n=lv();if(n>=8&&n<=10&&(o.type==='bird'||o.type==='birdfast'||o.type==='owl')){if(crowSprite(o,n))return}return oldDrawBird(o)};
+drawBird=function(o){
+  const n=state.mode==='endless'?endlessStage():lv();
+  if(state.mode==='endless'&&n<=7){
+    const saved=state.mode;state.mode='adventure';
+    try{return oldDrawBird(o);}finally{state.mode=saved;}
+  }
+  if(n>=8&&n<=10&&(o.type==='bird'||o.type==='birdfast'||o.type==='owl')){if(crowSprite(o,n))return}
+  return oldDrawBird(o);
+};
 const oldSpawnBird=spawnBird;
 spawnBird=function(theme){
-  const n=(theme&&theme.id)||lv();
-  if(state.mode==='endless'||n<8)return oldSpawnBird(theme);
+  const n=state.mode==='endless'?endlessStage():((theme&&theme.id)||lv());
+  if(state.mode==='endless'&&n<=7){
+    const saved=state.mode;state.mode='adventure';
+    try{return oldSpawnBird(levelTheme(n-1));}finally{state.mode=saved;}
+  }
+  if(n<8)return oldSpawnBird(theme);
   const fast=Math.random()<(n===8?.55:n===9?.72:.78);
   const y=rand(170,H-220);
   const speed=levelTheme(state.levelIndex).speed+rand(fast?52:34,n===10?118:n===9?102:80);
@@ -168,6 +183,16 @@ spawnBird=function(theme){
     warned:false,passed:false,near:false,variant:0,
     hfDive:Math.random()<diveChance,hfDiveStart:false,hfDiveTarget:y
   });
+};
+
+/* Endless levels 1-7 use the exact same HD player asset as adventure. */
+const oldDrawPlayer=drawPlayer;
+drawPlayer=function(){
+  if(state.mode==='endless'&&endlessStage()<=7){
+    const saved=state.mode;state.mode='adventure';
+    try{return oldDrawPlayer();}finally{state.mode=saved;}
+  }
+  return oldDrawPlayer();
 };
 
 function stormFace(n,o){const mood=Math.sin((o.phase||0)*.7+state.time*1.3+(o.variant||0)),eye=n>=9?'rgba(255,86,62,.98)':'rgba(255,190,68,.98)';ctx.save();ctx.shadowColor=eye;ctx.shadowBlur=n>=9?18:13;ctx.fillStyle=eye;ctx.beginPath();ctx.ellipse(-17,3,6.5,5,-.15,0,Math.PI*2);ctx.ellipse(17,3,6.5,5,.15,0,Math.PI*2);ctx.fill();ctx.strokeStyle='rgba(28,12,24,.85)';ctx.lineWidth=4.5;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(-29,-8);ctx.lineTo(-12,-3);ctx.moveTo(29,-8);ctx.lineTo(12,-3);ctx.stroke();ctx.strokeStyle=n>=9?'rgba(255,92,71,.98)':'rgba(255,198,70,.98)';ctx.lineWidth=4.5;ctx.beginPath();if(mood>0){ctx.moveTo(-18,25);ctx.quadraticCurveTo(0,14,18,25)}else{ctx.moveTo(-18,21);ctx.quadraticCurveTo(0,37,18,21)}ctx.stroke();ctx.restore()}
