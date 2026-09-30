@@ -1,16 +1,16 @@
-const CACHE_NAME='nuage-nomade-20260930-fullscreen-endless-hd-3';
+const CACHE_NAME='nuage-nomade-20260930-endless-native-hd-4';
 const CORE=[
  './',
- './index.html?v=20260930-fullscreen-endless-hd-3',
+ './index.html?v=20260930-endless-native-hd-4',
  './manifest.webmanifest',
  './icon.svg',
  './install.html',
- './hotfix.js?v=20260930-fullscreen-endless-hd-3',
- './assets/level8.webp?v=20260930-fullscreen-endless-hd-3',
- './assets/vortex.webp?v=20260930-fullscreen-endless-hd-3',
- './assets/crows_atlas.webp?v=20260930-fullscreen-endless-hd-3',
- './assets/storms_atlas.webp?v=20260930-fullscreen-endless-hd-3',
- './assets/boss_atlas.webp?v=20260930-fullscreen-endless-hd-3'
+ './hotfix.js?v=20260930-endless-native-hd-4',
+ './assets/level8.webp?v=20260930-endless-native-hd-4',
+ './assets/vortex.webp?v=20260930-endless-native-hd-4',
+ './assets/crows_atlas.webp?v=20260930-endless-native-hd-4',
+ './assets/storms_atlas.webp?v=20260930-endless-native-hd-4',
+ './assets/boss_atlas.webp?v=20260930-endless-native-hd-4'
 ];
 self.addEventListener('install',e=>{
  self.skipWaiting();
@@ -24,6 +24,6 @@ self.addEventListener('fetch',e=>{
  e.respondWith(
   fetch(e.request,{cache:'no-store'})
    .then(r=>{const copy=r.clone();caches.open(CACHE_NAME).then(c=>c.put(e.request,copy)).catch(()=>{});return r;})
-   .catch(()=>caches.match(e.request).then(hit=>hit||caches.match('./index.html?v=20260930-fullscreen-endless-hd-3')||caches.match('./')))
+   .catch(()=>caches.match(e.request).then(hit=>hit||caches.match('./index.html?v=20260930-endless-native-hd-4')||caches.match('./')))
  );
 });
