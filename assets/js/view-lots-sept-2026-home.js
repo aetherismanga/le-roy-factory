@@ -78,7 +78,7 @@
     const promo=document.createElement('a');
     promo.className='viewlots26-header';
     promo.href='view-lots-septembre-2026.html';
-    promo.setAttribute('aria-label','Découvrir les lots VIEW Septembre 2026');
+    promo.setAttribute('aria-label','Découvrir les lots VIEW Octobre 2026');
     promo.innerHTML='<span class="viewlots26-header-inner"><b>VIEW</b><small>LOTS OCT. 26</small></span>';
     promo.addEventListener('click',open);
     nav.insertBefore(promo,burger);
@@ -89,7 +89,7 @@
     const desktop=document.createElement('a');
     desktop.className='viewlots26-desktop';
     desktop.href='view-lots-septembre-2026.html';
-    desktop.setAttribute('aria-label','Découvrir les lots VIEW Septembre 2026');
+    desktop.setAttribute('aria-label','Découvrir les lots VIEW Octobre 2026');
     desktop.innerHTML='<div class="viewlots26-desktop-copy"><div class="viewlots26-desktop-kicker">Offre pro · Octobre 2026</div><div class="viewlots26-desktop-title">LOTS VIEW<br>CHOIX MS</div><div class="viewlots26-desktop-sub">17 lots disponibles · tarifs réservés aux clients identifiés</div><span class="viewlots26-desktop-cta">Voir les lots</span></div><div class="viewlots26-desktop-logo"><img src="assets/img/view.png" alt="VIEW Ceramiche" loading="lazy" decoding="async"></div>';
     desktop.addEventListener('click',open);
     hero.appendChild(desktop);
