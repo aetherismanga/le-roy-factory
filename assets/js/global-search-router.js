@@ -39,7 +39,7 @@
         await loadScript('assets/js/inspirations-view-data.js?v=20260907-view-lot1-final','lrf-view-data-boot');
         await loadScript('assets/js/inspirations-view-elios-parity.js?v=20260907-view-parity3','lrf-view-parity-boot');
         await loadScript('assets/js/inspirations-view-data-lot2.js?v=20260907-view-lot2','lrf-view-data2-boot');
-        await loadScript('assets/js/inspirations-view-data-lot3.js?v=20260907-view-lot3','lrf-view-data3-boot');
+        await loadScript('assets/js/inspirations-view-data-lot3.js?v=20260907-view-lot3','lrf-view-data3-boot');\n        await loadScript('assets/js/inspirations-view-tariff-2026-10-15.js?v=20261005-view-tariff1','lrf-view-tariff-20261015-boot');
         await loadScript('assets/js/inspirations-view-accessories.js?v=20260911-view-accessories1','lrf-view-accessories-boot');
         await loadScript('assets/js/inspirations-view-hd.js?v=20260907-view-hd1','lrf-view-hd-boot');
         await loadScript('assets/js/inspirations-view-mobile-safe.js?v=20260911-view-safe-stable2','lrf-view-mobile-safe');
@@ -68,7 +68,7 @@
         await loadScript('assets/js/inspirations-view-data.js?v=20260907-view-lot1-final','lrf-search-view-data');
         await loadScript('assets/js/inspirations-view-elios-parity.js?v=20260907-view-parity3','lrf-search-view-parity');
         await loadScript('assets/js/inspirations-view-data-lot2.js?v=20260907-view-lot2','lrf-search-view-data-lot2');
-        await loadScript('assets/js/inspirations-view-data-lot3.js?v=20260907-view-lot3','lrf-search-view-data-lot3');
+        await loadScript('assets/js/inspirations-view-data-lot3.js?v=20260907-view-lot3','lrf-search-view-data-lot3');\n        await loadScript('assets/js/inspirations-view-tariff-2026-10-15.js?v=20261005-view-tariff1','lrf-search-view-tariff-20261015');
         await loadScript('assets/js/inspirations-neobath-data.js?v=20260907-search9','lrf-search-neobath-data');
         await loadScript('assets/js/reviglass-search-index.js?v=20260911-ref1','lrf-search-reviglass-index');
         await loadScript('assets/js/site-search-v2.js?v=20260911-ref1','lrf-site-search-js-v2');
