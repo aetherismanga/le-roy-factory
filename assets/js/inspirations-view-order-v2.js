@@ -175,9 +175,13 @@
     const need = Math.max(0, Number(line.qty || 0));
     if (pack?.m2Box > 0) {
       const boxes = need > 0 ? Math.ceil((need / Number(pack.m2Box)) - 1e-10) : 0;
-      return {need, boxes, real:boxes * Number(pack.m2Box), m2Box:Number(pack.m2Box), pcsBox:Number(pack.pcsBox || 0)};
+      const boxesPallet = Number(pack.boxesPallet || 0) || null;
+      const m2Pallet = Number(pack.m2Pallet || 0) || (boxesPallet ? boxesPallet * Number(pack.m2Box) : null);
+      return {need, boxes, real:boxes * Number(pack.m2Box), m2Box:Number(pack.m2Box), pcsBox:Number(pack.pcsBox || 0), boxesPallet, m2Pallet};
     }
-    return {need, boxes:null, real:need, m2Box:null, pcsBox:null};
+    const boxesPallet = Number(pack?.boxesPallet || 0) || null;
+    const m2Pallet = Number(pack?.m2Pallet || 0) || null;
+    return {need, boxes:null, real:need, m2Box:null, pcsBox:null, boxesPallet, m2Pallet};
   }
 
   function renderLines() {
@@ -204,6 +208,8 @@
             <div class="view-order-calc">
               <div class="view-order-stat"><span>Boîtage</span><strong>${calc.m2Box ? `${fr(calc.m2Box)} m²/carton` : 'À confirmer'}</strong></div>
               <div class="view-order-stat"><span>Pièces / carton</span><strong>${calc.pcsBox ? fr(calc.pcsBox,0) : '—'}</strong></div>
+              <div class="view-order-stat"><span>M² / palette</span><strong>${calc.m2Pallet ? `${fr(calc.m2Pallet)} m²` : 'À confirmer'}</strong></div>
+              <div class="view-order-stat"><span>Cartons / palette</span><strong>${calc.boxesPallet ? fr(calc.boxesPallet,0) : '—'}</strong></div>
               <div class="view-order-stat"><span>Cartons calculés</span><strong>${calc.boxes == null ? 'À confirmer' : calc.boxes}</strong></div>
               <div class="view-order-stat"><span>M² réels</span><strong>${fr(calc.real)} m²</strong></div>
             </div>
@@ -339,7 +345,7 @@
         `Finition : ${v.finish || '—'}`,
         `Couleur : ${line.color || '—'}`,
         `Besoin : ${fr(calc.need)} m²`,
-        calc.m2Box ? `Conditionnement : ${fr(calc.m2Box)} m²/carton${calc.pcsBox ? ` · ${fr(calc.pcsBox,0)} pcs/carton` : ''}` : 'Conditionnement : à confirmer',
+        calc.m2Box ? `Conditionnement : ${fr(calc.m2Box)} m²/carton${calc.pcsBox ? ` · ${fr(calc.pcsBox,0)} pcs/carton` : ''}${calc.m2Pallet ? ` · ${fr(calc.m2Pallet)} m²/palette` : ''}${calc.boxesPallet ? ` · ${fr(calc.boxesPallet,0)} cartons/palette` : ''}` : 'Conditionnement : à confirmer',
         calc.boxes != null ? `Quantité calculée : ${calc.boxes} carton${calc.boxes > 1 ? 's' : ''} = ${fr(calc.real)} m²` : `Quantité : ${fr(calc.real)} m² — boîtage à confirmer`
       ].join('\n');
     });
