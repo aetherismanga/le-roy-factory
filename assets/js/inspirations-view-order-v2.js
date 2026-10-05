@@ -221,9 +221,11 @@
 
   function updateRowCalc(row, line) {
     const calc = lineCalculation(line);
-    const values = $$('.view-order-stat strong', row);
-    if (values[2]) values[2].textContent = calc.boxes == null ? 'À confirmer' : String(calc.boxes);
-    if (values[3]) values[3].textContent = `${fr(calc.real)} m²`;
+    const stats = $('.view-order-stat', row);
+    const boxesEl = stats.find(x => /Cartons calculés/i.test($('span',x)?.textContent || ''))?.querySelector('strong');
+    const realEl = stats.find(x => /^M² réels$/i.test(($('span',x)?.textContent || '').trim()))?.querySelector('strong');
+    if (boxesEl) boxesEl.textContent = calc.boxes == null ? 'À confirmer' : String(calc.boxes);
+    if (realEl) realEl.textContent = `${fr(calc.real)} m²`;
   }
 
   function handleQtyInput(e) {
