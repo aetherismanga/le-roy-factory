@@ -107,5 +107,27 @@ function printTour(){if(!currentPlan)return;window.print()}
 function quickSelect(){const q=clean($('#tour-client-search')?.value).toLowerCase();const rows=filteredClients.filter(c=>!q||[c.societe,c.ville,c.codePostal,c.code_postal,c.contact].some(v=>clean(v).toLowerCase().includes(q)));rows.slice(0,20).forEach(c=>{if(!selectionOrder.includes(c.id)){selectionOrder.push(c.id);meta(c.id)}});renderAllSelections()}
 function clearSelection(){selectionOrder=[];selectionMeta={};renderAllSelections()}
 
-async function init(){addMapsButton();tickClock();setInterval(tickClock,30000);initDates();initMode();initPartners();try{const snap=await getDocs(collection(db,'clients'));clients=snap.docs.map(d=>({id:d.id,...d.data()}));renderDeps();initStartDatalist();refreshClients()}catch(e){console.error(e);setStatus('Impossible de charger les clients.','error')}$('#tour-client-search').addEventListener('input',renderClientList);$('#tour-smart-select').onclick=quickSelect;$('#tour-clear-select').onclick=clearSelection;$('#tour-use-location').onclick=useLocation;$('#tour-calculate').onclick=calculate;$('#tour-save').onclick=saveTour;$('#tour-print').onclick=printTour;$('#tour-start-address').addEventListener('change',()=>{startPosition=null});await loadSavedTours()}
+function installWeekTourPreset(){
+  if(document.getElementById('tour-week-view'))return;
+  const host=document.querySelector('.tour-config .tour-actions');
+  if(!host)return;
+  const b=document.createElement('button');b.id='tour-week-view';b.type='button';b.className='tour-btn teal';b.textContent='📅 Charger tournée VIEW — 6 au 9 octobre';
+  b.onclick=()=>{
+    const days=[
+      ['2026-10-06','Nîmes',[['09:15','Design Carrelage','Aubord'],['11:30','JEM Carrelage','Venelles'],['15:15','SMCE Prestige','Meyrargues'],['17:00','SOLMAT','Aubagne']]],
+      ['2026-10-07','Aubagne',[['08:00','Mondial Marbre','Septèmes-les-Vallons'],['09:45','France Marbre','Lançon-Provence'],['11:10','Les Carreaux de Jean','Miramas'],['14:30','Masterceram','Tarascon'],['16:30','Dépôt Carrelage et Bain','Bagard']]],
+      ['2026-10-08','Orange',[['08:00','Caropromo','Piolenc'],['09:20','Flash Carrelage','Bédarrides'],['12:15','Carreau Concept','La Garde'],['14:30','KRO Céramique','Fréjus']]],
+      ['2026-10-09','Nice',[['08:30','Mille Couleurs d’Eau','Grasse'],['09:45','INOUTLET','Nice'],['11:00','Cera Stone','Saint-Laurent-du-Var']]]
+    ];
+    const box=document.getElementById('tour-route');
+    document.getElementById('tour-result-sub').textContent='Tournée VIEW avec Alessio · 6 au 9 octobre 2026';
+    box.innerHTML=days.map((d,di)=>'<div class="tour-day-v5"><div class="tour-day-head-v5"><div><h3>'+new Date(d[0]+'T12:00:00').toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'})+'</h3><small>Départ : '+d[1]+'</small></div></div>'+d[2].map((s,i)=>'<div class="route-stop-v5"><div class="route-order-v5">'+(i+1)+'</div><div class="route-stop-main"><h4>'+s[1]+'</h4><p>'+s[2]+'</p><p class="route-stop-time"><strong>'+s[0]+'</strong></p></div></div>').join('')+'</div>').join('');
+    currentPlan={name:'Tournée VIEW — 6 au 9 octobre 2026',dateStart:'2026-10-06',dateEnd:'2026-10-09',mode:'manual',start:{label:'Nîmes',address:'Nîmes'},startAddress:'Nîmes',days:days.map(d=>({date:d[0],stops:d[2].map((s,i)=>({order:i+1,societe:s[1],adresse:'',codePostal:'',ville:s[2],arrival:s[0],departure:'',travelSeconds:0,distanceMeters:0,note:'',requestedTime:s[0]}))})),totalDistance:0,totalDrive:0};
+    document.getElementById('tour-google-maps').disabled=false;document.getElementById('tour-print').disabled=false;
+    setStatus('✅ Tournée VIEW de cette semaine chargée. Utilisez Google Maps pour lancer la navigation.','ok');
+    window.scrollTo({top:document.querySelector('.tour-result').offsetTop-20,behavior:'smooth'});
+  };
+  host.appendChild(b);
+}
+async function init(){addMapsButton();installWeekTourPreset();tickClock();setInterval(tickClock,30000);initDates();initMode();initPartners();try{const snap=await getDocs(collection(db,'clients'));clients=snap.docs.map(d=>({id:d.id,...d.data()}));renderDeps();initStartDatalist();refreshClients()}catch(e){console.error(e);setStatus('Impossible de charger les clients.','error')}$('#tour-client-search').addEventListener('input',renderClientList);$('#tour-smart-select').onclick=quickSelect;$('#tour-clear-select').onclick=clearSelection;$('#tour-use-location').onclick=useLocation;$('#tour-calculate').onclick=calculate;$('#tour-save').onclick=saveTour;$('#tour-print').onclick=printTour;$('#tour-start-address').addEventListener('change',()=>{startPosition=null});await loadSavedTours()}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
