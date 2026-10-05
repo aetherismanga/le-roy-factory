@@ -241,7 +241,7 @@
     </div>
 
     <div class="map-card" id="map-card-container">
-      <div class="filter-bar">
+      <div class="filter-bar">\n        <button id="btn-week-tour" class="btn-filter" style="background:#0f9f98;color:#fff;border-color:#087d77;font-weight:800;">🚗 Tournée VIEW</button>
         <button class="btn-filter active" data-filter="all">Tous les secteurs</button>
         <button class="btn-filter" data-filter="jerome">Secteur Jérôme (30, 34, 11, 66)</button>
         <button class="btn-filter" data-filter="coryne">Secteur Coryne (13, 83, 84, 04, 06, 05, 2A, 2B, Monaco)</button>
@@ -343,7 +343,7 @@
         attribution: '© OpenStreetMap contributors | LE ROY FACTORY'
       }).addTo(map);
 
-      const markersLayer = L.layerGroup().addTo(map);
+      const markersLayer = L.layerGroup().addTo(map);\n      const tourLayer = L.layerGroup().addTo(map);\n      let tourMode=false;
       const counterEl = document.getElementById("map-counter");
 
       // Pins personnalisés
