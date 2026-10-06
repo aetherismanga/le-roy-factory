@@ -61,7 +61,7 @@
       const list = GROUPS[name] || [];
       for (const src of list) {
         await loadScript(src);
-        if (urgent) await nextFrame();
+        if (urgent) { await nextFrame(); await wait(18); }
         else await wait(45);
       }
       window.dispatchEvent(new CustomEvent(`lrf-selections-${name}-ready`));
@@ -258,7 +258,7 @@
     if (isIOS) return;
 
     idle(() => {
-      loadGroup('elios').finally(() => { idle(() => loadGroup('view'), 1800); });
+      loadGroup('elios');
     }, 1000);
   };
 
