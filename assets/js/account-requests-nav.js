@@ -22,24 +22,19 @@ if (!window.__lrfSecureCloudFetchInstalled) {
   };
 }
 
-async function openMaStation(){
-  // Version universelle CRM : fonctionne sur Android, iPhone et ordinateur,
-  // sans dépendre de l'application MA STATION installée sur le téléphone.
-  window.location.href='ma-station.html';
-}
-
 function addNav(){
   const menu=document.querySelector('.sidebar-menu');
   if(menu){[...menu.querySelectorAll('a')].filter(a=>a.getAttribute('href')?.includes('filter=prospect')).forEach(a=>a.closest('li')?.remove());}
   if(menu&&!menu.querySelector('a[href="demandes-clients.html"]')){const clients=[...menu.querySelectorAll('a')].find(a=>a.getAttribute('href')==='clients.html')?.closest('li');const li=document.createElement('li');li.innerHTML='<a href="demandes-clients.html"><span class="icon">🧾</span><span class="menu-text">Demandes clients</span></a>';if(clients)clients.insertAdjacentElement('afterend',li);else menu.appendChild(li);}
   if(menu&&!menu.querySelector('a[href="tournees.html"]')){const agenda=[...menu.querySelectorAll('a')].find(a=>a.getAttribute('href')==='agenda.html')?.closest('li');const li=document.createElement('li');li.innerHTML='<a href="tournees.html"><span class="icon">🧭</span><span class="menu-text">Tournées</span></a>';if(agenda)agenda.insertAdjacentElement('afterend',li);else menu.appendChild(li);}
   if(menu&&!menu.querySelector('a[href="contacts-partenaires.html"]')){const mails=[...menu.querySelectorAll('a')].find(a=>a.getAttribute('href')==='mails-groupes.html')?.closest('li');const li=document.createElement('li');li.innerHTML='<a href="contacts-partenaires.html"><span class="icon">🏭</span><span class="menu-text">Contacts partenaire</span></a>';if(mails)mails.insertAdjacentElement('afterend',li);else menu.appendChild(li);}
-  if(menu){const stats=[...menu.querySelectorAll('a')].find(a=>a.textContent.toLowerCase().includes('statistiques'));if(stats)stats.href='statistiques.html';if(!menu.querySelector('[data-open-ma-station]')){const statsLi=stats?.closest('li');const settings=[...menu.querySelectorAll('a')].find(a=>a.textContent.toLowerCase().includes('paramètres'))?.closest('li');const li=document.createElement('li');li.innerHTML='<a href="#" data-open-ma-station="1"><span class="icon">⛽</span><span class="menu-text">Ma Station</span></a>';if(statsLi)statsLi.insertAdjacentElement('afterend',li);else if(settings)settings.insertAdjacentElement('beforebegin',li);else menu.appendChild(li);}}
+  if(menu){const stats=[...menu.querySelectorAll('a')].find(a=>a.textContent.toLowerCase().includes('statistiques'));if(stats)stats.href='statistiques.html';menu.querySelectorAll('[data-open-ma-station], a[href="ma-station.html"]').forEach(a=>a.closest('li')?.remove());if(!menu.querySelector('a[href="analyse-ventes-clients.html"]')){const statsLi=stats?.closest('li');const settings=[...menu.querySelectorAll('a')].find(a=>a.textContent.toLowerCase().includes('paramètres'))?.closest('li');const li=document.createElement('li');li.innerHTML='<a href="analyse-ventes-clients.html"><span class="icon">📈</span><span class="menu-text">Analyse ventes clients</span></a>';if(statsLi)statsLi.insertAdjacentElement('afterend',li);else if(settings)settings.insertAdjacentElement('beforebegin',li);else menu.appendChild(li);}}
+  menu?.querySelector('a[href="analyse-ventes-clients.html"]')?.classList.toggle('active',location.pathname.endsWith('analyse-ventes-clients.html'));
   if(location.pathname.toLowerCase().endsWith('dashboard.html')){const quick=[...document.querySelectorAll('h2')].find(h=>h.textContent.includes('Actions rapides'))?.nextElementSibling;if(quick&&!quick.querySelector('a[href="demandes-clients.html"]')){const a=document.createElement('a');a.href='demandes-clients.html';a.className='btn-primary-gold';a.style.cssText='text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.25rem';a.textContent='🧾 Demandes clients';quick.appendChild(a);}if(quick&&!quick.querySelector('a[href="tournees.html"]')){const a=document.createElement('a');a.href='tournees.html';a.className='btn-primary-gold';a.style.cssText='text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.25rem';a.textContent='🧭 Créer une tournée';quick.appendChild(a);}if(quick&&!quick.querySelector('a[href="ouverture-compte.html"]')){const a=document.createElement('a');a.href='ouverture-compte.html';a.target='_blank';a.className='btn-primary-gold';a.style.cssText='text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.25rem';a.textContent='🔗 Formulaire ouverture / mise à jour';quick.appendChild(a);}}
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',addNav,{once:true});else addNav();
 
-document.addEventListener('click',e=>{const a=e.target.closest('[data-open-ma-station]');if(!a)return;e.preventDefault();openMaStation();});
+
 
 const lrfCurrentPage=(location.pathname.split('/').pop()||'').toLowerCase();
 const lrfClientIntegrityReady=lrfCurrentPage==='clients.html'
