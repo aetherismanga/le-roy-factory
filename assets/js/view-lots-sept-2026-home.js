@@ -45,7 +45,7 @@
   const modal=document.createElement('div');
   modal.className='viewlots26-modal';
   modal.setAttribute('aria-hidden','true');
-  modal.innerHTML='<div class="viewlots26-box" role="dialog" aria-modal="true" aria-label="Lots VIEW Octobre 2026"><button class="viewlots26-close" type="button" aria-label="Fermer">×</button><iframe class="viewlots26-frame" title="Lots VIEW Octobre 2026" data-src="view-lots-septembre-2026.html?v=20261009-lots3" loading="lazy"></iframe><div class="viewlots26-loading">Chargement des lots VIEW…</div></div>';
+  modal.innerHTML='<div class="viewlots26-box" role="dialog" aria-modal="true" aria-label="Lots VIEW Octobre 2026"><button class="viewlots26-close" type="button" aria-label="Fermer">×</button><iframe class="viewlots26-frame" title="Lots VIEW Octobre 2026" data-src="view-lots-septembre-2026.html?v=20261001-lots1" loading="lazy"></iframe><div class="viewlots26-loading">Chargement des lots VIEW…</div></div>';
   document.body.appendChild(modal);
   const frame=modal.querySelector('.viewlots26-frame');
   frame.addEventListener('load',()=>{
@@ -67,15 +67,6 @@
     frame.setAttribute('src',frame.dataset.src);
   };
   const open=(e)=>{if(e)e.preventDefault();ensureFrameLoaded();modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.classList.add('viewlots26-lock')};
-  // When the embedded VIEW flow asks to leave the lots page, promote that
-  // navigation to the top-level page. This keeps the request page out of the
-  // modal and preserves the same-origin sessionStorage payload.
-  window.addEventListener('message',e=>{
-    if(e.origin!==location.origin||e.source!==frame.contentWindow)return;
-    if(e.data?.type==='lrf-view-lots-navigate'&&e.data?.href){
-      location.href=e.data.href;
-    }
-  });
   const close=()=>{modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.classList.remove('viewlots26-lock')};
   modal.querySelector('.viewlots26-close').addEventListener('click',close);
   modal.addEventListener('click',e=>{if(e.target===modal)close()});
