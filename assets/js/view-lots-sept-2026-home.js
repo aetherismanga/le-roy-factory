@@ -67,6 +67,15 @@
     frame.setAttribute('src',frame.dataset.src);
   };
   const open=(e)=>{if(e)e.preventDefault();ensureFrameLoaded();modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.classList.add('viewlots26-lock')};
+  // When the embedded VIEW flow asks to leave the lots page, promote that
+  // navigation to the top-level page. This keeps the request page out of the
+  // modal and preserves the same-origin sessionStorage payload.
+  window.addEventListener('message',e=>{
+    if(e.origin!==location.origin||e.source!==frame.contentWindow)return;
+    if(e.data?.type==='lrf-view-lots-navigate'&&e.data?.href){
+      location.href=e.data.href;
+    }
+  });
   const close=()=>{modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.classList.remove('viewlots26-lock')};
   modal.querySelector('.viewlots26-close').addEventListener('click',close);
   modal.addEventListener('click',e=>{if(e.target===modal)close()});
