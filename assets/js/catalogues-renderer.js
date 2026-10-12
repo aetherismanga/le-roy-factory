@@ -54,7 +54,7 @@
       ['Configurateur Meuble','Créez votre meuble sur mesure en ligne.','https://conf.randalsa.com/studio/register.php']
     ]},
     {nom:'Neobath',pays:'Italie',logo:'neobath.png',presentation:'Fabricant italien de meubles de salle de bain design.',fichiers:[['Catalogues Neobath','Collections et catalogue officiel à télécharger.','https://neobathdesign.fr/catalogues/']]},
-    {nom:'Koibath',pays:'Espagne',logo:'koibath.png',presentation:'Solutions innovantes et esthétiques pour la salle de bain moderne.',fichiers:[['Catalogue Salle de Bain','Équipements et aménagements modernes.','https://www.koibath.com/wp-content/uploads/2025-Catalogo-Espana-muebles-de-bano.pdf']]},
+    {nom:'Koibath',pays:'Espagne',logo:'koibath.png',presentation:'Solutions innovantes et esthétiques pour la salle de bain moderne.',fichiers:[['Catalogue Meubles interactif 2025','Collections KOIBATH avec lexique permanent et accès direct à chaque gamme.','koibath-catalogue-interactif.html']]},
     {nom:'Aquahome',pays:'Robinetterie',logo:'aquahome.png',presentation:'Robinetterie haut de gamme alliant design et performance technique.',fichiers:[['Catalogue Aquahome 2026','Catalogue officiel Aquahome 2026 — robinetterie.','assets/pdf/aquahome2026.pdf']]},
     {nom:'Opal',pays:'International',logo:'opal.png',presentation:"Fabricant de miroirs lumineux et décoratifs pour espaces d'eau.",fichiers:[['Miroirs & Éclairages','Gamme de miroirs lumineux et accessoires.','https://www.koibath.com/wp-content/uploads/CATALOGO-ESPEJOS-2025.pdf']]},
     {nom:'Reitano Rubinetteria',pays:'Italie',logo:'reitano.svg',presentation:'Robinetterie italienne et accessoires de salle de bain.',fichiers:[
@@ -70,7 +70,8 @@
   const renderFile=f=>{
     const [titre,desc,lien]=f;
     const isPdf=lien.toLowerCase().includes('.pdf');
-    return '<div class="catalogue-row"><div><strong>'+esc(titre)+'</strong><span>'+esc(desc)+'</span></div><a href="'+esc(lien)+'" target="_blank" rel="noopener" class="catalogue-link">'+(isPdf?'PDF':'Lien')+'</a></div>';
+    const isInteractive=lien.toLowerCase().includes('catalogue-interactif.html');
+    return '<div class="catalogue-row"><div><strong>'+esc(titre)+'</strong><span>'+esc(desc)+'</span></div><a href="'+esc(lien)+'" target="_blank" rel="noopener" class="catalogue-link">'+(isInteractive?'Interactif':(isPdf?'PDF':'Lien'))+'</a></div>';
   };
 
   function render(){
