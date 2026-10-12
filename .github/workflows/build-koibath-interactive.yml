@@ -1,0 +1,91 @@
+name: Build KOIBATH interactive catalogue
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'koibath-catalogue-interactif.html'
+      - 'assets/css/koibath-interactive.css'
+      - 'assets/js/koibath-interactive.js'
+      - '.github/workflows/build-koibath-interactive.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install PDF tooling
+        run: python -m pip install --disable-pip-version-check pymupdf requests
+
+      - name: Download official KOIBATH catalogue
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import requests
+
+          url = 'https://www.koibath.com/wp-content/uploads/2025-Catalogo-Espana-muebles-de-bano.pdf'
+          output = Path('assets/pdf/KOIBATH_Catalogue_Meubles_2025.pdf')
+          response = requests.get(url, timeout=180, headers={'User-Agent': 'Mozilla/5.0'})
+          response.raise_for_status()
+          if not response.content.startswith(b'%PDF') or len(response.content) < 5_000_000:
+              raise SystemExit('Le fichier KOIBATH téléchargé ne ressemble pas au catalogue PDF attendu.')
+          output.parent.mkdir(parents=True, exist_ok=True)
+          output.write_bytes(response.content)
+          print(f'Catalogue téléchargé : {len(response.content)} octets')
+          PY
+
+      - name: Validate catalogue pages and collections
+        run: |
+          python - <<'PY'
+          import fitz
+
+          path = 'assets/pdf/KOIBATH_Catalogue_Meubles_2025.pdf'
+          doc = fitz.open(path)
+          if doc.page_count != 103:
+              raise SystemExit(f'Nombre de pages KOIBATH inattendu : {doc.page_count} au lieu de 103.')
+
+          checks = {
+              'Ko Tao': 7,
+              'Malta': 10,
+              'Madeira': 14,
+              'Elba': 17,
+              'Laos': 21,
+              'Java': 26,
+              'Bali': 31,
+              'Saona': 36,
+              'Bora Bora': 40,
+              'Tahiti': 44,
+              'Tupai': 48,
+              'Corfu': 52,
+              'Mikonos': 59,
+              'Borneo': 69,
+              'Santorini': 72,
+              'Ibiza': 75,
+              'Hidra': 80,
+          }
+          failures = []
+          for collection, page_number in checks.items():
+              text = ''.join(doc[page_number - 1].get_text('text').split()).lower()
+              expected = ''.join(collection.split()).lower()
+              if expected not in text:
+                  failures.append(f'{collection} absent de la page PDF {page_number}')
+              else:
+                  print(f'{collection}: OK -> page PDF {page_number}')
+          if failures:
+              raise SystemExit('\n'.join(failures))
+          PY
+
+      - name: Commit official KOIBATH PDF
+        run: |
+          git config user.name "LRF Catalogue Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add assets/pdf/KOIBATH_Catalogue_Meubles_2025.pdf
+          git diff --cached --quiet && exit 0
+          git commit -m "Actualise le catalogue officiel KOIBATH"
+          git push
