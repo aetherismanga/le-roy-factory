@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#171717">
   <title>Catalogue KOIBATH interactif 2025 | LE ROY FACTORY</title>
   <link rel="icon" type="image/png" href="assets/img/logo03lrf.png">
-  <link rel="stylesheet" href="assets/css/koibath-interactive.css?v=20261012-1">
+  <link rel="stylesheet" href="assets/css/koibath-interactive.css?v=20261012-2">
 </head>
 <body>
   <header class="kb-header">
@@ -25,19 +25,15 @@
     <button type="button" id="previous-page" aria-label="Page précédente">‹</button>
     <label>Page <input id="page-input" inputmode="numeric" value="1" aria-label="Numéro de page"> <span id="page-total">/ 103</span></label>
     <button type="button" id="next-page" aria-label="Page suivante">›</button>
+    <button type="button" id="series-button" class="kb-series-button" aria-haspopup="dialog" aria-controls="series-dialog">☰ <span>Lexique</span></button>
     <span class="kb-toolbar-spacer"></span>
     <button type="button" id="zoom-out" aria-label="Réduire">−</button>
     <output id="zoom-value">100 %</output>
     <button type="button" id="zoom-in" aria-label="Agrandir">+</button>
   </div>
 
-  <nav class="kb-lexicon" aria-label="Lexique des collections KOIBATH">
-    <div class="kb-lexicon-title"><strong>Lexique</strong><small>Cliquez sur une collection</small></div>
-    <div id="collection-bar" class="kb-collection-bar"></div>
-  </nav>
-
   <main>
-    <div class="kb-help"><span></span>Sélectionnez une collection dans le lexique pour accéder directement à sa première page.</div>
+    <div class="kb-help"><span></span>Ouvrez le lexique pour choisir une collection et accéder directement à sa présentation.</div>
     <section id="catalogue-pages" class="kb-pages" aria-label="Catalogue KOIBATH"></section>
   </main>
 
@@ -46,7 +42,15 @@
     <strong>Chargement du catalogue KOIBATH…</strong>
   </div>
 
+  <dialog id="series-dialog" class="kb-dialog kb-series-dialog" aria-labelledby="series-title">
+    <button type="button" class="kb-close" data-close="series-dialog" aria-label="Fermer">×</button>
+    <p class="kb-kicker">Lexique KOIBATH</p>
+    <h2 id="series-title">Choisir une collection</h2>
+    <p class="kb-series-intro">Sélectionnez une collection pour accéder directement à sa présentation dans le catalogue.</p>
+    <div id="series-grid" class="kb-series-grid"></div>
+  </dialog>
+
   <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
-  <script src="assets/js/koibath-interactive.js?v=20261012-1"></script>
+  <script src="assets/js/koibath-interactive.js?v=20261012-2"></script>
 </body>
 </html>
