@@ -18,17 +18,7 @@
     { name: 'Mikonos', page: 59, printed: 116 },
     { name: 'Borneo', page: 69, printed: 136 },
     { name: 'Santorini', page: 72, printed: 142 },
-    { name: 'Ibiza', page: 75, printed: 148 },
-    { separator: true },
-    { name: 'Hidra', page: 80, printed: 158, extra: true },
-    { name: 'Auxiliaires', page: 82, printed: 162, extra: true },
-    { name: 'Lavabos porcelaine', page: 86, printed: 170, extra: true },
-    { name: 'Lavabos spéciaux', page: 87, printed: 172, extra: true },
-    { name: 'Plans', page: 90, printed: 178, extra: true },
-    { name: 'Vasques à poser', page: 92, printed: 182, extra: true },
-    { name: 'Miroirs', page: 95, printed: 188, extra: true },
-    { name: 'Robinetterie', page: 99, printed: 196, extra: true },
-    { name: 'Accessoires', page: 100, printed: 198, extra: true }
+    { name: 'Ibiza', page: 75, printed: 148 }
   ];
 
   const $ = id => document.getElementById(id);
@@ -56,11 +46,41 @@
   }
 
   function buildLexicon() {
-    $('collection-bar').innerHTML = COLLECTIONS.map(item => {
-      if (item.separator) return '<span class="kb-collection-separator" aria-hidden="true"></span>';
-      const extra = item.extra ? ' is-extra' : '';
-      return `<button type="button" class="kb-collection-button${extra}" data-pdf-page="${item.page}" title="Page catalogue ${item.printed}">${escapeHtml(item.name)}</button>`;
-    }).join('');
+    if ($('series-grid').children.length) return;
+    $('series-grid').innerHTML = COLLECTIONS.map((item, index) => `
+      <button type="button" class="kb-series-card" data-pdf-page="${item.page}" title="Page catalogue ${item.printed}">
+        <canvas class="kb-series-thumb" data-collection-index="${index}" role="img" aria-label="Aperçu de la collection ${escapeHtml(item.name)}"></canvas>
+        <span><strong>${escapeHtml(item.name)}</strong><small>Voir la collection</small></span>
+        <b aria-hidden="true">›</b>
+      </button>`).join('');
+  }
+
+  async function renderLexiconThumbnails() {
+    const canvases = [...document.querySelectorAll('.kb-series-thumb:not([data-rendered])')];
+    await Promise.all(canvases.map(async canvas => {
+      const item = COLLECTIONS[Number(canvas.dataset.collectionIndex)];
+      if (!item) return;
+      canvas.dataset.rendered = '1';
+      try {
+        const page = await state.pdf.getPage(item.page);
+        const base = page.getViewport({ scale: 1 });
+        const cssWidth = 208;
+        const scale = cssWidth / (base.width / 2);
+        const viewport = page.getViewport({ scale });
+        canvas.width = Math.ceil(viewport.width / 2);
+        canvas.height = Math.ceil(canvas.width / 1.55);
+        await page.render({ canvasContext: canvas.getContext('2d', { alpha: false }), viewport }).promise;
+      } catch (error) {
+        canvas.removeAttribute('data-rendered');
+        console.error(error);
+      }
+    }));
+  }
+
+  function openLexicon() {
+    buildLexicon();
+    $('series-dialog').showModal();
+    renderLexiconThumbnails();
   }
 
   function buildViews() {
@@ -189,9 +209,9 @@
   }
 
   function updateActiveCollection() {
-    const valid = COLLECTIONS.filter(item => !item.separator && item.page <= state.currentPdfPage);
+    const valid = COLLECTIONS.filter(item => item.page <= state.currentPdfPage);
     const active = valid.length ? valid[valid.length - 1] : null;
-    document.querySelectorAll('.kb-collection-button').forEach(button => {
+    document.querySelectorAll('.kb-series-card').forEach(button => {
       button.setAttribute('aria-current', active && Number(button.dataset.pdfPage) === active.page ? 'true' : 'false');
     });
   }
@@ -202,11 +222,16 @@
     $('page-input').onchange = event => goView(event.target.value);
     $('zoom-out').onclick = () => setZoom(state.zoom - .15);
     $('zoom-in').onclick = () => setZoom(state.zoom + .15);
-    $('collection-bar').onclick = event => {
+    $('series-button').onclick = openLexicon;
+    $('series-grid').onclick = event => {
       const button = event.target.closest('[data-pdf-page]');
       if (!button) return;
+      $('series-dialog').close();
       goPdfPage(Number(button.dataset.pdfPage));
     };
+    document.querySelectorAll('[data-close]').forEach(button => {
+      button.onclick = () => $(button.dataset.close).close();
+    });
     mobileQuery.addEventListener?.('change', () => window.location.reload());
   }
 
@@ -220,7 +245,7 @@
       const requested = new URLSearchParams(window.location.search).get('collection');
       if (requested) {
         const normalized = requested.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-        const item = COLLECTIONS.find(entry => !entry.separator && entry.name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase() === normalized);
+        const item = COLLECTIONS.find(entry => entry.name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase() === normalized);
         if (item) setTimeout(() => goPdfPage(item.page), 180);
       }
     } catch (error) {
