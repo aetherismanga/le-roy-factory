@@ -190,7 +190,12 @@
     const view = Math.max(1, Math.min(state.views.length, Number(value) || 1));
     const target = document.querySelector(`.kb-page[data-view="${view}"]`);
     if (!target) return;
-    target.scrollIntoView({ behavior, block: 'start' });
+    // Force an immediate jump even when a stylesheet requests smooth scrolling.
+    const root = document.documentElement;
+    const previous = root.style.scrollBehavior;
+    root.style.setProperty('scroll-behavior', 'auto', 'important');
+    target.scrollIntoView({ behavior: 'instant', block: 'start' });
+    root.style.scrollBehavior = previous;
     renderPage(target);
   }
 
