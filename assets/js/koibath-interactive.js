@@ -17,7 +17,7 @@
     { name: 'Corfú', page: 52, printed: 102 },
     { name: 'Mikonos', page: 59, printed: 116 },
     { name: 'Borneo', page: 69, printed: 136 },
-    { name: 'Santorini', page: 72, printed: 142, thumbPage: 73 },
+    { name: 'Santorini', page: 72, printed: 142, thumbPage: 73, thumbSide: 'right' },
     { name: 'Ibiza', page: 75, printed: 148 }
   ];
 
@@ -69,7 +69,9 @@
         const viewport = page.getViewport({ scale });
         canvas.width = Math.ceil(viewport.width / 2);
         canvas.height = Math.ceil(canvas.width / 1.55);
-        await page.render({ canvasContext: canvas.getContext('2d', { alpha: false }), viewport }).promise;
+        const options = { canvasContext: canvas.getContext('2d', { alpha: false }), viewport };
+        if (item.thumbSide === 'right') options.transform = [1, 0, 0, 1, -viewport.width / 2, 0];
+        await page.render(options).promise;
       } catch (error) {
         canvas.removeAttribute('data-rendered');
         console.error(error);
