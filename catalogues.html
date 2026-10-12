@@ -222,7 +222,7 @@ html body:not(.crm-body) header .main-nav>li>a.lrf-promo-cersaie-tab:focus{
           { titre:'Catalogues Neobath', desc:'Collections et catalogue officiel à télécharger.', lien:'https://neobathdesign.fr/catalogues/' }
         ]},
         { nom:'Koibath', pays:'Espagne', presentation:'Solutions innovantes et esthétiques pour la salle de bain moderne.', fichiers:[
-          { titre:'Catalogue Salle de Bain', desc:'Équipements et aménagements modernes.', lien:'https://www.koibath.com/wp-content/uploads/2025-Catalogo-Espana-muebles-de-bano.pdf' }
+          { titre:'Catalogue Meubles interactif 2025', desc:'Collections KOIBATH avec lexique permanent et accès direct à chaque gamme.', lien:'koibath-catalogue-interactif.html' }
         ]},
         { nom:'Aquahome', pays:'Robinetterie', presentation:'Robinetterie haut de gamme alliant design et performance technique.', fichiers:[
           { titre:'Catalogue Robinetterie', desc:'Catalogue momentanément indisponible — contactez LE ROY FACTORY.', lien:'contact.html' }
@@ -246,7 +246,8 @@ html body:not(.crm-body) header .main-nav>li>a.lrf-promo-cersaie-tab:focus{
 
       const renderFile = file => {
         const isPdf = file.lien.toLowerCase().includes('.pdf');
-        return `<div class="catalogue-row"><div><strong>${file.titre}</strong><span>${file.desc}</span>${file.index ? '<small class="catalogue-index-hint">Index intégré : Aniet · Ketra · Luksy · Tekny · Woods · Arendal · Heritage · Larvik · Vita</small>' : ''}</div><a href="${file.lien}" target="_blank" rel="noopener" class="catalogue-link" aria-label="Ouvrir ${file.titre}">${isPdf ? 'PDF' : 'Lien'}</a></div>`;
+        const isInteractive = file.lien.toLowerCase().includes('catalogue-interactif.html');
+        return `<div class="catalogue-row"><div><strong>${file.titre}</strong><span>${file.desc}</span>${file.index ? '<small class="catalogue-index-hint">Index intégré : Aniet · Ketra · Luksy · Tekny · Woods · Arendal · Heritage · Larvik · Vita</small>' : ''}</div><a href="${file.lien}" target="_blank" rel="noopener" class="catalogue-link" aria-label="Ouvrir ${file.titre}">${isInteractive ? 'Interactif' : (isPdf ? 'PDF' : 'Lien')}</a></div>`;
       };
 
       grid.innerHTML = cataloguesData.map(fab => {
