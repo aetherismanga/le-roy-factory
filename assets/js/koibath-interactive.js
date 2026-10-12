@@ -186,9 +186,12 @@
     return target ? target.index : 1;
   }
 
-  function goView(value, behavior = 'smooth') {
+  function goView(value, behavior = 'instant') {
     const view = Math.max(1, Math.min(state.views.length, Number(value) || 1));
-    document.querySelector(`.kb-page[data-view="${view}"]`)?.scrollIntoView({ behavior, block: 'start' });
+    const target = document.querySelector(`.kb-page[data-view="${view}"]`);
+    if (!target) return;
+    target.scrollIntoView({ behavior, block: 'start' });
+    renderPage(target);
   }
 
   function goPdfPage(pdfPage) {
