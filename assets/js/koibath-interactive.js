@@ -17,7 +17,7 @@
     { name: 'Corfú', page: 52, printed: 102 },
     { name: 'Mikonos', page: 59, printed: 116 },
     { name: 'Borneo', page: 69, printed: 136 },
-    { name: 'Santorini', page: 72, printed: 142 },
+    { name: 'Santorini', page: 72, printed: 142, thumbPage: 73 },
     { name: 'Ibiza', page: 75, printed: 148 }
   ];
 
@@ -62,7 +62,7 @@
       if (!item) return;
       canvas.dataset.rendered = '1';
       try {
-        const page = await state.pdf.getPage(item.page);
+        const page = await state.pdf.getPage(item.thumbPage || item.page);
         const base = page.getViewport({ scale: 1 });
         const cssWidth = 208;
         const scale = cssWidth / (base.width / 2);
