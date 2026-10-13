@@ -50,6 +50,7 @@
       ['Catalogue Design 2','Collections et ambiances.','https://heyzine.com/flip-book/890ffb683e.html']
     ]},
     {nom:'Randal Pro',pays:'Espagne',logo:'randal.png',presentation:'Mobilier de salle de bain sur mesure haut de gamme.',fichiers:[
+      ['Tiroirs STUDIO — Comparatif Premium et Plus','Présentation en français des tiroirs GRASS V8 et SIMPLEX by Emuca, dimensions et fonctionnalités.','assets/pdf/Tiroirs_STUDIO_FR_Textes_Gauche_Uniformes.pdf'],
       ['Catalogues Randal','Collections et téléchargements officiels.','https://randal.group/colecciones/'],
       ['Configurateur Meuble','Créez votre meuble sur mesure en ligne.','https://conf.randalsa.com/studio/register.php']
     ]},
