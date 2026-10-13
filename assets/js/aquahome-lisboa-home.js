@@ -48,7 +48,7 @@ outline-color:#a01951!important;color-scheme:light!important;opacity:1!important
 
 `;document.head.appendChild(style);
 const overlay=document.createElement('div');overlay.className='aq-lisboa-overlay';overlay.setAttribute('aria-hidden','true');
-overlay.innerHTML=`<section class="aq-lisboa-panel" role="dialog" aria-modal="true" aria-label="Offres AQUAHOME LISBOA"><button class="aq-lisboa-close" aria-label="Fermer">×</button><div class="aq-lisboa-head"><img src="assets/img/aquahome.png" alt="AQUAHOME"><div><strong>OFFRE PROFESSIONNELLE · DÉSTOCKAGE</strong><h2>Gamme LISBOA</h2><p>Jusqu'à épuisement des stocks · Prix nets HT</p></div></div><div class="aq-lisboa-locked" hidden>Tarifs réservés aux professionnels connectés et autorisés. <a href="tarifs-pro.html">Accéder à mon compte PRO</a></div><div class="aq-lisboa-private" hidden><img class="aq-lisboa-art" alt="Offre de déstockage AQUAHOME LISBOA" data-src="Destockaquahome.png"><div class="aq-lisboa-products"><div class="aq-lisboa-grid">${products.map((p,i)=>`<article class="aq-lisboa-item"><img class="aq-lisboa-product-image" src="assets/img/${p[1]}.png" alt="Photo ${p[0]}" loading="lazy"><h3>${p[0]}</h3><p>Réf. ${p[1]}</p><button type="button" class="aq-lisboa-price" data-select="${i}" aria-label="Sélectionner ${p[0]}">${p[2]} € HT</button><label>Quantité souhaitée (pièces) <input type="number" min="0" step="1" value="0" data-product="${i}"></label><button type="button" class="aq-lisboa-add" data-add="${i}">Ajouter au panier</button></article>`).join('')}</div><div class="aq-lisboa-cartbar"><button type="button" class="aq-lisboa-action" data-view-cart>Voir le panier (<span data-cart-count>0</span>)</button></div></div><section class="aq-lisboa-recap" hidden><h3>Récapitulatif du panier LISBOA</h3><div data-cart-lines></div><p class="aq-lisboa-total" data-cart-total></p><p class="aq-lisboa-muted">Prix HT · Disponibilité et réservation soumises à confirmation AQUAHOME. Le bouton d’envoi ouvre votre messagerie pour valider l’envoi.</p><div class="aq-lisboa-recap-actions"><button type="button" class="aq-lisboa-action" data-back-products>← Continuer mes achats</button><button type="button" class="aq-lisboa-action" data-send-cart>Préparer l’e-mail à AQUAHOME et Jérôme</button></div></section><form class="aq-lisboa-form" hidden><p class="aq-lisboa-note">Sélectionnez les quantités pour les références souhaitées. Le stock et le blocage restent soumis à confirmation.</p><button class="aq-lisboa-action" type="submit">Demande de disponibilité</button></form></div></section>`;
+overlay.innerHTML=`<section class="aq-lisboa-panel" role="dialog" aria-modal="true" aria-label="Offres AQUAHOME LISBOA"><button class="aq-lisboa-close" aria-label="Fermer">×</button><div class="aq-lisboa-head"><img src="assets/img/aquahome.png" alt="AQUAHOME"><div><strong>OFFRE PROFESSIONNELLE · DÉSTOCKAGE</strong><h2>Gamme LISBOA</h2><p>Jusqu'à épuisement des stocks · Prix nets HT</p></div></div><div class="aq-lisboa-locked" hidden>Tarifs réservés aux professionnels connectés et autorisés. <a href="tarifs-pro.html">Accéder à mon compte PRO</a></div><div class="aq-lisboa-private" hidden><img class="aq-lisboa-art" alt="Offre de déstockage AQUAHOME LISBOA" data-src="Destockaquahome.png"><div class="aq-lisboa-products"><div class="aq-lisboa-grid">${products.map((p,i)=>`<article class="aq-lisboa-item"><img class="aq-lisboa-product-image" src="assets/img/${p[1]}.png" alt="Photo ${p[0]}" loading="lazy"><h3>${p[0]}</h3><p>Réf. ${p[1]}</p><button type="button" class="aq-lisboa-price" data-select="${i}" aria-label="Sélectionner ${p[0]}">${p[2]} € HT</button><label>Quantité souhaitée (pièces) <input type="number" min="0" step="1" value="0" data-product="${i}"></label><button type="button" class="aq-lisboa-add" data-add="${i}">Ajouter au panier</button></article>`).join('')}</div><div class="aq-lisboa-cartbar"><button type="button" class="aq-lisboa-action" data-view-cart>Voir le panier (<span data-cart-count>0</span>)</button></div></div><section class="aq-lisboa-recap" hidden><h3>Récapitulatif du panier LISBOA</h3><div data-cart-lines></div><p class="aq-lisboa-total" data-cart-total></p><p class="aq-lisboa-muted">Prix HT · Disponibilité et réservation soumises à confirmation AQUAHOME. Le bouton d’envoi ouvre votre messagerie pour valider l’envoi.</p><div class="aq-lisboa-recap-actions"><button type="button" class="aq-lisboa-action" data-back-products>← Continuer mes achats</button><button type="button" class="aq-lisboa-action" data-send-cart>Envoyer la demande de disponibilité</button></div></section></div></section>`;
 document.body.appendChild(overlay);
 async function refreshAccess(){const allowed=await restorePro();overlay.querySelector('.aq-lisboa-private').hidden=!allowed;overlay.querySelector('.aq-lisboa-locked').hidden=allowed;if(allowed){const img=overlay.querySelector('.aq-lisboa-art');if(!img.src)img.src=img.dataset.src}}
 function open(e){e?.preventDefault();overlay.classList.add('open');overlay.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';refreshAccess()}
@@ -84,10 +84,36 @@ overlay.addEventListener('click',e=>{
   const cart=getCart(),entries=products.map(p=>({p,qty:Number(cart[p[1]])||0})).filter(x=>x.qty>0);
   if(!entries.length)return;
   const session=window.LRF_PRO_SESSION?.read?.()||{},societe=session.societe||'Client professionnel',identifiant=session.codeClient||session.email||'Compte PRO';
-  const lines=entries.map(x=>x.p[0]+' | Réf. '+x.p[1]+' | '+x.qty+' pièce(s) | '+euro(unit(x.p))+' HT/pièce | '+euro(unit(x.p)*x.qty)+' HT').join('\\n');
+  const lines=entries.map(x=>[
+    '• '+x.p[0],
+    '  Référence : '+x.p[1],
+    '  Quantité : '+x.qty+' pièce(s)',
+    '  Prix unitaire HT : '+euro(unit(x.p)),
+    '  Total HT : '+euro(unit(x.p)*x.qty)
+  ].join('\n')).join('\n\n');
   const total=entries.reduce((s,x)=>s+unit(x.p)*x.qty,0);
-  const body='Bonjour,\\n\\nDemande de disponibilité / commande sous réserve de confirmation — AQUAHOME LISBOA\\n\\n'+lines+'\\n\\nTOTAL HT : '+euro(total)+'\\n\\nClient : '+societe+'\\nIdentifiant : '+identifiant+'\\n\\nMerci de confirmer les stocks, les conditions et la prise en compte de la demande. Aucune commande n’est validée avant confirmation.\\n';
-  location.href='mailto:comercialventas@aquahomebs.com?cc='+encodeURIComponent('jerome@leroyfactory.fr')+'&subject='+encodeURIComponent('AQUAHOME LISBOA — Panier / demande — '+societe)+'&body='+encodeURIComponent(body);
+  const body=[
+    'Bonjour,',
+    '',
+    'Merci de bien vouloir confirmer la disponibilité des références suivantes :',
+    '',
+    'AQUAHOME — Gamme LISBOA',
+    '',
+    lines,
+    '',
+    'TOTAL HT : '+euro(total),
+    '',
+    'Client : '+societe,
+    'Identifiant : '+identifiant,
+    '',
+    'Merci de confirmer les stocks, les conditions commerciales et la prise en compte de cette demande.',
+    'Aucune commande ne sera considérée comme validée avant votre confirmation.',
+    '',
+    'Cordialement,',
+    societe,
+    'Agence Le Roy Factory'
+  ].join('\n');
+  location.href='mailto:comercialventas@aquahomebs.com?cc='+encodeURIComponent('jerome@leroyfactory.fr')+'&subject='+encodeURIComponent('AQUAHOME LISBOA — Demande de disponibilité — '+societe)+'&body='+encodeURIComponent(body);
  }
 });
 overlay.addEventListener('change',e=>{const el=e.target.closest('[data-cart-qty]');if(!el)return;const qty=Number(el.value);if(!Number.isInteger(qty)||qty<0||qty>9999){renderCart();return}const cart=getCart();if(qty===0)delete cart[el.dataset.cartQty];else cart[el.dataset.cartQty]=qty;setCart(cart);renderCart()});
