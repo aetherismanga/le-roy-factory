@@ -40,7 +40,7 @@
         box-sizing:border-box;
       }
 
-      .lrf-desktop-promo-stack>.viewlots26-desktop,
+      .lrf-desktop-promo-stack>.viewlots26-desktop,\n      .lrf-desktop-promo-stack>.aq-lisboa-desktop,
       .lrf-desktop-promo-stack>.bilt-talox-desktop,
       .lrf-desktop-promo-stack>.cersaie26-desktop,
       .lrf-desktop-promo-stack>.elios-rentree-desktop{
@@ -131,7 +131,7 @@
         align-items:stretch!important;
         gap:clamp(8px,1.2vw,12px)!important;
       }
-      .lrf-desktop-promo-stack>.viewlots26-desktop,
+      .lrf-desktop-promo-stack>.viewlots26-desktop,\n      .lrf-desktop-promo-stack>.aq-lisboa-desktop,
       .lrf-desktop-promo-stack>.bilt-talox-desktop,
       .lrf-desktop-promo-stack>.cersaie26-desktop,
       .lrf-desktop-promo-stack>.elios-rentree-desktop{
@@ -143,7 +143,7 @@
         padding:14px 16px!important;
         border-radius:18px!important;
       }
-      .lrf-desktop-promo-stack>.viewlots26-desktop,
+      .lrf-desktop-promo-stack>.viewlots26-desktop,\n      .lrf-desktop-promo-stack>.aq-lisboa-desktop,
       .lrf-desktop-promo-stack>.bilt-talox-desktop,
       .lrf-desktop-promo-stack>.elios-rentree-desktop{
         grid-template-columns:minmax(0,1fr) 54px!important;
@@ -181,7 +181,7 @@
     /* Portable très bas : on gagne encore de la hauteur sans supprimer les actualités. */
     @media (min-width:901px) and (max-width:1199px) and (max-height:700px){
       .lrf-desktop-promo-stack{bottom:9px!important;gap:7px!important}
-      .lrf-desktop-promo-stack>.viewlots26-desktop,
+      .lrf-desktop-promo-stack>.viewlots26-desktop,\n      .lrf-desktop-promo-stack>.aq-lisboa-desktop,
       .lrf-desktop-promo-stack>.bilt-talox-desktop,
       .lrf-desktop-promo-stack>.cersaie26-desktop,
       .lrf-desktop-promo-stack>.elios-rentree-desktop{
@@ -205,7 +205,7 @@
         --lrf-promo-right:clamp(18px,2.8vw,42px);
         --lrf-promo-safe-gap:clamp(20px,2vw,30px);
       }
-      .lrf-desktop-promo-stack>.viewlots26-desktop,
+      .lrf-desktop-promo-stack>.viewlots26-desktop,\n      .lrf-desktop-promo-stack>.aq-lisboa-desktop,
       .lrf-desktop-promo-stack>.bilt-talox-desktop,
       .lrf-desktop-promo-stack>.elios-rentree-desktop{
         grid-template-columns:minmax(0,1fr) clamp(56px,5vw,72px)!important;
@@ -230,7 +230,7 @@
         --lrf-promo-safe-gap:clamp(28px,2vw,40px);
       }
       .lrf-desktop-promo-stack{gap:16px}
-      .lrf-desktop-promo-stack>.viewlots26-desktop,
+      .lrf-desktop-promo-stack>.viewlots26-desktop,\n      .lrf-desktop-promo-stack>.aq-lisboa-desktop,
       .lrf-desktop-promo-stack>.bilt-talox-desktop,
       .lrf-desktop-promo-stack>.cersaie26-desktop,
       .lrf-desktop-promo-stack>.elios-rentree-desktop{
@@ -238,7 +238,7 @@
         min-height:clamp(145px,17.5vh,170px)!important;
         flex-basis:clamp(145px,17.5vh,170px)!important;
       }
-      .lrf-desktop-promo-stack>.viewlots26-desktop,
+      .lrf-desktop-promo-stack>.viewlots26-desktop,\n      .lrf-desktop-promo-stack>.aq-lisboa-desktop,
       .lrf-desktop-promo-stack>.bilt-talox-desktop,
       .lrf-desktop-promo-stack>.elios-rentree-desktop{
         grid-template-columns:minmax(0,1fr) 94px!important;
@@ -252,7 +252,7 @@
     /* Écrans courts (portable 1366x768, 1280x720, etc.) : colonne compacte. */
     @media (min-width:1200px) and (max-height:720px){
       .lrf-desktop-promo-stack{gap:8px!important}
-      .lrf-desktop-promo-stack>.viewlots26-desktop,
+      .lrf-desktop-promo-stack>.viewlots26-desktop,\n      .lrf-desktop-promo-stack>.aq-lisboa-desktop,
       .lrf-desktop-promo-stack>.bilt-talox-desktop,
       .lrf-desktop-promo-stack>.cersaie26-desktop,
       .lrf-desktop-promo-stack>.elios-rentree-desktop{
