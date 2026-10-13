@@ -12,7 +12,7 @@ html{scroll-behavior:smooth}body{overflow-x:hidden}.hero{min-height:165px}.wizar
 @media(max-width:360px){.wizard{grid-template-columns:repeat(3,minmax(0,1fr))}.choices{grid-template-columns:1fr}.hero h1{font-size:1.4rem}}
 </style></head><body>
 <header><div><a class="back" href="univers.html">← Retour aux sélections</a><img src="assets/img/randal.png" alt="RANDAL"></div></header>
-<main><section class="hero"><div><h1>Configurez votre meuble RANDAL</h1><p>Choisissez votre composition étape par étape, puis préparez votre demande de configuration.</p><a class="pdf" href="assets/pdf/RANDAL%2520V04.pdf" target="_blank" rel="noopener">Consulter le catalogue RANDAL V04 ↗</a></div></section>
+<main><section class="hero"><div><h1>Configurez votre meuble RANDAL</h1><p>Choisissez votre composition étape par étape, puis préparez votre demande de configuration.</p><a class="pdf" href="randal-catalogue-interactif.html">☰ Catalogue interactif RANDAL V04 →</a> <a class="pdf" href="assets/pdf/RANDAL%2520V04.pdf" target="_blank" rel="noopener">PDF original ↗</a></div></section>
 <nav class="wizard" id="steps" aria-label="Étapes de configuration"></nav>
 <section class="panel" id="panel"></section>
 <p class="note">Votre demande sera préparée dans votre messagerie et devra être envoyée manuellement. Les références, compatibilités, tarifs et délais sont à confirmer par RANDAL avant validation définitive.</p>
@@ -32,6 +32,8 @@ const save=()=>sessionStorage.setItem(key,JSON.stringify(st));
 const resetConfiguration=()=>{Object.assign(st,{width:'',height:'',depth:'',color:'',drawers:'',basin:'À définir',top:'À définir',mirror:'Sans miroir',quantity:1});};
 const normalize=()=>{const d=RANDAL[st.model];if(!d){resetConfiguration();return}if(!d.w.includes(Number(st.width))){st.width='';st.color=''}if(d.h.length===1)st.height=String(d.h[0]);else if(!d.h.includes(Number(st.height)))st.height='';st.depth=String(d.d);if(!d.colors.includes(st.color))st.color='';};
 normalize();
+const selectedFromCatalogue=new URLSearchParams(location.search).get('collection');
+if(selectedFromCatalogue&&models.some(([name])=>name===selectedFromCatalogue)&&st.model!==selectedFromCatalogue){st.model=selectedFromCatalogue;resetConfiguration();st.step=1;normalize();save();}
 const entry=(label,name,type='text',placeholder='')=>'<label class="field">'+label+'<input name="'+name+'" type="'+type+'" placeholder="'+placeholder+'" value="'+esc(st[name])+'"></label>';
 const select=(label,name,opts)=>'<label class="field">'+label+'<select name="'+name+'">'+opts.map(v=>'<option value="'+esc(v)+'" '+(st[name]===v?'selected':'')+'>'+esc(v)+'</option>').join('')+'</select></label>';
 const pick=(name,values)=>'<div class="choices">'+values.map(([value,sub])=>'<button type="button" class="choice '+(st[name]===value?'active':'')+'" data-field="'+name+'" data-value="'+esc(value)+'"><strong>'+esc(value)+'</strong><small>'+esc(sub||'')+'</small></button>').join('')+'</div>';
