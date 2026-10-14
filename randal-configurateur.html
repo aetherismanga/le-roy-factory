@@ -170,12 +170,12 @@ a.pdf:hover{background:white}
 .composition-overlay[hidden]{display:none!important}
 .composition-overlay{position:fixed;inset:0;z-index:20000;display:flex;align-items:center;justify-content:center;padding:clamp(8px,2vw,22px);isolation:isolate}
 .composition-shade{position:absolute;inset:0;background:rgba(30,35,31,.65);backdrop-filter:blur(5px)}
-.composition-window{position:relative;z-index:1;display:flex;flex-direction:column;background:#fdfcf9;color:#343a34;width:min(1080px,100%);max-height:min(92vh,950px);max-height:min(92dvh,950px);overflow:auto;border-radius:22px;box-shadow:0 26px 90px rgba(0,0,0,.29);overscroll-behavior:contain}
+.composition-window{position:relative;z-index:1;display:flex;flex-direction:column;background:#fdfcf9;color:#343a34;width:min(1080px,100%);max-height:min(92vh,950px);max-height:min(92dvh,950px);overflow-y:auto;overflow-x:hidden;border-radius:22px;box-shadow:0 26px 90px rgba(0,0,0,.29);overscroll-behavior:contain}
 .composition-top{position:static!important;top:auto!important;z-index:auto!important;display:flex;align-items:center;justify-content:space-between;padding:19px 24px;border-bottom:1px solid #e4e1d9;background:#f8f7f3!important;flex-shrink:0}
 .composition-top h2{margin:3px 0 0;font-size:1.5rem;line-height:1.2}
 .composition-eyebrow,.composition-label{font-size:.7rem;letter-spacing:.13em;font-weight:800;color:#907753}
 .composition-close{width:42px;height:42px;border:0;border-radius:50%;background:#e9e6df;color:#333e34;font-size:2rem;line-height:1;cursor:pointer;flex-shrink:0}
-.composition-layout{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(235px,.85fr);gap:20px;padding:20px;min-width:0;min-height:0}
+.composition-layout{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(235px,.85fr);gap:20px;padding:20px;min-width:0;min-height:auto;flex:0 0 auto}
 .composition-stage-area{min-width:0}
 .composition-canvas{position:relative;width:100%;height:clamp(370px,43vw,530px);overflow:hidden;border:1px solid #dad6cc;border-radius:17px;background:#e9e5dd}
 .composition-canvas canvas{display:block;width:100%;height:100%;cursor:grab;outline:none}
@@ -195,28 +195,32 @@ a.pdf:hover{background:white}
 .composition-selected strong{font-size:.96rem;overflow-wrap:anywhere}
 .composition-swatch img{margin:12px 0;width:49px;height:49px;border-radius:50%;border:1px solid #d7d3c9;object-fit:cover}
 .composition-disclaimer{font-size:.78rem;line-height:1.55;color:#817f77;margin-top:12px}
-.composition-footer{padding:13px 22px 19px;display:flex;justify-content:flex-end;border-top:1px solid #e8e6df}
+.composition-footer{position:static!important;flex:0 0 auto;z-index:auto;padding:13px 22px 19px;display:flex;justify-content:flex-end;border-top:1px solid #e8e6df;background:#fdfcf9}
 .composition-footer button{background:#e0e9df;color:#365042}
 .composition-fallback{height:100%;padding:18px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;align-items:center;justify-items:center}
 .composition-fallback img{width:100%;height:175px;object-fit:contain;background:#faf9f6;border-radius:9px}
 .composition-fallback p{grid-column:1/-1;font-size:.86rem;color:#60655e;text-align:center}
 @media(max-width:760px){
  .composition-overlay{padding:0;align-items:flex-end}
- .composition-window{height:auto;max-height:97vh;max-height:97dvh;width:100%;border-radius:18px 18px 0 0;padding-bottom:env(safe-area-inset-bottom)}
+ .composition-window{height:auto;max-height:97vh;max-height:97dvh;width:100%;border-radius:18px 18px 0 0;padding-bottom:env(safe-area-inset-bottom);overflow-y:auto;overflow-x:hidden}
  .composition-top{padding:13px 16px}
  .composition-top h2{font-size:1.24rem}
- .composition-layout{display:flex;flex-direction:column;gap:8px;padding:12px}
+ .composition-layout{display:flex;flex:0 0 auto;min-height:auto;flex-direction:column;gap:12px;padding:12px}
  .composition-canvas{height:min(52vh,390px);height:min(52dvh,390px);min-height:245px}
  .composition-details{padding:5px 7px}
  .composition-details h3{font-size:1.16rem;margin:4px 0 9px}
- .composition-selected{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 11px}
- .composition-selected>div{padding:7px 0}
- .composition-selected strong{font-size:.82rem}
+ .composition-selected{display:block;min-width:0}
+ .composition-selected>div{display:flex;flex-direction:column;gap:3px;min-width:0;padding:11px 0}
+ .composition-selected strong{display:block;font-size:.94rem;line-height:1.4;overflow-wrap:anywhere}
  .composition-swatch img{height:38px;width:38px;margin:6px 0}
  .composition-disclaimer{margin:4px 0 10px}
- .composition-footer{padding:8px 15px 12px}
+ .composition-footer{position:static!important;display:block;flex:0 0 auto;padding:14px 15px 17px;margin:0;background:#fdfcf9;border-top:1px solid #e8e6df}
  .composition-view-tools button{flex:1;padding:8px 6px;font-size:.78rem}
  .composition-gesture{font-size:.7rem}
+ .composition-footer button{display:block;width:100%;min-height:50px;margin:0;white-space:normal}
+ .composition-top>div{min-width:0}
+ .composition-details{min-width:0;overflow:visible}
+ .composition-details h3{overflow-wrap:anywhere;line-height:1.28}
 }
 @media print{.composition-overlay{display:none!important}}
 </style></head><body>
@@ -227,7 +231,7 @@ a.pdf:hover{background:white}
 <p class="note">Envoi depuis votre messagerie. Prix, compatibilité et disponibilité confirmés par RANDAL avant commande définitive.</p>
 </main><footer>RANDAL V04 · LE ROY FACTORY</footer>
 
-<script src="assets/js/randal-composition-3d.js?v=20261014-composition1"></script>
+<script src="assets/js/randal-composition-3d.js?v=20261014-fix-finition-mur-mobile2"></script>
 <script>
 (()=>{
 'use strict';
