@@ -5,7 +5,7 @@
 const THREE_URLS=['https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js','https://unpkg.com/three@0.152.2/build/three.min.js'];
 let libraryPromise=null,renderer=null,scene=null,camera=null,stage=null,resizeObserver=null,raf=0;
 let yaw=.47,pitch=.22,distance=3.55,lastPointer=null,lastPinch=null;
-let active=false,previousFocus=null,restoreOverflow='',current=null;
+let active=false,previousFocus=null,restoreOverflow='',current=null,sessionId=0,contextFailed=false;
 const $=id=>document.getElementById(id);
 const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
 const strip=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
@@ -58,16 +58,43 @@ function modal(){
  el.addEventListener('keydown',e=>{if(e.key==='Tab'){const items=[...el.querySelectorAll('button:not(:disabled)')];const first=items[0],last=items[items.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
  return el;
 }
-function close(){
- const el=$('randal-composition-dialog');if(!el||el.hidden)return;
- active=false;el.hidden=true;document.body.style.overflow=restoreOverflow;
+// Release CPU buffers, GPU textures and WebGL contexts after EVERY preview.
+function releaseRenderer(){
  cancelAnimationFrame(raf);raf=0;
  if(resizeObserver){resizeObserver.disconnect();resizeObserver=null}
- if(renderer){renderer.dispose();renderer.domElement.remove();renderer=null}
- if(scene){scene.traverse(x=>{if(x.geometry)x.geometry.dispose();if(x.material){const mats=Array.isArray(x.material)?x.material:[x.material];mats.forEach(m=>m.dispose&&m.dispose())}});scene=null}
- stage=null;camera=null;lastPointer=null;lastPinch=null;
+ if(scene){
+  const geometries=new Set(),materials=new Set(),textures=new Set();
+  scene.traverse(object=>{
+   if(object.geometry)geometries.add(object.geometry);
+   if(object.material){
+    const mats=Array.isArray(object.material)?object.material:[object.material];
+    mats.forEach(mat=>{if(mat)materials.add(mat)});
+   }
+  });
+  materials.forEach(mat=>{
+   for(const key of ['map','normalMap','roughnessMap','metalnessMap','aoMap','emissiveMap','alphaMap','envMap']){
+    if(mat[key]&&typeof mat[key].dispose==='function')textures.add(mat[key]);
+   }
+  });
+  textures.forEach(texture=>texture.dispose());
+  geometries.forEach(geo=>geo.dispose());
+  materials.forEach(mat=>mat.dispose());
+ }
+ if(renderer){
+  const currentRenderer=renderer;renderer=null;
+  try{currentRenderer.dispose();currentRenderer.forceContextLoss?.()}catch(err){console.warn('Libération WebGL RANDAL',err)}
+  try{currentRenderer.domElement.remove()}catch(err){}
+ }
+ scene=null;camera=null;stage=null;lastPointer=null;lastPinch=null;
+}
+function close(){
+ const el=$('randal-composition-dialog');if(!el||el.hidden)return;
+ active=false;sessionId++;el.hidden=true;document.body.style.overflow=restoreOverflow;
+ releaseRenderer();
+ current=null;
  if(previousFocus&&previousFocus.isConnected)previousFocus.focus();
 }
+
 function ensureThree(){
  if(window.THREE)return Promise.resolve(window.THREE);
  if(!libraryPromise){libraryPromise=new Promise((resolve,reject)=>{
@@ -93,34 +120,35 @@ function elliptical(parent,x,y,z,r1,r2,mat,rotation=-Math.PI/2){
 }
 function newMat(hex,rough=.6,metal=0){return new THREE.MeshStandardMaterial({color:hex,roughness:rough,metalness:metal})}
 function woodTexture(hex,grain){
- const c=document.createElement('canvas');c.width=512;c.height=512;
- const ctx=c.getContext('2d');ctx.fillStyle=hex;ctx.fillRect(0,0,512,512);
+ const c=document.createElement('canvas');c.width=256;c.height=256;
+ const ctx=c.getContext('2d');ctx.fillStyle=hex;ctx.fillRect(0,0,256,256);
  let seed=41792;const random=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296};
- for(let n=0;n<220;n++){const x=random()*512;const w=.5+random()*4;
+ for(let n=0;n<125;n++){const x=random()*256;const w=.5+random()*2;
  ctx.beginPath();ctx.strokeStyle=grain?(random()>.4?'rgba(43,25,14,.14)':'rgba(251,234,199,.12)'):'rgba(255,255,255,.045)';
- ctx.lineWidth=w;ctx.moveTo(x,0);ctx.bezierCurveTo(x+random()*22-11,145,x+random()*22-11,350,x+random()*10-5,512);ctx.stroke()}
- const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(1,1);t.anisotropy=4;
+ ctx.lineWidth=w;ctx.moveTo(x,0);ctx.bezierCurveTo(x+random()*11-5,70,x+random()*11-5,175,x+random()*7-3,256);ctx.stroke()}
+ const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(1,1);t.anisotropy=2;
  return t;
 }
 function isWood(color){return woodCodes.some(k=>strip(color).includes(k))}
 function useCatalogueFinish(material,url){
  if(!url)return;
+ const generation=sessionId;
  const image=new Image();
  image.onload=()=>{
-  if(!active||!scene||!material)return;
+  if(!active||generation!==sessionId||!scene||!material)return;
   // La pastille du catalogue est circulaire : on ne prélève que le coeur
   // afin de ne jamais étirer le fond ivoire autour sur le meuble.
-  const c=document.createElement('canvas');c.width=512;c.height=512;
+  const c=document.createElement('canvas');c.width=256;c.height=256;
   const ctx=c.getContext('2d',{alpha:false});
   const size=Math.min(image.naturalWidth,image.naturalHeight)*.66;
   const xx=(image.naturalWidth-size)/2,yy=(image.naturalHeight-size)/2;
   ctx.filter='contrast(1.10) saturate(1.06)';
-  ctx.drawImage(image,xx,yy,size,size,0,0,512,512);
+  ctx.drawImage(image,xx,yy,size,size,0,0,256,256);
   ctx.filter='none';
   const texture=new THREE.CanvasTexture(c);
   texture.colorSpace=THREE.SRGBColorSpace;
   texture.wrapS=texture.wrapT=THREE.RepeatWrapping;
-  texture.repeat.set(1.2,1.0);texture.anisotropy=8;
+  texture.repeat.set(1.2,1.0);texture.anisotropy=2;
   if(material.map)material.map.dispose();
   material.color.set('#ffffff');
   material.map=texture;
@@ -204,8 +232,8 @@ function buildScene(config){
  scene=new THREE.Scene();scene.background=new THREE.Color('#e9e5dd');
  // Éclairage doux : les anciennes intensités surexposaient entièrement les bois.
  const ambient=new THREE.HemisphereLight(0xfffcf3,0xb2aaa0,1.0);scene.add(ambient);
- const light=new THREE.DirectionalLight(0xffffff,1.65);light.position.set(-1.4,3.3,3.7);light.castShadow=true;
- light.shadow.mapSize.set(1024,1024);light.shadow.camera.left=-3;light.shadow.camera.right=3;light.shadow.camera.top=3;light.shadow.camera.bottom=-3;
+ const light=new THREE.DirectionalLight(0xffffff,1.65);light.position.set(-1.4,3.3,3.7);light.castShadow=false;
+ // Les ombres temps réel sont désactivées pour éviter la surcharge du GPU en rendez-vous.
  light.shadow.bias=-.00012;scene.add(light);
  const accent=new THREE.PointLight(0xffecd0,3.8,7);accent.position.set(1.9,2.3,1.8);scene.add(accent);
  const wall=newMat('#ece7dd',.96);putBox(scene,0,1.4,-.45,5,2.8,.07,wall);
@@ -231,7 +259,8 @@ function buildScene(config){
  const lower=isColumn?.10:legs;
  const boardH=isCounter?.09:Math.max(.10,height-lower-.017);
  const finish=newMat(colorFor(config.color,'#a49584'),isWood(config.color)?.64:.31,.03);
- if(isWood(config.color))finish.map=woodTexture(colorFor(config.color,'#a49584'),true);
+ // Pas de double allocation d'une texture bois si le véritable échantillon existe.
+ if(!config.swatch&&isWood(config.color))finish.map=woodTexture(colorFor(config.color,'#a49584'),true);
  useCatalogueFinish(finish,config.swatch);
  const edge=newMat(colorFor(config.color,'#948778'),.50,.01);
  const dark=newMat('#34312d',.35,.55);
@@ -317,16 +346,25 @@ function init(config){
  const T=window.THREE; if(!T)throw Error('Moteur 3D indisponible');
  // Named global: all scene helpers use THREE for concise meshes/materials.
  THREE=T;
- renderer=new THREE.WebGLRenderer({alpha:false,antialias:true,preserveDrawingBuffer:true,powerPreference:'default'});
- renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.75));
+ renderer=new THREE.WebGLRenderer({alpha:false,antialias:true,preserveDrawingBuffer:false,powerPreference:'low-power',failIfMajorPerformanceCaveat:true});
+ // Limite les allocations 4K / écrans Retina, sans toucher au format des produits.
+ renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.3));
  renderer.outputColorSpace=THREE.SRGBColorSpace;
  renderer.toneMapping=THREE.ACESFilmicToneMapping;
  renderer.toneMappingExposure=.83;
- renderer.shadowMap.enabled=true;
+ renderer.shadowMap.enabled=false;
  renderer.shadowMap.type=THREE.PCFSoftShadowMap;
- renderer.setSize(Math.max(320,area.clientWidth),Math.max(320,area.clientHeight),false);
+ renderer.setSize(Math.max(250,area.clientWidth),Math.max(250,area.clientHeight),false);
  const loading=$('composition-loading');if(loading)loading.remove();
  area.appendChild(renderer.domElement);
+ // Récupération sans crash de l'onglet si le navigateur perd le contexte GPU.
+ renderer.domElement.addEventListener('webglcontextlost',event=>{
+  event.preventDefault();
+  if(!active||contextFailed)return;
+  contextFailed=true;
+  releaseRenderer();
+  if(current)fallback(current,'Contexte graphique interrompu');
+ });
  camera=new THREE.PerspectiveCamera(37,Math.max(320,area.clientWidth)/Math.max(320,area.clientHeight),.08,70);
  yaw=.40;pitch=.12;distance=3.15;
  buildScene(config);
@@ -336,7 +374,8 @@ function init(config){
   const w=Math.max(250,area.clientWidth),h=Math.max(250,area.clientHeight);
   renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();requestFrame();
  };
- resizeObserver=new ResizeObserver(resize);resizeObserver.observe(area);resize();moveCamera();
+ if(typeof ResizeObserver!=='undefined'){resizeObserver=new ResizeObserver(resize);resizeObserver.observe(area)}
+ resize();moveCamera();
 }
 let THREE=null;
 function fallback(config,message){
@@ -373,15 +412,16 @@ function present(config){
 async function open(config){
  const el=modal();
  if(!el.hidden)close();
- previousFocus=document.activeElement;
+ const generation=++sessionId;
+ contextFailed=false;previousFocus=document.activeElement;
  current=config;el.hidden=false;active=true;restoreOverflow=document.body.style.overflow;document.body.style.overflow='hidden';
  present(config);$('composition-close').focus();
  const area=$('composition-canvas');area.innerHTML='<div class="composition-loading" id="composition-loading">Préparation de votre aperçu 3D…</div>';
  $('composition-photo').disabled=false;
  try{
-  await ensureThree();if(!active)return;
+  await ensureThree();if(!active||generation!==sessionId)return;
   init(config);
- }catch(e){if(active)fallback(config,e.message)}
+ }catch(e){if(active&&generation===sessionId){releaseRenderer();fallback(config,e.message)}}
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
 window.RandalComposition3D={open,close};
