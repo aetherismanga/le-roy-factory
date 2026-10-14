@@ -274,30 +274,46 @@ function woodTexture(hex,grain){
  return t;
 }
 function isWood(color){return woodCodes.some(k=>strip(color).includes(k))}
-function useCatalogueFinish(material,url){
+function useCatalogueFinish(material,url,wood){
  if(!url)return;
  const generation=sessionId,sceneTicket=sceneGeneration;
  const image=new Image();
  image.onload=()=>{
   if(!active||generation!==sessionId||sceneTicket!==sceneGeneration||!scene||!material)return;
-  // La pastille du catalogue est circulaire : on ne prélève que le coeur
-  // afin de ne jamais étirer le fond ivoire autour sur le meuble.
-  const c=document.createElement('canvas');c.width=512;c.height=512;
+  const c=document.createElement('canvas');c.width=c.height=1024;
   const ctx=c.getContext('2d',{alpha:false});
-  const size=Math.min(image.naturalWidth,image.naturalHeight)*.66;
+  // La photo du véritable échantillon RANDAL est centrée dans une pastille :
+  // prélever uniquement la matière pour éviter les bordures ivoire.
+  const size=Math.min(image.naturalWidth,image.naturalHeight)*.58;
   const xx=(image.naturalWidth-size)/2,yy=(image.naturalHeight-size)/2;
-  ctx.filter='contrast(1.15) saturate(1.08)';
-  ctx.drawImage(image,xx,yy,size,size,0,0,512,512);
-  ctx.filter='none';
+  ctx.drawImage(image,xx,yy,size,size,0,0,1024,1024);
+  if(wood){
+   // Fil de bois vertical fin, très discret : simule le veinage absent du faible
+   // grossissement de la pastille tout en conservant sa teinte réelle.
+   let seed=487219;
+   const rand=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296};
+   for(let i=0;i<410;i++){
+    const x=rand()*1024,w=.15+rand()*1.25,y=rand()*1024;
+    ctx.beginPath();
+    ctx.strokeStyle=rand()>.5?'rgba(59,37,18,.057)':'rgba(255,247,220,.095)';
+    ctx.lineWidth=w;
+    ctx.moveTo(x,y-260);
+    ctx.bezierCurveTo(x+(rand()-.5)*8,y+50,x+(rand()-.5)*6,y+360,x+(rand()-.5)*7,y+870);
+    ctx.stroke();
+   }
+  }
   const texture=new THREE.CanvasTexture(c);
   texture.colorSpace=THREE.SRGBColorSpace;
   texture.wrapS=texture.wrapT=THREE.RepeatWrapping;
-  texture.repeat.set(1.0,1.0);texture.anisotropy=Math.min(8,renderer?.capabilities.getMaxAnisotropy?.()||8);
+  texture.repeat.set(1,1);
+  texture.anisotropy=Math.min(12,renderer?.capabilities.getMaxAnisotropy?.()||8);
+  texture.minFilter=THREE.LinearMipmapLinearFilter;
   if(material.map)material.map.dispose();
   material.color.set('#ffffff');
   material.map=texture;
-  // Le grain d'origine apporte une micro-variation de relief sous la lumière.
-  material.bumpMap=texture;material.bumpScale=.0038;material.roughness=.65;
+  material.roughness=wood?.67:.42;
+  // Relief infime du veinage, pas de texture plastique ou de bois bombé.
+  if(wood){material.bumpMap=texture;material.bumpScale=.0018;}
   material.needsUpdate=true;
   requestFrame();
  };
@@ -400,31 +416,40 @@ function mirror(config,w,topHeight){
 }
 function applyFloorTexture(material){
  const item=FLOOR_OPTIONS.find(x=>x.id===surfaceChoice.floor)||FLOOR_OPTIONS[0];
- material.color.set(item.base);material.roughness=.87;material.metalness=0;
+ material.color.set(item.base);material.roughness=.84;material.metalness=0;
  if(!item.preview){loadCocoFloor(material);return;}
- const sceneTicket=sceneGeneration,session=sessionId;
+ const ticket=sceneGeneration,session=sessionId;
  const image=new Image();image.decoding='async';
  image.onload=()=>{
-  if(!scene||sceneGeneration!==sceneTicket||session!==sessionId||!active)return;
-  // Une seule surface continue, avec un carreau rectifié répété à l'échelle 60 × 60.
-  // Les joints sont tracés dans la texture (aucun relief 3D).
-  const c=document.createElement('canvas');c.width=1024;c.height=1024;
-  const ctx=c.getContext('2d',{alpha:false});
-  ctx.fillStyle='#d3ccc2';ctx.fillRect(0,0,1024,1024);
-  ctx.drawImage(image,3,3,1018,1018);
-  ctx.fillStyle='rgba(73,64,54,.18)';
-  ctx.fillRect(0,0,1024,3);ctx.fillRect(0,0,3,1024);
-  ctx.fillRect(0,1021,1024,3);ctx.fillRect(1021,0,3,1024);
-  const texture=new THREE.CanvasTexture(c);texture.colorSpace=THREE.SRGBColorSpace;
+  if(!scene||ticket!==sceneGeneration||session!==sessionId||!active)return;
+  // Atlas de 2 x 2 dalles Creta, dimensions réelles 60x60.
+  // Un seul maillage plat de 18 m : aucun rebord, aucune marche.
+  const tile=512,total=1024,canvas=document.createElement('canvas');
+  canvas.width=canvas.height=total;
+  const ctx=canvas.getContext('2d',{alpha:false});
+  const variants=[0,1,3,2];
+  for(let row=0;row<2;row++)for(let col=0;col<2;col++){
+   const x=col*tile,y=row*tile,k=variants[row*2+col];
+   ctx.save();
+   ctx.translate(x+tile/2,y+tile/2);
+   ctx.rotate(k*Math.PI/2);
+   ctx.drawImage(image,-tile/2+2,-tile/2+2,tile-4,tile-4);
+   ctx.restore();
+   // Joint 2 à 3 mm environ à l'échelle de 60 cm.
+   ctx.strokeStyle='rgba(77,69,62,.23)';ctx.lineWidth=3;
+   ctx.strokeRect(x+1.5,y+1.5,tile-3,tile-3);
+  }
+  const texture=new THREE.CanvasTexture(canvas);
+  texture.colorSpace=THREE.SRGBColorSpace;
   texture.wrapS=texture.wrapT=THREE.RepeatWrapping;
-  texture.repeat.set(7/.6,7/.6);
-  texture.anisotropy=Math.min(8,renderer?.capabilities.getMaxAnisotropy?.()||8);
+  texture.repeat.set(18/1.2,18/1.2);
+  texture.anisotropy=Math.min(12,renderer?.capabilities.getMaxAnisotropy?.()||8);
   texture.minFilter=THREE.LinearMipmapLinearFilter;texture.magFilter=THREE.LinearFilter;
   if(material.map)material.map.dispose();
   material.color.set('#ffffff');material.map=texture;material.needsUpdate=true;
   requestFrame();
  };
- image.onerror=()=>{console.warn('Texture Creta introuvable:',item.preview);requestFrame()};
+ image.onerror=()=>{console.warn('Texture officielle ELIOS indisponible:',item.preview);requestFrame()};
  image.src=item.preview;
 }
 function loadCocoFloor(material){
@@ -436,7 +461,7 @@ function loadCocoFloor(material){
   const texture=new THREE.Texture(image);
   texture.colorSpace=THREE.SRGBColorSpace;
   texture.wrapS=texture.wrapT=THREE.RepeatWrapping;
-  texture.repeat.set(3.3,2.1);texture.anisotropy=4;texture.needsUpdate=true;
+  texture.repeat.set(18/.6,18/.4);texture.anisotropy=8;texture.needsUpdate=true;
   if(material.map)material.map.dispose();
   material.color.set('#ffffff');material.map=texture;material.needsUpdate=true;requestFrame();
  };
@@ -555,8 +580,8 @@ function buildScene(config){
  // Éclairage doux : les anciennes intensités surexposaient entièrement les bois.
  const ambient=new THREE.HemisphereLight(0xfff6eb,0xa7a29b,.66);scene.add(ambient);
  const bounce=new THREE.AmbientLight(0xffffff,.17);scene.add(bounce);
- const light=new THREE.DirectionalLight(0xfff4e6,1.48);light.position.set(-2.4,4.5,3.0);light.castShadow=true;light.shadow.mapSize.set(2048,2048);light.shadow.camera.left=-3.1;light.shadow.camera.right=3.1;light.shadow.camera.top=3.1;light.shadow.camera.bottom=-3.1;light.shadow.normalBias=.003;
- // Les ombres temps réel sont désactivées pour éviter la surcharge du GPU en rendez-vous.
+ const light=new THREE.DirectionalLight(0xfff4e6,1.48);light.position.set(-2.4,4.5,3.0);light.castShadow=true;light.shadow.mapSize.set(window.innerWidth<720?1024:2048,window.innerWidth<720?1024:2048);light.shadow.camera.left=-3.1;light.shadow.camera.right=3.1;light.shadow.camera.top=3.1;light.shadow.camera.bottom=-3.1;light.shadow.normalBias=.003;
+ // Ombres de contact douces : densité ajustée à la puissance du terminal.
  light.shadow.bias=-.00012;scene.add(light);
  const accent=new THREE.PointLight(0xffefd9,.38,6);accent.position.set(1.9,2.9,2.1);scene.add(accent);
  const wall=newMat(WALL_COLORS[surfaceChoice.wall]?.hex||WALL_COLORS.cream.hex,.94);
@@ -578,12 +603,23 @@ function buildScene(config){
  const cabinet=new THREE.Group();
  cabinet.position.set(0,floatingHeight,backWallCabinetZ);
  scene.add(cabinet);
+ if(!isColumn){
+  const shadeCanvas=document.createElement('canvas');shadeCanvas.width=shadeCanvas.height=128;
+  const g=shadeCanvas.getContext('2d');
+  const gradient=g.createRadialGradient(64,64,6,64,64,63);
+  gradient.addColorStop(0,'rgba(48,44,37,.29)');gradient.addColorStop(1,'rgba(48,44,37,0)');
+  g.fillStyle=gradient;g.fillRect(0,0,128,128);
+  const sm=new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(shadeCanvas),transparent:true,opacity:.72,depthWrite:false});
+  const shadow=new THREE.Mesh(new THREE.PlaneGeometry(width*1.4,depth*2),sm);
+  shadow.rotation.x=-Math.PI/2;shadow.position.set(0,-.001,backWallCabinetZ+.10);
+  scene.add(shadow);
+ }
  const lower=isColumn?.10:legs;
  const boardH=isCounter?.09:Math.max(.10,height-lower-.017);
  const finish=newMat(colorFor(config.color,'#a49584'),isWood(config.color)?.63:.44,0);
  // Pas de double allocation d'une texture bois si le véritable échantillon existe.
  if(!config.swatch&&isWood(config.color))finish.map=woodTexture(colorFor(config.color,'#a49584'),true);
- useCatalogueFinish(finish,config.swatch);
+ useCatalogueFinish(finish,config.swatch,isWood(config.color));
  const edge=newMat(colorFor(config.color,'#948778'),.50,.01);
  const dark=newMat('#34312d',.35,.55);
  if(config.model==='Harmony'&&config.typeId==='column'){
