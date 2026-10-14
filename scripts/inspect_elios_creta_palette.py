@@ -27,4 +27,12 @@ for n,rects in candidates[-1]["hits"].items():
 out=Path("assets/img/elios/creta/catalogue-palette-diagnostic.jpg")
 img.save(out,quality=85,optimize=True)
 Path("assets/img/elios/creta/catalogue-palette-diagnostic.json").write_text(json.dumps(candidates,ensure_ascii=False,indent=2))
+for item in candidates:
+ pn=item["page"]
+ page=doc[pn-1]
+ preview=page.get_pixmap(matrix=fitz.Matrix(.85,.85),alpha=False)
+ im=Image.frombytes("RGB",(preview.width,preview.height),preview.samples)
+ out2=Path(f"assets/img/elios/creta/catalogue-palette-page-{pn}.jpg")
+ im.save(out2,quality=87)
+ print("additional preview",out2)
 print("saved",out, img.size)
