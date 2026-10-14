@@ -6,6 +6,7 @@ const THREE_URLS=['https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js
 let libraryPromise=null,renderer=null,scene=null,camera=null,stage=null,resizeObserver=null,raf=0;
 let yaw=.47,pitch=.22,distance=3.55,lastPointer=null,lastPinch=null;
 let active=false,previousFocus=null,restoreOverflow='',current=null,sessionId=0,contextFailed=false,surfaceChoice={floor:'view-coco-beige',wall:'cream'};
+let drawers=[],drawersOpen=false,drawerAnimation=0,sceneGeneration=0;
 const $=id=>document.getElementById(id);
 const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
 const strip=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
@@ -41,6 +42,7 @@ function modal(){
  '<div id="composition-canvas" class="composition-canvas" role="img" aria-label="Modèle 3D manipulable de votre composition RANDAL">'+
  '<div class="composition-loading" id="composition-loading">Préparation de votre aperçu 3D…</div></div>'+
  '<p class="composition-gesture">Glissez pour tourner le meuble · Pincez pour zoomer</p>'+
+ '<div class="composition-harmony-controls" id="composition-harmony-controls" hidden><button type="button" id="composition-drawers" aria-pressed="false">Ouvrir les tiroirs</button><span>Découpe siphon visible dans le tiroir supérieur</span></div>'+
  '<div class="composition-view-tools"><button type="button" id="composition-floor" aria-expanded="false" aria-controls="composition-surface-panel">Sol</button><button type="button" id="composition-wall" aria-expanded="false" aria-controls="composition-surface-panel">Mur</button><button type="button" id="composition-photo">Enregistrer l’image</button></div>'+
  '<div id="composition-surface-panel" class="composition-surface-panel" hidden><strong id="composition-surface-title"></strong><div id="composition-surface-choices"></div><p>Les autres références de carrelage seront ajoutées ultérieurement.</p></div>'+
  '</div><aside class="composition-details"><div class="composition-label">VOTRE COMPOSITION</div><h3 id="composition-model"></h3>'+
@@ -48,6 +50,10 @@ function modal(){
  '<div><span>Finition du meuble</span><strong id="composition-color"></strong></div>'+
  '<div><span>Vasque / plan</span><strong id="composition-basin"></strong></div>'+
  '<div><span>Miroir</span><strong id="composition-mirror"></strong></div></div>'+
+ '<div class="composition-customize" id="composition-harmony-customize" hidden>'+
+ '<button type="button" data-customize="color" aria-expanded="false">Changer la finition</button>'+
+ '<button type="button" data-customize="basin" aria-expanded="false">Changer la vasque</button>'+
+ '<div class="composition-customize-panel" id="composition-customize-panel" hidden></div></div>'+
  '<div class="composition-swatch"><img id="composition-swatch" alt="Échantillon de la finition retenue"></div><div class="composition-proof"><h4>Illustrations du catalogue</h4><div id="composition-proof-images" class="composition-proof-images"></div></div>'+
  '<p class="composition-disclaimer">Projection 3D indicative : les proportions, la disposition et les teintes sont simulées à partir de votre sélection. Les dessins, caractéristiques et échantillons RANDAL font référence.</p>'+
  '</aside></div><div class="composition-footer"><button id="composition-back" type="button">Retour au récapitulatif</button></div></section>';
@@ -58,31 +64,34 @@ function modal(){
  $('composition-floor').addEventListener('click',()=>showSurface('floor'));
  $('composition-wall').addEventListener('click',()=>showSurface('wall'));
  $('composition-photo').addEventListener('click',saveImage);
+ $('composition-drawers').addEventListener('click',toggleDrawers);
+ el.querySelectorAll('[data-customize]').forEach(button=>button.addEventListener('click',()=>showCustomize(button.dataset.customize)));
  el.addEventListener('keydown',e=>{if(e.key==='Tab'){const items=[...el.querySelectorAll('button:not(:disabled)')];const first=items[0],last=items[items.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
  return el;
 }
 // Release CPU buffers, GPU textures and WebGL contexts after EVERY preview.
+function disposeScene(){
+ if(!scene)return;
+ const geometries=new Set(),materials=new Set(),textures=new Set();
+ scene.traverse(object=>{
+  if(object.geometry)geometries.add(object.geometry);
+  if(object.material)(Array.isArray(object.material)?object.material:[object.material]).forEach(mat=>{if(mat)materials.add(mat)});
+ });
+ materials.forEach(mat=>{
+  for(const key of ['map','normalMap','roughnessMap','metalnessMap','aoMap','emissiveMap','alphaMap','envMap']){
+   if(mat[key]?.dispose)textures.add(mat[key]);
+  }
+ });
+ textures.forEach(texture=>texture.dispose());
+ geometries.forEach(geo=>geo.dispose());
+ materials.forEach(mat=>mat.dispose());
+ scene=null;drawers=[];
+}
 function releaseRenderer(){
  cancelAnimationFrame(raf);raf=0;
+ cancelAnimationFrame(drawerAnimation);drawerAnimation=0;
  if(resizeObserver){resizeObserver.disconnect();resizeObserver=null}
- if(scene){
-  const geometries=new Set(),materials=new Set(),textures=new Set();
-  scene.traverse(object=>{
-   if(object.geometry)geometries.add(object.geometry);
-   if(object.material){
-    const mats=Array.isArray(object.material)?object.material:[object.material];
-    mats.forEach(mat=>{if(mat)materials.add(mat)});
-   }
-  });
-  materials.forEach(mat=>{
-   for(const key of ['map','normalMap','roughnessMap','metalnessMap','aoMap','emissiveMap','alphaMap','envMap']){
-    if(mat[key]&&typeof mat[key].dispose==='function')textures.add(mat[key]);
-   }
-  });
-  textures.forEach(texture=>texture.dispose());
-  geometries.forEach(geo=>geo.dispose());
-  materials.forEach(mat=>mat.dispose());
- }
+ disposeScene();
  if(renderer){
   const currentRenderer=renderer;renderer=null;
   try{currentRenderer.dispose();currentRenderer.forceContextLoss?.()}catch(err){console.warn('Libération WebGL RANDAL',err)}
@@ -105,6 +114,8 @@ function showSurface(which){
  list.replaceChildren(choice);
 }
 function close(){
+ const drawerButton=$('composition-drawers');
+ if(drawerButton){drawerButton.textContent='Ouvrir les tiroirs';drawerButton.setAttribute('aria-pressed','false')}
  const el=$('randal-composition-dialog');if(!el||el.hidden)return;
  active=false;sessionId++;el.hidden=true;document.body.style.overflow=restoreOverflow;
  releaseRenderer();
@@ -149,10 +160,10 @@ function woodTexture(hex,grain){
 function isWood(color){return woodCodes.some(k=>strip(color).includes(k))}
 function useCatalogueFinish(material,url){
  if(!url)return;
- const generation=sessionId;
+ const generation=sessionId,sceneTicket=sceneGeneration;
  const image=new Image();
  image.onload=()=>{
-  if(!active||generation!==sessionId||!scene||!material)return;
+  if(!active||generation!==sessionId||sceneTicket!==sceneGeneration||!scene||!material)return;
   // La pastille du catalogue est circulaire : on ne prélève que le coeur
   // afin de ne jamais étirer le fond ivoire autour sur le meuble.
   const c=document.createElement('canvas');c.width=512;c.height=512;
@@ -267,9 +278,9 @@ function mirror(config,w,topHeight){
 function loadCocoFloor(material){
  const uri=window.RANDAL_VIEW_COCO_BEIGE;
  if(!uri)return;
- const generation=sessionId,image=new Image();
+ const generation=sessionId,sceneTicket=sceneGeneration,image=new Image();
  image.onload=()=>{
-  if(!active||generation!==sessionId||!scene)return;
+  if(!active||generation!==sessionId||sceneTicket!==sceneGeneration||!scene)return;
   const texture=new THREE.Texture(image);
   texture.colorSpace=THREE.SRGBColorSpace;
   texture.wrapS=texture.wrapT=THREE.RepeatWrapping;
@@ -279,7 +290,93 @@ function loadCocoFloor(material){
  };
  image.src=uri;
 }
+
+/* HARMONY : véritable caisse vide, tiroirs séparés et passage siphon arrière en U.
+   Variantes catalogue A-F : 2 tiroirs ; G-L : 3 tiroirs avec pieds. */
+function harmonyDrawerFloor(group,width,depth,base,material,topDrawer,doubleWaste){
+ const innerW=width-.096,bodyDepth=depth-.115;
+ const frontZ=depth/2-.040,backZ=frontZ-bodyDepth;
+ const floorY=base+.018;
+ const cutDepth=Math.min(.18,bodyDepth*.62),notch=.19;
+ if(!topDrawer){
+  putBox(group,0,floorY,(frontZ+backZ)/2,innerW,.009,bodyDepth,material);
+  return;
+ }
+ const cuts=doubleWaste?[-width*.245,width*.245]:[0];
+ const rearStart=backZ,rearEnd=backZ+cutDepth;
+ // Avant de la découpe : fond plein jusqu'à la façade.
+ putBox(group,0,floorY,(frontZ+rearEnd)/2,innerW,.009,frontZ-rearEnd,material);
+ let x0=-innerW/2;
+ for(const c of cuts){
+  let l=clamp(c-notch/2,-innerW/2,innerW/2);
+  if(l>x0+.005)putBox(group,(x0+l)/2,floorY,(rearStart+rearEnd)/2,l-x0,.009,cutDepth,material);
+  const start=clamp(c-notch/2,-innerW/2,innerW/2);
+  const end=clamp(c+notch/2,-innerW/2,innerW/2);
+  for(const x of [start,end])putBox(group,x,base+.064,(rearStart+rearEnd)/2,.009,.090,cutDepth,material);
+  x0=end;
+ }
+ if(x0<innerW/2-.005)putBox(group,(x0+innerW/2)/2,floorY,(rearStart+rearEnd)/2,innerW/2-x0,.009,cutDepth,material);
+}
+function buildHarmonyCabinet(cabinet,config,w,h,d,finish,edge,metal,dark){
+ const feet=config.typeId==='three',legH=feet?.105:0;
+ const bodyBottom=legH,bodyTop=legH+h,side=.016;
+ const woodInterior=newMat('#b6b3a9',.73);
+ // Corps creux : flancs, fond arrière, fond et traverse supérieure.
+ putBox(cabinet,-w/2+side/2,bodyBottom+h/2,0,side,h,d,finish);
+ putBox(cabinet,w/2-side/2,bodyBottom+h/2,0,side,h,d,finish);
+ putBox(cabinet,0,bodyBottom+.011,0,w-2*side,.022,d-.02,woodInterior);
+ putBox(cabinet,0,bodyTop-.010,-d*.29,w-2*side,.02,d*.41,woodInterior);
+ putBox(cabinet,0,bodyBottom+h/2,-d/2+.008,w-2*side,h-.035,.010,woodInterior);
+ putBox(cabinet,0,bodyTop-.018,d/2-.025,w-.04,.016,.035,woodInterior);
+ const count=feet?3:2,step=(h-.036)/count,topStart=bodyTop-.018;
+ for(let i=0;i<count;i++){
+  const drawer=new THREE.Group();
+  drawer.name='Harmony_tiroir_'+(i+1);
+  const center=topStart-(i+.5)*step,base=center-step/2,frontZ=d/2+.014;
+  const frontH=step-.006;
+  putBox(drawer,0,center,frontZ,w-.029,frontH,.016,finish).name='Facade_sans_poignee_'+(i+1);
+  const rearZ=d/2-.040-(d-.115);
+  // Compartimentage interne visible lorsque le client ouvre les tiroirs.
+  for(const x of [-w/2+.043,w/2-.043])
+   putBox(drawer,x,base+.068,(d/2-.040+rearZ)/2,.012,.12,d-.115,woodInterior);
+  if(i>0)putBox(drawer,0,base+.070,rearZ+.012,w-.09,.118,.012,woodInterior);
+  harmonyDrawerFloor(drawer,w,d,base,woodInterior,i===0,w>1.16&&config.basinMode==='integrated');
+  // Profil de prise de main intégré dans le chant : jamais de barre rapportée.
+  putBox(drawer,0,center+frontH/2-.003,frontZ+.010,w-.055,.003,.006,edge);
+  cabinet.add(drawer);drawers.push(drawer);
+ }
+ if(feet){
+  for(const xx of [-w/2+.057,w/2-.057])for(const zz of [-d/2+.063,d/2-.063]){
+   putBox(cabinet,xx,legH/2,zz,.026,legH,.026,metal);
+  }
+ }
+}
+function toggleDrawers(){
+ if(!current||current.model!=='Harmony'||current.typeId==='column'||!drawers.length)return;
+ drawersOpen=!drawersOpen;
+ const btn=$('composition-drawers');
+ btn.textContent=drawersOpen?'Fermer les tiroirs':'Ouvrir les tiroirs';
+ btn.setAttribute('aria-pressed',String(drawersOpen));
+ animateHarmonyDrawers();
+}
+function animateHarmonyDrawers(){
+ cancelAnimationFrame(drawerAnimation);drawerAnimation=0;
+ const originals=drawers.map(d=>d.position.z),go=drawersOpen?.28:0;
+ if(!drawers.length)return;
+ const began=performance.now(),duration=390,ticket=sessionId;
+ function frame(now){
+  drawerAnimation=0;
+  if(!active||ticket!==sessionId)return;
+  const p=clamp((now-began)/duration,0,1),ease=1-Math.pow(1-p,3);
+  drawers.forEach((d,i)=>{d.position.z=originals[i]+(go-originals[i])*ease});
+  requestFrame();
+  if(p<1)drawerAnimation=requestAnimationFrame(frame);
+ }
+ drawerAnimation=requestAnimationFrame(frame);
+}
+
 function buildScene(config){
+ sceneGeneration++;
  scene=new THREE.Scene();scene.background=new THREE.Color('#e9e5dd');
  // Éclairage doux : les anciennes intensités surexposaient entièrement les bois.
  const ambient=new THREE.HemisphereLight(0xfffcf3,0xb2aaa0,1.0);scene.add(ambient);
@@ -305,13 +402,16 @@ function buildScene(config){
  scene.add(cabinet);
  const lower=isColumn?.10:legs;
  const boardH=isCounter?.09:Math.max(.10,height-lower-.017);
- const finish=newMat(colorFor(config.color,'#a49584'),isWood(config.color)?.64:.31,.03);
+ const finish=newMat(colorFor(config.color,'#a49584'),isWood(config.color)?.72:.43,.01);
  // Pas de double allocation d'une texture bois si le véritable échantillon existe.
  if(!config.swatch&&isWood(config.color))finish.map=woodTexture(colorFor(config.color,'#a49584'),true);
  useCatalogueFinish(finish,config.swatch);
  const edge=newMat(colorFor(config.color,'#948778'),.50,.01);
  const dark=newMat('#34312d',.35,.55);
- if(isCounter){
+ if(config.model==='Harmony'&&config.typeId!=='column'){
+  drawers=[];drawersOpen=false;
+  buildHarmonyCabinet(cabinet,config,width,height,depth,finish,edge,newMat('#afb4b6',.36,.78),dark);
+ }else if(isCounter){
   putBox(cabinet,0,height*.52,0,width,.07,depth,finish);
  }else{
   putBox(cabinet,0,lower+boardH/2,0,width,boardH,depth,finish);
@@ -357,8 +457,8 @@ function buildScene(config){
    for(const xx of [-width*.41,width*.41])for(const zz of [-depth*.38,depth*.38])putBox(cabinet,xx,legs/2,zz,.026,legs,.025,dark);
   }
  }
- if(!isColumn)addFixtures(cabinet,config,width,height,depth,finish);
- mirror(config,width,height+floatingHeight);
+ if(!isColumn)addFixtures(cabinet,config,width,height+(config.model==='Harmony'&&config.typeId==='three'?.105:0),depth,finish);
+ mirror(config,width,height+floatingHeight+(config.model==='Harmony'&&config.typeId==='three'?.105:0));
  return {width,height,depth};
 }
 function nameToDoor(config){return strip(config.typeName).includes('porte')}
@@ -477,9 +577,13 @@ async function open(config){
  const el=modal();
  if(!el.hidden)close();
  const generation=++sessionId;
+ drawersOpen=false;drawers=[];
  contextFailed=false;previousFocus=document.activeElement;
  current=config;el.hidden=false;active=true;restoreOverflow=document.body.style.overflow;document.body.style.overflow='hidden';
- present(config);$('composition-close').focus();
+ present(config);
+ const drawerControls=$('composition-harmony-controls');
+ if(drawerControls)drawerControls.hidden=!(config.model==='Harmony'&&config.typeId!=='column');
+ $('composition-close').focus();
  const panel=$('composition-surface-panel');if(panel)panel.hidden=true;
  $('composition-floor').setAttribute('aria-expanded','false');
  $('composition-wall').setAttribute('aria-expanded','false');
