@@ -49,7 +49,9 @@ function modal(){
  '<div class="composition-selected"><div><span>Dimensions</span><strong id="composition-size"></strong></div>'+
  '<div><span>Finition du meuble</span><strong id="composition-color"></strong></div>'+
  '<div><span>Vasque / plan</span><strong id="composition-basin"></strong></div>'+
- '<div><span>Miroir</span><strong id="composition-mirror"></strong></div></div>'+
+ '<div><span>Miroir</span><strong id="composition-mirror"></strong></div>'+
+ '<div><span>Référence meuble</span><strong id="composition-reference"></strong></div>'+
+ '<div><span>Composition · prix public</span><strong id="composition-total"></strong></div></div>'+
  '<div class="composition-customize" id="composition-harmony-customize" hidden>'+
  '<button type="button" data-customize="color" aria-expanded="false">Changer la finition</button>'+
  '<button type="button" data-customize="basin" aria-expanded="false">Changer la vasque</button>'+
@@ -99,6 +101,84 @@ function releaseRenderer(){
  }
  scene=null;camera=null;stage=null;lastPointer=null;lastPinch=null;
 }
+
+function showCustomize(type){
+ if(!current||current.model!=='Harmony')return;
+ const panel=$('composition-customize-panel');
+ if(!panel)return;
+ const open=panel.hidden||panel.dataset.type!==type;
+ panel.hidden=!open;panel.dataset.type=type;
+ $('composition-harmony-customize').querySelectorAll('[data-customize]').forEach(el=>el.setAttribute('aria-expanded',String(open&&el.dataset.customize===type)));
+ if(!open)return;
+ panel.replaceChildren();
+ const head=document.createElement('div');head.className='composition-options-title';
+ head.textContent=type==='color'?'Finition Harmony':"Vasque et plan de toilette";
+ panel.appendChild(head);
+ const section=(text)=>{
+  const title=document.createElement('div');title.className='composition-choice-title';title.textContent=text;panel.appendChild(title);
+ };
+ const addOption=(text,img,selected,onClick,swatch=false)=>{
+  const button=document.createElement('button');button.type='button';
+  button.className='composition-option'+(selected?' active':'');
+  button.setAttribute('aria-pressed',String(!!selected));
+  if(img){
+   const photo=document.createElement('img');photo.src=img;photo.alt=text;photo.loading='lazy';photo.decoding='async';
+   if(swatch)photo.className='composition-option-swatch';
+   button.appendChild(photo);
+  }
+  const caption=document.createElement('span');caption.textContent=text;button.appendChild(caption);
+  button.onclick=onClick;panel.appendChild(button);
+ };
+ const update=(patch)=>{
+  if(!current?.onChange)return;
+  let updated;
+  try{updated=current.onChange(patch)}catch(e){console.error('RANDAL update failure',e);return}
+  if(!updated||!active)return;
+  current=updated;
+  redrawCurrent();
+  showCustomize(type);
+ };
+ if(type==='color'){
+  section('Choisissez une finition du catalogue');
+  for(const value of current.finishes||[]){
+   const img=current.finishUrls?.[value];
+   addOption(value,img,current.color===value,()=>update({color:value}),true);
+  }
+  return;
+ }
+ section('Type de vasque');
+ for(const [mode,text] of [['integrated','Vasque sur meuble'],['vessel','Plan + vasque à poser'],['none','Sans vasque']]){
+  if(!current.availableModes?.includes(mode))continue;
+  addOption(text,null,current.basinMode===mode,()=>update({basinMode:mode}));
+ }
+ if(current.basinMode==='none')return;
+ section(current.basinMode==='integrated'?'Modèle de vasque intégrée':'Modèle de vasque à poser');
+ for(const name of current.basinMode==='integrated'?['Sella','Tampa']:['Neris','Torne']){
+  const image='assets/img/randal/accessories/basin-'+strip(name)+'.webp';
+  addOption(name,image,current.basin===name,()=>update({basin:name}));
+ }
+ if(current.basinMode==='vessel'){
+  section('Couleur de la vasque');
+  for(const color of current.basinColors||[]){
+   addOption(color,null,current.basinFinish===color,()=>update({basinFinish:color}));
+  }
+  section('Finition du plan');
+  for(const color of current.topFinishes||[]){
+   addOption(color,null,current.topFinish===color,()=>update({topFinish:color}));
+  }
+ }
+}
+function redrawCurrent(){
+ if(!active||!current)return;
+ cancelAnimationFrame(drawerAnimation);drawerAnimation=0;drawersOpen=false;
+ $('composition-drawers').textContent='Ouvrir les tiroirs';
+ $('composition-drawers').setAttribute('aria-pressed','false');
+ if(scene&&renderer&&camera){
+  disposeScene();buildScene(current);requestFrame();
+ }
+ present(current);
+}
+
 function showSurface(which){
  const panel=$('composition-surface-panel'),title=$('composition-surface-title'),list=$('composition-surface-choices');
  if(!panel||!title||!list)return;
@@ -553,7 +633,9 @@ function present(config){
  label('composition-model',config.model+' · '+config.typeName);
  label('composition-size',[config.width,config.height,config.depth].join(' × ')+' cm');
  label('composition-color',config.color);
- label('composition-basin',config.kind==='column'?'Sans vasque':(labels[config.basinMode]||'')+(config.basinMode==='none'?'':' · '+config.basin));
+ label('composition-reference',config.reference||'À confirmer');
+ label('composition-total',config.totalPublic||'À confirmer');
+ label('composition-basin',config.kind==='column'?'Sans vasque':(labels[config.basinMode]||'')+(config.basinMode==='none'?'':' · '+config.basin)+(config.basinMode==='vessel'?' · '+config.basinFinish:''));
  label('composition-mirror',config.mirror==='Sans miroir'?'Sans miroir':config.mirror+' · '+(config.mirrorSize||'À définir')+(config.mirrorFinish?' · '+config.mirrorFinish:''));
  const img=$('composition-swatch');
  if(config.swatch){img.src=config.swatch;img.hidden=false}else img.hidden=true;
@@ -583,6 +665,9 @@ async function open(config){
  present(config);
  const drawerControls=$('composition-harmony-controls');
  if(drawerControls)drawerControls.hidden=!(config.model==='Harmony'&&config.typeId!=='column');
+ const harmonyCustomize=$('composition-harmony-customize');
+ if(harmonyCustomize){harmonyCustomize.hidden=config.model!=='Harmony';$('composition-customize-panel').hidden=true}
+
  $('composition-close').focus();
  const panel=$('composition-surface-panel');if(panel)panel.hidden=true;
  $('composition-floor').setAttribute('aria-expanded','false');
