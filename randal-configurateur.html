@@ -406,7 +406,8 @@ const VESSEL_REFS={
 };
 const euroPrice=n=>typeof n==='number'&&Number.isFinite(n)?new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR'}).format(n):'À confirmer';
 const safeQty=()=>Math.max(1,Number.isFinite(Number(st.quantity))?Math.floor(Number(st.quantity)):1);
-const rowPrice=(title,details,ref,unit)=>({title,details,ref:String(ref||'À confirmer'),unit:Number.isFinite(Number(unit))&&unit!==null?Number(unit):null,quantity:safeQty()});
+const publicPrice=base=>base==null||!Number.isFinite(Number(base))?null:Math.round((Number(base)*1.20+Number.EPSILON)*100)/100;
+const rowPrice=(title,details,ref,unit)=>({title,details,ref:String(ref||'À confirmer'),unit:publicPrice(unit),quantity:safeQty()});
 function ceramicChoice(){
  if(st.basinMode!=='integrated'||!['Sella','Tampa'].includes(st.basin))return null;
  const width=Number(st.width)===119?120:Number(st.width);
@@ -457,22 +458,22 @@ function emailBody(){
  'VARIANTE CATALOGUE : '+(st.variantCode||'À confirmer'),
  'QUANTITÉ D’ENSEMBLES : '+t.qty,
  '',
- 'DÉTAIL DES ARTICLES — PRIX DE VENTE HT CONSEILLÉS (CATALOGUE V04)'
+ 'DÉTAIL DES ARTICLES — PRIX PUBLICS CONSEILLÉS (CATALOGUE V04)'
  ];
  for(const [i,r] of t.rows.entries()){
   out.push((i+1)+'. '+r.title);
   out.push('   Référence : '+r.ref);
   out.push('   Description : '+r.details);
   out.push('   Quantité : '+r.quantity);
-  out.push('   Prix unitaire HT conseillé : '+euroPrice(r.unit));
-  out.push('   Total HT conseillé : '+(r.unit===null?'À confirmer':euroPrice(r.unit*r.quantity)));
+  out.push('   Prix unitaire : '+euroPrice(r.unit));
+  out.push('   Total : '+(r.unit===null?'À confirmer':euroPrice(r.unit*r.quantity)));
   out.push('');
  }
- out.push('TOTAL HT CONSEILLÉ : '+(t.complete?euroPrice(t.sum):'Partiel : '+euroPrice(t.sum)+' + articles à confirmer'));
+ out.push('TOTAL GÉNÉRAL : '+(t.complete?euroPrice(t.sum):'Partiel : '+euroPrice(t.sum)+' + articles à confirmer'));
  out.push('','Pourriez-vous confirmer :');
  out.push('- les références et la compatibilité de chaque élément ;');
  out.push('- la disponibilité et les délais de livraison ;');
- out.push('- les prix d’achat professionnels HT et éventuels frais de transport ;');
+ out.push('- les conditions commerciales professionnelles et éventuels frais de transport ;');
  out.push('- la prise en compte de cette demande.');
  out.push('','Cette demande est soumise à votre confirmation et ne vaut pas commande ferme.');
  out.push('','Merci d’avance,','Agence Le Roy Factory');
@@ -490,11 +491,11 @@ const professionalRecap=()=>{
  return '<div id="randal-order-sheet" class="recap-sheet">'+
  '<div class="recap-heading"><div><span class="recap-kicker">LE ROY FACTORY · RANDAL</span><h3>Récapitulatif de configuration</h3><p>Demande de disponibilité et de confirmation usine</p></div><span class="recap-tag">Catalogue RANDAL V04</span></div>'+
  '<div class="recap-metadata">'+orderDetails().map(x=>'<span>'+esc(x)+'</span>').join('')+'</div>'+
- '<div class="recap-grid-head"><span>Produit / Référence</span><span>Qté</span><span>PU HT</span><span>Total HT</span></div>'+
+ '<div class="recap-grid-head"><span>Produit / Référence</span><span>Qté</span><span>Prix unit.</span><span>Total</span></div>'+
  '<div class="recap-lines">'+printableRows()+'</div>'+
- '<div class="recap-total"><span>'+ (t.complete?'TOTAL HT CONSEILLÉ':'TOTAL PARTIEL HT CONSEILLÉ')+'</span><strong>'+esc(euroPrice(t.sum))+'</strong></div>'+
+ '<div class="recap-total"><span>'+ (t.complete?'TOTAL GÉNÉRAL':'TOTAL PARTIEL')+'</span><strong>'+esc(euroPrice(t.sum))+'</strong></div>'+
  (t.complete?'':'<p class="recap-warning">Certains prix ou références sont à confirmer par RANDAL : le total est partiel.</p>')+
- '<p class="recap-legal">Prix de vente HT conseillés issus du catalogue RANDAL V04, hors transport et installation. Montants indicatifs, sous réserve de confirmation par l’usine. Ceci n’est pas un bon de commande ferme.</p>'+
+ '<p class="recap-legal">Prix publics conseillés issus du catalogue RANDAL V04, hors transport et installation. Montants indicatifs, sous réserve de confirmation par l’usine. Ceci n’est pas un bon de commande ferme.</p>'+
  '</div>';
 };
 
@@ -567,8 +568,8 @@ async function downloadOrderPdf(){
   pdf.setFillColor(234,238,234);pdf.rect(15,y,180,11,'F');
   write('PRODUIT / RÉFÉRENCE',18,y+7,'bold',8);
   write('QTE',122,y+7,'bold',8);
-  write('PU HT',142,y+7,'bold',8);
-  write('TOTAL HT',171,y+7,'bold',8);
+  write('PRIX UNIT.',142,y+7,'bold',8);
+  write('TOTAL',171,y+7,'bold',8);
   y+=12;
   for(const r of rows){
    if(y+27>267){pdf.addPage();y=20}
@@ -585,7 +586,7 @@ async function downloadOrderPdf(){
   if(y+44>272){pdf.addPage();y=20}
   const t=totals();
   pdf.setFillColor(239,243,237);pdf.rect(15,y+1,180,18,'F');
-  write(t.complete?'TOTAL HT CONSEILLÉ':'TOTAL PARTIEL HT',19,y+12,'bold',10,[49,81,65]);
+  write(t.complete?'TOTAL GÉNÉRAL':'TOTAL PARTIEL HT',19,y+12,'bold',10,[49,81,65]);
   write(money(t.sum),156,y+12,'bold',12,[49,81,65]);
   y+=28;
   const legal='Prix de vente HT conseillés du catalogue RANDAL V04. Hors transport et installation. Merci de confirmer les références, la disponibilité, les prix d’achat professionnels et les délais. Document non contractuel ; aucune commande ferme avant validation de l’usine.';
