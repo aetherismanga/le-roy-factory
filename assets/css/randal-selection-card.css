@@ -48,7 +48,7 @@
 .insp-v2 .randal-selection-card__content h3{
   margin:0 0 12px;
   max-width:100%;
-  color:#272a27;
+  color:#465249;
   line-height:1.13;
   font-size:clamp(1.55rem,2.8vw,2.25rem);
   font-weight:800;
@@ -90,16 +90,16 @@
   transition:background .15s ease,border-color .15s ease,transform .15s ease;
 }
 .insp-v2 .randal-selection-card__button--primary{
-  background:#343c35;
-  border:1.5px solid #343c35;
-  color:#fff!important;
+  background:#dce8dc;
+  border:1.5px solid #c4d2c3;
+  color:#395344!important;
 }
 .insp-v2 .randal-selection-card__button--secondary{
   background:#fffaf0;
   border:1.5px solid #bc9c5a;
   color:#6c5324!important;
 }
-.insp-v2 .randal-selection-card__button--primary:hover{background:#4a544b;}
+.insp-v2 .randal-selection-card__button--primary:hover{background:#cfdfcf;border-color:#b1c4b1;color:#344c3d!important;}
 .insp-v2 .randal-selection-card__button--secondary:hover{background:#f5ebd8;}
 .insp-v2 .randal-selection-card__button:focus-visible{outline:3px solid #bd9e60;outline-offset:3px;}
 @media(max-width:900px){
