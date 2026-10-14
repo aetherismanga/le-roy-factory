@@ -247,7 +247,7 @@ function normalize(){
  }else{
   const d=RANDAL[st.model];
   if(!d?.w.includes(Number(st.width)))st.width='';
-  st.height=String(type[4]);st.depth=String(d?.d||'');
+  st.height=String(type[4]);st.depth=String(d?.d||'');st.variantCode=st.width?type[5][d.w.indexOf(Number(st.width))]||'':'';
  }
  const colors=special?.colors||RANDAL[st.model]?.colors||[];
  if(!colors.includes(st.color))st.color='';
@@ -328,27 +328,47 @@ if(st.step===7){
 h+='<div class="actions"><button type="button" class="btn" id="prev" '+(st.step===0?'disabled':'')+'>← Précédent</button>'+(st.step<7?'<button type="button" class="btn primary" id="next">Continuer →</button>':'')+'</div>';
 $('panel').innerHTML=h;
  paintThumbnails();
-$('panel').querySelectorAll('[data-field]').forEach(b=>b.onclick=()=>{if(b.dataset.field==='model'&&st.model!==b.dataset.value)resetConfiguration();if(b.dataset.field==='variantCode'&&st.variantCode!==b.dataset.value)st.color='';if(b.dataset.field==='mirror'&&st.mirror!==b.dataset.value)st.mirrorSize='';if(b.dataset.field==='width'&&st.width!==b.dataset.value){st.color='';st.basinMode='integrated'}st[b.dataset.field]=b.dataset.value;normalize();syncBasin();save();render()});
-$('panel').querySelectorAll('[name]').forEach(el=>el.onchange=()=>{st[el.name]=el.value.trim();syncBasin();save();if(st.step===3)render()});
-$('prev').onclick=()=>{st.step=Math.max(0,st.step-1);save();render();scrollTo({top:0,behavior:'smooth'})};
+$('panel').querySelectorAll('[data-field]').forEach(b=>b.onclick=()=>{
+ const field=b.dataset.field,value=b.dataset.value;
+ if(field==='model'&&st.model!==value){resetConfiguration();st.model=value;}
+ else if(field==='typeId'&&st.typeId!==value){
+  st.typeId=value;st.width='';st.height='';st.depth='';st.variantCode='';st.color='';
+  st.basinMode='integrated';st.basin='Sella';st.top='Sans plan';
+ }else{
+  if((field==='width'||field==='variantCode')&&st[field]!==value)st.color='';
+  if(field==='mirror'&&st.mirror!==value)st.mirrorSize='';
+  st[field]=value;
+ }
+ normalize();syncBasin();save();render();
+});
+$('panel').querySelectorAll('[name]').forEach(el=>el.onchange=()=>{
+ st[el.name]=el.value.trim();syncBasin();save();if(st.step===4)render();
+});
+$('prev').onclick=()=>{st.step=Math.max(0,st.step-1);save();render();scrollTo({top:0,behavior:'smooth'});};
 if($('next'))$('next').onclick=()=>{
  for(const el of $('panel').querySelectorAll('[name]'))st[el.name]=el.value.trim();
- if(st.step===0&&!st.model){alert('Sélectionnez un modèle.');return}
- if(st.step===1){
-  const special=SPECIAL_VARIANTS[st.model],regular=RANDAL[st.model];
-  const validShape=special?special.shapes.some(x=>x.code===st.variantCode):Boolean(regular&&regular.w.includes(Number(st.width))&&(regular.h.length===1||regular.h.includes(Number(st.height))));
-  if(!validShape||!Number.isInteger(Number(st.quantity))||Number(st.quantity)<1){alert('Choisissez une configuration et une quantité valides.');return}
- }
+ if(st.step===0&&!MODEL_TYPES[st.model]){alert('Choisissez une collection.');return}
+ if(st.step===1&&!selectedType()){alert('Choisissez un modèle : tiroirs, niche ou colonne.');return}
  if(st.step===2){
-  const finishes=SPECIAL_VARIANTS[st.model]?.colors||RANDAL[st.model]?.colors||[];
-  if(!finishes.includes(st.color)||!variant()?.ref){alert('Choisissez une finition disponible.');return}
+  const t=selectedType(),d=RANDAL[st.model],special=SPECIAL_VARIANTS[st.model];
+  let valid=false;
+  if(t?.[3]==='column')valid=st.model==='Brent'?['I','J'].includes(st.variantCode):Boolean(st.width);
+  else if(special)valid=special.shapes.some(x=>x.code===st.variantCode&&t[5].includes(x.code));
+  else valid=Boolean(d?.w.includes(Number(st.width))&&Number(st.height)===t?.[4]);
+  if(!valid||!Number.isInteger(Number(st.quantity))||Number(st.quantity)<1){alert('Choisissez un format et une quantité valides.');return}
  }
  if(st.step===3){
-  syncBasin();
-  const valid=allowedModes().includes(st.basinMode)&&(st.basinMode==='none'||st.basinMode==='integrated'&&['Sella','Tampa'].includes(st.basin)||st.basinMode==='vessel'&&['Neris','Torne'].includes(st.basin));
-  if(!valid){alert('Sélectionnez un montage cohérent.');return}
+  const colors=SPECIAL_VARIANTS[st.model]?.colors||RANDAL[st.model]?.colors||[];
+  if(!colors.includes(st.color)||!variant()?.ref){alert('Choisissez une finition disponible pour ce modèle.');return}
  }
- if(st.step===4&&MIRROR_FORMATS[st.mirror]&&!MIRROR_FORMATS[st.mirror].some(x=>x[0]===st.mirrorSize)){alert('Choisissez une dimension de miroir.');return}if(st.step===5&&(!st.company||!st.name||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(st.email))){alert('Renseignez le magasin, le contact et une adresse e-mail valide.');return}
+ if(st.step===4){
+  syncBasin();
+  if(!allowedModes().includes(st.basinMode)||st.basinMode==='integrated'&&!['Sella','Tampa'].includes(st.basin)||st.basinMode==='vessel'&&!['Neris','Torne'].includes(st.basin)){
+   alert('Choisissez un montage compatible.');return;
+  }
+ }
+ if(st.step===5&&MIRROR_FORMATS[st.mirror]&&!MIRROR_FORMATS[st.mirror].some(x=>x[0]===st.mirrorSize)){alert('Choisissez la dimension du miroir.');return}
+ if(st.step===6&&(!st.company||!st.name||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(st.email))){alert('Renseignez le magasin, le contact et une adresse e-mail valide.');return}
  st.step++;save();render();scrollTo({top:0,behavior:'smooth'});
 };
 if($('send'))$('send').onclick=()=>{const subject='RANDAL V04 — Demande de disponibilité / commande à confirmer — '+st.company;location.href='mailto:help.pro.fr@randal.group?cc='+encodeURIComponent('juancarlos.segura@randal.group,jerome@leroyfactory.fr,coryne@leroyfactory.fr')+'&subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent('Bonjour,\n\n'+summary()+'\n\nCordialement,\n'+st.name+' — '+st.company)};
