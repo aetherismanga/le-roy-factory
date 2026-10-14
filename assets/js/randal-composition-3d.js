@@ -421,7 +421,7 @@ async function open(config){
  try{
   await ensureThree();if(!active||generation!==sessionId)return;
   init(config);
- }catch(e){if(active&&generation===sessionId){releaseRenderer();fallback(config,e.message)}}
+ }catch(e){if(active&&generation===sessionId){contextFailed=true;releaseRenderer();fallback(config,e.message)}}
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
 window.RandalComposition3D={open,close};
