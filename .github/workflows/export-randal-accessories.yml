@@ -1,0 +1,42 @@
+name: Export RANDAL V04 basin and mirror previews
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/export_randal_accessories.py'
+      - '.github/workflows/export-randal-accessories.yml'
+      - 'assets/pdf/RANDAL-V04.pdf'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: randal-accessories
+  cancel-in-progress: false
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install PDF + image tooling
+        run: python -m pip install --disable-pip-version-check pymupdf pillow
+      - name: Extract actual product artwork
+        run: python scripts/export_randal_accessories.py
+      - name: Commit generated preview images
+        run: |
+          git config user.name "LRF Catalogue Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add assets/img/randal/accessories/
+          if git diff --cached --quiet; then
+            echo "No preview changes"
+            exit 0
+          fi
+          git commit -m "Publie les vrais visuels RANDAL des vasques et miroirs"
+          git pull --rebase origin main
+          git push origin HEAD:main
