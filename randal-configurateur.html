@@ -489,7 +489,7 @@ const ACCESSORY_ART={
 };
 const accessoryImage=name=>{
  const slug=ACCESSORY_ART[name];
- return slug?'<span class="visual accessory-visual"><img src="assets/img/randal/accessories/'+slug+'.webp" loading="lazy" decoding="async" alt="Dessin RANDAL '+esc(name)+'"></span>':'';
+ return slug?'<span class="visual accessory-visual"><img src="assets/img/randal/accessories/'+(st.model==='Harmony'&&['Sella','Tampa','Neris','Torne'].includes(name)?'hd/':'')+slug+'.webp" loading="lazy" decoding="async" alt="Dessin RANDAL '+esc(name)+'"></span>':'';
 };
 const blankAccessory=label=>'<span class="visual accessory-empty">'+esc(label)+'</span>';
 const METAL_FINISH_SLUG={Noir:'anthracite','Doré':'dore',Bronze:'bronze',Argent:'argent'};
