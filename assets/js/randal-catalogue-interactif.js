@@ -22,7 +22,11 @@ const allNav=[...document.querySelectorAll('[data-index-list]')];
 
 function navButton(s){
  const b=document.createElement('button');b.type='button';b.className='index-item';b.dataset.goto=String(s.page);
- const img=document.createElement('canvas');img.className='index-thumb';img.width=136;img.height=104;img.dataset.thumb=String(s.page);img.setAttribute('aria-label','Aperçu '+s.name);
+ const slug={'Harmony':'harmony','Luce':'luce','Brent':'brent','Aruba rainuré':'aruba-rainure','Aruba':'aruba','Aras':'aras','Boreal':'boreal','Brunei':'brunei','Amat':'amat','Less':'less','Sima':'sima'}[s.name];
+ let img;
+ if(slug){img=document.createElement('img');img.src='assets/img/randal/v04/'+slug+'.webp';img.alt='Photo '+s.name;img.loading='lazy';img.decoding='async';}
+ else{img=document.createElement('canvas');img.width=136;img.height=104;img.dataset.thumb=String(s.page);img.setAttribute('aria-label','Aperçu '+s.name);}
+ img.className='index-thumb';
  const wrap=document.createElement('span');wrap.className='index-text';
  const name=document.createElement('strong');name.textContent=s.name;
  const num=document.createElement('small');num.textContent='Page '+s.page;
