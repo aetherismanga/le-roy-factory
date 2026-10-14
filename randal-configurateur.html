@@ -63,7 +63,7 @@ a.pdf:hover{background:white}
 <section class="panel" id="panel"></section>
 <p class="note">Envoi depuis votre messagerie. Prix, compatibilité et disponibilité confirmés par RANDAL avant commande définitive.</p>
 </main><footer>RANDAL V04 · LE ROY FACTORY</footer>
-<script defer src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
 <script>
 (()=>{
 'use strict';
@@ -177,6 +177,7 @@ async function paintThumbnails(){
   });
  }
 }
+window.addEventListener('load',()=>paintThumbnails(),{once:true});
 const photo=(page,tag='',key='')=>'<span class="visual"><canvas width="300" height="190" data-photo-page="'+page+'" data-photo-key="'+esc(key)+'" role="img" aria-label="Photo officielle RANDAL, page '+page+'"></canvas>'+(tag?'<i>'+tag+'</i>':'')+'</span>';
 
 const resetConfiguration=()=>{Object.assign(st,{width:'',height:'',depth:'',color:'',variantCode:'',drawers:'',basin:'Sella',top:'Sans plan',basinMode:'integrated',topFinish:'Blanco mate',mirror:'Sans miroir',quantity:1});};
