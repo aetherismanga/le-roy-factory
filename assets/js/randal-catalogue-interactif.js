@@ -1,6 +1,6 @@
 (()=>{
 'use strict';
-const PDF_URL='assets/pdf/RANDAL%2520V04.pdf';
+const PDF_URL='assets/pdf/RANDAL-V04.pdf';
 const SECTIONS=[
  {name:'Harmony',page:3,kind:'meuble'},{name:'Luce',page:7,kind:'meuble'},
  {name:'Brent',page:10,kind:'meuble'},{name:'Aruba rainuré',page:15,kind:'meuble'},
@@ -13,7 +13,7 @@ const SECTIONS=[
 ];
 const $=id=>document.getElementById(id);
 const maxPage=43;
-let page=1,zoom=1,pdf=null,renderTask=null,requestId=0,resizeTimer=0;
+let page=1,zoom=1,pdf=null,renderTask=null,requestId=0,resizeTimer=0;let thumbStarted=false;
 const pageInput=$('page-input'),status=$('viewer-status'),pageMount=$('page-mount');
 const viewer=$('page-frame'),drawer=$('index-overlay'),configLink=$('configure-link');
 const clamp=n=>Math.max(1,Math.min(maxPage,Math.round(n)));
@@ -22,10 +22,30 @@ const allNav=[...document.querySelectorAll('[data-index-list]')];
 
 function navButton(s){
  const b=document.createElement('button');b.type='button';b.className='index-item';b.dataset.goto=String(s.page);
- const name=document.createElement('span');name.textContent=s.name;
+ const img=document.createElement('canvas');img.className='index-thumb';img.width=136;img.height=104;img.dataset.thumb=String(s.page);img.setAttribute('aria-label','Aperçu '+s.name);
+ const wrap=document.createElement('span');wrap.className='index-text';
+ const name=document.createElement('strong');name.textContent=s.name;
  const num=document.createElement('small');num.textContent='Page '+s.page;
- b.append(name,num);return b;
+ wrap.append(name,num);b.append(img,wrap);return b;
 }
+async function loadThumbnails(){
+ if(thumbStarted||!pdf)return;thumbStarted=true;
+ const thumbs=[...document.querySelectorAll('canvas[data-thumb]')];
+ for(const section of SECTIONS){
+  const canvases=thumbs.filter(c=>Number(c.dataset.thumb)===section.page);
+  if(!canvases.length)continue;
+  try{
+   const p=await pdf.getPage(section.page);
+   const base=p.getViewport({scale:1});
+   const viewport=p.getViewport({scale:Math.min(160/base.width,110/base.height)});
+   const canvas=document.createElement('canvas');canvas.width=Math.ceil(viewport.width);canvas.height=Math.ceil(viewport.height);
+   const ctx=canvas.getContext('2d',{alpha:false});await p.render({canvasContext:ctx,viewport}).promise;
+   canvases.forEach(c=>{const context=c.getContext('2d');context.fillStyle='#ffffff';context.fillRect(0,0,c.width,c.height);context.drawImage(canvas,(c.width-canvas.width)/2,(c.height-canvas.height)/2)});
+  }catch(e){console.warn('Miniature RANDAL',section.name,e);}
+ }
+}
+function fallback(){pageMount.replaceChildren();const frame=document.createElement('iframe');frame.className='pdf-fallback';frame.title='Catalogue RANDAL V04';frame.loading='eager';frame.src=PDF_URL+'#page='+page+'&toolbar=0&navpanes=0';pageMount.append(frame);status.hidden=true;viewer.setAttribute('aria-busy','false');}
+
 function populateIndex(){
  allNav.forEach(list=>{
   list.replaceChildren();
@@ -80,7 +100,7 @@ function showMessage(message,isError){
  status.hidden=false;
 }
 async function render(){
- if(!pdf)return;
+ if(!pdf){fallback();return;}
  const ticket=++requestId;
  if(renderTask){try{renderTask.cancel();}catch(_e){}renderTask=null;}
  showMessage('Affichage de la page '+page+'…',false);
@@ -160,15 +180,16 @@ async function start(){
  $('pdf-original').href=PDF_URL;
  $('pdf-error-link').href=PDF_URL;
  showMessage('Ouverture du catalogue RANDAL…',false);
- if(!window.pdfjsLib){showMessage('La visionneuse ne s’est pas chargée. Ouvrez le PDF original.',true);return;}
+ if(!window.pdfjsLib){fallback();return;}
  try{
   pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
   const loader=pdfjsLib.getDocument({url:PDF_URL,rangeChunkSize:65536,disableAutoFetch:true});
   pdf=await loader.promise;
   if(pdf.numPages!==maxPage)console.warn('RANDAL : nombre de pages différent du catalogue V04 attendu',pdf.numPages);
   await render();
+  loadThumbnails();
  }catch(err){
-  showMessage('Le chargement du PDF a échoué. Vous pouvez consulter le document original.',true);
+  fallback();
   console.error('RANDAL PDF:',err);
  }
 }
