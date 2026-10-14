@@ -472,7 +472,7 @@ const entry=(label,name,type='text',placeholder='')=>'<label class="field">'+lab
 const select=(label,name,opts)=>'<label class="field">'+label+'<select name="'+name+'">'+opts.map(v=>'<option value="'+esc(v)+'" '+(st[name]===v?'selected':'')+'>'+esc(v)+'</option>').join('')+'</select></label>';
 // Dessins PDF RANDAL conservés en tracés SVG : précision indépendante du zoom.
 const typeVectorUrl=slug=>'assets/img/randal/types/'+slug+'.svg?v=20261014-vectoriels1';
-window.randalVectorFallback=img=>{img.onerror=null;img.src=img.src.split('?')[0].replace(/\\.svg$/,'.webp')};
+window.randalVectorFallback=img=>{img.onerror=null;img.src=img.src.split('?')[0].replace(/\.svg$/,'.webp')};
 const typeCards=()=>'<div class="choices type-choices">'+typeOptions().map(t=>
  '<button type="button" class="choice type-choice '+(st.typeId===t[0]?'active':'')+'" data-field="typeId" data-value="'+esc(t[0])+'">'+
  '<span class="type-photo"><img src="'+esc(typeVectorUrl(t[2]))+'" alt="Dessin technique vectoriel RANDAL '+esc(t[1])+'" loading="lazy" decoding="async" onerror="randalVectorFallback(this)"></span>'+
