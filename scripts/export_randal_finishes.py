@@ -44,7 +44,9 @@ def save_chip(doc,collection,name,page_number,center,radius=19.3):
     path=OUTPUT/slug(collection)/(slug(name)+'.webp')
     path.parent.mkdir(parents=True,exist_ok=True)
     img.save(path,'WEBP',quality=86,method=6)
-    if path.stat().st_size<500:raise RuntimeError(f'Empty finish {path}')
+    # Les tons très uniformes (blanc mat) se compressent légitimement sous 500 octets.
+    with Image.open(path) as sample:
+        if sample.size!=(188,188):raise RuntimeError(f'Invalid image dimensions: {path}')
     print(collection,name,path.stat().st_size)
 
 def main():
