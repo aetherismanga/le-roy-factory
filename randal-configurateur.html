@@ -155,6 +155,15 @@ a.pdf:hover{background:white}
  .recap-heading,.recap-grid-head,.recap-total{print-color-adjust:exact;-webkit-print-color-adjust:exact}
  .recap-sheet,.recap-line,.recap-legal{font-size:10pt}
 }
+.mirror-metal-choices{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.mirror-metal-choices .choice{min-width:0}
+.metallic-finish-preview{display:flex;align-items:center;justify-content:center;min-height:88px;background:#f6f3ed;border-bottom:1px solid #e9e3d7}
+.metallic-finish-preview img{width:74px;height:74px;max-width:78%;object-fit:contain}
+.mirror-metal-choices .choice-copy{padding:10px;text-align:center}
+.mirror-metal-choices .choice-copy strong{font-size:.86rem}
+.preview-card>.metallic-finish-preview{min-height:45px;padding:5px;background:transparent;border:0}
+.preview-card>.metallic-finish-preview img{height:35px;width:35px}
+@media(max-width:760px){.mirror-metal-choices{grid-template-columns:repeat(2,minmax(0,1fr))}.metallic-finish-preview{min-height:105px}.metallic-finish-preview img{height:86px;width:86px}}
 </style></head><body>
 <header><div><a class="back" href="univers.html">← Retour aux sélections</a><img src="assets/img/randal.png" alt="RANDAL"></div></header>
 <main><section class="hero"><div><h1>Votre meuble RANDAL, sur mesure</h1><p>Choisissez votre composition, visualisez vos choix et envoyez la demande.</p><a class="pdf" href="randal-catalogue-interactif.html">Catalogue interactif</a></div></section>
@@ -229,7 +238,7 @@ const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const key='lrfRandalV04Draft';
 let st;try{st=JSON.parse(sessionStorage.getItem(key)||'{}')}catch{st={}}
-st={model:'',typeId:'',width:'',height:'',depth:'',color:'',variantCode:'',drawers:'',basin:'Sella',top:'Sans plan',basinMode:'integrated',basinFinish:'Blanc brillant',topFinish:'Blanco mate',mirror:'Sans miroir',mirrorSize:'',quantity:1,company:'',name:'',email:'',phone:'',notes:'',step:0,...st};
+st={model:'',typeId:'',width:'',height:'',depth:'',color:'',variantCode:'',drawers:'',basin:'Sella',top:'Sans plan',basinMode:'integrated',basinFinish:'Blanc brillant',topFinish:'Blanco mate',mirror:'Sans miroir',mirrorSize:'',mirrorFinish:'',quantity:1,company:'',name:'',email:'',phone:'',notes:'',step:0,...st};
 // Toujours commencer une nouvelle ouverture sur l'étape 1 (Collection), même si un brouillon existe.
 st.step=0;
 const save=()=>sessionStorage.setItem(key,JSON.stringify(st));
@@ -245,7 +254,13 @@ const MIRROR_FORMATS={
  'Miroir métallique rectangulaire':[['80 × 60 cm','3731'],['120 × 75 cm','10572']],
  'Miroir métallique rond':[['Ø 60 cm','3717']]
 };
-const mirrorRef=()=>MIRROR_FORMATS[st.mirror]?.find(([x])=>x===st.mirrorSize)?.[1]||'À confirmer';
+const METAL_MIRROR_FINISHES=['Noir','Doré','Bronze','Argent'];
+const METAL_MIRROR_REFS={
+ 'Miroir métallique rectangulaire':{'80 × 60 cm':{Noir:'3731','Doré':'3727',Bronze:'3728',Argent:'3730'},'120 × 75 cm':{Noir:'10572','Doré':'10574',Bronze:'10575',Argent:'10577'}},
+ 'Miroir métallique rond':{'Ø 60 cm':{Noir:'3717','Doré':'3722',Bronze:'3723',Argent:'3725'}}
+};
+const isMetalMirror=name=>Object.prototype.hasOwnProperty.call(METAL_MIRROR_REFS,name);
+const mirrorRef=()=>isMetalMirror(st.mirror)?(METAL_MIRROR_REFS[st.mirror]?.[st.mirrorSize]?.[st.mirrorFinish]||'À confirmer'):(MIRROR_FORMATS[st.mirror]?.find(([x])=>x===st.mirrorSize)?.[1]||'À confirmer');
 
 const TOP_FINISHES=['Blanco mate','Negro','Serenade Alba','Roble Amazona','Azul Acero','Nogal Valentina','Biscuit'];
 const TOP_REFS={
@@ -315,7 +330,7 @@ const COLLECTION_IMAGES={
 const collectionImage=name=>'<span class="visual collection-visual"><img src="assets/img/randal/v04/'+(COLLECTION_IMAGES[name]||'harmony')+'.webp" alt="Photo officielle RANDAL '+esc(name)+'" loading="lazy" decoding="async"></span>';
 const photo=(page,tag='',key='')=>'<span class="visual"><canvas width="300" height="190" data-photo-page="'+page+'" data-photo-key="'+esc(key)+'" role="img" aria-label="Photo officielle RANDAL, page '+page+'"></canvas>'+(tag?'<i>'+tag+'</i>':'')+'</span>';
 
-const resetConfiguration=()=>{Object.assign(st,{typeId:'',width:'',height:'',depth:'',color:'',variantCode:'',basin:'Sella',top:'Sans plan',basinMode:'integrated',topFinish:'Blanco mate',mirror:'Sans miroir',mirrorSize:'',quantity:1});};
+const resetConfiguration=()=>{Object.assign(st,{typeId:'',width:'',height:'',depth:'',color:'',variantCode:'',basin:'Sella',top:'Sans plan',basinMode:'integrated',topFinish:'Blanco mate',mirror:'Sans miroir',mirrorSize:'',mirrorFinish:'',quantity:1});};
 function normalize(){
  const type=selectedType();
  if(!type){st.width='';st.height='';st.depth='';st.variantCode='';return;}
@@ -372,6 +387,8 @@ const accessoryImage=name=>{
  return slug?'<span class="visual accessory-visual"><img src="assets/img/randal/accessories/'+slug+'.webp" loading="lazy" decoding="async" alt="Dessin RANDAL '+esc(name)+'"></span>':'';
 };
 const blankAccessory=label=>'<span class="visual accessory-empty">'+esc(label)+'</span>';
+const METAL_FINISH_SLUG={Noir:'anthracite','Doré':'dore',Bronze:'bronze',Argent:'argent'};
+const metalFinishImage=value=>'<span class="metallic-finish-preview"><img src="assets/img/randal/mirror-finishes/'+(METAL_FINISH_SLUG[value]||'anthracite')+'.webp" alt="Finition métallique '+esc(value)+'" loading="lazy" decoding="async"></span>';
 const finishSlug=value=>String(value).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 const finishUrl=(model,finish)=>'assets/img/randal/finishes/'+finishSlug(model)+'/'+finishSlug(finish)+'.webp';
 const finishImage=(model,finish)=>'<span class="finish-preview"><img src="'+esc(finishUrl(model,finish))+'" loading="lazy" decoding="async" alt="Échantillon officiel de finition '+esc(finish)+'" onerror="this.onerror=null;this.hidden=true;this.parentNode.classList.add(\'finish-not-found\')"></span>';
@@ -380,6 +397,7 @@ const pick=(name,values,group='')=>'<div class="choices '+group+'">'+values.map(
   :name==='mirror'?(accessoryImage(value)||blankAccessory(value==='Sans miroir'?'Sans miroir':'À préciser'))
   :name==='basin'?(accessoryImage(value)||blankAccessory('Vasque'))
   :name==='basinMode'?(value==='integrated'?accessoryImage('Sella'):value==='vessel'?accessoryImage('Neris'):blankAccessory('Sans vasque'))
+  :name==='mirrorFinish'?metalFinishImage(value)
   :name==='color'?finishImage(st.model,value)
   :'';
  return '<button type="button" class="choice '+(st[name]===value?'active':'')+'" data-field="'+name+'" data-value="'+esc(value)+'">'+visual+'<span class="choice-copy"><strong>'+esc(name==='basinMode'?({integrated:'Vasque sur meuble',vessel:'Plan + vasque à poser',none:'Sans vasque'}[value]):value)+'</strong><small>'+esc(sub||'')+'</small></span></button>'
@@ -396,8 +414,8 @@ const MIRROR_PRICES={
  'Zen LED':{'11713':184,'11533':205,'11714':229,'11523':263},
  'Ilse LED':{'12743':389,'12744':434,'12745':481,'12746':533},
  'Cápsula LED':{'12741':347},
- 'Miroir métallique rectangulaire':{'3731':215,'10572':340},
- 'Miroir métallique rond':{'3717':162}
+ 'Miroir métallique rectangulaire':{'3731':215,'3727':215,'3728':215,'3730':215,'10572':340,'10574':340,'10575':340,'10577':340},
+ 'Miroir métallique rond':{'3717':162,'3722':162,'3723':162,'3725':162}
 };
 const VESSEL_FINISHES=['Blanc brillant','Taupe','Anthracite','Blanc ivoire','Blanc pur','Vert Namibie','Noir mat','Rose Nadir','Bleu Kivu'];
 const VESSEL_REFS={
@@ -438,7 +456,7 @@ function orderRows(){
  if(st.mirror&&st.mirror!=='Sans miroir'){
   const ref=mirrorRef();
   const price=MIRROR_PRICES[st.mirror]?.[ref];
-  rows.push(rowPrice('Miroir '+st.mirror,st.mirrorSize||'Dimensions à confirmer',ref,price??null));
+  rows.push(rowPrice('Miroir '+st.mirror,(isMetalMirror(st.mirror)?'Cadre '+(st.mirrorFinish||'à préciser')+' · ':'')+(st.mirrorSize||'Dimensions à confirmer'),ref,price??null));
  }
  return rows;
 }
@@ -602,7 +620,7 @@ async function downloadOrderPdf(){
  }finally{if(btn){btn.disabled=false;btn.textContent='Enregistrer en PDF'}}
 }
 
-const summary=()=>['Référence meuble : '+(variant()?.ref||'À vérifier'),'Prix public conseillé meuble : '+euroPrice(publicPrice(variant()?.price)),'DEMANDE DE DISPONIBILITÉ / COMMANDE À CONFIRMER','RANDAL — Catalogue V04','','MODÈLE : '+st.model,'Largeur : '+(st.width||'À confirmer')+' cm','Hauteur : '+(st.height||'À confirmer')+' cm','Profondeur : '+(st.depth||'À confirmer')+' cm','Couleur / finition : '+(st.color||'À confirmer'),'Sous-modèle : '+(selectedType()?.[1]||'À vérifier'),'Variante catalogue : '+(st.variantCode||(st.typeId==='two'?'A à F':'Selon largeur')),'Type de montage : '+({integrated:'Vasque sur meuble',vessel:'Plan et vasque à poser',none:'Meuble sans vasque'}[st.basinMode]),'Vasque : '+st.basin,'Plan : '+st.top+(st.basinMode==='vessel'&&st.model!=='Sima'?' · '+st.topFinish+' · Réf. '+topReference():''),'Miroir : '+st.mirror+(st.mirror==='Sans miroir'?'':' · '+(st.mirrorSize||'Taille à confirmer')+' · réf. '+mirrorRef()),'Quantité : '+st.quantity,'','Merci de confirmer les références exactes, les associations possibles, les conditions commerciales, les stocks et le délai.','Aucune commande ferme avant confirmation de votre part.'].join('\n');
+const summary=()=>['Référence meuble : '+(variant()?.ref||'À vérifier'),'Prix public conseillé meuble : '+euroPrice(publicPrice(variant()?.price)),'DEMANDE DE DISPONIBILITÉ / COMMANDE À CONFIRMER','RANDAL — Catalogue V04','','MODÈLE : '+st.model,'Largeur : '+(st.width||'À confirmer')+' cm','Hauteur : '+(st.height||'À confirmer')+' cm','Profondeur : '+(st.depth||'À confirmer')+' cm','Couleur / finition : '+(st.color||'À confirmer'),'Sous-modèle : '+(selectedType()?.[1]||'À vérifier'),'Variante catalogue : '+(st.variantCode||(st.typeId==='two'?'A à F':'Selon largeur')),'Type de montage : '+({integrated:'Vasque sur meuble',vessel:'Plan et vasque à poser',none:'Meuble sans vasque'}[st.basinMode]),'Vasque : '+st.basin,'Plan : '+st.top+(st.basinMode==='vessel'&&st.model!=='Sima'?' · '+st.topFinish+' · Réf. '+topReference():''),'Miroir : '+st.mirror+(st.mirror==='Sans miroir'?'':' · '+(st.mirrorSize||'Taille à confirmer')+(isMetalMirror(st.mirror)?' · cadre '+(st.mirrorFinish||'à préciser'):'')+' · réf. '+mirrorRef()),'Quantité : '+st.quantity,'','Merci de confirmer les références exactes, les associations possibles, les conditions commerciales, les stocks et le délai.','Aucune commande ferme avant confirmation de votre part.'].join('\n');
 function render(){
 $('steps').innerHTML=steps.map((s,i)=>'<div class="step '+(i===st.step?'active':i<st.step?'done':'')+'">'+(i+1)+'. '+s+'</div>').join('');
 let h='<h2>'+['Choisissez une collection','Choisissez votre modèle','Choisissez les dimensions','Choisissez la finition','Vasque et plan','Choisissez votre miroir','Vérifiez votre commande'][st.step]+'</h2>';
@@ -646,13 +664,14 @@ if(st.step===5){
  h+='<p class="hint">Choisissez votre miroir et sa dimension.</p>'+pick('mirror',[['Sans miroir',''],['Basic',''],['Zen LED',''],['Ilse LED',''],['Cápsula LED',''],['Miroir métallique rectangulaire',''],['Miroir métallique rond',''],['Autre miroir (à préciser)','']]);
  const dims=MIRROR_FORMATS[st.mirror];
  if(dims)h+='<div class="options-group">'+select('Dimension du miroir','mirrorSize',['',...dims.map(x=>x[0])])+'</div>';
+ if(isMetalMirror(st.mirror))h+='<div class="options-group"><h3>Couleur du cadre</h3><p class="mini">Finitions RANDAL — catalogue page 36.</p>'+pick('mirrorFinish',METAL_MIRROR_FINISHES.map(x=>[x,'']),'mirror-metal-choices')+'</div>';
 }
 if(st.step===6){
  h+='<p class="hint">Vérifiez les articles, références et prix avant la demande à RANDAL.</p>'+
  '<div class="visual-summary">'+
  '<div class="preview-card">'+activeTypeVisual()+'<strong>'+esc(st.model)+' · '+esc(selectedType()?.[1])+' · '+esc(st.color)+'</strong><span class="selected-finish"><img src="'+esc(finishUrl(st.model,st.color))+'" alt="Finition '+esc(st.color)+'" loading="lazy"></span></div>'+
  '<div class="preview-card">'+((selectedType()?.[3]==='column'||st.basinMode==='none')?blankAccessory('Sans vasque'):accessoryImage(st.basin))+'<strong>'+esc(st.basin)+'</strong></div>'+
- '<div class="preview-card">'+(accessoryImage(st.mirror)||blankAccessory('Sans miroir'))+'<strong>'+esc(st.mirror)+'</strong></div>'+
+ '<div class="preview-card">'+(accessoryImage(st.mirror)||blankAccessory('Sans miroir'))+'<strong>'+esc(st.mirror)+(isMetalMirror(st.mirror)?' · '+esc(st.mirrorFinish):'')+'</strong>'+(isMetalMirror(st.mirror)?metalFinishImage(st.mirrorFinish):'')+'</div>'+ 
  '</div>'+
  professionalRecap()+
  '<div class="recap-tools"><button type="button" class="btn recap-button" id="print-order">Imprimer</button>'+
@@ -671,7 +690,7 @@ $('panel').querySelectorAll('[data-field]').forEach(b=>b.onclick=()=>{
   st.basinMode='integrated';st.basin='Sella';st.top='Sans plan';
  }else{
   if((field==='width'||field==='variantCode')&&st[field]!==value)st.color='';
-  if(field==='mirror'&&st.mirror!==value)st.mirrorSize='';
+  if(field==='mirror'&&st.mirror!==value){st.mirrorSize='';st.mirrorFinish='';}
   st[field]=value;
  }
  normalize();syncBasin();save();render();
@@ -703,6 +722,7 @@ if($('next'))$('next').onclick=()=>{
   }
  }
  if(st.step===5&&MIRROR_FORMATS[st.mirror]&&!MIRROR_FORMATS[st.mirror].some(x=>x[0]===st.mirrorSize)){alert('Choisissez la dimension du miroir.');return}
+ if(st.step===5&&isMetalMirror(st.mirror)&&!METAL_MIRROR_FINISHES.includes(st.mirrorFinish)){alert('Choisissez la couleur du cadre du miroir.');return}
  st.step++;save();render();scrollTo({top:0,behavior:'smooth'});
 };
 if($('print-order'))$('print-order').onclick=()=>window.print();
