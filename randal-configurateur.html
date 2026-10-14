@@ -229,7 +229,7 @@ const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const key='lrfRandalV04Draft';
 let st;try{st=JSON.parse(sessionStorage.getItem(key)||'{}')}catch{st={}}
-st={model:'',typeId:'',width:'',height:'',depth:'',color:'',variantCode:'',drawers:'',basin:'Sella',top:'Sans plan',basinMode:'integrated',topFinish:'Blanco mate',mirror:'Sans miroir',mirrorSize:'',quantity:1,company:'',name:'',email:'',phone:'',notes:'',step:0,...st};
+st={model:'',typeId:'',width:'',height:'',depth:'',color:'',variantCode:'',drawers:'',basin:'Sella',top:'Sans plan',basinMode:'integrated',basinFinish:'Blanc brillant',topFinish:'Blanco mate',mirror:'Sans miroir',mirrorSize:'',quantity:1,company:'',name:'',email:'',phone:'',notes:'',step:0,...st};
 // Toujours commencer une nouvelle ouverture sur l'étape 1 (Collection), même si un brouillon existe.
 st.step=0;
 const save=()=>sessionStorage.setItem(key,JSON.stringify(st));
@@ -498,6 +498,109 @@ const professionalRecap=()=>{
  '</div>';
 };
 
+
+/* Export PDF autonome : jsPDF chargé à la demande, sans serveur ni données personnelles. */
+async function getPdfGenerator(){
+ if(window.jspdf?.jsPDF)return window.jspdf.jsPDF;
+ const src='https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+ await new Promise((resolve,reject)=>{
+  const tag=document.createElement('script');tag.src=src;tag.async=true;
+  tag.onload=resolve;tag.onerror=()=>reject(new Error('Téléchargement du moteur PDF indisponible'));
+  document.head.appendChild(tag);
+ });
+ if(!window.jspdf?.jsPDF)throw new Error('Générateur PDF indisponible');
+ return window.jspdf.jsPDF;
+}
+async function jpegFromImage(path){
+ if(!path)return null;
+ const res=await fetch(path);
+ if(!res.ok)throw new Error('Image non trouvée');
+ const blob=await res.blob();
+ const url=URL.createObjectURL(blob);
+ try{
+  const img=await new Promise((resolve,reject)=>{
+   const im=new Image();im.onload=()=>resolve(im);im.onerror=reject;im.src=url;
+  });
+  const canvas=document.createElement('canvas');
+  canvas.width=440;canvas.height=260;
+  const ctx=canvas.getContext('2d');
+  ctx.fillStyle='#faf9f6';ctx.fillRect(0,0,440,260);
+  const sc=Math.min(420/img.width,240/img.height);
+  ctx.drawImage(img,(440-img.width*sc)/2,(260-img.height*sc)/2,img.width*sc,img.height*sc);
+  return canvas.toDataURL('image/jpeg',.85);
+ }finally{URL.revokeObjectURL(url)}
+}
+function exportPictures(){
+ const t=selectedType();return [
+  {name:st.model,src:t?'assets/img/randal/types/'+t[2]+'.webp':null},
+  {name:st.basinMode==='none'?'Sans vasque':st.basin,src:st.basinMode!=='none'&&st.basin!=='Sans vasque'?'assets/img/randal/accessories/'+ACCESSORY_ART[st.basin]+'.webp':null},
+  {name:st.mirror,src:st.mirror!=='Sans miroir'&&ACCESSORY_ART[st.mirror]?'assets/img/randal/accessories/'+ACCESSORY_ART[st.mirror]+'.webp':null}
+ ];
+}
+async function downloadOrderPdf(){
+ const btn=$('save-pdf');if(btn){btn.disabled=true;btn.textContent='Création du PDF…'}
+ try{
+  const JS=await getPdfGenerator();
+  const pdf=new JS({unit:'mm',format:'a4',orientation:'portrait'});
+  const clean=s=>String(s??'').replace(/[–—]/g,'-').replace(/[×]/g,'x').replace(/[·]/g,'-');
+  const write=(str,x,y,style='normal',size=10,color=[40,46,40])=>{
+   pdf.setFont('helvetica',style);pdf.setFontSize(size);pdf.setTextColor(...color);
+   pdf.text(clean(str),x,y);
+  };
+  const money=n=>clean(euroPrice(n));
+  pdf.setFillColor(64,78,67);pdf.rect(0,0,210,29,'F');
+  write('RANDAL  /  LE ROY FACTORY',15,12,'bold',15,[255,255,255]);
+  write('DEMANDE DE DISPONIBILITÉ - PROJET À CONFIRMER',15,20,'normal',9,[240,240,232]);
+  write('Composition : '+st.model+' / '+(selectedType()?.[1]||'Meuble'),16,39,'bold',12);
+  write('Dimensions : '+st.width+' x '+st.height+' x '+st.depth+' cm',16,46,'normal',9);
+  write('Finition : '+st.color+'   |   Variante : '+(st.variantCode||'à confirmer'),16,52,'normal',9);
+  write('Quantité : '+safeQty()+' ensemble(s)',16,58,'normal',9);
+  const pictures=exportPictures();
+  for(let i=0;i<pictures.length;i++){
+   const p=pictures[i],x=16+i*60;
+   pdf.setFillColor(249,247,244);pdf.rect(x,64,55,35,'F');
+   if(p.src)try{const data=await jpegFromImage(p.src);if(data)pdf.addImage(data,'JPEG',x+2,65,51,29)}catch(e){console.warn('Aperçu image PDF',e)}
+   write(p.name.slice(0,27),x+2,103,'normal',8);
+  }
+  let y=116;
+  const rows=orderRows();
+  pdf.setFillColor(234,238,234);pdf.rect(15,y,180,11,'F');
+  write('PRODUIT / RÉFÉRENCE',18,y+7,'bold',8);
+  write('QTE',122,y+7,'bold',8);
+  write('PU HT',142,y+7,'bold',8);
+  write('TOTAL HT',171,y+7,'bold',8);
+  y+=12;
+  for(const r of rows){
+   if(y+27>267){pdf.addPage();y=20}
+   pdf.setDrawColor(223,225,221);pdf.line(15,y+24,195,y+24);
+   write(r.title.slice(0,51),18,y+5,'bold',9);
+   const desc=pdf.splitTextToSize(clean(r.details),98).slice(0,2);
+   pdf.setFont('helvetica','normal');pdf.setFontSize(7.6);pdf.setTextColor(108,109,102);pdf.text(desc,18,y+10);
+   write('Réf. '+r.ref,18,y+21,'bold',8,[65,84,71]);
+   write(r.quantity,126,y+6,'normal',9);
+   write(money(r.unit),143,y+6,'normal',8);
+   write(r.unit===null?'À confirmer':money(r.unit*r.quantity),171,y+6,'bold',8);
+   y+=27;
+  }
+  if(y+44>272){pdf.addPage();y=20}
+  const t=totals();
+  pdf.setFillColor(239,243,237);pdf.rect(15,y+1,180,18,'F');
+  write(t.complete?'TOTAL HT CONSEILLÉ':'TOTAL PARTIEL HT',19,y+12,'bold',10,[49,81,65]);
+  write(money(t.sum),156,y+12,'bold',12,[49,81,65]);
+  y+=28;
+  const legal='Prix de vente HT conseillés du catalogue RANDAL V04. Hors transport et installation. Merci de confirmer les références, la disponibilité, les prix d’achat professionnels et les délais. Document non contractuel ; aucune commande ferme avant validation de l’usine.';
+  const lines=pdf.splitTextToSize(clean(legal),179);
+  pdf.setFont('helvetica','normal');pdf.setFontSize(8);pdf.setTextColor(100,102,97);
+  pdf.text(lines,16,y);
+  pdf.setFontSize(7);pdf.text('Document préparé sur leroifactory.fr - '+new Date().toLocaleDateString('fr-FR'),16,286);
+  pdf.save('RANDAL-Demande-'+st.model.replace(/\s/g,'-')+'-'+(variant()?.ref||'modele')+'.pdf');
+ }catch(e){
+  console.error('Export PDF RANDAL',e);
+  alert('L’enregistrement direct est indisponible. La fenêtre d’impression permet de choisir « Enregistrer en PDF ».');
+  window.print();
+ }finally{if(btn){btn.disabled=false;btn.textContent='Enregistrer en PDF'}}
+}
+
 const summary=()=>['Référence meuble : '+(variant()?.ref||'À vérifier'),'Prix vente conseillé HT meuble : '+(variant()?.price??'À confirmer')+' €','DEMANDE DE DISPONIBILITÉ / COMMANDE À CONFIRMER','RANDAL — Catalogue V04','','MODÈLE : '+st.model,'Largeur : '+(st.width||'À confirmer')+' cm','Hauteur : '+(st.height||'À confirmer')+' cm','Profondeur : '+(st.depth||'À confirmer')+' cm','Couleur / finition : '+(st.color||'À confirmer'),'Sous-modèle : '+(selectedType()?.[1]||'À vérifier'),'Variante catalogue : '+(st.variantCode||(st.typeId==='two'?'A à F':'Selon largeur')),'Type de montage : '+({integrated:'Vasque sur meuble',vessel:'Plan et vasque à poser',none:'Meuble sans vasque'}[st.basinMode]),'Vasque : '+st.basin,'Plan : '+st.top+(st.basinMode==='vessel'&&st.model!=='Sima'?' · '+st.topFinish+' · Réf. '+topReference():''),'Miroir : '+st.mirror+(st.mirror==='Sans miroir'?'':' · '+(st.mirrorSize||'Taille à confirmer')+' · réf. '+mirrorRef()),'Quantité : '+st.quantity,'','Merci de confirmer les références exactes, les associations possibles, le prix professionnel HT, les stocks et le délai.','Aucune commande ferme avant confirmation de votre part.'].join('\n');
 function render(){
 $('steps').innerHTML=steps.map((s,i)=>'<div class="step '+(i===st.step?'active':i<st.step?'done':'')+'">'+(i+1)+'. '+s+'</div>').join('');
@@ -531,6 +634,7 @@ if(st.step===4){
  }
  if(st.basinMode==='vessel'){
   h+='<div class="options-group"><h3>Vasque à poser</h3>'+pick('basin',['Neris','Torne'].map(x=>[x,'Page 41']))+'</div>';
+  h+='<div class="options-group">'+select('Couleur de la vasque','basinFinish',VESSEL_FINISHES)+'</div>';
   if(st.model==='Sima')h+='<div class="options-group">Plateau SIMA (fourni dans la composition). Aucun plan supplémentaire.</div>';
   else h+='<div class="options-group"><h3>Finition du plan</h3>'+select('Plan 46 cm de profondeur','topFinish',TOP_FINISHES)+'</div>';
  }
