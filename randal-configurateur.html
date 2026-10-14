@@ -269,7 +269,7 @@ const imagePages={mirror:35,integrated:37,vessel:41,none:0};
 let pdfPromise=null;const imageCache=new Map();
 async function loadPdf(){
  if(!window.pdfjsLib)return null;
- if(!pdfPromise){window.pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';pdfPromise=window.pdfjsLib.getDocument({url:'assets/pdf/RANDAL-V04.pdf',disableAutoFetch:false}).promise.catch(e=>{console.warn('Photos catalogue RANDAL',e);return null})}
+ if(!pdfPromise){window.pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';pdfPromise=window.pdfjsLib.getDocument({url:'assets/pdf/RANDAL-V04.pdf?v=20261014-prix-publics',disableAutoFetch:false}).promise.catch(e=>{console.warn('Photos catalogue RANDAL',e);return null})}
  return pdfPromise;
 }
 async function renderPreview(page){
