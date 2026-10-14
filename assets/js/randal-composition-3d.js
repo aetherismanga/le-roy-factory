@@ -396,6 +396,35 @@ function mirror(config,w,topHeight){
   const led= new THREE.PointLight(0xe6f2ff,.85,.8);led.position.set(0,cy,z+.13);scene.add(led);
  }
 }
+function applyFloorTexture(material){
+ const item=FLOOR_OPTIONS.find(x=>x.id===surfaceChoice.floor)||FLOOR_OPTIONS[0];
+ material.color.set(item.base);material.roughness=.87;material.metalness=0;
+ if(!item.preview){loadCocoFloor(material);return;}
+ const sceneTicket=sceneGeneration,session=sessionId;
+ const image=new Image();image.decoding='async';
+ image.onload=()=>{
+  if(!scene||sceneGeneration!==sceneTicket||session!==sessionId||!active)return;
+  // Une seule surface continue, avec un carreau rectifié répété à l'échelle 60 × 60.
+  // Les joints sont tracés dans la texture (aucun relief 3D).
+  const c=document.createElement('canvas');c.width=1024;c.height=1024;
+  const ctx=c.getContext('2d',{alpha:false});
+  ctx.fillStyle='#d3ccc2';ctx.fillRect(0,0,1024,1024);
+  ctx.drawImage(image,3,3,1018,1018);
+  ctx.fillStyle='rgba(73,64,54,.18)';
+  ctx.fillRect(0,0,1024,3);ctx.fillRect(0,0,3,1024);
+  ctx.fillRect(0,1021,1024,3);ctx.fillRect(1021,0,3,1024);
+  const texture=new THREE.CanvasTexture(c);texture.colorSpace=THREE.SRGBColorSpace;
+  texture.wrapS=texture.wrapT=THREE.RepeatWrapping;
+  texture.repeat.set(7/.6,7/.6);
+  texture.anisotropy=Math.min(8,renderer?.capabilities.getMaxAnisotropy?.()||8);
+  texture.minFilter=THREE.LinearMipmapLinearFilter;texture.magFilter=THREE.LinearFilter;
+  if(material.map)material.map.dispose();
+  material.color.set('#ffffff');material.map=texture;material.needsUpdate=true;
+  requestFrame();
+ };
+ image.onerror=()=>{console.warn('Texture Creta introuvable:',item.preview);requestFrame()};
+ image.src=item.preview;
+}
 function loadCocoFloor(material){
  const uri=window.RANDAL_VIEW_COCO_BEIGE;
  if(!uri)return;
@@ -530,7 +559,7 @@ function buildScene(config){
  // Un seul plan continu au niveau zéro, sans tranche apparente ni fausse marche.
  const floor=newMat('#ddc6a9',.88);const floorMesh=new THREE.Mesh(new THREE.PlaneGeometry(7,7),floor);
  floorMesh.rotation.x=-Math.PI/2;floorMesh.position.set(0,-.002,.7);floorMesh.receiveShadow=true;scene.add(floorMesh);
- loadCocoFloor(floor);
+ applyFloorTexture(floor);
  const width=clamp((Number(config.width)||80)/100,.35,1.56),height=clamp((Number(config.height)||53)/100,.1,1.75),depth=clamp((Number(config.depth)||45)/100,.22,.55);
  const isColumn=config.kind==='column';
  const isCounter=config.kind==='counter';
