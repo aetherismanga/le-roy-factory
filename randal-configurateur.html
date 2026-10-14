@@ -10,13 +10,60 @@ html{scroll-behavior:smooth}body{overflow-x:hidden}.hero{min-height:165px}.wizar
 @media(min-width:900px){main{max-width:1150px}.panel{padding:38px 42px}.choices{grid-template-columns:repeat(3,minmax(0,1fr))}.hero{padding:32px 42px}}
 @media(max-width:760px){header>div{padding:10px 14px}header img{width:96px;height:42px}.back{font-size:.85rem}.hero{border-radius:16px;padding:21px;min-height:0}.hero h1{font-size:1.65rem}.wizard{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:15px 0}.step{min-height:49px;font-size:.72rem;padding:8px 3px}.panel{border-radius:15px;padding:20px;min-height:0}.choices{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.choice{min-height:77px;padding:12px 10px}.choice strong{font-size:.95rem}.fields{grid-template-columns:1fr}.actions{gap:8px}.actions .btn{flex:1;padding:12px 8px}.summary{font-size:.85rem;padding:14px}.note{line-height:1.5}}
 @media(max-width:360px){.wizard{grid-template-columns:repeat(3,minmax(0,1fr))}.choices{grid-template-columns:1fr}.hero h1{font-size:1.4rem}}
+
+/* RANDAL studio - editorial visual refresh, responsive */
+:root{--pine:#443f37;--gold:#a88b64;--ink:#262b28;--bg:#f5f2ee}
+body{background:#f5f2ee;color:#292925}
+header{background:#faf9f7;box-shadow:0 1px 9px #241e150d}
+.back{color:#4c4b43}
+.hero{background:linear-gradient(90deg,#211f1bbd 0%,#29251f75 62%,#18171018 100%),url('assets/img/inspirations/meubles.webp') center 51%/cover no-repeat;background-color:#746b5e;min-height:245px;border-radius:20px;display:flex;align-items:center;color:white}
+.hero h1{font-weight:750;max-width:550px;font-size:clamp(1.8rem,4vw,2.8rem)}
+.hero p{max-width:470px;color:#fbf9f4;font-size:1rem}
+a.pdf{background:#ffffffec;color:#373d36!important;text-decoration:none;padding:10px 16px;border-radius:9px;margin-top:17px;font-weight:800}
+a.pdf:hover{background:white}
+.wizard{gap:6px;margin:16px 0}
+.step{background:#e8e5df;color:#58564e;border-radius:10px}
+.step.active{background:#383f3a;color:white;box-shadow:none}
+.step.done{background:#dedbd2;color:#383d37}
+.panel{background:#fffefd;border-color:#e2ded5;box-shadow:0 8px 35px #4033220b}
+.hint{color:#777972;font-size:.94rem}
+.choice{padding:0;text-align:left;border:1px solid #e4ded5;min-width:0;overflow:hidden;background:#fff;min-height:unset;box-shadow:0 2px 10px #453d3010}
+.choice.active{border:2px solid #877357;background:#faf7ef;box-shadow:0 0 0 2px #bcab9080}
+.choice:hover{border-color:#b1a28e}
+.choice-copy{padding:12px 13px;display:block}
+.choice strong{font-size:.96rem;line-height:1.32}
+.choice small{margin-top:3px;color:#787770}
+.choice .visual{height:142px;display:block;position:relative;overflow:hidden;background:linear-gradient(140deg,#e2e4df,#f5f1ea);background-image:url('assets/img/inspirations/meubles.webp');background-position:center;background-size:cover}
+.choice .visual>canvas{width:100%;height:100%;object-fit:cover;display:block}
+.choice .visual i{font-style:normal;position:absolute;bottom:7px;right:7px;color:#fff;background:#2b2b27ad;padding:3px 7px;border-radius:6px;font-size:.66rem}
+.choice .swatch{width:100%;height:45px;display:block;border-bottom:1px solid #d9d4c7}
+.btn.primary{background:#393e39}
+.btn.primary:hover{background:#545d54}
+.field input:focus,.field select:focus,.field textarea:focus{outline-color:#8e8977}
+.summary{background:#f8f7f4;border-color:#e9e3da;color:#35332c}
+.note{margin:18px 0 0;background:transparent;border:0;color:#75736c;padding:0;font-size:.8rem}
+.mode-grid{margin-bottom:18px}.mode-grid .choice{padding:17px!important;min-height:94px}
+.mode-grid .choice strong{font-size:1rem}.mode-grid .choice small{font-size:.82rem}
+.options-group{padding:17px;border:1px solid #e9e3d9;border-radius:13px;background:#faf9f6;margin-top:12px}
+.options-group h3{font-size:1.05rem;margin:0 0 12px}
+.visual-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:15px 0}
+.preview-card{background:#faf9f6;border:1px solid #e7e3da;border-radius:12px;overflow:hidden;min-width:0}
+.preview-card .visual{height:140px;overflow:hidden;display:block;background:url('assets/img/inspirations/meubles.webp') center/cover}
+.preview-card canvas{width:100%;height:100%;object-fit:cover}
+.preview-card strong{display:block;font-size:.8rem;padding:8px 10px;line-height:1.3}
+.product-choice{margin-bottom:12px}
+@media(min-width:901px){.choices{grid-template-columns:repeat(3,minmax(0,1fr))}.hero{min-height:270px;padding:37px 43px}}
+@media(max-width:760px){main{padding:0 12px 65px;margin:12px auto}.hero{min-height:190px;padding:24px}.hero h1{font-size:1.72rem}.hero p{font-size:.89rem}.wizard{grid-template-columns:repeat(4,minmax(0,1fr))}.step{font-size:.71rem}.panel{padding:17px}.choice .visual{height:115px}.choice .choice-copy{padding:9px}.choice strong{font-size:.89rem}.choice small{font-size:.74rem}.choices{grid-template-columns:repeat(2,minmax(0,1fr))}.visual-summary{gap:7px}.preview-card .visual{height:90px}.preview-card strong{font-size:.69rem;padding:7px}.mode-grid .choice{padding:12px!important}}
+@media(max-width:370px){.choices{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{padding:18px}.hero h1{font-size:1.48rem}.step{font-size:.65rem}}
+
 </style></head><body>
 <header><div><a class="back" href="univers.html">← Retour aux sélections</a><img src="assets/img/randal.png" alt="RANDAL"></div></header>
-<main><section class="hero"><div><h1>Configurez votre meuble RANDAL</h1><p>Choisissez votre composition étape par étape, puis préparez votre demande de configuration.</p><a class="pdf" href="randal-catalogue-interactif.html">☰ Catalogue interactif RANDAL V04 →</a> <a class="pdf" href="assets/pdf/RANDAL-V04.pdf" target="_blank" rel="noopener">PDF original ↗</a></div></section>
+<main><section class="hero"><div><h1>Votre meuble RANDAL, sur mesure</h1><p>Choisissez votre composition, visualisez vos choix et envoyez la demande.</p><a class="pdf" href="randal-catalogue-interactif.html">Catalogue interactif</a></div></section>
 <nav class="wizard" id="steps" aria-label="Étapes de configuration"></nav>
 <section class="panel" id="panel"></section>
-<p class="note">Votre demande sera préparée dans votre messagerie et devra être envoyée manuellement. Les références, compatibilités, tarifs et délais sont à confirmer par RANDAL avant validation définitive.</p>
+<p class="note">Envoi depuis votre messagerie. Prix, compatibilité et disponibilité confirmés par RANDAL avant commande définitive.</p>
 </main><footer>RANDAL V04 · LE ROY FACTORY</footer>
+<script defer src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
 <script>
 (()=>{
 'use strict';
@@ -27,33 +74,119 @@ const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const key='lrfRandalV04Draft';
 let st;try{st=JSON.parse(sessionStorage.getItem(key)||'{}')}catch{st={}}
-st={model:'',width:'',height:'',depth:'',color:'',drawers:'',basin:'À définir',top:'À définir',mirror:'Sans miroir',quantity:1,company:'',name:'',email:'',phone:'',notes:'',step:0,...st};
+st={model:'',width:'',height:'',depth:'',color:'',drawers:'',basin:'Sella',top:'Sans plan',basinMode:'integrated',topFinish:'Blanco mate',mirror:'Sans miroir',quantity:1,company:'',name:'',email:'',phone:'',notes:'',step:0,...st};
 const save=()=>sessionStorage.setItem(key,JSON.stringify(st));
-const resetConfiguration=()=>{Object.assign(st,{width:'',height:'',depth:'',color:'',drawers:'',basin:'À définir',top:'À définir',mirror:'Sans miroir',quantity:1});};
+
+const MODEL_PAGE=Object.fromEntries(models);
+const COLOR_HEX={'Blanco mate':'#f7f6f1','Serenade Alba':'#d7d0bf','Gris tórtora':'#9b938a','Nogal Valentina':'#675143','Roble Amazona':'#be9e75','Biscuit':'#d7cab7','Azul Acero':'#637c87','Negro':'#242425','Gris':'#959799','Verde Utopía':'#527f6e','Azul Ceylan':'#3e6376','Nogal Lincoln':'#78543a','Fresno Lagom':'#c5ac89','Roble Natura':'#bd9a72','Nogal Mist':'#7f6550'};
+const TOP_FINISHES=['Blanco mate','Negro','Serenade Alba','Roble Amazona','Azul Acero','Nogal Valentina','Biscuit'];
+const TOP_REFS={
+ 'Blanco mate':[13253,13335,13245,13336,13337,13094],
+ 'Negro':[13092,13302,10441,13303,13304,10443],
+ 'Serenade Alba':[13323,13324,13325,13326,13327,13328],
+ 'Roble Amazona':[13251,13305,13103,13306,13307,13105],
+ 'Azul Acero':[13317,13318,13319,13320,13321,13322],
+ 'Nogal Valentina':[13252,13308,13104,13309,13310,13106],
+ 'Biscuit':[13311,13312,13313,13314,13315,13316]
+};
+const topReference=()=>{const i=[60,70,80,90,100,120].indexOf(Number(st.width));return i>=0?TOP_REFS[st.topFinish]?.[i]||'À confirmer':'À confirmer'};
+const allowedModes=()=>st.model==='Sima'?['vessel']:st.model==='Less'?['none']:Number(st.width)>120?['integrated','none']:['integrated','vessel','none'];
+function syncBasin(){
+ if(!allowedModes().includes(st.basinMode))st.basinMode=allowedModes()[0];
+ if(st.basinMode==='none'){st.basin='Sans vasque';st.top='Sans plan'}
+ if(st.basinMode==='integrated'){if(!['Sella','Tampa'].includes(st.basin))st.basin=st.model==='Luce'||st.model==='Brent'?'Tampa':'Sella';if(st.model==='Luce'||st.model==='Brent')st.basin='Tampa';st.top='Sans plan'}
+ if(st.basinMode==='vessel'){if(!['Neris','Torne'].includes(st.basin))st.basin='Neris';st.top=st.model==='Sima'?'Plateau SIMA':'Plan pour vasque à poser';if(!TOP_FINISHES.includes(st.topFinish))st.topFinish='Blanco mate'}
+}
+const imagePages={mirror:35,integrated:37,vessel:41,none:0};
+let pdfPromise=null;const imageCache=new Map();
+async function loadPdf(){
+ if(!window.pdfjsLib)return null;
+ if(!pdfPromise){window.pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';pdfPromise=window.pdfjsLib.getDocument({url:'assets/pdf/RANDAL-V04.pdf',disableAutoFetch:false}).promise.catch(e=>{console.warn('Photos catalogue RANDAL',e);return null})}
+ return pdfPromise;
+}
+async function renderPreview(page){
+ if(imageCache.has(page))return imageCache.get(page);
+ const doc=await loadPdf();if(!doc)return null;
+ const p=await doc.getPage(page),v=p.getViewport({scale:.55});
+ const off=document.createElement('canvas');off.width=Math.ceil(v.width);off.height=Math.ceil(v.height);
+ await p.render({canvasContext:off.getContext('2d'),viewport:v}).promise;
+ imageCache.set(page,off);return off;
+}
+let thumbCall=0;
+async function paintThumbnails(){
+ const seq=++thumbCall,targets=[...document.querySelectorAll('canvas[data-photo-page]')];if(!targets.length)return;
+ const pages=[...new Set(targets.map(x=>Number(x.dataset.photoPage)).filter(Boolean))];
+ for(const p of pages){
+  let source;try{source=await renderPreview(p)}catch(e){console.warn('Visuel RANDAL',p,e)}
+  if(seq!==thumbCall)return;
+  if(!source)continue;
+  targets.filter(x=>Number(x.dataset.photoPage)===p).forEach(canvas=>{
+   if(!canvas.isConnected)return;
+   const c=canvas.getContext('2d');const W=canvas.width,H=canvas.height;
+   // Haut de la page : photos officielles, en excluant le bandeau et les tableaux.
+   const srcX=source.width*.06,srcY=source.height*.10,srcW=source.width*.88,srcH=source.height*.64;
+   const ratio=Math.max(W/srcW,H/srcH);
+   const cropW=W/ratio,cropH=H/ratio;
+   c.drawImage(source,srcX+(srcW-cropW)/2,srcY+(srcH-cropH)*.32,cropW,cropH,0,0,W,H);
+  });
+ }
+}
+const photo=(page,tag='')=>'<span class="visual"><canvas width="300" height="190" data-photo-page="'+page+'" role="img" aria-label="Photo officielle RANDAL, page '+page+'"></canvas>'+(tag?'<i>'+tag+'</i>':'')+'</span>';
+
+const resetConfiguration=()=>{Object.assign(st,{width:'',height:'',depth:'',color:'',drawers:'',basin:'Sella',top:'Sans plan',basinMode:'integrated',topFinish:'Blanco mate',mirror:'Sans miroir',quantity:1});};
 const normalize=()=>{const d=RANDAL[st.model];if(!d){resetConfiguration();return}if(!d.w.includes(Number(st.width))){st.width='';st.color=''}if(d.h.length===1)st.height=String(d.h[0]);else if(!d.h.includes(Number(st.height)))st.height='';st.depth=String(d.d);if(!d.colors.includes(st.color))st.color='';};
-normalize();
+normalize();syncBasin();
 const selectedFromCatalogue=new URLSearchParams(location.search).get('collection');
 if(selectedFromCatalogue&&models.some(([name])=>name===selectedFromCatalogue)&&st.model!==selectedFromCatalogue){st.model=selectedFromCatalogue;resetConfiguration();st.step=1;normalize();save();}
 const entry=(label,name,type='text',placeholder='')=>'<label class="field">'+label+'<input name="'+name+'" type="'+type+'" placeholder="'+placeholder+'" value="'+esc(st[name])+'"></label>';
 const select=(label,name,opts)=>'<label class="field">'+label+'<select name="'+name+'">'+opts.map(v=>'<option value="'+esc(v)+'" '+(st[name]===v?'selected':'')+'>'+esc(v)+'</option>').join('')+'</select></label>';
-const pick=(name,values)=>'<div class="choices">'+values.map(([value,sub])=>'<button type="button" class="choice '+(st[name]===value?'active':'')+'" data-field="'+name+'" data-value="'+esc(value)+'"><strong>'+esc(value)+'</strong><small>'+esc(sub||'')+'</small></button>').join('')+'</div>';
-const summary=()=>['Référence meuble : '+(variant()?.ref||'À vérifier'),'Prix vente conseillé HT meuble : '+(variant()?.price??'À confirmer')+' €','DEMANDE DE DISPONIBILITÉ / COMMANDE À CONFIRMER','RANDAL — Catalogue V04','','MODÈLE : '+st.model,'Largeur : '+(st.width||'À confirmer')+' cm','Hauteur : '+(st.height||'À confirmer')+' cm','Profondeur : '+(st.depth||'À confirmer')+' cm','Couleur / finition : '+(st.color||'À confirmer'),'Tiroirs / composition : '+(st.drawers||'À confirmer'),'Vasque : '+st.basin,'Plan : '+st.top,'Miroir : '+st.mirror,'Quantité : '+st.quantity,'','CLIENT / MAGASIN : '+st.company,'Contact : '+st.name,'E-mail : '+st.email,'Téléphone : '+st.phone,'','Informations complémentaires : '+(st.notes||'Aucune'),'','Merci de confirmer les références exactes, les associations possibles, le prix professionnel HT, les stocks et le délai.','Aucune commande ferme avant confirmation de votre part.'].join('\n');
+const pick=(name,values,group='')=>'<div class="choices '+group+'">'+values.map(([value,sub])=>{
+ const page=name==='model'?MODEL_PAGE[value]:name==='mirror'?(value==='Sans miroir'?0:35):name==='basinMode'?(value==='vessel'?41:value==='integrated'?37:0):0;
+ const visual=page?photo(page,name==='model'?'p. '+page:''):name==='color'?'<span class="swatch" style="background:'+esc(COLOR_HEX[value]||'#c5c4b9')+'"></span>':'';
+ return '<button type="button" class="choice '+(st[name]===value?'active':'')+'" data-field="'+name+'" data-value="'+esc(value)+'">'+visual+'<span class="choice-copy"><strong>'+esc(value)+'</strong><small>'+esc(sub||'')+'</small></span></button>'
+ }).join('')+'</div>';
+const summary=()=>['Référence meuble : '+(variant()?.ref||'À vérifier'),'Prix vente conseillé HT meuble : '+(variant()?.price??'À confirmer')+' €','DEMANDE DE DISPONIBILITÉ / COMMANDE À CONFIRMER','RANDAL — Catalogue V04','','MODÈLE : '+st.model,'Largeur : '+(st.width||'À confirmer')+' cm','Hauteur : '+(st.height||'À confirmer')+' cm','Profondeur : '+(st.depth||'À confirmer')+' cm','Couleur / finition : '+(st.color||'À confirmer'),'Tiroirs / composition : '+(st.drawers||'À confirmer'),'Type de montage : '+({integrated:'Vasque sur meuble',vessel:'Plan et vasque à poser',none:'Meuble sans vasque'}[st.basinMode]),'Vasque : '+st.basin,'Plan : '+st.top+(st.basinMode==='vessel'&&st.model!=='Sima'?' · '+st.topFinish+' · Réf. '+topReference():''),'Miroir : '+st.mirror,'Quantité : '+st.quantity,'','CLIENT / MAGASIN : '+st.company,'Contact : '+st.name,'E-mail : '+st.email,'Téléphone : '+st.phone,'','Informations complémentaires : '+(st.notes||'Aucune'),'','Merci de confirmer les références exactes, les associations possibles, le prix professionnel HT, les stocks et le délai.','Aucune commande ferme avant confirmation de votre part.'].join('\n');
 function render(){
 $('steps').innerHTML=steps.map((s,i)=>'<div class="step '+(i===st.step?'active':i<st.step?'done':'')+'">'+(i+1)+'. '+s+'</div>').join('');
 let h='<h2>'+['Choisissez une collection','Indiquez le format et la composition','Choisissez la finition','Vasque et plan de toilette','Choisissez votre miroir','Vos coordonnées professionnelles','Vérifiez votre demande'][st.step]+'</h2>';
-if(st.step===0){h+='<p class="hint">Collections présentes au catalogue V04. Consultez le PDF pour voir les modèles et photos.</p>'+pick('model',models.map(([a,p])=>[a,'Catalogue page '+p]));}
+if(st.step===0){h+='<p class="hint">Choisissez un modèle parmi les collections du catalogue.</p>'+pick('model',models.map(([a,p])=>[a,'Catalogue page '+p]));}
 if(st.step===1){const d=RANDAL[st.model];if(d){h+='<p class="hint">Sélectionnez exclusivement une dimension référencée au catalogue.</p>'+pick('width',d.w.map(w=>[String(w),w+' cm de largeur']))+'<p class="mini">Hauteur et profondeur sont déterminées par la variante officielle.</p>';if(d.h.length>1)h+=pick('height',d.h.map(v=>[String(v),v+' cm de hauteur']));h+='<p class="mini">Profondeur : '+d.d+' cm</p>'+entry('Quantité de meubles','quantity','number');}else{h+='<p class="warn">Collection nécessitant une validation complémentaire des variantes du catalogue. Aucune dimension libre autorisée.</p>';}}
 if(st.step===2){const d=RANDAL[st.model];h+='<p class="hint">Finitions exclusivement proposées pour cette collection.</p>'+(d?pick('color',d.colors.map(c=>[c,''])):'<p class="warn">Références à vérifier avant configuration.</p>');}
-if(st.step===3){h+='<p class="hint">Les vasques et plans ne sont pas compatibles avec tous les meubles : validation technique par RANDAL.</p><div class="fields">'+select('Vasque','basin',['À définir','Sans vasque','Sella','Tampa','Neris (à poser)','Torne (à poser)','Autre (préciser en commentaire)'])+select('Plan de toilette','top',['À définir','Sans plan','Plan vasque du catalogue','Plan pour vasque à poser','Autre (préciser en commentaire)'])+'</div>';}
+
+if(st.step===3){
+ syncBasin();
+ h+='<p class="hint">Choisissez un montage. Seules les options correspondantes sont proposées.</p>';
+ const modes=[['integrated','Vasque Sella / Tampa · sans plan ajouté'],['vessel','Plan + vasque Neris ou Torne'],['none','Meuble seul']];
+ h+=pick('basinMode',modes.filter(x=>allowedModes().includes(x[0])).map(([id,label])=>[{integrated:'Vasque sur meuble',vessel:'Plan + vasque à poser',none:'Sans vasque'}[id],label]),'mode-grid')
+ .replaceAll('data-field="basinMode"','data-field="basinMode"');
+ // L'identifiant interne du mode est conservé séparément du libellé.
+ h=h.replace(/data-field="basinMode" data-value="Vasque sur meuble"/g,'data-field="basinMode" data-value="integrated"').replace(/data-field="basinMode" data-value="Plan \+ vasque à poser"/g,'data-field="basinMode" data-value="vessel"').replace(/data-field="basinMode" data-value="Sans vasque"/g,'data-field="basinMode" data-value="none"');
+ if(st.basinMode==='integrated'){
+  h+='<div class="options-group"><h3>Vasque</h3>'+pick('basin',(st.model==='Luce'||st.model==='Brent'?['Tampa']:['Sella','Tampa']).map(x=>[x,'Vasque en céramique, page 38']))+'</div>';
+ }
+ if(st.basinMode==='vessel'){
+  h+='<div class="options-group"><h3>Vasque à poser</h3>'+pick('basin',['Neris','Torne'].map(x=>[x,'Page 41']))+'</div>';
+  if(st.model==='Sima')h+='<div class="options-group">Plateau SIMA (fourni dans la composition). Aucun plan supplémentaire.</div>';
+  else h+='<div class="options-group"><h3>Finition du plan</h3>'+select('Plan 46 cm de profondeur','topFinish',TOP_FINISHES)+'</div>';
+ }
+ if(st.basinMode==='none')h+='<p class="mini">Le meuble sera demandé sans vasque ni plan.</p>';
+}
 if(st.step===4){h+='<p class="hint">Les miroirs sont présentés à partir de la page 35 du catalogue.</p>'+pick('mirror',[['Sans miroir',''],['Basic',''],['Zen LED',''],['Ilse LED',''],['Cápsula LED',''],['Miroir métallique rectangulaire',''],['Miroir métallique rond',''],['Autre miroir (à préciser)','']]);}
 if(st.step===5){h+='<p class="hint">Coordonnées nécessaires au traitement de la demande par notre équipe.</p><div class="fields">'+entry('Société / magasin','company')+entry('Nom du contact','name')+entry('Adresse e-mail','email','email')+entry('Téléphone','phone','tel')+'</div><label class="field" style="margin-top:16px">Précisions, finition exacte, référence du catalogue<textarea name="notes">'+esc(st.notes)+'</textarea></label>';}
-if(st.step===6){h+='<p class="hint">Le courriel sera adressé au service RANDAL avec Le Roy Factory en copie.</p><div class="summary">'+esc(summary())+'</div><button type="button" class="btn primary" id="send" style="margin-top:18px;width:100%">Ouvrir l’e-mail de commande</button><p class="mini">L’envoi final est effectué par vous dans votre application e-mail.</p>';}
+if(st.step===6){
+ h+='<p class="hint">Votre composition et les éléments choisis.</p><div class="visual-summary">'
+ +'<div class="preview-card">'+photo(MODEL_PAGE[st.model]||3)+'<strong>'+esc(st.model)+' · '+esc(st.color)+'</strong></div>'
+ +'<div class="preview-card">'+(st.basinMode==='none'?'<span class="visual"></span>':photo(st.basinMode==='vessel'?41:37))+'<strong>'+esc(st.basin)+'</strong></div>'
+ +'<div class="preview-card">'+(st.mirror==='Sans miroir'?'<span class="visual"></span>':photo(35))+'<strong>'+esc(st.mirror)+'</strong></div>'
+ +'</div><div class="summary">'+esc(summary())+'</div><button type="button" class="btn primary" id="send" style="margin-top:18px;width:100%">Envoyer la demande</button><p class="mini">Votre application e-mail s’ouvrira pour confirmer l’envoi.</p>';
+}
 h+='<div class="actions"><button type="button" class="btn" id="prev" '+(st.step===0?'disabled':'')+'>← Précédent</button>'+(st.step<6?'<button type="button" class="btn primary" id="next">Continuer →</button>':'')+'</div>';
 $('panel').innerHTML=h;
-$('panel').querySelectorAll('[data-field]').forEach(b=>b.onclick=()=>{if(b.dataset.field==='model'&&st.model!==b.dataset.value)resetConfiguration();if(b.dataset.field==='width'&&st.width!==b.dataset.value){st.color='';st.basin='À définir';st.top='À définir'}st[b.dataset.field]=b.dataset.value;normalize();save();render()});
-$('panel').querySelectorAll('[name]').forEach(el=>el.onchange=()=>{st[el.name]=el.value.trim();save()});
+ paintThumbnails();
+$('panel').querySelectorAll('[data-field]').forEach(b=>b.onclick=()=>{if(b.dataset.field==='model'&&st.model!==b.dataset.value)resetConfiguration();if(b.dataset.field==='width'&&st.width!==b.dataset.value){st.color='';st.basinMode='integrated'}st[b.dataset.field]=b.dataset.value;normalize();syncBasin();save();render()});
+$('panel').querySelectorAll('[name]').forEach(el=>el.onchange=()=>{st[el.name]=el.value.trim();syncBasin();save();if(st.step===3)render()});
 $('prev').onclick=()=>{st.step=Math.max(0,st.step-1);save();render();scrollTo({top:0,behavior:'smooth'})};
-if($('next'))$('next').onclick=()=>{for(const el of $('panel').querySelectorAll('[name]'))st[el.name]=el.value.trim();if(st.step===0&&!st.model){alert('Sélectionnez un modèle.');return}if(st.step===1&&(!RANDAL[st.model]||!RANDAL[st.model].w.includes(Number(st.width))||(RANDAL[st.model].h.length>1&&!RANDAL[st.model].h.includes(Number(st.height)))||!Number.isInteger(Number(st.quantity))||Number(st.quantity)<1)){alert('Indiquez une largeur et une quantité valides.');return}if(st.step===2&&(!RANDAL[st.model]?.colors.includes(st.color)||!variant()?.ref)){alert('Choisissez une finition.');return}if(st.step===5&&(!st.company||!st.name||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(st.email))){alert('Renseignez la société, le contact et un e-mail valide.');return}st.step++;save();render();scrollTo({top:0,behavior:'smooth'})};
+if($('next'))$('next').onclick=()=>{for(const el of $('panel').querySelectorAll('[name]'))st[el.name]=el.value.trim();if(st.step===0&&!st.model){alert('Sélectionnez un modèle.');return}if(st.step===1&&(!RANDAL[st.model]||!RANDAL[st.model].w.includes(Number(st.width))||(RANDAL[st.model].h.length>1&&!RANDAL[st.model].h.includes(Number(st.height)))||!Number.isInteger(Number(st.quantity))||Number(st.quantity)<1)){alert('Indiquez une largeur et une quantité valides.');return}if(st.step===2&&(!RANDAL[st.model]?.colors.includes(st.color)||!variant()?.ref)){alert('Choisissez une finition.');return}if(st.step===3&&((st.basinMode==='integrated'&&!['Sella','Tampa'].includes(st.basin))||(st.basinMode==='vessel'&&!['Neris','Torne'].includes(st.basin)))){alert('Choisissez une vasque compatible.');return}if(st.step===5&&(!st.company||!st.name||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(st.email))){alert('Renseignez la société, le contact et un e-mail valide.');return}st.step++;save();render();scrollTo({top:0,behavior:'smooth'})};
 if($('send'))$('send').onclick=()=>{const subject='RANDAL V04 — Demande de disponibilité / commande à confirmer — '+st.company;location.href='mailto:help.pro.fr@randal.group?cc='+encodeURIComponent('juancarlos.segura@randal.group,jerome@leroyfactory.fr,coryne@leroyfactory.fr')+'&subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent('Bonjour,\n\n'+summary()+'\n\nCordialement,\n'+st.name+' — '+st.company)};
 }
 render();
