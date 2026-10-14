@@ -266,6 +266,9 @@ const typeCards=()=>'<div class="choices type-choices">'+typeOptions().map(t=>
  '<span class="type-photo"><img src="assets/img/randal/types/'+esc(t[2])+'.webp" alt="Schéma RANDAL '+esc(t[1])+'" loading="lazy" decoding="async"></span>'+
  '<span class="choice-copy"><strong>'+esc(t[1])+'</strong><small>'+esc(t[3]==='column'?'Colonne auxiliaire':t[3]==='counter'?'Plateau seul':'Meuble salle de bain')+'</small><small>Références '+esc(t[5])+' · Catalogue p. '+t[6]+'</small></span></button>'
  ).join('')+'</div>';
+const dimensionCards=(entries)=>'<div class="choices">'+entries.map(([code,width,height,depth])=>
+ '<button type="button" class="choice '+(st.variantCode===code?'active':'')+'" data-field="variantCode" data-value="'+esc(code)+'"><span class="choice-copy"><strong>'+esc(width)+' cm</strong><small>H. '+esc(height)+' · P. '+esc(depth)+' cm · Réf. '+esc(code)+'</small></span></button>'
+ ).join('')+'</div>';
 const activeTypeVisual=()=>{const t=selectedType();return t?
  '<span class="visual type-visual"><img src="assets/img/randal/types/'+esc(t[2])+'.webp" alt="'+esc(t[1])+'"></span>':collectionImage(st.model);};
 const pick=(name,values,group='')=>'<div class="choices '+group+'">'+values.map(([value,sub])=>{
@@ -282,9 +285,9 @@ if(st.step===1)h+='<p class="hint">D’abord le type de meuble, puis ses dimensi
 if(st.step===2){
  const t=selectedType(),d=RANDAL[st.model],special=SPECIAL_VARIANTS[st.model];
  if(!t)h+='<p class="warn">Sélectionnez un modèle.</p>';
- else if(t[3]==='column'&&st.model==='Brent')h+='<p class="hint">Largeur de la colonne.</p>'+pick('variantCode',[['I','60 × 163 × 35 cm'],['J','40 × 163 × 35 cm']]);
+ else if(t[3]==='column'&&st.model==='Brent')h+='<p class="hint">Largeur de la colonne.</p>'+dimensionCards([['I',60,163,35],['J',40,163,35]]);
  else if(t[3]==='column')h+='<div class="fixed-format"><strong>30 × '+t[4]+' × '+(st.model==='Luce'?25:27)+' cm</strong><small>Colonne · Variante '+t[5]+'</small></div>';
- else if(special)h+='<p class="hint">Formats du modèle '+esc(t[1])+'.</p>'+pick('variantCode',special.shapes.filter(x=>t[5].includes(x.code)).map(x=>[x.code,x.width+' cm de largeur · H. '+x.height+' cm']));
+ else if(special)h+='<p class="hint">Formats du modèle '+esc(t[1])+'.</p>'+dimensionCards(special.shapes.filter(x=>t[5].includes(x.code)).map(x=>[x.code,x.width,x.height,x.depth]));
  else if(d)h+='<p class="hint">H. '+t[4]+' cm · P. '+d.d+' cm.</p>'+pick('width',d.w.map(w=>[String(w),w+' cm de largeur']));
  h+='<div class="fields" style="margin-top:18px">'+entry('Quantité','quantity','number')+'</div>';
 }
