@@ -1,6 +1,6 @@
 (()=>{
 'use strict';
-const PDF_URL='assets/pdf/RANDAL-V04.pdf';
+const PDF_URL='assets/pdf/RANDAL-V04.pdf?v=20261014-prix-publics';
 const SECTIONS=[
  {name:'Harmony',page:3,kind:'meuble'},{name:'Luce',page:7,kind:'meuble'},
  {name:'Brent',page:10,kind:'meuble'},{name:'Aruba rainuré',page:15,kind:'meuble'},
