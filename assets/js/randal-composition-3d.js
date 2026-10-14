@@ -108,15 +108,19 @@ function useCatalogueFinish(material,url){
  const image=new Image();
  image.onload=()=>{
   if(!active||!scene||!material)return;
-  const c=document.createElement('canvas');c.width=256;c.height=256;
-  const ctx=c.getContext('2d');
-  const size=Math.min(image.naturalWidth,image.naturalHeight)*.52;
+  // La pastille du catalogue est circulaire : on ne prélève que le coeur
+  // afin de ne jamais étirer le fond ivoire autour sur le meuble.
+  const c=document.createElement('canvas');c.width=512;c.height=512;
+  const ctx=c.getContext('2d',{alpha:false});
+  const size=Math.min(image.naturalWidth,image.naturalHeight)*.66;
   const xx=(image.naturalWidth-size)/2,yy=(image.naturalHeight-size)/2;
-  ctx.drawImage(image,xx,yy,size,size,0,0,256,256);
+  ctx.filter='contrast(1.10) saturate(1.06)';
+  ctx.drawImage(image,xx,yy,size,size,0,0,512,512);
+  ctx.filter='none';
   const texture=new THREE.CanvasTexture(c);
   texture.colorSpace=THREE.SRGBColorSpace;
   texture.wrapS=texture.wrapT=THREE.RepeatWrapping;
-  texture.repeat.set(1.6,1.15);texture.anisotropy=4;
+  texture.repeat.set(1.2,1.0);texture.anisotropy=8;
   if(material.map)material.map.dispose();
   material.color.set('#ffffff');
   material.map=texture;
@@ -198,11 +202,12 @@ function mirror(config,w,topHeight){
 }
 function buildScene(config){
  scene=new THREE.Scene();scene.background=new THREE.Color('#e9e5dd');
- const ambient=new THREE.HemisphereLight(0xfffcf3,0xb2aaa0,2.25);scene.add(ambient);
- const light=new THREE.DirectionalLight(0xffffff,3.25);light.position.set(-1.4,3.3,3.7);light.castShadow=true;
+ // Éclairage doux : les anciennes intensités surexposaient entièrement les bois.
+ const ambient=new THREE.HemisphereLight(0xfffcf3,0xb2aaa0,1.0);scene.add(ambient);
+ const light=new THREE.DirectionalLight(0xffffff,1.65);light.position.set(-1.4,3.3,3.7);light.castShadow=true;
  light.shadow.mapSize.set(1024,1024);light.shadow.camera.left=-3;light.shadow.camera.right=3;light.shadow.camera.top=3;light.shadow.camera.bottom=-3;
  light.shadow.bias=-.00012;scene.add(light);
- const accent=new THREE.PointLight(0xffecd0,38,7);accent.position.set(1.9,2.3,1.8);scene.add(accent);
+ const accent=new THREE.PointLight(0xffecd0,3.8,7);accent.position.set(1.9,2.3,1.8);scene.add(accent);
  const wall=newMat('#ece7dd',.96);putBox(scene,0,1.4,-.45,5,2.8,.07,wall);
  const floor=newMat('#d7d0c5',.87);putBox(scene,0,-.033,.70,5,.065,3.4,floor);
  const tile=new THREE.LineBasicMaterial({color:'#d8d2c8',transparent:true,opacity:.5});
@@ -211,10 +216,18 @@ function buildScene(config){
  for(let y=.1;y<2.7;y+=.26){tileVertices.push(-2.5,y,-.405,2.5,y,-.405)}
  let tiles=new THREE.LineSegments(new THREE.BufferGeometry().setAttribute('position',new THREE.Float32BufferAttribute(tileVertices,3)),tile);scene.add(tiles);
  const width=clamp((Number(config.width)||80)/100,.35,1.56),height=clamp((Number(config.height)||53)/100,.1,1.75),depth=clamp((Number(config.depth)||45)/100,.22,.55);
- const cabinet=new THREE.Group();cabinet.position.set(0,0,.05);scene.add(cabinet);
  const isColumn=config.kind==='column';
  const isCounter=config.kind==='counter';
  const legs=(config.typeId==='three'||config.typeId==='three-door'||config.model==='Brent')&&!isColumn?.12:0;
+ // Mur centré en z=-0.45, épaisseur 7 cm : face avant à -0.415.
+ // On accole systématiquement le dos du meuble à cette face (tolérance 1.8 cm).
+ const wallFrontZ=-.45+.07/2,flushOffset=.018;
+ const backWallCabinetZ=wallFrontZ+depth/2+flushOffset;
+ // Les meubles suspendus doivent réellement flotter au-dessus du sol.
+ const floatingHeight=!isColumn&&!isCounter&&!legs?.39:0;
+ const cabinet=new THREE.Group();
+ cabinet.position.set(0,floatingHeight,backWallCabinetZ);
+ scene.add(cabinet);
  const lower=isColumn?.10:legs;
  const boardH=isCounter?.09:Math.max(.10,height-lower-.017);
  const finish=newMat(colorFor(config.color,'#a49584'),isWood(config.color)?.64:.31,.03);
@@ -267,7 +280,7 @@ function buildScene(config){
   }
  }
  if(!isColumn)addFixtures(cabinet,config,width,height,depth,finish);
- mirror(config,width,height);
+ mirror(config,width,height+floatingHeight);
  return {width,height,depth};
 }
 function nameToDoor(config){return strip(config.typeName).includes('porte')}
@@ -308,14 +321,14 @@ function init(config){
  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.75));
  renderer.outputColorSpace=THREE.SRGBColorSpace;
  renderer.toneMapping=THREE.ACESFilmicToneMapping;
- renderer.toneMappingExposure=1.2;
+ renderer.toneMappingExposure=.83;
  renderer.shadowMap.enabled=true;
  renderer.shadowMap.type=THREE.PCFSoftShadowMap;
  renderer.setSize(Math.max(320,area.clientWidth),Math.max(320,area.clientHeight),false);
  const loading=$('composition-loading');if(loading)loading.remove();
  area.appendChild(renderer.domElement);
  camera=new THREE.PerspectiveCamera(37,Math.max(320,area.clientWidth)/Math.max(320,area.clientHeight),.08,70);
- yaw=.46;pitch=.19;distance=3.6;
+ yaw=.40;pitch=.12;distance=3.15;
  buildScene(config);
  bindGestures(renderer.domElement);
  const resize=()=>{
