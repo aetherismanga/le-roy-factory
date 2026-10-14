@@ -153,17 +153,17 @@ function useCatalogueFinish(material,url){
   if(!active||generation!==sessionId||!scene||!material)return;
   // La pastille du catalogue est circulaire : on ne prélève que le coeur
   // afin de ne jamais étirer le fond ivoire autour sur le meuble.
-  const c=document.createElement('canvas');c.width=256;c.height=256;
+  const c=document.createElement('canvas');c.width=512;c.height=512;
   const ctx=c.getContext('2d',{alpha:false});
   const size=Math.min(image.naturalWidth,image.naturalHeight)*.66;
   const xx=(image.naturalWidth-size)/2,yy=(image.naturalHeight-size)/2;
-  ctx.filter='contrast(1.10) saturate(1.06)';
-  ctx.drawImage(image,xx,yy,size,size,0,0,256,256);
+  ctx.filter='none';
+  ctx.drawImage(image,xx,yy,size,size,0,0,512,512);
   ctx.filter='none';
   const texture=new THREE.CanvasTexture(c);
   texture.colorSpace=THREE.SRGBColorSpace;
   texture.wrapS=texture.wrapT=THREE.RepeatWrapping;
-  texture.repeat.set(1.2,1.0);texture.anisotropy=2;
+  texture.repeat.set(1.0,1.0);texture.anisotropy=4;
   if(material.map)material.map.dispose();
   material.color.set('#ffffff');
   material.map=texture;
@@ -174,36 +174,54 @@ function useCatalogueFinish(material,url){
  image.src=url;
 }
 function addFixtures(root,config,width,height,depth,wood){
- const metallic=newMat('#a98b5b',.26,.75);
- const white=newMat('#f4f0e8',.17,.09);
- const bowl=newMat('#dad7cf',.30,.05);
- const choice=config.basinMode;
- if(choice==='none'||config.kind==='column')return;
- let top=white;
- if(choice==='vessel')top=newMat(colorFor(config.topFinish,'#eae4d6'),.3,.04);
- putBox(root,0,height+.01,0,width+.045,.038,depth+.04,top);
- const twoBowls=width>1.12&&choice==='integrated'&&config.model==='Harmony';
- const count=twoBowls?2:1;
+ if(config.basinMode==='none'||config.kind==='column')return;
+ const ceramic=newMat('#f5f4ee',.28,.05);
+ const sinkShade=newMat('#d1cec5',.82,0);
+ const chrome=newMat('#b1b2af',.26,.72);
+ const vesselMode=config.basinMode==='vessel';
+ const counterSurface=vesselMode?newMat(colorFor(config.topFinish,'#e9e5dd'),.50,.04):ceramic;
+ // Plan / vasque au catalogue : 46 cm de profondeur.
+ putBox(root,0,height+.015,0,width+.025,.027,depth+.01,counterSurface);
+ const twoBasins=width>=1.16&&config.model==='Harmony'&&!vesselMode;
+ const count=twoBasins?2:1;
  for(let i=0;i<count;i++){
-  const x=count===1?0:((i===0?-1:1)*width*.255);
-  const r=choice==='vessel'?.145:Math.min(width/count*.28,.175);
-  if(choice==='vessel'){
-   const profile=[[0,.016],[r*.32,.012],[r*.68,.035],[r*.90,.11],[r,.143]];
-   const points=profile.map(p=>new THREE.Vector2(p[0],p[1]));
-   const mesh=new THREE.Mesh(new THREE.LatheGeometry(points,40),white);
-   mesh.position.set(x,height+.033,.058);mesh.castShadow=true;root.add(mesh);
-   putBox(root,x,height+.061,.058,r*1.25,.009,r*.95,bowl);
+  const x=count===1?0:(i===0?-1:1)*width*.255;
+  if(vesselMode){
+   const neris=strip(config.basin).includes('neris');
+   // NERIS ovale 46x33x14 / TORNE rond Ø37x12, d'après la p.41.
+   const r=neris?.18:.185,h=neris?.14:.12;
+   const points=[
+    new THREE.Vector2(0,.018),new THREE.Vector2(r*.35,.015),
+    new THREE.Vector2(r*.75,.022),new THREE.Vector2(r*.93,h*.58),
+    new THREE.Vector2(r,h),new THREE.Vector2(r*.955,h+.008)
+   ];
+   const body=new THREE.Mesh(new THREE.LatheGeometry(points,56),ceramic);
+   body.position.set(x,height+.031,.027);
+   body.scale.set(neris?1.27:1,1,neris?.89:1);
+   root.add(body);
+   const rim=new THREE.Mesh(new THREE.TorusGeometry(r,.007,10,64),ceramic);
+   rim.rotation.x=-Math.PI/2;rim.position.set(x,height+.031+h,.027);
+   rim.scale.set(neris?1.27:1,neris?.89:1,1);root.add(rim);
   }else{
-   putBox(root,x,height+.032,.035,r*1.75,.005,r*1.20,bowl);
-   elliptical(root,x,height+.040,.035,r,r*.73,white);
-   const drain=new THREE.Mesh(new THREE.CylinderGeometry(.014,.014,.002,18),metallic);
-   drain.position.set(x,height+.037,.03);root.add(drain);
+   const soft=strip(config.basin).includes('sella'),rw=soft?.16:.165,rd=soft?.11:.105;
+   // SELLА galbée / TAMPA cuve anguleuse : modèles distincts.
+   if(soft){
+    elliptical(root,x,height+.046,.035,rw,rd,ceramic);
+    putBox(root,x,height+.041,.035,rw*1.55,.004,rd*1.2,sinkShade);
+   }else{
+    const y=height+.046,z=.035;
+    putBox(root,x,y,z,rw*1.95,.003,rd*1.9,sinkShade);
+    for(const side of [-1,1]){
+     putBox(root,x+side*rw,y+.006,z,.013,.012,rd*2.04,ceramic);
+     putBox(root,x,y+.006,z+side*rd,rw*2,.012,.013,ceramic);
+    }
+   }
+   const drain=new THREE.Mesh(new THREE.CylinderGeometry(.012,.012,.003,24),chrome);
+   drain.position.set(x,height+.048,.035);root.add(drain);
   }
-  // Faucet: vertical column, horizontal spout and handle.
-  const faucet=putBox(root,x+.12,height+.12,-depth*.26,.024,.18,.025,metallic);
-  const spout=putBox(root,x+.07,height+.21,-depth*.25+.08,.115,.016,.018,metallic);
-  putBox(root,x+.14,height+.215,-depth*.26,.045,.011,.012,metallic);
  }
+ // Aucun mitigeur n'est automatiquement ajouté : cette option n'est pas
+ // sélectionnée dans le configurateur RANDAL.
 }
 function mirror(config,w,topHeight){
  if(config.mirror==='Sans miroir'||!config.mirror)return;
