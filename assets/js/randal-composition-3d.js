@@ -21,7 +21,7 @@ const FLOOR_OPTIONS=[
  ['zucchero','#dfcfb6'],['avena','#bba78e'],['biscotto','#bb8f67'],['caramello','#a5734b'],
  ['matcha','#89906c'],['ginepro','#5f776f'],['malto','#a28265'],['pepe','#75726c']
  ].map(([id,base])=>({id:'elios-creta-'+id,label:'ELIOS · Creta '+id.charAt(0).toUpperCase()+id.slice(1),
- sub:'60 × 60 cm · R9',preview:'assets/img/elios/creta/textures/'+id+'.webp',base}))
+ sub:'60 × 60 cm · rectifié',preview:'assets/img/elios/creta/textures/'+id+'.webp',base}))
 ];
 const $=id=>document.getElementById(id);
 const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
