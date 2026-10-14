@@ -26,6 +26,19 @@ jobs:
         run: |
           git config user.name "Le Roy Factory Catalogue Bot"
           git config user.email "actions@users.noreply.github.com"
+          # Plusieurs extractions peuvent terminer ensemble : ne pas réécrire les
+          # huit photos déjà publiées (évite les conflits binaires add/add).
+          git fetch origin main
+          uploaded=$(git ls-tree -r --name-only origin/main -- assets/img/elios/creta/textures/ | grep -c '\\.webp
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Ajoute les huit véritables textures Creta 60x60 du catalogue ELIOS"
+          git pull --rebase origin main
+          git push origin HEAD:main
+ || true)
+          if [ "$uploaded" -ge 8 ]; then
+            echo "Les huit photos Creta sont déjà publiées ; aucune modification."
+            exit 0
+          fi
           git add assets/img/elios/creta/textures/
           if git diff --cached --quiet; then exit 0; fi
           git commit -m "Ajoute les huit véritables textures Creta 60x60 du catalogue ELIOS"
