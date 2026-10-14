@@ -403,6 +403,25 @@ function harmonyDrawerFloor(group,width,depth,base,material,topDrawer,doubleWast
  }
  if(x0<innerW/2-.005)putBox(group,(x0+innerW/2)/2,floorY,(rearStart+rearEnd)/2,innerW/2-x0,.009,cutDepth,material);
 }
+
+/* HARMONY colonne M : 30 × 150 × 27 cm, deux portes superposées.
+   Le modèle ne présente pas l'option ouvrir les tiroirs. */
+function buildHarmonyColumn(cabinet,w,h,d,finish,edge){
+ const side=.016,inside=newMat('#b7b2a9',.78);
+ putBox(cabinet,-w/2+side/2,h/2,0,side,h,d,finish);
+ putBox(cabinet,w/2-side/2,h/2,0,side,h,d,finish);
+ putBox(cabinet,0,.014,0,w-.032,.027,d,inside);
+ putBox(cabinet,0,h-.014,0,w-.032,.027,d,inside);
+ putBox(cabinet,0,h/2,0,w-.032,.017,d-.025,inside);
+ putBox(cabinet,0,h/2,-d/2+.007,w-.032,h-.045,.013,inside);
+ for(let i=0;i<2;i++){
+  const cy=(i+.5)*h/2,front=d/2+.013;
+  putBox(cabinet,0,cy,front,w-.025,h/2-.009,.017,finish);
+  // Une prise de main discrète sur la jonction centrale.
+  putBox(cabinet,0,i===0?h/2-.005:h/2+.005,front+.011,w-.054,.004,.008,edge);
+ }
+}
+
 function buildHarmonyCabinet(cabinet,config,w,h,d,finish,edge,metal,dark){
  const feet=config.typeId==='three',legH=feet?.105:0;
  const bodyBottom=legH,bodyTop=legH+h,side=.016;
@@ -494,7 +513,9 @@ function buildScene(config){
  useCatalogueFinish(finish,config.swatch);
  const edge=newMat(colorFor(config.color,'#948778'),.50,.01);
  const dark=newMat('#34312d',.35,.55);
- if(config.model==='Harmony'&&config.typeId!=='column'){
+ if(config.model==='Harmony'&&config.typeId==='column'){
+  buildHarmonyColumn(cabinet,width,height,depth,finish,edge);
+ }else if(config.model==='Harmony'){
   drawers=[];drawersOpen=false;
   buildHarmonyCabinet(cabinet,config,width,height,depth,finish,edge,newMat('#afb4b6',.36,.78),dark);
  }else if(isCounter){
