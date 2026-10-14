@@ -56,6 +56,9 @@ a.pdf:hover{background:white}
 @media(max-width:760px){main{padding:0 12px 65px;margin:12px auto}.hero{min-height:190px;padding:24px}.hero h1{font-size:1.72rem}.hero p{font-size:.89rem}.wizard{grid-template-columns:repeat(4,minmax(0,1fr))}.step{font-size:.71rem}.panel{padding:17px}.choice .visual{height:115px}.choice .choice-copy{padding:9px}.choice strong{font-size:.89rem}.choice small{font-size:.74rem}.choices{grid-template-columns:repeat(2,minmax(0,1fr))}.visual-summary{gap:7px}.preview-card .visual{height:90px}.preview-card strong{font-size:.69rem;padding:7px}.mode-grid .choice{padding:12px!important}}
 @media(max-width:370px){.choices{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{padding:18px}.hero h1{font-size:1.48rem}.step{font-size:.65rem}}
 
+.choice .visual img,.preview-card .visual img{width:100%;height:100%;object-fit:cover;display:block}
+.choice .collection-visual,.preview-card .collection-visual{background:#eee9e2}
+@media(min-width:1000px){.choice .collection-visual{height:186px}}
 </style></head><body>
 <header><div><a class="back" href="univers.html">← Retour aux sélections</a><img src="assets/img/randal.png" alt="RANDAL"></div></header>
 <main><section class="hero"><div><h1>Votre meuble RANDAL, sur mesure</h1><p>Choisissez votre composition, visualisez vos choix et envoyez la demande.</p><a class="pdf" href="randal-catalogue-interactif.html">Catalogue interactif</a></div></section>
@@ -178,6 +181,11 @@ async function paintThumbnails(){
  }
 }
 window.addEventListener('load',()=>paintThumbnails(),{once:true});
+const COLLECTION_IMAGES={
+ 'Harmony':'harmony','Luce':'luce','Brent':'brent','Aruba rainuré':'aruba-rainure',
+ 'Aruba':'aruba','Aras':'aras','Boreal':'boreal','Brunei':'brunei','Amat':'amat','Less':'less','Sima':'sima'
+};
+const collectionImage=name=>'<span class="visual collection-visual"><img src="assets/img/randal/v04/'+(COLLECTION_IMAGES[name]||'harmony')+'.webp" alt="Photo officielle RANDAL '+esc(name)+'" loading="lazy" decoding="async"></span>';
 const photo=(page,tag='',key='')=>'<span class="visual"><canvas width="300" height="190" data-photo-page="'+page+'" data-photo-key="'+esc(key)+'" role="img" aria-label="Photo officielle RANDAL, page '+page+'"></canvas>'+(tag?'<i>'+tag+'</i>':'')+'</span>';
 
 const resetConfiguration=()=>{Object.assign(st,{width:'',height:'',depth:'',color:'',variantCode:'',drawers:'',basin:'Sella',top:'Sans plan',basinMode:'integrated',topFinish:'Blanco mate',mirror:'Sans miroir',quantity:1});};
@@ -196,7 +204,7 @@ const entry=(label,name,type='text',placeholder='')=>'<label class="field">'+lab
 const select=(label,name,opts)=>'<label class="field">'+label+'<select name="'+name+'">'+opts.map(v=>'<option value="'+esc(v)+'" '+(st[name]===v?'selected':'')+'>'+esc(v)+'</option>').join('')+'</select></label>';
 const pick=(name,values,group='')=>'<div class="choices '+group+'">'+values.map(([value,sub])=>{
  const page=name==='model'?MODEL_PAGE[value]:name==='mirror'?(value==='Sans miroir'?0:36):name==='basinMode'?(value==='vessel'?41:value==='integrated'?37:0):name==='basin'?(value==='Neris'||value==='Torne'?41:38):0;
- const visual=page?photo(page,name==='model'?'p. '+page:'',name==='mirror'||name==='basin'?value:''):name==='color'?'<span class="swatch" style="background:'+esc(COLOR_HEX[value]||'#c5c4b9')+'"></span>':'';
+ const visual=name==='model'?collectionImage(value):page?photo(page,name==='model'?'p. '+page:'',name==='mirror'||name==='basin'?value:''):name==='color'?'<span class="swatch" style="background:'+esc(COLOR_HEX[value]||'#c5c4b9')+'"></span>':'';
  return '<button type="button" class="choice '+(st[name]===value?'active':'')+'" data-field="'+name+'" data-value="'+esc(value)+'">'+visual+'<span class="choice-copy"><strong>'+esc(name==='basinMode'?({integrated:'Vasque sur meuble',vessel:'Plan + vasque à poser',none:'Sans vasque'}[value]):value)+'</strong><small>'+esc(sub||'')+'</small></span></button>'
  }).join('')+'</div>';
 const summary=()=>['Référence meuble : '+(variant()?.ref||'À vérifier'),'Prix vente conseillé HT meuble : '+(variant()?.price??'À confirmer')+' €','DEMANDE DE DISPONIBILITÉ / COMMANDE À CONFIRMER','RANDAL — Catalogue V04','','MODÈLE : '+st.model,'Largeur : '+(st.width||'À confirmer')+' cm','Hauteur : '+(st.height||'À confirmer')+' cm','Profondeur : '+(st.depth||'À confirmer')+' cm','Couleur / finition : '+(st.color||'À confirmer'),'Tiroirs / composition : '+(st.drawers||'À confirmer'),'Type de montage : '+({integrated:'Vasque sur meuble',vessel:'Plan et vasque à poser',none:'Meuble sans vasque'}[st.basinMode]),'Vasque : '+st.basin,'Plan : '+st.top+(st.basinMode==='vessel'&&st.model!=='Sima'?' · '+st.topFinish+' · Réf. '+topReference():''),'Miroir : '+st.mirror+(st.mirror==='Sans miroir'?'':' · '+(st.mirrorSize||'Taille à confirmer')+' · réf. '+mirrorRef()),'Quantité : '+st.quantity,'','CLIENT / MAGASIN : '+st.company,'Contact : '+st.name,'E-mail : '+st.email,'Téléphone : '+st.phone,'','Informations complémentaires : '+(st.notes||'Aucune'),'','Merci de confirmer les références exactes, les associations possibles, le prix professionnel HT, les stocks et le délai.','Aucune commande ferme avant confirmation de votre part.'].join('\n');
@@ -236,7 +244,7 @@ if(st.step===4){
 if(st.step===5){h+='<p class="hint">Coordonnées nécessaires au traitement de la demande par notre équipe.</p><div class="fields">'+entry('Société / magasin','company')+entry('Nom du contact','name')+entry('Adresse e-mail','email','email')+entry('Téléphone','phone','tel')+'</div><label class="field" style="margin-top:16px">Précisions, finition exacte, référence du catalogue<textarea name="notes">'+esc(st.notes)+'</textarea></label>';}
 if(st.step===6){
  h+='<p class="hint">Votre composition et les éléments choisis.</p><div class="visual-summary">'
- +'<div class="preview-card">'+photo(MODEL_PAGE[st.model]||3)+'<strong>'+esc(st.model)+' · '+esc(st.color)+'</strong><span class="selected-finish" style="background:'+esc(COLOR_HEX[st.color]||'#bcb6aa')+'" aria-label="Finition sélectionnée"></span></div>'
+ +'<div class="preview-card">'+collectionImage(st.model)+'<strong>'+esc(st.model)+' · '+esc(st.color)+'</strong><span class="selected-finish" style="background:'+esc(COLOR_HEX[st.color]||'#bcb6aa')+'" aria-label="Finition sélectionnée"></span></div>'
  +'<div class="preview-card">'+(st.basinMode==='none'?'<span class="visual"></span>':photo(st.basinMode==='vessel'?41:38,'',st.basin))+'<strong>'+esc(st.basin)+'</strong></div>'
  +'<div class="preview-card">'+(st.mirror==='Sans miroir'?'<span class="visual"></span>':photo(36,'',st.mirror))+'<strong>'+esc(st.mirror)+'</strong></div>'
  +'</div><div class="summary">'+esc(summary())+'</div><button type="button" class="btn primary" id="send" style="margin-top:18px;width:100%">Envoyer la demande</button><p class="mini">Votre application e-mail s’ouvrira pour confirmer l’envoi.</p>';
