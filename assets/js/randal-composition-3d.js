@@ -136,6 +136,7 @@ function showCustomize(type){
   if(!updated||!active)return;
   current=updated;
   redrawCurrent();
+  panel.hidden=true;
   showCustomize(type);
  };
  if(type==='color'){
