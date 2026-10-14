@@ -2,7 +2,7 @@
    Dimensions et options reprises du configurateur ; Three.js chargé à la demande. */
 (function(){
 'use strict';
-const THREE_URL='https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js';
+const THREE_URLS=['https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js','https://unpkg.com/three@0.152.2/build/three.min.js'];
 let libraryPromise=null,renderer=null,scene=null,camera=null,stage=null,resizeObserver=null,raf=0;
 let yaw=.47,pitch=.22,distance=3.55,lastPointer=null,lastPinch=null;
 let active=false,previousFocus=null,restoreOverflow='',current=null;
@@ -71,11 +71,15 @@ function close(){
 function ensureThree(){
  if(window.THREE)return Promise.resolve(window.THREE);
  if(!libraryPromise){libraryPromise=new Promise((resolve,reject)=>{
-  const script=document.createElement('script');
-  script.src=THREE_URL;script.async=true;script.crossOrigin='anonymous';
-  script.onload=()=>window.THREE?resolve(window.THREE):reject(new Error('Moteur 3D indisponible'));
-  script.onerror=()=>reject(new Error('Chargement du moteur 3D bloqué'));
-  document.head.appendChild(script);
+  function load(index){
+   if(index>=THREE_URLS.length){reject(new Error('Chargement du moteur 3D bloqué'));return;}
+   const script=document.createElement('script');
+   script.src=THREE_URLS[index];script.async=true;script.crossOrigin='anonymous';
+   script.onload=()=>window.THREE?resolve(window.THREE):load(index+1);
+   script.onerror=()=>load(index+1);
+   document.head.appendChild(script);
+  }
+  load(0);
  }).catch(err=>{libraryPromise=null;throw err});}
  return libraryPromise;
 }
@@ -99,6 +103,29 @@ function woodTexture(hex,grain){
  return t;
 }
 function isWood(color){return woodCodes.some(k=>strip(color).includes(k))}
+function useCatalogueFinish(material,url){
+ if(!url)return;
+ const image=new Image();
+ image.onload=()=>{
+  if(!active||!scene||!material)return;
+  const c=document.createElement('canvas');c.width=256;c.height=256;
+  const ctx=c.getContext('2d');
+  const size=Math.min(image.naturalWidth,image.naturalHeight)*.52;
+  const xx=(image.naturalWidth-size)/2,yy=(image.naturalHeight-size)/2;
+  ctx.drawImage(image,xx,yy,size,size,0,0,256,256);
+  const texture=new THREE.CanvasTexture(c);
+  texture.colorSpace=THREE.SRGBColorSpace;
+  texture.wrapS=texture.wrapT=THREE.RepeatWrapping;
+  texture.repeat.set(1.6,1.15);texture.anisotropy=4;
+  if(material.map)material.map.dispose();
+  material.color.set('#ffffff');
+  material.map=texture;
+  material.needsUpdate=true;
+  requestFrame();
+ };
+ image.onerror=()=>{};
+ image.src=url;
+}
 function addFixtures(root,config,width,height,depth,wood){
  const metallic=newMat('#a98b5b',.26,.75);
  const white=newMat('#f4f0e8',.17,.09);
@@ -192,29 +219,39 @@ function buildScene(config){
  const boardH=isCounter?.09:Math.max(.10,height-lower-.017);
  const finish=newMat(colorFor(config.color,'#a49584'),isWood(config.color)?.64:.31,.03);
  if(isWood(config.color))finish.map=woodTexture(colorFor(config.color,'#a49584'),true);
+ useCatalogueFinish(finish,config.swatch);
  const edge=newMat(colorFor(config.color,'#948778'),.50,.01);
  const dark=newMat('#34312d',.35,.55);
  if(isCounter){
   putBox(cabinet,0,height*.52,0,width,.07,depth,finish);
  }else{
   putBox(cabinet,0,lower+boardH/2,0,width,boardH,depth,finish);
-  const front=depth/2+.016,door=nameToDoor(config);
-  const drawerCount=(strip(config.typeName).includes('3 tiroir')?3:strip(config.typeName).includes('1 tiroir')?1:2);
-  const bodyH=boardH-.034,unitH=bodyH/drawerCount;
-  for(let i=0;i<drawerCount;i++){
-   const yy=lower+.03+(i+.5)*unitH;
-   if(door){
-    const dw=width*.71;
-    putBox(cabinet,-width*.12,yy,front,dw-.014,unitH-.009,.014,finish);
-    if(i===0||i===drawerCount-1)putBox(cabinet,-width*.12,yy+unitH*.30,front+.009,dw*.45,.008,.018,dark);
-   }else{
-    putBox(cabinet,0,yy,front,width-.015,unitH-.009,.014,finish);
-    putBox(cabinet,0,yy+unitH*.31,front+.011,width*.34,.008,.014,dark);
+  const front=depth/2+.016,door=nameToDoor(config),doorOnly=isColumn||strip(config.typeName).includes('1 porte');
+  if(doorOnly){
+   const doors=isColumn&&width>.44?2:1;
+   for(let i=0;i<doors;i++){
+    const dw=(width-.021)/doors,xx=(i-(doors-1)/2)*dw;
+    putBox(cabinet,xx,lower+boardH/2,front,dw-.01,boardH-.027,.014,finish);
+    putBox(cabinet,xx+(i===0?dw*.31:-dw*.31),lower+boardH/2,front+.016,.008,.075,.015,dark);
    }
-  }
-  if(door){
-   putBox(cabinet,width*.36,lower+boardH/2,front,width*.26,boardH-.02,.014,finish);
-   putBox(cabinet,width*.45,lower+boardH*.56,front+.012,.008,.075,.017,dark);
+  }else{
+   const drawerCount=(strip(config.typeName).includes('3 tiroir')?3:strip(config.typeName).includes('1 tiroir')?1:2);
+   const bodyH=boardH-.034,unitH=bodyH/drawerCount;
+   for(let i=0;i<drawerCount;i++){
+    const yy=lower+.03+(i+.5)*unitH;
+    if(door){
+     const dw=width*.71;
+     putBox(cabinet,-width*.12,yy,front,dw-.014,unitH-.009,.014,finish);
+     putBox(cabinet,-width*.12,yy+unitH*.30,front+.009,dw*.45,.008,.018,dark);
+    }else{
+     putBox(cabinet,0,yy,front,width-.015,unitH-.009,.014,finish);
+     putBox(cabinet,0,yy+unitH*.31,front+.011,width*.34,.008,.014,dark);
+    }
+   }
+   if(door){
+    putBox(cabinet,width*.36,lower+boardH/2,front,width*.26,boardH-.02,.014,finish);
+    putBox(cabinet,width*.45,lower+boardH*.56,front+.012,.008,.075,.017,dark);
+   }
   }
   if(config.typeId==='niche'){
    const niche=newMat('#3b3430',.75);putBox(cabinet,0,lower+.055,front+.015,width-.04,.10,.04,niche);
