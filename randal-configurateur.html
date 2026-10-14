@@ -276,18 +276,23 @@ const pick=(name,values,group='')=>'<div class="choices '+group+'">'+values.map(
 const summary=()=>['Référence meuble : '+(variant()?.ref||'À vérifier'),'Prix vente conseillé HT meuble : '+(variant()?.price??'À confirmer')+' €','DEMANDE DE DISPONIBILITÉ / COMMANDE À CONFIRMER','RANDAL — Catalogue V04','','MODÈLE : '+st.model,'Largeur : '+(st.width||'À confirmer')+' cm','Hauteur : '+(st.height||'À confirmer')+' cm','Profondeur : '+(st.depth||'À confirmer')+' cm','Couleur / finition : '+(st.color||'À confirmer'),'Tiroirs / composition : '+(st.drawers||'À confirmer'),'Type de montage : '+({integrated:'Vasque sur meuble',vessel:'Plan et vasque à poser',none:'Meuble sans vasque'}[st.basinMode]),'Vasque : '+st.basin,'Plan : '+st.top+(st.basinMode==='vessel'&&st.model!=='Sima'?' · '+st.topFinish+' · Réf. '+topReference():''),'Miroir : '+st.mirror+(st.mirror==='Sans miroir'?'':' · '+(st.mirrorSize||'Taille à confirmer')+' · réf. '+mirrorRef()),'Quantité : '+st.quantity,'','CLIENT / MAGASIN : '+st.company,'Contact : '+st.name,'E-mail : '+st.email,'Téléphone : '+st.phone,'','Informations complémentaires : '+(st.notes||'Aucune'),'','Merci de confirmer les références exactes, les associations possibles, le prix professionnel HT, les stocks et le délai.','Aucune commande ferme avant confirmation de votre part.'].join('\n');
 function render(){
 $('steps').innerHTML=steps.map((s,i)=>'<div class="step '+(i===st.step?'active':i<st.step?'done':'')+'">'+(i+1)+'. '+s+'</div>').join('');
-let h='<h2>'+['Choisissez une collection','Indiquez le format et la composition','Choisissez la finition','Vasque et plan de toilette','Choisissez votre miroir','Vos coordonnées professionnelles','Vérifiez votre demande'][st.step]+'</h2>';
-if(st.step===0){h+='<p class="hint">Choisissez un modèle parmi les collections du catalogue.</p>'+pick('model',models.map(([a,p])=>[a,'Catalogue page '+p]));}
-if(st.step===1){
- const d=RANDAL[st.model],special=SPECIAL_VARIANTS[st.model];
- if(special){h+='<p class="hint">Sélectionnez la configuration illustrée par sa lettre dans le tarif officiel.</p>'+pick('variantCode',special.shapes.map(x=>[x.code,x.width+' × '+x.height+' cm · Page '+(st.model==='Brent'?12:(x.height===53?29:30))]));}
- else if(d){h+='<p class="hint">Dimensions disponibles pour ce modèle.</p>'+pick('width',d.w.map(w=>[String(w),w+' cm de largeur']));if(d.h.length>1)h+=pick('height',d.h.map(v=>[String(v),v+' cm de hauteur']));}
- else h+='<p class="warn">Options détaillées à confirmer dans le catalogue.</p>';
- h+='<div class="fields" style="margin-top:15px">'+entry('Quantité','quantity','number')+'</div>';
+let h='<h2>'+['Choisissez une collection','Choisissez votre modèle','Choisissez les dimensions','Choisissez la finition','Vasque et plan','Choisissez votre miroir','Vos coordonnées','Vérifiez votre commande'][st.step]+'</h2>';
+if(st.step===0)h+='<p class="hint">Choisissez une collection RANDAL.</p>'+pick('model',models.map(([name,p])=>[name,'Catalogue page '+p]));
+if(st.step===1)h+='<p class="hint">D’abord le type de meuble, puis ses dimensions.</p>'+typeCards();
+if(st.step===2){
+ const t=selectedType(),d=RANDAL[st.model],special=SPECIAL_VARIANTS[st.model];
+ if(!t)h+='<p class="warn">Sélectionnez un modèle.</p>';
+ else if(t[3]==='column'&&st.model==='Brent')h+='<p class="hint">Largeur de la colonne.</p>'+pick('variantCode',[['I','60 × 163 × 35 cm'],['J','40 × 163 × 35 cm']]);
+ else if(t[3]==='column')h+='<div class="fixed-format"><strong>30 × '+t[4]+' × '+(st.model==='Luce'?25:27)+' cm</strong><small>Colonne · Variante '+t[5]+'</small></div>';
+ else if(special)h+='<p class="hint">Formats du modèle '+esc(t[1])+'.</p>'+pick('variantCode',special.shapes.filter(x=>t[5].includes(x.code)).map(x=>[x.code,x.width+' cm de largeur · H. '+x.height+' cm']));
+ else if(d)h+='<p class="hint">H. '+t[4]+' cm · P. '+d.d+' cm.</p>'+pick('width',d.w.map(w=>[String(w),w+' cm de largeur']));
+ h+='<div class="fields" style="margin-top:18px">'+entry('Quantité','quantity','number')+'</div>';
 }
-if(st.step===2){const d=RANDAL[st.model],special=SPECIAL_VARIANTS[st.model];h+='<p class="hint">Finitions proposées pour cette collection.</p>'+(d||special?pick('color',(special?.colors||d.colors).map(c=>[c,''])):'<p class="warn">Références à vérifier avant configuration.</p>');}
-
 if(st.step===3){
+ const colors=SPECIAL_VARIANTS[st.model]?.colors||RANDAL[st.model]?.colors||[];
+ h+='<p class="hint">Finitions disponibles pour ce modèle.</p>'+pick('color',colors.map(c=>[c,'']));
+}
+if(st.step===4){
  syncBasin();
  h+='<p class="hint">Choisissez un montage. Seules les options correspondantes sont proposées.</p>';
  const modes=[['integrated','Vasque directement sur le meuble'],['vessel','Plan avec vasque à poser'],['none','Meuble seul, sans vasque']];
@@ -302,20 +307,20 @@ if(st.step===3){
  }
  if(st.basinMode==='none')h+='<p class="mini">Le meuble sera demandé sans vasque ni plan.</p>';
 }
-if(st.step===4){
+if(st.step===5){
  h+='<p class="hint">Choisissez votre miroir et sa dimension.</p>'+pick('mirror',[['Sans miroir',''],['Basic',''],['Zen LED',''],['Ilse LED',''],['Cápsula LED',''],['Miroir métallique rectangulaire',''],['Miroir métallique rond',''],['Autre miroir (à préciser)','']]);
  const dims=MIRROR_FORMATS[st.mirror];
  if(dims)h+='<div class="options-group">'+select('Dimension du miroir','mirrorSize',['',...dims.map(x=>x[0])])+'</div>';
 }
-if(st.step===5){h+='<p class="hint">Coordonnées nécessaires au traitement de la demande par notre équipe.</p><div class="fields">'+entry('Société / magasin','company')+entry('Nom du contact','name')+entry('Adresse e-mail','email','email')+entry('Téléphone','phone','tel')+'</div><label class="field" style="margin-top:16px">Précisions, finition exacte, référence du catalogue<textarea name="notes">'+esc(st.notes)+'</textarea></label>';}
-if(st.step===6){
+if(st.step===6){h+='<p class="hint">Coordonnées nécessaires au traitement de la demande par notre équipe.</p><div class="fields">'+entry('Société / magasin','company')+entry('Nom du contact','name')+entry('Adresse e-mail','email','email')+entry('Téléphone','phone','tel')+'</div><label class="field" style="margin-top:16px">Précisions, finition exacte, référence du catalogue<textarea name="notes">'+esc(st.notes)+'</textarea></label>';}
+if(st.step===7){
  h+='<p class="hint">Votre composition et les éléments choisis.</p><div class="visual-summary">'
  +'<div class="preview-card">'+collectionImage(st.model)+'<strong>'+esc(st.model)+' · '+esc(st.color)+'</strong><span class="selected-finish" style="background:'+esc(COLOR_HEX[st.color]||'#bcb6aa')+'" aria-label="Finition sélectionnée"></span></div>'
  +'<div class="preview-card">'+(st.basinMode==='none'?'<span class="visual"></span>':photo(st.basinMode==='vessel'?41:38,'',st.basin))+'<strong>'+esc(st.basin)+'</strong></div>'
  +'<div class="preview-card">'+(st.mirror==='Sans miroir'?'<span class="visual"></span>':photo(36,'',st.mirror))+'<strong>'+esc(st.mirror)+'</strong></div>'
  +'</div><div class="summary">'+esc(summary())+'</div><button type="button" class="btn primary" id="send" style="margin-top:18px;width:100%">Envoyer la demande</button><p class="mini">Votre application e-mail s’ouvrira pour confirmer l’envoi.</p>';
 }
-h+='<div class="actions"><button type="button" class="btn" id="prev" '+(st.step===0?'disabled':'')+'>← Précédent</button>'+(st.step<6?'<button type="button" class="btn primary" id="next">Continuer →</button>':'')+'</div>';
+h+='<div class="actions"><button type="button" class="btn" id="prev" '+(st.step===0?'disabled':'')+'>← Précédent</button>'+(st.step<7?'<button type="button" class="btn primary" id="next">Continuer →</button>':'')+'</div>';
 $('panel').innerHTML=h;
  paintThumbnails();
 $('panel').querySelectorAll('[data-field]').forEach(b=>b.onclick=()=>{if(b.dataset.field==='model'&&st.model!==b.dataset.value)resetConfiguration();if(b.dataset.field==='variantCode'&&st.variantCode!==b.dataset.value)st.color='';if(b.dataset.field==='mirror'&&st.mirror!==b.dataset.value)st.mirrorSize='';if(b.dataset.field==='width'&&st.width!==b.dataset.value){st.color='';st.basinMode='integrated'}st[b.dataset.field]=b.dataset.value;normalize();syncBasin();save();render()});
