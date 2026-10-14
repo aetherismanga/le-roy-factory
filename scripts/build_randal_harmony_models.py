@@ -1,75 +1,134 @@
 #!/usr/bin/env python3
-"""First controlled 3D prototype for RANDAL Harmony, reconstructed from 2D catalogue pages 4–5.
-Not a manufacturer CAD asset. Never replace production assets until approved.
+"""RANDAL Harmony V04: 12 catalogue cabinet variants x 3 finishes = 36 GLB.
+   Technical reconstruction from factory diagrams, not manufacturer CAD.
+   Independent of commercial 3D viewer; drawer opening is interactive there.
 """
 from pathlib import Path
-import fitz, numpy as np, trimesh
+import numpy as np
+import trimesh
 from PIL import Image, ImageEnhance
 
 BASE=Path(__file__).resolve().parents[1]
-SRC=BASE/"assets/pdf/RANDAL%20V04.pdf"
 OUT=BASE/"assets/models/randal/harmony"
-COLORS={"Serenade_Alba":(684,303),"Blanco_Mate":(787,303),"Gris_Tortora":(889,303)}
+FINISHES=BASE/"assets/img/randal/finishes/harmony"
+COLORS={"Serenade_Alba":"serenade-alba.webp",
+        "Blanco_Mate":"blanco-mate.webp",
+        "Gris_Tortora":"gris-tortora.webp"}
+WIDTHS=[60,70,80,90,100,119]
 OUT.mkdir(parents=True,exist_ok=True)
-doc=fitz.open(SRC)
-if len(doc)!=43:raise RuntimeError("RANDAL catalogue version mismatch")
-pix=doc[3].get_pixmap(matrix=fitz.Matrix(5,5),alpha=False)
-page=Image.frombytes("RGB",(pix.width,pix.height),pix.samples)
 textures={}
-for name,(x,y) in COLORS.items():
- scale=5/1.65
- cx,cy=x*scale,y*scale;r=19*scale
- im=page.crop((int(cx-r),int(cy-r),int(cx+r),int(cy+r)))
- im=im.resize((512,512),Image.Resampling.BICUBIC).crop((68,68,444,444))
- textures[name]=ImageEnhance.Contrast(im.resize((512,512),Image.Resampling.LANCZOS)).enhance(1.02)
+for name,source in COLORS.items():
+    image=Image.open(FINISHES/source).convert("RGB")
+    # True center of RANDAL circular finish swatch, outside ivory area excluded.
+    side=int(min(image.size)*.60)
+    x=(image.width-side)//2;y=(image.height-side)//2
+    chip=image.crop((x,y,x+side,y+side)).resize((512,512),Image.Resampling.LANCZOS)
+    textures[name]=ImageEnhance.Contrast(chip).enhance(1.045)
 
-def cube(dim,where,name,material):
- obj=trimesh.creation.box(extents=dim)
- obj.apply_translation(where)
- obj.visual.material=material
- obj.metadata["name"]=name
- return obj
+def material(color):
+    return trimesh.visual.material.PBRMaterial(
+        name="RANDAL_Harmony_"+color,
+        baseColorTexture=textures[color],
+        baseColorFactor=[255,255,255,255],
+        roughnessFactor=.81,metallicFactor=0)
+def simple(name,rgba,metallic=0):
+    return trimesh.visual.material.PBRMaterial(
+        name=name,baseColorFactor=rgba,
+        roughnessFactor=.62,metallicFactor=metallic)
+def add(parts,name,dim,xyz,mat):
+    mesh=trimesh.creation.box(extents=dim)
+    mesh.apply_translation(xyz)
+    # Explicit UV makes the real finish swatch visible in GLB viewers.
+    uv=np.zeros((len(mesh.vertices),2),dtype=np.float32)
+    vertices=mesh.vertices-np.array(xyz)
+    uv[:,0]=(vertices[:,0]+dim[0]/2)/max(dim[0],1e-5)
+    uv[:,1]=(vertices[:,1]+dim[1]/2)/max(dim[1],1e-5)
+    mesh.visual=trimesh.visual.texture.TextureVisuals(uv=uv,material=mat)
+    parts.append((name,mesh))
 
-def model(w,h,d,color,count,feet):
- material=trimesh.visual.material.PBRMaterial(
-   name="Harmony_"+color,baseColorTexture=textures[color],
-   metallicFactor=0,roughnessFactor=.88,baseColorFactor=[255,255,255,255])
- dark=trimesh.visual.material.PBRMaterial(
-   name="Interieur",baseColorFactor=[58,54,49,255],roughnessFactor=.9)
- metal=trimesh.visual.material.PBRMaterial(
-   name="Aluminium_mat",baseColorFactor=[183,188,190,255],metallicFactor=.72,roughnessFactor=.4)
- ground=.105 if feet else 0
- parts=[]
- add=lambda dim,pos,n,mat=material:parts.append(cube(dim,pos,n,mat))
- add([.016,h,d],[(-w+.016)/2,ground+h/2,0],"Cote_gauche_16mm")
- add([.016,h,d],[(w-.016)/2,ground+h/2,0],"Cote_droit_16mm")
- add([w-.032,.010,d-.035],[0,ground+.015,-.01],"Fond")
- add([w-.032,h-.04,.008],[0,ground+h/2,-d/2+.005],"Panneau_arriere",dark)
- add([w-.032,.017,.022],[0,ground+h-.026,-d/2+.035],"Traverse_arriere")
- add([w-.032,.013,.02],[0,ground+h-.023,d/2-.03],"Traverse_avant")
- step=(h-.038)/count
- for i in range(count):
-  y=ground+.016+(i+.5)*step
-  face=step-(.006 if i<count-1 else .003)
-  add([w-.028,face,.016],[0,y,d/2+.005],f"Facade_tiroir_{i+1}_sans_poignee")
-  add([w-.07,.012,d-.14],[0,y-face/2+.02,-.025],f"Fond_tiroir_{i+1}")
- if feet:
-  for x in [-w/2+.058,w/2-.058]:
-   for z in [-d/2+.063,d/2-.063]:
-    add([.024,ground,.024],[x,ground/2,z],"Pied_aluminium",metal)
- scene=trimesh.Scene()
- for i,part in enumerate(parts):
-  scene.add_geometry(part,node_name=part.metadata["name"]+"_"+str(i),geom_name=part.metadata["name"]+"_"+str(i))
- return scene
+def drawer(parts,width,depth,y,step,index,mat,inside,top,double):
+    frontZ=depth/2+.014
+    # Front slab without applied handles.
+    add(parts,f"Tiroir_{index}_facade", [width-.028,step-.006,.016],
+        [0,y,frontZ],mat)
+    back=depth/2-.042-(depth-.12)
+    front=depth/2-.042
+    base=y-step/2+.022
+    for x in [-width/2+.049,width/2-.049]:
+        add(parts,f"Tiroir_{index}_paroi",[.012,.115,depth-.12],
+            [x,base+.065,(front+back)/2],inside)
+    if not top:
+        add(parts,f"Tiroir_{index}_fond",[width-.10,.010,depth-.12],
+            [0,base,(front+back)/2],inside)
+        add(parts,f"Tiroir_{index}_fond_arriere",[width-.10,.10,.01],
+            [0,base+.057,back+.008],inside)
+        return
+    # Top drawer: U-shaped waste pipe relief at the REAR, never a solid shelf.
+    cut=.17;notch=.18
+    notches=[-width*.245,width*.245] if double else [0]
+    add(parts,"Tiroir_superieur_ponte_avant",[width-.10,.010,depth-.12-cut],
+        [0,base,(front+back+cut)/2],inside)
+    left=-width/2+.05
+    for cx in notches:
+        x0=max(-width/2+.05,cx-notch/2)
+        x1=min(width/2-.05,cx+notch/2)
+        if x0>left+.005:
+            add(parts,"Tiroir_superieur_fond_arriere",[x0-left,.010,cut],
+                [(left+x0)/2,base,back+cut/2],inside)
+        for side in (x0,x1):
+            add(parts,"Tiroir_superieur_cloison_siphon",[.010,.095,cut],
+                [side,base+.055,back+cut/2],inside)
+        left=x1
+    right=width/2-.05
+    if right>left+.005:
+        add(parts,"Tiroir_superieur_fond_droit",[right-left,.010,cut],
+            [(right+left)/2,base,back+cut/2],inside)
 
-variants=[("Harmony_A_60cm_2tiroirs",.60,.53,.45,2,False),
-          ("Harmony_K_100cm_3tiroirs",1.,.79,.45,3,True)]
-for name,w,h,d,count,feet in variants:
- for color in COLORS:
-  path=OUT/(name+"_"+color+".glb")
-  path.write_bytes(model(w,h,d,color,count,feet).export(file_type="glb"))
-  test=trimesh.load(path,force="scene")
-  assert len(test.geometry)>=10 and path.stat().st_size>5000
-  sizes=np.diff(test.bounds,axis=0)[0]
-  assert abs(sizes[0]-w)<.005 and abs(sizes[1]-h-(.105 if feet else 0))<.005
-  print(path.name,path.stat().st_size,"bytes")
+def build(w_cm,three,color):
+    width=w_cm/100
+    height=.79 if three else .53
+    depth=.45
+    feet=.105 if three else 0
+    mat=material(color)
+    inside=simple("interieur_tiroir",[183,178,167,255])
+    dark=simple("chant_interieur",[81,78,71,255])
+    metal=simple("pieds_aluminium_mat",[177,182,184,255],.68)
+    parts=[]
+    def box(label,dim,pos,finish=mat):add(parts,label,dim,pos,finish)
+    box("Harmony_cote_gauche",[.016,height,depth],[-width/2+.008,feet+height/2,0])
+    box("Harmony_cote_droit",[.016,height,depth],[width/2-.008,feet+height/2,0])
+    box("Harmony_panneau_arriere",[width-.032,height-.04,.01],[0,feet+height/2,-depth/2+.008],inside)
+    box("Harmony_bas",[width-.032,.017,depth-.02],[0,feet+.012,0],inside)
+    box("Harmony_traverse_arriere",[width-.032,.017,.04],[0,feet+height-.02,-depth/2+.04],inside)
+    count=3 if three else 2
+    pitch=(height-.036)/count
+    for i in range(count):
+        y=feet+height-.018-(i+.5)*pitch
+        drawer(parts,width,depth,y,pitch,i+1,mat,inside,i==0,width>1.16)
+    if three:
+        for x in [-width/2+.058,width/2-.058]:
+            for z in [-depth/2+.065,depth/2-.065]:
+                box("Pied_aluminium",[.026,feet,.026],[x,feet/2,z],metal)
+    sc=trimesh.Scene()
+    for n,(name,mesh) in enumerate(parts):
+        sc.add_geometry(mesh,geom_name=f"{name}_{n}",node_name=f"{name}_{n}")
+    return sc
+
+count=0
+for index,w in enumerate(WIDTHS):
+    for three in (False,True):
+        letter=chr(ord('G' if three else 'A')+index)
+        prefix=f"Harmony_{letter}_{w}cm_{'3' if three else '2'}tiroirs"
+        for color in COLORS:
+            output=OUT/(prefix+"_"+color+".glb")
+            output.write_bytes(build(w,three,color).export(file_type="glb"))
+            check=trimesh.load(output,force="scene")
+            dimensions=np.diff(check.bounds,axis=0)[0]
+            if abs(dimensions[0]-w/100)>.006:raise RuntimeError(f"Bad width {output}: {dimensions}")
+            if abs(dimensions[1]-(.895 if three else .53))>.006:
+                raise RuntimeError(f"Bad height {output}: {dimensions}")
+            if output.stat().st_size<3500:raise RuntimeError(f"Bad model {output}")
+            count+=1
+            print(letter,w,color,output.stat().st_size)
+if count!=36:raise RuntimeError(f"Expected 36 models, found {count}")
+print("Validated 36 Harmony GLB files: all dimensions, colors and rear siphon cutouts")
