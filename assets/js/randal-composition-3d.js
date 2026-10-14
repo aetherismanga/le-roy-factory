@@ -286,16 +286,18 @@ function useCatalogueFinish(material,url){
   const ctx=c.getContext('2d',{alpha:false});
   const size=Math.min(image.naturalWidth,image.naturalHeight)*.66;
   const xx=(image.naturalWidth-size)/2,yy=(image.naturalHeight-size)/2;
-  ctx.filter='none';
+  ctx.filter='contrast(1.15) saturate(1.08)';
   ctx.drawImage(image,xx,yy,size,size,0,0,512,512);
   ctx.filter='none';
   const texture=new THREE.CanvasTexture(c);
   texture.colorSpace=THREE.SRGBColorSpace;
   texture.wrapS=texture.wrapT=THREE.RepeatWrapping;
-  texture.repeat.set(1.0,1.0);texture.anisotropy=4;
+  texture.repeat.set(1.0,1.0);texture.anisotropy=Math.min(8,renderer?.capabilities.getMaxAnisotropy?.()||8);
   if(material.map)material.map.dispose();
   material.color.set('#ffffff');
   material.map=texture;
+  // Le grain d'origine apporte une micro-variation de relief sous la lumière.
+  material.bumpMap=texture;material.bumpScale=.0038;material.roughness=.65;
   material.needsUpdate=true;
   requestFrame();
  };
@@ -575,7 +577,7 @@ function buildScene(config){
  scene.add(cabinet);
  const lower=isColumn?.10:legs;
  const boardH=isCounter?.09:Math.max(.10,height-lower-.017);
- const finish=newMat(colorFor(config.color,'#a49584'),isWood(config.color)?.72:.43,.01);
+ const finish=newMat(colorFor(config.color,'#a49584'),isWood(config.color)?.67:.49,0);
  // Pas de double allocation d'une texture bois si le véritable échantillon existe.
  if(!config.swatch&&isWood(config.color))finish.map=woodTexture(colorFor(config.color,'#a49584'),true);
  useCatalogueFinish(finish,config.swatch);
