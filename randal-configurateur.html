@@ -68,13 +68,40 @@ a.pdf:hover{background:white}
 (()=>{
 'use strict';
 const models=[["Harmony",3],["Luce",7],["Brent",10],["Aruba rainuré",15],["Aruba",17],["Aras",20],["Boreal",23],["Brunei",26],["Amat",28],["Less",31],["Sima",33]];
-const RANDAL={"Harmony":{"w":[60,70,80,90,100,119],"h":[53,79],"d":45,"colors":["Serenade Alba","Blanco mate","Gris tórtora"],"refs":[[13255,13267,13261],[13342,13354,13348],[13257,13269,13263],[13344,13356,13350],[13346,13358,13352],[13259,13271,13265],[13256,13268,13262],[13343,13355,13349],[13258,13270,13264],[13345,13357,13351],[13347,13359,13353],[13461,13463,13462]],"prices":[282,284,287,320,354,521,362,392,400,433,484,725]},"Luce":{"w":[80,120],"h":[40],"d":45,"colors":["Verde Utopía","Azul Ceylan","Nogal Lincoln"],"refs":[[11358,11353,11350],[11356,11354,11351]],"prices":[471,553]},"Aruba rainuré":{"w":[60,70,80,90,100,120],"h":[53],"d":45,"colors":["Roble Amazona acanalado","Nogal Valentina acanalado","Biscuit acanalado"],"refs":[[13472,13475,13479],[13292,13476,13480],[12389,12390,13481],[13473,13477,13482],[13474,13478,13483],[12391,12392,13484]],"prices":[464,488,504,580,600,978]},"Aruba":{"w":[60,70,80,90,100,120],"h":[53],"d":45,"colors":["Roble Amazona","Nogal Valentina","Biscuit","Blanco mate","Serenade Alba","Azul Acero"],"refs":[[13289,13293,13389,13403,13410,13396],[13383,13386,13390,13404,13411,13397],[13290,13294,13391,13405,13412,13398],[13384,13387,13392,13406,13413,13399],[13385,13388,13393,13407,13414,13400],[13291,13295,13394,13408,13415,13401]],"prices":[402,422,427,446,479,802]},"Aras":{"w":[60,70,80,90,100,120],"h":[53],"d":45,"colors":["Nogal Valentina","Biscuit","Blanco mate","Serenade Alba","Azul Acero"],"refs":[[13374,13273,13277,13281,13285],[13375,13362,13365,13368,13371],[13376,13274,13278,13282,13286],[13377,13363,13366,13369,13372],[13378,13364,13367,13370,13373],[13379,13275,13279,13283,13287]],"prices":[429,443,446,469,499,873]},"Boreal":{"w":[60,79,120],"h":[53],"d":45,"colors":["Nogal Valentina","Biscuit","Blanco mate","Serenade Alba","Azul Acero"],"refs":[[13417,13421,13425,13429,13433],[13418,13422,13426,13430,13434],[13419,13423,13427,13431,13435]],"prices":[405,411,770]},"Brunei":{"w":[60,70,80,90,100,120],"h":[53],"d":45,"colors":["Blanco mate","Negro","Gris","Serenade Alba"],"refs":[[13437,13443,13449,13455],[13438,13444,13450,13456],[13439,13445,13451,13457],[13440,13446,13452,13458],[13441,13447,13453,13459],[13442,13448,13454,13460]],"prices":[430,438,447,465,478,824]},"Less":{"w":[40],"h":[66],"d":22,"colors":["Serenade Alba / Tirador Blanco","Azul acero / Tirador Níquel","Gris Tórtora / Tirador Negro"],"refs":[[14038,14039,14040]],"prices":[270]},"Sima":{"w":[60,80,100,120],"h":[10],"d":46,"colors":["Roble Natura","Nogal Mist"],"refs":[[13487,13491],[13488,13492],[13489,13493],[13490,13494]],"prices":[261,292,313,351]}};const variant=()=>{const d=RANDAL[st.model];if(!d||!d.w.includes(Number(st.width))||!d.h.includes(Number(st.height))||!d.colors.includes(st.color))return null;let i=d.w.indexOf(Number(st.width));if(st.model==='Harmony'&&Number(st.height)===79)i+=6;return i>=0?{ref:d.refs[i]?.[d.colors.indexOf(st.color)],price:d.prices[i]}:null};
+const RANDAL={"Harmony":{"w":[60,70,80,90,100,119],"h":[53,79],"d":45,"colors":["Serenade Alba","Blanco mate","Gris tórtora"],"refs":[[13255,13267,13261],[13342,13354,13348],[13257,13269,13263],[13344,13356,13350],[13346,13358,13352],[13259,13271,13265],[13256,13268,13262],[13343,13355,13349],[13258,13270,13264],[13345,13357,13351],[13347,13359,13353],[13461,13463,13462]],"prices":[282,284,287,320,354,521,362,392,400,433,484,725]},"Luce":{"w":[80,120],"h":[40],"d":45,"colors":["Verde Utopía","Azul Ceylan","Nogal Lincoln"],"refs":[[11358,11353,11350],[11356,11354,11351]],"prices":[471,553]},"Aruba rainuré":{"w":[60,70,80,90,100,120],"h":[53],"d":45,"colors":["Roble Amazona acanalado","Nogal Valentina acanalado","Biscuit acanalado"],"refs":[[13472,13475,13479],[13292,13476,13480],[12389,12390,13481],[13473,13477,13482],[13474,13478,13483],[12391,12392,13484]],"prices":[464,488,504,580,600,978]},"Aruba":{"w":[60,70,80,90,100,120],"h":[53],"d":45,"colors":["Roble Amazona","Nogal Valentina","Biscuit","Blanco mate","Serenade Alba","Azul Acero"],"refs":[[13289,13293,13389,13403,13410,13396],[13383,13386,13390,13404,13411,13397],[13290,13294,13391,13405,13412,13398],[13384,13387,13392,13406,13413,13399],[13385,13388,13393,13407,13414,13400],[13291,13295,13394,13408,13415,13401]],"prices":[402,422,427,446,479,802]},"Aras":{"w":[60,70,80,90,100,120],"h":[53],"d":45,"colors":["Nogal Valentina","Biscuit","Blanco mate","Serenade Alba","Azul Acero"],"refs":[[13374,13273,13277,13281,13285],[13375,13362,13365,13368,13371],[13376,13274,13278,13282,13286],[13377,13363,13366,13369,13372],[13378,13364,13367,13370,13373],[13379,13275,13279,13283,13287]],"prices":[429,443,446,469,499,873]},"Boreal":{"w":[60,79,120],"h":[53],"d":45,"colors":["Nogal Valentina","Biscuit","Blanco mate","Serenade Alba","Azul Acero"],"refs":[[13417,13421,13425,13429,13433],[13418,13422,13426,13430,13434],[13419,13423,13427,13431,13435]],"prices":[405,411,770]},"Brunei":{"w":[60,70,80,90,100,120],"h":[53],"d":45,"colors":["Blanco mate","Negro","Gris","Serenade Alba"],"refs":[[13437,13443,13449,13455],[13438,13444,13450,13456],[13439,13445,13451,13457],[13440,13446,13452,13458],[13441,13447,13453,13459],[13442,13448,13454,13460]],"prices":[430,438,447,465,478,824]},"Less":{"w":[40],"h":[66],"d":22,"colors":["Serenade Alba / Tirador Blanco","Azul acero / Tirador Níquel","Gris Tórtora / Tirador Negro"],"refs":[[14038,14039,14040]],"prices":[270]},"Sima":{"w":[60,80,100,120],"h":[10],"d":46,"colors":["Roble Natura","Nogal Mist"],"refs":[[13487,13491],[13488,13492],[13489,13493],[13490,13494]],"prices":[261,292,313,351]}};const variant=()=>{
+ const special=SPECIAL_VARIANTS[st.model];
+ if(special){
+  const row=special.shapes.findIndex(x=>x.code===st.variantCode),col=special.colors.indexOf(st.color);
+  if(row<0||col<0)return null;
+  const shape=special.shapes[row],base=special.refRows[row]?.[col%4];
+  const ref=st.model==='Brent'?base+' - '+(col<4?'ORO':'PLATA'):special.refRows[row]?.[col];
+  return {ref,price:shape.price};
+ }
+ const d=RANDAL[st.model];if(!d||!d.w.includes(Number(st.width))||!d.h.includes(Number(st.height))||!d.colors.includes(st.color))return null;
+ let i=d.w.indexOf(Number(st.width));if(st.model==='Harmony'&&Number(st.height)===79)i+=6;
+ return i>=0?{ref:d.refs[i]?.[d.colors.indexOf(st.color)],price:d.prices[i]}:null;
+};
+const SPECIAL_VARIANTS={
+ Brent:{
+  colors:['Vert céladon · or vieilli','Bleu · or vieilli','Gris clair · or vieilli','Blanc cassé · or vieilli','Vert céladon · argent vieilli','Bleu · argent vieilli','Gris clair · argent vieilli','Blanc cassé · argent vieilli'],
+  shapes:'ABCDEFGH'.split('').map((code,i)=>({code,width:[80,80,100,100,120,120,140,140][i],height:85,depth:45,price:[780,723,947,800,1093,986,1121,1054][i]})),
+  refRows:[
+   ['11093','11098','12547','11103'],['11087','6028','12546','6030'],['11094','11099','12549','11104'],['11088','6031','12548','6033'],
+   ['11095','11100','12551','11105'],['11089','6034','12550','6036'],['11096','11101','12553','11106'],['11090','6037','12552','6039']
+  ]
+ },
+ Amat:{
+  colors:['Biscuit','Fresno Lagom','Serenade Alba'],
+  shapes:'ABCDEFGHIJKLMNOP'.split('').map((code,i)=>({code,width:[80,90,100,120,80,90,100,120,80,90,100,120,80,90,100,120][i],height:i<8?53:90,depth:46,price:[616,637,655,689,616,637,655,689,746,770,785,819,746,770,785,819][i]})),
+  refRows:[[13947,13977,13978],[13979,13980,13981],[13982,13983,13984],[13985,13986,13987],[14000,14001,14002],[14003,14004,14005],[14006,14007,14008],[14009,14010,14011],[13988,13989,13990],[13991,13992,13993],[13994,13995,13996],[13997,13998,13999],[14012,14013,14014],[14015,14016,14017],[14018,14019,14020],[14021,14022,14023]]
+ }
+};
 const steps=['Modèle','Dimensions','Couleur','Vasque & plan','Miroir','Coordonnées','Récapitulatif'];
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const key='lrfRandalV04Draft';
 let st;try{st=JSON.parse(sessionStorage.getItem(key)||'{}')}catch{st={}}
-st={model:'',width:'',height:'',depth:'',color:'',drawers:'',basin:'Sella',top:'Sans plan',basinMode:'integrated',topFinish:'Blanco mate',mirror:'Sans miroir',quantity:1,company:'',name:'',email:'',phone:'',notes:'',step:0,...st};
+st={model:'',width:'',height:'',depth:'',color:'',variantCode:'',drawers:'',basin:'Sella',top:'Sans plan',basinMode:'integrated',topFinish:'Blanco mate',mirror:'Sans miroir',quantity:1,company:'',name:'',email:'',phone:'',notes:'',step:0,...st};
 const save=()=>sessionStorage.setItem(key,JSON.stringify(st));
 
 const MODEL_PAGE=Object.fromEntries(models);
@@ -133,8 +160,15 @@ async function paintThumbnails(){
 }
 const photo=(page,tag='')=>'<span class="visual"><canvas width="300" height="190" data-photo-page="'+page+'" role="img" aria-label="Photo officielle RANDAL, page '+page+'"></canvas>'+(tag?'<i>'+tag+'</i>':'')+'</span>';
 
-const resetConfiguration=()=>{Object.assign(st,{width:'',height:'',depth:'',color:'',drawers:'',basin:'Sella',top:'Sans plan',basinMode:'integrated',topFinish:'Blanco mate',mirror:'Sans miroir',quantity:1});};
-const normalize=()=>{const d=RANDAL[st.model];if(!d){resetConfiguration();return}if(!d.w.includes(Number(st.width))){st.width='';st.color=''}if(d.h.length===1)st.height=String(d.h[0]);else if(!d.h.includes(Number(st.height)))st.height='';st.depth=String(d.d);if(!d.colors.includes(st.color))st.color='';};
+const resetConfiguration=()=>{Object.assign(st,{width:'',height:'',depth:'',color:'',variantCode:'',drawers:'',basin:'Sella',top:'Sans plan',basinMode:'integrated',topFinish:'Blanco mate',mirror:'Sans miroir',quantity:1});};
+const normalize=()=>{
+ const special=SPECIAL_VARIANTS[st.model];
+ if(special){const shape=special.shapes.find(x=>x.code===st.variantCode);if(shape){st.width=String(shape.width);st.height=String(shape.height);st.depth=String(shape.depth)}else{st.width=st.height=st.depth='';st.color=''}if(!special.colors.includes(st.color))st.color='';return}
+ const d=RANDAL[st.model];if(!d){resetConfiguration();return}
+ if(!d.w.includes(Number(st.width))){st.width='';st.color=''}
+ if(d.h.length===1)st.height=String(d.h[0]);else if(!d.h.includes(Number(st.height)))st.height='';
+ st.depth=String(d.d);if(!d.colors.includes(st.color))st.color='';
+};
 normalize();syncBasin();
 const selectedFromCatalogue=new URLSearchParams(location.search).get('collection');
 if(selectedFromCatalogue&&models.some(([name])=>name===selectedFromCatalogue)&&st.model!==selectedFromCatalogue){st.model=selectedFromCatalogue;resetConfiguration();st.step=1;normalize();save();}
@@ -143,24 +177,27 @@ const select=(label,name,opts)=>'<label class="field">'+label+'<select name="'+n
 const pick=(name,values,group='')=>'<div class="choices '+group+'">'+values.map(([value,sub])=>{
  const page=name==='model'?MODEL_PAGE[value]:name==='mirror'?(value==='Sans miroir'?0:35):name==='basinMode'?(value==='vessel'?41:value==='integrated'?37:0):0;
  const visual=page?photo(page,name==='model'?'p. '+page:''):name==='color'?'<span class="swatch" style="background:'+esc(COLOR_HEX[value]||'#c5c4b9')+'"></span>':'';
- return '<button type="button" class="choice '+(st[name]===value?'active':'')+'" data-field="'+name+'" data-value="'+esc(value)+'">'+visual+'<span class="choice-copy"><strong>'+esc(value)+'</strong><small>'+esc(sub||'')+'</small></span></button>'
+ return '<button type="button" class="choice '+(st[name]===value?'active':'')+'" data-field="'+name+'" data-value="'+esc(value)+'">'+visual+'<span class="choice-copy"><strong>'+esc(name==='basinMode'?({integrated:'Vasque sur meuble',vessel:'Plan + vasque à poser',none:'Sans vasque'}[value]):value)+'</strong><small>'+esc(sub||'')+'</small></span></button>'
  }).join('')+'</div>';
 const summary=()=>['Référence meuble : '+(variant()?.ref||'À vérifier'),'Prix vente conseillé HT meuble : '+(variant()?.price??'À confirmer')+' €','DEMANDE DE DISPONIBILITÉ / COMMANDE À CONFIRMER','RANDAL — Catalogue V04','','MODÈLE : '+st.model,'Largeur : '+(st.width||'À confirmer')+' cm','Hauteur : '+(st.height||'À confirmer')+' cm','Profondeur : '+(st.depth||'À confirmer')+' cm','Couleur / finition : '+(st.color||'À confirmer'),'Tiroirs / composition : '+(st.drawers||'À confirmer'),'Type de montage : '+({integrated:'Vasque sur meuble',vessel:'Plan et vasque à poser',none:'Meuble sans vasque'}[st.basinMode]),'Vasque : '+st.basin,'Plan : '+st.top+(st.basinMode==='vessel'&&st.model!=='Sima'?' · '+st.topFinish+' · Réf. '+topReference():''),'Miroir : '+st.mirror,'Quantité : '+st.quantity,'','CLIENT / MAGASIN : '+st.company,'Contact : '+st.name,'E-mail : '+st.email,'Téléphone : '+st.phone,'','Informations complémentaires : '+(st.notes||'Aucune'),'','Merci de confirmer les références exactes, les associations possibles, le prix professionnel HT, les stocks et le délai.','Aucune commande ferme avant confirmation de votre part.'].join('\n');
 function render(){
 $('steps').innerHTML=steps.map((s,i)=>'<div class="step '+(i===st.step?'active':i<st.step?'done':'')+'">'+(i+1)+'. '+s+'</div>').join('');
 let h='<h2>'+['Choisissez une collection','Indiquez le format et la composition','Choisissez la finition','Vasque et plan de toilette','Choisissez votre miroir','Vos coordonnées professionnelles','Vérifiez votre demande'][st.step]+'</h2>';
 if(st.step===0){h+='<p class="hint">Choisissez un modèle parmi les collections du catalogue.</p>'+pick('model',models.map(([a,p])=>[a,'Catalogue page '+p]));}
-if(st.step===1){const d=RANDAL[st.model];if(d){h+='<p class="hint">Sélectionnez exclusivement une dimension référencée au catalogue.</p>'+pick('width',d.w.map(w=>[String(w),w+' cm de largeur']))+'<p class="mini">Hauteur et profondeur sont déterminées par la variante officielle.</p>';if(d.h.length>1)h+=pick('height',d.h.map(v=>[String(v),v+' cm de hauteur']));h+='<p class="mini">Profondeur : '+d.d+' cm</p>'+entry('Quantité de meubles','quantity','number');}else{h+='<p class="warn">Collection nécessitant une validation complémentaire des variantes du catalogue. Aucune dimension libre autorisée.</p>';}}
-if(st.step===2){const d=RANDAL[st.model];h+='<p class="hint">Finitions exclusivement proposées pour cette collection.</p>'+(d?pick('color',d.colors.map(c=>[c,''])):'<p class="warn">Références à vérifier avant configuration.</p>');}
+if(st.step===1){
+ const d=RANDAL[st.model],special=SPECIAL_VARIANTS[st.model];
+ if(special){h+='<p class="hint">Sélectionnez la configuration illustrée par sa lettre dans le tarif officiel.</p>'+pick('variantCode',special.shapes.map(x=>[x.code,x.width+' × '+x.height+' cm · Page '+(st.model==='Brent'?12:(x.height===53?29:30))]));}
+ else if(d){h+='<p class="hint">Dimensions disponibles pour ce modèle.</p>'+pick('width',d.w.map(w=>[String(w),w+' cm de largeur']));if(d.h.length>1)h+=pick('height',d.h.map(v=>[String(v),v+' cm de hauteur']));}
+ else h+='<p class="warn">Options détaillées à confirmer dans le catalogue.</p>';
+ h+='<div class="fields" style="margin-top:15px">'+entry('Quantité','quantity','number')+'</div>';
+}
+if(st.step===2){const d=RANDAL[st.model],special=SPECIAL_VARIANTS[st.model];h+='<p class="hint">Finitions proposées pour cette collection.</p>'+(d||special?pick('color',(special?.colors||d.colors).map(c=>[c,''])):'<p class="warn">Références à vérifier avant configuration.</p>');}
 
 if(st.step===3){
  syncBasin();
  h+='<p class="hint">Choisissez un montage. Seules les options correspondantes sont proposées.</p>';
- const modes=[['integrated','Vasque Sella / Tampa · sans plan ajouté'],['vessel','Plan + vasque Neris ou Torne'],['none','Meuble seul']];
- h+=pick('basinMode',modes.filter(x=>allowedModes().includes(x[0])).map(([id,label])=>[{integrated:'Vasque sur meuble',vessel:'Plan + vasque à poser',none:'Sans vasque'}[id],label]),'mode-grid')
- .replaceAll('data-field="basinMode"','data-field="basinMode"');
- // L'identifiant interne du mode est conservé séparément du libellé.
- h=h.replace(/data-field="basinMode" data-value="Vasque sur meuble"/g,'data-field="basinMode" data-value="integrated"').replace(/data-field="basinMode" data-value="Plan \+ vasque à poser"/g,'data-field="basinMode" data-value="vessel"').replace(/data-field="basinMode" data-value="Sans vasque"/g,'data-field="basinMode" data-value="none"');
+ const modes=[['integrated','Vasque directement sur le meuble'],['vessel','Plan avec vasque à poser'],['none','Meuble seul, sans vasque']];
+ h+=pick('basinMode',modes.filter(x=>allowedModes().includes(x[0])),'mode-grid');
  if(st.basinMode==='integrated'){
   h+='<div class="options-group"><h3>Vasque</h3>'+pick('basin',(st.model==='Luce'||st.model==='Brent'?['Tampa']:['Sella','Tampa']).map(x=>[x,'Vasque en céramique, page 38']))+'</div>';
  }
@@ -183,10 +220,10 @@ if(st.step===6){
 h+='<div class="actions"><button type="button" class="btn" id="prev" '+(st.step===0?'disabled':'')+'>← Précédent</button>'+(st.step<6?'<button type="button" class="btn primary" id="next">Continuer →</button>':'')+'</div>';
 $('panel').innerHTML=h;
  paintThumbnails();
-$('panel').querySelectorAll('[data-field]').forEach(b=>b.onclick=()=>{if(b.dataset.field==='model'&&st.model!==b.dataset.value)resetConfiguration();if(b.dataset.field==='width'&&st.width!==b.dataset.value){st.color='';st.basinMode='integrated'}st[b.dataset.field]=b.dataset.value;normalize();syncBasin();save();render()});
+$('panel').querySelectorAll('[data-field]').forEach(b=>b.onclick=()=>{if(b.dataset.field==='model'&&st.model!==b.dataset.value)resetConfiguration();if(b.dataset.field==='variantCode'&&st.variantCode!==b.dataset.value)st.color='';if(b.dataset.field==='width'&&st.width!==b.dataset.value){st.color='';st.basinMode='integrated'}st[b.dataset.field]=b.dataset.value;normalize();syncBasin();save();render()});
 $('panel').querySelectorAll('[name]').forEach(el=>el.onchange=()=>{st[el.name]=el.value.trim();syncBasin();save();if(st.step===3)render()});
 $('prev').onclick=()=>{st.step=Math.max(0,st.step-1);save();render();scrollTo({top:0,behavior:'smooth'})};
-if($('next'))$('next').onclick=()=>{for(const el of $('panel').querySelectorAll('[name]'))st[el.name]=el.value.trim();if(st.step===0&&!st.model){alert('Sélectionnez un modèle.');return}if(st.step===1&&(!RANDAL[st.model]||!RANDAL[st.model].w.includes(Number(st.width))||(RANDAL[st.model].h.length>1&&!RANDAL[st.model].h.includes(Number(st.height)))||!Number.isInteger(Number(st.quantity))||Number(st.quantity)<1)){alert('Indiquez une largeur et une quantité valides.');return}if(st.step===2&&(!RANDAL[st.model]?.colors.includes(st.color)||!variant()?.ref)){alert('Choisissez une finition.');return}if(st.step===3&&((st.basinMode==='integrated'&&!['Sella','Tampa'].includes(st.basin))||(st.basinMode==='vessel'&&!['Neris','Torne'].includes(st.basin)))){alert('Choisissez une vasque compatible.');return}if(st.step===5&&(!st.company||!st.name||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(st.email))){alert('Renseignez la société, le contact et un e-mail valide.');return}st.step++;save();render();scrollTo({top:0,behavior:'smooth'})};
+if($('next'))$('next').onclick=()=>{for(const el of $('panel').querySelectorAll('[name]'))st[el.name]=el.value.trim();if(st.step===0&&!st.model){alert('Sélectionnez un modèle.');return}if(st.step===1&&(!Number.isInteger(Number(st.quantity))||Number(st.quantity)<1||(SPECIAL_VARIANTS[st.model]?!SPECIAL_VARIANTS[st.model].shapes.some(x=>x.code===st.variantCode):!RANDAL[st.model]||!RANDAL[st.model].w.includes(Number(st.width))||(RANDAL[st.model].h.length>1&&!RANDAL[st.model].h.includes(Number(st.height))))){alert('Choisissez une configuration et une quantité valides.');return}if(st.step===2&&(!(SPECIAL_VARIANTS[st.model]?.colors||RANDAL[st.model]?.colors||[]).includes(st.color)||!variant()?.ref)){alert('Choisissez une finition.');return}if(st.step===3&&((st.basinMode==='integrated'&&!['Sella','Tampa'].includes(st.basin))||(st.basinMode==='vessel'&&!['Neris','Torne'].includes(st.basin)))){alert('Choisissez une vasque compatible.');return}if(st.step===5&&(!st.company||!st.name||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(st.email))){alert('Renseignez la société, le contact et un e-mail valide.');return}st.step++;save();render();scrollTo({top:0,behavior:'smooth'})};
 if($('send'))$('send').onclick=()=>{const subject='RANDAL V04 — Demande de disponibilité / commande à confirmer — '+st.company;location.href='mailto:help.pro.fr@randal.group?cc='+encodeURIComponent('juancarlos.segura@randal.group,jerome@leroyfactory.fr,coryne@leroyfactory.fr')+'&subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent('Bonjour,\n\n'+summary()+'\n\nCordialement,\n'+st.name+' — '+st.company)};
 }
 render();
