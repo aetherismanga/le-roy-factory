@@ -100,6 +100,61 @@ a.pdf:hover{background:white}
  .choice .finish-preview{height:100px;min-height:100px;}
  .choice .finish-preview img{width:88px;height:88px}
 }
+
+/* Bon de demande RANDAL — lecture claire sur téléphone et impression A4 */
+.recap-sheet{border:1px solid #dedbd4;border-radius:17px;overflow:hidden;background:#fff;color:#30342f;margin:16px 0}
+.recap-heading{padding:21px 22px;background:#f4f2eb;display:flex;gap:10px;align-items:flex-start;justify-content:space-between}
+.recap-heading h3{margin:5px 0 4px;font-size:clamp(1.17rem,2vw,1.42rem);color:#36443c}
+.recap-heading p{margin:0;font-size:.81rem;color:#6a6c66}
+.recap-kicker{color:#846c4b;font-size:.67rem;font-weight:800;letter-spacing:.12em}
+.recap-tag{border:1px solid #d8d2c5;padding:7px 9px;border-radius:7px;font-size:.7rem;color:#5f5c54;white-space:nowrap}
+.recap-metadata{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px 20px;padding:17px 22px;font-size:.86rem;color:#515a53}
+.recap-metadata span{min-width:0;overflow-wrap:anywhere}
+.recap-grid-head,.recap-line{display:grid;grid-template-columns:minmax(0,1fr) 40px 92px 102px;gap:12px;align-items:center}
+.recap-grid-head{background:#e8ede8;padding:11px 22px;font-size:.74rem;font-weight:800;color:#46534b}
+.recap-line{padding:14px 22px;border-bottom:1px solid #eeede9;font-size:.82rem}
+.recap-product{min-width:0;overflow-wrap:anywhere}
+.recap-product strong{display:block;margin-bottom:4px;color:#303832}
+.recap-product small{display:block;font-size:.73rem;color:#72756e;line-height:1.42;margin:3px 0}
+.recap-product .recap-ref{font-weight:750;color:#555b54}
+.recap-number{text-align:center;font-variant-numeric:tabular-nums}
+.recap-money{text-align:right;font-variant-numeric:tabular-nums}
+.recap-total{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:19px 22px;background:#f7f8f4;color:#365344}
+.recap-total span{font-size:.84rem;font-weight:800}
+.recap-total strong{font-size:1.45rem;white-space:nowrap}
+.recap-legal{color:#767871;font-size:.73rem;padding:15px 22px;margin:0;line-height:1.55}
+.recap-warning{color:#98602d;font-size:.81rem;padding:12px 22px;margin:0;background:#fff7e7}
+.recap-tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:16px 0 4px}
+.recap-tools .recap-button{padding:12px 7px;font-size:.83rem;white-space:normal;min-width:0}
+.recap-mailnote{line-height:1.45}
+@media(max-width:620px){
+ .recap-heading{padding:16px;flex-wrap:wrap}
+ .recap-tag{white-space:normal}
+ .recap-metadata{padding:13px 16px;grid-template-columns:1fr;gap:6px}
+ .recap-grid-head{display:none}
+ .recap-line{padding:14px 16px;grid-template-columns:minmax(0,1fr) auto;gap:5px 10px}
+ .recap-product{grid-column:1/-1}
+ .recap-number{text-align:left;font-size:.78rem}
+ .recap-number:before{content:"Qté : ";color:#777}
+ .recap-line .recap-money:nth-of-type(2){display:none}
+ .recap-total{padding:15px 16px}
+ .recap-total strong{font-size:1.15rem}
+ .recap-tools{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .recap-tools #send{grid-column:1/-1}
+ .recap-tools .recap-button{min-height:52px;font-size:.87rem}
+}
+@page{size:A4;margin:14mm}
+@media print{
+ body{background:white!important;color:#222!important}
+ header,.hero,.wizard,.note,footer,.actions,.recap-tools,.recap-mailnote,.hint{display:none!important}
+ main{max-width:none!important;margin:0!important;padding:0!important}
+ .panel{border:0!important;box-shadow:none!important;padding:0!important;background:white!important}
+ .visual-summary{break-inside:avoid!important}
+ .recap-sheet{border-radius:0!important;break-inside:auto}
+ .recap-line{break-inside:avoid}
+ .recap-heading,.recap-grid-head,.recap-total{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+ .recap-sheet,.recap-line,.recap-legal{font-size:10pt}
+}
 </style></head><body>
 <header><div><a class="back" href="univers.html">← Retour aux sélections</a><img src="assets/img/randal.png" alt="RANDAL"></div></header>
 <main><section class="hero"><div><h1>Votre meuble RANDAL, sur mesure</h1><p>Choisissez votre composition, visualisez vos choix et envoyez la demande.</p><a class="pdf" href="randal-catalogue-interactif.html">Catalogue interactif</a></div></section>
@@ -329,6 +384,120 @@ const pick=(name,values,group='')=>'<div class="choices '+group+'">'+values.map(
   :'';
  return '<button type="button" class="choice '+(st[name]===value?'active':'')+'" data-field="'+name+'" data-value="'+esc(value)+'">'+visual+'<span class="choice-copy"><strong>'+esc(name==='basinMode'?({integrated:'Vasque sur meuble',vessel:'Plan + vasque à poser',none:'Sans vasque'}[value]):value)+'</strong><small>'+esc(sub||'')+'</small></span></button>'
  }).join('')+'</div>';
+
+/* Tarifs publics HT CONSEILLÉS — RANDAL catalogue V04, pages 4–5, 8, 12,
+   16, 18, 21, 24, 27, 29–30, 34, 36, 38, 40 et 41. Aucun tarif d'achat usine. */
+const CERAMIC_PRICES={
+ 'Sella':{60:[115,'2215'],70:[130,'2808'],80:[136,'2171'],90:[165,'13237'],100:[176,'3279'],120:[318,'2809']},
+ 'Tampa':{60:[122,'6227'],70:[138,'7781'],80:[142,'6228'],90:[173,'7782'],100:[192,'6229'],120:[323,'6235'],140:[673,'6236']}
+};
+const MIRROR_PRICES={
+ 'Basic':{'10129':59,'12449':55,'11054':71,'10130':78},
+ 'Zen LED':{'11713':184,'11533':205,'11714':229,'11523':263},
+ 'Ilse LED':{'12743':389,'12744':434,'12745':481,'12746':533},
+ 'Cápsula LED':{'12741':347},
+ 'Miroir métallique rectangulaire':{'3731':215,'10572':340},
+ 'Miroir métallique rond':{'3717':162}
+};
+const VESSEL_FINISHES=['Blanc brillant','Taupe','Anthracite','Blanc ivoire','Blanc pur','Vert Namibie','Noir mat','Rose Nadir','Bleu Kivu'];
+const VESSEL_REFS={
+ Neris:['9559','9553','9556','9555','9552','9554','10444','9558','9557'],
+ Torne:['9567','9561','9564','9563','9560','9562','11371','9566','9565']
+};
+const euroPrice=n=>typeof n==='number'&&Number.isFinite(n)?new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR'}).format(n):'À confirmer';
+const safeQty=()=>Math.max(1,Number.isFinite(Number(st.quantity))?Math.floor(Number(st.quantity)):1);
+const rowPrice=(title,details,ref,unit)=>({title,details,ref:String(ref||'À confirmer'),unit:Number.isFinite(Number(unit))&&unit!==null?Number(unit):null,quantity:safeQty()});
+function ceramicChoice(){
+ if(st.basinMode!=='integrated'||!['Sella','Tampa'].includes(st.basin))return null;
+ const width=Number(st.width)===119?120:Number(st.width);
+ if(st.basin==='Tampa'&&width===120&&st.model==='Luce')return {ref:'6232',price:279};
+ const row=CERAMIC_PRICES[st.basin]?.[width];
+ return row?{price:row[0],ref:row[1]}:null;
+}
+function orderRows(){
+ const rows=[],variantInfo=variant(),type=selectedType();
+ rows.push(rowPrice(st.model+' — '+(type?.[1]||'Meuble'),[
+  st.width+' × '+st.height+' × '+st.depth+' cm',
+  'Finition '+st.color,
+  'Variante '+(st.variantCode||'à confirmer')
+ ].join(' · '),variantInfo?.ref,variantInfo?.price));
+ if(type?.[3]!=='column'&&st.basinMode==='integrated'){
+  const ceramic=ceramicChoice();
+  rows.push(rowPrice('Vasque '+st.basin,'Céramique blanc brillant · largeur '+(Number(st.width)===119?120:st.width)+' cm',ceramic?.ref,ceramic?.price));
+ }
+ if(type?.[3]!=='column'&&st.basinMode==='vessel'){
+  const idx=VESSEL_FINISHES.indexOf(st.basinFinish||'Blanc brillant');
+  const ref=VESSEL_REFS[st.basin]?.[idx];
+  if(st.model!=='Sima'){
+   const w=[60,70,80,90,100,120].indexOf(Number(st.width));
+   rows.push(rowPrice('Plan pour vasque à poser',String(st.width)+' × 46 cm · '+st.topFinish,topReference(),w>=0?[66,74,83,92,100,118][w]:null));
+  }
+  rows.push(rowPrice('Vasque à poser '+st.basin,st.basinFinish||'Blanc brillant',ref,ref?226:null));
+ }
+ if(st.mirror&&st.mirror!=='Sans miroir'){
+  const ref=mirrorRef();
+  const price=MIRROR_PRICES[st.mirror]?.[ref];
+  rows.push(rowPrice('Miroir '+st.mirror,st.mirrorSize||'Dimensions à confirmer',ref,price??null));
+ }
+ return rows;
+}
+function totals(){
+ const rows=orderRows(),known=rows.every(r=>r.unit!==null&&r.ref!=='À confirmer');
+ return {rows,complete:known,unit:rows.reduce((sum,r)=>sum+(r.unit||0),0),sum:rows.reduce((sum,r)=>sum+(r.unit||0)*r.quantity,0),qty:safeQty()};
+}
+function emailBody(){
+ const t=totals();
+ const out=[
+ 'Bonjour Zahra,','',
+ 'Merci de vérifier la disponibilité et de nous confirmer les conditions pour la composition RANDAL suivante.','',
+ 'COLLECTION : '+st.model,
+ 'MODÈLE : '+(selectedType()?.[1]||'À confirmer'),
+ 'DIMENSIONS : '+st.width+' × '+st.height+' × '+st.depth+' cm',
+ 'FINITION : '+st.color,
+ 'VARIANTE CATALOGUE : '+(st.variantCode||'À confirmer'),
+ 'QUANTITÉ D’ENSEMBLES : '+t.qty,
+ '',
+ 'DÉTAIL DES ARTICLES — PRIX DE VENTE HT CONSEILLÉS (CATALOGUE V04)'
+ ];
+ for(const [i,r] of t.rows.entries()){
+  out.push((i+1)+'. '+r.title);
+  out.push('   Référence : '+r.ref);
+  out.push('   Description : '+r.details);
+  out.push('   Quantité : '+r.quantity);
+  out.push('   Prix unitaire HT conseillé : '+euroPrice(r.unit));
+  out.push('   Total HT conseillé : '+(r.unit===null?'À confirmer':euroPrice(r.unit*r.quantity)));
+  out.push('');
+ }
+ out.push('TOTAL HT CONSEILLÉ : '+(t.complete?euroPrice(t.sum):'Partiel : '+euroPrice(t.sum)+' + articles à confirmer'));
+ out.push('','Pourriez-vous confirmer :');
+ out.push('- les références et la compatibilité de chaque élément ;');
+ out.push('- la disponibilité et les délais de livraison ;');
+ out.push('- les prix d’achat professionnels HT et éventuels frais de transport ;');
+ out.push('- la prise en compte de cette demande.');
+ out.push('','Cette demande est soumise à votre confirmation et ne vaut pas commande ferme.');
+ out.push('','Merci d’avance,','Agence Le Roy Factory');
+ return out.join('\n');
+}
+const orderDetails=()=>[
+ 'RANDAL · '+st.model+' / '+(selectedType()?.[1]||'Modèle'),
+ 'Dimensions : '+st.width+' × '+st.height+' × '+st.depth+' cm',
+ 'Finition : '+st.color+' · Variante '+(st.variantCode||'à confirmer'),
+ 'Quantité : '+safeQty()+' ensemble(s)'
+];
+const printableRows=()=>orderRows().map(r=>'<div class="recap-line"><div class="recap-product"><strong>'+esc(r.title)+'</strong><small>'+esc(r.details)+'</small><small class="recap-ref">Réf. '+esc(r.ref)+'</small></div><span class="recap-number">'+r.quantity+'</span><span class="recap-money">'+esc(euroPrice(r.unit))+'</span><strong class="recap-money">'+esc(r.unit===null?'À confirmer':euroPrice(r.unit*r.quantity))+'</strong></div>').join('');
+const professionalRecap=()=>{
+ const t=totals();
+ return '<div id="randal-order-sheet" class="recap-sheet">'+
+ '<div class="recap-heading"><div><span class="recap-kicker">LE ROY FACTORY · RANDAL</span><h3>Récapitulatif de configuration</h3><p>Demande de disponibilité et de confirmation usine</p></div><span class="recap-tag">Catalogue RANDAL V04</span></div>'+
+ '<div class="recap-metadata">'+orderDetails().map(x=>'<span>'+esc(x)+'</span>').join('')+'</div>'+
+ '<div class="recap-grid-head"><span>Produit / Référence</span><span>Qté</span><span>PU HT</span><span>Total HT</span></div>'+
+ '<div class="recap-lines">'+printableRows()+'</div>'+
+ '<div class="recap-total"><span>'+ (t.complete?'TOTAL HT CONSEILLÉ':'TOTAL PARTIEL HT CONSEILLÉ')+'</span><strong>'+esc(euroPrice(t.sum))+'</strong></div>'+
+ (t.complete?'':'<p class="recap-warning">Certains prix ou références sont à confirmer par RANDAL : le total est partiel.</p>')+
+ '<p class="recap-legal">Prix de vente HT conseillés issus du catalogue RANDAL V04, hors transport et installation. Montants indicatifs, sous réserve de confirmation par l’usine. Ceci n’est pas un bon de commande ferme.</p>'+
+ '</div>';
+};
+
 const summary=()=>['Référence meuble : '+(variant()?.ref||'À vérifier'),'Prix vente conseillé HT meuble : '+(variant()?.price??'À confirmer')+' €','DEMANDE DE DISPONIBILITÉ / COMMANDE À CONFIRMER','RANDAL — Catalogue V04','','MODÈLE : '+st.model,'Largeur : '+(st.width||'À confirmer')+' cm','Hauteur : '+(st.height||'À confirmer')+' cm','Profondeur : '+(st.depth||'À confirmer')+' cm','Couleur / finition : '+(st.color||'À confirmer'),'Sous-modèle : '+(selectedType()?.[1]||'À vérifier'),'Variante catalogue : '+(st.variantCode||(st.typeId==='two'?'A à F':'Selon largeur')),'Type de montage : '+({integrated:'Vasque sur meuble',vessel:'Plan et vasque à poser',none:'Meuble sans vasque'}[st.basinMode]),'Vasque : '+st.basin,'Plan : '+st.top+(st.basinMode==='vessel'&&st.model!=='Sima'?' · '+st.topFinish+' · Réf. '+topReference():''),'Miroir : '+st.mirror+(st.mirror==='Sans miroir'?'':' · '+(st.mirrorSize||'Taille à confirmer')+' · réf. '+mirrorRef()),'Quantité : '+st.quantity,'','Merci de confirmer les références exactes, les associations possibles, le prix professionnel HT, les stocks et le délai.','Aucune commande ferme avant confirmation de votre part.'].join('\n');
 function render(){
 $('steps').innerHTML=steps.map((s,i)=>'<div class="step '+(i===st.step?'active':i<st.step?'done':'')+'">'+(i+1)+'. '+s+'</div>').join('');
@@ -374,11 +543,17 @@ if(st.step===5){
  if(dims)h+='<div class="options-group">'+select('Dimension du miroir','mirrorSize',['',...dims.map(x=>x[0])])+'</div>';
 }
 if(st.step===6){
- h+='<p class="hint">Votre composition et les éléments choisis.</p><div class="visual-summary">'
- +'<div class="preview-card">'+activeTypeVisual()+'<strong>'+esc(st.model)+' · '+esc(selectedType()?.[1])+' · '+esc(st.color)+'</strong><span class="selected-finish"><img src="'+esc(finishUrl(st.model,st.color))+'" alt="Finition '+esc(st.color)+'" loading="lazy"></span></div>'
- +'<div class="preview-card">'+((selectedType()?.[3]==='column'||st.basinMode==='none')?blankAccessory('Sans vasque'):accessoryImage(st.basin))+'<strong>'+esc(st.basin)+'</strong></div>'
- +'<div class="preview-card">'+(accessoryImage(st.mirror)||blankAccessory('Sans miroir'))+'<strong>'+esc(st.mirror)+'</strong></div>'
- +'</div><div class="summary">'+esc(summary())+'</div><button type="button" class="btn primary" id="send" style="margin-top:18px;width:100%">Envoyer la demande</button><p class="mini">Votre application e-mail s’ouvrira pour confirmer l’envoi.</p>';
+ h+='<p class="hint">Vérifiez les articles, références et prix HT avant la demande à RANDAL.</p>'+
+ '<div class="visual-summary">'+
+ '<div class="preview-card">'+activeTypeVisual()+'<strong>'+esc(st.model)+' · '+esc(selectedType()?.[1])+' · '+esc(st.color)+'</strong><span class="selected-finish"><img src="'+esc(finishUrl(st.model,st.color))+'" alt="Finition '+esc(st.color)+'" loading="lazy"></span></div>'+
+ '<div class="preview-card">'+((selectedType()?.[3]==='column'||st.basinMode==='none')?blankAccessory('Sans vasque'):accessoryImage(st.basin))+'<strong>'+esc(st.basin)+'</strong></div>'+
+ '<div class="preview-card">'+(accessoryImage(st.mirror)||blankAccessory('Sans miroir'))+'<strong>'+esc(st.mirror)+'</strong></div>'+
+ '</div>'+
+ professionalRecap()+
+ '<div class="recap-tools"><button type="button" class="btn recap-button" id="print-order">Imprimer</button>'+
+ '<button type="button" class="btn recap-button" id="save-pdf">Enregistrer en PDF</button>'+
+ '<button type="button" class="btn primary recap-button" id="send">Envoyer la demande</button></div>'+
+ '<p class="mini recap-mailnote">L’envoi ouvre votre messagerie avec les références, quantités et prix. Le mail reste à envoyer manuellement.</p>';
 }
 h+='<div class="actions"><button type="button" class="btn" id="prev" '+(st.step===0?'disabled':'')+'>← Précédent</button>'+(st.step<6?'<button type="button" class="btn primary" id="next">Continuer →</button>':'')+'</div>';
 $('panel').innerHTML=h;
@@ -425,7 +600,13 @@ if($('next'))$('next').onclick=()=>{
  if(st.step===5&&MIRROR_FORMATS[st.mirror]&&!MIRROR_FORMATS[st.mirror].some(x=>x[0]===st.mirrorSize)){alert('Choisissez la dimension du miroir.');return}
  st.step++;save();render();scrollTo({top:0,behavior:'smooth'});
 };
-if($('send'))$('send').onclick=()=>{const subject='RANDAL — Demande de disponibilité / commande à confirmer';location.href='mailto:help.pro.fr@randal.group?cc='+encodeURIComponent('juancarlos.segura@randal.group,jerome@leroyfactory.fr,coryne@leroyfactory.fr')+'&subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent('Bonjour,\n\n'+summary()+'\n\nCordialement')};
+if($('print-order'))$('print-order').onclick=()=>window.print();
+if($('save-pdf'))$('save-pdf').onclick=()=>downloadOrderPdf();
+if($('send'))$('send').onclick=()=>{
+ const v=variant();
+ const subject='RANDAL — Confirmation disponibilité — '+st.model+' '+st.width+' cm — réf. '+(v?.ref||'à confirmer');
+ location.href='mailto:help.pro.fr@randal.group?cc='+encodeURIComponent('juancarlos.segura@randal.group,jerome@leroyfactory.fr,coryne@leroyfactory.fr')+'&subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(emailBody());
+};
 }
 render();
 })();
