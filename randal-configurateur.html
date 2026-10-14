@@ -147,6 +147,8 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const key='lrfRandalV04Draft';
 let st;try{st=JSON.parse(sessionStorage.getItem(key)||'{}')}catch{st={}}
 st={model:'',typeId:'',width:'',height:'',depth:'',color:'',variantCode:'',drawers:'',basin:'Sella',top:'Sans plan',basinMode:'integrated',topFinish:'Blanco mate',mirror:'Sans miroir',mirrorSize:'',quantity:1,company:'',name:'',email:'',phone:'',notes:'',step:0,...st};
+// Toujours commencer une nouvelle ouverture sur l'étape 1 (Collection), même si un brouillon existe.
+st.step=0;
 const save=()=>sessionStorage.setItem(key,JSON.stringify(st));
 
 const MODEL_PAGE=Object.fromEntries(models);
@@ -262,7 +264,7 @@ if(!selectedType()){
 }
 normalize();syncBasin();
 const selectedFromCatalogue=new URLSearchParams(location.search).get('collection');
-if(selectedFromCatalogue&&models.some(([name])=>name===selectedFromCatalogue)&&st.model!==selectedFromCatalogue){resetConfiguration();st.model=selectedFromCatalogue;st.step=1;normalize();save();}
+if(selectedFromCatalogue&&models.some(([name])=>name===selectedFromCatalogue)){if(st.model!==selectedFromCatalogue){resetConfiguration();st.model=selectedFromCatalogue;}st.step=0;normalize();save();}
 const entry=(label,name,type='text',placeholder='')=>'<label class="field">'+label+'<input name="'+name+'" type="'+type+'" placeholder="'+placeholder+'" value="'+esc(st[name])+'"></label>';
 const select=(label,name,opts)=>'<label class="field">'+label+'<select name="'+name+'">'+opts.map(v=>'<option value="'+esc(v)+'" '+(st[name]===v?'selected':'')+'>'+esc(v)+'</option>').join('')+'</select></label>';
 const typeCards=()=>'<div class="choices type-choices">'+typeOptions().map(t=>
