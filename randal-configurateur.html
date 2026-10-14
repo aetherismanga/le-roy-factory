@@ -223,7 +223,26 @@ $('panel').innerHTML=h;
 $('panel').querySelectorAll('[data-field]').forEach(b=>b.onclick=()=>{if(b.dataset.field==='model'&&st.model!==b.dataset.value)resetConfiguration();if(b.dataset.field==='variantCode'&&st.variantCode!==b.dataset.value)st.color='';if(b.dataset.field==='width'&&st.width!==b.dataset.value){st.color='';st.basinMode='integrated'}st[b.dataset.field]=b.dataset.value;normalize();syncBasin();save();render()});
 $('panel').querySelectorAll('[name]').forEach(el=>el.onchange=()=>{st[el.name]=el.value.trim();syncBasin();save();if(st.step===3)render()});
 $('prev').onclick=()=>{st.step=Math.max(0,st.step-1);save();render();scrollTo({top:0,behavior:'smooth'})};
-if($('next'))$('next').onclick=()=>{for(const el of $('panel').querySelectorAll('[name]'))st[el.name]=el.value.trim();if(st.step===0&&!st.model){alert('Sélectionnez un modèle.');return}if(st.step===1&&(!Number.isInteger(Number(st.quantity))||Number(st.quantity)<1||(SPECIAL_VARIANTS[st.model]?!SPECIAL_VARIANTS[st.model].shapes.some(x=>x.code===st.variantCode):!RANDAL[st.model]||!RANDAL[st.model].w.includes(Number(st.width))||(RANDAL[st.model].h.length>1&&!RANDAL[st.model].h.includes(Number(st.height))))){alert('Choisissez une configuration et une quantité valides.');return}if(st.step===2&&(!(SPECIAL_VARIANTS[st.model]?.colors||RANDAL[st.model]?.colors||[]).includes(st.color)||!variant()?.ref)){alert('Choisissez une finition.');return}if(st.step===3&&((st.basinMode==='integrated'&&!['Sella','Tampa'].includes(st.basin))||(st.basinMode==='vessel'&&!['Neris','Torne'].includes(st.basin)))){alert('Choisissez une vasque compatible.');return}if(st.step===5&&(!st.company||!st.name||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(st.email))){alert('Renseignez la société, le contact et un e-mail valide.');return}st.step++;save();render();scrollTo({top:0,behavior:'smooth'})};
+if($('next'))$('next').onclick=()=>{
+ for(const el of $('panel').querySelectorAll('[name]'))st[el.name]=el.value.trim();
+ if(st.step===0&&!st.model){alert('Sélectionnez un modèle.');return}
+ if(st.step===1){
+  const special=SPECIAL_VARIANTS[st.model],regular=RANDAL[st.model];
+  const validShape=special?special.shapes.some(x=>x.code===st.variantCode):Boolean(regular&&regular.w.includes(Number(st.width))&&(regular.h.length===1||regular.h.includes(Number(st.height))));
+  if(!validShape||!Number.isInteger(Number(st.quantity))||Number(st.quantity)<1){alert('Choisissez une configuration et une quantité valides.');return}
+ }
+ if(st.step===2){
+  const finishes=SPECIAL_VARIANTS[st.model]?.colors||RANDAL[st.model]?.colors||[];
+  if(!finishes.includes(st.color)||!variant()?.ref){alert('Choisissez une finition disponible.');return}
+ }
+ if(st.step===3){
+  syncBasin();
+  const valid=allowedModes().includes(st.basinMode)&&(st.basinMode==='none'||st.basinMode==='integrated'&&['Sella','Tampa'].includes(st.basin)||st.basinMode==='vessel'&&['Neris','Torne'].includes(st.basin));
+  if(!valid){alert('Sélectionnez un montage cohérent.');return}
+ }
+ if(st.step===5&&(!st.company||!st.name||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(st.email))){alert('Renseignez le magasin, le contact et une adresse e-mail valide.');return}
+ st.step++;save();render();scrollTo({top:0,behavior:'smooth'});
+};
 if($('send'))$('send').onclick=()=>{const subject='RANDAL V04 — Demande de disponibilité / commande à confirmer — '+st.company;location.href='mailto:help.pro.fr@randal.group?cc='+encodeURIComponent('juancarlos.segura@randal.group,jerome@leroyfactory.fr,coryne@leroyfactory.fr')+'&subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent('Bonjour,\n\n'+summary()+'\n\nCordialement,\n'+st.name+' — '+st.company)};
 }
 render();
