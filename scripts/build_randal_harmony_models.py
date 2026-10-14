@@ -114,6 +114,25 @@ def build(w_cm,three,color):
         sc.add_geometry(mesh,geom_name=f"{name}_{n}",node_name=f"{name}_{n}")
     return sc
 
+def build_column(color):
+    w,h,d=.30,1.50,.27
+    mat=material(color)
+    inside=simple("interieur_colonne",[181,174,161,255])
+    parts=[]
+    def box(name,size,pos,finish=mat):add(parts,name,size,pos,finish)
+    box("Colonne_cote_gauche",[.016,h,d],[-w/2+.008,h/2,0])
+    box("Colonne_cote_droit",[.016,h,d],[w/2-.008,h/2,0])
+    box("Colonne_panneau_arriere",[w-.032,h-.03,.01],[0,h/2,-d/2+.007],inside)
+    for yy in (.02,h-.02,h/2):
+        box("Colonne_tablette",[w-.032,.015,d-.03],[0,yy,0],inside)
+    for i in range(2):
+        cy=(i+.5)*h/2
+        box(f"Colonne_porte_{i+1}",[w-.025,h/2-.008,.016],[0,cy,d/2+.012])
+    sc=trimesh.Scene()
+    for idx,(name,mesh) in enumerate(parts):
+        sc.add_geometry(mesh,geom_name=f"{name}_{idx}",node_name=f"{name}_{idx}")
+    return sc
+
 count=0
 for index,w in enumerate(WIDTHS):
     for three in (False,True):
@@ -130,5 +149,14 @@ for index,w in enumerate(WIDTHS):
             if output.stat().st_size<3500:raise RuntimeError(f"Bad model {output}")
             count+=1
             print(letter,w,color,output.stat().st_size)
-if count!=36:raise RuntimeError(f"Expected 36 models, found {count}")
-print("Validated 36 Harmony GLB files: all dimensions, colors and rear siphon cutouts")
+for color in COLORS:
+    output=OUT/("Harmony_M_30cm_colonne_"+color+".glb")
+    output.write_bytes(build_column(color).export(file_type="glb"))
+    check=trimesh.load(output,force="scene")
+    dimensions=np.diff(check.bounds,axis=0)[0]
+    if abs(dimensions[0]-.30)>.006 or abs(dimensions[1]-1.50)>.006:
+        raise RuntimeError(f"Invalid column dimensions {output}: {dimensions}")
+    count+=1
+    print("M",30,color,output.stat().st_size)
+if count!=39:raise RuntimeError(f"Expected 39 models, found {count}")
+print("Validated 39 Harmony GLB files: 12 cabinets and one auxiliary column, 3 finishes")
