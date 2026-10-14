@@ -223,6 +223,22 @@ a.pdf:hover{background:white}
  .composition-details h3{overflow-wrap:anywhere;line-height:1.28}
 }
 @media print{.composition-overlay{display:none!important}}
+
+/* Options Sol / Mur, prêtes pour les futurs revêtements partenaires */
+.composition-surface-panel[hidden]{display:none!important}
+.composition-surface-panel{margin:10px 0 0;padding:14px 16px;border:1px solid #d8d4ca;background:#faf8f3;border-radius:13px;color:#465249}
+.composition-surface-panel>strong{display:block;font-size:.92rem;margin-bottom:9px}
+.composition-surface-panel p{font-size:.77rem;line-height:1.5;margin:9px 0 0;color:#837f75}
+.composition-surface-active{display:block;width:100%;text-align:left;font-weight:700;font-size:.89rem;padding:11px 14px;border-radius:10px;border:1px solid #b3c8b0;background:#e0eae0;color:#38503d;white-space:normal}
+.composition-view-tools #composition-floor,.composition-view-tools #composition-wall{font-weight:800;background:#ede8df}
+.composition-view-tools button[aria-expanded="true"]{background:#d8e4d6;border-color:#a3bda0}
+.composition-proof{margin:12px 0}
+.composition-proof h4{margin:0 0 9px;font-size:.83rem;color:#6a6357}
+.composition-proof-images{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.composition-proof-images>div{background:#f5f2eb;border:1px solid #e8e3d8;border-radius:10px;padding:5px;min-width:0;text-align:center}
+.composition-proof-images img{display:block;width:100%;height:85px;object-fit:contain}
+.composition-proof-images span{font-size:.72rem;font-weight:700}
+@media(max-width:760px){.composition-proof-images img{height:74px}}
 </style></head><body>
 <header><div><a class="back" href="univers.html">← Retour aux sélections</a><img src="assets/img/randal.png" alt="RANDAL"></div></header>
 <main><section class="hero"><div><h1>Votre meuble RANDAL, sur mesure</h1><p>Choisissez votre composition, visualisez vos choix et envoyez la demande.</p><a class="pdf" href="randal-catalogue-interactif.html">Catalogue interactif</a></div></section>
@@ -231,7 +247,8 @@ a.pdf:hover{background:white}
 <p class="note">Envoi depuis votre messagerie. Prix, compatibilité et disponibilité confirmés par RANDAL avant commande définitive.</p>
 </main><footer>RANDAL V04 · LE ROY FACTORY</footer>
 
-<script src="assets/js/randal-composition-3d.js?v=20261014-stabilite-pc3"></script>
+<script src="assets/js/randal-coco-beige-texture.js?v=20261014-sol-view1"></script>
+<script src="assets/js/randal-composition-3d.js?v=20261014-sol-mur-randal3"></script>
 <script>
 (()=>{
 'use strict';
