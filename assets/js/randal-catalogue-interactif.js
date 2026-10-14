@@ -13,7 +13,7 @@ const SECTIONS=[
 ];
 const $=id=>document.getElementById(id);
 const maxPage=43;
-let page=1,zoom=1,pdf=null,renderTask=null,requestId=0,resizeTimer=0;let thumbStarted=false;
+let page=1,zoom=1,pdf=null,renderTask=null,requestId=0,resizeTimer=0;let thumbStarted=false,visibleCanvas=null;
 const pageInput=$('page-input'),status=$('viewer-status'),pageMount=$('page-mount');
 const viewer=$('page-frame'),drawer=$('index-overlay'),configLink=$('configure-link');
 const clamp=n=>Math.max(1,Math.min(maxPage,Math.round(n)));
@@ -35,6 +35,7 @@ function navButton(s){
 async function loadThumbnails(){
  if(thumbStarted||!pdf)return;thumbStarted=true;
  const thumbs=[...document.querySelectorAll('canvas[data-thumb]')];
+ if(drawer.hidden)return;
  for(const section of SECTIONS){
   const canvases=thumbs.filter(c=>Number(c.dataset.thumb)===section.page);
   if(!canvases.length)continue;
@@ -45,10 +46,11 @@ async function loadThumbnails(){
    const canvas=document.createElement('canvas');canvas.width=Math.ceil(viewport.width);canvas.height=Math.ceil(viewport.height);
    const ctx=canvas.getContext('2d',{alpha:false});await p.render({canvasContext:ctx,viewport}).promise;
    canvases.forEach(c=>{const context=c.getContext('2d');context.fillStyle='#ffffff';context.fillRect(0,0,c.width,c.height);context.drawImage(canvas,(c.width-canvas.width)/2,(c.height-canvas.height)/2)});
+   canvas.width=0;canvas.height=0;
   }catch(e){console.warn('Miniature RANDAL',section.name,e);}
  }
 }
-function fallback(){pageMount.replaceChildren();const frame=document.createElement('iframe');frame.className='pdf-fallback';frame.title='Catalogue RANDAL V04';frame.loading='eager';frame.src=PDF_URL+'#page='+page+'&toolbar=0&navpanes=0';pageMount.append(frame);status.hidden=true;viewer.setAttribute('aria-busy','false');}
+function fallback(){if(visibleCanvas){visibleCanvas.width=0;visibleCanvas.height=0;visibleCanvas=null;}pageMount.replaceChildren();const frame=document.createElement('iframe');frame.className='pdf-fallback';frame.title='Catalogue RANDAL V04';frame.loading='eager';frame.src=PDF_URL+'#page='+page+'&toolbar=0&navpanes=0';pageMount.append(frame);status.hidden=true;viewer.setAttribute('aria-busy','false');}
 
 function populateIndex(){
  allNav.forEach(list=>{
@@ -117,7 +119,10 @@ async function render(){
   const fitWidth=Math.min(frameWidth,840);
   const fitted=fitWidth/natural.width;
   const viewport=p.getViewport({scale:fitted*zoom});
-  const ratio=Math.min(2,window.devicePixelRatio||1);
+  // Limiter une page HD à 3 mégapixels pour éviter les pointes mémoire sur PC.
+  const maxPixels=3000000;
+  const desiredRatio=Math.min(1.5,window.devicePixelRatio||1);
+  const ratio=Math.min(desiredRatio,Math.sqrt(maxPixels/Math.max(1,viewport.width*viewport.height)));
   const canvas=document.createElement('canvas');
   canvas.width=Math.ceil(viewport.width*ratio);
   canvas.height=Math.ceil(viewport.height*ratio);
@@ -128,8 +133,10 @@ async function render(){
   const task=p.render({canvasContext:ctx,viewport,transform:ratio===1?null:[ratio,0,0,ratio,0,0]});
   renderTask=task;
   await task.promise;
-  if(ticket!==requestId)return;
+  if(ticket!==requestId){canvas.width=0;canvas.height=0;return;}
+  const previous=visibleCanvas;visibleCanvas=canvas;
   pageMount.replaceChildren(canvas);
+  if(previous&&previous!==canvas){previous.width=0;previous.height=0;}
   viewer.scrollTop=0;viewer.scrollLeft=0;
   status.hidden=true;
  }catch(err){
@@ -142,6 +149,7 @@ async function render(){
 }
 function openIndex(){
  drawer.hidden=false;document.body.classList.add('index-open');
+ if(pdf)loadThumbnails();
  $('close-index').focus();
 }
 function closeIndex(){drawer.hidden=true;document.body.classList.remove('index-open');}
@@ -173,6 +181,13 @@ function attachEvents(){
  },{passive:true});
  window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(render,180);},{passive:true});
  window.addEventListener('hashchange',()=>{const value=new URLSearchParams(location.hash.slice(1)).get('page');if(value)goPage(value,false);});
+ window.addEventListener('pagehide',()=>{
+  ++requestId;
+  if(renderTask)try{renderTask.cancel()}catch(_e){}
+  renderTask=null;
+  if(visibleCanvas){visibleCanvas.width=0;visibleCanvas.height=0;visibleCanvas=null}
+  if(pdf)try{pdf.cleanup()}catch(_e){}
+ });
 }
 async function start(){
  populateIndex();attachEvents();
@@ -191,7 +206,7 @@ async function start(){
   pdf=await loader.promise;
   if(pdf.numPages!==maxPage)console.warn('RANDAL : nombre de pages différent du catalogue V04 attendu',pdf.numPages);
   await render();
-  loadThumbnails();
+  // Les vignettes sont générées seulement lorsque l’index est ouvert.
  }catch(err){
   fallback();
   console.error('RANDAL PDF:',err);
