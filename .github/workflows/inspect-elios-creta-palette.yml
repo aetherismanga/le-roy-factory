@@ -22,5 +22,5 @@ jobs:
       - run: |
           git config user.name "LRF Catalogue Bot"
           git config user.email "actions@users.noreply.github.com"
-          git add assets/img/elios/creta/catalogue-palette-diagnostic.*
+          git add assets/img/elios/creta/catalogue-palette-diagnostic.* assets/img/elios/creta/catalogue-palette-page-*.jpg
           git diff --cached --quiet || (git commit -m "Repère les nuanciers officiels ELIOS Creta" && git pull --rebase origin main && git push origin HEAD:main)
