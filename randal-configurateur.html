@@ -72,6 +72,34 @@ a.pdf:hover{background:white}
 .choice .accessory-visual img,.preview-card .accessory-visual img{width:100%;height:100%;object-fit:contain;display:block}
 .choice .accessory-empty,.preview-card .accessory-empty{display:flex;align-items:center;justify-content:center;background:#f2eee7!important;color:#756f63;font-weight:650;font-size:.8rem;letter-spacing:.01em}
 @media(max-width:760px){.choice .accessory-visual{height:130px}.preview-card .accessory-visual{height:98px}}
+/* Finitions officielles extraites des pages techniques RANDAL */
+.choice .finish-preview{
+  display:flex;align-items:center;justify-content:center;position:relative;
+  height:136px;min-height:136px;background:#f7f5f0;
+  border-bottom:1px solid #eee9e0;
+}
+.choice .finish-preview img{
+  width:min(116px,78%);height:min(116px,78%);
+  aspect-ratio:1;object-fit:contain;display:block;
+  filter:drop-shadow(0 2px 6px rgba(41,38,31,.11));
+}
+.choice .finish-preview.finish-not-found::after{
+  content:"Voir finition au catalogue";font-size:.77rem;color:#77736c;
+  text-align:center;padding:10px;
+}
+.preview-card .selected-finish{
+  display:block;width:39px;height:39px;border-radius:50%;margin:0 10px 10px;
+  background:transparent;overflow:hidden;border:1px solid #e8e3d8;
+}
+.preview-card .selected-finish img{display:block;width:100%;height:100%;object-fit:contain}
+@media(max-width:760px){
+ .choice .finish-preview{height:118px;min-height:118px;}
+ .choice .finish-preview img{width:98px;height:98px;max-width:85%}
+}
+@media(max-width:375px){
+ .choice .finish-preview{height:100px;min-height:100px;}
+ .choice .finish-preview img{width:88px;height:88px}
+}
 </style></head><body>
 <header><div><a class="back" href="univers.html">← Retour aux sélections</a><img src="assets/img/randal.png" alt="RANDAL"></div></header>
 <main><section class="hero"><div><h1>Votre meuble RANDAL, sur mesure</h1><p>Choisissez votre composition, visualisez vos choix et envoyez la demande.</p><a class="pdf" href="randal-catalogue-interactif.html">Catalogue interactif</a></div></section>
@@ -289,12 +317,15 @@ const accessoryImage=name=>{
  return slug?'<span class="visual accessory-visual"><img src="assets/img/randal/accessories/'+slug+'.webp" loading="lazy" decoding="async" alt="Dessin RANDAL '+esc(name)+'"></span>':'';
 };
 const blankAccessory=label=>'<span class="visual accessory-empty">'+esc(label)+'</span>';
+const finishSlug=value=>String(value).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+const finishUrl=(model,finish)=>'assets/img/randal/finishes/'+finishSlug(model)+'/'+finishSlug(finish)+'.webp';
+const finishImage=(model,finish)=>'<span class="finish-preview"><img src="'+esc(finishUrl(model,finish))+'" loading="lazy" decoding="async" alt="Échantillon officiel de finition '+esc(finish)+'" onerror="this.onerror=null;this.hidden=true;this.parentNode.classList.add(\'finish-not-found\')"></span>';
 const pick=(name,values,group='')=>'<div class="choices '+group+'">'+values.map(([value,sub])=>{
  const visual=name==='model'?collectionImage(value)
   :name==='mirror'?(accessoryImage(value)||blankAccessory(value==='Sans miroir'?'Sans miroir':'À préciser'))
   :name==='basin'?(accessoryImage(value)||blankAccessory('Vasque'))
   :name==='basinMode'?(value==='integrated'?accessoryImage('Sella'):value==='vessel'?accessoryImage('Neris'):blankAccessory('Sans vasque'))
-  :name==='color'?'<span class="swatch" style="background:'+esc(COLOR_HEX[value]||'#c5c4b9')+'"></span>'
+  :name==='color'?finishImage(st.model,value)
   :'';
  return '<button type="button" class="choice '+(st[name]===value?'active':'')+'" data-field="'+name+'" data-value="'+esc(value)+'">'+visual+'<span class="choice-copy"><strong>'+esc(name==='basinMode'?({integrated:'Vasque sur meuble',vessel:'Plan + vasque à poser',none:'Sans vasque'}[value]):value)+'</strong><small>'+esc(sub||'')+'</small></span></button>'
  }).join('')+'</div>';
@@ -344,7 +375,7 @@ if(st.step===5){
 }
 if(st.step===6){
  h+='<p class="hint">Votre composition et les éléments choisis.</p><div class="visual-summary">'
- +'<div class="preview-card">'+activeTypeVisual()+'<strong>'+esc(st.model)+' · '+esc(selectedType()?.[1])+' · '+esc(st.color)+'</strong><span class="selected-finish" style="background:'+esc(COLOR_HEX[st.color]||'#bcb6aa')+'" aria-label="Finition sélectionnée"></span></div>'
+ +'<div class="preview-card">'+activeTypeVisual()+'<strong>'+esc(st.model)+' · '+esc(selectedType()?.[1])+' · '+esc(st.color)+'</strong><span class="selected-finish"><img src="'+esc(finishUrl(st.model,st.color))+'" alt="Finition '+esc(st.color)+'" loading="lazy"></span></div>'
  +'<div class="preview-card">'+((selectedType()?.[3]==='column'||st.basinMode==='none')?blankAccessory('Sans vasque'):accessoryImage(st.basin))+'<strong>'+esc(st.basin)+'</strong></div>'
  +'<div class="preview-card">'+(accessoryImage(st.mirror)||blankAccessory('Sans miroir'))+'<strong>'+esc(st.mirror)+'</strong></div>'
  +'</div><div class="summary">'+esc(summary())+'</div><button type="button" class="btn primary" id="send" style="margin-top:18px;width:100%">Envoyer la demande</button><p class="mini">Votre application e-mail s’ouvrira pour confirmer l’envoi.</p>';
