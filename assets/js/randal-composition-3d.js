@@ -235,7 +235,7 @@ function woodTexture(hex,grain){
  for(let n=0;n<125;n++){const x=random()*256;const w=.5+random()*2;
  ctx.beginPath();ctx.strokeStyle=grain?(random()>.4?'rgba(43,25,14,.14)':'rgba(251,234,199,.12)'):'rgba(255,255,255,.045)';
  ctx.lineWidth=w;ctx.moveTo(x,0);ctx.bezierCurveTo(x+random()*11-5,70,x+random()*11-5,175,x+random()*7-3,256);ctx.stroke()}
- const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(1,1);t.anisotropy=2;
+ const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(1,1);t.anisotropy=8;
  return t;
 }
 function isWood(color){return woodCodes.some(k=>strip(color).includes(k))}
@@ -466,14 +466,16 @@ function toggleDrawers(){
 }
 function animateHarmonyDrawers(){
  cancelAnimationFrame(drawerAnimation);drawerAnimation=0;
- const originals=drawers.map(d=>d.position.z),go=drawersOpen?.28:0;
+ const originals=drawers.map(d=>d.position.z);
+  // Ouverture différenciée : tiroir haut court, tiroir(s) inférieur(s) plus profond(s).
+  const drawerTravel=i=>!drawersOpen?0:(i===0?.13:drawers.length===3&&i===1?.22:.31);
  if(!drawers.length)return;
  const began=performance.now(),duration=390,ticket=sessionId;
  function frame(now){
   drawerAnimation=0;
   if(!active||ticket!==sessionId)return;
   const p=clamp((now-began)/duration,0,1),ease=1-Math.pow(1-p,3);
-  drawers.forEach((d,i)=>{d.position.z=originals[i]+(go-originals[i])*ease});
+  drawers.forEach((d,i)=>{const goal=drawerTravel(i);d.position.z=originals[i]+(goal-originals[i])*ease});
   requestFrame();
   if(p<1)drawerAnimation=requestAnimationFrame(frame);
  }
@@ -484,13 +486,15 @@ function buildScene(config){
  sceneGeneration++;
  scene=new THREE.Scene();scene.background=new THREE.Color('#e9e5dd');
  // Éclairage doux : les anciennes intensités surexposaient entièrement les bois.
- const ambient=new THREE.HemisphereLight(0xfffcf3,0xb2aaa0,1.0);scene.add(ambient);
- const light=new THREE.DirectionalLight(0xffffff,1.65);light.position.set(-1.4,3.3,3.7);light.castShadow=false;
+ const ambient=new THREE.HemisphereLight(0xfffaf1,0x8f867c,.78);scene.add(ambient);
+ const light=new THREE.DirectionalLight(0xfff8ed,2.15);light.position.set(-1.7,3.8,3.0);light.castShadow=true;light.shadow.mapSize.set(1024,1024);light.shadow.camera.left=-3.1;light.shadow.camera.right=3.1;light.shadow.camera.top=3.1;light.shadow.camera.bottom=-3.1;light.shadow.normalBias=.012;
  // Les ombres temps réel sont désactivées pour éviter la surcharge du GPU en rendez-vous.
  light.shadow.bias=-.00012;scene.add(light);
- const accent=new THREE.PointLight(0xffecd0,3.8,7);accent.position.set(1.9,2.3,1.8);scene.add(accent);
+ const accent=new THREE.PointLight(0xfff0d8,1.4,6);accent.position.set(1.9,2.6,1.6);scene.add(accent);
  const wall=newMat('#eee4d5',.95);putBox(scene,0,1.4,-.45,5,2.8,.07,wall);
- const floor=newMat('#ddc6a9',.85);putBox(scene,0,-.033,.70,5,.065,3.4,floor);
+ // Un seul plan continu au niveau zéro, sans tranche apparente ni fausse marche.
+ const floor=newMat('#ddc6a9',.88);const floorMesh=new THREE.Mesh(new THREE.PlaneGeometry(7,7),floor);
+ floorMesh.rotation.x=-Math.PI/2;floorMesh.position.set(0,-.002,.7);floorMesh.receiveShadow=true;scene.add(floorMesh);
  loadCocoFloor(floor);
  const width=clamp((Number(config.width)||80)/100,.35,1.56),height=clamp((Number(config.height)||53)/100,.1,1.75),depth=clamp((Number(config.depth)||45)/100,.22,.55);
  const isColumn=config.kind==='column';
@@ -615,13 +619,13 @@ function init(config){
  const T=window.THREE; if(!T)throw Error('Moteur 3D indisponible');
  // Named global: all scene helpers use THREE for concise meshes/materials.
  THREE=T;
- renderer=new THREE.WebGLRenderer({alpha:false,antialias:true,preserveDrawingBuffer:false,powerPreference:'low-power',failIfMajorPerformanceCaveat:true});
+ renderer=new THREE.WebGLRenderer({alpha:false,antialias:true,preserveDrawingBuffer:true,powerPreference:'high-performance',failIfMajorPerformanceCaveat:false});
  // Limite les allocations 4K / écrans Retina, sans toucher au format des produits.
- renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.3));
+ renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,window.innerWidth<720?1.65:2));
  renderer.outputColorSpace=THREE.SRGBColorSpace;
  renderer.toneMapping=THREE.ACESFilmicToneMapping;
- renderer.toneMappingExposure=.83;
- renderer.shadowMap.enabled=false;
+ renderer.toneMappingExposure=1.03;
+ renderer.shadowMap.enabled=true;
  renderer.shadowMap.type=THREE.PCFSoftShadowMap;
  renderer.setSize(Math.max(250,area.clientWidth),Math.max(250,area.clientHeight),false);
  const loading=$('composition-loading');if(loading)loading.remove();
