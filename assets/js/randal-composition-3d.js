@@ -7,6 +7,22 @@ let libraryPromise=null,renderer=null,scene=null,camera=null,stage=null,resizeOb
 let yaw=.47,pitch=.22,distance=3.55,lastPointer=null,lastPinch=null;
 let active=false,previousFocus=null,restoreOverflow='',current=null,sessionId=0,contextFailed=false,surfaceChoice={floor:'view-coco-beige',wall:'cream'};
 let drawers=[],drawersOpen=false,drawerAnimation=0,sceneGeneration=0;
+const WALL_COLORS={
+ cream:{label:'Crème doux',hex:'#eee4d5'},ivory:{label:'Ivoire',hex:'#f4f0e8'},
+ chalk:{label:'Blanc craie',hex:'#f5f5f0'},greige:{label:'Greige',hex:'#c9c5ba'},
+ linen:{label:'Lin naturel',hex:'#d8c9b4'},sand:{label:'Sable',hex:'#ddc4a7'},
+ sage:{label:'Vert sauge',hex:'#aebdac'},stone:{label:'Pierre claire',hex:'#c2b9ad'},
+ blue:{label:'Bleu poudré',hex:'#b6c7cb'},terracotta:{label:'Terre cuite',hex:'#c9907a'},
+ graphite:{label:'Graphite',hex:'#6a6a66'}
+};
+const FLOOR_OPTIONS=[
+ {id:'view-coco-beige',label:'VIEW · Coco Beige',sub:'40 × 60 cm · naturel',preview:null,base:'#c6b19b'},
+ ...[
+ ['zucchero','#dfcfb6'],['avena','#bba78e'],['biscotto','#bb8f67'],['caramello','#a5734b'],
+ ['matcha','#89906c'],['ginepro','#5f776f'],['malto','#a28265'],['pepe','#75726c']
+ ].map(([id,base])=>({id:'elios-creta-'+id,label:'ELIOS · Creta '+id.charAt(0).toUpperCase()+id.slice(1),
+ sub:'60 × 60 cm · R9',preview:'assets/img/elios/creta/textures/'+id+'.webp',base}))
+];
 const $=id=>document.getElementById(id);
 const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
 const strip=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
@@ -188,11 +204,30 @@ function showSurface(which){
  $('composition-floor').setAttribute('aria-expanded',String(!alreadyOpen&&which==='floor'));
  $('composition-wall').setAttribute('aria-expanded',String(!alreadyOpen&&which==='wall'));
  if(alreadyOpen)return;
- title.textContent=which==='floor'?'Revêtement du sol':'Revêtement du mur';
- const choice=document.createElement('button');choice.type='button';choice.className='composition-surface-active';
- choice.textContent=which==='floor'?'✓ VIEW · Coco Beige 40 × 60 cm':'✓ Crème uni';
- choice.onclick=()=>{panel.hidden=true;$('composition-floor').setAttribute('aria-expanded','false');$('composition-wall').setAttribute('aria-expanded','false')};
- list.replaceChildren(choice);
+ title.textContent=which==='floor'?'Choisissez votre carrelage':'Choisissez la couleur du mur';
+ list.replaceChildren();
+ const items=which==='floor'?FLOOR_OPTIONS:Object.entries(WALL_COLORS).map(([id,c])=>({id,label:c.label,base:c.hex}));
+ for(const item of items){
+  const button=document.createElement('button');button.type='button';button.className='composition-surface-option';
+  button.dataset.selected=String(surfaceChoice[which]===item.id);
+  button.setAttribute('aria-pressed',button.dataset.selected);
+  const preview=document.createElement('span');preview.className='composition-surface-swatch';
+  preview.style.backgroundColor=item.base;
+  if(item.preview){const img=document.createElement('img');img.src=item.preview;img.alt='';img.loading='lazy';img.onerror=()=>{img.remove()};preview.appendChild(img)}
+  const copy=document.createElement('span');copy.className='composition-surface-label';
+  const heading=document.createElement('strong');heading.textContent=item.label;
+  const sub=document.createElement('small');sub.textContent=item.sub||'Peinture mate';copy.append(heading,sub);
+  const tick=document.createElement('span');tick.className='composition-surface-check';tick.textContent=surfaceChoice[which]===item.id?'✓':'';
+  button.append(preview,copy,tick);
+  button.onclick=()=>{surfaceChoice[which]=item.id;panel.hidden=true;
+   $('composition-floor').setAttribute('aria-expanded','false');
+   $('composition-wall').setAttribute('aria-expanded','false');
+   redrawCurrent();
+  };
+  list.appendChild(button);
+ }
+ const help=panel.querySelector('p');
+ if(help)help.textContent=which==='floor'?'Textures et teintes inspirées des échantillons du catalogue ELIOS.':'Choisissez une teinte de peinture mate pour le mur.';
 }
 function close(){
  const drawerButton=$('composition-drawers');
@@ -491,7 +526,7 @@ function buildScene(config){
  // Les ombres temps réel sont désactivées pour éviter la surcharge du GPU en rendez-vous.
  light.shadow.bias=-.00012;scene.add(light);
  const accent=new THREE.PointLight(0xfff0d8,1.4,6);accent.position.set(1.9,2.6,1.6);scene.add(accent);
- const wall=newMat('#eee4d5',.95);putBox(scene,0,1.4,-.45,5,2.8,.07,wall);
+ const wall=newMat(WALL_COLORS[surfaceChoice.wall]?.hex||WALL_COLORS.cream.hex,.89);putBox(scene,0,1.4,-.45,5,2.8,.07,wall);
  // Un seul plan continu au niveau zéro, sans tranche apparente ni fausse marche.
  const floor=newMat('#ddc6a9',.88);const floorMesh=new THREE.Mesh(new THREE.PlaneGeometry(7,7),floor);
  floorMesh.rotation.x=-Math.PI/2;floorMesh.position.set(0,-.002,.7);floorMesh.receiveShadow=true;scene.add(floorMesh);
