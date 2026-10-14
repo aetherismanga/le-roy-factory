@@ -68,6 +68,10 @@ a.pdf:hover{background:white}
 .fixed-format strong{display:block;font-size:1.2rem}.fixed-format small{color:#736d61}
 @media(max-width:760px){.type-choices{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.type-choice .type-photo{height:126px}.type-choice .choice-copy{padding:10px}}
 @media(max-width:370px){.type-choices{grid-template-columns:1fr}.type-choice .type-photo{height:160px}}
+.choice .accessory-visual,.preview-card .accessory-visual{background:#f8f6f2!important}
+.choice .accessory-visual img,.preview-card .accessory-visual img{width:100%;height:100%;object-fit:contain;display:block}
+.choice .accessory-empty,.preview-card .accessory-empty{display:flex;align-items:center;justify-content:center;background:#f2eee7!important;color:#756f63;font-weight:650;font-size:.8rem;letter-spacing:.01em}
+@media(max-width:760px){.choice .accessory-visual{height:130px}.preview-card .accessory-visual{height:98px}}
 </style></head><body>
 <header><div><a class="back" href="univers.html">← Retour aux sélections</a><img src="assets/img/randal.png" alt="RANDAL"></div></header>
 <main><section class="hero"><div><h1>Votre meuble RANDAL, sur mesure</h1><p>Choisissez votre composition, visualisez vos choix et envoyez la demande.</p><a class="pdf" href="randal-catalogue-interactif.html">Catalogue interactif</a></div></section>
@@ -75,7 +79,7 @@ a.pdf:hover{background:white}
 <section class="panel" id="panel"></section>
 <p class="note">Envoi depuis votre messagerie. Prix, compatibilité et disponibilité confirmés par RANDAL avant commande définitive.</p>
 </main><footer>RANDAL V04 · LE ROY FACTORY</footer>
-<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+
 <script>
 (()=>{
 'use strict';
@@ -271,9 +275,25 @@ const dimensionCards=(entries)=>'<div class="choices">'+entries.map(([code,width
  ).join('')+'</div>';
 const activeTypeVisual=()=>{const t=selectedType();return t?
  '<span class="visual type-visual"><img src="assets/img/randal/types/'+esc(t[2])+'.webp" alt="'+esc(t[1])+'"></span>':collectionImage(st.model);};
+const ACCESSORY_ART={
+ 'Sella':'basin-sella','Tampa':'basin-tampa','Neris':'basin-neris','Torne':'basin-torne',
+ 'Basic':'mirror-basic','Zen LED':'mirror-zen-led','Ilse LED':'mirror-ilse-led',
+ 'Cápsula LED':'mirror-capsula-led',
+ 'Miroir métallique rectangulaire':'mirror-metal-rectangular',
+ 'Miroir métallique rond':'mirror-metal-round'
+};
+const accessoryImage=name=>{
+ const slug=ACCESSORY_ART[name];
+ return slug?'<span class="visual accessory-visual"><img src="assets/img/randal/accessories/'+slug+'.webp" loading="lazy" decoding="async" alt="Dessin RANDAL '+esc(name)+'"></span>':'';
+};
+const blankAccessory=label=>'<span class="visual accessory-empty">'+esc(label)+'</span>';
 const pick=(name,values,group='')=>'<div class="choices '+group+'">'+values.map(([value,sub])=>{
- const page=name==='model'?MODEL_PAGE[value]:name==='mirror'?(value==='Sans miroir'?0:36):name==='basinMode'?(value==='vessel'?41:value==='integrated'?37:0):name==='basin'?(value==='Neris'||value==='Torne'?41:38):0;
- const visual=name==='model'?collectionImage(value):page?photo(page,name==='model'?'p. '+page:'',name==='mirror'||name==='basin'?value:''):name==='color'?'<span class="swatch" style="background:'+esc(COLOR_HEX[value]||'#c5c4b9')+'"></span>':'';
+ const visual=name==='model'?collectionImage(value)
+  :name==='mirror'?(accessoryImage(value)||blankAccessory(value==='Sans miroir'?'Sans miroir':'À préciser'))
+  :name==='basin'?(accessoryImage(value)||blankAccessory('Vasque'))
+  :name==='basinMode'?(value==='integrated'?accessoryImage('Sella'):value==='vessel'?accessoryImage('Neris'):blankAccessory('Sans vasque'))
+  :name==='color'?'<span class="swatch" style="background:'+esc(COLOR_HEX[value]||'#c5c4b9')+'"></span>'
+  :'';
  return '<button type="button" class="choice '+(st[name]===value?'active':'')+'" data-field="'+name+'" data-value="'+esc(value)+'">'+visual+'<span class="choice-copy"><strong>'+esc(name==='basinMode'?({integrated:'Vasque sur meuble',vessel:'Plan + vasque à poser',none:'Sans vasque'}[value]):value)+'</strong><small>'+esc(sub||'')+'</small></span></button>'
  }).join('')+'</div>';
 const summary=()=>['Référence meuble : '+(variant()?.ref||'À vérifier'),'Prix vente conseillé HT meuble : '+(variant()?.price??'À confirmer')+' €','DEMANDE DE DISPONIBILITÉ / COMMANDE À CONFIRMER','RANDAL — Catalogue V04','','MODÈLE : '+st.model,'Largeur : '+(st.width||'À confirmer')+' cm','Hauteur : '+(st.height||'À confirmer')+' cm','Profondeur : '+(st.depth||'À confirmer')+' cm','Couleur / finition : '+(st.color||'À confirmer'),'Sous-modèle : '+(selectedType()?.[1]||'À vérifier'),'Variante catalogue : '+(st.variantCode||(st.typeId==='two'?'A à F':'Selon largeur')),'Type de montage : '+({integrated:'Vasque sur meuble',vessel:'Plan et vasque à poser',none:'Meuble sans vasque'}[st.basinMode]),'Vasque : '+st.basin,'Plan : '+st.top+(st.basinMode==='vessel'&&st.model!=='Sima'?' · '+st.topFinish+' · Réf. '+topReference():''),'Miroir : '+st.mirror+(st.mirror==='Sans miroir'?'':' · '+(st.mirrorSize||'Taille à confirmer')+' · réf. '+mirrorRef()),'Quantité : '+st.quantity,'','CLIENT / MAGASIN : '+st.company,'Contact : '+st.name,'E-mail : '+st.email,'Téléphone : '+st.phone,'','Informations complémentaires : '+(st.notes||'Aucune'),'','Merci de confirmer les références exactes, les associations possibles, le prix professionnel HT, les stocks et le délai.','Aucune commande ferme avant confirmation de votre part.'].join('\n');
@@ -324,8 +344,8 @@ if(st.step===6){h+='<p class="hint">Coordonnées nécessaires au traitement de l
 if(st.step===7){
  h+='<p class="hint">Votre composition et les éléments choisis.</p><div class="visual-summary">'
  +'<div class="preview-card">'+activeTypeVisual()+'<strong>'+esc(st.model)+' · '+esc(selectedType()?.[1])+' · '+esc(st.color)+'</strong><span class="selected-finish" style="background:'+esc(COLOR_HEX[st.color]||'#bcb6aa')+'" aria-label="Finition sélectionnée"></span></div>'
- +'<div class="preview-card">'+((selectedType()?.[3]==='column'||st.basinMode==='none')?'<span class="visual"></span>':photo(st.basinMode==='vessel'?41:38,'',st.basin))+'<strong>'+esc(st.basin)+'</strong></div>'
- +'<div class="preview-card">'+(st.mirror==='Sans miroir'?'<span class="visual"></span>':photo(36,'',st.mirror))+'<strong>'+esc(st.mirror)+'</strong></div>'
+ +'<div class="preview-card">'+((selectedType()?.[3]==='column'||st.basinMode==='none')?blankAccessory('Sans vasque'):accessoryImage(st.basin))+'<strong>'+esc(st.basin)+'</strong></div>'
+ +'<div class="preview-card">'+(accessoryImage(st.mirror)||blankAccessory('Sans miroir'))+'<strong>'+esc(st.mirror)+'</strong></div>'
  +'</div><div class="summary">'+esc(summary())+'</div><button type="button" class="btn primary" id="send" style="margin-top:18px;width:100%">Envoyer la demande</button><p class="mini">Votre application e-mail s’ouvrira pour confirmer l’envoi.</p>';
 }
 h+='<div class="actions"><button type="button" class="btn" id="prev" '+(st.step===0?'disabled':'')+'>← Précédent</button>'+(st.step<7?'<button type="button" class="btn primary" id="next">Continuer →</button>':'')+'</div>';
