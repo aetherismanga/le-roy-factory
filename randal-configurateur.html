@@ -99,12 +99,30 @@ const SPECIAL_VARIANTS={
   refRows:[[13947,13977,13978],[13979,13980,13981],[13982,13983,13984],[13985,13986,13987],[14000,14001,14002],[14003,14004,14005],[14006,14007,14008],[14009,14010,14011],[13988,13989,13990],[13991,13992,13993],[13994,13995,13996],[13997,13998,13999],[14012,14013,14014],[14015,14016,14017],[14018,14019,14020],[14021,14022,14023]]
  }
 };
-const steps=['Modèle','Dimensions','Couleur','Vasque & plan','Miroir','Coordonnées','Récapitulatif'];
+const MODEL_TYPES={
+'Harmony':[['two','2 tiroirs','harmony-2-tiroirs','vanity',53,'ABCDEF',4],['three','3 tiroirs avec pieds','harmony-3-tiroirs','vanity',79,'GHIJKL',5],['column','Colonne auxiliaire','harmony-colonne','column',150,'M',6]],
+'Luce':[['single','1 tiroir','luce-meuble','vanity',40,'AB',8],['column','Colonne auxiliaire','luce-colonne','column',165,'C',9]],
+'Brent':[['three','3 tiroirs','brent-3-tiroirs','vanity',85,'ACEG',12],['niche','2 tiroirs + niche','brent-2-tiroirs-niche','vanity',85,'BDFH',12],['column','Colonne auxiliaire','brent-colonne','column',163,'IJ',14]],
+'Aruba rainuré':[['two','2 tiroirs rainurés','aruba-rainure-2-tiroirs','vanity',53,'ABCDEF',16]],
+'Aruba':[['two','2 tiroirs','aruba-2-tiroirs','vanity',53,'ABCDEF',18],['column','Colonne auxiliaire','aruba-colonne','column',150,'G',19]],
+'Aras':[['two','2 tiroirs','aras-2-tiroirs','vanity',53,'ABCDEF',21],['column','Colonne auxiliaire','aras-colonne','column',150,'G',22]],
+'Boreal':[['two','2 tiroirs','boreal-2-tiroirs','vanity',53,'ABC',24],['column','Colonne auxiliaire','boreal-colonne','column',150,'D',25]],
+'Brunei':[['two','2 tiroirs','brunei-2-tiroirs','vanity',53,'ABCDEF',27]],
+'Amat':[['two','2 tiroirs','amat-2-tiroirs','vanity',53,'ABCD',29],['two-door','2 tiroirs + porte','amat-2-tiroirs-porte','vanity',53,'EFGH',29],['three','3 tiroirs avec pieds','amat-3-tiroirs','vanity',90,'IJKL',30],['three-door','3 tiroirs + porte avec pieds','amat-3-tiroirs-porte','vanity',90,'MNOP',30]],
+'Less':[['door','Meuble 1 porte','less-meuble','vanity',66,'A',32]],
+'Sima':[['counter','Plateau pour vasque à poser','sima-plan','counter',10,'ABCD',34]]
+};
+const typeOptions=()=>MODEL_TYPES[st.model]||[];
+const selectedType=()=>typeOptions().find(t=>t[0]===st.typeId);
+const AUX_REFS={'Harmony':[13260,13272,13266],'Luce':[11357,11355,11352],'Aruba':[13486,13296,13395,13409,13416,13402],'Aras':[13380,13276,13280,13284,13288],'Boreal':[13420,13424,13428,13432,13436]};
+const AUX_PRICES={'Harmony':293,'Luce':547,'Aruba':426,'Aras':433,'Boreal':431};
+const BRENT_COLS={I:[11092,11102,12555,11107],J:[11091,6040,12554,6042]};
+const steps=['Collection','Modèle','Dimensions','Couleur','Vasque & plan','Miroir','Coordonnées','Récapitulatif'];
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const key='lrfRandalV04Draft';
 let st;try{st=JSON.parse(sessionStorage.getItem(key)||'{}')}catch{st={}}
-st={model:'',width:'',height:'',depth:'',color:'',variantCode:'',drawers:'',basin:'Sella',top:'Sans plan',basinMode:'integrated',topFinish:'Blanco mate',mirror:'Sans miroir',mirrorSize:'',quantity:1,company:'',name:'',email:'',phone:'',notes:'',step:0,...st};
+st={model:'',typeId:'',width:'',height:'',depth:'',color:'',variantCode:'',drawers:'',basin:'Sella',top:'Sans plan',basinMode:'integrated',topFinish:'Blanco mate',mirror:'Sans miroir',mirrorSize:'',quantity:1,company:'',name:'',email:'',phone:'',notes:'',step:0,...st};
 const save=()=>sessionStorage.setItem(key,JSON.stringify(st));
 
 const MODEL_PAGE=Object.fromEntries(models);
