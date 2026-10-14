@@ -61,13 +61,13 @@ a.pdf:hover{background:white}
 @media(min-width:1000px){.choice .collection-visual{height:186px}}
 .type-choices{grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:14px}
 .type-choice .type-photo{display:flex;height:176px;align-items:center;justify-content:center;background:#faf8f4}
-.type-choice .type-photo img{height:100%;width:100%;object-fit:contain}
+.type-choice .type-photo img{height:100%;width:100%;object-fit:contain;display:block;image-rendering:auto}
 .type-visual{display:flex;justify-content:center;align-items:center;background:#faf8f4!important}
 .type-visual img{height:100%;width:100%;object-fit:contain}
 .fixed-format{border-radius:12px;padding:20px;background:#f7f5f0;border:1px solid #ddd8cd;margin:15px 0}
 .fixed-format strong{display:block;font-size:1.2rem}.fixed-format small{color:#736d61}
-@media(max-width:760px){.type-choices{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.type-choice .type-photo{height:126px}.type-choice .choice-copy{padding:10px}}
-@media(max-width:370px){.type-choices{grid-template-columns:1fr}.type-choice .type-photo{height:160px}}
+@media(max-width:760px){.type-choices{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.type-choice .type-photo{height:178px}.type-choice .choice-copy{padding:10px}}
+@media(max-width:370px){.type-choices{grid-template-columns:1fr}.type-choice .type-photo{height:230px}}
 .choice .accessory-visual,.preview-card .accessory-visual{background:#f8f6f2!important}
 .choice .accessory-visual img,.preview-card .accessory-visual img{width:100%;height:100%;object-fit:contain;display:block}
 .choice .accessory-empty,.preview-card .accessory-empty{display:flex;align-items:center;justify-content:center;background:#f2eee7!important;color:#756f63;font-weight:650;font-size:.8rem;letter-spacing:.01em}
@@ -470,16 +470,19 @@ const selectedFromCatalogue=new URLSearchParams(location.search).get('collection
 if(selectedFromCatalogue&&models.some(([name])=>name===selectedFromCatalogue)){if(st.model!==selectedFromCatalogue){resetConfiguration();st.model=selectedFromCatalogue;}st.step=0;normalize();save();}
 const entry=(label,name,type='text',placeholder='')=>'<label class="field">'+label+'<input name="'+name+'" type="'+type+'" placeholder="'+placeholder+'" value="'+esc(st[name])+'"></label>';
 const select=(label,name,opts)=>'<label class="field">'+label+'<select name="'+name+'">'+opts.map(v=>'<option value="'+esc(v)+'" '+(st[name]===v?'selected':'')+'>'+esc(v)+'</option>').join('')+'</select></label>';
+// Dessins PDF RANDAL conservés en tracés SVG : précision indépendante du zoom.
+const typeVectorUrl=slug=>'assets/img/randal/types/'+slug+'.svg?v=20261014-vectoriels1';
+window.randalVectorFallback=img=>{img.onerror=null;img.src=img.src.split('?')[0].replace(/\\.svg$/,'.webp')};
 const typeCards=()=>'<div class="choices type-choices">'+typeOptions().map(t=>
  '<button type="button" class="choice type-choice '+(st.typeId===t[0]?'active':'')+'" data-field="typeId" data-value="'+esc(t[0])+'">'+
- '<span class="type-photo"><img src="assets/img/randal/types/'+esc(t[2])+'.webp" alt="Schéma RANDAL '+esc(t[1])+'" loading="lazy" decoding="async"></span>'+
+ '<span class="type-photo"><img src="'+esc(typeVectorUrl(t[2]))+'" alt="Dessin technique vectoriel RANDAL '+esc(t[1])+'" loading="lazy" decoding="async" onerror="randalVectorFallback(this)"></span>'+
  '<span class="choice-copy"><strong>'+esc(t[1])+'</strong><small>'+esc(t[3]==='column'?'Colonne auxiliaire':t[3]==='counter'?'Plateau seul':'Meuble salle de bain')+'</small><small>Références '+esc(t[5])+' · Catalogue p. '+t[6]+'</small></span></button>'
  ).join('')+'</div>';
 const dimensionCards=(entries)=>'<div class="choices">'+entries.map(([code,width,height,depth])=>
  '<button type="button" class="choice '+(st.variantCode===code?'active':'')+'" data-field="variantCode" data-value="'+esc(code)+'"><span class="choice-copy"><strong>'+esc(width)+' cm</strong><small>H. '+esc(height)+' · P. '+esc(depth)+' cm · Réf. '+esc(code)+'</small></span></button>'
  ).join('')+'</div>';
 const activeTypeVisual=()=>{const t=selectedType();return t?
- '<span class="visual type-visual"><img src="assets/img/randal/types/'+esc(t[2])+'.webp" alt="'+esc(t[1])+'"></span>':collectionImage(st.model);};
+ '<span class="visual type-visual"><img src="'+esc(typeVectorUrl(t[2]))+'" alt="'+esc(t[1])+'" loading="lazy" onerror="randalVectorFallback(this)"></span>':collectionImage(st.model);};
 const ACCESSORY_ART={
  'Sella':'basin-sella','Tampa':'basin-tampa','Neris':'basin-neris','Torne':'basin-torne',
  'Basic':'mirror-basic','Zen LED':'mirror-zen-led','Ilse LED':'mirror-ilse-led',
@@ -646,17 +649,17 @@ async function jpegFromImage(path){
    const im=new Image();im.onload=()=>resolve(im);im.onerror=reject;im.src=url;
   });
   const canvas=document.createElement('canvas');
-  canvas.width=440;canvas.height=260;
+  canvas.width=1320;canvas.height=780;
   const ctx=canvas.getContext('2d');
-  ctx.fillStyle='#faf9f6';ctx.fillRect(0,0,440,260);
-  const sc=Math.min(420/img.width,240/img.height);
-  ctx.drawImage(img,(440-img.width*sc)/2,(260-img.height*sc)/2,img.width*sc,img.height*sc);
-  return canvas.toDataURL('image/jpeg',.85);
+  ctx.fillStyle='#faf9f6';ctx.fillRect(0,0,1320,780);
+  const sc=Math.min(1260/img.width,720/img.height);
+  ctx.drawImage(img,(1320-img.width*sc)/2,(780-img.height*sc)/2,img.width*sc,img.height*sc);
+  return canvas.toDataURL('image/jpeg',.90);
  }finally{URL.revokeObjectURL(url)}
 }
 function exportPictures(){
  const t=selectedType();return [
-  {name:st.model,src:t?'assets/img/randal/types/'+t[2]+'.webp':null},
+  {name:st.model,src:t?typeVectorUrl(t[2]):null},
   {name:st.basinMode==='none'?'Sans vasque':st.basin,src:st.basinMode!=='none'&&st.basin!=='Sans vasque'?'assets/img/randal/accessories/'+ACCESSORY_ART[st.basin]+'.webp':null},
   {name:st.mirror,src:st.mirror!=='Sans miroir'&&ACCESSORY_ART[st.mirror]?'assets/img/randal/accessories/'+ACCESSORY_ART[st.mirror]+'.webp':null}
  ];
