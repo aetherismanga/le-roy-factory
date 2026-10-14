@@ -278,6 +278,19 @@ a.pdf:hover{background:white}
 .composition-surface-label small{display:block;color:#757870;font-size:.67rem;margin-top:3px;line-height:1.32}
 .composition-surface-check{position:absolute;top:8px;right:8px;border-radius:50%;color:#2e4d38;font-weight:900;background:#e8f2e5;padding:1px 5px}
 @media(max-width:760px){#composition-surface-choices{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;max-height:42vh}.composition-surface-option{padding:7px}.composition-surface-label strong{font-size:.76rem}}
+
+/* Nuancier de peinture personnalisé — tactile et accessible */
+.composition-custom-wall{
+ grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;
+ gap:14px;padding:10px 14px;background:#f3f0e9;border:1px solid #dfd8ca;
+ border-radius:11px;color:#485449;font-weight:750;font-size:.84rem
+}
+.composition-custom-wall input[type=color]{
+ width:76px;height:46px;padding:3px;border:1px solid #b7b7aa;
+ border-radius:8px;background:#fff;cursor:pointer;flex-shrink:0
+}
+.composition-canvas{background:#e5e1da}
+@media(max-width:760px){.composition-custom-wall{padding:10px 12px}.composition-custom-wall input[type=color]{width:68px}}
 </style></head><body>
 <header><div><a class="back" href="univers.html">← Retour aux sélections</a><img src="assets/img/randal.png" alt="RANDAL"></div></header>
 <main><section class="hero"><div><h1>Votre meuble RANDAL, sur mesure</h1><p>Choisissez votre composition, visualisez vos choix et envoyez la demande.</p><a class="pdf" href="randal-catalogue-interactif.html">Catalogue interactif</a></div></section>
@@ -287,7 +300,7 @@ a.pdf:hover{background:white}
 </main><footer>RANDAL V04 · LE ROY FACTORY</footer>
 
 <script src="assets/js/randal-coco-beige-texture.js?v=20261014-sol-view1"></script>
-<script src="assets/js/randal-composition-3d.js?v=20261014-creta-room-final3"></script>
+<script src="assets/js/randal-composition-3d.js?v=20261014-harmony-hd3"></script>
 <script>
 (()=>{
 'use strict';
