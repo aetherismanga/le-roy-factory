@@ -25,7 +25,7 @@ const finishRGB={
 };
 function colorFor(str,fallback='#aaa39a'){
  const s=strip(str);
- for(const [k,v] of Object.entries(finishRGB))if(s.includes(k))return v;
+ for(const [k,v] of Object.entries(finishRGB).sort((a,b)=>b[0].length-a[0].length))if(s.includes(k))return v;
  return fallback;
 }
 function label(id,value){const n=$(id);if(n)n.textContent=String(value||'—')}
