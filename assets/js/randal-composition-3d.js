@@ -4,8 +4,8 @@
 'use strict';
 const THREE_URLS=['https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js','https://unpkg.com/three@0.152.2/build/three.min.js'];
 let libraryPromise=null,renderer=null,scene=null,camera=null,stage=null,resizeObserver=null,raf=0;
-let yaw=.47,pitch=.22,distance=3.55,lastPointer=null,lastPinch=null;
-let active=false,previousFocus=null,restoreOverflow='',current=null,sessionId=0,contextFailed=false,surfaceChoice={floor:'view-coco-beige',wall:'cream'};
+let yaw=.47,pitch=.15,distance=2.75,lastPointer=null,lastPinch=null;
+let active=false,previousFocus=null,restoreOverflow='',current=null,sessionId=0,contextFailed=false,surfaceChoice={floor:'elios-creta-avena',wall:'greige'};
 let drawers=[],drawersOpen=false,drawerAnimation=0,sceneGeneration=0;
 const WALL_COLORS={
  cream:{label:'Crème doux',hex:'#eee4d5'},ivory:{label:'Ivoire',hex:'#f4f0e8'},
@@ -60,7 +60,7 @@ function modal(){
  '<p class="composition-gesture">Glissez pour tourner le meuble · Pincez pour zoomer</p>'+
  '<div class="composition-harmony-controls" id="composition-harmony-controls" hidden><button type="button" id="composition-drawers" aria-pressed="false">Ouvrir les tiroirs</button><span>Découpe siphon visible dans le tiroir supérieur</span></div>'+
  '<div class="composition-view-tools"><button type="button" id="composition-floor" aria-expanded="false" aria-controls="composition-surface-panel">Sol</button><button type="button" id="composition-wall" aria-expanded="false" aria-controls="composition-surface-panel">Mur</button><button type="button" id="composition-photo">Enregistrer l’image</button></div>'+
- '<div id="composition-surface-panel" class="composition-surface-panel" hidden><strong id="composition-surface-title"></strong><div id="composition-surface-choices"></div><p>Les autres références de carrelage seront ajoutées ultérieurement.</p></div>'+
+ '<div id="composition-surface-panel" class="composition-surface-panel" hidden><strong id="composition-surface-title"></strong><div id="composition-surface-choices"></div><p>Creta 60 × 60 : coloris officiels du catalogue ELIOS.</p></div>'+
  '</div><aside class="composition-details"><div class="composition-label">VOTRE COMPOSITION</div><h3 id="composition-model"></h3>'+
  '<div class="composition-selected"><div><span>Dimensions</span><strong id="composition-size"></strong></div>'+
  '<div><span>Finition du meuble</span><strong id="composition-color"></strong></div>'+
@@ -490,16 +490,17 @@ function buildHarmonyColumn(cabinet,w,h,d,finish,edge){
 
 function buildHarmonyCabinet(cabinet,config,w,h,d,finish,edge,metal,dark){
  const feet=config.typeId==='three',legH=feet?.105:0;
- const bodyBottom=legH,bodyTop=legH+h,side=.016;
+ // 79 cm incluent les pieds, et non 79 cm + pieds.
+ const bodyHeight=h-legH,bodyBottom=legH,bodyTop=legH+bodyHeight,side=.016;
  const woodInterior=newMat('#b6b3a9',.73);
  // Corps creux : flancs, fond arrière, fond et traverse supérieure.
- putBox(cabinet,-w/2+side/2,bodyBottom+h/2,0,side,h,d,finish);
- putBox(cabinet,w/2-side/2,bodyBottom+h/2,0,side,h,d,finish);
+ putBox(cabinet,-w/2+side/2,bodyBottom+bodyHeight/2,0,side,bodyHeight,d,finish);
+ putBox(cabinet,w/2-side/2,bodyBottom+bodyHeight/2,0,side,bodyHeight,d,finish);
  putBox(cabinet,0,bodyBottom+.011,0,w-2*side,.022,d-.02,woodInterior);
  putBox(cabinet,0,bodyTop-.010,-d*.29,w-2*side,.02,d*.41,woodInterior);
- putBox(cabinet,0,bodyBottom+h/2,-d/2+.008,w-2*side,h-.035,.010,woodInterior);
+ putBox(cabinet,0,bodyBottom+bodyHeight/2,-d/2+.008,w-2*side,bodyHeight-.035,.010,woodInterior);
  putBox(cabinet,0,bodyTop-.018,d/2-.025,w-.04,.016,.035,woodInterior);
- const count=feet?3:2,step=(h-.036)/count,topStart=bodyTop-.018;
+ const count=feet?3:2,step=(bodyHeight-.036)/count,topStart=bodyTop-.018;
  for(let i=0;i<count;i++){
   const drawer=new THREE.Group();
   drawer.name='Harmony_tiroir_'+(i+1);
@@ -534,9 +535,9 @@ function animateHarmonyDrawers(){
  cancelAnimationFrame(drawerAnimation);drawerAnimation=0;
  const originals=drawers.map(d=>d.position.z);
   // Ouverture différenciée : tiroir haut court, tiroir(s) inférieur(s) plus profond(s).
-  const drawerTravel=i=>!drawersOpen?0:(i===0?.13:drawers.length===3&&i===1?.22:.31);
+  const drawerTravel=i=>!drawersOpen?0:(i===0?.105:drawers.length===3&&i===1?.215:.305);
  if(!drawers.length)return;
- const began=performance.now(),duration=390,ticket=sessionId;
+ const began=performance.now(),duration=540,ticket=sessionId;
  function frame(now){
   drawerAnimation=0;
   if(!active||ticket!==sessionId)return;
@@ -550,17 +551,19 @@ function animateHarmonyDrawers(){
 
 function buildScene(config){
  sceneGeneration++;
- scene=new THREE.Scene();scene.background=new THREE.Color('#e9e5dd');
+ scene=new THREE.Scene();scene.background=new THREE.Color('#dedbd5');
  // Éclairage doux : les anciennes intensités surexposaient entièrement les bois.
- const ambient=new THREE.HemisphereLight(0xfffaf1,0x8f867c,.78);scene.add(ambient);
- const light=new THREE.DirectionalLight(0xfff8ed,2.15);light.position.set(-1.7,3.8,3.0);light.castShadow=true;light.shadow.mapSize.set(1024,1024);light.shadow.camera.left=-3.1;light.shadow.camera.right=3.1;light.shadow.camera.top=3.1;light.shadow.camera.bottom=-3.1;light.shadow.normalBias=.012;
+ const ambient=new THREE.HemisphereLight(0xfff6eb,0xa7a29b,.66);scene.add(ambient);
+ const bounce=new THREE.AmbientLight(0xffffff,.17);scene.add(bounce);
+ const light=new THREE.DirectionalLight(0xfff4e6,1.48);light.position.set(-2.4,4.5,3.0);light.castShadow=true;light.shadow.mapSize.set(2048,2048);light.shadow.camera.left=-3.1;light.shadow.camera.right=3.1;light.shadow.camera.top=3.1;light.shadow.camera.bottom=-3.1;light.shadow.normalBias=.003;
  // Les ombres temps réel sont désactivées pour éviter la surcharge du GPU en rendez-vous.
  light.shadow.bias=-.00012;scene.add(light);
- const accent=new THREE.PointLight(0xfff0d8,1.4,6);accent.position.set(1.9,2.6,1.6);scene.add(accent);
- const wall=newMat(WALL_COLORS[surfaceChoice.wall]?.hex||WALL_COLORS.cream.hex,.89);putBox(scene,0,1.4,-.45,5,2.8,.07,wall);
+ const accent=new THREE.PointLight(0xffefd9,.38,6);accent.position.set(1.9,2.9,2.1);scene.add(accent);
+ const wall=newMat(WALL_COLORS[surfaceChoice.wall]?.hex||WALL_COLORS.cream.hex,.94);
+ putBox(scene,0,2.35,-.65,12,4.7,.06,wall);
  // Un seul plan continu au niveau zéro, sans tranche apparente ni fausse marche.
- const floor=newMat('#ddc6a9',.88);const floorMesh=new THREE.Mesh(new THREE.PlaneGeometry(7,7),floor);
- floorMesh.rotation.x=-Math.PI/2;floorMesh.position.set(0,-.002,.7);floorMesh.receiveShadow=true;scene.add(floorMesh);
+ const floor=newMat('#e1dcd4',.9);const floorMesh=new THREE.Mesh(new THREE.PlaneGeometry(18,18),floor);
+ floorMesh.rotation.x=-Math.PI/2;floorMesh.position.set(0,-.005,0);floorMesh.receiveShadow=true;scene.add(floorMesh);
  applyFloorTexture(floor);
  const width=clamp((Number(config.width)||80)/100,.35,1.56),height=clamp((Number(config.height)||53)/100,.1,1.75),depth=clamp((Number(config.depth)||45)/100,.22,.55);
  const isColumn=config.kind==='column';
@@ -568,7 +571,7 @@ function buildScene(config){
  const legs=(config.typeId==='three'||config.typeId==='three-door'||config.model==='Brent')&&!isColumn?.12:0;
  // Mur centré en z=-0.45, épaisseur 7 cm : face avant à -0.415.
  // On accole systématiquement le dos du meuble à cette face (tolérance 1.8 cm).
- const wallFrontZ=-.45+.07/2,flushOffset=.018;
+ const wallFrontZ=-.65+.06/2,flushOffset=.014;
  const backWallCabinetZ=wallFrontZ+depth/2+flushOffset;
  // Les meubles suspendus doivent réellement flotter au-dessus du sol.
  const floatingHeight=!isColumn&&!isCounter&&!legs?.39:0;
@@ -577,7 +580,7 @@ function buildScene(config){
  scene.add(cabinet);
  const lower=isColumn?.10:legs;
  const boardH=isCounter?.09:Math.max(.10,height-lower-.017);
- const finish=newMat(colorFor(config.color,'#a49584'),isWood(config.color)?.67:.49,0);
+ const finish=newMat(colorFor(config.color,'#a49584'),isWood(config.color)?.63:.44,0);
  // Pas de double allocation d'une texture bois si le véritable échantillon existe.
  if(!config.swatch&&isWood(config.color))finish.map=woodTexture(colorFor(config.color,'#a49584'),true);
  useCatalogueFinish(finish,config.swatch);
@@ -634,8 +637,8 @@ function buildScene(config){
    for(const xx of [-width*.41,width*.41])for(const zz of [-depth*.38,depth*.38])putBox(cabinet,xx,legs/2,zz,.026,legs,.025,dark);
   }
  }
- if(!isColumn)addFixtures(cabinet,config,width,height+(config.model==='Harmony'&&config.typeId==='three'?.105:0),depth,finish);
- mirror(config,width,height+floatingHeight+(config.model==='Harmony'&&config.typeId==='three'?.105:0));
+ if(!isColumn)addFixtures(cabinet,config,width,height,depth,finish);
+ mirror(config,width,height+floatingHeight);
  return {width,height,depth};
 }
 function nameToDoor(config){return strip(config.typeName).includes('porte')}
@@ -643,7 +646,7 @@ function renderFrame(){raf=0;if(!active||!renderer||!scene||!camera)return;rende
 function requestFrame(){if(!raf&&active)raf=requestAnimationFrame(renderFrame)}
 function moveCamera(){
  if(!camera)return;
- const target=new THREE.Vector3(0,1.05,0);
+ const target=new THREE.Vector3(0,current?.kind==='column'?1.04:.82,0);
  camera.position.set(Math.sin(yaw)*distance,target.y+Math.sin(pitch)*distance,Math.cos(yaw)*distance);
  camera.lookAt(target);requestFrame();
 }
@@ -687,10 +690,10 @@ function init(config){
  THREE=T;
  renderer=new THREE.WebGLRenderer({alpha:false,antialias:true,preserveDrawingBuffer:true,powerPreference:'high-performance',failIfMajorPerformanceCaveat:false});
  // Limite les allocations 4K / écrans Retina, sans toucher au format des produits.
- renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,window.innerWidth<720?1.65:2));
+ renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,window.innerWidth<720?1.85:2.25));
  renderer.outputColorSpace=THREE.SRGBColorSpace;
  renderer.toneMapping=THREE.ACESFilmicToneMapping;
- renderer.toneMappingExposure=1.03;
+ renderer.toneMappingExposure=.91;
  renderer.shadowMap.enabled=true;
  renderer.shadowMap.type=THREE.PCFSoftShadowMap;
  renderer.setSize(Math.max(250,area.clientWidth),Math.max(250,area.clientHeight),false);
@@ -705,7 +708,7 @@ function init(config){
   if(current)fallback(current,'Contexte graphique interrompu');
  });
  camera=new THREE.PerspectiveCamera(37,Math.max(320,area.clientWidth)/Math.max(320,area.clientHeight),.08,70);
- yaw=.40;pitch=.12;distance=3.15;
+ yaw=.46;pitch=.13;distance=config.kind==='column'?3.10:2.68;
  buildScene(config);
  bindGestures(renderer.domElement);
  const resize=()=>{
