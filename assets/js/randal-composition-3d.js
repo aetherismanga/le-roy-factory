@@ -227,7 +227,23 @@ function showSurface(which){
   list.appendChild(button);
  }
  const help=panel.querySelector('p');
- if(help)help.textContent=which==='floor'?'Textures et teintes inspirées des échantillons du catalogue ELIOS.':'Choisissez une teinte de peinture mate pour le mur.';
+ if(which==='wall'){
+  const picker=document.createElement('label');picker.className='composition-custom-wall';
+  picker.textContent='Couleur personnalisée';
+  const input=document.createElement('input');input.type='color';
+  input.value=WALL_COLORS[surfaceChoice.wall]?.hex||(/^#[0-9a-f]{6}$/i.test(surfaceChoice.wall)?surfaceChoice.wall:'#c9c5ba');
+  input.setAttribute('aria-label','Choisir librement la couleur du mur');
+  input.addEventListener('input',e=>{
+    surfaceChoice.wall=e.target.value;
+    if(scene){
+      const wall=scene.getObjectByName('RANDAL_InteriorWall');
+      if(wall){wall.material.color.set(surfaceChoice.wall);requestFrame();}
+    }
+  });
+  input.addEventListener('change',e=>{surfaceChoice.wall=e.target.value;panel.hidden=true;redrawCurrent()});
+  picker.appendChild(input);list.appendChild(picker);
+ }
+ if(help)help.textContent=which==='floor'?'Creta ELIOS : véritables échantillons 60 × 60 cm, 8 coloris.':'Peinture mate : choisissez une teinte du nuancier ou personnalisez-la.';
 }
 function close(){
  const drawerButton=$('composition-drawers');
@@ -254,6 +270,7 @@ function ensureThree(){
  }).catch(err=>{libraryPromise=null;throw err});}
  return libraryPromise;
 }
+// Meubles Harmony : finition mate et chants nets comme sur les visuels officiels.
 function putBox(parent,x,y,z,w,h,d,material){
  const mesh=new THREE.Mesh(new THREE.BoxGeometry(Math.max(.004,w),Math.max(.004,h),Math.max(.004,d)),material);
  mesh.position.set(x,y,z);mesh.castShadow=true;mesh.receiveShadow=true;parent.add(mesh);return mesh;
@@ -327,10 +344,10 @@ function addFixtures(root,config,width,height,depth,wood){
  basinGroup.name='RANDAL_Change_Basin';
  basinGroup.userData={randalSelectBasin:true};
  root.add(basinGroup);
- const ceramic=newMat('#f5f4ee',.28,.05);
- const sinkShade=newMat('#d1cec5',.82,0);
- const chrome=newMat('#b1b2af',.26,.72);
- const vesselCeramic=newMat(colorFor(config.basinFinish,'#f5f4ee'),.28,.05);
+ const ceramic=new THREE.MeshPhysicalMaterial({color:'#f8f7f3',roughness:.19,metalness:0,clearcoat:.22,clearcoatRoughness:.28});
+ const sinkShade=newMat('#c6c6bf',.9,0);
+ const chrome=newMat('#acb1b1',.22,.78);
+ const vesselCeramic=new THREE.MeshPhysicalMaterial({color:colorFor(config.basinFinish,'#f5f4ee'),roughness:.22,metalness:0,clearcoat:.24});
  const vesselMode=config.basinMode==='vessel';
  const counterSurface=vesselMode?newMat(colorFor(config.topFinish,'#e9e5dd'),.50,.04):ceramic;
  // Plan / vasque au catalogue : 46 cm de profondeur.
@@ -357,6 +374,21 @@ function addFixtures(root,config,width,height,depth,wood){
    rim.scale.set(neris?1.27:1,neris?.89:1,1);basinGroup.add(rim);
   }else{
    const soft=strip(config.basin).includes('sella'),rw=soft?.16:.165,rd=soft?.11:.105;
+   // Vasque encastrée : cuve concave ombrée au lieu d'un disque plat sans volume.
+   const profile=[
+    new THREE.Vector2(0,.006),new THREE.Vector2(.32,.006),
+    new THREE.Vector2(.61,.009),new THREE.Vector2(.79,.017),
+    new THREE.Vector2(.90,.027),new THREE.Vector2(.98,.035),
+    new THREE.Vector2(1,.037)
+   ];
+   const inner=new THREE.Mesh(new THREE.LatheGeometry(profile,64),ceramic);
+   inner.scale.set(rw,1,rd);inner.position.set(x,height+.021,.035);
+   inner.receiveShadow=true;basinGroup.add(inner);
+   const well=new THREE.Mesh(new THREE.CircleGeometry(1,64),sinkShade);
+   well.rotation.x=-Math.PI/2;
+   well.position.set(x,height+.029,.035);well.scale.set(rw*.88,rd*.88,1);
+   // Garder le reflet de profondeur subtil, sous la cuve.
+   well.material=sinkShade;basinGroup.add(well);
    // SELLА galbée / TAMPA cuve anguleuse : modèles distincts.
    if(soft){
     elliptical(basinGroup,x,height+.046,.035,rw,rd,ceramic);
@@ -584,8 +616,8 @@ function buildScene(config){
  // Ombres de contact douces : densité ajustée à la puissance du terminal.
  light.shadow.bias=-.00012;scene.add(light);
  const accent=new THREE.PointLight(0xffefd9,.38,6);accent.position.set(1.9,2.9,2.1);scene.add(accent);
- const wall=newMat(WALL_COLORS[surfaceChoice.wall]?.hex||WALL_COLORS.cream.hex,.94);
- putBox(scene,0,2.35,-.65,12,4.7,.06,wall);
+ const wall=newMat(WALL_COLORS[surfaceChoice.wall]?.hex||(/^#[0-9a-f]{6}$/i.test(surfaceChoice.wall)?surfaceChoice.wall:WALL_COLORS.cream.hex),.94);
+ putBox(scene,0,2.35,-.65,12,4.7,.06,wall).name='RANDAL_InteriorWall';
  // Un seul plan continu au niveau zéro, sans tranche apparente ni fausse marche.
  const floor=newMat('#e1dcd4',.9);const floorMesh=new THREE.Mesh(new THREE.PlaneGeometry(18,18),floor);
  floorMesh.rotation.x=-Math.PI/2;floorMesh.position.set(0,-.005,0);floorMesh.receiveShadow=true;scene.add(floorMesh);
