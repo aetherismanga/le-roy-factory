@@ -123,7 +123,23 @@
   function renderProducts(){
     const data=products();const found=data.filter(match).slice().sort((a,b)=>String(a.name||a.collection||'').localeCompare(String(b.name||b.collection||''),'fr',{numeric:true,sensitivity:'base'}));
     count.textContent=data.length?`${found.length} produit${found.length>1?'s':''}`:'Catalogue produits à intégrer';
-    if(state.partner==='Randal Pro'){count.textContent='Catalogue RANDAL V04';productGrid.innerHTML='<div class="empty-partner" style="width:100%;max-width:800px;margin:auto;padding:28px;border:1px solid #cadbd3;border-radius:18px;background:#f5faf7"><img src="assets/img/randal.png" alt="RANDAL" style="width:150px;max-width:50%;height:auto"><strong style="display:block;font-size:1.3rem;margin:15px 0 6px">Configurez votre meuble RANDAL V04</strong><p>Choisissez une collection du catalogue officiel, ses dimensions et ses finitions, puis préparez votre demande.</p><a class="pro-link" style="display:inline-flex;margin:10px;padding:14px 19px;background:#164749;color:white;border-radius:12px;text-decoration:none;font-weight:800" href="randal-configurateur.html">Configurer et commander →</a><a class="pro-link" style="display:inline-flex;margin:10px;padding:12px 15px" href="randal-catalogue-interactif.html">Ouvrir le catalogue interactif V04</a></div>';return}
+    if(state.partner==='Randal Pro'){
+      count.textContent='Meubles RANDAL';
+      productGrid.innerHTML=`
+        <section class="randal-selection-card" aria-label="Meubles de salle de bain RANDAL">
+          <div class="randal-selection-card__photo" role="img" aria-label="Meuble de salle de bain RANDAL"></div>
+          <div class="randal-selection-card__content">
+            <span class="randal-selection-card__eyebrow">RANDAL · Salle de bain</span>
+            <h3>Configurez votre meuble</h3>
+            <p>Choisissez votre collection, votre modèle et vos options.</p>
+            <div class="randal-selection-card__actions">
+              <a href="randal-configurateur.html" class="randal-selection-card__button randal-selection-card__button--primary">Configurer mon meuble <span aria-hidden="true">→</span></a>
+              <a href="randal-catalogue-interactif.html" class="randal-selection-card__button randal-selection-card__button--secondary">Catalogue interactif <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </section>`;
+      return;
+    }
     if(!data.length){const p=PARTNERS[state.partner];productGrid.innerHTML=`<div class="empty-partner"><img src="${p.logo}" alt="${esc(state.partner)}"><strong>${esc(state.partner)} est maintenant séparé dans son propre espace.</strong><p>La structure produits, formats, finitions et tarifs PRO est prête. Les références de cette usine seront intégrées depuis son catalogue sans les mélanger aux autres partenaires.</p>${hasAccess(p.slug)?`<a class="pro-link" href="tarifs-pro.html">Voir mon tarif PRO ${esc(state.partner)}</a>`:''}</div>`;return}
     productGrid.innerHTML=found.length?found.map(p=>`<article class="product-card-v2" data-id="${esc(p.id)}"><img src="${esc(imageOf(p))}" alt="${esc(p.name)}" loading="lazy" onerror="this.onerror=null;this.src='assets/img/03.png'"><div class="body"><span class="eyebrow">${esc(state.partner)} · ${esc(p.effect||p.category||'Produit')}</span><h3>${esc(p.name)}</h3><p>${esc(p.description||'')}</p><div class="chips">${[...(p.colorFamilies||[]).slice(0,2),...(p.formats||[]).slice(0,2)].map(x=>`<span>${esc(x)}</span>`).join('')}</div></div></article>`).join(''):`<div class="empty-partner"><strong>Aucun produit avec ces filtres.</strong><p>Modifiez la recherche, le format, la couleur, l'effet ou la finition.</p></div>`;
   }
