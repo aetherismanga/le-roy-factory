@@ -239,6 +239,29 @@ a.pdf:hover{background:white}
 .composition-proof-images img{display:block;width:100%;height:85px;object-fit:contain}
 .composition-proof-images span{font-size:.72rem;font-weight:700}
 @media(max-width:760px){.composition-proof-images img{height:74px}}
+
+/* HARMONY : réglages interactifs en 3D, tiroirs synchronisés et visuels catalogue */
+.composition-harmony-controls[hidden],.composition-harmony-customize[hidden],.composition-customize-panel[hidden]{display:none!important}
+.composition-harmony-controls{display:flex;align-items:center;gap:12px;margin:12px 0;flex-wrap:wrap}
+.composition-harmony-controls button{background:#dbe8db;color:#31503e;border:1px solid #9bb59e;border-radius:11px;padding:13px 18px;font:inherit;font-weight:800;cursor:pointer;min-height:48px}
+.composition-harmony-controls button[aria-pressed="true"]{background:#354f3c;color:#fff}
+.composition-harmony-controls span{font-size:.75rem;color:#666a63;max-width:210px}
+.composition-customize{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.composition-customize>button{flex:1;min-width:130px;min-height:43px;padding:9px 12px;border-radius:11px;border:1px solid #b9c7b7;background:#e9f0e8;color:#38533f;font:inherit;font-size:.83rem;font-weight:800;cursor:pointer}
+.composition-customize>button[aria-expanded="true"]{background:#d5e3d4;border-color:#839e85}
+.composition-customize-panel{width:100%;min-width:0;max-height:330px;overflow-y:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;border:1px solid #e0ddd4;background:#faf9f5;border-radius:12px;padding:12px}
+.composition-options-title,.composition-choice-title{grid-column:1/-1;font-weight:800;font-size:.85rem;color:#445449}
+.composition-choice-title{margin-top:10px;color:#79766d}
+.composition-option{display:flex;align-items:center;gap:9px;min-width:0;min-height:54px;text-align:left;border:1px solid #d5d7ce;border-radius:10px;background:#fff;color:#353b36;padding:8px 10px;cursor:pointer;font:inherit;font-size:.80rem;font-weight:650;overflow-wrap:anywhere}
+.composition-option.active{border:2px solid #718e73;background:#e8f0e6}
+.composition-option img{height:48px;width:58px;object-fit:contain;background:#f2f0eb;border-radius:6px;flex-shrink:0}
+.composition-option img.composition-option-swatch{width:46px;height:46px;border-radius:50%;object-fit:cover}
+@media(max-width:760px){
+ .composition-harmony-controls{margin:9px 0}
+ .composition-harmony-controls button{width:100%}
+ .composition-customize-panel{max-height:270px}
+ .composition-option{font-size:.80rem}
+}
 </style></head><body>
 <header><div><a class="back" href="univers.html">← Retour aux sélections</a><img src="assets/img/randal.png" alt="RANDAL"></div></header>
 <main><section class="hero"><div><h1>Votre meuble RANDAL, sur mesure</h1><p>Choisissez votre composition, visualisez vos choix et envoyez la demande.</p><a class="pdf" href="randal-catalogue-interactif.html">Catalogue interactif</a></div></section>
@@ -698,6 +721,48 @@ async function downloadOrderPdf(){
 }
 
 const summary=()=>['Référence meuble : '+(variant()?.ref||'À vérifier'),'Prix public conseillé meuble : '+euroPrice(publicPrice(variant()?.price)),'DEMANDE DE DISPONIBILITÉ / COMMANDE À CONFIRMER','RANDAL — Catalogue V04','','MODÈLE : '+st.model,'Largeur : '+(st.width||'À confirmer')+' cm','Hauteur : '+(st.height||'À confirmer')+' cm','Profondeur : '+(st.depth||'À confirmer')+' cm','Couleur / finition : '+(st.color||'À confirmer'),'Sous-modèle : '+(selectedType()?.[1]||'À vérifier'),'Variante catalogue : '+(st.variantCode||(st.typeId==='two'?'A à F':'Selon largeur')),'Type de montage : '+({integrated:'Vasque sur meuble',vessel:'Plan et vasque à poser',none:'Meuble sans vasque'}[st.basinMode]),'Vasque : '+st.basin,'Plan : '+st.top+(st.basinMode==='vessel'&&st.model!=='Sima'?' · '+st.topFinish+' · Réf. '+topReference():''),'Miroir : '+st.mirror+(st.mirror==='Sans miroir'?'':' · '+(st.mirrorSize||'Taille à confirmer')+(isMetalMirror(st.mirror)?' · cadre '+(st.mirrorFinish||'à préciser'):'')+' · réf. '+mirrorRef()),'Quantité : '+st.quantity,'','Merci de confirmer les références exactes, les associations possibles, les conditions commerciales, les stocks et le délai.','Aucune commande ferme avant confirmation de votre part.'].join('\n');
+
+/* Un seul état commercial : chaque modification 3D passe par les règles,
+   références et tarifs existants du configurateur RANDAL. */
+function compositionConfig(){
+ const type=selectedType(),t=totals();
+ return {
+  model:st.model,typeId:st.typeId,typeName:type?.[1]||'Meuble',kind:type?.[3]||'vanity',
+  typePhoto:type?.[2]||'',width:st.width,height:st.height,depth:st.depth,
+  color:st.color,swatch:finishUrl(st.model,st.color),
+  finishes:RANDAL[st.model]?.colors||[],
+  finishUrls:Object.fromEntries((RANDAL[st.model]?.colors||[]).map(color=>[color,finishUrl(st.model,color)])),
+  basinMode:st.basinMode,basin:st.basin,basinFinish:st.basinFinish||'Blanc brillant',
+  availableModes:allowedModes(),basinColors:VESSEL_FINISHES,topFinishes:TOP_FINISHES,
+  topFinish:st.topFinish,mirror:st.mirror,mirrorSize:st.mirrorSize,
+  mirrorFinish:st.mirrorFinish,mirrorPhoto:ACCESSORY_ART[st.mirror]||'',
+  reference:String(variant()?.ref||'À confirmer'),
+  totalPublic:t.complete?euroPrice(t.sum):euroPrice(t.sum)+' + éléments à confirmer',
+  onChange:changeFromComposition
+ };
+}
+function changeFromComposition(patch){
+ if(st.model!=='Harmony'||!patch||typeof patch!=='object')return null;
+ const [name,value]=Object.entries(patch)[0]||[];
+ if(!name)return null;
+ if(name==='color'){
+  if(!RANDAL.Harmony.colors.includes(value))return null;
+ }else if(name==='basinMode'){
+  if(!allowedModes().includes(value))return null;
+ }else if(name==='basin'){
+  if(!(st.basinMode==='integrated'?['Sella','Tampa']:st.basinMode==='vessel'?['Neris','Torne']:[]).includes(value))return null;
+ }else if(name==='basinFinish'){
+  if(st.basinMode!=='vessel'||!VESSEL_FINISHES.includes(value))return null;
+ }else if(name==='topFinish'){
+  if(st.basinMode!=='vessel'||!TOP_FINISHES.includes(value))return null;
+ }else return null;
+ st[name]=value;
+ syncBasin();
+ normalize();
+ save();render();
+ return compositionConfig();
+}
+
 function render(){
 $('steps').innerHTML=steps.map((s,i)=>'<div class="step '+(i===st.step?'active':i<st.step?'done':'')+'">'+(i+1)+'. '+s+'</div>').join('');
 let h='<h2>'+['Choisissez une collection','Choisissez votre modèle','Choisissez les dimensions','Choisissez la finition','Vasque et plan','Choisissez votre miroir','Vérifiez votre commande'][st.step]+'</h2>';
@@ -805,15 +870,7 @@ if($('next'))$('next').onclick=()=>{
 if($('preview-composition'))$('preview-composition').onclick=()=>{
  const type=selectedType();
  if(!window.RandalComposition3D){alert('La visualisation 3D est encore en cours de chargement. Réessayez dans un instant.');return;}
- window.RandalComposition3D.open({
-  model:st.model,typeId:st.typeId,typeName:type?.[1]||'Meuble',
-  kind:type?.[3]||'vanity',typePhoto:type?.[2]||'',
-  width:st.width,height:st.height,depth:st.depth,
-  color:st.color,swatch:finishUrl(st.model,st.color),
-  basinMode:st.basinMode,basin:st.basin,basinFinish:st.basinFinish||'Blanc brillant',
-  topFinish:st.topFinish,mirror:st.mirror,mirrorSize:st.mirrorSize,
-  mirrorFinish:st.mirrorFinish,mirrorPhoto:ACCESSORY_ART[st.mirror]||''
- });
+ window.RandalComposition3D.open(compositionConfig());
 };
 if($('print-order'))$('print-order').onclick=()=>window.print();
 if($('save-pdf'))$('save-pdf').onclick=()=>downloadOrderPdf();
