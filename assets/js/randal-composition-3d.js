@@ -19,7 +19,9 @@ const finishRGB={
  'verde utopia':'#638473','azul ceylan':'#506d83','azul acero':'#637e90',
  'vert celadon':'#8c9f8c','bleu':'#6e8199','gris clair':'#c9c8c0',
  'blanc casse':'#e9e2d4','rose':'#bc8c88','taupe':'#9a8881',
- 'argent':'#bdc0c1','dore':'#c1a26a','bronze':'#8a6950'
+ 'argent':'#bdc0c1','dore':'#c1a26a','bronze':'#8a6950',
+ 'anthracite':'#5d6061','vert namibie':'#717866','bleu kivu':'#193c5c',
+ 'rose nadir':'#c49d94','blanc ivoire':'#efede3','blanc pur':'#f9f8f3','blanc brillant':'#fafaf7'
 };
 function colorFor(str,fallback='#aaa39a'){
  const s=strip(str);
@@ -178,6 +180,7 @@ function addFixtures(root,config,width,height,depth,wood){
  const ceramic=newMat('#f5f4ee',.28,.05);
  const sinkShade=newMat('#d1cec5',.82,0);
  const chrome=newMat('#b1b2af',.26,.72);
+ const vesselCeramic=newMat(colorFor(config.basinFinish,'#f5f4ee'),.28,.05);
  const vesselMode=config.basinMode==='vessel';
  const counterSurface=vesselMode?newMat(colorFor(config.topFinish,'#e9e5dd'),.50,.04):ceramic;
  // Plan / vasque au catalogue : 46 cm de profondeur.
@@ -195,11 +198,11 @@ function addFixtures(root,config,width,height,depth,wood){
     new THREE.Vector2(r*.75,.022),new THREE.Vector2(r*.93,h*.58),
     new THREE.Vector2(r,h),new THREE.Vector2(r*.955,h+.008)
    ];
-   const body=new THREE.Mesh(new THREE.LatheGeometry(points,56),ceramic);
+   const body=new THREE.Mesh(new THREE.LatheGeometry(points,56),vesselCeramic);
    body.position.set(x,height+.031,.027);
    body.scale.set(neris?1.27:1,1,neris?.89:1);
    root.add(body);
-   const rim=new THREE.Mesh(new THREE.TorusGeometry(r,.007,10,64),ceramic);
+   const rim=new THREE.Mesh(new THREE.TorusGeometry(r,.007,10,64),vesselCeramic);
    rim.rotation.x=-Math.PI/2;rim.position.set(x,height+.031+h,.027);
    rim.scale.set(neris?1.27:1,neris?.89:1,1);root.add(rim);
   }else{
@@ -270,7 +273,7 @@ function loadCocoFloor(material){
   const texture=new THREE.Texture(image);
   texture.colorSpace=THREE.SRGBColorSpace;
   texture.wrapS=texture.wrapT=THREE.RepeatWrapping;
-  texture.repeat.set(2.35,1.45);texture.anisotropy=3;texture.needsUpdate=true;
+  texture.repeat.set(3.3,2.1);texture.anisotropy=4;texture.needsUpdate=true;
   if(material.map)material.map.dispose();
   material.color.set('#ffffff');material.map=texture;material.needsUpdate=true;requestFrame();
  };
