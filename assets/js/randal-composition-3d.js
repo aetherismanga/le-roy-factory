@@ -5,7 +5,7 @@
 const THREE_URLS=['https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js','https://unpkg.com/three@0.152.2/build/three.min.js'];
 let libraryPromise=null,renderer=null,scene=null,camera=null,stage=null,resizeObserver=null,raf=0;
 let yaw=.47,pitch=.22,distance=3.55,lastPointer=null,lastPinch=null;
-let active=false,previousFocus=null,restoreOverflow='',current=null,sessionId=0,contextFailed=false;
+let active=false,previousFocus=null,restoreOverflow='',current=null,sessionId=0,contextFailed=false,surfaceChoice={floor:'view-coco-beige',wall:'cream'};
 const $=id=>document.getElementById(id);
 const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
 const strip=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
@@ -39,21 +39,22 @@ function modal(){
  '<div id="composition-canvas" class="composition-canvas" role="img" aria-label="Modèle 3D manipulable de votre composition RANDAL">'+
  '<div class="composition-loading" id="composition-loading">Préparation de votre aperçu 3D…</div></div>'+
  '<p class="composition-gesture">Glissez pour tourner le meuble · Pincez pour zoomer</p>'+
- '<div class="composition-view-tools"><button type="button" id="composition-front">Vue de face</button><button type="button" id="composition-angle">Vue de côté</button><button type="button" id="composition-photo">Enregistrer l’image</button></div>'+
+ '<div class="composition-view-tools"><button type="button" id="composition-floor" aria-expanded="false" aria-controls="composition-surface-panel">Sol</button><button type="button" id="composition-wall" aria-expanded="false" aria-controls="composition-surface-panel">Mur</button><button type="button" id="composition-photo">Enregistrer l’image</button></div>'+
+ '<div id="composition-surface-panel" class="composition-surface-panel" hidden><strong id="composition-surface-title"></strong><div id="composition-surface-choices"></div><p>Les autres références de carrelage seront ajoutées ultérieurement.</p></div>'+
  '</div><aside class="composition-details"><div class="composition-label">VOTRE COMPOSITION</div><h3 id="composition-model"></h3>'+
  '<div class="composition-selected"><div><span>Dimensions</span><strong id="composition-size"></strong></div>'+
  '<div><span>Finition du meuble</span><strong id="composition-color"></strong></div>'+
  '<div><span>Vasque / plan</span><strong id="composition-basin"></strong></div>'+
  '<div><span>Miroir</span><strong id="composition-mirror"></strong></div></div>'+
- '<div class="composition-swatch"><img id="composition-swatch" alt="Échantillon de la finition retenue"></div>'+
+ '<div class="composition-swatch"><img id="composition-swatch" alt="Échantillon de la finition retenue"></div><div class="composition-proof"><h4>Illustrations du catalogue</h4><div id="composition-proof-images" class="composition-proof-images"></div></div>'+
  '<p class="composition-disclaimer">Projection 3D indicative : les proportions, la disposition et les teintes sont simulées à partir de votre sélection. Les dessins, caractéristiques et échantillons RANDAL font référence.</p>'+
  '</aside></div><div class="composition-footer"><button id="composition-back" type="button">Retour au récapitulatif</button></div></section>';
  document.body.appendChild(el);
  $('composition-close').addEventListener('click',close);
  $('composition-back').addEventListener('click',close);
  el.querySelector('[data-close]').addEventListener('click',close);
- $('composition-front').addEventListener('click',()=>{yaw=0;pitch=.12;moveCamera();});
- $('composition-angle').addEventListener('click',()=>{yaw=.63;pitch=.21;moveCamera();});
+ $('composition-floor').addEventListener('click',()=>showSurface('floor'));
+ $('composition-wall').addEventListener('click',()=>showSurface('wall'));
  $('composition-photo').addEventListener('click',saveImage);
  el.addEventListener('keydown',e=>{if(e.key==='Tab'){const items=[...el.querySelectorAll('button:not(:disabled)')];const first=items[0],last=items[items.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
  return el;
@@ -86,6 +87,20 @@ function releaseRenderer(){
   try{currentRenderer.domElement.remove()}catch(err){}
  }
  scene=null;camera=null;stage=null;lastPointer=null;lastPinch=null;
+}
+function showSurface(which){
+ const panel=$('composition-surface-panel'),title=$('composition-surface-title'),list=$('composition-surface-choices');
+ if(!panel||!title||!list)return;
+ const alreadyOpen=!panel.hidden&&panel.dataset.which===which;
+ panel.hidden=alreadyOpen;panel.dataset.which=which;
+ $('composition-floor').setAttribute('aria-expanded',String(!alreadyOpen&&which==='floor'));
+ $('composition-wall').setAttribute('aria-expanded',String(!alreadyOpen&&which==='wall'));
+ if(alreadyOpen)return;
+ title.textContent=which==='floor'?'Revêtement du sol':'Revêtement du mur';
+ const choice=document.createElement('button');choice.type='button';choice.className='composition-surface-active';
+ choice.textContent=which==='floor'?'✓ VIEW · Coco Beige 40 × 60 cm':'✓ Crème uni';
+ choice.onclick=()=>{panel.hidden=true;$('composition-floor').setAttribute('aria-expanded','false');$('composition-wall').setAttribute('aria-expanded','false')};
+ list.replaceChildren(choice);
 }
 function close(){
  const el=$('randal-composition-dialog');if(!el||el.hidden)return;
@@ -228,6 +243,21 @@ function mirror(config,w,topHeight){
   const led= new THREE.PointLight(0xe6f2ff,.85,.8);led.position.set(0,cy,z+.13);scene.add(led);
  }
 }
+function loadCocoFloor(material){
+ const uri=window.RANDAL_VIEW_COCO_BEIGE;
+ if(!uri)return;
+ const generation=sessionId,image=new Image();
+ image.onload=()=>{
+  if(!active||generation!==sessionId||!scene)return;
+  const texture=new THREE.Texture(image);
+  texture.colorSpace=THREE.SRGBColorSpace;
+  texture.wrapS=texture.wrapT=THREE.RepeatWrapping;
+  texture.repeat.set(2.35,1.45);texture.anisotropy=3;texture.needsUpdate=true;
+  if(material.map)material.map.dispose();
+  material.color.set('#ffffff');material.map=texture;material.needsUpdate=true;requestFrame();
+ };
+ image.src=uri;
+}
 function buildScene(config){
  scene=new THREE.Scene();scene.background=new THREE.Color('#e9e5dd');
  // Éclairage doux : les anciennes intensités surexposaient entièrement les bois.
@@ -236,13 +266,9 @@ function buildScene(config){
  // Les ombres temps réel sont désactivées pour éviter la surcharge du GPU en rendez-vous.
  light.shadow.bias=-.00012;scene.add(light);
  const accent=new THREE.PointLight(0xffecd0,3.8,7);accent.position.set(1.9,2.3,1.8);scene.add(accent);
- const wall=newMat('#ece7dd',.96);putBox(scene,0,1.4,-.45,5,2.8,.07,wall);
- const floor=newMat('#d7d0c5',.87);putBox(scene,0,-.033,.70,5,.065,3.4,floor);
- const tile=new THREE.LineBasicMaterial({color:'#d8d2c8',transparent:true,opacity:.5});
- let tileVertices=[];
- for(let x=-2.5;x<=2.5;x+=.26){tileVertices.push(x,.1,-.405,x,2.65,-.405)}
- for(let y=.1;y<2.7;y+=.26){tileVertices.push(-2.5,y,-.405,2.5,y,-.405)}
- let tiles=new THREE.LineSegments(new THREE.BufferGeometry().setAttribute('position',new THREE.Float32BufferAttribute(tileVertices,3)),tile);scene.add(tiles);
+ const wall=newMat('#eee4d5',.95);putBox(scene,0,1.4,-.45,5,2.8,.07,wall);
+ const floor=newMat('#ddc6a9',.85);putBox(scene,0,-.033,.70,5,.065,3.4,floor);
+ loadCocoFloor(floor);
  const width=clamp((Number(config.width)||80)/100,.35,1.56),height=clamp((Number(config.height)||53)/100,.1,1.75),depth=clamp((Number(config.depth)||45)/100,.22,.55);
  const isColumn=config.kind==='column';
  const isCounter=config.kind==='counter';
@@ -269,12 +295,13 @@ function buildScene(config){
  }else{
   putBox(cabinet,0,lower+boardH/2,0,width,boardH,depth,finish);
   const front=depth/2+.016,door=nameToDoor(config),doorOnly=isColumn||strip(config.typeName).includes('1 porte');
+  const handleless=['harmony','luce','aruba','aruba rainure','aras','boreal','brunei'].includes(strip(config.model));
   if(doorOnly){
    const doors=isColumn&&width>.44?2:1;
    for(let i=0;i<doors;i++){
     const dw=(width-.021)/doors,xx=(i-(doors-1)/2)*dw;
     putBox(cabinet,xx,lower+boardH/2,front,dw-.01,boardH-.027,.014,finish);
-    putBox(cabinet,xx+(i===0?dw*.31:-dw*.31),lower+boardH/2,front+.016,.008,.075,.015,dark);
+    if(!handleless)putBox(cabinet,xx+(i===0?dw*.31:-dw*.31),lower+boardH/2,front+.016,.008,.075,.015,dark);
    }
   }else{
    const drawerCount=(strip(config.typeName).includes('3 tiroir')?3:strip(config.typeName).includes('1 tiroir')?1:2);
@@ -284,15 +311,16 @@ function buildScene(config){
     if(door){
      const dw=width*.71;
      putBox(cabinet,-width*.12,yy,front,dw-.014,unitH-.009,.014,finish);
-     putBox(cabinet,-width*.12,yy+unitH*.30,front+.009,dw*.45,.008,.018,dark);
+     if(!handleless)putBox(cabinet,-width*.12,yy+unitH*.30,front+.009,dw*.45,.008,.018,dark);
     }else{
      putBox(cabinet,0,yy,front,width-.015,unitH-.009,.014,finish);
-     putBox(cabinet,0,yy+unitH*.31,front+.011,width*.34,.008,.014,dark);
+     if(!handleless)putBox(cabinet,0,yy+unitH*.31,front+.011,width*.34,.008,.014,dark);
+     if(config.model==='Harmony'&&i<drawerCount-1)putBox(cabinet,0,yy-unitH*.475,front+.008,width*.95,.005,.012,dark);
     }
    }
    if(door){
     putBox(cabinet,width*.36,lower+boardH/2,front,width*.26,boardH-.02,.014,finish);
-    putBox(cabinet,width*.45,lower+boardH*.56,front+.012,.008,.075,.017,dark);
+    if(!handleless)putBox(cabinet,width*.45,lower+boardH*.56,front+.012,.008,.075,.017,dark);
    }
   }
   if(config.typeId==='niche'){
@@ -408,6 +436,21 @@ function present(config){
  label('composition-mirror',config.mirror==='Sans miroir'?'Sans miroir':config.mirror+' · '+(config.mirrorSize||'À définir')+(config.mirrorFinish?' · '+config.mirrorFinish:''));
  const img=$('composition-swatch');
  if(config.swatch){img.src=config.swatch;img.hidden=false}else img.hidden=true;
+ const proofs=$('composition-proof-images');
+ if(proofs){
+  proofs.replaceChildren();
+  const items=[
+   ['Meuble',config.typePhoto?'assets/img/randal/types/'+config.typePhoto+'.webp':null],
+   ['Vasque',config.basinMode!=='none'&&config.basin?'assets/img/randal/accessories/basin-'+strip(config.basin).replace(/[^a-z0-9]+/g,'-')+'.webp':null],
+   ['Miroir',config.mirrorPhoto?'assets/img/randal/accessories/'+config.mirrorPhoto+'.webp':null]
+  ];
+  for(const [name,src] of items){
+   if(!src)continue;
+   const card=document.createElement('div'),photo=document.createElement('img'),title=document.createElement('span');
+   photo.src=src;photo.alt='Illustration officielle RANDAL : '+name;photo.loading='lazy';
+   title.textContent=name;card.append(photo,title);proofs.appendChild(card);
+  }
+ }
 }
 async function open(config){
  const el=modal();
@@ -416,6 +459,9 @@ async function open(config){
  contextFailed=false;previousFocus=document.activeElement;
  current=config;el.hidden=false;active=true;restoreOverflow=document.body.style.overflow;document.body.style.overflow='hidden';
  present(config);$('composition-close').focus();
+ const panel=$('composition-surface-panel');if(panel)panel.hidden=true;
+ $('composition-floor').setAttribute('aria-expanded','false');
+ $('composition-wall').setAttribute('aria-expanded','false');
  const area=$('composition-canvas');area.innerHTML='<div class="composition-loading" id="composition-loading">Préparation de votre aperçu 3D…</div>';
  $('composition-photo').disabled=false;
  try{
