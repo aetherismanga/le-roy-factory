@@ -217,18 +217,39 @@ const COLLECTION_IMAGES={
 const collectionImage=name=>'<span class="visual collection-visual"><img src="assets/img/randal/v04/'+(COLLECTION_IMAGES[name]||'harmony')+'.webp" alt="Photo officielle RANDAL '+esc(name)+'" loading="lazy" decoding="async"></span>';
 const photo=(page,tag='',key='')=>'<span class="visual"><canvas width="300" height="190" data-photo-page="'+page+'" data-photo-key="'+esc(key)+'" role="img" aria-label="Photo officielle RANDAL, page '+page+'"></canvas>'+(tag?'<i>'+tag+'</i>':'')+'</span>';
 
-const resetConfiguration=()=>{Object.assign(st,{width:'',height:'',depth:'',color:'',variantCode:'',drawers:'',basin:'Sella',top:'Sans plan',basinMode:'integrated',topFinish:'Blanco mate',mirror:'Sans miroir',quantity:1});};
-const normalize=()=>{
+const resetConfiguration=()=>{Object.assign(st,{typeId:'',width:'',height:'',depth:'',color:'',variantCode:'',basin:'Sella',top:'Sans plan',basinMode:'integrated',topFinish:'Blanco mate',mirror:'Sans miroir',mirrorSize:'',quantity:1});};
+function normalize(){
+ const type=selectedType();
+ if(!type){st.width='';st.height='';st.depth='';st.variantCode='';return;}
  const special=SPECIAL_VARIANTS[st.model];
- if(special){const shape=special.shapes.find(x=>x.code===st.variantCode);if(shape){st.width=String(shape.width);st.height=String(shape.height);st.depth=String(shape.depth)}else{st.width=st.height=st.depth='';st.color=''}if(!special.colors.includes(st.color))st.color='';return}
- const d=RANDAL[st.model];if(!d){resetConfiguration();return}
- if(!d.w.includes(Number(st.width))){st.width='';st.color=''}
- if(d.h.length===1)st.height=String(d.h[0]);else if(!d.h.includes(Number(st.height)))st.height='';
- st.depth=String(d.d);if(!d.colors.includes(st.color))st.color='';
-};
+ if(type[3]==='column'){
+  if(st.model==='Brent'){
+   if(!type[5].includes(st.variantCode))st.variantCode='';
+   st.width=st.variantCode==='I'?'60':st.variantCode==='J'?'40':'';
+   st.depth='35';
+  }else{
+   st.width='30';st.depth=st.model==='Luce'?'25':'27';st.variantCode=type[5];
+  }
+  st.height=String(type[4]);
+ }else if(special){
+  const shape=special.shapes.find(x=>x.code===st.variantCode&&type[5].includes(x.code));
+  if(shape){st.width=String(shape.width);st.height=String(shape.height);st.depth=String(shape.depth);}
+  else{st.width='';st.height='';st.depth='';st.variantCode='';}
+ }else{
+  const d=RANDAL[st.model];
+  if(!d?.w.includes(Number(st.width)))st.width='';
+  st.height=String(type[4]);st.depth=String(d?.d||'');
+ }
+ const colors=special?.colors||RANDAL[st.model]?.colors||[];
+ if(!colors.includes(st.color))st.color='';
+}
+if(!selectedType()){
+ st.typeId='';
+ if(st.step>1)st.step=1;
+}
 normalize();syncBasin();
 const selectedFromCatalogue=new URLSearchParams(location.search).get('collection');
-if(selectedFromCatalogue&&models.some(([name])=>name===selectedFromCatalogue)&&st.model!==selectedFromCatalogue){st.model=selectedFromCatalogue;resetConfiguration();st.step=1;normalize();save();}
+if(selectedFromCatalogue&&models.some(([name])=>name===selectedFromCatalogue)&&st.model!==selectedFromCatalogue){resetConfiguration();st.model=selectedFromCatalogue;st.step=1;normalize();save();}
 const entry=(label,name,type='text',placeholder='')=>'<label class="field">'+label+'<input name="'+name+'" type="'+type+'" placeholder="'+placeholder+'" value="'+esc(st[name])+'"></label>';
 const select=(label,name,opts)=>'<label class="field">'+label+'<select name="'+name+'">'+opts.map(v=>'<option value="'+esc(v)+'" '+(st[name]===v?'selected':'')+'>'+esc(v)+'</option>').join('')+'</select></label>';
 const pick=(name,values,group='')=>'<div class="choices '+group+'">'+values.map(([value,sub])=>{
