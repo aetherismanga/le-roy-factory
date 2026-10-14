@@ -267,6 +267,17 @@ a.pdf:hover{background:white}
 .composition-proof-action:hover{background:#e9f0e6}
 .composition-gesture{font-size:.75rem}
 @media(max-width:760px){.composition-customize-panel{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* Aperçu 3D — palettes de carrelage et peintures sur mobile et desktop */
+#composition-surface-choices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;max-height:min(48vh,390px);overflow-y:auto;overscroll-behavior:contain;padding:3px}
+.composition-surface-option{border:1px solid #d8d4c9;border-radius:12px;background:#fffdfa;min-width:0;padding:8px;display:flex;flex-direction:column;align-items:stretch;gap:7px;text-align:left;color:#35433c;cursor:pointer;font:inherit;position:relative}
+.composition-surface-option[data-selected="true"]{border:2px solid #8b997f;box-shadow:0 0 0 2px #d9e6d1;background:#f6f9f3}
+.composition-surface-swatch{display:block;position:relative;width:100%;aspect-ratio:1.4;min-height:48px;background:#eeeae1;border-radius:8px;overflow:hidden;border:1px solid #dedad0}
+.composition-surface-swatch img{width:100%;height:100%;object-fit:cover;display:block}
+.composition-surface-label strong{font-size:.79rem;display:block;line-height:1.25;overflow-wrap:anywhere}
+.composition-surface-label small{display:block;color:#757870;font-size:.67rem;margin-top:3px;line-height:1.32}
+.composition-surface-check{position:absolute;top:8px;right:8px;border-radius:50%;color:#2e4d38;font-weight:900;background:#e8f2e5;padding:1px 5px}
+@media(max-width:760px){#composition-surface-choices{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;max-height:42vh}.composition-surface-option{padding:7px}.composition-surface-label strong{font-size:.76rem}}
 </style></head><body>
 <header><div><a class="back" href="univers.html">← Retour aux sélections</a><img src="assets/img/randal.png" alt="RANDAL"></div></header>
 <main><section class="hero"><div><h1>Votre meuble RANDAL, sur mesure</h1><p>Choisissez votre composition, visualisez vos choix et envoyez la demande.</p><a class="pdf" href="randal-catalogue-interactif.html">Catalogue interactif</a></div></section>
@@ -276,7 +287,7 @@ a.pdf:hover{background:white}
 </main><footer>RANDAL V04 · LE ROY FACTORY</footer>
 
 <script src="assets/js/randal-coco-beige-texture.js?v=20261014-sol-view1"></script>
-<script src="assets/js/randal-composition-3d.js?v=20261014-harmony-complet-7"></script>
+<script src="assets/js/randal-composition-3d.js?v=20261014-creta-room2"></script>
 <script>
 (()=>{
 'use strict';
