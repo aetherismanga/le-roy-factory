@@ -1098,21 +1098,77 @@ function fallback(config,message){
  console.warn('RANDAL composition 3D:',message);
 }
 function saveImage(){
- if(!renderer||!scene||!camera)return;
- requestFrame();
+ if(!renderer||!scene||!camera||!current)return;
+ const wasDimensioned=dimensionsVisible;
  try{
   renderer.render(scene,camera);
-  const link=document.createElement('a');link.download='RANDAL-'+String(current?.model||'meuble').replace(/\s/g,'-')+'-composition.png';
-  if(dimensionsVisible&&dimensionsCanvas){
-   const picture=document.createElement('canvas');
-   picture.width=renderer.domElement.width;picture.height=renderer.domElement.height;
-   const ctx=picture.getContext('2d');
-   ctx.drawImage(renderer.domElement,0,0,picture.width,picture.height);
-   ctx.drawImage(dimensionsCanvas,0,0,picture.width,picture.height);
-   link.href=picture.toDataURL('image/png');
-  }else link.href=renderer.domElement.toDataURL('image/png');
-  link.click();
- }catch(e){alert('Impossible d’enregistrer cette image sur cet appareil.')}
+  // L'export commercial conserve les trois cotes colorées, sans forcer leur affichage à l'écran.
+  if(!wasDimensioned){dimensionsVisible=true;drawDimensions();}
+  const raw=renderer.domElement;
+  const width=1260,pad=46,contentWidth=width-pad*2;
+  const visualH=Math.round(contentWidth*raw.height/Math.max(1,raw.width));
+  const infoH=365,headH=144;
+  const output=document.createElement('canvas');
+  output.width=width;output.height=headH+visualH+infoH;
+  const ctx=output.getContext('2d');
+  ctx.fillStyle='#fcfbf8';ctx.fillRect(0,0,width,output.height);
+  // Entête sobre : aucune modification du logo ni de l'en-tête du site.
+  ctx.fillStyle='#334238';ctx.textAlign='left';ctx.font='bold 38px system-ui,Arial,sans-serif';
+  ctx.fillText('RANDAL',pad,67);
+  ctx.font='600 22px system-ui,Arial,sans-serif';ctx.fillStyle='#7e796d';
+  ctx.fillText('COMPOSITION 3D · LE ROY FACTORY',pad,107);
+  ctx.fillStyle='#e4e7df';ctx.fillRect(pad,headH-10,contentWidth,2);
+  const imageY=headH+7;
+  ctx.drawImage(raw,pad,imageY,contentWidth,visualH);
+  if(dimensionsCanvas)ctx.drawImage(dimensionsCanvas,pad,imageY,contentWidth,visualH);
+  const top=imageY+visualH+22;
+  ctx.fillStyle='#334238';ctx.font='bold 30px system-ui,Arial,sans-serif';
+  const heading=String(current.model||'RANDAL')+' · '+String(current.typeName||'');
+  const fitted=(text,maxWidth,fontSize)=>{
+   ctx.font='600 '+fontSize+'px system-ui,Arial,sans-serif';
+   let value=String(text||'—');
+   while(value.length>6&&ctx.measureText(value).width>maxWidth)value=value.slice(0,-2);
+   return value===String(text||'—')?value:value+'…';
+  };
+  ctx.fillText(fitted(heading,contentWidth,30),pad,top+26);
+  // Cotes explicites avec la même convention colorimétrique que le modèle 3D.
+  const badges=[
+   {text:'L '+current.width+' cm',color:'#b83b37'},
+   {text:'H '+current.height+' cm',color:'#2769b5'},
+   {text:'P '+current.depth+' cm',color:'#22804c'}
+  ];
+  let px=pad;
+  ctx.font='bold 21px system-ui,Arial,sans-serif';
+  for(const pill of badges){
+   const pw=ctx.measureText(pill.text).width+32;
+   ctx.fillStyle='#ffffff';ctx.strokeStyle=pill.color;ctx.lineWidth=2;
+   ctx.beginPath();ctx.roundRect(px,top+44,pw,39,9);ctx.fill();ctx.stroke();
+   ctx.fillStyle=pill.color;ctx.fillText(pill.text,px+16,top+71);px+=pw+13;
+  }
+  const columns=[
+   [['Finition du meuble',current.color],['Vasque',current.basinMode==='none'?'Sans vasque':(current.basin||'À confirmer')+(current.basinLayout==='double'?' · double':'')],['Miroir',current.mirror||'Sans miroir']],
+   [['Référence meuble',current.reference||'À confirmer'],['Prix public de la composition',current.totalPublic||'À confirmer'],['Ambiance',('ELIOS Creta '+(FLOOR_OPTIONS.find(x=>x.id===surfaceChoice.floor)?.label?.split(' ').pop()||'')+' / '+(WALL_COLORS[surfaceChoice.wall]?.label||'Mur personnalisé'))]]
+  ];
+  for(let col=0;col<2;col++)for(let row=0;row<3;row++){
+   const x=pad+col*(contentWidth/2+12),y=top+125+row*60;
+   ctx.fillStyle='#85847d';ctx.font='600 16px system-ui,Arial,sans-serif';
+   ctx.fillText(columns[col][row][0],x,y);
+   ctx.fillStyle='#263930';ctx.font='600 20px system-ui,Arial,sans-serif';
+   ctx.fillText(fitted(columns[col][row][1],contentWidth/2-22,20),x,y+26);
+  }
+  ctx.fillStyle='#86867d';ctx.font='16px system-ui,Arial,sans-serif';
+  ctx.fillText('Visuel indicatif · Finitions, références et prix à confirmer avec RANDAL.',pad,output.height-28);
+  const link=document.createElement('a');
+  link.download='RANDAL-'+String(current.model||'meuble').replace(/\s+/g,'-')+'-'+String(current.width||'')+'cm-composition.png';
+  link.href=output.toDataURL('image/png');
+  document.body.appendChild(link);link.click();link.remove();
+ }catch(err){
+  console.warn('RANDAL export composition:',err);
+  alert('Impossible d’enregistrer cette image sur cet appareil.');
+ }finally{
+  dimensionsVisible=wasDimensioned;
+  if(dimensionsCanvas)drawDimensions();
+ }
 }
 function present(config){
  label('composition-model',config.model+' · '+config.typeName);
