@@ -1,0 +1,32 @@
+name: Import tarif officiel RANDAL vasques Solid Surface
+on:
+  push:
+    paths:
+      - .github/workflows/randal-vasques-import.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  import-pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Importer le PDF original de Juan Carlos
+        env:
+          DOWNLOAD_URL: "https://sdmntprukwest.oaiusercontent.com/files/00000000-e8f4-8243-9ab8-5aa13a83a582/raw?se=2026-10-15T07%3A08%3A21Z&sp=r&sv=2026-02-06&sr=b&scid=c50f7c5f-5a1b-5ae3-8868-0a33ad408810&skoid=a0b9f82a-c86e-4064-a822-2aa38890bb37&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-10-15T04%3A08%3A58Z&ske=2026-10-16T04%3A08%3A58Z&sks=b&skv=2026-02-06&sig=%2Bgq/w45XXl1%2B76/S/p8/sJ3m4oTjiOsCksTIyQdONRY%3D"
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p assets/pdf
+          curl --fail --location --silent --show-error --retry 2 --connect-timeout 15 --max-time 100 "$DOWNLOAD_URL" --output "assets/pdf/RANDAL-TARIF-VASQUES-SOLID-SURFACE.pdf"
+          echo "c12221e550072ae106f1ff3403c614ed3addcda972792215f03eb0413bb6d252  assets/pdf/RANDAL-TARIF-VASQUES-SOLID-SURFACE.pdf" | sha256sum --check
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "assets/pdf/RANDAL-TARIF-VASQUES-SOLID-SURFACE.pdf"
+          if git diff --cached --quiet; then
+            echo "Document deja importe"; exit 0
+          fi
+          git commit -m "Import tarif PDF officiel vasques Solid Surface RANDAL"
+          git push
