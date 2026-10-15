@@ -572,7 +572,7 @@ function buildHarmonyCabinet(cabinet,config,w,h,d,finish,edge,metal,dark){
   harmonyDrawerFloor(drawer,w,d,base,woodInterior,i===0,w>1.16&&config.basinMode==='integrated');
   // Profil de prise de main intégré dans le chant : jamais de barre rapportée.
   putBox(drawer,0,center+frontH/2-.003,frontZ+.010,w-.055,.003,.006,edge);
-  cabinet.add(drawer);drawers.push(drawer);
+  drawer.userData.closedZ=drawer.position.z;cabinet.add(drawer);drawers.push(drawer);
  }
  if(feet){
   for(const xx of [-w/2+.057,w/2-.057])for(const zz of [-d/2+.063,d/2-.063]){
@@ -590,18 +590,20 @@ function toggleDrawers(){
 }
 function animateHarmonyDrawers(){
  cancelAnimationFrame(drawerAnimation);drawerAnimation=0;
- const originals=drawers.map(d=>d.position.z);
-  // Ouverture différenciée : tiroir haut court, tiroir(s) inférieur(s) plus profond(s).
-  const drawerTravel=i=>!drawersOpen?0:(i===0?.105:drawers.length===3&&i===1?.215:.305);
  if(!drawers.length)return;
+ // Des positions fermées absolues garantissent la réversibilité de l'animation.
+ // Ancien bug : en refermant, les tiroirs restaient parfois à leur position ouverte.
+ const starts=drawers.map(drawer=>drawer.position.z);
+ const travel=i=>i===0?.105:drawers.length===3&&i===1?.215:.305;
+ const targets=drawers.map((drawer,i)=>(drawer.userData.closedZ??0)+(drawersOpen?travel(i):0));
  const began=performance.now(),duration=540,ticket=sessionId;
  function frame(now){
   drawerAnimation=0;
   if(!active||ticket!==sessionId)return;
-  const p=clamp((now-began)/duration,0,1),ease=1-Math.pow(1-p,3);
-  drawers.forEach((d,i)=>{const goal=drawerTravel(i);d.position.z=originals[i]+(goal-originals[i])*ease});
+  const progress=clamp((now-began)/duration,0,1),ease=1-Math.pow(1-progress,3);
+  drawers.forEach((drawer,i)=>{drawer.position.z=starts[i]+(targets[i]-starts[i])*ease});
   requestFrame();
-  if(p<1)drawerAnimation=requestAnimationFrame(frame);
+  if(progress<1)drawerAnimation=requestAnimationFrame(frame);
  }
  drawerAnimation=requestAnimationFrame(frame);
 }
