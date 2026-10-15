@@ -61,7 +61,7 @@ function modal(){
  '<div class="composition-loading" id="composition-loading">Préparation de votre aperçu 3D…</div></div>'+
  '<div class="composition-stage-floating"><button type="button" id="composition-dimensions" aria-pressed="false" aria-label="Afficher les cotes et dimensions du meuble">◫ Cotes</button><button type="button" id="composition-fullscreen" aria-pressed="false" aria-label="Afficher la vue 3D en plein écran">⛶ Plein écran</button></div>'+
  '<div class="composition-view-tools" role="group" aria-label="Personnaliser la salle de bain"><button type="button" id="composition-floor" aria-expanded="false" aria-controls="composition-surface-panel">Sol</button><button type="button" id="composition-wall" aria-expanded="false" aria-controls="composition-surface-panel">Mur</button><button type="button" id="composition-photo" aria-label="Enregistrer la photo 3D">↓ Image</button></div>'+
- '<div id="composition-surface-panel" class="composition-surface-panel" role="region" aria-label="Choix des matériaux" hidden><strong id="composition-surface-title"></strong><div id="composition-surface-choices"></div><p>Creta 60 × 60 : coloris officiels du catalogue ELIOS.</p></div>'+
+ '<div id="composition-surface-panel" class="composition-surface-panel" role="region" aria-label="Choix des matériaux" hidden><button type="button" id="composition-surface-close" class="composition-surface-close" aria-label="Fermer le choix des matériaux">×</button><strong id="composition-surface-title"></strong><div id="composition-surface-choices"></div><p>Creta 60 × 60 : coloris officiels du catalogue ELIOS.</p></div>'+
  '</div>'+
  '<p class="composition-gesture">Glissez pour tourner le meuble · Pincez pour zoomer</p>'+
  '<div class="composition-harmony-controls" id="composition-harmony-controls" hidden><button type="button" id="composition-drawers" aria-pressed="false" title="Tiroir supérieur avec compartiment siphon">Ouvrir les tiroirs</button></div>'+
@@ -85,6 +85,10 @@ function modal(){
  el.querySelector('[data-close]').addEventListener('click',close);
  $('composition-floor').addEventListener('click',()=>showSurface('floor'));
  $('composition-wall').addEventListener('click',()=>showSurface('wall'));
+ $('composition-surface-close').addEventListener('click',()=>{
+  const palette=$('composition-surface-panel');palette.hidden=true;
+  $('composition-floor').setAttribute('aria-expanded','false');$('composition-wall').setAttribute('aria-expanded','false');
+ });
  $('composition-dimensions').addEventListener('click',toggleDimensions);
  $('composition-fullscreen').addEventListener('click',toggleFullscreen);
  document.addEventListener('fullscreenchange',()=>{
@@ -817,6 +821,7 @@ function toggleFullscreen(){
  btn.textContent=fullscreen3D?'⤢ Réduire':'⛶ Plein écran';
  btn.setAttribute('aria-label',fullscreen3D?'Quitter le plein écran 3D':'Afficher la vue 3D en plein écran');
  const surfacePanel=$('composition-surface-panel');if(surfacePanel)surfacePanel.hidden=true;
+ $('composition-floor').setAttribute('aria-expanded','false');$('composition-wall').setAttribute('aria-expanded','false');
  requestAnimationFrame(()=>{
   const area=$('composition-canvas');
   if(renderer&&camera&&area){
