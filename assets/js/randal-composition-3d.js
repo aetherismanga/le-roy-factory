@@ -596,7 +596,7 @@ function animateHarmonyDrawers(){
  // Des positions fermées absolues garantissent la réversibilité de l'animation.
  // Ancien bug : en refermant, les tiroirs restaient parfois à leur position ouverte.
  const starts=drawers.map(drawer=>drawer.position.z);
- const travel=i=>i===0?.105:drawers.length===3&&i===1?.215:.305;
+ const travel=i=>i===0?.095:drawers.length===3&&i===1?.185:.305;
  const targets=drawers.map((drawer,i)=>(drawer.userData.closedZ??0)+(drawersOpen?travel(i):0));
  const began=performance.now(),duration=540,ticket=sessionId;
  function frame(now){
@@ -612,14 +612,14 @@ function animateHarmonyDrawers(){
 
 function buildScene(config){
  sceneGeneration++;
- scene=new THREE.Scene();scene.background=new THREE.Color('#dedbd5');
+ scene=new THREE.Scene();scene.background=new THREE.Color('#d8d4ce');
  // Éclairage doux : les anciennes intensités surexposaient entièrement les bois.
  const ambient=new THREE.HemisphereLight(0xfff4e9,0x77716b,.52);scene.add(ambient);
  const bounce=new THREE.AmbientLight(0xfff8ed,.08);scene.add(bounce);
- const light=new THREE.DirectionalLight(0xfff4e6,1.48);light.position.set(-2.4,4.5,3.0);light.castShadow=true;light.shadow.mapSize.set(window.innerWidth<720?1024:2048,window.innerWidth<720?1024:2048);light.shadow.camera.left=-3.1;light.shadow.camera.right=3.1;light.shadow.camera.top=3.1;light.shadow.camera.bottom=-3.1;light.shadow.normalBias=.003;
+ const light=new THREE.DirectionalLight(0xfff3e4,1.38);light.position.set(-2.4,4.5,3.0);light.castShadow=true;light.shadow.mapSize.set(window.innerWidth<720?1024:2048,window.innerWidth<720?1024:2048);light.shadow.camera.left=-3.1;light.shadow.camera.right=3.1;light.shadow.camera.top=3.1;light.shadow.camera.bottom=-3.1;light.shadow.normalBias=.003;
  // Ombres de contact douces : densité ajustée à la puissance du terminal.
  light.shadow.bias=-.00012;scene.add(light);
- const accent=new THREE.PointLight(0xffefd9,.38,6);accent.position.set(1.9,2.9,2.1);scene.add(accent);
+ const accent=new THREE.PointLight(0xffeedb,.28,6);accent.position.set(1.9,2.9,2.1);scene.add(accent);
  const wall=newMat(WALL_COLORS[surfaceChoice.wall]?.hex||(/^#[0-9a-f]{6}$/i.test(surfaceChoice.wall)?surfaceChoice.wall:WALL_COLORS.cream.hex),.94);
  putBox(scene,0,2.35,-.65,12,4.7,.06,wall).name='RANDAL_InteriorWall';
  // Un seul plan continu au niveau zéro, sans tranche apparente ni fausse marche.
