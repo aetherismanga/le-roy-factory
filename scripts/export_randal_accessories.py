@@ -19,6 +19,8 @@ PRODUCTS = [
     ("mirror-metal-round", 36, (440,404,543,545)),
     ("basin-sella", 38, (59,175,172,230)),
     ("basin-tampa", 38, (59,383,173,439)),
+    ("basin-sella-double", 38, (406,169,565,231)),
+    ("basin-tampa-double", 38, (407,387,565,446)),
     ("basin-neris", 41, (133,219,232,290)),
     ("basin-torne", 41, (369,224,470,293)),
 ]
@@ -43,4 +45,4 @@ for slug, page_no, rect in PRODUCTS:
     print(f"{slug}: PDF p.{page_no}, {path.stat().st_size} bytes")
 
 assert len(list(OUT.glob("*.webp"))) >= len(PRODUCTS)
-print("10 silhouettes officielles de vasques et miroirs générées.")
+print("12 illustrations officielles de vasques et miroirs générées, dont 2 doubles vasques.")
