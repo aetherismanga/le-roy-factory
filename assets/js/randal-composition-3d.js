@@ -85,6 +85,11 @@ function modal(){
  $('composition-wall').addEventListener('click',()=>showSurface('wall'));
  $('composition-dimensions').addEventListener('click',toggleDimensions);
  $('composition-fullscreen').addEventListener('click',toggleFullscreen);
+ document.addEventListener('fullscreenchange',()=>{
+  if(document.fullscreenElement===el)return;
+  if(fullscreen3D){fullscreen3D=false;el.classList.remove('composition-fullscreen');
+   const b=$('composition-fullscreen');if(b){b.setAttribute('aria-pressed','false');b.textContent='⛶ Plein écran';}}
+ });
  $('composition-photo').addEventListener('click',saveImage);
  $('composition-drawers').addEventListener('click',toggleDrawers);
  el.querySelectorAll('[data-customize]').forEach(button=>button.addEventListener('click',()=>showCustomize(button.dataset.customize)));
@@ -268,6 +273,7 @@ function close(){
  if(drawerButton){drawerButton.textContent='Ouvrir les tiroirs';drawerButton.setAttribute('aria-pressed','false')}
  const el=$('randal-composition-dialog');if(!el||el.hidden)return;
  fullscreen3D=false;el.classList.remove('composition-fullscreen');
+ if(document.fullscreenElement===el)document.exitFullscreen?.().catch(()=>{});
  active=false;sessionId++;el.hidden=true;document.body.style.overflow=restoreOverflow;
  releaseRenderer();
  current=null;
@@ -792,6 +798,9 @@ function toggleDimensions(){
 function toggleFullscreen(){
  const el=$('randal-composition-dialog'),btn=$('composition-fullscreen');if(!el||!btn)return;
  fullscreen3D=!fullscreen3D;el.classList.toggle('composition-fullscreen',fullscreen3D);
+ // Fullscreen API si le navigateur mobile l'autorise; le mode CSS reste le secours.
+ if(fullscreen3D){try{el.requestFullscreen?.({navigationUI:'hide'})?.catch(()=>{});}catch(e){}}
+ else if(document.fullscreenElement===el)document.exitFullscreen?.().catch(()=>{});
  btn.setAttribute('aria-pressed',String(fullscreen3D));
  btn.textContent=fullscreen3D?'⤢ Réduire':'⛶ Plein écran';
  btn.setAttribute('aria-label',fullscreen3D?'Quitter le plein écran 3D':'Afficher la vue 3D en plein écran');
