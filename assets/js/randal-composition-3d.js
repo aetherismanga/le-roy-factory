@@ -309,10 +309,10 @@ function useCatalogueFinish(material,url,wood){
    // grossissement de la pastille tout en conservant sa teinte réelle.
    let seed=487219;
    const rand=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296};
-   for(let i=0;i<410;i++){
+   for(let i=0;i<740;i++){
     const x=rand()*1024,w=.15+rand()*1.25,y=rand()*1024;
     ctx.beginPath();
-    ctx.strokeStyle=rand()>.5?'rgba(59,37,18,.057)':'rgba(255,247,220,.095)';
+    ctx.strokeStyle=rand()>.5?'rgba(59,37,18,.105)':'rgba(255,247,220,.11)';
     ctx.lineWidth=w;
     ctx.moveTo(x,y-260);
     ctx.bezierCurveTo(x+(rand()-.5)*8,y+50,x+(rand()-.5)*6,y+360,x+(rand()-.5)*7,y+870);
@@ -330,7 +330,7 @@ function useCatalogueFinish(material,url,wood){
   material.map=texture;
   material.roughness=wood?.67:.42;
   // Relief infime du veinage, pas de texture plastique ou de bois bombé.
-  if(wood){material.bumpMap=texture;material.bumpScale=.0018;}
+  if(wood){material.bumpMap=texture;material.bumpScale=.0024;}
   material.needsUpdate=true;
   requestFrame();
  };
@@ -551,7 +551,7 @@ function buildHarmonyCabinet(cabinet,config,w,h,d,finish,edge,metal,dark){
  const feet=config.typeId==='three',legH=feet?.105:0;
  // 79 cm incluent les pieds, et non 79 cm + pieds.
  const bodyHeight=h-legH,bodyBottom=legH,bodyTop=legH+bodyHeight,side=.016;
- const woodInterior=newMat('#b6b3a9',.73);
+ const woodInterior=newMat('#a6a29a',.78);
  // Corps creux : flancs, fond arrière, fond et traverse supérieure.
  putBox(cabinet,-w/2+side/2,bodyBottom+bodyHeight/2,0,side,bodyHeight,d,finish);
  putBox(cabinet,w/2-side/2,bodyBottom+bodyHeight/2,0,side,bodyHeight,d,finish);
@@ -572,6 +572,8 @@ function buildHarmonyCabinet(cabinet,config,w,h,d,finish,edge,metal,dark){
    putBox(drawer,x,base+.068,(d/2-.040+rearZ)/2,.012,.12,d-.115,woodInterior);
   if(i>0)putBox(drawer,0,base+.070,rearZ+.012,w-.09,.118,.012,woodInterior);
   harmonyDrawerFloor(drawer,w,d,base,woodInterior,i===0,w>1.16&&config.basinMode==='integrated');
+   // Glissières métal discrètes visibles seulement lors de l'ouverture.
+   for(const xx of [-w/2+.053,w/2-.053])putBox(drawer,xx,base+.060,-.035,.007,.016,d-.135,metal);
   // Profil de prise de main intégré dans le chant : jamais de barre rapportée.
   putBox(drawer,0,center+frontH/2-.003,frontZ+.010,w-.055,.003,.006,edge);
   drawer.userData.closedZ=drawer.position.z;cabinet.add(drawer);drawers.push(drawer);
