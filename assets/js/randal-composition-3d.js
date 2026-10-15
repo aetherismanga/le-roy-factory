@@ -176,6 +176,13 @@ function showCustomize(type){
   const image='assets/img/randal/accessories/hd/basin-'+strip(name)+'.webp';
   addOption(name,image,current.basin===name,()=>update({basin:name}));
  }
+ if(current.model==='Harmony'&&current.basinMode==='integrated'&&Number(current.width)===120){
+  section('Nombre de cuves');
+  for(const [layout,title] of [['single','Vasque simple · 1 cuve'],['double','Vasque double · 2 cuves']]){
+   const image='assets/img/randal/accessories/'+(layout==='double'?'basin-'+strip(current.basin)+'-double.webp':'basin-'+strip(current.basin)+'.webp');
+   addOption(title,image,current.basinLayout===layout,()=>update({basinLayout:layout}));
+  }
+ }
  if(current.basinMode==='vessel'){
   section('Couleur de la vasque');
   for(const color of current.basinColors||[]){
@@ -350,11 +357,11 @@ function addFixtures(root,config,width,height,depth,wood){
  const vesselCeramic=new THREE.MeshPhysicalMaterial({color:colorFor(config.basinFinish,'#f5f4ee'),roughness:.23,metalness:0,clearcoat:.22,side:THREE.DoubleSide});
  const vesselMode=config.basinMode==='vessel';
  const counterSurface=vesselMode?newMat(colorFor(config.topFinish,'#e9e5dd'),.45,.03):ceramic;
- const twin=width>=1.16&&config.model==='Harmony'&&!vesselMode;
+ const twin=width>=1.16&&config.model==='Harmony'&&!vesselMode&&config.basinLayout==='double';
  const sinks=Array.from({length:twin?2:1},(_,i)=>twin?(i===0?-1:1)*width*.255:0);
  const isHarmonyBasin=!vesselMode&&config.model==='Harmony';
  // Les cuves intégrées suivent le modèle choisi : Sella elliptique, Tampa à angles adoucis.
- // La largeur disponible est calculée par demi-meuble pour Harmony 119 à double vasque.
+ // Deux cuves sont modélisées seulement pour Harmony 120 cm lorsque la double vasque est choisie.
  const tampa=strip(config.basin).includes('tampa');
  const unitWidth=width/(twin?2:1);
  const basinWidth=Math.min(twin?.44:.53,Math.max(.36,unitWidth*(tampa?.77:.73)));
@@ -602,7 +609,7 @@ function buildHarmonyCabinet(cabinet,config,w,h,d,finish,edge,metal,dark){
   for(const x of [-w/2+.043,w/2-.043])
    putBox(drawer,x,base+.068,(d/2-.040+rearZ)/2,.012,.12,d-.115,woodInterior);
   if(i>0)putBox(drawer,0,base+.070,rearZ+.012,w-.09,.118,.012,woodInterior);
-  harmonyDrawerFloor(drawer,w,d,base,woodInterior,i===0,w>1.16&&config.basinMode==='integrated');
+  harmonyDrawerFloor(drawer,w,d,base,woodInterior,i===0,w>1.16&&config.basinMode==='integrated'&&config.basinLayout==='double');
    // Glissières fixes et coulissantes superposées : le tiroir reste visuellement relié au caisson.
    for(const xx of [-w/2+.053,w/2-.053]){
     putBox(cabinet,xx,base+.061,-.033,.010,.021,d-.095,metal);
@@ -945,7 +952,7 @@ function present(config){
  label('composition-color',config.color);
  label('composition-reference',config.reference||'À confirmer');
  label('composition-total',config.totalPublic||'À confirmer');
- label('composition-basin',config.kind==='column'?'Sans vasque':(labels[config.basinMode]||'')+(config.basinMode==='none'?'':' · '+config.basin)+(config.basinMode==='vessel'?' · '+config.basinFinish:''));
+ label('composition-basin',config.kind==='column'?'Sans vasque':(labels[config.basinMode]||'')+(config.basinMode==='none'?'':' · '+config.basin)+(config.basinMode==='vessel'?' · '+config.basinFinish:config.basinMode==='integrated'&&config.basinLayout==='double'?' · double vasque':''));
  label('composition-mirror',config.mirror==='Sans miroir'?'Sans miroir':config.mirror+' · '+(config.mirrorSize||'À définir')+(config.mirrorFinish?' · '+config.mirrorFinish:''));
  const img=$('composition-swatch');
  if(config.swatch){img.src=config.swatch;img.hidden=false}else img.hidden=true;
