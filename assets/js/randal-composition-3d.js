@@ -614,8 +614,8 @@ function buildScene(config){
  sceneGeneration++;
  scene=new THREE.Scene();scene.background=new THREE.Color('#dedbd5');
  // Éclairage doux : les anciennes intensités surexposaient entièrement les bois.
- const ambient=new THREE.HemisphereLight(0xfff6eb,0xa7a29b,.66);scene.add(ambient);
- const bounce=new THREE.AmbientLight(0xffffff,.17);scene.add(bounce);
+ const ambient=new THREE.HemisphereLight(0xfff4e9,0x77716b,.52);scene.add(ambient);
+ const bounce=new THREE.AmbientLight(0xfff8ed,.08);scene.add(bounce);
  const light=new THREE.DirectionalLight(0xfff4e6,1.48);light.position.set(-2.4,4.5,3.0);light.castShadow=true;light.shadow.mapSize.set(window.innerWidth<720?1024:2048,window.innerWidth<720?1024:2048);light.shadow.camera.left=-3.1;light.shadow.camera.right=3.1;light.shadow.camera.top=3.1;light.shadow.camera.bottom=-3.1;light.shadow.normalBias=.003;
  // Ombres de contact douces : densité ajustée à la puissance du terminal.
  light.shadow.bias=-.00012;scene.add(light);
@@ -765,7 +765,7 @@ function init(config){
  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,window.innerWidth<720?1.85:2.25));
  renderer.outputColorSpace=THREE.SRGBColorSpace;
  renderer.toneMapping=THREE.ACESFilmicToneMapping;
- renderer.toneMappingExposure=.91;
+ renderer.toneMappingExposure=.80;
  renderer.shadowMap.enabled=true;
  renderer.shadowMap.type=THREE.PCFSoftShadowMap;
  renderer.setSize(Math.max(250,area.clientWidth),Math.max(250,area.clientHeight),false);
