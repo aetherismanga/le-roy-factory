@@ -6,7 +6,7 @@ const THREE_URLS=['https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js
 let libraryPromise=null,renderer=null,scene=null,camera=null,stage=null,resizeObserver=null,raf=0;
 let yaw=.47,pitch=.15,distance=2.75,lastPointer=null,lastPinch=null;
 let active=false,previousFocus=null,restoreOverflow='',current=null,sessionId=0,contextFailed=false,surfaceChoice={floor:'elios-creta-ginepro',wall:'ivory'};
-let drawers=[],drawersOpen=false,drawerAnimation=0,sceneGeneration=0;
+let drawers=[],drawersOpen=false,drawerAnimation=0,sceneGeneration=0,floorTextureTicket=0;
 let dimensionsVisible=false,dimensionsCanvas=null,measureBounds=null,fullscreen3D=false;
 const WALL_COLORS={
  cream:{label:'Crème doux',hex:'#eee4d5'},ivory:{label:'Ivoire',hex:'#f4f0e8'},
@@ -235,6 +235,18 @@ function syncSurfaceLabels(){
  chip($('composition-floor'),'Sol',floor.label.replace('ELIOS · ','').replace('VIEW · ',''),floor.base,floor.preview);
  chip($('composition-wall'),'Mur',wall,wallSpec?.hex||(/^#[0-9a-f]{6}$/i.test(surfaceChoice.wall)?surfaceChoice.wall:'#c9c5ba'),null);
 }
+// Changer le décor ne doit jamais fermer les tiroirs, modifier le zoom ou recréer la 3D.
+function updateSurfaceLive(which){
+ if(!scene||!renderer)return;
+ if(which==='wall'){
+  const material=scene.getObjectByName('RANDAL_InteriorWall')?.material;
+  if(material)material.color.set(WALL_COLORS[surfaceChoice.wall]?.hex||surfaceChoice.wall);
+ }else if(which==='floor'){
+  const material=scene.getObjectByName('RANDAL_InteriorFloor')?.material;
+  if(material)applyFloorTexture(material);
+ }
+ requestFrame();
+}
 function showSurface(which){
  const panel=$('composition-surface-panel'),title=$('composition-surface-title'),list=$('composition-surface-choices');
  if(!panel||!title||!list)return;
@@ -261,7 +273,7 @@ function showSurface(which){
   button.onclick=()=>{surfaceChoice[which]=item.id;syncSurfaceLabels();panel.hidden=true;
    $('composition-floor').setAttribute('aria-expanded','false');
    $('composition-wall').setAttribute('aria-expanded','false');
-   redrawCurrent();
+   updateSurfaceLive(which);
   };
   list.appendChild(button);
  }
@@ -279,7 +291,7 @@ function showSurface(which){
       if(wall){wall.material.color.set(surfaceChoice.wall);requestFrame();}
     }
   });
-  input.addEventListener('change',e=>{surfaceChoice.wall=e.target.value;syncSurfaceLabels();panel.hidden=true;$('composition-floor').setAttribute('aria-expanded','false');$('composition-wall').setAttribute('aria-expanded','false');redrawCurrent()});
+  input.addEventListener('change',e=>{surfaceChoice.wall=e.target.value;syncSurfaceLabels();panel.hidden=true;$('composition-floor').setAttribute('aria-expanded','false');$('composition-wall').setAttribute('aria-expanded','false');updateSurfaceLive('wall')});
   picker.appendChild(input);list.appendChild(picker);
  }
  if(help)help.textContent=which==='floor'?'Creta ELIOS : véritables échantillons 60 × 60 cm, 8 coloris.':'Peinture mate : choisissez une teinte du nuancier ou personnalisez-la.';
@@ -519,13 +531,16 @@ function mirror(config,w,topHeight){
  }
 }
 function applyFloorTexture(material){
+ const loadTicket=++floorTextureTicket;
  const item=FLOOR_OPTIONS.find(x=>x.id===surfaceChoice.floor)||FLOOR_OPTIONS[0];
- material.color.set(item.base);material.roughness=.84;material.metalness=0;
- if(!item.preview){loadCocoFloor(material);return;}
+ if(material.map){material.map.dispose();material.map=null;}
+ material.color.set(item.base);material.roughness=.84;material.metalness=0;material.needsUpdate=true;
+ requestFrame();
+ if(!item.preview){loadCocoFloor(material,loadTicket);return;}
  const ticket=sceneGeneration,session=sessionId;
  const image=new Image();image.decoding='async';
  image.onload=()=>{
-  if(!scene||ticket!==sceneGeneration||session!==sessionId||!active)return;
+  if(!scene||ticket!==sceneGeneration||session!==sessionId||!active||loadTicket!==floorTextureTicket)return;
   // Atlas de 2 x 2 dalles Creta, dimensions réelles 60x60.
   // Un seul maillage plat de 18 m : aucun rebord, aucune marche.
   const tile=window.innerWidth<760?512:768,total=(window.innerWidth<760?512:768)*2,canvas=document.createElement('canvas');
@@ -556,12 +571,12 @@ function applyFloorTexture(material){
  image.onerror=()=>{console.warn('Texture officielle ELIOS indisponible:',item.preview);requestFrame()};
  image.src=item.preview;
 }
-function loadCocoFloor(material){
+function loadCocoFloor(material,loadTicket){
  const uri=window.RANDAL_VIEW_COCO_BEIGE;
  if(!uri)return;
  const generation=sessionId,sceneTicket=sceneGeneration,image=new Image();
  image.onload=()=>{
-  if(!active||generation!==sessionId||sceneTicket!==sceneGeneration||!scene)return;
+  if(!active||generation!==sessionId||sceneTicket!==sceneGeneration||!scene||loadTicket!==floorTextureTicket)return;
   const texture=new THREE.Texture(image);
   texture.colorSpace=THREE.SRGBColorSpace;
   texture.wrapS=texture.wrapT=THREE.RepeatWrapping;
@@ -712,7 +727,7 @@ function buildScene(config){
  const wallMesh=new THREE.Mesh(new THREE.PlaneGeometry(12,4.7),wall);wallMesh.position.set(0,2.35,-.62);wallMesh.receiveShadow=true;wallMesh.name='RANDAL_InteriorWall';scene.add(wallMesh);
  // Un seul plan continu au niveau zéro, sans tranche apparente ni fausse marche.
  const floor=newMat('#d8d0c5',.88);const floorMesh=new THREE.Mesh(new THREE.PlaneGeometry(9,9),floor);
- floorMesh.rotation.x=-Math.PI/2;floorMesh.position.set(0,-.005,0);floorMesh.receiveShadow=true;scene.add(floorMesh);
+ floorMesh.rotation.x=-Math.PI/2;floorMesh.position.set(0,-.005,0);floorMesh.receiveShadow=true;floorMesh.name='RANDAL_InteriorFloor';scene.add(floorMesh);
  applyFloorTexture(floor);
  const width=clamp((Number(config.width)||80)/100,.35,1.56),height=clamp((Number(config.height)||53)/100,.1,1.75),depth=clamp((Number(config.depth)||45)/100,.22,.55);
  const isColumn=config.kind==='column';
