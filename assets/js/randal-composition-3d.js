@@ -7,6 +7,7 @@ let libraryPromise=null,renderer=null,scene=null,camera=null,stage=null,resizeOb
 let yaw=.47,pitch=.15,distance=2.75,lastPointer=null,lastPinch=null;
 let active=false,previousFocus=null,restoreOverflow='',current=null,sessionId=0,contextFailed=false,surfaceChoice={floor:'elios-creta-avena',wall:'greige'};
 let drawers=[],drawersOpen=false,drawerAnimation=0,sceneGeneration=0;
+let dimensionsVisible=false,dimensionsCanvas=null,measureBounds=null;
 const WALL_COLORS={
  cream:{label:'Crème doux',hex:'#eee4d5'},ivory:{label:'Ivoire',hex:'#f4f0e8'},
  chalk:{label:'Blanc craie',hex:'#f5f5f0'},greige:{label:'Greige',hex:'#c9c5ba'},
@@ -59,7 +60,7 @@ function modal(){
  '<div class="composition-loading" id="composition-loading">Préparation de votre aperçu 3D…</div></div>'+
  '<p class="composition-gesture">Glissez pour tourner le meuble · Pincez pour zoomer</p>'+
  '<div class="composition-harmony-controls" id="composition-harmony-controls" hidden><button type="button" id="composition-drawers" aria-pressed="false">Ouvrir les tiroirs</button><span>Découpe siphon visible dans le tiroir supérieur</span></div>'+
- '<div class="composition-view-tools"><button type="button" id="composition-floor" aria-expanded="false" aria-controls="composition-surface-panel">Sol</button><button type="button" id="composition-wall" aria-expanded="false" aria-controls="composition-surface-panel">Mur</button><button type="button" id="composition-photo">Enregistrer l’image</button></div>'+
+ '<div class="composition-view-tools"><button type="button" id="composition-floor" aria-expanded="false" aria-controls="composition-surface-panel">Sol</button><button type="button" id="composition-wall" aria-expanded="false" aria-controls="composition-surface-panel">Mur</button><button type="button" id="composition-dimensions" aria-pressed="false" aria-label="Afficher ou masquer les cotes du meuble">Côtes</button><button type="button" id="composition-photo">Enregistrer l’image</button></div>'+
  '<div id="composition-surface-panel" class="composition-surface-panel" hidden><strong id="composition-surface-title"></strong><div id="composition-surface-choices"></div><p>Creta 60 × 60 : coloris officiels du catalogue ELIOS.</p></div>'+
  '</div><aside class="composition-details"><div class="composition-label">VOTRE COMPOSITION</div><h3 id="composition-model"></h3>'+
  '<div class="composition-selected"><div><span>Dimensions</span><strong id="composition-size"></strong></div>'+
@@ -81,6 +82,7 @@ function modal(){
  el.querySelector('[data-close]').addEventListener('click',close);
  $('composition-floor').addEventListener('click',()=>showSurface('floor'));
  $('composition-wall').addEventListener('click',()=>showSurface('wall'));
+ $('composition-dimensions').addEventListener('click',toggleDimensions);
  $('composition-photo').addEventListener('click',saveImage);
  $('composition-drawers').addEventListener('click',toggleDrawers);
  el.querySelectorAll('[data-customize]').forEach(button=>button.addEventListener('click',()=>showCustomize(button.dataset.customize)));
@@ -115,7 +117,7 @@ function releaseRenderer(){
   try{currentRenderer.dispose();currentRenderer.forceContextLoss?.()}catch(err){console.warn('Libération WebGL RANDAL',err)}
   try{currentRenderer.domElement.remove()}catch(err){}
  }
- scene=null;camera=null;stage=null;lastPointer=null;lastPinch=null;
+ scene=null;camera=null;stage=null;lastPointer=null;lastPinch=null;dimensionsCanvas=null;measureBounds=null;
 }
 
 function showCustomize(type){
@@ -351,8 +353,17 @@ function addFixtures(root,config,width,height,depth,wood){
  const twin=width>=1.16&&config.model==='Harmony'&&!vesselMode;
  const sinks=Array.from({length:twin?2:1},(_,i)=>twin?(i===0?-1:1)*width*.255:0);
  const isHarmonyBasin=!vesselMode&&config.model==='Harmony';
- const soft=strip(config.basin).includes('sella');
- const rw=soft?.16:.165,rd=soft?.11:.105;
+ // Les cuves intégrées suivent le modèle choisi : Sella elliptique, Tampa à angles adoucis.
+ // La largeur disponible est calculée par demi-meuble pour Harmony 119 à double vasque.
+ const tampa=strip(config.basin).includes('tampa');
+ const unitWidth=width/(twin?2:1);
+ const basinWidth=Math.min(twin?.44:.53,Math.max(.36,unitWidth*(tampa?.77:.73)));
+ const rw=basinWidth/2,rd=tampa?.137:.158;
+ const profilePower=tampa?4.7:2.05;
+ const basinPoint=(angle,scale=1)=>{
+  const c=Math.cos(angle),sn=Math.sin(angle),pow=2/profilePower;
+  return [Math.sign(c)*Math.pow(Math.abs(c),pow)*rw*scale,Math.sign(sn)*Math.pow(Math.abs(sn),pow)*rd*scale];
+ };
  if(isHarmonyBasin){
   // Plan de céramique avec découpes RÉELLES (extrusion avec trous).
   // L'ancien plan plein masquait la cuve et donnait l'impression d'une vasque dessinée.
@@ -361,7 +372,11 @@ function addFixtures(root,config,width,height,depth,wood){
   shape.moveTo(-w2,-d2);shape.lineTo(w2,-d2);shape.lineTo(w2,d2);shape.lineTo(-w2,d2);shape.closePath();
   sinks.forEach(x=>{
    const hole=new THREE.Path();
-   hole.absellipse(x,-.035,rw,rd,0,Math.PI*2,true);
+   // Tracé dans le sens horaire, comme attendu pour l'extrusion d'un trou.
+   for(let j=0;j<=96;j++){
+    const [dx,dz]=basinPoint(Math.PI*2-j*Math.PI*2/96);
+    if(j===0)hole.moveTo(x+dx,-.035-dz);else hole.lineTo(x+dx,-.035-dz);
+   }
    shape.holes.push(hole);
   });
   const plate=new THREE.Mesh(new THREE.ExtrudeGeometry(shape,{depth:.027,steps:1,bevelEnabled:false,curveSegments:64}),ceramic);
@@ -386,21 +401,37 @@ function addFixtures(root,config,width,height,depth,wood){
    mesh.castShadow=true;mesh.receiveShadow=true;basinGroup.add(mesh);
    const rim=new THREE.Mesh(new THREE.TorusGeometry(r,.006,12,80),vesselCeramic);
    rim.rotation.x=-Math.PI/2;rim.position.set(x,height+.031+h,.027);
-   rim.scale.set(neris?1.27:1,neris?.9:1,1);basinGroup.add(rim);
+   rim.scale.set(neris?1.27:1,1,neris?.9:1);basinGroup.add(rim);
   }else if(isHarmonyBasin){
-   // Cavité elliptique en céramique. Le bord est au niveau du plan,
-   // le centre plonge de 8 cm ; les ombres créent la profondeur réelle.
-   const bowlGeo=new THREE.SphereGeometry(1,72,24,0,Math.PI*2,0,Math.PI/2);
-   bowlGeo.rotateX(Math.PI);
-   bowlGeo.scale(rw,.087,rd);
+   // Véritable cuvette 3D en creux : ellipse douce Sella ou rectangle arrondi Tampa.
+   // Le profil de la cuvette suit exactement la découpe pratiquée dans le plan.
+   const ringCount=16,segments=96,positions=[],indices=[];
+   for(let r=0;r<=ringCount;r++){
+    const scale=1-r/ringCount*.995;
+    const cy=height+.029-.092*(1-scale*scale);
+    for(let j=0;j<=segments;j++){
+     const [dx,dz]=basinPoint(j*Math.PI*2/segments,scale);
+     positions.push(x+dx,cy,.035+dz);
+    }
+   }
+   for(let r=0;r<ringCount;r++)for(let j=0;j<segments;j++){
+    const a=r*(segments+1)+j,b=a+segments+1;
+    indices.push(a,b,a+1,b,b+1,a+1);
+   }
+   const bowlGeo=new THREE.BufferGeometry();
+   bowlGeo.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));
+   bowlGeo.setIndex(indices);bowlGeo.computeVertexNormals();
    const bowl=new THREE.Mesh(bowlGeo,ceramic);
-   bowl.position.set(x,height+.029,.035);
    bowl.receiveShadow=true;bowl.castShadow=true;basinGroup.add(bowl);
-   const rim=new THREE.Mesh(new THREE.TorusGeometry(1,.015,10,72),ceramic);
-   rim.rotation.x=-Math.PI/2;rim.scale.set(rw,rd,.01);
-   rim.position.set(x,height+.029,.035);basinGroup.add(rim);
+   const rimPoints=[];
+   for(let j=0;j<=96;j++){
+    const [dx,dz]=basinPoint(j*Math.PI*2/96);
+    rimPoints.push(new THREE.Vector3(x+dx,height+.031,.035+dz));
+   }
+   const rim=new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(rimPoints,true),128,.006,8,true),ceramic);
+   basinGroup.add(rim);
    const drain=new THREE.Mesh(new THREE.CylinderGeometry(.018,.018,.003,32),chrome);
-   drain.position.set(x,height+.029-.083,.035);basinGroup.add(drain);
+   drain.position.set(x,height-.062,.035);basinGroup.add(drain);
   }else{
    // Autres collections : ne pas modifier le type de vasque non validé.
    elliptical(basinGroup,x,height+.046,.035,rw,rd,ceramic);
@@ -572,8 +603,11 @@ function buildHarmonyCabinet(cabinet,config,w,h,d,finish,edge,metal,dark){
    putBox(drawer,x,base+.068,(d/2-.040+rearZ)/2,.012,.12,d-.115,woodInterior);
   if(i>0)putBox(drawer,0,base+.070,rearZ+.012,w-.09,.118,.012,woodInterior);
   harmonyDrawerFloor(drawer,w,d,base,woodInterior,i===0,w>1.16&&config.basinMode==='integrated');
-   // Glissières métal discrètes visibles seulement lors de l'ouverture.
-   for(const xx of [-w/2+.053,w/2-.053])putBox(drawer,xx,base+.060,-.035,.007,.016,d-.135,metal);
+   // Glissières fixes et coulissantes superposées : le tiroir reste visuellement relié au caisson.
+   for(const xx of [-w/2+.053,w/2-.053]){
+    putBox(cabinet,xx,base+.061,-.033,.010,.021,d-.095,metal);
+    putBox(drawer,xx,base+.061,-.023,.008,.014,d-.14,metal);
+   }
   // Profil de prise de main intégré dans le chant : jamais de barre rapportée.
   putBox(drawer,0,center+frontH/2-.003,frontZ+.010,w-.055,.003,.006,edge);
   drawer.userData.closedZ=drawer.position.z;cabinet.add(drawer);drawers.push(drawer);
@@ -598,7 +632,8 @@ function animateHarmonyDrawers(){
  // Des positions fermées absolues garantissent la réversibilité de l'animation.
  // Ancien bug : en refermant, les tiroirs restaient parfois à leur position ouverte.
  const starts=drawers.map(drawer=>drawer.position.z);
- const travel=i=>i===0?.095:drawers.length===3&&i===1?.185:.305;
+ // Débattement réaliste : chaque tiroir garde au moins ~20 cm engagés dans le caisson.
+ const travel=i=>drawers.length===3?(i===0?.095:i===1?.145:.19):(i===0?.12:.19);
  const targets=drawers.map((drawer,i)=>(drawer.userData.closedZ??0)+(drawersOpen?travel(i):0));
  const began=performance.now(),duration=540,ticket=sessionId;
  function frame(now){
@@ -713,10 +748,89 @@ function buildScene(config){
  }
  if(!isColumn)addFixtures(cabinet,config,width,height,depth,finish);
  mirror(config,width,height+floatingHeight);
+ measureBounds={w:width,h:height,d:depth,y:floatingHeight,z:backWallCabinetZ};
  return {width,height,depth};
 }
 function nameToDoor(config){return strip(config.typeName).includes('porte')}
-function renderFrame(){raf=0;if(!active||!renderer||!scene||!camera)return;renderer.render(scene,camera)}
+// Mesures en projection perspective, recalculées lors de chaque rotation ou zoom.
+// Canvas transparent indépendant : aucune cotation ne modifie la géométrie des meubles.
+function toggleDimensions(){
+ dimensionsVisible=!dimensionsVisible;
+ const btn=$('composition-dimensions');
+ if(btn){btn.setAttribute('aria-pressed',String(dimensionsVisible));btn.textContent=dimensionsVisible?'Masquer les côtes':'Côtes';}
+ requestFrame();
+}
+function ensureDimensionsCanvas(){
+ const area=$('composition-canvas');
+ if(!area)return;
+ if(!dimensionsCanvas){
+  dimensionsCanvas=document.createElement('canvas');
+  dimensionsCanvas.className='composition-dimensions-layer';
+  dimensionsCanvas.setAttribute('aria-hidden','true');
+  area.appendChild(dimensionsCanvas);
+ }
+}
+function drawDimensions(){
+ if(!dimensionsCanvas||!camera||!measureBounds)return;
+ dimensionsCanvas.style.display=dimensionsVisible?'block':'none';
+ if(!dimensionsVisible)return;
+ const area=$('composition-canvas'),w=Math.max(1,area.clientWidth),h=Math.max(1,area.clientHeight);
+ const ratio=Math.min(window.devicePixelRatio||1,2);
+ const pw=Math.round(w*ratio),ph=Math.round(h*ratio);
+ if(dimensionsCanvas.width!==pw||dimensionsCanvas.height!==ph){
+  dimensionsCanvas.width=pw;dimensionsCanvas.height=ph;
+ }
+ const ctx=dimensionsCanvas.getContext('2d');
+ ctx.setTransform(ratio,0,0,ratio,0,0);
+ ctx.clearRect(0,0,w,h);
+ const b=measureBounds;
+ const xy=(x,y,z)=>{
+  const p=new THREE.Vector3(x,y,z).project(camera);
+  return {x:(p.x+1)*w/2,y:(1-p.y)*h/2,visible:p.z>-1&&p.z<1};
+ };
+ const guide=(a,c,stroke)=>{
+  ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(c.x,c.y);
+  ctx.strokeStyle='rgba(255,255,255,.93)';ctx.lineWidth=5;ctx.stroke();
+  ctx.strokeStyle=stroke;ctx.lineWidth=2.3;ctx.stroke();
+ };
+ function dimension(label,color,start,end,ext1,ext2){
+  const a=xy(...start),c=xy(...end),ea=xy(...ext1),ec=xy(...ext2);
+  if(!a.visible||!c.visible)return;
+  ctx.save();ctx.lineCap='round';ctx.lineJoin='round';
+  guide(ea,a,color);guide(ec,c,color);guide(a,c,color);
+  const dx=c.x-a.x,dy=c.y-a.y,length=Math.hypot(dx,dy)||1,ux=dx/length,uy=dy/length;
+  for(const [p,d] of [[a,1],[c,-1]]){
+   ctx.beginPath();ctx.moveTo(p.x,p.y);
+   ctx.lineTo(p.x+d*ux*10-uy*4,p.y+d*uy*10+ux*4);
+   ctx.moveTo(p.x,p.y);
+   ctx.lineTo(p.x+d*ux*10+uy*4,p.y+d*uy*10-ux*4);
+   ctx.strokeStyle=color;ctx.lineWidth=2.5;ctx.stroke();
+  }
+  const tx=(a.x+c.x)/2,ty=(a.y+c.y)/2;
+  ctx.font='bold 13px system-ui,Arial,sans-serif';
+  const textWidth=ctx.measureText(label).width;
+  const bw=textWidth+22,bh=27;
+  const px=Math.max(bw/2+4,Math.min(w-bw/2-4,tx));
+  const py=Math.max(bh/2+4,Math.min(h-bh/2-4,ty));
+  ctx.fillStyle='rgba(255,255,255,.97)';
+  ctx.beginPath();ctx.roundRect(px-bw/2,py-bh/2,bw,bh,7);ctx.fill();
+  ctx.strokeStyle=color;ctx.lineWidth=1.5;ctx.stroke();
+  ctx.fillStyle=color;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(label,px,py+.5);
+  ctx.restore();
+ }
+ const front=b.z+b.d/2+.06,back=b.z-b.d/2;
+ // Un léger écart entre traits et produit améliore la lecture sur téléphone.
+ dimension('L '+Math.round(b.w*100)+' cm','#d33f38',
+  [-b.w/2,b.y+b.h+.13,front],[b.w/2,b.y+b.h+.13,front],
+  [-b.w/2,b.y+b.h,front-.06],[b.w/2,b.y+b.h,front-.06]);
+ dimension('H '+Math.round(b.h*100)+' cm','#2268d6',
+  [b.w/2+.16,b.y,front],[b.w/2+.16,b.y+b.h,front],
+  [b.w/2,b.y,front-.05],[b.w/2,b.y+b.h,front-.05]);
+ dimension('P '+Math.round(b.d*100)+' cm','#16834d',
+  [b.w/2+.11,b.y+.06,back-.05],[b.w/2+.11,b.y+.06,front],
+  [b.w/2,b.y+.06,back],[b.w/2,b.y+.06,front-.06]);
+}
+function renderFrame(){raf=0;if(!active||!renderer||!scene||!camera)return;renderer.render(scene,camera);drawDimensions()}
 function requestFrame(){if(!raf&&active)raf=requestAnimationFrame(renderFrame)}
 function moveCamera(){
  if(!camera)return;
@@ -773,6 +887,7 @@ function init(config){
  renderer.setSize(Math.max(250,area.clientWidth),Math.max(250,area.clientHeight),false);
  const loading=$('composition-loading');if(loading)loading.remove();
  area.appendChild(renderer.domElement);
+ ensureDimensionsCanvas();
  // Récupération sans crash de l'onglet si le navigateur perd le contexte GPU.
  renderer.domElement.addEventListener('webglcontextlost',event=>{
   event.preventDefault();
@@ -813,7 +928,15 @@ function saveImage(){
  try{
   renderer.render(scene,camera);
   const link=document.createElement('a');link.download='RANDAL-'+String(current?.model||'meuble').replace(/\s/g,'-')+'-composition.png';
-  link.href=renderer.domElement.toDataURL('image/png');link.click();
+  if(dimensionsVisible&&dimensionsCanvas){
+   const picture=document.createElement('canvas');
+   picture.width=renderer.domElement.width;picture.height=renderer.domElement.height;
+   const ctx=picture.getContext('2d');
+   ctx.drawImage(renderer.domElement,0,0,picture.width,picture.height);
+   ctx.drawImage(dimensionsCanvas,0,0,picture.width,picture.height);
+   link.href=picture.toDataURL('image/png');
+  }else link.href=renderer.domElement.toDataURL('image/png');
+  link.click();
  }catch(e){alert('Impossible d’enregistrer cette image sur cet appareil.')}
 }
 function present(config){
@@ -858,6 +981,8 @@ async function open(config){
  contextFailed=false;previousFocus=document.activeElement;
  current=config;el.hidden=false;active=true;restoreOverflow=document.body.style.overflow;document.body.style.overflow='hidden';
  present(config);
+ dimensionsVisible=false;
+ const dimsButton=$('composition-dimensions');if(dimsButton){dimsButton.textContent='Côtes';dimsButton.setAttribute('aria-pressed','false');}
  const drawerControls=$('composition-harmony-controls');
  if(drawerControls)drawerControls.hidden=!(config.model==='Harmony'&&config.typeId!=='column');
  const harmonyCustomize=$('composition-harmony-customize');
