@@ -351,7 +351,7 @@ function woodTexture(hex,grain){
  return t;
 }
 function isWood(color){return woodCodes.some(k=>strip(color).includes(k))}
-function useCatalogueFinish(material,url,wood){
+function useCatalogueFinish(material,url,wood,grainHorizontal=false){
  if(!url)return;
  const generation=sessionId,sceneTicket=sceneGeneration;
  const image=new Image();
@@ -363,7 +363,10 @@ function useCatalogueFinish(material,url,wood){
   // prélever uniquement la matière pour éviter les bordures ivoire.
   const size=Math.min(image.naturalWidth,image.naturalHeight)*.58;
   const xx=(image.naturalWidth-size)/2,yy=(image.naturalHeight-size)/2;
+  // Le placage RANDAL conserve son fil horizontal sur les façades, vertical sur les flancs.
+  if(grainHorizontal){ctx.save();ctx.translate(1024,0);ctx.rotate(Math.PI/2);}
   ctx.drawImage(image,xx,yy,size,size,0,0,1024,1024);
+  if(grainHorizontal)ctx.restore();
   if(wood){
    // Fil de bois vertical fin, très discret : simule le veinage absent du faible
    // grossissement de la pastille tout en conservant sa teinte réelle.
@@ -374,8 +377,13 @@ function useCatalogueFinish(material,url,wood){
     ctx.beginPath();
     ctx.strokeStyle=rand()>.5?'rgba(59,37,18,.105)':'rgba(255,247,220,.11)';
     ctx.lineWidth=w;
-    ctx.moveTo(x,y-260);
-    ctx.bezierCurveTo(x+(rand()-.5)*8,y+50,x+(rand()-.5)*6,y+360,x+(rand()-.5)*7,y+870);
+    if(grainHorizontal){
+     ctx.moveTo(y-260,x);
+     ctx.bezierCurveTo(y+50,x+(rand()-.5)*8,y+360,x+(rand()-.5)*6,y+870,x+(rand()-.5)*7);
+    }else{
+     ctx.moveTo(x,y-260);
+     ctx.bezierCurveTo(x+(rand()-.5)*8,y+50,x+(rand()-.5)*6,y+360,x+(rand()-.5)*7,y+870);
+    }
     ctx.stroke();
    }
   }
@@ -416,8 +424,8 @@ function addFixtures(root,config,width,height,depth,wood){
  const tampa=strip(config.basin).includes('tampa');
  const unitWidth=width/(twin?2:1);
  const basinWidth=Math.min(twin?.44:.53,Math.max(.36,unitWidth*(tampa?.77:.73)));
- const rw=basinWidth/2,rd=tampa?.137:.158;
- const profilePower=tampa?4.7:2.05;
+ const rw=basinWidth/2,rd=tampa?.137:.151;
+ const profilePower=tampa?4.7:5.1; // Sella : rectangle à grands rayons (non cuve ovale)
  const basinPoint=(angle,scale=1)=>{
   const c=Math.cos(angle),sn=Math.sin(angle),pow=2/profilePower;
   return [Math.sign(c)*Math.pow(Math.abs(c),pow)*rw*scale,Math.sign(sn)*Math.pow(Math.abs(sn),pow)*rd*scale];
@@ -463,10 +471,10 @@ function addFixtures(root,config,width,height,depth,wood){
   }else if(isHarmonyBasin){
    // Véritable cuvette 3D en creux : ellipse douce Sella ou rectangle arrondi Tampa.
    // Le profil de la cuvette suit exactement la découpe pratiquée dans le plan.
-   const ringCount=16,segments=96,positions=[],indices=[];
+   const ringCount=22,segments=128,positions=[],indices=[];
    for(let r=0;r<=ringCount;r++){
     const scale=1-r/ringCount*.995;
-    const cy=height+.029-.092*(1-scale*scale);
+    const cy=height+.029-.105*(1-scale*scale);
     for(let j=0;j<=segments;j++){
      const [dx,dz]=basinPoint(j*Math.PI*2/segments,scale);
      positions.push(x+dx,cy,.035+dz);
@@ -488,8 +496,17 @@ function addFixtures(root,config,width,height,depth,wood){
    }
    const rim=new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(rimPoints,true),128,.006,8,true),ceramic);
    basinGroup.add(rim);
-   const drain=new THREE.Mesh(new THREE.CylinderGeometry(.018,.018,.003,32),chrome);
-   drain.position.set(x,height-.062,.035);basinGroup.add(drain);
+   // Bonde chromée, trop-plein et perçage de robinet.
+   const drain=new THREE.Mesh(new THREE.CylinderGeometry(.019,.019,.003,40),chrome);
+   drain.position.set(x,height-.075,.035);basinGroup.add(drain);
+   const overflow=new THREE.Mesh(new THREE.TorusGeometry(.008,.002,12,32),chrome);
+   overflow.position.set(x,height-.012,-.105);basinGroup.add(overflow);
+   const overflowHole=new THREE.Mesh(new THREE.CircleGeometry(.0055,32),new THREE.MeshBasicMaterial({color:'#4d5557',side:THREE.DoubleSide}));
+   overflowHole.position.set(x,height-.012,-.104);basinGroup.add(overflowHole);
+   const tapHole=new THREE.Mesh(new THREE.CircleGeometry(.010,40),new THREE.MeshStandardMaterial({color:'#4b4c4a',roughness:.3}));
+   tapHole.rotation.x=-Math.PI/2;tapHole.position.set(x,height+.032,-.184);basinGroup.add(tapHole);
+   const tapRim=new THREE.Mesh(new THREE.TorusGeometry(.011,.0019,10,40),ceramic);
+   tapRim.rotation.x=-Math.PI/2;tapRim.position.set(x,height+.033,-.184);basinGroup.add(tapRim);
   }else{
    // Autres collections : ne pas modifier le type de vasque non validé.
    elliptical(basinGroup,x,height+.046,.035,rw,rd,ceramic);
@@ -648,7 +665,7 @@ function buildHarmonyColumn(cabinet,w,h,d,finish,edge){
  }
 }
 
-function buildHarmonyCabinet(cabinet,config,w,h,d,finish,edge,metal,dark){
+function buildHarmonyCabinet(cabinet,config,w,h,d,finish,edge,metal,dark,frontFinish){
  const feet=config.typeId==='three',legH=feet?.105:0;
  // 79 cm incluent les pieds, et non 79 cm + pieds.
  const bodyHeight=h-legH,bodyBottom=legH,bodyTop=legH+bodyHeight,side=.016;
@@ -676,7 +693,7 @@ function buildHarmonyCabinet(cabinet,config,w,h,d,finish,edge,metal,dark){
    drawer.position.x=centerX;
    const center=topStart-(i+.5)*step,base=center-step/2,frontZ=d/2+.014;
    const frontH=step-.006;
-   putBox(drawer,0,center,frontZ,unitW-.012,frontH,.016,finish).name='Facade_sans_poignee_'+(i+1);
+   putBox(drawer,0,center,frontZ,unitW-.012,frontH,.016,frontFinish||finish).name='Facade_sans_poignee_'+(i+1);
    const rearZ=d/2-.040-(d-.115);
    for(const x of [-unitW/2+.043,unitW/2-.043])
     putBox(drawer,x,base+.068,(d/2-.040+rearZ)/2,.012,.12,d-.115,woodInterior);
@@ -774,13 +791,19 @@ function buildScene(config){
  // Pas de double allocation d'une texture bois si le véritable échantillon existe.
  if(!config.swatch&&isWood(config.color))finish.map=woodTexture(colorFor(config.color,'#a49584'),true);
  useCatalogueFinish(finish,config.swatch,isWood(config.color));
+ // Fil du bois horizontal sur les quatre façades, vertical sur les panneaux latéraux.
+ const frontFinish=newMat(colorFor(config.color,'#b5a18a'),.64,0);
+ if(!config.swatch&&isWood(config.color)){
+  frontFinish.map=woodTexture(colorFor(config.color,'#b5a18a'),true);
+  frontFinish.map.center.set(.5,.5);frontFinish.map.rotation=Math.PI/2;
+ }else useCatalogueFinish(frontFinish,config.swatch,isWood(config.color),true);
  const edge=newMat(colorFor(config.color,'#948778'),.50,.01);
  const dark=newMat('#34312d',.35,.55);
  if(config.model==='Harmony'&&config.typeId==='column'){
   buildHarmonyColumn(cabinet,width,height,depth,finish,edge);
  }else if(config.model==='Harmony'){
   drawers=[];drawersOpen=false;
-  buildHarmonyCabinet(cabinet,config,width,height,depth,finish,edge,newMat('#afb4b6',.36,.78),dark);
+  buildHarmonyCabinet(cabinet,config,width,height,depth,finish,edge,newMat('#afb4b6',.36,.78),dark,frontFinish);
  }else if(isCounter){
   putBox(cabinet,0,height*.52,0,width,.07,depth,finish);
  }else{
@@ -990,7 +1013,7 @@ function moveCamera(){
 function setCameraPreset(mode){
  if(!camera||!focusBounds)return;
  stopCameraAnimation();
- const endYaw=mode==='front'?0:.43,endPitch=mode==='front'?.085:.17;
+ const endYaw=mode==='front'?0:-.42,endPitch=mode==='front'?.075:.125;
  const target=focusBounds.getCenter(new THREE.Vector3());
  const endDistance=computeFitDistance(endYaw,endPitch,target),from={yaw,pitch,distance,target:getOrbitTarget().clone()};
  const started=performance.now(),ticket=sessionId;
@@ -1059,7 +1082,7 @@ function init(config){
  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,window.innerWidth<720?1.85:2.25));
  renderer.outputColorSpace=THREE.SRGBColorSpace;
  renderer.toneMapping=THREE.ACESFilmicToneMapping;
- renderer.toneMappingExposure=.80;
+ renderer.toneMappingExposure=.91;
  renderer.shadowMap.enabled=true;
  renderer.shadowMap.type=THREE.PCFSoftShadowMap;
  renderer.setSize(Math.max(250,area.clientWidth),Math.max(250,area.clientHeight),false);
@@ -1075,7 +1098,7 @@ function init(config){
   if(current)fallback(current,'Contexte graphique interrompu');
  });
  camera=new THREE.PerspectiveCamera(37,Math.max(320,area.clientWidth)/Math.max(320,area.clientHeight),.08,70);
- yaw=.43;pitch=.17;distance=2.5;
+ yaw=-.42;pitch=.125;distance=2.5;
  cameraTouched=false;stopCameraAnimation();
  buildScene(config);
  orbitTarget=focusBounds?.getCenter(new THREE.Vector3())||new THREE.Vector3(0,.78,-.25);
