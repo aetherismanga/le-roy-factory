@@ -420,6 +420,35 @@ a.pdf:hover{background:white}
  .composition-material-swatch{width:20px;height:20px;flex-basis:20px}
  .composition-material-label strong{font-size:.65rem}
 }
+
+/* RANDAL 3D : angles de vue intégrés sans toucher au logo ni à l'en-tête */
+.composition-viewport .composition-camera-tools{
+ position:absolute;top:69px;left:50%;transform:translateX(-50%);z-index:27;
+ display:flex;align-items:center;justify-content:center;gap:4px;
+ padding:4px;background:rgba(253,253,251,.93);border:1px solid rgba(123,126,116,.28);
+ box-shadow:0 3px 17px rgba(23,30,24,.17);border-radius:13px;backdrop-filter:blur(10px);
+ max-width:calc(100% - 22px);
+}
+.composition-camera-tools button{
+ appearance:none;min-height:33px;min-width:55px;padding:5px 11px;
+ border:0;background:transparent;color:#536159;border-radius:9px;
+ font:inherit;font-size:.78rem;font-weight:750;cursor:pointer;white-space:nowrap;
+ transition:background .18s ease,color .18s ease;
+}
+.composition-camera-tools button[aria-pressed="true"]{
+ background:#dce8dc;color:#294938;box-shadow:inset 0 0 0 1px #adc3ad;
+}
+.composition-camera-tools button:hover{background:#e8eee7}
+.composition-camera-tools button:focus-visible{outline:2px solid #587a5e;outline-offset:2px}
+.composition-viewport #composition-canvas{background:#dfdcd4}
+@media(max-width:760px){
+ .composition-viewport .composition-camera-tools{top:64px;gap:3px;padding:3px;border-radius:11px}
+ .composition-camera-tools button{min-height:33px;min-width:48px;padding:5px 10px;font-size:.73rem}
+}
+@media(max-width:365px){
+ .composition-viewport .composition-camera-tools{top:62px}
+ .composition-camera-tools button{min-width:43px;padding:5px 8px;font-size:.70rem}
+}
 </style></head><body>
 <header><div><a class="back" href="univers.html">← Retour aux sélections</a><img src="assets/img/randal.png" alt="RANDAL"></div></header>
 <main><section class="hero"><div><h1>Votre meuble RANDAL, sur mesure</h1><p>Choisissez votre composition, visualisez vos choix et envoyez la demande.</p><a class="pdf" href="randal-catalogue-interactif.html">Catalogue interactif</a></div></section>
