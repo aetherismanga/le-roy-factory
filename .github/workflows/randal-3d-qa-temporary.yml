@@ -1,0 +1,33 @@
+name: QA ponctuelle configurateur RANDAL 3D
+on:
+  push:
+    paths:
+      - .github/workflows/randal-3d-qa-temporary.yml
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Vérifier la syntaxe JavaScript
+        run: node --check assets/js/randal-composition-3d.js
+      - name: Vérifier les changements demandés
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          js = Path('assets/js/randal-composition-3d.js').read_text()
+          html = Path('randal-configurateur.html').read_text()
+          assert "surfaceChoice={floor:'elios-creta-ginepro',wall:'ivory'}" in js
+          assert Path('assets/img/elios/creta/textures/ginepro.webp').exists()
+          assert 'id="composition-dimensions"' in js
+          assert 'id="composition-fullscreen"' in js
+          assert 'function toggleFullscreen()' in js
+          assert 'el.requestFullscreen' in js
+          assert 'partitionY,rearEnd-.006' in js
+          assert 'bodyTop-.010,-d*.29' not in js
+          assert 'composition-fullscreen .composition-window' in html
+          assert 'composition-stage-floating' in html
+          assert 'cotes-fullscreen-ginepro-u-v1' in html
+          print('OK: defaults, official texture, overlay, real fullscreen, ceramic cavity, siphon return, mobile cache')
+          PY
