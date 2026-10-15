@@ -339,74 +339,76 @@ function useCatalogueFinish(material,url,wood){
 }
 function addFixtures(root,config,width,height,depth,wood){
  if(config.basinMode==='none'||config.kind==='column')return;
- // A tap on the countertop or basin opens the Harmony basin selector.
  const basinGroup=new THREE.Group();
  basinGroup.name='RANDAL_Change_Basin';
  basinGroup.userData={randalSelectBasin:true};
  root.add(basinGroup);
- const ceramic=new THREE.MeshPhysicalMaterial({color:'#f8f7f3',roughness:.19,metalness:0,clearcoat:.22,clearcoatRoughness:.28});
- const sinkShade=newMat('#c6c6bf',.9,0);
- const chrome=newMat('#acb1b1',.22,.78);
- const vesselCeramic=new THREE.MeshPhysicalMaterial({color:colorFor(config.basinFinish,'#f5f4ee'),roughness:.22,metalness:0,clearcoat:.24});
+ const ceramic=new THREE.MeshPhysicalMaterial({color:'#f8f7f3',roughness:.19,metalness:0,clearcoat:.24,clearcoatRoughness:.24,side:THREE.DoubleSide});
+ const chrome=new THREE.MeshStandardMaterial({color:'#b9bdbe',roughness:.18,metalness:.86});
+ const vesselCeramic=new THREE.MeshPhysicalMaterial({color:colorFor(config.basinFinish,'#f5f4ee'),roughness:.23,metalness:0,clearcoat:.22,side:THREE.DoubleSide});
  const vesselMode=config.basinMode==='vessel';
- const counterSurface=vesselMode?newMat(colorFor(config.topFinish,'#e9e5dd'),.50,.04):ceramic;
- // Plan / vasque au catalogue : 46 cm de profondeur.
- putBox(basinGroup,0,height+.015,0,width+.025,.027,depth+.01,counterSurface);
- const twoBasins=width>=1.16&&config.model==='Harmony'&&!vesselMode;
- const count=twoBasins?2:1;
- for(let i=0;i<count;i++){
-  const x=count===1?0:(i===0?-1:1)*width*.255;
+ const counterSurface=vesselMode?newMat(colorFor(config.topFinish,'#e9e5dd'),.45,.03):ceramic;
+ const twin=width>=1.16&&config.model==='Harmony'&&!vesselMode;
+ const sinks=Array.from({length:twin?2:1},(_,i)=>twin?(i===0?-1:1)*width*.255:0);
+ const isHarmonyBasin=!vesselMode&&config.model==='Harmony';
+ const soft=strip(config.basin).includes('sella');
+ const rw=soft?.16:.165,rd=soft?.11:.105;
+ if(isHarmonyBasin){
+  // Plan de céramique avec découpes RÉELLES (extrusion avec trous).
+  // L'ancien plan plein masquait la cuve et donnait l'impression d'une vasque dessinée.
+  const w2=(width+.025)/2,d2=(depth+.012)/2;
+  const shape=new THREE.Shape();
+  shape.moveTo(-w2,-d2);shape.lineTo(w2,-d2);shape.lineTo(w2,d2);shape.lineTo(-w2,d2);shape.closePath();
+  sinks.forEach(x=>{
+   const hole=new THREE.Path();
+   hole.absellipse(x,-.035,rw,rd,0,Math.PI*2,true);
+   shape.holes.push(hole);
+  });
+  const plate=new THREE.Mesh(new THREE.ExtrudeGeometry(shape,{depth:.027,steps:1,bevelEnabled:false,curveSegments:64}),ceramic);
+  plate.rotation.x=-Math.PI/2;
+  plate.position.set(0,height+.003,0);
+  plate.receiveShadow=true;plate.castShadow=true;basinGroup.add(plate);
+ }else{
+  putBox(basinGroup,0,height+.015,0,width+.025,.027,depth+.012,counterSurface);
+ }
+ for(const x of sinks){
   if(vesselMode){
    const neris=strip(config.basin).includes('neris');
-   // NERIS ovale 46x33x14 / TORNE rond Ø37x12, d'après la p.41.
+   // Neris ovale / Torne ronde, fond concave et épaisseur de céramique visible.
    const r=neris?.18:.185,h=neris?.14:.12;
-   const points=[
-    new THREE.Vector2(0,.018),new THREE.Vector2(r*.35,.015),
-    new THREE.Vector2(r*.75,.022),new THREE.Vector2(r*.93,h*.58),
-    new THREE.Vector2(r,h),new THREE.Vector2(r*.955,h+.008)
-   ];
-   const body=new THREE.Mesh(new THREE.LatheGeometry(points,56),vesselCeramic);
-   body.position.set(x,height+.031,.027);
-   body.scale.set(neris?1.27:1,1,neris?.89:1);
-   basinGroup.add(body);
-   const rim=new THREE.Mesh(new THREE.TorusGeometry(r,.007,10,64),vesselCeramic);
-   rim.rotation.x=-Math.PI/2;rim.position.set(x,height+.031+h,.027);
-   rim.scale.set(neris?1.27:1,neris?.89:1,1);basinGroup.add(rim);
-  }else{
-   const soft=strip(config.basin).includes('sella'),rw=soft?.16:.165,rd=soft?.11:.105;
-   // Vasque encastrée : cuve concave ombrée au lieu d'un disque plat sans volume.
    const profile=[
-    new THREE.Vector2(0,.006),new THREE.Vector2(.32,.006),
-    new THREE.Vector2(.61,.009),new THREE.Vector2(.79,.017),
-    new THREE.Vector2(.90,.027),new THREE.Vector2(.98,.035),
-    new THREE.Vector2(1,.037)
+    new THREE.Vector2(.014,.01),new THREE.Vector2(r*.42,.008),
+    new THREE.Vector2(r*.78,.015),new THREE.Vector2(r*.94,h*.55),
+    new THREE.Vector2(r,h),new THREE.Vector2(r*.962,h+.008)
    ];
-   const inner=new THREE.Mesh(new THREE.LatheGeometry(profile,64),ceramic);
-   inner.scale.set(rw,1,rd);inner.position.set(x,height+.021,.035);
-   inner.receiveShadow=true;basinGroup.add(inner);
-   const well=new THREE.Mesh(new THREE.CircleGeometry(1,64),sinkShade);
-   well.rotation.x=-Math.PI/2;
-   well.position.set(x,height+.029,.035);well.scale.set(rw*.88,rd*.88,1);
-   // Garder le reflet de profondeur subtil, sous la cuve.
-   well.material=sinkShade;basinGroup.add(well);
-   // SELLА galbée / TAMPA cuve anguleuse : modèles distincts.
-   if(soft){
-    elliptical(basinGroup,x,height+.046,.035,rw,rd,ceramic);
-    putBox(basinGroup,x,height+.041,.035,rw*1.55,.004,rd*1.2,sinkShade);
-   }else{
-    const y=height+.046,z=.035;
-    putBox(basinGroup,x,y,z,rw*1.95,.003,rd*1.9,sinkShade);
-    for(const side of [-1,1]){
-     putBox(basinGroup,x+side*rw,y+.006,z,.013,.012,rd*2.04,ceramic);
-     putBox(basinGroup,x,y+.006,z+side*rd,rw*2,.012,.013,ceramic);
-    }
-   }
+   const mesh=new THREE.Mesh(new THREE.LatheGeometry(profile,72),vesselCeramic);
+   mesh.position.set(x,height+.031,.027);mesh.scale.set(neris?1.27:1,1,neris?.9:1);
+   mesh.castShadow=true;mesh.receiveShadow=true;basinGroup.add(mesh);
+   const rim=new THREE.Mesh(new THREE.TorusGeometry(r,.006,12,80),vesselCeramic);
+   rim.rotation.x=-Math.PI/2;rim.position.set(x,height+.031+h,.027);
+   rim.scale.set(neris?1.27:1,neris?.9:1,1);basinGroup.add(rim);
+  }else if(isHarmonyBasin){
+   // Cavité elliptique en céramique. Le bord est au niveau du plan,
+   // le centre plonge de 8 cm ; les ombres créent la profondeur réelle.
+   const bowlGeo=new THREE.SphereGeometry(1,72,24,0,Math.PI*2,0,Math.PI/2);
+   bowlGeo.rotateX(Math.PI);
+   bowlGeo.scale(rw,.087,rd);
+   const bowl=new THREE.Mesh(bowlGeo,ceramic);
+   bowl.position.set(x,height+.029,.035);
+   bowl.receiveShadow=true;bowl.castShadow=true;basinGroup.add(bowl);
+   const rim=new THREE.Mesh(new THREE.TorusGeometry(1,.015,10,72),ceramic);
+   rim.rotation.x=-Math.PI/2;rim.scale.set(rw,rd,.01);
+   rim.position.set(x,height+.029,.035);basinGroup.add(rim);
+   const drain=new THREE.Mesh(new THREE.CylinderGeometry(.018,.018,.003,32),chrome);
+   drain.position.set(x,height+.029-.083,.035);basinGroup.add(drain);
+  }else{
+   // Autres collections : ne pas modifier le type de vasque non validé.
+   elliptical(basinGroup,x,height+.046,.035,rw,rd,ceramic);
    const drain=new THREE.Mesh(new THREE.CylinderGeometry(.012,.012,.003,24),chrome);
    drain.position.set(x,height+.048,.035);basinGroup.add(drain);
   }
  }
- // Aucun mitigeur n'est automatiquement ajouté : cette option n'est pas
- // sélectionnée dans le configurateur RANDAL.
+ // Pas de robinet fictif : la robinetterie ne fait pas partie de cette configuration.
 }
 function mirror(config,w,topHeight){
  if(config.mirror==='Sans miroir'||!config.mirror)return;
