@@ -458,7 +458,7 @@ function applyFloorTexture(material){
   if(!scene||ticket!==sceneGeneration||session!==sessionId||!active)return;
   // Atlas de 2 x 2 dalles Creta, dimensions réelles 60x60.
   // Un seul maillage plat de 18 m : aucun rebord, aucune marche.
-  const tile=512,total=1024,canvas=document.createElement('canvas');
+  const tile=window.innerWidth<760?512:768,total=(window.innerWidth<760?512:768)*2,canvas=document.createElement('canvas');
   canvas.width=canvas.height=total;
   const ctx=canvas.getContext('2d',{alpha:false});
   const variants=[0,1,3,2];
@@ -467,7 +467,7 @@ function applyFloorTexture(material){
    ctx.save();
    ctx.translate(x+tile/2,y+tile/2);
    ctx.rotate(k*Math.PI/2);
-   ctx.drawImage(image,-tile/2+2,-tile/2+2,tile-4,tile-4);
+   ctx.drawImage(image,-tile/2,-tile/2,tile,tile);
    ctx.restore();
    // Joint 2 à 3 mm environ à l'échelle de 60 cm.
    ctx.strokeStyle='rgba(77,69,62,.23)';ctx.lineWidth=3;
@@ -476,7 +476,7 @@ function applyFloorTexture(material){
   const texture=new THREE.CanvasTexture(canvas);
   texture.colorSpace=THREE.SRGBColorSpace;
   texture.wrapS=texture.wrapT=THREE.RepeatWrapping;
-  texture.repeat.set(18/1.2,18/1.2);
+  texture.repeat.set(9/1.2,9/1.2);
   texture.anisotropy=Math.min(12,renderer?.capabilities.getMaxAnisotropy?.()||8);
   texture.minFilter=THREE.LinearMipmapLinearFilter;texture.magFilter=THREE.LinearFilter;
   if(material.map)material.map.dispose();
@@ -495,7 +495,7 @@ function loadCocoFloor(material){
   const texture=new THREE.Texture(image);
   texture.colorSpace=THREE.SRGBColorSpace;
   texture.wrapS=texture.wrapT=THREE.RepeatWrapping;
-  texture.repeat.set(18/.6,18/.4);texture.anisotropy=8;texture.needsUpdate=true;
+  texture.repeat.set(9/.6,9/.4);texture.anisotropy=8;texture.needsUpdate=true;
   if(material.map)material.map.dispose();
   material.color.set('#ffffff');material.map=texture;material.needsUpdate=true;requestFrame();
  };
@@ -623,7 +623,7 @@ function buildScene(config){
  const wall=newMat(WALL_COLORS[surfaceChoice.wall]?.hex||(/^#[0-9a-f]{6}$/i.test(surfaceChoice.wall)?surfaceChoice.wall:WALL_COLORS.cream.hex),.94);
  putBox(scene,0,2.35,-.65,12,4.7,.06,wall).name='RANDAL_InteriorWall';
  // Un seul plan continu au niveau zéro, sans tranche apparente ni fausse marche.
- const floor=newMat('#e1dcd4',.9);const floorMesh=new THREE.Mesh(new THREE.PlaneGeometry(18,18),floor);
+ const floor=newMat('#d8d0c5',.88);const floorMesh=new THREE.Mesh(new THREE.PlaneGeometry(9,9),floor);
  floorMesh.rotation.x=-Math.PI/2;floorMesh.position.set(0,-.005,0);floorMesh.receiveShadow=true;scene.add(floorMesh);
  applyFloorTexture(floor);
  const width=clamp((Number(config.width)||80)/100,.35,1.56),height=clamp((Number(config.height)||53)/100,.1,1.75),depth=clamp((Number(config.depth)||45)/100,.22,.55);
