@@ -850,6 +850,7 @@ function drawDimensions(){
  ctx.setTransform(ratio,0,0,ratio,0,0);
  ctx.clearRect(0,0,w,h);
  const b=measureBounds;
+ const placedLabels=[]; // Une étiquette par mesure, sans collisions ni recouvrement de la barre matières.
  const xy=(x,y,z)=>{
   const p=new THREE.Vector3(x,y,z).project(camera);
   return {x:(p.x+1)*w/2,y:(1-p.y)*h/2,visible:p.z>-1&&p.z<1};
@@ -859,7 +860,7 @@ function drawDimensions(){
   ctx.strokeStyle='rgba(255,255,255,.93)';ctx.lineWidth=5;ctx.stroke();
   ctx.strokeStyle=stroke;ctx.lineWidth=2.3;ctx.stroke();
  };
- function dimension(label,color,start,end,ext1,ext2){
+ function dimension(label,color,start,end,ext1,ext2,labelDX=0,labelDY=0){
   const a=xy(...start),c=xy(...end),ea=xy(...ext1),ec=xy(...ext2);
   if(!a.visible||!c.visible)return;
   ctx.save();ctx.lineCap='round';ctx.lineJoin='round';
@@ -876,8 +877,19 @@ function drawDimensions(){
   ctx.font='bold 13px system-ui,Arial,sans-serif';
   const textWidth=ctx.measureText(label).width;
   const bw=textWidth+22,bh=27;
-  const px=Math.max(bw/2+4,Math.min(w-bw/2-4,tx));
-  const py=Math.max(bh/2+4,Math.min(h-bh/2-4,ty));
+  const minX=bw/2+7,maxX=Math.max(minX,w-bw/2-7);
+  const minY=73,maxY=Math.max(minY,h-85);
+  const candidates=[[labelDX,labelDY],[labelDX+65,labelDY-55],[labelDX-65,labelDY-55],[labelDX,labelDY-75],[labelDX+65,labelDY+55],[labelDX-65,labelDY+55]];
+  let best=null,bestPenalty=Infinity;
+  for(const [dx,dy] of candidates){
+   const px=clamp(tx+dx,minX,maxX),py=clamp(ty+dy,minY,maxY);
+   const b={left:px-bw/2-9,right:px+bw/2+9,top:py-bh/2-9,bottom:py+bh/2+9};
+   const overlap=placedLabels.reduce((total,t)=>total+Math.max(0,Math.min(b.right,t.right)-Math.max(b.left,t.left))*Math.max(0,Math.min(b.bottom,t.bottom)-Math.max(b.top,t.top)),0);
+   const penalty=overlap*30+Math.abs(px-tx-dx)*.4+Math.abs(py-ty-dy)*.4+Math.hypot(dx-labelDX,dy-labelDY)*.1;
+   if(penalty<bestPenalty){best={px,py,b};bestPenalty=penalty;}
+   if(overlap===0&&Math.abs(px-tx-dx)<1&&Math.abs(py-ty-dy)<1)break;
+  }
+  const {px,py}=best;placedLabels.push(best.b);
   ctx.fillStyle='rgba(255,255,255,.97)';
   ctx.beginPath();ctx.roundRect(px-bw/2,py-bh/2,bw,bh,7);ctx.fill();
   ctx.strokeStyle=color;ctx.lineWidth=1.5;ctx.stroke();
@@ -892,9 +904,10 @@ function drawDimensions(){
  dimension('H '+Math.round(b.h*100)+' cm','#2268d6',
   [b.w/2+.16,b.y,front],[b.w/2+.16,b.y+b.h,front],
   [b.w/2,b.y,front-.05],[b.w/2,b.y+b.h,front-.05]);
+ // La profondeur est dessinée sur le bord supérieur droit pour la dissocier de la hauteur.
  dimension('P '+Math.round(b.d*100)+' cm','#16834d',
-  [b.w/2+.11,b.y+.06,back-.05],[b.w/2+.11,b.y+.06,front],
-  [b.w/2,b.y+.06,back],[b.w/2,b.y+.06,front-.06]);
+  [b.w/2+.17,b.y+b.h+.06,back-.05],[b.w/2+.17,b.y+b.h+.06,front],
+  [b.w/2,b.y+b.h,back],[b.w/2,b.y+b.h,front-.06],25,-36);
 }
 function renderFrame(){raf=0;if(!active||!renderer||!scene||!camera)return;renderer.render(scene,camera);drawDimensions()}
 function requestFrame(){if(!raf&&active)raf=requestAnimationFrame(renderFrame)}
