@@ -5,9 +5,9 @@
 const THREE_URLS=['https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js','https://unpkg.com/three@0.152.2/build/three.min.js'];
 let libraryPromise=null,renderer=null,scene=null,camera=null,stage=null,resizeObserver=null,raf=0;
 let yaw=.47,pitch=.15,distance=2.75,lastPointer=null,lastPinch=null;
-let active=false,previousFocus=null,restoreOverflow='',current=null,sessionId=0,contextFailed=false,surfaceChoice={floor:'elios-creta-avena',wall:'greige'};
+let active=false,previousFocus=null,restoreOverflow='',current=null,sessionId=0,contextFailed=false,surfaceChoice={floor:'elios-creta-ginepro',wall:'ivory'};
 let drawers=[],drawersOpen=false,drawerAnimation=0,sceneGeneration=0;
-let dimensionsVisible=false,dimensionsCanvas=null,measureBounds=null;
+let dimensionsVisible=false,dimensionsCanvas=null,measureBounds=null,fullscreen3D=false;
 const WALL_COLORS={
  cream:{label:'Crème doux',hex:'#eee4d5'},ivory:{label:'Ivoire',hex:'#f4f0e8'},
  chalk:{label:'Blanc craie',hex:'#f5f5f0'},greige:{label:'Greige',hex:'#c9c5ba'},
@@ -58,9 +58,10 @@ function modal(){
  '<div class="composition-layout"><div class="composition-stage-area">'+
  '<div id="composition-canvas" class="composition-canvas" role="img" aria-label="Modèle 3D manipulable de votre composition RANDAL">'+
  '<div class="composition-loading" id="composition-loading">Préparation de votre aperçu 3D…</div></div>'+
+ '<div class="composition-stage-floating"><button type="button" id="composition-dimensions" aria-pressed="false" aria-label="Afficher les cotes et dimensions du meuble">◫ Cotes</button><button type="button" id="composition-fullscreen" aria-pressed="false" aria-label="Afficher la vue 3D en plein écran">⛶ Plein écran</button></div>'+
  '<p class="composition-gesture">Glissez pour tourner le meuble · Pincez pour zoomer</p>'+
  '<div class="composition-harmony-controls" id="composition-harmony-controls" hidden><button type="button" id="composition-drawers" aria-pressed="false">Ouvrir les tiroirs</button><span>Découpe siphon visible dans le tiroir supérieur</span></div>'+
- '<div class="composition-view-tools"><button type="button" id="composition-floor" aria-expanded="false" aria-controls="composition-surface-panel">Sol</button><button type="button" id="composition-wall" aria-expanded="false" aria-controls="composition-surface-panel">Mur</button><button type="button" id="composition-dimensions" aria-pressed="false" aria-label="Afficher ou masquer les cotes du meuble">Côtes</button><button type="button" id="composition-photo">Enregistrer l’image</button></div>'+
+ '<div class="composition-view-tools"><button type="button" id="composition-floor" aria-expanded="false" aria-controls="composition-surface-panel">Sol</button><button type="button" id="composition-wall" aria-expanded="false" aria-controls="composition-surface-panel">Mur</button><button type="button" id="composition-photo">Enregistrer l’image</button></div>'+
  '<div id="composition-surface-panel" class="composition-surface-panel" hidden><strong id="composition-surface-title"></strong><div id="composition-surface-choices"></div><p>Creta 60 × 60 : coloris officiels du catalogue ELIOS.</p></div>'+
  '</div><aside class="composition-details"><div class="composition-label">VOTRE COMPOSITION</div><h3 id="composition-model"></h3>'+
  '<div class="composition-selected"><div><span>Dimensions</span><strong id="composition-size"></strong></div>'+
@@ -83,6 +84,7 @@ function modal(){
  $('composition-floor').addEventListener('click',()=>showSurface('floor'));
  $('composition-wall').addEventListener('click',()=>showSurface('wall'));
  $('composition-dimensions').addEventListener('click',toggleDimensions);
+ $('composition-fullscreen').addEventListener('click',toggleFullscreen);
  $('composition-photo').addEventListener('click',saveImage);
  $('composition-drawers').addEventListener('click',toggleDrawers);
  el.querySelectorAll('[data-customize]').forEach(button=>button.addEventListener('click',()=>showCustomize(button.dataset.customize)));
@@ -205,6 +207,13 @@ function redrawCurrent(){
  present(current);
 }
 
+function syncSurfaceLabels(){
+ const floor=FLOOR_OPTIONS.find(item=>item.id===surfaceChoice.floor)||FLOOR_OPTIONS[0];
+ const wall=WALL_COLORS[surfaceChoice.wall]?.label||'Personnalisé';
+ const floorButton=$('composition-floor'),wallButton=$('composition-wall');
+ if(floorButton){floorButton.textContent='Sol · '+floor.label.replace('ELIOS · ','').replace('VIEW · ','');floorButton.title=floor.label+' · '+(floor.sub||'');}
+ if(wallButton){wallButton.textContent='Mur · '+wall;wallButton.title='Peinture '+wall;}
+}
 function showSurface(which){
  const panel=$('composition-surface-panel'),title=$('composition-surface-title'),list=$('composition-surface-choices');
  if(!panel||!title||!list)return;
@@ -228,7 +237,7 @@ function showSurface(which){
   const sub=document.createElement('small');sub.textContent=item.sub||'Peinture mate';copy.append(heading,sub);
   const tick=document.createElement('span');tick.className='composition-surface-check';tick.textContent=surfaceChoice[which]===item.id?'✓':'';
   button.append(preview,copy,tick);
-  button.onclick=()=>{surfaceChoice[which]=item.id;panel.hidden=true;
+  button.onclick=()=>{surfaceChoice[which]=item.id;syncSurfaceLabels();panel.hidden=true;
    $('composition-floor').setAttribute('aria-expanded','false');
    $('composition-wall').setAttribute('aria-expanded','false');
    redrawCurrent();
@@ -243,7 +252,7 @@ function showSurface(which){
   input.value=WALL_COLORS[surfaceChoice.wall]?.hex||(/^#[0-9a-f]{6}$/i.test(surfaceChoice.wall)?surfaceChoice.wall:'#c9c5ba');
   input.setAttribute('aria-label','Choisir librement la couleur du mur');
   input.addEventListener('input',e=>{
-    surfaceChoice.wall=e.target.value;
+    surfaceChoice.wall=e.target.value;syncSurfaceLabels();
     if(scene){
       const wall=scene.getObjectByName('RANDAL_InteriorWall');
       if(wall){wall.material.color.set(surfaceChoice.wall);requestFrame();}
@@ -258,6 +267,7 @@ function close(){
  const drawerButton=$('composition-drawers');
  if(drawerButton){drawerButton.textContent='Ouvrir les tiroirs';drawerButton.setAttribute('aria-pressed','false')}
  const el=$('randal-composition-dialog');if(!el||el.hidden)return;
+ fullscreen3D=false;el.classList.remove('composition-fullscreen');
  active=false;sessionId++;el.hidden=true;document.body.style.overflow=restoreOverflow;
  releaseRenderer();
  current=null;
@@ -547,6 +557,7 @@ function harmonyDrawerFloor(group,width,depth,base,material,topDrawer,doubleWast
  const frontZ=depth/2-.040,backZ=frontZ-bodyDepth;
  const floorY=base+.018;
  const cutDepth=Math.min(.18,bodyDepth*.62),notch=.19;
+ const partitionH=.128,partitionY=base+.018+partitionH/2;
  if(!topDrawer){
   putBox(group,0,floorY,(frontZ+backZ)/2,innerW,.009,bodyDepth,material);
   return;
@@ -558,13 +569,21 @@ function harmonyDrawerFloor(group,width,depth,base,material,topDrawer,doubleWast
  let x0=-innerW/2;
  for(const c of cuts){
   let l=clamp(c-notch/2,-innerW/2,innerW/2);
-  if(l>x0+.005)putBox(group,(x0+l)/2,floorY,(rearStart+rearEnd)/2,l-x0,.009,cutDepth,material);
+  if(l>x0+.005){
+   putBox(group,(x0+l)/2,floorY,(rearStart+rearEnd)/2,l-x0,.009,cutDepth,material);
+   putBox(group,(x0+l)/2,partitionY,rearStart+.006,l-x0,partitionH,.012,material);
+  }
   const start=clamp(c-notch/2,-innerW/2,innerW/2);
   const end=clamp(c+notch/2,-innerW/2,innerW/2);
-  for(const x of [start,end])putBox(group,x,base+.064,(rearStart+rearEnd)/2,.009,.090,cutDepth,material);
+  // Retour fermé du siphon: deux joues longitudinales et un fond de U côté tiroir.
+  for(const x of [start,end])putBox(group,x,partitionY,(rearStart+rearEnd)/2,.012,partitionH,cutDepth,material);
+  putBox(group,(start+end)/2,partitionY,rearEnd-.006,end-start+.012,partitionH,.012,material);
   x0=end;
  }
- if(x0<innerW/2-.005)putBox(group,(x0+innerW/2)/2,floorY,(rearStart+rearEnd)/2,innerW/2-x0,.009,cutDepth,material);
+ if(x0<innerW/2-.005){
+  putBox(group,(x0+innerW/2)/2,floorY,(rearStart+rearEnd)/2,innerW/2-x0,.009,cutDepth,material);
+  putBox(group,(x0+innerW/2)/2,partitionY,rearStart+.006,innerW/2-x0,partitionH,.012,material);
+ }
 }
 
 /* HARMONY colonne M : 30 × 150 × 27 cm, deux portes superposées.
@@ -594,7 +613,9 @@ function buildHarmonyCabinet(cabinet,config,w,h,d,finish,edge,metal,dark){
  putBox(cabinet,-w/2+side/2,bodyBottom+bodyHeight/2,0,side,bodyHeight,d,finish);
  putBox(cabinet,w/2-side/2,bodyBottom+bodyHeight/2,0,side,bodyHeight,d,finish);
  putBox(cabinet,0,bodyBottom+.011,0,w-2*side,.022,d-.02,woodInterior);
- putBox(cabinet,0,bodyTop-.010,-d*.29,w-2*side,.02,d*.41,woodInterior);
+ // Ancienne traverse retirée : elle traversait la vasque au niveau du creux.
+ // Traverse arrière hors de l'empreinte de toutes les cuves.
+ putBox(cabinet,0,bodyTop-.028,-d/2+.016,w-2*side,.045,.028,woodInterior);
  putBox(cabinet,0,bodyBottom+bodyHeight/2,-d/2+.008,w-2*side,bodyHeight-.035,.010,woodInterior);
  putBox(cabinet,0,bodyTop-.018,d/2-.025,w-.04,.016,.035,woodInterior);
  const count=feet?3:2,step=(bodyHeight-.036)/count,topStart=bodyTop-.018;
@@ -640,7 +661,8 @@ function animateHarmonyDrawers(){
  // Ancien bug : en refermant, les tiroirs restaient parfois à leur position ouverte.
  const starts=drawers.map(drawer=>drawer.position.z);
  // Débattement réaliste : chaque tiroir garde au moins ~20 cm engagés dans le caisson.
- const travel=i=>drawers.length===3?(i===0?.095:i===1?.145:.19):(i===0?.12:.19);
+ // Coulisses toujours engagées dans le caisson, sorties davantage pour voir l'intérieur.
+ const travel=i=>drawers.length===3?(i===0?.165:i===1?.215:.265):(i===0?.19:.265);
  const targets=drawers.map((drawer,i)=>(drawer.userData.closedZ??0)+(drawersOpen?travel(i):0));
  const began=performance.now(),duration=540,ticket=sessionId;
  function frame(now){
@@ -764,8 +786,24 @@ function nameToDoor(config){return strip(config.typeName).includes('porte')}
 function toggleDimensions(){
  dimensionsVisible=!dimensionsVisible;
  const btn=$('composition-dimensions');
- if(btn){btn.setAttribute('aria-pressed',String(dimensionsVisible));btn.textContent=dimensionsVisible?'Masquer les côtes':'Côtes';}
+ if(btn){btn.setAttribute('aria-pressed',String(dimensionsVisible));btn.textContent=dimensionsVisible?'✓ Masquer les cotes':'◫ Cotes';btn.setAttribute('aria-label',dimensionsVisible?'Masquer les cotes et dimensions du meuble':'Afficher les cotes et dimensions du meuble');}
  requestFrame();
+}
+function toggleFullscreen(){
+ const el=$('randal-composition-dialog'),btn=$('composition-fullscreen');if(!el||!btn)return;
+ fullscreen3D=!fullscreen3D;el.classList.toggle('composition-fullscreen',fullscreen3D);
+ btn.setAttribute('aria-pressed',String(fullscreen3D));
+ btn.textContent=fullscreen3D?'⤢ Réduire':'⛶ Plein écran';
+ btn.setAttribute('aria-label',fullscreen3D?'Quitter le plein écran 3D':'Afficher la vue 3D en plein écran');
+ const surfacePanel=$('composition-surface-panel');if(surfacePanel)surfacePanel.hidden=true;
+ requestAnimationFrame(()=>{
+  const area=$('composition-canvas');
+  if(renderer&&camera&&area){
+   const w=Math.max(250,area.clientWidth),h=Math.max(250,area.clientHeight);
+   renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();
+  }
+  requestFrame();
+ });
 }
 function ensureDimensionsCanvas(){
  const area=$('composition-canvas');
@@ -986,10 +1024,14 @@ async function open(config){
  const generation=++sessionId;
  drawersOpen=false;drawers=[];
  contextFailed=false;previousFocus=document.activeElement;
+ surfaceChoice={floor:'elios-creta-ginepro',wall:'ivory'};
+ fullscreen3D=false;el.classList.remove('composition-fullscreen');
  current=config;el.hidden=false;active=true;restoreOverflow=document.body.style.overflow;document.body.style.overflow='hidden';
+ syncSurfaceLabels();
  present(config);
  dimensionsVisible=false;
- const dimsButton=$('composition-dimensions');if(dimsButton){dimsButton.textContent='Côtes';dimsButton.setAttribute('aria-pressed','false');}
+ const dimsButton=$('composition-dimensions');if(dimsButton){dimsButton.textContent='◫ Cotes';dimsButton.setAttribute('aria-pressed','false');dimsButton.setAttribute('aria-label','Afficher les cotes et dimensions du meuble');}
+ const fullButton=$('composition-fullscreen');if(fullButton){fullButton.textContent='⛶ Plein écran';fullButton.setAttribute('aria-pressed','false');}
  const drawerControls=$('composition-harmony-controls');
  if(drawerControls)drawerControls.hidden=!(config.model==='Harmony'&&config.typeId!=='column');
  const harmonyCustomize=$('composition-harmony-customize');
