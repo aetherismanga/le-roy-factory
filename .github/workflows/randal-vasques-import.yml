@@ -29,4 +29,5 @@ jobs:
             echo "Document deja importe"; exit 0
           fi
           git commit -m "Import tarif PDF officiel vasques Solid Surface RANDAL"
+          git pull --rebase origin main
           git push
