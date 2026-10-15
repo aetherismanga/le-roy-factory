@@ -351,6 +351,75 @@ a.pdf:hover{background:white}
  .composition-fullscreen .composition-view-tools{bottom:max(9px,env(safe-area-inset-bottom));grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 
+
+/* RANDAL 3D — édition mobile 2026.10.15 : matériaux toujours visibles sur l'image. */
+.composition-viewport{position:relative;min-width:0;isolation:isolate}
+.composition-viewport .composition-stage-floating{z-index:28}
+.composition-viewport .composition-view-tools{
+  position:absolute;z-index:25;bottom:12px;left:12px;right:12px;
+  display:grid;grid-template-columns:minmax(0,1.16fr) minmax(0,1fr) auto;
+  align-items:stretch;gap:8px;margin:0;pointer-events:none;
+}
+.composition-viewport .composition-view-tools button{
+  display:flex;align-items:center;justify-content:flex-start;gap:8px;
+  min-width:0;min-height:49px;height:auto;cursor:pointer;
+  padding:7px 9px;color:#283d31!important;background:rgba(255,255,255,.95)!important;
+  border:1px solid rgba(85,95,81,.34)!important;border-radius:12px!important;
+  box-shadow:0 4px 17px rgba(21,30,20,.20);backdrop-filter:blur(10px);
+  font:inherit;font-size:.77rem;line-height:1.12;pointer-events:auto;
+}
+.composition-viewport .composition-view-tools button[aria-expanded="true"]{
+  background:#e8f0e6!important;border-color:#63936c!important;box-shadow:0 0 0 2px #87a68f66,0 4px 17px #0002;
+}
+.composition-material-swatch{display:block;position:relative;flex:0 0 29px;width:29px;height:29px;border-radius:8px;overflow:hidden;border:1px solid #807c7166;box-shadow:inset 0 0 0 1px #ffffff50}
+.composition-material-swatch img{display:block;width:100%;height:100%;object-fit:cover}
+.composition-material-label{display:flex;flex:1 1 auto;flex-direction:column;gap:2px;min-width:0;text-align:left}
+.composition-material-label small{font-size:.63rem;color:#6d746c;line-height:1.1}
+.composition-material-label strong{font-size:.76rem;font-weight:800;line-height:1.2;overflow-wrap:break-word}
+.composition-material-chevron{font-weight:800;flex:0 0 auto;color:#6e796f}
+.composition-viewport .composition-view-tools #composition-photo{
+  justify-content:center;min-width:66px;max-width:85px;
+  background:rgba(246,247,244,.94)!important;font-size:.73rem;font-weight:750;
+  text-align:center;white-space:normal;
+}
+.composition-viewport .composition-surface-panel{
+  display:block;position:absolute;z-index:29;left:12px;right:12px;bottom:75px;
+  margin:0;padding:14px 15px;max-height:calc(100% - 162px);overflow-y:auto;
+  background:rgba(253,252,248,.98);border:1px solid #d6d4c9;
+  border-radius:15px;box-shadow:0 14px 55px #1e281b55;
+  overscroll-behavior:contain;backdrop-filter:blur(12px);
+}
+.composition-viewport .composition-surface-panel[hidden]{display:none!important}
+.composition-surface-close{float:right;display:flex;align-items:center;justify-content:center;width:31px;height:31px;min-height:31px;border-radius:50%;border:1px solid #d4d7ce;background:#fff;color:#394338;font-size:1.25rem;cursor:pointer;margin:-4px -3px 0 8px}
+.composition-viewport #composition-surface-choices{grid-template-columns:repeat(3,minmax(0,1fr));max-height:none;overflow:visible}
+.composition-viewport .composition-surface-panel>strong{font-size:.86rem;padding-right:30px;line-height:1.4}
+.composition-harmony-controls>span{display:none}
+.composition-gesture{margin:8px 0 4px;font-size:.73rem}
+.composition-fullscreen .composition-viewport{flex:1 1 auto;min-height:0;width:100%;display:flex;flex-direction:column}
+.composition-fullscreen .composition-viewport .composition-canvas{flex:1 1 auto;width:100%;height:100%!important;min-height:0}
+.composition-fullscreen .composition-viewport .composition-view-tools{bottom:max(12px,env(safe-area-inset-bottom));grid-template-columns:minmax(0,1.16fr) minmax(0,1fr) auto}
+.composition-fullscreen .composition-viewport .composition-view-tools #composition-photo{grid-column:auto}
+.composition-fullscreen .composition-viewport .composition-surface-panel{bottom:140px;max-height:calc(100% - 230px)}
+.composition-fullscreen .composition-harmony-controls{bottom:79px}
+@media(max-width:760px){
+ .composition-viewport .composition-view-tools{bottom:10px;left:9px;right:9px;gap:6px;grid-template-columns:minmax(0,1.22fr) minmax(0,.94fr) auto}
+ .composition-viewport .composition-view-tools button{min-height:45px;padding:6px;gap:5px;border-radius:10px!important}
+ .composition-material-swatch{width:24px;height:24px;flex-basis:24px;border-radius:6px}
+ .composition-material-label small{font-size:.58rem}
+ .composition-material-label strong{font-size:.70rem}
+ .composition-material-chevron{display:none}
+ .composition-viewport .composition-view-tools #composition-photo{grid-column:auto;min-width:54px;max-width:68px;font-size:.69rem}
+ .composition-viewport .composition-surface-panel{bottom:64px;left:9px;right:9px;padding:11px;max-height:calc(100% - 133px)}
+ .composition-viewport #composition-surface-choices{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+ .composition-fullscreen .composition-viewport .composition-surface-panel{bottom:136px;max-height:calc(100% - 216px)}
+ .composition-fullscreen .composition-harmony-controls{bottom:69px}
+ .composition-fullscreen .composition-viewport .composition-view-tools{bottom:max(10px,env(safe-area-inset-bottom));grid-template-columns:minmax(0,1.22fr) minmax(0,.94fr) auto}
+}
+@media(max-width:380px){
+ .composition-viewport .composition-view-tools #composition-photo{min-width:49px;max-width:58px;font-size:.65rem}
+ .composition-material-swatch{width:20px;height:20px;flex-basis:20px}
+ .composition-material-label strong{font-size:.65rem}
+}
 </style></head><body>
 <header><div><a class="back" href="univers.html">← Retour aux sélections</a><img src="assets/img/randal.png" alt="RANDAL"></div></header>
 <main><section class="hero"><div><h1>Votre meuble RANDAL, sur mesure</h1><p>Choisissez votre composition, visualisez vos choix et envoyez la demande.</p><a class="pdf" href="randal-catalogue-interactif.html">Catalogue interactif</a></div></section>
@@ -360,7 +429,7 @@ a.pdf:hover{background:white}
 </main><footer>RANDAL V04 · LE ROY FACTORY</footer>
 
 <script src="assets/js/randal-coco-beige-texture.js?v=20261014-sol-view1"></script>
-<script src="assets/js/randal-composition-3d.js?v=20261015-cotes-fullscreen-ginepro-u-v1"></script>
+<script src="assets/js/randal-composition-3d.js?v=20261015-stage-materials-depth-v2"></script>
 <script>
 (()=>{
 'use strict';
