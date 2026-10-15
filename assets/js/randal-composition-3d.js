@@ -56,13 +56,15 @@ function modal(){
  '<header class="composition-top"><div><span class="composition-eyebrow">RANDAL · VISUALISATION</span><h2 id="composition-heading">Votre salle de bain</h2></div>'+
  '<button type="button" class="composition-close" id="composition-close" aria-label="Fermer l’aperçu">×</button></header>'+
  '<div class="composition-layout"><div class="composition-stage-area">'+
+ '<div class="composition-viewport">'+
  '<div id="composition-canvas" class="composition-canvas" role="img" aria-label="Modèle 3D manipulable de votre composition RANDAL">'+
  '<div class="composition-loading" id="composition-loading">Préparation de votre aperçu 3D…</div></div>'+
  '<div class="composition-stage-floating"><button type="button" id="composition-dimensions" aria-pressed="false" aria-label="Afficher les cotes et dimensions du meuble">◫ Cotes</button><button type="button" id="composition-fullscreen" aria-pressed="false" aria-label="Afficher la vue 3D en plein écran">⛶ Plein écran</button></div>'+
+ '<div class="composition-view-tools" role="group" aria-label="Personnaliser la salle de bain"><button type="button" id="composition-floor" aria-expanded="false" aria-controls="composition-surface-panel">Sol</button><button type="button" id="composition-wall" aria-expanded="false" aria-controls="composition-surface-panel">Mur</button><button type="button" id="composition-photo" aria-label="Enregistrer la photo 3D">↓ Image</button></div>'+
+ '<div id="composition-surface-panel" class="composition-surface-panel" role="region" aria-label="Choix des matériaux" hidden><strong id="composition-surface-title"></strong><div id="composition-surface-choices"></div><p>Creta 60 × 60 : coloris officiels du catalogue ELIOS.</p></div>'+
+ '</div>'+
  '<p class="composition-gesture">Glissez pour tourner le meuble · Pincez pour zoomer</p>'+
- '<div class="composition-harmony-controls" id="composition-harmony-controls" hidden><button type="button" id="composition-drawers" aria-pressed="false">Ouvrir les tiroirs</button><span>Découpe siphon visible dans le tiroir supérieur</span></div>'+
- '<div class="composition-view-tools"><button type="button" id="composition-floor" aria-expanded="false" aria-controls="composition-surface-panel">Sol</button><button type="button" id="composition-wall" aria-expanded="false" aria-controls="composition-surface-panel">Mur</button><button type="button" id="composition-photo">Enregistrer l’image</button></div>'+
- '<div id="composition-surface-panel" class="composition-surface-panel" hidden><strong id="composition-surface-title"></strong><div id="composition-surface-choices"></div><p>Creta 60 × 60 : coloris officiels du catalogue ELIOS.</p></div>'+
+ '<div class="composition-harmony-controls" id="composition-harmony-controls" hidden><button type="button" id="composition-drawers" aria-pressed="false" title="Tiroir supérieur avec compartiment siphon">Ouvrir les tiroirs</button></div>'+
  '</div><aside class="composition-details"><div class="composition-label">VOTRE COMPOSITION</div><h3 id="composition-model"></h3>'+
  '<div class="composition-selected"><div><span>Dimensions</span><strong id="composition-size"></strong></div>'+
  '<div><span>Finition du meuble</span><strong id="composition-color"></strong></div>'+
@@ -214,10 +216,20 @@ function redrawCurrent(){
 
 function syncSurfaceLabels(){
  const floor=FLOOR_OPTIONS.find(item=>item.id===surfaceChoice.floor)||FLOOR_OPTIONS[0];
- const wall=WALL_COLORS[surfaceChoice.wall]?.label||'Personnalisé';
- const floorButton=$('composition-floor'),wallButton=$('composition-wall');
- if(floorButton){floorButton.textContent='Sol · '+floor.label.replace('ELIOS · ','').replace('VIEW · ','');floorButton.title=floor.label+' · '+(floor.sub||'');}
- if(wallButton){wallButton.textContent='Mur · '+wall;wallButton.title='Peinture '+wall;}
+ const wallSpec=WALL_COLORS[surfaceChoice.wall],wall=wallSpec?.label||'Personnalisé';
+ function chip(btn,kind,name,base,preview){
+  if(!btn)return;
+  const swatch=document.createElement('span');swatch.className='composition-material-swatch';swatch.style.backgroundColor=base;
+  if(preview){const img=document.createElement('img');img.src=preview;img.alt='';img.decoding='async';swatch.appendChild(img)}
+  const label=document.createElement('span');label.className='composition-material-label';
+  const small=document.createElement('small');small.textContent=kind;
+  const strong=document.createElement('strong');strong.textContent=name;label.append(small,strong);
+  const arrow=document.createElement('span');arrow.className='composition-material-chevron';arrow.textContent='⌄';arrow.setAttribute('aria-hidden','true');
+  btn.replaceChildren(swatch,label,arrow);
+  btn.title=kind+' · '+name;btn.setAttribute('aria-label','Modifier '+(kind==='Sol'?'le carrelage du sol':'la couleur du mur')+', actuellement '+name);
+ }
+ chip($('composition-floor'),'Sol',floor.label.replace('ELIOS · ','').replace('VIEW · ',''),floor.base,floor.preview);
+ chip($('composition-wall'),'Mur',wall,wallSpec?.hex||(/^#[0-9a-f]{6}$/i.test(surfaceChoice.wall)?surfaceChoice.wall:'#c9c5ba'),null);
 }
 function showSurface(which){
  const panel=$('composition-surface-panel'),title=$('composition-surface-title'),list=$('composition-surface-choices');
@@ -263,7 +275,7 @@ function showSurface(which){
       if(wall){wall.material.color.set(surfaceChoice.wall);requestFrame();}
     }
   });
-  input.addEventListener('change',e=>{surfaceChoice.wall=e.target.value;panel.hidden=true;redrawCurrent()});
+  input.addEventListener('change',e=>{surfaceChoice.wall=e.target.value;syncSurfaceLabels();panel.hidden=true;$('composition-floor').setAttribute('aria-expanded','false');$('composition-wall').setAttribute('aria-expanded','false');redrawCurrent()});
   picker.appendChild(input);list.appendChild(picker);
  }
  if(help)help.textContent=which==='floor'?'Creta ELIOS : véritables échantillons 60 × 60 cm, 8 coloris.':'Peinture mate : choisissez une teinte du nuancier ou personnalisez-la.';
