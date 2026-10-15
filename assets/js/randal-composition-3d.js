@@ -707,14 +707,16 @@ function animateHarmonyDrawers(){
  // Coulisses toujours engagées dans le caisson, sorties davantage pour voir l'intérieur.
  const travel=i=>drawers.length===3?(i===0?.165:i===1?.215:.265):(i===0?.19:.265);
  const targets=drawers.map((drawer,i)=>(drawer.userData.closedZ??0)+(drawersOpen?travel(i):0));
- const began=performance.now(),duration=540,ticket=sessionId;
+ const began=performance.now(),duration=620,ticket=sessionId;
  function frame(now){
   drawerAnimation=0;
   if(!active||ticket!==sessionId)return;
-  const progress=clamp((now-began)/duration,0,1),ease=1-Math.pow(1-progress,3);
-  drawers.forEach((drawer,i)=>{drawer.position.z=starts[i]+(targets[i]-starts[i])*ease});
+  drawers.forEach((drawer,i)=>{
+   const progress=clamp((now-began-i*38)/duration,0,1),ease=progress*progress*(3-2*progress);
+   drawer.position.z=starts[i]+(targets[i]-starts[i])*ease;
+  });
   requestFrame();
-  if(progress<1)drawerAnimation=requestAnimationFrame(frame);
+  if(now-began<duration+(drawers.length-1)*38)drawerAnimation=requestAnimationFrame(frame);
  }
  drawerAnimation=requestAnimationFrame(frame);
 }
@@ -723,12 +725,12 @@ function buildScene(config){
  sceneGeneration++;
  scene=new THREE.Scene();scene.background=new THREE.Color('#d8d4ce');
  // Éclairage doux : les anciennes intensités surexposaient entièrement les bois.
- const ambient=new THREE.HemisphereLight(0xfff4e9,0x77716b,.52);scene.add(ambient);
+ const ambient=new THREE.HemisphereLight(0xfff6ed,0x87857e,.63);scene.add(ambient);
  const bounce=new THREE.AmbientLight(0xfff8ed,.08);scene.add(bounce);
- const light=new THREE.DirectionalLight(0xfff3e4,1.38);light.position.set(-2.4,4.5,3.0);light.castShadow=true;light.shadow.mapSize.set(window.innerWidth<720?1024:2048,window.innerWidth<720?1024:2048);light.shadow.camera.left=-3.1;light.shadow.camera.right=3.1;light.shadow.camera.top=3.1;light.shadow.camera.bottom=-3.1;light.shadow.normalBias=.003;
+ const light=new THREE.DirectionalLight(0xfff5eb,1.22);light.position.set(-2.4,4.5,3.0);light.castShadow=true;light.shadow.radius=3;light.shadow.mapSize.set(window.innerWidth<720?1024:2048,window.innerWidth<720?1024:2048);light.shadow.camera.left=-3.1;light.shadow.camera.right=3.1;light.shadow.camera.top=3.1;light.shadow.camera.bottom=-3.1;light.shadow.normalBias=.003;
  // Ombres de contact douces : densité ajustée à la puissance du terminal.
  light.shadow.bias=-.00012;scene.add(light);
- const accent=new THREE.PointLight(0xffeedb,.28,6);accent.position.set(1.9,2.9,2.1);scene.add(accent);
+ const accent=new THREE.PointLight(0xfff3e6,.40,6);accent.position.set(1.9,2.9,2.1);scene.add(accent);
  const wall=newMat(WALL_COLORS[surfaceChoice.wall]?.hex||(/^#[0-9a-f]{6}$/i.test(surfaceChoice.wall)?surfaceChoice.wall:WALL_COLORS.cream.hex),.94);
  const wallMesh=new THREE.Mesh(new THREE.PlaneGeometry(12,4.7),wall);wallMesh.position.set(0,2.35,-.62);wallMesh.receiveShadow=true;wallMesh.name='RANDAL_InteriorWall';scene.add(wallMesh);
  // Un seul plan continu au niveau zéro, sans tranche apparente ni fausse marche.
