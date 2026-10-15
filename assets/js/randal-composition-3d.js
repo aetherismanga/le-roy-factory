@@ -819,7 +819,12 @@ function buildScene(config){
   }
  }
  if(!isColumn)addFixtures(cabinet,config,width,height,depth,finish);
+ const mirrorStart=scene.children.length;
  mirror(config,width,height+floatingHeight);
+ focusBounds=new THREE.Box3().setFromObject(cabinet);
+ for(const part of scene.children.slice(mirrorStart))if(part.geometry)focusBounds.expandByObject(part);
+ if(config.model==='Harmony'&&drawers.length)focusBounds.max.z+=.10;
+ focusBounds.expandByScalar(.035);
  measureBounds={w:width,h:height,d:depth,y:floatingHeight,z:backWallCabinetZ};
  return {width,height,depth};
 }
@@ -937,11 +942,70 @@ function drawDimensions(){
 }
 function renderFrame(){raf=0;if(!active||!renderer||!scene||!camera)return;renderer.render(scene,camera);drawDimensions()}
 function requestFrame(){if(!raf&&active)raf=requestAnimationFrame(renderFrame)}
+function getOrbitTarget(){return orbitTarget||focusBounds?.getCenter(new THREE.Vector3())||new THREE.Vector3(0,.78,-.25)}
+// Ajuster les huit coins du meuble dans la zone libre entre les commandes mobiles.
+function computeFitDistance(a=yaw,p=pitch,target=null){
+ if(!camera||!focusBounds||focusBounds.isEmpty())return 2.5;
+ const area=$('composition-canvas'),w=Math.max(250,area?.clientWidth||360),h=Math.max(250,area?.clientHeight||420);
+ const center=target||focusBounds.getCenter(new THREE.Vector3()),probe=camera.clone();
+ probe.aspect=w/h;probe.updateProjectionMatrix();
+ const mn=focusBounds.min,mx=focusBounds.max;
+ const corners=[[mn.x,mn.y,mn.z],[mn.x,mn.y,mx.z],[mn.x,mx.y,mn.z],[mn.x,mx.y,mx.z],
+ [mx.x,mn.y,mn.z],[mx.x,mn.y,mx.z],[mx.x,mx.y,mn.z],[mx.x,mx.y,mx.z]]
+ .map(([x,y,z])=>new THREE.Vector3(x,y,z));
+ const top=1-2*Math.min(136,h*.31)/h,bottom=-1+2*Math.min(101,h*.26)/h;
+ function fits(d){
+  probe.position.set(center.x+Math.sin(a)*d,center.y+Math.sin(p)*d,center.z+Math.cos(a)*d);
+  probe.lookAt(center);probe.updateMatrixWorld();
+  return corners.every(v=>{
+   const projected=v.clone().project(probe);
+   return projected.z<1&&projected.x>=-.82&&projected.x<=.82&&projected.y<=top&&projected.y>=bottom;
+  });
+ }
+ let near=.48,far=15;
+ for(let i=0;i<22;i++){const mid=(near+far)/2;if(fits(mid))far=mid;else near=mid;}
+ return clamp(far*1.045,.64,12);
+}
+function stopCameraAnimation(){cancelAnimationFrame(cameraAnimation);cameraAnimation=0;}
+function setCameraButtons(view){
+ const f=$('composition-view-front'),a=$('composition-view-angle');
+ if(f)f.setAttribute('aria-pressed',String(view==='front'));
+ if(a)a.setAttribute('aria-pressed',String(view==='angle'));
+}
 function moveCamera(){
  if(!camera)return;
- const target=new THREE.Vector3(0,current?.kind==='column'?1.04:.82,0);
- camera.position.set(Math.sin(yaw)*distance,target.y+Math.sin(pitch)*distance,Math.cos(yaw)*distance);
+ const target=getOrbitTarget();
+ camera.position.set(target.x+Math.sin(yaw)*distance,target.y+Math.sin(pitch)*distance,target.z+Math.cos(yaw)*distance);
  camera.lookAt(target);requestFrame();
+}
+function setCameraPreset(mode){
+ if(!camera||!focusBounds)return;
+ stopCameraAnimation();
+ const endYaw=mode==='front'?0:.43,endPitch=mode==='front'?.085:.17;
+ const target=focusBounds.getCenter(new THREE.Vector3());
+ const endDistance=computeFitDistance(endYaw,endPitch,target),from={yaw,pitch,distance,target:getOrbitTarget().clone()};
+ const started=performance.now(),ticket=sessionId;
+ cameraTouched=false;initialFitDistance=endDistance;
+ setCameraButtons(mode==='front'?'front':'angle');
+ function frame(now){
+  cameraAnimation=0;
+  if(!active||!camera||sessionId!==ticket)return;
+  const t=clamp((now-started)/480,0,1),e=t*t*(3-2*t);
+  yaw=from.yaw+(endYaw-from.yaw)*e;pitch=from.pitch+(endPitch-from.pitch)*e;
+  distance=from.distance+(endDistance-from.distance)*e;orbitTarget=from.target.clone().lerp(target,e);
+  moveCamera();
+  if(t<1)cameraAnimation=requestAnimationFrame(frame);
+ }
+ cameraAnimation=requestAnimationFrame(frame);
+}
+function adaptFraming(){
+ if(!camera)return;
+ if(!cameraTouched&&!cameraAnimation&&focusBounds){
+  orbitTarget=focusBounds.getCenter(new THREE.Vector3());
+  distance=computeFitDistance(yaw,pitch,orbitTarget);
+  initialFitDistance=distance;
+ }
+ moveCamera();
 }
 function bindGestures(canvas){
  canvas.style.touchAction='none';
