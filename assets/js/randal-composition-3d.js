@@ -852,7 +852,7 @@ function toggleFullscreen(){
   const area=$('composition-canvas');
   if(renderer&&camera&&area){
    const w=Math.max(250,area.clientWidth),h=Math.max(250,area.clientHeight);
-   renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();
+   renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();adaptFraming();
   }
   requestFrame();
  });
@@ -1017,9 +1017,9 @@ function bindGestures(canvas){
   pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
   if(pointers.size===2){
    const p=[...pointers.values()],span=Math.hypot(p[0].x-p[1].x,p[0].y-p[1].y);
-   if(lastPinch)distance=clamp(distance*lastPinch/span,1.9,5.5);
+   if(lastPinch){stopCameraAnimation();cameraTouched=true;setCameraButtons('custom');distance=clamp(distance*lastPinch/span,Math.max(.55,initialFitDistance*.55),Math.max(5.5,initialFitDistance*2.5));}
    lastPinch=span;
-  }else{yaw=clamp(yaw+dx*.008,-1.25,1.25);pitch=clamp(pitch+dy*.006,-.2,.70)}
+  }else{stopCameraAnimation();cameraTouched=true;setCameraButtons('custom');yaw=clamp(yaw+dx*.008,-1.25,1.25);pitch=clamp(pitch+dy*.006,-.2,.70)}
   moveCamera();
  });
  const finish=e=>{pointers.delete(e.pointerId);if(pointers.size<2)lastPinch=null};
@@ -1038,7 +1038,7 @@ function bindGestures(canvas){
   finish(e);
  });
  canvas.addEventListener('pointercancel',finish);
- canvas.addEventListener('wheel',e=>{e.preventDefault();distance=clamp(distance+e.deltaY*.002,1.9,5.5);moveCamera()},{passive:false});
+ canvas.addEventListener('wheel',e=>{e.preventDefault();stopCameraAnimation();cameraTouched=true;distance=clamp(distance+e.deltaY*.002,Math.max(.55,initialFitDistance*.55),Math.max(5.5,initialFitDistance*2.5));moveCamera()},{passive:false});
 }
 function init(config){
  const area=$('composition-canvas');
@@ -1066,13 +1066,17 @@ function init(config){
   if(current)fallback(current,'Contexte graphique interrompu');
  });
  camera=new THREE.PerspectiveCamera(37,Math.max(320,area.clientWidth)/Math.max(320,area.clientHeight),.08,70);
- yaw=.46;pitch=.13;distance=config.kind==='column'?3.10:2.68;
+ yaw=.43;pitch=.17;distance=2.5;
+ cameraTouched=false;stopCameraAnimation();
  buildScene(config);
+ orbitTarget=focusBounds?.getCenter(new THREE.Vector3())||new THREE.Vector3(0,.78,-.25);
+ distance=computeFitDistance(yaw,pitch,orbitTarget);initialFitDistance=distance;
+ setCameraButtons('angle');
  bindGestures(renderer.domElement);
  const resize=()=>{
   if(!active||!renderer||!camera||!area.isConnected)return;
   const w=Math.max(250,area.clientWidth),h=Math.max(250,area.clientHeight);
-  renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();requestFrame();
+  renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();adaptFraming();
  };
  if(typeof ResizeObserver!=='undefined'){resizeObserver=new ResizeObserver(resize);resizeObserver.observe(area)}
  resize();moveCamera();
@@ -1156,6 +1160,7 @@ async function open(config){
  dimensionsVisible=false;
  const dimsButton=$('composition-dimensions');if(dimsButton){dimsButton.textContent='◫ Cotes';dimsButton.setAttribute('aria-pressed','false');dimsButton.setAttribute('aria-label','Afficher les cotes et dimensions du meuble');}
  const fullButton=$('composition-fullscreen');if(fullButton){fullButton.textContent='⛶ Plein écran';fullButton.setAttribute('aria-pressed','false');}
+ setCameraButtons('angle');
  const drawerControls=$('composition-harmony-controls');
  if(drawerControls)drawerControls.hidden=!(config.model==='Harmony'&&config.typeId!=='column');
  const harmonyCustomize=$('composition-harmony-customize');
