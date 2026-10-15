@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>TEST 3D Harmony F 119 · Sella double | RANDAL</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+:root{--pine:#164749;--gold:#ba963b;--ink:#202c2c;--bg:#f5f7f4}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,sans-serif}header{background:#fff;border-bottom:1px solid #dfe5e0;position:sticky;top:0;z-index:5}header>div{max-width:1100px;margin:auto;padding:13px 18px;display:flex;justify-content:space-between;align-items:center;gap:15px}header img{width:120px;height:49px;object-fit:contain}.back{color:var(--pine);font-weight:750;text-decoration:none}main{max-width:1100px;margin:25px auto;padding:0 16px 75px}.hero{background:linear-gradient(110deg,#123a3e,#235f61);border-radius:22px;padding:28px;color:#fff;display:flex;justify-content:space-between;align-items:center;gap:18px}.hero h1{margin:0 0 8px;font-size:clamp(1.55rem,4vw,2.5rem)}.hero p{margin:0;color:#e6f0e9}.hero img{width:140px;max-width:28%;object-fit:contain;filter:brightness(0) invert(1)}a.pdf{display:inline-flex;margin-top:15px;color:#fff;text-decoration:underline;font-weight:700} .wizard{display:flex;gap:6px;margin:20px 0;overflow:auto}.step{flex:1;min-width:105px;background:#e8ede9;color:#5f736e;padding:11px 8px;text-align:center;border-radius:9px;font-size:.8rem;font-weight:750}.step.active{background:var(--pine);color:#fff}.step.done{background:#d3e4dc;color:#235844}.panel{background:#fff;border-radius:20px;border:1px solid #e0e6e2;box-shadow:0 6px 25px #163c3710;padding:clamp(18px,3vw,32px)}h2{font-size:1.4rem;margin:0 0 7px}.hint{color:#62716b;margin:0 0 20px}.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}.choice{border:2px solid #d9e2dd;border-radius:13px;background:#fff;padding:18px 12px;text-align:left;cursor:pointer;font:inherit;min-height:90px}.choice strong{display:block}.choice small{display:block;color:#6b7972;margin-top:5px}.choice.active{border-color:var(--pine);background:#ecf5f0;box-shadow:inset 0 0 0 1px var(--pine)}.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:17px}.field{display:grid;gap:7px;font-weight:700}.field input,.field select,.field textarea{width:100%;min-height:48px;border:1px solid #b9c9c1;background:#fff;border-radius:9px;padding:11px;font:inherit;color:var(--ink)}textarea{min-height:95px!important}.actions{display:flex;gap:10px;justify-content:space-between;margin-top:24px}.btn{border:0;border-radius:11px;padding:13px 20px;background:#e7ece9;font:inherit;font-weight:800;cursor:pointer}.btn.primary{background:var(--pine);color:white}.btn:disabled{opacity:.4;cursor:default}.summary{white-space:pre-wrap;background:#f2f7f4;border:1px solid #d3e2d9;border-radius:12px;padding:20px;font-size:.94rem;line-height:1.85}.note{background:#fff9e8;border:1px solid #e8dcb2;color:#685522;padding:12px 16px;border-radius:10px;font-size:.88rem;margin-top:18px}.mini{font-size:.85rem;color:#61716b}.warn{color:#a23c37;font-size:.85rem}footer{text-align:center;padding:25px;color:#677}@media(max-width:600px){.hero{padding:20px}.hero img{width:75px}.step{min-width:92px}.panel{padding:18px}.actions .btn{padding:12px 15px}.choices{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* RANDAL V04 — responsive desktop/tablette/mobile */
+html{scroll-behavior:smooth}body{overflow-x:hidden}.hero{min-height:165px}.wizard{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));overflow:visible;gap:7px}.step{min-width:0;line-height:1.25;padding:13px 5px;overflow-wrap:anywhere}.step.active{box-shadow:0 3px 12px #16474935}.panel{min-height:330px}.choice{transition:border-color .15s,background .15s,transform .15s}.choice:hover{border-color:var(--pine)}.choice:focus-visible,.btn:focus-visible,.back:focus-visible{outline:3px solid var(--gold);outline-offset:3px}.choice small{line-height:1.3}.summary{overflow-wrap:anywhere}.actions{position:relative}.btn{min-height:48px}.field input:focus,.field select:focus,.field textarea:focus{outline:2px solid var(--pine);outline-offset:2px}
+@media(min-width:900px){main{max-width:1150px}.panel{padding:38px 42px}.choices{grid-template-columns:repeat(3,minmax(0,1fr))}.hero{padding:32px 42px}}
+@media(max-width:760px){header>div{padding:10px 14px}header img{width:96px;height:42px}.back{font-size:.85rem}.hero{border-radius:16px;padding:21px;min-height:0}.hero h1{font-size:1.65rem}.wizard{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:15px 0}.step{min-height:49px;font-size:.72rem;padding:8px 3px}.panel{border-radius:15px;padding:20px;min-height:0}.choices{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.choice{min-height:77px;padding:12px 10px}.choice strong{font-size:.95rem}.fields{grid-template-columns:1fr}.actions{gap:8px}.actions .btn{flex:1;padding:12px 8px}.summary{font-size:.85rem;padding:14px}.note{line-height:1.5}}
+@media(max-width:360px){.wizard{grid-template-columns:repeat(3,minmax(0,1fr))}.choices{grid-template-columns:1fr}.hero h1{font-size:1.4rem}}
+
+/* RANDAL studio - editorial visual refresh, responsive */
+:root{--pine:#443f37;--gold:#a88b64;--ink:#262b28;--bg:#f5f2ee}
+body{background:#f5f2ee;color:#292925}
+header{background:#faf9f7;box-shadow:0 1px 9px #241e150d}
+.back{color:#4c4b43}
+.hero{background:linear-gradient(90deg,rgba(24,29,25,.76) 0%,rgba(24,29,25,.48) 54%,rgba(24,29,25,.16) 100%),url('assets/img/randal/hero-meuble-hd.webp?v=20261014-hd1') center 64%/cover no-repeat;background-color:#746b5e;min-height:260px;border-radius:20px;display:flex;align-items:center;color:white}
+.hero h1{font-weight:750;max-width:550px;font-size:clamp(1.8rem,4vw,2.8rem)}
+.hero p{max-width:470px;color:#fbf9f4;font-size:1rem}
+a.pdf{background:#ffffffec;color:#373d36!important;text-decoration:none;padding:10px 16px;border-radius:9px;margin-top:17px;font-weight:800}
+a.pdf:hover{background:white}
+.wizard{gap:6px;margin:16px 0}
+.step{background:#e8e5df;color:#58564e;border-radius:10px}
+.step.active{background:#383f3a;color:white;box-shadow:none}
+.step.done{background:#dedbd2;color:#383d37}
+.panel{background:#fffefd;border-color:#e2ded5;box-shadow:0 8px 35px #4033220b}
+.hint{color:#777972;font-size:.94rem}
+.choice{padding:0;text-align:left;border:1px solid #e4ded5;min-width:0;overflow:hidden;background:#fff;min-height:unset;box-shadow:0 2px 10px #453d3010}
+.choice.active{border:2px solid #877357;background:#faf7ef;box-shadow:0 0 0 2px #bcab9080}
+.choice:hover{border-color:#b1a28e}
+.choice-copy{padding:12px 13px;display:block}
+.choice strong{font-size:.96rem;line-height:1.32}
+.choice small{margin-top:3px;color:#787770}
+.choice .visual{height:142px;display:block;position:relative;overflow:hidden;background:linear-gradient(140deg,#e2e4df,#f5f1ea);background-image:url('assets/img/inspirations/meubles.webp');background-position:center;background-size:cover}
+.choice .visual>canvas{width:100%;height:100%;object-fit:cover;display:block}
+.choice .visual i{font-style:normal;position:absolute;bottom:7px;right:7px;color:#fff;background:#2b2b27ad;padding:3px 7px;border-radius:6px;font-size:.66rem}
+.choice .swatch{width:100%;height:45px;display:block;border-bottom:1px solid #d9d4c7}
+.btn.primary{background:#393e39}
+.btn.primary:hover{background:#545d54}
+.field input:focus,.field select:focus,.field textarea:focus{outline-color:#8e8977}
+.summary{background:#f8f7f4;border-color:#e9e3da;color:#35332c}
+.note{margin:18px 0 0;background:transparent;border:0;color:#75736c;padding:0;font-size:.8rem}
+.mode-grid{margin-bottom:18px}.mode-grid .choice{padding:17px!important;min-height:94px}
+.mode-grid .choice strong{font-size:1rem}.mode-grid .choice small{font-size:.82rem}
+.options-group{padding:17px;border:1px solid #e9e3d9;border-radius:13px;background:#faf9f6;margin-top:12px}
+.options-group h3{font-size:1.05rem;margin:0 0 12px}
+.visual-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:15px 0}
+.preview-card{background:#faf9f6;border:1px solid #e7e3da;border-radius:12px;overflow:hidden;min-width:0}
+.preview-card .visual{height:140px;overflow:hidden;display:block;background:url('assets/img/inspirations/meubles.webp') center/cover}
+.preview-card canvas{width:100%;height:100%;object-fit:cover}
+.preview-card strong{display:block;font-size:.8rem;padding:8px 10px;line-height:1.3}.selected-finish{display:block;width:35px;height:18px;border:1px solid #d0c8bc;border-radius:6px;margin:0 10px 9px}
+.product-choice{margin-bottom:12px}
+@media(min-width:901px){.choices{grid-template-columns:repeat(3,minmax(0,1fr))}.hero{min-height:270px;padding:37px 43px}}
+@media(max-width:760px){main{padding:0 12px 65px;margin:12px auto}.hero{min-height:215px;padding:24px;background-position:center 60%}.hero h1{font-size:1.72rem}.hero p{font-size:.89rem}.wizard{grid-template-columns:repeat(4,minmax(0,1fr))}.step{font-size:.71rem}.panel{padding:17px}.choice .visual{height:115px}.choice .choice-copy{padding:9px}.choice strong{font-size:.89rem}.choice small{font-size:.74rem}.choices{grid-template-columns:repeat(2,minmax(0,1fr))}.visual-summary{gap:7px}.preview-card .visual{height:90px}.preview-card strong{font-size:.69rem;padding:7px}.mode-grid .choice{padding:12px!important}}
+@media(max-width:370px){.choices{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{padding:18px}.hero h1{font-size:1.48rem}.step{font-size:.65rem}}
+
+.choice .visual img,.preview-card .visual img{width:100%;height:100%;object-fit:cover;display:block}
+.choice .collection-visual,.preview-card .collection-visual{background:#eee9e2}
+@media(min-width:1000px){.choice .collection-visual{height:186px}}
+.type-choices{grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:14px}
+.type-choice .type-photo{display:flex;height:176px;align-items:center;justify-content:center;background:#faf8f4}
+.type-choice .type-photo img{height:100%;width:100%;object-fit:contain;display:block;image-rendering:auto}
+.type-visual{display:flex;justify-content:center;align-items:center;background:#faf8f4!important}
+.type-visual img{height:100%;width:100%;object-fit:contain}
+.fixed-format{border-radius:12px;padding:20px;background:#f7f5f0;border:1px solid #ddd8cd;margin:15px 0}
+.fixed-format strong{display:block;font-size:1.2rem}.fixed-format small{color:#736d61}
+@media(max-width:760px){.type-choices{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.type-choice .type-photo{height:178px}.type-choice .choice-copy{padding:10px}}
+@media(max-width:370px){.type-choices{grid-template-columns:1fr}.type-choice .type-photo{height:230px}}
+.choice .accessory-visual,.preview-card .accessory-visual{background:#f8f6f2!important}
+.choice .accessory-visual img,.preview-card .accessory-visual img{width:100%;height:100%;object-fit:contain;display:block}
+.choice .accessory-empty,.preview-card .accessory-empty{display:flex;align-items:center;justify-content:center;background:#f2eee7!important;color:#756f63;font-weight:650;font-size:.8rem;letter-spacing:.01em}
+@media(max-width:760px){.choice .accessory-visual{height:130px}.preview-card .accessory-visual{height:98px}}
+/* Finitions officielles extraites des pages techniques RANDAL */
+.choice .finish-preview{
+  display:flex;align-items:center;justify-content:center;position:relative;
+  height:136px;min-height:136px;background:#f7f5f0;
+  border-bottom:1px solid #eee9e0;
+}
+.choice .finish-preview img{
+  width:min(116px,78%);height:min(116px,78%);
+  aspect-ratio:1;object-fit:contain;display:block;
+  filter:drop-shadow(0 2px 6px rgba(41,38,31,.11));
+}
+.choice .finish-preview.finish-not-found::after{
+  content:"Voir finition au catalogue";font-size:.77rem;color:#77736c;
+  text-align:center;padding:10px;
+}
+.preview-card .selected-finish{
+  display:block;width:39px;height:39px;border-radius:50%;margin:0 10px 10px;
+  background:transparent;overflow:hidden;border:1px solid #e8e3d8;
+}
+.preview-card .selected-finish img{display:block;width:100%;height:100%;object-fit:contain}
+@media(max-width:760px){
+ .choice .finish-preview{height:118px;min-height:118px;}
+ .choice .finish-preview img{width:98px;height:98px;max-width:85%}
+}
+@media(max-width:375px){
+ .choice .finish-preview{height:100px;min-height:100px;}
+ .choice .finish-preview img{width:88px;height:88px}
+}
+
+/* Bon de demande RANDAL — lecture claire sur téléphone et impression A4 */
+.recap-sheet{border:1px solid #dedbd4;border-radius:17px;overflow:hidden;background:#fff;color:#30342f;margin:16px 0}
+.recap-heading{padding:21px 22px;background:#f4f2eb;display:flex;gap:10px;align-items:flex-start;justify-content:space-between}
+.recap-heading h3{margin:5px 0 4px;font-size:clamp(1.17rem,2vw,1.42rem);color:#36443c}
+.recap-heading p{margin:0;font-size:.81rem;color:#6a6c66}
+.recap-kicker{color:#846c4b;font-size:.67rem;font-weight:800;letter-spacing:.12em}
+.recap-tag{border:1px solid #d8d2c5;padding:7px 9px;border-radius:7px;font-size:.7rem;color:#5f5c54;white-space:nowrap}
+.recap-metadata{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px 20px;padding:17px 22px;font-size:.86rem;color:#515a53}
+.recap-metadata span{min-width:0;overflow-wrap:anywhere}
+.recap-grid-head,.recap-line{display:grid;grid-template-columns:minmax(0,1fr) 40px 92px 102px;gap:12px;align-items:center}
+.recap-grid-head{background:#e8ede8;padding:11px 22px;font-size:.74rem;font-weight:800;color:#46534b}
+.recap-line{padding:14px 22px;border-bottom:1px solid #eeede9;font-size:.82rem}
+.recap-product{min-width:0;overflow-wrap:anywhere}
+.recap-product strong{display:block;margin-bottom:4px;color:#303832}
+.recap-product small{display:block;font-size:.73rem;color:#72756e;line-height:1.42;margin:3px 0}
+.recap-product .recap-ref{font-weight:750;color:#555b54}
+.recap-number{text-align:center;font-variant-numeric:tabular-nums}
+.recap-money{text-align:right;font-variant-numeric:tabular-nums}
+.recap-total{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:19px 22px;background:#f7f8f4;color:#365344}
+.recap-total span{font-size:.84rem;font-weight:800}
+.recap-total strong{font-size:1.45rem;white-space:nowrap}
+.recap-legal{color:#767871;font-size:.73rem;padding:15px 22px;margin:0;line-height:1.55}
+.recap-warning{color:#98602d;font-size:.81rem;padding:12px 22px;margin:0;background:#fff7e7}
+.recap-tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:16px 0 4px}
+.recap-tools .recap-button{padding:12px 7px;font-size:.83rem;white-space:normal;min-width:0}
+.recap-mailnote{line-height:1.45}
+@media(max-width:620px){
+ .recap-heading{padding:16px;flex-wrap:wrap}
+ .recap-tag{white-space:normal}
+ .recap-metadata{padding:13px 16px;grid-template-columns:1fr;gap:6px}
+ .recap-grid-head{display:none}
+ .recap-line{padding:14px 16px;grid-template-columns:minmax(0,1fr) auto;gap:5px 10px}
+ .recap-product{grid-column:1/-1}
+ .recap-number{text-align:left;font-size:.78rem}
+ .recap-number:before{content:"Qté : ";color:#777}
+ .recap-line .recap-money:nth-of-type(2){display:none}
+ .recap-total{padding:15px 16px}
+ .recap-total strong{font-size:1.15rem}
+ .recap-tools{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .recap-tools #send{grid-column:1/-1}
+ .recap-tools .recap-button{min-height:52px;font-size:.87rem}
+}
+@page{size:A4;margin:14mm}
+@media print{
+ body{background:white!important;color:#222!important}
+ header,.hero,.wizard,.note,footer,.actions,.recap-tools,.recap-mailnote,.hint{display:none!important}
+ main{max-width:none!important;margin:0!important;padding:0!important}
+ .panel{border:0!important;box-shadow:none!important;padding:0!important;background:white!important}
+ .visual-summary{break-inside:avoid!important}
+ .recap-sheet{border-radius:0!important;break-inside:auto}
+ .recap-line{break-inside:avoid}
+ .recap-heading,.recap-grid-head,.recap-total{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+ .recap-sheet,.recap-line,.recap-legal{font-size:10pt}
+}
+.mirror-metal-choices{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.mirror-metal-choices .choice{min-width:0}
+.metallic-finish-preview{display:flex;align-items:center;justify-content:center;min-height:88px;background:#f6f3ed;border-bottom:1px solid #e9e3d7}
+.metallic-finish-preview img{width:74px;height:74px;max-width:78%;object-fit:contain}
+.mirror-metal-choices .choice-copy{padding:10px;text-align:center}
+.mirror-metal-choices .choice-copy strong{font-size:.86rem}
+.preview-card>.metallic-finish-preview{min-height:45px;padding:5px;background:transparent;border:0}
+.preview-card>.metallic-finish-preview img{height:35px;width:35px}
+@media(max-width:760px){.mirror-metal-choices{grid-template-columns:repeat(2,minmax(0,1fr))}.metallic-finish-preview{min-height:105px}.metallic-finish-preview img{height:86px;width:86px}}
+/* RANDAL — fenêtre de composition 3D */
+.recap-tools .recap-3d{grid-column:1/-1;background:#e0e9df;color:#354b3a;border:1px solid #b9cfb8;font-size:1rem;padding:16px;font-weight:800}
+.recap-tools .recap-3d:hover{background:#cddfcc}
+.composition-overlay[hidden]{display:none!important}
+.composition-overlay{position:fixed;inset:0;z-index:20000;display:flex;align-items:center;justify-content:center;padding:clamp(8px,2vw,22px);isolation:isolate}
+.composition-shade{position:absolute;inset:0;background:rgba(30,35,31,.65);backdrop-filter:blur(5px)}
+.composition-window{position:relative;z-index:1;display:flex;flex-direction:column;background:#fdfcf9;color:#343a34;width:min(1080px,100%);max-height:min(92vh,950px);max-height:min(92dvh,950px);overflow-y:auto;overflow-x:hidden;border-radius:22px;box-shadow:0 26px 90px rgba(0,0,0,.29);overscroll-behavior:contain}
+.composition-top{position:static!important;top:auto!important;z-index:auto!important;display:flex;align-items:center;justify-content:space-between;padding:19px 24px;border-bottom:1px solid #e4e1d9;background:#f8f7f3!important;flex-shrink:0}
+.composition-top h2{margin:3px 0 0;font-size:1.5rem;line-height:1.2}
+.composition-eyebrow,.composition-label{font-size:.7rem;letter-spacing:.13em;font-weight:800;color:#907753}
+.composition-close{width:42px;height:42px;border:0;border-radius:50%;background:#e9e6df;color:#333e34;font-size:2rem;line-height:1;cursor:pointer;flex-shrink:0}
+.composition-layout{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(235px,.85fr);gap:20px;padding:20px;min-width:0;min-height:auto;flex:0 0 auto}
+.composition-stage-area{min-width:0}
+.composition-canvas{position:relative;width:100%;height:clamp(370px,43vw,530px);overflow:hidden;border:1px solid #dad6cc;border-radius:17px;background:#e9e5dd}
+.composition-canvas canvas{display:block;width:100%;height:100%;cursor:grab;outline:none}
+.composition-canvas canvas:active{cursor:grabbing}
+.composition-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:20px;color:#6b6d66;font-weight:700;text-align:center}
+.composition-gesture{text-align:center;color:#777a72;font-size:.78rem;margin:9px 0}
+.composition-view-tools{display:flex;flex-wrap:wrap;gap:9px}
+.composition-view-tools button,.composition-footer button{border:1px solid #d6d8d0;background:#f3f4ef;color:#414b43;border-radius:10px;padding:10px 12px;font-weight:700;font:inherit;cursor:pointer}
+.composition-view-tools button:hover{background:#e9efe6}
+.composition-view-tools button:focus-visible,.composition-footer button:focus-visible,.composition-close:focus-visible{outline:3px solid #a89b72;outline-offset:2px}
+.composition-details{padding:12px 3px;min-width:0}
+.composition-details h3{font-size:1.5rem;line-height:1.2;margin:7px 0 20px}
+.composition-selected{border-block:1px solid #e5e3dd}
+.composition-selected>div{display:flex;flex-direction:column;gap:3px;padding:11px 0;border-bottom:1px solid #eeeae3}
+.composition-selected>div:last-child{border:0}
+.composition-selected span{font-size:.78rem;color:#8a8980}
+.composition-selected strong{font-size:.96rem;overflow-wrap:anywhere}
+.composition-swatch img{margin:12px 0;width:49px;height:49px;border-radius:50%;border:1px solid #d7d3c9;object-fit:cover}
+.composition-disclaimer{font-size:.78rem;line-height:1.55;color:#817f77;margin-top:12px}
+.composition-footer{position:static!important;flex:0 0 auto;z-index:auto;padding:13px 22px 19px;display:flex;justify-content:flex-end;border-top:1px solid #e8e6df;background:#fdfcf9}
+.composition-footer button{background:#e0e9df;color:#365042}
+.composition-fallback{height:100%;padding:18px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;align-items:center;justify-items:center}
+.composition-fallback img{width:100%;height:175px;object-fit:contain;background:#faf9f6;border-radius:9px}
+.composition-fallback p{grid-column:1/-1;font-size:.86rem;color:#60655e;text-align:center}
+@media(max-width:760px){
+ .composition-overlay{padding:0;align-items:flex-end}
+ .composition-window{height:auto;max-height:97vh;max-height:97dvh;width:100%;border-radius:18px 18px 0 0;padding-bottom:env(safe-area-inset-bottom);overflow-y:auto;overflow-x:hidden}
+ .composition-top{padding:13px 16px}
+ .composition-top h2{font-size:1.24rem}
+ .composition-layout{display:flex;flex:0 0 auto;min-height:auto;flex-direction:column;gap:12px;padding:12px}
+ .composition-canvas{height:min(52vh,390px);height:min(52dvh,390px);min-height:245px}
+ .composition-details{padding:5px 7px}
+ .composition-details h3{font-size:1.16rem;margin:4px 0 9px}
+ .composition-selected{display:block;min-width:0}
+ .composition-selected>div{display:flex;flex-direction:column;gap:3px;min-width:0;padding:11px 0}
+ .composition-selected strong{display:block;font-size:.94rem;line-height:1.4;overflow-wrap:anywhere}
+ .composition-swatch img{height:38px;width:38px;margin:6px 0}
+ .composition-disclaimer{margin:4px 0 10px}
+ .composition-footer{position:static!important;display:block;flex:0 0 auto;padding:14px 15px 17px;margin:0;background:#fdfcf9;border-top:1px solid #e8e6df}
+ .composition-view-tools button{flex:1;padding:8px 6px;font-size:.78rem}
+ .composition-gesture{font-size:.7rem}
+ .composition-footer button{display:block;width:100%;min-height:50px;margin:0;white-space:normal}
+ .composition-top>div{min-width:0}
+ .composition-details{min-width:0;overflow:visible}
+ .composition-details h3{overflow-wrap:anywhere;line-height:1.28}
+}
+@media print{.composition-overlay{display:none!important}}
+
+/* Options Sol / Mur, prêtes pour les futurs revêtements partenaires */
+.composition-surface-panel[hidden]{display:none!important}
+.composition-surface-panel{margin:10px 0 0;padding:14px 16px;border:1px solid #d8d4ca;background:#faf8f3;border-radius:13px;color:#465249}
+.composition-surface-panel>strong{display:block;font-size:.92rem;margin-bottom:9px}
+.composition-surface-panel p{font-size:.77rem;line-height:1.5;margin:9px 0 0;color:#837f75}
+.composition-surface-active{display:block;width:100%;text-align:left;font-weight:700;font-size:.89rem;padding:11px 14px;border-radius:10px;border:1px solid #b3c8b0;background:#e0eae0;color:#38503d;white-space:normal}
+.composition-view-tools #composition-floor,.composition-view-tools #composition-wall{font-weight:800;background:#ede8df}
+.composition-view-tools button[aria-expanded="true"]{background:#d8e4d6;border-color:#a3bda0}
+.composition-proof{margin:12px 0}
+.composition-proof h4{margin:0 0 9px;font-size:.83rem;color:#6a6357}
+.composition-proof-images{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.composition-proof-images>div{background:#f5f2eb;border:1px solid #e8e3d8;border-radius:10px;padding:5px;min-width:0;text-align:center}
+.composition-proof-images img{display:block;width:100%;height:85px;object-fit:contain}
+.composition-proof-images span{font-size:.72rem;font-weight:700}
+@media(max-width:760px){.composition-proof-images img{height:74px}}
+
+/* HARMONY : réglages interactifs en 3D, tiroirs synchronisés et visuels catalogue */
+.composition-harmony-controls[hidden],.composition-harmony-customize[hidden],.composition-customize-panel[hidden]{display:none!important}
+.composition-harmony-controls{display:flex;align-items:center;gap:12px;margin:12px 0;flex-wrap:wrap}
+.composition-harmony-controls button{background:#dbe8db;color:#31503e;border:1px solid #9bb59e;border-radius:11px;padding:13px 18px;font:inherit;font-weight:800;cursor:pointer;min-height:48px}
+.composition-harmony-controls button[aria-pressed="true"]{background:#354f3c;color:#fff}
+.composition-harmony-controls span{font-size:.75rem;color:#666a63;max-width:210px}
+.composition-customize{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.composition-customize>button{flex:1;min-width:130px;min-height:43px;padding:9px 12px;border-radius:11px;border:1px solid #b9c7b7;background:#e9f0e8;color:#38533f;font:inherit;font-size:.83rem;font-weight:800;cursor:pointer}
+.composition-customize>button[aria-expanded="true"]{background:#d5e3d4;border-color:#839e85}
+.composition-customize-panel{width:100%;min-width:0;max-height:330px;overflow-y:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;border:1px solid #e0ddd4;background:#faf9f5;border-radius:12px;padding:12px}
+.composition-options-title,.composition-choice-title{grid-column:1/-1;font-weight:800;font-size:.85rem;color:#445449}
+.composition-choice-title{margin-top:10px;color:#79766d}
+.composition-option{display:flex;align-items:center;gap:9px;min-width:0;min-height:54px;text-align:left;border:1px solid #d5d7ce;border-radius:10px;background:#fff;color:#353b36;padding:8px 10px;cursor:pointer;font:inherit;font-size:.80rem;font-weight:650;overflow-wrap:anywhere}
+.composition-option.active{border:2px solid #718e73;background:#e8f0e6}
+.composition-option img{height:48px;width:58px;object-fit:contain;background:#f2f0eb;border-radius:6px;flex-shrink:0}
+.composition-option img.composition-option-swatch{width:46px;height:46px;border-radius:50%;object-fit:cover}
+@media(max-width:760px){
+ .composition-harmony-controls{margin:9px 0}
+ .composition-harmony-controls button{width:100%}
+ .composition-customize-panel{max-height:270px}
+ .composition-option{font-size:.80rem}
+}
+.composition-proof-action{cursor:pointer;outline-offset:3px;border-color:#95b399!important}
+.composition-proof-action:focus-visible{outline:3px solid #8bab86}
+.composition-proof-action:hover{background:#e9f0e6}
+.composition-gesture{font-size:.75rem}
+@media(max-width:760px){.composition-customize-panel{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* Cotes projetées en perspective : calque indépendant de Three.js. */
+.composition-canvas canvas.composition-dimensions-layer{
+ position:absolute;inset:0;width:100%;height:100%;z-index:3;
+ pointer-events:none;cursor:default;display:none;
+}
+.composition-view-tools #composition-dimensions{
+ background:#edf0f3;border-color:#c2cbd8;color:#304b70;font-weight:800;
+}
+.composition-view-tools #composition-dimensions[aria-pressed="true"]{
+ background:#dbe9fa;border-color:#6094c5;color:#173d70;
+}
+@media(max-width:760px){
+ .composition-view-tools{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+ .composition-view-tools button{width:100%;min-width:0;min-height:49px;padding:8px 6px}
+}
+/* Aperçu 3D — palettes de carrelage et peintures sur mobile et desktop */
+#composition-surface-choices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;max-height:min(48vh,390px);overflow-y:auto;overscroll-behavior:contain;padding:3px}
+.composition-surface-option{border:1px solid #d8d4c9;border-radius:12px;background:#fffdfa;min-width:0;padding:8px;display:flex;flex-direction:column;align-items:stretch;gap:7px;text-align:left;color:#35433c;cursor:pointer;font:inherit;position:relative}
+.composition-surface-option[data-selected="true"]{border:2px solid #8b997f;box-shadow:0 0 0 2px #d9e6d1;background:#f6f9f3}
+.composition-surface-swatch{display:block;position:relative;width:100%;aspect-ratio:1.4;min-height:48px;background:#eeeae1;border-radius:8px;overflow:hidden;border:1px solid #dedad0}
+.composition-surface-swatch img{width:100%;height:100%;object-fit:cover;display:block}
+.composition-surface-label strong{font-size:.79rem;display:block;line-height:1.25;overflow-wrap:anywhere}
+.composition-surface-label small{display:block;color:#757870;font-size:.67rem;margin-top:3px;line-height:1.32}
+.composition-surface-check{position:absolute;top:8px;right:8px;border-radius:50%;color:#2e4d38;font-weight:900;background:#e8f2e5;padding:1px 5px}
+@media(max-width:760px){#composition-surface-choices{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;max-height:42vh}.composition-surface-option{padding:7px}.composition-surface-label strong{font-size:.76rem}}
+
+/* Nuancier de peinture personnalisé — tactile et accessible */
+.composition-custom-wall{
+ grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;
+ gap:14px;padding:10px 14px;background:#f3f0e9;border:1px solid #dfd8ca;
+ border-radius:11px;color:#485449;font-weight:750;font-size:.84rem
+}
+.composition-custom-wall input[type=color]{
+ width:76px;height:46px;padding:3px;border:1px solid #b7b7aa;
+ border-radius:8px;background:#fff;cursor:pointer;flex-shrink:0
+}
+.composition-canvas{background:#e5e1da}
+@media(max-width:760px){.composition-custom-wall{padding:10px 12px}.composition-custom-wall input[type=color]{width:68px}}
+
+/* RANDAL 3D : commandes dans le visuel, utilisables au doigt sur mobile. */
+.composition-stage-area{position:relative}
+.composition-stage-floating{position:absolute;z-index:25;top:14px;left:14px;right:14px;display:flex;justify-content:space-between;gap:10px;pointer-events:none}
+.composition-stage-floating button{pointer-events:auto;cursor:pointer;min-height:44px;padding:9px 14px;border-radius:11px;border:1px solid rgba(75,83,73,.2);background:rgba(255,255,255,.95);color:#2d4037;box-shadow:0 2px 13px #21261e29;font:inherit;font-size:.87rem;font-weight:800;backdrop-filter:blur(9px);white-space:nowrap}
+.composition-stage-floating #composition-dimensions{color:#19559f;border-color:#80a3cb}
+.composition-stage-floating #composition-dimensions[aria-pressed="true"]{background:#dcecfb;border-color:#377cbb;color:#124d8b}
+.composition-stage-floating #composition-fullscreen[aria-pressed="true"]{background:#e3ebe2;color:#244a35;border-color:#6c9d79}
+.composition-stage-floating button:focus-visible{outline:3px solid #aa936f;outline-offset:2px}
+.composition-view-tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.composition-view-tools button{min-width:0;min-height:47px;white-space:normal;line-height:1.3;overflow-wrap:anywhere}
+@media(max-width:760px){
+ .composition-stage-floating{top:11px;left:11px;right:11px;gap:8px}
+ .composition-stage-floating button{min-height:42px;font-size:.79rem;padding:8px 10px}
+ .composition-view-tools{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ .composition-view-tools #composition-photo{grid-column:1/-1}
+}
+/* Plein écran immersif : aucun changement du configurateur ou du catalogue. */
+.composition-overlay.composition-fullscreen{padding:0;align-items:stretch;justify-content:stretch;background:#f7f6f2}
+.composition-fullscreen .composition-shade{display:none}
+.composition-fullscreen .composition-window{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;max-width:none;max-height:none;overflow:hidden;border-radius:0;box-shadow:none;padding:0;display:flex;flex-direction:column}
+.composition-fullscreen .composition-top{position:relative!important;z-index:26!important;flex:0 0 auto;padding:9px max(15px,env(safe-area-inset-right)) 9px max(15px,env(safe-area-inset-left));min-height:67px}
+.composition-fullscreen .composition-top h2{font-size:1.12rem;line-height:1.2}
+.composition-fullscreen .composition-eyebrow{font-size:.61rem}
+.composition-fullscreen .composition-layout{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;padding:0;margin:0;gap:0}
+.composition-fullscreen .composition-stage-area{flex:1 1 auto;display:flex;flex-direction:column;min-height:0}
+.composition-fullscreen .composition-canvas{flex:1 1 auto;width:100%;height:auto!important;min-height:0;border-radius:0;border:0}
+.composition-fullscreen .composition-gesture,.composition-fullscreen .composition-details,.composition-fullscreen .composition-footer{display:none!important}
+.composition-fullscreen .composition-harmony-controls{position:absolute;bottom:86px;left:12px;right:12px;z-index:22;margin:0;display:flex;flex-direction:column}
+.composition-fullscreen .composition-harmony-controls[hidden]{display:none!important}
+.composition-fullscreen .composition-harmony-controls button{width:100%;min-height:43px;padding:10px;font-size:.89rem;box-shadow:0 2px 15px #0002}
+.composition-fullscreen .composition-harmony-controls span{display:none}
+.composition-fullscreen .composition-view-tools{position:absolute;bottom:max(11px,env(safe-area-inset-bottom));left:12px;right:12px;z-index:22;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.composition-fullscreen .composition-view-tools button{min-height:43px;padding:7px 5px;font-size:.76rem;background:rgba(248,249,246,.94);box-shadow:0 2px 12px #0002}
+.composition-fullscreen .composition-view-tools #composition-photo{grid-column:auto}
+.composition-fullscreen .composition-surface-panel{position:absolute;z-index:23;left:12px;right:12px;bottom:75px;max-height:min(52dvh,440px);overflow-y:auto;box-shadow:0 5px 40px #0004;background:#fdfcf9}
+.composition-fullscreen #composition-surface-choices{max-height:38dvh}
+@media(max-width:760px){
+ .composition-fullscreen .composition-top{padding:8px 15px;min-height:60px}
+ .composition-fullscreen .composition-top h2{font-size:1.05rem}
+ .composition-fullscreen .composition-stage-floating{top:12px}
+ .composition-fullscreen .composition-harmony-controls{bottom:73px}
+ .composition-fullscreen .composition-view-tools{bottom:max(9px,env(safe-area-inset-bottom));grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+
+
+/* RANDAL 3D — édition mobile 2026.10.15 : matériaux toujours visibles sur l'image. */
+.composition-viewport{position:relative;min-width:0;isolation:isolate}
+.composition-viewport .composition-stage-floating{z-index:28}
+.composition-viewport .composition-view-tools{
+  position:absolute;z-index:25;bottom:12px;left:12px;right:12px;
+  display:grid;grid-template-columns:minmax(0,1.16fr) minmax(0,1fr) auto;
+  align-items:stretch;gap:8px;margin:0;pointer-events:none;
+}
+.composition-viewport .composition-view-tools button{
+  display:flex;align-items:center;justify-content:flex-start;gap:8px;
+  min-width:0;min-height:49px;height:auto;cursor:pointer;
+  padding:7px 9px;color:#283d31!important;background:rgba(255,255,255,.95)!important;
+  border:1px solid rgba(85,95,81,.34)!important;border-radius:12px!important;
+  box-shadow:0 4px 17px rgba(21,30,20,.20);backdrop-filter:blur(10px);
+  font:inherit;font-size:.77rem;line-height:1.12;pointer-events:auto;
+}
+.composition-viewport .composition-view-tools button[aria-expanded="true"]{
+  background:#e8f0e6!important;border-color:#63936c!important;box-shadow:0 0 0 2px #87a68f66,0 4px 17px #0002;
+}
+.composition-material-swatch{display:block;position:relative;flex:0 0 29px;width:29px;height:29px;border-radius:8px;overflow:hidden;border:1px solid #807c7166;box-shadow:inset 0 0 0 1px #ffffff50}
+.composition-material-swatch img{display:block;width:100%;height:100%;object-fit:cover}
+.composition-material-label{display:flex;flex:1 1 auto;flex-direction:column;gap:2px;min-width:0;text-align:left}
+.composition-material-label small{font-size:.63rem;color:#6d746c;line-height:1.1}
+.composition-material-label strong{font-size:.76rem;font-weight:800;line-height:1.2;overflow-wrap:break-word}
+.composition-material-chevron{font-weight:800;flex:0 0 auto;color:#6e796f}
+.composition-viewport .composition-view-tools #composition-photo{
+  justify-content:center;min-width:66px;max-width:85px;
+  background:rgba(246,247,244,.94)!important;font-size:.73rem;font-weight:750;
+  text-align:center;white-space:normal;
+}
+.composition-viewport .composition-surface-panel{
+  display:block;position:absolute;z-index:29;left:12px;right:12px;bottom:75px;
+  margin:0;padding:14px 15px;max-height:calc(100% - 162px);overflow-y:auto;
+  background:rgba(253,252,248,.98);border:1px solid #d6d4c9;
+  border-radius:15px;box-shadow:0 14px 55px #1e281b55;
+  overscroll-behavior:contain;backdrop-filter:blur(12px);
+}
+.composition-viewport .composition-surface-panel[hidden]{display:none!important}
+.composition-surface-close{float:right;display:flex;align-items:center;justify-content:center;width:31px;height:31px;min-height:31px;border-radius:50%;border:1px solid #d4d7ce;background:#fff;color:#394338;font-size:1.25rem;cursor:pointer;margin:-4px -3px 0 8px}
+.composition-viewport #composition-surface-choices{grid-template-columns:repeat(3,minmax(0,1fr));max-height:none;overflow:visible}
+.composition-viewport .composition-surface-panel>strong{font-size:.86rem;padding-right:30px;line-height:1.4}
+.composition-harmony-controls>span{display:none}
+.composition-gesture{margin:8px 0 4px;font-size:.73rem}
+.composition-fullscreen .composition-viewport{flex:1 1 auto;min-height:0;width:100%;display:flex;flex-direction:column}
+.composition-fullscreen .composition-viewport .composition-canvas{flex:1 1 auto;width:100%;height:100%!important;min-height:0}
+.composition-fullscreen .composition-viewport .composition-view-tools{bottom:max(12px,env(safe-area-inset-bottom));grid-template-columns:minmax(0,1.16fr) minmax(0,1fr) auto}
+.composition-fullscreen .composition-viewport .composition-view-tools #composition-photo{grid-column:auto}
+.composition-fullscreen .composition-viewport .composition-surface-panel{bottom:140px;max-height:calc(100% - 230px)}
+.composition-fullscreen .composition-harmony-controls{bottom:79px}
+@media(max-width:760px){
+ .composition-viewport .composition-view-tools{bottom:10px;left:9px;right:9px;gap:6px;grid-template-columns:minmax(0,1.22fr) minmax(0,.94fr) auto}
+ .composition-viewport .composition-view-tools button{min-height:45px;padding:6px;gap:5px;border-radius:10px!important}
+ .composition-material-swatch{width:24px;height:24px;flex-basis:24px;border-radius:6px}
+ .composition-material-label small{font-size:.58rem}
+ .composition-material-label strong{font-size:.70rem}
+ .composition-material-chevron{display:none}
+ .composition-viewport .composition-view-tools #composition-photo{grid-column:auto;min-width:54px;max-width:68px;font-size:.69rem}
+ .composition-viewport .composition-surface-panel{bottom:64px;left:9px;right:9px;padding:11px;max-height:calc(100% - 133px)}
+ .composition-viewport #composition-surface-choices{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+ .composition-fullscreen .composition-viewport .composition-surface-panel{bottom:136px;max-height:calc(100% - 216px)}
+ .composition-fullscreen .composition-harmony-controls{bottom:69px}
+ .composition-fullscreen .composition-viewport .composition-view-tools{bottom:max(10px,env(safe-area-inset-bottom));grid-template-columns:minmax(0,1.22fr) minmax(0,.94fr) auto}
+}
+@media(max-width:380px){
+ .composition-viewport .composition-view-tools #composition-photo{min-width:49px;max-width:58px;font-size:.65rem}
+ .composition-material-swatch{width:20px;height:20px;flex-basis:20px}
+ .composition-material-label strong{font-size:.65rem}
+}
+
+/* RANDAL 3D : angles de vue intégrés sans toucher au logo ni à l'en-tête */
+.composition-viewport .composition-camera-tools{
+ position:absolute;top:69px;left:50%;transform:translateX(-50%);z-index:27;
+ display:flex;align-items:center;justify-content:center;gap:4px;
+ padding:4px;background:rgba(253,253,251,.93);border:1px solid rgba(123,126,116,.28);
+ box-shadow:0 3px 17px rgba(23,30,24,.17);border-radius:13px;backdrop-filter:blur(10px);
+ max-width:calc(100% - 22px);
+}
+.composition-camera-tools button{
+ appearance:none;min-height:33px;min-width:55px;padding:5px 11px;
+ border:0;background:transparent;color:#536159;border-radius:9px;
+ font:inherit;font-size:.78rem;font-weight:750;cursor:pointer;white-space:nowrap;
+ transition:background .18s ease,color .18s ease;
+}
+.composition-camera-tools button[aria-pressed="true"]{
+ background:#dce8dc;color:#294938;box-shadow:inset 0 0 0 1px #adc3ad;
+}
+.composition-camera-tools button:hover{background:#e8eee7}
+.composition-camera-tools button:focus-visible{outline:2px solid #587a5e;outline-offset:2px}
+.composition-viewport #composition-canvas{background:#dfdcd4}
+@media(max-width:760px){
+ .composition-viewport .composition-camera-tools{top:64px;gap:3px;padding:3px;border-radius:11px}
+ .composition-camera-tools button{min-height:33px;min-width:48px;padding:5px 10px;font-size:.73rem}
+}
+@media(max-width:365px){
+ .composition-viewport .composition-camera-tools{top:62px}
+ .composition-camera-tools button{min-width:43px;padding:5px 8px;font-size:.70rem}
+}
+
+body{background:#f6f5f1} .lab-head{max-width:1000px;margin:30px auto 0;padding:0 18px;display:flex;gap:14px;align-items:center;justify-content:space-between}
+.lab-head img{width:132px;height:62px;object-fit:contain}
+.lab-shell{max-width:1000px;margin:16px auto;padding:0 18px 60px}
+.lab-banner{background:#153f41;color:#fff;padding:26px;border-radius:20px}
+.lab-tag{display:inline-flex;font-size:.73rem;text-transform:uppercase;font-weight:800;letter-spacing:.12em;padding:6px 10px;border-radius:99px;background:#ffffff25;color:#fff}
+.lab-banner h1{font-size:clamp(1.4rem,5vw,2.3rem);line-height:1.17;margin:12px 0 9px}
+.lab-banner p{color:#e4eee9;margin:0;line-height:1.6}
+.lab-actions{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}
+.lab-btn{display:inline-flex;align-items:center;justify-content:center;padding:15px 20px;background:#f4eee2;color:#24423d;border:1px solid #d3c6a4;border-radius:11px;font:inherit;font-weight:800;cursor:pointer;min-height:50px;text-decoration:none}
+.lab-btn.primary{background:#174b45;color:white;border-color:#174b45}
+.lab-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.lab-card{padding:17px;border:1px solid #deded6;border-radius:14px;background:#fff}
+.lab-card h2{font-size:1rem;margin:0 0 10px}
+.lab-card p{margin:5px 0;font-size:.9rem;line-height:1.6}
+.lab-card img{max-width:100%;height:180px;object-fit:contain}
+.lab-note{color:#696c65;font-size:.88rem;line-height:1.6;margin-top:16px}
+@media(max-width:640px){.lab-grid{grid-template-columns:1fr}.lab-head{margin-top:15px}.lab-banner{padding:20px}}
+</style>
+<script defer src="assets/js/randal-composition-3d-harmony-f-lab.js?v=20261015-test119-v1"></script>
+</head>
+<body>
+<div class="lab-head"><img src="assets/img/randal.png" alt="RANDAL"><a href="randal-configurateur.html">← Retour au configurateur</a></div>
+<main class="lab-shell">
+<section class="lab-banner">
+<span class="lab-tag">Laboratoire 3D · modèle témoin</span>
+<h1>Harmony F · 119 cm + double vasque Sella 120 cm</h1>
+<p>Test indépendant du configurateur commercial. Finition Serenade Alba, meuble suspendu à quatre façades et deux siphons en U. Rotation, ouverture des quatre tiroirs, vue de face, 3/4, cotes et export d'image.</p>
+</section>
+<div class="lab-actions"><button id="launch" type="button" class="lab-btn primary">◉ Ouvrir le test 3D</button><a class="lab-btn" href="randal-harmony-3d-test.html">Voir la bibliothèque des meubles GLB</a></div>
+<div class="lab-grid">
+<article class="lab-card"><h2>Modèle RANDAL de référence</h2><p><strong>Harmony F</strong> · réf. 13259</p><p>Meuble 119 × 53 × 45 cm · deux colonnes · quatre façades.</p><p>Finition Serenade Alba.</p><img src="assets/img/randal/types/harmony-2-tiroirs.webp" alt="Silhouette produit RANDAL officielle"></article>
+<article class="lab-card"><h2>Vasque intégrée</h2><p><strong>Sella double</strong> · réf. 2809</p><p>Vasque céramique blanche brillante, largeur 120 cm, profondeur 46 cm.</p><p>Deux cuves, deux évacuations, aucun mitigeur inventé.</p><img src="assets/img/randal/accessories/basin-sella-double.webp" alt="Double vasque Sella du catalogue"></article>
+</div>
+<p class="lab-note">Il s'agit d'une reproduction 3D paramétrique issue du moteur du configurateur, pas d'un fichier CAO fourni par RANDAL. La photo photoréaliste validée précédemment est une référence esthétique, pas une géométrie 3D exploitable. Aucun fichier du configurateur public n'a été modifié.</p>
+</main>
+<script>
+(function(){
+'use strict';
+let prefs={color:'Serenade Alba',basin:'Sella',basinLayout:'double',basinMode:'integrated'};
+const finishUrls={
+ 'Serenade Alba':'assets/img/randal/finishes/harmony/serenade-alba.webp',
+ 'Blanco mate':'assets/img/randal/finishes/harmony/blanco-mate.webp',
+ 'Gris tórtora':'assets/img/randal/finishes/harmony/gris-tortora.webp'
+};
+const refs={'Serenade Alba':'13259','Blanco mate':'13271','Gris tórtora':'13265'};
+const ceramic={Sella:{double:318,single:385},Tampa:{double:323,single:411}};
+function config(){
+ const result={
+ model:'Harmony',typeId:'two',typeName:'2 tiroirs suspendus · configuration F',kind:'vanity',
+ width:119,height:53,depth:45,color:prefs.color,
+ basinMode:prefs.basinMode,basin:prefs.basin,basinLayout:prefs.basinLayout,
+ basinFinish:'Blanc brillant',mirror:'Sans miroir',mirrorSize:'',mirrorFinish:'',
+ reference:refs[prefs.color],
+ totalPublic:(521+(ceramic[prefs.basin]?.[prefs.basinLayout]||0))+' € HT (catalogue)',
+ swatch:finishUrls[prefs.color],typePhoto:'harmony-2-tiroirs',
+ finishes:Object.keys(finishUrls),finishUrls,availableModes:['integrated'],
+ onChange(patch){Object.assign(prefs,patch);return config();}
+ };
+ return result;
+}
+function openDemo(){
+ if(!window.RandalComposition3D){document.getElementById('launch').textContent='Moteur 3D indisponible';return;}
+ window.RandalComposition3D.open(config());
+}
+document.getElementById('launch').addEventListener('click',openDemo);
+window.addEventListener('load',()=>setTimeout(openDemo,350),{once:true});
+})();
+</script>
+</body></html>
