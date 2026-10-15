@@ -621,7 +621,7 @@ function buildScene(config){
  light.shadow.bias=-.00012;scene.add(light);
  const accent=new THREE.PointLight(0xffeedb,.28,6);accent.position.set(1.9,2.9,2.1);scene.add(accent);
  const wall=newMat(WALL_COLORS[surfaceChoice.wall]?.hex||(/^#[0-9a-f]{6}$/i.test(surfaceChoice.wall)?surfaceChoice.wall:WALL_COLORS.cream.hex),.94);
- putBox(scene,0,2.35,-.65,12,4.7,.06,wall).name='RANDAL_InteriorWall';
+ const wallMesh=new THREE.Mesh(new THREE.PlaneGeometry(12,4.7),wall);wallMesh.position.set(0,2.35,-.62);wallMesh.receiveShadow=true;wallMesh.name='RANDAL_InteriorWall';scene.add(wallMesh);
  // Un seul plan continu au niveau zéro, sans tranche apparente ni fausse marche.
  const floor=newMat('#d8d0c5',.88);const floorMesh=new THREE.Mesh(new THREE.PlaneGeometry(9,9),floor);
  floorMesh.rotation.x=-Math.PI/2;floorMesh.position.set(0,-.005,0);floorMesh.receiveShadow=true;scene.add(floorMesh);
@@ -630,7 +630,7 @@ function buildScene(config){
  const isColumn=config.kind==='column';
  const isCounter=config.kind==='counter';
  const legs=(config.typeId==='three'||config.typeId==='three-door'||config.model==='Brent')&&!isColumn?.12:0;
- // Mur centré en z=-0.45, épaisseur 7 cm : face avant à -0.415.
+ // Dos du meuble aligné sur le mur sans ressaut de sol.
  // On accole systématiquement le dos du meuble à cette face (tolérance 1.8 cm).
  const wallFrontZ=-.65+.06/2,flushOffset=.014;
  const backWallCabinetZ=wallFrontZ+depth/2+flushOffset;
