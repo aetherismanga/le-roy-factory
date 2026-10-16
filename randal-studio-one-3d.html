@@ -141,7 +141,7 @@ function applyStudioFinish(key){
   if(ticket!==grainTicket)return;
   [finish,grainMaterial].forEach(function(mat,index){
    mat.map=makeFinishTexture(img,index===1);
-   mat.color.set(key==='GRIS'?'#bcb5b8':key==='BISC.'?'#e5d2bd':'#ffffff');mat.roughness=.73;mat.needsUpdate=true;
+   mat.color.set(key==='GRIS'?'#93858a':key==='BISC.'?'#cbb196':'#ffffff');mat.roughness=.73;mat.needsUpdate=true;
   });
  };img.onerror=function(){console.warn('Échantillon finition indisponible : '+file)};
  img.src=file;
