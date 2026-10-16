@@ -654,28 +654,36 @@ panel.querySelectorAll('[data-sink-layout]').forEach(function(b){b.onclick=funct
  var mail=document.getElementById('email');if(mail)mail.onclick=function(){var subject='Demande STUDIO ONE - '+m.name+' - '+st.width+' cm - '+ref();window.location.href='mailto:juancarlos.segura@randal.group?cc='+encodeURIComponent('jerome@leroyfactory.fr,coryne@leroyfactory.fr')+'&subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(recapText())};
 }
 function recapText(){
- var m=data(),p=price(),co=color(),i=idx();
- return [
- 'DEMANDE STUDIO ONE — LE ROY FACTORY',
- 'Modèle : '+m.name,
- 'Dimensions : L '+st.width+' × H '+String(m.height).replace('.',',')+' × P 46 cm',
- 'Tranche tarifaire : '+sizes[i].label,
- 'Finition : '+co.name,
- 'Configuration : '+({top:'avec plateau sur mesure, même couleur que le meuble',basin:'sans plateau, vasque encastrée',bare:'sans plateau, meuble seul'}[st.option]),
- 'Vasque : '+sinkDescription(),
-  'Référence vasque : '+(selectedSink()?.ref||'aucune'),
-  'Prix PRO vasque (-50 % public HT) : '+(selectedSink()?euros(selectedSink().price):'non applicable'),
- 'Référence Randal : '+ref(),
- 'Prix meuble C1 : '+euros(p),
- 'Colonne assortie : '+(st.column?'14177 '+co.code+' / 177 € C1':'non'),
- 'Miroir : non inclus dans le configurateur STUDIO ONE',
- 'Quantité : '+st.quantity,
- 'Total meuble C1 + vasque PRO : '+euros(total()),
- 
- (widthVal(st.width)===40?'Dimension de 40 cm à confirmer.':''),
- (st.model===1?'Hauteur 3 tiroirs 91/81 cm à confirmer.':''),
- 'Merci de nous confirmer la faisabilité et le délai.'
- ].filter(Boolean).join('\n');
+ var m=data(),co=color(),sink=selectedSink(),qty=Number(st.quantity||1);
+ var lines=[
+  'Bonjour Juan Carlos,',
+  '',
+  'Veuillez trouver ci-dessous une demande de confirmation pour une composition RANDAL STUDIO ONE.',
+  '',
+  'COMPOSITION PRINCIPALE',
+  '----------------------------------------',
+  'Modèle : '+m.name+' (façades à onglet 45°)',
+  'Dimensions : largeur '+st.width+' cm, hauteur '+String(m.height).replace('.',',')+' cm, profondeur 46 cm',
+  'Finition : '+co.name+' (code '+co.code+')',
+  'Plateau : '+(isTop()?'compris, même finition que le meuble':st.option==='basin'?'sans plateau, vasque encastrée':'sans plateau, meuble seul'),
+  'Référence meuble : '+ref(),
+  'Quantité : '+qty,
+  '',
+  'VASQUE',
+  '----------------------------------------',
+  sink?'Modèle : '+sink.name+' ('+sink.type+(sink.layout==='double'?', double cuve':'')+')':'Aucune vasque demandée'
+ ];
+ if(sink)lines.push('Finition : '+sink.finish,'Référence : '+sink.ref,'Quantité : '+qty);
+ lines.push('','COLONNE','----------------------------------------');
+ if(st.column)lines.push('Colonne STUDIO ONE assortie, portes 45°','Dimensions : 132 × 38 × 27 cm','Finition : '+co.name,'Référence : 14177 '+co.code,'Quantité : '+qty);
+ else lines.push('Aucune colonne demandée');
+ lines.push('','MIROIR','----------------------------------------','Aucun miroir demandé.',
+ '','INFORMATIONS À CONFIRMER','----------------------------------------',
+ 'Merci de confirmer les références des articles, leur compatibilité, la disponibilité et les délais de livraison.',
+ 'Merci également de préciser les éventuelles conditions de transport.',
+ '','Cette demande est soumise à confirmation usine et ne constitue pas une commande ferme.',
+ '','Cordialement,','Agence Le Roy Factory');
+ return lines.join('\n');
 }
 render();
 window.addEventListener('pageshow',function(event){
