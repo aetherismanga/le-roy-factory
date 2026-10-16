@@ -61,12 +61,16 @@ function modal(){
  '<div id="composition-canvas" class="composition-canvas" role="img" aria-label="Modèle 3D manipulable de votre composition RANDAL">'+
  '<div class="composition-loading" id="composition-loading">Préparation de votre aperçu 3D…</div></div>'+
  '<div class="composition-stage-floating"><button type="button" id="composition-dimensions" aria-pressed="false" aria-label="Afficher les cotes et dimensions du meuble">◫ Cotes</button><button type="button" id="composition-fullscreen" aria-pressed="false" aria-label="Afficher la vue 3D en plein écran">⛶ Plein écran</button></div>'+
- '<div class="composition-camera-tools" role="group" aria-label="Orientation et cadrage du meuble"><button type="button" id="composition-view-front" aria-pressed="false" title="Vue de face">Face</button><button type="button" id="composition-view-angle" aria-pressed="true" title="Vue trois quarts">3/4</button><button type="button" id="composition-reset-view" title="Recentrer le meuble">↺ Centrer</button></div>'+
+
  '<div class="composition-view-tools" role="group" aria-label="Personnaliser la salle de bain"><button type="button" id="composition-floor" aria-expanded="false" aria-controls="composition-surface-panel">Sol</button><button type="button" id="composition-wall" aria-expanded="false" aria-controls="composition-surface-panel">Mur</button><button type="button" id="composition-photo" aria-label="Enregistrer la photo 3D">↓ Image</button></div>'+
  '<div id="composition-surface-panel" class="composition-surface-panel" role="region" aria-label="Choix des matériaux" hidden><button type="button" id="composition-surface-close" class="composition-surface-close" aria-label="Fermer le choix des matériaux">×</button><strong id="composition-surface-title"></strong><div id="composition-surface-choices"></div><p>Creta 60 × 60 : coloris officiels du catalogue ELIOS.</p></div>'+
  '</div>'+
  '<p class="composition-gesture">Glissez pour tourner le meuble · Pincez pour zoomer</p>'+
  '<div class="composition-harmony-controls" id="composition-harmony-controls" hidden><button type="button" id="composition-drawers" aria-pressed="false" title="Tiroir supérieur avec compartiment siphon">Ouvrir les tiroirs</button></div>'+
+ '<div class="composition-customize" id="composition-harmony-customize" hidden>'+
+ '<button type="button" data-customize="color" aria-expanded="false">Changer la finition</button>'+
+ '<button type="button" data-customize="basin" aria-expanded="false">Changer la vasque</button>'+
+ '<div class="composition-customize-panel" id="composition-customize-panel" hidden></div></div>'+
  '</div><aside class="composition-details"><div class="composition-label">VOTRE COMPOSITION</div><h3 id="composition-model"></h3>'+
  '<div class="composition-selected"><div><span>Dimensions</span><strong id="composition-size"></strong></div>'+
  '<div><span>Finition du meuble</span><strong id="composition-color"></strong></div>'+
@@ -74,10 +78,6 @@ function modal(){
  '<div><span>Miroir</span><strong id="composition-mirror"></strong></div>'+
  '<div><span>Référence meuble</span><strong id="composition-reference"></strong></div>'+
  '<div><span>Composition · prix public</span><strong id="composition-total"></strong></div></div>'+
- '<div class="composition-customize" id="composition-harmony-customize" hidden>'+
- '<button type="button" data-customize="color" aria-expanded="false">Changer la finition</button>'+
- '<button type="button" data-customize="basin" aria-expanded="false">Changer la vasque</button>'+
- '<div class="composition-customize-panel" id="composition-customize-panel" hidden></div></div>'+
  '<div class="composition-swatch"><img id="composition-swatch" alt="Échantillon de la finition retenue"></div><div class="composition-proof"><h4>Illustrations du catalogue</h4><div id="composition-proof-images" class="composition-proof-images"></div></div>'+
  '<p class="composition-disclaimer">Projection 3D indicative : les proportions, la disposition et les teintes sont simulées à partir de votre sélection. Les dessins, caractéristiques et échantillons RANDAL font référence.</p>'+
  '</aside></div><div class="composition-footer"><button id="composition-back" type="button">Retour au récapitulatif</button></div></section>';
@@ -99,9 +99,6 @@ function modal(){
    const b=$('composition-fullscreen');if(b){b.setAttribute('aria-pressed','false');b.textContent='⛶ Plein écran';}}
  });
  $('composition-photo').addEventListener('click',saveImage);
- $('composition-view-front').addEventListener('click',()=>setCameraPreset('front'));
- $('composition-view-angle').addEventListener('click',()=>setCameraPreset('angle'));
- $('composition-reset-view').addEventListener('click',()=>setCameraPreset('reset'));
  $('composition-drawers').addEventListener('click',toggleDrawers);
  el.querySelectorAll('[data-customize]').forEach(button=>button.addEventListener('click',()=>showCustomize(button.dataset.customize)));
  el.addEventListener('keydown',e=>{if(e.key==='Tab'){const items=[...el.querySelectorAll('button:not(:disabled)')];const first=items[0],last=items[items.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
@@ -1218,7 +1215,6 @@ async function open(config){
  dimensionsVisible=false;
  const dimsButton=$('composition-dimensions');if(dimsButton){dimsButton.textContent='◫ Cotes';dimsButton.setAttribute('aria-pressed','false');dimsButton.setAttribute('aria-label','Afficher les cotes et dimensions du meuble');}
  const fullButton=$('composition-fullscreen');if(fullButton){fullButton.textContent='⛶ Plein écran';fullButton.setAttribute('aria-pressed','false');}
- setCameraButtons('angle');
  const drawerControls=$('composition-harmony-controls');
  if(drawerControls)drawerControls.hidden=!(config.model==='Harmony'&&config.typeId!=='column');
  const harmonyCustomize=$('composition-harmony-customize');
