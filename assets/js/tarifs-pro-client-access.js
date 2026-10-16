@@ -22,7 +22,7 @@ const ADMINS = new Map([
   ["coryne@leroyfactory.fr", "Coryne"]
 ]);
 const PARTNER_NAMES = {
-  "elios-ceramica":"Elios Ceramica","view-ceramica":"View Ceramica","la-fenice":"La Fenice","reviglass":"Reviglass",
+  "elios-ceramica":"Elios Ceramica","life-ceramica":"Life Cerámica","view-ceramica":"View Ceramica","la-fenice":"La Fenice","reviglass":"Reviglass",
   "biopietra":"Biopietra","petracers":"Petracer's","pecchioli-firenze":"Pecchioli Firenze","bulbo":"Bulbo",
   "randal-pro":"Randal Pro","neobath":"Neobath","koibath":"Koibath","aquahome":"Aquahome","opal":"Opal","reitano-rubinetterie":"Reitano Rubinetterie","uptrend":"UPTREND","bilt":"Bilt"
 };
