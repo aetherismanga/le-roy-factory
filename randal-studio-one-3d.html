@@ -57,7 +57,7 @@ aside{grid-column:2;grid-row:1 / span 4}.surface-picker,.finish-picker{backgroun
 /* STUDIO ONE 3D : outils desktop/mobile et menu translucide */
 .studio-editor-bar{position:absolute;top:75px;left:14px;z-index:16;display:flex;gap:7px}
 .studio-editor-bar button{min-height:40px;padding:8px 11px;background:#fafcf7e8;border-radius:10px;box-shadow:0 3px 12px #0002;font-size:.8rem}.studio-editor-bar .primary{background:#344c3c;color:white}
-.studio-obj-menu{position:absolute;top:125px;left:14px;z-index:35;width:min(340px,calc(100% - 28px));max-height:min(65vh,500px);overflow-y:auto;background:#fdfcf7ed;backdrop-filter:blur(18px);border:1px solid #b2c4b8;border-radius:14px;padding:13px;box-shadow:0 12px 35px #0004}
+.studio-obj-menu{position:absolute;top:125px;left:14px;z-index:35;width:min(340px,calc(100% - 28px));max-height:min(65vh,500px);overflow-y:auto;background:#fdfcf7c9;backdrop-filter:blur(15px);border:1px solid #b2c4b8;border-radius:14px;padding:13px;box-shadow:0 12px 35px #0004}
 .studio-menu-title{display:flex;justify-content:space-between;align-items:center;gap:9px;font-weight:850;margin-bottom:10px}.studio-menu-title button{min-height:32px;padding:3px 8px}
 .studio-obj-menu label{font-size:.8rem;font-weight:750;display:block;margin:9px 0 5px}.studio-obj-menu input,.studio-obj-menu select{width:100%;min-height:42px;border:1px solid #b8c9bc;border-radius:9px;background:white;padding:8px;color:#304537;font:inherit}
 .studio-editor-buttons{display:grid;grid-template-columns:1fr 1fr;gap:7px}.studio-editor-buttons button{min-width:0;min-height:44px;white-space:normal;padding:8px;border:1px solid #bfcebd;background:#e9f1e7;color:#344c3d;border-radius:9px;font-size:.79rem}.studio-editor-buttons .primary{grid-column:1/-1;background:#344c3c;color:#fff}
@@ -70,7 +70,7 @@ aside{grid-column:2;grid-row:1 / span 4}.surface-picker,.finish-picker{backgroun
 <header class="studio-head"><span class="eyebrow">RANDAL · VISUALISATION</span><strong>Votre salle de bain</strong><div class="logo">studio<em>one</em></div></header>
 <main><section class="stage" id="stage" aria-label="Vue 3D interactive de votre meuble Studio One">
  <div id="status">Chargement de votre meuble 3D…</div>
- <div class="toolbar"><button id="dimensions" aria-pressed="false">◫ Cotes</button><button type="button" id="drawers-quick" aria-pressed="false">Ouvrir tiroirs</button><button id="fullscreen" aria-pressed="false">⛶ Plein écran</button></div><div class="studio-editor-bar"><button class="primary" id="studio-add-item" type="button">＋ Ajouter un élément</button><button id="studio-view-front" type="button">Face</button><button id="studio-view-reset" type="button">Centrer</button></div><div id="studio-object-menu" class="studio-obj-menu" hidden></div><div class="studio-canvas-hint">Cliquez sur un objet pour le modifier · Maintenez pour déplacer</div>
+ <div class="toolbar"><button id="dimensions" aria-pressed="false">◫ Cotes</button><button type="button" id="drawers-quick" aria-pressed="false">Ouvrir tiroirs</button><button id="studio-invert" type="button" aria-pressed="false">⇄ Sens</button><button id="fullscreen" aria-pressed="false">⛶ Plein écran</button></div><div class="studio-editor-bar"><button class="primary" id="studio-add-item" type="button">＋ Ajouter un élément</button><button id="studio-view-front" type="button">Face</button><button id="studio-view-reset" type="button">Centrer</button></div><div id="studio-object-menu" class="studio-obj-menu" hidden></div><div class="studio-canvas-hint">Cliquez sur un objet pour le modifier · Maintenez pour déplacer</div>
  <div class="studio-materials"><button type="button" id="floor-picker"><span id="floor-chip" class="chip"></span><span>Sol<strong id="floor-name">Creta Ginepro</strong></span></button><button type="button" id="wall-picker"><span id="wall-chip" class="chip"></span><span>Mur<strong id="wall-name">Ivoire</strong></span></button><button id="image">↓ Image</button></div>
  <div id="surface-picker" class="surface-picker" hidden><div class="picker-head"><strong id="picker-title">Choix du sol</strong><button id="picker-close" aria-label="Fermer">✕</button></div><div id="picker-options" class="picker-options"></div></div>
  </section>
@@ -425,12 +425,13 @@ function mirrorGeometry(){
  mirrorRoot.position.set(body.position.x,Math.max(baseY+h+.25+mh/2,1.18),-.18);
 }
 function updateCopies(){
+ var oldExtra=extraFurniture.map(function(o){return o.position.clone()}),oldColumns=columnCopies.map(function(o){return o.position.clone()}),oldMirrors=mirrorCopies.map(function(o){return o.position.clone()});
  extraFurniture.forEach(function(obj){scene.remove(obj)});extraFurniture=[];
  for(var i=0;i<extraCabinets;i++){
   var clone=body.clone(true);clone.name='Meuble_STUDIO_ONE_copie_'+(i+1);
   // Une duplication du meuble ne facture pas une seconde vasque involontairement.
   var clonedSink=clone.getObjectByName('STUDIO_ONE_vasque');if(clonedSink)clonedSink.parent.remove(clonedSink);
-  clone.position.x=body.position.x+(i+1)*(currentWidth/100+.12);
+  clone.position.copy(oldExtra[i]||new THREE.Vector3(body.position.x+(i+1)*(currentWidth/100+.12),body.position.y,body.position.z));
   scene.add(clone);extraFurniture.push(clone);
  }
  sinkCopies.forEach(function(obj){basinGroup.remove(obj)});sinkCopies=[];
@@ -448,11 +449,11 @@ function updateCopies(){
  studioColumn.visible=hasColumn;
  if(hasColumn)for(var i=1;i<columnQty;i++){
   var clone=studioColumn.clone(true);clone.name='Colonne_STUDIO_ONE_copie_'+i;
-  clone.position.x=studioColumn.position.x+i*(columnWidth+.08);scene.add(clone);columnCopies.push(clone);
+  clone.position.copy(oldColumns[i-1]||new THREE.Vector3(studioColumn.position.x+i*(columnWidth+.08),studioColumn.position.y,studioColumn.position.z));scene.add(clone);columnCopies.push(clone);
  }
  mirrorCopies.forEach(function(obj){scene.remove(obj)});mirrorCopies=[];
  if(mirrorRoot.visible)for(var i=1;i<mirrorQty;i++){
-  var clone=mirrorRoot.clone(true);clone.position.x=mirrorRoot.position.x+i*(.72);scene.add(clone);mirrorCopies.push(clone);
+  var clone=mirrorRoot.clone(true);clone.position.copy(oldMirrors[i-1]||new THREE.Vector3(mirrorRoot.position.x+i*.72,mirrorRoot.position.y,mirrorRoot.position.z));scene.add(clone);mirrorCopies.push(clone);
  }
 }
 function sendEdit(patch){
@@ -574,25 +575,30 @@ function resize(){var a=stage.clientWidth,b=stage.clientHeight;camera.aspect=a/M
 new ResizeObserver(resize).observe(stage);
 
 var canvas=renderer.domElement,objectRay=new THREE.Raycaster(),pressTimer=null,objectDrag=null;
+var reverseOrbit=false;
+document.getElementById('studio-invert').onclick=function(){reverseOrbit=!reverseOrbit;this.setAttribute('aria-pressed',String(reverseOrbit))};
 function hitObject(e){
- var r=canvas.getBoundingClientRect(),x=new THREE.Vector2((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);
- objectRay.setFromCamera(x,camera);
- var targets=[body].concat(hasColumn?[studioColumn]:[],mirrorRoot.visible?[mirrorRoot]:[],extraFurniture,columnCopies,mirrorCopies);
- var hit=objectRay.intersectObjects(targets,true)[0];if(!hit)return null;
+ var r=canvas.getBoundingClientRect(),p=new THREE.Vector2((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);
+ objectRay.setFromCamera(p,camera);
+ var hit=objectRay.intersectObjects([body,studioColumn,mirrorRoot].concat(extraFurniture,columnCopies,mirrorCopies).filter(function(o){return o.visible}),true)[0];if(!hit)return null;
  for(var o=hit.object;o;o=o.parent){
-  if(o===mirrorRoot||mirrorCopies.includes(o))return'miroir';
-  if(o===basinGroup)return'vasque';
-  if(o===studioColumn||columnCopies.includes(o))return'colonne';
-  if(o===body||extraFurniture.includes(o))return'meuble';
+  if(o===mirrorRoot||mirrorCopies.includes(o))return{kind:'miroir',object:o};
+  if(o===basinGroup)return{kind:'vasque',object:body};
+  if(o===studioColumn||columnCopies.includes(o))return{kind:'colonne',object:o};
+  if(o===body||extraFurniture.includes(o))return{kind:'meuble',object:o};
  }return null;
 }
-function moveSelected(type,dx){
- var delta=dx*dist/Math.max(350,stage.clientWidth)*1.55;
- if(type==='meuble'){var next=clamp(body.position.x+delta,-1,1);if(!hasColumn||Math.abs(next-studioColumn.position.x)>currentWidth/200+columnWidth/2+.025)body.position.x=next}
- if(type==='colonne')studioColumn.position.x=clamp(studioColumn.position.x+delta,body.position.x+currentWidth/200+columnWidth/2+.025,2.1);
- if(type==='miroir')mirrorRoot.position.x=clamp(mirrorRoot.position.x+delta,-1.5,1.5);
- // La vasque reste solidaire de son meuble : aucun déplacement indépendant.
- updateCopies();
+function moveSelected(sel,dx,dy){
+ if(!sel||sel.kind==='vasque')return;
+ var obj=sel.object,old=obj.position.clone(),scale=dist/Math.max(350,stage.clientWidth)*1.55;
+ obj.position.x=clamp(obj.position.x+dx*scale,-2.4,2.4);
+ if(sel.kind==='miroir')obj.position.y=clamp(obj.position.y-dy*scale,.65,2.5);
+ if(sel.kind==='colonne')obj.position.y=clamp(obj.position.y-dy*scale,0,1.1);
+ if(sel.kind==='meuble'&&height!==91)obj.position.y=clamp(obj.position.y-dy*scale,-.35,.9);
+ if(sel.kind==='meuble'||sel.kind==='colonne'){
+  var bounds=new THREE.Box3().setFromObject(obj);
+  if([body,studioColumn].concat(extraFurniture,columnCopies).some(function(o){return o!==obj&&o.visible&&bounds.intersectsBox(new THREE.Box3().setFromObject(o))}))obj.position.copy(old);
+ }
 }
 canvas.addEventListener('pointerdown',function(e){
  var type=hitObject(e);drag={x:e.clientX,y:e.clientY,startX:e.clientX,startY:e.clientY,type:type};objectDrag=null;
@@ -604,13 +610,13 @@ canvas.addEventListener('pointermove',function(e){
  if(!drag){if(e.pointerType==='mouse')canvas.style.cursor=hitObject(e)?'pointer':'grab';return}
  var dx=e.clientX-drag.x,dy=e.clientY-drag.y;
  if(!objectDrag&&Math.hypot(e.clientX-drag.startX,e.clientY-drag.startY)>8)clearTimeout(pressTimer);
- if(objectDrag)moveSelected(objectDrag,dx);
- else {yaw=clamp(yaw+dx*.008,-1.08,1.08);pitch=clamp(pitch+dy*.003,.02,.41)}
+ if(objectDrag)moveSelected(objectDrag,dx,dy);
+ else {yaw=clamp(yaw+dx*.008*(reverseOrbit?-1:1),-1.08,1.08);pitch=clamp(pitch+dy*.003,.02,.41)}
  drag.x=e.clientX;drag.y=e.clientY;
 });
 canvas.addEventListener('pointerup',function(e){
  clearTimeout(pressTimer);
- if(drag&&drag.type&&!objectDrag&&Math.hypot(e.clientX-drag.startX,e.clientY-drag.startY)<8)showObjectMenu(drag.type);
+ if(drag&&drag.type&&!objectDrag&&Math.hypot(e.clientX-drag.startX,e.clientY-drag.startY)<8)showObjectMenu(drag.type.kind);
  drag=null;objectDrag=null;canvas.style.cursor='grab';
 });
 canvas.addEventListener('pointercancel',function(){clearTimeout(pressTimer);drag=null;objectDrag=null});
