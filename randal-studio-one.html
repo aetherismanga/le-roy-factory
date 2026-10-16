@@ -130,7 +130,8 @@ function price(){var m=data(),i=idx();return m&&i>=0?(isTop()?m.avec[i]:m.sans[i
 function total(){var p=price();return p===null?null:(p+(st.column?177:0))*Number(st.quantity||1)}
 function ref(){var m=data(),co=color(),i=idx();return m&&co&&i>=0?(isTop()?m.top:m.base)+' '+sizes[i].ref+'@'+co.code:''}
 function normalize(){
- if(!standard()&&st.option!=='top')st.option='top';
+ // Le meuble seul sans plateau accepte toutes les largeurs entières 40–120 cm.
+ // Seule la vasque standard exige un multiple de 10 cm à partir de 60 cm.
  if(st.option==='basin'&&!basinAvailable())st.option='top';
  if(!isTop())st.vessel=false;
 }
@@ -173,14 +174,14 @@ function render(){
    h+='<div id="width-status">'+widthInfo()+'</div>';
  }
  if(st.step===2){
-   h=optionsHead('Plateau et vasque','Le meuble sur mesure est proposé avec un plateau. Les vasques standard sont disponibles de 60 à 120 cm, par pas de 10 cm.');
+   h=optionsHead('Plateau et vasque','Choisissez votre meuble avec ou sans plateau, même sur mesure. Les vasques standard sont disponibles de 60 à 120 cm, par pas de 10 cm.');
    h+='<div class="option-layout">'+[
       ['top','Avec plateau sur mesure','Largeur au centimètre près · prix meuble avec plateau.'],
       ['basin','Sans plateau · vasque standard','Uniquement 60, 70, 80, 90, 100, 110 ou 120 cm. Vasque à chiffrer séparément.'],
-      ['bare','Sans plateau · meuble seul','Formats standards de 40 à 120 cm par pas de 10 cm.']
-   ].map(function(o){return '<button type="button" class="choice'+(st.option===o[0]?' active':'')+'" data-option="'+o[0]+'" '+(o[0]==='basin'&&!basinAvailable()||o[0]==='bare'&&!standard()?'disabled':'')+'><strong>'+o[1]+'</strong><small>'+o[2]+'</small></button>'}).join('')+'</div>';
+      ['bare','Sans plateau · meuble seul','Toutes les largeurs au centimètre près de 40 à 120 cm · tarif C1 du meuble seul.']
+   ].map(function(o){return '<button type="button" class="choice'+(st.option===o[0]?' active':'')+'" data-option="'+o[0]+'" '+(o[0]==='basin'&&!basinAvailable()?'disabled':'')+'><strong>'+o[1]+'</strong><small>'+o[2]+'</small></button>'}).join('')+'</div>';
    if(isTop())h+='<label class="radio-row" style="margin-top:20px"><input type="checkbox" id="vessel" '+(st.vessel?'checked':'')+'>Prévoir une vasque à poser (sur devis, non incluse)</label>';
-   if(!standard())h+='<div class="warning">Largeur '+esc(st.width)+' cm : les options « sans plateau » et « vasque standard » ne sont pas disponibles. Le plateau sur mesure est sélectionné.</div>';
+   if(!basinAvailable())h+='<p class="details">La vasque standard nécessite une largeur de 60 à 120 cm par pas de 10 cm. Le meuble seul, sans plateau, reste disponible à cette largeur.</p>';
    h+='<div class="price-card"><strong>Prix C1 du meuble : '+euros(p)+'</strong><div>Référence adaptée à la tranche '+sizes[i].label+' · '+(isTop()?'avec plateau':'sans plateau')+'.</div></div>';
  }
  if(st.step===3){
@@ -243,7 +244,6 @@ function render(){
  wizard.querySelectorAll('[data-step]').forEach(function(b){b.onclick=function(){var v=Number(b.dataset.step);if(v<=st.step){st.step=v;save();render()}}});
  var next=document.getElementById('next');if(next)next.onclick=function(){
     if(st.step===1&&!validWidth())return alert('Largeur invalide : entrez un nombre entier de 40 à 120 cm, sans virgule.');
-    if(st.step===2&&st.option!=='top'&&!standard())return alert('Une largeur sur mesure nécessite un plateau.');
     if(st.step===2&&st.option==='basin'&&!basinAvailable())return alert('Les vasques standard sont proposées à partir de 60 cm, par pas de 10 cm.');
     if(st.step===3&&!color())return alert('Choisissez l’une des 8 finitions.');
     if(st.step===4&&(!Number.isInteger(Number(st.quantity))||Number(st.quantity)<1||Number(st.quantity)>99))return alert('La quantité doit être comprise entre 1 et 99.');
