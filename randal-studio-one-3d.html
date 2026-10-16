@@ -4,7 +4,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Atelier 3D STUDIO ONE — Le Roy Factory</title>
 <link rel="icon" href="assets/brand-v2/logoLRF.png">
-<link rel="stylesheet" href="assets/css/studio-one/editor.css?v=20261017-photo-strict1">
+<link rel="stylesheet" href="assets/css/studio-one/editor.css?v=20261017-dossier1">
 </head>
 <body>
 <div id="studio-app" data-panel="scene">
@@ -15,12 +15,12 @@
 <div class="panel-heading"><h2>Configuration</h2><button class="close-panel" data-panel="scene" aria-label="Fermer la configuration">×</button></div>
 <details open><summary>Ajouter un élément</summary><div class="add-grid"><button id="add-cabinet">＋ Meuble</button><button id="add-column">＋ Colonne</button><button id="add-mirror">＋ Miroir</button></div></details>
 <div id="selected-options"></div>
-<details><summary>Projet et ambiance</summary><div class="section-content"><label>Sol · Usine<select id="floor-factory"><option value="elios">ELIOS</option><option value="view">VIEW</option><option value="lafenice" disabled>LA FENICE - bientôt</option><option value="life" disabled>LIFE CERAMICA - bientôt</option></select></label><label>Sol · Collection et couleur<select id="floor-color"></select></label><label>Sol · Sens de pose<select id="floor-orientation"><option value="horizontal">Horizontal</option><option value="vertical">Vertical</option></select></label><label>Mur · Usine<select id="wall-factory"><option value="elios">ELIOS</option><option value="view">VIEW</option><option value="lafenice" disabled>LA FENICE - bientôt</option><option value="life" disabled>LIFE CERAMICA - bientôt</option></select></label><label>Mur · Collection et couleur<select id="wall-color"></select></label><label>Mur · Sens de pose<select id="wall-orientation"><option value="horizontal">Horizontal</option><option value="vertical">Vertical</option></select></label><button id="load-project">Ouvrir un projet JSON</button><input id="project-file" type="file" accept=".json,application/json" hidden><button id="image">Enregistrer une image</button><div class="photo-export"><strong>Rendu photoréaliste gratuit</strong><p class="fine-print">Le site télécharge une image PNG avec les références et consignes du projet. Joignez ensuite cette image dans votre propre ChatGPT ou Gemini.</p><button type="button" id="photo-chatgpt" class="primary">✨ Photoréalisme · ChatGPT</button><button type="button" id="photo-gemini">✨ Photoréalisme · Gemini</button></div><button id="new-project">Nouvelle composition</button></div></details>
+<details><summary>Projet et ambiance</summary><div class="section-content"><label>Sol · Usine<select id="floor-factory"><option value="elios">ELIOS</option><option value="view">VIEW</option><option value="lafenice" disabled>LA FENICE - bientôt</option><option value="life" disabled>LIFE CERAMICA - bientôt</option></select></label><label>Sol · Collection et couleur<select id="floor-color"></select></label><label>Sol · Sens de pose<select id="floor-orientation"><option value="horizontal">Horizontal</option><option value="vertical">Vertical</option></select></label><label>Mur · Usine<select id="wall-factory"><option value="elios">ELIOS</option><option value="view">VIEW</option><option value="lafenice" disabled>LA FENICE - bientôt</option><option value="life" disabled>LIFE CERAMICA - bientôt</option></select></label><label>Mur · Collection et couleur<select id="wall-color"></select></label><label>Mur · Sens de pose<select id="wall-orientation"><option value="horizontal">Horizontal</option><option value="vertical">Vertical</option></select></label><label class="check-label"><input type="checkbox" id="invert" checked>Rotation inversée de la vue 3D (réglage recommandé)</label><button id="load-project">Ouvrir un projet JSON</button><input id="project-file" type="file" accept=".json,application/json" hidden><button id="image">Enregistrer une image</button><div class="photo-export"><strong>Rendu photoréaliste gratuit</strong><p class="fine-print">Le site télécharge une image PNG avec les références et consignes du projet. Joignez ensuite cette image dans votre propre ChatGPT ou Gemini.</p><button type="button" id="photo-chatgpt" class="primary">✨ Photoréalisme · ChatGPT</button><button type="button" id="photo-gemini">✨ Photoréalisme · Gemini</button></div><button id="new-project">Nouvelle composition</button></div></details>
 <div class="history"><button id="undo">↶ Annuler</button><button id="redo">↷ Rétablir</button></div>
 <p class="fine-print">Meubles de 40 à 120 cm, par pas de 1 cm. Hauteurs et profondeurs définies par modèle. Le format 40 cm reste à confirmer auprès de RANDAL.</p>
 </aside>
 <section id="stage" aria-label="Vue 3D interactive STUDIO ONE">
-<div class="toolbar"><button id="dimensions" aria-pressed="false">Cotes</button><button id="reset">Centrer</button><button id="front">Face</button><button id="invert" aria-pressed="false" title="Inverser le sens de rotation">⇄ Sens</button><button id="fullscreen" aria-pressed="false">⛶ Plein écran</button><button id="open-all" aria-pressed="false">Ouvrir toute la composition</button></div>
+<div class="toolbar"><button id="dimensions" aria-pressed="false">Cotes</button><button id="reset">Centrer</button><button id="front">Face</button><button id="fullscreen" aria-pressed="false">⛶ Plein écran</button><button id="open-all" aria-pressed="false">Ouvrir toute la composition</button></div>
 <div id="scene-status" role="status">Chargement de l’atelier 3D…</div>
 <div class="gesture-help">Objet : glisser pour déplacer · Fond : maintenir pour tourner · Molette / deux doigts : zoom</div>
 <div id="notice" role="status" aria-live="polite" hidden></div>
@@ -32,6 +32,6 @@
 <script src="assets/js/studio-one/catalog.js?v=20261016-pro1"></script>
 <script src="assets/js/studio-one/model.js?v=20261016-pro1"></script>
 <script src="assets/js/randal-mail-chooser.js?v=20261016-choose-gmail-v1"></script>
-<script src="assets/js/studio-one/scene.js?v=20261017-photo-strict1"></script>
-<script src="assets/js/studio-one/editor.js?v=20261017-photo-strict1"></script>
+<script src="assets/js/studio-one/scene.js?v=20261017-dossier1"></script>
+<script src="assets/js/studio-one/editor.js?v=20261017-dossier1"></script>
 </body></html>
