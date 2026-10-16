@@ -474,23 +474,20 @@ function render(){
    h+='<label class="field" for="quantity" style="margin-top:21px">Quantité de compositions<input id="quantity" type="number" inputmode="numeric" min="1" max="99" step="1" value="'+esc(st.quantity)+'"></label>';
    h+='<div class="price-card"><strong>Sous-total meuble et vasque : '+euros(total())+'</strong><div>Colonne à 177 € si sélectionnée. Prix vasque PRO inclus si choisie.</div></div>';
  }
+
  if(st.step===5){
-   h=optionsHead('Votre composition STUDIO ONE','Contrôlez toutes les caractéristiques avant de préparer votre demande.');
-   h+='<table class="recap"><tbody>'+
-     '<tr><td>Modèle</td><td><b>'+esc(m.name)+'</b></td></tr>'+
-     '<tr><td>Dimensions du meuble</td><td><b>L '+esc(st.width)+' × H '+String(m.height).replace('.',',')+' × P 46 cm</b></td></tr>'+
-     '<tr><td>Tranche C1 / format</td><td>'+esc(sizes[i].label)+' / '+esc(sizes[i].ref)+'</td></tr>'+
-     '<tr><td>Plateau</td><td>'+({top:'Avec plateau sur mesure · même couleur que le meuble',basin:'Sans plateau · vasque encastrée',bare:'Sans plateau · meuble seul'}[st.option])+'</td></tr>'+'<tr><td>Vasque et couleur</td><td>'+esc(sinkDescription())+'</td></tr>'+'<tr><td>Référence vasque</td><td class="ref">'+(selectedSink()?.ref||'—')+'</td></tr>'+'<tr><td>Prix PRO vasque</td><td>'+(selectedSink()?euros(selectedSink().price):'—')+'</td></tr>'+
-     '<tr><td>Finition</td><td>'+esc(color().name)+'</td></tr>'+
-     '<tr><td>Référence Randal</td><td class="ref">'+esc(ref())+'</td></tr>'+
-     '<tr><td>Prix meuble C1</td><td>'+euros(p)+'</td></tr>'+
-     '<tr><td>Colonne assortie</td><td>'+(st.column?'14177 '+esc(color().code)+' · 177 € C1':'Non')+'</td></tr>'+
-     '<tr><td>Quantité</td><td>'+esc(st.quantity)+'</td></tr></tbody></table>';
-   h+='<div class="total"><div>Meuble C1 et vasque PRO si sélectionnée</div><strong>'+euros(total())+'</strong><div class="sub">Vasque : -50 % sur tarif public HT RANDAL V04. Total indicatif à confirmer.</div></div>';
-   h+='<div class="recap-tools"><button class="btn primary" id="preview3d">◈ Voir mon meuble en 3D</button><button class="btn" id="copy">Copier le récapitulatif</button><button class="btn" id="print">Imprimer</button><button class="btn primary" id="email">Préparer une demande par e-mail</button></div>';
-   if(widthVal(st.width)===40)h+='<div class="warning">Largeur 40 cm : à confirmer avec Randal (référentiel 41–60 cm ; flyer 40–60 cm).</div>';
-   h+='<p class="note">Le bouton e-mail ouvre la messagerie : aucun message n’est envoyé automatiquement. La vue 3D permet de visualiser les proportions et l’ouverture des tiroirs.</p>';
+  h=optionsHead('Vérifiez votre commande','Vérifiez les articles, références et prix avant la demande à RANDAL.');
+  h+=studioVisualSummary();
+  h+=studioOrderSheet();
+  h+='<div class="studio-recap-tools">'+
+   '<button type="button" class="btn studio-recap-3d" id="preview3d">◈ Voir la composition en 3D</button>'+
+   '<button type="button" class="btn" id="print">Imprimer</button>'+
+   '<button type="button" class="btn" id="save-pdf">Enregistrer en PDF</button>'+
+   '<button type="button" class="btn studio-recap-send" id="email">Envoyer la demande</button></div>'+
+   '<p class="studio-recap-mailnote">L’envoi ouvre votre messagerie avec les références, quantités et prix. Le message reste à envoyer manuellement.</p>';
+  if(widthVal(st.width)===40)h+='<div class="warning">Largeur de 40 cm : référence exacte à confirmer avec RANDAL.</div>';
  }
+
  if(st.step>0)h+='<div class="actions">'+(st.step<5?'<button class="btn primary" id="next">Continuer →</button>':'<button class="btn" id="restart">Recommencer</button>')+'</div>';
  panel.innerHTML=h;
  panel.querySelectorAll('[data-choice]').forEach(function(b){b.onclick=function(){
