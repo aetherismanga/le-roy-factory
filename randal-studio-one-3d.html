@@ -490,6 +490,11 @@ window.addEventListener('message',function(e){
  if(e.origin!==location.origin||e.source!==window.parent||e.data?.type!=='studio-one-scene-confirm')return;
  var st=e.data.state||{};applyScenePatch(st);
  if(st.ref){ref=st.ref;document.getElementById('studio-ref-3d').textContent=ref}
+ var details=document.querySelectorAll('#details>div');
+ if(details[1]&&st.width)details[1].querySelector('dd').textContent=st.width+' × '+String(st.height||height).replace('.',',')+' × 46 cm';
+ if(details[4]&&st.color)details[4].querySelector('dd').textContent=finishNames[st.color]||st.color;
+ if(details[5])details[5].querySelector('dd').textContent=st.column?'Colonne assortie · 132 × 38 × 27 cm':'Sans colonne';
+ if(details[6])details[6].querySelector('dd').textContent=st.option==='bare'||st.option==='top'&&!st.vessel?'Sans vasque':(st.sinkModel||sinkModel)+' · '+(st.sinkColor||sinkColor);
  if(st.total!==undefined){price=String(st.total);var el=document.querySelector('#details dd:last-child');if(el)el.textContent=new Intl.NumberFormat('fr-FR',{maximumFractionDigits:2}).format(st.total)+' €'}
 });
 function editorPopup(title,build){
@@ -551,7 +556,7 @@ function openAddMenu(){
   editorButton('Meuble',function(){sendEdit({extraCabinets:Math.min(2,extraCabinets+1)});closeEditor()},true);
   editorButton('Colonne',function(){sendEdit(hasColumn?{columnQty:Math.min(3,columnQty+1)}:{column:true});closeEditor()});
   editorButton('Miroir',function(){sendEdit({mirror:selectedMirror==='Sans miroir'?'Basic':selectedMirror});showObjectMenu('miroir')});
-  editorButton('Vasque',function(){if(option==='bare')sendEdit({option:'top',vessel:true,sinkModel:'Neris',sinkColor:'gloss'});showObjectMenu('vasque')});
+  editorButton('Vasque',function(){if(option==='bare')sendEdit({option:'top',vessel:true,sinkModel:'Neris',sinkColor:'gloss'});else if(option==='top'&&!vesselSelected)sendEdit({vessel:true});showObjectMenu('vasque')});
  });
 }
 document.getElementById('studio-add-item').onclick=openAddMenu;
@@ -567,7 +572,7 @@ var canvas=renderer.domElement,objectRay=new THREE.Raycaster(),pressTimer=null,o
 function hitObject(e){
  var r=canvas.getBoundingClientRect(),x=new THREE.Vector2((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);
  objectRay.setFromCamera(x,camera);
- var targets=[body,studioColumn,mirrorRoot].concat(extraFurniture,columnCopies,mirrorCopies);
+ var targets=[body].concat(hasColumn?[studioColumn]:[],mirrorRoot.visible?[mirrorRoot]:[],extraFurniture,columnCopies,mirrorCopies);
  var hit=objectRay.intersectObjects(targets,true)[0];if(!hit)return null;
  for(var o=hit.object;o;o=o.parent){
   if(o===mirrorRoot||mirrorCopies.includes(o))return'miroir';
