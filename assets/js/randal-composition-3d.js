@@ -61,7 +61,7 @@ function modal(){
  '<div class="composition-viewport">'+
  '<div id="composition-canvas" class="composition-canvas" role="img" aria-label="Modèle 3D manipulable de votre composition RANDAL">'+
  '<div class="composition-loading" id="composition-loading">Préparation de votre aperçu 3D…</div></div>'+
- '<div class="composition-stage-floating"><button type="button" id="composition-dimensions" aria-pressed="false" aria-label="Afficher les cotes et dimensions du meuble">◫ Cotes</button><button type="button" id="composition-add-item" aria-label="Ajouter un élément à la composition">＋ Ajouter un élément</button><button type="button" id="composition-fullscreen" aria-pressed="false" aria-label="Afficher la vue 3D en plein écran">⛶ Plein écran</button></div>'+
+ '<div class="composition-stage-floating"><button type="button" id="composition-dimensions" aria-pressed="false" aria-label="Afficher les cotes et dimensions du meuble">◫ Cotes</button><button type="button" id="composition-add-item" aria-label="Ajouter un élément à la composition">＋ Ajouter un élément</button><button type="button" id="composition-invert" aria-pressed="false" title="Inverser le sens de rotation">⇄ Sens</button><button type="button" id="composition-fullscreen" aria-pressed="false" aria-label="Afficher la vue 3D en plein écran">⛶ Plein écran</button></div>'+
  '<div id="composition-object-menu" class="composition-object-menu" hidden></div>'+
 
  '<div class="composition-view-tools" role="group" aria-label="Personnaliser la salle de bain"><button type="button" id="composition-floor" aria-expanded="false" aria-controls="composition-surface-panel">Sol</button><button type="button" id="composition-wall" aria-expanded="false" aria-controls="composition-surface-panel">Mur</button><button type="button" id="composition-photo" aria-label="Enregistrer la photo 3D">↓ Image</button></div>'+
@@ -1131,12 +1131,14 @@ function detectObject(canvas,e){
  const candidates=[rootCabinet,extraColumn,...mirrorScenePieces,...extraCabinets].filter(Boolean);
  const hit=ray.intersectObjects(candidates,true)[0];if(!hit)return null;
  for(let obj=hit.object;obj;obj=obj.parent){
-  if(obj.userData?.randalSelectBasin)return'vasque';
-  if(obj.userData?.randalKind)return obj.userData.randalKind;
+  if(obj.userData?.randalSelectBasin)return{kind:'vasque',object:rootCabinet};
+  if(obj.userData?.randalKind){let parent=obj;while(parent.parent&&parent.parent!==scene)parent=parent.parent;return{kind:obj.userData.randalKind,object:parent};}
  }
  return null;
 }
-function bindGestures(canvas){
+let reverseOrbit=false;
+ const invertControl=$('composition-invert');if(invertControl)invertControl.onclick=()=>{reverseOrbit=!reverseOrbit;invertControl.setAttribute('aria-pressed',String(reverseOrbit))};
+ function bindGestures(canvas){
  canvas.style.touchAction='none';
  const pointers=new Map(),origins=new Map();
  let longPress=null;
@@ -1158,20 +1160,27 @@ function bindGestures(canvas){
   pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
   if(start&&Math.hypot(e.clientX-start.x,e.clientY-start.y)>8&&!objectDrag)clearTimeout(longPress);
   if(objectDrag&&pointers.size===1){
-   const delta=dx*distance/Math.max(350,canvas.clientWidth)*1.5;
-   if(objectDrag==='meuble'&&rootCabinet){const next=clamp(rootCabinet.position.x+delta,-.85,.85);if(!extraColumn||Math.abs(next-extraColumn.position.x)>Number(current.width)/200+.22)rootCabinet.position.x=next;}
-   if(objectDrag==='colonne'&&extraColumn)extraColumn.position.x=clamp(extraColumn.position.x+delta,Number(current.width)/200+.12,1.9);
-   if(objectDrag==='miroir')for(const group of mirrorScenePieces)group.position.x=clamp(group.position.x+delta,-1.2,1.2);
-   // La vasque reste fixée au meuble et ne peut pas être déplacée séparément.
-   requestFrame();return;
-  }
-  if(pointers.size===2){
+    const selected=objectDrag,obj=selected.object;
+    if(selected.kind!=='vasque'&&obj){
+     const oldPosition=obj.position.clone(),delta=dx*distance/Math.max(350,canvas.clientWidth)*1.5;
+     obj.position.x=clamp(obj.position.x+delta,-2.5,2.5);
+     if(selected.kind==='miroir')obj.position.y=clamp(obj.position.y-dy*delta/(Math.abs(dx)||1),-.8,1.5);
+     if(selected.kind==='colonne')obj.position.y=clamp(obj.position.y-dy*distance/Math.max(350,canvas.clientHeight),0,1);
+     if(selected.kind==='meuble'&&current?.kind!=='column')obj.position.y=clamp(obj.position.y-dy*distance/Math.max(350,canvas.clientHeight),-.3,1);
+     if(['meuble','colonne'].includes(selected.kind)){
+      const box=new THREE.Box3().setFromObject(obj);
+      if([rootCabinet,extraColumn,...extraCabinets].some(other=>other&&other!==obj&&box.intersectsBox(new THREE.Box3().setFromObject(other))))obj.position.copy(oldPosition);
+     }
+    }
+    requestFrame();return;
+   }
+   if(pointers.size===2){
    clearTimeout(longPress);
    const p=[...pointers.values()],span=Math.hypot(p[0].x-p[1].x,p[0].y-p[1].y);
    if(lastPinch){stopCameraAnimation();cameraTouched=true;distance=clamp(distance*lastPinch/span,Math.max(.6,initialFitDistance*.60),Math.max(5,initialFitDistance*2.3))}
    lastPinch=span;
   }else{
-   stopCameraAnimation();cameraTouched=true;yaw=clamp(yaw+dx*.008,-1.10,1.10);pitch=clamp(pitch+dy*.005,.04,.54);
+   stopCameraAnimation();cameraTouched=true;yaw=clamp(yaw+dx*.008*(reverseOrbit?-1:1),-1.10,1.10);pitch=clamp(pitch+dy*.005,.04,.54);
   }
   moveCamera();
  });
@@ -1182,7 +1191,7 @@ function bindGestures(canvas){
  };
  canvas.addEventListener('pointerup',e=>{
   const start=origins.get(e.pointerId);
-  if(start&&start.type&&!objectDrag&&pointers.size===1&&Math.hypot(e.clientX-start.x,e.clientY-start.y)<8)showObjectMenu(start.type);
+  if(start&&start.type&&!objectDrag&&pointers.size===1&&Math.hypot(e.clientX-start.x,e.clientY-start.y)<8)showObjectMenu(start.type.kind);
   finish(e);canvas.style.cursor='grab';
  });
  canvas.addEventListener('pointercancel',finish);
