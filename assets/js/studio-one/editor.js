@@ -148,7 +148,7 @@
   // Free photorealistic hand-off: all instructions remain visible in the exported PNG.
   // No external API, user account, hidden PNG metadata or automatic file upload.
   function photoBrief(){
-    const out=['INSTRUCTION POUR CHATGPT OU GEMINI — CRÉATION D’IMAGE',
+    const out=['INSTRUCTION POUR CHATGPT — CRÉATION D’IMAGE',
       'Génère une photographie architecturale photoréaliste à partir de la vue 3D ci-dessus.',
       'ACTION IMMÉDIATE : génère directement l’image finale maintenant, sans poser de question,',
       'sans demander de confirmation, sans proposer de variantes et sans répondre par une description.',
@@ -207,7 +207,7 @@
   }
   function photoExport(service){
     if(!view)return notice('La visualisation 3D doit être chargée avant l’export.');
-    const destination=service==='gemini'?'https://gemini.google.com/app':'https://chatgpt.com/';
+    const destination='https://chatgpt.com/';
     try{
       view.renderer.render(view.scene,view.camera);
       const source=view.canvas,scale=Math.min(1,1500/Math.max(1,source.width));
@@ -236,11 +236,10 @@
       document.body.append(link);link.click();link.remove();
       const tab=window.open(destination,'_blank','noopener,noreferrer');
       if(!tab)notice('Image enregistrée. Autorisez les fenêtres surgissantes puis ouvrez '+destination+' pour joindre le PNG.');
-      else notice('Image enregistrée. Joignez simplement le PNG dans '+(service==='gemini'?'Gemini':'ChatGPT')+' pour demander votre rendu.');
+      else notice('Image enregistrée. Joignez simplement le PNG dans '+'ChatGPT'+' pour demander votre rendu.');
     }catch(error){notice('Impossible de préparer l’image : '+error.message);}
   }
   $('photo-chatgpt').onclick=()=>photoExport('chatgpt');
-  $('photo-gemini').onclick=()=>photoExport('gemini');
 
   $('print').onclick=()=>{
     try{
