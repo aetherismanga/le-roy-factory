@@ -2,7 +2,7 @@
   'use strict';
   const C=window.StudioOneCatalog,M=window.StudioOneModel,$=id=>document.getElementById(id),app=$('studio-app');
   const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const euros=v=>new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',minimumFractionDigits:2,maximumFractionDigits:2}).format(Math.round(Number(v)*120)/100);
+  const euros=v=>new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',minimumFractionDigits:2,maximumFractionDigits:2}).format(Math.round(Number(v)*240)/100);
   const query=new URLSearchParams(location.search),embedded=window.parent!==window,storageKey='lrf-studio-one-project-v2';
   let view,noticeTimer,lastOptions='',applyAll=false;
   function notice(text){$('notice').replaceChildren(document.createTextNode(text));const close=document.createElement('button');close.textContent='×';close.setAttribute('aria-label','Fermer le message');close.onclick=()=>{$('notice').hidden=true;};$('notice').append(close);$('notice').hidden=false;clearTimeout(noticeTimer);noticeTimer=setTimeout(()=>$('notice').hidden=true,13000);}
