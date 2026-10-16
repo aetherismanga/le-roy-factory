@@ -4,7 +4,7 @@
   const C=window.StudioOneCatalog,M=window.StudioOneModel,T=window.THREE;
   class SceneView {
     constructor(stage,store,onNotice){
-      this.stage=stage;this.store=store;this.onNotice=onNotice;this.roots=new Map();this.materials=new Map();this.dimensionsVisible=false;this.reverse=false;this.yaw=.32;this.pitch=.12;this.distance=3.5;this.target=new T.Vector3(0,1,0);this.pointers=new Map();
+      this.stage=stage;this.store=store;this.onNotice=onNotice;this.roots=new Map();this.materials=new Map();this.dimensionsVisible=false;this.reverse=false;this.yaw=.32;this.pitch=.12;this.distance=3.5;this.target=new T.Vector3(0,1,0);this.pointers=new Map();this.ledStates=new Map();
       this.scene=new T.Scene();this.scene.background=new T.Color('#e6e1d7');this.camera=new T.PerspectiveCamera(38,1,.01,70);
       try{this.renderer=new T.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});}catch(e){throw Error('La 3D nécessite WebGL. Activez l’accélération graphique ou essayez un autre navigateur.');}
       const r=this.renderer;r.setPixelRatio(Math.min(devicePixelRatio||1,2));r.outputColorSpace=T.SRGBColorSpace;r.toneMapping=T.ACESFilmicToneMapping;r.toneMappingExposure=.94;r.shadowMap.enabled=true;r.shadowMap.type=T.PCFSoftShadowMap;
@@ -37,6 +37,9 @@
         },undefined,()=>{});
       }
     }
+    mirrorMaterial(){if(!this.mirrorMap){const c=document.createElement('canvas');c.width=1024;c.height=512;const x=c.getContext('2d'),g=x.createLinearGradient(0,0,1024,0);[[0,'#c5cdd0'],[.15,'#f2f4f1'],[.32,'#aebbc1'],[.48,'#e6eeeb'],[.64,'#a4b2b7'],[.83,'#f1f1eb'],[1,'#c2cdd0']].forEach(v=>g.addColorStop(v[0],v[1]));x.fillStyle=g;x.fillRect(0,0,1024,512);this.mirrorMap=new T.CanvasTexture(c);this.mirrorMap.colorSpace=T.SRGBColorSpace;this.mirrorMap.wrapS=T.RepeatWrapping;}return new T.MeshPhysicalMaterial({color:'#fff',map:this.mirrorMap,metalness:.45,roughness:.07,clearcoat:1,side:T.DoubleSide});}
+    glowTexture(){if(!this.ledGlowTexture){const c=document.createElement('canvas');c.width=c.height=256;const x=c.getContext('2d'),g=x.createRadialGradient(128,128,15,128,128,128);g.addColorStop(0,'rgba(255,247,222,.65)');g.addColorStop(.5,'rgba(255,247,222,.25)');g.addColorStop(1,'rgba(255,247,222,0)');x.fillStyle=g;x.fillRect(0,0,256,256);this.ledGlowTexture=new T.CanvasTexture(c);}return this.ledGlowTexture;}
+    toggleMirrorLED(id){const item=this.store.project.items.find(i=>i.id===id);if(!item||item.kind!=='mirror'||!/LED/i.test(item.mirror))return false;this.ledStates.set(id,!this.ledStates.get(id));const root=this.roots.get(id);if(root)root.userData.ledOn=this.ledStates.get(id);return true;}
     material(color,roughness=.65){return new T.MeshStandardMaterial({color,roughness,metalness:0});}
     finish(code){
       if(this.materials.has(code))return this.materials.get(code);
@@ -46,18 +49,19 @@
     }
     box(parent,w,h,d,x,y,z,mat,name){const o=new T.Mesh(new T.BoxGeometry(w,h,d),mat);o.position.set(x,y,z);o.castShadow=true;o.receiveShadow=true;if(name)o.name=name;parent.add(o);return o;}
     create(item){
-      const root=new T.Group();root.userData.id=item.id;root.name=item.id;const dim=M.dimensions(item),w=dim.width/100,h=dim.height/100,d=dim.depth/100,fin=this.finish(item.finish),inside=this.material('#b7b3a8'),metal=this.material('#a2a9ad',.35);
+      const root=new T.Group();root.userData.id=item.id;root.name=item.id;const dim=M.dimensions(item),w=dim.width/100,h=dim.height/100,d=dim.depth/100,fin=this.finish(item.finish),inside=this.material('#b7b3a8'),metal=this.material('#454b50',.38),drawerInside=this.material('#454b50',.48);
       root.userData.drawers=[];root.userData.doors=[];root.userData.progress=item.open?1:0;
       if(item.kind==='mirror'){
-        const glass=new T.MeshStandardMaterial({color:'#aec4ca',metalness:.85,roughness:.15});const frame=this.material(({Noir:'#262829','Doré':'#bba16b',Bronze:'#836a52',Argent:'#c7ccce'})[item.mirrorFinish]||'#333',.3);
+        const glass=this.mirrorMaterial();root.userData.ledCapable=/LED/i.test(item.mirror);root.userData.ledOn=!!this.ledStates.get(item.id);const frame=this.material(({Noir:'#262829','Doré':'#bba16b',Bronze:'#836a52',Argent:'#c7ccce'})[item.mirrorFinish]||'#333',.3);
         if(item.mirror.includes('rond')){const disk=new T.Mesh(new T.CircleGeometry(w/2,64),glass);disk.position.set(0,h/2,.017);root.add(disk);const rim=new T.Mesh(new T.TorusGeometry(w/2,.008,12,64),frame);rim.position.set(0,h/2,.02);root.add(rim);}
         else if(item.mirror.includes('Cápsula')){const shape=new T.Shape();const radius=w/2;shape.absarc(0,h-radius,radius,0,Math.PI,false);shape.lineTo(-radius,radius);shape.absarc(0,radius,radius,Math.PI,2*Math.PI,false);shape.closePath();const pane=new T.Mesh(new T.ShapeGeometry(shape,40),glass);pane.position.z=.02;root.add(pane);}
         else{this.box(root,w,h,.02,0,h/2,0,frame);this.box(root,w-.015,h-.015,.006,0,h/2,.015,glass);}
+        if(root.userData.ledCapable){const lamp=new T.PointLight('#fff2db',0,2.5,2);lamp.position.set(0,h/2,.18);root.add(lamp);root.userData.ledLamp=lamp;const halo=new T.Sprite(new T.SpriteMaterial({map:this.glowTexture(),transparent:true,opacity:0,depthWrite:false}));halo.position.set(0,h/2,-.015);halo.scale.set(w*1.8,h*1.6,1);root.add(halo);root.userData.ledHalo=halo;const ledMat=new T.MeshBasicMaterial({color:'#fff6e6',transparent:true,opacity:0,side:T.DoubleSide,depthWrite:false});root.userData.ledRim=this.box(root,w+.055,h+.055,.008,0,h/2,-.018,ledMat);}
       }else{
         this.box(root,.018,h,d-.02,-w/2+.009,h/2,-.01,fin.side);this.box(root,.018,h,d-.02,w/2-.009,h/2,-.01,fin.side);
-        this.box(root,w-.036,.018,d,0,.009,0,inside);if(item.kind==='column')this.box(root,w-.036,.018,d,0,h-.009,0,inside);else{this.box(root,w-.036,.025,.035,0,h-.025,-d/2+.025,inside);this.box(root,w-.036,.025,.025,0,h-.025,d/2-.025,inside);}this.box(root,w-.036,h-.036,.012,0,h/2,-d/2+.006,inside);
+        this.box(root,w-.036,.018,d,0,.009,0,inside);if(item.kind==='column')this.box(root,w-.036,.018,d,0,h-.009,0,fin.side);else{this.box(root,w-.036,.025,.035,0,h-.025,-d/2+.025,inside);this.box(root,w-.036,.025,.025,0,h-.025,d/2-.025,inside);}this.box(root,w-.036,h-.036,.012,0,h/2,-d/2+.006,inside);
         if(item.kind==='column'){
-          for(let k=1;k<=2;k++)this.box(root,w-.036,.015,d-.035,0,h*k/3,0,inside,'shelf-'+k);
+          for(let k=1;k<=2;k++)this.box(root,w-.036,.015,d-.035,0,h*k/3,0,fin.side,'shelf-'+k);
           const hinge=new T.Group();hinge.position.set(-w/2+.009,0,d/2-.009);hinge.name='door-hinge';root.add(hinge);this.box(hinge,w-.018,h-.008,.018,(w-.018)/2,h/2,0,fin.front,'door');
           const bevel=this.box(hinge,w-.03,.019,.018,(w-.018)/2,h-.020,0,fin.front);bevel.rotation.x=-Math.PI/4;root.userData.doors.push(hinge);
         }else{
@@ -67,10 +71,10 @@
             this.box(group,w-.012,dh-.008,.018,0,cy,d/2-.009,fin.front,'front');const bevel=this.box(group,w-.022,.019,.018,0,cy+dh/2-.014,d/2-.013,fin.front);bevel.rotation.x=-Math.PI/4;
             const floorY=cy-dh/2+.035,iw=w-.10,back=-d/2+.05,front=d/2-.035;
             // Top drawer siphon notch is open at the rear, and moves with its own drawer.
-            if(k===0){const notch=Math.min(.19,iw*.45),near=back+.16,sideW=(iw-notch)/2;this.box(group,iw,.01,front-near,0,floorY,(front+near)/2,inside);for(const sign of [-1,1]){this.box(group,sideW,.01,.16,sign*(notch+sideW)/2,floorY,back+.08,inside);this.box(group,.01,.09,.16,sign*notch/2,floorY+.05,back+.08,inside);}this.box(group,notch,.09,.01,0,floorY+.05,near,inside);}
-            else this.box(group,iw,.01,d-.085,0,floorY,.008,inside);
-            for(const sign of [-1,1]){this.box(group,.012,Math.max(.07,dh-.09),d-.09,sign*(w/2-.045),cy-.02,0,inside);this.box(group,.008,.018,d-.10,sign*(w/2-.031),floorY+.025,0,metal);}
-            this.box(group,iw,.07,.012,0,floorY+.04,back,inside);
+            if(k===0){const notch=Math.min(.19,iw*.45),near=back+.16,sideW=(iw-notch)/2;this.box(group,iw,.01,front-near,0,floorY,(front+near)/2,drawerInside);for(const sign of [-1,1]){this.box(group,sideW,.01,.16,sign*(notch+sideW)/2,floorY,back+.08,drawerInside);this.box(group,.01,.09,.16,sign*notch/2,floorY+.05,back+.08,drawerInside);}this.box(group,notch,.09,.01,0,floorY+.05,near,drawerInside);}
+            else this.box(group,iw,.01,d-.085,0,floorY,.008,drawerInside);
+            for(const sign of [-1,1]){this.box(group,.012,Math.max(.07,dh-.09),d-.09,sign*(w/2-.045),cy-.02,0,drawerInside);this.box(group,.008,.018,d-.10,sign*(w/2-.031),floorY+.025,0,metal);}
+            this.box(group,iw,.07,.012,0,floorY+.04,back,drawerInside);
           }
           if(item.option==='top')this.box(root,w,.019,d,0,h+.0095,0,fin.side,'top');
           if(item.sink)this.basin(root,item,w,h,d);
@@ -114,7 +118,7 @@
     hit(e){const hits=this.point(e).intersectObjects([...this.roots.values()],true);for(const hit of hits){for(let o=hit.object;o;o=o.parent)if(o.userData.id)return o.userData.id;}return null;}
     bind(){
       const canvas=this.canvas;
-      canvas.addEventListener('contextmenu',e=>e.preventDefault());
+      canvas.addEventListener('contextmenu',e=>e.preventDefault());canvas.addEventListener('dblclick',e=>{const id=this.hit(e);if(id&&this.toggleMirrorLED(id)){e.preventDefault();this.store.select(id);}});let lastTap={id:null,time:0};canvas.addEventListener('pointerup',e=>{if(e.pointerType!=='touch'||this.drag?.moved)return;const id=this.hit(e),now=performance.now();if(id&&id===lastTap.id&&now-lastTap.time<360){this.toggleMirrorLED(id);lastTap={id:null,time:0};}else lastTap={id,time:now};});
       canvas.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'&&e.button!==0)return;e.preventDefault();canvas.setPointerCapture(e.pointerId);this.pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
         if(this.pointers.size===2){this.drag=null;this.pinch=this.pinchDistance();return;}
         const id=this.hit(e);this.store.select(id || null);const item=this.store.selected;
@@ -136,8 +140,8 @@ const hitPoint=new T.Vector3();this.dragPlane.constant=-(id?item.position.z/100:
     }
     pinchDistance(){const a=[...this.pointers.values()];return a.length>1?Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y):0;}
     cancel(){clearTimeout(this.ambienceTimer);this.pointers.clear();this.drag=null;this.pinch=null;}
-    animate(time){const dt=Math.min(.05,(time-this.lastTime)/1000);this.lastTime=time;for(const root of this.roots.values()){const u=root.userData,target=u.open?1:0;u.progress+=(target-u.progress)*(1-Math.exp(-dt*8));if(Math.abs(u.progress-target)<.001)u.progress=target;const smooth=u.progress*u.progress*(3-2*u.progress);u.drawers.forEach((g,index)=>{g.position.z=smooth*(index===0?.19:.27);});u.doors.forEach(hinge=>hinge.rotation.y=-Math.PI/2*smooth);}
-      this.camera.position.set(this.target.x+Math.sin(this.yaw)*this.distance,this.target.y+Math.sin(this.pitch)*this.distance,this.target.z+Math.cos(this.yaw)*Math.cos(this.pitch)*this.distance);this.camera.lookAt(this.target);this.renderer.render(this.scene,this.camera);requestAnimationFrame(this.animate);}
+    animate(time){const dt=Math.min(.05,(time-this.lastTime)/1000);this.lastTime=time;for(const root of this.roots.values()){const u=root.userData,target=u.open?1:0;u.progress+=(target-u.progress)*(1-Math.exp(-dt*8));if(Math.abs(u.progress-target)<.001)u.progress=target;const smooth=u.progress*u.progress*(3-2*u.progress);u.drawers.forEach((g,index)=>{g.position.z=smooth*(index===0?.19:.27);});u.doors.forEach(hinge=>hinge.rotation.y=-Math.PI/2*smooth);if(u.ledCapable){if(u.ledLamp)u.ledLamp.intensity=u.ledOn?1.25:0;if(u.ledHalo)u.ledHalo.material.opacity=u.ledOn?.43:0;if(u.ledRim)u.ledRim.material.opacity=u.ledOn?.9:0;}}
+      this.camera.position.set(this.target.x+Math.sin(this.yaw)*this.distance,this.target.y+Math.sin(this.pitch)*this.distance,this.target.z+Math.cos(this.yaw)*Math.cos(this.pitch)*this.distance);this.camera.lookAt(this.target);if(this.mirrorMap){this.mirrorMap.offset.x=.12*Math.sin(this.yaw*1.8)+.04*Math.sin(this.pitch*2);this.mirrorMap.needsUpdate=true;}this.renderer.render(this.scene,this.camera);requestAnimationFrame(this.animate);}
     inspect(){return {renderer:this.renderer.info.render,objects:[...this.roots].map(([id,root])=>({id,position:root.position.toArray(),drawers:root.userData.drawers.map(g=>g.position.z),doors:root.userData.doors.map(g=>g.rotation.y),shelves:root.children.filter(o=>o.name.startsWith('shelf-')).length,scale:root.scale.toArray(),screen:(()=>{const item=this.store.project.items.find(i=>i.id===id),d=M.dimensions(item),p=root.position.clone().add(new T.Vector3(0,d.height/200,d.depth/200+.025)).project(this.camera),r=this.canvas.getBoundingClientRect();return {x:r.left+(p.x+1)*r.width/2,y:r.top+(1-p.y)*r.height/2};})(),bounds:new T.Box3().setFromObject(root).getSize(new T.Vector3()).toArray()})),camera:{yaw:this.yaw,pitch:this.pitch,distance:this.distance}};}
   }
   window.StudioOneScene=SceneView;
