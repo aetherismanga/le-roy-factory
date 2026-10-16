@@ -129,6 +129,10 @@
   function photoBrief(){
     const out=['INSTRUCTION POUR CHATGPT OU GEMINI — CRÉATION D’IMAGE',
       'Génère une photographie architecturale photoréaliste à partir de la vue 3D ci-dessus.',
+      'ACTION IMMÉDIATE : génère directement l’image finale maintenant, sans poser de question,',
+      'sans demander de confirmation, sans proposer de variantes et sans répondre par une description.',
+      'Toutes les informations nécessaires sont présentes dans cette image et sa fiche technique.',
+      'Si un détail manque, choisis une solution discrète et cohérente avec la vue 3D sans interrompre la génération.',
       'La vue 3D est la référence prioritaire : conserve le cadrage, les emplacements, le nombre',
       'd’éléments, leurs dimensions, leurs proportions et leurs finitions. Ne change aucun modèle.',
       'Remplace uniquement le rendu informatique par des matériaux et lumières photographiques.',
