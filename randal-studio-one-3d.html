@@ -393,6 +393,156 @@ dimLabel('H '+String(height).replace('.',',')+' cm',leftX-.12,baseY+h/2,frontZ,g
 dimLine([rightX,baseY+h+.06,-d/2],[rightX,baseY+h+.06,d/2],orange);
 dimLine([rightX-.05,baseY+h+.06,-d/2],[rightX+.05,baseY+h+.06,-d/2],orange);dimLine([rightX-.05,baseY+h+.06,d/2],[rightX+.05,baseY+h+.06,d/2],orange);
 dimLabel('P '+depth+' cm',rightX+.13,baseY+h+.15,0,orange);
+
+/* Éditeur direct : chaque option catalogue est confirmée par le configurateur parent
+   qui conserve les références, prix et totaux comme source unique. */
+var editorMenu=document.getElementById('studio-object-menu'),extraFurniture=[],columnCopies=[],mirrorCopies=[];
+var selectedMirror=val('mirror','Sans miroir'),selectedMirrorSize=val('mirrorSize',''),extraCabinets=Math.max(0,Number(val('extraCabinets','0'))||0);
+var columnQty=Math.max(1,Number(val('columnQty','1'))||1),mirrorQty=Math.max(1,Number(val('mirrorQty','1'))||1),sinkQty=Math.max(1,Number(val('sinkQty','1'))||1);
+var currentWidth=width,mirrorRoot=new THREE.Group();mirrorRoot.name='Miroir_RANDAL';scene.add(mirrorRoot);
+var MIRRORS={
+ 'Basic':['60 × 80 cm','70 × 60 cm','100 × 60 cm','120 × 60 cm'],
+ 'Zen LED':['60 × 80 cm','80 × 80 cm','100 × 80 cm','120 × 80 cm'],
+ 'Ilse LED':['60 × 80 cm','80 × 80 cm','100 × 80 cm','120 × 80 cm'],
+ 'Cápsula LED':['45 × 90 cm'],
+ 'Miroir métallique rectangulaire':['80 × 60 cm','120 × 75 cm'],
+ 'Miroir métallique rond':['Ø 60 cm']
+};
+function mirrorGeometry(){
+ mirrorRoot.clear();mirrorRoot.visible=selectedMirror!=='Sans miroir';
+ if(!mirrorRoot.visible)return;
+ var vals=(selectedMirrorSize.match(/\d+/g)||[]).map(Number);
+ var mw=clamp((vals[0]||60)/100,.40,1.3),mh=clamp((vals[1]||vals[0]||80)/100,.45,1.05);
+ var round=selectedMirror.toLowerCase().includes('rond'),mirrorMat=material('#a8bbc1',.16),frameMat=material('#5b5551',.31);
+ mirrorMat.metalness=.75;mirrorMat.roughness=.14;frameMat.metalness=.50;
+ var mesh;
+ if(round){mesh=new THREE.Mesh(new THREE.CircleGeometry(mw/2,80),mirrorMat);mesh.position.z=.02;mirrorRoot.add(mesh);
+  var rim=new THREE.Mesh(new THREE.TorusGeometry(mw/2,.009,12,80),frameMat);rim.position.z=.03;mirrorRoot.add(rim);
+ }else{
+  box(mirrorRoot,mw+.019,mh+.019,.022,0,0,0,frameMat);
+  box(mirrorRoot,mw-.008,mh-.008,.006,0,0,.017,mirrorMat);
+ }
+ mirrorRoot.position.set(body.position.x,Math.max(baseY+h+.25+mh/2,1.18),-.18);
+}
+function updateCopies(){
+ extraFurniture.forEach(function(obj){scene.remove(obj)});extraFurniture=[];
+ for(var i=0;i<extraCabinets;i++){
+  var clone=body.clone(true);clone.name='Meuble_STUDIO_ONE_copie_'+(i+1);
+  clone.position.x=body.position.x+(i+1)*(currentWidth/100+.12);
+  scene.add(clone);extraFurniture.push(clone);
+ }
+ columnCopies.forEach(function(obj){scene.remove(obj)});columnCopies=[];
+ studioColumn.visible=hasColumn;
+ if(hasColumn)for(var i=1;i<columnQty;i++){
+  var clone=studioColumn.clone(true);clone.name='Colonne_STUDIO_ONE_copie_'+i;
+  clone.position.x=studioColumn.position.x+i*(columnWidth+.08);scene.add(clone);columnCopies.push(clone);
+ }
+ mirrorCopies.forEach(function(obj){scene.remove(obj)});mirrorCopies=[];
+ if(mirrorRoot.visible)for(var i=1;i<mirrorQty;i++){
+  var clone=mirrorRoot.clone(true);clone.position.x=mirrorRoot.position.x+i*(.72);scene.add(clone);mirrorCopies.push(clone);
+ }
+}
+function sendEdit(patch){
+ if(window.parent!==window)window.parent.postMessage({type:'studio-one-scene-edit',patch:patch},location.origin);
+ else console.info('Sélection de l’éditeur : retour au configurateur requis',patch);
+ applyScenePatch(patch);
+}
+function applyScenePatch(patch){
+ if(Object.prototype.hasOwnProperty.call(patch,'color')&&finishMap[patch.color]){
+  code=patch.color;color=finishNames[code];applyStudioFinish(code);refreshSwatch();document.getElementById('finish-detail').textContent=color;
+ }
+ if(patch.width&&Number(patch.width)>=40&&Number(patch.width)<=120){
+  currentWidth=Number(patch.width);body.scale.x=currentWidth/width;
+  studioColumn.position.x=body.position.x+(currentWidth/100)/2+.13+columnWidth/2;
+ }
+ if(Object.prototype.hasOwnProperty.call(patch,'column'))hasColumn=!!patch.column;
+ if(Object.prototype.hasOwnProperty.call(patch,'columnQty'))columnQty=Number(patch.columnQty);
+ if(Object.prototype.hasOwnProperty.call(patch,'extraCabinets'))extraCabinets=Number(patch.extraCabinets);
+ if(Object.prototype.hasOwnProperty.call(patch,'mirror')){selectedMirror=patch.mirror;selectedMirrorSize=(MIRRORS[selectedMirror]||[])[0]||''}
+ if(Object.prototype.hasOwnProperty.call(patch,'mirrorSize'))selectedMirrorSize=patch.mirrorSize;
+ if(Object.prototype.hasOwnProperty.call(patch,'mirrorQty'))mirrorQty=Number(patch.mirrorQty);
+ if(Object.prototype.hasOwnProperty.call(patch,'sinkQty'))sinkQty=Number(patch.sinkQty);
+ if(Object.prototype.hasOwnProperty.call(patch,'sinkModel'))sinkModel=patch.sinkModel;
+ if(Object.prototype.hasOwnProperty.call(patch,'sinkColor'))sinkColor=patch.sinkColor;
+ if(Object.prototype.hasOwnProperty.call(patch,'sinkLayout'))sinkLayout=patch.sinkLayout;
+ if(Object.prototype.hasOwnProperty.call(patch,'option'))option=patch.option;
+ if(Object.prototype.hasOwnProperty.call(patch,'vessel'))vesselSelected=!!patch.vessel;
+ if(['sinkModel','sinkColor','sinkLayout','option','vessel'].some(function(k){return Object.prototype.hasOwnProperty.call(patch,k)})){
+  sinkMode=option==='bare'?'none':option==='top'?(vesselSelected?'vessel':'none'):'integrated';buildBasin(sinkMode);
+ }
+ mirrorGeometry();updateCopies();
+}
+window.addEventListener('message',function(e){
+ if(e.origin!==location.origin||e.source!==window.parent||e.data?.type!=='studio-one-scene-confirm')return;
+ var st=e.data.state||{};applyScenePatch(st);
+ if(st.ref){ref=st.ref;document.getElementById('studio-ref-3d').textContent=ref}
+ if(st.total!==undefined){price=String(st.total);var el=document.querySelector('#details dd:last-child');if(el)el.textContent=new Intl.NumberFormat('fr-FR',{maximumFractionDigits:2}).format(st.total)+' €'}
+});
+function editorPopup(title,build){
+ editorMenu.replaceChildren();editorMenu.hidden=false;
+ var top=document.createElement('div');top.className='studio-menu-title';top.textContent=title;
+ var close=document.createElement('button');close.textContent='×';close.type='button';close.setAttribute('aria-label','Fermer les options');close.onclick=function(){editorMenu.hidden=true};top.appendChild(close);editorMenu.appendChild(top);
+ build();
+}
+function editorButton(title,action,primary){
+ var wrap=editorMenu.querySelector('.studio-editor-buttons');
+ if(!wrap){wrap=document.createElement('div');wrap.className='studio-editor-buttons';editorMenu.appendChild(wrap)}
+ var btn=document.createElement('button');btn.type='button';btn.textContent=title;
+ if(primary)btn.className='primary';btn.onclick=action;wrap.appendChild(btn);return btn;
+}
+function editorSelect(label,entries,value,onChange){
+ var l=document.createElement('label');l.textContent=label;editorMenu.appendChild(l);
+ var select=document.createElement('select');entries.forEach(function(pair){var op=document.createElement('option');op.value=pair[0];op.textContent=pair[1];select.appendChild(op)});
+ select.value=value;select.onchange=function(){onChange(select.value);showObjectMenu(activeObject)};
+ editorMenu.appendChild(select);
+}
+function closeEditor(){editorMenu.hidden=true}
+var activeObject='meuble';
+function showObjectMenu(kind){
+ activeObject=kind;
+ editorPopup(({meuble:'Meuble STUDIO ONE',colonne:'Colonne assortie',vasque:'Vasque RANDAL',miroir:'Miroir RANDAL'})[kind]||'Élément',function(){
+  if(kind==='meuble'){
+   editorButton('Dupliquer le meuble',function(){sendEdit({extraCabinets:Math.min(2,extraCabinets+1)});closeEditor()},true);
+   var l=document.createElement('label');l.textContent='Largeur du meuble (40 à 120 cm)';editorMenu.appendChild(l);
+   var widthInput=document.createElement('input');widthInput.type='number';widthInput.min=40;widthInput.max=120;widthInput.step=1;widthInput.value=currentWidth;
+   widthInput.onchange=function(){var v=Math.round(Number(this.value));if(v>=40&&v<=120){sendEdit({width:v});closeEditor()}else this.value=currentWidth};editorMenu.appendChild(widthInput);
+   editorSelect('Finition',Object.keys(finishNames).map(function(k){return[k,finishNames[k]]}),code,function(v){sendEdit({color:v})});
+  }else if(kind==='colonne'){
+   editorButton(hasColumn?'Dupliquer la colonne':'Ajouter la colonne',function(){sendEdit(hasColumn?{columnQty:Math.min(3,columnQty+1)}:{column:true});closeEditor()},true);
+   if(hasColumn)editorButton('Retirer la colonne',function(){sendEdit({column:false});closeEditor()});
+   editorSelect('Finition assortie',Object.keys(finishNames).map(function(k){return[k,finishNames[k]]}),code,function(v){sendEdit({color:v})});
+  }else if(kind==='miroir'){
+   editorButton('Dupliquer le miroir',function(){if(selectedMirror==='Sans miroir')sendEdit({mirror:'Basic'});else sendEdit({mirrorQty:Math.min(3,mirrorQty+1)});closeEditor()},true);
+   editorSelect('Modèle de miroir',[['Sans miroir','Sans miroir']].concat(Object.keys(MIRRORS).map(function(k){return[k,k]})),selectedMirror,function(v){sendEdit({mirror:v})});
+   if(selectedMirror!=='Sans miroir')editorSelect('Dimensions',(MIRRORS[selectedMirror]||[]).map(function(x){return[x,x]}),selectedMirrorSize,function(v){sendEdit({mirrorSize:v})});
+   var info=document.createElement('p');info.className='studio-menu-help';info.textContent='Prix du miroir : tarif catalogue indicatif, à confirmer par RANDAL.';editorMenu.appendChild(info);
+  }else if(kind==='vasque'){
+   if(option==='bare')editorButton('Ajouter une vasque',function(){sendEdit({option:currentWidth%10===0&&currentWidth>=60&&currentWidth!==110?'basin':'top',vessel:true,sinkModel:'Neris'});closeEditor()},true);
+   else editorButton('Dupliquer la vasque',function(){sendEdit({sinkQty:Math.min(2,sinkQty+1)});closeEditor()},true);
+   editorSelect('Type',[['bare','Sans vasque'],['top','Plateau et vasque à poser'],['basin','Vasque encastrée']],option,function(v){sendEdit({option:v,vessel:v==='top'})});
+   if(option!=='bare'){
+    var integrated=option==='basin';
+    editorSelect('Modèle',(integrated?['Sella','Tampa']:['Neris','Torne']).map(function(x){return[x,x]}),sinkModel,function(v){sendEdit({sinkModel:v,sinkColor:'gloss'})});
+    var colors=integrated?(sinkModel==='Sella'?[['gloss','Blanc brillant']]:[['gloss','Blanc brillant'],['matte','Blanc mat'],['black','Noir mat']]):[['gloss','Blanc brillant'],['pure','Blanc pur'],['anthracite','Anthracite'],['black','Noir mat'],['taupe','Taupe'],['namibie','Vert Namibie'],['ivory','Blanc ivoire'],['pink','Rose Nadir'],['blue','Bleu Kivu']];
+    editorSelect('Couleur',colors,sinkColor,function(v){sendEdit({sinkColor:v})});
+    if(integrated&&currentWidth===120)editorSelect('Nombre de cuves',[['single','Simple'],['double','Double']],sinkLayout,function(v){sendEdit({sinkLayout:v})});
+   }
+  }
+  var tip=document.createElement('p');tip.className='studio-menu-help';tip.textContent='Cliquez une fois pour sélectionner. Maintenez l’objet puis faites-le glisser horizontalement pour déplacer sa position sans modifier les cotes.';editorMenu.appendChild(tip);
+ });
+}
+function openAddMenu(){
+ editorPopup('Ajouter un élément à la scène',function(){
+  editorButton('Meuble',function(){sendEdit({extraCabinets:Math.min(2,extraCabinets+1)});closeEditor()},true);
+  editorButton('Colonne',function(){sendEdit(hasColumn?{columnQty:Math.min(3,columnQty+1)}:{column:true});closeEditor()});
+  editorButton('Miroir',function(){sendEdit({mirror:selectedMirror==='Sans miroir'?'Basic':selectedMirror});showObjectMenu('miroir')});
+  editorButton('Vasque',function(){if(option==='bare')sendEdit({option:'top',vessel:true,sinkModel:'Neris',sinkColor:'gloss'});showObjectMenu('vasque')});
+ });
+}
+document.getElementById('studio-add-item').onclick=openAddMenu;
+document.getElementById('studio-view-front').onclick=function(){yaw=0;pitch=.13;dist=baseDistance};
+document.getElementById('studio-view-reset').onclick=function(){yaw=.43;pitch=.14;dist=baseDistance;body.position.x=0;studioColumn.position.x=columnCenterX;mirrorRoot.position.x=0;updateCopies()};
+mirrorGeometry();updateCopies();
 var yaw=.49,pitch=.13,baseDistance=clamp(2.08+Math.max(w,h)*.49+(hasColumn?.68:0),2.25,3.8),dist=baseDistance,drag=null,opened=false,drawerProgress=0;
 function placement(){var tx=hasColumn?columnCenterX*.36:0,ty=hasColumn?Math.max(baseY+h*.53,.85):baseY+h*.55;camera.position.set(tx+Math.sin(yaw)*dist,ty+Math.sin(pitch)*dist*.62,Math.cos(yaw)*dist);camera.lookAt(tx,ty,0)}
 function resize(){var a=stage.clientWidth,b=stage.clientHeight;camera.aspect=a/Math.max(b,1);camera.updateProjectionMatrix();renderer.setSize(a,b,false)}
