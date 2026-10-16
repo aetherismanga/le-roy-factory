@@ -707,7 +707,7 @@ panel.querySelectorAll('[data-sink-layout]').forEach(function(b){b.onclick=funct
  overlay.innerHTML='<div class="studio-3d-bar"><strong>STUDIO ONE · Votre meuble en 3D</strong><button type="button" aria-label="Fermer la 3D">✕ Fermer</button></div>'+
  '<iframe title="Votre meuble STUDIO ONE en 3D" allow="fullscreen" loading="eager"></iframe>';
  document.body.appendChild(overlay);
- var frame=overlay.querySelector('iframe');frame.src='randal-studio-one-3d.html?'+v.toString()+'&v=20261016-porte45-colonne-camera-v3';
+ var frame=overlay.querySelector('iframe');frame.src='randal-studio-one-3d.html?'+v.toString()+'&v=20261016-scene-editor-pc-mobile-v5';
  var overflow=document.body.style.overflow;document.body.style.overflow='hidden';
  function close(){document.body.style.overflow=overflow;frame.src='about:blank';overlay.remove();}
  overlay.querySelector('button').onclick=close;
