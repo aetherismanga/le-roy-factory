@@ -308,4 +308,5 @@
   // Read-only diagnostics for browser regression tests and support.
   window.StudioOneDiagnostics=Object.freeze({snapshot:()=>store.snapshot(),quote:()=>store.quote(),inspect:()=>view?.inspect(),collisions:()=>store.project.items.flatMap((a,i)=>store.project.items.slice(i+1).filter(b=>M.overlaps(a,b)).map(b=>[a.id,b.id]))});
   if(embedded)window.parent.postMessage({type:'studio-one-project-ready'},location.origin);render();
+  if(new URLSearchParams(location.search).get('projects')==='1')showProjects();
 })();
