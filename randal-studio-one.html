@@ -267,7 +267,7 @@ var VESSEL_COLORS=[
  {code:'pink',name:'Rose Nadir',hex:'#c6a397',Neris:'9566',Torne:'9558'},
  {code:'blue',name:'Bleu Kivu',hex:'#123755',Neris:'9565',Torne:'9557'}
 ];
-var initial={step:0,model:-1,width:'',option:'top',color:'',column:false,quantity:1,vessel:false,sinkModel:'Neris',sinkColor:'gloss',sinkLayout:'single',mirror:'Sans miroir',mirrorSize:'',mirrorQty:1,extraCabinets:0,columnQty:1,sinkQty:1,contact:''};
+var initial={step:0,model:-1,width:'',option:'top',color:'',column:false,quantity:1,vessel:false,sinkModel:'Neris',sinkColor:'gloss',sinkLayout:'single',mirror:'Sans miroir',mirrorSize:'',mirrorFinish:'Noir',mirrorQty:1,extraCabinets:0,columnQty:1,sinkQty:1,contact:''};
 var st=Object.assign({},initial);
 var panel=document.getElementById('panel'),wizard=document.getElementById('wizard');
 function el(s){return document.createElement('div')}
@@ -304,7 +304,16 @@ var MIRROR_OPTIONS={
  'Miroir métallique rectangulaire':[['80 × 60 cm','3731',215],['120 × 75 cm','10572',340]],
  'Miroir métallique rond':[['Ø 60 cm','3717',162]]
 };
-function mirrorChoice(){return (MIRROR_OPTIONS[st.mirror]||[]).find(function(x){return x[0]===st.mirrorSize})||null}
+var MIRROR_METAL_REFS={
+ 'Miroir métallique rectangulaire':{'80 × 60 cm':{Noir:'3731','Doré':'3727',Bronze:'3728',Argent:'3730'},'120 × 75 cm':{Noir:'10572','Doré':'10574',Bronze:'10575',Argent:'10577'}},
+ 'Miroir métallique rond':{'Ø 60 cm':{Noir:'3717','Doré':'3722',Bronze:'3723',Argent:'3725'}}
+};
+function mirrorChoice(){
+ var row=(MIRROR_OPTIONS[st.mirror]||[]).find(function(x){return x[0]===st.mirrorSize});
+ if(!row)return null;
+ var refs=MIRROR_METAL_REFS[st.mirror]?.[st.mirrorSize];
+ return refs?[row[0],refs[st.mirrorFinish]||refs.Noir,row[2]]:row;
+}
 function total(){
  var p=price(),sink=selectedSink(),m=mirrorChoice(),qty=Number(st.quantity||1);
  if(p===null)return null;
@@ -693,7 +702,7 @@ panel.querySelectorAll('[data-sink-layout]').forEach(function(b){b.onclick=funct
     st.step+=1;save();render();window.scrollTo({top:0,behavior:'smooth'});
  };
  var restart=document.getElementById('restart');if(restart)restart.onclick=function(){if(confirm('Recommencer une nouvelle composition ?')){st=Object.assign({},initial);save();render();window.scrollTo(0,0)}};
- var preview=document.getElementById('preview3d');if(preview)preview.onclick=function(){var v=new URLSearchParams({model:m.name,width:st.width,height:String(m.height),drawers:String(m.drawers),color:color().name,code:color().code,option:st.option,vessel:String(st.vessel),column:String(st.column),columnQty:String(st.columnQty),mirror:st.mirror,mirrorSize:st.mirrorSize,mirrorQty:String(st.mirrorQty),extraCabinets:String(st.extraCabinets),sinkQty:String(st.sinkQty),sinkModel:st.sinkModel,sinkColor:st.sinkColor,sinkLayout:st.sinkLayout,sinkRef:selectedSink()?.ref||'',ref:ref(),price:String(total())});(function(){
+ var preview=document.getElementById('preview3d');if(preview)preview.onclick=function(){var v=new URLSearchParams({model:m.name,width:st.width,height:String(m.height),drawers:String(m.drawers),color:color().name,code:color().code,option:st.option,vessel:String(st.vessel),column:String(st.column),columnQty:String(st.columnQty),mirror:st.mirror,mirrorSize:st.mirrorSize,mirrorFinish:st.mirrorFinish,mirrorQty:String(st.mirrorQty),extraCabinets:String(st.extraCabinets),sinkQty:String(st.sinkQty),sinkModel:st.sinkModel,sinkColor:st.sinkColor,sinkLayout:st.sinkLayout,sinkRef:selectedSink()?.ref||'',ref:ref(),price:String(total())});(function(){
  var overlay=document.createElement('div');overlay.className='studio-3d-overlay';
  overlay.innerHTML='<div class="studio-3d-bar"><strong>STUDIO ONE · Votre meuble en 3D</strong><button type="button" aria-label="Fermer la 3D">✕ Fermer</button></div>'+
  '<iframe title="Votre meuble STUDIO ONE en 3D" allow="fullscreen" loading="eager"></iframe>';
@@ -717,7 +726,7 @@ panel.querySelectorAll('[data-sink-layout]').forEach(function(b){b.onclick=funct
  }
  if(e.data.type!=='studio-one-scene-edit'||!e.data.patch||typeof e.data.patch!=='object')return;
  var patch=e.data.patch;
- var allowed=['color','width','model','column','extraCabinets','columnQty','sinkQty','mirror','mirrorSize','mirrorQty','option','vessel','sinkModel','sinkColor','sinkLayout'];
+ var allowed=['color','width','model','column','extraCabinets','columnQty','sinkQty','mirror','mirrorSize','mirrorFinish','mirrorQty','option','vessel','sinkModel','sinkColor','sinkLayout'];
  Object.keys(patch).forEach(function(key){
   if(!allowed.includes(key))return;
   var value=patch[key];
@@ -733,7 +742,8 @@ panel.querySelectorAll('[data-sink-layout]').forEach(function(b){b.onclick=funct
    if(value==='Sans miroir'||MIRROR_OPTIONS[value]){
     st.mirror=value;st.mirrorSize=value==='Sans miroir'?'':MIRROR_OPTIONS[value][0][0];
    }
-  }else if(key==='mirrorSize'){
+  }else if(key==='mirrorFinish'){if(['Noir','Doré','Bronze','Argent'].includes(value))st.mirrorFinish=value}
+  else if(key==='mirrorSize'){
    if((MIRROR_OPTIONS[st.mirror]||[]).some(function(x){return x[0]===value}))st.mirrorSize=value;
   }else if(key==='option'){
    if(['bare','top','basin'].includes(value))st.option=value;
@@ -748,7 +758,7 @@ panel.querySelectorAll('[data-sink-layout]').forEach(function(b){b.onclick=funct
  normalize();save();render();
  frame.contentWindow.postMessage({type:'studio-one-scene-confirm',state:{
   width:st.width,model:st.model,drawers:data().drawers,height:data().height,color:st.color,
-  column:st.column,columnQty:st.columnQty,mirror:st.mirror,mirrorSize:st.mirrorSize,
+  column:st.column,columnQty:st.columnQty,mirror:st.mirror,mirrorSize:st.mirrorSize,mirrorFinish:st.mirrorFinish,
   mirrorQty:st.mirrorQty,extraCabinets:st.extraCabinets,sinkQty:st.sinkQty,
   option:st.option,vessel:st.vessel,sinkModel:st.sinkModel,sinkColor:st.sinkColor,sinkLayout:st.sinkLayout,
   ref:ref(),total:total()
