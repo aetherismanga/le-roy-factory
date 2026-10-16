@@ -434,6 +434,7 @@ function updateCopies(){
   scene.add(clone);extraFurniture.push(clone);
  }
  sinkCopies.forEach(function(obj){basinGroup.remove(obj)});sinkCopies=[];
+ basinGroup.position.x=0;
  if(option==='top'&&vesselSelected&&sinkQty>1&&currentWidth>=100){
   // Vasques à poser indépendantes seulement sur un plateau suffisamment large.
   basinGroup.position.x=-currentWidth/400;
