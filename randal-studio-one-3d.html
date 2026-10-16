@@ -53,11 +53,24 @@ aside{grid-column:2;grid-row:1 / span 4}.surface-picker,.finish-picker{backgroun
 #stage:fullscreen,#stage:-webkit-full-screen{width:100%;height:100%;height:100dvh;border-radius:0;background:#ddd9d3}
 #stage:fullscreen .studio-materials,#stage:-webkit-full-screen .studio-materials{bottom:max(10px,env(safe-area-inset-bottom));z-index:9}
 @media(max-width:400px){#stage:fullscreen .toolbar,#stage:-webkit-full-screen .toolbar{left:7px;right:7px;gap:5px}#stage:fullscreen .toolbar button,#stage:-webkit-full-screen .toolbar button{font-size:.67rem;padding:9px 5px}}
+
+/* STUDIO ONE 3D : outils desktop/mobile et menu translucide */
+.studio-editor-bar{position:absolute;top:75px;left:14px;z-index:16;display:flex;gap:7px}
+.studio-editor-bar button{min-height:40px;padding:8px 11px;background:#fafcf7e8;border-radius:10px;box-shadow:0 3px 12px #0002;font-size:.8rem}.studio-editor-bar .primary{background:#344c3c;color:white}
+.studio-obj-menu{position:absolute;top:125px;left:14px;z-index:35;width:min(340px,calc(100% - 28px));max-height:min(65vh,500px);overflow-y:auto;background:#fdfcf7ed;backdrop-filter:blur(18px);border:1px solid #b2c4b8;border-radius:14px;padding:13px;box-shadow:0 12px 35px #0004}
+.studio-menu-title{display:flex;justify-content:space-between;align-items:center;gap:9px;font-weight:850;margin-bottom:10px}.studio-menu-title button{min-height:32px;padding:3px 8px}
+.studio-obj-menu label{font-size:.8rem;font-weight:750;display:block;margin:9px 0 5px}.studio-obj-menu input,.studio-obj-menu select{width:100%;min-height:42px;border:1px solid #b8c9bc;border-radius:9px;background:white;padding:8px;color:#304537;font:inherit}
+.studio-editor-buttons{display:grid;grid-template-columns:1fr 1fr;gap:7px}.studio-editor-buttons button{min-width:0;min-height:44px;white-space:normal;padding:8px;border:1px solid #bfcebd;background:#e9f1e7;color:#344c3d;border-radius:9px;font-size:.79rem}.studio-editor-buttons .primary{grid-column:1/-1;background:#344c3c;color:#fff}
+.studio-editor-swatch{display:inline-block;width:17px;height:17px;border:1px solid #999;border-radius:50%;vertical-align:middle;margin-right:5px}.studio-menu-help{font-size:.74rem;color:#657367;line-height:1.5;margin:10px 0 0}
+.studio-canvas-hint{position:absolute;top:125px;right:14px;z-index:6;pointer-events:none;background:#fffcf5bb;border-radius:8px;padding:6px;font-size:.72rem}
+.studio-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.studio-actions>button{min-height:47px;font-size:.82rem;border-radius:10px}.studio-actions>.actions-row{display:contents}.studio-actions>.actions-row button{min-height:47px;min-width:0;font-size:.76rem;padding:7px}
+@media(min-width:900px){main{max-width:1600px;grid-template-columns:minmax(0,1fr) 300px}.studio-head{max-width:1600px}.stage{height:min(80vh,950px);min-height:620px}.stage:fullscreen,.stage:-webkit-full-screen{width:100vw!important;height:100dvh!important;min-height:0!important;max-height:none!important;border-radius:0!important}}
+@media(max-width:680px){.studio-editor-bar{top:67px;left:8px;right:8px;gap:5px}.studio-editor-bar button{padding:8px 5px;font-size:.72rem}.studio-obj-menu{top:114px;left:8px;right:8px;width:auto;max-height:50dvh}.studio-canvas-hint{display:none}.studio-actions{grid-template-columns:1fr 1fr}.studio-actions>button{grid-column:1/-1}#stage:fullscreen .studio-editor-bar{top:67px}#stage:fullscreen .studio-obj-menu{top:114px}}
 </style></head><body>
 <header class="studio-head"><span class="eyebrow">RANDAL · VISUALISATION</span><strong>Votre salle de bain</strong><div class="logo">studio<em>one</em></div></header>
 <main><section class="stage" id="stage" aria-label="Vue 3D interactive de votre meuble Studio One">
  <div id="status">Chargement de votre meuble 3D…</div>
- <div class="toolbar"><button id="dimensions" aria-pressed="false">◫ Cotes</button><button type="button" id="drawers-quick" aria-pressed="false">Ouvrir tiroirs</button><button id="fullscreen" aria-pressed="false">⛶ Plein écran</button></div>
+ <div class="toolbar"><button id="dimensions" aria-pressed="false">◫ Cotes</button><button type="button" id="drawers-quick" aria-pressed="false">Ouvrir tiroirs</button><button id="fullscreen" aria-pressed="false">⛶ Plein écran</button></div><div class="studio-editor-bar"><button class="primary" id="studio-add-item" type="button">＋ Ajouter un élément</button><button id="studio-view-front" type="button">Face</button><button id="studio-view-reset" type="button">Centrer</button></div><div id="studio-object-menu" class="studio-obj-menu" hidden></div><div class="studio-canvas-hint">Cliquez sur un objet pour le modifier · Maintenez pour déplacer</div>
  <div class="studio-materials"><button type="button" id="floor-picker"><span id="floor-chip" class="chip"></span><span>Sol<strong id="floor-name">Creta Ginepro</strong></span></button><button type="button" id="wall-picker"><span id="wall-chip" class="chip"></span><span>Mur<strong id="wall-name">Ivoire</strong></span></button><button id="image">↓ Image</button></div>
  <div id="surface-picker" class="surface-picker" hidden><div class="picker-head"><strong id="picker-title">Choix du sol</strong><button id="picker-close" aria-label="Fermer">✕</button></div><div id="picker-options" class="picker-options"></div></div>
  </section>
@@ -262,10 +275,11 @@ for(var i=0;i<drawers;i++){
 var columnWidth=.38,columnHeight=1.32,columnDepth=.27;
 var columnCenterX=w/2+.13+columnWidth/2;
 var studioColumn=null;
-if(hasColumn){
+{
  studioColumn=new THREE.Group();
  studioColumn.name='STUDIO_ONE_COLONNE_14177_'+code;
  studioColumn.position.set(columnCenterX,.18+columnHeight/2,-.095);
+ studioColumn.visible=hasColumn;
  scene.add(studioColumn);
  var cw=columnWidth,ch=columnHeight,cd=columnDepth;
  var doorGap=.005;
