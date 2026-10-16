@@ -88,9 +88,17 @@
     }
     return result;
   }
-  const savedProjectsKey='lrf-studio-one-saved-projects-v1';
-  function savedProjects(){try{return JSON.parse(localStorage.getItem(savedProjectsKey)||'[]');}catch(e){return [];}}
+  const savedProjectsPrefix='lrf-studio-one-saved-projects-v2-';
+  function currentAccount(){
+    const session=window.LRF_PRO_SESSION?.read?.();
+    if(!session)return null;
+    const id=String(session.codeClient||session.email||'').trim().toLowerCase();
+    return id||null;
+  }
+  function savedProjectsKey(){const account=currentAccount();return account?savedProjectsPrefix+encodeURIComponent(account):null;}
+  function savedProjects(){const key=savedProjectsKey();if(!key)return [];try{return JSON.parse(localStorage.getItem(key)||'[]');}catch(e){return [];}}
   function showProjects(){
+    if(!currentAccount())return notice('Connectez-vous à votre compte professionnel pour consulter vos projets.');
     const projects=savedProjects();
     const modal=document.createElement('div');modal.className='studio-project-modal';
     const card=document.createElement('section');card.className='studio-project-card';
@@ -100,18 +108,19 @@
       const row=document.createElement('div');row.className='studio-project-row';
       const name=document.createElement('strong');name.textContent=project.client+' · '+project.name;row.append(name);
       const open=document.createElement('button');open.textContent='Ouvrir';open.onclick=()=>{try{store.load(project.data);if(project.ambience){Object.assign(ambience,project.ambience);for(const surface of ['floor','wall'])setAmbience(surface,ambience[surface]);}view?.fit();modal.remove();notice('Projet '+project.name+' ouvert.');}catch(e){notice('Ouverture impossible : '+e.message);}};row.append(open);
-      const del=document.createElement('button');del.textContent='Supprimer';del.onclick=()=>{if(!confirm('Supprimer ce projet ?'))return;const next=savedProjects();next.splice(index,1);localStorage.setItem(savedProjectsKey,JSON.stringify(next));modal.remove();showProjects();};row.append(del);card.append(row);
+      const del=document.createElement('button');del.textContent='Supprimer';del.onclick=()=>{if(!confirm('Supprimer ce projet ?'))return;const next=savedProjects();next.splice(index,1);localStorage.setItem(savedProjectsKey(),JSON.stringify(next));modal.remove();showProjects();};row.append(del);card.append(row);
     });
     const close=document.createElement('button');close.textContent='Fermer';close.onclick=()=>modal.remove();card.append(close);modal.append(card);document.body.append(modal);
   }
   $('save-project').onclick=()=>{
+    if(!currentAccount())return notice('Connectez-vous à votre compte professionnel pour enregistrer un projet.');
     const client=prompt('Nom du client :');if(client===null)return;
     if(!client.trim())return notice('Indiquez un nom de client.');
     const name=prompt('Nom du projet :','Salle de bains');if(name===null)return;
     if(!name.trim())return notice('Indiquez un nom de projet.');
     try{
       const projects=savedProjects();projects.unshift({client:client.trim(),name:name.trim(),date:new Date().toISOString(),data:store.snapshot(),ambience:{...ambience}});
-      localStorage.setItem(savedProjectsKey,JSON.stringify(projects));notice('Projet enregistré dans Mes projets sur cet appareil.');
+      localStorage.setItem(savedProjectsKey(),JSON.stringify(projects));notice('Projet enregistré pour votre compte sur cet appareil.');
     }catch(e){notice('Enregistrement local impossible : '+e.message);}
   };
   const myProjectsButton=document.createElement('button');myProjectsButton.id='my-projects';myProjectsButton.textContent='Voir mes projets';myProjectsButton.onclick=showProjects;$('save-project').before(myProjectsButton);
