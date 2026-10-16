@@ -242,7 +242,21 @@
   $('photo-chatgpt').onclick=()=>photoExport('chatgpt');
   $('photo-gemini').onclick=()=>photoExport('gemini');
 
-  $('print').onclick=()=>window.print();
+  $('print').onclick=()=>{
+    try{
+      const popup=window.open('','_blank');if(!popup)return notice('Autorisez les fenêtres surgissantes pour imprimer le dossier.');
+      const views=captureViews(),rows=store.quote();
+      const doc=popup.document;doc.title='RANDAL STUDIO ONE — Dossier';
+      const style=doc.createElement('style');style.textContent='body{font:13px Arial,sans-serif;color:#24362f;margin:24px}h1{border-bottom:3px solid #345348;padding-bottom:12px}.views{display:grid;grid-template-columns:1fr 1fr;gap:15px}.view{break-inside:avoid}.view img{width:100%;border:1px solid #ddd}table{border-collapse:collapse;width:100%}td,th{border-bottom:1px solid #ddd;padding:9px;text-align:left}@media print{.view{break-inside:avoid}}';doc.head.append(style);
+      const title=doc.createElement('h1');title.textContent='RANDAL STUDIO ONE — Dossier projet';doc.body.append(title);
+      const table=doc.createElement('table');const head=doc.createElement('tr');['Produit','Dimensions et finition','Référence'].forEach(v=>{const th=doc.createElement('th');th.textContent=v;head.append(th);});table.append(head);
+      rows.forEach(row=>{const tr=doc.createElement('tr');[row.title,row.detail,row.ref].forEach(v=>{const td=doc.createElement('td');td.textContent=v;tr.append(td);});table.append(tr);});doc.body.append(table);
+      const heading=doc.createElement('h2');heading.textContent='Vues 3D du projet';doc.body.append(heading);
+      const grid=doc.createElement('div');grid.className='views';views.forEach(v=>{const cell=doc.createElement('div');cell.className='view';const h=doc.createElement('h3');h.textContent=v.title;const img=doc.createElement('img');img.src=v.image;cell.append(h,img);grid.append(cell);});doc.body.append(grid);
+      const footer=doc.createElement('p');footer.textContent='Vues indicatives — références et dimensions à confirmer auprès de RANDAL.';doc.body.append(footer);
+      notice('Dossier prêt avec 4 vues : utilisez Imprimer / Enregistrer en PDF dans le nouvel onglet.');
+    }catch(e){notice('Impression impossible : '+e.message);}
+  };
   function requestText(){return ['Bonjour Juan Carlos,','','Veuillez confirmer la composition STUDIO ONE suivante :','',...store.quote().flatMap(r=>[r.title,r.detail,'Référence : '+r.ref,'Quantité : '+r.qty,'']),'Merci de confirmer les références, compatibilités, disponibilités, délais et conditions de transport.','Cette demande ne constitue pas une commande ferme.','','Cordialement,','Agence Le Roy Factory'].join('\n');}
   $('request-quote').onclick=()=>window.RandalMailChooser.show({to:'juancarlos.segura@randal.group',cc:'jerome@leroyfactory.fr,coryne@leroyfactory.fr',subject:'Demande de devis RANDAL STUDIO ONE',body:requestText()});
   function close(e){e?.preventDefault();publish();if(embedded)window.parent.postMessage({type:'studio-one-close-3d'},location.origin);else location.href='randal-studio-one.html?resume=studio-one';}
