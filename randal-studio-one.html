@@ -182,6 +182,7 @@ footer{text-align:center;color:#8c8b85;font-size:.79rem;margin:25px 0;padding:10
 .studio-save-choice-card h3{color:#334b3b;margin:0 0 9px}.studio-save-choice-card p{font-size:.91rem;color:#647267;margin:0 0 19px;line-height:1.5}
 .studio-save-choice-card button{width:100%;display:block;margin:8px 0;min-height:50px;border-radius:11px;border:1px solid #bfcbc0;background:#e4ede3;color:#314b39;font-weight:800}
 .studio-save-choice-card button:first-of-type{background:#35463b;color:white}
+ .studio-private-pricing{padding:0 22px 12px;text-align:right;font-size:.78rem;letter-spacing:.04em}
 </style>
 <style id="studio-3d-overlay-styles">
 .studio-3d-overlay{position:fixed;inset:0;z-index:99999;background:#f2f0eb;display:flex;flex-direction:column}
@@ -220,6 +221,7 @@ footer{text-align:center;color:#8c8b85;font-size:.79rem;margin:25px 0;padding:10
 <div id="wizard" class="wizard" aria-label="Étapes du configurateur"></div>
 <section class="panel" id="panel" aria-live="polite"></section>
 </main><footer>LE ROY FACTORY · STUDIO ONE · Visualisation 3D accessible au récapitulatif.</footer>
+<script src="assets/js/pro-session-bridge.js?v=20260818b"></script>
 <script src="assets/js/randal-mail-chooser.js?v=20261016-choose-gmail-v1"></script>
 <script src="assets/js/studio-one/catalog.js?v=20261016-pro1"></script>
 <script src="assets/js/studio-one/model.js?v=20261016-pro1"></script>
@@ -243,6 +245,10 @@ var panel=document.getElementById('panel'),wizard=document.getElementById('wizar
 function el(s){return document.createElement('div')}
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
 function euros(n){var gross=Math.round(Number(n)*120)/100;return new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',minimumFractionDigits:2,maximumFractionDigits:2}).format(gross)}
+function proContext(){return window.LRF_PRO_SESSION?.read?.()||null}
+function isAdmin(){return proContext()?.isAdmin===true}
+function isProfessional(){var s=proContext();return !!s&&(s.isAdmin===true||!!s.codeClient)}
+function lrfCode(amount){return 'LRF'+Number(amount).toFixed(2).padStart(8,'0')+'00'}
 function widthVal(v){var raw=String(v==null?'':v).trim();if(!/^\d{2,3}$/.test(raw))return NaN;return Number(raw)}
 function validWidth(){var n=widthVal(st.width);return Number.isFinite(n)&&n>=40&&n<=120}
 function standard(){var n=widthVal(st.width);return validWidth()&&n%10===0}
@@ -432,6 +438,13 @@ function studioOrderRows(){
  var mirror=mirrorChoice();if(mirror)rows.push({title:'Miroir RANDAL '+st.mirror,detail:st.mirrorSize+' · prix indicatif',ref:mirror[1],qty:qty*Number(st.mirrorQty||1),unit:mirror[2]});
  return rows;
 }
+function refreshPrivatePricing(){
+ var box=document.getElementById('studio-private-pricing');if(!box)return;
+ var session=proContext();box.hidden=!session;
+ if(!session){box.textContent='';return;}
+ if(session.isAdmin){box.textContent='Session administrateur';box.style.color='#ba2323';box.style.fontWeight='850';return;}
+ box.textContent=lrfCode(total());box.style.color='#596b5d';box.style.fontWeight='700';
+}
 function studioOrderSheet(){
  var m=data(),co=color(),rows=studioOrderRows();
  var lines=rows.map(function(row){
@@ -445,7 +458,8 @@ function studioOrderSheet(){
  return '<div id="studio-order-sheet" class="studio-recap-sheet">'+
  '<div class="studio-recap-heading"><div><span class="studio-recap-kicker">LE ROY FACTORY · RANDAL · STUDIO ONE</span>'+
  '<h3>Récapitulatif de configuration</h3><p>Demande de disponibilité et de confirmation usine</p></div>'+
- '<span class="studio-recap-tag">Catalogue STUDIO ONE</span></div>'+
+ '<div class="studio-recap-tag">Catalogue STUDIO ONE</div></div>'+
+ '<div id="studio-private-pricing" class="studio-private-pricing" hidden></div>'+ 
  '<div class="studio-recap-metadata">'+(studioProject?['Composition de '+studioProject.items.length+' éléments indépendants · dimensions exactes ci-dessous']:facts).map(function(x){return '<span>'+esc(x)+'</span>'}).join('')+'</div>'+
  '<div class="studio-recap-grid-head"><span>Produit / Référence</span><span>Qté</span><span>Prix unit.</span><span>Total</span></div>'+
  '<div class="studio-recap-lines">'+lines+'</div>'+
@@ -621,13 +635,14 @@ function render(){
    '<button type="button" class="btn studio-recap-3d" id="preview3d">◈ Voir la composition en 3D</button>'+
    '<button type="button" class="btn" id="print">Imprimer</button>'+
    '<button type="button" class="btn" id="save-pdf">Enregistrer en PDF</button>'+
-   '<button type="button" class="btn studio-recap-send" id="email">Envoyer la demande</button></div>'+
-   '<p class="studio-recap-mailnote">Choisissez Gmail ou une autre messagerie. Le message contient uniquement les références et les quantités, sans tarifs, et reste à envoyer manuellement.</p>';
+   '<button type="button" class="btn studio-recap-send" id="email">'+(isProfessional()?'Envoyer la commande':'Demander à être rappelé')+'</button></div>'+
+   '<p class="studio-recap-mailnote">'+(isProfessional()?'Votre commande sera préparée pour envoi à Le Roy Factory.':'Renseignez vos coordonnées pour être rappelé et orienté vers un magasin partenaire.')+'</p>';
   if(widthVal(st.width)===40)h+='<div class="warning">Largeur de 40 cm : référence exacte à confirmer avec RANDAL.</div>';
  }
 
  if(st.step>0)h+='<div class="actions">'+(st.step<5?'<button class="btn primary" id="next">Continuer →</button>':'<button class="btn" id="restart">Recommencer</button>')+'</div>';
  panel.innerHTML=h;
+ if(st.step===5)refreshPrivatePricing();
  panel.querySelectorAll('[data-choice]').forEach(function(b){b.onclick=function(){
    var a=b.getAttribute('data-choice').split(':');
    var selected=Number(a[1]);
@@ -705,14 +720,30 @@ panel.querySelectorAll('[data-sink-layout]').forEach(function(b){b.onclick=funct
  var print=document.getElementById('print');if(print)print.onclick=function(){window.print()};
  var pdfButton=document.getElementById('save-pdf');if(pdfButton)pdfButton.onclick=function(){downloadStudioPdf()};
  var mail=document.getElementById('email');if(mail)mail.onclick=function(){
- var subject='Demande STUDIO ONE - '+m.name+' - '+st.width+' cm - '+ref();
+ if(!isProfessional()){showStudioContact();return;}
+ var session=proContext();
+ var subject='Commande STUDIO ONE - '+m.name+' - '+st.width+' cm - '+ref();
  window.RandalMailChooser.show({
-  to:'juancarlos.segura@randal.group',
-  cc:'jerome@leroyfactory.fr,coryne@leroyfactory.fr',
+  to:'jerome@leroyfactory.fr,coryne@leroyfactory.fr',
+  cc:'',
   subject:subject,
-  body:recapText()
+  body:'Commande professionnelle STUDIO ONE\\nClient : '+(session.societe||session.email||session.codeClient)+'\\nCode client : '+(session.codeClient||'Administrateur')+'\\n\\n'+recapText()
  });
 };
+}
+function showStudioContact(){
+ var old=document.getElementById('studio-contact-dialog');if(old)old.remove();
+ var overlay=document.createElement('div');overlay.id='studio-contact-dialog';overlay.className='studio-save-choice';
+ var card=document.createElement('form');card.className='studio-save-choice-card';
+ var heading=document.createElement('h3');heading.textContent='Demander à être rappelé';card.append(heading);
+ var note=document.createElement('p');note.textContent='Nous vous recontacterons pour vous orienter vers le magasin partenaire le plus proche.';card.append(note);
+ var fields=[['Nom','family-name','text'],['Prénom','given-name','text'],['E-mail','email','email'],['Téléphone','tel','tel'],['Département','address-level1','text'],['Ville','address-level2','text']];
+ fields.forEach(function(field){var label=document.createElement('label');label.textContent=field[0];label.style.display='block';label.style.margin='8px 0';var input=document.createElement('input');input.name=field[0];input.type=field[2];input.autocomplete=field[1];input.required=true;input.maxLength=field[0]==='Département'?3:120;input.style.cssText='display:block;width:100%;padding:10px;margin-top:3px;border:1px solid #ccc;border-radius:8px';label.append(input);card.append(label)});
+ var consent=document.createElement('label');consent.style.cssText='display:flex;gap:8px;font-size:12px;align-items:flex-start';var checkbox=document.createElement('input');checkbox.type='checkbox';checkbox.required=true;consent.append(checkbox,document.createTextNode('J’accepte que Le Roy Factory utilise mes coordonnées pour me recontacter concernant ce projet.'));card.append(consent);
+ var send=document.createElement('button');send.type='submit';send.textContent='Préparer ma demande de rappel';card.append(send);
+ var cancel=document.createElement('button');cancel.type='button';cancel.textContent='Annuler';cancel.onclick=function(){overlay.remove()};card.append(cancel);
+ card.onsubmit=function(e){e.preventDefault();var details=Object.fromEntries(new FormData(card));var body=['DEMANDE DE RAPPEL — RANDAL STUDIO ONE','',...Object.entries(details).map(function(x){return x[0]+' : '+x[1]}),'','PROJET :',...studioOrderRows().flatMap(function(row){return [row.title,row.detail,'Référence : '+row.ref,'Quantité : '+row.qty]})].join('\\n');window.RandalMailChooser.show({to:'jerome@leroyfactory.fr,coryne@leroyfactory.fr',subject:'Demande de rappel — STUDIO ONE — '+details['Ville'],body:body});overlay.remove()};
+ overlay.append(card);document.body.append(overlay);
 }
 function recapText(){
  if(studioProject)return ['Bonjour Juan Carlos,','','Veuillez confirmer cette composition STUDIO ONE :',''].concat(studioOrderRows().flatMap(function(r){return [r.title,r.detail,'Référence : '+r.ref,'Quantité : '+r.qty,'']}),['Merci de confirmer compatibilités, disponibilités, délais et transport.','Cette demande ne constitue pas une commande ferme.','','Cordialement,','Agence Le Roy Factory']).join('\n');
