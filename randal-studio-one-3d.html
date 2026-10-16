@@ -190,7 +190,20 @@ var basinOptions=document.getElementById('basin-options');
 basinItems.forEach(function(item){var b=document.createElement('button');b.textContent=item[1];b.className='picker-choice';b.onclick=function(){sinkMode=item[0];buildBasin(sinkMode);document.getElementById('basin-picker').hidden=true};basinOptions.appendChild(b)});
 document.getElementById('change-basin').onclick=function(){document.getElementById('surface-picker').hidden=true;document.getElementById('finish-picker').hidden=true;document.getElementById('basin-picker').hidden=false};
 document.getElementById('basin-close').onclick=function(){document.getElementById('basin-picker').hidden=true};
-var dims=document.createElement('div');dims.className='studio-dimension-overlay';dims.setAttribute('aria-label','Dimensions du meuble');dims.innerHTML='<svg viewBox="0 0 340 250" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><defs><marker id="dim-arrow" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto-start-reverse"><path d="M6 0 L0 3 L6 6" fill="none" stroke="#1767a0" stroke-width="1.3"/></marker></defs><g stroke="#1767a0" stroke-width="1.8" fill="none" marker-start="url(#dim-arrow)" marker-end="url(#dim-arrow)"><path d="M52 34 V208"/><path d="M88 224 H252"/><path d="M258 215 L314 178"/></g><g fill="#124b77" font-family="system-ui, sans-serif" font-weight="800" font-size="15"><text x="13" y="122">H '+String(height).replace('.',',')+' cm</text><text x="170" y="246" text-anchor="middle">L '+width+' cm</text><text x="284" y="222" text-anchor="middle">P 46 cm</text></g></svg>';dims.style.cssText='position:absolute;inset:18% 5% 15%;pointer-events:none;display:none;z-index:3';dims.querySelector('svg').style.cssText='width:100%;height:100%;overflow:visible;filter:drop-shadow(0 1px 2px #fff)';stage.appendChild(dims);
+// Cotations 3D ancrées aux dimensions réelles du meuble (en mètres).
+var dimensionGroup=new THREE.Group();scene.add(dimensionGroup);dimensionGroup.visible=false;
+function dimLine(a,b,color){var geometry=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(...a),new THREE.Vector3(...b)]);var line=new THREE.Line(geometry,new THREE.LineBasicMaterial({color:color,depthTest:false}));line.renderOrder=20;dimensionGroup.add(line)}
+function dimLabel(text,x,y,z,color){var cv=document.createElement('canvas');cv.width=512;cv.height=128;var ctx=cv.getContext('2d');ctx.fillStyle='rgba(255,255,255,.94)';ctx.fillRect(0,0,512,128);ctx.fillStyle=color;ctx.font='bold 65px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(text,256,65);var texture=new THREE.CanvasTexture(cv);texture.colorSpace=THREE.SRGBColorSpace;var mat=new THREE.SpriteMaterial({map:texture,depthTest:false,transparent:true});var sprite=new THREE.Sprite(mat);sprite.position.set(x,y,z);sprite.scale.set(.37,.093,1);sprite.renderOrder=25;dimensionGroup.add(sprite)}
+var blue='#1767a0',green='#23816a',orange='#bc6c2b',frontZ=d/2+.14,leftX=-w/2-.15,rightX=w/2+.13;
+dimLine([-w/2,baseY-.13,frontZ],[w/2,baseY-.13,frontZ],blue);
+dimLine([-w/2,baseY-.08,frontZ],[-w/2,baseY-.18,frontZ],blue);dimLine([w/2,baseY-.08,frontZ],[w/2,baseY-.18,frontZ],blue);
+dimLabel('L '+width+' cm',0,baseY-.23,frontZ,blue);
+dimLine([leftX,baseY,frontZ],[leftX,baseY+h,frontZ],green);
+dimLine([leftX-.05,baseY,frontZ],[leftX+.05,baseY,frontZ],green);dimLine([leftX-.05,baseY+h,frontZ],[leftX+.05,baseY+h,frontZ],green);
+dimLabel('H '+String(height).replace('.',',')+' cm',leftX-.12,baseY+h/2,frontZ,green);
+dimLine([rightX,baseY+h+.06,-d/2],[rightX,baseY+h+.06,d/2],orange);
+dimLine([rightX-.05,baseY+h+.06,-d/2],[rightX+.05,baseY+h+.06,-d/2],orange);dimLine([rightX-.05,baseY+h+.06,d/2],[rightX+.05,baseY+h+.06,d/2],orange);
+dimLabel('P '+depth+' cm',rightX+.13,baseY+h+.15,0,orange);
 var yaw=.49,pitch=.13,dist=3.1,drag=null,opened=false,progress=0;
 function placement(){camera.position.set(Math.sin(yaw)*dist,baseY+h*.52+Math.sin(pitch)*dist*.65,Math.cos(yaw)*dist);camera.lookAt(0,baseY+h*.55,0)}
 function resize(){var a=stage.clientWidth,b=stage.clientHeight;camera.aspect=a/Math.max(b,1);camera.updateProjectionMatrix();renderer.setSize(a,b,false)}
@@ -202,7 +215,7 @@ canvas.addEventListener('wheel',function(e){e.preventDefault();dist=clamp(dist+M
 var pinches=new Map();canvas.addEventListener('touchstart',function(e){if(e.touches.length===2)pinches.set('dist',Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY))},{passive:true});
 canvas.addEventListener('touchmove',function(e){if(e.touches.length!==2)return;var n=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY),prev=pinches.get('dist');if(prev)dist=clamp(dist*prev/n,1.4,5);pinches.set('dist',n)},{passive:true});
 document.getElementById('drawers').onclick=function(){opened=!opened;this.setAttribute('aria-pressed',String(opened));this.textContent=opened?'Fermer les tiroirs':'Ouvrir les tiroirs'};
-document.getElementById('dimensions').onclick=function(){var show=dims.style.display==='none';dims.style.display=show?'block':'none';this.setAttribute('aria-pressed',String(show))};
+document.getElementById('dimensions').onclick=function(){var show=!dimensionGroup.visible;dimensionGroup.visible=show;this.setAttribute('aria-pressed',String(show))};
 document.getElementById('fullscreen').onclick=function(){var b=this;if(!document.fullscreenElement){document.getElementById('stage').requestFullscreen().then(function(){b.textContent='✕ Quitter le plein écran';b.setAttribute('aria-pressed','true')}).catch(function(){alert('Plein écran non pris en charge sur cet appareil.')})}else document.exitFullscreen()};
 document.addEventListener('fullscreenchange',function(){if(!document.fullscreenElement){document.getElementById('fullscreen').textContent='⛶ Plein écran';document.getElementById('fullscreen').setAttribute('aria-pressed','false')}});
 document.getElementById('front').onclick=function(){yaw=0;pitch=.03;dist=3};
