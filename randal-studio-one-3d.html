@@ -77,9 +77,9 @@ function val(key,def){return qs.get(key)||def}
 function clamp(x,a,b){return Math.max(a,Math.min(b,x))}
 var width=clamp(Number(val('width','80')),40,120),height=clamp(Number(val('height','54')),37.5,91),depth=46;
 var drawers=clamp(Math.round(Number(val('drawers','2'))),1,3),color=val('color','White Bolero'),code=val('code','WHITE'),option=val('option','top'),ref=val('ref',''),price=val('price','');
-var finishMap={ROBLE:'#a88d74',ALBA:'#b59a83',NOGAL:'#665450',WHITE:'#dfdeda',AZUL:'#61717c',GRIS:'#7b7072','BISC.':'#e5dbd1',GREEN:'#949280'}; // couleurs échantillonnées sur les 8 pastilles du flyer RANDAL STUDIO ONE
+var finishMap={ROBLE:'#a88d74',ALBA:'#b59a83',NOGAL:'#665450',WHITE:'#dfdeda',AZUL:'#61717c',GRIS:'#5e5559','BISC.':'#c9b29a',GREEN:'#949280'}; // couleurs échantillonnées sur les 8 pastilles du flyer RANDAL STUDIO ONE
 var hex=finishMap[code]||'#beb2a2';
-var vesselSelected=val('vessel','false')==='true';
+var vesselSelected=val('vessel','false')==='true',hasColumn=val('column','false')==='true';
 var sinkModel=val('sinkModel',option==='basin'?'Sella':'Neris'),sinkColor=val('sinkColor','gloss'),sinkLayout=val('sinkLayout','single'),sinkRef=val('sinkRef','');
 var sinkHue={gloss:'#f9f9f6',matte:'#e7e6e3',pure:'#ffffff',black:'#363537',anthracite:'#858689',taupe:'#aa9988',namibie:'#777964',ivory:'#e8e6dc',pink:'#c6a397',blue:'#123755'};
 var finishNames={ROBLE:'Roble Amazona',ALBA:'Serenade Alba',NOGAL:'Nogal Valentina',WHITE:'White Bolero',AZUL:'Azul Acero',GRIS:'Gris Tórtora','BISC.':'Biscuit',GREEN:'Muted Green'};
@@ -91,7 +91,7 @@ function swatchStyle(key){var f=finishFiles[key];return f?'url(assets/img/studio
 function refreshSwatch(){sw.style.background=swatchStyle(code)}
 refreshSwatch();
 document.getElementById('details').innerHTML=[
- ['Modèle',val('model','STUDIO ONE')],['Dimensions',width+' × '+String(height).replace('.',',')+' × '+depth+' cm'],['Tiroirs',''+drawers],['Plateau',option==='top'?'Avec plateau':'Sans plateau'],['Finition','<span id="finish-detail"></span>'],['Vasque',option==='bare'||option==='top'&&!vesselSelected?'Sans vasque':sinkModel+' · '+({gloss:'Blanc brillant',matte:'Blanc mat',pure:'Blanc pur',black:'Noir mat',anthracite:'Anthracite',taupe:'Taupe',namibie:'Vert Namibie',ivory:'Blanc ivoire',pink:'Rose Nadir',blue:'Bleu Kivu'}[sinkColor]||sinkColor)+(sinkLayout==='double'?' · double':'')],['Réf. vasque',sinkRef||'—'],['Référence meuble','<span id="studio-ref-3d"></span>'],['Total composition',price?new Intl.NumberFormat('fr-FR',{maximumFractionDigits:2}).format(Number(price))+' €':'À confirmer']
+ ['Modèle',val('model','STUDIO ONE')],['Dimensions',width+' × '+String(height).replace('.',',')+' × '+depth+' cm'],['Tiroirs',''+drawers],['Plateau',option==='top'?'Avec plateau':'Sans plateau'],['Finition','<span id="finish-detail"></span>'],['Colonne',hasColumn?'Colonne assortie · 132 × 38 × 27 cm · onglet 45°':'Sans colonne'],['Vasque',option==='bare'||option==='top'&&!vesselSelected?'Sans vasque':sinkModel+' · '+({gloss:'Blanc brillant',matte:'Blanc mat',pure:'Blanc pur',black:'Noir mat',anthracite:'Anthracite',taupe:'Taupe',namibie:'Vert Namibie',ivory:'Blanc ivoire',pink:'Rose Nadir',blue:'Bleu Kivu'}[sinkColor]||sinkColor)+(sinkLayout==='double'?' · double':'')],['Réf. vasque',sinkRef||'—'],['Référence meuble','<span id="studio-ref-3d"></span>'],['Total composition',price?new Intl.NumberFormat('fr-FR',{maximumFractionDigits:2}).format(Number(price))+' €':'À confirmer']
 ].map(function(x){return '<div><dt>'+x[0]+'</dt><dd>'+x[1]+'</dd></div>'}).join('');
 document.getElementById('finish-detail').textContent=color;
 document.getElementById('studio-ref-3d').textContent=ref||'À confirmer';
@@ -141,7 +141,7 @@ function applyStudioFinish(key){
   if(ticket!==grainTicket)return;
   [finish,grainMaterial].forEach(function(mat,index){
    mat.map=makeFinishTexture(img,index===1);
-   mat.color.set('#ffffff');mat.roughness=.67;mat.needsUpdate=true;
+   mat.color.set(key==='GRIS'?'#bcb5b8':key==='BISC.'?'#e5d2bd':'#ffffff');mat.roughness=.73;mat.needsUpdate=true;
   });
  };img.onerror=function(){console.warn('Échantillon finition indisponible : '+file)};
  img.src=file;
@@ -211,7 +211,7 @@ document.getElementById('finish-close').onclick=function(){document.getElementBy
 
 // STUDIO ONE : aucun miroir dans cette visualisation.
 // Le meuble 3 tiroirs est posé au sol ; les autres modèles sont suspendus.
-var baseY=drawers===3?0:.74; // 3 tiroirs posés directement sur le sol à y = 0
+var baseY=drawers===3?0:.43; // 3 tiroirs posés directement sur le sol à y = 0
 var topY=baseY+h;
 box(body,w-.015,.022,d-.015,0,baseY+.01,0,inside);
 box(body,.017,h,d,-w/2+.008,baseY+h/2,0,finish);
@@ -262,7 +262,7 @@ var basinGroup=new THREE.Group();body.add(basinGroup);
 function buildBasin(mode){
  while(basinGroup.children.length){var ch=basinGroup.children[0];basinGroup.remove(ch);ch.geometry&&ch.geometry.dispose();}
  if(mode==='none')return;
- var rimY=baseY+h+.035;
+ var rimY=baseY+h+(mode==='vessel'?.009:.014);
  var ceramic=new THREE.MeshPhysicalMaterial({color:sinkHue[sinkColor]||'#f9f9f6',roughness:sinkColor==='gloss'?.17:.48,metalness:0,clearcoat:sinkColor==='gloss'?.2:0,side:THREE.DoubleSide});
  var chrome=new THREE.MeshStandardMaterial({color:'#b7bdbe',metalness:.85,roughness:.2});
  if(mode==='vessel'){
@@ -345,16 +345,16 @@ dimLabel('H '+String(height).replace('.',',')+' cm',leftX-.12,baseY+h/2,frontZ,g
 dimLine([rightX,baseY+h+.06,-d/2],[rightX,baseY+h+.06,d/2],orange);
 dimLine([rightX-.05,baseY+h+.06,-d/2],[rightX+.05,baseY+h+.06,-d/2],orange);dimLine([rightX-.05,baseY+h+.06,d/2],[rightX+.05,baseY+h+.06,d/2],orange);
 dimLabel('P '+depth+' cm',rightX+.13,baseY+h+.15,0,orange);
-var yaw=.49,pitch=.13,baseDistance=clamp(2.08+Math.max(w,h)*.49,2.25,2.85),dist=baseDistance,drag=null,opened=false,drawerProgress=0;
-function placement(){camera.position.set(Math.sin(yaw)*dist,baseY+h*.52+Math.sin(pitch)*dist*.65,Math.cos(yaw)*dist);camera.lookAt(0,baseY+h*.55,0)}
+var yaw=.49,pitch=.13,baseDistance=clamp(2.08+Math.max(w,h)*.49+(hasColumn?.68:0),2.25,3.8),dist=baseDistance,drag=null,opened=false,drawerProgress=0;
+function placement(){var tx=hasColumn?columnCenterX*.36:0,ty=hasColumn?Math.max(baseY+h*.53,.85):baseY+h*.55;camera.position.set(tx+Math.sin(yaw)*dist,ty+Math.sin(pitch)*dist*.62,Math.cos(yaw)*dist);camera.lookAt(tx,ty,0)}
 function resize(){var a=stage.clientWidth,b=stage.clientHeight;camera.aspect=a/Math.max(b,1);camera.updateProjectionMatrix();renderer.setSize(a,b,false)}
 new ResizeObserver(resize).observe(stage);
 var canvas=renderer.domElement;canvas.addEventListener('pointerdown',function(e){drag={x:e.clientX,y:e.clientY};canvas.setPointerCapture(e.pointerId)});
-canvas.addEventListener('pointermove',function(e){if(!drag)return;yaw+=(e.clientX-drag.x)*.008;pitch=clamp(pitch+(e.clientY-drag.y)*.004,-.65,.8);drag={x:e.clientX,y:e.clientY}});
+canvas.addEventListener('pointermove',function(e){if(!drag)return;yaw=clamp(yaw+(e.clientX-drag.x)*.008,-1.08,1.08);pitch=clamp(pitch+(e.clientY-drag.y)*.003,.02,.41);drag={x:e.clientX,y:e.clientY}});
 canvas.addEventListener('pointerup',function(){drag=null});canvas.addEventListener('pointercancel',function(){drag=null});
-canvas.addEventListener('wheel',function(e){e.preventDefault();dist=clamp(dist+Math.sign(e.deltaY)*.2,1.4,5)},{passive:false});
+canvas.addEventListener('wheel',function(e){e.preventDefault();dist=clamp(dist+Math.sign(e.deltaY)*.2,hasColumn?2.4:1.35,hasColumn?5.4:4.5)},{passive:false});
 var pinches=new Map();canvas.addEventListener('touchstart',function(e){if(e.touches.length===2)pinches.set('dist',Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY))},{passive:true});
-canvas.addEventListener('touchmove',function(e){if(e.touches.length!==2)return;var n=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY),prev=pinches.get('dist');if(prev)dist=clamp(dist*prev/n,1.4,5);pinches.set('dist',n)},{passive:true});
+canvas.addEventListener('touchmove',function(e){if(e.touches.length!==2)return;var n=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY),prev=pinches.get('dist');if(prev)dist=clamp(dist*prev/n,hasColumn?2.4:1.35,hasColumn?5.4:4.5);pinches.set('dist',n)},{passive:true});
 function syncDrawerButtons(){
  var btn=document.getElementById('drawers'),quick=document.getElementById('drawers-quick');
  btn.setAttribute('aria-pressed',String(opened));btn.textContent=opened?'Fermer les tiroirs':'Ouvrir les tiroirs';
@@ -366,7 +366,7 @@ document.getElementById('drawers-quick').onclick=toggleAllDrawers;
 document.getElementById('dimensions').onclick=function(){var show=!dimensionGroup.visible;dimensionGroup.visible=show;this.setAttribute('aria-pressed',String(show))};
 document.getElementById('fullscreen').onclick=function(){var b=this;if(!document.fullscreenElement){document.getElementById('stage').requestFullscreen().then(function(){b.textContent='✕ Quitter';b.setAttribute('aria-pressed','true');resize()}).catch(function(){alert('Plein écran non pris en charge sur cet appareil.')})}else document.exitFullscreen()};
 document.addEventListener('fullscreenchange',function(){if(!document.fullscreenElement){document.getElementById('fullscreen').textContent='⛶ Plein écran';document.getElementById('fullscreen').setAttribute('aria-pressed','false')}requestAnimationFrame(resize)});
-document.getElementById('front').onclick=function(){yaw=0;pitch=.03;dist=3};
+document.getElementById('front').onclick=function(){yaw=0;pitch=.10;dist=baseDistance};
 document.getElementById('reset').onclick=function(){yaw=.49;pitch=.13;dist=baseDistance;opened=false;syncDrawerButtons()};
 document.getElementById('image').onclick=function(){try{renderer.render(scene,camera);var a=document.createElement('a');a.download='STUDIO-ONE-'+width+'cm.png';a.href=renderer.domElement.toDataURL('image/png');a.click()}catch(e){alert('Impossible de sauvegarder l’image sur cet appareil.')}};
 function render(){
