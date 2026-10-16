@@ -408,6 +408,35 @@ function studioVisualSummary(){
  '<div class="studio-preview-caption"><strong>Sans miroir</strong><small>Miroir non proposé dans STUDIO ONE.</small></div></div>';
  return '<div class="studio-visual-summary" aria-label="Éléments de votre composition">'+meuble+vasque+colonne+miroir+'</div>';
 }
+
+function studioOrderRows(){
+ var m=data(),co=color(),sink=selectedSink(),qty=Number(st.quantity||1),p=price();
+ var option={top:'Avec plateau · même finition que le meuble',basin:'Sans plateau · vasque encastrée',bare:'Sans plateau · meuble seul'}[st.option];
+ var rows=[{title:'Meuble STUDIO ONE · '+m.name,detail:'L '+st.width+' × H '+String(m.height).replace('.',',')+' × P 46 cm · '+co.name+' · '+option,ref:ref(),qty:qty,unit:p}];
+ if(sink)rows.push({title:'Vasque '+sink.name+(sink.layout==='double'?' double · 2 cuves':''),detail:sink.type+' · '+sink.finish+' · prix PRO (-50 %)',ref:sink.ref,qty:qty,unit:sink.price});
+ if(st.column)rows.push({title:'Colonne assortie STUDIO ONE',detail:'132 × 38 × 27 cm · '+co.name,ref:'14177 '+co.code,qty:qty,unit:177});
+ return rows;
+}
+function studioOrderSheet(){
+ var m=data(),co=color(),rows=studioOrderRows();
+ var lines=rows.map(function(row){
+  return '<div class="studio-recap-line"><div class="studio-recap-product"><strong>'+esc(row.title)+'</strong><small>'+esc(row.detail)+'</small>'+
+  '<small class="studio-recap-ref">Réf. '+esc(row.ref)+'</small></div>'+
+  '<span class="studio-recap-qty">'+row.qty+'</span><span class="studio-recap-money unit">'+euros(row.unit)+'</span>'+
+  '<strong class="studio-recap-money">'+euros(row.qty*row.unit)+'</strong></div>';
+ }).join('');
+ var facts=['STUDIO ONE · '+m.name,'Dimensions : '+st.width+' × '+String(m.height).replace('.',',')+' × 46 cm',
+ 'Finition : '+co.name,'Plateau : '+(isTop()?'assorti à la couleur du meuble':'sans plateau'),'Miroir : non inclus','Quantité : '+st.quantity+' composition(s)'];
+ return '<div id="studio-order-sheet" class="studio-recap-sheet">'+
+ '<div class="studio-recap-heading"><div><span class="studio-recap-kicker">LE ROY FACTORY · RANDAL · STUDIO ONE</span>'+
+ '<h3>Récapitulatif de configuration</h3><p>Demande de disponibilité et de confirmation usine</p></div>'+
+ '<span class="studio-recap-tag">Catalogue STUDIO ONE</span></div>'+
+ '<div class="studio-recap-metadata">'+facts.map(function(x){return '<span>'+esc(x)+'</span>'}).join('')+'</div>'+
+ '<div class="studio-recap-grid-head"><span>Produit / Référence</span><span>Qté</span><span>Prix unit.</span><span>Total</span></div>'+
+ '<div class="studio-recap-lines">'+lines+'</div>'+
+ '<div class="studio-recap-total"><span>TOTAL GÉNÉRAL</span><strong>'+euros(total())+'</strong></div>'+
+ '<p class="studio-recap-legal">Tarif meuble et colonne selon la catégorie C1 STUDIO ONE. Tarifs vasques professionnels calculés à -50 % du tarif public HT RANDAL V04. Prix indicatifs, hors transport et installation, sous réserve de confirmation de RANDAL. Ce document ne constitue pas une commande ferme.</p></div>';
+}
 function render(){
  normalize();save();
  wizard.innerHTML=names.map(function(n,i){return '<button type="button" data-step="'+i+'" aria-current="'+(i===st.step?'step':'false')+'" class="'+(i===st.step?'active':i<st.step?'done':'')+'" '+(i>st.step?'disabled':'')+'>'+n+'</button>'}).join('');
