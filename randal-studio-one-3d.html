@@ -92,6 +92,8 @@ var light=new THREE.DirectionalLight('#ffffff',2.7);light.position.set(-3,7,6);l
 var second=new THREE.DirectionalLight('#fff3e6',1.3);second.position.set(4,4,-3);scene.add(second);
 function material(c,r=.6){return new THREE.MeshStandardMaterial({color:c,roughness:r,metalness:.02})}
 var finish=material(hex,.55),inside=material('#b1aca2'),cut=material('#ddd3c6'),edge=material('#635d55'),stone=material('#f6f2e9',.38),wall=material('#e3ddd4'),floor=material('#cfc9be');
+function applyStudioFinish(key){finish.map=null;finish.color.set(finishMap[key]||'#beb2a2');finish.needsUpdate=true;var file=finishFiles[key];if(!file)return;new THREE.TextureLoader().load('assets/img/studio-one/'+file,function(tx){if(code!==key){tx.dispose();return}tx.colorSpace=THREE.SRGBColorSpace;tx.wrapS=tx.wrapT=THREE.RepeatWrapping;tx.repeat.set(1,1);finish.map=tx;finish.color.set('#ffffff');finish.needsUpdate=true},undefined,function(){finish.map=null;finish.color.set(finishMap[key]||'#beb2a2');finish.needsUpdate=true})}
+applyStudioFinish(code);
 function box(parent,w,h,d,x,y,z,mat){var mesh=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);mesh.position.set(x,y,z);mesh.castShadow=true;mesh.receiveShadow=true;parent.add(mesh);return mesh}
 var w=width/100,h=height/100,d=depth/100,body=new THREE.Group();scene.add(body);
 var floorMesh=box(scene,8,.06,8,0,-.055,0,floor);
@@ -119,7 +121,7 @@ function useFloor(item){
  if(item.texture){
   new THREE.TextureLoader().load('assets/img/elios/creta/textures/'+item.texture,function(tx){
    if(ticket!==textureRequest)return;
-   tx.colorSpace=THREE.SRGBColorSpace;tx.wrapS=tx.wrapT=THREE.RepeatWrapping;tx.repeat.set(7,7);
+   tx.colorSpace=THREE.SRGBColorSpace;tx.wrapS=tx.wrapT=THREE.RepeatWrapping;tx.repeat.set(3,3);
    floor.map=tx;floor.color.set('#ffffff');floor.needsUpdate=true;
   },undefined,function(){floor.map=null;floor.color.set(item.hex);floor.needsUpdate=true});
  }
@@ -137,7 +139,7 @@ document.getElementById('floor-picker').onclick=function(){showPicker('floor')};
 document.getElementById('wall-picker').onclick=function(){showPicker('wall')};
 document.getElementById('picker-close').onclick=function(){document.getElementById('surface-picker').hidden=true};
 var finishes=document.getElementById('finish-options');
-Object.keys(finishMap).forEach(function(k){var b=document.createElement('button');b.className='picker-choice';b.innerHTML='<span class="picker-sample"></span><span>'+finishNames[k]+'</span>';b.querySelector('.picker-sample').style.background=swatchStyle(k);b.onclick=function(){code=k;color=finishNames[k];finish.color.set(finishMap[k]);refreshSwatch();document.getElementById('finish-detail').textContent=color;document.getElementById('finish-picker').hidden=true};finishes.appendChild(b)});
+Object.keys(finishMap).forEach(function(k){var b=document.createElement('button');b.className='picker-choice';b.innerHTML='<span class="picker-sample"></span><span>'+finishNames[k]+'</span>';b.querySelector('.picker-sample').style.background=swatchStyle(k);b.onclick=function(){code=k;color=finishNames[k];applyStudioFinish(k);refreshSwatch();document.getElementById('finish-detail').textContent=color;document.getElementById('finish-picker').hidden=true};finishes.appendChild(b)});
 document.getElementById('change-finish').onclick=function(){document.getElementById('surface-picker').hidden=true;document.getElementById('finish-picker').hidden=false};
 document.getElementById('finish-close').onclick=function(){document.getElementById('finish-picker').hidden=true};
 
