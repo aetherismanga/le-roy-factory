@@ -1,0 +1,85 @@
+(function(){
+  'use strict';
+  const C=window.StudioOneCatalog,M=window.StudioOneModel,$=id=>document.getElementById(id),app=$('studio-app');
+  const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const euros=v=>new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',maximumFractionDigits:2}).format(v);
+  const query=new URLSearchParams(location.search),embedded=window.parent!==window,storageKey='lrf-studio-one-project-v2';
+  let view,noticeTimer,lastOptions='',applyAll=false;
+  function notice(text){$('notice').replaceChildren(document.createTextNode(text));const close=document.createElement('button');close.textContent='×';close.setAttribute('aria-label','Fermer le message');close.onclick=()=>{$('notice').hidden=true;};$('notice').append(close);$('notice').hidden=false;clearTimeout(noticeTimer);noticeTimer=setTimeout(()=>$('notice').hidden=true,13000);}
+  let store;
+  try{store=new M.Store(M.legacy(query));}catch(e){store=new M.Store({version:2,items:[M.make('cabinet')]});notice('Configuration initiale non reconnue : nouveau meuble de 60 cm.');}
+  function panel(name){app.dataset.panel=name;document.querySelectorAll('.mobile-nav [data-panel]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.panel===name)));requestAnimationFrame(()=>{view?.resize();view?.fit();});}
+  document.querySelectorAll('[data-panel]').forEach(b=>{if(b!==app)b.onclick=()=>panel(b.dataset.panel);});
+  function option(value,text,selected,disabled=false){return `<option value="${esc(value)}" ${selected===value?'selected':''} ${disabled?'disabled':''}>${esc(text)}</option>`;}
+  function detail(title,content,open=true){return `<details ${open?'open':''}><summary>${title}</summary><div class="section-content">${content}</div></details>`;}
+  function swatches(colors,current,attr){return `<div class="swatches">${colors.map(c=>`<button type="button" class="swatch-button" ${attr}="${esc(c.code)}" aria-pressed="${c.code===current}" title="${esc(c.name)}"><span class="sample" style="background-color:${c.hex};${c.texture?'background-image:url('+esc(c.texture)+')':''}"></span>${esc(c.name)}</button>`).join('')}</div>`;}
+  function renderOptions(force=false){
+    const item=store.selected,signature=JSON.stringify(item?{...item,position:null}:null);if(!force&&signature===lastOptions)return;lastOptions=signature;
+    const oldDetails=[...$('selected-options').querySelectorAll('details')].map(d=>[d.querySelector('summary').textContent,d.open]);
+    if(!item){$('selected-options').innerHTML='<p class="empty">Ajoutez un élément ou sélectionnez un meuble dans la scène ou dans la composition.</p>';return;}
+    const d=M.dimensions(item),row=M.lines(item)[0];let html=`<div class="selected-title"><strong>${esc(row.title)}</strong><small>Élément sélectionné · ${esc(item.id.slice(0,8))}</small></div>`;
+    if(item.kind==='cabinet'){
+      html+=detail('Modèle et dimensions',`<label>Modèle<select id="edit-model">${C.models.map((m,i)=>option(i,m.name+' · H '+m.height+' cm',item.model)).join('')}</select></label><label>Largeur exacte (cm)<input id="edit-width" type="number" inputmode="numeric" min="40" max="120" step="1" value="${item.width}"></label><div class="dimension-facts">H ${d.height} × P ${d.depth} cm · ${esc(item.facade)}</div>`);
+    }else if(item.kind==='mirror'){
+      html+=detail('Modèle et dimensions',`<label>Modèle de miroir<select id="edit-mirror">${Object.keys(C.mirrors).map(n=>option(n,n,item.mirror)).join('')}</select></label><label>Format du miroir<select id="edit-mirror-size">${C.mirrors[item.mirror].map(r=>option(r[0],r[0],item.mirrorSize)).join('')}</select></label>${item.mirror.includes('métallique')?`<label>Cadre<select id="edit-mirror-finish">${['Noir','Doré','Bronze','Argent'].map(n=>option(n,n,item.mirrorFinish)).join('')}</select></label>`:''}`);
+    }else html+=detail('Dimensions et porte',`<div class="dimension-facts">L 38 × H 132 × P 27 cm</div><p class="help">Une porte articulée à 90° et deux étagères intérieures. Dimensions de la colonne STUDIO ONE référencée 14177.</p>`);
+    if(item.kind!=='mirror')html+=detail('Finition du meuble',swatches(C.finishes,item.finish,'data-finish')+`<label class="check-label"><input id="apply-all" type="checkbox" ${applyAll?'checked':''}>Appliquer cette finition à toute la composition</label>`);
+    if(item.kind==='cabinet'){
+      const insetAllowed=[60,70,80,90,100,120].includes(item.width),surface=item.option==='top'&&item.sink?'vessel':item.option;
+      html+=detail('Plateau et vasque',`<label>Équipement du meuble<select id="edit-surface">${option('bare','Meuble seul · sans plateau ni vasque',surface)}${option('top','Plateau sur mesure · sans vasque',surface)}${option('vessel','Plateau sur mesure + vasque à poser',surface)}${option('basin',insetAllowed?'Vasque encastrée · Sella ou Tampa':'Vasque encastrée indisponible à cette largeur',surface,!insetAllowed)}</select></label>${!insetAllowed?'<p class="help">Formats encastrés : 60, 70, 80, 90, 100 et 120 cm uniquement.</p>':''}${item.sink?`<div class="sink-models">${(item.option==='basin'?['Sella','Tampa']:['Neris','Torne']).map(name=>{const disabled=item.option==='top'&&item.width<C.vessels[name].minWidth;return `<button data-sink="${name}" aria-pressed="${name===item.sink.model}" ${disabled?'disabled':''} title="${disabled?'Meuble de 50 cm minimum pour Neris':name}"><img src="assets/img/randal/accessories/hd/basin-${name.toLowerCase()}.webp" alt="Vasque ${name}">${name}${disabled?' · 50 cm minimum':''}</button>`;}).join('')}</div>${item.option==='basin'&&item.width===120?`<label>Nombre de cuves<select id="edit-sink-layout">${option('single','Simple vasque',item.sink.layout)}${option('double','Double vasque · 120 cm',item.sink.layout)}</select></label>`:''}<label>Couleur de la vasque</label>${swatches(item.option==='basin'?C.insetColors.filter(c=>C.inset[item.sink.model][c.code]):C.vesselColors,item.sink.color,'data-sink-color')}<p class="help">${esc(item.sink.model)} · ${item.sink.width} × ${item.sink.depth} × ${item.sink.height} cm. ${item.sink.model==='Sella'?'Sella : blanc brillant uniquement.':''}</p><button id="remove-sink">Retirer la vasque</button>`:'<p class="help">Aucune vasque. Le plateau est fabriqué à la largeur exacte du meuble, dans sa finition.</p>'}`);
+    }
+    html+=detail('Position dans la composition',`<div class="field-row"><label>Position X (cm)<input id="position-x" type="number" step="0.1" value="${item.position.x}"></label><label>Bas depuis le sol (cm)<input id="position-y" type="number" step="0.1" min="0" max="300" value="${item.position.y}"></label></div><p class="help">Déplacez aussi l’objet dans la scène. Les positions occupées sont refusées. Flèches du clavier : 1 cm ; Maj : 10 cm.</p>`,false);
+    html+=`<div class="action-grid"><button id="duplicate">Dupliquer</button><button id="delete" class="danger">Supprimer</button></div>${item.kind!=='mirror'?`<button id="toggle-selected" class="primary" style="width:100%">${item.open?'Fermer':'Ouvrir'} ${item.kind==='column'?'la porte':'les tiroirs'}</button>`:''}`;
+    $('selected-options').innerHTML=html;
+    if(!force)oldDetails.forEach(([name,open])=>{[...$('selected-options').querySelectorAll('details')].find(d=>d.querySelector('summary').textContent===name)?.toggleAttribute('open',open);});
+    const bind=(id,fn)=>{const el=$(id);if(el)el.onchange=fn;};
+    const update=patch=>store.update(item.id,patch);
+    bind('edit-model',e=>{update({model:Number(e.target.value)});view?.fit();});
+    bind('edit-width',e=>{const n=Number(e.target.value);if(!/^\d{2,3}$/.test(e.target.value)||!Number.isInteger(n)||n<40||n>120){notice('Saisissez une largeur entière de 40 à 120 cm, sans virgule.');e.target.value=item.width;return;}if(!update({width:n}))e.target.value=item.width;else view?.fit();});
+    bind('apply-all',e=>applyAll=e.target.checked);
+    $('selected-options').querySelectorAll('[data-finish]').forEach(b=>b.onclick=()=>applyAll?store.finishAll(b.dataset.finish):update({finish:b.dataset.finish}));
+    bind('edit-surface',e=>{const v=e.target.value;update(v==='bare'?{option:'bare',sink:null}:v==='top'?{option:'top',sink:null}:v==='vessel'?{option:'top',sink:{model:item.width>=50?'Neris':'Torne',color:'gloss',layout:'single'}}:{option:'basin',sink:{model:'Sella',color:'gloss',layout:'single'}});});
+    $('selected-options').querySelectorAll('[data-sink]').forEach(b=>b.onclick=()=>update({sink:{model:b.dataset.sink,color:'gloss',layout:item.sink.layout}}));
+    $('selected-options').querySelectorAll('[data-sink-color]').forEach(b=>b.onclick=()=>update({sink:{...item.sink,color:b.dataset.sinkColor}}));
+    bind('edit-sink-layout',e=>update({sink:{...item.sink,layout:e.target.value}}));
+    if($('remove-sink'))$('remove-sink').onclick=()=>update({sink:null,option:item.option==='top'?'top':'bare'});
+    bind('edit-mirror',e=>{update({mirror:e.target.value,mirrorSize:C.mirrors[e.target.value][0][0]});view?.fit();});
+    bind('edit-mirror-size',e=>{update({mirrorSize:e.target.value});view?.fit();});bind('edit-mirror-finish',e=>update({mirrorFinish:e.target.value}));
+    const move=()=>{if(!store.move(item.id,Number($('position-x').value),Number($('position-y').value))){notice('Position refusée : collision avec un élément ou dépassement des limites de la scène.');$('position-x').value=store.selected.position.x;$('position-y').value=store.selected.position.y;}else view?.fit();};
+    bind('position-x',move);bind('position-y',move);
+    $('duplicate').onclick=()=>{store.duplicate(item.id);applyAll=false;view?.fit();};$('delete').onclick=()=>{store.remove(item.id);applyAll=false;view?.fit();};if($('toggle-selected'))$('toggle-selected').onclick=()=>update({open:!item.open});
+  }
+  function renderQuote(){
+    $('quote-list').innerHTML=store.project.items.map(item=>{const rows=M.lines(item),main=rows[0];return `<article class="item-card ${store.selectedId===item.id?'selected':''}" data-item-id="${esc(item.id)}"><h3><button data-select="${esc(item.id)}">${esc(main.title)}</button></h3><p>${esc(main.detail)}</p><p>Réf. ${esc(main.ref)} · Qté 1</p>${rows.slice(1).map(r=>`<p>${esc(r.title)} · ${esc(r.detail)}<br>Réf. ${esc(r.ref)} · ${euros(r.unit)}</p>`).join('')}<p class="item-price">${euros(rows.reduce((s,r)=>s+r.unit,0))}</p><p>${esc(main.basis)}</p><div class="item-actions"><button data-edit="${item.id}">Modifier</button><button data-duplicate="${item.id}">Dupliquer</button><button data-delete="${item.id}">Supprimer</button></div></article>`;}).join('')||'<p class="empty">Votre composition est vide.</p>';
+    $('quote-total').textContent=euros(store.total());$('item-count').textContent='('+store.project.items.length+')';
+    $('quote-list').querySelectorAll('[data-select],[data-edit]').forEach(b=>b.onclick=()=>{applyAll=false;store.select(b.dataset.select||b.dataset.edit);if(b.dataset.edit)panel('config');});
+    $('quote-list').querySelectorAll('[data-duplicate]').forEach(b=>b.onclick=()=>{store.duplicate(b.dataset.duplicate);view?.fit();});
+    $('quote-list').querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>{store.remove(b.dataset.delete);view?.fit();});
+  }
+  function render(){renderOptions();renderQuote();const open=store.project.items.some(i=>i.kind!=='mirror'&&!i.open);$('open-all').textContent=open?'Ouvrir toute la composition':'Fermer toute la composition';$('open-all').setAttribute('aria-pressed',String(!open));$('undo').disabled=!store.history.length;$('redo').disabled=!store.future.length;const i=store.selected;if(i&&$('position-x')){$('position-x').value=i.position.x;$('position-y').value=i.position.y;}}
+  function publish(){if(embedded)window.parent.postMessage({type:'studio-one-project-change',project:store.snapshot()},location.origin);}
+  store.subscribe((project,meta)=>{if(meta.notices.length)notice(meta.notices.join(' '));try{sessionStorage.setItem(storageKey,JSON.stringify(project));}catch(e){}publish();render();});
+  $('add-cabinet').onclick=()=>{store.add('cabinet');applyAll=false;view?.fit();};$('add-column').onclick=()=>{store.add('column',{finish:store.selected?.finish||'ROBLE'});applyAll=false;view?.fit();};$('add-mirror').onclick=()=>{store.add('mirror');view?.fit();};
+  $('open-all').onclick=()=>store.openAll(store.project.items.some(i=>i.kind!=='mirror'&&!i.open));
+  $('dimensions').onclick=()=>{if(view){view.dimensionsVisible=!view.dimensionsVisible;view.drawDimensions();$('dimensions').setAttribute('aria-pressed',String(view.dimensionsVisible));}};
+  $('reset').onclick=()=>view?.fit();$('front').onclick=()=>view?.fit(true);$('invert').onclick=()=>{if(view){view.reverse=!view.reverse;$('invert').setAttribute('aria-pressed',String(view.reverse));}};
+  function fullscreenState(){const active=!!document.fullscreenElement||app.classList.contains('is-fullscreen');$('fullscreen').textContent=active?'✕ Quitter':'⛶ Plein écran';$('fullscreen').setAttribute('aria-pressed',String(active));requestAnimationFrame(()=>{view?.resize();view?.fit();});}
+  $('fullscreen').onclick=async()=>{if(document.fullscreenElement)await document.exitFullscreen();else if(app.classList.contains('is-fullscreen'))app.classList.remove('is-fullscreen');else{try{if(!app.requestFullscreen)throw Error();await app.requestFullscreen();}catch(e){app.classList.add('is-fullscreen');}}fullscreenState();};document.addEventListener('fullscreenchange',fullscreenState);document.addEventListener('keydown',e=>{if(e.key==='Escape'&&app.classList.contains('is-fullscreen')){app.classList.remove('is-fullscreen');fullscreenState();}});
+  $('undo').onclick=()=>{store.undo();view?.fit();};$('redo').onclick=()=>{store.redo();view?.fit();};
+  function download(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),15000);}
+  $('save-project').onclick=()=>download(new Blob([JSON.stringify(store.snapshot(),null,2)],{type:'application/json'}),'STUDIO-ONE-composition.json');
+  $('load-project').onclick=()=>$('project-file').click();$('project-file').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>200000)throw Error('Fichier trop volumineux.');store.load(JSON.parse(await file.text()));view?.fit();notice('Projet ouvert.');}catch(err){notice('Impossible d’ouvrir le projet : '+err.message);}e.target.value='';};
+  $('new-project').onclick=()=>{if(confirm('Créer une nouvelle composition ? Enregistrez votre projet pour le conserver.')){store.load({version:2,items:[M.make('cabinet')]});view?.fit();}};
+  $('floor-color').onchange=e=>{if(view)view.floor.material.color.set(e.target.value);};$('wall-color').onchange=e=>{if(view)view.wall.material.color.set(e.target.value);};
+  $('image').onclick=()=>{if(!view)return notice('La visualisation 3D n’est pas disponible.');view.renderer.render(view.scene,view.camera);view.canvas.toBlob(blob=>{if(blob)download(blob,'STUDIO-ONE-composition.png');});};
+  $('print').onclick=()=>window.print();
+  function requestText(){return ['Bonjour Juan Carlos,','','Veuillez confirmer la composition STUDIO ONE suivante :','',...store.quote().flatMap(r=>[r.title,r.detail,'Référence : '+r.ref,'Quantité : '+r.qty,'']),'Merci de confirmer les références, compatibilités, disponibilités, délais et conditions de transport.','Cette demande ne constitue pas une commande ferme.','','Cordialement,','Agence Le Roy Factory'].join('\n');}
+  $('request-quote').onclick=()=>window.RandalMailChooser.show({to:'juancarlos.segura@randal.group',cc:'jerome@leroyfactory.fr,coryne@leroyfactory.fr',subject:'Demande de devis RANDAL STUDIO ONE',body:requestText()});
+  function close(e){e?.preventDefault();publish();if(embedded)window.parent.postMessage({type:'studio-one-close-3d'},location.origin);else location.href='randal-studio-one.html?resume=studio-one';}
+  $('back').onclick=close;$('return-summary').onclick=close;
+  window.addEventListener('message',e=>{if(!embedded||e.origin!==location.origin||e.source!==window.parent||e.data?.type!=='studio-one-project-init')return;try{store.load(e.data.project);view?.fit();}catch(err){notice('Projet reçu invalide : '+err.message);}});
+  try{if(!window.THREE)throw Error('Moteur 3D indisponible. Rechargez la page.');view=new window.StudioOneScene($('stage'),store,notice);$('scene-status').hidden=true;}catch(e){$('scene-status').textContent=e.message;}
+  // Read-only diagnostics for browser regression tests and support.
+  window.StudioOneDiagnostics=Object.freeze({snapshot:()=>store.snapshot(),quote:()=>store.quote(),inspect:()=>view?.inspect(),collisions:()=>store.project.items.flatMap((a,i)=>store.project.items.slice(i+1).filter(b=>M.overlaps(a,b)).map(b=>[a.id,b.id]))});
+  if(embedded)window.parent.postMessage({type:'studio-one-project-ready'},location.origin);render();
+})();
