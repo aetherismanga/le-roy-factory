@@ -761,7 +761,7 @@ function buildScene(config){
  const backWallCabinetZ=wallFrontZ+depth/2+flushOffset;
  // Les meubles suspendus doivent réellement flotter au-dessus du sol.
  const floatingHeight=!isColumn&&!isCounter&&!legs?.39:0;
- const cabinet=new THREE.Group();
+ const cabinet=new THREE.Group();cabinet.userData.randalKind='meuble';rootCabinet=cabinet;
  cabinet.position.set(0,floatingHeight,backWallCabinetZ);
  scene.add(cabinet);
  if(!isColumn){
@@ -837,8 +837,25 @@ function buildScene(config){
  if(!isColumn)addFixtures(cabinet,config,width,height,depth,finish);
  const mirrorStart=scene.children.length;
  mirror(config,width,height+floatingHeight);
+ const mirrorGroup=new THREE.Group();mirrorGroup.userData.randalKind='miroir';
+ for(const part of scene.children.slice(mirrorStart)){scene.remove(part);mirrorGroup.add(part)}
+ if(mirrorGroup.children.length){scene.add(mirrorGroup);mirrorScenePieces=[mirrorGroup]}
+ extraColumn=null;
+ if(config.columnAccessory&&config.columnAvailable&&!isColumn){
+  extraColumn=new THREE.Group();extraColumn.userData.randalKind='colonne';
+  extraColumn.position.set(width/2+.30,0,backWallCabinetZ);
+  buildHarmonyColumn(extraColumn,.35,1.50,.31,finish,edge);
+  scene.add(extraColumn);
+ }
+ extraCabinets=[];
+ if(Number(config.quantity)>1&&!isColumn){
+  const duplicate=cabinet.clone(true);duplicate.userData.randalKind='meuble';
+  duplicate.position.x=-(width+.14);scene.add(duplicate);extraCabinets.push(duplicate);
+ }
  focusBounds=new THREE.Box3().setFromObject(cabinet);
- for(const part of scene.children.slice(mirrorStart))if(part.geometry)focusBounds.expandByObject(part);
+ if(extraColumn)focusBounds.expandByObject(extraColumn);
+ for(const p of extraCabinets)focusBounds.expandByObject(p);
+ for(const part of mirrorScenePieces)focusBounds.expandByObject(part);
  if(config.model==='Harmony'&&drawers.length)focusBounds.max.z+=.10;
  focusBounds.expandByScalar(.035);
  measureBounds={w:width,h:height,d:depth,y:floatingHeight,z:backWallCabinetZ};
