@@ -688,7 +688,7 @@ if(!selectedType()){
 }
 normalize();syncBasin();
 const selectedFromCatalogue=new URLSearchParams(location.search).get('collection');
-if(selectedFromCatalogue&&models.some(([name])=>name===selectedFromCatalogue)){if(st.model!==selectedFromCatalogue){resetConfiguration();st.model=selectedFromCatalogue;}st.step=0;normalize();save();}
+if(selectedFromCatalogue&&models.some(([name])=>name===selectedFromCatalogue)){if(st.model!==selectedFromCatalogue){resetConfiguration();st.model=selectedFromCatalogue;st.maxStep=0;}st.step=0;normalize();save();}
 const entry=(label,name,type='text',placeholder='')=>'<label class="field">'+label+'<input name="'+name+'" type="'+type+'" placeholder="'+placeholder+'" value="'+esc(st[name])+'"></label>';
 const select=(label,name,opts)=>'<label class="field">'+label+'<select name="'+name+'">'+opts.map(v=>'<option value="'+esc(v)+'" '+(st[name]===v?'selected':'')+'>'+esc(v)+'</option>').join('')+'</select></label>';
 // Dessins PDF RANDAL conservés en tracés SVG : précision indépendante du zoom.
@@ -1047,6 +1047,7 @@ function choiceDone(field){
  if(st.step===3&&field==='color')return true;
  if(st.step===4){
   if(field==='basinMode')return st.basinMode==='none';
+  if(st.basinMode==='vessel')return st.model==='Sima'?field==='basinFinish':field==='topFinish';
   if(st.basinMode==='integrated'){
    if(st.model==='Harmony'&&Number(st.width)===120)return field==='basinLayout';
    return field==='basin';
@@ -1096,8 +1097,8 @@ if(st.step===4){
  if(st.basinMode==='vessel'){
   h+='<div class="options-group"><h3>Vasque à poser</h3>'+pick('basin',['Neris','Torne'].map(x=>[x,'Page 41']))+'</div>';
   h+='<div class="options-group">'+select('Couleur de la vasque','basinFinish',VESSEL_FINISHES)+'</div>';
-  if(st.model==='Sima')h+='<div class="options-group">Plateau SIMA (fourni dans la composition). Aucun plan supplémentaire.</div>';
-  else h+='<div class="options-group"><h3>Finition du plan</h3>'+select('Plan 46 cm de profondeur','topFinish',TOP_FINISHES)+'</div>';
+  if(st.model==='Sima')h+='<div class="options-group"><h3>Finition de la vasque</h3>'+pick('basinFinish',VESSEL_FINISHES.map(x=>[x,'']))+'</div><div class="options-group">Plateau SIMA (fourni dans la composition). Aucun plan supplémentaire.</div>';
+  else h+='<div class="options-group"><h3>Finition du plan</h3><p class="mini">Appuyez sur une finition pour confirmer le plan et passer au miroir.</p>'+pick('topFinish',TOP_FINISHES.map(x=>[x,'']))+'</div>';
  }
  if(st.basinMode==='none')h+='<p class="mini">Le meuble sera demandé sans vasque ni plan.</p>';
  }
@@ -1142,7 +1143,9 @@ $('panel').querySelectorAll('[data-field]').forEach(b=>b.onclick=()=>{
  normalize();syncBasin();
  if(choiceDone(field)){
   // Les colonnes aux dimensions fixes passent directement à la finition.
-  if(field==='typeId'&&selectedType()?.[3]==='column'&&st.model!=='Brent'){
+  if(field==='color'&&selectedType()?.[3]==='column'){
+   st.step=5;st.maxStep=Math.max(st.maxStep,5);save();render();window.scrollTo({top:0,behavior:'smooth'});
+  }else if(field==='typeId'&&selectedType()?.[3]==='column'&&st.model!=='Brent'){
    st.step=3;st.maxStep=Math.max(st.maxStep,3);save();render();window.scrollTo({top:0,behavior:'smooth'});
   }else advanceSelection();
  }else{save();render();}
