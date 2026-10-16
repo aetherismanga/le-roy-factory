@@ -465,14 +465,14 @@ function mirrorGeometry(){
  mirrorRoot.position.set(body.position.x,Math.max(baseY+h+.25+mh/2,1.18),-.18);
 }
 function updateCopies(){
- var oldExtra=extraFurniture.map(function(o){return o.position.clone()}),oldColumns=columnCopies.map(function(o){return o.position.clone()}),oldMirrors=mirrorCopies.map(function(o){return o.position.clone()});
+ var oldFinishes=extraFurniture.map(function(o){return o.userData.localFinish}),oldExtra=extraFurniture.map(function(o){return o.position.clone()}),oldColumns=columnCopies.map(function(o){return o.position.clone()}),oldMirrors=mirrorCopies.map(function(o){return o.position.clone()});
  extraFurniture.forEach(function(obj){scene.remove(obj)});extraFurniture=[];
  for(var i=0;i<extraCabinets;i++){
   var clone=body.clone(true);clone.name='Meuble_STUDIO_ONE_copie_'+(i+1);
   // Une duplication du meuble ne facture pas une seconde vasque involontairement.
   var clonedSink=clone.getObjectByName('STUDIO_ONE_vasque');if(clonedSink)clonedSink.parent.remove(clonedSink);
   clone.position.copy(oldExtra[i]||new THREE.Vector3(body.position.x+(i+1)*(currentWidth/100+.18),body.position.y,body.position.z));
-  scene.add(clone);extraFurniture.push(clone);
+  clone.userData.localFinish=oldFinishes[i]||null;if(clone.userData.localFinish)paintLocalFinish(clone,clone.userData.localFinish);scene.add(clone);extraFurniture.push(clone);
  }
  sinkCopies.forEach(function(obj){basinGroup.remove(obj)});sinkCopies=[];
  basinGroup.position.x=sinkOffsetX;
@@ -552,7 +552,8 @@ function editorButton(title,action,primary){
  var btn=document.createElement('button');btn.type='button';btn.textContent=title;
  if(primary)btn.className='primary';btn.onclick=action;wrap.appendChild(btn);return btn;
 }
-function applyLocalFinish(v){var obj=selectedEditObject||body;var base=finishMap[v];if(!base)return;obj.traverse(function(child){if(child.isMesh&&child.material&&child.material.color){var m=child.material.clone();m.map=null;m.color.set(base);child.material=m}});if(document.getElementById('studio-all-colors')?.checked)sendEdit({color:v});}
+function applyLocalFinish(v){var obj=selectedEditObject||body;if(!finishMap[v])return;var applyAll=document.getElementById('studio-all-colors')?.checked;if(applyAll){sendEdit({color:v});return}obj.userData.localFinish=v;paintLocalFinish(obj,v)}
+function paintLocalFinish(obj,v){var base=finishMap[v];if(!obj||!base)return;obj.traverse(function(child){if(child.isMesh&&child.material&&child.material.color){var m=child.material.clone();m.map=null;m.color.set(base);child.material=m}})}
 function editorSelect(label,entries,value,onChange){
  var l=document.createElement('label');l.textContent=label;editorMenu.appendChild(l);
  var select=document.createElement('select');entries.forEach(function(pair){var op=document.createElement('option');op.value=pair[0];op.textContent=pair[1];select.appendChild(op)});
@@ -564,8 +565,8 @@ var activeObject='meuble';
 var selectedEditObject=null;
 function showObjectMenu(kind){
  activeObject=kind;
-  if(kind==='meuble'||kind==='colonne'){var applyAll=document.createElement('label');applyAll.innerHTML='<input id="studio-all-colors" type="checkbox" style="width:auto;min-height:0"> Appliquer à toute la composition';setTimeout(function(){if(!editorMenu.hidden)editorMenu.appendChild(applyAll)},0)}
- editorPopup(({meuble:'Meuble STUDIO ONE',colonne:'Colonne assortie',vasque:'Vasque RANDAL',miroir:'Miroir RANDAL'})[kind]||'Élément',function(){
+  if(kind==='meuble'||kind==='colonne'){var applyAll=document.createElement('label');applyAll.innerHTML='<input id="studio-all-colors" type="checkbox" style="width:auto;min-height:0"> Appliquer à toute la composition';}
+ editorPopup(({meuble:'Meuble STUDIO ONE',colonne:'Colonne assortie',vasque:'Vasque RANDAL',miroir:'Miroir RANDAL'})[kind]||'Élément',function(){if(kind==='meuble'||kind==='colonne')editorMenu.appendChild(applyAll);
   if(kind==='meuble'){
    editorButton('Dupliquer le meuble',function(){sendEdit({extraCabinets:Math.min(2,extraCabinets+1)});closeEditor()},true);
     if(extraCabinets>0)editorButton('Supprimer un meuble supplémentaire',function(){sendEdit({extraCabinets:extraCabinets-1});closeEditor()});
