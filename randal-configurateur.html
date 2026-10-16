@@ -518,6 +518,36 @@ a.pdf:hover{background:white}
  .composition-stage-area>.composition-harmony-controls>button{max-width:260px;min-width:190px;min-height:43px;font-size:.86rem}
  .composition-viewport .composition-stage-floating button{min-height:42px;padding:8px 12px;font-size:.82rem;max-width:210px}
 }
+
+/* Randal PC / mobile : plein écran lisible, commandes de taille raisonnable. */
+@media(min-width:900px){
+ .composition-fullscreen .composition-window{width:100vw!important;max-width:none!important;height:100dvh!important;max-height:none!important;inset:0!important;border-radius:0!important;margin:0!important}
+ .composition-fullscreen .composition-layout{display:flex!important;flex:1!important;min-height:0!important;height:calc(100dvh - 48px)!important;overflow:hidden!important}
+ .composition-fullscreen .composition-stage-area{position:relative!important;display:flex!important;flex-direction:column!important;width:100%!important;max-width:none!important;flex:1 1 auto!important;min-height:0!important}
+ .composition-fullscreen .composition-viewport{position:relative!important;flex:1 1 auto!important;min-height:0!important}
+ .composition-fullscreen .composition-canvas{height:100%!important;min-height:0!important}
+ .composition-fullscreen .composition-details,.composition-fullscreen .composition-footer,.composition-fullscreen .composition-gesture{display:none!important}
+ .composition-fullscreen .composition-top{padding:6px 22px!important;min-height:48px!important;flex:0 0 48px!important}
+ .composition-fullscreen .composition-top h2{font-size:1rem!important}
+ .composition-fullscreen .composition-viewport .composition-stage-floating{top:14px!important;left:22px!important;right:22px!important;gap:9px!important}
+ .composition-fullscreen .composition-viewport .composition-stage-floating button{font-size:.81rem!important;padding:8px 12px!important;min-height:40px!important;max-width:none!important}
+ .composition-fullscreen .composition-viewport .composition-object-menu{top:68px!important;left:22px!important;width:320px!important;max-height:65dvh!important;background:rgba(250,250,245,.92)!important}
+ .composition-fullscreen .composition-viewport .composition-view-tools{bottom:14px!important;display:flex!important;gap:9px!important;left:50%!important;right:auto!important;transform:translateX(-50%)!important;width:max-content!important}
+ .composition-fullscreen .composition-viewport .composition-view-tools button{width:auto!important;min-width:110px!important;max-width:205px!important;min-height:42px!important;padding:8px 12px!important}
+ .composition-fullscreen .composition-stage-area>.composition-customize{position:absolute!important;bottom:71px!important;left:50%!important;right:auto!important;transform:translateX(-50%)!important;display:flex!important;width:max-content!important;max-width:520px!important;gap:8px!important}
+ .composition-fullscreen .composition-stage-area>.composition-customize>button{width:170px!important;min-height:41px!important;font-size:.8rem!important}
+ .composition-fullscreen .composition-harmony-controls{bottom:123px!important;left:50%!important;right:auto!important;transform:translateX(-50%)!important;width:max-content!important}
+ .composition-fullscreen .composition-harmony-controls button{width:195px!important;min-height:40px!important}
+}
+@media(max-width:899px){
+ .composition-viewport .composition-stage-floating{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px!important}
+ .composition-viewport .composition-stage-floating button{width:100%!important;min-width:0!important;max-width:none!important;padding:7px 5px!important;font-size:.69rem!important}
+ .composition-viewport .composition-stage-floating #composition-fullscreen{grid-column:2}
+ .composition-fullscreen .composition-viewport .composition-view-tools{left:8px!important;right:8px!important;transform:none!important;width:auto!important;max-width:none!important}
+ .composition-fullscreen .composition-stage-area>.composition-customize{left:8px!important;right:8px!important;transform:none!important;width:auto!important;max-width:none!important}
+ .composition-fullscreen .composition-stage-area>.composition-customize>button{width:100%!important;max-width:none!important}
+}
+
 </style></head><body>
 <header><div><a class="back" href="univers.html">← Retour aux sélections</a><img src="assets/img/randal.png" alt="RANDAL"></div></header>
 <main><section class="hero"><div><h1>Votre meuble RANDAL, sur mesure</h1><p>Choisissez votre composition, visualisez vos choix et envoyez la demande.</p><a class="pdf" href="randal-catalogue-interactif.html">Catalogue interactif</a></div></section>
