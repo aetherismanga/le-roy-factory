@@ -137,6 +137,7 @@ function releaseRenderer(){
  }
  cancelAnimationFrame(cameraAnimation);cameraAnimation=0;
  scene=null;camera=null;stage=null;lastPointer=null;lastPinch=null;dimensionsCanvas=null;measureBounds=null;focusBounds=null;orbitTarget=null;cameraTouched=false;
+ hideObjectMenu();
 }
 
 function showCustomize(type){
@@ -287,7 +288,7 @@ function showAddMenu(){
   sceneButton(panel,'＋ Meuble',()=>sceneChange({quantity:Math.min(9,Number(current.quantity||1)+1)}));
   sceneButton(panel,'＋ Colonne',()=>current.columnAvailable?sceneChange({columnAccessory:true}):showObjectMenu('colonne'));
   sceneButton(panel,'＋ Miroir',()=>current.mirror==='Sans miroir'?sceneChange({mirror:'Basic'}):showObjectMenu('miroir'));
-  sceneButton(panel,'＋ Vasque',()=>current.basinMode==='none'?sceneChange({basinMode:'integrated'}):showObjectMenu('vasque'));
+  sceneButton(panel,'＋ Vasque',()=>current.basinMode==='none'?sceneChange({basinMode:current.availableModes?.includes('integrated')?'integrated':current.availableModes?.includes('vessel')?'vessel':'none'}):showObjectMenu('vasque'));
  });
 }
 function redrawCurrent(){
