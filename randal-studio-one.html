@@ -322,12 +322,12 @@ function render(){
    h=optionsHead('Plateau et vasque','Choisissez votre meuble avec ou sans plateau, même sur mesure. Les vasques standard sont disponibles de 60 à 120 cm, par pas de 10 cm.');
    h+='<div class="option-layout">'+[
       ['top','Avec plateau sur mesure','Largeur au centimètre près · prix meuble avec plateau.'],
-      ['basin','Sans plateau · vasque standard','Uniquement 60, 70, 80, 90, 100, 110 ou 120 cm. Vasque à chiffrer séparément.'],
+      ['basin','Sans plateau · vasque encastrée','Formats usine 60, 70, 80, 90, 100 ou 120 cm · Sella ou Tampa.'],
       ['bare','Sans plateau · meuble seul','Toutes les largeurs au centimètre près de 40 à 120 cm · tarif C1 du meuble seul.']
    ].map(function(o){return '<button type="button" class="choice'+(st.option===o[0]?' active':'')+'" data-option="'+o[0]+'" '+(o[0]==='basin'&&!basinAvailable()?'disabled':'')+'><strong>'+o[1]+'</strong><small>'+o[2]+'</small></button>'}).join('')+'</div>';
-   if(isTop())h+='<label class="radio-row" style="margin-top:20px"><input type="checkbox" id="vessel" '+(st.vessel?'checked':'')+'>Prévoir une vasque à poser (sur devis, non incluse)</label>';
-   if(!basinAvailable())h+='<p class="details">La vasque standard nécessite une largeur de 60 à 120 cm par pas de 10 cm. Le meuble seul, sans plateau, reste disponible à cette largeur.</p>';
-   h+='<div class="price-card"><strong>Prix C1 du meuble : '+euros(p)+'</strong><div>Référence adaptée à la tranche '+sizes[i].label+' · '+(isTop()?'avec plateau':'sans plateau')+'.</div></div>';
+   if(isTop())h+='<p class="details">Le plateau est de la même couleur que le meuble sélectionné, sans choix séparé.</p><label class="radio-row" style="margin-top:20px"><input type="checkbox" id="vessel" '+(st.vessel?'checked':'')+'>Ajouter une vasque à poser (Neris ovale ou Torne ronde)</label>'; if(st.option==='basin'||isTop()&&st.vessel)h+=sinkChooser();
+   if(!basinAvailable())h+='<p class="details">Les vasques encastrées existent aux largeurs 60, 70, 80, 90, 100 et 120 cm. Le 110 cm n’est pas référencé au catalogue.</p>';
+   h+='<div class="price-card"><strong>Prix C1 meuble : '+euros(p)+'</strong><div>Référence adaptée à la tranche '+sizes[i].label+' · '+(isTop()?'avec plateau assorti au meuble':'sans plateau')+'.</div><div>Vasque : '+(selectedSink()?euros(selectedSink().price)+' PRO · réf. '+selectedSink().ref:'Aucune')+'</div><strong>Total meuble + vasque : '+euros(total())+'</strong></div>';
  }
  if(st.step===3){
    h=optionsHead('Choisissez votre finition','Les huit finitions originales STUDIO ONE. Les textures sont indicatives à l’écran : validez la teinte avec un échantillon physique.');
@@ -339,7 +339,7 @@ function render(){
     '<button class="choice'+(!st.column?' active':'')+'" data-column="false"><strong>Sans colonne</strong><small>Meuble principal uniquement</small></button>'+
     '<button class="choice'+(st.column?' active':'')+'" data-column="true"><strong>Avec colonne assortie · 177 € C1</strong><small>132 × 38 × 27 cm · finition '+esc(color()?color().name:'coordonnée')+'</small></button></div>';
    h+='<label class="field" for="quantity" style="margin-top:21px">Quantité de compositions<input id="quantity" type="number" inputmode="numeric" min="1" max="99" step="1" value="'+esc(st.quantity)+'"></label>';
-   h+='<div class="price-card"><strong>Sous-total C1 : '+euros(total())+'</strong><div>Colonne à 177 € si sélectionnée. Prix vasque non inclus.</div></div>';
+   h+='<div class="price-card"><strong>Sous-total meuble et vasque : '+euros(total())+'</strong><div>Colonne à 177 € si sélectionnée. Prix vasque PRO inclus si choisie.</div></div>';
  }
  if(st.step===5){
    h=optionsHead('Votre composition STUDIO ONE','Contrôlez toutes les caractéristiques avant de préparer votre demande.');
@@ -347,13 +347,13 @@ function render(){
      '<tr><td>Modèle</td><td><b>'+esc(m.name)+'</b></td></tr>'+
      '<tr><td>Dimensions du meuble</td><td><b>L '+esc(st.width)+' × H '+String(m.height).replace('.',',')+' × P 46 cm</b></td></tr>'+
      '<tr><td>Tranche C1 / format</td><td>'+esc(sizes[i].label)+' / '+esc(sizes[i].ref)+'</td></tr>'+
-     '<tr><td>Plateau et vasque</td><td>'+({top:'Avec plateau sur mesure',basin:'Sans plateau · vasque standard sur devis',bare:'Sans plateau · meuble seul'}[st.option])+(st.vessel?' · vasque à poser sur devis':'')+'</td></tr>'+
+     '<tr><td>Plateau</td><td>'+({top:'Avec plateau sur mesure · même couleur que le meuble',basin:'Sans plateau · vasque encastrée',bare:'Sans plateau · meuble seul'}[st.option])+'</td></tr>'+'<tr><td>Vasque et couleur</td><td>'+esc(sinkDescription())+'</td></tr>'+'<tr><td>Référence vasque</td><td class="ref">'+(selectedSink()?.ref||'—')+'</td></tr>'+'<tr><td>Prix PRO vasque</td><td>'+(selectedSink()?euros(selectedSink().price):'—')+'</td></tr>'+
      '<tr><td>Finition</td><td>'+esc(color().name)+'</td></tr>'+
      '<tr><td>Référence Randal</td><td class="ref">'+esc(ref())+'</td></tr>'+
      '<tr><td>Prix meuble C1</td><td>'+euros(p)+'</td></tr>'+
      '<tr><td>Colonne assortie</td><td>'+(st.column?'14177 '+esc(color().code)+' · 177 € C1':'Non')+'</td></tr>'+
      '<tr><td>Quantité</td><td>'+esc(st.quantity)+'</td></tr></tbody></table>';
-   h+='<div class="total"><div>Montant indicatif C1 · hors vasque éventuelle</div><strong>'+euros(total())+'</strong><div class="sub">Prix catégorie C1 du document fournisseur, sans indication HT/TTC.</div></div>';
+   h+='<div class="total"><div>Meuble C1 et vasque PRO si sélectionnée</div><strong>'+euros(total())+'</strong><div class="sub">Vasque : -50 % sur tarif public HT RANDAL V04. Total indicatif à confirmer.</div></div>';
    h+='<div class="recap-tools"><button class="btn primary" id="preview3d">◈ Voir mon meuble en 3D</button><button class="btn" id="copy">Copier le récapitulatif</button><button class="btn" id="print">Imprimer</button><button class="btn primary" id="email">Préparer une demande par e-mail</button></div>';
    if(widthVal(st.width)===40)h+='<div class="warning">Largeur 40 cm : à confirmer avec Randal (référentiel 41–60 cm ; flyer 40–60 cm).</div>';
    h+='<p class="note">Le bouton e-mail ouvre la messagerie : aucun message n’est envoyé automatiquement. La vue 3D permet de visualiser les proportions et l’ouverture des tiroirs.</p>';
@@ -370,7 +370,10 @@ function render(){
    panel.scrollIntoView({behavior:'smooth',block:'start'});
  };});
  panel.querySelectorAll('[data-width]').forEach(function(b){b.onclick=function(){change('width',b.getAttribute('data-width'))}});
- panel.querySelectorAll('[data-option]').forEach(function(b){b.onclick=function(){st.option=b.getAttribute('data-option');st.vessel=false;save();render()}});
+ panel.querySelectorAll('[data-option]').forEach(function(b){b.onclick=function(){st.option=b.getAttribute('data-option');st.vessel=false;st.sinkModel=st.option==='basin'?'Sella':'Neris';st.sinkColor='gloss';st.sinkLayout='single';normalize();save();render()}});
+panel.querySelectorAll('[data-sink-model]').forEach(function(b){b.onclick=function(){st.sinkModel=b.getAttribute('data-sink-model');st.sinkColor='gloss';normalize();save();render()}});
+panel.querySelectorAll('[data-sink-color]').forEach(function(b){b.onclick=function(){st.sinkColor=b.getAttribute('data-sink-color');normalize();save();render()}});
+panel.querySelectorAll('[data-sink-layout]').forEach(function(b){b.onclick=function(){st.sinkLayout=b.getAttribute('data-sink-layout');normalize();save();render()}});
  panel.querySelectorAll('[data-color]').forEach(function(b){b.onclick=function(){change('color',b.getAttribute('data-color'))}});
  panel.querySelectorAll('[data-column]').forEach(function(b){b.onclick=function(){change('column',b.getAttribute('data-column')==='true')}});
  var width=document.getElementById('width');
@@ -385,17 +388,17 @@ function render(){
  });
 };
  var qty=document.getElementById('quantity');if(qty)qty.oninput=function(){st.quantity=qty.value;save()};
- var vessel=document.getElementById('vessel');if(vessel)vessel.onchange=function(){st.vessel=vessel.checked;save()};
+ var vessel=document.getElementById('vessel');if(vessel)vessel.onchange=function(){st.vessel=vessel.checked;if(st.vessel){st.sinkModel='Neris';st.sinkColor='gloss'}normalize();save();render()};
  wizard.querySelectorAll('[data-step]').forEach(function(b){b.onclick=function(){var v=Number(b.dataset.step);if(v<=st.step){st.step=v;save();render()}}});
  var next=document.getElementById('next');if(next)next.onclick=function(){
     if(st.step===1&&!validWidth())return alert('Largeur invalide : entrez un nombre entier de 40 à 120 cm, sans virgule.');
-    if(st.step===2&&st.option==='basin'&&!basinAvailable())return alert('Les vasques standard sont proposées à partir de 60 cm, par pas de 10 cm.');
+    if(st.step===2&&st.option==='basin'&&!basinAvailable())return alert('Vasques encastrées uniquement en 60, 70, 80, 90, 100 et 120 cm.');if(st.step===2&&(st.option==='basin'||st.option==='top'&&st.vessel)&&!selectedSink())return alert('Sélectionnez une vasque et une couleur compatibles.');
     if(st.step===3&&!color())return alert('Choisissez l’une des 8 finitions.');
     if(st.step===4&&(!Number.isInteger(Number(st.quantity))||Number(st.quantity)<1||Number(st.quantity)>99))return alert('La quantité doit être comprise entre 1 et 99.');
     st.step+=1;save();render();window.scrollTo({top:0,behavior:'smooth'});
  };
  var restart=document.getElementById('restart');if(restart)restart.onclick=function(){if(confirm('Recommencer une nouvelle composition ?')){st=Object.assign({},initial);save();render();window.scrollTo(0,0)}};
- var preview=document.getElementById('preview3d');if(preview)preview.onclick=function(){var v=new URLSearchParams({model:m.name,width:st.width,height:String(m.height),drawers:String(m.drawers),color:color().name,code:color().code,option:st.option,vessel:String(st.vessel),ref:ref(),price:String(p)});(function(){
+ var preview=document.getElementById('preview3d');if(preview)preview.onclick=function(){var v=new URLSearchParams({model:m.name,width:st.width,height:String(m.height),drawers:String(m.drawers),color:color().name,code:color().code,option:st.option,vessel:String(st.vessel),sinkModel:st.sinkModel,sinkColor:st.sinkColor,sinkLayout:st.sinkLayout,sinkRef:selectedSink()?.ref||'',ref:ref(),price:String(total())});(function(){
  var overlay=document.createElement('div');overlay.className='studio-3d-overlay';
  overlay.innerHTML='<div class="studio-3d-bar"><strong>STUDIO ONE · Votre meuble en 3D</strong><button type="button" aria-label="Fermer la 3D">✕ Fermer</button></div>'+
  '<iframe title="Votre meuble STUDIO ONE en 3D" allow="fullscreen" loading="eager"></iframe>';
@@ -421,14 +424,16 @@ function recapText(){
  'Dimensions : L '+st.width+' × H '+String(m.height).replace('.',',')+' × P 46 cm',
  'Tranche tarifaire : '+sizes[i].label,
  'Finition : '+co.name,
- 'Configuration : '+({top:'avec plateau sur mesure',basin:'sans plateau, vasque standard à chiffrer',bare:'sans plateau, meuble seul'}[st.option]),
- (st.vessel?'Vasque à poser : à chiffrer séparément':''),
+ 'Configuration : '+({top:'avec plateau sur mesure, même couleur que le meuble',basin:'sans plateau, vasque encastrée',bare:'sans plateau, meuble seul'}[st.option]),
+ 'Vasque : '+sinkDescription(),
+  'Référence vasque : '+(selectedSink()?.ref||'aucune'),
+  'Prix PRO vasque (-50 % public HT) : '+(selectedSink()?euros(selectedSink().price):'non applicable'),
  'Référence Randal : '+ref(),
  'Prix meuble C1 : '+euros(p),
  'Colonne assortie : '+(st.column?'14177 '+co.code+' / 177 € C1':'non'),
  'Quantité : '+st.quantity,
- 'Total C1 indicatif : '+euros(total()),
- 'Vasque : non comprise dans ce montant si demandée',
+ 'Total meuble C1 + vasque PRO : '+euros(total()),
+ 
  (widthVal(st.width)===40?'Dimension de 40 cm à confirmer.':''),
  (st.model===1?'Hauteur 3 tiroirs 91/81 cm à confirmer.':''),
  'Merci de nous confirmer la faisabilité et le délai.'
