@@ -320,6 +320,7 @@ function normalize(){
  // La vasque intégrée requiert un format réellement proposé au catalogue (110 cm absent).
  if(st.option==='basin'&&!basinAvailable())st.option='top';
  if(!isTop())st.vessel=false;
+ if(st.option!=='top'||widthVal(st.width)<100)st.sinkQty=1;
  if(st.option==='basin'){
   if(!['Sella','Tampa'].includes(st.sinkModel))st.sinkModel='Sella';
   if(!INSET[st.sinkModel][st.sinkColor])st.sinkColor='gloss';
