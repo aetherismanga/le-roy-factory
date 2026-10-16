@@ -449,6 +449,40 @@ a.pdf:hover{background:white}
  .composition-viewport .composition-camera-tools{top:62px}
  .composition-camera-tools button{min-width:43px;padding:5px 8px;font-size:.70rem}
 }
+
+/* RANDAL — navigation par sélection et commandes HARMONY sous les tiroirs, mobile inclus. */
+.wizard .step{appearance:none;border:0;font:inherit;font-size:.8rem;font-weight:750;cursor:pointer;min-width:0}
+.wizard .step:disabled{cursor:default;opacity:.55}
+.wizard .step:focus-visible{outline:3px solid #c29c46;outline-offset:3px}
+.wizard .step:not(:disabled):hover{filter:brightness(.95)}
+.composition-stage-area{position:relative}
+.composition-harmony-controls{margin-bottom:6px}
+.composition-stage-area>.composition-customize{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:0 0 13px}
+.composition-stage-area>.composition-customize[hidden]{display:none!important}
+.composition-stage-area>.composition-customize>button{width:100%;min-height:47px;font-size:.88rem;min-width:0}
+.composition-stage-area>.composition-customize-panel{grid-column:1/-1}
+.composition-stage-area>.composition-customize>.composition-customize-panel{grid-column:1/-1}
+.composition-fullscreen .composition-harmony-controls{bottom:132px!important}
+.composition-fullscreen .composition-stage-area>.composition-customize{
+ position:absolute;bottom:69px;left:12px;right:12px;z-index:24;
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:0
+}
+.composition-fullscreen .composition-stage-area>.composition-customize>button{
+ min-height:45px;font-size:.79rem;padding:9px 5px;background:rgba(243,249,242,.97);
+ border:1px solid #8ea88f;box-shadow:0 2px 15px #0002
+}
+.composition-fullscreen .composition-stage-area>.composition-customize>.composition-customize-panel{
+ position:absolute;left:0;right:0;bottom:56px;z-index:30;
+ max-height:min(43dvh,380px);overflow-y:auto;box-shadow:0 5px 28px #0004;
+ background:#fdfcf9
+}
+@media(max-width:760px){
+ .wizard .step{font-size:.72rem}
+ .composition-stage-area>.composition-customize>button{font-size:.78rem;min-height:47px;padding:9px 5px}
+ .composition-fullscreen .composition-harmony-controls{bottom:125px!important}
+ .composition-fullscreen .composition-stage-area>.composition-customize{bottom:67px;left:10px;right:10px}
+}
+
 </style></head><body>
 <header><div><a class="back" href="univers.html">← Retour aux sélections</a><img src="assets/img/randal.png" alt="RANDAL"></div></header>
 <main><section class="hero"><div><h1>Votre meuble RANDAL, sur mesure</h1><p>Choisissez votre composition, visualisez vos choix et envoyez la demande.</p><a class="pdf" href="randal-catalogue-interactif.html">Catalogue interactif</a></div></section>
@@ -526,6 +560,7 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const key='lrfRandalV04Draft';
 let st;try{st=JSON.parse(sessionStorage.getItem(key)||'{}')}catch{st={}}
 st={model:'',typeId:'',width:'',height:'',depth:'',color:'',variantCode:'',drawers:'',basin:'Sella',top:'Sans plan',basinMode:'integrated',basinLayout:'single',basinFinish:'Blanc brillant',topFinish:'Blanco mate',mirror:'Sans miroir',mirrorSize:'',mirrorFinish:'',quantity:1,company:'',name:'',email:'',phone:'',notes:'',step:0,...st};
+st.maxStep=Math.max(Number(st.step)||0,Number(st.maxStep)||0);
 // Migration anciennes configurations Harmony 119 -> largeur commerciale 120 cm.
 if(st.model==='Harmony'&&String(st.width)==='119')st.width='120';
 // Toujours commencer une nouvelle ouverture sur l'étape 1 (Collection), même si un brouillon existe.
@@ -966,8 +1001,68 @@ function changeFromComposition(patch){
  return compositionConfig();
 }
 
+/* On conserve le dernier écran visité, pour permettre un retour par les numéros. */
+function stepReady(index){
+ if(index===0)return Boolean(MODEL_TYPES[st.model]);
+ if(index===1)return Boolean(selectedType());
+ if(index===2){
+  const t=selectedType(),d=RANDAL[st.model],special=SPECIAL_VARIANTS[st.model];
+  const valid=t?.[3]==='column'?(st.model==='Brent'?['I','J'].includes(st.variantCode):Boolean(st.width))
+    :special?special.shapes.some(x=>x.code===st.variantCode&&t[5].includes(x.code))
+    :Boolean(d?.w.includes(Number(st.width))&&Number(st.height)===t?.[4]);
+  return Boolean(valid&&Number.isInteger(Number(st.quantity))&&Number(st.quantity)>0);
+ }
+ if(index===3){
+  const colors=SPECIAL_VARIANTS[st.model]?.colors||RANDAL[st.model]?.colors||[];
+  return colors.includes(st.color)&&Boolean(variant()?.ref);
+ }
+ if(index===4){
+  syncBasin();
+  return allowedModes().includes(st.basinMode)&&
+   (st.basinMode==='none'||st.basinMode==='integrated'&&['Sella','Tampa'].includes(st.basin)||
+    st.basinMode==='vessel'&&['Neris','Torne'].includes(st.basin)&&
+    VESSEL_FINISHES.includes(st.basinFinish)&&TOP_FINISHES.includes(st.topFinish));
+ }
+ if(index===5){
+  return (!MIRROR_FORMATS[st.mirror]||MIRROR_FORMATS[st.mirror].some(x=>x[0]===st.mirrorSize))&&
+   (!isMetalMirror(st.mirror)||METAL_MIRROR_FINISHES.includes(st.mirrorFinish));
+ }
+ return true;
+}
+function navigateTo(index){
+ if(!Number.isInteger(index)||index<0||index>6)return;
+ if(index>st.maxStep)return;
+ for(let j=0;j<index;j++)if(!stepReady(j))return;
+ st.step=index;save();render();window.scrollTo({top:0,behavior:'smooth'});
+}
+function advanceSelection(){
+ if(st.step>=6||!stepReady(st.step))return;
+ st.step++;st.maxStep=Math.max(st.maxStep,st.step);
+ save();render();window.scrollTo({top:0,behavior:'smooth'});
+}
+function choiceDone(field){
+ if(st.step===0&&field==='model')return true;
+ if(st.step===1&&field==='typeId')return true;
+ if(st.step===2&&(field==='width'||field==='variantCode'))return true;
+ if(st.step===3&&field==='color')return true;
+ if(st.step===4){
+  if(field==='basinMode')return st.basinMode==='none';
+  if(st.basinMode==='integrated'){
+   if(st.model==='Harmony'&&Number(st.width)===120)return field==='basinLayout';
+   return field==='basin';
+  }
+  return false; // Vasque à poser : choisir aussi finition vasque ET finition plan.
+ }
+ if(st.step===5){
+  if(field==='mirror')return !MIRROR_FORMATS[st.mirror]&&!isMetalMirror(st.mirror);
+  if(field==='mirrorFinish')return !MIRROR_FORMATS[st.mirror]||Boolean(st.mirrorSize);
+ }
+ return false;
+}
+
 function render(){
-$('steps').innerHTML=steps.map((s,i)=>'<div class="step '+(i===st.step?'active':i<st.step?'done':'')+'">'+(i+1)+'. '+s+'</div>').join('');
+$('steps').innerHTML=steps.map((name,i)=>'<button type="button" class="step '+(i===st.step?'active':i<st.maxStep?'done':'')+'" data-nav-step="'+i+'" '+(i>st.maxStep?'disabled':'')+' '+(i===st.step?'aria-current="step"':'')+' aria-label="Étape '+(i+1)+' : '+name+'">'+(i+1)+'. '+name+'</button>').join('');
+$('steps').querySelectorAll('[data-nav-step]').forEach(button=>button.onclick=()=>navigateTo(Number(button.dataset.navStep)));
 let h='<h2>'+['Choisissez une collection','Choisissez votre modèle','Choisissez les dimensions','Choisissez la finition','Vasque et plan','Choisissez votre miroir','Vérifiez votre commande'][st.step]+'</h2>';
 if(st.step===0)h+='<p class="hint">Choisissez une collection RANDAL.</p>'+pick('model',models.map(([name,p])=>[name,'Catalogue page '+p]));
 if(st.step===1)h+='<p class="hint">D’abord le type de meuble, puis ses dimensions.</p>'+typeCards();
@@ -1026,53 +1121,38 @@ if(st.step===6){
  '<button type="button" class="btn primary recap-button" id="send">Envoyer la demande</button></div>'+
  '<p class="mini recap-mailnote">L’envoi ouvre votre messagerie avec les références, quantités et prix. Le mail reste à envoyer manuellement.</p>';
 }
-h+='<div class="actions"><button type="button" class="btn" id="prev" '+(st.step===0?'disabled':'')+'>← Précédent</button>'+(st.step<6?'<button type="button" class="btn primary" id="next">Continuer →</button>':'')+'</div>';
+// Navigation par clic : aucun bouton Précédent ou Continuer.
 $('panel').innerHTML=h;
  paintThumbnails();
 $('panel').querySelectorAll('[data-field]').forEach(b=>b.onclick=()=>{
  const field=b.dataset.field,value=b.dataset.value;
- if(field==='model'&&st.model!==value){resetConfiguration();st.model=value;}
+ if(field==='model'&&st.model!==value){resetConfiguration();st.model=value;st.maxStep=0;}
  else if(field==='typeId'&&st.typeId!==value){
   st.typeId=value;st.width='';st.height='';st.depth='';st.variantCode='';st.color='';
   st.basinMode='integrated';st.basin='Sella';st.basinLayout='single';st.top='Sans plan';
+  st.maxStep=Math.min(st.maxStep,1);
  }else{
-  if((field==='width'||field==='variantCode')&&st[field]!==value)st.color='';
+  if((field==='width'||field==='variantCode')&&st[field]!==value){st.color='';st.maxStep=Math.min(st.maxStep,2);}
   if(field==='width'&&st.width!==value)st.basinLayout='single';
-  if(field==='mirror'&&st.mirror!==value){st.mirrorSize='';st.mirrorFinish='';}
+  if(field==='color'&&st.color!==value)st.maxStep=Math.min(st.maxStep,3);
+  if(['basinMode','basin','basinLayout'].includes(field)&&st[field]!==value)st.maxStep=Math.min(st.maxStep,4);
+  if(field==='mirror'&&st.mirror!==value){st.mirrorSize='';st.mirrorFinish='';st.maxStep=Math.min(st.maxStep,5);}
   st[field]=value;
  }
- normalize();syncBasin();save();render();
+ normalize();syncBasin();
+ if(choiceDone(field)){
+  // Les colonnes aux dimensions fixes passent directement à la finition.
+  if(field==='typeId'&&selectedType()?.[3]==='column'&&st.model!=='Brent'){
+   st.step=3;st.maxStep=Math.max(st.maxStep,3);save();render();window.scrollTo({top:0,behavior:'smooth'});
+  }else advanceSelection();
+ }else{save();render();}
 });
 $('panel').querySelectorAll('[name]').forEach(el=>el.onchange=()=>{
- st[el.name]=el.value.trim();syncBasin();save();if(st.step===4)render();
+ st[el.name]=el.value.trim();syncBasin();save();
+ if(st.step===4&&st.basinMode==='vessel'&&el.name==='topFinish')advanceSelection();
+ else if(st.step===5&&el.name==='mirrorSize'&&st.mirrorSize&&(!isMetalMirror(st.mirror)||st.mirrorFinish))advanceSelection();
+ else if(st.step===4)render();
 });
-$('prev').onclick=()=>{st.step=Math.max(0,st.step-1);save();render();scrollTo({top:0,behavior:'smooth'});};
-if($('next'))$('next').onclick=()=>{
- for(const el of $('panel').querySelectorAll('[name]'))st[el.name]=el.value.trim();
- if(st.step===0&&!MODEL_TYPES[st.model]){alert('Choisissez une collection.');return}
- if(st.step===1&&!selectedType()){alert('Choisissez un modèle : tiroirs, niche ou colonne.');return}
- if(st.step===2){
-  const t=selectedType(),d=RANDAL[st.model],special=SPECIAL_VARIANTS[st.model];
-  let valid=false;
-  if(t?.[3]==='column')valid=st.model==='Brent'?['I','J'].includes(st.variantCode):Boolean(st.width);
-  else if(special)valid=special.shapes.some(x=>x.code===st.variantCode&&t[5].includes(x.code));
-  else valid=Boolean(d?.w.includes(Number(st.width))&&Number(st.height)===t?.[4]);
-  if(!valid||!Number.isInteger(Number(st.quantity))||Number(st.quantity)<1){alert('Choisissez un format et une quantité valides.');return}
- }
- if(st.step===3){
-  const colors=SPECIAL_VARIANTS[st.model]?.colors||RANDAL[st.model]?.colors||[];
-  if(!colors.includes(st.color)||!variant()?.ref){alert('Choisissez une finition disponible pour ce modèle.');return}
- }
- if(st.step===4){
-  syncBasin();
-  if(!allowedModes().includes(st.basinMode)||st.basinMode==='integrated'&&!['Sella','Tampa'].includes(st.basin)||st.basinMode==='vessel'&&!['Neris','Torne'].includes(st.basin)||st.basinLayout==='double'&&!(st.model==='Harmony'&&Number(st.width)===120&&st.basinMode==='integrated')){
-   alert('Choisissez un montage compatible.');return;
-  }
- }
- if(st.step===5&&MIRROR_FORMATS[st.mirror]&&!MIRROR_FORMATS[st.mirror].some(x=>x[0]===st.mirrorSize)){alert('Choisissez la dimension du miroir.');return}
- if(st.step===5&&isMetalMirror(st.mirror)&&!METAL_MIRROR_FINISHES.includes(st.mirrorFinish)){alert('Choisissez la couleur du cadre du miroir.');return}
- st.step++;save();render();scrollTo({top:0,behavior:'smooth'});
-};
 if($('preview-composition'))$('preview-composition').onclick=()=>{
  const type=selectedType();
  if(!window.RandalComposition3D){alert('La visualisation 3D est encore en cours de chargement. Réessayez dans un instant.');return;}
