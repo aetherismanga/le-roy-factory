@@ -71,6 +71,16 @@
   $('load-project').onclick=()=>$('project-file').click();$('project-file').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>200000)throw Error('Fichier trop volumineux.');store.load(JSON.parse(await file.text()));view?.fit();notice('Projet ouvert.');}catch(err){notice('Impossible d’ouvrir le projet : '+err.message);}e.target.value='';};
   $('new-project').onclick=()=>{if(confirm('Créer une nouvelle composition ? Enregistrez votre projet pour le conserver.')){store.load({version:2,items:[M.make('cabinet')]});view?.fit();}};
   const ambienceKey='lrf-studio-one-elios-ambience-v1';const ambienceDefaults={floor:'creta:ginepro',wall:'venere:perla'};let ambience={...ambienceDefaults};try{ambience={...ambience,...JSON.parse(sessionStorage.getItem(ambienceKey)||'{}')};}catch(e){}function setAmbience(surface,key){if(!document.querySelector('#'+surface+'-color option[value="'+key+'"]'))key=ambienceDefaults[surface];ambience[surface]=key;$ (surface+'-color').value=key;view?.setTile(surface,key);try{sessionStorage.setItem(ambienceKey,JSON.stringify(ambience));}catch(e){}}$('floor-color').onchange=e=>setAmbience('floor',e.target.value);$('wall-color').onchange=e=>setAmbience('wall',e.target.value);
+  function openAmbienceMenu(surface,x,y){
+    document.getElementById('elios-context-menu')?.remove();
+    const source=$(surface+'-color'),menu=document.createElement('div');menu.id='elios-context-menu';menu.setAttribute('role','dialog');menu.setAttribute('aria-label','Carrelage ELIOS '+(surface==='floor'?'sol':'mur'));
+    Object.assign(menu.style,{position:'fixed',zIndex:'99999',left:Math.max(10,Math.min(x,innerWidth-290))+'px',top:Math.max(10,Math.min(y,innerHeight-260))+'px',width:'270px',padding:'14px',background:'#fff',color:'#29332e',border:'1px solid #c7c2b7',borderRadius:'14px',boxShadow:'0 12px 32px #0004'});
+    const title=document.createElement('div');title.textContent='☰ ELIOS · '+(surface==='floor'?'Carrelage sol':'Carrelage mur');title.style.fontWeight='bold';title.style.marginBottom='10px';menu.append(title);
+    const select=source.cloneNode(true);select.id='elios-popup-choice';select.value=source.value;Object.assign(select.style,{width:'100%',padding:'10px',borderRadius:'8px',marginBottom:'10px'});select.onchange=()=>{setAmbience(surface,select.value);menu.remove();};menu.append(select);
+    const close=document.createElement('button');close.textContent='Fermer';close.style.padding='8px 12px';close.onclick=()=>menu.remove();menu.append(close);document.body.append(menu);
+    const outside=e=>{if(!menu.contains(e.target)){menu.remove();document.removeEventListener('pointerdown',outside,true);}};setTimeout(()=>document.addEventListener('pointerdown',outside,true),0);
+  }
+
   $('image').onclick=()=>{if(!view)return notice('La visualisation 3D n’est pas disponible.');view.renderer.render(view.scene,view.camera);view.canvas.toBlob(blob=>{if(blob)download(blob,'STUDIO-ONE-composition.png');});};
   $('print').onclick=()=>window.print();
   function requestText(){return ['Bonjour Juan Carlos,','','Veuillez confirmer la composition STUDIO ONE suivante :','',...store.quote().flatMap(r=>[r.title,r.detail,'Référence : '+r.ref,'Quantité : '+r.qty,'']),'Merci de confirmer les références, compatibilités, disponibilités, délais et conditions de transport.','Cette demande ne constitue pas une commande ferme.','','Cordialement,','Agence Le Roy Factory'].join('\n');}
@@ -78,7 +88,7 @@
   function close(e){e?.preventDefault();publish();if(embedded)window.parent.postMessage({type:'studio-one-close-3d'},location.origin);else location.href='randal-studio-one.html?resume=studio-one';}
   $('back').onclick=close;$('return-summary').onclick=close;
   window.addEventListener('message',e=>{if(!embedded||e.origin!==location.origin||e.source!==window.parent||e.data?.type!=='studio-one-project-init')return;try{store.load(e.data.project);view?.fit();}catch(err){notice('Projet reçu invalide : '+err.message);}});
-  try{if(!window.THREE)throw Error('Moteur 3D indisponible. Rechargez la page.');view=new window.StudioOneScene($('stage'),store,notice);setAmbience('floor',ambience.floor);setAmbience('wall',ambience.wall);$('scene-status').hidden=true;}catch(e){$('scene-status').textContent=e.message;}
+  try{if(!window.THREE)throw Error('Moteur 3D indisponible. Rechargez la page.');view=new window.StudioOneScene($('stage'),store,notice);view.onAmbienceLongPress=openAmbienceMenu;setAmbience('floor',ambience.floor);setAmbience('wall',ambience.wall);$('scene-status').hidden=true;}catch(e){$('scene-status').textContent=e.message;}
   // Read-only diagnostics for browser regression tests and support.
   window.StudioOneDiagnostics=Object.freeze({snapshot:()=>store.snapshot(),quote:()=>store.quote(),inspect:()=>view?.inspect(),collisions:()=>store.project.items.flatMap((a,i)=>store.project.items.slice(i+1).filter(b=>M.overlaps(a,b)).map(b=>[a.id,b.id]))});
   if(embedded)window.parent.postMessage({type:'studio-one-project-ready'},location.origin);render();
