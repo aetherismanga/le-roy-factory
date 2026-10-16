@@ -4,7 +4,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Atelier 3D STUDIO ONE — Le Roy Factory</title>
 <link rel="icon" href="assets/brand-v2/logoLRF.png">
-<link rel="stylesheet" href="assets/css/studio-one/editor.css?v=20261016-elios1">
+<link rel="stylesheet" href="assets/css/studio-one/editor.css?v=20261016-elios2">
 </head>
 <body>
 <div id="studio-app" data-panel="scene">
@@ -15,7 +15,7 @@
 <div class="panel-heading"><h2>Configuration</h2><button class="close-panel" data-panel="scene" aria-label="Fermer la configuration">×</button></div>
 <details open><summary>Ajouter un élément</summary><div class="add-grid"><button id="add-cabinet">＋ Meuble</button><button id="add-column">＋ Colonne</button><button id="add-mirror">＋ Miroir</button></div></details>
 <div id="selected-options"></div>
-<details><summary>Projet et ambiance</summary><div class="section-content"><label>Sol · ELIOS<select id="floor-color"><optgroup label="Creta · 60 × 60 cm"><option value="creta:ginepro">Creta Ginepro · 60 × 60</option><option value="creta:zucchero">Creta Zucchero</option><option value="creta:avena">Creta Avena</option><option value="creta:biscotto">Creta Biscotto</option><option value="creta:caramello">Creta Caramello</option><option value="creta:matcha">Creta Matcha</option><option value="creta:malto">Creta Malto</option><option value="creta:pepe">Creta Pepe</option></optgroup><optgroup label="Venere · 33 × 100 cm"><option value="venere:perla">Venere Perla</option><option value="venere:aura">Venere Aura</option><option value="venere:seta">Venere Seta</option><option value="venere:flora">Venere Flora</option><option value="venere:rugiada">Venere Rugiada</option><option value="venere:zefiro">Venere Zefiro</option><option value="venere:mare">Venere Mare</option><option value="venere:atlante">Venere Atlante</option></optgroup></select></label><label>Mur · ELIOS<select id="wall-color"><optgroup label="Venere · 33 × 100 cm"><option value="venere:perla">Venere Perla · 33 × 100</option><option value="venere:aura">Venere Aura</option><option value="venere:seta">Venere Seta</option><option value="venere:flora">Venere Flora</option><option value="venere:rugiada">Venere Rugiada</option><option value="venere:zefiro">Venere Zefiro</option><option value="venere:mare">Venere Mare</option><option value="venere:atlante">Venere Atlante</option></optgroup><optgroup label="Creta · 60 × 60 cm"><option value="creta:ginepro">Creta Ginepro</option><option value="creta:zucchero">Creta Zucchero</option><option value="creta:avena">Creta Avena</option><option value="creta:biscotto">Creta Biscotto</option><option value="creta:caramello">Creta Caramello</option><option value="creta:matcha">Creta Matcha</option><option value="creta:malto">Creta Malto</option><option value="creta:pepe">Creta Pepe</option></optgroup></select></label><button id="load-project">Ouvrir un projet JSON</button><input id="project-file" type="file" accept=".json,application/json" hidden><button id="image">Enregistrer une image</button><button id="new-project">Nouvelle composition</button></div></details>
+<details><summary>Projet et ambiance</summary><div class="section-content"><label>Sol · Usine<select id="floor-factory"><option value="elios">ELIOS</option><option value="view">VIEW</option><option value="lafenice" disabled>LA FENICE - bientôt</option><option value="life" disabled>LIFE CERAMICA - bientôt</option></select></label><label>Sol · Collection et couleur<select id="floor-color"></select></label><label>Sol · Sens de pose<select id="floor-orientation"><option value="horizontal">Horizontal</option><option value="vertical">Vertical</option></select></label><label>Mur · Usine<select id="wall-factory"><option value="elios">ELIOS</option><option value="view">VIEW</option><option value="lafenice" disabled>LA FENICE - bientôt</option><option value="life" disabled>LIFE CERAMICA - bientôt</option></select></label><label>Mur · Collection et couleur<select id="wall-color"></select></label><label>Mur · Sens de pose<select id="wall-orientation"><option value="horizontal">Horizontal</option><option value="vertical">Vertical</option></select></label><button id="load-project">Ouvrir un projet JSON</button><input id="project-file" type="file" accept=".json,application/json" hidden><button id="image">Enregistrer une image</button><button id="new-project">Nouvelle composition</button></div></details>
 <div class="history"><button id="undo">↶ Annuler</button><button id="redo">↷ Rétablir</button></div>
 <p class="fine-print">Meubles de 40 à 120 cm, par pas de 1 cm. Hauteurs et profondeurs définies par modèle. Le format 40 cm reste à confirmer auprès de RANDAL.</p>
 </aside>
@@ -32,6 +32,6 @@
 <script src="assets/js/studio-one/catalog.js?v=20261016-pro1"></script>
 <script src="assets/js/studio-one/model.js?v=20261016-pro1"></script>
 <script src="assets/js/randal-mail-chooser.js?v=20261016-choose-gmail-v1"></script>
-<script src="assets/js/studio-one/scene.js?v=20261016-elios1"></script>
-<script src="assets/js/studio-one/editor.js?v=20261016-elios1"></script>
+<script src="assets/js/studio-one/scene.js?v=20261016-elios2"></script>
+<script src="assets/js/studio-one/editor.js?v=20261016-elios2"></script>
 </body></html>
