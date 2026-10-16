@@ -220,6 +220,7 @@ footer{text-align:center;color:#8c8b85;font-size:.79rem;margin:25px 0;padding:10
 <div id="wizard" class="wizard" aria-label="Étapes du configurateur"></div>
 <section class="panel" id="panel" aria-live="polite"></section>
 </main><footer>LE ROY FACTORY · STUDIO ONE · Tarifs C1 du 25/09/2026 · Visualisation 3D accessible au récapitulatif.</footer>
+<script src="assets/js/randal-mail-chooser.js?v=20261016-choose-gmail-v1"></script>
 <script>
 (function(){
 'use strict';
@@ -626,7 +627,7 @@ function render(){
    '<button type="button" class="btn" id="print">Imprimer</button>'+
    '<button type="button" class="btn" id="save-pdf">Enregistrer en PDF</button>'+
    '<button type="button" class="btn studio-recap-send" id="email">Envoyer la demande</button></div>'+
-   '<p class="studio-recap-mailnote">L’envoi ouvre votre messagerie avec les références, quantités et prix. Le message reste à envoyer manuellement.</p>';
+   '<p class="studio-recap-mailnote">Choisissez Gmail ou une autre messagerie. Le message contient uniquement les références et les quantités, sans tarifs, et reste à envoyer manuellement.</p>';
   if(widthVal(st.width)===40)h+='<div class="warning">Largeur de 40 cm : référence exacte à confirmer avec RANDAL.</div>';
  }
 
@@ -687,7 +688,15 @@ panel.querySelectorAll('[data-sink-layout]').forEach(function(b){b.onclick=funct
  var copy=document.getElementById('copy');if(copy)copy.onclick=function(){var text=recapText();if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(text).then(function(){copy.textContent='Récapitulatif copié ✓'}).catch(function(){prompt('Copiez le récapitulatif :',text)})}else prompt('Copiez le récapitulatif :',text)};
  var print=document.getElementById('print');if(print)print.onclick=function(){window.print()};
  var pdfButton=document.getElementById('save-pdf');if(pdfButton)pdfButton.onclick=function(){downloadStudioPdf()};
- var mail=document.getElementById('email');if(mail)mail.onclick=function(){var subject='Demande STUDIO ONE - '+m.name+' - '+st.width+' cm - '+ref();window.location.href='mailto:juancarlos.segura@randal.group?cc='+encodeURIComponent('jerome@leroyfactory.fr,coryne@leroyfactory.fr')+'&subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(recapText())};
+ var mail=document.getElementById('email');if(mail)mail.onclick=function(){
+ var subject='Demande STUDIO ONE - '+m.name+' - '+st.width+' cm - '+ref();
+ window.RandalMailChooser.show({
+  to:'juancarlos.segura@randal.group',
+  cc:'jerome@leroyfactory.fr,coryne@leroyfactory.fr',
+  subject:subject,
+  body:recapText()
+ });
+};
 }
 function recapText(){
  var m=data(),co=color(),sink=selectedSink(),qty=Number(st.quantity||1);
