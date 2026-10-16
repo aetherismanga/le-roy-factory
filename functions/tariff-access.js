@@ -1,6 +1,7 @@
 const { onRequest } = require('firebase-functions/v2/https');
 const admin = require('firebase-admin');
 const zlib = require('zlib');
+const { GoogleAuth } = require('google-auth-library');
 const { getAgentFromRequest } = require('./auth');
 const { writeClientActivity } = require('./lrf-analytics-core');
 
@@ -9,6 +10,7 @@ const bucket = admin.storage().bucket();
 const SITE = 'https://leroyfactory.fr/';
 
 const TARIFFS = {
+  'life-2026': { partner:'life-ceramica', storagePath:'private-tariffs/life/life2026.pdf', filename:'LIFE-CERAMICA-Tarifs-2026.pdf' },
   'elios-2026': { partner:'elios-ceramica', source:'assets/pdf/elios2026.pdf', storagePath:'private-tariffs/elios/elios2026.pdf', filename:'ELIOS-Tarifs-2026.pdf' },
   'view-2026': { partner:'view-ceramica', source:'assets/pdf/view2026.pdf', storagePath:'private-tariffs/view/view2026.pdf', filename:'VIEW-Tarifs-2026.pdf' },
   'lafenice-2026': { partner:'la-fenice', source:'assets/pdf/lafenice2026.pdf', storagePath:'private-tariffs/lafenice/lafenice2026.pdf', filename:'LA-FENICE-Tarifs-2026.pdf' },
@@ -30,7 +32,7 @@ const DNA_PARTS = [0,1,2,3,4].map(n => `assets/data/neobath-dna-tarif/part-${Str
 const DNA_STORAGE = 'private-tariffs/neobath/neobath-dna-tarif.txt';
 const ALIASES = {
   'elios-ceramica':['elios-ceramica','elios'], 'view-ceramica':['view-ceramica','view'], 'la-fenice':['la-fenice','lafenice','la fenice'],
-  'reviglass':['reviglass'], 'biopietra':['biopietra'], 'petracers':['petracers','petracer','petracerss'],
+  'reviglass':['reviglass'], 'life-ceramica':['life-ceramica','life ceramica','life cerámica','life'], 'biopietra':['biopietra'], 'petracers':['petracers','petracer','petracerss'],
   'pecchioli-firenze':['pecchioli-firenze','pecchioli'], 'bulbo':['bulbo'], 'randal-pro':['randal-pro','randal'],
   'neobath':['neobath'], 'aquahome':['aquahome'], 'bilt':['bilt'], 'uptrend':['uptrend']
 };
@@ -43,9 +45,36 @@ async function verifiedClient(codeRaw,depRaw){ const code=clean(codeRaw,20).toUp
 function clientCanAccess(client,partner){ const values=(Array.isArray(client.partenaires)?client.partenaires:[]).map(norm);const aliases=(ALIASES[partner]||[partner]).map(norm);return aliases.some(a=>values.includes(a)); }
 async function streamPrivateFile(res,file,filename,contentType='application/pdf'){ const[exists]=await file.exists();if(!exists)return res.status(503).json({success:false,error:'Tarif sécurisé en cours de migration.'});res.set('Content-Type',contentType);res.set('Content-Disposition',`inline; filename="${String(filename).replace(/[^a-zA-Z0-9._-]/g,'_')}"`);res.set('Cache-Control','private, no-store, max-age=0');res.set('Pragma','no-cache');res.set('X-Content-Type-Options','nosniff');const stream=file.createReadStream();stream.on('error',err=>{console.error('streamPrivateFile',err);if(!res.headersSent)res.status(500).end();else res.end();});stream.pipe(res); }
 
+// Le document tarifaire LIFE 2026 est conservé sur un Drive privé, partagé
+// uniquement avec le compte de service d'exécution Firebase. Il est mis en cache
+// dans le bucket privé après la première consultation autorisée.
+const LIFE_DRIVE_ID = '17cZBncSL5UFKP0Yi39Fzj4RXKngCKTt3';
+let lifeTariffImportPromise = null;
+async function ensureLifeTariffPdf() {
+  const target = bucket.file(TARIFFS['life-2026'].storagePath);
+  const [exists] = await target.exists();
+  if (exists) return;
+  if (!lifeTariffImportPromise) {
+    lifeTariffImportPromise = (async () => {
+      const auth = new GoogleAuth({scopes:['https://www.googleapis.com/auth/drive.readonly']});
+      const authorizedClient = await auth.getClient();
+      const response = await authorizedClient.request({
+        url: `https://www.googleapis.com/drive/v3/files/${LIFE_DRIVE_ID}?alt=media`,
+        responseType: 'arraybuffer'
+      });
+      const bytes = Buffer.from(response.data);
+      if (bytes.length < 10000 || bytes.subarray(0,5).toString('ascii') !== '%PDF-') {
+        throw new Error('Le catalogue tarifaire LIFE reçu ne semble pas être un PDF valide.');
+      }
+      await target.save(bytes, {resumable:false,contentType:'application/pdf',metadata:{cacheControl:'private,no-store,max-age=0'}});
+    })().finally(() => { lifeTariffImportPromise = null; });
+  }
+  await lifeTariffImportPromise;
+}
+
 const getTariffPdf=onRequest({timeoutSeconds:120,memory:'512MiB'},async(req,res)=>{
   if(cors(req,res))return;if(req.method!=='POST')return res.status(405).json({success:false,error:'Méthode non autorisée'});
-  try{const{codeClient,departement,tariffId}=req.body||{};const def=TARIFFS[String(tariffId||'')];if(!def)return res.status(404).json({success:false,error:'Tarif inconnu'});const agent=await getAgentFromRequest(req);if(agent)return streamPrivateFile(res,bucket.file(def.storagePath),def.filename,'application/pdf');const client=await verifiedClient(codeClient,departement);if(!client)return res.status(403).json({success:false,error:'Identifiant client ou département incorrect.'});if(!clientCanAccess(client,def.partner))return res.status(403).json({success:false,error:'Ce tarif n’est pas autorisé pour ce compte.'});await writeClientActivity(client,{action:'tariff_view',page:`tarif:${tariffId}`,title:def.filename,partner:def.partner,tariffId:String(tariffId||'')}).catch(()=>{});return streamPrivateFile(res,bucket.file(def.storagePath),def.filename,'application/pdf');}
+  try{const{codeClient,departement,tariffId}=req.body||{};const def=TARIFFS[String(tariffId||'')];if(!def)return res.status(404).json({success:false,error:'Tarif inconnu'});const agent=await getAgentFromRequest(req);if(agent){if(tariffId==='life-2026')await ensureLifeTariffPdf();return streamPrivateFile(res,bucket.file(def.storagePath),def.filename,'application/pdf');}const client=await verifiedClient(codeClient,departement);if(!client)return res.status(403).json({success:false,error:'Identifiant client ou département incorrect.'});if(!clientCanAccess(client,def.partner))return res.status(403).json({success:false,error:'Ce tarif n’est pas autorisé pour ce compte.'});await writeClientActivity(client,{action:'tariff_view',page:`tarif:${tariffId}`,title:def.filename,partner:def.partner,tariffId:String(tariffId||'')}).catch(()=>{});if(tariffId==='life-2026')await ensureLifeTariffPdf();return streamPrivateFile(res,bucket.file(def.storagePath),def.filename,'application/pdf');}
   catch(e){console.error('getTariffPdf',e);return res.status(500).json({success:false,error:'Impossible d’ouvrir ce tarif.'});}
 });
 
