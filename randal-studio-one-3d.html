@@ -87,27 +87,66 @@ if(!window.THREE){document.getElementById('status').textContent='Moteur 3D indis
 var THREE=window.THREE,stage=document.getElementById('stage'),scene=new THREE.Scene();scene.background=new THREE.Color('#e8e3da');
 var camera=new THREE.PerspectiveCamera(36,1,.01,100),renderer;
 try{renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});}catch(e){document.getElementById('status').textContent='3D non disponible sur cet appareil.';return;}
-renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.12;renderer.shadowMap.enabled=true;
+renderer.setPixelRatio(Math.min(devicePixelRatio||1,innerWidth<720?1.85:2));renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.84;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.setClearColor('#e7e3dd');
 stage.insertBefore(renderer.domElement,stage.firstChild);document.getElementById('status').remove();
-scene.add(new THREE.HemisphereLight('#ffffff','#ada69c',2.2));
-var light=new THREE.DirectionalLight('#ffffff',2.7);light.position.set(-3,7,6);light.castShadow=true;light.shadow.mapSize.set(1024,1024);scene.add(light);
-var second=new THREE.DirectionalLight('#fff3e6',1.3);second.position.set(4,4,-3);scene.add(second);
+scene.add(new THREE.HemisphereLight('#fff9ef','#89928b',.82));
+var light=new THREE.DirectionalLight('#fff5e7',1.62);light.position.set(-3,5.5,5);light.castShadow=true;light.shadow.mapSize.set(innerWidth>800?2048:1024,innerWidth>800?2048:1024);light.shadow.camera.left=-3;light.shadow.camera.right=3;light.shadow.camera.top=4;light.shadow.camera.bottom=-3;light.shadow.normalBias=.018;light.shadow.bias=-.00013;light.shadow.radius=3;scene.add(light);
+var second=new THREE.DirectionalLight('#d9e9ee',.46);second.position.set(3,2.8,-1.5);scene.add(second);
+var topLight=new THREE.PointLight('#fff2e3',.18,4);topLight.position.set(-1.1,3,1.5);scene.add(topLight);
 function material(c,r=.6){return new THREE.MeshStandardMaterial({color:c,roughness:r,metalness:.02})}
-var finish=material(hex,.55),inside=material('#b1aca2'),cut=material('#ddd3c6'),edge=material('#635d55'),stone=material('#f6f2e9',.38),wall=material('#e3ddd4'),floor=material('#cfc9be');
-function applyStudioFinish(key){finish.map=null;finish.color.set(finishMap[key]||'#beb2a2');finish.needsUpdate=true;var file=finishFiles[key];if(!file)return;new THREE.TextureLoader().load('assets/img/studio-one/'+file,function(tx){if(code!==key){tx.dispose();return}tx.colorSpace=THREE.SRGBColorSpace;tx.wrapS=tx.wrapT=THREE.RepeatWrapping;tx.repeat.set(1,1);finish.map=tx;finish.color.set('#ffffff');finish.needsUpdate=true},undefined,function(){finish.map=null;finish.color.set(finishMap[key]||'#beb2a2');finish.needsUpdate=true})}
+var finish=material(hex,.66),inside=material('#a9a8a1',.82),cut=material('#756f64',.65),edge=material('#443c34',.73),stone=material('#ece9e0',.49),wall=material('#e4e0d9',.92),floor=material('#c2b6a7',.83);
+var grainMaterial=material(hex,.66); // façades texture orientée en horizontal, côtés en vertical
+var grainTicket=0;
+var catalogueFiles={ROBLE:'assets/img/studio-one/roble.webp',ALBA:'assets/img/studio-one/serenade-alba.webp',NOGAL:'assets/img/studio-one/nogal-valentina.webp',
+AZUL:'assets/img/randal/finishes/aras/azul-acero.webp',GRIS:'assets/img/randal/finishes/harmony/gris-tortora.webp', 'BISC.':'assets/img/randal/finishes/aruba/biscuit.webp'};
+function makeFinishTexture(image,horizontal){
+ var canvas=document.createElement('canvas');canvas.width=canvas.height=1024;
+ var ctx=canvas.getContext('2d',{alpha:false});
+ var size=Math.min(image.naturalWidth,image.naturalHeight)*.53,x=(image.naturalWidth-size)/2,y=(image.naturalHeight-size)/2;
+ if(horizontal){ctx.translate(1024,0);ctx.rotate(Math.PI/2)}
+ ctx.drawImage(image,x,y,size,size,0,0,1024,1024);
+ if(horizontal)ctx.setTransform(1,0,0,1,0,0);
+ // Fibre très fine et non répétitive : conserve la teinte extraite du catalogue.
+ if(['ROBLE','ALBA','NOGAL'].includes(code)){
+  var seed=31815;function rng(){seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296}
+  for(var j=0;j<410;j++){var a=rng()*1024,b=rng()*1024;
+   ctx.strokeStyle=j%3?'rgba(44,35,25,.055)':'rgba(255,246,229,.06)';
+   ctx.lineWidth=.22+rng()*.9;ctx.beginPath();
+   if(horizontal){ctx.moveTo(-30,b);ctx.bezierCurveTo(300,b+(rng()-.5)*5,710,b+(rng()-.5)*7,1050,b)}
+   else{ctx.moveTo(a,-30);ctx.bezierCurveTo(a+(rng()-.5)*7,300,a+(rng()-.5)*7,710,a,1050)}
+   ctx.stroke()
+  }
+ }
+ var texture=new THREE.CanvasTexture(canvas);texture.colorSpace=THREE.SRGBColorSpace;
+ texture.wrapS=texture.wrapT=THREE.RepeatWrapping;texture.repeat.set(1,1);
+ texture.minFilter=THREE.LinearMipmapLinearFilter;texture.anisotropy=Math.min(12,renderer.capabilities.getMaxAnisotropy());return texture;
+}
+function applyStudioFinish(key){
+ var ticket=++grainTicket,f=finishMap[key]||'#beb2a2';
+ [finish,grainMaterial].forEach(function(mat){if(mat.map){mat.map.dispose();mat.map=null}mat.color.set(f);mat.roughness=.64;mat.metalness=0;mat.needsUpdate=true});
+ var file=catalogueFiles[key];if(!file)return;
+ var img=new Image();img.decoding='async';img.onload=function(){
+  if(ticket!==grainTicket)return;
+  [finish,grainMaterial].forEach(function(mat,index){
+   mat.map=makeFinishTexture(img,index===1);
+   mat.color.set('#ffffff');mat.roughness=.67;mat.needsUpdate=true;
+  });
+ };img.onerror=function(){console.warn('Échantillon finition indisponible : '+file)};
+ img.src=file;
+}
 applyStudioFinish(code);
 function box(parent,w,h,d,x,y,z,mat){var mesh=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);mesh.position.set(x,y,z);mesh.castShadow=true;mesh.receiveShadow=true;parent.add(mesh);return mesh}
 var w=width/100,h=height/100,d=depth/100,body=new THREE.Group();scene.add(body);
-var floorMesh=box(scene,8,.06,8,0,-.055,0,floor);
+var floorMesh=box(scene,8,.06,8,0,-.03,0,floor); // surface du sol à y=0 : meuble 3 tiroirs réellement posé
 var floorSettings=[
- {id:'elios-creta-ginepro',name:'Creta Ginepro',hex:'#71877e',texture:'ginepro.webp'},
- {id:'elios-creta-avena',name:'Creta Avena',hex:'#bbaa94',texture:'avena.webp'},
- {id:'elios-creta-zucchero',name:'Creta Zucchero',hex:'#decdb7',texture:'zucchero.webp'},
- {id:'elios-creta-biscotto',name:'Creta Biscotto',hex:'#c09870',texture:'biscotto.webp'},
- {id:'elios-creta-caramello',name:'Creta Caramello',hex:'#ad7c54',texture:'caramello.webp'},
- {id:'elios-creta-matcha',name:'Creta Matcha',hex:'#91997f',texture:'matcha.webp'},
- {id:'elios-creta-malto',name:'Creta Malto',hex:'#a78d75',texture:'malto.webp'},
- {id:'elios-creta-pepe',name:'Creta Pepe',hex:'#76736d',texture:'pepe.webp'}
+ {id:'elios-creta-ginepro',name:'Creta Ginepro',hex:'#5f776f',texture:'ginepro.webp'},
+ {id:'elios-creta-avena',name:'Creta Avena',hex:'#bba78e',texture:'avena.webp'},
+ {id:'elios-creta-zucchero',name:'Creta Zucchero',hex:'#dfcfb6',texture:'zucchero.webp'},
+ {id:'elios-creta-biscotto',name:'Creta Biscotto',hex:'#bb8f67',texture:'biscotto.webp'},
+ {id:'elios-creta-caramello',name:'Creta Caramello',hex:'#a5734b',texture:'caramello.webp'},
+ {id:'elios-creta-matcha',name:'Creta Matcha',hex:'#89906c',texture:'matcha.webp'},
+ {id:'elios-creta-malto',name:'Creta Malto',hex:'#a28265',texture:'malto.webp'},
+ {id:'elios-creta-pepe',name:'Creta Pepe',hex:'#75726c',texture:'pepe.webp'}
 ];
 var wallSettings=[{id:'ivory',name:'Ivoire',hex:'#f1eee5'},{id:'cream',name:'Crème doux',hex:'#e8ddcb'},{id:'chalk',name:'Blanc craie',hex:'#f8f7f1'},{id:'greige',name:'Greige',hex:'#c8c4bb'},{id:'linen',name:'Lin naturel',hex:'#d7c9b7'},{id:'sand',name:'Sable',hex:'#d6c0a1'},{id:'sage',name:'Vert sauge',hex:'#adbbad'},{id:'stone',name:'Pierre claire',hex:'#c4bbb1'},{id:'blue',name:'Bleu poudré',hex:'#b4c8d0'},{id:'terracotta',name:'Terracotta',hex:'#c9917b'},{id:'graphite',name:'Graphite',hex:'#77746e'}];
 
@@ -115,18 +154,31 @@ var wallSettings=[{id:'ivory',name:'Ivoire',hex:'#f1eee5'},{id:'cream',name:'Cr�
 var backWall=box(scene,8,5,.1,0,2,-depth/200-.055,wall);
 wall.color.set('#f1eee5');
 var chosenFloor=floorSettings[0],chosenWall=wallSettings[0],textureRequest=0;
+// Atlas de carreaux ELIOS Creta 60x60 issu des échantillons catalogue réels du dépôt.
 function useFloor(item){
- chosenFloor=item;floor.color.set(item.hex);document.getElementById('floor-name').textContent=item.name;
- document.getElementById('floor-chip').style.background=item.hex;
- floor.map=null;floor.needsUpdate=true;
- var ticket=++textureRequest;
- if(item.texture){
-  new THREE.TextureLoader().load('assets/img/elios/creta/textures/'+item.texture,function(tx){
-   if(ticket!==textureRequest)return;
-   tx.colorSpace=THREE.SRGBColorSpace;tx.wrapS=tx.wrapT=THREE.RepeatWrapping;tx.repeat.set(3,3);
-   floor.map=tx;floor.color.set('#ffffff');floor.needsUpdate=true;
-  },undefined,function(){floor.map=null;floor.color.set(item.hex);floor.needsUpdate=true});
- }
+ chosenFloor=item;document.getElementById('floor-name').textContent=item.name;
+ var chip=document.getElementById('floor-chip');chip.style.background='url(assets/img/elios/creta/textures/'+item.texture+') center/cover';
+ floor.map&&floor.map.dispose();floor.map=null;floor.color.set(item.hex);
+ floor.roughness=.82;floor.metalness=.015;floor.needsUpdate=true;
+ var ticket=++textureRequest,image=new Image();image.decoding='async';
+ image.onload=function(){
+  if(ticket!==textureRequest)return;
+  var ts=innerWidth<720?400:600,c=document.createElement('canvas');c.width=c.height=ts*2;
+  var ctx=c.getContext('2d',{alpha:false});
+  for(var row=0;row<2;row++)for(var col=0;col<2;col++){
+   ctx.save();ctx.translate(col*ts+ts/2,row*ts+ts/2);
+   ctx.rotate([0,1,3,2][row*2+col]*Math.PI/2);
+   ctx.drawImage(image,-ts/2,-ts/2,ts,ts);ctx.restore();
+   ctx.strokeStyle='rgba(72,62,56,.24)';ctx.lineWidth=2.2;
+   ctx.strokeRect(col*ts+1,row*ts+1,ts-2,ts-2);
+  }
+  var texture=new THREE.CanvasTexture(c);
+  texture.colorSpace=THREE.SRGBColorSpace;texture.wrapS=texture.wrapT=THREE.RepeatWrapping;
+  texture.repeat.set(8/1.2,8/1.2);texture.anisotropy=Math.min(12,renderer.capabilities.getMaxAnisotropy());
+  texture.minFilter=THREE.LinearMipmapLinearFilter;floor.map=texture;floor.color.set('#ffffff');floor.needsUpdate=true;
+ };
+ image.onerror=function(){console.warn('Texture ELIOS absente : '+item.texture)};
+ image.src='assets/img/elios/creta/textures/'+item.texture;
 }
 function useWall(item){chosenWall=item;wall.color.set(item.hex);document.getElementById('wall-name').textContent=item.name;document.getElementById('wall-chip').style.background=item.hex;}
 useFloor(chosenFloor);useWall(chosenWall);
