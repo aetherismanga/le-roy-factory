@@ -5,3 +5,10 @@
 @media print{#studio-app{height:auto;display:block}header,nav,#config-panel,#stage,.quote-actions,.close-panel,.item-actions{display:none!important}main{display:block!important;padding:0}#quote-panel{display:block!important;overflow:visible;max-height:none;border:0;padding:0}.item-card{break-inside:avoid}.quote-total{position:static}body{background:white}.item-card.selected{border:1px solid #ddd;padding:11px}}
 
 #notice button{float:right;min-height:26px;min-width:26px;padding:0 5px;font-size:19px;margin-left:9px;background:transparent;border:0}
+
+/* STUDIO ONE : projets enregistrés sur cet appareil */
+.studio-project-modal{position:fixed;inset:0;background:#101915b8;z-index:100000;display:grid;place-items:center;padding:20px}
+.studio-project-card{background:#fff;color:#26362d;border-radius:16px;width:min(640px,100%);max-height:85vh;overflow:auto;padding:24px;box-shadow:0 18px 55px #0004}
+.studio-project-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:13px 0;border-bottom:1px solid #dfe5df}
+.studio-project-row strong{flex:1 1 200px}
+.studio-project-card button{border:1px solid #b6c7b9;background:#edf3ed;color:#253e30;border-radius:9px;padding:10px 14px;cursor:pointer}
