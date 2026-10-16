@@ -13,6 +13,7 @@
   };
   const MAP = new Map([
     ['assets/pdf/elios2026.pdf','elios-2026'],
+    ['assets/pdf/life-ceramica-2026-tarif-pro.pdf','life-2026'],
     ['assets/pdf/view2026.pdf','view-2026'],
     ['assets/pdf/lafenice2026.pdf','lafenice-2026'],
     ['assets/pdf/reviglass2026.pdf','reviglass-2026'],
@@ -83,7 +84,7 @@
     const card=anchor.closest('.card-premium');
     if(!card)return true;
     if(anchor.dataset.secureTariffId==='uptrend-2026')return true;
-    return !!card.querySelector('.pro-access-badge.allowed');
+    return !!card.querySelector('.pro-access-badge.allowed, .pro-access-badge.admin');
   }
 
   async function openSecureTariff(anchor){
