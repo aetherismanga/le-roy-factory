@@ -544,7 +544,7 @@ async function downloadStudioPdf(){
   drawText('TOTAL GENERAL',20,y+11,'bold',11,[49,79,57]);
   drawText(euros(total()).replace(/\s/g,' '),158,y+11,'bold',12,[49,79,57]);
   y+=27;
-  var legal='Prix meuble/colonne selon le tarif C1 STUDIO ONE. Vasques au tarif professionnel (-50 % du tarif public HT RANDAL V04). Montants indicatifs, hors transport et pose, soumis a confirmation usine. Cette demande ne constitue pas une commande ferme.';
+  var legal='Prix indicatifs hors transport et pose, sous reserve de confirmation usine. Ce document ne constitue pas une commande ferme.';
   pdf.setFont('helvetica','normal');pdf.setFontSize(8);pdf.setTextColor(108,113,106);
   pdf.text(pdf.splitTextToSize(legal,177),16,y);
   drawText('Document genere par Le Roy Factory - '+new Date().toLocaleDateString('fr-FR'),16,283,'normal',8,[111,115,110]);
@@ -594,7 +594,7 @@ function render(){
    h+='<div class="option-layout">'+[
       ['top','Avec plateau sur mesure','Largeur au centimètre près · prix meuble avec plateau.'],
       ['basin','Sans plateau · vasque encastrée','Formats usine 60, 70, 80, 90, 100 ou 120 cm · Sella ou Tampa.'],
-      ['bare','Sans plateau · meuble seul','Toutes les largeurs au centimètre près de 40 à 120 cm · tarif C1 du meuble seul.']
+      ['bare','Sans plateau · meuble seul','Toutes les largeurs au centimètre près de 40 à 120 cm · meuble seul.']
    ].map(function(o){return '<button type="button" class="choice'+(st.option===o[0]?' active':'')+'" data-option="'+o[0]+'" '+(o[0]==='basin'&&!basinAvailable()?'disabled':'')+'><strong>'+o[1]+'</strong><small>'+o[2]+'</small></button>'}).join('')+'</div>';
    if(isTop())h+='<p class="details">Le plateau est de la même couleur que le meuble sélectionné, sans choix séparé.</p><label class="radio-row" style="margin-top:20px"><input type="checkbox" id="vessel" '+(st.vessel?'checked':'')+'>Ajouter une vasque à poser (Neris ovale ou Torne ronde)</label>'; if(st.option==='basin'||isTop()&&st.vessel)h+=sinkChooser();
    if(!basinAvailable())h+='<p class="details">Les vasques encastrées existent aux largeurs 60, 70, 80, 90, 100 et 120 cm. Le 110 cm n’est pas référencé au catalogue.</p>';
