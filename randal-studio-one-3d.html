@@ -107,7 +107,8 @@ var floorSettings=[
 ];
 var wallSettings=[{id:'ivory',name:'Ivoire',hex:'#f1eee5'},{id:'cream',name:'Crème doux',hex:'#e8ddcb'},{id:'chalk',name:'Blanc craie',hex:'#f8f7f1'},{id:'greige',name:'Greige',hex:'#c8c4bb'},{id:'linen',name:'Lin naturel',hex:'#d7c9b7'},{id:'sand',name:'Sable',hex:'#d6c0a1'},{id:'sage',name:'Vert sauge',hex:'#adbbad'},{id:'stone',name:'Pierre claire',hex:'#c4bbb1'},{id:'blue',name:'Bleu poudré',hex:'#b4c8d0'},{id:'terracotta',name:'Terracotta',hex:'#c9917b'},{id:'graphite',name:'Graphite',hex:'#77746e'}];
 
-var backWall=box(scene,8,5,.1,0,2,-2.4,wall);
+// Mur positionné juste derrière le caisson (profondeur 46 cm).
+var backWall=box(scene,8,5,.1,0,2,-depth/200-.055,wall);
 wall.color.set('#f1eee5');
 var chosenFloor=floorSettings[0],chosenWall=wallSettings[0],textureRequest=0;
 function useFloor(item){
@@ -140,9 +141,9 @@ Object.keys(finishMap).forEach(function(k){var b=document.createElement('button'
 document.getElementById('change-finish').onclick=function(){document.getElementById('surface-picker').hidden=true;document.getElementById('finish-picker').hidden=false};
 document.getElementById('finish-close').onclick=function(){document.getElementById('finish-picker').hidden=true};
 
-var mirror=new THREE.Mesh(new THREE.CircleGeometry(.36,64),material('#aec2c2',.15));mirror.position.set(0,1.48,-.02);scene.add(mirror);
-var frame=new THREE.Mesh(new THREE.TorusGeometry(.365,.009,10,72),material('#747369',.35));frame.position.copy(mirror.position);scene.add(frame);
-var baseY=.74;
+// STUDIO ONE : aucun miroir dans cette visualisation.
+// Le meuble 3 tiroirs est posé au sol ; les autres modèles sont suspendus.
+var baseY=drawers===3?0:.74;
 var topY=baseY+h;
 box(body,w-.015,.022,d-.015,0,baseY+.01,0,inside);
 box(body,.017,h,d,-w/2+.008,baseY+h/2,0,finish);
