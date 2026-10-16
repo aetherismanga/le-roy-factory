@@ -127,7 +127,7 @@
     snapshot() { return copy(this.project); }
     get selected() { return this.project.items.find(i => i.id === this.selectedId); }
     commit(items, notices=[], geometry=true) { this.history.push(this.snapshot()); if(this.history.length>60)this.history.shift();this.future=[];this.project=validate({version:2,items});this.emit(notices,geometry); }
-    select(id) { if(this.project.items.some(i => i.id === id)){this.selectedId=id;this.emit([],false);} }
+    select(id) { if(id === null || this.project.items.some(i => i.id === id)){if(this.selectedId===id)return;this.selectedId=id;this.emit([],false);} }
     load(project) { this.project=validate(project);this.selectedId=this.project.items[0]?.id||null;this.history=[];this.future=[];this.emit(); }
     add(kind, options={}) {
       if(this.project.items.length>=40) return this.emit(['Limite de 40 éléments atteinte.'],false);
