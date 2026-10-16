@@ -176,6 +176,12 @@ footer{text-align:center;color:#8c8b85;font-size:.79rem;margin:25px 0;padding:10
  .studio-preview-card,.studio-recap-heading,.studio-recap-grid-head,.studio-recap-total{print-color-adjust:exact;-webkit-print-color-adjust:exact}
  .studio-preview-card,.studio-recap-line{break-inside:avoid}.studio-recap-sheet{break-inside:auto;border-radius:0}
 }
+
+.studio-save-choice{position:fixed;inset:0;background:#141a17bb;z-index:999990;display:grid;place-items:center;padding:16px}
+.studio-save-choice-card{width:min(450px,100%);background:#fcfaf6;border-radius:17px;padding:24px;box-shadow:0 20px 60px #0005}
+.studio-save-choice-card h3{color:#334b3b;margin:0 0 9px}.studio-save-choice-card p{font-size:.91rem;color:#647267;margin:0 0 19px;line-height:1.5}
+.studio-save-choice-card button{width:100%;display:block;margin:8px 0;min-height:50px;border-radius:11px;border:1px solid #bfcbc0;background:#e4ede3;color:#314b39;font-weight:800}
+.studio-save-choice-card button:first-of-type{background:#35463b;color:white}
 </style>
 <style id="studio-3d-overlay-styles">
 .studio-3d-overlay{position:fixed;inset:0;z-index:99999;background:#f2f0eb;display:flex;flex-direction:column}
@@ -487,6 +493,13 @@ function studioPdfImage(path){
 
 async function downloadStudioPdf(){
  var button=document.getElementById('save-pdf'),oldLabel=button?button.textContent:'';
+ var filename='RANDAL-STUDIO-ONE-'+st.width+'cm-'+(color()?.code||'meuble')+'.pdf';
+ var saveHandle=null;
+ // Le sélecteur natif de dossier doit être ouvert directement pendant le clic utilisateur.
+ if(typeof window.showSaveFilePicker==='function'){
+  try{saveHandle=await window.showSaveFilePicker({suggestedName:filename,types:[{description:'Document PDF',accept:{'application/pdf':['.pdf']}}]})}
+  catch(e){if(e.name==='AbortError')return;console.warn('Sélection dossier non disponible',e)}
+ }
  if(button){button.disabled=true;button.textContent='Préparation du PDF…'}
  try{
   var PDF=await studioPdfApi(),pdf=new PDF({unit:'mm',format:'a4',orientation:'portrait'});
@@ -539,7 +552,30 @@ async function downloadStudioPdf(){
   pdf.setFont('helvetica','normal');pdf.setFontSize(8);pdf.setTextColor(108,113,106);
   pdf.text(pdf.splitTextToSize(legal,177),16,y);
   drawText('Document genere par Le Roy Factory - '+new Date().toLocaleDateString('fr-FR'),16,283,'normal',8,[111,115,110]);
-  pdf.save('RANDAL-STUDIO-ONE-'+st.width+'cm-'+co.code+'.pdf');
+  var blob=pdf.output('blob');
+  if(saveHandle){
+   var writable=await saveHandle.createWritable();
+   await writable.write(blob);await writable.close();
+  }else if(typeof navigator.share==='function'&&typeof navigator.canShare==='function'&&typeof File==='function'){
+   // Sur Android, ouvrir une sélection d'application (Fichiers, Drive, etc.).
+   var file=new File([blob],filename,{type:'application/pdf'});
+   if(navigator.canShare({files:[file]})){
+    // Un vrai second appui garantit l'activation utilisateur exigée par l'API de partage.
+    var box=document.createElement('div');box.className='studio-save-choice';
+    box.setAttribute('role','dialog');box.setAttribute('aria-modal','true');box.setAttribute('aria-label','Enregistrer le PDF');
+    box.innerHTML='<div class="studio-save-choice-card"><h3>Votre PDF est prêt</h3><p>Choisissez où enregistrer le document sur votre téléphone, ou téléchargez-le directement.</p><button type="button" data-action="choose">Choisir un emplacement / une application</button><button type="button" data-action="download">Télécharger le PDF</button><button type="button" data-action="cancel">Fermer</button></div>';
+    document.body.appendChild(box);
+    var close=function(){box.remove()};
+    var download=function(){var url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download=filename;document.body.appendChild(link);link.click();link.remove();setTimeout(function(){URL.revokeObjectURL(url)},60000);close()};
+    box.querySelector('[data-action="choose"]').onclick=function(){
+     navigator.share({files:[file],title:'RANDAL STUDIO ONE',text:'Récapitulatif de votre composition'}).then(close).catch(function(err){
+      if(err.name!=='AbortError'){console.warn('Partage PDF indisponible',err);download()}
+     });
+    };
+    box.querySelector('[data-action="download"]').onclick=download;
+    box.querySelector('[data-action="cancel"]').onclick=close;
+   }else pdf.save(filename);
+  }else pdf.save(filename);
  }catch(e){console.error('PDF STUDIO ONE',e);alert('Impossible de generer le PDF pour le moment. Utilisez Imprimer > Enregistrer au format PDF.')}
  finally{if(button){button.disabled=false;button.textContent=oldLabel}}
 }
