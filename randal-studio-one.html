@@ -321,6 +321,8 @@ function normalize(){
  if(st.option==='basin'&&!basinAvailable())st.option='top';
  if(!isTop())st.vessel=false;
  if(st.option!=='top'||widthVal(st.width)<100)st.sinkQty=1;
+ if(!st.column)st.columnQty=1;
+ if(st.mirror==='Sans miroir')st.mirrorQty=1;
  if(st.option==='basin'){
   if(!['Sella','Tampa'].includes(st.sinkModel))st.sinkModel='Sella';
   if(!INSET[st.sinkModel][st.sinkColor])st.sinkColor='gloss';
@@ -477,7 +479,7 @@ function studioOrderSheet(){
  '<div class="studio-recap-grid-head"><span>Produit / Référence</span><span>Qté</span><span>Prix unit.</span><span>Total</span></div>'+
  '<div class="studio-recap-lines">'+lines+'</div>'+
  '<div class="studio-recap-total"><span>TOTAL GÉNÉRAL</span><strong>'+euros(total())+'</strong></div>'+
- '<p class="studio-recap-legal">Tarif meuble et colonne selon la catégorie C1 STUDIO ONE. Tarifs vasques professionnels calculés à -50 % du tarif public HT RANDAL V04. Prix indicatifs, hors transport et installation, sous réserve de confirmation de RANDAL. Ce document ne constitue pas une commande ferme.</p></div>';
+ '<p class="studio-recap-legal">Meuble et colonne selon la catégorie C1 STUDIO ONE. Vasques professionnelles à -50 % du tarif public HT RANDAL V04. Miroir éventuel au prix catalogue public indicatif, remise usine à confirmer. Prix indicatifs hors transport et pose, à confirmer par RANDAL. Ce document ne constitue pas une commande ferme.</p></div>';
 }
 
 var studioPdfPromise=null;
