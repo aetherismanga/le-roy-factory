@@ -230,8 +230,8 @@ var colors=[
  {name:'Nogal Valentina',code:'NOGAL',wood:['#53433e','#7e6256','#453e41']},
  {name:'White Bolero',code:'WHITE',solid:'#dfdeda'},
  {name:'Azul Acero',code:'AZUL',solid:'#61717c'},
- {name:'Gris Tórtora',code:'GRIS',solid:'#7b7072'},
- {name:'Biscuit',code:'BISC.',solid:'#e5dbd1'},
+ {name:'Gris Tórtora',code:'GRIS',solid:'#5e5559'},
+ {name:'Biscuit',code:'BISC.',solid:'#c9b29a'},
  {name:'Muted Green',code:'GREEN',solid:'#949280'}
 ];
 var sizes=[{lo:40,hi:60,ref:'60',label:'40–60 cm'},{lo:61,hi:80,ref:'80',label:'61–80 cm'},{lo:81,hi:100,ref:'100',label:'81–100 cm'},{lo:101,hi:120,ref:'120',label:'101–120 cm'}];
@@ -634,7 +634,7 @@ panel.querySelectorAll('[data-sink-layout]').forEach(function(b){b.onclick=funct
     st.step+=1;save();render();window.scrollTo({top:0,behavior:'smooth'});
  };
  var restart=document.getElementById('restart');if(restart)restart.onclick=function(){if(confirm('Recommencer une nouvelle composition ?')){st=Object.assign({},initial);save();render();window.scrollTo(0,0)}};
- var preview=document.getElementById('preview3d');if(preview)preview.onclick=function(){var v=new URLSearchParams({model:m.name,width:st.width,height:String(m.height),drawers:String(m.drawers),color:color().name,code:color().code,option:st.option,vessel:String(st.vessel),sinkModel:st.sinkModel,sinkColor:st.sinkColor,sinkLayout:st.sinkLayout,sinkRef:selectedSink()?.ref||'',ref:ref(),price:String(total())});(function(){
+ var preview=document.getElementById('preview3d');if(preview)preview.onclick=function(){var v=new URLSearchParams({model:m.name,width:st.width,height:String(m.height),drawers:String(m.drawers),color:color().name,code:color().code,option:st.option,vessel:String(st.vessel),column:String(st.column),sinkModel:st.sinkModel,sinkColor:st.sinkColor,sinkLayout:st.sinkLayout,sinkRef:selectedSink()?.ref||'',ref:ref(),price:String(total())});(function(){
  var overlay=document.createElement('div');overlay.className='studio-3d-overlay';
  overlay.innerHTML='<div class="studio-3d-bar"><strong>STUDIO ONE · Votre meuble en 3D</strong><button type="button" aria-label="Fermer la 3D">✕ Fermer</button></div>'+
  '<iframe title="Votre meuble STUDIO ONE en 3D" allow="fullscreen" loading="eager"></iframe>';
