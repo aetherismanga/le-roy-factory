@@ -690,7 +690,7 @@ panel.querySelectorAll('[data-sink-layout]').forEach(function(b){b.onclick=funct
     st.step+=1;save();render();window.scrollTo({top:0,behavior:'smooth'});
  };
  var restart=document.getElementById('restart');if(restart)restart.onclick=function(){if(confirm('Recommencer une nouvelle composition ?')){st=Object.assign({},initial);save();render();window.scrollTo(0,0)}};
- var preview=document.getElementById('preview3d');if(preview)preview.onclick=function(){var v=new URLSearchParams({model:m.name,width:st.width,height:String(m.height),drawers:String(m.drawers),color:color().name,code:color().code,option:st.option,vessel:String(st.vessel),column:String(st.column),sinkModel:st.sinkModel,sinkColor:st.sinkColor,sinkLayout:st.sinkLayout,sinkRef:selectedSink()?.ref||'',ref:ref(),price:String(total())});(function(){
+ var preview=document.getElementById('preview3d');if(preview)preview.onclick=function(){var v=new URLSearchParams({model:m.name,width:st.width,height:String(m.height),drawers:String(m.drawers),color:color().name,code:color().code,option:st.option,vessel:String(st.vessel),column:String(st.column),columnQty:String(st.columnQty),mirror:st.mirror,mirrorSize:st.mirrorSize,mirrorQty:String(st.mirrorQty),extraCabinets:String(st.extraCabinets),sinkQty:String(st.sinkQty),sinkModel:st.sinkModel,sinkColor:st.sinkColor,sinkLayout:st.sinkLayout,sinkRef:selectedSink()?.ref||'',ref:ref(),price:String(total())});(function(){
  var overlay=document.createElement('div');overlay.className='studio-3d-overlay';
  overlay.innerHTML='<div class="studio-3d-bar"><strong>STUDIO ONE · Votre meuble en 3D</strong><button type="button" aria-label="Fermer la 3D">✕ Fermer</button></div>'+
  '<iframe title="Votre meuble STUDIO ONE en 3D" allow="fullscreen" loading="eager"></iframe>';
@@ -699,7 +699,58 @@ panel.querySelectorAll('[data-sink-layout]').forEach(function(b){b.onclick=funct
  var overflow=document.body.style.overflow;document.body.style.overflow='hidden';
  function close(){document.body.style.overflow=overflow;frame.src='about:blank';overlay.remove();}
  overlay.querySelector('button').onclick=close;
- function onMessage(e){if(e.origin!==window.location.origin||e.source!==frame.contentWindow||!e.data)return;if(e.data.type==='studio-one-close-3d'){window.removeEventListener('message',onMessage);close()}else if(e.data.type==='studio-one-edit-basin'){window.removeEventListener('message',onMessage);close();st.step=2;save();render();panel.scrollIntoView({behavior:'smooth',block:'start'})}else if(e.data.type==='studio-one-finish-change'){if(colors.some(function(c){return c.code===e.data.code})){st.color=e.data.code;save();render()}}}
+ function onMessage(e){
+ if(e.origin!==window.location.origin||e.source!==frame.contentWindow||!e.data)return;
+ if(e.data.type==='studio-one-close-3d'){
+  window.removeEventListener('message',onMessage);close();return;
+ }
+ if(e.data.type==='studio-one-edit-basin'){
+  window.removeEventListener('message',onMessage);close();st.step=2;save();render();
+  panel.scrollIntoView({behavior:'smooth',block:'start'});return;
+ }
+ if(e.data.type==='studio-one-finish-change'){
+  if(colors.some(function(c){return c.code===e.data.code})){st.color=e.data.code;save();render()}
+  return;
+ }
+ if(e.data.type!=='studio-one-scene-edit'||!e.data.patch||typeof e.data.patch!=='object')return;
+ var patch=e.data.patch;
+ var allowed=['color','width','model','column','extraCabinets','columnQty','sinkQty','mirror','mirrorSize','mirrorQty','option','vessel','sinkModel','sinkColor','sinkLayout'];
+ Object.keys(patch).forEach(function(key){
+  if(!allowed.includes(key))return;
+  var value=patch[key];
+  if(key==='width'){
+   if(Number.isInteger(Number(value))&&Number(value)>=40&&Number(value)<=120)st.width=String(value);
+  }else if(key==='model'){
+   if(Number.isInteger(Number(value))&&Number(value)>=0&&Number(value)<M.length)st.model=Number(value);
+  }else if(key==='color'){
+   if(colors.some(function(c){return c.code===value}))st.color=value;
+  }else if(key==='column'||key==='vessel')st[key]=Boolean(value);
+  else if(['extraCabinets','columnQty','sinkQty','mirrorQty'].includes(key))st[key]=Math.max(key==='extraCabinets'?0:1,Math.min(3,Math.floor(Number(value)||0)));
+  else if(key==='mirror'){
+   if(value==='Sans miroir'||MIRROR_OPTIONS[value]){
+    st.mirror=value;st.mirrorSize=value==='Sans miroir'?'':MIRROR_OPTIONS[value][0][0];
+   }
+  }else if(key==='mirrorSize'){
+   if((MIRROR_OPTIONS[st.mirror]||[]).some(function(x){return x[0]===value}))st.mirrorSize=value;
+  }else if(key==='option'){
+   if(['bare','top','basin'].includes(value))st.option=value;
+  }else if(key==='sinkModel'){
+   if(['Sella','Tampa','Neris','Torne'].includes(value))st.sinkModel=value;
+  }else if(key==='sinkColor'){
+   if(INSET_COLORS.concat(VESSEL_COLORS).some(function(x){return x.code===value}))st.sinkColor=value;
+  }else if(key==='sinkLayout'){
+   if(['single','double'].includes(value))st.sinkLayout=value;
+  }
+ });
+ normalize();save();render();
+ frame.contentWindow.postMessage({type:'studio-one-scene-confirm',state:{
+  width:st.width,model:st.model,drawers:data().drawers,height:data().height,color:st.color,
+  column:st.column,columnQty:st.columnQty,mirror:st.mirror,mirrorSize:st.mirrorSize,
+  mirrorQty:st.mirrorQty,extraCabinets:st.extraCabinets,sinkQty:st.sinkQty,
+  option:st.option,vessel:st.vessel,sinkModel:st.sinkModel,sinkColor:st.sinkColor,sinkLayout:st.sinkLayout,
+  ref:ref(),total:total()
+ }},window.location.origin);
+}
  window.addEventListener('message',onMessage);
  overlay.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
  overlay.tabIndex=-1;overlay.focus();
