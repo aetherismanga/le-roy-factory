@@ -9,6 +9,7 @@ let active=false,previousFocus=null,restoreOverflow='',current=null,sessionId=0,
 let drawers=[],drawersOpen=false,drawerAnimation=0,sceneGeneration=0,floorTextureTicket=0;
 let dimensionsVisible=false,dimensionsCanvas=null,measureBounds=null,fullscreen3D=false;
 let focusBounds=null,orbitTarget=null,cameraAnimation=0,cameraTouched=false,initialFitDistance=2.5;
+let rootCabinet=null,extraColumn=null,mirrorScenePieces=[],extraCabinets=[],objectDrag=null;
 const WALL_COLORS={
  cream:{label:'Crème doux',hex:'#eee4d5'},ivory:{label:'Ivoire',hex:'#f4f0e8'},
  chalk:{label:'Blanc craie',hex:'#f5f5f0'},greige:{label:'Greige',hex:'#c9c5ba'},
@@ -60,7 +61,8 @@ function modal(){
  '<div class="composition-viewport">'+
  '<div id="composition-canvas" class="composition-canvas" role="img" aria-label="Modèle 3D manipulable de votre composition RANDAL">'+
  '<div class="composition-loading" id="composition-loading">Préparation de votre aperçu 3D…</div></div>'+
- '<div class="composition-stage-floating"><button type="button" id="composition-dimensions" aria-pressed="false" aria-label="Afficher les cotes et dimensions du meuble">◫ Cotes</button><button type="button" id="composition-fullscreen" aria-pressed="false" aria-label="Afficher la vue 3D en plein écran">⛶ Plein écran</button></div>'+
+ '<div class="composition-stage-floating"><button type="button" id="composition-dimensions" aria-pressed="false" aria-label="Afficher les cotes et dimensions du meuble">◫ Cotes</button><button type="button" id="composition-add-item" aria-label="Ajouter un élément à la composition">＋ Ajouter un élément</button><button type="button" id="composition-fullscreen" aria-pressed="false" aria-label="Afficher la vue 3D en plein écran">⛶ Plein écran</button></div>'+
+ '<div id="composition-object-menu" class="composition-object-menu" hidden></div>'+
 
  '<div class="composition-view-tools" role="group" aria-label="Personnaliser la salle de bain"><button type="button" id="composition-floor" aria-expanded="false" aria-controls="composition-surface-panel">Sol</button><button type="button" id="composition-wall" aria-expanded="false" aria-controls="composition-surface-panel">Mur</button><button type="button" id="composition-photo" aria-label="Enregistrer la photo 3D">↓ Image</button></div>'+
  '<div id="composition-surface-panel" class="composition-surface-panel" role="region" aria-label="Choix des matériaux" hidden><button type="button" id="composition-surface-close" class="composition-surface-close" aria-label="Fermer le choix des matériaux">×</button><strong id="composition-surface-title"></strong><div id="composition-surface-choices"></div><p>Creta 60 × 60 : coloris officiels du catalogue ELIOS.</p></div>'+
@@ -98,6 +100,7 @@ function modal(){
   if(fullscreen3D){fullscreen3D=false;el.classList.remove('composition-fullscreen');
    const b=$('composition-fullscreen');if(b){b.setAttribute('aria-pressed','false');b.textContent='⛶ Plein écran';}}
  });
+ $('composition-add-item').addEventListener('click',showAddMenu);
  $('composition-photo').addEventListener('click',saveImage);
  $('composition-drawers').addEventListener('click',toggleDrawers);
  el.querySelectorAll('[data-customize]').forEach(button=>button.addEventListener('click',()=>showCustomize(button.dataset.customize)));
@@ -120,7 +123,7 @@ function disposeScene(){
  textures.forEach(texture=>texture.dispose());
  geometries.forEach(geo=>geo.dispose());
  materials.forEach(mat=>mat.dispose());
- scene=null;drawers=[];
+ scene=null;drawers=[];rootCabinet=null;extraColumn=null;mirrorScenePieces=[];extraCabinets=[];
 }
 function releaseRenderer(){
  cancelAnimationFrame(raf);raf=0;
