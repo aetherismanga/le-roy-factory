@@ -99,13 +99,13 @@
       name = C.column.name; ref = C.column.ref + ' ' + item.finish; unit = C.column.price; basis = 'C1 colonne';
     } else {
       const r = C.mirrors[item.mirror].find(r => r[0] === item.mirrorSize);
-      name = item.mirror.startsWith('Miroir') ? item.mirror : 'Miroir ' + item.mirror; ref = C.mirrorRefs[item.mirror]?.[item.mirrorSize]?.[item.mirrorFinish] || r[1]; unit = r[2]; basis = 'Public HT indicatif · remise à confirmer';
+      name = item.mirror.startsWith('Miroir') ? item.mirror : 'Miroir ' + item.mirror; ref = C.mirrorRefs[item.mirror]?.[item.mirrorSize]?.[item.mirrorFinish] || r[1]; unit = r[2]; basis = 'Prix indicatif';
     }
     const result = [{ id: item.id, title: name, detail: `L ${d.width} × H ${d.height} × P ${d.depth} cm · ${item.kind === 'mirror' ? item.mirrorFinish : finish}` + (item.kind === 'cabinet' ? ' · ' + ({top:'Plateau assorti',bare:'Meuble seul',basin:'Vasque encastrée'})[item.option] : ''), ref, qty: 1, unit, basis }];
     if (item.kind === 'cabinet' && item.sink) {
       const s = item.sink, color = (item.option === 'basin' ? C.insetColors : C.vesselColors).find(c => c.code === s.color);
       const r = item.option === 'basin' ? C.inset[s.model][s.color][String(item.width) + (s.layout === 'double' ? 'double' : '')] : [226, color[s.model]];
-      result.push({ id: item.id, title: 'Vasque ' + s.model + (s.layout === 'double' ? ' double' : ''), detail: color.name + ` · ${s.width} × ${s.depth} cm`, ref: r[1], qty: 1, unit: r[0]/2, basis: 'PRO HT · -50 % public HT' });
+      result.push({ id: item.id, title: 'Vasque ' + s.model + (s.layout === 'double' ? ' double' : ''), detail: color.name + ` · ${s.width} × ${s.depth} cm`, ref: r[1], qty: 1, unit: r[0]/2, basis: 'Prix indicatif' });
     }
     return result;
   }
