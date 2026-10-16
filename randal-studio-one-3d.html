@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>STUDIO ONE — Visualisation 3D</title>
+<style>
+:root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#28332c;background:#f1eee8}*{box-sizing:border-box}body{margin:0}
+header{background:#fff;padding:15px max(20px,calc((100vw - 1260px)/2));display:flex;align-items:center;justify-content:space-between;gap:15px;border-bottom:1px solid #ddd8cf}
+a{color:#39473d;font-weight:750;text-decoration:none}.logo{font-size:23px;letter-spacing:-2px;color:#123764;font-weight:900}.logo em{font-size:14px;vertical-align:top;letter-spacing:0}
+main{max-width:1280px;margin:auto;padding:19px;display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:19px}
+.stage{position:relative;background:linear-gradient(#ded8cd,#eeebe6);border-radius:17px;overflow:hidden;min-height:610px;border:1px solid #d9d5cb;touch-action:none}
+canvas{width:100%;height:100%;display:block;touch-action:none}
+.toolbar{position:absolute;top:15px;left:15px;right:15px;display:flex;gap:7px;flex-wrap:wrap;pointer-events:none}
+button{border:1px solid #c6beb0;background:#fffdf9;color:#303b33;padding:10px 13px;border-radius:9px;min-height:44px;font:700 13px system-ui;cursor:pointer}
+.toolbar button{pointer-events:auto;box-shadow:0 2px 12px #1112}
+button[aria-pressed=true]{background:#35463b;color:#fff;border-color:#35463b}
+.guide{position:absolute;bottom:10px;left:15px;right:15px;text-align:center;color:#333;background:#ffffffb8;border-radius:10px;padding:10px;font-size:12px;pointer-events:none}
+aside{background:white;border:1px solid #e3dfd5;border-radius:17px;padding:25px;align-self:start}
+h1{font-size:26px;line-height:1.14;margin:7px 0 18px}h2{font-size:16px;margin:24px 0 8px}
+.eyebrow{font-weight:800;color:#8d7856;text-transform:uppercase;letter-spacing:.1em;font-size:11px}
+dl{margin:0}dl>div{border-bottom:1px solid #eee9e2;padding:13px 0}dt{color:#778077;font-size:13px}dd{font-weight:800;margin:4px 0 0;overflow-wrap:anywhere}
+.swatch{width:65px;height:65px;border-radius:12px;border:1px solid #c8c3b9;background-size:cover;margin-top:10px}
+.note{font-size:12px;line-height:1.6;color:#777a72;margin:20px 0}
+#status{position:absolute;inset:0;display:grid;place-items:center;text-align:center;font-weight:750;padding:30px;background:#e8e2d6}
+@media(max-width:850px){main{display:block;padding:10px}.stage{height:65svh;min-height:440px;margin-bottom:14px}aside{padding:21px}.toolbar{top:9px;left:9px;right:9px}.toolbar button{font-size:11px;padding:9px}.guide{font-size:11px}header{padding:13px 15px}}
+</style></head><body>
+<header><a id="back" href="randal-studio-one.html">← Retour au configurateur</a><div class="logo">studio<em>one</em></div></header>
+<main><section class="stage" id="stage" aria-label="Vue 3D interactive de votre meuble Studio One">
+ <div id="status">Chargement de votre meuble 3D…</div>
+ <div class="toolbar"><button type="button" id="drawers" aria-pressed="false">Ouvrir les tiroirs</button><button id="dimensions" aria-pressed="false">◫ Cotes</button><button id="front">Vue de face</button><button id="reset">Réinitialiser la vue</button><button id="image">↓ Image</button></div>
+ <div class="guide">Glissez pour tourner · Pincez pour zoomer · Tiroirs à onglet 45°</div>
+ </section>
+ <aside><span class="eyebrow">Randal · configurateur sur mesure</span><h1>Votre meuble STUDIO ONE en 3D</h1><dl id="details"></dl><h2>Votre finition</h2><div class="swatch" id="swatch"></div><p class="note">Aperçu 3D indicatif des proportions et des tiroirs à onglet 45°. Les références, dimensions et finitions du fabricant restent prioritaires.</p><a href="randal-studio-one.html">Retour au configurateur STUDIO ONE</a></aside>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+<script>
+(function(){
+'use strict';
+var qs=new URLSearchParams(location.search);
+function val(key,def){return qs.get(key)||def}
+function clamp(x,a,b){return Math.max(a,Math.min(b,x))}
+var width=clamp(Number(val('width','80')),40,120),height=clamp(Number(val('height','54')),37.5,91),depth=46;
+var drawers=clamp(Math.round(Number(val('drawers','2'))),1,3),color=val('color','White Bolero'),code=val('code','WHITE'),option=val('option','top'),ref=val('ref',''),price=val('price','');
+var finishMap={ROBLE:'#b99878',ALBA:'#c7aa91',NOGAL:'#705349',WHITE:'#e8e7e3',AZUL:'#627b85',GRIS:'#8b7f83','BISC.':'#dacec0',GREEN:'#9b9e8b'};
+var hex=finishMap[code]||'#beb2a2';
+var sw=document.getElementById('swatch');sw.style.background=hex;var file={ROBLE:'roble.webp',ALBA:'serenade-alba.webp',NOGAL:'nogal-valentina.webp'}[code];if(file)sw.style.background='url(assets/img/studio-one/'+file+') center/cover';
+document.getElementById('details').innerHTML=[
+ ['Modèle',val('model','STUDIO ONE')],['Dimensions',width+' × '+String(height).replace('.',',')+' × '+depth+' cm'],['Tiroirs',''+drawers],['Plateau',option==='top'?'Avec plateau':'Sans plateau'],['Finition',color],['Référence Randal',ref||'À confirmer'],['Prix C1',price?price+' €':'À confirmer']
+].map(function(x){return '<div><dt>'+x[0]+'</dt><dd>'+x[1].replace(/[&<>]/g,'')+'</dd></div>'}).join('');
+if(!window.THREE){document.getElementById('status').textContent='Moteur 3D indisponible. Veuillez vérifier votre connexion.';return;}
+var THREE=window.THREE,stage=document.getElementById('stage'),scene=new THREE.Scene();scene.background=new THREE.Color('#e8e3da');
+var camera=new THREE.PerspectiveCamera(36,1,.01,100),renderer;
+try{renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});}catch(e){document.getElementById('status').textContent='3D non disponible sur cet appareil.';return;}
+renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.12;renderer.shadowMap.enabled=true;
+stage.insertBefore(renderer.domElement,stage.firstChild);document.getElementById('status').remove();
+scene.add(new THREE.HemisphereLight('#ffffff','#ada69c',2.2));
+var light=new THREE.DirectionalLight('#ffffff',2.7);light.position.set(-3,7,6);light.castShadow=true;light.shadow.mapSize.set(1024,1024);scene.add(light);
+var second=new THREE.DirectionalLight('#fff3e6',1.3);second.position.set(4,4,-3);scene.add(second);
+function material(c,r=.6){return new THREE.MeshStandardMaterial({color:c,roughness:r,metalness:.02})}
+var finish=material(hex,.55),inside=material('#b1aca2'),cut=material('#ddd3c6'),edge=material('#635d55'),stone=material('#f6f2e9',.38),wall=material('#e3ddd4'),floor=material('#cfc9be');
+function box(parent,w,h,d,x,y,z,mat){var mesh=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);mesh.position.set(x,y,z);mesh.castShadow=true;mesh.receiveShadow=true;parent.add(mesh);return mesh}
+var w=width/100,h=height/100,d=depth/100,body=new THREE.Group();scene.add(body);
+var floorMesh=box(scene,8,.06,8,0,-.055,0,floor);
+var backWall=box(scene,8,5,.1,0,2,-2.4,wall);
+var mirror=new THREE.Mesh(new THREE.CircleGeometry(.36,64),material('#aec2c2',.15));mirror.position.set(0,1.48,-.02);scene.add(mirror);
+var frame=new THREE.Mesh(new THREE.TorusGeometry(.365,.009,10,72),material('#747369',.35));frame.position.copy(mirror.position);scene.add(frame);
+var baseY=.74;
+var topY=baseY+h;
+box(body,w-.015,.022,d-.015,0,baseY+.01,0,inside);
+box(body,.017,h,d,-w/2+.008,baseY+h/2,0,finish);
+box(body,.017,h,d,w/2-.008,baseY+h/2,0,finish);
+box(body,w-.03,h,.015,0,baseY+h/2,-d/2+.008,inside);
+var spacing=.008,drawerGroups=[];
+for(var i=0;i<drawers;i++){
+ var dh=(h-.026)/drawers,centerY=baseY+h-(i+.5)*dh;
+ var group=new THREE.Group();body.add(group);drawerGroups.push(group);
+ var face=box(group,w-.026,dh-spacing,.02,0,centerY,d/2+.012,finish);
+ // La prise de main est intégrée dans une arête biseautée à 45°, sans poignée saillante.
+ var bevel=new THREE.Mesh(new THREE.BoxGeometry(w-.034,.012,.025),cut);
+ bevel.position.set(0,centerY+dh/2-.014,d/2+.021);bevel.rotation.x=Math.PI/4;group.add(bevel);
+ box(group,w-.085,.009,d-.08,0,centerY-dh/2+.036,.015,inside);
+ box(group,.009,Math.max(.038,dh-.08),d-.09,-w/2+.055,centerY,.015,inside);
+ box(group,.009,Math.max(.038,dh-.08),d-.09,w/2-.055,centerY,.015,inside);
+ box(group,w-.085,.045,.012,0,centerY-dh/2+.065,-d/2+.052,inside);
+}
+if(option==='top')box(body,w+.006,.019,d+.018,0,baseY+h+.012,0,finish);
+var backPlate=box(body,w-.04,.035,.04,0,baseY+h-.018,d/2-.012,inside);
+var dims=document.createElement('div');dims.style.cssText='position:absolute;bottom:65px;left:50%;transform:translateX(-50%);background:#fffefaed;color:#203028;padding:9px 15px;border-radius:9px;font:800 14px system-ui;box-shadow:0 4px 14px #0002;pointer-events:none;display:none;white-space:nowrap';dims.textContent='L '+width+' cm  ·  H '+String(height).replace('.',',')+' cm  ·  P 46 cm';stage.appendChild(dims);
+var yaw=.49,pitch=.13,dist=3.1,drag=null,opened=false,progress=0;
+function placement(){camera.position.set(Math.sin(yaw)*dist,baseY+h*.52+Math.sin(pitch)*dist*.65,Math.cos(yaw)*dist);camera.lookAt(0,baseY+h*.55,0)}
+function resize(){var a=stage.clientWidth,b=stage.clientHeight;camera.aspect=a/Math.max(b,1);camera.updateProjectionMatrix();renderer.setSize(a,b,false)}
+new ResizeObserver(resize).observe(stage);
+var canvas=renderer.domElement;canvas.addEventListener('pointerdown',function(e){drag={x:e.clientX,y:e.clientY};canvas.setPointerCapture(e.pointerId)});
+canvas.addEventListener('pointermove',function(e){if(!drag)return;yaw+=(e.clientX-drag.x)*.008;pitch=clamp(pitch+(e.clientY-drag.y)*.004,-.65,.8);drag={x:e.clientX,y:e.clientY}});
+canvas.addEventListener('pointerup',function(){drag=null});canvas.addEventListener('pointercancel',function(){drag=null});
+canvas.addEventListener('wheel',function(e){e.preventDefault();dist=clamp(dist+Math.sign(e.deltaY)*.2,1.4,5)},{passive:false});
+var pinches=new Map();canvas.addEventListener('touchstart',function(e){if(e.touches.length===2)pinches.set('dist',Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY))},{passive:true});
+canvas.addEventListener('touchmove',function(e){if(e.touches.length!==2)return;var n=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY),prev=pinches.get('dist');if(prev)dist=clamp(dist*prev/n,1.4,5);pinches.set('dist',n)},{passive:true});
+document.getElementById('drawers').onclick=function(){opened=!opened;this.setAttribute('aria-pressed',String(opened));this.textContent=opened?'Fermer les tiroirs':'Ouvrir les tiroirs'};
+document.getElementById('dimensions').onclick=function(){var show=dims.style.display==='none';dims.style.display=show?'block':'none';this.setAttribute('aria-pressed',String(show))};
+document.getElementById('front').onclick=function(){yaw=0;pitch=.03;dist=3};
+document.getElementById('reset').onclick=function(){yaw=.49;pitch=.13;dist=3.1;opened=false;document.getElementById('drawers').setAttribute('aria-pressed','false');document.getElementById('drawers').textContent='Ouvrir les tiroirs'};
+document.getElementById('image').onclick=function(){try{renderer.render(scene,camera);var a=document.createElement('a');a.download='STUDIO-ONE-'+width+'cm.png';a.href=renderer.domElement.toDataURL('image/png');a.click()}catch(e){alert('Impossible de sauvegarder l’image sur cet appareil.')}};
+function render(){requestAnimationFrame(render);progress+=(Number(opened)-progress)*.12;drawerGroups.forEach(function(g){g.position.z=progress*(.23)});placement();renderer.render(scene,camera)}resize();render();
+})();
+</script></body></html>
