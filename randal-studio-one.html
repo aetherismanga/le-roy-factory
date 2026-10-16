@@ -14,7 +14,7 @@ header{background:#fffcf8;border-bottom:1px solid var(--line)}
 .go-back{text-decoration:none;color:#3e4740;font-weight:750;font-size:.97rem}.wordmark{font-size:clamp(1.3rem,3vw,2rem);font-weight:800;letter-spacing:-.06em;color:#0e315e}.wordmark em{font-size:.62em;font-style:italic;letter-spacing:-.03em;vertical-align:top;margin-left:2px}
 main{max-width:1080px;margin:26px auto 75px;padding:0 18px}.hero{min-height:220px;background:linear-gradient(104deg,rgba(20,33,31,.92),rgba(20,33,31,.66)),url('assets/img/randal/hero-meuble-hd.webp?v=20261014-hd1') center/cover;border-radius:22px;color:white;padding:34px 38px;display:flex;align-items:center;justify-content:space-between;gap:24px}
 .hero h1{font-size:clamp(1.7rem,3.7vw,2.8rem);line-height:1.1;margin:0 0 13px;max-width:620px}.hero p{margin:0;max-width:540px;color:#f7f4ee}
-.hero-badge{border:1px solid #ffffff85;background:#ffffff1a;border-radius:999px;padding:12px 18px;white-space:nowrap;font-weight:800}
+.hero{position:relative;min-height:260px;overflow:hidden}.hero-copy{max-width:610px;position:relative;z-index:1;padding-bottom:40px}.hero-visual{width:260px;min-width:200px;filter:drop-shadow(0 15px 10px #0006);z-index:1}.hero-visual svg{display:block;width:100%}.hero-badge{position:absolute;bottom:15px;left:38px;z-index:2}@media(max-width:760px){.hero{display:block}.hero-copy{padding-bottom:8px}.hero-visual{width:190px;min-width:0;margin:0 auto}.hero-badge{position:static;margin-top:10px}}.hero-badge{border:1px solid #ffffff85;background:#ffffff1a;border-radius:999px;padding:12px 18px;white-space:nowrap;font-weight:800}
 .wizard{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin:20px 0}
 .wizard button{border:0;background:#e6e2da;color:#77766f;font-weight:800;border-radius:11px;font-size:.79rem;padding:13px 6px;min-height:57px}
 .wizard button.active{background:#38443c;color:white}.wizard button.done{background:#d9e2d8;color:#2f5c43}
@@ -86,10 +86,10 @@ footer{text-align:center;color:#8c8b85;font-size:.79rem;margin:25px 0;padding:10
 <body>
 <header><div class="header-inner"><a class="go-back" href="configurateurs.html">← Retour aux configurateurs</a><div class="wordmark">studio<em>one</em></div></div></header>
 <main>
-<div class="hero"><div><h1>Randal STUDIO ONE<br>Votre meuble en 3 min</h1><p>STUDIO ONE : des meubles de salle de bains ajustés au centimètre, huit finitions et quatre modèles. Composez votre meuble et retrouvez la référence fabricant et le tarif C1.</p></div><div class="hero-badge">Configurateur · Phase 1</div></div>
+<div class="hero"><div class="hero-copy"><h1>Randal STUDIO ONE<br>Votre meuble en 3 min</h1><p>STUDIO ONE : des meubles de salle de bains ajustés au centimètre, huit finitions et quatre modèles. Composez votre meuble et retrouvez la référence fabricant et le tarif C1.</p></div><div class="hero-visual" aria-label="Meuble Studio One à tiroirs 45 degrés"><svg viewBox="0 0 330 320" role="img" aria-label="Meuble deux tiroirs à coupe d'onglet"><defs><linearGradient id="wood" x1="0" x2="1"><stop stop-color="#dfbd98"/><stop offset=".5" stop-color="#c7a27b"/><stop offset="1" stop-color="#ab7d56"/></linearGradient></defs><ellipse cx="169" cy="293" rx="124" ry="12" fill="#000" opacity=".15"/><path d="M55 93 L278 66 L298 83 L298 258 L278 276 L55 279Z" fill="#89694e"/><path d="M55 93 L278 66 L298 83 L76 109Z" fill="#f1ece6"/><path d="M278 66 L298 83 L298 258 L278 276Z" fill="#987451"/><path d="M55 93 H278 V278 H55Z" fill="url(#wood)"/><path d="M56 96 H277 L266 109 H56Z" fill="#f1dec8"/><path d="M56 181 H277 L265 194 H56Z" fill="#f5e5d3"/><path d="M56 184 H277" stroke="#856849"/><path d="M61 113 V178 M61 197 V271 M130 111 V175 M190 111 V175 M247 111 V175 M130 198 V271 M190 198 V271 M247 198 V271" stroke="#73573c" stroke-opacity=".21" stroke-width="2"/></svg></div><div class="hero-badge">Configurateur sur mesure</div></div>
 <div id="wizard" class="wizard" aria-label="Étapes du configurateur"></div>
 <section class="panel" id="panel" aria-live="polite"></section>
-</main><footer>LE ROY FACTORY · STUDIO ONE · Tarifs C1 du 25/09/2026 · Visualisation 3D prévue dans une prochaine étape.</footer>
+</main><footer>LE ROY FACTORY · STUDIO ONE · Tarifs C1 du 25/09/2026 · Visualisation 3D accessible au récapitulatif.</footer>
 <script>
 (function(){
 'use strict';
@@ -145,11 +145,11 @@ function drawer(n,realHeight){
    var sep=y+a*svgHeight/n;
    drawers+='<path d="M'+(x+3)+' '+sep+' H'+(x+svgWidth-3)+'" stroke="#635f59" stroke-width="2.2"/>';
  }
- var face='<rect x="'+x+'" y="'+y+'" width="'+svgWidth+'" height="'+svgHeight+'" rx="1.8" fill="#dad9d1" stroke="#62635b" stroke-width="2.2"/>';
+ var face='<rect x="'+x+'" y="'+y+'" width="'+svgWidth+'" height="'+svgHeight+'" rx="1.8" fill="#d8c7b0" stroke="#62635b" stroke-width="2.2"/>';var mitres=Array.from({length:n},function(_,i){var v=y+i*svgHeight/n+3;return '<path d="M'+(x+3)+' '+(v+7)+' L'+(x+12)+' '+v+' H'+(x+svgWidth-3)+' L'+(x+svgWidth-11)+' '+(v+7)+' Z" fill="#f1e4d1" stroke="#b9a58e" stroke-width=".7"/>'}).join('');
  return '<span class="drawer" aria-hidden="true"><svg viewBox="0 0 140 155" focusable="false">'+
  '<path d="M'+x+' '+y+' L'+(x+z)+' '+(y-6)+' H'+(x+svgWidth+z)+' L'+(x+svgWidth)+' '+y+' Z" fill="#f1eee6" stroke="#75766e" stroke-width="2"/>'+
  '<path d="M'+(x+svgWidth)+' '+y+' L'+(x+svgWidth+z)+' '+(y-6)+' V'+(y+svgHeight-5)+' L'+(x+svgWidth)+' '+(y+svgHeight)+' Z" fill="#b7b6ac" stroke="#74736a" stroke-width="1.7"/>'+
- face+drawers+'<path d="M'+(x+4)+' '+(y+4)+' H'+(x+svgWidth-5)+'" stroke="#f8f7f2" stroke-width="2"/>'+
+ face+drawers+mitres+'<path d="M'+(x+4)+' '+(y+4)+' H'+(x+svgWidth-5)+'" stroke="#f5e5d2" stroke-width="4"/>'+
  '</svg></span>';
 }
 function swatch(co){
@@ -209,9 +209,9 @@ function render(){
      '<tr><td>Colonne assortie</td><td>'+(st.column?'14177 '+esc(color().code)+' · 177 € C1':'Non')+'</td></tr>'+
      '<tr><td>Quantité</td><td>'+esc(st.quantity)+'</td></tr></tbody></table>';
    h+='<div class="total"><div>Montant indicatif C1 · hors vasque éventuelle</div><strong>'+euros(total())+'</strong><div class="sub">Prix catégorie C1 du document fournisseur, sans indication HT/TTC.</div></div>';
-   h+='<div class="recap-tools"><button class="btn" id="copy">Copier le récapitulatif</button><button class="btn" id="print">Imprimer</button><button class="btn primary" id="email">Préparer une demande par e-mail</button></div>';
+   h+='<div class="recap-tools"><button class="btn primary" id="preview3d">◈ Voir mon meuble en 3D</button><button class="btn" id="copy">Copier le récapitulatif</button><button class="btn" id="print">Imprimer</button><button class="btn primary" id="email">Préparer une demande par e-mail</button></div>';
    if(widthVal(st.width)===40)h+='<div class="warning">Largeur 40 cm : à confirmer avec Randal (référentiel 41–60 cm ; flyer 40–60 cm).</div>';
-   h+='<p class="note">Le bouton e-mail ouvre la messagerie : aucun message n’est envoyé automatiquement. La partie 3D sera ajoutée après validation de ce configurateur.</p>';
+   h+='<p class="note">Le bouton e-mail ouvre la messagerie : aucun message n’est envoyé automatiquement. La vue 3D permet de visualiser les proportions et l’ouverture des tiroirs.</p>';
  }
  if(st.step>0)h+='<div class="actions">'+(st.step<5?'<button class="btn primary" id="next">Continuer →</button>':'<button class="btn" id="restart">Recommencer</button>')+'</div>';
  panel.innerHTML=h;
@@ -250,6 +250,7 @@ function render(){
     st.step+=1;save();render();window.scrollTo({top:0,behavior:'smooth'});
  };
  var restart=document.getElementById('restart');if(restart)restart.onclick=function(){if(confirm('Recommencer une nouvelle composition ?')){st=Object.assign({},initial);save();render();window.scrollTo(0,0)}};
+ var preview=document.getElementById('preview3d');if(preview)preview.onclick=function(){var v=new URLSearchParams({model:m.name,width:st.width,height:String(m.height),drawers:String(m.drawers),color:color().name,code:color().code,option:st.option,ref:ref(),price:String(p)});window.location.href='randal-studio-one-3d.html?'+v.toString()};
  var copy=document.getElementById('copy');if(copy)copy.onclick=function(){var text=recapText();if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(text).then(function(){copy.textContent='Récapitulatif copié ✓'}).catch(function(){prompt('Copiez le récapitulatif :',text)})}else prompt('Copiez le récapitulatif :',text)};
  var print=document.getElementById('print');if(print)print.onclick=function(){window.print()};
  var mail=document.getElementById('email');if(mail)mail.onclick=function(){var subject='Demande STUDIO ONE - '+m.name+' - '+st.width+' cm - '+ref();window.location.href='mailto:juancarlos.segura@randal.group?cc='+encodeURIComponent('jerome@leroyfactory.fr,coryne@leroyfactory.fr')+'&subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(recapText())};
