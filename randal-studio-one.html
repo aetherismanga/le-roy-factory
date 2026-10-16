@@ -389,6 +389,21 @@ function studioModelPreview(){
  '<path d="M26 '+y+' l13 -10 h180 l-13 10Z" fill="'+sideColor+'" opacity=".9"/>'+
  '<text x="130" y="210" font-size="12" text-anchor="middle" fill="#696c65">'+esc(st.width)+' × '+String(m.height).replace('.',',')+' × 46 cm</text></svg>';
 }
+
+function studioColumnPreview(){
+ var co=color(),front=co.solid||co.wood?.[0]||'#bcaa95';
+ var file={ROBLE:'assets/img/studio-one/roble.webp',ALBA:'assets/img/studio-one/serenade-alba.webp',NOGAL:'assets/img/studio-one/nogal-valentina.webp'}[co.code];
+ var fill=file?'url(#studioColWood)':front;
+ var defs=file?'<defs><pattern id="studioColWood" patternUnits="userSpaceOnUse" width="160" height="160"><image href="'+file+'" width="160" height="160"/></pattern></defs>':'';
+ return '<svg viewBox="0 0 180 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schéma indicatif de la colonne assortie 132 x 38 x 27 cm">'+defs+
+ '<ellipse cx="94" cy="195" rx="59" ry="5" fill="#59504a" opacity=".12"/>'+
+ '<path d="M45 18 h73 l10 -8 v177 l-10 7 H45Z" fill="'+front+'" stroke="#65584b66"/>'+
+ '<rect x="45" y="18" width="73" height="83" fill="'+fill+'" stroke="#5f5a5380"/>'+
+ '<rect x="45" y="103" width="73" height="84" fill="'+fill+'" stroke="#5f5a5380"/>'+
+ '<rect x="108" y="79" width="2.8" height="14" rx="1" fill="#746e68"/>'+
+ '<rect x="108" y="110" width="2.8" height="14" rx="1" fill="#746e68"/>'+
+ '<text x="89" y="208" font-family="sans-serif" text-anchor="middle" font-size="10" fill="#767369">Illustration indicative</text></svg>';
+}
 function studioVisualSummary(){
  var m=data(),co=color(),sink=selectedSink();
  var sinkImg=sink?('assets/img/randal/accessories/'+
@@ -401,7 +416,7 @@ function studioVisualSummary(){
  '<div class="studio-preview-caption"><strong>'+(sink?esc(sink.name)+(sink.layout==='double'?' · double vasque':''):'Sans vasque')+'</strong>'+
  '<small>'+(sink?esc(sink.finish)+' · Réf. '+esc(sink.ref):'Non sélectionnée')+'</small></div></div>';
  var colonne='<div class="studio-preview-card"><div class="studio-preview-art'+(st.column?'':' is-blank')+'">'+
- (st.column?'<img src="assets/img/randal/types/harmony-colonne.webp" alt="Illustration indicative de colonne RANDAL">':'Sans colonne')+'</div>'+
+ (st.column?studioColumnPreview():'Sans colonne')+'</div>'+
  '<div class="studio-preview-caption"><strong>'+(st.column?'Colonne assortie':'Sans colonne')+'</strong>'+
  '<small>'+(st.column?'132 × 38 × 27 cm · Réf. 14177 '+esc(co.code):'Non sélectionnée')+'</small></div></div>';
  var miroir='<div class="studio-preview-card"><div class="studio-preview-art is-blank">Sans miroir</div>'+
