@@ -66,6 +66,39 @@ aside{grid-column:2;grid-row:1 / span 4}.surface-picker,.finish-picker{backgroun
 .studio-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.studio-actions>button{min-height:47px;font-size:.82rem;border-radius:10px}.studio-actions>.actions-row{display:contents}.studio-actions>.actions-row button{min-height:47px;min-width:0;font-size:.76rem;padding:7px}
 @media(min-width:900px){main{max-width:1600px;grid-template-columns:minmax(0,1fr) 300px}.studio-head{max-width:1600px}.stage{height:min(80vh,950px);min-height:620px}.stage:fullscreen,.stage:-webkit-full-screen{width:100vw!important;height:100dvh!important;min-height:0!important;max-height:none!important;border-radius:0!important}}
 @media(max-width:680px){.studio-editor-bar{top:67px;left:8px;right:8px;gap:5px}.studio-editor-bar button{padding:8px 5px;font-size:.72rem}.studio-obj-menu{top:114px;left:8px;right:8px;width:auto;max-height:50dvh}.studio-canvas-hint{display:none}.studio-actions{grid-template-columns:1fr 1fr}.studio-actions>button{grid-column:1/-1}#stage:fullscreen .studio-editor-bar{top:67px}#stage:fullscreen .studio-obj-menu{top:114px}}
+
+/* Éditeur 3D 2026 : commandes compactes, pleine largeur PC et surfaces tactiles. */
+@media(min-width:900px){
+ body:has(.stage:fullscreen) header,body:has(.stage:-webkit-full-screen) header{display:none}
+ .stage:fullscreen,.stage:-webkit-full-screen{position:fixed!important;inset:0!important;z-index:2147482000!important;max-width:none!important;max-height:none!important;min-width:0!important;min-height:0!important;padding:0!important;margin:0!important}
+ .stage:fullscreen .toolbar,.stage:-webkit-full-screen .toolbar{top:15px;left:18px;right:18px;display:flex;align-items:center;gap:9px}
+ .stage:fullscreen .toolbar button,.stage:-webkit-full-screen .toolbar button{font-size:13px;min-height:42px;padding:10px 13px}
+ .stage:fullscreen #fullscreen,.stage:-webkit-full-screen #fullscreen{margin-left:auto}
+ .stage:fullscreen .studio-editor-bar,.stage:-webkit-full-screen .studio-editor-bar{top:70px;left:18px;right:auto;display:flex}
+ .stage:fullscreen .studio-obj-menu,.stage:-webkit-full-screen .studio-obj-menu{top:119px;left:18px;width:min(340px,28vw);max-height:calc(100dvh - 225px)}
+ .stage:fullscreen .studio-materials,.stage:-webkit-full-screen .studio-materials{left:50%;right:auto;transform:translateX(-50%);width:min(730px,calc(100% - 36px));bottom:18px}
+ .stage:fullscreen .studio-canvas-hint,.stage:-webkit-full-screen .studio-canvas-hint{top:23px;right:240px;font-size:.75rem}
+}
+.studio-editor-bar{max-width:calc(100% - 24px);flex-wrap:wrap}
+.studio-editor-bar button{min-height:38px!important;padding:7px 12px!important;border:1px solid #c7d2c8!important;border-radius:11px!important;white-space:nowrap}
+.studio-obj-menu{background:rgba(250,249,245,.91);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.studio-obj-menu label{margin:7px 0 4px}.studio-obj-menu select,.studio-obj-menu input{min-height:37px}
+.studio-editor-buttons button{min-height:39px}
+.studio-actions{display:flex!important;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px;margin:10px 0 12px}
+.studio-actions>button,.studio-actions .actions-row button{font-size:.83rem!important;min-height:41px!important;width:auto!important;max-width:235px;padding:8px 15px!important;grid-column:auto!important}
+.studio-actions>.actions-row{display:flex!important;gap:8px}
+.studio-actions>.secondary-actions{display:none!important}
+@media(max-width:680px){
+ .studio-editor-bar{top:63px;left:9px;right:9px;gap:6px}
+ .studio-editor-bar button{font-size:.7rem!important;padding:7px 9px!important;min-height:37px!important}
+ .studio-obj-menu{top:110px;max-height:min(48dvh,420px)}
+ .studio-actions{display:grid!important;grid-template-columns:1fr 1fr;gap:7px}
+ .studio-actions>button{grid-column:1/-1!important;max-width:none;width:100%!important}
+ .studio-actions>.actions-row{grid-column:1/-1}
+ .studio-actions .actions-row button{flex:1;max-width:none;min-width:0;padding:9px 6px!important}
+ .stage:fullscreen .studio-editor-bar,.stage:-webkit-full-screen .studio-editor-bar{top:67px;left:8px;right:8px}
+ .stage:fullscreen .studio-obj-menu,.stage:-webkit-full-screen .studio-obj-menu{top:111px}
+}
 </style></head><body>
 <header class="studio-head"><span class="eyebrow">RANDAL · VISUALISATION</span><strong>Votre salle de bain</strong><div class="logo">studio<em>one</em></div></header>
 <main><section class="stage" id="stage" aria-label="Vue 3D interactive de votre meuble Studio One">
@@ -580,7 +613,7 @@ document.getElementById('studio-invert').onclick=function(){reverseOrbit=!revers
 function hitObject(e){
  var r=canvas.getBoundingClientRect(),p=new THREE.Vector2((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);
  objectRay.setFromCamera(p,camera);
- var hit=objectRay.intersectObjects([body,studioColumn,mirrorRoot].concat(extraFurniture,columnCopies,mirrorCopies).filter(function(o){return o.visible}),true)[0];if(!hit)return null;
+ var hit=objectRay.intersectObjects([body,studioColumn,mirrorRoot,basinGroup].concat(extraFurniture,columnCopies,mirrorCopies).filter(function(o){return o&&o.visible}),true)[0];if(!hit)return null;
  for(var o=hit.object;o;o=o.parent){
   if(o===mirrorRoot||mirrorCopies.includes(o))return{kind:'miroir',object:o};
   if(o===basinGroup)return{kind:'vasque',object:body};
@@ -593,8 +626,8 @@ function moveSelected(sel,dx,dy){
  var obj=sel.object,old=obj.position.clone(),scale=dist/Math.max(350,stage.clientWidth)*1.55;
  obj.position.x=clamp(obj.position.x+dx*scale,-2.4,2.4);
  if(sel.kind==='miroir')obj.position.y=clamp(obj.position.y-dy*scale,.65,2.5);
- if(sel.kind==='colonne')obj.position.y=clamp(obj.position.y-dy*scale,0,1.1);
- if(sel.kind==='meuble'&&height!==91)obj.position.y=clamp(obj.position.y-dy*scale,-.35,.9);
+ // Colonnes et meubles restent à leur hauteur de montage ; déplacement latéral uniquement.
+ // Le miroir conserve un réglage vertical contrôlé.
  if(sel.kind==='meuble'||sel.kind==='colonne'){
   var bounds=new THREE.Box3().setFromObject(obj);
   if([body,studioColumn].concat(extraFurniture,columnCopies).some(function(o){return o!==obj&&o.visible&&bounds.intersectsBox(new THREE.Box3().setFromObject(o))}))obj.position.copy(old);
