@@ -250,7 +250,7 @@ function showObjectMenu(kind){
  sceneMenu(({meuble:'Meuble',vasque:'Vasque',miroir:'Miroir',colonne:'Colonne'})[kind]||'Élément',panel=>{
   if(kind==='meuble'){
    sceneButton(panel,'Dupliquer la composition',()=>sceneChange({quantity:Math.min(9,Number(current.quantity||1)+1)}));
-   if(current.widths?.length)sceneSelect(panel,'Format',current.widths.map(w=>[String(w),w+' cm']),String(current.width),v=>sceneChange({width:Number(v)}));
+   if(current.kind!=='column'&&current.widths?.length)sceneSelect(panel,'Format',current.widths.map(w=>[String(w),w+' cm']),String(current.width),v=>sceneChange({width:Number(v)}));
    if(current.finishes?.length)sceneSelect(panel,'Finition',current.finishes.map(x=>[x,x]),current.color,v=>sceneChange({color:v}));
   }
   if(kind==='colonne'){
@@ -896,7 +896,13 @@ function buildScene(config){
  mirror(config,width,height+floatingHeight);
  const mirrorGroup=new THREE.Group();mirrorGroup.userData.randalKind='miroir';
  for(const part of scene.children.slice(mirrorStart)){scene.remove(part);mirrorGroup.add(part)}
- if(mirrorGroup.children.length){scene.add(mirrorGroup);mirrorScenePieces=[mirrorGroup]}
+ if(mirrorGroup.children.length){
+ scene.add(mirrorGroup);mirrorScenePieces=[mirrorGroup];
+ for(let k=1;k<Math.min(3,Number(config.mirrorQuantity||1));k++){
+  const copy=mirrorGroup.clone(true);copy.userData.randalKind='miroir';copy.position.x=k*.78;
+  scene.add(copy);mirrorScenePieces.push(copy);
+ }
+}
  extraColumn=null;
  if(config.columnAccessory&&config.columnAvailable&&!isColumn){
   extraColumn=new THREE.Group();extraColumn.userData.randalKind='colonne';
