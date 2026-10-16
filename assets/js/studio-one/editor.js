@@ -63,7 +63,7 @@
   $('add-cabinet').onclick=()=>{store.add('cabinet');applyAll=false;view?.fit();};$('add-column').onclick=()=>{store.add('column',{finish:store.selected?.finish||'ROBLE'});applyAll=false;view?.fit();};$('add-mirror').onclick=()=>{store.add('mirror');view?.fit();};
   $('open-all').onclick=()=>store.openAll(store.project.items.some(i=>i.kind!=='mirror'&&!i.open));
   $('dimensions').onclick=()=>{if(view){view.dimensionsVisible=!view.dimensionsVisible;view.drawDimensions();$('dimensions').setAttribute('aria-pressed',String(view.dimensionsVisible));}};
-  $('reset').onclick=()=>view?.fit();$('front').onclick=()=>view?.fit(true);$('invert').onclick=()=>{if(view){view.reverse=!view.reverse;$('invert').setAttribute('aria-pressed',String(view.reverse));}};
+  $('reset').onclick=()=>view?.fit();$('front').onclick=()=>view?.fit(true);$('invert').checked=true;$('invert').onchange=()=>{if(view)view.reverse=$('invert').checked;};
   function fullscreenState(){const active=!!document.fullscreenElement||app.classList.contains('is-fullscreen');$('fullscreen').textContent=active?'✕ Quitter':'⛶ Plein écran';$('fullscreen').setAttribute('aria-pressed',String(active));requestAnimationFrame(()=>{view?.resize();view?.fit();});}
   $('fullscreen').onclick=async()=>{if(document.fullscreenElement)await document.exitFullscreen();else if(app.classList.contains('is-fullscreen'))app.classList.remove('is-fullscreen');else{try{if(!app.requestFullscreen)throw Error();await app.requestFullscreen();}catch(e){app.classList.add('is-fullscreen');}}fullscreenState();};document.addEventListener('fullscreenchange',fullscreenState);document.addEventListener('keydown',e=>{if(e.key==='Escape'&&app.classList.contains('is-fullscreen')){app.classList.remove('is-fullscreen');fullscreenState();}});
   $('undo').onclick=()=>{store.undo();view?.fit();};$('redo').onclick=()=>{store.redo();view?.fit();};
@@ -174,6 +174,10 @@
       'la disposition des éléments, les étagères et le sens d’ouverture de la colonne.',
       'N’ajoute ni tiroir, ni poignée, ni porte, ni étagère, ni robinetterie inexistante dans la vue 3D.',
       'Ne modifie pas les références, couleurs, formats ou sens de pose des carrelages.',
+      'Si une porte est ouverte dans la vue 3D, conserve-la ouverte sur toute sa hauteur.',
+      'Les façades des tiroirs doivent être strictement identiques à la vue 3D :',
+      'aucune diagonale, découpe, moulure, poignée ou ligne décorative inventée.',
+      'Conserve la hauteur de suspension exacte : un meuble suspendu ne doit pas toucher le sol.',
       'DÉCORATION LÉGÈRE AUTORISÉE : une plante discrète, une serviette ou un petit accessoire',
       'peuvent rendre la pièce vivante, mais ne doivent jamais cacher ou modifier les produits.',
       'Évite les grandes fenêtres, tapis, accessoires nombreux et mises en scène fantaisistes.',
