@@ -168,7 +168,16 @@
     }
     out.push('Rendu : salle de bains contemporaine crédible, reflets naturels du miroir,',
       'ombres douces, lumière du jour, textures réalistes, joints de carrelage précis.',
-      'Ne pas ajouter de meuble, de robinetterie ou de décoration qui cacherait la composition.',
+      'FIDÉLITÉ PRODUIT OBLIGATOIRE : aucune invention ni transformation des produits RANDAL.',
+      'Respecte exactement le nombre de tiroirs, les lignes des façades, la géométrie du meuble,',
+      'la forme et la couleur de la vasque, le cadre du miroir, les finitions, les proportions,',
+      'la disposition des éléments, les étagères et le sens d’ouverture de la colonne.',
+      'N’ajoute ni tiroir, ni poignée, ni porte, ni étagère, ni robinetterie inexistante dans la vue 3D.',
+      'Ne modifie pas les références, couleurs, formats ou sens de pose des carrelages.',
+      'DÉCORATION LÉGÈRE AUTORISÉE : une plante discrète, une serviette ou un petit accessoire',
+      'peuvent rendre la pièce vivante, mais ne doivent jamais cacher ou modifier les produits.',
+      'Évite les grandes fenêtres, tapis, accessoires nombreux et mises en scène fantaisistes.',
+      'Si la vue 3D est simplifiée, conserve sa géométrie plutôt que d’inventer des détails.',
       'Ce visuel est une illustration d’ambiance et non un plan technique contractuel.');
     return out.join('\n');
   }
