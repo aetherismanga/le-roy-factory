@@ -70,7 +70,8 @@
   function download(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),15000);}
   function captureViews(){
     if(!view)throw Error('Vue 3D indisponible.');
-    const old={yaw:view.yaw,pitch:view.pitch,distance:view.distance,target:view.target.clone(),dimensions:view.dimensionsVisible};
+    const old={yaw:view.yaw,pitch:view.pitch,distance:view.distance,target:view.target.clone(),dimensions:view.dimensionsVisible,selectedId:store.selectedId};
+    if(store.selectedId)store.select(null);
     const result=[];
     try{
       for(const angle of [{name:'Face',yaw:0},{name:'Côté',yaw:Math.PI/2}]){
@@ -83,7 +84,7 @@
         }
       }
     }finally{
-      view.yaw=old.yaw;view.pitch=old.pitch;view.distance=old.distance;view.target.copy(old.target);view.dimensionsVisible=old.dimensions;view.drawDimensions();
+      view.yaw=old.yaw;view.pitch=old.pitch;view.distance=old.distance;view.target.copy(old.target);view.dimensionsVisible=old.dimensions;if(old.selectedId)store.select(old.selectedId);view.drawDimensions();
     }
     return result;
   }
