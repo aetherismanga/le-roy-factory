@@ -267,7 +267,7 @@ var VESSEL_COLORS=[
  {code:'pink',name:'Rose Nadir',hex:'#c6a397',Neris:'9566',Torne:'9558'},
  {code:'blue',name:'Bleu Kivu',hex:'#123755',Neris:'9565',Torne:'9557'}
 ];
-var initial={step:0,model:-1,width:'',option:'top',color:'',column:false,quantity:1,vessel:false,sinkModel:'Neris',sinkColor:'gloss',sinkLayout:'single',contact:''};
+var initial={step:0,model:-1,width:'',option:'top',color:'',column:false,quantity:1,vessel:false,sinkModel:'Neris',sinkColor:'gloss',sinkLayout:'single',mirror:'Sans miroir',mirrorSize:'',mirrorQty:1,extraCabinets:0,columnQty:1,sinkQty:1,contact:''};
 var st=Object.assign({},initial);
 var panel=document.getElementById('panel'),wizard=document.getElementById('wizard');
 function el(s){return document.createElement('div')}
@@ -295,10 +295,28 @@ function selectedSink(){
  if(st.sinkModel==='Neris'&&widthVal(st.width)<50)return null;
  return {name:st.sinkModel,finish:finish.name,ref:finish[st.sinkModel],price:113,type:'À poser',layout:'single'};
 }
-function total(){var p=price(),sink=selectedSink();return p===null?null:(p+(st.column?177:0)+(sink?sink.price:0))*Number(st.quantity||1)}
+// Miroirs RANDAL : tarif public catalogue, à confirmer par usine (distinct du tarif C1 meuble).
+var MIRROR_OPTIONS={
+ Basic:[['60 × 80 cm','10129',59],['70 × 60 cm','12449',55],['100 × 60 cm','11054',71],['120 × 60 cm','10130',78]],
+ 'Zen LED':[['60 × 80 cm','11713',184],['80 × 80 cm','11533',205],['100 × 80 cm','11714',229],['120 × 80 cm','11523',263]],
+ 'Ilse LED':[['60 × 80 cm','12743',389],['80 × 80 cm','12744',434],['100 × 80 cm','12745',481],['120 × 80 cm','12746',533]],
+ 'Cápsula LED':[['45 × 90 cm','12741',347]],
+ 'Miroir métallique rectangulaire':[['80 × 60 cm','3731',215],['120 × 75 cm','10572',340]],
+ 'Miroir métallique rond':[['Ø 60 cm','3717',162]]
+};
+function mirrorChoice(){return (MIRROR_OPTIONS[st.mirror]||[]).find(function(x){return x[0]===st.mirrorSize})||null}
+function total(){
+ var p=price(),sink=selectedSink(),m=mirrorChoice(),qty=Number(st.quantity||1);
+ if(p===null)return null;
+ var row=p*(1+Number(st.extraCabinets||0))+(st.column?177*Number(st.columnQty||1):0)+
+  (sink?sink.price*Number(st.sinkQty||1):0)+(m?m[2]*Number(st.mirrorQty||1):0);
+ return row*qty;
+}
 function sinkDescription(){var sink=selectedSink();return sink?sink.type+' '+sink.name+(sink.layout==='double'?' · double':'')+' · '+sink.finish+' · réf. '+sink.ref:'Sans vasque'}
 function ref(){var m=data(),co=color(),i=idx();return m&&co&&i>=0?(isTop()?m.top:m.base)+' '+sizes[i].ref+'@'+co.code:''}
 function normalize(){
+ st.extraCabinets=Math.max(0,Math.min(2,Number(st.extraCabinets)||0));st.columnQty=Math.max(1,Math.min(3,Number(st.columnQty)||1));st.sinkQty=Math.max(1,Math.min(2,Number(st.sinkQty)||1));st.mirrorQty=Math.max(1,Math.min(3,Number(st.mirrorQty)||1));
+ if(!MIRROR_OPTIONS[st.mirror]){st.mirror='Sans miroir';st.mirrorSize=''}else if(!mirrorChoice())st.mirrorSize=MIRROR_OPTIONS[st.mirror][0][0];
  // La vasque intégrée requiert un format réellement proposé au catalogue (110 cm absent).
  if(st.option==='basin'&&!basinAvailable())st.option='top';
  if(!isTop())st.vessel=false;
