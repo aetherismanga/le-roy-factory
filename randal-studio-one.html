@@ -437,6 +437,38 @@ function studioOrderSheet(){
  '<div class="studio-recap-total"><span>TOTAL GÉNÉRAL</span><strong>'+euros(total())+'</strong></div>'+
  '<p class="studio-recap-legal">Tarif meuble et colonne selon la catégorie C1 STUDIO ONE. Tarifs vasques professionnels calculés à -50 % du tarif public HT RANDAL V04. Prix indicatifs, hors transport et installation, sous réserve de confirmation de RANDAL. Ce document ne constitue pas une commande ferme.</p></div>';
 }
+
+var studioPdfPromise=null;
+function studioPdfApi(){
+ if(window.jspdf&&window.jspdf.jsPDF)return Promise.resolve(window.jspdf.jsPDF);
+ if(studioPdfPromise)return studioPdfPromise;
+ studioPdfPromise=new Promise(function(resolve,reject){
+  var script=document.createElement('script');
+  script.src='https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+  script.onload=function(){window.jspdf&&window.jspdf.jsPDF?resolve(window.jspdf.jsPDF):reject(new Error('Bibliothèque PDF indisponible'))};
+  script.onerror=function(){reject(new Error('Impossible de charger le générateur PDF'))};
+  document.head.appendChild(script);
+ }).catch(function(e){studioPdfPromise=null;throw e});
+ return studioPdfPromise;
+}
+function studioPdfImage(path){
+ if(!path)return Promise.resolve(null);
+ return new Promise(function(resolve){
+  var img=new Image();img.decoding='async';
+  img.onload=function(){
+   try{
+    var cv=document.createElement('canvas');
+    var scale=Math.min(1,700/Math.max(img.naturalWidth,img.naturalHeight));
+    cv.width=Math.max(1,Math.round(img.naturalWidth*scale));
+    cv.height=Math.max(1,Math.round(img.naturalHeight*scale));
+    cv.getContext('2d').drawImage(img,0,0,cv.width,cv.height);
+    resolve({data:cv.toDataURL('image/jpeg',.83),w:cv.width,h:cv.height});
+   }catch(e){resolve(null)}
+  };
+  img.onerror=function(){resolve(null)};
+  img.src=path;
+ });
+}
 function render(){
  normalize();save();
  wizard.innerHTML=names.map(function(n,i){return '<button type="button" data-step="'+i+'" aria-current="'+(i===st.step?'step':'false')+'" class="'+(i===st.step?'active':i<st.step?'done':'')+'" '+(i>st.step?'disabled':'')+'>'+n+'</button>'}).join('');
