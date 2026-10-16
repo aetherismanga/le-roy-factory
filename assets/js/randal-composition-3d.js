@@ -646,9 +646,15 @@ function buildHarmonyColumn(cabinet,w,h,d,finish,edge){
  putBox(cabinet,0,h/2,-d/2+.007,w-.032,h-.045,.013,inside);
  for(let i=0;i<2;i++){
   const cy=(i+.5)*h/2,front=d/2+.013;
-  putBox(cabinet,0,cy,front,w-.025,h/2-.009,.017,finish);
-  // Une prise de main discrète sur la jonction centrale.
-  putBox(cabinet,0,i===0?h/2-.005:h/2+.005,front+.011,w-.054,.004,.008,edge);
+  const door=putBox(cabinet,0,cy,front,w-.025,h/2-.009,.017,finish);
+  door.name='Porte_colonne_Harmony_'+(i+1);
+  // Relief d'onglet 45° de la porte haute et basse, coordonné au décor de façade.
+  const bevel=new THREE.Mesh(new THREE.BoxGeometry(w-.030,.019,.019),finish);
+  bevel.rotation.x=-Math.PI/4;
+  bevel.position.set(0,cy+h/4-.016,front+.011);
+  bevel.castShadow=true;bevel.receiveShadow=true;cabinet.add(bevel);
+  // Joint d'ombre au niveau de la prise de main entre les deux portes.
+  putBox(cabinet,0,i===0?h/2-.005:h/2+.005,front+.016,w-.051,.003,.006,edge);
  }
 }
 
