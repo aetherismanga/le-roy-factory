@@ -152,6 +152,13 @@ function showCustomize(type){
  const head=document.createElement('div');head.className='composition-options-title';
  head.textContent=type==='color'?'Finition Harmony':"Vasque et plan de toilette";
  panel.appendChild(head);
+ // Fermer le sélecteur sans quitter la visualisation 3D.
+ const closeButton=document.createElement('button');
+ closeButton.type='button';closeButton.className='composition-options-close';
+ closeButton.textContent='✕ Fermer et voir mon meuble';
+ closeButton.style.cssText='display:block;width:100%;min-height:48px;margin:12px 0;padding:12px;border:1px solid #718a77;border-radius:12px;background:#e6eee7;color:#294638;font-weight:700;cursor:pointer';
+ closeButton.onclick=()=>{panel.hidden=true;$('composition-harmony-customize')?.querySelectorAll('[data-customize]').forEach(el=>el.setAttribute('aria-expanded','false'));};
+ panel.appendChild(closeButton);
  const section=(text)=>{
   const title=document.createElement('div');title.className='composition-choice-title';title.textContent=text;panel.appendChild(title);
  };
@@ -174,8 +181,9 @@ function showCustomize(type){
   if(!updated||!active)return;
   current=updated;
   redrawCurrent();
+  // Revenir automatiquement au meuble après le choix.
   panel.hidden=true;
-  showCustomize(type);
+  $('composition-harmony-customize')?.querySelectorAll('[data-customize]').forEach(el=>el.setAttribute('aria-expanded','false'));
  };
  if(type==='color'){
   section('Choisissez une finition du catalogue');
