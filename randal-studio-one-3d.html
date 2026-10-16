@@ -51,9 +51,10 @@ aside{grid-column:2;grid-row:1 / span 4}.surface-picker,.finish-picker{backgroun
  <div id="surface-picker" class="surface-picker" hidden><div class="picker-head"><strong id="picker-title">Choix du sol</strong><button id="picker-close" aria-label="Fermer">✕</button></div><div id="picker-options" class="picker-options"></div></div>
  </section>
  <p class="gesture">Glissez pour tourner le meuble · Pincez pour zoomer</p>
- <div class="studio-actions"><button type="button" id="drawers" aria-pressed="false">Ouvrir les tiroirs</button><div class="actions-row"><button id="change-finish">Changer la finition</button><button id="front">Vue de face</button></div></div>
+ <div class="studio-actions"><button type="button" id="drawers" aria-pressed="false">Ouvrir les tiroirs</button><div class="actions-row"><button id="change-finish">Changer la finition</button><button id="change-basin">Changer la vasque</button></div><div class="actions-row secondary-actions"><button id="front">Vue de face</button><button id="reset">Réinitialiser la vue</button></div></div>
+ <div id="basin-picker" class="finish-picker" hidden><div class="picker-head"><strong>Vasque et plan</strong><button id="basin-close">✕</button></div><div id="basin-options" class="picker-options"></div><p class="note">Aperçu visuel uniquement : la référence et le prix C1 du configurateur ne changent pas.</p></div>
  <div id="finish-picker" class="finish-picker" hidden><div class="picker-head"><strong>Les 8 finitions STUDIO ONE</strong><button id="finish-close" aria-label="Fermer">✕</button></div><div id="finish-options" class="picker-options"></div></div>
- <aside><span class="eyebrow">VOTRE COMPOSITION</span><h1 id="model-title">STUDIO ONE</h1><dl id="details"></dl><h2>Votre finition</h2><div class="swatch" id="swatch"></div><p class="note">Aperçu 3D indicatif des proportions et des tiroirs à onglet 45°. Les références, dimensions et finitions du fabricant restent prioritaires.</p><button id="reset">Réinitialiser la vue</button><p><button id="back">Retour au récapitulatif</button></p></aside>
+ <aside><span class="eyebrow">VOTRE COMPOSITION</span><h1 id="model-title">STUDIO ONE</h1><dl id="details"></dl><h2>Votre finition</h2><div class="swatch" id="swatch"></div><p class="note">Aperçu 3D indicatif des proportions et des tiroirs à onglet 45°. Les références, dimensions et finitions du fabricant restent prioritaires.</p><p><button id="back">Retour au récapitulatif</button></p></aside>
 </main>
 <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
 <script>
@@ -67,6 +68,7 @@ var width=clamp(Number(val('width','80')),40,120),height=clamp(Number(val('heigh
 var drawers=clamp(Math.round(Number(val('drawers','2'))),1,3),color=val('color','White Bolero'),code=val('code','WHITE'),option=val('option','top'),ref=val('ref',''),price=val('price','');
 var finishMap={ROBLE:'#b99878',ALBA:'#c7aa91',NOGAL:'#705349',WHITE:'#e8e7e3',AZUL:'#627b85',GRIS:'#8b7f83','BISC.':'#dacec0',GREEN:'#9b9e8b'};
 var hex=finishMap[code]||'#beb2a2';
+var vesselSelected=val('vessel','false')==='true';
 var finishNames={ROBLE:'Roble Amazona',ALBA:'Serenade Alba',NOGAL:'Nogal Valentina',WHITE:'White Bolero',AZUL:'Azul Acero',GRIS:'Gris Tórtora','BISC.':'Biscuit',GREEN:'Muted Green'};
 var finishFiles={ROBLE:'roble.webp',ALBA:'serenade-alba.webp',NOGAL:'nogal-valentina.webp'};
 document.getElementById('model-title').textContent=val('model','STUDIO ONE');
@@ -161,6 +163,30 @@ for(var i=0;i<drawers;i++){
 }
 if(option==='top')box(body,w+.006,.019,d+.018,0,baseY+h+.012,0,finish);
 var backPlate=box(body,w-.04,.035,.04,0,baseY+h-.018,d/2-.012,inside);
+var basinGroup=new THREE.Group();body.add(basinGroup);
+function buildBasin(mode){
+ while(basinGroup.children.length){var ch=basinGroup.children[0];basinGroup.remove(ch);ch.geometry&&ch.geometry.dispose();}
+ if(mode==='none')return;
+ var rimY=baseY+h+.035;
+ var ceramic=material('#f7f7f2',.25);
+ if(mode==='vessel'){
+  var outer=new THREE.Mesh(new THREE.CylinderGeometry(.18,.155,.135,56,1,true),ceramic);
+  outer.position.set(0,rimY+.066,0);basinGroup.add(outer);
+  var ring=new THREE.Mesh(new THREE.TorusGeometry(.169,.013,10,60),ceramic);ring.rotation.x=Math.PI/2;ring.position.set(0,rimY+.135,0);basinGroup.add(ring);
+  var bottom=new THREE.Mesh(new THREE.CircleGeometry(.153,56),ceramic);bottom.rotation.x=-Math.PI/2;bottom.position.set(0,rimY+.011,0);basinGroup.add(bottom);
+ }else{
+  var top=new THREE.Mesh(new THREE.BoxGeometry(Math.min(w+.02,1.25),.036,d+.02),ceramic);top.position.set(0,rimY,0);basinGroup.add(top);
+  var bowl=new THREE.Mesh(new THREE.TorusGeometry(Math.min(.15,w*.23),.019,12,60),ceramic);
+  bowl.rotation.x=Math.PI/2;bowl.position.set(0,rimY+.022,0);basinGroup.add(bowl);
+ }
+}
+var sinkMode=option==='bare'?'none':option==='top'?(vesselSelected?'vessel':'none'):'integrated';
+buildBasin(sinkMode);
+var basinItems=[['none','Sans vasque'],['vessel','Vasque à poser'],['integrated','Vasque standard (visuel)']];
+var basinOptions=document.getElementById('basin-options');
+basinItems.forEach(function(item){var b=document.createElement('button');b.textContent=item[1];b.className='picker-choice';b.onclick=function(){sinkMode=item[0];buildBasin(sinkMode);document.getElementById('basin-picker').hidden=true};basinOptions.appendChild(b)});
+document.getElementById('change-basin').onclick=function(){document.getElementById('surface-picker').hidden=true;document.getElementById('finish-picker').hidden=true;document.getElementById('basin-picker').hidden=false};
+document.getElementById('basin-close').onclick=function(){document.getElementById('basin-picker').hidden=true};
 var dims=document.createElement('div');dims.style.cssText='position:absolute;bottom:65px;left:50%;transform:translateX(-50%);background:#fffefaed;color:#203028;padding:9px 15px;border-radius:9px;font:800 14px system-ui;box-shadow:0 4px 14px #0002;pointer-events:none;display:none;white-space:nowrap';dims.textContent='L '+width+' cm  ·  H '+String(height).replace('.',',')+' cm  ·  P 46 cm';stage.appendChild(dims);
 var yaw=.49,pitch=.13,dist=3.1,drag=null,opened=false,progress=0;
 function placement(){camera.position.set(Math.sin(yaw)*dist,baseY+h*.52+Math.sin(pitch)*dist*.65,Math.cos(yaw)*dist);camera.lookAt(0,baseY+h*.55,0)}
