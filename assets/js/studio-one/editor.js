@@ -22,7 +22,7 @@
       html+=detail('Modèle et dimensions',`<label>Modèle<select id="edit-model">${C.models.map((m,i)=>option(i,m.name+' · H '+m.height+' cm',item.model)).join('')}</select></label><label>Largeur exacte (cm)<input id="edit-width" type="number" inputmode="numeric" min="40" max="120" step="1" value="${item.width}"></label><div class="dimension-facts">H ${d.height} × P ${d.depth} cm · ${esc(item.facade)}</div>`);
     }else if(item.kind==='mirror'){
       html+=detail('Modèle et dimensions',`<label>Modèle de miroir<select id="edit-mirror">${Object.keys(C.mirrors).map(n=>option(n,n,item.mirror)).join('')}</select></label><label>Format du miroir<select id="edit-mirror-size">${C.mirrors[item.mirror].map(r=>option(r[0],r[0],item.mirrorSize)).join('')}</select></label>${item.mirror.includes('métallique')?`<label>Cadre<select id="edit-mirror-finish">${['Noir','Doré','Bronze','Argent'].map(n=>option(n,n,item.mirrorFinish)).join('')}</select></label>`:''}`);
-    }else html+=detail('Dimensions et porte',`<div class="dimension-facts">L 38 × H 132 × P 27 cm</div><p class="help">Une porte articulée à 90° et deux étagères intérieures. Dimensions de la colonne STUDIO ONE référencée 14177.</p>`);
+    }else html+=detail('Dimensions et porte',`<div class="dimension-facts">L 38 × H 132 × P 27 cm</div><p class="help">Une porte articulée à 90° et deux étagères intérieures. Dimensions de la colonne STUDIO ONE référencée 14177.</p><label>Sens d’ouverture de la porte<select id="edit-door-side">${option('left','Charnières à gauche · ouverture à gauche',item.doorSide||'left')}${option('right','Charnières à droite · ouverture à droite',item.doorSide||'left')}</select></label>`);
     if(item.kind!=='mirror')html+=detail('Finition du meuble',swatches(C.finishes,item.finish,'data-finish')+`<label class="check-label"><input id="apply-all" type="checkbox" ${applyAll?'checked':''}>Appliquer cette finition à toute la composition</label>`);
     if(item.kind==='cabinet'){
       const insetAllowed=[60,70,80,90,100,120].includes(item.width),surface=item.option==='top'&&item.sink?'vessel':item.option;
@@ -34,6 +34,7 @@
     if(!force)oldDetails.forEach(([name,open])=>{[...$('selected-options').querySelectorAll('details')].find(d=>d.querySelector('summary').textContent===name)?.toggleAttribute('open',open);});
     const bind=(id,fn)=>{const el=$(id);if(el)el.onchange=fn;};
     const update=patch=>store.update(item.id,patch);
+    bind('edit-door-side',e=>update({doorSide:e.target.value}));
     bind('edit-model',e=>{update({model:Number(e.target.value)});view?.fit();});
     bind('edit-width',e=>{const n=Number(e.target.value);if(!/^\d{2,3}$/.test(e.target.value)||!Number.isInteger(n)||n<40||n>120){notice('Saisissez une largeur entière de 40 à 120 cm, sans virgule.');e.target.value=item.width;return;}if(!update({width:n}))e.target.value=item.width;else view?.fit();});
     bind('apply-all',e=>applyAll=e.target.checked);
@@ -151,7 +152,7 @@
           ', '+(item.sink.layout==='double'?'double cuve':'simple cuve'):'')+' ; '+position+'.');
       }else if(item.kind==='column'){
         out.push((i+1)+'. COLONNE RANDAL STUDIO ONE : L 38 × H 132 × P 27 cm, réf. '+
-          ref+', finition '+f.name+' ('+item.finish+'), étagères et dessus assortis ; '+position+'.');
+          ref+', finition '+f.name+' ('+item.finish+'), étagères, dessus et dessous assortis, porte ouvrant à '+(item.doorSide==='right'?'droite':'gauche')+' ; '+position+'.');
       }else{
         out.push((i+1)+'. MIROIR RANDAL : '+item.mirror+', format '+item.mirrorSize+
           ', cadre '+item.mirrorFinish+', réf. '+ref+
