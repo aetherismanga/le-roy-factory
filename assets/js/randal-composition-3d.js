@@ -925,9 +925,9 @@ function buildScene(config){
   scene.add(extraColumn);
  }
  extraCabinets=[];
- if(Number(config.quantity)>1&&!isColumn){
+ if(!isColumn)for(let k=1;k<Math.min(3,Number(config.quantity||1));k++){
   const duplicate=cabinet.clone(true);duplicate.userData.randalKind='meuble';
-  duplicate.position.x=-(width+.14);scene.add(duplicate);extraCabinets.push(duplicate);
+  duplicate.position.x=-k*(width+.14);scene.add(duplicate);extraCabinets.push(duplicate);
  }
  focusBounds=new THREE.Box3().setFromObject(cabinet);
  if(extraColumn)focusBounds.expandByObject(extraColumn);
