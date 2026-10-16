@@ -68,8 +68,28 @@
   $('fullscreen').onclick=async()=>{if(document.fullscreenElement)await document.exitFullscreen();else if(app.classList.contains('is-fullscreen'))app.classList.remove('is-fullscreen');else{try{if(!app.requestFullscreen)throw Error();await app.requestFullscreen();}catch(e){app.classList.add('is-fullscreen');}}fullscreenState();};document.addEventListener('fullscreenchange',fullscreenState);document.addEventListener('keydown',e=>{if(e.key==='Escape'&&app.classList.contains('is-fullscreen')){app.classList.remove('is-fullscreen');fullscreenState();}});
   $('undo').onclick=()=>{store.undo();view?.fit();};$('redo').onclick=()=>{store.redo();view?.fit();};
   function download(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),15000);}
-  $('save-project').onclick=()=>download(new Blob([JSON.stringify(store.snapshot(),null,2)],{type:'application/json'}),'STUDIO-ONE-composition.json');
-  $('load-project').onclick=()=>$('project-file').click();$('project-file').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>200000)throw Error('Fichier trop volumineux.');store.load(JSON.parse(await file.text()));view?.fit();notice('Projet ouvert.');}catch(err){notice('Impossible d’ouvrir le projet : '+err.message);}e.target.value='';};
+  function captureViews(){
+    if(!view)throw Error('Vue 3D indisponible.');
+    const old={yaw:view.yaw,pitch:view.pitch,distance:view.distance,target:view.target.clone(),dimensions:view.dimensionsVisible};
+    const result=[];
+    try{
+      for(const angle of [{name:'Face',yaw:0},{name:'Côté',yaw:Math.PI/2}]){
+        view.fit(true);view.yaw=angle.yaw;view.pitch=.02;
+        for(const withCotes of [false,true]){
+          view.dimensionsVisible=withCotes;view.drawDimensions();
+          view.camera.position.set(view.target.x+Math.sin(view.yaw)*view.distance,view.target.y+Math.sin(view.pitch)*view.distance,view.target.z+Math.cos(view.yaw)*Math.cos(view.pitch)*view.distance);
+          view.camera.lookAt(view.target);view.renderer.render(view.scene,view.camera);
+          result.push({title:angle.name+(withCotes?' avec cotes':' sans cotes'),image:view.canvas.toDataURL('image/jpeg',.8)});
+        }
+      }
+    }finally{
+      view.yaw=old.yaw;view.pitch=old.pitch;view.distance=old.distance;view.target.copy(old.target);view.dimensionsVisible=old.dimensions;view.drawDimensions();
+    }
+    return result;
+  }
+  $('save-project').onclick=()=>{try{const project={...store.snapshot(),ambience:{...ambience},report:{views:captureViews()}};download(new Blob([JSON.stringify(project)],{type:'application/json'}),'STUDIO-ONE-dossier-3D.json');notice('Projet enregistré avec 4 vues 3D.');}catch(e){notice('Enregistrement impossible : '+e.message);}};
+
+  $('load-project').onclick=()=>$('project-file').click();$('project-file').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>16000000)throw Error('Fichier trop volumineux.');store.load(JSON.parse(await file.text()));view?.fit();notice('Projet ouvert.');}catch(err){notice('Impossible d’ouvrir le projet : '+err.message);}e.target.value='';};
   $('new-project').onclick=()=>{if(confirm('Créer une nouvelle composition ? Enregistrez votre projet pour le conserver.')){store.load({version:2,items:[M.make('cabinet')]});view?.fit();}};
   const tileCollections=[
     {factory:'elios',id:'creta',name:'Creta',size:[60,60],colors:['Ginepro','Zucchero','Avena','Biscotto','Caramello','Matcha','Malto','Pepe'],surfaces:['floor','wall']},
