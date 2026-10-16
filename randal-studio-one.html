@@ -365,6 +365,49 @@ function sinkChooser(){
 }
 function optionsHead(title,hint){return '<h2>'+title+'</h2><p class="hint">'+hint+'</p>'}
 function widthInfo(){var i=idx();if(i<0)return !String(st.width).trim()?'<p class="details">Renseignez la largeur de votre meuble pour afficher la tranche et le prix.</p>':'<div class="error" role="alert">Saisissez une largeur entière entre 40 et 120 cm.</div>';var extra=widthVal(st.width)===40?'<div class="warning">40 cm figure dans le flyer, mais le référentiel Randal commence à 41 cm : cette dimension sera à confirmer au fabricant.</div>':'';return '<div class="price-card"><strong>Votre largeur : '+esc(st.width)+' cm</strong><div>Tranche tarifaire : <b>'+sizes[i].label+'</b> · Code format Randal : <b>'+sizes[i].ref+'</b></div><div class="details">Saisie par pas de 1 cm. Prix identique à l’intérieur d’une tranche.</div></div>'+extra}
+
+function studioModelPreview(){
+ var m=data(),co=color(),h=Math.round(m.height*1.22),y=175-h,n=m.drawers;
+ var sideColor=co.solid||co.wood[2],faceColor=co.solid||co.wood[0];
+ var woodFile={ROBLE:'assets/img/studio-one/roble.webp',ALBA:'assets/img/studio-one/serenade-alba.webp',NOGAL:'assets/img/studio-one/nogal-valentina.webp'}[co.code];
+ var imgId='studio-wood-'+co.code.replace(/[^A-Z]/g,'');
+ var defs=woodFile?'<defs><pattern id="'+imgId+'" patternUnits="userSpaceOnUse" width="180" height="180"><image href="'+woodFile+'" x="0" y="0" width="180" height="180" preserveAspectRatio="xMidYMid slice"/></pattern></defs>':'';
+ var fill=woodFile?'url(#'+imgId+')':faceColor;
+ var fronts='';
+ for(var i=0;i<n;i++){
+  var rowY=y+i*h/n,dy=h/n;
+  fronts+='<rect x="26" y="'+(rowY+1.8)+'" width="180" height="'+(dy-3.8)+'" fill="'+fill+'" stroke="#413f3930" stroke-width="1"/>'+
+  '<path d="M27 '+(rowY+7)+' l7 -5 h170 l-7 5Z" fill="#fff" opacity=".22"/>'+
+  '<path d="M26 '+(rowY+dy-1)+' h180" stroke="#4b443e88" stroke-width="1.1"/>';
+ }
+ var top=st.option==='top'?'<path d="M24 '+(y-5)+' h186 v6 H24Z" fill="'+fill+'" stroke="#66645e77"/>':
+ st.option==='basin'?'<path d="M24 '+(y-5)+' h186 v6 H24Z" fill="#f8f8f5" stroke="#b4b5b1"/>':'';
+ return '<svg viewBox="0 0 265 215" role="img" aria-label="Meuble STUDIO ONE '+esc(m.name)+' en '+esc(co.name)+'" xmlns="http://www.w3.org/2000/svg">'+defs+
+ '<ellipse cx="128" cy="187" rx="109" ry="7" fill="#524940" opacity=".10"/>'+
+ '<path d="M206 '+y+' l13 -10 v'+h+' l-13 10Z" fill="'+sideColor+'" stroke="#79726855"/>'+
+ fronts+top+
+ '<path d="M26 '+y+' l13 -10 h180 l-13 10Z" fill="'+sideColor+'" opacity=".9"/>'+
+ '<text x="130" y="210" font-size="12" text-anchor="middle" fill="#696c65">'+esc(st.width)+' × '+String(m.height).replace('.',',')+' × 46 cm</text></svg>';
+}
+function studioVisualSummary(){
+ var m=data(),co=color(),sink=selectedSink();
+ var sinkImg=sink?('assets/img/randal/accessories/'+
+ (sink.layout==='double'&&['Sella','Tampa'].includes(sink.name)?'basin-'+sink.name.toLowerCase()+'-double.webp':'hd/basin-'+sink.name.toLowerCase()+'.webp')):'';
+ var meuble='<div class="studio-preview-card"><div class="studio-preview-art">'+studioModelPreview()+'</div>'+
+ '<div class="studio-preview-caption"><strong>STUDIO ONE · '+esc(m.name)+'</strong><small>Sur mesure · '+esc(st.width)+' cm</small>'+
+ '<div class="studio-preview-finish">'+swatch(co)+'<span>'+esc(co.name)+'</span></div></div></div>';
+ var vasque='<div class="studio-preview-card"><div class="studio-preview-art'+(sink?'':' is-blank')+'">'+
+ (sink?'<img src="'+esc(sinkImg)+'" alt="Vasque RANDAL '+esc(sink.name)+'" loading="lazy">':'Sans vasque')+'</div>'+
+ '<div class="studio-preview-caption"><strong>'+(sink?esc(sink.name)+(sink.layout==='double'?' · double vasque':''):'Sans vasque')+'</strong>'+
+ '<small>'+(sink?esc(sink.finish)+' · Réf. '+esc(sink.ref):'Non sélectionnée')+'</small></div></div>';
+ var colonne='<div class="studio-preview-card"><div class="studio-preview-art'+(st.column?'':' is-blank')+'">'+
+ (st.column?'<img src="assets/img/randal/types/harmony-colonne.webp" alt="Illustration indicative de colonne RANDAL">':'Sans colonne')+'</div>'+
+ '<div class="studio-preview-caption"><strong>'+(st.column?'Colonne assortie':'Sans colonne')+'</strong>'+
+ '<small>'+(st.column?'132 × 38 × 27 cm · Réf. 14177 '+esc(co.code):'Non sélectionnée')+'</small></div></div>';
+ var miroir='<div class="studio-preview-card"><div class="studio-preview-art is-blank">Sans miroir</div>'+
+ '<div class="studio-preview-caption"><strong>Sans miroir</strong><small>Miroir non proposé dans STUDIO ONE.</small></div></div>';
+ return '<div class="studio-visual-summary" aria-label="Éléments de votre composition">'+meuble+vasque+colonne+miroir+'</div>';
+}
 function render(){
  normalize();save();
  wizard.innerHTML=names.map(function(n,i){return '<button type="button" data-step="'+i+'" aria-current="'+(i===st.step?'step':'false')+'" class="'+(i===st.step?'active':i<st.step?'done':'')+'" '+(i>st.step?'disabled':'')+'>'+n+'</button>'}).join('');
