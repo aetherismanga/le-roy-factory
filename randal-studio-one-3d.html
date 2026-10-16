@@ -485,6 +485,8 @@ function applyScenePatch(patch){
   sinkMode=option==='bare'?'none':option==='top'?(vesselSelected?'vessel':'none'):'integrated';buildBasin(sinkMode);
  }
  mirrorGeometry();updateCopies();
+ var needed=clamp(2.05+Math.max(currentWidth/100,h)*.51+(hasColumn?.49:0)+(selectedMirror!=='Sans miroir'?.32:0)+(extraCabinets?.45:0),2.3,4.25);
+ baseDistance=needed;dist=Math.max(dist,needed*(document.fullscreenElement&&innerWidth>900?.86:1));
 }
 window.addEventListener('message',function(e){
  if(e.origin!==location.origin||e.source!==window.parent||e.data?.type!=='studio-one-scene-confirm')return;
@@ -564,7 +566,7 @@ document.getElementById('studio-view-front').onclick=function(){yaw=0;pitch=.13;
 document.getElementById('studio-view-reset').onclick=function(){yaw=.43;pitch=.14;dist=baseDistance;body.position.x=0;studioColumn.position.x=columnCenterX;mirrorRoot.position.x=0;updateCopies()};
 mirrorGeometry();updateCopies();
 var yaw=.49,pitch=.13,baseDistance=clamp(2.08+Math.max(w,h)*.49+(hasColumn?.68:0),2.25,3.8),dist=baseDistance,drag=null,opened=false,drawerProgress=0;
-function placement(){var tx=hasColumn?columnCenterX*.36:0,ty=hasColumn?Math.max(baseY+h*.53,.85):baseY+h*.55;camera.position.set(tx+Math.sin(yaw)*dist,ty+Math.sin(pitch)*dist*.62,Math.cos(yaw)*dist);camera.lookAt(tx,ty,0)}
+function placement(){var tx=hasColumn?studioColumn.position.x*.28:body.position.x*.35,ty=hasColumn?Math.max(baseY+h*.53,.85):baseY+h*.55;if(selectedMirror!=='Sans miroir')ty=Math.max(1.03,ty);camera.position.set(tx+Math.sin(yaw)*dist,ty+Math.sin(pitch)*dist*.62,Math.cos(yaw)*dist);camera.lookAt(tx,ty,0)}
 function resize(){var a=stage.clientWidth,b=stage.clientHeight;camera.aspect=a/Math.max(b,1);camera.updateProjectionMatrix();renderer.setSize(a,b,false)}
 new ResizeObserver(resize).observe(stage);
 
