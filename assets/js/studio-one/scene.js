@@ -4,7 +4,7 @@
   const C=window.StudioOneCatalog,M=window.StudioOneModel,T=window.THREE;
   class SceneView {
     constructor(stage,store,onNotice){
-      this.stage=stage;this.store=store;this.onNotice=onNotice;this.roots=new Map();this.materials=new Map();this.dimensionsVisible=false;this.reverse=false;this.yaw=.32;this.pitch=.12;this.distance=3.5;this.target=new T.Vector3(0,1,0);this.pointers=new Map();this.ledStates=new Map();
+      this.stage=stage;this.store=store;this.onNotice=onNotice;this.roots=new Map();this.materials=new Map();this.dimensionsVisible=false;this.reverse=true;this.yaw=.32;this.pitch=.12;this.distance=3.5;this.target=new T.Vector3(0,1,0);this.pointers=new Map();this.ledStates=new Map();
       this.scene=new T.Scene();this.scene.background=new T.Color('#e6e1d7');this.camera=new T.PerspectiveCamera(38,1,.01,70);
       try{this.renderer=new T.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});}catch(e){throw Error('La 3D nécessite WebGL. Activez l’accélération graphique ou essayez un autre navigateur.');}
       const r=this.renderer;r.setPixelRatio(Math.min(devicePixelRatio||1,2));r.outputColorSpace=T.SRGBColorSpace;r.toneMapping=T.ACESFilmicToneMapping;r.toneMappingExposure=.94;r.shadowMap.enabled=true;r.shadowMap.type=T.PCFSoftShadowMap;
@@ -112,6 +112,12 @@
       line([x+w/2+.12,y,z+dep/2],[x+w/2+.12,y+h,z+dep/2],'#a4483e');label('H '+d.height+' cm',x+w/2+.22,y+h/2,z+dep/2,'#a4483e');
       line([x-w/2-.10,y+h+.11,z-dep/2],[x-w/2-.10,y+h+.11,z+dep/2],'#437749');label('P '+d.depth+' cm',x-w/2-.1,y+h+.20,z,'#437749');
       if(this.store.project.items.length>1){const bs=this.store.project.items.map(M.bounds),left=Math.min(...bs.map(b=>b.left))/100,right=Math.max(...bs.map(b=>b.right))/100;line([left,.035,.57],[right,.035,.57],'#78613d');label('Composition '+Math.round((right-left)*1000)/10+' cm',(left+right)/2,.10,.60,'#78613d');}
+      const bounds=this.store.project.items.map(M.bounds),totalTop=Math.max(...bounds.map(b=>b.top))/100,totalLeft=Math.min(...bounds.map(b=>b.left))/100;
+      const xTotal=totalLeft-.30,zTotal=.85;
+      line([xTotal,0,zTotal],[xTotal,totalTop,zTotal],'#7c3aed');
+      line([xTotal-.05,0,zTotal],[xTotal+.05,0,zTotal],'#7c3aed');
+      line([xTotal-.05,totalTop,zTotal],[xTotal+.05,totalTop,zTotal],'#7c3aed');
+      label('HAUTEUR TOTALE '+Math.round(totalTop*1000)/10+' cm',xTotal-.12,totalTop/2,zTotal,'#6d28d9');
     }
     fit(front=false){const items=this.store.project.items;if(!items.length){this.target.set(0,1,0);this.distance=3.5;return;}const bs=items.map(M.bounds),left=Math.min(...bs.map(b=>b.left))/100,right=Math.max(...bs.map(b=>b.right))/100,bottom=Math.min(...bs.map(b=>b.bottom))/100,top=Math.max(...bs.map(b=>b.top))/100;this.target.set((left+right)/2,(top+bottom)/2,0);const aspect=this.stage.clientWidth/Math.max(1,this.stage.clientHeight),v=Math.tan(this.camera.fov*Math.PI/360);this.distance=Math.max((top-bottom+.6)/(2*v),(right-left+.7)/(2*v*aspect))*1.24;if(front){this.yaw=0;this.pitch=.04;}else{this.yaw=.24;this.pitch=.1;}}
     resize(){const w=this.stage.clientWidth,h=this.stage.clientHeight;this.camera.aspect=w/Math.max(1,h);this.camera.updateProjectionMatrix();this.renderer.setSize(w,h,false);}
