@@ -90,6 +90,14 @@ footer{text-align:center;color:#8c8b85;font-size:.79rem;margin:25px 0;padding:10
 .hero-visual{display:none!important}
 .hero-badge{position:static!important;align-self:flex-start!important;display:inline-flex!important;margin:0!important;padding:7px 10px!important;border-radius:8px!important;font-size:.72rem!important;background:#1c2925a8!important}
 @media(max-width:760px){.hero{display:block!important;padding:17px 19px!important;border-radius:15px!important;background-position:center 60%!important}.hero h1{font-size:1.38rem!important}.hero p{font-size:.84rem!important;line-height:1.36!important;margin:0!important}.hero-badge{margin-top:10px!important;padding:6px 10px!important}.hero-copy{padding:0!important}}
+/* Cartes de sélection STUDIO ONE : schémas SVG indépendants, nets à tout zoom. */
+.model-choices{grid-template-columns:repeat(2,minmax(0,1fr))}
+.model-choices .choice{position:relative;min-height:178px;gap:14px;border-radius:18px;overflow:hidden;transition:border-color .18s,box-shadow .18s;box-shadow:0 5px 18px #26231c0c}
+.model-choices .choice:focus-visible{outline:3px solid #8c7350;outline-offset:3px}
+.model-choices .drawer{background:linear-gradient(145deg,#f6f1e9,#e5ddd1);width:146px;height:140px;flex:0 0 146px}
+.model-choices .drawer svg{width:142px;height:135px}
+.model-choices .choice::after{content:'→';position:absolute;right:13px;bottom:12px;color:#65513c;font-size:1.4rem}
+@media(max-width:760px){.model-choices{grid-template-columns:1fr}.model-choices .choice{min-height:140px}.model-choices .drawer{width:130px;height:126px;flex-basis:130px}.model-choices .drawer svg{width:128px;height:122px}}
 </style>
 <style id="studio-3d-overlay-styles">
 .studio-3d-overlay{position:fixed;inset:0;z-index:99999;background:#f2f0eb;display:flex;flex-direction:column}
@@ -154,18 +162,19 @@ function save(){/* Les choix restent en mémoire jusqu'à la fermeture du projet
 function change(f,v){st[f]=v;normalize();save();render()}
 function item(title,desc,fn,active,dis,graphic){return '<button type="button" class="choice'+(active?' active':'')+'" '+(dis?'disabled':'')+' data-choice="'+esc(fn)+'"><span>'+ (graphic||'') +'</span><span><strong>'+esc(title)+'</strong><small>'+esc(desc)+'</small></span></button>'}
 function drawer(n,realHeight){
- var svgWidth=87,svgHeight=Math.round(svgWidth*realHeight/60);
- var x=23,y=144-svgHeight,z=9,drawers='';
- for(var a=1;a<n;a++){
-   var sep=y+a*svgHeight/n;
-   drawers+='<path d="M'+(x+3)+' '+sep+' H'+(x+svgWidth-3)+'" stroke="#635f59" stroke-width="2.2"/>';
+ // Illustration SVG vectorielle : tiroirs à onglet 45°, hauteur et proportions fidèles.
+ var height=Math.round(92*realHeight/54), top=120-height, x=15, w=116, depth=13;
+ var front='', seam='';
+ for(var j=0;j<n;j++){
+   var y=top+j*height/n, h=height/n;
+   front+='<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" fill="#c5a987" stroke="#715c49" stroke-width="1"/>'+
+   '<path d="M'+(x+2)+' '+(y+9)+' L'+(x+12)+' '+(y+2)+' H'+(x+w-2)+' L'+(x+w-12)+' '+(y+9)+' Z" fill="#e7d2b4" stroke="#927a5e" stroke-width=".65"/>';
+   if(j)seam+='<path d="M'+x+' '+y+' H'+(x+w)+'" stroke="#564c42" stroke-width="2"/>';
  }
- var face='<rect x="'+x+'" y="'+y+'" width="'+svgWidth+'" height="'+svgHeight+'" rx="1.8" fill="#d8c7b0" stroke="#62635b" stroke-width="2.2"/>';var mitres=Array.from({length:n},function(_,i){var v=y+i*svgHeight/n+3;return '<path d="M'+(x+3)+' '+(v+7)+' L'+(x+12)+' '+v+' H'+(x+svgWidth-3)+' L'+(x+svgWidth-11)+' '+(v+7)+' Z" fill="#f1e4d1" stroke="#b9a58e" stroke-width=".7"/>'}).join('');
- return '<span class="drawer" aria-hidden="true"><svg viewBox="0 0 140 155" focusable="false">'+
- '<path d="M'+x+' '+y+' L'+(x+z)+' '+(y-6)+' H'+(x+svgWidth+z)+' L'+(x+svgWidth)+' '+y+' Z" fill="#f1eee6" stroke="#75766e" stroke-width="2"/>'+
- '<path d="M'+(x+svgWidth)+' '+y+' L'+(x+svgWidth+z)+' '+(y-6)+' V'+(y+svgHeight-5)+' L'+(x+svgWidth)+' '+(y+svgHeight)+' Z" fill="#b7b6ac" stroke="#74736a" stroke-width="1.7"/>'+
- face+drawers+mitres+'<path d="M'+(x+4)+' '+(y+4)+' H'+(x+svgWidth-5)+'" stroke="#f5e5d2" stroke-width="4"/>'+
- '</svg></span>';
+ return '<span class="drawer" aria-hidden="true"><svg viewBox="0 0 164 144" xmlns="http://www.w3.org/2000" focusable="false">'+
+ '<path d="M'+x+' '+top+' l'+depth+' -8 h'+w+' l-'+depth+' 8 Z" fill="#e7d8c3" stroke="#77675a" stroke-width="1.5"/>'+
+ '<path d="M'+(x+w)+' '+top+' l'+depth+' -8 v'+height+' l-'+depth+' 8 Z" fill="#917c68" stroke="#66574a" stroke-width="1.5"/>'+
+ front+seam+'</svg></span>';
 }
 function swatch(co){
  var woodFile={ROBLE:'roble.webp',ALBA:'serenade-alba.webp',NOGAL:'nogal-valentina.webp'}[co.code];
