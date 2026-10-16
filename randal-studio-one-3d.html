@@ -306,7 +306,7 @@ var studioColumn=null;
 }
 if(option==='top')box(body,w+.006,.019,d+.018,0,baseY+h+.012,0,finish); // plateau exactement de la même finition que le meuble
 var backPlate=box(body,w-.04,.030,.035,0,baseY+h-.020,-d/2+.024,inside); // traverse arrière sous vasque, aucune obstruction du siphon
-var basinGroup=new THREE.Group();body.add(basinGroup);
+var basinGroup=new THREE.Group();basinGroup.name='STUDIO_ONE_vasque';body.add(basinGroup);
 function buildBasin(mode){
  while(basinGroup.children.length){var ch=basinGroup.children[0];basinGroup.remove(ch);ch.geometry&&ch.geometry.dispose();}
  if(mode==='none')return;
@@ -398,7 +398,7 @@ dimLabel('P '+depth+' cm',rightX+.13,baseY+h+.15,0,orange);
    qui conserve les références, prix et totaux comme source unique. */
 var editorMenu=document.getElementById('studio-object-menu'),extraFurniture=[],columnCopies=[],mirrorCopies=[];
 var selectedMirror=val('mirror','Sans miroir'),selectedMirrorSize=val('mirrorSize',''),extraCabinets=Math.max(0,Number(val('extraCabinets','0'))||0);
-var columnQty=Math.max(1,Number(val('columnQty','1'))||1),mirrorQty=Math.max(1,Number(val('mirrorQty','1'))||1),sinkQty=Math.max(1,Number(val('sinkQty','1'))||1);
+var columnQty=Math.max(1,Number(val('columnQty','1'))||1),mirrorQty=Math.max(1,Number(val('mirrorQty','1'))||1),sinkQty=Math.max(1,Number(val('sinkQty','1'))||1),sinkCopies=[];
 var currentWidth=width,mirrorRoot=new THREE.Group();mirrorRoot.name='Miroir_RANDAL';scene.add(mirrorRoot);
 var MIRRORS={
  'Basic':['60 × 80 cm','70 × 60 cm','100 × 60 cm','120 × 60 cm'],
@@ -428,8 +428,20 @@ function updateCopies(){
  extraFurniture.forEach(function(obj){scene.remove(obj)});extraFurniture=[];
  for(var i=0;i<extraCabinets;i++){
   var clone=body.clone(true);clone.name='Meuble_STUDIO_ONE_copie_'+(i+1);
+  // Une duplication du meuble ne facture pas une seconde vasque involontairement.
+  var clonedSink=clone.getObjectByName('STUDIO_ONE_vasque');if(clonedSink)clonedSink.parent.remove(clonedSink);
   clone.position.x=body.position.x+(i+1)*(currentWidth/100+.12);
   scene.add(clone);extraFurniture.push(clone);
+ }
+ sinkCopies.forEach(function(obj){basinGroup.remove(obj)});sinkCopies=[];
+ if(option==='top'&&vesselSelected&&sinkQty>1&&currentWidth>=100){
+  // Vasques à poser indépendantes seulement sur un plateau suffisamment large.
+  basinGroup.position.x=-currentWidth/400;
+  var duplicateGroup=new THREE.Group();duplicateGroup.position.x=currentWidth/200;
+  for(var child of basinGroup.children.slice())if(child!==duplicateGroup){
+   var copied=child.clone(true);duplicateGroup.add(copied);
+  }
+  basinGroup.add(duplicateGroup);sinkCopies.push(duplicateGroup);
  }
  columnCopies.forEach(function(obj){scene.remove(obj)});columnCopies=[];
  studioColumn.visible=hasColumn;
@@ -518,7 +530,7 @@ function showObjectMenu(kind){
    var info=document.createElement('p');info.className='studio-menu-help';info.textContent='Prix du miroir : tarif catalogue indicatif, à confirmer par RANDAL.';editorMenu.appendChild(info);
   }else if(kind==='vasque'){
    if(option==='bare')editorButton('Ajouter une vasque',function(){sendEdit({option:currentWidth%10===0&&currentWidth>=60&&currentWidth!==110?'basin':'top',vessel:true,sinkModel:'Neris'});closeEditor()},true);
-   else editorButton('Dupliquer la vasque',function(){sendEdit({sinkQty:Math.min(2,sinkQty+1)});closeEditor()},true);
+   else if(option==='top'&&currentWidth>=100)editorButton('Dupliquer la vasque à poser',function(){sendEdit({sinkQty:Math.min(2,sinkQty+1)});closeEditor()},true);
    editorSelect('Type',[['bare','Sans vasque'],['top','Plateau et vasque à poser'],['basin','Vasque encastrée']],option,function(v){sendEdit({option:v,vessel:v==='top'})});
    if(option!=='bare'){
     var integrated=option==='basin';
