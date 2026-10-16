@@ -265,7 +265,7 @@ function render(){
     st.step+=1;save();render();window.scrollTo({top:0,behavior:'smooth'});
  };
  var restart=document.getElementById('restart');if(restart)restart.onclick=function(){if(confirm('Recommencer une nouvelle composition ?')){st=Object.assign({},initial);save();render();window.scrollTo(0,0)}};
- var preview=document.getElementById('preview3d');if(preview)preview.onclick=function(){var v=new URLSearchParams({model:m.name,width:st.width,height:String(m.height),drawers:String(m.drawers),color:color().name,code:color().code,option:st.option,ref:ref(),price:String(p)});(function(){
+ var preview=document.getElementById('preview3d');if(preview)preview.onclick=function(){var v=new URLSearchParams({model:m.name,width:st.width,height:String(m.height),drawers:String(m.drawers),color:color().name,code:color().code,option:st.option,vessel:String(st.vessel),ref:ref(),price:String(p)});(function(){
  var overlay=document.createElement('div');overlay.className='studio-3d-overlay';
  overlay.innerHTML='<div class="studio-3d-bar"><strong>STUDIO ONE · Votre meuble en 3D</strong><button type="button" aria-label="Fermer la 3D">✕ Fermer</button></div>'+
  '<iframe title="Votre meuble STUDIO ONE en 3D" allow="fullscreen" loading="eager"></iframe>';
