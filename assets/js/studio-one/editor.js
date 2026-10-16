@@ -83,14 +83,14 @@
   ];
   const ambienceKey='lrf-studio-one-elios-ambience-v2',defaults={floor:'creta:ginepro',wall:'venere:perla',floorOrientation:'horizontal',wallOrientation:'horizontal'};
   let ambience={...defaults};try{ambience={...ambience,...JSON.parse(sessionStorage.getItem(ambienceKey)||'{}')};}catch(e){}
-  const findTile=key=>tileCollections.find(c=>c.colors.some(color=>c.id+':'+color.toLowerCase().replace(/\\s+/g,'-')===key));
+  const findTile=key=>tileCollections.find(c=>c.colors.some(color=>c.id+':'+color.toLowerCase().replace(/\s+/g,'-')===key));
   function persistAmbience(){try{sessionStorage.setItem(ambienceKey,JSON.stringify(ambience));}catch(e){}}
   function refreshTiles(surface){
     const factory=$(surface+'-factory').value,select=$(surface+'-color'),previous=ambience[surface];select.replaceChildren();
     tileCollections.filter(c=>c.factory===factory&&c.surfaces.includes(surface)).forEach(c=>{
       const group=document.createElement('optgroup');group.label=c.name+' · '+c.size.join(' × ')+' cm';
       if(!c.colors.length){const option=document.createElement('option');option.disabled=true;option.textContent='Coloris en attente de vérification catalogue';group.append(option);}
-      c.colors.forEach(color=>{const option=document.createElement('option');option.value=c.id+':'+color.toLowerCase().replace(/\\s+/g,'-');option.textContent=c.name+' '+color+' · '+c.size.join(' × ');group.append(option);});select.append(group);
+      c.colors.forEach(color=>{const option=document.createElement('option');option.value=c.id+':'+color.toLowerCase().replace(/\s+/g,'-');option.textContent=c.name+' '+color+' · '+c.size.join(' × ');group.append(option);});select.append(group);
     });
     const values=[...select.options].filter(o=>!o.disabled).map(o=>o.value);const chosen=values.includes(previous)?previous:values[0];if(chosen)setAmbience(surface,chosen);
   }
