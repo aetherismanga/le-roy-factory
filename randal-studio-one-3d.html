@@ -69,6 +69,8 @@ var drawers=clamp(Math.round(Number(val('drawers','2'))),1,3),color=val('color',
 var finishMap={ROBLE:'#b99878',ALBA:'#c7aa91',NOGAL:'#705349',WHITE:'#e8e7e3',AZUL:'#627b85',GRIS:'#8b7f83','BISC.':'#dacec0',GREEN:'#9b9e8b'};
 var hex=finishMap[code]||'#beb2a2';
 var vesselSelected=val('vessel','false')==='true';
+var sinkModel=val('sinkModel',option==='basin'?'Sella':'Neris'),sinkColor=val('sinkColor','gloss'),sinkLayout=val('sinkLayout','single'),sinkRef=val('sinkRef','');
+var sinkHue={gloss:'#f9f9f6',matte:'#e7e6e3',pure:'#ffffff',black:'#363537',anthracite:'#858689',taupe:'#aa9988',namibie:'#777964',ivory:'#e8e6dc',pink:'#c6a397',blue:'#123755'};
 var finishNames={ROBLE:'Roble Amazona',ALBA:'Serenade Alba',NOGAL:'Nogal Valentina',WHITE:'White Bolero',AZUL:'Azul Acero',GRIS:'Gris Tórtora','BISC.':'Biscuit',GREEN:'Muted Green'};
 var finishFiles={ROBLE:'roble.webp',ALBA:'serenade-alba.webp',NOGAL:'nogal-valentina.webp'};
 document.getElementById('model-title').textContent=val('model','STUDIO ONE');
@@ -78,7 +80,7 @@ function swatchStyle(key){var f=finishFiles[key];return f?'url(assets/img/studio
 function refreshSwatch(){sw.style.background=swatchStyle(code)}
 refreshSwatch();
 document.getElementById('details').innerHTML=[
- ['Modèle',val('model','STUDIO ONE')],['Dimensions',width+' × '+String(height).replace('.',',')+' × '+depth+' cm'],['Tiroirs',''+drawers],['Plateau',option==='top'?'Avec plateau':'Sans plateau'],['Finition','<span id="finish-detail"></span>'],['Référence Randal',ref||'À confirmer'],['Prix C1',price?price+' €':'À confirmer']
+ ['Modèle',val('model','STUDIO ONE')],['Dimensions',width+' × '+String(height).replace('.',',')+' × '+depth+' cm'],['Tiroirs',''+drawers],['Plateau',option==='top'?'Avec plateau':'Sans plateau'],['Finition','<span id="finish-detail"></span>'],['Vasque',option==='bare'||option==='top'&&!vesselSelected?'Sans vasque':sinkModel+' · '+sinkColor+(sinkLayout==='double'?' · double':'')],['Réf. vasque',sinkRef||'—'],['Référence meuble',ref||'À confirmer'],['Total composition',price?price+' €':'À confirmer']
 ].map(function(x){return '<div><dt>'+x[0]+'</dt><dd>'+x[1]+'</dd></div>'}).join('');
 document.getElementById('finish-detail').textContent=color;
 if(!window.THREE){document.getElementById('status').textContent='Moteur 3D indisponible. Veuillez vérifier votre connexion.';return;}
@@ -171,25 +173,60 @@ function buildBasin(mode){
  while(basinGroup.children.length){var ch=basinGroup.children[0];basinGroup.remove(ch);ch.geometry&&ch.geometry.dispose();}
  if(mode==='none')return;
  var rimY=baseY+h+.035;
- var ceramic=material('#f7f7f2',.25);
+ var ceramic=new THREE.MeshPhysicalMaterial({color:sinkHue[sinkColor]||'#f9f9f6',roughness:sinkColor==='gloss'?.17:.48,metalness:0,clearcoat:sinkColor==='gloss'?.2:0,side:THREE.DoubleSide});
+ var chrome=new THREE.MeshStandardMaterial({color:'#b7bdbe',metalness:.85,roughness:.2});
  if(mode==='vessel'){
-  var outer=new THREE.Mesh(new THREE.CylinderGeometry(.18,.155,.135,56,1,true),ceramic);
-  outer.position.set(0,rimY+.066,0);basinGroup.add(outer);
-  var ring=new THREE.Mesh(new THREE.TorusGeometry(.169,.013,10,60),ceramic);ring.rotation.x=Math.PI/2;ring.position.set(0,rimY+.135,0);basinGroup.add(ring);
-  var bottom=new THREE.Mesh(new THREE.CircleGeometry(.153,56),ceramic);bottom.rotation.x=-Math.PI/2;bottom.position.set(0,rimY+.011,0);basinGroup.add(bottom);
- }else{
-  var top=new THREE.Mesh(new THREE.BoxGeometry(Math.min(w+.02,1.25),.036,d+.02),ceramic);top.position.set(0,rimY,0);basinGroup.add(top);
-  var bowl=new THREE.Mesh(new THREE.TorusGeometry(Math.min(.15,w*.23),.019,12,60),ceramic);
-  bowl.rotation.x=Math.PI/2;bowl.position.set(0,rimY+.022,0);basinGroup.add(bowl);
+  var isOval=sinkModel==='Neris';
+  var r=isOval?.178:.185,vh=isOval?.14:.12;
+  var profile=[new THREE.Vector2(.01,0),new THREE.Vector2(r*.60,.006),new THREE.Vector2(r*.86,vh*.13),new THREE.Vector2(r*.99,vh*.80),new THREE.Vector2(r,vh)];
+  var shell=new THREE.Mesh(new THREE.LatheGeometry(profile,72),ceramic);
+  shell.position.set(0,rimY+.015,0);
+  shell.scale.set(isOval?1.30:1,1,isOval?.93:1);
+  shell.castShadow=true;shell.receiveShadow=true;basinGroup.add(shell);
+  var lip=new THREE.Mesh(new THREE.TorusGeometry(r,.007,12,80),ceramic);
+  lip.rotation.x=-Math.PI/2;lip.position.y=rimY+vh+.015;
+  lip.scale.set(isOval?1.30:1,isOval?.93:1,1);basinGroup.add(lip);
+  var base=new THREE.Mesh(new THREE.CircleGeometry(r*.58,64),ceramic);base.rotation.x=-Math.PI/2;base.position.set(0,rimY+.018,0);base.scale.set(isOval?1.30:1,isOval?.93:1,1);basinGroup.add(base);
+  return;
  }
+ // Cuvette céramique encastrée Sella ou Tampa. Double sur 120 cm si sélectionnée.
+ var doubleSink=width===120&&sinkLayout==='double',positions=doubleSink?[-.295,.295]:[0];
+ var rw=doubleSink?.218:Math.min(.33,Math.max(.19,w*.35)),rz=sinkModel==='Sella'?.153:.141;
+ var power=sinkModel==='Sella'?4.5:5.6;
+ function contour(theta,scale){var co=Math.cos(theta),si=Math.sin(theta),exp=2/power;return [Math.sign(co)*Math.pow(Math.abs(co),exp)*rw*scale,Math.sign(si)*Math.pow(Math.abs(si),exp)*rz*scale]}
+ var outer=new THREE.Shape(),ww=(w+.012)/2,dd=(d+.012)/2;
+ outer.moveTo(-ww,-dd);outer.lineTo(ww,-dd);outer.lineTo(ww,dd);outer.lineTo(-ww,dd);outer.closePath();
+ positions.forEach(function(cx){
+  var hole=new THREE.Path();
+  for(var j=0;j<=96;j++){var point=contour(Math.PI*2-j*Math.PI*2/96,1);if(j===0)hole.moveTo(cx+point[0],-.025-point[1]);else hole.lineTo(cx+point[0],-.025-point[1]);}
+  outer.holes.push(hole);
+ });
+ var plate=new THREE.Mesh(new THREE.ExtrudeGeometry(outer,{depth:.027,steps:1,bevelEnabled:false,curveSegments:60}),ceramic);
+ plate.rotation.x=-Math.PI/2;plate.position.set(0,rimY-.014,0);plate.castShadow=true;plate.receiveShadow=true;basinGroup.add(plate);
+ positions.forEach(function(cx){
+  var ringCount=20,segments=96,vertices=[],indices=[];
+  for(var k=0;k<=ringCount;k++){var scale=1-k/ringCount*.994,cy=rimY+.014-.088*(1-scale*scale);
+   for(var j=0;j<=segments;j++){var p=contour(j*Math.PI*2/segments,scale);vertices.push(cx+p[0],cy,-.025+p[1]);}
+  }
+  for(var k=0;k<ringCount;k++)for(var j=0;j<segments;j++){var a=k*(segments+1)+j,b=a+segments+1;indices.push(a,b,a+1,b,b+1,a+1)}
+  var geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute(vertices,3));geo.setIndex(indices);geo.computeVertexNormals();
+  var bowl=new THREE.Mesh(geo,ceramic);bowl.castShadow=true;bowl.receiveShadow=true;basinGroup.add(bowl);
+  var rimPoints=[];for(var j=0;j<=96;j++){var p=contour(j*Math.PI*2/96,1);rimPoints.push(new THREE.Vector3(cx+p[0],rimY+.015,-.025+p[1]))}
+  var line=new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(rimPoints,true),96,.003,6,true),ceramic);basinGroup.add(line);
+  var drain=new THREE.Mesh(new THREE.CylinderGeometry(.017,.017,.003,32),chrome);
+  drain.position.set(cx,rimY-.072,0);basinGroup.add(drain);
+ });
 }
 var sinkMode=option==='bare'?'none':option==='top'?(vesselSelected?'vessel':'none'):'integrated';
 buildBasin(sinkMode);
-var basinItems=[['none','Sans vasque'],['vessel','Vasque à poser'],['integrated','Vasque standard (visuel)']];
-var basinOptions=document.getElementById('basin-options');
-basinItems.forEach(function(item){var b=document.createElement('button');b.textContent=item[1];b.className='picker-choice';b.onclick=function(){sinkMode=item[0];buildBasin(sinkMode);document.getElementById('basin-picker').hidden=true};basinOptions.appendChild(b)});
-document.getElementById('change-basin').onclick=function(){document.getElementById('surface-picker').hidden=true;document.getElementById('finish-picker').hidden=true;document.getElementById('basin-picker').hidden=false};
+// Les modifications de vasque doivent repasser par l'étape 3 du configurateur
+// pour mettre simultanément à jour la référence et le tarif du devis.
+document.getElementById('change-basin').onclick=function(){
+ if(window.parent!==window){window.parent.postMessage({type:'studio-one-edit-basin'},location.origin);return;}
+ document.getElementById('basin-picker').hidden=false;
+};
 document.getElementById('basin-close').onclick=function(){document.getElementById('basin-picker').hidden=true};
+document.getElementById('basin-options').innerHTML='<p class="note">Pour modifier le modèle, la couleur ou le nombre de cuves, revenez à l’étape « Plateau & vasque » du configurateur afin de mettre à jour la référence et le tarif.</p>';
 // Cotations 3D ancrées aux dimensions réelles du meuble (en mètres).
 var dimensionGroup=new THREE.Group();scene.add(dimensionGroup);dimensionGroup.visible=false;
 function dimLine(a,b,color){var geometry=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(...a),new THREE.Vector3(...b)]);var line=new THREE.Line(geometry,new THREE.LineBasicMaterial({color:color,depthTest:false}));line.renderOrder=20;dimensionGroup.add(line)}
