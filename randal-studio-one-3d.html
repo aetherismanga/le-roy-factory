@@ -91,9 +91,10 @@ function swatchStyle(key){var f=finishFiles[key];return f?'url(assets/img/studio
 function refreshSwatch(){sw.style.background=swatchStyle(code)}
 refreshSwatch();
 document.getElementById('details').innerHTML=[
- ['Modèle',val('model','STUDIO ONE')],['Dimensions',width+' × '+String(height).replace('.',',')+' × '+depth+' cm'],['Tiroirs',''+drawers],['Plateau',option==='top'?'Avec plateau':'Sans plateau'],['Finition','<span id="finish-detail"></span>'],['Vasque',option==='bare'||option==='top'&&!vesselSelected?'Sans vasque':sinkModel+' · '+sinkColor+(sinkLayout==='double'?' · double':'')],['Réf. vasque',sinkRef||'—'],['Référence meuble',ref||'À confirmer'],['Total composition',price?price+' €':'À confirmer']
+ ['Modèle',val('model','STUDIO ONE')],['Dimensions',width+' × '+String(height).replace('.',',')+' × '+depth+' cm'],['Tiroirs',''+drawers],['Plateau',option==='top'?'Avec plateau':'Sans plateau'],['Finition','<span id="finish-detail"></span>'],['Vasque',option==='bare'||option==='top'&&!vesselSelected?'Sans vasque':sinkModel+' · '+sinkColor+(sinkLayout==='double'?' · double':'')],['Réf. vasque',sinkRef||'—'],['Référence meuble','<span id="studio-ref-3d"></span>'],['Total composition',price?price+' €':'À confirmer']
 ].map(function(x){return '<div><dt>'+x[0]+'</dt><dd>'+x[1]+'</dd></div>'}).join('');
 document.getElementById('finish-detail').textContent=color;
+document.getElementById('studio-ref-3d').textContent=ref||'À confirmer';
 if(!window.THREE){document.getElementById('status').textContent='Moteur 3D indisponible. Veuillez vérifier votre connexion.';return;}
 var THREE=window.THREE,stage=document.getElementById('stage'),scene=new THREE.Scene();scene.background=new THREE.Color('#e8e3da');
 var camera=new THREE.PerspectiveCamera(36,1,.01,100),renderer;
@@ -204,7 +205,7 @@ document.getElementById('floor-picker').onclick=function(){showPicker('floor')};
 document.getElementById('wall-picker').onclick=function(){showPicker('wall')};
 document.getElementById('picker-close').onclick=function(){document.getElementById('surface-picker').hidden=true};
 var finishes=document.getElementById('finish-options');
-Object.keys(finishMap).forEach(function(k){var b=document.createElement('button');b.className='picker-choice';b.innerHTML='<span class="picker-sample"></span><span>'+finishNames[k]+'</span>';b.querySelector('.picker-sample').style.background=swatchStyle(k);b.onclick=function(){code=k;color=finishNames[k];applyStudioFinish(k);refreshSwatch();document.getElementById('finish-detail').textContent=color;document.getElementById('finish-picker').hidden=true};finishes.appendChild(b)});
+Object.keys(finishMap).forEach(function(k){var b=document.createElement('button');b.className='picker-choice';b.innerHTML='<span class="picker-sample"></span><span>'+finishNames[k]+'</span>';b.querySelector('.picker-sample').style.background=swatchStyle(k);b.onclick=function(){code=k;color=finishNames[k];applyStudioFinish(k);refreshSwatch();document.getElementById('finish-detail').textContent=color;ref=ref.replace(/@[^\s]+$/,'@'+k);document.getElementById('studio-ref-3d').textContent=ref;if(window.parent!==window)window.parent.postMessage({type:'studio-one-finish-change',code:k},location.origin);document.getElementById('finish-picker').hidden=true};finishes.appendChild(b)});
 document.getElementById('change-finish').onclick=function(){document.getElementById('surface-picker').hidden=true;document.getElementById('finish-picker').hidden=false};
 document.getElementById('finish-close').onclick=function(){document.getElementById('finish-picker').hidden=true};
 
