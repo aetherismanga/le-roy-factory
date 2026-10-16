@@ -988,27 +988,32 @@ function compositionConfig(){
  };
 }
 function changeFromComposition(patch){
- if(st.model!=='Harmony'||!patch||typeof patch!=='object')return null;
+ if(!patch||typeof patch!=='object')return null;
  const [name,value]=Object.entries(patch)[0]||[];
  if(!name)return null;
- if(name==='color'){
-  if(!RANDAL.Harmony.colors.includes(value))return null;
- }else if(name==='basinMode'){
-  if(!allowedModes().includes(value))return null;
- }else if(name==='basin'){
-  if(!(st.basinMode==='integrated'?['Sella','Tampa']:st.basinMode==='vessel'?['Neris','Torne']:[]).includes(value))return null;
- }else if(name==='basinLayout'){
-   if(!(st.model==='Harmony'&&Number(st.width)===120&&st.basinMode==='integrated'&&['single','double'].includes(value)))return null;
-  }else if(name==='basinFinish'){
-  if(st.basinMode!=='vessel'||!VESSEL_FINISHES.includes(value))return null;
- }else if(name==='topFinish'){
-  if(st.basinMode!=='vessel'||!TOP_FINISHES.includes(value))return null;
- }else return null;
- st[name]=value;
- syncBasin();
- normalize();
- save();render();
- return compositionConfig();
+ if(name==='color'){if(!(RANDAL[st.model]?.colors||[]).includes(value))return null}
+ else if(name==='width'){
+  if(SPECIAL_VARIANTS[st.model])return null;
+  const type=selectedType(),widths=RANDAL[st.model]?.w||[],i=widths.indexOf(Number(value));
+  if(i<0||!type||!type[5][i])return null;
+  st.width=String(value);st.height=String(type[4]);st.depth=String(RANDAL[st.model].d);st.variantCode=type[5][i];
+  syncBasin();normalize();save();render();return compositionConfig();
+ }else if(name==='mirror'){
+  if(value!=='Sans miroir'&&!MIRROR_FORMATS[value])return null;
+  st.mirror=value;st.mirrorSize=MIRROR_FORMATS[value]?.[0]?.[0]||'';st.mirrorFinish=isMetalMirror(value)?'Noir':'';
+  save();render();return compositionConfig();
+ }else if(name==='mirrorSize'){if(!MIRROR_FORMATS[st.mirror]?.some(x=>x[0]===value))return null}
+ else if(name==='mirrorFinish'){if(!METAL_MIRROR_FINISHES.includes(value))return null}
+ else if(name==='columnAccessory'){if(!AUX_REFS[st.model])return null;st.columnAccessory=!!value;save();render();return compositionConfig()}
+ else if(name==='quantity'){if(!Number.isInteger(Number(value))||Number(value)<1||Number(value)>9)return null}
+ else if(name==='mirrorQuantity'){if(!Number.isInteger(Number(value))||Number(value)<1||Number(value)>3)return null}
+ else if(name==='basinMode'){if(!allowedModes().includes(value))return null}
+ else if(name==='basin'){if(!(st.basinMode==='integrated'?['Sella','Tampa']:st.basinMode==='vessel'?['Neris','Torne']:[]).includes(value))return null}
+ else if(name==='basinLayout'){if(!(st.model==='Harmony'&&Number(st.width)===120&&st.basinMode==='integrated'&&['single','double'].includes(value)))return null}
+ else if(name==='basinFinish'){if(st.basinMode!=='vessel'||!VESSEL_FINISHES.includes(value))return null}
+ else if(name==='topFinish'){if(st.basinMode!=='vessel'||!TOP_FINISHES.includes(value))return null}
+ else return null;
+ st[name]=value;syncBasin();normalize();save();render();return compositionConfig();
 }
 
 /* On conserve le dernier écran visité, pour permettre un retour par les numéros. */
