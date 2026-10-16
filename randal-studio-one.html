@@ -430,7 +430,7 @@ function studioVisualSummary(){
 }
 
 function studioOrderRows(){
- if(studioProject)return studioProject.items.flatMap(window.StudioOneModel.lines).map(function(r){return Object.assign({},r,{detail:r.detail+'})});
+ if(studioProject)return studioProject.items.flatMap(window.StudioOneModel.lines).map(function(r){return Object.assign({},r,{detail:r.detail})});
  var m=data(),co=color(),sink=selectedSink(),qty=Number(st.quantity||1),p=price();
  var option={top:'Avec plateau · même finition que le meuble',basin:'Sans plateau · vasque encastrée',bare:'Sans plateau · meuble seul'}[st.option];
  var rows=[{title:'Meuble STUDIO ONE · '+m.name,detail:'L '+st.width+' × H '+String(m.height).replace('.',',')+' × P 46 cm · '+co.name+' · '+option,ref:ref(),qty:qty*(1+Number(st.extraCabinets||0)),unit:p}];
