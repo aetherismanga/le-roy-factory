@@ -493,6 +493,7 @@ a.pdf:hover{background:white}
 
 <script src="assets/js/randal-coco-beige-texture.js?v=20261014-sol-view1"></script>
 <script src="assets/js/randal-composition-3d.js?v=20261016-colonne45-v2"></script>
+<script src="assets/js/randal-mail-chooser.js?v=20261016-choose-gmail-v1"></script>
 <script>
 (()=>{
 'use strict';
@@ -802,34 +803,36 @@ function totals(){
 function emailBody(){
  const t=totals();
  const out=[
- 'Bonjour Zahra,','',
- 'Merci de vérifier la disponibilité et de nous confirmer les conditions pour la composition RANDAL suivante.','',
- 'COLLECTION : '+st.model,
- 'MODÈLE : '+(selectedType()?.[1]||'À confirmer'),
- 'DIMENSIONS : '+st.width+' × '+st.height+' × '+st.depth+' cm',
- 'FINITION : '+st.color,
- ...(st.basinMode==='integrated'?['CONFIGURATION VASQUE : '+(st.basinLayout==='double'?'2 cuves · double vasque':'1 cuve · vasque simple')]:[]),
- 'VARIANTE CATALOGUE : '+(st.variantCode||'À confirmer'),
- 'QUANTITÉ D’ENSEMBLES : '+t.qty,
- '',
- 'DÉTAIL DES ARTICLES — PRIX PUBLICS CONSEILLÉS (CATALOGUE V04)'
+  'Bonjour Zahra,',
+  '',
+  'Merci de vérifier la disponibilité des références suivantes et de confirmer la faisabilité de notre demande RANDAL.',
+  '',
+  'COMPOSITION RANDAL',
+  '----------------------------------------',
+  'Collection : '+st.model,
+  'Modèle : '+(selectedType()?.[1]||'À confirmer'),
+  'Dimensions : '+st.width+' × '+st.height+' × '+st.depth+' cm',
+  'Finition : '+st.color,
+  'Variante catalogue : '+(st.variantCode||'À confirmer'),
+  ...(st.basinMode==='integrated'?['Vasque : '+(st.basinLayout==='double'?'double vasque, 2 cuves':'vasque simple, 1 cuve')]:[]),
+  'Quantité de compositions : '+t.qty,
+  '',
+  'DÉTAIL DES ARTICLES ET RÉFÉRENCES',
+  '----------------------------------------'
  ];
- for(const [i,r] of t.rows.entries()){
+ t.rows.forEach((r,i)=>{
   out.push((i+1)+'. '+r.title);
   out.push('   Référence : '+r.ref);
   out.push('   Description : '+r.details);
   out.push('   Quantité : '+r.quantity);
-  out.push('   Prix unitaire : '+euroPrice(r.unit));
-  out.push('   Total : '+(r.unit===null?'À confirmer':euroPrice(r.unit*r.quantity)));
   out.push('');
- }
- out.push('TOTAL GÉNÉRAL : '+(t.complete?euroPrice(t.sum):'Partiel : '+euroPrice(t.sum)+' + articles à confirmer'));
- out.push('','Pourriez-vous confirmer :');
- out.push('- les références et la compatibilité de chaque élément ;');
- out.push('- la disponibilité et les délais de livraison ;');
- out.push('- les conditions commerciales professionnelles et éventuels frais de transport ;');
+ });
+ out.push('Merci de nous confirmer :');
+ out.push('- la disponibilité et la compatibilité de chaque article ;');
+ out.push('- la validation des références et des finitions ;');
+ out.push('- les délais de livraison et les conditions de transport ;');
  out.push('- la prise en compte de cette demande.');
- out.push('','Cette demande est soumise à votre confirmation et ne vaut pas commande ferme.');
+ out.push('','Cette demande ne constitue pas une commande ferme, sous réserve de votre confirmation.');
  out.push('','Merci d’avance,','Agence Le Roy Factory');
  return out.join('\n');
 }
@@ -1120,7 +1123,7 @@ if(st.step===6){
  '<div class="recap-tools"><button type="button" class="btn recap-button recap-3d" id="preview-composition">◈ Voir la composition en 3D</button><button type="button" class="btn recap-button" id="print-order">Imprimer</button>'+
  '<button type="button" class="btn recap-button" id="save-pdf">Enregistrer en PDF</button>'+
  '<button type="button" class="btn primary recap-button" id="send">Envoyer la demande</button></div>'+
- '<p class="mini recap-mailnote">L’envoi ouvre votre messagerie avec les références, quantités et prix. Le mail reste à envoyer manuellement.</p>';
+ '<p class="mini recap-mailnote">Choisissez Gmail ou une autre messagerie. Le message contient les références et quantités, sans tarifs, et reste à envoyer manuellement.</p>';
 }
 // Navigation par clic : aucun bouton Précédent ou Continuer.
 $('panel').innerHTML=h;
@@ -1166,7 +1169,12 @@ if($('save-pdf'))$('save-pdf').onclick=()=>downloadOrderPdf();
 if($('send'))$('send').onclick=()=>{
  const v=variant();
  const subject='RANDAL — Confirmation disponibilité — '+st.model+' '+st.width+' cm — réf. '+(v?.ref||'à confirmer');
- location.href='mailto:help.pro.fr@randal.group?cc='+encodeURIComponent('juancarlos.segura@randal.group,jerome@leroyfactory.fr,coryne@leroyfactory.fr')+'&subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(emailBody());
+ window.RandalMailChooser.show({
+  to:'help.pro.fr@randal.group',
+  cc:'juancarlos.segura@randal.group,jerome@leroyfactory.fr,coryne@leroyfactory.fr',
+  subject:subject,
+  body:emailBody()
+ });
 };
 }
 render();
