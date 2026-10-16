@@ -398,7 +398,7 @@ dimLabel('P '+depth+' cm',rightX+.13,baseY+h+.15,0,orange);
    qui conserve les références, prix et totaux comme source unique. */
 var editorMenu=document.getElementById('studio-object-menu'),extraFurniture=[],columnCopies=[],mirrorCopies=[];
 var selectedMirror=val('mirror','Sans miroir'),selectedMirrorSize=val('mirrorSize',''),selectedMirrorFinish=val('mirrorFinish','Noir'),extraCabinets=Math.max(0,Number(val('extraCabinets','0'))||0);
-var columnQty=Math.max(1,Number(val('columnQty','1'))||1),mirrorQty=Math.max(1,Number(val('mirrorQty','1'))||1),sinkQty=Math.max(1,Number(val('sinkQty','1'))||1),sinkCopies=[];
+var columnQty=Math.max(1,Number(val('columnQty','1'))||1),mirrorQty=Math.max(1,Number(val('mirrorQty','1'))||1),sinkQty=Math.max(1,Number(val('sinkQty','1'))||1),sinkCopies=[],sinkOffsetX=0;
 var currentWidth=width,mirrorRoot=new THREE.Group();mirrorRoot.name='Miroir_RANDAL';scene.add(mirrorRoot);
 var MIRRORS={
  'Basic':['60 × 80 cm','70 × 60 cm','100 × 60 cm','120 × 60 cm'],
@@ -434,10 +434,10 @@ function updateCopies(){
   scene.add(clone);extraFurniture.push(clone);
  }
  sinkCopies.forEach(function(obj){basinGroup.remove(obj)});sinkCopies=[];
- basinGroup.position.x=0;
+ basinGroup.position.x=sinkOffsetX;
  if(option==='top'&&vesselSelected&&sinkQty>1&&currentWidth>=100){
   // Vasques à poser indépendantes seulement sur un plateau suffisamment large.
-  basinGroup.position.x=-currentWidth/400;
+  basinGroup.position.x=sinkOffsetX-currentWidth/400;
   var duplicateGroup=new THREE.Group();duplicateGroup.position.x=currentWidth/200;
   for(var child of basinGroup.children.slice())if(child!==duplicateGroup){
    var copied=child.clone(true);duplicateGroup.add(copied);
@@ -586,7 +586,7 @@ function moveSelected(type,dx){
  if(type==='meuble'){body.position.x=clamp(body.position.x+delta,-1,1);mirrorRoot.position.x=body.position.x;studioColumn.position.x=body.position.x+currentWidth/200+.13+columnWidth/2}
  if(type==='colonne')studioColumn.position.x=clamp(studioColumn.position.x+delta,body.position.x+currentWidth/200+.035,2.1);
  if(type==='miroir')mirrorRoot.position.x=clamp(mirrorRoot.position.x+delta,-1.5,1.5);
- if(type==='vasque')basinGroup.position.x=clamp(basinGroup.position.x+delta,-Math.max(0,currentWidth/200-.24),Math.max(0,currentWidth/200-.24));
+ if(type==='vasque')sinkOffsetX=clamp(sinkOffsetX+delta,-Math.max(0,currentWidth/200-.24),Math.max(0,currentWidth/200-.24));
  updateCopies();
 }
 canvas.addEventListener('pointerdown',function(e){
