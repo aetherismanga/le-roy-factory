@@ -14,7 +14,8 @@
       ['Pool Surfaces 2026','Catalogue piscine ELIOS — 12 collections, format principal 15×15 cm.','assets/pdf/ELIOS_Pool_Surfaces_2026_INTERACTIF.pdf']
     ]},
     {nom:'Life Cerámica',pays:'Espagne',logo:'life-ceramica.svg',presentation:'Fabricant espagnol de solutions céramiques innovantes, notamment le système de pose à sec ONDABLOCK.',fichiers:[
-      ['ONDABLOCK 2026 · Français interactif','Version française optimisée avec sommaire cliquable et accès direct aux collections.','assets/pdf/Catalogue_ONDABLOCK_2026_FR_INTERACTIF.pdf']
+      ['LIFE CERÁMICA · Catalogue général Cersaie 2026','Catalogue officiel LIFE 2026 transmis par Estela Martí : collections, formats et finitions.','https://drive.google.com/file/d/1Xlq2DvIb6uJaUDSlhvCvWGyTglTsmU9q/view?usp=sharing'],
+       ['ONDABLOCK 2026 · Français interactif','Version française optimisée avec sommaire cliquable et accès direct aux collections.','assets/pdf/Catalogue_ONDABLOCK_2026_FR_INTERACTIF.pdf']
     ],force:true},
     {nom:'View Ceramica',pays:'Italie',logo:'view.png',presentation:'Design contemporain et solutions céramiques innovantes pour les professionnels exigeants.',fichiers:[
       ['Corso 2026','Catalogue de la série Corso.','https://viewceramiche.com/wp-content/uploads/2023/12/View_catalogo_serie_Corso_2024_LR.pdf'],
