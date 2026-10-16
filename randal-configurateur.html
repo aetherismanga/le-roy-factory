@@ -560,7 +560,7 @@ const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const key='lrfRandalV04Draft';
 let st;try{st=JSON.parse(sessionStorage.getItem(key)||'{}')}catch{st={}}
-st={model:'',typeId:'',width:'',height:'',depth:'',color:'',variantCode:'',drawers:'',basin:'Sella',top:'Sans plan',basinMode:'integrated',basinLayout:'single',basinFinish:'Blanc brillant',topFinish:'Blanco mate',mirror:'Sans miroir',mirrorSize:'',mirrorFinish:'',quantity:1,company:'',name:'',email:'',phone:'',notes:'',step:0,...st};
+st={model:'',typeId:'',width:'',height:'',depth:'',color:'',variantCode:'',drawers:'',basin:'Sella',top:'Sans plan',basinMode:'integrated',basinLayout:'single',basinFinish:'Blanc brillant',topFinish:'Blanco mate',mirror:'Sans miroir',mirrorSize:'',mirrorFinish:'',quantity:1,columnAccessory:false,mirrorQuantity:1,company:'',name:'',email:'',phone:'',notes:'',step:0,...st};
 st.maxStep=Math.max(Number(st.step)||0,Number(st.maxStep)||0);
 // Migration anciennes configurations Harmony 119 -> largeur commerciale 120 cm.
 if(st.model==='Harmony'&&String(st.width)==='119')st.width='120';
@@ -792,7 +792,11 @@ function orderRows(){
  if(st.mirror&&st.mirror!=='Sans miroir'){
   const ref=mirrorRef();
   const price=MIRROR_PRICES[st.mirror]?.[ref];
-  rows.push(rowPrice('Miroir '+st.mirror,(isMetalMirror(st.mirror)?'Cadre '+(st.mirrorFinish||'à préciser')+' · ':'')+(st.mirrorSize||'Dimensions à confirmer'),ref,price??null));
+  const mirrorRow=rowPrice('Miroir '+st.mirror,(isMetalMirror(st.mirror)?'Cadre '+(st.mirrorFinish||'à préciser')+' · ':'')+(st.mirrorSize||'Dimensions à confirmer'),ref,price??null);mirrorRow.quantity*=Math.max(1,Number(st.mirrorQuantity)||1);rows.push(mirrorRow);
+ }
+ if(st.columnAccessory&&AUX_REFS[st.model]){
+  const colorIndex=(RANDAL[st.model]?.colors||[]).indexOf(st.color);
+  rows.push(rowPrice('Colonne assortie '+st.model,'Finition '+st.color+' · portes à 45°',AUX_REFS[st.model][colorIndex]||'À confirmer',AUX_PRICES[st.model]??null));
  }
  return rows;
 }
@@ -977,7 +981,10 @@ function compositionConfig(){
   mirrorFinish:st.mirrorFinish,mirrorPhoto:ACCESSORY_ART[st.mirror]||'',
   reference:String(variant()?.ref||'À confirmer'),
   totalPublic:t.complete?euroPrice(t.sum):euroPrice(t.sum)+' + éléments à confirmer',
-  onChange:changeFromComposition
+  mirrorFormats:MIRROR_FORMATS,mirrorQuantity:Number(st.mirrorQuantity)||1,quantity:Number(st.quantity)||1,
+  columnAccessory:!!st.columnAccessory,columnAvailable:!!AUX_REFS[st.model],
+  accessoryReference:AUX_REFS[st.model]?.[(RANDAL[st.model]?.colors||[]).indexOf(st.color)]||'',
+  widths:RANDAL[st.model]?.w||[],onChange:changeFromComposition
  };
 }
 function changeFromComposition(patch){
