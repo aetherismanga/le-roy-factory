@@ -106,6 +106,9 @@ aside{grid-column:2;grid-row:1 / span 4}.surface-picker,.finish-picker{backgroun
 .stage:fullscreen .toolbar,.stage:-webkit-full-screen .toolbar{display:flex!important;grid-template-columns:none!important}
 .stage:fullscreen #studio-invert,.stage:-webkit-full-screen #studio-invert{margin-left:auto!important}
 .stage:fullscreen #fullscreen,.stage:-webkit-full-screen #fullscreen{display:inline-flex!important;visibility:visible!important}
+/* Les commandes d'ajout restent accessibles sur PC et en plein écran. */
+.studio-editor-bar{z-index:25!important}.studio-editor-bar #studio-add-item{display:inline-flex!important;visibility:visible!important;opacity:1!important}
+.stage:fullscreen .studio-editor-bar{position:absolute!important;top:78px!important;left:12px!important}
 </style></head><body>
 <header class="studio-head"><span class="eyebrow">RANDAL · VISUALISATION</span><strong>Votre salle de bain</strong><div class="logo">studio<em>one</em></div></header>
 <main><section class="stage" id="stage" aria-label="Vue 3D interactive de votre meuble Studio One">
@@ -637,21 +640,22 @@ function moveSelected(sel,dx,dy){
  var obj=sel.object,old=obj.position.clone(),scale=dist/Math.max(350,stage.clientWidth)*1.55;
  obj.position.x=clamp(obj.position.x+dx*scale,-2.4,2.4);
  if(sel.kind==='miroir')obj.position.y=clamp(obj.position.y-dy*scale,.65,2.5);
- // Colonnes et meubles restent à leur hauteur de montage ; déplacement latéral uniquement.
- // Le miroir conserve un réglage vertical contrôlé.
+ // Déplacement vertical indépendant, sans déplacer la caméra ni les autres éléments.
+ if(sel.kind==='colonne'||sel.kind==='meuble')obj.position.y=clamp(obj.position.y-dy*scale,sel.kind==='colonne'?-.02:-(baseY+h)+.08,2.3);
  if(sel.kind==='meuble'||sel.kind==='colonne'){
   var bounds=new THREE.Box3().setFromObject(obj);
   if([body,studioColumn].concat(extraFurniture,columnCopies).some(function(o){return o!==obj&&o.visible&&bounds.intersectsBox(new THREE.Box3().setFromObject(o))}))obj.position.copy(old);
  }
 }
 canvas.addEventListener('pointerdown',function(e){
+ if(e.pointerType==='mouse'&&e.button!==0)return;
  var type=hitObject(e);drag={x:e.clientX,y:e.clientY,startX:e.clientX,startY:e.clientY,type:type};objectDrag=null;
  clearTimeout(pressTimer);
  if(type)pressTimer=setTimeout(function(){if(drag&&drag.type===type){objectDrag=type;canvas.style.cursor='grabbing'}},350);
  canvas.setPointerCapture(e.pointerId);
 });
 canvas.addEventListener('pointermove',function(e){
- if(!drag){if(e.pointerType==='mouse')canvas.style.cursor=hitObject(e)?'pointer':'grab';return}
+ if(!drag||e.pointerType==='mouse'&&!(e.buttons&1)){if(drag){drag=null;objectDrag=null}if(e.pointerType==='mouse')canvas.style.cursor=hitObject(e)?'pointer':'grab';return}
  var dx=e.clientX-drag.x,dy=e.clientY-drag.y;
  if(!objectDrag&&drag.type&&Math.hypot(e.clientX-drag.startX,e.clientY-drag.startY)>5)objectDrag=drag.type;
  if(objectDrag){moveSelected(objectDrag,dx,dy);canvas.style.cursor='grabbing';}
@@ -664,6 +668,7 @@ canvas.addEventListener('pointerup',function(e){
  drag=null;objectDrag=null;canvas.style.cursor='grab';
 });
 canvas.addEventListener('pointercancel',function(){clearTimeout(pressTimer);drag=null;objectDrag=null});
+canvas.addEventListener('lostpointercapture',function(){clearTimeout(pressTimer);drag=null;objectDrag=null});
 canvas.addEventListener('wheel',function(e){e.preventDefault();dist=clamp(dist+Math.sign(e.deltaY)*.2,hasColumn?2.4:1.35,hasColumn?5.4:4.5)},{passive:false});
 var pinches=new Map();canvas.addEventListener('touchstart',function(e){if(e.touches.length===2)pinches.set('dist',Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY))},{passive:true});
 canvas.addEventListener('touchmove',function(e){if(e.touches.length!==2)return;var n=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY),prev=pinches.get('dist');if(prev)dist=clamp(dist*prev/n,hasColumn?2.4:1.35,hasColumn?5.4:4.5);pinches.set('dist',n)},{passive:true});
@@ -672,7 +677,7 @@ function syncDrawerButtons(){
  btn.setAttribute('aria-pressed',String(opened));btn.textContent=opened?'Fermer les tiroirs':'Ouvrir les tiroirs';
  quick.setAttribute('aria-pressed',String(opened));quick.textContent=opened?'Fermer tiroirs':'Ouvrir tiroirs';
 }
-function toggleAllDrawers(){opened=!opened;syncDrawerButtons()}
+function toggleAllDrawers(){opened=!opened;syncDrawerButtons();drawerGroups.forEach(function(g){g.visible=true})}
 document.getElementById('drawers').onclick=toggleAllDrawers;
 document.getElementById('drawers-quick').onclick=toggleAllDrawers;
 document.getElementById('dimensions').onclick=function(){var show=!dimensionGroup.visible;dimensionGroup.visible=show;this.setAttribute('aria-pressed',String(show))};
