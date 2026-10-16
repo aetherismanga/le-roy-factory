@@ -51,7 +51,7 @@ h2{margin:0 0 7px;font-size:clamp(1.35rem,3.2vw,1.85rem);line-height:1.2}
 .recap td{border-bottom:1px solid #e5e8e4;padding:11px 8px;vertical-align:top}
 .recap td:first-child{width:40%;color:#6e7770}
 .ref{color:#1b5447;font-weight:900;overflow-wrap:anywhere}
-.actions{display:flex;justify-content:space-between;gap:12px;margin-top:30px}
+.actions{display:flex;justify-content:flex-end;gap:12px;margin-top:30px}
 .btn{background:#e9e7e1;border:0;border-radius:12px;padding:13px 24px;min-height:50px;font-weight:850;color:#35413a}
 .btn.primary{background:#38463d;color:white}.btn:disabled{opacity:.4;cursor:not-allowed}
 .recap-tools{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}
@@ -93,10 +93,10 @@ footer{text-align:center;color:#8c8b85;font-size:.79rem;margin:25px 0;padding:10
 <script>
 (function(){
 'use strict';
-var STORE='lrf-studio-one-v1';
+// Chaque ouverture de STUDIO ONE est un nouveau projet : pas de restauration locale.
 var M=[
  {name:'2 tiroirs',sub:'H 54 cm · P 46 cm',height:54,base:'13692',top:'14215',sans:[210,220,250,259],avec:[245,264,303,321],drawers:2},
- {name:'3 tiroirs',sub:'H 91 cm* · P 46 cm',height:91,base:'13693',top:'14216',sans:[278,301,338,353],avec:[313,345,391,415],drawers:3},
+ {name:'3 tiroirs',sub:'H 91 cm · P 46 cm',height:91,base:'13693',top:'14216',sans:[278,301,338,353],avec:[313,345,391,415],drawers:3},
  {name:'1 tiroir XL',sub:'H 37,5 cm · P 46 cm',height:37.5,base:'13691',top:'14178',sans:[188,199,228,237],avec:[223,243,281,299],drawers:1},
  {name:'2 tiroirs XL',sub:'H 75 cm · P 46 cm',height:75,base:'14176',top:'14214',sans:[231,242,275,285],avec:[266,286,328,347],drawers:2}
 ];
@@ -112,18 +112,16 @@ var colors=[
 ];
 var sizes=[{lo:40,hi:60,ref:'60',label:'40–60 cm'},{lo:61,hi:80,ref:'80',label:'61–80 cm'},{lo:81,hi:100,ref:'100',label:'81–100 cm'},{lo:101,hi:120,ref:'120',label:'101–120 cm'}];
 var names=['1. Modèle','2. Dimensions','3. Plateau & vasque','4. Couleur','5. Compléments','6. Récapitulatif'];
-var initial={step:0,model:-1,width:'80',option:'top',color:'',column:false,quantity:1,vessel:false,contact:''};
+var initial={step:0,model:-1,width:'',option:'top',color:'',column:false,quantity:1,vessel:false,contact:''};
 var st=Object.assign({},initial);
-try {var saved=JSON.parse(localStorage.getItem(STORE)||'null');if(saved&&typeof saved==='object')st=Object.assign(st,saved)}catch(e){}
-st.step=Math.max(0,Math.min(5,Number(st.step)||0));
-if(typeof st.width!=='string'||!/^[0-9]{2,3}$/.test(st.width))st.width='';
 var panel=document.getElementById('panel'),wizard=document.getElementById('wizard');
 function el(s){return document.createElement('div')}
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
 function euros(n){return new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n)}
 function widthVal(v){var raw=String(v==null?'':v).trim();if(!/^\d{2,3}$/.test(raw))return NaN;return Number(raw)}
 function validWidth(){var n=widthVal(st.width);return Number.isFinite(n)&&n>=40&&n<=120}
-function standard(){var n=widthVal(st.width);return validWidth()&&Math.abs(n/10-Math.round(n/10))<0.000001}
+function standard(){var n=widthVal(st.width);return validWidth()&&n%10===0}
+function basinAvailable(){return standard()&&widthVal(st.width)>=60}
 function idx(){var n=widthVal(st.width);return !validWidth()?-1:n<=60?0:n<=80?1:n<=100?2:3}
 function data(){return M[st.model]||null}
 function color(){return colors.find(function(x){return x.code===st.color})||null}
@@ -131,8 +129,12 @@ function isTop(){return st.option==='top'}
 function price(){var m=data(),i=idx();return m&&i>=0?(isTop()?m.avec[i]:m.sans[i]):null}
 function total(){var p=price();return p===null?null:(p+(st.column?177:0))*Number(st.quantity||1)}
 function ref(){var m=data(),co=color(),i=idx();return m&&co&&i>=0?(isTop()?m.top:m.base)+' '+sizes[i].ref+'@'+co.code:''}
-function normalize(){if(!standard()&&st.option!=='top')st.option='top';if(!isTop())st.vessel=false}
-function save(){try{localStorage.setItem(STORE,JSON.stringify(st))}catch(e){}}
+function normalize(){
+ if(!standard()&&st.option!=='top')st.option='top';
+ if(st.option==='basin'&&!basinAvailable())st.option='top';
+ if(!isTop())st.vessel=false;
+}
+function save(){/* Les choix restent en mémoire jusqu'à la fermeture du projet. */}
 function change(f,v){st[f]=v;normalize();save();render()}
 function item(title,desc,fn,active,dis,graphic){return '<button type="button" class="choice'+(active?' active':'')+'" '+(dis?'disabled':'')+' data-choice="'+esc(fn)+'"><span>'+ (graphic||'') +'</span><span><strong>'+esc(title)+'</strong><small>'+esc(desc)+'</small></span></button>'}
 function drawer(n,realHeight){
@@ -155,15 +157,14 @@ function swatch(co){
  return '<span class="swatch plain" style="--solid:'+co.solid+'"></span>';
 }
 function optionsHead(title,hint){return '<h2>'+title+'</h2><p class="hint">'+hint+'</p>'}
-function widthInfo(){var i=idx();if(i<0)return '<div class="error" role="alert">Saisissez une largeur entière entre 40 et 120 cm.</div>';var extra=widthVal(st.width)===40?'<div class="warning">40 cm figure dans le flyer, mais le référentiel Randal commence à 41 cm : cette dimension sera à confirmer au fabricant.</div>':'';return '<div class="price-card"><strong>Votre largeur : '+esc(st.width)+' cm</strong><div>Tranche tarifaire : <b>'+sizes[i].label+'</b> · Code format Randal : <b>'+sizes[i].ref+'</b></div><div class="details">Saisie par pas de 1 cm. Prix identique à l’intérieur d’une tranche.</div></div>'+extra}
+function widthInfo(){var i=idx();if(i<0)return !String(st.width).trim()?'<p class="details">Renseignez la largeur de votre meuble pour afficher la tranche et le prix.</p>':'<div class="error" role="alert">Saisissez une largeur entière entre 40 et 120 cm.</div>';var extra=widthVal(st.width)===40?'<div class="warning">40 cm figure dans le flyer, mais le référentiel Randal commence à 41 cm : cette dimension sera à confirmer au fabricant.</div>':'';return '<div class="price-card"><strong>Votre largeur : '+esc(st.width)+' cm</strong><div>Tranche tarifaire : <b>'+sizes[i].label+'</b> · Code format Randal : <b>'+sizes[i].ref+'</b></div><div class="details">Saisie par pas de 1 cm. Prix identique à l’intérieur d’une tranche.</div></div>'+extra}
 function render(){
  normalize();save();
- wizard.innerHTML=names.map(function(n,i){return '<button type="button" data-step="'+i+'" class="'+(i===st.step?'active':i<st.step?'done':'')+'" '+(i>st.step?'disabled':'')+'>'+n+'</button>'}).join('');
+ wizard.innerHTML=names.map(function(n,i){return '<button type="button" data-step="'+i+'" aria-current="'+(i===st.step?'step':'false')+'" class="'+(i===st.step?'active':i<st.step?'done':'')+'" '+(i>st.step?'disabled':'')+'>'+n+'</button>'}).join('');
  var h='',m=data(),p=price(),i=idx();
  if(st.step===0){
    h=optionsHead('Choisissez le modèle STUDIO ONE','Quatre compositions disponibles, avec une profondeur de 46 cm.');
    h+='<div class="choices model-choices">'+M.map(function(x,j){return item(x.name,x.sub,'model:'+j,st.model===j,false,drawer(x.drawers,x.height))}).join('')+'</div>';
-   h+='<div class="warning">* Meuble 3 tiroirs : la hauteur est de 91 cm dans le flyer mais de 81 cm sur un schéma tarifaire. Point à confirmer avec Randal.</div>';
  }
  if(st.step===1){
    h=optionsHead('Votre largeur exacte','Choisissez la largeur de votre meuble au centimètre près, entre 40 et 120 cm. Les tarifs suivent les tranches du fabricant.');
@@ -172,12 +173,12 @@ function render(){
    h+='<div id="width-status">'+widthInfo()+'</div>';
  }
  if(st.step===2){
-   h=optionsHead('Plateau et vasque','Le meuble sur mesure est proposé avec un plateau. Les vasques standard utilisent les largeurs par pas de 10 cm.');
+   h=optionsHead('Plateau et vasque','Le meuble sur mesure est proposé avec un plateau. Les vasques standard sont disponibles de 60 à 120 cm, par pas de 10 cm.');
    h+='<div class="option-layout">'+[
       ['top','Avec plateau sur mesure','Largeur au centimètre près · prix meuble avec plateau.'],
-      ['basin','Sans plateau · vasque standard','Uniquement 40, 50, 60… jusqu’à 120 cm. Vasque à chiffrer séparément.'],
+      ['basin','Sans plateau · vasque standard','Uniquement 60, 70, 80, 90, 100, 110 ou 120 cm. Vasque à chiffrer séparément.'],
       ['bare','Sans plateau · meuble seul','Formats standards de 40 à 120 cm par pas de 10 cm.']
-   ].map(function(o){return '<button type="button" class="choice'+(st.option===o[0]?' active':'')+'" data-option="'+o[0]+'" '+(o[0]!=='top'&&!standard()?'disabled':'')+'><strong>'+o[1]+'</strong><small>'+o[2]+'</small></button>'}).join('')+'</div>';
+   ].map(function(o){return '<button type="button" class="choice'+(st.option===o[0]?' active':'')+'" data-option="'+o[0]+'" '+(o[0]==='basin'&&!basinAvailable()||o[0]==='bare'&&!standard()?'disabled':'')+'><strong>'+o[1]+'</strong><small>'+o[2]+'</small></button>'}).join('')+'</div>';
    if(isTop())h+='<label class="radio-row" style="margin-top:20px"><input type="checkbox" id="vessel" '+(st.vessel?'checked':'')+'>Prévoir une vasque à poser (sur devis, non incluse)</label>';
    if(!standard())h+='<div class="warning">Largeur '+esc(st.width)+' cm : les options « sans plateau » et « vasque standard » ne sont pas disponibles. Le plateau sur mesure est sélectionné.</div>';
    h+='<div class="price-card"><strong>Prix C1 du meuble : '+euros(p)+'</strong><div>Référence adaptée à la tranche '+sizes[i].label+' · '+(isTop()?'avec plateau':'sans plateau')+'.</div></div>';
@@ -209,12 +210,19 @@ function render(){
    h+='<div class="total"><div>Montant indicatif C1 · hors vasque éventuelle</div><strong>'+euros(total())+'</strong><div class="sub">Prix catégorie C1 du document fournisseur, sans indication HT/TTC.</div></div>';
    h+='<div class="recap-tools"><button class="btn" id="copy">Copier le récapitulatif</button><button class="btn" id="print">Imprimer</button><button class="btn primary" id="email">Préparer une demande par e-mail</button></div>';
    if(widthVal(st.width)===40)h+='<div class="warning">Largeur 40 cm : à confirmer avec Randal (référentiel 41–60 cm ; flyer 40–60 cm).</div>';
-   if(st.model===1)h+='<div class="warning">Hauteur 3 tiroirs : divergence fournisseur 91 / 81 cm, à confirmer avant commande.</div>';
    h+='<p class="note">Le bouton e-mail ouvre la messagerie : aucun message n’est envoyé automatiquement. La partie 3D sera ajoutée après validation de ce configurateur.</p>';
  }
- h+='<div class="actions"><button class="btn" id="prev" '+(st.step===0?'disabled':'')+'>← Précédent</button>'+(st.step<5?'<button class="btn primary" id="next">Continuer →</button>':'<button class="btn" id="restart">Recommencer</button>')+'</div>';
+ if(st.step>0)h+='<div class="actions">'+(st.step<5?'<button class="btn primary" id="next">Continuer →</button>':'<button class="btn" id="restart">Recommencer</button>')+'</div>';
  panel.innerHTML=h;
- panel.querySelectorAll('[data-choice]').forEach(function(b){b.onclick=function(){var a=b.getAttribute('data-choice').split(':');change('model',Number(a[1]));};});
+ panel.querySelectorAll('[data-choice]').forEach(function(b){b.onclick=function(){
+   var a=b.getAttribute('data-choice').split(':');
+   var selected=Number(a[1]);
+   if(!Number.isInteger(selected)||!M[selected])return;
+   st.model=selected;
+   st.step=1;
+   normalize();save();render();
+   panel.scrollIntoView({behavior:'smooth',block:'start'});
+ };});
  panel.querySelectorAll('[data-width]').forEach(function(b){b.onclick=function(){change('width',b.getAttribute('data-width'))}});
  panel.querySelectorAll('[data-option]').forEach(function(b){b.onclick=function(){st.option=b.getAttribute('data-option');st.vessel=false;save();render()}});
  panel.querySelectorAll('[data-color]').forEach(function(b){b.onclick=function(){change('color',b.getAttribute('data-color'))}});
@@ -233,11 +241,10 @@ function render(){
  var qty=document.getElementById('quantity');if(qty)qty.oninput=function(){st.quantity=qty.value;save()};
  var vessel=document.getElementById('vessel');if(vessel)vessel.onchange=function(){st.vessel=vessel.checked;save()};
  wizard.querySelectorAll('[data-step]').forEach(function(b){b.onclick=function(){var v=Number(b.dataset.step);if(v<=st.step){st.step=v;save();render()}}});
- document.getElementById('prev').onclick=function(){st.step=Math.max(st.step-1,0);save();render();window.scrollTo({top:0,behavior:'smooth'})};
  var next=document.getElementById('next');if(next)next.onclick=function(){
-    if(st.step===0&&!data())return alert('Choisissez un modèle STUDIO ONE.');
     if(st.step===1&&!validWidth())return alert('Largeur invalide : entrez un nombre entier de 40 à 120 cm, sans virgule.');
     if(st.step===2&&st.option!=='top'&&!standard())return alert('Une largeur sur mesure nécessite un plateau.');
+    if(st.step===2&&st.option==='basin'&&!basinAvailable())return alert('Les vasques standard sont proposées à partir de 60 cm, par pas de 10 cm.');
     if(st.step===3&&!color())return alert('Choisissez l’une des 8 finitions.');
     if(st.step===4&&(!Number.isInteger(Number(st.quantity))||Number(st.quantity)<1||Number(st.quantity)>99))return alert('La quantité doit être comprise entre 1 et 99.');
     st.step+=1;save();render();window.scrollTo({top:0,behavior:'smooth'});
@@ -269,6 +276,9 @@ function recapText(){
  ].filter(Boolean).join('\n');
 }
 render();
+window.addEventListener('pageshow',function(event){
+ if(event.persisted){st=Object.assign({},initial);render();window.scrollTo(0,0);}
+});
 })();
 </script>
 </body></html>
