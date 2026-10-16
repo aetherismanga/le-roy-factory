@@ -256,6 +256,40 @@ for(var i=0;i<drawers;i++){
  }
  if(i>0)box(group,w-.1,.065,.014,0,centerY-dh/2+.069,-d/2+.057,interiorShade); // le tiroir supérieur conserve le dégagement du siphon
 }
+
+/* Colonne STUDIO ONE sur mesure : 132 × 38 × 27 cm, deux portes 45°
+   Reprise de la finition choisie pour le meuble, avec relief et joints. */
+var columnWidth=.38,columnHeight=1.32,columnDepth=.27;
+var columnCenterX=w/2+.13+columnWidth/2;
+var studioColumn=null;
+if(hasColumn){
+ studioColumn=new THREE.Group();
+ studioColumn.name='STUDIO_ONE_COLONNE_14177_'+code;
+ studioColumn.position.set(columnCenterX,.18+columnHeight/2,-.095);
+ scene.add(studioColumn);
+ var cw=columnWidth,ch=columnHeight,cd=columnDepth;
+ var doorGap=.005;
+ // Volume solide, panneaux latéraux et cloison interne.
+ box(studioColumn,cw,.020,cd,0,-ch/2+.01,0,inside);
+ box(studioColumn,cw,.020,cd,0,ch/2-.01,0,inside);
+ for(var cx of [-cw/2+.009,cw/2-.009])box(studioColumn,.018,ch,cd,cx,0,0,finish);
+ box(studioColumn,cw-.035,ch-.03,.014,0,0,-cd/2+.007,inside);
+ box(studioColumn,cw-.036,.015,cd-.03,0,0,inside);
+ var columnShadow=new THREE.MeshBasicMaterial({color:'#453b34',transparent:true,opacity:.48,depthWrite:false});
+ for(var z=0;z<2;z++){
+  var dy=ch/2,cy=z===0?ch/4:-ch/4;
+  var front=cd/2+.012;
+  // Deux vraies portes indépendantes, joints de 5 mm.
+  var door=box(studioColumn,cw-.026,dy-doorGap,.020,0,cy,front,grainMaterial);
+  door.name='Porte_STUDIO_ONE_45_'+(z+1);
+  var bevel=new THREE.Mesh(new THREE.BoxGeometry(cw-.031,.022,.024),grainMaterial);
+  bevel.rotation.x=-Math.PI/4;
+  bevel.position.set(0,cy+dy/2-.017,front+.012);
+  bevel.castShadow=true;studioColumn.add(bevel);
+  box(studioColumn,cw-.032,.003,.004,0,cy-dy/2+.004,front+.014,columnShadow);
+ }
+ // Ombre de contact murale, sans faire disparaître le meuble à l'écran.
+}
 if(option==='top')box(body,w+.006,.019,d+.018,0,baseY+h+.012,0,finish); // plateau exactement de la même finition que le meuble
 var backPlate=box(body,w-.04,.030,.035,0,baseY+h-.020,-d/2+.024,inside); // traverse arrière sous vasque, aucune obstruction du siphon
 var basinGroup=new THREE.Group();body.add(basinGroup);
