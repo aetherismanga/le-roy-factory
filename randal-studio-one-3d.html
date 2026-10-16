@@ -524,22 +524,25 @@ function showObjectMenu(kind){
  editorPopup(({meuble:'Meuble STUDIO ONE',colonne:'Colonne assortie',vasque:'Vasque RANDAL',miroir:'Miroir RANDAL'})[kind]||'Élément',function(){
   if(kind==='meuble'){
    editorButton('Dupliquer le meuble',function(){sendEdit({extraCabinets:Math.min(2,extraCabinets+1)});closeEditor()},true);
+    if(extraCabinets>0)editorButton('Supprimer un meuble supplémentaire',function(){sendEdit({extraCabinets:extraCabinets-1});closeEditor()});
    var l=document.createElement('label');l.textContent='Largeur du meuble (40 à 120 cm)';editorMenu.appendChild(l);
    var widthInput=document.createElement('input');widthInput.type='number';widthInput.min=40;widthInput.max=120;widthInput.step=1;widthInput.value=currentWidth;
    widthInput.onchange=function(){var v=Math.round(Number(this.value));if(v>=40&&v<=120){sendEdit({width:v});closeEditor()}else this.value=currentWidth};editorMenu.appendChild(widthInput);
    editorSelect('Finition',Object.keys(finishNames).map(function(k){return[k,finishNames[k]]}),code,function(v){sendEdit({color:v})});
   }else if(kind==='colonne'){
    editorButton(hasColumn?'Dupliquer la colonne':'Ajouter la colonne',function(){sendEdit(hasColumn?{columnQty:Math.min(3,columnQty+1)}:{column:true});closeEditor()},true);
-   if(hasColumn)editorButton('Retirer la colonne',function(){sendEdit({column:false});closeEditor()});
+   if(hasColumn)editorButton('Supprimer la colonne sélectionnée',function(){if(columnQty>1)sendEdit({columnQty:columnQty-1});else sendEdit({column:false});closeEditor()});
    editorSelect('Finition assortie',Object.keys(finishNames).map(function(k){return[k,finishNames[k]]}),code,function(v){sendEdit({color:v})});
   }else if(kind==='miroir'){
    editorButton('Dupliquer le miroir',function(){if(selectedMirror==='Sans miroir')sendEdit({mirror:'Basic'});else sendEdit({mirrorQty:Math.min(3,mirrorQty+1)});closeEditor()},true);
+    if(selectedMirror!=='Sans miroir')editorButton('Supprimer le miroir',function(){if(mirrorQty>1)sendEdit({mirrorQty:mirrorQty-1});else sendEdit({mirror:'Sans miroir',mirrorQty:1});closeEditor()});
    editorSelect('Modèle de miroir',[['Sans miroir','Sans miroir']].concat(Object.keys(MIRRORS).map(function(k){return[k,k]})),selectedMirror,function(v){sendEdit({mirror:v})});
    if(selectedMirror!=='Sans miroir')editorSelect('Dimensions',(MIRRORS[selectedMirror]||[]).map(function(x){return[x,x]}),selectedMirrorSize,function(v){sendEdit({mirrorSize:v})});
    if(selectedMirror.toLowerCase().includes('métallique'))editorSelect('Couleur du cadre',['Noir','Doré','Bronze','Argent'].map(function(x){return[x,x]}),selectedMirrorFinish,function(v){sendEdit({mirrorFinish:v})});
    var info=document.createElement('p');info.className='studio-menu-help';info.textContent='Prix du miroir : tarif catalogue indicatif, à confirmer par RANDAL.';editorMenu.appendChild(info);
   }else if(kind==='vasque'){
-   if(option==='bare')editorButton('Ajouter une vasque',function(){sendEdit({option:currentWidth%10===0&&currentWidth>=60&&currentWidth!==110?'basin':'top',vessel:true,sinkModel:'Neris'});closeEditor()},true);
+   if(option!=='bare')editorButton('Supprimer la vasque',function(){sendEdit({option:'bare',vessel:false,sinkQty:1});closeEditor()});
+    if(option==='bare')editorButton('Ajouter une vasque',function(){sendEdit({option:currentWidth%10===0&&currentWidth>=60&&currentWidth!==110?'basin':'top',vessel:true,sinkModel:'Neris'});closeEditor()},true);
    else if(option==='top'&&currentWidth>=100)editorButton('Dupliquer la vasque à poser',function(){sendEdit({sinkQty:Math.min(2,sinkQty+1)});closeEditor()},true);
    editorSelect('Type',[['bare','Sans vasque'],['top','Plateau et vasque à poser'],['basin','Vasque encastrée']],option,function(v){sendEdit({option:v,vessel:v==='top'})});
    if(option!=='bare'){
@@ -585,10 +588,10 @@ function hitObject(e){
 }
 function moveSelected(type,dx){
  var delta=dx*dist/Math.max(350,stage.clientWidth)*1.55;
- if(type==='meuble'){body.position.x=clamp(body.position.x+delta,-1,1);mirrorRoot.position.x=body.position.x;studioColumn.position.x=body.position.x+currentWidth/200+.13+columnWidth/2}
- if(type==='colonne')studioColumn.position.x=clamp(studioColumn.position.x+delta,body.position.x+currentWidth/200+.035,2.1);
+ if(type==='meuble'){var next=clamp(body.position.x+delta,-1,1);if(!hasColumn||Math.abs(next-studioColumn.position.x)>currentWidth/200+columnWidth/2+.025)body.position.x=next}
+ if(type==='colonne')studioColumn.position.x=clamp(studioColumn.position.x+delta,body.position.x+currentWidth/200+columnWidth/2+.025,2.1);
  if(type==='miroir')mirrorRoot.position.x=clamp(mirrorRoot.position.x+delta,-1.5,1.5);
- if(type==='vasque')sinkOffsetX=clamp(sinkOffsetX+delta,-Math.max(0,currentWidth/200-.24),Math.max(0,currentWidth/200-.24));
+ // La vasque reste solidaire de son meuble : aucun déplacement indépendant.
  updateCopies();
 }
 canvas.addEventListener('pointerdown',function(e){
