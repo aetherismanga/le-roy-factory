@@ -42,11 +42,22 @@ aside{grid-column:2;grid-row:1 / span 4}.surface-picker,.finish-picker{backgroun
 [hidden]{display:none!important}
 @media(max-width:850px){header.studio-head{padding:22px 15px}.studio-head>strong{font-size:23px}.studio-head .logo{display:none}main{display:flex;flex-direction:column;padding:12px}.stage{height:62svh;min-height:460px;margin:0}.gesture{margin:7px 0}.studio-actions{margin-bottom:17px}aside{padding:20px;grid-column:auto;grid-row:auto}.surface-picker{max-height:72%}}
 @media(max-width:420px){.studio-materials{gap:5px;left:7px;right:7px}.studio-materials button{padding:8px 6px;gap:5px;font-size:11px}.chip{width:19px;height:19px;flex-basis:19px}.studio-materials strong{font-size:10px}.toolbar{left:9px;right:9px}.toolbar button{padding:10px 9px}}
+/* Accès tiroirs directement dans la vue 3D, même en plein écran Android. */
+.toolbar{z-index:7;flex-wrap:nowrap;align-items:flex-start}
+#drawers-quick{display:none}
+#stage:fullscreen #drawers-quick,#stage:-webkit-full-screen #drawers-quick{display:inline-flex;align-items:center;justify-content:center}
+#stage:fullscreen .toolbar,#stage:-webkit-full-screen .toolbar{display:grid;grid-template-columns:auto auto minmax(0,1fr);gap:7px;align-items:start}
+#stage:fullscreen .toolbar button,#stage:-webkit-full-screen .toolbar button{font-size:clamp(.68rem,2.2vw,.88rem);padding:10px 8px;min-height:49px;white-space:nowrap}
+#stage:fullscreen #fullscreen,#stage:-webkit-full-screen #fullscreen{justify-self:end}
+#drawers-quick[aria-pressed="true"]{background:#2f5238;color:white}
+#stage:fullscreen,#stage:-webkit-full-screen{width:100%;height:100%;height:100dvh;border-radius:0;background:#ddd9d3}
+#stage:fullscreen .studio-materials,#stage:-webkit-full-screen .studio-materials{bottom:max(10px,env(safe-area-inset-bottom));z-index:9}
+@media(max-width:400px){#stage:fullscreen .toolbar,#stage:-webkit-full-screen .toolbar{left:7px;right:7px;gap:5px}#stage:fullscreen .toolbar button,#stage:-webkit-full-screen .toolbar button{font-size:.67rem;padding:9px 5px}}
 </style></head><body>
 <header class="studio-head"><span class="eyebrow">RANDAL · VISUALISATION</span><strong>Votre salle de bain</strong><div class="logo">studio<em>one</em></div></header>
 <main><section class="stage" id="stage" aria-label="Vue 3D interactive de votre meuble Studio One">
  <div id="status">Chargement de votre meuble 3D…</div>
- <div class="toolbar"><button id="dimensions" aria-pressed="false">◫ Cotes</button><button id="fullscreen" aria-pressed="false">⛶ Plein écran</button></div>
+ <div class="toolbar"><button id="dimensions" aria-pressed="false">◫ Cotes</button><button type="button" id="drawers-quick" aria-pressed="false">Ouvrir tiroirs</button><button id="fullscreen" aria-pressed="false">⛶ Plein écran</button></div>
  <div class="studio-materials"><button type="button" id="floor-picker"><span id="floor-chip" class="chip"></span><span>Sol<strong id="floor-name">Creta Ginepro</strong></span></button><button type="button" id="wall-picker"><span id="wall-chip" class="chip"></span><span>Mur<strong id="wall-name">Ivoire</strong></span></button><button id="image">↓ Image</button></div>
  <div id="surface-picker" class="surface-picker" hidden><div class="picker-head"><strong id="picker-title">Choix du sol</strong><button id="picker-close" aria-label="Fermer">✕</button></div><div id="picker-options" class="picker-options"></div></div>
  </section>
@@ -326,7 +337,7 @@ dimLabel('H '+String(height).replace('.',',')+' cm',leftX-.12,baseY+h/2,frontZ,g
 dimLine([rightX,baseY+h+.06,-d/2],[rightX,baseY+h+.06,d/2],orange);
 dimLine([rightX-.05,baseY+h+.06,-d/2],[rightX+.05,baseY+h+.06,-d/2],orange);dimLine([rightX-.05,baseY+h+.06,d/2],[rightX+.05,baseY+h+.06,d/2],orange);
 dimLabel('P '+depth+' cm',rightX+.13,baseY+h+.15,0,orange);
-var yaw=.49,pitch=.13,dist=3.1,drag=null,opened=false,progress=0;
+var yaw=.49,pitch=.13,baseDistance=clamp(2.08+Math.max(w,h)*.49,2.25,2.85),dist=baseDistance,drag=null,opened=false,drawerProgress=0;
 function placement(){camera.position.set(Math.sin(yaw)*dist,baseY+h*.52+Math.sin(pitch)*dist*.65,Math.cos(yaw)*dist);camera.lookAt(0,baseY+h*.55,0)}
 function resize(){var a=stage.clientWidth,b=stage.clientHeight;camera.aspect=a/Math.max(b,1);camera.updateProjectionMatrix();renderer.setSize(a,b,false)}
 new ResizeObserver(resize).observe(stage);
@@ -336,13 +347,31 @@ canvas.addEventListener('pointerup',function(){drag=null});canvas.addEventListen
 canvas.addEventListener('wheel',function(e){e.preventDefault();dist=clamp(dist+Math.sign(e.deltaY)*.2,1.4,5)},{passive:false});
 var pinches=new Map();canvas.addEventListener('touchstart',function(e){if(e.touches.length===2)pinches.set('dist',Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY))},{passive:true});
 canvas.addEventListener('touchmove',function(e){if(e.touches.length!==2)return;var n=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY),prev=pinches.get('dist');if(prev)dist=clamp(dist*prev/n,1.4,5);pinches.set('dist',n)},{passive:true});
-document.getElementById('drawers').onclick=function(){opened=!opened;this.setAttribute('aria-pressed',String(opened));this.textContent=opened?'Fermer les tiroirs':'Ouvrir les tiroirs'};
+function syncDrawerButtons(){
+ var btn=document.getElementById('drawers'),quick=document.getElementById('drawers-quick');
+ btn.setAttribute('aria-pressed',String(opened));btn.textContent=opened?'Fermer les tiroirs':'Ouvrir les tiroirs';
+ quick.setAttribute('aria-pressed',String(opened));quick.textContent=opened?'Fermer tiroirs':'Ouvrir tiroirs';
+}
+function toggleAllDrawers(){opened=!opened;syncDrawerButtons()}
+document.getElementById('drawers').onclick=toggleAllDrawers;
+document.getElementById('drawers-quick').onclick=toggleAllDrawers;
 document.getElementById('dimensions').onclick=function(){var show=!dimensionGroup.visible;dimensionGroup.visible=show;this.setAttribute('aria-pressed',String(show))};
-document.getElementById('fullscreen').onclick=function(){var b=this;if(!document.fullscreenElement){document.getElementById('stage').requestFullscreen().then(function(){b.textContent='✕ Quitter le plein écran';b.setAttribute('aria-pressed','true')}).catch(function(){alert('Plein écran non pris en charge sur cet appareil.')})}else document.exitFullscreen()};
-document.addEventListener('fullscreenchange',function(){if(!document.fullscreenElement){document.getElementById('fullscreen').textContent='⛶ Plein écran';document.getElementById('fullscreen').setAttribute('aria-pressed','false')}});
+document.getElementById('fullscreen').onclick=function(){var b=this;if(!document.fullscreenElement){document.getElementById('stage').requestFullscreen().then(function(){b.textContent='✕ Quitter';b.setAttribute('aria-pressed','true');resize()}).catch(function(){alert('Plein écran non pris en charge sur cet appareil.')})}else document.exitFullscreen()};
+document.addEventListener('fullscreenchange',function(){if(!document.fullscreenElement){document.getElementById('fullscreen').textContent='⛶ Plein écran';document.getElementById('fullscreen').setAttribute('aria-pressed','false')}requestAnimationFrame(resize)});
 document.getElementById('front').onclick=function(){yaw=0;pitch=.03;dist=3};
-document.getElementById('reset').onclick=function(){yaw=.49;pitch=.13;dist=3.1;opened=false;document.getElementById('drawers').setAttribute('aria-pressed','false');document.getElementById('drawers').textContent='Ouvrir les tiroirs'};
+document.getElementById('reset').onclick=function(){yaw=.49;pitch=.13;dist=baseDistance;opened=false;syncDrawerButtons()};
 document.getElementById('image').onclick=function(){try{renderer.render(scene,camera);var a=document.createElement('a');a.download='STUDIO-ONE-'+width+'cm.png';a.href=renderer.domElement.toDataURL('image/png');a.click()}catch(e){alert('Impossible de sauvegarder l’image sur cet appareil.')}};
-function render(){requestAnimationFrame(render);progress+=(Number(opened)-progress)*.12;drawerGroups.forEach(function(g){g.position.z=progress*(.23)});placement();renderer.render(scene,camera)}resize();render();
+function render(){
+ requestAnimationFrame(render);
+ // Démarrage simultané, amplitudes différentes : bas > milieu > haut.
+ drawerProgress+=(Number(opened)-drawerProgress)*.115;
+ if(Math.abs(Number(opened)-drawerProgress)<.0002)drawerProgress=Number(opened);
+ drawerGroups.forEach(function(g,index){
+  var travel=drawers===1?.215:drawers===2?(index===0?.165:.265):index===0?.125:index===1?.190:.265;
+  var smooth=drawerProgress*drawerProgress*(3-2*drawerProgress);
+  g.position.z=smooth*travel;
+ });
+ placement();renderer.render(scene,camera);
+}resize();render();
 })();
 </script></body></html>
