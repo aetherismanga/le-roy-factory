@@ -124,6 +124,86 @@
     setTimeout(()=>document.addEventListener('pointerdown',outside,true),0);
   }
   $('image').onclick=()=>{if(!view)return notice('La visualisation 3D n’est pas disponible.');view.renderer.render(view.scene,view.camera);view.canvas.toBlob(blob=>{if(blob)download(blob,'STUDIO-ONE-composition.png');});};
+  // Free photorealistic hand-off: all instructions remain visible in the exported PNG.
+  // No external API, user account, hidden PNG metadata or automatic file upload.
+  function photoBrief(){
+    const out=['INSTRUCTION POUR CHATGPT OU GEMINI — CRÉATION D’IMAGE',
+      'Génère une photographie architecturale photoréaliste à partir de la vue 3D ci-dessus.',
+      'La vue 3D est la référence prioritaire : conserve le cadrage, les emplacements, le nombre',
+      'd’éléments, leurs dimensions, leurs proportions et leurs finitions. Ne change aucun modèle.',
+      'Remplace uniquement le rendu informatique par des matériaux et lumières photographiques.',
+      'RANDAL STUDIO ONE — COMPOSITION EXACTE :'];
+    store.project.items.forEach((item,i)=>{
+      const d=M.dimensions(item),f=C.finishes.find(c=>c.code===item.finish);
+      const p=item.position,position='centre X '+p.x+' cm, bas '+p.y+' cm, profondeur Z '+p.z+' cm';
+      const ref=M.lines(item)[0]?.ref||'';
+      if(item.kind==='cabinet'){
+        out.push((i+1)+'. MEUBLE RANDAL STUDIO ONE : '+C.models[item.model].name+
+          ', L '+d.width+' × H '+d.height+' × P '+d.depth+' cm ; finition '+f.name+
+          ' ('+item.finish+'), façade '+item.facade+', réf. '+ref+'.');
+        out.push('   '+(item.option==='bare'?'Sans plateau':item.option==='basin'?'Vasque encastrée':'Plateau assorti')+
+          (item.sink?'; vasque '+item.sink.model+', '+item.sink.width+' × '+item.sink.depth+
+          ' cm, couleur '+((item.option==='basin'?C.insetColors:C.vesselColors).find(c=>c.code===item.sink.color)?.name||item.sink.color)+
+          ', '+(item.sink.layout==='double'?'double cuve':'simple cuve'):'')+' ; '+position+'.');
+      }else if(item.kind==='column'){
+        out.push((i+1)+'. COLONNE RANDAL STUDIO ONE : L 38 × H 132 × P 27 cm, réf. '+
+          ref+', finition '+f.name+' ('+item.finish+'), étagères et dessus assortis ; '+position+'.');
+      }else{
+        out.push((i+1)+'. MIROIR RANDAL : '+item.mirror+', format '+item.mirrorSize+
+          ', cadre '+item.mirrorFinish+', réf. '+ref+
+          (/LED/i.test(item.mirror)?', éclairage LED réaliste et diffus':'')+' ; '+position+'.');
+      }
+    });
+    for(const surface of ['floor','wall']){
+      const key=ambience[surface],tile=findTile(key),shade=key.split(':')[1];
+      const color=tile?.colors.find(c=>c.toLowerCase().replace(/\s+/g,'-')===shade)||shade;
+      out.push((surface==='floor'?'SOL':'MUR')+' : '+(tile?.factory||'').toUpperCase()+
+        ' '+(tile?.name||'')+' '+color+', format '+(tile?.size.join(' × ')||'?')+
+        ' cm, pose '+(ambience[surface+'Orientation']||'horizontal')+'.');
+    }
+    out.push('Rendu : salle de bains contemporaine crédible, reflets naturels du miroir,',
+      'ombres douces, lumière du jour, textures réalistes, joints de carrelage précis.',
+      'Ne pas ajouter de meuble, de robinetterie ou de décoration qui cacherait la composition.',
+      'Ce visuel est une illustration d’ambiance et non un plan technique contractuel.');
+    return out.join('\n');
+  }
+  function photoExport(service){
+    if(!view)return notice('La visualisation 3D doit être chargée avant l’export.');
+    const destination=service==='gemini'?'https://gemini.google.com/app':'https://chatgpt.com/';
+    try{
+      view.renderer.render(view.scene,view.camera);
+      const source=view.canvas,scale=Math.min(1,1500/Math.max(1,source.width));
+      const w=1500,photoW=w-100,photoH=Math.max(400,Math.round(source.height*photoW/Math.max(1,source.width)));
+      const lines=[],ctx=document.createElement('canvas').getContext('2d');
+      ctx.font='26px Arial, sans-serif';
+      const maxWidth=w-110;
+      for(const paragraph of photoBrief().split('\n')){
+        let current='';
+        for(const word of paragraph.split(/\s+/)){
+          const candidate=current?current+' '+word:word;
+          if(current&&ctx.measureText(candidate).width>maxWidth){lines.push(current);current=word;}else current=candidate;
+        }
+        lines.push(current);
+      }
+      const lineHeight=37,top=photoH+160,h=Math.max(950,top+lines.length*lineHeight+100);
+      const exportCanvas=document.createElement('canvas');exportCanvas.width=w;exportCanvas.height=h;
+      const x=exportCanvas.getContext('2d');x.fillStyle='#ffffff';x.fillRect(0,0,w,h);
+      x.fillStyle='#24362f';x.fillRect(0,0,w,76);
+      x.fillStyle='#ffffff';x.font='bold 33px Arial, sans-serif';x.fillText('RANDAL STUDIO ONE  |  MON PROJET PHOTORÉALISTE',48,50);
+      x.drawImage(source,50,96,photoW,photoH);
+      x.fillStyle='#24362f';x.font='bold 28px Arial, sans-serif';x.fillText('CONSIGNES POUR L’IA — LIRE ET GÉNÉRER LE RENDU',50,top-35);
+      x.font='26px Arial, sans-serif';
+      lines.forEach((line,i)=>{x.fillStyle=i===0?'#17634b':'#24362f';x.fillText(line,55,top+i*lineHeight);});
+      const link=document.createElement('a');link.href=exportCanvas.toDataURL('image/png');link.download='RANDAL-STUDIO-ONE-projet-photorealiste.png';
+      document.body.append(link);link.click();link.remove();
+      const tab=window.open(destination,'_blank','noopener,noreferrer');
+      if(!tab)notice('Image enregistrée. Autorisez les fenêtres surgissantes puis ouvrez '+destination+' pour joindre le PNG.');
+      else notice('Image enregistrée. Joignez simplement le PNG dans '+(service==='gemini'?'Gemini':'ChatGPT')+' pour demander votre rendu.');
+    }catch(error){notice('Impossible de préparer l’image : '+error.message);}
+  }
+  $('photo-chatgpt').onclick=()=>photoExport('chatgpt');
+  $('photo-gemini').onclick=()=>photoExport('gemini');
+
   $('print').onclick=()=>window.print();
   function requestText(){return ['Bonjour Juan Carlos,','','Veuillez confirmer la composition STUDIO ONE suivante :','',...store.quote().flatMap(r=>[r.title,r.detail,'Référence : '+r.ref,'Quantité : '+r.qty,'']),'Merci de confirmer les références, compatibilités, disponibilités, délais et conditions de transport.','Cette demande ne constitue pas une commande ferme.','','Cordialement,','Agence Le Roy Factory'].join('\n');}
   $('request-quote').onclick=()=>window.RandalMailChooser.show({to:'juancarlos.segura@randal.group',cc:'jerome@leroyfactory.fr,coryne@leroyfactory.fr',subject:'Demande de devis RANDAL STUDIO ONE',body:requestText()});
