@@ -234,7 +234,7 @@ var colors=window.StudioOneCatalog.finishes;
 var sizes=window.StudioOneCatalog.sizes;
 var names=['1. Modèle','2. Dimensions','3. Plateau & vasque','4. Couleur','5. Compléments','6. Récapitulatif'];
 // Références et prix publics HT du catalogue RANDAL V04, pages 38 et 41.
-// Tarif pro des vasques : 50 % du prix public HT (même règle que le PDF tarifs pro existant).
+// Tarif pro des vasques : 50 % du prix prix catalogue (même règle que le PDF tarifs pro existant).
 var INSET=window.StudioOneCatalog.inset;
 var INSET_COLORS=window.StudioOneCatalog.insetColors;
 var VESSEL_COLORS=window.StudioOneCatalog.vesselColors;
@@ -365,7 +365,7 @@ function sinkChooser(){
  if(integrated&&st.sinkModel==='Sella')h+='<p class="sink-compatibility">SELLA : seule la finition blanc brillant est indiquée dans le catalogue RANDAL. Les couleurs mat et noir mat sont disponibles sur TAMPA.</p>';
  if(integrated&&st.sinkModel==='Tampa'&&st.sinkColor!=='gloss')h+='<p class="details">Les finitions blanc mat et noir mat ont les mêmes références imprimées sur le catalogue : confirmer la couleur sur la commande.</p>';
  h+='<div class="sink-price-summary">'+(sink?'<strong>Vasque : '+euros(sink.price)+' PRO</strong><div>Référence fabricant : '+sink.ref+' · '+sink.finish+'</div>':'<strong>Sélection à vérifier</strong>')+
- '<div class="details">Prix professionnel HT calculé à -50 % du prix public HT RANDAL. Prix inclus dans le total de la composition.</div></div></section>';
+ '<div class="details">Prix professionnel HT calculé à -50 % du prix prix catalogue RANDAL. Prix inclus dans le total de la composition.</div></div></section>';
  return h;
 }
 function optionsHead(title,hint){return '<h2>'+title+'</h2><p class="hint">'+hint+'</p>'}
