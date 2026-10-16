@@ -57,7 +57,7 @@
     return item;
   }
   function make(kind, options = {}) {
-    const item = { id: uid(), kind, model: 0, width: 60, finish: 'ROBLE', facade: 'Onglet 45°', option: 'top', sink: null, accessories: [], open: false,
+    const item = { id: uid(), kind, model: 0, width: 60, finish: 'ROBLE', facade: 'Onglet 45°', option: 'top', sink: null, accessories: [], open: false, doorSide: 'left',
       mirror: 'Basic', mirrorSize: '60 × 80 cm', mirrorFinish: 'Noir', position: { x: 0, y: kind === 'mirror' ? 130 : kind === 'column' ? 18 : 28, z: kind === 'column' ? -9.5 : kind === 'mirror' ? -23 : 0 }, ...copy(options) };
     if (kind === 'cabinet' && item.model === 1) item.position.y = 0;
     Object.assign(item,dimensions(item));item.drawers=kind==='cabinet'?C.models[item.model].drawers:0;
@@ -74,6 +74,8 @@
       if ((item.kind==='cabinet'&&(!Number.isInteger(item.width)||item.width<40||item.width>120)) || !['top','bare','basin'].includes(item.option)) throw Error('Dimensions ou plateau invalides.');
       if (!item.position || !['x','y','z'].every(k => Number.isFinite(item.position[k])) || Math.abs(item.position.z) > 24) throw Error('Position invalide.');
       if (item.kind === 'mirror' && (!(C.mirrors[item.mirror] || []).some(r => r[0] === item.mirrorSize) || !['Noir','Doré','Bronze','Argent'].includes(item.mirrorFinish))) throw Error('Miroir invalide.');
+      if(item.kind==='column' && item.doorSide!==undefined && !['left','right'].includes(item.doorSide)) throw Error('Sens d’ouverture de porte invalide.');
+      if(item.kind==='column' && !item.doorSide)item.doorSide='left';
       if(typeof item.open!=='boolean')throw Error('État d’ouverture invalide.');
       item.facade='Onglet 45°';
       if (item.sink && (!['Sella','Tampa','Neris','Torne'].includes(item.sink.model) || !['single','double'].includes(item.sink.layout))) throw Error('Vasque invalide.');
@@ -140,7 +142,7 @@
     update(id, patch) {
       const items=copy(this.project.items), index=items.findIndex(i=>i.id===id);if(index<0)return false;
       const old=copy(items[index]), notices=[];
-      const allowed=['width','model','finish','option','sink','mirror','mirrorSize','mirrorFinish','open'];
+      const allowed=['width','model','finish','option','sink','mirror','mirrorSize','mirrorFinish','open','doorSide'];
       allowed.forEach(k=>{if(Object.prototype.hasOwnProperty.call(patch,k))items[index][k]=copy(patch[k]);});
       const target=compatible(items[index],notices);
       if(!inside(target)){this.emit(['Ces dimensions dépassent les limites de la scène.'],false);return false;}
