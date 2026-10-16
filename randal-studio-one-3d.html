@@ -91,7 +91,7 @@ function swatchStyle(key){var f=finishFiles[key];return f?'url(assets/img/studio
 function refreshSwatch(){sw.style.background=swatchStyle(code)}
 refreshSwatch();
 document.getElementById('details').innerHTML=[
- ['Modèle',val('model','STUDIO ONE')],['Dimensions',width+' × '+String(height).replace('.',',')+' × '+depth+' cm'],['Tiroirs',''+drawers],['Plateau',option==='top'?'Avec plateau':'Sans plateau'],['Finition','<span id="finish-detail"></span>'],['Vasque',option==='bare'||option==='top'&&!vesselSelected?'Sans vasque':sinkModel+' · '+sinkColor+(sinkLayout==='double'?' · double':'')],['Réf. vasque',sinkRef||'—'],['Référence meuble','<span id="studio-ref-3d"></span>'],['Total composition',price?price+' €':'À confirmer']
+ ['Modèle',val('model','STUDIO ONE')],['Dimensions',width+' × '+String(height).replace('.',',')+' × '+depth+' cm'],['Tiroirs',''+drawers],['Plateau',option==='top'?'Avec plateau':'Sans plateau'],['Finition','<span id="finish-detail"></span>'],['Vasque',option==='bare'||option==='top'&&!vesselSelected?'Sans vasque':sinkModel+' · '+({gloss:'Blanc brillant',matte:'Blanc mat',pure:'Blanc pur',black:'Noir mat',anthracite:'Anthracite',taupe:'Taupe',namibie:'Vert Namibie',ivory:'Blanc ivoire',pink:'Rose Nadir',blue:'Bleu Kivu'}[sinkColor]||sinkColor)+(sinkLayout==='double'?' · double':'')],['Réf. vasque',sinkRef||'—'],['Référence meuble','<span id="studio-ref-3d"></span>'],['Total composition',price?new Intl.NumberFormat('fr-FR',{maximumFractionDigits:2}).format(Number(price))+' €':'À confirmer']
 ].map(function(x){return '<div><dt>'+x[0]+'</dt><dd>'+x[1]+'</dd></div>'}).join('');
 document.getElementById('finish-detail').textContent=color;
 document.getElementById('studio-ref-3d').textContent=ref||'À confirmer';
