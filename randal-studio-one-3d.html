@@ -199,27 +199,53 @@ document.getElementById('finish-close').onclick=function(){document.getElementBy
 
 // STUDIO ONE : aucun miroir dans cette visualisation.
 // Le meuble 3 tiroirs est posé au sol ; les autres modèles sont suspendus.
-var baseY=drawers===3?0:.74;
+var baseY=drawers===3?0:.74; // 3 tiroirs posés directement sur le sol à y = 0
 var topY=baseY+h;
 box(body,w-.015,.022,d-.015,0,baseY+.01,0,inside);
 box(body,.017,h,d,-w/2+.008,baseY+h/2,0,finish);
 box(body,.017,h,d,w/2-.008,baseY+h/2,0,finish);
 box(body,w-.03,h,.015,0,baseY+h/2,-d/2+.008,inside);
-var spacing=.008,drawerGroups=[];
-for(var i=0;i<drawers;i++){
- var dh=(h-.026)/drawers,centerY=baseY+h-(i+.5)*dh;
- var group=new THREE.Group();body.add(group);drawerGroups.push(group);
- var face=box(group,w-.026,dh-spacing,.02,0,centerY,d/2+.012,finish);
- // La prise de main est intégrée dans une arête biseautée à 45°, sans poignée saillante.
- var bevel=new THREE.Mesh(new THREE.BoxGeometry(w-.034,.012,.025),cut);
- bevel.position.set(0,centerY+dh/2-.014,d/2+.021);bevel.rotation.x=Math.PI/4;group.add(bevel);
- box(group,w-.085,.009,d-.08,0,centerY-dh/2+.036,.015,inside);
- box(group,.009,Math.max(.038,dh-.08),d-.09,-w/2+.055,centerY,.015,inside);
- box(group,.009,Math.max(.038,dh-.08),d-.09,w/2-.055,centerY,.015,inside);
- box(group,w-.085,.045,.012,0,centerY-dh/2+.065,-d/2+.052,inside);
+var spacing=.006,drawerGroups=[];
+var rail=material('#a8aeb0',.40),interiorShade=material('#a8a5a0',.88);
+var shadowGroove=new THREE.MeshBasicMaterial({color:'#4a4741',transparent:true,opacity:.48,depthWrite:false});
+function addDrawerBase(group,xWidth,frontDepth,backDepth,floorY,isTopDrawer){
+ var iw=xWidth-.105,frontZ=frontDepth/2-.052,backZ=-backDepth/2+.057,frontPart=frontZ-backZ;
+ if(!isTopDrawer){
+  box(group,iw,.010,frontPart,0,floorY,(frontZ+backZ)/2,inside);return;
+ }
+ // Passage U de siphon : vide OUVERT à l'arrière, largeur 19 cm, profondeur 17 cm.
+ var notchW=Math.min(.19,iw*.45),notchD=Math.min(.175,frontPart*.56),nearZ=backZ+notchD;
+ box(group,iw,.010,frontZ-nearZ,0,floorY,(frontZ+nearZ)/2,inside);
+ var sideW=(iw-notchW)/2;
+ for(var sign of [-1,1]){
+  box(group,sideW,.010,notchD,sign*(notchW+sideW)/2,floorY,(backZ+nearZ)/2,inside);
+  box(group,.012,.115,notchD,sign*notchW/2,floorY+.062,(backZ+nearZ)/2,inside);
+  box(group,sideW,.105,.011,sign*(notchW+sideW)/2,floorY+.060,backZ,interiorShade);
+ }
+ box(group,notchW+.018,.115,.012,0,floorY+.062,nearZ,interiorShade);
 }
-if(option==='top')box(body,w+.006,.019,d+.018,0,baseY+h+.012,0,finish);
-var backPlate=box(body,w-.04,.035,.04,0,baseY+h-.018,d/2-.012,inside);
+for(var i=0;i<drawers;i++){
+ var dh=(h-.028)/drawers,centerY=baseY+h-(i+.5)*dh;
+ var group=new THREE.Group();group.userData.index=i;body.add(group);drawerGroups.push(group);
+ // Façade 45° : façade pleine, chant visible, prise de main taillée dans l'arête.
+ var face=box(group,w-.028,dh-spacing-.011,.019,0,centerY-.003,d/2+.009,grainMaterial);
+ // Onglet biseauté à 45° dans le même décor que la façade, pas de fausse poignée blanche.
+ var bevel=new THREE.Mesh(new THREE.BoxGeometry(w-.034,.023,.020),grainMaterial);
+ bevel.position.set(0,centerY+dh/2-.016,d/2+.019);bevel.rotation.x=-Math.PI/4;
+ bevel.castShadow=true;group.add(bevel);
+ // Trait d'ombre du joint + petit filet lumineux en bordure d'onglet.
+ box(group,w-.035,.0025,.003,0,centerY+dh/2-.031,d/2+.028,shadowGroove);
+ box(group,w-.045,.002,.002,0,centerY+dh/2-.020,d/2+.032,material('#c7bfaf',.4));
+ var drawerFloorY=centerY-dh/2+.038;
+ addDrawerBase(group,w,d,d,drawerFloorY,i===0);
+ for(var side of [-1,1]){
+  box(group,.011,Math.max(.068,dh-.095),d-.11,side*(w/2-.051),centerY-.025,0,inside);
+  box(group,.008,.018,d-.13,side*(w/2-.034),drawerFloorY+.037,-.004,rail);
+ }
+ box(group,w-.1,.065,.014,0,centerY-dh/2+.069,-d/2+.057,interiorShade);
+}
+if(option==='top')box(body,w+.006,.019,d+.018,0,baseY+h+.012,0,finish); // plateau exactement de la même finition que le meuble
+var backPlate=box(body,w-.04,.030,.035,0,baseY+h-.020,-d/2+.024,inside); // traverse arrière sous vasque, aucune obstruction du siphon
 var basinGroup=new THREE.Group();body.add(basinGroup);
 function buildBasin(mode){
  while(basinGroup.children.length){var ch=basinGroup.children[0];basinGroup.remove(ch);ch.geometry&&ch.geometry.dispose();}
@@ -228,17 +254,24 @@ function buildBasin(mode){
  var ceramic=new THREE.MeshPhysicalMaterial({color:sinkHue[sinkColor]||'#f9f9f6',roughness:sinkColor==='gloss'?.17:.48,metalness:0,clearcoat:sinkColor==='gloss'?.2:0,side:THREE.DoubleSide});
  var chrome=new THREE.MeshStandardMaterial({color:'#b7bdbe',metalness:.85,roughness:.2});
  if(mode==='vessel'){
-  var isOval=sinkModel==='Neris';
-  var r=isOval?.178:.185,vh=isOval?.14:.12;
-  var profile=[new THREE.Vector2(.01,0),new THREE.Vector2(r*.60,.006),new THREE.Vector2(r*.86,vh*.13),new THREE.Vector2(r*.99,vh*.80),new THREE.Vector2(r,vh)];
-  var shell=new THREE.Mesh(new THREE.LatheGeometry(profile,72),ceramic);
-  shell.position.set(0,rimY+.015,0);
-  shell.scale.set(isOval?1.30:1,1,isOval?.93:1);
+  // Profil double paroi des vraies vasques à poser RANDAL : intérieur visible, non cylindre.
+  var isOval=sinkModel==='Neris',r=isOval?.178:.186,vh=isOval?.14:.12;
+  var profile=[
+   new THREE.Vector2(.010,0),new THREE.Vector2(r*.42,0),new THREE.Vector2(r*.70,.009),
+   new THREE.Vector2(r*.87,vh*.24),new THREE.Vector2(r*.965,vh*.69),
+   new THREE.Vector2(r,vh),new THREE.Vector2(r*.963,vh+.004),
+   new THREE.Vector2(r*.906,vh*.64),new THREE.Vector2(r*.70,vh*.25),
+   new THREE.Vector2(r*.40,vh*.12),new THREE.Vector2(.018,vh*.11)
+  ];
+  var shell=new THREE.Mesh(new THREE.LatheGeometry(profile,96),ceramic);
+  shell.position.set(0,rimY+.013,0);
+  shell.scale.set(isOval?1.34:1,1,isOval?.93:1);
   shell.castShadow=true;shell.receiveShadow=true;basinGroup.add(shell);
-  var lip=new THREE.Mesh(new THREE.TorusGeometry(r,.007,12,80),ceramic);
+  var lip=new THREE.Mesh(new THREE.TorusGeometry(r*.98,.004,12,96),ceramic);
   lip.rotation.x=-Math.PI/2;lip.position.y=rimY+vh+.015;
-  lip.scale.set(isOval?1.30:1,isOval?.93:1,1);basinGroup.add(lip);
-  var base=new THREE.Mesh(new THREE.CircleGeometry(r*.58,64),ceramic);base.rotation.x=-Math.PI/2;base.position.set(0,rimY+.018,0);base.scale.set(isOval?1.30:1,isOval?.93:1,1);basinGroup.add(base);
+  lip.scale.set(isOval?1.34:1,1,isOval?.93:1);basinGroup.add(lip);
+  var drain=new THREE.Mesh(new THREE.CylinderGeometry(.016,.016,.003,40),chrome);
+  drain.position.set(0,rimY+.031,0);basinGroup.add(drain);
   return;
  }
  // Cuvette céramique encastrée Sella ou Tampa. Double sur 120 cm si sélectionnée.
