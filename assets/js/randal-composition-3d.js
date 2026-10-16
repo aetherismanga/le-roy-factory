@@ -265,7 +265,20 @@ function showObjectMenu(kind){
    if(current.mirror?.includes('métallique'))sceneSelect(panel,'Couleur du cadre',['Noir','Doré','Bronze','Argent'].map(x=>[x,x]),current.mirrorFinish,v=>sceneChange({mirrorFinish:v}));
    if(current.mirror!=='Sans miroir')sceneButton(panel,'Dupliquer le miroir',()=>sceneChange({mirrorQuantity:Math.min(3,Number(current.mirrorQuantity||1)+1)}));
   }
-  if(kind==='vasque')sceneButton(panel,'Choisir la vasque et sa finition',()=>{hideObjectMenu();showCustomize('basin')});
+  if(kind==='vasque'){
+   if(current.model==='Harmony')sceneButton(panel,'Options de vasque avancées',()=>{hideObjectMenu();showCustomize('basin')});
+   sceneSelect(panel,'Montage',(current.availableModes||[]).map(mode=>[mode,labels[mode]||mode]),current.basinMode,v=>sceneChange({basinMode:v}));
+   if(current.basinMode==='integrated'){
+    sceneSelect(panel,'Modèle',['Sella','Tampa'].map(x=>[x,x]),current.basin,v=>sceneChange({basin:v}));
+   }
+   if(current.basinMode==='vessel'){
+    sceneSelect(panel,'Vasque à poser',['Neris','Torne'].map(x=>[x,x]),current.basin,v=>sceneChange({basin:v}));
+    sceneSelect(panel,'Finition',(current.basinColors||[]).map(x=>[x,x]),current.basinFinish,v=>sceneChange({basinFinish:v}));
+   }
+   if(current.model==='Harmony'&&Number(current.width)===120&&current.basinMode==='integrated'){
+    sceneSelect(panel,'Cuves',[['single','Simple'],['double','Double']],current.basinLayout,v=>sceneChange({basinLayout:v}));
+   }
+  }
  });
 }
 function showAddMenu(){
