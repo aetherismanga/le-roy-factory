@@ -245,7 +245,7 @@ var panel=document.getElementById('panel'),wizard=document.getElementById('wizar
 window.addEventListener('lrf-pro-session-changed',function(){if(st.step===5)render()});
 function el(s){return document.createElement('div')}
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
-function euros(n){var gross=Math.round(Number(n)*120)/100;return new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',minimumFractionDigits:2,maximumFractionDigits:2}).format(gross)}
+function euros(n){var gross=Math.round(Number(n)*240)/100;return new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',minimumFractionDigits:2,maximumFractionDigits:2}).format(gross)}
 function proContext(){return window.LRF_PRO_SESSION?.read?.()||null}
 function isAdmin(){return proContext()?.isAdmin===true}
 function isProfessional(){var s=proContext();return !!s&&(s.isAdmin===true||!!s.codeClient)}
