@@ -95,7 +95,7 @@
       canvas.addEventListener('contextmenu',e=>e.preventDefault());
       canvas.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'&&e.button!==0)return;e.preventDefault();canvas.setPointerCapture(e.pointerId);this.pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
         if(this.pointers.size===2){this.drag=null;this.pinch=this.pinchDistance();return;}
-        const id=this.hit(e);if(id)this.store.select(id);const item=this.store.selected;const hitPoint=new T.Vector3();this.dragPlane.constant=-(id?item.position.z/100:0);this.point(e).ray.intersectPlane(this.dragPlane,hitPoint);this.drag={id,startX:e.clientX,startY:e.clientY,x:e.clientX,y:e.clientY,origin:id?{...item.position}:null,point:hitPoint,moved:false};
+        const id=this.hit(e);this.store.select(id || null);const item=this.store.selected;const hitPoint=new T.Vector3();this.dragPlane.constant=-(id?item.position.z/100:0);this.point(e).ray.intersectPlane(this.dragPlane,hitPoint);this.drag={id,startX:e.clientX,startY:e.clientY,x:e.clientX,y:e.clientY,origin:id?{...item.position}:null,point:hitPoint,moved:false};
       });
       canvas.addEventListener('pointermove',e=>{if(!this.pointers.has(e.pointerId)){if(e.pointerType==='mouse')canvas.style.cursor=this.hit(e)?'move':'grab';return;}if(e.pointerType==='mouse'&&!(e.buttons&1)){this.cancel();return;}this.pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
         if(this.pointers.size>=2){const n=this.pinchDistance();if(this.pinch&&n)this.distance=Math.max(.7,Math.min(30,this.distance*this.pinch/n));this.pinch=n;return;}
