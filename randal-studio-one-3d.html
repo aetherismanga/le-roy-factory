@@ -253,7 +253,7 @@ for(var i=0;i<drawers;i++){
   box(group,.011,Math.max(.068,dh-.095),d-.11,side*(w/2-.051),centerY-.025,0,inside);
   box(group,.008,.018,d-.13,side*(w/2-.034),drawerFloorY+.037,-.004,rail);
  }
- box(group,w-.1,.065,.014,0,centerY-dh/2+.069,-d/2+.057,interiorShade);
+ if(i>0)box(group,w-.1,.065,.014,0,centerY-dh/2+.069,-d/2+.057,interiorShade); // le tiroir supérieur conserve le dégagement du siphon
 }
 if(option==='top')box(body,w+.006,.019,d+.018,0,baseY+h+.012,0,finish); // plateau exactement de la même finition que le meuble
 var backPlate=box(body,w-.04,.030,.035,0,baseY+h-.020,-d/2+.024,inside); // traverse arrière sous vasque, aucune obstruction du siphon
@@ -294,7 +294,7 @@ function buildBasin(mode){
  outer.moveTo(-ww,-dd);outer.lineTo(ww,-dd);outer.lineTo(ww,dd);outer.lineTo(-ww,dd);outer.closePath();
  positions.forEach(function(cx){
   var hole=new THREE.Path();
-  for(var j=0;j<=96;j++){var point=contour(Math.PI*2-j*Math.PI*2/96,1);if(j===0)hole.moveTo(cx+point[0],-.025-point[1]);else hole.lineTo(cx+point[0],-.025-point[1]);}
+  for(var j=0;j<=96;j++){var point=contour(Math.PI*2-j*Math.PI*2/96,1);if(j===0)hole.moveTo(cx+point[0],.025-point[1]);else hole.lineTo(cx+point[0],.025-point[1]);}
   outer.holes.push(hole);
  });
  var plate=new THREE.Mesh(new THREE.ExtrudeGeometry(outer,{depth:.027,steps:1,bevelEnabled:false,curveSegments:60}),ceramic);
@@ -310,7 +310,14 @@ function buildBasin(mode){
   var rimPoints=[];for(var j=0;j<=96;j++){var p=contour(j*Math.PI*2/96,1);rimPoints.push(new THREE.Vector3(cx+p[0],rimY+.015,-.025+p[1]))}
   var line=new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(rimPoints,true),96,.003,6,true),ceramic);basinGroup.add(line);
   var drain=new THREE.Mesh(new THREE.CylinderGeometry(.017,.017,.003,32),chrome);
-  drain.position.set(cx,rimY-.072,0);basinGroup.add(drain);
+  drain.position.set(cx,rimY-.072,-.025);basinGroup.add(drain);
+  // Trop-plein au fond de la cuve et perçage de robinet à l'arrière.
+  var overflow=new THREE.Mesh(new THREE.TorusGeometry(.008,.0017,10,32),chrome);
+  overflow.position.set(cx,rimY-.026,-.137);basinGroup.add(overflow);
+  var darkHole=new THREE.Mesh(new THREE.CircleGeometry(.005,28),material('#51585a',.6));
+  darkHole.position.set(cx,rimY-.026,-.136);basinGroup.add(darkHole);
+  var tapHole=new THREE.Mesh(new THREE.CircleGeometry(.009,32),material('#75797b',.4));
+  tapHole.rotation.x=-Math.PI/2;tapHole.position.set(cx,rimY+.015,-d/2+.035);basinGroup.add(tapHole);
  });
 }
 var sinkMode=option==='bare'?'none':option==='top'?(vesselSelected?'vessel':'none'):'integrated';
