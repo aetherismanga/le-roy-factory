@@ -128,6 +128,23 @@ footer{text-align:center;color:#8c8b85;font-size:.79rem;margin:25px 0;padding:10
 .studio-photo-choices .studio-photo-choice img{display:block!important;position:static!important;width:100%!important;height:auto!important;max-width:100%!important;max-height:none!important;object-fit:contain!important;object-position:center center!important;flex:none!important}
 @media(max-width:600px){.studio-photo-choices .studio-photo-choice{aspect-ratio:auto!important;border-radius:13px}.studio-photo-choices{gap:14px!important}}
 </style>
+<style id="studio-one-basins-v2">
+.sink-section{margin-top:22px;padding:16px;border-radius:17px;background:#f9f7f2;border:1px solid #e4ded1}
+.sink-section>h3{font-size:1.12rem;margin:0 0 8px;color:#35443a}
+.sink-group-heading{font-size:.93rem;font-weight:800;color:#4e5349;margin:17px 0 10px}
+.sink-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.sink-card{display:flex;align-items:center;gap:10px;text-align:left;min-width:0;padding:10px;border:2px solid #ddd8cc;border-radius:12px;background:white;color:#28342d;cursor:pointer;font:inherit}
+.sink-card img{width:46%;max-width:137px;height:105px;object-fit:contain;border-radius:9px;background:#f7f5f0}
+.sink-card span{flex:1 1 auto;min-width:0}.sink-card strong{font-size:.94rem;display:block}.sink-card small{font-size:.77rem;color:#6b736c;display:block;line-height:1.45}
+.sink-card.active,.sink-chip.active,.sink-layout.active{border-color:#826a47;background:#f6eee0;box-shadow:0 0 0 1px #826a4733}
+.sink-color-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.sink-chip{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;min-width:0;min-height:100px;border:2px solid #dedbd2;border-radius:12px;background:white;padding:10px 6px;font:inherit;font-size:.76rem;font-weight:750;text-align:center;color:#313a34}
+.sink-color-dot{width:39px;height:39px;border-radius:50%;background:var(--sinkcolor);border:1px solid #00000020;box-shadow:inset 0 0 0 1px #ffffffaa,0 2px 8px #00000010}
+.sink-layouts{display:flex;gap:8px;flex-wrap:wrap}.sink-layout{flex:1 1 120px;min-height:48px;border:2px solid #dedbd2;border-radius:11px;background:white;font:inherit;font-size:.85rem;font-weight:750;color:#28342d}
+.sink-price-summary{background:#edf3ed;border:1px solid #d3dfd2;border-radius:12px;padding:12px 14px;line-height:1.7;margin-top:15px;color:#2c4d36}
+.sink-price-summary strong{font-size:1.06rem}.sink-compatibility{color:#875b2f;font-size:.83rem;line-height:1.5;margin-top:8px}
+@media(max-width:570px){.sink-cards{grid-template-columns:1fr}.sink-color-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.sink-card img{height:87px;width:39%}.sink-card{min-height:99px}}
+</style>
 </head>
 <body>
 <header><div class="header-inner"><a class="go-back" href="configurateurs.html">← Retour aux configurateurs</a><div class="wordmark">studio<em>one</em></div></div></header>
@@ -158,7 +175,31 @@ var colors=[
 ];
 var sizes=[{lo:40,hi:60,ref:'60',label:'40–60 cm'},{lo:61,hi:80,ref:'80',label:'61–80 cm'},{lo:81,hi:100,ref:'100',label:'81–100 cm'},{lo:101,hi:120,ref:'120',label:'101–120 cm'}];
 var names=['1. Modèle','2. Dimensions','3. Plateau & vasque','4. Couleur','5. Compléments','6. Récapitulatif'];
-var initial={step:0,model:-1,width:'',option:'top',color:'',column:false,quantity:1,vessel:false,contact:''};
+// Références et prix publics HT du catalogue RANDAL V04, pages 38 et 41.
+// Tarif pro des vasques : 50 % du prix public HT (même règle que le PDF tarifs pro existant).
+var INSET={
+ Sella:{
+  gloss:{60:[115,'2215'],70:[130,'2808'],80:[136,'2171'],90:[165,'13237'],100:[176,'3279'],120:[385,'6389'],'120double':[318,'2809']}
+ },
+ Tampa:{
+  gloss:{60:[122,'6227'],70:[138,'7781'],80:[142,'6228'],90:[173,'7782'],100:[192,'6229'],120:[279,'6232'],'120double':[323,'6235']},
+  matte:{60:[203,'13039'],70:[264,'13040'],80:[264,'13041'],90:[316,'13042'],100:[332,'13043'],120:[475,'13044'],'120double':[499,'13045']},
+  black:{60:[203,'13039'],70:[264,'13040'],80:[264,'13041'],90:[316,'13042'],100:[332,'13043'],120:[475,'13044'],'120double':[499,'13045']}
+ }
+};
+var INSET_COLORS=[{code:'gloss',name:'Blanc brillant',hex:'#fafaf7'},{code:'matte',name:'Blanc mat',hex:'#e5e4df'},{code:'black',name:'Noir mat',hex:'#363638'}];
+var VESSEL_COLORS=[
+ {code:'gloss',name:'Blanc brillant',hex:'#f6f5f1',Neris:'9567',Torne:'9559'},
+ {code:'pure',name:'Blanc pur',hex:'#ffffff',Neris:'9560',Torne:'9552'},
+ {code:'anthracite',name:'Anthracite',hex:'#858689',Neris:'9564',Torne:'9556'},
+ {code:'black',name:'Noir mat',hex:'#424042',Neris:'11371',Torne:'10444'},
+ {code:'taupe',name:'Taupe',hex:'#aa9a8a',Neris:'9561',Torne:'9553'},
+ {code:'namibie',name:'Vert Namibie',hex:'#767765',Neris:'9562',Torne:'9554'},
+ {code:'ivory',name:'Blanc ivoire',hex:'#e8e6db',Neris:'9563',Torne:'9555'},
+ {code:'pink',name:'Rose Nadir',hex:'#c6a397',Neris:'9566',Torne:'9558'},
+ {code:'blue',name:'Bleu Kivu',hex:'#123755',Neris:'9565',Torne:'9557'}
+];
+var initial={step:0,model:-1,width:'',option:'top',color:'',column:false,quantity:1,vessel:false,sinkModel:'Neris',sinkColor:'gloss',sinkLayout:'single',contact:''};
 var st=Object.assign({},initial);
 var panel=document.getElementById('panel'),wizard=document.getElementById('wizard');
 function el(s){return document.createElement('div')}
@@ -167,19 +208,43 @@ function euros(n){return new Intl.NumberFormat('fr-FR',{style:'currency',currenc
 function widthVal(v){var raw=String(v==null?'':v).trim();if(!/^\d{2,3}$/.test(raw))return NaN;return Number(raw)}
 function validWidth(){var n=widthVal(st.width);return Number.isFinite(n)&&n>=40&&n<=120}
 function standard(){var n=widthVal(st.width);return validWidth()&&n%10===0}
-function basinAvailable(){return standard()&&widthVal(st.width)>=60}
+function basinAvailable(){return standard()&&widthVal(st.width)>=60&&widthVal(st.width)!==110}
 function idx(){var n=widthVal(st.width);return !validWidth()?-1:n<=60?0:n<=80?1:n<=100?2:3}
 function data(){return M[st.model]||null}
 function color(){return colors.find(function(x){return x.code===st.color})||null}
 function isTop(){return st.option==='top'}
 function price(){var m=data(),i=idx();return m&&i>=0?(isTop()?m.avec[i]:m.sans[i]):null}
-function total(){var p=price();return p===null?null:(p+(st.column?177:0))*Number(st.quantity||1)}
+function selectedSink(){
+ if(st.option==='bare'||st.option==='top'&&!st.vessel)return null;
+ if(st.option==='basin'){
+  var ent=INSET[st.sinkModel]&&INSET[st.sinkModel][st.sinkColor];
+  var key=String(widthVal(st.width))+(st.sinkLayout==='double'&&widthVal(st.width)===120?'double':'');
+  var row=ent&&ent[key];if(!row)return null;
+  return {name:st.sinkModel,finish:INSET_COLORS.find(function(c){return c.code===st.sinkColor}).name,ref:row[1],price:row[0]/2,type:'À encastrer',layout:st.sinkLayout};
+ }
+ var finish=VESSEL_COLORS.find(function(c){return c.code===st.sinkColor});
+ if(!finish||!['Neris','Torne'].includes(st.sinkModel))return null;
+ if(st.sinkModel==='Neris'&&widthVal(st.width)<50)return null;
+ return {name:st.sinkModel,finish:finish.name,ref:finish[st.sinkModel],price:113,type:'À poser',layout:'single'};
+}
+function total(){var p=price(),sink=selectedSink();return p===null?null:(p+(st.column?177:0)+(sink?sink.price:0))*Number(st.quantity||1)}
+function sinkDescription(){var sink=selectedSink();return sink?sink.type+' '+sink.name+(sink.layout==='double'?' · double':'')+' · '+sink.finish+' · réf. '+sink.ref:'Sans vasque'}
 function ref(){var m=data(),co=color(),i=idx();return m&&co&&i>=0?(isTop()?m.top:m.base)+' '+sizes[i].ref+'@'+co.code:''}
 function normalize(){
- // Le meuble seul sans plateau accepte toutes les largeurs entières 40–120 cm.
- // Seule la vasque standard exige un multiple de 10 cm à partir de 60 cm.
+ // La vasque intégrée requiert un format réellement proposé au catalogue (110 cm absent).
  if(st.option==='basin'&&!basinAvailable())st.option='top';
  if(!isTop())st.vessel=false;
+ if(st.option==='basin'){
+  if(!['Sella','Tampa'].includes(st.sinkModel))st.sinkModel='Sella';
+  if(!INSET[st.sinkModel][st.sinkColor])st.sinkColor='gloss';
+  if(widthVal(st.width)!==120)st.sinkLayout='single';
+  if(!selectedSink())st.sinkColor='gloss';
+ }else if(st.option==='top'){
+  if(!['Neris','Torne'].includes(st.sinkModel))st.sinkModel='Neris';
+  if(!VESSEL_COLORS.some(function(c){return c.code===st.sinkColor}))st.sinkColor='gloss';
+  if(st.sinkModel==='Neris'&&validWidth()&&widthVal(st.width)<50)st.sinkModel='Torne';
+  st.sinkLayout='single';
+ }
 }
 function save(){/* Les choix restent en mémoire jusqu'à la fermeture du projet. */}
 function change(f,v){st[f]=v;normalize();save();render()}
@@ -213,6 +278,29 @@ function swatch(co){
  var woodFile={ROBLE:'roble.webp',ALBA:'serenade-alba.webp',NOGAL:'nogal-valentina.webp'}[co.code];
  if(woodFile)return '<span class="swatch wood"><img loading="lazy" decoding="async" src="assets/img/studio-one/'+woodFile+'" alt="Finition '+esc(co.name)+'"></span>';
  return '<span class="swatch plain" style="--solid:'+co.solid+'"></span>';
+}
+function sinkChooser(){
+ var integrated=st.option==='basin',models=integrated?['Sella','Tampa']:['Neris','Torne'];
+ var allowed=integrated?INSET_COLORS.filter(function(c){return INSET[st.sinkModel]&&INSET[st.sinkModel][c.code]}):VESSEL_COLORS;
+ var sink=selectedSink();
+ var h='<section class="sink-section"><h3>Choisissez votre vasque</h3><p class="details">Illustrations officielles RANDAL · Catalogue pages '+(integrated?'38':'41')+'.</p>';
+ h+='<div class="sink-cards">'+models.map(function(name){
+  var desc=integrated?(name==='Sella'?'Céramique · blanc brillant':'Céramique · blanc brillant, blanc mat, noir mat'):(name==='Neris'?'Ovale · 46 × 33 × 14 cm':'Ronde · Ø 37 × 12 cm');
+  return '<button type="button" class="sink-card'+(st.sinkModel===name?' active':'')+'" data-sink-model="'+name+'" aria-pressed="'+(st.sinkModel===name)+'"><img src="assets/img/randal/accessories/hd/basin-'+name.toLowerCase()+'.webp" alt="Vasque RANDAL '+name+'" loading="lazy"><span><strong>'+name+'</strong><small>'+desc+'</small></span></button>';
+ }).join('')+'</div>';
+ if(integrated&&widthVal(st.width)===120){
+  h+='<div class="sink-group-heading">Nombre de cuves</div><div class="sink-layouts">'+[['single','Simple vasque'],['double','Double vasque']].map(function(x){
+   return '<button type="button" class="sink-layout'+(st.sinkLayout===x[0]?' active':'')+'" data-sink-layout="'+x[0]+'">'+x[1]+'</button>';
+  }).join('')+'</div>';
+ }
+ h+='<div class="sink-group-heading">Coloris de votre vasque</div><div class="sink-color-grid">'+allowed.map(function(c){
+  return '<button type="button" class="sink-chip'+(st.sinkColor===c.code?' active':'')+'" data-sink-color="'+c.code+'" aria-pressed="'+(st.sinkColor===c.code)+'"><span class="sink-color-dot" style="--sinkcolor:'+c.hex+'"></span><span>'+c.name+'</span></button>';
+ }).join('')+'</div>';
+ if(integrated&&st.sinkModel==='Sella')h+='<p class="sink-compatibility">SELLA : seule la finition blanc brillant est indiquée dans le catalogue RANDAL. Les couleurs mat et noir mat sont disponibles sur TAMPA.</p>';
+ if(integrated&&st.sinkModel==='Tampa'&&st.sinkColor!=='gloss')h+='<p class="details">Les finitions blanc mat et noir mat ont les mêmes références imprimées sur le catalogue : confirmer la couleur sur la commande.</p>';
+ h+='<div class="sink-price-summary">'+(sink?'<strong>Vasque : '+euros(sink.price)+' PRO</strong><div>Référence fabricant : '+sink.ref+' · '+sink.finish+'</div>':'<strong>Sélection à vérifier</strong>')+
+ '<div class="details">Prix professionnel HT calculé à -50 % du prix public HT RANDAL. Prix inclus dans le total de la composition.</div></div></section>';
+ return h;
 }
 function optionsHead(title,hint){return '<h2>'+title+'</h2><p class="hint">'+hint+'</p>'}
 function widthInfo(){var i=idx();if(i<0)return !String(st.width).trim()?'<p class="details">Renseignez la largeur de votre meuble pour afficher la tranche et le prix.</p>':'<div class="error" role="alert">Saisissez une largeur entière entre 40 et 120 cm.</div>';var extra=widthVal(st.width)===40?'<div class="warning">40 cm figure dans le flyer, mais le référentiel Randal commence à 41 cm : cette dimension sera à confirmer au fabricant.</div>':'';return '<div class="price-card"><strong>Votre largeur : '+esc(st.width)+' cm</strong><div>Tranche tarifaire : <b>'+sizes[i].label+'</b> · Code format Randal : <b>'+sizes[i].ref+'</b></div><div class="details">Saisie par pas de 1 cm. Prix identique à l’intérieur d’une tranche.</div></div>'+extra}
