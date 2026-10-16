@@ -469,6 +469,65 @@ function studioPdfImage(path){
   img.src=path;
  });
 }
+
+async function downloadStudioPdf(){
+ var button=document.getElementById('save-pdf'),oldLabel=button?button.textContent:'';
+ if(button){button.disabled=true;button.textContent='Préparation du PDF…'}
+ try{
+  var PDF=await studioPdfApi(),pdf=new PDF({unit:'mm',format:'a4',orientation:'portrait'});
+  var m=data(),co=color(),sink=selectedSink(),rows=studioOrderRows(),qty=Number(st.quantity);
+  function drawText(txt,x,y,font,size,shade){
+   pdf.setFont('helvetica',font||'normal');pdf.setFontSize(size||9);
+   pdf.setTextColor.apply(pdf,shade||[52,62,55]);
+   pdf.text(String(txt).normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^\x20-\x7e\xa0-\xff]/g,' '),x,y);
+  }
+  pdf.setFillColor(53,64,55);pdf.rect(0,0,210,29,'F');
+  drawText('LE ROY FACTORY  |  RANDAL - STUDIO ONE',15,13,'bold',13,[255,255,255]);
+  drawText('RECAPITULATIF DE CONFIGURATION',15,22,'normal',9,[241,245,240]);
+  drawText('Meuble : '+m.name+'  |  '+st.width+' x '+String(m.height).replace('.',',')+' x 46 cm',15,40,'bold',11);
+  drawText('Finition : '+co.name+'  |  '+qty+' composition(s)',15,48,'normal',9);
+  drawText('Plateau : '+(isTop()?'assorti au meuble':'sans plateau')+'  |  Miroir : non inclus',15,55,'normal',9);
+  drawText('Vasque : '+(sink?sink.name+' / '+sink.finish:'aucune')+'  |  Colonne : '+(st.column?'oui':'non'),15,62,'normal',9);
+  pdf.setFillColor(247,246,242);pdf.roundedRect(14,70,182,43,3,3,'F');
+  drawText('Apercu des finitions et accessoires',19,78,'bold',9,[117,100,75]);
+  var swatch=await studioPdfImage({ROBLE:'assets/img/studio-one/roble.webp',ALBA:'assets/img/studio-one/serenade-alba.webp',NOGAL:'assets/img/studio-one/nogal-valentina.webp'}[co.code]);
+  if(swatch)pdf.addImage(swatch.data,'JPEG',19,83,29,26);
+  else{pdf.setFillColor(210,205,196);pdf.rect(19,83,29,26,'F')}
+  drawText('Meuble / '+co.name,51,93,'bold',8);
+  drawText(m.name+'  -  '+st.width+' cm',51,101,'normal',8);
+  if(sink){
+   var imgPath='assets/img/randal/accessories/'+(sink.layout==='double'?'basin-'+sink.name.toLowerCase()+'-double.webp':'hd/basin-'+sink.name.toLowerCase()+'.webp');
+   var photo=await studioPdfImage(imgPath);
+   if(photo){var scale=Math.min(41/photo.w,25/photo.h);pdf.addImage(photo.data,'JPEG',140,83,photo.w*scale,photo.h*scale)}
+   drawText('Ref. vasque : '+sink.ref,108,109,'normal',8);
+  }else drawText('Sans vasque',140,96,'normal',8);
+  pdf.setFillColor(232,237,232);pdf.rect(14,120,182,10,'F');
+  drawText('ARTICLE / REFERENCE',18,127,'bold',8,[68,81,70]);
+  drawText('QTE',126,127,'bold',8,[68,81,70]);
+  drawText('UNIT.',147,127,'bold',8,[68,81,70]);
+  drawText('TOTAL',174,127,'bold',8,[68,81,70]);
+  var y=137;
+  rows.forEach(function(row){
+   pdf.setDrawColor(226,228,222);pdf.line(14,y+15,196,y+15);
+   drawText(pdf.splitTextToSize(String(row.title),85)[0],18,y,'bold',8);
+   drawText('Ref. '+row.ref,18,y+6,'normal',8,[108,113,106]);
+   drawText(String(row.qty),128,y+2,'normal',9);
+   drawText(euros(row.unit).replace(/\s/g,' '),145,y+2,'normal',8);
+   drawText(euros(row.unit*row.qty).replace(/\s/g,' '),174,y+2,'bold',8);
+   y+=25;
+  });
+  y+=3;pdf.setFillColor(239,244,238);pdf.roundedRect(14,y,182,18,2,2,'F');
+  drawText('TOTAL GENERAL',20,y+11,'bold',11,[49,79,57]);
+  drawText(euros(total()).replace(/\s/g,' '),158,y+11,'bold',12,[49,79,57]);
+  y+=27;
+  var legal='Prix meuble/colonne selon le tarif C1 STUDIO ONE. Vasques au tarif professionnel (-50 % du tarif public HT RANDAL V04). Montants indicatifs, hors transport et pose, soumis a confirmation usine. Cette demande ne constitue pas une commande ferme.';
+  pdf.setFont('helvetica','normal');pdf.setFontSize(8);pdf.setTextColor(108,113,106);
+  pdf.text(pdf.splitTextToSize(legal,177),16,y);
+  drawText('Document genere par Le Roy Factory - '+new Date().toLocaleDateString('fr-FR'),16,283,'normal',8,[111,115,110]);
+  pdf.save('RANDAL-STUDIO-ONE-'+st.width+'cm-'+co.code+'.pdf');
+ }catch(e){console.error('PDF STUDIO ONE',e);alert('Impossible de generer le PDF pour le moment. Utilisez Imprimer > Enregistrer au format PDF.')}
+ finally{if(button){button.disabled=false;button.textContent=oldLabel}}
+}
 function render(){
  normalize();save();
  wizard.innerHTML=names.map(function(n,i){return '<button type="button" data-step="'+i+'" aria-current="'+(i===st.step?'step':'false')+'" class="'+(i===st.step?'active':i<st.step?'done':'')+'" '+(i>st.step?'disabled':'')+'>'+n+'</button>'}).join('');
