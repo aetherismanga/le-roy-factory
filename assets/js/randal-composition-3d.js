@@ -251,6 +251,7 @@ function showObjectMenu(kind){
  sceneMenu(({meuble:'Meuble',vasque:'Vasque',miroir:'Miroir',colonne:'Colonne'})[kind]||'Élément',panel=>{
   if(kind==='meuble'){
    sceneButton(panel,'Dupliquer la composition',()=>sceneChange({quantity:Math.min(9,Number(current.quantity||1)+1)}));
+    if(Number(current.quantity||1)>1)sceneButton(panel,'Supprimer un meuble supplémentaire',()=>sceneChange({quantity:Number(current.quantity)-1}));
    if(current.kind!=='column'&&current.widths?.length)sceneSelect(panel,'Format',current.widths.map(w=>[String(w),w+' cm']),String(current.width),v=>sceneChange({width:Number(v)}));
    if(current.finishes?.length)sceneSelect(panel,'Finition',current.finishes.map(x=>[x,x]),current.color,v=>sceneChange({color:v}));
   }
@@ -264,10 +265,14 @@ function showObjectMenu(kind){
    const formats=current.mirrorFormats?.[current.mirror]||[];
    if(formats.length)sceneSelect(panel,'Dimensions',formats.map(x=>[x[0],x[0]]),current.mirrorSize,v=>sceneChange({mirrorSize:v}));
    if(current.mirror?.includes('métallique'))sceneSelect(panel,'Couleur du cadre',['Noir','Doré','Bronze','Argent'].map(x=>[x,x]),current.mirrorFinish,v=>sceneChange({mirrorFinish:v}));
-   if(current.mirror!=='Sans miroir')sceneButton(panel,'Dupliquer le miroir',()=>sceneChange({mirrorQuantity:Math.min(3,Number(current.mirrorQuantity||1)+1)}));
+   if(current.mirror!=='Sans miroir'){
+     sceneButton(panel,'Dupliquer le miroir',()=>sceneChange({mirrorQuantity:Math.min(3,Number(current.mirrorQuantity||1)+1)}));
+     sceneButton(panel,'Supprimer le miroir',()=>sceneChange(Number(current.mirrorQuantity||1)>1?{mirrorQuantity:Number(current.mirrorQuantity)-1}:{mirror:'Sans miroir',mirrorQuantity:1}));
+    }
   }
   if(kind==='vasque'){
-   if(current.model==='Harmony')sceneButton(panel,'Options de vasque avancées',()=>{hideObjectMenu();showCustomize('basin')});
+   if(current.basinMode!=='none'&&(current.availableModes||[]).includes('none'))sceneButton(panel,'Supprimer la vasque',()=>sceneChange({basinMode:'none'}));
+    if(current.model==='Harmony')sceneButton(panel,'Options de vasque avancées',()=>{hideObjectMenu();showCustomize('basin')});
    sceneSelect(panel,'Montage',(current.availableModes||[]).map(mode=>[mode,labels[mode]||mode]),current.basinMode,v=>sceneChange({basinMode:v}));
    if(current.basinMode==='integrated'){
     sceneSelect(panel,'Modèle',['Sella','Tampa'].map(x=>[x,x]),current.basin,v=>sceneChange({basin:v}));
@@ -1154,10 +1159,10 @@ function bindGestures(canvas){
   if(start&&Math.hypot(e.clientX-start.x,e.clientY-start.y)>8&&!objectDrag)clearTimeout(longPress);
   if(objectDrag&&pointers.size===1){
    const delta=dx*distance/Math.max(350,canvas.clientWidth)*1.5;
-   if(objectDrag==='meuble'&&rootCabinet)rootCabinet.position.x=clamp(rootCabinet.position.x+delta,-.85,.85);
+   if(objectDrag==='meuble'&&rootCabinet){const next=clamp(rootCabinet.position.x+delta,-.85,.85);if(!extraColumn||Math.abs(next-extraColumn.position.x)>Number(current.width)/200+.22)rootCabinet.position.x=next;}
    if(objectDrag==='colonne'&&extraColumn)extraColumn.position.x=clamp(extraColumn.position.x+delta,Number(current.width)/200+.12,1.9);
    if(objectDrag==='miroir')for(const group of mirrorScenePieces)group.position.x=clamp(group.position.x+delta,-1.2,1.2);
-   if(objectDrag==='vasque'&&rootCabinet)rootCabinet.position.x=clamp(rootCabinet.position.x+delta,-.24,.24);
+   // La vasque reste fixée au meuble et ne peut pas être déplacée séparément.
    requestFrame();return;
   }
   if(pointers.size===2){
