@@ -72,7 +72,7 @@
   const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
   const renderFile=f=>{
     const [titre,desc,lien]=f;
-    const isPdf=lien.toLowerCase().includes('.pdf');
+    const isPdf=lien.toLowerCase().includes('.pdf') || lien.includes('drive.google.com/file/d/');
     const isInteractive=lien.toLowerCase().includes('catalogue-interactif.html');
     return '<div class="catalogue-row"><div><strong>'+esc(titre)+'</strong><span>'+esc(desc)+'</span></div><a href="'+esc(lien)+'" target="_blank" rel="noopener" class="catalogue-link">'+(isInteractive?'Interactif':(isPdf?'PDF':'Lien'))+'</a></div>';
   };

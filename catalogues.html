@@ -248,7 +248,7 @@ html body:not(.crm-body) header .main-nav>li>a.lrf-promo-cersaie-tab:focus{
       if (!grid) return;
 
       const renderFile = file => {
-        const isPdf = file.lien.toLowerCase().includes('.pdf');
+        const isPdf = file.lien.toLowerCase().includes('.pdf') || file.lien.includes('drive.google.com/file/d/');
         const isInteractive = file.lien.toLowerCase().includes('catalogue-interactif.html');
         return `<div class="catalogue-row"><div><strong>${file.titre}</strong><span>${file.desc}</span>${file.index ? '<small class="catalogue-index-hint">Index intégré : Aniet · Ketra · Luksy · Tekny · Woods · Arendal · Heritage · Larvik · Vita</small>' : ''}</div><a href="${file.lien}" target="_blank" rel="noopener" class="catalogue-link" aria-label="Ouvrir ${file.titre}">${isInteractive ? 'Interactif' : (isPdf ? 'PDF' : 'Lien')}</a></div>`;
       };
