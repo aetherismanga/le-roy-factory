@@ -98,6 +98,15 @@ footer{text-align:center;color:#8c8b85;font-size:.79rem;margin:25px 0;padding:10
 .model-choices .drawer svg{width:142px;height:135px}
 .model-choices .choice::after{content:'→';position:absolute;right:13px;bottom:12px;color:#65513c;font-size:1.4rem}
 @media(max-width:760px){.model-choices{grid-template-columns:1fr}.model-choices .choice{min-height:140px}.model-choices .drawer{width:130px;height:126px;flex-basis:130px}.model-choices .drawer svg{width:128px;height:122px}}
+/* STUDIO ONE — cartes illustrées grand format, SVG net au zoom */
+.model-choices{display:grid;grid-template-columns:1fr;gap:14px}
+.model-choices .choice{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(140px,1fr);align-items:center;gap:15px;min-height:188px;padding:12px;background:#fff;box-shadow:0 4px 18px #0000000d}
+.model-choices .choice>span:first-child{min-width:0;display:block}
+.model-choices .studio-model-art{display:block;width:100%}
+.model-choices .studio-model-art svg{width:100%;height:auto;display:block}
+.model-choices .choice strong{font-size:1.35rem}
+.model-choices .choice small{font-size:.96rem}
+@media(max-width:600px){.model-choices .choice{grid-template-columns:minmax(0,1.7fr) minmax(95px,1fr);min-height:130px;padding:7px;gap:9px;border-radius:14px}.model-choices .choice strong{font-size:1rem}.model-choices .choice small{font-size:.75rem}.model-choices .choice::after{right:8px;bottom:5px;font-size:1.1rem}}
 </style>
 <style id="studio-3d-overlay-styles">
 .studio-3d-overlay{position:fixed;inset:0;z-index:99999;background:#f2f0eb;display:flex;flex-direction:column}
@@ -161,20 +170,30 @@ function normalize(){
 function save(){/* Les choix restent en mémoire jusqu'à la fermeture du projet. */}
 function change(f,v){st[f]=v;normalize();save();render()}
 function item(title,desc,fn,active,dis,graphic){return '<button type="button" class="choice'+(active?' active':'')+'" '+(dis?'disabled':'')+' data-choice="'+esc(fn)+'"><span>'+ (graphic||'') +'</span><span><strong>'+esc(title)+'</strong><small>'+esc(desc)+'</small></span></button>'}
-function drawer(n,realHeight){
- // Illustration SVG vectorielle : tiroirs à onglet 45°, hauteur et proportions fidèles.
- var height=Math.round(92*realHeight/54), top=120-height, x=15, w=116, depth=13;
- var front='', seam='';
+function drawer(n,realHeight,index){
+ var palettes=[['#b99773','#d9bc99','#82634d'],['#efefec','#ffffff','#bfc0bb'],['#658ba1','#88a9b9','#416274'],['#84634e','#ad876b','#583f32']];
+ var p=palettes[index]||palettes[0], w=188, h=Math.round(realHeight*1.75), left=27, top=192-h;
+ var fronts='', lines='';
  for(var j=0;j<n;j++){
-   var y=top+j*height/n, h=height/n;
-   front+='<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" fill="#c5a987" stroke="#715c49" stroke-width="1"/>'+
-   '<path d="M'+(x+2)+' '+(y+9)+' L'+(x+12)+' '+(y+2)+' H'+(x+w-2)+' L'+(x+w-12)+' '+(y+9)+' Z" fill="#e7d2b4" stroke="#927a5e" stroke-width=".65"/>';
-   if(j)seam+='<path d="M'+x+' '+y+' H'+(x+w)+'" stroke="#564c42" stroke-width="2"/>';
+  var y=top+j*h/n, hh=h/n;
+  fronts+='<rect x="'+left+'" y="'+y+'" width="'+w+'" height="'+hh+'" fill="'+p[0]+'" stroke="'+p[2]+'" stroke-width="1"/>'+
+   '<path d="M'+(left+1)+' '+(y+7)+' l10 -6 h'+(w-13)+' l-10 6 Z" fill="'+p[1]+'" opacity=".9"/>';
+  if(j)lines+='<path d="M'+left+' '+y+' h'+w+'" stroke="'+p[2]+'" stroke-width="2"/>';
  }
- return '<span class="drawer" aria-hidden="true"><svg viewBox="0 0 164 144" xmlns="http://www.w3.org/2000" focusable="false">'+
- '<path d="M'+x+' '+top+' l'+depth+' -8 h'+w+' l-'+depth+' 8 Z" fill="#e7d8c3" stroke="#77675a" stroke-width="1.5"/>'+
- '<path d="M'+(x+w)+' '+top+' l'+depth+' -8 v'+height+' l-'+depth+' 8 Z" fill="#917c68" stroke="#66574a" stroke-width="1.5"/>'+
- front+seam+'</svg></span>';
+ var feet=index===1?'<rect x="34" y="192" width="5" height="7" fill="#7c7d7b"/><rect x="203" y="192" width="5" height="7" fill="#7c7d7b"/>':'';
+ var bowl=index===0?'<ellipse cx="122" cy="'+(top-7)+'" rx="44" ry="13" fill="#fafafa" stroke="#c5c7c5" stroke-width="2"/><path d="M78 '+(top-7)+' q0 23 44 23 q44 0 44 -23" fill="#f7f7f5" stroke="#c5c7c5" stroke-width="2"/>':index===2?'<ellipse cx="122" cy="'+(top-7)+'" rx="54" ry="17" fill="#252729"/><path d="M68 '+(top-7)+' q0 22 54 22 q54 0 54 -22" fill="#343537"/>':'<rect x="28" y="'+(top-5)+'" width="189" height="6" rx="2" fill="#f9faf8" stroke="#d9d9d5"/><ellipse cx="122" cy="'+(top-4)+'" rx="39" ry="5" fill="#d7d9d7"/>';
+ var cabinet='<path d="M27 '+top+' l13 -9 h188 l-13 9 Z" fill="'+p[1]+'" stroke="'+p[2]+'" stroke-width="1.2"/>'+
+ '<path d="M215 '+top+' l13 -9 v'+h+' l-13 9 Z" fill="'+p[2]+'" opacity=".85"/>'+fronts+lines+feet+bowl;
+ var tech='<g fill="none" stroke="#a8a49c" stroke-width="1.5" opacity=".7"><path d="M274 53 h76 l9 -7 v70 l-9 7 h-76 Z M350 53 l9 -7 M350 123 v-70"/>';
+ for(var k=1;k<n;k++){var yy=53+k*70/n;tech+='<path d="M274 '+yy+' h76"/>'}
+ tech+='</g>';
+ var detail='<circle cx="323" cy="158" r="27" fill="'+p[0]+'" stroke="#fff" stroke-width="3"/><path d="M300 166 l20 -18 h22 l-18 18 Z" fill="'+p[1]+'" stroke="'+p[2]+'" stroke-width="1.4"/>';
+ return '<span class="studio-model-art" aria-hidden="true"><svg viewBox="0 0 386 225" xmlns="http://www.w3.org/2000/svg" role="img">'+
+ '<defs><linearGradient id="scene'+index+'" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e9e2d8"/><stop offset="1" stop-color="#c7bdb0"/></linearGradient></defs>'+
+ '<rect width="255" height="225" rx="13" fill="url(#scene'+index+')"/><path d="M0 204 h255" stroke="#b2a99c" stroke-width="2"/>'+
+ '<ellipse cx="132" cy="206" rx="112" ry="9" fill="#49423a" opacity=".14"/>'+cabinet+
+ '<rect x="263" y="7" width="116" height="211" rx="9" fill="#faf9f6"/>'+tech+detail+
+ '<text x="323" y="203" font-size="10" text-anchor="middle" fill="#716b63">Onglet 45°</text></svg></span>';
 }
 function swatch(co){
  var woodFile={ROBLE:'roble.webp',ALBA:'serenade-alba.webp',NOGAL:'nogal-valentina.webp'}[co.code];
@@ -189,7 +208,7 @@ function render(){
  var h='',m=data(),p=price(),i=idx();
  if(st.step===0){
    h=optionsHead('Choisissez le modèle STUDIO ONE','Quatre compositions disponibles, avec une profondeur de 46 cm.');
-   h+='<div class="choices model-choices">'+M.map(function(x,j){return item(x.name,x.sub,'model:'+j,st.model===j,false,drawer(x.drawers,x.height))}).join('')+'</div>';
+   h+='<div class="choices model-choices">'+M.map(function(x,j){return item(x.name,x.sub,'model:'+j,st.model===j,false,drawer(x.drawers,x.height,j))}).join('')+'</div>';
  }
  if(st.step===1){
    h=optionsHead('Votre largeur exacte','Choisissez la largeur de votre meuble au centimètre près, entre 40 et 120 cm. Les tarifs suivent les tranches du fabricant.');
