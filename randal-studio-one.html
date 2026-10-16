@@ -274,6 +274,8 @@ function render(){
  var overflow=document.body.style.overflow;document.body.style.overflow='hidden';
  function close(){document.body.style.overflow=overflow;frame.src='about:blank';overlay.remove();}
  overlay.querySelector('button').onclick=close;
+ function onMessage(e){if(e.origin===window.location.origin&&e.source===frame.contentWindow&&e.data&&e.data.type==='studio-one-close-3d'){window.removeEventListener('message',onMessage);close()}}
+ window.addEventListener('message',onMessage);
  overlay.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
  overlay.tabIndex=-1;overlay.focus();
 })()};
