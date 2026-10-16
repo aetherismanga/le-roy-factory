@@ -221,6 +221,62 @@ function showCustomize(type){
   }
  }
 }
+
+function hideObjectMenu(){const p=$('composition-object-menu');if(p)p.hidden=true}
+function sceneChange(patch){
+ if(!current?.onChange)return;
+ const next=current.onChange(patch);if(!next)return;
+ current=next;hideObjectMenu();redrawCurrent();
+}
+function sceneMenu(title,create){
+ const panel=$('composition-object-menu');if(!panel)return;
+ panel.replaceChildren();panel.hidden=false;
+ const h=document.createElement('div');h.className='composition-menu-head';
+ const b=document.createElement('strong');b.textContent=title;
+ const close=document.createElement('button');close.type='button';close.textContent='×';close.onclick=hideObjectMenu;
+ h.append(b,close);panel.appendChild(h);create(panel);
+}
+function sceneButton(panel,text,action){
+ const b=document.createElement('button');b.type='button';b.className='composition-menu-action';b.textContent=text;b.onclick=action;panel.appendChild(b);
+}
+function sceneSelect(panel,name,options,value,callback){
+ const lab=document.createElement('label');lab.textContent=name;panel.appendChild(lab);
+ const el=document.createElement('select');
+ for(const pair of options){const option=document.createElement('option');option.value=pair[0];option.textContent=pair[1];el.appendChild(option)}
+ el.value=value;el.onchange=()=>callback(el.value);panel.appendChild(el);
+}
+function showObjectMenu(kind){
+ if(!current)return;
+ sceneMenu(({meuble:'Meuble',vasque:'Vasque',miroir:'Miroir',colonne:'Colonne'})[kind]||'Élément',panel=>{
+  if(kind==='meuble'){
+   sceneButton(panel,'Dupliquer la composition',()=>sceneChange({quantity:Math.min(9,Number(current.quantity||1)+1)}));
+   if(current.widths?.length)sceneSelect(panel,'Format',current.widths.map(w=>[String(w),w+' cm']),String(current.width),v=>sceneChange({width:Number(v)}));
+   if(current.finishes?.length)sceneSelect(panel,'Finition',current.finishes.map(x=>[x,x]),current.color,v=>sceneChange({color:v}));
+  }
+  if(kind==='colonne'){
+   sceneButton(panel,current.columnAccessory?'Retirer la colonne':'Ajouter une colonne',()=>sceneChange({columnAccessory:!current.columnAccessory}));
+   if(!current.columnAvailable)sceneButton(panel,'Colonne indisponible pour cette collection',()=>{});
+  }
+  if(kind==='miroir'){
+   const list=['Sans miroir',...Object.keys(current.mirrorFormats||{})];
+   sceneSelect(panel,'Modèle',list.map(x=>[x,x]),current.mirror||'Sans miroir',v=>sceneChange({mirror:v}));
+   const formats=current.mirrorFormats?.[current.mirror]||[];
+   if(formats.length)sceneSelect(panel,'Dimensions',formats.map(x=>[x[0],x[0]]),current.mirrorSize,v=>sceneChange({mirrorSize:v}));
+   if(current.mirror?.includes('métallique'))sceneSelect(panel,'Couleur du cadre',['Noir','Doré','Bronze','Argent'].map(x=>[x,x]),current.mirrorFinish,v=>sceneChange({mirrorFinish:v}));
+   if(current.mirror!=='Sans miroir')sceneButton(panel,'Dupliquer le miroir',()=>sceneChange({mirrorQuantity:Math.min(3,Number(current.mirrorQuantity||1)+1)}));
+  }
+  if(kind==='vasque')sceneButton(panel,'Choisir la vasque et sa finition',()=>{hideObjectMenu();showCustomize('basin')});
+ });
+}
+function showAddMenu(){
+ if(!current)return;
+ sceneMenu('Ajouter un élément',panel=>{
+  sceneButton(panel,'＋ Meuble',()=>sceneChange({quantity:Math.min(9,Number(current.quantity||1)+1)}));
+  sceneButton(panel,'＋ Colonne',()=>current.columnAvailable?sceneChange({columnAccessory:true}):showObjectMenu('colonne'));
+  sceneButton(panel,'＋ Miroir',()=>current.mirror==='Sans miroir'?sceneChange({mirror:'Basic'}):showObjectMenu('miroir'));
+  sceneButton(panel,'＋ Vasque',()=>current.basinMode==='none'?sceneChange({basinMode:'integrated'}):showObjectMenu('vasque'));
+ });
+}
 function redrawCurrent(){
  if(!active||!current)return;
  cancelAnimationFrame(drawerAnimation);drawerAnimation=0;drawersOpen=false;
