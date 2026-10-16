@@ -87,8 +87,33 @@
     }
     return result;
   }
-  $('save-project').onclick=()=>{try{const project={...store.snapshot(),ambience:{...ambience},report:{views:captureViews()}};download(new Blob([JSON.stringify(project)],{type:'application/json'}),'STUDIO-ONE-dossier-3D.json');notice('Projet enregistré avec 4 vues 3D.');}catch(e){notice('Enregistrement impossible : '+e.message);}};
-
+  const savedProjectsKey='lrf-studio-one-saved-projects-v1';
+  function savedProjects(){try{return JSON.parse(localStorage.getItem(savedProjectsKey)||'[]');}catch(e){return [];}}
+  function showProjects(){
+    const projects=savedProjects();
+    const modal=document.createElement('div');modal.className='studio-project-modal';
+    const card=document.createElement('section');card.className='studio-project-card';
+    const heading=document.createElement('h2');heading.textContent='Mes projets STUDIO ONE';card.append(heading);
+    if(!projects.length){const empty=document.createElement('p');empty.textContent='Aucun projet enregistré sur cet appareil.';card.append(empty);}
+    projects.forEach((project,index)=>{
+      const row=document.createElement('div');row.className='studio-project-row';
+      const name=document.createElement('strong');name.textContent=project.client+' · '+project.name;row.append(name);
+      const open=document.createElement('button');open.textContent='Ouvrir';open.onclick=()=>{try{store.load(project.data);if(project.ambience){Object.assign(ambience,project.ambience);for(const surface of ['floor','wall'])setAmbience(surface,ambience[surface]);}view?.fit();modal.remove();notice('Projet '+project.name+' ouvert.');}catch(e){notice('Ouverture impossible : '+e.message);}};row.append(open);
+      const del=document.createElement('button');del.textContent='Supprimer';del.onclick=()=>{if(!confirm('Supprimer ce projet ?'))return;const next=savedProjects();next.splice(index,1);localStorage.setItem(savedProjectsKey,JSON.stringify(next));modal.remove();showProjects();};row.append(del);card.append(row);
+    });
+    const close=document.createElement('button');close.textContent='Fermer';close.onclick=()=>modal.remove();card.append(close);modal.append(card);document.body.append(modal);
+  }
+  $('save-project').onclick=()=>{
+    const client=prompt('Nom du client :');if(client===null)return;
+    if(!client.trim())return notice('Indiquez un nom de client.');
+    const name=prompt('Nom du projet :','Salle de bains');if(name===null)return;
+    if(!name.trim())return notice('Indiquez un nom de projet.');
+    try{
+      const projects=savedProjects();projects.unshift({client:client.trim(),name:name.trim(),date:new Date().toISOString(),data:store.snapshot(),ambience:{...ambience}});
+      localStorage.setItem(savedProjectsKey,JSON.stringify(projects));notice('Projet enregistré dans Mes projets sur cet appareil.');
+    }catch(e){notice('Enregistrement local impossible : '+e.message);}
+  };
+  const myProjectsButton=document.createElement('button');myProjectsButton.id='my-projects';myProjectsButton.textContent='Voir mes projets';myProjectsButton.onclick=showProjects;$('save-project').before(myProjectsButton);
   $('load-project').onclick=()=>$('project-file').click();$('project-file').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>16000000)throw Error('Fichier trop volumineux.');store.load(JSON.parse(await file.text()));view?.fit();notice('Projet ouvert.');}catch(err){notice('Impossible d’ouvrir le projet : '+err.message);}e.target.value='';};
   $('new-project').onclick=()=>{if(confirm('Créer une nouvelle composition ? Enregistrez votre projet pour le conserver.')){store.load({version:2,items:[M.make('cabinet')]});view?.fit();}};
   const tileCollections=[
@@ -244,16 +269,24 @@
   $('print').onclick=()=>{
     try{
       const popup=window.open('','_blank');if(!popup)return notice('Autorisez les fenêtres surgissantes pour imprimer le dossier.');
-      const views=captureViews(),rows=store.quote();
-      const doc=popup.document;doc.title='RANDAL STUDIO ONE — Dossier';
-      const style=doc.createElement('style');style.textContent='body{font:13px Arial,sans-serif;color:#24362f;margin:24px}h1{border-bottom:3px solid #345348;padding-bottom:12px}.views{display:grid;grid-template-columns:1fr 1fr;gap:15px}.view{break-inside:avoid}.view img{width:100%;border:1px solid #ddd}table{border-collapse:collapse;width:100%}td,th{border-bottom:1px solid #ddd;padding:9px;text-align:left}@media print{.view{break-inside:avoid}}';doc.head.append(style);
-      const title=doc.createElement('h1');title.textContent='RANDAL STUDIO ONE — Dossier projet';doc.body.append(title);
-      const table=doc.createElement('table');const head=doc.createElement('tr');['Produit','Dimensions et finition','Référence'].forEach(v=>{const th=doc.createElement('th');th.textContent=v;head.append(th);});table.append(head);
-      rows.forEach(row=>{const tr=doc.createElement('tr');[row.title,row.detail,row.ref].forEach(v=>{const td=doc.createElement('td');td.textContent=v;tr.append(td);});table.append(tr);});doc.body.append(table);
-      const heading=doc.createElement('h2');heading.textContent='Vues 3D du projet';doc.body.append(heading);
-      const grid=doc.createElement('div');grid.className='views';views.forEach(v=>{const cell=doc.createElement('div');cell.className='view';const h=doc.createElement('h3');h.textContent=v.title;const img=doc.createElement('img');img.src=v.image;cell.append(h,img);grid.append(cell);});doc.body.append(grid);
-      const footer=doc.createElement('p');footer.textContent='Vues indicatives — références et dimensions à confirmer auprès de RANDAL.';doc.body.append(footer);
-      notice('Dossier prêt avec 4 vues : utilisez Imprimer / Enregistrer en PDF dans le nouvel onglet.');
+      const views=captureViews(),rows=store.quote(),doc=popup.document;
+      doc.title='RANDAL STUDIO ONE — Récapitulatif et vues 3D';
+      const style=doc.createElement('style');
+      style.textContent='@page{size:A4 portrait;margin:12mm}body{font:12px Arial,sans-serif;color:#24362f;margin:0}h1{font-size:20px;border-bottom:3px solid #345348;padding-bottom:12px}h2{font-size:17px}.page{page-break-after:always;break-after:page}.page:last-child{page-break-after:auto;break-after:auto}table{border-collapse:collapse;width:100%}th{background:#e8ede8}td,th{border-bottom:1px solid #ddd;padding:10px 7px;text-align:left}.right{text-align:right}.total{font-size:18px;font-weight:bold;text-align:right;margin-top:20px}.views{display:grid;grid-template-columns:1fr 1fr;gap:12px}.view{break-inside:avoid}.view h3{font-size:12px;margin:8px 0}.view img{width:100%;max-height:108mm;object-fit:contain;border:1px solid #ddd}.note{font-size:10px;color:#666;margin-top:16px}@media print{.page{min-height:0}}';
+      doc.head.append(style);
+      const first=doc.createElement('section');first.className='page';doc.body.append(first);
+      const title=doc.createElement('h1');title.textContent='LE ROY FACTORY · RANDAL STUDIO ONE';first.append(title);
+      const heading=doc.createElement('h2');heading.textContent='Récapitulatif de configuration';first.append(heading);
+      const table=doc.createElement('table'),head=doc.createElement('tr');
+      ['Produit / Référence','Qté','Prix unit.','Total'].forEach(v=>{const th=doc.createElement('th');th.textContent=v;head.append(th);});table.append(head);
+      rows.forEach(row=>{const tr=doc.createElement('tr');[row.title+' — '+row.detail+' — Réf. '+row.ref,String(row.qty),euros(row.unit),euros(row.unit*row.qty)].forEach((v,i)=>{const td=doc.createElement('td');td.textContent=v;if(i>1)td.className='right';tr.append(td);});table.append(tr);});first.append(table);
+      const total=doc.createElement('div');total.className='total';total.textContent='TOTAL GÉNÉRAL : '+euros(rows.reduce((n,r)=>n+r.unit*r.qty,0));first.append(total);
+      const note=doc.createElement('p');note.className='note';note.textContent='Prix indicatifs hors transport et pose, sous réserve de confirmation des références et disponibilités.';first.append(note);
+      const second=doc.createElement('section');second.className='page';doc.body.append(second);
+      const title2=doc.createElement('h1');title2.textContent='STUDIO ONE · Vues 3D du projet';second.append(title2);
+      const grid=doc.createElement('div');grid.className='views';views.forEach(v=>{const cell=doc.createElement('div');cell.className='view';const h=doc.createElement('h3');h.textContent=v.title;const img=doc.createElement('img');img.src=v.image;cell.append(h,img);grid.append(cell);});second.append(grid);
+      const foot=doc.createElement('p');foot.className='note';foot.textContent='Vues indicatives. Dimensions et références à confirmer auprès de RANDAL.';second.append(foot);
+      doc.close();notice('Dossier sur deux pages prêt : récapitulatif puis quatre vues 3D. Imprimez ou enregistrez en PDF.');
     }catch(e){notice('Impression impossible : '+e.message);}
   };
   function requestText(){return ['Bonjour Juan Carlos,','','Veuillez confirmer la composition STUDIO ONE suivante :','',...store.quote().flatMap(r=>[r.title,r.detail,'Référence : '+r.ref,'Quantité : '+r.qty,'']),'Merci de confirmer les références, compatibilités, disponibilités, délais et conditions de transport.','Cette demande ne constitue pas une commande ferme.','','Cordialement,','Agence Le Roy Factory'].join('\n');}
