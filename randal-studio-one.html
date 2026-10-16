@@ -479,7 +479,7 @@ async function downloadStudioPdf(){
   function drawText(txt,x,y,font,size,shade){
    pdf.setFont('helvetica',font||'normal');pdf.setFontSize(size||9);
    pdf.setTextColor.apply(pdf,shade||[52,62,55]);
-   pdf.text(String(txt).normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^\x20-\x7e\xa0-\xff]/g,' '),x,y);
+   pdf.text(String(txt).replace(/€/g,' EUR').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^\x20-\x7e\xa0-\xff]/g,' '),x,y);
   }
   pdf.setFillColor(53,64,55);pdf.rect(0,0,210,29,'F');
   drawText('LE ROY FACTORY  |  RANDAL - STUDIO ONE',15,13,'bold',13,[255,255,255]);
@@ -635,6 +635,7 @@ panel.querySelectorAll('[data-sink-layout]').forEach(function(b){b.onclick=funct
 })()};
  var copy=document.getElementById('copy');if(copy)copy.onclick=function(){var text=recapText();if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(text).then(function(){copy.textContent='Récapitulatif copié ✓'}).catch(function(){prompt('Copiez le récapitulatif :',text)})}else prompt('Copiez le récapitulatif :',text)};
  var print=document.getElementById('print');if(print)print.onclick=function(){window.print()};
+ var pdfButton=document.getElementById('save-pdf');if(pdfButton)pdfButton.onclick=function(){downloadStudioPdf()};
  var mail=document.getElementById('email');if(mail)mail.onclick=function(){var subject='Demande STUDIO ONE - '+m.name+' - '+st.width+' cm - '+ref();window.location.href='mailto:juancarlos.segura@randal.group?cc='+encodeURIComponent('jerome@leroyfactory.fr,coryne@leroyfactory.fr')+'&subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(recapText())};
 }
 function recapText(){
@@ -652,6 +653,7 @@ function recapText(){
  'Référence Randal : '+ref(),
  'Prix meuble C1 : '+euros(p),
  'Colonne assortie : '+(st.column?'14177 '+co.code+' / 177 € C1':'non'),
+ 'Miroir : non inclus dans le configurateur STUDIO ONE',
  'Quantité : '+st.quantity,
  'Total meuble C1 + vasque PRO : '+euros(total()),
  
