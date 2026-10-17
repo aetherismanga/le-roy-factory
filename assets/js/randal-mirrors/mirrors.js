@@ -3,7 +3,7 @@
 function shape(T,w,h,r){const s=new T.Shape(),x=-w/2,y=-h/2;r=Math.min(r,w/2,h/2);s.moveTo(x+r,y);s.lineTo(x+w-r,y);s.quadraticCurveTo(x+w,y,x+w,y+r);s.lineTo(x+w,y+h-r);s.quadraticCurveTo(x+w,y+h,x+w-r,y+h);s.lineTo(x+r,y+h);s.quadraticCurveTo(x,y+h,x,y+h-r);s.lineTo(x,y+r);s.quadraticCurveTo(x,y,x+r,y);return s}
 class Mirrors{
  constructor(T,renderer,scene,invalidate){Object.assign(this,{T,renderer,scene,invalidate});this.targets=new Map();this.mirrors=new Set();this.frame=0;this.reflecting=false;this.originalRender=renderer.render.bind(renderer);this.wrapper=(s,c)=>{if(!this.reflecting)this.frame++;return this.originalRender(s,c)};renderer.render=this.wrapper;
-  this.rig=new T.Group();this.rig.name='reflection-room';
+  this.rig=new T.Group();this.rig.name='reflection-room';this.rig.position.z=4.8; // Legacy RANDAL fallback when no room geometry is provided
   // Mirror only: opposite tiled wall and towel rail, without a fake window.
   const plane=(w,h,x,y,z,color,parent=this.rig)=>{const m=new T.Mesh(new T.PlaneGeometry(w,h),new T.MeshBasicMaterial({color,side:T.DoubleSide}));m.position.set(x,y,z);m.layers.set(30);m.raycast=()=>{};parent.add(m);return m};
   this.reflectionWall=plane(3,2.5,0,1.25,0,'#ece7dd');
