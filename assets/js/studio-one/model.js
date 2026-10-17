@@ -159,6 +159,13 @@
         depth:Math.min(700,Math.max(250,Math.round(Number(input.depth||3)*100))),
         height:Math.min(350,Math.max(250,Math.round(Number(input.height||2.5)*100)))
       };
+      // Opening an old project should preserve the layout if widening the room is enough.
+      if(expand&&this.project.items.length){
+        const extent=Math.max(...this.project.items.flatMap(i=>{const b=bounds(i);return [Math.abs(b.left),Math.abs(b.right)]}));
+        const originalWidth=Math.ceil(extent*2+1);
+        const expanded={...room,width:Math.min(700,Math.max(room.width,originalWidth))};
+        if(this.project.items.every(i=>roomInside(i,expanded))){this.room=expanded;return true;}
+      }
       let next=arrangeRoom(this.project.items,room);
       if(!next&&expand){
         for(let w=room.width+1;w<=700&&!next;w++){const candidate=arrangeRoom(this.project.items,{...room,width:w});if(candidate){next=candidate;room.width=w;}}
