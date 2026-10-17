@@ -112,7 +112,7 @@
     projects.forEach((project,index)=>{
       const row=document.createElement('div');row.className='studio-project-row';
       const name=document.createElement('strong');name.textContent=project.client+' · '+project.name;row.append(name);
-      const open=document.createElement('button');open.textContent='Ouvrir';open.onclick=()=>{try{store.load(project.data);if(project.ambience){Object.assign(ambience,project.ambience);for(const surface of ['floor','wall'])setAmbience(surface,ambience[surface]);}view?.fit();modal.remove();notice('Projet '+project.name+' ouvert.');}catch(e){notice('Ouverture impossible : '+e.message);}};row.append(open);
+      const open=document.createElement('button');open.textContent='Ouvrir';open.onclick=()=>{try{store.load(project.data);if(project.ambience){ambience={...defaults,...project.ambience};for(const surface of ['floor','wall'])setAmbience(surface,ambience[surface]);}view?.fit();modal.remove();notice('Projet '+project.name+' ouvert.');}catch(e){notice('Ouverture impossible : '+e.message);}};row.append(open);
       const del=document.createElement('button');del.textContent='Supprimer';del.onclick=()=>{if(!confirm('Supprimer ce projet ?'))return;const next=savedProjects();next.splice(index,1);localStorage.setItem(savedProjectsKey(),JSON.stringify(next));modal.remove();showProjects();};row.append(del);card.append(row);
     });
     const close=document.createElement('button');close.textContent='Fermer';close.onclick=()=>modal.remove();card.append(close);modal.append(card);document.body.append(modal);
@@ -131,62 +131,17 @@
   const myProjectsButton=document.createElement('button');myProjectsButton.id='my-projects';myProjectsButton.textContent='Voir mes projets';myProjectsButton.onclick=showProjects;$('save-project').before(myProjectsButton);
   $('load-project').onclick=()=>$('project-file').click();$('project-file').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>16000000)throw Error('Fichier trop volumineux.');store.load(JSON.parse(await file.text()));view?.fit();notice('Projet ouvert.');}catch(err){notice('Impossible d’ouvrir le projet : '+err.message);}e.target.value='';};
   $('new-project').onclick=()=>{if(confirm('Créer une nouvelle composition ? Enregistrez votre projet pour le conserver.')){store.load({version:2,items:[M.make('cabinet')]});view?.fit();}};
-  const tileCollections=[
-    {factory:'elios',id:'creta',name:'Creta',size:[60,60],colors:['Ginepro','Zucchero','Avena','Biscotto','Caramello','Matcha','Malto','Pepe'],surfaces:['floor','wall']},
-    {factory:'elios',id:'venere',name:'Venere',size:[33.3,100],colors:['Perla','Aura','Seta','Flora','Rugiada','Zefiro','Mare','Atlante'],surfaces:['floor','wall']},
-    {factory:'elios',id:'azuli-mood-5',name:'Azuli Mood',size:[5,15],colors:['Bone','Bottle Green','Burgundy','Chalk','Coffee Bean','Dawn','Dusk','Sand','Thyme Green','Turquoise','Blue'],surfaces:['wall']},
-    {factory:'elios',id:'azuli-mood-10',name:'Azuli Mood',size:[10,10],colors:['Bone','Bottle Green','Burgundy','Chalk','Coffee Bean','Dawn','Dusk','Sand','Thyme Green','Turquoise','Blue'],surfaces:['wall']},
-    {factory:'elios',id:'yosemite',name:'Yosemite',size:[23.4,119.5],colors:['Honey','Amber','Natural','White'],surfaces:['floor','wall']},
-    {factory:'elios',id:'roma',name:'Roma',size:[40,60],colors:[],surfaces:['floor','wall']},
-    {factory:'elios',id:'dynasty',name:'Dynasty',size:[60,120],colors:[],surfaces:['floor','wall']},
-    {factory:'view',id:'corso',name:'Corso',size:[60,90],colors:['Avorio','Beige'],surfaces:['floor','wall']},
-    {factory:'view',id:'golden-stone',name:'Golden Stone',size:[60,120],colors:['Ivory','Sand','Pearl','Oxid','Carbon'],surfaces:['floor','wall']}
-  ];
-  const ambienceKey='lrf-studio-one-elios-ambience-v2',defaults={floor:'creta:ginepro',wall:'venere:perla',floorOrientation:'horizontal',wallOrientation:'horizontal'};
+  const ambienceKey='lrf-studio-one-elios-ambience-v2',defaults={floor:'creta:ginepro',wall:'creta:avena',floorOrientation:'horizontal',wallOrientation:'horizontal'};
   let ambience={...defaults};try{ambience={...ambience,...JSON.parse(sessionStorage.getItem(ambienceKey)||'{}')};}catch(e){}
-  const findTile=key=>tileCollections.find(c=>c.colors.some(color=>c.id+':'+color.toLowerCase().replace(/\s+/g,'-')===key));
+  const CSurface=window.RandalSurfaceCatalogue,surfacePickers={};
+  const legacyTiles=[{id:'corso:avorio',label:'Corso Avorio · 60 × 90 cm'},{id:'corso:beige',label:'Corso Beige · 60 × 90 cm'},...['Ivory','Sand','Pearl','Oxid','Carbon'].map(n=>({id:'golden-stone:'+n.toLowerCase(),label:'Golden Stone '+n+' · 60 × 120 cm'}))];
+  const findTile=key=>{const v=CSurface.resolve(key);return v?{name:v.label,factory:v.brand,size:[v.width*100,v.height*100],colors:[v.color]}:null;};
   function persistAmbience(){try{sessionStorage.setItem(ambienceKey,JSON.stringify(ambience));}catch(e){}}
-  function refreshTiles(surface){
-    const factory=$(surface+'-factory').value,select=$(surface+'-color'),previous=ambience[surface];select.replaceChildren();
-    tileCollections.filter(c=>c.factory===factory&&c.surfaces.includes(surface)).forEach(c=>{
-      const group=document.createElement('optgroup');group.label=c.name+' · '+c.size.join(' × ')+' cm';
-      if(!c.colors.length){const option=document.createElement('option');option.disabled=true;option.textContent='Coloris en attente de vérification catalogue';group.append(option);}
-      c.colors.forEach(color=>{const option=document.createElement('option');option.value=c.id+':'+color.toLowerCase().replace(/\s+/g,'-');option.textContent=c.name+' '+color+' · '+c.size.join(' × ');group.append(option);});select.append(group);
-    });
-    const values=[...select.options].filter(o=>!o.disabled).map(o=>o.value);const chosen=values.includes(previous)?previous:values[0];if(chosen)setAmbience(surface,chosen);
-  }
-  function setAmbience(surface,key){
-    const c=findTile(key);if(!c||!c.surfaces.includes(surface))return;
-    ambience[surface]=key;$(surface+'-factory').value=c.factory;$(surface+'-color').value=key;
-    view?.setTile(surface,key,ambience[surface+'Orientation']||'horizontal',c.size);persistAmbience();
-  }
-  ['floor','wall'].forEach(surface=>{
-    const selected=findTile(ambience[surface]);$(surface+'-factory').value=selected?.factory||'elios';
-    refreshTiles(surface);$(surface+'-orientation').value=ambience[surface+'Orientation']||'horizontal';
-    $(surface+'-factory').onchange=()=>refreshTiles(surface);
-    $(surface+'-color').onchange=event=>setAmbience(surface,event.target.value);
-    $(surface+'-orientation').onchange=event=>{ambience[surface+'Orientation']=event.target.value;setAmbience(surface,ambience[surface]);};
-  });
-  function openAmbienceMenu(surface,x,y){
-    document.getElementById('elios-context-menu')?.remove();
-    const menu=document.createElement('div');menu.id='elios-context-menu';menu.setAttribute('role','dialog');menu.setAttribute('aria-label','Carrelage '+(surface==='floor'?'sol':'mur'));
-    Object.assign(menu.style,{position:'fixed',zIndex:'99999',left:Math.max(10,Math.min(x,innerWidth-300))+'px',top:Math.max(10,Math.min(y,innerHeight-350))+'px',width:'290px',padding:'14px',background:'#fff',color:'#29332e',border:'1px solid #c7c2b7',borderRadius:'14px',boxShadow:'0 12px 32px #0004'});
-    const title=document.createElement('strong');title.textContent='☰ Carrelage · '+(surface==='floor'?'Sol':'Mur');menu.append(title);
-    for(const id of [surface+'-factory',surface+'-color',surface+'-orientation']){
-      const label=document.createElement('label');label.style.display='block';label.style.marginTop='10px';label.textContent=id.endsWith('factory')?'Usine':id.endsWith('orientation')?'Sens de pose':'Collection et couleur';
-      const select=$(id).cloneNode(true);select.id='popup-'+id;select.style.width='100%';select.style.padding='9px';select.onchange=()=>{
-        if(id.endsWith('factory')){$(id).value=select.value;refreshTiles(surface);menu.remove();openAmbienceMenu(surface,x,y);}
-        else if(id.endsWith('orientation')){ambience[surface+'Orientation']=select.value;$(id).value=select.value;setAmbience(surface,ambience[surface]);}
-        else setAmbience(surface,select.value);
-      };label.append(select);menu.append(label);
-    }
-    const close=document.createElement('button');close.textContent='Fermer';close.style.marginTop='10px';close.onclick=()=>menu.remove();menu.append(close);document.body.append(menu);
-    const outside=event=>{if(!menu.contains(event.target)){menu.remove();document.removeEventListener('pointerdown',outside,true);}};
-    setTimeout(()=>document.addEventListener('pointerdown',outside,true),0);
-  }
-  $('image').onclick=()=>{if(!view)return notice('La visualisation 3D n’est pas disponible.');view.renderer.render(view.scene,view.camera);view.canvas.toBlob(blob=>{if(blob)download(blob,'STUDIO-ONE-composition.png');});};
-  // Free photorealistic hand-off: all instructions remain visible in the exported PNG.
-  // No external API, user account, hidden PNG metadata or automatic file upload.
+  function setAmbience(surface,value){const legacy=typeof value==='object'?value?.legacy:legacyTiles.find(t=>t.id===value)?.id;if(legacy){ambience[surface]=legacy;delete ambience[surface+'Selection'];view?.setLegacyTile(surface,legacy,ambience[surface+'Orientation']);surfacePickers[surface]?.set({legacy});persistAmbience();return;}
+    const v=CSurface.resolve(typeof value==='object'?value:ambience[surface+'Selection']||value)||CSurface.resolve('creta:avena');ambience[surface]=CSurface.key(v);ambience[surface+'Selection']=v;ambience[surface+'Orientation']=v.orientation;view?.setTile(surface,v);surfacePickers[surface]?.set(v);persistAmbience();}
+  for(const surface of ['floor','wall']){const legacy=legacyTiles.find(t=>t.id===ambience[surface]);surfacePickers[surface]=window.RandalSurfacePicker($(surface+'-surfaces'),{prefix:'studio-'+surface,surface,value:ambience[surface+'Selection']||ambience[surface],legacy:legacyTiles,onChange:v=>setAmbience(surface,v)});if(legacy)surfacePickers[surface].set({legacy:legacy.id});}
+  function openAmbienceMenu(surface){const host=$(surface+'-surfaces');host.closest('details').open=true;panel('config');host.scrollIntoView({block:'center',behavior:'smooth'});}
+  $('image').onclick=async()=>{if(!view)return notice('La visualisation 3D n’est pas disponible.');await view.settled();view.renderer.render(view.scene,view.camera);view.canvas.toBlob(blob=>{if(blob)download(blob,'STUDIO-ONE-composition.png');});};
   function photoBrief(){
     const out=['INSTRUCTION POUR CHATGPT — CRÉATION D’IMAGE',
       'Génère une photographie architecturale photoréaliste à partir de la vue 3D ci-dessus.',
@@ -245,11 +200,11 @@
       'Ce visuel est une illustration d’ambiance et non un plan technique contractuel.');
     return out.join('\n');
   }
-  function photoExport(service){
+  async function photoExport(service){
     if(!view)return notice('La visualisation 3D doit être chargée avant l’export.');
     const destination='https://chatgpt.com/';
     try{
-      view.renderer.render(view.scene,view.camera);
+      await view.settled();view.renderer.render(view.scene,view.camera);
       const source=view.canvas,scale=Math.min(1,1500/Math.max(1,source.width));
       const w=1500,photoW=w-100,photoH=Math.max(400,Math.round(source.height*photoW/Math.max(1,source.width)));
       const lines=[],ctx=document.createElement('canvas').getContext('2d');
@@ -281,10 +236,10 @@
   }
   $('photo-chatgpt').onclick=()=>photoExport('chatgpt');
 
-  $('print').onclick=()=>{
+  $('print').onclick=async()=>{
     try{
       const popup=window.open('','_blank');if(!popup)return notice('Autorisez les fenêtres surgissantes pour imprimer le dossier.');
-      const views=captureViews(),rows=store.quote(),doc=popup.document;
+      popup.document.body.textContent='Préparation des textures…';await view?.settled();popup.document.body.replaceChildren();const views=captureViews(),rows=store.quote(),doc=popup.document;
       doc.title='RANDAL STUDIO ONE — Récapitulatif et vues 3D';
       const style=doc.createElement('style');
       style.textContent='@page{size:A4 portrait;margin:12mm}body{font:12px Arial,sans-serif;color:#24362f;margin:0}h1{font-size:20px;border-bottom:3px solid #345348;padding-bottom:12px}h2{font-size:17px}.page{page-break-after:always;break-after:page}.page:last-child{page-break-after:auto;break-after:auto}table{border-collapse:collapse;width:100%}th{background:#e8ede8}td,th{border-bottom:1px solid #ddd;padding:10px 7px;text-align:left}.right{text-align:right}.total{font-size:18px;font-weight:bold;text-align:right;margin-top:20px}.views{display:grid;grid-template-columns:1fr 1fr;gap:12px}.view{break-inside:avoid}.view h3{font-size:12px;margin:8px 0}.view img{width:100%;max-height:108mm;object-fit:contain;border:1px solid #ddd}.note{font-size:10px;color:#666;margin-top:16px}@media print{.page{min-height:0}}';
@@ -310,8 +265,8 @@
   $('back').onclick=close;$('return-summary').onclick=close;
   window.addEventListener('message',e=>{if(!embedded||e.origin!==location.origin||e.source!==window.parent||e.data?.type!=='studio-one-project-init')return;try{store.load(e.data.project);view?.fit();}catch(err){notice('Projet reçu invalide : '+err.message);}});
   try{if(!window.THREE)throw Error('Moteur 3D indisponible. Rechargez la page.');view=new window.StudioOneScene($('stage'),store,notice);view.onAmbienceLongPress=openAmbienceMenu;setAmbience('floor',ambience.floor);setAmbience('wall',ambience.wall);$('scene-status').hidden=true;}catch(e){$('scene-status').textContent=e.message;}
-  // Read-only diagnostics for browser regression tests and support.
-  window.StudioOneDiagnostics=Object.freeze({snapshot:()=>store.snapshot(),quote:()=>store.quote(),inspect:()=>view?.inspect(),collisions:()=>store.project.items.flatMap((a,i)=>store.project.items.slice(i+1).filter(b=>M.overlaps(a,b)).map(b=>[a.id,b.id]))});
+  // Diagnostics for browser regression tests and support.
+  window.StudioOneDiagnostics=Object.freeze({setSurface:(surface,value)=>setAmbience(surface,value),settled:()=>view?.settled(),snapshot:()=>store.snapshot(),quote:()=>store.quote(),inspect:()=>view?.inspect(),collisions:()=>store.project.items.flatMap((a,i)=>store.project.items.slice(i+1).filter(b=>M.overlaps(a,b)).map(b=>[a.id,b.id]))});
   if(embedded)window.parent.postMessage({type:'studio-one-project-ready'},location.origin);render();
   if(new URLSearchParams(location.search).get('projects')==='1')showProjects();
 })();

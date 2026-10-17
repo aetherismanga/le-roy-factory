@@ -1,0 +1,551 @@
+[
+  {
+    "collection": "elios-quercia",
+    "source": "https://eliosceramica.com/collezione/quercia/",
+    "htmlSha256": "db9be82c502255518661055d6e6cbc168cfe51f324f1e1b8c2145d65979bb4b5",
+    "formatsBySourceColor": {
+      "quercia-white": [
+        "20.3x90.6",
+        "23.4x119.5",
+        "24x120"
+      ],
+      "quercia-white-2": [
+        "20.3x90.6",
+        "23.4x119.5",
+        "24x120"
+      ],
+      "quercia-white-2-2": [
+        "20.3x90.6",
+        "23.4x119.5",
+        "24x120",
+        "40x120"
+      ],
+      "quercia-white-2-2-2": [
+        "20.3x90.6",
+        "23.4x119.5",
+        "24x120",
+        "40x120"
+      ]
+    }
+  },
+  {
+    "collection": "elios-sedimenti",
+    "source": "https://eliosceramica.com/collezione/sedimenti/",
+    "htmlSha256": "70845a4e4e9242083e1470aeda2dd48b19cbaef0dd972fcf3a0ffcb8dd78cfe3",
+    "formatsBySourceColor": {
+      "sedimenti-beige": [
+        "120x120",
+        "120x278",
+        "20.3x20.3",
+        "20.3x40.6",
+        "30x30",
+        "4.8x45",
+        "40.6x40.6",
+        "40.6x61",
+        "60x120",
+        "60x60",
+        "7.5x30",
+        "7.5x7.5"
+      ],
+      "sedimenti-grey": [
+        "120x120",
+        "120x278",
+        "20.3x20.3",
+        "20.3x40.6",
+        "30x30",
+        "4.8x45",
+        "40.6x40.6",
+        "40.6x61",
+        "60x120",
+        "60x60",
+        "7.5x30",
+        "7.5x7.5"
+      ],
+      "sedimenti-send": [
+        "120x120",
+        "120x278",
+        "20.3x20.3",
+        "20.3x40.6",
+        "30x30",
+        "4.8x45",
+        "40.6x40.6",
+        "40.6x61",
+        "60x120",
+        "60x60",
+        "7.5x30",
+        "7.5x7.5"
+      ],
+      "sedimenti-white": [
+        "120x120",
+        "120x278",
+        "20.3x20.3",
+        "20.3x40.6",
+        "30x30",
+        "4.8x45",
+        "40.6x40.6",
+        "40.6x61",
+        "60x120",
+        "60x60",
+        "7.5x30",
+        "7.5x7.5"
+      ]
+    }
+  },
+  {
+    "collection": "elios-brooklyn",
+    "source": "https://eliosceramica.com/collezione/brooklyn/",
+    "htmlSha256": "da3269cdac47084245f813f4ac91bcea42fe054d5263944fd8d04b1dc272976e",
+    "formatsBySourceColor": {
+      "brooklyn-white": [
+        "100x100",
+        "30x60",
+        "60x120",
+        "60x60"
+      ],
+      "brooklyn-beige": [
+        "100x100",
+        "30x60",
+        "60x120",
+        "60x60"
+      ],
+      "brooklyn-taupe": [
+        "100x100",
+        "30x60",
+        "60x120",
+        "60x60"
+      ],
+      "brooklyn-grey": [
+        "100x100",
+        "30x60",
+        "60x120",
+        "60x60"
+      ],
+      "brooklyn-dark": [
+        "100x100",
+        "30x60",
+        "60x120",
+        "60x60"
+      ],
+      "brooklyn-almond": [
+        "100x100",
+        "60x120",
+        "60x60"
+      ],
+      "brooklyn-gold": [
+        "100x100",
+        "60x120",
+        "60x60"
+      ]
+    }
+  },
+  {
+    "collection": "elios-creta",
+    "source": "https://eliosceramica.com/collezione/creta/",
+    "htmlSha256": "67f4110c16f6a42849b5b6c184c9c34414c468f25c336c4ae0736878c0372530",
+    "formatsBySourceColor": {
+      "creta-avena": [
+        "120x120",
+        "60x120",
+        "60x60"
+      ],
+      "creta-biscotto": [
+        "120x120",
+        "60x120",
+        "60x60"
+      ],
+      "creta-caramello": [
+        "120x120",
+        "60x120",
+        "60x60"
+      ],
+      "creta-ginepro": [
+        "60x120",
+        "60x60"
+      ],
+      "creta-matcha": [
+        "60x120",
+        "60x60"
+      ],
+      "creta-zucchero": [
+        "120x120",
+        "60x120",
+        "60x60"
+      ],
+      "creta-malto": [
+        "120x120",
+        "60x120",
+        "60x60"
+      ],
+      "creta-pepe": [
+        "120x120",
+        "60x120",
+        "60x60"
+      ]
+    }
+  },
+  {
+    "collection": "elios-deco",
+    "source": "https://eliosceramica.com/collezione/deco/",
+    "htmlSha256": "6c008f8d7a3b1c9f2c074ebcb0e1323100f3523d92423421e66c45b6d184bfdd",
+    "formatsBySourceColor": {
+      "deco-decori": [
+        "20x20"
+      ],
+      "deco-white": [
+        "20x20"
+      ],
+      "deco-grey": [
+        "20x20"
+      ],
+      "deco-black": [
+        "20x20"
+      ],
+      "deco-taupe": [
+        "20x20"
+      ],
+      "deco-light-blue": [
+        "20x20"
+      ],
+      "deco-nordic-green": [
+        "20x20"
+      ]
+    }
+  },
+  {
+    "collection": "elios-domus",
+    "source": "https://eliosceramica.com/collezione/domus/",
+    "htmlSha256": "b2ff8243692e8560e064a5653739a8d3cd6e9bb5d2c061239c22ed72dcb2f1b0",
+    "formatsBySourceColor": {
+      "domus-moon-white": [
+        "4.8x45"
+      ],
+      "domus-sandstone-beige": [
+        "4.8x45"
+      ],
+      "domus-sunset-rose": [
+        "4.8x45"
+      ],
+      "domus-clay-red": [
+        "4.8x45"
+      ],
+      "domus-forest-green": [
+        "4.8x45"
+      ],
+      "domus-ocean-blue": [
+        "4.8x45"
+      ],
+      "domus-canyon-rust": [
+        "4.8x45"
+      ]
+    }
+  },
+  {
+    "collection": "elios-glow",
+    "source": "https://eliosceramica.com/collezione/glow/",
+    "htmlSha256": "520971961e1e5992d3cac6cb91bd84638910af400981d156781c3ee303c1f758",
+    "formatsBySourceColor": {
+      "glow-oregon": [
+        "4.8x45"
+      ],
+      "glow-california": [
+        "4.8x45"
+      ],
+      "glow-montana": [
+        "4.8x45"
+      ],
+      "glow-florida": [
+        "4.8x45"
+      ],
+      "glow-virginia": [
+        "4.8x45"
+      ],
+      "glow-arizona": [
+        "4.8x45"
+      ],
+      "glow-dakota": [
+        "4.8x45"
+      ],
+      "glow-indiana": [
+        "4.8x45"
+      ],
+      "glow-washington": [
+        "4.8x45"
+      ],
+      "glow-texas": [
+        "4.8x45"
+      ]
+    }
+  },
+  {
+    "collection": "elios-golden-hour",
+    "source": "https://eliosceramica.com/collezione/golden-hour/",
+    "htmlSha256": "b602a4e86821e98057018297713a7db98eb0d14ccd343b9284ac08970b663334",
+    "formatsBySourceColor": {
+      "golden-white-lady": [
+        "4.8x20"
+      ],
+      "golden-gin-tonic": [
+        "4.8x20"
+      ],
+      "golden-bellini": [
+        "4.8x20"
+      ],
+      "golden-margarita": [
+        "4.8x20"
+      ],
+      "golden-mojito": [
+        "4.8x20"
+      ],
+      "golden-caipirinha": [
+        "4.8x20"
+      ],
+      "golden-hawaian": [
+        "4.8x20"
+      ],
+      "golden-blue-lagoon": [
+        "4.8x20"
+      ]
+    }
+  },
+  {
+    "collection": "elios-marechiaro",
+    "source": "https://eliosceramica.com/collezione/marechiaro/",
+    "htmlSha256": "b5bd66438d46f7dec9acdf11815309f64848405e5507d071ceaeaef9bfbc9734",
+    "formatsBySourceColor": {
+      "marechiaro-amalfi": [
+        "20.3x20.3"
+      ],
+      "marechiaro-positano": [
+        "20.3x20.3"
+      ],
+      "marechiaro-sorrento": [
+        "20.3x20.3"
+      ],
+      "marechiaro-vietri": [
+        "20.3x20.3"
+      ],
+      "marechiaro-mix": [
+        "20.3x20.3"
+      ],
+      "marechiaro-blu": [
+        "40.6x40.6"
+      ],
+      "marechiaro-bianco": [
+        "20.3x20.3",
+        "40.6x40.6"
+      ]
+    }
+  },
+  {
+    "collection": "elios-shell",
+    "source": "https://eliosceramica.com/collezione/shell/",
+    "htmlSha256": "c0a5773ac0928f98c4f35ea76a0416985a0efe5f230df077ac9b6d6b0b63ae66",
+    "formatsBySourceColor": {
+      "shell-ivory": [
+        "60x120",
+        "60x60"
+      ],
+      "shell-beige": [
+        "60x120",
+        "60x60"
+      ],
+      "shell-grey": [
+        "60x120",
+        "60x60"
+      ],
+      "shell-ivory-light": [
+        "60x120",
+        "60x60"
+      ],
+      "shell-beige-light": [
+        "60x120",
+        "60x60"
+      ],
+      "shell-grey-light": [
+        "60x120",
+        "60x60"
+      ]
+    }
+  },
+  {
+    "collection": "elios-allure",
+    "source": "https://eliosceramica.com/collezione/allure/",
+    "htmlSha256": "5a368fe308244ebcc6a1380578f57d1cac6c2765257a0c2a3a97583e45fa6aa4",
+    "formatsBySourceColor": {
+      "allure-blossom": [
+        "60x120"
+      ],
+      "allure-blossom-2": [
+        "60x120"
+      ],
+      "allure-blossom-2-2": [
+        "60x120"
+      ],
+      "allure-blossom-2-2-2": [
+        "60x120"
+      ],
+      "allure-blossom-2-2-2-2": [
+        "60x120"
+      ],
+      "allure-fenix-juniper": [
+        "60x120"
+      ],
+      "allure-blossom-2-2-2-2-2-2": [
+        "60x120"
+      ],
+      "allure-blossom-2-2-2-2-2-3": [
+        "60x120"
+      ],
+      "allure-eden": []
+    }
+  },
+  {
+    "collection": "elios-azuli-mood",
+    "source": "https://eliosceramica.com/collezione/azuli-mood/",
+    "htmlSha256": "19b806f861b967e97133b133c3ae008bd8333f64b4ee1835b8f261e078fde977",
+    "formatsBySourceColor": {
+      "azuli-mood-chalk": [
+        "10x10",
+        "5x15"
+      ],
+      "azuli-mood-sand": [
+        "10x10",
+        "5x15"
+      ],
+      "azuli-mood-bone": [
+        "10x10",
+        "5x15"
+      ],
+      "azuli-mood-thyme-green": [
+        "10x10",
+        "5x15"
+      ],
+      "azuli-mood-burgundy": [
+        "10x10",
+        "5x15"
+      ],
+      "azuli-mood-coffee-bean": [
+        "10x10",
+        "5x15"
+      ],
+      "azuli-mood-blue": [
+        "10x10",
+        "5x15"
+      ],
+      "azuli-mood-bottle-green": [
+        "10x10",
+        "5x15"
+      ],
+      "azuli-mood-turquoise": [
+        "10x10",
+        "5x15"
+      ],
+      "azuli-mood-dusk": [
+        "10x10",
+        "5x15"
+      ],
+      "azuli-mood-dawn": [
+        "10x10",
+        "5x15"
+      ]
+    }
+  },
+  {
+    "collection": "elios-dynasty",
+    "source": "https://eliosceramica.com/collezione/dynasty/",
+    "htmlSha256": "bdbe018453921f329df99da82b8a5c6e6c43844389671313e71952f335f65cb9",
+    "formatsBySourceColor": {
+      "dynasty-bianco-aurora": [
+        "30x30",
+        "60x120"
+      ],
+      "dynasty-marfil": [
+        "30x30",
+        "60x120"
+      ],
+      "dynasty-monet": [
+        "30x30",
+        "60x120"
+      ],
+      "dynasty-alpi": [
+        "30x30",
+        "60x120"
+      ],
+      "dynasty-calacatta-viola": [
+        "30x30",
+        "60x120"
+      ],
+      "dynasty-lepanto": [
+        "30x30",
+        "60x120"
+      ],
+      "dynasty-saint-laurent": [
+        "30x30",
+        "60x120"
+      ]
+    }
+  },
+  {
+    "collection": "elios-skultura",
+    "source": "https://eliosceramica.com/collezione/skultura/",
+    "htmlSha256": "902765881eb9c1324f79274032e2c6da189b520ecfcfd319b8e1a50e1da0e238",
+    "formatsBySourceColor": {
+      "skultura-porpora": [
+        "10.5x6",
+        "11x40",
+        "5.5x3.8",
+        "5.5x40",
+        "5x40",
+        "8x8"
+      ],
+      "skultura-terra": [
+        "10.5x6",
+        "11x40",
+        "5.5x3.8",
+        "5.5x40",
+        "5x40",
+        "8x8"
+      ],
+      "skultura-cipria": [
+        "10.5x6",
+        "11x40",
+        "5.5x3.8",
+        "5.5x40",
+        "5x40",
+        "8x8"
+      ],
+      "skultura-bianco": [
+        "10.5x6",
+        "11x40",
+        "5.5x3.8",
+        "5.5x40",
+        "5x40",
+        "8x8"
+      ],
+      "skultura-salvia": [
+        "10.5x6",
+        "11x40",
+        "5.5x3.8",
+        "5.5x40",
+        "5x40",
+        "8x8"
+      ],
+      "skultura-bosco": [
+        "10.5x6",
+        "11x40",
+        "5.5x3.8",
+        "5.5x40",
+        "5x40",
+        "8x8"
+      ],
+      "skultura-ottanio": [
+        "10.5x6",
+        "11x40",
+        "5.5x3.8",
+        "5.5x40",
+        "5x40",
+        "8x8"
+      ]
+    }
+  }
+]
