@@ -1,0 +1,7 @@
+{
+  "status": "PASS",
+  "unitPrices": 431,
+  "collections": 11,
+  "protectedFiles": 16,
+  "tests": "Reference preservation, fixed dimensions, compatibility, unique ids, collisions, isolated finishes, totals, project roundtrip"
+}

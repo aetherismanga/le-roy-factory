@@ -1,0 +1,18 @@
+{
+  "observedAt": "2026-10-17T00:35:52.466181+00:00",
+  "project": "le-roy-factory",
+  "team": "hugol-trading",
+  "sourceCommit": "75b597616784263a53d6afc9a7e631ca1526f4c4",
+  "status": "BLOQUÉ",
+  "httpStatus": 402,
+  "code": "api-deployments-free-per-day",
+  "message": "Resource is limited - try again in 24 hours (more than 100).",
+  "retryAfterSeconds": 86400,
+  "settingsChanged": false,
+  "previousPreview": "https://le-roy-factory-haxl8agy3-hugol-trading.vercel.app",
+  "previousPreviewCommit": "6ebd589df1f205f2a24e192db42b1514c3429441",
+  "finalSourceCommit": "24749025caf9cd2736e63f0dad53b3dc996c22bc",
+  "productionDomainHosting": "GitHub Pages",
+  "productionDomain": "https://leroyfactory.fr/randal-configurateur.html",
+  "note": "Le quota journalier Vercel empêche de créer le déploiement final. La publication et la vérification du domaine existant GitHub Pages sont distinctes. Aucune modification DNS, forfait, équipe ou protection."
+}
