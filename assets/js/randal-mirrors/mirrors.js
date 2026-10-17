@@ -3,8 +3,32 @@
 function shape(T,w,h,r){const s=new T.Shape(),x=-w/2,y=-h/2;r=Math.min(r,w/2,h/2);s.moveTo(x+r,y);s.lineTo(x+w-r,y);s.quadraticCurveTo(x+w,y,x+w,y+r);s.lineTo(x+w,y+h-r);s.quadraticCurveTo(x+w,y+h,x+w-r,y+h);s.lineTo(x+r,y+h);s.quadraticCurveTo(x,y+h,x,y+h-r);s.lineTo(x,y+r);s.quadraticCurveTo(x,y,x+r,y);return s}
 class Mirrors{
  constructor(T,renderer,scene,invalidate){Object.assign(this,{T,renderer,scene,invalidate});this.targets=new Map();this.mirrors=new Set();this.frame=0;this.reflecting=false;this.originalRender=renderer.render.bind(renderer);this.wrapper=(s,c)=>{if(!this.reflecting)this.frame++;return this.originalRender(s,c)};renderer.render=this.wrapper;
-  this.rig=new T.Group();this.rig.name='reflection-room';const plane=(w,h,x,y,z,color,rot=0)=>{const m=new T.Mesh(new T.PlaneGeometry(w,h),new T.MeshBasicMaterial({color,side:T.DoubleSide}));m.position.set(x,y,z);m.rotation.y=rot;m.layers.set(30);m.raycast=()=>{};this.rig.add(m)};
-  plane(14,5,0,2,4.8,'#dad6ce');plane(5,5,-5,2,0,'#e5e3dd',Math.PI/2);plane(5,5,5,2,0,'#ddd9d1',Math.PI/2);plane(2,1.8,-.65,2.05,4.75,'#b9cbd0');plane(.045,1.8,-.65,2.05,4.72,'#89918e');plane(2,.04,-.65,2.05,4.72,'#89918e');plane(2.08,.045,-.65,1.14,4.7,'#eeeae3');scene.add(this.rig);
+  this.rig=new T.Group();this.rig.name='reflection-room';this.rig.position.z=4.8; // Legacy RANDAL fallback when no room geometry is provided
+  // Mirror only: opposite tiled wall and towel rail, without a fake window.
+  const plane=(w,h,x,y,z,color,parent=this.rig)=>{const m=new T.Mesh(new T.PlaneGeometry(w,h),new T.MeshBasicMaterial({color,side:T.DoubleSide}));m.position.set(x,y,z);m.layers.set(30);m.raycast=()=>{};parent.add(m);return m};
+  this.reflectionWall=plane(3,2.5,0,1.25,0,'#ece7dd');
+  this.towel=new T.Group();this.rig.add(this.towel);
+  plane(.56,.76,0,.96,-.055,'#e8e1d6',this.towel);
+  plane(.50,.12,0,.64,-.066,'#d8cfc3',this.towel);
+  plane(.66,.027,0,1.36,-.085,'#929795',this.towel);
+  plane(.024,.06,-.32,1.34,-.078,'#929795',this.towel);
+  plane(.024,.06,.32,1.34,-.078,'#929795',this.towel);
+  scene.add(this.rig);
+ }
+ setRoom(size,wall,back=-.245){
+  if(!size||!this.reflectionWall)return;
+  this.rig.position.z=back+size.depth-.04;
+  this.reflectionWall.position.y=size.height/2;
+  const params=this.reflectionWall.geometry.parameters;
+  if(params.width!==size.width||params.height!==size.height){
+   this.reflectionWall.geometry.dispose();
+   this.reflectionWall.geometry=new this.T.PlaneGeometry(size.width,size.height);
+  }
+  this.towel.position.x=Math.min(1.2,size.width*.3);
+  const dest=this.reflectionWall.material,source=wall?.material;
+  if(source&&(dest.map!==source.map||dest.color.getHex()!==source.color.getHex())){
+   dest.map=source.map||null;dest.color.copy(source.color);dest.needsUpdate=true;
+  }
  }
  target(key){let e=this.targets.get(key);if(!e){if(this.targets.size>=4){const[k,v]=this.targets.entries().next().value;v.target.dispose();this.targets.delete(k)}const T=this.T,n=innerWidth<1100?256:512;e={target:new T.WebGLRenderTarget(n,n,{type:this.renderer.capabilities.isWebGL2?T.HalfFloatType:T.UnsignedByteType}),frame:-1};this.targets.set(key,e)}return e}
  create(name,w,h,{on=false,frameColor='#b7bbb8',wallZ=-.014}={}){const T=this.T,g=new T.Group(),round=/rond/i.test(name),capsule=/cápsula|capsula/i.test(name),metal=/métallique|metallique/i.test(name),led=/LED/i.test(name),zen=/Zen/i.test(name),r=round||capsule?w/2:metal?.035:.005,border=metal?.012:.004;
