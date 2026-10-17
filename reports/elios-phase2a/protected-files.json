@@ -1,0 +1,42 @@
+[
+  {
+    "path": "assets/js/studio-one/catalog.js",
+    "unchanged": true,
+    "sha256": "86e3cc821a6e1b4dc28d1d791a60e3e8d9d8bbb2473f17af42c48a26b5421e39"
+  },
+  {
+    "path": "assets/js/studio-one/model.js",
+    "unchanged": true,
+    "sha256": "a22f9748de2c1df136ac62c74585ae30ec179aa6e60f7aa7d74fcbada11890f1"
+  },
+  {
+    "path": "assets/js/randal-catalogue/data.js",
+    "unchanged": true,
+    "sha256": "51438f8e24b6c854ab329b7f061f14958b7d59e38784f202e3affa0e48bee2d9"
+  },
+  {
+    "path": "assets/js/randal-catalogue/store.js",
+    "unchanged": true,
+    "sha256": "c194c0a8917ed168d76baca3c34bece36586a6d23c7d800dd92b01d76b3fbfb3"
+  },
+  {
+    "path": "assets/js/randal-catalogue/geometry.js",
+    "unchanged": true,
+    "sha256": "63b793e7136431fb893cb4de5940f7943ba5c21716f94557e849caecd853a62c"
+  },
+  {
+    "path": "assets/js/randal-mirrors/mirrors.js",
+    "unchanged": true,
+    "sha256": "2b20e8af5289ea1cc93ce0d135db3260d405d1e8e405bdc987f639645b653ab6"
+  },
+  {
+    "path": "assets/js/randal-mirrors/reflector.js",
+    "unchanged": true,
+    "sha256": "d1f090139627da47f7536dd50593c4fed3a82ae32cb03dcd12c109cb4cefe1e4"
+  },
+  {
+    "path": "randal-studio-one.html",
+    "unchanged": true,
+    "sha256": "270e0d7ed3ec7e3dfa8124ca6f02a1e2c2cb3fd9e2556afa78c853e6322262ee"
+  }
+]

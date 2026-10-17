@@ -1,0 +1,735 @@
+{
+  "textures": [
+    {
+      "path": "assets/img/randal/surfaces/elios/quercia/white.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 161684,
+      "source": "https://eliosceramica.com/wp-content/uploads/2022/11/Quercia_tacca_white_zoom.jpg",
+      "sha256": "89a94b836714885474ae8d04abebe40ec046e6b548a036f96728f8fbe4f2b32a"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/quercia/honey.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 202404,
+      "source": "https://eliosceramica.com/wp-content/uploads/2022/11/Quercia_tacca_honey_zoom.jpg",
+      "sha256": "c4defa15b9c6dfffda20d2e982c2330218ef5c3e2abca93b53036cd07aefe59c"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/quercia/amber.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 309624,
+      "source": "https://eliosceramica.com/wp-content/uploads/2022/11/Quercia_tacca_amber_zoom.jpg",
+      "sha256": "d5759d2bfdaf74cb4dd9232fad28f71b3c422c06417d36121a83d2409d4fca50"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/quercia/natural.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 256060,
+      "source": "https://eliosceramica.com/wp-content/uploads/2022/11/Quercia_tacca_natural_zoom.jpg",
+      "sha256": "0b8041a7126ed8dc07fcc2d1581f1bb02af338541f16749b41e469b6570eba6d"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/sedimenti/white.webp",
+      "pixels": [
+        1400,
+        700
+      ],
+      "bytes": 353562,
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/WHITE-SELECTED_z.jpg",
+      "sha256": "6664adaab893490e523c4e398ff3aa82ec99c3e6966374915479aa032581c28b"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/sedimenti/beige.webp",
+      "pixels": [
+        1400,
+        700
+      ],
+      "bytes": 426358,
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/BEIGE-SELECTED_z.jpg",
+      "sha256": "9c157507e43903e23e7a2de254a69c9d7475db0924bba1c63951a3fa84840022"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/sedimenti/grey.webp",
+      "pixels": [
+        1400,
+        700
+      ],
+      "bytes": 430028,
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/GREY-SELECTED_z.jpg",
+      "sha256": "5420a727a5e9e5db683b2d290595ce07b4da831a23faab5ec6e3148ac361c02c"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/brooklyn/almond.webp",
+      "pixels": [
+        1400,
+        700
+      ],
+      "bytes": 162882,
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/brooklin_ALMOND_tacca_z.jpg",
+      "sha256": "b2ed6880d68f495fd8d0f979dc61b360dd15444ea97e1f2c26568cc0d778ebfd"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/brooklyn/gold.webp",
+      "pixels": [
+        1400,
+        700
+      ],
+      "bytes": 201892,
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/brooklin_GOLD_tacca_z.jpg",
+      "sha256": "b80a2f355fdbd5e5667fa25fd8c4089eab288b3a62cdcbe38e22ff8d7cc0f93f"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/creta/zucchero.webp",
+      "pixels": [
+        1400,
+        700
+      ],
+      "bytes": 41078,
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/creta_ZUCCHERO_tacca_z.jpg",
+      "sha256": "43ecf7a81c047146f618c58002173447e35059f397a88d16298b3162ebc4928f"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/creta/matcha.webp",
+      "pixels": [
+        1400,
+        700
+      ],
+      "bytes": 92658,
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/creta_MATCHA_tacca_z.jpg",
+      "sha256": "1ffb2a88d1f1be61720b9424a9d91e8fd4430a17aa94f71e5bf02e62af125003"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/creta/avena.webp",
+      "pixels": [
+        1400,
+        700
+      ],
+      "bytes": 85300,
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/creta_AVENA_tacca_z.jpg",
+      "sha256": "103c15a27588b04216c6aa5a80af8da81dbbb8ced605b9a097b36e34c5c05ebe"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/creta/biscotto.webp",
+      "pixels": [
+        1400,
+        700
+      ],
+      "bytes": 80690,
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/creta_BISCOTTO_tacca_z.jpg",
+      "sha256": "6b9627985a55a3f8ec4d68c370c83e441e07494f13e7bd8623ce91f0612f4c07"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/creta/caramello.webp",
+      "pixels": [
+        1400,
+        700
+      ],
+      "bytes": 106834,
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/creta_CARAMELLO_tacca_z.jpg",
+      "sha256": "be9ccc936645607b9fc4decea7975b8cb9420772aa61c080b5c3f3c862edb2e3"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/creta/ginepro.webp",
+      "pixels": [
+        1400,
+        700
+      ],
+      "bytes": 103006,
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/creta_GINEPRO_tacca_z.jpg",
+      "sha256": "850ab963e5a7f917cd4fb6baf9b3bb6563e4d5bf6a44a38ff8ca6a3ef6eab7d4"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/creta/pepe.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 130556,
+      "source": "https://eliosceramica.com/wp-content/uploads/2025/10/creta_pepe_tacca_Z.jpg",
+      "sha256": "fee1444f3cca8658afe5747ca7902c3dbca992e80238920af053ffc5491ddc76"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/creta/malto.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 94370,
+      "source": "https://eliosceramica.com/wp-content/uploads/2025/10/creta_malto_tacca_Z.jpg",
+      "sha256": "33ab8d8d6a73e14fbac7550955cede8ed06512979e9436ce8a86c97841fddab5"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/deco/white.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 47098,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/Deco_White_z.jpeg",
+      "sha256": "f3295c502fbafcd3d109bb4b826cab6c0df70cfb4dc1aff695a5cba091a51817"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/deco/black.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 18684,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/Deco_Black_z.jpeg",
+      "sha256": "600a0e9f7bba69dc73b6249f4844f20181d78791ed27913fb32b41bf75407764"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/deco/grey.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 287846,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/Deco_Grey_z.jpeg",
+      "sha256": "5950f61702b171a460b57dfa7d6a17d8f42172e7f30806f299421c5966d148cb"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/deco/taupe.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 310682,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/Deco_Taupe_z.jpeg",
+      "sha256": "5788f6191ce3223351c35ee5902ef90074fae02cbf862d6cb6e5af5400398bb7"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/deco/light-blue.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 247140,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/Deco_LightBlue_z.jpeg",
+      "sha256": "b7bb4a81c71226eba848d236986d11bf258f647023558a2f178f64454375394f"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/deco/nordic-green.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 157890,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/Deco_Nordic_Green_z.jpeg",
+      "sha256": "c49b4c60196817951fffdd141c21e6f6f30680ea34fe8e872c8214680f22b810"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/domus/canyon-rust.webp",
+      "pixels": [
+        1400,
+        700
+      ],
+      "bytes": 645296,
+      "source": "https://eliosceramica.com/wp-content/uploads/2025/05/domus_Canyon_Rust_600.jpg",
+      "sha256": "0bc9dc5b364142212e67a0e5dc78bc340416524053017e4ee18a89120459ed50"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/domus/forest-green.webp",
+      "pixels": [
+        1400,
+        700
+      ],
+      "bytes": 488740,
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/domus_FOREST-GREEN_tacca_z.jpg",
+      "sha256": "1d0ec5f9672fd7e49735ef3fc6697dff1d1df555577d4417ddbcc8f517836040"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/domus/clay-red.webp",
+      "pixels": [
+        1400,
+        700
+      ],
+      "bytes": 544914,
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/domus_CLAY-RED_tacca_z.jpg",
+      "sha256": "427672e0a3bdbc807a775c04cc03e8baccbacd63e88f8fe7e8bfa1e660d3ece3"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/domus/sandstone-beige.webp",
+      "pixels": [
+        1400,
+        700
+      ],
+      "bytes": 372322,
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/domus_SANDSTONE-BEIGE_tacca_z.jpg",
+      "sha256": "afe9dd9441a9874c3a231ab559f95620d921110001dc2c10b3cc9ca0dee97591"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/domus/ocean-blue.webp",
+      "pixels": [
+        1400,
+        700
+      ],
+      "bytes": 556064,
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/domus_OCEAN-BLUE_tacca_z.jpg",
+      "sha256": "6f0b37822a67bee93d3dc545c056e62ac46c68cf45423d0ad45899f1f5dda1e5"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/domus/moon-white.webp",
+      "pixels": [
+        1400,
+        700
+      ],
+      "bytes": 162886,
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/domus_MOON-WHITE_tacca_z.jpg",
+      "sha256": "a4f109f3ff81d4cdf823feda593fa8cea2220e197a53f6d69888c837408cccac"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/domus/sunset-rose.webp",
+      "pixels": [
+        1400,
+        700
+      ],
+      "bytes": 479798,
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/domus_SUNSET-ROSE_tacca_z.jpg",
+      "sha256": "83a6326719b8d63359a602d502f82fe8a3fab934955e1572d19d0ef4754145db"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/glow/arizona.webp",
+      "pixels": [
+        1400,
+        700
+      ],
+      "bytes": 365512,
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/Glow_ARIZONA_tacca_z.jpg",
+      "sha256": "aff987d5216d4d43761f532fe4003471c52f1774a51b3a2ac4f1495a6c2bd254"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/glow/dakota.webp",
+      "pixels": [
+        1400,
+        700
+      ],
+      "bytes": 215526,
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/Glow_DAKOTA_tacca_z.jpg",
+      "sha256": "6b8bc0f209406e6a62e281207a3446e2a87686c771c0296cc79ac40509d9d3df"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/glow/montana.webp",
+      "pixels": [
+        1400,
+        700
+      ],
+      "bytes": 401242,
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/Glow_MONTANA_tacca_z.jpg",
+      "sha256": "7e2d03a4508847e07c94be2eee5a5a5bd43c22c51f6ec4156e197a1f984ff384"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/glow/oregon.webp",
+      "pixels": [
+        1400,
+        700
+      ],
+      "bytes": 467456,
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/Glow_OREGON_tacca_z.jpg",
+      "sha256": "3809dc0a825ed42a3584b2eb88ed58c5dd511131d56344db64d20609b0e10631"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/glow/california.webp",
+      "pixels": [
+        1400,
+        700
+      ],
+      "bytes": 385450,
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/Glow_CALIFORNIA_tacca_z.jpg",
+      "sha256": "8f134eda08ee5f2bddd7ba212b202ea0ab6580b5fbffbd3b06fcce66ffd8c759"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/glow/texas.webp",
+      "pixels": [
+        1400,
+        700
+      ],
+      "bytes": 336864,
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/Glow_TEXAS_tacca_z.jpg",
+      "sha256": "0995a988c79a059177d2bdcfa1775fe591f4f665ca1415d78ef9fdf1995e9000"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/glow/virginia.webp",
+      "pixels": [
+        1400,
+        700
+      ],
+      "bytes": 215026,
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/Glow_VIRGINIA_tacca_z.jpg",
+      "sha256": "b514b8aec33aece294cb365d95ff1d54f6613884d074e2cb1bf88f8e415223d2"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/glow/florida.webp",
+      "pixels": [
+        1400,
+        700
+      ],
+      "bytes": 381558,
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/Glow_FLORIDA_tacca_z.jpg",
+      "sha256": "83578eeaf44bf4fde066196dc51ed2796dac9f1ce913ee3781749b7e20fa0ecd"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/glow/indiana.webp",
+      "pixels": [
+        1400,
+        700
+      ],
+      "bytes": 345450,
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/Glow_INDIANA_tacca_z.jpg",
+      "sha256": "94a4b5e46c5595c12029bfa5a00d01e60f5a523a917d08d4b175f85acbf6b609"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/golden-hour/white-lady.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 20110,
+      "source": "https://eliosceramica.com/wp-content/uploads/2025/10/Golden_Hour_WHITE-LADY_tacca_Z.jpg",
+      "sha256": "c8c8e6e18d3a56e79e96c2c91e2f114461fcb405d13f9658a882e1bd85afc647"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/golden-hour/mojito.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 126976,
+      "source": "https://eliosceramica.com/wp-content/uploads/2025/10/Golden_Hour_MOJITO_tacca_Z.jpg",
+      "sha256": "5fb43eea9be89ac89a60fb8e492a8cdb946463d693352d8b361c6382eecd6883"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/golden-hour/gin-tonic.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 59464,
+      "source": "https://eliosceramica.com/wp-content/uploads/2025/10/Golden_Hour_GIN-TONIC_tacca_Z.jpg",
+      "sha256": "3cd3880162afbded7ba7cd7ec069bb3ebde6faa2c070804f67e056090468fe9c"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/golden-hour/bellini.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 161582,
+      "source": "https://eliosceramica.com/wp-content/uploads/2025/10/Golden_Hour_BELLINI_tacca_Z.jpg",
+      "sha256": "bd531539ea5e01c068674d58493c8a6bb4937af4526cc4083b76458f0606a89a"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/golden-hour/caipirinha.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 166224,
+      "source": "https://eliosceramica.com/wp-content/uploads/2025/10/Golden_Hour_CAIPIRINHA_tacca_Z.jpg",
+      "sha256": "6f884cd1bbf6686ede92c15e8117684b42097b59c750eb54c10456f522e56a27"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/golden-hour/hawaian.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 132794,
+      "source": "https://eliosceramica.com/wp-content/uploads/2025/10/Golden_Hour_HAWAIAN_tacca_Z.jpg",
+      "sha256": "2b928961245389fbd15e83ae52b6ed22bf9fe1aefb49ce395f9e95ee5e58a85e"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/golden-hour/margarita.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 52278,
+      "source": "https://eliosceramica.com/wp-content/uploads/2025/10/Golden_Hour_MARGARITA_tacca_Z.jpg",
+      "sha256": "ecb5f76a11e1bf810a2182f11124ffbbacd674c0f86de612144bc1d197db31b6"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/golden-hour/blue-lagoon.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 177362,
+      "source": "https://eliosceramica.com/wp-content/uploads/2025/10/Golden_Hour_BLUE-LAGOON_tacca_Z.jpg",
+      "sha256": "632a5f070f0911a185426b7951a6b4f4712ae0991e88b4369c295030861fef21"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/marechiaro/bianco.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 117526,
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/02/marechiaro_bianco_tacca_z.jpg",
+      "sha256": "debedcc558d62c65718d4617f878b255144ec83621146c28a4b7b18de0787436"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/marechiaro/blu.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 107476,
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/02/marechiaro_blu_tacca_z.jpg",
+      "sha256": "fd59d8efb0a3d9bd572e21990bb33b311a4e8327727d5356affcd75dde04d2b8"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/shell/beige.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 271108,
+      "source": "https://eliosceramica.com/wp-content/uploads/2025/10/shell_beige_tacca_Z.jpg",
+      "sha256": "99a6fa45f1144b5bad49ce3a1a3e96fb2ef12d752655d07feef36ec8af4440d7"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/shell/beige-light.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 249330,
+      "source": "https://eliosceramica.com/wp-content/uploads/2025/10/shell_beige_light_tacca_Z.jpg",
+      "sha256": "e957b101cfb317580ba794bd2afa413eb88434b9c6749de762476e4ee6a2509d"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/shell/ivory.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 256274,
+      "source": "https://eliosceramica.com/wp-content/uploads/2025/10/shell_ivory_tacca_Z.jpg",
+      "sha256": "06c84c8557aa9d9502df5046c2f19e0fe6b3eed2b6754705df2d4a4f0a024f33"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/shell/grey.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 300686,
+      "source": "https://eliosceramica.com/wp-content/uploads/2025/10/shell_grey_tacca_Z.jpg",
+      "sha256": "4647ba5c84a51d809ff970893abf3619fc50951d09317033ea7e5a0e269ddf45"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/shell/ivory-light.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 239664,
+      "source": "https://eliosceramica.com/wp-content/uploads/2025/10/shell_ivory_light_tacca_Z.jpg",
+      "sha256": "1597863c775890bb7cd989f7c37a1697db8406b873ca25a5510263f645b2891c"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/shell/grey-light.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 241574,
+      "source": "https://eliosceramica.com/wp-content/uploads/2025/10/shell_grey_light_tacca_Z.jpg",
+      "sha256": "055192a898511f12fea1a062d9249b080360eec216634b9fa210d9a6f115c889"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/azuli-mood/chalk.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 14628,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/CHALK_z.jpg",
+      "sha256": "3b0965cda7c4750489673c27766ec9e2e0c80a89137c742beef33e418e980550"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/azuli-mood/sand.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 24320,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/SAND_z.jpg",
+      "sha256": "49b0f321a9e8156d5767785fbb10a68cc28113cc835113f297a1b9b65d763954"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/azuli-mood/bone.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 15936,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/BONE_z.jpg",
+      "sha256": "c6b4529b05b0273f9eacc3aee76a30e66caa61db19e42ada7a6e3fdcce01732e"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/azuli-mood/thyme-green.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 56978,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/THYME-GREEN_z.jpg",
+      "sha256": "22453fb1be4a16c63d06337535087a8555b69958cf6a4f5a2d9ebf42ef86da4c"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/azuli-mood/burgundy.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 168464,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/BURGUNDY_z.jpg",
+      "sha256": "44a7ab1174d290fae1edb8c76d3307ee92ff9c6978aa96004106a7147c4e38c8"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/azuli-mood/coffee-bean.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 163162,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/COFEE-BEAN_z.jpg",
+      "sha256": "0f537e9de968b0d7a1a727f2461ff8d32d20227bc7ffa48297a3ee62730e9f14"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/azuli-mood/blue.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 46090,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/BLUE_z.jpg",
+      "sha256": "27ce821aab956645f81fd5cd7dca937f9a9430276d4f9febf5a03397d2de1dc6"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/azuli-mood/bottle-green.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 43368,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/BOTTLE-GREEN_z.jpg",
+      "sha256": "5dd0a686dbdff63606abfbe595be5e176650be8a1b3c1e524edb29ed3a4949cb"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/azuli-mood/turquoise.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 40194,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/TURQUOISE_z.jpg",
+      "sha256": "64423ee8ba47ca98984f9e3e685a72b7f8fb8d9c715a9313d0bef907ac4ccaca"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/azuli-mood/dusk.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 55576,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/DUSK_z.jpg",
+      "sha256": "5ecd9c5e49bc5a442524d8819bd8277884d286de89b7c48db17232700d4622ac"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/azuli-mood/dawn.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 49530,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/DAWN_z.jpg",
+      "sha256": "5ec3d82460af7df77f996f092afe8c672906fa474af9eabf1622914123b11c26"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/dynasty/bianco-aurora.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 15056,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/08/BIANCO-AURORA_Z.jpg",
+      "sha256": "ca60dc9256033cd001d51ce4efcc06bcb799f94625ddb636af17709e8fea31c3"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/dynasty/marfil.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 73014,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/08/MARFIL_Z.jpg",
+      "sha256": "45ea23b6cf059f920ba414aa8690935627dc85cb40a562121a7cc99daaab8cb6"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/dynasty/monet.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 53152,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/08/MONET_Z.jpg",
+      "sha256": "2ae93deddac234d318f54c4c74cb8dde547d98f823d23c0673f794f644fa4676"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/dynasty/alpi.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 382400,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/08/ALPI_Z.jpg",
+      "sha256": "5c307895584495c462e579c89205a3b468aa8711b9855901d174df4c0abe74c2"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/dynasty/calacatta-viola.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 69514,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/08/CALACATTA-VIOLA_Z.jpg",
+      "sha256": "b515cab726d56b14b8cdfedaa6b458cee9d3627442eabdabdf129c0d5d4dbc20"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/dynasty/lepanto.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 289748,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/08/LEPANTO_Z.jpg",
+      "sha256": "59e56c0de6e3e7b4f8c385765acb83f33507c59c79e117c91175aa50adc4d1f8"
+    },
+    {
+      "path": "assets/img/randal/surfaces/elios/dynasty/saint-laurent.webp",
+      "pixels": [
+        1200,
+        700
+      ],
+      "bytes": 130970,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/08/SAINT-LAURENT_Z.jpg",
+      "sha256": "f4163c677cd4b02afc865232dd2bb0f79381806a1b3cec48298c156e236e70fc"
+    }
+  ],
+  "bytes": 15044958
+}
