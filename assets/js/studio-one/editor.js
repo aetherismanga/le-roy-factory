@@ -112,7 +112,7 @@
     projects.forEach((project,index)=>{
       const row=document.createElement('div');row.className='studio-project-row';
       const name=document.createElement('strong');name.textContent=project.client+' · '+project.name;row.append(name);
-      const open=document.createElement('button');open.textContent='Ouvrir';open.onclick=()=>{try{store.load(project.data);if(project.ambience){ambience={...defaults,...project.ambience};for(const surface of ['floor','wall'])setAmbience(surface,ambience[surface]);}view?.fit();modal.remove();notice('Projet '+project.name+' ouvert.');}catch(e){notice('Ouverture impossible : '+e.message);}};row.append(open);
+      const open=document.createElement('button');open.textContent='Ouvrir';open.onclick=()=>{try{store.load(project.data);if(project.ambience){ambience={...defaults,...project.ambience};view?.setRoom(ambience.room);roomControls.set(ambience.room);for(const surface of ['floor','wall'])setAmbience(surface,ambience[surface]);}view?.fit();modal.remove();notice('Projet '+project.name+' ouvert.');}catch(e){notice('Ouverture impossible : '+e.message);}};row.append(open);
       const del=document.createElement('button');del.textContent='Supprimer';del.onclick=()=>{if(!confirm('Supprimer ce projet ?'))return;const next=savedProjects();next.splice(index,1);localStorage.setItem(savedProjectsKey(),JSON.stringify(next));modal.remove();showProjects();};row.append(del);card.append(row);
     });
     const close=document.createElement('button');close.textContent='Fermer';close.onclick=()=>modal.remove();card.append(close);modal.append(card);document.body.append(modal);
@@ -133,6 +133,8 @@
   $('new-project').onclick=()=>{if(confirm('Créer une nouvelle composition ? Enregistrez votre projet pour le conserver.')){store.load({version:2,items:[M.make('cabinet')]});view?.fit();}};
   const ambienceKey='lrf-studio-one-elios-ambience-v2',defaults={floor:'creta:ginepro',wall:'creta:avena',floorOrientation:'horizontal',wallOrientation:'horizontal'};
   let ambience={...defaults};try{ambience={...ambience,...JSON.parse(sessionStorage.getItem(ambienceKey)||'{}')};}catch(e){}
+  const roomControls=window.RandalRoomControls($('config-panel'),'studio',ambience.room,value=>{ambience.room=value;view?.setRoom(value);for(const surface of ['floor','wall'])setAmbience(surface,ambience[surface]);persistAmbience();});
+  const roomButton=document.createElement('button');roomButton.id='room-dimensions';roomButton.textContent='Cotes pièce';roomButton.setAttribute('aria-pressed','false');roomButton.onclick=()=>{const v=roomButton.getAttribute('aria-pressed')!=='true';roomButton.setAttribute('aria-pressed',String(v));view?.setRoomDimensions(v);};$('dimensions').after(roomButton);
   const CSurface=window.RandalSurfaceCatalogue,surfacePickers={};
   const legacyTiles=[{id:'corso:avorio',label:'Corso Avorio · 60 × 90 cm'},{id:'corso:beige',label:'Corso Beige · 60 × 90 cm'},...['Ivory','Sand','Pearl','Oxid','Carbon'].map(n=>({id:'golden-stone:'+n.toLowerCase(),label:'Golden Stone '+n+' · 60 × 120 cm'}))];
   const findTile=key=>{const v=CSurface.resolve(key);return v?{name:v.label,factory:v.brand,size:[v.width*100,v.height*100],colors:[v.color]}:null;};
@@ -264,7 +266,7 @@
   function close(e){e?.preventDefault();publish();if(embedded)window.parent.postMessage({type:'studio-one-close-3d'},location.origin);else location.href='randal-studio-one.html?resume=studio-one';}
   $('back').onclick=close;$('return-summary').onclick=close;
   window.addEventListener('message',e=>{if(!embedded||e.origin!==location.origin||e.source!==window.parent||e.data?.type!=='studio-one-project-init')return;try{store.load(e.data.project);view?.fit();}catch(err){notice('Projet reçu invalide : '+err.message);}});
-  try{if(!window.THREE)throw Error('Moteur 3D indisponible. Rechargez la page.');view=new window.StudioOneScene($('stage'),store,notice);view.onAmbienceLongPress=openAmbienceMenu;setAmbience('floor',ambience.floor);setAmbience('wall',ambience.wall);$('scene-status').hidden=true;}catch(e){$('scene-status').textContent=e.message;}
+  try{if(!window.THREE)throw Error('Moteur 3D indisponible. Rechargez la page.');view=new window.StudioOneScene($('stage'),store,notice);view.onAmbienceLongPress=openAmbienceMenu;view.setRoom(ambience.room);roomControls.set(ambience.room);setAmbience('floor',ambience.floor);setAmbience('wall',ambience.wall);$('scene-status').hidden=true;}catch(e){$('scene-status').textContent=e.message;}
   // Diagnostics for browser regression tests and support.
   window.StudioOneDiagnostics=Object.freeze({setSurface:(surface,value)=>setAmbience(surface,value),settled:()=>view?.settled(),snapshot:()=>store.snapshot(),quote:()=>store.quote(),inspect:()=>view?.inspect(),collisions:()=>store.project.items.flatMap((a,i)=>store.project.items.slice(i+1).filter(b=>M.overlaps(a,b)).map(b=>[a.id,b.id]))});
   if(embedded)window.parent.postMessage({type:'studio-one-project-ready'},location.origin);render();
