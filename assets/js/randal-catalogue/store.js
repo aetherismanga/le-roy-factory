@@ -25,7 +25,13 @@ function create(resolve){
   const count=c.mirror==='Sans miroir'?0:Math.max(1,Math.min(3,Number(c.mirrorQuantity)||1));item.mirrors=(item.mirrors||[]).slice(0,count);
   while(item.mirrors.length<count){const index=item.mirrors.length;item.mirrors.push({id:uid(),position:{x:item.position.x+index*(w+.10),y:Math.max(1.24,Number(c.height)/100+item.position.y+.18+h/2)}})}
   const all=[...list.filter(i=>i.id!==item.id),item];
-  for(const m of item.mirrors){if(mirrorFits(item,m,all))continue;const desired=m.position.x,positions=[desired];for(const b of all){const r=rect(b);positions.push(r.x-r.w/2-w/2-.1,r.x+r.w/2+w/2+.1);for(const other of b.mirrors||[])if(other.id!==m.id){const mr=mirrorRect(b,other);positions.push(mr.x-(mr.w+w)/2-.1,mr.x+(mr.w+w)/2+.1)}}positions.sort((a,b)=>Math.abs(a-desired)-Math.abs(b-desired));let found=false;for(const x of positions){const candidate={...m,position:{...m.position,x}};if(mirrorFits(item,candidate,all)){m.position=candidate.position;found=true;break}}if(!found)throw Error('Aucun emplacement disponible pour ce miroir. Réduisez sa quantité ou son format.');}
+  for(const m of item.mirrors){if(mirrorFits(item,m,all))continue;const desired=m.position.x,positions=[desired];for(const b of all){const r=rect(b);positions.push(r.x-r.w/2-w/2-.1,r.x+r.w/2+w/2+.1);for(const other of b.mirrors||[])if(other.id!==m.id){const mr=mirrorRect(b,other);positions.push(mr.x-(mr.w+w)/2-.1,mr.x+(mr.w+w)/2+.1)}}positions.sort((a,b)=>Math.abs(a-desired)-Math.abs(b-desired));let found=false;for(const x of positions){const candidate={...m,position:{...m.position,x}};if(mirrorFits(item,candidate,all)){m.position=candidate.position;found=true;break}}if(!found){
+   const previous=clone(state.room.dimensions),start=roomSize().width;
+   for(let cm=Math.ceil(start*100)+10;cm<=700&&!found;cm+=10){expandWidth(cm/100);
+    for(const x of positions){const candidate={...m,position:{...m.position,x}};if(mirrorFits(item,candidate,all)){m.position=candidate.position;found=true;break}}
+   }
+   if(!found){state.room.dimensions=previous;throw Error('Aucune place disponible pour ce miroir dans une salle de bains de 700 cm.');}
+  }}
  }
 
  function emit(){for(const fn of listeners)fn(read())}
@@ -54,7 +60,22 @@ function create(resolve){
  function duplicate(id){const item=state.items.find(i=>i.id===id);if(item)return add({...item.source,quantity:1})}
  function remove(id){const main=id.split(':')[0];if(id.includes(':mirror:')){const item=state.items.find(i=>i.id===main);if(!item)return;const mirrorId=id.split(':mirror:')[1];item.mirrors=item.mirrors.filter(m=>m.id!==mirrorId);patch(main,item.mirrors.length?{mirrorQuantity:item.mirrors.length}:{mirror:'Sans miroir',mirrorSize:'',mirrorFinish:''});}else{state.items=state.items.filter(i=>i.id!==main);if(selected?.split(':')[0]===main)selected=null;emit()}}
  function move(id,dx,dy){const main=id.split(':')[0],item=state.items.find(i=>i.id===main);if(!item)return false;if(id.includes(':mirror:')){const m=item.mirrors.find(m=>m.id===id.split(':mirror:')[1]);if(!m)return false;const candidate={...m,position:{x:m.position.x+dx,y:m.position.y+dy}};if(!mirrorFits(item,candidate,state.items))return false;m.position=candidate.position;emit();return true}const candidate={...item,position:{x:item.position.x+dx,y:Math.max(0,item.position.y+dy)}};if(!fits(candidate,state.items)||(item.mirrors||[]).some(m=>overlaps(rect(candidate),mirrorRect(item,m))))return false;item.position=candidate.position;emit();return true}
- function load(input){if(input?.version!==1||!Array.isArray(input.items))throw Error('Format de projet non reconnu.');const next=clone(input);for(const i of next.items){if(!i.position||!Number.isFinite(i.position.x)||!Number.isFinite(i.position.y))throw Error('Position invalide dans le projet.');if(!i.id||!resolve(i.source).valid)throw Error('Une référence de ce projet doit être vérifiée dans le catalogue.');mirrorSetup(i,next.items);if(!fits(i,next.items))throw Error('Ce projet comporte une collision. Sa composition a été conservée ; vérifiez les positions.')}if(new Set(next.items.map(i=>i.id)).size!==next.items.length)throw Error('Identifiants dupliqués dans ce projet.');state=next;selected=null;emit()}
+ function load(input){
+  if(input?.version!==1||!Array.isArray(input.items)||input.items.length>60)throw Error('Format de projet non reconnu.');
+  const next=clone(input),previous=state;
+  if(new Set(next.items.map(i=>i.id)).size!==next.items.length)throw Error('Identifiants dupliqués dans ce projet.');
+  for(const i of next.items)if(!i.position||!Number.isFinite(i.position.x)||!Number.isFinite(i.position.y)||!i.id||!resolve(i.source).valid)throw Error('Une référence ou position de ce projet doit être vérifiée.');
+  state=next;state.room={floor:'elios-creta-ginepro',wall:'ivory',orientation:'horizontal',...state.room,dimensions:window.RandalRoomSize(state.room?.dimensions)};
+  try{
+   const placed=[];
+   for(const i of next.items){
+    const item=fits(i,placed)?i:placeExpanding(i,placed,i.position.x);
+    if(!item)throw Error('Projet trop large pour une pièce de 700 cm. Aucune pièce n’a été supprimée.');
+    mirrorSetup(item,placed);placed.push(item);
+   }
+   state.items=placed;selected=null;emit();
+  }catch(e){state=previous;throw e;}
+ }
  return {read,add,patch,duplicate,remove,move,load,subscribe(fn){listeners.add(fn);return()=>listeners.delete(fn)},select(id){selected=id;emit()},setMeta(v){if(v.room!==undefined){const original=state.room;state.room=clone(v.room);
     if(!state.items.every(i=>fits(i,state.items)&&(i.mirrors||[]).every(m=>mirrorFits(i,m,state.items)))){state.room=original;return false;}}
    for(const k of['name','client'])if(v[k]!==undefined)state[k]=clone(v[k]);emit();return true;},setOpen(ids,value){for(const i of state.items)if(ids.includes(i.id))i.open=value;emit()},clear(){state={...state,id:uid(),name:'Mon projet RANDAL',client:'',items:[]};selected=null;emit()},snapshot:()=>clone(state),roomSize,insideWall,collisions:()=>state.items.filter(i=>!fits(i,state.items)).map(i=>i.id)};
