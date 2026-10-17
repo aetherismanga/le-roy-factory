@@ -21,6 +21,10 @@
     if(item.kind==='cabinet'){
       html+=detail('Modèle et dimensions',`<label>Modèle<select id="edit-model">${C.models.map((m,i)=>option(i,m.name+' · H '+m.height+' cm',item.model)).join('')}</select></label><label>Largeur exacte (cm)<input id="edit-width" type="number" inputmode="numeric" min="40" max="120" step="1" value="${item.width}"></label><div class="dimension-facts">H ${d.height} × P ${d.depth} cm · ${esc(item.facade)}</div>`);
     }else if(item.kind==='mirror'){
+      const icons=['basic','zen-led','ilse-led','capsula-led','metal-rectangular','metal-round'];html+='<div class="rv-mirrors">'+Object.keys(C.mirrors).map((name,i)=>'<button type="button" data-mirror-choice="'+esc(name)+'" aria-pressed="'+(name===item.mirror)+'"><img src="assets/img/randal/accessories/mirror-'+icons[i]+'.webp" alt="">'+esc(name)+'</button>').join('')+'</div>';
+      if(/LED/.test(item.mirror))html+='<button id="edit-mirror-led" type="button" aria-pressed="'+!!item.ledOn+'">'+(item.ledOn?'Éteindre LED':'Allumer LED')+'</button>';
+      if(item.mirror==='Basic'&&item.mirrorSize==='60 × 80 cm')html+='<button id="edit-mirror-rotation" type="button" aria-pressed="'+!!item.mirrorRotated+'">Pivoter le miroir</button><p>Basic réversible · '+(item.mirrorRotated?'80 × 60':'60 × 80')+' cm</p>';
+
       html+=detail('Modèle et dimensions',`<label>Modèle de miroir<select id="edit-mirror">${Object.keys(C.mirrors).map(n=>option(n,n,item.mirror)).join('')}</select></label><label>Format du miroir<select id="edit-mirror-size">${C.mirrors[item.mirror].map(r=>option(r[0],r[0],item.mirrorSize)).join('')}</select></label>${item.mirror.includes('métallique')?`<label>Cadre<select id="edit-mirror-finish">${['Noir','Doré','Bronze','Argent'].map(n=>option(n,n,item.mirrorFinish)).join('')}</select></label>`:''}`);
     }else html+=detail('Dimensions et porte',`<div class="dimension-facts">L 38 × H 132 × P 27 cm</div><p class="help">Une porte articulée à 90° et deux étagères intérieures. Dimensions de la colonne STUDIO ONE référencée 14177.</p><label>Sens d’ouverture de la porte<select id="edit-door-side">${option('left','Charnières à gauche · ouverture à gauche',item.doorSide||'left')}${option('right','Charnières à droite · ouverture à droite',item.doorSide||'left')}</select></label>`);
     if(item.kind!=='mirror')html+=detail('Finition du meuble',swatches(C.finishes,item.finish,'data-finish')+`<label class="check-label"><input id="apply-all" type="checkbox" ${applyAll?'checked':''}>Appliquer cette finition à toute la composition</label>`);
@@ -44,8 +48,9 @@
     $('selected-options').querySelectorAll('[data-sink-color]').forEach(b=>b.onclick=()=>update({sink:{...item.sink,color:b.dataset.sinkColor}}));
     bind('edit-sink-layout',e=>update({sink:{...item.sink,layout:e.target.value}}));
     if($('remove-sink'))$('remove-sink').onclick=()=>update({sink:null,option:item.option==='top'?'top':'bare'});
-    bind('edit-mirror',e=>{update({mirror:e.target.value,mirrorSize:C.mirrors[e.target.value][0][0]});view?.fit();});
-    bind('edit-mirror-size',e=>{update({mirrorSize:e.target.value});view?.fit();});bind('edit-mirror-finish',e=>update({mirrorFinish:e.target.value}));
+    $('selected-options').querySelectorAll('[data-mirror-choice]').forEach(b=>b.onclick=()=>{update({mirror:b.dataset.mirrorChoice,mirrorSize:C.mirrors[b.dataset.mirrorChoice][0][0],mirrorRotated:false});view?.fit();});if($('edit-mirror-led'))$('edit-mirror-led').onclick=()=>update({ledOn:!item.ledOn});if($('edit-mirror-rotation'))$('edit-mirror-rotation').onclick=()=>{update({mirrorRotated:!item.mirrorRotated});view?.fit();};
+    bind('edit-mirror',e=>{update({mirror:e.target.value,mirrorSize:C.mirrors[e.target.value][0][0],mirrorRotated:false});view?.fit();});
+    bind('edit-mirror-size',e=>{update({mirrorSize:e.target.value,mirrorRotated:false});view?.fit();});bind('edit-mirror-finish',e=>update({mirrorFinish:e.target.value}));
     const move=()=>{if(!store.move(item.id,Number($('position-x').value),Number($('position-y').value))){notice('Position refusée : collision avec un élément ou dépassement des limites de la scène.');$('position-x').value=store.selected.position.x;$('position-y').value=store.selected.position.y;}else view?.fit();};
     bind('position-x',move);bind('position-y',move);
     $('duplicate').onclick=()=>{store.duplicate(item.id);applyAll=false;view?.fit();};$('delete').onclick=()=>{store.remove(item.id);applyAll=false;view?.fit();};if($('toggle-selected'))$('toggle-selected').onclick=()=>update({open:!item.open});

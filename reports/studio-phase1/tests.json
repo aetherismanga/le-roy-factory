@@ -1,0 +1,33 @@
+[
+  {
+    "width": 1440,
+    "mirrorModels": 6,
+    "led": true,
+    "rotation": [
+      80,
+      60
+    ],
+    "errors": [],
+    "note": "Validated in preceding desktop execution; screenshot 1440.png"
+  },
+  {
+    "width": 390,
+    "mirrorModels": 6,
+    "led": true,
+    "rotation": [
+      80,
+      60
+    ],
+    "errors": []
+  },
+  {
+    "width": 1024,
+    "mirrorModels": 6,
+    "led": true,
+    "rotation": [
+      80,
+      60
+    ],
+    "errors": []
+  }
+]

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Randal STUDIO ONE | Votre meuble en 3 min — LE ROY FACTORY</title>
-<meta name="description" content="Configurez un meuble Randal Studio One sur mesure, choisissez vos dimensions, votre finition, votre plateau et obtenez votre référence avec le prix C1.">
+<meta name="description" content="Configurez un meuble Randal Studio One sur mesure, choisissez vos dimensions, votre finition, votre plateau et obtenez votre référence et votre prix public.">
 <link rel="icon" href="assets/brand-v2/logoLRF.png">
 <style>
 :root{--ink:#29332e;--sub:#727a72;--pine:#37443d;--gold:#b29b76;--cream:#f5f2ed;--line:#e1ded7;--soft:#faf8f5}
@@ -365,8 +365,8 @@ function sinkChooser(){
  }).join('')+'</div>';
  if(integrated&&st.sinkModel==='Sella')h+='<p class="sink-compatibility">SELLA : seule la finition blanc brillant est indiquée dans le catalogue RANDAL. Les couleurs mat et noir mat sont disponibles sur TAMPA.</p>';
  if(integrated&&st.sinkModel==='Tampa'&&st.sinkColor!=='gloss')h+='<p class="details">Les finitions blanc mat et noir mat ont les mêmes références imprimées sur le catalogue : confirmer la couleur sur la commande.</p>';
- h+='<div class="sink-price-summary">'+(sink?'<strong>Vasque : '+euros(sink.price)+' PRO</strong><div>Référence fabricant : '+sink.ref+' · '+sink.finish+'</div>':'<strong>Sélection à vérifier</strong>')+
- '<div class="details">Prix professionnel HT calculé à -50 % du prix prix catalogue RANDAL. Prix inclus dans le total de la composition.</div></div></section>';
+ h+='<div class="sink-price-summary">'+(sink?'<strong>Vasque : '+euros(sink.price)+'</strong><div>Référence fabricant : '+sink.ref+' · '+sink.finish+'</div>':'<strong>Sélection à vérifier</strong>')+
+ '<div class="details">Prix public inclus dans le total de la composition.</div></div></section>';
  return h;
 }
 function optionsHead(title,hint){return '<h2>'+title+'</h2><p class="hint">'+hint+'</p>'}
@@ -614,7 +614,7 @@ function render(){
    ].map(function(o){return '<button type="button" class="choice'+(st.option===o[0]?' active':'')+'" data-option="'+o[0]+'" '+(o[0]==='basin'&&!basinAvailable()?'disabled':'')+'><strong>'+o[1]+'</strong><small>'+o[2]+'</small></button>'}).join('')+'</div>';
    if(isTop())h+='<p class="details">Le plateau est de la même couleur que le meuble sélectionné, sans choix séparé.</p><label class="radio-row" style="margin-top:20px"><input type="checkbox" id="vessel" '+(st.vessel?'checked':'')+'>Ajouter une vasque à poser (Neris ovale ou Torne ronde)</label>'; if(st.option==='basin'||isTop()&&st.vessel)h+=sinkChooser();
    if(!basinAvailable())h+='<p class="details">Les vasques encastrées existent aux largeurs 60, 70, 80, 90, 100 et 120 cm. Le 110 cm n’est pas référencé au catalogue.</p>';
-   h+='<div class="price-card"><strong>Prix C1 meuble : '+euros(p)+'</strong><div>Référence adaptée à la tranche '+sizes[i].label+' · '+(isTop()?'avec plateau assorti au meuble':'sans plateau')+'.</div><div>Vasque : '+(selectedSink()?euros(selectedSink().price)+' PRO · réf. '+selectedSink().ref:'Aucune')+'</div><strong>Total meuble + vasque : '+euros(total())+'</strong></div>';
+   h+='<div class="price-card"><strong>Prix meuble : '+euros(p)+'</strong><div>Référence adaptée à la tranche '+sizes[i].label+' · '+(isTop()?'avec plateau assorti au meuble':'sans plateau')+'.</div><div>Vasque : '+(selectedSink()?euros(selectedSink().price)+' · réf. '+selectedSink().ref:'Aucune')+'</div><strong>Total meuble + vasque : '+euros(total())+'</strong></div>';
  }
  if(st.step===3){
    h=optionsHead('Choisissez votre finition','Les huit finitions originales STUDIO ONE. Les textures sont indicatives à l’écran : validez la teinte avec un échantillon physique.');
@@ -624,9 +624,9 @@ function render(){
    h=optionsHead('Compléments et quantité','Ajoutez une colonne assortie et indiquez le nombre de meubles.');
    h+='<div class="option-layout">'+
     '<button class="choice'+(!st.column?' active':'')+'" data-column="false"><strong>Sans colonne</strong><small>Meuble principal uniquement</small></button>'+
-    '<button class="choice'+(st.column?' active':'')+'" data-column="true"><strong>Avec colonne assortie · 177 € C1</strong><small>132 × 38 × 27 cm · finition '+esc(color()?color().name:'coordonnée')+'</small></button></div>';
+    '<button class="choice'+(st.column?' active':'')+'" data-column="true"><strong>Avec colonne assortie · '+euros(177)+'</strong><small>132 × 38 × 27 cm · finition '+esc(color()?color().name:'coordonnée')+'</small></button></div>';
    h+='<label class="field" for="quantity" style="margin-top:21px">Quantité de compositions<input id="quantity" type="number" inputmode="numeric" min="1" max="99" step="1" value="'+esc(st.quantity)+'"></label>';
-   h+='<div class="price-card"><strong>Sous-total meuble et vasque : '+euros(total())+'</strong><div>Colonne à 177 € si sélectionnée. Prix vasque PRO inclus si choisie.</div></div>';
+   h+='<div class="price-card"><strong>Total de la configuration : '+euros(total())+'</strong><div>Colonne : '+euros(177)+' par unité si sélectionnée. Vasque incluse si choisie.</div></div>';
  }
 
  if(st.step===5){
