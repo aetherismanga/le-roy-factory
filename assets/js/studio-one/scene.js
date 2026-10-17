@@ -143,8 +143,9 @@ const hitPoint=new T.Vector3();this.dragPlane.constant=-(id?item.position.z/100:
           const x=drag.origin.x+(p.x-drag.point.x)*100,y=drag.origin.y+(p.y-drag.point.y)*100;
           // Temporarily show the dragged item even while it crosses a mirror.
           if(Number.isFinite(x)&&Number.isFinite(y)){
-            drag.preview={x,y};const root=this.roots.get(drag.id);
-            if(root)root.position.set(x/100,y/100,drag.origin.z/100);
+            const inside=this.store.dragPreview(drag.id,x,y);if(!inside)return;
+            drag.preview=inside;const root=this.roots.get(drag.id);
+            if(root)root.position.set(inside.x/100,inside.y/100,drag.origin.z/100);
             canvas.style.cursor='grabbing';
           }
         }}

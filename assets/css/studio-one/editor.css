@@ -12,3 +12,13 @@
 .studio-project-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:13px 0;border-bottom:1px solid #dfe5df}
 .studio-project-row strong{flex:1 1 200px}
 .studio-project-card button{border:1px solid #b6c7b9;background:#edf3ed;color:#253e30;border-radius:9px;padding:10px 14px;cursor:pointer}
+
+/* Cotations techniques transparentes dans la composition : bureau et mobile. */
+.studio-quote-item-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(105px,43%);gap:8px;align-items:center}
+.studio-quote-item-description{min-width:0;overflow-wrap:anywhere}
+.studio-quote-item-visual{min-width:0;display:flex;align-items:center;justify-content:flex-end}
+.studio-technical-figure{padding:2px;margin:0;min-width:0;max-width:100%;background:transparent}
+.studio-technical-figure svg{display:block;width:100%;height:auto;max-height:135px}
+.studio-technical-figure figcaption{font:600 9px/1.35 system-ui,sans-serif;text-align:center;color:#7b8980}
+@media(max-width:520px){.studio-quote-item-layout{grid-template-columns:minmax(0,1fr) 128px}.studio-technical-figure svg{max-height:120px}}
+@media print{.studio-quote-item-visual,.studio-technical-figure{break-inside:avoid}}
