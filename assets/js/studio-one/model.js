@@ -8,6 +8,7 @@
   function dimensions(item) {
     if (item.kind === 'cabinet') return { width: item.width, height: C.models[item.model].height, depth: 46 };
     if (item.kind === 'column') return { width: 38, height: 132, depth: 27 };
+    if(item.mirror==='Basic'&&item.mirrorSize==='60 × 80 cm'&&item.mirrorRotated)return {width:80,height:60,depth:3};
     const v = (item.mirrorSize.match(/\d+/g) || []).map(Number);
     return { width: v[0], height: v[1] || v[0], depth: 3 };
   }
@@ -58,7 +59,7 @@
   }
   function make(kind, options = {}) {
     const item = { id: uid(), kind, model: 0, width: 60, finish: 'ROBLE', facade: 'Onglet 45°', option: 'top', sink: null, accessories: [], open: false, doorSide: 'left',
-      mirror: 'Basic', mirrorSize: '60 × 80 cm', mirrorFinish: 'Noir', position: { x: 0, y: kind === 'mirror' ? 130 : kind === 'column' ? 18 : 28, z: kind === 'column' ? -9.5 : kind === 'mirror' ? -23 : 0 }, ...copy(options) };
+      ledOn:false,mirrorRotated:false,mirror: 'Basic', mirrorSize: '60 × 80 cm', mirrorFinish: 'Noir', position: { x: 0, y: kind === 'mirror' ? 130 : kind === 'column' ? 18 : 28, z: kind === 'column' ? -9.5 : kind === 'mirror' ? -23 : 0 }, ...copy(options) };
     if (kind === 'cabinet' && item.model === 1) item.position.y = 0;
     Object.assign(item,dimensions(item));item.drawers=kind==='cabinet'?C.models[item.model].drawers:0;
     return compatible(item);
@@ -76,6 +77,7 @@
       if (item.kind === 'mirror' && (!(C.mirrors[item.mirror] || []).some(r => r[0] === item.mirrorSize) || !['Noir','Doré','Bronze','Argent'].includes(item.mirrorFinish))) throw Error('Miroir invalide.');
       if(item.kind==='column' && item.doorSide!==undefined && !['left','right'].includes(item.doorSide)) throw Error('Sens d’ouverture de porte invalide.');
       if(item.kind==='column' && !item.doorSide)item.doorSide='left';
+      if(item.ledOn!==undefined&&typeof item.ledOn!=='boolean'||item.mirrorRotated!==undefined&&typeof item.mirrorRotated!=='boolean')throw Error('État du miroir invalide.');
       if(typeof item.open!=='boolean')throw Error('État d’ouverture invalide.');
       item.facade='Onglet 45°';
       if (item.sink && (!['Sella','Tampa','Neris','Torne'].includes(item.sink.model) || !['single','double'].includes(item.sink.layout))) throw Error('Vasque invalide.');
@@ -93,10 +95,10 @@
     if (item.kind === 'cabinet') {
       const m = C.models[item.model], bucket = C.sizes.find(s => item.width >= s.lo && item.width <= s.hi);
       name = 'STUDIO ONE · ' + m.name; ref = (item.option === 'top' ? m.top : m.base) + ' ' + bucket.ref + '@' + item.finish;
-      unit = (item.option === 'top' ? m.avec : m.sans)[C.sizes.indexOf(bucket)]; basis = 'C1 meuble';
+      unit = (item.option === 'top' ? m.avec : m.sans)[C.sizes.indexOf(bucket)]; basis = 'Prix indicatif';
       if (item.width === 40) { ref += ' · à confirmer usine'; }
     } else if (item.kind === 'column') {
-      name = C.column.name; ref = C.column.ref + ' ' + item.finish; unit = C.column.price; basis = 'C1 colonne';
+      name = C.column.name; ref = C.column.ref + ' ' + item.finish; unit = C.column.price; basis = 'Prix indicatif';
     } else {
       const r = C.mirrors[item.mirror].find(r => r[0] === item.mirrorSize);
       name = item.mirror.startsWith('Miroir') ? item.mirror : 'Miroir ' + item.mirror; ref = C.mirrorRefs[item.mirror]?.[item.mirrorSize]?.[item.mirrorFinish] || r[1]; unit = r[2]; basis = 'Prix indicatif';
@@ -142,7 +144,7 @@
     update(id, patch) {
       const items=copy(this.project.items), index=items.findIndex(i=>i.id===id);if(index<0)return false;
       const old=copy(items[index]), notices=[];
-      const allowed=['width','model','finish','option','sink','mirror','mirrorSize','mirrorFinish','open','doorSide'];
+      const allowed=['width','model','finish','option','sink','mirror','mirrorSize','mirrorFinish','open','doorSide','ledOn','mirrorRotated'];
       allowed.forEach(k=>{if(Object.prototype.hasOwnProperty.call(patch,k))items[index][k]=copy(patch[k]);});
       const target=compatible(items[index],notices);
       if(!inside(target)){this.emit(['Ces dimensions dépassent les limites de la scène.'],false);return false;}
