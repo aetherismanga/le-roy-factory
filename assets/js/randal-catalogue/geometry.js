@@ -285,7 +285,7 @@ function mirrors(config,topHeight){
  // Use exactly the same real planar mirror/LED/frame renderer as STUDIO ONE.
  if(resources.mirrorRenderer){
   const name=config.mirror,vals=String(config.mirrorSize||'').match(/\d+/g)?.map(Number)||[60,80];
-  let w=clamp((vals[0]||80)/100,.4,1.3),h=clamp((vals[1]||vals[0]||80)/100,.4,1.3);
+  let w=(vals[0]||80)/100,h=(vals[1]||vals[0]||80)/100; // exact catalogue dimensions
   if(strip(name).includes('rond'))h=w;
   const frameColor=/métallique|metallique/i.test(name)?colorFor(config.mirrorFinish,'#292b29'):'#b7bbb8';
   const visual=resources.mirrorRenderer.create(name,w,h,{on:/LED/i.test(name),frameColor});
