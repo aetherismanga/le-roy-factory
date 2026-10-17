@@ -4,7 +4,7 @@
   const C = window.StudioOneCatalog;
   const copy = value => JSON.parse(JSON.stringify(value));
   const uid = () => window.crypto?.randomUUID?.() || 'studio-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2);
-  const limits = { left: -400, right: 400, floor: 0, ceiling: 300, gap: 3 };
+  const limits = { left: -400, right: 400, floor: 0, ceiling: 300, gap: 0 };
   function dimensions(item) {
     if (item.kind === 'cabinet') return { width: item.width, height: C.models[item.model].height, depth: 46 };
     if (item.kind === 'column') return { width: 38, height: 132, depth: 27 };
@@ -159,6 +159,22 @@
     move(id, x, y) {
       const items=copy(this.project.items),item=items.find(i=>i.id===id);if(!item)return false;
       item.position.x=Math.round(x*10)/10;item.position.y=Math.round(y*10)/10;
+      // Aimantation bord à bord (2 cm) : meubles et colonnes, sans chevauchement.
+      if(item.kind!=='mirror'){
+        const d=dimensions(item), snapDistance=2;
+        const candidates=items.filter(other=>other.id!==id&&other.kind!=='mirror').flatMap(other=>{
+          const b=bounds(other),a=bounds(item);
+          if(a.bottom>=b.top||a.top<=b.bottom||a.back>=b.front||a.front<=b.back)return [];
+          return [b.right+d.width/2,b.left-d.width/2];
+        }).filter(target=>Math.abs(target-item.position.x)<=snapDistance)
+          .sort((a,b)=>Math.abs(a-item.position.x)-Math.abs(b-item.position.x));
+        for(const target of candidates){
+          const original=item.position.x;
+          item.position.x=Math.round(target*10)/10;
+          if(canPlace(item,items))break;
+          item.position.x=original;
+        }
+      }
       if(!canPlace(item,items))return false;
       this.commit(items,[],false);return true;
     }
