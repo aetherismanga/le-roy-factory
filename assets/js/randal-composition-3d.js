@@ -4,7 +4,7 @@ let T,renderer,scene,camera,area,overlay,observer,geometry,envTarget,selection=n
 let yaw=.38,pitch=.17,distance=3,target,dimensions=false,invert=false,onSelect=()=>{},onMove=()=>{},room={floor:'elios-creta-ginepro',wall:'ivory',orientation:'horizontal'},ready=Promise.resolve();
 const cache=new Map(),textures=new Set(),pending=new Set(),clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
 const WALLS={cream:['Crème doux','#eee4d5'],ivory:['Ivoire','#f4f0e8'],chalk:['Blanc craie','#f5f5f0'],greige:['Greige','#c9c5ba'],linen:['Lin naturel','#d8c9b4'],sand:['Sable','#ddc4a7'],sage:['Vert sauge','#aebdac'],stone:['Pierre claire','#c2b9ad'],blue:['Bleu poudré','#b6c7cb'],terracotta:['Terre cuite','#c9907a'],graphite:['Graphite','#6a6a66']};
-const SURFACES=[{id:'view-coco-beige',label:'VIEW · Coco Beige',width:.60,height:.40,path:null,source:'Photo fournie · extrait d’un carreau, définition limitée'},...['zucchero','avena','biscotto','caramello','matcha','ginepro','malto','pepe'].map(n=>({id:'elios-creta-'+n,label:'ELIOS · Creta '+n,width:.60,height:.60,path:'assets/img/elios/creta/textures/'+n+'.webp',source:'Échantillon du catalogue ELIOS 2026 · une face disponible'}))];
+const SURFACES=[{id:'view-coco-beige',label:'VIEW · Coco Beige',width:.60,height:.40,path:null,source:'Photo fournie · extrait d’un carreau, définition limitée'},...['zucchero','avena','biscotto','caramello','matcha','ginepro','malto','pepe'].map(n=>({id:'elios-creta-'+n,label:'ELIOS · Creta '+n,width:.60,height:.60,path:'assets/img/randal/catalogue-tiles/creta-'+n+'.jpg',fallback:'assets/img/elios/creta/textures/'+n+'.webp',source:'Échantillon matière du site officiel ELIOS · une seule face, sans variante inventée'}))];
 const track=p=>{pending.add(p);p.finally(()=>pending.delete(p));return p};
 function image(url){if(cache.has(url))return cache.get(url);const p=new Promise(resolve=>{const im=new Image();im.decoding='async';im.onload=()=>resolve(im);im.onerror=()=>resolve(null);im.src=url});cache.set(url,p);return p;}
 function texture(canvas){const t=new T.CanvasTexture(canvas);t.colorSpace=T.SRGBColorSpace;t.anisotropy=Math.min(innerWidth<700?4:12,renderer.capabilities.getMaxAnisotropy());t.minFilter=T.LinearMipmapLinearFilter;textures.add(t);return t;}
@@ -23,14 +23,16 @@ async function surface(material,id,isWall=false){
  const option=SURFACES.find(s=>s.id===id)||SURFACES[0],vertical=room.orientation==='vertical';
  const k='tile:'+id+':'+vertical+':'+isWall;
  let promise=cache.get(k);
- if(!promise){promise=track(image(option.path||window.RANDAL_VIEW_COCO_BEIGE).then(im=>{
+ if(!promise){promise=track(image(option.path||window.RANDAL_VIEW_COCO_BEIGE).then(async im=>{
+  if(!im&&option.fallback)im=await image(option.fallback);
   if(!im||closed)return null;
   // One verified face. Never invent graphic variants or rotate a wood/stone motif randomly.
   const c=document.createElement('canvas'),ctx=c.getContext('2d',{alpha:false}),coco=!option.path;
-  const iw=coco?101:im.naturalWidth,ih=coco?67:im.naturalHeight;
+  const edge=Math.min(im.naturalWidth,im.naturalHeight,innerWidth<700?512:1024);
+  const iw=coco?101:edge,ih=coco?67:edge;
   const groutX=Math.max(1,Math.round(iw*.002/option.width)),groutY=Math.max(1,Math.round(ih*.002/option.height));
   c.width=iw+groutX;c.height=ih+groutY;ctx.fillStyle='#c5beb2';ctx.fillRect(0,0,c.width,c.height);
-  if(coco)ctx.drawImage(im,106,72,101,67,groutX/2,groutY/2,iw,ih);else ctx.drawImage(im,groutX/2,groutY/2,iw,ih);
+  if(coco)ctx.drawImage(im,106,72,101,67,groutX/2,groutY/2,iw,ih);else{const side=Math.min(im.naturalWidth,im.naturalHeight);ctx.drawImage(im,(im.naturalWidth-side)/2,(im.naturalHeight-side)/2,side,side,groutX/2,groutY/2,iw,ih);}
   const t=texture(c);t.wrapS=t.wrapT=T.RepeatWrapping;
   const tw=vertical?option.height:option.width,th=vertical?option.width:option.height;
   // The floor is 9 × 9 m; the wall is 12 × 3.8 m. UV scale follows the real product format.
@@ -139,6 +141,6 @@ async function captureViews(){
 async function capture(){await settled();renderer.render(scene,camera);return renderer.domElement.toDataURL('image/png')}
 function setRoom(value){room={...room,...value};const floor=scene?.getObjectByName('catalogue-floor'),wall=scene?.getObjectByName('catalogue-wall');if(floor&&wall)ready=Promise.all([surface(floor.material,room.floor),surface(wall.material,room.wall,true)]);return {...room}}
 function dispose(){closed=true;cancelAnimationFrame(raf);cancelAnimationFrame(animation);raf=0;observer?.disconnect();if(scene)free([scene]);textures.forEach(t=>t.dispose());textures.clear();cache.clear();pending.clear();envTarget?.dispose();renderer?.dispose();renderer?.forceContextLoss();renderer=null;scene=null;nodes.clear();motions=[];items=[];}
-const api={mount,update,view,fit,toggleOpen,setRoom,capture,captureViews,dispose,SURFACES,WALLS,setDimensions(v){dimensions=!!v;invalidate()},setReverse(v){invert=!!v},screenPoint(id){const node=nodes.get(id.split(':')[0]);if(!node||!camera)return null;const p=new T.Vector3(0,node.h*.55,node.d*.55);node.root.localToWorld(p);p.project(camera);const r=area.getBoundingClientRect();return{x:r.x+(p.x+1)*r.width/2,y:r.y+(1-p.y)*r.height/2}},getDiagnostics(){return{items:items.map(i=>({id:i.id,position:i.position,dimensions:[Number(i.config.width),Number(i.config.height),Number(i.config.depth)]})),selected:selection,dimensions,yaw,pitch,distance,motions:motions.map(m=>({id:m.id,kind:m.kind,value:m.kind==='door'?m.object.rotation.y:m.object.position.z})),textures:textures.size,drawCalls:renderer?.info.render.calls,room:{...room}}},open(config){window.RandalWorkspace?.addDraft(config)},close(){window.RandalWorkspace?.close()}};
+const api={mount,update,view,fit,toggleOpen,setRoom,capture,captureViews,dispose,SURFACES,WALLS,setDimensions(v){dimensions=!!v;invalidate()},setReverse(v){invert=!!v},screenPoint(id){const node=nodes.get(id.split(':')[0]);if(!node||!camera)return null;node.root.updateMatrixWorld(true);let p;if(id.includes(':mirror:')){const mg=node.mirrorNodes.get(id.split(':mirror:')[1]);if(!mg)return null;p=new T.Box3().setFromObject(mg).getCenter(new T.Vector3())}else{p=new T.Vector3(0,node.h*.55,node.d*.55);node.root.localToWorld(p)}p.project(camera);const r=area.getBoundingClientRect();return{x:r.x+(p.x+1)*r.width/2,y:r.y+(1-p.y)*r.height/2}},getDiagnostics(){return{items:items.map(i=>({id:i.id,position:i.position,dimensions:[Number(i.config.width),Number(i.config.height),Number(i.config.depth)]})),selected:selection,dimensions,yaw,pitch,distance,motions:motions.map(m=>({id:m.id,kind:m.kind,value:m.kind==='door'?m.object.rotation.y:m.object.position.z})),textures:textures.size,pixelRatio:renderer?.getPixelRatio(),tileSources:SURFACES.map(s=>({id:s.id,path:s.path,fallback:s.fallback||null,width:s.width,height:s.height})),drawCalls:renderer?.info.render.calls,room:{...room}}},open(config){window.RandalWorkspace?.addDraft(config)},close(){window.RandalWorkspace?.close()}};
 window.RandalComposition3D=api;
 })();

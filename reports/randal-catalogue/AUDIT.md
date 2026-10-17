@@ -63,3 +63,9 @@ La session professionnelle existante est lue via `LRF_PRO_SESSION` ; la refonte 
 ## Vérification à livrer
 
 Contrôle automatisé des 431 prix, conservation des données, fichiers STUDIO ONE protégés et compatibilités. Essais Playwright Chromium WebGL sur ordinateur et émulation tactile smartphone. Dossier A4 avec récapitulatif et quatre captures actuelles. La matrice finale distinguera les essais réussis, les simulations et les limites non vérifiées.
+
+## Complément textures fabricant — vérification web
+
+Les huit coloris Creta ont été retrouvés sur la page officielle ELIOS : https://eliosceramica.com/collezione/creta/ . Les six fichiers de 2024 mesurent 1400 × 700 px, Malto et Pepe 1200 × 700 px. Ce sont des échantillons matière sans mobilier, pas des photos d’ambiance. Les originaux sont conservés dans `assets/img/randal/catalogue-tiles/` ; provenance, dimensions, taille et empreintes figurent dans `manufacturer-textures.json`. Le moteur prélève un carré central natif de 700 px sur ordinateur et réduit à 512 px sur smartphone, sans étirement et sans fabriquer de nouvelles faces. Les textures partagées existantes restent disponibles en secours et ne sont pas modifiées. La résolution réelle est indiquée ; aucune qualité HD n’est revendiquée.
+
+La lecture des sessions PRO est isolée dans `account.js`, suivant les mêmes clés et le même service `validateProSession` que le site. Elle évite de charger des extensions analytiques ou tarifaires étrangères au Catalogue général. Aucun module partagé de connexion n’est modifié.
