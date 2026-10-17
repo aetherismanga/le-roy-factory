@@ -223,9 +223,9 @@ function harmonyDrawerFloor(group,width,depth,base,material,topDrawer,doubleWast
 function furniture(config){
  const root=new THREE.Group(),motions=[],w=Number(config.width)/100,h=Number(config.height)/100,d=Number(config.depth)/100;
  root.name=config.model+'_'+config.reference;
- const mat=finish(config),inside=newMat('#c8c3b9',.76),metal=newMat('#aab0b4',.32,.75),edge=newMat(colorFor(config.color),.6),s=.016;
+ const mat=finish(config),inside=newMat('#c8c3b9',.76),metal=newMat(config.model==='Brent'&&config.color.includes('or vieilli')?'#ae925b':'#aab0b4',.32,.75),edge=newMat(colorFor(config.color),.6),s=.016;
  const column=config.kind==='column',less=config.model==='Less',counter=config.kind==='counter';
- const legs=!column&&(config.model==='Brent'||config.typeId.startsWith('three'))?.12:0;
+ const legs=(config.model==='Brent'||!column&&config.typeId.startsWith('three'))?.12:0;
  const lower=legs,H=h-lower;
  if(counter){putBox(root,0,h/2,0,w,h,d,mat)}else{
   putBox(root,-w/2+s/2,lower+H/2,0,s,H,d,mat);putBox(root,w/2-s/2,lower+H/2,0,s,H,d,mat);
@@ -235,16 +235,19 @@ function furniture(config){
    putBox(root,0,h-.008,0,w-.032,.016,d,inside);
    // Two interior shelves; hinged fronts remain independent from the case.
    for(const k of [1/3,2/3])putBox(root,0,lower+H*k,0,w-.034,.014,d-.03,inside);
-   const horizontal=column&&config.model==='Brent'&&w>.5;
-   const count=less?1:2;
-   for(let i=0;i<count;i++){
-    const dw=horizontal?(w-.028)/2:w-.028,dh=horizontal?H-.025:(H-.018)/count;
-    const x=horizontal?(i-.5)*(w-.02)/2:0,y=horizontal?lower+H/2:lower+(i+.5)*H/count;
-    const pivot=door(root,x,y,d/2+.012,dw,dh-.006,mat,motions,horizontal&&i===1?'right':'left');
-    if(less||config.model==='Brent')putBox(pivot,dw*.80,0,.016,.015,.055,.018,metal);
+   const brent=column&&config.model==='Brent',cols=brent&&w>.5?2:1,rows=less?1:2,niche=brent?.14:0;
+   if(niche)putBox(root,0,lower+niche,0,w-.035,.016,d-.02,inside);
+   for(let row=0;row<rows;row++)for(let col=0;col<cols;col++){
+    const dw=(w-.028)/cols,dh=(H-niche-.018)/rows,x=(col-(cols-1)/2)*dw,y=lower+niche+(row+.5)*(H-niche)/rows;
+    const right=cols===2&&col===1;
+    const pivot=door(root,x,y,d/2+.012,dw,dh-.006,mat,motions,right?'right':'left');
+    const sign=right?-1:1;
+    if(less||brent)putBox(pivot,sign*dw*.80,0,.016,.015,.055,.018,metal);
+    if(brent){for(const xx of[.025,dw-.025])putBox(pivot,sign*xx,0,.011,.027,dh-.035,.008,mat);for(const yy of[-dh/2+.025,dh/2-.025])putBox(pivot,sign*dw/2,yy,.011,dw-.035,.027,.008,mat);}
    }
+
   }else{
-   const sideDoor=config.typeId.includes('door'),dw=sideDoor?w*.70:w,dx=sideDoor?-w*.15:0;
+   const sideDoor=config.typeId.includes('door'),fixedPanel=config.model==='Amat'&&!sideDoor,dw=sideDoor||fixedPanel?w*.70:w,dx=sideDoor?-w*.15:fixedPanel?w*.15:0;
    const niche=config.typeId==='niche'?.16:0,count=config.typeId==='single'?1:config.typeId.startsWith('three')?3:2;
    const step=(H-.025-niche)/count;
    for(let i=0;i<count;i++){
@@ -261,6 +264,7 @@ function furniture(config){
     if(config.model==='Aruba rainuré')for(let n=0;n<Math.floor(dw/.018);n++)putBox(group,dx-dw/2+.025+n*.018,y,d/2+.023,.002,step-.016,.003,edge);
     motions.push({object:group,kind:'drawer',travel:Math.min(.265,d*.55)});
    }
+   if(fixedPanel){putBox(root,-w*.35,lower+H/2,d/2+.012,w*.30-.022,H-.026,.018,mat);putBox(root,-w*.20,lower+H/2,0,.016,H,d,inside);}
    if(sideDoor){
     const sw=w*.30;
     putBox(root,w*.20,lower+H/2,0,.016,H,d,inside);
