@@ -507,6 +507,26 @@ function studioPdfImage(path){
  });
 }
 
+async function studioPdfTechnical(row){
+ try{
+  var html=window.StudioOneTechnical?.fromOrder(row,studioProject,st);
+  if(!html)return null;
+  var node=document.createElement('div');node.innerHTML=html;
+  var svg=node.querySelector('svg');if(!svg)return null;
+  var url=URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(svg)],{type:'image/svg+xml;charset=utf-8'}));
+  return await new Promise(function(resolve){
+   var img=new Image();
+   img.onload=function(){
+    try{var cv=document.createElement('canvas');cv.width=660;cv.height=498;
+     cv.getContext('2d').drawImage(img,0,0,cv.width,cv.height);
+     resolve(cv.toDataURL('image/png'));}
+    catch(e){resolve(null)}finally{URL.revokeObjectURL(url)}
+   };
+   img.onerror=function(){URL.revokeObjectURL(url);resolve(null)};
+   img.src=url;
+  });
+ }catch(e){return null}
+}
 async function downloadStudioPdf(){
  var button=document.getElementById('save-pdf'),oldLabel=button?button.textContent:'';
  var filename='RANDAL-STUDIO-ONE-'+st.width+'cm-'+(color()?.code||'meuble')+'.pdf';
@@ -546,21 +566,24 @@ async function downloadStudioPdf(){
   }else if(!studioProject)drawText('Sans vasque',140,96,'normal',8);
   pdf.setFillColor(232,237,232);pdf.rect(14,120,182,10,'F');
   drawText('ARTICLE / REFERENCE',18,127,'bold',8,[68,81,70]);
-  drawText('QTE',126,127,'bold',8,[68,81,70]);
-  drawText('UNIT.',147,127,'bold',8,[68,81,70]);
-  drawText('TOTAL',174,127,'bold',8,[68,81,70]);
+  drawText('VISUEL ET COTES',101,127,'bold',7,[68,81,70]);
+  drawText('QTE',142,127,'bold',8,[68,81,70]);
+  drawText('UNIT.',155,127,'bold',8,[68,81,70]);
+  drawText('TOTAL',177,127,'bold',8,[68,81,70]);
   var y=137;
-  rows.forEach(function(row){
-   if(y>250){pdf.addPage();y=25;drawText('STUDIO ONE - suite de la composition',15,15,'bold',11);}
-   pdf.setDrawColor(226,228,222);pdf.line(14,y+15,196,y+15);
-   drawText(pdf.splitTextToSize(String(row.title),85)[0],18,y,'bold',8);
-   drawText('Ref. '+row.ref,18,y+6,'normal',8,[108,113,106]);
-   drawText(pdf.splitTextToSize(row.detail,88)[0],18,y+11,'normal',6,[108,113,106]);
-   drawText(String(row.qty),128,y+2,'normal',9);
-   drawText(euros(row.unit).replace(/\s/g,' '),145,y+2,'normal',8);
-   drawText(euros(row.unit*row.qty).replace(/\s/g,' '),174,y+2,'bold',8);
-   y+=25;
-  });
+  for(const row of rows){
+   if(y>243){pdf.addPage();y=28;drawText('STUDIO ONE - suite de la composition',15,16,'bold',11);}
+   pdf.setDrawColor(226,228,222);pdf.line(14,y+31,196,y+31);
+   drawText(pdf.splitTextToSize(String(row.title),75)[0],18,y+2,'bold',8);
+   drawText(pdf.splitTextToSize('Ref. '+row.ref,76)[0],18,y+9,'normal',8,[108,113,106]);
+   drawText(pdf.splitTextToSize(row.detail,75)[0],18,y+15,'normal',7,[108,113,106]);
+   var art=await studioPdfTechnical(row);
+   if(art)pdf.addImage(art,'PNG',95,y-5,42,33);
+   drawText(String(row.qty),143,y+7,'normal',8);
+   drawText(euros(row.unit).replace(/\s/g,' '),155,y+7,'normal',7);
+   drawText(euros(row.unit*row.qty).replace(/\s/g,' '),175,y+7,'bold',8);
+   y+=37;
+  }
   if(y>240){pdf.addPage();y=25;}
   y+=3;pdf.setFillColor(239,244,238);pdf.roundedRect(14,y,182,18,2,2,'F');
   drawText('TOTAL GENERAL',20,y+11,'bold',11,[49,79,57]);
