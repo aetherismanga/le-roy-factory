@@ -11,14 +11,14 @@
       this.canvas=r.domElement;this.canvas.setAttribute('aria-label','Composition STUDIO ONE : sélectionner et déplacer les éléments');this.canvas.tabIndex=0;stage.prepend(this.canvas);
       this.scene.add(new T.AmbientLight('#ffffff',.7));const light=new T.DirectionalLight('#ffffff',.35);light.position.set(-3,5,5);light.castShadow=true;light.shadow.mapSize.set(1024,1024);Object.assign(light.shadow.camera,{left:-5,right:5,top:5,bottom:-3});light.shadow.normalBias=.025;this.scene.add(light);const fill=new T.DirectionalLight('#ffffff',.12);fill.position.set(4,2,-1);this.scene.add(fill);
       const floor=new T.Mesh(new T.PlaneGeometry(3,3),new T.MeshStandardMaterial({color:'#c6bcae',roughness:.93}));floor.rotation.x=-Math.PI/2;floor.receiveShadow=true;this.scene.add(floor);
-      const wall=new T.Mesh(new T.PlaneGeometry(3,2.5),new T.MeshStandardMaterial({color:'#ece7dd',roughness:.95}));wall.position.set(0,3,-.245);wall.receiveShadow=true;this.scene.add(wall);this.mirrorRenderer=new window.RandalMirrorRenderer(T,r,this.scene,()=>{});this.wall=wall;this.floor=floor;this.room=new window.RandalMetricRoom(T,this.scene,floor,wall,-.245);this.room.viewport=stage;this.surfaceRenderer=new window.RandalSurfaceRenderer(T,r,()=>{},onNotice);this.setTile('floor','creta:ginepro');this.setTile('wall','creta:avena');
+      const wall=new T.Mesh(new T.PlaneGeometry(3,2.5),new T.MeshStandardMaterial({color:'#ece7dd',roughness:.95}));wall.position.set(0,3,-.245);wall.receiveShadow=true;this.scene.add(wall);this.mirrorRenderer=new window.RandalMirrorRenderer(T,r,this.scene,()=>{});this.wall=wall;this.floor=floor;this.room=new window.RandalMetricRoom(T,this.scene,floor,wall,-.245);this.room.viewport=stage;this.mirrorRenderer.setRoom(this.room.size,this.wall,this.room.back);this.surfaceRenderer=new window.RandalSurfaceRenderer(T,r,()=>{},onNotice);this.setTile('floor','creta:ginepro');this.setTile('wall','creta:avena');
       this.dimRoot=new T.Group();this.scene.add(this.dimRoot);this.ray=new T.Raycaster();this.dragPlane=new T.Plane(new T.Vector3(0,0,1),0);
       this.bind();this.resizeObserver=new ResizeObserver(()=>this.resize());this.resizeObserver.observe(stage);store.subscribe((p,meta)=>this.sync(p,meta));this.sync(store.snapshot(),{geometry:true});this.fit();this.resize();this.lastTime=performance.now();this.animate=this.animate.bind(this);requestAnimationFrame(this.animate);
     }
 
     // ELIOS ambience: tile scale in metres, optional original Creta catalogue texture.
-    setRoom(value){this.room.update(value);this.fit();}
-    setRoomDimensions(v){this.room.toggle(v);if(v){this.camera.fov=65;this.camera.updateProjectionMatrix();this.target.set(0,this.room.size.height/2,this.room.back+this.room.size.depth*.4);this.distance=Math.max(3.2,this.room.size.width/(2*Math.tan(65*Math.PI/360)*this.camera.aspect)*1.12);this.yaw=.25;this.pitch=.25;}else{this.camera.fov=38;this.camera.updateProjectionMatrix();this.fit();}}
+    setRoom(value){this.room.update(value);this.mirrorRenderer.setRoom(this.room.size,this.wall,this.room.back);this.fit();}
+    setRoomDimensions(v){this.room.toggle(v);if(v){this.camera.fov=65;this.camera.updateProjectionMatrix();this.target.set(0,this.room.size.height/2,this.room.back+this.room.size.depth*.4);this.distance=Math.max(3.2,this.room.size.depth*1.1,this.room.size.width/(2*Math.tan(65*Math.PI/360)*this.camera.aspect)*1.12);this.yaw=.25;this.pitch=.25;}else{this.camera.fov=38;this.camera.updateProjectionMatrix();this.fit();}}
     setTile(surface,value,orientation='horizontal',dimensions){const v=typeof value==='string'?{key:value,orientation}:value;if(window.RandalSurfaceCatalogue.resolve(v)){(surface==='floor'?this.floor:this.wall).userData.tileKey=null;return this.surfaceRenderer.apply(surface==='floor'?this.floor:this.wall,v);}const target=surface==='floor'?this.floor:this.wall;target.userData.surfaceTicket=(target.userData.surfaceTicket||0)+1;target.material.bumpMap?.dispose();target.material.bumpMap=null;return this.setLegacyTile(surface,typeof value==='string'?value:value?.legacy,orientation,dimensions);}
     settled(){return this.surfaceRenderer.settled();}
     setLegacyTile(surface,key,orientation='horizontal',dimensions){
@@ -121,7 +121,9 @@
         }
       }
     }
-    fit(front=false){if(this.room?.labels.visible){this.setRoomDimensions(true);return;}const items=this.store.project.items;if(!items.length){this.target.set(0,1,0);this.distance=3.5;return;}const bs=items.map(M.bounds),left=Math.min(...bs.map(b=>b.left))/100,right=Math.max(...bs.map(b=>b.right))/100,bottom=Math.min(...bs.map(b=>b.bottom))/100,top=Math.max(...bs.map(b=>b.top))/100;this.target.set((left+right)/2,(top+bottom)/2,0);const aspect=this.stage.clientWidth/Math.max(1,this.stage.clientHeight),v=Math.tan(this.camera.fov*Math.PI/360);this.distance=Math.min(this.room.size.depth*1.35,Math.max(1.6,Math.max((top-bottom+.35)/(2*v),(right-left+.45)/(2*v*aspect))*1.12));if(front){this.yaw=0;this.pitch=.04;}else{this.yaw=.24;this.pitch=.1;}}
+    maxDistance(){return Math.max(18,this.room.size.width*4.9,this.room.size.depth*4.2);}
+    restorePreview(){if(this.drag?.id){const item=this.store.project.items.find(i=>i.id===this.drag.id),root=this.roots.get(this.drag.id);if(item&&root)root.position.set(item.position.x/100,item.position.y/100,item.position.z/100);}}
+    fit(front=false){if(this.room?.labels.visible){this.setRoomDimensions(true);return;}const items=this.store.project.items;if(!items.length){this.target.set(0,1,0);this.distance=3.5;return;}const bs=items.map(M.bounds),left=Math.min(...bs.map(b=>b.left))/100,right=Math.max(...bs.map(b=>b.right))/100,bottom=Math.min(...bs.map(b=>b.bottom))/100,top=Math.max(...bs.map(b=>b.top))/100;this.target.set((left+right)/2,(top+bottom)/2,0);const aspect=this.stage.clientWidth/Math.max(1,this.stage.clientHeight),v=Math.tan(this.camera.fov*Math.PI/360);this.distance=Math.min(this.maxDistance(),Math.max(1.6,Math.max((top-bottom+.35)/(2*v),(right-left+.45)/(2*v*aspect))*1.12));if(front){this.yaw=0;this.pitch=.04;}else{this.yaw=.24;this.pitch=.1;}}
     resize(){const w=this.stage.clientWidth,h=this.stage.clientHeight;this.camera.aspect=w/Math.max(1,h);this.camera.updateProjectionMatrix();this.renderer.setSize(w,h,false);}
     point(e){const r=this.canvas.getBoundingClientRect();this.ray.setFromCamera(new T.Vector2((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1),this.camera);return this.ray;}
     hit(e){const hits=this.point(e).intersectObjects([...this.roots.values()],true);for(const hit of hits){for(let o=hit.object;o;o=o.parent)if(o.userData.id)return o.userData.id;}return null;}
@@ -129,29 +131,44 @@
       const canvas=this.canvas;
       canvas.addEventListener('contextmenu',e=>e.preventDefault());canvas.addEventListener('dblclick',e=>{const id=this.hit(e);if(id&&this.toggleMirrorLED(id)){e.preventDefault();this.store.select(id);}});let lastTap={id:null,time:0};canvas.addEventListener('pointerup',e=>{if(e.pointerType!=='touch'||this.drag?.moved||this.multiTouch)return;const id=this.hit(e),now=performance.now();if(id&&id===lastTap.id&&now-lastTap.time<360){this.toggleMirrorLED(id);lastTap={id:null,time:0};}else lastTap={id,time:now};});
       canvas.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'&&e.button!==0)return;e.preventDefault();if(!this.pointers.size)this.multiTouch=false;canvas.setPointerCapture(e.pointerId);this.pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
-        if(this.pointers.size===2){this.multiTouch=true;this.drag=null;this.pinch=this.pinchDistance();return;}
+        if(this.pointers.size===2){this.multiTouch=true;this.restorePreview();this.drag=null;this.pinch=this.pinchDistance();return;}
         const id=this.hit(e);this.store.select(id || null);const item=this.store.selected;
         if(e.pointerType==='touch'&&!id){const sx=e.clientX,sy=e.clientY;clearTimeout(this.ambienceTimer);this.ambienceTimer=setTimeout(()=>{if(!this.pointers.has(e.pointerId)||!this.drag||this.drag.moved)return;const hits=this.point({clientX:sx,clientY:sy}).intersectObjects([this.floor,this.wall]);const surface=hits[0]?.object===this.floor?'floor':hits[0]?.object===this.wall?'wall':null;if(surface){this.cancel();this.onAmbienceLongPress?.(surface,sx,sy);}},650);}
 const hitPoint=new T.Vector3();this.dragPlane.constant=-(id?item.position.z/100:0);this.point(e).ray.intersectPlane(this.dragPlane,hitPoint);this.drag={id,startX:e.clientX,startY:e.clientY,x:e.clientX,y:e.clientY,origin:id?{...item.position}:null,point:hitPoint,moved:false};
       });
       canvas.addEventListener('pointermove',e=>{if(!this.pointers.has(e.pointerId)){if(e.pointerType==='mouse')canvas.style.cursor=this.hit(e)?'move':'grab';return;}if(e.pointerType==='mouse'&&!(e.buttons&1)){this.cancel();return;}this.pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
-        if(this.pointers.size>=2){const n=this.pinchDistance();if(this.pinch&&n)this.distance=Math.max(.7,Math.min(this.room.size.depth*1.35,this.distance*this.pinch/n));this.pinch=n;return;}
+        if(this.pointers.size>=2){const n=this.pinchDistance();if(this.pinch&&n)this.distance=Math.max(.7,Math.min(this.maxDistance(),this.distance*this.pinch/n));this.pinch=n;return;}
         const drag=this.drag;if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(Math.hypot(e.clientX-drag.startX,e.clientY-drag.startY)>8){drag.moved=true;clearTimeout(this.ambienceTimer);}
-        if(drag.id&&drag.moved){const p=new T.Vector3();if(this.point(e).ray.intersectPlane(this.dragPlane,p)){const x=drag.origin.x+(p.x-drag.point.x)*100,y=drag.origin.y+(p.y-drag.point.y)*100;if(!this.store.move(drag.id,x,y)){canvas.style.cursor='not-allowed';this.blocked=true;}else{canvas.style.cursor='grabbing';this.blocked=false;}}}
+        if(drag.id&&drag.moved){const p=new T.Vector3();if(this.point(e).ray.intersectPlane(this.dragPlane,p)){
+          const x=drag.origin.x+(p.x-drag.point.x)*100,y=drag.origin.y+(p.y-drag.point.y)*100;
+          // Temporarily show the dragged item even while it crosses a mirror.
+          if(Number.isFinite(x)&&Number.isFinite(y)){
+            drag.preview={x,y};const root=this.roots.get(drag.id);
+            if(root)root.position.set(x/100,y/100,drag.origin.z/100);
+            canvas.style.cursor='grabbing';
+          }
+        }}
         else if(!drag.id){this.yaw=Math.max(-1.2,Math.min(1.2,this.yaw+dx*.007*(this.reverse?-1:1)));this.pitch=Math.max(-.2,Math.min(.65,this.pitch+dy*.004));}
         drag.x=e.clientX;drag.y=e.clientY;
       });
-      const end=e=>{clearTimeout(this.ambienceTimer);this.pointers.delete(e.pointerId);if(this.blocked){this.onNotice('Déplacement limité : un élément ou la limite de la scène bloque cette position.');this.blocked=false;}this.drag=null;this.pinch=null;canvas.style.cursor='grab';if(canvas.hasPointerCapture(e.pointerId))canvas.releasePointerCapture(e.pointerId);};
-      canvas.addEventListener('pointerup',end);canvas.addEventListener('pointercancel',end);canvas.addEventListener('lostpointercapture',e=>{this.pointers.delete(e.pointerId);this.drag=null;this.pinch=null;});
-      canvas.addEventListener('wheel',e=>{e.preventDefault();this.distance=Math.max(.7,Math.min(this.room.size.depth*1.35,this.distance*Math.exp(e.deltaY*.001)));},{passive:false});
+      const end=e=>{clearTimeout(this.ambienceTimer);this.pointers.delete(e.pointerId);
+        if(e.type==='pointerup'&&this.drag?.id&&this.drag.moved&&this.drag.preview){
+          const drag=this.drag;this.restorePreview();
+          if(!this.store.drop(drag.id,drag.preview.x,drag.preview.y))this.onNotice('Position refusée : placez la colonne à côté du miroir ou dans la pièce.');
+        }else this.restorePreview();
+        this.drag=null;this.pinch=null;canvas.style.cursor='grab';
+        if(canvas.hasPointerCapture(e.pointerId))canvas.releasePointerCapture(e.pointerId);
+      };
+      canvas.addEventListener('pointerup',end);canvas.addEventListener('pointercancel',end);canvas.addEventListener('lostpointercapture',e=>{this.pointers.delete(e.pointerId);this.restorePreview();this.drag=null;this.pinch=null;});
+      canvas.addEventListener('wheel',e=>{e.preventDefault();this.distance=Math.max(.7,Math.min(this.maxDistance(),this.distance*Math.exp(e.deltaY*.001)));},{passive:false});
       canvas.addEventListener('keydown',e=>{const item=this.store.selected;if(!item)return;const steps={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,1],ArrowDown:[0,-1]}[e.key];if(steps){e.preventDefault();this.store.move(item.id,item.position.x+steps[0]*(e.shiftKey?10:1),item.position.y+steps[1]*(e.shiftKey?10:1));}});
       window.addEventListener('blur',()=>this.cancel());
     }
     pinchDistance(){const a=[...this.pointers.values()];return a.length>1?Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y):0;}
-    cancel(){clearTimeout(this.ambienceTimer);this.pointers.clear();this.drag=null;this.pinch=null;}
+    cancel(){clearTimeout(this.ambienceTimer);this.restorePreview();this.pointers.clear();this.drag=null;this.pinch=null;}
     animate(time){const dt=Math.min(.05,(time-this.lastTime)/1000);this.lastTime=time;this.mirrorRenderer.tick(dt);for(const root of this.roots.values()){const u=root.userData,target=u.open?1:0;u.progress+=(target-u.progress)*(1-Math.exp(-dt*8));if(Math.abs(u.progress-target)<.001)u.progress=target;const smooth=u.progress*u.progress*(3-2*u.progress);u.drawers.forEach((g,index)=>{g.position.z=smooth*(index===0?.19:.27);});u.doors.forEach(hinge=>hinge.rotation.y=(hinge.userData.openDirection||-1)*Math.PI/2*smooth);}
 
-      this.camera.position.set(this.target.x+Math.sin(this.yaw)*this.distance,this.target.y+Math.sin(this.pitch)*this.distance,this.target.z+Math.cos(this.yaw)*Math.cos(this.pitch)*this.distance);this.camera.lookAt(this.target);this.room.tick(this.camera);this.renderer.render(this.scene,this.camera);requestAnimationFrame(this.animate);}
+      this.camera.position.set(this.target.x+Math.sin(this.yaw)*this.distance,this.target.y+Math.sin(this.pitch)*this.distance,this.target.z+Math.cos(this.yaw)*Math.cos(this.pitch)*this.distance);this.camera.lookAt(this.target);this.room.tick(this.camera);this.mirrorRenderer.setRoom(this.room.size,this.wall,this.room.back);this.renderer.render(this.scene,this.camera);requestAnimationFrame(this.animate);}
     inspect(){return {room:this.room.diagnostics(),colorPipeline:{toneMapping:this.renderer.toneMapping,output:this.renderer.outputColorSpace},surfaces:this.surfaceRenderer.diagnostics(),mirrors:this.mirrorRenderer.diagnostics(),pixelRatio:this.renderer.getPixelRatio(),renderer:this.renderer.info.render,objects:[...this.roots].map(([id,root])=>({id,position:root.position.toArray(),drawers:root.userData.drawers.map(g=>g.position.z),doors:root.userData.doors.map(g=>g.rotation.y),shelves:root.children.filter(o=>o.name.startsWith('shelf-')).length,scale:root.scale.toArray(),screen:(()=>{const item=this.store.project.items.find(i=>i.id===id),d=M.dimensions(item),p=root.position.clone().add(new T.Vector3(0,d.height/200,d.depth/200+.025)).project(this.camera),r=this.canvas.getBoundingClientRect();return {x:r.left+(p.x+1)*r.width/2,y:r.top+(1-p.y)*r.height/2};})(),bounds:new T.Box3().setFromObject(root).getSize(new T.Vector3()).toArray()})),camera:{yaw:this.yaw,pitch:this.pitch,distance:this.distance}};}
   }
   window.StudioOneScene=SceneView;
