@@ -1,7 +1,7 @@
 /* Interface Catalogue général, projets locaux, dossier PDF et parcours commercial. */
 (()=>{'use strict';
 const catalogue=window.RandalCatalogue,data=window.RandalCatalogueData,engine=window.RandalComposition3D,store=window.RandalCatalogueStore.create(catalogue.resolve),$=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),money=n=>n==null?'À confirmer':new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR'}).format(n);
-let roomControls;
+let roomControls,inlineWizard=null;
 let mounted=false,replacing=null,busy=false,account=null,namespace='guest',oldOverflow='',savedFocus=null,lastRoom='',lastIds='',lastUI='',lastDraft='',lastDraftIds=[],saveTimer;
 const clone=v=>JSON.parse(JSON.stringify(v));
 function notify(message){let n=$('rc-notice');if(!n){n=document.createElement('div');n.id='rc-notice';n.className='rc-notice';n.setAttribute('role','status');document.body.append(n)}n.textContent=message;n.hidden=false;clearTimeout(n.timer);n.timer=setTimeout(()=>n.hidden=true,6500)}
@@ -21,9 +21,12 @@ function shell(){
  <div class="rc-layout"><aside class="rc-edit" id="rc-edit"><button class="rc-primary" id="rc-add">＋ Ajouter un élément</button><div id="rc-selected"></div><details open><summary>Ambiance de la salle de bains</summary><div id="rc-surfaces"></div></details><p class="rc-muted">Revêtements d’ambiance, sans effet sur les références ou le devis RANDAL.</p><a href="randal-catalogue-interactif.html" target="_blank" rel="noopener">Ouvrir le catalogue V04 ↗</a></aside>
  <section class="rc-center"><nav class="rc-tools" aria-label="Commandes de la vue 3D"><button data-view="front">Face</button><button data-view="side">Côté</button><button data-view="angle">Centrer</button><button id="rc-dimensions" aria-pressed="false">Cotes</button><button id="rc-room-dimensions" aria-pressed="false">Cotes pièce</button><button id="rc-reverse" aria-pressed="false">⇄ Sens</button><button id="rc-fullscreen" aria-pressed="false">⛶ Plein écran</button></nav><div id="rc-canvas" class="rc-canvas" aria-label="Composition 3D manipulable"></div><div class="rc-scene-bottom"><button id="rc-open-all" aria-pressed="false">Ouvrir toute la composition</button><span>Glissez un élément pour le déplacer · Glissez le fond pour tourner · Pincez pour zoomer</span></div><p class="rc-geometry-note">Visualisation paramétrique indicative, conforme aux dimensions renseignées. Les dessins et échantillons fabricant font référence.</p></section>
  <aside class="rc-quote"><div class="rc-quote-head"><small>VOTRE COMPOSITION</small><h3 id="rc-project-title"></h3></div><div id="rc-items"></div><div class="rc-total"><span>Total</span><strong id="rc-total"></strong></div><div class="rc-actions"><button id="rc-pdf">Dossier PDF</button><button id="rc-print">Imprimer</button><button id="rc-photo">↓ Image 3D</button><button id="rc-chatgpt">Voir mon projet en photoréalisme</button><button id="rc-contact" class="rc-primary">Demande de renseignements</button></div><p class="rc-muted">Prix publics existants, hors transport et installation. Disponibilité à confirmer.</p></aside></div>`;
- document.body.append(el);$('rc-close').onclick=close;$('rc-add').onclick=()=>{close();replacing=null;catalogue.newItem()};$('rc-save').onclick=()=>projects(true);$('rc-projects').onclick=()=>projects();$('rc-pdf').onclick=()=>exportPdf(false);$('rc-print').onclick=()=>exportPdf(true);$('rc-contact').onclick=contact;$('rc-photo').onclick=async()=>download(await engine.capture(),'RANDAL-'+slug(store.read().name)+'.png');$('rc-chatgpt').onclick=photorealism;
+ document.body.append(el);$('rc-close').onclick=close;$('rc-add').onclick=()=>openWizard();$('rc-save').onclick=()=>projects(true);$('rc-projects').onclick=()=>projects();$('rc-pdf').onclick=()=>exportPdf(false);$('rc-print').onclick=()=>exportPdf(true);$('rc-contact').onclick=contact;$('rc-photo').onclick=async()=>download(await engine.capture(),'RANDAL-'+slug(store.read().name)+'.png');$('rc-chatgpt').onclick=photorealism;
  el.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>engine.view(b.dataset.view));
- roomControls=window.RandalRoomControls($('rc-edit'),'rc',store.read().room.dimensions,value=>store.setMeta({room:{...store.read().room,dimensions:value}}));
+ roomControls=window.RandalRoomControls($('rc-edit'),'rc',store.read().room.dimensions,value=>{
+    if(!store.setMeta({room:{...store.read().room,dimensions:value}})){
+      roomControls.set(store.roomSize());notify('Pièce trop petite : les meubles doivent rester à l’intérieur des murs.');}
+   });
  $('rc-room-dimensions').onclick=e=>{const b=e.currentTarget,v=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',String(v));engine.setRoomDimensions(v)};
  $('rc-dimensions').onclick=e=>{const b=e.currentTarget,v=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',v);engine.setDimensions(v)};
  $('rc-reverse').onclick=e=>{const b=e.currentTarget,v=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',v);engine.setReverse(v)};
@@ -31,19 +34,45 @@ function shell(){
  document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement){el.classList.remove('rc-fullscreen');$('rc-fullscreen').setAttribute('aria-pressed','false');$('rc-fullscreen').textContent='⛶ Plein écran'}});
  $('rc-open-all').onclick=()=>{const s=store.read(),value=!s.items.every(i=>i.open);animate(s.items.map(i=>i.id),value)};
  el.querySelectorAll('[data-pane]').forEach(b=>b.onclick=()=>{el.dataset.pane=b.dataset.pane;el.querySelectorAll('[data-pane]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)))});
- document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!document.querySelector('dialog[open]')&&!el.hidden)close();if(e.key==='Tab'&&!el.hidden&&!document.querySelector('dialog[open]')){const focusable=[...el.querySelectorAll('button,select,input,a')].filter(n=>n.getClientRects().length&&!n.disabled);const first=focusable[0],last=focusable.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&inlineWizard){e.preventDefault();replacing=null;closeWizard();return;}if(e.key==='Escape'&&!document.querySelector('dialog[open]')&&!el.hidden)close();if(e.key==='Tab'&&!el.hidden&&!document.querySelector('dialog[open]')){const focusable=[...(inlineWizard?.dialog||el).querySelectorAll('button,select,input,a')].filter(n=>n.getClientRects().length&&!n.disabled);const first=focusable[0],last=focusable.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
  surfaces();
 }
 async function open(){shell();const el=$('rc-workspace');if(!el.hidden){draw(store.read());return}savedFocus=document.activeElement;oldOverflow=document.body.style.overflow;document.body.style.overflow='hidden';el.hidden=false;el.dataset.pane='scene';$('rc-close').focus();
  try{await engine.mount($('rc-canvas'),{room:store.read().room,onSelect:id=>store.select(id),onMove:(id,dx,dy)=>store.move(id,dx,dy),onError:notify});mounted=true;lastRoom='';lastIds='';draw(store.read());engine.fit()}catch(e){$('rc-canvas').textContent=e.message;notify(e.message)}
 }
-function close(){const el=$('rc-workspace');if(!el||el.hidden)return;if(document.fullscreenElement===el)document.exitFullscreen?.();el.hidden=true;document.body.style.overflow=oldOverflow;engine.dispose();mounted=false;lastRoom='';savedFocus?.focus()}
+function close(){closeWizard();const el=$('rc-workspace');if(!el||el.hidden)return;if(document.fullscreenElement===el)document.exitFullscreen?.();el.hidden=true;document.body.style.overflow=oldOverflow;engine.dispose();mounted=false;lastRoom='';savedFocus?.focus()}
 function draftSignature(source){return JSON.stringify(catalogue.resolve(source).config)}
-function addDraft(source){return safe(()=>{lastDraftIds=store.add(source,replacing);lastDraft=draftSignature(source);replacing=null;return open()})}
+function addDraft(source){return safe(()=>{lastDraftIds=store.add(source,replacing);lastDraft=draftSignature(source);replacing=null;closeWizard();const el=$('rc-workspace');if(el){el.dataset.pane='scene';el.querySelectorAll('[data-pane]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.pane==='scene')));}return open()})}
 async function ensureDraft(source){if(replacing||lastDraft!==draftSignature(source)||!lastDraftIds.every(id=>store.read().items.some(i=>i.id===id)))await addDraft(source);else await open()}
-function current(){const s=store.read();return s.items.find(i=>i.id===s.selected?.split(':')[0])}
+// The existing 7-step RANDAL wizard is physically displayed inside the 3D workshop.
+ // Reusing its original DOM preserves all 11 collections, compatibility and catalogue pricing.
+ function closeWizard(){
+  if(!inlineWizard)return;
+  const w=inlineWizard;inlineWizard=null;
+  w.stepsMarker.replaceWith(w.steps);w.panelMarker.replaceWith(w.panel);
+  w.dialog.remove();$('rc-add')?.focus();
+ }
+ function openWizard(item=null){
+  if(inlineWizard)return;
+  const workspace=$('rc-workspace'),steps=$('steps'),panel=$('panel');
+  if(!workspace||workspace.hidden||!steps||!panel)return;
+  const stepsMarker=document.createComment('RANDAL wizard navigation home');
+  const panelMarker=document.createComment('RANDAL wizard panel home');
+  steps.before(stepsMarker);panel.before(panelMarker);
+  const dialog=document.createElement('section');dialog.id='rc-inline-wizard';dialog.className='rc-inline-wizard';
+  dialog.setAttribute('role','dialog');dialog.setAttribute('aria-modal','true');dialog.setAttribute('aria-label','Ajouter ou modifier un élément RANDAL');
+  dialog.innerHTML='<div class="rc-inline-wizard-shell"><div class="rc-inline-wizard-head"><div><small>RANDAL · CATALOGUE V04</small><h2>'+(item?'Modifier cet élément':'Ajouter à ma composition')+'</h2></div><button type="button" id="rc-inline-cancel">× Fermer</button></div><div class="rc-inline-wizard-body"></div></div>';
+  workspace.append(dialog);const body=dialog.querySelector('.rc-inline-wizard-body');body.append(steps,panel);
+  inlineWizard={dialog,steps,panel,stepsMarker,panelMarker};
+  replacing=item?.id||null;
+  try{if(item)catalogue.edit(item.source);else catalogue.newItem();}
+  catch(e){notify('Impossible d’ouvrir le choix des produits : '+e.message);closeWizard();return}
+  dialog.querySelector('#rc-inline-cancel').onclick=()=>{replacing=null;closeWizard()};
+  dialog.querySelector('#rc-inline-cancel').focus();
+ }
+ function current(){const s=store.read();return s.items.find(i=>i.id===s.selected?.split(':')[0])}
 function editItem(id){store.select(id);draw(store.read());if(innerWidth<900)$('rc-workspace').dataset.pane='edit'}
-function fullEdit(id){const item=store.read().items.find(i=>i.id===id);if(!item)return;replacing=id;close();catalogue.edit(item.source)}
+function fullEdit(id){const item=store.read().items.find(i=>i.id===id);if(item)openWizard(item)}
 function apply(id,patch){safe(()=>store.patch(id,patch))}
 function animate(ids,value){store.setOpen(ids,value)}
 function draw(s){
