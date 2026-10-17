@@ -16,7 +16,7 @@ function create(resolve){
  function place(item,list,preferred){const candidates=[preferred??0];for(const other of list){const r=rect(other),w=rect(item).w;candidates.push(r.x+r.w/2+w/2+.10,r.x-r.w/2-w/2-.10)}candidates.sort((a,b)=>Math.abs(a-(preferred??0))-Math.abs(b-(preferred??0)));for(const x of candidates){const candidate={...item,position:{...item.position,x}};if(fits(candidate,list))return candidate}return null}
  function placeExpanding(item,list,preferred){
   let found=place(item,list,preferred);if(found)return found;
-  const original=clone(state.room.dimensions),start=roomSize().width;
+  const original=state.room.dimensions?clone(state.room.dimensions):undefined,start=roomSize().width;
   for(let cm=Math.ceil(start*100)+10;cm<=700;cm+=10){expandWidth(cm/100);found=place(item,list,preferred);if(found)return found;}
   state.room.dimensions=original;return null;
  }
@@ -26,7 +26,7 @@ function create(resolve){
   while(item.mirrors.length<count){const index=item.mirrors.length;item.mirrors.push({id:uid(),position:{x:item.position.x+index*(w+.10),y:Math.max(1.24,Number(c.height)/100+item.position.y+.18+h/2)}})}
   const all=[...list.filter(i=>i.id!==item.id),item];
   for(const m of item.mirrors){if(mirrorFits(item,m,all))continue;const desired=m.position.x,positions=[desired];for(const b of all){const r=rect(b);positions.push(r.x-r.w/2-w/2-.1,r.x+r.w/2+w/2+.1);for(const other of b.mirrors||[])if(other.id!==m.id){const mr=mirrorRect(b,other);positions.push(mr.x-(mr.w+w)/2-.1,mr.x+(mr.w+w)/2+.1)}}positions.sort((a,b)=>Math.abs(a-desired)-Math.abs(b-desired));let found=false;for(const x of positions){const candidate={...m,position:{...m.position,x}};if(mirrorFits(item,candidate,all)){m.position=candidate.position;found=true;break}}if(!found){
-   const previous=clone(state.room.dimensions),start=roomSize().width;
+   const previous=state.room.dimensions?clone(state.room.dimensions):undefined,start=roomSize().width;
    for(let cm=Math.ceil(start*100)+10;cm<=700&&!found;cm+=10){expandWidth(cm/100);
     for(const x of positions){const candidate={...m,position:{...m.position,x}};if(mirrorFits(item,candidate,all)){m.position=candidate.position;found=true;break}}
    }
