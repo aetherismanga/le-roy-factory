@@ -180,6 +180,21 @@
       if(!canPlace(item,items))return false;
       this.commit(items,[],false);return true;
     }
+    // Preview may cross the mirror; only the final placement must be collision-free.
+    drop(id,x,y){
+      if(!Number.isFinite(x)||!Number.isFinite(y))return false;
+      if(this.move(id,x,y))return true;
+      const item=this.project.items.find(i=>i.id===id);
+      if(item?.kind!=='column')return false;
+      const candidate=copy(item);candidate.position.x=Math.round(x*10)/10;candidate.position.y=Math.round(y*10)/10;
+      const mirrors=this.project.items.filter(other=>other.kind==='mirror'&&overlaps(candidate,other));
+      if(!mirrors.length)return false;
+      const width=dimensions(item).width;
+      const sides=[...new Set(mirrors.flatMap(other=>{const b=bounds(other);return [b.left-width/2-2,b.right+width/2+2]}))]
+        .sort((a,b)=>Math.abs(a-x)-Math.abs(b-x));
+      for(const next of sides)if(this.move(id,next,y))return true;
+      return false;
+    }
     finishAll(finish) {if(!C.finishes.some(c=>c.code===finish))return;const items=copy(this.project.items);items.forEach(i=>{if(i.kind!=='mirror')i.finish=finish;});this.commit(items);}
     openAll(open) {const items=copy(this.project.items);items.forEach(i=>{if(i.kind!=='mirror')i.open=open;});this.commit(items,[],false);}
     undo(){if(!this.history.length)return;this.future.push(this.snapshot());this.project=this.history.pop();this.selectedId=this.project.items.some(i=>i.id===this.selectedId)?this.selectedId:this.project.items[0]?.id;this.emit();}
