@@ -15,7 +15,8 @@ function render(){raf=0;if(closed||!renderer)return;camera.updateMatrixWorld();m
 function invalidate(){if(!raf&&!closed)raf=requestAnimationFrame(render)}
 function cameraMove(){camera.position.set(target.x+Math.sin(yaw)*Math.cos(pitch)*distance,target.y+Math.sin(pitch)*distance,target.z+Math.cos(yaw)*Math.cos(pitch)*distance);camera.lookAt(target);invalidate()}
 function bounds(){const b=new T.Box3();for(const n of nodes.values())b.expandByObject(n.root);return b.isEmpty()?new T.Box3(new T.Vector3(-.4,.3,-.5),new T.Vector3(.4,1.7,0)):b;}
-function fit(){if(metricRoom?.labels.visible){setRoomDimensions(true);return;}const b=bounds();target=b.getCenter(new T.Vector3());const size=b.getSize(new T.Vector3());distance=Math.min((metricRoom?.size.depth||3)*1.35,Math.max(1.6,Math.max(size.x/Math.max(.35,camera.aspect),size.y)*1.8+size.z*1.4));cameraMove()}
+function maxDistance(){return Math.max(18,(metricRoom?.size.width||3)*4.5,(metricRoom?.size.depth||3)*4.2)}
+function fit(){if(metricRoom?.labels.visible){setRoomDimensions(true);return;}const b=bounds();target=b.getCenter(new T.Vector3());const size=b.getSize(new T.Vector3());distance=Math.min(maxDistance(),Math.max(1.6,Math.max(size.x/Math.max(.35,camera.aspect),size.y)*1.8+size.z*1.4));cameraMove()}
 function view(name){yaw=name==='front'?0:name==='side'?Math.PI/2:.38;pitch=name==='front'||name==='side'?.035:.17;fit()}
 async function surface(material,id,isWall=false){const mesh=scene.getObjectByName(isWall?'catalogue-wall':'catalogue-floor');const value=room[isWall?'wallSelection':'floorSelection']||{key:id,orientation:room.orientation};if(window.RandalSurfaceCatalogue.resolve(value)){material.userData.ticket=(material.userData.ticket||0)+1;return surfaceRenderer.apply(mesh,value);}mesh.userData.surfaceTicket=(mesh.userData.surfaceTicket||0)+1;material.bumpMap?.dispose();material.bumpMap=null;surfaceRenderer.active.delete(mesh);return legacySurface(material,id,isWall);}
 async function legacySurface(material,id,isWall=false){
@@ -103,7 +104,7 @@ function bind(canvas){
  canvas.addEventListener('pointermove',e=>{
   if(!points.has(e.pointerId)){canvas.style.cursor=hit(e)?'move':'grab';return;}
   points.set(e.pointerId,{x:e.clientX,y:e.clientY});
-  if(points.size===2){const p=[...points.values()],span=Math.hypot(p[0].x-p[1].x,p[0].y-p[1].y);if(pinch)distance=clamp(distance*pinch/span,.6,(metricRoom?.size.depth||3)*1.35);pinch=span;cameraMove();return;}
+  if(points.size===2){const p=[...points.values()],span=Math.hypot(p[0].x-p[1].x,p[0].y-p[1].y);if(pinch)distance=clamp(distance*pinch/span,.6,maxDistance());pinch=span;cameraMove();return;}
   if(mode==='pinch'||!last)return;const dx=e.clientX-last.x,dy=e.clientY-last.y;
   if(mode==='object'&&selection){const p=planePoint(e);if(p&&start){onMove(selection,p.x-start.x,p.y-start.y);start=p;}}
   else if(mode==='orbit'){yaw+=dx*.007*(invert?-1:1);pitch=clamp(pitch+dy*.005,-.08,.65);cameraMove()}
@@ -112,7 +113,7 @@ function bind(canvas){
  });
  const end=e=>{points.delete(e.pointerId);if(points.size<2)pinch=null;mode=null;last=null;};
  canvas.addEventListener('pointerup',end);canvas.addEventListener('pointercancel',end);canvas.addEventListener('lostpointercapture',end);
- canvas.addEventListener('wheel',e=>{e.preventDefault();distance=clamp(distance*Math.exp(e.deltaY*.001),.6,(metricRoom?.size.depth||3)*1.35);cameraMove()},{passive:false});
+ canvas.addEventListener('wheel',e=>{e.preventDefault();distance=clamp(distance*Math.exp(e.deltaY*.001),.6,maxDistance());cameraMove()},{passive:false});
 }
 function cotes(){
  if(!overlay)return;overlay.hidden=!dimensions;if(!dimensions)return;
