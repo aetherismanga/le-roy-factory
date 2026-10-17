@@ -161,8 +161,7 @@
       };
       let next=arrangeRoom(this.project.items,room);
       if(!next&&expand){
-        for(let w=room.width+1;w<=700&&!next;w++)next=arrangeRoom(this.project.items,{...room,width:w})&&arrangeRoom(this.project.items,{...room,width:w});
-        if(next){const left=Math.min(...next.map(i=>bounds(i).left)),right=Math.max(...next.map(i=>bounds(i).right));room.width=Math.min(700,Math.max(room.width,Math.ceil(right-left+2)));}
+        for(let w=room.width+1;w<=700&&!next;w++){const candidate=arrangeRoom(this.project.items,{...room,width:w});if(candidate){next=candidate;room.width=w;}}
       }
       if(!next)return false;
       // Keep arrangements on screen and stored whenever the room shrinks or an old project is opened.
@@ -178,14 +177,14 @@
     dragPreview(id,x,y){
       const item=this.project.items.find(i=>i.id===id);
       if(!item)return null;
-      const d=dimensions(item),r=this.room;
+      const d=dimensions(item),r=this.room,height=bounds(item).top-item.position.y;
       return {x:Math.min(r.width/2-d.width/2-0.5,Math.max(-r.width/2+d.width/2+0.5,x)),
-        y:Math.min(r.height-d.height,Math.max(0,y))};
+        y:Math.min(r.height-height,Math.max(0,y))};
     }
     get selected() { return this.project.items.find(i => i.id === this.selectedId); }
     commit(items, notices=[], geometry=true) { this.history.push(this.snapshot()); if(this.history.length>60)this.history.shift();this.future=[];this.project=validate({version:2,items});this.emit(notices,geometry); }
     select(id) { if(id === null || this.project.items.some(i => i.id === id)){if(this.selectedId===id)return;this.selectedId=id;this.emit([],false);} }
-    load(project) { const previous=this.project;this.project=validate(project);if(!this.fitSavedRoom()){this.project=previous;throw Error('Composition trop large pour une pièce de 700 cm.');}this.selectedId=this.project.items[0]?.id||null;this.history=[];this.future=[];this.emit(); }
+    load(project,roomSize) { const previous=this.project,oldRoom={...this.room};this.project=validate(project);if(!(roomSize?this.setRoom(roomSize,true):this.fitSavedRoom())){this.project=previous;this.room=oldRoom;throw Error('Composition trop large pour une pièce de 700 cm.');}this.selectedId=this.project.items[0]?.id||null;this.history=[];this.future=[];this.emit(); }
     add(kind, options={}) {
       if(this.project.items.length>=40) return this.emit(['Limite de 40 éléments atteinte.'],false);
       const item=place(make(kind,options),this.project.items,undefined,this.room);
