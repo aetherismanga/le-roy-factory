@@ -1,0 +1,623 @@
+[
+  {
+    "path": "assets/img/elios/creta/textures/biscotto.webp",
+    "resolution": [
+      558,
+      558
+    ],
+    "bytes": 3550,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue ELIOS 2026 p.112",
+    "hd": false
+  },
+  {
+    "path": "assets/img/elios/creta/textures/zucchero.webp",
+    "resolution": [
+      558,
+      558
+    ],
+    "bytes": 2220,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue ELIOS 2026 p.112",
+    "hd": false
+  },
+  {
+    "path": "assets/img/elios/creta/textures/avena.webp",
+    "resolution": [
+      558,
+      558
+    ],
+    "bytes": 3414,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue ELIOS 2026 p.112",
+    "hd": false
+  },
+  {
+    "path": "assets/img/elios/creta/textures/pepe.webp",
+    "resolution": [
+      558,
+      558
+    ],
+    "bytes": 3072,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue ELIOS 2026 p.112",
+    "hd": false
+  },
+  {
+    "path": "assets/img/elios/creta/textures/malto.webp",
+    "resolution": [
+      558,
+      558
+    ],
+    "bytes": 1476,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue ELIOS 2026 p.112",
+    "hd": false
+  },
+  {
+    "path": "assets/img/elios/creta/textures/ginepro.webp",
+    "resolution": [
+      558,
+      558
+    ],
+    "bytes": 4078,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue ELIOS 2026 p.112",
+    "hd": false
+  },
+  {
+    "path": "assets/img/elios/creta/textures/contact.jpg",
+    "resolution": [
+      800,
+      420
+    ],
+    "bytes": 26326,
+    "kind": "contact-sheet-not-texture",
+    "provenance": "Catalogue ELIOS 2026 p.112",
+    "hd": false
+  },
+  {
+    "path": "assets/img/elios/creta/textures/matcha.webp",
+    "resolution": [
+      558,
+      558
+    ],
+    "bytes": 2698,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue ELIOS 2026 p.112",
+    "hd": false
+  },
+  {
+    "path": "assets/img/elios/creta/textures/caramello.webp",
+    "resolution": [
+      558,
+      558
+    ],
+    "bytes": 3696,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue ELIOS 2026 p.112",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/amat/fresno-lagom.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 2178,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/amat/serenade-alba.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 3284,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/amat/biscuit.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 742,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/harmony/blanco-mate.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 770,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/harmony/gris-tortora.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 1302,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/harmony/serenade-alba.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 3314,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/sima/nogal-mist.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 3266,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/sima/serenade-alba.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 494,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/sima/roble-natura.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 2816,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/aruba-rainure/biscuit-acanalado.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 1558,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/aruba-rainure/nogal-valentina-acanalado.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 3276,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/aruba-rainure/roble-amazona-acanalado.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 3444,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/brunei/blanco-mate.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 748,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/brunei/negro.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 1402,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/brunei/serenade-alba.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 3424,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/brunei/gris.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 1360,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/less/serenade-alba-tirador-blanco.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 3360,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/less/azul-acero-tirador-niquel.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 2802,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/less/gris-tortora-tirador-negro.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 1768,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/brent/blanc-casse-argent-vieilli.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 1784,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/brent/gris-clair-argent-vieilli.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 1950,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/brent/bleu-argent-vieilli.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 2618,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/brent/bleu-or-vieilli.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 2590,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/brent/gris-clair-or-vieilli.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 2170,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/brent/vert-celadon-argent-vieilli.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 2234,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/brent/blanc-casse-or-vieilli.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 1986,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/brent/vert-celadon-or-vieilli.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 2386,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/boreal/blanco-mate.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 894,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/boreal/nogal-valentina.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 3288,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/boreal/serenade-alba.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 3216,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/boreal/azul-acero.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 1452,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/boreal/biscuit.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 774,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/aras/blanco-mate.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 882,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/aras/nogal-valentina.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 3186,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/aras/serenade-alba.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 3218,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/aras/azul-acero.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 1450,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/aras/biscuit.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 772,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/luce/azul-ceylan.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 2288,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/luce/verde-utopia.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 1536,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/luce/nogal-lincoln.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 2844,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/aruba/blanco-mate.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 766,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/aruba/roble-amazona.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 2560,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/aruba/nogal-valentina.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 3320,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/aruba/serenade-alba.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 3368,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/aruba/azul-acero.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 1602,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/img/randal/finishes/aruba/biscuit.webp",
+    "resolution": [
+      188,
+      188
+    ],
+    "bytes": 824,
+    "kind": "existing-catalogue-swatch",
+    "provenance": "Catalogue RANDAL V04, échantillon existant",
+    "hd": false
+  },
+  {
+    "path": "assets/js/randal-coco-beige-texture.js",
+    "resolution": [
+      240,
+      295
+    ],
+    "kind": "user-photo-with-multiple-tiles",
+    "rendererCrop": [
+      106,
+      72,
+      101,
+      67
+    ],
+    "provenance": "Photo fournie par l’utilisateur, selon le commentaire existant",
+    "hd": false
+  }
+]

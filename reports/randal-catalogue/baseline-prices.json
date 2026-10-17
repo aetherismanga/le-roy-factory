@@ -1,0 +1,2161 @@
+{
+  "sourceCommit": "b23f1344b90e8358dce386d42f462a6023bb5341",
+  "policy": "Montants affichés existants, sans conversion supplémentaire.",
+  "entries": [
+    {
+      "key": "Harmony|two|60|Serenade Alba",
+      "reference": "13255",
+      "unit": 338.4
+    },
+    {
+      "key": "Harmony|two|70|Serenade Alba",
+      "reference": "13342",
+      "unit": 340.8
+    },
+    {
+      "key": "Harmony|two|80|Serenade Alba",
+      "reference": "13257",
+      "unit": 344.4
+    },
+    {
+      "key": "Harmony|two|90|Serenade Alba",
+      "reference": "13344",
+      "unit": 384
+    },
+    {
+      "key": "Harmony|two|100|Serenade Alba",
+      "reference": "13346",
+      "unit": 424.8
+    },
+    {
+      "key": "Harmony|two|120|Serenade Alba",
+      "reference": "13259",
+      "unit": 625.2
+    },
+    {
+      "key": "Harmony|two|60|Blanco mate",
+      "reference": "13267",
+      "unit": 338.4
+    },
+    {
+      "key": "Harmony|two|70|Blanco mate",
+      "reference": "13354",
+      "unit": 340.8
+    },
+    {
+      "key": "Harmony|two|80|Blanco mate",
+      "reference": "13269",
+      "unit": 344.4
+    },
+    {
+      "key": "Harmony|two|90|Blanco mate",
+      "reference": "13356",
+      "unit": 384
+    },
+    {
+      "key": "Harmony|two|100|Blanco mate",
+      "reference": "13358",
+      "unit": 424.8
+    },
+    {
+      "key": "Harmony|two|120|Blanco mate",
+      "reference": "13271",
+      "unit": 625.2
+    },
+    {
+      "key": "Harmony|two|60|Gris tórtora",
+      "reference": "13261",
+      "unit": 338.4
+    },
+    {
+      "key": "Harmony|two|70|Gris tórtora",
+      "reference": "13348",
+      "unit": 340.8
+    },
+    {
+      "key": "Harmony|two|80|Gris tórtora",
+      "reference": "13263",
+      "unit": 344.4
+    },
+    {
+      "key": "Harmony|two|90|Gris tórtora",
+      "reference": "13350",
+      "unit": 384
+    },
+    {
+      "key": "Harmony|two|100|Gris tórtora",
+      "reference": "13352",
+      "unit": 424.8
+    },
+    {
+      "key": "Harmony|two|120|Gris tórtora",
+      "reference": "13265",
+      "unit": 625.2
+    },
+    {
+      "key": "Harmony|three|60|Serenade Alba",
+      "reference": "13256",
+      "unit": 434.4
+    },
+    {
+      "key": "Harmony|three|70|Serenade Alba",
+      "reference": "13343",
+      "unit": 470.4
+    },
+    {
+      "key": "Harmony|three|80|Serenade Alba",
+      "reference": "13258",
+      "unit": 480
+    },
+    {
+      "key": "Harmony|three|90|Serenade Alba",
+      "reference": "13345",
+      "unit": 519.6
+    },
+    {
+      "key": "Harmony|three|100|Serenade Alba",
+      "reference": "13347",
+      "unit": 580.8
+    },
+    {
+      "key": "Harmony|three|120|Serenade Alba",
+      "reference": "13461",
+      "unit": 870
+    },
+    {
+      "key": "Harmony|three|60|Blanco mate",
+      "reference": "13268",
+      "unit": 434.4
+    },
+    {
+      "key": "Harmony|three|70|Blanco mate",
+      "reference": "13355",
+      "unit": 470.4
+    },
+    {
+      "key": "Harmony|three|80|Blanco mate",
+      "reference": "13270",
+      "unit": 480
+    },
+    {
+      "key": "Harmony|three|90|Blanco mate",
+      "reference": "13357",
+      "unit": 519.6
+    },
+    {
+      "key": "Harmony|three|100|Blanco mate",
+      "reference": "13359",
+      "unit": 580.8
+    },
+    {
+      "key": "Harmony|three|120|Blanco mate",
+      "reference": "13463",
+      "unit": 870
+    },
+    {
+      "key": "Harmony|three|60|Gris tórtora",
+      "reference": "13262",
+      "unit": 434.4
+    },
+    {
+      "key": "Harmony|three|70|Gris tórtora",
+      "reference": "13349",
+      "unit": 470.4
+    },
+    {
+      "key": "Harmony|three|80|Gris tórtora",
+      "reference": "13264",
+      "unit": 480
+    },
+    {
+      "key": "Harmony|three|90|Gris tórtora",
+      "reference": "13351",
+      "unit": 519.6
+    },
+    {
+      "key": "Harmony|three|100|Gris tórtora",
+      "reference": "13353",
+      "unit": 580.8
+    },
+    {
+      "key": "Harmony|three|120|Gris tórtora",
+      "reference": "13462",
+      "unit": 870
+    },
+    {
+      "key": "Harmony|column||Serenade Alba",
+      "reference": "13260",
+      "unit": 351.6
+    },
+    {
+      "key": "Harmony|column||Blanco mate",
+      "reference": "13272",
+      "unit": 351.6
+    },
+    {
+      "key": "Harmony|column||Gris tórtora",
+      "reference": "13266",
+      "unit": 351.6
+    },
+    {
+      "key": "Luce|single|80|Verde Utopía",
+      "reference": "11358",
+      "unit": 565.2
+    },
+    {
+      "key": "Luce|single|120|Verde Utopía",
+      "reference": "11356",
+      "unit": 663.6
+    },
+    {
+      "key": "Luce|single|80|Azul Ceylan",
+      "reference": "11353",
+      "unit": 565.2
+    },
+    {
+      "key": "Luce|single|120|Azul Ceylan",
+      "reference": "11354",
+      "unit": 663.6
+    },
+    {
+      "key": "Luce|single|80|Nogal Lincoln",
+      "reference": "11350",
+      "unit": 565.2
+    },
+    {
+      "key": "Luce|single|120|Nogal Lincoln",
+      "reference": "11351",
+      "unit": 663.6
+    },
+    {
+      "key": "Luce|column||Verde Utopía",
+      "reference": "11357",
+      "unit": 656.4
+    },
+    {
+      "key": "Luce|column||Azul Ceylan",
+      "reference": "11355",
+      "unit": 656.4
+    },
+    {
+      "key": "Luce|column||Nogal Lincoln",
+      "reference": "11352",
+      "unit": 656.4
+    },
+    {
+      "key": "Brent|three|A|Vert céladon · or vieilli",
+      "reference": "11093 - ORO",
+      "unit": 936
+    },
+    {
+      "key": "Brent|three|C|Vert céladon · or vieilli",
+      "reference": "11094 - ORO",
+      "unit": 1136.4
+    },
+    {
+      "key": "Brent|three|E|Vert céladon · or vieilli",
+      "reference": "11095 - ORO",
+      "unit": 1311.6
+    },
+    {
+      "key": "Brent|three|G|Vert céladon · or vieilli",
+      "reference": "11096 - ORO",
+      "unit": 1345.2
+    },
+    {
+      "key": "Brent|three|A|Bleu · or vieilli",
+      "reference": "11098 - ORO",
+      "unit": 936
+    },
+    {
+      "key": "Brent|three|C|Bleu · or vieilli",
+      "reference": "11099 - ORO",
+      "unit": 1136.4
+    },
+    {
+      "key": "Brent|three|E|Bleu · or vieilli",
+      "reference": "11100 - ORO",
+      "unit": 1311.6
+    },
+    {
+      "key": "Brent|three|G|Bleu · or vieilli",
+      "reference": "11101 - ORO",
+      "unit": 1345.2
+    },
+    {
+      "key": "Brent|three|A|Gris clair · or vieilli",
+      "reference": "12547 - ORO",
+      "unit": 936
+    },
+    {
+      "key": "Brent|three|C|Gris clair · or vieilli",
+      "reference": "12549 - ORO",
+      "unit": 1136.4
+    },
+    {
+      "key": "Brent|three|E|Gris clair · or vieilli",
+      "reference": "12551 - ORO",
+      "unit": 1311.6
+    },
+    {
+      "key": "Brent|three|G|Gris clair · or vieilli",
+      "reference": "12553 - ORO",
+      "unit": 1345.2
+    },
+    {
+      "key": "Brent|three|A|Blanc cassé · or vieilli",
+      "reference": "11103 - ORO",
+      "unit": 936
+    },
+    {
+      "key": "Brent|three|C|Blanc cassé · or vieilli",
+      "reference": "11104 - ORO",
+      "unit": 1136.4
+    },
+    {
+      "key": "Brent|three|E|Blanc cassé · or vieilli",
+      "reference": "11105 - ORO",
+      "unit": 1311.6
+    },
+    {
+      "key": "Brent|three|G|Blanc cassé · or vieilli",
+      "reference": "11106 - ORO",
+      "unit": 1345.2
+    },
+    {
+      "key": "Brent|three|A|Vert céladon · argent vieilli",
+      "reference": "11093 - PLATA",
+      "unit": 936
+    },
+    {
+      "key": "Brent|three|C|Vert céladon · argent vieilli",
+      "reference": "11094 - PLATA",
+      "unit": 1136.4
+    },
+    {
+      "key": "Brent|three|E|Vert céladon · argent vieilli",
+      "reference": "11095 - PLATA",
+      "unit": 1311.6
+    },
+    {
+      "key": "Brent|three|G|Vert céladon · argent vieilli",
+      "reference": "11096 - PLATA",
+      "unit": 1345.2
+    },
+    {
+      "key": "Brent|three|A|Bleu · argent vieilli",
+      "reference": "11098 - PLATA",
+      "unit": 936
+    },
+    {
+      "key": "Brent|three|C|Bleu · argent vieilli",
+      "reference": "11099 - PLATA",
+      "unit": 1136.4
+    },
+    {
+      "key": "Brent|three|E|Bleu · argent vieilli",
+      "reference": "11100 - PLATA",
+      "unit": 1311.6
+    },
+    {
+      "key": "Brent|three|G|Bleu · argent vieilli",
+      "reference": "11101 - PLATA",
+      "unit": 1345.2
+    },
+    {
+      "key": "Brent|three|A|Gris clair · argent vieilli",
+      "reference": "12547 - PLATA",
+      "unit": 936
+    },
+    {
+      "key": "Brent|three|C|Gris clair · argent vieilli",
+      "reference": "12549 - PLATA",
+      "unit": 1136.4
+    },
+    {
+      "key": "Brent|three|E|Gris clair · argent vieilli",
+      "reference": "12551 - PLATA",
+      "unit": 1311.6
+    },
+    {
+      "key": "Brent|three|G|Gris clair · argent vieilli",
+      "reference": "12553 - PLATA",
+      "unit": 1345.2
+    },
+    {
+      "key": "Brent|three|A|Blanc cassé · argent vieilli",
+      "reference": "11103 - PLATA",
+      "unit": 936
+    },
+    {
+      "key": "Brent|three|C|Blanc cassé · argent vieilli",
+      "reference": "11104 - PLATA",
+      "unit": 1136.4
+    },
+    {
+      "key": "Brent|three|E|Blanc cassé · argent vieilli",
+      "reference": "11105 - PLATA",
+      "unit": 1311.6
+    },
+    {
+      "key": "Brent|three|G|Blanc cassé · argent vieilli",
+      "reference": "11106 - PLATA",
+      "unit": 1345.2
+    },
+    {
+      "key": "Brent|niche|B|Vert céladon · or vieilli",
+      "reference": "11087 - ORO",
+      "unit": 867.6
+    },
+    {
+      "key": "Brent|niche|D|Vert céladon · or vieilli",
+      "reference": "11088 - ORO",
+      "unit": 960
+    },
+    {
+      "key": "Brent|niche|F|Vert céladon · or vieilli",
+      "reference": "11089 - ORO",
+      "unit": 1183.2
+    },
+    {
+      "key": "Brent|niche|H|Vert céladon · or vieilli",
+      "reference": "11090 - ORO",
+      "unit": 1264.8
+    },
+    {
+      "key": "Brent|niche|B|Bleu · or vieilli",
+      "reference": "6028 - ORO",
+      "unit": 867.6
+    },
+    {
+      "key": "Brent|niche|D|Bleu · or vieilli",
+      "reference": "6031 - ORO",
+      "unit": 960
+    },
+    {
+      "key": "Brent|niche|F|Bleu · or vieilli",
+      "reference": "6034 - ORO",
+      "unit": 1183.2
+    },
+    {
+      "key": "Brent|niche|H|Bleu · or vieilli",
+      "reference": "6037 - ORO",
+      "unit": 1264.8
+    },
+    {
+      "key": "Brent|niche|B|Gris clair · or vieilli",
+      "reference": "12546 - ORO",
+      "unit": 867.6
+    },
+    {
+      "key": "Brent|niche|D|Gris clair · or vieilli",
+      "reference": "12548 - ORO",
+      "unit": 960
+    },
+    {
+      "key": "Brent|niche|F|Gris clair · or vieilli",
+      "reference": "12550 - ORO",
+      "unit": 1183.2
+    },
+    {
+      "key": "Brent|niche|H|Gris clair · or vieilli",
+      "reference": "12552 - ORO",
+      "unit": 1264.8
+    },
+    {
+      "key": "Brent|niche|B|Blanc cassé · or vieilli",
+      "reference": "6030 - ORO",
+      "unit": 867.6
+    },
+    {
+      "key": "Brent|niche|D|Blanc cassé · or vieilli",
+      "reference": "6033 - ORO",
+      "unit": 960
+    },
+    {
+      "key": "Brent|niche|F|Blanc cassé · or vieilli",
+      "reference": "6036 - ORO",
+      "unit": 1183.2
+    },
+    {
+      "key": "Brent|niche|H|Blanc cassé · or vieilli",
+      "reference": "6039 - ORO",
+      "unit": 1264.8
+    },
+    {
+      "key": "Brent|niche|B|Vert céladon · argent vieilli",
+      "reference": "11087 - PLATA",
+      "unit": 867.6
+    },
+    {
+      "key": "Brent|niche|D|Vert céladon · argent vieilli",
+      "reference": "11088 - PLATA",
+      "unit": 960
+    },
+    {
+      "key": "Brent|niche|F|Vert céladon · argent vieilli",
+      "reference": "11089 - PLATA",
+      "unit": 1183.2
+    },
+    {
+      "key": "Brent|niche|H|Vert céladon · argent vieilli",
+      "reference": "11090 - PLATA",
+      "unit": 1264.8
+    },
+    {
+      "key": "Brent|niche|B|Bleu · argent vieilli",
+      "reference": "6028 - PLATA",
+      "unit": 867.6
+    },
+    {
+      "key": "Brent|niche|D|Bleu · argent vieilli",
+      "reference": "6031 - PLATA",
+      "unit": 960
+    },
+    {
+      "key": "Brent|niche|F|Bleu · argent vieilli",
+      "reference": "6034 - PLATA",
+      "unit": 1183.2
+    },
+    {
+      "key": "Brent|niche|H|Bleu · argent vieilli",
+      "reference": "6037 - PLATA",
+      "unit": 1264.8
+    },
+    {
+      "key": "Brent|niche|B|Gris clair · argent vieilli",
+      "reference": "12546 - PLATA",
+      "unit": 867.6
+    },
+    {
+      "key": "Brent|niche|D|Gris clair · argent vieilli",
+      "reference": "12548 - PLATA",
+      "unit": 960
+    },
+    {
+      "key": "Brent|niche|F|Gris clair · argent vieilli",
+      "reference": "12550 - PLATA",
+      "unit": 1183.2
+    },
+    {
+      "key": "Brent|niche|H|Gris clair · argent vieilli",
+      "reference": "12552 - PLATA",
+      "unit": 1264.8
+    },
+    {
+      "key": "Brent|niche|B|Blanc cassé · argent vieilli",
+      "reference": "6030 - PLATA",
+      "unit": 867.6
+    },
+    {
+      "key": "Brent|niche|D|Blanc cassé · argent vieilli",
+      "reference": "6033 - PLATA",
+      "unit": 960
+    },
+    {
+      "key": "Brent|niche|F|Blanc cassé · argent vieilli",
+      "reference": "6036 - PLATA",
+      "unit": 1183.2
+    },
+    {
+      "key": "Brent|niche|H|Blanc cassé · argent vieilli",
+      "reference": "6039 - PLATA",
+      "unit": 1264.8
+    },
+    {
+      "key": "Brent|column|I|Vert céladon · or vieilli",
+      "reference": "11092 - ORO",
+      "unit": 1291.2
+    },
+    {
+      "key": "Brent|column|J|Vert céladon · or vieilli",
+      "reference": "11091 - ORO",
+      "unit": 1129.2
+    },
+    {
+      "key": "Brent|column|I|Bleu · or vieilli",
+      "reference": "11102 - ORO",
+      "unit": 1291.2
+    },
+    {
+      "key": "Brent|column|J|Bleu · or vieilli",
+      "reference": "6040 - ORO",
+      "unit": 1129.2
+    },
+    {
+      "key": "Brent|column|I|Gris clair · or vieilli",
+      "reference": "12555 - ORO",
+      "unit": 1291.2
+    },
+    {
+      "key": "Brent|column|J|Gris clair · or vieilli",
+      "reference": "12554 - ORO",
+      "unit": 1129.2
+    },
+    {
+      "key": "Brent|column|I|Blanc cassé · or vieilli",
+      "reference": "11107 - ORO",
+      "unit": 1291.2
+    },
+    {
+      "key": "Brent|column|J|Blanc cassé · or vieilli",
+      "reference": "6042 - ORO",
+      "unit": 1129.2
+    },
+    {
+      "key": "Brent|column|I|Vert céladon · argent vieilli",
+      "reference": "11092 - PLATA",
+      "unit": 1291.2
+    },
+    {
+      "key": "Brent|column|J|Vert céladon · argent vieilli",
+      "reference": "11091 - PLATA",
+      "unit": 1129.2
+    },
+    {
+      "key": "Brent|column|I|Bleu · argent vieilli",
+      "reference": "11102 - PLATA",
+      "unit": 1291.2
+    },
+    {
+      "key": "Brent|column|J|Bleu · argent vieilli",
+      "reference": "6040 - PLATA",
+      "unit": 1129.2
+    },
+    {
+      "key": "Brent|column|I|Gris clair · argent vieilli",
+      "reference": "12555 - PLATA",
+      "unit": 1291.2
+    },
+    {
+      "key": "Brent|column|J|Gris clair · argent vieilli",
+      "reference": "12554 - PLATA",
+      "unit": 1129.2
+    },
+    {
+      "key": "Brent|column|I|Blanc cassé · argent vieilli",
+      "reference": "11107 - PLATA",
+      "unit": 1291.2
+    },
+    {
+      "key": "Brent|column|J|Blanc cassé · argent vieilli",
+      "reference": "6042 - PLATA",
+      "unit": 1129.2
+    },
+    {
+      "key": "Aruba rainuré|two|60|Roble Amazona acanalado",
+      "reference": "13472",
+      "unit": 556.8
+    },
+    {
+      "key": "Aruba rainuré|two|70|Roble Amazona acanalado",
+      "reference": "13292",
+      "unit": 585.6
+    },
+    {
+      "key": "Aruba rainuré|two|80|Roble Amazona acanalado",
+      "reference": "12389",
+      "unit": 604.8
+    },
+    {
+      "key": "Aruba rainuré|two|90|Roble Amazona acanalado",
+      "reference": "13473",
+      "unit": 696
+    },
+    {
+      "key": "Aruba rainuré|two|100|Roble Amazona acanalado",
+      "reference": "13474",
+      "unit": 720
+    },
+    {
+      "key": "Aruba rainuré|two|120|Roble Amazona acanalado",
+      "reference": "12391",
+      "unit": 1173.6
+    },
+    {
+      "key": "Aruba rainuré|two|60|Nogal Valentina acanalado",
+      "reference": "13475",
+      "unit": 556.8
+    },
+    {
+      "key": "Aruba rainuré|two|70|Nogal Valentina acanalado",
+      "reference": "13476",
+      "unit": 585.6
+    },
+    {
+      "key": "Aruba rainuré|two|80|Nogal Valentina acanalado",
+      "reference": "12390",
+      "unit": 604.8
+    },
+    {
+      "key": "Aruba rainuré|two|90|Nogal Valentina acanalado",
+      "reference": "13477",
+      "unit": 696
+    },
+    {
+      "key": "Aruba rainuré|two|100|Nogal Valentina acanalado",
+      "reference": "13478",
+      "unit": 720
+    },
+    {
+      "key": "Aruba rainuré|two|120|Nogal Valentina acanalado",
+      "reference": "12392",
+      "unit": 1173.6
+    },
+    {
+      "key": "Aruba rainuré|two|60|Biscuit acanalado",
+      "reference": "13479",
+      "unit": 556.8
+    },
+    {
+      "key": "Aruba rainuré|two|70|Biscuit acanalado",
+      "reference": "13480",
+      "unit": 585.6
+    },
+    {
+      "key": "Aruba rainuré|two|80|Biscuit acanalado",
+      "reference": "13481",
+      "unit": 604.8
+    },
+    {
+      "key": "Aruba rainuré|two|90|Biscuit acanalado",
+      "reference": "13482",
+      "unit": 696
+    },
+    {
+      "key": "Aruba rainuré|two|100|Biscuit acanalado",
+      "reference": "13483",
+      "unit": 720
+    },
+    {
+      "key": "Aruba rainuré|two|120|Biscuit acanalado",
+      "reference": "13484",
+      "unit": 1173.6
+    },
+    {
+      "key": "Aruba|two|60|Roble Amazona",
+      "reference": "13289",
+      "unit": 482.4
+    },
+    {
+      "key": "Aruba|two|70|Roble Amazona",
+      "reference": "13383",
+      "unit": 506.4
+    },
+    {
+      "key": "Aruba|two|80|Roble Amazona",
+      "reference": "13290",
+      "unit": 512.4
+    },
+    {
+      "key": "Aruba|two|90|Roble Amazona",
+      "reference": "13384",
+      "unit": 535.2
+    },
+    {
+      "key": "Aruba|two|100|Roble Amazona",
+      "reference": "13385",
+      "unit": 574.8
+    },
+    {
+      "key": "Aruba|two|120|Roble Amazona",
+      "reference": "13291",
+      "unit": 962.4
+    },
+    {
+      "key": "Aruba|two|60|Nogal Valentina",
+      "reference": "13293",
+      "unit": 482.4
+    },
+    {
+      "key": "Aruba|two|70|Nogal Valentina",
+      "reference": "13386",
+      "unit": 506.4
+    },
+    {
+      "key": "Aruba|two|80|Nogal Valentina",
+      "reference": "13294",
+      "unit": 512.4
+    },
+    {
+      "key": "Aruba|two|90|Nogal Valentina",
+      "reference": "13387",
+      "unit": 535.2
+    },
+    {
+      "key": "Aruba|two|100|Nogal Valentina",
+      "reference": "13388",
+      "unit": 574.8
+    },
+    {
+      "key": "Aruba|two|120|Nogal Valentina",
+      "reference": "13295",
+      "unit": 962.4
+    },
+    {
+      "key": "Aruba|two|60|Biscuit",
+      "reference": "13389",
+      "unit": 482.4
+    },
+    {
+      "key": "Aruba|two|70|Biscuit",
+      "reference": "13390",
+      "unit": 506.4
+    },
+    {
+      "key": "Aruba|two|80|Biscuit",
+      "reference": "13391",
+      "unit": 512.4
+    },
+    {
+      "key": "Aruba|two|90|Biscuit",
+      "reference": "13392",
+      "unit": 535.2
+    },
+    {
+      "key": "Aruba|two|100|Biscuit",
+      "reference": "13393",
+      "unit": 574.8
+    },
+    {
+      "key": "Aruba|two|120|Biscuit",
+      "reference": "13394",
+      "unit": 962.4
+    },
+    {
+      "key": "Aruba|two|60|Blanco mate",
+      "reference": "13403",
+      "unit": 482.4
+    },
+    {
+      "key": "Aruba|two|70|Blanco mate",
+      "reference": "13404",
+      "unit": 506.4
+    },
+    {
+      "key": "Aruba|two|80|Blanco mate",
+      "reference": "13405",
+      "unit": 512.4
+    },
+    {
+      "key": "Aruba|two|90|Blanco mate",
+      "reference": "13406",
+      "unit": 535.2
+    },
+    {
+      "key": "Aruba|two|100|Blanco mate",
+      "reference": "13407",
+      "unit": 574.8
+    },
+    {
+      "key": "Aruba|two|120|Blanco mate",
+      "reference": "13408",
+      "unit": 962.4
+    },
+    {
+      "key": "Aruba|two|60|Serenade Alba",
+      "reference": "13410",
+      "unit": 482.4
+    },
+    {
+      "key": "Aruba|two|70|Serenade Alba",
+      "reference": "13411",
+      "unit": 506.4
+    },
+    {
+      "key": "Aruba|two|80|Serenade Alba",
+      "reference": "13412",
+      "unit": 512.4
+    },
+    {
+      "key": "Aruba|two|90|Serenade Alba",
+      "reference": "13413",
+      "unit": 535.2
+    },
+    {
+      "key": "Aruba|two|100|Serenade Alba",
+      "reference": "13414",
+      "unit": 574.8
+    },
+    {
+      "key": "Aruba|two|120|Serenade Alba",
+      "reference": "13415",
+      "unit": 962.4
+    },
+    {
+      "key": "Aruba|two|60|Azul Acero",
+      "reference": "13396",
+      "unit": 482.4
+    },
+    {
+      "key": "Aruba|two|70|Azul Acero",
+      "reference": "13397",
+      "unit": 506.4
+    },
+    {
+      "key": "Aruba|two|80|Azul Acero",
+      "reference": "13398",
+      "unit": 512.4
+    },
+    {
+      "key": "Aruba|two|90|Azul Acero",
+      "reference": "13399",
+      "unit": 535.2
+    },
+    {
+      "key": "Aruba|two|100|Azul Acero",
+      "reference": "13400",
+      "unit": 574.8
+    },
+    {
+      "key": "Aruba|two|120|Azul Acero",
+      "reference": "13401",
+      "unit": 962.4
+    },
+    {
+      "key": "Aruba|column||Roble Amazona",
+      "reference": "13486",
+      "unit": 511.2
+    },
+    {
+      "key": "Aruba|column||Nogal Valentina",
+      "reference": "13296",
+      "unit": 511.2
+    },
+    {
+      "key": "Aruba|column||Biscuit",
+      "reference": "13395",
+      "unit": 511.2
+    },
+    {
+      "key": "Aruba|column||Blanco mate",
+      "reference": "13409",
+      "unit": 511.2
+    },
+    {
+      "key": "Aruba|column||Serenade Alba",
+      "reference": "13416",
+      "unit": 511.2
+    },
+    {
+      "key": "Aruba|column||Azul Acero",
+      "reference": "13402",
+      "unit": 511.2
+    },
+    {
+      "key": "Aras|two|60|Nogal Valentina",
+      "reference": "13374",
+      "unit": 514.8
+    },
+    {
+      "key": "Aras|two|70|Nogal Valentina",
+      "reference": "13375",
+      "unit": 531.6
+    },
+    {
+      "key": "Aras|two|80|Nogal Valentina",
+      "reference": "13376",
+      "unit": 535.2
+    },
+    {
+      "key": "Aras|two|90|Nogal Valentina",
+      "reference": "13377",
+      "unit": 562.8
+    },
+    {
+      "key": "Aras|two|100|Nogal Valentina",
+      "reference": "13378",
+      "unit": 598.8
+    },
+    {
+      "key": "Aras|two|120|Nogal Valentina",
+      "reference": "13379",
+      "unit": 1047.6
+    },
+    {
+      "key": "Aras|two|60|Biscuit",
+      "reference": "13273",
+      "unit": 514.8
+    },
+    {
+      "key": "Aras|two|70|Biscuit",
+      "reference": "13362",
+      "unit": 531.6
+    },
+    {
+      "key": "Aras|two|80|Biscuit",
+      "reference": "13274",
+      "unit": 535.2
+    },
+    {
+      "key": "Aras|two|90|Biscuit",
+      "reference": "13363",
+      "unit": 562.8
+    },
+    {
+      "key": "Aras|two|100|Biscuit",
+      "reference": "13364",
+      "unit": 598.8
+    },
+    {
+      "key": "Aras|two|120|Biscuit",
+      "reference": "13275",
+      "unit": 1047.6
+    },
+    {
+      "key": "Aras|two|60|Blanco mate",
+      "reference": "13277",
+      "unit": 514.8
+    },
+    {
+      "key": "Aras|two|70|Blanco mate",
+      "reference": "13365",
+      "unit": 531.6
+    },
+    {
+      "key": "Aras|two|80|Blanco mate",
+      "reference": "13278",
+      "unit": 535.2
+    },
+    {
+      "key": "Aras|two|90|Blanco mate",
+      "reference": "13366",
+      "unit": 562.8
+    },
+    {
+      "key": "Aras|two|100|Blanco mate",
+      "reference": "13367",
+      "unit": 598.8
+    },
+    {
+      "key": "Aras|two|120|Blanco mate",
+      "reference": "13279",
+      "unit": 1047.6
+    },
+    {
+      "key": "Aras|two|60|Serenade Alba",
+      "reference": "13281",
+      "unit": 514.8
+    },
+    {
+      "key": "Aras|two|70|Serenade Alba",
+      "reference": "13368",
+      "unit": 531.6
+    },
+    {
+      "key": "Aras|two|80|Serenade Alba",
+      "reference": "13282",
+      "unit": 535.2
+    },
+    {
+      "key": "Aras|two|90|Serenade Alba",
+      "reference": "13369",
+      "unit": 562.8
+    },
+    {
+      "key": "Aras|two|100|Serenade Alba",
+      "reference": "13370",
+      "unit": 598.8
+    },
+    {
+      "key": "Aras|two|120|Serenade Alba",
+      "reference": "13283",
+      "unit": 1047.6
+    },
+    {
+      "key": "Aras|two|60|Azul Acero",
+      "reference": "13285",
+      "unit": 514.8
+    },
+    {
+      "key": "Aras|two|70|Azul Acero",
+      "reference": "13371",
+      "unit": 531.6
+    },
+    {
+      "key": "Aras|two|80|Azul Acero",
+      "reference": "13286",
+      "unit": 535.2
+    },
+    {
+      "key": "Aras|two|90|Azul Acero",
+      "reference": "13372",
+      "unit": 562.8
+    },
+    {
+      "key": "Aras|two|100|Azul Acero",
+      "reference": "13373",
+      "unit": 598.8
+    },
+    {
+      "key": "Aras|two|120|Azul Acero",
+      "reference": "13287",
+      "unit": 1047.6
+    },
+    {
+      "key": "Aras|column||Nogal Valentina",
+      "reference": "13380",
+      "unit": 519.6
+    },
+    {
+      "key": "Aras|column||Biscuit",
+      "reference": "13276",
+      "unit": 519.6
+    },
+    {
+      "key": "Aras|column||Blanco mate",
+      "reference": "13280",
+      "unit": 519.6
+    },
+    {
+      "key": "Aras|column||Serenade Alba",
+      "reference": "13284",
+      "unit": 519.6
+    },
+    {
+      "key": "Aras|column||Azul Acero",
+      "reference": "13288",
+      "unit": 519.6
+    },
+    {
+      "key": "Boreal|two|60|Nogal Valentina",
+      "reference": "13417",
+      "unit": 486
+    },
+    {
+      "key": "Boreal|two|79|Nogal Valentina",
+      "reference": "13418",
+      "unit": 493.2
+    },
+    {
+      "key": "Boreal|two|120|Nogal Valentina",
+      "reference": "13419",
+      "unit": 924
+    },
+    {
+      "key": "Boreal|two|60|Biscuit",
+      "reference": "13421",
+      "unit": 486
+    },
+    {
+      "key": "Boreal|two|79|Biscuit",
+      "reference": "13422",
+      "unit": 493.2
+    },
+    {
+      "key": "Boreal|two|120|Biscuit",
+      "reference": "13423",
+      "unit": 924
+    },
+    {
+      "key": "Boreal|two|60|Blanco mate",
+      "reference": "13425",
+      "unit": 486
+    },
+    {
+      "key": "Boreal|two|79|Blanco mate",
+      "reference": "13426",
+      "unit": 493.2
+    },
+    {
+      "key": "Boreal|two|120|Blanco mate",
+      "reference": "13427",
+      "unit": 924
+    },
+    {
+      "key": "Boreal|two|60|Serenade Alba",
+      "reference": "13429",
+      "unit": 486
+    },
+    {
+      "key": "Boreal|two|79|Serenade Alba",
+      "reference": "13430",
+      "unit": 493.2
+    },
+    {
+      "key": "Boreal|two|120|Serenade Alba",
+      "reference": "13431",
+      "unit": 924
+    },
+    {
+      "key": "Boreal|two|60|Azul Acero",
+      "reference": "13433",
+      "unit": 486
+    },
+    {
+      "key": "Boreal|two|79|Azul Acero",
+      "reference": "13434",
+      "unit": 493.2
+    },
+    {
+      "key": "Boreal|two|120|Azul Acero",
+      "reference": "13435",
+      "unit": 924
+    },
+    {
+      "key": "Boreal|column||Nogal Valentina",
+      "reference": "13420",
+      "unit": 517.2
+    },
+    {
+      "key": "Boreal|column||Biscuit",
+      "reference": "13424",
+      "unit": 517.2
+    },
+    {
+      "key": "Boreal|column||Blanco mate",
+      "reference": "13428",
+      "unit": 517.2
+    },
+    {
+      "key": "Boreal|column||Serenade Alba",
+      "reference": "13432",
+      "unit": 517.2
+    },
+    {
+      "key": "Boreal|column||Azul Acero",
+      "reference": "13436",
+      "unit": 517.2
+    },
+    {
+      "key": "Brunei|two|60|Blanco mate",
+      "reference": "13437",
+      "unit": 516
+    },
+    {
+      "key": "Brunei|two|70|Blanco mate",
+      "reference": "13438",
+      "unit": 525.6
+    },
+    {
+      "key": "Brunei|two|80|Blanco mate",
+      "reference": "13439",
+      "unit": 536.4
+    },
+    {
+      "key": "Brunei|two|90|Blanco mate",
+      "reference": "13440",
+      "unit": 558
+    },
+    {
+      "key": "Brunei|two|100|Blanco mate",
+      "reference": "13441",
+      "unit": 573.6
+    },
+    {
+      "key": "Brunei|two|120|Blanco mate",
+      "reference": "13442",
+      "unit": 988.8
+    },
+    {
+      "key": "Brunei|two|60|Negro",
+      "reference": "13443",
+      "unit": 516
+    },
+    {
+      "key": "Brunei|two|70|Negro",
+      "reference": "13444",
+      "unit": 525.6
+    },
+    {
+      "key": "Brunei|two|80|Negro",
+      "reference": "13445",
+      "unit": 536.4
+    },
+    {
+      "key": "Brunei|two|90|Negro",
+      "reference": "13446",
+      "unit": 558
+    },
+    {
+      "key": "Brunei|two|100|Negro",
+      "reference": "13447",
+      "unit": 573.6
+    },
+    {
+      "key": "Brunei|two|120|Negro",
+      "reference": "13448",
+      "unit": 988.8
+    },
+    {
+      "key": "Brunei|two|60|Gris",
+      "reference": "13449",
+      "unit": 516
+    },
+    {
+      "key": "Brunei|two|70|Gris",
+      "reference": "13450",
+      "unit": 525.6
+    },
+    {
+      "key": "Brunei|two|80|Gris",
+      "reference": "13451",
+      "unit": 536.4
+    },
+    {
+      "key": "Brunei|two|90|Gris",
+      "reference": "13452",
+      "unit": 558
+    },
+    {
+      "key": "Brunei|two|100|Gris",
+      "reference": "13453",
+      "unit": 573.6
+    },
+    {
+      "key": "Brunei|two|120|Gris",
+      "reference": "13454",
+      "unit": 988.8
+    },
+    {
+      "key": "Brunei|two|60|Serenade Alba",
+      "reference": "13455",
+      "unit": 516
+    },
+    {
+      "key": "Brunei|two|70|Serenade Alba",
+      "reference": "13456",
+      "unit": 525.6
+    },
+    {
+      "key": "Brunei|two|80|Serenade Alba",
+      "reference": "13457",
+      "unit": 536.4
+    },
+    {
+      "key": "Brunei|two|90|Serenade Alba",
+      "reference": "13458",
+      "unit": 558
+    },
+    {
+      "key": "Brunei|two|100|Serenade Alba",
+      "reference": "13459",
+      "unit": 573.6
+    },
+    {
+      "key": "Brunei|two|120|Serenade Alba",
+      "reference": "13460",
+      "unit": 988.8
+    },
+    {
+      "key": "Amat|two|A|Biscuit",
+      "reference": "13947",
+      "unit": 739.2
+    },
+    {
+      "key": "Amat|two|B|Biscuit",
+      "reference": "13979",
+      "unit": 764.4
+    },
+    {
+      "key": "Amat|two|C|Biscuit",
+      "reference": "13982",
+      "unit": 786
+    },
+    {
+      "key": "Amat|two|D|Biscuit",
+      "reference": "13985",
+      "unit": 826.8
+    },
+    {
+      "key": "Amat|two|A|Fresno Lagom",
+      "reference": "13977",
+      "unit": 739.2
+    },
+    {
+      "key": "Amat|two|B|Fresno Lagom",
+      "reference": "13980",
+      "unit": 764.4
+    },
+    {
+      "key": "Amat|two|C|Fresno Lagom",
+      "reference": "13983",
+      "unit": 786
+    },
+    {
+      "key": "Amat|two|D|Fresno Lagom",
+      "reference": "13986",
+      "unit": 826.8
+    },
+    {
+      "key": "Amat|two|A|Serenade Alba",
+      "reference": "13978",
+      "unit": 739.2
+    },
+    {
+      "key": "Amat|two|B|Serenade Alba",
+      "reference": "13981",
+      "unit": 764.4
+    },
+    {
+      "key": "Amat|two|C|Serenade Alba",
+      "reference": "13984",
+      "unit": 786
+    },
+    {
+      "key": "Amat|two|D|Serenade Alba",
+      "reference": "13987",
+      "unit": 826.8
+    },
+    {
+      "key": "Amat|two-door|E|Biscuit",
+      "reference": "14000",
+      "unit": 739.2
+    },
+    {
+      "key": "Amat|two-door|F|Biscuit",
+      "reference": "14003",
+      "unit": 764.4
+    },
+    {
+      "key": "Amat|two-door|G|Biscuit",
+      "reference": "14006",
+      "unit": 786
+    },
+    {
+      "key": "Amat|two-door|H|Biscuit",
+      "reference": "14009",
+      "unit": 826.8
+    },
+    {
+      "key": "Amat|two-door|E|Fresno Lagom",
+      "reference": "14001",
+      "unit": 739.2
+    },
+    {
+      "key": "Amat|two-door|F|Fresno Lagom",
+      "reference": "14004",
+      "unit": 764.4
+    },
+    {
+      "key": "Amat|two-door|G|Fresno Lagom",
+      "reference": "14007",
+      "unit": 786
+    },
+    {
+      "key": "Amat|two-door|H|Fresno Lagom",
+      "reference": "14010",
+      "unit": 826.8
+    },
+    {
+      "key": "Amat|two-door|E|Serenade Alba",
+      "reference": "14002",
+      "unit": 739.2
+    },
+    {
+      "key": "Amat|two-door|F|Serenade Alba",
+      "reference": "14005",
+      "unit": 764.4
+    },
+    {
+      "key": "Amat|two-door|G|Serenade Alba",
+      "reference": "14008",
+      "unit": 786
+    },
+    {
+      "key": "Amat|two-door|H|Serenade Alba",
+      "reference": "14011",
+      "unit": 826.8
+    },
+    {
+      "key": "Amat|three|I|Biscuit",
+      "reference": "13988",
+      "unit": 895.2
+    },
+    {
+      "key": "Amat|three|J|Biscuit",
+      "reference": "13991",
+      "unit": 924
+    },
+    {
+      "key": "Amat|three|K|Biscuit",
+      "reference": "13994",
+      "unit": 942
+    },
+    {
+      "key": "Amat|three|L|Biscuit",
+      "reference": "13997",
+      "unit": 982.8
+    },
+    {
+      "key": "Amat|three|I|Fresno Lagom",
+      "reference": "13989",
+      "unit": 895.2
+    },
+    {
+      "key": "Amat|three|J|Fresno Lagom",
+      "reference": "13992",
+      "unit": 924
+    },
+    {
+      "key": "Amat|three|K|Fresno Lagom",
+      "reference": "13995",
+      "unit": 942
+    },
+    {
+      "key": "Amat|three|L|Fresno Lagom",
+      "reference": "13998",
+      "unit": 982.8
+    },
+    {
+      "key": "Amat|three|I|Serenade Alba",
+      "reference": "13990",
+      "unit": 895.2
+    },
+    {
+      "key": "Amat|three|J|Serenade Alba",
+      "reference": "13993",
+      "unit": 924
+    },
+    {
+      "key": "Amat|three|K|Serenade Alba",
+      "reference": "13996",
+      "unit": 942
+    },
+    {
+      "key": "Amat|three|L|Serenade Alba",
+      "reference": "13999",
+      "unit": 982.8
+    },
+    {
+      "key": "Amat|three-door|M|Biscuit",
+      "reference": "14012",
+      "unit": 895.2
+    },
+    {
+      "key": "Amat|three-door|N|Biscuit",
+      "reference": "14015",
+      "unit": 924
+    },
+    {
+      "key": "Amat|three-door|O|Biscuit",
+      "reference": "14018",
+      "unit": 942
+    },
+    {
+      "key": "Amat|three-door|P|Biscuit",
+      "reference": "14021",
+      "unit": 982.8
+    },
+    {
+      "key": "Amat|three-door|M|Fresno Lagom",
+      "reference": "14013",
+      "unit": 895.2
+    },
+    {
+      "key": "Amat|three-door|N|Fresno Lagom",
+      "reference": "14016",
+      "unit": 924
+    },
+    {
+      "key": "Amat|three-door|O|Fresno Lagom",
+      "reference": "14019",
+      "unit": 942
+    },
+    {
+      "key": "Amat|three-door|P|Fresno Lagom",
+      "reference": "14022",
+      "unit": 982.8
+    },
+    {
+      "key": "Amat|three-door|M|Serenade Alba",
+      "reference": "14014",
+      "unit": 895.2
+    },
+    {
+      "key": "Amat|three-door|N|Serenade Alba",
+      "reference": "14017",
+      "unit": 924
+    },
+    {
+      "key": "Amat|three-door|O|Serenade Alba",
+      "reference": "14020",
+      "unit": 942
+    },
+    {
+      "key": "Amat|three-door|P|Serenade Alba",
+      "reference": "14023",
+      "unit": 982.8
+    },
+    {
+      "key": "Less|door|40|Serenade Alba / Tirador Blanco",
+      "reference": "14038",
+      "unit": 324
+    },
+    {
+      "key": "Less|door|40|Azul acero / Tirador Níquel",
+      "reference": "14039",
+      "unit": 324
+    },
+    {
+      "key": "Less|door|40|Gris Tórtora / Tirador Negro",
+      "reference": "14040",
+      "unit": 324
+    },
+    {
+      "key": "Sima|counter|60|Roble Natura",
+      "reference": "13487",
+      "unit": 313.2
+    },
+    {
+      "key": "Sima|counter|80|Roble Natura",
+      "reference": "13488",
+      "unit": 350.4
+    },
+    {
+      "key": "Sima|counter|100|Roble Natura",
+      "reference": "13489",
+      "unit": 375.6
+    },
+    {
+      "key": "Sima|counter|120|Roble Natura",
+      "reference": "13490",
+      "unit": 421.2
+    },
+    {
+      "key": "Sima|counter|60|Nogal Mist",
+      "reference": "13491",
+      "unit": 313.2
+    },
+    {
+      "key": "Sima|counter|80|Nogal Mist",
+      "reference": "13492",
+      "unit": 350.4
+    },
+    {
+      "key": "Sima|counter|100|Nogal Mist",
+      "reference": "13493",
+      "unit": 375.6
+    },
+    {
+      "key": "Sima|counter|120|Nogal Mist",
+      "reference": "13494",
+      "unit": 421.2
+    },
+    {
+      "key": "Sima|counter|60|Serenade Alba",
+      "reference": "13990",
+      "unit": 313.2
+    },
+    {
+      "key": "Sima|counter|80|Serenade Alba",
+      "reference": "13993",
+      "unit": 350.4
+    },
+    {
+      "key": "Sima|counter|100|Serenade Alba",
+      "reference": "13996",
+      "unit": 375.6
+    },
+    {
+      "key": "Sima|counter|120|Serenade Alba",
+      "reference": "13999",
+      "unit": 421.2
+    },
+    {
+      "key": "ceramic|Sella|60",
+      "reference": "2215",
+      "unit": 138
+    },
+    {
+      "key": "ceramic|Sella|70",
+      "reference": "2808",
+      "unit": 156
+    },
+    {
+      "key": "ceramic|Sella|80",
+      "reference": "2171",
+      "unit": 163.2
+    },
+    {
+      "key": "ceramic|Sella|90",
+      "reference": "13237",
+      "unit": 198
+    },
+    {
+      "key": "ceramic|Sella|100",
+      "reference": "3279",
+      "unit": 211.2
+    },
+    {
+      "key": "ceramic|Sella|120",
+      "reference": "6389",
+      "unit": 462
+    },
+    {
+      "key": "ceramic|Tampa|60",
+      "reference": "6227",
+      "unit": 146.4
+    },
+    {
+      "key": "ceramic|Tampa|70",
+      "reference": "7781",
+      "unit": 165.6
+    },
+    {
+      "key": "ceramic|Tampa|80",
+      "reference": "6228",
+      "unit": 170.4
+    },
+    {
+      "key": "ceramic|Tampa|90",
+      "reference": "7782",
+      "unit": 207.6
+    },
+    {
+      "key": "ceramic|Tampa|100",
+      "reference": "6229",
+      "unit": 230.4
+    },
+    {
+      "key": "ceramic|Tampa|120",
+      "reference": "6234",
+      "unit": 493.2
+    },
+    {
+      "key": "ceramic|Tampa|140",
+      "reference": "6236",
+      "unit": 807.6
+    },
+    {
+      "key": "ceramic-double|Sella",
+      "reference": "2809",
+      "unit": 381.6
+    },
+    {
+      "key": "ceramic-double|Tampa",
+      "reference": "6235",
+      "unit": 387.6
+    },
+    {
+      "key": "ceramic|Tampa|Luce120",
+      "reference": "6232",
+      "unit": 334.8
+    },
+    {
+      "key": "vessel|9559",
+      "reference": "9559",
+      "unit": 271.2
+    },
+    {
+      "key": "vessel|9553",
+      "reference": "9553",
+      "unit": 271.2
+    },
+    {
+      "key": "vessel|9556",
+      "reference": "9556",
+      "unit": 271.2
+    },
+    {
+      "key": "vessel|9555",
+      "reference": "9555",
+      "unit": 271.2
+    },
+    {
+      "key": "vessel|9552",
+      "reference": "9552",
+      "unit": 271.2
+    },
+    {
+      "key": "vessel|9554",
+      "reference": "9554",
+      "unit": 271.2
+    },
+    {
+      "key": "vessel|10444",
+      "reference": "10444",
+      "unit": 271.2
+    },
+    {
+      "key": "vessel|9558",
+      "reference": "9558",
+      "unit": 271.2
+    },
+    {
+      "key": "vessel|9557",
+      "reference": "9557",
+      "unit": 271.2
+    },
+    {
+      "key": "vessel|9567",
+      "reference": "9567",
+      "unit": 271.2
+    },
+    {
+      "key": "vessel|9561",
+      "reference": "9561",
+      "unit": 271.2
+    },
+    {
+      "key": "vessel|9564",
+      "reference": "9564",
+      "unit": 271.2
+    },
+    {
+      "key": "vessel|9563",
+      "reference": "9563",
+      "unit": 271.2
+    },
+    {
+      "key": "vessel|9560",
+      "reference": "9560",
+      "unit": 271.2
+    },
+    {
+      "key": "vessel|9562",
+      "reference": "9562",
+      "unit": 271.2
+    },
+    {
+      "key": "vessel|11371",
+      "reference": "11371",
+      "unit": 271.2
+    },
+    {
+      "key": "vessel|9566",
+      "reference": "9566",
+      "unit": 271.2
+    },
+    {
+      "key": "vessel|9565",
+      "reference": "9565",
+      "unit": 271.2
+    },
+    {
+      "key": "top|13253",
+      "reference": "13253",
+      "unit": 79.2
+    },
+    {
+      "key": "top|13335",
+      "reference": "13335",
+      "unit": 88.8
+    },
+    {
+      "key": "top|13245",
+      "reference": "13245",
+      "unit": 99.6
+    },
+    {
+      "key": "top|13336",
+      "reference": "13336",
+      "unit": 110.4
+    },
+    {
+      "key": "top|13337",
+      "reference": "13337",
+      "unit": 120
+    },
+    {
+      "key": "top|13094",
+      "reference": "13094",
+      "unit": 141.6
+    },
+    {
+      "key": "top|13092",
+      "reference": "13092",
+      "unit": 79.2
+    },
+    {
+      "key": "top|13302",
+      "reference": "13302",
+      "unit": 88.8
+    },
+    {
+      "key": "top|10441",
+      "reference": "10441",
+      "unit": 99.6
+    },
+    {
+      "key": "top|13303",
+      "reference": "13303",
+      "unit": 110.4
+    },
+    {
+      "key": "top|13304",
+      "reference": "13304",
+      "unit": 120
+    },
+    {
+      "key": "top|10443",
+      "reference": "10443",
+      "unit": 141.6
+    },
+    {
+      "key": "top|13323",
+      "reference": "13323",
+      "unit": 79.2
+    },
+    {
+      "key": "top|13324",
+      "reference": "13324",
+      "unit": 88.8
+    },
+    {
+      "key": "top|13325",
+      "reference": "13325",
+      "unit": 99.6
+    },
+    {
+      "key": "top|13326",
+      "reference": "13326",
+      "unit": 110.4
+    },
+    {
+      "key": "top|13327",
+      "reference": "13327",
+      "unit": 120
+    },
+    {
+      "key": "top|13328",
+      "reference": "13328",
+      "unit": 141.6
+    },
+    {
+      "key": "top|13251",
+      "reference": "13251",
+      "unit": 79.2
+    },
+    {
+      "key": "top|13305",
+      "reference": "13305",
+      "unit": 88.8
+    },
+    {
+      "key": "top|13103",
+      "reference": "13103",
+      "unit": 99.6
+    },
+    {
+      "key": "top|13306",
+      "reference": "13306",
+      "unit": 110.4
+    },
+    {
+      "key": "top|13307",
+      "reference": "13307",
+      "unit": 120
+    },
+    {
+      "key": "top|13105",
+      "reference": "13105",
+      "unit": 141.6
+    },
+    {
+      "key": "top|13317",
+      "reference": "13317",
+      "unit": 79.2
+    },
+    {
+      "key": "top|13318",
+      "reference": "13318",
+      "unit": 88.8
+    },
+    {
+      "key": "top|13319",
+      "reference": "13319",
+      "unit": 99.6
+    },
+    {
+      "key": "top|13320",
+      "reference": "13320",
+      "unit": 110.4
+    },
+    {
+      "key": "top|13321",
+      "reference": "13321",
+      "unit": 120
+    },
+    {
+      "key": "top|13322",
+      "reference": "13322",
+      "unit": 141.6
+    },
+    {
+      "key": "top|13252",
+      "reference": "13252",
+      "unit": 79.2
+    },
+    {
+      "key": "top|13308",
+      "reference": "13308",
+      "unit": 88.8
+    },
+    {
+      "key": "top|13104",
+      "reference": "13104",
+      "unit": 99.6
+    },
+    {
+      "key": "top|13309",
+      "reference": "13309",
+      "unit": 110.4
+    },
+    {
+      "key": "top|13310",
+      "reference": "13310",
+      "unit": 120
+    },
+    {
+      "key": "top|13106",
+      "reference": "13106",
+      "unit": 141.6
+    },
+    {
+      "key": "top|13311",
+      "reference": "13311",
+      "unit": 79.2
+    },
+    {
+      "key": "top|13312",
+      "reference": "13312",
+      "unit": 88.8
+    },
+    {
+      "key": "top|13313",
+      "reference": "13313",
+      "unit": 99.6
+    },
+    {
+      "key": "top|13314",
+      "reference": "13314",
+      "unit": 110.4
+    },
+    {
+      "key": "top|13315",
+      "reference": "13315",
+      "unit": 120
+    },
+    {
+      "key": "top|13316",
+      "reference": "13316",
+      "unit": 141.6
+    },
+    {
+      "key": "mirror|10129",
+      "reference": "10129",
+      "unit": 70.8
+    },
+    {
+      "key": "mirror|10130",
+      "reference": "10130",
+      "unit": 93.6
+    },
+    {
+      "key": "mirror|11054",
+      "reference": "11054",
+      "unit": 85.2
+    },
+    {
+      "key": "mirror|12449",
+      "reference": "12449",
+      "unit": 66
+    },
+    {
+      "key": "mirror|11523",
+      "reference": "11523",
+      "unit": 315.6
+    },
+    {
+      "key": "mirror|11533",
+      "reference": "11533",
+      "unit": 246
+    },
+    {
+      "key": "mirror|11713",
+      "reference": "11713",
+      "unit": 220.8
+    },
+    {
+      "key": "mirror|11714",
+      "reference": "11714",
+      "unit": 274.8
+    },
+    {
+      "key": "mirror|12743",
+      "reference": "12743",
+      "unit": 466.8
+    },
+    {
+      "key": "mirror|12744",
+      "reference": "12744",
+      "unit": 520.8
+    },
+    {
+      "key": "mirror|12745",
+      "reference": "12745",
+      "unit": 577.2
+    },
+    {
+      "key": "mirror|12746",
+      "reference": "12746",
+      "unit": 639.6
+    },
+    {
+      "key": "mirror|12741",
+      "reference": "12741",
+      "unit": 416.4
+    },
+    {
+      "key": "mirror|3727",
+      "reference": "3727",
+      "unit": 258
+    },
+    {
+      "key": "mirror|3728",
+      "reference": "3728",
+      "unit": 258
+    },
+    {
+      "key": "mirror|3730",
+      "reference": "3730",
+      "unit": 258
+    },
+    {
+      "key": "mirror|3731",
+      "reference": "3731",
+      "unit": 258
+    },
+    {
+      "key": "mirror|10572",
+      "reference": "10572",
+      "unit": 408
+    },
+    {
+      "key": "mirror|10574",
+      "reference": "10574",
+      "unit": 408
+    },
+    {
+      "key": "mirror|10575",
+      "reference": "10575",
+      "unit": 408
+    },
+    {
+      "key": "mirror|10577",
+      "reference": "10577",
+      "unit": 408
+    },
+    {
+      "key": "mirror|3717",
+      "reference": "3717",
+      "unit": 194.4
+    },
+    {
+      "key": "mirror|3722",
+      "reference": "3722",
+      "unit": 194.4
+    },
+    {
+      "key": "mirror|3723",
+      "reference": "3723",
+      "unit": 194.4
+    },
+    {
+      "key": "mirror|3725",
+      "reference": "3725",
+      "unit": 194.4
+    }
+  ]
+}
