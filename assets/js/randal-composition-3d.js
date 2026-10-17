@@ -1,6 +1,6 @@
 /* Moteur Catalogue général. État commercial détenu par RandalWorkspace, géométrie dans RandalGeometry. */
 (()=>{'use strict';
-let T,renderer,surfaceRenderer,metricRoom,scene,camera,area,overlay,observer,geometry,envTarget,selection=null,items=[],nodes=new Map(),motions=[],raf=0,animation=0,closed=false;
+let T,renderer,surfaceRenderer,metricRoom,mirrorRenderer,scene,camera,area,overlay,observer,geometry,envTarget,selection=null,items=[],nodes=new Map(),motions=[],raf=0,animation=0,closed=false;
 let yaw=.38,pitch=.17,distance=3,target,dimensions=false,invert=false,onSelect=()=>{},onMove=()=>{},room={floor:'elios-creta-ginepro',wall:'ivory',orientation:'horizontal'},ready=Promise.resolve(),captureViewport=null;
 const cache=new Map(),textures=new Set(),pending=new Set(),clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
 const WALLS={cream:['Crème doux','#eee4d5'],ivory:['Ivoire','#f4f0e8'],chalk:['Blanc craie','#f5f5f0'],greige:['Greige','#c9c5ba'],linen:['Lin naturel','#d8c9b4'],sand:['Sable','#ddc4a7'],sage:['Vert sauge','#aebdac'],stone:['Pierre claire','#c2b9ad'],blue:['Bleu poudré','#b6c7cb'],terracotta:['Terre cuite','#c9907a'],graphite:['Graphite','#6a6a66']};
@@ -11,7 +11,7 @@ function texture(canvas){const t=new T.CanvasTexture(canvas);t.colorSpace=T.SRGB
 function finish(url){const k='finish:'+url;if(cache.has(k))return cache.get(k);const p=track(image(url).then(im=>{if(!im||closed)return null;const size=Math.floor(Math.min(im.naturalWidth,im.naturalHeight)*.58),c=document.createElement('canvas');c.width=c.height=size;c.getContext('2d').drawImage(im,(im.width-size)/2,(im.height-size)/2,size,size,0,0,size,size);return texture(c)}));cache.set(k,p);return p;}
 function mat(color,roughness=.8){return new T.MeshStandardMaterial({color,roughness,metalness:0})}
 function box(w,h,d,x,y,z,material){const mesh=new T.Mesh(new T.BoxGeometry(w,h,d),material);mesh.position.set(x,y,z);mesh.receiveShadow=true;mesh.castShadow=true;scene.add(mesh);return mesh}
-function render(){raf=0;if(closed||!renderer)return;camera.updateMatrixWorld();metricRoom?.tick(camera);renderer.render(scene,camera);cotes()}
+function render(){raf=0;if(closed||!renderer)return;camera.updateMatrixWorld();metricRoom?.tick(camera);if(mirrorRenderer){const wall=scene.getObjectByName('catalogue-wall');mirrorRenderer.setRoom(metricRoom.size,wall,metricRoom.back);}renderer.render(scene,camera);cotes();if(mirrorRenderer?.tick(.05))invalidate()}
 function invalidate(){if(!raf&&!closed)raf=requestAnimationFrame(render)}
 function cameraMove(){camera.position.set(target.x+Math.sin(yaw)*Math.cos(pitch)*distance,target.y+Math.sin(pitch)*distance,target.z+Math.cos(yaw)*Math.cos(pitch)*distance);camera.lookAt(target);invalidate()}
 function bounds(){const b=new T.Box3();for(const n of nodes.values())b.expandByObject(n.root);return b.isEmpty()?new T.Box3(new T.Vector3(-.4,.3,-.5),new T.Vector3(.4,1.7,0)):b;}
@@ -44,7 +44,7 @@ async function legacySurface(material,id,isWall=false){
  const t=await promise;if(closed||material.userData.ticket!==token)return;
  material.map=t;material.color.set(t?'#ffffff':'#c6b9a3');material.roughness=.84;material.needsUpdate=true;invalidate();
 }
-function free(objects,keepTextures=true){const gs=new Set(),ms=new Set();for(const o of objects)o.traverse(n=>{if(n.geometry)gs.add(n.geometry);for(const m of [].concat(n.material||[]))ms.add(m)});gs.forEach(g=>g.dispose());ms.forEach(m=>{if(!keepTextures)for(const v of Object.values(m))if(v?.isTexture)v.dispose();m.dispose()})}
+function free(objects,keepTextures=true){const gs=new Set(),ms=new Set();for(const o of objects)o.traverse(n=>{if(n.isReflector){n.dispose();return;}if(n.geometry)gs.add(n.geometry);for(const m of [].concat(n.material||[]))ms.add(m)});gs.forEach(g=>g.dispose());ms.forEach(m=>{if(!keepTextures)for(const v of Object.values(m))if(v?.isTexture)v.dispose();m.dispose()})}
 function buildRoom(){
  scene=new T.Scene();scene.background=new T.Color('#e3dfd7');scene.add(new T.AmbientLight(0xffffff,.7));
  const light=new T.DirectionalLight(0xffffff,.35);light.position.set(-3,5,5);light.castShadow=true;const res=innerWidth<700?1024:2048;light.shadow.mapSize.set(res,res);Object.assign(light.shadow.camera,{left:-4,right:4,top:4,bottom:-3});light.shadow.normalBias=.003;light.shadow.bias=-.00012;scene.add(light);
@@ -56,7 +56,9 @@ function buildRoom(){
  // Reflection environment uses the actual room surfaces.
  envTarget=new T.WebGLCubeRenderTarget(innerWidth<700?128:256,{type:T.HalfFloatType});const cube=new T.CubeCamera(.1,15,envTarget);cube.position.set(0,1.4,-.4);cube.update(renderer,scene);
  surfaceRenderer=new window.RandalSurfaceRenderer(T,renderer,invalidate);
- geometry=window.RandalGeometry(T,{environment:envTarget.texture,finish,invalidate,disposed:()=>closed});
+ mirrorRenderer=new window.RandalMirrorRenderer(T,renderer,scene,invalidate);
+ mirrorRenderer.setRoom(metricRoom.size,wall,metricRoom.back);
+ geometry=window.RandalGeometry(T,{environment:envTarget.texture,finish,invalidate,disposed:()=>closed,mirrorRenderer});
  ready=Promise.all([surface(floor.material,room.floor),surface(wall.material,room.wall,true)]);
 }
 function update(next,selected,options={}){
@@ -142,8 +144,8 @@ async function captureViews(){
  return result;
 }
 async function capture(){await settled();renderer.render(scene,camera);return renderer.domElement.toDataURL('image/png')}
-function setRoom(value){const previous=JSON.stringify(window.RandalRoomSize(room.dimensions));room={...value};if(metricRoom&&previous!==JSON.stringify(window.RandalRoomSize(room.dimensions))){metricRoom.update(room.dimensions);fit();}const floor=scene?.getObjectByName('catalogue-floor'),wall=scene?.getObjectByName('catalogue-wall');if(floor&&wall)ready=Promise.all([surface(floor.material,room.floor),surface(wall.material,room.wall,true)]);return {...room}}
-function dispose(){surfaceRenderer?.dispose();closed=true;cancelAnimationFrame(raf);cancelAnimationFrame(animation);raf=0;observer?.disconnect();if(scene)free([scene]);textures.forEach(t=>t.dispose());textures.clear();cache.clear();pending.clear();envTarget?.dispose();renderer?.dispose();renderer?.forceContextLoss();renderer=null;scene=null;nodes.clear();motions=[];items=[];}
+function setRoom(value){const previous=JSON.stringify(window.RandalRoomSize(room.dimensions));room={...value};if(metricRoom&&previous!==JSON.stringify(window.RandalRoomSize(room.dimensions))){metricRoom.update(room.dimensions);mirrorRenderer?.setRoom(metricRoom.size,scene.getObjectByName('catalogue-wall'),metricRoom.back);fit();}const floor=scene?.getObjectByName('catalogue-floor'),wall=scene?.getObjectByName('catalogue-wall');if(floor&&wall)ready=Promise.all([surface(floor.material,room.floor),surface(wall.material,room.wall,true)]);return {...room}}
+function dispose(){closed=true;surfaceRenderer?.dispose();cancelAnimationFrame(raf);cancelAnimationFrame(animation);raf=0;observer?.disconnect();if(scene)free([scene]);mirrorRenderer?.dispose();mirrorRenderer=null;textures.forEach(t=>t.dispose());textures.clear();cache.clear();pending.clear();envTarget?.dispose();renderer?.dispose();renderer?.forceContextLoss();renderer=null;scene=null;nodes.clear();motions=[];items=[];}
 function setRoomDimensions(v){metricRoom?.toggle(v);if(v){camera.fov=65;camera.updateProjectionMatrix();target.set(0,metricRoom.size.height/2,metricRoom.back+metricRoom.size.depth*.4);distance=Math.max(3.2,metricRoom.size.width/(2*Math.tan(65*Math.PI/360)*camera.aspect)*1.12);yaw=.25;pitch=.25;cameraMove();}else{camera.fov=38;camera.updateProjectionMatrix();fit();}}
 const api={setRoomDimensions,mount,update,view,fit,toggleOpen,setRoom,capture,captureViews,dispose,SURFACES,WALLS,setDimensions(v){dimensions=!!v;invalidate()},setReverse(v){invert=!!v},screenPoint(id){const node=nodes.get(id.split(':')[0]);if(!node||!camera)return null;node.root.updateMatrixWorld(true);let p;if(id.includes(':mirror:')){const mg=node.mirrorNodes.get(id.split(':mirror:')[1]);if(!mg)return null;p=new T.Box3().setFromObject(mg).getCenter(new T.Vector3())}else{p=new T.Vector3(0,node.h*.55,node.d*.55);node.root.localToWorld(p)}p.project(camera);const r=area.getBoundingClientRect();return{x:r.x+(p.x+1)*r.width/2,y:r.y+(1-p.y)*r.height/2}},getDiagnostics(){return{metricRoom:metricRoom?.diagnostics(),colorPipeline:{toneMapping:renderer?.toneMapping,output:renderer?.outputColorSpace},surfaces:surfaceRenderer?.diagnostics(),items:items.map(i=>({id:i.id,position:i.position,dimensions:[Number(i.config.width),Number(i.config.height),Number(i.config.depth)]})),selected:selection,dimensions,yaw,pitch,distance,motions:motions.map(m=>({id:m.id,kind:m.kind,value:m.kind==='door'?m.object.rotation.y:m.object.position.z})),textures:textures.size,pixelRatio:renderer?.getPixelRatio(),surfaceMetrics:['catalogue-floor','catalogue-wall'].map(name=>{const mesh=scene?.getObjectByName(name),map=mesh?.material.map;return {name,worldSize:[mesh?.geometry.parameters.width,mesh?.geometry.parameters.height],repeat:map?[map.repeat.x,map.repeat.y]:null,rotation:map?.rotation||0}}),tileSources:SURFACES.map(s=>({id:s.id,path:s.path,fallback:s.fallback||null,width:s.width,height:s.height})),drawCalls:renderer?.info.render.calls,room:{...room}}},open(config){window.RandalWorkspace?.addDraft(config)},close(){window.RandalWorkspace?.close()}};
 window.RandalComposition3D=api;
