@@ -136,10 +136,15 @@ footer{text-align:center;color:#8c8b85;font-size:.79rem;margin:25px 0;padding:10
 .studio-recap-tag{border:1px solid #d8d2c5;padding:7px 9px;border-radius:7px;font-size:.7rem;color:#5f5c54;white-space:nowrap}
 .studio-recap-metadata{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px 20px;padding:17px 22px;font-size:.86rem;color:#515a53}
 .studio-recap-metadata span{min-width:0;overflow-wrap:anywhere}
-.studio-recap-grid-head,.studio-recap-line{display:grid;grid-template-columns:minmax(0,1fr) 40px 92px 102px;gap:12px;align-items:center}
+.studio-recap-grid-head,.studio-recap-line{display:grid;grid-template-columns:minmax(0,1fr) 172px 40px 92px 102px;gap:12px;align-items:center}
 .studio-recap-grid-head{background:#e8ede8;padding:11px 22px;font-size:.74rem;font-weight:850;color:#46534b}
 .studio-recap-line{padding:15px 22px;border-bottom:1px solid #eeede9;font-size:.82rem}
 .studio-recap-product{min-width:0;overflow-wrap:anywhere}
+.studio-recap-art{width:100%;max-width:172px;justify-self:center;align-self:center}
+.studio-technical-figure{margin:0;max-width:100%;padding:3px;border-radius:8px;background:transparent}
+.studio-technical-figure svg{display:block;width:100%;height:auto;max-height:158px}
+.studio-technical-figure figcaption{font:600 9px/1.35 system-ui,sans-serif;color:#77847c;text-align:center}
+.studio-recap-line .studio-recap-art svg{max-height:126px}
 .studio-recap-product strong{display:block;margin-bottom:4px;color:#303832}
 .studio-recap-product small{display:block;font-size:.74rem;color:#72756e;line-height:1.42;margin:3px 0}
 .studio-recap-product .studio-recap-ref{font-weight:800;color:#555b54}
@@ -161,10 +166,10 @@ footer{text-align:center;color:#8c8b85;font-size:.79rem;margin:25px 0;padding:10
  .studio-recap-heading{padding:16px;flex-wrap:wrap}.studio-recap-tag{white-space:normal}
  .studio-recap-metadata{padding:13px 16px;grid-template-columns:1fr;gap:6px}
  .studio-recap-grid-head{display:none}
- .studio-recap-line{padding:14px 16px;grid-template-columns:minmax(0,1fr) auto;gap:5px 10px}
- .studio-recap-product{grid-column:1/-1}.studio-recap-qty{text-align:left;font-size:.79rem}
+ .studio-recap-line{padding:14px 16px;grid-template-columns:minmax(0,1fr) 126px;gap:8px 10px}
+ .studio-recap-product{grid-column:1;align-self:center}.studio-recap-art{grid-column:2;grid-row:1 / span 2}.studio-recap-qty{text-align:left;font-size:.79rem;grid-column:1}
  .studio-recap-qty:before{content:'Qté : ';color:#777}
- .studio-recap-line .studio-recap-money.unit{display:none}
+ .studio-recap-line .studio-recap-money.unit{display:none}.studio-recap-line>.studio-recap-money:last-child{grid-column:1;justify-self:start}
  .studio-recap-total{padding:15px 16px}.studio-recap-total strong{font-size:1.15rem}
  .studio-recap-tools .btn{font-size:.88rem;min-height:52px}
 }
@@ -225,7 +230,7 @@ footer{text-align:center;color:#8c8b85;font-size:.79rem;margin:25px 0;padding:10
 <script src="assets/js/pro-session-bridge.js?v=20260818b"></script>
 <script src="assets/js/randal-mail-chooser.js?v=20261016-choose-gmail-v1"></script>
 <script src="assets/js/studio-one/catalog.js?v=20261016-pro1"></script>
-<script src="assets/js/studio-one/model.js?v=20261016-pro1"></script>
+<script src="assets/js/studio-one/model.js?v=studio-walls-20261017"></script><script src="assets/js/studio-one/technical.js?v=studio-recap-20261017"></script>
 <script>
 (function(){
 'use strict';
@@ -450,8 +455,9 @@ function refreshPrivatePricing(){
 function studioOrderSheet(){
  var m=data(),co=color(),rows=studioOrderRows();
  var lines=rows.map(function(row){
+  var art=window.StudioOneTechnical?.fromOrder(row,studioProject,st)||'';
   return '<div class="studio-recap-line"><div class="studio-recap-product"><strong>'+esc(row.title)+'</strong><small>'+esc(row.detail)+'</small>'+
-  '<small class="studio-recap-ref">Réf. '+esc(row.ref)+'</small></div>'+
+  '<small class="studio-recap-ref">Réf. '+esc(row.ref)+'</small></div><div class="studio-recap-art">'+art+'</div>'+
   '<span class="studio-recap-qty">'+row.qty+'</span><span class="studio-recap-money unit">'+euros(row.unit)+'</span>'+
   '<strong class="studio-recap-money">'+euros(row.qty*row.unit)+'</strong></div>';
  }).join('');
@@ -463,7 +469,7 @@ function studioOrderSheet(){
  '<div class="studio-recap-tag">Catalogue STUDIO ONE</div></div>'+
  '<div id="studio-private-pricing" class="studio-private-pricing" hidden></div>'+ 
  '<div class="studio-recap-metadata">'+(studioProject?['Composition de '+studioProject.items.length+' éléments indépendants · dimensions exactes ci-dessous']:facts).map(function(x){return '<span>'+esc(x)+'</span>'}).join('')+'</div>'+
- '<div class="studio-recap-grid-head"><span>Produit / Référence</span><span>Qté</span><span>Prix unit.</span><span>Total</span></div>'+
+ '<div class="studio-recap-grid-head"><span>Produit / Référence</span><span>Visuel &amp; cotes</span><span>Qté</span><span>Prix unit.</span><span>Total</span></div>'+
  '<div class="studio-recap-lines">'+lines+'</div>'+
  '<div class="studio-recap-total"><span>TOTAL GÉNÉRAL</span><strong>'+euros(total())+'</strong></div>'+
  '<p class="studio-recap-legal">Prix indicatifs hors transport et pose, sous réserve de confirmation des références et disponibilités. Ce document ne constitue pas une commande ferme.</p></div>';
@@ -501,6 +507,26 @@ function studioPdfImage(path){
  });
 }
 
+async function studioPdfTechnical(row){
+ try{
+  var html=window.StudioOneTechnical?.fromOrder(row,studioProject,st);
+  if(!html)return null;
+  var node=document.createElement('div');node.innerHTML=html;
+  var svg=node.querySelector('svg');if(!svg)return null;
+  var url=URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(svg)],{type:'image/svg+xml;charset=utf-8'}));
+  return await new Promise(function(resolve){
+   var img=new Image();
+   img.onload=function(){
+    try{var cv=document.createElement('canvas');cv.width=660;cv.height=498;
+     cv.getContext('2d').drawImage(img,0,0,cv.width,cv.height);
+     resolve(cv.toDataURL('image/png'));}
+    catch(e){resolve(null)}finally{URL.revokeObjectURL(url)}
+   };
+   img.onerror=function(){URL.revokeObjectURL(url);resolve(null)};
+   img.src=url;
+  });
+ }catch(e){return null}
+}
 async function downloadStudioPdf(){
  var button=document.getElementById('save-pdf'),oldLabel=button?button.textContent:'';
  var filename='RANDAL-STUDIO-ONE-'+st.width+'cm-'+(color()?.code||'meuble')+'.pdf';
@@ -540,21 +566,24 @@ async function downloadStudioPdf(){
   }else if(!studioProject)drawText('Sans vasque',140,96,'normal',8);
   pdf.setFillColor(232,237,232);pdf.rect(14,120,182,10,'F');
   drawText('ARTICLE / REFERENCE',18,127,'bold',8,[68,81,70]);
-  drawText('QTE',126,127,'bold',8,[68,81,70]);
-  drawText('UNIT.',147,127,'bold',8,[68,81,70]);
-  drawText('TOTAL',174,127,'bold',8,[68,81,70]);
+  drawText('VISUEL ET COTES',101,127,'bold',7,[68,81,70]);
+  drawText('QTE',142,127,'bold',8,[68,81,70]);
+  drawText('UNIT.',155,127,'bold',8,[68,81,70]);
+  drawText('TOTAL',177,127,'bold',8,[68,81,70]);
   var y=137;
-  rows.forEach(function(row){
-   if(y>250){pdf.addPage();y=25;drawText('STUDIO ONE - suite de la composition',15,15,'bold',11);}
-   pdf.setDrawColor(226,228,222);pdf.line(14,y+15,196,y+15);
-   drawText(pdf.splitTextToSize(String(row.title),85)[0],18,y,'bold',8);
-   drawText('Ref. '+row.ref,18,y+6,'normal',8,[108,113,106]);
-   drawText(pdf.splitTextToSize(row.detail,88)[0],18,y+11,'normal',6,[108,113,106]);
-   drawText(String(row.qty),128,y+2,'normal',9);
-   drawText(euros(row.unit).replace(/\s/g,' '),145,y+2,'normal',8);
-   drawText(euros(row.unit*row.qty).replace(/\s/g,' '),174,y+2,'bold',8);
-   y+=25;
-  });
+  for(const row of rows){
+   if(y>243){pdf.addPage();y=28;drawText('STUDIO ONE - suite de la composition',15,16,'bold',11);}
+   pdf.setDrawColor(226,228,222);pdf.line(14,y+31,196,y+31);
+   drawText(pdf.splitTextToSize(String(row.title),75)[0],18,y+2,'bold',8);
+   drawText(pdf.splitTextToSize('Ref. '+row.ref,76)[0],18,y+9,'normal',8,[108,113,106]);
+   drawText(pdf.splitTextToSize(row.detail,75)[0],18,y+15,'normal',7,[108,113,106]);
+   var art=await studioPdfTechnical(row);
+   if(art)pdf.addImage(art,'PNG',95,y-5,42,33);
+   drawText(String(row.qty),143,y+7,'normal',8);
+   drawText(euros(row.unit).replace(/\s/g,' '),155,y+7,'normal',7);
+   drawText(euros(row.unit*row.qty).replace(/\s/g,' '),175,y+7,'bold',8);
+   y+=37;
+  }
   if(y>240){pdf.addPage();y=25;}
   y+=3;pdf.setFillColor(239,244,238);pdf.roundedRect(14,y,182,18,2,2,'F');
   drawText('TOTAL GENERAL',20,y+11,'bold',11,[49,79,57]);

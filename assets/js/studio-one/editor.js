@@ -56,7 +56,7 @@
     $('duplicate').onclick=()=>{store.duplicate(item.id);applyAll=false;view?.fit();};$('delete').onclick=()=>{store.remove(item.id);applyAll=false;view?.fit();};if($('toggle-selected'))$('toggle-selected').onclick=()=>update({open:!item.open});
   }
   function renderQuote(){
-    $('quote-list').innerHTML=store.project.items.map(item=>{const rows=M.lines(item),main=rows[0];return `<article class="item-card ${store.selectedId===item.id?'selected':''}" data-item-id="${esc(item.id)}"><h3><button data-select="${esc(item.id)}">${esc(main.title)}</button></h3><p>${esc(main.detail)}</p><p>Réf. ${esc(main.ref)} · Qté 1</p>${rows.slice(1).map(r=>`<p>${esc(r.title)} · ${esc(r.detail)}<br>Réf. ${esc(r.ref)} · ${euros(r.unit)}</p>`).join('')}<p class="item-price">${euros(rows.reduce((s,r)=>s+r.unit,0))}</p><p>${esc(main.basis)}</p><div class="item-actions"><button data-edit="${item.id}">Modifier</button><button data-duplicate="${item.id}">Dupliquer</button><button data-delete="${item.id}">Supprimer</button></div></article>`;}).join('')||'<p class="empty">Votre composition est vide.</p>';
+     $('quote-list').innerHTML=store.project.items.map(item=>{const rows=M.lines(item),main=rows[0],art=window.StudioOneTechnical?.drawing(item)||'';return `<article class="item-card ${store.selectedId===item.id?'selected':''}" data-item-id="${esc(item.id)}"><div class="studio-quote-item-layout"><div class="studio-quote-item-description"><h3><button data-select="${esc(item.id)}">${esc(main.title)}</button></h3><p>${esc(main.detail)}</p><p>Réf. ${esc(main.ref)} · Qté 1</p>${rows.slice(1).map(r=>`<p>${esc(r.title)} · ${esc(r.detail)}<br>Réf. ${esc(r.ref)} · ${euros(r.unit)}</p>`).join('')}<p class="item-price">${euros(rows.reduce((s,r)=>s+r.unit,0))}</p><p>${esc(main.basis)}</p></div><div class="studio-quote-item-visual">${art}</div></div><div class="item-actions"><button data-edit="${item.id}">Modifier</button><button data-duplicate="${item.id}">Dupliquer</button><button data-delete="${item.id}">Supprimer</button></div></article>`;}).join('')||'<p class="empty">Votre composition est vide.</p>';
     $('quote-total').textContent=euros(store.total());$('item-count').textContent='('+store.project.items.length+')';
     $('quote-list').querySelectorAll('[data-select],[data-edit]').forEach(b=>b.onclick=()=>{applyAll=false;store.select(b.dataset.select||b.dataset.edit);if(b.dataset.edit)panel('config');});
     $('quote-list').querySelectorAll('[data-duplicate]').forEach(b=>b.onclick=()=>{store.duplicate(b.dataset.duplicate);view?.fit();});
@@ -112,7 +112,7 @@
     projects.forEach((project,index)=>{
       const row=document.createElement('div');row.className='studio-project-row';
       const name=document.createElement('strong');name.textContent=project.client+' · '+project.name;row.append(name);
-      const open=document.createElement('button');open.textContent='Ouvrir';open.onclick=()=>{try{store.load(project.data);if(project.ambience){ambience={...defaults,...project.ambience};view?.setRoom(ambience.room);roomControls.set(ambience.room);for(const surface of ['floor','wall'])setAmbience(surface,ambience[surface]);}view?.fit();modal.remove();notice('Projet '+project.name+' ouvert.');}catch(e){notice('Ouverture impossible : '+e.message);}};row.append(open);
+      const open=document.createElement('button');open.textContent='Ouvrir';open.onclick=()=>{try{store.load(project.data,project.ambience?.room||ambience.room);if(project.ambience)ambience={...defaults,...project.ambience};ambience.room={width:store.room.width/100,depth:store.room.depth/100,height:store.room.height/100};view?.setRoom(ambience.room);roomControls.set(ambience.room);if(project.ambience)for(const surface of ['floor','wall'])setAmbience(surface,ambience[surface]);persistAmbience();view?.fit();modal.remove();notice('Projet '+project.name+' ouvert.');}catch(e){notice('Ouverture impossible : '+e.message);}};row.append(open);
       const del=document.createElement('button');del.textContent='Supprimer';del.onclick=()=>{if(!confirm('Supprimer ce projet ?'))return;const next=savedProjects();next.splice(index,1);localStorage.setItem(savedProjectsKey(),JSON.stringify(next));modal.remove();showProjects();};row.append(del);card.append(row);
     });
     const close=document.createElement('button');close.textContent='Fermer';close.onclick=()=>modal.remove();card.append(close);modal.append(card);document.body.append(modal);
@@ -129,11 +129,19 @@
     }catch(e){notice('Enregistrement local impossible : '+e.message);}
   };
   const myProjectsButton=document.createElement('button');myProjectsButton.id='my-projects';myProjectsButton.textContent='Voir mes projets';myProjectsButton.onclick=showProjects;$('save-project').before(myProjectsButton);
-  $('load-project').onclick=()=>$('project-file').click();$('project-file').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>16000000)throw Error('Fichier trop volumineux.');store.load(JSON.parse(await file.text()));view?.fit();notice('Projet ouvert.');}catch(err){notice('Impossible d’ouvrir le projet : '+err.message);}e.target.value='';};
+  $('load-project').onclick=()=>$('project-file').click();$('project-file').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>16000000)throw Error('Fichier trop volumineux.');store.load(JSON.parse(await file.text()),ambience.room);ambience.room={width:store.room.width/100,depth:store.room.depth/100,height:store.room.height/100};roomControls.set(ambience.room);view?.setRoom(ambience.room);view?.fit();notice('Projet ouvert.');}catch(err){notice('Impossible d’ouvrir le projet : '+err.message);}e.target.value='';};
   $('new-project').onclick=()=>{if(confirm('Créer une nouvelle composition ? Enregistrez votre projet pour le conserver.')){store.load({version:2,items:[M.make('cabinet')]});view?.fit();}};
   const ambienceKey='lrf-studio-one-elios-ambience-v2',defaults={floor:'creta:ginepro',wall:'creta:avena',floorOrientation:'horizontal',wallOrientation:'horizontal'};
   let ambience={...defaults};try{ambience={...ambience,...JSON.parse(sessionStorage.getItem(ambienceKey)||'{}')};}catch(e){}
-  const roomControls=window.RandalRoomControls($('config-panel'),'studio',ambience.room,value=>{ambience.room=value;view?.setRoom(value);for(const surface of ['floor','wall'])setAmbience(surface,ambience[surface]);persistAmbience();});
+  const initialRoom=window.RandalRoomSize(ambience.room);if(!store.setRoom(initialRoom,true))notice('Composition trop large : déplacez un élément.');
+   ambience.room={width:store.room.width/100,depth:store.room.depth/100,height:store.room.height/100};
+   const roomControls=window.RandalRoomControls($('config-panel'),'studio',ambience.room,value=>{
+     if(!store.setRoom(value)){notice('Pièce trop petite pour cette composition. Augmentez la largeur ou retirez un meuble.');roomControls.set(ambience.room);return;}
+     ambience.room={width:store.room.width/100,depth:store.room.depth/100,height:store.room.height/100};
+     roomControls.set(ambience.room);view?.setRoom(ambience.room);
+     for(const surface of ['floor','wall'])setAmbience(surface,ambience[surface]);
+     persistAmbience();
+   });
   const roomButton=document.createElement('button');roomButton.id='room-dimensions';roomButton.textContent='Cotes pièce';roomButton.setAttribute('aria-pressed','false');roomButton.onclick=()=>{const v=roomButton.getAttribute('aria-pressed')!=='true';roomButton.setAttribute('aria-pressed',String(v));view?.setRoomDimensions(v);};$('dimensions').after(roomButton);
   const CSurface=window.RandalSurfaceCatalogue,surfacePickers={};
   const legacyTiles=[{id:'corso:avorio',label:'Corso Avorio · 60 × 90 cm'},{id:'corso:beige',label:'Corso Beige · 60 × 90 cm'},...['Ivory','Sand','Pearl','Oxid','Carbon'].map(n=>({id:'golden-stone:'+n.toLowerCase(),label:'Golden Stone '+n+' · 60 × 120 cm'}))];
@@ -265,10 +273,10 @@
   $('request-quote').onclick=()=>window.RandalMailChooser.show({to:'juancarlos.segura@randal.group',cc:'jerome@leroyfactory.fr,coryne@leroyfactory.fr',subject:'Demande de devis RANDAL STUDIO ONE',body:requestText()});
   function close(e){e?.preventDefault();publish();if(embedded)window.parent.postMessage({type:'studio-one-close-3d'},location.origin);else location.href='randal-studio-one.html?resume=studio-one';}
   $('back').onclick=close;$('return-summary').onclick=close;
-  window.addEventListener('message',e=>{if(!embedded||e.origin!==location.origin||e.source!==window.parent||e.data?.type!=='studio-one-project-init')return;try{store.load(e.data.project);view?.fit();}catch(err){notice('Projet reçu invalide : '+err.message);}});
+  window.addEventListener('message',e=>{if(!embedded||e.origin!==location.origin||e.source!==window.parent||e.data?.type!=='studio-one-project-init')return;try{store.load(e.data.project,ambience.room);ambience.room={width:store.room.width/100,depth:store.room.depth/100,height:store.room.height/100};roomControls.set(ambience.room);view?.setRoom(ambience.room);view?.fit();}catch(err){notice('Projet reçu invalide : '+err.message);}});
   try{if(!window.THREE)throw Error('Moteur 3D indisponible. Rechargez la page.');view=new window.StudioOneScene($('stage'),store,notice);view.onAmbienceLongPress=openAmbienceMenu;view.setRoom(ambience.room);roomControls.set(ambience.room);setAmbience('floor',ambience.floor);setAmbience('wall',ambience.wall);$('scene-status').hidden=true;}catch(e){$('scene-status').textContent=e.message;}
   // Diagnostics for browser regression tests and support.
-  window.StudioOneDiagnostics=Object.freeze({setSurface:(surface,value)=>setAmbience(surface,value),settled:()=>view?.settled(),snapshot:()=>store.snapshot(),quote:()=>store.quote(),inspect:()=>view?.inspect(),collisions:()=>store.project.items.flatMap((a,i)=>store.project.items.slice(i+1).filter(b=>M.overlaps(a,b)).map(b=>[a.id,b.id]))});
+  window.StudioOneDiagnostics=Object.freeze({setSurface:(surface,value)=>setAmbience(surface,value),settled:()=>view?.settled(),snapshot:()=>store.snapshot(),quote:()=>store.quote(),inspect:()=>view?.inspect(),outsideWalls:()=>store.project.items.filter(i=>!M.roomInside(i,store.room)).map(i=>i.id),collisions:()=>store.project.items.flatMap((a,i)=>store.project.items.slice(i+1).filter(b=>M.overlaps(a,b)).map(b=>[a.id,b.id]))});
   if(embedded)window.parent.postMessage({type:'studio-one-project-ready'},location.origin);render();
   if(new URLSearchParams(location.search).get('projects')==='1')showProjects();
 })();
