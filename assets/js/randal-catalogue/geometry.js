@@ -280,6 +280,19 @@ function furniture(config){
  }
  return {root,motions,w,h,d};
 }
-function mirrors(config,topHeight){scene=new THREE.Group();mirror(config,Number(config.width)/100,topHeight);return scene;}
+function mirrors(config,topHeight){
+ scene=new THREE.Group();if(!config.mirror||config.mirror==='Sans miroir')return scene;
+ // Use exactly the same real planar mirror/LED/frame renderer as STUDIO ONE.
+ if(resources.mirrorRenderer){
+  const name=config.mirror,vals=String(config.mirrorSize||'').match(/\d+/g)?.map(Number)||[60,80];
+  let w=(vals[0]||80)/100,h=(vals[1]||vals[0]||80)/100; // exact catalogue dimensions
+  if(strip(name).includes('rond'))h=w;
+  const frameColor=/métallique|metallique/i.test(name)?colorFor(config.mirrorFinish,'#292b29'):'#b7bbb8';
+  const visual=resources.mirrorRenderer.create(name,w,h,{on:/LED/i.test(name),frameColor});
+  visual.position.set(0,config.mirrorY??Math.max(1.24,topHeight+.18+h*.5),-.60);
+  scene.add(visual);return scene;
+ }
+ mirror(config,Number(config.width)/100,topHeight);return scene;
+}
 return {furniture,mirrors,colorFor};
 };})();
