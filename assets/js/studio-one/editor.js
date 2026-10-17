@@ -21,6 +21,10 @@
     if(item.kind==='cabinet'){
       html+=detail('Modèle et dimensions',`<label>Modèle<select id="edit-model">${C.models.map((m,i)=>option(i,m.name+' · H '+m.height+' cm',item.model)).join('')}</select></label><label>Largeur exacte (cm)<input id="edit-width" type="number" inputmode="numeric" min="40" max="120" step="1" value="${item.width}"></label><div class="dimension-facts">H ${d.height} × P ${d.depth} cm · ${esc(item.facade)}</div>`);
     }else if(item.kind==='mirror'){
+      const icons=['basic','zen-led','ilse-led','capsula-led','metal-rectangular','metal-round'];html+='<div class="rv-mirrors">'+Object.keys(C.mirrors).map((name,i)=>'<button type="button" data-mirror-choice="'+esc(name)+'" aria-pressed="'+(name===item.mirror)+'"><img src="assets/img/randal/accessories/mirror-'+icons[i]+'.webp" alt="">'+esc(name)+'</button>').join('')+'</div>';
+      if(/LED/.test(item.mirror))html+='<label class="rv-led-control"><input id="edit-mirror-led" type="checkbox" '+(item.ledOn?'checked':'')+'>Éclairage LED allumé</label><p class="fine-print">Simulation visuelle diffuse, sans données photométriques fabricant.</p>';
+      if(item.mirror==='Basic'&&item.mirrorSize==='60 × 80 cm')html+='<label>Orientation du Basic<select id="edit-mirror-rotation"><option value="portrait" '+(!item.mirrorRotated?'selected':'')+'>60 × 80 cm</option><option value="landscape" '+(item.mirrorRotated?'selected':'')+'>80 × 60 cm</option></select></label>';
+
       html+=detail('Modèle et dimensions',`<label>Modèle de miroir<select id="edit-mirror">${Object.keys(C.mirrors).map(n=>option(n,n,item.mirror)).join('')}</select></label><label>Format du miroir<select id="edit-mirror-size">${C.mirrors[item.mirror].map(r=>option(r[0],r[0],item.mirrorSize)).join('')}</select></label>${item.mirror.includes('métallique')?`<label>Cadre<select id="edit-mirror-finish">${['Noir','Doré','Bronze','Argent'].map(n=>option(n,n,item.mirrorFinish)).join('')}</select></label>`:''}`);
     }else html+=detail('Dimensions et porte',`<div class="dimension-facts">L 38 × H 132 × P 27 cm</div><p class="help">Une porte articulée à 90° et deux étagères intérieures. Dimensions de la colonne STUDIO ONE référencée 14177.</p><label>Sens d’ouverture de la porte<select id="edit-door-side">${option('left','Charnières à gauche · ouverture à gauche',item.doorSide||'left')}${option('right','Charnières à droite · ouverture à droite',item.doorSide||'left')}</select></label>`);
     if(item.kind!=='mirror')html+=detail('Finition du meuble',swatches(C.finishes,item.finish,'data-finish')+`<label class="check-label"><input id="apply-all" type="checkbox" ${applyAll?'checked':''}>Appliquer cette finition à toute la composition</label>`);
@@ -44,6 +48,7 @@
     $('selected-options').querySelectorAll('[data-sink-color]').forEach(b=>b.onclick=()=>update({sink:{...item.sink,color:b.dataset.sinkColor}}));
     bind('edit-sink-layout',e=>update({sink:{...item.sink,layout:e.target.value}}));
     if($('remove-sink'))$('remove-sink').onclick=()=>update({sink:null,option:item.option==='top'?'top':'bare'});
+    $('selected-options').querySelectorAll('[data-mirror-choice]').forEach(b=>b.onclick=()=>{update({mirror:b.dataset.mirrorChoice,mirrorSize:C.mirrors[b.dataset.mirrorChoice][0][0],mirrorRotated:false});view?.fit();});bind('edit-mirror-led',e=>update({ledOn:e.target.checked}));bind('edit-mirror-rotation',e=>{update({mirrorRotated:e.target.value==='landscape'});view?.fit();});
     bind('edit-mirror',e=>{update({mirror:e.target.value,mirrorSize:C.mirrors[e.target.value][0][0]});view?.fit();});
     bind('edit-mirror-size',e=>{update({mirrorSize:e.target.value});view?.fit();});bind('edit-mirror-finish',e=>update({mirrorFinish:e.target.value}));
     const move=()=>{if(!store.move(item.id,Number($('position-x').value),Number($('position-y').value))){notice('Position refusée : collision avec un élément ou dépassement des limites de la scène.');$('position-x').value=store.selected.position.x;$('position-y').value=store.selected.position.y;}else view?.fit();};
@@ -126,62 +131,15 @@
   const myProjectsButton=document.createElement('button');myProjectsButton.id='my-projects';myProjectsButton.textContent='Voir mes projets';myProjectsButton.onclick=showProjects;$('save-project').before(myProjectsButton);
   $('load-project').onclick=()=>$('project-file').click();$('project-file').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>16000000)throw Error('Fichier trop volumineux.');store.load(JSON.parse(await file.text()));view?.fit();notice('Projet ouvert.');}catch(err){notice('Impossible d’ouvrir le projet : '+err.message);}e.target.value='';};
   $('new-project').onclick=()=>{if(confirm('Créer une nouvelle composition ? Enregistrez votre projet pour le conserver.')){store.load({version:2,items:[M.make('cabinet')]});view?.fit();}};
-  const tileCollections=[
-    {factory:'elios',id:'creta',name:'Creta',size:[60,60],colors:['Ginepro','Zucchero','Avena','Biscotto','Caramello','Matcha','Malto','Pepe'],surfaces:['floor','wall']},
-    {factory:'elios',id:'venere',name:'Venere',size:[33.3,100],colors:['Perla','Aura','Seta','Flora','Rugiada','Zefiro','Mare','Atlante'],surfaces:['floor','wall']},
-    {factory:'elios',id:'azuli-mood-5',name:'Azuli Mood',size:[5,15],colors:['Bone','Bottle Green','Burgundy','Chalk','Coffee Bean','Dawn','Dusk','Sand','Thyme Green','Turquoise','Blue'],surfaces:['wall']},
-    {factory:'elios',id:'azuli-mood-10',name:'Azuli Mood',size:[10,10],colors:['Bone','Bottle Green','Burgundy','Chalk','Coffee Bean','Dawn','Dusk','Sand','Thyme Green','Turquoise','Blue'],surfaces:['wall']},
-    {factory:'elios',id:'yosemite',name:'Yosemite',size:[23.4,119.5],colors:['Honey','Amber','Natural','White'],surfaces:['floor','wall']},
-    {factory:'elios',id:'roma',name:'Roma',size:[40,60],colors:[],surfaces:['floor','wall']},
-    {factory:'elios',id:'dynasty',name:'Dynasty',size:[60,120],colors:[],surfaces:['floor','wall']},
-    {factory:'view',id:'corso',name:'Corso',size:[60,90],colors:['Avorio','Beige'],surfaces:['floor','wall']},
-    {factory:'view',id:'golden-stone',name:'Golden Stone',size:[60,120],colors:['Ivory','Sand','Pearl','Oxid','Carbon'],surfaces:['floor','wall']}
-  ];
   const ambienceKey='lrf-studio-one-elios-ambience-v2',defaults={floor:'creta:ginepro',wall:'venere:perla',floorOrientation:'horizontal',wallOrientation:'horizontal'};
   let ambience={...defaults};try{ambience={...ambience,...JSON.parse(sessionStorage.getItem(ambienceKey)||'{}')};}catch(e){}
-  const findTile=key=>tileCollections.find(c=>c.colors.some(color=>c.id+':'+color.toLowerCase().replace(/\s+/g,'-')===key));
+  const findTile=key=>{const v=window.RandalSurfaceCatalogue.resolve(key);return v?{name:v.label,factory:v.brand,size:[v.width*100,v.height*100],colors:[v.color]}:null;};
+  const surfacePickers={};
   function persistAmbience(){try{sessionStorage.setItem(ambienceKey,JSON.stringify(ambience));}catch(e){}}
-  function refreshTiles(surface){
-    const factory=$(surface+'-factory').value,select=$(surface+'-color'),previous=ambience[surface];select.replaceChildren();
-    tileCollections.filter(c=>c.factory===factory&&c.surfaces.includes(surface)).forEach(c=>{
-      const group=document.createElement('optgroup');group.label=c.name+' · '+c.size.join(' × ')+' cm';
-      if(!c.colors.length){const option=document.createElement('option');option.disabled=true;option.textContent='Coloris en attente de vérification catalogue';group.append(option);}
-      c.colors.forEach(color=>{const option=document.createElement('option');option.value=c.id+':'+color.toLowerCase().replace(/\s+/g,'-');option.textContent=c.name+' '+color+' · '+c.size.join(' × ');group.append(option);});select.append(group);
-    });
-    const values=[...select.options].filter(o=>!o.disabled).map(o=>o.value);const chosen=values.includes(previous)?previous:values[0];if(chosen)setAmbience(surface,chosen);
-  }
-  function setAmbience(surface,key){
-    const c=findTile(key);if(!c||!c.surfaces.includes(surface))return;
-    ambience[surface]=key;$(surface+'-factory').value=c.factory;$(surface+'-color').value=key;
-    view?.setTile(surface,key,ambience[surface+'Orientation']||'horizontal',c.size);persistAmbience();
-  }
-  ['floor','wall'].forEach(surface=>{
-    const selected=findTile(ambience[surface]);$(surface+'-factory').value=selected?.factory||'elios';
-    refreshTiles(surface);$(surface+'-orientation').value=ambience[surface+'Orientation']||'horizontal';
-    $(surface+'-factory').onchange=()=>refreshTiles(surface);
-    $(surface+'-color').onchange=event=>setAmbience(surface,event.target.value);
-    $(surface+'-orientation').onchange=event=>{ambience[surface+'Orientation']=event.target.value;setAmbience(surface,ambience[surface]);};
-  });
-  function openAmbienceMenu(surface,x,y){
-    document.getElementById('elios-context-menu')?.remove();
-    const menu=document.createElement('div');menu.id='elios-context-menu';menu.setAttribute('role','dialog');menu.setAttribute('aria-label','Carrelage '+(surface==='floor'?'sol':'mur'));
-    Object.assign(menu.style,{position:'fixed',zIndex:'99999',left:Math.max(10,Math.min(x,innerWidth-300))+'px',top:Math.max(10,Math.min(y,innerHeight-350))+'px',width:'290px',padding:'14px',background:'#fff',color:'#29332e',border:'1px solid #c7c2b7',borderRadius:'14px',boxShadow:'0 12px 32px #0004'});
-    const title=document.createElement('strong');title.textContent='☰ Carrelage · '+(surface==='floor'?'Sol':'Mur');menu.append(title);
-    for(const id of [surface+'-factory',surface+'-color',surface+'-orientation']){
-      const label=document.createElement('label');label.style.display='block';label.style.marginTop='10px';label.textContent=id.endsWith('factory')?'Usine':id.endsWith('orientation')?'Sens de pose':'Collection et couleur';
-      const select=$(id).cloneNode(true);select.id='popup-'+id;select.style.width='100%';select.style.padding='9px';select.onchange=()=>{
-        if(id.endsWith('factory')){$(id).value=select.value;refreshTiles(surface);menu.remove();openAmbienceMenu(surface,x,y);}
-        else if(id.endsWith('orientation')){ambience[surface+'Orientation']=select.value;$(id).value=select.value;setAmbience(surface,ambience[surface]);}
-        else setAmbience(surface,select.value);
-      };label.append(select);menu.append(label);
-    }
-    const close=document.createElement('button');close.textContent='Fermer';close.style.marginTop='10px';close.onclick=()=>menu.remove();menu.append(close);document.body.append(menu);
-    const outside=event=>{if(!menu.contains(event.target)){menu.remove();document.removeEventListener('pointerdown',outside,true);}};
-    setTimeout(()=>document.addEventListener('pointerdown',outside,true),0);
-  }
-  $('image').onclick=()=>{if(!view)return notice('La visualisation 3D n’est pas disponible.');view.renderer.render(view.scene,view.camera);view.canvas.toBlob(blob=>{if(blob)download(blob,'STUDIO-ONE-composition.png');});};
-  // Free photorealistic hand-off: all instructions remain visible in the exported PNG.
-  // No external API, user account, hidden PNG metadata or automatic file upload.
+  function setAmbience(surface,key){const selected=window.RandalSurfaceCatalogue.resolve(typeof key==='object'?key:ambience[surface+'Selection']||{key,orientation:ambience[surface+'Orientation']});if(!selected)return;ambience[surface]=window.RandalSurfaceCatalogue.key(selected);ambience[surface+'Selection']=selected;view?.setTile(surface,selected);surfacePickers[surface]?.set(selected);persistAmbience();}
+  for(const surface of ['floor','wall'])surfacePickers[surface]=window.RandalSurfacePicker($(surface+'-surfaces'),{prefix:'studio-'+surface,surface,value:ambience[surface+'Selection']||{key:ambience[surface],orientation:ambience[surface+'Orientation']},onChange:value=>{ambience[surface+'Selection']=value;setAmbience(surface,value)}});
+  function openAmbienceMenu(surface){const details=$(surface+'-surfaces').closest('details');if(details)details.open=true;panel('config');$(surface+'-surfaces').scrollIntoView({block:'center',behavior:'smooth'});}
+
   function photoBrief(){
     const out=['INSTRUCTION POUR CHATGPT — CRÉATION D’IMAGE',
       'Génère une photographie architecturale photoréaliste à partir de la vue 3D ci-dessus.',
@@ -306,7 +264,7 @@
   window.addEventListener('message',e=>{if(!embedded||e.origin!==location.origin||e.source!==window.parent||e.data?.type!=='studio-one-project-init')return;try{store.load(e.data.project);view?.fit();}catch(err){notice('Projet reçu invalide : '+err.message);}});
   try{if(!window.THREE)throw Error('Moteur 3D indisponible. Rechargez la page.');view=new window.StudioOneScene($('stage'),store,notice);view.onAmbienceLongPress=openAmbienceMenu;setAmbience('floor',ambience.floor);setAmbience('wall',ambience.wall);$('scene-status').hidden=true;}catch(e){$('scene-status').textContent=e.message;}
   // Read-only diagnostics for browser regression tests and support.
-  window.StudioOneDiagnostics=Object.freeze({snapshot:()=>store.snapshot(),quote:()=>store.quote(),inspect:()=>view?.inspect(),collisions:()=>store.project.items.flatMap((a,i)=>store.project.items.slice(i+1).filter(b=>M.overlaps(a,b)).map(b=>[a.id,b.id]))});
+  window.StudioOneDiagnostics=Object.freeze({setSurface(surface,value){ambience[surface+'Selection']=window.RandalSurfaceCatalogue.resolve(value);setAmbience(surface,value);},settled:()=>view?.settled(),snapshot:()=>store.snapshot(),quote:()=>store.quote(),inspect:()=>view?.inspect(),collisions:()=>store.project.items.flatMap((a,i)=>store.project.items.slice(i+1).filter(b=>M.overlaps(a,b)).map(b=>[a.id,b.id]))});
   if(embedded)window.parent.postMessage({type:'studio-one-project-ready'},location.origin);render();
   if(new URLSearchParams(location.search).get('projects')==='1')showProjects();
 })();

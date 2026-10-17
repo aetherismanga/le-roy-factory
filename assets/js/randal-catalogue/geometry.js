@@ -132,47 +132,7 @@ function addFixtures(root,config,width,height,depth,wood){
  }
  // Pas de robinet fictif : la robinetterie ne fait pas partie de cette configuration.
 }
-function mirror(config,w,topHeight){
- if(config.mirror==='Sans miroir'||!config.mirror)return;
- const name=strip(config.mirror);
- const frameColor=name.includes('metal')?colorFor(config.mirrorFinish,'#292b29'):'#d9d6ce';
- const frame=newMat(frameColor,.24,.8);
- const mirrorSurface=new THREE.MeshPhysicalMaterial({color:'#f2f4f4',roughness:.055,metalness:1,envMap:environment,envMapIntensity:1.05});
- const highlight=newMat('#edf7f5',.09,.25);
- const vals=String(config.mirrorSize||'').match(/\d+/g)?.map(Number)||[];
- let mw=(vals[0]||80)/100,mh=(vals[1]||vals[0]||75)/100;
- mw=clamp(mw,.40,1.3);mh=clamp(mh,.40,1.0);
- if(name.includes('rond'))mh=mw;
- if(name.includes('capsula')){mw=.45;mh=.9}
- const cy=config.mirrorY??Math.max(1.24,topHeight+.18+mh*.5),z=-.60;
- if(name.includes('rond')||name.includes('capsula')){
-  const capsule=name.includes('capsula');const shape=new THREE.Shape();
-  if(capsule){
-   const rad=mw/2;const hh=mh/2;
-   shape.moveTo(-rad,-hh+rad);shape.lineTo(-rad,hh-rad);
-   shape.absarc(0,hh-rad,rad,Math.PI,0,true);
-   shape.lineTo(rad,-hh+rad);shape.absarc(0,-hh+rad,rad,0,Math.PI,true);
-  }else shape.absarc(0,0,mw/2,0,Math.PI*2);
-  const geo=new THREE.ShapeGeometry(shape,40);
-  const glass=new THREE.Mesh(geo,mirrorSurface);glass.position.set(0,cy,z+.028);scene.add(glass);
-  const points=shape.getPoints(90).map(p=>new THREE.Vector3(p.x,p.y,0));
-  const edge=new THREE.LineLoop(new THREE.BufferGeometry().setFromPoints(points),new THREE.LineBasicMaterial({color:frameColor}));
-  edge.position.set(0,cy,z+.045);scene.add(edge);
-  const glint=putBox(scene,-mw*.16,cy+mh*.14,z+.047,mw*.2,.009,.002,highlight);
-  glint.rotation.z=.75;
- }else{
-  putBox(scene,0,cy,z,mw+(name.includes('metal')?.027:.003),mh+(name.includes('metal')?.027:.003),.018,frame);
-  putBox(scene,0,cy,z+.028,mw-.016,mh-.016,.006,mirrorSurface);
-  const glint=putBox(scene,-mw*.26,cy+mh*.26,z+.034,mw*.27,.007,.003,highlight);
-  glint.rotation.z=.78;
- }
- if(name.includes('led')){
-  const glow=new THREE.MeshBasicMaterial({color:'#eaf8f8'});
-  if(name.includes('capsula')){const border=new THREE.Mesh(new THREE.CapsuleGeometry(mw/2+.006,mh-mw,8,32),glow);border.scale.z=.02;border.position.set(0,cy,z-.005);scene.add(border)}else putBox(scene,0,cy,z-.005,mw+.014,mh+.014,.009,glow);
-  const led= new THREE.PointLight(0xe6f2ff,.85,.8);led.position.set(0,cy,z+.13);scene.add(led);
- }
-}
-
+function mirror(config,w,topHeight){if(config.mirror==='Sans miroir'||!config.mirror)return;const vals=String(config.mirrorSize||'').match(/\d+/g)?.map(Number)||[80,80],mw=vals[0]/100,mh=(vals[1]||vals[0])/100,cy=config.mirrorY??Math.max(1.24,topHeight+.18+mh*.5),frameColor=({Noir:'#262829',Doré:'#c0aa6a',Bronze:'#827653',Argent:'#b7b9b8'})[config.mirrorFinish]||'#b7bbb8';const visual=resources.mirrorRenderer.create(config.mirror,mw,mh,{on:true,frameColor,wallZ:-.039});visual.position.set(0,cy,-.58);scene.add(visual);}
 function isWood(color){return woodCodes.some(k=>strip(color).includes(k))}
 function finish(config){
  const mat=newMat(colorFor(config.color),isWood(config.color)?.67:.39);
