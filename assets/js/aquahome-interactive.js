@@ -1,6 +1,6 @@
 (() => {
   'use strict';
-  const PDF_URL='assets/pdf/aquahome2026.pdf';
+  const PDF_URL='https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2Faquahome2026.pdf?alt=media&token=70b1b113-0f0e-4cec-ad43-ddb81021590c';
   const DATA_URL='assets/data/aquahome-products.json?v=20260913-2';
   const TRANSLATIONS_URL='assets/data/aquahome-french-overlays.json?v=20260914-2';
   const API='https://us-central1-le-roy-factory.cloudfunctions.net/aquahomeCatalog';

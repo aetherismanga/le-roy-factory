@@ -1,5 +1,5 @@
 (() => {
-  const CATALOGUE_URL = 'assets/pdf/UPTREND_Catalogue_2026.pdf';
+  const CATALOGUE_URL = 'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FUPTREND_Catalogue_2026.pdf?alt=media&token=af1c8ff4-6d1b-4685-84df-5ecabb4fe253';
   const TECH_URL = 'https://artesinna.fr/wp-content/uploads/2023/09/UPTREND-Photo-Schema-Technique-2023.pdf';
 
   function install() {
