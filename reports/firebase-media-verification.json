@@ -3,7 +3,9 @@
   "integrity": {
     "objects": 931,
     "allMd5Match": true,
-    "localSha256Recorded": true
+    "localSha256Recorded": true,
+    "hashComparison": "MD5 of each uploaded object matches its local source checkout file; SHA256 recorded for the same bytes.",
+    "lineEndingNote": "Windows Git checkout converted line endings in 30 text media files (SVG). Git blob byte lengths are retained separately; image content is unchanged."
   },
   "imageDecodes": {
     "total": 886,
@@ -342,5 +344,42 @@
     "Authenticated CRM and native mobile app flows were not exercised.",
     "All original media remain in GitHub; this stage frees no repository or Git history space."
   ],
-  "pinnedLegacyImage": "Original raw GitHub URL pinned to historical commit in layout.css was preserved."
+  "pinnedLegacyImage": "Original raw GitHub URL pinned to historical commit in layout.css was preserved.",
+  "storage": {
+    "count": 1013,
+    "bytes": 927609435,
+    "mediaCount": 931,
+    "mediaBytes": 189336344
+  },
+  "preview": [
+    {
+      "page": "index.html",
+      "broken": [],
+      "firebaseImages": 18,
+      "canvasExport": []
+    },
+    {
+      "page": "realisations.html",
+      "broken": [],
+      "firebaseImages": 11,
+      "canvasExport": []
+    },
+    {
+      "page": "randal-studio-one-3d.html?width=100&option=basin&sinkModel=Sella&mirror=Ilse%20LED&mirrorSize=100%20%C3%97%2080%20cm",
+      "broken": [],
+      "firebaseImages": 16,
+      "canvasExport": [
+        true
+      ]
+    },
+    {
+      "page": "randal-configurateur.html",
+      "broken": [],
+      "firebaseImages": 33,
+      "canvasExport": [
+        true,
+        true
+      ]
+    }
+  ]
 }
