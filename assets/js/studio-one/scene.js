@@ -34,7 +34,7 @@
       const previous=target.material.map;target.material.map=tex;target.material.color.set('#fff');target.material.roughness=.87;target.material.needsUpdate=true;previous?.dispose();
       target.userData.tileKey=key+'|'+orientation;
       if(collection==='creta'){
-        new T.TextureLoader().load('assets/img/elios/creta/textures/'+shade+'.webp',image=>{
+        new T.TextureLoader().load('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/creta/textures/'+shade+'.webp',image=>{
           if(target.userData.tileKey!==key+'|'+orientation){image.dispose();return;}
           image.colorSpace=T.SRGBColorSpace;image.wrapS=image.wrapT=T.RepeatWrapping;image.repeat.copy(tex.repeat);image.anisotropy=tex.anisotropy;
           target.material.map=image;target.material.needsUpdate=true;tex.dispose();

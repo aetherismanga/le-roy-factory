@@ -13,13 +13,13 @@
   <meta property="og:title" content="Accès professionnel | LE ROY FACTORY">
   <meta property="og:description" content="Accès réservé aux professionnels autorisés pour consulter les documents commerciaux des fabricants partenaires.">
   <meta property="og:url" content="https://leroyfactory.fr/tarifs-pro.html">
-  <meta property="og:image" content="https://leroyfactory.fr/assets/brand-v2/logoLRF.png">
+  <meta property="og:image" content="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/brand-v2/logoLRF.png">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" type="image/png" href="assets/brand-v2/assetlogorond.png">
+  <link rel="icon" type="image/png" href="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/brand-v2/assetlogorond.png">
   <link rel="stylesheet" href="assets/css/variables.css">
-  <link rel="stylesheet" href="assets/css/base.css">
-  <link rel="stylesheet" href="assets/css/components.css">
-  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/base.css?media=20261018">
+  <link rel="stylesheet" href="assets/css/components.css?media=20261018">
+  <link rel="stylesheet" href="assets/css/layout.css?media=20261018">
   <script>
     // Sécurité : aucune ancienne session PRO ne doit survivre à l'entrée sur cette page.
     try { sessionStorage.removeItem('lrfProSession'); } catch (_) {}
@@ -66,7 +66,7 @@ html body:not(.crm-body) header .main-nav>li>a.lrf-promo-cersaie-tab:focus{
 <body>
   <header>
     <div class="container nav-container" style="height:86px;display:flex;align-items:center;justify-content:space-between;">
-      <a href="index.html" class="logo"><img src="assets/brand-v2/assetlogorond.png" alt="LRF" style="width:88px;height:88px;object-fit:contain" loading="eager" decoding="async"></a>
+      <a href="index.html" class="logo"><img src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/brand-v2/assetlogorond.png" alt="LRF" style="width:88px;height:88px;object-fit:contain" loading="eager" decoding="async"></a>
       <nav><ul class="main-nav"><li><a href="promo-cersaie.html" class="lrf-promo-cersaie-tab">PROMO CERSAIE 2026</a></li><li><a href="partenaires.html">Partenaires</a></li><li><a href="univers.html">Inspirations</a></li><li><a href="realisations.html">Réalisations</a></li><li><a href="catalogues.html">Catalogues</a></li><li><a href="tarifs-pro.html" class="active">Accès PRO</a></li><li><a href="contact.html">Contact</a></li><li><a href="agent.html" class="agent-btn">Espace Agent</a></li></ul></nav>
       <button class="burger-btn" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
@@ -109,7 +109,7 @@ html body:not(.crm-body) header .main-nav>li>a.lrf-promo-cersaie-tab:focus{
       grid.innerHTML=partenairesTarifs.map(fab=>{
         let logoFile='';const n=fab.nom.toLowerCase();
         if(n.includes('elios'))logoFile='elios.png';else if(n.includes('life'))logoFile='life-ceramica.svg';else if(n.includes('view'))logoFile='view.png';else if(n.includes('fenice'))logoFile='lafenice.png';else if(n.includes('reviglass'))logoFile='reviglass.png';else if(n.includes('biopietra'))logoFile='biopietra.png';else if(n.includes('petracer'))logoFile='petracer.png';else if(n.includes('pecchioli'))logoFile='pecchioli.png';else if(n.includes('bulbo'))logoFile='bulbo.png';else if(n.includes('randal'))logoFile='randal.png';else if(n.includes('neobath'))logoFile='neobath.png';else if(n.includes('koibath'))logoFile='koibath.png';else if(n.includes('aquahome'))logoFile='aquahome.png';else if(n.includes('opal'))logoFile='opal.png';else if(n.includes('reitano'))logoFile='reitano.svg';else if(n.includes('bilt'))logoFile='bilt.png';
-        const logoStyle=logoFile?`background-image:url('assets/img/${logoFile}');`:'';
+        const logoStyle=logoFile?`background-image:url('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/${logoFile}');`:'';
         const contacts=(fab.contacts||[]).filter(c=>c.nom&&(c.email||c.tel));
         const contactRow=contacts.length?`<div class="pro-info-row contact-row"><div style="width:100%"><strong style="display:block;font-size:.85rem;color:#1A2530;margin-bottom:.25rem">Contacts usine</strong>${contacts.map(c=>`<div class="contact-person"><strong>${c.nom}</strong>${c.role?` — <span class="contact-role">${c.role}</span>`:''}${c.email?`<br><a href="mailto:${c.email}" class="contact-link">✉ ${c.email}</a>`:''}${c.tel?`<br><a href="tel:${c.tel.replace(/[^+\d]/g,'')}" class="contact-link">☎ ${c.tel}</a>`:''}</div>`).join('')}</div></div>`:'';
         return `<div class="card-premium" style="padding:2rem;display:flex;flex-direction:column;justify-content:space-between;position:relative;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:18px;box-shadow:0 4px 20px rgba(0,0,0,.03)"><div style="position:absolute;top:1.5rem;right:1.5rem;width:110px;height:50px;${logoStyle}background-repeat:no-repeat;background-position:right top;background-size:contain;pointer-events:none"></div><div style="padding-right:90px"><span style="font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:#708273;font-weight:600">${fab.pays}</span><h3 style="font-size:1.25rem;margin:.5rem 0 1rem;color:#1A2530">${fab.nom}</h3><p style="font-size:.9rem;color:#555;margin-bottom:1.5rem">${fab.presentation}</p></div><div style="display:flex;flex-direction:column;gap:.75rem">${fab.fichiers.map(file=>`<div class="pro-info-row"><div><strong style="display:block;font-size:.85rem;color:#1A2530">${file.titre}</strong><span style="font-size:.75rem;color:#666">${file.desc}</span></div><a href="${file.lien}" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:.75rem;padding:.4rem .8rem;white-space:nowrap">Tarifs</a></div>`).join('')}<div class="pro-info-row condition-row"><div><strong style="display:block;font-size:.85rem;color:#1A2530">Condition</strong><span style="font-size:.78rem;color:#444">${fab.conditions}</span></div></div>${contactRow}</div></div>`;

@@ -26,7 +26,7 @@
   };
   const galleryOf = p => {
     const urls = uniqueKeepOrder((p.images || []).map(imageUrl).filter(Boolean));
-    return urls.length ? urls : ['assets/img/view.png'];
+    return urls.length ? urls : ['https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/view.png'];
   };
 
   let DATA = [];
@@ -135,7 +135,7 @@
     if (count) count.textContent = `${found.length} collection${found.length > 1 ? 's' : ''} VIEW`;
     grid.innerHTML = found.length ? found.map(p => `
       <article class="product-card-v2 view-safe-card" data-view-safe-id="${esc(p.__safeId)}">
-        <img src="${esc(galleryOf(p)[0])}" alt="${esc(p.name)}" loading="lazy" onerror="this.onerror=null;this.src='assets/img/view.png'">
+        <img src="${esc(galleryOf(p)[0])}" alt="${esc(p.name)}" loading="lazy" onerror="this.onerror=null;this.src='https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/view.png'">
         <div class="body"><span class="eyebrow">VIEW · ${esc(p.effect || p.category || 'Carrelage')}</span><h3>${esc(p.name)}</h3><p>${esc(p.description || '')}</p><div class="chips">${[...(p.colors||[]).slice(0,2),...(p.formats||[]).slice(0,2)].map(x => `<span>${esc(x)}</span>`).join('')}</div></div>
       </article>`).join('') : '<div class="empty-partner"><strong>Aucune collection VIEW avec ces filtres.</strong><p>Modifiez la recherche, le format, la couleur, l’effet ou la finition.</p></div>';
   }
@@ -168,7 +168,7 @@
       <button class="modal-v2-close" type="button" aria-label="Fermer">×</button>
       <div class="view-safe-main">
         <div class="view-safe-gallery" data-view-safe-gallery>
-          <div class="view-safe-stage"><img src="${esc(items[0])}" alt="${esc(p.name)}" data-view-safe-main onerror="this.onerror=null;this.src='assets/img/view.png'">${items.length > 1 ? '<button class="view-safe-nav prev" type="button">‹</button><button class="view-safe-nav next" type="button">›</button>' : ''}<span class="view-safe-counter">1 / ${items.length}</span></div>
+          <div class="view-safe-stage"><img src="${esc(items[0])}" alt="${esc(p.name)}" data-view-safe-main onerror="this.onerror=null;this.src='https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/view.png'">${items.length > 1 ? '<button class="view-safe-nav prev" type="button">‹</button><button class="view-safe-nav next" type="button">›</button>' : ''}<span class="view-safe-counter">1 / ${items.length}</span></div>
           <div class="view-safe-thumbs">${items.map((url,i) => `<button class="view-safe-thumb${i===0?' active':''}" type="button" data-view-safe-thumb="${i}"><img src="${esc(url)}" alt="" loading="lazy"></button>`).join('')}</div>
           <div class="view-safe-caption">Glissez l’image sur smartphone · cliquez sur les miniatures sur PC</div>
         </div>

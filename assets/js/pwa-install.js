@@ -5,7 +5,7 @@
   const apple=document.createElement('meta');apple.name='apple-mobile-web-app-capable';apple.content='yes';document.head.appendChild(apple);
   const appleStatus=document.createElement('meta');appleStatus.name='apple-mobile-web-app-status-bar-style';appleStatus.content='black-translucent';document.head.appendChild(appleStatus);
   const appleTitle=document.createElement('meta');appleTitle.name='apple-mobile-web-app-title';appleTitle.content='Leroy Factory';document.head.appendChild(appleTitle);
-  const icon=document.createElement('link');icon.rel='apple-touch-icon';icon.href='/assets/img/logo03lrf.png';document.head.appendChild(icon);
+  const icon=document.createElement('link');icon.rel='apple-touch-icon';icon.href='https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/logo03lrf.png';document.head.appendChild(icon);
 
   if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js?v=20260924-catalogues-fallback2',{updateViaCache:'none'}).then(reg=>reg.update()).catch(console.warn));}
 
@@ -107,14 +107,14 @@
   const path=window.location.pathname.toLowerCase();
   const scripts=[];
   if(path.endsWith('catalogues.html')){
-    scripts.push(['lrf-catalogues-renderer-loader','assets/js/catalogues-renderer.js?v=20260924-fallback2']);
-    scripts.push(['lrf-uptrend-catalogues-loader','assets/js/uptrend-catalogues.js?v=20260924-fallback2']);
+    scripts.push(['lrf-catalogues-renderer-loader','assets/js/catalogues-renderer.js?v=20260924-fallback2&media=20261018']);
+    scripts.push(['lrf-uptrend-catalogues-loader','assets/js/uptrend-catalogues.js?v=20260924-fallback2&media=20261018']);
   }else if(path.endsWith('tarifs-pro.html')){
-    scripts.push(['lrf-uptrend-tarifs-loader','assets/js/uptrend-tarifs.js?v=20260913-secure3']);
+    scripts.push(['lrf-uptrend-tarifs-loader','assets/js/uptrend-tarifs.js?v=20260913-secure3&media=20261018']);
   }else if(path.endsWith('univers.html')){
-    scripts.push(['lrf-uptrend-selection-loader','assets/js/uptrend-selection.js?v=20260914-cart1']);
-    scripts.push(['lrf-aquahome-selection-loader','assets/js/aquahome-selection.js?v=20260914-2']);
-    scripts.push(['lrf-reitano-selection-loader','assets/js/reitano-selection.js?v=20260914-1']);
+    scripts.push(['lrf-uptrend-selection-loader','assets/js/uptrend-selection.js?v=20260914-cart1&media=20261018']);
+    scripts.push(['lrf-aquahome-selection-loader','assets/js/aquahome-selection.js?v=20260914-2&media=20261018']);
+    scripts.push(['lrf-reitano-selection-loader','assets/js/reitano-selection.js?v=20260914-1&media=20261018']);
   }
   scripts.forEach(([id,src])=>{
     if(document.getElementById(id))return;

@@ -1,6 +1,6 @@
 import { db } from './firebase.js';
 import { collection, getDocs } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
-import { PARTNER_CONTACTS } from './partner-contacts.js?v=20260903-search';
+import { PARTNER_CONTACTS } from './partner-contacts.js?v=20260903-search&media=20261018';
 
 const esc=v=>String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;');
 const norm=v=>String(v??'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');

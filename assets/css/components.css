@@ -207,62 +207,62 @@ nav.active a:not(.agent-btn):hover,
 /* Vrais logos des usines. Les cartes utilisent déjà data-usine :
    toute future réalisation d'une usine connue récupère donc son logo automatiquement. */
 .realisation-card[data-usine*="VIEW" i] .realisation-brand {
-  background-image: url('../img/view.png') !important;
+  background-image: url('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/view.png') !important;
   color: transparent !important;
   font-size: 0 !important;
 }
 .realisation-card[data-usine*="ELIOS" i] .realisation-brand {
-  background-image: url('../img/elios.png') !important;
+  background-image: url('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios.png') !important;
   color: transparent !important;
   font-size: 0 !important;
 }
 .realisation-card[data-usine*="FENICE" i] .realisation-brand {
-  background-image: url('../img/lafenice.png') !important;
+  background-image: url('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/lafenice.png') !important;
   color: transparent !important;
   font-size: 0 !important;
 }
 .realisation-card[data-usine*="REVIGLASS" i] .realisation-brand {
-  background-image: url('../img/reviglass.png') !important;
+  background-image: url('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/reviglass.png') !important;
   color: transparent !important;
   font-size: 0 !important;
 }
 .realisation-card[data-usine*="BIOPIETRA" i] .realisation-brand {
-  background-image: url('../img/biopietra.png') !important;
+  background-image: url('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/biopietra.png') !important;
   color: transparent !important;
   font-size: 0 !important;
 }
 .realisation-card[data-usine*="PETRACER" i] .realisation-brand {
-  background-image: url('../img/petracer.png') !important;
+  background-image: url('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/petracer.png') !important;
   color: transparent !important;
   font-size: 0 !important;
 }
 .realisation-card[data-usine*="PECCHIOLI" i] .realisation-brand {
-  background-image: url('../img/pecchioli.png') !important;
+  background-image: url('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/pecchioli.png') !important;
   color: transparent !important;
   font-size: 0 !important;
 }
 .realisation-card[data-usine*="BULBO" i] .realisation-brand {
-  background-image: url('../img/bulbo.png') !important;
+  background-image: url('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/bulbo.png') !important;
   color: transparent !important;
   font-size: 0 !important;
 }
 .realisation-card[data-usine*="RANDAL" i] .realisation-brand {
-  background-image: url('../img/randal.png') !important;
+  background-image: url('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal.png') !important;
   color: transparent !important;
   font-size: 0 !important;
 }
 .realisation-card[data-usine*="NEOBATH" i] .realisation-brand {
-  background-image: url('../img/neobath.png') !important;
+  background-image: url('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/neobath.png') !important;
   color: transparent !important;
   font-size: 0 !important;
 }
 .realisation-card[data-usine*="AQUAHOME" i] .realisation-brand {
-  background-image: url('../img/aquahome.png') !important;
+  background-image: url('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/aquahome.png') !important;
   color: transparent !important;
   font-size: 0 !important;
 }
 .realisation-card[data-usine*="KOIBATH" i] .realisation-brand {
-  background-image: url('../img/koibath.png') !important;
+  background-image: url('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/koibath.png') !important;
   color: transparent !important;
   font-size: 0 !important;
 }
@@ -336,7 +336,7 @@ body.lrf-page-contact .agent-info-card.gold::after {
   border-radius: 50% !important;
   border: 2px solid #D4AF37 !important;
   background-color: #fff !important;
-  background-image: url('../img/corynelogo.png?v=20260911-coryne-size2') !important;
+  background-image: url('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/corynelogo.png?v=20260911-coryne-size2') !important;
   background-position: center !important;
   background-repeat: no-repeat !important;
   background-size: cover !important;

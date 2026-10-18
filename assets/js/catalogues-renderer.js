@@ -89,7 +89,7 @@
       const picker=(fab.force||fab.fichiers.length>1)
         ? '<details class="catalogue-picker"><summary>☰ Voir les catalogues <span style="font-weight:600;color:#80611c;">'+fab.fichiers.length+'</span></summary><div class="catalogue-menu">'+rows+'</div></details>'
         : '<div style="display:flex;flex-direction:column;gap:.75rem;">'+rows+'</div>';
-      return '<article class="card-premium catalogue-card"><div class="catalogue-card-logo" style="background-image:url(\'assets/img/'+fab.logo+'\');" aria-hidden="true"></div><div class="catalogue-card-copy"><span class="catalogue-country">'+esc(fab.pays)+'</span><h3>'+esc(fab.nom)+'</h3><p class="catalogue-description">'+esc(fab.presentation)+'</p></div><div class="catalogue-actions">'+picker+'</div></article>';
+      return '<article class="card-premium catalogue-card"><div class="catalogue-card-logo" style="background-image:url(\'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/'+fab.logo+'\');" aria-hidden="true"></div><div class="catalogue-card-copy"><span class="catalogue-country">'+esc(fab.pays)+'</span><h3>'+esc(fab.nom)+'</h3><p class="catalogue-description">'+esc(fab.presentation)+'</p></div><div class="catalogue-actions">'+picker+'</div></article>';
     }).join('');
     document.documentElement.dataset.cataloguesRenderer='20260924-fallback2';
     return true;

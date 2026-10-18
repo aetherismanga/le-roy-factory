@@ -24,7 +24,7 @@ function navButton(s){
  const b=document.createElement('button');b.type='button';b.className='index-item';b.dataset.goto=String(s.page);
  const slug={'Harmony':'harmony','Luce':'luce','Brent':'brent','Aruba rainuré':'aruba-rainure','Aruba':'aruba','Aras':'aras','Boreal':'boreal','Brunei':'brunei','Amat':'amat','Less':'less','Sima':'sima'}[s.name];
  let img;
- if(slug){img=document.createElement('img');img.src='assets/img/randal/v04/'+slug+'.webp';img.alt='Photo '+s.name;img.loading='lazy';img.decoding='async';}
+ if(slug){img=document.createElement('img');img.src='https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/v04/'+slug+'.webp';img.alt='Photo '+s.name;img.loading='lazy';img.decoding='async';}
  else{img=document.createElement('canvas');img.width=136;img.height=104;img.dataset.thumb=String(s.page);img.setAttribute('aria-label','Aperçu '+s.name);}
  img.className='index-thumb';
  const wrap=document.createElement('span');wrap.className='index-text';

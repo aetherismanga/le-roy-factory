@@ -305,9 +305,9 @@
 
   function renderCollectionStep() {
     const cards = [
-      ['ANIMA', 'ANIMA', 'Façades Pura / Ribelle, couleurs et tarifs ANIMA.', 'assets/img/neobath/anima-01.webp'],
-      ['DNA', 'DNA', 'Dune, bois et laqués avec le tarif DNA.', 'assets/img/neobath/dna-zerouno.webp'],
-      ['LIBRE', 'Sans collection', 'Choisissez d’abord un format : la famille technique sera fixée au premier module.', 'assets/img/02.png']
+      ['ANIMA', 'ANIMA', 'Façades Pura / Ribelle, couleurs et tarifs ANIMA.', 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/neobath/anima-01.webp'],
+      ['DNA', 'DNA', 'Dune, bois et laqués avec le tarif DNA.', 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/neobath/dna-zerouno.webp'],
+      ['LIBRE', 'Sans collection', 'Choisissez d’abord un format : la famille technique sera fixée au premier module.', 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/02.png']
     ];
     return `${stepHeader('1. Choisissez la collection', 'Les compositions visibles dans la galerie ne pilotent jamais le configurateur. Ici, seules les références tarifaires sont utilisées.')}<div class="nb-choice-grid nb-collection-grid">${cards.map(([id, name, desc, image]) => `<button type="button" class="nb-choice-card ${state.collection === id ? 'selected' : ''}" data-nb-action="collection" data-value="${id}"><div class="nb-card-image"><img src="${image}" alt="${esc(name)}"></div><div><strong>${esc(name)}</strong><p>${esc(desc)}</p></div><span class="nb-check">${state.collection === id ? '✓' : ''}</span></button>`).join('')}</div>`;
   }

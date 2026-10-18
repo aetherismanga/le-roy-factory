@@ -11,7 +11,7 @@
     const name=String(localStorage.getItem('agentName')||'').toLowerCase();
     const isCoryne=email.includes('coryne@')||name.includes('coryne');
     const stamp='20260907-avatar4';
-    const file=isCoryne?`assets/img/corynelogo.png?v=${stamp}`:`assets/img/jeromelogo.png?v=${stamp}`;
+    const file=isCoryne?`https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/corynelogo.png?v=${stamp}`:`https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/jeromelogo.png?v=${stamp}`;
     const label=isCoryne?'Coryne':'Jérôme';
 
     let avatar=document.getElementById('lrf-agent-avatar');

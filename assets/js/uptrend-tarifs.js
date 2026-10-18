@@ -10,7 +10,7 @@
     card.dataset.uptrendProCard = '1';
     card.style.cssText = 'padding:2rem;display:flex;flex-direction:column;justify-content:space-between;position:relative;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:18px;box-shadow:0 4px 20px rgba(0,0,0,.03);';
     card.innerHTML = `
-      <div style="position:absolute;top:1.5rem;right:1.5rem;width:110px;height:50px;background-image:url('assets/img/uptrend.svg');background-repeat:no-repeat;background-position:right top;background-size:contain;pointer-events:none;"></div>
+      <div style="position:absolute;top:1.5rem;right:1.5rem;width:110px;height:50px;background-image:url('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/uptrend.svg');background-repeat:no-repeat;background-position:right top;background-size:contain;pointer-events:none;"></div>
       <div style="padding-right:90px;">
         <span style="font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:#708273;font-weight:600;">International</span>
         <h3 style="font-size:1.25rem;margin:.5rem 0 1rem;color:#1A2530;">UPTREND</h3>

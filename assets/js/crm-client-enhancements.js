@@ -135,7 +135,7 @@ function injectPartnerFilter() {
   const box = document.createElement("div");
   box.id = "partner-filter-box";
   box.className = "partner-filter";
-  box.innerHTML = `<button type="button" class="partner-filter-btn" id="pf-btn"><span id="pf-label">Tous les partenaires</span><span>▾</span></button><div class="partner-filter-panel" id="pf-panel"><div style="display:flex;justify-content:space-between;padding:.3rem .35rem .55rem"><strong>Partenaires</strong><button type="button" id="pf-clear" style="border:0;background:none;color:#9a6d00;cursor:pointer">Effacer</button></div>${Object.entries(PARTNERS).map(([id,[name,logo]])=>`<label class="pf-row"><input type="checkbox" value="${id}"><img src="assets/img/${logo}" alt=""><span>${name}</span></label>`).join("")}</div>`;
+  box.innerHTML = `<button type="button" class="partner-filter-btn" id="pf-btn"><span id="pf-label">Tous les partenaires</span><span>▾</span></button><div class="partner-filter-panel" id="pf-panel"><div style="display:flex;justify-content:space-between;padding:.3rem .35rem .55rem"><strong>Partenaires</strong><button type="button" id="pf-clear" style="border:0;background:none;color:#9a6d00;cursor:pointer">Effacer</button></div>${Object.entries(PARTNERS).map(([id,[name,logo]])=>`<label class="pf-row"><input type="checkbox" value="${id}"><img src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/${logo}" alt=""><span>${name}</span></label>`).join("")}</div>`;
   dept.parentElement.insertAdjacentElement("afterend", box);
   box.querySelector("#pf-btn").onclick = () => box.querySelector("#pf-panel").classList.toggle("open");
   box.querySelectorAll("input[type=checkbox]").forEach(cb => cb.onchange = () => {
@@ -180,7 +180,7 @@ function decorateRows() {
       wrap.className = "row-partners";
       cells[1].appendChild(wrap);
     }
-    wrap.innerHTML = (c.partenaires || []).filter(id => PARTNERS[id]).map(id => `<img src="assets/img/${PARTNERS[id][1]}" title="${esc(PARTNERS[id][0])}">`).join("");
+    wrap.innerHTML = (c.partenaires || []).filter(id => PARTNERS[id]).map(id => `<img src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/${PARTNERS[id][1]}" title="${esc(PARTNERS[id][0])}">`).join("");
     let pill = cells[0].querySelector(".activity-pill");
     const label = ACTIVITY.find(x => x[0] === (c.categorieActivite || c.sousCategorie))?.[1];
     if (label) {

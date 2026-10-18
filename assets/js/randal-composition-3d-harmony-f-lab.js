@@ -24,7 +24,7 @@ const FLOOR_OPTIONS=[
  ['zucchero','#dfcfb6'],['avena','#bba78e'],['biscotto','#bb8f67'],['caramello','#a5734b'],
  ['matcha','#89906c'],['ginepro','#5f776f'],['malto','#a28265'],['pepe','#75726c']
  ].map(([id,base])=>({id:'elios-creta-'+id,label:'ELIOS · Creta '+id.charAt(0).toUpperCase()+id.slice(1),
- sub:'60 × 60 cm · rectifié',preview:'assets/img/elios/creta/textures/'+id+'.webp',base}))
+ sub:'60 × 60 cm · rectifié',preview:'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/creta/textures/'+id+'.webp',base}))
 ];
 const $=id=>document.getElementById(id);
 const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
@@ -201,13 +201,13 @@ function showCustomize(type){
  if(current.basinMode==='none')return;
  section(current.basinMode==='integrated'?'Modèle de vasque intégrée':'Modèle de vasque à poser');
  for(const name of current.basinMode==='integrated'?['Sella','Tampa']:['Neris','Torne']){
-  const image='assets/img/randal/accessories/hd/basin-'+strip(name)+'.webp';
+  const image='https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/accessories/hd/basin-'+strip(name)+'.webp';
   addOption(name,image,current.basin===name,()=>update({basin:name}));
  }
  if(current.model==='Harmony'&&current.basinMode==='integrated'&&Number(current.width)>=119){
   section('Nombre de cuves');
   for(const [layout,title] of [['single','Vasque simple · 1 cuve'],['double','Vasque double · 2 cuves']]){
-   const image='assets/img/randal/accessories/'+(layout==='double'?'basin-'+strip(current.basin)+'-double.webp':'basin-'+strip(current.basin)+'.webp');
+   const image='https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/accessories/'+(layout==='double'?'basin-'+strip(current.basin)+'-double.webp':'basin-'+strip(current.basin)+'.webp');
    addOption(title,image,current.basinLayout===layout,()=>update({basinLayout:layout}));
   }
  }
@@ -362,7 +362,7 @@ function isWood(color){return woodCodes.some(k=>strip(color).includes(k))}
 function useCatalogueFinish(material,url,wood,grainHorizontal=false){
  if(!url)return;
  const generation=sessionId,sceneTicket=sceneGeneration;
- const image=new Image();
+ const image=new Image();image.crossOrigin='anonymous';
  image.onload=()=>{
   if(!active||generation!==sessionId||sceneTicket!==sceneGeneration||!scene||!material)return;
   const c=document.createElement('canvas');c.width=c.height=1024;
@@ -570,7 +570,7 @@ function applyFloorTexture(material){
  requestFrame();
  if(!item.preview){loadCocoFloor(material,loadTicket);return;}
  const ticket=sceneGeneration,session=sessionId;
- const image=new Image();image.decoding='async';
+ const image=new Image();image.crossOrigin='anonymous';image.decoding='async';
  image.onload=()=>{
   if(!scene||ticket!==sceneGeneration||session!==sessionId||!active||loadTicket!==floorTextureTicket)return;
   // Atlas de 2 x 2 dalles Creta, dimensions réelles 60x60.
@@ -606,7 +606,7 @@ function applyFloorTexture(material){
 function loadCocoFloor(material,loadTicket){
  const uri=window.RANDAL_VIEW_COCO_BEIGE;
  if(!uri)return;
- const generation=sessionId,sceneTicket=sceneGeneration,image=new Image();
+ const generation=sessionId,sceneTicket=sceneGeneration,image=new Image();image.crossOrigin='anonymous';
  image.onload=()=>{
   if(!active||generation!==sessionId||sceneTicket!==sceneGeneration||!scene||loadTicket!==floorTextureTicket)return;
   const texture=new THREE.Texture(image);
@@ -1124,12 +1124,12 @@ function init(config){
 let THREE=null;
 function fallback(config,message){
  const area=$('composition-canvas');if(!area)return;
- const typeImg=config.typePhoto?'assets/img/randal/types/'+config.typePhoto+'.webp':'assets/img/randal/v04/luce.webp';
+ const typeImg=config.typePhoto?'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/types/'+config.typePhoto+'.webp':'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/v04/luce.webp';
  const photo=src=>{const img=document.createElement('img');img.src=src;img.alt='Visuel catalogue RANDAL';return img};
  const wall=document.createElement('div');wall.className='composition-fallback';
  wall.appendChild(photo(typeImg));
- if(config.basin&&config.basin!=='Sans vasque'&&config.basinMode!=='none'){const im=photo('assets/img/randal/accessories/basin-'+strip(config.basin)+'.webp');wall.appendChild(im)}
- if(config.mirror&&config.mirror!=='Sans miroir'&&config.mirrorPhoto){wall.appendChild(photo('assets/img/randal/accessories/'+config.mirrorPhoto+'.webp'))}
+ if(config.basin&&config.basin!=='Sans vasque'&&config.basinMode!=='none'){const im=photo('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/accessories/basin-'+strip(config.basin)+'.webp');wall.appendChild(im)}
+ if(config.mirror&&config.mirror!=='Sans miroir'&&config.mirrorPhoto){wall.appendChild(photo('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/accessories/'+config.mirrorPhoto+'.webp'))}
  const p=document.createElement('p');p.textContent='Aperçu catalogue disponible. La visualisation 3D nécessite une connexion permettant de charger son moteur.';wall.appendChild(p);
  area.replaceChildren(wall);
  $('composition-photo').disabled=true;
@@ -1222,9 +1222,9 @@ function present(config){
  if(proofs){
   proofs.replaceChildren();
   const items=[
-   ['Meuble',config.typePhoto?'assets/img/randal/types/'+config.typePhoto+'.webp':null],
-   ['Vasque',config.basinMode!=='none'&&config.basin?'assets/img/randal/accessories/hd/basin-'+strip(config.basin).replace(/[^a-z0-9]+/g,'-')+'.webp':null],
-   ['Miroir',config.mirrorPhoto?'assets/img/randal/accessories/'+config.mirrorPhoto+'.webp':null]
+   ['Meuble',config.typePhoto?'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/types/'+config.typePhoto+'.webp':null],
+   ['Vasque',config.basinMode!=='none'&&config.basin?'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/accessories/hd/basin-'+strip(config.basin).replace(/[^a-z0-9]+/g,'-')+'.webp':null],
+   ['Miroir',config.mirrorPhoto?'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/accessories/'+config.mirrorPhoto+'.webp':null]
   ];
   for(const [name,src] of items){
    if(!src)continue;

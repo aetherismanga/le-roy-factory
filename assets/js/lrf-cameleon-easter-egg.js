@@ -43,7 +43,7 @@
     stage.setAttribute('aria-hidden','true');
 
     const video = document.createElement('video');
-    video.src = 'assets/videos/cameleon-site-alpha-v2.webm?v=20260918-alpha2';
+    video.src = 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/videos/cameleon-site-alpha-v2.webm?v=20260918-alpha2';
     video.muted = true;
     video.playsInline = true;
     video.preload = 'metadata';

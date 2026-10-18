@@ -150,7 +150,7 @@
 
   const hero=document.querySelector('.hero-video-section');
   if(hero){
-    const desktop=document.createElement('a');desktop.className='elios-rentree-desktop';desktop.href='elios-rentree-r11-2026.html';desktop.setAttribute('aria-label',"Découvrir la promo rentrée Elios R11");desktop.innerHTML='<div class="elios-rentree-copy"><div class="elios-rentree-kicker">Lots 1er choix · R11</div><div class="elios-rentree-title">C\'EST LA RENTRÉE<br>AVEC ELIOS !</div><div class="elios-rentree-sub">30,5×60,5 · palettes complètes · quantités limitées</div><span class="elios-rentree-cta">Voir les lots</span></div><div class="elios-rentree-logo"><img src="assets/img/elios.png" alt="ELIOS Ceramica" loading="lazy" decoding="async"></div>';desktop.addEventListener('click',open);hero.appendChild(desktop);
+    const desktop=document.createElement('a');desktop.className='elios-rentree-desktop';desktop.href='elios-rentree-r11-2026.html';desktop.setAttribute('aria-label',"Découvrir la promo rentrée Elios R11");desktop.innerHTML='<div class="elios-rentree-copy"><div class="elios-rentree-kicker">Lots 1er choix · R11</div><div class="elios-rentree-title">C\'EST LA RENTRÉE<br>AVEC ELIOS !</div><div class="elios-rentree-sub">30,5×60,5 · palettes complètes · quantités limitées</div><span class="elios-rentree-cta">Voir les lots</span></div><div class="elios-rentree-logo"><img src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios.png" alt="ELIOS Ceramica" loading="lazy" decoding="async"></div>';desktop.addEventListener('click',open);hero.appendChild(desktop);
   }
 
   const header=document.querySelector('header');

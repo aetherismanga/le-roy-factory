@@ -1,6 +1,6 @@
 import { db } from './firebase.js';
 import { collection, onSnapshot, doc, getDoc, updateDoc, arrayUnion } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
-import { PARTNER_CONTACTS } from './partner-contacts.js';
+import { PARTNER_CONTACTS } from './partner-contacts.js?media=20261018';
 
 const $ = (s) => document.querySelector(s);
 const esc = (v) => String(v ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');

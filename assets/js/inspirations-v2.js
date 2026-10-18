@@ -9,19 +9,19 @@
     {id:'sanitaire',label:'Sanitaire',icon:'○',partners:[]}
   ];
   const PARTNERS={
-    'Elios Ceramica':{slug:'elios-ceramica',logo:'assets/img/elios.png',country:'Italie',data:'elios'},
-    'View Ceramica':{slug:'view-ceramica',logo:'assets/img/view.png',country:'Italie'},
-    'La Fenice':{slug:'la-fenice',logo:'assets/img/lafenice.png',country:'Italie'},
-    "Petracer's":{slug:'petracers',logo:'assets/img/petracer.png',country:'Italie'},
-    'Pecchioli Firenze':{slug:'pecchioli-firenze',logo:'assets/img/pecchioli.png',country:'Italie'},
-    'Bulbo':{slug:'bulbo',logo:'assets/img/bulbo.png',country:'Italie'},
-    'Reviglass':{slug:'reviglass',logo:'assets/img/reviglass.png',country:'Espagne'},
-    'Biopietra':{slug:'biopietra',logo:'assets/img/biopietra.png',country:'Italie'},
-    'Neobath':{slug:'neobath',logo:'assets/img/neobath.png',country:'Italie',data:'neobath'},
-    'Randal Pro':{slug:'randal-pro',logo:'assets/img/randal.png',country:'Espagne'},
-    'Aquahome':{slug:'aquahome',logo:'assets/img/aquahome.png',country:'Espagne'},
-    'Opal':{slug:'opal',logo:'assets/img/opal.png',country:'Espagne'},
-    'Reitano Rubinetterie':{slug:'reitano-rubinetterie',logo:'assets/img/reitano.svg',country:'Italie'}
+    'Elios Ceramica':{slug:'elios-ceramica',logo:'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios.png',country:'Italie',data:'elios'},
+    'View Ceramica':{slug:'view-ceramica',logo:'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/view.png',country:'Italie'},
+    'La Fenice':{slug:'la-fenice',logo:'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/lafenice.png',country:'Italie'},
+    "Petracer's":{slug:'petracers',logo:'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/petracer.png',country:'Italie'},
+    'Pecchioli Firenze':{slug:'pecchioli-firenze',logo:'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/pecchioli.png',country:'Italie'},
+    'Bulbo':{slug:'bulbo',logo:'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/bulbo.png',country:'Italie'},
+    'Reviglass':{slug:'reviglass',logo:'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/reviglass.png',country:'Espagne'},
+    'Biopietra':{slug:'biopietra',logo:'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/biopietra.png',country:'Italie'},
+    'Neobath':{slug:'neobath',logo:'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/neobath.png',country:'Italie',data:'neobath'},
+    'Randal Pro':{slug:'randal-pro',logo:'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal.png',country:'Espagne'},
+    'Aquahome':{slug:'aquahome',logo:'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/aquahome.png',country:'Espagne'},
+    'Opal':{slug:'opal',logo:'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/opal.png',country:'Espagne'},
+    'Reitano Rubinetterie':{slug:'reitano-rubinetterie',logo:'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/reitano.svg',country:'Italie'}
   };
   const $=(s,r=document)=>r.querySelector(s);
   const esc=v=>String(v??'').replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c]));
@@ -95,7 +95,7 @@
     if(state.partner==='View Ceramica' && Array.isArray(window.VIEW_CATALOGUE)) return window.VIEW_CATALOGUE;
     return DATA[state.partner]||[];
   }
-  function imageOf(p){const first=(p.images||[])[0];return (typeof first==='string'?first:first?.url)||'assets/img/03.png'}
+  function imageOf(p){const first=(p.images||[])[0];return (typeof first==='string'?first:first?.url)||'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/03.png'}
   function fillFilters(){
     const data=products();
     const formats=unique(data.flatMap(p=>p.formats||[]));
@@ -141,7 +141,7 @@
       return;
     }
     if(!data.length){const p=PARTNERS[state.partner];productGrid.innerHTML=`<div class="empty-partner"><img src="${p.logo}" alt="${esc(state.partner)}"><strong>${esc(state.partner)} est maintenant séparé dans son propre espace.</strong><p>La structure produits, formats, finitions et tarifs PRO est prête. Les références de cette usine seront intégrées depuis son catalogue sans les mélanger aux autres partenaires.</p>${hasAccess(p.slug)?`<a class="pro-link" href="tarifs-pro.html">Voir mon tarif PRO ${esc(state.partner)}</a>`:''}</div>`;return}
-    productGrid.innerHTML=found.length?found.map(p=>`<article class="product-card-v2" data-id="${esc(p.id)}"><img src="${esc(imageOf(p))}" alt="${esc(p.name)}" loading="lazy" onerror="this.onerror=null;this.src='assets/img/03.png'"><div class="body"><span class="eyebrow">${esc(state.partner)} · ${esc(p.effect||p.category||'Produit')}</span><h3>${esc(p.name)}</h3><p>${esc(p.description||'')}</p><div class="chips">${[...(p.colorFamilies||[]).slice(0,2),...(p.formats||[]).slice(0,2)].map(x=>`<span>${esc(x)}</span>`).join('')}</div></div></article>`).join(''):`<div class="empty-partner"><strong>Aucun produit avec ces filtres.</strong><p>Modifiez la recherche, le format, la couleur, l'effet ou la finition.</p></div>`;
+    productGrid.innerHTML=found.length?found.map(p=>`<article class="product-card-v2" data-id="${esc(p.id)}"><img src="${esc(imageOf(p))}" alt="${esc(p.name)}" loading="lazy" onerror="this.onerror=null;this.src='https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/03.png'"><div class="body"><span class="eyebrow">${esc(state.partner)} · ${esc(p.effect||p.category||'Produit')}</span><h3>${esc(p.name)}</h3><p>${esc(p.description||'')}</p><div class="chips">${[...(p.colorFamilies||[]).slice(0,2),...(p.formats||[]).slice(0,2)].map(x=>`<span>${esc(x)}</span>`).join('')}</div></div></article>`).join(''):`<div class="empty-partner"><strong>Aucun produit avec ces filtres.</strong><p>Modifiez la recherche, le format, la couleur, l'effet ou la finition.</p></div>`;
   }
   function renderWorkspace(){const p=PARTNERS[state.partner];if(!p){workspace.classList.remove('open');return}workspace.classList.add('open');$('#workspace-logo').src=p.logo;$('#workspace-title').textContent=state.partner;$('#workspace-sub').textContent=`${p.country} · espace produits dédié`;const allowed=hasAccess(p.slug),isBio=state.partner==='Biopietra';const badge=$('#workspace-pro-badge');badge.style.display=isBio?'none':'';badge.textContent=allowed?'✓ Tarif PRO accessible':'🔒 Tarif PRO non associé à ce compte';badge.className=`pro-badge${allowed?' allowed':''}`;const link=$('#workspace-pro-link');link.style.display=!isBio&&allowed?'inline-flex':'none';link.href='tarifs-pro.html';link.textContent=`Voir tarif PRO ${state.partner}`;
     const isRandal=state.partner==='Randal Pro';
@@ -163,7 +163,7 @@
     let tariff='';
     if(state.partner==='Elios Ceramica'&&dims.length){const api=window.LRF_INSPIRATIONS_PRICING;tariff=`<table class="formats-table"><thead><tr><th>Format</th><th>Tarif PRO</th></tr></thead><tbody>${dims.map(f=>{let val='<span class="price-lock">🔒 Accès PRO</span>';if(allowed&&api?.getPrice){const q=api.getPrice('elios-ceramica',p,f);if(q&&!q.locked&&!q.unavailable)val=`<span class="price-ok">${esc(q.label||q.amount)}</span>`;else if(q?.unavailable)val='<span class="price-lock">Sur demande</span>'}return `<tr><td>${esc(f)}</td><td>${val}</td></tr>`}).join('')}</tbody></table>`}
     else{tariff=allowed?`<p><span class="pro-badge allowed">✓ Tarif PRO accessible</span></p><p>Le tarif de ce partenaire est disponible dans votre espace PRO. Les prix ligne par ligne seront reliés aux produits au fur et à mesure de l'intégration du catalogue.</p><a class="pro-link" href="tarifs-pro.html">Ouvrir le tarif ${esc(state.partner)}</a>`:`<p><span class="pro-badge">🔒 Tarif PRO non associé à ce compte</span></p>`}
-    box.innerHTML=`<button class="modal-v2-close" type="button">×</button><div class="modal-v2-main"><img src="${esc(imageOf(p))}" alt="${esc(p.name)}" onerror="this.onerror=null;this.src='assets/img/03.png'"><div class="modal-v2-info"><img src="${partner.logo}" alt="${esc(state.partner)}" style="height:38px;max-width:120px;object-fit:contain"><h2>${esc(p.name)}</h2>${p.collection&&norm(p.collection)!==norm(p.name)?`<p class="product-collection">Collection : ${esc(p.collection)}</p>`:''}<p>${esc(p.description||'')}</p>${(p.colors||[]).length?`<h4>Couleurs / déclinaisons</h4><div class="chips">${p.colors.map(x=>`<span>${esc(x)}</span>`).join('')}</div>`:''}${dims.length?`<h4>Formats</h4><div class="chips">${dims.map(x=>`<span>${esc(x)}</span>`).join('')}</div>`:''}<h4>Tarifs professionnels</h4>${tariff}</div></div>`;
+    box.innerHTML=`<button class="modal-v2-close" type="button">×</button><div class="modal-v2-main"><img src="${esc(imageOf(p))}" alt="${esc(p.name)}" onerror="this.onerror=null;this.src='https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/03.png'"><div class="modal-v2-info"><img src="${partner.logo}" alt="${esc(state.partner)}" style="height:38px;max-width:120px;object-fit:contain"><h2>${esc(p.name)}</h2>${p.collection&&norm(p.collection)!==norm(p.name)?`<p class="product-collection">Collection : ${esc(p.collection)}</p>`:''}<p>${esc(p.description||'')}</p>${(p.colors||[]).length?`<h4>Couleurs / déclinaisons</h4><div class="chips">${p.colors.map(x=>`<span>${esc(x)}</span>`).join('')}</div>`:''}${dims.length?`<h4>Formats</h4><div class="chips">${dims.map(x=>`<span>${esc(x)}</span>`).join('')}</div>`:''}<h4>Tarifs professionnels</h4>${tariff}</div></div>`;
     modal.classList.add('open');document.body.style.overflow='hidden';$('.modal-v2-close',box).onclick=()=>{modal.classList.remove('open');document.body.style.overflow=''};
   }
 
