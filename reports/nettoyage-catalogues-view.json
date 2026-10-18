@@ -1,0 +1,160 @@
+{
+  "date": "2026-10-18T19:06:18.512Z",
+  "status": "Proposition sur branche de nettoyage ; pas appliquee a main",
+  "scope": "Seulement les sept catalogues PDF VIEW publics",
+  "bytesRemovedFromTree": 53748288,
+  "gitHistoryRewritten": false,
+  "githubTotalHistorySpaceFreed": 0,
+  "firebaseCopiesVerified": [
+    {
+      "path": "assets/pdf/VIEW_CATALOGO_PHURA_2026.pdf",
+      "bytes": 660876,
+      "sha256": "88bbc91aec1d726911fac393f70356a97a1a7e2cd4127393788edde1e9c32f84",
+      "verified": true
+    },
+    {
+      "path": "assets/pdf/VIEW-EXTERIEUR.pdf",
+      "bytes": 21706570,
+      "sha256": "07e706caf692aa0c10905531b0997211099170321691dd99a7b598c8501ecffe",
+      "verified": true
+    },
+    {
+      "path": "assets/pdf/View Dorset_.pdf",
+      "bytes": 2370014,
+      "sha256": "b3fceff24d35f822178cee7f37b1f5f8d8bfde8171c6e51284dd4863a74766c5",
+      "verified": true
+    },
+    {
+      "path": "assets/pdf/View-DIGIONE.pdf",
+      "bytes": 3506239,
+      "sha256": "efe8bbf20923de9eb19385bc2ac43005f51280c0e5791438c6ec2a5a8ffc6a54",
+      "verified": true
+    },
+    {
+      "path": "assets/pdf/View_.marais.pdf",
+      "bytes": 5899360,
+      "sha256": "2f3f5a97e5ba28ad8e91b4cb24d32dcc81cdb5bbea163643332c71fc9c0800f0",
+      "verified": true
+    },
+    {
+      "path": "assets/pdf/View_serie COCO et Le_Pietre_di_View.pdf",
+      "bytes": 10542420,
+      "sha256": "7c85698b3a5e51dd7f72069fab713634851e97c5c4d651b04c4b726484cec3be",
+      "verified": true
+    },
+    {
+      "path": "assets/pdf/view Ardenne.pdf",
+      "bytes": 9062809,
+      "sha256": "9e1a0545075e0f37bf9b6bf9d36e625734540693b069dac0ee7f3914b62d1195",
+      "verified": true
+    }
+  ],
+  "siteChecks": [
+    {
+      "width": 1440,
+      "allSevenLinksStillPresent": true,
+      "count": 7
+    },
+    {
+      "width": 390,
+      "allSevenLinksStillPresent": true,
+      "count": 7
+    }
+  ],
+  "remainingRuntimeReferences": [
+    {
+      "file": "assets/js/catalogues-renderer.js",
+      "pdf": "VIEW_CATALOGO_PHURA_2026.pdf",
+      "line": 30,
+      "target": "Firebase Storage"
+    },
+    {
+      "file": "assets/js/catalogues-renderer.js",
+      "pdf": "VIEW-EXTERIEUR.pdf",
+      "line": 29,
+      "target": "Firebase Storage"
+    },
+    {
+      "file": "assets/js/catalogues-renderer.js",
+      "pdf": "View Dorset_.pdf",
+      "line": 26,
+      "target": "Firebase Storage"
+    },
+    {
+      "file": "assets/js/catalogues-renderer.js",
+      "pdf": "View-DIGIONE.pdf",
+      "line": 28,
+      "target": "Firebase Storage"
+    },
+    {
+      "file": "assets/js/catalogues-renderer.js",
+      "pdf": "View_.marais.pdf",
+      "line": 27,
+      "target": "Firebase Storage"
+    },
+    {
+      "file": "assets/js/catalogues-renderer.js",
+      "pdf": "View_serie COCO et Le_Pietre_di_View.pdf",
+      "line": 24,
+      "target": "Firebase Storage"
+    },
+    {
+      "file": "assets/js/catalogues-renderer.js",
+      "pdf": "view Ardenne.pdf",
+      "line": 25,
+      "target": "Firebase Storage"
+    },
+    {
+      "file": "catalogues.html",
+      "pdf": "VIEW_CATALOGO_PHURA_2026.pdf",
+      "line": 191,
+      "target": "Firebase Storage"
+    },
+    {
+      "file": "catalogues.html",
+      "pdf": "VIEW-EXTERIEUR.pdf",
+      "line": 190,
+      "target": "Firebase Storage"
+    },
+    {
+      "file": "catalogues.html",
+      "pdf": "View Dorset_.pdf",
+      "line": 187,
+      "target": "Firebase Storage"
+    },
+    {
+      "file": "catalogues.html",
+      "pdf": "View-DIGIONE.pdf",
+      "line": 189,
+      "target": "Firebase Storage"
+    },
+    {
+      "file": "catalogues.html",
+      "pdf": "View_.marais.pdf",
+      "line": 188,
+      "target": "Firebase Storage"
+    },
+    {
+      "file": "catalogues.html",
+      "pdf": "View_serie COCO et Le_Pietre_di_View.pdf",
+      "line": 185,
+      "target": "Firebase Storage"
+    },
+    {
+      "file": "catalogues.html",
+      "pdf": "view Ardenne.pdf",
+      "line": 186,
+      "target": "Firebase Storage"
+    }
+  ],
+  "backup": {
+    "archive": "SAUVEGARDE_APRES_MIGRATION_GITHUB_FIREBASE_2026-10-18.zip",
+    "sha256": "21de9469a3943930985159b70596f289da4940ca12fe1c959bd72a12cb27b1e7",
+    "zipVerified": true
+  },
+  "limitations": [
+    "Les anciennes URL directes du site sous /assets/pdf/ vers ces sept fichiers retourneront 404 apres publication du retrait. Les liens actuels de la page catalogue pointent deja vers Firebase et restent fonctionnels.",
+    "Les anciennes branches et anciens commits conservent ces PDF ; ce changement ne purge pas le stockage historique GitHub.",
+    "Les textures VIEW, tarifs et fichiers d integration ne sont pas concernes."
+  ]
+}
