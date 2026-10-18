@@ -1,4 +1,4 @@
-import { PARTNER_CONTACTS } from './partner-contacts.js';
+import { PARTNER_CONTACTS } from './partner-contacts.js?media=20261018';
 
 const SEND_URL='https://us-central1-le-roy-factory.cloudfunctions.net/sendGroupEmail';
 const FILE_API='https://us-central1-le-roy-factory.cloudfunctions.net/getAccountRequestAttachment';

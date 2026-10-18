@@ -90,7 +90,7 @@
     desktop.className='viewlots26-desktop';
     desktop.href='view-lots-septembre-2026.html';
     desktop.setAttribute('aria-label','Découvrir les lots VIEW Octobre 2026');
-    desktop.innerHTML='<div class="viewlots26-desktop-copy"><div class="viewlots26-desktop-kicker">Offre pro · Octobre 2026</div><div class="viewlots26-desktop-title">LOTS VIEW<br>CHOIX MS</div><div class="viewlots26-desktop-sub">17 lots disponibles · tarifs réservés aux clients identifiés</div><span class="viewlots26-desktop-cta">Voir les lots</span></div><div class="viewlots26-desktop-logo"><img src="assets/img/view.png" alt="VIEW Ceramiche" loading="lazy" decoding="async"></div>';
+    desktop.innerHTML='<div class="viewlots26-desktop-copy"><div class="viewlots26-desktop-kicker">Offre pro · Octobre 2026</div><div class="viewlots26-desktop-title">LOTS VIEW<br>CHOIX MS</div><div class="viewlots26-desktop-sub">17 lots disponibles · tarifs réservés aux clients identifiés</div><span class="viewlots26-desktop-cta">Voir les lots</span></div><div class="viewlots26-desktop-logo"><img src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/view.png" alt="VIEW Ceramiche" loading="lazy" decoding="async"></div>';
     desktop.addEventListener('click',open);
     hero.appendChild(desktop);
   }

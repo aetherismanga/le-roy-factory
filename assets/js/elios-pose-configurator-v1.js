@@ -6,7 +6,7 @@ if(hero)hero.textContent='Choisissez d’abord votre collection, la finition R10
 if(intro)intro.textContent='Sélectionnez le carreau et sa finition avant le schéma. Les compositions proposées sont filtrées selon les formats réellement disponibles en R10 ou R11 et le conditionnement choisi, puis les quantités sont calculées et arrondies à la boîte complète.';
 const st=document.createElement('style');st.textContent='.ep-result-actions #ep-order{background:#161511;color:#f3d16b}.ep-result-actions #ep-print{background:#fff;color:#54420f}';document.head.appendChild(st);
 const files=[
-'assets/js/inspirations-elios-pricing.js?v=20260911-pose3',
+'assets/js/inspirations-elios-pricing.js?v=20260911-pose3&media=20261018',
 'assets/js/pro-session-bridge.js?v=20260911-pose3',
 'assets/js/elios-pose-v2-base.js?v=20260911-pose3',
 'assets/js/elios-pose-v2-finishes.js?v=20260911-pose3',

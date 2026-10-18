@@ -115,7 +115,7 @@ const COLLECTION_IMAGES={
  'Harmony':'harmony','Luce':'luce','Brent':'brent','Aruba rainuré':'aruba-rainure',
  'Aruba':'aruba','Aras':'aras','Boreal':'boreal','Brunei':'brunei','Amat':'amat','Less':'less','Sima':'sima'
 };
-const collectionImage=name=>'<span class="visual collection-visual"><img src="assets/img/randal/v04/'+(COLLECTION_IMAGES[name]||'harmony')+'.webp" alt="Photo officielle RANDAL '+esc(name)+'" loading="lazy" decoding="async"></span>';
+const collectionImage=name=>'<span class="visual collection-visual"><img src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/v04/'+(COLLECTION_IMAGES[name]||'harmony')+'.webp" alt="Photo officielle RANDAL '+esc(name)+'" loading="lazy" decoding="async"></span>';
 const photo=(page,tag='',key='')=>'<span class="visual"><canvas width="300" height="190" data-photo-page="'+page+'" data-photo-key="'+esc(key)+'" role="img" aria-label="Photo officielle RANDAL, page '+page+'"></canvas>'+(tag?'<i>'+tag+'</i>':'')+'</span>';
 
 const resetConfiguration=()=>{Object.assign(st,{typeId:'',width:'',height:'',depth:'',color:'',variantCode:'',basinLayout:'single',basin:'Sella',top:'Sans plan',basinMode:'integrated',topFinish:'Blanco mate',mirror:'Sans miroir',mirrorSize:'',mirrorFinish:'',quantity:1});};
@@ -154,7 +154,7 @@ if(selectedFromCatalogue&&models.some(([name])=>name===selectedFromCatalogue)){i
 const entry=(label,name,type='text',placeholder='')=>'<label class="field">'+label+'<input name="'+name+'" type="'+type+'" '+(type==='number'?'min="1" max="9" step="1"':'')+' placeholder="'+placeholder+'" value="'+esc(st[name])+'"></label>';
 const select=(label,name,opts)=>'<label class="field">'+label+'<select name="'+name+'">'+opts.map(v=>'<option value="'+esc(v)+'" '+(st[name]===v?'selected':'')+'>'+esc(v)+'</option>').join('')+'</select></label>';
 // Dessins PDF RANDAL conservés en tracés SVG : précision indépendante du zoom.
-const typeVectorUrl=slug=>'assets/img/randal/types/'+slug+'.svg?v=20261014-vectoriels1';
+const typeVectorUrl=slug=>'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/types/'+slug+'.svg?v=20261014-vectoriels1';
 window.randalVectorFallback=img=>{img.onerror=null;img.src=img.src.split('?')[0].replace(/\.svg$/,'.webp')};
 const typeCards=()=>'<div class="choices type-choices">'+typeOptions().map(t=>
  '<button type="button" class="choice type-choice '+(st.typeId===t[0]?'active':'')+'" data-field="typeId" data-value="'+esc(t[0])+'">'+
@@ -175,13 +175,13 @@ const ACCESSORY_ART={
 };
 const accessoryImage=name=>{
  const slug=ACCESSORY_ART[name];
- return slug?'<span class="visual accessory-visual"><img src="assets/img/randal/accessories/'+(st.model==='Harmony'&&['Sella','Tampa','Neris','Torne'].includes(name)?'hd/':'')+slug+'.webp" loading="lazy" decoding="async" alt="Dessin RANDAL '+esc(name)+'"></span>':'';
+ return slug?'<span class="visual accessory-visual"><img src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/accessories/'+(st.model==='Harmony'&&['Sella','Tampa','Neris','Torne'].includes(name)?'hd/':'')+slug+'.webp" loading="lazy" decoding="async" alt="Dessin RANDAL '+esc(name)+'"></span>':'';
 };
 const blankAccessory=label=>'<span class="visual accessory-empty">'+esc(label)+'</span>';
 const METAL_FINISH_SLUG={Noir:'anthracite','Doré':'dore',Bronze:'bronze',Argent:'argent'};
-const metalFinishImage=value=>'<span class="metallic-finish-preview"><img src="assets/img/randal/mirror-finishes/'+(METAL_FINISH_SLUG[value]||'anthracite')+'.webp" alt="Finition métallique '+esc(value)+'" loading="lazy" decoding="async"></span>';
+const metalFinishImage=value=>'<span class="metallic-finish-preview"><img src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/mirror-finishes/'+(METAL_FINISH_SLUG[value]||'anthracite')+'.webp" alt="Finition métallique '+esc(value)+'" loading="lazy" decoding="async"></span>';
 const finishSlug=value=>String(value).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
-const finishUrl=(model,finish)=>'assets/img/randal/finishes/'+finishSlug(model)+'/'+finishSlug(finish)+'.webp';
+const finishUrl=(model,finish)=>'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/finishes/'+finishSlug(model)+'/'+finishSlug(finish)+'.webp';
 const finishImage=(model,finish)=>'<span class="finish-preview"><img src="'+esc(finishUrl(model,finish))+'" loading="lazy" decoding="async" alt="Échantillon officiel de finition '+esc(finish)+'" onerror="this.onerror=null;this.hidden=true;this.parentNode.classList.add(\'finish-not-found\')"></span>';
 const pick=(name,values,group='')=>'<div class="choices '+group+'">'+values.map(([value,sub])=>{
  const visual=name==='model'?collectionImage(value)
@@ -329,7 +329,7 @@ async function jpegFromImage(path){
  const url=URL.createObjectURL(blob);
  try{
   const img=await new Promise((resolve,reject)=>{
-   const im=new Image();im.onload=()=>resolve(im);im.onerror=reject;im.src=url;
+   const im=new Image();im.crossOrigin='anonymous';im.onload=()=>resolve(im);im.onerror=reject;im.src=url;
   });
   const canvas=document.createElement('canvas');
   canvas.width=1320;canvas.height=780;
@@ -343,8 +343,8 @@ async function jpegFromImage(path){
 function exportPictures(){
  const t=selectedType();return [
   {name:st.model,src:t?typeVectorUrl(t[2]):null},
-  {name:st.basinMode==='none'?'Sans vasque':st.basin,src:st.basinMode!=='none'&&st.basin!=='Sans vasque'?'assets/img/randal/accessories/'+ACCESSORY_ART[st.basin]+'.webp':null},
-  {name:st.mirror,src:st.mirror!=='Sans miroir'&&ACCESSORY_ART[st.mirror]?'assets/img/randal/accessories/'+ACCESSORY_ART[st.mirror]+'.webp':null}
+  {name:st.basinMode==='none'?'Sans vasque':st.basin,src:st.basinMode!=='none'&&st.basin!=='Sans vasque'?'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/accessories/'+ACCESSORY_ART[st.basin]+'.webp':null},
+  {name:st.mirror,src:st.mirror!=='Sans miroir'&&ACCESSORY_ART[st.mirror]?'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/accessories/'+ACCESSORY_ART[st.mirror]+'.webp':null}
  ];
 }
 async function downloadOrderPdf(){

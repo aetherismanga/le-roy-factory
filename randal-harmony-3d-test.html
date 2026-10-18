@@ -38,7 +38,7 @@ small{display:block;line-height:1.6;color:#74736d;margin-top:20px}
 <p class="lead">13 variantes (dont la colonne auxiliaire) et 3 finitions officielles, soit 39 modèles 3D. Tournez et zoomez pour examiner le mobilier et la découpe siphon.</p>
 <div class="layout">
 <section class="viewer">
-<model-viewer id="mv" src="assets/models/randal/harmony/Harmony_A_60cm_2tiroirs_Serenade_Alba.glb" alt="Modèle prototype Harmony A sans poignées" camera-controls touch-action="pan-y" auto-rotate auto-rotate-delay="2200" rotation-per-second="12deg" shadow-intensity=".8" exposure="1.1" environment-image="neutral" camera-orbit="35deg 77deg 1.5m" min-camera-orbit="auto auto 0.7m" max-camera-orbit="auto auto 4m"></model-viewer>
+<model-viewer id="mv" src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/models/randal/harmony/Harmony_A_60cm_2tiroirs_Serenade_Alba.glb" alt="Modèle prototype Harmony A sans poignées" camera-controls touch-action="pan-y" auto-rotate auto-rotate-delay="2200" rotation-per-second="12deg" shadow-intensity=".8" exposure="1.1" environment-image="neutral" camera-orbit="35deg 77deg 1.5m" min-camera-orbit="auto auto 0.7m" max-camera-orbit="auto auto 4m"></model-viewer>
 <footer><span>Rotation souris / doigt · zoom molette / pincement</span><span>GLB</span></footer>
 </section>
 <aside class="panel">
@@ -64,7 +64,7 @@ small{display:block;line-height:1.6;color:#74736d;margin-top:20px}
 <option value="Blanco_Mate">Blanco Mate</option>
 <option value="Gris_Tortora">Gris Tórtora</option>
 </select>
-<div class="sample"><img id="catalog" src="assets/img/randal/types/harmony-2-tiroirs.webp" alt="Dessin officiel du meuble Harmony"><span>À gauche : dessin officiel extrait du catalogue. Au centre : prototype 3D à comparer.</span></div>
+<div class="sample"><img id="catalog" src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/types/harmony-2-tiroirs.webp" alt="Dessin officiel du meuble Harmony"><span>À gauche : dessin officiel extrait du catalogue. Au centre : prototype 3D à comparer.</span></div>
 <p id="state" aria-live="polite"></p>
 <p class="note">Prototype technique à valider. Dimensions principales et couleurs du tableau RANDAL reprises, mais détails de fabrication et textures HD d'usine non fournis. Les 10,5 cm de pieds sont ajoutés à la hauteur du caisson sur les variantes G à L. Pour ouvrir les tiroirs et changer la vasque, utilisez le configurateur interactif.</p>
 <small>Cette bibliothèque GLB est consultable séparément. Le configurateur commercial Harmony dispose de l’ouverture des tiroirs et des choix de vasques, avec mise à jour du récapitulatif.</small>
@@ -83,10 +83,10 @@ function change(){
  width.disabled=isColumn;
  const letter=isColumn?'M':String.fromCharCode((three?71:65)+idx);
  const basename=isColumn?'Harmony_M_30cm_colonne':('Harmony_'+letter+'_'+width.value+'cm_'+(three?'3':'2')+'tiroirs');
- const file='assets/models/randal/harmony/'+basename+'_'+finish.value+'.glb';
+ const file='https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/models/randal/harmony/'+basename+'_'+finish.value+'.glb';
  message.textContent='Chargement du modèle '+letter+'…';
  viewer.src=file;
- img.src='assets/img/randal/types/'+(isColumn?'harmony-colonne':three?'harmony-3-tiroirs':'harmony-2-tiroirs')+'.webp';
+ img.src='https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/types/'+(isColumn?'harmony-colonne':three?'harmony-3-tiroirs':'harmony-2-tiroirs')+'.webp';
 }
 variant.addEventListener('change',change);width.addEventListener('change',change);finish.addEventListener('change',change);
 viewer.addEventListener('load',()=>message.textContent='');

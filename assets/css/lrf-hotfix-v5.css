@@ -5,7 +5,7 @@ body.lrf-page-index .hero-video-section{
   background:
     linear-gradient(90deg,rgba(0,0,0,.06),rgba(0,0,0,.01) 50%,rgba(0,0,0,.05)),
     linear-gradient(180deg,rgba(0,0,0,.01),rgba(0,0,0,.06) 76%,rgba(0,0,0,.24)),
-    url('../brand-v2/accueil-desktop.png?v=20260901-hd2') center center/cover no-repeat!important;
+    url('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/brand-v2/accueil-desktop.png?v=20260901-hd2') center center/cover no-repeat!important;
 }
 body.lrf-page-index .hero-overlay{
   background:radial-gradient(circle at 50% 44%,rgba(0,0,0,0),rgba(0,0,0,.08) 76%)!important;
@@ -59,7 +59,7 @@ body.lrf-premium-v2 header .main-nav>li>a:not(.agent-btn):focus::before{backgrou
   body.lrf-premium-v2 header nav .main-nav a:not(.agent-btn):focus,
   body.lrf-premium-v2 header nav .main-nav a:not(.agent-btn):active{background:transparent!important;background-color:transparent!important;box-shadow:none!important}
   body.lrf-page-index .hero-video-section{
-    background-image:linear-gradient(180deg,rgba(0,0,0,.02),rgba(0,0,0,.10) 54%,rgba(0,0,0,.34)),url('../brand-v2/accueil-mobile.png?v=20260901-hd2')!important;
+    background-image:linear-gradient(180deg,rgba(0,0,0,.02),rgba(0,0,0,.10) 54%,rgba(0,0,0,.34)),url('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/brand-v2/accueil-mobile.png?v=20260901-hd2')!important;
     background-size:cover!important;
     background-position:center center!important;
     background-repeat:no-repeat!important;
@@ -80,7 +80,7 @@ body.lrf-configurator-page > header{
   left:auto!important;
   z-index:10000!important;
   overflow:visible!important;
-  background:#070707 url('../brand-v2/marble-black-gold.svg') center 45%/cover!important;
+  background:#070707 url('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/brand-v2/marble-black-gold.svg') center 45%/cover!important;
   border-bottom:1px solid #FFD700!important;
   box-shadow:0 10px 35px rgba(0,0,0,.38),0 1px 14px rgba(255,183,0,.18)!important;
 }

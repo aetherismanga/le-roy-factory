@@ -4,8 +4,8 @@
   const CATALOGUE_URL = 'uptrend-catalogue-interactif.html';
   const TECH_URL = 'https://artesinna.fr/wp-content/uploads/2023/09/UPTREND-Photo-Schema-Technique-2023.pdf';
   const PRO_URL = 'tarifs-pro.html?partner=UPTREND';
-  const LOGO = 'assets/img/uptrend.svg';
-  const COVER = 'assets/img/uptrend-catalogue-2026.jpg?v=20260913-ui2';
+  const LOGO = 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/uptrend.svg';
+  const COVER = 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/uptrend-catalogue-2026.jpg?v=20260913-ui2';
   const CART_URL = 'uptrend-commande.html';
   const CART_KEY = 'lrfUptrendCartV1';
   let sanitaryActive = false;

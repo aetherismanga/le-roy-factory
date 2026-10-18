@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const ROOT = 'assets/img/elios/azuli-mood/';
+  const ROOT = 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/azuli-mood/';
   const galleries = {
     Chalk: [ROOT + 'chalk-01.jpg', ROOT + 'chalk-02.jpg'],
     Sand: [ROOT + 'sand-01.jpg', ROOT + 'sand-02.jpg'],

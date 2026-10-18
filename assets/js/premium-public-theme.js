@@ -58,12 +58,12 @@
     document.head.appendChild(link);
   };
 
-  addStylesheet('lrf-premium-v2-css', 'assets/css/lrf-premium-v2.css?v=20260901-3');
-  addStylesheet('lrf-soft-pages-v3-css', 'assets/css/lrf-soft-pages-v3.css?v=20260901-2');
-  addStylesheet('lrf-final-v4-css', 'assets/css/lrf-final-v4.css?v=20260901-3');
-  addStylesheet('lrf-hotfix-v5-css', 'assets/css/lrf-hotfix-v5.css?v=20260901-5');
+  addStylesheet('lrf-premium-v2-css', 'assets/css/lrf-premium-v2.css?v=20260901-3&media=20261018');
+  addStylesheet('lrf-soft-pages-v3-css', 'assets/css/lrf-soft-pages-v3.css?v=20260901-2&media=20261018');
+  addStylesheet('lrf-final-v4-css', 'assets/css/lrf-final-v4.css?v=20260901-3&media=20261018');
+  addStylesheet('lrf-hotfix-v5-css', 'assets/css/lrf-hotfix-v5.css?v=20260901-5&media=20261018');
   if (window.matchMedia('(max-width: 900px)').matches) {
-    addStylesheet('lrf-mobile-public-v8-css', 'assets/css/mobile-public-v8.css?v=20260901-2');
+    addStylesheet('lrf-mobile-public-v8-css', 'assets/css/mobile-public-v8.css?v=20260901-2&media=20261018');
   }
   addStylesheet('lrf-logo-scale-v9-css', 'assets/css/lrf-logo-scale-v9.css?v=20260918-pc-logo2');
   document.documentElement.classList.add('lrf-premium-ready');
@@ -280,11 +280,11 @@
     if (!logoLink) return;
     let img = logoLink.querySelector('img');
     if (!img || !img.classList.contains('lrf-monogram-header')) {
-      logoLink.innerHTML = '<img class="lrf-monogram-header" src="assets/brand-v2/logoLRF.png?v=20260918-pc-logo2" alt="LRF">';
+      logoLink.innerHTML = '<img class="lrf-monogram-header" src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/brand-v2/logoLRF.png?v=20260918-pc-logo2" alt="LRF">';
       img = logoLink.querySelector('img');
     }
-    if (img && img.getAttribute('src') !== 'assets/brand-v2/logoLRF.png?v=20260918-pc-logo2') {
-      img.setAttribute('src','assets/brand-v2/logoLRF.png?v=20260918-pc-logo2');
+    if (img && img.getAttribute('src') !== 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/brand-v2/logoLRF.png?v=20260918-pc-logo2') {
+      img.setAttribute('src','https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/brand-v2/logoLRF.png?v=20260918-pc-logo2');
     }
     logoLink.removeAttribute('style');
   };
@@ -309,7 +309,7 @@
 
     const favicon = document.querySelector('link[rel="icon"]');
     if (favicon) {
-      favicon.href = 'assets/brand-v2/logoLRF.png?v=20260918-pc-logo2';
+      favicon.href = 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/brand-v2/logoLRF.png?v=20260918-pc-logo2';
       favicon.type = 'image/png';
     }
 
@@ -328,14 +328,14 @@
 
     const heroLogo = document.querySelector('.hero-logo');
     if (heroLogo) {
-      heroLogo.src = 'assets/brand-v2/logo-le-roy-factory.svg';
+      heroLogo.src = 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/brand-v2/logo-le-roy-factory.svg';
       heroLogo.alt = 'LE ROY factory';
       heroLogo.removeAttribute('style');
     }
 
     const clientBrand = document.querySelector('.brand img');
     if (page === 'ouverture-compte.html' && clientBrand) {
-      clientBrand.src = 'assets/brand-v2/logoLRF.png?v=20260918-pc-logo2';
+      clientBrand.src = 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/brand-v2/logoLRF.png?v=20260918-pc-logo2';
       clientBrand.alt = 'LRF';
     }
 
@@ -345,7 +345,7 @@
       if (container) {
         const mark = document.createElement('img');
         mark.className = 'lrf-footer-brand';
-        mark.src = 'assets/brand-v2/logo-le-roy-factory.svg';
+        mark.src = 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/brand-v2/logo-le-roy-factory.svg';
         mark.alt = 'LE ROY factory';
         mark.style.cssText = 'width:190px;max-width:62vw;height:auto;margin:0 auto 10px;display:block;';
         container.prepend(mark);

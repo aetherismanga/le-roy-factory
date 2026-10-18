@@ -1,6 +1,6 @@
 /* Agenda V2 — LE ROY FACTORY */
 body.crm-body{background:#fbf9f5!important;color:#1a2530!important}
-.crm-topbar{background-image:url('../img/bandeau02.png')!important;background-size:cover!important;background-position:center!important;background-repeat:no-repeat!important;border-bottom:2px solid #d4af37!important;color:#fff!important}
+.crm-topbar{background-image:none!important;background-size:cover!important;background-position:center!important;background-repeat:no-repeat!important;border-bottom:2px solid #d4af37!important;color:#fff!important}
 .crm-topbar h1,.crm-topbar p,.welcome-box h1,.welcome-box p{color:#fff!important;text-shadow:0 1px 4px rgba(0,0,0,.9)}
 .agenda-shell{padding:16px 18px 26px}
 .agenda-card{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:16px;box-shadow:0 8px 28px rgba(32,27,18,.06);padding:14px 16px 16px;min-width:0}

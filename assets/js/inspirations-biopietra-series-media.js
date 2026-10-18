@@ -3,7 +3,7 @@
   if (window.__LRF_BIOPIETRA_SERIES_MEDIA_V1__) return;
   window.__LRF_BIOPIETRA_SERIES_MEDIA_V1__ = true;
 
-  const LOGO = 'assets/img/biopietra.png';
+  const LOGO = 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/biopietra.png';
   const norm = value => String(value || '')
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')

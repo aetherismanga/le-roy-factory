@@ -52,7 +52,7 @@ if(lrfCurrentPage==='nouveau-compte-rendu.html'){import('./nouveau-cr-client-mai
 if(new Set(['clients.html','mails-groupes.html']).has(lrfCurrentPage)){import('./mail-archive-enhancer.js?v=20260903-1').catch(err=>console.error('Erreur archivage détaillé des mails :',err));}
 if(lrfCurrentPage==='dashboard.html'){
   import('./dashboard-ui-fixes.js?v=20260903-1').catch(err=>console.error('Erreur correctifs dashboard :',err));
-  import('./dashboard-agent-avatar.js?v=20260904-avatar3').catch(err=>console.error('Erreur avatar agent dashboard :',err));
+  import('./dashboard-agent-avatar.js?v=20260904-avatar3&media=20261018').catch(err=>console.error('Erreur avatar agent dashboard :',err));
   import('./crm-radio-player.js?v=20260904-radio1').catch(err=>console.error('Erreur lecteur radio CRM :',err));
 }
 const lrfClockPages=new Set(['dashboard.html','clients.html','mails-groupes.html','comptes-rendus.html','tournees.html']);

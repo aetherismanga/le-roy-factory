@@ -13,11 +13,11 @@
   };
 
   const fallbackByCategory = {
-    'Bois': 'assets/img/bois01.jpg',
-    'Pierre / marbre': 'assets/img/pierre01.jpg',
-    'Grandes dalles': 'assets/img/03.png',
-    'Ciments / céramiques': 'assets/img/02.png',
-    'Décor / relief': 'assets/img/04.png'
+    'Bois': 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/bois01.jpg',
+    'Pierre / marbre': 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/pierre01.jpg',
+    'Grandes dalles': 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/03.png',
+    'Ciments / céramiques': 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/02.png',
+    'Décor / relief': 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/04.png'
   };
 
   let galleryState = null;
@@ -27,7 +27,7 @@
   const unique = arr => [...new Set(arr.filter(Boolean))].sort((a, b) => a.localeCompare(b, 'fr', { numeric: true }));
   const esc = v => String(v ?? '').replace(/[&<>'"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[c]));
   const galleryUrls = p => (p.gallery || []).map(k => images[k]).filter(Boolean);
-  const mainImage = p => galleryUrls(p)[0] || fallbackByCategory[p.category] || 'assets/img/03.png';
+  const mainImage = p => galleryUrls(p)[0] || fallbackByCategory[p.category] || 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/03.png';
 
   function populateFilters() {
     fill(els.category, ['Tous', ...unique(data.map(p => p.category))]);

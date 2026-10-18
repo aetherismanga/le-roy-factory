@@ -5,10 +5,10 @@
   if (!hero || document.getElementById('lrf-home-desktop-corners-style')) return;
 
   const CORNERS = [
-    { cls: 'top-left', src: 'assets/img/anglehautgauche.png?v=20260907-corners1' },
-    { cls: 'top-right', src: 'assets/img/anglehautdroit.png?v=20260907-corners1' },
-    { cls: 'bottom-left', src: 'assets/img/anglebasgauche.png?v=20260907-corners1' },
-    { cls: 'bottom-right', src: 'assets/img/anglebasdroit.png?v=20260907-corners1' }
+    { cls: 'top-left', src: 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/anglehautgauche.png?v=20260907-corners1' },
+    { cls: 'top-right', src: 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/anglehautdroit.png?v=20260907-corners1' },
+    { cls: 'bottom-left', src: 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/anglebasgauche.png?v=20260907-corners1' },
+    { cls: 'bottom-right', src: 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/anglebasdroit.png?v=20260907-corners1' }
   ];
 
   const style = document.createElement('style');
