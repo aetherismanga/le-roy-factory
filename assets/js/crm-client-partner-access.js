@@ -98,7 +98,7 @@ if (!window.__LRF_CLIENT_PARTNER_ACCESS__) {
 
   function partnerVisual(id, logo) {
     if (id === 'opal') return '<span class="opal-mirror-logo" aria-label="Opal — miroir"></span>';
-    return `<img src="assets/img/${esc(logo)}" alt="">`;
+    return `<img src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/${esc(logo)}" alt="">`;
   }
 
   function renderPartners() {

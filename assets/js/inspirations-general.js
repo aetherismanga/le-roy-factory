@@ -37,7 +37,7 @@
     color: $('#filter-color'), dimension: $('#filter-dimension'), manufacturer: $('#filter-manufacturer'),
     count: $('#results-count'), modal: $('#product-modal'), dialog: $('#product-dialog'), filters: $('#advanced-filters')
   };
-  const fallback = {'Carrelage':'assets/img/03.png','Meuble salle de bain':'assets/img/02.png'};
+  const fallback = {'Carrelage':'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/03.png','Meuble salle de bain':'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/02.png'};
   let galleryState = null, lightbox = null;
 
   function fill(select, values, allLabel='Tous') {
@@ -52,7 +52,7 @@
     fill(els.manufacturer, ['Tous', ...unique(data.map(p => p.manufacturer))], 'Tous les fabricants');
   }
   const galleryUrls = p => (p.images || []).filter(Boolean);
-  const mainImage = p => galleryUrls(p)[0] || fallback[p.productType] || 'assets/img/03.png';
+  const mainImage = p => galleryUrls(p)[0] || fallback[p.productType] || 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/03.png';
 
   function matches(p) {
     const hay = norm([p.name,p.manufacturer,p.brandLabel,p.collection,p.productType,p.category,p.description,...(p.inspirations||[]),...(p.colors||[]),...(p.dimensions||p.formats||[]),...(p.finishes||[]),...(p.uses||[])].join(' '));

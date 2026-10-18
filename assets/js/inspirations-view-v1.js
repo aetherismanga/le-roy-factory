@@ -24,7 +24,7 @@
   const imageUrl = image => typeof image === 'string' ? image : image?.url;
   const galleryOf = p => {
     const urls = unique((p.images || []).map(imageUrl).filter(Boolean));
-    return urls.length ? urls : ['assets/img/view.png'];
+    return urls.length ? urls : ['https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/view.png'];
   };
   const imageOf = p => galleryOf(p)[0];
 
@@ -170,7 +170,7 @@
     if (count) count.textContent = `${found.length} collection${found.length > 1 ? 's' : ''} VIEW`;
     grid.innerHTML = found.length ? found.map(p => `
       <article class="product-card-v2 view-product-card" data-view-id="${esc(p.id)}">
-        <img src="${esc(imageOf(p))}" alt="${esc(p.name)}" loading="lazy" onerror="this.onerror=null;this.src='assets/img/view.png'">
+        <img src="${esc(imageOf(p))}" alt="${esc(p.name)}" loading="lazy" onerror="this.onerror=null;this.src='https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/view.png'">
         <div class="body">
           <span class="eyebrow">VIEW · ${esc(p.effect || p.category || 'Carrelage')}</span>
           <h3>${esc(p.name)}</h3>
@@ -194,7 +194,7 @@
     return `
       <div class="elios-gallery-v2 view-gallery" data-view-gallery>
         <div class="elios-gallery-stage">
-          <img class="elios-gallery-main" src="${esc(items[0])}" alt="${esc(p.name)}" data-view-main onerror="this.onerror=null;this.src='assets/img/view.png'">
+          <img class="elios-gallery-main" src="${esc(items[0])}" alt="${esc(p.name)}" data-view-main onerror="this.onerror=null;this.src='https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/view.png'">
           ${items.length > 1 ? '<button class="elios-gallery-prev" type="button" aria-label="Image précédente">‹</button><button class="elios-gallery-next" type="button" aria-label="Image suivante">›</button>' : ''}
           <span class="elios-gallery-count" data-view-count>1 / ${items.length}</span>
         </div>

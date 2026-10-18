@@ -18,7 +18,7 @@ body.lrf-page-index .hero-video-section{
   background:
     linear-gradient(90deg,rgba(3,3,3,.72),rgba(3,3,3,.28) 50%,rgba(3,3,3,.68)),
     radial-gradient(circle at 50% 34%,rgba(255,190,30,.16),transparent 34%),
-    url('../img/02.png') center 54%/cover no-repeat!important;
+    url('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/02.png') center 54%/cover no-repeat!important;
 }
 body.lrf-page-index .bg-video{display:none!important}
 body.lrf-page-index .hero-overlay{background:linear-gradient(180deg,rgba(0,0,0,.10),rgba(0,0,0,.28) 65%,rgba(0,0,0,.72))!important}
@@ -32,7 +32,7 @@ body.lrf-page-index .premium-universe-card{border-radius:24px!important}
 
 /* Rubriques publiques : ambiance claire, douce et légèrement transparente. */
 body.lrf-premium-v2.lrf-light-page{
-  --lrf-soft-bg:url('../img/pierre01.jpg');
+  --lrf-soft-bg:url('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/pierre01.jpg');
   --lrf-soft-pos:center;
   --lrf-ink:#28241f;
   --lrf-ink-soft:#625a50;
@@ -54,13 +54,13 @@ body.lrf-premium-v2.lrf-light-page::after{
 }
 
 /* Un fond différent pour chaque univers. */
-body.lrf-page-partenaires{--lrf-soft-bg:url('../img/pierre01.jpg');--lrf-soft-pos:center 40%}
-body.lrf-page-univers{--lrf-soft-bg:url('../img/bois01.jpg');--lrf-soft-pos:center}
-body.lrf-page-realisations{--lrf-soft-bg:url('../img/01.png');--lrf-soft-pos:center}
-body.lrf-page-catalogues{--lrf-soft-bg:url('../img/03.png');--lrf-soft-pos:center}
-body.lrf-page-tarifs-pro{--lrf-soft-bg:url('../img/neobath-config/dna-gres-calacatta-oro-3980f49c2d.webp');--lrf-soft-pos:center}
-body.lrf-page-contact{--lrf-soft-bg:url('../img/05.png');--lrf-soft-pos:center}
-body.lrf-page-ouverture-compte{--lrf-soft-bg:url('../img/neobath-config/dna-hpl-travertino-tivoli-f0c74a4c54.webp');--lrf-soft-pos:center}
+body.lrf-page-partenaires{--lrf-soft-bg:url('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/pierre01.jpg');--lrf-soft-pos:center 40%}
+body.lrf-page-univers{--lrf-soft-bg:url('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/bois01.jpg');--lrf-soft-pos:center}
+body.lrf-page-realisations{--lrf-soft-bg:url('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/01.png');--lrf-soft-pos:center}
+body.lrf-page-catalogues{--lrf-soft-bg:url('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/03.png');--lrf-soft-pos:center}
+body.lrf-page-tarifs-pro{--lrf-soft-bg:url('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/neobath-config/dna-gres-calacatta-oro-3980f49c2d.webp');--lrf-soft-pos:center}
+body.lrf-page-contact{--lrf-soft-bg:url('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/05.png');--lrf-soft-pos:center}
+body.lrf-page-ouverture-compte{--lrf-soft-bg:url('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/neobath-config/dna-hpl-travertino-tivoli-f0c74a4c54.webp');--lrf-soft-pos:center}
 
 body.lrf-premium-v2.lrf-light-page main:not(:has(.hero-video-section)){background:transparent!important;color:var(--lrf-ink)!important}
 body.lrf-premium-v2.lrf-light-page .hero-banner{
@@ -126,7 +126,7 @@ body.lrf-premium-v2.lrf-light-page .btn-outline-white:hover{background:#fff9ea!i
 /* Formulaire espace client : léger, clair, rassurant. */
 body.lrf-page-ouverture-compte .form-shell{max-width:1040px!important;margin-top:1.2rem!important}
 body.lrf-page-ouverture-compte .brand{background:rgba(255,255,255,.76);backdrop-filter:blur(10px);border:1px solid rgba(185,139,52,.18);border-radius:26px;padding:1rem 1.2rem;box-shadow:0 14px 32px rgba(78,58,28,.08)}
-body.lrf-page-ouverture-compte .brand img{content:url('../brand-v2/monogram-lr.svg');width:70px!important;height:70px!important;border:0!important;background:transparent!important;object-fit:contain!important}
+body.lrf-page-ouverture-compte .brand img{content:url('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/brand-v2/monogram-lr.svg');width:70px!important;height:70px!important;border:0!important;background:transparent!important;object-fit:contain!important}
 body.lrf-page-ouverture-compte .brand h1{font-family:Georgia,'Times New Roman',serif;font-weight:400!important;color:#65460f!important}
 body.lrf-page-ouverture-compte .brand p{color:#71685e!important}
 body.lrf-page-ouverture-compte .choice label,

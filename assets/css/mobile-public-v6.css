@@ -1,2 +1,2 @@
 /* Compatibilité : toute ancienne page qui charge encore V6 récupère la V8 finale. */
-@import url('mobile-public-v8.css?v=20260901-2') screen and (max-width:900px);
+@import url('mobile-public-v8.css?v=20260901-2&media=20261018') screen and (max-width:900px);

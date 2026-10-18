@@ -57,7 +57,7 @@
     if (partnerTrigger) partnerTrigger.textContent = '☰ Choisir une usine — Bilt';
 
     const allowed = hasBilt();
-    if (partnerGrid) partnerGrid.innerHTML = `<div class="partner-card active"><img src="assets/img/bilt.png" alt="Bilt" loading="lazy" decoding="async"><span><strong>Bilt</strong><small>Outillage & systèmes de pose</small><span class="access ${allowed ? '' : 'locked'}">${allowed ? '✓ Tarif PRO autorisé' : '🔒 Tarif PRO selon compte'}</span></span></div>`;
+    if (partnerGrid) partnerGrid.innerHTML = `<div class="partner-card active"><img src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/bilt.png" alt="Bilt" loading="lazy" decoding="async"><span><strong>Bilt</strong><small>Outillage & systèmes de pose</small><span class="access ${allowed ? '' : 'locked'}">${allowed ? '✓ Tarif PRO autorisé' : '🔒 Tarif PRO selon compte'}</span></span></div>`;
     if (partnerPanel) partnerPanel.classList.remove('mobile-open');
 
     if (workspace) {
@@ -67,7 +67,7 @@
       const sub = document.getElementById('workspace-sub');
       const badge = document.getElementById('workspace-pro-badge');
       const link = document.getElementById('workspace-pro-link');
-      if (logo) { logo.src = 'assets/img/bilt.png'; logo.decoding = 'async'; }
+      if (logo) { logo.src = 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/bilt.png'; logo.decoding = 'async'; }
       if (workspaceTitle) workspaceTitle.textContent = 'Bilt';
       if (sub) sub.textContent = 'Outillage & systèmes de pose · espace produits dédié';
       if (badge) {
@@ -83,7 +83,7 @@
 
     if (filters) filters.style.display = 'none';
     if (count) count.textContent = 'Catalogue produits à intégrer';
-    if (products) products.innerHTML = `<div class="empty-partner"><img src="assets/img/bilt.png" alt="Bilt" loading="lazy" decoding="async"><strong>Bilt est maintenant dans Outillages / divers.</strong><p>Cette rubrique accueillera les systèmes de pose, croisillons, accessoires et autres produits techniques.</p>${allowed ? '<a class="pro-link" href="tarifs-pro.html">Voir mon tarif PRO Bilt</a>' : ''}</div>`;
+    if (products) products.innerHTML = `<div class="empty-partner"><img src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/bilt.png" alt="Bilt" loading="lazy" decoding="async"><strong>Bilt est maintenant dans Outillages / divers.</strong><p>Cette rubrique accueillera les systèmes de pose, croisillons, accessoires et autres produits techniques.</p>${allowed ? '<a class="pro-link" href="tarifs-pro.html">Voir mon tarif PRO Bilt</a>' : ''}</div>`;
   }
 
   function optimizeImages(root = document) {

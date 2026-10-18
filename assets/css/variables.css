@@ -1,6 +1,6 @@
 @import url('./crm-warm-3d-v1.css?v=20260918-sage-sidebar1');
 @import url('./crm-warm-3d-pages-v1.css?v=20260903-1');
-@import url('./crm-warm-3d-modules-v1.css?v=20260903-1');
+@import url('./crm-warm-3d-modules-v1.css?v=20260903-1&media=20261018');
 
 :root {
   --color-white: #FFFFFF;
@@ -15,7 +15,7 @@
 
 /* CRM mobile : le vrai logo reste dans le menu latéral uniquement.
    Le médaillon central provenait de .crm-main-content::before dans
-   crm-warm-3d-modules-v1.css : on le neutralise explicitement ici. */
+   crm-warm-3d-modules-v1.css?media=20261018 : on le neutralise explicitement ici. */
 @media (max-width: 900px) {
   html body.crm-body .crm-main-content::before {
     content: none !important;

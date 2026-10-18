@@ -9,10 +9,10 @@
   if (!logoWrap || document.getElementById('bulbo-mobile-trigger')) return;
 
   const SLIDES = [
-    'assets/img/bulbo/diapo-01.webp?v=20260921-4',
-    'assets/img/bulbo/diapo-02.webp?v=20260921-4',
-    'assets/img/bulbo/diapo-03.webp?v=20260921-4',
-    'assets/img/bulbo/diapo-04.webp?v=20260921-4'
+    'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/bulbo/diapo-01.webp?v=20260921-4',
+    'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/bulbo/diapo-02.webp?v=20260921-4',
+    'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/bulbo/diapo-03.webp?v=20260921-4',
+    'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/bulbo/diapo-04.webp?v=20260921-4'
   ];
 
   const badge = document.createElement('button');
@@ -22,14 +22,14 @@
   badge.setAttribute('aria-haspopup', 'dialog');
   badge.innerHTML =
     '<span class="bulbo-trigger-shell">' +
-      '<img src="assets/img/bulbo-videos-badge.webp?v=20260920-bulbo2" alt="" width="256" height="256" decoding="async">' +
+      '<img src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/bulbo-videos-badge.webp?v=20260920-bulbo2" alt="" width="256" height="256" decoding="async">' +
     '</span>';
 
   const badgeImg = badge.querySelector('img');
   if (badgeImg) {
     badgeImg.addEventListener('error', () => {
       if (!badgeImg.src.includes('bulbo-videos-badge.png')) {
-        badgeImg.src = 'assets/img/bulbo-videos-badge.png?v=20260920-bulbo1';
+        badgeImg.src = 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/bulbo-videos-badge.png?v=20260920-bulbo1';
       }
     }, { once: true });
   }
@@ -58,13 +58,13 @@
         '<p class="bulbo-video-subtitle">Découvrez nos univers vidéo</p>' +
       '</div>' +
       '<div class="bulbo-video-choices">' +
-        '<button type="button" class="bulbo-video-card" data-video="/assets/videos/bulbo-serpent.mp4" data-poster="/assets/img/bulbo-serpent-poster.jpg" data-title="Le serpent">' +
-          '<span class="bulbo-video-thumb"><img src="assets/img/bulbo-serpent-poster.jpg?v=20260920-bulbo2" alt="Aperçu de la vidéo Le serpent" loading="lazy" decoding="async"></span>' +
+        '<button type="button" class="bulbo-video-card" data-video="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/videos/bulbo-serpent.mp4" data-poster="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/bulbo-serpent-poster.jpg" data-title="Le serpent">' +
+          '<span class="bulbo-video-thumb"><img src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/bulbo-serpent-poster.jpg?v=20260920-bulbo2" alt="Aperçu de la vidéo Le serpent" loading="lazy" decoding="async"></span>' +
           '<span class="bulbo-video-card-copy"><strong>Le serpent</strong><span>Ouvrir la vidéo BULBO</span></span>' +
           '<span class="bulbo-video-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>' +
         '</button>' +
-        '<button type="button" class="bulbo-video-card" data-video="/assets/videos/bulbo-cameleon.mp4" data-poster="/assets/img/bulbo-cameleon-poster.jpg" data-title="Le caméléon">' +
-          '<span class="bulbo-video-thumb"><img src="assets/img/bulbo-cameleon-poster.jpg?v=20260920-bulbo2" alt="Aperçu de la vidéo Le caméléon" loading="lazy" decoding="async"></span>' +
+        '<button type="button" class="bulbo-video-card" data-video="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/videos/bulbo-cameleon.mp4" data-poster="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/bulbo-cameleon-poster.jpg" data-title="Le caméléon">' +
+          '<span class="bulbo-video-thumb"><img src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/bulbo-cameleon-poster.jpg?v=20260920-bulbo2" alt="Aperçu de la vidéo Le caméléon" loading="lazy" decoding="async"></span>' +
           '<span class="bulbo-video-card-copy"><strong>Le caméléon</strong><span>Ouvrir la vidéo BULBO</span></span>' +
           '<span class="bulbo-video-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>' +
         '</button>' +

@@ -36,7 +36,7 @@ function injectFilter(){
   const wrap=document.createElement("div");
   wrap.className="form-group-custom mg-partner-box";
   wrap.id="mg-partner-box";
-  wrap.innerHTML=`<label>Partenaires</label><button type="button" class="mg-partner-btn" id="mgp-btn"><span id="mgp-label">Tous les partenaires</span><span>▾</span></button><div class="mg-partner-panel" id="mgp-panel"><div style="display:flex;justify-content:space-between;padding:.25rem .35rem .5rem"><strong>Filtrer les destinataires</strong><button type="button" id="mgp-clear" style="border:0;background:none;color:#9a6d00;cursor:pointer">Effacer</button></div>${Object.entries(PARTNERS).map(([id,[name,logo]])=>`<label class="mgp-row"><input type="checkbox" value="${id}"><img src="assets/img/${logo}" alt=""><span>${name}</span></label>`).join("")}</div>`;
+  wrap.innerHTML=`<label>Partenaires</label><button type="button" class="mg-partner-btn" id="mgp-btn"><span id="mgp-label">Tous les partenaires</span><span>▾</span></button><div class="mg-partner-panel" id="mgp-panel"><div style="display:flex;justify-content:space-between;padding:.25rem .35rem .5rem"><strong>Filtrer les destinataires</strong><button type="button" id="mgp-clear" style="border:0;background:none;color:#9a6d00;cursor:pointer">Effacer</button></div>${Object.entries(PARTNERS).map(([id,[name,logo]])=>`<label class="mgp-row"><input type="checkbox" value="${id}"><img src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/${logo}" alt=""><span>${name}</span></label>`).join("")}</div>`;
   grid.appendChild(wrap);
   const panel=wrap.querySelector("#mgp-panel");
   wrap.querySelector("#mgp-btn").onclick=()=>panel.classList.toggle("open");

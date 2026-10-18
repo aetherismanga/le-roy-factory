@@ -1,4 +1,4 @@
-import { primaryPartnerEmail } from './partner-contacts.js';
+import { primaryPartnerEmail } from './partner-contacts.js?media=20261018';
 
 export const PARTNER_OPENING_EMAILS = {
   'Elios Ceramica': 'glebreton@eliosceramica.it',

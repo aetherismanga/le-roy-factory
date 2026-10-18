@@ -28,7 +28,7 @@
   section.id='plots-calculateur';
   section.innerHTML=`
     <div class="plots-head">
-      <div class="plots-head-logo"><img src="assets/brand-v2/logoLRF.png?v=20260901-lrf1" alt="LE ROY FACTORY"></div>
+      <div class="plots-head-logo"><img src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/brand-v2/logoLRF.png?v=20260901-lrf1" alt="LE ROY FACTORY"></div>
       <div><h2>Calculateur de plots pour dalles</h2><p>Calculez le nombre de plots nécessaires pour une terrasse sur dalles. Le mode précis tient compte de la longueur, de la largeur, du format de dalle, de la périphérie et des renforts éventuels.</p><span class="plots-lrf-tag">Outil informatif LE ROY FACTORY</span></div>
     </div>
 
