@@ -5,7 +5,7 @@
     "allMd5Match": true,
     "localSha256Recorded": true,
     "hashComparison": "MD5 of each uploaded object matches its local source checkout file; SHA256 recorded for the same bytes.",
-    "lineEndingNote": "Windows Git checkout converted line endings in 30 text media files (SVG). Git blob byte lengths are retained separately; image content is unchanged."
+    "lineEndingNote": "Windows Git checkout converted line endings in 29 SVG text files and the unused empty MP4 placeholder. Git blob byte lengths are retained separately; image content is unchanged."
   },
   "imageDecodes": {
     "total": 886,
