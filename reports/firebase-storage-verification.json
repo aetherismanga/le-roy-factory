@@ -1,0 +1,267 @@
+{
+  "checkedAt": "2026-10-18T18:14:47.725Z",
+  "uploads": {
+    "files": 34,
+    "bytes": 625530416,
+    "md5AndSizeVerified": true
+  },
+  "browserRangeRequests": {
+    "passed": 34,
+    "failed": 0
+  },
+  "pdfRendering": [
+    {
+      "path": "assets/pdf/Catalogue_ONDABLOCK_2026_FR_INTERACTIF.pdf",
+      "pages": 20,
+      "width": 149,
+      "height": 211,
+      "ok": true
+    },
+    {
+      "path": "assets/pdf/ELIOS CERSAIE 2026.pdf",
+      "pages": 52,
+      "width": 153,
+      "height": 199,
+      "ok": true
+    },
+    {
+      "path": "assets/pdf/AZULI-MOOD_new.pdf",
+      "pages": 37,
+      "width": 153,
+      "height": 199,
+      "ok": true
+    },
+    {
+      "path": "assets/pdf/ELIOS SKULTURA.pdf",
+      "pages": 28,
+      "width": 142,
+      "height": 213,
+      "ok": true
+    },
+    {
+      "path": "assets/pdf/ELIOS_CATALOGO PISCINE_2026.pdf",
+      "pages": 50,
+      "width": 153,
+      "height": 199,
+      "ok": true
+    },
+    {
+      "path": "assets/pdf/ELIOS_CATALOGUE-GENERALE-2026-1.pdf",
+      "pages": 240,
+      "width": 153,
+      "height": 199,
+      "ok": true
+    },
+    {
+      "path": "assets/pdf/ELIOS_Catalogue_General_2026_INTERACTIF.pdf",
+      "pages": 242,
+      "width": 153,
+      "height": 199,
+      "ok": true
+    },
+    {
+      "path": "assets/pdf/ELIOS_Coverings_2026_INTERACTIF.pdf",
+      "pages": 26,
+      "width": 153,
+      "height": 199,
+      "ok": true
+    },
+    {
+      "path": "assets/pdf/ELIOS_Outdoor_2026_INTERACTIF.pdf",
+      "pages": 126,
+      "width": 153,
+      "height": 199,
+      "ok": true
+    },
+    {
+      "path": "assets/pdf/ELIOS_Pool_Surfaces_2026_INTERACTIF.pdf",
+      "pages": 51,
+      "width": 153,
+      "height": 199,
+      "ok": true
+    },
+    {
+      "path": "assets/pdf/LA_FENICE_CERSAIE_2026_INTERACTIF.pdf",
+      "pages": 68,
+      "width": 163,
+      "height": 199,
+      "ok": true
+    },
+    {
+      "path": "assets/pdf/KOIBATH_Catalogue_Meubles_2025.pdf",
+      "pages": 103,
+      "width": 213,
+      "height": 213,
+      "ok": true
+    },
+    {
+      "path": "assets/pdf/REITANO-Accessoire-2026-Catalogue.pdf",
+      "pages": 32,
+      "width": 149,
+      "height": 211,
+      "ok": true
+    },
+    {
+      "path": "assets/pdf/REITANO-Robinetterie-2026.pdf",
+      "pages": 195,
+      "width": 149,
+      "height": 211,
+      "ok": true
+    },
+    {
+      "path": "assets/pdf/REVIGLASS_catalogue general-baja.pdf",
+      "pages": 184,
+      "width": 160,
+      "height": 220,
+      "ok": true
+    },
+    {
+      "path": "assets/pdf/Tiroirs_STUDIO_FR_Textes_Gauche_Uniformes.pdf",
+      "pages": 5,
+      "width": 360,
+      "height": 203,
+      "ok": true
+    },
+    {
+      "path": "assets/pdf/UPTREND_Catalogue_2026_FR.pdf",
+      "pages": 60,
+      "width": 149,
+      "height": 211,
+      "ok": true
+    },
+    {
+      "path": "assets/pdf/UPTREND_Catalogue_2026.pdf",
+      "pages": 60,
+      "width": 149,
+      "height": 211,
+      "ok": true
+    },
+    {
+      "path": "assets/pdf/VIEW_CATALOGO_PHURA_2026.pdf",
+      "pages": 20,
+      "width": 133,
+      "height": 177,
+      "ok": true
+    },
+    {
+      "path": "assets/pdf/VIEW-EXTERIEUR.pdf",
+      "pages": 33,
+      "width": 199,
+      "height": 149,
+      "ok": true
+    },
+    {
+      "path": "assets/pdf/View Dorset_.pdf",
+      "pages": 15,
+      "width": 149,
+      "height": 199,
+      "ok": true
+    },
+    {
+      "path": "assets/pdf/View-DIGIONE.pdf",
+      "pages": 13,
+      "width": 149,
+      "height": 199,
+      "ok": true
+    },
+    {
+      "path": "assets/pdf/View_.marais.pdf",
+      "pages": 21,
+      "width": 149,
+      "height": 199,
+      "ok": true
+    },
+    {
+      "path": "assets/pdf/aquahome2026.pdf",
+      "pages": 61,
+      "width": 160,
+      "height": 211,
+      "ok": true
+    },
+    {
+      "path": "assets/pdf/View_serie COCO et Le_Pietre_di_View.pdf",
+      "pages": 27,
+      "width": 149,
+      "height": 199,
+      "ok": true
+    },
+    {
+      "path": "assets/pdf/catalogue pecchioli 2026.pdf",
+      "pages": 152,
+      "width": 171,
+      "height": 213,
+      "ok": true
+    },
+    {
+      "path": "assets/pdf/fenice-general/decor.pdf",
+      "pages": 38,
+      "width": 163,
+      "height": 199,
+      "ok": true
+    },
+    {
+      "path": "assets/pdf/fenice-general/marble.pdf",
+      "pages": 82,
+      "width": 163,
+      "height": 199,
+      "ok": true
+    },
+    {
+      "path": "assets/pdf/fenice-general/metal.pdf",
+      "pages": 82,
+      "width": 163,
+      "height": 199,
+      "ok": true
+    },
+    {
+      "path": "assets/pdf/fenice-general/wood.pdf",
+      "pages": 46,
+      "width": 163,
+      "height": 199,
+      "ok": true
+    },
+    {
+      "path": "assets/pdf/reviglass ambiances.pdf",
+      "pages": 44,
+      "width": 220,
+      "height": 160,
+      "ok": true
+    },
+    {
+      "path": "assets/pdf/fenice-general/stone.pdf",
+      "pages": 154,
+      "width": 163,
+      "height": 199,
+      "ok": true
+    },
+    {
+      "path": "assets/pdf/view Ardenne.pdf",
+      "pages": 17,
+      "width": 149,
+      "height": 199,
+      "ok": true
+    },
+    {
+      "path": "assets/pdf/web_Reviglass_Pool.pdf",
+      "pages": 24,
+      "width": 160,
+      "height": 221,
+      "ok": true
+    }
+  ],
+  "desktopCatalogLinks": 49,
+  "mobileCatalogLinks": 49,
+  "mobileHorizontalOverflow": false,
+  "feniceNavigation": {
+    "page": 2,
+    "totalPages": 68,
+    "errors": []
+  },
+  "protectedFilesUnchanged": true,
+  "deletedFiles": [],
+  "originalsRetained": true,
+  "knownBaselineErrors": [
+    "Unexpected identifier 'architecture'",
+    "Invalid or unexpected token"
+  ]
+}

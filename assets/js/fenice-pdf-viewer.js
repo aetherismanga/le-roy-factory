@@ -6,18 +6,18 @@
   const titleParam = params.get('title') || '';
   const returnTarget = params.get('return') || '';
   const GENERAL_SECTIONS = {
-    marble:'assets/pdf/fenice-general/marble.pdf',
-    stone:'assets/pdf/fenice-general/stone.pdf',
-    metal:'assets/pdf/fenice-general/metal.pdf',
-    wood:'assets/pdf/fenice-general/wood.pdf',
-    decor:'assets/pdf/fenice-general/decor.pdf'
+    marble:'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2Ffenice-general%2Fmarble.pdf?alt=media&token=d728fd24-2dfc-40d0-8f47-b982ca51caa4',
+    stone:'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2Ffenice-general%2Fstone.pdf?alt=media&token=d66ef41c-5091-4c79-aaa4-4c7e07c617f9',
+    metal:'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2Ffenice-general%2Fmetal.pdf?alt=media&token=ed37180f-e082-49ed-841a-b4ead13ffdde',
+    wood:'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2Ffenice-general%2Fwood.pdf?alt=media&token=9a348185-4eb0-4a56-9dfc-7fe019dd797d',
+    decor:'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2Ffenice-general%2Fdecor.pdf?alt=media&token=5d980fd9-412e-493f-a869-2cdb341ae31b'
   };
   const OFFICIAL_GENERAL='https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf';
   const SOURCES = {
     cersaie: {
       label: 'Nouveautés Cersaie 2026',
-      url: 'assets/pdf/LA_FENICE_CERSAIE_2026_INTERACTIF.pdf',
-      native: 'assets/pdf/LA_FENICE_CERSAIE_2026_INTERACTIF.pdf'
+      url: 'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FLA_FENICE_CERSAIE_2026_INTERACTIF.pdf?alt=media&token=29d80214-f847-40f3-a788-359dee9a5b4b',
+      native: 'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FLA_FENICE_CERSAIE_2026_INTERACTIF.pdf?alt=media&token=29d80214-f847-40f3-a788-359dee9a5b4b'
     },
     general: {
       label: 'Catalogue Général 2026/2027',

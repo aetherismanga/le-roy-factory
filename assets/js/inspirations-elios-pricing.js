@@ -1,7 +1,7 @@
 (() => {
   const SESSION_KEY = 'lrfProSession';
   const PARTNER = 'elios-ceramica';
-  const POOL_PDF = 'assets/pdf/ELIOS_CATALOGO%20PISCINE_2026.pdf';
+  const POOL_PDF = 'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_CATALOGO%20PISCINE_2026.pdf?alt=media&token=91d62ee2-aae1-46e6-be90-b6a9882da43f';
 
   const norm = value => String(value || '')
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '')

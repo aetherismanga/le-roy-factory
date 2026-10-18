@@ -1,12 +1,12 @@
 (() => {
   'use strict';
-  const CERSAIE_PDF='assets/pdf/LA_FENICE_CERSAIE_2026_INTERACTIF.pdf';
+  const CERSAIE_PDF='https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FLA_FENICE_CERSAIE_2026_INTERACTIF.pdf?alt=media&token=29d80214-f847-40f3-a788-359dee9a5b4b';
   const GENERAL_SECTIONS=[
-    {id:'marble',start:20,end:101,file:'assets/pdf/fenice-general/marble.pdf'},
-    {id:'stone',start:102,end:255,file:'assets/pdf/fenice-general/stone.pdf'},
-    {id:'metal',start:256,end:337,file:'assets/pdf/fenice-general/metal.pdf'},
-    {id:'wood',start:338,end:383,file:'assets/pdf/fenice-general/wood.pdf'},
-    {id:'decor',start:384,end:421,file:'assets/pdf/fenice-general/decor.pdf'}
+    {id:'marble',start:20,end:101,file:'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2Ffenice-general%2Fmarble.pdf?alt=media&token=d728fd24-2dfc-40d0-8f47-b982ca51caa4'},
+    {id:'stone',start:102,end:255,file:'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2Ffenice-general%2Fstone.pdf?alt=media&token=d66ef41c-5091-4c79-aaa4-4c7e07c617f9'},
+    {id:'metal',start:256,end:337,file:'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2Ffenice-general%2Fmetal.pdf?alt=media&token=ed37180f-e082-49ed-841a-b4ead13ffdde'},
+    {id:'wood',start:338,end:383,file:'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2Ffenice-general%2Fwood.pdf?alt=media&token=9a348185-4eb0-4a56-9dfc-7fe019dd797d'},
+    {id:'decor',start:384,end:421,file:'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2Ffenice-general%2Fdecor.pdf?alt=media&token=5d980fd9-412e-493f-a869-2cdb341ae31b'}
   ];
 
   const general = [
