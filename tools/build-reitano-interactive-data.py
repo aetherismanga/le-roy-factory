@@ -8,6 +8,7 @@ import unicodedata
 from collections import Counter, defaultdict
 from pathlib import Path
 
+from public_pdf_source import resolve_pdf
 import fitz
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -116,7 +117,7 @@ def valid_ref(text, allow_numeric=True):
 
 
 def catalogue_rows():
-    document = fitz.open(CATALOGUE)
+    document = fitz.open(resolve_pdf(CATALOGUE))
     found = defaultdict(list)
     page_meta = []
     series_index = 0

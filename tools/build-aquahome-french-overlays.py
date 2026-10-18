@@ -6,6 +6,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from public_pdf_source import resolve_pdf
 import fitz
 
 
@@ -117,7 +118,7 @@ FINISH_REPLACEMENTS = {
 
 
 def main() -> None:
-    document = fitz.open(PDF)
+    document = fitz.open(resolve_pdf(PDF))
     overlays = []
     for page_number in range(9, 30):
         page = document[page_number - 1]

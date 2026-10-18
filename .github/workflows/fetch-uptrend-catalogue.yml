@@ -2,13 +2,9 @@ name: Fetch UPTREND catalogue 2026
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/fetch-uptrend-catalogue.yml'
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   fetch-catalogue:
@@ -35,19 +31,14 @@ jobs:
           assert len(doc)==60, len(doc)
           assert 'TR-T310' in doc[13].get_text(), 'TR-T310 missing on page 14'
           doc.close()
-          target=Path('assets/pdf/UPTREND_Catalogue_2026.pdf')
+          target=Path('${{ runner.temp }}/UPTREND_Catalogue_2026.pdf')
           target.parent.mkdir(parents=True,exist_ok=True)
           target.write_bytes(source.read_bytes())
           print(target, target.stat().st_size)
           PY
-      - name: Commit catalogue to the site
-        run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add assets/pdf/UPTREND_Catalogue_2026.pdf
-          if git diff --cached --quiet; then
-            echo 'Catalogue already up to date.'
-            exit 0
-          fi
-          git commit -m 'Ajoute le catalogue officiel UPTREND 2026'
-          git push origin HEAD:main
+      - name: Save catalogue for review before Firebase publication
+        uses: actions/upload-artifact@v4
+        with:
+          name: uptrend-validated-catalogue
+          if-no-files-found: error
+          path: ${{ runner.temp }}/UPTREND_Catalogue_2026.pdf

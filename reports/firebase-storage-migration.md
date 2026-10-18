@@ -1,3 +1,5 @@
+État après retrait des copies : [nettoyage des catalogues publics](nettoyage-catalogues-publics.md). Le rapport ci-dessous décrit la phase initiale de copie.
+
 # Migration des catalogues publics vers Firebase
 
 Date : 18 octobre 2026. Base : 85d5f6bd3f7858c8f9381efe1974ee4d822df1b4.

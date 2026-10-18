@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from pathlib import Path
 import argparse
+from public_pdf_source import resolve_pdf
 import fitz
 
 PRODUCTS = {
@@ -41,7 +42,7 @@ def main():
     ap.add_argument("--source",type=Path,required=True)
     ap.add_argument("--output",type=Path,required=True)
     args=ap.parse_args()
-    doc=fitz.open(args.source)
+    doc=fitz.open(resolve_pdf(args.source))
     add_links(doc)
     meta=doc.metadata or {}
     meta["title"]="Catalogue ONDABLOCK 2026 - Français interactif"
