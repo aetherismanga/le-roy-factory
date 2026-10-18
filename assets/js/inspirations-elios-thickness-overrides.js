@@ -60,7 +60,7 @@
         { format: '5x15', ref: '04Q5500', pcsBox: 66, sqmBox: 0.50 },
         { format: '10x10', ref: '04Q1000', pcsBox: 60, sqmBox: 0.60 }
       ],
-      pdf: 'assets/pdf/AZULI-MOOD_new.pdf'
+      pdf: 'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FAZULI-MOOD_new.pdf?alt=media&token=f1de9127-c904-4768-81c0-d0207e5b00a1'
     });
   }
   window.ELIOS_IMAGE_DATA = window.ELIOS_IMAGE_DATA || {};
@@ -103,7 +103,7 @@
   window.addEventListener('lrf-selections-elios-ready', patchAzuliPricing);
 
   // Visuel Azuli Mood : rendu directement depuis le PDF local afin de ne pas dupliquer les photos.
-  const AZULI_PDF = 'assets/pdf/AZULI-MOOD_new.pdf';
+  const AZULI_PDF = 'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FAZULI-MOOD_new.pdf?alt=media&token=f1de9127-c904-4768-81c0-d0207e5b00a1';
   let azuliPdfDoc = null;
   let azuliVisualPromise = null;
   function loadPdfJs() {

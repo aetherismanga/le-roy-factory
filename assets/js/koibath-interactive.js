@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const PDF_URL = 'assets/pdf/KOIBATH_Catalogue_Meubles_2025.pdf';
+  const PDF_URL = 'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FKOIBATH_Catalogue_Meubles_2025.pdf?alt=media&token=7bea831d-c580-462d-9219-28248a65f1f9';
   const COLLECTIONS = [
     { name: 'Ko Tao', page: 7, printed: 12 },
     { name: 'Malta', page: 10, printed: 18 },

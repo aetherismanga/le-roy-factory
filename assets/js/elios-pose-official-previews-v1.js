@@ -5,7 +5,7 @@
 
   // Source officielle : Catalogue Général ELIOS 2026, pages imprimées 442 à 451
   // (pages PDF 223 à 227). Ce module ne touche jamais au calculateur.
-  const PDF_URL='assets/pdf/ELIOS_CATALOGUE-GENERALE-2026-1.pdf';
+  const PDF_URL='https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_CATALOGUE-GENERALE-2026-1.pdf?alt=media&token=f57a71c3-dd87-4dd8-bffb-2951f4920c3b';
   const PDFJS_URL='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs';
   const PDFJS_WORKER='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.min.mjs';
   const REF_W=2709, REF_H=1764, RENDER_W=1800;

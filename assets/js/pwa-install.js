@@ -50,7 +50,7 @@
     const row=document.createElement('div');
     row.className='catalogue-row';
     row.dataset.eliosPoolCatalogue='1';
-    row.innerHTML='<div><strong>Pool Surfaces 2026</strong><span>Catalogue piscine ELIOS — 12 collections, format principal 15×15 cm.</span></div><a href="assets/pdf/ELIOS_Pool_Surfaces_2026_INTERACTIF.pdf" target="_blank" rel="noopener" class="catalogue-link">PDF</a>';
+    row.innerHTML='<div><strong>Pool Surfaces 2026</strong><span>Catalogue piscine ELIOS — 12 collections, format principal 15×15 cm.</span></div><a href="https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf" target="_blank" rel="noopener" class="catalogue-link">PDF</a>';
 
     const menu=eliosCard.querySelector('.catalogue-menu');
     if(menu){
@@ -91,7 +91,7 @@
     if(title)title.textContent='Catalogue Aquahome 2026';
     if(desc)desc.textContent='Catalogue officiel Aquahome 2026 — robinetterie.';
     if(link){
-      link.href='assets/pdf/aquahome2026.pdf';
+      link.href='https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2Faquahome2026.pdf?alt=media&token=70b1b113-0f0e-4cec-ad43-ddb81021590c';
       link.target='_blank';
       link.rel='noopener';
       link.textContent='PDF';

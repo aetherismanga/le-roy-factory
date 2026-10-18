@@ -1,6 +1,6 @@
 (() => {
   'use strict';
-  const CATALOGUE_URL='assets/pdf/UPTREND_Catalogue_2026_FR.pdf';
+  const CATALOGUE_URL='https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FUPTREND_Catalogue_2026_FR.pdf?alt=media&token=4ae82613-1603-4aad-be6a-c7d51e8757b1';
   const DATA_URL='assets/data/uptrend-products.json?v=20260914-1';
   const CART_KEY='lrfUptrendCartV1';
   const CATEGORIES=[

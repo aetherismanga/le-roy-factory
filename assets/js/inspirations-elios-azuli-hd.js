@@ -103,7 +103,7 @@
       </details>
       <div style="display:flex;gap:.55rem;flex-wrap:wrap">
         <a class="pro-link" href="disponibilites-elios-lot1.html?collection=azuli-mood">Vérifier le stock</a>
-        <a class="pro-link" href="assets/pdf/AZULI-MOOD_new.pdf" target="_blank" rel="noopener">Ouvrir le catalogue Azuli Mood</a>
+        <a class="pro-link" href="https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FAZULI-MOOD_new.pdf?alt=media&token=f1de9127-c904-4768-81c0-d0207e5b00a1" target="_blank" rel="noopener">Ouvrir le catalogue Azuli Mood</a>
       </div>`;
   }
 
