@@ -166,29 +166,29 @@ html body:not(.crm-body) header .main-nav>li>a.lrf-promo-cersaie-tab:focus{
     function renderCatalogues() {
       const cataloguesData = [
         { nom:'Elios Ceramica', pays:'Italie', presentation:'Fabricant italien spécialisé dans les petits formats et la céramique décorative haut de gamme.', fichiers:[
-          { titre:'Catalogue Général interactif', desc:'Toutes les collections 2026 avec lexique cliquable intégré au PDF.', lien:'assets/pdf/ELIOS_Catalogue_General_2026_INTERACTIF.pdf' },
-          { titre:'Coverings 2026 interactif', desc:'Revêtements et dernières tendances avec lexique cliquable intégré au PDF.', lien:'assets/pdf/ELIOS_Coverings_2026_INTERACTIF.pdf' },
-          { titre:'Outdoor 2026 interactif', desc:"Solutions et carrelages pour l'extérieur avec lexique cliquable intégré au PDF.", lien:'assets/pdf/ELIOS_Outdoor_2026_INTERACTIF.pdf' },
-          { titre:'Azuli Mood', desc:'Catalogue de la nouvelle collection Azuli Mood.', lien:'assets/pdf/AZULI-MOOD_new.pdf' },
-          { titre:'Cersaie 2026 · Living Gallery', desc:'Nouveautés ELIOS présentées au Cersaie 2026.', lien:'assets/pdf/ELIOS%20CERSAIE%202026.pdf' },
-          { titre:'Skultura', desc:'Catalogue ELIOS Skultura / ArgillaKotta.', lien:'assets/pdf/ELIOS%20SKULTURA.pdf' },
+          { titre:'Catalogue Général interactif', desc:'Toutes les collections 2026 avec lexique cliquable intégré au PDF.', lien:'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431' },
+          { titre:'Coverings 2026 interactif', desc:'Revêtements et dernières tendances avec lexique cliquable intégré au PDF.', lien:'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Coverings_2026_INTERACTIF.pdf?alt=media&token=dd0040bc-9bea-463f-ba9e-5d9d1d6f34dc' },
+          { titre:'Outdoor 2026 interactif', desc:"Solutions et carrelages pour l'extérieur avec lexique cliquable intégré au PDF.", lien:'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Outdoor_2026_INTERACTIF.pdf?alt=media&token=e065e376-88d0-412a-8b00-e9188496f9f5' },
+          { titre:'Azuli Mood', desc:'Catalogue de la nouvelle collection Azuli Mood.', lien:'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FAZULI-MOOD_new.pdf?alt=media&token=f1de9127-c904-4768-81c0-d0207e5b00a1' },
+          { titre:'Cersaie 2026 · Living Gallery', desc:'Nouveautés ELIOS présentées au Cersaie 2026.', lien:'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS%20CERSAIE%202026.pdf?alt=media&token=cb15dba1-5655-4698-bdde-9465c7d0b578' },
+          { titre:'Skultura', desc:'Catalogue ELIOS Skultura / ArgillaKotta.', lien:'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS%20SKULTURA.pdf?alt=media&token=1cb43afa-15d1-4f51-80ae-9ca7764c6138' },
           { titre:'Dynasty', desc:'Catalogue officiel ELIOS Dynasty.', lien:'assets/pdf/ELIOS_DYNASTY%20%281%29.pdf' },
         ]},
         { nom:'Life Cerámica', pays:'Espagne', forcePicker:true, presentation:'Fabricant espagnol de solutions céramiques innovantes, notamment le système de pose à sec ONDABLOCK.', fichiers:[
           { titre:'LIFE CERÁMICA · Catalogue général Cersaie 2026', desc:'Catalogue officiel LIFE 2026 transmis par Estela Martí : collections, formats et finitions.', lien:'https://drive.google.com/file/d/1Xlq2DvIb6uJaUDSlhvCvWGyTglTsmU9q/view?usp=sharing' },
-           { titre:'ONDABLOCK 2026 · Français interactif', desc:'Version française optimisée avec sommaire cliquable et accès direct aux collections.', lien:'assets/pdf/Catalogue_ONDABLOCK_2026_FR_INTERACTIF.pdf', index:true }
+           { titre:'ONDABLOCK 2026 · Français interactif', desc:'Version française optimisée avec sommaire cliquable et accès direct aux collections.', lien:'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FCatalogue_ONDABLOCK_2026_FR_INTERACTIF.pdf?alt=media&token=dd825e02-e7cc-4418-a94b-068e498e97ad', index:true }
         ]},
         { nom:'View Ceramica', pays:'Italie', presentation:'Design contemporain et solutions céramiques innovantes pour les professionnels exigeants.', fichiers:[
           { titre:'Corso 2026', desc:'Catalogue de la série Corso.', lien:'https://viewceramiche.com/wp-content/uploads/2023/12/View_catalogo_serie_Corso_2024_LR.pdf' },
           { titre:'Tibur 2026', desc:'Catalogue de la série Tibur.', lien:'https://viewceramiche.com/wp-content/uploads/2023/11/Catalogo-Tibur_01-2025_LR.pdf' },
           { titre:'Golden Stone 2026', desc:'Catalogue de la série Golden Stone.', lien:'https://viewceramiche.com/wp-content/uploads/2025/10/View_catalogo_serie_Golden_Stone_2026_LR.pdf' },
-          { titre:'COCO & Le Pietre di View', desc:'Nouveau catalogue VIEW — séries COCO et Le Pietre di View.', lien:'assets/pdf/View_serie%20COCO%20et%20Le_Pietre_di_View.pdf' },
-          { titre:'Ardenne', desc:'Catalogue View Ceramica — collection Ardenne.', lien:'assets/pdf/view%20Ardenne.pdf' },
-          { titre:'Dorset', desc:'Catalogue View Ceramica — collection Dorset.', lien:'assets/pdf/View%20Dorset_.pdf' },
-          { titre:'Marais', desc:'Catalogue View Ceramica — collection Marais.', lien:'assets/pdf/View_.marais.pdf' },
-          { titre:'Digione', desc:'Catalogue View Ceramica — collection Digione.', lien:'assets/pdf/View-DIGIONE.pdf' },
-          { titre:'Extérieur', desc:'Catalogue View Ceramica dédié aux solutions extérieures.', lien:'assets/pdf/VIEW-EXTERIEUR.pdf' },
-          { titre:'Phura 2026', desc:'Nouveau catalogue VIEW — collection Phura 2026.', lien:'assets/pdf/VIEW_CATALOGO_PHURA_2026.pdf' }
+          { titre:'COCO & Le Pietre di View', desc:'Nouveau catalogue VIEW — séries COCO et Le Pietre di View.', lien:'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FView_serie%20COCO%20et%20Le_Pietre_di_View.pdf?alt=media&token=7cac44cd-9502-4105-a4ea-aba8a9d622ce' },
+          { titre:'Ardenne', desc:'Catalogue View Ceramica — collection Ardenne.', lien:'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2Fview%20Ardenne.pdf?alt=media&token=a8736c8b-fdc9-43ec-89b4-310eb917ff28' },
+          { titre:'Dorset', desc:'Catalogue View Ceramica — collection Dorset.', lien:'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FView%20Dorset_.pdf?alt=media&token=594aba6a-afe3-40c4-9483-aa80877621f7' },
+          { titre:'Marais', desc:'Catalogue View Ceramica — collection Marais.', lien:'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FView_.marais.pdf?alt=media&token=0c9b9f36-38bc-4949-974e-32aa09158e6c' },
+          { titre:'Digione', desc:'Catalogue View Ceramica — collection Digione.', lien:'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FView-DIGIONE.pdf?alt=media&token=44771689-0ff5-4c49-88c4-fcc0336c7400' },
+          { titre:'Extérieur', desc:'Catalogue View Ceramica dédié aux solutions extérieures.', lien:'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FVIEW-EXTERIEUR.pdf?alt=media&token=e0ca16aa-686e-4ffe-a444-28fa755ec145' },
+          { titre:'Phura 2026', desc:'Nouveau catalogue VIEW — collection Phura 2026.', lien:'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FVIEW_CATALOGO_PHURA_2026.pdf?alt=media&token=5fb06d86-e133-4ce2-bb2b-fa1da86b52ad' }
         ]},
         { nom:'La Fenice', pays:'Italie', presentation:"Tradition et modernité italienne au service de l'architecture intérieure.", fichiers:[
           { titre:'Catalogue Général 2026/2027', desc:'Lecteur La Fenice haute définition avec lexique permanent et accès direct aux collections.', lien:'fenice-pdf.html?catalogue=general&section=marble&page=1&title=Catalogue%20G%C3%A9n%C3%A9ral%202026%2F2027' },
@@ -196,9 +196,9 @@ html body:not(.crm-body) header .main-nav>li>a.lrf-promo-cersaie-tab:focus{
           { titre:'Catalogues officiels', desc:'Tous les catalogues La Fenice.', lien:'https://lafenicegc.com/fr/catalogues/' }
         ]},
         { nom:'Reviglass', pays:'Espagne', presentation:'Spécialiste de la mosaïque en verre recyclé haut de gamme.', fichiers:[
-          { titre:'Catalogue Général', desc:'Catalogue général Reviglass.', lien:'assets/pdf/REVIGLASS_catalogue%20general-baja.pdf' },
-          { titre:'Ambiances', desc:'Inspirations et réalisations Reviglass.', lien:'assets/pdf/reviglass%20ambiances.pdf' },
-          { titre:'Pool', desc:'Catalogue piscine Reviglass.', lien:'assets/pdf/web_Reviglass_Pool.pdf' },
+          { titre:'Catalogue Général', desc:'Catalogue général Reviglass.', lien:'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FREVIGLASS_catalogue%20general-baja.pdf?alt=media&token=68a6b7da-367e-4549-80e0-0484baec9fd8' },
+          { titre:'Ambiances', desc:'Inspirations et réalisations Reviglass.', lien:'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2Freviglass%20ambiances.pdf?alt=media&token=60d228b3-0117-459a-9c4d-672996370d6b' },
+          { titre:'Pool', desc:'Catalogue piscine Reviglass.', lien:'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2Fweb_Reviglass_Pool.pdf?alt=media&token=7f741388-4c2b-4ec5-87a2-3823e1337fe4' },
           { titre:'Configurateur Virtuel Piscine', desc:'Créez votre design de piscine en ligne.', lien:'https://myvirtualpool.reviglass.es/' }
         ]},
         { nom:'Biopietra', pays:'Italie', presentation:"Pierre naturelle régénérée fabriquée en Italie pour la construction écologique et l'architecture durable", fichiers:[
@@ -209,7 +209,7 @@ html body:not(.crm-body) header .main-nav>li>a.lrf-promo-cersaie-tab:focus{
           { titre:'Catalogue Général', desc:'Sélection complète et tarifs mail.', lien:'https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf' }
         ]},
         { nom:'Pecchioli Firenze', pays:'Italie', presentation:'Céramique artistique et historique faite à Florence.', fichiers:[
-          { titre:'Catalogue Pecchioli 2026', desc:"Faïences d'art et créations sur mesure.", lien:'assets/pdf/catalogue%20pecchioli%202026.pdf' }
+          { titre:'Catalogue Pecchioli 2026', desc:"Faïences d'art et créations sur mesure.", lien:'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2Fcatalogue%20pecchioli%202026.pdf?alt=media&token=73aacc90-fffd-4ca9-af0a-3c8b41487fbe' }
         ]},
         { nom:'Bulbo', pays:'Italie', presentation:'Créations céramiques audacieuses et design avant-gardiste.', fichiers:[
           { titre:'Catalogue Design 1', desc:'Lignes avant-gardistes et colorées.', lien:'https://heyzine.com/flip-book/50766f6757.html' },
@@ -217,7 +217,7 @@ html body:not(.crm-body) header .main-nav>li>a.lrf-promo-cersaie-tab:focus{
         ]},
         { nom:'Randal Pro', pays:'Espagne', presentation:'Mobilier de salle de bain sur mesure haut de gamme.', fichiers:[
           { titre:'Catalogue RANDAL V04 interactif', desc:'Index des 11 collections, miroirs et vasques, accès direct aux 43 pages.', lien:'randal-catalogue-interactif.html' },
-          { titre:'Tiroirs STUDIO — Comparatif Premium et Plus', desc:'Présentation en français des tiroirs GRASS V8 et SIMPLEX by Emuca, dimensions et fonctionnalités.', lien:'assets/pdf/Tiroirs_STUDIO_FR_Textes_Gauche_Uniformes.pdf' },
+          { titre:'Tiroirs STUDIO — Comparatif Premium et Plus', desc:'Présentation en français des tiroirs GRASS V8 et SIMPLEX by Emuca, dimensions et fonctionnalités.', lien:'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FTiroirs_STUDIO_FR_Textes_Gauche_Uniformes.pdf?alt=media&token=a4e886bc-1206-412b-b6eb-c336d6e5890d' },
           { titre:'Catalogues Randal', desc:'Collections et téléchargements officiels.', lien:'https://randal.group/colecciones/' },
           { titre:'Configurateur Meuble', desc:'Créez votre meuble sur mesure en ligne.', lien:'https://conf.randalsa.com/studio/register.php' }
         ]},
@@ -235,8 +235,8 @@ html body:not(.crm-body) header .main-nav>li>a.lrf-promo-cersaie-tab:focus{
         ]},
         { nom:'Reitano Rubinetteria', pays:'Italie', presentation:'Robinetterie italienne et accessoires de salle de bain.', fichiers:[
           { titre:'Catalogue interactif 2026', desc:'Collections, références, finitions et prix dynamiques.', lien:'reitano-catalogue-interactif.html' },
-          { titre:'Catalogue PDF original 2026', desc:'Version complète du catalogue fournisseur.', lien:'assets/pdf/REITANO-Robinetterie-2026.pdf' },
-          { titre:'Catalogue Accessoires 2026', desc:'Accessoires et compléments Reitano pour la salle de bain.', lien:'assets/pdf/REITANO-Accessoire-2026-Catalogue.pdf' },
+          { titre:'Catalogue PDF original 2026', desc:'Version complète du catalogue fournisseur.', lien:'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FREITANO-Robinetterie-2026.pdf?alt=media&token=124297cf-ae50-4d68-aeb6-15b24d086e6e' },
+          { titre:'Catalogue Accessoires 2026', desc:'Accessoires et compléments Reitano pour la salle de bain.', lien:'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FREITANO-Accessoire-2026-Catalogue.pdf?alt=media&token=55d7ef83-1eb1-416d-8138-9e37b36d3ae2' },
           { titre:'CIELO • MOLLE • COSMOS', desc:'Catalogue des ciels de douche COSMOS avec système SpringFix — version sans tarif.', lien:'assets/pdf/CIELO-MOLLE-COSMOS-Sans-tarif-BD.pdf' }
         ]},
         { nom:'Bilt', pays:'International', presentation:'Croisillons autonivelants et accessoires de pose professionnels.', fichiers:[
@@ -297,7 +297,7 @@ html body:not(.crm-body) header .main-nav>li>a.lrf-promo-cersaie-tab:focus{
       renderCatalogues();
     }
   </script>
-  <script defer src="assets/js/catalogues-renderer.js?v=20261013-tiroirs-studio1"></script>
+  <script defer src="assets/js/catalogues-renderer.js?v=20261013-tiroirs-studio1&storage=20261018"></script>
   <script defer src="assets/js/app.js?v=20260924-catalogues-fallback2"></script>
 </body>
 </html>

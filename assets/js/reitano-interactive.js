@@ -1,7 +1,7 @@
 
 (() => {
   'use strict';
-  const PDF_URL='assets/pdf/REITANO-Robinetterie-2026.pdf',DATA_URL='assets/data/reitano-products.json?v=20260915-1',API='https://us-central1-le-roy-factory.cloudfunctions.net/reitanoCatalog',CART_KEY='lrfReitanoCartV1';
+  const PDF_URL='https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FREITANO-Robinetterie-2026.pdf?alt=media&token=124297cf-ae50-4d68-aeb6-15b24d086e6e',DATA_URL='assets/data/reitano-products.json?v=20260915-1',API='https://us-central1-le-roy-factory.cloudfunctions.net/reitanoCatalog',CART_KEY='lrfReitanoCartV1';
   const FIREBASE_CONFIG={apiKey:'AIzaSyA3iuK5Ua8kFccURSqLihLshHnhA4rm2is',authDomain:'le-roy-factory.firebaseapp.com',projectId:'le-roy-factory',storageBucket:'le-roy-factory.firebasestorage.app',messagingSenderId:'249878619253',appId:'1:249878619253:web:05f051710b6251dbfa843c'},ADMINS=new Set(['jerome@leroyfactory.fr','coryne@leroyfactory.fr']);
   const $=id=>document.getElementById(id),esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),norm=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toUpperCase().replace(/[^A-Z0-9]/g,''),money=v=>new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR'}).format(Number(v));
   const mobileQuery=matchMedia('(max-width:760px)'),state={data:null,pdf:null,views:[],bases:new Map(),zoom:1,currentPage:1,mobile:mobileQuery.matches,rendered:new Set(),observer:null,currentObserver:null,pro:false,prices:{},selectedBase:null,selected:null,location:null};

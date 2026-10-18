@@ -1,0 +1,363 @@
+{
+  "migrationId": "2026-10-18-85d5f6bd3f78",
+  "sourceCommit": "85d5f6bd3f7858c8f9381efe1974ee4d822df1b4",
+  "bucket": "le-roy-factory.firebasestorage.app",
+  "phase": "catalogues-publics",
+  "originalFilesRetained": true,
+  "files": [
+    {
+      "path": "assets/pdf/Catalogue_ONDABLOCK_2026_FR_INTERACTIF.pdf",
+      "bytes": 2630837,
+      "sourceGitBlob": "f58bea8f8cf710bd2336c0b0696382ece3f1b4ef",
+      "sha256": "f1314a1fb2084b11402b26f6e481bc32dce20e182de5d5a9fc1fad26955400c3",
+      "md5": "Df33J8Wi9JdGYovtLJERLw==",
+      "generation": "1792346885323166",
+      "objectName": "public-site-assets/le-roy-factory/85d5f6bd3f78/assets/pdf/Catalogue_ONDABLOCK_2026_FR_INTERACTIF.pdf",
+      "url": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FCatalogue_ONDABLOCK_2026_FR_INTERACTIF.pdf?alt=media&token=dd825e02-e7cc-4418-a94b-068e498e97ad"
+    },
+    {
+      "path": "assets/pdf/ELIOS CERSAIE 2026.pdf",
+      "bytes": 14970098,
+      "sourceGitBlob": "fb842bc38bc66c0969957fc9291fee431d1f2d9f",
+      "sha256": "4340ea746a3d58860f6c22ac80d07aa7f34e1c5b7e170cbd658be0906495b338",
+      "md5": "FDfE/WGpdjt9D32Gfpa8bQ==",
+      "generation": "1792346947649130",
+      "objectName": "public-site-assets/le-roy-factory/85d5f6bd3f78/assets/pdf/ELIOS CERSAIE 2026.pdf",
+      "url": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS%20CERSAIE%202026.pdf?alt=media&token=cb15dba1-5655-4698-bdde-9465c7d0b578"
+    },
+    {
+      "path": "assets/pdf/AZULI-MOOD_new.pdf",
+      "bytes": 16873306,
+      "sourceGitBlob": "911cfa74d98d6e029ba7547a866ba905c49bf8c8",
+      "sha256": "8f42815718fe0572455d088aa6a7c448bff71664853d0a0eb570df6a3ad96f6e",
+      "md5": "9Z7EnoAAjn4StS13Ph0OWA==",
+      "generation": "1792346947769454",
+      "objectName": "public-site-assets/le-roy-factory/85d5f6bd3f78/assets/pdf/AZULI-MOOD_new.pdf",
+      "url": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FAZULI-MOOD_new.pdf?alt=media&token=f1de9127-c904-4768-81c0-d0207e5b00a1"
+    },
+    {
+      "path": "assets/pdf/ELIOS SKULTURA.pdf",
+      "bytes": 7706807,
+      "sourceGitBlob": "06044230a39f1d92d6949b03781c46b756334afb",
+      "sha256": "71663dd99d2bdc46f0ae16f95e2724dc2448514c9a1c809d98dcc682f21d7994",
+      "md5": "5xsy+p8qlWlypt6d5gy0Kw==",
+      "generation": "1792346948385527",
+      "objectName": "public-site-assets/le-roy-factory/85d5f6bd3f78/assets/pdf/ELIOS SKULTURA.pdf",
+      "url": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS%20SKULTURA.pdf?alt=media&token=1cb43afa-15d1-4f51-80ae-9ca7764c6138"
+    },
+    {
+      "path": "assets/pdf/ELIOS_CATALOGO PISCINE_2026.pdf",
+      "bytes": 25484488,
+      "sourceGitBlob": "2ef8b32e49c6344a27dae12303fafc1724e734ce",
+      "sha256": "eb2300e2e9fad331817e868e195812dc150b688133d4c6eb7d3f9f0c1a34def0",
+      "md5": "BIHEDJ5Xw3n8kTAf/BLf3w==",
+      "generation": "1792346948955924",
+      "objectName": "public-site-assets/le-roy-factory/85d5f6bd3f78/assets/pdf/ELIOS_CATALOGO PISCINE_2026.pdf",
+      "url": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_CATALOGO%20PISCINE_2026.pdf?alt=media&token=91d62ee2-aae1-46e6-be90-b6a9882da43f"
+    },
+    {
+      "path": "assets/pdf/ELIOS_CATALOGUE-GENERALE-2026-1.pdf",
+      "bytes": 25213562,
+      "sourceGitBlob": "5b3bed1fddb7dfdd8a44bf9d0bf23f14d65d87a6",
+      "sha256": "04bab2aba9802417df50b52d8ee4f42eba5f7c6fa3c74ad10e66c9d8187c90f1",
+      "md5": "Co9GLRo6zJhTlsQZHp8DmQ==",
+      "generation": "1792346949622792",
+      "objectName": "public-site-assets/le-roy-factory/85d5f6bd3f78/assets/pdf/ELIOS_CATALOGUE-GENERALE-2026-1.pdf",
+      "url": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_CATALOGUE-GENERALE-2026-1.pdf?alt=media&token=f57a71c3-dd87-4dd8-bffb-2951f4920c3b"
+    },
+    {
+      "path": "assets/pdf/ELIOS_Catalogue_General_2026_INTERACTIF.pdf",
+      "bytes": 25450697,
+      "sourceGitBlob": "b3782b8317ff99cc597b73590bc3b52f3999842f",
+      "sha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+      "md5": "Wsck6SBNDp875jED6pfqoQ==",
+      "generation": "1792346950002857",
+      "objectName": "public-site-assets/le-roy-factory/85d5f6bd3f78/assets/pdf/ELIOS_Catalogue_General_2026_INTERACTIF.pdf",
+      "url": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431"
+    },
+    {
+      "path": "assets/pdf/ELIOS_Coverings_2026_INTERACTIF.pdf",
+      "bytes": 9780838,
+      "sourceGitBlob": "013eac502aa6f7d57a11330915b00b2cc49bf6fb",
+      "sha256": "8aa515873318ab197aae55019562e6f89125c40ea82e66b542ff04bbaa0ad42e",
+      "md5": "X03HS+VjqcM4GZ0qltx3rw==",
+      "generation": "1792346950261656",
+      "objectName": "public-site-assets/le-roy-factory/85d5f6bd3f78/assets/pdf/ELIOS_Coverings_2026_INTERACTIF.pdf",
+      "url": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Coverings_2026_INTERACTIF.pdf?alt=media&token=dd0040bc-9bea-463f-ba9e-5d9d1d6f34dc"
+    },
+    {
+      "path": "assets/pdf/ELIOS_Outdoor_2026_INTERACTIF.pdf",
+      "bytes": 18107551,
+      "sourceGitBlob": "a041fb053af71ef48ef53b6b2b650052160333dd",
+      "sha256": "cf5fefff5886f4c088f9547622e95ca78e909a4b8f910b5f5ec21810da27758f",
+      "md5": "2oL1g27eXQNrMmyk8x3W6g==",
+      "generation": "1792346950964538",
+      "objectName": "public-site-assets/le-roy-factory/85d5f6bd3f78/assets/pdf/ELIOS_Outdoor_2026_INTERACTIF.pdf",
+      "url": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Outdoor_2026_INTERACTIF.pdf?alt=media&token=e065e376-88d0-412a-8b00-e9188496f9f5"
+    },
+    {
+      "path": "assets/pdf/ELIOS_Pool_Surfaces_2026_INTERACTIF.pdf",
+      "bytes": 25564302,
+      "sourceGitBlob": "5ec867338fddf0685b102b8b6ba65d78b39c0da7",
+      "sha256": "b9bfeb1a0d744254743b23099503ffab4a6b24fefefaae369d72fe0237816dd9",
+      "md5": "+azkcazg2qc61bl9+o1ang==",
+      "generation": "1792346951269552",
+      "objectName": "public-site-assets/le-roy-factory/85d5f6bd3f78/assets/pdf/ELIOS_Pool_Surfaces_2026_INTERACTIF.pdf",
+      "url": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf"
+    },
+    {
+      "path": "assets/pdf/LA_FENICE_CERSAIE_2026_INTERACTIF.pdf",
+      "bytes": 8357792,
+      "sourceGitBlob": "8844818cba242150b7b058480c950d6babafe54f",
+      "sha256": "662a42908298d07c84f1e950d1e713e0c2d25608df2d3bbe0bed73af1fd6083c",
+      "md5": "8PySp9W1S2oM8sqC3Kanag==",
+      "generation": "1792346951966116",
+      "objectName": "public-site-assets/le-roy-factory/85d5f6bd3f78/assets/pdf/LA_FENICE_CERSAIE_2026_INTERACTIF.pdf",
+      "url": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FLA_FENICE_CERSAIE_2026_INTERACTIF.pdf?alt=media&token=29d80214-f847-40f3-a788-359dee9a5b4b"
+    },
+    {
+      "path": "assets/pdf/KOIBATH_Catalogue_Meubles_2025.pdf",
+      "bytes": 28329420,
+      "sourceGitBlob": "af1e5883eac0cfc50b50476a0d47a9f7781962aa",
+      "sha256": "dc31b87921dd808b3b5f2d43bb336fb12e56e086021373bacc5b3de0f4920012",
+      "md5": "xfcKinRJGmyzjJStE8ih/w==",
+      "generation": "1792346952053912",
+      "objectName": "public-site-assets/le-roy-factory/85d5f6bd3f78/assets/pdf/KOIBATH_Catalogue_Meubles_2025.pdf",
+      "url": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FKOIBATH_Catalogue_Meubles_2025.pdf?alt=media&token=7bea831d-c580-462d-9219-28248a65f1f9"
+    },
+    {
+      "path": "assets/pdf/REITANO-Accessoire-2026-Catalogue.pdf",
+      "bytes": 3519925,
+      "sourceGitBlob": "de2d87b3e23b82fb4e5fd6800d60df5861fa8841",
+      "sha256": "8c4956b4e8164a66ce3afb8cfa6ff95ba7564cc3526ea5156a23b25d417f5482",
+      "md5": "iEZRDVspEKCPwRN024LfYA==",
+      "generation": "1792346952500097",
+      "objectName": "public-site-assets/le-roy-factory/85d5f6bd3f78/assets/pdf/REITANO-Accessoire-2026-Catalogue.pdf",
+      "url": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FREITANO-Accessoire-2026-Catalogue.pdf?alt=media&token=55d7ef83-1eb1-416d-8138-9e37b36d3ae2"
+    },
+    {
+      "path": "assets/pdf/REITANO-Robinetterie-2026.pdf",
+      "bytes": 25820662,
+      "sourceGitBlob": "e1e574c3a8d4a2ca20db0dda2419520e6a318d35",
+      "sha256": "4363c3cfcca0a5e23ac6a04d5fa81ab9438a68554c63078d706fbdb8c1f7262a",
+      "md5": "PBUWhTUwZjqGx2EvRrwSkw==",
+      "generation": "1792346952976481",
+      "objectName": "public-site-assets/le-roy-factory/85d5f6bd3f78/assets/pdf/REITANO-Robinetterie-2026.pdf",
+      "url": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FREITANO-Robinetterie-2026.pdf?alt=media&token=124297cf-ae50-4d68-aeb6-15b24d086e6e"
+    },
+    {
+      "path": "assets/pdf/REVIGLASS_catalogue general-baja.pdf",
+      "bytes": 13915756,
+      "sourceGitBlob": "83819f53511c7b6282b602616a0a25183427ade9",
+      "sha256": "9fd2e4cbeebe5c0c1d9873841e62980d4bac58afc92fe8a219e3b189d4733b84",
+      "md5": "1Dtho2rqHj1u54Kmk60CmA==",
+      "generation": "1792346953251503",
+      "objectName": "public-site-assets/le-roy-factory/85d5f6bd3f78/assets/pdf/REVIGLASS_catalogue general-baja.pdf",
+      "url": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FREVIGLASS_catalogue%20general-baja.pdf?alt=media&token=68a6b7da-367e-4549-80e0-0484baec9fd8"
+    },
+    {
+      "path": "assets/pdf/Tiroirs_STUDIO_FR_Textes_Gauche_Uniformes.pdf",
+      "bytes": 4027532,
+      "sourceGitBlob": "a5bd5996b024d5ac0d626af8095e30ef5e9b9777",
+      "sha256": "8c3232f930392d15025f4c8bfa1e56e8b5ec97ce6ffd2300d0553fa21ac082a3",
+      "md5": "y66VUcErGDh8UyRsITZYhA==",
+      "generation": "1792346953511647",
+      "objectName": "public-site-assets/le-roy-factory/85d5f6bd3f78/assets/pdf/Tiroirs_STUDIO_FR_Textes_Gauche_Uniformes.pdf",
+      "url": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FTiroirs_STUDIO_FR_Textes_Gauche_Uniformes.pdf?alt=media&token=a4e886bc-1206-412b-b6eb-c336d6e5890d"
+    },
+    {
+      "path": "assets/pdf/UPTREND_Catalogue_2026_FR.pdf",
+      "bytes": 49329321,
+      "sourceGitBlob": "4d6ecfbdfdbf662d21f7461d3874c73add153009",
+      "sha256": "caa35073ac8fccc3b0941d23a9547b429ecf3db0bcd7c03ca663c47250fe9990",
+      "md5": "vrOsvuqzSyQqIGhy3MjO2Q==",
+      "generation": "1792346955058795",
+      "objectName": "public-site-assets/le-roy-factory/85d5f6bd3f78/assets/pdf/UPTREND_Catalogue_2026_FR.pdf",
+      "url": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FUPTREND_Catalogue_2026_FR.pdf?alt=media&token=4ae82613-1603-4aad-be6a-c7d51e8757b1"
+    },
+    {
+      "path": "assets/pdf/UPTREND_Catalogue_2026.pdf",
+      "bytes": 49387915,
+      "sourceGitBlob": "d4e8c2adf653dd5142d6acbbec93212456f16525",
+      "sha256": "ffc99c2295466dff0a3169ef05618da2971c29e0755855cb561b87bfac5337c1",
+      "md5": "YEY4EzwMKbyVsHMimyLw1Q==",
+      "generation": "1792346955072271",
+      "objectName": "public-site-assets/le-roy-factory/85d5f6bd3f78/assets/pdf/UPTREND_Catalogue_2026.pdf",
+      "url": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FUPTREND_Catalogue_2026.pdf?alt=media&token=af1c8ff4-6d1b-4685-84df-5ecabb4fe253"
+    },
+    {
+      "path": "assets/pdf/VIEW_CATALOGO_PHURA_2026.pdf",
+      "bytes": 660876,
+      "sourceGitBlob": "2398acd99f099a1b019fd57ee3cc6a9fe0183386",
+      "sha256": "88bbc91aec1d726911fac393f70356a97a1a7e2cd4127393788edde1e9c32f84",
+      "md5": "un/BMC8123KhbhY6mFCMqg==",
+      "generation": "1792346955493090",
+      "objectName": "public-site-assets/le-roy-factory/85d5f6bd3f78/assets/pdf/VIEW_CATALOGO_PHURA_2026.pdf",
+      "url": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FVIEW_CATALOGO_PHURA_2026.pdf?alt=media&token=5fb06d86-e133-4ce2-bb2b-fa1da86b52ad"
+    },
+    {
+      "path": "assets/pdf/VIEW-EXTERIEUR.pdf",
+      "bytes": 21706570,
+      "sourceGitBlob": "c3bb1875c99b78f37f4a9bf7cbbc3028518aa498",
+      "sha256": "07e706caf692aa0c10905531b0997211099170321691dd99a7b598c8501ecffe",
+      "md5": "wl2AgyjYOrCHaiLolnL2rQ==",
+      "generation": "1792346955976343",
+      "objectName": "public-site-assets/le-roy-factory/85d5f6bd3f78/assets/pdf/VIEW-EXTERIEUR.pdf",
+      "url": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FVIEW-EXTERIEUR.pdf?alt=media&token=e0ca16aa-686e-4ffe-a444-28fa755ec145"
+    },
+    {
+      "path": "assets/pdf/View Dorset_.pdf",
+      "bytes": 2370014,
+      "sourceGitBlob": "c47ef14cf5b54c6f53fc23a0a053e938ed5f8c64",
+      "sha256": "b3fceff24d35f822178cee7f37b1f5f8d8bfde8171c6e51284dd4863a74766c5",
+      "md5": "z3MNCW78aWZs1QGKbMcrMA==",
+      "generation": "1792346956074972",
+      "objectName": "public-site-assets/le-roy-factory/85d5f6bd3f78/assets/pdf/View Dorset_.pdf",
+      "url": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FView%20Dorset_.pdf?alt=media&token=594aba6a-afe3-40c4-9483-aa80877621f7"
+    },
+    {
+      "path": "assets/pdf/View-DIGIONE.pdf",
+      "bytes": 3506239,
+      "sourceGitBlob": "4cc9db2168b96c40d04a0c5199162cdf4fb66abe",
+      "sha256": "efe8bbf20923de9eb19385bc2ac43005f51280c0e5791438c6ec2a5a8ffc6a54",
+      "md5": "xet71Dp42AWCzVNMuZQIDw==",
+      "generation": "1792346956543894",
+      "objectName": "public-site-assets/le-roy-factory/85d5f6bd3f78/assets/pdf/View-DIGIONE.pdf",
+      "url": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FView-DIGIONE.pdf?alt=media&token=44771689-0ff5-4c49-88c4-fcc0336c7400"
+    },
+    {
+      "path": "assets/pdf/View_.marais.pdf",
+      "bytes": 5899360,
+      "sourceGitBlob": "a2b3efffb79639569d4d788c92db90fb83117a2a",
+      "sha256": "2f3f5a97e5ba28ad8e91b4cb24d32dcc81cdb5bbea163643332c71fc9c0800f0",
+      "md5": "9QzvmgTLoHWhhlwkFwVN0Q==",
+      "generation": "1792346956604671",
+      "objectName": "public-site-assets/le-roy-factory/85d5f6bd3f78/assets/pdf/View_.marais.pdf",
+      "url": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FView_.marais.pdf?alt=media&token=0c9b9f36-38bc-4949-974e-32aa09158e6c"
+    },
+    {
+      "path": "assets/pdf/aquahome2026.pdf",
+      "bytes": 4437589,
+      "sourceGitBlob": "f68006c06c843a09096e4f329ca3248baaf63716",
+      "sha256": "b283022c028ec4acd18dcac7738a48739a4ebfdf845794c8e618f5b7aa64b1b9",
+      "md5": "kwKeYe3oDfK/E+RCwNVnXw==",
+      "generation": "1792346957208398",
+      "objectName": "public-site-assets/le-roy-factory/85d5f6bd3f78/assets/pdf/aquahome2026.pdf",
+      "url": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2Faquahome2026.pdf?alt=media&token=70b1b113-0f0e-4cec-ad43-ddb81021590c"
+    },
+    {
+      "path": "assets/pdf/View_serie COCO et Le_Pietre_di_View.pdf",
+      "bytes": 10542420,
+      "sourceGitBlob": "f16d7290ff287da7c10cc59978c7394a3f4c8bc6",
+      "sha256": "7c85698b3a5e51dd7f72069fab713634851e97c5c4d651b04c4b726484cec3be",
+      "md5": "0LWYTnAtYweCCpYvUgC86g==",
+      "generation": "1792346957287253",
+      "objectName": "public-site-assets/le-roy-factory/85d5f6bd3f78/assets/pdf/View_serie COCO et Le_Pietre_di_View.pdf",
+      "url": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FView_serie%20COCO%20et%20Le_Pietre_di_View.pdf?alt=media&token=7cac44cd-9502-4105-a4ea-aba8a9d622ce"
+    },
+    {
+      "path": "assets/pdf/catalogue pecchioli 2026.pdf",
+      "bytes": 18649004,
+      "sourceGitBlob": "70993f79b5b34e915af82e223e51df41b1aa405a",
+      "sha256": "135dd1bffa9a6db61116f095f8ebdc74068889eb40502faaa49bc43a695c5c2e",
+      "md5": "5JIg6KxEdJFQ95/O6rNwNQ==",
+      "generation": "1792346958213032",
+      "objectName": "public-site-assets/le-roy-factory/85d5f6bd3f78/assets/pdf/catalogue pecchioli 2026.pdf",
+      "url": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2Fcatalogue%20pecchioli%202026.pdf?alt=media&token=73aacc90-fffd-4ca9-af0a-3c8b41487fbe"
+    },
+    {
+      "path": "assets/pdf/fenice-general/decor.pdf",
+      "bytes": 21549295,
+      "sourceGitBlob": "0ba525059c6e91f4efad845cd3bf136959d391eb",
+      "sha256": "641f6d987e1ad147f7fec4462d5b8384fbbb1bc6417cc737f86b21cb236609f3",
+      "md5": "I/HwTBcqaZvLVAr5fvfUOA==",
+      "generation": "1792346958357238",
+      "objectName": "public-site-assets/le-roy-factory/85d5f6bd3f78/assets/pdf/fenice-general/decor.pdf",
+      "url": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2Ffenice-general%2Fdecor.pdf?alt=media&token=5d980fd9-412e-493f-a869-2cdb341ae31b"
+    },
+    {
+      "path": "assets/pdf/fenice-general/marble.pdf",
+      "bytes": 24178880,
+      "sourceGitBlob": "42252071f5105f30b8ab6854d1eb970f43b78b17",
+      "sha256": "a108b51ac3bfb6d5d219caa27131c794511bfeda47b3b1f0de1af759208bfe7f",
+      "md5": "aqTzyHzcsT/s0VG6XOfb2Q==",
+      "generation": "1792346959320494",
+      "objectName": "public-site-assets/le-roy-factory/85d5f6bd3f78/assets/pdf/fenice-general/marble.pdf",
+      "url": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2Ffenice-general%2Fmarble.pdf?alt=media&token=d728fd24-2dfc-40d0-8f47-b982ca51caa4"
+    },
+    {
+      "path": "assets/pdf/fenice-general/metal.pdf",
+      "bytes": 22301892,
+      "sourceGitBlob": "21aa5f562e95a85f8f508378d42eab1cdaa1e9a6",
+      "sha256": "b0e254d9faf2d32a34b4fc9f95b4a3fb809164c1579e7ec7854dbaeb032fd66d",
+      "md5": "VzZpFRiSZUuquudpYe38Cg==",
+      "generation": "1792346959372428",
+      "objectName": "public-site-assets/le-roy-factory/85d5f6bd3f78/assets/pdf/fenice-general/metal.pdf",
+      "url": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2Ffenice-general%2Fmetal.pdf?alt=media&token=ed37180f-e082-49ed-841a-b4ead13ffdde"
+    },
+    {
+      "path": "assets/pdf/fenice-general/wood.pdf",
+      "bytes": 15561514,
+      "sourceGitBlob": "4b305ede341caa221c81e1b18e049d72c2d2466c",
+      "sha256": "0cdfc88b11e8da25fcca974238e10a57ed26a5faf6477f22d2a324d86a3c7984",
+      "md5": "8SYuCn14E5zqG2iDhdlubg==",
+      "generation": "1792346960571309",
+      "objectName": "public-site-assets/le-roy-factory/85d5f6bd3f78/assets/pdf/fenice-general/wood.pdf",
+      "url": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2Ffenice-general%2Fwood.pdf?alt=media&token=9a348185-4eb0-4a56-9dfc-7fe019dd797d"
+    },
+    {
+      "path": "assets/pdf/reviglass ambiances.pdf",
+      "bytes": 22229971,
+      "sourceGitBlob": "5dbac926b144cfd755da25cfd639262c2a8882e2",
+      "sha256": "eaf3fca6dc408e73edfd1e14626a405c1ead31c94530be4ae1948b6af6e31bb7",
+      "md5": "H59XKuidgwH9/MxwCGHpuA==",
+      "generation": "1792346961636600",
+      "objectName": "public-site-assets/le-roy-factory/85d5f6bd3f78/assets/pdf/reviglass ambiances.pdf",
+      "url": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2Freviglass%20ambiances.pdf?alt=media&token=60d228b3-0117-459a-9c4d-672996370d6b"
+    },
+    {
+      "path": "assets/pdf/fenice-general/stone.pdf",
+      "bytes": 83536044,
+      "sourceGitBlob": "1fd95ac70978bb3b411d0a2f1ad9fd80e51ee2eb",
+      "sha256": "e787d40162d892475f71663afc89a2341e4742eb1af6fb5997a3109a299fbe0b",
+      "md5": "7r6a09uFO1noRsYox5Sbjg==",
+      "generation": "1792346961865169",
+      "objectName": "public-site-assets/le-roy-factory/85d5f6bd3f78/assets/pdf/fenice-general/stone.pdf",
+      "url": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2Ffenice-general%2Fstone.pdf?alt=media&token=d66ef41c-5091-4c79-aaa4-4c7e07c617f9"
+    },
+    {
+      "path": "assets/pdf/view Ardenne.pdf",
+      "bytes": 9062809,
+      "sourceGitBlob": "b993304e71a83f97ff80cf7646fa8c9005f84b07",
+      "sha256": "9e1a0545075e0f37bf9b6bf9d36e625734540693b069dac0ee7f3914b62d1195",
+      "md5": "r03oi+6S2Y5OEX5kkbvxqg==",
+      "generation": "1792346962353701",
+      "objectName": "public-site-assets/le-roy-factory/85d5f6bd3f78/assets/pdf/view Ardenne.pdf",
+      "url": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2Fview%20Ardenne.pdf?alt=media&token=a8736c8b-fdc9-43ec-89b4-310eb917ff28"
+    },
+    {
+      "path": "assets/pdf/web_Reviglass_Pool.pdf",
+      "bytes": 4867130,
+      "sourceGitBlob": "2a898300103d3553c6f74110ad4141761e24a058",
+      "sha256": "35b9a24d3610997db607c38e4a0194e6e32b17a5df3e717b8db7eac11b77610f",
+      "md5": "I4ePc0PAxeBZ6IzptPrgtw==",
+      "generation": "1792346962397741",
+      "objectName": "public-site-assets/le-roy-factory/85d5f6bd3f78/assets/pdf/web_Reviglass_Pool.pdf",
+      "url": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2Fweb_Reviglass_Pool.pdf?alt=media&token=7f741388-4c2b-4ec5-87a2-3823e1337fe4"
+    }
+  ],
+  "excludedProtectedFiles": [
+    "assets/pdf/CIELO-MOLLE-COSMOS-Sans-tarif-BD.pdf",
+    "assets/pdf/ELIOSCATALOGUE-GENERALE 2026-1.pdf",
+    "assets/pdf/ELIOS_DYNASTY (1).pdf",
+    "assets/pdf/LA_FENICE_CERSAIE_2026.pdf",
+    "assets/pdf/RANDAL%20V04.pdf",
+    "assets/pdf/RANDAL-STUDIO-ONE-VASQUES-TARIF-PRO-HT.pdf",
+    "assets/pdf/RANDAL-TARIF-VASQUES-SOLID-SURFACE.pdf",
+    "assets/pdf/RANDAL-V04.pdf",
+    "assets/pdf/REITANO-Accessoire-2026-Tarif.pdf",
+    "assets/pdf/Reitano tarif general 2026.pdf",
+    "assets/pdf/nom-du-catalogue.pdf",
+    "assets/pdf/pecchioli2022.pdf"
+  ]
+}
