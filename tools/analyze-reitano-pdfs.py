@@ -8,6 +8,7 @@ import shutil
 from collections import Counter
 from pathlib import Path
 
+from public_pdf_source import resolve_pdf
 import fitz
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -54,7 +55,7 @@ def word_rows(page):
 
 
 def analyze(kind, path):
-    document = fitz.open(path)
+    document = fitz.open(resolve_pdf(path))
     pages, all_refs, total_prices = [], [], 0
     for index, page in enumerate(document):
         words = word_rows(page)

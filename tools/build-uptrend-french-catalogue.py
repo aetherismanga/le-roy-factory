@@ -9,6 +9,7 @@ import argparse
 import re
 from pathlib import Path
 
+from public_pdf_source import resolve_pdf
 import fitz
 
 ENGLISH = set("the a an and or with without for from of to in on our your this that is are be been bathroom bathrooms washbasin washbasins sink sinks countertop wall mounted product products catalogue catalog collection discover design designed modern elegant durable easy cleaning color colours shape round rectangular square oval glossy matte black white gold grey green blue weight width depth comfort quality years company information about where meets serenity harmony every detail brand philosophy authenticity factories year experience number patterns annual production warranty create spaces".split())
@@ -69,7 +70,7 @@ def fit_text(page: fitz.Page, rect: fitz.Rect, text: str, original_size: float) 
         size -= .5
 
 def build(source: Path, output: Path) -> dict:
-    doc = fitz.open(source)
+    doc = fitz.open(resolve_pdf(source))
     edits = 0
     for page in doc:
         changes = []

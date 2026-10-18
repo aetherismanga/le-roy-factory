@@ -11,6 +11,7 @@ import re
 from collections import Counter, defaultdict
 from pathlib import Path
 
+from public_pdf_source import resolve_pdf
 import fitz
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -159,7 +160,7 @@ def collection_for_page(lines):
 
 
 def main():
-    doc = fitz.open(PDF)
+    doc = fitz.open(resolve_pdf(PDF))
     rows = []
     missing_ref = []
     current_collection = "Aquahome 2026"
