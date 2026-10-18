@@ -1,10 +1,8 @@
 name: Split La Fenice general catalogue for web
 on:
-  push:
-    paths:
-      - '.github/workflows/split-fenice-general.yml'
+  workflow_dispatch:
 permissions:
-  contents: write
+  contents: read
 jobs:
   split:
     runs-on: ubuntu-latest
@@ -19,7 +17,7 @@ jobs:
           set -euo pipefail
           curl -L --fail --retry 3 -A 'Mozilla/5.0'             'https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf'             -o /tmp/fenice-general.pdf
           test "$(head -c 4 /tmp/fenice-general.pdf)" = '%PDF'
-          mkdir -p assets/pdf/fenice-general
+          mkdir -p ${{ runner.temp }}/fenice-general
           python - <<'PY'
           import fitz, os
           src=fitz.open('/tmp/fenice-general.pdf')
@@ -35,7 +33,7 @@ jobs:
           for name,(start,end) in chunks.items():
               out=fitz.open()
               out.insert_pdf(src, from_page=start, to_page=end)
-              path=f'assets/pdf/fenice-general/{name}.pdf'
+              path=f'${{ runner.temp }}/fenice-general/{name}.pdf'
               out.save(path, garbage=1, deflate=False)
               out.close()
               size=os.path.getsize(path)
@@ -45,14 +43,9 @@ jobs:
               assert pages > 0
           src.close()
           PY
-      - name: Commit section PDFs
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add assets/pdf/fenice-general/*.pdf
-          git commit -m 'Add full-quality La Fenice general catalogue sections'
-          git fetch origin main
-          git rebase origin/main
-          git push origin HEAD:main
+      - name: Save section PDFs for review before Firebase publication
+        uses: actions/upload-artifact@v4
+        with:
+          name: fenice-general-sections
+          if-no-files-found: error
+          path: ${{ runner.temp }}/fenice-general/*.pdf

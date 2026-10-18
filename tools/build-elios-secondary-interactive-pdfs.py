@@ -6,6 +6,7 @@ import math
 import re
 import unicodedata
 from pathlib import Path
+from public_pdf_source import resolve_pdf
 import fitz
 
 GENERAL_COLLECTIONS = [
@@ -159,7 +160,7 @@ def validate(doc: fitz.Document, mapping: dict[str, int], shift: int) -> None:
         raise SystemExit("\n".join(failures))
 
 def build(source: Path, output: Path, label: str, mode: str, min_collections: int) -> None:
-    doc = fitz.open(source)
+    doc = fitz.open(resolve_pdf(source))
     if doc.page_count < 8:
         raise SystemExit(f"Suspicious PDF: only {doc.page_count} pages")
 

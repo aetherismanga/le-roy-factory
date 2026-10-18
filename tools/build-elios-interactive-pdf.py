@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse, re, sys
 from pathlib import Path
 import requests
+from public_pdf_source import resolve_pdf
 import fitz
 
 COLLECTIONS = [
@@ -148,7 +149,7 @@ def add_bookmarks(doc:fitz.Document,mapping:dict[str,int],shift:int)->None:
     doc.set_toc(toc)
 
 def build(source:Path,output:Path)->None:
-    doc=fitz.open(source)
+    doc=fitz.open(resolve_pdf(source))
     if doc.page_count < 20:
         raise SystemExit(f"Suspicious PDF: only {doc.page_count} pages")
     mapping=find_collection_pages(doc)

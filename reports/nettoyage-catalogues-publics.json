@@ -1,0 +1,414 @@
+{
+  "date": "2026-10-18T22:23:17.241331+00:00",
+  "baseCommit": "457053daf5983230aa723748befa94cd20d302f5",
+  "scope": "27 autres catalogues publics deja migres dans Firebase",
+  "removedPdfBytes": 571782128,
+  "compatibilityHtmlBytes": 40868,
+  "all34PublicPdfBytesRemoved": 625530416,
+  "gitHistoryRewritten": false,
+  "githubHistoricalBytesFreed": 0,
+  "copies": [
+    {
+      "path": "assets/pdf/Catalogue_ONDABLOCK_2026_FR_INTERACTIF.pdf",
+      "bytes": 2630837,
+      "sha256": "f1314a1fb2084b11402b26f6e481bc32dce20e182de5d5a9fc1fad26955400c3",
+      "pages": 20,
+      "renderedFirstPage": true
+    },
+    {
+      "path": "assets/pdf/ELIOS CERSAIE 2026.pdf",
+      "bytes": 14970098,
+      "sha256": "4340ea746a3d58860f6c22ac80d07aa7f34e1c5b7e170cbd658be0906495b338",
+      "pages": 52,
+      "renderedFirstPage": true
+    },
+    {
+      "path": "assets/pdf/AZULI-MOOD_new.pdf",
+      "bytes": 16873306,
+      "sha256": "8f42815718fe0572455d088aa6a7c448bff71664853d0a0eb570df6a3ad96f6e",
+      "pages": 37,
+      "renderedFirstPage": true
+    },
+    {
+      "path": "assets/pdf/ELIOS SKULTURA.pdf",
+      "bytes": 7706807,
+      "sha256": "71663dd99d2bdc46f0ae16f95e2724dc2448514c9a1c809d98dcc682f21d7994",
+      "pages": 28,
+      "renderedFirstPage": true
+    },
+    {
+      "path": "assets/pdf/ELIOS_CATALOGO PISCINE_2026.pdf",
+      "bytes": 25484488,
+      "sha256": "eb2300e2e9fad331817e868e195812dc150b688133d4c6eb7d3f9f0c1a34def0",
+      "pages": 50,
+      "renderedFirstPage": true
+    },
+    {
+      "path": "assets/pdf/ELIOS_CATALOGUE-GENERALE-2026-1.pdf",
+      "bytes": 25213562,
+      "sha256": "04bab2aba9802417df50b52d8ee4f42eba5f7c6fa3c74ad10e66c9d8187c90f1",
+      "pages": 240,
+      "renderedFirstPage": true
+    },
+    {
+      "path": "assets/pdf/ELIOS_Catalogue_General_2026_INTERACTIF.pdf",
+      "bytes": 25450697,
+      "sha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+      "pages": 242,
+      "renderedFirstPage": true
+    },
+    {
+      "path": "assets/pdf/ELIOS_Coverings_2026_INTERACTIF.pdf",
+      "bytes": 9780838,
+      "sha256": "8aa515873318ab197aae55019562e6f89125c40ea82e66b542ff04bbaa0ad42e",
+      "pages": 26,
+      "renderedFirstPage": true
+    },
+    {
+      "path": "assets/pdf/ELIOS_Outdoor_2026_INTERACTIF.pdf",
+      "bytes": 18107551,
+      "sha256": "cf5fefff5886f4c088f9547622e95ca78e909a4b8f910b5f5ec21810da27758f",
+      "pages": 126,
+      "renderedFirstPage": true
+    },
+    {
+      "path": "assets/pdf/ELIOS_Pool_Surfaces_2026_INTERACTIF.pdf",
+      "bytes": 25564302,
+      "sha256": "b9bfeb1a0d744254743b23099503ffab4a6b24fefefaae369d72fe0237816dd9",
+      "pages": 51,
+      "renderedFirstPage": true
+    },
+    {
+      "path": "assets/pdf/LA_FENICE_CERSAIE_2026_INTERACTIF.pdf",
+      "bytes": 8357792,
+      "sha256": "662a42908298d07c84f1e950d1e713e0c2d25608df2d3bbe0bed73af1fd6083c",
+      "pages": 68,
+      "renderedFirstPage": true
+    },
+    {
+      "path": "assets/pdf/KOIBATH_Catalogue_Meubles_2025.pdf",
+      "bytes": 28329420,
+      "sha256": "dc31b87921dd808b3b5f2d43bb336fb12e56e086021373bacc5b3de0f4920012",
+      "pages": 103,
+      "renderedFirstPage": true
+    },
+    {
+      "path": "assets/pdf/REITANO-Accessoire-2026-Catalogue.pdf",
+      "bytes": 3519925,
+      "sha256": "8c4956b4e8164a66ce3afb8cfa6ff95ba7564cc3526ea5156a23b25d417f5482",
+      "pages": 32,
+      "renderedFirstPage": true
+    },
+    {
+      "path": "assets/pdf/REITANO-Robinetterie-2026.pdf",
+      "bytes": 25820662,
+      "sha256": "4363c3cfcca0a5e23ac6a04d5fa81ab9438a68554c63078d706fbdb8c1f7262a",
+      "pages": 195,
+      "renderedFirstPage": true
+    },
+    {
+      "path": "assets/pdf/REVIGLASS_catalogue general-baja.pdf",
+      "bytes": 13915756,
+      "sha256": "9fd2e4cbeebe5c0c1d9873841e62980d4bac58afc92fe8a219e3b189d4733b84",
+      "pages": 184,
+      "renderedFirstPage": true
+    },
+    {
+      "path": "assets/pdf/Tiroirs_STUDIO_FR_Textes_Gauche_Uniformes.pdf",
+      "bytes": 4027532,
+      "sha256": "8c3232f930392d15025f4c8bfa1e56e8b5ec97ce6ffd2300d0553fa21ac082a3",
+      "pages": 5,
+      "renderedFirstPage": true
+    },
+    {
+      "path": "assets/pdf/UPTREND_Catalogue_2026_FR.pdf",
+      "bytes": 49329321,
+      "sha256": "caa35073ac8fccc3b0941d23a9547b429ecf3db0bcd7c03ca663c47250fe9990",
+      "pages": 60,
+      "renderedFirstPage": true
+    },
+    {
+      "path": "assets/pdf/UPTREND_Catalogue_2026.pdf",
+      "bytes": 49387915,
+      "sha256": "ffc99c2295466dff0a3169ef05618da2971c29e0755855cb561b87bfac5337c1",
+      "pages": 60,
+      "renderedFirstPage": true
+    },
+    {
+      "path": "assets/pdf/aquahome2026.pdf",
+      "bytes": 4437589,
+      "sha256": "b283022c028ec4acd18dcac7738a48739a4ebfdf845794c8e618f5b7aa64b1b9",
+      "pages": 61,
+      "renderedFirstPage": true
+    },
+    {
+      "path": "assets/pdf/catalogue pecchioli 2026.pdf",
+      "bytes": 18649004,
+      "sha256": "135dd1bffa9a6db61116f095f8ebdc74068889eb40502faaa49bc43a695c5c2e",
+      "pages": 152,
+      "renderedFirstPage": true
+    },
+    {
+      "path": "assets/pdf/fenice-general/decor.pdf",
+      "bytes": 21549295,
+      "sha256": "641f6d987e1ad147f7fec4462d5b8384fbbb1bc6417cc737f86b21cb236609f3",
+      "pages": 38,
+      "renderedFirstPage": true
+    },
+    {
+      "path": "assets/pdf/fenice-general/marble.pdf",
+      "bytes": 24178880,
+      "sha256": "a108b51ac3bfb6d5d219caa27131c794511bfeda47b3b1f0de1af759208bfe7f",
+      "pages": 82,
+      "renderedFirstPage": true
+    },
+    {
+      "path": "assets/pdf/fenice-general/metal.pdf",
+      "bytes": 22301892,
+      "sha256": "b0e254d9faf2d32a34b4fc9f95b4a3fb809164c1579e7ec7854dbaeb032fd66d",
+      "pages": 82,
+      "renderedFirstPage": true
+    },
+    {
+      "path": "assets/pdf/fenice-general/wood.pdf",
+      "bytes": 15561514,
+      "sha256": "0cdfc88b11e8da25fcca974238e10a57ed26a5faf6477f22d2a324d86a3c7984",
+      "pages": 46,
+      "renderedFirstPage": true
+    },
+    {
+      "path": "assets/pdf/reviglass ambiances.pdf",
+      "bytes": 22229971,
+      "sha256": "eaf3fca6dc408e73edfd1e14626a405c1ead31c94530be4ae1948b6af6e31bb7",
+      "pages": 44,
+      "renderedFirstPage": true
+    },
+    {
+      "path": "assets/pdf/fenice-general/stone.pdf",
+      "bytes": 83536044,
+      "sha256": "e787d40162d892475f71663afc89a2341e4742eb1af6fb5997a3109a299fbe0b",
+      "pages": 154,
+      "renderedFirstPage": true
+    },
+    {
+      "path": "assets/pdf/web_Reviglass_Pool.pdf",
+      "bytes": 4867130,
+      "sha256": "35b9a24d3610997db607c38e4a0194e6e32b17a5df3e717b8db7eac11b77610f",
+      "pages": 24,
+      "renderedFirstPage": true
+    }
+  ],
+  "integrityTestsPassed": 8,
+  "redirectDefinitionsChecked": [
+    {
+      "path": "assets/pdf/Catalogue_ONDABLOCK_2026_FR_INTERACTIF.pdf",
+      "metaRefresh": true,
+      "fallbackLink": true,
+      "javascriptRedirect": true
+    },
+    {
+      "path": "assets/pdf/ELIOS CERSAIE 2026.pdf",
+      "metaRefresh": true,
+      "fallbackLink": true,
+      "javascriptRedirect": true
+    },
+    {
+      "path": "assets/pdf/AZULI-MOOD_new.pdf",
+      "metaRefresh": true,
+      "fallbackLink": true,
+      "javascriptRedirect": true
+    },
+    {
+      "path": "assets/pdf/ELIOS SKULTURA.pdf",
+      "metaRefresh": true,
+      "fallbackLink": true,
+      "javascriptRedirect": true
+    },
+    {
+      "path": "assets/pdf/ELIOS_CATALOGO PISCINE_2026.pdf",
+      "metaRefresh": true,
+      "fallbackLink": true,
+      "javascriptRedirect": true
+    },
+    {
+      "path": "assets/pdf/ELIOS_CATALOGUE-GENERALE-2026-1.pdf",
+      "metaRefresh": true,
+      "fallbackLink": true,
+      "javascriptRedirect": true
+    },
+    {
+      "path": "assets/pdf/ELIOS_Catalogue_General_2026_INTERACTIF.pdf",
+      "metaRefresh": true,
+      "fallbackLink": true,
+      "javascriptRedirect": true
+    },
+    {
+      "path": "assets/pdf/ELIOS_Coverings_2026_INTERACTIF.pdf",
+      "metaRefresh": true,
+      "fallbackLink": true,
+      "javascriptRedirect": true
+    },
+    {
+      "path": "assets/pdf/ELIOS_Outdoor_2026_INTERACTIF.pdf",
+      "metaRefresh": true,
+      "fallbackLink": true,
+      "javascriptRedirect": true
+    },
+    {
+      "path": "assets/pdf/ELIOS_Pool_Surfaces_2026_INTERACTIF.pdf",
+      "metaRefresh": true,
+      "fallbackLink": true,
+      "javascriptRedirect": true
+    },
+    {
+      "path": "assets/pdf/LA_FENICE_CERSAIE_2026_INTERACTIF.pdf",
+      "metaRefresh": true,
+      "fallbackLink": true,
+      "javascriptRedirect": true
+    },
+    {
+      "path": "assets/pdf/KOIBATH_Catalogue_Meubles_2025.pdf",
+      "metaRefresh": true,
+      "fallbackLink": true,
+      "javascriptRedirect": true
+    },
+    {
+      "path": "assets/pdf/REITANO-Accessoire-2026-Catalogue.pdf",
+      "metaRefresh": true,
+      "fallbackLink": true,
+      "javascriptRedirect": true
+    },
+    {
+      "path": "assets/pdf/REITANO-Robinetterie-2026.pdf",
+      "metaRefresh": true,
+      "fallbackLink": true,
+      "javascriptRedirect": true
+    },
+    {
+      "path": "assets/pdf/REVIGLASS_catalogue general-baja.pdf",
+      "metaRefresh": true,
+      "fallbackLink": true,
+      "javascriptRedirect": true
+    },
+    {
+      "path": "assets/pdf/Tiroirs_STUDIO_FR_Textes_Gauche_Uniformes.pdf",
+      "metaRefresh": true,
+      "fallbackLink": true,
+      "javascriptRedirect": true
+    },
+    {
+      "path": "assets/pdf/UPTREND_Catalogue_2026_FR.pdf",
+      "metaRefresh": true,
+      "fallbackLink": true,
+      "javascriptRedirect": true
+    },
+    {
+      "path": "assets/pdf/UPTREND_Catalogue_2026.pdf",
+      "metaRefresh": true,
+      "fallbackLink": true,
+      "javascriptRedirect": true
+    },
+    {
+      "path": "assets/pdf/VIEW_CATALOGO_PHURA_2026.pdf",
+      "metaRefresh": true,
+      "fallbackLink": true,
+      "javascriptRedirect": true
+    },
+    {
+      "path": "assets/pdf/VIEW-EXTERIEUR.pdf",
+      "metaRefresh": true,
+      "fallbackLink": true,
+      "javascriptRedirect": true
+    },
+    {
+      "path": "assets/pdf/View Dorset_.pdf",
+      "metaRefresh": true,
+      "fallbackLink": true,
+      "javascriptRedirect": true
+    },
+    {
+      "path": "assets/pdf/View-DIGIONE.pdf",
+      "metaRefresh": true,
+      "fallbackLink": true,
+      "javascriptRedirect": true
+    },
+    {
+      "path": "assets/pdf/View_.marais.pdf",
+      "metaRefresh": true,
+      "fallbackLink": true,
+      "javascriptRedirect": true
+    },
+    {
+      "path": "assets/pdf/aquahome2026.pdf",
+      "metaRefresh": true,
+      "fallbackLink": true,
+      "javascriptRedirect": true
+    },
+    {
+      "path": "assets/pdf/View_serie COCO et Le_Pietre_di_View.pdf",
+      "metaRefresh": true,
+      "fallbackLink": true,
+      "javascriptRedirect": true
+    },
+    {
+      "path": "assets/pdf/catalogue pecchioli 2026.pdf",
+      "metaRefresh": true,
+      "fallbackLink": true,
+      "javascriptRedirect": true
+    },
+    {
+      "path": "assets/pdf/fenice-general/decor.pdf",
+      "metaRefresh": true,
+      "fallbackLink": true,
+      "javascriptRedirect": true
+    },
+    {
+      "path": "assets/pdf/fenice-general/marble.pdf",
+      "metaRefresh": true,
+      "fallbackLink": true,
+      "javascriptRedirect": true
+    },
+    {
+      "path": "assets/pdf/fenice-general/metal.pdf",
+      "metaRefresh": true,
+      "fallbackLink": true,
+      "javascriptRedirect": true
+    },
+    {
+      "path": "assets/pdf/fenice-general/wood.pdf",
+      "metaRefresh": true,
+      "fallbackLink": true,
+      "javascriptRedirect": true
+    },
+    {
+      "path": "assets/pdf/reviglass ambiances.pdf",
+      "metaRefresh": true,
+      "fallbackLink": true,
+      "javascriptRedirect": true
+    },
+    {
+      "path": "assets/pdf/fenice-general/stone.pdf",
+      "metaRefresh": true,
+      "fallbackLink": true,
+      "javascriptRedirect": true
+    },
+    {
+      "path": "assets/pdf/view Ardenne.pdf",
+      "metaRefresh": true,
+      "fallbackLink": true,
+      "javascriptRedirect": true
+    },
+    {
+      "path": "assets/pdf/web_Reviglass_Pool.pdf",
+      "metaRefresh": true,
+      "fallbackLink": true,
+      "javascriptRedirect": true
+    }
+  ],
+  "generationTools": "PDF inputs resolved from the manifest and checked by SHA256 in a temporary cache. Five PDF-generation workflows are manual and save outputs as Actions artifacts instead of committing binaries. Firebase publication of regenerated outputs is a separate operation.",
+  "limitations": [
+    "Compatibility HTML preserves browser navigation; raw HTTP clients must use Firebase PDF URLs.",
+    "Public pages and source references remain unchanged. Authenticated CRM and native applications were not exercised in this lot.",
+    "Original Git histories and local backups remain unchanged."
+  ]
+}

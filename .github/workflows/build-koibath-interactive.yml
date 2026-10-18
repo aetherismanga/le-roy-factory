@@ -2,15 +2,9 @@ name: Build KOIBATH interactive catalogue
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - 'koibath-catalogue-interactif.html'
-      - 'assets/css/koibath-interactive.css'
-      - 'assets/js/koibath-interactive.js'
-      - '.github/workflows/build-koibath-interactive.yml'
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   build:
@@ -30,7 +24,7 @@ jobs:
           import requests
 
           url = 'https://www.koibath.com/wp-content/uploads/2025-Catalogo-Espana-muebles-de-bano.pdf'
-          output = Path('assets/pdf/KOIBATH_Catalogue_Meubles_2025.pdf')
+          output = Path('${{ runner.temp }}/KOIBATH_Catalogue_Meubles_2025.pdf')
           response = requests.get(url, timeout=180, headers={'User-Agent': 'Mozilla/5.0'})
           response.raise_for_status()
           if not response.content.startswith(b'%PDF') or len(response.content) < 5_000_000:
@@ -45,7 +39,7 @@ jobs:
           python - <<'PY'
           import fitz
 
-          path = 'assets/pdf/KOIBATH_Catalogue_Meubles_2025.pdf'
+          path = '${{ runner.temp }}/KOIBATH_Catalogue_Meubles_2025.pdf'
           doc = fitz.open(path)
           if doc.page_count != 103:
               raise SystemExit(f'Nombre de pages KOIBATH inattendu : {doc.page_count} au lieu de 103.')
@@ -81,11 +75,10 @@ jobs:
               raise SystemExit('\n'.join(failures))
           PY
 
-      - name: Commit official KOIBATH PDF
-        run: |
-          git config user.name "LRF Catalogue Bot"
-          git config user.email "actions@users.noreply.github.com"
-          git add assets/pdf/KOIBATH_Catalogue_Meubles_2025.pdf
-          git diff --cached --quiet && exit 0
-          git commit -m "Actualise le catalogue officiel KOIBATH"
-          git push
+      - name: Save generated PDFs for review before Firebase publication
+        uses: actions/upload-artifact@v4
+        with:
+          name: koibath-validated-catalogue
+          if-no-files-found: error
+          path: |
+            ${{ runner.temp }}/KOIBATH_Catalogue_Meubles_2025.pdf
