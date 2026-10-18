@@ -381,5 +381,51 @@
         true
       ]
     }
-  ]
+  ],
+  "offline": {
+    "homeOnline": {
+      "images": 21,
+      "broken": [],
+      "cachedMedia": 24
+    },
+    "homeOffline": {
+      "title": "LE ROY FACTORY | Carrelage & salle de bain — Sud France",
+      "images": 21,
+      "broken": []
+    },
+    "onlineTexture": {
+      "width": 1200,
+      "png": true
+    },
+    "offlineTexture": {
+      "width": 1200,
+      "png": true
+    },
+    "policyChecks": [
+      {
+        "origin": "https://storage.googleapis.com",
+        "method": "GET",
+        "expected": true,
+        "handled": true
+      },
+      {
+        "origin": "https://storage.googleapis.com",
+        "method": "GET",
+        "expected": false,
+        "handled": false
+      },
+      {
+        "origin": "https://example.com",
+        "method": "GET",
+        "expected": false,
+        "handled": false
+      },
+      {
+        "origin": "https://storage.googleapis.com",
+        "method": "POST",
+        "expected": false,
+        "handled": false
+      }
+    ]
+  }
 }
