@@ -1,6 +1,6 @@
 {
   "date": "2026-10-18T19:06:18.512Z",
-  "status": "Proposition sur branche de nettoyage ; pas appliquee a main",
+  "status": "Retrait des sept PDF lourds avec pages de compatibilite pour la navigation des anciens liens",
   "scope": "Seulement les sept catalogues PDF VIEW publics",
   "bytesRemovedFromTree": 53748288,
   "gitHistoryRewritten": false,
@@ -52,13 +52,13 @@
   "siteChecks": [
     {
       "width": 1440,
-      "allSevenLinksStillPresent": true,
-      "count": 7
+      "viewLinks": 7,
+      "allFirebaseTargets": true
     },
     {
       "width": 390,
-      "allSevenLinksStillPresent": true,
-      "count": 7
+      "viewLinks": 7,
+      "allFirebaseTargets": true
     }
   ],
   "remainingRuntimeReferences": [
@@ -153,8 +153,96 @@
     "zipVerified": true
   },
   "limitations": [
-    "Les anciennes URL directes du site sous /assets/pdf/ vers ces sept fichiers retourneront 404 apres publication du retrait. Les liens actuels de la page catalogue pointent deja vers Firebase et restent fonctionnels.",
-    "Les anciennes branches et anciens commits conservent ces PDF ; ce changement ne purge pas le stockage historique GitHub.",
-    "Les textures VIEW, tarifs et fichiers d integration ne sont pas concernes."
+    "Les anciens liens de navigation /assets/pdf/ sont conserves par des dossiers de redirection HTML vers les PDF Firebase. Les clients HTTP qui telechargent le corps brut sans suivre les redirections HTML doivent utiliser les URL Firebase.",
+    "Le dossier Git courant est allege, mais les anciennes branches et les anciens commits conservent les PDF. Aucun historique Git n est purge.",
+    "Les textures VIEW, les tarifs et les fichiers d integration des configurateurs ne sont pas modifies."
+  ],
+  "redirectPageBytes": 10400,
+  "netBytesRemovedFromCatalogueTree": 53737888,
+  "legacyBrowserNavigationTests": [
+    {
+      "path": "assets/pdf/VIEW_CATALOGO_PHURA_2026.pdf",
+      "javaScript": true,
+      "redirected": true,
+      "fragmentPreserved": true
+    },
+    {
+      "path": "assets/pdf/VIEW-EXTERIEUR.pdf",
+      "javaScript": true,
+      "redirected": true,
+      "fragmentPreserved": true
+    },
+    {
+      "path": "assets/pdf/View Dorset_.pdf",
+      "javaScript": true,
+      "redirected": true,
+      "fragmentPreserved": true
+    },
+    {
+      "path": "assets/pdf/View-DIGIONE.pdf",
+      "javaScript": true,
+      "redirected": true,
+      "fragmentPreserved": true
+    },
+    {
+      "path": "assets/pdf/View_.marais.pdf",
+      "javaScript": true,
+      "redirected": true,
+      "fragmentPreserved": true
+    },
+    {
+      "path": "assets/pdf/View_serie COCO et Le_Pietre_di_View.pdf",
+      "javaScript": true,
+      "redirected": true,
+      "fragmentPreserved": true
+    },
+    {
+      "path": "assets/pdf/view Ardenne.pdf",
+      "javaScript": true,
+      "redirected": true,
+      "fragmentPreserved": true
+    },
+    {
+      "path": "assets/pdf/VIEW_CATALOGO_PHURA_2026.pdf",
+      "javaScript": false,
+      "redirected": true,
+      "fragmentPreserved": false
+    },
+    {
+      "path": "assets/pdf/VIEW-EXTERIEUR.pdf",
+      "javaScript": false,
+      "redirected": true,
+      "fragmentPreserved": false
+    },
+    {
+      "path": "assets/pdf/View Dorset_.pdf",
+      "javaScript": false,
+      "redirected": true,
+      "fragmentPreserved": false
+    },
+    {
+      "path": "assets/pdf/View-DIGIONE.pdf",
+      "javaScript": false,
+      "redirected": true,
+      "fragmentPreserved": false
+    },
+    {
+      "path": "assets/pdf/View_.marais.pdf",
+      "javaScript": false,
+      "redirected": true,
+      "fragmentPreserved": false
+    },
+    {
+      "path": "assets/pdf/View_serie COCO et Le_Pietre_di_View.pdf",
+      "javaScript": false,
+      "redirected": true,
+      "fragmentPreserved": false
+    },
+    {
+      "path": "assets/pdf/view Ardenne.pdf",
+      "javaScript": false,
+      "redirected": true,
+      "fragmentPreserved": false
+    }
   ]
 }
