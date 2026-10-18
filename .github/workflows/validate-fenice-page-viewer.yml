@@ -25,5 +25,5 @@ jobs:
           grep -q "sectionParam" assets/js/selections-lazy-enhancements.js
           grep -q "GENERAL_SECTIONS" assets/js/fenice-pdf-viewer.js
           grep -q "GENERAL_SECTIONS" assets/js/fenice-lexicon-data.js
-          grep -q "20260918-fenice-page3" univers.html
-          grep -q "20260918-2" fenice-pdf.html
+          grep -q "selections-lazy-enhancements.js" univers.html
+          grep -q "fenice-pdf-viewer.js" fenice-pdf.html
