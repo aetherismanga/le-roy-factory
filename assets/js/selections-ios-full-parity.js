@@ -34,13 +34,13 @@
   }
 
   const BIO = [
-    'assets/js/inspirations-biopietra-series-media.js?v=20260923-ios-parity1',
-    'assets/js/inspirations-biopietra-2026.js?v=20260923-ios-parity1',
+    'assets/js/inspirations-biopietra-series-media.js?v=20260923-ios-parity1&media=20261018',
+    'assets/js/inspirations-biopietra-2026.js?v=20260923-ios-parity1&media=20261018',
     'assets/js/inspirations-biopietra-fix.js?v=20260923-ios-parity1',
     'assets/js/inspirations-biopietra-actions.js?v=20260923-ios-parity1',
     'assets/js/inspirations-biopietra-search-v2.js?v=20260923-ios-parity1',
     'assets/js/inspirations-biopietra-gallery.js?v=20260923-ios-parity1',
-    'assets/js/inspirations-biopietra-stable.js?v=20260923-ios-parity1',
+    'assets/js/inspirations-biopietra-stable.js?v=20260923-ios-parity1&media=20261018',
     'assets/js/inspirations-biopietra-product-details.js?v=20260923-ios-parity1',
     'assets/js/inspirations-biopietra-overview-consumables.js?v=20260924-bio-about2',
     'assets/js/inspirations-biopietra-modal-safety.js?v=20260923-ios-parity1',
@@ -54,7 +54,7 @@
   const REV = [
     'assets/js/reviglass-search-index.js?v=20260923-ios-parity1',
     'assets/js/inspirations-search-bridge-v2.js?v=20260923-ios-parity1',
-    'assets/js/inspirations-reviglass-pool-2026.js?v=20260923-ios-parity1',
+    'assets/js/inspirations-reviglass-pool-2026.js?v=20260923-ios-parity1&media=20261018',
     'assets/js/inspirations-reviglass-palette-qty.js?v=20260923-ios-parity1',
     'assets/js/inspirations-reviglass-reset.js?v=20260923-ios-parity1',
     'assets/js/inspirations-reviglass-action-bridge.js?v=20260923-ios-parity1',
@@ -83,8 +83,8 @@
 
   async function bootLight() {
     await loadSeries([
-      'assets/js/selections-stability.js?v=20260923-ios-parity1',
-      'assets/js/inspirations-bilt-order-link.js?v=20260923-ios-parity1',
+      'assets/js/selections-stability.js?v=20260923-ios-parity1&media=20261018',
+      'assets/js/inspirations-bilt-order-link.js?v=20260923-ios-parity1&media=20261018',
       'assets/js/fenice-lexicon-data.js?v=20260923-ios-parity1',
       'assets/js/products-alphabetical-order.js?v=20260923-ios-parity1',
       'assets/js/selections-lazy-enhancements.js?v=20261006-view-fix2'

@@ -5,7 +5,7 @@
 
   const GROUPS = {
     elios: [
-      'assets/js/inspirations-elios-pricing.js?v=20260902-20mm1',
+      'assets/js/inspirations-elios-pricing.js?v=20260902-20mm1&media=20261018',
       'assets/js/inspirations-elios-pool-integrated.js?v=20260907-pool2',
       'assets/js/inspirations-elios-official-galleries.js?v=20260902-batch2',
       'assets/js/inspirations-elios-official-galleries-2.js?v=20260902-batch3',
@@ -14,23 +14,23 @@
       'assets/js/inspirations-elios-official-galleries-5.js?v=20260902-stones1',
       'assets/js/inspirations-elios-official-galleries-6.js?v=20260902-stones2',
       'assets/js/inspirations-elios-fix-bavaria-dolomiti-harmony.js?v=20260902-fix4',
-      'assets/js/inspirations-elios-pass1-hd.js?v=20260902-pass1hd2',
-      'assets/js/inspirations-elios-lot1-hd.js?v=20260902-lot1hd2',
+      'assets/js/inspirations-elios-pass1-hd.js?v=20260902-pass1hd2&media=20261018',
+      'assets/js/inspirations-elios-lot1-hd.js?v=20260902-lot1hd2&media=20261018',
       'assets/js/inspirations-elios-montreal-hd.js?v=20260918-montreal3',
       'assets/js/inspirations-elios-slate-hd.js?v=20260902-slatehq1',
-      'assets/js/inspirations-elios-azuli-hd.js?v=20260911-azuli-hd2',
-      'assets/js/inspirations-elios-dust-hd.js?v=20260913-dusthd2',
-      'assets/js/inspirations-elios-gallery-v2.js?v=20260918-gallery4'
+      'assets/js/inspirations-elios-azuli-hd.js?v=20260911-azuli-hd2&media=20261018',
+      'assets/js/inspirations-elios-dust-hd.js?v=20260913-dusthd2&media=20261018',
+      'assets/js/inspirations-elios-gallery-v2.js?v=20260918-gallery4&media=20261018'
     ],
     view: [
-      'assets/js/inspirations-view-data.js?v=20260907-view-lot1-final',
+      'assets/js/inspirations-view-data.js?v=20260907-view-lot1-final&media=20261018',
       'assets/js/inspirations-view-elios-parity.js?v=20260907-view-parity3',
-      'assets/js/inspirations-view-data-lot2.js?v=20260907-view-lot2',
-      'assets/js/inspirations-view-data-lot3.js?v=20260907-view-lot3',
+      'assets/js/inspirations-view-data-lot2.js?v=20260907-view-lot2&media=20261018',
+      'assets/js/inspirations-view-data-lot3.js?v=20260907-view-lot3&media=20261018',
       'assets/js/inspirations-view-tariff-2026-10-15.js?v=20261005-view-tariff1',
       'assets/js/inspirations-view-accessories.js?v=20260911-view-accessories1',
       'assets/js/inspirations-view-hd.js?v=20260907-view-hd1',
-      'assets/js/inspirations-view-mobile-safe.js?v=20260907-view-safe1',
+      'assets/js/inspirations-view-mobile-safe.js?v=20260907-view-safe1&media=20261018',
       'assets/js/inspirations-view-accessories-ui.js?v=20260911-view-accessories-ui1',
       'assets/js/inspirations-view-order-v4.js?v=20260911-view-order-v4',
       'assets/js/inspirations-view-order-v5-polish.js?v=20260911-view-order-v5',

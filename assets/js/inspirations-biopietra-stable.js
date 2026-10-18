@@ -15,7 +15,7 @@
     host.className='bio-grid'; host.dataset.biopietra2026='1';
     host.innerHTML=api.products.map((p,i)=>`
       <button type="button" class="bio-card" data-bio-index="${i}" data-bio-name="${p.name}">
-        <div class="bio-card-top"><img src="assets/img/biopietra.png" alt=""><div><small>${p.type||'Produit'}</small><strong>${p.name}</strong></div></div>
+        <div class="bio-card-top"><img src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/biopietra.png" alt=""><div><small>${p.type||'Produit'}</small><strong>${p.name}</strong></div></div>
         <div class="bio-card-body"><p>${(p.lines||[]).length} configuration${(p.lines||[]).length>1?'s':''}</p><div class="bio-card-detail">Voir les références et configurations</div>${p.note?`<p class="bio-card-note">${p.note}</p>`:''}</div>
       </button>`).join('');
     count.textContent=`${api.products.length} produits`;

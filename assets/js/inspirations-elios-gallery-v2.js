@@ -177,11 +177,11 @@
     function render(){
       if(!currentImages.length) currentImages=all.slice();
       currentIndex=Math.max(0,Math.min(currentIndex,currentImages.length-1));
-      const src=currentImages[currentIndex]||'assets/img/03.png';
+      const src=currentImages[currentIndex]||'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/03.png';
       mainImg.onerror=()=>{
         const fallback=all.find(x=>x!==src);
         mainImg.onerror=null;
-        mainImg.src=fallback||'assets/img/03.png';
+        mainImg.src=fallback||'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/03.png';
       };
       mainImg.src=src;
       mainImg.alt=caption();

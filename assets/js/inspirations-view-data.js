@@ -12,7 +12,7 @@
       category:'Carrelage effet bois',effect:'Bois',
       description:'Grès cérame effet bois rectifié, épaisseur 10 mm. Quatre teintes et version Grip R11 sur Topazio et Perla.',
       formats:['20×120','30×120'],colors:['Agata','Topazio','Perla','Giada'],colorFamilies:['Bois','Beige','Marron'],finishes:['Naturel R10/A+B','Grip R11'],
-      images:[img('assets/img/view.png','LUX · View Ceramica')],
+      images:[img('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/view.png','LUX · View Ceramica')],
       sourceLabel:'Listino VIEW n°24 · Prix nets FR CL 0226 · Catalogue I Legni',availability:'Disponibilité à confirmer auprès de VIEW',
       variants:[
         v('lux-20x120-nat','20×120','10 mm','Naturel R10/A+B',50,14,{colors:['Agata','Topazio','Perla','Giada'],refs:{Agata:'VLX21210LR',Topazio:'VLX21220LR',Perla:'VLX21240LR',Giada:'VLX21290LR'},pack:pack(.96,4,22,48,46.08,1056)}),
@@ -25,7 +25,7 @@
       category:'Carrelage effet bois',effect:'Bois',
       description:'Grès cérame imitation chêne rectifié, épaisseur 9,5 mm. Quatre couleurs en 20×120, trois en 30×120 et Honey Grip R11.',
       formats:['20×120','30×120'],colors:['Cream','Honey','Nut','Soft'],colorFamilies:['Bois','Beige','Marron'],finishes:['Naturel R10/A+B','Grip R11'],
-      images:[img('assets/img/view.png','Rovere Forte · View Ceramica')],
+      images:[img('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/view.png','Rovere Forte · View Ceramica')],
       sourceUrl:'https://viewceramiche.com/prodotto/i-legni-di-view-rovere-forte-2/',sourceLabel:'Listino VIEW n°24 · Prix nets FR CL 0226',availability:'Disponibilité à confirmer auprès de VIEW',
       variants:[
         v('rf-20x120-nat','20×120','9,5 mm','Naturel R10/A+B',50,14,{colors:['Cream','Honey','Nut','Soft'],refs:{Cream:'VRF21210LR',Honey:'VRF21220LR',Nut:'VRF21225LR',Soft:'VRF21215LR'},pack:pack(1.44,6,29,36,51.84,1044)}),

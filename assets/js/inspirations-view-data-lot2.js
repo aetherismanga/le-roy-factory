@@ -14,7 +14,7 @@
       category:'Carrelage effet pierre',effect:'Pierre',
       description:'Grès cérame rectifié imitation Pierre Bleue en Avana, Beige, Argento et Grafite. Finition naturelle, Vintage et versions extérieures 20 mm Grip.',
       formats:['60×60','60×90','90×90'],colors:['Avana','Beige','Argento','Grafite'],colorFamilies:['Beige','Gris','Noir'],finishes:['Naturel R10/A+B','Vintage','Grip R11/A+B+C'],
-      images:[img('assets/img/view.png','Marais · View Ceramica')],
+      images:[img('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/view.png','Marais · View Ceramica')],
       sourceUrl:'https://viewceramiche.com/prodotto/marais-2/',sourceLabel:source,availability:'Disponibilité à confirmer auprès de VIEW',
       variants:[
         v('marais-9090-nat','90×90','10 mm','Naturel R10/A+B',66,16.5,{colors:['Avana','Beige','Argento','Grafite'],refs:{Avana:'VMS920R',Beige:'VMS925R',Argento:'VMS930R',Grafite:'VMS970R'},pack:pack(1.62,2,37.27,20,32.4,745)}),
@@ -32,7 +32,7 @@
       category:'Carrelage effet pierre',effect:'Pierre de Jérusalem',
       description:'Grès cérame imitation pierre de Jérusalem en Almond, Silver et Carbon, avec surface naturelle, Vintage et Grip extérieur.',
       formats:['30×60','60×60','60×90','90×90'],colors:['Almond','Silver','Carbon'],colorFamilies:['Beige','Gris','Noir'],finishes:['Naturel R10/A+B','Vintage','Grip R11/A+B+C'],
-      images:[img('assets/img/view.png','Tibur · View Ceramica')],
+      images:[img('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/view.png','Tibur · View Ceramica')],
       sourceUrl:'https://viewceramiche.com/prodotto/tibur-fr/',sourceLabel:source,availability:'Disponibilité à confirmer auprès de VIEW',
       variants:[
         v('tibur-9090-nat','90×90','10 mm','Naturel R10/A+B',66,16.5,{colors:['Carbon'],refs:{Carbon:'VTI970R'},pack:pack(1.62,2,35,20,32.4,700)}),
@@ -54,7 +54,7 @@
       category:'Carrelage effet béton',effect:'Béton / ciment',
       description:'Grès cérame effet béton coffré, légèrement structuré, en White, Silver et Grey au format 60×120.',
       formats:['60×120'],colors:['White','Silver','Grey'],colorFamilies:['Blanc','Gris'],finishes:['Naturel R10/A+B'],
-      images:[img('assets/img/view.png','Oikos · View Ceramica')],
+      images:[img('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/view.png','Oikos · View Ceramica')],
       sourceUrl:'https://viewceramiche.com/prodotto/oikos-en/',sourceLabel:source,availability:'Disponibilité à confirmer auprès de VIEW',
       variants:[
         v('oikos-60120','60×120','10 mm','Naturel R10/A+B',60,15.5,{colors:['White','Silver','Grey'],refs:{White:'VOK61210LR',Silver:'VOK61230LR',Grey:'VOK61240LR'},pack:pack(1.44,2,32.2,35,50.4,1127)})
@@ -65,7 +65,7 @@
       category:'Carrelage effet marbre',effect:'Marbre',
       description:'Grès cérame effet marbre, surfaces matt et levigato poli. Les références et couleurs ci-dessous suivent le Listino VIEW n°24.',
       formats:['60×120','120×120'],colors:['Calacatta','Statuario','Travertino Bianco','Soveraia Silver','Pulpis Ivoire','Pulpis Gris','Soveraia Grey','Sahara Noir'],colorFamilies:['Blanc','Beige','Gris','Noir'],finishes:['Matt','Levigato poli'],
-      images:[img('assets/img/view.png','I Marmi di View · View Ceramica')],
+      images:[img('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/view.png','I Marmi di View · View Ceramica')],
       sourceUrl:'https://viewceramiche.com/prodotto/marmi/',sourceLabel:source,availability:'Disponibilité à confirmer auprès de VIEW',
       variants:[
         v('marmi-120-pol-a','120×120','9,5 mm','Levigato poli',120,30,{colors:['Calacatta','Statuario','Travertino Bianco','Soveraia Silver','Pulpis Ivoire','Pulpis Gris'],refs:{Calacatta:'VMV112010LPR',Statuario:'VMV112015LPR','Travertino Bianco':'VMV112020LPR','Soveraia Silver':'VMV112040LPR','Pulpis Ivoire':'VMV112025LPR','Pulpis Gris':'VMV112045LPR'},pack:pack(1.44,2,33,32,46.08,1056)}),
@@ -83,7 +83,7 @@
       category:'Carrelage effet béton',effect:'Béton / ciment',
       description:'Grès cérame effet béton en Sabbia, Perla, Cenere et Grafite, avec formats intérieurs, 20 mm Grip et grandes dalles 120×278.',
       formats:['30×60','60×60','60×120','100×100','120×278'],colors:['Sabbia','Perla','Cenere','Grafite'],colorFamilies:['Beige','Gris','Noir'],finishes:['Naturel R10/B','Grip R11/C','Grande dalle 6,5 mm'],
-      images:[img('assets/img/view.png','Light · View Ceramica')],
+      images:[img('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/view.png','Light · View Ceramica')],
       sourceUrl:'https://viewceramiche.com/prodotto/light-2/',sourceLabel:source,availability:'Disponibilité à confirmer auprès de VIEW',
       variants:[
         v('light-100','100×100','8,5 mm','Naturel R10/B',74,18,{colors:['Sabbia','Perla','Cenere','Grafite'],refs:{Sabbia:'VLH10020R',Perla:'VLH10030R',Cenere:'VLH10040R',Grafite:'VLH10070R'},pack:pack(2,2,40,24,48,960)}),
@@ -100,7 +100,7 @@
       category:'Carrelage effet pierre',effect:'Pierre',
       description:'Grès cérame imitation pierre portugaise, rectifié en 10,5 mm et décliné en 20 mm Grip au format 60×90.',
       formats:['30×60','60×60','60×90'],colors:['Crema','Sabbia','Perla','Pietra','Ombra'],colorFamilies:['Blanc','Beige','Gris','Noir'],finishes:['Naturel R10/A','Grip R11/A+B+C'],
-      images:[img('assets/img/view.png','Dorset · View Ceramica')],
+      images:[img('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/view.png','Dorset · View Ceramica')],
       sourceUrl:'https://viewceramiche.com/prodotto/dorset-fr/',sourceLabel:source,availability:'Disponibilité à confirmer auprès de VIEW',
       variants:[
         v('dorset-6090','60×90','10,5 mm','Naturel R10/A',60,15.5,{colors:['Crema','Sabbia','Perla','Pietra','Ombra'],refs:{Crema:'VDO6910LR',Sabbia:'VDO6920LR',Perla:'VDO6930LR',Pietra:'VDO6940LR',Ombra:'VDO6970LR'},pack:pack(1.08,2,23.55,45,48.6,1060)}),
@@ -114,7 +114,7 @@
       category:'Carrelage effet pierre',effect:'Pierre de Jura',
       description:'Grès cérame effet pierre de Jura en Pure, Beige et Grey, avec finition naturelle, Vintage, extérieur 20 mm et dalle 120×278.',
       formats:['30×60','60×60','60×120','120×120','120×278'],colors:['Pure','Beige','Grey'],colorFamilies:['Blanc','Beige','Gris'],finishes:['Naturel R10/B','Vintage','Grip R11/C','Grande dalle 6,5 mm'],
-      images:[img('assets/img/view.png','Baar Stone · View Ceramica')],
+      images:[img('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/view.png','Baar Stone · View Ceramica')],
       sourceUrl:'https://viewceramiche.com/prodotto/baar-stone-3/',sourceLabel:source,availability:'Disponibilité à confirmer auprès de VIEW',
       variants:[
         v('baar-120-nat','120×120','9,5 mm','Naturel R10/B',78,20,{colors:['Pure','Beige','Grey'],refs:{Pure:'VBS112010R',Beige:'VBS112020R',Grey:'VBS112040R'},pack:pack(1.44,1,32.4,40,57.6,1296)}),

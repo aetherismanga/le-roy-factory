@@ -26,9 +26,9 @@
     a.className='bilt-talox-desktop';
     a.href='bilt-talox-kit.html';
     a.setAttribute('aria-label','Découvrir la nouveauté BILT Talox Kit');
-    a.innerHTML=`<div class="bilt-talox-copy"><div class="bilt-talox-kicker">Nouveauté BILT</div><div class="bilt-talox-title">TALOX KIT · 5 EN 1</div><div class="bilt-talox-sub">Lames interchangeables · changement rapide · mallette pro</div><span class="bilt-talox-price"></span><span class="bilt-talox-fair">Remise foire sur consultation</span></div><div class="bilt-talox-visual"><img class="product" src="assets/img/talofix01.jpeg" alt="Talox Kit BILT" data-talox-slide="0"><img class="bilt-talox-logo" src="assets/img/bilt.png" alt="BILT"><span class="bilt-talox-dots"><i class="active"></i><i></i><i></i></span></div>`;
+    a.innerHTML=`<div class="bilt-talox-copy"><div class="bilt-talox-kicker">Nouveauté BILT</div><div class="bilt-talox-title">TALOX KIT · 5 EN 1</div><div class="bilt-talox-sub">Lames interchangeables · changement rapide · mallette pro</div><span class="bilt-talox-price"></span><span class="bilt-talox-fair">Remise foire sur consultation</span></div><div class="bilt-talox-visual"><img class="product" src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/talofix01.jpeg" alt="Talox Kit BILT" data-talox-slide="0"><img class="bilt-talox-logo" src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/bilt.png" alt="BILT"><span class="bilt-talox-dots"><i class="active"></i><i></i><i></i></span></div>`;
     hero.appendChild(a);
-    const slideImages=['assets/img/talofix01.jpeg','assets/img/talofix02.jpeg','assets/img/talofix03.jpeg'];
+    const slideImages=['https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/talofix01.jpeg','https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/talofix02.jpeg','https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/talofix03.jpeg'];
     const productImg=a.querySelector('.bilt-talox-visual img.product');
     const dots=[...a.querySelectorAll('.bilt-talox-dots i')];
     let slide=0;

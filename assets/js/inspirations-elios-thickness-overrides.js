@@ -64,7 +64,7 @@
     });
   }
   window.ELIOS_IMAGE_DATA = window.ELIOS_IMAGE_DATA || {};
-  window.ELIOS_IMAGE_DATA['azuli-mood-1'] = 'assets/img/elios/azuli-mood/chalk-01.jpg';
+  window.ELIOS_IMAGE_DATA['azuli-mood-1'] = 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/azuli-mood/chalk-01.jpg';
 
   // Tarifs Azuli Mood corrigés le 14/09/2026 : 10x10 = 23 € HT/m² ; 5x15 = 29 € HT/m².
   // Le tarif reste masqué pour les comptes qui n'ont pas l'accès Elios.
@@ -124,7 +124,7 @@
     });
   }
   async function azuliVisual() {
-    return 'assets/img/elios/azuli-mood/chalk-01.jpg';
+    return 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/azuli-mood/chalk-01.jpg';
   }
   function hydrateAzuliCard() {
     const card = document.querySelector('.product-card-v2[data-id="elios-azuli-mood"]');

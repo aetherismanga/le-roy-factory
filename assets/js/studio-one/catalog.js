@@ -52,7 +52,7 @@ var MIRROR_METAL_REFS={
  'Miroir métallique rectangulaire':{'80 × 60 cm':{Noir:'3731','Doré':'3727',Bronze:'3728',Argent:'3730'},'120 × 75 cm':{Noir:'10572','Doré':'10574',Bronze:'10575',Argent:'10577'}},
  'Miroir métallique rond':{'Ø 60 cm':{Noir:'3717','Doré':'3722',Bronze:'3723',Argent:'3725'}}
 };
-const finishes=colors.map(c=>({...c,hex:c.solid||c.wood[0],texture:({ROBLE:'assets/img/studio-one/roble.webp',ALBA:'assets/img/studio-one/serenade-alba.webp',NOGAL:'assets/img/studio-one/nogal-valentina.webp'})[c.code]}));
+const finishes=colors.map(c=>({...c,hex:c.solid||c.wood[0],texture:({ROBLE:'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/studio-one/roble.webp',ALBA:'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/studio-one/serenade-alba.webp',NOGAL:'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/studio-one/nogal-valentina.webp'})[c.code]}));
 window.StudioOneCatalog=Object.freeze({models:M,finishes,sizes,inset:INSET,insetColors:INSET_COLORS,vesselColors:VESSEL_COLORS,mirrors:MIRROR_OPTIONS,mirrorRefs:MIRROR_METAL_REFS,
  column:{name:'Colonne STUDIO ONE · 1 porte',width:38,height:132,depth:27,ref:'14177',price:177},
  vessels:{Neris:{width:46,depth:33,height:14,minWidth:50},Torne:{width:37,depth:37,height:12,minWidth:40}},

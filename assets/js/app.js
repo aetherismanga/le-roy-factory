@@ -2,7 +2,7 @@
     if(document.getElementById('lrf-pwa-install-loader')) return;
     const script=document.createElement('script');
     script.id='lrf-pwa-install-loader';
-    script.src='assets/js/pwa-install.js?v=20260918-crm-floral-1';
+    script.src='assets/js/pwa-install.js?v=20260918-crm-floral-1&media=20261018';
     script.defer=true;
     document.head.appendChild(script);
 })();
@@ -45,7 +45,7 @@ function ensureMobileCss() {
     const finalMobile = document.createElement('link');
     finalMobile.id = 'lrf-mobile-public-v8-late';
     finalMobile.rel = 'stylesheet';
-    finalMobile.href = 'assets/css/mobile-public-v8.css?v=20260901-2';
+    finalMobile.href = 'assets/css/mobile-public-v8.css?v=20260901-2&media=20261018';
     document.head.appendChild(finalMobile);
 }
 
@@ -322,7 +322,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!premiumPages.has(page) || document.getElementById('lrf-premium-public-theme')) return;
     const script = document.createElement('script');
     script.id = 'lrf-premium-public-theme';
-    script.src = 'assets/js/premium-public-theme.js?v=20260918-asset-real2';
+    script.src = 'assets/js/premium-public-theme.js?v=20260918-asset-real2&media=20261018';
     script.defer = true;
     document.head.appendChild(script);
 })();

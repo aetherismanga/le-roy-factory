@@ -20,15 +20,15 @@
   };
 
   const IMAGES = {
-    desktopLight: 'assets/img/acceuilclair1.png?v=20260907-home3',
-    desktopDark: 'assets/brand-v2/accueil-desktop.png?v=20260901-hd2',
-    mobileLight: 'assets/img/acceuilsmartphone.png?v=20260907-mobile2',
-    mobileDark: 'assets/brand-v2/accueil-mobile.png?v=20260901-hd2'
+    desktopLight: 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/acceuilclair1.png?v=20260907-home3',
+    desktopDark: 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/brand-v2/accueil-desktop.png?v=20260901-hd2',
+    mobileLight: 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/acceuilsmartphone.png?v=20260907-mobile2',
+    mobileDark: 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/brand-v2/accueil-mobile.png?v=20260901-hd2'
   };
 
   const LOGOS = {
-    light: 'assets/brand-v2/logo-le-roy-factory-wine.svg?v=20260907-wine1',
-    dark: 'assets/brand-v2/logo-le-roy-factory.svg?v=20260901-gold1'
+    light: 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/brand-v2/logo-le-roy-factory-wine.svg?v=20260907-wine1',
+    dark: 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/brand-v2/logo-le-roy-factory.svg?v=20260901-gold1'
   };
 
   hero.classList.add('lrf-home-bg-controlled');
@@ -170,7 +170,7 @@
     stage.style.cssText = 'position:fixed;inset:0;z-index:2147482999;pointer-events:none;overflow:hidden;background:transparent';
 
     const video = document.createElement('video');
-    video.src = 'assets/videos/cameleon-ecran-clair-alpha.webm?v=20260918-screen2';
+    video.src = 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/videos/cameleon-ecran-clair-alpha.webm?v=20260918-screen2';
     video.muted = true;
     video.playsInline = true;
     video.preload = 'auto';

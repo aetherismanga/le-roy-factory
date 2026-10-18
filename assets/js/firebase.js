@@ -111,9 +111,9 @@ if (currentPage === "clients.html" || currentPage === "comptes-rendus.html") {
 if (currentPage === "clients.html") {
   import("./crm-client-dedupe-hotfix.js?v=20260912-dedupe1").catch(err => console.error("Erreur contrôle doublons clients :", err));
   import("./seed-bilt-annexe-clients.js?v=20260901").catch(err => console.error("Erreur chargement clients Annexe 1 BILT :", err));
-  import("./client-direct-email.js?v=20260817-1845").catch(err => console.error("Erreur chargement module e-mail client :", err));
-  import("./crm-moovago.js?v=20260909-exact-client1").catch(err => console.error("Erreur chargement enrichissement CRM :", err));
-  import("./crm-client-enhancements.js?v=20260817-1845").catch(err => console.error("Erreur chargement améliorations Clients :", err));
+  import("./client-direct-email.js?v=20260817-1845&media=20261018").catch(err => console.error("Erreur chargement module e-mail client :", err));
+  import("./crm-moovago.js?v=20260909-exact-client1&media=20261018").catch(err => console.error("Erreur chargement enrichissement CRM :", err));
+  import("./crm-client-enhancements.js?v=20260817-1845&media=20261018").catch(err => console.error("Erreur chargement améliorations Clients :", err));
   import("./crm-ui-modern.js?v=20260911-summaryfix1").catch(err => console.error("Erreur chargement interface moderne CRM :", err));
   import("./clients-tournee-ui.js?v=20260903-1").catch(err => console.error("Erreur chargement accès tournées :", err));
   import("./clients-operations.js?v=20260817-1845").catch(err => console.error("Erreur chargement outils opérationnels Clients :", err));
@@ -130,7 +130,7 @@ if (currentPage === "dashboard.html") {
   import("./dashboard-commercial.js?v=20260903-tournees1").catch(err => console.error("Erreur chargement dashboard commercial :", err));
 }
 if (currentPage === "mails-groupes.html") {
-  import("./mails-groupes-programmation.js?v=20260817-1145").catch(err => console.error("Erreur chargement mails programmés :", err));
+  import("./mails-groupes-programmation.js?v=20260817-1145&media=20261018").catch(err => console.error("Erreur chargement mails programmés :", err));
 }
 
 function initCrmMobile() {

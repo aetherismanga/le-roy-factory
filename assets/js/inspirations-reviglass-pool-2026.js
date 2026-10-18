@@ -214,7 +214,7 @@
     host.className='reviglass-grid';
     host.innerHTML=`<div class="reviglass-source"><strong>${esc(SRC)}</strong><br>Les prix sont affichés uniquement aux comptes autorisés Reviglass. Les références restent consultables pour préparer les commandes et demandes de disponibilité.</div>${found.map(series=>{
       const supports=supportsOf(series), refs=refsOf(series);
-      return `<button type="button" class="reviglass-card" data-reviglass-id="${esc(series.id)}"><div class="reviglass-card-top"><img src="assets/img/reviglass.png" alt="Reviglass"><div><span>${esc(series.format)} · ${esc(series.type)}</span><h3>${esc(series.name)}</h3></div></div><div class="reviglass-card-body"><p>${esc(refs.slice(0,6).join(' · '))}${refs.length>6?' …':''}</p><div class="reviglass-chips">${supports.slice(0,3).map(v=>`<span>${esc(v)}</span>`).join('')}</div><div class="reviglass-count">${refs.length} référence${refs.length>1?'s':''} / désignation${refs.length>1?'s':''}</div></div></button>`;
+      return `<button type="button" class="reviglass-card" data-reviglass-id="${esc(series.id)}"><div class="reviglass-card-top"><img src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/reviglass.png" alt="Reviglass"><div><span>${esc(series.format)} · ${esc(series.type)}</span><h3>${esc(series.name)}</h3></div></div><div class="reviglass-card-body"><p>${esc(refs.slice(0,6).join(' · '))}${refs.length>6?' …':''}</p><div class="reviglass-chips">${supports.slice(0,3).map(v=>`<span>${esc(v)}</span>`).join('')}</div><div class="reviglass-count">${refs.length} référence${refs.length>1?'s':''} / désignation${refs.length>1?'s':''}</div></div></button>`;
     }).join('')}`;
   }
 

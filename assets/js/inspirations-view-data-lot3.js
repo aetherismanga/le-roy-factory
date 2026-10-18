@@ -53,7 +53,7 @@
       category:'Dalle extérieure effet bois',effect:'Bois',
       description:'Grès cérame rectifié effet bois pour terrasse extérieure, au format 40×122 en 20 mm.',
       formats:['40×122'],colors:['Miele','Grey','Melange','Brown'],colorFamilies:['Beige','Gris','Marron'],finishes:['Grip R11/C'],
-      images:[img('assets/img/view.png','New Wood · View Ceramica')],
+      images:[img('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/view.png','New Wood · View Ceramica')],
       sourceUrl:'https://viewceramiche.com/prodotto/new-wood-2/',sourceLabel:source,availability:'Disponibilité à confirmer auprès de VIEW',
       variants:[
         v('newwood-40122-20','40×122','20 mm','Grip R11/C',null,{colors:['Miele','Grey','Melange','Brown'],proPalette:27,proDetail:29,pack:pack(.98,2,43.5,21,20.58,913.5)})
@@ -81,7 +81,7 @@
       category:'Dalle extérieure effet pierre',effect:'Pierre',
       description:'Dalle en grès cérame rectifié 20 mm de grand format, série Dorset XL, en Ice, Londra, Plata et Night.',
       formats:['120×120','80×180'],colors:['Ice','Londra','Plata','Night'],colorFamilies:['Blanc','Beige','Gris','Noir'],finishes:['Grip extérieur 20 mm'],
-      images:[img('assets/img/view.png','Dorset XL · View Ceramica')],
+      images:[img('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/view.png','Dorset XL · View Ceramica')],
       sourceUrl:'https://viewceramiche.com/prodotto/dorset-xl-4/',sourceLabel:source,availability:'Disponibilité à confirmer auprès de VIEW',
       variants:[
         v('dorsetxl-120120-20','120×120','20 mm','Grip extérieur',null,{colors:['Ice','Londra','Plata','Night'],proPalette:41.5,proDetail:43.5,pack:pack(1.44,1,67.7,20,28.80,1354)}),
@@ -93,7 +93,7 @@
       category:'Dalle extérieure grand format',effect:'Pierre',
       description:'Grès cérame rectifié effet pierre en 20 mm, surface Grip R11/C pour extérieur, disponible en 120×120 et 120×240.',
       formats:['120×120','120×240'],colors:['Stromboli','Gran Sasso','Vals','Porfido','Dolomiti','Appia'],colorFamilies:['Beige','Gris','Marron','Noir'],finishes:['Grip R11/C'],
-      images:[img('assets/img/view.png','Bigsize · View Ceramica')],
+      images:[img('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/view.png','Bigsize · View Ceramica')],
       sourceUrl:'https://viewceramiche.com/prodotto/bigsize/',sourceLabel:source,availability:'Disponibilité à confirmer auprès de VIEW',
       variants:[
         v('bigsize-120120-20','120×120','20 mm','Grip R11/C',null,{colors:['Stromboli','Gran Sasso','Vals','Porfido','Dolomiti','Appia'],note:'La grille FR CL 0226 donne une remise sur tarif public BIGSIZE et non un net direct : tarif à confirmer.'}),
@@ -105,7 +105,7 @@
       category:'Dalle extérieure effet pierre',effect:'Pierre',
       description:'Dalle extérieure en grès cérame rectifié 20 mm, format 60×90, surface Grip R11/C.',
       formats:['60×90'],colors:['Limestone Yellow','Fossil','Multicolor'],colorFamilies:['Beige','Marron','Noir'],finishes:['Grip R11/C'],
-      images:[img('assets/img/view.png','Pietre 60×90 · View Ceramica')],
+      images:[img('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/view.png','Pietre 60×90 · View Ceramica')],
       sourceUrl:'https://viewceramiche.com/prodotto/pietre-60x90/',sourceLabel:source,availability:'Disponibilité à confirmer auprès de VIEW',
       variants:[
         v('pietre-6090-20','60×90','20 mm','Grip R11/C',null,{colors:['Limestone Yellow','Fossil','Multicolor'],proPalette:33,proDetail:35,pack:pack(.54,1,24.2,48,25.92,1161)})
