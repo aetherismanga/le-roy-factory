@@ -16,6 +16,7 @@ import unicodedata
 from collections import defaultdict
 from pathlib import Path
 
+from public_pdf_source import resolve_pdf
 import fitz
 
 
@@ -46,7 +47,7 @@ def join_words(words):
 
 
 def extract_tariff_rows(path: Path):
-    doc = fitz.open(path)
+    doc = fitz.open(resolve_pdf(path))
     rows = []
     for page_index in range(2, min(14, len(doc))):
         page = doc[page_index]
@@ -107,7 +108,7 @@ def extract_tariff_rows(path: Path):
 
 
 def catalogue_reference_occurrences(path: Path):
-    doc = fitz.open(path)
+    doc = fitz.open(resolve_pdf(path))
     by_ref = defaultdict(list)
     for page_index, page in enumerate(doc):
         data = page.get_text("dict")
