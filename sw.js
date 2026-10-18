@@ -13,10 +13,18 @@ self.addEventListener('activate',event=>{
   self.clients.claim();
 });
 
+function isMigratedPublicMedia(url){
+  return url.origin==='https://storage.googleapis.com' && url.pathname.startsWith('/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/');
+}
+
+function canCacheResponse(response,request){
+  return response && (response.status===200 || (response.type==='opaque' && isMigratedPublicMedia(new URL(request.url))));
+}
+
 async function networkFirst(request){
   try{
     const response=await fetch(request,{cache:'no-store'});
-    if(response&&response.status===200){
+    if(canCacheResponse(response,request)){
       const copy=response.clone();
       caches.open(CACHE).then(c=>c.put(request,copy));
     }
@@ -31,7 +39,7 @@ async function networkFirst(request){
 self.addEventListener('fetch',event=>{
   if(event.request.method!=='GET')return;
   const url=new URL(event.request.url);
-  if(url.origin!==location.origin)return;
+  if(url.origin!==location.origin && !isMigratedPublicMedia(url))return;
 
   if(event.request.mode==='navigate'){
     event.respondWith(
@@ -53,7 +61,7 @@ self.addEventListener('fetch',event=>{
 
   event.respondWith(
     caches.match(event.request).then(cached=>cached||fetch(event.request).then(response=>{
-      if(response&&response.status===200){
+      if(canCacheResponse(response,event.request)){
         const copy=response.clone();
         caches.open(CACHE).then(c=>c.put(event.request,copy));
       }
