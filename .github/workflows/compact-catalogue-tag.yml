@@ -1,0 +1,48 @@
+name: Compact migrated files in historical catalogue tag
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/compact-catalogue-tag.yml]
+permissions:
+  contents: write
+concurrency:
+  group: compact-historical-catalogue-tag
+  cancel-in-progress: false
+jobs:
+  compact:
+    if: github.event.head_commit.message == 'Compact migrated catalogue tag 2026-10-19'
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned filter
+        run: python -m pip install git-filter-repo==2.47.0
+      - name: Back up original tag and validate exact preservation
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python tools/compact_catalogue_tag.py prepare
+      - name: Preserve original tag before update
+        uses: actions/upload-artifact@v4
+        with:
+          name: original-catalogue-tag-before-compaction
+          path: ${{ runner.temp }}/lrf-catalogue-tag-compaction/backup/
+          compression-level: 0
+          retention-days: 7
+          if-no-files-found: error
+      - name: Apply tag update with exact lease and verify all refs
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python tools/compact_catalogue_tag.py apply
+      - name: Preserve verification report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: historical-catalogue-tag-compaction-report
+          path: ${{ runner.temp }}/lrf-catalogue-tag-compaction/report/
+          retention-days: 90
+          if-no-files-found: warn
