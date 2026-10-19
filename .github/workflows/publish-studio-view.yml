@@ -1,0 +1,33 @@
+name: Publish reviewed STUDIO ONE VIEW samples to Firebase
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/publish-studio-view.yml, tools/publish-studio-view.py, tools/studio-view-selection.json]
+permissions:
+  contents: read
+concurrency:
+  group: studio-view-original-assets
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Install fixed image decoders and Google client
+        run: python -m pip install PyMuPDF==1.26.6 Pillow==12.3.0 google-auth==2.40.3 requests==2.32.4
+      - name: Use the existing Firebase publisher
+        uses: google-github-actions/auth@c200f3691d83b41bf9bbd8638997a462592937ed
+        with:
+          credentials_json: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_LE_ROY_FACTORY }}'
+      - name: Verify and publish six original files
+        run: python tools/publish-studio-view.py
+      - name: Keep the upload verification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: studio-view-firebase-verification
+          path: ${{ runner.temp }}/studio-view-upload.json
+          retention-days: 30
