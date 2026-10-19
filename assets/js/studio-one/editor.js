@@ -102,20 +102,45 @@
   }
   function savedProjectsKey(){const account=currentAccount();return account?savedProjectsPrefix+encodeURIComponent(account):null;}
   function savedProjects(){const key=savedProjectsKey();if(!key)return [];try{return JSON.parse(localStorage.getItem(key)||'[]');}catch(e){return [];}}
+  function projectPreview(){
+    if(!view)return null;
+    try{view.renderer.render(view.scene,view.camera);const canvas=document.createElement('canvas');canvas.width=480;canvas.height=300;const ctx=canvas.getContext('2d');ctx.fillStyle='#e9e5dc';ctx.fillRect(0,0,480,300);const source=view.canvas,scale=Math.min(480/source.width,300/source.height),w=source.width*scale,h=source.height*scale;ctx.drawImage(source,(480-w)/2,(300-h)/2,w,h);return canvas.toDataURL('image/jpeg',.75);}catch(e){return null;}
+  }
   function showProjects(){
     if(!currentAccount())return notice('Connectez-vous à votre compte professionnel pour consulter vos projets.');
-    const projects=savedProjects();
+    if(document.querySelector('.studio-project-modal'))return;
+    const projects=savedProjects(),previousFocus=document.activeElement,wasInert=app.inert;
     const modal=document.createElement('div');modal.className='studio-project-modal';
-    const card=document.createElement('section');card.className='studio-project-card';
-    const heading=document.createElement('h2');heading.textContent='Mes projets STUDIO ONE';card.append(heading);
-    if(!projects.length){const empty=document.createElement('p');empty.textContent='Aucun projet enregistré sur cet appareil.';card.append(empty);}
-    projects.forEach((project,index)=>{
-      const row=document.createElement('div');row.className='studio-project-row';
-      const name=document.createElement('strong');name.textContent=project.client+' · '+project.name;row.append(name);
-      const open=document.createElement('button');open.textContent='Ouvrir';open.onclick=()=>{try{store.load(project.data,project.ambience?.room||ambience.room);if(project.ambience)ambience={...defaults,...project.ambience};ambience.room={width:store.room.width/100,depth:store.room.depth/100,height:store.room.height/100};view?.setRoom(ambience.room);roomControls.set(ambience.room);if(project.ambience)for(const surface of ['floor','wall'])setAmbience(surface,ambience[surface]);persistAmbience();view?.fit();modal.remove();notice('Projet '+project.name+' ouvert.');}catch(e){notice('Ouverture impossible : '+e.message);}};row.append(open);
-      const del=document.createElement('button');del.textContent='Supprimer';del.onclick=()=>{if(!confirm('Supprimer ce projet ?'))return;const next=savedProjects();next.splice(index,1);localStorage.setItem(savedProjectsKey(),JSON.stringify(next));modal.remove();showProjects();};row.append(del);card.append(row);
-    });
-    const close=document.createElement('button');close.textContent='Fermer';close.onclick=()=>modal.remove();card.append(close);modal.append(card);document.body.append(modal);
+    const card=document.createElement('section');card.className='studio-project-card';card.setAttribute('role','dialog');card.setAttribute('aria-modal','true');card.setAttribute('aria-labelledby','studio-projects-title');card.setAttribute('aria-describedby','studio-projects-description');
+    const close=()=>{document.removeEventListener('keydown',keys);modal.remove();app.inert=wasInert;previousFocus?.focus();};
+    const header=document.createElement('div');header.className='studio-projects-heading';
+    const titles=document.createElement('div');titles.innerHTML='<span class="kicker">STUDIO ONE · ESPACE PRO</span><h2 id="studio-projects-title">Mes projets</h2><p id="studio-projects-description">Retrouvez vos compositions et poursuivez votre création.</p>';
+    const x=document.createElement('button');x.className='studio-projects-close';x.textContent='×';x.setAttribute('aria-label','Fermer mes projets');x.onclick=close;header.append(titles,x);card.append(header);
+    const tools=document.createElement('div');tools.className='studio-projects-tools';
+    const count=document.createElement('span');count.className='studio-projects-count';
+    const search=document.createElement('input');search.type='search';search.placeholder='Rechercher un client ou un projet';search.setAttribute('aria-label','Rechercher dans mes projets');tools.append(count,search);card.append(tools);
+    const list=document.createElement('div');list.className='studio-projects-grid';card.append(list);
+    function render(){
+      list.replaceChildren();const query=search.value.trim().toLocaleLowerCase('fr');
+      const entries=projects.map((project,index)=>({project,index})).filter(({project})=>(String(project.client)+' '+String(project.name)).toLocaleLowerCase('fr').includes(query));
+      count.textContent=entries.length+' projet'+(entries.length>1?'s':'');
+      if(!entries.length){const empty=document.createElement('div');empty.className='studio-projects-empty';const title=document.createElement('h3');title.textContent=projects.length?'Aucun projet trouvé':'Votre prochain projet commence ici';const text=document.createElement('p');text.textContent=projects.length?'Essayez un autre nom de client ou de projet.':'Composez votre salle de bains, puis enregistrez-la pour la retrouver ici.';empty.append(title,text);list.append(empty);return;}
+      entries.forEach(({project,index})=>{
+        const row=document.createElement('article');row.className='studio-project-row';
+        const cover=document.createElement('div');cover.className='studio-project-cover';
+        if(typeof project.preview==='string'&&/^data:image\/(?:jpeg|png|webp);base64,/.test(project.preview)&&project.preview.length<300000){const image=document.createElement('img');image.src=project.preview;image.alt='Aperçu de '+String(project.name||'la composition');cover.append(image);}
+        else{const item=project.data?.items?.find(i=>i.kind==='cabinet')||project.data?.items?.[0];try{cover.innerHTML=window.StudioOneTechnical.drawing(item);}catch(e){}const tag=document.createElement('span');tag.textContent='Composition enregistrée';cover.append(tag);}
+        const body=document.createElement('div');body.className='studio-project-body';const client=document.createElement('p');client.className='studio-project-client';client.textContent=project.client||'Projet personnel';const name=document.createElement('h3');name.textContent=project.name||'Salle de bains';
+        const meta=document.createElement('p');meta.className='studio-project-meta';const items=project.data?.items?.length||0,date=new Date(project.date);meta.textContent=items+' élément'+(items>1?'s':'')+(Number.isNaN(date.getTime())?'':' · '+new Intl.DateTimeFormat('fr-FR',{day:'numeric',month:'short',year:'numeric'}).format(date));
+        const actions=document.createElement('div');actions.className='studio-project-actions';
+        const open=document.createElement('button');open.className='studio-project-open';open.textContent='Ouvrir le projet';open.setAttribute('aria-label','Ouvrir le projet '+String(project.name));open.onclick=()=>{try{store.load(project.data,project.ambience?.room||ambience.room);if(project.ambience)ambience={...defaults,...project.ambience};ambience.room={width:store.room.width/100,depth:store.room.depth/100,height:store.room.height/100};view?.setRoom(ambience.room);roomControls.set(ambience.room);if(project.ambience)for(const surface of ['floor','wall'])setAmbience(surface,ambience[surface]);persistAmbience();view?.fit();close();notice('Projet '+project.name+' ouvert.');}catch(e){notice('Ouverture impossible : '+e.message);}};
+        const del=document.createElement('button');del.className='studio-project-delete';del.textContent='Supprimer';del.setAttribute('aria-label','Supprimer le projet '+String(project.name));del.onclick=()=>{if(!confirm('Supprimer le projet « '+project.name+' » ?'))return;try{const next=savedProjects();next.splice(index,1);localStorage.setItem(savedProjectsKey(),JSON.stringify(next));close();showProjects();}catch(e){notice('Suppression impossible : '+e.message);}};
+        actions.append(open,del);body.append(client,name,meta,actions);row.append(cover,body);list.append(row);
+      });
+    }
+    const footer=document.createElement('div');footer.className='studio-projects-footer';const note=document.createElement('p');note.textContent='Projets de votre compte enregistrés sur cet appareil.';const done=document.createElement('button');done.textContent='Retour à la composition';done.onclick=close;footer.append(note,done);card.append(footer);
+    function keys(e){if(e.key==='Escape'){e.preventDefault();close();}else if(e.key==='Tab'){const focusable=[...card.querySelectorAll('button,input')].filter(e=>!e.disabled&&e.offsetParent!==null),first=focusable[0],last=focusable.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}}
+    modal.onclick=e=>{if(e.target===modal)close();};search.oninput=render;modal.append(card);document.body.append(modal);app.inert=true;document.addEventListener('keydown',keys);render();x.focus();
   }
   $('save-project').onclick=()=>{
     if(!currentAccount())return notice('Connectez-vous à votre compte professionnel pour enregistrer un projet.');
@@ -124,8 +149,8 @@
     const name=prompt('Nom du projet :','Salle de bains');if(name===null)return;
     if(!name.trim())return notice('Indiquez un nom de projet.');
     try{
-      const projects=savedProjects();projects.unshift({client:client.trim(),name:name.trim(),date:new Date().toISOString(),data:store.snapshot(),ambience:{...ambience}});
-      localStorage.setItem(savedProjectsKey(),JSON.stringify(projects));notice('Projet enregistré pour votre compte sur cet appareil.');
+      const projects=savedProjects();projects.unshift({client:client.trim(),name:name.trim(),date:new Date().toISOString(),data:store.snapshot(),ambience:{...ambience},preview:projectPreview()});
+      try{localStorage.setItem(savedProjectsKey(),JSON.stringify(projects));}catch(error){delete projects[0].preview;localStorage.setItem(savedProjectsKey(),JSON.stringify(projects));}notice('Projet enregistré pour votre compte sur cet appareil.');
     }catch(e){notice('Enregistrement local impossible : '+e.message);}
   };
   const myProjectsButton=document.createElement('button');myProjectsButton.id='my-projects';myProjectsButton.textContent='Voir mes projets';myProjectsButton.onclick=showProjects;$('save-project').before(myProjectsButton);
@@ -144,12 +169,18 @@
    });
   const roomButton=document.createElement('button');roomButton.id='room-dimensions';roomButton.textContent='Cotes pièce';roomButton.setAttribute('aria-pressed','false');roomButton.onclick=()=>{const v=roomButton.getAttribute('aria-pressed')!=='true';roomButton.setAttribute('aria-pressed',String(v));view?.setRoomDimensions(v);};$('dimensions').after(roomButton);
   const CSurface=window.RandalSurfaceCatalogue,surfacePickers={};
-  const legacyTiles=[{id:'corso:avorio',label:'Corso Avorio · 60 × 90 cm'},{id:'corso:beige',label:'Corso Beige · 60 × 90 cm'},...['Ivory','Sand','Pearl','Oxid','Carbon'].map(n=>({id:'golden-stone:'+n.toLowerCase(),label:'Golden Stone '+n+' · 60 × 120 cm'}))];
   const findTile=key=>{const v=CSurface.resolve(key);return v?{name:v.label,factory:v.brand,size:[v.width*100,v.height*100],colors:[v.color]}:null;};
   function persistAmbience(){try{sessionStorage.setItem(ambienceKey,JSON.stringify(ambience));}catch(e){}}
-  function setAmbience(surface,value){const legacy=typeof value==='object'?value?.legacy:legacyTiles.find(t=>t.id===value)?.id;if(legacy){ambience[surface]=legacy;delete ambience[surface+'Selection'];view?.setLegacyTile(surface,legacy,ambience[surface+'Orientation']);surfacePickers[surface]?.set({legacy});persistAmbience();return;}
-    const v=CSurface.resolve(typeof value==='object'?value:ambience[surface+'Selection']||value)||CSurface.resolve('creta:avena');ambience[surface]=CSurface.key(v);ambience[surface+'Selection']=v;ambience[surface+'Orientation']=v.orientation;view?.setTile(surface,v);surfacePickers[surface]?.set(v);persistAmbience();}
-  for(const surface of ['floor','wall']){const legacy=legacyTiles.find(t=>t.id===ambience[surface]);surfacePickers[surface]=window.RandalSurfacePicker($(surface+'-surfaces'),{prefix:'studio-'+surface,surface,value:ambience[surface+'Selection']||ambience[surface],legacy:legacyTiles,onChange:v=>setAmbience(surface,v)});if(legacy)surfacePickers[surface].set({legacy:legacy.id});}
+  function setAmbience(surface,value){
+    const requested=CSurface.resolve(value,surface);
+    if(!requested&&CSurface.isView(value))notice('Ce visuel VIEW ne répond pas à la qualité requise. Choisissez un autre carrelage.');
+    const v=requested||CSurface.resolve(ambience[surface+'Selection'],surface)||CSurface.resolve(defaults[surface]);
+    ambience[surface]=CSurface.key(v);ambience[surface+'Selection']=v;ambience[surface+'Orientation']=v.orientation;
+    view?.setTile(surface,v);surfacePickers[surface]?.set(v);persistAmbience();
+  }
+  for(const surface of ['floor','wall']){
+    surfacePickers[surface]=window.RandalSurfacePicker($(surface+'-surfaces'),{prefix:'studio-'+surface,surface,value:ambience[surface+'Selection']||ambience[surface],onChange:v=>setAmbience(surface,v)});
+  }
   function openAmbienceMenu(surface){const host=$(surface+'-surfaces');host.closest('details').open=true;panel('config');host.scrollIntoView({block:'center',behavior:'smooth'});}
   $('image').onclick=async()=>{if(!view)return notice('La visualisation 3D n’est pas disponible.');await view.settled();view.renderer.render(view.scene,view.camera);view.canvas.toBlob(blob=>{if(blob)download(blob,'STUDIO-ONE-composition.png');});};
   function photoBrief(){

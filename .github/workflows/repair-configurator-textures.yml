@@ -4,6 +4,10 @@ on:
     branches: [work/studio-one-repair-20261019, main]
     paths:
       - assets/js/elios-surfaces/**
+      - assets/js/studio-one/**
+      - assets/js/view-surfaces/**
+      - assets/css/studio-one/**
+      - tests/studio-one/view-projects.cjs
       - sw.js
       - .github/workflows/repair-configurator-textures.yml
 permissions:
@@ -34,10 +38,16 @@ jobs:
           p.write_text(s)
           PY
           node tests/elios-phase2a/browser.cjs
+      - name: Verify VIEW, cached images and project cards
+        env:
+          CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ runner.temp }}/studio-tests/node_modules
+        run: node tests/studio-one/view-projects.cjs
       - name: Keep test results
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: repaired-elios-configurators
-          path: reports/elios-phase2a/
+          path: |
+            reports/elios-phase2a/
+            reports/studio-view-projects/
           retention-days: 14
