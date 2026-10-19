@@ -149,15 +149,15 @@
     return { version: 2, items };
   }
   class Store {
-    constructor(project) { this.room={width:300,depth:300,height:250}; this.project = validate(project); this.selectedId = this.project.items[0]?.id || null; this.listeners = new Set(); this.history = []; this.future=[]; }
+    constructor(project) { this.room={width:450,depth:450,height:260}; this.project = validate(project); this.selectedId = this.project.items[0]?.id || null; this.listeners = new Set(); this.history = []; this.future=[]; }
     subscribe(fn) { this.listeners.add(fn); return () => this.listeners.delete(fn); }
     emit(notices=[], geometry=true) { this.listeners.forEach(fn => fn(this.snapshot(), { notices, geometry })); }
     snapshot() { return copy(this.project); }
     setRoom(size,expand=false){
       const input=size||{},room={
-        width:Math.min(700,Math.max(250,Math.round(Number(input.width||3)*100))),
-        depth:Math.min(700,Math.max(250,Math.round(Number(input.depth||3)*100))),
-        height:Math.min(350,Math.max(250,Math.round(Number(input.height||2.5)*100)))
+        width:Math.min(700,Math.max(250,Math.round(Number(input.width||4.5)*100))),
+        depth:Math.min(700,Math.max(250,Math.round(Number(input.depth||4.5)*100))),
+        height:Math.min(350,Math.max(250,Math.round(Number(input.height||2.6)*100)))
       };
       // Opening an old project should preserve the layout if widening the room is enough.
       if(expand&&this.project.items.length){

@@ -1,13 +1,14 @@
-name: Verify configurator texture repair
+name: Verify configurators and STUDIO ONE
 on:
   push:
-    branches: [work/studio-one-repair-20261019, main]
+    branches: [work/studio-one-repair-20261019, work/studio-one-usability-20261019, main]
     paths:
       - assets/js/elios-surfaces/**
       - assets/js/studio-one/**
       - assets/js/view-surfaces/**
       - assets/css/studio-one/**
       - tests/studio-one/view-projects.cjs
+      - tests/studio-one/usability.cjs
       - sw.js
       - .github/workflows/repair-configurator-textures.yml
 permissions:
@@ -42,6 +43,10 @@ jobs:
         env:
           CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ runner.temp }}/studio-tests/node_modules
         run: node tests/studio-one/view-projects.cjs
+      - name: Verify room defaults, grout choices and model selection
+        env:
+          CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ runner.temp }}/studio-tests/node_modules
+        run: node tests/studio-one/usability.cjs
       - name: Keep test results
         if: always()
         uses: actions/upload-artifact@v4
@@ -50,4 +55,5 @@ jobs:
           path: |
             reports/elios-phase2a/
             reports/studio-view-projects/
+            reports/studio-usability/
           retention-days: 14

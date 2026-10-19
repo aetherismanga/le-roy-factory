@@ -65,7 +65,7 @@
   function render(){renderOptions();renderQuote();const open=store.project.items.some(i=>i.kind!=='mirror'&&!i.open);$('open-all').textContent=open?'Ouvrir toute la composition':'Fermer toute la composition';$('open-all').setAttribute('aria-pressed',String(!open));$('undo').disabled=!store.history.length;$('redo').disabled=!store.future.length;const i=store.selected;if(i&&$('position-x')){$('position-x').value=i.position.x;$('position-y').value=i.position.y;}}
   function publish(){if(embedded)window.parent.postMessage({type:'studio-one-project-change',project:store.snapshot()},location.origin);}
   store.subscribe((project,meta)=>{if(meta.notices.length)notice(meta.notices.join(' '));try{sessionStorage.setItem(storageKey,JSON.stringify(project));}catch(e){}publish();render();});
-  $('add-cabinet').onclick=()=>{store.add('cabinet');applyAll=false;view?.fit();};$('add-column').onclick=()=>{store.add('column',{finish:store.selected?.finish||'ROBLE'});applyAll=false;view?.fit();};$('add-mirror').onclick=()=>{store.add('mirror');view?.fit();};
+  for(const [id,kind] of [['add-cabinet','cabinet'],['add-column','column'],['add-mirror','mirror']])$(id).onclick=()=>window.StudioOneChooseItem({kind,finish:store.selected?.finish||'ROBLE',model:store.selected?.kind==='cabinet'?store.selected.model:0,onAdd:options=>{const item=store.add(kind,options);if(item){applyAll=false;view?.fit();}return item;}});
   $('open-all').onclick=()=>store.openAll(store.project.items.some(i=>i.kind!=='mirror'&&!i.open));
   $('dimensions').onclick=()=>{if(view){view.dimensionsVisible=!view.dimensionsVisible;if(view.dimensionsVisible)store.select(null);view.drawDimensions();$('dimensions').setAttribute('aria-pressed',String(view.dimensionsVisible));}};
   $('reset').onclick=()=>view?.fit();$('front').onclick=()=>view?.fit(true);$('invert').checked=true;$('invert').onchange=()=>{if(view)view.reverse=$('invert').checked;};
@@ -155,10 +155,10 @@
   };
   const myProjectsButton=document.createElement('button');myProjectsButton.id='my-projects';myProjectsButton.textContent='Voir mes projets';myProjectsButton.onclick=showProjects;$('save-project').before(myProjectsButton);
   $('load-project').onclick=()=>$('project-file').click();$('project-file').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>16000000)throw Error('Fichier trop volumineux.');store.load(JSON.parse(await file.text()),ambience.room);ambience.room={width:store.room.width/100,depth:store.room.depth/100,height:store.room.height/100};roomControls.set(ambience.room);view?.setRoom(ambience.room);view?.fit();notice('Projet ouvert.');}catch(err){notice('Impossible d’ouvrir le projet : '+err.message);}e.target.value='';};
-  $('new-project').onclick=()=>{if(confirm('Créer une nouvelle composition ? Enregistrez votre projet pour le conserver.')){store.load({version:2,items:[M.make('cabinet')]});view?.fit();}};
-  const ambienceKey='lrf-studio-one-elios-ambience-v2',defaults={floor:'creta:ginepro',wall:'creta:avena',floorOrientation:'horizontal',wallOrientation:'horizontal'};
+  $('new-project').onclick=()=>{if(confirm('Créer une nouvelle composition ? Enregistrez votre projet pour le conserver.')){ambience={...defaults,room:{...A.room}};store.load({version:2,items:[M.make('cabinet')]},ambience.room);roomControls.set(ambience.room);view?.setRoom(ambience.room);for(const surface of ['floor','wall'])setAmbience(surface,ambience[surface]);persistAmbience();applyAll=false;view?.fit();}};
+  const A=window.StudioOneAmbience,ambienceKey='lrf-studio-one-elios-ambience-v2',defaults={floor:A.floor,wall:A.wall,floorOrientation:'horizontal',wallOrientation:'horizontal',room:{...A.room}};
   let ambience={...defaults};try{ambience={...ambience,...JSON.parse(sessionStorage.getItem(ambienceKey)||'{}')};}catch(e){}
-  const initialRoom=window.RandalRoomSize(ambience.room);if(!store.setRoom(initialRoom,true))notice('Composition trop large : déplacez un élément.');
+  const initialRoom=window.RandalRoomSize(ambience.room||A.room);if(!store.setRoom(initialRoom,true))notice('Composition trop large : déplacez un élément.');
    ambience.room={width:store.room.width/100,depth:store.room.depth/100,height:store.room.height/100};
    const roomControls=window.RandalRoomControls($('config-panel'),'studio',ambience.room,value=>{
      if(!store.setRoom(value)){notice('Pièce trop petite pour cette composition. Augmentez la largeur ou retirez un meuble.');roomControls.set(ambience.room);return;}

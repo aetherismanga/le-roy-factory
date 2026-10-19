@@ -1,0 +1,31 @@
+/* Pick an actual catalogue model before changing the composition. */
+(()=>{'use strict';
+ window.StudioOneChooseItem=function({kind,finish='ROBLE',model=0,onAdd}){
+  if(document.querySelector('.studio-add-dialog'))return;
+  const C=window.StudioOneCatalog,M=window.StudioOneModel,trigger=document.activeElement;
+  const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const noun=kind==='cabinet'?'meuble':kind==='column'?'colonne':'miroir';
+  const draft={model:kind==='cabinet'&&C.models[model]?model:0,width:60,finish,doorSide:'left',mirror:'Basic',mirrorSize:C.mirrors.Basic[0][0],mirrorFinish:'Noir'};
+  const options=(rows,selected)=>rows.map(([value,label])=>'<option value="'+esc(value)+'" '+(value===selected?'selected':'')+'>'+esc(label)+'</option>').join('');
+  const dialog=document.createElement('dialog');dialog.className='studio-add-dialog';dialog.setAttribute('aria-labelledby','studio-add-title');dialog.setAttribute('aria-describedby','studio-add-description');
+  const heading=document.createElement('div');heading.className='studio-projects-heading';heading.innerHTML='<div><span class="kicker">STUDIO ONE · COMPOSEZ VOTRE PROJET</span><h2 id="studio-add-title">Choisir '+(kind==='column'?'une ':'un ')+noun+'</h2><p id="studio-add-description">Sélectionnez votre modèle, puis ajoutez-le à la composition.</p></div>';
+  const close=document.createElement('button');close.className='studio-projects-close';close.type='button';close.textContent='×';close.setAttribute('aria-label','Fermer le choix de modèle');close.onclick=()=>dialog.close();heading.append(close);dialog.append(heading);
+  const body=document.createElement('div');body.className='studio-add-content';dialog.append(body);
+  const footer=document.createElement('div');footer.className='studio-add-footer';
+  const status=document.createElement('p');status.className='studio-add-status';status.setAttribute('role','status');
+  const cancel=document.createElement('button');cancel.type='button';cancel.textContent='Annuler';cancel.onclick=()=>dialog.close();
+  const add=document.createElement('button');add.type='button';add.className='primary';add.textContent='Ajouter '+(kind==='column'?'la ':'le ')+noun;
+  footer.append(status,cancel,add);dialog.append(footer);
+  function render(){
+   const cards=kind==='cabinet'?C.models.map((m,i)=>({id:String(i),name:m.name,detail:m.sub,selected:draft.model===i,item:M.make('cabinet',{...draft,model:i})})):kind==='column'?[{id:'column',name:'Colonne · 1 porte',detail:'L 38 × H 132 × P 27 cm',selected:true,item:M.make('column',draft)}]:Object.keys(C.mirrors).map((name,i)=>({id:name,name,detail:C.mirrors[name].length+' format'+(C.mirrors[name].length>1?'s':'')+' disponible'+(C.mirrors[name].length>1?'s':''),selected:draft.mirror===name,image:'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/accessories/mirror-'+['basic','zen-led','ilse-led','capsula-led','metal-rectangular','metal-round'][i]+'.webp'}));
+   body.innerHTML='<div class="studio-add-models" role="group" aria-label="Modèles de '+noun+'">'+cards.map(card=>'<button type="button" class="studio-add-model" data-model="'+esc(card.id)+'" aria-pressed="'+card.selected+'"><span class="studio-add-preview">'+(card.image?'<img crossorigin="anonymous" src="'+esc(card.image)+'" alt="">':window.StudioOneTechnical.drawing(card.item))+'</span><strong>'+esc(card.name)+'</strong><small>'+esc(card.detail)+'</small></button>').join('')+'</div><div class="studio-add-options">'+(kind==='cabinet'?'<label>Largeur du meuble (cm)<input id="studio-add-width" type="number" inputmode="numeric" min="40" max="120" step="1" value="'+draft.width+'"></label>':'')+(kind!=='mirror'?'<label>Finition<select id="studio-add-finish">'+options(C.finishes.map(f=>[f.code,f.name]),draft.finish)+'</select></label>':'')+(kind==='column'?'<label>Sens d’ouverture<select id="studio-add-door">'+options([['left','Charnières à gauche'],['right','Charnières à droite']],draft.doorSide)+'</select></label>':'')+(kind==='mirror'?'<label>Dimensions du miroir<select id="studio-add-size">'+options(C.mirrors[draft.mirror].map(s=>[s[0],s[0]]),draft.mirrorSize)+'</select></label>'+(C.mirrorRefs[draft.mirror]?'<label>Finition du cadre<select id="studio-add-frame">'+options(Object.keys(C.mirrorRefs[draft.mirror][draft.mirrorSize]).map(f=>[f,f]),draft.mirrorFinish)+'</select></label>':''):'')+'</div><p class="studio-add-note">Vous pourrez ajuster les options et la position dans la configuration.</p>';
+   body.querySelectorAll('[data-model]').forEach(button=>button.onclick=()=>{if(kind==='cabinet')draft.model=Number(button.dataset.model);else if(kind==='mirror'){draft.mirror=button.dataset.model;draft.mirrorSize=C.mirrors[draft.mirror][0][0];}render();body.querySelector('[data-model="'+CSS.escape(button.dataset.model)+'"]')?.focus({preventScroll:true});});
+   const bind=(id,key,number=false)=>{const field=body.querySelector('#'+id);if(field)field.onchange=()=>{if(!field.checkValidity()){field.reportValidity();return;}draft[key]=number?Number(field.value):field.value;status.textContent='';if(id==='studio-add-size')render();else if(kind!=='mirror')body.querySelectorAll('[data-model]').forEach(button=>{const item=M.make(kind,{...draft,model:kind==='cabinet'?Number(button.dataset.model):0});button.querySelector('.studio-add-preview').innerHTML=window.StudioOneTechnical.drawing(item);});};};
+   bind('studio-add-width','width',true);bind('studio-add-finish','finish');bind('studio-add-door','doorSide');bind('studio-add-size','mirrorSize');bind('studio-add-frame','mirrorFinish');
+  }
+  add.onclick=()=>{const width=body.querySelector('#studio-add-width');if(width&&!width.reportValidity())return;if(width)draft.width=Number(width.value);const result=onAdd({...draft});if(result)dialog.close();else status.textContent='Aucun emplacement libre. Déplacez un élément ou agrandissez la pièce.';};
+  dialog.onclose=()=>{dialog.remove();trigger?.focus();};
+  dialog.onclick=e=>{if(e.target!==dialog)return;const rect=dialog.getBoundingClientRect();if(e.clientX<rect.left||e.clientX>rect.right||e.clientY<rect.top||e.clientY>rect.bottom)dialog.close();};
+  render();document.body.append(dialog);dialog.showModal();close.focus();
+ };
+})();
