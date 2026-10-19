@@ -269,7 +269,7 @@ body:not(.crm-body) .agent-stack > .agent-info-card:has(a[href^="mailto:jerome@l
 }
 
 body:not(.crm-body) .agent-stack > .agent-info-card:has(a[href^="mailto:coryne@leroyfactory.fr"])::after {
-  background-image: url('https://raw.githubusercontent.com/aetherismanga/le-roy-factory/40ff096762bdf7646c9df721c49d052a39736cc0/assets/img/corynelogo.png');
+  background-image: url('../compat/corynelogo-20260903.png');
 }
 
 @media (max-width: 600px) {
