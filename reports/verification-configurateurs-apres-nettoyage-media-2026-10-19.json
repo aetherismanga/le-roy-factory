@@ -1,0 +1,94 @@
+[
+  {
+    "configurator": "STUDIO ONE",
+    "width": 1440,
+    "loaded": 73,
+    "catalogue": {
+      "collections": 50,
+      "active": 12,
+      "blocked": true,
+      "formats": [
+        "60x120",
+        "60x60"
+      ]
+    },
+    "independent": true,
+    "pricesUnchanged": true,
+    "fullscreen": true,
+    "capture": true,
+    "drawerInteraction": true,
+    "persistence": true,
+    "legacySwitch": true,
+    "errors": [],
+    "missing": []
+  },
+  {
+    "configurator": "STUDIO ONE",
+    "width": 390,
+    "loaded": 0,
+    "catalogue": {
+      "collections": 50,
+      "active": 12,
+      "blocked": true,
+      "formats": [
+        "60x120",
+        "60x60"
+      ]
+    },
+    "independent": true,
+    "pricesUnchanged": true,
+    "fullscreen": true,
+    "capture": true,
+    "drawerInteraction": true,
+    "persistence": false,
+    "legacySwitch": false,
+    "errors": [],
+    "missing": []
+  },
+  {
+    "configurator": "RANDAL",
+    "width": 1440,
+    "loaded": 0,
+    "catalogue": {
+      "collections": 50,
+      "active": 12,
+      "blocked": true,
+      "formats": [
+        "60x120",
+        "60x60"
+      ]
+    },
+    "independent": true,
+    "pricesUnchanged": true,
+    "fullscreen": true,
+    "capture": true,
+    "drawerInteraction": true,
+    "persistence": true,
+    "legacySwitch": true,
+    "errors": [],
+    "missing": []
+  },
+  {
+    "configurator": "RANDAL",
+    "width": 390,
+    "loaded": 0,
+    "catalogue": {
+      "collections": 50,
+      "active": 12,
+      "blocked": true,
+      "formats": [
+        "60x120",
+        "60x60"
+      ]
+    },
+    "independent": true,
+    "pricesUnchanged": true,
+    "fullscreen": true,
+    "capture": true,
+    "drawerInteraction": true,
+    "persistence": false,
+    "legacySwitch": false,
+    "errors": [],
+    "missing": []
+  }
+]

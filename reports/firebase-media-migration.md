@@ -1,3 +1,5 @@
+> **Mise à jour du 19 octobre 2026 :** 888 images et vidéos déjà migrées ont depuis été retirées du dépôt et leur historique a été compacté sur les 120 branches. Voir [le rapport de nettoyage](nettoyage-images-videos-2026-10-19.md). Le texte ci-dessous décrit l’étape initiale du 18 octobre.
+
 # Migration des médias publics vers Firebase
 
 931 fichiers copiés, 189 336 344 octets stockés (189 310 364 octets dans les blobs Git). Les images, textures, vidéos et modèles publics sont servis depuis des URL versionnées du bucket existant. Les originaux et tout l’historique Git sont conservés. Aucun espace GitHub n’est encore libéré.

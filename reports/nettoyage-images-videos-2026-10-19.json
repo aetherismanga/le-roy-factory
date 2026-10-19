@@ -914,11 +914,160 @@
     "assets/img/elios/slate/slate-grey-hd.jpg",
     "assets/img/inspirations/categories-sprite.webp"
   ],
-  "historyCompactionStatus": "pending-separate-atomic-step",
+  "historyCompactionStatus": "applied-and-verified",
   "limitations": [
     "Old direct image URLs are removed for these 888 files; current site references already use Firebase. The legacy logo is retained.",
     "The unchanged historical Coryne avatar URL in layout.css points to different bytes than the current avatar; it is intentionally retained and remains reachable via the unchanged historical tag.",
     "No authenticated CRM or native application end-to-end validation in this cleanup.",
     "Other images outside the migration manifest are retained, including report screenshots and assets of the separate Nuage Nomade application."
-  ]
+  ],
+  "metrics": {
+    "packBeforeImagesVideosBytes": 701333196,
+    "freshClonePackBytes": 643768769,
+    "additionalMeasuredReductionBytes": 57564427,
+    "packBeforePdfAndMediaBytes": 906209494,
+    "combinedMeasuredReductionBytes": 262440725,
+    "currentSourceRemovedMediaBytes": 186879331,
+    "verifiedBranches": 120,
+    "verifiedModelsRetained": 39,
+    "existingViewFilesRetained": 20,
+    "historyMainTreeUnchanged": true
+  },
+  "historyRunUrl": "https://github.com/aetherismanga/le-roy-factory/actions/runs/39183745075",
+  "backupExpiresAt": "2026-10-26T01:06:28Z",
+  "videoValidation": [
+    {
+      "path": "assets/videos/bulbo-cameleon.mp4",
+      "width": 720,
+      "height": 1280,
+      "codec": "h264",
+      "fullyDecoded": true
+    },
+    {
+      "path": "assets/videos/cameleon-ecran-clair-alpha.webm",
+      "width": 1280,
+      "height": 720,
+      "codec": "vp9",
+      "fullyDecoded": true
+    },
+    {
+      "path": "assets/videos/cameleon-site-alpha-v2.webm",
+      "width": 1280,
+      "height": 720,
+      "codec": "vp9",
+      "fullyDecoded": true
+    },
+    {
+      "path": "assets/videos/bulbo-serpent.mp4",
+      "width": 720,
+      "height": 1280,
+      "codec": "h264",
+      "fullyDecoded": true
+    },
+    {
+      "path": "assets/videos/video01.mp4",
+      "width": 848,
+      "height": 484,
+      "codec": "h264",
+      "fullyDecoded": true
+    }
+  ],
+  "configuratorRegression": {
+    "runUrl": "https://github.com/aetherismanga/le-roy-factory/actions/runs/39183951607",
+    "passed": true,
+    "scenarios": [
+      {
+        "configurator": "STUDIO ONE",
+        "width": 1440,
+        "loaded": 73,
+        "catalogue": {
+          "collections": 50,
+          "active": 12,
+          "blocked": true,
+          "formats": [
+            "60x120",
+            "60x60"
+          ]
+        },
+        "independent": true,
+        "pricesUnchanged": true,
+        "fullscreen": true,
+        "capture": true,
+        "drawerInteraction": true,
+        "persistence": true,
+        "legacySwitch": true,
+        "errors": [],
+        "missing": []
+      },
+      {
+        "configurator": "STUDIO ONE",
+        "width": 390,
+        "loaded": 0,
+        "catalogue": {
+          "collections": 50,
+          "active": 12,
+          "blocked": true,
+          "formats": [
+            "60x120",
+            "60x60"
+          ]
+        },
+        "independent": true,
+        "pricesUnchanged": true,
+        "fullscreen": true,
+        "capture": true,
+        "drawerInteraction": true,
+        "persistence": false,
+        "legacySwitch": false,
+        "errors": [],
+        "missing": []
+      },
+      {
+        "configurator": "RANDAL",
+        "width": 1440,
+        "loaded": 0,
+        "catalogue": {
+          "collections": 50,
+          "active": 12,
+          "blocked": true,
+          "formats": [
+            "60x120",
+            "60x60"
+          ]
+        },
+        "independent": true,
+        "pricesUnchanged": true,
+        "fullscreen": true,
+        "capture": true,
+        "drawerInteraction": true,
+        "persistence": true,
+        "legacySwitch": true,
+        "errors": [],
+        "missing": []
+      },
+      {
+        "configurator": "RANDAL",
+        "width": 390,
+        "loaded": 0,
+        "catalogue": {
+          "collections": 50,
+          "active": 12,
+          "blocked": true,
+          "formats": [
+            "60x120",
+            "60x60"
+          ]
+        },
+        "independent": true,
+        "pricesUnchanged": true,
+        "fullscreen": true,
+        "capture": true,
+        "drawerInteraction": true,
+        "persistence": false,
+        "legacySwitch": false,
+        "errors": [],
+        "missing": []
+      }
+    ]
+  }
 }
