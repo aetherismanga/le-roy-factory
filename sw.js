@@ -60,12 +60,17 @@ self.addEventListener('fetch',event=>{
   }
 
   event.respondWith(
-    caches.match(event.request).then(cached=>cached||fetch(event.request).then(response=>{
+    caches.match(event.request).then(cached=>{
+      // An opaque preview can display in <img> but cannot be read by WebGL.
+      // CacheStorage matches URLs across request modes; reject this stale entry.
+      const needsCors=isMigratedPublicMedia(url)&&event.request.mode==='cors';
+      const readable=cached&&(!needsCors||cached.type==='cors');
+      return readable?cached:fetch(event.request,needsCors?{cache:'reload'}:undefined).then(response=>{
       if(canCacheResponse(response,event.request)){
         const copy=response.clone();
         caches.open(CACHE).then(c=>c.put(event.request,copy));
       }
       return response;
-    }))
+    })})
   );
 });

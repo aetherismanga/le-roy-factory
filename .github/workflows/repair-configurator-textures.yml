@@ -1,0 +1,43 @@
+name: Verify configurator texture repair
+on:
+  push:
+    branches: [work/studio-one-repair-20261019, main]
+    paths:
+      - assets/js/elios-surfaces/**
+      - sw.js
+      - .github/workflows/repair-configurator-textures.yml
+permissions:
+  contents: read
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Verify cache regression
+        run: node tests/elios-phase2a/cache-regression.cjs
+      - name: Install test browser
+        run: |
+          npm install --prefix "$RUNNER_TEMP/studio-tests" playwright@1.55.0
+          "$RUNNER_TEMP/studio-tests/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Verify both configurators and all 73 ELIOS colours
+        env:
+          CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ runner.temp }}/studio-tests/node_modules
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('tests/elios-phase2a/browser.cjs')
+          s=p.read_text().replace("executablePath:'/tmp/chrome-phase1/chrome-headless-shell-linux64/chrome-headless-shell',",'')
+          s=s.replace("server.listen(0,r)","server.listen(8765,r)")
+          p.write_text(s)
+          PY
+          node tests/elios-phase2a/browser.cjs
+      - name: Keep test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: repaired-elios-configurators
+          path: reports/elios-phase2a/
+          retention-days: 14

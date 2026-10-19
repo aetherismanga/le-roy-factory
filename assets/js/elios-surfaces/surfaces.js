@@ -1,7 +1,11 @@
 /* Shared visual surfaces only. All metric/commercial product state stays in its original configurator. */
 (()=>{'use strict';
+// Use a separate cache key for canvas/WebGL reads. A preview cached before the
+// migration's CORS setup must never become the texture's immutable response.
+function textureURL(value){const url=new URL(value,location.href);if(url.origin==='https://storage.googleapis.com'&&url.pathname.startsWith('/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/'))url.searchParams.set('lrfTexture','20261019');return url.href}
+window.RandalSurfaceTextureURL=textureURL;
 const imageCache=new Map();
-function image(url){if(imageCache.has(url))return imageCache.get(url);const p=new Promise((ok,no)=>{const i=new Image();i.crossOrigin='anonymous';i.decoding='async';i.onload=()=>ok(i);i.onerror=()=>no(Error('Échantillon indisponible : '+url));i.src=url});imageCache.set(url,p);p.catch(()=>imageCache.delete(url));if(imageCache.size>(innerWidth<1100?8:24))imageCache.delete(imageCache.keys().next().value);return p}
+function image(url){url=textureURL(url);if(imageCache.has(url))return imageCache.get(url);const p=new Promise((ok,no)=>{const i=new Image();i.crossOrigin='anonymous';i.decoding='async';i.onload=()=>ok(i);i.onerror=()=>no(Error('Échantillon indisponible : '+url));i.src=url});imageCache.set(url,p);p.catch(()=>imageCache.delete(url));if(imageCache.size>(innerWidth<1100?8:24))imageCache.delete(imageCache.keys().next().value);return p}
 function cover(ctx,im,x,y,w,h){const r=w/h,ir=im.width/im.height;let sw=im.width,sh=im.height;if(ir>r)sw=sh*r;else sh=sw/r;ctx.drawImage(im,(im.width-sw)/2,(im.height-sh)/2,sw,sh,x,y,w,h)}
 class Surfaces{
  constructor(T,renderer,invalidate,onError=()=>{}){this.T=T;this.renderer=renderer;this.invalidate=invalidate;this.onError=onError;this.cache=new Map();this.active=new Map();this.pending=new Set();this.dead=false;}
