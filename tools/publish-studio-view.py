@@ -37,9 +37,6 @@ def main():
             req=urllib.request.Request('https://storage.googleapis.com/upload/storage/v1/b/'+BUCKET+'/o?'+query,data=payload,headers={**headers,'Content-Type':'image/webp'},method='POST')
             with urllib.request.urlopen(req,timeout=90) as r:result=json.load(r)
             assert result['name']==name
-            metadata={'cacheControl':'public,max-age=31536000,immutable','metadata':{'sha256':s['sha256'],'source':'VIEW official PDF, reviewed backup 2026-10-18'}}
-            req=urllib.request.Request('https://storage.googleapis.com/storage/v1/b/'+BUCKET+'/o/'+urllib.parse.quote(name,safe=''),data=json.dumps(metadata).encode(),headers={**headers,'Content-Type':'application/json'},method='PATCH')
-            with urllib.request.urlopen(req,timeout=30) as r:json.load(r)
         verified=get(public,{'Origin':'https://leroyfactory.fr'});assert hashlib.sha256(verified).hexdigest()==s['sha256']
         report.append({'path':s['path'],'url':public,'sha256':s['sha256'],'verified':True});print('Verified',s['collection'],s['color'],len(verified),'bytes')
     dest=Path(os.environ.get('RUNNER_TEMP',tempfile.gettempdir()))/'studio-view-upload.json';dest.write_text(json.dumps(report,indent=2)+'\n')
