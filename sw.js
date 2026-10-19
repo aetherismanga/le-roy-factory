@@ -1,5 +1,5 @@
 const CACHE='lrf-pwa-v13-catalogues-20260924-fallback2';
-const CORE=['/','/index.html','/assets/brand-v2/lrf-logo-officiel-2026.png?v=20260918-crm-floral-1'];
+const CORE=['/','/index.html','/assets/img/logo03lrf.png'];
 
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).catch(()=>{}));
