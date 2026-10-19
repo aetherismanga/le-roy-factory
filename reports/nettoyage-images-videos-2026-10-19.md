@@ -1,3 +1,5 @@
+> **Étape suivante terminée :** le tag historique a depuis été allégé, et le portrait de compatibilité dispose d’une adresse indépendante. La nouvelle copie Git mesure environ **227 Mo**. Voir [le dernier rapport](reduction-tag-historique-2026-10-19.md). Le texte ci-dessous décrit l’étape précédente.
+
 # Nettoyage des images et vidéos — 19 octobre 2026
 
 888 fichiers déjà migrés sont retirés de la version courante du dépôt : **882 images et 6 fichiers vidéo**, représentant **186 879 331 octets** (environ 187 Mo de fichiers Git). Les adresses Firebase déjà utilisées par les pages et les configurateurs sont conservées, ainsi que les données, scripts, PDF, modèles 3D et tarifs.
