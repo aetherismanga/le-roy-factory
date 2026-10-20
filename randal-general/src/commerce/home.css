@@ -47,3 +47,88 @@ body[data-view=home] #app-main{overflow-y:auto;scroll-behavior:smooth}body[data-
  .wizard{padding-top:3px}.progress-line{height:20px}.wizard h1{font-size:20px;margin:2px 0}.wizard-heading>p{margin-bottom:4px}
  .wizard-footer{padding-top:6px}
 }
+
+@media(max-width:760px){.app-header{position:relative}.header-actions{gap:6px;padding-top:6px}.header-actions #beta-label{position:absolute;top:3px;right:13px;font-size:6px;letter-spacing:.5px}body[data-view=quote] #return-home{display:none}.header-actions .quit-configurator{min-height:34px;padding:7px 8px}}
+
+/* Catalogue entrance: an editorial layout and the original 2400 px photo. */
+body[data-view=home] .landing{display:grid;grid-template-columns:minmax(350px,.84fr) minmax(0,1.16fr);height:100%;min-height:0;padding:0;align-items:stretch;color:#292c28;overflow:hidden;background:#f4f1e9}
+.landing::before{display:none!important}
+.landing-content{width:100%;max-width:610px;margin:auto;padding:clamp(26px,4vw,70px);z-index:1}
+.landing .eyebrow{color:#8f7855;font-size:10px;letter-spacing:2.2px}
+.landing h1{font:400 clamp(36px,3.8vw,65px)/1.06 Georgia,serif;letter-spacing:-2px;margin:24px 0 20px}
+.landing h1 em{font-weight:400;color:#7a785f}
+.landing-description{font-size:15px;line-height:1.8;color:#73746a;margin-bottom:20px}
+.landing-facts{display:flex;flex-wrap:wrap;gap:9px 14px;margin:0 0 28px;font-size:9px;color:#787467}
+.landing-facts span+span{border-left:1px solid #ccc6b5;padding-left:14px}
+.landing .home-actions{gap:0}
+.landing .home-actions button{border:0;border-bottom:1px solid #dcd7ca;border-radius:0;background:transparent;color:#53584c;font-size:12px;padding:13px 0;min-height:43px;backdrop-filter:none}
+.landing .home-actions .primary{background:#292f29;border:1px solid #292f29;color:#fffef8;border-radius:9px;min-height:54px;padding:16px 19px;margin-bottom:13px;font-size:12px}
+.landing .home-actions .primary:hover{background:#454e3e}
+.landing .home-actions button:not(.primary):hover{color:#2d3b2a;background:#e9e5d94d}
+.landing-signature{font-size:7px;letter-spacing:1.3px;color:#928b79;margin-top:26px;line-height:1.7}
+.landing-visual{position:relative;min-width:0;min-height:0;overflow:hidden;background:#d8c7ad;margin:18px 18px 18px 0;border-radius:4px}
+.landing-visual>img{display:block;width:100%;height:100%;object-fit:cover;object-position:52% 54%}
+.landing-photo-caption{position:absolute;right:25px;bottom:25px;display:grid;gap:5px;padding:17px 22px;border:1px solid #ffffff80;border-radius:4px;background:#fffef4e8;backdrop-filter:blur(12px);color:#333a30}
+.landing-photo-caption>span{font-size:7px;letter-spacing:2px;color:#8b795e}
+.landing-photo-caption strong{font:400 29px Georgia,serif}
+.landing-photo-caption small{font-size:8px;color:#777466}
+
+/* The collection chooser is a separate screen, opened in the same paint. */
+body[data-view=home] #general-collections{display:none}
+body[data-view=collections] #general-collections{display:block}
+#general-collections{height:100%;padding:40px max(24px,calc((100vw - 1240px)/2)) 48px;overflow-y:auto;overscroll-behavior:contain;scroll-behavior:auto;background:#f4f1e9}
+.collection-intro{display:flex;align-items:center;justify-content:space-between;gap:24px;margin:0 0 30px}
+.collection-intro h2{font:400 clamp(32px,3.4vw,49px)/1.1 Georgia,serif;letter-spacing:-1.5px;margin:12px 0 13px}
+.collection-intro p{font-size:12px;line-height:1.7;margin-bottom:0;color:#78786d}
+.collection-intro .eyebrow{font-size:9px;letter-spacing:2px;color:#9b8058}
+.collection-count{font:8px/1.4 Arial,sans-serif;letter-spacing:3px;color:#8e8168;text-align:right}
+.collection-count strong{display:block;font:400 39px Georgia,serif;letter-spacing:-1px;margin-top:7px}
+.collection-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:26px 23px}
+.collection-grid button{gap:0;background:#fffdf8;border:1px solid #e0dbce;border-radius:9px;overflow:hidden;box-shadow:0 5px 18px #3a362107;transition:box-shadow .2s,border-color .2s}
+.collection-grid button:hover{border-color:#b7a383;box-shadow:0 9px 26px #3a362114}
+.collection-grid .collection-image{position:relative;display:block;width:100%;overflow:hidden;aspect-ratio:1.42;background:#e2d8c5}
+.collection-grid img{display:block;width:100%;height:100%;aspect-ratio:auto;object-fit:cover;border-radius:0;transition:transform .4s;filter:none!important}
+.collection-grid button:hover img{transform:scale(1.025)}
+.collection-grid .collection-index{position:absolute;left:13px;top:13px;display:grid;place-items:center;background:#fffdf0e8;border-radius:50%;width:28px;height:28px;color:#716650;font:9px Arial,sans-serif}
+.collection-grid .collection-card-label{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:17px 18px 5px;font:400 24px Georgia,serif}
+.collection-card-label strong{font-weight:400}
+.collection-card-label b{font:15px Arial,sans-serif;border:1px solid #d7d1c0;border-radius:50%;width:30px;height:30px;display:grid;place-items:center;color:#7e775d}
+.collection-grid small{display:block;padding:0 18px 17px;font-size:10px;color:#8a8473}
+.collections-note{font-size:10px;line-height:1.7;color:#8a8372;margin:28px 0 0}
+
+/* Show each genuine manufacturer drawing across its entire card. */
+body[data-view=wizard][data-step="0"] .model-grid{max-width:1000px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.model-card{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(100px,1fr) 67px;border:1px solid #dcd7ca;border-radius:12px;box-shadow:0 8px 22px #332c1609}
+.model-card[aria-pressed=true]{border:2px solid #96805b;box-shadow:0 0 0 3px #a18a5e17}
+.model-caption{display:grid;align-content:center;gap:5px;padding:12px 16px;font-size:16px}
+.model-caption small{font-size:10px;letter-spacing:.3px}
+.model-card .selected-mark{width:24px;height:24px;top:12px;right:12px;font-size:12px}
+#change-collection{margin-left:auto;color:#817257}
+
+@media(max-width:1000px) and (min-width:761px){.landing-content{padding:30px}.landing h1{font-size:43px}.landing-facts{gap:8px}.landing-facts span+span{padding-left:8px}.collection-grid{gap:18px}.collection-card-label strong{font-size:21px}}
+@media(max-width:760px){
+ body[data-view=home] .landing{display:flex;flex-direction:column;height:auto;min-height:100%;overflow:visible}
+ .landing-visual{order:0;flex:0 0 auto;width:calc(100% - 24px);height:clamp(210px,32dvh,320px);margin:12px 12px 0;border-radius:7px}
+ .landing-visual>img{object-position:50% 60%}
+ .landing-photo-caption{right:12px;bottom:12px;padding:9px 13px;gap:3px}
+ .landing-photo-caption strong{font-size:23px}.landing-photo-caption small{font-size:7px}
+ .landing-content{order:1;max-width:none;margin:0;padding:25px 24px 30px}
+ .landing .eyebrow{font-size:8px;letter-spacing:1.6px;margin-top:0}
+ .landing h1{font-size:38px;letter-spacing:-1.2px;margin:14px 0}
+ .landing-description{font-size:12px;line-height:1.7;margin-bottom:13px}
+ .landing-facts{font-size:8px;margin-bottom:20px;gap:8px 10px}.landing-facts span+span{padding-left:10px}
+ .landing .home-actions .primary{min-height:49px;margin-bottom:9px;font-size:11px}
+ .landing .home-actions button{min-height:42px;font-size:11px;padding:11px 0}
+ .landing-signature{font-size:6px;margin-top:22px}
+ #general-collections{padding:24px 16px 32px}.collection-intro{gap:15px;margin-bottom:23px}
+ .collection-intro h2{font-size:32px;letter-spacing:-1px}.collection-intro p{font-size:10px}.collection-intro .eyebrow{font-size:8px}.collection-count{display:none}
+ .collection-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:15px 12px}.collection-grid .collection-image{aspect-ratio:1.1}
+ .collection-grid .collection-index{left:8px;top:8px;width:22px;height:22px;font-size:8px}
+ .collection-grid .collection-card-label{padding:12px 10px 4px;font-size:18px;gap:5px}.collection-card-label b{width:24px;height:24px;font-size:12px;flex-shrink:0}
+ .collection-grid small{font-size:8px;padding:0 10px 12px}.collections-note{font-size:9px}
+ body[data-view=wizard][data-step="0"] .model-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+ .model-card{grid-template-rows:minmax(100px,1fr) 65px}.model-caption{font-size:12px;padding:9px;gap:4px}.model-caption small{font-size:8px}.model-card .selected-mark{width:20px;height:20px;right:8px;top:8px;font-size:10px}
+ #change-collection{font-size:9px}
+}
+@media(min-width:761px) and (max-height:720px){.landing-content{padding-top:20px;padding-bottom:20px}.landing h1{font-size:42px;margin:16px 0}.landing-description{font-size:13px;margin-bottom:14px}.landing-facts{margin-bottom:17px}.landing-signature{margin-top:17px}}
+@media(prefers-reduced-motion:reduce){.collection-grid img,.collection-grid button{transition:none}}

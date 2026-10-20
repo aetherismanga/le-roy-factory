@@ -28,3 +28,5 @@
  .workspace-nav button{flex:1 1 0;min-height:0;max-height:85px;gap:3px;padding:4px 2px}
  .workspace-nav .step-number{display:none}
 }
+
+body>header>.project-name{min-width:0}body>header>.quit-configurator{flex:0 0 auto}@media(max-width:760px){body>header{grid-template-rows:40px 40px}body>header>.back-to-quote{grid-column:1/4;grid-row:2;min-height:38px}body>header>.quit-configurator{grid-column:4;grid-row:2;min-height:38px;align-self:stretch;justify-self:stretch;padding:7px;font-size:9px}}

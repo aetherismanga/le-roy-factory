@@ -1,3 +1,5 @@
+import {createProjectNavigation} from './commerce/navigation.js';
+import {saveComposition,ACTIVE_ID,FLOW_KEY} from './commerce/flow.js';
 import './viewport.js';
 import {prepareFinishTexture,finishTextureURL} from './finish-texture.js';
 import {CATALOG as GeneralCatalog} from './commerce/catalog.js';
@@ -59,6 +61,7 @@ let frames=0,lastTime=0,lastMove=0,running=true,startedAt=performance.now();
 let walkMode=null;
 let roomScene=null,roomEditor=null,roomConfig=cloneRoom(DEFAULT_ROOM),selectedWall=0,wallFinishes=[];
 let journal=null,restoring=false,projectTimer=null;let workspace='furniture';let savedViews=[];let toastTimer=null;let profileSettings={enabled:true,internalCorners:false,color:'Argent',walls:[]},profileAsset=null,tileLoss=10;let paintTexture=null;let tileEditing=false,selectedTile=null;let tileSelectionMode='single';const GROUT_COLORS={Blanc:'#f7f5ed','Gris clair':'#c5c5c2',Gris:'#858585',Anthracite:'#343638',Beige:'#c6ad89',Ivoire:'#e8dbc0'};let floorGroutColor='Ivoire';
+let projectNavigation;
 let refreshCommerce=()=>{};
 let baseExposure=1.05,cabinetContact;let counterDecor=[];let composition=null,dragController=null;
 
@@ -357,7 +360,7 @@ function makeUI(){
  $$('[data-view]').forEach(b=>b.addEventListener('click',()=>setView(b.dataset.view)));
  $('#orbit').onclick=()=>{state.orbit=!state.orbit;controls.autoRotate=state.orbit;viewTween=null;$('#orbit').classList.toggle('active',state.orbit);$('#orbit').setAttribute('aria-pressed',String(state.orbit));invalidate();};
  $('#navigation-direction').onclick=toggleNavigationDirection;$('#zoom-in').onclick=()=>zoom(.84);$('#zoom-out').onclick=()=>zoom(1.18);
- $('#reset').onclick=()=>newBathroomProject();
+ $('#reset').onclick=()=>projectNavigation.request(()=>{const format=collectProject().items.find(i=>i.type==='cabinet')?.settings.format;const collection=GeneralCatalog.models.find(m=>m.id===format)?.collection||'harmony';clearTimeout(projectTimer);location.href='index.html?new=1&view=configure&step=0&collection='+encodeURIComponent(collection);},'new');
  $('#about').onclick=()=>$('#details').showModal();$('#close-details').onclick=()=>$('#details').close();$('#details').addEventListener('click',e=>{if(e.target===$('#details')){const r=$('#details').getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)$('#details').close();}});
  $('#fullscreen').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else if(stage.classList.contains('expanded')){stage.classList.remove('expanded');$('#fullscreen').setAttribute('aria-label','Plein écran');}else if(stage.requestFullscreen)await stage.requestFullscreen();else{stage.classList.add('expanded');$('#fullscreen').setAttribute('aria-label','Quitter le plein écran');}}catch{stage.classList.toggle('expanded');}resize();};
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&stage.classList.contains('expanded')){stage.classList.remove('expanded');resize();}});
@@ -415,6 +418,7 @@ function animate(time){if(!state.ready){running=false;return;}const dt=lastTime?
  if(qualityChanged||moving||walking||walkMode?.active||state.orbit||cameraMoved||time-lastMove<250){requestAnimationFrame(animate);}else{running=false;lastTime=0;quality.pause();}
 }
 async function start(){
+ projectNavigation=createProjectNavigation({getProject:()=>state.ready?collectProject():null,save:()=>saveProject()});
  try{
   renderer=new T.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance',alpha:false});activePixelRatio=renderPixelRatio(quality.profile,stage.clientWidth,stage.clientHeight,Math.min(devicePixelRatio||1,isMobile?1.7:2.5));renderer.setPixelRatio(activePixelRatio);configureColourRendering(renderer);renderer.shadowMap.enabled=true;renderer.shadowMap.autoUpdate=false;renderer.shadowMap.needsUpdate=true;renderer.shadowMap.type=T.PCFSoftShadowMap;
   scene=new T.Scene();scene.background=new T.Color('#e5e3dc');scene.fog=new T.Fog('#e5e3dc',15,55);
@@ -539,7 +543,11 @@ function initializeProjectSession(){
 }
 function storedProjects(){try{const data=JSON.parse(localStorage.getItem('randal-general-projects')||'[]');return Array.isArray(data)?data.slice(0,20):[];}catch{return [];}}
 function captureImage(width=1920,thumbnail=false){const w=stage.clientWidth,h=stage.clientHeight,ratio=renderer.getPixelRatio(),size=new T.Vector2();renderer.getSize(size);try{const desired=thumbnail?320:width,scale=Math.min(desired/w,quality.profile.ao?4:3);renderer.setPixelRatio(scale);renderer.setSize(w,h,false);ultraPipeline?.resize(w,h,scale);if(ultraPipeline)ultraPipeline.render(.016);else renderer.render(scene,camera);return canvas.toDataURL(thumbnail?'image/webp':'image/png',.8);}finally{renderer.setPixelRatio(ratio);renderer.setSize(size.x,size.y,false);ultraPipeline?.resize(w,h,ratio);invalidate(false);}}
-function saveProject(){try{const data=collectProject(),all=storedProjects(),title=data.title.trim()||'Ma salle de bain',saved={id:localStorage.getItem('randal-general-active-project-id-v2')||Date.now().toString(36),title,date:new Date().toISOString(),data,thumbnail:captureImage(320,true)};const same=all.findIndex(p=>p.id===saved.id);if(same>=0)all[same]=saved;else all.unshift(saved);localStorage.setItem('randal-general-projects',JSON.stringify(all.slice(0,20)));localStorage.setItem('randal-general-active-project-id-v2',saved.id);placementStatus('Projet enregistré sur cet appareil.');}catch{placementStatus('Enregistrement local indisponible : exportez le projet JSON.');}}
+function saveProject(){try{const data=collectProject(),saved=saveComposition(localStorage,data,{id:localStorage.getItem(ACTIVE_ID)||null});
+ try{saved.thumbnail=captureImage(320,true);const all=storedProjects(),index=all.findIndex(p=>p.id===saved.id);if(index>=0){all[index]=saved;localStorage.setItem('randal-general-projects',JSON.stringify(all));}}catch{}
+ localStorage.setItem(FLOW_KEY,JSON.stringify({view:'atelier',step:4}));placementStatus('Projet enregistré sur cet appareil.');return true;
+ }catch{placementStatus('Enregistrement local indisponible : exportez le projet JSON.');return false;}}
+
 function showProjects(){const body=$('#projects-list');body.replaceChildren();for(const saved of storedProjects()){const card=document.createElement('article');card.className='project-card';if(typeof saved.thumbnail==='string'&&saved.thumbnail.startsWith('data:image/')){const image=document.createElement('img');image.src=saved.thumbnail;image.alt='Aperçu du projet';card.append(image);}const title=document.createElement('strong');title.textContent=saved.title;card.append(title);button(card,'Ouvrir',()=>{if(restoreProject(saved.data)){try{localStorage.setItem('randal-general-active-project-id-v2',saved.id);}catch{}$('#projects-dialog').close();journal.record(collectProject());updateHistoryButtons();}});button(card,'Supprimer',()=>{const all=storedProjects().filter(p=>p.id!==saved.id);localStorage.setItem('randal-general-projects',JSON.stringify(all));showProjects();});body.append(card);}if(!body.children.length){const p=document.createElement('p');p.textContent='Vos projets enregistrés apparaîtront ici.';body.append(p);}if(!$('#projects-dialog').open)$('#projects-dialog').showModal();}
 function downloadFile(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);}
 function exportProjectFile(){downloadFile(new Blob([JSON.stringify(collectProject(),null,2)],{type:'application/json'}),'randal-general-projet.json');}
