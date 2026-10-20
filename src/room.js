@@ -37,12 +37,17 @@ function tileGeometry(polygon,stagger=false,gapX=.001,gapY=.001,holes=[]){
  const xs=polygon.map(p=>p[0]),ys=polygon.map(p=>p[1]);
  const vertex=(p,z,n,col,row,flip)=>{if(pos.length%9===0)faceCells.push(col+':'+row);pos.push(p[0],p[1],z);normal.push(...n);const shift=stagger&&Math.abs(row)%2===1?.6:0,u=(p[0]-col*1.2-shift)/1.2,v=(p[1]-row*.6)/.6;uv.push(flip?1-u:u,flip?1-v:v);};
  for(let row=Math.floor(Math.min(...ys)/.6);row<Math.ceil(Math.max(...ys)/.6);row++)for(let col=Math.floor(Math.min(...xs)/1.2)-1;col<Math.ceil(Math.max(...xs)/1.2);col++){
-  const shift=stagger&&Math.abs(row)%2===1?.6:0;let used=false,area=0;const flip=Math.abs(col+row)%2===1;
+  const shift=stagger&&Math.abs(row)%2===1?.6:0;let used=false,area=0;const flip=Math.abs(col+row)%2===1,edges=new Map();
   for(const tri of triangles){let p=tri.map(i=>allPolygon[i]);for(const [axis,bound,greater]of [[0,col*1.2+shift+gapX,true],[0,(col+1)*1.2+shift-gapX,false],[1,row*.6+gapY,true],[1,(row+1)*.6-gapY,false]]){if(!p.length)break;p=clip(p,axis,bound,greater);}
    if(p.length<3||Math.abs(polygonArea(p))<1e-10)continue;if(polygonArea(p)<0)p.reverse();used=true;area+=Math.abs(polygonArea(p));
    for(let i=1;i<p.length-1;i++)for(const v of [p[0],p[i],p[i+1]])vertex(v,0,[0,0,1],col,row,flip);
-   for(let i=0;i<p.length;i++){const a=p[i],b=p[(i+1)%p.length],len=Math.hypot(b[0]-a[0],b[1]-a[1]);if(len<1e-8)continue;const n=[(b[1]-a[1])/len,-(b[0]-a[0])/len,0];for(const [v,z]of [[a,0],[a,-.009],[b,0],[b,0],[a,-.009],[b,-.009]])vertex(v,z,n,col,row,flip);}
-  }if(used){tileCount++;cells.push({key:col+':'+row,area});}
+   // Adjacent triangulation fragments share interior edges. Extruding both
+   // sides of those edges creates coplanar faces and a flickering diagonal.
+   const pointKey=v=>v.map(n=>Math.round(n*1e7)).join(',');
+   for(let i=0;i<p.length;i++){const a=p[i],b=p[(i+1)%p.length];if(Math.hypot(b[0]-a[0],b[1]-a[1])<1e-8)continue;const key=[pointKey(a),pointKey(b)].sort().join('|');if(edges.has(key))edges.delete(key);else edges.set(key,[a,b]);}
+  }
+  for(const [a,b]of edges.values()){const len=Math.hypot(b[0]-a[0],b[1]-a[1]),n=[(b[1]-a[1])/len,-(b[0]-a[0])/len,0];for(const [v,z]of [[a,0],[a,-.009],[b,0],[b,0],[a,-.009],[b,-.009]])vertex(v,z,n,col,row,flip);}
+  if(used){tileCount++;cells.push({key:col+':'+row,area});}
  }
  const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(pos,3));g.setAttribute('normal',new T.Float32BufferAttribute(normal,3));g.setAttribute('uv',new T.Float32BufferAttribute(uv,2));g.computeBoundingBox();g.computeBoundingSphere();g.userData.tileCount=tileCount;g.userData.cells=cells;g.userData.faceCells=faceCells;return g;
 }

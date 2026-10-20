@@ -1,0 +1,188 @@
+{
+  "date": "2026-10-20",
+  "baseCommit": "385309dd9ab691939f6178db55acc7df7d75eac0",
+  "checks": {
+    "unit": "npm run check: all 19 suites PASS, including existing geometry, prices/controllers, saved projects and new visual regressions",
+    "diagonalCaps": {
+      "wallMetres": [
+        3,
+        2.6
+      ],
+      "before": 28,
+      "after": 0
+    },
+    "browser": [
+      {
+        "viewport": 390,
+        "total": "1 310,40 €",
+        "ready": true,
+        "thumbnail": true,
+        "columnIsolated": true,
+        "columnFinishes": [
+          "ROBLE",
+          "NOGAL",
+          "WHITE"
+        ],
+        "withoutColumn": true,
+        "quality": "balanced",
+        "diagnostics": {
+          "spec": {
+            "series": "STUDIO ONE · 2 tiroirs",
+            "width": 0.8,
+            "height": 0.54,
+            "depth": 0.46,
+            "bottom": 0.28,
+            "panel": 0.019,
+            "mirrorDiameter": 0.6,
+            "basin": "Sella 80 · blanc brillant",
+            "cabinetRef": "13692",
+            "basinRef": "2171",
+            "mirrorRef": "3717"
+          },
+          "surfaces": {
+            "floor": {
+              "collection": "Shell",
+              "color": "Beige",
+              "file": "shell-beige.webp",
+              "width": 1.2,
+              "height": 0.6,
+              "grout": 0.002,
+              "roughness": 0.7,
+              "bumpScale": 0.00022
+            },
+            "wall": {
+              "collection": "Creta",
+              "color": "Avena",
+              "file": "creta-avena.webp",
+              "width": 1.2,
+              "height": 0.6,
+              "grout": 0.002,
+              "roughness": 0.82,
+              "bumpScale": 0.00012
+            }
+          },
+          "three": "180",
+          "meshes": 102,
+          "triangles": 39943,
+          "drawCalls": 132,
+          "mirrorRenders": 6,
+          "frames": 7,
+          "pixelRatio": 1,
+          "qualityMode": "balanced",
+          "qualityProfile": "balanced",
+          "frameMs": 0,
+          "loadMs": 11589,
+          "geometryBounds": [
+            0.7999999993890525,
+            0.5400000214576721,
+            0.45999999850243334
+          ]
+        },
+        "errors": [],
+        "failures": []
+      },
+      {
+        "viewport": 1440,
+        "total": "1 310,40 €",
+        "ready": true,
+        "thumbnail": true,
+        "columnIsolated": true,
+        "columnFinishes": [
+          "ROBLE",
+          "NOGAL",
+          "WHITE"
+        ],
+        "withoutColumn": true,
+        "quality": "balanced",
+        "diagnostics": {
+          "spec": {
+            "series": "STUDIO ONE · 2 tiroirs",
+            "width": 0.8,
+            "height": 0.54,
+            "depth": 0.46,
+            "bottom": 0.28,
+            "panel": 0.019,
+            "mirrorDiameter": 0.6,
+            "basin": "Sella 80 · blanc brillant",
+            "cabinetRef": "13692",
+            "basinRef": "2171",
+            "mirrorRef": "3717"
+          },
+          "surfaces": {
+            "floor": {
+              "collection": "Shell",
+              "color": "Beige",
+              "file": "shell-beige.webp",
+              "width": 1.2,
+              "height": 0.6,
+              "grout": 0.002,
+              "roughness": 0.7,
+              "bumpScale": 0.00022
+            },
+            "wall": {
+              "collection": "Creta",
+              "color": "Avena",
+              "file": "creta-avena.webp",
+              "width": 1.2,
+              "height": 0.6,
+              "grout": 0.002,
+              "roughness": 0.82,
+              "bumpScale": 0.00012
+            }
+          },
+          "three": "180",
+          "meshes": 102,
+          "triangles": 40543,
+          "drawCalls": 134,
+          "mirrorRenders": 6,
+          "frames": 7,
+          "pixelRatio": 1,
+          "qualityMode": "balanced",
+          "qualityProfile": "balanced",
+          "frameMs": 0,
+          "loadMs": 16987,
+          "geometryBounds": [
+            0.7999999993890525,
+            0.5400000214576721,
+            0.45999999850243334
+          ]
+        },
+        "errors": [],
+        "failures": []
+      }
+    ],
+    "pixels": [
+      {
+        "viewport": 390,
+        "blueMirrorPixels": 17213,
+        "redMirrorPixels": 18379,
+        "changedRegion": [
+          121,
+          147,
+          269,
+          295
+        ],
+        "stationaryFrameDifference": null
+      },
+      {
+        "viewport": 1440,
+        "blueMirrorPixels": 40824,
+        "redMirrorPixels": 44064,
+        "changedRegion": [
+          405,
+          173,
+          633,
+          402
+        ],
+        "stationaryFrameDifference": null
+      }
+    ]
+  },
+  "conditions": "Chromium WebGL 2 with ANGLE SwiftShader; touch/viewport emulation at 390x844 and desktop 1440x1000. Locally built application files served under the production origin; textures, HDR, bath geometry and commercial API loaded from real online URLs. No asset mocks.",
+  "build": {
+    "app.js": "d0e441ac0873b3852fd962b207ffb29269e77d7bd8e6a9a33414c1e668513751",
+    "accueil.js": "23c368a2357e0842545c82f3e1c77166cf52eea21fbd52e68921a4924bfd2a80",
+    "accueil.css": "959d2fc01b9c479df5061b94b181dd4de5c8939bf32c74b2110621580b6cffce"
+  },
+  "isolation": "STUDIO ONE BETA V2 production branch only; no RANDAL General changes."
+}
