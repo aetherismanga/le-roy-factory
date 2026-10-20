@@ -20,6 +20,17 @@ body[data-view=wizard][data-step="0"] .wizard-body{display:block}body[data-view=
 
 .official-photo:not([data-photo-ready="true"])::after{content:"Chargement de la photo…";position:absolute;inset:0;display:grid;place-items:center;padding:12px;background:#e8e0d2;color:#77745f;font-size:10px;text-align:center}.official-photo[data-photo-ready="error"]::after{content:"Photo indisponible · vérifiez la connexion"}.model-backdrop:not([data-photo-ready="true"]){opacity:0}
 
+/* Keep navigation in the available viewport; only choices scroll. */
+@media screen{
+ :root{--app-safe-bottom:max(env(safe-area-inset-bottom,0px),var(--host-safe-bottom,0px))}
+ body{height:100vh;height:var(--app-height,100dvh);min-height:0}
+ #app-main,.wizard{min-height:0;overflow:hidden}
+ .wizard-body{flex:1 1 0;min-height:0}
+ .wizard-footer{flex-shrink:0;padding-bottom:max(12px,var(--app-safe-bottom))}
+ body[data-view=wizard][data-step="0"] .step-content{display:block;overflow-y:auto;overscroll-behavior:contain}
+ body[data-view=wizard][data-step="0"] .model-grid{width:100%;height:auto;grid-template-rows:none;grid-auto-rows:clamp(180px,calc(var(--app-height,100dvh)*.4),350px);padding:2px}
+}
+
 /* Catalogue general: same application, official collection photography. */
 :root{--ink:#292c28;--gold:#9e8157;--line:#ded9cd;--paper:#fffef9;background:#f3f0e8;color:#292c28}
 .general-brand{font-size:25px;letter-spacing:3px;font-weight:800;line-height:1}.general-brand small{display:block;font-size:7px;letter-spacing:1.8px;font-weight:500;margin-top:7px}.brand-signature{font-size:8px;letter-spacing:1.5px}
@@ -27,3 +38,12 @@ body[data-view=home] #app-main{overflow-y:auto;scroll-behavior:smooth}body[data-
 #general-collections{padding:70px max(24px,calc((100vw - 1160px)/2)) 90px;background:#f4f1e9}body:not([data-view=home]) #general-collections{display:none}.collection-intro{margin-bottom:30px}.collection-intro h2{font:400 clamp(35px,4vw,52px)/1.1 Georgia,serif;letter-spacing:-1px;margin:12px 0 20px}.collection-intro p{line-height:1.7;color:#6f7165;font-size:14px}.collection-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px 22px}.collection-grid button{background:none;border:0;text-align:left;padding:0;color:inherit;display:flex;flex-direction:column;gap:10px}.collection-grid img{width:100%;aspect-ratio:1.25;object-fit:cover;border-radius:3px}.collection-grid span{display:flex;justify-content:space-between;font-size:21px;font-family:Georgia,serif}.collection-grid small{color:#72746b;font-size:10px}.collection-grid b{font:400 16px Arial}.collection-grid button:hover img{filter:brightness(1.05)}
 .model-grid{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}.model-card .model-art{display:none}.model-card{grid-template-rows:minmax(120px,1fr) 55px}.official-photo{min-height:140px}.official-photo::after{display:none!important}.official-photo .general-model-photo{width:100%;height:100%;object-fit:contain;position:absolute;inset:0;mix-blend-mode:multiply}.model-backdrop{display:none!important}.model-card .selected-mark{z-index:2}.column-choice-label{padding:30px}.selection-note{line-height:1.6}.wizard-body{min-height:0}.quote-total small#quote-tax{font-size:11px}.brand-home{white-space:normal}
 @media(max-width:760px){.general-brand{font-size:19px}.general-brand small{font-size:5px}.brand-signature{display:none}.collection-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 14px}.collection-grid span{font-size:18px}.collection-grid small{font-size:8px}#general-collections{padding:38px 18px 65px}.collection-intro p{font-size:12px}body[data-view=home] .landing{min-height:650px}.model-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.model-card{grid-template-rows:minmax(100px,1fr) 48px}.official-photo{min-height:100px}#beta-label{font-size:6px;letter-spacing:.5px}.landing h1{font-size:42px}}
+@media screen and (max-width:760px){
+ .wizard-footer button{min-height:44px}
+ .wizard-body{grid-template-rows:minmax(0,min(27dvh,40%)) minmax(0,1fr) auto}
+ .wizard-footer{padding-bottom:max(12px,var(--app-safe-bottom))}
+}
+@media screen and (max-height:480px){
+ .wizard{padding-top:3px}.progress-line{height:20px}.wizard h1{font-size:20px;margin:2px 0}.wizard-heading>p{margin-bottom:4px}
+ .wizard-footer{padding-top:6px}
+}

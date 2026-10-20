@@ -1,3 +1,4 @@
+import './viewport.js';
 import {prepareFinishTexture,finishTextureURL} from './finish-texture.js';
 import {CATALOG as GeneralCatalog} from './commerce/catalog.js';
 import {columnFormat,finishesFor,formatsFor,defaultTop} from './configuration.js';

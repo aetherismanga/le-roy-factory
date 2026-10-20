@@ -1,3 +1,4 @@
+import '../viewport.js';
 import {topAvailable,defaultTop} from '../configuration.js';
 import {CATALOG as C} from './catalog.js';
 import {money,quoteProject,finish} from './pricing.js';
