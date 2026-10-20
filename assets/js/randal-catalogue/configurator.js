@@ -653,4 +653,3 @@ window.RandalCatalogue={
 
 render();
 })();
-
