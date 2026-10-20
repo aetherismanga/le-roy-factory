@@ -1,3 +1,4 @@
+import {createProjectNavigation} from './navigation.js';
 import {CATALOG as C} from './catalog.js';
 import {money,quoteProject,finish} from './pricing.js';
 import {initialDraft,normalizeDraft,draftProject,DRAFT_KEY,TRANSFER_KEY} from './guided.js';
@@ -9,10 +10,14 @@ import {FLOW_KEY,QUOTE_KEY,QUOTE_CONTEXT,ACTIVE_ID,CURRENT_KEY,SAVED_KEY,ORDER_T
 const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 if(new URLSearchParams(location.hash.slice(1)).has('projet'))location.replace('atelier.html'+location.hash);
 const read=(key,fallback=null)=>{try{return readStored(localStorage,key,fallback);}catch{return fallback;}};
+const routeParams=new URLSearchParams(location.search);
+if(routeParams.get('new')==='1'){for(const key of [DRAFT_KEY,TRANSFER_KEY,CURRENT_KEY,QUOTE_KEY,QUOTE_CONTEXT,FLOW_KEY,ACTIVE_ID])localStorage.removeItem(key);routeParams.delete('new');history.replaceState({},'',location.pathname+'?'+routeParams+location.hash);}
 let draft=initialDraft(),view='home',step=0,project=null,projectTitle='Ma salle de bains',siteReference='',quoteMode='guided',session=null,guest=null,orderPurpose='send';
 let preview=null,previewPromise=null,previewFailed=false,previewTurn=0,lastPreviewProject=null,identityStarted=false,previewScope='composition';
 const identity=createIdentity(()=>currentComposition(),state=>{session=state;renderAccount();});
 try{draft=normalizeDraft(read(DRAFT_KEY,initialDraft()));const prior=read(QUOTE_KEY);if(prior){projectTitle=prior.title||projectTitle;siteReference=prior.siteReference||'';}}catch{}
+function navigationProject(){try{if(view==='quote'&&project)return project;if(view==='wizard')return {...draftProject(draft),title:projectTitle,siteReference};const prior=read(FLOW_KEY);if(prior?.view==='atelier'||prior?.view==='quote')return read(CURRENT_KEY)||read(QUOTE_KEY);if(read(DRAFT_KEY))return {...draftProject(draft),title:projectTitle,siteReference};}catch{}return null;}
+const projectNavigation=createProjectNavigation({getProject:navigationProject,save:p=>saveComposition(localStorage,p,{id:localStorage.getItem(ACTIVE_ID)||null})});
 function currentComposition(){try{if(view==='quote')return project;if(view==='wizard'&&step>0)return {...draftProject(draft),title:projectTitle,siteReference};}catch{}return null;}
 function commercialChanged(){if(!identityStarted){identityStarted=true;identity.load();}else identity.schedule();}
 function documentGuest(){if(!guest)return null;const c=session?.client;return c?guest.forClient===(c.codeClient||c.email)?guest:null:guest.forClient?null:guest;}
@@ -102,7 +107,7 @@ function openSaved(projectData,id=null){try{project=checkedProject(projectData);
 function downloadProject(p){const blob=new Blob([JSON.stringify(checkedProject(p),null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='studio-one-projet.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);}
 function showProjects(){const all=read(SAVED_KEY,[]),list=$('#projects-list');list.replaceChildren();for(const p of Array.isArray(all)?all.slice(0,20):[]){const card=document.createElement('article');card.className='saved-card';const title=document.createElement('div'),name=document.createElement('strong'),date=document.createElement('small');name.textContent=p.title||'Ma composition';date.textContent=p.date?new Date(p.date).toLocaleDateString('fr-FR'):'';title.append(name,date);const actions=document.createElement('div');actions.className='saved-actions';const open=document.createElement('button');open.className='primary';open.textContent='Ouvrir';open.onclick=()=>openSaved(p.data,p.id);const file=document.createElement('button');file.className='secondary';file.textContent='Exporter .json';file.onclick=()=>{try{downloadProject(p.data);}catch(e){error(e.message,'#projects-status');}};actions.append(open,file);card.append(title,actions);list.append(card);}if(!list.children.length){const p=document.createElement('p');p.className='muted';p.textContent='Vos projets enregistrés apparaîtront ici. Vous pouvez aussi importer un fichier exporté depuis l’atelier.';list.append(p);}error('','#projects-status');$('#projects-dialog').showModal();}
 $('#landing-image').src=C.media+'hero-meuble-hd.webp';
-$('#new-project').onclick=()=>{draft=initialDraft();project=null;projectTitle='Ma salle de bains';siteReference='';guest=null;quoteMode='guided';try{localStorage.removeItem(ACTIVE_ID);localStorage.removeItem(QUOTE_KEY);localStorage.removeItem(QUOTE_CONTEXT);}catch{}switchView('wizard',0);};
+$('#new-project').onclick=()=>projectNavigation.request(()=>{for(const key of [DRAFT_KEY,TRANSFER_KEY,CURRENT_KEY,QUOTE_KEY,QUOTE_CONTEXT,FLOW_KEY,ACTIVE_ID])localStorage.removeItem(key);draft=initialDraft();project=null;projectTitle='Ma salle de bains';siteReference='';guest=null;quoteMode='guided';switchView('wizard',0);},'new');
 $('#resume-project').onclick=()=>{const flow=read(FLOW_KEY,{view:'wizard',step:0});if(flow.view==='wizard'){project=null;switchView('wizard',flow.step);return;}const data=read(CURRENT_KEY)||read(QUOTE_KEY);if(data){if(flow.view==='atelier'){launch(data);return;}try{project=checkedProject(data);quoteMode=read(QUOTE_CONTEXT,{mode:'scene'}).mode;switchView('quote');return;}catch{}}switchView('wizard',0);};
 $('#saved-projects').onclick=showProjects;
 $('#direct-atelier').onclick=()=>{try{localStorage.setItem(FLOW_KEY,JSON.stringify({view:'atelier',step}));}catch{}location.href='atelier.html';};
