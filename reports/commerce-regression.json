@@ -1,0 +1,95 @@
+{
+  "suites": [
+    {
+      "suite": "formats-result.json",
+      "passed": true,
+      "at": "2026-10-20T11:14:29.588Z"
+    },
+    {
+      "suite": "controls-result.json",
+      "passed": true,
+      "at": "2026-10-20T11:14:28.476Z"
+    },
+    {
+      "suite": "navigation-result.json",
+      "passed": true,
+      "at": "2026-10-20T11:14:30.539Z"
+    },
+    {
+      "suite": "enhancements-result.json",
+      "passed": true,
+      "at": "2026-10-20T11:14:33.255Z"
+    },
+    {
+      "suite": "picking-result.json",
+      "passed": true,
+      "at": "2026-10-20T11:14:29.813Z"
+    },
+    {
+      "suite": "mission-result.json",
+      "passed": true,
+      "at": "2026-10-20T11:14:33.581Z"
+    },
+    {
+      "suite": "openings-result.json",
+      "passed": true,
+      "at": "2026-10-20T11:14:30.716Z"
+    },
+    {
+      "suite": "quality-tiers-result.json",
+      "passed": true,
+      "at": "2026-10-20T11:14:31.175Z"
+    },
+    {
+      "suite": "bathroom-result.json",
+      "passed": true,
+      "at": "2026-10-20T11:14:32.082Z"
+    },
+    {
+      "suite": "options-result.json",
+      "passed": true,
+      "at": "2026-10-20T11:14:21.043Z"
+    },
+    {
+      "suite": "performance-result.json",
+      "passed": true,
+      "at": "2026-10-20T11:14:31.073Z"
+    },
+    {
+      "suite": "surfaces-result.json",
+      "passed": true,
+      "at": null
+    },
+    {
+      "suite": "geometry-result.json",
+      "passed": true,
+      "at": "2026-10-20T11:14:20.736Z"
+    },
+    {
+      "suite": "renovation-result.json",
+      "passed": true,
+      "at": "2026-10-20T11:14:32.556Z"
+    },
+    {
+      "suite": "placement-result.json",
+      "passed": true,
+      "at": "2026-10-20T11:14:31.011Z"
+    },
+    {
+      "suite": "room-result.json",
+      "passed": true,
+      "at": "2026-10-20T11:14:29.964Z"
+    },
+    {
+      "suite": "composition-result.json",
+      "passed": true,
+      "at": "2026-10-20T11:14:30.427Z"
+    },
+    {
+      "suite": "detail-fixes-result.json",
+      "passed": true,
+      "at": "2026-10-20T11:14:32.885Z"
+    }
+  ],
+  "notes": "Geometry/controller regressions. Browser 3D acceptance is recorded separately."
+}

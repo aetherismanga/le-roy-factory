@@ -1,3 +1,4 @@
+import { mountCommerce } from './commerce/atelier.js';
 import * as T from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { Reflector } from 'three/addons/objects/Reflector.js';
@@ -53,6 +54,7 @@ let frames=0,lastTime=0,lastMove=0,running=true,startedAt=performance.now();
 let walkMode=null;
 let roomScene=null,roomEditor=null,roomConfig=cloneRoom(DEFAULT_ROOM),selectedWall=0,wallFinishes=[];
 let journal=null,restoring=false,projectTimer=null;let workspace='furniture';let savedViews=[];let toastTimer=null;let profileSettings={enabled:true,internalCorners:false,color:'Argent',walls:[]},profileAsset=null,tileLoss=10;let paintTexture=null;let tileEditing=false,selectedTile=null;
+let refreshCommerce=()=>{};
 let baseExposure=1.05,cabinetContact;let counterDecor=[];let composition=null,dragController=null;
 
 function showError(e){$('#loading').classList.add('done');$('#error').hidden=false;$('#error-text').textContent=e?.message?.includes('WebGL')?'Votre navigateur ne permet pas de lancer WebGL 2. Essayez une version récente de Safari, Chrome ou Firefox.':'Une ressource 3D n’a pas pu être chargée. Vérifiez votre connexion puis réessayez.';console.error(e);}
@@ -380,7 +382,7 @@ function setView(name,instant=false){stopOrbit();state.view=name;const portrait=
  if(instant||reduced){camera.position.copy(pos);controls.target.copy(target);controls.update();}else viewTween={from:camera.position.clone(),to:pos,fromTarget:controls.target.clone(),toTarget:target,start:performance.now(),duration:850};
  $$('[data-view]').forEach(b=>{const a=b.dataset.view===name;b.classList.toggle('active',a);b.setAttribute('aria-pressed',String(a));});invalidate();}
 function zoom(scale){viewTween=null;const o=camera.position.clone().sub(controls.target);o.multiplyScalar(scale);o.clampLength(controls.minDistance,controls.maxDistance);camera.position.copy(controls.target).add(o);controls.update();invalidate();}
-function invalidate(updateShadows=true){scheduleProjectCheckpoint();if(updateShadows){shadowsDirty=true;sceneRevision++;fitCompositionLights();if(quality.profile.id==='fluid')applyArchitecturalGlass(scene,true);}lastMove=performance.now();if(!running){running=true;lastTime=0;requestAnimationFrame(animate);}}
+function invalidate(updateShadows=true){refreshCommerce();scheduleProjectCheckpoint();if(updateShadows){shadowsDirty=true;sceneRevision++;fitCompositionLights();if(quality.profile.id==='fluid')applyArchitecturalGlass(scene,true);}lastMove=performance.now();if(!running){running=true;lastTime=0;requestAnimationFrame(animate);}}
 function resize(){isMobile=innerWidth<761;dockInspector();if(!renderer)return;const w=stage.clientWidth,h=stage.clientHeight;activePixelRatio=renderPixelRatio(quality.profile,w,h,Math.min(devicePixelRatio||1,isMobile?1.7:2.5));renderer.setPixelRatio(activePixelRatio);renderer.setSize(w,h,false);ultraPipeline?.resize(w,h,activePixelRatio);camera.aspect=w/h;camera.updateProjectionMatrix();invalidate();}
 function animate(time){if(!state.ready){running=false;return;}const dt=lastTime?Math.min((time-lastTime)/1000,.06):.016;lastTime=time;frames++;
  const walking=walkMode?.tick(dt)||false;
@@ -409,6 +411,7 @@ async function start(){
   makeUI();setupPicking();roomEditor=createRoomEditor({getRoom:()=>roomConfig,getWidth:()=>composition?0:state.width,getOpenings:()=>composition.snapshot().filter(i=>isOpening(i.type)),onApply:applyRoomPlan});resize();$('#progress').style.width='15%';
   await preload();selectFinish('ROBLE');selectLighting('day');selectSurface('floor','beige');selectSurface('wall','avena');applyAllRoomMaterials();selectTop('sella');setView('perspective',true);
   state.ready=true;refreshLayouts();$('#floor-collection').disabled=$('#wall-collection').disabled=false;$$('[data-surface-color]').forEach(b=>b.disabled=false);refreshWidthUI();syncCompositionToggle();renderComposition();setBrightness(100);applyQuality();initializeProjectSession();$('#loading').classList.add('done');canvas.setAttribute('aria-busy','false');running=false;invalidate();
+  refreshCommerce=mountCommerce(collectProject);
   new ResizeObserver(resize).observe(stage);document.addEventListener('visibilitychange',()=>{quality.pause();if(!document.hidden)invalidate();});
   canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();showError(new Error('WebGL context lost'));});canvas.addEventListener('webglcontextrestored',()=>location.reload());
   // Read-only diagnostics for the experimental acceptance checks. No analytics,
@@ -508,7 +511,15 @@ function scheduleProjectCheckpoint(){if(!journal||restoring||!state.ready||dragC
 function updateHistoryButtons(){if(!journal)return;$('#undo').disabled=!journal.canUndo;$('#redo').disabled=!journal.canRedo;}
 function undoProject(){if(!journal)return;clearTimeout(projectTimer);journal.record(collectProject());const data=journal.undo();if(data)restoreProject(data);updateHistoryButtons();}
 function redoProject(){if(!journal)return;clearTimeout(projectTimer);const data=journal.redo();if(data)restoreProject(data);updateHistoryButtons();}
-function initializeProjectSession(){if(journal)return;setWorkspace('furniture');journal=new ProjectJournal();let data;try{const hash=new URLSearchParams(location.hash.slice(1)).get('projet');data=hash?decodeProject(hash):JSON.parse(localStorage.getItem('studio-one-current-project')||'null');}catch{}if(data)restoreProject(data);else restoreProject(defaultBathroomProject());journal.seed(collectProject());updateHistoryButtons();}
+function initializeProjectSession(){
+ if(journal)return;setWorkspace('furniture');journal=new ProjectJournal();let data,guided=false;
+ try{const hash=new URLSearchParams(location.hash.slice(1)).get('projet');guided=new URLSearchParams(location.search).get('guided')==='1';data=hash?decodeProject(hash):JSON.parse(localStorage.getItem(guided?'studio-one-guided-transfer-v1':'studio-one-current-project')||'null');
+  if(guided&&!data)throw Error('Le transfert de votre composition est introuvable. Revenez à l’accueil pour le relancer.');
+  if(data){if(!restoreProject(data))throw Error('La composition ne peut pas être ouverte. Vos choix restent enregistrés sur la page d’accueil.');if(guided){localStorage.removeItem('studio-one-guided-transfer-v1');const url=new URL(location.href);url.searchParams.delete('guided');history.replaceState(null,'',url);}}
+  else restoreProject(defaultBathroomProject());
+ }catch(e){placementStatus(e.message||'Projet enregistré incompatible.');if(guided){const box=document.createElement('p');box.className='commerce-status';box.setAttribute('role','alert');box.textContent=(e.message||'Transfert indisponible.')+' Les éléments affichés ne constituent pas la configuration sélectionnée. ';const link=document.createElement('a');link.href='/';link.textContent='Revenir à ma sélection';box.append(link);document.querySelector('#settings .panel-heading').after(box);}}
+ journal.seed(collectProject());updateHistoryButtons();
+}
 function storedProjects(){try{const data=JSON.parse(localStorage.getItem('studio-one-projects')||'[]');return Array.isArray(data)?data.slice(0,20):[];}catch{return [];}}
 function captureImage(width=1920,thumbnail=false){const w=stage.clientWidth,h=stage.clientHeight,ratio=renderer.getPixelRatio(),size=new T.Vector2();renderer.getSize(size);try{const desired=thumbnail?320:width,scale=Math.min(desired/w,quality.profile.ao?4:3);renderer.setPixelRatio(scale);renderer.setSize(w,h,false);ultraPipeline?.resize(w,h,scale);if(ultraPipeline)ultraPipeline.render(.016);else renderer.render(scene,camera);return canvas.toDataURL(thumbnail?'image/webp':'image/png',.8);}finally{renderer.setPixelRatio(ratio);renderer.setSize(size.x,size.y,false);ultraPipeline?.resize(w,h,ratio);invalidate(false);}}
 function saveProject(){try{const data=collectProject(),all=storedProjects(),title=data.title.trim()||'Ma salle de bain',saved={id:Date.now().toString(36),title,date:new Date().toISOString(),data,thumbnail:captureImage(320,true)};const same=all.findIndex(p=>p.title===title);if(same>=0)all[same]=saved;else all.unshift(saved);localStorage.setItem('studio-one-projects',JSON.stringify(all.slice(0,20)));placementStatus('Projet enregistré sur cet appareil.');}catch{placementStatus('Enregistrement local indisponible : exportez le projet JSON.');}}

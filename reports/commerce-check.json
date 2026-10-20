@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "sourceComparisons": 8393,
+  "checks": [
+    "Exact public TTC and references compared with legacy source where supplied",
+    "8 finish references, including BISC. preserved",
+    "Incompatible and unknown selections rejected; missing prices remain null",
+    "Unsupported equipment does not change furniture subtotal",
+    "Visitor cannot grant PRO access by injecting code, price or discount",
+    "Verified synthetic session reveals no guessed terms or rate",
+    "Invalid/revoked session and cross-origin calls rejected; no-store responses"
+  ],
+  "authorizedRealAccount": "NOT RUN — no client credential used; individual terms absent in existing session API"
+}

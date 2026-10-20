@@ -1,0 +1,11 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "rewrites": [
+    {"source": "/", "destination": "/accueil.html"},
+    {"source": "/atelier.html", "destination": "/index.html"}
+  ],
+  "headers": [
+    {"source": "/api/(.*)", "headers": [{"key": "Cache-Control", "value": "private, no-store"}]}
+  ]
+}
