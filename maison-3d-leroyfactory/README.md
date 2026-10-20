@@ -83,7 +83,7 @@ Projet distinct : `maison-3d-leroyfactory`.
 
 - Racine : `maison-3d-leroyfactory` ; commande : `npm run build` ; sortie : `dist`.
 - `sourceFilesOutsideRootDirectory: true` est requis pour les imports du moteur.
-- Déployer un SHA de la branche de prévisualisation avec `target: preview`.
+- Déployer un SHA de la branche de prévisualisation avec `target: staging` via l’API Vercel (ou le mode preview du CLI).
 - Ne pas promouvoir vers la production et ne pas modifier les domaines officiels.
 - En-tête `X-Robots-Tag: noindex, nofollow, noarchive` et `robots.txt` restrictif.
   L'URL de prévisualisation est partageable, sans authentification client.
