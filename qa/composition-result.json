@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "at": "2026-10-19T22:38:55.468Z",
+  "checks": [
+    "catalogue column dimensions 38x132x27cm and reference14177",
+    "two 19mm shelves and real vertical 45-degree door edge",
+    "independent object mounts on any room wall",
+    "collision, wall boundary, room height and invalid-room rollback",
+    "mouse hold dragging without camera orbit",
+    "short touch movement preserves orbit; long hold moves object",
+    "pinch cancels pending hold; pointercancel restores original placement",
+    "dragging never triggers the tap palette",
+    "32-object cap and individual deletion"
+  ],
+  "browserQA": "No browser/WebGL rendering; geometry and actual drag controller tested in Node"
+}

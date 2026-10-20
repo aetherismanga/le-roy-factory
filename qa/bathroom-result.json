@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "at": "2026-10-19T22:40:45.178Z",
+  "checks": [
+    "four verified cabinet formats and drawer travel at three widths",
+    "all twelve bathtub length/type combinations have finite real hollow geometry",
+    "all shower finishes, six widths and two screen styles",
+    "123 Aqua Home references produce bounded 3D meshes; catalog finishes preserved",
+    "free floor placement/rotation, temporary overlap and settle",
+    "horizontal/vertical, aligned/staggered tile coverage and window cuts",
+    "history capacity/branching, Unicode portable project encoding and import validation",
+    "all new DOM IDs present once; four responsive workspaces; no remote runtime assets"
+  ],
+  "meshCount": 1946,
+  "triangles": 895416,
+  "browserQA": "Not run: CPU geometry/controllers/markup only; no actual device performance or GPU/visual validation"
+}

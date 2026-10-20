@@ -1,1 +1,0 @@
-import{SERIES}from'./series.js';export function compatibleSeries(pattern){if(!pattern)return[];return SERIES.filter(series=>pattern.formats.every(format=>series.formats.includes(format)));}

@@ -1,1 +1,0 @@
-import{createSegmentoPattern as c}from'./factory.js';export default c(7,['000111','001110','011100','111000','110001','100011']);

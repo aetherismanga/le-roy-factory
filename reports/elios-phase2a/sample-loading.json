@@ -1,6 +1,0 @@
-{
-  "loadedTextures": 73,
-  "status": "PASS",
-  "renderer": "STUDIO ONE Three.js / Chromium SwiftShader",
-  "note": "All 73 active textures reached ready; stale pending-preview requests identified during that run were then removed from the catalogue."
-}

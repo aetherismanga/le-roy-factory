@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "at": "2026-10-19T22:38:55.796Z",
+  "checks": [
+    "real glazed window and 40mm hinged door geometry",
+    "tiles, grout and backing genuinely cut with correct net area",
+    "all four wall placements and restoration after movement/deletion",
+    "existing tile material preserved during cuts",
+    "door remains on floor; width/height and collision limits enforced",
+    "black/white frames and reversible door hinge preserve open progress",
+    "custom chamfered room retains cuts transactionally",
+    "actual dragging through window glazing stays on its wall"
+  ],
+  "browserQA": "Node geometry and shipped drag controller; no browser/WebGL visual validation"
+}

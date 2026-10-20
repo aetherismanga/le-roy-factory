@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "date": "2026-10-19T22:38:48.971Z",
+  "checks": [
+    "physical 60x120cm modules",
+    "2mm joints and recessed grout",
+    "floor lies at y=0",
+    "legacy reference-grid geometry remains valid; custom room checked separately",
+    "authentic textures unchanged byte for byte",
+    "local texture loading and sRGB colour space",
+    "wall cutaway retained"
+  ],
+  "surfaces": [
+    {
+      "kind": "floor",
+      "collection": "Shell",
+      "color": "Beige",
+      "format": "60x120",
+      "jointMm": 2,
+      "tiles": 200,
+      "bytes": 271108,
+      "sha256": "99a6fa45f1144b5bad49ce3a1a3e96fb2ef12d752655d07feef36ec8af4440d7"
+    },
+    {
+      "kind": "wall",
+      "collection": "Creta",
+      "color": "Avena",
+      "format": "60x120",
+      "jointMm": 2,
+      "tiles": 25,
+      "bytes": 85300,
+      "sha256": "103c15a27588b04216c6aa5a80af8da81dbbb8ced605b9a097b36e34c5c05ebe"
+    }
+  ]
+}

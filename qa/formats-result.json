@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "at": "2026-10-19T22:38:54.614Z",
+  "widthsCm": [
+    40,
+    41,
+    49,
+    50,
+    59,
+    60,
+    70,
+    75,
+    80,
+    90,
+    100,
+    119,
+    120
+  ],
+  "presetsCm": [
+    60,
+    70,
+    80,
+    90,
+    100,
+    120
+  ],
+  "drawerTravelsMetres": [
+    0.2,
+    0.315
+  ],
+  "checks": [
+    "true cabinet and worktop widths",
+    "panel thickness remains19mm at every width",
+    "vessel sizes never stretched",
+    "compatible basin selection enforced",
+    "all visible geometry fits phone and desktop camera presets with drawers open"
+  ]
+}

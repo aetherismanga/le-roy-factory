@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "at": "2026-10-19T22:38:54.855Z",
+  "checks": [
+    "raycast actual furniture, inset basins, vessels, tiles and matching worktop",
+    "hidden ancestors and foreground occlusion respected",
+    "open drawers use updated world transforms",
+    "tap, orbit, right pan, pinch, cancel and long press distinguished",
+    "only catalogue-supported colours and references offered"
+  ],
+  "browserQA": "Not run; geometric raycasting and shipped controls tested in Node"
+}

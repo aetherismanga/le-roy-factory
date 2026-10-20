@@ -1,14 +1,16 @@
 {
-  "name": "lrf-client-virtuel-tests",
+  "name": "studio-one-atelier-3d",
   "version": "1.0.0",
   "private": true,
-  "description": "Tests Playwright du client virtuel LE ROY FACTORY",
+  "type": "module",
   "scripts": {
-    "test:e2e": "playwright test",
-    "test:e2e:desktop": "playwright test --project=desktop-chrome",
-    "test:e2e:mobile": "playwright test --project=iphone-webkit --project=android-chrome"
+    "build": "node build.mjs",
+    "check": "node qa/geometry-check.mjs && node qa/surfaces-check.mjs && node qa/options-check.mjs && node qa/controls-check.mjs && node qa/formats-check.mjs && node qa/picking-check.mjs && node qa/room-check.mjs && node qa/composition-check.mjs && node qa/navigation-check.mjs && node qa/openings-check.mjs && node qa/placement-check.mjs && node qa/performance-check.mjs && node qa/quality-tiers-check.mjs && node qa/bathroom-check.mjs && node qa/renovation-check.mjs && node qa/detail-fixes-check.mjs && node qa/enhancements-check.mjs && node qa/mission-check.mjs"
+  },
+  "dependencies": {
+    "three": "0.180.0"
   },
   "devDependencies": {
-    "@playwright/test": "1.55.0"
+    "esbuild": "0.25.11"
   }
 }

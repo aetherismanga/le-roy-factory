@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "at": "2026-10-19T22:38:55.008Z",
+  "checks": [
+    "actual 2D door/window insertion, dimensions, finish, wall drag, resize and cancellation; green 90-degree drawing feedback",
+    "one-click partition insertion, simple length/direction, body/endpoint drags, cancel and straight-line snap",
+    "actual partition exact dimensions, low/full height, cancel and two-click drawing",
+    "rectangle, L and 45-degree chamfer geometry",
+    "floor tiles clipped to concave contour without overlap",
+    "physical 60x120cm UV scale and 2mm joints",
+    "wall heights, lengths and independent picking identifiers",
+    "clockwise and rotated outlines anchored to furniture wall",
+    "crossings, degenerate rooms, invalid dimensions and furniture collisions refused",
+    "actual plan dialog resize, preset, cancel and apply controls",
+    "free drawing and draggable vertices preserve applied room until confirmation",
+    "pending dimensions applied when saving"
+  ],
+  "browserQA": "Not run; geometry and controller tested in Node"
+}

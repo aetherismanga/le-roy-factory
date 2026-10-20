@@ -1,0 +1,68 @@
+{
+  "verified": "2026-10-19",
+  "sources": [
+    {
+      "brand": "ELIOS",
+      "source": "ELIOSCATALOGUE-GENERALE 2026-1.pdf (catalogue fourni, lecture seule)",
+      "pages": [
+        "224–225 Creta",
+        "334–335 Shell"
+      ],
+      "official": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "formats": {
+        "Shell 60x120": [
+          2,
+          1.44
+        ],
+        "Creta 60x120": [
+          2,
+          1.44
+        ]
+      }
+    },
+    {
+      "brand": "VIEW",
+      "url": "https://viewceramiche.com/wp-content/uploads/2023/12/View_catalogo_serie_Corso_2024_LR.pdf",
+      "pages": "36–37",
+      "formats": {
+        "60x90": [
+          2,
+          1.08
+        ],
+        "60x120": [
+          2,
+          1.44
+        ]
+      }
+    },
+    {
+      "brand": "VIEW",
+      "url": "https://viewceramiche.com/wp-content/uploads/2025/10/View_catalogo_serie_Golden_Stone_2026_LR.pdf",
+      "pages": "52–53",
+      "formats": {
+        "30x60": [
+          8,
+          1.44
+        ],
+        "60x60": [
+          4,
+          1.44
+        ],
+        "60x120": [
+          2,
+          1.44
+        ],
+        "120x120": [
+          1,
+          1.44
+        ]
+      },
+      "correction": "Ancienne liste locale 120x120=2 pcs/2.88 m2 non retenue ; catalogue officiel=1 pc/1.44 m2."
+    }
+  ],
+  "values": [
+    "piecesPerBox",
+    "squareMetresPerBox"
+  ],
+  "finish": "Naturel, épaisseur standard ; pas de mélange avec les 20 mm."
+}

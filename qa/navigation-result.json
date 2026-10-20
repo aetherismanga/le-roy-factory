@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "at": "2026-10-19T22:38:55.598Z",
+  "checks": [
+    "default mouse and touch rotation is opposite to published v12",
+    "default mouse and touch pan is opposite to published v12",
+    "direction can be toggled both ways",
+    "zoom distance unchanged"
+  ],
+  "browserQA": "CPU camera-control check, not browser rendering"
+}
