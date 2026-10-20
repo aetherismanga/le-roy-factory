@@ -1,3 +1,4 @@
+import {basinEntry} from '../basins.js';
 import {CATALOG as C} from './catalog.js';
 export const money=cents=>Number.isInteger(cents)?new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR'}).format(cents/100):'Prix sur demande';
 export const finish=id=>C.finishes.find(f=>f.id===id);
@@ -10,8 +11,8 @@ export function lineItems(item){
   const hasPlan=['plain','neris','torne'].includes(top),ref=(hasPlan?m.top:m.base)+' '+C.sizes[b].ref+'@'+f.refCode;
   row('STUDIO ONE · '+m.name,ref,(hasPlan?m.topTTC:m.bareTTC)[b],`${s.width} × ${m.height} × 46 cm · ${f.name} · ${hasPlan?'plan assorti':'sans plan bois'}`,s.width===40?'40 cm : à confirmer usine':'');
   if(['sella','tampa'].includes(top)){
-   const color=s.basinColor||'gloss',r=C.inset[top]?.[color]?.[s.width];
-   row('Vasque '+(top==='sella'?'Sella':'Tampa'),r?.ref,r?.ttc,`${s.width} cm · ${C.insetColors.find(c=>c.code===color)?.name||color}`);
+   const color=s.basinColor||'gloss',r=basinEntry(top,color,s.width,s.format,s.basinLayout);
+   row('Vasque '+(top==='sella'?'Sella':'Tampa'),r?.ref,r?.ttc,`${s.width} cm · ${C.insetColors.find(c=>c.code===color)?.name||color}${r?' · '+r.name:''}`);
   }else if(['neris','torne'].includes(top)){
    const color=C.vesselColors.find(c=>c.code===(s.basinColor||'gloss')),name=top==='neris'?'Neris':'Torne';
    row('Vasque '+name,color?.[name],color&&s.width>=(top==='neris'?50:40)?C.vesselTTC:null,color?.name||'Couleur à vérifier');

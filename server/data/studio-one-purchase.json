@@ -3,7 +3,8 @@
     "commit": "233ab6dda7fb71c5048ac1f983a67ceb3fe0b0c9",
     "path": "assets/js/studio-one/catalog.js",
     "sha256": "fc826b4e33f48ecce4527270b48212746702e41720e1e11d460bff87f8450065",
-    "rule": "C1 furniture and column purchase bases; basin source/2. Mirrors excluded: V04 values are public HT and no purchase condition is documented. No additional individual discount."
+    "rule": "C1 furniture and column purchase bases; basin source/2. Mirrors excluded: V04 values are public HT and no purchase condition is documented. No additional individual discount.",
+    "basins": "SELLA / TAMPA: supplied professional HT -50% sheet, cross-checked RANDAL V04 p38; public TTC = pro HT x2 x1.20. Black Tampa 140 not documented."
   },
   "prices": {
     "2171": 6800,
@@ -308,6 +309,19 @@
     "14177 AZUL": 17700,
     "14177 GRIS": 17700,
     "14177 BISC.": 17700,
-    "14177 GREEN": 17700
+    "14177 GREEN": 17700,
+    "6205": 9600,
+    "13547": 12500,
+    "6207": 14650,
+    "7865": 10050,
+    "7463": 14100,
+    "6231": 15200,
+    "6234": 20550,
+    "6236": 33650,
+    "13550": 19200,
+    "13551": 20750,
+    "13046": 21350,
+    "13047": 26950,
+    "13000": 45100
   }
 }

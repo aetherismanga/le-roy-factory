@@ -5,7 +5,7 @@ export const CATALOG = {
     "commit": "233ab6dda7fb71c5048ac1f983a67ceb3fe0b0c9",
     "path": "assets/js/studio-one/catalog.js",
     "sha256": "fc826b4e33f48ecce4527270b48212746702e41720e1e11d460bff87f8450065",
-    "rule": "Meubles et colonne : C1 × 2 × 1,20. Vasques et miroirs : prix public HT RANDAL V04 × 1,20. Contrôle indépendant du PDF source pages 36, 38 et 41.",
+    "rule": "Meubles et colonne : C1 × 2 × 1,20. Vasques céramiques intégrées : grille pro HT à -50 % × 2 × 1,20, concordante avec les prix publics TTC RANDAL V04 p. 38. Autres prix publics conservés et vérifiés dans le PDF source.",
     "vat": 20
   },
   "media": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/",
