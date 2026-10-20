@@ -12,6 +12,7 @@ import { tapGesture, pickEditable } from './picking.js';
 import { DEFAULT_ROOM, cloneRoom, validateRoom, makeRoom } from './room.js';
 import { createRoomEditor } from './room-editor.js';
 import { configureNavigation } from './navigation.js';
+import { createWalkMode } from './walk-mode.js';
 import { AdaptiveQuality, ReflectionSchedule, renderPixelRatio, profileSizes } from './performance.js';
 import { createUltraPipeline, applyArchitecturalGlass } from './ultra-rendering.js';
 import { dimensionSegments, projectDimensions, dimensionMarkup } from './dimensions.js';
@@ -49,6 +50,7 @@ let currentDrawers=[0,0];const tiledSurfaces={};const surfaceTextures={floor:{},
 let isMobile=innerWidth<761;const quality=new AdaptiveQuality();let activePixelRatio=1,shadowsDirty=true,sceneRevision=0;let ultraPipeline=null;
 try{const saved=localStorage.getItem('studio-one-render-quality');if(saved)quality.setMode(saved);}catch{}
 let frames=0,lastTime=0,lastMove=0,running=true,startedAt=performance.now();
+let walkMode=null;
 let roomScene=null,roomEditor=null,roomConfig=cloneRoom(DEFAULT_ROOM),selectedWall=0,wallFinishes=[];
 let journal=null,restoring=false,projectTimer=null;let workspace='furniture';let savedViews=[];let toastTimer=null;let profileSettings={enabled:true,internalCorners:false,color:'Argent',walls:[]},profileAsset=null,tileLoss=10;let paintTexture=null;let tileEditing=false,selectedTile=null;
 let baseExposure=1.05,cabinetContact;let counterDecor=[];let composition=null,dragController=null;
@@ -350,6 +352,7 @@ function makeUI(){
  $('#about').onclick=()=>$('#details').showModal();$('#close-details').onclick=()=>$('#details').close();$('#details').addEventListener('click',e=>{if(e.target===$('#details')){const r=$('#details').getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)$('#details').close();}});
  $('#fullscreen').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else if(stage.classList.contains('expanded')){stage.classList.remove('expanded');$('#fullscreen').setAttribute('aria-label','Plein écran');}else if(stage.requestFullscreen)await stage.requestFullscreen();else{stage.classList.add('expanded');$('#fullscreen').setAttribute('aria-label','Quitter le plein écran');}}catch{stage.classList.toggle('expanded');}resize();};
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&stage.classList.contains('expanded')){stage.classList.remove('expanded');resize();}});
+ walkMode=createWalkMode({stage,canvas,camera,controls,getRoom:()=>roomScene,getItems:()=>composition?.items||[],onMove:()=>invalidate(false),onExit:()=>{}});
  canvas.addEventListener('keydown',e=>{if($('#details').open)return;const keys=['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','+','-','='];if(!keys.includes(e.key))return;e.preventDefault();if(e.key==='+'||e.key==='=')zoom(.88);else if(e.key==='-')zoom(1.14);else{stopOrbit();viewTween=null;const offset=camera.position.clone().sub(controls.target);const spherical=new T.Spherical().setFromVector3(offset);spherical.theta+=e.key==='ArrowLeft'?.1:e.key==='ArrowRight'?-.1:0;spherical.phi=T.MathUtils.clamp(spherical.phi+(e.key==='ArrowUp'?-.08:e.key==='ArrowDown'?.08:0),.18,1.6);camera.position.copy(controls.target).add(new T.Vector3().setFromSpherical(spherical));controls.update();invalidate();}});
 }
 function setDrawer(i,open){if(!selectedCabinet()||i<0||i>=model.drawers.length)return;state.drawers[i]=open?1:0;const b=$(`[data-drawer="${i}"]`);b.setAttribute('aria-pressed',String(open));b.querySelector('i').textContent=open?'Fermer ↙':'Ouvrir ↗';saveCabinetState();syncCompositionToggle();renderComposition();refreshInspector();invalidate();}
@@ -380,6 +383,7 @@ function zoom(scale){viewTween=null;const o=camera.position.clone().sub(controls
 function invalidate(updateShadows=true){scheduleProjectCheckpoint();if(updateShadows){shadowsDirty=true;sceneRevision++;fitCompositionLights();if(quality.profile.id==='fluid')applyArchitecturalGlass(scene,true);}lastMove=performance.now();if(!running){running=true;lastTime=0;requestAnimationFrame(animate);}}
 function resize(){isMobile=innerWidth<761;dockInspector();if(!renderer)return;const w=stage.clientWidth,h=stage.clientHeight;activePixelRatio=renderPixelRatio(quality.profile,w,h,Math.min(devicePixelRatio||1,isMobile?1.7:2.5));renderer.setPixelRatio(activePixelRatio);renderer.setSize(w,h,false);ultraPipeline?.resize(w,h,activePixelRatio);camera.aspect=w/h;camera.updateProjectionMatrix();invalidate();}
 function animate(time){if(!state.ready){running=false;return;}const dt=lastTime?Math.min((time-lastTime)/1000,.06):.016;lastTime=time;frames++;
+ const walking=walkMode?.tick(dt)||false;
  let moving=false;
  if(composition){for(const item of composition.items){if(item.type==='cabinet')for(let i=0;i<item.asset.drawers.length;i++){const target=(item.settings.drawers[i]||0)*drawerTravel(i,item.asset.drawers.length),delta=target-item.motion.drawers[i];if(Math.abs(delta)>.00004){item.motion.drawers[i]=reduced?target:item.motion.drawers[i]+delta*(1-Math.exp(-dt*8));moving=true;}else item.motion.drawers[i]=target;item.asset.drawers[i].position.z=item.motion.drawers[i];}else if(item.type==='column'||item.type==='door'){const target=item.settings.doorOpen?1:0,delta=target-item.motion.door;if(Math.abs(delta)>.0001){item.motion.door=reduced?target:item.motion.door+delta*(1-Math.exp(-dt*8));moving=true;}else item.motion.door=target;if(item.type==='door')item.asset.setOpenProgress(item.motion.door);else item.asset.door.rotation.y=-item.motion.door*Math.PI*.55*item.asset.getHingeSign();}}}else{
  for(let i=0;i<model.drawers.length;i++){const to=state.drawers[i]*drawerTravel(i,model.drawers.length);const delta=to-currentDrawers[i];if(Math.abs(delta)>.00004){currentDrawers[i]=reduced?to:currentDrawers[i]+delta*(1-Math.exp(-dt*8));moving=true;}else currentDrawers[i]=to;model.drawers[i].position.z=currentDrawers[i];}
@@ -391,7 +395,7 @@ function animate(time){if(!state.ready){running=false;return;}const dt=lastTime?
  roomGroup.visible=camera.position.z<2.9;
  if(moving){shadowsDirty=true;sceneRevision++;fitCompositionLights();}if(renderer.shadowMap){renderer.shadowMap.autoUpdate=false;renderer.shadowMap.needsUpdate=shadowsDirty;shadowsDirty=false;}
  renderDimensions();if(ultraPipeline)ultraPipeline.render(dt);else renderer.render(scene,camera);const qualityChanged=quality.sample(time);if(qualityChanged)applyQuality();
- if(qualityChanged||moving||state.orbit||cameraMoved||time-lastMove<250){requestAnimationFrame(animate);}else{running=false;lastTime=0;quality.pause();}
+ if(qualityChanged||moving||walking||walkMode?.active||state.orbit||cameraMoved||time-lastMove<250){requestAnimationFrame(animate);}else{running=false;lastTime=0;quality.pause();}
 }
 async function start(){
  try{
