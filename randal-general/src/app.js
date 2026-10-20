@@ -120,7 +120,7 @@ function selectedCabinet(){return !composition||composition.selected?.type==='ca
 function selectItem(id){
  if(!composition)return false;const item=composition.items.find(i=>i.id===id);if(!item)return false;if(composition.selectedId!==id)closeInspector();composition.selectedId=id;
  if(item.type==='cabinet'){model=item.asset;for(const key of CABINET_KEYS)state[key]=item.settings[key];state.drawers=[...item.settings.drawers];currentDrawers=item.motion.drawers;counterDecor=item.decor;selectFinish(state.finish);selectTop(state.top);refreshWidthUI();state.drawers.forEach((v,i)=>setDrawer(i,!!v));}
- else if(item.type==='column'){state.finish=item.settings.finish;selectFinish(state.finish);}
+ else if(item.type==='column'){state.finish=item.settings.finish;selectFinish(state.finish);refreshWidthUI();}
  renderComposition();invalidate();return true;
 }
 function renderComposition(){
