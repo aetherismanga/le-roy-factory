@@ -150,7 +150,18 @@ if(!selectedType()){
 }
 normalize();syncBasin();
 const selectedFromCatalogue=new URLSearchParams(location.search).get('collection');
-if(selectedFromCatalogue&&models.some(([name])=>name===selectedFromCatalogue)){if(st.model!==selectedFromCatalogue){resetConfiguration();st.model=selectedFromCatalogue;st.maxStep=0;}st.step=0;normalize();save();}
+if(selectedFromCatalogue&&models.some(([name])=>name===selectedFromCatalogue)){
+ // Accès catalogue : collection exacte, arrivée au choix du modèle.
+ // Conserver un brouillon compatible de la même collection ; repartir proprement sinon.
+ if(st.model!==selectedFromCatalogue){resetConfiguration();st.model=selectedFromCatalogue;st.maxStep=1;}
+ st.step=1;st.maxStep=Math.max(1,st.maxStep);normalize();syncBasin();save();
+}else if(selectedFromCatalogue){
+ // Une URL inconnue ne doit jamais présenter le brouillon d’une autre collection.
+ resetConfiguration();st.model='';st.step=0;st.maxStep=0;save();
+ const notice=document.createElement('p');notice.setAttribute('role','status');notice.className='note';
+ notice.textContent='Collection non disponible à la configuration : '+selectedFromCatalogue+'. Choisissez une collection ci-dessous.';
+ $('panel').before(notice);
+}
 const entry=(label,name,type='text',placeholder='')=>'<label class="field">'+label+'<input name="'+name+'" type="'+type+'" '+(type==='number'?'min="1" max="9" step="1"':'')+' placeholder="'+placeholder+'" value="'+esc(st[name])+'"></label>';
 const select=(label,name,opts)=>'<label class="field">'+label+'<select name="'+name+'">'+opts.map(v=>'<option value="'+esc(v)+'" '+(st[name]===v?'selected':'')+'>'+esc(v)+'</option>').join('')+'</select></label>';
 // Dessins PDF RANDAL conservés en tracés SVG : précision indépendante du zoom.
@@ -642,3 +653,4 @@ window.RandalCatalogue={
 
 render();
 })();
+
