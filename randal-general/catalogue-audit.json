@@ -1,0 +1,647 @@
+{
+  "source": {
+    "repository": "aetherismanga/le-roy-factory",
+    "studioCommit": "599a3e02af3bcb099a1bc89eedfc438238b4673b",
+    "pdf": "assets/pdf/RANDAL-V04.pdf",
+    "pdfSHA256": "accf227187da607cbf736181d2284efcfab016d1784bee0049f89c6620ef2e6b",
+    "rule": "Prix publics TTC extraits directement du PDF public RANDAL V04. Aucun coefficient Studio One, aucune nouvelle TVA appliquée.",
+    "vat": 20
+  },
+  "models": [
+    {
+      "id": "harmony-two",
+      "page": 4,
+      "refs": {
+        "60": {
+          "harmony--serenade-alba": "13255",
+          "harmony--blanco-mate": "13267",
+          "harmony--gris-tortora": "13261"
+        },
+        "70": {
+          "harmony--serenade-alba": "13342",
+          "harmony--blanco-mate": "13354",
+          "harmony--gris-tortora": "13348"
+        },
+        "80": {
+          "harmony--serenade-alba": "13257",
+          "harmony--blanco-mate": "13269",
+          "harmony--gris-tortora": "13263"
+        },
+        "90": {
+          "harmony--serenade-alba": "13344",
+          "harmony--blanco-mate": "13356",
+          "harmony--gris-tortora": "13350"
+        },
+        "100": {
+          "harmony--serenade-alba": "13346",
+          "harmony--blanco-mate": "13358",
+          "harmony--gris-tortora": "13352"
+        },
+        "120": {
+          "harmony--serenade-alba": "13259",
+          "harmony--blanco-mate": "13271",
+          "harmony--gris-tortora": "13265"
+        }
+      },
+      "bareTTC": {
+        "60": 33840,
+        "70": 34080,
+        "80": 34440,
+        "90": 38400,
+        "100": 42480,
+        "120": 62520
+      }
+    },
+    {
+      "id": "harmony-three",
+      "page": 5,
+      "refs": {
+        "60": {
+          "harmony--serenade-alba": "13256",
+          "harmony--blanco-mate": "13268",
+          "harmony--gris-tortora": "13262"
+        },
+        "70": {
+          "harmony--serenade-alba": "13343",
+          "harmony--blanco-mate": "13355",
+          "harmony--gris-tortora": "13349"
+        },
+        "80": {
+          "harmony--serenade-alba": "13258",
+          "harmony--blanco-mate": "13270",
+          "harmony--gris-tortora": "13264"
+        },
+        "90": {
+          "harmony--serenade-alba": "13345",
+          "harmony--blanco-mate": "13357",
+          "harmony--gris-tortora": "13351"
+        },
+        "100": {
+          "harmony--serenade-alba": "13347",
+          "harmony--blanco-mate": "13359",
+          "harmony--gris-tortora": "13353"
+        },
+        "120": {
+          "harmony--serenade-alba": "13461",
+          "harmony--blanco-mate": "13463",
+          "harmony--gris-tortora": "13462"
+        }
+      },
+      "bareTTC": {
+        "60": 43440,
+        "70": 47040,
+        "80": 48000,
+        "90": 51960,
+        "100": 58080,
+        "120": 87000
+      }
+    },
+    {
+      "id": "luce-single",
+      "page": 8,
+      "refs": {
+        "80": {
+          "luce--verde-utopia": "11358",
+          "luce--azul-ceylan": "11353",
+          "luce--nogal-lincoln": "11350"
+        },
+        "120": {
+          "luce--verde-utopia": "11356",
+          "luce--azul-ceylan": "11354",
+          "luce--nogal-lincoln": "11351"
+        }
+      },
+      "bareTTC": {
+        "80": 56520,
+        "120": 66360
+      }
+    },
+    {
+      "id": "brent-three",
+      "page": 12,
+      "refs": {
+        "80": {
+          "brent--vert-celadon-or-vieilli": "11093 - ORO",
+          "brent--bleu-or-vieilli": "11098 - ORO",
+          "brent--gris-clair-or-vieilli": "12547 - ORO",
+          "brent--blanc-casse-or-vieilli": "11103 - ORO",
+          "brent--vert-celadon-argent-vieilli": "11093 - PLATA",
+          "brent--bleu-argent-vieilli": "11098 - PLATA",
+          "brent--gris-clair-argent-vieilli": "12547 - PLATA",
+          "brent--blanc-casse-argent-vieilli": "11103 - PLATA"
+        },
+        "100": {
+          "brent--vert-celadon-or-vieilli": "11094 - ORO",
+          "brent--bleu-or-vieilli": "11099 - ORO",
+          "brent--gris-clair-or-vieilli": "12549 - ORO",
+          "brent--blanc-casse-or-vieilli": "11104 - ORO",
+          "brent--vert-celadon-argent-vieilli": "11094 - PLATA",
+          "brent--bleu-argent-vieilli": "11099 - PLATA",
+          "brent--gris-clair-argent-vieilli": "12549 - PLATA",
+          "brent--blanc-casse-argent-vieilli": "11104 - PLATA"
+        },
+        "120": {
+          "brent--vert-celadon-or-vieilli": "11095 - ORO",
+          "brent--bleu-or-vieilli": "11100 - ORO",
+          "brent--gris-clair-or-vieilli": "12551 - ORO",
+          "brent--blanc-casse-or-vieilli": "11105 - ORO",
+          "brent--vert-celadon-argent-vieilli": "11095 - PLATA",
+          "brent--bleu-argent-vieilli": "11100 - PLATA",
+          "brent--gris-clair-argent-vieilli": "12551 - PLATA",
+          "brent--blanc-casse-argent-vieilli": "11105 - PLATA"
+        },
+        "140": {
+          "brent--vert-celadon-or-vieilli": "11096 - ORO",
+          "brent--bleu-or-vieilli": "11101 - ORO",
+          "brent--gris-clair-or-vieilli": "12553 - ORO",
+          "brent--blanc-casse-or-vieilli": "11106 - ORO",
+          "brent--vert-celadon-argent-vieilli": "11096 - PLATA",
+          "brent--bleu-argent-vieilli": "11101 - PLATA",
+          "brent--gris-clair-argent-vieilli": "12553 - PLATA",
+          "brent--blanc-casse-argent-vieilli": "11106 - PLATA"
+        }
+      },
+      "bareTTC": {
+        "80": 93600,
+        "100": 113640,
+        "120": 131160,
+        "140": 134520
+      }
+    },
+    {
+      "id": "brent-niche",
+      "page": 12,
+      "refs": {
+        "80": {
+          "brent--vert-celadon-or-vieilli": "11087 - ORO",
+          "brent--bleu-or-vieilli": "6028 - ORO",
+          "brent--gris-clair-or-vieilli": "12546 - ORO",
+          "brent--blanc-casse-or-vieilli": "6030 - ORO",
+          "brent--vert-celadon-argent-vieilli": "11087 - PLATA",
+          "brent--bleu-argent-vieilli": "6028 - PLATA",
+          "brent--gris-clair-argent-vieilli": "12546 - PLATA",
+          "brent--blanc-casse-argent-vieilli": "6030 - PLATA"
+        },
+        "100": {
+          "brent--vert-celadon-or-vieilli": "11088 - ORO",
+          "brent--bleu-or-vieilli": "6031 - ORO",
+          "brent--gris-clair-or-vieilli": "12548 - ORO",
+          "brent--blanc-casse-or-vieilli": "6033 - ORO",
+          "brent--vert-celadon-argent-vieilli": "11088 - PLATA",
+          "brent--bleu-argent-vieilli": "6031 - PLATA",
+          "brent--gris-clair-argent-vieilli": "12548 - PLATA",
+          "brent--blanc-casse-argent-vieilli": "6033 - PLATA"
+        },
+        "120": {
+          "brent--vert-celadon-or-vieilli": "11089 - ORO",
+          "brent--bleu-or-vieilli": "6034 - ORO",
+          "brent--gris-clair-or-vieilli": "12550 - ORO",
+          "brent--blanc-casse-or-vieilli": "6036 - ORO",
+          "brent--vert-celadon-argent-vieilli": "11089 - PLATA",
+          "brent--bleu-argent-vieilli": "6034 - PLATA",
+          "brent--gris-clair-argent-vieilli": "12550 - PLATA",
+          "brent--blanc-casse-argent-vieilli": "6036 - PLATA"
+        },
+        "140": {
+          "brent--vert-celadon-or-vieilli": "11090 - ORO",
+          "brent--bleu-or-vieilli": "6037 - ORO",
+          "brent--gris-clair-or-vieilli": "12552 - ORO",
+          "brent--blanc-casse-or-vieilli": "6039 - ORO",
+          "brent--vert-celadon-argent-vieilli": "11090 - PLATA",
+          "brent--bleu-argent-vieilli": "6037 - PLATA",
+          "brent--gris-clair-argent-vieilli": "12552 - PLATA",
+          "brent--blanc-casse-argent-vieilli": "6039 - PLATA"
+        }
+      },
+      "bareTTC": {
+        "80": 86760,
+        "100": 96000,
+        "120": 118320,
+        "140": 126480
+      }
+    },
+    {
+      "id": "aruba-rainure-two",
+      "page": 16,
+      "refs": {
+        "60": {
+          "aruba-rainure--roble-amazona-acanalado": "13472",
+          "aruba-rainure--nogal-valentina-acanalado": "13475",
+          "aruba-rainure--biscuit-acanalado": "13479"
+        },
+        "70": {
+          "aruba-rainure--roble-amazona-acanalado": "13292",
+          "aruba-rainure--nogal-valentina-acanalado": "13476",
+          "aruba-rainure--biscuit-acanalado": "13480"
+        },
+        "80": {
+          "aruba-rainure--roble-amazona-acanalado": "12389",
+          "aruba-rainure--nogal-valentina-acanalado": "12390",
+          "aruba-rainure--biscuit-acanalado": "13481"
+        },
+        "90": {
+          "aruba-rainure--roble-amazona-acanalado": "13473",
+          "aruba-rainure--nogal-valentina-acanalado": "13477",
+          "aruba-rainure--biscuit-acanalado": "13482"
+        },
+        "100": {
+          "aruba-rainure--roble-amazona-acanalado": "13474",
+          "aruba-rainure--nogal-valentina-acanalado": "13478",
+          "aruba-rainure--biscuit-acanalado": "13483"
+        },
+        "120": {
+          "aruba-rainure--roble-amazona-acanalado": "12391",
+          "aruba-rainure--nogal-valentina-acanalado": "12392",
+          "aruba-rainure--biscuit-acanalado": "13484"
+        }
+      },
+      "bareTTC": {
+        "60": 55680,
+        "70": 58560,
+        "80": 60480,
+        "90": 69600,
+        "100": 72000,
+        "120": 117360
+      }
+    },
+    {
+      "id": "aruba-two",
+      "page": 18,
+      "refs": {
+        "60": {
+          "aruba--roble-amazona": "13289",
+          "aruba--nogal-valentina": "13293",
+          "aruba--biscuit": "13389",
+          "aruba--blanco-mate": "13403",
+          "aruba--serenade-alba": "13410",
+          "aruba--azul-acero": "13396"
+        },
+        "70": {
+          "aruba--roble-amazona": "13383",
+          "aruba--nogal-valentina": "13386",
+          "aruba--biscuit": "13390",
+          "aruba--blanco-mate": "13404",
+          "aruba--serenade-alba": "13411",
+          "aruba--azul-acero": "13397"
+        },
+        "80": {
+          "aruba--roble-amazona": "13290",
+          "aruba--nogal-valentina": "13294",
+          "aruba--biscuit": "13391",
+          "aruba--blanco-mate": "13405",
+          "aruba--serenade-alba": "13412",
+          "aruba--azul-acero": "13398"
+        },
+        "90": {
+          "aruba--roble-amazona": "13384",
+          "aruba--nogal-valentina": "13387",
+          "aruba--biscuit": "13392",
+          "aruba--blanco-mate": "13406",
+          "aruba--serenade-alba": "13413",
+          "aruba--azul-acero": "13399"
+        },
+        "100": {
+          "aruba--roble-amazona": "13385",
+          "aruba--nogal-valentina": "13388",
+          "aruba--biscuit": "13393",
+          "aruba--blanco-mate": "13407",
+          "aruba--serenade-alba": "13414",
+          "aruba--azul-acero": "13400"
+        },
+        "120": {
+          "aruba--roble-amazona": "13291",
+          "aruba--nogal-valentina": "13295",
+          "aruba--biscuit": "13394",
+          "aruba--blanco-mate": "13408",
+          "aruba--serenade-alba": "13415",
+          "aruba--azul-acero": "13401"
+        }
+      },
+      "bareTTC": {
+        "60": 48240,
+        "70": 50640,
+        "80": 51240,
+        "90": 53520,
+        "100": 57480,
+        "120": 96240
+      }
+    },
+    {
+      "id": "aras-two",
+      "page": 21,
+      "refs": {
+        "60": {
+          "aras--nogal-valentina": "13374",
+          "aras--biscuit": "13273",
+          "aras--blanco-mate": "13277",
+          "aras--serenade-alba": "13281",
+          "aras--azul-acero": "13285"
+        },
+        "70": {
+          "aras--nogal-valentina": "13375",
+          "aras--biscuit": "13362",
+          "aras--blanco-mate": "13365",
+          "aras--serenade-alba": "13368",
+          "aras--azul-acero": "13371"
+        },
+        "80": {
+          "aras--nogal-valentina": "13376",
+          "aras--biscuit": "13274",
+          "aras--blanco-mate": "13278",
+          "aras--serenade-alba": "13282",
+          "aras--azul-acero": "13286"
+        },
+        "90": {
+          "aras--nogal-valentina": "13377",
+          "aras--biscuit": "13363",
+          "aras--blanco-mate": "13366",
+          "aras--serenade-alba": "13369",
+          "aras--azul-acero": "13372"
+        },
+        "100": {
+          "aras--nogal-valentina": "13378",
+          "aras--biscuit": "13364",
+          "aras--blanco-mate": "13367",
+          "aras--serenade-alba": "13370",
+          "aras--azul-acero": "13373"
+        },
+        "120": {
+          "aras--nogal-valentina": "13379",
+          "aras--biscuit": "13275",
+          "aras--blanco-mate": "13279",
+          "aras--serenade-alba": "13283",
+          "aras--azul-acero": "13287"
+        }
+      },
+      "bareTTC": {
+        "60": 51480,
+        "70": 53160,
+        "80": 53520,
+        "90": 56280,
+        "100": 59880,
+        "120": 104760
+      }
+    },
+    {
+      "id": "boreal-two",
+      "page": 24,
+      "refs": {
+        "60": {
+          "boreal--nogal-valentina": "13417",
+          "boreal--biscuit": "13421",
+          "boreal--blanco-mate": "13425",
+          "boreal--serenade-alba": "13429",
+          "boreal--azul-acero": "13433"
+        },
+        "79": {
+          "boreal--nogal-valentina": "13418",
+          "boreal--biscuit": "13422",
+          "boreal--blanco-mate": "13426",
+          "boreal--serenade-alba": "13430",
+          "boreal--azul-acero": "13434"
+        },
+        "120": {
+          "boreal--nogal-valentina": "13419",
+          "boreal--biscuit": "13423",
+          "boreal--blanco-mate": "13427",
+          "boreal--serenade-alba": "13431",
+          "boreal--azul-acero": "13435"
+        }
+      },
+      "bareTTC": {
+        "60": 48600,
+        "79": 49320,
+        "120": 92400
+      }
+    },
+    {
+      "id": "brunei-two",
+      "page": 27,
+      "refs": {
+        "60": {
+          "brunei--blanco-mate": "13437",
+          "brunei--negro": "13443",
+          "brunei--gris": "13449",
+          "brunei--serenade-alba": "13455"
+        },
+        "70": {
+          "brunei--blanco-mate": "13438",
+          "brunei--negro": "13444",
+          "brunei--gris": "13450",
+          "brunei--serenade-alba": "13456"
+        },
+        "80": {
+          "brunei--blanco-mate": "13439",
+          "brunei--negro": "13445",
+          "brunei--gris": "13451",
+          "brunei--serenade-alba": "13457"
+        },
+        "90": {
+          "brunei--blanco-mate": "13440",
+          "brunei--negro": "13446",
+          "brunei--gris": "13452",
+          "brunei--serenade-alba": "13458"
+        },
+        "100": {
+          "brunei--blanco-mate": "13441",
+          "brunei--negro": "13447",
+          "brunei--gris": "13453",
+          "brunei--serenade-alba": "13459"
+        },
+        "120": {
+          "brunei--blanco-mate": "13442",
+          "brunei--negro": "13448",
+          "brunei--gris": "13454",
+          "brunei--serenade-alba": "13460"
+        }
+      },
+      "bareTTC": {
+        "60": 51600,
+        "70": 52560,
+        "80": 53640,
+        "90": 55800,
+        "100": 57360,
+        "120": 98880
+      }
+    },
+    {
+      "id": "amat-two",
+      "page": 29,
+      "refs": {
+        "80": {
+          "amat--biscuit": "13947",
+          "amat--fresno-lagom": "13977",
+          "amat--serenade-alba": "13978"
+        },
+        "90": {
+          "amat--biscuit": "13979",
+          "amat--fresno-lagom": "13980",
+          "amat--serenade-alba": "13981"
+        },
+        "100": {
+          "amat--biscuit": "13982",
+          "amat--fresno-lagom": "13983",
+          "amat--serenade-alba": "13984"
+        },
+        "120": {
+          "amat--biscuit": "13985",
+          "amat--fresno-lagom": "13986",
+          "amat--serenade-alba": "13987"
+        }
+      },
+      "bareTTC": {
+        "80": 73920,
+        "90": 76440,
+        "100": 78600,
+        "120": 82680
+      }
+    },
+    {
+      "id": "amat-two-door",
+      "page": 29,
+      "refs": {
+        "80": {
+          "amat--biscuit": "14000",
+          "amat--fresno-lagom": "14001",
+          "amat--serenade-alba": "14002"
+        },
+        "90": {
+          "amat--biscuit": "14003",
+          "amat--fresno-lagom": "14004",
+          "amat--serenade-alba": "14005"
+        },
+        "100": {
+          "amat--biscuit": "14006",
+          "amat--fresno-lagom": "14007",
+          "amat--serenade-alba": "14008"
+        },
+        "120": {
+          "amat--biscuit": "14009",
+          "amat--fresno-lagom": "14010",
+          "amat--serenade-alba": "14011"
+        }
+      },
+      "bareTTC": {
+        "80": 73920,
+        "90": 76440,
+        "100": 78600,
+        "120": 82680
+      }
+    },
+    {
+      "id": "amat-three",
+      "page": 30,
+      "refs": {
+        "80": {
+          "amat--biscuit": "13988",
+          "amat--fresno-lagom": "13989",
+          "amat--serenade-alba": "13990"
+        },
+        "90": {
+          "amat--biscuit": "13991",
+          "amat--fresno-lagom": "13992",
+          "amat--serenade-alba": "13993"
+        },
+        "100": {
+          "amat--biscuit": "13994",
+          "amat--fresno-lagom": "13995",
+          "amat--serenade-alba": "13996"
+        },
+        "120": {
+          "amat--biscuit": "13997",
+          "amat--fresno-lagom": "13998",
+          "amat--serenade-alba": "13999"
+        }
+      },
+      "bareTTC": {
+        "80": 89520,
+        "90": 92400,
+        "100": 94200,
+        "120": 98280
+      }
+    },
+    {
+      "id": "amat-three-door",
+      "page": 30,
+      "refs": {
+        "80": {
+          "amat--biscuit": "14012",
+          "amat--fresno-lagom": "14013",
+          "amat--serenade-alba": "14014"
+        },
+        "90": {
+          "amat--biscuit": "14015",
+          "amat--fresno-lagom": "14016",
+          "amat--serenade-alba": "14017"
+        },
+        "100": {
+          "amat--biscuit": "14018",
+          "amat--fresno-lagom": "14019",
+          "amat--serenade-alba": "14020"
+        },
+        "120": {
+          "amat--biscuit": "14021",
+          "amat--fresno-lagom": "14022",
+          "amat--serenade-alba": "14023"
+        }
+      },
+      "bareTTC": {
+        "80": 89520,
+        "90": 92400,
+        "100": 94200,
+        "120": 98280
+      }
+    },
+    {
+      "id": "less-door",
+      "page": 32,
+      "refs": {
+        "40": {
+          "less--serenade-alba-tirador-blanco": "14038",
+          "less--azul-acero-tirador-niquel": "14039",
+          "less--gris-tortora-tirador-negro": "14040"
+        }
+      },
+      "bareTTC": {
+        "40": 32400
+      }
+    },
+    {
+      "id": "sima-counter",
+      "page": 34,
+      "refs": {
+        "60": {
+          "sima--roble-natura": "13487",
+          "sima--nogal-mist": "13491",
+          "sima--serenade-alba": "13990"
+        },
+        "80": {
+          "sima--roble-natura": "13488",
+          "sima--nogal-mist": "13492",
+          "sima--serenade-alba": "13993"
+        },
+        "100": {
+          "sima--roble-natura": "13489",
+          "sima--nogal-mist": "13493",
+          "sima--serenade-alba": "13996"
+        },
+        "120": {
+          "sima--roble-natura": "13490",
+          "sima--nogal-mist": "13494",
+          "sima--serenade-alba": "13999"
+        }
+      },
+      "bareTTC": {
+        "60": 31320,
+        "80": 35040,
+        "100": 37560,
+        "120": 42120
+      }
+    }
+  ],
+  "gaps": [
+    "Tarifs professionnels HT du catalogue général : aucune grille d’achat ou condition individuelle vérifiée dans les sources accessibles. Prix sur demande après identification LRF.",
+    "Géométrie reconstruite à partir des cotes et photographies RANDAL ; aucun fichier CAO constructeur fourni.",
+    "Robinetterie, sanitaires, accessoires, pose, transport et revêtements : exclus du chiffrage mobilier sans tarif vérifié."
+  ]
+}
