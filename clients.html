@@ -567,6 +567,32 @@
           if (currentEditingId) {
             await updateDoc(doc(db, "clients", currentEditingId), formData);
           } else {
+            // Protection LRF : une demande de mise à jour ne doit jamais recréer
+            // un client existant avec un deuxième identifiant / code LRF.
+            const normalise = v => String(v || "").normalize("NFD")
+              .replace(/[\\u0300-\\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]/g, "");
+            const nom = normalise(formData.societe);
+            const postal = String(formData.codePostal || "").replace(/\\D/g, "");
+            const email = String(formData.email || "").trim().toLowerCase();
+            const telephone = v => String(v || "").replace(/\\D/g, "").replace(/^33(?=\\d{9}$)/, "0");
+            const num = telephone(formData.telephone);
+            const snap = await getDocs(collection(db, "clients"));
+            const existing = snap.docs.map(d => ({ id: d.id, ...d.data() }))
+              .filter(c => c.archived !== true && c.archive !== true)
+              .find(c => {
+                if (!nom || normalise(c.societe) !== nom) return false;
+                const oldCp = String(c.codePostal || c.code_postal || "").replace(/\\D/g, "");
+                const sameCp = postal && oldCp && postal === oldCp;
+                const sameEmail = email && [c.email, ...(Array.isArray(c.emails) ? c.emails : [])]
+                  .some(v => String(v || "").trim().toLowerCase() === email);
+                const samePhone = num && [c.telephone, ...(Array.isArray(c.telephones) ? c.telephones : [])]
+                  .some(v => telephone(v) === num);
+                return sameCp || sameEmail || samePhone;
+              });
+            if (existing) {
+              alert(`Ce client existe déjà (code LRF : ${existing.codeClient || "en cours d'attribution"}). Ouvrez sa fiche existante pour la mettre à jour : aucun nouveau code LRF ne sera créé.`);
+              return;
+            }
             await addDoc(collection(db, "clients"), formData);
           }
           closeModal();
