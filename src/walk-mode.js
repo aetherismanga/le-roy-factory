@@ -64,7 +64,7 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
   }
   button=document.createElement('button');button.type='button';button.textContent='Visite 3D';
   button.setAttribute('aria-label','Activer ou quitter le déplacement dans les pièces');
-  Object.assign(button.style,{position:'absolute',top:'12px',right:'12px',zIndex:'41',padding:'9px 13px',borderRadius:'10px',background:'#184a40',color:'white',border:'1px solid #acd0c1',cursor:'pointer'});
+  Object.assign(button.style,{position:'absolute',top:'72px',right:'12px',zIndex:'41',padding:'9px 13px',borderRadius:'10px',background:'#184a40',color:'white',border:'1px solid #acd0c1',cursor:'pointer'});
   button.addEventListener('click',()=>setActive(!active));stage.append(button);
   panel=document.createElement('div');panel.hidden=true;panel.setAttribute('aria-label','Commandes de visite');
   Object.assign(panel.style,{position:'absolute',left:'12px',bottom:'12px',zIndex:'41',background:'rgba(17,42,37,.88)',color:'white',borderRadius:'10px',padding:'8px',fontSize:'12px',maxWidth:'75%'});
