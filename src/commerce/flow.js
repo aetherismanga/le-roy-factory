@@ -34,5 +34,5 @@ export function orderText(project,{name='',email='',client=null}={}){
 }
 export function composeLinks(body,subject){
  const to=ORDER_TO.join(','),params={to,subject,body};
- return {mailto:'mailto:'+to+'?'+new URLSearchParams({subject,body}).toString(),gmail:'https://mail.google.com/mail/?'+new URLSearchParams({view:'cm',fs:'1',to,su:subject,body}).toString(),outlook:'https://outlook.office.com/mail/deeplink/compose?'+new URLSearchParams(params).toString()};
+ return {mailto:'mailto:'+to+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body),gmail:'https://mail.google.com/mail/?'+new URLSearchParams({view:'cm',fs:'1',to,su:subject,body}).toString(),outlook:'https://outlook.office.com/mail/deeplink/compose?'+new URLSearchParams(params).toString()};
 }
