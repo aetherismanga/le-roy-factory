@@ -35,9 +35,9 @@ for(const model of C.models)for(const width of model.widths){
   const bounds=new T.Box3().setFromObject(part);assert.ok(bounds.max.y<=shell.min.y-.0099,model.id+' siphon above ceramic underside');assert.ok(bounds.getSize(new T.Vector3()).y>0);
  }});
  if(model.collection==='harmony')for(const front of asset.frontMeshes){
-  assert.equal(front.name,'Facade_droite_19mm');
-  const ray=new T.Raycaster(new T.Vector3(0,front.position.y+.3,.212),new T.Vector3(0,-1,0));
-  const hits=ray.intersectObject(front);assert.ok(hits.length);assert.ok(Math.abs(hits[0].point.y-(front.position.y+front.geometry.parameters.height/2))<.001,'HARMONY rear upper edge must be level');
+  assert.equal(front.name,'Facade_droite_16mm');
+  const fb=new T.Box3().setFromObject(front);const ray=new T.Raycaster(new T.Vector3((fb.min.x+fb.max.x)/2,fb.max.y+.3,fb.min.z+.003),new T.Vector3(0,-1,0));
+  const hits=ray.intersectObject(front);assert.ok(hits.length);assert.ok(Math.abs(hits[0].point.y-fb.max.y)<.001,'HARMONY rear upper edge must be level');
  }
  asset.root.traverse(o=>o.geometry?.dispose());
 }

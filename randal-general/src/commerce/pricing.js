@@ -1,3 +1,4 @@
+import {panelThickness,handleFinish,HANDLE_FINISHES} from '../general-specs.js';
 import {topAvailable} from '../configuration.js';
 import {CATALOG as C} from './catalog.js';
 export const money=cents=>Number.isInteger(cents)?new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR'}).format(cents/100):'Prix sur demande';
@@ -8,7 +9,7 @@ export function lineItems(item){
  if(item.type==='cabinet'){
   const m=C.models.find(m=>m.id===s.format),f=finish(s.finish),ref=m?.refs[s.width]?.[s.finish];
   if(!m||!f||!ref||!topAvailable(s.top,s.width,s.format)){row('Meuble RANDAL',null,null,'Configuration à vérifier');return rows;}
-  row(m.collectionName+' · '+m.name,ref,m.bareTTC[s.width],`${m.collection==='harmony'&&s.width===120?119:s.width} × ${m.height} × ${m.depth} cm · ${f.name}`);
+  row(m.collectionName+' · '+m.name,ref,m.bareTTC[s.width],`${m.collection==='harmony'&&s.width===120?119:s.width} × ${m.height} × ${m.depth} cm · ${f.name} · panneaux ${Math.round(panelThickness(m)*1000)} mm${handleFinish(m,s.finish)?' · poignée '+HANDLE_FINISHES[handleFinish(m,s.finish)].name:''}`);
   if(['sella','tampa'].includes(s.top)){
    const width=s.width===79?80:s.width,r=m.collection==='luce'&&width===120?C.centeredTampa120[s.basinColor||'gloss']:C.inset[s.top]?.[s.basinColor||'gloss']?.[width];
    row('Vasque '+(s.top==='sella'?'Sella':'Tampa'),r?.ref,r?.ttc,`${width} cm · ${C.insetColors.find(c=>c.code===(s.basinColor||'gloss'))?.name||''}${width>=120&&m.collection!=='luce'?' · double vasque':''}`);

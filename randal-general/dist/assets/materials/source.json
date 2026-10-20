@@ -1,0 +1,10 @@
+{
+  "source": "RANDAL Général V04",
+  "pdfSHA256": "accf227187da607cbf736181d2284efcfab016d1784bee0049f89c6620ef2e6b",
+  "images": [
+    {"file":"aruba-roble-detail.jpg","page":15,"pdfImage":1195,"nativeWidth":954,"nativeHeight":777},
+    {"file":"aruba-nogal-detail.jpg","page":15,"pdfImage":1197,"nativeWidth":954,"nativeHeight":777},
+    {"file":"aruba-nogal-front.jpg","page":17,"pdfImage":1346,"nativeWidth":2500,"nativeHeight":2229}
+  ],
+  "method": "Original PDF images extracted without alteration. Real wood regions are sampled by the material loader. Parametric geometry supplies the grooves, edges and hardware; no fixed photograph replaces the 3D model."
+}
