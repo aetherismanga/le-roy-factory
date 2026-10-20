@@ -1,3 +1,5 @@
+import {CATALOG as C} from './commerce/catalog.js';
+import {cabinetFormat} from './configuration.js';
 // RANDAL V04 catalogue, pp. 38 and 41. Colour chips are catalogue references,
 // not spectrophotometric measurements; PBR roughness is a rendering estimate.
 export const TAMPA_REFS=Object.freeze({gloss:{60:'6227',70:'7781',80:'6228',90:'7782',100:'6229',120:'6232'},matte:{60:'13039',70:'13040',80:'13041',90:'13042',100:'13043',120:'13044'}});
@@ -16,5 +18,5 @@ export const VESSEL_COLORS=Object.freeze([
  {id:'pink',name:'Rose Nadir',hex:'#c2a597',roughness:.62,clearcoat:0,neris:'9566',torne:'9558'},
  {id:'blue',name:'Bleu Kivu',hex:'#012f53',roughness:.62,clearcoat:0,neris:'9565',torne:'9557'}
 ]);
-export function basinColors(top){return top==='sella'?INSET_COLORS.slice(0,1):top==='tampa'?INSET_COLORS.slice(0,1):top==='neris'||top==='torne'?VESSEL_COLORS:[];}
-export function basinReference(top,color,width){if(top==='tampa')return TAMPA_REFS[color==='gloss'?'gloss':'matte'][width];return VESSEL_COLORS.find(c=>c.id===color)?.[top];}
+export function basinColors(top,width,format){const w=width===79?80:width;return top==='sella'?INSET_COLORS.slice(0,1):top==='tampa'?INSET_COLORS.filter(c=>!w||C.inset.tampa[c.id]?.[w]):top==='neris'||top==='torne'?VESSEL_COLORS:[];}
+export function basinReference(top,color,width,format){const w=width===79?80:width;if(['sella','tampa'].includes(top))return top==='tampa'&&w===120&&cabinetFormat(format).collection==='luce'?C.centeredTampa120[color]?.ref:C.inset[top]?.[color]?.[w]?.ref;return VESSEL_COLORS.find(c=>c.id===color)?.[top];}

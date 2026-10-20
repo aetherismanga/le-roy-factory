@@ -1,0 +1,151 @@
+{
+  "date": "2026-10-20",
+  "sourceStudioOne": "599a3e02af3bcb099a1bc89eedfc438238b4673b",
+  "localBrowser": "Chromium 140, WebGL software renderer, desktop 1440×1000 and mobile 390×844 emulation",
+  "browserChecks": [
+    {
+      "collection": "Harmony",
+      "width": 1440,
+      "total": "930,00 €",
+      "errors": []
+    },
+    {
+      "collection": "Luce",
+      "width": 1440,
+      "total": "1 462,80 €",
+      "errors": []
+    },
+    {
+      "collection": "Brent",
+      "width": 1440,
+      "total": "2 468,40 €",
+      "errors": []
+    },
+    {
+      "collection": "Aruba rainuré",
+      "width": 1440,
+      "total": "838,80 €",
+      "errors": []
+    },
+    {
+      "collection": "Aruba",
+      "width": 1440,
+      "total": "1 257,60 €",
+      "errors": []
+    },
+    {
+      "collection": "Aras",
+      "width": 1440,
+      "total": "1 288,80 €",
+      "errors": []
+    },
+    {
+      "collection": "Boreal",
+      "width": 1440,
+      "total": "1 212,00 €",
+      "errors": []
+    },
+    {
+      "collection": "Brunei",
+      "width": 1440,
+      "total": "770,40 €",
+      "errors": []
+    },
+    {
+      "collection": "Amat",
+      "width": 1440,
+      "total": "973,20 €",
+      "errors": []
+    },
+    {
+      "collection": "Less",
+      "width": 1440,
+      "total": "394,80 €",
+      "errors": []
+    },
+    {
+      "collection": "Sima",
+      "width": 1440,
+      "total": "692,40 €",
+      "errors": []
+    },
+    {
+      "collection": "Harmony",
+      "width": 390,
+      "total": "930,00 €",
+      "errors": []
+    },
+    {
+      "collection": "Luce",
+      "width": 390,
+      "total": "1 462,80 €",
+      "errors": []
+    },
+    {
+      "collection": "Brent",
+      "width": 390,
+      "total": "2 468,40 €",
+      "errors": []
+    },
+    {
+      "collection": "Aruba rainuré",
+      "width": 390,
+      "total": "838,80 €",
+      "errors": []
+    },
+    {
+      "collection": "Aruba",
+      "width": 390,
+      "total": "1 257,60 €",
+      "errors": []
+    },
+    {
+      "collection": "Aras",
+      "width": 390,
+      "total": "1 288,80 €",
+      "errors": []
+    },
+    {
+      "collection": "Boreal",
+      "width": 390,
+      "total": "1 212,00 €",
+      "errors": []
+    },
+    {
+      "collection": "Brunei",
+      "width": 390,
+      "total": "770,40 €",
+      "errors": []
+    },
+    {
+      "collection": "Amat",
+      "width": 390,
+      "total": "973,20 €",
+      "errors": []
+    },
+    {
+      "collection": "Less",
+      "width": 390,
+      "total": "394,80 €",
+      "errors": []
+    },
+    {
+      "collection": "Sima",
+      "width": 390,
+      "total": "692,40 €",
+      "errors": []
+    }
+  ],
+  "verified": [
+    "22 guided journeys, TTC totals, local save, all 11 collections",
+    "6 transfers to full 3D workshop; invalid width rejected; opening furniture; dimensions; VIEW surface selection",
+    "292 model/width/finish combinations: geometry, references, prices, share round trip",
+    "78 existing remote product/finish/accessory files: HTTP retrieval passed",
+    "Live guest API: unauthenticated; malformed LRF identifier: HTTP 400; foreign origin: HTTP 403"
+  ],
+  "limits": [
+    "Authenticated customer/admin sessions were not exercised with real user credentials.",
+    "Live cloud-browser WebGL is disabled by its environment. UI and prices were inspected live; actual 3D was checked in the local WebGL test browser.",
+    "Professional general-catalogue grid absent; HT prices remain on request."
+  ]
+}

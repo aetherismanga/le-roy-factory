@@ -7,7 +7,7 @@ export function normalizeDraft(input){
  const d={...initialDraft(m.collection),...input,collection:m.collection};
  if(d.version!==1||!m.finishes.includes(d.finish)||!m.widths.includes(d.width))throw Error('Dimensions ou finition indisponibles pour cette collection.');
  if(!topAvailable(d.top,d.width,d.format))throw Error('Cette vasque ou ce plan ne correspond pas au meuble.');
- if(['sella','tampa','compact'].includes(d.top)&&d.basinColor!=='gloss')throw Error('Cette configuration est proposée en blanc brillant.');
+ if((['sella','compact'].includes(d.top)&&d.basinColor!=='gloss')||(d.top==='tampa'&&!C.inset.tampa[d.basinColor]?.[d.width===79?80:d.width]))throw Error('Cette configuration est proposée en blanc brillant.');
  if(['neris','torne'].includes(d.top)&&!C.vesselColors.some(c=>c.code===d.basinColor))throw Error('Finition de vasque indisponible.');
  if(['plain','neris','torne'].includes(d.top)&&!C.topFinishes.some(f=>f.id===d.topFinish))throw Error('Finition de plan indisponible.');
  if(d.column){const c=C.columns.find(c=>c.id===d.columnModel&&c.collection===m.collection);if(!c||!c.finishes.includes(d.columnFinish))throw Error('Colonne incompatible avec cette collection.');}

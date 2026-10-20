@@ -231,25 +231,25 @@ function selectTop(id){
  if(!model.setTop(id))return false;state.top=id;
  $$('[data-top]').forEach(b=>{const a=b.dataset.top===id;b.classList.toggle('active',a);b.setAttribute('aria-pressed',String(a));});
  const remembered=id==='tampa'?state.tampaColor:id==='neris'||id==='torne'?state.vesselColor:'gloss';
- selectBasinColor(remembered);saveCabinetState();refreshBasinUI();
+ selectBasinColor(basinColors(id,state.width,state.format).some(c=>c.id===remembered)?remembered:'gloss');saveCabinetState();refreshBasinUI();
  invalidate();return true;
 }
 function selectBasinColor(id){
- if(!selectedCabinet())return false;const color=basinColors(state.top).find(c=>c.id===id);if(!color&&state.top!=='plain')return false;
+ if(!selectedCabinet())return false;const color=basinColors(state.top,state.width,state.format).find(c=>c.id===id);if(!color&&state.top!=='plain')return false;
  state.basinColor=color?.id||'gloss';if(state.top==='tampa')state.tampaColor=id;if(state.top==='neris'||state.top==='torne')state.vesselColor=id;
  if(color){model.ceramic.color.set(color.hex);model.ceramic.roughness=color.roughness;model.ceramic.clearcoat=color.clearcoat;model.ceramic.clearcoatRoughness=.1;model.ceramic.bumpMap=grain;model.ceramic.bumpScale=color.clearcoat?.000008:.000035;model.ceramic.needsUpdate=true;}
  saveCabinetState();if(composition?.selected?.type==='cabinet')installCabinetTap(composition.selected);refreshBasinUI();invalidate();return true;
 }
 function refreshBasinUI(){
- const colors=basinColors(state.top),selected=colors.find(c=>c.id===state.basinColor);
+ const colors=basinColors(state.top,state.width,state.format),selected=colors.find(c=>c.id===state.basinColor);
  const options=$('#basin-colors');options.replaceChildren();
  for(const c of colors)options.append(colorButton(c,()=>selectBasinColor(c.id),state.basinColor===c.id));
  $('#basin-color-section').hidden=!colors.length;$('#basin-color-name').textContent=selected?.name||'';
  const name=TOP_OPTIONS.find(t=>t.id===state.top)?.name||'';
- $('#basin-summary').textContent=state.top==='plain'?'Plan assorti au meuble':name.replace(' encastrée','').replace('Plan + ','')+' · '+selected?.name;
+ $('#basin-summary').textContent=state.top==='plain'?'Plan assorti au meuble':name.replace(' encastrée','').replace('Plan + ','')+(selected?' · '+selected.name:'');
  $('#basin-description').textContent=state.top==='plain'?`Plan de travail ${state.width} × 46 × 2 cm`:state.top==='sella'||state.top==='tampa'?'Vasque encastrée · miroir rond Ø 60':'Plan assorti · vasque à poser';
- const ref=state.top==='sella'?model.spec.basinRef:basinReference(state.top,state.basinColor,state.width);
- $('#basin-reference').textContent=ref?'Réf. '+ref+' · '+selected.name:'';
+ const ref=basinReference(state.top,state.basinColor,state.width,state.format);
+ $('#basin-reference').textContent=ref?'Réf. '+ref+(selected?' · '+selected.name:''):'';
  refreshInspector();
 }
 function colorButton(c,action,selected){const b=document.createElement('button');b.className='basin-color';b.setAttribute('aria-label',c.name);b.title=c.name;b.setAttribute('aria-pressed',String(selected));const sample=document.createElement('span');sample.style.backgroundColor=c.hex;const label=document.createElement('small');label.textContent=c.name;b.append(sample,label);b.onclick=action;return b;}
@@ -268,9 +268,9 @@ function refreshInspector(){const item=composition?.selected;
  else if(editTarget==='furniture'||editTarget==='column'){for(const f of finishesFor(composition.selected?.type==='column'?composition.selected.settings.columnModel:state.format,composition.selected?.type||'cabinet'))option(f.name,state.finish===f.id,()=>selectFinish(f.id),{hex:f.hex,file:f.textureURL||f.texture});}
  else if(editTarget==='basin'){
   grid.className='object-models';
-  for(const t of TOP_OPTIONS.filter(t=>topAvailable(t.id,state.width,state.format)))option(t.name,state.top===t.id,()=>selectTop(t.id));if(['plain','neris','torne'].includes(state.top)&&!cabinetFormat(state.format).counter)field(body,'Finition du plan',item.settings.topFinish||'plan--blanco-mate',GeneralCatalog.topFinishes.map(f=>({id:f.id,name:f.name})),id=>{item.settings.topFinish=id;applyGeneralPlan(item);invalidate();});const compatibility=document.createElement('small');compatibility.className='basin-compatibility';compatibility.textContent='Choix vérifiés pour '+cabinetFormat(state.format).collectionName+' · '+state.width+' cm.';body.append(compatibility);
+  for(const t of TOP_OPTIONS.filter(t=>topAvailable(t.id,state.width,state.format)))option(t.name,state.top===t.id,()=>selectTop(t.id));if(['plain','neris','torne'].includes(state.top)&&!cabinetFormat(state.format).counter)field(body,'Finition du plan',item.settings.topFinish||'plan--blanco-mate',GeneralCatalog.topFinishes.map(f=>({id:f.id,name:f.name})),id=>{state.topFinish=id;item.settings.topFinish=id;applyGeneralPlan(item);invalidate();});const compatibility=document.createElement('small');compatibility.className='basin-compatibility';compatibility.textContent='Choix vérifiés pour '+cabinetFormat(state.format).collectionName+' · '+state.width+' cm.';body.append(compatibility);
   renderTapChooser(body,composition?.selected);const palette=document.createElement('div');palette.className='basin-colors';body.append(palette);
-  for(const c of basinColors(state.top))palette.append(colorButton(c,()=>selectBasinColor(c.id),state.basinColor===c.id));
+  for(const c of basinColors(state.top,state.width,state.format))palette.append(colorButton(c,()=>selectBasinColor(c.id),state.basinColor===c.id));
  }else if(isOpening(editTarget)){const item=composition.selected;grid.className='opening-colors';for(const color of ['white','black'])option(color==='white'?'Blanc':'Noir',item.settings.color===color,()=>setOpeningColor(color),{hex:color==='white'?'#f1f0eb':'#202526'});const form=document.createElement('div');form.className='opening-dimensions';for(const key of ['width','height']){const label=document.createElement('label');label.textContent=key==='width'?'L (cm)':'H (cm)';const input=document.createElement('input');input.type='number';input.step='1';input.value=item.settings[key];input.setAttribute('aria-label',key==='width'?'Largeur en cm':'Hauteur en cm');const lim=OPENING_LIMITS[item.type];input.min=lim[key==='width'?'minWidth':'minHeight'];input.max=lim[key==='width'?'maxWidth':'maxHeight'];input.dataset.openingDimension=key;label.append(input);form.append(label);}const apply=document.createElement('button');apply.textContent='Appliquer';apply.onclick=()=>resizeOpening(Number(form.children[0].children[0].value),Number(form.children[1].children[0].value));form.append(apply);body.append(form);
  }else if(editTarget==='mirror'){renderMirrorOptions(body,composition.selected);grid.hidden=true;const label=document.createElement('small');label.textContent='Maintenez le miroir pour le déplacer';body.append(label);}
  else {const kind=editTarget;for(const c of choicesFor(state[kind+'Collection']))option(c.name,state[kind]===c.id,()=>selectSurface(kind,c.id),{file:c.file,hex:c.hex});const collections=document.createElement('div');collections.className='object-collections';for(const collection of Object.keys(COLLECTIONS).filter(c=>kind==='wall'||c!=='Peinture')){const b=document.createElement('button');b.textContent=collection;b.setAttribute('aria-pressed',String(state[kind+'Collection']===collection));b.onclick=()=>setSurfaceCollection(kind,collection);collections.append(b);}body.append(collections);if(kind==='wall'){const openings=document.createElement('div');openings.className='object-actions';for(const type of ['window','door']){const b=document.createElement('button');b.textContent=type==='window'?'+ Fenêtre':'+ Porte';b.onclick=()=>addItem(type,selectedWall);openings.append(b);}body.append(openings);}}
@@ -308,7 +308,7 @@ function refreshWidthUI(){
  $('#size-summary').textContent=`${state.width} × ${cabinetFormat(state.format).height*100} × ${cabinetFormat(state.format).depth*100} cm`;
  $('#about-current-size').textContent=state.width+' × '+cabinetFormat(state.format).height*100+' × '+cabinetFormat(state.format).depth*100+' cm';$('#cabinet-format').value=state.format;
  $('#detail-top-size').textContent=`${state.width} × 46 × 2 cm`;
- $('#detail-sella-ref').textContent=model.spec.basinRef?'Réf. '+model.spec.basinRef:'Non disponible dans cette largeur';
+ $('#detail-sella-ref').textContent=basinReference('sella','gloss',state.width,state.format)?'Réf. '+basinReference('sella','gloss',state.width,state.format):'Non disponible';$('#detail-cabinet-ref').textContent='Réf. '+(GeneralCatalog.models.find(m=>m.id===state.format)?.refs[state.width]?.[state.finish]||'À choisir');
  $$('[data-top]').forEach(b=>{const allowed=topAvailable(b.dataset.top,state.width,state.format);b.disabled=!allowed;b.setAttribute('aria-disabled',String(!allowed));
   if(b.dataset.top==='sella')b.querySelector('small').textContent=allowed?`Céramique blanc brillant · ${state.width} cm`:'Formats : 60, 70, 80, 90, 100, 120 cm';
   if(b.dataset.top==='neris')b.querySelector('small').textContent=allowed?'Vasque à poser · 46 × 33 × 14 cm':'Disponible dès 50 cm de largeur';

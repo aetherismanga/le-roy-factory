@@ -21,3 +21,6 @@ assert.equal(lineItems({id:'m',type:'mirror',settings:{mirrorModel:'basic',width
 assert.throws(()=>normalizeDraft({...initialDraft('harmony'),width:61}));assert.throws(()=>normalizeDraft({...initialDraft('luce'),finish:C.models[0].finishes[0]}));assert.equal(topAvailable('sella',80,'luce-single'),false);assert.equal(topAvailable('neris',40,'less-door'),false);
 for(const c of C.collections){const preview=buildPreview(draftProject(initialDraft(c.id)));assert.ok(preview.items.length);}
 console.log(JSON.stringify({collections:C.collections.length,models:C.models.length,columns:C.columns.length,cabinetCombinations:count,prices:'Public PDF TTC; no second VAT or Studio One coefficient',result:'PASS'}));
+
+for(const color of ['matte','black']){const q=quoteProject(draftProject({...initialDraft('luce'),top:'tampa',basinColor:color,width:120}));assert.equal(q.rows[1].ref,'13044');assert.equal(q.rows[1].publicTTC,57000);}
+assert.throws(()=>normalizeDraft({...initialDraft('brent'),top:'tampa',basinColor:'black',width:140}));
