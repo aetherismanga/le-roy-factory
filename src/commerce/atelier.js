@@ -17,5 +17,5 @@ export function mountCommerce(getProject){
  select('form').onsubmit=async e=>{e.preventDefault();const b=e.target.querySelector('button');b.disabled=true;select('.commerce-status').textContent='Vérification…';try{session=await commercialRequest('identify',Object.fromEntries(new FormData(e.target)));account();select('.commerce-status').textContent=session.randalAllowed?'Compte vérifié. Conditions PRO individuelles à raccorder.':'Compte vérifié, accès RANDAL non autorisé.';}catch(e){session=null;account();select('.commerce-status').textContent=e.message;}finally{b.disabled=false;}};
  select('.commerce-logout').onclick=async()=>{try{await commercialRequest('logout');session=null;account();select('.commerce-status').textContent='Vous êtes déconnecté.';}catch(e){select('.commerce-status').textContent=e.message;}};
  commercialRequest('session').then(r=>{session=r;account();}).catch(()=>{select('.commerce-status').textContent='Service LRF indisponible. Le prix public reste disponible.';});
- render();account();return ()=>{clearTimeout(timer);timer=setTimeout(render,120);};
+ render();account();return ()=>{if(timer)return;timer=setTimeout(()=>{timer=null;render();},120);};
 }

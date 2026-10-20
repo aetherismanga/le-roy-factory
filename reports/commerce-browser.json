@@ -32,12 +32,12 @@
     {
       "name": "http://localhost:4173/accueil.css",
       "bytes": 11432,
-      "duration": 8
+      "duration": 9
     },
     {
       "name": "http://localhost:4173/accueil.js",
-      "bytes": 25003,
-      "duration": 8
+      "bytes": 25342,
+      "duration": 9
     },
     {
       "name": "http://localhost:4173/api/commercial",
@@ -47,27 +47,27 @@
     {
       "name": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/hero-meuble-hd.webp",
       "bytes": 0,
-      "duration": 4978
-    },
-    {
-      "name": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/3-tiroirs.webp",
-      "bytes": 0,
-      "duration": 4851
+      "duration": 4807
     },
     {
       "name": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/2-tiroirs.webp",
       "bytes": 0,
-      "duration": 4852
+      "duration": 4747
     },
     {
-      "name": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/1-tiroir-xl.webp",
+      "name": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/3-tiroirs.webp",
       "bytes": 0,
-      "duration": 4851
+      "duration": 4744
     },
     {
       "name": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/2-tiroirs-xl.webp",
       "bytes": 0,
-      "duration": 4851
+      "duration": 4747
+    },
+    {
+      "name": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/1-tiroir-xl.webp",
+      "bytes": 0,
+      "duration": 4748
     }
   ],
   "guided": {
@@ -187,7 +187,7 @@
         "placement": {
           "wall": 0,
           "u": 125,
-          "height": 156
+          "height": 149
         }
       }
     ]

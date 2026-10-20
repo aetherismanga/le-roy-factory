@@ -3,57 +3,57 @@
     {
       "suite": "formats-result.json",
       "passed": true,
-      "at": "2026-10-20T11:14:29.588Z"
+      "at": "2026-10-20T11:24:51.117Z"
     },
     {
       "suite": "controls-result.json",
       "passed": true,
-      "at": "2026-10-20T11:14:28.476Z"
+      "at": "2026-10-20T11:24:49.925Z"
     },
     {
       "suite": "navigation-result.json",
       "passed": true,
-      "at": "2026-10-20T11:14:30.539Z"
+      "at": "2026-10-20T11:24:52.174Z"
     },
     {
       "suite": "enhancements-result.json",
       "passed": true,
-      "at": "2026-10-20T11:14:33.255Z"
+      "at": "2026-10-20T11:24:55.337Z"
     },
     {
       "suite": "picking-result.json",
       "passed": true,
-      "at": "2026-10-20T11:14:29.813Z"
+      "at": "2026-10-20T11:24:51.374Z"
     },
     {
       "suite": "mission-result.json",
       "passed": true,
-      "at": "2026-10-20T11:14:33.581Z"
+      "at": "2026-10-20T11:24:55.660Z"
     },
     {
       "suite": "openings-result.json",
       "passed": true,
-      "at": "2026-10-20T11:14:30.716Z"
+      "at": "2026-10-20T11:24:52.384Z"
     },
     {
       "suite": "quality-tiers-result.json",
       "passed": true,
-      "at": "2026-10-20T11:14:31.175Z"
+      "at": "2026-10-20T11:24:52.974Z"
     },
     {
       "suite": "bathroom-result.json",
       "passed": true,
-      "at": "2026-10-20T11:14:32.082Z"
+      "at": "2026-10-20T11:24:53.998Z"
     },
     {
       "suite": "options-result.json",
       "passed": true,
-      "at": "2026-10-20T11:14:21.043Z"
+      "at": "2026-10-20T11:24:43.776Z"
     },
     {
       "suite": "performance-result.json",
       "passed": true,
-      "at": "2026-10-20T11:14:31.073Z"
+      "at": "2026-10-20T11:24:52.841Z"
     },
     {
       "suite": "surfaces-result.json",
@@ -63,33 +63,35 @@
     {
       "suite": "geometry-result.json",
       "passed": true,
-      "at": "2026-10-20T11:14:20.736Z"
+      "at": "2026-10-20T11:24:43.453Z"
     },
     {
       "suite": "renovation-result.json",
       "passed": true,
-      "at": "2026-10-20T11:14:32.556Z"
+      "at": "2026-10-20T11:24:54.490Z"
     },
     {
       "suite": "placement-result.json",
       "passed": true,
-      "at": "2026-10-20T11:14:31.011Z"
+      "at": "2026-10-20T11:24:52.770Z"
     },
     {
       "suite": "room-result.json",
       "passed": true,
-      "at": "2026-10-20T11:14:29.964Z"
+      "at": "2026-10-20T11:24:51.546Z"
     },
     {
       "suite": "composition-result.json",
       "passed": true,
-      "at": "2026-10-20T11:14:30.427Z"
+      "at": "2026-10-20T11:24:52.067Z"
     },
     {
       "suite": "detail-fixes-result.json",
       "passed": true,
-      "at": "2026-10-20T11:14:32.885Z"
+      "at": "2026-10-20T11:24:54.893Z"
     }
   ],
-  "notes": "Geometry/controller regressions. Browser 3D acceptance is recorded separately."
+  "guidedInitializerRoundtrips": 6,
+  "notes": "Geometry/controller regressions. Browser 3D acceptance is recorded separately.",
+  "guidedInitializerResult": "passed: actual initializer and restoreProject preserve references, dimensions, finishes and public TTC, including default 3D taps excluded from furniture total"
 }

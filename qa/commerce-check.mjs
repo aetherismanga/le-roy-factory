@@ -1,3 +1,5 @@
+import {makeRoom} from '../src/room.js';
+import {Composition,itemDimensions} from '../src/composition.js';
 import assert from 'node:assert/strict';
 import {readFileSync,writeFileSync} from 'node:fs';
 import vm from 'node:vm';
@@ -44,6 +46,11 @@ if(process.env.STUDIO_ONE_SOURCE){
   assert.equal(q.rows[0].ref,rows[0].ref);assert.equal(q.publicTTC,Math.round(rows[0].unit*240));comparisons++;
  }
 }
+let placementChecks=0;const testRoom=makeRoom(draftProject(base).room,0);
+for(const model of C.models)for(let width=40;width<=120;width++)for(const mirror of C.mirrors)for(let mirrorSize=0;mirrorSize<mirror.sizes.length;mirrorSize++){
+ const project=draftProject({...base,format:model.id,width,top:'plain',mirror:mirror.id,mirrorSize,column:true}),comp=new Composition(testRoom);
+ for(const raw of project.items){const item={...raw,dimensions:itemDimensions(raw.type,raw.settings)};assert.equal(comp.validate(item,item.placement),'',`${model.id}, ${width}, ${mirror.id}/${mirrorSize} placement`);comp.items.push(item);}placementChecks++;
+}testRoom.dispose();
 const originalFetch=globalThis.fetch;let calls=0;
 async function request(body,headers={}){let status=200,value,out={};const res={setHeader:(k,v)=>out[k]=v,status(n){status=n;return this;},json(v){value=v;return this;}};await handler({method:'POST',headers:{host:'preview.example',...headers},body},res);return {status,value,headers:out};}
 try{
@@ -55,5 +62,5 @@ try{
  r=await request({action:'quote',proHT:1,remise:99},{cookie:'studio_one_pro='+('a'.repeat(40))});assert.equal(r.value.client.codeClient,'LRF-12345');assert.equal(r.value.proHT,null);assert.equal(r.value.proStatus,'conditions-unavailable');assert(!JSON.stringify(r.value).includes('remise'));
  globalThis.fetch=async()=>({ok:false,status:401,json:async()=>({success:false})});r=await request({action:'quote'},{cookie:'studio_one_pro='+('a'.repeat(40))});assert.equal(r.status,401);assert.equal(r.value.proHT,null);
 }finally{globalThis.fetch=originalFetch;}
-const report={passed:true,sourceComparisons:comparisons,checks:['Exact public TTC and references compared with legacy source where supplied','8 finish references, including BISC. preserved','Incompatible and unknown selections rejected; missing prices remain null','Unsupported equipment does not change furniture subtotal','Visitor cannot grant PRO access by injecting code, price or discount','Verified synthetic session reveals no guessed terms or rate','Invalid/revoked session and cross-origin calls rejected; no-store responses'],authorizedRealAccount:'NOT RUN — no client credential used; individual terms absent in existing session API'};
+const report={passed:true,sourceComparisons:comparisons,placementChecks,checks:['Exact public TTC and references compared with legacy source where supplied','8 finish references, including BISC. preserved','Incompatible and unknown selections rejected; missing prices remain null','Unsupported equipment does not change furniture subtotal','Visitor cannot grant PRO access by injecting code, price or discount','Verified synthetic session reveals no guessed terms or rate','Invalid/revoked session and cross-origin calls rejected; no-store responses'],authorizedRealAccount:'NOT RUN — no client credential used; individual terms absent in existing session API'};
 writeFileSync('reports/commerce-check.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));

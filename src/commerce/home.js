@@ -3,6 +3,7 @@ import {money,quoteProject,finish} from './pricing.js';
 import {initialDraft,normalizeDraft,draftProject,DRAFT_KEY,TRANSFER_KEY} from './guided.js';
 import {commercialRequest,statusText} from './client.js';
 const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+if(new URLSearchParams(location.hash.slice(1)).has('projet'))location.replace('atelier.html'+location.hash);
 const labels=['Meuble','Vasque & plan','Colonne','Miroir','Votre projet'];
 let draft=initialDraft(),session=null,storageAvailable=true;
 try{const saved=localStorage.getItem(DRAFT_KEY);if(saved)draft=normalizeDraft(JSON.parse(saved));}catch{}

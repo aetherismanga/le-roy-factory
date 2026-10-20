@@ -1,6 +1,7 @@
 {
   "passed": true,
   "sourceComparisons": 8393,
+  "placementChecks": 5184,
   "checks": [
     "Exact public TTC and references compared with legacy source where supplied",
     "8 finish references, including BISC. preserved",

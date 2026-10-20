@@ -16,7 +16,6 @@ export function lineItems(item){
    const color=C.vesselColors.find(c=>c.code===(s.basinColor||'gloss')),name=top==='neris'?'Neris':'Torne';
    row('Vasque '+name,color?.[name],color&&s.width>=(top==='neris'?50:40)?C.vesselTTC:null,color?.name||'Couleur à vérifier');
   }
-  if(s.tap)row('Robinetterie associée',s.tap,null,'Tarif non intégré');
  }else if(item.type==='column'){
   row(C.column.name,f?C.column.ref+' '+f.refCode:null,f?C.column.ttc:null,`38 × 132 × 27 cm · ${f?.name||'Finition à vérifier'}`);
  }else if(item.type==='mirror'){
@@ -28,5 +27,5 @@ export function lineItems(item){
 }
 export function quoteProject(project){
  const items=Array.isArray(project?.items)?project.items:[],rows=items.flatMap(lineItems),subtotal=rows.reduce((n,r)=>n+(r.publicTTC??0),0),missing=rows.filter(r=>r.publicTTC===null);
- return {rows,subtotal,publicTTC:missing.length?null:subtotal,missing,indicative:rows.some(r=>r.note),excluded:items.filter(i=>!['cabinet','column','mirror'].includes(i.type)).map(i=>({id:i.id,type:i.type})),vat:20};
+ return {rows,subtotal,publicTTC:missing.length?null:subtotal,missing,indicative:rows.some(r=>r.note),excluded:[...items.filter(i=>!['cabinet','column','mirror'].includes(i.type)).map(i=>({id:i.id,type:i.type})),...items.filter(i=>i.type==='cabinet'&&i.settings?.tap).map(i=>({id:i.id+'-tap',type:'attached-tap',reference:i.settings.tap}))],vat:20};
 }
