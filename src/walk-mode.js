@@ -60,7 +60,7 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
       controls.enabled=false;view();onMove();
     }else{controls.enabled=true;touchMove={x:0,y:0};touchLook=null;mouseLook=false;onExit?.();onMove();}
     button.textContent=active?'Quitter la visite':'Visite 3D';
-    panel.hidden=!active;joystick.hidden=!active;
+    panel.hidden=true;joystick.hidden=true;
   }
   button=document.createElement('button');button.type='button';button.textContent='Visite 3D';
   button.setAttribute('aria-label','Activer ou quitter le déplacement dans les pièces');
@@ -84,7 +84,7 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
   Object.assign(joystick.style,{position:'absolute',left:'12px',bottom:'66px',zIndex:'45',width:'116px',height:'116px',borderRadius:'50%',border:'2px solid #b6d4c8',background:'rgba(15,56,46,.35)',touchAction:'none'});
   const knob=document.createElement('div');
   Object.assign(knob.style,{position:'absolute',left:'39px',top:'39px',width:'38px',height:'38px',borderRadius:'50%',background:'#e4f4ea',pointerEvents:'none'});
-  joystick.append(knob);stage.append(joystick);
+  joystick.append(knob); /* Joystick désactivé sur mobile : contrôle visuel retiré. */
   function updatePad(e){const rect=joystick.getBoundingClientRect(),dx=e.clientX-(rect.left+rect.width/2),dy=e.clientY-(rect.top+rect.height/2),length=Math.max(1,Math.hypot(dx,dy)),scale=Math.min(1,47/length);touchMove={x:dx*scale/47,y:dy*scale/47};knob.style.transform='translate('+touchMove.x*38+'px,'+touchMove.y*38+'px)';onMove();}
   joystick.addEventListener('pointerdown',e=>{e.preventDefault();joystick.setPointerCapture(e.pointerId);updatePad(e)});
   joystick.addEventListener('pointermove',e=>{if(joystick.hasPointerCapture(e.pointerId))updatePad(e)});
