@@ -17,18 +17,31 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
   function passable(x,z){
     const room=getRoom();if(!room)return true;
     const pts=room.points;
-    if([[-radius,0],[radius,0],[0,-radius],[0,radius],[0,0]].every(([dx,dz])=>inside(x+dx,z+dz,pts)))return true;
-    // Franchir uniquement une porte suffisamment ouverte et non une fenêtre.
-    for(const item of getItems()||[]){
-      if(item.type!=='door'||!item.settings?.doorOpen||item.dimensions?.width&&item.dimensions.width<.65)continue;
-      const root=item.root;if(!root)continue;
-      root.updateWorldMatrix(true,false);
-      const p=root.getWorldPosition(new T.Vector3());
-      const local=new T.Vector3(x,eye,z).sub(p).applyQuaternion(root.getWorldQuaternion(new T.Quaternion()).invert());
-      const w=item.dimensions?.width||.83;
-      if(Math.abs(local.x)<w/2-radius*.55&&Math.abs(local.z)<.36)return true;
+    const insideRoom=[[-radius,0],[radius,0],[0,-radius],[0,radius],[0,0]].every(([dx,dz])=>inside(x+dx,z+dz,pts));
+    const doorway=(wall,u)=>{
+      const candidates=(getItems()||[]).filter(item=>item.type==='door'&&item.settings?.doorOpen&&item.placement?.wall!==undefined);
+      return candidates.some(item=>{
+        const other=room.walls[item.placement.wall];
+        if(!other)return false;
+        const same=wall===other||wall.partition!==undefined&&other.partition===wall.partition;
+        if(!same)return false;
+        const center=wall===other?item.placement.u/100:wall.length-item.placement.u/100;
+        return Math.abs(u-center)<(item.dimensions?.width||.83)/2-radius*.55;
+      });
+    };
+    for(const wall of room.walls||[]){
+      if(wall.height<eye+.1)continue;
+      const d=new T.Vector3(x,0,z).sub(wall.start);
+      const axis=new T.Vector3(wall.normal.z,0,-wall.normal.x);
+      const u=d.dot(axis),distance=Math.abs(d.dot(wall.normal));
+      if(u<-.001||u>wall.length+.001||distance>=radius)continue;
+      if(!doorway(wall,u))return false;
     }
-    return false;
+    return insideRoom||room.walls?.some(w=>{
+      const d=new T.Vector3(x,0,z).sub(w.start);
+      const axis=new T.Vector3(w.normal.z,0,-w.normal.x);
+      return Math.abs(d.dot(w.normal))<.30&&doorway(w,d.dot(axis));
+    });
   }
   function view(){
     const side=new T.Vector3(-forward.z,0,forward.x);
