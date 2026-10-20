@@ -93,8 +93,8 @@
   ],
   "guidedInitializerRoundtrips": 6,
   "notes": "Geometry/controller regressions. Browser 3D acceptance is recorded separately.",
-  "guidedInitializerResult": "passed: actual initializer and restoreProject preserve references, dimensions, finishes and public TTC, including default 3D taps excluded from furniture total",
-  "lastValidatedAt": "2026-10-20T12:25:42.408429+00:00",
+  "guidedInitializerResult": "passed: actual initializer and restoreProject preserve references, dimensions, finishes, public amount and site reference",
+  "lastValidatedAt": "2026-10-20T13:50:03.793760+00:00",
   "lastCommand": "npm run check",
   "lastCommandExitCode": 0
 }

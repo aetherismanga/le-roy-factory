@@ -22,15 +22,13 @@ export function saveComposition(storage,input,{id=null,now=new Date().toISOStrin
  const previous=all.findIndex(p=>p.id===key);if(previous>=0){saved.thumbnail=all[previous].thumbnail;all.splice(previous,1);}
  all.unshift(saved);storage.setItem(SAVED_KEY,JSON.stringify(all.slice(0,20)));storage.setItem(ACTIVE_ID,key);storeQuote(storage,project,readStored(storage,QUOTE_CONTEXT,{mode:'scene'}).mode);return saved;
 }
-export function orderText(project,{name='',email='',client=null}={}){
- const p=checkedProject(project),q=quoteProject(p),parts=['DEMANDE DE COMMANDE — RANDAL STUDIO ONE',p.title||'Ma salle de bains',''];
- if(client?.codeClient)parts.push('Compte client : '+client.codeClient,'Société : '+(client.societe||''));
- if(name)parts.push('Contact : '+String(name).trim());if(email)parts.push('E-mail : '+String(email).trim());parts.push('');
- q.rows.forEach(r=>parts.push(r.name,r.detail,'Référence : '+r.ref,'Quantité : 1','Prix public TTC : '+money(r.publicTTC),...(r.note?[r.note]:[]),''));
- parts.push('TOTAL MOBILIER PUBLIC TTC : '+money(q.publicTTC),'TVA 20 % incluse.');
- if(q.missing.length)parts.push('Sous-total des lignes renseignées : '+money(q.subtotal));
- if(q.excluded.length)parts.push(q.excluded.length+' équipement(s) ou accessoire(s) sans tarif intégré : hors total mobilier.');
- parts.push('Revêtements, pose et transport exclus.','Merci de confirmer les références, compatibilités, disponibilités et délais.','Cette demande est soumise à confirmation et ne constitue pas une commande ferme.');return parts.join('\n');
+export function orderText(project,{name='',email='',telephone='',adresse='',codePostal='',ville='',siteReference='',client=null,proHT=null,privateCode='',isAdmin=false,kind='order'}={}){
+ const p=checkedProject(project),q=quoteProject(p),parts=[kind==='callback'?'DEMANDE DE RAPPEL — STUDIO ONE':'DEMANDE DE COMMANDE — STUDIO ONE',p.title||'Ma salle de bains','Référence chantier : '+(siteReference||p.siteReference||'À renseigner'),''];
+ if(client){parts.push(isAdmin?'Administrateur : '+client.societe:'Compte client : '+client.codeClient,'Société : '+(client.societe||''));for(const [label,key]of [['Contact','contact'],['Adresse','adresse'],['Code postal','codePostal'],['Ville','ville'],['E-mail','email'],['Téléphone','telephone']])if(client[key])parts.push(label+' : '+client[key]);}
+ for(const [label,value]of [['Contact',name],['E-mail',email],['Téléphone',telephone],['Adresse',adresse],['Code postal',codePostal],['Ville',ville]])if(value)parts.push(label+' : '+String(value).trim());parts.push('');
+ for(const r of q.rows)parts.push(r.name,r.detail,'Référence : '+r.ref,'Quantité : 1','Prix : '+money(r.publicTTC),...(r.note?[r.note]:[]),'');
+ parts.push('TOTAL COMPOSITION : '+money(q.publicTTC));if(client&&Number.isInteger(proHT)){if(privateCode)parts.push('Code composition : '+privateCode);parts.push('Tarif achat pro : '+money(proHT));}
+ if(q.missing.length)parts.push('Sous-total renseigné : '+money(q.subtotal));if(q.excluded.length)parts.push(q.excluded.length+' équipement(s) sans tarif intégré, hors montant mobilier.');parts.push('Revêtements, pose et transport exclus.','Merci de confirmer les références, compatibilités, disponibilités et délais.','Cette demande est soumise à confirmation et ne constitue pas une commande ferme.');return parts.join('\n');
 }
 export function composeLinks(body,subject){
  const to=ORDER_TO.join(','),params={to,subject,body};

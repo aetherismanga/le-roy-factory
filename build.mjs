@@ -1,5 +1,5 @@
 import {build} from 'esbuild';
-import {readFileSync,writeFileSync,copyFileSync} from 'node:fs';
+import {readFileSync,writeFileSync,copyFileSync,rmSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 await build({entryPoints:['src/app.js'],bundle:true,format:'esm',target:['es2020'],minify:true,outfile:'dist/app.js',legalComments:'eof'});
 // Give updated assets a distinct URL so mobile caches cannot retain old
@@ -10,7 +10,8 @@ for(const file of ['app.js','style.css']){const hash=createHash('sha256').update
 writeFileSync('dist/atelier.html',html);
 console.log('Static standalone build ready.');
 
-await build({entryPoints:['src/commerce/home.js'],bundle:true,format:'esm',target:['es2020'],minify:true,outfile:'dist/accueil.js'});
+rmSync('dist/chunks',{recursive:true,force:true});
+await build({entryPoints:{accueil:'src/commerce/home.js'},bundle:true,format:'esm',splitting:true,target:['es2020'],minify:true,outdir:'dist',chunkNames:'chunks/[name]-[hash]'});
 copyFileSync('src/commerce/home.html','dist/accueil.html');
 copyFileSync('src/commerce/home.css','dist/accueil.css');
 copyFileSync('src/commerce/atelier.css','dist/commerce.css');

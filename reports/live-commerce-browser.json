@@ -1,0 +1,183 @@
+{
+  "screens": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "scroll": [
+        1440,
+        900
+      ],
+      "cards": [
+        503.15625,
+        503.15625,
+        825.8125,
+        825.8125
+      ],
+      "footer": {
+        "top": 825.8125,
+        "bottom": 900,
+        "left": 170,
+        "right": 1270
+      },
+      "beta": {
+        "top": 30.5,
+        "bottom": 40.5,
+        "left": 1360.4375,
+        "right": 1412
+      }
+    },
+    {
+      "viewport": [
+        768,
+        1024
+      ],
+      "scroll": [
+        768,
+        1024
+      ],
+      "cards": [
+        565.15625,
+        565.15625,
+        949.8125,
+        949.8125
+      ],
+      "footer": {
+        "top": 949.8125,
+        "bottom": 1024,
+        "left": 18,
+        "right": 750
+      },
+      "beta": {
+        "top": 30.5,
+        "bottom": 40.5,
+        "left": 688.4375,
+        "right": 740
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "scroll": [
+        390,
+        844
+      ],
+      "cards": [
+        464.796875,
+        464.796875,
+        783,
+        783
+      ],
+      "footer": {
+        "top": 783,
+        "bottom": 844,
+        "left": 12,
+        "right": 378
+      },
+      "beta": {
+        "top": 25.5,
+        "bottom": 33.5,
+        "left": 341.875,
+        "right": 376
+      }
+    },
+    {
+      "viewport": [
+        360,
+        640
+      ],
+      "scroll": [
+        360,
+        640
+      ],
+      "cards": [
+        358.140625,
+        358.140625,
+        579,
+        579
+      ],
+      "footer": {
+        "top": 579,
+        "bottom": 640,
+        "left": 12,
+        "right": 348
+      },
+      "beta": {
+        "top": 25.5,
+        "bottom": 33.5,
+        "left": 311.875,
+        "right": 346
+      }
+    },
+    {
+      "viewport": [
+        320,
+        568
+      ],
+      "scroll": [
+        320,
+        568
+      ],
+      "cards": [
+        322.140625,
+        322.140625,
+        507,
+        507
+      ],
+      "footer": {
+        "top": 507,
+        "bottom": 568,
+        "left": 12,
+        "right": 308
+      },
+      "beta": {
+        "top": 25.5,
+        "bottom": 33.5,
+        "left": 271.875,
+        "right": 306
+      }
+    }
+  ],
+  "errors": [],
+  "checks": [
+    "Four model cards fit five viewports; official logo and Beta V2 remain visible",
+    "Live estimate grows with basin, column and mirror; exact public amount retained",
+    "Actual preview state tracks model, width, finish, basin, column and mirror",
+    "Back, reload and resume retain selections; saves update same project",
+    "Visitor callback requires contact and consent; quote includes site reference, no tax labels",
+    "Print layout and drafted contact message retain coordinates and references; no message sent",
+    "Synthetic authenticated client sees own code, computed purchase amount and account coordinates",
+    "Client and chantier fields appear in print and composed order, without writing identity or private amounts to saved projects",
+    "Synthetic verified administrator shows red label; logout clears private amounts"
+  ],
+  "identityFixtures": "Synthetic browser responses only; server identity verification tested independently. No real client or admin signed in.",
+  "initialResources": [
+    {
+      "name": "http://localhost:4173/accueil.css",
+      "bytes": 34681
+    },
+    {
+      "name": "http://localhost:4173/accueil.js",
+      "bytes": 46351
+    },
+    {
+      "name": "http://localhost:4173/assets/studio-one-logo.png",
+      "bytes": 2707
+    },
+    {
+      "name": "http://localhost:4173/chunks/chunk-4TFIKSUI.js",
+      "bytes": 1587
+    },
+    {
+      "name": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/hero-meuble-hd.webp",
+      "bytes": 0
+    }
+  ],
+  "previewFailure": "Error creating WebGL context.",
+  "webGL2": false,
+  "rendered3DValidated": false,
+  "passed": true
+}

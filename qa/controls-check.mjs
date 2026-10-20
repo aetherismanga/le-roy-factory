@@ -231,7 +231,7 @@ vm.runInContext('newBathroomProject()',context);assert(vm.runInContext('applyRoo
 context.URL=URL;context.URLSearchParams=URLSearchParams;
 for(const [i,mirror] of ['basic','zen','ilse','capsule','metal-rect','round'].entries()){
  const d={...initialDraft(),format:['two','three','one-xl','two-xl'][i%4],width:[60,70,80,90,100,120][i],top:i%2?'tampa':'neris',basinColor:i%2?'black':'blue',column:true,columnFinish:'NOGAL',finish:'BISC',mirror};
- const pending=draftProject(d),storage=new Map([['studio-one-guided-transfer-v1',JSON.stringify(pending)]]);
+ const pending={...draftProject(d),siteReference:'CHANTIER-RETOUR-3D-'+i},storage=new Map([['studio-one-guided-transfer-v1',JSON.stringify(pending)]]);
  context.localStorage={getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v),removeItem:k=>storage.delete(k)};
  context.location={search:'?guided=1',hash:'',href:'https://preview.example/atelier.html?guided=1'};
  context.history={replaceState:()=>{}};context.pendingGuidedTest=pending;
@@ -239,7 +239,7 @@ for(const [i,mirror] of ['basic','zen','ilse','capsule','metal-rect','round'].en
  vm.runInContext('renderer.setSize=()=>{};journal=null;initializeProjectSession()',context);
  assert(!storage.has('studio-one-guided-transfer-v1'),'Transfer failed: '+ids.get('placement-status').textContent);
  const actual=JSON.parse(vm.runInContext('JSON.stringify(collectProject())',context));
- assert.equal(actual.items.length,3,'All selected furniture restored');
+ assert.equal(actual.items.length,3,'All selected furniture restored');assert.equal(actual.siteReference,pending.siteReference,'Site reference survives actual initializer, scene editing and quote export');
  assert.deepEqual(quoteProject(actual).rows.map(({itemId,...r})=>r),quoteProject(pending).rows.map(({itemId,...r})=>r),'References, dimensions, finishes and TTC survive real project restoration');
  assert(!storage.has('studio-one-guided-transfer-v1'),'Successful transfer consumed');
  vm.runInContext('clearTimeout(projectTimer);clearTimeout(toastTimer)',context);

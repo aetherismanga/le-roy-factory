@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "purchaseReferencesCompared": 335,
+  "totalPrivateReferences": 328,
+  "checks": [
+    "Original C1 bases and exact historical basin rule; no invented discount",
+    "Anonymous injection and unapproved partner return no purchase amount",
+    "Verified own client details only; code remains unchanged",
+    "Expired session, forged administrator, wrong project and revoked admin blocked",
+    "Administrator email allowlist checked only after Google token lookup",
+    "Actual shared model geometry, ceramic colours and finishing samples match workshop"
+  ],
+  "liveAccounts": "Synthetic tests only. No real account or password used.",
+  "browser3D": "Requires WebGL2; see browser evidence."
+}
