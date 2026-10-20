@@ -57,7 +57,7 @@ async function assignMissingCodes(){
   assigning=true;
   try{
     await ensureCounterAtLeastExisting();
-    const missing=clients.filter(c=>!/^LRF-\d{5}$/i.test(String(c.codeClient||""))).sort((a,b)=>String(a.societe||"").localeCompare(String(b.societe||""),"fr"));
+    const missing=clients.filter(c=>c.archived!==true&&c.archive!==true&&!c.duplicateOf&&!/^LRF-\d{5}$/i.test(String(c.codeClient||""))).sort((a,b)=>String(a.societe||"").localeCompare(String(b.societe||""),"fr"));
     for(const c of missing){
       try{await assignCode(c.id)}catch(e){console.error("Attribution code LRF",c.societe,e)}
     }
