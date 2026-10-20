@@ -110,7 +110,8 @@ function prefetchNeighbours(){
 function updateNavigation(){
  const section=sectionAt(page),name=section?.name||(page===1?'Couverture':page===2?'Sommaire':'Informations RANDAL');
  $('page-input').value=String(page);$('page-input').max=String(maxPage);$('page-counter').textContent='/ '+maxPage;
- $('prev-page').disabled=page<=1;$('next-page').disabled=page>=maxPage;
+ ['prev-page','viewer-prev-page'].forEach(id=>$(id).disabled=page<=1);
+ ['next-page','viewer-next-page'].forEach(id=>$(id).disabled=page>=maxPage);
  $('section-name').textContent=name;$('page-caption').textContent='Page '+page+' / '+maxPage;
  $('section-category').textContent=section?.kind==='meuble'?'Collection RANDAL':section?.kind==='accessoire'?'Les compléments':'RANDAL 2026 · V04';
  const before=[...SECTIONS].reverse().find(s=>s.page<(section?.page||page));
@@ -248,7 +249,8 @@ function attachGestures(){
 function attachEvents(){
  $('open-index').onclick=openIndex;$('return-index').onclick=openIndex;$('close-index').onclick=closeIndex;
  drawer.addEventListener('click',e=>{if(e.target===drawer)closeIndex();});
- $('prev-page').onclick=()=>goPage(page-1);$('next-page').onclick=()=>goPage(page+1);
+ ['prev-page','viewer-prev-page'].forEach(id=>$(id).onclick=()=>goPage(page-1));
+ ['next-page','viewer-next-page'].forEach(id=>$(id).onclick=()=>goPage(page+1));
  $('prev-collection').onclick=e=>goPage(e.currentTarget.dataset.page);$('next-collection').onclick=e=>goPage(e.currentTarget.dataset.page);
  $('zoom-in').onclick=()=>changeZoom(zoom+.5);$('zoom-out').onclick=()=>changeZoom(zoom-.5);
  $('fit-mode').onchange=e=>{fitMode=e.target.value;zoom=1;panX=0;panY=0;measure();updateZoom();render();};

@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#f7f5f0">
 <title>Collections RANDAL 2026 | Catalogue interactif — LE ROY FACTORY</title>
 <meta name="description" content="Découvrez les collections RANDAL 2026. Parcourez le catalogue officiel V04, explorez les détails et configurez directement votre collection.">
-<link rel="stylesheet" href="assets/css/randal-catalogue-interactif.css?v=20261020-1">
+<link rel="stylesheet" href="assets/css/randal-catalogue-interactif.css?v=20261020-2">
 </head>
 <body>
 <svg class="svg-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
@@ -44,9 +44,11 @@
   </div>
   <div class="viewer-shell">
    <div id="page-frame" class="page-frame" tabindex="0" aria-label="Page du catalogue. Flèches pour naviguer, plus ou moins pour zoomer." aria-busy="true"><div id="page-mount" class="page-mount"></div></div>
+   <button id="viewer-prev-page" class="viewer-page-nav viewer-page-prev" type="button" aria-label="Page précédente du catalogue" aria-controls="page-frame" title="Page précédente"><svg><use href="#i-left"/></svg></button>
+   <button id="viewer-next-page" class="viewer-page-nav viewer-page-next" type="button" aria-label="Page suivante du catalogue" aria-controls="page-frame" title="Page suivante"><svg><use href="#i-right"/></svg></button>
    <div id="viewer-status" class="viewer-status" role="status" aria-live="polite">Ouverture du catalogue…</div>
    <div id="viewer-error" class="viewer-error" hidden><p>Le catalogue ne peut pas être affiché pour le moment.</p><button id="retry-pdf" type="button">Réessayer</button><a id="pdf-error-link" href="assets/pdf/RANDAL-V04.pdf?v=20261014-prix-publics" target="_blank" rel="noopener">Ouvrir le PDF officiel ↗</a></div>
-   <div class="reader-hint chrome" id="reader-hint">Glissez pour feuilleter · Double appui pour zoomer</div>
+   <div class="reader-hint chrome" id="reader-hint">Flèches ou glissement : pages · Double appui : zoom</div>
   </div>
   <footer class="collection-bar chrome">
    <div class="collection-info"><span class="eyebrow" id="section-category">RANDAL 2026</span><h2 id="section-name">Couverture</h2><span id="page-caption">Page 1 / 43</span></div>
@@ -67,5 +69,5 @@
 <noscript><p>Activez JavaScript ou <a href="assets/pdf/RANDAL-V04.pdf?v=20261014-prix-publics">consultez le PDF officiel RANDAL</a>.</p></noscript>
 <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
 <script src="assets/js/randal-catalogue/data.js?v=20261017-3"></script>
-<script src="assets/js/randal-catalogue-interactif.js?v=20261020-1"></script>
+<script src="assets/js/randal-catalogue-interactif.js?v=20261020-2"></script>
 </body></html>
