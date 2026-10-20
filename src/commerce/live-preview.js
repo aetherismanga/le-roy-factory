@@ -5,14 +5,15 @@ import {Reflector} from 'three/addons/objects/Reflector.js';
 import {RectAreaLightUniformsLib} from 'three/addons/lights/RectAreaLightUniformsLib.js';
 import {applyMirrorLighting} from '../mirror-lighting.js';
 import {buildPreview,visibleBounds,FINISHES,mirrorGeometry} from './preview-model.js';
+import {configureColourRendering} from '../colour-rendering.js';
 export function createPreview(host){
  const canvas=document.createElement('canvas');canvas.setAttribute('aria-label','Votre composition STUDIO ONE en 3D. Faites glisser pour tourner, pincez pour zoomer.');canvas.tabIndex=0;host.prepend(canvas);
- const renderer=new T.WebGLRenderer({canvas,antialias:true,preserveDrawingBuffer:true,alpha:false});renderer.setPixelRatio(Math.min(devicePixelRatio||1,innerWidth<700?1.5:2));renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.05;renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFSoftShadowMap;
+ const renderer=new T.WebGLRenderer({canvas,antialias:true,preserveDrawingBuffer:true,alpha:false});renderer.setPixelRatio(Math.min(devicePixelRatio||1,innerWidth<700?1.5:2));configureColourRendering(renderer);renderer.toneMappingExposure=1;renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFSoftShadowMap;
  const scene=new T.Scene();scene.background=new T.Color('#eae6dc');const camera=new T.PerspectiveCamera(36,1,.05,100),controls=new OrbitControls(camera,canvas);controls.minDistance=.8;controls.maxDistance=8;controls.maxPolarAngle=Math.PI*.58;controls.enablePan=false;
- const pmrem=new T.PMREMGenerator(renderer),environment=new RoomEnvironment(),env=pmrem.fromScene(environment);scene.environment=env.texture;environment.dispose();pmrem.dispose();
- RectAreaLightUniformsLib.init();scene.add(new T.HemisphereLight('#e1eaf1','#8e8069',1.0));
- for(const [x,power]of [[-1.1,4.4],[1.1,1.7]]){const l=new T.RectAreaLight('#ffffff',power,1.4,1.8);l.position.set(x,2.2,2);l.lookAt(0,.8,0);scene.add(l);}
- const sun=new T.DirectionalLight('#fff8ed',2);sun.position.set(-2,3,3);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-3,right:3,top:3,bottom:-2,near:.1,far:12});sun.shadow.normalBias=.0015;scene.add(sun);
+ const pmrem=new T.PMREMGenerator(renderer),environment=new RoomEnvironment(),env=pmrem.fromScene(environment);scene.environment=env.texture;scene.environmentIntensity=.45;environment.dispose();pmrem.dispose();
+ RectAreaLightUniformsLib.init();scene.add(new T.HemisphereLight('#ffffff','#8e8069',.35));
+ for(const [x,power]of [[-1.1,3],[1.1,1]]){const l=new T.RectAreaLight('#ffffff',power,1.4,1.8);l.position.set(x,2.2,2);l.lookAt(0,.8,0);scene.add(l);}
+ const sun=new T.DirectionalLight('#ffffff',.9);sun.position.set(-2,3,3);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-3,right:3,top:3,bottom:-2,near:.1,far:12});sun.shadow.normalBias=.0015;scene.add(sun);
  const floor=new T.Mesh(new T.PlaneGeometry(12,12),new T.MeshStandardMaterial({color:'#dedbd2',roughness:.94}));floor.rotation.x=-Math.PI/2;floor.position.y=-.005;floor.receiveShadow=true;scene.add(floor);
  const wall=new T.Mesh(new T.PlaneGeometry(12,6),new T.MeshStandardMaterial({color:'#e5e1d6',roughness:.95}));wall.position.set(0,2.7,-.26);wall.receiveShadow=true;scene.add(wall);
  let current=null,revision=0,frame=0,active=true,lastShape='',lastProject=null;const textures=new Map();

@@ -151,7 +151,9 @@
     "Print layout and drafted contact message retain coordinates and references; no message sent",
     "Synthetic authenticated client sees own code, computed purchase amount and account coordinates",
     "Client and chantier fields appear in print and composed order, without writing identity or private amounts to saved projects",
-    "Synthetic verified administrator shows red label; logout clears private amounts"
+    "Synthetic verified administrator shows red label; logout clears private amounts",
+    "Mirror public price checked independently; unknown mirror purchase price is not invented",
+    "Actual WebGL2 workshop initialized with the transferred composition"
   ],
   "identityFixtures": "Synthetic browser responses only; server identity verification tested independently. No real client or admin signed in.",
   "initialResources": [
@@ -161,23 +163,23 @@
     },
     {
       "name": "http://localhost:4173/accueil.js",
-      "bytes": 46351
+      "bytes": 46315
     },
     {
       "name": "http://localhost:4173/assets/studio-one-logo.png",
       "bytes": 2707
     },
     {
-      "name": "http://localhost:4173/chunks/chunk-4TFIKSUI.js",
-      "bytes": 1587
+      "name": "http://localhost:4173/chunks/chunk-6B6HXLFO.js",
+      "bytes": 2296
     },
     {
       "name": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/hero-meuble-hd.webp",
       "bytes": 0
     }
   ],
-  "previewFailure": "Error creating WebGL context.",
-  "webGL2": false,
-  "rendered3DValidated": false,
+  "previewFailure": null,
+  "webGL2": true,
+  "rendered3DValidated": true,
   "passed": true
 }

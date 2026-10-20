@@ -1,3 +1,5 @@
+> **Mise à jour corrective du 20 octobre 2026 :** voir [CORRECTION-TARIFS-ET-FINITIONS.md](CORRECTION-TARIFS-ET-FINITIONS.md). Cette vérification indépendante corrige le doublement de 25 références de miroirs, exclut leurs achats non documentés et valide désormais le rendu réel WebGL2. Les constats tarifaires et limites GPU de la livraison initiale ci-dessous sont historiques et remplacés par ce contrôle.
+
 # STUDIO ONE BÊTA V2 — accueil, composition vivante et chiffrage LRF
 
 Prévisualisation sur `feature/studio-one-beta-v2-commerce-accueil`. Aucun changement sur main, leroyfactory.fr, les fiches clients, les règles Firebase, les textures ou les géométries existantes.

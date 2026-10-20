@@ -1,0 +1,1860 @@
+{
+  "passed": true,
+  "totalDistinctPublicReferences": 328,
+  "pdfVerifiedReferences": 64,
+  "c1VerifiedReferences": 264,
+  "correctedMirrorReferences": 25,
+  "corrections": [
+    {
+      "ref": "10129",
+      "name": "Basic",
+      "size": "60 × 80 cm",
+      "previousTTC": 14160,
+      "correctedTTC": 7080
+    },
+    {
+      "ref": "12449",
+      "name": "Basic",
+      "size": "70 × 60 cm",
+      "previousTTC": 13200,
+      "correctedTTC": 6600
+    },
+    {
+      "ref": "11054",
+      "name": "Basic",
+      "size": "100 × 60 cm",
+      "previousTTC": 17040,
+      "correctedTTC": 8520
+    },
+    {
+      "ref": "10130",
+      "name": "Basic",
+      "size": "120 × 60 cm",
+      "previousTTC": 18720,
+      "correctedTTC": 9360
+    },
+    {
+      "ref": "11713",
+      "name": "Zen LED",
+      "size": "60 × 80 cm",
+      "previousTTC": 44160,
+      "correctedTTC": 22080
+    },
+    {
+      "ref": "11533",
+      "name": "Zen LED",
+      "size": "80 × 80 cm",
+      "previousTTC": 49200,
+      "correctedTTC": 24600
+    },
+    {
+      "ref": "11714",
+      "name": "Zen LED",
+      "size": "100 × 80 cm",
+      "previousTTC": 54960,
+      "correctedTTC": 27480
+    },
+    {
+      "ref": "11523",
+      "name": "Zen LED",
+      "size": "120 × 80 cm",
+      "previousTTC": 63120,
+      "correctedTTC": 31560
+    },
+    {
+      "ref": "12743",
+      "name": "Ilse LED",
+      "size": "60 × 80 cm",
+      "previousTTC": 93360,
+      "correctedTTC": 46680
+    },
+    {
+      "ref": "12744",
+      "name": "Ilse LED",
+      "size": "80 × 80 cm",
+      "previousTTC": 104160,
+      "correctedTTC": 52080
+    },
+    {
+      "ref": "12745",
+      "name": "Ilse LED",
+      "size": "100 × 80 cm",
+      "previousTTC": 115440,
+      "correctedTTC": 57720
+    },
+    {
+      "ref": "12746",
+      "name": "Ilse LED",
+      "size": "120 × 80 cm",
+      "previousTTC": 127920,
+      "correctedTTC": 63960
+    },
+    {
+      "ref": "12741",
+      "name": "Cápsula LED",
+      "size": "45 × 90 cm",
+      "previousTTC": 83280,
+      "correctedTTC": 41640
+    },
+    {
+      "ref": "3731",
+      "name": "Miroir métallique rectangulaire",
+      "size": "80 × 60 cm",
+      "previousTTC": 51600,
+      "correctedTTC": 25800
+    },
+    {
+      "ref": "3727",
+      "name": "Miroir métallique rectangulaire",
+      "size": "80 × 60 cm",
+      "previousTTC": 51600,
+      "correctedTTC": 25800
+    },
+    {
+      "ref": "3728",
+      "name": "Miroir métallique rectangulaire",
+      "size": "80 × 60 cm",
+      "previousTTC": 51600,
+      "correctedTTC": 25800
+    },
+    {
+      "ref": "3730",
+      "name": "Miroir métallique rectangulaire",
+      "size": "80 × 60 cm",
+      "previousTTC": 51600,
+      "correctedTTC": 25800
+    },
+    {
+      "ref": "10572",
+      "name": "Miroir métallique rectangulaire",
+      "size": "120 × 75 cm",
+      "previousTTC": 81600,
+      "correctedTTC": 40800
+    },
+    {
+      "ref": "10574",
+      "name": "Miroir métallique rectangulaire",
+      "size": "120 × 75 cm",
+      "previousTTC": 81600,
+      "correctedTTC": 40800
+    },
+    {
+      "ref": "10575",
+      "name": "Miroir métallique rectangulaire",
+      "size": "120 × 75 cm",
+      "previousTTC": 81600,
+      "correctedTTC": 40800
+    },
+    {
+      "ref": "10577",
+      "name": "Miroir métallique rectangulaire",
+      "size": "120 × 75 cm",
+      "previousTTC": 81600,
+      "correctedTTC": 40800
+    },
+    {
+      "ref": "3717",
+      "name": "Miroir métallique rond",
+      "size": "Ø 60 cm",
+      "previousTTC": 38880,
+      "correctedTTC": 19440
+    },
+    {
+      "ref": "3722",
+      "name": "Miroir métallique rond",
+      "size": "Ø 60 cm",
+      "previousTTC": 38880,
+      "correctedTTC": 19440
+    },
+    {
+      "ref": "3723",
+      "name": "Miroir métallique rond",
+      "size": "Ø 60 cm",
+      "previousTTC": 38880,
+      "correctedTTC": 19440
+    },
+    {
+      "ref": "3725",
+      "name": "Miroir métallique rond",
+      "size": "Ø 60 cm",
+      "previousTTC": 38880,
+      "correctedTTC": 19440
+    }
+  ],
+  "verified": [
+    {
+      "ref": "13692 60@ROBLE",
+      "publicTTC": 50400,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14215 60@ROBLE",
+      "publicTTC": 58800,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13692 60@ALBA",
+      "publicTTC": 50400,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14215 60@ALBA",
+      "publicTTC": 58800,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13692 60@NOGAL",
+      "publicTTC": 50400,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14215 60@NOGAL",
+      "publicTTC": 58800,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13692 60@WHITE",
+      "publicTTC": 50400,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14215 60@WHITE",
+      "publicTTC": 58800,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13692 60@AZUL",
+      "publicTTC": 50400,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14215 60@AZUL",
+      "publicTTC": 58800,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13692 60@GRIS",
+      "publicTTC": 50400,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14215 60@GRIS",
+      "publicTTC": 58800,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13692 60@BISC.",
+      "publicTTC": 50400,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14215 60@BISC.",
+      "publicTTC": 58800,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13692 60@GREEN",
+      "publicTTC": 50400,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14215 60@GREEN",
+      "publicTTC": 58800,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13692 80@ROBLE",
+      "publicTTC": 52800,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14215 80@ROBLE",
+      "publicTTC": 63360,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13692 80@ALBA",
+      "publicTTC": 52800,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14215 80@ALBA",
+      "publicTTC": 63360,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13692 80@NOGAL",
+      "publicTTC": 52800,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14215 80@NOGAL",
+      "publicTTC": 63360,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13692 80@WHITE",
+      "publicTTC": 52800,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14215 80@WHITE",
+      "publicTTC": 63360,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13692 80@AZUL",
+      "publicTTC": 52800,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14215 80@AZUL",
+      "publicTTC": 63360,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13692 80@GRIS",
+      "publicTTC": 52800,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14215 80@GRIS",
+      "publicTTC": 63360,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13692 80@BISC.",
+      "publicTTC": 52800,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14215 80@BISC.",
+      "publicTTC": 63360,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13692 80@GREEN",
+      "publicTTC": 52800,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14215 80@GREEN",
+      "publicTTC": 63360,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13692 100@ROBLE",
+      "publicTTC": 60000,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14215 100@ROBLE",
+      "publicTTC": 72720,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13692 100@ALBA",
+      "publicTTC": 60000,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14215 100@ALBA",
+      "publicTTC": 72720,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13692 100@NOGAL",
+      "publicTTC": 60000,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14215 100@NOGAL",
+      "publicTTC": 72720,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13692 100@WHITE",
+      "publicTTC": 60000,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14215 100@WHITE",
+      "publicTTC": 72720,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13692 100@AZUL",
+      "publicTTC": 60000,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14215 100@AZUL",
+      "publicTTC": 72720,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13692 100@GRIS",
+      "publicTTC": 60000,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14215 100@GRIS",
+      "publicTTC": 72720,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13692 100@BISC.",
+      "publicTTC": 60000,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14215 100@BISC.",
+      "publicTTC": 72720,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13692 100@GREEN",
+      "publicTTC": 60000,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14215 100@GREEN",
+      "publicTTC": 72720,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13692 120@ROBLE",
+      "publicTTC": 62160,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14215 120@ROBLE",
+      "publicTTC": 77040,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13692 120@ALBA",
+      "publicTTC": 62160,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14215 120@ALBA",
+      "publicTTC": 77040,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13692 120@NOGAL",
+      "publicTTC": 62160,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14215 120@NOGAL",
+      "publicTTC": 77040,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13692 120@WHITE",
+      "publicTTC": 62160,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14215 120@WHITE",
+      "publicTTC": 77040,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13692 120@AZUL",
+      "publicTTC": 62160,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14215 120@AZUL",
+      "publicTTC": 77040,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13692 120@GRIS",
+      "publicTTC": 62160,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14215 120@GRIS",
+      "publicTTC": 77040,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13692 120@BISC.",
+      "publicTTC": 62160,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14215 120@BISC.",
+      "publicTTC": 77040,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13692 120@GREEN",
+      "publicTTC": 62160,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14215 120@GREEN",
+      "publicTTC": 77040,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13693 60@ROBLE",
+      "publicTTC": 66720,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14216 60@ROBLE",
+      "publicTTC": 75120,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13693 60@ALBA",
+      "publicTTC": 66720,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14216 60@ALBA",
+      "publicTTC": 75120,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13693 60@NOGAL",
+      "publicTTC": 66720,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14216 60@NOGAL",
+      "publicTTC": 75120,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13693 60@WHITE",
+      "publicTTC": 66720,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14216 60@WHITE",
+      "publicTTC": 75120,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13693 60@AZUL",
+      "publicTTC": 66720,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14216 60@AZUL",
+      "publicTTC": 75120,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13693 60@GRIS",
+      "publicTTC": 66720,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14216 60@GRIS",
+      "publicTTC": 75120,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13693 60@BISC.",
+      "publicTTC": 66720,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14216 60@BISC.",
+      "publicTTC": 75120,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13693 60@GREEN",
+      "publicTTC": 66720,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14216 60@GREEN",
+      "publicTTC": 75120,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13693 80@ROBLE",
+      "publicTTC": 72240,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14216 80@ROBLE",
+      "publicTTC": 82800,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13693 80@ALBA",
+      "publicTTC": 72240,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14216 80@ALBA",
+      "publicTTC": 82800,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13693 80@NOGAL",
+      "publicTTC": 72240,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14216 80@NOGAL",
+      "publicTTC": 82800,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13693 80@WHITE",
+      "publicTTC": 72240,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14216 80@WHITE",
+      "publicTTC": 82800,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13693 80@AZUL",
+      "publicTTC": 72240,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14216 80@AZUL",
+      "publicTTC": 82800,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13693 80@GRIS",
+      "publicTTC": 72240,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14216 80@GRIS",
+      "publicTTC": 82800,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13693 80@BISC.",
+      "publicTTC": 72240,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14216 80@BISC.",
+      "publicTTC": 82800,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13693 80@GREEN",
+      "publicTTC": 72240,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14216 80@GREEN",
+      "publicTTC": 82800,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13693 100@ROBLE",
+      "publicTTC": 81120,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14216 100@ROBLE",
+      "publicTTC": 93840,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13693 100@ALBA",
+      "publicTTC": 81120,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14216 100@ALBA",
+      "publicTTC": 93840,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13693 100@NOGAL",
+      "publicTTC": 81120,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14216 100@NOGAL",
+      "publicTTC": 93840,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13693 100@WHITE",
+      "publicTTC": 81120,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14216 100@WHITE",
+      "publicTTC": 93840,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13693 100@AZUL",
+      "publicTTC": 81120,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14216 100@AZUL",
+      "publicTTC": 93840,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13693 100@GRIS",
+      "publicTTC": 81120,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14216 100@GRIS",
+      "publicTTC": 93840,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13693 100@BISC.",
+      "publicTTC": 81120,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14216 100@BISC.",
+      "publicTTC": 93840,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13693 100@GREEN",
+      "publicTTC": 81120,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14216 100@GREEN",
+      "publicTTC": 93840,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13693 120@ROBLE",
+      "publicTTC": 84720,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14216 120@ROBLE",
+      "publicTTC": 99600,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13693 120@ALBA",
+      "publicTTC": 84720,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14216 120@ALBA",
+      "publicTTC": 99600,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13693 120@NOGAL",
+      "publicTTC": 84720,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14216 120@NOGAL",
+      "publicTTC": 99600,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13693 120@WHITE",
+      "publicTTC": 84720,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14216 120@WHITE",
+      "publicTTC": 99600,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13693 120@AZUL",
+      "publicTTC": 84720,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14216 120@AZUL",
+      "publicTTC": 99600,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13693 120@GRIS",
+      "publicTTC": 84720,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14216 120@GRIS",
+      "publicTTC": 99600,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13693 120@BISC.",
+      "publicTTC": 84720,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14216 120@BISC.",
+      "publicTTC": 99600,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13693 120@GREEN",
+      "publicTTC": 84720,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14216 120@GREEN",
+      "publicTTC": 99600,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13691 60@ROBLE",
+      "publicTTC": 45120,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14178 60@ROBLE",
+      "publicTTC": 53520,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13691 60@ALBA",
+      "publicTTC": 45120,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14178 60@ALBA",
+      "publicTTC": 53520,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13691 60@NOGAL",
+      "publicTTC": 45120,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14178 60@NOGAL",
+      "publicTTC": 53520,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13691 60@WHITE",
+      "publicTTC": 45120,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14178 60@WHITE",
+      "publicTTC": 53520,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13691 60@AZUL",
+      "publicTTC": 45120,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14178 60@AZUL",
+      "publicTTC": 53520,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13691 60@GRIS",
+      "publicTTC": 45120,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14178 60@GRIS",
+      "publicTTC": 53520,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13691 60@BISC.",
+      "publicTTC": 45120,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14178 60@BISC.",
+      "publicTTC": 53520,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13691 60@GREEN",
+      "publicTTC": 45120,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14178 60@GREEN",
+      "publicTTC": 53520,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13691 80@ROBLE",
+      "publicTTC": 47760,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14178 80@ROBLE",
+      "publicTTC": 58320,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13691 80@ALBA",
+      "publicTTC": 47760,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14178 80@ALBA",
+      "publicTTC": 58320,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13691 80@NOGAL",
+      "publicTTC": 47760,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14178 80@NOGAL",
+      "publicTTC": 58320,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13691 80@WHITE",
+      "publicTTC": 47760,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14178 80@WHITE",
+      "publicTTC": 58320,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13691 80@AZUL",
+      "publicTTC": 47760,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14178 80@AZUL",
+      "publicTTC": 58320,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13691 80@GRIS",
+      "publicTTC": 47760,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14178 80@GRIS",
+      "publicTTC": 58320,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13691 80@BISC.",
+      "publicTTC": 47760,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14178 80@BISC.",
+      "publicTTC": 58320,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13691 80@GREEN",
+      "publicTTC": 47760,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14178 80@GREEN",
+      "publicTTC": 58320,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13691 100@ROBLE",
+      "publicTTC": 54720,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14178 100@ROBLE",
+      "publicTTC": 67440,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13691 100@ALBA",
+      "publicTTC": 54720,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14178 100@ALBA",
+      "publicTTC": 67440,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13691 100@NOGAL",
+      "publicTTC": 54720,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14178 100@NOGAL",
+      "publicTTC": 67440,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13691 100@WHITE",
+      "publicTTC": 54720,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14178 100@WHITE",
+      "publicTTC": 67440,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13691 100@AZUL",
+      "publicTTC": 54720,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14178 100@AZUL",
+      "publicTTC": 67440,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13691 100@GRIS",
+      "publicTTC": 54720,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14178 100@GRIS",
+      "publicTTC": 67440,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13691 100@BISC.",
+      "publicTTC": 54720,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14178 100@BISC.",
+      "publicTTC": 67440,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13691 100@GREEN",
+      "publicTTC": 54720,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14178 100@GREEN",
+      "publicTTC": 67440,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13691 120@ROBLE",
+      "publicTTC": 56880,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14178 120@ROBLE",
+      "publicTTC": 71760,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13691 120@ALBA",
+      "publicTTC": 56880,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14178 120@ALBA",
+      "publicTTC": 71760,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13691 120@NOGAL",
+      "publicTTC": 56880,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14178 120@NOGAL",
+      "publicTTC": 71760,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13691 120@WHITE",
+      "publicTTC": 56880,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14178 120@WHITE",
+      "publicTTC": 71760,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13691 120@AZUL",
+      "publicTTC": 56880,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14178 120@AZUL",
+      "publicTTC": 71760,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13691 120@GRIS",
+      "publicTTC": 56880,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14178 120@GRIS",
+      "publicTTC": 71760,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13691 120@BISC.",
+      "publicTTC": 56880,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14178 120@BISC.",
+      "publicTTC": 71760,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "13691 120@GREEN",
+      "publicTTC": 56880,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14178 120@GREEN",
+      "publicTTC": 71760,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "14176 60@ROBLE",
+      "publicTTC": 55440,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14214 60@ROBLE",
+      "publicTTC": 63840,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "14176 60@ALBA",
+      "publicTTC": 55440,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14214 60@ALBA",
+      "publicTTC": 63840,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "14176 60@NOGAL",
+      "publicTTC": 55440,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14214 60@NOGAL",
+      "publicTTC": 63840,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "14176 60@WHITE",
+      "publicTTC": 55440,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14214 60@WHITE",
+      "publicTTC": 63840,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "14176 60@AZUL",
+      "publicTTC": 55440,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14214 60@AZUL",
+      "publicTTC": 63840,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "14176 60@GRIS",
+      "publicTTC": 55440,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14214 60@GRIS",
+      "publicTTC": 63840,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "14176 60@BISC.",
+      "publicTTC": 55440,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14214 60@BISC.",
+      "publicTTC": 63840,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "14176 60@GREEN",
+      "publicTTC": 55440,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14214 60@GREEN",
+      "publicTTC": 63840,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "14176 80@ROBLE",
+      "publicTTC": 58080,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14214 80@ROBLE",
+      "publicTTC": 68640,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "14176 80@ALBA",
+      "publicTTC": 58080,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14214 80@ALBA",
+      "publicTTC": 68640,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "14176 80@NOGAL",
+      "publicTTC": 58080,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14214 80@NOGAL",
+      "publicTTC": 68640,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "14176 80@WHITE",
+      "publicTTC": 58080,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14214 80@WHITE",
+      "publicTTC": 68640,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "14176 80@AZUL",
+      "publicTTC": 58080,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14214 80@AZUL",
+      "publicTTC": 68640,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "14176 80@GRIS",
+      "publicTTC": 58080,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14214 80@GRIS",
+      "publicTTC": 68640,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "14176 80@BISC.",
+      "publicTTC": 58080,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14214 80@BISC.",
+      "publicTTC": 68640,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "14176 80@GREEN",
+      "publicTTC": 58080,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14214 80@GREEN",
+      "publicTTC": 68640,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "14176 100@ROBLE",
+      "publicTTC": 66000,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14214 100@ROBLE",
+      "publicTTC": 78720,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "14176 100@ALBA",
+      "publicTTC": 66000,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14214 100@ALBA",
+      "publicTTC": 78720,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "14176 100@NOGAL",
+      "publicTTC": 66000,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14214 100@NOGAL",
+      "publicTTC": 78720,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "14176 100@WHITE",
+      "publicTTC": 66000,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14214 100@WHITE",
+      "publicTTC": 78720,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "14176 100@AZUL",
+      "publicTTC": 66000,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14214 100@AZUL",
+      "publicTTC": 78720,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "14176 100@GRIS",
+      "publicTTC": 66000,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14214 100@GRIS",
+      "publicTTC": 78720,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "14176 100@BISC.",
+      "publicTTC": 66000,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14214 100@BISC.",
+      "publicTTC": 78720,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "14176 100@GREEN",
+      "publicTTC": 66000,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14214 100@GREEN",
+      "publicTTC": 78720,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "14176 120@ROBLE",
+      "publicTTC": 68400,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14214 120@ROBLE",
+      "publicTTC": 83280,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "14176 120@ALBA",
+      "publicTTC": 68400,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14214 120@ALBA",
+      "publicTTC": 83280,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "14176 120@NOGAL",
+      "publicTTC": 68400,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14214 120@NOGAL",
+      "publicTTC": 83280,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "14176 120@WHITE",
+      "publicTTC": 68400,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14214 120@WHITE",
+      "publicTTC": 83280,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "14176 120@AZUL",
+      "publicTTC": 68400,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14214 120@AZUL",
+      "publicTTC": 83280,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "14176 120@GRIS",
+      "publicTTC": 68400,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14214 120@GRIS",
+      "publicTTC": 83280,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "14176 120@BISC.",
+      "publicTTC": 68400,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14214 120@BISC.",
+      "publicTTC": 83280,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "14176 120@GREEN",
+      "publicTTC": 68400,
+      "source": "C1 25/09/2026, without top"
+    },
+    {
+      "ref": "14214 120@GREEN",
+      "publicTTC": 83280,
+      "source": "C1 25/09/2026, matching top included"
+    },
+    {
+      "ref": "14177 ROBLE",
+      "publicTTC": 42480,
+      "source": "C1 column"
+    },
+    {
+      "ref": "14177 ALBA",
+      "publicTTC": 42480,
+      "source": "C1 column"
+    },
+    {
+      "ref": "14177 NOGAL",
+      "publicTTC": 42480,
+      "source": "C1 column"
+    },
+    {
+      "ref": "14177 WHITE",
+      "publicTTC": 42480,
+      "source": "C1 column"
+    },
+    {
+      "ref": "14177 AZUL",
+      "publicTTC": 42480,
+      "source": "C1 column"
+    },
+    {
+      "ref": "14177 GRIS",
+      "publicTTC": 42480,
+      "source": "C1 column"
+    },
+    {
+      "ref": "14177 BISC.",
+      "publicTTC": 42480,
+      "source": "C1 column"
+    },
+    {
+      "ref": "14177 GREEN",
+      "publicTTC": 42480,
+      "source": "C1 column"
+    },
+    {
+      "ref": "2215",
+      "publicTTC": 13800,
+      "source": "RANDAL V04 p38"
+    },
+    {
+      "ref": "2808",
+      "publicTTC": 15600,
+      "source": "RANDAL V04 p38"
+    },
+    {
+      "ref": "2171",
+      "publicTTC": 16320,
+      "source": "RANDAL V04 p38"
+    },
+    {
+      "ref": "13237",
+      "publicTTC": 19800,
+      "source": "RANDAL V04 p38"
+    },
+    {
+      "ref": "3279",
+      "publicTTC": 21120,
+      "source": "RANDAL V04 p38"
+    },
+    {
+      "ref": "6389",
+      "publicTTC": 46200,
+      "source": "RANDAL V04 p38"
+    },
+    {
+      "ref": "2809",
+      "publicTTC": 38160,
+      "source": "RANDAL V04 p38"
+    },
+    {
+      "ref": "6227",
+      "publicTTC": 14640,
+      "source": "RANDAL V04 p38"
+    },
+    {
+      "ref": "7781",
+      "publicTTC": 16560,
+      "source": "RANDAL V04 p38"
+    },
+    {
+      "ref": "6228",
+      "publicTTC": 17040,
+      "source": "RANDAL V04 p38"
+    },
+    {
+      "ref": "7782",
+      "publicTTC": 20760,
+      "source": "RANDAL V04 p38"
+    },
+    {
+      "ref": "6229",
+      "publicTTC": 23040,
+      "source": "RANDAL V04 p38"
+    },
+    {
+      "ref": "6232",
+      "publicTTC": 33480,
+      "source": "RANDAL V04 p38"
+    },
+    {
+      "ref": "6235",
+      "publicTTC": 38760,
+      "source": "RANDAL V04 p38"
+    },
+    {
+      "ref": "13039",
+      "publicTTC": 24360,
+      "source": "RANDAL V04 p38"
+    },
+    {
+      "ref": "13040",
+      "publicTTC": 31680,
+      "source": "RANDAL V04 p38"
+    },
+    {
+      "ref": "13041",
+      "publicTTC": 31680,
+      "source": "RANDAL V04 p38"
+    },
+    {
+      "ref": "13042",
+      "publicTTC": 37920,
+      "source": "RANDAL V04 p38"
+    },
+    {
+      "ref": "13043",
+      "publicTTC": 39840,
+      "source": "RANDAL V04 p38"
+    },
+    {
+      "ref": "13044",
+      "publicTTC": 57000,
+      "source": "RANDAL V04 p38"
+    },
+    {
+      "ref": "13045",
+      "publicTTC": 59880,
+      "source": "RANDAL V04 p38"
+    },
+    {
+      "ref": "9567",
+      "publicTTC": 27120,
+      "source": "RANDAL V04 p41"
+    },
+    {
+      "ref": "9559",
+      "publicTTC": 27120,
+      "source": "RANDAL V04 p41"
+    },
+    {
+      "ref": "9560",
+      "publicTTC": 27120,
+      "source": "RANDAL V04 p41"
+    },
+    {
+      "ref": "9552",
+      "publicTTC": 27120,
+      "source": "RANDAL V04 p41"
+    },
+    {
+      "ref": "9564",
+      "publicTTC": 27120,
+      "source": "RANDAL V04 p41"
+    },
+    {
+      "ref": "9556",
+      "publicTTC": 27120,
+      "source": "RANDAL V04 p41"
+    },
+    {
+      "ref": "11371",
+      "publicTTC": 27120,
+      "source": "RANDAL V04 p41"
+    },
+    {
+      "ref": "10444",
+      "publicTTC": 27120,
+      "source": "RANDAL V04 p41"
+    },
+    {
+      "ref": "9561",
+      "publicTTC": 27120,
+      "source": "RANDAL V04 p41"
+    },
+    {
+      "ref": "9553",
+      "publicTTC": 27120,
+      "source": "RANDAL V04 p41"
+    },
+    {
+      "ref": "9562",
+      "publicTTC": 27120,
+      "source": "RANDAL V04 p41"
+    },
+    {
+      "ref": "9554",
+      "publicTTC": 27120,
+      "source": "RANDAL V04 p41"
+    },
+    {
+      "ref": "9563",
+      "publicTTC": 27120,
+      "source": "RANDAL V04 p41"
+    },
+    {
+      "ref": "9555",
+      "publicTTC": 27120,
+      "source": "RANDAL V04 p41"
+    },
+    {
+      "ref": "9566",
+      "publicTTC": 27120,
+      "source": "RANDAL V04 p41"
+    },
+    {
+      "ref": "9558",
+      "publicTTC": 27120,
+      "source": "RANDAL V04 p41"
+    },
+    {
+      "ref": "9565",
+      "publicTTC": 27120,
+      "source": "RANDAL V04 p41"
+    },
+    {
+      "ref": "9557",
+      "publicTTC": 27120,
+      "source": "RANDAL V04 p41"
+    },
+    {
+      "ref": "10129",
+      "publicTTC": 7080,
+      "source": "RANDAL V04 p36"
+    },
+    {
+      "ref": "12449",
+      "publicTTC": 6600,
+      "source": "RANDAL V04 p36"
+    },
+    {
+      "ref": "11054",
+      "publicTTC": 8520,
+      "source": "RANDAL V04 p36"
+    },
+    {
+      "ref": "10130",
+      "publicTTC": 9360,
+      "source": "RANDAL V04 p36"
+    },
+    {
+      "ref": "11713",
+      "publicTTC": 22080,
+      "source": "RANDAL V04 p36"
+    },
+    {
+      "ref": "11533",
+      "publicTTC": 24600,
+      "source": "RANDAL V04 p36"
+    },
+    {
+      "ref": "11714",
+      "publicTTC": 27480,
+      "source": "RANDAL V04 p36"
+    },
+    {
+      "ref": "11523",
+      "publicTTC": 31560,
+      "source": "RANDAL V04 p36"
+    },
+    {
+      "ref": "12743",
+      "publicTTC": 46680,
+      "source": "RANDAL V04 p36"
+    },
+    {
+      "ref": "12744",
+      "publicTTC": 52080,
+      "source": "RANDAL V04 p36"
+    },
+    {
+      "ref": "12745",
+      "publicTTC": 57720,
+      "source": "RANDAL V04 p36"
+    },
+    {
+      "ref": "12746",
+      "publicTTC": 63960,
+      "source": "RANDAL V04 p36"
+    },
+    {
+      "ref": "12741",
+      "publicTTC": 41640,
+      "source": "RANDAL V04 p36"
+    },
+    {
+      "ref": "3731",
+      "publicTTC": 25800,
+      "source": "RANDAL V04 p36"
+    },
+    {
+      "ref": "3727",
+      "publicTTC": 25800,
+      "source": "RANDAL V04 p36"
+    },
+    {
+      "ref": "3728",
+      "publicTTC": 25800,
+      "source": "RANDAL V04 p36"
+    },
+    {
+      "ref": "3730",
+      "publicTTC": 25800,
+      "source": "RANDAL V04 p36"
+    },
+    {
+      "ref": "10572",
+      "publicTTC": 40800,
+      "source": "RANDAL V04 p36"
+    },
+    {
+      "ref": "10574",
+      "publicTTC": 40800,
+      "source": "RANDAL V04 p36"
+    },
+    {
+      "ref": "10575",
+      "publicTTC": 40800,
+      "source": "RANDAL V04 p36"
+    },
+    {
+      "ref": "10577",
+      "publicTTC": 40800,
+      "source": "RANDAL V04 p36"
+    },
+    {
+      "ref": "3717",
+      "publicTTC": 19440,
+      "source": "RANDAL V04 p36"
+    },
+    {
+      "ref": "3722",
+      "publicTTC": 19440,
+      "source": "RANDAL V04 p36"
+    },
+    {
+      "ref": "3723",
+      "publicTTC": 19440,
+      "source": "RANDAL V04 p36"
+    },
+    {
+      "ref": "3725",
+      "publicTTC": 19440,
+      "source": "RANDAL V04 p36"
+    }
+  ],
+  "unknownPurchaseReferences": [
+    "10129",
+    "12449",
+    "11054",
+    "10130",
+    "11713",
+    "11533",
+    "11714",
+    "11523",
+    "12743",
+    "12744",
+    "12745",
+    "12746",
+    "12741",
+    "3731",
+    "3727",
+    "3728",
+    "3730",
+    "10572",
+    "10574",
+    "10575",
+    "10577",
+    "3717",
+    "3722",
+    "3723",
+    "3725"
+  ],
+  "checks": [
+    "Independent PDF extraction rather than reproducing the legacy mirror calculation",
+    "All public references and C1 width bands checked",
+    "Matching top included once; no extra finish surcharge",
+    "Screenshot configuration totals 1107.60; multiple quantities sum correctly",
+    "Undocumented mirror purchase prices remain unavailable; no invented discount"
+  ]
+}

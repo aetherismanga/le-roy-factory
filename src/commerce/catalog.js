@@ -5,7 +5,7 @@ export const CATALOG = {
     "commit": "233ab6dda7fb71c5048ac1f983a67ceb3fe0b0c9",
     "path": "assets/js/studio-one/catalog.js",
     "sha256": "fc826b4e33f48ecce4527270b48212746702e41720e1e11d460bff87f8450065",
-    "rule": "Conversion identique à euros() dans randal-studio-one.html ; TVA 20 %. Miroirs indicatifs, à confirmer usine.",
+    "rule": "Meubles et colonne : C1 × 2 × 1,20. Vasques et miroirs : prix public HT RANDAL V04 × 1,20. Contrôle indépendant du PDF source pages 36, 38 et 41.",
     "vat": 20
   },
   "media": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/",
@@ -390,7 +390,7 @@ export const CATALOG = {
         {
           "label": "60 × 80 cm",
           "ref": "10129",
-          "ttc": 14160,
+          "ttc": 7080,
           "width": 60,
           "height": 80,
           "refs": null
@@ -398,7 +398,7 @@ export const CATALOG = {
         {
           "label": "70 × 60 cm",
           "ref": "12449",
-          "ttc": 13200,
+          "ttc": 6600,
           "width": 70,
           "height": 60,
           "refs": null
@@ -406,7 +406,7 @@ export const CATALOG = {
         {
           "label": "100 × 60 cm",
           "ref": "11054",
-          "ttc": 17040,
+          "ttc": 8520,
           "width": 100,
           "height": 60,
           "refs": null
@@ -414,7 +414,7 @@ export const CATALOG = {
         {
           "label": "120 × 60 cm",
           "ref": "10130",
-          "ttc": 18720,
+          "ttc": 9360,
           "width": 120,
           "height": 60,
           "refs": null
@@ -430,7 +430,7 @@ export const CATALOG = {
         {
           "label": "60 × 80 cm",
           "ref": "11713",
-          "ttc": 44160,
+          "ttc": 22080,
           "width": 60,
           "height": 80,
           "refs": null
@@ -438,7 +438,7 @@ export const CATALOG = {
         {
           "label": "80 × 80 cm",
           "ref": "11533",
-          "ttc": 49200,
+          "ttc": 24600,
           "width": 80,
           "height": 80,
           "refs": null
@@ -446,7 +446,7 @@ export const CATALOG = {
         {
           "label": "100 × 80 cm",
           "ref": "11714",
-          "ttc": 54960,
+          "ttc": 27480,
           "width": 100,
           "height": 80,
           "refs": null
@@ -454,7 +454,7 @@ export const CATALOG = {
         {
           "label": "120 × 80 cm",
           "ref": "11523",
-          "ttc": 63120,
+          "ttc": 31560,
           "width": 120,
           "height": 80,
           "refs": null
@@ -470,7 +470,7 @@ export const CATALOG = {
         {
           "label": "60 × 80 cm",
           "ref": "12743",
-          "ttc": 93360,
+          "ttc": 46680,
           "width": 60,
           "height": 80,
           "refs": null
@@ -478,7 +478,7 @@ export const CATALOG = {
         {
           "label": "80 × 80 cm",
           "ref": "12744",
-          "ttc": 104160,
+          "ttc": 52080,
           "width": 80,
           "height": 80,
           "refs": null
@@ -486,7 +486,7 @@ export const CATALOG = {
         {
           "label": "100 × 80 cm",
           "ref": "12745",
-          "ttc": 115440,
+          "ttc": 57720,
           "width": 100,
           "height": 80,
           "refs": null
@@ -494,7 +494,7 @@ export const CATALOG = {
         {
           "label": "120 × 80 cm",
           "ref": "12746",
-          "ttc": 127920,
+          "ttc": 63960,
           "width": 120,
           "height": 80,
           "refs": null
@@ -510,7 +510,7 @@ export const CATALOG = {
         {
           "label": "45 × 90 cm",
           "ref": "12741",
-          "ttc": 83280,
+          "ttc": 41640,
           "width": 45,
           "height": 90,
           "refs": null
@@ -526,7 +526,7 @@ export const CATALOG = {
         {
           "label": "80 × 60 cm",
           "ref": "3731",
-          "ttc": 51600,
+          "ttc": 25800,
           "width": 80,
           "height": 60,
           "refs": {
@@ -539,7 +539,7 @@ export const CATALOG = {
         {
           "label": "120 × 75 cm",
           "ref": "10572",
-          "ttc": 81600,
+          "ttc": 40800,
           "width": 120,
           "height": 75,
           "refs": {
@@ -560,7 +560,7 @@ export const CATALOG = {
         {
           "label": "Ø 60 cm",
           "ref": "3717",
-          "ttc": 38880,
+          "ttc": 19440,
           "width": 60,
           "height": 60,
           "refs": {
@@ -585,7 +585,7 @@ export const CATALOG = {
   "gaps": [
     "Conditions commerciales individuelles RANDAL : absentes de validateProSession et des sources consultées.",
     "Colonne 14177 : photographie isolée avec correspondance certaine introuvable. Aucun visuel d’un autre modèle utilisé.",
-    "Miroirs : montants indicatifs dans la source historique, à confirmer usine.",
+    "Miroirs : prix public vérifié dans RANDAL V04 page 36 ; prix d’achat professionnel non documenté, sur demande.",
     "Largeur 40 cm : confirmation usine déjà demandée par le configurateur historique.",
     "Doubles vasques 120 cm : références présentes mais géométrie non prise en charge par la Bêta ; non proposées dans le parcours.",
     "Accessoires, robinetterie, sanitaires, revêtements et profilés : aucun prix repris sans grille vérifiée."

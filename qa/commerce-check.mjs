@@ -10,7 +10,7 @@ import handler from '../api/commercial.js';
 const base=initialDraft();
 assert.equal(quoteProject(draftProject(base)).publicTTC,69120);
 assert.equal(quoteProject(draftProject({...base,top:'neris'})).publicTTC,90480);
-assert.equal(quoteProject(draftProject({...base,width:120,format:'three',top:'plain',column:true,mirror:'basic'})).publicTTC,156240);
+assert.equal(quoteProject(draftProject({...base,width:120,format:'three',top:'plain',column:true,mirror:'basic'})).publicTTC,149160);
 assert.equal(quoteProject({items:[{type:'mirror',settings:{mirrorModel:'basic',width:1,height:1}}]}).publicTTC,null);
 assert.equal(quoteProject({items:[{type:'cabinet',settings:{format:'unknown'}}]}).publicTTC,null);
 assert.throws(()=>normalizeDraft({...base,width:79}));
@@ -43,7 +43,7 @@ if(process.env.STUDIO_ONE_SOURCE){
  for(const mirror of C.mirrors)for(const [index,size]of mirror.sizes.entries())for(const metal of mirror.metal?['Noir','Argent','Doré','Bronze']:['Noir']){
   const prev=old.make('mirror',{mirror:mirror.name,mirrorSize:size.label,mirrorFinish:metal}),rows=old.lines(prev);
   const q=quoteProject({items:[{id:'mirror',type:'mirror',settings:{mirrorModel:mirror.id,width:size.width,height:size.height,mirrorFinish:metal}}]});
-  assert.equal(q.rows[0].ref,rows[0].ref);assert.equal(q.publicTTC,Math.round(rows[0].unit*240));comparisons++;
+  assert.equal(q.rows[0].ref,rows[0].ref);assert.equal(q.publicTTC,Math.round(rows[0].unit*120));comparisons++;
  }
 }
 let placementChecks=0;const testRoom=makeRoom(draftProject(base).room,0);

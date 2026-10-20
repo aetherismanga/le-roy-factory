@@ -7,7 +7,7 @@ import {FLOW_KEY,QUOTE_KEY,CURRENT_KEY,SAVED_KEY,ACTIVE_ID,ORDER_TO,storeQuote,s
 import {bindQuoteReturn} from '../src/commerce/atelier.js';
 class Storage{constructor(){this.map=new Map();}getItem(k){return this.map.get(k)||null;}setItem(k,v){this.map.set(k,String(v));}removeItem(k){this.map.delete(k);}}
 const storage=new Storage(),base=draftProject({...initialDraft(),format:'three',width:100,top:'tampa',basinColor:'black',column:true,columnFinish:'NOGAL',mirror:'ilse',mirrorSize:2,finish:'BISC'});
-const quote=quoteProject(base);assert.equal(quote.publicTTC,278880);
+const quote=quoteProject(base);assert.equal(quote.publicTTC,221160);
 let a=saveComposition(storage,base);const first=a.id;
 a=saveComposition(storage,{...base,title:'Projet renommé'},{id:first});assert.equal(readStored(storage,SAVED_KEY).length,1);assert.equal(a.id,first);
 const b=saveComposition(storage,{...base,title:'Projet renommé'});assert.notEqual(b.id,first);assert.equal(readStored(storage,SAVED_KEY).length,2);assert.equal(storage.getItem(ACTIVE_ID),b.id);

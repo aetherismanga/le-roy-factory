@@ -66,8 +66,8 @@ vm.runInContext(`renderer={render:()=>{},setPixelRatio:()=>{}};scene=new T.Scene
 for(const light of ['warm','showroom','day']){vm.runInContext(`selectLighting(${JSON.stringify(light)})`,context);assert.deepEqual(counts(),[8,14,5],'Lighting must not recreate widgets');}
 assert.equal(vm.runInContext("selectTop('unknown')",context),false);assert.equal(vm.runInContext("selectSurface('wall','unknown')",context),false);
 vm.runInContext(`camera=new T.PerspectiveCamera(42,1,.035,120);camera.position.set(1,1,2);controls={autoRotate:false,target:new T.Vector3(0,.94,0),update:()=>{}};wall={};roomGroup={};`,context);
-assert(vm.runInContext('setBrightness(150)',context));assert(Math.abs(vm.runInContext('renderer.toneMappingExposure',context)-1.575)<.00001);
-vm.runInContext("selectLighting('warm')",context);assert.equal(vm.runInContext('state.brightness',context),150);assert(Math.abs(vm.runInContext('renderer.toneMappingExposure',context)-1.545)<.00001);
+assert(vm.runInContext('setBrightness(150)',context));assert(Math.abs(vm.runInContext('renderer.toneMappingExposure',context)-1.5)<.00001);
+vm.runInContext("selectLighting('warm')",context);assert.equal(vm.runInContext('state.brightness',context),150);assert(Math.abs(vm.runInContext('renderer.toneMappingExposure',context)-1.5)<.00001);
 vm.runInContext('setBrightness(500)',context);assert.equal(vm.runInContext('state.brightness',context),180);assert.equal(vm.runInContext("setBrightness('invalid')",context),false);
 vm.runInContext("selectTop('sella');setWidth(75)",context);assert.equal(vm.runInContext('state.width',context),75);assert.equal(vm.runInContext('state.top',context),'plain');assert(queryAll('[data-top]').find(b=>b.dataset.top==='sella').disabled);
 vm.runInContext('setWidth(40)',context);assert(queryAll('[data-top]').find(b=>b.dataset.top==='neris').disabled);assert.equal(vm.runInContext("selectTop('neris')",context),false);assert(vm.runInContext("selectTop('torne')",context));

@@ -1,0 +1,315 @@
+{
+  "source": "assets/pdf/RANDAL%20V04.pdf",
+  "sha256": "9291856fd7dc8d40f77affbbb5685a4f1a74a0cff3e00351a73acfbc657a4b95",
+  "rule": "Public HT printed in the original PDF × 1.20, rounded to cents.",
+  "entries": {
+    "10129": {
+      "page": 36,
+      "publicTTC": 7080
+    },
+    "12449": {
+      "page": 36,
+      "publicTTC": 6600
+    },
+    "11054": {
+      "page": 36,
+      "publicTTC": 8520
+    },
+    "10130": {
+      "page": 36,
+      "publicTTC": 9360
+    },
+    "11713": {
+      "page": 36,
+      "publicTTC": 22080
+    },
+    "11533": {
+      "page": 36,
+      "publicTTC": 24600
+    },
+    "11714": {
+      "page": 36,
+      "publicTTC": 27480
+    },
+    "11523": {
+      "page": 36,
+      "publicTTC": 31560
+    },
+    "12743": {
+      "page": 36,
+      "publicTTC": 46680
+    },
+    "12744": {
+      "page": 36,
+      "publicTTC": 52080
+    },
+    "12745": {
+      "page": 36,
+      "publicTTC": 57720
+    },
+    "12746": {
+      "page": 36,
+      "publicTTC": 63960
+    },
+    "12741": {
+      "page": 36,
+      "publicTTC": 41640
+    },
+    "3717": {
+      "page": 36,
+      "publicTTC": 19440
+    },
+    "3722": {
+      "page": 36,
+      "publicTTC": 19440
+    },
+    "3723": {
+      "page": 36,
+      "publicTTC": 19440
+    },
+    "3725": {
+      "page": 36,
+      "publicTTC": 19440
+    },
+    "3731": {
+      "page": 36,
+      "publicTTC": 25800
+    },
+    "10572": {
+      "page": 36,
+      "publicTTC": 40800
+    },
+    "3727": {
+      "page": 36,
+      "publicTTC": 25800
+    },
+    "10574": {
+      "page": 36,
+      "publicTTC": 40800
+    },
+    "3728": {
+      "page": 36,
+      "publicTTC": 25800
+    },
+    "10575": {
+      "page": 36,
+      "publicTTC": 40800
+    },
+    "3730": {
+      "page": 36,
+      "publicTTC": 25800
+    },
+    "10577": {
+      "page": 36,
+      "publicTTC": 40800
+    },
+    "2215": {
+      "page": 38,
+      "publicTTC": 13800
+    },
+    "2808": {
+      "page": 38,
+      "publicTTC": 15600
+    },
+    "2171": {
+      "page": 38,
+      "publicTTC": 16320
+    },
+    "13237": {
+      "page": 38,
+      "publicTTC": 19800
+    },
+    "3279": {
+      "page": 38,
+      "publicTTC": 21120
+    },
+    "6205": {
+      "page": 38,
+      "publicTTC": 23040
+    },
+    "13547": {
+      "page": 38,
+      "publicTTC": 30000
+    },
+    "6207": {
+      "page": 38,
+      "publicTTC": 35160
+    },
+    "6389": {
+      "page": 38,
+      "publicTTC": 46200
+    },
+    "2809": {
+      "page": 38,
+      "publicTTC": 38160
+    },
+    "6227": {
+      "page": 38,
+      "publicTTC": 14640
+    },
+    "7781": {
+      "page": 38,
+      "publicTTC": 16560
+    },
+    "6228": {
+      "page": 38,
+      "publicTTC": 17040
+    },
+    "7782": {
+      "page": 38,
+      "publicTTC": 20760
+    },
+    "6229": {
+      "page": 38,
+      "publicTTC": 23040
+    },
+    "6232": {
+      "page": 38,
+      "publicTTC": 33480
+    },
+    "7865": {
+      "page": 38,
+      "publicTTC": 24120
+    },
+    "7463": {
+      "page": 38,
+      "publicTTC": 33840
+    },
+    "6231": {
+      "page": 38,
+      "publicTTC": 36480
+    },
+    "6234": {
+      "page": 38,
+      "publicTTC": 49320
+    },
+    "6235": {
+      "page": 38,
+      "publicTTC": 38760
+    },
+    "6236": {
+      "page": 38,
+      "publicTTC": 80760
+    },
+    "13039": {
+      "page": 38,
+      "publicTTC": 24360
+    },
+    "13040": {
+      "page": 38,
+      "publicTTC": 31680
+    },
+    "13041": {
+      "page": 38,
+      "publicTTC": 31680
+    },
+    "13042": {
+      "page": 38,
+      "publicTTC": 37920
+    },
+    "13043": {
+      "page": 38,
+      "publicTTC": 39840
+    },
+    "13044": {
+      "page": 38,
+      "publicTTC": 57000
+    },
+    "13550": {
+      "page": 38,
+      "publicTTC": 46080
+    },
+    "13551": {
+      "page": 38,
+      "publicTTC": 49800
+    },
+    "13046": {
+      "page": 38,
+      "publicTTC": 51240
+    },
+    "13047": {
+      "page": 38,
+      "publicTTC": 64680
+    },
+    "13045": {
+      "page": 38,
+      "publicTTC": 59880
+    },
+    "13000": {
+      "page": 38,
+      "publicTTC": 108240
+    },
+    "9559": {
+      "page": 41,
+      "publicTTC": 27120
+    },
+    "9553": {
+      "page": 41,
+      "publicTTC": 27120
+    },
+    "9556": {
+      "page": 41,
+      "publicTTC": 27120
+    },
+    "9555": {
+      "page": 41,
+      "publicTTC": 27120
+    },
+    "9552": {
+      "page": 41,
+      "publicTTC": 27120
+    },
+    "9554": {
+      "page": 41,
+      "publicTTC": 27120
+    },
+    "10444": {
+      "page": 41,
+      "publicTTC": 27120
+    },
+    "9558": {
+      "page": 41,
+      "publicTTC": 27120
+    },
+    "9557": {
+      "page": 41,
+      "publicTTC": 27120
+    },
+    "9567": {
+      "page": 41,
+      "publicTTC": 27120
+    },
+    "9561": {
+      "page": 41,
+      "publicTTC": 27120
+    },
+    "9564": {
+      "page": 41,
+      "publicTTC": 27120
+    },
+    "9563": {
+      "page": 41,
+      "publicTTC": 27120
+    },
+    "9560": {
+      "page": 41,
+      "publicTTC": 27120
+    },
+    "9562": {
+      "page": 41,
+      "publicTTC": 27120
+    },
+    "11371": {
+      "page": 41,
+      "publicTTC": 27120
+    },
+    "9566": {
+      "page": 41,
+      "publicTTC": 27120
+    },
+    "9565": {
+      "page": 41,
+      "publicTTC": 27120
+    }
+  }
+}

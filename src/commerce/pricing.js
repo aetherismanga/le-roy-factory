@@ -21,7 +21,7 @@ export function lineItems(item){
  }else if(item.type==='mirror'){
   const m=C.mirrors.find(m=>m.id===s.mirrorModel),size=m?.sizes.find(v=>v.width===s.width&&v.height===s.height),metal=s.mirrorFinish||'Noir';
   const valid=size&&(!m.metal||Object.hasOwn(size.refs,metal));
-  row('Miroir '+(m?.name||''),valid?(size.refs?.[metal]||size.ref):null,valid?size.ttc:null,`${m?.id==='basic'&&s.rotated?s.height:s.width} × ${m?.id==='basic'&&s.rotated?s.width:s.height} cm${m?.metal?' · '+metal:''}`,'Prix historique indicatif · à confirmer usine');
+  row('Miroir '+(m?.name||''),valid?(size.refs?.[metal]||size.ref):null,valid?size.ttc:null,`${m?.id==='basic'&&s.rotated?s.height:s.width} × ${m?.id==='basic'&&s.rotated?s.width:s.height} cm${m?.metal?' · '+metal:''}`);
  }
  return rows;
 }

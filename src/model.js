@@ -3,15 +3,7 @@ import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.j
 import { createTopSet, TOP_OPTIONS } from './tops.js';
 import { validWidth, topAvailable, SELLA_REFS, cabinetFormat } from './configuration.js';
 export const SPEC={series:'STUDIO ONE · 2 tiroirs',width:.80,height:.54,depth:.46,bottom:.28,panel:.019,mirrorDiameter:.60,basin:'Sella 80 · blanc brillant',cabinetRef:'13692',basinRef:'2171',mirrorRef:'3717'};
-export const FINISHES=[
-{id:'ROBLE',name:'Roble Amazona',hex:'#bda084',texture:'roble.webp',kind:'Bois',roughness:.43},
-{id:'ALBA',name:'Serenade Alba',hex:'#c4ae94',texture:'serenade-alba.webp',kind:'Bois',roughness:.46},
-{id:'NOGAL',name:'Nogal Valentina',hex:'#53433e',texture:'nogal-valentina.webp',kind:'Bois',roughness:.40},
-{id:'WHITE',name:'White Bolero',hex:'#e2e9e2',texture:'white-bolero.webp',kind:'Uni texturé',roughness:.29},
-{id:'AZUL',name:'Azul Acero',hex:'#61717c',kind:'Uni',roughness:.34},
-{id:'GRIS',name:'Gris Tórtora',hex:'#7b7072',kind:'Uni',roughness:.36},
-{id:'BISC',name:'Biscuit',hex:'#e5dbd1',kind:'Uni',roughness:.37},
-{id:'GREEN',name:'Muted Green',hex:'#949280',kind:'Uni',roughness:.39}];
+export {FINISHES} from './finishes.js';
 export function roundedRect(w,h,r){const s=new T.Shape();s.moveTo(-w/2+r,-h/2);s.lineTo(w/2-r,-h/2);s.quadraticCurveTo(w/2,-h/2,w/2,-h/2+r);s.lineTo(w/2,h/2-r);s.quadraticCurveTo(w/2,h/2,w/2-r,h/2);s.lineTo(-w/2+r,h/2);s.quadraticCurveTo(-w/2,h/2,-w/2,h/2-r);s.lineTo(-w/2,-h/2+r);s.quadraticCurveTo(-w/2,-h/2,-w/2+r,-h/2);return s;}
 export function makeModel({width=.80,includeMirror=true,format='two'}={}){
  const widthCm=Math.round(width*100);if(!validWidth(widthCm)||Math.abs(width*100-widthCm)>.00001)throw new Error('Largeur invalide');

@@ -12,7 +12,9 @@ console.log('Static standalone build ready.');
 
 rmSync('dist/chunks',{recursive:true,force:true});
 await build({entryPoints:{accueil:'src/commerce/home.js'},bundle:true,format:'esm',splitting:true,target:['es2020'],minify:true,outdir:'dist',chunkNames:'chunks/[name]-[hash]'});
-copyFileSync('src/commerce/home.html','dist/accueil.html');
 copyFileSync('src/commerce/home.css','dist/accueil.css');
 copyFileSync('src/commerce/atelier.css','dist/commerce.css');
-copyFileSync('src/commerce/home.html','dist/index.html');
+let home=readFileSync('src/commerce/home.html','utf8');
+for(const file of ['accueil.js','accueil.css']){const hash=createHash('sha256').update(readFileSync('dist/'+file)).digest('hex').slice(0,12);home=home.replaceAll('"'+file+'"','"'+file+'?v='+hash+'"');}
+writeFileSync('dist/accueil.html',home);
+writeFileSync('dist/index.html',home);
