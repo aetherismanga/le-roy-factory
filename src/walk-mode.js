@@ -3,7 +3,7 @@ import * as T from 'three';
 // Visite à hauteur humaine : caméra indépendante des objets et des contrôles d'édition.
 export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,onMove,onExit}){
   const keys=new Set();const eye=1.58,radius=.20,speed=1.7,turn=1.8;
-  let active=false,forward=new T.Vector3(0,0,-1),panel=null,button=null;
+  let active=false,forward=new T.Vector3(0,0,-1),panel=null,button=null,pitch=0,touchMove={x:0,y:0},touchLook=null,mouseLook=false;
   const editable=el=>!!el?.closest?.('input,textarea,select,[contenteditable="true"],[role="textbox"]');
   const inside=(x,z,pts)=>{
     if(!pts?.length)return true;
@@ -45,21 +45,22 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
   }
   function view(){
     const side=new T.Vector3(-forward.z,0,forward.x);
-    const goal=camera.position.clone().add(forward);
+    const goal=camera.position.clone().add(forward.clone().multiplyScalar(Math.cos(pitch))).add(new T.Vector3(0,Math.sin(pitch),0));
     controls.target.copy(goal);controls.update();
   }
   function setActive(next){
     if(active===next)return;active=next;keys.clear();
     if(active){
+      pitch=0;
       const room=getRoom();const center=room?.bounds?.getCenter(new T.Vector3())||new T.Vector3();
       const p=camera.position.clone();if(!inside(p.x,p.z,room?.points)){camera.position.set(center.x,eye,center.z);}
       else camera.position.y=eye;
       forward.set(controls.target.x-camera.position.x,0,controls.target.z-camera.position.z);
       if(forward.lengthSq()<.001)forward.set(0,0,-1);forward.normalize();
       controls.enabled=false;view();onMove();
-    }else{controls.enabled=true;onExit?.();onMove();}
+    }else{controls.enabled=true;touchMove={x:0,y:0};touchLook=null;mouseLook=false;onExit?.();onMove();}
     button.textContent=active?'Quitter la visite':'Visite 3D';
-    panel.hidden=!active;
+    panel.hidden=!active;joystick.hidden=!active;
   }
   button=document.createElement('button');button.type='button';button.textContent='Visite 3D';
   button.setAttribute('aria-label','Activer ou quitter le déplacement dans les pièces');
@@ -78,14 +79,28 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
   window.addEventListener('blur',()=>keys.clear());
   document.addEventListener('visibilitychange',()=>{if(document.hidden)keys.clear()});
   document.addEventListener('keydown',e=>{if(active&&e.key==='Escape'&&!editable(e.target)){setActive(false);e.stopImmediatePropagation()}},true);
-  let last=0;
+
+  const joystick=document.createElement('div');joystick.hidden=true;
+  Object.assign(joystick.style,{position:'absolute',left:'12px',bottom:'66px',zIndex:'45',width:'116px',height:'116px',borderRadius:'50%',border:'2px solid #b6d4c8',background:'rgba(15,56,46,.35)',touchAction:'none'});
+  const knob=document.createElement('div');
+  Object.assign(knob.style,{position:'absolute',left:'39px',top:'39px',width:'38px',height:'38px',borderRadius:'50%',background:'#e4f4ea',pointerEvents:'none'});
+  joystick.append(knob);stage.append(joystick);
+  function updatePad(e){const rect=joystick.getBoundingClientRect(),dx=e.clientX-(rect.left+rect.width/2),dy=e.clientY-(rect.top+rect.height/2),length=Math.max(1,Math.hypot(dx,dy)),scale=Math.min(1,47/length);touchMove={x:dx*scale/47,y:dy*scale/47};knob.style.transform='translate('+touchMove.x*38+'px,'+touchMove.y*38+'px)';onMove();}
+  joystick.addEventListener('pointerdown',e=>{e.preventDefault();joystick.setPointerCapture(e.pointerId);updatePad(e)});
+  joystick.addEventListener('pointermove',e=>{if(joystick.hasPointerCapture(e.pointerId))updatePad(e)});
+  const resetPad=()=>{touchMove={x:0,y:0};knob.style.transform='';};
+  joystick.addEventListener('pointerup',resetPad);joystick.addEventListener('pointercancel',resetPad);
+  stage.addEventListener('pointerdown',e=>{if(!active||e.target!==canvas)return;if(e.pointerType==='mouse'){mouseLook=true;return;}touchLook={id:e.pointerId,x:e.clientX,y:e.clientY};},true);
+  function look(dx,dy){forward.applyAxisAngle(new T.Vector3(0,1,0),-dx*.004).normalize();pitch=T.MathUtils.clamp(pitch-dy*.004,-1.35,1.35);view();onMove();}
+  stage.addEventListener('pointermove',e=>{if(!active)return;if(e.pointerType==='mouse'&&mouseLook){look(e.movementX,e.movementY)}else if(touchLook?.id===e.pointerId){look(e.clientX-touchLook.x,e.clientY-touchLook.y);touchLook.x=e.clientX;touchLook.y=e.clientY;}});
+  window.addEventListener('pointerup',()=>{mouseLook=false;touchLook=null});
   function tick(dt){
     if(!active)return false;
     const left=keys.has('ArrowLeft'),right=keys.has('ArrowRight');
     const rotation=(Number(left)-Number(right))*turn*dt;
     if(rotation)forward.applyAxisAngle(new T.Vector3(0,1,0),rotation).normalize();
-    const f=Number(keys.has('ArrowUp')||keys.has('KeyW'))-Number(keys.has('ArrowDown')||keys.has('KeyS'));
-    const strafe=Number(keys.has('KeyD')||keys.has('KeyE'))-Number(keys.has('KeyA')||keys.has('KeyQ'));
+    const f=Number(keys.has('ArrowUp')||keys.has('KeyW'))-Number(keys.has('ArrowDown')||keys.has('KeyS'))-touchMove.y;
+    const strafe=Number(keys.has('KeyD')||keys.has('KeyE'))-Number(keys.has('KeyA')||keys.has('KeyQ'))+touchMove.x;
     const side=new T.Vector3(-forward.z,0,forward.x);
     const move=forward.clone().multiplyScalar(f).addScaledVector(side,strafe);
     if(move.lengthSq()>0){move.normalize().multiplyScalar(speed*dt);const p=camera.position;
