@@ -42,7 +42,9 @@ export function makeModel({width=.80,includeMirror=true,format='harmony-two'}={}
  for(let i=0;i<form.drawers;i++){
   const group=new T.Group();group.name=i===0?'Tiroir_superieur_avec_passage_siphon':'Tiroir_inferieur';cabinet.add(group);drawers.push(group);
   const cell=H/(form.niche?3:form.drawers),cy=B+H-(i+.5)*cell-(i===0?0:.001),h=cell-.008;
-  const front=mesh(facade(W-.004,h),frontWood,'Facade_onglet_45deg_19mm',group,0,cy,.2205);woodUV(front);frontMeshes.push(front);
+  // HARMONY has straight drawer edges, unlike the Studio One mitred grip.
+  const straight=form.collection==='harmony';
+  const front=mesh(straight?new RoundedBoxGeometry(W-.004,h,.019,2,.0005):facade(W-.004,h),frontWood,straight?'Facade_droite_19mm':'Facade_onglet_45deg_19mm',group,0,cy,.2205);woodUV(front);frontMeshes.push(front);
   const bottom=B+H-(i+1)*cell+(i===0?.031:.035);const dh=form.id==='two'?(i===0?.107:.148):Math.min(.23,cell*.55);
   // Drawer floor is a solid shaped panel with a rear U cut, not a decal.
   const floor=roundedRect(drawerWidth,.352,.006);
@@ -59,7 +61,13 @@ export function makeModel({width=.80,includeMirror=true,format='harmony-two'}={}
    box(.007,.018,.335,dark,'Rail_mobile',group,side*(W/2-.033),bottom-.003,.002);
    for(const z of [-.11,.07])screw(group,side*(W/2-.037),bottom+.038,z,'x');
   }
-  if(i===0){for(const s of [-1,1]){box((drawerWidth-.178)/2,.095,.012,inner,'Dos_tiroir_segment',group,s*(.09+(drawerWidth-.178)/4),bottom+.0475,-.171);box(.008,.072,.205,inner,'Passage_siphon_flanc',group,s*.086,bottom+.036,-.08);}box(.172,.072,.008,inner,'Passage_siphon_face',group,0,bottom+.036,.021);}
+  if(i===0){
+   // Keep the siphon cutout at least 10 mm below the lowest ceramic shell.
+   // Three-drawer formats have a shallower top drawer than the source chassis.
+   const siphonHeight=Math.min(.072,topY-.151-bottom);
+   for(const s of [-1,1]){box((drawerWidth-.178)/2,.095,.012,inner,'Dos_tiroir_segment',group,s*(.09+(drawerWidth-.178)/4),bottom+.0475,-.171);box(.008,siphonHeight,.205,inner,'Passage_siphon_flanc',group,s*.086,bottom+siphonHeight/2,-.08);}
+   box(.172,siphonHeight,.008,inner,'Passage_siphon_face',group,0,bottom+siphonHeight/2,.021);
+  }
   else box(drawerWidth,dh,.012,inner,'Dos_tiroir',group,0,bottom+dh/2,-.171);
   box(drawerWidth,dh,.010,inner,'Contre_facade',group,0,bottom+dh/2,.174);
   for(const s of [-1,1]){box(.042,.028,.015,dark,'Reglage_facade',group,s*(W/2-.085),bottom+.027,.183);screw(group,s*(W/2-.085),bottom+.027,.192);}

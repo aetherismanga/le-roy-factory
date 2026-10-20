@@ -1,0 +1,75 @@
+{
+  "date": "2026-10-20",
+  "scope": [
+    "HARMONY: straight drawer fronts",
+    "HARMONY: two stacked doors, no handles; reversible hinges",
+    "Siphon cutout stays at least 10 mm below Sella ceramic underside in all furniture sizes",
+    "WebGL textures use the same public Storage objects through the CORS media endpoint",
+    "Guided transfer frames the complete furniture composition on mobile"
+  ],
+  "verification": {
+    "catalogue": "npm run check: 292 price/reference combinations, 11 collections, 16 furniture formats, 7 columns, plus physical geometry regressions",
+    "browser": "Chromium WebGL 2 / ANGLE SwiftShader, viewport and touch emulation. Locally built application bundle; all external images, HDR, bath geometry and commercial API requested from their real online URLs, without resource mocks.",
+    "viewports": [
+      {
+        "viewport": 390,
+        "ready": true,
+        "format": "harmony-three",
+        "width": 80,
+        "items": 2,
+        "triangles": 43347,
+        "resources": 35,
+        "errors": [],
+        "failed": [],
+        "realCorsTextures": [
+          {
+            "url": "https://storage.googleapis.com/download/storage/v1/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F064a2492b7c0%2Fassets%2Fimg%2Frandal%2Ffinishes%2Fluce%2Fnogal-lincoln.webp?alt=media",
+            "status": 200
+          },
+          {
+            "url": "https://storage.googleapis.com/download/storage/v1/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F064a2492b7c0%2Fassets%2Fimg%2Frandal%2Ffinishes%2Fsima%2Fnogal-mist.webp?alt=media",
+            "status": 200
+          },
+          {
+            "url": "https://storage.googleapis.com/download/storage/v1/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F064a2492b7c0%2Fassets%2Fimg%2Frandal%2Ffinishes%2Fsima%2Froble-natura.webp?alt=media",
+            "status": 200
+          },
+          {
+            "url": "https://storage.googleapis.com/download/storage/v1/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F064a2492b7c0%2Fassets%2Fimg%2Frandal%2Ffinishes%2Famat%2Ffresno-lagom.webp?alt=media",
+            "status": 200
+          }
+        ]
+      },
+      {
+        "viewport": 1440,
+        "ready": true,
+        "format": "harmony-three",
+        "width": 80,
+        "items": 2,
+        "triangles": 43347,
+        "resources": 39,
+        "errors": [],
+        "failed": [],
+        "realCorsTextures": [
+          {
+            "url": "https://storage.googleapis.com/download/storage/v1/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F064a2492b7c0%2Fassets%2Fimg%2Frandal%2Ffinishes%2Fsima%2Fnogal-mist.webp?alt=media",
+            "status": 200
+          },
+          {
+            "url": "https://storage.googleapis.com/download/storage/v1/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F064a2492b7c0%2Fassets%2Fimg%2Frandal%2Ffinishes%2Fsima%2Froble-natura.webp?alt=media",
+            "status": 200
+          },
+          {
+            "url": "https://storage.googleapis.com/download/storage/v1/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F064a2492b7c0%2Fassets%2Fimg%2Frandal%2Ffinishes%2Famat%2Ffresno-lagom.webp?alt=media",
+            "status": 200
+          },
+          {
+            "url": "https://storage.googleapis.com/download/storage/v1/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F064a2492b7c0%2Fassets%2Fimg%2Frandal%2Ffinishes%2Fluce%2Fnogal-lincoln.webp?alt=media",
+            "status": 200
+          }
+        ]
+      }
+    ]
+  },
+  "productionPublication": "Publish only after these checks, then verify the official iframe route with the deployed bundle."
+}
