@@ -9,6 +9,15 @@ export function adaptGeneralModel(asset,{form,W,H,B,topY,layout}){
  const box=(parent,w,h,d,m,x,y,z,name)=>{const o=new T.Mesh(new RoundedBoxGeometry(w,h,d,3,Math.min(.0008,w/5,h/5)),m);o.name=name;o.position.set(x,y,z);o.castShadow=o.receiveShadow=true;parent.add(o);return o;};
  const handles=[],doors=[];
  function pull(mesh,parent,x,y,z,name){mesh.name=name;mesh.position.set(x,y,z);mesh.castShadow=mesh.receiveShadow=true;mesh.userData.editTarget='handle';parent.add(mesh);handles.push(mesh);return mesh;}
+ function amatPull(parent,w,x,y,z,name){
+  // The catalogue grip is furniture-coloured, with angled ends and a rounded
+  // leading edge. Share the actual front material, including its HD wood map.
+  const s=new T.Shape(),h=.015,d=.021,a=w/2;
+  s.moveTo(-a+.014,-h/2);s.lineTo(a-.014,-h/2);s.lineTo(a,h/2);s.lineTo(-a,h/2);s.closePath();
+  const g=new T.ExtrudeGeometry(s,{depth:d,bevelEnabled:true,bevelSize:.0012,bevelThickness:.0012,bevelSegments:3,curveSegments:8});g.translate(0,0,-d/2);
+  const o=pull(new T.Mesh(g,frontWood),parent,x,y,z,name),p=g.attributes.position,n=g.attributes.normal,uv=g.attributes.uv;
+  for(let i=0;i<p.count;i++)uv.setXY(i,(p.getX(i)+x)/.8+.5,(p.getY(i)+y)/.7);uv.needsUpdate=true;o.userData.editTarget='furniture';return o;
+ }
  function door(x,y,w,h,side='left'){
   const pivot=new T.Group(),sign=side==='left'?1:-1;pivot.position.set(x-sign*w/2,y,.230-layout.panel/2);pivot.userData.side=side;cabinet.add(pivot);
   const face=box(pivot,w-.004,h,layout.panel,frontWood,sign*w/2,0,0,'Porte_RANDAL');
@@ -19,8 +28,7 @@ export function adaptGeneralModel(asset,{form,W,H,B,topY,layout}){
    const head=new T.Mesh(new T.CylinderGeometry(.011,.0105,.005,48),hardware);head.rotation.x=Math.PI/2;pull(head,knob,0,0,.009,'Poignee_LESS_bouton');
    const dome=new T.Mesh(new T.SphereGeometry(.0108,32,12,0,Math.PI*2,0,Math.PI/2),hardware);dome.rotation.x=Math.PI/2;dome.scale.y=.22;pull(dome,knob,0,0,.011,'Poignee_LESS_arrondi');
   }else if(form.collection==='amat'){
-   // The tall door has the same long top-edge aluminium profile as the drawers.
-   pull(new T.Mesh(new RoundedBoxGeometry(w-.04,.010,.022,3,.001),hardware),pivot,sign*w/2,h/2-.010,.017,'Poignee_AMAT_porte');
+   amatPull(pivot,w-.035,sign*w/2,h/2-.010,.018,'Poignee_AMAT_porte_assortie');
   }
   doors.push(pivot);return pivot;
  }
@@ -38,12 +46,13 @@ export function adaptGeneralModel(asset,{form,W,H,B,topY,layout}){
    pull(new T.Mesh(new T.TubeGeometry(curve,32,.0037,12,false),hardware),row,x,top-.05,z+.017,'Poignee_BRENT_cintree');
    for(const sign of [-1,1]){const cap=new T.Mesh(new T.CylinderGeometry(.007,.007,.003,32),hardware);cap.rotation.x=Math.PI/2;pull(cap,row,x+sign*.056,top-.05,z+.016,'Rosace_BRENT');}
   }else if(form.collection==='luce')pull(new T.Mesh(new RoundedBoxGeometry(w-.055,.010,.023,3,.0015),hardware),row,x,top-.040,z+.019,'Poignee_LUCE_doree');
-  else if(['aras','amat'].includes(form.collection))pull(new T.Mesh(new RoundedBoxGeometry(w-.035,.008,.021,3,.001),hardware),row,x,top-.008,z+.017,'Poignee_'+form.collection.toUpperCase()+'_aluminium');
+  else if(form.collection==='amat')amatPull(row,w-.035,x,top-.010,z+.017,'Poignee_AMAT_assortie');
+  else if(form.collection==='aras')pull(new T.Mesh(new RoundedBoxGeometry(w-.035,.008,.021,3,.001),hardware),row,x,top-.008,z+.017,'Poignee_ARAS_aluminium');
  }
  // Generous invisible picking surfaces make the real handles usable by touch.
  for(const front of frontMeshes){if(!handles.some(o=>o.parent===front.parent&&Math.abs(o.position.x-front.position.x)<.01))continue;
   const w=form.collection==='brent'?.15:form.collection==='aruba'||form.collection==='aruba-rainure'?Math.min(.4,front.userData.joinery.width*.6):front.userData.joinery.width;
-  const zone=new T.Mesh(new T.BoxGeometry(w,.043,.022),new T.MeshBasicMaterial({transparent:true,opacity:0,depthWrite:false}));zone.name='Zone_tactile_poignee';zone.position.set(front.position.x,front.userData.joinery.top-(form.collection==='brent'?.05:form.collection==='luce'?.04:.006),.257);zone.userData.editTarget='handle';front.parent.add(zone);
+  const zone=new T.Mesh(new T.BoxGeometry(w,.043,.022),new T.MeshBasicMaterial({transparent:true,opacity:0,depthWrite:false}));zone.name='Zone_tactile_poignee';zone.position.set(front.position.x,front.userData.joinery.top-(form.collection==='brent'?.05:form.collection==='luce'?.04:.006),.257);zone.userData.editTarget=form.collection==='amat'?'furniture':'handle';front.parent.add(zone);
  }
  if(form.collection==='brunei'){
   // Wide, genuinely recessed finger channels, framed by the 19 mm side panels.
@@ -61,7 +70,8 @@ export function adaptGeneralModel(asset,{form,W,H,B,topY,layout}){
  }
  if(form.counter){cabinet.clear();box(cabinet,W,H,.46,wood,0,B+H/2,0,'Plateau_SIMA_100mm');}
  const depth=form.depth,zShift=(depth-.46)/2;
- for(const part of [cabinet,...Object.values(insets),tops.root,faucet]){part.scale.z=depth/.46;part.position.z+=zShift;}
+ for(const part of [cabinet,tops.root]){part.scale.z=depth/.46;part.position.z+=zShift;}
+ for(const part of [...Object.values(insets),...(asset.faucets||[faucet])]){if(form.collection==='less')part.scale.z=depth/.46;part.position.z+=zShift;}
  if(form.counter)tops.root.position.y-=.02;
  const baseSet=asset.setTop;let mode=asset.getTop();
  asset.setTop=next=>{

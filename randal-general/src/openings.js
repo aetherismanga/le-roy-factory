@@ -22,7 +22,7 @@ export function makeOpening(type,settings={}){
   for(const y of [f+.003,h-f-.003])box(root,0,y,z+.007,w-2*f,.006,.016,seal,'Joint_EPDM');
   box(root,0,h/2,z,.044,h-2*f,.07,frame,'Montant_central');
   const glass=new T.MeshPhysicalMaterial({color:'#f1f9f8',metalness:0,roughness:.045,transmission:.82,thickness:.012,ior:1.5,transparent:true,opacity:1,envMapIntensity:1.4});
-  glass.userData.architecturalGlass=true;for(const sign of [-1,1])box(root,sign*(w/4-f/2+.011),h/2,z,(w-2*f-.044)/2,h-2*f,.012,glass,'Double_vitrage');
+  glass.userData.architecturalGlass=true;for(const sign of [-1,1])box(root,sign*(w/4-f/2+.011),h/2,z,(w-2*f-.044)/2,h-2*f,.012,glass,'Double_vitrage').castShadow=false;
   box(root,.041,h/2,z+.061,.012,.105,.018,metal,'Poignee_fenetre');
   box(root,0,.008,z+.025,w+.025,.016,.17,frame,'Appui_fenetre');
  }else{

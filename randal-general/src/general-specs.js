@@ -11,7 +11,7 @@ export const HANDLE_FINISHES=Object.freeze({
 });
 export const panelThickness=form=>['harmony','less'].includes(form.collection)?.016:.019;
 export function handleChoices(form){
- if(['harmony','brunei','sima'].includes(form.collection))return [];
+ if(['harmony','brunei','sima','amat'].includes(form.collection))return [];
  const ids=form.collection==='brent'?['aged-gold','aged-silver']:form.collection==='less'?['white','nickel','black']:form.collection==='luce'?['gold']:['aruba','aruba-rainure','boreal'].includes(form.collection)?['black']:['silver'];
  return ids.map(id=>HANDLE_FINISHES[id]);
 }

@@ -1,3 +1,5 @@
+import {integratedOptions,BASIN_LAYOUT_NAMES} from './integrated-basins.js';
+export {BASIN_LAYOUT_NAMES};
 import {CATALOG as C} from './commerce/catalog.js';
 import {cabinetFormat} from './configuration.js';
 // RANDAL V04 catalogue, pp. 38 and 41. Colour chips are catalogue references,
@@ -18,5 +20,24 @@ export const VESSEL_COLORS=Object.freeze([
  {id:'pink',name:'Rose Nadir',hex:'#c2a597',roughness:.62,clearcoat:0,neris:'9566',torne:'9558'},
  {id:'blue',name:'Bleu Kivu',hex:'#012f53',roughness:.62,clearcoat:0,neris:'9565',torne:'9557'}
 ]);
-export function basinColors(top,width,format){const w=width===79?80:width;return top==='sella'?INSET_COLORS.slice(0,1):top==='tampa'?INSET_COLORS.filter(c=>!w||C.inset.tampa[c.id]?.[w]):top==='neris'||top==='torne'?VESSEL_COLORS:[];}
-export function basinReference(top,color,width,format){const w=width===79?80:width;if(['sella','tampa'].includes(top))return top==='tampa'&&w===120&&cabinetFormat(format).collection==='luce'?C.centeredTampa120[color]?.ref:C.inset[top]?.[color]?.[w]?.ref;return VESSEL_COLORS.find(c=>c.id===color)?.[top];}
+export function basinLayouts(top,width,format,color='gloss'){
+ const form=cabinetFormat(format),w=width===79?80:width;
+ let options=integratedOptions(top,w,color);
+ if(w===120&&!['luce','amat','sima','less'].includes(form.collection))options=options.filter(o=>o.layout!=='center');
+ return options;
+}
+export function resolveBasinLayout(top,width,format,layout){
+ const options=basinLayouts(top,width,format);if(!options.length)return null;
+ if(options.some(o=>o.layout===layout))return layout;
+ const preferred=width>=119&&cabinetFormat(format).collection!=='luce'?'double':'center';
+ return options.find(o=>o.layout===preferred)?.layout||options[0].layout;
+}
+export function basinEntry(top,color,width,format,layout){
+ const actual=layout??resolveBasinLayout(top,width,format);
+ return basinLayouts(top,width,format,color).find(o=>o.layout===actual)||null;
+}
+export function basinColors(top,width,format,layout){
+ if(top==='sella'||top==='tampa')return INSET_COLORS.filter(c=>!width?top==='tampa'||c.id==='gloss':!!basinEntry(top,c.id,width,format,layout));
+ return top==='neris'||top==='torne'?VESSEL_COLORS:[];
+}
+export function basinReference(top,color,width,format,layout){return ['sella','tampa'].includes(top)?basinEntry(top,color,width,format,layout)?.ref:VESSEL_COLORS.find(c=>c.id===color)?.[top];}

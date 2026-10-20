@@ -22,6 +22,16 @@ export function saveComposition(storage,input,{id=null,now=new Date().toISOStrin
  const previous=all.findIndex(p=>p.id===key);if(previous>=0){saved.thumbnail=all[previous].thumbnail;all.splice(previous,1);}
  all.unshift(saved);storage.setItem(SAVED_KEY,JSON.stringify(all.slice(0,20)));storage.setItem(ACTIVE_ID,key);storeQuote(storage,project,readStored(storage,QUOTE_CONTEXT,{mode:'scene'}).mode);return saved;
 }
+export function deleteComposition(storage,id){
+ if(typeof id!=='string'||!id)throw Error('Projet non reconnu.');
+ const all=readStored(storage,SAVED_KEY,[]);if(!Array.isArray(all))throw Error('Liste de projets indisponible.');
+ if(!all.some(p=>p.id===id))return false;
+ // Commit the reduced list before clearing its active ID. Never touch any
+ // other saved composition or the composition currently open in the editor.
+ storage.setItem(SAVED_KEY,JSON.stringify(all.filter(p=>p.id!==id)));
+ try{if(storage.getItem(ACTIVE_ID)===id)storage.removeItem(ACTIVE_ID);}catch{/* The saved-list write is the committed deletion; a stale active ID is harmless. */}
+ return true;
+}
 export function orderText(project,{name='',email='',telephone='',adresse='',codePostal='',ville='',siteReference='',client=null,proHT=null,privateCode='',isAdmin=false,kind='order'}={}){
  const p=checkedProject(project),q=quoteProject(p),parts=[kind==='callback'?'DEMANDE DE RAPPEL — RANDAL GÉNÉRAL':'DEMANDE DE COMMANDE — RANDAL GÉNÉRAL',p.title||'Ma salle de bains','Référence chantier : '+(siteReference||p.siteReference||'À renseigner'),''];
  if(client){parts.push(isAdmin?'Administrateur : '+client.societe:'Compte client : '+client.codeClient,'Société : '+(client.societe||''));for(const [label,key]of [['Contact','contact'],['Adresse','adresse'],['Code postal','codePostal'],['Ville','ville'],['E-mail','email'],['Téléphone','telephone']])if(client[key])parts.push(label+' : '+client[key]);}

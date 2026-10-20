@@ -1,3 +1,6 @@
+import {resolveBasinLayout,basinReference} from './basins.js';
+import {basinCenters} from './integrated-basins.js';
+import {createIntegratedBasin} from './ceramic-basins.js';
 import {panelThickness,joineryLayout} from './general-specs.js';
 import {adaptGeneralModel} from './general-details.js';
 import * as T from 'three';
@@ -7,10 +10,11 @@ import { validWidth, topAvailable, SELLA_REFS, cabinetFormat } from './configura
 export const SPEC={series:'RANDAL GÉNÉRAL · 2 tiroirs',width:.80,height:.54,depth:.46,bottom:.28,panel:.019,mirrorDiameter:.60,basin:'Sella 80 · blanc brillant',cabinetRef:'13692',basinRef:'2171',mirrorRef:'3717'};
 export {FINISHES} from './finishes.js';
 export function roundedRect(w,h,r){const s=new T.Shape();s.moveTo(-w/2+r,-h/2);s.lineTo(w/2-r,-h/2);s.quadraticCurveTo(w/2,-h/2,w/2,-h/2+r);s.lineTo(w/2,h/2-r);s.quadraticCurveTo(w/2,h/2,w/2-r,h/2);s.lineTo(-w/2+r,h/2);s.quadraticCurveTo(-w/2,h/2,-w/2,h/2-r);s.lineTo(-w/2,-h/2+r);s.quadraticCurveTo(-w/2,-h/2,-w/2+r,-h/2);return s;}
-export function makeModel({width=.80,includeMirror=true,format='harmony-two'}={}){
+export function makeModel({width=.80,includeMirror=true,basinLayout,basinTop='sella',format='harmony-two'}={}){
  const widthCm=Math.round(width*100);if(!validWidth(widthCm,format)||Math.abs(width*100-widthCm)>.00001)throw new Error('Largeur invalide');
  const form=cabinetFormat(format),H=form.height-form.legHeight,B=form.base+form.legHeight,topY=B+H;const W=(form.collection==='harmony'&&widthCm===120?119:widthCm)/100,layout=joineryLayout(form,W,H,B),panelSize=layout.panel,innerWidth=W-2*panelSize;
- const spec={...SPEC,series:'RANDAL GÉNÉRAL · '+form.name,height:H,bottom:B,cabinetRef:form.reference,width:W,panel:panelSize,basin:`Sella ${widthCm} · blanc brillant`,basinRef:SELLA_REFS[widthCm]||null};
+ const chosenLayout=resolveBasinLayout(basinTop,widthCm,format,basinLayout)||'center',plumbing=basinCenters(chosenLayout,W);
+ const spec={...SPEC,series:'RANDAL GÉNÉRAL · '+form.name,height:H,bottom:B,cabinetRef:form.reference,width:W,panel:panelSize,basin:`Sella ${widthCm} · blanc brillant`,basinRef:basinReference('sella','gloss',widthCm,format,basinLayout)||null};
  const root=new T.Group();root.name=`STUDIO_ONE_${form.id}_${widthCm}`;const cabinet=new T.Group();cabinet.name=`Caisson_${widthCm*10}x${Math.round(H*1000)}x460`;root.add(cabinet);
  const wood=new T.MeshPhysicalMaterial({color:0xffffff,roughness:.43,clearcoat:.12,clearcoatRoughness:.40});
  const frontWood=wood.clone();const inner=new T.MeshStandardMaterial({color:'#373a3b',roughness:.54});const baseMat=wood;const sideMat=new T.MeshPhysicalMaterial({color:'#c1c5c6',metalness:.7,roughness:.42});
@@ -43,8 +47,8 @@ export function makeModel({width=.80,includeMirror=true,format='harmony-two'}={}
    // One shared metal drawer system: thin silver sides, a real rear U cut in
    // the top drawer and a rounded dark organiser, as in the catalogue photos.
    const floor=roundedRect(drawerWidth,.352,.004);
-   const cutWidth=Math.min(.15,drawerWidth*.38),cut=cutWidth/2,cutX=form.collection==='amat'?T.MathUtils.clamp(-x,-drawerWidth/2+cut+.016,drawerWidth/2-cut-.016):0;
-   if(i===0){const path=new T.Shape();path.moveTo(-drawerWidth/2,-.176);path.lineTo(cutX-cut,-.176);path.lineTo(cutX-cut,-.018);path.quadraticCurveTo(cutX-cut,.006,cutX-cut+.024,.006);path.lineTo(cutX+cut-.024,.006);path.quadraticCurveTo(cutX+cut,.006,cutX+cut,-.018);path.lineTo(cutX+cut,-.176);path.lineTo(drawerWidth/2,-.176);path.lineTo(drawerWidth/2,.176);path.lineTo(-drawerWidth/2,.176);path.closePath();floor.copy(path);}
+   const cutWidth=Math.min(.15,drawerWidth*.38),cut=cutWidth/2,cutX=T.MathUtils.clamp(plumbing.reduce((a,b)=>Math.abs(b-x)<Math.abs(a-x)?b:a)-x,-drawerWidth/2+cut+.016,drawerWidth/2-cut-.016);
+   if(i===0&&plumbing.some(cx=>Math.abs(cx-x)<bayWidth/2)){const path=new T.Shape();path.moveTo(-drawerWidth/2,-.176);path.lineTo(cutX-cut,-.176);path.lineTo(cutX-cut,-.018);path.quadraticCurveTo(cutX-cut,.006,cutX-cut+.024,.006);path.lineTo(cutX+cut-.024,.006);path.quadraticCurveTo(cutX+cut,.006,cutX+cut,-.018);path.lineTo(cutX+cut,-.176);path.lineTo(drawerWidth/2,-.176);path.lineTo(drawerWidth/2,.176);path.lineTo(-drawerWidth/2,.176);path.closePath();floor.copy(path);}
    const fg=new T.ExtrudeGeometry(floor,{depth:.008,bevelEnabled:true,bevelSize:.0005,bevelThickness:.0005,bevelSegments:1,curveSegments:12});fg.rotateX(Math.PI/2);
    woodUV(mesh(fg,baseMat,'Fond_tiroir_8mm',group,x,bottom+.008,-.001));
    for(const side of [-1,1]){
@@ -56,7 +60,7 @@ export function makeModel({width=.80,includeMirror=true,format='harmony-two'}={}
     box(.007,.018,.335,dark,'Rail_mobile',group,sx,bottom-.003,.002);
     for(const z of [-.11,.07])screw(group,sx-side*.004,bottom+.038,z,'x');
    }
-   if(i===0){
+   if(i===0&&plumbing.some(cx=>Math.abs(cx-x)<bayWidth/2)){
     const siphonHeight=Math.max(.012,Math.min(.072,topY-.151-bottom));
     for(const sign of [-1,1]){
      box(drawerWidth/2-sign*cutX-cut,Math.min(dh,.095),.010,sideMat,'Dos_tiroir_segment',group,x+cutX+sign*(cut+(drawerWidth/2-sign*cutX-cut)/2),bottom+Math.min(dh,.095)/2,-.171);
@@ -79,28 +83,7 @@ export function makeModel({width=.80,includeMirror=true,format='harmony-two'}={}
   box(.05,.044,.025,steel,'Fixation_murale_reglable',cabinet,s*(W/2-.058),topY-.044,-.2);
   screw(cabinet,s*(W/2-.058),topY-.044,-.183);
  }
- const insets={};
- for(const kind of ['sella','tampa']){
- const isTampa=kind==='tampa';
- const insetGroup=new T.Group();insetGroup.name='Vasque_encastree_'+kind;insetGroup.userData.editTarget='basin';root.add(insetGroup);
- // Ceramic top, precision rounded opening and a closed ceramic shell.
- const topShape=roundedRect(W+.006,.466,.008);
- const double=W>=1.19&&form.collection!=='luce',offsets=double?[-W/4,W/4]:[0];
- const basinScale=Math.min(.281,(W/(double?2:1)-.12)/2)/.281;
- const ring=(rx,rz,p=4.2,n=128)=>Array.from({length:n},(_,i)=>{let a=i/n*Math.PI*2;return new T.Vector2(rx*Math.sign(Math.cos(a))*Math.abs(Math.cos(a))**(2/p),rz*Math.sign(Math.sin(a))*Math.abs(Math.sin(a))**(2/p)-.027);});
- for(const x of offsets){const hole=new T.Path(ring((isTampa?.25:.281)*basinScale,isTampa?.138:.15,isTampa?8:4.2).map(p=>new T.Vector2(p.x+x,p.y)).reverse());topShape.holes.push(hole);}
- const tapHole=new T.Path();tapHole.absarc(0,.173,.017,0,Math.PI*2,true);topShape.holes.push(tapHole);
- const topG=new T.ExtrudeGeometry(topShape,{depth:.018,bevelEnabled:true,bevelSize:.0012,bevelThickness:.0012,bevelSegments:3,curveSegments:32});topG.rotateX(-Math.PI/2);
- const top=mesh(topG,ceramic,'Plan_vasque_ceramique_'+Math.round((W+.006)*1000)+'x466',insetGroup,0,.820,0);
- const profiles=isTampa?[[.250,.138,.839,8],[.246,.134,.837,8],[.240,.128,.827,8],[.225,.115,.733,7],[.190,.090,.708,6],[.080,.045,.696,3],[.021,.021,.693,2],[.021,.021,.689,2],[.084,.048,.692,3],[.196,.094,.704,6],[.231,.121,.730,7],[.246,.134,.819,8],[.250,.138,.819,8]]:[ [.281,.150,.839,4.2],[.277,.146,.838,4.2],[.269,.139,.831,4.1],[.252,.126,.812,4],[.223,.102,.761,3.8],[.173,.076,.711,3.3],[.09,.046,.687,2.7],[.021,.021,.683,2], [.021,.021,.679,2],[.093,.049,.683,2.7],[.176,.080,.707,3.3],[.228,.106,.757,3.8],[.257,.131,.808,4],[.275,.144,.818,4.2],[.281,.150,.819,4.2] ];
- const ps=[],uv=[],ix=[],N=128;
- for(let j=0;j<profiles.length;j++){const [rx,rz,y,p]=profiles[j];for(let k=0;k<=N;k++){const a=k/N*Math.PI*2;ps.push((rx>.024?rx*basinScale:rx)*Math.sign(Math.cos(a))*Math.abs(Math.cos(a))**(2/p),y,rz*Math.sign(Math.sin(a))*Math.abs(Math.sin(a))**(2/p)+.027);uv.push(k/N,j/(profiles.length-1));if(j<profiles.length-1&&k<N){const a=j*(N+1)+k,b=a+N+1;ix.push(a,b,a+1,b,b+1,a+1);}}}
- const bowlG=new T.BufferGeometry();bowlG.setAttribute('position',new T.Float32BufferAttribute(ps,3));bowlG.setAttribute('uv',new T.Float32BufferAttribute(uv,2));bowlG.setIndex(ix);bowlG.computeVertexNormals();for(const x of offsets)mesh(bowlG.clone(),ceramic,'Vasque_'+kind.toUpperCase()+'_coque_3D',insetGroup,x);
- const drainG=new T.CylinderGeometry(.022,.02,.008,64);for(const x of offsets)mesh(drainG.clone(),chrome,'Bonde_chromee',insetGroup,x,isTampa?.695:.685,.027);
- for(const x of offsets)mesh(new T.CylinderGeometry(.019,.019,.0018,64),chrome,'Couvercle_bonde',insetGroup,x,isTampa?.701:.691,.027);
- if(isTampa)box(.036,.007,.0015,dark,'Trop_plein_Tampa',insetGroup,0,.801,-.097,.001);
- insets[kind]=insetGroup;
- }
+ const insets={};for(const kind of ['sella','tampa'])insets[kind]=createIntegratedBasin({parent:root,W,kind,layout:resolveBasinLayout(kind,widthCm,format,basinLayout)||chosenLayout,ceramic,chrome,dark,roundedRect,mesh,box});
  const insetGroup=insets.sella;
  // Generic demonstration mixer. Not asserted to be a RANDAL catalogue reference.
  const faucet=new T.Group();faucet.name='Mitigeur_illustratif';root.add(faucet);
@@ -110,6 +93,8 @@ export function makeModel({width=.80,includeMirror=true,format='harmony-two'}={}
  mesh(new T.TubeGeometry(new T.CatmullRomCurve3(points),48,.0125,20,false),chrome,'Bec_courbe',faucet);
  const outlet=mesh(new T.CylinderGeometry(.01,.01,.004,32),dark,'Mousseur',faucet,0,.972,-.041);outlet.rotation.x=.3;
  box(.018,.006,.071,chrome,'Levier_mitigeur',faucet,0,.985,-.182,.002);
+ const secondFaucet=faucet.clone(true);secondFaucet.name='Mitigeur_illustratif_double';root.add(secondFaucet);
+ const getBasinCenters=mode=>insets[mode]?.userData.basinCenters||[0];
  const mirror=includeMirror?makeMirrorFrame():null;if(mirror)root.add(mirror);
  const topWood=frontWood.clone();const tops=createTopSet({wood:topWood,ceramic,chrome,roundedRect,woodUV,width:W});root.add(tops.root);
  cabinet.userData.editTarget='furniture';faucet.userData.editTarget='basin';
@@ -121,7 +106,7 @@ export function makeModel({width=.80,includeMirror=true,format='harmony-two'}={}
  let topMode='sella';
  function setTop(mode){
   if(!TOP_OPTIONS.some(o=>o.id===mode)||!topAvailable(mode,widthCm,format))return false;
-  topMode=mode;for(const [id,group] of Object.entries(insets))group.visible=mode===id;tops.root.visible=mode!=='sella'&&mode!=='tampa';
+  topMode=mode;const centers=getBasinCenters(mode);faucet.position.x=centers[0];secondFaucet.position.x=centers[1]||0;secondFaucet.visible=centers.length===2;for(const [id,group] of Object.entries(insets))group.visible=mode===id;tops.root.visible=mode!=='sella'&&mode!=='tampa';
   tops.solid.visible=mode==='plain';tops.drilled.visible=mode==='neris'||mode==='torne';
   for(const [kind,vessel] of Object.entries(tops.vessels))vessel.group.visible=mode===kind;
   faucet.visible=mode!=='plain';faucet.position.z=mode==='neris'||mode==='torne'?-.017:0;
@@ -130,9 +115,9 @@ export function makeModel({width=.80,includeMirror=true,format='harmony-two'}={}
   heads.forEach((o,i)=>o.position.y=headY[i]+extra);
   return true;
  }
- setTop(topAvailable('sella',widthCm,format)?'sella':'plain');for(const group of [...Object.values(insets),tops.root,faucet])group.position.y+=topY-.82;
+ setTop(topAvailable('sella',widthCm,format)?'sella':'plain');for(const group of [...Object.values(insets),tops.root,faucet,secondFaucet])group.position.y+=topY-.82;
  // The live Reflector disk is supplied by the renderer, keeping the model testable without WebGL.
- return adaptGeneralModel({root,cabinet,drawers,mirror,format:form,wood,frontWood,topWood,ceramic,frontMeshes,panels,fasteners,spec,tops,insetGroup,insets,faucet,setTop,getTop:()=>topMode},{form,W,H,B,topY,layout});
+ return adaptGeneralModel({root,cabinet,drawers,mirror,format:form,wood,frontWood,topWood,ceramic,frontMeshes,panels,fasteners,spec,tops,insetGroup,insets,faucet,faucets:[faucet,secondFaucet],getBasinCenters,basinLayout:chosenLayout,setTop,getTop:()=>topMode},{form,W,H,B,topY,layout});
 }
 
 export function makeMirrorFrame(){
