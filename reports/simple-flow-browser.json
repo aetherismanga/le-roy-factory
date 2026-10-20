@@ -1,0 +1,383 @@
+{
+  "screens": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "scroll": [
+        1440,
+        900
+      ],
+      "cards": [
+        {
+          "top": 196.5,
+          "bottom": 501.15625,
+          "left": 245,
+          "right": 714
+        },
+        {
+          "top": 196.5,
+          "bottom": 501.15625,
+          "left": 726,
+          "right": 1195
+        },
+        {
+          "top": 513.15625,
+          "bottom": 817.8125,
+          "left": 245,
+          "right": 714
+        },
+        {
+          "top": 513.15625,
+          "bottom": 817.8125,
+          "left": 726,
+          "right": 1195
+        }
+      ],
+      "footer": {
+        "top": 825.8125,
+        "bottom": 900,
+        "left": 244,
+        "right": 1196
+      },
+      "next": {
+        "top": 839.8125,
+        "bottom": 886,
+        "left": 1016,
+        "right": 1196
+      }
+    },
+    {
+      "viewport": [
+        768,
+        1024
+      ],
+      "scroll": [
+        768,
+        1024
+      ],
+      "cards": [
+        {
+          "top": 196.5,
+          "bottom": 563.15625,
+          "left": 25,
+          "right": 378
+        },
+        {
+          "top": 196.5,
+          "bottom": 563.15625,
+          "left": 390,
+          "right": 743
+        },
+        {
+          "top": 575.15625,
+          "bottom": 941.8125,
+          "left": 25,
+          "right": 378
+        },
+        {
+          "top": 575.15625,
+          "bottom": 941.8125,
+          "left": 390,
+          "right": 743
+        }
+      ],
+      "footer": {
+        "top": 949.8125,
+        "bottom": 1024,
+        "left": 24,
+        "right": 744
+      },
+      "next": {
+        "top": 963.8125,
+        "bottom": 1010,
+        "left": 564,
+        "right": 744
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "scroll": [
+        390,
+        844
+      ],
+      "cards": [
+        {
+          "top": 165.390625,
+          "bottom": 462.1875,
+          "left": 15,
+          "right": 190
+        },
+        {
+          "top": 165.390625,
+          "bottom": 462.1875,
+          "left": 200,
+          "right": 375
+        },
+        {
+          "top": 472.1875,
+          "bottom": 769,
+          "left": 15,
+          "right": 190
+        },
+        {
+          "top": 472.1875,
+          "bottom": 769,
+          "left": 200,
+          "right": 375
+        }
+      ],
+      "footer": {
+        "top": 777,
+        "bottom": 844,
+        "left": 14,
+        "right": 376
+      },
+      "next": {
+        "top": 788,
+        "bottom": 832,
+        "left": 231,
+        "right": 376
+      }
+    },
+    {
+      "viewport": [
+        360,
+        640
+      ],
+      "scroll": [
+        360,
+        640
+      ],
+      "cards": [
+        {
+          "top": 141.9375,
+          "bottom": 351.96875,
+          "left": 15,
+          "right": 175
+        },
+        {
+          "top": 141.9375,
+          "bottom": 351.96875,
+          "left": 185,
+          "right": 345
+        },
+        {
+          "top": 361.96875,
+          "bottom": 572,
+          "left": 15,
+          "right": 175
+        },
+        {
+          "top": 361.96875,
+          "bottom": 572,
+          "left": 185,
+          "right": 345
+        }
+      ],
+      "footer": {
+        "top": 580,
+        "bottom": 640,
+        "left": 14,
+        "right": 346
+      },
+      "next": {
+        "top": 589,
+        "bottom": 631,
+        "left": 201,
+        "right": 346
+      }
+    },
+    {
+      "viewport": [
+        320,
+        568
+      ],
+      "scroll": [
+        320,
+        568
+      ],
+      "cards": [
+        {
+          "top": 141.9375,
+          "bottom": 315.96875,
+          "left": 15,
+          "right": 155
+        },
+        {
+          "top": 141.9375,
+          "bottom": 315.96875,
+          "left": 165,
+          "right": 305
+        },
+        {
+          "top": 325.96875,
+          "bottom": 500,
+          "left": 15,
+          "right": 155
+        },
+        {
+          "top": 325.96875,
+          "bottom": 500,
+          "left": 165,
+          "right": 305
+        }
+      ],
+      "footer": {
+        "top": 508,
+        "bottom": 568,
+        "left": 14,
+        "right": 306
+      },
+      "next": {
+        "top": 517,
+        "bottom": 559,
+        "left": 161,
+        "right": 306
+      }
+    }
+  ],
+  "errors": [],
+  "checks": [
+    "Home has four actions; all four model cards and Continue fit five viewports including 320×568",
+    "Dimensions, finish, basin, column and mirror persist across back/forward, reload and resume",
+    "Exact public total 2788.80 EUR, all four commercial lines",
+    "Repeated saves update same composition",
+    "Print layout hides controls and retains quote",
+    "Order opens composed message with verified recipients; no email sent",
+    "Saved composition transfers full selected settings to atelier, mobile return link opens same quote"
+  ],
+  "initialResources": [
+    {
+      "name": "http://localhost:4173/accueil.css",
+      "bytes": 19712,
+      "duration": 6
+    },
+    {
+      "name": "http://localhost:4173/accueil.js",
+      "bytes": 38080,
+      "duration": 8
+    },
+    {
+      "name": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/hero-meuble-hd.webp",
+      "bytes": 0,
+      "duration": 4149
+    }
+  ],
+  "publicTTC": "2 788,80 €",
+  "savedID": "project-1890c3a8-a3c4-4586-9d0e-72f6abfd5745",
+  "transfer": {
+    "version": 2,
+    "title": "Ma composition test",
+    "room": {
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          300,
+          0
+        ],
+        [
+          300,
+          300
+        ],
+        [
+          0,
+          300
+        ]
+      ],
+      "height": 260,
+      "partitions": []
+    },
+    "floor": {
+      "collection": "Shell",
+      "color": "beige"
+    },
+    "walls": [
+      {
+        "collection": "Creta",
+        "color": "avena"
+      },
+      {
+        "collection": "Creta",
+        "color": "avena"
+      },
+      {
+        "collection": "Creta",
+        "color": "avena"
+      },
+      {
+        "collection": "Creta",
+        "color": "avena"
+      }
+    ],
+    "lighting": "day",
+    "brightness": 100,
+    "items": [
+      {
+        "id": "guided-cabinet",
+        "type": "cabinet",
+        "settings": {
+          "format": "three",
+          "width": 100,
+          "finish": "BISC",
+          "top": "tampa",
+          "basinColor": "black",
+          "tampaColor": "black",
+          "vesselColor": "black",
+          "drawers": [
+            0,
+            0,
+            0
+          ],
+          "decor": true,
+          "tap": null
+        },
+        "placement": {
+          "wall": 0,
+          "u": 125,
+          "height": 0
+        }
+      },
+      {
+        "id": "guided-column",
+        "type": "column",
+        "settings": {
+          "finish": "NOGAL",
+          "hingeSide": "left",
+          "doorOpen": false
+        },
+        "placement": {
+          "wall": 0,
+          "u": 199,
+          "height": 28
+        }
+      },
+      {
+        "id": "guided-mirror",
+        "type": "mirror",
+        "settings": {
+          "mirrorModel": "ilse",
+          "width": 100,
+          "height": 80,
+          "mirrorFinish": "Noir",
+          "led": true
+        },
+        "placement": {
+          "wall": 0,
+          "u": 125,
+          "height": 149
+        }
+      }
+    ]
+  },
+  "full3DPassed": false,
+  "sceneVisual": "WebGL2 unavailable on this runner; actual restoreProject covered separately by controller checks. No claim of rendered 3D validation.",
+  "passed": true
+}

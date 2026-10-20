@@ -2,86 +2,102 @@ import {CATALOG as C} from './catalog.js';
 import {money,quoteProject,finish} from './pricing.js';
 import {initialDraft,normalizeDraft,draftProject,DRAFT_KEY,TRANSFER_KEY} from './guided.js';
 import {commercialRequest,statusText} from './client.js';
+import {cabinetDrawing,bevelSection,columnDrawing} from './visuals.js';
+import {FLOW_KEY,QUOTE_KEY,QUOTE_CONTEXT,ACTIVE_ID,CURRENT_KEY,SAVED_KEY,ORDER_TO,readStored,checkedProject,storeQuote,saveComposition,orderText,composeLinks} from './flow.js';
 const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 if(new URLSearchParams(location.hash.slice(1)).has('projet'))location.replace('atelier.html'+location.hash);
-const labels=['Meuble','Vasque & plan','Colonne','Miroir','Votre projet'];
-let draft=initialDraft(),session=null,storageAvailable=true;
-try{const saved=localStorage.getItem(DRAFT_KEY);if(saved)draft=normalizeDraft(JSON.parse(saved));}catch{}
-const savedValue=key=>{try{return JSON.parse(localStorage.getItem(key)||'null');}catch{return null;}};
-function persist(){try{localStorage.setItem(DRAFT_KEY,JSON.stringify(draft));}catch{storageAvailable=false;$('#form-status').textContent='Enregistrement local indisponible. Gardez cette page ouverte pour conserver votre sélection.';}}
-function image(url,alt,cls=''){return `<img src="${esc(url)}" alt="${esc(alt)}" loading="lazy" decoding="async" class="${cls}">`;}
-function card(id,title,detail,url,selected,cls=''){return `<button type="button" class="product-card ${cls}${url?'':' none'}" data-choice="${esc(id)}" aria-pressed="${selected}">${url?image(url,title):''}<div><strong>${esc(title)}</strong><small>${esc(detail)}</small></div></button>`;}
-function field(id,label,value,options){return `<label>${esc(label)}<select id="${id}">${options.map(([v,t])=>`<option value="${esc(v)}" ${String(v)===String(value)?'selected':''}>${esc(t)}</option>`).join('')}</select></label>`;}
+const read=(key,fallback=null)=>{try{return readStored(localStorage,key,fallback);}catch{return fallback;}};
+let draft=initialDraft(),view='home',step=0,project=null,projectTitle='Ma salle de bains',quoteMode='guided',session=null,sessionLoaded=false;
+try{draft=normalizeDraft(read(DRAFT_KEY,initialDraft()));}catch{}
+function error(message,target='#form-status'){const element=$(target);if(element)element.textContent=message;}
+function persistDraft(){localStorage.setItem(DRAFT_KEY,JSON.stringify(draft));localStorage.setItem(FLOW_KEY,JSON.stringify({view:'wizard',step}));}
+function image(url,alt){return `<img src="${esc(url)}" alt="${esc(alt)}" loading="lazy" decoding="async">`;}
+// Viewport crops only: keep the official files intact and exclude their old
+// embedded dimension drawings, bevel insets and fragments of neighbouring rows.
+function officialPhoto(model){const y={two:4,three:15,'one-xl':49,'two-xl':30}[model.id];return `<svg class="product-photo" viewBox="8 ${y} 437 ${316-y}" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Photographie RANDAL — ${esc(model.name)}"><image href="${esc(model.image)}" width="978" height="318"/></svg>`;}
+function productCard(id,title,detail,url,selected,extra=''){return `<button type="button" class="product-card" data-choice="${esc(id)}" aria-pressed="${selected}">${url?image(url,title):extra||'<div class="empty-product">Sans</div>'}<strong>${esc(title)}</strong><small>${esc(detail)}</small></button>`;}
+function field(id,label,value,values){return `<label>${esc(label)}<select id="${id}">${values.map(([v,name])=>`<option value="${esc(v)}" ${String(v)===String(value)?'selected':''}>${esc(name)}</option>`).join('')}</select></label>`;}
 function swatches(key,values,value){return `<div class="swatches" role="group" aria-label="${key==='basinColor'?'Couleur de la vasque':'Finition'}">${values.map(f=>`<button type="button" data-swatch="${key}" data-value="${esc(f.id||f.code)}" aria-pressed="${(f.id||f.code)===value}"><span class="chip" style="background:${esc(f.hex)}"></span>${esc(f.name)}</button>`).join('')}</div>`;}
-function selectionPatch(patch){
- const next={...draft,...patch};
- if(Object.hasOwn(patch,'width')&&['sella','tampa'].includes(next.top)&&!C.inset[next.top]?.[next.basinColor]?.[next.width]){next.top='plain';next.basinColor='gloss';$('#form-status').textContent='Largeur hors format encastré : le plan assorti est sélectionné. Vous pouvez choisir une vasque à poser à l’étape suivante.';}
- if(next.top==='neris'&&next.width<50){next.top='plain';next.basinColor='gloss';}
- try{draft=normalizeDraft(next);persist();render();}catch(e){$('#form-status').textContent=e.message;}
+function updateURL(next,nextStep,replace=false){const url=new URL(location.href);url.hash='';url.searchParams.delete('step');if(next==='home')url.searchParams.delete('view');else url.searchParams.set('view',next==='wizard'?'configure':'quote');if(next==='wizard')url.searchParams.set('step',String(nextStep));history[replace?'replaceState':'pushState']({view:next,step:nextStep},'',url);}
+function switchView(next,nextStep=step,{history=true,replace=false}={}){
+ view=next;step=Math.min(4,Math.max(0,Number.isInteger(nextStep)?nextStep:0));
+ if(view==='quote'&&!project){try{project=checkedProject(read(QUOTE_KEY)||read(CURRENT_KEY));projectTitle=project.title||projectTitle;quoteMode=read(QUOTE_CONTEXT,{mode:'scene'}).mode;}catch{view='home';}}
+ document.body.dataset.view=view;$('#landing').hidden=view!=='home';$('#wizard-panel').hidden=view!=='wizard';$('#quote-panel').hidden=view!=='quote';$('#return-home').hidden=view==='home';$('#beta-label').hidden=view!=='home';
+ if(history)updateURL(view,step,replace);
+ if(view==='wizard'){try{persistDraft();}catch{error('Le stockage est indisponible. Gardez cette page ouverte.');}renderWizard();}
+ if(view==='quote'){renderQuote();$('#quote-heading').focus({preventScroll:true});}
 }
-function summary(){
- const q=quoteProject(draftProject(draft));
- $('#summary-lines').innerHTML=q.rows.map(r=>`<div class="summary-line"><strong>${esc(r.name)}</strong><small>${esc(r.detail)}<br>Réf. ${esc(r.ref)}${r.note?'<br>'+esc(r.note):''}</small><b>${money(r.publicTTC)}</b></div>`).join('');
- $('#summary-total').textContent=money(q.publicTTC);$('#summary-note').textContent='TVA 20 % incluse.'+(q.indicative?' Montant soumis aux confirmations indiquées.':'');
- $('#account-status').textContent=session?.randalAllowed===false?'Compte '+session.client.codeClient+' identifié. Accès RANDAL non autorisé pour ce compte.':statusText(session);
- $('#account-open').textContent=session?.client?.codeClient||'Compte PRO LRF';$('#logout').hidden=!session?.client;
+function patchDraft(patch){
+ const next={...draft,...patch};let note='';
+ if(Object.hasOwn(patch,'width')&&['sella','tampa'].includes(next.top)&&!C.inset[next.top]?.[next.basinColor]?.[next.width]){next.top='plain';next.basinColor='gloss';note='À cette largeur, le plan assorti remplace la vasque encastrée. Vous pouvez ajouter une vasque à poser à l’étape suivante.';}
+ if(next.top==='neris'&&next.width<50){next.top='plain';next.basinColor='gloss';note='Neris nécessite au moins 50 cm. Le plan assorti est sélectionné.';}
+ try{draft=normalizeDraft(next);project=null;persistDraft();renderWizard();error(note);}catch(e){error(e.message);}
 }
-function render(){
- $('#steps').innerHTML=labels.map((s,i)=>`<button type="button" data-step="${i}" class="${i===draft.step?'active':''}" aria-current="${i===draft.step?'step':'false'}"><span class="number">${i+1}</span>${s}</button>`).join('');
- $('#step-count').textContent='ÉTAPE '+(draft.step+1)+' / 5';
- const titles=['Choisissez votre meuble.','Le plan et la vasque qui vous vont.','Un rangement en plus.','Le miroir, touche finale.','Votre composition est prête.'];
- const descriptions=['Quatre formats STUDIO ONE, huit finitions et une largeur au centimètre.','Seuls les modèles compatibles avec votre largeur sont proposés.','Ajoutez la colonne STUDIO ONE, ou poursuivez sans colonne.','Choisissez un miroir du catalogue RANDAL, ou continuez sans miroir.','Retrouvez tous vos choix dans l’atelier et personnalisez la pièce autour de votre meuble.'];
- $('#step-title').textContent=titles[draft.step];$('#step-description').textContent=descriptions[draft.step];let html='';
- if(draft.step===0){
-  html='<div class="product-grid models">'+C.models.map(m=>card(m.id,m.name,`H ${m.height} cm · P 46 cm · Réf. ${m.base}`,m.image,m.id===draft.format,'model')).join('')+'</div>';
-  html+=`<div class="fields"><label>Largeur exacte (cm)<input id="width" type="number" min="40" max="120" step="1" inputmode="numeric" value="${draft.width}" required></label>${field('finish','Finition du meuble',draft.finish,C.finishes.map(f=>[f.id,f.name]))}</div>`+swatches('finish',C.finishes,draft.finish);
-  if(draft.width===40)html+='<p class="notice">La largeur 40 cm doit être confirmée par l’usine, comme dans le configurateur d’origine.</p>';
- }else if(draft.step===1){
-  const choices=[{id:'plain',name:'Plan assorti seul',detail:'Sans vasque · finition du meuble',image:null},...['sella','tampa','neris','torne'].filter(id=>id==='neris'?draft.width>=50:id==='torne'||C.inset[id]?.gloss?.[draft.width]).map(id=>({id,name:{sella:'Sella encastrée',tampa:'Tampa encastrée',neris:'Plan + Neris',torne:'Plan + Torne'}[id],detail:['neris','torne'].includes(id)?'Vasque à poser + plan assorti':'Vasque intégrée · '+draft.width+' cm',image:C.media+'accessories/hd/basin-'+id+'.webp'}))];
-  html='<div class="product-grid">'+choices.map(c=>card(c.id,c.name,c.detail,c.image,c.id===draft.top)).join('')+'</div>';
-  if(draft.top!=='plain'){const colors=['sella','tampa'].includes(draft.top)?C.insetColors.filter(c=>C.inset[draft.top][c.code]?.[draft.width]):C.vesselColors;html+='<label>Couleur de la vasque</label>'+swatches('basinColor',colors,draft.basinColor);}
-  html+='<p class="fine">Les photos du catalogue présentent le modèle. La couleur choisie figure dans le récapitulatif et sera appliquée en 3D.</p>';
- }else if(draft.step===2){
-  html='<div class="product-grid">'+card('none','Sans colonne','Conserver uniquement le meuble',null,!draft.column)+card('column','Colonne STUDIO ONE · 1 porte','38 × 132 × 27 cm · Réf. 14177 · '+money(C.column.ttc),null,draft.column)+'</div>';
-  if(draft.column)html+=field('columnFinish','Finition de la colonne',draft.columnFinish,C.finishes.map(f=>[f.id,f.name]))+'<p class="no-image">Colonne STUDIO ONE · réf. 14177. Le visuel isolé officiel reste à raccorder. Dimensions et référence sont conservées dans votre projet.</p>';
- }else if(draft.step===3){
-  html='<div class="product-grid">'+card('none','Sans miroir','Poursuivre sans miroir',null,draft.mirror===null)+C.mirrors.map(m=>card(m.id,m.name,m.sizes.length+' format(s) · tarifs indicatifs',m.image,draft.mirror===m.id)).join('')+'</div>';
-  if(draft.mirror){const m=C.mirrors.find(m=>m.id===draft.mirror);html+='<div class="fields">'+field('mirrorSize','Dimensions',draft.mirrorSize,m.sizes.map((s,i)=>[i,s.label]))+(m.metal?field('mirrorFinish','Finition du cadre',draft.mirrorFinish,['Noir','Doré','Bronze','Argent'].map(s=>[s,s])):'')+'</div><p class="notice">Les prix des miroirs sont indicatifs dans le configurateur historique et nécessitent une confirmation usine.</p>';}
- }else{
-  const m=C.models.find(m=>m.id===draft.format),f=finish(draft.finish),mirror=C.mirrors.find(m=>m.id===draft.mirror);
-  html=`<div class="review-row">${image(m.image,m.name)}<div><strong>STUDIO ONE · ${esc(m.name)}</strong><small>${draft.width} × ${m.height} × 46 cm · ${esc(f.name)}</small></div></div>`;
-  if(draft.top!=='plain')html+=`<div class="review-row">${image(C.media+'accessories/hd/basin-'+draft.top+'.webp','Vasque '+draft.top)}<div><strong>${esc(draft.top.toUpperCase())}</strong><small>${esc(draft.basinColor)} · ${['neris','torne'].includes(draft.top)?'Plan assorti + vasque à poser':'Vasque encastrée'}</small></div></div>`;
-  if(draft.column)html+='<div class="review-row"><div><strong>Colonne STUDIO ONE · 14177</strong><small>38 × 132 × 27 cm · '+esc(finish(draft.columnFinish).name)+'</small></div></div>';
-  if(mirror)html+=`<div class="review-row">${image(mirror.image,mirror.name)}<div><strong>${esc(mirror.name)}</strong><small>${esc(mirror.sizes[draft.mirrorSize].label)} · ${esc(draft.mirrorFinish)}</small></div></div>`;
-  html+='<button class="primary full-cta" id="open-3d">PERSONNALISER MA SALLE DE BAINS EN 3D ↗</button><p class="fine">Votre composition reste enregistrée dans le parcours. Les modifications ultérieures de l’atelier restent dans votre projet 3D.</p>';
- }
- $('#step-content').innerHTML=html;$('#previous').disabled=draft.step===0;$('#next').hidden=draft.step===4;
- document.querySelectorAll('[data-step]').forEach(b=>b.onclick=()=>go(Number(b.dataset.step)));
- document.querySelectorAll('[data-choice]').forEach(b=>b.onclick=()=>{const id=b.dataset.choice;selectionPatch(draft.step===0?{format:id}:draft.step===1?{top:id,basinColor:'gloss'}:draft.step===2?{column:id==='column'}:{mirror:id==='none'?null:id,mirrorSize:0});});
- document.querySelectorAll('[data-swatch]').forEach(b=>b.onclick=()=>selectionPatch({[b.dataset.swatch]:b.dataset.value}));
- for(const key of ['width','finish','columnFinish','mirrorSize','mirrorFinish']){const input=$('#'+key);if(input)input.onchange=()=>{if(!input.checkValidity()){input.reportValidity();return;}selectionPatch({[key]:key==='width'||key==='mirrorSize'?Number(input.value):input.value});};}
- $('#open-3d')?.addEventListener('click',()=>launch(draftProject(draft)));
- document.querySelectorAll('#step-content img').forEach(img=>img.onerror=()=>{img.classList.add('error-image');img.alt='Photo indisponible — vérifiez la connexion';});summary();
+function renderWizard(){
+ const names=['Le modèle','Dimensions & finition','Le plan & la vasque','La colonne','Le miroir'];
+ const hints=['Choisissez l’un des quatre formats STUDIO ONE.','Votre largeur exacte, votre finition.','Uniquement les vasques compatibles avec votre meuble.','Ajoutez un rangement, ou continuez sans colonne.','La touche finale, avec ou sans éclairage LED.'];
+ $('#step-count').textContent=`0${step+1} / 06`;$('#step-title').textContent=names[step];$('#step-description').textContent=hints[step];$('#progress-dots').innerHTML=Array.from({length:6},(_,i)=>`<span class="${i===step?'active':i<step?'done':''}"></span>`).join('');$('#bevel-open').hidden=step>1;$('#previous').textContent=step===0?'← Accueil':'← Précédent';$('#next').textContent=step===4?'Voir mon récapitulatif →':'Continuer →';
+ const content=$('#step-content');content.className='step-content'+(step===0?' model-step':'');let html='';
+ if(step===0){html='<div class="model-grid">'+C.models.map(m=>`<button type="button" class="model-card" data-model="${m.id}" aria-label="Choisir ${esc(m.name)}" aria-pressed="${m.id===draft.format}"><span class="official-photo">${officialPhoto(m)}</span><span class="model-art">${cabinetDrawing(m,{range:true})}</span><span class="model-caption"><strong>${esc(m.name)}</strong><small>H ${String(m.height).replace('.',',')} · P 46</small></span>${m.id===draft.format?'<span class="selected-mark" aria-hidden="true">✓</span>':''}</button>`).join('')+'</div>';}
+ else if(step===1){const m=C.models.find(m=>m.id===draft.format),f=finish(draft.finish);html=`<div class="dimension-layout"><div class="dimension-art">${cabinetDrawing(m,{width:draft.width,color:f.hex})}<strong>${esc(m.name)}<br>${esc(f.name)}</strong></div><div class="dimension-fields"><label>Largeur du meuble en cm<input id="width" type="number" inputmode="numeric" min="40" max="120" step="1" value="${draft.width}" required></label><div class="preset-widths" aria-label="Largeurs courantes">${[60,70,80,90,100,120].map(n=>`<button type="button" data-width="${n}" aria-pressed="${n===draft.width}">${n}</button>`).join('')}</div><label>Finition du meuble</label>${swatches('finish',C.finishes,draft.finish)}<p class="selection-note">Largeur au centimètre, de 40 à 120 cm. Hauteur ${String(m.height).replace('.',',')} cm · profondeur 46 cm.${draft.width===40?' La largeur 40 cm est à confirmer usine.':''}</p></div></div>`;}
+ else if(step===2){const choices=[{id:'plain',name:'Plan assorti seul',detail:'Sans vasque · finition du meuble',url:null},...['sella','tampa','neris','torne'].filter(id=>id==='neris'?draft.width>=50:id==='torne'||C.inset[id]?.gloss?.[draft.width]).map(id=>({id,name:{sella:'Sella encastrée',tampa:'Tampa encastrée',neris:'Plan + Neris',torne:'Plan + Torne'}[id],detail:['neris','torne'].includes(id)?'Vasque à poser + plan assorti':draft.width+' cm · vasque intégrée',url:C.media+'accessories/hd/basin-'+id+'.webp'}))];html='<div class="product-grid">'+choices.map(c=>productCard(c.id,c.name,c.detail,c.url,c.id===draft.top,c.id==='plain'?'<div class="empty-product">Plan seul</div>':'')).join('')+'</div>';if(draft.top!=='plain'){const colors=['sella','tampa'].includes(draft.top)?C.insetColors.filter(c=>C.inset[draft.top][c.code]?.[draft.width]):C.vesselColors;html+='<label>Couleur de la vasque</label>'+swatches('basinColor',colors,draft.basinColor);}html+='<p class="selection-note">La photo présente le modèle ; la couleur sélectionnée est appliquée à votre composition 3D.</p>';}
+ else if(step===3){html='<div class="column-grid">'+productCard('none','Sans colonne','Poursuivre sans rangement supplémentaire',null,!draft.column)+productCard('column','Colonne STUDIO ONE','38 × 132 × 27 cm · réf. 14177',null,draft.column,columnDrawing(finish(draft.columnFinish).hex))+'</div>';if(draft.column)html+='<div class="column-settings">'+field('columnFinish','Finition de la colonne',draft.columnFinish,C.finishes.map(f=>[f.id,f.name]))+'<p class="selection-note">Schéma coté de la référence 14177. La colonne sera placée à côté du meuble en 3D.</p></div>';}
+ else{html='<div class="product-grid mirror-grid">'+productCard('none','Sans miroir','Continuer sans miroir',null,draft.mirror===null)+C.mirrors.map(m=>productCard(m.id,m.name,m.sizes.length+' format'+(m.sizes.length>1?'s':''),m.image,m.id===draft.mirror)).join('')+'</div>';if(draft.mirror){const m=C.mirrors.find(m=>m.id===draft.mirror);html+='<div class="fields">'+field('mirrorSize','Dimensions du miroir',draft.mirrorSize,m.sizes.map((s,i)=>[i,s.label]))+(m.metal?field('mirrorFinish','Finition du cadre',draft.mirrorFinish,['Noir','Doré','Bronze','Argent'].map(s=>[s,s])):'')+'</div><p class="selection-note">Tarif miroir historique indicatif, soumis à confirmation usine.</p>';}}
+ content.innerHTML=html;error('');
+ content.querySelectorAll('[data-model]').forEach(b=>b.onclick=()=>patchDraft({format:b.dataset.model}));
+ content.querySelectorAll('[data-width]').forEach(b=>b.onclick=()=>patchDraft({width:Number(b.dataset.width)}));
+ content.querySelectorAll('[data-choice]').forEach(b=>b.onclick=()=>{const id=b.dataset.choice;patchDraft(step===2?{top:id,basinColor:'gloss'}:step===3?{column:id==='column'}:{mirror:id==='none'?null:id,mirrorSize:0});});
+ content.querySelectorAll('[data-swatch]').forEach(b=>b.onclick=()=>patchDraft({[b.dataset.swatch]:b.dataset.value}));
+ for(const key of ['width','columnFinish','mirrorSize','mirrorFinish']){const field=$('#'+key);if(field)field.onchange=()=>{if(!field.checkValidity()){field.reportValidity();return;}patchDraft({[key]:key==='width'||key==='mirrorSize'?Number(field.value):field.value});};}
+ content.querySelectorAll('img').forEach(img=>img.onerror=()=>{img.alt='Photo indisponible — vérifiez la connexion';});
 }
-function go(step){const width=$('#width');if(width&&!width.checkValidity()){width.reportValidity();return;}draft.step=Math.min(4,Math.max(0,step));persist();$('#form-status').textContent='';render();$('#step-title').focus({preventScroll:true});}
-function launch(project){
- try{localStorage.setItem(TRANSFER_KEY,JSON.stringify(project));location.href='atelier.html?guided=1';}catch{$('#form-status').textContent='Le transfert ne peut pas être enregistré sur cet appareil. Autorisez le stockage local pour ouvrir la scène sans perdre vos choix.';}
+function validateCurrentStep(){const width=$('#width');if(width&&!width.checkValidity()){width.reportValidity();return false;}return true;}
+function reviewGuided(){project={...draftProject(draft),title:projectTitle};quoteMode='guided';try{storeQuote(localStorage,project,quoteMode);}catch{error('Impossible de conserver le récapitulatif sur cet appareil. Autorisez le stockage local.');return;}switchView('quote');}
+function rowVisual(row){const item=project.items.find(i=>i.id===row.itemId);if(!item)return '';
+ if(row.name.startsWith('Vasque ')){const name=row.name.toLowerCase().includes('sella')?'sella':row.name.toLowerCase().includes('tampa')?'tampa':row.name.toLowerCase().includes('neris')?'neris':'torne';return image(C.media+'accessories/hd/basin-'+name+'.webp',row.name);}
+ if(item.type==='cabinet')return cabinetDrawing(item.settings.format,{width:item.settings.width,color:finish(item.settings.finish)?.hex,dimensions:false});
+ if(item.type==='column')return columnDrawing(finish(item.settings.finish)?.hex);
+ if(item.type==='mirror'){const m=C.mirrors.find(m=>m.id===item.settings.mirrorModel);return m?image(m.image,m.name):'';}return '';
 }
-function showProjects(){
- const all=savedValue('studio-one-projects')||[],list=$('#projects-list');list.replaceChildren();
- for(const p of Array.isArray(all)?all.slice(0,20):[]){const card=document.createElement('article');card.className='saved-card';const title=document.createElement('div'),strong=document.createElement('strong'),date=document.createElement('small');strong.textContent=p.title||'Composition';date.textContent=p.date?new Date(p.date).toLocaleDateString('fr-FR'):'';title.append(strong,date);const open=document.createElement('button');open.textContent='Reprendre en 3D';open.onclick=()=>launch(p.data);card.append(title,open);list.append(card);}
- if(!list.children.length){const p=document.createElement('p');p.textContent='Aucune composition 3D enregistrée sur cette adresse. Vous pouvez importer un fichier de projet exporté depuis l’atelier.';list.append(p);}$('#projects-dialog').showModal();
+function renderAccount(){const label=session?.randalAllowed===false?'Compte '+session.client.codeClient+' : accès RANDAL non autorisé.':session?.client?statusText(session):'Identifiez votre compte LRF pour consulter vos conditions professionnelles.';$('#account-status').textContent=label;$('#account-open').textContent=session?.client?'Compte '+session.client.codeClient:'Identifier mon compte existant';$('#logout').hidden=!session?.client;}
+function loadSession(){if(sessionLoaded)return;sessionLoaded=true;commercialRequest('session').then(r=>{session=r;renderAccount();}).catch(()=>{sessionLoaded=false;});}
+function renderQuote(){
+ const q=quoteProject(project);projectTitle=project.title||projectTitle;$('#quote-title').value=projectTitle;$('#quote-origin').textContent=quoteMode==='scene'?'Votre composition complète, mise à jour depuis l’atelier 3D.':'Vérifiez vos choix avant de passer dans l’atelier 3D.';
+ $('#quote-lines').innerHTML=q.rows.map(r=>`<article class="quote-line"><div class="quote-visual">${rowVisual(r)}</div><div><strong>${esc(r.name)}</strong><small>${esc(r.detail)}<br>Réf. ${esc(r.ref)}${r.note?'<br>'+esc(r.note):''}</small></div><b>${money(r.publicTTC)}</b></article>`).join('')||'<p class="muted">Aucun meuble RANDAL chiffré dans ce projet. Ajoutez votre mobilier dans l’atelier 3D.</p>';
+ $('#quote-total').textContent=money(q.publicTTC);$('#quote-tax').textContent='TVA 20 % incluse'+(q.missing.length?' · sous-total renseigné : '+money(q.subtotal):'');
+ const labels={bath:'Baignoire',shower:'Douche / receveur',tap:'Robinetterie',screen:'Paroi',towel:'Sèche-serviettes',toilet:'WC',washstand:'Lave-mains',window:'Fenêtre',door:'Porte','attached-tap':'Robinetterie associée'};
+ $('#quote-caveats').innerHTML=(q.indicative?'<p>Les confirmations usine signalées sur les articles restent nécessaires.</p>':'')+(q.excluded.length?`<details><summary>${q.excluded.length} élément(s) sans tarif intégré, hors total mobilier</summary><ul>${q.excluded.map(i=>`<li>${esc(labels[i.type]||i.type)}${i.reference?' · '+esc(i.reference):''}</li>`).join('')}</ul></details>`:'');
+ $('#edit-choices').hidden=quoteMode!=='guided';$('#open-3d').textContent=quoteMode==='scene'?'RETOURNER DANS L’ATELIER 3D ↗':'PERSONNALISER MA SALLE DE BAINS EN 3D ↗';error('','#quote-status');renderAccount();loadSession();$('#quote-panel').scrollTop=0;
 }
-function openAccount(){$('#account-dialog').showModal();$('#login-status').textContent=session?.client?statusText(session):'';}
-$('#hero-image').src=C.media+'hero-meuble-hd.webp';$('#previous').onclick=()=>go(draft.step-1);$('#next').onclick=()=>go(draft.step+1);
-$('#new-project').onclick=()=>{draft=initialDraft();persist();render();$('#configuration').scrollIntoView();};
-$('#resume-project').onclick=()=>{const current=savedValue('studio-one-current-project');if(current)launch(current);else{render();$('#configuration').scrollIntoView();}};
-for(const id of ['projects-open','saved-projects'])$('#'+id).onclick=showProjects;
+function persistQuote(){project.title=$('#quote-title').value.trim().slice(0,80)||'Ma salle de bains';projectTitle=project.title;storeQuote(localStorage,project,quoteMode);}
+function launch(input){try{const p=checkedProject(input);localStorage.setItem(TRANSFER_KEY,JSON.stringify(p));localStorage.setItem(CURRENT_KEY,JSON.stringify(p));localStorage.setItem(FLOW_KEY,JSON.stringify({view:'atelier',step}));location.href='atelier.html?guided=1';}catch(e){error(e.message||'Le transfert ne peut pas être enregistré sur cet appareil.','#quote-status');}}
+function openSaved(projectData,id=null){try{project=checkedProject(projectData);quoteMode='scene';projectTitle=project.title||'Ma salle de bains';if(id)localStorage.setItem(ACTIVE_ID,id);else localStorage.removeItem(ACTIVE_ID);storeQuote(localStorage,project,quoteMode);$('#projects-dialog').close();switchView('quote');}catch(e){error(e.message,'#projects-status');}}
+function downloadProject(p){const blob=new Blob([JSON.stringify(checkedProject(p),null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='studio-one-projet.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);}
+function showProjects(){const all=read(SAVED_KEY,[]),list=$('#projects-list');list.replaceChildren();for(const p of Array.isArray(all)?all.slice(0,20):[]){const card=document.createElement('article');card.className='saved-card';const title=document.createElement('div'),name=document.createElement('strong'),date=document.createElement('small');name.textContent=p.title||'Ma composition';date.textContent=p.date?new Date(p.date).toLocaleDateString('fr-FR'):'';title.append(name,date);const actions=document.createElement('div');actions.className='saved-actions';const open=document.createElement('button');open.className='primary';open.textContent='Ouvrir';open.onclick=()=>openSaved(p.data,p.id);const file=document.createElement('button');file.className='secondary';file.textContent='Exporter .json';file.onclick=()=>{try{downloadProject(p.data);}catch(e){error(e.message,'#projects-status');}};actions.append(open,file);card.append(title,actions);list.append(card);}if(!list.children.length){const p=document.createElement('p');p.className='muted';p.textContent='Vos projets enregistrés apparaîtront ici. Vous pouvez aussi importer un fichier exporté depuis l’atelier.';list.append(p);}error('','#projects-status');$('#projects-dialog').showModal();}
+$('#landing-image').src=C.media+'hero-meuble-hd.webp';
+$('#new-project').onclick=()=>{draft=initialDraft();project=null;projectTitle='Ma salle de bains';quoteMode='guided';try{localStorage.removeItem(ACTIVE_ID);localStorage.removeItem(QUOTE_KEY);localStorage.removeItem(QUOTE_CONTEXT);}catch{}switchView('wizard',0);};
+$('#resume-project').onclick=()=>{const flow=read(FLOW_KEY,{view:'wizard',step:0});if(flow.view==='wizard'){project=null;switchView('wizard',flow.step);return;}const data=read(CURRENT_KEY)||read(QUOTE_KEY);if(data){if(flow.view==='atelier'){launch(data);return;}try{project=checkedProject(data);quoteMode=read(QUOTE_CONTEXT,{mode:'scene'}).mode;switchView('quote');return;}catch{}}switchView('wizard',0);};
+$('#saved-projects').onclick=showProjects;
+$('#direct-atelier').onclick=()=>{try{localStorage.setItem(FLOW_KEY,JSON.stringify({view:'atelier',step}));}catch{}location.href='atelier.html';};
+$('#brand-home').onclick=e=>{e.preventDefault();switchView('home');};$('#return-home').onclick=()=>switchView('home');
+$('#previous').onclick=()=>{if(!validateCurrentStep())return;error('');switchView(step===0?'home':'wizard',step-1);};
+$('#next').onclick=()=>{if(!validateCurrentStep())return;if(step===4)reviewGuided();else switchView('wizard',step+1);};
+$('#edit-choices').onclick=()=>switchView('wizard',4);
+$('#open-3d').onclick=()=>{try{persistQuote();launch(project);}catch(e){error(e.message,'#quote-status');}};
+$('#quote-title').onchange=()=>{try{persistQuote();}catch(e){error(e.message,'#quote-status');}};
+$('#save-composition').onclick=()=>{try{persistQuote();const saved=saveComposition(localStorage,project,{id:localStorage.getItem(ACTIVE_ID)||null});project=saved.data;error('Projet enregistré. Retrouvez-le dans « Mes projets enregistrés ».','#quote-status');}catch(e){error('Enregistrement indisponible : '+e.message,'#quote-status');}};
+$('#print-quote').onclick=()=>{try{persistQuote();window.print();}catch(e){error(e.message,'#quote-status');}};
 $('#projects-close').onclick=()=>$('#projects-dialog').close();
-for(const id of ['account-open','summary-account'])$('#'+id).onclick=openAccount;
-$('#account-close').onclick=()=>$('#account-dialog').close();
-$('#account-form').onsubmit=async e=>{e.preventDefault();const submit=e.target.querySelector('[type=submit]');submit.disabled=true;$('#login-status').textContent='Vérification du compte…';try{const values=Object.fromEntries(new FormData(e.target));session=await commercialRequest('identify',values);$('#login-status').textContent=session.randalAllowed===false?'Compte identifié, accès RANDAL non autorisé.':statusText(session);summary();}catch(e){session=null;summary();$('#login-status').textContent=e.message;}finally{submit.disabled=false;}};
-$('#logout').onclick=async()=>{try{await commercialRequest('logout');session=null;summary();$('#login-status').textContent='Vous êtes déconnecté.';}catch(e){$('#login-status').textContent=e.message;}};
-$('#project-import').onchange=async e=>{try{const f=e.target.files[0];if(!f)return;if(f.size>100000)throw Error('Fichier trop volumineux.');const project=JSON.parse(await f.text());if(![1,2].includes(project.version)||!Array.isArray(project.items)||!project.room)throw Error('Ce fichier n’est pas un projet de la Bêta V2.');launch(project);}catch(e){$('#projects-status').textContent=e.message;}};
+$('#project-import').onchange=async e=>{try{const file=e.target.files[0];if(!file)return;if(file.size>100000)throw Error('Projet trop volumineux.');openSaved(JSON.parse(await file.text()));}catch(e){error(e.message,'#projects-status');}e.target.value='';};
+$('#account-open').onclick=()=>{$('#account-dialog').showModal();$('#login-status').textContent=session?.client?statusText(session):'';};$('#account-close').onclick=()=>$('#account-dialog').close();
+$('#account-form').onsubmit=async e=>{e.preventDefault();const button=e.target.querySelector('button');button.disabled=true;$('#login-status').textContent='Vérification…';try{session=await commercialRequest('identify',Object.fromEntries(new FormData(e.target)));$('#login-status').textContent=session.randalAllowed===false?'Compte identifié ; accès RANDAL non autorisé.':statusText(session);renderAccount();}catch(e){session=null;renderAccount();$('#login-status').textContent=e.message;}finally{button.disabled=false;}};
+$('#logout').onclick=async()=>{try{await commercialRequest('logout');session=null;renderAccount();$('#login-status').textContent='Vous êtes déconnecté.';}catch(e){$('#login-status').textContent=e.message;}};
+$('#bevel-illustration').innerHTML=bevelSection();$('#bevel-open').onclick=()=>$('#bevel-dialog').showModal();$('#bevel-close').onclick=()=>$('#bevel-dialog').close();
+function updateOrderPreview(){const form=$('#order-form'),data=Object.fromEntries(new FormData(form));$('#order-body').value=orderText(project,{...data,client:session?.client});$('#compose-options').hidden=true;$('#order-prepare').hidden=false;$('#order-status').textContent='';}
+$('#prepare-order').onclick=()=>{try{persistQuote();const form=$('#order-form');if(session?.client?.societe)form.elements.name.value=session.client.societe;$('#order-to').textContent='Destinataires : '+ORDER_TO.join(' · ');updateOrderPreview();$('#order-dialog').showModal();}catch(e){error(e.message,'#quote-status');}};
+$('#order-close').onclick=()=>$('#order-dialog').close();$('#order-form').addEventListener('input',e=>{if(e.target.id!=='order-body')updateOrderPreview();});
+$('#order-form').onsubmit=e=>{e.preventDefault();const links=composeLinks($('#order-body').value,'Demande de commande STUDIO ONE — '+project.title);$('#order-gmail').href=links.gmail;$('#order-outlook').href=links.outlook;$('#order-mailto').href=links.mailto;$('#compose-options').hidden=false;$('#order-prepare').hidden=true;$('#order-status').textContent='Choisissez votre messagerie, puis vérifiez et envoyez le message.';};
+$('#order-copy').onclick=async()=>{try{await navigator.clipboard.writeText($('#order-body').value);$('#order-status').textContent='Message copié.';}catch{$('#order-body').focus();$('#order-body').select();$('#order-status').textContent='Sélectionnez et copiez le message.';}};
 const connectivity=()=>{$('#connection-status').hidden=navigator.onLine;};addEventListener('offline',connectivity);addEventListener('online',connectivity);connectivity();
-render();commercialRequest('session').then(result=>{session=result;summary();}).catch(()=>{});
+function readRoute(){const params=new URLSearchParams(location.search),target=params.get('view');switchView(target==='configure'?'wizard':target==='quote'?'quote':'home',Number(params.get('step')||0),{history:false});}
+addEventListener('popstate',readRoute);readRoute();

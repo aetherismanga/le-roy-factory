@@ -29,17 +29,24 @@ Résultat : **8 393 comparaisons** de prix et références contre le moteur d’
 
 Entrée par défaut `/` : accueil léger. L’atelier existant reste accessible directement par `/atelier.html`. Les anciens liens `#projet` arrivant à la racine sont redirigés vers le chargeur de projets de l’atelier.
 
-1. Meuble : quatre modèles, largeur entière 40–120 cm, huit finitions.
-2. Plan et vasque : plan assorti seul, Sella, Tampa, plan + Neris, plan + Torne ; compatibilités et couleurs réelles. Si une nouvelle largeur invalide une vasque encastrée, l’interface sélectionne explicitement le plan assorti, et le choix est visible dans le récapitulatif.
-3. Colonne : STUDIO ONE 14177, dimensions fixes 38 × 132 × 27 cm, finition indépendante, ou sans colonne.
-4. Miroir : Basic, Zen LED, Ilse LED, Cápsula LED, métallique rectangulaire/rond ; dimensions, références et métaux, ou sans miroir.
-5. Vérification et bouton « PERSONNALISER MA SALLE DE BAINS EN 3D ».
+L’accueil tient sur un écran, avec la photo officielle en fond, la signature RANDAL STUDIO ONE, « Votre sur-mesure en 3 minutes », et exactement quatre actions : Nouveau projet, Reprendre mon projet en cours, Mes projets enregistrés, Accéder à l’atelier 3D. Le parcours ne se déroule plus sous l’accueil.
+
+1. Modèle : quatre cartes sur un seul écran mobile. Les photographies officielles sont affichées par fenêtres SVG, sans modifier leurs fichiers. Les vieux encarts, biseaux et morceaux de rangées précédentes sont hors cadrage. Dessins cotés indépendants et détail de coupe à 45° descendant de la lèvre extérieure vers l’intérieur, conformément au modèle existant.
+2. Dimensions et finition : largeur entière 40–120 cm, huit finitions.
+3. Plan et vasque : plan assorti seul, Sella, Tampa, plan + Neris, plan + Torne ; compatibilités et couleurs réelles.
+4. Colonne : STUDIO ONE 14177, 38 × 132 × 27 cm, finition indépendante, ou sans colonne.
+5. Miroir : Basic, Zen LED, Ilse LED, Cápsula LED, métallique rectangulaire/rond ; dimensions, références et métaux, ou sans miroir.
+6. Récapitulatif / devis : composition, références, réglages et total public TTC, puis bouton « PERSONNALISER MA SALLE DE BAINS EN 3D ».
+
+Le devis permet d’enregistrer sur cet appareil, d’imprimer/PDF et de préparer une demande de commande. Les destinataires sont ceux du configurateur d’origine (`jerome@leroyfactory.fr`, `coryne@leroyfactory.fr`). Gmail, Outlook, messagerie locale ou copie du message : aucun envoi automatique, aucun nouveau service de commande/CRM. La demande reste à vérifier puis envoyer par l’utilisateur. Les contacts saisis ne sont pas enregistrés dans les projets.
+
+Le bouton « Récapitulatif / devis » dans l’en-tête de l’atelier sérialise l’intégralité de la scène avant navigation. Le devis conserve aussi les meubles supplémentaires, ouvertures, revêtements, vues et profilés. Les éléments sans tarif restent exclus du total mobilier. L’édition du parcours initial n’est proposée que pour une composition encore guidée ; une scène existante repart entière vers la 3D. L’enregistrement met à jour l’identifiant du projet actif, sans créer de doublons à chaque clic et sans confondre deux projets portant le même nom.
 
 Les étapes restent accessibles sans effacement. Sélection locale persistante ; transfert sous forme de projet version 2 vers le chargeur existant. Aucun prix ni identifiant client intégré aux projets ou liens partagés. Le chargeur consomme le transfert seulement après restauration réussie. Un échec affiche un message explicite et conserve la sélection d’accueil.
 
-La scène conserve dimensions, modèle, finition du meuble, plan/vasque et couleur, colonne et finition, miroir/dimensions/métal/LED. Les références et prix sont recalculés à partir des réglages conservés, sans faire confiance à un prix transmis. La mise à jour tarifaire est limitée à une exécution par 120 ms sans être repoussée indéfiniment par les mouvements de caméra. Le récapitulatif de l’atelier utilise le même moteur que l’accueil ; ajout, duplication, suppression et modification actualisent les lignes.
+La scène conserve dimensions, modèle, finition du meuble, plan/vasque et couleur, colonne et finition, miroir/dimensions/métal/LED. Les références et prix sont recalculés à partir des réglages conservés, sans faire confiance à un prix transmis. La mise à jour tarifaire est limitée à une exécution par 120 ms sans être repoussée indéfiniment par les mouvements de caméra. Le montant de l’atelier et le devis utilisent le même moteur que l’accueil ; ajout, duplication, suppression et modification actualisent le total.
 
-Nouveau projet, reprise du projet courant, compositions enregistrées, import JSON, accès direct à l’atelier et lien vers les catalogues existants. Aucun faux historique de devis : le projet ne contient pas de service de devis clients disponible dans cette Bêta. Les sauvegardes restent propres à chaque adresse de navigateur ; les projets d’une autre prévisualisation doivent être importés par JSON.
+Nouveau projet, reprise du projet courant, compositions enregistrées, import JSON, accès direct à l’atelier sans navigation dupliquée. Aucun faux historique de devis : le projet ne contient pas de service de devis clients disponible dans cette Bêta. Les sauvegardes restent propres à chaque adresse de navigateur ; les projets d’une autre prévisualisation doivent être importés par JSON.
 
 ## Médias et performances
 
@@ -47,9 +54,9 @@ Uniquement les fichiers existants de Firebase Storage. Correspondances reprises 
 
 Colonne 14177 : aucune photo isolée avec correspondance certaine retrouvée dans les fichiers audités. L’interface le dit explicitement et ne présente pas une autre colonne à sa place.
 
-Accueil : HTML 5 655 octets, CSS 11 132 octets et JavaScript 24 703 octets avant compression HTTP. Chargement différé des photos de cartes et priorité à la photo principale. Aucun chargement de Three.js, HDR, GLB, scènes ou textures 3D depuis l’accueil ; les catalogues PDF s’ouvrent seulement sur demande. Statut hors connexion, message d’erreur d’image, erreurs de connexion LRF et respect de la préférence de mouvement réduit.
+Accueil : HTML 7 380 octets, CSS 19 412 octets et JavaScript 37 780 octets avant compression HTTP. La seule photo de fond est demandée à l’entrée ; les cartes produit sont créées à l’ouverture de leur étape, avec chargement différé des images non essentielles. Aucun chargement de Three.js, HDR, GLB, scènes ou textures 3D depuis l’accueil ; aucune requête commerciale ou de session n’est envoyée à l’entrée. L’identification se charge au devis. Statut hors connexion, message d’erreur d’image, erreurs de connexion LRF et respect de la préférence de mouvement réduit.
 
-Contrôles navigateur : absence de débordement horizontal aux largeurs 320, 390, 768, 1024 et 1440 px ; navigation avant/arrière, restauration après rechargement et transmission du projet. Les mesures réseau locales ne constituent pas une mesure de performance sur téléphone réel ou réseau mobile.
+Contrôles navigateur : absence de débordement horizontal aux largeurs 320, 360, 390, 768 et 1440 px ; quatre cartes visibles au-dessus de Continuer, y compris à 320 × 568 px ; navigation avant/arrière, restauration après rechargement, reprise, sauvegardes sans doublon, impression, message prérempli et transmission du projet. Détails : `reports/simple-flow-browser.json`. Aucun e-mail de test envoyé. Les mesures réseau locales ne constituent pas une mesure de performance sur téléphone réel ou réseau mobile.
 
 ## LRF et sécurité
 
@@ -78,6 +85,7 @@ Un compte réel autorisé n’a pas été utilisé pour tester la connexion. Les
 
 - `npm ci && npm run build && npm run check` : 18 suites géométrie/commandes. Les tests DOM pointent vers `atelier.html`, qui contient le même atelier. Les anciens tests interdisaient toute URL distante malgré les photos Firebase déjà présentes dans la branche : leur assertion porte maintenant sur les chargements 3D. Le banc de commandes charge désormais le module de visite 3D existant dans son contexte DOM de test.
 - `STUDIO_ONE_SOURCE=../site-audit node qa/commerce-check.mjs` : compare avec le checkout de main audité ; sans cette variable, les tests autonomes de tarifs et sécurité restent exécutables.
+- `node qa/simple-flow-check.mjs` : transfert complet scène/devis, sauvegarde stable, panne de stockage bloquant la sortie, texte de commande et coupe cotée.
 - `node qa/commerce-browser.cjs` : utilise Playwright et Chromium ; `STUDIO_CHROMIUM` permet d’indiquer le binaire, `BASE_URL` permet de viser la prévisualisation. Tests d’écran et conservation du parcours ; le script indique explicitement si WebGL2 manque.
 - Six parcours guidés ont aussi traversé le véritable initialiseur de transfert et `restoreProject` dans le banc de commandes : références, dimensions, finitions et TTC conservés ; transfert consommé seulement au succès.
 - 5 184 dispositions guidées (largeurs, quatre modèles et tous formats de miroir avec colonne) sont vérifiées sans collision par le moteur de placement.
