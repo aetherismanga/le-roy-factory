@@ -33,7 +33,9 @@ let page=1,maxPage=43,pdf=null,loader=null,renderTask=null,renderId=0,renderTime
 let zoom=1,panX=0,panY=0,baseWidth=0,baseHeight=0,natural=null,visibleCanvas=null,fitMode='page';
 let returnFocus=null,reading=false,thumbnailObserver=null,thumbnailChain=Promise.resolve(),idleTimer=0;
 const pageCache=new Map(),thumbnailCache=new Map(),pointers=new Map();
-let gesture=null,pinch=null,lastTap=null;
+let gesture=null,pinch=null,lastTap=null,tapTimer=0;
+const DOUBLE_TAP_DELAY=330;
+function clearPendingTap(){clearTimeout(tapTimer);tapTimer=0;lastTap=null;}
 function photoButton(section){
  const b=document.createElement('button');b.type='button';b.className='index-item';b.dataset.goto=String(section.page);
  const img=section.slug?document.createElement('img'):document.createElement('canvas');img.className='index-thumb';
@@ -111,7 +113,6 @@ function updateNavigation(){
  const section=sectionAt(page),name=section?.name||(page===1?'Couverture':page===2?'Sommaire':'Informations RANDAL');
  $('page-input').value=String(page);$('page-input').max=String(maxPage);$('page-counter').textContent='/ '+maxPage;
  ['prev-page','viewer-prev-page'].forEach(id=>$(id).disabled=page<=1);
- ['next-page','viewer-next-page'].forEach(id=>$(id).disabled=page>=maxPage);
  $('section-name').textContent=name;$('page-caption').textContent='Page '+page+' / '+maxPage;
  $('section-category').textContent=section?.kind==='meuble'?'Collection RANDAL':section?.kind==='accessoire'?'Les compléments':'RANDAL 2026 · V04';
  const before=[...SECTIONS].reverse().find(s=>s.page<(section?.page||page));
@@ -147,6 +148,7 @@ function applyTransform(){
  mount.style.transform='translate('+(panX-baseWidth*zoom/2)+'px,'+(panY-baseHeight*zoom/2)+'px) scale('+zoom+')';
 }
 function changeZoom(value,x=0,y=0){
+ clearPendingTap();
  const next=clamp(value,1,5),ratio=next/zoom;panX=x-(x-panX)*ratio;panY=y-(y-panY)*ratio;zoom=next;
  applyTransform();updateZoom();scheduleRender();
 }
@@ -182,12 +184,14 @@ async function render(){
  }finally{if(ticket===renderId){renderTask=null;viewer.setAttribute('aria-busy','false');}}
 }
 function goPage(n,writeUrl=true){
+ clearPendingTap();
  const next=clamp(Math.round(Number(n)||1),1,maxPage);page=next;zoom=1;panX=0;panY=0;lastTap=null;
  clearTimeout(renderTimer);updateNavigation();updateZoom();applyTransform();
  if(writeUrl)history.replaceState(null,'','#page='+page);
  render();
 }
 function openIndex(){
+ clearPendingTap();
  if(!drawer.hidden)return;
  returnFocus=document.activeElement;drawer.hidden=false;document.querySelector('.masthead').inert=true;document.querySelector('.catalogue-app').inert=true;$('open-index').setAttribute('aria-expanded','true');
  const search=drawer.querySelector('input');search.focus({preventScroll:true});refreshThumbnails();
@@ -198,12 +202,30 @@ function closeIndex(){
  if(returnFocus?.isConnected)returnFocus.focus({preventScroll:true});
 }
 function setReading(value){
+ clearPendingTap();
  reading=value;document.body.classList.toggle('reading-mode',reading);$('show-controls').hidden=!reading;
  $('reading-mode').setAttribute('aria-pressed',String(reading));
  requestAnimationFrame(()=>{measure();scheduleRender();(reading?$('show-controls'):$('reading-mode')).focus({preventScroll:true});});
 }
 function localPoint(e){const r=viewer.getBoundingClientRect();return {x:e.clientX-r.left-r.width/2,y:e.clientY-r.top-r.height/2};}
+function isOnPage(point){
+ if(!visibleCanvas||viewer.dataset.renderedPage!==String(page))return false;
+ const frame=viewer.getBoundingClientRect(),rect=visibleCanvas.getBoundingClientRect();
+ const x=point.x+frame.left+frame.width/2,y=point.y+frame.top+frame.height/2;
+ return x>=rect.left&&x<=rect.right&&y>=rect.top&&y<=rect.bottom;
+}
+function tapPage(point){
+ const now=performance.now();
+ if(lastTap&&now-lastTap.time<DOUBLE_TAP_DELAY&&Math.hypot(point.x-lastTap.x,point.y-lastTap.y)<35){
+  clearPendingTap();changeZoom(zoom>1?1:2.4,point.x,point.y);return;
+ }
+ // Deux appuis distincts avancent ; un double appui rapproché reste un zoom.
+ if(tapTimer){clearPendingTap();goPage(page+1);}
+ lastTap={time:now,...point};const tappedPage=page;
+ tapTimer=setTimeout(()=>{clearPendingTap();if(page===tappedPage&&drawer.hidden)goPage(page+1);},DOUBLE_TAP_DELAY);
+}
 function beginPinch(){
+ clearPendingTap();
  const [a,b]=[...pointers.values()];pinch={distance:Math.max(1,Math.hypot(b.x-a.x,b.y-a.y)),zoom,x:(a.x+b.x)/2,y:(a.y+b.y)/2,panX,panY};
  if(gesture)gesture.multi=true;lastTap=null;
 }
@@ -211,7 +233,7 @@ function attachGestures(){
  viewer.addEventListener('pointerdown',e=>{
   if(e.button!==0&&e.pointerType==='mouse')return;
   e.preventDefault();viewer.setPointerCapture(e.pointerId);const point=localPoint(e);pointers.set(e.pointerId,point);
-  if(pointers.size===1){gesture={start:point,last:point,time:performance.now(),moved:false,multi:false};viewer.classList.add('is-dragging');}
+  if(pointers.size===1){gesture={start:point,last:point,time:performance.now(),moved:false,multi:false,onPage:isOnPage(point)};viewer.classList.add('is-dragging');}
   if(pointers.size===2)beginPinch();
  });
  viewer.addEventListener('pointermove',e=>{
@@ -221,7 +243,7 @@ function attachGestures(){
    panX=(a.x+b.x)/2-(pinch.x-pinch.panX)*ratio;panY=(a.y+b.y)/2-(pinch.y-pinch.panY)*ratio;zoom=value;applyTransform();updateZoom();
   }else if(pointers.size===1&&gesture){
    const dx=point.x-gesture.last.x,dy=point.y-gesture.last.y;
-   if(Math.hypot(point.x-gesture.start.x,point.y-gesture.start.y)>8)gesture.moved=true;
+   if(!gesture.moved&&Math.hypot(point.x-gesture.start.x,point.y-gesture.start.y)>8){gesture.moved=true;clearPendingTap();}
    panX+=dx;panY+=dy;applyTransform();gesture.last=point;
   }
  });
@@ -230,17 +252,15 @@ function attachGestures(){
   const point=localPoint(e),g=gesture;pointers.delete(e.pointerId);
   if(pointers.size){pinch=null;if(g){g.multi=true;g.last=[...pointers.values()][0];}scheduleRender();return;}
   viewer.classList.remove('is-dragging');pinch=null;gesture=null;
-  if(cancelled||!g){scheduleRender();return;}
+  if(cancelled||!g){clearPendingTap();scheduleRender();return;}
   const elapsed=performance.now()-g.time,dx=point.x-g.start.x,dy=point.y-g.start.y;
   if(!g.multi&&zoom===1&&fitMode==='page'&&Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)*1.5&&elapsed<850){goPage(page+(dx<0?1:-1));return;}
-  if(!g.multi&&!g.moved&&elapsed<300){
-   const now=performance.now();
-   if(lastTap&&now-lastTap.time<330&&Math.hypot(point.x-lastTap.x,point.y-lastTap.y)<35){changeZoom(zoom>1?1:2.4,point.x,point.y);lastTap=null;}
-   else lastTap={time:now,...point};
-  }
+  if(!g.multi&&!g.moved&&elapsed<300&&g.onPage&&isOnPage(point)){tapPage(point);return;}
   scheduleRender();
  }
  viewer.addEventListener('pointerup',e=>finish(e));viewer.addEventListener('pointercancel',e=>finish(e,true));
+ viewer.addEventListener('keydown',e=>{if(e.target===viewer&&(e.key==='Enter'||e.key===' ')){e.preventDefault();goPage(page+1);}});
+ viewer.addEventListener('click',e=>{if(e.detail===0)goPage(page+1);});
  viewer.addEventListener('wheel',e=>{
   if(e.ctrlKey||e.metaKey){e.preventDefault();const p=localPoint(e);changeZoom(zoom*Math.exp(-e.deltaY*.01),p.x,p.y);}
   else if(zoom>1||fitMode!=='page'){e.preventDefault();panX-=e.deltaX;panY-=e.deltaY;applyTransform();}
@@ -250,7 +270,6 @@ function attachEvents(){
  $('open-index').onclick=openIndex;$('return-index').onclick=openIndex;$('close-index').onclick=closeIndex;
  drawer.addEventListener('click',e=>{if(e.target===drawer)closeIndex();});
  ['prev-page','viewer-prev-page'].forEach(id=>$(id).onclick=()=>goPage(page-1));
- ['next-page','viewer-next-page'].forEach(id=>$(id).onclick=()=>goPage(page+1));
  $('prev-collection').onclick=e=>goPage(e.currentTarget.dataset.page);$('next-collection').onclick=e=>goPage(e.currentTarget.dataset.page);
  $('zoom-in').onclick=()=>changeZoom(zoom+.5);$('zoom-out').onclick=()=>changeZoom(zoom-.5);
  $('fit-mode').onchange=e=>{fitMode=e.target.value;zoom=1;panX=0;panY=0;measure();updateZoom();render();};
@@ -280,6 +299,7 @@ function attachEvents(){
  const observer=new ResizeObserver(()=>{measure();clearTimeout(resizeTimer);resizeTimer=setTimeout(scheduleRender,120);});observer.observe(viewer);
  window.addEventListener('hashchange',()=>{const n=new URLSearchParams(location.hash.slice(1)).get('page');if(n)goPage(n,false);});
  window.addEventListener('pagehide',()=>{
+  clearPendingTap();
   clearTimeout(renderTimer);clearTimeout(idleTimer);++renderId;if(renderTask)renderTask.cancel();
   if(visibleCanvas){visibleCanvas.width=0;visibleCanvas.height=0;visibleCanvas=null;}
   if(pdf)pdf.cleanup().catch(()=>{});

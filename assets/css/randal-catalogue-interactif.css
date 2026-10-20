@@ -8,5 +8,7 @@
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
 /* Feuilletage direct, à la souris ou au doigt, y compris en mode lecture. */
 .viewer-page-nav{position:absolute;z-index:2;top:50%;transform:translateY(-50%);display:flex;align-items:center;justify-content:center;width:48px;height:48px;padding:0;border:1px solid #d6d5c9;border-radius:50%;background:#f7f5f0ed;box-shadow:0 3px 12px #24292220;color:var(--ink);touch-action:manipulation}
-.viewer-page-prev{left:10px}.viewer-page-next{right:10px}.viewer-page-nav svg{width:25px;height:25px}.viewer-page-nav:hover:not(:disabled){background:#fff;border-color:var(--gold)}.viewer-page-nav:disabled{opacity:.3;box-shadow:none}.viewer-error{z-index:3}.reading-mode .viewer-page-nav{background:#f7f5f0e6}
-@media(max-width:599px){.viewer-page-nav{width:44px;height:44px}.viewer-page-prev{left:4px}.viewer-page-next{right:4px}}
+.viewer-page-prev{left:10px}.viewer-page-nav svg{width:25px;height:25px}.viewer-page-nav:hover:not(:disabled){background:#fff;border-color:var(--gold)}.viewer-page-nav:disabled{opacity:.3;box-shadow:none}.viewer-error{z-index:3}.reading-mode .viewer-page-nav{background:#f7f5f0e6}
+@media(max-width:599px){.viewer-page-nav{width:44px;height:44px}.viewer-page-prev{left:4px}}
+
+.page-frame{cursor:pointer}.page-frame.is-dragging{cursor:grabbing}
