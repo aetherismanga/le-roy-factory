@@ -42,6 +42,10 @@ export function buildGarden(scene, M) {
   grassTexture.colorSpace = T.SRGBColorSpace;
   grassTexture.wrapS = grassTexture.wrapT = T.RepeatWrapping;
   grassTexture.repeat.set(32, 31);
+  grassTexture.minFilter = T.LinearMipmapLinearFilter;
+  grassTexture.magFilter = T.LinearFilter;
+  grassTexture.generateMipmaps = true;
+  grassTexture.anisotropy = 4;
   grassTexture.needsUpdate = true;
   const lawn = M.grass.clone();
   lawn.map = grassTexture;

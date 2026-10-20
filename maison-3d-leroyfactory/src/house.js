@@ -34,6 +34,8 @@ import {
   sphere,
   batchFurniture,
   setUVMetres,
+  ceilingGeometry,
+  reverseFace,
 } from "./geometry.js";
 import { textureClone } from "./materials.js";
 import { furnitureKit } from "./furniture.js";
@@ -217,21 +219,16 @@ export async function buildHouse(scene, M) {
     slab.rotation.x = -Math.PI / 2;
     slab.position.y = 0.003;
     slab.castShadow = false;
-    const ceilingShape = shape.clone();
-    if (room.id === "entry")
-      ceilingShape.holes.push(
-        new T.Path(wellPolygon().map((v) => new T.Vector2(...v))),
-      );
+    const ceilingXZ = poly.map(([x, z]) => [x, -z]);
+    const ceilingHoles =
+      room.id === "entry" ? [wellPolygon().map(([x, z]) => [x, -z])] : [];
     const ceiling = mesh(
       f.ceilings,
-      new T.ShapeGeometry(ceilingShape),
+      ceilingGeometry(ceilingXZ, ceilingHoles),
       M.ceiling,
       "Plafond_" + room.id,
     );
-    ceiling.rotation.x = Math.PI / 2;
-    ceiling.position.y = CLEAR_HEIGHT - 0.006;
-    ceiling.geometry.scale(1, -1, 1);
-    ceiling.material.side = T.DoubleSide;
+    ceiling.position.y = CLEAR_HEIGHT - 0.012;
     ceiling.userData.ceiling = true;
   }
   for (const w of WALLS) {
@@ -378,7 +375,8 @@ export async function buildHouse(scene, M) {
         }
         const geometry = setUVMetres(new T.ShapeGeometry(face));
         const material = ownedMaterial(room.id);
-        material.side = T.DoubleSide;
+        if (sign < 0) reverseFace(geometry);
+        material.side = T.FrontSide;
         const finish = mesh(
           holder,
           geometry,

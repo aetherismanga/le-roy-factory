@@ -24,6 +24,10 @@ function weave() {
   const t = new T.DataTexture(data, n, n);
   t.wrapS = t.wrapT = T.RepeatWrapping;
   t.repeat.set(12, 12);
+  t.minFilter = T.LinearMipmapLinearFilter;
+  t.magFilter = T.LinearFilter;
+  t.generateMipmaps = true;
+  t.anisotropy = 4;
   t.needsUpdate = true;
   return t;
 }
@@ -43,6 +47,10 @@ function grain() {
     }
   const t = new T.DataTexture(d, n, m);
   t.wrapS = t.wrapT = T.RepeatWrapping;
+  t.minFilter = T.LinearMipmapLinearFilter;
+  t.magFilter = T.LinearFilter;
+  t.generateMipmaps = true;
+  t.anisotropy = 4;
   t.needsUpdate = true;
   return t;
 }

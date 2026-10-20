@@ -1,6 +1,25 @@
 import * as T from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
+// Build in world X/Z first. Mirroring an already triangulated ceiling would
+// leave its winding and shadow normal pointing in opposite directions.
+export function ceilingGeometry(polygon, holes = []) {
+  const shape = new T.Shape(polygon.map((p) => new T.Vector2(...p)));
+  for (const hole of holes)
+    shape.holes.push(new T.Path(hole.map((p) => new T.Vector2(...p))));
+  return new T.ShapeGeometry(shape).rotateX(Math.PI / 2);
+}
+export function reverseFace(geometry) {
+  const index = geometry.index;
+  for (let i = 0; i < index.count; i += 3) {
+    const b = index.getX(i + 1);
+    index.setX(i + 1, index.getX(i + 2));
+    index.setX(i + 2, b);
+  }
+  index.needsUpdate = true;
+  geometry.computeVertexNormals();
+  return geometry;
+}
 export function mesh(parent, g, m, name, x = 0, y = 0, z = 0) {
   const o = new T.Mesh(g, m);
   o.name = name;

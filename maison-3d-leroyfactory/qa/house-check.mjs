@@ -1,5 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
+import * as T from "three";
+import { ceilingGeometry, reverseFace } from "../src/geometry.js";
 import {
   TOTAL_AREA,
   ROOMS,
@@ -51,6 +53,62 @@ assert.ok(Math.abs(stairHeight(4.8, 1.18) - LEVEL_HEIGHT / 2) < 1e-10);
 assert.ok(Math.abs(stairHeight(4.8, 3.16) - LEVEL_HEIGHT) < 1e-10);
 assert.ok(Number.isNaN(stairHeight(4.2, 2)));
 assert.equal(stairHeight(5.9, 2), null);
+// The normal used by the shadow shader must agree with the visible face.
+// A mirrored ceiling with unreversed winding creates striped self-shadowing.
+const ceiling = ceilingGeometry(
+  [
+    [0, 0],
+    [4, 0],
+    [4, 4],
+    [0, 4],
+  ],
+  [
+    [
+      [1, 1],
+      [3, 1],
+      [3, 3],
+      [1, 3],
+    ],
+  ],
+);
+for (let i = 0; i < ceiling.attributes.normal.count; i++)
+  assert.ok(ceiling.attributes.normal.getY(i) < -0.999);
+const ceilingMesh = new T.Mesh(
+  ceiling,
+  new T.MeshBasicMaterial({ side: T.FrontSide }),
+);
+ceilingMesh.updateMatrixWorld();
+const fromBelow = (x, z) =>
+  new T.Raycaster(
+    new T.Vector3(x, -1, z),
+    new T.Vector3(0, 1, 0),
+  ).intersectObject(ceilingMesh).length;
+assert.ok(fromBelow(0.5, 0.5) > 0);
+assert.equal(fromBelow(2, 2), 0);
+assert.equal(
+  new T.Raycaster(
+    new T.Vector3(0.5, 1, 0.5),
+    new T.Vector3(0, -1, 0),
+  ).intersectObject(ceilingMesh).length,
+  0,
+);
+const wallBack = reverseFace(
+  new T.ShapeGeometry(
+    new T.Shape(
+      [
+        [0, 0],
+        [1, 0],
+        [1, 1],
+        [0, 1],
+      ].map((p) => new T.Vector2(...p)),
+    ),
+  ),
+);
+for (let i = 0; i < wallBack.attributes.normal.count; i++)
+  assert.ok(wallBack.attributes.normal.getZ(i) < -0.999);
+ceiling.dispose();
+ceilingMesh.material.dispose();
+wallBack.dispose();
 const config = JSON.parse(
   readFileSync(new URL("../vercel.json", import.meta.url)),
 );
