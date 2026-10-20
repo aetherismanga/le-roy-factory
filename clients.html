@@ -570,11 +570,11 @@
             // Protection LRF : une demande de mise à jour ne doit jamais recréer
             // un client existant avec un deuxième identifiant / code LRF.
             const normalise = v => String(v || "").normalize("NFD")
-              .replace(/[\\u0300-\\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]/g, "");
+              .replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]/g, "");
             const nom = normalise(formData.societe);
-            const postal = String(formData.codePostal || "").replace(/\\D/g, "");
+            const postal = String(formData.codePostal || "").replace(/\D/g, "");
             const email = String(formData.email || "").trim().toLowerCase();
-            const telephone = v => String(v || "").replace(/\\D/g, "").replace(/^33(?=\\d{9}$)/, "0");
+            const telephone = v => String(v || "").replace(/\D/g, "").replace(/^33(?=\d{9}$)/, "0");
             const num = telephone(formData.telephone);
             const snap = await getDocs(collection(db, "clients"));
             const existing = snap.docs.map(d => ({ id: d.id, ...d.data() }))
