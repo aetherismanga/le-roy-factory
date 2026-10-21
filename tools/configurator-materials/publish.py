@@ -68,6 +68,15 @@ def publish():
  view=extract_view();elios=extract_elios();files=sorted(OUTPUT.glob('**/*.webp'))
  if view!=136 or elios<100:raise ValueError('Incomplete manufacturer asset recovery')
  bucket=storage.Client(project='le-roy-factory').bucket(BUCKET)
+ # Preserve existing rules; allow WebGL to read public product images from the
+ # production configurators. This grants no access to private objects.
+ bucket.reload()
+ origins=['https://leroyfactory.fr','https://www.leroyfactory.fr','https://studio-one-beta-test-v2.vercel.app','https://randal-catalogue-general-3d.vercel.app','https://maison-3d-leroyfactory-hugol-trading.vercel.app']
+ cors=list(bucket.cors or [])
+ if not any(set(origins).issubset(set(rule.get('origin',[]))) and 'GET' in rule.get('method',[]) for rule in cors):
+  cors.append({'origin':origins,'method':['GET','HEAD'],'responseHeader':['Content-Type','ETag'],'maxAgeSeconds':3600})
+  bucket.cors=cors;bucket.patch()
+ print(json.dumps({'publicMaterialCors':origins}))
  def upload(path):
   relative=path.relative_to(OUTPUT).as_posix();blob=bucket.blob(PREFIX+'/'+relative);digest=hashlib.sha256(path.read_bytes()).hexdigest()
   if blob.exists():
