@@ -8,9 +8,12 @@ export const BRIGHTNESS_RANGE=Object.freeze({min:40,max:180,default:100});
 
 export const CABINET_FORMATS=Object.freeze([
  {id:'two',name:'2 tiroirs',height:.54,drawers:2,base:.28,reference:'13692'},
- {id:'three',name:'3 tiroirs',height:.91,drawers:3,base:0,reference:'13693'},
+ // Height is the complete furniture assembly, excluding the plan/basin.
+ // Three drawers: 81 cm carcass resting on 10 cm legs, 91 cm overall.
+ {id:'three',name:'3 tiroirs avec pieds',height:.91,legHeight:.10,drawers:3,base:0,reference:'13693'},
  {id:'one-xl',name:'1 tiroir XL',height:.375,drawers:1,base:.28,reference:'13691'},
  {id:'two-xl',name:'2 tiroirs XL',height:.75,drawers:2,base:.28,reference:'14176'}
 ]);
 export const cabinetFormat=id=>CABINET_FORMATS.find(f=>f.id===id)||CABINET_FORMATS[0];
+export function cabinetHeightLabel(format){const f=typeof format==='string'?cabinetFormat(format):format;return 'H '+(f.height*100).toLocaleString('fr-FR')+' cm'+(f.legHeight?' (caisson '+Math.round((f.height-f.legHeight)*100)+' + pieds '+Math.round(f.legHeight*100)+' cm)':'');}
 export const drawerTravel=(index,count)=>count===1?.315:index===0?.200:index===count-1?.315:.26;

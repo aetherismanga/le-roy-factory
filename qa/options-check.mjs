@@ -6,10 +6,10 @@ import {SURFACE_COLORS} from '../src/surfaces.js';
 import {readFileSync,writeFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 const m=makeModel();const close=(a,b,tol=.00001)=>assert(Math.abs(a-b)<tol,`${a} differs from ${b}`);
-assert.equal(TOP_OPTIONS.length,5);const result=[];
-for(const mode of ['neris','sella','tampa','torne','plain','neris','tampa','torne','sella']){
+assert.equal(TOP_OPTIONS.length,6);assert(TOP_OPTIONS.some(o=>o.id==='bare')); const result=[];
+for(const mode of ['neris','sella','tampa','torne','plain','bare','neris','tampa','torne','sella']){
  assert(m.setTop(mode));assert.equal(m.getTop(),mode);m.root.updateMatrixWorld(true);
- assert.equal(m.insetGroup.visible,mode==='sella');assert.equal(m.tops.root.visible,mode!=='sella'&&mode!=='tampa');assert.equal(m.insets.tampa.visible,mode==='tampa');assert.equal(m.faucet.visible,mode!=='plain');
+ assert.equal(m.insetGroup.visible,mode==='sella');assert.equal(m.tops.root.visible,['plain','neris','torne'].includes(mode));assert.equal(m.insets.tampa.visible,mode==='tampa');assert.equal(m.faucet.visible,mode!=='plain'&&mode!=='bare');
  assert.equal(m.tops.solid.visible,mode==='plain');assert.equal(m.tops.drilled.visible,mode==='neris'||mode==='torne');
  for(const kind of ['neris','torne'])assert.equal(m.tops.vessels[kind].group.visible,mode===kind);
  if(mode==='neris'||mode==='torne'){

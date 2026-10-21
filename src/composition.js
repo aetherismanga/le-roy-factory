@@ -45,7 +45,7 @@ export class Composition{
  findSpace(item,preferred={}){
   const wallOrder=[preferred.wall??0,...this.room.walls.map((_,i)=>i)].filter((n,i,a)=>a.indexOf(n)===i);
   for(const wall of wallOrder){const length=this.room.walls[wall]?.length*100;if(!length)continue;const positions=[preferred.u??length/2,length/2];for(let u=item.dimensions.width*50+2;u<=length-item.dimensions.width*50-2;u+=5)positions.push(u);positions.sort((a,b)=>Math.abs(a-(preferred.u??length/2))-Math.abs(b-(preferred.u??length/2)));
-   for(const u of positions){const p={wall,u:Math.round(u),height:preferred.height??(item.type==='mirror'?140:item.type==='window'?100:item.type==='door'||isFloorItem(item)?0:28)};if(!this.validate(item,p))return p;}
+   for(const u of positions){const p={wall,u:Math.round(u),height:preferred.height??(item.type==='mirror'?140:item.type==='window'?100:item.type==='door'||isFloorItem(item)?0:item.type==='cabinet'?item.dimensions.base*100:28)};if(!this.validate(item,p))return p;}
   }return null;
  }
  add(type,asset,settings={},preferred={}){

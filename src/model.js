@@ -10,9 +10,9 @@ export {FINISHES} from './finishes.js';
 export function roundedRect(w,h,r){const s=new T.Shape();s.moveTo(-w/2+r,-h/2);s.lineTo(w/2-r,-h/2);s.quadraticCurveTo(w/2,-h/2,w/2,-h/2+r);s.lineTo(w/2,h/2-r);s.quadraticCurveTo(w/2,h/2,w/2-r,h/2);s.lineTo(-w/2+r,h/2);s.quadraticCurveTo(-w/2,h/2,-w/2,h/2-r);s.lineTo(-w/2,-h/2+r);s.quadraticCurveTo(-w/2,-h/2,-w/2+r,-h/2);return s;}
 export function makeModel({width=.80,includeMirror=true,basinLayout,basinTop='sella',format='two'}={}){
  const widthCm=Math.round(width*100);if(!validWidth(widthCm)||Math.abs(width*100-widthCm)>.00001)throw new Error('Largeur invalide');
- const form=cabinetFormat(format),H=form.height,B=form.base,topY=B+H;const W=widthCm/100,innerWidth=W-.038,drawerWidth=W-.096;
+ const form=cabinetFormat(format),legHeight=form.legHeight||0,H=form.height-legHeight,B=form.base+legHeight,topY=B+H;const W=widthCm/100,innerWidth=W-.038,drawerWidth=W-.096;
  const chosenLayout=resolveBasinLayout(basinTop,widthCm,format,basinLayout)||'center',plumbing=basinCenters(chosenLayout,W);
- const spec={...SPEC,series:'STUDIO ONE · '+form.name,height:H,bottom:B,cabinetRef:form.reference,width:W,basin:`Sella ${widthCm} · blanc brillant`,basinRef:basinReference('sella','gloss',widthCm,format,basinLayout)||null};
+ const spec={...SPEC,series:'STUDIO ONE · '+form.name,height:H,bottom:B,legHeight,totalHeight:form.height,cabinetRef:form.reference,width:W,basin:`Sella ${widthCm} · blanc brillant`,basinRef:basinReference('sella','gloss',widthCm,format,basinLayout)||null};
  const root=new T.Group();root.name=`STUDIO_ONE_${form.id}_${widthCm}`;const cabinet=new T.Group();cabinet.name=`Caisson_${widthCm*10}x${Math.round(H*1000)}x460`;root.add(cabinet);
  const wood=new T.MeshPhysicalMaterial({color:0xffffff,roughness:.43,clearcoat:.12,clearcoatRoughness:.40});
  const frontWood=wood.clone();const inner=new T.MeshStandardMaterial({color:'#3e4141',roughness:.54});const baseMat=new T.MeshStandardMaterial({color:'#a9aca9',roughness:.58});
@@ -24,6 +24,19 @@ export function makeModel({width=.80,includeMirror=true,basinLayout,basinTop='se
  function box(w,h,d,m,name,parent,x,y,z,r=.00065){return mesh(new RoundedBoxGeometry(w,h,d,2,r),m,name,parent,x,y,z);}
  function woodUV(o){const p=o.geometry.attributes.position,n=o.geometry.attributes.normal,uv=o.geometry.attributes.uv;for(let i=0;i<p.count;i++){let x=p.getX(i)+o.position.x,y=p.getY(i)+o.position.y,z=p.getZ(i)+o.position.z;if(Math.abs(n.getX(i))>.6)uv.setXY(i,z/.7+.4,y/.7);else if(Math.abs(n.getY(i))>.6)uv.setXY(i,x/.8+.5,z/.7+.4);else uv.setXY(i,x/.8+.5,y/.7);}uv.needsUpdate=true;return o;}
  function panel(w,h,d,name,x,y,z){const o=woodUV(box(w,h,d,wood,name,cabinet,x,y,z));panels.push(o);return o;}
+ const legs=new T.Group();legs.name='Pieds_10cm';legs.userData.editTarget='furniture';
+ if(legHeight){
+  root.add(legs);
+  // Four real metal supports, inset beneath the carcass. The foot, upright
+  // and mounting plate together span exactly 10 cm, from the finished floor.
+  for(const side of [-1,1])for(const front of [-1,1]){
+   const leg=new T.Group();leg.name='Pied_'+(side<0?'gauche':'droit')+'_'+(front<0?'arriere':'avant');legs.add(leg);
+   leg.position.set(side*(W/2-.042),form.base,front*.177);
+   box(.038,.004,.038,dark,'Patin_de_protection',leg,0,.002,0,.0009);
+   box(.026,legHeight-.008,.026,chrome,'Pied_chrome_10cm',leg,0,legHeight/2,0,.0012);
+   box(.046,.004,.046,steel,'Platine_sous_caisson',leg,0,legHeight-.002,0,.0007);
+  }
+ }
  panel(.019,H,.440,'Joue_gauche_19mm',-(W/2-.0095),B+H/2,-.010);
  panel(.019,H,.440,'Joue_droite_19mm',W/2-.0095,B+H/2,-.010);
  panel(innerWidth,.019,.424,'Plancher_19mm',0,B+.0095,-.009);
@@ -111,7 +124,7 @@ export function makeModel({width=.80,includeMirror=true,basinLayout,basinTop='se
  }
  setTop(topAvailable('sella',widthCm)?'sella':'plain');for(const group of [...Object.values(insets),tops.root,faucet,secondFaucet])group.position.y+=topY-.82;
  // The live Reflector disk is supplied by the renderer, keeping the model testable without WebGL.
- return {root,cabinet,drawers,mirror,format:form,wood,frontWood,ceramic,frontMeshes,panels,fasteners,spec,tops,insetGroup,insets,faucet,faucets:[faucet,secondFaucet],getBasinCenters,basinLayout:chosenLayout,setTop,getTop:()=>topMode};
+ return {root,cabinet,legs,drawers,mirror,format:form,wood,frontWood,ceramic,frontMeshes,panels,fasteners,spec,tops,insetGroup,insets,faucet,faucets:[faucet,secondFaucet],getBasinCenters,basinLayout:chosenLayout,setTop,getTop:()=>topMode};
 }
 
 export function makeMirrorFrame(){
