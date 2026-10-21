@@ -1,4 +1,5 @@
 import {createProjectNavigation} from './commerce/navigation.js';
+import {CATALOG as StudioOneCatalog} from './commerce/catalog.js';
 import {saveComposition,ACTIVE_ID,FLOW_KEY} from './commerce/flow.js';
 import {configureColourRendering} from './colour-rendering.js';
 import { mountCommerce } from './commerce/atelier.js';
@@ -480,14 +481,29 @@ function openAddChooser(type){const dialog=$('#add-dialog'),body=$('#add-choices
  if(mirrorFile){
    const img=document.createElement('img');img.src=assetBase+'randal/accessories/'+mirrorFile+'.webp';img.loading='lazy';img.alt='Miroir RANDAL '+c.name;img.decoding='async';img.onerror=()=>{img.remove();illustration.innerHTML=objectIcon(c.icon);};illustration.classList.add('catalogue-photo');illustration.append(img);
  }else if(isFurniture){
-   illustration.classList.add('catalogue-furniture');
-   illustration.style.setProperty('--wood-asset',"url('"+assetBase+'studio-one/roble.webp'+ "')");
-   const carcass=document.createElement('span');carcass.className='catalogue-cabinet-shape';
-   const drawers=type==='column'?0:(CABINET_FORMATS.find(f=>f.id===c.options.format)?.drawers||1);
-   carcass.classList.toggle('is-column',type==='column');
-   if(type==='column'){const door=document.createElement('i');door.className='cabinet-door';carcass.append(door);}
-   else for(let k=0;k<drawers;k++){const front=document.createElement('i');front.className='cabinet-drawer';carcass.append(front);}
-   illustration.append(carcass);
+   const product=type==='cabinet'?StudioOneCatalog.models.find(m=>m.id===c.options.format):null;
+   if(product?.image){
+     // The exact official photo corresponding to the selected STUDIO ONE model.
+     // Crop the manufacturer's original art without replacing its drawer design.
+     const crop={two:4,three:15,'one-xl':49,'two-xl':30}[product.id]??4;
+     const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+     svg.setAttribute('viewBox','8 '+crop+' 437 '+(316-crop));
+     svg.setAttribute('preserveAspectRatio','xMidYMid meet');
+     svg.setAttribute('role','img');
+     svg.setAttribute('aria-label','Photographie officielle STUDIO ONE '+product.name);
+     const photo=document.createElementNS('http://www.w3.org/2000/svg','image');
+     photo.setAttribute('href',product.image);photo.setAttribute('width','978');photo.setAttribute('height','318');
+     svg.append(photo);illustration.classList.add('catalogue-real-model');illustration.append(svg);
+   }else{
+     illustration.classList.add('catalogue-furniture');
+     illustration.style.setProperty('--wood-asset',"url('"+assetBase+'studio-one/roble.webp'+"')");
+     const carcass=document.createElement('span');carcass.className='catalogue-cabinet-shape';
+     const drawers=type==='column'?0:(CABINET_FORMATS.find(f=>f.id===c.options.format)?.drawers||1);
+     carcass.classList.toggle('is-column',type==='column');
+     if(type==='column'){const door=document.createElement('i');door.className='cabinet-door';carcass.append(door);}
+     else for(let k=0;k<drawers;k++){const front=document.createElement('i');front.className='cabinet-drawer';carcass.append(front);}
+     illustration.append(carcass);
+   }
  }else illustration.innerHTML=objectIcon(c.icon);const name=document.createElement('strong');name.textContent=c.name;const detail=document.createElement('small');detail.textContent=c.description;b.append(illustration,name,detail);b.onclick=()=>{if(addItem(type,undefined,c.options)){dialog.close();setWorkspace('furniture');}};body.append(b);}dialog.showModal();}
 function objectIcon(kind){let shapes='';if(typeof kind==='number'){shapes='<rect x="12" y="15" width="72" height="50" rx="2"/>';for(let i=1;i<kind;i++)shapes+=`<path d="M12 ${15+i*50/kind}H84"/>`;}else if(kind==='bath'||kind==='oval')shapes=kind==='oval'?'<ellipse cx="48" cy="42" rx="38" ry="20"/><ellipse cx="48" cy="40" rx="29" ry="12"/>':'<path d="M8 25H88L80 60H16ZM16 25Q48 51 80 25"/>';else if(kind==='mirror')shapes='<circle cx="48" cy="40" r="28"/>';else if(kind==='column')shapes='<rect x="33" y="6" width="30" height="68" rx="2"/><path d="M58 32v14"/>';else if(kind==='toilet')shapes='<path d="M25 12h36v25H76q0 26-28 26H33V48q-12-2-12-16h40M33 63v8h28V57"/>';else if(kind==='washstand')shapes='<path d="M13 26h70v13Q48 65 13 39ZM48 26V12h11M48 39v22h17"/>';else if(kind==='towel')shapes='<path d="M28 7v66M68 7v66M28 15h40M28 25h40M28 35h40M28 50h40M28 60h40M28 70h40"/>';else if(kind==='shower')shapes='<path d="M15 65h66V20H40V65M25 17v33M25 17h20M19 21h12"/>';else shapes='<rect x="22" y="8" width="52" height="66" rx="2"/><path d="M48 8v66M22 40h52"/>';return '<svg viewBox="0 0 96 80" aria-hidden="true">'+shapes+'</svg>';}
 function wireWorkspace(){$('#bathroom-plans').onclick=()=>showBathroomPresets(true);$('#bathroom-inspirations').onclick=()=>showBathroomPresets(false);for(const b of $$('[data-room-add]'))b.onclick=()=>openAddChooser(b.dataset.roomAdd);for(const b of $$('.workspace-nav [data-workspace]'))b.onclick=()=>setWorkspace(b.dataset.workspace,true);$('#settings-toggle').onclick=()=>{const main=$('#atelier');if(isMobile)main.classList.remove('mobile-sheet-open');else main.classList.toggle('panel-collapsed');resize();};$('#exit-presentation').onclick=togglePresentation;$('#more-options').onclick=()=>{const aside=$('#settings'),on=aside.classList.toggle('show-advanced');$('#more-options').textContent=on?'Moins de réglages':'Plus de réglages';};$('#align-mirror').onclick=centerSelectedMirror;for(const id of ['add-dialog','projects-dialog'])$('#'+id).addEventListener('click',e=>{if(e.target===$('#'+id)){const r=e.target.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)e.target.close();}});document.addEventListener('keydown',e=>{if(/INPUT|SELECT|TEXTAREA/.test(e.target?.tagName))return;if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){e.preventDefault();e.shiftKey?redoProject():undoProject();}if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='d'){e.preventDefault();duplicateSelected();}if(e.key==='Escape'&&$('#atelier').classList.contains('presentation-mode'))togglePresentation();});}
