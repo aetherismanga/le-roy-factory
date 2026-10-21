@@ -17,6 +17,16 @@ export function tileGeometry(poly,holes,layout){
  const angle=layout.direction==='diagonal'?Math.PI/4:0,c=Math.cos(angle),s=Math.sin(angle);
  const convert=p=>{const x=p[0]-ox,y=p[1]-oy;return [x*c+y*s,-x*s+y*c];};
  const g=tiledPolygonGeometry(poly.map(convert),angle?{...layout,direction:'horizontal'}:layout,holes.map(h=>h.map(convert)));
+ // The shared engine turns alternate tile photographs by 180 degrees.
+ // A material swatch can contain directional illumination: alternating it
+ // creates a false checkerboard. In this workshop, keep the manufacturer's
+ // face orientation consistent with the customer's selected laying direction.
+ const uv=g.attributes.uv;
+ for(let face=0;face<g.userData.faceCells.length;face++){
+  const [col,row]=g.userData.faceCells[face].split(':').map(Number);
+  if(Math.abs(col+row)%2===1)for(let j=face*3;j<face*3+3;j++)uv.setXY(j,1-uv.getX(j),1-uv.getY(j));
+ }
+ uv.needsUpdate=true;
  if(angle)g.rotateZ(angle);
  g.translate(ox,oy,0);g.userData.groutWidth=+layout.groutWidth||2;return g;
 }

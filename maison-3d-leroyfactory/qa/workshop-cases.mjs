@@ -21,6 +21,14 @@ assert.deepEqual(ROOMS.map(r=>r.polygon),original.map(r=>r.polygon));
 const poly=[[0,0],[1.204,0],[1.204,1.204],[0,1.204]],format={width:.6,height:.6};
 const geom=tileGeometry(poly,[],{width:.602,height:.602,pattern:'straight',direction:'horizontal',groutWidth:2,x:0,y:0});
 const c=tileCounts(geom,format,1.44,10,{pcsBox:4});assert.equal(c.used,4);assert.equal(c.whole,4);assert.equal(c.cut,0);assert.equal(c.order,5);assert.equal(c.boxes,2);assert.equal(c.supplied,8);assert.ok(Math.abs(c.faceArea-4*.6*.6)<1e-8);
+// All tile photographs follow the laying direction, without a fake alternating
+// light gradient from turning a single manufacturer swatch 180 degrees.
+for(let i=0;i<geom.attributes.position.count;i+=3)if(geom.attributes.normal.getZ(i)>.5){
+ for(let j=i;j<i+3;j++)for(let k=j+1;k<i+3;k++){
+  const dx=geom.attributes.position.getX(k)-geom.attributes.position.getX(j),du=geom.attributes.uv.getX(k)-geom.attributes.uv.getX(j);
+  if(Math.abs(dx)>1e-5)assert.ok(dx*du>0,'alternating tile swatch orientation');
+ }
+}
 geom.dispose();
 // A non-modular room must produce real cuts; no unknown packaging is invented.
 const cut=tileGeometry([[0,0],[1.1,0],[1.1,1.1],[0,1.1]],[],{width:.603,height:.603,groutWidth:3});const cc=tileCounts(cut,format,1.21,0);assert.equal(cc.used,4);assert.equal(cc.whole,1);assert.equal(cc.cut,3);assert.equal(cc.boxes,null);cut.dispose();
