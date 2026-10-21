@@ -21,5 +21,5 @@ export function draftProject(input){
  const selectedMirror=d.mirror?C.mirrors.find(v=>v.id===d.mirror).sizes[d.mirrorSize]:null;
  if(d.column)items.push({id:'guided-column',type:'column',settings:{finish:d.columnFinish,hingeSide:'left',doorOpen:false},placement:{wall:0,u:125+Math.max(d.width,selectedMirror?.width||0)/2+24,height:28}});
  if(d.mirror){const mirror=C.mirrors.find(m=>m.id===d.mirror),size=mirror.sizes[d.mirrorSize];items.push({id:'guided-mirror',type:'mirror',settings:{mirrorModel:d.mirror,width:size.width,height:size.height,mirrorFinish:d.mirrorFinish,led:d.mirror==='zen'||d.mirror==='ilse'||d.mirror==='capsule'},placement:{wall:0,u:125,height:Math.max(109,m.height+(m.id==='three'?0:28)+2+(d.top==='neris'?14:d.top==='torne'?12:0)+10)+size.height/2}});}
- return {version:2,title:'Ma composition STUDIO ONE',room:{points:[[0,0],[300,0],[300,300],[0,300]],height:260,partitions:[]},floor:{collection:'Shell',color:'beige'},walls:Array.from({length:4},()=>({collection:'Creta',color:'avena'})),lighting:'day',brightness:100,items};
+ return {version:2,title:'Ma composition STUDIO ONE',room:{points:[[0,0],[450,0],[450,450],[0,450]],height:260,partitions:[]},floor:{collection:'Creta',color:'caramello',groutColor:'Gris clair'},walls:Array.from({length:4},()=>({collection:'Peinture',color:'white'})),lighting:'day',brightness:100,items};
 }
