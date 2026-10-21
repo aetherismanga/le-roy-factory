@@ -1,7 +1,7 @@
 import {commercialRequest} from './client.js';
 import {money} from './pricing.js';
 export const escapeHTML=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-export function privateMarkup(s){if(!s?.client)return '<span>Mon compte client LRF</span>';const code=escapeHTML(s.privateCode||s.client.codeClient);const title=s.isAdmin?'<strong class="administrator">Administrateur</strong>':'<strong>'+code+'</strong>';return title+'<span>Tarif public</span>'+(s.randalAllowed===false?'<small>Accès RANDAL non autorisé pour ce compte.</small>':'<small>Catalogue général · '+escapeHTML(s.client.societe||'')+'</small>');}
+export function privateMarkup(s){if(!s?.client)return '<span>Mon compte client LRF</span>';const code=escapeHTML(s.privateCode||s.client.codeClient);const title=s.isAdmin?'<strong class="administrator">Administrateur</strong>':'<strong>'+code+'</strong>';return title+(s.randalAllowed===false?'<small>Accès RANDAL non autorisé pour ce compte.</small>':'<small>Catalogue général · '+escapeHTML(s.client.societe||'')+'</small>');}
 export function createIdentity(getProject,changed=()=>{}){let state={client:null,proHT:null,proRows:[],known:false},sequence=0,timer=null;
  async function request(action='quote',payload={}){const turn=++sequence,project=getProject();state={...state,proHT:null,proRows:[],privateCode:state.client?.codeClient||'',pending:true,error:''};changed(state);
   try{const data=await commercialRequest(action,{...payload,...(project?{project}:{})});if(turn!==sequence)return state;state={...data,known:true,pending:false,error:''};}
