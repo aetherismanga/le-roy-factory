@@ -25,6 +25,13 @@ export function makeSanitary(type,s={}){const p=sanitarySpec(s),root=new T.Group
   if(floor){box(.29,.40,.27,0,.20,-.23+.24,'Pied');box(.345,.345,.155,0,.5725,-.23+.0775,'Reservoir');box(.355,.016,.165,0,.737,-.23+.08,'Couvercle_reservoir');cyl(.022,.004,0,.747,-.23+.08,'Bouton_double_chasse');}
   else box(.32,.28,.035,0,.155,-.23+.02,'Dos_fixation');
   const angle=lid.rotation.x;lid.rotation.x=0;const bounds=new T.Box3().setFromObject(root),size=bounds.getSize(new T.Vector3()),content=new T.Group();while(root.children.length)content.add(root.children[0]);content.scale.set(p.width/size.x,p.height/size.y,p.depth/size.z);content.position.set(-(bounds.min.x+bounds.max.x)/2*content.scale.x,-bounds.min.y*content.scale.y,-.23-bounds.min.z*content.scale.z);root.add(content);lid.rotation.x=angle;root.updateMatrixWorld(true);const actualHeight=new T.Box3().setFromObject(root).getSize(new T.Vector3()).y;
+  if(!floor&&s.support){const width=Math.max(.5,Math.min(1.2,(Number(s.supportWidth)||60)/100)),height=Math.max(.85,Math.min(1.35,(Number(s.supportHeight)||112)/100)),depth=Math.max(.15,Math.min(.35,(Number(s.supportDepth)||20)/100));content.position.y+=.40;content.position.z+=depth;
+   const cladding=new T.MeshStandardMaterial({color:/^#[a-f0-9]{6}$/i.test(s.supportColor||'')?s.supportColor:'#d6cabb',roughness:.72}),steel=new T.MeshStandardMaterial({color:'#23595d',metalness:.8,roughness:.28});
+   for(const sign of [-1,1])box(.04,height-.04,.04,sign*(width/2-.04),height/2,-.23+.04,'Montant_bati_support',steel);box(width,height,depth,0,height/2,-.23+depth/2,'Habillage_bati_support',cladding);
+   const plate=metalMaterial(s.plateColor||'Chrome brillant');box(.24,.16,.009,0,Math.min(height-.13,1.0),-.23+depth+.005,'Plaque_double_chasse',plate);
+   for(const [x,r]of [[-.049,.042],[.055,.028]]){const button=add(new T.CylinderGeometry(r,r,.004,48),plate,'Bouton_chasse',x,Math.min(height-.13,1.0),-.23+depth+.013);button.rotation.x=Math.PI/2;}
+   return {root,spec:p,dimensions:{width:Math.max(p.width,width),depth:p.depth+depth,height,base:0},ceramic};
+  }
   return {root,spec:p,dimensions:{width:p.width,depth:p.depth,height:actualHeight,base:0},ceramic};
  }
  const trixie=p.id==='TR443',W=p.width,D=p.depth,H=p.height,x=trixie?.13:0,z=-.23+D/2;
