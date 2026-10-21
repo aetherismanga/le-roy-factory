@@ -6,7 +6,7 @@ export const initialDraft=()=>({version:1,step:0,format:'two',width:80,finish:'R
 export function normalizeDraft(input){
  const d={...initialDraft(),...input};
  if(d.version!==1||!C.models.some(m=>m.id===d.format)||!C.finishes.some(f=>f.id===d.finish)||!Number.isInteger(d.width)||d.width<40||d.width>120)throw Error('Choisissez une largeur entière entre 40 et 120 cm.');
- if(!['plain','sella','tampa','neris','torne'].includes(d.top))throw Error('Plan non reconnu.');
+ if(!['bare','plain','sella','tampa','neris','torne'].includes(d.top))throw Error('Plan non reconnu.');
  if(['sella','tampa'].includes(d.top)&&!C.inset[d.top]?.[d.basinColor]?.[d.width])throw Error('Cette vasque n’est pas disponible dans cette largeur et cette finition.');
  if(['sella','tampa'].includes(d.top)){d.basinLayout=d.basinLayout??resolveBasinLayout(d.top,d.width,d.format);if(!basinEntry(d.top,d.basinColor,d.width,d.format,d.basinLayout))throw Error('Implantation de vasque indisponible dans cette largeur et cette finition.');}
  if(['neris','torne'].includes(d.top)&&(!C.vesselColors.some(c=>c.code===d.basinColor)||d.width<(d.top==='neris'?50:40)))throw Error('Vasque à poser incompatible.');
