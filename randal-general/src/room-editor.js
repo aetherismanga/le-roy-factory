@@ -18,7 +18,43 @@ export function createRoomEditor({getRoom,getWidth,onApply,getOpenings=()=>[]}){
   coords.forEach((a,i)=>{markup+=`<circle cx="${a[0]}" cy="${a[1]}" r="${selected===i?10:8}" fill="${selected===i?'#aa926a':'#294940'}" stroke="#fff" stroke-width="2" data-vertex="${i}"/><text x="${a[0]+15}" y="${a[1]+20}" class="plan-letter">${letters[i]}${metric?' · '+Math.round(metric.angles[i])+'°':''}</text>`;});
   if(!drawing&&coords.length>1){const a=coords[0],b=coords[1],len=Math.hypot(b[0]-a[0],b[1]-a[1]),nx=-(b[1]-a[1])/len,ny=(b[0]-a[0])/len,sign=metric&&metric.area?Math.sign(p.reduce((s,a,i)=>s+a[0]*p[(i+1)%p.length][1]-p[(i+1)%p.length][0]*a[1],0)):1;const x=(a[0]+b[0])/2+nx*20*sign,y=(a[1]+b[1])/2+ny*20*sign;markup+=`<text x="${x}" y="${y}" text-anchor="middle" class="plan-furniture">MUR 1</text>`;}
   for(const [i,wall] of (draft.partitions||[]).entries()){const a=view(wall.a),b=view(wall.b);markup+=`<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="${i===selectedPartition?'#a38c62':'#697f63'}" stroke-width="${Math.max(3,wall.thickness*map.scale)}" data-partition="${i}"/><text x="${(a[0]+b[0])/2+12}" y="${(a[1]+b[1])/2}" class="plan-length">C${i+1} · ${Math.round(Math.hypot(wall.b[0]-wall.a[0],wall.b[1]-wall.a[1]))} cm</text>`;if(i===selectedPartition)for(const [end,point]of [["a",a],["b",b]])markup+=`<circle cx="${point[0]}" cy="${point[1]}" r="10" fill="#a38c62" stroke="#fff" stroke-width="3" data-partition="${i}" data-partition-end="${end}"/>`;}if(partitionStart&&partitionEnd){const a=view(partitionStart),b=view(partitionEnd);markup+=`<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="#a38c62" stroke-width="${(number('partition-thickness')||10)*map.scale}" stroke-dasharray="8 4"/>`;}if(partitionStart){const a=view(partitionStart);markup+=`<circle cx="${a[0]}" cy="${a[1]}" r="7" fill="#a38c62"/>`;}
-  for(const [i,o]of draftOpenings.entries()){const a=p[o.placement.wall],b=p[(o.placement.wall+1)%p.length];if(!a||!b)continue;const length=Math.hypot(b[0]-a[0],b[1]-a[1]),u=o.placement.u,half=o.settings.width/2,at=v=>view([a[0]+(b[0]-a[0])*v/length,a[1]+(b[1]-a[1])*v/length]),aa=at(u-half),bb=at(u+half);markup+=`<line x1="${aa[0]}" y1="${aa[1]}" x2="${bb[0]}" y2="${bb[1]}" stroke="${selectedOpening===i?'#a38c62':o.type==='window'?'#4b8ea5':'#647e63'}" stroke-width="10" data-plan-opening="${i}"/><text x="${(aa[0]+bb[0])/2}" y="${(aa[1]+bb[1])/2+19}" class="plan-length">${o.type==='window'?'Fenêtre':'Porte'} ${o.settings.width}</text>`;}
+  // Show each physical wall portion between openings, with its real length.
+  // Rebuild per wall (not per opening) so several windows never paint over each other.
+  if(!drawing)for(let wallIndex=0;wallIndex<p.length;wallIndex++){
+   const a=p[wallIndex],b=p[(wallIndex+1)%p.length];
+   const length=Math.hypot(b[0]-a[0],b[1]-a[1]);
+   const openings=draftOpenings.filter(o=>o.placement.wall===wallIndex&&['door','window'].includes(o.type))
+     .map(o=>({start:Math.max(0,o.placement.u-o.settings.width/2),end:Math.min(length,o.placement.u+o.settings.width/2)}))
+     .filter(o=>o.end>o.start).sort((x,y)=>x.start-y.start);
+   if(!openings.length||length<1)continue;
+   const at=u=>view([a[0]+(b[0]-a[0])*u/length,a[1]+(b[1]-a[1])*u/length]);
+   const start=at(0),finish=at(length),direction=[(finish[0]-start[0])/Math.max(1,Math.hypot(finish[0]-start[0],finish[1]-start[1])),(finish[1]-start[1])/Math.max(1,Math.hypot(finish[0]-start[0],finish[1]-start[1]))];
+   // Hide the baseline precisely within openings.
+   markup+=`<line x1="${start[0]}" y1="${start[1]}" x2="${finish[0]}" y2="${finish[1]}" stroke="#e7eddf" stroke-width="13" pointer-events="none"/>`;
+   const segments=[];let cursor=0;
+   for(const o of openings){if(o.start>cursor+.1)segments.push([cursor,o.start]);cursor=Math.max(cursor,o.end);}
+   if(length>cursor+.1)segments.push([cursor,length]);
+   for(const [from,to] of segments){
+    const aa=at(from),bb=at(to),mid=at((from+to)/2);
+    markup+=`<line x1="${aa[0]}" y1="${aa[1]}" x2="${bb[0]}" y2="${bb[1]}" stroke="#294940" stroke-width="5" stroke-linecap="round" pointer-events="none"/>`;
+    if(to-from>=12){
+     const labelX=mid[0]-direction[1]*18,labelY=mid[1]+direction[0]*18;
+     markup+=`<text x="${labelX}" y="${labelY}" text-anchor="middle" class="plan-length" style="paint-order:stroke;stroke:#e7eddf;stroke-width:4;stroke-linejoin:round" pointer-events="none">${Math.round(to-from)} cm</text>`;
+    }
+   }
+  }
+  for(const [i,o]of draftOpenings.entries()){
+   const a=p[o.placement.wall],b=p[(o.placement.wall+1)%p.length];if(!a||!b)continue;
+   const length=Math.hypot(b[0]-a[0],b[1]-a[1]);if(!length)continue;
+   const u=o.placement.u,half=o.settings.width/2;
+   const at=v=>view([a[0]+(b[0]-a[0])*v/length,a[1]+(b[1]-a[1])*v/length]);
+   const aa=at(u-half),bb=at(u+half),dx=bb[0]-aa[0],dy=bb[1]-aa[1],pixelLen=Math.max(1,Math.hypot(dx,dy));
+   const nx=-dy/pixelLen,ny=dx/pixelLen;
+   markup+=`<line x1="${aa[0]}" y1="${aa[1]}" x2="${bb[0]}" y2="${bb[1]}" stroke="#edf4f3" stroke-width="12" data-plan-opening="${i}"/>`;
+   markup+=`<line x1="${aa[0]}" y1="${aa[1]}" x2="${bb[0]}" y2="${bb[1]}" stroke="${selectedOpening===i?'#a38c62':o.type==='window'?'#4b8ea5':'#ba8965'}" stroke-width="7" data-plan-opening="${i}"/>`;
+   const midpoint=[(aa[0]+bb[0])/2,(aa[1]+bb[1])/2];
+   markup+=`<text x="${midpoint[0]+nx*30}" y="${midpoint[1]+ny*30}" text-anchor="middle" class="plan-length" style="paint-order:stroke;stroke:#e7eddf;stroke-width:4;stroke-linejoin:round" pointer-events="none">${o.type==='window'?'Fenêtre':'Porte'} ${o.settings.width} cm</text>`;
+  }
   if(ghostPoint&&drawing&&p.length){const a=view(p.at(-1)),b=view(ghostPoint);markup+=`<path d="M${a[0]} ${a[1]}L${b[0]} ${b[1]}" stroke="#71866b" stroke-dasharray="7 4" fill="none"/>`;}
   markup+=rightAngleMarkup(snapGuide,view);renderOpeningFields();
   svg.innerHTML=markup;renderPartitionFields();$('partition-quick').disabled=drawing||(draft.partitions?.length||0)>=8;$('partition-draw').disabled=drawing||(draft.partitions?.length||0)>=8;
