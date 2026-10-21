@@ -1,0 +1,3 @@
+import {newProject} from './workshop.js';
+export const EMPTY_HOUSES={'single-compact':{name:'Maison de plain-pied · compact',width:10,depth:8,levels:1},'single-family':{name:'Maison de plain-pied · familiale',width:11,depth:9,levels:1},'single-villa':{name:'Villa de plain-pied',width:12,depth:10,levels:1},'villa-pool':{name:'Villa avec étage & piscine',width:10,depth:8,levels:2}};
+export function emptyHouse(id='villa-pool'){const spec=EMPTY_HOUSES[id];if(!spec)throw Error('Plan de maison inconnu.');const p=newProject();p.name=spec.name;p.levels=spec.levels;p.template={id,empty:true};p.layout.width=spec.width;p.layout.depth=spec.depth;p.roomNames={};p.items={};p.additions=[];return p;}

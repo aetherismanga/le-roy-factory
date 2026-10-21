@@ -238,7 +238,7 @@ export async function buildHouse(scene, M, project = {}, textures) {
   }
   for(const room of ROOMS){
     const poly=floorPolygon(room),ceilingXZ=poly.map(([x,z])=>[x,-z]);
-    const ceilingHoles=room.id==='entry'?[wellPolygon().map(([x,z])=>[x,-z])]:[];
+    const ceilingHoles=room.id==='entry'&&project.levels!==1?[wellPolygon().map(([x,z])=>[x,-z])]:[];
     const ceiling=mesh(floors[room.floor].ceilings,ceilingGeometry(ceilingXZ,ceilingHoles),M.ceiling,'Plafond_'+room.id);
     ceiling.position.y=CLEAR_HEIGHT-.012;ceiling.userData.ceiling=true;
   }
@@ -1244,7 +1244,10 @@ export async function buildHouse(scene, M, project = {}, textures) {
   // Measure each object independently; never merge the editable furniture into a level.
   for(const item of arrangement.items.values())if(item.root.parent===floors[item.floor].static)batchFurniture(item.object);
   for(const entry of project.additions||[])registerAddition({floors,arrangement},project,M,entry);
+  if(project.template?.empty){project.items??={};const added=new Set((project.additions||[]).map(a=>a.id));for(const item of arrangement.items.values())if(!added.has(item.id)&&!Object.hasOwn(project.items,item.id))project.items[item.id]={hidden:true};}
   arrangement.prepare();arrangement.load();
+  if(project.levels===1)roof.position.y-=LEVEL_HEIGHT;
+
   colliders.length=0;colliders.push(...arrangement.colliders());
   for (const a of assets) {
     const drawers = a.drawers || [];
@@ -1283,7 +1286,7 @@ export async function buildHouse(scene, M, project = {}, textures) {
     const room=ROOMS.find(r=>r.id===id);if(!room)return;
     const centroid=room.polygon.reduce((p,q)=>[p[0]+q[0]/room.polygon.length,p[1]+q[1]/room.polygon.length],[0,0]),center=new T.Vector3(...point(centroid[0],room.floor*LEVEL_HEIGHT+1,centroid[1]));
     floors.forEach((f,i)=>{rememberVisible(f.group,i===room.floor);rememberVisible(f.ceilings,false);rememberVisible(f.substrate,false);});
-    rememberVisible(stair,['entry','gallery'].includes(id));rememberVisible(slab,false);rememberVisible(roof,false);
+    rememberVisible(stair,project.levels!==1&&['entry','gallery'].includes(id));rememberVisible(slab,false);rememberVisible(roof,false);
     for(const f of floorSurfaces.values()){rememberVisible(f.mesh,f.room.id===id);rememberVisible(f.grout,f.room.id===id);}
     for(const item of arrangement.items.values())rememberVisible(item.root,item.room===id&&!item.hidden);
     for(const f of floors)for(const child of f.static.children)if(!child.userData.editableId)rememberVisible(child,false);
@@ -1307,13 +1310,13 @@ export async function buildHouse(scene, M, project = {}, textures) {
     for (let i = 0; i < 2; i++) {
       for(const w of floors[i].walls)w.cutcap.visible=false;
       floors[i].group.visible =
-        mode === "exterior" || mode === "visit" || i === floor;
+        (project.levels!==1||i===0)&&(mode === "exterior" || mode === "visit" || i === floor);
       floors[i].ceilings.visible = mode === "visit" || mode === "exterior";
       for(const child of floors[i].lights.children)if(!child.isLight)child.visible=(mode==='visit'||mode==='exterior')&&!arrangement.items.get(child.userData.editableId)?.hidden;
     }
-    slab.visible = mode === "visit" || mode === "exterior";
+    slab.visible = project.levels!==1&&(mode === "visit" || mode === "exterior");
     roof.visible = mode === "exterior" || mode === "visit";
-    stair.visible = true;
+    stair.visible = project.levels!==1;
   }
   function updateDoors(dt) {
     let moving = false;

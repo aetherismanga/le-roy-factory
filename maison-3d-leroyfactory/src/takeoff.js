@@ -1,6 +1,6 @@
 // Quantities from the SAME clipped polygons and tile cells rendered in 3D.
 import * as T from 'three';
-import {ROOMS,WELL,SCALE,polygonArea,roomBounds,CLEAR_HEIGHT} from './plan.js';
+import {ROOMS,WELL,SCALE,polygonArea,roomBounds,CLEAR_HEIGHT,ACTIVE_LEVELS} from './plan.js';
 import {tiledPolygonGeometry} from '../../randal-general/src/room.js';
 export const round=(n,d=2)=>Number(n.toFixed(d));
 export const floorPolygon=room=>room.polygon.map(([x,z])=>[(x-5)*SCALE,-(z-4)*SCALE]);
@@ -59,9 +59,9 @@ export function cutPlanSVG(room,floor){
  const outline=floor.poly.map(p=>[p[0]-ox,h-(p[1]-oy)].join(',')).join(' ');
  const hole=floor.holes.map(poly=>`<polygon points="${poly.map(p=>[p[0]-ox,h-(p[1]-oy)].join(',')).join(' ')}" fill="#faf9f4" stroke="#8d7960" stroke-width="${stroke*2}"/>`).join('');
  const fs=Math.max(w,h)/32,pad=fs*2;
- return `<svg viewBox="${-pad} ${-pad} ${w+2*pad} ${h+2*pad}" role="img" aria-label="Calepinage coté de ${room.name}"><polygon points="${outline}" fill="#ded5c2" stroke="#8c9a80" stroke-width="${stroke*2}"/><path d="${paths}" fill="none" stroke="#71806a" stroke-width="${stroke}"/>${hole}<path d="M0 ${-fs*.7}H${w} M${-fs*.7} 0V${h}" stroke="#303e33" stroke-width="${stroke*1.3}"/><text x="${w/2}" y="${-fs}" text-anchor="middle" font-size="${fs}" fill="#303e33">${w.toFixed(3).replace('.',',')} m</text><text x="${-fs}" y="${h/2}" transform="rotate(-90 ${-fs} ${h/2})" text-anchor="middle" font-size="${fs}" fill="#303e33">${h.toFixed(3).replace('.',',')} m</text><circle cx="0" cy="${h}" r="${stroke*4}" fill="#a47c3f"/></svg>`;
+ return `<svg viewBox="${-pad} ${-pad} ${w+2*pad} ${h+2*pad}" role="img" aria-label="Calepinage coté de ${String(room.name).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}"><polygon points="${outline}" fill="#ded5c2" stroke="#8c9a80" stroke-width="${stroke*2}"/><path d="${paths}" fill="none" stroke="#71806a" stroke-width="${stroke}"/>${hole}<path d="M0 ${-fs*.7}H${w} M${-fs*.7} 0V${h}" stroke="#303e33" stroke-width="${stroke*1.3}"/><text x="${w/2}" y="${-fs}" text-anchor="middle" font-size="${fs}" fill="#303e33">${w.toFixed(3).replace('.',',')} m</text><text x="${-fs}" y="${h/2}" transform="rotate(-90 ${-fs} ${h/2})" text-anchor="middle" font-size="${fs}" fill="#303e33">${h.toFixed(3).replace('.',',')} m</text><circle cx="0" cy="${h}" r="${stroke*4}" fill="#a47c3f"/></svg>`;
 }
-export function allTakeoffs(house){return ROOMS.map(r=>roomTakeoff(r,house));}
+export function allTakeoffs(house){return ROOMS.filter(r=>r.floor<ACTIVE_LEVELS).map(r=>roomTakeoff(r,house));}
 
 // Consolidate identical products before rounding to supplier boxes, so a small
 // WC and a bathroom do not each force a separate half-empty box order.

@@ -1,5 +1,5 @@
 import * as T from "three";
-import { LEVEL_HEIGHT, SCALE, unpoint, stairHeight, WELL, LAYOUT } from "./plan.js";
+import { LEVEL_HEIGHT, SCALE, unpoint, stairHeight, WELL, LAYOUT, ACTIVE_LEVELS } from "./plan.js";
 export function collisionWorld(house, garden) {
   const radius = 0.18,
     obstacles = [...house.colliders, ...garden.obstacles],
@@ -7,7 +7,7 @@ export function collisionWorld(house, garden) {
   function groundAt(x, z, currentHeight) {
     const [px, pz] = unpoint(x, z);
     if (px < -5 || px > 16 || pz < -6 || pz > 21) return NaN;
-    const sh = stairHeight(px, pz);
+    const sh = ACTIVE_LEVELS===1?null:stairHeight(px, pz);
     if (sh !== null) return Number.isFinite(sh) ? sh + 0.02 : NaN;
     const floor = currentHeight > LEVEL_HEIGHT * 0.68 ? 1 : 0;
     if (floor && !inside(px, pz)) return NaN;

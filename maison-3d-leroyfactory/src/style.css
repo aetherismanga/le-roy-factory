@@ -1280,3 +1280,7 @@ body.exterior-workshop-open #scene{width:calc(100% - 460px)}body.exterior-worksh
 @media(min-width:701px) and (max-width:1050px){.view-tabs button{padding-left:12px;padding-right:12px}}
 @media(max-width:700px){body[data-mode=character] .floor-switch{top:139px;right:16px;flex-direction:row;padding:3px}body[data-mode=character] .floor-switch button{min-height:30px;padding:7px 10px}}
 @media(max-height:570px){body[data-mode=character] .floor-switch{top:76px;left:16px;right:auto;flex-direction:row;padding:3px}body[data-mode=character] .floor-switch button{min-height:30px;padding:7px 10px}}
+
+.house-embedded .preview-badge{display:none}.house-readonly #workshop-body,.house-readonly #room-custom-name,.house-readonly #exterior-panel{pointer-events:none;opacity:.7}.house-readonly #workshop-body button,.house-readonly #workshop-body input,.house-readonly #workshop-body select{pointer-events:none}.house-readonly .editor-transform-bar{display:none}
+
+@media(max-width:700px){.room-configurator:not(.workshop-open) #scene{height:100%}}

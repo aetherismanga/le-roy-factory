@@ -1,5 +1,5 @@
 import * as T from 'three';
-import {ROOMS, WALLS, WELL, SCALE, CLEAR_HEIGHT, LEVEL_HEIGHT, point, unpoint, roomAt, roomBounds,adaptPoint} from './plan.js';
+import {ROOMS, WALLS, WELL, SCALE, CLEAR_HEIGHT, LEVEL_HEIGHT, point, unpoint, roomAt, roomBounds,adaptPoint,ACTIVE_LEVELS} from './plan.js';
 
 // Geometry, navigation and the editor share these measured, oriented footprints.
 export function rectangle(x,z,w,d,a=0){const c=Math.cos(a),s=Math.sin(a);return [[-w/2,-d/2],[w/2,-d/2],[w/2,d/2],[-w/2,d/2]].map(([u,v])=>[x+c*u+s*v,z-s*u+c*v]);}
@@ -33,12 +33,12 @@ export function createArrangement({project,root,floors,doors}){
  const items=new Map(),counts=new Map();let suppress=false;
  const reservations=[];
  // A clear landing is retained at both ends of the staircase.
- for(const floor of [0,1]){
+ for(const floor of ACTIVE_LEVELS===1?[]:[0,1]){
   reservations.push({floor,name:'l’escalier et sa trémie',poly:rectangle(WELL.x+WELL.w/2,WELL.z+WELL.d/2,WELL.w,WELL.d)});
   reservations.push({floor,name:'le palier de l’escalier',poly:rectangle(floor?4.79:3.61,3.48,floor?1.06:1.06,.64)});
  }
  function prepare(){
- reservations.splice(4);
+ reservations.splice(ACTIVE_LEVELS===1?0:4);
  for(const d of doors){
   const w=d.wall,o=d.opening,L=Math.hypot(w.b[0]-w.a[0],w.b[1]-w.a[1]),dx=(w.b[0]-w.a[0])/L,dz=(w.b[1]-w.a[1])/L,
    x=w.a[0]+dx*o.u/SCALE,z=w.a[1]+dz*o.u/SCALE,a=-Math.atan2(dz,dx),width=o.width/SCALE;

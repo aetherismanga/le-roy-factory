@@ -1,17 +1,20 @@
+import {notifyParentProject,embedded} from './embedded-house.js';
 import {defaultExterior,validateExterior} from './exterior-products.js';
 import {OBJECT_LIBRARY,validateAdditions} from './object-library.js';
 import {validateItemOverrides} from './arrangement.js';
-import {ROOMS,LAYOUT,DEFAULT_LAYOUT,SCALE,TOTAL_AREA,roomBounds,resizedLayout,validateLayout} from './plan.js';
+import {ROOMS,LAYOUT,DEFAULT_LAYOUT,SCALE,TOTAL_AREA,roomBounds,resizedLayout,validateLayout,ACTIVE_LEVELS} from './plan.js';
 import {SURFACES,CATALOG,FINISHES,textureURL,collection,surfaceProduct,defaultFloor,defaultBathroom,defaultTop,topAvailable,normalizeBathroom} from './products.js';
 import {basinColors,basinLayouts} from '../../randal-general/src/basins.js';
 import {TOP_OPTIONS} from '../../randal-general/src/tops.js';
 import {allTakeoffs,orderTakeoffs,roomTakeoff,cutPlanSVG,round} from './takeoff.js';
 const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const fmt=(n,d=2)=>Number(n).toLocaleString('fr-FR',{minimumFractionDigits:d,maximumFractionDigits:d});
-const KEY='lrf-house-workshop-v2',SAVES='lrf-house-projects-v2';
+const KEY=embedded?'lrf-house-embedded-draft-v1':'lrf-house-workshop-v2',SAVES='lrf-house-projects-v2';
 export function newProject(){return {schema:2,exterior:defaultExterior(),name:'Maison témoin · rendez-vous client',client:'',items:{},additions:[],layout:structuredClone(DEFAULT_LAYOUT),rooms:Object.fromEntries(ROOMS.map(r=>[r.id,{floor:defaultFloor(r)}])),bathrooms:{shower:defaultBathroom('shower'),bathroom:defaultBathroom('bathroom')}};}
 export function validateProject(p){
  if(!p||p.schema!==2||typeof p.name!=='string'||p.name.length>120||typeof p.client!=='string'||p.client.length>160)throw Error('Ce fichier n’est pas un projet Maison 3D compatible.');
+ if(p.levels!==undefined&&![1,2].includes(p.levels))throw Error('Nombre de niveaux invalide.');
+ for(const [id,name]of Object.entries(p.roomNames||{}))if(!ROOMS.some(r=>r.id===id)||typeof name!=='string'||!name.trim()||name.length>80)throw Error('Nom de pièce invalide.');
  validateLayout(p.layout);
  validateItemOverrides(p.items||{});
  validateAdditions(p.additions||[]);
@@ -24,7 +27,7 @@ export function validateProject(p){
  return {...structuredClone(p),exterior:validateExterior(p.exterior)};
 }
 export function readDraft(){try{return validateProject(JSON.parse(localStorage.getItem(KEY)));}catch{return newProject();}}
-export function saveDraft(project){try{localStorage.setItem(KEY,JSON.stringify(project));return true;}catch{return false;}}
+export function saveDraft(project){try{localStorage.setItem(KEY,JSON.stringify(project));notifyParentProject(project);return true;}catch{return false;}}
 function download(name,data,type){const url=URL.createObjectURL(new Blob([data],{type})),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);}
 export function mountWorkshop(api){
  let roomId='living',tab='surfaces',busy=false,draftFloor,draftBath,surfaceTarget='floor';
@@ -33,13 +36,14 @@ export function mountWorkshop(api){
  const project=()=>api.getProject();
  function note(text){$('#workshop-status').textContent=text;}
  async function run(task,message){if(busy)return;busy=true;panel.setAttribute('aria-busy','true');body.querySelectorAll('button,input,select').forEach(e=>e.disabled=true);note('Mise à jour de la maison…');try{await task();const saved=saveDraft(project());note(saved?(message||'Projet actualisé.'):'Le navigateur refuse la sauvegarde. Exportez le projet pour le conserver.');render();}catch(e){note(e.message);api.status(e.message);}finally{busy=false;panel.removeAttribute('aria-busy');body.querySelectorAll('button,input,select').forEach(e=>e.disabled=false);}}
- function selectRoom(id,move=true){if(api.getState().roomEditing&&move){roomId=id;draftFloor=null;draftBath=null;api.openRoom(id);return;}if(!ROOMS.some(r=>r.id===id))return;roomId=id;body.scrollTop=0;draftFloor=null;draftBath=null;if(move){api.goRoom(id);panel.hidden=false;document.body.classList.add('workshop-open');api.onPanel();}render();}
+ function selectRoom(id,move=true){if(api.getState().roomEditing&&move){roomId=id;draftFloor=null;draftBath=null;api.openRoom(id);return;}if(!ROOMS.some(r=>r.id===id&&r.floor<ACTIVE_LEVELS))return;roomId=id;body.scrollTop=0;draftFloor=null;draftBath=null;if(move){api.goRoom(id);panel.hidden=false;document.body.classList.add('workshop-open');api.onPanel();}render();}
  function open(id,initialTab){if(initialTab)tab=initialTab;if(id&&api.getState().room!==id)api.goRoom(id);api.closePanels();api.stopTour(false);roomId=id||api.getState().room||roomId;panel.hidden=false;document.body.classList.add('workshop-open');$('#workshop-open').setAttribute('aria-expanded','true');api.onPanel();render();}
  function close(){panel.hidden=true;api.editor?.refreshHelper();document.body.classList.remove('workshop-open');$('#workshop-open').setAttribute('aria-expanded','false');api.onPanel();}
  const option=(id,name,active)=>`<option value="${esc(id)}"${String(id)===String(active)?' selected':''}>${esc(name)}</option>`;
  function render(){
   const room=selected(),b=roomBounds(room),p=project();
-  $('#workshop-room').innerHTML=[0,1].map(f=>`<optgroup label="${f?'Étage':'Rez-de-chaussée'}">${ROOMS.filter(r=>r.floor===f).map(r=>option(r.id,r.name,roomId)).join('')}</optgroup>`).join('');
+  $('#workshop-room').innerHTML=Array.from({length:ACTIVE_LEVELS},(_,f)=>f).map(f=>`<optgroup label="${f?'Étage':'Rez-de-chaussée'}">${ROOMS.filter(r=>r.floor===f).map(r=>option(r.id,r.name,roomId)).join('')}</optgroup>`).join('');
+  let nameField=panel.querySelector('#room-custom-name');if(!nameField){const label=document.createElement('label');label.style.cssText='display:grid;gap:6px;margin:12px 20px;font:11px Arial';label.textContent='Nom de la pièce';nameField=document.createElement('input');nameField.id='room-custom-name';nameField.maxLength=80;nameField.style.cssText='min-height:38px;padding:8px;border:1px solid #cdd1c1;border-radius:7px;background:#fffef9';label.append(nameField);panel.querySelector('#workshop-room').parentElement.after(label);nameField.onchange=()=>{if(document.body.classList.contains('house-readonly'))return;const name=nameField.value.trim();if(!name)return;project().roomNames??={};project().roomNames[roomId]=name;room.name=name;saveDraft(project());dispatchEvent(new Event('lrf-room-renamed'));render();};}nameField.value=room.name;nameField.disabled=document.body.classList.contains('house-readonly');
   $('#workshop-area').textContent=`${fmt(room.area)} m² · H. 2,60 m`;
   panel.querySelectorAll('[data-workshop-tab]').forEach(e=>e.setAttribute('aria-pressed',String(e.dataset.workshopTab===tab)));
   if(tab==='arrange'){if(api.getState().mode!=='model'){api.focusRoom(roomId);return;}api.editor.render(body,room,{visit:()=>{close();api.getState().roomEditing?api.leaveRoom():api.setMode('visit');},catalogue:()=>{tab='bathroom';render();}});}
@@ -86,7 +90,7 @@ export function mountWorkshop(api){
  function renderBathroom(room){
   if(!['shower','bathroom'].includes(room.id)){
    body.innerHTML=`<p class="workshop-kicker">Vos produits, dans leur environnement</p><h4>Mobilier RANDAL</h4><p class="workshop-copy">Choisissez une salle de bains pour composer avec les meubles et finitions du catalogue général.</p><div class="bath-room-choices"><button class="secondary" data-bath="shower">Salle d’eau · douche ↗</button><button class="secondary" data-bath="bathroom">Salle de bains · baignoire ↗</button></div>`;
-   body.querySelectorAll('[data-bath]').forEach(e=>e.onclick=()=>selectRoom(e.dataset.bath));return;
+   body.querySelectorAll('[data-bath]').forEach(e=>{e.hidden=!ROOMS.some(r=>r.id===e.dataset.bath&&r.floor<ACTIVE_LEVELS);e.onclick=()=>selectRoom(e.dataset.bath);});return;
   }
   draftBath??=structuredClone(project().bathrooms[room.id]);
   const s=draftBath,m=CATALOG.models.find(m=>m.id===s.format),finishes=FINISHES.filter(f=>m.finishes.includes(f.id)),cols=CATALOG.columns.filter(c=>c.collection===m.collection),tops=TOP_OPTIONS.filter(t=>t.id!=='none'&&topAvailable(t.id,s.width,s.format)),colors=basinColors(s.top,s.width,s.format,s.basinLayout),layouts=basinLayouts(s.top,s.width,s.format,s.basinColor);

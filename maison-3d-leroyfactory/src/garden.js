@@ -12,7 +12,7 @@ import {
 import { point as basePoint, SCALE, LAYOUT } from "./plan.js";
 import { furnitureKit } from "./furniture.js";
 import { textureClone } from "./materials.js";
-export async function buildGarden(scene, M, {renderer,config}={}) {
+export async function buildGarden(scene, M, {renderer,config,empty=false}={}) {
   M={...M};botanicalMaterials(M);
   const point=(x,y,z)=>basePoint(x>10?x+LAYOUT.width-10:x<0?x:x/10*LAYOUT.width,y,z>8?z+LAYOUT.depth-8:z<0?z:z/8*LAYOUT.depth);
   const root = group(scene, 0, 0, 0, 0, "Jardin_terrasse_et_paysage"),
@@ -327,6 +327,7 @@ export async function buildGarden(scene, M, {renderer,config}={}) {
   blades.receiveShadow = true;
   root.add(blades);
 
+  if(empty){const keep=new Set(['Terrain_paysager','Terrasse_pierre_naturelle','Piscine_8x4m','Muret_BIOPIETRA']);for(const child of [...root.children])if(!keep.has(child.name)){root.remove(child);child.traverse(o=>o.geometry?.dispose());}seats.length=0;obstacles.splice(0,obstacles.length,...exterior.obstacles);}
   root.updateMatrixWorld(true);for(const seat of seats){seat.root.userData.externalSeatId=seat.id;const b=new T.Box3().setFromObject(seat.root),c=b.getCenter(new T.Vector3()),s=b.getSize(new T.Vector3());obstacles.push({id:seat.id,x:c.x,z:c.z,w:s.x,d:s.z,minY:b.min.y,maxY:b.max.y,floor:0});}
   batchFurniture(root, {
     exclude: [...seats.map(s=>s.root),...root.children.filter((o) =>

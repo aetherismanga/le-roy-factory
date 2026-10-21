@@ -110,6 +110,8 @@ const first = [
     look: [4.8, 1.1, 4.6],
   },
 ];
+export let ACTIVE_LEVELS=2;
+export function setLevelCount(count){ACTIVE_LEVELS=count===1?1:2;}
 export const ROOMS = [...ground, ...first];
 const baseArea = ROOMS.reduce(
   (s, r) => s + polygonArea(r.polygon) - (r.subtract || 0),
@@ -379,14 +381,14 @@ export function applyLayout(input) {
     const b=BASE_ROOMS[i],r=ROOMS[i];
     r.polygon=b.polygon.map(p=>mapPlanPoint(...p,b.floor));
     for(const key of ['view','look']) {const p=mapPlanPoint(b[key][0],b[key][2],b.floor);r[key]=[p[0],b[key][1],p[1]];}
-    r.area=(polygonArea(r.polygon)-(r.subtract||0))*SCALE*SCALE;
+    r.area=(polygonArea(r.polygon)-(ACTIVE_LEVELS===1&&r.id==='entry'?0:r.subtract||0))*SCALE*SCALE;
   }
   for(let i=0;i<WALLS.length;i++) {
     const b=BASE_WALLS[i],w=WALLS[i],length=Math.hypot(b.b[0]-b.a[0],b.b[1]-b.a[1]);
     w.a=mapPlanPoint(...b.a,b.floor);w.b=mapPlanPoint(...b.b,b.floor);
     w.openings=b.openings.map(o=>{const p=mapPlanPoint(b.a[0]+(b.b[0]-b.a[0])*o.u/length,b.a[1]+(b.b[1]-b.a[1])*o.u/length,b.floor);return {...o,u:Math.hypot(p[0]-w.a[0],p[1]-w.a[1])};});
   }
-  TOTAL_AREA=ROOMS.reduce((s,r)=>s+r.area,0);PROGRAM.area=TOTAL_AREA;
+  TOTAL_AREA=ROOMS.filter(r=>r.floor<ACTIVE_LEVELS).reduce((s,r)=>s+r.area,0);PROGRAM.area=TOTAL_AREA;PROGRAM.levels=ACTIVE_LEVELS;
   return clone(l);
 }
 export function resizedLayout(id,width,depth) {
