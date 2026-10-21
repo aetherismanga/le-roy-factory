@@ -22,11 +22,11 @@
           ><span class="brand-mark">LRF<span>LE ROY FACTORY</span></span
           ><span class="brand-separator"></span
           ><span class="brand-title"
-            >MAISON 3D<span>Collection de lieux à vivre</span></span
+            >MAISON 3D<span>Vos projets prennent vie</span></span
           ></a
         >
         <div class="header-right">
-          <span class="preview-badge">PROTOTYPE · 01</span
+          <span class="preview-badge">ATELIER MAGASIN · BÊTA</span
           ><button
             id="help-open"
             class="icon-button"
@@ -62,11 +62,10 @@
           <p class="eyebrow"><span></span> MAISON TÉMOIN · R+1</p>
           <h1>Une maison.<br />Tout un <em>univers.</em></h1>
           <p class="welcome-copy">
-            La matière, la lumière, le détail.<br />Une maison entièrement
-            aménagée,<br />à découvrir comme si vous y étiez.
+            Une maison à vivre, un projet à composer.<br />Vos carrelages, vos salles de bains,<br />vos dimensions. À explorer en 3D.
           </p>
           <div class="welcome-facts">
-            <span><b>140</b> m²</span><span><b>2</b> niveaux</span
+            <span><b id="welcome-area">140</b> m²</span><span><b>2</b> niveaux</span
             ><span><b>2,60</b> m sous plafond</span>
           </div>
           <button id="enter" class="primary">
@@ -80,7 +79,7 @@
         <div class="hero-caption">
           <span>01 / L’ART D’HABITER</span>
           <p>
-            Des espaces qui se vivent.<br />Des détails qui font la différence.
+            Vos matières. Vos produits.<br />Une maison à votre image.
           </p>
         </div>
       </section>
@@ -100,6 +99,13 @@
           <button data-floor="0" aria-pressed="true">RDC</button
           ><button data-floor="1" aria-pressed="false">Étage</button>
         </div>
+        <button id="workshop-open" class="workshop-launch" aria-expanded="false" aria-controls="workshop-panel"><span>✧</span> Atelier magasin <small>Matières · dimensions · métrés</small></button>
+        <aside id="workshop-panel" class="workshop-panel" hidden>
+          <div class="workshop-heading"><div><p class="eyebrow">LE ROY FACTORY</p><h3>Votre atelier maison.</h3></div><button id="workshop-close" class="icon-button" aria-label="Fermer l’atelier">×</button></div>
+          <label class="workshop-room-label" for="workshop-room">La pièce à personnaliser</label><select id="workshop-room"></select><p id="workshop-area"></p>
+          <nav class="workshop-tabs" aria-label="Outils de l’atelier"><button data-workshop-tab="surfaces" aria-pressed="true">Sols & pose</button><button data-workshop-tab="bathroom" aria-pressed="false">Mobilier</button><button data-workshop-tab="dimensions" aria-pressed="false">Dimensions</button><button data-workshop-tab="metrics" aria-pressed="false">Métrés</button><button data-workshop-tab="project" aria-pressed="false">Dossier</button></nav>
+          <div id="workshop-body"></div><p id="workshop-status" role="status" aria-live="polite">Les modifications sont conservées sur ce navigateur.</p>
+        </aside>
         <aside id="room-panel" class="room-panel" hidden>
           <div class="panel-heading">
             <div>
@@ -116,7 +122,7 @@
           </div>
           <div id="room-list"></div>
           <div class="panel-foot">
-            <b>140 m²</b
+            <b id="total-room-area">140 m²</b
             ><span
               >3 chambres · bureau / chambre d’amis<br />2 salles de bains · 2
               WC avec lave-mains</span
@@ -147,6 +153,7 @@
               ☾<span>Soirée</span>
             </button>
           </div>
+          <label for="sun-hour">Soleil & ombres des fenêtres <span id="sun-hour-label">14 h</span></label><input type="range" id="sun-hour" min="9" max="18" step="1" value="14"><p class="field-note">L’orientation du soleil change réellement les ombres projetées à travers les vitrages.</p>
           <label>Peinture de la pièce</label>
           <div class="paint-choices">
             <button

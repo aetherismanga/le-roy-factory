@@ -118,7 +118,7 @@ const baseArea = ROOMS.reduce(
 export const SCALE = Math.sqrt(140 / baseArea);
 for (const r of ROOMS)
   r.area = (polygonArea(r.polygon) - (r.subtract || 0)) * SCALE * SCALE;
-export const TOTAL_AREA = ROOMS.reduce((s, r) => s + r.area, 0);
+export let TOTAL_AREA = ROOMS.reduce((s, r) => s + r.area, 0);
 export const point = (x, y, z) => [(x - 5) * SCALE, y, (z - 4) * SCALE];
 export const unpoint = (x, z) => [x / SCALE + 5, z / SCALE + 4];
 export function inside(x, z, p) {
@@ -314,3 +314,99 @@ export const PROGRAM = {
   bedrooms: 3,
   guestOffice: 1,
 };
+
+// Editable shared partitions. The stair, wall thicknesses and product sizes
+// stay fixed; moving a partition updates both rooms and every door in that wall.
+const BASE_ROOMS = structuredClone(ROOMS), BASE_WALLS = structuredClone(WALLS);
+export const DEFAULT_LAYOUT = {
+  width: 10, depth: 8,
+  ground: {office:2.87, shower:6.57, service:8.67, back:3.43, wc:1.75},
+  first: {bed3:2.87, suite:4.22, east:6.57, wc:8.11, bath:2.27, back:4.03},
+};
+export let LAYOUT = structuredClone(DEFAULT_LAYOUT);
+const clone = x => structuredClone(x);
+export function roomBounds(room) {
+  const xs=room.polygon.map(p=>p[0]),zs=room.polygon.map(p=>p[1]);
+  return {x:Math.min(...xs),z:Math.min(...zs),w:Math.max(...xs)-Math.min(...xs),d:Math.max(...zs)-Math.min(...zs)};
+}
+function knots(layout,floor,axis) {
+  const v=floor?layout.first:layout.ground;
+  const centers=axis==='x' ? (floor?[v.bed3,v.suite,v.east,v.wc]:[v.office,v.shower,v.service]) : (floor?[v.bath,v.back]:[v.wc,v.back]);
+  const end=axis==='x'?layout.width:layout.depth;
+  return [0,...centers.flatMap(n=>[n-.07,n+.07]),end];
+}
+function mapAxis(value,floor,axis,layout=LAYOUT) {
+  const from=knots(DEFAULT_LAYOUT,floor,axis),to=knots(layout,floor,axis);
+  let i=0;
+  while(i<from.length-2&&value>from[i+1])i++;
+  return to[i]+(value-from[i])/(from[i+1]-from[i])*(to[i+1]-to[i]);
+}
+export function mapPlanPoint(x,z,floor,layout=LAYOUT) {return [mapAxis(x,floor,'x',layout),mapAxis(z,floor,'z',layout)];}
+// Place real-size furniture relative to its room: keep offsets to a nearby
+// wall instead of scaling the manufacturer's geometry when a room grows.
+export function adaptPoint(x,z,floor) {
+  let original=BASE_ROOMS.find(r=>r.floor===floor&&inside(x,z,r.polygon));
+  if(!original) original=BASE_ROOMS.filter(r=>r.floor===floor).sort((a,b)=>{
+    const dist=r=>{const q=roomBounds(r);return Math.hypot(Math.max(q.x-x,0,x-q.x-q.w),Math.max(q.z-z,0,z-q.z-q.d));};
+    return dist(a)-dist(b);
+  })[0];
+  const r=ROOMS.find(r=>r.id===original.id),a=roomBounds(original),b=roomBounds(r);
+  const fit=(p,min,length,to,size)=>p-min<.75?to+(p-min):min+length-p<.75?to+size-(min+length-p):to+(p-min)/length*size;
+  return [fit(x,a.x,a.w,b.x,b.w),fit(z,a.z,a.d,b.z,b.d)];
+}
+export function validateLayout(l) {
+  if(!l||!l.ground||!l.first)throw Error('Dimensions du projet incomplètes.');
+  for(const n of [l.width,l.depth,...Object.values(l.ground),...Object.values(l.first)]) if(!Number.isFinite(n))throw Error('Saisissez des dimensions numériques.');
+  const g=l.ground,f=l.first;
+  if(l.width<9.8||l.width>12.5||l.depth<7.6||l.depth>11)throw Error('L’enveloppe de cette maison peut mesurer de 9,80 à 12,50 m sur 7,60 à 11 m.');
+  if(g.office<2.5||g.office>3.0||g.shower<6.2||g.shower>7.3||g.service-g.shower<1.85||l.width-g.service<1.2)throw Error('Conservez le passage de l’escalier et au moins 1,71 m dans la douche, 1,13 m dans les sanitaires.');
+  if(g.back<3.40||g.back>4.4||g.wc<1.6||g.wc>2.25||g.back-g.wc<1.45||l.depth-g.back<3.7)throw Error('Profondeur incompatible avec l’escalier, les portes ou les équipements du rez-de-chaussée.');
+  if(f.bed3<2.5||f.bed3>3.0||f.suite<3.8||f.suite>4.8||f.east<6.2||f.east-f.suite<1.65||f.wc-f.east<1.3||l.width-f.wc<1.65)throw Error('La répartition de l’étage doit conserver les passages et les sanitaires.');
+  if(f.bath<2.05||f.bath>2.8||f.back<3.8||f.back>4.7||f.back-f.bath<1.55||l.depth-f.back<3.5)throw Error('Profondeur incompatible avec la baignoire, les portes ou les chambres.');
+  // Keep all real door widths and adequate jambs after moving their centres.
+  for(const w of BASE_WALLS) {
+    const a=mapPlanPoint(...w.a,w.floor,l),b=mapPlanPoint(...w.b,w.floor,l),L=Math.hypot(b[0]-a[0],b[1]-a[1]);
+    const oldL=Math.hypot(w.b[0]-w.a[0],w.b[1]-w.a[1]);
+    const openings=w.openings.map(o=>{const p=mapPlanPoint(w.a[0]+(w.b[0]-w.a[0])*o.u/oldL,w.a[1]+(w.b[1]-w.a[1])*o.u/oldL,w.floor,l);return {...o,u:Math.hypot(p[0]-a[0],p[1]-a[1])};}).sort((a,b)=>a.u-b.u);
+    for(let i=0;i<openings.length;i++){const o=openings[i];if(o.u-o.width/2<.07||o.u+o.width/2>L-.07||(i&&o.u-o.width/2<openings[i-1].u+openings[i-1].width/2+.08))throw Error('Une ouverture ne tient plus dans sa cloison. Agrandissez la pièce voisine.');}
+  }
+  return l;
+}
+export function applyLayout(input) {
+  const l=validateLayout(clone(input));
+  LAYOUT=l;
+  for(let i=0;i<ROOMS.length;i++) {
+    const b=BASE_ROOMS[i],r=ROOMS[i];
+    r.polygon=b.polygon.map(p=>mapPlanPoint(...p,b.floor));
+    for(const key of ['view','look']) {const p=mapPlanPoint(b[key][0],b[key][2],b.floor);r[key]=[p[0],b[key][1],p[1]];}
+    r.area=(polygonArea(r.polygon)-(r.subtract||0))*SCALE*SCALE;
+  }
+  for(let i=0;i<WALLS.length;i++) {
+    const b=BASE_WALLS[i],w=WALLS[i],length=Math.hypot(b.b[0]-b.a[0],b.b[1]-b.a[1]);
+    w.a=mapPlanPoint(...b.a,b.floor);w.b=mapPlanPoint(...b.b,b.floor);
+    w.openings=b.openings.map(o=>{const p=mapPlanPoint(b.a[0]+(b.b[0]-b.a[0])*o.u/length,b.a[1]+(b.b[1]-b.a[1])*o.u/length,b.floor);return {...o,u:Math.hypot(p[0]-w.a[0],p[1]-w.a[1])};});
+  }
+  TOTAL_AREA=ROOMS.reduce((s,r)=>s+r.area,0);PROGRAM.area=TOTAL_AREA;
+  return clone(l);
+}
+export function resizedLayout(id,width,depth) {
+  const r=ROOMS.find(r=>r.id===id);if(!r)throw Error('Pièce inconnue.');
+  if(!Number.isFinite(width)||!Number.isFinite(depth)||width<=0||depth<=0)throw Error('Indiquez une largeur et une profondeur positives.');
+  const l=clone(LAYOUT),g=l.ground,f=l.first,w=width/SCALE,d=depth/SCALE;
+  switch(id) {
+    case 'living': l.width=w;l.depth=g.back+.07+d;break;
+    case 'office':g.office=w+.07;g.back=d+.07;break;
+    case 'entry':g.shower=g.office+.14+w;g.back=d+.07;break;
+    case 'shower':g.service=g.shower+.14+w;g.back=d+.07;break;
+    case 'wc-ground':g.service=l.width-.07-w;g.wc=d+.07;break;
+    case 'utility':g.service=l.width-.07-w;g.wc=g.back-.14-d;break;
+    case 'suite':f.suite=w+.07;f.back=l.depth-.07-d;break;
+    case 'bedroom-2':f.east=l.width-.07-w;f.back=l.depth-.07-d;break;
+    case 'bedroom-3':f.bed3=w+.07;f.back=d+.07;break;
+    case 'bathroom':f.east=l.width-.07-w;f.bath=d+.07;break;
+    case 'wc-first':f.wc=f.east+.14+w;f.bath=f.back-.14-d;break;
+    case 'wardrobe':f.wc=l.width-.07-w;f.bath=f.back-.14-d;break;
+    case 'gallery':f.east=f.bed3+.14+w;l.depth=d;break;
+  }
+  return validateLayout(l);
+}

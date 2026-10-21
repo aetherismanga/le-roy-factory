@@ -1,9 +1,9 @@
 import * as T from "three";
-import { LEVEL_HEIGHT, SCALE, unpoint, stairHeight, WELL } from "./plan.js";
+import { LEVEL_HEIGHT, SCALE, unpoint, stairHeight, WELL, LAYOUT } from "./plan.js";
 export function collisionWorld(house, garden) {
   const radius = 0.18,
     obstacles = [...house.colliders, ...garden.obstacles],
-    inside = (x, z) => x >= 0 && x <= 10 && z >= 0 && z <= 8;
+    inside = (x, z) => x >= 0 && x <= LAYOUT.width && z >= 0 && z <= LAYOUT.depth;
   function groundAt(x, z, currentHeight) {
     const [px, pz] = unpoint(x, z);
     if (px < -5 || px > 16 || pz < -6 || pz > 21) return NaN;
@@ -363,6 +363,7 @@ export function createHouseWalk({
       return path.length;
     },
     setActive,
+    setWorld(next){world=next;keys.clear();path=[];},
     setPose,
     walkTo,
     tick,

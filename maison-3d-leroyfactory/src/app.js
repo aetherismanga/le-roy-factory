@@ -6,6 +6,9 @@ import { configureColourRendering } from "../../randal-general/src/colour-render
 import { configureNavigation } from "../../randal-general/src/navigation.js";
 import { createUltraPipeline } from "../../randal-general/src/ultra-rendering.js";
 import { createMaterials } from "./materials.js";
+import {createProductTextures} from "./products.js";
+import {mountWorkshop,readDraft,saveDraft,validateProject} from "./workshop.js";
+import {allTakeoffs} from "./takeoff.js";
 import { buildHouse } from "./house.js";
 import { buildGarden } from "./garden.js";
 import { collisionWorld, createHouseWalk } from "./house-navigation.js";
@@ -21,6 +24,8 @@ import {
   unpoint,
   roomAt,
   TOTAL_AREA,
+  LAYOUT,
+  applyLayout,
 } from "./plan.js";
 const $ = (s) => document.querySelector(s),
   $$ = (s) => [...document.querySelectorAll(s)],
@@ -62,7 +67,11 @@ let renderer,
   renderedRevision = -1,
   lastRender = 0,
   lastLightZone = "",
-  frameMs = 0;
+  frameMs = 0,
+  productTextures,
+  workshop,
+  project=readDraft();
+applyLayout(project.layout);
 const errors = [],
   resources = [],
   ray = new T.Raycaster(),
@@ -81,12 +90,12 @@ function size() {
   // CSS 100dvh owns the viewport height. A cached pixel height can leave the
   // navigation below the screen during a mobile browser/orientation resize.
   if (!renderer) return;
-  const w = stage.clientWidth,
-    height = stage.clientHeight,
+  const w = canvas.clientWidth,
+    height = canvas.clientHeight,
     phone = w < 700,
     ratio = Math.min(
       devicePixelRatio || 1,
-      state.quality === "high" ? (phone ? 1.5 : 1.8) : phone ? 1.2 : 1.5,
+      state.quality === "high" ? 1.8 : 1.5,
       Math.sqrt(
         (state.quality === "high" ? 3500000 : 2100000) /
           Math.max(1, w * height),
@@ -190,6 +199,7 @@ function locationUI() {
   updateActiveLights();
 }
 function closePanels() {
+  workshop?.close();
   for (const id of ["room-panel", "settings-panel"]) $("#" + id).hidden = true;
   $("#rooms-open").setAttribute("aria-expanded", "false");
   $("#settings-open").setAttribute("aria-expanded", "false");
@@ -316,6 +326,8 @@ function setFloor(floor) {
   invalidate();
 }
 function renderRooms() {
+  $("#total-room-area").textContent=TOTAL_AREA.toFixed(2).replace(".",",")+" m²";
+  $("#welcome-area").textContent=TOTAL_AREA.toFixed(1).replace(".",",");
   const p = $("#room-list");
   p.replaceChildren();
   for (const floor of [0, 1]) {
@@ -355,7 +367,7 @@ function renderPlan() {
       gallery: ["Bibliothèque", "Palier"],
     };
   let s =
-    '<svg viewBox="-30 -45 1060 900" role="img" aria-label="Plan du ' +
+    `<svg viewBox="-30 -45 ${LAYOUT.width*100+60} ${LAYOUT.depth*100+100}" role="img" aria-label="Plan du ` +
     (f ? "premier étage" : "rez-de-chaussée") +
     '"><defs><pattern id="wood" width="120" height="18" patternUnits="userSpaceOnUse"><rect width="120" height="18" fill="#dac9ae"/><path d="M0 0H120V18H0Z" fill="none" stroke="#c9b698" stroke-width="1"/></pattern><pattern id="tile" width="120" height="60" patternUnits="userSpaceOnUse"><rect width="120" height="60" fill="#e3dfd4"/><path d="M0 0H120V60H0Z" fill="none" stroke="#cfcec1" stroke-width="1"/></pattern></defs>';
   for (const r of rooms) {
@@ -399,7 +411,7 @@ function renderPlan() {
   for (let i = 0; i < 8; i++)
     s += `<path d="M308 ${118 + i * 24.75} H414 M426 ${118 + i * 24.75} H532" stroke="#a5a791" stroke-width="2"/>`;
   s +=
-    '<path d="M361 296V68H479V296" stroke="#4f6447" stroke-width="3" fill="none"/><path d="M469 281L479 299L489 281" fill="none" stroke="#4f6447" stroke-width="3"/><text x="500" y="855" font-family="Arial" font-size="17" text-anchor="middle" fill="#839078">140 m² · Hauteur sous plafond 2,60 m · Échelle du projet en mètres</text></svg>';
+    `<path d="M361 296V68H479V296" stroke="#4f6447" stroke-width="3" fill="none"/><path d="M469 281L479 299L489 281" fill="none" stroke="#4f6447" stroke-width="3"/><text x="${LAYOUT.width*50}" y="${LAYOUT.depth*100+45}" font-family="Arial" font-size="17" text-anchor="middle" fill="#839078">${TOTAL_AREA.toFixed(2).replace(".",",")} m² · Hauteur sous plafond 2,60 m · Dimensions intérieures</text></svg>`;
   $("#plan-drawing").innerHTML = s;
   $("#plan-drawing")
     .querySelectorAll("[data-room]")
@@ -448,6 +460,8 @@ function setLight(id) {
   sun.intensity = p.sun;
   sun.color.set(p.color);
   sun.position.set(...p.pos);
+  const hour=Number($('#sun-hour')?.value||14),az=(hour-12)/12*Math.PI;
+  if(id!=='night')sun.position.set(Math.sin(az)*16,Math.max(4,Math.cos(az)*15),14);
   sun.target.position.set(0, 1, 0);
   hemisphere.intensity = p.hemi;
   scene.environmentIntensity = p.env;
@@ -735,12 +749,70 @@ function frame(t) {
     $("#welcome").hidden = false;
   }
 }
+function focusRoom(id){
+  const r=ROOMS.find(r=>r.id===id);if(!r)return;
+  const x=r.polygon.reduce((n,p)=>n+p[0],0)/r.polygon.length,z=r.polygon.reduce((n,p)=>n+p[1],0)/r.polygon.length;
+  state.room=id;state.floor=r.floor;setMode('model');
+  pose([x+2.4,7.4,z+3.1],[x,.3,z],r.floor,false);workshop.open(id);invalidate();
+}
+function setPaint(id,color){
+  const m=house.paintMaterials.get(id);if(!m)return;
+  m.color.set(color);project.rooms[id].paint=color;saveDraft(project);invalidate();
+}
+async function setSurfaces(ids,spec){
+  if(!ids.length||ids.some(id=>!ROOMS.some(r=>r.id===id)))throw Error('Pièce inconnue.');
+  const next=structuredClone(project);for(const id of ids)next.rooms[id].floor=structuredClone(spec);validateProject(next);
+  const previous=structuredClone(project);
+  try{for(const id of ids)await house.setFloorSurface(id,spec);project=next;saveDraft(project);invalidate();}
+  catch(e){for(const id of ids)await house.setFloorSurface(id,previous.rooms[id].floor);invalidate();throw e;}
+}
+function disposeHouse(old,next){
+  const keepM=new Set(),keepT=new Set();
+  const keep=m=>{if(!m?.isMaterial)return;keepM.add(m);for(const v of Object.values(m))if(v?.isTexture)keepT.add(v);};
+  for(const v of Object.values(materials))if(Array.isArray(v))v.forEach(keep);else keep(v);
+  next.root.traverse(o=>{if(o.isMesh)for(const m of Array.isArray(o.material)?o.material:[o.material])keep(m);});
+  const gs=new Set(),ms=new Set();old.root.traverse(o=>{if(o.geometry)gs.add(o.geometry);if(o.material)for(const m of Array.isArray(o.material)?o.material:[o.material])ms.add(m);});
+  for(const tx of productTextures.resources)keepT.add(tx);
+  gs.forEach(g=>g.dispose());
+  const disposableTextures=new Set();for(const m of ms)if(!keepM.has(m))for(const tx of Object.values(m))if(tx?.isTexture&&!keepT.has(tx))disposableTextures.add(tx);
+  disposableTextures.forEach(tx=>tx.dispose());
+  // Product maps are cached for reuse when returning to a saved selection.
+  for(const m of ms)if(!keepM.has(m))m.dispose();
+  for(const m of old.mirrors)m.mirror.getRenderTarget?.().dispose();
+  scene.remove(old.root);
+}
+async function rebuildHouse(raw){
+  const next=validateProject(raw),previousLayout=structuredClone(project.layout),old=house;
+  const workshopWasOpen=!$("#workshop-panel").hidden,workshopRoom=workshop?.activeRoom;
+  walk.stop();walk.setActive(false);
+  try{
+    applyLayout(next.layout);
+    const temporary=new T.Scene(),built=await buildHouse(temporary,materials,next,productTextures);
+    const envelopeChanged=Math.abs(previousLayout.width-next.layout.width)>1e-9||Math.abs(previousLayout.depth-next.layout.depth)>1e-9;
+    const builtGarden=envelopeChanged?buildGarden(temporary,materials):null;
+    // Prepare both scene graphs before replacing the live project.
+    scene.add(built.root);house=built;project=next;
+    disposeHouse(old,built);
+    if(builtGarden){
+      const previousGarden=garden;garden=builtGarden;scene.add(garden.root);
+      const geometries=new Set(),mats=new Set();previousGarden.root.traverse(o=>{if(o.geometry)geometries.add(o.geometry);if(o.material)for(const m of Array.isArray(o.material)?o.material:[o.material])mats.add(m);});
+      geometries.forEach(g=>g.dispose());const shared=new Set(Object.values(materials).filter(m=>m?.isMaterial));mats.forEach(m=>{if(!shared.has(m))m.dispose();});scene.remove(previousGarden.root);
+    }
+    world=collisionWorld(house,garden);walk.setWorld(world);
+    installMirrors();lastLightZone='';setLight(state.light);renderRooms();
+    // A safe room viewpoint is recomputed against the new walls and furniture.
+    const mode=state.mode==='welcome'?'model':state.mode;
+    setMode(mode);locationUI();saveDraft(project);workshop?.refresh();if(workshopWasOpen)workshop.open(workshopRoom);invalidate();
+    return true;
+  }catch(e){applyLayout(previousLayout);walk.setActive(state.mode==='visit');throw e;}
+}
 function bindUI() {
   $("#enter").onclick = () => setMode("visit");
   $("#explore-model").onclick = () => setMode("model");
   $("#brand").onclick = (e) => {
     e.preventDefault();
     if (!state.ready) return;
+    closePanels();
     stopTour(false);
     state.mode = "welcome";
     document.body.dataset.mode = "welcome";
@@ -792,19 +864,11 @@ function bindUI() {
   $$("[data-paint]").forEach(
     (b) =>
       (b.onclick = () => {
-        const mat = house.paintMaterials.get(state.room),
-          room = ROOMS.find((r) => r.id === state.room);
-        if (room?.flooring === "stone") {
-          status("Cette pièce conserve son revêtement minéral.");
-          return;
-        }
-        if (mat) {
-          mat.color.set(b.dataset.paint);
-          invalidate();
-          status("Peinture appliquée à " + (room?.name || "la pièce"));
-        }
+        setPaint(state.room,b.dataset.paint);
+        workshop?.refresh();
       }),
   );
+  $("#sun-hour").oninput=e=>{$("#sun-hour-label").textContent=e.target.value+" h";setLight(state.light);};
   $("#quality").onchange = (e) => setQuality(e.target.value);
   $("#help-open").onclick = () => $("#help").showModal();
   $("#help-close").onclick = () => $("#help").close();
@@ -818,7 +882,7 @@ function bindUI() {
   };
   $("#capture").onclick = () => {
     try {
-      renderer.render(scene, camera);
+      if(ultra)ultra.render(0);else renderer.render(scene, camera);
       const a = document.createElement("a");
       a.download = "maison-3d-leroyfactory.png";
       a.href = canvas.toDataURL("image/png");
@@ -851,7 +915,7 @@ async function start() {
     configureColourRendering(renderer);
     renderer.info.autoReset = false;
     renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = T.PCFShadowMap;
+    renderer.shadowMap.type = T.PCFSoftShadowMap;
     renderer.shadowMap.autoUpdate = false;
     renderer.shadowMap.needsUpdate = true;
     scene = new T.Scene();
@@ -907,7 +971,8 @@ async function start() {
       progress(8 + n * 35),
     );
     progress(47, "Construction des deux niveaux et de l’escalier…");
-    house = await buildHouse(scene, materials);
+    productTextures=createProductTextures(renderer);
+    house = await buildHouse(scene, materials,project,productTextures);
     progress(75, "Jardin, terrasse et mobilier extérieur…");
     garden = buildGarden(scene, materials);
     world = collisionWorld(house, garden);
@@ -927,6 +992,7 @@ async function start() {
       architectureCapture(() => renderShadow(...args));
     installMirrors();
     bindUI();
+    workshop=mountWorkshop({getHouse:()=>house,getProject:()=>project,getState:()=>state,goRoom,focusRoom,setMode,closePanels,stopTour,status,onPanel:size,setPaint,setLayout:async layout=>{const next=structuredClone(project);next.layout=layout;await rebuildHouse(next);},setBathroom:async(id,s)=>{const next=structuredClone(project);next.bathrooms[id]=s;await rebuildHouse(next);},setSurfaces,replaceProject:rebuildHouse});
     renderRooms();
     house.show("exterior");
     setLight("day");
@@ -935,6 +1001,7 @@ async function start() {
     if (state.quality === "high") setQuality("high");
     updateActiveLights();
     window.maison3D = {
+      workshop:{open:(id)=>workshop.open(id),close:()=>workshop.close(),setTab:id=>workshop.setTab(id),getProject:()=>structuredClone(project),getTakeoffs:()=>allTakeoffs(house),setSurfaces,setLayout:async layout=>{const next=structuredClone(project);next.layout=layout;await rebuildHouse(next);},setBathroom:async(id,s)=>{const next=structuredClone(project);next.bathrooms[id]=s;await rebuildHouse(next);},replaceProject:rebuildHouse},
       getState: () => ({
         ...state,
         camera: camera.position.toArray(),

@@ -1,5 +1,4 @@
 import * as T from "three";
-import { RGBELoader } from "three/addons/loaders/RGBELoader.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { prepareFinishTexture } from "../../randal-general/src/finish-texture.js";
 import { FINISHES } from "../../randal-general/src/finishes.js";
@@ -131,6 +130,9 @@ export async function createMaterials(renderer, scene, onProgress = () => {}) {
     cloth,
     woodBump: bump,
   };
+  for(const key of ['linen','ivoryFabric','charcoalFabric','sageFabric','clayFabric']){
+    m[key].sheen=.65;m[key].sheenColor.copy(m[key].color).lerp(new T.Color('#fff9eb'),.2);m[key].sheenRoughness=.84;
+  }
   m.glass.userData.architecturalGlass = true;
   const tasks = [
     ["oak", ASSETS + "serenade-alba.webp"],
@@ -165,19 +167,13 @@ export async function createMaterials(renderer, scene, onProgress = () => {}) {
   );
   const pmrem = new T.PMREMGenerator(renderer);
   pmrem.compileEquirectangularShader();
-  try {
-    const hdr = await new RGBELoader().loadAsync(ASSETS + "day.hdr");
-    const env = pmrem.fromEquirectangular(hdr);
-    scene.environment = env.texture;
-    resources.push(env);
-    hdr.dispose();
-  } catch {
-    const room = new RoomEnvironment();
-    const env = pmrem.fromScene(room, 0.04);
-    scene.environment = env.texture;
-    room.dispose();
-    resources.push(env);
-  }
+  // Neutral studio illumination avoids reflecting the unrelated office
+  // photograph of the legacy HDR. Mirrors still reflect the actual house.
+  const environment = new RoomEnvironment();
+  const env = pmrem.fromScene(environment, .055);
+  scene.environment = env.texture;
+  resources.push(env);
+  environment.dispose();
   pmrem.dispose();
   onProgress(1);
   scene.environmentIntensity = 0.5;

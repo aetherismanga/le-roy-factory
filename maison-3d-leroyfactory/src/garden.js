@@ -8,10 +8,11 @@ import {
   mesh,
   batchFurniture,
 } from "./geometry.js";
-import { point, SCALE } from "./plan.js";
+import { point as basePoint, SCALE, LAYOUT } from "./plan.js";
 import { furnitureKit } from "./furniture.js";
 import { textureClone } from "./materials.js";
 export function buildGarden(scene, M) {
+  const point=(x,y,z)=>basePoint(x>10?x+LAYOUT.width-10:x<0?x:x/10*LAYOUT.width,y,z>8?z+LAYOUT.depth-8:z<0?z:z/8*LAYOUT.depth);
   const root = group(scene, 0, 0, 0, 0, "Jardin_terrasse_et_paysage"),
     kit = furnitureKit(M),
     obstacles = [];
@@ -161,8 +162,8 @@ export function buildGarden(scene, M) {
   water.rotation.x = -Math.PI / 2;
   water.castShadow = false;
   obstacles.push({
-    x: (2 - 5) * SCALE,
-    z: (13.65 - 4) * SCALE,
+    x: point(2,0,13.65)[0],
+    z: point(2,0,13.65)[2],
     w: 4.65,
     d: 2.65,
     floor: 0,
