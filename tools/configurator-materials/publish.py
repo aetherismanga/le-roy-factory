@@ -31,9 +31,6 @@ def extract_view():
  spec=json.loads((BASE/'view-sources.json').read_text());sources={s['url']:s for c in spec['collections'] for co in c['colors'] for s in co.get('sources',[])}
  def locate(s):
   url=s['url']
-  if s.get('repositoryFile'):
-   candidate=BASE.parents[1]/s['repositoryFile']
-   if candidate.exists():return candidate
   return download(spec.get('mirrors',{}).get(url,url),s.get('sha256'))
  with concurrent.futures.ThreadPoolExecutor(5) as pool:paths=dict(zip(sources,pool.map(locate,sources.values())))
  count=0
