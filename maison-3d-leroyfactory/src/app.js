@@ -8,6 +8,8 @@ import { createUltraPipeline } from "../../randal-general/src/ultra-rendering.js
 import { createMaterials } from "./materials.js";
 import {createProductTextures} from "./products.js";
 import {mountWorkshop,readDraft,saveDraft,validateProject} from "./workshop.js";
+import {createSceneEditor} from "./scene-editor.js";
+import {QUALITY,initialQuality,saveQuality,applySceneQuality} from "./quality.js";
 import {allTakeoffs} from "./takeoff.js";
 import { buildHouse } from "./house.js";
 import { buildGarden } from "./garden.js";
@@ -37,7 +39,7 @@ const $ = (s) => document.querySelector(s),
     floor: 0,
     room: "living",
     light: "day",
-    quality: innerWidth > 900 ? "high" : "balanced",
+    quality: initialQuality(),
     tour: false,
   },
   reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -70,6 +72,7 @@ let renderer,
   frameMs = 0,
   productTextures,
   workshop,
+  editor,
   project=readDraft();
 applyLayout(project.layout);
 const errors = [],
@@ -95,9 +98,9 @@ function size() {
     phone = w < 700,
     ratio = Math.min(
       devicePixelRatio || 1,
-      state.quality === "high" ? 1.8 : 1.5,
+      QUALITY[state.quality].ratio,
       Math.sqrt(
-        (state.quality === "high" ? 3500000 : 2100000) /
+        QUALITY[state.quality].pixels /
           Math.max(1, w * height),
       ),
     );
@@ -135,7 +138,7 @@ function locate() {
 }
 function updateActiveLights() {
   if (!house) return;
-  const key = [state.mode, state.floor, state.room, state.light].join(":");
+  const key = [state.mode, state.floor, state.room, state.light,state.quality].join(":");
   if (key === lastLightZone) return;
   lastLightZone = key;
   const indoor = state.mode === "visit" || state.mode === "model",
@@ -148,7 +151,7 @@ function updateActiveLights() {
       .sort((a, b) => a.d - b.d),
     active = new Set(
       candidates
-        .slice(0, indoor ? 6 : state.light === "night" ? 6 : 0)
+        .slice(0, indoor || state.light === "night" ? QUALITY[state.quality].lights : 0)
         .map((x) => x.s),
     );
   for (const s of house.spots) s.light.visible = active.has(s);
@@ -230,7 +233,7 @@ function pose(position, target, floor = 0, animate = true) {
     controls.target.copy(t);
     controls.update();
   }
-  invalidate();
+  camera.updateMatrixWorld(true);invalidate();
 }
 function safeRoomPose(room) {
   const y = room.floor * LEVEL_HEIGHT + 0.02;
@@ -263,6 +266,7 @@ function safeRoomPose(room) {
 function setMode(mode, { keepPose = false } = {}) {
   if (!state.ready) return;
   state.mode = mode;
+  if(mode!=="model")editor?.refreshHelper();
   document.body.dataset.mode = mode;
   $("#welcome").hidden = true;
   $("#experience").hidden = false;
@@ -487,7 +491,7 @@ function setLight(id) {
   invalidate();
 }
 function setQuality(id) {
-  if (!["balanced", "high"].includes(id)) return false;
+  if (!QUALITY[id]) return false;
   state.quality = id;
   if (ultra) {
     ultra.dispose();
@@ -504,17 +508,15 @@ function setQuality(id) {
       screenSpaceRadius: false,
     });
   }
-  const shadow = id === "high" ? 4096 : innerWidth < 700 ? 1536 : 3072;
+  const shadow = QUALITY[id].shadow;
+  applySceneQuality(house,garden,id);saveQuality(id);lastLightZone="";updateActiveLights();
   sun.shadow.mapSize.set(shadow, shadow);
   sun.shadow.map?.dispose();
   sun.shadow.map = null;
   size();
   $("#quality").value = id;
-  status(
-    id === "high"
-      ? "Haute qualité : ombres de contact activées"
-      : "Affichage équilibré",
-  );
+  if($("#quality-quick"))$("#quality-quick").value=id;
+  status(QUALITY[id].label);
   return true;
 }
 function interact(e) {
@@ -659,25 +661,19 @@ function installMirrors() {
   for (const { mirror, floor, root } of house.mirrors) {
     const capture = mirror.onBeforeRender.bind(mirror);
     let at = -1000,
-      lastRevision = -1,
-      lastPosition = new T.Vector3(999, 999, 999),
       first = true;
     mirror.onBeforeRender = (...args) => {
       if (scene.overrideMaterial || state.mode !== "visit") return;
       root.getWorldPosition(tmp);
-      if (camera.position.distanceTo(tmp) > 6.0) return;
+      if (camera.position.distanceTo(tmp) > QUALITY[state.quality].mirrorDistance) return;
       const now = performance.now();
       if (
         !first &&
-        now - at < 130 &&
-        lastRevision === revision &&
-        camera.position.distanceTo(lastPosition) < 0.04
+        now - at < QUALITY[state.quality].mirrorDelay
       )
         return;
       first = false;
       at = now;
-      lastRevision = revision;
-      lastPosition.copy(camera.position);
       architectureCapture(() => capture(...args));
       mirrorRenders++;
     };
@@ -709,7 +705,7 @@ function frame(t) {
     invalidate();
   }
   updateMaquette();
-  if (garden?.water) {
+  if (garden?.water&&QUALITY[state.quality].water) {
     const a = garden.water.geometry.attributes.position;
     for (let i = 0; i < a.count; i++) {
       const x = a.getX(i),
@@ -733,7 +729,7 @@ function frame(t) {
       renderedRevision !== revision ||
       !firstPaint ||
       (animated && t - lastRender > 100);
-  if (dirty && t - lastRender > 30) {
+  if (dirty && t - lastRender > QUALITY[state.quality].frame) {
     const start = performance.now();
     renderer.info.reset();
     if (ultra) ultra.render(dt);
@@ -763,7 +759,7 @@ async function setSurfaces(ids,spec){
   if(!ids.length||ids.some(id=>!ROOMS.some(r=>r.id===id)))throw Error('Pièce inconnue.');
   const next=structuredClone(project);for(const id of ids)next.rooms[id].floor=structuredClone(spec);validateProject(next);
   const previous=structuredClone(project);
-  try{for(const id of ids)await house.setFloorSurface(id,spec);project=next;saveDraft(project);invalidate();}
+  try{for(const id of ids)await house.setFloorSurface(id,spec);Object.assign(project,next);saveDraft(project);invalidate();}
   catch(e){for(const id of ids)await house.setFloorSurface(id,previous.rooms[id].floor);invalidate();throw e;}
 }
 function disposeHouse(old,next){
@@ -790,6 +786,8 @@ async function rebuildHouse(raw){
     const temporary=new T.Scene(),built=await buildHouse(temporary,materials,next,productTextures);
     const envelopeChanged=Math.abs(previousLayout.width-next.layout.width)>1e-9||Math.abs(previousLayout.depth-next.layout.depth)>1e-9;
     const builtGarden=envelopeChanged?buildGarden(temporary,materials):null;
+    const conflicts=built.arrangement.audit();
+    if(conflicts.length){disposeHouse(built,old);throw Error('Aménagement à ajuster : '+conflicts[0].name+' · '+conflicts[0].message+' Déplacez l’élément avant de modifier la pièce ou le modèle.');}
     // Prepare both scene graphs before replacing the live project.
     scene.add(built.root);house=built;project=next;
     disposeHouse(old,built);
@@ -798,8 +796,8 @@ async function rebuildHouse(raw){
       const geometries=new Set(),mats=new Set();previousGarden.root.traverse(o=>{if(o.geometry)geometries.add(o.geometry);if(o.material)for(const m of Array.isArray(o.material)?o.material:[o.material])mats.add(m);});
       geometries.forEach(g=>g.dispose());const shared=new Set(Object.values(materials).filter(m=>m?.isMaterial));mats.forEach(m=>{if(!shared.has(m))m.dispose();});scene.remove(previousGarden.root);
     }
-    world=collisionWorld(house,garden);walk.setWorld(world);
-    installMirrors();lastLightZone='';setLight(state.light);renderRooms();
+    world=collisionWorld(house,garden);walk.setWorld(world);editor?.reset();
+    applySceneQuality(house,garden,state.quality);installMirrors();lastLightZone='';setLight(state.light);renderRooms();
     // A safe room viewpoint is recomputed against the new walls and furniture.
     const mode=state.mode==='welcome'?'model':state.mode;
     setMode(mode);locationUI();saveDraft(project);workshop?.refresh();if(workshopWasOpen)workshop.open(workshopRoom);invalidate();
@@ -870,6 +868,8 @@ function bindUI() {
   );
   $("#sun-hour").oninput=e=>{$("#sun-hour-label").textContent=e.target.value+" h";setLight(state.light);};
   $("#quality").onchange = (e) => setQuality(e.target.value);
+  $("#quality-quick").onchange=(e)=>setQuality(e.target.value);
+  $("#arrange-open").onclick=()=>{workshop.setTab("arrange");workshop.open(state.room);};
   $("#help-open").onclick = () => $("#help").showModal();
   $("#help-close").onclick = () => $("#help").close();
   $("#help-go").onclick = () => $("#help").close();
@@ -992,15 +992,23 @@ async function start() {
       architectureCapture(() => renderShadow(...args));
     installMirrors();
     bindUI();
-    workshop=mountWorkshop({getHouse:()=>house,getProject:()=>project,getState:()=>state,goRoom,focusRoom,setMode,closePanels,stopTour,status,onPanel:size,setPaint,setLayout:async layout=>{const next=structuredClone(project);next.layout=layout;await rebuildHouse(next);},setBathroom:async(id,s)=>{const next=structuredClone(project);next.bathrooms[id]=s;await rebuildHouse(next);},setSurfaces,replaceProject:rebuildHouse});
+    editor=createSceneEditor({canvas,camera,controls,scene,getHouse:()=>house,getProject:()=>project,getState:()=>state,
+      active:()=>!$("#workshop-panel").hidden&&workshop?.tab==='arrange'&&state.mode==='model',
+      status,invalidate,refresh:()=>workshop?.refresh(),
+      focus:item=>{const r=ROOMS.find(r=>r.id===item.room),b=house.arrangement.items.get(item.id).root.position,[x,z]=unpoint(b.x,b.z);pose([x+2,4.5,z+2.5],[x,item.y/100+.5,z],r.floor,false);invalidate();},
+      onCommit:()=>{house.colliders.length=0;house.colliders.push(...house.arrangement.colliders());world=collisionWorld(house,garden);walk.setWorld(world);saveDraft(project);invalidate();}
+    });
+    workshop=mountWorkshop({editor,getHouse:()=>house,getProject:()=>project,getState:()=>state,goRoom,focusRoom,setMode,closePanels,stopTour,status,onPanel:size,setPaint,setLayout:async layout=>{const next=structuredClone(project);next.layout=layout;await rebuildHouse(next);},setBathroom:async(id,s)=>{const next=structuredClone(project);next.bathrooms[id]=s;await rebuildHouse(next);},setSurfaces,replaceProject:rebuildHouse});
     renderRooms();
     house.show("exterior");
     setLight("day");
     progress(100, "Bienvenue dans Maison 3D LeroyFactory.");
     state.ready = true;
-    if (state.quality === "high") setQuality("high");
+    setQuality(state.quality);
     updateActiveLights();
     window.maison3D = {
+      arrangement:{list:()=>house.arrangement.list(),audit:()=>house.arrangement.audit(),zones:()=>house.arrangement.reservations,select:id=>editor.select(id),update:(id,patch)=>editor.update(id,patch),undo:redo=>editor.undo(redo),
+        projectPoint:id=>{camera.updateMatrixWorld(true);const it=house.arrangement.items.get(id),p=it.root.getWorldPosition(new T.Vector3());p.y+=Math.min(.7,it.dimensions.y*.9);p.project(camera);const r=canvas.getBoundingClientRect();return {x:r.x+(p.x+1)*r.width/2,y:r.y+(1-p.y)*r.height/2};}},
       workshop:{open:(id)=>workshop.open(id),close:()=>workshop.close(),setTab:id=>workshop.setTab(id),getProject:()=>structuredClone(project),getTakeoffs:()=>allTakeoffs(house),setSurfaces,setLayout:async layout=>{const next=structuredClone(project);next.layout=layout;await rebuildHouse(next);},setBathroom:async(id,s)=>{const next=structuredClone(project);next.bathrooms[id]=s;await rebuildHouse(next);},replaceProject:rebuildHouse},
       getState: () => ({
         ...state,
@@ -1033,6 +1041,8 @@ async function start() {
           vertices,
           frames,
           frameMs: Math.round(frameMs),
+          graphics:{preset:state.quality,pixelRatio:renderer.getPixelRatio(),buffer:renderer.getDrawingBufferSize(new T.Vector2()).toArray(),shadow:sun.shadow.mapSize.x,ao:!!ultra,mirrorSize:house.mirrors[0]?.mirror.getRenderTarget().width,grass:(()=>{let n=0;garden.root.traverse(o=>{if(o.userData.qualityKind==='grass')n+=o.count;});return n;})()},
+          editableItems:house.arrangement.items.size,
           activeLights: house.spots.filter((s) => s.light.visible).length,
           drawCalls: renderer.info.render.calls,
           triangles: renderer.info.render.triangles,

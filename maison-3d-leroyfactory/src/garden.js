@@ -223,6 +223,7 @@ export function buildGarden(scene, M) {
       leaves = new T.InstancedMesh(geo, M.leaf, 2200),
       matrix = new T.Matrix4(),
       q = new T.Quaternion();
+    leaves.userData={qualityKind:"leaves",fullCount:2200};
     for (let i = 0; i < 2200; i++) {
       const a = random() * Math.PI * 2,
         r = Math.sqrt(random()) * 1.28,
@@ -358,6 +359,7 @@ export function buildGarden(scene, M) {
   const blades = new T.InstancedMesh(bladeGeo, M.leafLight, 18000),
     bm = new T.Matrix4(),
     bq = new T.Quaternion();
+  blades.userData={qualityKind:"grass",fullCount:18000};
   let i = 0;
   while (i < 18000) {
     const x = -4 + random() * 18,

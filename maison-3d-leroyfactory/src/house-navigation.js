@@ -13,6 +13,7 @@ export function collisionWorld(house, garden) {
     if (floor && !inside(px, pz)) return NaN;
     return floor * LEVEL_HEIGHT + 0.02;
   }
+  const doorMatrices=new Map(),doorPoint=new T.Vector3();
   function passable(x, z, height, { ignoreSteps = false } = {}) {
     const ground = groundAt(x, z, height);
     if (
@@ -46,11 +47,20 @@ export function collisionWorld(house, garden) {
       );
       if (!clear) return false;
     }
+    // The open leaf remains a physical object, including during its animation.
+    for(const d of house.doors||[]){
+      if(d.floor!==floor)continue;
+      let cached=doorMatrices.get(d.id);
+      if(!cached||cached.progress!==d.progress){d.asset.door.updateWorldMatrix(true,false);cached={progress:d.progress,inverse:d.asset.door.matrixWorld.clone().invert()};doorMatrices.set(d.id,cached);}
+      doorPoint.set(x,floor*LEVEL_HEIGHT+.9,z).applyMatrix4(cached.inverse);
+      if(doorPoint.y>0&&doorPoint.y<d.opening.height&&Math.abs(doorPoint.z)<.022+radius&&doorPoint.x>-.003-radius&&doorPoint.x<d.opening.width-.10+radius)return false;
+    }
     for (const o of obstacles) {
       if (o.floor !== floor || o.maxY < 0.15 || o.minY > 1.6) continue;
+      const c=Math.cos(o.angle||0),s=Math.sin(o.angle||0),dx=x-o.x,dz=z-o.z;
       if (
-        Math.abs(x - o.x) < o.w / 2 + radius &&
-        Math.abs(z - o.z) < o.d / 2 + radius
+        Math.abs(dx*c-dz*s) < o.w / 2 + radius &&
+        Math.abs(dx*s+dz*c) < o.d / 2 + radius
       )
         return false;
     }

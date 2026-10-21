@@ -224,9 +224,9 @@ WALLS.push(
     0,
     [2.87, 0],
     [2.87, 3.43],
-    [opening("office-door", 2.68, 0.88)],
+    [],
   ),
-  wall("office-back", 0, [0, 3.43], [2.87, 3.43]),
+  wall("office-back", 0, [0, 3.43], [2.87, 3.43], [opening("office-door", 1.45, .88)]),
   wall(
     "shower-side",
     0,

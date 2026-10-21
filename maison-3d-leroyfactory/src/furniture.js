@@ -207,7 +207,7 @@ export function furnitureKit(M) {
       }
     return o;
   }
-  function sofa(p, w = 2.85) {
+  function sofa(p, w = 2.85, corner = true) {
     const g = group(p, 0, 0, 0, 0, "Canapé_d_angle");
     box(
       g,
@@ -262,7 +262,7 @@ export function furnitureKit(M) {
       );
       c.rotation.x = -0.12;
     }
-    box(
+    if(corner){box(
       g,
       0.88,
       0.23,
@@ -274,7 +274,7 @@ export function furnitureKit(M) {
       "Méridienne",
       0.08,
     );
-    pillow(g, 0.85, 0.2, 0.79, -w / 2 + 0.61, 0.46, 0.77, M.ivoryFabric);
+    pillow(g, 0.85, 0.2, 0.79, -w / 2 + 0.61, 0.46, 0.77, M.ivoryFabric);}
     pillow(g, 0.39, 0.39, 0.14, -w / 2 + 0.36, 0.74, -0.08, M.sageFabric, 0.23);
     pillow(g, 0.44, 0.44, 0.15, w / 2 - 0.4, 0.74, -0.06, M.clayFabric, -0.18);
     clothSurface(g, 0.82, 0.9, M.charcoalFabric, 0.45, 0.59, 0.2, {
@@ -877,7 +877,7 @@ export function furnitureKit(M) {
       );
     return g;
   }
-  return {
+  const kit={
     plant,
     vase,
     books,
@@ -900,4 +900,5 @@ export function furnitureKit(M) {
     washer,
     pillow,
   };
+  return Object.fromEntries(Object.entries(kit).map(([kind,fn])=>[kind,(...args)=>{const o=fn(...args);if(o?.isObject3D)o.userData.furnitureKind=kind;return o;}]));
 }

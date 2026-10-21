@@ -26,6 +26,7 @@
           ></a
         >
         <div class="header-right">
+          <label class="quality-quick">Graphismes <select id="quality-quick" aria-label="Performance graphique"><option value="eco">Éco</option><option value="balanced" selected>Équilibré</option><option value="high">Haute qualité</option></select></label>
           <span class="preview-badge">ATELIER MAGASIN · BÊTA</span
           ><button
             id="help-open"
@@ -99,11 +100,12 @@
           <button data-floor="0" aria-pressed="true">RDC</button
           ><button data-floor="1" aria-pressed="false">Étage</button>
         </div>
+        <button id="arrange-open" class="arrange-launch">Aménager · déplacer les éléments ↗</button>
         <button id="workshop-open" class="workshop-launch" aria-expanded="false" aria-controls="workshop-panel"><span>✧</span> Atelier magasin <small>Matières · dimensions · métrés</small></button>
         <aside id="workshop-panel" class="workshop-panel" hidden>
           <div class="workshop-heading"><div><p class="eyebrow">LE ROY FACTORY</p><h3>Votre atelier maison.</h3></div><button id="workshop-close" class="icon-button" aria-label="Fermer l’atelier">×</button></div>
           <label class="workshop-room-label" for="workshop-room">La pièce à personnaliser</label><select id="workshop-room"></select><p id="workshop-area"></p>
-          <nav class="workshop-tabs" aria-label="Outils de l’atelier"><button data-workshop-tab="surfaces" aria-pressed="true">Sols & pose</button><button data-workshop-tab="bathroom" aria-pressed="false">Mobilier</button><button data-workshop-tab="dimensions" aria-pressed="false">Dimensions</button><button data-workshop-tab="metrics" aria-pressed="false">Métrés</button><button data-workshop-tab="project" aria-pressed="false">Dossier</button></nav>
+          <nav class="workshop-tabs" aria-label="Outils de l’atelier"><button data-workshop-tab="arrange" aria-pressed="false">Aménager</button><button data-workshop-tab="surfaces" aria-pressed="true">Sols & pose</button><button data-workshop-tab="bathroom" aria-pressed="false">Mobilier RANDAL</button><button data-workshop-tab="dimensions" aria-pressed="false">Dimensions</button><button data-workshop-tab="metrics" aria-pressed="false">Métrés</button><button data-workshop-tab="project" aria-pressed="false">Dossier</button></nav>
           <div id="workshop-body"></div><p id="workshop-status" role="status" aria-live="polite">Les modifications sont conservées sur ce navigateur.</p>
         </aside>
         <aside id="room-panel" class="room-panel" hidden>
@@ -177,11 +179,13 @@
               aria-label="Argile"
             ></button>
           </div>
+          <p class="settings-note">Éco réduit la résolution, les reflets et la végétation. Équilibré privilégie la fluidité. Haute qualité ajoute des ombres de contact et des reflets plus détaillés.</p>
           <label for="quality">Qualité de l’image</label
           ><select id="quality">
-            <option value="balanced">Équilibrée</option>
+            <option value="eco">Éco · petites configurations</option>
+            <option value="balanced">Équilibré · usage quotidien</option>
             <option value="high">
-              Haute qualité · ombres de contact
+              Haute qualité · PC puissant
             </option></select
           ><button id="capture" class="secondary">
             Enregistrer une vue ↗
@@ -279,6 +283,7 @@
           Retrouvez les pièces, le plan, la maquette et les ambiances en bas de
           l’écran.
         </p>
+        <p><b>Aménager votre projet</b><br />Ouvrez « Aménager » pour déplacer, tourner, personnaliser ou retirer les meubles et décors. Les réglages précis et la remise en place restent accessibles dans la liste. Ctrl / ⌘ Z annule la dernière modification.</p>
         <button id="help-go" class="primary">C’est parti →</button>
       </dialog>
     </main>

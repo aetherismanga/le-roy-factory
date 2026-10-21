@@ -47,6 +47,8 @@ import {
 } from "./geometry.js";
 import { textureClone } from "./materials.js";
 import { furnitureKit } from "./furniture.js";
+import {FURNITURE_LAYOUT} from "./furniture-layout.js";
+import {createArrangement} from "./arrangement.js";
 export async function buildHouse(scene, M, project = {}, textures) {
   await preloadBaths();
   const root = new T.Group();
@@ -87,6 +89,8 @@ export async function buildHouse(scene, M, project = {}, textures) {
     floorSurfaces = new Map(),
     wallSurfaces = [],
     bathroomProducts = new Map();
+  const arrangement=createArrangement({project,root,floors,doors});
+  const tracked=[];
   const world = (x, z) => point(x, 0, z),
     pos = (parent, x, y, z, rotation = 0, name) => {
       let ancestor=parent;while(ancestor&&ancestor.userData.floor===undefined)ancestor=ancestor.parent;
@@ -130,7 +134,7 @@ export async function buildHouse(scene, M, project = {}, textures) {
       minY,
       maxY,
     });
-  function place(object, x, z, floor, angle = 0, bounds = null, y = 0) {
+  function place(object, x, z, floor, angle = 0, bounds = null, y = 0, options={}) {
     [x,z]=adaptPoint(x,z,floor);
     const p = point(x, y + 0.02 + object.position.y, z);
     object.position.set(...p);
@@ -155,6 +159,7 @@ export async function buildHouse(scene, M, project = {}, textures) {
         floor,
       );
     }
+    tracked.push({object,kind:object.userData.furnitureKind|| (object.getObjectByName("Banquette_pied_de_lit")?"bench":"shelf"),floor,...options});
     return object;
   }
   function ownedMaterial(id) {
@@ -421,17 +426,22 @@ export async function buildHouse(scene, M, project = {}, textures) {
           width: Math.round(o.width * 100),
           height: Math.round(o.height * 100),
           color: w.outside ? "black" : "white",
-          hingeSide: ["shower-door", "bath-door"].includes(o.id)
-            ? "right"
-            : "left",
+          hingeSide: "left",
         });
-        const inward = ["wc-door", "utility-door"].includes(o.id) ? -1 : 1;
+        const inward = ["office-door","shower-door","bath-door","wc-door","utility-door","wc-first-door"].includes(o.id) ? -1 : 1;
+        const sliding=["wc-door","wc-first-door","wardrobe-door","wardrobe-bath-door"].includes(o.id);
         asset.root.position.z = inward * 0.24;
         asset.root.scale.z = inward;
+        if(sliding){
+          asset.setOpenProgress(0);const closed=asset.door.position.x;
+          const direction=o.id==='wardrobe-bath-door'?-1:1;
+          asset.setOpenProgress=p=>{asset.door.rotation.y=0;asset.door.position.x=closed+direction*(o.width-.1)*p;};
+        }
         mount.add(asset.root);
         asset.setOpenProgress(0.93);
         const d = {
           id: o.id,
+          sliding,inward,hinge:"left",
           asset,
           open: true,
           progress: 0.93,
@@ -753,27 +763,34 @@ export async function buildHouse(scene, M, project = {}, textures) {
   // Furniture, laid out at real dimensions. Paths to the stair and every room
   // are kept separate from kitchen cabinets and chair clearances.
   const makeBasinTap = () => makeTap(tapProduct(null, "basin"));
-  place(furn.kitchen(new T.Group()), 0.12, 3.58, 0);
-  obstacle(...adaptPoint(1.42, 3.94, 0), 2.6, 0.67, 0);
-  obstacle(...adaptPoint(0.37, 5.32, 0), 0.65, 1.8, 0);
-  obstacle(...adaptPoint(0.37, 6.27, 0), 0.72, 0.73, 0, 0, 2.45);
-  place(furn.island(new T.Group()), 3.72, 6.05, 0, 0, [2.7, 1.02, 1]);
-  place(furn.dining(new T.Group()), 7.55, 4.65, 0, 0, [2.25, 2.1, 1]);
+  const kitchen=furn.kitchen(new T.Group()),kitchenReturn=kitchen.getObjectByName('Meuble_retour').parent,fridge=kitchen.getObjectByName('Colonne_froid').parent;
+  kitchenReturn.removeFromParent();fridge.removeFromParent();
+  place(kitchen,0,4,0,0,null,0,{id:'kitchen-main'});
+  place(kitchenReturn,0,5,0,-Math.PI/2,null,0,{id:'kitchen-return',kind:'counter'});
+  place(fridge,0,7,0,-Math.PI/2,null,0,{id:'kitchen-fridge',kind:'fridge'});
+  const island=furn.island(new T.Group()),stools=island.children.filter(o=>o.name==='Tabouret_îlot');
+  for(const o of stools)o.removeFromParent();
+  place(island,2.45,5.7,0,Math.PI/2,null,0,{id:'kitchen-island'});
+  stools.forEach((o,i)=>place(o,3.35,4.85+i*.85,0,Math.PI/2,null,0,{id:'island-stool-'+i,kind:'stool'}));
+  const dining=furn.dining(new T.Group()),diningChairs=dining.children.filter(o=>o.name==='Chaise_tapissée');
+  for(const o of diningChairs)o.removeFromParent();
+  place(dining,5.15,6.85,0,0,null,0,{id:'dining-table'});
+  diningChairs.forEach((o,i)=>place(o,4.45+(i%3)*.7,6.85+(i<3?-.82:.82),0,i<3?Math.PI:0,null,0,{id:'dining-chair-'+i,kind:'chair'}));
   place(
-    furn.sofa(new T.Group(), 2.68),
-    6.35,
-    6.55,
+    furn.sofa(new T.Group(), 2.5, false),
+    6.95,
+    6.65,
     0,
     Math.PI / 2,
     [2.68, 1.0, 0.95],
   );
-  obstacle(...adaptPoint(7.15, 7.3, 0), 1.5, 0.84, 0, 0, 0.58);
+
   place(furn.rug(new T.Group(), 2.48, 2.9, 0, 0), 7.72, 6.58, 0);
-  place(furn.coffeeTable(new T.Group()), 7.98, 6.55, 0, 0, [1.18, 1.13, 0.45]);
+  place(furn.coffeeTable(new T.Group()), 8.35, 6.55, 0, 0, [1.18, 1.13, 0.45]);
   place(furn.tv(new T.Group()), 9.9, 6.55, 0, -Math.PI / 2, [2.25, 0.4, 1.7]);
   const arm = furn.chair(new T.Group(), { arm: true, mat: M.charcoalFabric });
   place(arm, 8.85, 7.5, 0, Math.PI * 0.8, [0.65, 0.65, 0.9]);
-  place(furn.sofa(new T.Group(), 1.8), 1.4, 0.65, 0, 0, [1.8, 0.92, 0.9]);
+  place(furn.sofa(new T.Group(), 1.8, false), 1.4, 0.65, 0, 0, [1.8, 0.92, 0.9]);
   place(
     furn.desk(new T.Group(), 1.3),
     0.35,
@@ -827,7 +844,7 @@ export async function buildHouse(scene, M, project = {}, textures) {
   );
   place(furn.rug(new T.Group(), 2.0, 2.9, 0, 0), 8.05, 5.7, 1);
   place(furn.nightstand(new T.Group()), 9.15, 5.1, 1, 0, [0.44, 0.4, 0.95]);
-  place(furn.wardrobe(new T.Group(), 1.0), 9.36, 4.48, 1, 0, [1.0, 0.58, 2.45]);
+  place(furn.wardrobe(new T.Group(), .8), 9.36, 4.48, 1, 0, [1.0, 0.58, 2.45]);
   place(
     furn.desk(new T.Group(), 1.25),
     8.85,
@@ -863,7 +880,7 @@ export async function buildHouse(scene, M, project = {}, textures) {
     [1.15, 0.58, 1.3],
   );
   place(furn.chair(new T.Group()), 0.85, 2.95, 1, 0, [0.53, 0.52, 0.9]);
-  const bedroomTV = furn.tv(new T.Group(), 1.02);
+  const bedroomTV = furn.tv(new T.Group(), .74);
   for (const o of [...bedroomTV.children])
     if (!["Cadre_écran", "Écran"].includes(o.name)) o.removeFromParent();
   place(bedroomTV, 6.72, 7.18, 1, Math.PI / 2);
@@ -909,11 +926,12 @@ export async function buildHouse(scene, M, project = {}, textures) {
   }
   place(shelf, 9.35, 1.98, 0);
   // Existing manufacturer models and sanitary equipment, unchanged geometry.
-  function assetAt(asset, x, y, z, floor, angle = 0, collision = null) {
+  function assetAt(asset, x, y, z, floor, angle = 0, collision = null, options={}) {
     const wrap = pos(floors[floor].reused, x, y, z, angle, asset.root.name);
     wrap.add(asset.root);
     assets.push(asset);
     if(collision){const [ax,az]=adaptPoint(x,z,floor),swap=Math.abs(Math.sin(angle))>.7;obstacle(ax,az,swap?collision[1]:collision[0],swap?collision[0]:collision[1],floor,y,y+collision[2]);}
+    tracked.push({object:wrap,kind:options.kind||"fixture",floor,fixed:true,...options});
     return wrap;
   }
   async function vanity(x,z,floor,angle,id){
@@ -933,7 +951,7 @@ export async function buildHouse(scene, M, project = {}, textures) {
       const tap=makeBasinTap();tap.position.set(center,a.spec.bottom+a.spec.height+.025+(s.top==='neris'?.15:s.top==='torne'?.13:0),-form.depth/200+.052);a.root.add(tap);
     }
     decorateAsset(a,'cabinet',{format:s.format,width:s.width,decor:true});
-    const wrap=assetAt(a,x,0,z,floor,angle,[a.spec.width,form.depth/100,1]);
+    const wrap=assetAt(a,x,0,z,floor,angle,[a.spec.width,form.depth/100,1],{id:"vanity-"+id,kind:"vanity",room:id});
     wrap.userData.action={kind:'drawer',asset:a,open:false};interactives.push(wrap);
     const result={...s,basinLayout:layout,reference:a.spec.cabinetRef,basinReference:a.spec.basinRef,collection:form.collectionName,name:form.name,width:a.spec.width*100,height:form.height,depth:form.depth,finishName:FINISHES.find(f=>f.id===s.finish)?.name,page:form.page,topFinishName:topFinish?.name,topReference:['plain','neris','torne'].includes(s.top)?topFinish?.refs[s.width]:null};
     bathroomProducts.set(id,result);
@@ -941,12 +959,12 @@ export async function buildHouse(scene, M, project = {}, textures) {
       const ms={mirrorModel:s.mirror,width:s.mirror==='capsule'?45:Math.min(100,s.width),height:s.mirror==='capsule'?90:80,led:true};
       const mirror=makeCatalogueMirror(ms),glass=makeMirrorReflector(mirrorGeometry(ms,.011),{textureWidth:innerWidth<700?512:768,textureHeight:innerWidth<700?512:768,clipBias:.002});
       glass.position.z=.012;mirror.root.add(glass);mirror.root.position.y=1.55;
-      const mw=assetAt(mirror,x,0,z,floor,angle);mirrors.push({mirror:glass,root:mw,floor});
+      const mw=assetAt(mirror,x,0,z,floor,angle,null,{id:"mirror-"+id,kind:"mirror",room:id});mirrors.push({mirror:glass,root:mw,floor});
     }
     if(s.column!=='none'){
       const c=CATALOG.columns.find(c=>c.id===s.column),finish=c.finishes.includes(s.finish)?s.finish:c.finishes[0];
       const col=makeColumn({columnModel:c.id,finish});await textures.finish(col,finish);
-      assetAt(col,id==='shower'?7.9:7.8,0,id==='shower'?3.12:2.01,floor,Math.PI,[c.width/100,c.depth/100,c.height/100]);
+      assetAt(col,id==='shower'?7.9:7.8,0,id==='shower'?3.12:2.01,floor,Math.PI,[c.width/100,c.depth/100,c.height/100],{id:"column-"+id,kind:"column",room:id});
       result.columnReference=c.refs[finish];result.columnName=c.name;
     }
   }
@@ -956,34 +974,34 @@ export async function buildHouse(scene, M, project = {}, textures) {
     depth: 95,
     trayColor: "beige",
   });
-  assetAt(shower, 7.61, 0.015, 0.36, 0, 0, [1.4, 0.95, 0.1]);
+  assetAt(shower, 7.61, 0.015, 0.36, 0, 0, [1.4, 0.95, 0.1],{id:"shower-tray",kind:"shower",room:"shower"});
   const showerTap = makeEquipment("tap", { use: "shower" });
-  assetAt(showerTap, 7.9, 0.61, 0.45, 0);
+  assetAt(showerTap, 7.9, 0.61, 0.45, 0,0,null,{kind:"tap",room:"shower"});
   const screen = makeEquipment("screen", {
     width: 110,
     screen: "fixed",
     metal: "Or brossé",
   });
-  assetAt(screen, 7.61, 0.05, 1.31, 0);
+  assetAt(screen, 7.61, 0.05, 1.31, 0,0,null,{kind:"screen",room:"shower"});
   const towel = makeEquipment("towel", {
     model: "flat",
     metal: "Or brossé",
     decor: true,
   });
   decorateAsset(towel, "towel", { decor: true });
-  assetAt(towel, 8.2, 0.45, 2.35, 0, -Math.PI / 2);
+  assetAt(towel, 8.2, 0.45, 2.35, 0, -Math.PI / 2,null,{kind:"towel",room:"shower"});
 
   const bath = makeFixture("bath", { kind: "island", width: 170, depth: 75 });
-  assetAt(bath, 8.85, 0.015, 0.44, 1, 0, [1.7, 0.75, 0.64]);
+  assetAt(bath, 8.85, 0.015, 0.44, 1, 0, [1.7, 0.75, 0.64],{id:"bathtub",kind:"bath",room:"bathroom"});
   const bathTap = makeEquipment("tap", { use: "island" });
-  assetAt(bathTap, 9.48, 0.02, 0.75, 1, -Math.PI / 2);
+  assetAt(bathTap, 9.48, 0.02, 0.75, 1, -Math.PI / 2,null,{kind:"tap",room:"bathroom"});
   const towel2 = makeEquipment("towel", {
     model: "flat",
     metal: "Noir mat",
     decor: true,
   });
   decorateAsset(towel2, "towel", { decor: true });
-  assetAt(towel2, 9.6, 0.48, 1.6, 1, -Math.PI / 2);
+  assetAt(towel2, 9.6, 0.48, 1.6, 1, -Math.PI / 2,null,{kind:"towel",room:"bathroom"});
   for (const [floor, x, z] of [
     [0, 9.36, 0.32],
     [1, 7.37, 2.6],
@@ -992,7 +1010,7 @@ export async function buildHouse(scene, M, project = {}, textures) {
       reference: "TR2217R",
       lidOpen: false,
     });
-    assetAt(wc, x, 0.16, z, floor, 0, [0.38, 0.54, 0.55]);
+    assetAt(wc, x, 0.16, z, floor, 0, [0.38, 0.54, 0.55],{id:"toilet-"+floor,kind:"toilet",room:floor?"wc-first":"wc-ground"});
     const fixture = pos(floors[floor].static, x, 0.93, z - 0.2);
     box(
       fixture,
@@ -1030,6 +1048,7 @@ export async function buildHouse(scene, M, project = {}, textures) {
       z + 0.83,
       floor,
       Math.PI / 2,
+      null,{id:"washstand-"+floor,kind:"washstand",room:floor?"wc-first":"wc-ground"}
     );
     furn.art(
       floors[floor].static,
@@ -1045,7 +1064,7 @@ export async function buildHouse(scene, M, project = {}, textures) {
   for (const [x, z, floor, size] of [
     [0.55, 7.35, 0, 1.3],
     [5.8, 7.7, 0, 1.05],
-    [9.4, 3.85, 0, 0.85],
+    [.6, 3.95, 0, 0.85],
     [2.48, 2.9, 0, 0.7],
     [6.2, 0.45, 0, 0.6],
     [3.35, 7.55, 1, 0.8],
@@ -1055,7 +1074,7 @@ export async function buildHouse(scene, M, project = {}, textures) {
   ])
     place(furn.plant(new T.Group(), 0, 0, 0, size), x, z, floor);
   for (const [x, y, z, f, angle, w, h, seed] of [
-    [1.4, 1.53, 3.33, 0, Math.PI, 1.4, 0.85, 1],
+    [1.4, 1.53, .07, 0, 0, 1.4, 0.85, 1],
     [6.74, 1.65, 1.5, 0, Math.PI / 2, 0.48, 0.68, 2],
     [0.05, 1.55, 1.75, 0, Math.PI / 2, 0.72, 1.1, 3],
     [1.65, 1.85, 4.16, 1, 0, 1.1, 0.58, 4],
@@ -1158,8 +1177,8 @@ export async function buildHouse(scene, M, project = {}, textures) {
       portal: false,
     });
   }
-  for (const x of [2.82, 3.72, 4.62]) {
-    const g = pos(floors[0].lights, x, 0, 6.05);
+  for (const z of [4.85, 5.7, 6.55]) {
+    const g = pos(floors[0].lights, 2.45, 0, z,0,"Suspension_cuisine");
     cylinder(g, 0.035, 0.025, M.black, 0, 2.58, 0, "Pavillon_suspension");
     cylinder(g, 0.002, 0.46, M.black, 0, 2.34, 0, "Câble");
     const shade = cylinder(
@@ -1191,6 +1210,29 @@ export async function buildHouse(scene, M, project = {}, textures) {
     box(p, 0.075, 0.075, 0.01, M.paint, 0, 0, 0.085, "Interrupteur", 0.005);
   }
   await vanityTasks;
+  for(const t of tracked)arrangement.register(t.object,t);
+  for(let floor=0;floor<2;floor++){
+    for(const o of [...floors[floor].static.children]){
+      if(o.name==='Ombre_contact'){o.removeFromParent();continue;}
+      const kind=o.name==='Tableau_encadré'?'art':o.name==='Rideau_en_lin'?'curtain':o.getObjectByName('Plaque_double_chasse')?'flush':null;
+      if(kind)arrangement.register(o,{floor,kind});
+    }
+    for(const o of [...floors[floor].lights.children])if(!o.isLight)arrangement.register(o,{floor,kind:'light'});
+  }
+  arrangement.at('kitchen-main',8.15,3.97);
+  arrangement.at('kitchen-return',.42,5.25);
+  arrangement.at('kitchen-fridge',.43,6.93);
+  for(const [id,p]of Object.entries(FURNITURE_LAYOUT))arrangement.at(id,...p);
+  const showerWidth=normalizeBathroom(project.bathrooms?.shower||defaultBathroom('shower')).width,showerZ=Math.min(1.7,2.20-showerWidth/200);
+  arrangement.at('vanity-shower',6.9,showerZ,90);arrangement.at('mirror-shower',6.69,showerZ,90);
+  for(const id of ['shower','bathroom']){
+    const s=normalizeBathroom(project.bathrooms?.[id]||defaultBathroom(id)),c=CATALOG.columns.find(c=>c.id===s.column);
+    if(c)arrangement.at('column-'+id,id==='shower'?7.9:7.8,(id==='shower'?3.32:2.18)-c.depth/200,180);
+  }
+  // Measure each object independently; never merge the editable furniture into a level.
+  for(const item of arrangement.items.values())if(item.root.parent===floors[item.floor].static)batchFurniture(item.object);
+  arrangement.prepare();arrangement.load();
+  colliders.length=0;colliders.push(...arrangement.colliders());
   for (const a of assets) {
     const drawers = a.drawers || [];
     for (const d of drawers) batchFurniture(d);
@@ -1201,7 +1243,7 @@ export async function buildHouse(scene, M, project = {}, textures) {
     batchFurniture(d.asset.root, { exclude: [d.asset.door] });
   }
   for (const f of floors) {
-    batchFurniture(f.static);
+    batchFurniture(f.static,{exclude:[...arrangement.items.values()].map(i=>i.root)});
     for (const w of f.walls)
       batchFurniture(w.group, {
         exclude: w.group.children.filter((c) =>
@@ -1228,7 +1270,7 @@ export async function buildHouse(scene, M, project = {}, textures) {
       floors[i].group.visible =
         mode === "exterior" || mode === "visit" || i === floor;
       floors[i].ceilings.visible = mode === "visit" || mode === "exterior";
-      for(const child of floors[i].lights.children)if(!child.isLight)child.visible=mode==='visit'||mode==='exterior';
+      for(const child of floors[i].lights.children)if(!child.isLight)child.visible=(mode==='visit'||mode==='exterior')&&!arrangement.items.get(child.userData.editableId)?.hidden;
     }
     slab.visible = mode === "visit" || mode === "exterior";
     roof.visible = mode === "exterior" || mode === "visit";
@@ -1271,6 +1313,7 @@ export async function buildHouse(scene, M, project = {}, textures) {
     doors,
     windows,
     colliders,
+    arrangement,
     mirrors,
     assets,
     interactives,

@@ -41,6 +41,18 @@ comptes clients, sauvegardes ou conditions commerciales.
 Le bouton **Atelier magasin** ouvre un éditeur par pièce, en conservant le même
 moteur 3D et la visite de la maison. Il est également utilisable sur smartphone.
 
+- **Aménager** : 111 éléments intérieurs indépendants, dont chaque chaise et
+  tabouret. Sélection dans la 3D ou la liste, déplacement à la souris / au toucher
+  avec pas de 5 cm, coordonnées au millimètre, rotation, dimensions du mobilier
+  illustratif et teinte individuelle. Retrait réversible, réinstallation,
+  annuler / rétablir et restauration de la position initiale. Les produits RANDAL
+  conservent leurs dimensions et finitions fabricant via leur propre onglet.
+  Les empreintes proviennent des maillages visibles, y compris les instances
+  décoratives. Les murs, ouvertures, débattements de porte, fenêtres, trémie et
+  paliers sont contrôlés avant chaque déplacement. Les feuilles de porte sont
+  également des obstacles de navigation. La porte du bureau dessert maintenant
+  la pièce de vie, à l’écart de l’escalier. Les modifications font partie du JSON
+  et des dossiers locaux. L’extérieur et les éléments structurels restent fixes.
 - **Sols et pose** : les échantillons HD des catalogues ELIOS et VIEW déjà présents
   dans le dépôt sont réutilisés sans copie des images. Seuls les coloris publiés
   avec des formats vérifiés et un usage au sol sont proposés. Le catalogue partagé
@@ -55,8 +67,8 @@ moteur 3D et la visite de la maison. Il est également utilisable sur smartphone
   règle l’enveloppe extérieure, commune aux deux niveaux ; le jardin suit ses
   dimensions. L’escalier et sa trémie restent fixes. Les contraintes des passages
   et ouvertures refusent les dimensions incompatibles. Les meubles gardent leurs
-  dimensions réelles : ce prototype ne remplace pas une implantation détaillée
-  après réduction importante d’une pièce.
+  dimensions réelles. Une modification qui crée un conflit avec l’aménagement
+  est refusée : déplacer d’abord le mobilier concerné dans « Aménager ».
 - **Mobilier** : modèles paramétriques, largeurs, finitions, poignées et colonnes
   du catalogue général RANDAL. Les plans, vasques, implantations et couleurs de
   céramique sont filtrés par compatibilité fabricant. Les plans à vasque posée
@@ -107,10 +119,12 @@ Depuis ce dossier, dans une copie complète du dépôt :
 npm ci
 npm run check
 npm run check:workshop
+npm run check:arrangement
 npm run build
 npx playwright install chromium
 HOUSE_URL=https://URL-DE-PREVISUALISATION npm run check:browser
 HOUSE_URL=https://URL-DE-PREVISUALISATION npm run check:workshop-browser
+HOUSE_URL=https://URL-DE-PREVISUALISATION npm run check:arrangement-browser
 ```
 
 `qa/house-check.mjs` contrôle le programme, les surfaces, les ouvertures et la
@@ -129,11 +143,26 @@ maison, contrôle les exports, la suppression, l’import et les commandes mobil
 la session Playwright ; les ressources externes restent leurs fichiers réels.
 `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` permet d’utiliser un Chromium déjà installé.
 
-Le niveau équilibré évite le post-traitement GTAO sur les appareils mobiles.
-Le niveau haute qualité l'active avec des ombres de contact. Les lumières locales
-sont limitées aux six plus pertinentes pour la zone visitée ; les éléments
-statiques sont regroupés par matériau, les objets articulés restent indépendants.
-Les objets et variantes masqués ne sont jamais rendus visibles par ce regroupement.
+Trois réglages graphiques sont accessibles en permanence dans l’en-tête et
+mémorisés sur le navigateur :
+
+| Réglage | Pixels maximum | Ombres | Miroirs | Lumières locales | Végétation |
+| --- | --- | --- | --- | --- | --- |
+| Éco | 0,85 M | 1 024 px | 192 px, rafraîchissement limité | 2 | 2 000 brins, 550 feuilles/arbre |
+| Équilibré | 1,8 M | 2 048 px | 384 px | 4 | 8 000 brins, 1 200 feuilles/arbre |
+| Haute qualité | 3,5 M | 4 096 px et GTAO | 768 px | 6 | 18 000 brins, 2 200 feuilles/arbre |
+
+Le nombre de meubles et les fonctions restent identiques. Les objets sont
+regroupés par matériau à l’intérieur de chaque élément, pour garder leur
+sélection indépendante. Les variantes masquées restent masquées. L’eau est
+animée uniquement en haute qualité. Ces réglages réduisent la charge graphique ;
+ils ne garantissent pas un nombre d’images par seconde sur tout matériel.
+
+`check:arrangement` vérifie les empreintes orientées, les transformations,
+les portes / paliers réservés, les couleurs indépendantes, le retrait / retour,
+les instances et les trois profils. Le test navigateur ajoute les déplacements
+réels à la souris et au toucher, les 13 parcours, l’escalier, les exports / imports,
+la sauvegarde, la restauration et les commandes sur trois formats mobiles.
 
 ## Aperçu Vercel exclusivement
 

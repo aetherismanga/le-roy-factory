@@ -8,7 +8,9 @@
     "check": "node qa/house-check.mjs",
     "check:browser": "node qa/browser-check.mjs",
     "check:workshop": "node qa/workshop-check.mjs",
-    "check:workshop-browser": "node qa/workshop-browser-check.mjs"
+    "check:workshop-browser": "node qa/workshop-browser-check.mjs",
+    "check:arrangement": "node qa/arrangement-check.mjs",
+    "check:arrangement-browser": "node qa/arrangement-browser-check.mjs"
   },
   "dependencies": {
     "three": "0.180.0"
