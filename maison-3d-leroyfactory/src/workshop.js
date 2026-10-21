@@ -1,3 +1,4 @@
+import {defaultExterior,validateExterior} from './exterior-products.js';
 import {OBJECT_LIBRARY,validateAdditions} from './object-library.js';
 import {validateItemOverrides} from './arrangement.js';
 import {ROOMS,LAYOUT,DEFAULT_LAYOUT,SCALE,TOTAL_AREA,roomBounds,resizedLayout,validateLayout} from './plan.js';
@@ -8,7 +9,7 @@ import {allTakeoffs,orderTakeoffs,roomTakeoff,cutPlanSVG,round} from './takeoff.
 const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const fmt=(n,d=2)=>Number(n).toLocaleString('fr-FR',{minimumFractionDigits:d,maximumFractionDigits:d});
 const KEY='lrf-house-workshop-v2',SAVES='lrf-house-projects-v2';
-export function newProject(){return {schema:2,name:'Maison témoin · rendez-vous client',client:'',items:{},additions:[],layout:structuredClone(DEFAULT_LAYOUT),rooms:Object.fromEntries(ROOMS.map(r=>[r.id,{floor:defaultFloor(r)}])),bathrooms:{shower:defaultBathroom('shower'),bathroom:defaultBathroom('bathroom')}};}
+export function newProject(){return {schema:2,exterior:defaultExterior(),name:'Maison témoin · rendez-vous client',client:'',items:{},additions:[],layout:structuredClone(DEFAULT_LAYOUT),rooms:Object.fromEntries(ROOMS.map(r=>[r.id,{floor:defaultFloor(r)}])),bathrooms:{shower:defaultBathroom('shower'),bathroom:defaultBathroom('bathroom')}};}
 export function validateProject(p){
  if(!p||p.schema!==2||typeof p.name!=='string'||p.name.length>120||typeof p.client!=='string'||p.client.length>160)throw Error('Ce fichier n’est pas un projet Maison 3D compatible.');
  validateLayout(p.layout);
@@ -20,7 +21,7 @@ export function validateProject(p){
  const wall=p.rooms[r.id].wall;if(wall){if(!surfaceProduct(wall).collection.surfaces.includes('wall'))throw Error('Revêtement non admis au mur.');if(wall.kind!=='tile'||!['straight','offset'].includes(wall.pattern)||!['vertical','horizontal','diagonal'].includes(wall.direction)||![1,1.5,2,3].includes(+wall.groutWidth)||!Number.isFinite(wall.x)||Math.abs(wall.x)>120||!Number.isFinite(wall.y)||Math.abs(wall.y)>120||!Number.isFinite(wall.waste)||wall.waste<0||wall.waste>30||!/^#[0-9a-f]{6}$/i.test(wall.grout))throw Error('Revêtement mural invalide.');}
  const paint=p.rooms[r.id].paint;if(paint&&!/^#[0-9a-f]{6}$/i.test(paint))throw Error('Peinture invalide.');}
  for(const id of ['shower','bathroom'])normalizeBathroom(p.bathrooms?.[id]||{});
- return structuredClone(p);
+ return {...structuredClone(p),exterior:validateExterior(p.exterior)};
 }
 export function readDraft(){try{return validateProject(JSON.parse(localStorage.getItem(KEY)));}catch{return newProject();}}
 export function saveDraft(project){try{localStorage.setItem(KEY,JSON.stringify(project));return true;}catch{return false;}}
@@ -33,7 +34,7 @@ export function mountWorkshop(api){
  function note(text){$('#workshop-status').textContent=text;}
  async function run(task,message){if(busy)return;busy=true;panel.setAttribute('aria-busy','true');body.querySelectorAll('button,input,select').forEach(e=>e.disabled=true);note('Mise à jour de la maison…');try{await task();const saved=saveDraft(project());note(saved?(message||'Projet actualisé.'):'Le navigateur refuse la sauvegarde. Exportez le projet pour le conserver.');render();}catch(e){note(e.message);api.status(e.message);}finally{busy=false;panel.removeAttribute('aria-busy');body.querySelectorAll('button,input,select').forEach(e=>e.disabled=false);}}
  function selectRoom(id,move=true){if(api.getState().roomEditing&&move){roomId=id;draftFloor=null;draftBath=null;api.openRoom(id);return;}if(!ROOMS.some(r=>r.id===id))return;roomId=id;body.scrollTop=0;draftFloor=null;draftBath=null;if(move){api.goRoom(id);panel.hidden=false;document.body.classList.add('workshop-open');api.onPanel();}render();}
- function open(id){if(id&&api.getState().room!==id)api.goRoom(id);api.closePanels();api.stopTour(false);roomId=id||api.getState().room||roomId;panel.hidden=false;document.body.classList.add('workshop-open');$('#workshop-open').setAttribute('aria-expanded','true');api.onPanel();render();}
+ function open(id,initialTab){if(initialTab)tab=initialTab;if(id&&api.getState().room!==id)api.goRoom(id);api.closePanels();api.stopTour(false);roomId=id||api.getState().room||roomId;panel.hidden=false;document.body.classList.add('workshop-open');$('#workshop-open').setAttribute('aria-expanded','true');api.onPanel();render();}
  function close(){panel.hidden=true;api.editor?.refreshHelper();document.body.classList.remove('workshop-open');$('#workshop-open').setAttribute('aria-expanded','false');api.onPanel();}
  const option=(id,name,active)=>`<option value="${esc(id)}"${String(id)===String(active)?' selected':''}>${esc(name)}</option>`;
  function render(){

@@ -14,7 +14,7 @@ export function collisionWorld(house, garden) {
     return floor * LEVEL_HEIGHT + 0.02;
   }
   const doorMatrices=new Map(),doorPoint=new T.Vector3();
-  function passable(x, z, height, { ignoreSteps = false } = {}) {
+  function passable(x, z, height, { ignoreSteps = false,ignoreObstacle=null } = {}) {
     const ground = groundAt(x, z, height);
     if (
       !Number.isFinite(ground) ||
@@ -56,7 +56,7 @@ export function collisionWorld(house, garden) {
       if(doorPoint.y>0&&doorPoint.y<d.opening.height&&Math.abs(doorPoint.z)<.022+radius&&doorPoint.x>-.003-radius&&doorPoint.x<d.opening.width-.10+radius)return false;
     }
     for (const o of obstacles) {
-      if (o.floor !== floor || o.maxY < 0.15 || o.minY > 1.6) continue;
+      if (o.id===ignoreObstacle||o.floor !== floor || o.maxY < 0.15 || o.minY > 1.6) continue;
       const c=Math.cos(o.angle||0),s=Math.sin(o.angle||0),dx=x-o.x,dz=z-o.z;
       if (
         Math.abs(dx*c-dz*s) < o.w / 2 + radius &&
@@ -185,7 +185,8 @@ export function collisionWorld(house, garden) {
     while(index<result.length){let next=index;for(let j=index+1;j<result.length;j++){if(lineClear(anchor,result[j]))next=j;else break;}smooth.push(result[next]);anchor=result[next];index=next+1;}
     return smooth;
   }
-  return { groundAt, passable, route, radius, obstacles };
+  function headroomAt(x,z,height){const [px,pz]=unpoint(x,z);if(!inside(px,pz))return Infinity;const floor=height>LEVEL_HEIGHT*.65?1:0;let clear=2.6;for(const w of house.floors[floor].walls){const dx=(w.b[0]-w.a[0])*SCALE,dz=(w.b[1]-w.a[1])*SCALE,L=w.length,rx=x-w.worldA[0],rz=z-w.worldA[2],u=(rx*dx+rz*dz)/L,dist=Math.abs(rx*(-dz/L)+rz*(dx/L));if(dist>radius+.14)continue;for(const o of w.openings)if(o.bottom<.08&&Math.abs(u-o.u)<o.width/2+radius)clear=Math.min(clear,o.height);}return clear;}
+  return { groundAt, passable, route, radius, obstacles,headroomAt };
 }
 export function createHouseWalk({
   camera,
@@ -205,7 +206,7 @@ export function createHouseWalk({
     pointer = null,
     ground = 0.02,
     path = [],
-    lookChanged = false;
+    lookChanged = false,fastToggle=false,jumpHeight=0,jumpVelocity=0;
   const forward = new T.Vector3(),
     side = new T.Vector3(),velocity=new T.Vector3();
   const editing = (e) =>
@@ -219,6 +220,7 @@ export function createHouseWalk({
       .add(new T.Vector3(0, 0, -1).applyEuler(camera.rotation));
   }
   function setPose(position, target) {
+    jumpHeight=jumpVelocity=0;
     velocity.set(0,0,0);
     camera.position.copy(position);
     const dir = target.clone().sub(position).normalize();
@@ -230,6 +232,7 @@ export function createHouseWalk({
   }
   function setActive(value) {
     active = value;
+    jumpHeight=jumpVelocity=0;
     controls.enabled = !value;
     keys.clear();
     velocity.set(0,0,0);
@@ -264,11 +267,12 @@ export function createHouseWalk({
       keys.add(map[e.code]);
       path = [];
     }
-    if (e.code === "ShiftLeft") keys.add("fast");
+    if (e.code === "ShiftLeft"||e.code === "ShiftRight") keys.add("fast");
+    if(e.code==='Space'&&!pointerLook){e.preventDefault();if(!e.repeat)jump();}
   });
   document.addEventListener("keyup", (e) => {
     if (map[e.code]) keys.delete(map[e.code]);
-    if (e.code === "ShiftLeft") keys.delete("fast");
+    if (e.code === "ShiftLeft"||e.code === "ShiftRight") keys.delete("fast");
   });
   window.addEventListener("blur", () => keys.clear());
   const finish = (e) => {
@@ -339,7 +343,7 @@ export function createHouseWalk({
     const move = forward
       .multiplyScalar(+keys.has("up") - +keys.has("down"))
       .addScaledVector(side, +keys.has("right") - +keys.has("left"));
-    const speed = keys.has("fast") ? 2.9 : 1.65;
+    const speed = keys.has("fast")||fastToggle ? 2.9 : 1.65;
     if (path.length) {
       const target = path[0],
         dx = target.x - camera.position.x,
@@ -359,13 +363,15 @@ export function createHouseWalk({
       }
       changed=moved||changed;
     }
-    if(Math.abs(camera.position.y-ground-eye)>.0001){camera.position.y=T.MathUtils.damp(camera.position.y,ground+eye,18,dt);changed=true;}
+    if(jumpHeight>0||jumpVelocity>0){jumpVelocity-=9.81*dt;jumpHeight=Math.max(0,jumpHeight+jumpVelocity*dt);const limit=Math.max(0,(world.headroomAt?.(camera.position.x,camera.position.z,ground)||Infinity)-1.78-.05);if(jumpHeight>limit){jumpHeight=limit;jumpVelocity=Math.min(0,jumpVelocity);}if(jumpHeight===0)jumpVelocity=0;changed=true;}
+    if(Math.abs(camera.position.y-ground-eye-jumpHeight)>.0001){camera.position.y=jumpHeight>0?ground+eye+jumpHeight:T.MathUtils.damp(camera.position.y,ground+eye,18,dt);changed=true;}
     if (changed) {
       updateLook();
       onChange();
     }
     return changed;
   }
+  function jump(){if(!active||jumpHeight>.001||jumpVelocity>0)return false;jumpVelocity=3.2;path=[];onChange();return true;}
   return {
     get active() {
       return active;
@@ -378,6 +384,7 @@ export function createHouseWalk({
     },
     get position(){return camera.position;},
     get moving(){return velocity.lengthSq()>.01;},
+    get running(){return fastToggle||keys.has('fast');},get jumpHeight(){return jumpHeight;},get airborne(){return jumpHeight>.001||jumpVelocity>0;},setFast(v){fastToggle=!!v;},jump,
     setHeading(value){yaw=value;},
     setActive,
     setWorld(next){world=next;keys.clear();path=[];velocity.set(0,0,0);},

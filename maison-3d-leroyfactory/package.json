@@ -11,7 +11,10 @@
     "check:workshop-browser": "node qa/workshop-browser-check.mjs",
     "check:arrangement": "node qa/arrangement-check.mjs",
     "check:arrangement-browser": "node qa/arrangement-browser-check.mjs",
-    "check:rooms-browser": "node qa/room-configurator-browser-check.mjs"
+    "check:rooms-browser": "node qa/room-configurator-browser-check.mjs",
+    "check:exterior": "node qa/exterior-check.mjs",
+    "check:exterior-browser": "node qa/exterior-browser-check.mjs",
+    "check:exterior-live": "node qa/exterior-live-check.mjs"
   },
   "dependencies": {
     "three": "0.180.0"

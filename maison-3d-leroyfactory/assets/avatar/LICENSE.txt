@@ -1,6 +1,10 @@
-Microsoft Rocketbox · Male_Adult_01
+Microsoft Rocketbox · Male_Adult_01 and Female_Adult_01
 Source: https://github.com/microsoft/Microsoft-Rocketbox
-Model adapted to glTF; texture maps resized to 2048 pixels and converted to WebP.
+Models adapted to glTF with 80-bone rigs and four facial expressions.
+Original normal and opacity maps resized to 2048 pixels and converted to WebP.
+New male-reference-*-v2.webp and female-reference-*-v2.webp albedo maps
+are AI-assisted interpretations of the user's authorized photographic references.
+The raw reference photographs are not included in this distribution.
 
 MIT License
 

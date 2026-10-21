@@ -1,4 +1,5 @@
 import * as T from "three";
+import {buildExterior,groundWithPoolHole,excludePoolTriangles,botanicalMaterials} from "./exterior.js";
 import {
   box,
   cylinder,
@@ -11,11 +12,12 @@ import {
 import { point as basePoint, SCALE, LAYOUT } from "./plan.js";
 import { furnitureKit } from "./furniture.js";
 import { textureClone } from "./materials.js";
-export function buildGarden(scene, M) {
+export async function buildGarden(scene, M, {renderer,config}={}) {
+  M={...M};botanicalMaterials(M);
   const point=(x,y,z)=>basePoint(x>10?x+LAYOUT.width-10:x<0?x:x/10*LAYOUT.width,y,z>8?z+LAYOUT.depth-8:z<0?z:z/8*LAYOUT.depth);
   const root = group(scene, 0, 0, 0, 0, "Jardin_terrasse_et_paysage"),
     kit = furnitureKit(M),
-    obstacles = [];
+    obstacles = [],seats=[];
   let seed = 947;
   const random = () => {
     seed = (1664525 * seed + 1013904223) >>> 0;
@@ -32,10 +34,10 @@ export function buildGarden(scene, M) {
   for (let y = 0; y < 512; y++)
     for (let x = 0; x < 512; x++) {
       const n = random(),
-        band = Math.sin(x * 0.035) * 3,
+        band = Math.sin(x * 0.006) * 3,
         idx = (y * 512 + x) * 4;
       grassPixels.set(
-        [105 + n * 37 + band, 116 + n * 35 + band, 73 + n * 30, 255],
+        [78 + n * 32 + band, 111 + n * 40 + band, 60 + n * 24, 255],
         idx,
       );
     }
@@ -53,7 +55,8 @@ export function buildGarden(scene, M) {
   lawn.bumpMap = grassTexture;
   lawn.bumpScale = 0.009;
   lawn.color.set("#fff");
-  box(root, 45, 0.14, 43, lawn, 0, -0.07, 0, "Terrain_paysager", 0);
+  const poolPosition=new T.Vector3(...point(4.6,0,15.6));
+  mesh(root,groundWithPoolHole(45,43,poolPosition),lawn,"Terrain_paysager").castShadow=false;
 
   const deck = textureClone(M.floor, 9, 3.2);
   box(
@@ -88,12 +91,14 @@ export function buildGarden(scene, M) {
       "Joint_terrasse",
       0,
     );
-  const exteriorSofa = kit.sofa(new T.Group(), 2.4);
+  const exteriorSofa = kit.sofa(new T.Group(), 2.4,false);
   add(exteriorSofa, 7.6, 0.02, 10.45, Math.PI);
+  seats.push({id:"garden-sofa",name:"Canapé de la terrasse",kind:"sofa",floor:0,root:exteriorSofa,object:exteriorSofa,external:true});
   const small = kit.coffeeTable(new T.Group());
   add(small, 7.8, 0.02, 9.22);
   const lounge = kit.chair(new T.Group(), { arm: true, mat: M.ivoryFabric });
   add(lounge, 9.65, 0.02, 9.4, -Math.PI / 2);
+  seats.push({id:"garden-lounge",name:"Fauteuil de la terrasse",kind:"chair",floor:0,root:lounge,object:lounge,external:true});
   for (const [x, z] of [
     [-0.15, 8.4],
     [10.22, 8.5],
@@ -135,58 +140,8 @@ export function buildGarden(scene, M) {
       "Lame_pergola",
       0.004,
     );
-  // Pool is separate from the 140 m² interior. Real coping, water, inset basin.
-  const waterM = new T.MeshPhysicalMaterial({
-    color: "#629c9d",
-    roughness: 0.13,
-    metalness: 0.12,
-    transparent: true,
-    opacity: 0.82,
-    transmission: 0,
-    ior: 1.333,
-    clearcoat: 1,
-    clearcoatRoughness: 0.1,
-  });
-  const pool = group(root, ...point(2.0, 0, 13.65), 0, "Bassin_jardin");
-  box(pool, 4.62, 0.17, 2.62, M.stone, 0, -0.1, 0, "Margelle", 0.04);
-  box(pool, 4.32, 0.02, 2.32, M.floor, 0, -0.22, 0, "Fond_bassin", 0.03);
-  const water = mesh(
-    pool,
-    new T.PlaneGeometry(4.3, 2.3, 32, 32),
-    waterM,
-    "Eau_du_bassin",
-    0,
-    -0.04,
-    0,
-  );
-  water.rotation.x = -Math.PI / 2;
-  water.castShadow = false;
-  obstacles.push({
-    x: point(2,0,13.65)[0],
-    z: point(2,0,13.65)[2],
-    w: 4.65,
-    d: 2.65,
-    floor: 0,
-    minY: -0.2,
-    maxY: 0.2,
-  });
-  for (const x of [-1.0, 5.0]) {
-    const c = group(root, ...point(x, 0, 14.2), Math.PI, "Bain_de_soleil");
-    box(c, 0.65, 0.12, 1.8, M.oak, 0, 0.24, 0, "Châssis_transat", 0.04);
-    box(c, 0.6, 0.1, 1.72, M.ivoryFabric, 0, 0.34, 0, "Matelas_transat", 0.04);
-    for (const s of [-1, 1])
-      box(
-        c,
-        0.04,
-        0.24,
-        0.04,
-        M.black,
-        s * 0.24,
-        0.12,
-        s * 0.7,
-        "Pied_transat",
-      );
-  }
+  const exterior=await buildExterior(root,M,point,renderer,config);obstacles.push(...exterior.obstacles);
+  for(const [x,z]of [[-.65,15.6],[10.15,15.6]]){const chair=kit.chair(new T.Group(),{arm:true,mat:M.ivoryFabric});add(chair,x,.05,z,Math.PI/2);seats.push({id:'garden-chair-'+x,name:'Fauteuil du jardin',kind:'chair',floor:0,root:chair,object:chair,external:true});}
   function olive(x, z, height = 3.8) {
     const g = group(root, ...point(x, 0, z), 0, "Olivier");
     tube(
@@ -219,10 +174,11 @@ export function buildGarden(scene, M) {
     leafShape.quadraticCurveTo(0.018, -0.02, 0.012, 0.028);
     leafShape.lineTo(0, 0.065);
     leafShape.quadraticCurveTo(-0.025, 0.02, 0, -0.055);
-    const geo = new T.ShapeGeometry(leafShape, 3),
+    const geo = new T.ShapeGeometry(leafShape, 4),
       leaves = new T.InstancedMesh(geo, M.leaf, 2200),
       matrix = new T.Matrix4(),
       q = new T.Quaternion();
+    const lp=geo.attributes.position;for(let j=0;j<lp.count;j++)lp.setZ(j,.005*(1-(lp.getY(j)/.07)**2)-Math.abs(lp.getX(j))*.23);geo.computeVertexNormals();
     leaves.userData={qualityKind:"leaves",fullCount:2200};
     for (let i = 0; i < 2200; i++) {
       const a = random() * Math.PI * 2,
@@ -240,7 +196,7 @@ export function buildGarden(scene, M) {
         new T.Color().setHSL(
           0.2 + random() * 0.035,
           0.14 + random() * 0.1,
-          0.42 + random() * 0.16,
+          0.68 + random() * 0.16,
         ),
       );
     }
@@ -251,25 +207,15 @@ export function buildGarden(scene, M) {
     [-2, 2, 4.8],
     [-2, 8, 4.2],
     [-2.6, 13, 4.6],
-    [7.5, 16.5, 4.1],
+    [11.8, 18.1, 4.1],
     [12.5, 12.8, 5.1],
     [12.6, 5.4, 4.7],
     [11.8, -2.8, 4.0],
     [-2.3, -2.6, 4.5],
   ])
     olive(x, z, h);
-  for (let i = 0; i < 32; i++) {
-    const x = i % 2 ? -3 : 13,
-      z = -3 + Math.floor(i / 2) * 1.35;
-    sphere(
-      root,
-      0.57,
-      i % 3 ? M.leaf : M.leafLight,
-      ...point(x, 0.44, z),
-      [1.0, 0.8, 1.2],
-      "Haie_paysagère",
-    );
-  }
+  const shrubGeo=new T.SphereGeometry(1,7,5),shrubLeaves=new T.InstancedMesh(shrubGeo,M.leaf.clone(),4200),sm=new T.Matrix4(),sq=new T.Quaternion();shrubLeaves.name='Feuillage_haies_et_buissons';shrubLeaves.userData={qualityKind:'leaves',fullCount:4200};
+  for(let i=0;i<4200;i++){const bush=i%30,x=bush%2?-3:13,z=-3+Math.floor(bush/2)*1.45,a=random()*Math.PI*2,r=Math.sqrt(random())*.57;sm.compose(new T.Vector3(...point(x+Math.cos(a)*r,.15+random()*.75,z+Math.sin(a)*r)),sq.setFromEuler(new T.Euler(random()*3,random()*6,random()*3)),new T.Vector3(.07+random()*.045,.025,.11));shrubLeaves.setMatrixAt(i,sm);shrubLeaves.setColorAt(i,new T.Color().setHSL(.22+random()*.04,.2+random()*.08,.63+random()*.2));}shrubLeaves.castShadow=shrubLeaves.receiveShadow=true;root.add(shrubLeaves);
   // Front path, entry canopy, mailbox and pathway bollards.
   for (let i = 0; i < 7; i++)
     box(
@@ -297,7 +243,7 @@ export function buildGarden(scene, M) {
     [6.9, -3.2],
     [5.1, -4.6],
     [10.3, 11.3],
-    [5.1, 15.8],
+    [10.7, 18.5],
   ]) {
     box(
       root,
@@ -336,7 +282,7 @@ export function buildGarden(scene, M) {
             3.4),
     );
   }
-  terrainGeo.computeVertexNormals();
+  excludePoolTriangles(terrainGeo,poolPosition);
   const distant = lawn.clone();
   distant.map = grassTexture.clone();
   distant.map.repeat.set(145, 145);
@@ -366,7 +312,7 @@ export function buildGarden(scene, M) {
       z = -4 + random() * 23;
     if (
       (x > -0.5 && x < 10.8 && z > -0.5 && z < 11.6) ||
-      (x > -0.7 && x < 4.7 && z > 12.1 && z < 15.1)
+      (x > -1.5 && x < 10.7 && z > 11.1 && z < 20.1)
     )
       continue;
     bq.setFromAxisAngle(new T.Vector3(0, 1, 0), random() * Math.PI);
@@ -381,10 +327,11 @@ export function buildGarden(scene, M) {
   blades.receiveShadow = true;
   root.add(blades);
 
+  root.updateMatrixWorld(true);for(const seat of seats){seat.root.userData.externalSeatId=seat.id;const b=new T.Box3().setFromObject(seat.root),c=b.getCenter(new T.Vector3()),s=b.getSize(new T.Vector3());obstacles.push({id:seat.id,x:c.x,z:c.z,w:s.x,d:s.z,minY:b.min.y,maxY:b.max.y,floor:0});}
   batchFurniture(root, {
-    exclude: root.children.filter((o) =>
-      ["Terrain_paysager", "Terrasse_pierre_naturelle"].includes(o.name),
-    ),
+    exclude: [...seats.map(s=>s.root),...root.children.filter((o) =>
+      ["Terrain_paysager", "Terrasse_pierre_naturelle", "Piscine_8x4m", "Muret_BIOPIETRA"].includes(o.name),
+    )],
   });
-  return { root, water, waterM, obstacles };
+  return {root,water:exterior.water,waterM:exterior.waterM,obstacles,seats,exterior};
 }

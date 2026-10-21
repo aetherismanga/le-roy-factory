@@ -1,5 +1,5 @@
 // Convert the MIT-licensed Rocketbox source; retain only the expressions used by the house.
-// node tools/build-avatar.mjs /path/to/Male_Adult_01_facial.fbx
+// node tools/build-avatar.mjs /path/to/Male_Adult_01_facial.fbx [output.glb]
 import fs from 'node:fs';
 import * as T from 'three';
 import {FBXLoader} from 'three/addons/loaders/FBXLoader.js';
@@ -16,5 +16,5 @@ root.traverse(o=>{if(!o.isMesh)return;
  o.material=(Array.isArray(o.material)?o.material:[o.material]).map(m=>new T.MeshStandardMaterial({name:m.name,color:0xffffff,roughness:/head/.test(m.name)?.58:.9,side:/opacity/.test(m.name)?T.DoubleSide:T.FrontSide}));
 });
 const data=await new GLTFExporter().parseAsync(root,{binary:true,onlyVisible:false});
-fs.writeFileSync('assets/avatar/resident-v1.glb',Buffer.from(data));console.log('Avatar GLB',data.byteLength,'bytes');
+fs.writeFileSync(process.argv[3]||'assets/avatar/resident-v1.glb',Buffer.from(data));console.log('Avatar GLB',data.byteLength,'bytes');
 for(const name of ['Bip01_Head','Bip01_L_UpperArm','Bip01_L_Forearm','Bip01_L_Hand','Bip01_L_Thigh','Bip01_L_Calf','Bip01_L_Foot','Bip01_LEye']){const b=root.getObjectByName(name);console.log(name,b.getWorldPosition(new T.Vector3()).toArray().map(x=>+x.toFixed(2)));}

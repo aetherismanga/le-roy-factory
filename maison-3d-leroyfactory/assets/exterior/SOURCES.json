@@ -1,0 +1,148 @@
+{
+  "description": "Genuine manufacturer photographs and native product swatches used by the independent house preview; no generated manufacturer textures.",
+  "stone": [
+    {
+      "name": "Ortisei",
+      "source": "https://biopietra.com/prodotto/ortisei-new/",
+      "images": [
+        {
+          "name": "B80",
+          "path": "/assets/exterior/ortisei-b80.webp",
+          "nativePixels": [
+            964,
+            640
+          ]
+        },
+        {
+          "name": "B82",
+          "path": "/assets/exterior/ortisei-b82.webp",
+          "nativePixels": [
+            964,
+            640
+          ]
+        },
+        {
+          "name": "M96",
+          "path": "/assets/exterior/ortisei-m96.webp",
+          "nativePixels": [
+            964,
+            640
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Scaglia Carsica",
+      "source": "https://biopietra.com/prodotto/scaglia-carsica/",
+      "images": [
+        {
+          "name": "Arena",
+          "path": "/assets/exterior/carsica-arena.webp",
+          "nativePixels": [
+            964,
+            640
+          ]
+        },
+        {
+          "name": "Grigio",
+          "path": "/assets/exterior/carsica-grigio.webp",
+          "nativePixels": [
+            964,
+            640
+          ]
+        },
+        {
+          "name": "Antracite",
+          "path": "/assets/exterior/carsica-antracite.webp",
+          "nativePixels": [
+            964,
+            640
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Scaglia Montebello",
+      "source": "https://biopietra.com/prodotto/scaglia-montebello/",
+      "images": [
+        {
+          "name": "Quarzo",
+          "path": "/assets/exterior/montebello-quarzo.webp",
+          "nativePixels": [
+            964,
+            640
+          ]
+        },
+        {
+          "name": "C58",
+          "path": "/assets/exterior/montebello-c58.webp",
+          "nativePixels": [
+            964,
+            640
+          ]
+        },
+        {
+          "name": "G86",
+          "path": "/assets/exterior/montebello-g86.webp",
+          "nativePixels": [
+            964,
+            640
+          ]
+        }
+      ]
+    }
+  ],
+  "pool": [
+    {
+      "name": "Acqua · Deep",
+      "brand": "ELIOS",
+      "ref": "04A1520",
+      "source": "https://eliosceramica.com/wp-content/uploads/2019/01/ELIOS_CATALOGO-PISCINE_2026.pdf",
+      "image": "/assets/exterior/elios-acqua-deep.webp",
+      "derivation": "Native 245 x 245 product swatch from the Piscine 2026 PDF, printed pages 20–21."
+    },
+    {
+      "name": "Acqua · River",
+      "brand": "ELIOS",
+      "ref": "04A1530",
+      "source": "https://eliosceramica.com/wp-content/uploads/2019/01/ELIOS_CATALOGO-PISCINE_2026.pdf",
+      "image": "/assets/exterior/elios-acqua-river.webp",
+      "derivation": "Native 245 x 245 product swatch from the Piscine 2026 PDF, printed pages 20–21."
+    },
+    {
+      "name": "Acqua · Light",
+      "brand": "ELIOS",
+      "ref": "04A1510",
+      "source": "https://eliosceramica.com/wp-content/uploads/2019/01/ELIOS_CATALOGO-PISCINE_2026.pdf",
+      "image": "/assets/exterior/elios-acqua-light.webp",
+      "derivation": "Native 245 x 245 product swatch from the Piscine 2026 PDF, printed pages 20–21."
+    },
+    {
+      "name": "Acqua · Cobalt",
+      "brand": "ELIOS",
+      "ref": "04A1540",
+      "source": "https://eliosceramica.com/wp-content/uploads/2019/01/ELIOS_CATALOGO-PISCINE_2026.pdf",
+      "image": "/assets/exterior/elios-acqua-cobalt.webp",
+      "derivation": "Native 245 x 245 product swatch from the Piscine 2026 PDF, printed pages 20–21."
+    },
+    {
+      "name": "PS-52 · Niebla",
+      "brand": "REVIGLASS",
+      "ref": "PS-52",
+      "source": "https://reviglass.es/producto/ps-52/",
+      "image": "/assets/exterior/reviglass-ps52-tile.webp",
+      "preview": "/assets/exterior/reviglass-ps52-preview.webp",
+      "derivation": "Single tessera crop from the manufacturer product close-up; full sheet photograph used only for selection preview."
+    },
+    {
+      "name": "PS · Mix Iris Urola",
+      "brand": "REVIGLASS",
+      "ref": "PS-MIX IRIS UROLA",
+      "source": "https://reviglass.es/producto/ps-mix-iris-urola/",
+      "image": "/assets/exterior/reviglass-urola-tile.webp",
+      "preview": "/assets/exterior/reviglass-urola-preview.webp",
+      "derivation": "Single tessera crop from the manufacturer product close-up; full sheet photograph used only for selection preview."
+    }
+  ],
+  "coping": "Generic visualization materials only; no manufacturer SKU or price."
+}
