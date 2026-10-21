@@ -1,19 +1,33 @@
 import {commercialRequest} from './client.js';
-import {money} from './pricing.js';
+import {money,quoteProject} from './pricing.js';
+import {createIdentityState} from './identity-state.js';
 export const escapeHTML=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-export function privateMarkup(s){if(!s?.client)return '<span>Mon compte client LRF</span>';const code=escapeHTML(s.client.codeClient||'Administrateur');let price=s.pending?'Vérification du prix d’achat…':Number.isInteger(s.proHT)?'Prix d’achat HT : '+money(s.proHT).replace(' TTC',''):'Prix d’achat HT : sur demande';const known=(s.proRows||[]).filter(r=>Number.isInteger(r.proHT));const partial=s.proHT===null&&known.length?'<small>'+known.length+' référence(s) tarifée(s) HT : '+money(known.reduce((n,r)=>n+r.proHT,0))+' · solde sur demande</small>':'';return '<strong>'+code+'</strong><small>Catalogue général · '+escapeHTML(s.client.societe||'')+'</small>'+(s.randalAllowed===false?'<small>Accès RANDAL non autorisé pour ce compte.</small>':'<strong class="pro-purchase-price">'+escapeHTML(price)+'</strong>'+partial);}
-export function createIdentity(getProject,changed=()=>{}){let state={client:null,proHT:null,proRows:[],known:false},sequence=0,timer=null,authRequest=null;
- const parentOrigins=['https://leroyfactory.fr','https://www.leroyfactory.fr'];
- addEventListener('message',e=>{if(e.source!==parent||!parentOrigins.includes(e.origin))return;const d=e.data;try{if(sessionStorage.getItem('randal-general-auth-manual')==='1')return;}catch{}if(d?.type==='lrf-configurator-session'){if(typeof d.sessionToken==='string'&&d.sessionToken.length>=32)authenticateSession('exchange',{sessionToken:d.sessionToken});else if(typeof d.idToken==='string')authenticateSession('admin-token',{idToken:d.idToken});}});
- if(parent!==window){let origin;try{origin=new URL(document.referrer).origin;}catch{}if(parentOrigins.includes(origin))parent.postMessage({type:'lrf-configurator-ready'},origin);}
-
- function authenticateSession(action,payload){const operation=request(action,payload);authRequest=operation;return operation.finally(()=>{if(authRequest===operation)authRequest=null;});}
- async function request(action='quote',payload={}){if(['quote','session'].includes(action)&&authRequest){await authRequest;return request(action,payload);}const turn=++sequence,project=getProject();state={...state,proHT:null,proRows:[],privateCode:state.client?.codeClient||'',pending:true,error:''};changed(state);
-  try{const data=await commercialRequest(action,{...payload,...(project?{project}:{})});if(turn!==sequence)return state;state={...data,known:true,pending:false,error:''};}
-  catch(e){if(turn!==sequence)return state;state={client:null,proHT:null,proRows:[],known:false,pending:false,error:e.message};}
-  changed(state);dispatchEvent(new CustomEvent('lrf-identity',{detail:state}));return state;
- }
- return {get state(){return state;},async load(){if(state.known)return state;let token='';try{if(sessionStorage.getItem('randal-general-auth-manual')!=='1')token=sessionStorage.getItem('lrfProSessionToken')||localStorage.getItem('lrfProRememberToken')||'';}catch{}return token?request('exchange',{sessionToken:token}):request('session');},refresh(){return request('quote');},schedule(){clearTimeout(timer);if(state.known&&!state.client){changed(state);return;}state={...state,proHT:null,proRows:[],pending:true,privateCode:state.client?.codeClient||''};++sequence;changed(state);timer=setTimeout(()=>request('quote'),280);},authenticate(action,payload){clearTimeout(timer);return authenticateSession(action,payload).then(result=>{if(result.client){try{sessionStorage.removeItem('randal-general-auth-manual');localStorage.setItem('randal-general-auth-revision',Date.now()+':'+Math.random());}catch{}}return result;});},resync(){clearTimeout(timer);state={client:null,proHT:null,proRows:[],known:false};changed(state);return request('session');},async logout(){clearTimeout(timer);++sequence;await commercialRequest('logout');try{sessionStorage.setItem('randal-general-auth-manual','1');sessionStorage.removeItem('lrfProSessionToken');localStorage.removeItem('lrfProRememberToken');localStorage.setItem('randal-general-auth-revision',Date.now()+':'+Math.random());}catch{}state={client:null,proHT:null,proRows:[],known:true};changed(state);dispatchEvent(new CustomEvent('lrf-identity',{detail:state}));}};
+export function privateMarkup(s){
+ if(!s?.client)return '<span>Mon compte client LRF</span>';
+ const priced=Number.isInteger(s.proHT)&&s.randalAllowed!==false,code=priced?(s.privateCode||s.client.codeClient):s.client.codeClient;
+ const price=priced?'Prix d’achat HT : '+money(s.proHT).replace(' TTC',''):s.pending?'Vérification du prix d’achat…':'Prix d’achat HT : sur demande';
+ const known=(s.proRows||[]).filter(r=>Number.isInteger(r.proHT)),partial=s.proHT===null&&known.length?'<small>'+known.length+' référence(s) tarifée(s) HT : '+money(known.reduce((n,r)=>n+r.proHT,0))+' · solde sur demande</small>':'';
+ return '<strong class="pro-reference">'+escapeHTML(code||'Administrateur')+'</strong><small>Catalogue général · '+escapeHTML(s.client.societe||'')+'</small>'+(s.randalAllowed===false?'<small>Accès RANDAL non autorisé pour ce compte.</small>':'<strong class="pro-purchase-price">'+escapeHTML(price)+'</strong>'+partial);
+}
+export function createIdentity(getProject,changed=()=>{}){
+ const origins=['https://leroyfactory.fr','https://www.leroyfactory.fr'];let host='';try{host=new URL(document.referrer).origin;}catch{}const embedded=parent!==window&&origins.includes(host);
+ let manualLogout=false,waiting=null,resolveParent=null,parentTimer;
+ const notify=s=>dispatchEvent(new CustomEvent('lrf-identity',{detail:s}));
+ const controller=createIdentityState({getProject,getKey:p=>{if(!p)return 'none';try{const q=quoteProject(p);return JSON.stringify(q.rows.map(r=>[r.ref,r.publicTTC]));}catch{return JSON.stringify(p.items||[]);}},request:commercialRequest,changed,settled:notify});
+ function finishParent(){clearTimeout(parentTimer);resolveParent?.();resolveParent=null;waiting=null;}
+ function requestParent(){if(!embedded||manualLogout)return Promise.resolve();if(waiting)return waiting;waiting=new Promise(resolve=>{resolveParent=resolve;parentTimer=setTimeout(finishParent,2500);});parent.postMessage({type:'lrf-configurator-session-needed'},host);return waiting;}
+ addEventListener('message',e=>{
+  if(e.source!==parent||!origins.includes(e.origin))return;const d=e.data;
+  if(d?.type==='lrf-configurator-session-absent'){finishParent();return;}
+  if(d?.type!=='lrf-configurator-session'||manualLogout)return;
+  let action,payload;if(typeof d.sessionToken==='string'&&d.sessionToken.length>=32){action='exchange';payload={sessionToken:d.sessionToken};}else if(typeof d.idToken==='string'){action='admin-token';payload={idToken:d.idToken};}else return;
+  // A previous logout in this origin must not reject a new authenticated visit
+  // from the official site. The server still verifies the received credential.
+  try{sessionStorage.removeItem('randal-general-auth-manual');}catch{}
+  controller.authenticate(action,payload).finally(finishParent);
+ });
+ if(embedded)parent.postMessage({type:'lrf-configurator-ready'},host);
+ return {get state(){return controller.state;},async reconnect(){manualLogout=false;await requestParent();return controller.load();},async load(){if(embedded&&!controller.state.client){await requestParent();}let token='';try{if(!embedded&&sessionStorage.getItem('randal-general-auth-manual')!=='1')token=sessionStorage.getItem('lrfProSessionToken')||localStorage.getItem('lrfProRememberToken')||'';}catch{}return token&&!controller.state.known?controller.authenticate('exchange',{sessionToken:token}):controller.load();},refresh:controller.refresh,schedule:controller.schedule,async authenticate(action,payload){manualLogout=false;const result=await controller.authenticate(action,payload);if(result.client){try{sessionStorage.removeItem('randal-general-auth-manual');localStorage.setItem('randal-general-auth-revision',Date.now()+':'+Math.random());}catch{}}return result;},resync:controller.resync,async logout(){manualLogout=true;await controller.logout();try{sessionStorage.setItem('randal-general-auth-manual','1');sessionStorage.removeItem('lrfProSessionToken');localStorage.removeItem('lrfProRememberToken');localStorage.setItem('randal-general-auth-revision',Date.now()+':'+Math.random());}catch{}}};
 }
 // Read the existing site's Firebase persistence only on explicit account access.
 // A different preview origin cannot read the production site's browser storage.

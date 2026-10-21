@@ -32,7 +32,7 @@ async function savedProject(a, variant, input) {
     let number = old?.number;
     if (!number) { const counter = db.collection('configurator_counters').doc(String(year)), c = await tx.get(counter), n = (c.data()?.value || 0) + 1; number = 'LRF-' + year + '-' + String(n).padStart(6, '0'); tx.set(counter, {value: n}); }
     const now = new Date().toISOString();
-    const record = {...raw, variant, owner: a.owner, account: {store: a.store, code: a.code}, number, status: 'draft', revision: (old?.revision || 0) + 1, createdAt: old?.createdAt || now, date: now, updatedAt: now};
+    const record = {...raw, thumbnail: raw.thumbnail || old?.thumbnail || null, variant, owner: a.owner, account: {store: a.store, code: a.code}, number, status: 'draft', revision: (old?.revision || 0) + 1, createdAt: old?.createdAt || now, date: now, updatedAt: now};
     tx.set(ref, record); return publicRecord(record);
   });
 }

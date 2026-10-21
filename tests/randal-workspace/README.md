@@ -9,6 +9,8 @@ Les deux applications conservent leurs catalogues et leurs grilles tarifaires di
 - `node qa/empty-templates-check.mjs`, `npm run check:workshop` et `npm run check:arrangement` dans la maison : quatre plans, surfaces, ouvertures, mobilier et conservation de la maison témoin originale.
 - `browser.mjs` : sélection → sauvegarde client → 3D → récapitulatif → validation → duplication ; import nommé, suppression, connexion depuis le site, plans vides et édition d’une maison.
 - `avatars-browser.mjs` : les deux personnages existants, les deux vues et les déplacements avec de véritables événements tactiles dans chaque configurateur.
+- `STUDIO_PROJECT_ROOT=/chemin/studio-work node --test tests/randal-workspace/{account-presentation,identity-state,client-auth}.test.mjs` : référence d’achat vérifiée `LRF-00003-220-00`, codes postaux, réponses de connexion reçues dans le désordre et conservation du dernier compte authentifié.
+- `account-projects-browser.mjs` : véritables scripts de session et passerelle du site, API commerciale réelle avec validation amont simulée et lente, cookies tiers absents, ancien marqueur de déconnexion, passage sélection → 3D, aperçus enregistrés et cartes de projets sur mobile. Une ancienne commande sans image affiche son propre plan sauvegardé.
 
 Les scénarios navigateur servent les builds locaux sur leurs origines de production et simulent les réponses de compte/projet. Les matières et modèles sont les ressources réelles. Ils ne créent aucun dossier de client réel et n’envoient aucun e-mail réel. Le workflow Firebase vérifie séparément l’édition de la base existante et le refus des appels anonymes après déploiement.
 

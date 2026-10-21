@@ -24,7 +24,7 @@ try{
   return route.continue();
  });
  const p=await context.newPage();diagnosticPage=p;p.setDefaultTimeout(30000);p.on('pageerror',e=>{errors.push(e.message);console.log('PAGE ERROR',e.message);});p.on('requestfailed',r=>{if(!r.failure()?.errorText.includes('ERR_ABORTED'))network.push({url:r.url(),error:r.failure()?.errorText});});
- await p.addInitScript(()=>{localStorage.setItem('studio-one-render-quality','fluid');localStorage.setItem('lrf-house-graphics-v1','eco');});
+ await p.addInitScript(()=>{window.__LRF_STANDALONE_PREVIEW__=true;localStorage.setItem('studio-one-render-quality','fluid');localStorage.setItem('lrf-house-graphics-v1','eco');});
  await p.goto(origins.studio,{waitUntil:'domcontentloaded'});
  await p.locator('#new-project').click();await p.locator('[data-model=three]').click();assert.equal(await p.locator('.project-leave-dialog:visible').count(),0);assert.equal(await p.locator('[data-model=three] .model-render').count(),0);assert.ok(await p.locator('[data-model=three] img.model-photo').getAttribute('src'));pass('Studio uses the real three-drawer catalogue photograph and choosing a model opens no save prompt');
  await p.locator('#next').click();await p.waitForFunction(()=>document.querySelector('#preview-status').hidden||document.querySelector('#preview-status').dataset.reason,null,{timeout:180000});

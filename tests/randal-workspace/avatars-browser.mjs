@@ -24,7 +24,7 @@ try{
   return route.continue();
  });
  const p=await context.newPage();diagnosticPage=p;p.setDefaultTimeout(30000);p.on('pageerror',e=>{errors.push(e.message);console.log('PAGE ERROR',e.message);});p.on('requestfailed',r=>{if(!r.failure()?.errorText.includes('ERR_ABORTED'))network.push({url:r.url(),error:r.failure()?.errorText});});
- await p.addInitScript(()=>{localStorage.setItem('studio-one-render-quality','fluid');localStorage.setItem('lrf-house-graphics-v1','eco');});
+ await p.addInitScript(()=>{window.__LRF_STANDALONE_PREVIEW__=true;localStorage.setItem('studio-one-render-quality','fluid');localStorage.setItem('lrf-house-graphics-v1','eco');});
  for(const [name,origin]of [['studio',origins.studio],['general',origins.general]].filter(([name])=>!process.env.AVATAR_ONLY||name===process.env.AVATAR_ONLY)){
   await p.goto(origin+'/atelier.html',{waitUntil:'domcontentloaded'});await p.waitForFunction(()=>document.querySelector('canvas')?.getAttribute('aria-busy')==='false',null,{timeout:180000});
   await p.locator('.visitor-avatar-button').click();await p.locator('[data-view=third]').click();await p.waitForFunction(()=>window.studioOnePrototype?.getDiagnostics().avatar?.loaded&&studioOnePrototype.getDiagnostics().avatar.visible,null,{timeout:90000});let d=await p.evaluate(()=>studioOnePrototype.getDiagnostics().avatar);assert.equal(d.bones,80);assert.equal(d.id,'male');assert.equal(d.view,'third');

@@ -12,12 +12,13 @@ function checkedData(raw, kind) {
   } else if (![1, 2].includes(data.version) || !Array.isArray(data.room?.points) || data.room.points.length < 3 || data.room.points.length > 12 || !Array.isArray(data.items) || data.items.length > 32) throw failure('Plan de salle de bains incompatible.');
   return data;
 }
+function thumbnail(value) { if (value === undefined || value === null || value === '') return null; if (typeof value !== 'string' || value.length > 120000 || !/^data:image\/(?:png|jpeg|webp);base64,[A-Za-z0-9+/=]+$/.test(value)) throw failure('Aperçu du projet invalide.'); return value; }
 function checkedInput(raw) {
   if (!raw || !/^project-[a-zA-Z0-9-]{6,80}$/.test(raw.id || '')) throw failure('Identifiant de projet invalide.');
   const kind = raw.kind === 'house' ? 'house' : 'bathroom';
   const customer = {name: text(raw.customer?.name), email: text(raw.customer?.email, 254), telephone: text(raw.customer?.telephone, 40), site: text(raw.customer?.site, 200)};
   if (customer.email && !/^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(customer.email)) throw failure('Adresse du client invalide.');
-  return {id: raw.id, title: text(raw.title, 120) || 'Mon projet RANDAL', kind, customer, data: checkedData(raw.data, kind), revision: Number.isInteger(raw.revision) ? raw.revision : 0};
+  return {id: raw.id, title: text(raw.title, 120) || 'Mon projet RANDAL', kind, customer, thumbnail: thumbnail(raw.thumbnail), data: checkedData(raw.data, kind), revision: Number.isInteger(raw.revision) ? raw.revision : 0};
 }
 function assertEditable(record) {
   if (record && record.status !== 'draft') throw failure(record.status === 'validated' ? 'Projet validé : dupliquez-le pour créer une nouvelle composition.' : 'Envoi de commande en cours. Le projet est protégé.', 409);

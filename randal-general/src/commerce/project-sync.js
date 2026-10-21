@@ -11,7 +11,7 @@ export async function projectSignature(record) {
 }
 export async function reconcileProject(local,remote,ownerKey) {
  if(local?.status==='validated'&&remote.status!=='validated'||(local?.revision||0)>(remote.revision||0))return local;
- const clean={...remote,remote:true,dirty:false,ownerKey};delete clean.pendingSync;delete clean.conflict;delete clean.serverCopy;
+ const clean={...remote,thumbnail:remote.thumbnail||local?.thumbnail||null,remote:true,dirty:false,ownerKey};delete clean.pendingSync;delete clean.conflict;delete clean.serverCopy;
  if(!local?.dirty||remote.status!=='draft')return clean;
  const remoteSignature=await projectSignature(remote),same=await projectSignature(local)===remoteSignature;
  // A keepalive save may finish after the old page has gone away. Its receipt

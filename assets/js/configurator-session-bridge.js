@@ -11,9 +11,9 @@
     const config={apiKey:'AIzaSyA3iuK5Ua8kFccURSqLihLshHnhA4rm2is',authDomain:'le-roy-factory.firebaseapp.com',projectId:'le-roy-factory',storageBucket:'le-roy-factory.firebasestorage.app',messagingSenderId:'249878619253',appId:'1:249878619253:web:05f051710b6251dbfa843c'};
     const instance=auth.getAuth(app.getApps().length?app.getApp():app.initializeApp(config));await instance.authStateReady();if(instance.currentUser)payload={type:'lrf-configurator-session',idToken:await instance.currentUser.getIdToken()};
    }
-   if(payload){const fingerprint=payload.sessionToken||payload.idToken;if(force||last!==fingerprint){last=fingerprint;frame.contentWindow.postMessage(payload,origin);}}
+   if(payload){const fingerprint=payload.sessionToken||payload.idToken;if(force||last!==fingerprint){last=fingerprint;frame.contentWindow.postMessage(payload,origin);}}else frame.contentWindow.postMessage({type:'lrf-configurator-session-absent'},origin);
   }catch{last='';}finally{sending=false;}
  }
- addEventListener('message',e=>{if(e.origin!==origin||e.source!==frame.contentWindow)return;if(e.data?.type==='lrf-configurator-exit'){location.assign('configurateurs-randal.html');return;}if(e.data?.type!=='lrf-configurator-ready')return;ready=true;transmit(true);});
+ addEventListener('message',e=>{if(e.origin!==origin||e.source!==frame.contentWindow)return;if(e.data?.type==='lrf-configurator-exit'){location.assign('configurateurs-randal.html');return;}if(!['lrf-configurator-ready','lrf-configurator-session-needed'].includes(e.data?.type))return;ready=true;transmit(true);});
  addEventListener('lrf-pro-session-changed',()=>transmit());addEventListener('storage',()=>transmit());addEventListener('focus',()=>transmit());frame.addEventListener('load',()=>{last='';transmit(true);});
 })();
