@@ -100,10 +100,10 @@ export function makeModel({width=.80,includeMirror=true,basinLayout,basinTop='se
  let topMode='sella';
  function setTop(mode){
   if(!TOP_OPTIONS.some(o=>o.id===mode)||!topAvailable(mode,widthCm))return false;
-  topMode=mode;const centers=getBasinCenters(mode);faucet.position.x=centers[0];secondFaucet.position.x=centers[1]||0;secondFaucet.visible=centers.length===2;for(const [id,group] of Object.entries(insets))group.visible=mode===id;tops.root.visible=mode!=='sella'&&mode!=='tampa';
+  topMode=mode;const centers=getBasinCenters(mode);faucet.position.x=centers[0];secondFaucet.position.x=centers[1]||0;secondFaucet.visible=centers.length===2;for(const [id,group] of Object.entries(insets))group.visible=mode===id;tops.root.visible=mode==='plain'||mode==='neris'||mode==='torne';
   tops.solid.visible=mode==='plain';tops.drilled.visible=mode==='neris'||mode==='torne';
   for(const [kind,vessel] of Object.entries(tops.vessels))vessel.group.visible=mode===kind;
-  faucet.visible=mode!=='plain';faucet.position.z=mode==='neris'||mode==='torne'?-.017:0;
+  faucet.visible=mode!=='plain'&&mode!=='bare';faucet.position.z=mode==='neris'||mode==='torne'?-.017:0;
   const extra=mode==='neris'?.150:mode==='torne'?.130:0;
   body.scale.y=(.131+extra)/.131;body.position.y=.911+extra/2;
   heads.forEach((o,i)=>o.position.y=headY[i]+extra);
