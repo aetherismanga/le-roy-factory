@@ -1,0 +1,1230 @@
+{
+  "prefix": "public-site-assets/configurator-materials/20261022",
+  "pdfs": {
+    "slate": {
+      "url": "https://eliosceramica.com/wp-content/uploads/2023/05/Elios_SLATE_web.pdf",
+      "sha256": "aba49e564b773dab3bd834e5e2cafe2b6360897d82603f24a356998519f9fd72"
+    },
+    "domus": {
+      "url": "https://eliosceramica.com/wp-content/uploads/2024/10/Elios_catalogo_DOMUS-1.pdf",
+      "sha256": "c3702b2efa8af8e122af7992fc00ee31f07c65de4efc80553cc65e4955636fc0"
+    },
+    "azuli-mood": {
+      "url": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "sha256": "8f42815718fe0572455d088aa6a7c448bff71664853d0a0eb570df6a3ad96f6e"
+    }
+  },
+  "collections": {
+    "slate": {
+      "natural": [
+        {
+          "pdf": "slate",
+          "page": 29,
+          "xref": 147,
+          "width": 296,
+          "height": 592
+        },
+        {
+          "pdf": "slate",
+          "page": 29,
+          "xref": 143,
+          "width": 296,
+          "height": 592
+        },
+        {
+          "pdf": "slate",
+          "page": 29,
+          "xref": 144,
+          "width": 296,
+          "height": 592
+        },
+        {
+          "pdf": "slate",
+          "page": 29,
+          "xref": 145,
+          "width": 296,
+          "height": 592
+        },
+        {
+          "pdf": "slate",
+          "page": 29,
+          "xref": 146,
+          "width": 296,
+          "height": 592
+        }
+      ],
+      "river": [
+        {
+          "pdf": "slate",
+          "page": 29,
+          "xref": 141,
+          "width": 297,
+          "height": 594
+        },
+        {
+          "pdf": "slate",
+          "page": 29,
+          "xref": 153,
+          "width": 297,
+          "height": 594
+        },
+        {
+          "pdf": "slate",
+          "page": 29,
+          "xref": 155,
+          "width": 297,
+          "height": 594
+        },
+        {
+          "pdf": "slate",
+          "page": 29,
+          "xref": 157,
+          "width": 297,
+          "height": 594
+        },
+        {
+          "pdf": "slate",
+          "page": 29,
+          "xref": 158,
+          "width": 297,
+          "height": 594
+        }
+      ],
+      "dark": [
+        {
+          "pdf": "slate",
+          "page": 29,
+          "xref": 148,
+          "width": 297,
+          "height": 594
+        },
+        {
+          "pdf": "slate",
+          "page": 29,
+          "xref": 149,
+          "width": 297,
+          "height": 594
+        },
+        {
+          "pdf": "slate",
+          "page": 29,
+          "xref": 150,
+          "width": 297,
+          "height": 594
+        },
+        {
+          "pdf": "slate",
+          "page": 29,
+          "xref": 151,
+          "width": 297,
+          "height": 594
+        },
+        {
+          "pdf": "slate",
+          "page": 29,
+          "xref": 152,
+          "width": 297,
+          "height": 594
+        }
+      ],
+      "flame": [
+        {
+          "pdf": "slate",
+          "page": 29,
+          "xref": 142,
+          "width": 297,
+          "height": 594
+        },
+        {
+          "pdf": "slate",
+          "page": 29,
+          "xref": 154,
+          "width": 297,
+          "height": 594
+        },
+        {
+          "pdf": "slate",
+          "page": 29,
+          "xref": 156,
+          "width": 297,
+          "height": 594
+        },
+        {
+          "pdf": "slate",
+          "page": 29,
+          "xref": 159,
+          "width": 297,
+          "height": 594
+        },
+        {
+          "pdf": "slate",
+          "page": 29,
+          "xref": 160,
+          "width": 297,
+          "height": 594
+        }
+      ],
+      "gold": [
+        {
+          "pdf": "slate",
+          "page": 30,
+          "xref": 236,
+          "width": 296,
+          "height": 591
+        },
+        {
+          "pdf": "slate",
+          "page": 30,
+          "xref": 258,
+          "width": 296,
+          "height": 591
+        },
+        {
+          "pdf": "slate",
+          "page": 30,
+          "xref": 269,
+          "width": 296,
+          "height": 591
+        },
+        {
+          "pdf": "slate",
+          "page": 30,
+          "xref": 280,
+          "width": 296,
+          "height": 591
+        },
+        {
+          "pdf": "slate",
+          "page": 30,
+          "xref": 247,
+          "width": 296,
+          "height": 591
+        }
+      ],
+      "grey": [
+        {
+          "pdf": "slate",
+          "page": 30,
+          "xref": 165,
+          "width": 295,
+          "height": 589
+        },
+        {
+          "pdf": "slate",
+          "page": 30,
+          "xref": 203,
+          "width": 295,
+          "height": 589
+        },
+        {
+          "pdf": "slate",
+          "page": 30,
+          "xref": 166,
+          "width": 295,
+          "height": 589
+        },
+        {
+          "pdf": "slate",
+          "page": 30,
+          "xref": 214,
+          "width": 295,
+          "height": 589
+        },
+        {
+          "pdf": "slate",
+          "page": 30,
+          "xref": 225,
+          "width": 295,
+          "height": 589
+        }
+      ]
+    },
+    "domus": {
+      "clay-red": [
+        {
+          "pdf": "domus",
+          "page": 23,
+          "xref": 280,
+          "width": 569,
+          "height": 58
+        },
+        {
+          "pdf": "domus",
+          "page": 23,
+          "xref": 282,
+          "width": 569,
+          "height": 58
+        },
+        {
+          "pdf": "domus",
+          "page": 23,
+          "xref": 304,
+          "width": 569,
+          "height": 58
+        },
+        {
+          "pdf": "domus",
+          "page": 23,
+          "xref": 324,
+          "width": 569,
+          "height": 57
+        },
+        {
+          "pdf": "domus",
+          "page": 23,
+          "xref": 334,
+          "width": 569,
+          "height": 57
+        },
+        {
+          "pdf": "domus",
+          "page": 23,
+          "xref": 346,
+          "width": 569,
+          "height": 58
+        },
+        {
+          "pdf": "domus",
+          "page": 23,
+          "xref": 348,
+          "width": 569,
+          "height": 58
+        },
+        {
+          "pdf": "domus",
+          "page": 23,
+          "xref": 350,
+          "width": 569,
+          "height": 58
+        },
+        {
+          "pdf": "domus",
+          "page": 23,
+          "xref": 352,
+          "width": 569,
+          "height": 58
+        },
+        {
+          "pdf": "domus",
+          "page": 23,
+          "xref": 354,
+          "width": 569,
+          "height": 58
+        },
+        {
+          "pdf": "domus",
+          "page": 23,
+          "xref": 284,
+          "width": 569,
+          "height": 58
+        },
+        {
+          "pdf": "domus",
+          "page": 23,
+          "xref": 286,
+          "width": 569,
+          "height": 58
+        },
+        {
+          "pdf": "domus",
+          "page": 23,
+          "xref": 288,
+          "width": 569,
+          "height": 58
+        },
+        {
+          "pdf": "domus",
+          "page": 23,
+          "xref": 290,
+          "width": 569,
+          "height": 58
+        },
+        {
+          "pdf": "domus",
+          "page": 23,
+          "xref": 292,
+          "width": 569,
+          "height": 58
+        },
+        {
+          "pdf": "domus",
+          "page": 23,
+          "xref": 294,
+          "width": 569,
+          "height": 58
+        },
+        {
+          "pdf": "domus",
+          "page": 23,
+          "xref": 296,
+          "width": 569,
+          "height": 58
+        },
+        {
+          "pdf": "domus",
+          "page": 23,
+          "xref": 298,
+          "width": 569,
+          "height": 58
+        },
+        {
+          "pdf": "domus",
+          "page": 23,
+          "xref": 300,
+          "width": 569,
+          "height": 58
+        },
+        {
+          "pdf": "domus",
+          "page": 23,
+          "xref": 302,
+          "width": 569,
+          "height": 58
+        },
+        {
+          "pdf": "domus",
+          "page": 23,
+          "xref": 306,
+          "width": 569,
+          "height": 58
+        },
+        {
+          "pdf": "domus",
+          "page": 23,
+          "xref": 308,
+          "width": 569,
+          "height": 59
+        },
+        {
+          "pdf": "domus",
+          "page": 23,
+          "xref": 310,
+          "width": 569,
+          "height": 57
+        },
+        {
+          "pdf": "domus",
+          "page": 23,
+          "xref": 312,
+          "width": 569,
+          "height": 58
+        },
+        {
+          "pdf": "domus",
+          "page": 23,
+          "xref": 314,
+          "width": 569,
+          "height": 57
+        },
+        {
+          "pdf": "domus",
+          "page": 23,
+          "xref": 316,
+          "width": 569,
+          "height": 58
+        },
+        {
+          "pdf": "domus",
+          "page": 23,
+          "xref": 318,
+          "width": 569,
+          "height": 58
+        },
+        {
+          "pdf": "domus",
+          "page": 23,
+          "xref": 320,
+          "width": 569,
+          "height": 58
+        },
+        {
+          "pdf": "domus",
+          "page": 23,
+          "xref": 322,
+          "width": 569,
+          "height": 58
+        },
+        {
+          "pdf": "domus",
+          "page": 23,
+          "xref": 290,
+          "width": 569,
+          "height": 58
+        },
+        {
+          "pdf": "domus",
+          "page": 23,
+          "xref": 292,
+          "width": 569,
+          "height": 58
+        },
+        {
+          "pdf": "domus",
+          "page": 23,
+          "xref": 326,
+          "width": 569,
+          "height": 58
+        },
+        {
+          "pdf": "domus",
+          "page": 23,
+          "xref": 328,
+          "width": 569,
+          "height": 59
+        },
+        {
+          "pdf": "domus",
+          "page": 23,
+          "xref": 298,
+          "width": 569,
+          "height": 58
+        },
+        {
+          "pdf": "domus",
+          "page": 23,
+          "xref": 300,
+          "width": 569,
+          "height": 58
+        },
+        {
+          "pdf": "domus",
+          "page": 23,
+          "xref": 302,
+          "width": 569,
+          "height": 58
+        },
+        {
+          "pdf": "domus",
+          "page": 23,
+          "xref": 292,
+          "width": 569,
+          "height": 58
+        },
+        {
+          "pdf": "domus",
+          "page": 23,
+          "xref": 322,
+          "width": 569,
+          "height": 58
+        }
+      ]
+    },
+    "azuli-mood": {
+      "chalk": [
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 871,
+          "width": 47,
+          "height": 47
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 872,
+          "width": 47,
+          "height": 47
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 873,
+          "width": 47,
+          "height": 47
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 874,
+          "width": 47,
+          "height": 47
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 875,
+          "width": 47,
+          "height": 47
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 876,
+          "width": 47,
+          "height": 47
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 877,
+          "width": 47,
+          "height": 47
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 878,
+          "width": 47,
+          "height": 47
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 879,
+          "width": 47,
+          "height": 47
+        }
+      ],
+      "sand": [
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 861,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 862,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 863,
+          "width": 47,
+          "height": 47
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 864,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 865,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 866,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 867,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 868,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 869,
+          "width": 47,
+          "height": 47
+        }
+      ],
+      "bone": [
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 852,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 853,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 854,
+          "width": 47,
+          "height": 47
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 855,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 856,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 857,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 858,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 859,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 860,
+          "width": 56,
+          "height": 56
+        }
+      ],
+      "thyme-green": [
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 843,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 844,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 845,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 846,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 847,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 848,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 849,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 850,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 851,
+          "width": 56,
+          "height": 56
+        }
+      ],
+      "burgundy": [
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 921,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 922,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 923,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 924,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 925,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 926,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 927,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 928,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 929,
+          "width": 56,
+          "height": 56
+        }
+      ],
+      "coffee-bean": [
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 913,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 914,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 915,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 916,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 917,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 918,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 919,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 920,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 917,
+          "width": 56,
+          "height": 56
+        }
+      ],
+      "blue": [
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 904,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 905,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 906,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 907,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 908,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 909,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 910,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 911,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 912,
+          "width": 56,
+          "height": 56
+        }
+      ],
+      "bottle-green": [
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 895,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 896,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 897,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 898,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 899,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 900,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 901,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 902,
+          "width": 47,
+          "height": 47
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 903,
+          "width": 56,
+          "height": 56
+        }
+      ],
+      "turquoise": [
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 886,
+          "width": 47,
+          "height": 47
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 887,
+          "width": 47,
+          "height": 47
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 888,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 889,
+          "width": 47,
+          "height": 47
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 890,
+          "width": 47,
+          "height": 47
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 891,
+          "width": 47,
+          "height": 47
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 892,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 893,
+          "width": 47,
+          "height": 47
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 894,
+          "width": 47,
+          "height": 47
+        }
+      ],
+      "dusk": [
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 930,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 931,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 932,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 933,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 934,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 935,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 930,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 936,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 937,
+          "width": 56,
+          "height": 56
+        }
+      ],
+      "dawn": [
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 880,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 881,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 882,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 883,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 880,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 884,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 885,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 881,
+          "width": 56,
+          "height": 56
+        },
+        {
+          "pdf": "azuli-mood",
+          "page": 33,
+          "xref": 883,
+          "width": 56,
+          "height": 56
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,3488 @@
+{
+  "baseCommit": "85d5f6bd3f7858c8f9381efe1974ee4d822df1b4",
+  "collections": [
+    {
+      "id": "view-lux",
+      "slug": "lux",
+      "brand": "view",
+      "name": "LUX",
+      "source": "https://viewceramiche.com/wp-content/uploads/2023/11/View_Catalogo_I_LEGNI_2024_LR.pdf",
+      "pattern": "tiles",
+      "surfaces": [
+        "floor",
+        "wall"
+      ],
+      "formats": [
+        {
+          "id": "20x120",
+          "label": "20 × 120 cm",
+          "width": 0.2,
+          "height": 1.2,
+          "shape": "rectangle"
+        },
+        {
+          "id": "30x120",
+          "label": "30 × 120 cm",
+          "width": 0.3,
+          "height": 1.2,
+          "shape": "rectangle"
+        }
+      ],
+      "roughness": 0.82,
+      "finish": "Naturel R10/A+B",
+      "finishes": [
+        "Naturel R10/A+B",
+        "Grip R11"
+      ],
+      "relief": "Structure bois, nuance légère V2",
+      "colors": [
+        {
+          "id": "agata",
+          "name": "Agata",
+          "formats": [
+            "20x120",
+            "30x120"
+          ],
+          "verifiedFormats": [
+            "20x120",
+            "30x120"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/11/View_Catalogo_I_LEGNI_2024_LR.pdf",
+              "xref": 271,
+              "page": 13,
+              "sha256": "0e81a9f69ad31e74b6309185298f0c1aeb70d3cd3f582f5566b4d3dd02ec016d"
+            }
+          ]
+        },
+        {
+          "id": "topazio",
+          "name": "Topazio",
+          "formats": [
+            "20x120",
+            "30x120"
+          ],
+          "verifiedFormats": [
+            "20x120",
+            "30x120"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/11/View_Catalogo_I_LEGNI_2024_LR.pdf",
+              "xref": 253,
+              "page": 13,
+              "sha256": "0e81a9f69ad31e74b6309185298f0c1aeb70d3cd3f582f5566b4d3dd02ec016d"
+            }
+          ]
+        },
+        {
+          "id": "perla",
+          "name": "Perla",
+          "formats": [
+            "20x120",
+            "30x120"
+          ],
+          "verifiedFormats": [
+            "20x120",
+            "30x120"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/11/View_Catalogo_I_LEGNI_2024_LR.pdf",
+              "xref": 290,
+              "page": 14,
+              "sha256": "0e81a9f69ad31e74b6309185298f0c1aeb70d3cd3f582f5566b4d3dd02ec016d"
+            }
+          ]
+        },
+        {
+          "id": "giada",
+          "name": "Giada",
+          "formats": [
+            "20x120",
+            "30x120"
+          ],
+          "verifiedFormats": [
+            "20x120",
+            "30x120"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/11/View_Catalogo_I_LEGNI_2024_LR.pdf",
+              "xref": 308,
+              "page": 14,
+              "sha256": "0e81a9f69ad31e74b6309185298f0c1aeb70d3cd3f582f5566b4d3dd02ec016d"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "view-rovere-forte",
+      "slug": "rovere-forte",
+      "brand": "view",
+      "name": "ROVERE FORTE",
+      "source": "https://viewceramiche.com/prodotto/i-legni-di-view-rovere-forte-2/",
+      "pattern": "tiles",
+      "surfaces": [
+        "floor",
+        "wall"
+      ],
+      "formats": [
+        {
+          "id": "20x120",
+          "label": "20 × 120 cm",
+          "width": 0.2,
+          "height": 1.2,
+          "shape": "rectangle"
+        },
+        {
+          "id": "30x120",
+          "label": "30 × 120 cm",
+          "width": 0.3,
+          "height": 1.2,
+          "shape": "rectangle"
+        }
+      ],
+      "roughness": 0.82,
+      "finish": "Naturel R10/A+B",
+      "finishes": [
+        "Naturel R10/A+B",
+        "Grip R11"
+      ],
+      "relief": "Structure bois, nuance légère V2",
+      "colors": [
+        {
+          "id": "cream",
+          "name": "Cream",
+          "formats": [
+            "20x120",
+            "30x120"
+          ],
+          "verifiedFormats": [
+            "20x120",
+            "30x120"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/11/View_Catalogo_I_LEGNI_2024_LR.pdf",
+              "xref": 134,
+              "page": 6,
+              "sha256": "0e81a9f69ad31e74b6309185298f0c1aeb70d3cd3f582f5566b4d3dd02ec016d"
+            }
+          ]
+        },
+        {
+          "id": "honey",
+          "name": "Honey",
+          "formats": [
+            "20x120",
+            "30x120"
+          ],
+          "verifiedFormats": [
+            "20x120",
+            "30x120"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/11/View_Catalogo_I_LEGNI_2024_LR.pdf",
+              "xref": 150,
+              "page": 6,
+              "sha256": "0e81a9f69ad31e74b6309185298f0c1aeb70d3cd3f582f5566b4d3dd02ec016d"
+            }
+          ]
+        },
+        {
+          "id": "nut",
+          "name": "Nut",
+          "formats": [
+            "20x120",
+            "30x120"
+          ],
+          "verifiedFormats": [
+            "20x120",
+            "30x120"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/11/View_Catalogo_I_LEGNI_2024_LR.pdf",
+              "xref": 189,
+              "page": 7,
+              "sha256": "0e81a9f69ad31e74b6309185298f0c1aeb70d3cd3f582f5566b4d3dd02ec016d"
+            }
+          ]
+        },
+        {
+          "id": "soft",
+          "name": "Soft",
+          "formats": [
+            "20x120"
+          ],
+          "verifiedFormats": [
+            "20x120"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/11/View_Catalogo_I_LEGNI_2024_LR.pdf",
+              "xref": 179,
+              "page": 7,
+              "sha256": "0e81a9f69ad31e74b6309185298f0c1aeb70d3cd3f582f5566b4d3dd02ec016d"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "view-blois",
+      "slug": "blois",
+      "brand": "view",
+      "name": "BLOIS",
+      "source": "https://viewceramiche.com/prodotto/blois/",
+      "pattern": "tiles",
+      "surfaces": [
+        "floor",
+        "wall"
+      ],
+      "formats": [
+        {
+          "id": "30x60",
+          "label": "30 × 60 cm",
+          "width": 0.3,
+          "height": 0.6,
+          "shape": "rectangle"
+        },
+        {
+          "id": "60x60",
+          "label": "60 × 60 cm",
+          "width": 0.6,
+          "height": 0.6,
+          "shape": "rectangle"
+        },
+        {
+          "id": "60x90",
+          "label": "60 × 90 cm",
+          "width": 0.6,
+          "height": 0.9,
+          "shape": "rectangle"
+        },
+        {
+          "id": "90x90",
+          "label": "90 × 90 cm",
+          "width": 0.9,
+          "height": 0.9,
+          "shape": "rectangle"
+        }
+      ],
+      "roughness": 0.82,
+      "finish": "Naturel R10/A+B",
+      "finishes": [
+        "Naturel R10/A+B",
+        "Grip R11/A+B+C"
+      ],
+      "relief": "Surface finement travaillée, variation V3",
+      "colors": [
+        {
+          "id": "beige",
+          "name": "Beige",
+          "formats": [
+            "30x60",
+            "60x60",
+            "60x90",
+            "90x90"
+          ],
+          "verifiedFormats": [
+            "30x60",
+            "60x60",
+            "60x90",
+            "90x90"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/11/Blois-Beige-700x.jpg",
+              "sha256": "691d6d5afed61ed40fa97d58abca018082a64f9005b859a5ddebb31d60c5c38d"
+            }
+          ]
+        },
+        {
+          "id": "gris",
+          "name": "Gris",
+          "formats": [
+            "30x60",
+            "60x60",
+            "60x90",
+            "90x90"
+          ],
+          "verifiedFormats": [
+            "30x60",
+            "60x60",
+            "60x90",
+            "90x90"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/11/Blois-Gris-700x.jpg",
+              "sha256": "091b07a7b402df94d7dfa9e1f4f5b5ff81e9493856c56375c8b172413ca07f21"
+            }
+          ]
+        },
+        {
+          "id": "anthracite",
+          "name": "Antracite",
+          "formats": [
+            "30x60",
+            "60x60",
+            "60x90",
+            "90x90"
+          ],
+          "verifiedFormats": [
+            "30x60",
+            "60x60",
+            "60x90",
+            "90x90"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/11/Blois-Antracite-700x.jpg",
+              "sha256": "1e69fd54c4d55dbd589692b0a416571e2d94cc37325e7b1af9840882b8ac2600"
+            }
+          ]
+        }
+      ],
+      "decorativeFormatsPending": [
+        "Mosaïque sur trame 30×30, tesselles 5×5 : échantillon exact à préparer ; non assimilée au carrelage standard."
+      ]
+    },
+    {
+      "id": "view-ardenne",
+      "slug": "ardenne",
+      "brand": "view",
+      "name": "ARDENNE",
+      "source": "https://viewceramiche.com/prodotto/ardenne-en/",
+      "pattern": "tiles",
+      "surfaces": [
+        "floor",
+        "wall"
+      ],
+      "formats": [
+        {
+          "id": "30x60",
+          "label": "30 × 60 cm",
+          "width": 0.3,
+          "height": 0.6,
+          "shape": "rectangle"
+        },
+        {
+          "id": "60x60",
+          "label": "60 × 60 cm",
+          "width": 0.6,
+          "height": 0.6,
+          "shape": "rectangle"
+        },
+        {
+          "id": "60x120",
+          "label": "60 × 120 cm",
+          "width": 0.6,
+          "height": 1.2,
+          "shape": "rectangle"
+        },
+        {
+          "id": "80x80",
+          "label": "80 × 80 cm",
+          "width": 0.8,
+          "height": 0.8,
+          "shape": "rectangle"
+        },
+        {
+          "id": "120x120",
+          "label": "120 × 120 cm",
+          "width": 1.2,
+          "height": 1.2,
+          "shape": "rectangle"
+        },
+        {
+          "id": "120x278",
+          "label": "120 × 278 cm",
+          "width": 1.2,
+          "height": 2.78,
+          "shape": "rectangle"
+        }
+      ],
+      "roughness": 0.82,
+      "finish": "Naturel R10/A+B",
+      "finishes": [
+        "Naturel R10/A+B",
+        "Grip R11/A+B+C",
+        "Grande dalle 6,5 mm"
+      ],
+      "relief": "Surface douce sans structure, variation V2",
+      "colors": [
+        {
+          "id": "avorio",
+          "name": "Avorio",
+          "formats": [
+            "30x60",
+            "60x60",
+            "60x120",
+            "80x80",
+            "120x120",
+            "120x278"
+          ],
+          "verifiedFormats": [
+            "30x60",
+            "60x60",
+            "60x120",
+            "80x80",
+            "120x120",
+            "120x278"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/11/Ardenne-Avorio-700x.jpg",
+              "sha256": "0cc069954a040ca46f424c2d30fcd6d101cb697ee692306029b3f8a802f05791"
+            }
+          ]
+        },
+        {
+          "id": "sabbia",
+          "name": "Sabbia",
+          "formats": [
+            "30x60",
+            "60x60",
+            "60x120",
+            "80x80",
+            "120x120",
+            "120x278"
+          ],
+          "verifiedFormats": [
+            "30x60",
+            "60x60",
+            "60x120",
+            "80x80",
+            "120x120",
+            "120x278"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/11/Ardenne-Sabbia-700x.jpg",
+              "sha256": "631326bb602bed7c4c338f7ee08b31b99d0cc89639dc4860fb2d9c1ca4ab2d10"
+            }
+          ]
+        },
+        {
+          "id": "grigio",
+          "name": "Grigio",
+          "formats": [
+            "30x60",
+            "60x60",
+            "60x120",
+            "80x80",
+            "120x120",
+            "120x278"
+          ],
+          "verifiedFormats": [
+            "30x60",
+            "60x60",
+            "60x120",
+            "80x80",
+            "120x120",
+            "120x278"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/11/Ardenne-Grigio-700x.jpg",
+              "sha256": "36b6aedcc0f00aeef7bff9843d37016a6a6838b54e99f7c786bd628223c4b541"
+            }
+          ]
+        },
+        {
+          "id": "antracite",
+          "name": "Antracite",
+          "formats": [
+            "30x60",
+            "60x60",
+            "60x120",
+            "80x80",
+            "120x120"
+          ],
+          "verifiedFormats": [
+            "30x60",
+            "60x60",
+            "60x120",
+            "80x80",
+            "120x120"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/11/Ardenne-Antracite-700x.jpg",
+              "sha256": "0cd91e2bf71dc9a887f759fc47e5e037678f2188bfe3e1bc30effbcf5b173f91"
+            }
+          ]
+        }
+      ],
+      "decorativeFormatsPending": [
+        "Mosaïque sur trame 30×30, tesselles 5×5 : échantillon exact à préparer ; non assimilée au carrelage standard."
+      ]
+    },
+    {
+      "id": "view-docks",
+      "slug": "docks",
+      "brand": "view",
+      "name": "DOCKS",
+      "source": "https://viewceramiche.com/prodotto/docks-fr/",
+      "pattern": "tiles",
+      "surfaces": [
+        "floor",
+        "wall"
+      ],
+      "formats": [
+        {
+          "id": "100x100",
+          "label": "100 × 100 cm",
+          "width": 1.0,
+          "height": 1.0,
+          "shape": "rectangle"
+        }
+      ],
+      "roughness": 0.82,
+      "finish": "Naturel R10/A+B",
+      "finishes": [
+        "Naturel R10/A+B",
+        "Grip R11/A+B+C"
+      ],
+      "relief": "Structure très subtile, variation V2",
+      "colors": [
+        {
+          "id": "sabbia",
+          "name": "Sabbia",
+          "formats": [
+            "100x100"
+          ],
+          "verifiedFormats": [
+            "100x100"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/11/Docks-Sabbia-700x.jpg",
+              "sha256": "e565e8815ece8050f7558f022959475232476acbceb6b2ee4cfe38ee7be2c55b"
+            }
+          ]
+        },
+        {
+          "id": "grigio",
+          "name": "Grigio",
+          "formats": [
+            "100x100"
+          ],
+          "verifiedFormats": [
+            "100x100"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/11/Docks-Grigio-700x-1.jpg",
+              "sha256": "5016f293a4e5379220ec5118cf753d6d169c755bd9d6e75bcaf4d9cefe5e40e4"
+            }
+          ]
+        },
+        {
+          "id": "antracite",
+          "name": "Antracite",
+          "formats": [
+            "100x100"
+          ],
+          "verifiedFormats": [
+            "100x100"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/11/Docks-Antracite-700x.jpg",
+              "sha256": "3d63adb12ccc8e77019f8e82dfe37b764a6a1de7fdd94c4732fd9c9a627f9b10"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "view-digione",
+      "slug": "digione",
+      "brand": "view",
+      "name": "DIGIONE",
+      "source": "https://viewceramiche.com/prodotto/digione/",
+      "pattern": "tiles",
+      "surfaces": [
+        "floor",
+        "wall"
+      ],
+      "formats": [
+        {
+          "id": "60x90",
+          "label": "60 × 90 cm",
+          "width": 0.6,
+          "height": 0.9,
+          "shape": "rectangle"
+        }
+      ],
+      "roughness": 0.82,
+      "finish": "Naturel R10/A+B",
+      "finishes": [
+        "Naturel R10/A+B",
+        "Grip R11/A+B+C"
+      ],
+      "relief": "Surface douce, variation V2",
+      "colors": [
+        {
+          "id": "oro",
+          "name": "Oro",
+          "formats": [
+            "60x90"
+          ],
+          "verifiedFormats": [
+            "60x90"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/11/Digione-Oro-700x.jpg",
+              "sha256": "8d46ec017b7b60206625fdd97e745bb0d2916f56437e5669eb253fe10ae95f2a"
+            }
+          ]
+        },
+        {
+          "id": "perla",
+          "name": "Perla",
+          "formats": [
+            "60x90"
+          ],
+          "verifiedFormats": [
+            "60x90"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/11/Digione-Perla-700x.jpg",
+              "sha256": "adb02c5ffa3aca47a931f46effaea1beb2b1b839ee8168ee7a24bea432c4ced5"
+            }
+          ]
+        },
+        {
+          "id": "grigio",
+          "name": "Grigio",
+          "formats": [
+            "60x90"
+          ],
+          "verifiedFormats": [
+            "60x90"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/11/Digione-Grigio-700x.jpg",
+              "sha256": "fea1ddbcbbb27176413d04ba8ac45adb4caf0d6264a33c1c6e193271705f7ab2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "view-corso",
+      "slug": "corso",
+      "brand": "view",
+      "name": "CORSO",
+      "source": "https://viewceramiche.com/prodotto/corso-fr/",
+      "pattern": "tiles",
+      "surfaces": [
+        "floor",
+        "wall"
+      ],
+      "formats": [
+        {
+          "id": "30x60",
+          "label": "30 × 60 cm",
+          "width": 0.3,
+          "height": 0.6,
+          "shape": "rectangle"
+        },
+        {
+          "id": "60x60",
+          "label": "60 × 60 cm",
+          "width": 0.6,
+          "height": 0.6,
+          "shape": "rectangle"
+        },
+        {
+          "id": "60x90",
+          "label": "60 × 90 cm",
+          "width": 0.6,
+          "height": 0.9,
+          "shape": "rectangle"
+        },
+        {
+          "id": "60x120",
+          "label": "60 × 120 cm",
+          "width": 0.6,
+          "height": 1.2,
+          "shape": "rectangle"
+        },
+        {
+          "id": "120x120",
+          "label": "120 × 120 cm",
+          "width": 1.2,
+          "height": 1.2,
+          "shape": "rectangle"
+        }
+      ],
+      "roughness": 0.82,
+      "finish": "Naturel R10/A+B",
+      "finishes": [
+        "Naturel R10/A+B",
+        "Vintage",
+        "Grip R11/A+B+C",
+        "Burattato+"
+      ],
+      "relief": "Structure pierre et bord rustique, variation V3",
+      "colors": [
+        {
+          "id": "avorio",
+          "name": "Avorio",
+          "formats": [
+            "30x60",
+            "60x60",
+            "60x90",
+            "60x120",
+            "120x120"
+          ],
+          "verifiedFormats": [
+            "30x60",
+            "60x60",
+            "60x90",
+            "60x120",
+            "120x120"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/12/View_catalogo_serie_Corso_2024_LR.pdf",
+              "xref": 103,
+              "page": 17,
+              "sha256": "ad2dcc5542a8a88a7a496af1549eb3c3d34657475a5d6686a6ceea3b5d488a69"
+            }
+          ]
+        },
+        {
+          "id": "beige",
+          "name": "Beige",
+          "formats": [
+            "30x60",
+            "60x60",
+            "60x90",
+            "60x120",
+            "120x120"
+          ],
+          "verifiedFormats": [
+            "30x60",
+            "60x60",
+            "60x90",
+            "60x120",
+            "120x120"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/12/View_catalogo_serie_Corso_2024_LR.pdf",
+              "xref": 113,
+              "page": 18,
+              "sha256": "ad2dcc5542a8a88a7a496af1549eb3c3d34657475a5d6686a6ceea3b5d488a69"
+            }
+          ]
+        }
+      ],
+      "decorativeFormatsPending": [
+        "Modulo A : 30×60 / 60×60 / 60×90 ; pose multiformat non simulée dans cette phase."
+      ]
+    },
+    {
+      "id": "view-marais",
+      "slug": "marais",
+      "brand": "view",
+      "name": "MARAIS",
+      "source": "https://viewceramiche.com/prodotto/marais-2/",
+      "pattern": "tiles",
+      "surfaces": [
+        "floor",
+        "wall"
+      ],
+      "formats": [
+        {
+          "id": "60x60",
+          "label": "60 × 60 cm",
+          "width": 0.6,
+          "height": 0.6,
+          "shape": "rectangle"
+        },
+        {
+          "id": "60x90",
+          "label": "60 × 90 cm",
+          "width": 0.6,
+          "height": 0.9,
+          "shape": "rectangle"
+        },
+        {
+          "id": "90x90",
+          "label": "90 × 90 cm",
+          "width": 0.9,
+          "height": 0.9,
+          "shape": "rectangle"
+        }
+      ],
+      "roughness": 0.82,
+      "finish": "Naturel R10/A+B",
+      "finishes": [
+        "Naturel R10/A+B",
+        "Vintage",
+        "Grip R11/A+B+C"
+      ],
+      "relief": "Structure pierre et bord rustique, variation V3",
+      "colors": [
+        {
+          "id": "avana",
+          "name": "Avana",
+          "formats": [
+            "60x60",
+            "60x90",
+            "90x90"
+          ],
+          "verifiedFormats": [
+            "60x60",
+            "60x90",
+            "90x90"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Marais_2024_LR.pdf",
+              "xref": 197,
+              "page": 15,
+              "crop": [
+                4,
+                4,
+                508,
+                508
+              ],
+              "sha256": "2f3f5a97e5ba28ad8e91b4cb24d32dcc81cdb5bbea163643332c71fc9c0800f0"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Marais_2024_LR.pdf",
+              "xref": 197,
+              "page": 15,
+              "crop": [
+                516,
+                4,
+                1019,
+                508
+              ],
+              "sha256": "2f3f5a97e5ba28ad8e91b4cb24d32dcc81cdb5bbea163643332c71fc9c0800f0"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Marais_2024_LR.pdf",
+              "xref": 197,
+              "page": 15,
+              "crop": [
+                1027,
+                4,
+                1531,
+                508
+              ],
+              "sha256": "2f3f5a97e5ba28ad8e91b4cb24d32dcc81cdb5bbea163643332c71fc9c0800f0"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Marais_2024_LR.pdf",
+              "xref": 197,
+              "page": 15,
+              "crop": [
+                4,
+                516,
+                508,
+                1019
+              ],
+              "sha256": "2f3f5a97e5ba28ad8e91b4cb24d32dcc81cdb5bbea163643332c71fc9c0800f0"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Marais_2024_LR.pdf",
+              "xref": 197,
+              "page": 15,
+              "crop": [
+                516,
+                516,
+                1019,
+                1019
+              ],
+              "sha256": "2f3f5a97e5ba28ad8e91b4cb24d32dcc81cdb5bbea163643332c71fc9c0800f0"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Marais_2024_LR.pdf",
+              "xref": 197,
+              "page": 15,
+              "crop": [
+                1027,
+                516,
+                1531,
+                1019
+              ],
+              "sha256": "2f3f5a97e5ba28ad8e91b4cb24d32dcc81cdb5bbea163643332c71fc9c0800f0"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Marais_2024_LR.pdf",
+              "xref": 197,
+              "page": 15,
+              "crop": [
+                4,
+                1027,
+                508,
+                1531
+              ],
+              "sha256": "2f3f5a97e5ba28ad8e91b4cb24d32dcc81cdb5bbea163643332c71fc9c0800f0"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Marais_2024_LR.pdf",
+              "xref": 197,
+              "page": 15,
+              "crop": [
+                516,
+                1027,
+                1019,
+                1531
+              ],
+              "sha256": "2f3f5a97e5ba28ad8e91b4cb24d32dcc81cdb5bbea163643332c71fc9c0800f0"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Marais_2024_LR.pdf",
+              "xref": 197,
+              "page": 15,
+              "crop": [
+                1027,
+                1027,
+                1531,
+                1531
+              ],
+              "sha256": "2f3f5a97e5ba28ad8e91b4cb24d32dcc81cdb5bbea163643332c71fc9c0800f0"
+            }
+          ]
+        },
+        {
+          "id": "beige",
+          "name": "Beige",
+          "formats": [
+            "60x60",
+            "60x90",
+            "90x90"
+          ],
+          "verifiedFormats": [
+            "60x60",
+            "60x90",
+            "90x90"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Marais_2024_LR.pdf",
+              "xref": 204,
+              "page": 16,
+              "crop": [
+                4,
+                4,
+                508,
+                508
+              ],
+              "sha256": "2f3f5a97e5ba28ad8e91b4cb24d32dcc81cdb5bbea163643332c71fc9c0800f0"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Marais_2024_LR.pdf",
+              "xref": 204,
+              "page": 16,
+              "crop": [
+                516,
+                4,
+                1019,
+                508
+              ],
+              "sha256": "2f3f5a97e5ba28ad8e91b4cb24d32dcc81cdb5bbea163643332c71fc9c0800f0"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Marais_2024_LR.pdf",
+              "xref": 204,
+              "page": 16,
+              "crop": [
+                1027,
+                4,
+                1531,
+                508
+              ],
+              "sha256": "2f3f5a97e5ba28ad8e91b4cb24d32dcc81cdb5bbea163643332c71fc9c0800f0"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Marais_2024_LR.pdf",
+              "xref": 204,
+              "page": 16,
+              "crop": [
+                4,
+                516,
+                508,
+                1019
+              ],
+              "sha256": "2f3f5a97e5ba28ad8e91b4cb24d32dcc81cdb5bbea163643332c71fc9c0800f0"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Marais_2024_LR.pdf",
+              "xref": 204,
+              "page": 16,
+              "crop": [
+                516,
+                516,
+                1019,
+                1019
+              ],
+              "sha256": "2f3f5a97e5ba28ad8e91b4cb24d32dcc81cdb5bbea163643332c71fc9c0800f0"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Marais_2024_LR.pdf",
+              "xref": 204,
+              "page": 16,
+              "crop": [
+                1027,
+                516,
+                1531,
+                1019
+              ],
+              "sha256": "2f3f5a97e5ba28ad8e91b4cb24d32dcc81cdb5bbea163643332c71fc9c0800f0"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Marais_2024_LR.pdf",
+              "xref": 204,
+              "page": 16,
+              "crop": [
+                4,
+                1027,
+                508,
+                1531
+              ],
+              "sha256": "2f3f5a97e5ba28ad8e91b4cb24d32dcc81cdb5bbea163643332c71fc9c0800f0"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Marais_2024_LR.pdf",
+              "xref": 204,
+              "page": 16,
+              "crop": [
+                516,
+                1027,
+                1019,
+                1531
+              ],
+              "sha256": "2f3f5a97e5ba28ad8e91b4cb24d32dcc81cdb5bbea163643332c71fc9c0800f0"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Marais_2024_LR.pdf",
+              "xref": 204,
+              "page": 16,
+              "crop": [
+                1027,
+                1027,
+                1531,
+                1531
+              ],
+              "sha256": "2f3f5a97e5ba28ad8e91b4cb24d32dcc81cdb5bbea163643332c71fc9c0800f0"
+            }
+          ]
+        },
+        {
+          "id": "argento",
+          "name": "Argento",
+          "formats": [
+            "60x60",
+            "60x90",
+            "90x90"
+          ],
+          "verifiedFormats": [
+            "60x60",
+            "60x90",
+            "90x90"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Marais_2024_LR.pdf",
+              "xref": 207,
+              "page": 17,
+              "crop": [
+                4,
+                4,
+                508,
+                508
+              ],
+              "sha256": "2f3f5a97e5ba28ad8e91b4cb24d32dcc81cdb5bbea163643332c71fc9c0800f0"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Marais_2024_LR.pdf",
+              "xref": 207,
+              "page": 17,
+              "crop": [
+                516,
+                4,
+                1019,
+                508
+              ],
+              "sha256": "2f3f5a97e5ba28ad8e91b4cb24d32dcc81cdb5bbea163643332c71fc9c0800f0"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Marais_2024_LR.pdf",
+              "xref": 207,
+              "page": 17,
+              "crop": [
+                1027,
+                4,
+                1531,
+                508
+              ],
+              "sha256": "2f3f5a97e5ba28ad8e91b4cb24d32dcc81cdb5bbea163643332c71fc9c0800f0"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Marais_2024_LR.pdf",
+              "xref": 207,
+              "page": 17,
+              "crop": [
+                4,
+                516,
+                508,
+                1019
+              ],
+              "sha256": "2f3f5a97e5ba28ad8e91b4cb24d32dcc81cdb5bbea163643332c71fc9c0800f0"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Marais_2024_LR.pdf",
+              "xref": 207,
+              "page": 17,
+              "crop": [
+                516,
+                516,
+                1019,
+                1019
+              ],
+              "sha256": "2f3f5a97e5ba28ad8e91b4cb24d32dcc81cdb5bbea163643332c71fc9c0800f0"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Marais_2024_LR.pdf",
+              "xref": 207,
+              "page": 17,
+              "crop": [
+                1027,
+                516,
+                1531,
+                1019
+              ],
+              "sha256": "2f3f5a97e5ba28ad8e91b4cb24d32dcc81cdb5bbea163643332c71fc9c0800f0"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Marais_2024_LR.pdf",
+              "xref": 207,
+              "page": 17,
+              "crop": [
+                4,
+                1027,
+                508,
+                1531
+              ],
+              "sha256": "2f3f5a97e5ba28ad8e91b4cb24d32dcc81cdb5bbea163643332c71fc9c0800f0"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Marais_2024_LR.pdf",
+              "xref": 207,
+              "page": 17,
+              "crop": [
+                516,
+                1027,
+                1019,
+                1531
+              ],
+              "sha256": "2f3f5a97e5ba28ad8e91b4cb24d32dcc81cdb5bbea163643332c71fc9c0800f0"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Marais_2024_LR.pdf",
+              "xref": 207,
+              "page": 17,
+              "crop": [
+                1027,
+                1027,
+                1531,
+                1531
+              ],
+              "sha256": "2f3f5a97e5ba28ad8e91b4cb24d32dcc81cdb5bbea163643332c71fc9c0800f0"
+            }
+          ]
+        },
+        {
+          "id": "grafite",
+          "name": "Grafite",
+          "formats": [
+            "60x60",
+            "90x90"
+          ],
+          "verifiedFormats": [
+            "60x60",
+            "90x90"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Marais_2024_LR.pdf",
+              "xref": 210,
+              "page": 18,
+              "crop": [
+                4,
+                4,
+                508,
+                508
+              ],
+              "sha256": "2f3f5a97e5ba28ad8e91b4cb24d32dcc81cdb5bbea163643332c71fc9c0800f0"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Marais_2024_LR.pdf",
+              "xref": 210,
+              "page": 18,
+              "crop": [
+                516,
+                4,
+                1019,
+                508
+              ],
+              "sha256": "2f3f5a97e5ba28ad8e91b4cb24d32dcc81cdb5bbea163643332c71fc9c0800f0"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Marais_2024_LR.pdf",
+              "xref": 210,
+              "page": 18,
+              "crop": [
+                1027,
+                4,
+                1531,
+                508
+              ],
+              "sha256": "2f3f5a97e5ba28ad8e91b4cb24d32dcc81cdb5bbea163643332c71fc9c0800f0"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Marais_2024_LR.pdf",
+              "xref": 210,
+              "page": 18,
+              "crop": [
+                4,
+                516,
+                508,
+                1019
+              ],
+              "sha256": "2f3f5a97e5ba28ad8e91b4cb24d32dcc81cdb5bbea163643332c71fc9c0800f0"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Marais_2024_LR.pdf",
+              "xref": 210,
+              "page": 18,
+              "crop": [
+                516,
+                516,
+                1019,
+                1019
+              ],
+              "sha256": "2f3f5a97e5ba28ad8e91b4cb24d32dcc81cdb5bbea163643332c71fc9c0800f0"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Marais_2024_LR.pdf",
+              "xref": 210,
+              "page": 18,
+              "crop": [
+                1027,
+                516,
+                1531,
+                1019
+              ],
+              "sha256": "2f3f5a97e5ba28ad8e91b4cb24d32dcc81cdb5bbea163643332c71fc9c0800f0"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Marais_2024_LR.pdf",
+              "xref": 210,
+              "page": 18,
+              "crop": [
+                4,
+                1027,
+                508,
+                1531
+              ],
+              "sha256": "2f3f5a97e5ba28ad8e91b4cb24d32dcc81cdb5bbea163643332c71fc9c0800f0"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Marais_2024_LR.pdf",
+              "xref": 210,
+              "page": 18,
+              "crop": [
+                516,
+                1027,
+                1019,
+                1531
+              ],
+              "sha256": "2f3f5a97e5ba28ad8e91b4cb24d32dcc81cdb5bbea163643332c71fc9c0800f0"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Marais_2024_LR.pdf",
+              "xref": 210,
+              "page": 18,
+              "crop": [
+                1027,
+                1027,
+                1531,
+                1531
+              ],
+              "sha256": "2f3f5a97e5ba28ad8e91b4cb24d32dcc81cdb5bbea163643332c71fc9c0800f0"
+            }
+          ]
+        }
+      ],
+      "decorativeFormatsPending": [
+        "Mosaïque sur trame 30×30, tesselles 5×5 : échantillon exact à préparer ; non assimilée au carrelage standard."
+      ]
+    },
+    {
+      "id": "view-tibur",
+      "slug": "tibur",
+      "brand": "view",
+      "name": "TIBUR",
+      "source": "https://viewceramiche.com/prodotto/tibur-fr/",
+      "pattern": "tiles",
+      "surfaces": [
+        "floor",
+        "wall"
+      ],
+      "formats": [
+        {
+          "id": "30x60",
+          "label": "30 × 60 cm",
+          "width": 0.3,
+          "height": 0.6,
+          "shape": "rectangle"
+        },
+        {
+          "id": "60x60",
+          "label": "60 × 60 cm",
+          "width": 0.6,
+          "height": 0.6,
+          "shape": "rectangle"
+        },
+        {
+          "id": "60x90",
+          "label": "60 × 90 cm",
+          "width": 0.6,
+          "height": 0.9,
+          "shape": "rectangle"
+        },
+        {
+          "id": "90x90",
+          "label": "90 × 90 cm",
+          "width": 0.9,
+          "height": 0.9,
+          "shape": "rectangle"
+        }
+      ],
+      "roughness": 0.82,
+      "finish": "Naturel R10/A+B",
+      "finishes": [
+        "Naturel R10/A+B",
+        "Vintage",
+        "Grip R11/A+B+C"
+      ],
+      "relief": "Légère structure pierre, variation V2",
+      "colors": [
+        {
+          "id": "almond",
+          "name": "Almond",
+          "formats": [
+            "30x60",
+            "60x60",
+            "60x90"
+          ],
+          "verifiedFormats": [
+            "30x60",
+            "60x60",
+            "60x90"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/11/Tibur-Almond-4-700x.jpg",
+              "sha256": "b218b7292bd77f8fac6c1c71aa295d1bed080f23cdc2bae37e6ebf8f03096bf6"
+            }
+          ]
+        },
+        {
+          "id": "silver",
+          "name": "Silver",
+          "formats": [
+            "30x60",
+            "60x60",
+            "60x90"
+          ],
+          "verifiedFormats": [
+            "30x60",
+            "60x60",
+            "60x90"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/11/Tibur-Silver-4-700x.jpg",
+              "sha256": "73bcb044cebe2ae4a499f0412509656be3a6b1cdae84bdd155662cc464496785"
+            }
+          ]
+        },
+        {
+          "id": "carbon",
+          "name": "Carbon",
+          "formats": [
+            "30x60",
+            "60x60",
+            "60x90",
+            "90x90"
+          ],
+          "verifiedFormats": [
+            "30x60",
+            "60x60",
+            "60x90",
+            "90x90"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/11/Tibur-Carbon-700x-1.jpg",
+              "sha256": "363091b538de48352f01622ec4971e32eb24482cafa37149a39030cdb8e33584"
+            }
+          ]
+        }
+      ],
+      "decorativeFormatsPending": [
+        "Mosaïque sur trame 30×30, tesselles 5×5 : échantillon exact à préparer ; non assimilée au carrelage standard."
+      ]
+    },
+    {
+      "id": "view-oikos",
+      "slug": "oikos",
+      "brand": "view",
+      "name": "OIKOS",
+      "source": "https://viewceramiche.com/prodotto/oikos-en/",
+      "pattern": "tiles",
+      "surfaces": [
+        "floor",
+        "wall"
+      ],
+      "formats": [
+        {
+          "id": "60x120",
+          "label": "60 × 120 cm",
+          "width": 0.6,
+          "height": 1.2,
+          "shape": "rectangle"
+        }
+      ],
+      "roughness": 0.82,
+      "finish": "Naturel R10/A+B",
+      "finishes": [
+        "Naturel R10/A+B"
+      ],
+      "relief": "Structure béton, variation V2",
+      "colors": [
+        {
+          "id": "white",
+          "name": "White",
+          "formats": [
+            "60x120"
+          ],
+          "verifiedFormats": [
+            "60x120"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/09/View-Catalogo_serie_Oikos-LR.pdf",
+              "xref": 190,
+              "page": 14,
+              "crop": [
+                5,
+                5,
+                557,
+                273
+              ],
+              "sha256": "26ad4e7140b90c81fa07dba9128e347df58cf060c5415a7ce7d7eead7d0816f9"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/09/View-Catalogo_serie_Oikos-LR.pdf",
+              "xref": 190,
+              "page": 14,
+              "crop": [
+                567,
+                5,
+                1118,
+                273
+              ],
+              "sha256": "26ad4e7140b90c81fa07dba9128e347df58cf060c5415a7ce7d7eead7d0816f9"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/09/View-Catalogo_serie_Oikos-LR.pdf",
+              "xref": 190,
+              "page": 14,
+              "crop": [
+                5,
+                283,
+                557,
+                551
+              ],
+              "sha256": "26ad4e7140b90c81fa07dba9128e347df58cf060c5415a7ce7d7eead7d0816f9"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/09/View-Catalogo_serie_Oikos-LR.pdf",
+              "xref": 190,
+              "page": 14,
+              "crop": [
+                567,
+                283,
+                1118,
+                551
+              ],
+              "sha256": "26ad4e7140b90c81fa07dba9128e347df58cf060c5415a7ce7d7eead7d0816f9"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/09/View-Catalogo_serie_Oikos-LR.pdf",
+              "xref": 190,
+              "page": 14,
+              "crop": [
+                5,
+                561,
+                557,
+                830
+              ],
+              "sha256": "26ad4e7140b90c81fa07dba9128e347df58cf060c5415a7ce7d7eead7d0816f9"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/09/View-Catalogo_serie_Oikos-LR.pdf",
+              "xref": 190,
+              "page": 14,
+              "crop": [
+                567,
+                561,
+                1118,
+                830
+              ],
+              "sha256": "26ad4e7140b90c81fa07dba9128e347df58cf060c5415a7ce7d7eead7d0816f9"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/09/View-Catalogo_serie_Oikos-LR.pdf",
+              "xref": 190,
+              "page": 14,
+              "crop": [
+                5,
+                840,
+                557,
+                1108
+              ],
+              "sha256": "26ad4e7140b90c81fa07dba9128e347df58cf060c5415a7ce7d7eead7d0816f9"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/09/View-Catalogo_serie_Oikos-LR.pdf",
+              "xref": 190,
+              "page": 14,
+              "crop": [
+                567,
+                840,
+                1118,
+                1108
+              ],
+              "sha256": "26ad4e7140b90c81fa07dba9128e347df58cf060c5415a7ce7d7eead7d0816f9"
+            }
+          ]
+        },
+        {
+          "id": "silver",
+          "name": "Silver",
+          "formats": [
+            "60x120"
+          ],
+          "verifiedFormats": [
+            "60x120"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/09/View-Catalogo_serie_Oikos-LR.pdf",
+              "xref": 192,
+              "page": 14,
+              "crop": [
+                5,
+                5,
+                557,
+                273
+              ],
+              "sha256": "26ad4e7140b90c81fa07dba9128e347df58cf060c5415a7ce7d7eead7d0816f9"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/09/View-Catalogo_serie_Oikos-LR.pdf",
+              "xref": 192,
+              "page": 14,
+              "crop": [
+                567,
+                5,
+                1118,
+                273
+              ],
+              "sha256": "26ad4e7140b90c81fa07dba9128e347df58cf060c5415a7ce7d7eead7d0816f9"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/09/View-Catalogo_serie_Oikos-LR.pdf",
+              "xref": 192,
+              "page": 14,
+              "crop": [
+                5,
+                283,
+                557,
+                551
+              ],
+              "sha256": "26ad4e7140b90c81fa07dba9128e347df58cf060c5415a7ce7d7eead7d0816f9"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/09/View-Catalogo_serie_Oikos-LR.pdf",
+              "xref": 192,
+              "page": 14,
+              "crop": [
+                567,
+                283,
+                1118,
+                551
+              ],
+              "sha256": "26ad4e7140b90c81fa07dba9128e347df58cf060c5415a7ce7d7eead7d0816f9"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/09/View-Catalogo_serie_Oikos-LR.pdf",
+              "xref": 192,
+              "page": 14,
+              "crop": [
+                5,
+                561,
+                557,
+                830
+              ],
+              "sha256": "26ad4e7140b90c81fa07dba9128e347df58cf060c5415a7ce7d7eead7d0816f9"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/09/View-Catalogo_serie_Oikos-LR.pdf",
+              "xref": 192,
+              "page": 14,
+              "crop": [
+                567,
+                561,
+                1118,
+                830
+              ],
+              "sha256": "26ad4e7140b90c81fa07dba9128e347df58cf060c5415a7ce7d7eead7d0816f9"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/09/View-Catalogo_serie_Oikos-LR.pdf",
+              "xref": 192,
+              "page": 14,
+              "crop": [
+                5,
+                840,
+                557,
+                1108
+              ],
+              "sha256": "26ad4e7140b90c81fa07dba9128e347df58cf060c5415a7ce7d7eead7d0816f9"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/09/View-Catalogo_serie_Oikos-LR.pdf",
+              "xref": 192,
+              "page": 14,
+              "crop": [
+                567,
+                840,
+                1118,
+                1108
+              ],
+              "sha256": "26ad4e7140b90c81fa07dba9128e347df58cf060c5415a7ce7d7eead7d0816f9"
+            }
+          ]
+        },
+        {
+          "id": "grey",
+          "name": "Grey",
+          "formats": [
+            "60x120"
+          ],
+          "verifiedFormats": [
+            "60x120"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/09/View-Catalogo_serie_Oikos-LR.pdf",
+              "xref": 201,
+              "page": 15,
+              "crop": [
+                5,
+                5,
+                557,
+                273
+              ],
+              "sha256": "26ad4e7140b90c81fa07dba9128e347df58cf060c5415a7ce7d7eead7d0816f9"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/09/View-Catalogo_serie_Oikos-LR.pdf",
+              "xref": 201,
+              "page": 15,
+              "crop": [
+                567,
+                5,
+                1118,
+                273
+              ],
+              "sha256": "26ad4e7140b90c81fa07dba9128e347df58cf060c5415a7ce7d7eead7d0816f9"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/09/View-Catalogo_serie_Oikos-LR.pdf",
+              "xref": 201,
+              "page": 15,
+              "crop": [
+                5,
+                283,
+                557,
+                551
+              ],
+              "sha256": "26ad4e7140b90c81fa07dba9128e347df58cf060c5415a7ce7d7eead7d0816f9"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/09/View-Catalogo_serie_Oikos-LR.pdf",
+              "xref": 201,
+              "page": 15,
+              "crop": [
+                567,
+                283,
+                1118,
+                551
+              ],
+              "sha256": "26ad4e7140b90c81fa07dba9128e347df58cf060c5415a7ce7d7eead7d0816f9"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/09/View-Catalogo_serie_Oikos-LR.pdf",
+              "xref": 201,
+              "page": 15,
+              "crop": [
+                5,
+                561,
+                557,
+                830
+              ],
+              "sha256": "26ad4e7140b90c81fa07dba9128e347df58cf060c5415a7ce7d7eead7d0816f9"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/09/View-Catalogo_serie_Oikos-LR.pdf",
+              "xref": 201,
+              "page": 15,
+              "crop": [
+                567,
+                561,
+                1118,
+                830
+              ],
+              "sha256": "26ad4e7140b90c81fa07dba9128e347df58cf060c5415a7ce7d7eead7d0816f9"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/09/View-Catalogo_serie_Oikos-LR.pdf",
+              "xref": 201,
+              "page": 15,
+              "crop": [
+                5,
+                840,
+                557,
+                1108
+              ],
+              "sha256": "26ad4e7140b90c81fa07dba9128e347df58cf060c5415a7ce7d7eead7d0816f9"
+            },
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/09/View-Catalogo_serie_Oikos-LR.pdf",
+              "xref": 201,
+              "page": 15,
+              "crop": [
+                567,
+                840,
+                1118,
+                1108
+              ],
+              "sha256": "26ad4e7140b90c81fa07dba9128e347df58cf060c5415a7ce7d7eead7d0816f9"
+            }
+          ]
+        }
+      ],
+      "decorativeFormatsPending": [
+        "Mosaïque Mix 30×30 : photo d’ambiance disponible, non utilisée comme échantillon à plat."
+      ]
+    },
+    {
+      "id": "view-marmi",
+      "slug": "i-marmi-di-view",
+      "brand": "view",
+      "name": "I MARMI DI VIEW",
+      "source": "https://viewceramiche.com/prodotto/marmi/",
+      "pattern": "tiles",
+      "surfaces": [
+        "floor",
+        "wall"
+      ],
+      "formats": [
+        {
+          "id": "60x120",
+          "label": "60 × 120 cm",
+          "width": 0.6,
+          "height": 1.2,
+          "shape": "rectangle"
+        }
+      ],
+      "roughness": 0.5,
+      "finish": "Matt",
+      "finishes": [
+        "Matt",
+        "Levigato poli"
+      ],
+      "relief": "Surface lisse, variation V3",
+      "colors": [
+        {
+          "id": "calacatta",
+          "name": "Calacatta",
+          "formats": [
+            "60x120"
+          ],
+          "verifiedFormats": [
+            "60x120"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/11/Calacatta-700x.jpg",
+              "sha256": "776c65648e2cc17ab16b96328c9913aeb6aae6764a03fe456d97b10667a0a012"
+            }
+          ]
+        },
+        {
+          "id": "statuario",
+          "name": "Statuario",
+          "formats": [
+            "60x120"
+          ],
+          "verifiedFormats": [
+            "60x120"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/11/Statuario-700x.jpg",
+              "sha256": "bd4cac8eb08e3dba18ff502ea57bb9a47e9e20c8e35a32758d4438d99b533f2d"
+            }
+          ]
+        },
+        {
+          "id": "travertino-bianco",
+          "name": "Travertino Bianco",
+          "formats": [
+            "60x120"
+          ],
+          "verifiedFormats": [],
+          "sources": [],
+          "reason": "Coloris commercial sans échantillon officiel ni format confirmé dans les documents fabricant consultés."
+        },
+        {
+          "id": "soveraia-silver",
+          "name": "Soveraia Silver",
+          "formats": [
+            "60x120"
+          ],
+          "verifiedFormats": [
+            "60x120"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/11/Soveraia-Silver-700x.jpg",
+              "sha256": "cb618edb7040d9152e6cf1aab2c3e487b13b36b54b51be66f34da227b1802a45"
+            }
+          ]
+        },
+        {
+          "id": "pulpis-ivoire",
+          "name": "Pulpis Ivoire",
+          "formats": [
+            "60x120"
+          ],
+          "verifiedFormats": [
+            "60x120"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/11/Pulpis-Ivoire-700x.jpg",
+              "sha256": "08aadb9814c7a81c7b923882c7104ef41dab77a1f4576636fb299381fd281b88"
+            }
+          ]
+        },
+        {
+          "id": "pulpis-gris",
+          "name": "Pulpis Gris",
+          "formats": [
+            "60x120"
+          ],
+          "verifiedFormats": [
+            "60x120"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/11/Pulpis-Gris-700x.jpg",
+              "sha256": "3e6aed04a9caf3f05fbe38bcb08fa582bdb759fc9aebedc1a22f6dcee9853baf"
+            }
+          ]
+        },
+        {
+          "id": "soveraia-grey",
+          "name": "Soveraia Grey",
+          "formats": [
+            "60x120"
+          ],
+          "verifiedFormats": [
+            "60x120"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/11/Soveraia-Grey-700x.jpg",
+              "sha256": "7edeb1913a2c92607c5c2e8ee5988be691b08e5503972012f0a01ef0d7c5bc5b"
+            }
+          ]
+        },
+        {
+          "id": "sahara-noir",
+          "name": "Sahara Noir",
+          "formats": [
+            "60x120"
+          ],
+          "verifiedFormats": [
+            "60x120"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/11/Sahara-Noir-700x.jpg",
+              "sha256": "b07e53dc8c6a1fa64cad568da599d3caae360ed06fa9e05afaa538bdd567dc7c"
+            }
+          ]
+        },
+        {
+          "id": "soveraia-beige",
+          "name": "Soveraia Beige",
+          "formats": [
+            "60x120"
+          ],
+          "verifiedFormats": [
+            "60x120"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/11/Soveraia-Beige-700x.jpg",
+              "sha256": "299d26c3c3f11fcafb8e48d19ab8ab20e649df05cab840af5291dab0360fbdd5"
+            }
+          ]
+        },
+        {
+          "id": "pulpis-taupe",
+          "name": "Pulpis Taupe",
+          "formats": [
+            "60x120"
+          ],
+          "verifiedFormats": [
+            "60x120"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/11/Pulpis-Taupe-700x.jpg",
+              "sha256": "41e7226db8746f13a9f071771a60eb9d72691dedc29d14d34ba479e68f8f9cf1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "view-light",
+      "slug": "light",
+      "brand": "view",
+      "name": "LIGHT",
+      "source": "https://viewceramiche.com/prodotto/light-2/",
+      "pattern": "tiles",
+      "surfaces": [
+        "floor",
+        "wall"
+      ],
+      "formats": [
+        {
+          "id": "30x60",
+          "label": "30 × 60 cm",
+          "width": 0.3,
+          "height": 0.6,
+          "shape": "rectangle"
+        },
+        {
+          "id": "60x60",
+          "label": "60 × 60 cm",
+          "width": 0.6,
+          "height": 0.6,
+          "shape": "rectangle"
+        },
+        {
+          "id": "60x120",
+          "label": "60 × 120 cm",
+          "width": 0.6,
+          "height": 1.2,
+          "shape": "rectangle"
+        },
+        {
+          "id": "100x100",
+          "label": "100 × 100 cm",
+          "width": 1.0,
+          "height": 1.0,
+          "shape": "rectangle"
+        },
+        {
+          "id": "120x278",
+          "label": "120 × 278 cm",
+          "width": 1.2,
+          "height": 2.78,
+          "shape": "rectangle"
+        }
+      ],
+      "roughness": 0.82,
+      "finish": "Naturel R10/B",
+      "finishes": [
+        "Naturel R10/B",
+        "Grip R11/C",
+        "Grande dalle 6,5 mm"
+      ],
+      "relief": "Structure béton très légère, variation V2",
+      "colors": [
+        {
+          "id": "sabbia",
+          "name": "Sabbia",
+          "formats": [
+            "30x60",
+            "60x60",
+            "60x120",
+            "100x100",
+            "120x278"
+          ],
+          "verifiedFormats": [
+            "30x60",
+            "60x60",
+            "60x120",
+            "100x100",
+            "120x278"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/12/Light-Sabbia-700x.jpg",
+              "sha256": "e12d0f4d6d628eb4b0176c2241fe5cf0fc6f0fdc39190605a49a8f5f4c474d65"
+            }
+          ]
+        },
+        {
+          "id": "perla",
+          "name": "Perla",
+          "formats": [
+            "30x60",
+            "60x60",
+            "60x120",
+            "100x100",
+            "120x278"
+          ],
+          "verifiedFormats": [
+            "30x60",
+            "60x60",
+            "60x120",
+            "100x100",
+            "120x278"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/12/Light-Perla-700x.jpg",
+              "sha256": "5ebb489006642049e078efdbd65f4a9f6030cfef570b731346932c09b02f949c"
+            }
+          ]
+        },
+        {
+          "id": "cenere",
+          "name": "Cenere",
+          "formats": [
+            "30x60",
+            "60x60",
+            "60x120",
+            "100x100",
+            "120x278"
+          ],
+          "verifiedFormats": [
+            "30x60",
+            "60x60",
+            "60x120",
+            "100x100",
+            "120x278"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/12/Light-Cenere-700x.jpg",
+              "sha256": "73a02db089ef45f46f729510dc33fb6fad0aa44d7f1ee32b7a4fc7831a2279bf"
+            }
+          ]
+        },
+        {
+          "id": "grafite",
+          "name": "Grafite",
+          "formats": [
+            "30x60",
+            "60x60",
+            "60x120",
+            "100x100"
+          ],
+          "verifiedFormats": [
+            "30x60",
+            "60x60",
+            "60x120",
+            "100x100"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/12/Light-Grafite-700x.jpg",
+              "sha256": "a0982422a44eeeee502325dd18256f6e4952b0fb3f6be46f53aef51536ba40b3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "view-dorset",
+      "slug": "dorset",
+      "brand": "view",
+      "name": "DORSET",
+      "source": "https://viewceramiche.com/prodotto/dorset-fr/",
+      "pattern": "tiles",
+      "surfaces": [
+        "floor",
+        "wall"
+      ],
+      "formats": [
+        {
+          "id": "30x60",
+          "label": "30 × 60 cm",
+          "width": 0.3,
+          "height": 0.6,
+          "shape": "rectangle"
+        },
+        {
+          "id": "60x60",
+          "label": "60 × 60 cm",
+          "width": 0.6,
+          "height": 0.6,
+          "shape": "rectangle"
+        },
+        {
+          "id": "60x90",
+          "label": "60 × 90 cm",
+          "width": 0.6,
+          "height": 0.9,
+          "shape": "rectangle"
+        }
+      ],
+      "roughness": 0.82,
+      "finish": "Naturel R10/A",
+      "finishes": [
+        "Naturel R10/A",
+        "Grip R11/A+B+C"
+      ],
+      "relief": "Légère structure pierre, variation V2",
+      "colors": [
+        {
+          "id": "crema",
+          "name": "Crema",
+          "formats": [
+            "30x60",
+            "60x60",
+            "60x90"
+          ],
+          "verifiedFormats": [
+            "30x60",
+            "60x60",
+            "60x90"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/11/Dorset-Crema-700x.jpg",
+              "sha256": "3954b9790e8d5d6bd728a954b368757ef4fcfcb4e0c916832e48d8a2e2248f09"
+            }
+          ]
+        },
+        {
+          "id": "sabbia",
+          "name": "Sabbia",
+          "formats": [
+            "30x60",
+            "60x60",
+            "60x90"
+          ],
+          "verifiedFormats": [
+            "30x60",
+            "60x60",
+            "60x90"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/11/Dorset-Sabbia-700x.jpg",
+              "sha256": "c0cab1d2aecded87a72960d84d7e0d7d202253e8649b84692b0f317b33d5fde8"
+            }
+          ]
+        },
+        {
+          "id": "perla",
+          "name": "Perla",
+          "formats": [
+            "30x60",
+            "60x60",
+            "60x90"
+          ],
+          "verifiedFormats": [
+            "30x60",
+            "60x60",
+            "60x90"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/11/Dorset-Perla-700x.jpg",
+              "sha256": "f5ea9791cce43718f2396a99dadd6655831eb415ce939deda899201a3d947003"
+            }
+          ]
+        },
+        {
+          "id": "pietra",
+          "name": "Pietra",
+          "formats": [
+            "30x60",
+            "60x60",
+            "60x90"
+          ],
+          "verifiedFormats": [
+            "30x60",
+            "60x60",
+            "60x90"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/11/Dorset-Pietra-700x.jpg",
+              "sha256": "959eb069cf5ab522ed3639c1653200d887ab30d3ff771d6984cafc35d98dd20a"
+            }
+          ]
+        },
+        {
+          "id": "ombra",
+          "name": "Ombra",
+          "formats": [
+            "30x60",
+            "60x60",
+            "60x90"
+          ],
+          "verifiedFormats": [
+            "30x60",
+            "60x60",
+            "60x90"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/11/Dorset-Ombra-700x.jpg",
+              "sha256": "65af5e86bcc6f080d3fb1f9fc5f9ac8f55992d9ad7fb6cf8793310813a7405b6"
+            }
+          ]
+        }
+      ],
+      "notes": "Ombra attesté dans le PDF Dorset du dépôt ; non listé dans la fiche web courante. Disponibilité commerciale à confirmer.",
+      "decorativeFormatsPending": [
+        "Mosaïque sur trame 30×30, tesselles 5×5 : échantillon exact à préparer ; non assimilée au carrelage standard."
+      ]
+    },
+    {
+      "id": "view-baar-stone",
+      "slug": "baar-stone",
+      "brand": "view",
+      "name": "BAAR STONE",
+      "source": "https://viewceramiche.com/prodotto/baar-stone-3/",
+      "pattern": "tiles",
+      "surfaces": [
+        "floor",
+        "wall"
+      ],
+      "formats": [
+        {
+          "id": "30x60",
+          "label": "30 × 60 cm",
+          "width": 0.3,
+          "height": 0.6,
+          "shape": "rectangle"
+        },
+        {
+          "id": "60x60",
+          "label": "60 × 60 cm",
+          "width": 0.6,
+          "height": 0.6,
+          "shape": "rectangle"
+        },
+        {
+          "id": "60x120",
+          "label": "60 × 120 cm",
+          "width": 0.6,
+          "height": 1.2,
+          "shape": "rectangle"
+        },
+        {
+          "id": "120x120",
+          "label": "120 × 120 cm",
+          "width": 1.2,
+          "height": 1.2,
+          "shape": "rectangle"
+        },
+        {
+          "id": "120x278",
+          "label": "120 × 278 cm",
+          "width": 1.2,
+          "height": 2.78,
+          "shape": "rectangle"
+        }
+      ],
+      "roughness": 0.82,
+      "finish": "Naturel R10/B",
+      "finishes": [
+        "Naturel R10/B",
+        "Vintage",
+        "Grip R11/C",
+        "Grande dalle 6,5 mm"
+      ],
+      "relief": "Structure pierre très légère, variation V2",
+      "colors": [
+        {
+          "id": "pure",
+          "name": "Pure",
+          "formats": [
+            "30x60",
+            "60x60",
+            "60x120",
+            "120x120",
+            "120x278"
+          ],
+          "verifiedFormats": [
+            "30x60",
+            "60x60",
+            "60x120",
+            "120x120",
+            "120x278"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Baar_Stone_2026_LR.pdf",
+              "xref": 156,
+              "page": 4,
+              "sha256": "7fc8251aa15838d04c3e1dc80ff30adf912c601e47a4e8b5f09750465f105e41"
+            }
+          ]
+        },
+        {
+          "id": "beige",
+          "name": "Beige",
+          "formats": [
+            "30x60",
+            "60x60",
+            "60x120",
+            "120x120",
+            "120x278"
+          ],
+          "verifiedFormats": [
+            "30x60",
+            "60x60",
+            "60x120",
+            "120x120",
+            "120x278"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Baar_Stone_2026_LR.pdf",
+              "xref": 199,
+              "page": 9,
+              "sha256": "7fc8251aa15838d04c3e1dc80ff30adf912c601e47a4e8b5f09750465f105e41"
+            }
+          ]
+        },
+        {
+          "id": "grey",
+          "name": "Grey",
+          "formats": [
+            "30x60",
+            "60x60",
+            "60x120",
+            "120x120",
+            "120x278"
+          ],
+          "verifiedFormats": [
+            "30x60",
+            "60x60",
+            "60x120",
+            "120x120",
+            "120x278"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/08/View_catalogo_serie_Baar_Stone_2026_LR.pdf",
+              "xref": 229,
+              "page": 13,
+              "sha256": "7fc8251aa15838d04c3e1dc80ff30adf912c601e47a4e8b5f09750465f105e41"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "view-coco",
+      "slug": "coco",
+      "brand": "view",
+      "name": "COCO",
+      "source": "https://leroyfactory.fr/assets/pdf/View_serie%20COCO%20et%20Le_Pietre_di_View.pdf",
+      "pattern": "tiles",
+      "surfaces": [
+        "floor",
+        "wall"
+      ],
+      "formats": [
+        {
+          "id": "40x60",
+          "label": "40 × 60 cm",
+          "width": 0.4,
+          "height": 0.6,
+          "shape": "rectangle"
+        }
+      ],
+      "roughness": 0.82,
+      "finish": "Lisse R10",
+      "finishes": [
+        "Lisse R10",
+        "Grip R11"
+      ],
+      "relief": "Bord structuré, variation V3",
+      "colors": [
+        {
+          "id": "light",
+          "name": "Light",
+          "formats": [
+            "40x60"
+          ],
+          "verifiedFormats": [
+            "40x60"
+          ],
+          "sources": [
+            {
+              "url": "https://leroyfactory.fr/assets/pdf/View_serie%20COCO%20et%20Le_Pietre_di_View.pdf",
+              "repositoryFile": "assets/pdf/View_serie COCO et Le_Pietre_di_View.pdf",
+              "xref": 338,
+              "page": 6,
+              "sha256": "7c85698b3a5e51dd7f72069fab713634851e97c5c4d651b04c4b726484cec3be"
+            }
+          ]
+        },
+        {
+          "id": "beige",
+          "name": "Beige",
+          "formats": [
+            "40x60"
+          ],
+          "verifiedFormats": [
+            "40x60"
+          ],
+          "sources": [
+            {
+              "url": "https://leroyfactory.fr/assets/pdf/View_serie%20COCO%20et%20Le_Pietre_di_View.pdf",
+              "repositoryFile": "assets/pdf/View_serie COCO et Le_Pietre_di_View.pdf",
+              "xref": 340,
+              "page": 6,
+              "sha256": "7c85698b3a5e51dd7f72069fab713634851e97c5c4d651b04c4b726484cec3be"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "view-golden-stone",
+      "slug": "golden-stone",
+      "brand": "view",
+      "name": "GOLDEN STONE",
+      "source": "https://viewceramiche.com/prodotto/golden-stone/",
+      "pattern": "tiles",
+      "surfaces": [
+        "floor",
+        "wall"
+      ],
+      "formats": [
+        {
+          "id": "7.5x7.5",
+          "label": "7.5 × 7.5 cm",
+          "width": 0.075,
+          "height": 0.075,
+          "shape": "rectangle"
+        },
+        {
+          "id": "7.5x30",
+          "label": "7.5 × 30 cm",
+          "width": 0.075,
+          "height": 0.3,
+          "shape": "rectangle"
+        },
+        {
+          "id": "30x30",
+          "label": "30 × 30 cm",
+          "width": 0.3,
+          "height": 0.3,
+          "shape": "rectangle"
+        },
+        {
+          "id": "30x60",
+          "label": "30 × 60 cm",
+          "width": 0.3,
+          "height": 0.6,
+          "shape": "rectangle"
+        },
+        {
+          "id": "60x60",
+          "label": "60 × 60 cm",
+          "width": 0.6,
+          "height": 0.6,
+          "shape": "rectangle"
+        },
+        {
+          "id": "60x120",
+          "label": "60 × 120 cm",
+          "width": 0.6,
+          "height": 1.2,
+          "shape": "rectangle"
+        },
+        {
+          "id": "120x120",
+          "label": "120 × 120 cm",
+          "width": 1.2,
+          "height": 1.2,
+          "shape": "rectangle"
+        },
+        {
+          "id": "20x20",
+          "label": "20 × 20 cm",
+          "width": 0.2,
+          "height": 0.2,
+          "shape": "rectangle"
+        }
+      ],
+      "roughness": 0.82,
+      "finish": "Naturel R10/A+B",
+      "finishes": [
+        "Naturel R10/A+B",
+        "Satinato / Honed",
+        "Grip R11/A+B+C"
+      ],
+      "relief": "Structure pierre perceptible, variation V2",
+      "colors": [
+        {
+          "id": "ivory",
+          "name": "Ivory",
+          "formats": [
+            "7.5x7.5",
+            "7.5x30",
+            "30x30",
+            "30x60",
+            "60x60",
+            "60x120",
+            "120x120",
+            "20x20"
+          ],
+          "verifiedFormats": [
+            "7.5x7.5",
+            "7.5x30",
+            "30x30",
+            "30x60",
+            "60x60",
+            "60x120",
+            "120x120",
+            "20x20"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2025/10/View_catalogo_serie_Golden_Stone_2026_LR.pdf",
+              "xref": 93,
+              "page": 3,
+              "sha256": "5450dc1b5cab56ffd12ae0a134404d2e5d1fa2739bffa6bb32d895e550ac256f"
+            }
+          ]
+        },
+        {
+          "id": "sand",
+          "name": "Sand",
+          "formats": [
+            "7.5x7.5",
+            "7.5x30",
+            "30x30",
+            "30x60",
+            "60x60",
+            "60x120",
+            "120x120",
+            "20x20"
+          ],
+          "verifiedFormats": [
+            "7.5x7.5",
+            "7.5x30",
+            "30x30",
+            "30x60",
+            "60x60",
+            "60x120",
+            "120x120",
+            "20x20"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2025/10/View_catalogo_serie_Golden_Stone_2026_LR.pdf",
+              "xref": 125,
+              "page": 5,
+              "sha256": "5450dc1b5cab56ffd12ae0a134404d2e5d1fa2739bffa6bb32d895e550ac256f"
+            }
+          ]
+        },
+        {
+          "id": "pearl",
+          "name": "Pearl",
+          "formats": [
+            "7.5x7.5",
+            "7.5x30",
+            "30x30",
+            "30x60",
+            "60x60",
+            "60x120",
+            "120x120",
+            "20x20"
+          ],
+          "verifiedFormats": [
+            "7.5x7.5",
+            "7.5x30",
+            "30x30",
+            "30x60",
+            "60x60",
+            "60x120",
+            "120x120",
+            "20x20"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2025/10/View_catalogo_serie_Golden_Stone_2026_LR.pdf",
+              "xref": 140,
+              "page": 7,
+              "sha256": "5450dc1b5cab56ffd12ae0a134404d2e5d1fa2739bffa6bb32d895e550ac256f"
+            }
+          ]
+        },
+        {
+          "id": "oxid",
+          "name": "Oxid",
+          "formats": [
+            "7.5x7.5",
+            "7.5x30",
+            "30x30",
+            "30x60",
+            "60x60",
+            "60x120",
+            "120x120",
+            "20x20"
+          ],
+          "verifiedFormats": [
+            "7.5x7.5",
+            "7.5x30",
+            "30x30",
+            "30x60",
+            "60x60",
+            "60x120",
+            "120x120",
+            "20x20"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2025/10/View_catalogo_serie_Golden_Stone_2026_LR.pdf",
+              "xref": 177,
+              "page": 12,
+              "sha256": "5450dc1b5cab56ffd12ae0a134404d2e5d1fa2739bffa6bb32d895e550ac256f"
+            }
+          ]
+        },
+        {
+          "id": "carbon",
+          "name": "Carbon",
+          "formats": [
+            "7.5x7.5",
+            "7.5x30",
+            "30x30",
+            "30x60",
+            "60x60",
+            "60x120",
+            "120x120",
+            "20x20"
+          ],
+          "verifiedFormats": [
+            "7.5x7.5",
+            "7.5x30",
+            "30x30",
+            "30x60",
+            "60x60",
+            "60x120",
+            "120x120",
+            "20x20"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2025/10/View_catalogo_serie_Golden_Stone_2026_LR.pdf",
+              "xref": 162,
+              "page": 10,
+              "sha256": "5450dc1b5cab56ffd12ae0a134404d2e5d1fa2739bffa6bb32d895e550ac256f"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "view-new-wood",
+      "slug": "new-wood",
+      "brand": "view",
+      "name": "NEW WOOD",
+      "source": "https://viewceramiche.com/prodotto/new-wood-2/",
+      "pattern": "tiles",
+      "surfaces": [
+        "floor"
+      ],
+      "formats": [
+        {
+          "id": "40x122",
+          "label": "40 × 122 cm",
+          "width": 0.4,
+          "height": 1.22,
+          "shape": "rectangle"
+        }
+      ],
+      "roughness": 0.86,
+      "finish": "Grip R11/C",
+      "finishes": [
+        "Grip R11/C"
+      ],
+      "relief": "Surface Grip pour extérieur",
+      "colors": [
+        {
+          "id": "miele",
+          "name": "Miele",
+          "formats": [
+            "40x122"
+          ],
+          "verifiedFormats": [
+            "40x122"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/12/New-Wood-Miele-700x.jpg",
+              "sha256": "26974352f89bb0beee1ebdeed8f04c7d782e0f013747234f950a855d9da966ac"
+            }
+          ]
+        },
+        {
+          "id": "grey",
+          "name": "Grey",
+          "formats": [
+            "40x122"
+          ],
+          "verifiedFormats": [
+            "40x122"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/12/New-Wood-Grey-700x.jpg",
+              "sha256": "a7eca0c8871291ad7d2fa9e7dbaa403e9cd7cf716e743993ca8610612fc09911"
+            }
+          ]
+        },
+        {
+          "id": "melange",
+          "name": "Melange",
+          "formats": [
+            "40x122"
+          ],
+          "verifiedFormats": [
+            "40x122"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/12/New-Wood-Melange-700x.jpg",
+              "sha256": "ac57e08caf595f731ca5f97d737d006a344d6b7634097f32dc57b32c8f8e96b9"
+            }
+          ]
+        },
+        {
+          "id": "brown",
+          "name": "Brown",
+          "formats": [
+            "40x122"
+          ],
+          "verifiedFormats": [
+            "40x122"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2023/12/New-Wood-Brown-700x2-1.jpg",
+              "sha256": "88cf1d0ee7017173b1661abf92f1a8f33f98fc2a566a4a870e0b71e25ed68c88"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "view-quantum",
+      "slug": "quantum",
+      "brand": "view",
+      "name": "QUANTUM",
+      "source": "https://viewceramiche.com/prodotto/quantum/",
+      "pattern": "tiles",
+      "surfaces": [
+        "floor"
+      ],
+      "formats": [
+        {
+          "id": "61x61",
+          "label": "61 × 61 cm",
+          "width": 0.61,
+          "height": 0.61,
+          "shape": "rectangle"
+        },
+        {
+          "id": "45x90",
+          "label": "45 × 90 cm",
+          "width": 0.45,
+          "height": 0.9,
+          "shape": "rectangle"
+        }
+      ],
+      "roughness": 0.86,
+      "finish": "Grip R11/C",
+      "finishes": [
+        "Grip R11/C"
+      ],
+      "relief": "Surface Grip pour extérieur",
+      "colors": [
+        {
+          "id": "cream",
+          "name": "Cream",
+          "formats": [
+            "61x61",
+            "45x90"
+          ],
+          "verifiedFormats": [
+            "61x61",
+            "45x90"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/01/Quantum-Cream-700x.jpg",
+              "sha256": "1353be9ffec1fc452f3946ff90980bcf1a4f1fc374de5aee41d474d5beb4ea9c"
+            }
+          ]
+        },
+        {
+          "id": "ivory",
+          "name": "Ivory",
+          "formats": [
+            "61x61",
+            "45x90"
+          ],
+          "verifiedFormats": [
+            "61x61",
+            "45x90"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/01/Quantum-Ivory-700x.jpg",
+              "sha256": "ff300ee3c7204a547a0c0b44101432fc0cb7e041db5ea6fde8059f41bc8943db"
+            }
+          ]
+        },
+        {
+          "id": "grey",
+          "name": "Grey",
+          "formats": [
+            "61x61",
+            "45x90"
+          ],
+          "verifiedFormats": [
+            "61x61",
+            "45x90"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/01/Quantum-Grey-700x.jpg",
+              "sha256": "bf05229a5058ec08d73a247346b6b0b07544f6b311cdd2d60bc3e5fe69255b4c"
+            }
+          ]
+        },
+        {
+          "id": "dark",
+          "name": "Dark",
+          "formats": [
+            "61x61",
+            "45x90"
+          ],
+          "verifiedFormats": [
+            "61x61",
+            "45x90"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/01/Quantum-Dark-700x.jpg",
+              "sha256": "1e8569981adf108d673bb0520be857e1b99d435aaed25713b7011a7daeb08c46"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "view-dorset-xl",
+      "slug": "dorset-xl",
+      "brand": "view",
+      "name": "DORSET XL",
+      "source": "https://viewceramiche.com/prodotto/dorset-xl-4/",
+      "pattern": "tiles",
+      "surfaces": [
+        "floor"
+      ],
+      "formats": [
+        {
+          "id": "120x120",
+          "label": "120 × 120 cm",
+          "width": 1.2,
+          "height": 1.2,
+          "shape": "rectangle"
+        },
+        {
+          "id": "80x180",
+          "label": "80 × 180 cm",
+          "width": 0.8,
+          "height": 1.8,
+          "shape": "rectangle"
+        }
+      ],
+      "roughness": 0.86,
+      "finish": "Grip extérieur 20 mm",
+      "finishes": [
+        "Grip extérieur 20 mm"
+      ],
+      "relief": "Surface Grip pour extérieur",
+      "colors": [
+        {
+          "id": "ice",
+          "name": "Ice",
+          "formats": [
+            "120x120",
+            "80x180"
+          ],
+          "verifiedFormats": [
+            "120x120",
+            "80x180"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/01/Dorset-Ice-700x.jpg",
+              "sha256": "0509a6c8bfef1432e55b118ccc6a355ac93765449e01321251d99a747d9234a5"
+            }
+          ]
+        },
+        {
+          "id": "londra",
+          "name": "Londra",
+          "formats": [
+            "120x120",
+            "80x180"
+          ],
+          "verifiedFormats": [
+            "120x120",
+            "80x180"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/01/Dorset-Londra-700x.jpg",
+              "sha256": "614532575e03725891b402a32690f4794126585eb8a6fbf9c3a3bd9a8058c32e"
+            }
+          ]
+        },
+        {
+          "id": "plata",
+          "name": "Plata",
+          "formats": [
+            "120x120",
+            "80x180"
+          ],
+          "verifiedFormats": [
+            "120x120",
+            "80x180"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/01/Dorset-Plata-700x.jpg",
+              "sha256": "8d90c1756062bd8fbb083bf2de271733420248434f4cf1c3b771335e4f4bb9de"
+            }
+          ]
+        },
+        {
+          "id": "night",
+          "name": "Night",
+          "formats": [
+            "120x120",
+            "80x180"
+          ],
+          "verifiedFormats": [
+            "120x120",
+            "80x180"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/01/Dorset-Night700x.jpg",
+              "sha256": "b27e066fb62e6ec38c4ff4336e405a8f6380e6e8c01a726ca86935cde49fb316"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "view-bigsize",
+      "slug": "bigsize",
+      "brand": "view",
+      "name": "BIGSIZE",
+      "source": "https://viewceramiche.com/prodotto/bigsize/",
+      "pattern": "tiles",
+      "surfaces": [
+        "floor"
+      ],
+      "formats": [
+        {
+          "id": "120x120",
+          "label": "120 × 120 cm",
+          "width": 1.194,
+          "height": 1.194,
+          "shape": "rectangle"
+        },
+        {
+          "id": "120x240",
+          "label": "120 × 240 cm",
+          "width": 1.194,
+          "height": 2.388,
+          "shape": "rectangle"
+        }
+      ],
+      "roughness": 0.86,
+      "finish": "Grip R11/C",
+      "finishes": [
+        "Grip R11/C"
+      ],
+      "relief": "Surface Grip pour extérieur",
+      "colors": [
+        {
+          "id": "stromboli",
+          "name": "Stromboli",
+          "formats": [
+            "120x120",
+            "120x240"
+          ],
+          "verifiedFormats": [
+            "120x120",
+            "120x240"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/01/Stromboli-700x.jpg",
+              "sha256": "7019e556ef462d630105f26d88516be9f322ac736c35fd3e4137f7289d4448ee"
+            }
+          ]
+        },
+        {
+          "id": "gran-sasso",
+          "name": "Gran Sasso",
+          "formats": [
+            "120x120",
+            "120x240"
+          ],
+          "verifiedFormats": [
+            "120x120",
+            "120x240"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/01/Gran-Sasso-700x-1.jpg",
+              "sha256": "01b44fb400b4cab2e2a908faf2274e7150be374c49c6d37d64bce27b396b2f6d"
+            }
+          ]
+        },
+        {
+          "id": "vals",
+          "name": "Vals",
+          "formats": [
+            "120x120",
+            "120x240"
+          ],
+          "verifiedFormats": [
+            "120x120",
+            "120x240"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/01/Vals-700x.jpg",
+              "sha256": "4ba8cfe553f485cae1231515d3741e47976a5a4d998652976e4ecea39c02ea69"
+            }
+          ]
+        },
+        {
+          "id": "porfido",
+          "name": "Porfido",
+          "formats": [
+            "120x120",
+            "120x240"
+          ],
+          "verifiedFormats": [
+            "120x120",
+            "120x240"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/01/Porfido-700x.jpg",
+              "sha256": "29e9d18b23082444a93cb044abf9c274de25ce754d27fa5cd6387cadadd66109"
+            }
+          ]
+        },
+        {
+          "id": "dolomiti",
+          "name": "Dolomiti",
+          "formats": [
+            "120x120",
+            "120x240"
+          ],
+          "verifiedFormats": [
+            "120x120",
+            "120x240"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/01/Dolomiti-700x.jpg",
+              "sha256": "a2962f8dcb5cff2f399de8c11ddaedcb53458eb5d91384c33129e5046b83945b"
+            }
+          ]
+        },
+        {
+          "id": "appia",
+          "name": "Appia",
+          "formats": [
+            "120x120",
+            "120x240"
+          ],
+          "verifiedFormats": [
+            "120x120",
+            "120x240"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/01/Appia-700x.jpg",
+              "sha256": "e9fc1e92b0081dbc000176640cfdd991ab537979b774a31f2a02178014b46723"
+            }
+          ]
+        }
+      ],
+      "notes": "Formats nominaux 120×120 et 120×240 ; cotes réelles 1194×1194 et 1194×2388 mm respectées en 3D."
+    },
+    {
+      "id": "view-pietre-6090",
+      "slug": "pietre-60x90",
+      "brand": "view",
+      "name": "PIETRE 60×90",
+      "source": "https://viewceramiche.com/prodotto/pietre-60x90/",
+      "pattern": "tiles",
+      "surfaces": [
+        "floor"
+      ],
+      "formats": [
+        {
+          "id": "60x90",
+          "label": "60 × 90 cm",
+          "width": 0.6,
+          "height": 0.9,
+          "shape": "rectangle"
+        }
+      ],
+      "roughness": 0.86,
+      "finish": "Grip R11/C",
+      "finishes": [
+        "Grip R11/C"
+      ],
+      "relief": "Surface Grip pour extérieur",
+      "colors": [
+        {
+          "id": "limestone-yellow",
+          "name": "Limestone Yellow",
+          "formats": [
+            "60x90"
+          ],
+          "verifiedFormats": [
+            "60x90"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/01/Limestone-Yellow-700x.jpg",
+              "sha256": "ac8b845e3ae555ef9acd5e2279539d3b76eb1403118b9bd39ac8580146977736"
+            }
+          ]
+        },
+        {
+          "id": "fossil",
+          "name": "Fossil",
+          "formats": [
+            "60x90"
+          ],
+          "verifiedFormats": [
+            "60x90"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/01/Fossil-700x.jpg",
+              "sha256": "7736a2ef1472536041731dce92e47c08cf19356ff368a8586ff0c04ca9c6a9f7"
+            }
+          ]
+        },
+        {
+          "id": "multicolor",
+          "name": "Multicolor",
+          "formats": [
+            "60x90"
+          ],
+          "verifiedFormats": [
+            "60x90"
+          ],
+          "sources": [
+            {
+              "url": "https://viewceramiche.com/wp-content/uploads/2024/01/Multicolor-700x.jpg",
+              "sha256": "9dc1777e6b4219b934b5aa4ad186bc0add9858229d333de18f4cc92da4107d14"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "view-jerusalem",
+      "slug": "jerusalem",
+      "brand": "view",
+      "name": "JERUSALEM",
+      "source": "https://leroyfactory.fr/assets/pdf/View_serie%20COCO%20et%20Le_Pietre_di_View.pdf",
+      "pattern": "tiles",
+      "surfaces": [
+        "floor",
+        "wall"
+      ],
+      "formats": [
+        {
+          "id": "60x90",
+          "label": "60 × 90 cm",
+          "width": 0.6,
+          "height": 0.9,
+          "shape": "rectangle"
+        }
+      ],
+      "roughness": 0.82,
+      "finish": "Naturel R10",
+      "finishes": [
+        "Naturel R10",
+        "Grip R11 · 20 mm"
+      ],
+      "relief": "Pierre à bord structuré, variation V3",
+      "colors": [
+        {
+          "id": "select",
+          "name": "Select",
+          "formats": [
+            "60x90"
+          ],
+          "verifiedFormats": [
+            "60x90"
+          ],
+          "sources": [
+            {
+              "url": "https://leroyfactory.fr/assets/pdf/View_serie%20COCO%20et%20Le_Pietre_di_View.pdf",
+              "repositoryFile": "assets/pdf/View_serie COCO et Le_Pietre_di_View.pdf",
+              "xref": 349,
+              "page": 8,
+              "sha256": "7c85698b3a5e51dd7f72069fab713634851e97c5c4d651b04c4b726484cec3be"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "view-wave",
+      "slug": "wave",
+      "brand": "view",
+      "name": "WAVE",
+      "source": "https://leroyfactory.fr/assets/pdf/VIEW-EXTERIEUR.pdf",
+      "pattern": "tiles",
+      "surfaces": [
+        "floor",
+        "wall"
+      ],
+      "formats": [
+        {
+          "id": "60x120",
+          "label": "60 × 120 cm",
+          "width": 0.6,
+          "height": 1.2,
+          "shape": "rectangle"
+        }
+      ],
+      "roughness": 0.82,
+      "finish": "Naturel R10",
+      "finishes": [
+        "Naturel R10",
+        "Grip R11 · 20 mm"
+      ],
+      "relief": "À vérifier sur les fichiers fabricant HD",
+      "reason": "Échantillons limités à 266 × 531 px ; aucun fichier matière plus défini retrouvé sur le site officiel.",
+      "colors": [
+        {
+          "id": "artico",
+          "name": "Artico",
+          "formats": [
+            "60x120"
+          ],
+          "verifiedFormats": [],
+          "reason": "Échantillons limités à 266 × 531 px ; aucun fichier matière plus défini retrouvé sur le site officiel.",
+          "sources": []
+        },
+        {
+          "id": "sabbia",
+          "name": "Sabbia",
+          "formats": [
+            "60x120"
+          ],
+          "verifiedFormats": [],
+          "reason": "Échantillons limités à 266 × 531 px ; aucun fichier matière plus défini retrouvé sur le site officiel.",
+          "sources": []
+        },
+        {
+          "id": "silver",
+          "name": "Silver",
+          "formats": [
+            "60x120"
+          ],
+          "verifiedFormats": [],
+          "reason": "Échantillons limités à 266 × 531 px ; aucun fichier matière plus défini retrouvé sur le site officiel.",
+          "sources": []
+        }
+      ]
+    },
+    {
+      "id": "view-phura",
+      "slug": "phura",
+      "brand": "view",
+      "name": "PHURA",
+      "source": "https://leroyfactory.fr/assets/pdf/VIEW_CATALOGO_PHURA_2026.pdf",
+      "pattern": "tiles",
+      "surfaces": [
+        "floor",
+        "wall"
+      ],
+      "formats": [
+        {
+          "id": "30x60",
+          "label": "30 × 60 cm",
+          "width": 0.3,
+          "height": 0.6,
+          "shape": "rectangle"
+        },
+        {
+          "id": "60x60",
+          "label": "60 × 60 cm",
+          "width": 0.6,
+          "height": 0.6,
+          "shape": "rectangle"
+        },
+        {
+          "id": "60x120",
+          "label": "60 × 120 cm",
+          "width": 0.6,
+          "height": 1.2,
+          "shape": "rectangle"
+        },
+        {
+          "id": "120x120",
+          "label": "120 × 120 cm",
+          "width": 1.2,
+          "height": 1.2,
+          "shape": "rectangle"
+        }
+      ],
+      "roughness": 0.82,
+      "finish": "Naturel R10",
+      "finishes": [
+        "Naturel R10",
+        "Grip R11 · 20 mm"
+      ],
+      "relief": "À vérifier sur les fichiers fabricant HD",
+      "reason": "Catalogue scanné et fortement compressé ; développements graphiques trop petits pour une texture premium fidèle.",
+      "colors": [
+        {
+          "id": "ivory",
+          "name": "Ivory",
+          "formats": [
+            "30x60",
+            "60x60",
+            "60x120",
+            "120x120"
+          ],
+          "verifiedFormats": [],
+          "reason": "Catalogue scanné et fortement compressé ; développements graphiques trop petits pour une texture premium fidèle.",
+          "sources": []
+        },
+        {
+          "id": "sand",
+          "name": "Sand",
+          "formats": [
+            "30x60",
+            "60x60",
+            "60x120",
+            "120x120"
+          ],
+          "verifiedFormats": [],
+          "reason": "Catalogue scanné et fortement compressé ; développements graphiques trop petits pour une texture premium fidèle.",
+          "sources": []
+        },
+        {
+          "id": "clay",
+          "name": "Clay",
+          "formats": [
+            "30x60",
+            "60x60",
+            "60x120",
+            "120x120"
+          ],
+          "verifiedFormats": [],
+          "reason": "Catalogue scanné et fortement compressé ; développements graphiques trop petits pour une texture premium fidèle.",
+          "sources": []
+        },
+        {
+          "id": "silver",
+          "name": "Silver",
+          "formats": [
+            "30x60",
+            "60x60",
+            "60x120",
+            "120x120"
+          ],
+          "verifiedFormats": [],
+          "reason": "Catalogue scanné et fortement compressé ; développements graphiques trop petits pour une texture premium fidèle.",
+          "sources": []
+        }
+      ]
+    }
+  ],
+  "mirrors": {
+    "https://leroyfactory.fr/assets/pdf/View_serie%20COCO%20et%20Le_Pietre_di_View.pdf": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FView_serie%20COCO%20et%20Le_Pietre_di_View.pdf?alt=media&token=7cac44cd-9502-4105-a4ea-aba8a9d622ce"
+  }
+}
