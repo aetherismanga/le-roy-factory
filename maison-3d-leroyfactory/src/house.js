@@ -48,6 +48,8 @@ import {
 import { textureClone } from "./materials.js";
 import { furnitureKit } from "./furniture.js";
 import {FURNITURE_LAYOUT} from "./furniture-layout.js";
+import {createWallCoverings} from './wall-coverings.js';
+import {registerAddition,specimenPlant} from './object-library.js';
 import {createArrangement} from "./arrangement.js";
 export async function buildHouse(scene, M, project = {}, textures) {
   await preloadBaths();
@@ -91,6 +93,9 @@ export async function buildHouse(scene, M, project = {}, textures) {
     bathroomProducts = new Map();
   const arrangement=createArrangement({project,root,floors,doors});
   const tracked=[];
+  // The existing plants now have visibly distinct botanical silhouettes.
+  let plantVariant=0;
+  furn.plant=(parent,x=0,y=0,z=0,size=1)=>{const o=specimenPlant(M,(plantVariant++)%4);o.position.set(x,y,z);o.scale.setScalar(size*.65);o.userData.furnitureKind='plant';parent.add(o);return o;};
   const world = (x, z) => point(x, 0, z),
     pos = (parent, x, y, z, rotation = 0, name) => {
       let ancestor=parent;while(ancestor&&ancestor.userData.floor===undefined)ancestor=ancestor.parent;
@@ -225,6 +230,12 @@ export async function buildHouse(scene, M, project = {}, textures) {
     const result={...next,room,mesh:tiles,grout};floorSurfaces.set(id,result);return result;
   }
   await Promise.all(ROOMS.map(room=>setFloorSurface(room.id,project.rooms?.[room.id]?.floor||defaultFloor(room))));
+  // In cutaway views, wall footprints rest on a neutral structural deck, never on the garden.
+  for(const f of floors){
+    const corners=[[0,0],[LAYOUT.width,0],[LAYOUT.width,LAYOUT.depth],[0,LAYOUT.depth]].map(([x,z])=>{const p=point(x,0,z);return new T.Vector2(p[0],-p[2]);}),shape=new T.Shape(corners);
+    if(f.group.userData.floor)shape.holes.push(new T.Path(wellPolygon().map(p=>new T.Vector2(...p))));
+    const base=mesh(f.architecture,new T.ShapeGeometry(shape),M.stone,'Dalle_sous_cloisons');base.rotation.x=-Math.PI/2;base.position.y=.001;base.castShadow=false;f.substrate=base;
+  }
   for(const room of ROOMS){
     const poly=floorPolygon(room),ceilingXZ=poly.map(([x,z])=>[x,-z]);
     const ceilingHoles=room.id==='entry'?[wellPolygon().map(([x,z])=>[x,-z])]:[];
@@ -324,6 +335,7 @@ export async function buildHouse(scene, M, project = {}, textures) {
       length,
       openings: [],
     };
+    const cutcap=box(floors[w.floor].architecture,length,.085,thickness,M.plaster,a[0]+dx/2,.0425,a[2]+dz/2,'Coupe_cloison_'+w.id,.003);cutcap.position.x=record.worldA[0]+dx/2;cutcap.position.z=record.worldA[2]+dz/2;cutcap.rotation.y=angle;cutcap.castShadow=false;cutcap.visible=false;record.cutcap=cutcap;
     floors[w.floor].walls.push(record);
     const cuts = new Set([0, length]);
     for (const room of ROOMS.filter((r) => r.floor === w.floor))
@@ -394,7 +406,7 @@ export async function buildHouse(scene, M, project = {}, textures) {
         finish.userData.wall = w.id;
         finish.userData.room=room.id;
         const doorLength=doorCuts.reduce((n,o)=>n+Math.max(0,Math.min(x1,o.u+o.width/2)-Math.max(x0,o.u-o.width/2)),0);
-        wallSurfaces.push({room:room.id,wall:w.id,mesh:finish,length:x1-x0,area:geometryArea(geometry),plinth:Math.max(0,x1-x0-doorLength)});
+        wallSurfaces.push({room:room.id,wall:w.id,u0:x0,u1:x1,mesh:finish,length:x1-x0,area:geometryArea(geometry),plinth:Math.max(0,x1-x0-doorLength)});
       }
     }
 
@@ -1231,6 +1243,7 @@ export async function buildHouse(scene, M, project = {}, textures) {
   }
   // Measure each object independently; never merge the editable furniture into a level.
   for(const item of arrangement.items.values())if(item.root.parent===floors[item.floor].static)batchFurniture(item.object);
+  for(const entry of project.additions||[])registerAddition({floors,arrangement},project,M,entry);
   arrangement.prepare();arrangement.load();
   colliders.length=0;colliders.push(...arrangement.colliders());
   for (const a of assets) {
@@ -1246,9 +1259,9 @@ export async function buildHouse(scene, M, project = {}, textures) {
     batchFurniture(f.static,{exclude:[...arrangement.items.values()].map(i=>i.root)});
     for (const w of f.walls)
       batchFurniture(w.group, {
-        exclude: w.group.children.filter((c) =>
+        exclude: [w.mesh,...w.group.children.filter((c) =>
           c.name.startsWith("Ouverture_") || c.name.startsWith("Mur_finition_"),
-        ),
+        )],
         label: "Mur_finitions",
       });
   }
@@ -1264,9 +1277,35 @@ export async function buildHouse(scene, M, project = {}, textures) {
         m.needsUpdate = true;
       }
   });
+  const focusVisibility=new Map();
+  function rememberVisible(o,value){if(!focusVisibility.has(o))focusVisibility.set(o,o.visible);o.visible=value;}
+  function focusRoom(id,camera){
+    const room=ROOMS.find(r=>r.id===id);if(!room)return;
+    const centroid=room.polygon.reduce((p,q)=>[p[0]+q[0]/room.polygon.length,p[1]+q[1]/room.polygon.length],[0,0]),center=new T.Vector3(...point(centroid[0],room.floor*LEVEL_HEIGHT+1,centroid[1]));
+    floors.forEach((f,i)=>{rememberVisible(f.group,i===room.floor);rememberVisible(f.ceilings,false);rememberVisible(f.substrate,false);});
+    rememberVisible(stair,['entry','gallery'].includes(id));rememberVisible(slab,false);rememberVisible(roof,false);
+    for(const f of floorSurfaces.values()){rememberVisible(f.mesh,f.room.id===id);rememberVisible(f.grout,f.room.id===id);}
+    for(const item of arrangement.items.values())rememberVisible(item.root,item.room===id&&!item.hidden);
+    for(const f of floors)for(const child of f.static.children)if(!child.userData.editableId)rememberVisible(child,false);
+    for(const w of floors[room.floor].walls){
+      const faces=wallSurfaces.filter(s=>s.wall===w.id&&s.room===id),p=new T.Vector3(...w.worldA),side=center.clone().sub(p).dot(w.normal),cameraSide=camera.position.clone().sub(p).dot(w.normal);
+      rememberVisible(w.group,faces.length>0&&(side*cameraSide>=-.02));
+      rememberVisible(w.cutcap,false);
+      rememberVisible(w.mesh,false);
+      for(const child of w.group.children)if(child.name.startsWith('Ouverture_')){
+        const opening=w.openings.find(o=>child.name==='Ouverture_'+o.id);
+        rememberVisible(child,!!opening&&faces.some(f=>opening.u+opening.width/2>f.u0&&opening.u-opening.width/2<f.u1));
+        if(opening?.kind==='door')rememberVisible(opening.state.asset.door,false);
+      }
+      for(const s of wallSurfaces.filter(s=>s.wall===w.id)){rememberVisible(s.mesh,s.room===id);if(s.backing)rememberVisible(s.backing,s.room===id);}
+    }
+  }
   function show(mode = "visit", floor = 0) {
     root.visible = true;
+    for(const [o,visible]of focusVisibility)o.visible=visible;focusVisibility.clear();
+    for(const item of arrangement.items.values())item.root.visible=!item.hidden;
     for (let i = 0; i < 2; i++) {
+      for(const w of floors[i].walls)w.cutcap.visible=false;
       floors[i].group.visible =
         mode === "exterior" || mode === "visit" || i === floor;
       floors[i].ceilings.visible = mode === "visit" || mode === "exterior";
@@ -1307,7 +1346,11 @@ export async function buildHouse(scene, M, project = {}, textures) {
     }
     return moving;
   }
+  const wallCoverings=createWallCoverings(wallSurfaces,textures);
+  for(const room of ROOMS)if(project.rooms?.[room.id]?.wall)await wallCoverings.set(room.id,project.rooms[room.id].wall);
   return {
+    wallCoverings,
+    setWallSurface:wallCoverings.set,
     root,
     floors,
     doors,
@@ -1328,6 +1371,7 @@ export async function buildHouse(scene, M, project = {}, textures) {
     roof,
     slab,
     show,
+    focusRoom,
     updateDoors,
     program: {
       rooms: ROOMS.length,

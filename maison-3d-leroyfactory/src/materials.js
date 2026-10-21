@@ -196,22 +196,15 @@ export function artTexture(seed = 1) {
   const c = canvas.getContext("2d");
   c.fillStyle = "#e5ddca";
   c.fillRect(0, 0, 768, 1024);
-  for (let i = 0; i < 35; i++) {
-    c.fillStyle = ["#c3b9a1", "#8d998a", "#b79478", "#dfd4bc", "#51594d"][
-      (i + seed) % 5
-    ];
-    c.globalAlpha = 0.2 + (i % 4) * 0.16;
-    c.beginPath();
-    c.ellipse(
-      80 + ((i * 179 + seed * 55) % 630),
-      120 + ((i * 131) % 790),
-      90 + ((i * 13) % 200),
-      30 + ((i * 31) % 150),
-      (i * 0.36) % 3,
-      0,
-      Math.PI * 2,
-    );
-    c.fill();
+  if(seed%4===2){
+    const sky=c.createLinearGradient(0,0,0,1024);sky.addColorStop(0,'#cbd5d2');sky.addColorStop(.6,'#ede3cf');sky.addColorStop(1,'#a69376');c.fillStyle=sky;c.fillRect(0,0,768,1024);
+    for(let j=0;j<5;j++){c.fillStyle=['#8c9b93','#abb3a1','#c7b7a1','#7c8479','#9a8971'][j];c.beginPath();c.moveTo(0,1024);for(let x=0;x<=768;x+=4)c.lineTo(x,530+j*87+Math.sin(x*.007+j*1.7)*55+Math.sin(x*.019+j)*15);c.lineTo(768,1024);c.fill();}
+  }else if(seed%4===3){
+    c.fillStyle='#d0b299';c.fillRect(0,0,768,1024);for(let j=0;j<5;j++){c.strokeStyle=['#e9dfca','#b2896c','#746a57'][j%3];c.lineWidth=35;c.beginPath();c.roundRect(80+j*68,102+j*73,600-j*136,950-j*135,Math.max(3,280-j*65));c.stroke();}
+  }else if(seed%4===0){
+    c.fillStyle='#f1eadd';c.fillRect(0,0,768,1024);c.strokeStyle='#4e554c';c.lineWidth=4;c.beginPath();for(let i=0;i<30;i++){c.moveTo(100+i*15,200);c.bezierCurveTo(650-i*10,380,40+i*10,620,660-i*9,840);}c.stroke();c.fillStyle='#b18967';c.beginPath();c.arc(540,300,105,0,Math.PI*2);c.fill();
+  }else for (let i = 0; i < 35; i++) {
+    c.fillStyle = ['#c3b9a1','#8d998a','#b79478','#dfd4bc','#51594d'][(i+seed)%5];c.globalAlpha=.2+(i%4)*.16;c.beginPath();c.ellipse(80+((i*179+seed*55)%630),120+((i*131)%790),90+((i*13)%200),30+((i*31)%150),(i*.36)%3,0,Math.PI*2);c.fill();
   }
   c.globalAlpha = 1;
   const t = new T.CanvasTexture(canvas);

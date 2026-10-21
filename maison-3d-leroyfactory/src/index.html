@@ -92,7 +92,7 @@
         </div>
         <nav class="view-tabs" aria-label="Mode de découverte">
           <button data-mode="visit" aria-pressed="true">Visite</button
-          ><button data-mode="model" aria-pressed="false">Maquette</button
+          ><button data-mode="character" aria-pressed="false">Personnage</button><button data-mode="model" aria-pressed="false">Maquette</button
           ><button data-mode="plan" aria-pressed="false">Plan</button
           ><button data-mode="exterior" aria-pressed="false">Extérieur</button>
         </nav>
@@ -100,12 +100,16 @@
           <button data-floor="0" aria-pressed="true">RDC</button
           ><button data-floor="1" aria-pressed="false">Étage</button>
         </div>
+        <button id="configure-room" class="configure-room">Personnaliser cette pièce <span>↗</span></button>
+        <div id="room-workspace-bar" class="room-workspace-bar" hidden><button id="room-return">← Revenir à la maison</button><span><small>CONFIGURATEUR DE PIÈCE</small><b id="room-workspace-name"></b></span><button id="room-reframe" aria-label="Cadrer la pièce">⊡ Vue initiale</button></div>
+        <div id="character-tools" class="character-tools" hidden><span>Votre habitant</span><button id="avatar-wave">Saluer</button><button id="avatar-look">Regarder autour</button><button id="avatar-follow" aria-label="Recentrer la caméra sur le personnage">Recentrer</button></div>
+        <p id="character-status" class="character-status" role="status" hidden></p>
         <button id="arrange-open" class="arrange-launch">Aménager · déplacer les éléments ↗</button>
         <button id="workshop-open" class="workshop-launch" aria-expanded="false" aria-controls="workshop-panel"><span>✧</span> Atelier magasin <small>Matières · dimensions · métrés</small></button>
         <aside id="workshop-panel" class="workshop-panel" hidden>
           <div class="workshop-heading"><div><p class="eyebrow">LE ROY FACTORY</p><h3>Votre atelier maison.</h3></div><button id="workshop-close" class="icon-button" aria-label="Fermer l’atelier">×</button></div>
           <label class="workshop-room-label" for="workshop-room">La pièce à personnaliser</label><select id="workshop-room"></select><p id="workshop-area"></p>
-          <nav class="workshop-tabs" aria-label="Outils de l’atelier"><button data-workshop-tab="arrange" aria-pressed="false">Aménager</button><button data-workshop-tab="surfaces" aria-pressed="true">Sols & pose</button><button data-workshop-tab="bathroom" aria-pressed="false">Mobilier RANDAL</button><button data-workshop-tab="dimensions" aria-pressed="false">Dimensions</button><button data-workshop-tab="metrics" aria-pressed="false">Métrés</button><button data-workshop-tab="project" aria-pressed="false">Dossier</button></nav>
+          <nav class="workshop-tabs" aria-label="Outils de l’atelier"><button data-workshop-tab="arrange" aria-pressed="false">Aménager</button><button data-workshop-tab="surfaces" aria-pressed="true">Sols & pose</button><button data-workshop-tab="library" aria-pressed="false">Mobilier & décors</button><button data-workshop-tab="bathroom" aria-pressed="false">Mobilier RANDAL</button><button data-workshop-tab="dimensions" aria-pressed="false">Dimensions</button><button data-workshop-tab="metrics" aria-pressed="false">Métrés</button><button data-workshop-tab="project" aria-pressed="false">Dossier</button></nav>
           <div id="workshop-body"></div><p id="workshop-status" role="status" aria-live="polite">Les modifications sont conservées sur ce navigateur.</p>
         </aside>
         <aside id="room-panel" class="room-panel" hidden>
@@ -122,7 +126,7 @@
               ×
             </button>
           </div>
-          <div id="room-list"></div>
+          <p class="room-choice-copy">Sélectionnez une pièce pour ouvrir son configurateur. Utilisez « Visiter » pour vous y rendre.</p><div id="room-list"></div>
           <div class="panel-foot">
             <b id="total-room-area">140 m²</b
             ><span

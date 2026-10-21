@@ -1,5 +1,5 @@
 import { build } from "esbuild";
-import { mkdirSync, readFileSync, writeFileSync, copyFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync, copyFileSync, cpSync } from "node:fs";
 import { createHash } from "node:crypto";
 import path from "node:path";
 mkdirSync("dist", { recursive: true });
@@ -17,6 +17,7 @@ await build({
   legalComments: "eof",
 });
 copyFileSync("src/style.css", "dist/style.css");
+cpSync("assets", "dist/assets", { recursive: true });
 let html = readFileSync("src/index.html", "utf8");
 for (const f of ["app.js", "style.css"])
   html = html.replaceAll(

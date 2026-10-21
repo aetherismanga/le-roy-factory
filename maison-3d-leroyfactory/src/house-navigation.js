@@ -78,12 +78,13 @@ export function collisionWorld(house, garden) {
       toCell = (p) => [Math.round(p.x / step), Math.round(p.z / step)],
       initialStart = toCell(start),
       initialGoal = toCell(goal);
+    const free=new Map();
     const valid = (x, z) =>
       x * step >= minX &&
       x * step <= maxX &&
       z * step >= minZ &&
       z * step <= maxZ &&
-      passable(x * step, z * step, height);
+      (free.has(key(x,z))?free.get(key(x,z)):(free.set(key(x,z),passable(x*step,z*step,height)),free.get(key(x,z))));
     const lineClear = (a, b) => {
       const n = Math.max(1, Math.ceil(Math.hypot(b.x - a.x, b.z - a.z) / 0.04));
       for (let i = 0; i <= n; i++)
@@ -179,7 +180,10 @@ export function collisionWorld(house, garden) {
       result.unshift(first);
     if (!result.length || result.at(-1).distanceTo(goal) > 0.03)
       result.push(new T.Vector3(goal.x, height, goal.z));
-    return result;
+    // String-pull the grid route using collision samples; no zigzag on open floors.
+    const smooth=[];let anchor=start,index=0;
+    while(index<result.length){let next=index;for(let j=index+1;j<result.length;j++){if(lineClear(anchor,result[j]))next=j;else break;}smooth.push(result[next]);anchor=result[next];index=next+1;}
+    return smooth;
   }
   return { groundAt, passable, route, radius, obstacles };
 }
@@ -191,6 +195,7 @@ export function createHouseWalk({
   onChange,
   onInteract,
   onStatus,
+  pointerLook = true,
 }) {
   const keys = new Set(),
     eye = 1.58;
@@ -202,9 +207,9 @@ export function createHouseWalk({
     path = [],
     lookChanged = false;
   const forward = new T.Vector3(),
-    side = new T.Vector3();
+    side = new T.Vector3(),velocity=new T.Vector3();
   const editing = (e) =>
-    !!e?.closest?.("input,textarea,select,button,[contenteditable]");
+    !!e?.closest?.("input,textarea,select,[contenteditable]");
   function updateLook() {
     camera.rotation.order = "YXZ";
     camera.rotation.set(pitch, yaw, 0);
@@ -214,6 +219,7 @@ export function createHouseWalk({
       .add(new T.Vector3(0, 0, -1).applyEuler(camera.rotation));
   }
   function setPose(position, target) {
+    velocity.set(0,0,0);
     camera.position.copy(position);
     const dir = target.clone().sub(position).normalize();
     yaw = Math.atan2(-dir.x, -dir.z);
@@ -226,6 +232,7 @@ export function createHouseWalk({
     active = value;
     controls.enabled = !value;
     keys.clear();
+    velocity.set(0,0,0);
     path = [];
     if (value) {
       const d = controls.target.clone().sub(camera.position).normalize();
@@ -239,8 +246,8 @@ export function createHouseWalk({
   const map = {
     ArrowUp: "up",
     ArrowDown: "down",
-    ArrowLeft: "turnLeft",
-    ArrowRight: "turnRight",
+    ArrowLeft: pointerLook?"turnLeft":"left",
+    ArrowRight: pointerLook?"turnRight":"right",
     KeyW: "up",
     KeyZ: "up",
     KeyS: "down",
@@ -268,7 +275,8 @@ export function createHouseWalk({
     if (!pointer || pointer.id !== e.pointerId) return;
     const tap = pointer.total < 7;
     pointer = null;
-    if (tap) onInteract(e);
+    if (tap&&active) onInteract(e);
+    if(canvas.hasPointerCapture(e.pointerId))canvas.releasePointerCapture(e.pointerId);
   };
   canvas.addEventListener("pointerdown", (e) => {
     if (!active) return;
@@ -282,6 +290,7 @@ export function createHouseWalk({
     pointer.total += Math.hypot(dx, dy);
     pointer.x = e.clientX;
     pointer.y = e.clientY;
+    if(!pointerLook)return;
     yaw -= dx * 0.0035;
     pitch = T.MathUtils.clamp(pitch - dy * 0.0035, -1.24, 1.24);
     updateLook();
@@ -294,6 +303,7 @@ export function createHouseWalk({
     b.addEventListener("pointerdown", (e) => {
       e.preventDefault();
       b.setPointerCapture(e.pointerId);
+      if(!active)return;
       keys.add(b.dataset.move);
       path = [];
     });
@@ -316,7 +326,7 @@ export function createHouseWalk({
   }
   function tick(dt) {
     if (!active) return false;
-    dt = Math.min(0.04, dt);
+    dt = Math.min(0.1, dt);
     let changed = lookChanged;
     lookChanged = false;
     const turn = (+keys.has("turnLeft") - +keys.has("turnRight")) * 1.55 * dt;
@@ -337,25 +347,19 @@ export function createHouseWalk({
       if (Math.hypot(dx, dz) < 0.06) path.shift();
       else move.set(dx, 0, dz).normalize();
     }
-    if (move.lengthSq() > 0.0001) {
-      move.normalize().multiplyScalar(speed * dt);
-      const p = camera.position;
-      for (const [dx, dz] of [
-        [move.x, 0],
-        [0, move.z],
-      ]) {
-        if (world.passable(p.x + dx, p.z + dz, ground)) {
-          p.x += dx;
-          p.z += dz;
-          ground = world.groundAt(p.x, p.z, ground);
-        } else if (path.length) {
-          path = [];
-          onStatus("Le passage est occupé.");
-        }
+    if(move.lengthSq()>0.0001)move.normalize().multiplyScalar(speed);
+    velocity.x=T.MathUtils.damp(velocity.x,move.x,move.lengthSq()?12:20,dt);velocity.z=T.MathUtils.damp(velocity.z,move.z,move.lengthSq()?12:20,dt);
+    if(velocity.lengthSq()>.0001){
+      const p=camera.position,delta=velocity.clone().multiplyScalar(dt),n=Math.max(1,Math.ceil(delta.length()/.035));
+      if(path.length&&delta.length()>Math.hypot(path[0].x-p.x,path[0].z-p.z))delta.set(path[0].x-p.x,0,path[0].z-p.z);
+      let moved=false;
+      for(let step=0;step<n;step++)for(const [dx,dz]of [[delta.x/n,0],[0,delta.z/n]]){
+        if(world.passable(p.x+dx,p.z+dz,ground)){p.x+=dx;p.z+=dz;ground=world.groundAt(p.x,p.z,ground);moved=true;}
+        else if(path.length){path=[];velocity.set(0,0,0);onStatus('Le passage est occupé.');}
       }
-      p.y = T.MathUtils.damp(p.y, ground + eye, 18, dt);
-      changed = true;
+      changed=moved||changed;
     }
+    if(Math.abs(camera.position.y-ground-eye)>.0001){camera.position.y=T.MathUtils.damp(camera.position.y,ground+eye,18,dt);changed=true;}
     if (changed) {
       updateLook();
       onChange();
@@ -372,14 +376,17 @@ export function createHouseWalk({
     get pathLength() {
       return path.length;
     },
+    get position(){return camera.position;},
+    get moving(){return velocity.lengthSq()>.01;},
+    setHeading(value){yaw=value;},
     setActive,
-    setWorld(next){world=next;keys.clear();path=[];},
+    setWorld(next){world=next;keys.clear();path=[];velocity.set(0,0,0);},
     setPose,
     walkTo,
     tick,
     stop() {
       keys.clear();
-      path = [];
+      path = [];velocity.set(0,0,0);
     },
     debugMove(dx, dz) {
       const p = camera.position;

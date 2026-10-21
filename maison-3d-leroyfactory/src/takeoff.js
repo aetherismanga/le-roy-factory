@@ -42,7 +42,7 @@ export function tileCounts(g,format,area,waste=10,pack){
 export function geometryArea(g){const p=g.attributes.position,idx=g.index;let a=0;const va=new T.Vector3(),vb=new T.Vector3(),vc=new T.Vector3();for(let i=0;i<(idx?idx.count:p.count);i+=3){va.fromBufferAttribute(p,idx?idx.getX(i):i);vb.fromBufferAttribute(p,idx?idx.getX(i+1):i+1);vc.fromBufferAttribute(p,idx?idx.getX(i+2):i+2);a+=vb.sub(va).cross(vc.sub(va)).length()/2;}return a;}
 export function roomTakeoff(room,house){
  const floor=house.floorSurfaces.get(room.id),walls=house.wallSurfaces.filter(s=>s.room===room.id);
- return {id:room.id,name:room.name,floor:room.floor,width:roomBounds(room).w*SCALE,depth:roomBounds(room).d*SCALE,habitable:room.area,floorArea:polygonArea(floorPolygon(room))-floorHoles(room).reduce((n,h)=>n+polygonArea(h),0),perimeter:room.polygon.reduce((n,p,i)=>{const q=room.polygon[(i+1)%room.polygon.length];return n+Math.hypot(p[0]-q[0],p[1]-q[1])*SCALE;},0),wallGross:walls.reduce((n,w)=>n+w.length*CLEAR_HEIGHT,0),wallNet:walls.reduce((n,w)=>n+w.area,0),plinth:walls.reduce((n,w)=>n+w.plinth,0),ceiling:room.area,tiles:floor?.counts||null,product:floor?.product?.name||'Parquet chêne · lames 120 × 18 cm'};
+ return {id:room.id,name:room.name,floor:room.floor,width:roomBounds(room).w*SCALE,depth:roomBounds(room).d*SCALE,habitable:room.area,floorArea:polygonArea(floorPolygon(room))-floorHoles(room).reduce((n,h)=>n+polygonArea(h),0),perimeter:room.polygon.reduce((n,p,i)=>{const q=room.polygon[(i+1)%room.polygon.length];return n+Math.hypot(p[0]-q[0],p[1]-q[1])*SCALE;},0),wallGross:walls.reduce((n,w)=>n+w.length*CLEAR_HEIGHT,0),wallNet:walls.reduce((n,w)=>n+w.area,0),plinth:walls.reduce((n,w)=>n+w.plinth,0),ceiling:room.area,wallTiles:house.wallCoverings?.rooms.get(room.id)?.counts||null,tiles:floor?.counts||null,product:floor?.product?.name||'Parquet chêne · lames 120 × 18 cm'};
 }
 export function cutPlanSVG(room,floor){
  if(!floor)return '';
@@ -70,6 +70,10 @@ export function orderTakeoffs(house){
  for(const r of ROOMS){const f=house.floorSurfaces.get(r.id),t=f.counts,key=f.spec.kind==='parquet'?'parquet':[f.spec.collection,f.spec.color,f.spec.format].join('/');
   if(!groups.has(key))groups.set(key,{key,name:f.product?.name||'Parquet chêne · lames 120 × 18 cm',area:0,used:0,order:0,pcsBox:t.pcsBox,tileArea:t.tileArea,rooms:[]});
   const g=groups.get(key);g.area+=t.area;g.used+=t.used;g.order+=t.order;g.rooms.push(r.name);
+ }
+ for(const r of ROOMS){const f=house.wallCoverings?.rooms.get(r.id);if(!f)continue;const t=f.counts,key=[f.spec.collection,f.spec.color,f.spec.format].join('/');
+  if(!groups.has(key))groups.set(key,{key,name:f.product.name,area:0,used:0,order:0,pcsBox:t.pcsBox,tileArea:t.tileArea,rooms:[]});
+  const g=groups.get(key);g.area+=t.area;g.used+=t.used;g.order+=t.order;g.rooms.push(r.name+' · murs');
  }
  return [...groups.values()].map(g=>({...g,boxes:g.pcsBox?Math.ceil(g.order/g.pcsBox):null,orderArea:(g.pcsBox?Math.ceil(g.order/g.pcsBox)*g.pcsBox:g.order)*g.tileArea}));
 }

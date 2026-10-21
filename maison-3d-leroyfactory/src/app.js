@@ -1,4 +1,6 @@
 import * as T from "three";
+import {createResident} from './resident.js';
+import {OBJECT_LIBRARY,registerAddition,findAdditionPlace} from './object-library.js';
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { Sky } from "three/addons/objects/Sky.js";
 import { RectAreaLightUniformsLib } from "three/addons/lights/RectAreaLightUniformsLib.js";
@@ -15,6 +17,7 @@ import { buildHouse } from "./house.js";
 import { buildGarden } from "./garden.js";
 import { collisionWorld, createHouseWalk } from "./house-navigation.js";
 import {
+  roomBounds,
   ROOMS,
   WALLS,
   WELL,
@@ -41,6 +44,7 @@ const $ = (s) => document.querySelector(s),
     light: "day",
     quality: initialQuality(),
     tour: false,
+    roomEditing: false,
   },
   reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 let renderer,
@@ -73,6 +77,7 @@ let renderer,
   productTextures,
   workshop,
   editor,
+  resident,actorWalk,actorCamera,actorControls,characterLoading=false,characterToken=0,actorHeading=0,returnView=null,lastActorShadow=0,
   project=readDraft();
 applyLayout(project.layout);
 const errors = [],
@@ -118,9 +123,9 @@ function progress(value, text) {
   if (text) $("#loading-text").textContent = text;
 }
 function locate() {
-  if (!walk?.active) return;
-  const p = camera.position,
-    base = walk.ground,
+  if (!walk?.active&&!actorWalk?.active) return;
+  const p = state.mode==='character'?actorWalk.position:camera.position,
+    base = state.mode==='character'?actorWalk.ground:walk.ground,
     floor = base > LEVEL_HEIGHT * 0.65 ? 1 : 0;
   const [x, z] = unpoint(p.x, p.z),
     room = roomAt(x, z, floor);
@@ -141,7 +146,7 @@ function updateActiveLights() {
   const key = [state.mode, state.floor, state.room, state.light,state.quality].join(":");
   if (key === lastLightZone) return;
   lastLightZone = key;
-  const indoor = state.mode === "visit" || state.mode === "model",
+  const indoor = ["visit","model","character"].includes(state.mode),
     candidates = house.spots
       .filter((s) => s.floor === state.floor)
       .map((s) => {
@@ -195,10 +200,13 @@ function locationUI() {
   $$("[data-floor]").forEach((b) =>
     b.setAttribute("aria-pressed", String(+b.dataset.floor === state.floor)),
   );
-  $$("[data-mode]").forEach((b) =>
+  $$(".view-tabs button[data-mode]").forEach((b) =>
     b.setAttribute("aria-pressed", String(b.dataset.mode === state.mode)),
   );
-  $("#movement").hidden = state.mode !== "visit";
+  $("#movement").hidden = !["visit","character"].includes(state.mode);
+  if(state.roomEditing){$("#location-title").textContent=r.name;$("#location-description").textContent="Configurez votre pièce · modifications conservées dans la maison";}
+  $("#character-tools").hidden=state.mode!=="character";
+  $("#configure-room").hidden=state.roomEditing||state.mode==="exterior";
   updateActiveLights();
 }
 function closePanels() {
@@ -265,6 +273,11 @@ function safeRoomPose(room) {
 }
 function setMode(mode, { keepPose = false } = {}) {
   if (!state.ready) return;
+  if(mode==='character')return startCharacter({keepPose});
+  characterToken++;
+  const actorPosition=state.mode==='character'&&keepPose?actorWalk.position.clone():null;
+  actorWalk?.setActive(false);resident?.setVisible(false);controls.enabled=true;controls.enablePan=true;controls.minDistance=.65;controls.maxDistance=48;
+  state.roomEditing=false;document.body.classList.remove('room-configurator');$("#room-workspace-bar").hidden=true;
   state.mode = mode;
   if(mode!=="model")editor?.refreshHelper();
   document.body.dataset.mode = mode;
@@ -291,6 +304,7 @@ function setMode(mode, { keepPose = false } = {}) {
     const view = safeRoomPose(room);
     pose(view, room.look, room.floor, false);
     walk.setActive(true);
+    if(actorPosition){const direction=camera.getWorldDirection(new T.Vector3());walk.setPose(actorPosition,actorPosition.clone().add(direction));}
     $("#hint").textContent =
       innerWidth < 700
         ? "Glissez pour regarder · touchez le sol pour avancer"
@@ -300,7 +314,7 @@ function setMode(mode, { keepPose = false } = {}) {
     const height = innerWidth < 700 ? 18 : 15;
     pose([14, height, 15], [5, centerY, 4], 0, true);
     $("#hint").textContent =
-      "Glissez pour tourner · pincez ou utilisez la molette pour zoomer";
+      "Glissez pour tourner · double-cliquez une pièce pour la personnaliser";
   } else if (mode === "exterior") {
     pose(VIEWS.garden.position, VIEWS.garden.look, 0, true);
     $("#hint").textContent = "Explorez la maison et son jardin en 3D";
@@ -325,6 +339,7 @@ function setFloor(floor) {
   if (state.mode === "plan") renderPlan();
   else if (state.mode === "model") setMode("model");
   else if (state.mode === "exterior") setMode("model");
+  else if(state.mode==='character')startCharacter();
   else goRoom(state.room);
   locationUI();
   invalidate();
@@ -345,8 +360,9 @@ function renderRooms() {
       const s = document.createElement("span");
       s.textContent = r.area.toFixed(1).replace(".", ",") + " m² ↗";
       b.append(s);
-      b.onclick = () => goRoom(r.id);
-      p.append(b);
+      b.onclick = () => openRoom(r.id);
+      const row=document.createElement('div');row.className='room-choice-row';row.append(b);
+      const visit=document.createElement('button');visit.className='room-visit';visit.textContent='Visiter';visit.setAttribute('aria-label','Visiter '+r.name);visit.onclick=()=>goRoom(r.id);row.append(visit);p.append(row);
     }
   }
 }
@@ -420,9 +436,9 @@ function renderPlan() {
   $("#plan-drawing")
     .querySelectorAll("[data-room]")
     .forEach((b) => {
-      b.onclick = () => goRoom(b.dataset.room);
+      b.onclick = () => openRoom(b.dataset.room);
       b.onkeydown = (e) => {
-        if (e.key === "Enter") goRoom(b.dataset.room);
+        if (e.key === "Enter") openRoom(b.dataset.room);
       };
     });
 }
@@ -527,7 +543,8 @@ function interact(e) {
     (-(e.clientY - r.top) / r.height) * 2 + 1,
   );
   ray.setFromCamera(mouse, camera);
-  const hits = ray.intersectObject(house.root, true);
+  const visible=o=>{for(let p=o;p;p=p.parent)if(!p.visible)return false;return true;};
+  const hits = ray.intersectObject(house.root, true).filter(h=>visible(h.object));
   for (const hit of hits) {
     let o = hit.object,
       action = null;
@@ -551,8 +568,8 @@ function interact(e) {
       invalidate();
       return;
     }
-    if (hit.object.userData.room && walk.active) {
-      walk.walkTo(hit.point);
+    if (hit.object.userData.room && (walk.active||actorWalk?.active)) {
+      (actorWalk?.active?actorWalk:walk).walkTo(hit.point);
       return;
     }
     if (hit.distance < 0.2) continue;
@@ -562,7 +579,7 @@ function interact(e) {
     )
       break;
   }
-  if (walk.active) {
+  if (walk.active||actorWalk?.active) {
     const floor = ray
       .intersectObject(garden.root, true)
       .find(
@@ -570,7 +587,7 @@ function interact(e) {
           h.object.name === "Terrain_paysager" ||
           h.object.name === "Terrasse_pierre_naturelle",
       );
-    if (floor) walk.walkTo(floor.point);
+    if (floor) (actorWalk?.active?actorWalk:walk).walkTo(floor.point);
   }
 }
 function stopTour(reset = true) {
@@ -621,11 +638,20 @@ function startTour() {
   step();
 }
 function updateMaquette() {
+  if(state.roomEditing){house.focusRoom(state.room,camera);return;}
+  if(state.mode==='character'){
+    // The near walls fold away like a life simulation, while collisions remain physical.
+    const p=actorWalk.position;
+    for(const f of house.floors){f.group.visible=f.group.userData.floor===state.floor;for(const w of f.walls){
+      const a=new T.Vector3(...w.worldA),c=camera.position.clone().sub(a).dot(w.normal),t=new T.Vector3(p.x,p.y,p.z).sub(a).dot(w.normal);
+      w.group.visible=c*t>=-.015;w.cutcap.visible=!w.group.visible;
+    }}return;
+  }
   if (state.mode !== "model" && state.mode !== "plan") return;
   for (const f of house.floors)
     for (const wall of f.walls) {
       if (!wall.outside) {
-        wall.group.visible = true;
+        wall.group.visible = true;wall.cutcap.visible=false;
         continue;
       }
       const midpoint = new T.Vector3(
@@ -635,6 +661,7 @@ function updateMaquette() {
       );
       wall.group.visible =
         camera.position.clone().sub(midpoint).dot(wall.normal) > -0.05;
+      wall.cutcap.visible=!wall.group.visible;
     }
 }
 function architectureCapture(fn) {
@@ -647,7 +674,9 @@ function architectureCapture(fn) {
   for (const f of house.floors) {
     set(f.group, true);
     set(f.ceilings, true);
-    for (const w of f.walls) set(w.group, true);
+    for (const w of f.walls){set(w.group,true);set(w.mesh,true);set(w.cutcap,false);}
+    for(const sf of house.floorSurfaces.values()){set(sf.mesh,true);set(sf.grout,true);}
+    for(const item of house.arrangement.items.values())set(item.root,!item.hidden);
   }
   set(house.roof, true);
   set(house.slab, true);
@@ -663,9 +692,10 @@ function installMirrors() {
     let at = -1000,
       first = true;
     mirror.onBeforeRender = (...args) => {
-      if (scene.overrideMaterial || state.mode !== "visit") return;
+      if (scene.overrideMaterial || !["visit","character"].includes(state.mode)&&!state.roomEditing) return;
       root.getWorldPosition(tmp);
-      if (camera.position.distanceTo(tmp) > QUALITY[state.quality].mirrorDistance) return;
+      const observer=state.mode==='character'?actorWalk.position:camera.position;
+      if (!first&&!state.roomEditing&&observer.distanceTo(tmp) > QUALITY[state.quality].mirrorDistance) return;
       const now = performance.now();
       if (
         !first &&
@@ -693,13 +723,18 @@ function updateCamera(t) {
 function frame(t) {
   raf = requestAnimationFrame(frame);
   if (document.hidden) return;
-  const dt = Math.min(0.05, (t - lastTime) / 1000 || 0.016);
+  const dt = Math.min(0.1, (t - lastTime) / 1000 || 0.016);
   lastTime = t;
   let changed = updateCamera(t);
-  if (walk?.active) {
-    changed = walk.tick(dt) || changed;
-    locate();
-  } else controls?.update();
+  if(actorWalk?.active){
+    const before=actorWalk.position.clone();
+    const d=camera.getWorldDirection(new T.Vector3());actorWalk.setHeading(Math.atan2(-d.x,-d.z));
+    changed=actorWalk.tick(dt)||changed;
+    const delta=actorWalk.position.clone().sub(before);camera.position.add(delta);controls.target.copy(actorWalk.position).add(new T.Vector3(0,-.65,0));controls.update();
+    if(delta.lengthSq()>.000002){const target=Math.atan2(delta.x,delta.z);actorHeading+=Math.atan2(Math.sin(target-actorHeading),Math.cos(target-actorHeading))*Math.min(1,dt*13);}
+    resident.place(new T.Vector3(actorWalk.position.x,actorWalk.ground,actorWalk.position.z),actorHeading);resident.animate(dt,actorWalk.moving);
+    if(t-lastActorShadow>140){renderer.shadowMap.needsUpdate=true;lastActorShadow=t;}changed=true;locate();
+  }else if (walk?.active) {changed = walk.tick(dt) || changed;locate();} else controls?.update();
   if (house?.updateDoors(dt)) {
     changed = true;
     invalidate();
@@ -745,15 +780,71 @@ function frame(t) {
     $("#welcome").hidden = false;
   }
 }
+function frameRoom(id){
+ const room=ROOMS.find(r=>r.id===id),b=roomBounds(room),center=new T.Vector3(...point(b.x+b.w/2,.8+room.floor*LEVEL_HEIGHT,b.z+b.d/2));
+ size();const radius=Math.hypot(b.w*SCALE,b.d*SCALE,2.6)/2,distance=radius/Math.sin(T.MathUtils.degToRad(camera.fov/2))/Math.min(1,camera.aspect)*.95;
+ cameraTween=null;controls.target.copy(center);camera.position.copy(center).add(new T.Vector3(.78,.98,1.05).normalize().multiplyScalar(distance));controls.update();house.focusRoom(id,camera);invalidate();
+}
+function openRoom(id){
+ const room=ROOMS.find(r=>r.id===id);if(!room||!state.ready)return false;
+ if(!state.roomEditing){returnView={mode:state.mode==='welcome'?'visit':state.mode,position:camera.position.clone(),target:controls.target.clone(),room:state.room,floor:state.floor,actorPosition:state.mode==='character'?actorWalk.position.clone():null,actorHeading};}
+ state.room=id;state.floor=room.floor;setMode('model');state.roomEditing=true;document.body.classList.add('room-configurator');
+ workshop.open(id);workshop.setTab('arrange');frameRoom(id);locationUI();
+ $('#workshop-panel h3').textContent='Votre pièce, à composer.';$('#room-workspace-name').textContent=room.name;$('#room-workspace-bar').hidden=false;
+ status('Configurateur · '+room.name);return true;
+}
+async function leaveRoom(){
+ const back=returnView;returnView=null;state.roomEditing=false;document.body.classList.remove('room-configurator');$('#room-workspace-bar').hidden=true;$('#workshop-panel h3').textContent='Votre atelier maison.';
+ if(back){state.room=back.room;state.floor=back.floor;}
+ await setMode(back?.mode||'visit');
+ if(back?.mode==='character'&&back.actorPosition&&world.passable(back.actorPosition.x,back.actorPosition.z,back.actorPosition.y-1.58)){actorWalk.setPose(back.actorPosition,back.actorPosition.clone().add(new T.Vector3(0,0,-1)));actorHeading=back.actorHeading;camera.position.copy(back.position);controls.target.copy(back.target);controls.update();}
+ if(back?.mode==='visit'&&world.passable(back.position.x,back.position.z,back.position.y-1.58)){walk.setPose(back.position,back.target);}
+ if(back&&['model','exterior','plan'].includes(back.mode)){camera.position.copy(back.position);controls.target.copy(back.target);controls.update();}
+ status('Votre pièce est conservée dans la maison.');invalidate();
+}
+async function addObject(productId,roomId){
+ const entry={id:'extra-'+crypto.randomUUID(),product:productId,room:roomId},spec=OBJECT_LIBRARY.find(p=>p.id===productId);if(!spec)throw Error('Objet inconnu.');
+ if((project.additions||[]).length>=80)throw Error('La bibliothèque accepte 80 ajouts par projet.');
+ const item=registerAddition(house,project,materials,entry),place=findAdditionPlace(house.arrangement,item,spec);
+ if(!place){item.root.removeFromParent();house.arrangement.items.delete(item.id);throw Error('Pas d’emplacement libre pour cet élément. Déplacez ou retirez un objet pour libérer la pièce.');}
+ project.additions??=[];project.additions.push(entry);house.arrangement.update(item.id,place);
+ refreshNavigation();saveDraft(project);invalidate();return item.id;
+}
+function refreshNavigation(){
+ house.colliders.length=0;house.colliders.push(...house.arrangement.colliders());world=collisionWorld(house,garden);walk.setWorld(world);actorWalk?.setWorld(world);
+}
+async function setWallSurfaces(ids,spec){
+ const previous=structuredClone(project);const next=structuredClone(project);for(const id of ids)next.rooms[id].wall=structuredClone(spec);validateProject(next);
+ try{for(const id of ids)await house.setWallSurface(id,spec);Object.assign(project,next);saveDraft(project);invalidate();}
+ catch(e){for(const id of ids)await house.setWallSurface(id,previous.rooms[id].wall||null);invalidate();throw e;}
+}
+async function startCharacter({keepPose=false}={}){
+ if(characterLoading)return;const token=++characterToken;characterLoading=true;$('#character-status').hidden=false;$('#character-status').textContent='Préparation du personnage…';
+ try{
+  await resident.load();if(token!==characterToken)return;
+  const wasVisit=state.mode==='visit',old=walk.position.clone();
+  closePanels();stopTour(false);state.roomEditing=false;document.body.classList.remove('room-configurator');$('#room-workspace-bar').hidden=true;
+  walk.setActive(false);state.mode='character';document.body.dataset.mode='character';$('#welcome').hidden=true;$('#experience').hidden=false;$('#plan-panel').hidden=true;
+  garden.root.visible=true;sky.visible=true;scene.background=new T.Color('#ccd5cf');house.show('model',state.floor);
+  const room=ROOMS.find(r=>r.id===state.room),r=safeRoomPose(room),p=wasVisit&&keepPose?old:new T.Vector3(...point(r[0],state.floor*LEVEL_HEIGHT+1.6,r[2]));
+  actorWalk.setPose(p,p.clone().add(new T.Vector3(0,0,-1)));actorWalk.setActive(true);controls.enabled=true;controls.enablePan=false;controls.minDistance=1.2;controls.maxDistance=12;
+  controls.target.copy(p).add(new T.Vector3(0,-.65,0));camera.position.copy(controls.target).add(new T.Vector3(2.5,3.2,3.5));controls.update();
+  resident.place(new T.Vector3(p.x,actorWalk.ground,p.z),actorHeading);resident.setVisible(true);locationUI();invalidate();
+  $('#hint').textContent='Touchez le sol pour marcher · glissez pour tourner · pincez pour zoomer';
+  status('Touchez le sol pour marcher. Glissez pour tourner. ZQSD ou flèches pour vous déplacer.');
+ }catch(e){status(e.message);$('#character-status').textContent=e.message+' Touchez Personnage pour réessayer.';return;}
+ finally{characterLoading=false;if(resident.ready)$('#character-status').hidden=true;}
+}
 function focusRoom(id){
   const r=ROOMS.find(r=>r.id===id);if(!r)return;
   const x=r.polygon.reduce((n,p)=>n+p[0],0)/r.polygon.length,z=r.polygon.reduce((n,p)=>n+p[1],0)/r.polygon.length;
   state.room=id;state.floor=r.floor;setMode('model');
   pose([x+2.4,7.4,z+3.1],[x,.3,z],r.floor,false);workshop.open(id);invalidate();
 }
-function setPaint(id,color){
+async function setPaint(id,color){
+  await house.setWallSurface(id,null);delete project.rooms[id].wall;
   const m=house.paintMaterials.get(id);if(!m)return;
-  m.color.set(color);project.rooms[id].paint=color;saveDraft(project);invalidate();
+  m.map=null;m.bumpMap=null;m.needsUpdate=true;m.color.set(color);project.rooms[id].paint=color;saveDraft(project);invalidate();
 }
 async function setSurfaces(ids,spec){
   if(!ids.length||ids.some(id=>!ROOMS.some(r=>r.id===id)))throw Error('Pièce inconnue.');
@@ -779,7 +870,7 @@ function disposeHouse(old,next){
 }
 async function rebuildHouse(raw){
   const next=validateProject(raw),previousLayout=structuredClone(project.layout),old=house;
-  const workshopWasOpen=!$("#workshop-panel").hidden,workshopRoom=workshop?.activeRoom;
+  const workshopWasOpen=!$("#workshop-panel").hidden,workshopRoom=workshop?.activeRoom,wasRoomEditing=state.roomEditing;
   walk.stop();walk.setActive(false);
   try{
     applyLayout(next.layout);
@@ -796,11 +887,11 @@ async function rebuildHouse(raw){
       const geometries=new Set(),mats=new Set();previousGarden.root.traverse(o=>{if(o.geometry)geometries.add(o.geometry);if(o.material)for(const m of Array.isArray(o.material)?o.material:[o.material])mats.add(m);});
       geometries.forEach(g=>g.dispose());const shared=new Set(Object.values(materials).filter(m=>m?.isMaterial));mats.forEach(m=>{if(!shared.has(m))m.dispose();});scene.remove(previousGarden.root);
     }
-    world=collisionWorld(house,garden);walk.setWorld(world);editor?.reset();
+    world=collisionWorld(house,garden);walk.setWorld(world);actorWalk?.setWorld(world);editor?.reset();
     applySceneQuality(house,garden,state.quality);installMirrors();lastLightZone='';setLight(state.light);renderRooms();
     // A safe room viewpoint is recomputed against the new walls and furniture.
     const mode=state.mode==='welcome'?'model':state.mode;
-    setMode(mode);locationUI();saveDraft(project);workshop?.refresh();if(workshopWasOpen)workshop.open(workshopRoom);invalidate();
+    setMode(mode);locationUI();saveDraft(project);workshop?.refresh();if(wasRoomEditing){state.roomEditing=true;openRoom(workshopRoom);}else if(workshopWasOpen)workshop.open(workshopRoom);invalidate();
     return true;
   }catch(e){applyLayout(previousLayout);walk.setActive(state.mode==='visit');throw e;}
 }
@@ -816,7 +907,8 @@ function bindUI() {
     document.body.dataset.mode = "welcome";
     $("#welcome").hidden = false;
     $("#experience").hidden = true;
-    walk.setActive(false);
+    walk.setActive(false);actorWalk?.setActive(false);resident?.setVisible(false);
+    state.roomEditing=false;document.body.classList.remove("room-configurator");$("#room-workspace-bar").hidden=true;
     house.show("exterior");
     garden.root.visible = true;
     sky.visible = true;
@@ -825,11 +917,11 @@ function bindUI() {
     controls.update();
     invalidate();
   };
-  $$("[data-mode]").forEach(
+  $$(".view-tabs button[data-mode]").forEach(
     (b) =>
       (b.onclick = () => {
         stopTour(false);
-        setMode(b.dataset.mode);
+        setMode(b.dataset.mode,{keepPose:true});
       }),
   );
   $$("[data-floor]").forEach(
@@ -869,7 +961,11 @@ function bindUI() {
   $("#sun-hour").oninput=e=>{$("#sun-hour-label").textContent=e.target.value+" h";setLight(state.light);};
   $("#quality").onchange = (e) => setQuality(e.target.value);
   $("#quality-quick").onchange=(e)=>setQuality(e.target.value);
-  $("#arrange-open").onclick=()=>{workshop.setTab("arrange");workshop.open(state.room);};
+  $('#configure-room').onclick=()=>openRoom(state.room);
+  $('#room-return').onclick=leaveRoom;$('#room-reframe').onclick=()=>frameRoom(state.room);
+  $('#avatar-wave').onclick=()=>resident.wave();$('#avatar-look').onclick=()=>resident.look();
+  $('#avatar-follow').onclick=()=>{controls.target.copy(actorWalk.position).add(new T.Vector3(0,-.65,0));camera.position.copy(controls.target).add(new T.Vector3(2.5,3.2,3.5));controls.update();invalidate();};
+  $("#arrange-open").onclick=()=>openRoom(state.room);
   $("#help-open").onclick = () => $("#help").showModal();
   $("#help-close").onclick = () => $("#help").close();
   $("#help-go").onclick = () => $("#help").close();
@@ -894,9 +990,14 @@ function bindUI() {
   };
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
-      closePanels();
+      if(state.roomEditing)leaveRoom();else closePanels();
       if (state.tour) stopTour();
     }
+  });
+  canvas.addEventListener('dblclick',e=>{
+    if(state.mode!=='model'||state.roomEditing)return;
+    const b=canvas.getBoundingClientRect();mouse.set((e.clientX-b.x)/b.width*2-1,-(e.clientY-b.y)/b.height*2+1);ray.setFromCamera(mouse,camera);
+    const hit=ray.intersectObjects(house.floorMeshes).find(h=>h.object.userData.floor===state.floor);if(hit)openRoom(hit.object.userData.room);
   });
   canvas.addEventListener("click", (e) => {
     if (!walk?.active && state.mode !== "welcome") interact(e);
@@ -987,6 +1088,8 @@ async function start() {
       onInteract: interact,
       onStatus: status,
     });
+    resident=createResident(scene,renderer);actorCamera=new T.PerspectiveCamera();actorControls={enabled:false,target:new T.Vector3()};
+    actorWalk=createHouseWalk({camera:actorCamera,canvas,controls:actorControls,world,onChange:()=>revision++,onInteract:interact,onStatus:status,pointerLook:false});
     const renderShadow = renderer.shadowMap.render.bind(renderer.shadowMap);
     renderer.shadowMap.render = (...args) =>
       architectureCapture(() => renderShadow(...args));
@@ -996,9 +1099,9 @@ async function start() {
       active:()=>!$("#workshop-panel").hidden&&workshop?.tab==='arrange'&&state.mode==='model',
       status,invalidate,refresh:()=>workshop?.refresh(),
       focus:item=>{const r=ROOMS.find(r=>r.id===item.room),b=house.arrangement.items.get(item.id).root.position,[x,z]=unpoint(b.x,b.z);pose([x+2,4.5,z+2.5],[x,item.y/100+.5,z],r.floor,false);invalidate();},
-      onCommit:()=>{house.colliders.length=0;house.colliders.push(...house.arrangement.colliders());world=collisionWorld(house,garden);walk.setWorld(world);saveDraft(project);invalidate();}
+      onCommit:()=>{refreshNavigation();saveDraft(project);invalidate();}
     });
-    workshop=mountWorkshop({editor,getHouse:()=>house,getProject:()=>project,getState:()=>state,goRoom,focusRoom,setMode,closePanels,stopTour,status,onPanel:size,setPaint,setLayout:async layout=>{const next=structuredClone(project);next.layout=layout;await rebuildHouse(next);},setBathroom:async(id,s)=>{const next=structuredClone(project);next.bathrooms[id]=s;await rebuildHouse(next);},setSurfaces,replaceProject:rebuildHouse});
+    workshop=mountWorkshop({editor,getHouse:()=>house,getProject:()=>project,getState:()=>state,goRoom,focusRoom,setMode,closePanels,stopTour,status,openRoom,leaveRoom,addObject,setWallSurfaces,onPanel:size,setPaint,setLayout:async layout=>{const next=structuredClone(project);next.layout=layout;await rebuildHouse(next);},setBathroom:async(id,s)=>{const next=structuredClone(project);next.bathrooms[id]=s;await rebuildHouse(next);},setSurfaces,replaceProject:rebuildHouse});
     renderRooms();
     house.show("exterior");
     setLight("day");
@@ -1010,10 +1113,12 @@ async function start() {
       arrangement:{list:()=>house.arrangement.list(),audit:()=>house.arrangement.audit(),zones:()=>house.arrangement.reservations,select:id=>editor.select(id),update:(id,patch)=>editor.update(id,patch),undo:redo=>editor.undo(redo),
         projectPoint:id=>{camera.updateMatrixWorld(true);const it=house.arrangement.items.get(id),p=it.root.getWorldPosition(new T.Vector3());p.y+=Math.min(.7,it.dimensions.y*.9);p.project(camera);const r=canvas.getBoundingClientRect();return {x:r.x+(p.x+1)*r.width/2,y:r.y+(1-p.y)*r.height/2};}},
       workshop:{open:(id)=>workshop.open(id),close:()=>workshop.close(),setTab:id=>workshop.setTab(id),getProject:()=>structuredClone(project),getTakeoffs:()=>allTakeoffs(house),setSurfaces,setLayout:async layout=>{const next=structuredClone(project);next.layout=layout;await rebuildHouse(next);},setBathroom:async(id,s)=>{const next=structuredClone(project);next.bathrooms[id]=s;await rebuildHouse(next);},replaceProject:rebuildHouse},
+      openRoom,leaveRoom,addObject,
+      character:{wave:()=>resident.wave(),look:()=>resident.look(),getState:()=>({position:actorWalk.position.toArray(),ground:actorWalk.ground,moving:actorWalk.moving,...resident.diagnostics}),walkTo:(x,z)=>actorWalk.walkTo(new T.Vector3(x,actorWalk.ground,z))},
       getState: () => ({
         ...state,
         camera: camera.position.toArray(),
-        ground: walk.ground,
+        ground: state.mode==='character'?actorWalk.ground:walk.ground,
         area: TOTAL_AREA,
         rooms: ROOMS.map((r) => ({
           id: r.id,
@@ -1042,6 +1147,9 @@ async function start() {
           frames,
           frameMs: Math.round(frameMs),
           graphics:{preset:state.quality,pixelRatio:renderer.getPixelRatio(),buffer:renderer.getDrawingBufferSize(new T.Vector2()).toArray(),shadow:sun.shadow.mapSize.x,ao:!!ultra,mirrorSize:house.mirrors[0]?.mirror.getRenderTarget().width,grass:(()=>{let n=0;garden.root.traverse(o=>{if(o.userData.qualityKind==='grass')n+=o.count;});return n;})()},
+          resident:resident.diagnostics,
+          focus:{room:state.roomEditing?state.room:null,visibleItems:house.arrangement.list().filter(i=>house.arrangement.items.get(i.id).root.visible).map(i=>({id:i.id,room:i.room})),visibleFloors:house.floors.filter(f=>f.group.visible).map(f=>f.group.userData.floor)},
+          roomEditing:state.roomEditing,
           editableItems:house.arrangement.items.size,
           activeLights: house.spots.filter((s) => s.light.visible).length,
           drawCalls: renderer.info.render.calls,
@@ -1083,7 +1191,7 @@ async function start() {
         const r = ROOMS.find((r) => r.id === id);
         return r ? safeRoomPose(r) : null;
       },
-      walkTo: (x, z) => walk.walkTo(new T.Vector3(x, walk.ground, z)),
+      walkTo: (x, z) => {const controller=actorWalk.active?actorWalk:walk;return controller.walkTo(new T.Vector3(x,controller.ground,z));},
       setPose: (p, t, floor = 0) => {
         state.floor = floor;
         if (!walk.active) setMode("visit");
@@ -1118,7 +1226,7 @@ async function start() {
             })),
           })),
         obstacles: world.obstacles,
-        pathLength: walk.pathLength,
+        pathLength: actorWalk.active?actorWalk.pathLength:walk.pathLength,
       }),
       getViewProjection: () => ({
         position: camera.position.toArray(),
