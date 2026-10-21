@@ -11,7 +11,7 @@ export function setupObjectDragging({canvas,scene,camera,controls,getComposition
  function finish(cancel=false){const a=active;active=null;if(!a)return;clearTimer(a.timer);if(a.dragging){const comp=getComposition();if(cancel){comp?.move(a.item.id,a.origin);onStatus('Déplacement annulé.');}else{const result=comp?.settle(a.item.id,a.origin);onStatus(result?.error||(result?.adjusted?'Position ajustée automatiquement à un emplacement libre.':'Élément positionné.'));}}controls.enabled=a.wasEnabled;canvas.classList.remove('moving-object');if(a.type!=='touch'&&canvas.hasPointerCapture?.(a.id))canvas.releasePointerCapture(a.id);onEnd?.();onChange();}
  canvas.addEventListener('pointerdown',e=>{
   pointers.add(e.pointerId);tap.down(e);if(pointers.size>1){finish(true);return;}
-  if(e.button!==0)return;const comp=getComposition();if(!comp)return;const hit=pickSelection(scene,camera,ndc(e)),item=comp.items.find(i=>i.id===hit?.itemId);if(!item)return;
+  if(e.button!==0)return;const comp=getComposition();if(!comp)return;const hit=pickSelection(scene,camera,ndc(e)),item=comp.items.find(i=>i.id===hit?.itemId);if(!item)return;if(comp.locked||item.locked){onSelect(item.id);onStatus('Élément verrouillé : cliquez dessus pour le déverrouiller.');return;}
   const position=coordinates(e,item.placement.wall);if(!position)return;
   active={id:e.pointerId,item,origin:{...item.placement},x:e.clientX,y:e.clientY,type:e.pointerType,hit,dragging:false,moved:false,wasEnabled:controls.enabled,offsetU:item.placement.u-position.u,offsetH:item.placement.height-position.height};const a=active;
   if(e.pointerType==='touch')a.timer=setTimer(()=>begin(a),340);else{controls.enabled=false;canvas.setPointerCapture(e.pointerId);onSelect(item.id);}

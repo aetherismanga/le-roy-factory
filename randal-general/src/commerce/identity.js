@@ -12,7 +12,7 @@ export function privateMarkup(s){
 export function createIdentity(getProject,changed=()=>{}){
  const origins=['https://leroyfactory.fr','https://www.leroyfactory.fr'];let host='';try{host=new URL(document.referrer).origin;}catch{}const embedded=parent!==window&&origins.includes(host);
  let manualLogout=false,waiting=null,resolveParent=null,parentTimer;
- const notify=s=>dispatchEvent(new CustomEvent('lrf-identity',{detail:s}));
+ const notify=s=>{globalThis.LRF_VERIFIED_IDENTITY=s;return dispatchEvent(new CustomEvent('lrf-identity',{detail:s}));};
  const controller=createIdentityState({getProject,getKey:p=>{if(!p)return 'none';try{const q=quoteProject(p);return JSON.stringify(q.rows.map(r=>[r.ref,r.publicTTC]));}catch{return JSON.stringify(p.items||[]);}},request:commercialRequest,changed,settled:notify});
  function finishParent(){clearTimeout(parentTimer);resolveParent?.();resolveParent=null;waiting=null;}
  function requestParent(){if(!embedded||manualLogout)return Promise.resolve();if(waiting)return waiting;waiting=new Promise(resolve=>{resolveParent=resolve;parentTimer=setTimeout(finishParent,2500);});parent.postMessage({type:'lrf-configurator-session-needed'},host);return waiting;}

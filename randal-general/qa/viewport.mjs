@@ -7,7 +7,7 @@ function screen(embedded=false){
  const styles=new Map(),events={},visualEvents={},sent=[];
  const window={innerHeight:844,visualViewport:{height:844,scale:1,addEventListener:(name,fn)=>visualEvents[name]=fn}};
  const parent=embedded?{postMessage:(...args)=>sent.push(args)}:window;
- vm.runInNewContext(source,{window,parent,URL,document:{referrer:embedded?'https://leroyfactory.fr/randal-configurateur.html':'',documentElement:{style:{setProperty:(name,value)=>styles.set(name,value)}}},addEventListener:(name,fn)=>events[name]=fn,requestAnimationFrame:fn=>fn()});
+ vm.runInNewContext(source,{__LRF_STANDALONE_PREVIEW__:true,window,parent,URL,document:{referrer:embedded?'https://leroyfactory.fr/randal-configurateur.html':'',documentElement:{style:{setProperty:(name,value)=>styles.set(name,value)}}},addEventListener:(name,fn)=>events[name]=fn,requestAnimationFrame:fn=>fn()});
  return {window,parent,styles,events,visualEvents,sent,height:()=>styles.get('--app-height')};
 }
 const direct=screen();assert.equal(direct.height(),'844px');
