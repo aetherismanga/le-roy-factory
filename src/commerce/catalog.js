@@ -37,7 +37,7 @@ export const CATALOG = {
       "height": 91,
       "bodyHeight": 81,
       "legHeight": 10,
-      "renderImage": "assets/studio-three-legs-v1.webp",
+      "photoImage": "assets/studio-three-photo-hd-v1.webp",
       "depth": 46,
       "base": "13693",
       "top": "14216",

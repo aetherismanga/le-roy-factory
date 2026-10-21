@@ -20,8 +20,8 @@ body[data-view=wizard][data-step="0"] .wizard-body{display:block}body[data-view=
 
 .official-photo:not([data-photo-ready="true"])::after{content:"Chargement de la photo…";position:absolute;inset:0;display:grid;place-items:center;padding:12px;background:#e8e0d2;color:#77745f;font-size:10px;text-align:center}.official-photo[data-photo-ready="error"]::after{content:"Photo indisponible · vérifiez la connexion"}.model-backdrop:not([data-photo-ready="true"]){opacity:0}
 
-/* Show the whole three-drawer model, including its real 10 cm legs. */
-.official-photo .product-photo.model-render{object-fit:contain;background:#eae6dc}
+/* Keep the complete catalogue photograph visible, including the legs. */
+.official-photo .product-photo.model-photo{object-fit:contain;background:#eae6dc}
 /* A real portrait render of ref. 14177, captured by the existing preview. */
 .column-thumbnail{display:grid;place-items:center;height:150px;background:#eae6dc;color:#69765e;font-size:10px;overflow:hidden}.column-thumbnail img{width:100%;height:100%;object-fit:contain;background:#eae6dc}.preview-caption{flex-wrap:wrap}.preview-views{flex-basis:100%;display:flex;gap:6px;padding:3px 0}.preview-views button{min-height:34px;padding:6px 12px;border:1px solid #bac1af;border-radius:7px;background:#fffefb;color:#293a2f}.preview-views button[aria-pressed=true]{background:#293a2f;color:#fff;border-color:#293a2f}@media(max-width:760px){.column-thumbnail{height:125px}.column-thumbnail img{height:125px}.preview-views button{min-height:38px;font-size:11px}}
 

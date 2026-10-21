@@ -482,8 +482,8 @@ function openAddChooser(type){const dialog=$('#add-dialog'),body=$('#add-choices
    const img=document.createElement('img');img.src=assetBase+'randal/accessories/'+mirrorFile+'.webp';img.loading='lazy';img.alt='Miroir RANDAL '+c.name;img.decoding='async';img.onerror=()=>{img.remove();illustration.innerHTML=objectIcon(c.icon);};illustration.classList.add('catalogue-photo');illustration.append(img);
  }else if(isFurniture){
    const product=type==='cabinet'?StudioOneCatalog.models.find(m=>m.id===c.options.format):null;
-   if(product?.renderImage){
-     const img=document.createElement('img');img.src=product.renderImage;img.alt='Rendu 3D STUDIO ONE '+product.name+' · caisson 81 cm + pieds 10 cm';img.decoding='async';illustration.classList.add('catalogue-real-model');illustration.append(img);
+   if(product?.photoImage){
+     const img=document.createElement('img');img.src=product.photoImage;img.alt='Photographie officielle STUDIO ONE '+product.name+' · caisson 81 cm + pieds 10 cm';img.width=1695;img.height=1696;img.decoding='async';illustration.classList.add('catalogue-real-model');illustration.append(img);
    }else if(product?.image){
      // The exact official photo corresponding to the selected STUDIO ONE model.
      // Crop the manufacturer's original art without replacing its drawer design.
