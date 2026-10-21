@@ -17,10 +17,11 @@ export function storeQuote(storage,input,mode='scene'){
 }
 export function saveComposition(storage,input,{id=null,now=new Date().toISOString()}={}){
  const project=checkedProject(input),title=String(project.title||'Ma salle de bains').trim().slice(0,80)||'Ma salle de bains';project.title=title;
- const stored=readStored(storage,SAVED_KEY,[]),all=Array.isArray(stored)?stored.slice(0,20):[];
- const key=id||'project-'+globalThis.crypto.randomUUID(),saved={id:key,title,date:now,data:project};
+ const stored=readStored(storage,SAVED_KEY,[]),all=Array.isArray(stored)?stored.slice():[];
+ const prior=Array.isArray(stored)?stored.find(p=>p.id===id):null;if(prior&&['validated','sending'].includes(prior.status))throw Error('Projet validé : dupliquez-le pour le modifier.');
+ const key=id||'project-'+globalThis.crypto.randomUUID(),saved={...(prior||{}),id:key,title,date:now,data:project,status:'draft',revision:prior?.revision||0,dirty:true,number:prior?.number||'LOCAL-'+key.slice(-8).toUpperCase()};
  const previous=all.findIndex(p=>p.id===key);if(previous>=0){saved.thumbnail=all[previous].thumbnail;all.splice(previous,1);}
- all.unshift(saved);storage.setItem(SAVED_KEY,JSON.stringify(all.slice(0,20)));storage.setItem(ACTIVE_ID,key);storeQuote(storage,project,readStored(storage,QUOTE_CONTEXT,{mode:'scene'}).mode);return saved;
+ all.unshift(saved);storage.setItem(SAVED_KEY,JSON.stringify(all));storage.setItem(ACTIVE_ID,key);storeQuote(storage,project,readStored(storage,QUOTE_CONTEXT,{mode:'scene'}).mode);return saved;
 }
 export function orderText(project,{name='',email='',telephone='',adresse='',codePostal='',ville='',siteReference='',client=null,proHT=null,privateCode='',isAdmin=false,kind='order'}={}){
  const p=checkedProject(project),q=quoteProject(p),parts=[kind==='callback'?'DEMANDE DE RAPPEL — STUDIO ONE':'DEMANDE DE COMMANDE — STUDIO ONE',p.title||'Ma salle de bains','Référence chantier : '+(siteReference||p.siteReference||'À renseigner'),''];

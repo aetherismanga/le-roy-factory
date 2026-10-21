@@ -20,7 +20,7 @@ export default async function handler(req,res){
  if(origin&&origin!=='https://'+req.headers.host&&!(!process.env.VERCEL&&origin==='http://'+req.headers.host))return json(res,403,{error:'Origine non autorisée.'});
  try{const body=typeof req.body==='string'?JSON.parse(req.body):req.body||{};if(JSON.stringify(body).length>115000)return json(res,413,{error:'Requête trop volumineuse.'});
   if(body.action==='logout'){res.setHeader('Set-Cookie',[cookie(COOKIE,'',0),cookie(ADMIN_COOKIE,'',0)]);return json(res,200,{client:null,proHT:null});}
-  let identity,token=cookieToken(req),adminToken=cookieToken(req,ADMIN_COOKIE),data;
+  let identity,token=cookieToken(req),adminToken=cookieToken(req,ADMIN_COOKIE),data;const bearer=String(req.headers.authorization||'').replace(/^Bearer /,'');if(bearer){if(bearer.includes('.'))adminToken=bearer;else token=bearer;}
   if(['identify','admin','exchange','admin-token'].includes(body.action)&&!allowLogin(req))return json(res,429,{error:'Trop de tentatives. Réessayez dans quelques minutes.'});
   if(body.action==='admin'||body.action==='admin-token'){
    if(body.action==='admin'){const email=clean(body.email).toLowerCase();if(!ADMINS.has(email))throw fail('Compte administrateur non autorisé.');const result=await firebase('signInWithPassword',{email,password:String(body.password||'').slice(0,1024),returnSecureToken:true});adminToken=result.idToken;}
@@ -38,6 +38,6 @@ export default async function handler(req,res){
   }else return json(res,400,{error:'Action inconnue.'});
   if(!identity){const c=data?.client;if(!c||!/^LRF-\d{5}$/.test(c.codeClient||''))throw fail('Compte LRF non vérifié.');const allowed=(c.partenaires||[]).some(p=>['randal','randalpro'].includes(String(p).toLowerCase().replace(/[^a-z]/g,'')));identity={client:await customer(c),isAdmin:false,randalAllowed:allowed};}
   let quote=null;if(body.project&&identity.randalAllowed){try{quote=purchaseQuote(body.project);}catch{throw fail('La composition ne peut pas être chiffrée.',400);}}
-  return json(res,200,{...identity,proHT:quote?.proHT??null,proRows:quote?.rows.map(r=>({ref:r.ref,itemId:r.itemId,proHT:r.proHT}))||[],privateCode:privateReference(identity.client.codeClient,quote?.proHT),proStatus:!identity.randalAllowed?'partner-not-authorized':quote?'historical-grid':'authenticated',priceSource:quote?.source||''});
+  return json(res,200,{...identity,...(['identify','exchange','admin','admin-token'].includes(body.action)?{accessToken:identity.isAdmin?adminToken:token}:{}),proHT:quote?.proHT??null,proRows:quote?.rows.map(r=>({ref:r.ref,itemId:r.itemId,proHT:r.proHT}))||[],privateCode:privateReference(identity.client.codeClient,quote?.proHT),proStatus:!identity.randalAllowed?'partner-not-authorized':quote?'historical-grid':'authenticated',priceSource:quote?.source||''});
  }catch(e){return json(res,e.status||503,{error:e.status===401?e.message:e.status===400?e.message:'Connexion au service LRF indisponible. Réessayez.',client:null,proHT:null,isAdmin:false});}
 }

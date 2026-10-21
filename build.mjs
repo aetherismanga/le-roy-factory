@@ -11,7 +11,7 @@ for(const file of ['app.js','style.css','commerce.css']){const hash=createHash('
 writeFileSync('dist/atelier.html',html);
 console.log('Static standalone build ready.');
 
-rmSync('dist/chunks',{recursive:true,force:true});
+// Retain the previous hashed chunks so an already-open mobile tab can finish loading.
 await build({entryPoints:{accueil:'src/commerce/home.js'},bundle:true,format:'esm',splitting:true,target:['es2020'],minify:true,outdir:'dist',chunkNames:'chunks/[name]-[hash]'});
 copyFileSync('src/commerce/home.css','dist/accueil.css');
 
@@ -19,3 +19,6 @@ let home=readFileSync('src/commerce/home.html','utf8');
 for(const file of ['accueil.js','accueil.css']){const hash=createHash('sha256').update(readFileSync('dist/'+file)).digest('hex').slice(0,12);home=home.replaceAll('"'+file+'"','"'+file+'?v='+hash+'"');}
 writeFileSync('dist/accueil.html',home);
 writeFileSync('dist/index.html',home);
+
+await build({entryPoints:['src/commerce/house-workspace.js'],bundle:true,format:'esm',target:['es2020'],minify:true,outfile:'dist/maison.js',legalComments:'eof'});
+let house=readFileSync('src/commerce/house-workspace.html','utf8');house=house.replace('"maison.js"','"maison.js?v='+createHash('sha256').update(readFileSync('dist/maison.js')).digest('hex').slice(0,12)+'"');writeFileSync('dist/maison.html',house);

@@ -4,3 +4,6 @@ qa/references/
 qa/*.png
 qa/*.pdf
 qa/*.tar.gz
+
+node_modules/
+node_modules
