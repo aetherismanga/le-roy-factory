@@ -57,7 +57,7 @@ function updateURL(next,nextStep,replace=false){const url=new URL(location.href)
 function switchView(next,nextStep=step,{history=true,replace=false}={}){
  view=next;step=Math.min(4,Math.max(0,Number.isInteger(nextStep)?nextStep:0));
  if(view==='quote'&&!project){try{project=checkedProject(read(QUOTE_KEY)||read(CURRENT_KEY));projectTitle=project.title||projectTitle;quoteMode=read(QUOTE_CONTEXT,{mode:'scene'}).mode;}catch{view='home';}}
- document.body.dataset.view=view;dispatchEvent(new Event('lrf-project-activated'));document.body.dataset.step=String(step);$('#landing').hidden=view!=='home';$('#wizard-panel').hidden=view!=='wizard';$('#quote-panel').hidden=view!=='quote';$('#return-home').hidden=view==='home';$('#beta-label').hidden=false;$('#open-3d').hidden=view!=='quote';
+ document.body.dataset.view=view;dispatchEvent(new Event('lrf-project-activated'));document.body.dataset.step=String(step);$('#landing').hidden=view!=='home';$('#wizard-panel').hidden=view!=='wizard';$('#quote-panel').hidden=view!=='quote';$('#return-home').hidden=view==='home';$('#open-3d').hidden=view!=='quote';
  if(history)updateURL(view,step,replace);
  if(view==='wizard'){try{persistDraft();}catch{error('Le stockage est indisponible. Gardez cette page ouverte.');}renderWizard();}
  if(view==='quote'){renderQuote();$('#quote-heading').focus({preventScroll:true});}if(view==='home')attachPreview();
