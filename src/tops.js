@@ -2,6 +2,7 @@ import * as T from 'three';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 
 export const TOP_OPTIONS=Object.freeze([
+ {id:'bare',name:'Meuble seul — sans plan',description:'Caisson seul, sans plan ni vasque',reference:null},
  {id:'sella',name:'Sella encastrée',description:'Céramique blanc brillant · 80 cm',reference:'2171'},
  {id:'tampa',name:'Tampa encastrée',description:'Blanc brillant, blanc mat ou noir mat',reference:'6228'},
  {id:'plain',name:'Plan assorti seul',description:'Même finition que le meuble · ép. 2 cm',reference:'14215 80@FINITION'},
