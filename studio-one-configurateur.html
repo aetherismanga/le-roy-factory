@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f3f0e8">
+<title>RANDAL — STUDIO ONE 3D | LE ROY FACTORY</title>
+<meta name="description" content="Configurez les collections du catalogue général RANDAL 2026 : meubles, finitions, vasques, colonnes et miroirs, puis composez votre salle de bains en 3D. Prix publics TTC.">
+<link rel="canonical" href="https://leroyfactory.fr/studio-one-configurateur.html">
+<link rel="preconnect" href="https://studio-one-beta-test-v2.vercel.app">
+<style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#f3f0e8;color:#292c28;font-family:Arial,sans-serif}#studio-one{--safe-bottom:env(safe-area-inset-bottom,0px);position:fixed;inset:0;width:100%;height:100%;height:100dvh;border:0;background:#f3f0e8}#opening{position:fixed;inset:0;display:grid;place-content:center;gap:14px;text-align:center;background:#f3f0e8;z-index:1}#opening strong{font-size:25px;letter-spacing:4px}#opening small{color:#7f7867;letter-spacing:1.5px;font-size:10px}#opening a{color:#534b3a;font-size:12px}#opening[hidden]{display:none}</style>
+<script src="assets/js/pro-session-bridge.js?v=20261021-projects" defer></script><script src="assets/js/configurator-session-bridge.js?v=20261021-projects" defer></script></head>
+<body>
+<div id="opening" role="status"><strong>RANDAL</strong><small>VOTRE STUDIO ONE EN 3D</small><span>Ouverture de votre configurateur…</span><a id="direct-open" href="https://studio-one-beta-test-v2.vercel.app/">Ouvrir le configurateur directement ↗</a></div>
+<iframe id="studio-one" data-configurator-origin="https://studio-one-beta-test-v2.vercel.app" title="Configurateur 3D RANDAL Catalogue Général" allow="fullscreen; clipboard-write" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+<noscript><p><a href="https://studio-one-beta-test-v2.vercel.app/">Ouvrir le configurateur RANDAL STUDIO ONE 3D</a></p></noscript>
+<script>
+(()=>{'use strict';const origin='https://studio-one-beta-test-v2.vercel.app',frame=document.getElementById('studio-one'),url=new URL(origin+'/');
+for(const key of ['collection','view','step','account']){const value=new URLSearchParams(location.search).get(key);if(value)url.searchParams.set(key,value)}
+if(location.hash)url.hash=location.hash;
+document.getElementById('direct-open').href=url.href;
+let frameReady=false,pending=false;
+function fitViewport(){const viewport=window.visualViewport;if(viewport&&Math.abs(viewport.scale-1)>.01)return;const height=Math.floor(Math.min(innerHeight,viewport?.height||innerHeight));frame.style.height=height+'px';frame.style.top=(viewport?.offsetTop||0)+'px';const safeBottom=parseFloat(getComputedStyle(frame).getPropertyValue('--safe-bottom'))||0;if(frameReady)frame.contentWindow?.postMessage({type:'studio-one-viewport',height,safeBottom},origin)}
+function scheduleViewport(){if(!pending){pending=true;requestAnimationFrame(()=>{pending=false;fitViewport()})}}
+addEventListener('resize',scheduleViewport);addEventListener('pageshow',scheduleViewport);window.visualViewport?.addEventListener('resize',scheduleViewport);window.visualViewport?.addEventListener('scroll',scheduleViewport);
+frame.addEventListener('load',()=>{document.getElementById('opening').hidden=true;fitViewport()});
+window.addEventListener('message',e=>{if(e.origin===origin&&e.source===frame.contentWindow&&e.data?.type==='studio-one-viewport-ready'){frameReady=true;fitViewport()}});
+frame.src=url.href;
+fitViewport();
+})();
+</script>
+</body>
+</html>

@@ -24,5 +24,16 @@
         }
       ]
     }
-  ]
+  ],
+  "rewrites": [
+    {
+      "source": "/shared/avatar/:path*",
+      "destination": "https://maison-3d-leroyfactory-hugol-trading.vercel.app/assets/avatar/:path*"
+    }
+  ],
+  "functions": {
+    "api/projects.js": {
+      "maxDuration": 60
+    }
+  }
 }

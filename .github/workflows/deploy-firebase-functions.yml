@@ -26,6 +26,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
       - name: Setup Node.js 22
         uses: actions/setup-node@v4
@@ -53,9 +55,37 @@ jobs:
       - name: Install Firebase CLI
         run: npm install --global firebase-tools
 
+      - name: Verify Firestore database edition and project lifecycle invariants
+        working-directory: functions
+        run: |
+          node --test test/configurator-projects.test.cjs
+          node - <<'JS'
+          const {GoogleAuth}=require('google-auth-library');
+          (async()=>{const client=await new GoogleAuth({scopes:['https://www.googleapis.com/auth/cloud-platform']}).getClient();const {data}=await client.request({url:'https://firestore.googleapis.com/v1/projects/le-roy-factory/databases/(default)'});console.log(JSON.stringify({name:data.name,type:data.type,databaseEdition:data.databaseEdition||'STANDARD_LEGACY'}));if(data.type!=='FIRESTORE_NATIVE'||data.databaseEdition==='ENTERPRISE')throw Error('Expected existing native Standard Firestore database.');})().catch(e=>{console.error(e.message);process.exit(1);});
+          JS
+
+      - name: Select affected functions
+        id: targets
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          python - <<'PYTHON'
+          import os, subprocess
+          changed=subprocess.check_output(['git','diff','--name-only','HEAD^','HEAD','--','functions'],text=True).splitlines()
+          project_only=bool(changed) and all(p in ['functions/entry.js','functions/configurator-projects.js','functions/configurator-projects-core.js','functions/test/configurator-projects.test.cjs'] for p in changed)
+          target='functions:randalProjects' if project_only and os.environ['EVENT_NAME']=='push' else 'functions:getTariffPdf,functions:getNeobathDnaTariff,functions:createProSession,functions:validateProSession,functions:revokeProSession,functions:trackLrfActivity,functions:getLrfAnalytics,functions:eliosStock,functions:eliosOrder,functions:eliosPoseOrder,functions:eliosCatalog,functions:biltOrder,functions:biltDecision,functions:biltScheduleAutoRelease,functions:biltAutoReleaseSweep,functions:crmFilesUpload,functions:siteControl,functions:aquahomeCatalog,functions:reitanoCatalog,functions:randalProjects'
+          with open(os.environ['GITHUB_OUTPUT'],'a') as out:out.write('only='+target+'\n')
+          PYTHON
+
       - name: Deploy secured tariff, session, analytics, ELIOS, BILT, CRM file and site control functions
         run: >-
           firebase deploy
           --project le-roy-factory
-          --only functions:getTariffPdf,functions:getNeobathDnaTariff,functions:createProSession,functions:validateProSession,functions:revokeProSession,functions:trackLrfActivity,functions:getLrfAnalytics,functions:eliosStock,functions:eliosOrder,functions:eliosPoseOrder,functions:eliosCatalog,functions:biltOrder,functions:biltDecision,functions:biltScheduleAutoRelease,functions:biltAutoReleaseSweep,functions:crmFilesUpload,functions:siteControl,functions:aquahomeCatalog,functions:reitanoCatalog
+          --only ${{ steps.targets.outputs.only }}
           --non-interactive
+
+      - name: Verify project endpoint rejects unauthenticated access
+        run: |
+          node - <<'JS'
+          (async()=>{const r=await fetch('https://us-central1-le-roy-factory.cloudfunctions.net/randalProjects',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'list',variant:'studio-one'})});const body=await r.json();if(r.status!==401||body.success!==false)throw Error('Project endpoint authentication check failed: '+r.status);console.log('RANDAL project API ready; unauthenticated access rejected. No project or email created.');})().catch(e=>{console.error(e.message);process.exit(1);});
+          JS

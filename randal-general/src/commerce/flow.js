@@ -17,15 +17,16 @@ export function storeQuote(storage,input,mode='scene'){
 }
 export function saveComposition(storage,input,{id=null,now=new Date().toISOString()}={}){
  const project=checkedProject(input),title=String(project.title||'Ma salle de bains').trim().slice(0,80)||'Ma salle de bains';project.title=title;
- const stored=readStored(storage,SAVED_KEY,[]),all=Array.isArray(stored)?stored.slice(0,20):[];
- const key=id||'project-'+globalThis.crypto.randomUUID(),saved={id:key,title,date:now,data:project};
+ const stored=readStored(storage,SAVED_KEY,[]),all=Array.isArray(stored)?stored.slice():[];
+ const prior=Array.isArray(stored)?stored.find(p=>p.id===id):null;if(prior&&['validated','sending'].includes(prior.status))throw Error('Projet validé : dupliquez-le pour le modifier.');
+ const key=id||'project-'+globalThis.crypto.randomUUID(),saved={...(prior||{}),id:key,title,date:now,data:project,status:'draft',revision:prior?.revision||0,dirty:true,number:prior?.number||'LOCAL-'+key.slice(-8).toUpperCase()};
  const previous=all.findIndex(p=>p.id===key);if(previous>=0){saved.thumbnail=all[previous].thumbnail;all.splice(previous,1);}
- all.unshift(saved);storage.setItem(SAVED_KEY,JSON.stringify(all.slice(0,20)));storage.setItem(ACTIVE_ID,key);storeQuote(storage,project,readStored(storage,QUOTE_CONTEXT,{mode:'scene'}).mode);return saved;
+ all.unshift(saved);storage.setItem(SAVED_KEY,JSON.stringify(all));storage.setItem(ACTIVE_ID,key);storeQuote(storage,project,readStored(storage,QUOTE_CONTEXT,{mode:'scene'}).mode);return saved;
 }
 export function deleteComposition(storage,id){
  if(typeof id!=='string'||!id)throw Error('Projet non reconnu.');
  const all=readStored(storage,SAVED_KEY,[]);if(!Array.isArray(all))throw Error('Liste de projets indisponible.');
- if(!all.some(p=>p.id===id))return false;
+ const target=all.find(p=>p.id===id);if(!target)return false;if(['validated','sending'].includes(target.status))throw Error('Un projet validé ne peut pas être supprimé.');
  // Commit the reduced list before clearing its active ID. Never touch any
  // other saved composition or the composition currently open in the editor.
  storage.setItem(SAVED_KEY,JSON.stringify(all.filter(p=>p.id!==id)));

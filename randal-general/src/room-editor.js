@@ -3,7 +3,7 @@ import {openingError} from './openings.js';
 import {snapPlanPoint,snapPlanVertex,rightAngleMarkup} from './plan-snap.js';
 const $=id=>document.getElementById(id);
 const letters='ABCDEFGHIJKL';
-export function createRoomEditor({getRoom,getWidth,onApply,getOpenings=()=>[]}){
+export function createRoomEditor({getRoom,getWidth,onApply,getOpenings=()=>[],getFurniture=()=>[]}){
  const dialog=$('room-editor'),svg=$('room-plan');let partitionDrawing=false,partitionStart=null,partitionEnd=null,selectedPartition=0;let draft=cloneRoom(DEFAULT_ROOM),selected=0,drawing=false,drag=null,map,dimensionsDirty=false;let snapGuide=null,ghostPoint=null,openingMode=null,selectedOpening=-1,draftOpenings=[];
  const number=id=>Number($(id).value);
  function svgPoint(e){const r=svg.getBoundingClientRect();return [(e.clientX-r.left)*600/r.width,(e.clientY-r.top)*420/r.height];}
@@ -14,6 +14,15 @@ export function createRoomEditor({getRoom,getWidth,onApply,getOpenings=()=>[]}){
   const view=a=>[(a[0]-map.x)*map.scale+map.ox,(a[1]-map.y)*map.scale+map.oy];
   const coords=p.map(view);let markup='<rect x="0" y="0" width="600" height="420" fill="url(#plan-grid)"/><defs><pattern id="plan-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#dde4d5" stroke-width=".6"/></pattern></defs>';
   if(p.length>1)markup+=`<${drawing?'polyline':'polygon'} points="${coords.map(a=>a.join(',')).join(' ')}" fill="${drawing?'none':'#e7eddf'}" stroke="#71866b" stroke-width="2"/>`;
+  const labels={cabinet:'Meuble',column:'Colonne',mirror:'Miroir',bath:'Baignoire',shower:'Douche',screen:'Paroi',toilet:'WC',washstand:'Lave-mains',towel:'Sèche-serviettes',tap:'Robinet'};
+  for(const item of getFurniture()){
+   const place=item.placement,d=item.dimensions;if(!place||!d)continue;let a,b;
+   if(place.wall<p.length){a=p[place.wall];b=p[(place.wall+1)%p.length];}else{const index=Math.floor((place.wall-p.length)/2),side=(place.wall-p.length)%2,c=draft.partitions?.[index];if(!c)continue;a=side?c.b:c.a;b=side?c.a:c.b;const L=Math.hypot(b[0]-a[0],b[1]-a[1]),n=[-(b[1]-a[1])/L,(b[0]-a[0])/L];a=[a[0]+n[0]*c.thickness/2,a[1]+n[1]*c.thickness/2];b=[b[0]+n[0]*c.thickness/2,b[1]+n[1]*c.thickness/2];}
+   if(!a||!b)continue;const L=Math.hypot(b[0]-a[0],b[1]-a[1]);if(L<1)continue;const t=[(b[0]-a[0])/L,(b[1]-a[1])/L],n=[-t[1],t[0]],angle=(place.rotation||0)*Math.PI/180,tt=[t[0]*Math.cos(angle)-n[0]*Math.sin(angle),t[1]*Math.cos(angle)-n[1]*Math.sin(angle)],nn=[t[0]*Math.sin(angle)+n[0]*Math.cos(angle),t[1]*Math.sin(angle)+n[1]*Math.cos(angle)],depth=d.depth*100,width=d.width*100,floor=item.floorItem,offset=(place.offset||0)+(floor?depth/2:0),center=[a[0]+t[0]*place.u+n[0]*offset,a[1]+t[1]*place.u+n[1]*offset];
+   const corners=[[-width/2,floor?-depth/2:0],[width/2,floor?-depth/2:0],[width/2,floor?depth/2:depth],[-width/2,floor?depth/2:depth]].map(([x,z])=>view([center[0]+tt[0]*x+nn[0]*z,center[1]+tt[1]*x+nn[1]*z]));
+   const label=view([center[0]+(floor?0:nn[0]*depth/2),center[1]+(floor?0:nn[1]*depth/2)]),ghost=['mirror','tap','towel','screen'].includes(item.type);
+   markup+=`<g class="installed-furniture" data-installed-item="${item.id}" pointer-events="none"><polygon points="${corners.map(v=>v.join(',')).join(' ')}" fill="${ghost?'#c4d5d0':'#c6b18e'}" fill-opacity=".65" stroke="#8b7958" stroke-width="1.2" ${ghost?'stroke-dasharray="4 3"':''}/><text x="${label[0]}" y="${label[1]}" text-anchor="middle" dominant-baseline="middle" style="font:9px Arial;fill:#3e4b40;paint-order:stroke;stroke:#f2eddf;stroke-width:2">${labels[item.type]||'Équipement'}</text></g>`;
+  }
   for(let i=0;i<(drawing?p.length-1:p.length);i++){const a=coords[i],b=coords[(i+1)%p.length];if(!b)continue;const length=Math.hypot(p[i][0]-p[(i+1)%p.length][0],p[i][1]-p[(i+1)%p.length][1]);markup+=`<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="${i===0?'#294940':'transparent'}" stroke-width="${i===0?5:12}" data-edge="${i}"/><text x="${(a[0]+b[0])/2}" y="${(a[1]+b[1])/2-10}" text-anchor="middle" class="plan-length">M${i+1} · ${Math.round(length)} cm</text>`;}
   coords.forEach((a,i)=>{markup+=`<circle cx="${a[0]}" cy="${a[1]}" r="${selected===i?10:8}" fill="${selected===i?'#aa926a':'#294940'}" stroke="#fff" stroke-width="2" data-vertex="${i}"/><text x="${a[0]+15}" y="${a[1]+20}" class="plan-letter">${letters[i]}${metric?' · '+Math.round(metric.angles[i])+'°':''}</text>`;});
   if(!drawing&&coords.length>1){const a=coords[0],b=coords[1],len=Math.hypot(b[0]-a[0],b[1]-a[1]),nx=-(b[1]-a[1])/len,ny=(b[0]-a[0])/len,sign=metric&&metric.area?Math.sign(p.reduce((s,a,i)=>s+a[0]*p[(i+1)%p.length][1]-p[(i+1)%p.length][0]*a[1],0)):1;const x=(a[0]+b[0])/2+nx*20*sign,y=(a[1]+b[1])/2+ny*20*sign;markup+=`<text x="${x}" y="${y}" text-anchor="middle" class="plan-furniture">MUR 1</text>`;}

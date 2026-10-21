@@ -5,3 +5,6 @@ dist/*.html
 dist/accueil.css
 dist/commerce.css
 qa/*.png
+
+node_modules/
+node_modules

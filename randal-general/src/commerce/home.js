@@ -1,3 +1,4 @@
+import {createWorkspace} from './workspace.js';
 import {createProjectDeletion} from './project-deletion.js';
 import {panelThickness,handleChoices,handleFinish,finishForHandle} from '../general-specs.js';
 import {createProjectNavigation} from './navigation.js';
@@ -47,7 +48,7 @@ function updateURL(next,nextStep,replace=false){const url=new URL(location.href)
 function switchView(next,nextStep=step,{history=true,replace=false}={}){
  view=next;step=Math.min(4,Math.max(0,Number.isInteger(nextStep)?nextStep:0));
  if(view==='quote'&&!project){try{project=checkedProject(read(QUOTE_KEY)||read(CURRENT_KEY));projectTitle=project.title||projectTitle;quoteMode=read(QUOTE_CONTEXT,{mode:'scene'}).mode;}catch{view='home';}}
- document.body.dataset.view=view;document.body.dataset.step=String(step);$('#landing').hidden=view!=='home';$('#wizard-panel').hidden=view!=='wizard';$('#quote-panel').hidden=view!=='quote';$('#general-collections').hidden=view!=='collections';$('#app-main').scrollTop=0;$('#return-home').hidden=view==='home';$('#beta-label').hidden=false;$('#open-3d').hidden=view!=='quote';
+ document.body.dataset.view=view;dispatchEvent(new Event('lrf-project-activated'));document.body.dataset.step=String(step);$('#landing').hidden=view!=='home';$('#wizard-panel').hidden=view!=='wizard';$('#quote-panel').hidden=view!=='quote';$('#general-collections').hidden=view!=='collections';$('#app-main').scrollTop=0;$('#return-home').hidden=view==='home';$('#beta-label').hidden=false;$('#open-3d').hidden=view!=='quote';
  if(history)updateURL(view,step,replace);
  if(view==='wizard'){try{persistDraft();}catch{error('Le stockage est indisponible. Gardez cette page ouverte.');}renderWizard();}
  if(view==='quote'){renderQuote();$('#quote-heading').focus({preventScroll:true});}if(view==='home'||view==='collections')attachPreview();
@@ -106,7 +107,8 @@ function launch(input){try{const p=checkedProject(input);localStorage.setItem(TR
 function openSaved(projectData,id=null){try{project=checkedProject(projectData);quoteMode='scene';projectTitle=project.title||'Ma salle de bains';if(id)localStorage.setItem(ACTIVE_ID,id);else localStorage.removeItem(ACTIVE_ID);storeQuote(localStorage,project,quoteMode);$('#projects-dialog').close();switchView('quote');}catch(e){error(e.message,'#projects-status');}}
 function downloadProject(p){const blob=new Blob([JSON.stringify(checkedProject(p),null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='studio-one-projet.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);}
 const projectDeletion=createProjectDeletion({storage:localStorage,onDeleted:()=>showProjects()});
-function showProjects(){const all=read(SAVED_KEY,[]),list=$('#projects-list');list.replaceChildren();for(const p of Array.isArray(all)?all.slice(0,20):[]){const card=document.createElement('article');card.className='saved-card';const title=document.createElement('div'),name=document.createElement('strong'),date=document.createElement('small');name.textContent=p.title||'Ma composition';date.textContent=p.date?new Date(p.date).toLocaleDateString('fr-FR'):'';title.append(name,date);const actions=document.createElement('div');actions.className='saved-actions';const open=document.createElement('button');open.className='primary';open.textContent='Ouvrir';open.onclick=()=>openSaved(p.data,p.id);const file=document.createElement('button');file.className='secondary';file.textContent='Exporter .json';file.onclick=()=>{try{downloadProject(p.data);}catch(e){error(e.message,'#projects-status');}};const remove=document.createElement('button');remove.className='secondary project-delete-button';remove.textContent='Supprimer';remove.dataset.deleteProject=p.id;remove.onclick=()=>projectDeletion.request(p);actions.append(open,file,remove);card.append(title,actions);list.append(card);}if(!list.children.length){const p=document.createElement('p');p.className='muted';p.textContent='Vos projets enregistrés apparaîtront ici. Vous pouvez aussi importer un fichier exporté depuis l’atelier.';list.append(p);}error('','#projects-status');if(!$('#projects-dialog').open)$('#projects-dialog').showModal();}
+function showProjects(){return projectWorkspace.showProjects();}
+
 $('#landing-image').src=C.media+'hero-meuble-hd.webp';
 $('#new-project').onclick=()=>{draft=initialDraft(draft.collection);project=null;projectTitle='Ma salle de bains';siteReference='';guest=null;quoteMode='guided';try{localStorage.removeItem(ACTIVE_ID);localStorage.removeItem(QUOTE_KEY);localStorage.removeItem(QUOTE_CONTEXT);}catch{}switchView('wizard',0);};
 $('#resume-project').onclick=()=>{const flow=read(FLOW_KEY,{view:'wizard',step:0});if(flow.view==='wizard'){project=null;switchView('wizard',flow.step);return;}const data=read(CURRENT_KEY)||read(QUOTE_KEY);if(data){if(flow.view==='atelier'){launch(data);return;}try{project=checkedProject(data);quoteMode=read(QUOTE_CONTEXT,{mode:'scene'}).mode;switchView('quote');return;}catch{}}switchView('wizard',0);};
@@ -150,5 +152,17 @@ collections.querySelectorAll('[data-collection]').forEach(b=>b.onclick=()=>choos
 $('#new-project').onclick=()=>projectNavigation.request(()=>{switchView('collections');$('#collections-title').focus({preventScroll:true});},'new');
 $('#change-collection').onclick=()=>projectNavigation.request(()=>switchView('collections'),'new');
 const requested=new URLSearchParams(location.search).get('collection');if(requested){const clean=v=>v.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();const col=C.collections.find(c=>clean(c.name)===clean(requested)||c.id===requested);if(col&&view!=='quote'&&view!=='collections'&&new URLSearchParams(location.search).get('view')!=='configure')chooseCollection(col.id);}
-// Reuse the official site's already verified session when embedded there.
-if(parent!==window){const parentOrigin=new URL(document.referrer||'https://leroyfactory.fr').origin;if(['https://leroyfactory.fr','https://www.leroyfactory.fr'].includes(parentOrigin))parent.postMessage({type:'randal-general-ready'},parentOrigin);addEventListener('message',e=>{if(!['https://leroyfactory.fr','https://www.leroyfactory.fr'].includes(e.origin)||e.source!==parent||e.data?.type!=='randal-general-session'||typeof e.data.sessionToken!=='string')return;identity.authenticate('exchange',{sessionToken:e.data.sessionToken});});}
+
+const projectWorkspace=createWorkspace({getProject:currentComposition,onDeletedActive:()=>{project=null;draft=initialDraft();projectTitle='Ma salle de bains';siteReference='';switchView('home');},onUpdate:data=>{project=data;projectTitle=data.title;siteReference=data.siteReference||'';storeQuote(localStorage,data,quoteMode);renderQuote();},
+ onOpen:(data,id,record)=>{if(record?.kind==='house'){location.href='maison.html?project='+encodeURIComponent(id);return;}openSaved(data,id);},
+ onLock:(locked)=>{for(const selector of ['#quote-title','#quote-site','#edit-choices','#save-composition','#prepare-order']){const el=$(selector);if(el)el.disabled=locked;}},status:text=>error(text,'#quote-status')});
+projectWorkspace.setAccount(identity.state);
+$('#saved-projects').onclick=()=>projectWorkspace.showProjects();
+$('#save-composition').onclick=async()=>{try{persistQuote();await projectWorkspace.save();}catch(e){error(e.message,'#quote-status');}};
+$('#project-import').onchange=e=>{projectWorkspace.importFile(e.target.files?.[0]);e.target.value='';};
+$('#prepare-order').onclick=()=>projectWorkspace.order();
+const adminSend=document.createElement('button');adminSend.type='button';adminSend.className='lrf-admin-send';adminSend.id='send-project-administrator';adminSend.textContent='Envoyer le projet à l’administrateur';adminSend.onclick=()=>projectWorkspace.sendAdministrator();$('#quote-panel').append(adminSend);
+// A draft starts being checkpointed after the model step; choosing a model never opens a save dialog.
+const checkpointHome=()=>{if(currentComposition())projectWorkspace.checkpoint();};
+$('#next').addEventListener('click',checkpointHome);document.addEventListener('click',e=>{if(e.target.closest('[data-choice],[data-swatch],[data-width],[data-model],[data-collection]'))queueMicrotask(checkpointHome);});
+identityStarted=true;identity.load();
