@@ -29,6 +29,8 @@ export function createProjectNavigation({getProject,save}){
  dialog.addEventListener('cancel',e=>{e.preventDefault();cancel();});
  function request(action,kind='exit'){
   if(pending)return pending.promise;
+  // Proceed without a blocking save dialog. Manual save is still available.
+  action();return Promise.resolve(true);
   const project=getProject();if(!project){action();return Promise.resolve(true);}
   dialog.querySelector('.leave-project').textContent=project.title||'Ma salle de bains';
   dialog.querySelector('#project-leave-description').textContent=kind==='new'?'Avant de commencer une nouvelle composition, souhaitez-vous enregistrer ce projet sur cet appareil ?':'Avant de retourner sur RANDAL, souhaitez-vous enregistrer ce projet sur cet appareil ?';
