@@ -37,6 +37,8 @@ Source officielle : https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_C
 
 ## Droits et activation
 
-Aucune licence explicite autorisant la réutilisation des médias dans des configurateurs tiers n’a été observée sur le site public ni dans Help du portail par l’inspection de la tâche principale. L’accès au téléchargement ne prouve pas à lui seul cette autorisation. La publication reste en attente de sa vérification.
+Le 23 octobre 2026, Jérôme a confirmé être agent d’usine Elios et disposer de l’autorisation d’utiliser les visuels dans les configurateurs LE ROY FACTORY. Cette confirmation utilisateur est retenue pour la mission et lève le blocage des droits. Elle ne signifie pas qu’un contrat signé du fabricant a été reçu ni qu’une licence publique explicite a été trouvée lors de l’inspection initiale.
+
+L’hébergement, l’activation et la publication restent en attente de l’accès d’écriture au stockage et des contrôles d’intégration ; aucune autorisation supplémentaire n’est demandée au titre des droits déjà confirmés.
 
 Ce relevé ne contient aucun identifiant, mot de passe, cookie ou lien de session. Seules les ressources effectivement téléchargées, optimisées et contrôlées peuvent être comptées comme récupérées. L’hébergement, l’activation et les tests des trois configurateurs restent des étapes distinctes.

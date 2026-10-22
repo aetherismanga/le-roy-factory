@@ -5,7 +5,7 @@
       "reference": "03V6A00",
       "colour": "Zucchero",
       "identityVerified": true,
-      "reuseAuthorization": "pending",
+      "reuseAuthorization": "confirmed-by-user",
       "portraitSource": true,
       "clockwiseRotation": 90,
       "variants": {
@@ -30,13 +30,14 @@
           "bytes": 1463202,
           "embeddedSRGB": true
         }
-      }
+      },
+      "readyForIntegration": true
     },
     {
       "reference": "03V6A10",
       "colour": "Avena",
       "identityVerified": true,
-      "reuseAuthorization": "pending",
+      "reuseAuthorization": "confirmed-by-user",
       "portraitSource": true,
       "clockwiseRotation": 90,
       "variants": {
@@ -61,13 +62,14 @@
           "bytes": 2407800,
           "embeddedSRGB": true
         }
-      }
+      },
+      "readyForIntegration": true
     },
     {
       "reference": "03V6A20",
       "colour": "Malto",
       "identityVerified": true,
-      "reuseAuthorization": "pending",
+      "reuseAuthorization": "confirmed-by-user",
       "portraitSource": true,
       "clockwiseRotation": 90,
       "variants": {
@@ -92,7 +94,8 @@
           "bytes": 1909230,
           "embeddedSRGB": true
         }
-      }
+      },
+      "readyForIntegration": true
     }
   ],
   "totals": {
@@ -109,11 +112,22 @@
     "publicExistingObjectHEAD": 200,
     "publicExistingObjectCORS": "https://leroyfactory.fr",
     "googleCloudStorageAvailable": false,
-    "adcConfigured": false
+    "adcConfigured": false,
+    "authorizationConfirmationRecorded": true,
+    "variantHashesUnchangedAfterAuthorization": true,
+    "readyFacesIdentityAndICCVerified": 3
   },
   "limits": [
     "No calibrated colour sample measurement",
-    "No manufacturer reuse licence found yet",
     "No browser texture rendering or mobile performance tested in this subtask"
-  ]
+  ],
+  "reuseAuthorizationEvidence": {
+    "status": "confirmed-by-user",
+    "confirmationDate": "2026-10-23",
+    "confirmedRole": "agent d’usine Elios",
+    "scope": "Utilisation des visuels Elios dans le site et les configurateurs LE ROY FACTORY",
+    "evidenceSource": "user-confirmation-in-conversation",
+    "manufacturerSignedContractObserved": false,
+    "note": "Confirmation explicite de Jérôme ; aucun contrat signé ni licence publique nouvellement reçue n’est allégué."
+  }
 }

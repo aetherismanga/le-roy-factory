@@ -42,11 +42,17 @@ signalée « sRGB présumé » et ne devient pas intégrable automatiquement.
 
 ## État des droits et de la publication
 
-Le rapprochement référence/couleur/format ne prouve pas un droit de
-redistribution des photographies. L'inventaire reste `reuseAuthorization:
-pending` et `readyForIntegration: false` tant que ce point n'est pas établi.
-L'option `--reuse-authorized` est réservée à une autorisation effectivement
-confirmée ; elle ne doit pas être utilisée pour contourner cette vérification.
+Le 23 octobre 2026, Jérôme a confirmé être agent d'usine Elios et détenir
+l'autorisation d'utiliser ces visuels dans les configurateurs LE ROY FACTORY.
+L'option `--reuse-authorized` peut donc être utilisée pour cette mission.
+L'inventaire enregistre `reuseAuthorization: confirmed-by-user` ; une face
+devient `readyForIntegration: true` uniquement si son identité, son format et
+son profil ICC ont également été vérifiés. Ce statut indique qu'elle est prête
+pour l'étape d'intégration, pas qu'elle est hébergée, activée ou publiée.
+
+La preuve enregistrée est cette confirmation de l'utilisateur. Aucun contrat
+signé du fabricant ni nouvelle licence publique n'est prétendu reçu. Le simple
+rapprochement référence/couleur/format ne remplace pas cette confirmation.
 
 Le pipeline ne lit pas d'identifiants de stockage. Le code existant
 `tools/configurator-materials/publish.py` utilise Cloud Storage et un préfixe

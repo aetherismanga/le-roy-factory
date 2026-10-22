@@ -1,4 +1,4 @@
-# ELIOS HD — état de la mission du 22 octobre 2026
+# ELIOS HD — état de la mission, mis à jour le 23 octobre 2026
 
 ## Réalisé
 
@@ -24,10 +24,14 @@
 
 **Aucune nouvelle référence activée. Aucun configurateur publié par cette mission.**
 
-L'aide du portail et les sources publiques consultées n'indiquent pas de
-licence explicite pour l'intégration des images à un configurateur tiers.
-L'autorisation reste à confirmer ; l'absence de licence affichée ne constitue
-pas en elle-même une interdiction établie.
+Le 23 octobre 2026, Jérôme a confirmé être agent d'usine Elios et disposer de
+l'autorisation d'utiliser ces visuels dans les configurateurs LE ROY FACTORY.
+Cette confirmation utilisateur lève le blocage des droits pour la mission.
+Elle est enregistrée comme déclaration de l'utilisateur, sans prétendre qu'un
+contrat signé du fabricant a été reçu ou qu'une licence publique a été trouvée.
+Les trois faces Creta dont l'identité et le profil ICC ont été vérifiés peuvent
+donc être préparées pour l'intégration ; leur hébergement et leur activation
+restent des étapes distinctes.
 
 Le stockage existant est lisible pour les objets publics déjà publiés.
 L'environnement local n'a pas de connexion Cloud Storage utilisable pour
@@ -67,11 +71,10 @@ dossier de reprise ; seul le résumé sans liens de session est versionné ici.
 
 ## Suite nécessaire
 
-1. Confirmer les droits d'utilisation des ressources Elios pour cet usage.
-2. Établir une connexion d'écriture au stockage existant sans publier de secret.
-3. Télécharger et rapprocher les références, couleurs, formats et faces réels ;
+1. Établir une connexion d'écriture au stockage existant sans publier de secret.
+2. Télécharger et rapprocher les références, couleurs, formats et faces réels ;
    dédoublonner par empreinte et préparer les trois niveaux en flux.
-4. Publier les variantes sous un préfixe immuable et activer uniquement les
+3. Publier les variantes sous un préfixe immuable et activer uniquement les
    collections complètes et vérifiées dans les deux moteurs RANDAL et le
    catalogue LRF, puis tester sols, murs, cloisons, poses et captures.
-5. Déployer et vérifier les trois résultats avant d'annoncer la mise en ligne.
+4. Déployer et vérifier les trois résultats avant d'annoncer la mise en ligne.

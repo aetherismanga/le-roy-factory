@@ -99,8 +99,8 @@
         }
       },
       "identityVerified": true,
-      "reuseAuthorization": "pending",
-      "readyForIntegration": false
+      "reuseAuthorization": "confirmed-by-user",
+      "readyForIntegration": true
     },
     {
       "brand": "ELIOS",
@@ -199,8 +199,8 @@
         }
       },
       "identityVerified": true,
-      "reuseAuthorization": "pending",
-      "readyForIntegration": false
+      "reuseAuthorization": "confirmed-by-user",
+      "readyForIntegration": true
     },
     {
       "brand": "ELIOS",
@@ -299,16 +299,25 @@
         }
       },
       "identityVerified": true,
-      "reuseAuthorization": "pending",
-      "readyForIntegration": false
+      "reuseAuthorization": "confirmed-by-user",
+      "readyForIntegration": true
     }
   ],
-  "updatedAt": "2026-10-22T21:30:03.398930+00:00",
+  "updatedAt": "2026-10-22T22:59:35.996920+00:00",
   "counts": {
     "originals": 3,
     "collections": 1,
     "faces": 3,
-    "readyFaces": 0,
+    "readyFaces": 3,
     "variants": 9
+  },
+  "reuseAuthorizationEvidence": {
+    "status": "confirmed-by-user",
+    "confirmationDate": "2026-10-23",
+    "confirmedRole": "agent d’usine Elios",
+    "scope": "Utilisation des visuels Elios dans le site et les configurateurs LE ROY FACTORY",
+    "evidenceSource": "user-confirmation-in-conversation",
+    "manufacturerSignedContractObserved": false,
+    "note": "Confirmation explicite de Jérôme ; aucun contrat signé ni licence publique nouvellement reçue n’est allégué."
   }
 }
