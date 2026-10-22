@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "manufacturer": "ELIOS",
+  "collection": "Creta",
+  "enabled": false,
+  "allowedSourceFormat": "60x120",
+  "textureRotation": 0,
+  "expectedBaseColors": 8,
+  "expectedBaseFaces": 53,
+  "publishedCompleteFaces": 3,
+  "collectionComplete": false,
+  "publicMediaChecksPassed": true,
+  "activationBlockedBy": [
+    "Collection not fully downloaded and verified",
+    "Format-specific application integration and caches not verified"
+  ],
+  "faces": [
+    {
+      "reference": "03V6A00",
+      "colorId": "zucchero",
+      "color": "Zucchero",
+      "format": "60x120",
+      "sourceFormatCm": [
+        60,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        60
+      ],
+      "face": 1,
+      "sourceFilename": "03V6A00@1.jpg",
+      "sourceSHA256": "d7966f2f71751702c2da2d9bd2bbfeeb249197f6338b0668ead167718ab93dd9",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fcreta-03V6A00-zucchero-60x120%2Fface-001-70f34b95c4dd-fluid.webp?alt=media&token=d21cc585-94df-48ab-b65c-e312af196a73"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fcreta-03V6A00-zucchero-60x120%2Fface-001-70f34b95c4dd-balanced.webp?alt=media&token=0e85f728-d53b-46b3-8a82-c2cfaf00d50f"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fcreta-03V6A00-zucchero-60x120%2Fface-001-70f34b95c4dd-max.webp?alt=media&token=0fb4fd04-850b-4692-960a-78e957d665f0"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "03V6A10",
+      "colorId": "avena",
+      "color": "Avena",
+      "format": "60x120",
+      "sourceFormatCm": [
+        60,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        60
+      ],
+      "face": 1,
+      "sourceFilename": "03V6A10@1.jpg",
+      "sourceSHA256": "b9d30c30cf1141227bb33335c7aed6f5f55375fcb13ef68bf8a684367155b23a",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fcreta-03V6A10-avena-60x120%2Fface-001-f1ec6ffbba4d-fluid.webp?alt=media&token=4247bae6-d8f8-413c-a624-328ae766b9c0"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fcreta-03V6A10-avena-60x120%2Fface-001-f1ec6ffbba4d-balanced.webp?alt=media&token=53b24ad9-9375-447f-af16-6b3c5f25290e"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fcreta-03V6A10-avena-60x120%2Fface-001-f1ec6ffbba4d-max.webp?alt=media&token=6701e66b-19d5-4f57-a84a-226867f8552b"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "03V6A20",
+      "colorId": "malto",
+      "color": "Malto",
+      "format": "60x120",
+      "sourceFormatCm": [
+        60,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        60
+      ],
+      "face": 1,
+      "sourceFilename": "03V6A20@1.jpg",
+      "sourceSHA256": "3b6db6a09577c03510c90130c1332ae618859842cc73f86d401651aebac11f36",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fcreta-03V6A20-malto-60x120%2Fface-001-c884d108bc76-fluid.webp?alt=media&token=fbafe310-e5ff-4ad8-bbcc-8622a70e883b"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fcreta-03V6A20-malto-60x120%2Fface-001-c884d108bc76-balanced.webp?alt=media&token=c1a8eb00-109b-4ee5-bdf3-d2ce1e237eb0"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fcreta-03V6A20-malto-60x120%2Fface-001-c884d108bc76-max.webp?alt=media&token=7a3fe14a-b44b-4fcd-b87a-2f8e9cb912a7"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    }
+  ],
+  "urlPolicy": "Exact public media URLs observed in Firebase DOM; do not rewrite tokens or paths",
+  "reuseAuthorization": "confirmed-by-user"
+}

@@ -1,5 +1,5 @@
 {
-  "scope": "Local preparation only; no upload/deploy and no original deletion",
+  "scope": "Local preparation and confirmed Firebase console upload; public media verified; no application activation or deployment",
   "files": [
     {
       "reference": "03V6A00",
@@ -31,7 +31,8 @@
           "embeddedSRGB": true
         }
       },
-      "readyForIntegration": true
+      "readyForIntegration": true,
+      "publishedVariants": 3
     },
     {
       "reference": "03V6A10",
@@ -63,7 +64,8 @@
           "embeddedSRGB": true
         }
       },
-      "readyForIntegration": true
+      "readyForIntegration": true,
+      "publishedVariants": 3
     },
     {
       "reference": "03V6A20",
@@ -95,7 +97,8 @@
           "embeddedSRGB": true
         }
       },
-      "readyForIntegration": true
+      "readyForIntegration": true,
+      "publishedVariants": 3
     }
   ],
   "totals": {
@@ -115,7 +118,17 @@
     "adcConfigured": false,
     "authorizationConfirmationRecorded": true,
     "variantHashesUnchangedAfterAuthorization": true,
-    "readyFacesIdentityAndICCVerified": 3
+    "readyFacesIdentityAndICCVerified": 3,
+    "firebaseConsoleWriteConfirmed": true,
+    "variantsUploaded": 9,
+    "newPublicMediaGETChecks": 27,
+    "newPublicMediaPassedChecks": 27,
+    "newPublicMediaAllSHA256Match": true,
+    "newPublicMediaAllCORSReadable": true,
+    "activated3DReferences": 0,
+    "collectionIncomplete": true,
+    "formatAwareCacheIntegrationPending": true,
+    "cliConnected": false
   },
   "limits": [
     "No calibrated colour sample measurement",
@@ -129,5 +142,21 @@
     "evidenceSource": "user-confirmation-in-conversation",
     "manufacturerSignedContractObserved": false,
     "note": "Confirmation explicite de Jérôme ; aucun contrat signé ni licence publique nouvellement reçue n’est allégué."
+  },
+  "storagePublication": {
+    "method": "Authenticated Firebase Storage console UI",
+    "accountAuthenticationDataReadOrExported": false,
+    "uploadedVariants": 9,
+    "publicOrigins": [
+      "https://leroyfactory.fr",
+      "https://studio-one-beta-test-v2.vercel.app",
+      "https://randal-catalogue-general-3d.vercel.app"
+    ],
+    "publicGETChecks": 27,
+    "passedChecks": 27,
+    "report": "publication-checks.json",
+    "publicURLManifest": "published-assets.json",
+    "newActiveReferences": 0,
+    "deploymentPerformed": false
   }
 }

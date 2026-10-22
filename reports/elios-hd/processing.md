@@ -58,15 +58,22 @@ Le pipeline ne lit pas d'identifiants de stockage. Le code existant
 `tools/configurator-materials/publish.py` utilise Cloud Storage et un préfixe
 distinct avec vérification des empreintes et `if_generation_match=0`. Il traite
 d'autres ressources fabricant et ne doit pas être lancé tel quel pour Elios HD.
-Une publication ultérieure peut reprendre cette méthode, en ne publiant que
-les variantes et en préservant les ressources des autres fabricants.
+Les neuf variantes du pilote ont été envoyées via la console Firebase connectée.
+Cette opération préserve les ressources des autres fabricants ; le script
+`check_elios_publication.py` réalise uniquement des lectures des URL publiques
+exactes observées dans le DOM, sans les reconstruire ni réécrire leurs jetons.
 
 Lors du contrôle local : Pillow/ImageCms 12.3 disponible ; bibliothèque
 `google-cloud-storage`, exécutables gcloud/firebase/gsutil et configuration ADC
-absents. Aucune écriture distante n'a été tentée. Une lecture HEAD d'une URL de
-face Domus réellement présente dans le catalogue existant a répondu HTTP 200,
-avec `Access-Control-Allow-Origin: https://leroyfactory.fr`. Cela confirme la
-lecture publique/CORS de cet objet, pas un droit d'écriture sur le bucket.
+absents, et les CLI/ADC restent non connectés. L'écriture est toutefois
+confirmée par la console Firebase : neuf variantes du pilote envoyées.
+Les lectures publiques des neuf variantes ont ensuite été contrôlées pour
+LE ROY FACTORY, STUDIO ONE et RANDAL Général : 27 GET avec vérification
+du type WebP, de CORS, des octets et du SHA-256. Le détail est dans
+`publication-checks.json` ; les URL publiques exactes sont séparées dans
+`published-assets.json`, gardé inactif pour éviter toute activation
+d'une collection incomplète ou d'un format non compatible. Aucun jeton
+d'authentification de compte n'a été lu ou exporté.
 
 ## Validation initiale
 
