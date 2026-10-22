@@ -26,7 +26,7 @@ Le PDF reprend le plan, les métrés et la liste à commander. Les achats HT en 
 
 ## Vérifications
 
-- 54 tests Node : conversion et unités existantes, données commerciales, calculs de plinthes, faïence, portes, bois 2,20 m, conditionnement fabricant, regroupement, sauvegarde et transfert.
+- 55 tests Node : conversion et unités existantes, données commerciales, calculs de plinthes, faïence, portes, bois 2,20 m, conditionnement fabricant, regroupement, sauvegarde et transfert.
 - Parcours DOM réel : prix masqués/révélés, modification des murs, maintien des options ouvertes, récapitulatif et choix PDF.
 - Chrome à 390 px : réglages et récapitulatif contrôlés dans un cadre mobile, sans débordement horizontal observé.
 - Chrome, projet de contrôle 4 x 3 m : sélection Shell Beige 04F6A11, 2 pièces / 1,44 m² par boîte ; exclusion du mur 1 avec faïence ; 10 ml posés / 11 ml de débit, soit 5 barres bois ; récapitulatif et génération du PDF vérifiés. Le téléchargement final n'a pas été confirmé par l'API du navigateur.
@@ -36,3 +36,7 @@ Le PDF reprend le plan, les métrés et la liste à commander. Les achats HT en 
 Les nouvelles fonctionnalités des configurateurs de fabricants externes (Roomvo, RANDAL Studio fabricant, Biopietra, Reviglass) nécessitent leurs propres accès/API. Ces services tiers ne sont pas modifiables dans ce dépôt.
 
 ![Récapitulatif contrôlé dans Chrome](recapitulatif-final-20261022.jpg)
+
+## Petits formats
+
+Une hauteur de plinthe supérieure au côté disponible du carreau affiche une erreur récupérable, sans interrompre les ateliers. La hauteur et le type restent modifiables ; le relevé ne peut pas être exporté avec cette erreur.
