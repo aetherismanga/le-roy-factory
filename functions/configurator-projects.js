@@ -68,7 +68,7 @@ exports.randalProjects = onRequest({region: 'us-central1', timeoutSeconds: 90, m
         ? suggestedNumber : 'LOCAL-' + raw.id.slice(8, 20).toUpperCase();
       if (b.action === 'local-order' && !raw.customer.name) throw failure('Renseignez le client avant de finaliser la commande.');
       const recipient = b.action === 'local-email' ? text(b.recipient, 254) : TO;
-      if (!/^[^\\s@<>]+@[^\\s@<>]+\\.[^\\s@<>]+$/.test(recipient)) throw failure('Adresse e-mail du destinataire invalide.');
+      if (!/^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(recipient)) throw failure('Adresse e-mail du destinataire invalide.');
       const limit = db.collection('configurator_mail_limits').doc(keyFor(a.owner, 'mail', String(Math.floor(Date.now() / 3600000))));
       await db.runTransaction(async tx => {const n = (await tx.get(limit)).data()?.count || 0; if (n >= 12) throw failure('Douze envois par heure maximum. Réessayez plus tard.', 429); tx.set(limit, {count: n + 1, expiresAt: admin.firestore.Timestamp.fromMillis(Date.now() + 86400000)});});
       const record = {...raw, number, variant, account: {store: a.store, code: a.code}, date: new Date().toISOString(), status: 'draft'};
