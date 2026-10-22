@@ -167,6 +167,8 @@
     }
 
     .popup-btn {
+      cursor: pointer;
+      border: 0;
       display: inline-flex;
       align-items: center;
       padding: 4px 10px;
@@ -436,6 +438,10 @@
           if (match && Number.isFinite(item.lat) && Number.isFinite(item.lon)) {
             const icon = item.type === 'client' ? greenIcon : goldIcon;
             const marker = L.marker([item.lat, item.lon], { icon: icon });
+            marker.__lrfClientId = item.id;
+            marker.__lrfClientName = item.societe;
+            marker.__lrfClientTown = `${item.cp} ${item.ville}`.trim();
+            marker.__lrfClientType = item.type;
 
             const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${item.lat},${item.lon}`;
             const wazeUrl = `https://waze.com/ul?ll=${item.lat},${item.lon}&navigate=yes`;
@@ -449,7 +455,8 @@
                   ${item.telephone ? '<br>📞 <a href="tel:' + item.telephone + '" style="color: #111; font-weight: 600;">' + item.telephone + '</a>' : ''}
                 </div>
                 <div class="popup-actions">
-                  <a href="clients.html?edit=${item.id}" class="popup-btn btn-fiche">✏️ Fiche client</a>
+                  <a href="clients.html?edit=${encodeURIComponent(item.id)}" class="popup-btn btn-fiche">✏️ Fiche client</a>
+                  <button type="button" class="popup-btn btn-fiche lrf-add-tour-map" data-client-id="${encodeURIComponent(item.id)}">➕ Tournée</button>
                   <a href="${googleMapsUrl}" target="_blank" rel="noopener" class="popup-btn btn-gps">🧭 Google Maps</a>
                   <a href="${wazeUrl}" target="_blank" rel="noopener" class="popup-btn btn-waze">🚗 Waze</a>
                 </div>
