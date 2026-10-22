@@ -1,3 +1,5 @@
+> Mise à jour : voir [conversion architecturale, unités mm/cm/m et cloisons](conversion-architecture-20261022.md). Ce document décrit le premier lecteur ; la version suivante corrige les cas meublés et conserve les cloisons dans RANDAL.
+
 # Lecture des cotes et reconstruction du plan
 
 L’import d’une image ou d’une page PDF lance un lecteur de nombres. Les nombres sans unité sont proposés en centimètres. Le contour à angles droits est reconstruit par contraintes de longueurs, sans demander de calibration ni de retracé quand les informations sont suffisantes.

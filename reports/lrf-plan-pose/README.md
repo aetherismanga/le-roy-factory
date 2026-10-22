@@ -1,3 +1,5 @@
+> Conversion mise à jour : [murs et cloisons sans mobilier, unités mm/cm/m](conversion-architecture-20261022.md).
+
 # LRF PLAN & POSE — bêta, lecture des cotes
 
 Application indépendante en HTML/CSS/JavaScript, accessible depuis `configurateurs.html`. Aucun moteur RANDAL, code CRM, compte client ou service Firebase n’est modifié.

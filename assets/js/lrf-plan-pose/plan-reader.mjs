@@ -1,6 +1,7 @@
-import {detectRooms} from './recognition.mjs';
-import {bounds,distance,signedArea} from './core.mjs';
-import {usableContours,nearestWall,dimensionValue,chooseReadings} from './dimensions.mjs';
+import {detectRooms} from './recognition.mjs?v=20261022-3';
+import {bounds,distance,signedArea} from './core.mjs?v=20261022-3';
+import {usableContours,nearestWall,dimensionValue,chooseReadings,orthogonalContour} from './dimensions.mjs?v=20261022-3';
+import {architecturalStructure} from './structure.mjs?v=20261022-3';
 
 const vendor=new URL('../../vendor/lrf-plan-pose/ocr/',import.meta.url);
 let libraryPromise;
@@ -23,12 +24,20 @@ export function normalizePixels(rgba,width,height,{radius=Math.max(8,Math.round(
 }
 
 export function preparePlan(image,{canvasFactory=makeCanvas,maxSize=1300}={}){
- const factor=Math.min(3,maxSize/Math.max(image.width,image.height)),canvas=canvasFactory(image.width*factor,image.height*factor),ctx=canvas.getContext('2d',{willReadFrequently:true});ctx.fillStyle='#fff';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.drawImage(image,0,0,canvas.width,canvas.height);
+ const factor=Math.min(3,maxSize/Math.max(image.width,image.height)),canvas=canvasFactory(Math.round(image.width*factor),Math.round(image.height*factor)),ctx=canvas.getContext('2d',{willReadFrequently:true});ctx.fillStyle='#fff';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.drawImage(image,0,0,canvas.width,canvas.height);
  const original=ctx.getImageData(0,0,canvas.width,canvas.height),pixels=normalizePixels(original.data,canvas.width,canvas.height),normalized=canvasFactory(canvas.width,canvas.height),nc=normalized.getContext('2d'),out=nc.createImageData(canvas.width,canvas.height);out.data.set(pixels);nc.putImageData(out,0,0);
  const regions=[];
  for(const [threshold,gap]of [[198,2],[198,3],[184,3]])regions.push(...detectRooms(pixels,canvas.width,canvas.height,{threshold,gap,minFraction:.008}));
- const shapes=usableContours(regions,canvas.width,canvas.height);
- return {canvas,normalized,shapes,factor:canvas.width/image.width,width:canvas.width,height:canvas.height};
+ let structure=architecturalStructure(original.data,canvas.width,canvas.height);
+ // Run the same band detector in the other orientations: plans photographed on
+ // a phone frequently have their thick top beam on a vertical side.
+ for(const turn of [1,2,3]){
+  if(structure.shapes.length)break;
+  const rc=rotated(canvas,turn,canvasFactory),pixels=rc.getContext('2d').getImageData(0,0,rc.width,rc.height),candidate=architecturalStructure(pixels.data,rc.width,rc.height);
+  if(candidate.shapes.length)structure={...candidate,shapes:candidate.shapes.map(shape=>({...orthogonalContour(shape.points.map(p=>unrotatePoint(p[0],p[1],turn,canvas.width,canvas.height))),kind:'architecture',partitions:shape.partitions.map(p=>({...p,a:unrotatePoint(p.a[0],p.a[1],turn,canvas.width,canvas.height),b:unrotatePoint(p.b[0],p.b[1],turn,canvas.width,canvas.height)}))}))};
+ }
+ const shapes=structure.shapes.length?structure.shapes:usableContours(regions,canvas.width,canvas.height);
+ return {canvas,normalized,shapes,architectural:Boolean(structure.shapes.length),factor:canvas.width/image.width,width:canvas.width,height:canvas.height};
 }
 
 function rotated(canvas,turn,factory){
@@ -36,6 +45,26 @@ function rotated(canvas,turn,factory){
 }
 function unrotatePoint(x,y,turn,width,height){return turn===1?[y,height-x]:turn===2?[width-x,height-y]:turn===3?[width-y,x]:[x,y];}
 function wordsOf(data){return (data.blocks||[]).flatMap(b=>(b.paragraphs||[]).flatMap(p=>(p.lines||[]).flatMap(l=>l.words||[])));}
+
+function dimensionWords(data){
+ const words=wordsOf(data),result=[...words];
+ for(let i=0;i<words.length-1;i++){
+  const a=words[i],b=words[i+1],h=Math.max(a.bbox.y1-a.bbox.y0,b.bbox.y1-b.bbox.y0),gap=b.bbox.x0-a.bbox.x1;
+  if(gap<0||gap>h||Math.abs(a.bbox.y1-b.bbox.y1)>h*.4)continue;
+  if(!(/^\d{1,2}$/.test(a.text)&&/^\d{3}$/.test(b.text)||/^\d+(?:[.,]\d+)?$/.test(a.text)&&/^(?:mm|cm|m)$/i.test(b.text)))continue;
+  result.push({text:a.text+' '+b.text,confidence:Math.min(a.confidence,b.confidence),bbox:{x0:a.bbox.x0,y0:Math.min(a.bbox.y0,b.bbox.y0),x1:b.bbox.x1,y1:Math.max(a.bbox.y1,b.bbox.y1)}});
+ }
+ return result;
+}
+const isDimension=text=>dimensionValue(text)!==null||(/[.,]|\d\s*(mm|cm|m)$/i.test(text)&&['mm','m'].some(unit=>dimensionValue(text,unit)!==null));
+export function suggestedUnit(candidates){
+ const texts=candidates.flat().filter(c=>c.score>0).map(c=>c.text),explicit=texts.map(t=>String(t).match(/\d\s*(mm|cm|m)$/i)?.[1]?.toLowerCase()).filter(Boolean);
+ if(explicit.length)return explicit.sort((a,b)=>explicit.filter(x=>x===b).length-explicit.filter(x=>x===a).length)[0];
+ const best=candidates.map(list=>list.slice().sort((a,b)=>b.score-a.score)[0]?.text).filter(Boolean),values=best.map(t=>Number(String(t).replace(/\s/g,'').replace(',','.'))).filter(Number.isFinite);
+ if(values.filter(n=>n>=1000&&n<=10000).length>=2)return 'mm';
+ if(values.filter(n=>n>=.5&&n<20).length>=2&&best.some(t=>/[.,]/.test(t)))return 'm';
+ return 'cm';
+}
 
 export function numeralPatches(canvas){
  const {width,height}=canvas,data=canvas.getContext('2d',{willReadFrequently:true}).getImageData(0,0,width,height).data,n=width*height,seen=new Uint8Array(n),queue=new Int32Array(n),glyphs=[];
@@ -63,7 +92,7 @@ async function browserWorker(onProgress){
 }
 
 function addObservation(candidates,wall,reading){
- const list=candidates[wall],key=String(dimensionValue(reading.text)),existing=list.find(x=>String(dimensionValue(x.text))===key);
+ const list=candidates[wall],key=reading.text.replace(/\s/g,'').toLowerCase(),existing=list.find(x=>x.text.replace(/\s/g,'').toLowerCase()===key);
  if(existing){existing.score=Math.max(existing.score,reading.score)+3;existing.votes++;}else list.push({...reading,votes:1});
 }
 
@@ -77,15 +106,27 @@ export async function readPlan(prepared,{onProgress=()=>{},signal,workerFactory=
  try{
   const creation=workerFactory(onProgress).then(w=>{if(finished||signal?.aborted){w.terminate();throw cancelError();}return w;});
   worker=await Promise.race([creation,timeout,cancelled]);if(signal?.aborted)throw cancelError();
-  const recognize=async(canvas,psm='11')=>{if(signal?.aborted)throw cancelError();await Promise.race([worker.setParameters({tessedit_pageseg_mode:psm,tessedit_char_whitelist:'0123456789.,',user_defined_dpi:'300'}),timeout,cancelled]);const input=canvas.toDataURL('image/png');return Promise.race([worker.recognize(input,{}, {blocks:true}),timeout,cancelled]);};
+  const recognize=async(canvas,psm='11',units=false)=>{if(signal?.aborted)throw cancelError();await Promise.race([worker.setParameters({tessedit_pageseg_mode:psm,tessedit_char_whitelist:units?'0123456789., mMcC':'0123456789.,',user_defined_dpi:'300'}),timeout,cancelled]);const input=canvas.toDataURL('image/png');return Promise.race([worker.recognize(input,{}, {blocks:true}),timeout,cancelled]);};
   const rows=prepared.shapes.map(shape=>({shape,candidates:shape.points.map(()=>[])})),observations=[];
+  {
+   for(const turn of [0,1,2,3]){
+    onProgress('Lecture du plan coté · orientation '+(turn+1)+' / 4…');
+    const canvas=rotated(prepared.canvas,turn,canvasFactory),{data}=await recognize(canvas,'11',true);
+    for(const word of dimensionWords(data)){const text=String(word.text||'').trim().replace(/[.,]+$/,'');if(!isDimension(text))continue;const b=word.bbox,center=unrotatePoint((b.x0+b.x1)/2,(b.y0+b.y1)/2,turn,prepared.width,prepared.height);
+     for(const row of rows){const closest=nearestWall(row.shape,center);if(closest)addObservation(row.candidates,closest.wall,{text,confidence:word.confidence||0,center,turn,score:(word.confidence||0)*.4+30-closest.score/8});}
+    }
+   }
+   const results=rows.map(row=>{const unit=suggestedUnit(row.candidates);return {...row,unit,...chooseReadings(row.shape,row.candidates,unit)};});
+   if(results.every(r=>!r.error)&&(prepared.architectural||results.some(r=>r.unit!=='cm'||r.readings.some(c=>c&&/\d\s*(mm|cm|m)$/i.test(c.text)))))return results;
+   if(!prepared.architectural)for(const row of rows)row.candidates=row.candidates.map(list=>list.filter(c=>/\d\s*(mm|cm|m)$/i.test(c.text)));
+  }
   for(const turn of [0,1,2,3]){
    onProgress('Lecture des cotes écrites · orientation '+(turn+1)+' / 4…');
    const canvas=rotated(prepared.normalized,turn,canvasFactory);
    for(const psm of ['11','6']){const {data}=await recognize(canvas,psm);
-   for(const word of wordsOf(data)){const text=String(word.text||'').replace(/\s+/g,'');if(dimensionValue(text)===null)continue;const b=word.bbox,center=unrotatePoint((b.x0+b.x1)/2,(b.y0+b.y1)/2,turn,prepared.width,prepared.height),observation={text,confidence:word.confidence||0,center,turn,bbox:b};observations.push(observation);
-    for(const row of rows){const closest=nearestWall(row.shape,center);if(closest)addObservation(row.candidates,closest.wall,{...observation,score:(word.confidence||0)*.4+20-closest.score/8});}
-   }
+   for(const word of wordsOf(data)){const text=String(word.text||'').replace(/\s+/g,'').replace(/[.,]+$/,'');if(dimensionValue(text)===null)continue;const b=word.bbox,center=unrotatePoint((b.x0+b.x1)/2,(b.y0+b.y1)/2,turn,prepared.width,prepared.height),observation={text,confidence:word.confidence||0,center,turn,bbox:b};let associated=false;
+    for(const row of rows){const closest=nearestWall(row.shape,center);if(closest){associated=true;addObservation(row.candidates,closest.wall,{...observation,score:(word.confidence||0)*.4+20-closest.score/8});}}
+   if(associated)observations.push(observation);}
   }
   }
   // Refine small numeral crops independently of the long wall strokes around them.
@@ -93,8 +134,14 @@ export async function readPlan(prepared,{onProgress=()=>{},signal,workerFactory=
   for(let i=0;i<refinements.length;i++){
    onProgress('Vérification des chiffres · '+(i+1)+' / '+refinements.length+'…');
    const o=refinements[i],rot=rotated(prepared.normalized,o.turn,canvasFactory),b=o.bbox,pad=30,w=b.x1-b.x0,h=b.y1-b.y0,patch=canvasFactory(Math.max(60,w*2+pad*2),Math.max(60,h*2+pad*2)),ctx=patch.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,patch.width,patch.height);ctx.drawImage(rot,b.x0-3,b.y0-3,w+6,h+6,pad,pad,w*2,h*2);
-   for(const psm of ['7','8']){const {data}=await recognize(patch,psm),text=String(data.text||'').trim().replace(/\s+/g,'');if(dimensionValue(text)===null)continue;
+   for(const psm of ['7','8']){const {data}=await recognize(patch,psm),text=String(data.text||'').trim().replace(/\s+/g,'').replace(/[.,]+$/,'');if(dimensionValue(text)===null)continue;
    for(const row of rows){const closest=nearestWall(row.shape,o.center);if(closest)addObservation(row.candidates,closest.wall,{...o,text,score:(data.confidence||0)*.4+25-closest.score/8});}}
+   if(o.confidence<70){
+    const sharp=canvasFactory(w*3+pad*2,h*3+pad*2),sc=sharp.getContext('2d');sc.fillStyle='#fff';sc.fillRect(0,0,sharp.width,sharp.height);sc.drawImage(rot,b.x0-3,b.y0-3,w+6,h+6,pad,pad,w*3,h*3);
+    const ink=sc.getImageData(0,0,sharp.width,sharp.height);for(let k=0;k<ink.data.length;k+=4)ink.data[k]=ink.data[k+1]=ink.data[k+2]=ink.data[k]<200?0:255;sc.putImageData(ink,0,0);
+    const {data}=await recognize(sharp,'8'),text=String(data.text||'').trim().replace(/\s+/g,'').replace(/[.,]+$/,'');
+    if(dimensionValue(text)!==null)for(const row of rows){const closest=nearestWall(row.shape,o.center);if(closest)addObservation(row.candidates,closest.wall,{...o,text,score:(data.confidence||0)*.4+25-closest.score/8});}
+   }
   }
   // Isolate handwritten numeral groups: page layout OCR often mistakes adjacent wall strokes for digits.
   const patches=[];
@@ -108,11 +155,11 @@ export async function readPlan(prepared,{onProgress=()=>{},signal,workerFactory=
   for(let i=0;i<Math.min(64,patches.length);i++){
    onProgress('Lecture des chiffres manuscrits · '+(i+1)+' / '+Math.min(64,patches.length)+'…');
    const p=patches[i],b=p.b,w=b.x1-b.x0,h=b.y1-b.y0,zoom=Math.min(5,Math.max(2,65/h)),pad=24,patch=canvasFactory(w*zoom+pad*2,h*zoom+pad*2),ctx=patch.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,patch.width,patch.height);ctx.drawImage(p.rot,b.x0-2,b.y0-2,w+4,h+4,pad,pad,w*zoom,h*zoom);
-   for(const psm of ['7','8']){const {data}=await recognize(patch,psm),text=String(data.text||'').trim().replace(/\s+/g,'');if(dimensionValue(text)===null||text.replace(/\D/g,'').length<2)continue;
+   for(const psm of ['7','8']){const {data}=await recognize(patch,psm),text=String(data.text||'').trim().replace(/\s+/g,'').replace(/[.,]+$/,'');if(dimensionValue(text)===null||text.replace(/\D/g,'').length<2)continue;
    addObservation(p.row.candidates,p.wall,{text,confidence:data.confidence||0,center:p.center,turn:p.turn,score:(data.confidence||0)*.5+30+Math.min(15,text.length*4)-p.closest.score/10});}
   }
   for(const row of rows){
-   const current=chooseReadings(row.shape,row.candidates);if(!current.error&&!current.requiresReview)continue;
+   const current=chooseReadings(row.shape,row.candidates,suggestedUnit(row.candidates));if(!current.error&&!current.requiresReview)continue;
    const span=Math.max(bounds(row.shape.points).width,bounds(row.shape.points).height),margin=span*.32;
    for(let wall=0;wall<row.shape.points.length;wall++){
     const a=row.shape.points[wall],b=row.shape.points[(wall+1)%row.shape.points.length],horizontal=Math.abs(b[0]-a[0])>Math.abs(b[1]-a[1]),x0=horizontal?Math.min(a[0],b[0])+4:(a[0]+b[0])/2-margin,y0=horizontal?(a[1]+b[1])/2-margin:Math.min(a[1],b[1])+4,w=horizontal?Math.abs(b[0]-a[0])-8:margin*2,h=horizontal?margin*2:Math.abs(b[1]-a[1])-8;
@@ -120,11 +167,11 @@ export async function readPlan(prepared,{onProgress=()=>{},signal,workerFactory=
     for(const turn of [0,1,2,3]){
      onProgress('Rapprochement des cotes et des murs · '+(wall+1)+' / '+row.shape.points.length+'…');
      const rot=rotated(band,turn,canvasFactory),{data}=await recognize(rot,'6');
-     for(const word of wordsOf(data)){const text=String(word.text||'').replace(/\s+/g,'');if(dimensionValue(text)===null||text.replace(/\D/g,'').length<2)continue;const box=word.bbox,point=unrotatePoint((box.x0+box.x1)/2,(box.y0+box.y1)/2,turn,band.width,band.height),center=[x0+point[0],y0+point[1]],closest=nearestWall(row.shape,center);if(closest?.wall!==wall)continue;addObservation(row.candidates,wall,{text,center,confidence:word.confidence||0,score:(word.confidence||0)*.4+25+Math.min(15,text.length*4)-closest.score/10});}
+     for(const word of wordsOf(data)){const text=String(word.text||'').replace(/\s+/g,'').replace(/[.,]+$/,'');if(dimensionValue(text)===null||text.replace(/\D/g,'').length<2)continue;const box=word.bbox,point=unrotatePoint((box.x0+box.x1)/2,(box.y0+box.y1)/2,turn,band.width,band.height),center=[x0+point[0],y0+point[1]],closest=nearestWall(row.shape,center);if(closest?.wall!==wall)continue;addObservation(row.candidates,wall,{text,center,confidence:word.confidence||0,score:(word.confidence||0)*.4+25+Math.min(15,text.length*4)-closest.score/10});}
     }
    }
   }
-  return rows.map(row=>({...row,...chooseReadings(row.shape,row.candidates)}));
+  return rows.map(row=>{const unit=suggestedUnit(row.candidates);return {...row,unit,...chooseReadings(row.shape,row.candidates,unit)};});
  }finally{finished=true;clearTimeout(timer);signal?.removeEventListener('abort',abort);stop();}
 }
 
