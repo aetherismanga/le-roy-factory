@@ -241,7 +241,8 @@
     </div>
 
     <div class="map-card" id="map-card-container">
-      <div class="filter-bar">\n        <button id="btn-week-tour" class="btn-filter" style="background:#0f9f98;color:#fff;border-color:#087d77;font-weight:800;">🚗 Tournée VIEW</button>
+      <div class="filter-bar">
+        <button id="btn-week-tour" class="btn-filter" style="background:#0f9f98;color:#fff;border-color:#087d77;font-weight:800;">🚗 Tournée VIEW</button>
         <button class="btn-filter active" data-filter="all">Tous les secteurs</button>
         <button class="btn-filter" data-filter="jerome">Secteur Jérôme (30, 34, 11, 66)</button>
         <button class="btn-filter" data-filter="coryne">Secteur Coryne (13, 83, 84, 04, 06, 05, 2A, 2B, Monaco)</button>
@@ -336,6 +337,10 @@
       });
 
       // 4. Initialisation Carte Leaflet
+      if (typeof L === 'undefined') {
+        document.getElementById("map-counter").textContent = "Impossible de charger la carte. Vérifiez la connexion puis actualisez la page.";
+        return;
+      }
       const map = L.map('map').setView([43.6, 4.5], 8);
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -343,7 +348,7 @@
         attribution: '© OpenStreetMap contributors | LE ROY FACTORY'
       }).addTo(map);
 
-      const markersLayer = L.layerGroup().addTo(map);\n      const tourLayer = L.layerGroup().addTo(map);\n      let tourMode=false;
+      const markersLayer = L.layerGroup().addTo(map);
       const counterEl = document.getElementById("map-counter");
 
       // Pins personnalisés
@@ -367,17 +372,26 @@
       let currentFilter = "all";
       let selectedDept = "";
       let allClientData = [];
+      let initialMapFramed = false;
+      const geocodingPending = new Set();
+      const geocodingFailed = new Set();
+      let lastGeocodeRequest = 0;
+
+      // Le bouton tournée n'est pas un filtre : il ouvre le planificateur.
+      document.getElementById("btn-week-tour")?.addEventListener("click", () => {
+        window.location.href = "tournees.html";
+      });
 
       // Filtres par bouton et département
-      const filterButtons = document.querySelectorAll(".btn-filter");
+      const filterButtons = document.querySelectorAll(".btn-filter[data-filter]");
       filterButtons.forEach(btn => {
         btn.addEventListener("click", (e) => {
           filterButtons.forEach(b => b.classList.remove("active"));
-          e.target.classList.add("active");
-          currentFilter = e.target.getAttribute("data-filter");
+          e.currentTarget.classList.add("active");
+          currentFilter = e.currentTarget.getAttribute("data-filter");
           selectedDept = "";
           document.getElementById("dept-select").value = "";
-          renderMarkers();
+          renderMarkers(true);
         });
       });
 
@@ -385,7 +399,7 @@
         selectedDept = e.target.value;
         filterButtons.forEach(b => b.classList.remove("active"));
         currentFilter = "dept";
-        renderMarkers();
+        renderMarkers(true);
       });
 
       function extractDept(cp, ville) {
@@ -400,9 +414,10 @@
       }
 
       // Rendu instantané des marqueurs
-      function renderMarkers() {
+      function renderMarkers(fitView = false) {
         markersLayer.clearLayers();
         let validCount = 0;
+        const visiblePoints = [];
 
         allClientData.forEach(item => {
           const dept = extractDept(item.cp, item.ville);
@@ -418,7 +433,7 @@
             match = (selectedDept === "" || dept === selectedDept);
           }
 
-          if (match && item.lat !== null && item.lon !== null) {
+          if (match && Number.isFinite(item.lat) && Number.isFinite(item.lon)) {
             const icon = item.type === 'client' ? greenIcon : goldIcon;
             const marker = L.marker([item.lat, item.lon], { icon: icon });
 
@@ -443,12 +458,22 @@
 
             marker.bindPopup(popupContent);
             markersLayer.addLayer(marker);
+            visiblePoints.push([item.lat, item.lon]);
             validCount++;
           }
         });
 
         if (counterEl) {
           counterEl.textContent = `${validCount} entreprise(s) affichée(s) sur la carte (Affichage instantané)`;
+        }
+        // Cadrage initial et après un changement de filtre, y compris sur mobile.
+        if (visiblePoints.length && (fitView || !initialMapFramed)) {
+          initialMapFramed = true;
+          requestAnimationFrame(() => {
+            map.invalidateSize();
+            if (visiblePoints.length === 1) map.setView(visiblePoints[0], 11);
+            else map.fitBounds(L.latLngBounds(visiblePoints), { padding: [30, 30], maxZoom: 11 });
+          });
         }
       }
 
@@ -475,8 +500,13 @@
           const type = (data.type || "prospect").toLowerCase();
           const telephone = data.telephone || "";
 
-          let lat = data.lat !== undefined && data.lat !== null ? parseFloat(data.lat) : null;
-          let lon = data.lon !== undefined && data.lon !== null ? parseFloat(data.lon) : null;
+          // Accepter aussi les coordonnées déjà stockées sous latitude/longitude.
+          const rawLat = data.lat ?? data.latitude;
+          const rawLon = data.lon ?? data.lng ?? data.longitude;
+          let lat = rawLat === null || rawLat === undefined || rawLat === "" ? null : Number(rawLat);
+          let lon = rawLon === null || rawLon === undefined || rawLon === "" ? null : Number(rawLon);
+          if (!Number.isFinite(lat) || lat < -90 || lat > 90) lat = null;
+          if (!Number.isFinite(lon) || lon < -180 || lon > 180) lon = null;
 
           const clientObj = { id: docId, societe, adresse, cp, ville, type, telephone, lat, lon };
           allClientData.push(clientObj);
@@ -493,41 +523,53 @@
         if (clientsToGeocode.length > 0) {
           geocodeInBackground(clientsToGeocode);
         }
+      }, error => {
+        console.error("Carte CRM : chargement des clients impossible", error);
+        if (counterEl) counterEl.textContent = "Impossible de charger les clients. Vérifiez la connexion au CRM et actualisez la page.";
       });
 
-      // Fonction de géocodage progressif
+      // Limiter les appels Nominatim (1 requête par seconde maximum) et éviter
+      // que les mises à jour Firebase relancent plusieurs géocodages simultanés.
+      async function searchGeocode(query) {
+        const wait = Math.max(0, 1200 - (Date.now() - lastGeocodeRequest));
+        if (wait) await new Promise(resolve => setTimeout(resolve, wait));
+        lastGeocodeRequest = Date.now();
+        const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(query)}`);
+        if (!res.ok) throw new Error(`Geocodage HTTP ${res.status}`);
+        return res.json();
+      }
+
       async function geocodeInBackground(list) {
-        for (const item of list) {
-          let query = `${item.adresse} ${item.cp} ${item.ville}, France`.trim();
-          if (!item.adresse) query = `${item.cp} ${item.ville}, France`.trim();
-
+        const pending = list.filter(item => !geocodingPending.has(item.id) && !geocodingFailed.has(item.id));
+        pending.forEach(item => geocodingPending.add(item.id));
+        for (const item of pending) {
+          const query = `${item.adresse} ${item.cp} ${item.ville}, France`.trim();
           try {
-            let res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`);
-            let results = await res.json();
-
-            // Repli sur Code Postal + Ville si l'adresse exacte échoue
-            if ((!results || results.length === 0) && item.adresse && (item.cp || item.ville)) {
-              const fallbackQuery = `${item.cp} ${item.ville}, France`.trim();
-              res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(fallbackQuery)}`);
-              results = await res.json();
+            let results = await searchGeocode(query);
+            if ((!results || !results.length) && item.adresse && (item.cp || item.ville)) {
+              results = await searchGeocode(`${item.cp} ${item.ville}, France`.trim());
             }
-
-            if (results && results.length > 0) {
-              item.lat = parseFloat(results[0].lat);
-              item.lon = parseFloat(results[0].lon);
-
-              // Sauvegarde définitive dans Firebase
-              await updateDoc(doc(db, "clients", item.id), { lat: item.lat, lon: item.lon });
-
-              // Mise à jour de la carte au fur et à mesure
+            const lat = Number(results?.[0]?.lat);
+            const lon = Number(results?.[0]?.lon);
+            if (results?.length && Number.isFinite(lat) && Number.isFinite(lon)) {
+              item.lat = lat;
+              item.lon = lon;
               renderMarkers();
+              // On conserve les coordonnées sans modifier les autres données client.
+              try {
+                await updateDoc(doc(db, "clients", item.id), { lat, lon });
+              } catch (writeError) {
+                console.warn("Coordonnées affichées mais non sauvegardées :", item.id, writeError);
+              }
+            } else {
+              geocodingFailed.add(item.id);
             }
           } catch (err) {
+            geocodingFailed.add(item.id);
             console.warn("Échec géocodage pour :", item.societe, err);
+          } finally {
+            geocodingPending.delete(item.id);
           }
-
-          // Temporisation pour respecter l'API Nominatim
-          await new Promise(r => setTimeout(r, 200));
         }
       }
     });
