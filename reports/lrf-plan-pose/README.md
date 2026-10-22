@@ -57,3 +57,5 @@ La version initiale ne transfère pas une maison multipièce complète dans RAND
 ## Maintenance
 
 `node scripts/build-lrf-plan-catalogue.cjs` régénère le catalogue à partir des fichiers existants, sans appel réseau ni inclusion des prix professionnels. PDF.js 5.6.205 legacy est livré compressé dans `assets/vendor/lrf-plan-pose/`, avec sa licence Apache 2.0. Le décompresseur natif du navigateur est utilisé. jsPDF est repris du fournisseur déjà présent dans le dépôt.
+
+- [Catalogues, plinthes et récapitulatif (22 octobre 2026)](catalogues-plinthes-recapitulatif-20261022.md)
