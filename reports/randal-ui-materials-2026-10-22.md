@@ -56,6 +56,10 @@ Contrôle réel via la page Leroy Factory et son iframe : moteur prêt, Avatar a
 
 Une correction supplémentaire du seul texte d'aide mobile de la visite retire la référence résiduelle à Avatar dans le commit `1b3e47f0ab750938e08d5ba2bab2339c01ff321e`. Sa publication a été refusée par Vercel : HTTP 402, `api-deployments-free-per-day`, limite de 100 déploiements par jour, réessai annoncé après 86 400 secondes. Toutes les corrections visibles demandées pour STUDIO ONE sont incluses dans le déploiement READY précédent.
 
+## Publication Général bloquée
+
+Le code et les tests de Général sont enregistrés sur `main` dans le commit `cd905d838be6a335634f2307d43eeaa667c60f79`. La tentative de déploiement en production du projet `randal-catalogue-general-3d` a été refusée : HTTP 402, `api-deployments-free-per-day`, plus de 100 déploiements par jour, réessai annoncé après 86 400 secondes. La recherche des déploiements de ce commit ne retourne aucun résultat. Ces nouvelles corrections de Général ne sont donc pas encore en ligne. Aucun changement de facturation ou de formule Vercel n'a été effectué.
+
 ## Captures de contrôle mobile
 
 Captures du navigateur local en émulation 390 × 844.
