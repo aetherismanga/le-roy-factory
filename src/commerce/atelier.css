@@ -24,3 +24,10 @@ body>header>.project-name{min-width:0}body>header>.quit-configurator{flex:0 0 au
 @media(max-width:720px){.add-items button{min-height:105px}.add-items button .palette-picture{height:54px}.add-items button .palette-picture svg{height:47px}.catalogue-real-model{height:130px}}
 
 .quit-configurator{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:34px;padding:8px 11px;border:1px solid #cbd0bf;border-radius:8px;background:#fffef9;color:#344736;font:600 10px/1.2 Arial,sans-serif;text-decoration:none;white-space:nowrap;touch-action:manipulation}.quit-configurator:focus-visible{outline:3px solid #a78f64;outline-offset:3px}
+
+/* Both marks stay inside the header row, including narrow smartphone screens. */
+body>header>.brand{display:flex;align-items:center;gap:12px;background:transparent;line-height:1;flex:0 0 auto}
+body>header>.brand>.randal-partner-logo{margin-right:0!important}
+body>header>.brand>.studio-logo{flex:none;background:transparent;overflow:hidden}
+@media(max-width:760px){body>header>.brand{flex-direction:column;align-items:flex-start;gap:2px;align-self:center;max-height:40px;width:96px}body>header>.brand>.randal-partner-logo{width:65px!important;height:13px;max-height:13px!important;object-fit:cover!important}body>header>.brand>.studio-logo{width:96px;height:24px}}
+@media(max-width:380px){body>header>.brand{width:82px}body>header>.brand>.studio-logo{width:82px;height:21px}}

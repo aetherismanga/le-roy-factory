@@ -2,7 +2,7 @@ import {basinEntry,resolveBasinLayout} from '../basins.js';
 import {CATALOG as C} from './catalog.js';
 export const DRAFT_KEY='studio-one-guided-v1';
 export const TRANSFER_KEY='studio-one-guided-transfer-v1';
-export const initialDraft=()=>({version:1,step:0,format:'two',width:80,finish:'ROBLE',top:'sella',basinColor:'gloss',column:false,columnFinish:'ROBLE',mirror:null,mirrorSize:0,mirrorFinish:'Noir'});
+export const initialDraft=()=>({version:1,step:0,format:'two',width:80,finish:'ROBLE',top:'bare',basinColor:'gloss',column:false,columnFinish:'ROBLE',mirror:null,mirrorSize:0,mirrorFinish:'Noir'});
 export function normalizeDraft(input){
  const d={...initialDraft(),...input};
  if(d.version!==1||!C.models.some(m=>m.id===d.format)||!C.finishes.some(f=>f.id===d.finish)||!Number.isInteger(d.width)||d.width<40||d.width>120)throw Error('Choisissez une largeur entière entre 40 et 120 cm.');
