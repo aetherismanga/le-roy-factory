@@ -47,6 +47,6 @@ test('local-only projects are sent and ordered without project storage in Firest
  assert.equal(order.delivered,true);assert.match(h.messages[2].subject,/COMMANDE/);
  assert.equal((await h.call({action:'list'})).projects.length,0);
  assert.equal([...h.documents.keys()].some(k=>k.startsWith('configurator_projects/')),false);
- assert.equal((await h.call({action:'local-email',record:local,recipient:'bad\\nBcc:evil@example.com'})).status,400);
+ assert.equal((await h.call({action:'local-email',record:local,recipient:'bad\nBcc:evil@example.com'})).status,400);
  assert.equal((await h.call({action:'local-order',record:{...local,customer:{}}})).status,400);
 });
