@@ -1,7 +1,7 @@
-import {buildPDFReport} from './report.mjs?v=20261022-3';
-import {convertSource} from './conversion.mjs?v=20261022-3';
-import {clone,uid,newProject,newRoom,newTile,area,bounds,distance,inside,partitionPolygon,polygonError,roomError,metrics,tileLayout,quantity,confirmRoom,parseProject,nativeProject,encodeNative,simplify} from './core.mjs?v=20261022-3';
-import {saveLocal,listLocal,deleteLocal,readProject,download,openPDF,renderPDF,openImage,sourceFromCanvas} from './files.mjs?v=20261022-3';
+import {buildPDFReport} from './report.mjs?v=20261022-4';
+import {convertSource} from './conversion.mjs?v=20261022-4';
+import {clone,uid,newProject,newRoom,newTile,area,bounds,distance,inside,partitionPolygon,polygonError,roomError,metrics,tileLayout,quantity,confirmRoom,parseProject,nativeProject,encodeNative,simplify} from './core.mjs?v=20261022-4';
+import {saveLocal,listLocal,deleteLocal,readProject,download,openPDF,renderPDF,openImage,sourceFromCanvas} from './files.mjs?v=20261022-4';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),fmt=(v,d=2)=>Number.isFinite(v)?v.toLocaleString('fr-FR',{maximumFractionDigits:d,minimumFractionDigits:d}):'—',money=v=>Number.isFinite(v)?v.toLocaleString('fr-FR',{style:'currency',currency:'EUR'}):'Sur demande',number=(id,fallback=NaN)=>{const s=$(id)?.value??'';return s.trim()===''?fallback:Number(s.replace(',','.'));},safeURL=v=>{if(typeof v!=='string'||!v.trim())return '';try{const u=new URL(v,location.href);return ['https:','http:'].includes(u.protocol)?u.href:'';}catch{return '';}};
 const board=$('#board'),modal=$('#modal');let project=newProject(),selected=null,step='plan',mode='select',draft=[],drag=null,view={x:-60,y:-60,w:720,h:600},catalogue=null,saveTimer,toastTimer,showTiles=false,sourceOpacity=.65,undoStack=[],redoStack=[],cache=new Map(),recognitionWorker=null,busy=false,exporting=false;
 const room=()=>project.rooms.find(r=>r.id===selected),snapshot=()=>({...clone({...project,source:null}),source:project.source?{...project.source}:null});

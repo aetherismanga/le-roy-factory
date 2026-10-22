@@ -1,9 +1,9 @@
-import {distance} from './core.mjs?v=20261022-3';
-import {orthogonalContour} from './dimensions.mjs?v=20261022-3';
+import {distance} from './core.mjs?v=20261022-4';
+import {orthogonalContour} from './dimensions.mjs?v=20261022-4';
 
 // Architectural bands have two long faces and ink inside their thickness (solid or hatched).
 // Thin furniture outlines and dimension leaders do not satisfy this test.
-export function architecturalStructure(rgba,width,height){
+export function architecturalStructure(rgba,width,height,{outline=false}={}){
  const n=width*height,ink=new Uint8Array(n),stride=width+1,integral=new Uint32Array((width+1)*(height+1)),span=Math.max(width,height);
  for(let y=0;y<height;y++){let sum=0;for(let x=0;x<width;x++){const i=y*width+x;ink[i]=rgba[i*4]*.2126+rgba[i*4+1]*.7152+rgba[i*4+2]*.0722<190?1:0;sum+=ink[i];integral[(y+1)*stride+x+1]=integral[y*stride+x+1]+sum;}}
  const count=(x0,y0,x1,y1)=>{x0=Math.max(0,Math.floor(x0));y0=Math.max(0,Math.floor(y0));x1=Math.min(width,Math.ceil(x1));y1=Math.min(height,Math.ceil(y1));return integral[y1*stride+x1]-integral[y0*stride+x1]-integral[y1*stride+x0]+integral[y0*stride+x0];};
@@ -23,7 +23,7 @@ export function architecturalStructure(rgba,width,height){
   for(const edge of edges){const group=groups.find(g=>edge.lo-g.hi<=1&&edge.lo>=g.hi&&Math.min(g.u1,edge.u1)-Math.max(g.u0,edge.u0)>Math.max(g.u1-g.u0,edge.u1-edge.u0)*.7);if(group){group.hi=edge.hi;group.u0=Math.min(group.u0,edge.u0);group.u1=Math.max(group.u1,edge.u1);}else groups.push({...edge});}
   for(const group of groups)group.center=(group.lo+group.hi)/2;
   for(const group of groups){const lo=group.lo+2,hi=group.hi-2,thickness=hi-lo,u0=group.u0,u1=group.u1;
-   if(thickness<span*.009||thickness>span*.055)continue;
+   if(thickness<span*(outline?.0025:.009)||thickness>span*(outline?.025:.055))continue;
    const density=axis?count(lo+2,u0,hi-2,u1)/Math.max(1,(thickness-4)*(u1-u0)):count(u0,lo+2,u1,hi-2)/Math.max(1,(thickness-4)*(u1-u0));
    if(density<.16)continue;const middle=(lo+hi)/2;
    bands.push({axis,a:axis?[middle,u0]:[u0,middle],b:axis?[middle,u1]:[u1,middle],thickness,lo,hi,start:u0,end:u1,score:(u1-u0)/thickness,direct:true});
@@ -31,9 +31,9 @@ export function architecturalStructure(rgba,width,height){
   const pairs=[];
   for(const first of groups)for(const second of groups){
    const thick=second.center-first.center,u0=Math.max(first.u0,second.u0),u1=Math.min(first.u1,second.u1);
-   if(thick<span*.009||thick>span*.055||u1-u0<span*.085)continue;
+   if(thick<span*(outline?.0025:.009)||thick>span*(outline?.025:.055)||u1-u0<span*(outline?.12:.085))continue;
    const lo=first.center+3,hi=second.center-3,density=axis?count(lo,u0,hi,u1)/Math.max(1,(hi-lo)*(u1-u0)):count(u0,lo,u1,hi)/Math.max(1,(hi-lo)*(u1-u0));
-   if(density<.035)continue;
+   if(!outline&&density<.035)continue;
    pairs.push({axis,a:axis?[(first.center+second.center)/2,u0]:[u0,(first.center+second.center)/2],b:axis?[(first.center+second.center)/2,u1]:[u1,(first.center+second.center)/2],thickness:thick,lo:first.center,hi:second.center,start:u0,end:u1,score:(u1-u0)/thick});
   }
   for(const pair of pairs.sort((a,b)=>b.score-a.score)){
@@ -44,6 +44,7 @@ export function architecturalStructure(rgba,width,height){
  }
  // Merge collinear parts separated by a door. This closes the envelope only; no furniture is copied.
  const coherent=bands.filter(b=>{
+  if(outline&&!b.direct)return true;
   let positive=0,total=0,hatched=0;const size=Math.max(24,b.thickness*2),lo=b.lo+4,hi=b.hi-4;
   for(let u=b.start;u<b.end;u+=size){const end=Math.min(b.end,u+size),density=b.axis?count(lo,u,hi,end)/Math.max(1,(hi-lo)*(end-u)):count(u,lo,end,hi)/Math.max(1,(hi-lo)*(end-u));positive+=density>.035?1:0;total++;let found=density>.55;
    if(!found&&hi-lo>=8)for(let start=u;start<end&&!found;start+=3)for(const slope of [-1,1]){let hits=0,samples=0;for(let v=lo;v<=hi;v+=1){const along=start+slope*(v-lo),x=b.axis?v:along,y=b.axis?along:v;if(x<0||x>=width||y<0||y>=height)continue;samples++;hits+=count(x-1,y-1,x+2,y+2)>0?1:0;}if(samples>=8&&hits/samples>.82){found=true;break;}}
@@ -70,7 +71,7 @@ export function architecturalStructure(rgba,width,height){
  if(!shape)return {bands:merged,shapes:[]};
  for(const band of merged){
   const typical=(frame.sides[0].thickness+frame.sides[1].thickness)/2;
-  if(frame.sides.includes(band)||band.hatching<.65||band.thickness<typical*.6||band.thickness>typical*1.5)continue;const center=(band.lo+band.hi)/2;
+  if(outline||frame.sides.includes(band)||band.hatching<.65||band.thickness<typical*.6||band.thickness>typical*1.5)continue;const center=(band.lo+band.hi)/2;
   if(band.axis===0&&(center<=frame.minY+band.thickness||center>=frame.maxY-band.thickness)||band.axis===1&&(center<=frame.minX+band.thickness||center>=frame.maxX-band.thickness))continue;
   const lo=band.axis?frame.minY:frame.minX,hi=band.axis?frame.maxY:frame.maxX,start=Math.max(lo,band.start),end=Math.min(hi,band.end);
   if(end-start<span*.06)continue;
@@ -80,8 +81,8 @@ export function architecturalStructure(rgba,width,height){
  }
  const accepted=[],pending=partitions.slice();
  const segmentDistance=(p,a,b)=>{const dx=b[0]-a[0],dy=b[1]-a[1],t=Math.max(0,Math.min(1,((p[0]-a[0])*dx+(p[1]-a[1])*dy)/(dx*dx+dy*dy)));return distance(p,[a[0]+dx*t,a[1]+dy*t]);};
- const outline=points.map((p,i)=>({a:p,b:points[(i+1)%points.length],thickness:0}));
- for(let round=0;round<partitions.length;round++)for(let i=pending.length-1;i>=0;i--){const p=pending[i],touch=[...outline,...accepted].some(q=>[p.a,p.b].some(v=>segmentDistance(v,q.a,q.b)<(p.thickness+q.thickness)/2+3));if(touch){accepted.push(p);pending.splice(i,1);}}
+ const boundary=points.map((p,i)=>({a:p,b:points[(i+1)%points.length],thickness:0}));
+ for(let round=0;round<partitions.length;round++)for(let i=pending.length-1;i>=0;i--){const p=pending[i],touch=[...boundary,...accepted].some(q=>[p.a,p.b].some(v=>segmentDistance(v,q.a,q.b)<(p.thickness+q.thickness)/2+3));if(touch){accepted.push(p);pending.splice(i,1);}}
  shape.partitions=cleanPartitionJunctions(accepted);shape.kind='architecture';return {bands:merged,shapes:[shape],frame};
 }
 

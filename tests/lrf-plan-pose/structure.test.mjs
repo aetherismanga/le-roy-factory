@@ -36,3 +36,11 @@ test('la reconstruction mesurée conserve les cloisons et ne crée aucun équipe
   const src=readFileSync(new URL('./upstream/'+target+'-room.txt',import.meta.url),'utf8'),context={buildTileGeometry:()=>{},normalizeTileLayout:v=>v,validateNiches:()=>'',T:{Vector3:class{constructor(x,y,z){Object.assign(this,{x,y,z});}}}};vm.createContext(context);vm.runInContext(src.replace(/^import .*?;\s*$/gm,'').replace(/^export \{.*?\};?\s*$/gm,'').replace(/export /g,''),context);assert.equal(context.validateRoom(n.room,0),'');assert.equal(context.validatePartitions(n.room),'');const broken=structuredClone(n.room);broken.partitions[0].thickness=40;assert.ok(context.validatePartitions(broken));
  }
 });
+
+test('un mur à double trait non hachuré avec une porte ouverte forme une enveloppe',()=>{
+ const w=600,h=450,pixels=new Uint8ClampedArray(w*h*4).fill(255),line=(x0,y0,x1,y1)=>{const n=Math.max(Math.abs(x1-x0),Math.abs(y1-y0));for(let j=0;j<=n;j++){const x=Math.round(x0+(x1-x0)*j/n),y=Math.round(y0+(y1-y0)*j/n),i=(y*w+x)*4;pixels[i]=pixels[i+1]=pixels[i+2]=0;}};
+ for(const inset of [0,8]){const l=50+inset,t=50+inset,r=550-inset,b=400-inset;line(l,t,r,t);line(l,t,l,b);line(r,t,r,b);line(l,b,240,b);line(360,b,r,b);}
+ // A shower and a basin are thin contours, not partitions.
+ for(const [l,t,r,b]of [[100,100,220,200],[430,100,500,180]]){line(l,t,r,t);line(l,t,l,b);line(r,t,r,b);line(l,b,r,b);}
+ const result=architecturalStructure(pixels,w,h,{outline:true});assert.equal(result.shapes.length,1);assert.equal(result.shapes[0].partitions.length,0);assert.equal(result.shapes[0].points.length,4);
+});

@@ -60,3 +60,15 @@ test('annuler pendant le chargement du lecteur libère immédiatement le parcour
  const controller=new AbortController(),reading=readPlan({shapes:[shape()]},{signal:controller.signal,workerFactory:()=>new Promise(()=>{})});
  controller.abort();await assert.rejects(reading,/annulée/);
 });
+
+test('une déduction horizontale reste disponible quand une cote verticale manque',()=>{
+ const s=orthogonalContour([[100,100],[349,100],[349,555],[5,555],[5,337],[100,337]]),r=solveDimensions(s,[249,455,344,null,null,null]);
+ assert.ok(r.error);assert.equal(r.area,undefined);assert.equal(r.partialLengths[4],95);assert.equal(r.partialLengths[5],null);assert.deepEqual(r.deductions.find(d=>d.wall===4).terms.map(t=>[t.value,t.sign]),[[344,1],[249,-1]]);
+});
+
+test('lecture 97 au lieu de 95 : calcul partiel conservé et fausse lecture signalée',()=>{
+ const s=orthogonalContour([[100,100],[349,100],[349,555],[5,555],[5,337],[100,337]]),cs=[249,455,344,null,97,null].map(v=>v?[{text:String(v),score:70}]:[]),r=chooseReadings(s,cs);
+ assert.ok(r.error);assert.equal(r.readings[0].text,'249');assert.equal(r.readings[4],null);assert.equal(r.partialLengths[4],95);assert.deepEqual(r.rejected,[{wall:4,text:'97',proposed:95}]);
+ cs[3]=[{text:'218',score:70}];const complete=chooseReadings(s,cs);assert.equal(complete.error,'');assert.equal(complete.area,13.4005);assert.equal(complete.lengths[5],237);assert.deepEqual(complete.deductions.find(d=>d.wall===5).terms.map(t=>[t.value,t.sign]),[[455,1],[218,-1]]);
+ assert.ok(solveDimensions(s,[249,455,344,218,97,null]).error,'une saisie humaine contradictoire ne doit pas être modifiée');
+});
