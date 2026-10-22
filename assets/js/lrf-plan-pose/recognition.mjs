@@ -1,0 +1,14 @@
+import {simplify,polygonError,area} from './core.mjs';
+// Local image processing: only closed clear regions are proposals, never measurements.
+export function detectRooms(rgba,width,height,{threshold=155,gap=2,minFraction=.004}={}){
+ const n=width*height,wall=new Uint8Array(n),blocked=new Uint8Array(n),seen=new Uint8Array(n),queue=new Int32Array(n),regions=[];
+ for(let i=0;i<n;i++)wall[i]=(rgba[i*4]*.2126+rgba[i*4+1]*.7152+rgba[i*4+2]*.0722)<threshold?1:0;
+ // Separable square dilation closes short scan gaps; the proposed contour is reviewed.
+ const horizontal=new Uint8Array(n);for(let y=0;y<height;y++){let count=0;for(let x=-gap;x<width+gap;x++){const add=x+gap,remove=x-gap-1;if(add>=0&&add<width)count+=wall[y*width+add];if(remove>=0&&remove<width)count-=wall[y*width+remove];if(x>=0&&x<width)horizontal[y*width+x]=count>0?1:0;}}
+ for(let x=0;x<width;x++){let count=0;for(let y=-gap;y<height+gap;y++){const add=y+gap,remove=y-gap-1;if(add>=0&&add<height)count+=horizontal[add*width+x];if(remove>=0&&remove<height)count-=horizontal[remove*width+x];if(y>=0&&y<height)blocked[y*width+x]=count>0?1:0;}}
+ for(let start=0;start<n;start++){if(blocked[start]||seen[start])continue;let head=0,tail=1,border=false;queue[0]=start;seen[start]=1;while(head<tail){const i=queue[head++],x=i%width,y=(i/width)|0;if(x===0||y===0||x===width-1||y===height-1)border=true;for(const next of [x>0?i-1:-1,x<width-1?i+1:-1,y>0?i-width:-1,y<height-1?i+width:-1])if(next>=0&&!seen[next]&&!blocked[next]){seen[next]=1;queue[tail++]=next;}}
+  if(border||tail<n*minFraction||tail>n*.85)continue;const members=new Set(queue.subarray(0,tail)),edges=new Map();const add=(ax,ay,bx,by)=>{const key=ax+','+ay;if(!edges.has(key))edges.set(key,[]);edges.get(key).push([bx,by]);};for(const i of members){const x=i%width,y=(i/width)|0;if(y===0||!members.has(i-width))add(x,y,x+1,y);if(x===width-1||!members.has(i+1))add(x+1,y,x+1,y+1);if(y===height-1||!members.has(i+width))add(x+1,y+1,x,y+1);if(x===0||!members.has(i-1))add(x,y+1,x,y);}
+  const loops=[];while(edges.size){const first=edges.keys().next().value,origin=first.split(',').map(Number),loop=[origin];let key=first;for(let step=0;step<tail*4;step++){const list=edges.get(key);if(!list?.length)break;const next=list.pop();if(!list.length)edges.delete(key);key=next.join(',');if(key===first)break;loop.push(next);}if(loop.length>=3)loops.push(loop);}loops.sort((a,b)=>area(b)-area(a));if(!loops[0])continue;const contour=simplify(loops[0],Math.max(1,Math.max(width,height)/550));if(!polygonError(contour))regions.push({points:contour,pixels:tail});if(regions.length>=40)break;
+ }return regions.sort((a,b)=>b.pixels-a.pixels);
+}
+if(typeof WorkerGlobalScope!=='undefined'&&self instanceof WorkerGlobalScope)self.onmessage=e=>{try{const {rgba,width,height,options}=e.data;self.postMessage({regions:detectRooms(new Uint8ClampedArray(rgba),width,height,options)});}catch(error){self.postMessage({error:error.message});}};
