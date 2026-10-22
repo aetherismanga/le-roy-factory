@@ -1,4 +1,4 @@
-import {plinthSettings,plinthSettingsError,wallHasPlinth,subtractIntervals,calculatePlinths} from '../lrf-plinths.mjs?v=20261022-5';
+import {plinthSettings,plinthSettingsError,wallHasPlinth,subtractIntervals,calculatePlinths} from '../lrf-plinths.mjs?v=20261022-6';
 // LRF PLAN & POSE · centimetres internally, m² / ml in reports.
 export const SCHEMA='lrf-plan-pose';
 export const clone=value=>JSON.parse(JSON.stringify(value));

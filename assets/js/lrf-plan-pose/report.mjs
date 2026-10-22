@@ -1,5 +1,5 @@
-import reportFont from '../../vendor/lrf-plan-pose/report-font.mjs?v=20261022-5';
-import {orderLines,plinthOrderLines} from './core.mjs?v=20261022-5';
+import reportFont from '../../vendor/lrf-plan-pose/report-font.mjs?v=20261022-6';
+import {orderLines,plinthOrderLines} from './core.mjs?v=20261022-6';
 const fmt=(v,d=2)=>Number.isFinite(v)?v.toLocaleString('fr-FR',{maximumFractionDigits:d,minimumFractionDigits:d}):'—';
 const pdfText=value=>String(value).replace(/[\u00a0\u202f]/g,' ').replace(/[’‘]/g,"'").replace(/[–—‑]/g,'-').replace(/œ/g,'oe').replace(/…/g,'...');
 const money=v=>Number.isFinite(v)?v.toLocaleString('fr-FR',{style:'currency',currency:'EUR'}):'À confirmer';

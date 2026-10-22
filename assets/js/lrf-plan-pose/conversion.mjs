@@ -1,7 +1,7 @@
-import {bounds,distance,uid,newRoom,roomError,partitionPolygon} from './core.mjs?v=20261022-5';
-import {dimensionValue,solveDimensions} from './dimensions.mjs?v=20261022-5';
-import {preparePlan,readPlan,measuredPoints} from './plan-reader.mjs?v=20261022-5';
-import {cleanPartitionJunctions} from './structure.mjs?v=20261022-5';
+import {bounds,distance,uid,newRoom,roomError,partitionPolygon} from './core.mjs?v=20261022-6';
+import {dimensionValue,solveDimensions} from './dimensions.mjs?v=20261022-6';
+import {preparePlan,readPlan,measuredPoints} from './plan-reader.mjs?v=20261022-6';
+import {cleanPartitionJunctions} from './structure.mjs?v=20261022-6';
 
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const fmt=n=>new Intl.NumberFormat('fr-FR',{maximumFractionDigits:2}).format(n);

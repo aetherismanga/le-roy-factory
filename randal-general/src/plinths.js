@@ -11,7 +11,7 @@ export function plinthGrid(room){
  const cells=(room.floor.tiles?.geometry.userData.cells||[]).map(c=>{const center=toGrid(c.center.map(v=>v*100));return c.bounds.map(p=>{const q=toGrid(p.map(v=>v*100));return fromGrid([center[0]+(q[0]-center[0])*c.width*100/(c.width*100-grout),center[1]+(q[1]-center[1])*c.height*100/(c.height*100-grout)]);});});
  return {width,height,pattern:l.pattern,toGrid,...(cells.length?{cells}:{})};
 }
-export function plinthReport(room,settings,finishes){return calculatePlinths(plinthWalls(room,finishes),settings,plinthGrid(room));}
+export function plinthReport(room,settings,finishes){try{return calculatePlinths(plinthWalls(room,finishes),settings,plinthGrid(room));}catch(error){const s=plinthSettings(settings);return {error:error.message,type:s.type,net:null,debit:null,order:null,waste:null,units:0,tiles:0,tileArea:0,pieces:0,boxes:null,height:s.height,product:s.product,runs:[],pieceList:[],cutting:[]};}}
 export function buildPlinths(room,value,finishes){
  const s=plinthSettings(value),report=plinthReport(room,s,finishes),walls=plinthWalls(room,finishes),group=new T.Group(),materials=new Set();group.name='Plinthes';
  const material=s.type==='wood'?new T.MeshStandardMaterial({color:'#f8f7f2',roughness:.66}):room.floor.material.clone();materials.add(material);const byWall=new Map();

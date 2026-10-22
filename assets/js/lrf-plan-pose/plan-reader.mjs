@@ -1,7 +1,7 @@
-import {detectRooms} from './recognition.mjs?v=20261022-5';
-import {area,bounds,distance,inside,signedArea} from './core.mjs?v=20261022-5';
-import {usableContours,nearestWall,dimensionValue,chooseReadings,orthogonalContour} from './dimensions.mjs?v=20261022-5';
-import {architecturalStructure} from './structure.mjs?v=20261022-5';
+import {detectRooms} from './recognition.mjs?v=20261022-6';
+import {area,bounds,distance,inside,signedArea} from './core.mjs?v=20261022-6';
+import {usableContours,nearestWall,dimensionValue,chooseReadings,orthogonalContour} from './dimensions.mjs?v=20261022-6';
+import {architecturalStructure} from './structure.mjs?v=20261022-6';
 
 const vendor=new URL('../../vendor/lrf-plan-pose/ocr/',import.meta.url);
 let libraryPromise;
