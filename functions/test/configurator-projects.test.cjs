@@ -31,3 +31,22 @@ test('administrator/transfer sends carry store and LRF header plus portable proj
 test('accepted order becomes immutable, repeated order is idempotent, duplication gets a new number',async()=>{const h=harness(),s=await h.call({action:'save',record:record()});const order=await h.call({action:'order',id:s.record.id,revision:s.record.revision});assert.equal(order.record.status,'validated');assert.equal(h.messages.length,1);assert.equal((await h.call({action:'order',id:s.record.id,revision:1})).status,200);assert.equal(h.messages.length,1);assert.equal((await h.call({action:'delete',id:s.record.id,revision:2})).status,409);assert.equal((await h.call({action:'save',record:{...s.record,revision:2}})).status,409);const duplicate=await h.call({action:'save',record:{...record(),id:'project-duplicate-123456'}});assert.equal(duplicate.record.status,'draft');assert.notEqual(duplicate.record.number,s.record.number);});
 test('SMTP rejection cannot mark the project validated',async()=>{const h=harness(),s=await h.call({action:'save',record:record()});h.setFail(true);assert.equal((await h.call({action:'order',id:s.record.id,revision:1})).status,503);assert.equal((await h.call({action:'list'})).projects[0].status,'draft');assert.equal(h.messages.length,0);});
 test('bounded project images survive cloud synchronization, older clients and transfer files',async()=>{const h=harness(),thumbnail='data:image/webp;base64,UklGRg==';const saved=await h.call({action:'save',record:{...record(),thumbnail}});assert.equal(saved.record.thumbnail,thumbnail);assert.equal((await h.call({action:'list'})).projects[0].thumbnail,thumbnail);const updated=await h.call({action:'save',record:{...record(),revision:1}});assert.equal(updated.record.thumbnail,thumbnail);await h.call({action:'email',id:saved.record.id,recipient:'test@example.com'});assert.equal(JSON.parse(h.messages[0].attachments[0].content).record.thumbnail,thumbnail);assert.equal((await h.call({action:'save',record:{...record(),id:'project-unsafe-image-123',thumbnail:'data:image/svg+xml;base64,PHN2Zz4='}})).status,400);});
+
+
+test('local-only projects are sent and ordered without project storage in Firestore',async()=>{
+ const h=harness(),local={...record(),number:'LOCAL-20261022-AB12CD34'};
+ const sent=await h.call({action:'local-administrator',record:local});
+ assert.equal(sent.status,200);assert.equal(sent.delivered,true);
+ assert.equal(h.messages[0].to,'jerome@leroyfactory.fr');
+ assert.match(h.messages[0].subject,/LOCAL-20261022-AB12CD34/);
+ assert.equal(JSON.parse(h.messages[0].attachments[0].content).record.number,local.number);
+ assert.equal((await h.call({action:'list'})).projects.length,0);
+ const forwarded=await h.call({action:'local-email',record:local,recipient:'recipient@example.com'});
+ assert.equal(forwarded.delivered,true);assert.equal(h.messages[1].to,'recipient@example.com');
+ const order=await h.call({action:'local-order',record:local});
+ assert.equal(order.delivered,true);assert.match(h.messages[2].subject,/COMMANDE/);
+ assert.equal((await h.call({action:'list'})).projects.length,0);
+ assert.equal([...h.documents.keys()].some(k=>k.startsWith('configurator_projects/')),false);
+ assert.equal((await h.call({action:'local-email',record:local,recipient:'bad\\nBcc:evil@example.com'})).status,400);
+ assert.equal((await h.call({action:'local-order',record:{...local,customer:{}}})).status,400);
+});
