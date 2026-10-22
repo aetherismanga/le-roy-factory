@@ -4,7 +4,7 @@
  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
  <meta name="theme-color" content="#f5f2eb"><title>LRF PLAN & POSE · Métré & calepinage | LE ROY FACTORY</title>
  <meta name="description" content="Importez votre plan, vérifiez ses dimensions, calculez surfaces, plinthes, pertes et cartons, puis exportez votre pièce vers les configurateurs RANDAL.">
- <link rel="canonical" href="https://leroyfactory.fr/lrf-plan-pose.html"><link rel="stylesheet" href="assets/css/lrf-plan-pose.css?v=20261022-1">
+ <link rel="canonical" href="https://leroyfactory.fr/lrf-plan-pose.html"><link rel="stylesheet" href="assets/css/lrf-plan-pose.css?v=20261022-2">
 </head>
 <body data-mobile-view="plan">
  <header class="topbar">
@@ -18,6 +18,7 @@
  <main class="workspace">
   <aside id="side-panel" class="sidebar" aria-label="Réglages du plan"></aside>
   <section class="drawing" aria-label="Éditeur de plan">
+   <div id="conversion-toolbar" class="conversion-toolbar" hidden><div><strong>Votre plan coté → une pièce modifiable</strong><small>Lecture des cotes en cm · vérification avant création</small></div><button id="convert-source" class="primary">Convertir le plan</button></div>
    <div class="drawing-toolbar"><div class="tools"><button data-mode="select" aria-pressed="true" title="Sélectionner et déplacer">Sélection</button><button data-mode="draw" title="Tracer le contour intérieur d’une pièce">Tracer</button><button data-mode="pan" title="Déplacer la vue">Déplacer la vue</button></div><div class="view-actions"><button id="zoom-out" aria-label="Réduire le plan">−</button><button id="zoom-in" aria-label="Agrandir le plan">+</button><button id="fit" title="Voir tout le plan">Cadrer</button></div></div>
    <div class="board-wrap"><svg id="board" xmlns="http://www.w3.org/2000/svg" viewBox="-60 -60 720 600" tabindex="0" role="img" aria-label="Plan 2D, contours et cotes des pièces"></svg>
     <div id="empty-state" class="empty-state"><div class="empty-plan" aria-hidden="true"><svg viewBox="0 0 200 140"><path d="M30 120V20H130V65H175V120Z"/><path d="M87 20V70M30 78H68M87 90V120"/><path class="gold" d="M36 9H124M17 25V115"/><path class="fine" d="M36 5V13M124 5V13M13 25H21M13 115H21"/></svg></div><p class="eyebrow">CHAQUE PROJET COMMENCE PAR UN PLAN</p><h2>Dessinez. Mesurez. Préparez.</h2><p>Un plan de salle de bains, un appartement ou une maison.<br>Commencez avec votre fichier ou les dimensions d’une pièce.</p><div><button id="empty-import" class="primary">Importer mon plan</button><button id="empty-room">Créer une pièce</button></div><small>PDF, JPG, PNG ou WebP · traitement sur votre appareil</small></div>
@@ -32,5 +33,5 @@
  <input type="file" id="project-file" accept=".json,application/json" hidden>
  <noscript><p>Activez JavaScript pour utiliser LRF PLAN & POSE. <a href="configurateurs.html">Retour aux configurateurs</a></p></noscript>
  <script src="assets/vendor/randal-catalogue/jspdf.umd.min.js" defer></script>
- <script type="module" src="assets/js/lrf-plan-pose/app.mjs?v=20261022-1"></script>
+ <script type="module" src="assets/js/lrf-plan-pose/app.mjs?v=20261022-2"></script>
 </body></html>
