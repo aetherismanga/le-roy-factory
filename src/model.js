@@ -1,4 +1,5 @@
 import {resolveBasinLayout,basinReference} from './basins.js';
+import {makeBlackLeg,DRAWER_METAL} from './cabinet-hardware.js';
 import {basinCenters} from './integrated-basins.js';
 import {createIntegratedBasin} from './ceramic-basins.js';
 import * as T from 'three';
@@ -15,7 +16,7 @@ export function makeModel({width=.80,includeMirror=true,basinLayout,basinTop='se
  const spec={...SPEC,series:'STUDIO ONE · '+form.name,height:H,bottom:B,legHeight,totalHeight:form.height,cabinetRef:form.reference,width:W,basin:`Sella ${widthCm} · blanc brillant`,basinRef:basinReference('sella','gloss',widthCm,format,basinLayout)||null};
  const root=new T.Group();root.name=`STUDIO_ONE_${form.id}_${widthCm}`;const cabinet=new T.Group();cabinet.name=`Caisson_${widthCm*10}x${Math.round(H*1000)}x460`;root.add(cabinet);
  const wood=new T.MeshPhysicalMaterial({color:0xffffff,roughness:.43,clearcoat:.12,clearcoatRoughness:.40});
- const frontWood=wood.clone();const inner=new T.MeshStandardMaterial({color:'#3e4141',roughness:.54});const baseMat=new T.MeshStandardMaterial({color:'#a9aca9',roughness:.58});
+ const frontWood=wood.clone();const inner=new T.MeshStandardMaterial(DRAWER_METAL);inner.name='Metal_anthracite_tiroirs';const baseMat=inner;
  const dark=new T.MeshStandardMaterial({color:'#222526',roughness:.57});const steel=new T.MeshStandardMaterial({color:'#b7bdc1',metalness:1,roughness:.26});
  const chrome=new T.MeshPhysicalMaterial({color:'#e3e8ea',metalness:1,roughness:.10,clearcoat:1,clearcoatRoughness:.08});
  const ceramic=new T.MeshPhysicalMaterial({color:'#f6f6f3',roughness:.14,metalness:0,ior:1.52,clearcoat:.8,clearcoatRoughness:.1,side:T.DoubleSide});
@@ -27,14 +28,11 @@ export function makeModel({width=.80,includeMirror=true,basinLayout,basinTop='se
  const legs=new T.Group();legs.name='Pieds_10cm';legs.userData.editTarget='furniture';
  if(legHeight){
   root.add(legs);
-  // Four real metal supports, inset beneath the carcass. The foot, upright
-  // and mounting plate together span exactly 10 cm, from the finished floor.
+  // Four black ALBUFERA supports from Juan's manufacturer reference.
+  // Mounting plates turn inward beneath the carcass; total height stays 10 cm.
   for(const side of [-1,1])for(const front of [-1,1]){
-   const leg=new T.Group();leg.name='Pied_'+(side<0?'gauche':'droit')+'_'+(front<0?'arriere':'avant');legs.add(leg);
-   leg.position.set(side*(W/2-.042),form.base,front*.177);
-   box(.038,.004,.038,dark,'Patin_de_protection',leg,0,.002,0,.0009);
-   box(.026,legHeight-.008,.026,chrome,'Pied_chrome_10cm',leg,0,legHeight/2,0,.0012);
-   box(.046,.004,.046,steel,'Platine_sous_caisson',leg,0,legHeight-.002,0,.0007);
+   const leg=makeBlackLeg();leg.name='Pied_'+(side<0?'gauche':'droit')+'_'+(front<0?'arriere':'avant');legs.add(leg);
+   leg.position.set(side*(W/2-.042),form.base,front*.177);leg.scale.set(-side,1,front);
   }
  }
  panel(.019,H,.440,'Joue_gauche_19mm',-(W/2-.0095),B+H/2,-.010);
@@ -124,7 +122,7 @@ export function makeModel({width=.80,includeMirror=true,basinLayout,basinTop='se
  }
  setTop(topAvailable('sella',widthCm)?'sella':'plain');for(const group of [...Object.values(insets),tops.root,faucet,secondFaucet])group.position.y+=topY-.82;
  // The live Reflector disk is supplied by the renderer, keeping the model testable without WebGL.
- return {root,cabinet,legs,drawers,mirror,format:form,wood,frontWood,ceramic,frontMeshes,panels,fasteners,spec,tops,insetGroup,insets,faucet,faucets:[faucet,secondFaucet],getBasinCenters,basinLayout:chosenLayout,setTop,getTop:()=>topMode};
+ return {root,cabinet,legs,drawers,mirror,format:form,wood,frontWood,drawerMetal:inner,ceramic,frontMeshes,panels,fasteners,spec,tops,insetGroup,insets,faucet,faucets:[faucet,secondFaucet],getBasinCenters,basinLayout:chosenLayout,setTop,getTop:()=>topMode};
 }
 
 export function makeMirrorFrame(){

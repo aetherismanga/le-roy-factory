@@ -1,0 +1,2803 @@
+{
+  "reviewDate": "2026-10-22",
+  "scope": "Tile material selection in STUDIO ONE and RANDAL Général",
+  "retainedCollections": 30,
+  "hiddenCollections": 44,
+  "retainedColors": 136,
+  "hiddenColors": 227,
+  "reasons": {
+    "no-usable-manufacturer-face": 115,
+    "insufficient-source-definition": 91,
+    "framed-blank-image": 1,
+    "floral-panel-excluded": 1,
+    "botanical-panel-excluded": 1,
+    "insufficient-delivered-face-definition": 11,
+    "prelit-relief-photograph": 7
+  },
+  "notes": [
+    "Selection only: all original catalogue definitions remain available for saved-project restoration.",
+    "31 representative materials were downloaded and visually reviewed; every colour/face was not downloaded.",
+    "Azuli Mood delivered faces were 47–56 pixels despite source metadata claiming 1200×700.",
+    "Domus narrow 4.8×45 cm native faces remain: a delivered 569×58 face is proportionate to this narrow physical tile.",
+    "Physical gloss, colour measurement and texture pixel density are not independently certified.",
+    "Floral/botanical panels are excluded to follow the repository visual instruction; they are not labelled blurry."
+  ],
+  "collections": [
+    {
+      "collection": "Shell",
+      "brand": "ELIOS",
+      "total": 6,
+      "retained": [
+        "beige",
+        "beige-light",
+        "ivory",
+        "grey",
+        "ivory-light",
+        "grey-light"
+      ],
+      "hidden": []
+    },
+    {
+      "collection": "Creta",
+      "brand": "ELIOS",
+      "total": 9,
+      "retained": [
+        "zucchero",
+        "matcha",
+        "avena",
+        "biscotto",
+        "caramello",
+        "ginepro",
+        "pepe",
+        "malto"
+      ],
+      "hidden": [
+        {
+          "id": "coccio",
+          "name": "Coccio",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            117,
+            118
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Corso",
+      "brand": "VIEW",
+      "total": 2,
+      "retained": [
+        "avorio",
+        "beige"
+      ],
+      "hidden": []
+    },
+    {
+      "collection": "Golden Stone",
+      "brand": "VIEW",
+      "total": 5,
+      "retained": [
+        "ivory",
+        "sand",
+        "pearl",
+        "oxid",
+        "carbon"
+      ],
+      "hidden": []
+    },
+    {
+      "collection": "Lithos",
+      "brand": "ELIOS",
+      "total": 3,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "ivory",
+          "name": "Ivory",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            147,
+            297
+          ]
+        },
+        {
+          "id": "grey",
+          "name": "Grey",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            147,
+            297
+          ]
+        },
+        {
+          "id": "sand",
+          "name": "Sand",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            147,
+            299
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Love&Decors — Magnus",
+      "brand": "ELIOS",
+      "total": 2,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "garden",
+          "name": "Garden",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            158,
+            362
+          ]
+        },
+        {
+          "id": "rainforest",
+          "name": "Rainforest",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            158,
+            362
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Manhattan",
+      "brand": "ELIOS",
+      "total": 3,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "pearl",
+          "name": "Pearl",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            147,
+            297
+          ]
+        },
+        {
+          "id": "sand",
+          "name": "Sand",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            147,
+            298
+          ]
+        },
+        {
+          "id": "ash",
+          "name": "Ash",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            147,
+            298
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Mysterium",
+      "brand": "ELIOS",
+      "total": 6,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "acqua",
+          "name": "Acqua",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        },
+        {
+          "id": "white",
+          "name": "White",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        },
+        {
+          "id": "amber",
+          "name": "Amber",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        },
+        {
+          "id": "ocean",
+          "name": "Ocean",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        },
+        {
+          "id": "pearl",
+          "name": "Pearl",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        },
+        {
+          "id": "black",
+          "name": "Black",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Quercia",
+      "brand": "ELIOS",
+      "total": 4,
+      "retained": [
+        "white",
+        "honey",
+        "amber",
+        "natural"
+      ],
+      "hidden": []
+    },
+    {
+      "collection": "Yosemite",
+      "brand": "ELIOS",
+      "total": 4,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "natural",
+          "name": "Natural",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        },
+        {
+          "id": "honey",
+          "name": "Honey",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        },
+        {
+          "id": "white",
+          "name": "White",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        },
+        {
+          "id": "amber",
+          "name": "Amber",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Bavaria Stone",
+      "brand": "ELIOS",
+      "total": 1,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "bavaria-stone",
+          "name": "Bavaria Stone",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            234,
+            234
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Dolomiti",
+      "brand": "ELIOS",
+      "total": 5,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "bianco",
+          "name": "Bianco",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        },
+        {
+          "id": "grigio",
+          "name": "Grigio",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        },
+        {
+          "id": "beige",
+          "name": "Beige",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        },
+        {
+          "id": "antracite",
+          "name": "Antracite",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        },
+        {
+          "id": "greige",
+          "name": "Greige",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Grand Place",
+      "brand": "ELIOS",
+      "total": 3,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "bruxelles",
+          "name": "Bruxelles",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            415,
+            208
+          ]
+        },
+        {
+          "id": "namur",
+          "name": "Namur",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            415,
+            208
+          ]
+        },
+        {
+          "id": "antwerpen",
+          "name": "Antwerpen",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            415,
+            208
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Harmony",
+      "brand": "ELIOS",
+      "total": 5,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "white",
+          "name": "White",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            148,
+            148
+          ]
+        },
+        {
+          "id": "grey",
+          "name": "Grey",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            147,
+            147
+          ]
+        },
+        {
+          "id": "black",
+          "name": "Black",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            147,
+            147
+          ]
+        },
+        {
+          "id": "cream",
+          "name": "Cream",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            159,
+            159
+          ]
+        },
+        {
+          "id": "taupe",
+          "name": "Taupe",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            159,
+            159
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Millennium Quartz",
+      "brand": "ELIOS",
+      "total": 5,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "deserto",
+          "name": "Deserto",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            147,
+            151
+          ]
+        },
+        {
+          "id": "roccia",
+          "name": "Roccia",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            147,
+            151
+          ]
+        },
+        {
+          "id": "scoglio",
+          "name": "Scoglio",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            147,
+            150
+          ]
+        },
+        {
+          "id": "terra",
+          "name": "Terra",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            147,
+            150
+          ]
+        },
+        {
+          "id": "vulcano",
+          "name": "Vulcano",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            147,
+            151
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Roma",
+      "brand": "ELIOS",
+      "total": 4,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "aventino",
+          "name": "Aventino",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            415,
+            242
+          ]
+        },
+        {
+          "id": "celio",
+          "name": "Celio",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            415,
+            242
+          ]
+        },
+        {
+          "id": "viminale",
+          "name": "Viminale",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            415,
+            242
+          ]
+        },
+        {
+          "id": "palatino",
+          "name": "Palatino",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            415,
+            242
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Sedimenti",
+      "brand": "ELIOS",
+      "total": 4,
+      "retained": [
+        "white",
+        "beige",
+        "grey"
+      ],
+      "hidden": [
+        {
+          "id": "sand",
+          "name": "Sand",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            104,
+            105
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Slate",
+      "brand": "ELIOS",
+      "total": 6,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "river",
+          "name": "River",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        },
+        {
+          "id": "dark",
+          "name": "Dark",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            147,
+            151
+          ]
+        },
+        {
+          "id": "flame",
+          "name": "Flame",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            147,
+            151
+          ]
+        },
+        {
+          "id": "natural",
+          "name": "Natural",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            147,
+            150
+          ]
+        },
+        {
+          "id": "gold",
+          "name": "Gold",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            147,
+            150
+          ]
+        },
+        {
+          "id": "grey",
+          "name": "Grey",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            147,
+            151
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Brooklyn",
+      "brand": "ELIOS",
+      "total": 7,
+      "retained": [
+        "almond",
+        "gold"
+      ],
+      "hidden": [
+        {
+          "id": "white",
+          "name": "White",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        },
+        {
+          "id": "grey",
+          "name": "Grey",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        },
+        {
+          "id": "beige",
+          "name": "Beige",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        },
+        {
+          "id": "taupe",
+          "name": "Taupe",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        },
+        {
+          "id": "dark",
+          "name": "Dark",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Clay",
+      "brand": "ELIOS",
+      "total": 8,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "emerald",
+          "name": "Emerald",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            98,
+            98
+          ]
+        },
+        {
+          "id": "linen",
+          "name": "Linen",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            98,
+            98
+          ]
+        },
+        {
+          "id": "ocean",
+          "name": "Ocean",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            98,
+            98
+          ]
+        },
+        {
+          "id": "bouquet",
+          "name": "Bouquet",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            98,
+            98
+          ]
+        },
+        {
+          "id": "aqua",
+          "name": "Aqua",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            98,
+            98
+          ]
+        },
+        {
+          "id": "silk",
+          "name": "Silk",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            98,
+            98
+          ]
+        },
+        {
+          "id": "mustard",
+          "name": "Mustard",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            98,
+            98
+          ]
+        },
+        {
+          "id": "cotton",
+          "name": "Cotton",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            98,
+            98
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Deco",
+      "brand": "ELIOS",
+      "total": 7,
+      "retained": [
+        "white",
+        "black",
+        "grey",
+        "taupe",
+        "light-blue",
+        "nordic-green"
+      ],
+      "hidden": [
+        {
+          "id": "decors",
+          "name": "Décors",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            87,
+            87
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "D_esign Evo",
+      "brand": "ELIOS",
+      "total": 9,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "bianco",
+          "name": "Bianco",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            119,
+            119
+          ]
+        },
+        {
+          "id": "brown",
+          "name": "Brown",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            119,
+            119
+          ]
+        },
+        {
+          "id": "grigio",
+          "name": "Grigio",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            119,
+            119
+          ]
+        },
+        {
+          "id": "ciano",
+          "name": "Ciano",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            151,
+            151
+          ]
+        },
+        {
+          "id": "antracite",
+          "name": "Antracite",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            119,
+            118
+          ]
+        },
+        {
+          "id": "verde-inglese",
+          "name": "Verde Inglese",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            118,
+            118
+          ]
+        },
+        {
+          "id": "burro",
+          "name": "Burro",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            119,
+            118
+          ]
+        },
+        {
+          "id": "terra-di-siena",
+          "name": "Terra di Siena",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            117,
+            118
+          ]
+        },
+        {
+          "id": "tortora",
+          "name": "Tortora",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            119,
+            119
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Domus",
+      "brand": "ELIOS",
+      "total": 7,
+      "retained": [
+        "canyon-rust",
+        "forest-green",
+        "clay-red",
+        "sandstone-beige",
+        "ocean-blue",
+        "moon-white",
+        "sunset-rose"
+      ],
+      "hidden": []
+    },
+    {
+      "collection": "Glow",
+      "brand": "ELIOS",
+      "total": 10,
+      "retained": [
+        "arizona",
+        "dakota",
+        "montana",
+        "oregon",
+        "california",
+        "texas",
+        "virginia",
+        "florida",
+        "indiana"
+      ],
+      "hidden": [
+        {
+          "id": "washington",
+          "name": "Washington",
+          "reason": "framed-blank-image",
+          "originalResolution": [
+            1349,
+            700
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Golden Hour",
+      "brand": "ELIOS",
+      "total": 8,
+      "retained": [
+        "white-lady",
+        "mojito",
+        "gin-tonic",
+        "bellini",
+        "caipirinha",
+        "hawaian",
+        "margarita",
+        "blue-lagoon"
+      ],
+      "hidden": []
+    },
+    {
+      "collection": "Hexagon",
+      "brand": "ELIOS",
+      "total": 8,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "sky",
+          "name": "Sky",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        },
+        {
+          "id": "teal",
+          "name": "Teal",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        },
+        {
+          "id": "grey",
+          "name": "Grey",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        },
+        {
+          "id": "white",
+          "name": "White",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        },
+        {
+          "id": "mint",
+          "name": "Mint",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        },
+        {
+          "id": "dark",
+          "name": "Dark",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        },
+        {
+          "id": "beige",
+          "name": "Beige",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        },
+        {
+          "id": "decors",
+          "name": "Décors",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": null
+        }
+      ]
+    },
+    {
+      "collection": "Horizon",
+      "brand": "ELIOS",
+      "total": 4,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "polvere",
+          "name": "Polvere",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            164,
+            320
+          ]
+        },
+        {
+          "id": "cava",
+          "name": "Cava",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            147,
+            147
+          ]
+        },
+        {
+          "id": "calce",
+          "name": "Calce",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            147,
+            150
+          ]
+        },
+        {
+          "id": "carbone",
+          "name": "Carbone",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            162,
+            212
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Marechiaro",
+      "brand": "ELIOS",
+      "total": 7,
+      "retained": [
+        "bianco",
+        "blu"
+      ],
+      "hidden": [
+        {
+          "id": "mix",
+          "name": "Mix",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        },
+        {
+          "id": "amalfi",
+          "name": "Amalfi",
+          "reason": "floral-panel-excluded",
+          "originalResolution": [
+            1200,
+            700
+          ]
+        },
+        {
+          "id": "positano",
+          "name": "Positano",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        },
+        {
+          "id": "sorrento",
+          "name": "Sorrento",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        },
+        {
+          "id": "vietri",
+          "name": "Vietri",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Montreal",
+      "brand": "ELIOS",
+      "total": 5,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "white",
+          "name": "White",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            147,
+            147
+          ]
+        },
+        {
+          "id": "taupe",
+          "name": "Taupe",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            147,
+            147
+          ]
+        },
+        {
+          "id": "grey",
+          "name": "Grey",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            147,
+            147
+          ]
+        },
+        {
+          "id": "beige",
+          "name": "Beige",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            147,
+            147
+          ]
+        },
+        {
+          "id": "dark",
+          "name": "Dark",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            147,
+            147
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Terre Etrusche",
+      "brand": "ELIOS",
+      "total": 4,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "toscana",
+          "name": "Toscana",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            600,
+            350
+          ]
+        },
+        {
+          "id": "umbria",
+          "name": "Umbria",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            600,
+            350
+          ]
+        },
+        {
+          "id": "lazio",
+          "name": "Lazio",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            600,
+            350
+          ]
+        },
+        {
+          "id": "marche",
+          "name": "Marche",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            600,
+            350
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Allure",
+      "brand": "ELIOS",
+      "total": 9,
+      "retained": [
+        "blossom"
+      ],
+      "hidden": [
+        {
+          "id": "fenix-blueberry",
+          "name": "Fenix Blueberry",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            119,
+            116
+          ]
+        },
+        {
+          "id": "fenix-juniper",
+          "name": "Fenix Juniper",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        },
+        {
+          "id": "eden",
+          "name": "Eden",
+          "reason": "botanical-panel-excluded",
+          "originalResolution": [
+            1200,
+            600
+          ]
+        },
+        {
+          "id": "safari",
+          "name": "Safari",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            119,
+            116
+          ]
+        },
+        {
+          "id": "blueberry",
+          "name": "Blueberry",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            262,
+            130
+          ]
+        },
+        {
+          "id": "snow",
+          "name": "Snow",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            117,
+            119
+          ]
+        },
+        {
+          "id": "juniper",
+          "name": "Juniper",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            119,
+            116
+          ]
+        },
+        {
+          "id": "oyster",
+          "name": "Oyster",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            117,
+            119
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Dust",
+      "brand": "ELIOS",
+      "total": 8,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "niagara",
+          "name": "Niagara",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        },
+        {
+          "id": "ink",
+          "name": "Ink",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        },
+        {
+          "id": "terrae",
+          "name": "Terrae",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        },
+        {
+          "id": "blush",
+          "name": "Blush",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        },
+        {
+          "id": "dove",
+          "name": "Dove",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        },
+        {
+          "id": "ice",
+          "name": "Ice",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        },
+        {
+          "id": "sage",
+          "name": "Sage",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        },
+        {
+          "id": "pine",
+          "name": "Pine",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            416,
+            208
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Love&Decors — Creative",
+      "brand": "ELIOS",
+      "total": 11,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "lagoon",
+          "name": "Lagoon",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            133,
+            263
+          ]
+        },
+        {
+          "id": "paradise",
+          "name": "Paradise",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            131,
+            263
+          ]
+        },
+        {
+          "id": "peony",
+          "name": "Peony",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            130,
+            262
+          ]
+        },
+        {
+          "id": "flamingo",
+          "name": "Flamingo",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            130,
+            262
+          ]
+        },
+        {
+          "id": "leaf",
+          "name": "Leaf",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            130,
+            260
+          ]
+        },
+        {
+          "id": "equatorial",
+          "name": "Equatorial",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            130,
+            261
+          ]
+        },
+        {
+          "id": "ibis",
+          "name": "Ibis",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            130,
+            262
+          ]
+        },
+        {
+          "id": "flora",
+          "name": "Flora",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            129,
+            260
+          ]
+        },
+        {
+          "id": "autumn",
+          "name": "Autumn",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            130,
+            261
+          ]
+        },
+        {
+          "id": "paint",
+          "name": "Paint",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            130,
+            263
+          ]
+        },
+        {
+          "id": "natura",
+          "name": "Natura",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            131,
+            262
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Segmento",
+      "brand": "ELIOS",
+      "total": 11,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "albus",
+          "name": "Albus",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            529,
+            309
+          ]
+        },
+        {
+          "id": "nigrum",
+          "name": "Nigrum",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            529,
+            309
+          ]
+        },
+        {
+          "id": "amaryllis",
+          "name": "Amaryllis",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            529,
+            309
+          ]
+        },
+        {
+          "id": "rubens",
+          "name": "Rubens",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            529,
+            309
+          ]
+        },
+        {
+          "id": "coelestis",
+          "name": "Coelestis",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            529,
+            309
+          ]
+        },
+        {
+          "id": "caeruleus",
+          "name": "Caeruleus",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            529,
+            309
+          ]
+        },
+        {
+          "id": "flavus",
+          "name": "Flavus",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            529,
+            309
+          ]
+        },
+        {
+          "id": "viridis",
+          "name": "Viridis",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            102,
+            102
+          ]
+        },
+        {
+          "id": "lapis",
+          "name": "Lapis",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            529,
+            309
+          ]
+        },
+        {
+          "id": "nox",
+          "name": "Nox",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            529,
+            309
+          ]
+        },
+        {
+          "id": "duplex",
+          "name": "Duplex",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            100,
+            100
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Tropical",
+      "brand": "ELIOS",
+      "total": 8,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "bianco",
+          "name": "Bianco",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            135,
+            119
+          ]
+        },
+        {
+          "id": "ocra",
+          "name": "Ocra",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            135,
+            119
+          ]
+        },
+        {
+          "id": "grigio",
+          "name": "Grigio",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            135,
+            119
+          ]
+        },
+        {
+          "id": "nero",
+          "name": "Nero",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            135,
+            119
+          ]
+        },
+        {
+          "id": "salvia",
+          "name": "Salvia",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            135,
+            119
+          ]
+        },
+        {
+          "id": "petrolio",
+          "name": "Petrolio",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            135,
+            119
+          ]
+        },
+        {
+          "id": "azzurro",
+          "name": "Azzurro",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            135,
+            119
+          ]
+        },
+        {
+          "id": "blu",
+          "name": "Blu",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            135,
+            119
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Twist",
+      "brand": "ELIOS",
+      "total": 5,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "brick",
+          "name": "Brick",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            95,
+            94
+          ]
+        },
+        {
+          "id": "white",
+          "name": "White",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            95,
+            94
+          ]
+        },
+        {
+          "id": "green",
+          "name": "Green",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            94,
+            94
+          ]
+        },
+        {
+          "id": "black",
+          "name": "Black",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            95,
+            94
+          ]
+        },
+        {
+          "id": "sky",
+          "name": "Sky",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            94,
+            94
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Venere",
+      "brand": "ELIOS",
+      "total": 6,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "perla",
+          "name": "Perla",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            600,
+            300
+          ]
+        },
+        {
+          "id": "aura",
+          "name": "Aura",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            600,
+            300
+          ]
+        },
+        {
+          "id": "seta",
+          "name": "Seta",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            600,
+            300
+          ]
+        },
+        {
+          "id": "zefiro",
+          "name": "Zefiro",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            600,
+            300
+          ]
+        },
+        {
+          "id": "rugiada",
+          "name": "Rugiada",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            600,
+            300
+          ]
+        },
+        {
+          "id": "mare",
+          "name": "Mare",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            600,
+            300
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Azuli Mood",
+      "brand": "ELIOS",
+      "total": 11,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "chalk",
+          "name": "Chalk",
+          "reason": "insufficient-delivered-face-definition",
+          "originalResolution": [
+            1200,
+            700
+          ]
+        },
+        {
+          "id": "sand",
+          "name": "Sand",
+          "reason": "insufficient-delivered-face-definition",
+          "originalResolution": [
+            1200,
+            700
+          ]
+        },
+        {
+          "id": "bone",
+          "name": "Bone",
+          "reason": "insufficient-delivered-face-definition",
+          "originalResolution": [
+            1200,
+            700
+          ]
+        },
+        {
+          "id": "thyme-green",
+          "name": "Thyme Green",
+          "reason": "insufficient-delivered-face-definition",
+          "originalResolution": [
+            1200,
+            700
+          ]
+        },
+        {
+          "id": "burgundy",
+          "name": "Burgundy",
+          "reason": "insufficient-delivered-face-definition",
+          "originalResolution": [
+            1200,
+            700
+          ]
+        },
+        {
+          "id": "coffee-bean",
+          "name": "Coffee Bean",
+          "reason": "insufficient-delivered-face-definition",
+          "originalResolution": [
+            1200,
+            700
+          ]
+        },
+        {
+          "id": "blue",
+          "name": "Blue",
+          "reason": "insufficient-delivered-face-definition",
+          "originalResolution": [
+            1200,
+            700
+          ]
+        },
+        {
+          "id": "bottle-green",
+          "name": "Bottle Green",
+          "reason": "insufficient-delivered-face-definition",
+          "originalResolution": [
+            1200,
+            700
+          ]
+        },
+        {
+          "id": "turquoise",
+          "name": "Turquoise",
+          "reason": "insufficient-delivered-face-definition",
+          "originalResolution": [
+            1200,
+            700
+          ]
+        },
+        {
+          "id": "dusk",
+          "name": "Dusk",
+          "reason": "insufficient-delivered-face-definition",
+          "originalResolution": [
+            1200,
+            700
+          ]
+        },
+        {
+          "id": "dawn",
+          "name": "Dawn",
+          "reason": "insufficient-delivered-face-definition",
+          "originalResolution": [
+            1200,
+            700
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Dynasty",
+      "brand": "ELIOS",
+      "total": 7,
+      "retained": [
+        "bianco-aurora",
+        "marfil",
+        "monet",
+        "alpi",
+        "calacatta-viola",
+        "lepanto",
+        "saint-laurent"
+      ],
+      "hidden": []
+    },
+    {
+      "collection": "Skultura",
+      "brand": "ELIOS",
+      "total": 7,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "porpora",
+          "name": "Porpora",
+          "reason": "prelit-relief-photograph",
+          "originalResolution": [
+            1200,
+            700
+          ]
+        },
+        {
+          "id": "terra",
+          "name": "Terra",
+          "reason": "prelit-relief-photograph",
+          "originalResolution": [
+            1200,
+            700
+          ]
+        },
+        {
+          "id": "cipria",
+          "name": "Cipria",
+          "reason": "prelit-relief-photograph",
+          "originalResolution": [
+            1200,
+            700
+          ]
+        },
+        {
+          "id": "bianco",
+          "name": "Bianco",
+          "reason": "prelit-relief-photograph",
+          "originalResolution": [
+            1200,
+            700
+          ]
+        },
+        {
+          "id": "salvia",
+          "name": "Salvia",
+          "reason": "prelit-relief-photograph",
+          "originalResolution": [
+            1200,
+            700
+          ]
+        },
+        {
+          "id": "bosco",
+          "name": "Bosco",
+          "reason": "prelit-relief-photograph",
+          "originalResolution": [
+            1200,
+            700
+          ]
+        },
+        {
+          "id": "ottanio",
+          "name": "Ottanio",
+          "reason": "prelit-relief-photograph",
+          "originalResolution": [
+            1200,
+            700
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Pool Surfaces — Abyss",
+      "brand": "ELIOS",
+      "total": 4,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "tikal",
+          "name": "Tikal",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            245,
+            247
+          ]
+        },
+        {
+          "id": "port-royal",
+          "name": "Port Royal",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            246,
+            245
+          ]
+        },
+        {
+          "id": "atlantis",
+          "name": "Atlantis",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            247,
+            249
+          ]
+        },
+        {
+          "id": "thonis",
+          "name": "Thonis",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            248,
+            250
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Pool Surfaces — Acqua",
+      "brand": "ELIOS",
+      "total": 4,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "light",
+          "name": "Light",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            245,
+            245
+          ]
+        },
+        {
+          "id": "river",
+          "name": "River",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            245,
+            245
+          ]
+        },
+        {
+          "id": "deep",
+          "name": "Deep",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            245,
+            245
+          ]
+        },
+        {
+          "id": "cobalt",
+          "name": "Cobalt",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            245,
+            245
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Pool Surfaces — Greek Isles",
+      "brand": "ELIOS",
+      "total": 1,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "crete",
+          "name": "Crete",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            243,
+            243
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Pool Surfaces — Italian Slate",
+      "brand": "ELIOS",
+      "total": 2,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "naples",
+          "name": "Naples",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            204,
+            204
+          ]
+        },
+        {
+          "id": "firenze",
+          "name": "Firenze",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            204,
+            204
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Pool Surfaces — Lakes",
+      "brand": "ELIOS",
+      "total": 2,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "shasta",
+          "name": "Shasta",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            240,
+            240
+          ]
+        },
+        {
+          "id": "tahoe",
+          "name": "Tahoe",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            240,
+            240
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Pool Surfaces — Mare",
+      "brand": "ELIOS",
+      "total": 3,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "viridus",
+          "name": "Viridus",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            209,
+            209
+          ]
+        },
+        {
+          "id": "altum",
+          "name": "Altum",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            210,
+            210
+          ]
+        },
+        {
+          "id": "caeles",
+          "name": "Caeles",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            210,
+            210
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Pool Surfaces — Nevada",
+      "brand": "ELIOS",
+      "total": 4,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "mohave",
+          "name": "Mohave",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            245,
+            245
+          ]
+        },
+        {
+          "id": "carson",
+          "name": "Carson",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            245,
+            245
+          ]
+        },
+        {
+          "id": "vegas",
+          "name": "Vegas",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            245,
+            245
+          ]
+        },
+        {
+          "id": "reno",
+          "name": "Reno",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            245,
+            245
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Pool Surfaces — Pacific",
+      "brand": "ELIOS",
+      "total": 3,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "japan",
+          "name": "Japan",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            245,
+            245
+          ]
+        },
+        {
+          "id": "mex",
+          "name": "Mex",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            245,
+            246
+          ]
+        },
+        {
+          "id": "australia",
+          "name": "Australia",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            245,
+            246
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Pool Surfaces — Quantum",
+      "brand": "ELIOS",
+      "total": 3,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "prism",
+          "name": "Prism",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            249,
+            250
+          ]
+        },
+        {
+          "id": "vector",
+          "name": "Vector",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            249,
+            249
+          ]
+        },
+        {
+          "id": "nova",
+          "name": "Nova",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            249,
+            249
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Pool Surfaces — Sea Breeze",
+      "brand": "ELIOS",
+      "total": 2,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "sky",
+          "name": "Sky",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            244,
+            245
+          ]
+        },
+        {
+          "id": "teal",
+          "name": "Teal",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            245,
+            244
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Pool Surfaces — Seychelles",
+      "brand": "ELIOS",
+      "total": 5,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "original",
+          "name": "Original",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            195,
+            195
+          ]
+        },
+        {
+          "id": "blue",
+          "name": "Blue",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            195,
+            195
+          ]
+        },
+        {
+          "id": "cobalt",
+          "name": "Cobalt",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            195,
+            195
+          ]
+        },
+        {
+          "id": "light",
+          "name": "Light",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            195,
+            195
+          ]
+        },
+        {
+          "id": "pearl",
+          "name": "Pearl",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            195,
+            195
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "Pool Surfaces — Twelfth Night",
+      "brand": "ELIOS",
+      "total": 2,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "orsino",
+          "name": "Orsino",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            245,
+            245
+          ]
+        },
+        {
+          "id": "viola",
+          "name": "Viola",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            245,
+            245
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "LUX",
+      "brand": "VIEW",
+      "total": 4,
+      "retained": [
+        "agata",
+        "topazio",
+        "perla",
+        "giada"
+      ],
+      "hidden": []
+    },
+    {
+      "collection": "ROVERE FORTE",
+      "brand": "VIEW",
+      "total": 4,
+      "retained": [
+        "cream",
+        "honey",
+        "nut",
+        "soft"
+      ],
+      "hidden": []
+    },
+    {
+      "collection": "BLOIS",
+      "brand": "VIEW",
+      "total": 3,
+      "retained": [
+        "beige",
+        "gris",
+        "anthracite"
+      ],
+      "hidden": []
+    },
+    {
+      "collection": "ARDENNE",
+      "brand": "VIEW",
+      "total": 4,
+      "retained": [
+        "avorio",
+        "sabbia",
+        "grigio",
+        "antracite"
+      ],
+      "hidden": []
+    },
+    {
+      "collection": "DOCKS",
+      "brand": "VIEW",
+      "total": 3,
+      "retained": [
+        "sabbia",
+        "grigio",
+        "antracite"
+      ],
+      "hidden": []
+    },
+    {
+      "collection": "DIGIONE",
+      "brand": "VIEW",
+      "total": 3,
+      "retained": [
+        "oro",
+        "perla",
+        "grigio"
+      ],
+      "hidden": []
+    },
+    {
+      "collection": "MARAIS",
+      "brand": "VIEW",
+      "total": 4,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "avana",
+          "name": "Avana",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            504,
+            504
+          ]
+        },
+        {
+          "id": "beige",
+          "name": "Beige",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            504,
+            504
+          ]
+        },
+        {
+          "id": "argento",
+          "name": "Argento",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            504,
+            504
+          ]
+        },
+        {
+          "id": "grafite",
+          "name": "Grafite",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            504,
+            504
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "TIBUR",
+      "brand": "VIEW",
+      "total": 3,
+      "retained": [
+        "almond",
+        "silver",
+        "carbon"
+      ],
+      "hidden": []
+    },
+    {
+      "collection": "OIKOS",
+      "brand": "VIEW",
+      "total": 3,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "white",
+          "name": "White",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            552,
+            268
+          ]
+        },
+        {
+          "id": "silver",
+          "name": "Silver",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            552,
+            268
+          ]
+        },
+        {
+          "id": "grey",
+          "name": "Grey",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            552,
+            268
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "I MARMI DI VIEW",
+      "brand": "VIEW",
+      "total": 10,
+      "retained": [
+        "calacatta",
+        "statuario",
+        "soveraia-silver",
+        "pulpis-ivoire",
+        "pulpis-gris",
+        "soveraia-grey",
+        "sahara-noir",
+        "soveraia-beige",
+        "pulpis-taupe"
+      ],
+      "hidden": [
+        {
+          "id": "travertino-bianco",
+          "name": "Travertino Bianco",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "LIGHT",
+      "brand": "VIEW",
+      "total": 4,
+      "retained": [
+        "sabbia",
+        "perla",
+        "cenere",
+        "grafite"
+      ],
+      "hidden": []
+    },
+    {
+      "collection": "DORSET",
+      "brand": "VIEW",
+      "total": 5,
+      "retained": [
+        "crema",
+        "sabbia",
+        "perla",
+        "pietra",
+        "ombra"
+      ],
+      "hidden": []
+    },
+    {
+      "collection": "BAAR STONE",
+      "brand": "VIEW",
+      "total": 3,
+      "retained": [
+        "pure",
+        "beige",
+        "grey"
+      ],
+      "hidden": []
+    },
+    {
+      "collection": "COCO",
+      "brand": "VIEW",
+      "total": 2,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "light",
+          "name": "Light",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            589,
+            387
+          ]
+        },
+        {
+          "id": "beige",
+          "name": "Beige",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            589,
+            387
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "NEW WOOD",
+      "brand": "VIEW",
+      "total": 4,
+      "retained": [
+        "miele",
+        "grey",
+        "melange",
+        "brown"
+      ],
+      "hidden": []
+    },
+    {
+      "collection": "QUANTUM",
+      "brand": "VIEW",
+      "total": 4,
+      "retained": [
+        "cream",
+        "ivory",
+        "grey",
+        "dark"
+      ],
+      "hidden": []
+    },
+    {
+      "collection": "DORSET XL",
+      "brand": "VIEW",
+      "total": 4,
+      "retained": [
+        "ice",
+        "londra",
+        "plata",
+        "night"
+      ],
+      "hidden": []
+    },
+    {
+      "collection": "BIGSIZE",
+      "brand": "VIEW",
+      "total": 6,
+      "retained": [
+        "stromboli",
+        "gran-sasso",
+        "vals",
+        "porfido",
+        "dolomiti",
+        "appia"
+      ],
+      "hidden": []
+    },
+    {
+      "collection": "PIETRE 60×90",
+      "brand": "VIEW",
+      "total": 3,
+      "retained": [
+        "limestone-yellow",
+        "fossil",
+        "multicolor"
+      ],
+      "hidden": []
+    },
+    {
+      "collection": "JERUSALEM",
+      "brand": "VIEW",
+      "total": 1,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "select",
+          "name": "Select",
+          "reason": "insufficient-source-definition",
+          "originalResolution": [
+            589,
+            389
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "WAVE",
+      "brand": "VIEW",
+      "total": 3,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "artico",
+          "name": "Artico",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sabbia",
+          "name": "Sabbia",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            0,
+            0
+          ]
+        },
+        {
+          "id": "silver",
+          "name": "Silver",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "PHURA",
+      "brand": "VIEW",
+      "total": 4,
+      "retained": [],
+      "hidden": [
+        {
+          "id": "ivory",
+          "name": "Ivory",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sand",
+          "name": "Sand",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            0,
+            0
+          ]
+        },
+        {
+          "id": "clay",
+          "name": "Clay",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            0,
+            0
+          ]
+        },
+        {
+          "id": "silver",
+          "name": "Silver",
+          "reason": "no-usable-manufacturer-face",
+          "originalResolution": [
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  ]
+}
