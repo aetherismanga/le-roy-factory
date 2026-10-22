@@ -11,4 +11,5 @@ async function request(url,body){
 }
 export const commercialRequest=(action,payload={})=>request('/api/commercial',{action,...payload});
 export const projectRequest=(action,payload={})=>request('/api/projects',{action,...payload});
-export function statusText(s){return s?.client?(s.client.codeClient+' · '+s.client.societe+(Number.isInteger(s.proHT)?' · Prix d’achat HT : '+(s.proHT/100).toLocaleString('fr-FR',{style:'currency',currency:'EUR'}):' · Prix d’achat HT sur demande pour les références non renseignées.')):'Identifiez votre compte LRF pour vérifier vos conditions professionnelles.';}
+// Account status never displays an individual purchase amount.
+export function statusText(s){return s?.client?(s.client.codeClient+' · '+s.client.societe):'Identifiez votre compte LRF pour vérifier vos conditions professionnelles.';}
