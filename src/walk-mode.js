@@ -77,7 +77,7 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
   button.addEventListener('click',()=>setActive(!active));stage.append(button);
   panel=document.createElement('div');panel.hidden=true;panel.setAttribute('aria-label','Commandes de visite');
   Object.assign(panel.style,{position:'absolute',left:'12px',bottom:'calc(110px + env(safe-area-inset-bottom,0px))',zIndex:'41',background:'rgba(17,42,37,.88)',color:'white',borderRadius:'10px',padding:'8px',fontSize:'12px',maxWidth:'55%'});
-  panel.textContent=innerWidth<761?'Joystick : marcher · glisser : regarder · Avatar : changer de vue':'ZQSD / flèches : marcher · Maj : courir · Échap : quitter';
+  panel.textContent=innerWidth<761?'Joystick : marcher · glisser : regarder':'ZQSD / flèches : marcher · Maj : courir · Échap : quitter';
   stage.append(panel);
   const supported=new Set(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','KeyW','KeyS','KeyA','KeyD','KeyQ','KeyE','KeyZ','ShiftLeft','ShiftRight']);
   document.addEventListener('keydown',e=>{
