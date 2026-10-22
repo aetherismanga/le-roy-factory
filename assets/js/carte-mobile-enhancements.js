@@ -134,21 +134,8 @@ if (isCartePage) {
       setTimeout(fitVisibleMarkers, 120);
     });
 
-    document.getElementById('map-mobile-locate')?.addEventListener('click', () => {
-      const map = mapInstance || window.__lrfCarteMap;
-      if (!map) return;
-      const btn = document.getElementById('map-mobile-locate');
-      btn.textContent = '…';
-      map.once('locationfound', e => {
-        btn.textContent = '📍';
-        map.setView(e.latlng, Math.max(map.getZoom(), 12));
-      });
-      map.once('locationerror', () => {
-        btn.textContent = '📍';
-        alert('Impossible d’obtenir ta position. Vérifie que la géolocalisation est autorisée.');
-      });
-      map.locate({ setView: true, maxZoom: 13, enableHighAccuracy: true });
-    });
+    // Le positionnement est géré exclusivement par carte-proximity.js,
+    // pour afficher un point bleu GPS suivi (sans deux requêtes concurrentes).
 
     const updateCounter = () => {
       const n = (counter.textContent.match(/\d+/) || [])[0];
@@ -160,7 +147,7 @@ if (isCartePage) {
     setTimeout(() => {
       const map = mapInstance || window.__lrfCarteMap;
       map?.invalidateSize();
-      fitVisibleMarkers();
+      if (!window.__lrfGpsCentered) fitVisibleMarkers();
     }, 400);
   }
 
