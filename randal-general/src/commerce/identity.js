@@ -1,13 +1,14 @@
 import {commercialRequest} from './client.js';
-import {money,quoteProject} from './pricing.js';
+import {quoteProject} from './pricing.js';
 import {createIdentityState} from './identity-state.js';
 export const escapeHTML=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export function privateMarkup(s){
  if(!s?.client)return '<span>Mon compte client LRF</span>';
- const priced=Number.isInteger(s.proHT)&&s.randalAllowed!==false,code=priced?(s.privateCode||s.client.codeClient):s.client.codeClient;
- const price=priced?'Prix d’achat HT : '+money(s.proHT).replace(' TTC',''):s.pending?'Vérification du prix d’achat…':'Prix d’achat HT : sur demande';
- const known=(s.proRows||[]).filter(r=>Number.isInteger(r.proHT)),partial=s.proHT===null&&known.length?'<small>'+known.length+' référence(s) tarifée(s) HT : '+money(known.reduce((n,r)=>n+r.proHT,0))+' · solde sur demande</small>':'';
- return '<strong class="pro-reference">'+escapeHTML(code||'Administrateur')+'</strong><small>Catalogue général · '+escapeHTML(s.client.societe||'')+'</small>'+(s.randalAllowed===false?'<small>Accès RANDAL non autorisé pour ce compte.</small>':'<strong class="pro-purchase-price">'+escapeHTML(price)+'</strong>'+partial);
+ // Keep the verified purchase reference unchanged, but never show its
+ // underlying purchase amount or any partial purchase totals in the UI.
+ const priced=Number.isInteger(s.proHT)&&s.randalAllowed!==false;
+ const code=priced?(s.privateCode||s.client.codeClient):s.client.codeClient;
+ return '<strong class="pro-reference">'+escapeHTML(code||'Administrateur')+'</strong><small>Catalogue général · '+escapeHTML(s.client.societe||'')+'</small>'+(s.randalAllowed===false?'<small>Accès RANDAL non autorisé pour ce compte.</small>':'');
 }
 export function createIdentity(getProject,changed=()=>{}){
  const origins=['https://leroyfactory.fr','https://www.leroyfactory.fr'];let host='';try{host=new URL(document.referrer).origin;}catch{}const embedded=parent!==window&&origins.includes(host);
