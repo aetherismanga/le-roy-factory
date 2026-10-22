@@ -1,4 +1,4 @@
-import {parseProject,clone,uid} from './core.mjs';
+import {parseProject,clone,uid} from './core.mjs?v=20261022-3';
 let databasePromise;
 function database(){if(!databasePromise)databasePromise=new Promise((resolve,reject)=>{const request=indexedDB.open('lrf-plan-pose-v1',1);request.onupgradeneeded=()=>request.result.createObjectStore('projects',{keyPath:'id'});request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(Error('Enregistrement local indisponible. Téléchargez votre projet JSON.'));});return databasePromise;}
 async function transaction(mode,action){const db=await database();return new Promise((resolve,reject)=>{const tx=db.transaction('projects',mode),request=action(tx.objectStore('projects'));let result;request.onsuccess=()=>{result=request.result;};tx.oncomplete=()=>resolve(result);tx.onerror=()=>reject(Error('Le navigateur n’a pas pu enregistrer le projet. Téléchargez une sauvegarde JSON.'));tx.onabort=()=>reject(Error('L’enregistrement local a été interrompu.'));});}

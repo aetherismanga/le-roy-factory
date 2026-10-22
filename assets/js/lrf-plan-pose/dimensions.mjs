@@ -1,10 +1,10 @@
-import {area,bounds,distance,inside,polygonError,simplify,signedArea} from './core.mjs';
+import {area,bounds,distance,inside,polygonError,simplify,signedArea} from './core.mjs?v=20261022-3';
 
 // Text readings are observations. Pixel distances are never substituted for missing dimensions.
 export function dimensionValue(text,defaultUnit='cm'){
- const match=String(text).trim().match(/^(\d{1,5}(?:[.,]\d{1,3})?)\s*(mm|cm|m)?$/i);
+ const match=String(text).trim().replace(/[\u00a0\u202f]/g,' ').match(/^(\d{1,5}(?:[.,]\d{1,3})?|\d{1,2}(?: \d{3})+)\s*(mm|cm|m)?$/i);
  if(!match)return null;
- const value=Number(match[1].replace(',','.'))*({mm:.1,cm:1,m:100}[match[2]?.toLowerCase()||defaultUnit]||1);
+ const value=Number(match[1].replace(/ /g,'').replace(',','.'))*({mm:.1,cm:1,m:100}[match[2]?.toLowerCase()||defaultUnit]||1);
  return Number.isFinite(value)&&value>=5&&value<=10000?value:null;
 }
 
@@ -37,7 +37,9 @@ export function usableContours(regions,width,height){
   if(unique.some(s=>Math.abs(area(s.points)-a)<a*.1&&distance([bounds(s.points).minX,bounds(s.points).minY],[b.minX,b.minY])<Math.max(width,height)*.035))continue;
   unique.push(shape);
  }
- return unique.filter(r=>!unique.some(s=>s!==r&&area(s.points)<area(r.points)*.8&&s.points.every(p=>inside(p,r.points)))).sort((a,b)=>area(b.points)-area(a.points)).slice(0,20);
+ const frames=unique.filter(r=>{const b=bounds(r.points);return area(r.points)>width*height*.5&&((b.width>width*.9&&b.height>height*.7)||(b.minX<width*.04&&b.minY<height*.04&&b.maxX>width*.96&&b.maxY>height*.96))&&unique.some(s=>s!==r&&area(s.points)<area(r.points)*.8&&s.points.every(p=>inside(p,r.points)));});
+ const rooms=unique.filter(r=>!frames.includes(r));
+ return rooms.filter(r=>!rooms.some(s=>s!==r&&area(s.points)>area(r.points)*1.2&&r.points.every(p=>inside(p,s.points)))).sort((a,b)=>area(b.points)-area(a.points)).slice(0,20);
 }
 
 export function nearestWall(shape,point,{exteriorOnly=true,maxFraction=.28}={}){
@@ -71,16 +73,17 @@ export function solveDimensions(shape,values){
 
 // Pick only OCR observations that form a consistent, fully constrained drawing.
 // Missing sides may be derived algebraically; an inconsistent digit is never "fixed" by guessing.
-export function chooseReadings(shape,candidates){
- const anchors=candidates.flatMap((list,i)=>{const preferred=list.filter(c=>dimensionValue(c.text)>=100).sort((a,b)=>b.score-a.score)[0];return preferred?[dimensionValue(preferred.text)/distance(shape.points[i],shape.points[(i+1)%shape.points.length])]:[];}).sort((a,b)=>a-b),reference=anchors.length>=2?anchors[Math.floor(anchors.length/2)]:null;
- const options=candidates.map((list,i)=>list.filter(c=>{const v=dimensionValue(c.text);if(v===null)return false;const ratio=v/distance(shape.points[i],shape.points[(i+1)%shape.points.length]);return reference===null||ratio>=reference/1.8&&ratio<=reference*1.8;}).sort((a,b)=>b.score-a.score).slice(0,4));
+export function chooseReadings(shape,candidates,unit='cm'){
+ const valueOf=text=>dimensionValue(text,unit);
+ const anchors=candidates.flatMap((list,i)=>{const preferred=list.filter(c=>valueOf(c.text)>=100).sort((a,b)=>b.score-a.score)[0];return preferred?[valueOf(preferred.text)/distance(shape.points[i],shape.points[(i+1)%shape.points.length])]:[];}).sort((a,b)=>a-b),reference=anchors.length>=2?anchors[Math.floor(anchors.length/2)]:null;
+ const options=candidates.map((list,i)=>list.filter(c=>{const v=valueOf(c.text);if(v===null)return false;const ratio=v/distance(shape.points[i],shape.points[(i+1)%shape.points.length]);return reference===null||ratio>=reference/1.8&&ratio<=reference*1.8;}).sort((a,b)=>b.score-a.score).slice(0,4));
  let best=null,visited=0,allowReview=false;
- const walk=(i,chosen,score,discarded=[])=>{if(++visited>20000)return;if(i===options.length){const values=chosen.map(c=>c?dimensionValue(c.text):null),solved=solveDimensions(shape,values);if(solved.error)return;const scales=chosen.flatMap((c,j)=>c?[values[j]/distance(shape.points[j],shape.points[(j+1)%values.length])]:[]).sort((a,b)=>a-b);if(scales.length<2||scales.at(-1)/scales[0]>1.8)return;const rank=score+values.reduce((sum,v)=>sum+(v||0),0)*.6+chosen.filter(Boolean).length*30;if(!best||rank>best.score)best={score:rank,readings:chosen.slice(),rejected:discarded.map(wall=>({wall,text:options[wall][0].text,proposed:solved.lengths[wall]})),requiresReview:discarded.length>0,...solved};return;}
+ const walk=(i,chosen,score,discarded=[])=>{if(++visited>20000)return;if(i===options.length){const values=chosen.map(c=>c?valueOf(c.text):null),solved=solveDimensions(shape,values);if(solved.error)return;const scales=chosen.flatMap((c,j)=>c?[values[j]/distance(shape.points[j],shape.points[(j+1)%values.length])]:[]).sort((a,b)=>a-b);if(scales.length<2||scales.at(-1)/scales[0]>1.8)return;const rank=score+values.reduce((sum,v)=>sum+(v||0),0)*.6+chosen.filter(Boolean).length*30;if(!best||rank>best.score)best={score:rank,readings:chosen.slice(),rejected:discarded.map(wall=>({wall,text:options[wall][0].text,proposed:solved.lengths[wall]})),requiresReview:discarded.length>0,...solved};return;}
   for(const option of options[i])walk(i+1,[...chosen,option],score+option.score,discarded);
   if(!options[i].length)walk(i+1,[...chosen,null],score-8,discarded);
   else if(allowReview&&discarded.length<1)walk(i+1,[...chosen,null],score-8,[...discarded,i]);
  };
  walk(0,[],0);
  if(!best){allowReview=true;visited=0;walk(0,[],0);}
- return best||{readings:options.map(c=>c[0]||null),...solveDimensions(shape,options.map(c=>c[0]?dimensionValue(c[0].text):null))};
+ return best||{readings:options.map(c=>c[0]||null),...solveDimensions(shape,options.map(c=>c[0]?valueOf(c[0].text):null))};
 }
