@@ -36,3 +36,16 @@ Les dimensions physiques de l’échantillon, la brillance et la rugosité mesur
 - Accueil : matières communes au sélecteur et au modèle, capture avant impression, arrêt en cas d’échec d’encodage.
 
 Ces essais utilisent un GPU logiciel de test. Ils ne mesurent pas les performances d’un téléphone physique. La sauvegarde cloud sur un compte client connecté n’a pas été testée ; les flux d’identification et de synchronisation ne sont pas modifiés.
+
+## Publication constatée
+
+| Configurateur | Adresse publique | Commit du code servi | État Vercel |
+| --- | --- | --- | --- |
+| STUDIO ONE | https://studio-one-beta-test-v2.vercel.app/ | 4f199e2e7a97333fc1a0269ef8ab214f1e53953e | READY, environnement production |
+| Général | https://randal-catalogue-general-3d.vercel.app/ | 4eefabdee2dfa45e7d103893e5534c166ae1c6b8 | READY, build preview publié par affectation de l’adresse habituelle |
+
+La nouvelle compilation production du Général a été refusée par Vercel (402, quota gratuit de 100 déploiements/jour atteint, délai annoncé 24 heures). La promotion API a également été refusée (422). Le build preview déjà prêt et vérifié sert donc l’adresse habituelle du configurateur. Le code des API ne dépend pas de variables applicatives propres à un environnement ; aucun secret ou réglage de compte n’a été modifié.
+
+Contrôle HTTP après publication : les deux adresses répondent 200. Les empreintes des bundles référencés correspondent aux builds locaux testés : Studio 5451e5cd919a, Général 75a0a3a013bc. Le contrôle navigateur distant Studio n’a pas confirmé l’initialisation dans les 90 secondes disponibles : les parcours fonctionnels décrits ci-dessus sont des tests locaux des mêmes bundles, et non une validation distante complète. Aucune entrée d’erreur fonction n’a été retournée pour ces deux déploiements dans la fenêtre contrôlée ; la présence de drains de surveillance n’a pas pu être confirmée.
+
+Les 12 archives originales sont conservées intégralement et sans perte, avec inventaire, empreintes et reconstitution des volumes. La récupération alternative des sept pièces jointes par ouverture de Gmail a été refusée par le contrôle automatique en raison d’une redirection vers workspace.google.com. Les sept fichiers d’échantillons restent nécessaires pour terminer la validation fabricant.
