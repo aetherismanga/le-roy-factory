@@ -1057,12 +1057,30 @@ export const CATALOG = {
     {
       "id": "harmony--serenade-alba",
       "name": "Serenade Alba",
-      "hex": "#c0a285",
+      "hex": "#bfa386",
       "kind": "Bois",
-      "roughness": 0.45,
+      "roughness": 0.46,
       "texture": "serenade-alba.webp",
-      "textureURL": "https://studio-one-beta-test-v2.vercel.app/assets/serenade-alba.webp",
-      "collection": "harmony"
+      "textureURL": "/assets/materials/quality/alba-balanced.webp",
+      "collection": "harmony",
+      "previousTextureURL": "https://studio-one-beta-test-v2.vercel.app/assets/serenade-alba.webp",
+      "textureVariants": {
+        "fluid": "/assets/materials/quality/alba-fluid.webp",
+        "balanced": "/assets/materials/quality/alba-balanced.webp",
+        "max": "/assets/materials/quality/alba-max.webp"
+      },
+      "swatch": "/assets/materials/quality/alba-swatch.webp",
+      "frontRotation": 1.5707963267948966,
+      "textureRepeat": [
+        1,
+        0.40375
+      ],
+      "frontRepeat": [
+        1,
+        0.52735
+      ],
+      "manufacturerSample": true,
+      "source": "Juan Carlos Segura · Serenade_alba_acabado.jpg · 2026-10-22"
     },
     {
       "id": "harmony--blanco-mate",
@@ -1242,12 +1260,30 @@ export const CATALOG = {
     {
       "id": "aruba--serenade-alba",
       "name": "Serenade Alba",
-      "hex": "#c0a285",
+      "hex": "#bfa386",
       "kind": "Bois",
-      "roughness": 0.45,
+      "roughness": 0.46,
       "texture": "serenade-alba.webp",
-      "textureURL": "https://studio-one-beta-test-v2.vercel.app/assets/serenade-alba.webp",
-      "collection": "aruba"
+      "textureURL": "/assets/materials/quality/alba-balanced.webp",
+      "collection": "aruba",
+      "previousTextureURL": "https://studio-one-beta-test-v2.vercel.app/assets/serenade-alba.webp",
+      "textureVariants": {
+        "fluid": "/assets/materials/quality/alba-fluid.webp",
+        "balanced": "/assets/materials/quality/alba-balanced.webp",
+        "max": "/assets/materials/quality/alba-max.webp"
+      },
+      "swatch": "/assets/materials/quality/alba-swatch.webp",
+      "frontRotation": 1.5707963267948966,
+      "textureRepeat": [
+        1,
+        0.40375
+      ],
+      "frontRepeat": [
+        1,
+        0.52735
+      ],
+      "manufacturerSample": true,
+      "source": "Juan Carlos Segura · Serenade_alba_acabado.jpg · 2026-10-22"
     },
     {
       "id": "aruba--azul-acero",
@@ -1286,12 +1322,30 @@ export const CATALOG = {
     {
       "id": "aras--serenade-alba",
       "name": "Serenade Alba",
-      "hex": "#c0a285",
+      "hex": "#bfa386",
       "kind": "Bois",
-      "roughness": 0.45,
+      "roughness": 0.46,
       "texture": "serenade-alba.webp",
-      "textureURL": "https://studio-one-beta-test-v2.vercel.app/assets/serenade-alba.webp",
-      "collection": "aras"
+      "textureURL": "/assets/materials/quality/alba-balanced.webp",
+      "collection": "aras",
+      "previousTextureURL": "https://studio-one-beta-test-v2.vercel.app/assets/serenade-alba.webp",
+      "textureVariants": {
+        "fluid": "/assets/materials/quality/alba-fluid.webp",
+        "balanced": "/assets/materials/quality/alba-balanced.webp",
+        "max": "/assets/materials/quality/alba-max.webp"
+      },
+      "swatch": "/assets/materials/quality/alba-swatch.webp",
+      "frontRotation": 1.5707963267948966,
+      "textureRepeat": [
+        1,
+        0.40375
+      ],
+      "frontRepeat": [
+        1,
+        0.52735
+      ],
+      "manufacturerSample": true,
+      "source": "Juan Carlos Segura · Serenade_alba_acabado.jpg · 2026-10-22"
     },
     {
       "id": "aras--azul-acero",
@@ -1330,12 +1384,30 @@ export const CATALOG = {
     {
       "id": "boreal--serenade-alba",
       "name": "Serenade Alba",
-      "hex": "#c0a285",
+      "hex": "#bfa386",
       "kind": "Bois",
-      "roughness": 0.45,
+      "roughness": 0.46,
       "texture": "serenade-alba.webp",
-      "textureURL": "https://studio-one-beta-test-v2.vercel.app/assets/serenade-alba.webp",
-      "collection": "boreal"
+      "textureURL": "/assets/materials/quality/alba-balanced.webp",
+      "collection": "boreal",
+      "previousTextureURL": "https://studio-one-beta-test-v2.vercel.app/assets/serenade-alba.webp",
+      "textureVariants": {
+        "fluid": "/assets/materials/quality/alba-fluid.webp",
+        "balanced": "/assets/materials/quality/alba-balanced.webp",
+        "max": "/assets/materials/quality/alba-max.webp"
+      },
+      "swatch": "/assets/materials/quality/alba-swatch.webp",
+      "frontRotation": 1.5707963267948966,
+      "textureRepeat": [
+        1,
+        0.40375
+      ],
+      "frontRepeat": [
+        1,
+        0.52735
+      ],
+      "manufacturerSample": true,
+      "source": "Juan Carlos Segura · Serenade_alba_acabado.jpg · 2026-10-22"
     },
     {
       "id": "boreal--azul-acero",
@@ -1372,12 +1444,30 @@ export const CATALOG = {
     {
       "id": "brunei--serenade-alba",
       "name": "Serenade Alba",
-      "hex": "#c0a285",
+      "hex": "#bfa386",
       "kind": "Bois",
-      "roughness": 0.45,
+      "roughness": 0.46,
       "texture": "serenade-alba.webp",
-      "textureURL": "https://studio-one-beta-test-v2.vercel.app/assets/serenade-alba.webp",
-      "collection": "brunei"
+      "textureURL": "/assets/materials/quality/alba-balanced.webp",
+      "collection": "brunei",
+      "previousTextureURL": "https://studio-one-beta-test-v2.vercel.app/assets/serenade-alba.webp",
+      "textureVariants": {
+        "fluid": "/assets/materials/quality/alba-fluid.webp",
+        "balanced": "/assets/materials/quality/alba-balanced.webp",
+        "max": "/assets/materials/quality/alba-max.webp"
+      },
+      "swatch": "/assets/materials/quality/alba-swatch.webp",
+      "frontRotation": 1.5707963267948966,
+      "textureRepeat": [
+        1,
+        0.40375
+      ],
+      "frontRepeat": [
+        1,
+        0.52735
+      ],
+      "manufacturerSample": true,
+      "source": "Juan Carlos Segura · Serenade_alba_acabado.jpg · 2026-10-22"
     },
     {
       "id": "amat--biscuit",
@@ -1401,22 +1491,58 @@ export const CATALOG = {
     {
       "id": "amat--serenade-alba",
       "name": "Serenade Alba",
-      "hex": "#c1a387",
+      "hex": "#bfa386",
       "kind": "Bois",
-      "roughness": 0.45,
+      "roughness": 0.46,
       "texture": "serenade-alba.webp",
-      "textureURL": "https://studio-one-beta-test-v2.vercel.app/assets/serenade-alba.webp",
-      "collection": "amat"
+      "textureURL": "/assets/materials/quality/alba-balanced.webp",
+      "collection": "amat",
+      "previousTextureURL": "https://studio-one-beta-test-v2.vercel.app/assets/serenade-alba.webp",
+      "textureVariants": {
+        "fluid": "/assets/materials/quality/alba-fluid.webp",
+        "balanced": "/assets/materials/quality/alba-balanced.webp",
+        "max": "/assets/materials/quality/alba-max.webp"
+      },
+      "swatch": "/assets/materials/quality/alba-swatch.webp",
+      "frontRotation": 1.5707963267948966,
+      "textureRepeat": [
+        1,
+        0.40375
+      ],
+      "frontRepeat": [
+        1,
+        0.52735
+      ],
+      "manufacturerSample": true,
+      "source": "Juan Carlos Segura · Serenade_alba_acabado.jpg · 2026-10-22"
     },
     {
       "id": "less--serenade-alba-tirador-blanco",
       "name": "Serenade Alba / Tirador Blanco",
-      "hex": "#c0a285",
+      "hex": "#bfa386",
       "kind": "Bois",
-      "roughness": 0.45,
+      "roughness": 0.46,
       "texture": "serenade-alba.webp",
-      "textureURL": "https://studio-one-beta-test-v2.vercel.app/assets/serenade-alba.webp",
-      "collection": "less"
+      "textureURL": "/assets/materials/quality/alba-balanced.webp",
+      "collection": "less",
+      "previousTextureURL": "https://studio-one-beta-test-v2.vercel.app/assets/serenade-alba.webp",
+      "textureVariants": {
+        "fluid": "/assets/materials/quality/alba-fluid.webp",
+        "balanced": "/assets/materials/quality/alba-balanced.webp",
+        "max": "/assets/materials/quality/alba-max.webp"
+      },
+      "swatch": "/assets/materials/quality/alba-swatch.webp",
+      "frontRotation": 1.5707963267948966,
+      "textureRepeat": [
+        1,
+        0.40375
+      ],
+      "frontRepeat": [
+        1,
+        0.52735
+      ],
+      "manufacturerSample": true,
+      "source": "Juan Carlos Segura · Serenade_alba_acabado.jpg · 2026-10-22"
     },
     {
       "id": "less--azul-acero-tirador-niquel",
@@ -1459,12 +1585,30 @@ export const CATALOG = {
     {
       "id": "sima--serenade-alba",
       "name": "Serenade Alba",
-      "hex": "#f4f1e9",
+      "hex": "#bfa386",
       "kind": "Bois",
-      "roughness": 0.45,
+      "roughness": 0.46,
       "texture": "serenade-alba.webp",
-      "textureURL": "https://studio-one-beta-test-v2.vercel.app/assets/serenade-alba.webp",
-      "collection": "sima"
+      "textureURL": "/assets/materials/quality/alba-balanced.webp",
+      "collection": "sima",
+      "previousTextureURL": "https://studio-one-beta-test-v2.vercel.app/assets/serenade-alba.webp",
+      "textureVariants": {
+        "fluid": "/assets/materials/quality/alba-fluid.webp",
+        "balanced": "/assets/materials/quality/alba-balanced.webp",
+        "max": "/assets/materials/quality/alba-max.webp"
+      },
+      "swatch": "/assets/materials/quality/alba-swatch.webp",
+      "frontRotation": 1.5707963267948966,
+      "textureRepeat": [
+        1,
+        0.40375
+      ],
+      "frontRepeat": [
+        1,
+        0.52735
+      ],
+      "manufacturerSample": true,
+      "source": "Juan Carlos Segura · Serenade_alba_acabado.jpg · 2026-10-22"
     },
     {
       "id": "plan--blanco-mate",
@@ -1485,12 +1629,30 @@ export const CATALOG = {
     {
       "id": "plan--serenade-alba",
       "name": "Serenade Alba",
-      "hex": "#c0a285",
+      "hex": "#bfa386",
       "kind": "Bois",
-      "roughness": 0.45,
+      "roughness": 0.46,
       "texture": "serenade-alba.webp",
-      "textureURL": "https://studio-one-beta-test-v2.vercel.app/assets/serenade-alba.webp",
-      "collection": "plans"
+      "textureURL": "/assets/materials/quality/alba-balanced.webp",
+      "collection": "plans",
+      "previousTextureURL": "https://studio-one-beta-test-v2.vercel.app/assets/serenade-alba.webp",
+      "textureVariants": {
+        "fluid": "/assets/materials/quality/alba-fluid.webp",
+        "balanced": "/assets/materials/quality/alba-balanced.webp",
+        "max": "/assets/materials/quality/alba-max.webp"
+      },
+      "swatch": "/assets/materials/quality/alba-swatch.webp",
+      "frontRotation": 1.5707963267948966,
+      "textureRepeat": [
+        1,
+        0.40375
+      ],
+      "frontRepeat": [
+        1,
+        0.52735
+      ],
+      "manufacturerSample": true,
+      "source": "Juan Carlos Segura · Serenade_alba_acabado.jpg · 2026-10-22"
     },
     {
       "id": "plan--roble-amazona",

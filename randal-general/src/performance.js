@@ -1,7 +1,7 @@
 export const QUALITY_PROFILES=Object.freeze([
- Object.freeze({id:'max',label:'Ultra HD',description:'Grosses machines · contacts renforcés et reflets très fins',pixelRatio:2.5,supersampling:1.5,pixels:8300000,shadow:4096,reflection:2048,reflectionFps:60,reflectionSamples:4,transmission:1,anisotropy:16,ao:true}),
- Object.freeze({id:'balanced',label:'Standard',description:'Machines moyennes · qualité actuelle',pixelRatio:2,pixels:3000000,shadow:2048,reflection:1024,reflectionFps:30,reflectionSamples:0,transmission:1,anisotropy:8,ao:false}),
- Object.freeze({id:'fluid',label:'Léger',description:'Petites configurations · ombres désactivées',pixelRatio:.8,pixels:500000,shadow:0,reflection:128,reflectionFps:6,reflectionSamples:0,transmission:.35,anisotropy:1,ao:false})
+ Object.freeze({id:'max',label:'Ultra HD',description:'Textures HD · contacts renforcés et reflets très fins',pixelRatio:2.5,supersampling:1.5,pixels:8300000,shadow:4096,reflection:2048,reflectionFps:60,reflectionSamples:4,transmission:1,anisotropy:16,ao:true}),
+ Object.freeze({id:'balanced',label:'Standard',description:'Textures adaptées · équilibre entre détail et fluidité',pixelRatio:2,pixels:3000000,shadow:2048,reflection:1024,reflectionFps:30,reflectionSamples:0,transmission:1,anisotropy:8,ao:false}),
+ Object.freeze({id:'fluid',label:'Léger',description:'Textures légères · pour smartphone et petites configurations',pixelRatio:.8,pixels:500000,shadow:0,reflection:128,reflectionFps:6,reflectionSamples:0,transmission:.35,anisotropy:1,ao:false})
 ]);
 export function renderPixelRatio(profile,width,height,deviceRatio=1){const budget=Math.sqrt(profile.pixels/Math.max(1,width*height));return Math.max(.1,Math.min(Math.max(deviceRatio,profile.supersampling||0),profile.pixelRatio,budget));}
 export function profileSizes(profile,mobile=false,maxTextureSize=16384){return {shadow:Math.min(profile.shadow,mobile?(profile.ao?2048:1536):4096,maxTextureSize),reflection:Math.min(profile.reflection,mobile?(profile.ao?1024:512):2048,maxTextureSize)};}
