@@ -1,0 +1,146 @@
+{
+  "scope": "Same tile library in the existing Studio One and RANDAL General engines",
+  "selection": [
+    "Usine",
+    "Série",
+    "Couleur",
+    "Format"
+  ],
+  "collections": 74,
+  "activeCollections": 49,
+  "colours": 363,
+  "activeColours": 248,
+  "pending": [
+    {
+      "brand": "ELIOS",
+      "name": "Lithos",
+      "source": "https://eliosceramica.com/collezione/lithos/"
+    },
+    {
+      "brand": "ELIOS",
+      "name": "Love&Decors — Magnus",
+      "source": "https://eliosceramica.com/collezione/loveanddecors/"
+    },
+    {
+      "brand": "ELIOS",
+      "name": "Manhattan",
+      "source": "https://eliosceramica.com/collezione/manhattan/"
+    },
+    {
+      "brand": "ELIOS",
+      "name": "Harmony",
+      "source": "https://eliosceramica.com/collezione/harmony/"
+    },
+    {
+      "brand": "ELIOS",
+      "name": "Millennium Quartz",
+      "source": "https://eliosceramica.com/collezione/millennium-quartz/"
+    },
+    {
+      "brand": "ELIOS",
+      "name": "D_esign Evo",
+      "source": "https://eliosceramica.com/collezione/d-esign-evo/"
+    },
+    {
+      "brand": "ELIOS",
+      "name": "Horizon",
+      "source": "https://eliosceramica.com/collezione/horizon/"
+    },
+    {
+      "brand": "ELIOS",
+      "name": "Montreal",
+      "source": "https://eliosceramica.com/collezione/montreal/"
+    },
+    {
+      "brand": "ELIOS",
+      "name": "Love&Decors — Creative",
+      "source": "https://eliosceramica.com/collezione/loveanddecors-creative/"
+    },
+    {
+      "brand": "ELIOS",
+      "name": "Tropical",
+      "source": "https://eliosceramica.com/collezione/tropical/"
+    },
+    {
+      "brand": "ELIOS",
+      "name": "Twist",
+      "source": "https://eliosceramica.com/collezione/twist/"
+    },
+    {
+      "brand": "ELIOS",
+      "name": "Pool Surfaces — Abyss",
+      "source": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf"
+    },
+    {
+      "brand": "ELIOS",
+      "name": "Pool Surfaces — Acqua",
+      "source": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf"
+    },
+    {
+      "brand": "ELIOS",
+      "name": "Pool Surfaces — Greek Isles",
+      "source": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf"
+    },
+    {
+      "brand": "ELIOS",
+      "name": "Pool Surfaces — Italian Slate",
+      "source": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf"
+    },
+    {
+      "brand": "ELIOS",
+      "name": "Pool Surfaces — Lakes",
+      "source": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf"
+    },
+    {
+      "brand": "ELIOS",
+      "name": "Pool Surfaces — Mare",
+      "source": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf"
+    },
+    {
+      "brand": "ELIOS",
+      "name": "Pool Surfaces — Nevada",
+      "source": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf"
+    },
+    {
+      "brand": "ELIOS",
+      "name": "Pool Surfaces — Pacific",
+      "source": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf"
+    },
+    {
+      "brand": "ELIOS",
+      "name": "Pool Surfaces — Quantum",
+      "source": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf"
+    },
+    {
+      "brand": "ELIOS",
+      "name": "Pool Surfaces — Sea Breeze",
+      "source": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf"
+    },
+    {
+      "brand": "ELIOS",
+      "name": "Pool Surfaces — Seychelles",
+      "source": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf"
+    },
+    {
+      "brand": "ELIOS",
+      "name": "Pool Surfaces — Twelfth Night",
+      "source": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf"
+    },
+    {
+      "brand": "VIEW",
+      "name": "WAVE",
+      "source": "https://leroyfactory.fr/assets/pdf/VIEW-EXTERIEUR.pdf"
+    },
+    {
+      "brand": "VIEW",
+      "name": "PHURA",
+      "source": "https://leroyfactory.fr/assets/pdf/VIEW_CATALOGO_PHURA_2026.pdf"
+    }
+  ],
+  "evidence": {
+    "VIEW_CATALOGO_PHURA_2026.pdf": "Existing source URL returns text/html, not a PDF",
+    "VIEW-EXTERIEUR.pdf": "Existing source URL returns text/html, not a PDF",
+    "manufacturerSamples": "Unavailable full-size tile faces are not replaced by catalogue photos or invented patterns"
+  },
+  "storage": "Reuse existing public manufacturer assets; project storage unchanged and local only"
+}
