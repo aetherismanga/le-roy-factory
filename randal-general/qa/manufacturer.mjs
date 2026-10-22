@@ -22,7 +22,7 @@ for(const id of ['aruba-two','aruba-rainure-two']){
  }
  dispose(a);dispose(b);
 }
-for(const m of C.models){const a=model(m.id);assert.equal(a.spec.panel,panelThickness(m));for(const f of a.frontMeshes)assert.equal(f.geometry.userData.thickness||f.geometry.parameters.depth,panelThickness(m));
+for(const m of C.models){const a=model(m.id);assert.equal(a.drawerMetal.color.getHexString(),'34383b');assert.equal(a.drawerMetal.metalness,.65);assert.equal(a.drawerMetal.roughness,.44);for(const drawer of a.drawers)drawer.traverse(o=>{if(/^(Fond_tiroir|Flanc_aluminium|Dos_tiroir|Contre_facade)/.test(o.name)){assert.equal(o.material,a.drawerMetal);assert.equal(o.material.map,null);}});assert.equal(a.spec.panel,panelThickness(m));for(const f of a.frontMeshes)assert.equal(f.geometry.userData.thickness||f.geometry.parameters.depth,panelThickness(m));
  if(m.drawers){let u=0,metalSides=0;a.drawers[0].traverse(o=>{if(o.name.startsWith('Passage_siphon'))u++;if(o.name==='Flanc_aluminium_8mm')metalSides++;});assert.ok(u>=3);assert.ok(metalSides>=2);}
  dispose(a);
 }

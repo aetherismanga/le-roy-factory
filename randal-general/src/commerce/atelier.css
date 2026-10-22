@@ -32,3 +32,20 @@
 body>header>.project-name{min-width:0}body>header>.quit-configurator{flex:0 0 auto}@media(max-width:760px){body>header{grid-template-rows:40px 40px}body>header>.back-to-quote{grid-column:1/4;grid-row:2;min-height:38px}body>header>.quit-configurator{grid-column:4;grid-row:2;min-height:38px;align-self:stretch;justify-self:stretch;padding:7px;font-size:9px}}
 
 .quit-configurator{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:34px;padding:8px 11px;border:1px solid #cbd0bf;border-radius:8px;background:#fffef9;color:#344736;font:600 10px/1.2 Arial,sans-serif;text-decoration:none;white-space:nowrap;touch-action:manipulation}.quit-configurator:focus-visible{outline:3px solid #a78f64;outline-offset:3px}
+
+/* Product views share neutral backgrounds and the geometry actually added. */
+.add-items{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.add-items button{padding:0 0 12px;gap:7px;min-height:150px;overflow:hidden;border:1px solid #d7d9cf;border-radius:12px;background:#fffef9;box-shadow:0 2px 6px #263b2e08;transition:border-color .15s ease,box-shadow .15s ease}
+.add-items button:hover,.add-items button:focus-visible{border-color:#648074;box-shadow:0 3px 12px #263b2e14}
+.add-items button .palette-picture{width:100%;height:110px;padding:0;border-radius:0;background:#f6f5ef!important;box-shadow:none;overflow:hidden}
+.add-items button .palette-product-image{display:block;width:100%;height:100%;object-fit:contain}
+.add-items button strong{font-size:12px;color:#29483e}
+.add-items button small{font-size:10px;color:#72766c;margin:0 7px;opacity:1}
+#add-choices .add-card{padding:10px 10px 15px;gap:9px;border-color:#d7d9cf;border-radius:12px;background:#fffef9;overflow:hidden}
+#add-choices .add-card:hover{border-color:#648074;background:#fafaf4}
+#add-choices .catalogue-icon{height:170px;border-radius:8px;background:#f6f5ef;overflow:hidden}
+#add-choices .catalogue-product-image{display:block;width:100%;height:100%;object-fit:contain}
+#add-choices .add-card strong{font:600 14px/1.35 Arial,sans-serif;color:#29483e}
+#add-choices .add-card small{font:11px/1.5 Arial,sans-serif;color:#74796d}
+.product-image-unavailable{display:grid;place-items:center;height:100%;padding:12px;font:11px/1.5 Arial,sans-serif;color:#74796d}
+@media(max-width:720px){.add-items button{min-height:145px}.add-items button .palette-picture{height:105px}#add-choices .catalogue-icon{height:145px}#add-choices .add-card{padding:8px 8px 13px}#add-choices .add-card strong{font-size:13px}}

@@ -17,7 +17,7 @@ export function makeModel({width=.80,includeMirror=true,basinLayout,basinTop='se
  const spec={...SPEC,series:'RANDAL GÉNÉRAL · '+form.name,height:H,bottom:B,cabinetRef:form.reference,width:W,panel:panelSize,basin:`Sella ${widthCm} · blanc brillant`,basinRef:basinReference('sella','gloss',widthCm,format,basinLayout)||null};
  const root=new T.Group();root.name=`STUDIO_ONE_${form.id}_${widthCm}`;const cabinet=new T.Group();cabinet.name=`Caisson_${widthCm*10}x${Math.round(H*1000)}x460`;root.add(cabinet);
  const wood=new T.MeshPhysicalMaterial({color:0xffffff,roughness:.43,clearcoat:.12,clearcoatRoughness:.40});
- const frontWood=wood.clone();const inner=new T.MeshStandardMaterial({color:'#373a3b',roughness:.54});const baseMat=wood;const sideMat=new T.MeshPhysicalMaterial({color:'#c1c5c6',metalness:.7,roughness:.42});
+ const frontWood=wood.clone();const inner=new T.MeshStandardMaterial({color:'#34383b',metalness:.65,roughness:.44});inner.name='Metal_anthracite_tiroirs';const baseMat=inner,sideMat=inner;
  const dark=new T.MeshStandardMaterial({color:'#222526',roughness:.57});const steel=new T.MeshStandardMaterial({color:'#b7bdc1',metalness:1,roughness:.26});
  const chrome=new T.MeshPhysicalMaterial({color:'#e3e8ea',metalness:1,roughness:.10,clearcoat:1,clearcoatRoughness:.08});
  const ceramic=new T.MeshPhysicalMaterial({color:'#f6f6f3',roughness:.14,metalness:0,ior:1.52,clearcoat:.8,clearcoatRoughness:.1,side:T.DoubleSide});
@@ -44,7 +44,7 @@ export function makeModel({width=.80,includeMirror=true,basinLayout,basinTop='se
    const frontWidth=bayWidth-(form.collection==='brunei'?2*panelSize+.004:.004);
    const front=mesh(new RoundedBoxGeometry(frontWidth,row.height,panelSize,3,.0006),frontWood,form.collection==='harmony'?'Facade_droite_16mm':'Facade_'+form.collection,group,x,row.y,row.z);woodUV(front);front.userData.joinery={width:frontWidth,height:row.height,top:row.y+row.height/2,bayWidth};frontMeshes.push(front);
    const bottom=row.bottom+.031,dh=Math.min(form.collection==='amat'&&i===0?.08:.15,row.height-.044);
-   // One shared metal drawer system: thin silver sides, a real rear U cut in
+   // One shared anthracite metal drawer system: a real rear U cut in
    // the top drawer and a rounded dark organiser, as in the catalogue photos.
    const floor=roundedRect(drawerWidth,.352,.004);
    const cutWidth=Math.min(.15,drawerWidth*.38),cut=cutWidth/2,cutX=T.MathUtils.clamp(plumbing.reduce((a,b)=>Math.abs(b-x)<Math.abs(a-x)?b:a)-x,-drawerWidth/2+cut+.016,drawerWidth/2-cut-.016);
@@ -117,7 +117,7 @@ export function makeModel({width=.80,includeMirror=true,basinLayout,basinTop='se
  }
  setTop(topAvailable('sella',widthCm,format)?'sella':'plain');for(const group of [...Object.values(insets),tops.root,faucet,secondFaucet])group.position.y+=topY-.82;
  // The live Reflector disk is supplied by the renderer, keeping the model testable without WebGL.
- return adaptGeneralModel({root,cabinet,drawers,mirror,format:form,wood,frontWood,topWood,ceramic,frontMeshes,panels,fasteners,spec,tops,insetGroup,insets,faucet,faucets:[faucet,secondFaucet],getBasinCenters,basinLayout:chosenLayout,setTop,getTop:()=>topMode},{form,W,H,B,topY,layout});
+ return adaptGeneralModel({root,cabinet,drawers,mirror,format:form,wood,frontWood,topWood,drawerMetal:inner,ceramic,frontMeshes,panels,fasteners,spec,tops,insetGroup,insets,faucet,faucets:[faucet,secondFaucet],getBasinCenters,basinLayout:chosenLayout,setTop,getTop:()=>topMode},{form,W,H,B,topY,layout});
 }
 
 export function makeMirrorFrame(){
