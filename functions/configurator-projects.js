@@ -58,6 +58,23 @@ exports.randalProjects = onRequest({region: 'us-central1', timeoutSeconds: 90, m
   try {
     const a = await account(req), b = req.body || {}, variant = b.variant;
     if (!['studio-one', 'randal-general'].includes(variant)) throw failure('Configurateur inconnu.');
+    // Local-only projects are never written to Firestore. Authentication, rate
+    // limiting and SMTP delivery stay server-side, and the attached project is
+    // validated before it is forwarded to its recipient.
+    if (['local-administrator', 'local-email', 'local-order'].includes(b.action)) {
+      const raw = checkedInput(b.record);
+      const suggestedNumber = text(b.record?.number, 60);
+      const number = /^(?:LOCAL-[a-zA-Z0-9-]{6,54}|LRF-[0-9]{4}-[0-9]{6})$/.test(suggestedNumber)
+        ? suggestedNumber : 'LOCAL-' + raw.id.slice(8, 20).toUpperCase();
+      if (b.action === 'local-order' && !raw.customer.name) throw failure('Renseignez le client avant de finaliser la commande.');
+      const recipient = b.action === 'local-email' ? text(b.recipient, 254) : TO;
+      if (!/^[^\\s@<>]+@[^\\s@<>]+\\.[^\\s@<>]+$/.test(recipient)) throw failure('Adresse e-mail du destinataire invalide.');
+      const limit = db.collection('configurator_mail_limits').doc(keyFor(a.owner, 'mail', String(Math.floor(Date.now() / 3600000))));
+      await db.runTransaction(async tx => {const n = (await tx.get(limit)).data()?.count || 0; if (n >= 12) throw failure('Douze envois par heure maximum. Réessayez plus tard.', 429); tx.set(limit, {count: n + 1, expiresAt: admin.firestore.Timestamp.fromMillis(Date.now() + 86400000)});});
+      const record = {...raw, number, variant, account: {store: a.store, code: a.code}, date: new Date().toISOString(), status: 'draft'};
+      await send(record, a, recipient, b.action === 'local-order');
+      return res.json({success: true, delivered: true, number});
+    }
     if (b.action === 'list') {
       const snap = await db.collection(COLLECTION).where('owner', '==', a.owner).limit(100).get();
       const deleted = await db.collection('configurator_project_tombstones').where('owner', '==', a.owner).limit(1000).get();
