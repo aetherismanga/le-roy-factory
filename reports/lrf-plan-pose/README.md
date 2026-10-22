@@ -1,3 +1,5 @@
+> Dernière correction : [portes ouvertes et cotes calculées](regressions-contours-calculs-20261022.md).
+
 > Conversion mise à jour : [murs et cloisons sans mobilier, unités mm/cm/m](conversion-architecture-20261022.md).
 
 # LRF PLAN & POSE — bêta, lecture des cotes

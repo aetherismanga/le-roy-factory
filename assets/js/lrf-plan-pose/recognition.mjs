@@ -1,4 +1,4 @@
-import {simplify,polygonError,area} from './core.mjs?v=20261022-3';
+import {simplify,polygonError,area} from './core.mjs?v=20261022-4';
 // Local image processing: only closed clear regions are proposals, never measurements.
 export function detectRooms(rgba,width,height,{threshold=155,gap=2,minFraction=.004}={}){
  const n=width*height,wall=new Uint8Array(n),blocked=new Uint8Array(n),seen=new Uint8Array(n),queue=new Int32Array(n),regions=[];

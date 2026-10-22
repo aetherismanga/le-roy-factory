@@ -1,3 +1,5 @@
+> Complément et limites observées : [correction des portes ouvertes et calculs](regressions-contours-calculs-20261022.md).
+
 # Conversion des plans : architecture, unités et export RANDAL
 
 La conversion utilise d’abord les bandes pleines ou hachurées des murs pour retrouver l’enveloppe intérieure, même lorsqu’une porte l’interrompt. Les tracés intérieurs connectés sont proposés comme cloisons ; les contours fins de meubles et les annotations ne sont pas copiés dans le plan créé. À défaut de bandes architecturales, le lecteur reprend les contours orthogonaux du dessin normalisé (règle ou main levée). Un bord de feuille n’élimine plus le vrai contour de la pièce.

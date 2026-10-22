@@ -1,7 +1,7 @@
-import {detectRooms} from './recognition.mjs?v=20261022-3';
-import {bounds,distance,signedArea} from './core.mjs?v=20261022-3';
-import {usableContours,nearestWall,dimensionValue,chooseReadings,orthogonalContour} from './dimensions.mjs?v=20261022-3';
-import {architecturalStructure} from './structure.mjs?v=20261022-3';
+import {detectRooms} from './recognition.mjs?v=20261022-4';
+import {area,bounds,distance,inside,signedArea} from './core.mjs?v=20261022-4';
+import {usableContours,nearestWall,dimensionValue,chooseReadings,orthogonalContour} from './dimensions.mjs?v=20261022-4';
+import {architecturalStructure} from './structure.mjs?v=20261022-4';
 
 const vendor=new URL('../../vendor/lrf-plan-pose/ocr/',import.meta.url);
 let libraryPromise;
@@ -36,7 +36,14 @@ export function preparePlan(image,{canvasFactory=makeCanvas,maxSize=1300}={}){
   const rc=rotated(canvas,turn,canvasFactory),pixels=rc.getContext('2d').getImageData(0,0,rc.width,rc.height),candidate=architecturalStructure(pixels.data,rc.width,rc.height);
   if(candidate.shapes.length)structure={...candidate,shapes:candidate.shapes.map(shape=>({...orthogonalContour(shape.points.map(p=>unrotatePoint(p[0],p[1],turn,canvas.width,canvas.height))),kind:'architecture',partitions:shape.partitions.map(p=>({...p,a:unrotatePoint(p.a[0],p.a[1],turn,canvas.width,canvas.height),b:unrotatePoint(p.b[0],p.b[1],turn,canvas.width,canvas.height)}))}))};
  }
- const shapes=structure.shapes.length?structure.shapes:usableContours(regions,canvas.width,canvas.height);
+ const contours=usableContours(regions,canvas.width,canvas.height);
+ if(!structure.shapes.length&&!contours.some(s=>s.points.length>4)){
+  const envelope=architecturalStructure(original.data,canvas.width,canvas.height,{outline:true}),outer=envelope.shapes[0];
+  // A closed shower or basin must not prevent finding an open-door envelope.
+  // Conversely, already-recognized rooms covering that envelope keep priority.
+  if(outer){const occupied=contours.filter(s=>s.points.every(p=>inside(p,outer.points))).reduce((sum,s)=>sum+area(s.points),0);if(occupied<area(outer.points)*.65)structure=envelope;}
+ }
+ const shapes=structure.shapes.length?structure.shapes:contours;
  return {canvas,normalized,shapes,architectural:Boolean(structure.shapes.length),factor:canvas.width/image.width,width:canvas.width,height:canvas.height};
 }
 
@@ -97,7 +104,7 @@ function addObservation(candidates,wall,reading){
 }
 
 export async function readPlan(prepared,{onProgress=()=>{},signal,workerFactory=browserWorker,canvasFactory=makeCanvas}={}){
- if(!prepared.shapes.length)throw Error('Le contour de la pièce n’est pas assez lisible. Essayez une photo cadrée sur la feuille, prise de face, avec des traits plus contrastés.');
+ if(!prepared.shapes.length)throw Error('Le lecteur n’a pas retrouvé de contour exploitable dans ce document. Votre original est conservé.');
  if(signal?.aborted)throw cancelError();
  let worker,terminated=false,finished=false,timer,abort;
  const stop=()=>{if(worker&&!terminated){terminated=true;worker.terminate();}};
@@ -155,13 +162,35 @@ export async function readPlan(prepared,{onProgress=()=>{},signal,workerFactory=
   for(let i=0;i<Math.min(64,patches.length);i++){
    onProgress('Lecture des chiffres manuscrits · '+(i+1)+' / '+Math.min(64,patches.length)+'…');
    const p=patches[i],b=p.b,w=b.x1-b.x0,h=b.y1-b.y0,zoom=Math.min(5,Math.max(2,65/h)),pad=24,patch=canvasFactory(w*zoom+pad*2,h*zoom+pad*2),ctx=patch.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,patch.width,patch.height);ctx.drawImage(p.rot,b.x0-2,b.y0-2,w+4,h+4,pad,pad,w*zoom,h*zoom);
+   let bestConfidence=0;
    for(const psm of ['7','8']){const {data}=await recognize(patch,psm),text=String(data.text||'').trim().replace(/\s+/g,'').replace(/[.,]+$/,'');if(dimensionValue(text)===null||text.replace(/\D/g,'').length<2)continue;
-   addObservation(p.row.candidates,p.wall,{text,confidence:data.confidence||0,center:p.center,turn:p.turn,score:(data.confidence||0)*.5+30+Math.min(15,text.length*4)-p.closest.score/10});}
+   bestConfidence=Math.max(bestConfidence,data.confidence||0);addObservation(p.row.candidates,p.wall,{text,confidence:data.confidence||0,center:p.center,turn:p.turn,score:(data.confidence||0)*.5+30+Math.min(15,text.length*4)-p.closest.score/10});}
+   if(bestConfidence<85&&!Number.isFinite(chooseReadings(p.row.shape,p.row.candidates,suggestedUnit(p.row.candidates)).partialLengths?.[p.wall])){
+    // For a missing dimension, another aspect separates narrow handwritten 1s.
+    const wide=canvasFactory(Math.round(w*4*1.4)+60,h*4+60),wc=wide.getContext('2d');wc.fillStyle='#fff';wc.fillRect(0,0,wide.width,wide.height);wc.drawImage(p.rot,b.x0-2,b.y0-2,w+4,h+4,30,30,w*4*1.4,h*4);
+    const {data}=await recognize(wide,'8'),text=String(data.text||'').trim().replace(/\s+/g,'').replace(/[.,]+$/,'');
+    if(dimensionValue(text)!==null&&text.replace(/\D/g,'').length>=2)addObservation(p.row.candidates,p.wall,{text,confidence:data.confidence||0,center:p.center,turn:p.turn,score:(data.confidence||0)*.5+30+Math.min(15,text.length*4)-p.closest.score/10});
+   }
   }
   for(const row of rows){
-   const current=chooseReadings(row.shape,row.candidates,suggestedUnit(row.candidates));if(!current.error&&!current.requiresReview)continue;
+   let current=chooseReadings(row.shape,row.candidates,suggestedUnit(row.candidates));if(!current.error)continue;
+   // Retry only the still-unconstrained sides, with two ink thresholds. This
+   // prevents a weakly rendered pencil digit from blocking unrelated deductions.
+   const retries=patches.filter(p=>p.row===row&&!Number.isFinite(current.partialLengths?.[p.wall])).slice(0,12);
+   for(let i=0;i<retries.length;i++){
+    const p=retries[i],b=p.b,w=b.x1-b.x0,h=b.y1-b.y0,pad=30;
+    onProgress('Relecture des cotes manquantes · '+(i+1)+' / '+retries.length+'…');
+    for(const threshold of [180,215]){
+     const patch=canvasFactory(w*3+pad*2,h*3+pad*2),ctx=patch.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,patch.width,patch.height);ctx.drawImage(p.rot,b.x0-3,b.y0-3,w+6,h+6,pad,pad,w*3,h*3);
+     const ink=ctx.getImageData(0,0,patch.width,patch.height);for(let j=0;j<ink.data.length;j+=4)ink.data[j]=ink.data[j+1]=ink.data[j+2]=ink.data[j]<threshold?0:255;ctx.putImageData(ink,0,0);
+     const {data}=await recognize(patch,'8'),text=String(data.text||'').trim().replace(/\s+/g,'').replace(/[.,]+$/,'');
+     if(dimensionValue(text)!==null&&text.replace(/\D/g,'').length>=2)addObservation(row.candidates,p.wall,{text,confidence:data.confidence||0,center:p.center,turn:p.turn,score:(data.confidence||0)*.5+35-p.closest.score/10});
+    }
+   }
+   current=chooseReadings(row.shape,row.candidates,suggestedUnit(row.candidates));if(!current.error)continue;
    const span=Math.max(bounds(row.shape.points).width,bounds(row.shape.points).height),margin=span*.32;
    for(let wall=0;wall<row.shape.points.length;wall++){
+    if(Number.isFinite(current.partialLengths?.[wall]))continue;
     const a=row.shape.points[wall],b=row.shape.points[(wall+1)%row.shape.points.length],horizontal=Math.abs(b[0]-a[0])>Math.abs(b[1]-a[1]),x0=horizontal?Math.min(a[0],b[0])+4:(a[0]+b[0])/2-margin,y0=horizontal?(a[1]+b[1])/2-margin:Math.min(a[1],b[1])+4,w=horizontal?Math.abs(b[0]-a[0])-8:margin*2,h=horizontal?margin*2:Math.abs(b[1]-a[1])-8;
     if(w<20||h<20)continue;const band=canvasFactory(w,h),ctx=band.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,band.width,band.height);ctx.drawImage(prepared.normalized,-x0,-y0);
     for(const turn of [0,1,2,3]){
