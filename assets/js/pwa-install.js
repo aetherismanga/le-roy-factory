@@ -43,7 +43,7 @@
     close.style.cssText='float:right;border:0;background:transparent;color:#26342c;font:20px Arial,sans-serif;cursor:pointer;padding:0 0 5px 8px';
     close.addEventListener('click',closeHelp);
     const message=document.createElement('p');message.style.margin='0';
-    const edge=/Edg\\//.test(navigator.userAgent);
+    const edge=navigator.userAgent.includes('Edg/');
     message.textContent=edge?'Dans Microsoft Edge : menu ⋯ → Applications → Installer ce site en tant qu’application.':'Dans Google Chrome : menu ⋮ → Caster, enregistrer et partager → Installer la page en tant qu’application. Avec Edge : menu ⋯ → Applications.';
     helper.append(close,message);document.body.appendChild(helper);
   }
