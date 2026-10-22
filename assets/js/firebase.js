@@ -2,8 +2,8 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-import "./carte-mobile-enhancements.js?v=20260818-1425";
-import "./carte-proximity.js?v=20260818-1448";
+import "./carte-mobile-enhancements.js?v=20261022-mapgps1";
+import "./carte-proximity.js?v=20261022-mapgps1";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA3iuK5Ua8kFccURSqLihLshHnhA4rm2is",
