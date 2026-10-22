@@ -1,6 +1,10 @@
-# LRF PLAN & POSE — première version bêta
+# LRF PLAN & POSE — bêta, lecture des cotes
 
 Application indépendante en HTML/CSS/JavaScript, accessible depuis `configurateurs.html`. Aucun moteur RANDAL, code CRM, compte client ou service Firebase n’est modifié.
+
+## Lecture des cotes ajoutée
+
+Un import lance maintenant la lecture locale des nombres en centimètres et propose une reconstruction des pièces à angles droits. Le bouton « Convertir le plan » reste visible sur le plan importé. Les cotes lues et les cotes déduites sont distinctes. Une lecture contradictoire peut être écartée dans une proposition, mais sa valeur et la déduction sont signalées explicitement. La vérification du contour et des cotes est obligatoire avant création. Une cote manquante sans solution algébrique bloque la création. Voir `reconnaissance-cotes-20261022.md`.
 
 ## Fonctionnement livré
 
@@ -24,7 +28,7 @@ Limites reproduites : 3 à 12 angles, hauteur 180–400 cm, emprise 10 × 10 m, 
 
 ## Vérification
 
-`node --test tests/lrf-plan-pose/core.test.mjs` : 19 tests réussis, dont relecture des exports par les deux validateurs natifs et contrôle du plan avec les fonctions de validation de pièce d’origine. Les instantanés d’origine sont conservés dans `tests/lrf-plan-pose/upstream/` pour ces tests ; aucun rendu 3D complet n’est simulé par les tests.
+`node --test tests/lrf-plan-pose/*.test.mjs` : 31 tests réussis, dont relecture des exports par les deux validateurs natifs et contrôle du plan avec les fonctions de validation de pièce d’origine. Les instantanés d’origine sont conservés dans `tests/lrf-plan-pose/upstream/` pour ces tests ; aucun rendu 3D complet n’est simulé par les tests.
 
 Parcours navigateur vérifié sur écran de bureau : création d’une pièce 450 × 450 × 260 cm, 20,25 m² et 18,00 ml ; ajout d’une porte de 83 cm, 17,17 ml de plinthes ; validation des cotes ; sélection Creta Caramello 60 × 120 ; 16 cartons de 1,44 m² dans le cas testé ; prix TTC **d’essai** 30 €/m², montant 691,20 €. Ce prix d’essai n’est pas enregistré dans le catalogue livré. Sauvegardes JSON et fichier natif RANDAL téléchargés et relus. PNG HD téléchargé. Reprise du projet après rechargement vérifiée.
 
@@ -40,7 +44,7 @@ Lecture locale du lecteur PDF.js 5.6.205 **legacy** : PDF de deux pages, page 2 
 
 ## Limites explicites
 
-La reconnaissance propose uniquement des espaces fermés et ne constitue pas une reconnaissance architecturale exhaustive. Une photo en perspective ne permet pas de garantir une échelle uniforme. Aucun chiffre extrait d’un PDF n’est appliqué comme une cote certaine. Chaque pièce doit être contrôlée puis validée.
+La lecture automatique reconstruit les contours à angles droits à partir de cotes proposées ; elle ne constitue pas une reconnaissance architecturale exhaustive. Les écritures ambiguës doivent être corrigées ou les déductions vérifiées. Le repérage simple des espaces fermés reste disponible. Une photo en perspective ne permet pas de garantir une échelle uniforme. Aucun chiffre extrait d’un PDF n’est appliqué comme une cote certaine. Chaque pièce doit être contrôlée puis validée.
 
 Les tarifs TTC ne sont pas automatiquement déduits d’un tarif professionnel ou d’un prix fournisseur. LA FENICE utilise les liens et noms de collection existants ; les variantes, conditionnements et tarifs doivent être renseignés à partir de la source choisie.
 
