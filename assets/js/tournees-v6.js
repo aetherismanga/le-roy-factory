@@ -129,5 +129,47 @@ function installWeekTourPreset(){
   };
   host.appendChild(b);
 }
-async function init(){addMapsButton();installWeekTourPreset();tickClock();setInterval(tickClock,30000);initDates();initMode();initPartners();try{const snap=await getDocs(collection(db,'clients'));clients=snap.docs.map(d=>({id:d.id,...d.data()}));renderDeps();initStartDatalist();refreshClients()}catch(e){console.error(e);setStatus('Impossible de charger les clients.','error')}$('#tour-client-search').addEventListener('input',renderClientList);$('#tour-smart-select').onclick=quickSelect;$('#tour-clear-select').onclick=clearSelection;$('#tour-use-location').onclick=useLocation;$('#tour-calculate').onclick=calculate;$('#tour-save').onclick=saveTour;$('#tour-print').onclick=printTour;$('#tour-start-address').addEventListener('change',()=>{startPosition=null});await loadSavedTours()}
+function importClientsFromMap(){
+  const params=new URLSearchParams(window.location.search);
+  if(params.get('source')!=='carte')return;
+  let payload=null;
+  try{payload=JSON.parse(sessionStorage.getItem('lrf:nearby-tour-v1')||'null')}
+  catch(e){console.warn('Données de tournée GPS indisponibles',e)}
+  // Une sélection depuis la carte est valable 30 minutes maximum.
+  if(!payload||!Array.isArray(payload.ids)||Date.now()-Number(payload.createdAt)>30*60*1000){
+    setStatus('La sélection des clients proches a expiré. Reviens sur la carte pour la refaire.','error');
+    return;
+  }
+  const ids=[...new Set(payload.ids.filter(id=>typeof id==='string'))].slice(0,100);
+  const available=ids.filter(id=>clients.some(c=>c.id===id&&!c.archived&&!c.archive));
+  if(!available.length){
+    setStatus('Les clients choisis sur la carte ne sont pas disponibles dans le CRM.','error');
+    return;
+  }
+  selectionOrder=available;
+  available.forEach(meta);
+  const deps=new Set(available.map(id=>{
+    const client=clients.find(c=>c.id===id);
+    return depFromCp(client?.codePostal||client?.code_postal);
+  }).filter(Boolean));
+  document.querySelectorAll('#tour-deps input').forEach(input=>input.checked=deps.has(input.value));
+  refreshClients();
+  renderAllSelections();
+  const viewInput=[...document.querySelectorAll('#tour-partners input')].find(input=>input.value==='VIEW');
+  if(viewInput)viewInput.checked=true;
+  const origin=payload.origin;
+  if(origin&&Number.isFinite(Number(origin.lat))&&Number.isFinite(Number(origin.lng))
+    &&Math.abs(Number(origin.lat))<=90&&Math.abs(Number(origin.lng))<=180){
+    startPosition={lat:Number(origin.lat),lng:Number(origin.lng),label:'Ma position GPS',address:'Ma position GPS'};
+    $('#tour-start-address').value='Ma position GPS';
+  }
+  document.querySelector('.tour-mode-btn[data-mode="optimized"]')?.click();
+  renderAllSelections();
+  setStatus('📍 <strong>'+available.length+' client(s) / prospect(s)</strong> importé(s) depuis les plus proches de ta position. Vérifie la date, le départ et valide le trajet pour enregistrer la tournée.','ok');
+  try{
+    sessionStorage.removeItem('lrf:nearby-tour-v1');
+    history.replaceState(null,'','tournees.html');
+  }catch(e){console.warn('Nettoyage sélection de carte',e)}
+}
+async function init(){addMapsButton();installWeekTourPreset();tickClock();setInterval(tickClock,30000);initDates();initMode();initPartners();try{const snap=await getDocs(collection(db,'clients'));clients=snap.docs.map(d=>({id:d.id,...d.data()}));renderDeps();initStartDatalist();refreshClients();importClientsFromMap()}catch(e){console.error(e);setStatus('Impossible de charger les clients.','error')}$('#tour-client-search').addEventListener('input',renderClientList);$('#tour-smart-select').onclick=quickSelect;$('#tour-clear-select').onclick=clearSelection;$('#tour-use-location').onclick=useLocation;$('#tour-calculate').onclick=calculate;$('#tour-save').onclick=saveTour;$('#tour-print').onclick=printTour;$('#tour-start-address').addEventListener('change',()=>{startPosition=null});await loadSavedTours()}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
