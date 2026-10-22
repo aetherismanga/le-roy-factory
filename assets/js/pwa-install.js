@@ -11,25 +11,60 @@
 
   const standalone=window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true;
   if(standalone)return;
-  let deferredPrompt=null;
-
-  const btn=document.createElement('button');
-  btn.id='lrf-install-app';btn.type='button';btn.textContent='📲 Installer l’app';
-  btn.style.cssText='position:fixed;right:18px;bottom:18px;z-index:99998;background:#0b0b0b;color:#FFD700;border:1px solid #D4AF37;border-radius:999px;padding:12px 16px;font-weight:800;box-shadow:0 8px 24px rgba(0,0,0,.28);cursor:pointer;display:none;font-family:inherit';
-  document.body.appendChild(btn);
-
   const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
   const isMobile=/android|iphone|ipad|ipod/i.test(navigator.userAgent);
-  if(isIOS){btn.style.display='block';btn.onclick=()=>alert('Sur iPhone : appuyez sur le bouton Partager de Safari, puis « Sur l’écran d’accueil » pour installer Leroy Factory.');}
+  const isDesktop=!isMobile;
+  let deferredPrompt=null,installed=false,helper=null;
 
-  window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;if(isMobile)btn.style.display='block';});
-  btn.addEventListener('click',async()=>{
-    if(!deferredPrompt)return;
-    deferredPrompt.prompt();
-    await deferredPrompt.userChoice.catch(()=>{});
-    deferredPrompt=null;btn.style.display='none';
+  const btn=document.createElement('button');
+  btn.id='lrf-install-app';btn.type='button';
+  btn.textContent=isDesktop?'↓ Installer l’application':'📲 Installer l’app';
+  btn.setAttribute('aria-label','Installer LE ROY FACTORY sur cet appareil');
+  btn.title='Installer LE ROY FACTORY';
+  // Desktop: deliberately compact and low-profile. Preserve the former mobile button.
+  btn.style.cssText=isDesktop
+    ?'position:fixed;right:14px;bottom:14px;z-index:9998;display:inline-flex;align-items:center;justify-content:center;gap:5px;max-width:calc(100vw - 28px);min-height:34px;box-sizing:border-box;padding:7px 12px;background:#152620;color:#f5ebca;border:1px solid #b4a57b;border-radius:999px;font:600 12px/1.3 Arial,sans-serif;box-shadow:0 3px 10px rgba(0,0,0,.13);cursor:pointer'
+    :'position:fixed;right:18px;bottom:18px;z-index:9998;background:#0b0b0b;color:#FFD700;border:1px solid #D4AF37;border-radius:999px;padding:12px 16px;font-weight:800;box-shadow:0 8px 24px rgba(0,0,0,.28);cursor:pointer;display:none;font-family:inherit';
+  document.body.appendChild(btn);
+
+  function closeHelp(){helper?.remove();helper=null;}
+  function updateVisibility(){
+    btn.style.display=!installed&&(isDesktop||isIOS||!!deferredPrompt)?'inline-flex':'none';
+    if(installed)closeHelp();
+  }
+  // Fallback for PC browsers that do not expose the native install prompt.
+  function showDesktopHelp(){
+    closeHelp();
+    helper=document.createElement('section');
+    helper.setAttribute('role','status');
+    helper.setAttribute('aria-label','Installer LE ROY FACTORY');
+    helper.style.cssText='position:fixed;right:14px;bottom:58px;z-index:9999;width:285px;max-width:calc(100vw - 28px);box-sizing:border-box;background:#fffdf7;color:#26342c;border:1px solid #d2cbbb;border-radius:11px;padding:13px 15px;box-shadow:0 10px 28px rgba(0,0,0,.17);font:13px/1.5 Arial,sans-serif';
+    const close=document.createElement('button');close.type='button';close.textContent='×';close.setAttribute('aria-label','Fermer l’aide');
+    close.style.cssText='float:right;border:0;background:transparent;color:#26342c;font:20px Arial,sans-serif;cursor:pointer;padding:0 0 5px 8px';
+    close.addEventListener('click',closeHelp);
+    const message=document.createElement('p');message.style.margin='0';
+    const edge=/Edg\\//.test(navigator.userAgent);
+    message.textContent=edge?'Dans Microsoft Edge : menu ⋯ → Applications → Installer ce site en tant qu’application.':'Dans Google Chrome : menu ⋮ → Caster, enregistrer et partager → Installer la page en tant qu’application. Avec Edge : menu ⋯ → Applications.';
+    helper.append(close,message);document.body.appendChild(helper);
+  }
+
+  if(isIOS){btn.addEventListener('click',()=>alert('Sur iPhone : appuyez sur le bouton Partager de Safari, puis « Sur l’écran d’accueil » pour installer Leroy Factory.'));}
+  window.addEventListener('beforeinstallprompt',event=>{
+    event.preventDefault();deferredPrompt=event;updateVisibility();closeHelp();
   });
-  window.addEventListener('appinstalled',()=>{btn.style.display='none';deferredPrompt=null;});
+  btn.addEventListener('click',async()=>{
+    if(isIOS)return;
+    if(!deferredPrompt){if(isDesktop)showDesktopHelp();return;}
+    const prompt=deferredPrompt;deferredPrompt=null;
+    try{
+      await prompt.prompt();
+      const choice=await prompt.userChoice;
+      if(choice?.outcome==='accepted')installed=true;
+    }catch(error){if(isDesktop)showDesktopHelp();}
+    updateVisibility();
+  });
+  window.addEventListener('appinstalled',()=>{installed=true;deferredPrompt=null;updateVisibility();});
+  updateVisibility();
 })();
 
 /* Ajoute le catalogue ELIOS Pool Surfaces 2026 dans la page Catalogues. */
