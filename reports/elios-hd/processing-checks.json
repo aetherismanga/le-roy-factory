@@ -1,0 +1,119 @@
+{
+  "scope": "Local preparation only; no upload/deploy and no original deletion",
+  "files": [
+    {
+      "reference": "03V6A00",
+      "colour": "Zucchero",
+      "identityVerified": true,
+      "reuseAuthorization": "pending",
+      "portraitSource": true,
+      "clockwiseRotation": 90,
+      "variants": {
+        "fluid": {
+          "valid": true,
+          "width": 256,
+          "height": 128,
+          "bytes": 1158,
+          "embeddedSRGB": true
+        },
+        "balanced": {
+          "valid": true,
+          "width": 1024,
+          "height": 512,
+          "bytes": 10638,
+          "embeddedSRGB": true
+        },
+        "max": {
+          "valid": true,
+          "width": 4096,
+          "height": 2048,
+          "bytes": 1463202,
+          "embeddedSRGB": true
+        }
+      }
+    },
+    {
+      "reference": "03V6A10",
+      "colour": "Avena",
+      "identityVerified": true,
+      "reuseAuthorization": "pending",
+      "portraitSource": true,
+      "clockwiseRotation": 90,
+      "variants": {
+        "fluid": {
+          "valid": true,
+          "width": 256,
+          "height": 128,
+          "bytes": 1698,
+          "embeddedSRGB": true
+        },
+        "balanced": {
+          "valid": true,
+          "width": 1024,
+          "height": 512,
+          "bytes": 33842,
+          "embeddedSRGB": true
+        },
+        "max": {
+          "valid": true,
+          "width": 4096,
+          "height": 2048,
+          "bytes": 2407800,
+          "embeddedSRGB": true
+        }
+      }
+    },
+    {
+      "reference": "03V6A20",
+      "colour": "Malto",
+      "identityVerified": true,
+      "reuseAuthorization": "pending",
+      "portraitSource": true,
+      "clockwiseRotation": 90,
+      "variants": {
+        "fluid": {
+          "valid": true,
+          "width": 256,
+          "height": 128,
+          "bytes": 1296,
+          "embeddedSRGB": true
+        },
+        "balanced": {
+          "valid": true,
+          "width": 1024,
+          "height": 512,
+          "bytes": 27730,
+          "embeddedSRGB": true
+        },
+        "max": {
+          "valid": true,
+          "width": 4096,
+          "height": 2048,
+          "bytes": 1909230,
+          "embeddedSRGB": true
+        }
+      }
+    }
+  ],
+  "totals": {
+    "originals": 3,
+    "originalBytes": 387872271,
+    "variants": 9,
+    "variantBytes": 5856594
+  },
+  "checks": {
+    "repeatedPipelineSameSHA256": true,
+    "queueResumeVerifiesExistingSHA256": true,
+    "CMYKwithoutICCRejected": true,
+    "imageOutputInsideGitRejected": true,
+    "publicExistingObjectHEAD": 200,
+    "publicExistingObjectCORS": "https://leroyfactory.fr",
+    "googleCloudStorageAvailable": false,
+    "adcConfigured": false
+  },
+  "limits": [
+    "No calibrated colour sample measurement",
+    "No manufacturer reuse licence found yet",
+    "No browser texture rendering or mobile performance tested in this subtask"
+  ]
+}
