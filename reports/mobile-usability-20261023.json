@@ -285,5 +285,13 @@
     "viewer": 1038,
     "settings": 320
   },
-  "limitations": "Software GPU and simulated touch screens; no physical phone benchmark."
+  "limitations": "Software GPU and simulated touch screens; no physical phone benchmark.",
+  "embeddedViewport": {
+    "outerHeight": 844,
+    "hostHeight": 700,
+    "safeBottom": 24,
+    "navBottom": 700,
+    "navHeight": 84,
+    "viewerHeight": 524
+  }
 }

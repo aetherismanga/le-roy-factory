@@ -3,7 +3,7 @@
 .walk-active .viewer-top>:not(#fullscreen){display:none!important}
 .walk-hint{pointer-events:none}
 @media(max-width:760px),(pointer:coarse) and (max-width:1024px){
- body{height:100dvh;overflow:hidden;--mobile-header:92px;--mobile-nav:calc(60px + env(safe-area-inset-bottom,0px))}
+ body{height:var(--app-height,100dvh);overflow:hidden;--mobile-header:92px;--mobile-nav:calc(60px + max(env(safe-area-inset-bottom,0px),var(--host-safe-bottom,0px)))}
  body>header{height:var(--mobile-header);display:grid;grid-template-columns:84px minmax(0,1fr) auto auto;grid-template-rows:40px 36px;gap:4px 6px;padding:6px 10px;align-items:center}
  body>header>.brand{grid-area:1/1;flex-direction:column;align-items:flex-start;gap:2px;width:84px;max-height:40px}
  body>header>.brand>.randal-partner-logo{width:65px!important;height:13px;max-height:13px!important;object-fit:contain!important}
@@ -18,7 +18,7 @@
  body>header>.project-menu summary{min-height:40px;display:flex;align-items:center;padding:8px;font-size:11px;gap:5px}
  body>header>.back-to-quote{grid-area:2/1/3/4;justify-self:stretch;margin:0;min-height:36px;padding:6px 8px;font-size:12px}
  body>header>.quit-configurator{grid-area:2/4;align-self:stretch;min-height:36px;padding:6px;font-size:10px}
- body>#atelier{display:block;height:calc(100dvh - var(--mobile-header));min-height:0;padding-bottom:var(--mobile-nav)}
+ body>#atelier{display:block;height:calc(var(--app-height,100dvh) - var(--mobile-header));min-height:0;padding-bottom:var(--mobile-nav)}
  #atelier #viewer{position:relative;top:auto;grid-area:auto;width:100%;height:100%;min-height:0;max-height:none}
  #atelier .workspace-nav{position:absolute;inset:auto 0 0;height:var(--mobile-nav);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:3px;padding:3px 6px calc(3px + env(safe-area-inset-bottom,0px));border-right:0;border-top:1px solid #dbe3ce}
  #atelier .workspace-nav button{width:100%;height:54px;min-height:44px;padding:4px;gap:3px}
