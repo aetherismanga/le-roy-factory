@@ -18,6 +18,6 @@ export function surfaceColorIssue(collection,color){
  // Long, narrow wood faces are retained when their genuine source has detail.
  const [width,height]=color.resolution||[];
  if(!(width>0&&height>0))return 'unreviewed-source-definition';
- if(Math.max(width,height)<700||width*height<150000)return 'insufficient-source-definition';
+ if(!color.sampleOnly&&(Math.max(width,height)<700||width*height<150000))return 'insufficient-source-definition';
  return null;
 }
