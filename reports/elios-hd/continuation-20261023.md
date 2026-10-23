@@ -18,7 +18,7 @@ Les formats carrés et les finitions R10 de Creta ne sont pas assimilés aux nou
 
 ## Contrôles et limites
 
-- 34 tests Python réussis pour la reprise d’import, le classement, la publication et l’activation.
+- 49 tests Python réussis pour la reprise d’import, le classement, la publication et l’activation, dont 15 pour Mysterium.
 - Contrôles de sélection Creta et Mysterium réussis avec des jeux de données synthétiques. Ils ne constituent pas des contrôles réseau des ressources manquantes.
 - L’activation Creta exige les 53 faces de base, leurs 159 variantes et 477 contrôles HTTP réels réussis sur les trois origines. Le compteur simulé utilisé par les tests n’active rien.
 - Les contrôles empêchent une reprise avec un mauvais format, une mauvaise finition, une autre collection, une image tronquée, une empreinte modifiée ou un profil manquant.
@@ -26,6 +26,10 @@ Les formats carrés et les finitions R10 de Creta ne sont pas assimilés aux nou
 - Aucune donnée de connexion, URL privée du portail ou image originale volumineuse n’est ajoutée au dépôt.
 
 Le portail a confirmé la connexion au compte LE ROY FACTORY et affiche les visuels. Les opérations d’enregistrement du fichier ont cependant échoué, avec le bouton officiel comme avec l’enregistrement du visuel affiché, y compris pour un fichier de 431 Ko. Aucun nouveau téléchargement réussi n’est comptabilisé.
+
+Après cette erreur, la reprise du navigateur de travail échoue avant toute ouverture de page. Les deux réinitialisations disponibles ont été tentées sans rétablir l’accès. Cette limite concerne l’environnement de navigation actuel ; elle ne prouve pas un problème des fichiers ou des autorisations Elios.
+
+La préparation Mysterium comprend également la publication contrôlée de 72 variantes et l’activation des six références après 216 contrôles HTTP réels. Ces outils restent inactifs tant que les 24 originaux n’ont pas été récupérés et vérifiés.
 
 La recherche sur les pages publiques officielles fournit seulement des échantillons de 250 à 1 400 pixels et des planches de faces ; ces fichiers ne remplacent pas les originaux professionnels. La récupération des lots MINIMALI reste nécessaire avant leur activation.
 
