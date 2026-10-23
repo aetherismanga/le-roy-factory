@@ -1,0 +1,15 @@
+{
+  "url": "https://leroyfactory.fr/lrf-plan-pose.html",
+  "reference": "00Y2940",
+  "formatCm": [
+    20.3,
+    90.6
+  ],
+  "quality": "max",
+  "rotation": 90,
+  "loading": false,
+  "patterns": 8,
+  "texturedTiles": 45,
+  "totalTiles": 45,
+  "unavailable": false
+}

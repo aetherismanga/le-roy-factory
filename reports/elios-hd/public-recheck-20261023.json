@@ -1,0 +1,25 @@
+{
+  "checkedAt": "2026-10-23T06:24:11.668626+00:00",
+  "publicURLsRewritten": false,
+  "mutations": 0,
+  "checks": 1089,
+  "passedChecks": 1089,
+  "allPassed": true,
+  "byCollection": {
+    "Quercia": {
+      "checks": 1062,
+      "passedChecks": 1062
+    },
+    "Creta-pilot": {
+      "checks": 27,
+      "passedChecks": 27
+    }
+  },
+  "doesNotProve": [
+    "Missing manufacturer original downloads",
+    "GPU rendering on physical devices"
+  ],
+  "resultSetSHA256": "2331e2752cb790e04dd4511177919aef2d90b63d46a2890e50c90acdd46c609d",
+  "verifiedVariants": 363,
+  "gpuVisualValidation": "not-available-webgl2-disabled-in-cloud-browser"
+}

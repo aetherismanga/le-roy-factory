@@ -1,5 +1,7 @@
 # Reprise de l’intégration Elios — 23 octobre 2026
 
+**Mise à jour après reprise :** les PR 117 et 118 sont fusionnées et Quercia est publié sur les trois adresses publiques. Les tarifs et plinthes du 23 octobre sont préservés. Les 1 089 contrôles publics ont été refaits avec succès et le rendu Plan & Pose a été vérifié en direct. Aucun nouvel original Creta, Mysterium ou Deco n’a été récupéré : le nouveau navigateur se connecte, mais son téléchargement échoue puis sa politique de sécurité refuse l’accès à l’original. Le compte rendu courant est `release-20261023.md`. Les sections suivantes restent le journal de la préparation antérieure.
+
 ## Ressources déjà publiées et conservées
 
 Les 363 variantes WebP déjà hébergées ont été restaurées localement et leurs empreintes vérifiées : 354 pour les 118 faces Quercia et neuf pour les trois premières faces Creta. Aucun fichier n’a été réimporté sur Firebase et aucune URL publiée n’a été changée pendant cette reprise.

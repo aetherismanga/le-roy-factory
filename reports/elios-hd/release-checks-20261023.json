@@ -1,0 +1,44 @@
+{
+  "date": "2026-10-23",
+  "mainCommit": "58926d4de40ed60f6b3f22fc2494b2ed928b5527",
+  "studioCommit": "2d21fd93f531e7c9d786f0865fa3b9c35c5e2cb9",
+  "sourceMainPreviewCommit": "00db7d27e2eb5f7bb8843c011051e0d3d6b415a9",
+  "sourceStudioPreviewCommit": "57a1c39cb8cfd08641eaa3bf4ff5dce6c567be6b",
+  "mainTree": "2bef16a7ef7eb7d63ff5972b9e587387fd3d361a",
+  "studioTree": "ca1a62b78b24a9e37ba2012ed28d421677f4b15c",
+  "publicationMethod": "Existing public Vercel aliases assigned to the tested READY deployments; no new build and no environment-specific application credentials required",
+  "deploymentTargetMetadata": "preview",
+  "newProductionBuild": "refused-402-api-deployments-free-per-day",
+  "requestPromote": "refused-422-unprocessable_entity",
+  "aliases": [
+    {
+      "alias": "le-roy-factory.vercel.app",
+      "deploymentId": "dpl_HTFV8ZEfkFWkUD6LBkYfgJPCkGkm",
+      "previousDeploymentId": "dpl_5apR9eYo3STjE6sH1xcQutnAcuSW"
+    },
+    {
+      "alias": "randal-catalogue-general-3d.vercel.app",
+      "deploymentId": "dpl_DWeerDDZ7FxM4HZBrquPgp8BJR5z",
+      "previousDeploymentId": "dpl_EqoyYpcePZKNrAqZP5WeacVKXDMM"
+    },
+    {
+      "alias": "studio-one-beta-test-v2.vercel.app",
+      "deploymentId": "dpl_6m7x4KTeyCz8TAtepYH5YHbPXQwN",
+      "previousDeploymentId": "dpl_HY6U99os3gai7o2PLi3mkR35kVTG"
+    }
+  ],
+  "gpuVisualValidation": false,
+  "gpuReason": "WebGL2 unavailable in the control browser, including the prior public version",
+  "planPoseLiveValidation": true,
+  "missingNewOriginalsDownloaded": 0,
+  "cretaPilotActive": false,
+  "mysteriumNewFacesActive": false,
+  "decoNewFacesActive": false,
+  "temporaryPreviewAccessRevoked": true,
+  "security": "No account password, cookie, private portal download URL or active preview access link committed",
+  "preservation": {
+    "otherManufacturerCollections": 73,
+    "onlyQuerciaReferenceProductsChanged": 8,
+    "allOtherProductsAndPlinthPricesPreserved": true
+  }
+}

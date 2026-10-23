@@ -1,0 +1,62 @@
+[
+  {
+    "app": "general",
+    "resource": "/app.js",
+    "httpStatus": 200,
+    "bytes": 2425365,
+    "sha256": "a3baf2baa137214fd99236bcfa7c5ffbebf933f5667c80e04501056038065df7",
+    "matchesTestedBuild": true
+  },
+  {
+    "app": "general",
+    "resource": "/api/projects",
+    "method": "GET",
+    "status": 405,
+    "authenticationPreserved": true
+  },
+  {
+    "app": "general",
+    "resource": "/api/projects",
+    "method": "POST",
+    "status": 401,
+    "authenticationPreserved": true
+  },
+  {
+    "app": "studio",
+    "resource": "/app.js",
+    "httpStatus": 200,
+    "bytes": 2359350,
+    "sha256": "745dd26fbfc626f5dd38a4ae46948e6dff00bc25d2e5b834192b9dd43be7bd60",
+    "matchesTestedBuild": true
+  },
+  {
+    "app": "studio",
+    "resource": "/api/projects",
+    "method": "GET",
+    "status": 405,
+    "authenticationPreserved": true
+  },
+  {
+    "app": "studio",
+    "resource": "/api/projects",
+    "method": "POST",
+    "status": 401,
+    "authenticationPreserved": true
+  },
+  {
+    "app": "plan-pose",
+    "resource": "/assets/js/lrf-plan-pose/catalogue.json",
+    "httpStatus": 200,
+    "references": [
+      "00Y2C00",
+      "00Y2900",
+      "00Y2C40",
+      "00Y2940",
+      "00Y2C70",
+      "00Y2970",
+      "00Y2C60",
+      "00Y2960"
+    ],
+    "products": 1204
+  }
+]

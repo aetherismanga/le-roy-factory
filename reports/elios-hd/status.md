@@ -1,4 +1,20 @@
-# ELIOS HD — état de la mission au 23 octobre 2026
+# ELIOS HD — état actualisé après publication du 23 octobre 2026
+
+Quercia est publié sur les adresses publiques de RANDAL Studio One, RANDAL Général et LRF Plan & Pose : huit références exactes, 118 faces et 354 variantes. Les PR 117 et 118 sont fusionnées. Les derniers correctifs de tarifs et de plinthes sont préservés.
+
+Les 363 variantes existantes ont été relues : 1 089 GET réussis depuis les trois origines publiques, avec contrôle CORS, type WebP, nombre d’octets et SHA-256. Le pilote Creta de trois faces reste inactif.
+
+Le rendu Plan & Pose a été vérifié sur leroyfactory.fr : Honey 24 × 120 cm en qualité légère, puis 20,3 × 90,6 cm en haute qualité avec rotation de 90°. Respectivement 30 et 45 carreaux utilisent les textures, sans erreur de chargement. Les deux ateliers servent les bundles exacts testés. Le navigateur de contrôle ne permet toujours pas de validation visuelle WebGL 2.
+
+La connexion sécurisée au portail Elios a réussi dans une nouvelle session. Aucun nouvel original n’a été récupéré : le téléchargement officiel échoue, puis la politique de sécurité du navigateur refuse l’accès à l’original depuis la visionneuse. Creta, Mysterium et Deco restent à compléter. Leur autorisation fabricant est confirmée ; aucune nouvelle confirmation de droits n’est requise.
+
+Le quota Vercel a empêché un nouveau build de production (402). La promotion a été refusée (422). Les adresses publiques existantes ont donc été réaffectées, par l’API officielle des alias, aux builds READY testés. Leurs arbres Git sont identiques aux commits fusionnés ; leur métadonnée de cible reste « preview ». Aucun secret propre à l’environnement n’est requis par le code de ces applications. Les anciens identifiants de déploiement sont conservés pour un retour éventuel.
+
+Le bilan exact et les preuves se trouvent dans `release-20261023.md`, `release-checks-20261023.json`, `public-recheck-20261023.json`, `live-checks-20261023.json` et `plan-pose-live-20261023.json`.
+
+## Journal historique conservé — état antérieur à cette publication
+
+Les mentions ci-dessous de prévisualisations à publier et d’originaux conservés décrivent l’ancienne session. Les originaux historiques ne sont plus présents localement dans cette reprise ; les variantes hébergées restent disponibles.
 
 ## Ressources récupérées et hébergées
 
