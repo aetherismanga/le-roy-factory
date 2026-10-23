@@ -1,0 +1,3946 @@
+{
+  "schemaVersion": 1,
+  "manufacturer": "ELIOS",
+  "collection": "Quercia",
+  "enabled": false,
+  "allowedSourceFormats": [
+    "20.3x90.6",
+    "24x120"
+  ],
+  "textureRotation": 0,
+  "expectedBaseColors": 4,
+  "expectedBaseReferences": 8,
+  "expectedBaseFaces": 118,
+  "publishedCompleteFaces": 118,
+  "collectionComplete": true,
+  "completenessScope": "All available portal faces for the eight verified reference and format pairs",
+  "availableFaceCountProvenance": "118 exact filenames observed in the professional portal texture listing",
+  "catalogueGraphicPatternsByFormat": {
+    "24x120": 15,
+    "20.3x90.6": 15
+  },
+  "catalogueGraphicPatternEvidence": {
+    "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+    "pdfPage": 43,
+    "printedPages": [
+      82,
+      83
+    ],
+    "scope": "15 graphic patterns announced per format, not an explicit per-SKU file count or 120-file total"
+  },
+  "numberingGapFilenames": [
+    "00Y2C70@1.jpg",
+    "00Y2C70@10.jpg"
+  ],
+  "numberingGapProvenance": "These two indices are absent from the observed Amber 24x120 listing, which supplies 13 files",
+  "publicMediaChecksPassed": true,
+  "reuseAuthorization": "confirmed-by-user",
+  "qualityPolicy": {
+    "maxTier": "native-source-definition",
+    "nativeMaxSides": [
+      906,
+      1200
+    ],
+    "upscaled": false
+  },
+  "activationBlockedBy": [
+    "Format-specific application integration and caches not verified"
+  ],
+  "faces": [
+    {
+      "reference": "00Y2900",
+      "colorId": "white",
+      "color": "White",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 1,
+      "sourceFilename": "00Y2900@1.jpg",
+      "sourceSHA256": "b8a729b1bb6e2f645058331f42ca17754f792e79c77060498157df007cff990d",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-001-92632b2369bd-fluid.webp?alt=media&token=ebe67927-c41b-4d7d-a7b8-fb22a398034b"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-001-859c5c5c0aa3-balanced.webp?alt=media&token=7c15bde7-c7ac-4265-abd7-d298c9e8b040"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-001-47b7b353db3b-max.webp?alt=media&token=b3c4acb5-73cc-49f4-bf7e-812bbe68ae19"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2900",
+      "colorId": "white",
+      "color": "White",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 2,
+      "sourceFilename": "00Y2900@2.jpg",
+      "sourceSHA256": "f69938af6c779698d16770e14e4fa6652552b7aa796c38c8d36b80f4e0006984",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-002-422a3c434151-fluid.webp?alt=media&token=474eeaf7-227f-48dd-9bca-430e58553824"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-002-bdcfeaa7ed79-balanced.webp?alt=media&token=ba05388d-7b64-49b6-ab9d-ecadce1a1747"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-002-47f61af9098f-max.webp?alt=media&token=0ba184de-c29f-404e-bb48-cdd2109d9663"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2900",
+      "colorId": "white",
+      "color": "White",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 3,
+      "sourceFilename": "00Y2900@3.jpg",
+      "sourceSHA256": "3bf5e76dbf1c6476638265a24e62d12536528d6e6a3d4f48bbc0ef8ad11dd7af",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-003-f4ff5a95085c-fluid.webp?alt=media&token=f9d2bd4e-49ce-4c2d-84f8-23a7ed8b6c49"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-003-1400b3d0fcd1-balanced.webp?alt=media&token=8d67da8c-9e4f-4911-8e43-17af6247f00b"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-003-dc4203501d4d-max.webp?alt=media&token=b335bb1a-dda8-457c-bc0a-9b1c2d84088a"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2900",
+      "colorId": "white",
+      "color": "White",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 4,
+      "sourceFilename": "00Y2900@4.jpg",
+      "sourceSHA256": "9a3b6cd3d4fd4b247c3fac9d1bbe64830cb84653966b7b63bc6ad3f9f2ce0579",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-004-e4d91351946d-fluid.webp?alt=media&token=e26c444e-dabd-4fca-ba59-73c9652f071e"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-004-ba50f930cecd-balanced.webp?alt=media&token=1c5a4b2e-eff5-4dd0-8264-7d13e0b6a30c"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-004-51ecb899acda-max.webp?alt=media&token=f4f4ce9e-a40b-4fd3-aa2e-fd4bf74e3b42"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2900",
+      "colorId": "white",
+      "color": "White",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 5,
+      "sourceFilename": "00Y2900@5.jpg",
+      "sourceSHA256": "a073d424d5988fb75f8179fb4f103a5466dd566c40e9c2735f151e4d69680338",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-005-705c26a2e270-fluid.webp?alt=media&token=5b42147a-9671-4d67-94e5-6a590463cdfe"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-005-e56a884ba89c-balanced.webp?alt=media&token=033a446f-ac52-4360-8a58-705a076e7efd"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-005-72e34ba4df70-max.webp?alt=media&token=fa10f4ae-d255-4d54-93fe-278f81e3adb8"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2900",
+      "colorId": "white",
+      "color": "White",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 6,
+      "sourceFilename": "00Y2900@6.jpg",
+      "sourceSHA256": "e36567caf1db562b406f1d6892c946a441690c03a282d1e9e8ddc2a37a1d4251",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-006-d052b0336ca1-fluid.webp?alt=media&token=4edea600-7ea0-4570-9bb0-c6bef420f891"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-006-cfc3de46d532-balanced.webp?alt=media&token=88d5eba1-3143-422b-813e-168a938b2f2c"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-006-42d41f64d9ee-max.webp?alt=media&token=09ee1deb-d131-436b-a350-6495274bcd49"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2900",
+      "colorId": "white",
+      "color": "White",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 7,
+      "sourceFilename": "00Y2900@7.jpg",
+      "sourceSHA256": "b483ce8adc85bbe308dedc12fbd8047d6c169be31aedc0faee04b017a8daa94d",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-007-79d0cf4ea2cf-fluid.webp?alt=media&token=3d5ab5aa-fa53-4fcf-b6bc-a20ddf425917"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-007-b0edefa638c9-balanced.webp?alt=media&token=39a6caff-a38b-4f5b-97e4-f084ccd46bd9"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-007-7eeda8ac08c0-max.webp?alt=media&token=7b99af3e-2893-4051-9f56-654a5eaf3f6d"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2900",
+      "colorId": "white",
+      "color": "White",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 8,
+      "sourceFilename": "00Y2900@8.jpg",
+      "sourceSHA256": "c5dfe6b97cb53cd7248eb728738678c11951c7392d0c6d567225242d42d3565c",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-008-e9b702889aa7-fluid.webp?alt=media&token=3366d223-caa9-4478-909a-fcb7bb8c4d7c"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-008-e73b04b49b10-balanced.webp?alt=media&token=8cd6bbfa-4004-4006-9f6e-219a7dc34d3b"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-008-5e1a135c0340-max.webp?alt=media&token=221748d9-c6c2-4d36-a551-3940b1ca58ef"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2900",
+      "colorId": "white",
+      "color": "White",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 9,
+      "sourceFilename": "00Y2900@9.jpg",
+      "sourceSHA256": "86784369f97fe0b4c6556f3ac4d1ceab1a7cdb3691a1f18b1500e72d0004693f",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-009-c9ba97a4453b-fluid.webp?alt=media&token=ce870e17-4936-496a-8918-02219b8d1d30"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-009-985d13f0237e-balanced.webp?alt=media&token=7f54ba6e-89e1-4ee1-ac94-6480379988fd"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-009-e48c8537714a-max.webp?alt=media&token=18daf3d5-78eb-4a09-b0fd-28b5ac5d5a01"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2900",
+      "colorId": "white",
+      "color": "White",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 10,
+      "sourceFilename": "00Y2900@10.jpg",
+      "sourceSHA256": "1d5dde3ec4b3035171a9a6ee8c96218b96d96e8cf0e4a9a5cc4ba0f829706147",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-010-b8100fe4ddf3-fluid.webp?alt=media&token=d9c42a6a-cb8d-429a-8080-3b8cfb8a71a5"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-010-dc53d6a80a9a-balanced.webp?alt=media&token=513dc798-fd57-4b6b-9dbf-a5b63d0c1333"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-010-7dfd241444e8-max.webp?alt=media&token=d0fba285-4af7-4bf1-8290-811f6f891843"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2900",
+      "colorId": "white",
+      "color": "White",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 11,
+      "sourceFilename": "00Y2900@11.jpg",
+      "sourceSHA256": "04e3d9f8b4a5210db0b9640e381a93c3ca726980466a9554ce7b3479d10a7922",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-011-0f49aa3231e3-fluid.webp?alt=media&token=d8b0ddc8-6b93-40ea-90a9-da8e66a48b35"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-011-e09a79064252-balanced.webp?alt=media&token=0049b3ae-c549-453f-bb14-678f91f67d96"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-011-0350009b04c4-max.webp?alt=media&token=def919c2-fba1-43f6-9f99-07cc4a596f72"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2900",
+      "colorId": "white",
+      "color": "White",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 12,
+      "sourceFilename": "00Y2900@12.jpg",
+      "sourceSHA256": "0f989afcb8a6b5f74cc742bfa029353229e784c01f3befe0ed1ac8158f2a5c53",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-012-79d354cd2df8-fluid.webp?alt=media&token=b7329bf7-6cb3-4766-8160-d71bbdca41a8"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-012-33aa48d4d0e5-balanced.webp?alt=media&token=7a66048d-d4e4-4c59-8eb8-d71c9a3ab4f3"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-012-81457a7309cb-max.webp?alt=media&token=eabad350-452f-4d88-957a-5c012906982a"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2900",
+      "colorId": "white",
+      "color": "White",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 13,
+      "sourceFilename": "00Y2900@13.jpg",
+      "sourceSHA256": "a3f03e4232e879b9d6804c5176ed2d88b7f92756322d5335c5f3e54adbce7dd0",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-013-84dd90939852-fluid.webp?alt=media&token=20b020a9-a600-4c75-99a9-e724d59e115c"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-013-16c2c7b37936-balanced.webp?alt=media&token=50bc489a-22ef-46f4-abf2-a732c44cebae"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-013-2e970b7369c7-max.webp?alt=media&token=aba4276f-11d8-4457-ab04-6d7007d507b2"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2900",
+      "colorId": "white",
+      "color": "White",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 14,
+      "sourceFilename": "00Y2900@14.jpg",
+      "sourceSHA256": "7ce494521d4f1b5215433f9cb0b434672498d5f4005bbd921b4e27b158023072",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-014-4c0083d52426-fluid.webp?alt=media&token=3f968134-c670-4848-9615-50c5814905d4"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-014-1604ebac8372-balanced.webp?alt=media&token=f743ac58-8531-47d1-863e-bcbd15b4f68a"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-014-cf53b0e7a427-max.webp?alt=media&token=601d34a4-1941-4b13-b526-b550984ca916"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2900",
+      "colorId": "white",
+      "color": "White",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 15,
+      "sourceFilename": "00Y2900@15.jpg",
+      "sourceSHA256": "f092054b96c4e6fd1ad5d2f73dd27ca514ec08c766d77f001c4b69a327b6a020",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-015-e45284df8315-fluid.webp?alt=media&token=d82b8546-dbbc-4d1b-81c6-d2d4251c1c99"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-015-93dff8cafa87-balanced.webp?alt=media&token=20f071bd-7b4a-4753-b74c-b5d6cd6f8395"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2900-white-20.3x90.6-face-015-58aa3226ff8b-max.webp?alt=media&token=821f88dd-30ef-4832-8f7a-18ccd4d029b8"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2940",
+      "colorId": "honey",
+      "color": "Honey",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 1,
+      "sourceFilename": "00Y2940@1.jpg",
+      "sourceSHA256": "1454e992b5e1bf5dce9ebdb34aa4218239ebe50a06cca5c508b4b3e64354ad2f",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-001-7b206838f8aa-fluid.webp?alt=media&token=6f90b491-f0f6-4e2d-9bde-9375055d3420"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-001-1eb78b2c0431-balanced.webp?alt=media&token=01e2ebb9-1eb6-4fe8-bc54-4de6e6a8ad41"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-001-b05b032a2a7a-max.webp?alt=media&token=69c7cf31-5ef9-4606-992c-4937bdb35444"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2940",
+      "colorId": "honey",
+      "color": "Honey",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 2,
+      "sourceFilename": "00Y2940@2.jpg",
+      "sourceSHA256": "00b43e3064b13b5249466be00ecbaef71e3b4555aef3b9a638a9c2febb094cbe",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-002-777131c6e62d-fluid.webp?alt=media&token=24ebc692-030d-4864-a95d-cab87ff48603"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-002-631297414608-balanced.webp?alt=media&token=35b1065e-ae33-49ab-97aa-a24560714a3e"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-002-c7ab581e36cf-max.webp?alt=media&token=4d6e2a3d-80ab-4855-a6c9-0691f4ac052c"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2940",
+      "colorId": "honey",
+      "color": "Honey",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 3,
+      "sourceFilename": "00Y2940@3.jpg",
+      "sourceSHA256": "26b9d7f2e53808dfd1d116b2b41db533d62d59f6f8f0cc5b4e39b5685c8570a4",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-003-2d3dae550c85-fluid.webp?alt=media&token=dcb1fa9b-5469-4427-aa39-419c342a4252"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-003-727aa28d2243-balanced.webp?alt=media&token=c126f103-9089-4974-928a-43e51c6d53fb"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-003-619a340d87b0-max.webp?alt=media&token=bc5b5692-b757-4c5d-819d-3b52e6900b04"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2940",
+      "colorId": "honey",
+      "color": "Honey",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 4,
+      "sourceFilename": "00Y2940@4.jpg",
+      "sourceSHA256": "3a9d3ffd54ea0f2c8a7b2cebc51a98a9c6aac60498e7ba239154c02d5e08ce41",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-004-51c42258d787-fluid.webp?alt=media&token=1ce00f6a-7922-4a8a-8d7a-c1f4b7ccdd94"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-004-576c6dd55e7f-balanced.webp?alt=media&token=3bf0e4ea-af4e-4c8b-be68-12c62f7f8abe"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-004-18059c345a2a-max.webp?alt=media&token=62afdae4-48d0-4ad6-91a6-82a68fc7e302"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2940",
+      "colorId": "honey",
+      "color": "Honey",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 5,
+      "sourceFilename": "00Y2940@5.jpg",
+      "sourceSHA256": "d303577b769acf97824d6b4f37e2805bddcf818882beea378673c84f24039f0a",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-005-c7bf79059417-fluid.webp?alt=media&token=b2fd10ba-c343-4cfd-9e2e-5824eec63d6e"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-005-3a99b01d1764-balanced.webp?alt=media&token=702c72dd-156f-4288-aed2-a0e4a389966f"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-005-979ed0ee2275-max.webp?alt=media&token=11eeaa9f-511e-417a-94f3-dc0b79ca23e7"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2940",
+      "colorId": "honey",
+      "color": "Honey",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 6,
+      "sourceFilename": "00Y2940@6.jpg",
+      "sourceSHA256": "0d6c84ddf52520a454c837b72670ac5a60eb123057406af46be3f5b0c3a05b34",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-006-c865b6f0f055-fluid.webp?alt=media&token=d762ba8f-712b-40aa-af70-d0c32c5c5f58"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-006-fe74cdf24696-balanced.webp?alt=media&token=95a1fbce-6f09-4b6d-b660-a8e1a3677c8d"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-006-4ffcd0c97be8-max.webp?alt=media&token=c2e27b3a-258a-49e4-9a28-d1929d342715"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2940",
+      "colorId": "honey",
+      "color": "Honey",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 7,
+      "sourceFilename": "00Y2940@7.jpg",
+      "sourceSHA256": "790ffe713960209e514b94ffa6bca6947cb575232d67c2b5c195e2556a173c7f",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-007-e28d028d2ada-fluid.webp?alt=media&token=1a8aad82-27ba-44f0-b4b5-468332273d22"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-007-65e0d59e5231-balanced.webp?alt=media&token=70cd2c51-8b52-4ca2-aeb6-9ab6066610ac"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-007-03c7d3d933a3-max.webp?alt=media&token=bd2193a2-91e3-431b-830b-e4e4c67413b6"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2940",
+      "colorId": "honey",
+      "color": "Honey",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 8,
+      "sourceFilename": "00Y2940@8.jpg",
+      "sourceSHA256": "82891fb835019e11c5ec9dc97df9a6ff10806e785b14da42175268c45eddedf2",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-008-17e43bb680de-fluid.webp?alt=media&token=38cff873-921c-4020-9fec-2300cd751176"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-008-a7d41fd80b4f-balanced.webp?alt=media&token=4dd49c3d-9fd9-4cd0-8c0b-e832486d514b"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-008-4b0e1b591a5a-max.webp?alt=media&token=6a072fa2-790f-4c3c-b15c-a79d66354630"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2940",
+      "colorId": "honey",
+      "color": "Honey",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 9,
+      "sourceFilename": "00Y2940@9.jpg",
+      "sourceSHA256": "d34f30e8ba5cf09f6b867348dfc20cfa298321b48e41a5499bfb92492b09bd2b",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-009-876c65aa06b2-fluid.webp?alt=media&token=9cc5e738-f449-4173-82c1-a7a5def25e87"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-009-50f3fe02e2c3-balanced.webp?alt=media&token=1b11ca00-967d-40ff-ac76-05e927c84462"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-009-0cd57a567384-max.webp?alt=media&token=cc09e4b8-3658-475a-848f-3d5974d85bc3"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2940",
+      "colorId": "honey",
+      "color": "Honey",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 10,
+      "sourceFilename": "00Y2940@10.jpg",
+      "sourceSHA256": "234fb091c7d374edb66a23cbbd84defd675762ca17bacacc5aa7afdbe9fdd047",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-010-668f8f2ccb80-fluid.webp?alt=media&token=844be5eb-2a61-4f89-945a-d77e9ac41c73"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-010-d8641b024139-balanced.webp?alt=media&token=fc092f97-e710-4aea-925a-619ff3e2d9e2"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-010-b0cdd12ec806-max.webp?alt=media&token=538d3ef4-97cb-4db8-b4a6-67743db70fc9"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2940",
+      "colorId": "honey",
+      "color": "Honey",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 11,
+      "sourceFilename": "00Y2940@11.jpg",
+      "sourceSHA256": "6154f7b03373443be2dc05d1e55fcee98d8270999c10706d8a810bf09bf62fc7",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-011-d6af742d24a7-fluid.webp?alt=media&token=06f72f16-45d6-48ce-98f2-c7a3fa829589"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-011-716f959d2ab1-balanced.webp?alt=media&token=d61f614b-d560-45ef-9b91-fbe1a303a8b9"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-011-ae2fac34d548-max.webp?alt=media&token=958b6781-cb50-44a0-ba53-66069efa1e2a"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2940",
+      "colorId": "honey",
+      "color": "Honey",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 12,
+      "sourceFilename": "00Y2940@12.jpg",
+      "sourceSHA256": "15d3e080e1b2f7cedb9d7ef62c89fde7fc03e5a7a047fc989be0ce6473ad7a64",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-012-c8881b154f52-fluid.webp?alt=media&token=8130287f-1eba-4e5d-b722-cb912e1825bf"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-012-925c4e160ef9-balanced.webp?alt=media&token=e9e32db8-9790-4456-bd04-d910ffff9ce2"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-012-51402cdc063b-max.webp?alt=media&token=25b743c8-78c5-4aec-a207-961a061eee51"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2940",
+      "colorId": "honey",
+      "color": "Honey",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 13,
+      "sourceFilename": "00Y2940@13.jpg",
+      "sourceSHA256": "bc744bba9048578877910e1b734472a57711c284e723930d00628e7dc6845abd",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-013-fc9bb7d66b19-fluid.webp?alt=media&token=0245dbf1-56d9-40fc-ac7e-29a2a1847e51"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-013-3b7ddc2e3641-balanced.webp?alt=media&token=6b2eaf1d-c977-4269-81c1-ddd29082d1a7"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-013-b58dda30fa7c-max.webp?alt=media&token=0f2d8bfe-b43a-41b4-a2fd-f19e058fa684"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2940",
+      "colorId": "honey",
+      "color": "Honey",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 14,
+      "sourceFilename": "00Y2940@14.jpg",
+      "sourceSHA256": "adc0d4e3fedac500107fb68cb340823f43b3447100b9a58bfb1e015da6d238a9",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-014-ccaef9b5237c-fluid.webp?alt=media&token=fea7dd26-a059-42aa-bd8d-7a28434fcf66"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-014-6cee5c5e940d-balanced.webp?alt=media&token=6d9a4ce5-3fb4-406d-a611-17ca5ccb69a0"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-014-ebf8e193df54-max.webp?alt=media&token=524f9569-465f-42de-9689-4bee083d791c"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2940",
+      "colorId": "honey",
+      "color": "Honey",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 15,
+      "sourceFilename": "00Y2940@15.jpg",
+      "sourceSHA256": "d5f8ea4642f07e4691137757ddf10d380d4042b6c4c3dd3fc04530ce3fe3d0b4",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-015-78928167a4c2-fluid.webp?alt=media&token=e47dd503-7a05-444b-bc34-5e513fea0689"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-015-e03dd5cd005c-balanced.webp?alt=media&token=ddbf4758-22b9-4124-83fe-40cad8e38e2d"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2940-honey-20.3x90.6-face-015-8592b052a99b-max.webp?alt=media&token=a53b0c8d-459b-42cf-b670-06f6cca5787d"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2960",
+      "colorId": "natural",
+      "color": "Natural",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 1,
+      "sourceFilename": "00Y2960@1.jpg",
+      "sourceSHA256": "829997c1cc06dad753ea71c262800f7d69799a09f415f97401fcda0fffdb3353",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-001-57f4bf72f591-fluid.webp?alt=media&token=cc276a7c-2361-4710-88d6-a95565f7d6ed"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-001-ecbe91c64b99-balanced.webp?alt=media&token=633eb2f8-ad69-4b27-acc0-da479d9a6812"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-001-7b1664645392-max.webp?alt=media&token=9325f402-869a-49ec-95b1-633929e88e74"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2960",
+      "colorId": "natural",
+      "color": "Natural",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 2,
+      "sourceFilename": "00Y2960@2.jpg",
+      "sourceSHA256": "8ff3be9f68fa504bad52d3201e9a3063fbb2dda2ac17a688301274ad85eaa64c",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-002-f9c8895dfae4-fluid.webp?alt=media&token=26316fa0-981b-4e83-b91a-02095568caaf"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-002-3f3550e31ad9-balanced.webp?alt=media&token=5c6b0c98-861e-4b6e-b13e-88c9929e163f"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-002-97bc1cc60f97-max.webp?alt=media&token=d49caab3-be55-483e-9df6-876b567f08cb"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2960",
+      "colorId": "natural",
+      "color": "Natural",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 3,
+      "sourceFilename": "00Y2960@3.jpg",
+      "sourceSHA256": "b309de92756a025dcb147be8e046a1e2c7497ee134e956b2300d03512adc5414",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-003-395ccc2b054b-fluid.webp?alt=media&token=e1bd50e8-066c-4cc0-a28d-651ec403a195"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-003-0b73de404b86-balanced.webp?alt=media&token=497991e8-a62a-43e6-bc6f-d2f5405320e7"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-003-b317169e2197-max.webp?alt=media&token=2e6b421d-fbb2-44e1-9eaa-ebda5f14e9b1"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2960",
+      "colorId": "natural",
+      "color": "Natural",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 4,
+      "sourceFilename": "00Y2960@4.jpg",
+      "sourceSHA256": "64bafdd1ece1e04ce7e4c1755d9492970858c849ff7f12d1ab89520322abea5a",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-004-1f83479f4e95-fluid.webp?alt=media&token=3218f44f-3149-4418-9673-8e44f2c56770"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-004-1efc46ed49cb-balanced.webp?alt=media&token=c4195b29-0914-4e75-94b1-0d64f4c833f4"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-004-39c1f01176f8-max.webp?alt=media&token=0f0291e0-b274-4a1b-aaeb-e312958d415f"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2960",
+      "colorId": "natural",
+      "color": "Natural",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 5,
+      "sourceFilename": "00Y2960@5.jpg",
+      "sourceSHA256": "0e36ddd2fc6d3c35d39bcaf7ea49c4eb1fa960b367301bbd7b56cd24ef3b7dcb",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-005-cba4305c44ee-fluid.webp?alt=media&token=88d9662c-98e3-4561-9325-46eba95c15fb"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-005-faa5fc1c15d5-balanced.webp?alt=media&token=214d4e87-a5cc-48df-8239-5444cb243df7"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-005-f0fc2867179c-max.webp?alt=media&token=2fd2ff08-1150-4b59-a314-5573869eb20a"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2960",
+      "colorId": "natural",
+      "color": "Natural",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 6,
+      "sourceFilename": "00Y2960@6.jpg",
+      "sourceSHA256": "bc33da6c3a3eafa9d1de29dc9f88417e97762a9232c0f1fb04ba19151124b730",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-006-442a6feb0113-fluid.webp?alt=media&token=e29ed2df-7535-43eb-846d-a250f19f9cf5"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-006-5e46fb22e302-balanced.webp?alt=media&token=29e22164-847f-4967-9a08-2fa40e28d9d1"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-006-b6b29a9fd0f6-max.webp?alt=media&token=358be171-f0d3-485e-8631-f9985b5e197b"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2960",
+      "colorId": "natural",
+      "color": "Natural",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 7,
+      "sourceFilename": "00Y2960@7.jpg",
+      "sourceSHA256": "c407a3750982884e85f01ee458584564b7dc57e5ed7879b9fbc6aabe508a79bf",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-007-f6cf3c112307-fluid.webp?alt=media&token=ba5463da-dffb-4917-b6e6-34587d2f7612"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-007-e4f81a55c485-balanced.webp?alt=media&token=810e069f-8df9-4790-b999-6e5e9914004e"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-007-091131de7e2b-max.webp?alt=media&token=4be91d59-b8ef-445c-b049-cdef1452e4aa"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2960",
+      "colorId": "natural",
+      "color": "Natural",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 8,
+      "sourceFilename": "00Y2960@8.jpg",
+      "sourceSHA256": "f1c4db73339e731a16a1412d77501d48cfd88825b8fe0c26af8a81bdc3271af0",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-008-0fee9cc4c9e8-fluid.webp?alt=media&token=47d046c3-7b24-46b9-b58f-518ecde46937"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-008-96b07fa161ac-balanced.webp?alt=media&token=914b507f-14b7-40cd-bf07-dab3631ffc8c"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-008-e788a588646d-max.webp?alt=media&token=76d110e8-2de5-4b1c-92cc-b06d168aacc8"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2960",
+      "colorId": "natural",
+      "color": "Natural",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 9,
+      "sourceFilename": "00Y2960@9.jpg",
+      "sourceSHA256": "6165c052a704db2679bf830ca69bd80ddde3364e61fdd712ecd127dc5dca94cd",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-009-036b307a260f-fluid.webp?alt=media&token=ad35ba65-47b6-4826-99db-240d99b851a1"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-009-9d440f2cfbc7-balanced.webp?alt=media&token=4018b927-6278-4dfc-98a9-d6cd20f2543a"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-009-a83e723a6ceb-max.webp?alt=media&token=180bb273-215d-4772-9ac6-270b6cea4723"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2960",
+      "colorId": "natural",
+      "color": "Natural",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 10,
+      "sourceFilename": "00Y2960@10.jpg",
+      "sourceSHA256": "0e37571c634dcc0197c80274e4be4838ccf778511968d6365b25042e30728e36",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-010-de5589c0df4c-fluid.webp?alt=media&token=af7e2138-3293-493b-b192-221b8074375f"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-010-48420e038b7d-balanced.webp?alt=media&token=dc8156f8-aeb8-4793-a883-b24b9bd95736"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-010-1be69ea48d23-max.webp?alt=media&token=5a7d8468-516e-426c-a127-06eb606f1ca0"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2960",
+      "colorId": "natural",
+      "color": "Natural",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 11,
+      "sourceFilename": "00Y2960@11.jpg",
+      "sourceSHA256": "daedc35ae27a255de78e85c728b8d8faa3caf3c47261ef5cb86cee0b7cff9e89",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-011-351579accd16-fluid.webp?alt=media&token=c69d1b06-6cf5-4e13-9f9d-449072ef34f7"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-011-7ef0e5fc0bf8-balanced.webp?alt=media&token=af087294-65b1-4271-9e9b-8553f4d19861"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-011-85632cbcf2d3-max.webp?alt=media&token=12868f0a-6ee6-4d3f-83e2-685da02378c3"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2960",
+      "colorId": "natural",
+      "color": "Natural",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 12,
+      "sourceFilename": "00Y2960@12.jpg",
+      "sourceSHA256": "3c162f1111fc15867faea66eff86d1450cbdd81b985496bdeaa544afd96764a4",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-012-e689a0b36e85-fluid.webp?alt=media&token=11a411e7-cdaa-4f20-a76a-347bb115e6c4"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-012-006091fe2e7d-balanced.webp?alt=media&token=d28c1750-99e7-47e8-82a5-699fa8fa2d1b"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-012-db6d84fa430d-max.webp?alt=media&token=abff697e-125d-49ec-b84f-3706f358231e"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2960",
+      "colorId": "natural",
+      "color": "Natural",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 13,
+      "sourceFilename": "00Y2960@13.jpg",
+      "sourceSHA256": "c25b0753c9aeefb92ec240ea74d47bf66b9c6621ebe7d86882a7b98ae65cfb1d",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-013-d68432ae2b6c-fluid.webp?alt=media&token=efd11b61-656d-4ae3-ac43-0942a7c574ff"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-013-d1a6e762e03f-balanced.webp?alt=media&token=e64d8abf-a4f6-4ab4-9861-be91aab031c6"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-013-a3059c20b8e4-max.webp?alt=media&token=16998999-66d1-4d96-9cfd-7b4cc0f5ebb8"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2960",
+      "colorId": "natural",
+      "color": "Natural",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 14,
+      "sourceFilename": "00Y2960@14.jpg",
+      "sourceSHA256": "f9c54960ed1b742d7b3242f081e21ea61e2b0b5e61c836e5d784ab5dcabc1e4f",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-014-452ce80414a4-fluid.webp?alt=media&token=e1142326-812c-4f07-95e9-56d14d3be9ee"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-014-6a376e5dd8f9-balanced.webp?alt=media&token=59ef9221-fad0-4279-85e8-2d0be2fc1265"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-014-48684916b33e-max.webp?alt=media&token=bcad9723-b80e-473f-9d05-d81decb36057"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2960",
+      "colorId": "natural",
+      "color": "Natural",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 15,
+      "sourceFilename": "00Y2960@15.jpg",
+      "sourceSHA256": "9897ba60e3315fa2ba665c82acfb2ddd02fbf339a8651ef7bc10e96e82df5fcc",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-015-564460ba9ff4-fluid.webp?alt=media&token=e1ebefe7-55c7-4447-b8be-570f0bb22a16"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-015-b8422033be56-balanced.webp?alt=media&token=9db1c2b3-9414-47e5-b89f-3ff880952166"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2960-natural-20.3x90.6-face-015-9441fde30ce0-max.webp?alt=media&token=7b2c25d3-0680-40d7-8192-b45ff83db01b"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2970",
+      "colorId": "amber",
+      "color": "Amber",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 1,
+      "sourceFilename": "00Y2970@1.jpg",
+      "sourceSHA256": "fff60733e07a1664dcd953a7a9fe93542dfafe924a43afce3df22e4f3ac820aa",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-001-01800f55e851-fluid.webp?alt=media&token=4ce6e4bd-dfd8-4b4c-bf32-e93b8fde2af1"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-001-f1dde5956e5b-balanced.webp?alt=media&token=cbbc8114-e13e-4294-962e-96e8a5e8de92"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-001-6e245277dce4-max.webp?alt=media&token=a5142d70-6c3c-43be-b429-e9bca8890112"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2970",
+      "colorId": "amber",
+      "color": "Amber",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 2,
+      "sourceFilename": "00Y2970@2.jpg",
+      "sourceSHA256": "ab29cb614c19150d8d12c65e7c7e2b4f4cfb66d6eb7a09f3fe493ca838fcf116",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-002-b269eb1f73ec-fluid.webp?alt=media&token=e5e37ba8-67f7-4bb6-94cc-2a98e2ea044a"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-002-5e2cd18550f2-balanced.webp?alt=media&token=3c20d50d-5d6d-424c-8bd3-6238cc49269d"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-002-66dcbe607fc4-max.webp?alt=media&token=d89e807d-026d-4867-8dee-59b1e28829cf"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2970",
+      "colorId": "amber",
+      "color": "Amber",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 3,
+      "sourceFilename": "00Y2970@3.jpg",
+      "sourceSHA256": "5b4cb1e4f78df70a082cd3688edd3016862b14c58998c0a0571a3af878f4519d",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-003-efe8d3ba5e5a-fluid.webp?alt=media&token=746921ae-9987-4b80-ac42-1caf07ece1e4"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-003-5edeec2b1de6-balanced.webp?alt=media&token=769701b8-65e8-440e-b64c-41340b202718"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-003-2d95efe34e54-max.webp?alt=media&token=2469dcd3-1b68-4f33-ad95-d7209dbf8812"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2970",
+      "colorId": "amber",
+      "color": "Amber",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 4,
+      "sourceFilename": "00Y2970@4.jpg",
+      "sourceSHA256": "181eb21a3192b7f589607304b79f3d1c2d2cf3cf745f0133b0bbeea03c55c795",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-004-ed3b4d6f8636-fluid.webp?alt=media&token=3db2cc8e-6b5f-4261-b373-00539215fa45"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-004-5ca6d6e466dc-balanced.webp?alt=media&token=e563ac76-8505-4d76-83b8-5a2ced0ca112"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-004-33651612f08c-max.webp?alt=media&token=fd22127a-e45b-4757-aa39-c954dcd4d7a9"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2970",
+      "colorId": "amber",
+      "color": "Amber",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 5,
+      "sourceFilename": "00Y2970@5.jpg",
+      "sourceSHA256": "9bd0e5db6412d0a38ef8d820b8d21d8afbbf5cf9a1180e18d200fb42ad23ffa6",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-005-a1cd1e705b05-fluid.webp?alt=media&token=a7bddac5-9ca3-4c18-bf43-682d942149bc"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-005-4eea81d38306-balanced.webp?alt=media&token=d1322d3f-115e-4622-a3d5-54b80914b519"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-005-b2bedcf88b5e-max.webp?alt=media&token=279b6cf5-aa75-46c3-8dc6-120587fce637"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2970",
+      "colorId": "amber",
+      "color": "Amber",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 6,
+      "sourceFilename": "00Y2970@6.jpg",
+      "sourceSHA256": "bf1b1e382619b9afe799aed48d413cb3ee21a87a49a859db1003b28ca9d778d2",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-006-be29ed73a123-fluid.webp?alt=media&token=ee5c489e-8170-4818-b90c-cdabe41029a7"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-006-1e69d3a7a9f6-balanced.webp?alt=media&token=507f5047-cdcc-4924-b93d-88b6a8ccdbc7"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-006-2d1b3aed39ab-max.webp?alt=media&token=428d318f-e0da-40ac-b3d6-23f6f601f514"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2970",
+      "colorId": "amber",
+      "color": "Amber",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 7,
+      "sourceFilename": "00Y2970@7.jpg",
+      "sourceSHA256": "a4987bdb788195b73e15f0739721869e08c51f4daf2f6f168e712a4aadacce26",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-007-74502cb9a91a-fluid.webp?alt=media&token=983311e1-5193-49e4-ab1c-b48b165b2187"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-007-87e55eba8ed9-balanced.webp?alt=media&token=f7cde23d-cbc8-4403-ad28-bd0e3b527f6e"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-007-b31fda772ba4-max.webp?alt=media&token=dc8d9de9-2110-4f5c-b0ff-0401213cf670"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2970",
+      "colorId": "amber",
+      "color": "Amber",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 8,
+      "sourceFilename": "00Y2970@8.jpg",
+      "sourceSHA256": "6b42e977d404ce28b1736e6ce4ed703592b048d7ab52dba6091741c868cc73a9",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-008-6b1a94677268-fluid.webp?alt=media&token=d2084bb8-eb0f-431c-ad7b-33eccf9b3677"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-008-a4256c5c846e-balanced.webp?alt=media&token=45e53f2b-c5f7-41d2-8b2c-f516412f4279"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-008-72887ab22fe8-max.webp?alt=media&token=eb43d563-00aa-4065-a2b0-9ce1428434f2"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2970",
+      "colorId": "amber",
+      "color": "Amber",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 9,
+      "sourceFilename": "00Y2970@9.jpg",
+      "sourceSHA256": "f90f93249b0ea73350b1d5aa55ccee0c50220076d6b3957229e2df8db449f91b",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-009-2da2b5940b66-fluid.webp?alt=media&token=a2e55eca-567e-43fc-b6ac-bb726c185c88"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-009-72d604c99842-balanced.webp?alt=media&token=cff63387-df10-41b4-8f23-a64d370fb0e4"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-009-3575a8d737cb-max.webp?alt=media&token=ac065c5d-0543-4e49-a51d-786c9abc21b4"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2970",
+      "colorId": "amber",
+      "color": "Amber",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 10,
+      "sourceFilename": "00Y2970@10.jpg",
+      "sourceSHA256": "b7d13464b4d0ab9b8536180e4ca316524025399f93f5c9a3857723d1f115089e",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-010-1a2c25946ac0-fluid.webp?alt=media&token=aa8a009d-f25c-46da-9a2a-5ae2dae1cf7a"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-010-ba1241709fe5-balanced.webp?alt=media&token=1b32a427-dfa0-4aaa-99ea-d2ac6331c5bb"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-010-6d9ff71d1eed-max.webp?alt=media&token=93fc2457-68db-431f-b547-fd5172984465"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2970",
+      "colorId": "amber",
+      "color": "Amber",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 11,
+      "sourceFilename": "00Y2970@11.jpg",
+      "sourceSHA256": "b0718bcb69b436307d07130f86d57d975040ce893234494967e1ba01fb4f3ce4",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-011-e7c1b4581762-fluid.webp?alt=media&token=b6579e77-6318-4fc3-82b0-bde1c546f946"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-011-497a53e3e35b-balanced.webp?alt=media&token=764c6cb2-18e4-422c-ba21-b98569880728"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-011-7c7f19f550b1-max.webp?alt=media&token=50f825e3-f8da-4724-9e0a-755ca6d7b4f2"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2970",
+      "colorId": "amber",
+      "color": "Amber",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 12,
+      "sourceFilename": "00Y2970@12.jpg",
+      "sourceSHA256": "6558877c3035f7c2ce57f1c0d09359bf859b269d811c7785cd8dff2341a6c04e",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-012-ebdfb61528a7-fluid.webp?alt=media&token=cd84793d-d7bf-4a31-984e-a351b11568e5"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-012-bd64e6f01beb-balanced.webp?alt=media&token=7c081649-f871-41c3-a040-5dd2eddf6b77"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-012-4264f7e7b7b3-max.webp?alt=media&token=6501b270-bc48-44dd-b47d-d03cc9c339b0"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2970",
+      "colorId": "amber",
+      "color": "Amber",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 13,
+      "sourceFilename": "00Y2970@13.jpg",
+      "sourceSHA256": "1f7d33be45ecb06fd6aff7040401a3d0322f58a488414c7056866abd7dd6e11c",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-013-ba5bdd1248d9-fluid.webp?alt=media&token=ecb60706-c7d9-472d-8440-1dcbe657b302"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-013-3d32e698f798-balanced.webp?alt=media&token=d401ed66-fcbd-44cc-a236-587ed48568ca"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-013-9b98cff7051b-max.webp?alt=media&token=6d08a1c6-e6f3-41e4-b0c9-640ecd64c8c7"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2970",
+      "colorId": "amber",
+      "color": "Amber",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 14,
+      "sourceFilename": "00Y2970@14.jpg",
+      "sourceSHA256": "e8e366df9422d97867cd2a8a239fb270f3656cbddef3f46521909edc7ab88c56",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-014-3913076ba852-fluid.webp?alt=media&token=5e05ba94-8316-4d92-8507-d3d826b9544d"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-014-3053b715ef32-balanced.webp?alt=media&token=57502a41-9440-44a7-b8d2-7e7cec3710f2"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-014-e06e39cd02aa-max.webp?alt=media&token=0de4b9c6-ad91-4d03-ac9b-e5011ee02188"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2970",
+      "colorId": "amber",
+      "color": "Amber",
+      "format": "20.3x90.6",
+      "sourceFormatCm": [
+        20.3,
+        90.6
+      ],
+      "renderDimensionsCm": [
+        90.6,
+        20.3
+      ],
+      "face": 15,
+      "sourceFilename": "00Y2970@15.jpg",
+      "sourceSHA256": "c54a6b4915c69286f03fd301260a6e004a7b2cbc8f8cddd3f117f3a67fc2cef9",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-015-578bb7e4244f-fluid.webp?alt=media&token=230b259a-7f61-460b-8ea2-57648aeaf0f0"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-015-e2faebed0dfb-balanced.webp?alt=media&token=62c6fba0-a4f1-4d91-855d-bc2a01a44674"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2970-amber-20.3x90.6-face-015-c3a850c561f8-max.webp?alt=media&token=82631d7a-fb20-45bb-bfb0-610e8b3adfaa"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C00",
+      "colorId": "white",
+      "color": "White",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 1,
+      "sourceFilename": "00Y2C00@1.jpg",
+      "sourceSHA256": "ba73af39ff819e2f81b2e85ab8de25df92bb749633a1822d2fd4e535c7da7992",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-001-43fb3604d7e8-fluid.webp?alt=media&token=28e65c3b-ec81-4c7d-8237-792679de1789"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-001-b554a7b45a96-balanced.webp?alt=media&token=464b883d-c987-44c1-9075-2371e33c5437"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-001-bf23563d41e0-max.webp?alt=media&token=66df381a-0cd5-424a-a802-4917c80e2560"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C00",
+      "colorId": "white",
+      "color": "White",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 2,
+      "sourceFilename": "00Y2C00@2.jpg",
+      "sourceSHA256": "49d0968090c507b6dbd261f80843d5d02d42d982d07134177e7e2fe1314bc41a",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-002-4c881a47ab2a-fluid.webp?alt=media&token=3da56fc9-b7ef-44ae-ae1a-db786b85454e"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-002-717bc9c38cb3-balanced.webp?alt=media&token=41e764d8-983a-4ae3-a4bd-bc94a9dcda97"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-002-fcee65b72d10-max.webp?alt=media&token=42cecca3-07bf-4342-ab5d-e869e33b83d7"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C00",
+      "colorId": "white",
+      "color": "White",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 3,
+      "sourceFilename": "00Y2C00@3.jpg",
+      "sourceSHA256": "27824eaa660ad335b91251c0de3e5c257276a51acba700aa1f0a5f711c15f661",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-003-5362a7770fc7-fluid.webp?alt=media&token=9057cad6-17e5-4c0e-9aaf-87389ea09c9f"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-003-28ea390984dd-balanced.webp?alt=media&token=2e9fe776-c0dd-41e3-aa17-cc6ae683f813"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-003-e15faf3ee6d7-max.webp?alt=media&token=8d7abf4f-0bd8-4334-acaf-17fb952889e2"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C00",
+      "colorId": "white",
+      "color": "White",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 4,
+      "sourceFilename": "00Y2C00@4.jpg",
+      "sourceSHA256": "2970529ed523f69c19d7f34803c81f49b4dd4f2bad66f2492bbfea3666d46b11",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-004-26a57812a8a3-fluid.webp?alt=media&token=30a22f45-8091-4122-9bef-4054f1f903df"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-004-f004d7290bac-balanced.webp?alt=media&token=b844fbd9-f6f5-4f2f-87fd-b6997eb5f41a"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-004-d19df35ddbe0-max.webp?alt=media&token=6c572dab-c030-47e0-949c-47a5395de779"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C00",
+      "colorId": "white",
+      "color": "White",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 5,
+      "sourceFilename": "00Y2C00@5.jpg",
+      "sourceSHA256": "0c6b4f0f447b72db8c318b62585212797e15361cc0c8d6b7bdb10205faf85fea",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-005-aa9d8c5e3f0d-fluid.webp?alt=media&token=26ba173c-313d-43a2-9029-6011319357fb"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-005-572e14cda216-balanced.webp?alt=media&token=d6b1c215-42cf-478a-961a-a5c49204855b"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-005-e23a17799f7e-max.webp?alt=media&token=752ab0b7-d19d-4471-8753-e3872e5de5ce"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C00",
+      "colorId": "white",
+      "color": "White",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 6,
+      "sourceFilename": "00Y2C00@6.jpg",
+      "sourceSHA256": "cb4ad911b380f847a107b53057dcf45045ae3d39039fdeb57bb6c4029ecb4743",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-006-abd94d363b21-fluid.webp?alt=media&token=223ac9e1-431e-4dea-9345-f3e6ec245841"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-006-0ae4029bcb09-balanced.webp?alt=media&token=ed5da072-18e0-4898-88d0-4520e3489b27"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-006-4eaff7c8c558-max.webp?alt=media&token=c0ec07d4-b0a9-4759-83bb-5b3e21756dfb"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C00",
+      "colorId": "white",
+      "color": "White",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 7,
+      "sourceFilename": "00Y2C00@7.jpg",
+      "sourceSHA256": "6af17b62e5a46a63ae618db52b097ca0d66d6ca8791467fd766064fffac9142e",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-007-49a24da05998-fluid.webp?alt=media&token=c4e8ab36-9396-4278-9e5f-7b1eea3ff708"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-007-f81818783ac6-balanced.webp?alt=media&token=961cf496-4a01-4501-9529-d41d1382134a"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-007-1929ba15f0b5-max.webp?alt=media&token=71d3d416-d29d-4cfe-9fc4-147939c67fb5"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C00",
+      "colorId": "white",
+      "color": "White",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 8,
+      "sourceFilename": "00Y2C00@8.jpg",
+      "sourceSHA256": "694c7a66ea234596fe6a0ef35cdf48a793340c2418f96bf06eaeabd6a1f8bef7",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-008-f0bb8286c183-fluid.webp?alt=media&token=d6bba89c-365b-4a6a-92e9-904795cdc6ba"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-008-47e37f6cfe45-balanced.webp?alt=media&token=b2cec15d-27b4-4183-95c7-c7640caa05fc"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-008-5456061059aa-max.webp?alt=media&token=daa1ca2e-4714-4998-a608-8f6b8f78b683"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C00",
+      "colorId": "white",
+      "color": "White",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 9,
+      "sourceFilename": "00Y2C00@9.jpg",
+      "sourceSHA256": "7e264a065d7feefe688ae87b51a09bc49d04124f041085f118184a01413db9e2",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-009-1e3f7bb1fc14-fluid.webp?alt=media&token=044e76b0-623a-4a6c-b17e-0314c4c6825a"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-009-0af8e070aaff-balanced.webp?alt=media&token=6e4bd854-f2d8-4c1b-9c91-e7ac11a13640"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-009-bc5452d9217c-max.webp?alt=media&token=845bd8a7-fbfd-41d8-a6c1-a66eb4e2ef09"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C00",
+      "colorId": "white",
+      "color": "White",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 10,
+      "sourceFilename": "00Y2C00@10.jpg",
+      "sourceSHA256": "d84c487e748d2be39d2631989fe45613ac356a8970e0667280726b110258f505",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-010-5c4a83a33458-fluid.webp?alt=media&token=48f4573c-933b-4b82-851f-97c9d809113a"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-010-bdab38d77bb3-balanced.webp?alt=media&token=a1e3856b-bc29-4cd3-becb-cb8d93c58c3a"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-010-58823c7602b3-max.webp?alt=media&token=ed7f30da-621b-4440-9b68-2a3a7afcfde8"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C00",
+      "colorId": "white",
+      "color": "White",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 11,
+      "sourceFilename": "00Y2C00@11.jpg",
+      "sourceSHA256": "b01eb9075632b2aa03ea6d1f89df8551525ab4d17a1e4c99923fb165ed00c606",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-011-f12e40645d8d-fluid.webp?alt=media&token=a84cb3ce-d71a-4905-8a76-b48d7c140ef5"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-011-c2b28c7068b4-balanced.webp?alt=media&token=5f07f298-e2ee-46dc-bd93-77300bd6c4c6"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-011-371a77b1fcf0-max.webp?alt=media&token=e0d66a28-f66b-4ab3-b902-f9c799805237"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C00",
+      "colorId": "white",
+      "color": "White",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 12,
+      "sourceFilename": "00Y2C00@12.jpg",
+      "sourceSHA256": "2c013da1335df2b2eea5aebda8bc5c76721ef524a8512a289bd3810f37c9b853",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-012-5f6f0c9eceac-fluid.webp?alt=media&token=d74091f0-43d3-4f3f-acf0-6fcb894fc679"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-012-07d6bbda4aca-balanced.webp?alt=media&token=9198aee8-5561-4ce9-be66-62db0129b72c"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-012-9f38cb60da91-max.webp?alt=media&token=f5fc313f-7730-4c8c-af14-224a485cf018"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C00",
+      "colorId": "white",
+      "color": "White",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 13,
+      "sourceFilename": "00Y2C00@13.jpg",
+      "sourceSHA256": "8bf9e5c4025039878192bdb3a30b6239bbd7e9bb6b6d66fef1fdfa14f7f68f82",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-013-587e8fe56b56-fluid.webp?alt=media&token=670ae18c-07c5-45c9-80ea-de75f0213439"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-013-f1916ed7f668-balanced.webp?alt=media&token=06c4adb3-ad70-4497-be4c-d792a270e8b9"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-013-d42154bbe22d-max.webp?alt=media&token=f194ff3d-1351-4f38-ba97-4ac8fe89169c"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C00",
+      "colorId": "white",
+      "color": "White",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 14,
+      "sourceFilename": "00Y2C00@14.jpg",
+      "sourceSHA256": "8cbaa435c16be94e256498f9c94b0a975f365b2bd84589248816c45567b511ed",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-014-d23daa394f6d-fluid.webp?alt=media&token=2e458adc-0059-4c74-b1eb-dc6ffcd7e3af"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-014-89bb1d513fe3-balanced.webp?alt=media&token=197ce7e6-2d6e-410d-9f35-599e3b9370bd"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-014-32548fc79303-max.webp?alt=media&token=93541a83-d649-416a-9b4e-8ff5dc78f9ff"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C00",
+      "colorId": "white",
+      "color": "White",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 15,
+      "sourceFilename": "00Y2C00@15.jpg",
+      "sourceSHA256": "e5f7828b1951375df95e760a5d747f8ee4061ad5d74650b09a853de355f81744",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-015-dc6748a758a2-fluid.webp?alt=media&token=7ecbf8a7-c96d-4c98-bbb0-ef65a3cb1649"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-015-87d5bf8f7815-balanced.webp?alt=media&token=d1ce43a6-6d35-4f5a-b086-2278aa327d3e"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C00-white-24x120-face-015-9d37c3d5a6f8-max.webp?alt=media&token=6e1f902b-984f-4291-8c85-31f725b1a349"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C40",
+      "colorId": "honey",
+      "color": "Honey",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 1,
+      "sourceFilename": "00Y2C40@1.jpg",
+      "sourceSHA256": "b7bc09305e3f56311373fa575e91262ebb90a73551a8e707d6c38c32a4569614",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-001-4aead3490f48-fluid.webp?alt=media&token=f807bfc6-65a5-443e-9a02-abeff7464776"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-001-d76a9c58dc21-balanced.webp?alt=media&token=cf26d3d7-66f4-495a-9772-a424508d2080"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-001-76a5de5abac7-max.webp?alt=media&token=2450baa4-bd4a-4ac1-a0d5-99dbf28ca89b"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C40",
+      "colorId": "honey",
+      "color": "Honey",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 2,
+      "sourceFilename": "00Y2C40@2.jpg",
+      "sourceSHA256": "25b75bc3bb05bebe0426f99753a1397d3bdde77f446d14eccc8d05e25cf12e32",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-002-5e46e4aa7e3f-fluid.webp?alt=media&token=6b85e053-70a6-4f24-85e8-6a68c669c0a7"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-002-fd70ed9005ca-balanced.webp?alt=media&token=b5bc4943-ae90-402c-abc1-1c744c9a3093"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-002-38fa30810c4b-max.webp?alt=media&token=22349b3c-1458-40e4-b270-3b60a9b7da48"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C40",
+      "colorId": "honey",
+      "color": "Honey",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 3,
+      "sourceFilename": "00Y2C40@3.jpg",
+      "sourceSHA256": "29a01b2129d7d660da2169dbe31380c826867166118cb4e70dd81e913557bafe",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-003-34eceebf275b-fluid.webp?alt=media&token=4249f0aa-9cbf-493e-8a0b-024dc28ce547"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-003-b7103a9f541a-balanced.webp?alt=media&token=d4f63e2d-0215-4ae1-a106-1308592bda05"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-003-f5183e8748c1-max.webp?alt=media&token=c8408fda-0abb-486b-a747-165d5f553edc"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C40",
+      "colorId": "honey",
+      "color": "Honey",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 4,
+      "sourceFilename": "00Y2C40@4.jpg",
+      "sourceSHA256": "722d53ca209135c76d03cf41b2dd62f1a162f711f358a97dd71a50c69e4d41db",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-004-56a0058aeef9-fluid.webp?alt=media&token=fe06079b-3a81-4c12-bf6b-9628cc9d1eba"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-004-80f9f90a74de-balanced.webp?alt=media&token=d5229400-60f4-4f0c-979e-fbbe4450cd3f"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-004-bd1a7bb367d7-max.webp?alt=media&token=fc5ad3eb-4ebe-4adc-ab03-6098e92c4e28"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C40",
+      "colorId": "honey",
+      "color": "Honey",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 5,
+      "sourceFilename": "00Y2C40@5.jpg",
+      "sourceSHA256": "580fe09df5ec714ee2a9602c5809a1e4d1cbec60d5e0435fe737d831d75fc49c",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-005-97d2fe141523-fluid.webp?alt=media&token=f9cdeb77-9879-4a4a-a8ec-b51f1ac0a320"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-005-06812873c1fc-balanced.webp?alt=media&token=1dab4391-0290-4a2f-b12a-9792e2dbad6d"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-005-3dd88744bf16-max.webp?alt=media&token=a0179da0-d940-4033-861a-d373cbbdb0c7"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C40",
+      "colorId": "honey",
+      "color": "Honey",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 6,
+      "sourceFilename": "00Y2C40@6.jpg",
+      "sourceSHA256": "8a2f71a27d4360d174744201f469c8d73be787ac120a49eda2f520c677bac65a",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-006-99b4466b396a-fluid.webp?alt=media&token=4bce2829-7f8b-4d49-9f42-e770979f152b"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-006-6d776d884a0b-balanced.webp?alt=media&token=d96fb61d-dc96-4797-bcc9-59590fa0d2eb"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-006-b1ee620a9997-max.webp?alt=media&token=54608dc1-19cd-477d-9829-3f1df2f61170"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C40",
+      "colorId": "honey",
+      "color": "Honey",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 7,
+      "sourceFilename": "00Y2C40@7.jpg",
+      "sourceSHA256": "db8a154a846a31c8b530f75ece6902c5cea0276a0dfe66e8286297df5c03a5ad",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-007-9a681c0db6a4-fluid.webp?alt=media&token=9ae65a1c-0117-4ac5-9500-3760d1a52953"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-007-af2c29d27e62-balanced.webp?alt=media&token=3fb330fd-9a3a-41d0-af18-494fc3c1773d"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-007-4c117b95c395-max.webp?alt=media&token=340d1960-f978-4a25-aa5d-1e24c6318e86"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C40",
+      "colorId": "honey",
+      "color": "Honey",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 8,
+      "sourceFilename": "00Y2C40@8.jpg",
+      "sourceSHA256": "f553450666620d4c18d0304ed0a7232364382b120a067521da8de85db0a3d8db",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-008-c7186925e05e-fluid.webp?alt=media&token=c150f8cf-b7f9-4238-b509-de3e4ae41851"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-008-cd13c45007fc-balanced.webp?alt=media&token=32c3eebc-55e6-4e53-a693-d31849967481"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-008-6901e2b158f1-max.webp?alt=media&token=3466ab3a-5b20-413c-8c4f-c1dd443f09c5"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C40",
+      "colorId": "honey",
+      "color": "Honey",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 9,
+      "sourceFilename": "00Y2C40@9.jpg",
+      "sourceSHA256": "49b59fac3723a50dbacd278686201fca5861d3a3943b3efac5fb0ba11f8d51f9",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-009-5638303187be-fluid.webp?alt=media&token=e6a98d1b-aff4-47d7-8948-cdf030df39fc"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-009-23ef1aae3af3-balanced.webp?alt=media&token=3867ea77-d338-4340-b690-af5031899819"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-009-78abcd33b89a-max.webp?alt=media&token=84e0bb98-61a0-4659-9313-76175d7bd9fc"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C40",
+      "colorId": "honey",
+      "color": "Honey",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 10,
+      "sourceFilename": "00Y2C40@10.jpg",
+      "sourceSHA256": "7411da7121aaf937f609737dd19a847fb6ab52d15df367808797b174f663fa33",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-010-17baaa4b5802-fluid.webp?alt=media&token=82853ba0-9266-452d-a51f-f8405728178e"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-010-49c007f0f75f-balanced.webp?alt=media&token=ebf61feb-40dc-4345-bbea-ed5255268a5f"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-010-ec7118f03b60-max.webp?alt=media&token=59e2495d-fcbb-4a6a-9359-7de28a44b2e5"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C40",
+      "colorId": "honey",
+      "color": "Honey",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 11,
+      "sourceFilename": "00Y2C40@11.jpg",
+      "sourceSHA256": "331be73e533443ee4bb36f5d593a78bc6f36b462d6c7471ad9eac97689838895",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-011-f3e05c002440-fluid.webp?alt=media&token=06b7c31e-b692-44a1-b17b-0f597fa4ef33"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-011-3551762e6194-balanced.webp?alt=media&token=c64d4c99-f2b6-41c5-ac07-e1575a0924ae"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-011-1ba7796a1486-max.webp?alt=media&token=68a36299-d96e-4515-9256-3170dd406d6b"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C40",
+      "colorId": "honey",
+      "color": "Honey",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 12,
+      "sourceFilename": "00Y2C40@12.jpg",
+      "sourceSHA256": "80c8f04ae00e4b65967a2a3daef88b8b12914d798852b855cce1205fd724048a",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-012-fab8d24a42b3-fluid.webp?alt=media&token=bbb7fd82-b60b-4c34-bbbc-dfa76892da3b"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-012-3710692da53d-balanced.webp?alt=media&token=eafb7b5d-9105-4467-a955-f551ab877c79"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-012-3462b26b30c1-max.webp?alt=media&token=e44dea0a-00d2-4ea5-ade2-1bcadf499268"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C40",
+      "colorId": "honey",
+      "color": "Honey",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 13,
+      "sourceFilename": "00Y2C40@13.jpg",
+      "sourceSHA256": "8f7a95944bc9a8fcf0ca2c63fe7834884b60e1e0ae5796223d7e8722924c333c",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-013-3931c346d685-fluid.webp?alt=media&token=2036de22-ef65-47c0-8719-6535073a1d2a"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-013-1924512d03d7-balanced.webp?alt=media&token=adb38a12-6472-4597-8ab6-475c431ac793"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-013-f9d66a17d9f4-max.webp?alt=media&token=1aad3d46-8df1-442c-8b8b-bd46d75bb07c"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C40",
+      "colorId": "honey",
+      "color": "Honey",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 14,
+      "sourceFilename": "00Y2C40@14.jpg",
+      "sourceSHA256": "ce4eaa9f159b37f8daf4f2ca8a8594677ea2eaca894c6bc35899ed81030045ab",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-014-df8963453ac9-fluid.webp?alt=media&token=f5b44011-ec51-4e9d-9393-f0729bd5deed"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-014-d00e1a8fba7b-balanced.webp?alt=media&token=634b9506-83fb-4a30-a3d2-bfef0605a0e4"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-014-8183295ab560-max.webp?alt=media&token=8bb76436-8f4e-4555-98fe-315c77ad85da"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C40",
+      "colorId": "honey",
+      "color": "Honey",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 15,
+      "sourceFilename": "00Y2C40@15.jpg",
+      "sourceSHA256": "6984d696a8288ef99c038124d2be7f99961be8686fe02867d12e3af8fc8eeea9",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-015-8c3fd797a748-fluid.webp?alt=media&token=6416c3b6-59b6-461c-be44-84b2843398d5"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-015-876d39b67b7a-balanced.webp?alt=media&token=0245cd05-a862-476e-a868-b39e6ee6d79a"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C40-honey-24x120-face-015-e7462245dddd-max.webp?alt=media&token=97e5b32c-a81b-4698-b397-d5247aead4ee"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C60",
+      "colorId": "natural",
+      "color": "Natural",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 1,
+      "sourceFilename": "00Y2C60@1.jpg",
+      "sourceSHA256": "6c489c65f5b38f18c1b5a2a54c8d8be32aa417cdc8a28b226b97399143145d87",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-001-d58db84aacc9-fluid.webp?alt=media&token=e0609fb5-b16d-4656-9a39-d82012f299de"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-001-4a6f110f68ea-balanced.webp?alt=media&token=76990766-c0b2-47c5-9b62-413c80cc83c4"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-001-0277926bc266-max.webp?alt=media&token=e44eedfb-ac34-47f3-8736-42ab7a81346a"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C60",
+      "colorId": "natural",
+      "color": "Natural",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 2,
+      "sourceFilename": "00Y2C60@2.jpg",
+      "sourceSHA256": "672caf78f40ae365f27dde35b9c93e26bbbf8b5cff5ea7697ce664a22519bcef",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-002-830e86e91a72-fluid.webp?alt=media&token=24e1de8f-9722-4568-976c-f3ca6107ce88"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-002-0a6c77a6e59a-balanced.webp?alt=media&token=c2dfb5df-626d-4e33-ac1e-de15deb69cf9"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-002-721573ca7f99-max.webp?alt=media&token=d88b0709-12da-463a-9569-57117bd61846"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C60",
+      "colorId": "natural",
+      "color": "Natural",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 3,
+      "sourceFilename": "00Y2C60@3.jpg",
+      "sourceSHA256": "d1f3a6caf5b220d22b5eb8250feee93d005b4dbefa93a01d4baf1e813e6be98e",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-003-ae72e29ff9e6-fluid.webp?alt=media&token=2e965ea2-926d-45b3-8191-4cd227b22b0b"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-003-3106d85c6088-balanced.webp?alt=media&token=51641780-5911-4b98-94e5-64f4ff5203d4"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-003-48723131cebd-max.webp?alt=media&token=297ed5e1-8073-4f44-9fc4-fdd753bf8217"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C60",
+      "colorId": "natural",
+      "color": "Natural",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 4,
+      "sourceFilename": "00Y2C60@4.jpg",
+      "sourceSHA256": "7d682a2dcd5aa4df0bbd77df70e1ff5b45832e4c1f5dec9c395c7d05e739bca5",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-004-37a0abd0d274-fluid.webp?alt=media&token=9b0cd5a9-bcae-4703-b71b-7020a308fc7d"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-004-eb19719bfa32-balanced.webp?alt=media&token=bc2438cb-ad4c-4b82-8347-9461ff1f3c03"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-004-e4fed78eef37-max.webp?alt=media&token=91dc9a5f-217c-4ed4-a182-7dfe028bb9b2"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C60",
+      "colorId": "natural",
+      "color": "Natural",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 5,
+      "sourceFilename": "00Y2C60@5.jpg",
+      "sourceSHA256": "c46fef7e7ff64e0a7919754cb859cd804ed5a4b01e7da25fc7687bdfb887dc0c",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-005-b2303b548d88-fluid.webp?alt=media&token=83d4d6fe-3db3-4975-83f7-9e6b402fff19"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-005-747feedc7168-balanced.webp?alt=media&token=39c279f4-92e1-4ad3-8058-258a30aebe2d"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-005-d2e91d238521-max.webp?alt=media&token=56413531-50a8-4cc8-80ee-3cc4e2caa9d6"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C60",
+      "colorId": "natural",
+      "color": "Natural",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 6,
+      "sourceFilename": "00Y2C60@6.jpg",
+      "sourceSHA256": "56815407c70eeb9ab8ea4685480b45093a6af16bddc773b2c233a8b5c7c885e7",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-006-844e9d397c09-fluid.webp?alt=media&token=6b15bd8b-a981-45d6-a1c1-588a164ad843"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-006-f8138a4a8d89-balanced.webp?alt=media&token=f0016e4a-43ff-45c2-b2b9-059a3268ee51"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-006-fcb22fc02d00-max.webp?alt=media&token=b6674e35-c57d-483c-9787-0aaca732fd17"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C60",
+      "colorId": "natural",
+      "color": "Natural",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 7,
+      "sourceFilename": "00Y2C60@7.jpg",
+      "sourceSHA256": "57ddc9bc097ace74468cdc6e45e329288886b74afb55498dd98c42e31f7a9622",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-007-9234db3f2879-fluid.webp?alt=media&token=7bf329d4-16c0-4ae5-82b1-d3f085fe9c3d"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-007-847eacba12d9-balanced.webp?alt=media&token=67b869a3-86e4-42d8-8e8f-b27eb9235fd2"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-007-5dd9ad2ba735-max.webp?alt=media&token=7da5f93c-73c1-484c-9f6e-088d42999cde"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C60",
+      "colorId": "natural",
+      "color": "Natural",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 8,
+      "sourceFilename": "00Y2C60@8.jpg",
+      "sourceSHA256": "3ed19dce9a8dd0b9d67b16c61d9479eb1077df59f4d17aaacefebb1788be619f",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-008-321a250f32a0-fluid.webp?alt=media&token=9e194767-df0a-4150-8e47-0a1f23acdaa3"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-008-947ec39d03c2-balanced.webp?alt=media&token=e990416b-99fc-4edd-bc7b-b204528c322c"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-008-4171b118bb5f-max.webp?alt=media&token=540d7480-72be-4ed7-a0eb-8c04aaae91bb"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C60",
+      "colorId": "natural",
+      "color": "Natural",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 9,
+      "sourceFilename": "00Y2C60@9.jpg",
+      "sourceSHA256": "31acb10cad130973175c35483624dc82e751c475ffbe182f0b019f2fc88fc406",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-009-5dbd0759cec0-fluid.webp?alt=media&token=013ca26d-98e8-42f3-bd35-71bf71770ce4"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-009-15427f635d22-balanced.webp?alt=media&token=9accf0b0-b5ad-4611-8466-a7acde807631"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-009-d54e7dfc1d59-max.webp?alt=media&token=73ab686b-c1c2-4787-8275-02992744df33"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C60",
+      "colorId": "natural",
+      "color": "Natural",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 10,
+      "sourceFilename": "00Y2C60@10.jpg",
+      "sourceSHA256": "8a939fcafd21297d0ed7ae81b1a26395d3a3dfaac5e560003d6a609b36fbeca8",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-010-74454da82f8d-fluid.webp?alt=media&token=0ead3041-4906-4fc4-9bff-8a0e35afa4c2"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-010-fdd8d91a2a4f-balanced.webp?alt=media&token=ec583455-e780-4588-8882-d9571e1a3bef"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-010-bd4807abdd0b-max.webp?alt=media&token=adc0e473-fb2b-4bc9-828a-0cf765c654fb"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C60",
+      "colorId": "natural",
+      "color": "Natural",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 11,
+      "sourceFilename": "00Y2C60@11.jpg",
+      "sourceSHA256": "34f1cad08fdc8f89179adea6f4fa4ee73cee339260ac2a3a913fa7e5f7934c9b",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-011-0ef6e6c8657f-fluid.webp?alt=media&token=34b9460c-b617-4e55-aad1-dfba8b44224c"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-011-67c93280ad75-balanced.webp?alt=media&token=56db962b-58f2-4f08-b09d-e9d1ca234c04"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-011-138cd404bd8b-max.webp?alt=media&token=33345971-9b78-4982-9208-f0578c6eb10e"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C60",
+      "colorId": "natural",
+      "color": "Natural",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 12,
+      "sourceFilename": "00Y2C60@12.jpg",
+      "sourceSHA256": "3acd90e83447216f9ccb37f879b6fb8facc2a62805e4742cf8a1c1c341336f9f",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-012-fea4fffa00ee-fluid.webp?alt=media&token=2472c9bc-31b5-43ef-b6ea-b40a818ad51a"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-012-2d64ff421016-balanced.webp?alt=media&token=e137b663-31b9-483d-8a0b-2214474cfb58"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-012-79b8295ce1d7-max.webp?alt=media&token=eddaf66e-c9d9-4dfd-9f10-7d59682b95fd"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C60",
+      "colorId": "natural",
+      "color": "Natural",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 13,
+      "sourceFilename": "00Y2C60@13.jpg",
+      "sourceSHA256": "82d1f9428e35bb868e181d87927a92544de670bd74b80329b746a7d4e39444ca",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-013-a6b36935560b-fluid.webp?alt=media&token=588bcdf4-66e9-4962-b427-26fc7521b88a"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-013-87acd387e167-balanced.webp?alt=media&token=8f656554-a55d-4563-a0a4-7e59d88229fc"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-013-998ee93ca242-max.webp?alt=media&token=a11728e4-34d5-4f38-a8c9-78c43af180a4"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C60",
+      "colorId": "natural",
+      "color": "Natural",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 14,
+      "sourceFilename": "00Y2C60@14.jpg",
+      "sourceSHA256": "9fc4cc17b455cbad8adf1819147e42d96535efe6ce1f82e10ab001ad67e130cf",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-014-e75a1683e86d-fluid.webp?alt=media&token=898950a1-b5e5-496e-a362-0a5ebe5b93d9"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-014-46097b0cbee8-balanced.webp?alt=media&token=aba8e26b-e24c-476c-8e03-638d1cb97f60"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-014-a2584db79a0f-max.webp?alt=media&token=129eb8b7-e702-426a-b005-138ca3f26f51"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C60",
+      "colorId": "natural",
+      "color": "Natural",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 15,
+      "sourceFilename": "00Y2C60@15.jpg",
+      "sourceSHA256": "88518ff9d460209bf6166900a49305bdc3ea226e4e20f64b6908747a16afe6fb",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-015-6e87d18d3cce-fluid.webp?alt=media&token=e7d23f2a-ce5a-4d0e-ad37-0fa67b2f6531"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-015-07883d2c711a-balanced.webp?alt=media&token=9ebd4d40-a175-4512-9286-3e912e1140ba"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C60-natural-24x120-face-015-83489aca2679-max.webp?alt=media&token=d210b0a6-f5d9-4ede-817f-ab31bd60b045"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C70",
+      "colorId": "amber",
+      "color": "Amber",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 2,
+      "sourceFilename": "00Y2C70@2.jpg",
+      "sourceSHA256": "4e3bbfbe58dd1438c88ca41361972035c4d1f438ca6199178ec900cf4eb7c193",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-002-676d243f262e-fluid.webp?alt=media&token=2458870a-4278-41f3-a809-7594acd7fedc"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-002-7fecd28f7901-balanced.webp?alt=media&token=2ad3196b-37f0-4d75-bc62-7bac1dc165cd"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-002-3bd389a4f323-max.webp?alt=media&token=bdf19fbd-5c82-4c7c-9398-7e7e7ea18d65"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C70",
+      "colorId": "amber",
+      "color": "Amber",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 3,
+      "sourceFilename": "00Y2C70@3.jpg",
+      "sourceSHA256": "e09255d3c7943f85158abf2231082417ba2ef93986f869901873b581f32455cc",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-003-3440d9829306-fluid.webp?alt=media&token=781001d7-3624-4c5d-8dcf-fd694f95667c"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-003-4fc2770765d6-balanced.webp?alt=media&token=7f8570fa-8c35-46ba-b2b7-4b377ebaee97"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-003-0cd3dfd7e773-max.webp?alt=media&token=7918880d-f20c-4a29-a299-df0fc6249398"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C70",
+      "colorId": "amber",
+      "color": "Amber",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 4,
+      "sourceFilename": "00Y2C70@4.jpg",
+      "sourceSHA256": "386f25eedf11e5708118563f3c6fb4104d84aa59015805284d4a49fc01e1a9aa",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-004-5c145613d5e8-fluid.webp?alt=media&token=0c94ee0b-88e3-4808-8cfd-e6db6157c526"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-004-3f2919f08258-balanced.webp?alt=media&token=e8c9b74f-17af-4983-999a-781b0e9e422c"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-004-a700c964b132-max.webp?alt=media&token=ef7308b1-8d57-4431-ba6d-4477660f8e88"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C70",
+      "colorId": "amber",
+      "color": "Amber",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 5,
+      "sourceFilename": "00Y2C70@5.jpg",
+      "sourceSHA256": "892e9210927e94c38d68c9e4b3cd383d8bd42811f525b2968a0764907e192b5d",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-005-b17300d0261e-fluid.webp?alt=media&token=e3eec77f-2463-4a04-99c9-0d2beca6ef26"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-005-fcba9752e635-balanced.webp?alt=media&token=5c097cab-a2e3-42fd-8d08-555da972594b"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-005-33787ecd6602-max.webp?alt=media&token=4fa955c8-6527-41b8-acbb-54fe027a336f"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C70",
+      "colorId": "amber",
+      "color": "Amber",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 6,
+      "sourceFilename": "00Y2C70@6.jpg",
+      "sourceSHA256": "ca91271925001504090394bdd8144e3256546bfa6756f5f4ec8de932538f3549",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-006-3c81784c3a9e-fluid.webp?alt=media&token=63d86265-9945-4cfc-bc2c-6ea62acce6df"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-006-fbaca776bfbe-balanced.webp?alt=media&token=92fcd414-e45a-4981-8afc-e653e2c4215c"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-006-12192bdc7467-max.webp?alt=media&token=b4cf2ff4-63b8-40f9-99ae-ee5cbb5500b1"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C70",
+      "colorId": "amber",
+      "color": "Amber",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 7,
+      "sourceFilename": "00Y2C70@7.jpg",
+      "sourceSHA256": "2685d350ac1a2caafddc6185c2ad18ec3cff9a1b55327ad6b9d102677cebfe85",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-007-801b9aafdce0-fluid.webp?alt=media&token=ce202f56-ff57-424c-b89e-b1a04c31dd9d"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-007-d297dc15a8e3-balanced.webp?alt=media&token=5323732e-8f5f-4a02-aa3a-949b757665ea"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-007-278fe242a29b-max.webp?alt=media&token=fbf00460-d3af-4778-8eca-4024bdd24640"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C70",
+      "colorId": "amber",
+      "color": "Amber",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 8,
+      "sourceFilename": "00Y2C70@8.jpg",
+      "sourceSHA256": "6ff940e1c1930269cb19a3abe6606f32fc9bb884111f262df713abcc4600772f",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-008-d77c7f2f039d-fluid.webp?alt=media&token=2dfcae1f-da37-4ad7-8f66-f05d2ad4b1d1"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-008-fefdfe469bca-balanced.webp?alt=media&token=216f1049-2c40-4729-bc56-3448f3d3ce05"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-008-e11ae3599a57-max.webp?alt=media&token=b44eaf3f-0011-4c87-8d60-42bf3337e633"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C70",
+      "colorId": "amber",
+      "color": "Amber",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 9,
+      "sourceFilename": "00Y2C70@9.jpg",
+      "sourceSHA256": "766dde3c3d92dc51c1147a9e782b001791031ef4503ba082755f4107fd83e308",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-009-fd4445568a05-fluid.webp?alt=media&token=3dd18d5e-2946-4c9c-b3f8-913dd8de0741"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-009-7c8932e350d7-balanced.webp?alt=media&token=eea7c9b8-3a69-47a9-ba0f-f14d5538995f"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-009-2b2c710ec06c-max.webp?alt=media&token=c01e76d1-38b2-4b9d-ad08-12347a3487f6"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C70",
+      "colorId": "amber",
+      "color": "Amber",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 11,
+      "sourceFilename": "00Y2C70@11.jpg",
+      "sourceSHA256": "79ef6a5045f5e1eb96db8a4002ea689adcc13c2ff7ba6953060d154fe7b2c93f",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-011-ac0dc882d92e-fluid.webp?alt=media&token=160c838f-e59d-4808-b26f-ebb43dd87d1d"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-011-92a2933f55ee-balanced.webp?alt=media&token=96650ecf-0938-4769-be1c-747df0ef7970"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-011-f98ff45bbb6c-max.webp?alt=media&token=7e1f8138-8f2e-406e-a89e-26c87e93c603"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C70",
+      "colorId": "amber",
+      "color": "Amber",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 12,
+      "sourceFilename": "00Y2C70@12.jpg",
+      "sourceSHA256": "53f721f31ee0d378750cdf586dbab2c254b0763a460f7ab7777c4113af009e8f",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-012-fee65270aa46-fluid.webp?alt=media&token=1919a9b6-ccce-490a-9d6b-097af4959481"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-012-66d81d649d13-balanced.webp?alt=media&token=1fce26ef-e0bc-4c44-aada-eb3ced94f98e"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-012-9d152650b96e-max.webp?alt=media&token=de6411ae-24b2-410a-b775-23c1093421ce"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C70",
+      "colorId": "amber",
+      "color": "Amber",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 13,
+      "sourceFilename": "00Y2C70@13.jpg",
+      "sourceSHA256": "a8855cfb43121de1bf3ff89462f37ec23d8229760039ee6a7f0811e3adeddcb5",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-013-83cc6549ad1e-fluid.webp?alt=media&token=fc3ab907-5030-49c1-a8d1-d3b2ee5e87c5"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-013-8493204ecf21-balanced.webp?alt=media&token=9404bf30-f0ae-461e-b6a2-9857a2624194"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-013-0982a5708425-max.webp?alt=media&token=7fb28e2f-4644-4387-b680-5b13bf786635"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C70",
+      "colorId": "amber",
+      "color": "Amber",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 14,
+      "sourceFilename": "00Y2C70@14.jpg",
+      "sourceSHA256": "eae78c0657f6db33aff67a6b24c2ddff1b23f2453415c1cb48c0307cf1fa9048",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-014-5c24cabb8e19-fluid.webp?alt=media&token=29af9647-557c-4d1f-8e75-440c38ff88cd"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-014-686b67950523-balanced.webp?alt=media&token=93e7035a-c0f6-422e-9525-fd94ab634afa"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-014-be26b3dd87c4-max.webp?alt=media&token=b03a8c7f-67d7-4f68-b767-bd1ae1af819e"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    },
+    {
+      "reference": "00Y2C70",
+      "colorId": "amber",
+      "color": "Amber",
+      "format": "24x120",
+      "sourceFormatCm": [
+        24,
+        120
+      ],
+      "renderDimensionsCm": [
+        120,
+        24
+      ],
+      "face": 15,
+      "sourceFilename": "00Y2C70@15.jpg",
+      "sourceSHA256": "a54a950ded63beb027f11266d5cea96e17753cecb754e5a664db1f163d7a453e",
+      "rotateClockwise": 90,
+      "textureRotation": 0,
+      "publishedAllThreeProfiles": true,
+      "variants": {
+        "fluid": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-015-70710ad1107a-fluid.webp?alt=media&token=fa493c41-516d-41da-948a-a24dbab67b5a"
+        ],
+        "balanced": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-015-762482df9ad4-balanced.webp?alt=media&token=ae935fb8-d90c-48f6-8b99-cbec22386219"
+        ],
+        "max": [
+          "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fconfigurator-materials%2Felios-hd-20261023%2Fquercia%2F00Y2C70-amber-24x120-face-015-20c963f76b0e-max.webp?alt=media&token=f5c554d3-85b8-4a6a-afa1-a3b630e23dc3"
+        ]
+      },
+      "reuseAuthorization": "confirmed-by-user",
+      "enabled": false
+    }
+  ],
+  "urlPolicy": "Exact public media URLs observed in Firebase DOM; do not rewrite tokens or paths"
+}

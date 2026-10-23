@@ -1,4 +1,4 @@
-import {area,bounds,distance,inside,polygonError,simplify,signedArea} from './core.mjs?v=20261022-6';
+import {area,bounds,distance,inside,polygonError,simplify,signedArea} from './core.mjs?v=20261023-1';
 
 // Text readings are observations. Pixel distances are never substituted for missing dimensions.
 export function dimensionValue(text,defaultUnit='cm'){

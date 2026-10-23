@@ -1,0 +1,448 @@
+{
+  "checkedAt": "2026-10-22T23:32:00.283898+00:00",
+  "source": "Exact public media URLs observed in Firebase console DOM; no account authentication data",
+  "mutations": 0,
+  "publicURLsRewritten": false,
+  "inventoryVariants": 9,
+  "publishedVariantsChecked": 9,
+  "allInventoryVariantsAvailable": true,
+  "origins": [
+    "https://leroyfactory.fr",
+    "https://studio-one-beta-test-v2.vercel.app",
+    "https://randal-catalogue-general-3d.vercel.app"
+  ],
+  "checks": 27,
+  "passedChecks": 27,
+  "assets": [
+    {
+      "reference": "03V6A00",
+      "profile": "balanced",
+      "filename": "face-001-70f34b95c4dd-balanced.webp",
+      "urlSHA256": "7f5aa41503f27e4eb3f47d948c3969cdc80a0da0679316bdbb57b823227a7846",
+      "expectedBytes": 10638,
+      "expectedSHA256": "5721e95ed7bec2015e79b5b755cdbb0294e4560cb420fe5763f7283e34f10180",
+      "origins": [
+        {
+          "origin": "https://leroyfactory.fr",
+          "httpStatus": 200,
+          "contentType": "image/webp",
+          "corsAllowOrigin": "https://leroyfactory.fr",
+          "corsReadable": true,
+          "bytes": 10638,
+          "sha256": "5721e95ed7bec2015e79b5b755cdbb0294e4560cb420fe5763f7283e34f10180",
+          "bytesMatch": true,
+          "sha256Match": true,
+          "passed": true
+        },
+        {
+          "origin": "https://randal-catalogue-general-3d.vercel.app",
+          "httpStatus": 200,
+          "contentType": "image/webp",
+          "corsAllowOrigin": "https://randal-catalogue-general-3d.vercel.app",
+          "corsReadable": true,
+          "bytes": 10638,
+          "sha256": "5721e95ed7bec2015e79b5b755cdbb0294e4560cb420fe5763f7283e34f10180",
+          "bytesMatch": true,
+          "sha256Match": true,
+          "passed": true
+        },
+        {
+          "origin": "https://studio-one-beta-test-v2.vercel.app",
+          "httpStatus": 200,
+          "contentType": "image/webp",
+          "corsAllowOrigin": "https://studio-one-beta-test-v2.vercel.app",
+          "corsReadable": true,
+          "bytes": 10638,
+          "sha256": "5721e95ed7bec2015e79b5b755cdbb0294e4560cb420fe5763f7283e34f10180",
+          "bytesMatch": true,
+          "sha256Match": true,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "reference": "03V6A00",
+      "profile": "fluid",
+      "filename": "face-001-70f34b95c4dd-fluid.webp",
+      "urlSHA256": "f0e7887e4d04e8b78921eb34f1c530dea0ddde6a8ec7f11b54d417ef9536dbd7",
+      "expectedBytes": 1158,
+      "expectedSHA256": "994a27b27a765a1df33a91db7b8386acf3bef525c2d25ad7bc38bc8337f64b18",
+      "origins": [
+        {
+          "origin": "https://leroyfactory.fr",
+          "httpStatus": 200,
+          "contentType": "image/webp",
+          "corsAllowOrigin": "https://leroyfactory.fr",
+          "corsReadable": true,
+          "bytes": 1158,
+          "sha256": "994a27b27a765a1df33a91db7b8386acf3bef525c2d25ad7bc38bc8337f64b18",
+          "bytesMatch": true,
+          "sha256Match": true,
+          "passed": true
+        },
+        {
+          "origin": "https://randal-catalogue-general-3d.vercel.app",
+          "httpStatus": 200,
+          "contentType": "image/webp",
+          "corsAllowOrigin": "https://randal-catalogue-general-3d.vercel.app",
+          "corsReadable": true,
+          "bytes": 1158,
+          "sha256": "994a27b27a765a1df33a91db7b8386acf3bef525c2d25ad7bc38bc8337f64b18",
+          "bytesMatch": true,
+          "sha256Match": true,
+          "passed": true
+        },
+        {
+          "origin": "https://studio-one-beta-test-v2.vercel.app",
+          "httpStatus": 200,
+          "contentType": "image/webp",
+          "corsAllowOrigin": "https://studio-one-beta-test-v2.vercel.app",
+          "corsReadable": true,
+          "bytes": 1158,
+          "sha256": "994a27b27a765a1df33a91db7b8386acf3bef525c2d25ad7bc38bc8337f64b18",
+          "bytesMatch": true,
+          "sha256Match": true,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "reference": "03V6A00",
+      "profile": "max",
+      "filename": "face-001-70f34b95c4dd-max.webp",
+      "urlSHA256": "770d588e06624f5e1ec613b3ab354221f46af8a426b4f1c1ae794355a5009567",
+      "expectedBytes": 1463202,
+      "expectedSHA256": "cf7eb7cb8ec77b3f2a4c763c0f1484c0f9aed347fd77f547f802f90470326f01",
+      "origins": [
+        {
+          "origin": "https://leroyfactory.fr",
+          "httpStatus": 200,
+          "contentType": "image/webp",
+          "corsAllowOrigin": "https://leroyfactory.fr",
+          "corsReadable": true,
+          "bytes": 1463202,
+          "sha256": "cf7eb7cb8ec77b3f2a4c763c0f1484c0f9aed347fd77f547f802f90470326f01",
+          "bytesMatch": true,
+          "sha256Match": true,
+          "passed": true
+        },
+        {
+          "origin": "https://randal-catalogue-general-3d.vercel.app",
+          "httpStatus": 200,
+          "contentType": "image/webp",
+          "corsAllowOrigin": "https://randal-catalogue-general-3d.vercel.app",
+          "corsReadable": true,
+          "bytes": 1463202,
+          "sha256": "cf7eb7cb8ec77b3f2a4c763c0f1484c0f9aed347fd77f547f802f90470326f01",
+          "bytesMatch": true,
+          "sha256Match": true,
+          "passed": true
+        },
+        {
+          "origin": "https://studio-one-beta-test-v2.vercel.app",
+          "httpStatus": 200,
+          "contentType": "image/webp",
+          "corsAllowOrigin": "https://studio-one-beta-test-v2.vercel.app",
+          "corsReadable": true,
+          "bytes": 1463202,
+          "sha256": "cf7eb7cb8ec77b3f2a4c763c0f1484c0f9aed347fd77f547f802f90470326f01",
+          "bytesMatch": true,
+          "sha256Match": true,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "reference": "03V6A10",
+      "profile": "balanced",
+      "filename": "face-001-f1ec6ffbba4d-balanced.webp",
+      "urlSHA256": "512bfa386100e8e5fa73081329d29340b986bbb901679a0e0cc09be356f83209",
+      "expectedBytes": 33842,
+      "expectedSHA256": "f0dc4a2d8b32bacf9ecb29d0c0786035e0dbb8c521b6a24a5481f4663495f4c7",
+      "origins": [
+        {
+          "origin": "https://leroyfactory.fr",
+          "httpStatus": 200,
+          "contentType": "image/webp",
+          "corsAllowOrigin": "https://leroyfactory.fr",
+          "corsReadable": true,
+          "bytes": 33842,
+          "sha256": "f0dc4a2d8b32bacf9ecb29d0c0786035e0dbb8c521b6a24a5481f4663495f4c7",
+          "bytesMatch": true,
+          "sha256Match": true,
+          "passed": true
+        },
+        {
+          "origin": "https://randal-catalogue-general-3d.vercel.app",
+          "httpStatus": 200,
+          "contentType": "image/webp",
+          "corsAllowOrigin": "https://randal-catalogue-general-3d.vercel.app",
+          "corsReadable": true,
+          "bytes": 33842,
+          "sha256": "f0dc4a2d8b32bacf9ecb29d0c0786035e0dbb8c521b6a24a5481f4663495f4c7",
+          "bytesMatch": true,
+          "sha256Match": true,
+          "passed": true
+        },
+        {
+          "origin": "https://studio-one-beta-test-v2.vercel.app",
+          "httpStatus": 200,
+          "contentType": "image/webp",
+          "corsAllowOrigin": "https://studio-one-beta-test-v2.vercel.app",
+          "corsReadable": true,
+          "bytes": 33842,
+          "sha256": "f0dc4a2d8b32bacf9ecb29d0c0786035e0dbb8c521b6a24a5481f4663495f4c7",
+          "bytesMatch": true,
+          "sha256Match": true,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "reference": "03V6A10",
+      "profile": "fluid",
+      "filename": "face-001-f1ec6ffbba4d-fluid.webp",
+      "urlSHA256": "12f418ab4bb36cee866918352fa79a5160f0cdcac6e95b4363a8adaed42d4b83",
+      "expectedBytes": 1698,
+      "expectedSHA256": "1b5dcc4f7c32636e61d3891628cbab0f9382083d97e5a3dac09ceaa9653d1209",
+      "origins": [
+        {
+          "origin": "https://leroyfactory.fr",
+          "httpStatus": 200,
+          "contentType": "image/webp",
+          "corsAllowOrigin": "https://leroyfactory.fr",
+          "corsReadable": true,
+          "bytes": 1698,
+          "sha256": "1b5dcc4f7c32636e61d3891628cbab0f9382083d97e5a3dac09ceaa9653d1209",
+          "bytesMatch": true,
+          "sha256Match": true,
+          "passed": true
+        },
+        {
+          "origin": "https://randal-catalogue-general-3d.vercel.app",
+          "httpStatus": 200,
+          "contentType": "image/webp",
+          "corsAllowOrigin": "https://randal-catalogue-general-3d.vercel.app",
+          "corsReadable": true,
+          "bytes": 1698,
+          "sha256": "1b5dcc4f7c32636e61d3891628cbab0f9382083d97e5a3dac09ceaa9653d1209",
+          "bytesMatch": true,
+          "sha256Match": true,
+          "passed": true
+        },
+        {
+          "origin": "https://studio-one-beta-test-v2.vercel.app",
+          "httpStatus": 200,
+          "contentType": "image/webp",
+          "corsAllowOrigin": "https://studio-one-beta-test-v2.vercel.app",
+          "corsReadable": true,
+          "bytes": 1698,
+          "sha256": "1b5dcc4f7c32636e61d3891628cbab0f9382083d97e5a3dac09ceaa9653d1209",
+          "bytesMatch": true,
+          "sha256Match": true,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "reference": "03V6A10",
+      "profile": "max",
+      "filename": "face-001-f1ec6ffbba4d-max.webp",
+      "urlSHA256": "4edba04a4ed77f2186fc7a30b2ae5bd5c7240a4bc7dcfcde3f3b53be94524b5b",
+      "expectedBytes": 2407800,
+      "expectedSHA256": "59cb215c6bfb69c032852afe5326bb6df5b7cca25a93a373c89f2fd79a485fee",
+      "origins": [
+        {
+          "origin": "https://leroyfactory.fr",
+          "httpStatus": 200,
+          "contentType": "image/webp",
+          "corsAllowOrigin": "https://leroyfactory.fr",
+          "corsReadable": true,
+          "bytes": 2407800,
+          "sha256": "59cb215c6bfb69c032852afe5326bb6df5b7cca25a93a373c89f2fd79a485fee",
+          "bytesMatch": true,
+          "sha256Match": true,
+          "passed": true
+        },
+        {
+          "origin": "https://randal-catalogue-general-3d.vercel.app",
+          "httpStatus": 200,
+          "contentType": "image/webp",
+          "corsAllowOrigin": "https://randal-catalogue-general-3d.vercel.app",
+          "corsReadable": true,
+          "bytes": 2407800,
+          "sha256": "59cb215c6bfb69c032852afe5326bb6df5b7cca25a93a373c89f2fd79a485fee",
+          "bytesMatch": true,
+          "sha256Match": true,
+          "passed": true
+        },
+        {
+          "origin": "https://studio-one-beta-test-v2.vercel.app",
+          "httpStatus": 200,
+          "contentType": "image/webp",
+          "corsAllowOrigin": "https://studio-one-beta-test-v2.vercel.app",
+          "corsReadable": true,
+          "bytes": 2407800,
+          "sha256": "59cb215c6bfb69c032852afe5326bb6df5b7cca25a93a373c89f2fd79a485fee",
+          "bytesMatch": true,
+          "sha256Match": true,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "reference": "03V6A20",
+      "profile": "balanced",
+      "filename": "face-001-c884d108bc76-balanced.webp",
+      "urlSHA256": "a8cb9528515deb26a078eb956c50c9ffb086f1b10d59b9ebfaa5634581758c6c",
+      "expectedBytes": 27730,
+      "expectedSHA256": "0f90fb84764272447d5ad3ab2624bf917d97683b352347006ea78f91dbcc2c9c",
+      "origins": [
+        {
+          "origin": "https://leroyfactory.fr",
+          "httpStatus": 200,
+          "contentType": "image/webp",
+          "corsAllowOrigin": "https://leroyfactory.fr",
+          "corsReadable": true,
+          "bytes": 27730,
+          "sha256": "0f90fb84764272447d5ad3ab2624bf917d97683b352347006ea78f91dbcc2c9c",
+          "bytesMatch": true,
+          "sha256Match": true,
+          "passed": true
+        },
+        {
+          "origin": "https://randal-catalogue-general-3d.vercel.app",
+          "httpStatus": 200,
+          "contentType": "image/webp",
+          "corsAllowOrigin": "https://randal-catalogue-general-3d.vercel.app",
+          "corsReadable": true,
+          "bytes": 27730,
+          "sha256": "0f90fb84764272447d5ad3ab2624bf917d97683b352347006ea78f91dbcc2c9c",
+          "bytesMatch": true,
+          "sha256Match": true,
+          "passed": true
+        },
+        {
+          "origin": "https://studio-one-beta-test-v2.vercel.app",
+          "httpStatus": 200,
+          "contentType": "image/webp",
+          "corsAllowOrigin": "https://studio-one-beta-test-v2.vercel.app",
+          "corsReadable": true,
+          "bytes": 27730,
+          "sha256": "0f90fb84764272447d5ad3ab2624bf917d97683b352347006ea78f91dbcc2c9c",
+          "bytesMatch": true,
+          "sha256Match": true,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "reference": "03V6A20",
+      "profile": "fluid",
+      "filename": "face-001-c884d108bc76-fluid.webp",
+      "urlSHA256": "d8899945248756902178dcaa65fb9dd03333f1a318eb6d5e4f95d8e8376f84b5",
+      "expectedBytes": 1296,
+      "expectedSHA256": "a6bed0cf9a5bc63024f3d5db6af09f3ae38b11ff4f4b32ec783136953a607ae6",
+      "origins": [
+        {
+          "origin": "https://leroyfactory.fr",
+          "httpStatus": 200,
+          "contentType": "image/webp",
+          "corsAllowOrigin": "https://leroyfactory.fr",
+          "corsReadable": true,
+          "bytes": 1296,
+          "sha256": "a6bed0cf9a5bc63024f3d5db6af09f3ae38b11ff4f4b32ec783136953a607ae6",
+          "bytesMatch": true,
+          "sha256Match": true,
+          "passed": true
+        },
+        {
+          "origin": "https://randal-catalogue-general-3d.vercel.app",
+          "httpStatus": 200,
+          "contentType": "image/webp",
+          "corsAllowOrigin": "https://randal-catalogue-general-3d.vercel.app",
+          "corsReadable": true,
+          "bytes": 1296,
+          "sha256": "a6bed0cf9a5bc63024f3d5db6af09f3ae38b11ff4f4b32ec783136953a607ae6",
+          "bytesMatch": true,
+          "sha256Match": true,
+          "passed": true
+        },
+        {
+          "origin": "https://studio-one-beta-test-v2.vercel.app",
+          "httpStatus": 200,
+          "contentType": "image/webp",
+          "corsAllowOrigin": "https://studio-one-beta-test-v2.vercel.app",
+          "corsReadable": true,
+          "bytes": 1296,
+          "sha256": "a6bed0cf9a5bc63024f3d5db6af09f3ae38b11ff4f4b32ec783136953a607ae6",
+          "bytesMatch": true,
+          "sha256Match": true,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "reference": "03V6A20",
+      "profile": "max",
+      "filename": "face-001-c884d108bc76-max.webp",
+      "urlSHA256": "449e018fd3445cccce697935c8da63545d915be786dbad0cf0527f22d1bbef03",
+      "expectedBytes": 1909230,
+      "expectedSHA256": "8f4be45dbccfc3293c8ccfa4bc9112255c71163785dc3cf234ae752292f0d8ed",
+      "origins": [
+        {
+          "origin": "https://leroyfactory.fr",
+          "httpStatus": 200,
+          "contentType": "image/webp",
+          "corsAllowOrigin": "https://leroyfactory.fr",
+          "corsReadable": true,
+          "bytes": 1909230,
+          "sha256": "8f4be45dbccfc3293c8ccfa4bc9112255c71163785dc3cf234ae752292f0d8ed",
+          "bytesMatch": true,
+          "sha256Match": true,
+          "passed": true
+        },
+        {
+          "origin": "https://randal-catalogue-general-3d.vercel.app",
+          "httpStatus": 200,
+          "contentType": "image/webp",
+          "corsAllowOrigin": "https://randal-catalogue-general-3d.vercel.app",
+          "corsReadable": true,
+          "bytes": 1909230,
+          "sha256": "8f4be45dbccfc3293c8ccfa4bc9112255c71163785dc3cf234ae752292f0d8ed",
+          "bytesMatch": true,
+          "sha256Match": true,
+          "passed": true
+        },
+        {
+          "origin": "https://studio-one-beta-test-v2.vercel.app",
+          "httpStatus": 200,
+          "contentType": "image/webp",
+          "corsAllowOrigin": "https://studio-one-beta-test-v2.vercel.app",
+          "corsReadable": true,
+          "bytes": 1909230,
+          "sha256": "8f4be45dbccfc3293c8ccfa4bc9112255c71163785dc3cf234ae752292f0d8ed",
+          "bytesMatch": true,
+          "sha256Match": true,
+          "passed": true
+        }
+      ],
+      "passed": true
+    }
+  ],
+  "allPassed": true,
+  "doesNotProve": [
+    "Manufacturer reuse authorization",
+    "Collection completeness",
+    "Application integration or deployment",
+    "Rendering on a physical smartphone"
+  ]
+}

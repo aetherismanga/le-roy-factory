@@ -8,12 +8,17 @@ vm.runInContext(read('assets/js/inspirations-elios-pricing.js').replace('window.
 const official=require('../functions/elios-catalog.js'),source=JSON.parse(read('randal-general/src/manufacturer-surfaces.json'));
 const norm=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,''),dimensions=s=>{const m=String(s).replaceAll(',','.').match(/(\d+(?:\.\d+)?)\s*[×x]\s*(\d+(?:\.\d+)?)/i);return m?m.slice(1).map(Number):null;},num=v=>Number.isFinite(v)&&v>=0?v:null;
 const products=[],plinths=[];
+const {eliosHDFields}=require('./elios-hd-fields.cjs');
+
+// ELIOS TARIF NET 2026 V01, p. 1, table "PLINTHES À LA PIÈCE".
+// Match the printed dimensions exactly; no approximation for unlisted sizes.
+const plinthPrice=(w,h,finish)=>{const key=[Math.min(w,h),Math.max(w,h)].join('x');if(key==='6.5x120'&&/poli/i.test(finish))return 9;return {'6.5x100':5.6,'6.5x120':7.5,'6x120.5':7.5,'6.5x60':3,'6.5x61':3,'6.5x90':3,'7.5x40.5':2}[key]??null;};
 for(const slug of official.allCollectionKeys()){
  const c=slug==='roma'?context.window.ELIOS_ROMA_STOCK_DATA:official.publicCollection(slug);if(!c)continue;
  const visual=source.find(v=>v.brand==='ELIOS'&&(norm(v.name)===norm(c.collection)||norm(v.name)===norm(slug))),description=context.window.ELIOS_CATALOGUE.find(v=>norm(v.slug)===norm(slug))||{slug,finishes:[]};
  for(const r of c.rows||[]){const wh=dimensions(r.format);if(!wh||!r.ref)continue;const [w,h]=wh,color=visual?.colors.find(v=>norm(v.name)===norm(r.color)),nativeFormat=visual?.formats.find(f=>Math.abs(Math.max(w,h)-Math.max(f.width,f.height)*100)<.02&&Math.abs(Math.min(w,h)-Math.min(f.width,f.height)*100)<.02),purchase=context.window.__cataloguePrice({...description,slug,finishes:[r.finish]},`${Math.min(w,h)}x${Math.max(w,h)}${/20\s*mm/.test(r.finish)?' 20 mm':''}`),purchaseHT=purchase&&/m²|m2/.test(purchase.unit)?num(purchase.amount):null;
- const common={brand:'ELIOS',collection:visual?.name||c.collection,color:r.color,colorId:color?.id||norm(r.color),reference:r.ref,finish:r.finish,source:visual?.source||`https://eliosceramica.com/collezione/${slug}/`,catalogueSource:c.source,priceSource:'ELIOS TARIF NET 2026 V01',purchaseHT,priceUnit:'m²',purchasePaletteHT:null,publicPriceHT:null,priceTTC:null,preview:color?.file||color?.faces?.[0]||color?.preview||'',native:Boolean(nativeFormat&&color),available3d:color?.available3d===true,surfaces:visual?.surfaces||['floor','wall']};
- if(/plinthe/i.test(r.kind)){plinths.push({...common,key:'ELIOS|plinth|'+r.ref,length:Math.max(w,h),height:Math.min(w,h),packPieces:r.pcsBox,packMetres:r.orderPerBox,priceUnit:'ml',purchaseHT:null});continue;}
+ const common={brand:'ELIOS',collection:visual?.name||c.collection,color:r.color,colorId:color?.id||norm(r.color),reference:r.ref,finish:r.finish,source:visual?.source||`https://eliosceramica.com/collezione/${slug}/`,catalogueSource:c.source,priceSource:'ELIOS TARIF NET 2026 V01',priceNote:slug==='shell'?purchase?.note||'':'',purchaseHT,priceUnit:'m²',purchasePaletteHT:null,publicPriceHT:null,priceTTC:null,preview:color?.file||color?.faces?.[0]||color?.preview||'',native:Boolean(nativeFormat&&color),available3d:color?.available3d===true,surfaces:visual?.surfaces||['floor','wall'],...eliosHDFields(color,r.ref,nativeFormat?.id)};
+ if(/plinthe/i.test(r.kind)){plinths.push({...common,key:'ELIOS|plinth|'+r.ref,length:Math.max(w,h),height:Math.min(w,h),packPieces:r.pcsBox,packMetres:r.orderPerBox,priceUnit:'pièce',purchaseHT:plinthPrice(w,h,r.finish)});continue;}
  if(!/^carreau|^dalle/i.test(r.kind)||/hexagon|hexagonal/i.test(r.format+' '+r.finish)||Math.min(w,h)<2.5||Math.max(w,h)>300)continue;
  const packArea=r.sqmBox||(r.sqmPiece&&r.pcsBox?r.sqmPiece*r.pcsBox:null),packPieces=r.pcsBox;products.push({...common,key:'ELIOS|'+r.ref,shape:nativeFormat?.shape||'rectangle',format:nativeFormat?.id||`${Math.min(w,h)}x${Math.max(w,h)}`,width:nativeFormat?nativeFormat.width*100:Math.max(w,h),height:nativeFormat?nativeFormat.height*100:Math.min(w,h),packArea,packPieces,packVerified:Boolean(packArea&&packPieces),packSource:c.source,boxesPallet:r.boxesPal||null});
  }
@@ -28,5 +33,5 @@ const data={version:2,sourceCommit:'f5282df25c8ccae3de36232f9382a3b4f6ae94f0',ta
 fs.writeFileSync(path.join(root,'assets/js/lrf-plan-pose/catalogue.json'),JSON.stringify(data));
 console.log(JSON.stringify({products:products.length,priced:products.filter(p=>p.purchaseHT!==null).length,references:products.filter(p=>p.reference).length,packaged:products.filter(p=>p.packVerified).length,plinths:plinths.length,fenice:fenice.length}));
 
-const commercialFields=['key','brand','collection','color','colorId','format','reference','finish','preview','purchaseHT','purchasePaletteHT','packVerified','packArea','packPieces','packSource','priceSource'];
+const commercialFields=['key','brand','collection','color','colorId','format','reference','finish','preview','purchaseHT','purchasePaletteHT','packVerified','packArea','packPieces','packSource','priceSource','priceNote'];
 fs.writeFileSync(path.join(root,'randal-general/src/commercial-surfaces.json'),JSON.stringify({products:products.map(p=>Object.fromEntries(commercialFields.map(k=>[k,p[k]??null]))),plinths}));
