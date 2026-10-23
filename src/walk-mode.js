@@ -2,10 +2,13 @@ import {boundsOnWall} from './composition.js';
 import * as T from 'three';
 
 // Visite à hauteur humaine : caméra indépendante des objets et des contrôles d'édition.
-export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,onMove,onExit}){
+export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,onMove,onEnter,onExit}){
   const keys=new Set();const eye=1.58,radius=.20,speed=1.7,turn=1.8;
   let viewMode='first',walker=new T.Vector3(),moving=false;
-  let active=false,forward=new T.Vector3(0,0,-1),panel=null,button=null,pitch=0,touchMove={x:0,y:0},touchLook=null,mouseLook=false;
+  let active=false,forward=new T.Vector3(0,0,-1),panel=null,button=null,pitch=0,touchMove={x:0,y:0},mouseLook=false;
+  const touches=new Map();let moveOrigin=null,hintTimer=null;
+  const touchDevice=()=>navigator.maxTouchPoints>0||matchMedia('(pointer:coarse)').matches;
+  function resetInput(){keys.clear();touches.clear();moveOrigin=null;touchMove={x:0,y:0};mouseLook=false;}
   const editable=el=>!!el?.closest?.('input,textarea,select,[contenteditable="true"],[role="textbox"]');
   const inside=(x,z,pts)=>{
     if(!pts?.length)return true;
@@ -58,8 +61,10 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
   }
 
   function setActive(next){
-    if(active===next)return;active=next;keys.clear();
+    if(active===next)return;active=next;resetInput();
+    stage.classList.toggle('walk-active',active);
     if(active){
+      onEnter?.();
       pitch=0;
       const room=getRoom();const center=room?.bounds?.getCenter(new T.Vector3())||new T.Vector3();
       const p=camera.position.clone();if(!inside(p.x,p.z,room?.points)){camera.position.set(center.x,eye,center.z);}
@@ -67,17 +72,19 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
       walker.copy(camera.position);forward.set(controls.target.x-camera.position.x,0,controls.target.z-camera.position.z);
       if(forward.lengthSq()<.001)forward.set(0,0,-1);forward.normalize();
       controls.enabled=false;view();onMove();
-    }else{controls.enabled=true;touchMove={x:0,y:0};touchLook=null;mouseLook=false;onExit?.();onMove();}
+    }else{controls.enabled=true;onExit?.();onMove();}
     button.textContent=active?'Quitter la visite':'Visite 3D';
-    panel.hidden=!active;joystick.hidden=!active||!(innerWidth<761||navigator.maxTouchPoints>0||matchMedia('(pointer:coarse)').matches);
+    button.setAttribute('aria-pressed',String(active));
+    panel.textContent=touchDevice()?'1 doigt : regarder · 2 doigts : se déplacer':'ZQSD / flèches : marcher · Maj : courir · Échap : quitter';
+    panel.hidden=!active;clearTimeout(hintTimer);
+    if(active)hintTimer=setTimeout(()=>{panel.hidden=true;},6000);
   }
-  button=document.createElement('button');button.type='button';button.textContent='Visite 3D';
+  button=document.createElement('button');button.type='button';button.textContent='Visite 3D';button.className='walk-toggle';button.setAttribute('aria-pressed','false');
   button.setAttribute('aria-label','Activer ou quitter le déplacement dans les pièces');
   Object.assign(button.style,{position:'absolute',top:'72px',right:'12px',zIndex:'41',padding:'9px 13px',borderRadius:'10px',background:'#184a40',color:'white',border:'1px solid #acd0c1',cursor:'pointer'});
   button.addEventListener('click',()=>setActive(!active));stage.append(button);
-  panel=document.createElement('div');panel.hidden=true;panel.setAttribute('aria-label','Commandes de visite');
+  panel=document.createElement('div');panel.className='walk-hint';panel.hidden=true;panel.setAttribute('aria-label','Commandes de visite');panel.setAttribute('role','status');
   Object.assign(panel.style,{position:'absolute',left:'12px',bottom:'calc(110px + env(safe-area-inset-bottom,0px))',zIndex:'41',background:'rgba(17,42,37,.88)',color:'white',borderRadius:'10px',padding:'8px',fontSize:'12px',maxWidth:'55%'});
-  panel.textContent=innerWidth<761?'Joystick : marcher · glisser : regarder':'ZQSD / flèches : marcher · Maj : courir · Échap : quitter';
   stage.append(panel);
   const supported=new Set(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','KeyW','KeyS','KeyA','KeyD','KeyQ','KeyE','KeyZ','ShiftLeft','ShiftRight']);
   document.addEventListener('keydown',e=>{
@@ -85,24 +92,30 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
     e.preventDefault();e.stopImmediatePropagation();keys.add(e.code);onMove();
   },true);
   document.addEventListener('keyup',e=>{keys.delete(e.code);if(active&&supported.has(e.code))e.preventDefault()},true);
-  window.addEventListener('blur',()=>keys.clear());
-  document.addEventListener('visibilitychange',()=>{if(document.hidden)keys.clear()});
+  window.addEventListener('blur',resetInput);
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)resetInput()});
   document.addEventListener('keydown',e=>{if(active&&e.key==='Escape'&&!editable(e.target)){setActive(false);e.stopImmediatePropagation()}},true);
 
-  const joystick=document.createElement('div');joystick.hidden=true;
-  Object.assign(joystick.style,{position:'absolute',left:'12px',bottom:'calc(110px + env(safe-area-inset-bottom,0px))',zIndex:'45',width:'116px',height:'116px',borderRadius:'50%',border:'2px solid #b6d4c8',background:'rgba(15,56,46,.35)',touchAction:'none'});
-  const knob=document.createElement('div');
-  Object.assign(knob.style,{position:'absolute',left:'39px',top:'39px',width:'38px',height:'38px',borderRadius:'50%',background:'#e4f4ea',pointerEvents:'none'});
-  joystick.append(knob);stage.append(joystick);panel.style.bottom='calc(240px + env(safe-area-inset-bottom,0px))';
-  function updatePad(e){const rect=joystick.getBoundingClientRect(),dx=e.clientX-(rect.left+rect.width/2),dy=e.clientY-(rect.top+rect.height/2),length=Math.max(1,Math.hypot(dx,dy)),scale=Math.min(1,47/length);touchMove={x:dx*scale/47,y:dy*scale/47};knob.style.transform='translate('+touchMove.x*38+'px,'+touchMove.y*38+'px)';onMove();}
-  joystick.addEventListener('pointerdown',e=>{e.preventDefault();joystick.setPointerCapture(e.pointerId);updatePad(e)});
-  joystick.addEventListener('pointermove',e=>{if(joystick.hasPointerCapture(e.pointerId))updatePad(e)});
-  const resetPad=()=>{touchMove={x:0,y:0};knob.style.transform='';};
-  joystick.addEventListener('pointerup',resetPad);joystick.addEventListener('pointercancel',resetPad);
-  stage.addEventListener('pointerdown',e=>{if(!active||e.target!==canvas)return;if(e.pointerType==='mouse'){mouseLook=true;return;}touchLook={id:e.pointerId,x:e.clientX,y:e.clientY};},true);
+  const center=()=>{const points=[...touches.values()].slice(0,2);return {x:(points[0].x+points[1].x)/2,y:(points[0].y+points[1].y)/2};};
+  stage.addEventListener('pointerdown',e=>{
+    if(!active||e.target!==canvas)return;
+    e.preventDefault();e.stopPropagation();canvas.setPointerCapture(e.pointerId);
+    if(e.pointerType==='mouse'){mouseLook=true;return;}
+    touches.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(touches.size===2)moveOrigin=center();
+  },true);
   function look(dx,dy){forward.applyAxisAngle(new T.Vector3(0,1,0),-dx*.004).normalize();pitch=T.MathUtils.clamp(pitch-dy*.004,-1.35,1.35);view();onMove();}
-  stage.addEventListener('pointermove',e=>{if(!active)return;if(e.pointerType==='mouse'&&mouseLook){look(e.movementX,e.movementY)}else if(touchLook?.id===e.pointerId){look(e.clientX-touchLook.x,e.clientY-touchLook.y);touchLook.x=e.clientX;touchLook.y=e.clientY;}});
-  window.addEventListener('pointerup',()=>{mouseLook=false;touchLook=null});
+  stage.addEventListener('pointermove',e=>{
+    if(!active)return;
+    if(e.pointerType==='mouse'&&mouseLook){look(e.movementX,e.movementY);return;}
+    const prior=touches.get(e.pointerId);if(!prior)return;
+    touches.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(touches.size===1)look(e.clientX-prior.x,e.clientY-prior.y);
+    else if(moveOrigin){const p=center(),limit=90;touchMove={x:T.MathUtils.clamp((p.x-moveOrigin.x)/limit,-1,1),y:T.MathUtils.clamp((p.y-moveOrigin.y)/limit,-1,1)};onMove();}
+  });
+  function release(e){if(!active||(!mouseLook&&!touches.has(e.pointerId)))return;mouseLook=false;touches.delete(e.pointerId);if(touches.size<2){moveOrigin=null;touchMove={x:0,y:0};}onMove();}
+  for(const event of ['pointerup','pointercancel'])window.addEventListener(event,release);
+  canvas.addEventListener('lostpointercapture',release);
   function tick(dt){
     moving=false;if(!active)return false;
     const left=keys.has('ArrowLeft'),right=keys.has('ArrowRight');

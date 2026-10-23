@@ -1,0 +1,462 @@
+[
+  {
+    "collection": "allure",
+    "id": "fenix-blueberry",
+    "source": "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_fenix_blueberry_zoom.jpg",
+    "resolution": [
+      416,
+      208
+    ],
+    "bytes": 107216,
+    "sha256": "fbc7fffe85c4c95df71a1ce2e480c51e0458112b6d9ab72275520d0282bf73b7",
+    "textureVariants": {
+      "fluid": [
+        "elios-restored/allure-fenix-blueberry-fluid.webp"
+      ],
+      "balanced": [
+        "elios-restored/allure-fenix-blueberry-balanced.webp"
+      ],
+      "max": [
+        "elios-restored/allure-fenix-blueberry-native.jpg"
+      ]
+    },
+    "definitionLimited": true
+  },
+  {
+    "collection": "allure",
+    "id": "fenix-juniper",
+    "source": "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_fenix_juniper_zoom.jpg",
+    "resolution": [
+      416,
+      208
+    ],
+    "bytes": 90360,
+    "sha256": "898c258d3f7698c55431198eb422a427cb9ac6eacf294ef2d7045f9fe053fcbc",
+    "textureVariants": {
+      "fluid": [
+        "elios-restored/allure-fenix-juniper-fluid.webp"
+      ],
+      "balanced": [
+        "elios-restored/allure-fenix-juniper-balanced.webp"
+      ],
+      "max": [
+        "elios-restored/allure-fenix-juniper-native.jpg"
+      ]
+    },
+    "definitionLimited": true
+  },
+  {
+    "collection": "allure",
+    "id": "eden",
+    "source": "https://eliosceramica.com/wp-content/uploads/2023/05/allure_eden_tacca_z.jpg",
+    "resolution": [
+      1200,
+      600
+    ],
+    "bytes": 503508,
+    "sha256": "5ae0f09602df864790a483f524b105d16c82ea56545c8e4afdc3bd3ab0b69746",
+    "textureVariants": {
+      "fluid": [
+        "elios-restored/allure-eden-fluid.webp"
+      ],
+      "balanced": [
+        "elios-restored/allure-eden-balanced.webp"
+      ],
+      "max": [
+        "elios-restored/allure-eden-native.jpg"
+      ]
+    },
+    "definitionLimited": false
+  },
+  {
+    "collection": "allure",
+    "id": "safari",
+    "source": "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_safari_zoom.jpg",
+    "resolution": [
+      416,
+      208
+    ],
+    "bytes": 104740,
+    "sha256": "b82ea33f44bd4e2d24c9b4b4c42825c3a94090ecd1fb7b75008ffe619f434693",
+    "textureVariants": {
+      "fluid": [
+        "elios-restored/allure-safari-fluid.webp"
+      ],
+      "balanced": [
+        "elios-restored/allure-safari-balanced.webp"
+      ],
+      "max": [
+        "elios-restored/allure-safari-native.jpg"
+      ]
+    },
+    "definitionLimited": true
+  },
+  {
+    "collection": "allure",
+    "id": "blueberry",
+    "source": "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_blueberry_zoom.jpg",
+    "resolution": [
+      1200,
+      700
+    ],
+    "bytes": 267983,
+    "sha256": "e1aaabd5cc84977cbfddb94a359b35993d004456ffa187124061abbbd50c3231",
+    "textureVariants": {
+      "fluid": [
+        "elios-restored/allure-blueberry-fluid.webp"
+      ],
+      "balanced": [
+        "elios-restored/allure-blueberry-balanced.webp"
+      ],
+      "max": [
+        "elios-restored/allure-blueberry-native.jpg"
+      ]
+    },
+    "definitionLimited": false
+  },
+  {
+    "collection": "allure",
+    "id": "blossom",
+    "source": "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_blossom_zoom.jpg",
+    "resolution": [
+      1200,
+      700
+    ],
+    "bytes": 471860,
+    "sha256": "4f0b8e76654b3e18eb896a14856866a785c8ff5d1e470ec913acf158e5628333",
+    "textureVariants": {
+      "fluid": [
+        "elios-restored/allure-blossom-fluid.webp"
+      ],
+      "balanced": [
+        "elios-restored/allure-blossom-balanced.webp"
+      ],
+      "max": [
+        "elios-restored/allure-blossom-native.jpg"
+      ]
+    },
+    "definitionLimited": false
+  },
+  {
+    "collection": "allure",
+    "id": "snow",
+    "source": "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_snow_zoom.jpg",
+    "resolution": [
+      1200,
+      700
+    ],
+    "bytes": 372664,
+    "sha256": "00a19c94c624426928af11e1567588f6f6b84d666468b22e1845966a824a3dc2",
+    "textureVariants": {
+      "fluid": [
+        "elios-restored/allure-snow-fluid.webp"
+      ],
+      "balanced": [
+        "elios-restored/allure-snow-balanced.webp"
+      ],
+      "max": [
+        "elios-restored/allure-snow-native.jpg"
+      ]
+    },
+    "definitionLimited": false
+  },
+  {
+    "collection": "allure",
+    "id": "juniper",
+    "source": "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_juniper_zoom.jpg",
+    "resolution": [
+      1200,
+      700
+    ],
+    "bytes": 478712,
+    "sha256": "2b62591a415780f46069de1a417eeef8e7f55592243ab4a7447bfd165f596691",
+    "textureVariants": {
+      "fluid": [
+        "elios-restored/allure-juniper-fluid.webp"
+      ],
+      "balanced": [
+        "elios-restored/allure-juniper-balanced.webp"
+      ],
+      "max": [
+        "elios-restored/allure-juniper-native.jpg"
+      ]
+    },
+    "definitionLimited": false
+  },
+  {
+    "collection": "allure",
+    "id": "oyster",
+    "source": "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_oyster_zoom.jpg",
+    "resolution": [
+      1200,
+      700
+    ],
+    "bytes": 432674,
+    "sha256": "f927e6610c2dcafff33cfa1e9365656a65c8e54ef631e0cfb06c41b9e9b8bae8",
+    "textureVariants": {
+      "fluid": [
+        "elios-restored/allure-oyster-fluid.webp"
+      ],
+      "balanced": [
+        "elios-restored/allure-oyster-balanced.webp"
+      ],
+      "max": [
+        "elios-restored/allure-oyster-native.jpg"
+      ]
+    },
+    "definitionLimited": false
+  },
+  {
+    "collection": "azuli-mood",
+    "id": "chalk",
+    "source": "https://eliosceramica.com/wp-content/uploads/2026/07/CHALK_z.jpg",
+    "resolution": [
+      1200,
+      700
+    ],
+    "bytes": 31012,
+    "sha256": "c75aa65dad641ef233cdc61b4d1956c74a29c3f16e854fe08fce3a6123758063",
+    "textureVariants": {
+      "fluid": [
+        "elios-restored/azuli-mood-chalk-fluid.webp"
+      ],
+      "balanced": [
+        "elios-restored/azuli-mood-chalk-balanced.webp"
+      ],
+      "max": [
+        "elios-restored/azuli-mood-chalk-native.jpg"
+      ]
+    },
+    "definitionLimited": false
+  },
+  {
+    "collection": "azuli-mood",
+    "id": "sand",
+    "source": "https://eliosceramica.com/wp-content/uploads/2026/07/SAND_z.jpg",
+    "resolution": [
+      1200,
+      700
+    ],
+    "bytes": 44577,
+    "sha256": "675f4b110414b50531f226ebe4421c36bbd48e89c8cd9d1fa0f52ec5a492f976",
+    "textureVariants": {
+      "fluid": [
+        "elios-restored/azuli-mood-sand-fluid.webp"
+      ],
+      "balanced": [
+        "elios-restored/azuli-mood-sand-balanced.webp"
+      ],
+      "max": [
+        "elios-restored/azuli-mood-sand-native.jpg"
+      ]
+    },
+    "definitionLimited": false
+  },
+  {
+    "collection": "azuli-mood",
+    "id": "bone",
+    "source": "https://eliosceramica.com/wp-content/uploads/2026/07/BONE_z.jpg",
+    "resolution": [
+      1200,
+      700
+    ],
+    "bytes": 30423,
+    "sha256": "181e3f2a46e86238b719f60fcd86976d9ad76d119644f3eef008a4997d449d99",
+    "textureVariants": {
+      "fluid": [
+        "elios-restored/azuli-mood-bone-fluid.webp"
+      ],
+      "balanced": [
+        "elios-restored/azuli-mood-bone-balanced.webp"
+      ],
+      "max": [
+        "elios-restored/azuli-mood-bone-native.jpg"
+      ]
+    },
+    "definitionLimited": false
+  },
+  {
+    "collection": "azuli-mood",
+    "id": "thyme-green",
+    "source": "https://eliosceramica.com/wp-content/uploads/2026/07/THYME-GREEN_z.jpg",
+    "resolution": [
+      1200,
+      700
+    ],
+    "bytes": 82442,
+    "sha256": "afa6bcd99208b7fc24dfd2210c7ff2b13841b958f45e1940f481853910431a4d",
+    "textureVariants": {
+      "fluid": [
+        "elios-restored/azuli-mood-thyme-green-fluid.webp"
+      ],
+      "balanced": [
+        "elios-restored/azuli-mood-thyme-green-balanced.webp"
+      ],
+      "max": [
+        "elios-restored/azuli-mood-thyme-green-native.jpg"
+      ]
+    },
+    "definitionLimited": false
+  },
+  {
+    "collection": "azuli-mood",
+    "id": "burgundy",
+    "source": "https://eliosceramica.com/wp-content/uploads/2026/07/BURGUNDY_z.jpg",
+    "resolution": [
+      1200,
+      700
+    ],
+    "bytes": 211840,
+    "sha256": "aa4e813d1ba8e3f3f9627e3a8973a3632cb7cc1a97078e56fbd00071f778bed4",
+    "textureVariants": {
+      "fluid": [
+        "elios-restored/azuli-mood-burgundy-fluid.webp"
+      ],
+      "balanced": [
+        "elios-restored/azuli-mood-burgundy-balanced.webp"
+      ],
+      "max": [
+        "elios-restored/azuli-mood-burgundy-native.jpg"
+      ]
+    },
+    "definitionLimited": false
+  },
+  {
+    "collection": "azuli-mood",
+    "id": "coffee-bean",
+    "source": "https://eliosceramica.com/wp-content/uploads/2026/07/COFEE-BEAN_z.jpg",
+    "resolution": [
+      1200,
+      700
+    ],
+    "bytes": 202031,
+    "sha256": "9ec2bfaa718932ccb8d10dee4c392f32921e0d82158d8d7db2fd36fcef4056a3",
+    "textureVariants": {
+      "fluid": [
+        "elios-restored/azuli-mood-coffee-bean-fluid.webp"
+      ],
+      "balanced": [
+        "elios-restored/azuli-mood-coffee-bean-balanced.webp"
+      ],
+      "max": [
+        "elios-restored/azuli-mood-coffee-bean-native.jpg"
+      ]
+    },
+    "definitionLimited": false
+  },
+  {
+    "collection": "azuli-mood",
+    "id": "blue",
+    "source": "https://eliosceramica.com/wp-content/uploads/2026/07/BLUE_z.jpg",
+    "resolution": [
+      1200,
+      700
+    ],
+    "bytes": 77129,
+    "sha256": "1edbac5678e3165d1c894e3edc8af874635abecdcbf2d96389081b69b4b8be97",
+    "textureVariants": {
+      "fluid": [
+        "elios-restored/azuli-mood-blue-fluid.webp"
+      ],
+      "balanced": [
+        "elios-restored/azuli-mood-blue-balanced.webp"
+      ],
+      "max": [
+        "elios-restored/azuli-mood-blue-native.jpg"
+      ]
+    },
+    "definitionLimited": false
+  },
+  {
+    "collection": "azuli-mood",
+    "id": "bottle-green",
+    "source": "https://eliosceramica.com/wp-content/uploads/2026/07/BOTTLE-GREEN_z.jpg",
+    "resolution": [
+      1200,
+      700
+    ],
+    "bytes": 66246,
+    "sha256": "a8c5d371c61677e395d335febcca8ffe7eb3f330e3f5a1022277a3999c4f6a00",
+    "textureVariants": {
+      "fluid": [
+        "elios-restored/azuli-mood-bottle-green-fluid.webp"
+      ],
+      "balanced": [
+        "elios-restored/azuli-mood-bottle-green-balanced.webp"
+      ],
+      "max": [
+        "elios-restored/azuli-mood-bottle-green-native.jpg"
+      ]
+    },
+    "definitionLimited": false
+  },
+  {
+    "collection": "azuli-mood",
+    "id": "turquoise",
+    "source": "https://eliosceramica.com/wp-content/uploads/2026/07/TURQUOISE_z.jpg",
+    "resolution": [
+      1200,
+      700
+    ],
+    "bytes": 60066,
+    "sha256": "bf34d63647a632d7adf21046611b54efcf9e318589ce5dda1511e5c03345f57f",
+    "textureVariants": {
+      "fluid": [
+        "elios-restored/azuli-mood-turquoise-fluid.webp"
+      ],
+      "balanced": [
+        "elios-restored/azuli-mood-turquoise-balanced.webp"
+      ],
+      "max": [
+        "elios-restored/azuli-mood-turquoise-native.jpg"
+      ]
+    },
+    "definitionLimited": false
+  },
+  {
+    "collection": "azuli-mood",
+    "id": "dusk",
+    "source": "https://eliosceramica.com/wp-content/uploads/2026/07/DUSK_z.jpg",
+    "resolution": [
+      1200,
+      700
+    ],
+    "bytes": 80057,
+    "sha256": "2b3ad40c84715248a28104457c640972a60a7d61d640f91550f50152430cd386",
+    "textureVariants": {
+      "fluid": [
+        "elios-restored/azuli-mood-dusk-fluid.webp"
+      ],
+      "balanced": [
+        "elios-restored/azuli-mood-dusk-balanced.webp"
+      ],
+      "max": [
+        "elios-restored/azuli-mood-dusk-native.jpg"
+      ]
+    },
+    "definitionLimited": false
+  },
+  {
+    "collection": "azuli-mood",
+    "id": "dawn",
+    "source": "https://eliosceramica.com/wp-content/uploads/2026/07/DAWN_z.jpg",
+    "resolution": [
+      1200,
+      700
+    ],
+    "bytes": 72158,
+    "sha256": "fa3f5e5ac0c17c196117ae0f1048f4638c779de65284135379c70facebd23d98",
+    "textureVariants": {
+      "fluid": [
+        "elios-restored/azuli-mood-dawn-fluid.webp"
+      ],
+      "balanced": [
+        "elios-restored/azuli-mood-dawn-balanced.webp"
+      ],
+      "max": [
+        "elios-restored/azuli-mood-dawn-native.jpg"
+      ]
+    },
+    "definitionLimited": false
+  }
+]
