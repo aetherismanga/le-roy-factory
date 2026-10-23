@@ -14,7 +14,7 @@ export function wallPosition(points,point,scale,width=0){
  let best=null;for(let wall=0;wall<points.length;wall++){
   const a=points[wall],b=points[(wall+1)%points.length],dx=b[0]-a[0],dy=b[1]-a[1],length=Math.hypot(dx,dy),size=length*scale;if(size<width+4)continue;
   const t=Math.max(0,Math.min(1,((point[0]-a[0])*dx+(point[1]-a[1])*dy)/(length*length))),dist=Math.hypot(point[0]-a[0]-dx*t,point[1]-a[1]-dy*t);
-  if(!best||dist<best.distance)best={wall,start:Math.round(Math.max(2,Math.min(size-width-2,t*size-width/2))),distance:dist,length:size};
+  if(!best||dist<best.distance)best={wall,start:Math.round(Math.max(2,Math.min(size-width-2,t*size-width/2))*10)/10,distance:dist,length:size};
  }return best;
 }
 export function isWood(tile){return /bois|wood|legn|parquet|quercia|yosemite|sequoia|lux|lodge|tavol|timber|oak|rovere/i.test([tile.collection,tile.effect,tile.name].join(' '));}
