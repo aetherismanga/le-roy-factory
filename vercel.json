@@ -1,6 +1,14 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "git": {
-    "deploymentEnabled": {"review-plan-pose-20261023": false}
-  }
+    "deploymentEnabled": {
+      "review-plan-pose-20261023": false
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/manufacturer-materials/elios/:path*",
+      "destination": "https://eliosceramica.com/:path*"
+    }
+  ]
 }

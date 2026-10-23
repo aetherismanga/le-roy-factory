@@ -18,7 +18,7 @@ function imageURL(value) {
   if (typeof value !== 'string' || value.length > 3000) return '';
   try {
     const url = new URL(value, globalThis.location?.href || 'https://leroyfactory.fr/');
-    return url.protocol === 'https:' && !url.username && !url.password ? url.href : '';
+    return (url.protocol === 'https:'||/^\/assets\/img\/lrf-plan-pose\/faces\//.test(value)&&url.origin===globalThis.location?.origin) && !url.username && !url.password ? url.href : '';
   } catch { return ''; }
 }
 

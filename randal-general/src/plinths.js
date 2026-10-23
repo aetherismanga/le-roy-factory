@@ -7,7 +7,7 @@ export function plinthWalls(room,finishes=[]){
  for(const w of walls){const len=dist(w.a,w.b),ux=(w.b[0]-w.a[0])/len,uy=(w.b[1]-w.a[1])/len;for(const other of walls){if(w===other)continue;const project=p=>(p[0]-w.a[0])*ux+(p[1]-w.a[1])*uy,offset=p=>Math.abs((p[0]-w.a[0])*uy-(p[1]-w.a[1])*ux);if(offset(other.a)<.1&&offset(other.b)<.1)w.cuts.push([Math.max(0,Math.min(project(other.a),project(other.b))),Math.min(len,Math.max(project(other.a),project(other.b)))]);}}return walls;
 }
 export function plinthGrid(room){
- const l=room.floor.layout||{},vertical=l.direction==='vertical',x=l.x||0,y=l.y||0,width=(l.width||1.2)*100,height=(l.height||.6)*100,toGrid=p=>vertical?[p[1]-y,-p[0]+x]:[p[0]-x,p[1]-y],fromGrid=p=>vertical?[-p[1]+x,p[0]+y]:[p[0]+x,p[1]+y],grout=(l.groutWidth||2)/10;
+ const l=room.floor.layout||{},vertical=l.direction==='vertical',x=l.x||0,y=l.y||0,width=(l.width||1.2)*100,height=(l.height||.6)*100,toGrid=p=>{const q=l.planAxes?[p[0],-p[1]]:p;return vertical?[q[1]-y,-q[0]+x]:[q[0]-x,q[1]-y];},fromGrid=p=>{const q=vertical?[-p[1]+x,p[0]+y]:[p[0]+x,p[1]+y];return l.planAxes?[q[0],-q[1]]:q;},grout=(l.groutWidth||2)/10;
  const cells=(room.floor.tiles?.geometry.userData.cells||[]).map(c=>{const center=toGrid(c.center.map(v=>v*100));return c.bounds.map(p=>{const q=toGrid(p.map(v=>v*100));return fromGrid([center[0]+(q[0]-center[0])*c.width*100/(c.width*100-grout),center[1]+(q[1]-center[1])*c.height*100/(c.height*100-grout)]);});});
  return {width,height,pattern:l.pattern,toGrid,...(cells.length?{cells}:{})};
 }

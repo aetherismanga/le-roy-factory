@@ -107,3 +107,15 @@ export function chooseReadings(shape,candidates,unit='cm'){
  if(!best){allowReview=true;visited=0;walk(0,[],0);}
  return best||bestPartial||{readings:options.map(c=>c[0]||null),...solveDimensions(shape,options.map(c=>c[0]?valueOf(c[0].text):null))};
 }
+
+// SVG meet scaling includes the unused margin on either axis.
+export function dimensionScale(view,width=700,height=600){return Math.max(view.w/(width||700),view.h/(height||600));}
+export function resizeWall(points,index,length){
+ if(!Number.isFinite(length)||length<=0)throw Error('Saisissez une longueur positive.');
+ const p=points.map(v=>[...v]),a=p[index],j=(index+1)%p.length,b=p[j],dx=b[0]-a[0],dy=b[1]-a[1],axis=Math.abs(dy)<1e-7?0:Math.abs(dx)<1e-7?1:-1;
+ if(axis<0)throw Error('Cette cote est oblique. Corrigez son tracé ou son échelle avant de la valider.');
+ const delta=a[axis]+Math.sign(b[axis]-a[axis])*length-b[axis],coordinate=b[axis];
+ // Move the following collinear wall as a whole, keeping right angles intact.
+ for(let count=0,k=j;count<p.length-1;count++,k=(k+1)%p.length){if(Math.abs(points[k][axis]-coordinate)>1e-7)break;p[k][axis]+=delta;}
+ return p;
+}

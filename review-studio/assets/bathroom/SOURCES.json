@@ -1,0 +1,15 @@
+{
+  "license": "CC0-1.0",
+  "publisher": "Innerscene",
+  "assets": [
+    {
+      "file": "bath-island.glb",
+      "url": "https://www.innerscene.com/tools/library/3d-parts/soak-freestanding-oval-bath-a29c42f0"
+    },
+    {
+      "file": "bath-rect.glb",
+      "url": "https://www.innerscene.com/tools/library/3d-parts/inset-bath-inset-bathtub-118db49b"
+    }
+  ],
+  "adaptation": "Geometry extracted, rotated and parameterised in length; decorative generic baths, not manufacturer SKUs."
+}

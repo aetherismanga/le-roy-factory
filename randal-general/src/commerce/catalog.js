@@ -1061,15 +1061,15 @@ export const CATALOG = {
       "kind": "Bois",
       "roughness": 0.46,
       "texture": "serenade-alba.webp",
-      "textureURL": "/assets/materials/quality/alba-balanced.webp",
+      "textureURL": "assets/materials/quality/alba-balanced.webp",
       "collection": "harmony",
       "previousTextureURL": "https://studio-one-beta-test-v2.vercel.app/assets/serenade-alba.webp",
       "textureVariants": {
-        "fluid": "/assets/materials/quality/alba-fluid.webp",
-        "balanced": "/assets/materials/quality/alba-balanced.webp",
-        "max": "/assets/materials/quality/alba-max.webp"
+        "fluid": "assets/materials/quality/alba-fluid.webp",
+        "balanced": "assets/materials/quality/alba-balanced.webp",
+        "max": "assets/materials/quality/alba-max.webp"
       },
-      "swatch": "/assets/materials/quality/alba-swatch.webp",
+      "swatch": "assets/materials/quality/alba-swatch.webp",
       "frontRotation": 1.5707963267948966,
       "textureRepeat": [
         1,
@@ -1196,7 +1196,7 @@ export const CATALOG = {
       "kind": "Bois",
       "roughness": 0.45,
       "texture": "roble.webp",
-      "textureURL": "/assets/materials/aruba-roble-detail.jpg",
+      "textureURL": "assets/materials/aruba-roble-detail.jpg",
       "materialSample": "aruba-fluted",
       "collection": "aruba-rainure"
     },
@@ -1207,7 +1207,7 @@ export const CATALOG = {
       "kind": "Bois",
       "roughness": 0.45,
       "texture": "nogal-valentina.webp",
-      "textureURL": "/assets/materials/aruba-nogal-detail.jpg",
+      "textureURL": "assets/materials/aruba-nogal-detail.jpg",
       "materialSample": "aruba-fluted",
       "collection": "aruba-rainure"
     },
@@ -1226,7 +1226,7 @@ export const CATALOG = {
       "kind": "Bois",
       "roughness": 0.45,
       "texture": "roble.webp",
-      "textureURL": "/assets/materials/aruba-roble-detail.jpg",
+      "textureURL": "assets/materials/aruba-roble-detail.jpg",
       "materialSample": "aruba-fluted",
       "collection": "aruba"
     },
@@ -1237,7 +1237,7 @@ export const CATALOG = {
       "kind": "Bois",
       "roughness": 0.45,
       "texture": "nogal-valentina.webp",
-      "textureURL": "/assets/materials/aruba-nogal-front.jpg",
+      "textureURL": "assets/materials/aruba-nogal-front.jpg",
       "materialSample": "aruba-flat-nogal",
       "collection": "aruba"
     },
@@ -1264,15 +1264,15 @@ export const CATALOG = {
       "kind": "Bois",
       "roughness": 0.46,
       "texture": "serenade-alba.webp",
-      "textureURL": "/assets/materials/quality/alba-balanced.webp",
+      "textureURL": "assets/materials/quality/alba-balanced.webp",
       "collection": "aruba",
       "previousTextureURL": "https://studio-one-beta-test-v2.vercel.app/assets/serenade-alba.webp",
       "textureVariants": {
-        "fluid": "/assets/materials/quality/alba-fluid.webp",
-        "balanced": "/assets/materials/quality/alba-balanced.webp",
-        "max": "/assets/materials/quality/alba-max.webp"
+        "fluid": "assets/materials/quality/alba-fluid.webp",
+        "balanced": "assets/materials/quality/alba-balanced.webp",
+        "max": "assets/materials/quality/alba-max.webp"
       },
-      "swatch": "/assets/materials/quality/alba-swatch.webp",
+      "swatch": "assets/materials/quality/alba-swatch.webp",
       "frontRotation": 1.5707963267948966,
       "textureRepeat": [
         1,
@@ -1326,15 +1326,15 @@ export const CATALOG = {
       "kind": "Bois",
       "roughness": 0.46,
       "texture": "serenade-alba.webp",
-      "textureURL": "/assets/materials/quality/alba-balanced.webp",
+      "textureURL": "assets/materials/quality/alba-balanced.webp",
       "collection": "aras",
       "previousTextureURL": "https://studio-one-beta-test-v2.vercel.app/assets/serenade-alba.webp",
       "textureVariants": {
-        "fluid": "/assets/materials/quality/alba-fluid.webp",
-        "balanced": "/assets/materials/quality/alba-balanced.webp",
-        "max": "/assets/materials/quality/alba-max.webp"
+        "fluid": "assets/materials/quality/alba-fluid.webp",
+        "balanced": "assets/materials/quality/alba-balanced.webp",
+        "max": "assets/materials/quality/alba-max.webp"
       },
-      "swatch": "/assets/materials/quality/alba-swatch.webp",
+      "swatch": "assets/materials/quality/alba-swatch.webp",
       "frontRotation": 1.5707963267948966,
       "textureRepeat": [
         1,
@@ -1388,15 +1388,15 @@ export const CATALOG = {
       "kind": "Bois",
       "roughness": 0.46,
       "texture": "serenade-alba.webp",
-      "textureURL": "/assets/materials/quality/alba-balanced.webp",
+      "textureURL": "assets/materials/quality/alba-balanced.webp",
       "collection": "boreal",
       "previousTextureURL": "https://studio-one-beta-test-v2.vercel.app/assets/serenade-alba.webp",
       "textureVariants": {
-        "fluid": "/assets/materials/quality/alba-fluid.webp",
-        "balanced": "/assets/materials/quality/alba-balanced.webp",
-        "max": "/assets/materials/quality/alba-max.webp"
+        "fluid": "assets/materials/quality/alba-fluid.webp",
+        "balanced": "assets/materials/quality/alba-balanced.webp",
+        "max": "assets/materials/quality/alba-max.webp"
       },
-      "swatch": "/assets/materials/quality/alba-swatch.webp",
+      "swatch": "assets/materials/quality/alba-swatch.webp",
       "frontRotation": 1.5707963267948966,
       "textureRepeat": [
         1,
@@ -1448,15 +1448,15 @@ export const CATALOG = {
       "kind": "Bois",
       "roughness": 0.46,
       "texture": "serenade-alba.webp",
-      "textureURL": "/assets/materials/quality/alba-balanced.webp",
+      "textureURL": "assets/materials/quality/alba-balanced.webp",
       "collection": "brunei",
       "previousTextureURL": "https://studio-one-beta-test-v2.vercel.app/assets/serenade-alba.webp",
       "textureVariants": {
-        "fluid": "/assets/materials/quality/alba-fluid.webp",
-        "balanced": "/assets/materials/quality/alba-balanced.webp",
-        "max": "/assets/materials/quality/alba-max.webp"
+        "fluid": "assets/materials/quality/alba-fluid.webp",
+        "balanced": "assets/materials/quality/alba-balanced.webp",
+        "max": "assets/materials/quality/alba-max.webp"
       },
-      "swatch": "/assets/materials/quality/alba-swatch.webp",
+      "swatch": "assets/materials/quality/alba-swatch.webp",
       "frontRotation": 1.5707963267948966,
       "textureRepeat": [
         1,
@@ -1495,15 +1495,15 @@ export const CATALOG = {
       "kind": "Bois",
       "roughness": 0.46,
       "texture": "serenade-alba.webp",
-      "textureURL": "/assets/materials/quality/alba-balanced.webp",
+      "textureURL": "assets/materials/quality/alba-balanced.webp",
       "collection": "amat",
       "previousTextureURL": "https://studio-one-beta-test-v2.vercel.app/assets/serenade-alba.webp",
       "textureVariants": {
-        "fluid": "/assets/materials/quality/alba-fluid.webp",
-        "balanced": "/assets/materials/quality/alba-balanced.webp",
-        "max": "/assets/materials/quality/alba-max.webp"
+        "fluid": "assets/materials/quality/alba-fluid.webp",
+        "balanced": "assets/materials/quality/alba-balanced.webp",
+        "max": "assets/materials/quality/alba-max.webp"
       },
-      "swatch": "/assets/materials/quality/alba-swatch.webp",
+      "swatch": "assets/materials/quality/alba-swatch.webp",
       "frontRotation": 1.5707963267948966,
       "textureRepeat": [
         1,
@@ -1523,15 +1523,15 @@ export const CATALOG = {
       "kind": "Bois",
       "roughness": 0.46,
       "texture": "serenade-alba.webp",
-      "textureURL": "/assets/materials/quality/alba-balanced.webp",
+      "textureURL": "assets/materials/quality/alba-balanced.webp",
       "collection": "less",
       "previousTextureURL": "https://studio-one-beta-test-v2.vercel.app/assets/serenade-alba.webp",
       "textureVariants": {
-        "fluid": "/assets/materials/quality/alba-fluid.webp",
-        "balanced": "/assets/materials/quality/alba-balanced.webp",
-        "max": "/assets/materials/quality/alba-max.webp"
+        "fluid": "assets/materials/quality/alba-fluid.webp",
+        "balanced": "assets/materials/quality/alba-balanced.webp",
+        "max": "assets/materials/quality/alba-max.webp"
       },
-      "swatch": "/assets/materials/quality/alba-swatch.webp",
+      "swatch": "assets/materials/quality/alba-swatch.webp",
       "frontRotation": 1.5707963267948966,
       "textureRepeat": [
         1,
@@ -1589,15 +1589,15 @@ export const CATALOG = {
       "kind": "Bois",
       "roughness": 0.46,
       "texture": "serenade-alba.webp",
-      "textureURL": "/assets/materials/quality/alba-balanced.webp",
+      "textureURL": "assets/materials/quality/alba-balanced.webp",
       "collection": "sima",
       "previousTextureURL": "https://studio-one-beta-test-v2.vercel.app/assets/serenade-alba.webp",
       "textureVariants": {
-        "fluid": "/assets/materials/quality/alba-fluid.webp",
-        "balanced": "/assets/materials/quality/alba-balanced.webp",
-        "max": "/assets/materials/quality/alba-max.webp"
+        "fluid": "assets/materials/quality/alba-fluid.webp",
+        "balanced": "assets/materials/quality/alba-balanced.webp",
+        "max": "assets/materials/quality/alba-max.webp"
       },
-      "swatch": "/assets/materials/quality/alba-swatch.webp",
+      "swatch": "assets/materials/quality/alba-swatch.webp",
       "frontRotation": 1.5707963267948966,
       "textureRepeat": [
         1,
@@ -1633,15 +1633,15 @@ export const CATALOG = {
       "kind": "Bois",
       "roughness": 0.46,
       "texture": "serenade-alba.webp",
-      "textureURL": "/assets/materials/quality/alba-balanced.webp",
+      "textureURL": "assets/materials/quality/alba-balanced.webp",
       "collection": "plans",
       "previousTextureURL": "https://studio-one-beta-test-v2.vercel.app/assets/serenade-alba.webp",
       "textureVariants": {
-        "fluid": "/assets/materials/quality/alba-fluid.webp",
-        "balanced": "/assets/materials/quality/alba-balanced.webp",
-        "max": "/assets/materials/quality/alba-max.webp"
+        "fluid": "assets/materials/quality/alba-fluid.webp",
+        "balanced": "assets/materials/quality/alba-balanced.webp",
+        "max": "assets/materials/quality/alba-max.webp"
       },
-      "swatch": "/assets/materials/quality/alba-swatch.webp",
+      "swatch": "assets/materials/quality/alba-swatch.webp",
       "frontRotation": 1.5707963267948966,
       "textureRepeat": [
         1,

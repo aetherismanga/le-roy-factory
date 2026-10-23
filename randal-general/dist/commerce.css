@@ -1,0 +1,51 @@
+.studio-commerce{padding:15px 0!important;border-top:1px solid #dce1d0}.commerce-label{display:block;font-size:11px;line-height:1.6;color:#627051}.commerce-total{display:block;font-size:25px;line-height:1.6;color:#304229}.commerce-excluded{display:block;font-size:10px;line-height:1.6;color:#79846e}.commerce-status{font-size:11px;line-height:1.5;color:#915a2c}.commerce-status:empty{display:none}.back-to-quote{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:8px 13px;border:1px solid #c5d1b9;background:#e9eedf;color:#34492b;border-radius:8px;font-size:11px;font-weight:700;text-decoration:none;white-space:nowrap}.back-to-quote:focus-visible{outline:3px solid #b79962;outline-offset:3px}@media(max-width:760px){.back-to-quote{font-size:10px;min-height:32px;padding:7px 9px}.topbar{flex-wrap:wrap}.back-to-quote{order:2;margin-left:auto}}
+@media(max-width:760px){body>header{height:100px;display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;grid-template-rows:40px 34px;gap:4px 8px;padding:6px 12px}body>header>.brand{grid-column:1;grid-row:1}body>header>.project-name{grid-column:2;grid-row:1;max-width:none;min-width:0;margin-right:0}body>header>.history-actions{grid-column:3;grid-row:1}body>header>.project-menu{grid-column:4;grid-row:1}body>header>.back-to-quote{grid-column:1/-1;grid-row:2;justify-self:stretch;margin:0;order:0;min-height:32px;font-size:11px}body>#atelier{height:calc(100svh - 100px)}}
+
+@media(max-width:380px){body>header{gap:4px 6px;padding-left:10px;padding-right:10px}body>header>.brand{font-size:23px}body>header>.brand>span{font-size:15px}body>header>.project-name input{min-width:0}body>header>.project-menu summary{padding:9px 8px;gap:5px}}
+.commerce-account{display:inline-block;font-size:10px;margin-top:10px;color:#435b35;text-decoration:underline;text-underline-offset:3px}.administrator{color:#c32626!important;font-weight:800!important}.commerce-label{overflow-wrap:anywhere}.brand>img{display:block;width:125px;height:50px;object-fit:contain}.atelier-beta{position:absolute;top:5px;right:20px;font:8px Arial,sans-serif;letter-spacing:1.2px;color:#65705c}body>header{position:relative}@media(max-width:760px){.brand>img{width:96px;height:38px}.atelier-beta{font-size:6px;top:2px;right:12px}body>header>.project-menu{padding-top:4px}}@media(max-width:380px){.brand>img{width:82px;height:35px}}
+
+.brand>.studio-logo{display:block;width:125px;height:45px}@media(max-width:760px){.brand>.studio-logo{width:96px;height:35px}}@media(max-width:380px){.brand>.studio-logo{width:82px;height:32px}}
+
+/* The header and workshop share one viewport instead of subtracting an
+   assumed header height. Resizing browser bars never pushes navigation out. */
+@media screen{
+ :root{--app-safe-bottom:max(env(safe-area-inset-bottom,0px),var(--host-safe-bottom,0px))}
+ html{height:100%;overflow:hidden}
+ body{height:100vh;height:var(--app-height,100dvh);min-height:0;display:flex;flex-direction:column;overflow:hidden}
+ body>header{flex:0 0 auto}
+ body>#atelier{flex:1 1 0;height:auto;min-height:0;grid-template-rows:minmax(0,1fr);overflow:hidden}
+ body>#atelier.presentation-mode{height:auto;padding-bottom:0}
+ body>#atelier.presentation-mode #viewer{height:100%}
+}
+@media screen and (max-width:760px){
+ #atelier{--workspace-nav-height:calc(70px + var(--app-safe-bottom))}
+ body>#atelier{padding-bottom:var(--workspace-nav-height)}
+ .workspace-nav{height:var(--workspace-nav-height);padding-bottom:calc(5px + var(--app-safe-bottom))}
+ #settings{bottom:var(--workspace-nav-height);max-height:min(48%,calc(100% - var(--workspace-nav-height)))}
+}
+@media screen and (min-width:761px) and (max-height:600px){
+ .workspace-nav{gap:4px;padding:8px 4px}
+ .workspace-nav button{flex:1 1 0;min-height:0;max-height:85px;gap:3px;padding:4px 2px}
+ .workspace-nav .step-number{display:none}
+}
+
+body>header>.project-name{min-width:0}body>header>.quit-configurator{flex:0 0 auto}@media(max-width:760px){body>header{grid-template-rows:40px 40px}body>header>.back-to-quote{grid-column:1/4;grid-row:2;min-height:38px}body>header>.quit-configurator{grid-column:4;grid-row:2;min-height:38px;align-self:stretch;justify-self:stretch;padding:7px;font-size:9px}}
+
+.quit-configurator{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:34px;padding:8px 11px;border:1px solid #cbd0bf;border-radius:8px;background:#fffef9;color:#344736;font:600 10px/1.2 Arial,sans-serif;text-decoration:none;white-space:nowrap;touch-action:manipulation}.quit-configurator:focus-visible{outline:3px solid #a78f64;outline-offset:3px}
+
+/* Product views share neutral backgrounds and the geometry actually added. */
+.add-items{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.add-items button{padding:0 0 12px;gap:7px;min-height:150px;overflow:hidden;border:1px solid #d7d9cf;border-radius:12px;background:#fffef9;box-shadow:0 2px 6px #263b2e08;transition:border-color .15s ease,box-shadow .15s ease}
+.add-items button:hover,.add-items button:focus-visible{border-color:#648074;box-shadow:0 3px 12px #263b2e14}
+.add-items button .palette-picture{width:100%;height:110px;padding:0;border-radius:0;background:#f6f5ef!important;box-shadow:none;overflow:hidden}
+.add-items button .palette-product-image{display:block;width:100%;height:100%;object-fit:contain}
+.add-items button strong{font-size:12px;color:#29483e}
+.add-items button small{font-size:10px;color:#72766c;margin:0 7px;opacity:1}
+#add-choices .add-card{padding:10px 10px 15px;gap:9px;border-color:#d7d9cf;border-radius:12px;background:#fffef9;overflow:hidden}
+#add-choices .add-card:hover{border-color:#648074;background:#fafaf4}
+#add-choices .catalogue-icon{height:170px;border-radius:8px;background:#f6f5ef;overflow:hidden}
+#add-choices .catalogue-product-image{display:block;width:100%;height:100%;object-fit:contain}
+#add-choices .add-card strong{font:600 14px/1.35 Arial,sans-serif;color:#29483e}
+#add-choices .add-card small{font:11px/1.5 Arial,sans-serif;color:#74796d}
+.product-image-unavailable{display:grid;place-items:center;height:100%;padding:12px;font:11px/1.5 Arial,sans-serif;color:#74796d}
+@media(max-width:720px){.add-items button{min-height:145px}.add-items button .palette-picture{height:105px}#add-choices .catalogue-icon{height:145px}#add-choices .add-card{padding:8px 8px 13px}#add-choices .add-card strong{font-size:13px}}
