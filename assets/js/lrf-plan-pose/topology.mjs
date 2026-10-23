@@ -18,6 +18,7 @@ export function floorTopology(room,scale=1){
  const value={usable,sealed,blocked,removed,exclusions,area:geometryArea(usable),excludedArea:geometryArea(sealed),contains:p=>usable.some(r=>contains(p,r))};memo.set(room,{key,value});return value;
 }
 export function clippedFloorArea(topology,rectangle){return geometryArea(clipping.intersection(topology.usable,[rectangle]));}
+export const roomOverlapArea=(a,b)=>geometryArea(clipping.intersection([a.points,...(a.holes||[])],[b.points,...(b.holes||[])]));
 export const overlapArea=(a,b)=>geometryArea(clipping.intersection([a],[b]));
 export const multiPath=multi=>multi.map(rings=>rings.map(r=>'M'+r.map(p=>p.join(',')).join('L')+'Z').join('')).join('');
 
