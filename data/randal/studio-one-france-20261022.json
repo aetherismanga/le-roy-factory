@@ -1,0 +1,303 @@
+{
+  "source": {
+    "title": "TARIF STUDIO ONE FRANCE PRIX TTC 20261021.pdf",
+    "dated": "2026-10-22",
+    "details": "TARIFA STUDIO ONE Références.pdf",
+    "scope": "Studio One meubles et colonne; tarifs publics affichés sans libellé TTC",
+    "note": "Deux documents joints par le donneur d'ordre; conserver les prix autres articles non couverts."
+  },
+  "finish_codes": [
+    "ROBLE",
+    "ALBA",
+    "NOGAL",
+    "WHITE",
+    "AZUL",
+    "GRIS",
+    "BISC.",
+    "GREEN"
+  ],
+  "cabinet_prices": [
+    {
+      "model": "2-tiroirs",
+      "width_bucket_cm": 60,
+      "with_plan": false,
+      "reference_prefix": "13692 60@",
+      "public_price_eur": 492,
+      "status": "confirmed"
+    },
+    {
+      "model": "2-tiroirs",
+      "width_bucket_cm": 60,
+      "with_plan": true,
+      "reference_prefix": "14215 60@",
+      "public_price_eur": 573,
+      "status": "confirmed"
+    },
+    {
+      "model": "2-tiroirs",
+      "width_bucket_cm": 80,
+      "with_plan": false,
+      "reference_prefix": "13692 80@",
+      "public_price_eur": 515,
+      "status": "confirmed"
+    },
+    {
+      "model": "2-tiroirs",
+      "width_bucket_cm": 80,
+      "with_plan": true,
+      "reference_prefix": "14215 80@",
+      "public_price_eur": 617,
+      "status": "confirmed"
+    },
+    {
+      "model": "2-tiroirs",
+      "width_bucket_cm": 100,
+      "with_plan": false,
+      "reference_prefix": "13692 100@",
+      "public_price_eur": 584,
+      "status": "confirmed"
+    },
+    {
+      "model": "2-tiroirs",
+      "width_bucket_cm": 100,
+      "with_plan": true,
+      "reference_prefix": "14215 100@",
+      "public_price_eur": 708,
+      "status": "confirmed"
+    },
+    {
+      "model": "2-tiroirs",
+      "width_bucket_cm": 120,
+      "with_plan": false,
+      "reference_prefix": "13692 120@",
+      "public_price_eur": 605,
+      "status": "confirmed"
+    },
+    {
+      "model": "2-tiroirs",
+      "width_bucket_cm": 120,
+      "with_plan": true,
+      "reference_prefix": "14215 120@",
+      "public_price_eur": 749,
+      "status": "confirmed"
+    },
+    {
+      "model": "3-tiroirs",
+      "width_bucket_cm": 60,
+      "with_plan": false,
+      "reference_prefix": "13693 60@",
+      "public_price_eur": 660,
+      "status": "confirmed"
+    },
+    {
+      "model": "3-tiroirs",
+      "width_bucket_cm": 60,
+      "with_plan": true,
+      "reference_prefix": "14216 60@",
+      "public_price_eur": 742,
+      "status": "confirmed"
+    },
+    {
+      "model": "3-tiroirs",
+      "width_bucket_cm": 80,
+      "with_plan": false,
+      "reference_prefix": "13693 80@",
+      "public_price_eur": 713,
+      "status": "confirmed"
+    },
+    {
+      "model": "3-tiroirs",
+      "width_bucket_cm": 80,
+      "with_plan": true,
+      "reference_prefix": "14216 80@",
+      "public_price_eur": 815,
+      "status": "confirmed"
+    },
+    {
+      "model": "3-tiroirs",
+      "width_bucket_cm": 100,
+      "with_plan": false,
+      "reference_prefix": "13693 100@",
+      "public_price_eur": 799,
+      "status": "confirmed"
+    },
+    {
+      "model": "3-tiroirs",
+      "width_bucket_cm": 100,
+      "with_plan": true,
+      "reference_prefix": "14216 100@",
+      "public_price_eur": 922,
+      "status": "confirmed"
+    },
+    {
+      "model": "3-tiroirs",
+      "width_bucket_cm": 120,
+      "with_plan": false,
+      "reference_prefix": "13693 120@",
+      "public_price_eur": 833,
+      "status": "confirmed"
+    },
+    {
+      "model": "3-tiroirs",
+      "width_bucket_cm": 120,
+      "with_plan": true,
+      "reference_prefix": "14216 120@",
+      "public_price_eur": 977,
+      "status": "confirmed"
+    },
+    {
+      "model": "1-tiroir-xl",
+      "width_bucket_cm": 60,
+      "with_plan": false,
+      "reference_prefix": "13691 60@",
+      "public_price_eur": 441,
+      "status": "confirmed"
+    },
+    {
+      "model": "1-tiroir-xl",
+      "width_bucket_cm": 60,
+      "with_plan": true,
+      "reference_prefix": "14178 60@",
+      "public_price_eur": 522,
+      "status": "confirmed"
+    },
+    {
+      "model": "1-tiroir-xl",
+      "width_bucket_cm": 80,
+      "with_plan": false,
+      "reference_prefix": "13691 80@",
+      "public_price_eur": 466,
+      "status": "confirmed"
+    },
+    {
+      "model": "1-tiroir-xl",
+      "width_bucket_cm": 80,
+      "with_plan": true,
+      "reference_prefix": "14178 80@",
+      "public_price_eur": 569,
+      "status": "confirmed"
+    },
+    {
+      "model": "1-tiroir-xl",
+      "width_bucket_cm": 100,
+      "with_plan": false,
+      "reference_prefix": "13691 100@",
+      "public_price_eur": 534,
+      "status": "confirmed"
+    },
+    {
+      "model": "1-tiroir-xl",
+      "width_bucket_cm": 100,
+      "with_plan": true,
+      "reference_prefix": "14178 100@",
+      "public_price_eur": 657,
+      "status": "confirmed"
+    },
+    {
+      "model": "1-tiroir-xl",
+      "width_bucket_cm": 120,
+      "with_plan": false,
+      "reference_prefix": "13691 120@",
+      "public_price_eur": 554,
+      "status": "confirmed"
+    },
+    {
+      "model": "1-tiroir-xl",
+      "width_bucket_cm": 120,
+      "with_plan": true,
+      "reference_prefix": "14178 120@",
+      "public_price_eur": 697,
+      "status": "confirmed"
+    },
+    {
+      "model": "2-tiroirs-xl",
+      "width_bucket_cm": 60,
+      "with_plan": false,
+      "reference_prefix": "14176 60@",
+      "public_price_eur": 541,
+      "status": "confirmed"
+    },
+    {
+      "model": "2-tiroirs-xl",
+      "width_bucket_cm": 60,
+      "with_plan": true,
+      "reference_prefix": "14214 60@",
+      "public_price_eur": 622,
+      "status": "confirmed"
+    },
+    {
+      "model": "2-tiroirs-xl",
+      "width_bucket_cm": 80,
+      "with_plan": false,
+      "reference_prefix": "14176 80@",
+      "public_price_eur": 566,
+      "status": "confirmed"
+    },
+    {
+      "model": "2-tiroirs-xl",
+      "width_bucket_cm": 80,
+      "with_plan": true,
+      "reference_prefix": "14214 80@",
+      "public_price_eur": 668,
+      "status": "confirmed"
+    },
+    {
+      "model": "2-tiroirs-xl",
+      "width_bucket_cm": 100,
+      "with_plan": false,
+      "reference_prefix": "14176 100@",
+      "public_price_eur": 642,
+      "status": "confirmed"
+    },
+    {
+      "model": "2-tiroirs-xl",
+      "width_bucket_cm": 100,
+      "with_plan": true,
+      "reference_prefix": "14214 100@",
+      "public_price_eur": null,
+      "status": "conflict_requires_confirmation"
+    },
+    {
+      "model": "2-tiroirs-xl",
+      "width_bucket_cm": 120,
+      "with_plan": false,
+      "reference_prefix": "14176 120@",
+      "public_price_eur": 665,
+      "status": "confirmed"
+    },
+    {
+      "model": "2-tiroirs-xl",
+      "width_bucket_cm": 120,
+      "with_plan": true,
+      "reference_prefix": "14214 120@",
+      "public_price_eur": 809,
+      "status": "confirmed"
+    }
+  ],
+  "column": {
+    "reference_prefix": "14177",
+    "dimensions_cm": [
+      132,
+      38,
+      27
+    ],
+    "public_price_eur": 413
+  },
+  "conflicts": [
+    {
+      "model": "2-tiroirs-xl",
+      "width_bucket_cm": 100,
+      "with_plan": true,
+      "reference_prefix": "14214 100@",
+      "france_summary_eur": 765,
+      "detailed_references_eur": 766,
+      "action": "Faire confirmer par RANDAL avant toute publication de ce tarif."
+    }
+  ],
+  "instructions": [
+    "Les plages 41-60/61-80/81-100/101-120 correspondent aux références 60/80/100/120.",
+    "Ne pas exposer les prix d'achat HT, C1 ou C1 EXPO au client.",
+    "Conserver les autres références du Catalogue Général et les prix miroirs/vasques non couverts.",
+    "Ne pas ajouter TTC ni tarif public auprès du prix."
+  ]
+}
