@@ -1,6 +1,6 @@
 {
   "passed": true,
-  "at": "2026-10-19T22:38:49.175Z",
+  "at": "2026-10-23T23:53:06.218Z",
   "checks": [
     "mode switches are mutually exclusive and reversible",
     "solid countertop 800x460x20mm",
@@ -51,6 +51,10 @@
     },
     {
       "mode": "plain",
+      "passed": true
+    },
+    {
+      "mode": "bare",
       "passed": true
     },
     {

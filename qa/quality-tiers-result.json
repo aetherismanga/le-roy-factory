@@ -1,6 +1,6 @@
 {
   "passed": true,
-  "at": "2026-10-19T22:38:56.247Z",
+  "at": "2026-10-23T23:53:18.945Z",
   "checks": [
     "three explicit UltraHD/Standard/Light tiers plus independent automatic adaptation",
     "Ultra supersampling and4K shadow/2K reflection budgets are higher than Standard",

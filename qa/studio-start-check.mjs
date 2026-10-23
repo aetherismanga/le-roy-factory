@@ -9,7 +9,7 @@ import {disposeObject} from '../src/composition.js';
 
 const fresh=initialDraft();assert.equal(fresh.top,'bare');
 assert.equal(defaultBathroomProject().items.find(i=>i.type==='cabinet').settings.top,'bare');
-assert.equal(quoteProject(draftProject(fresh)).publicTTC,52800);
+assert.equal(quoteProject(draftProject(fresh)).publicTTC,51500);
 assert.equal(quoteProject(draftProject(fresh)).rows.length,1);
 const saved={...fresh,top:'tampa',basinColor:'black',basinLayout:'center'};
 assert.equal(normalizeDraft(saved).top,'tampa');

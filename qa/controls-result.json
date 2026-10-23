@@ -1,6 +1,6 @@
 {
   "passed": true,
-  "at": "2026-10-19T22:40:12.960Z",
+  "at": "2026-10-23T23:57:07.662Z",
   "checks": [
     "v22 defaults/new-only, six real presets, five sanitary controllers, shower auto height, multi-caisson UI, paint hues, persisted profile overrides and 2D opening transaction",
     "per-cell context colour, quantity split and roundtrip; generic towel models/finishes; simple 3D partition edit/delete; screen perimeter controls and attachment restore",

@@ -1,6 +1,6 @@
 {
   "passed": true,
-  "at": "2026-10-19T22:40:45.178Z",
+  "at": "2026-10-23T23:53:19.822Z",
   "checks": [
     "four verified cabinet formats and drawer travel at three widths",
     "all twelve bathtub length/type combinations have finite real hollow geometry",
@@ -11,7 +11,7 @@
     "history capacity/branching, Unicode portable project encoding and import validation",
     "all new DOM IDs present once; four responsive workspaces; no remote runtime assets"
   ],
-  "meshCount": 1946,
-  "triangles": 895416,
+  "meshCount": 2042,
+  "triangles": 943220,
   "browserQA": "Not run: CPU geometry/controllers/markup only; no actual device performance or GPU/visual validation"
 }

@@ -3,18 +3,20 @@
 // Paths are shared by STUDIO ONE and RANDAL General so each only loads images
 // visible in its product chooser. Existing manufacturer cabinet/mirror photos
 // remain the first choice for collection-specific catalogue cards.
+import {mirrorThumbnail} from './mirror-thumbnail.js';
 const base='assets/product-visuals/v2/';
 const descriptor=(file,alt)=>Object.freeze({src:base+file+'.webp',alt,kind:'model-render',provenance:'Vue du modèle 3D proposé dans le configurateur · éclairage studio'});
+const mirrorDescriptor=(id,alt)=>Object.freeze({src:mirrorThumbnail(id),alt,kind:'catalogue-drawing',provenance:'Forme et proportions du modèle proposé · verre sur fond neutre'});
 export const PRODUCT_VISUALS=Object.freeze({
  cabinet:descriptor('cabinet','Meuble de salle de bains deux tiroirs, finition Serenade Alba, sans plan'),
  column:descriptor('column','Colonne de salle de bains une porte, finition Serenade Alba'),
- mirror:descriptor('mirror-capsule','Miroir capsule à éclairage LED'),
- 'mirror-round':descriptor('mirror-round','Miroir rond à cadre métallique noir'),
- 'mirror-metal-rect':descriptor('mirror-metal-rect','Miroir rectangulaire à angles arrondis, cadre métallique noir'),
- 'mirror-basic':descriptor('mirror-basic','Miroir Basic rectangulaire'),
- 'mirror-zen':descriptor('mirror-zen','Miroir Zen à bandeau LED horizontal'),
- 'mirror-ilse':descriptor('mirror-ilse','Miroir Ilse à deux bandeaux LED verticaux'),
- 'mirror-capsule':descriptor('mirror-capsule','Miroir capsule à éclairage LED'),
+ mirror:mirrorDescriptor('capsule','Miroir capsule à éclairage LED'),
+ 'mirror-round':mirrorDescriptor('round','Miroir rond à cadre métallique noir'),
+ 'mirror-metal-rect':mirrorDescriptor('metal-rect','Miroir rectangulaire à angles arrondis, cadre métallique noir'),
+ 'mirror-basic':mirrorDescriptor('basic','Miroir Basic rectangulaire'),
+ 'mirror-zen':mirrorDescriptor('zen','Miroir Zen à bandeau LED horizontal'),
+ 'mirror-ilse':mirrorDescriptor('ilse','Miroir Ilse à deux bandeaux LED verticaux'),
+ 'mirror-capsule':mirrorDescriptor('capsule','Miroir capsule à éclairage LED'),
  leg:descriptor('leg-black','Pied ALBUFERA en métal noir, hauteur 10 cm'),
  window:descriptor('window','Fenêtre blanche à deux vantaux et double vitrage'),
  door:descriptor('door','Porte intérieure blanche avec poignée métallique'),

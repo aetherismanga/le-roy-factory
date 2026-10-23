@@ -8,15 +8,15 @@ import {draftProject,initialDraft,normalizeDraft} from '../src/commerce/guided.j
 import {quoteProject} from '../src/commerce/pricing.js';
 import handler from '../api/commercial.js';
 const base=initialDraft();
-assert.equal(quoteProject(draftProject(base)).publicTTC,52800);
-assert.equal(quoteProject(draftProject({...base,top:'neris'})).publicTTC,90480);
-assert.equal(quoteProject(draftProject({...base,width:120,format:'three',top:'plain',column:true,mirror:'basic'})).publicTTC,149160);
+assert.equal(quoteProject(draftProject(base)).publicTTC,51500);
+assert.equal(quoteProject(draftProject({...base,top:'neris'})).publicTTC,88820);
+assert.equal(quoteProject(draftProject({...base,width:120,format:'three',top:'plain',column:true,mirror:'basic'})).publicTTC,146080);
 assert.equal(quoteProject({items:[{type:'mirror',settings:{mirrorModel:'basic',width:1,height:1}}]}).publicTTC,null);
 assert.equal(quoteProject({items:[{type:'cabinet',settings:{format:'unknown'}}]}).publicTTC,null);
 assert.throws(()=>normalizeDraft({...base,top:'sella',width:79}));
 assert.throws(()=>normalizeDraft({...base,top:'neris',width:40}));
 assert.throws(()=>normalizeDraft({...base,width:80.5}));
-assert.equal(quoteProject({items:[...draftProject(base).items,{type:'shower',settings:{}}]}).publicTTC,52800);
+assert.equal(quoteProject({items:[...draftProject(base).items,{type:'shower',settings:{}}]}).publicTTC,51500);
 assert.equal(quoteProject(draftProject({...base,finish:'BISC'})).rows[0].ref,'13692 80@BISC.');
 let comparisons=0;
 if(process.env.STUDIO_ONE_SOURCE){

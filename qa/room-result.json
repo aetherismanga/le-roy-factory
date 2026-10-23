@@ -1,6 +1,6 @@
 {
   "passed": true,
-  "at": "2026-10-19T22:38:55.008Z",
+  "at": "2026-10-23T23:53:17.731Z",
   "checks": [
     "actual 2D door/window insertion, dimensions, finish, wall drag, resize and cancellation; green 90-degree drawing feedback",
     "one-click partition insertion, simple length/direction, body/endpoint drags, cancel and straight-line snap",

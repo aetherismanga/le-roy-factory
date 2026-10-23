@@ -1,6 +1,6 @@
 {
   "passed": true,
-  "at": "2026-10-19T22:38:56.071Z",
+  "at": "2026-10-23T23:53:18.765Z",
   "checks": [
     "actual mouse drag crosses furniture before release",
     "release finds closest horizontal free centimetre without moving neighbours",

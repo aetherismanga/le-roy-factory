@@ -1,6 +1,6 @@
 {
   "passed": true,
-  "at": "2026-10-19T22:38:55.598Z",
+  "at": "2026-10-23T23:53:18.294Z",
   "checks": [
     "default mouse and touch rotation is opposite to published v12",
     "default mouse and touch pan is opposite to published v12",
