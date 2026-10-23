@@ -112,10 +112,8 @@ export function chooseReadings(shape,candidates,unit='cm'){
 export function dimensionScale(view,width=700,height=600){return Math.max(view.w/(width||700),view.h/(height||600));}
 export function resizeWall(points,index,length){
  if(!Number.isFinite(length)||length<=0)throw Error('Saisissez une longueur positive.');
- const p=points.map(v=>[...v]),a=p[index],j=(index+1)%p.length,b=p[j],dx=b[0]-a[0],dy=b[1]-a[1],axis=Math.abs(dy)<1e-7?0:Math.abs(dx)<1e-7?1:-1;
- if(axis<0)throw Error('Cette cote est oblique. Corrigez son tracé ou son échelle avant de la valider.');
- const delta=a[axis]+Math.sign(b[axis]-a[axis])*length-b[axis],coordinate=b[axis];
- // Move the following collinear wall as a whole, keeping right angles intact.
- for(let count=0,k=j;count<p.length-1;count++,k=(k+1)%p.length){if(Math.abs(points[k][axis]-coordinate)>1e-7)break;p[k][axis]+=delta;}
- return p;
+ const a=points[index],b=points[(index+1)%points.length],old=distance(a,b),ux=(b[0]-a[0])/old,uy=(b[1]-a[1])/old,local=points.map(p=>[(p[0]-a[0])*ux+(p[1]-a[1])*uy,-(p[0]-a[0])*uy+(p[1]-a[1])*ux]);
+ if(local.some((p,i)=>{const q=local[(i+1)%local.length];return Math.abs(q[0]-p[0])>1e-7&&Math.abs(q[1]-p[1])>1e-7;}))throw Error('Cette cote est oblique. Corrigez son tracé ou son échelle avant de la valider.');
+ const result=local.map(p=>[...p]),j=(index+1)%points.length,delta=length-old,coordinate=local[j][0];for(let count=0,k=j;count<points.length-1;count++,k=(k+1)%points.length){if(Math.abs(local[k][0]-coordinate)>1e-7)break;result[k][0]+=delta;}
+ return result.map(p=>[a[0]+ux*p[0]-uy*p[1],a[1]+uy*p[0]+ux*p[1]]);
 }
