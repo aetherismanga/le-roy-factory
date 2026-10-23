@@ -1,0 +1,253 @@
+{
+  "schemaVersion": 1,
+  "manufacturer": "ELIOS Ceramica",
+  "collection": "Creta",
+  "source": "Previously reviewed official professional portal MINIMALI listing; manufacturer catalogue reference table PDF page 28 printed 53",
+  "sourceCatalogue": {
+    "url": "https://eliosceramica.com/wp-content/uploads/2024/10/ELIOS_CATALOGO-CRETA_2026.pdf",
+    "sha256": "dbd8b10b6ca28ee4dd25c5f18ab3ba6872720d551e4d451039e1dce5dc683824",
+    "pdfPage": 28,
+    "printedPage": 53,
+    "visuallyReviewed": true
+  },
+  "baseReferences": 8,
+  "baseFacesListed": 53,
+  "decorReferencesWithFaces": 4,
+  "decorFacesListed": 4,
+  "allListedFaces": 57,
+  "filesListedAreNotDownloadEvidence": true,
+  "baseActivationScope": "Exact R9 rectified 8.5 mm 60x120 SKU only; other geometries and R10 keep their existing independent sources.",
+  "decorPolicy": "Separate products; never substitute decors for the base colours. Spiga catalogue references remain unavailable in this portal inventory.",
+  "references": [
+    {
+      "reference": "03V6A00",
+      "colorId": "zucchero",
+      "color": "Zucchero",
+      "sourceFormat": "60x120",
+      "finish": "R9 · Rectifié · 8,5 mm",
+      "kind": "base",
+      "nativeTextureAssignmentAllowed": true,
+      "portalFaces": [
+        "03V6A00@1.jpg",
+        "03V6A00@2.jpg",
+        "03V6A00@3.jpg",
+        "03V6A00@4.jpg"
+      ]
+    },
+    {
+      "reference": "03V6A10",
+      "colorId": "avena",
+      "color": "Avena",
+      "sourceFormat": "60x120",
+      "finish": "R9 · Rectifié · 8,5 mm",
+      "kind": "base",
+      "nativeTextureAssignmentAllowed": true,
+      "portalFaces": [
+        "03V6A10@1.jpg",
+        "03V6A10@2.jpg",
+        "03V6A10@3.jpg",
+        "03V6A10@4.jpg"
+      ]
+    },
+    {
+      "reference": "03V6A20",
+      "colorId": "malto",
+      "color": "Malto",
+      "sourceFormat": "60x120",
+      "finish": "R9 · Rectifié · 8,5 mm",
+      "kind": "base",
+      "nativeTextureAssignmentAllowed": true,
+      "portalFaces": [
+        "03V6A20@1.jpg",
+        "03V6A20@10.jpg",
+        "03V6A20@11.jpg",
+        "03V6A20@12.jpg",
+        "03V6A20@13.jpg",
+        "03V6A20@14.jpg",
+        "03V6A20@15.jpg",
+        "03V6A20@16.jpg",
+        "03V6A20@2.jpg",
+        "03V6A20@3.jpg",
+        "03V6A20@4.jpg",
+        "03V6A20@5.jpg",
+        "03V6A20@6.jpg",
+        "03V6A20@7.jpg",
+        "03V6A20@8.jpg",
+        "03V6A20@9.jpg"
+      ]
+    },
+    {
+      "reference": "03V6A30",
+      "colorId": "biscotto",
+      "color": "Biscotto",
+      "sourceFormat": "60x120",
+      "finish": "R9 · Rectifié · 8,5 mm",
+      "kind": "base",
+      "nativeTextureAssignmentAllowed": true,
+      "portalFaces": [
+        "03V6A30@1.jpg",
+        "03V6A30@2.jpg",
+        "03V6A30@3.jpg",
+        "03V6A30@4.jpg"
+      ]
+    },
+    {
+      "reference": "03V6A50",
+      "colorId": "ginepro",
+      "color": "Ginepro",
+      "sourceFormat": "60x120",
+      "finish": "R9 · Rectifié · 8,5 mm",
+      "kind": "base",
+      "nativeTextureAssignmentAllowed": true,
+      "portalFaces": [
+        "03V6A50@1.jpg",
+        "03V6A50@2.jpg",
+        "03V6A50@3.jpg",
+        "03V6A50@4.jpg"
+      ]
+    },
+    {
+      "reference": "03V6A60",
+      "colorId": "matcha",
+      "color": "Matcha",
+      "sourceFormat": "60x120",
+      "finish": "R9 · Rectifié · 8,5 mm",
+      "kind": "base",
+      "nativeTextureAssignmentAllowed": true,
+      "portalFaces": [
+        "03V6A60@1.jpg",
+        "03V6A60@2.jpg",
+        "03V6A60@3.jpg",
+        "03V6A60@4.jpg"
+      ]
+    },
+    {
+      "reference": "03V6A80",
+      "colorId": "caramello",
+      "color": "Caramello",
+      "sourceFormat": "60x120",
+      "finish": "R9 · Rectifié · 8,5 mm",
+      "kind": "base",
+      "nativeTextureAssignmentAllowed": true,
+      "portalFaces": [
+        "03V6A80@1.jpg",
+        "03V6A80@2.jpg",
+        "03V6A80@3.jpg",
+        "03V6A80@4.jpg"
+      ]
+    },
+    {
+      "reference": "03V6A90",
+      "colorId": "pepe",
+      "color": "Pepe",
+      "sourceFormat": "60x120",
+      "finish": "R9 · Rectifié · 8,5 mm",
+      "kind": "base",
+      "nativeTextureAssignmentAllowed": true,
+      "portalFaces": [
+        "03V6A90@1.jpg",
+        "03V6A90@10.jpg",
+        "03V6A90@11.jpg",
+        "03V6A90@12.jpg",
+        "03V6A90@13.jpg",
+        "03V6A90@2.jpg",
+        "03V6A90@3.jpg",
+        "03V6A90@4.jpg",
+        "03V6A90@5.jpg",
+        "03V6A90@6.jpg",
+        "03V6A90@7.jpg",
+        "03V6A90@8.jpg",
+        "03V6A90@9.jpg"
+      ]
+    },
+    {
+      "reference": "03V6AD0",
+      "colorId": "cloe-zucchero",
+      "color": "Cloé Zucchero",
+      "sourceFormat": "60x120",
+      "finish": "R9 · Rectifié · 8,5 mm",
+      "kind": "decor",
+      "nativeTextureAssignmentAllowed": false,
+      "portalFaces": [
+        "03V6AD0@1.jpg"
+      ]
+    },
+    {
+      "reference": "03V6AD1",
+      "colorId": "cloe-avena",
+      "color": "Cloé Avena",
+      "sourceFormat": "60x120",
+      "finish": "R9 · Rectifié · 8,5 mm",
+      "kind": "decor",
+      "nativeTextureAssignmentAllowed": false,
+      "portalFaces": [
+        "03V6AD1@1.jpg"
+      ]
+    },
+    {
+      "reference": "03V6AD4",
+      "colorId": "spiga-avena-zucchero",
+      "color": "Spiga Avena Zucchero",
+      "sourceFormat": "60x120",
+      "finish": "R9 · Rectifié · 8,5 mm",
+      "kind": "decor",
+      "nativeTextureAssignmentAllowed": false,
+      "portalFaces": []
+    },
+    {
+      "reference": "03V6AD5",
+      "colorId": "spiga-pepe-malto",
+      "color": "Spiga Pepe Malto",
+      "sourceFormat": "60x120",
+      "finish": "R9 · Rectifié · 8,5 mm",
+      "kind": "decor",
+      "nativeTextureAssignmentAllowed": false,
+      "portalFaces": []
+    },
+    {
+      "reference": "03V6ADC",
+      "colorId": "coccio",
+      "color": "Coccio",
+      "sourceFormat": "60x120",
+      "finish": "R9 · Rectifié · 8,5 mm",
+      "kind": "decor",
+      "nativeTextureAssignmentAllowed": false,
+      "portalFaces": [
+        "03V6ADC@1.jpg"
+      ]
+    },
+    {
+      "reference": "03V6ADF",
+      "colorId": "pintura",
+      "color": "Pintura",
+      "sourceFormat": "60x120",
+      "finish": "R9 · Rectifié · 8,5 mm",
+      "kind": "decor",
+      "nativeTextureAssignmentAllowed": false,
+      "portalFaces": [
+        "03V6ADF@1.jpg"
+      ]
+    }
+  ],
+  "additionalCatalogueReview": {
+    "repositoryPath": "assets/pdf/ELIOSCATALOGUE-GENERALE 2026-1.pdf",
+    "sha256": "04bab2aba9802417df50b52d8ee4f42eba5f7c6fa3c74ad10e66c9d8187c90f1",
+    "pdfPage": 114,
+    "printedPages": [
+      224,
+      225
+    ],
+    "visuallyReviewed": true,
+    "decorFormat": "60x120",
+    "decorFinish": "R9 · Rectifié · 8,5 mm",
+    "decorPackPieces": 2,
+    "decorPackAreaM2": 1.44,
+    "decorPackWeightKg": 32,
+    "patternsByFormat": {
+      "60x120": 60,
+      "60x60": 32,
+      "120x120": 4
+    },
+    "patternCaveat": "This catalogue pattern count is not proof that every motif of every SKU was exposed in the observed portal listing. The 57 listed files are the observed inventory, not a declaration of all catalogue patterns."
+  }
+}

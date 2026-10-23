@@ -1,0 +1,165 @@
+{
+  "collections": 32,
+  "folders": 391,
+  "complete": true,
+  "total_files_including_parasites": 6555,
+  "bytes_listed_decimal": 89774077570,
+  "categories_excluding_parasites": {
+    "document": {
+      "files": 1,
+      "bytes_displayed_decimal": 4807780.0
+    },
+    "ambiance": {
+      "files": 475,
+      "bytes_displayed_decimal": 9141178420.0
+    },
+    "texture": {
+      "files": 5969,
+      "bytes_displayed_decimal": 80584089590.0
+    },
+    "unknown_jps": {
+      "files": 1,
+      "bytes_displayed_decimal": 16781790.0
+    }
+  },
+  "parasitic_files_excluded": 109,
+  "unknown_jps": [
+    {
+      "path": "Shell/MINIMALI/60x120/IVORY",
+      "name": "04F6A31@3.jps"
+    }
+  ],
+  "by_collection": {
+    "Dust": {
+      "document": 1,
+      "ambiance": 33,
+      "texture": 56
+    },
+    "Allure": {
+      "ambiance": 24,
+      "texture": 26
+    },
+    "Azuli Mood": {
+      "ambiance": 20,
+      "texture": 440
+    },
+    "Brooklyn": {
+      "ambiance": 9,
+      "texture": 362
+    },
+    "Clay": {
+      "ambiance": 27,
+      "texture": 109
+    },
+    "Creta": {
+      "ambiance": 24,
+      "texture": 57
+    },
+    "D_esign Evo": {
+      "ambiance": 17,
+      "texture": 84
+    },
+    "Deco": {
+      "ambiance": 21,
+      "texture": 25
+    },
+    "Dolomiti": {
+      "ambiance": 7,
+      "texture": 244
+    },
+    "Domus": {
+      "ambiance": 22,
+      "texture": 140
+    },
+    "Dynasty": {
+      "ambiance": 20,
+      "texture": 205
+    },
+    "Glow": {
+      "ambiance": 19,
+      "texture": 200
+    },
+    "Golden hour": {
+      "ambiance": 12,
+      "texture": 161
+    },
+    "Grand Place": {
+      "ambiance": 8,
+      "texture": 12
+    },
+    "Hexagon": {
+      "ambiance": 26,
+      "texture": 51
+    },
+    "Magnus": {
+      "ambiance": 13,
+      "texture": 24
+    },
+    "Marechiaro": {
+      "ambiance": 7,
+      "texture": 26
+    },
+    "Millennium Quartz": {
+      "ambiance": 5,
+      "texture": 164
+    },
+    "Montblanc": {
+      "ambiance": 5,
+      "texture": 470
+    },
+    "Quercia": {
+      "ambiance": 4,
+      "texture": 118
+    },
+    "Roma": {
+      "ambiance": 15,
+      "texture": 36
+    },
+    "Sedimenti": {
+      "ambiance": 22,
+      "texture": 1489
+    },
+    "Segmento": {
+      "ambiance": 8,
+      "texture": 282
+    },
+    "Shell": {
+      "ambiance": 11,
+      "texture": 182,
+      "unknown_jps": 1
+    },
+    "Skultura": {
+      "ambiance": 37
+    },
+    "Slate": {
+      "ambiance": 7,
+      "texture": 291
+    },
+    "Stone Evo": {
+      "ambiance": 18,
+      "texture": 176
+    },
+    "Terraforma": {
+      "ambiance": 9,
+      "texture": 228
+    },
+    "Terre Etrusche": {
+      "ambiance": 6,
+      "texture": 114
+    },
+    "Venere": {
+      "ambiance": 13,
+      "texture": 18
+    },
+    "Yosemite": {
+      "ambiance": 6,
+      "texture": 179
+    }
+  },
+  "notes": [
+    "Counts refer to listed files, not downloaded files.",
+    "1 working copy and 1 administrator-locked original are listed in Allure/minimali; no content hash deduplication performed.",
+    "32 top-level collection folders includes Magnus/Mysterium; Stone Icon has only empty AMBIENTI folder, Skultura only ambienti.",
+    "Size decimal assumes manufacturer KB=1000 bytes; source displayed KB values retained in inventory."
+  ]
+}

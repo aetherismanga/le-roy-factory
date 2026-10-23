@@ -1,0 +1,323 @@
+{
+  "schemaVersion": 1,
+  "manufacturer": "ELIOS Ceramica",
+  "entries": [
+    {
+      "brand": "ELIOS",
+      "collection": "creta",
+      "reference": "03V6A00",
+      "colorId": "zucchero",
+      "color": "Zucchero",
+      "format": "60x120",
+      "formatCm": [
+        60,
+        120
+      ],
+      "finish": "R9 · Rectifié · 8,5 mm",
+      "renderDimensionsCm": [
+        120,
+        60
+      ],
+      "textureRotation": 0,
+      "face": 1,
+      "sourceFilename": "03V6A00@1.jpg",
+      "sourceArea": "Elios Ceramica professional phototheque / MINIMALI",
+      "sourceSHA256": "d7966f2f71751702c2da2d9bd2bbfeeb249197f6338b0668ead167718ab93dd9",
+      "sourceBytes": 113052192,
+      "nativeDimensions": [
+        7795,
+        15591
+      ],
+      "sourceMode": "CMYK",
+      "sourceImageFormat": "JPEG",
+      "decodedDimensions": [
+        3898,
+        7796
+      ],
+      "sourceICCsha256": "219d932a8fbec6ed6bb180662e7c12982ea16ab86ad48777ae12141297bc52c0",
+      "exifOrientation": 1,
+      "rotateClockwise": 90,
+      "sourceOrientation": "portrait",
+      "renderOrientation": "landscape",
+      "colourConversion": "embedded-icc-to-srgb",
+      "renderingIntent": "relative-colorimetric-with-black-point-compensation",
+      "crop": null,
+      "mirror": false,
+      "upscaled": false,
+      "recipe": {
+        "pipelineVersion": 1,
+        "sourceSHA256": "d7966f2f71751702c2da2d9bd2bbfeeb249197f6338b0668ead167718ab93dd9",
+        "rotateClockwise": 90,
+        "limits": {
+          "fluid": 256,
+          "balanced": 1024,
+          "max": 4096
+        },
+        "webpMethod": 5,
+        "qualities": {
+          "fluid": 90,
+          "balanced": 90,
+          "max": 94
+        },
+        "pillowVersion": "12.3.0",
+        "srgbProfileSHA256": "6f6fe5cc53cd24ceeb7997fb24ce2889fdfb88d88ce4fdc5f8e25e0481294953"
+      },
+      "recipeSHA256": "70f34b95c4dd96a544d942cc694181863ae203f784ddd435591aa42c34b342cb",
+      "variants": {
+        "fluid": {
+          "file": "creta/03V6A00/zucchero/60x120/face-001-70f34b95c4dd-fluid.webp",
+          "width": 256,
+          "height": 128,
+          "bytes": 1158,
+          "sha256": "994a27b27a765a1df33a91db7b8386acf3bef525c2d25ad7bc38bc8337f64b18",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 256
+        },
+        "balanced": {
+          "file": "creta/03V6A00/zucchero/60x120/face-001-70f34b95c4dd-balanced.webp",
+          "width": 1024,
+          "height": 512,
+          "bytes": 10638,
+          "sha256": "5721e95ed7bec2015e79b5b755cdbb0294e4560cb420fe5763f7283e34f10180",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 1024
+        },
+        "max": {
+          "file": "creta/03V6A00/zucchero/60x120/face-001-70f34b95c4dd-max.webp",
+          "width": 4096,
+          "height": 2048,
+          "bytes": 1463202,
+          "sha256": "cf7eb7cb8ec77b3f2a4c763c0f1484c0f9aed347fd77f547f802f90470326f01",
+          "encoding": "webp-lossy",
+          "quality": 94,
+          "icc": "sRGB",
+          "maxSide": 4096
+        }
+      },
+      "identityVerified": true,
+      "reuseAuthorization": "confirmed-by-user",
+      "readyForIntegration": true
+    },
+    {
+      "brand": "ELIOS",
+      "collection": "creta",
+      "reference": "03V6A10",
+      "colorId": "avena",
+      "color": "Avena",
+      "format": "60x120",
+      "formatCm": [
+        60,
+        120
+      ],
+      "finish": "R9 · Rectifié · 8,5 mm",
+      "renderDimensionsCm": [
+        120,
+        60
+      ],
+      "textureRotation": 0,
+      "face": 1,
+      "sourceFilename": "03V6A10@1.jpg",
+      "sourceArea": "Elios Ceramica professional phototheque / MINIMALI",
+      "sourceSHA256": "b9d30c30cf1141227bb33335c7aed6f5f55375fcb13ef68bf8a684367155b23a",
+      "sourceBytes": 156640329,
+      "nativeDimensions": [
+        7795,
+        15591
+      ],
+      "sourceMode": "CMYK",
+      "sourceImageFormat": "JPEG",
+      "decodedDimensions": [
+        3898,
+        7796
+      ],
+      "sourceICCsha256": "219d932a8fbec6ed6bb180662e7c12982ea16ab86ad48777ae12141297bc52c0",
+      "exifOrientation": 1,
+      "rotateClockwise": 90,
+      "sourceOrientation": "portrait",
+      "renderOrientation": "landscape",
+      "colourConversion": "embedded-icc-to-srgb",
+      "renderingIntent": "relative-colorimetric-with-black-point-compensation",
+      "crop": null,
+      "mirror": false,
+      "upscaled": false,
+      "recipe": {
+        "pipelineVersion": 1,
+        "sourceSHA256": "b9d30c30cf1141227bb33335c7aed6f5f55375fcb13ef68bf8a684367155b23a",
+        "rotateClockwise": 90,
+        "limits": {
+          "fluid": 256,
+          "balanced": 1024,
+          "max": 4096
+        },
+        "webpMethod": 5,
+        "qualities": {
+          "fluid": 90,
+          "balanced": 90,
+          "max": 94
+        },
+        "pillowVersion": "12.3.0",
+        "srgbProfileSHA256": "6f6fe5cc53cd24ceeb7997fb24ce2889fdfb88d88ce4fdc5f8e25e0481294953"
+      },
+      "recipeSHA256": "f1ec6ffbba4d679500f8f965676a5ab934bfb5cad500b0a99ac0963353fd0e3f",
+      "variants": {
+        "fluid": {
+          "file": "creta/03V6A10/avena/60x120/face-001-f1ec6ffbba4d-fluid.webp",
+          "width": 256,
+          "height": 128,
+          "bytes": 1698,
+          "sha256": "1b5dcc4f7c32636e61d3891628cbab0f9382083d97e5a3dac09ceaa9653d1209",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 256
+        },
+        "balanced": {
+          "file": "creta/03V6A10/avena/60x120/face-001-f1ec6ffbba4d-balanced.webp",
+          "width": 1024,
+          "height": 512,
+          "bytes": 33842,
+          "sha256": "f0dc4a2d8b32bacf9ecb29d0c0786035e0dbb8c521b6a24a5481f4663495f4c7",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 1024
+        },
+        "max": {
+          "file": "creta/03V6A10/avena/60x120/face-001-f1ec6ffbba4d-max.webp",
+          "width": 4096,
+          "height": 2048,
+          "bytes": 2407800,
+          "sha256": "59cb215c6bfb69c032852afe5326bb6df5b7cca25a93a373c89f2fd79a485fee",
+          "encoding": "webp-lossy",
+          "quality": 94,
+          "icc": "sRGB",
+          "maxSide": 4096
+        }
+      },
+      "identityVerified": true,
+      "reuseAuthorization": "confirmed-by-user",
+      "readyForIntegration": true
+    },
+    {
+      "brand": "ELIOS",
+      "collection": "creta",
+      "reference": "03V6A20",
+      "colorId": "malto",
+      "color": "Malto",
+      "format": "60x120",
+      "formatCm": [
+        60,
+        120
+      ],
+      "finish": "R9 · Rectifié · 8,5 mm",
+      "renderDimensionsCm": [
+        120,
+        60
+      ],
+      "textureRotation": 0,
+      "face": 1,
+      "sourceFilename": "03V6A20@1.jpg",
+      "sourceArea": "Elios Ceramica professional phototheque / MINIMALI",
+      "sourceSHA256": "3b6db6a09577c03510c90130c1332ae618859842cc73f86d401651aebac11f36",
+      "sourceBytes": 118179750,
+      "nativeDimensions": [
+        9496,
+        18993
+      ],
+      "sourceMode": "CMYK",
+      "sourceImageFormat": "JPEG",
+      "decodedDimensions": [
+        2374,
+        4749
+      ],
+      "sourceICCsha256": "64885de6b689f63ce546b202b216347b80dba683af34b74d4b0e3eb332091705",
+      "exifOrientation": 1,
+      "rotateClockwise": 90,
+      "sourceOrientation": "portrait",
+      "renderOrientation": "landscape",
+      "colourConversion": "embedded-icc-to-srgb",
+      "renderingIntent": "relative-colorimetric-with-black-point-compensation",
+      "crop": null,
+      "mirror": false,
+      "upscaled": false,
+      "recipe": {
+        "pipelineVersion": 1,
+        "sourceSHA256": "3b6db6a09577c03510c90130c1332ae618859842cc73f86d401651aebac11f36",
+        "rotateClockwise": 90,
+        "limits": {
+          "fluid": 256,
+          "balanced": 1024,
+          "max": 4096
+        },
+        "webpMethod": 5,
+        "qualities": {
+          "fluid": 90,
+          "balanced": 90,
+          "max": 94
+        },
+        "pillowVersion": "12.3.0",
+        "srgbProfileSHA256": "6f6fe5cc53cd24ceeb7997fb24ce2889fdfb88d88ce4fdc5f8e25e0481294953"
+      },
+      "recipeSHA256": "c884d108bc765ac589eaa0ff4b2ccbe9d60eb8443cc04b327f1b21c4e68cc5db",
+      "variants": {
+        "fluid": {
+          "file": "creta/03V6A20/malto/60x120/face-001-c884d108bc76-fluid.webp",
+          "width": 256,
+          "height": 128,
+          "bytes": 1296,
+          "sha256": "a6bed0cf9a5bc63024f3d5db6af09f3ae38b11ff4f4b32ec783136953a607ae6",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 256
+        },
+        "balanced": {
+          "file": "creta/03V6A20/malto/60x120/face-001-c884d108bc76-balanced.webp",
+          "width": 1024,
+          "height": 512,
+          "bytes": 27730,
+          "sha256": "0f90fb84764272447d5ad3ab2624bf917d97683b352347006ea78f91dbcc2c9c",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 1024
+        },
+        "max": {
+          "file": "creta/03V6A20/malto/60x120/face-001-c884d108bc76-max.webp",
+          "width": 4096,
+          "height": 2048,
+          "bytes": 1909230,
+          "sha256": "8f4be45dbccfc3293c8ccfa4bc9112255c71163785dc3cf234ae752292f0d8ed",
+          "encoding": "webp-lossy",
+          "quality": 94,
+          "icc": "sRGB",
+          "maxSide": 4096
+        }
+      },
+      "identityVerified": true,
+      "reuseAuthorization": "confirmed-by-user",
+      "readyForIntegration": true
+    }
+  ],
+  "updatedAt": "2026-10-22T22:59:35.996920+00:00",
+  "counts": {
+    "originals": 3,
+    "collections": 1,
+    "faces": 3,
+    "readyFaces": 3,
+    "variants": 9
+  },
+  "reuseAuthorizationEvidence": {
+    "status": "confirmed-by-user",
+    "confirmationDate": "2026-10-23",
+    "confirmedRole": "agent d’usine Elios",
+    "scope": "Utilisation des visuels Elios dans le site et les configurateurs LE ROY FACTORY",
+    "evidenceSource": "user-confirmation-in-conversation",
+    "manufacturerSignedContractObserved": false,
+    "note": "Confirmation explicite de Jérôme ; aucun contrat signé ni licence publique nouvellement reçue n’est allégué."
+  }
+}

@@ -1,0 +1,2040 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-10-22",
+  "scope": "Références factuelles ELIOS sans tarifs ni identifiants. Le mapping commercial ne prouve pas de droits de réutilisation des images.",
+  "sourceCommit": "b415028998f0136be9c411206ae65105779dd29f",
+  "sources": {
+    "general": {
+      "repositoryPath": "assets/pdf/ELIOSCATALOGUE-GENERALE 2026-1.pdf",
+      "sha256": "04bab2aba9802417df50b52d8ee4f42eba5f7c6fa3c74ad10e66c9d8187c90f1",
+      "pdfPages": 240
+    },
+    "creta": {
+      "url": "https://eliosceramica.com/wp-content/uploads/2024/10/ELIOS_CATALOGO-CRETA_2026.pdf",
+      "sha256": "dbd8b10b6ca28ee4dd25c5f18ab3ba6872720d551e4d451039e1dce5dc683824",
+      "pdfPage": 28,
+      "printedPage": 53,
+      "visuallyReviewed": true
+    },
+    "azuliMood": {
+      "url": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "sha256": "8f42815718fe0572455d088aa6a7c448bff71664853d0a0eb570df6a3ad96f6e",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "visuallyReviewed": true
+    },
+    "quercia": {
+      "url": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "repositoryPath": "assets/pdf/ELIOSCATALOGUE-GENERALE 2026-1.pdf",
+      "sha256": "04bab2aba9802417df50b52d8ee4f42eba5f7c6fa3c74ad10e66c9d8187c90f1",
+      "pdfPage": 43,
+      "printedPages": [
+        82,
+        83
+      ],
+      "referenceTablePrintedPage": 82,
+      "visuallyReviewed": true
+    }
+  },
+  "cretaVerified": {
+    "03V6A10": {
+      "collection": "Creta",
+      "colorId": "avena",
+      "color": "Avena",
+      "reference": "03V6A10",
+      "sourceFormat": "60x120",
+      "sourceFormatCm": {
+        "width": 60,
+        "height": 120
+      },
+      "finish": "R9 · Rectifié · 8,5 mm",
+      "kind": "base",
+      "nativeTextureAssignmentAllowed": true,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/ELIOS_CATALOGO-CRETA_2026.pdf",
+      "pdfPage": 28,
+      "printedPage": 53,
+      "otherCatalogueProductsSameColor": [
+        {
+          "reference": "03V6010",
+          "format": "60 × 60 cm",
+          "finish": "R9 · Rectifié · 8,5 mm"
+        },
+        {
+          "reference": "03V6A10",
+          "format": "60 × 120 cm",
+          "finish": "R9 · Rectifié · 8,5 mm"
+        },
+        {
+          "reference": "03V6B10",
+          "format": "60 × 120 cm",
+          "finish": "R10 · Rectifié · 8,5 mm"
+        },
+        {
+          "reference": "03V1110",
+          "format": "120 × 120 cm",
+          "finish": "R9 · Rectifié · 8,5 mm"
+        }
+      ],
+      "portalFaces": [
+        "03V6A10@1.jpg",
+        "03V6A10@2.jpg",
+        "03V6A10@3.jpg",
+        "03V6A10@4.jpg"
+      ],
+      "notes": [
+        "La référence du fichier est bien une référence commerciale de carreau 60x120.",
+        "Ne pas étirer une face 60x120 pour un carré 60x60 ou 120x120. Le choix de recadrage/échelle doit conserver la matière et ne constitue pas une nouvelle face native du format carré."
+      ]
+    },
+    "03V6A20": {
+      "collection": "Creta",
+      "colorId": "malto",
+      "color": "Malto",
+      "reference": "03V6A20",
+      "sourceFormat": "60x120",
+      "sourceFormatCm": {
+        "width": 60,
+        "height": 120
+      },
+      "finish": "R9 · Rectifié · 8,5 mm",
+      "kind": "base",
+      "nativeTextureAssignmentAllowed": true,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/ELIOS_CATALOGO-CRETA_2026.pdf",
+      "pdfPage": 28,
+      "printedPage": 53,
+      "otherCatalogueProductsSameColor": [
+        {
+          "reference": "03V6020",
+          "format": "60 × 60 cm",
+          "finish": "R9 · Rectifié · 8,5 mm"
+        },
+        {
+          "reference": "03V6A20",
+          "format": "60 × 120 cm",
+          "finish": "R9 · Rectifié · 8,5 mm"
+        },
+        {
+          "reference": "03V6B20",
+          "format": "60 × 120 cm",
+          "finish": "R10 · Rectifié · 8,5 mm"
+        },
+        {
+          "reference": "03V1120",
+          "format": "120 × 120 cm",
+          "finish": "R9 · Rectifié · 8,5 mm"
+        }
+      ],
+      "portalFaces": [
+        "03V6A20@1.jpg",
+        "03V6A20@10.jpg",
+        "03V6A20@11.jpg",
+        "03V6A20@12.jpg",
+        "03V6A20@13.jpg",
+        "03V6A20@14.jpg",
+        "03V6A20@15.jpg",
+        "03V6A20@16.jpg",
+        "03V6A20@2.jpg",
+        "03V6A20@3.jpg",
+        "03V6A20@4.jpg",
+        "03V6A20@5.jpg",
+        "03V6A20@6.jpg",
+        "03V6A20@7.jpg",
+        "03V6A20@8.jpg",
+        "03V6A20@9.jpg"
+      ],
+      "notes": [
+        "La référence du fichier est bien une référence commerciale de carreau 60x120.",
+        "Ne pas étirer une face 60x120 pour un carré 60x60 ou 120x120. Le choix de recadrage/échelle doit conserver la matière et ne constitue pas une nouvelle face native du format carré."
+      ]
+    },
+    "03V6A30": {
+      "collection": "Creta",
+      "colorId": "biscotto",
+      "color": "Biscotto",
+      "reference": "03V6A30",
+      "sourceFormat": "60x120",
+      "sourceFormatCm": {
+        "width": 60,
+        "height": 120
+      },
+      "finish": "R9 · Rectifié · 8,5 mm",
+      "kind": "base",
+      "nativeTextureAssignmentAllowed": true,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/ELIOS_CATALOGO-CRETA_2026.pdf",
+      "pdfPage": 28,
+      "printedPage": 53,
+      "otherCatalogueProductsSameColor": [
+        {
+          "reference": "03V6030",
+          "format": "60 × 60 cm",
+          "finish": "R9 · Rectifié · 8,5 mm"
+        },
+        {
+          "reference": "03V6A30",
+          "format": "60 × 120 cm",
+          "finish": "R9 · Rectifié · 8,5 mm"
+        },
+        {
+          "reference": "03V1130",
+          "format": "120 × 120 cm",
+          "finish": "R9 · Rectifié · 8,5 mm"
+        }
+      ],
+      "portalFaces": [
+        "03V6A30@1.jpg",
+        "03V6A30@2.jpg",
+        "03V6A30@3.jpg",
+        "03V6A30@4.jpg"
+      ],
+      "notes": [
+        "La référence du fichier est bien une référence commerciale de carreau 60x120.",
+        "Ne pas étirer une face 60x120 pour un carré 60x60 ou 120x120. Le choix de recadrage/échelle doit conserver la matière et ne constitue pas une nouvelle face native du format carré."
+      ]
+    },
+    "03V6A50": {
+      "collection": "Creta",
+      "colorId": "ginepro",
+      "color": "Ginepro",
+      "reference": "03V6A50",
+      "sourceFormat": "60x120",
+      "sourceFormatCm": {
+        "width": 60,
+        "height": 120
+      },
+      "finish": "R9 · Rectifié · 8,5 mm",
+      "kind": "base",
+      "nativeTextureAssignmentAllowed": true,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/ELIOS_CATALOGO-CRETA_2026.pdf",
+      "pdfPage": 28,
+      "printedPage": 53,
+      "otherCatalogueProductsSameColor": [
+        {
+          "reference": "03V6050",
+          "format": "60 × 60 cm",
+          "finish": "R9 · Rectifié · 8,5 mm"
+        },
+        {
+          "reference": "03V6A50",
+          "format": "60 × 120 cm",
+          "finish": "R9 · Rectifié · 8,5 mm"
+        }
+      ],
+      "portalFaces": [
+        "03V6A50@1.jpg",
+        "03V6A50@2.jpg",
+        "03V6A50@3.jpg",
+        "03V6A50@4.jpg"
+      ],
+      "notes": [
+        "La référence du fichier est bien une référence commerciale de carreau 60x120.",
+        "Ne pas étirer une face 60x120 pour un carré 60x60 ou 120x120. Le choix de recadrage/échelle doit conserver la matière et ne constitue pas une nouvelle face native du format carré."
+      ]
+    },
+    "03V6A60": {
+      "collection": "Creta",
+      "colorId": "matcha",
+      "color": "Matcha",
+      "reference": "03V6A60",
+      "sourceFormat": "60x120",
+      "sourceFormatCm": {
+        "width": 60,
+        "height": 120
+      },
+      "finish": "R9 · Rectifié · 8,5 mm",
+      "kind": "base",
+      "nativeTextureAssignmentAllowed": true,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/ELIOS_CATALOGO-CRETA_2026.pdf",
+      "pdfPage": 28,
+      "printedPage": 53,
+      "otherCatalogueProductsSameColor": [
+        {
+          "reference": "03V6060",
+          "format": "60 × 60 cm",
+          "finish": "R9 · Rectifié · 8,5 mm"
+        },
+        {
+          "reference": "03V6A60",
+          "format": "60 × 120 cm",
+          "finish": "R9 · Rectifié · 8,5 mm"
+        }
+      ],
+      "portalFaces": [
+        "03V6A60@1.jpg",
+        "03V6A60@2.jpg",
+        "03V6A60@3.jpg",
+        "03V6A60@4.jpg"
+      ],
+      "notes": [
+        "La référence du fichier est bien une référence commerciale de carreau 60x120.",
+        "Ne pas étirer une face 60x120 pour un carré 60x60 ou 120x120. Le choix de recadrage/échelle doit conserver la matière et ne constitue pas une nouvelle face native du format carré."
+      ]
+    },
+    "03V6A80": {
+      "collection": "Creta",
+      "colorId": "caramello",
+      "color": "Caramello",
+      "reference": "03V6A80",
+      "sourceFormat": "60x120",
+      "sourceFormatCm": {
+        "width": 60,
+        "height": 120
+      },
+      "finish": "R9 · Rectifié · 8,5 mm",
+      "kind": "base",
+      "nativeTextureAssignmentAllowed": true,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/ELIOS_CATALOGO-CRETA_2026.pdf",
+      "pdfPage": 28,
+      "printedPage": 53,
+      "otherCatalogueProductsSameColor": [
+        {
+          "reference": "03V6080",
+          "format": "60 × 60 cm",
+          "finish": "R9 · Rectifié · 8,5 mm"
+        },
+        {
+          "reference": "03V6A80",
+          "format": "60 × 120 cm",
+          "finish": "R9 · Rectifié · 8,5 mm"
+        },
+        {
+          "reference": "03V1180",
+          "format": "120 × 120 cm",
+          "finish": "R9 · Rectifié · 8,5 mm"
+        }
+      ],
+      "portalFaces": [
+        "03V6A80@1.jpg",
+        "03V6A80@2.jpg",
+        "03V6A80@3.jpg",
+        "03V6A80@4.jpg"
+      ],
+      "notes": [
+        "La référence du fichier est bien une référence commerciale de carreau 60x120.",
+        "Ne pas étirer une face 60x120 pour un carré 60x60 ou 120x120. Le choix de recadrage/échelle doit conserver la matière et ne constitue pas une nouvelle face native du format carré."
+      ]
+    },
+    "03V6A90": {
+      "collection": "Creta",
+      "colorId": "pepe",
+      "color": "Pepe",
+      "reference": "03V6A90",
+      "sourceFormat": "60x120",
+      "sourceFormatCm": {
+        "width": 60,
+        "height": 120
+      },
+      "finish": "R9 · Rectifié · 8,5 mm",
+      "kind": "base",
+      "nativeTextureAssignmentAllowed": true,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/ELIOS_CATALOGO-CRETA_2026.pdf",
+      "pdfPage": 28,
+      "printedPage": 53,
+      "otherCatalogueProductsSameColor": [
+        {
+          "reference": "03V6090",
+          "format": "60 × 60 cm",
+          "finish": "R9 · Rectifié · 8,5 mm"
+        },
+        {
+          "reference": "03V6A90",
+          "format": "60 × 120 cm",
+          "finish": "R9 · Rectifié · 8,5 mm"
+        },
+        {
+          "reference": "03V6B90",
+          "format": "60 × 120 cm",
+          "finish": "R10 · Rectifié · 8,5 mm"
+        },
+        {
+          "reference": "03V1190",
+          "format": "120 × 120 cm",
+          "finish": "R9 · Rectifié · 8,5 mm"
+        }
+      ],
+      "portalFaces": [
+        "03V6A90@1.jpg",
+        "03V6A90@10.jpg",
+        "03V6A90@11.jpg",
+        "03V6A90@12.jpg",
+        "03V6A90@13.jpg",
+        "03V6A90@2.jpg",
+        "03V6A90@3.jpg",
+        "03V6A90@4.jpg",
+        "03V6A90@5.jpg",
+        "03V6A90@6.jpg",
+        "03V6A90@7.jpg",
+        "03V6A90@8.jpg",
+        "03V6A90@9.jpg"
+      ],
+      "notes": [
+        "La référence du fichier est bien une référence commerciale de carreau 60x120.",
+        "Ne pas étirer une face 60x120 pour un carré 60x60 ou 120x120. Le choix de recadrage/échelle doit conserver la matière et ne constitue pas une nouvelle face native du format carré."
+      ]
+    },
+    "03V6A00": {
+      "collection": "Creta",
+      "colorId": "zucchero",
+      "color": "Zucchero",
+      "reference": "03V6A00",
+      "sourceFormat": "60x120",
+      "sourceFormatCm": {
+        "width": 60,
+        "height": 120
+      },
+      "finish": "R9 · Rectifié · 8,5 mm",
+      "kind": "base",
+      "nativeTextureAssignmentAllowed": true,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/ELIOS_CATALOGO-CRETA_2026.pdf",
+      "pdfPage": 28,
+      "printedPage": 53,
+      "otherCatalogueProductsSameColor": [
+        {
+          "reference": "03V6000",
+          "format": "60 × 60 cm",
+          "finish": "R9 · Rectifié · 8,5 mm"
+        },
+        {
+          "reference": "03V6A00",
+          "format": "60 × 120 cm",
+          "finish": "R9 · Rectifié · 8,5 mm"
+        },
+        {
+          "reference": "03V6B00",
+          "format": "60 × 120 cm",
+          "finish": "R10 · Rectifié · 8,5 mm"
+        },
+        {
+          "reference": "03V1100",
+          "format": "120 × 120 cm",
+          "finish": "R9 · Rectifié · 8,5 mm"
+        }
+      ],
+      "portalFaces": [
+        "03V6A00@1.jpg",
+        "03V6A00@2.jpg",
+        "03V6A00@3.jpg",
+        "03V6A00@4.jpg"
+      ],
+      "notes": [
+        "La référence du fichier est bien une référence commerciale de carreau 60x120.",
+        "Ne pas étirer une face 60x120 pour un carré 60x60 ou 120x120. Le choix de recadrage/échelle doit conserver la matière et ne constitue pas une nouvelle face native du format carré."
+      ]
+    },
+    "03V6ADC": {
+      "collection": "Creta",
+      "colorId": "coccio",
+      "color": "Coccio",
+      "reference": "03V6ADC",
+      "sourceFormat": "60x120",
+      "sourceFormatCm": {
+        "width": 60,
+        "height": 120
+      },
+      "finish": "R9 · Rectifié · 8,5 mm",
+      "kind": "decor",
+      "nativeTextureAssignmentAllowed": false,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/ELIOS_CATALOGO-CRETA_2026.pdf",
+      "pdfPage": 28,
+      "printedPage": 53,
+      "portalFaces": [
+        "03V6ADC@1.jpg"
+      ],
+      "notes": [
+        "Décor distinct ; ne pas l’attribuer à un coloris de base ni le substituer à une matière unie."
+      ]
+    },
+    "03V6ADF": {
+      "collection": "Creta",
+      "colorId": "pintura",
+      "color": "Pintura",
+      "reference": "03V6ADF",
+      "sourceFormat": "60x120",
+      "sourceFormatCm": {
+        "width": 60,
+        "height": 120
+      },
+      "finish": "R9 · Rectifié · 8,5 mm",
+      "kind": "decor",
+      "nativeTextureAssignmentAllowed": false,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/ELIOS_CATALOGO-CRETA_2026.pdf",
+      "pdfPage": 28,
+      "printedPage": 53,
+      "portalFaces": [
+        "03V6ADF@1.jpg"
+      ],
+      "notes": [
+        "Décor distinct ; ne pas l’attribuer à un coloris de base ni le substituer à une matière unie."
+      ]
+    },
+    "03V6AD1": {
+      "collection": "Creta",
+      "colorId": "cloe-avena",
+      "color": "Cloé Avena",
+      "reference": "03V6AD1",
+      "sourceFormat": "60x120",
+      "sourceFormatCm": {
+        "width": 60,
+        "height": 120
+      },
+      "finish": "R9 · Rectifié · 8,5 mm",
+      "kind": "decor",
+      "nativeTextureAssignmentAllowed": false,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/ELIOS_CATALOGO-CRETA_2026.pdf",
+      "pdfPage": 28,
+      "printedPage": 53,
+      "portalFaces": [
+        "03V6AD1@1.jpg"
+      ],
+      "notes": [
+        "Décor distinct ; ne pas l’attribuer à un coloris de base ni le substituer à une matière unie."
+      ]
+    },
+    "03V6AD0": {
+      "collection": "Creta",
+      "colorId": "cloe-zucchero",
+      "color": "Cloé Zucchero",
+      "reference": "03V6AD0",
+      "sourceFormat": "60x120",
+      "sourceFormatCm": {
+        "width": 60,
+        "height": 120
+      },
+      "finish": "R9 · Rectifié · 8,5 mm",
+      "kind": "decor",
+      "nativeTextureAssignmentAllowed": false,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/ELIOS_CATALOGO-CRETA_2026.pdf",
+      "pdfPage": 28,
+      "printedPage": 53,
+      "portalFaces": [
+        "03V6AD0@1.jpg"
+      ],
+      "notes": [
+        "Décor distinct ; ne pas l’attribuer à un coloris de base ni le substituer à une matière unie."
+      ]
+    },
+    "03V6AD4": {
+      "collection": "Creta",
+      "colorId": "spiga-avena-zucchero",
+      "color": "Spiga Avena Zucchero",
+      "reference": "03V6AD4",
+      "sourceFormat": "60x120",
+      "sourceFormatCm": {
+        "width": 60,
+        "height": 120
+      },
+      "finish": "R9 · Rectifié · 8,5 mm",
+      "kind": "decor",
+      "nativeTextureAssignmentAllowed": false,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/ELIOS_CATALOGO-CRETA_2026.pdf",
+      "pdfPage": 28,
+      "printedPage": 53,
+      "portalFaces": [],
+      "notes": [
+        "Décor distinct ; ne pas l’attribuer à un coloris de base ni le substituer à une matière unie.",
+        "Sens de pose strict signalé p.52 : toutes les flèches doivent être orientées dans le même sens."
+      ]
+    },
+    "03V6AD5": {
+      "collection": "Creta",
+      "colorId": "spiga-pepe-malto",
+      "color": "Spiga Pepe Malto",
+      "reference": "03V6AD5",
+      "sourceFormat": "60x120",
+      "sourceFormatCm": {
+        "width": 60,
+        "height": 120
+      },
+      "finish": "R9 · Rectifié · 8,5 mm",
+      "kind": "decor",
+      "nativeTextureAssignmentAllowed": false,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/ELIOS_CATALOGO-CRETA_2026.pdf",
+      "pdfPage": 28,
+      "printedPage": 53,
+      "portalFaces": [],
+      "notes": [
+        "Décor distinct ; ne pas l’attribuer à un coloris de base ni le substituer à une matière unie.",
+        "Sens de pose strict signalé p.52 : toutes les flèches doivent être orientées dans le même sens."
+      ]
+    }
+  },
+  "limitations": [
+    "Les noms de fichiers du portail doivent être rapprochés des références exactes. Ne pas deviner une référence absente.",
+    "Seuls Creta et Azuli Mood disposent ici de tables couleur/référence/format relues visuellement dans un PDF fabricant dédié.",
+    "Aucune texture ni référence n’est activée par ce fichier. Les correspondances des autres collections ne sont pas ajoutées.",
+    "Les fichiers maîtres d’un format ne doivent pas être étirés pour simuler un autre ratio.",
+    "Aucun lien de session du portail ni identifiant fabricant n’est inclus."
+  ],
+  "azuliMoodVerified": {
+    "04Q1000": {
+      "reference": "04Q1000",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Bone",
+      "kind": "Carreau",
+      "format": "10 × 10 cm",
+      "finish": "Brillant · 8,5 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": true,
+      "sourceFormat": "10x10",
+      "notes": [
+        "Deux formats de faces distincts 10x10 et 5x15 ; ne pas étirer le même master entre ces ratios."
+      ]
+    },
+    "04Q5500": {
+      "reference": "04Q5500",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Bone",
+      "kind": "Carreau",
+      "format": "5 × 15 cm",
+      "finish": "Brillant · 8 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": true,
+      "sourceFormat": "5x15",
+      "notes": [
+        "Deux formats de faces distincts 10x10 et 5x15 ; ne pas étirer le même master entre ces ratios."
+      ]
+    },
+    "04Q1200": {
+      "reference": "04Q1200",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Bone",
+      "kind": "Pièce spéciale",
+      "format": "Quarter round 1,2 × 20 cm",
+      "finish": "Brillant · 8 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": false,
+      "sourceFormat": null,
+      "notes": [
+        "Pièce spéciale/mosaïque distincte ; ne pas la mapper comme teinte unie."
+      ]
+    },
+    "04Q1001": {
+      "reference": "04Q1001",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Bottle Green",
+      "kind": "Carreau",
+      "format": "10 × 10 cm",
+      "finish": "Brillant · 8,5 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": true,
+      "sourceFormat": "10x10",
+      "notes": [
+        "Deux formats de faces distincts 10x10 et 5x15 ; ne pas étirer le même master entre ces ratios."
+      ]
+    },
+    "04Q5501": {
+      "reference": "04Q5501",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Bottle Green",
+      "kind": "Carreau",
+      "format": "5 × 15 cm",
+      "finish": "Brillant · 8 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": true,
+      "sourceFormat": "5x15",
+      "notes": [
+        "Deux formats de faces distincts 10x10 et 5x15 ; ne pas étirer le même master entre ces ratios."
+      ]
+    },
+    "04Q1201": {
+      "reference": "04Q1201",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Bottle Green",
+      "kind": "Pièce spéciale",
+      "format": "Quarter round 1,2 × 20 cm",
+      "finish": "Brillant · 8 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": false,
+      "sourceFormat": null,
+      "notes": [
+        "Pièce spéciale/mosaïque distincte ; ne pas la mapper comme teinte unie."
+      ]
+    },
+    "04Q1002": {
+      "reference": "04Q1002",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Burgundy",
+      "kind": "Carreau",
+      "format": "10 × 10 cm",
+      "finish": "Brillant · 8,5 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": true,
+      "sourceFormat": "10x10",
+      "notes": [
+        "Deux formats de faces distincts 10x10 et 5x15 ; ne pas étirer le même master entre ces ratios."
+      ]
+    },
+    "04Q5502": {
+      "reference": "04Q5502",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Burgundy",
+      "kind": "Carreau",
+      "format": "5 × 15 cm",
+      "finish": "Brillant · 8 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": true,
+      "sourceFormat": "5x15",
+      "notes": [
+        "Deux formats de faces distincts 10x10 et 5x15 ; ne pas étirer le même master entre ces ratios."
+      ]
+    },
+    "04Q1202": {
+      "reference": "04Q1202",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Burgundy",
+      "kind": "Pièce spéciale",
+      "format": "Quarter round 1,2 × 20 cm",
+      "finish": "Brillant · 8 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": false,
+      "sourceFormat": null,
+      "notes": [
+        "Pièce spéciale/mosaïque distincte ; ne pas la mapper comme teinte unie."
+      ]
+    },
+    "04Q1003": {
+      "reference": "04Q1003",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Chalk",
+      "kind": "Carreau",
+      "format": "10 × 10 cm",
+      "finish": "Brillant · 8,5 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": true,
+      "sourceFormat": "10x10",
+      "notes": [
+        "Deux formats de faces distincts 10x10 et 5x15 ; ne pas étirer le même master entre ces ratios."
+      ]
+    },
+    "04Q5503": {
+      "reference": "04Q5503",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Chalk",
+      "kind": "Carreau",
+      "format": "5 × 15 cm",
+      "finish": "Brillant · 8 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": true,
+      "sourceFormat": "5x15",
+      "notes": [
+        "Deux formats de faces distincts 10x10 et 5x15 ; ne pas étirer le même master entre ces ratios."
+      ]
+    },
+    "04Q1203": {
+      "reference": "04Q1203",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Chalk",
+      "kind": "Pièce spéciale",
+      "format": "Quarter round 1,2 × 20 cm",
+      "finish": "Brillant · 8 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": false,
+      "sourceFormat": null,
+      "notes": [
+        "Pièce spéciale/mosaïque distincte ; ne pas la mapper comme teinte unie."
+      ]
+    },
+    "04Q1004": {
+      "reference": "04Q1004",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Coffee Bean",
+      "kind": "Carreau",
+      "format": "10 × 10 cm",
+      "finish": "Brillant · 8,5 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": true,
+      "sourceFormat": "10x10",
+      "notes": [
+        "Deux formats de faces distincts 10x10 et 5x15 ; ne pas étirer le même master entre ces ratios."
+      ]
+    },
+    "04Q5504": {
+      "reference": "04Q5504",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Coffee Bean",
+      "kind": "Carreau",
+      "format": "5 × 15 cm",
+      "finish": "Brillant · 8 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": true,
+      "sourceFormat": "5x15",
+      "notes": [
+        "Deux formats de faces distincts 10x10 et 5x15 ; ne pas étirer le même master entre ces ratios."
+      ]
+    },
+    "04Q1204": {
+      "reference": "04Q1204",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Coffee Bean",
+      "kind": "Pièce spéciale",
+      "format": "Quarter round 1,2 × 20 cm",
+      "finish": "Brillant · 8 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": false,
+      "sourceFormat": null,
+      "notes": [
+        "Pièce spéciale/mosaïque distincte ; ne pas la mapper comme teinte unie."
+      ]
+    },
+    "04Q1005": {
+      "reference": "04Q1005",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Dawn",
+      "kind": "Carreau",
+      "format": "10 × 10 cm",
+      "finish": "Brillant · 8,5 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": true,
+      "sourceFormat": "10x10",
+      "notes": [
+        "Deux formats de faces distincts 10x10 et 5x15 ; ne pas étirer le même master entre ces ratios."
+      ]
+    },
+    "04Q5505": {
+      "reference": "04Q5505",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Dawn",
+      "kind": "Carreau",
+      "format": "5 × 15 cm",
+      "finish": "Brillant · 8 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": true,
+      "sourceFormat": "5x15",
+      "notes": [
+        "Deux formats de faces distincts 10x10 et 5x15 ; ne pas étirer le même master entre ces ratios."
+      ]
+    },
+    "04Q1205": {
+      "reference": "04Q1205",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Dawn",
+      "kind": "Pièce spéciale",
+      "format": "Quarter round 1,2 × 20 cm",
+      "finish": "Brillant · 8 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": false,
+      "sourceFormat": null,
+      "notes": [
+        "Pièce spéciale/mosaïque distincte ; ne pas la mapper comme teinte unie."
+      ]
+    },
+    "04Q1006": {
+      "reference": "04Q1006",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Dusk",
+      "kind": "Carreau",
+      "format": "10 × 10 cm",
+      "finish": "Brillant · 8,5 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": true,
+      "sourceFormat": "10x10",
+      "notes": [
+        "Deux formats de faces distincts 10x10 et 5x15 ; ne pas étirer le même master entre ces ratios."
+      ]
+    },
+    "04Q5506": {
+      "reference": "04Q5506",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Dusk",
+      "kind": "Carreau",
+      "format": "5 × 15 cm",
+      "finish": "Brillant · 8 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": true,
+      "sourceFormat": "5x15",
+      "notes": [
+        "Deux formats de faces distincts 10x10 et 5x15 ; ne pas étirer le même master entre ces ratios."
+      ]
+    },
+    "04Q1206": {
+      "reference": "04Q1206",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Dusk",
+      "kind": "Pièce spéciale",
+      "format": "Quarter round 1,2 × 20 cm",
+      "finish": "Brillant · 8 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": false,
+      "sourceFormat": null,
+      "notes": [
+        "Pièce spéciale/mosaïque distincte ; ne pas la mapper comme teinte unie."
+      ]
+    },
+    "04Q1007": {
+      "reference": "04Q1007",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Sand",
+      "kind": "Carreau",
+      "format": "10 × 10 cm",
+      "finish": "Brillant · 8,5 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": true,
+      "sourceFormat": "10x10",
+      "notes": [
+        "Deux formats de faces distincts 10x10 et 5x15 ; ne pas étirer le même master entre ces ratios."
+      ]
+    },
+    "04Q5507": {
+      "reference": "04Q5507",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Sand",
+      "kind": "Carreau",
+      "format": "5 × 15 cm",
+      "finish": "Brillant · 8 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": true,
+      "sourceFormat": "5x15",
+      "notes": [
+        "Deux formats de faces distincts 10x10 et 5x15 ; ne pas étirer le même master entre ces ratios."
+      ]
+    },
+    "04Q1207": {
+      "reference": "04Q1207",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Sand",
+      "kind": "Pièce spéciale",
+      "format": "Quarter round 1,2 × 20 cm",
+      "finish": "Brillant · 8 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": false,
+      "sourceFormat": null,
+      "notes": [
+        "Pièce spéciale/mosaïque distincte ; ne pas la mapper comme teinte unie."
+      ]
+    },
+    "04Q1008": {
+      "reference": "04Q1008",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Thyme Green",
+      "kind": "Carreau",
+      "format": "10 × 10 cm",
+      "finish": "Brillant · 8,5 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": true,
+      "sourceFormat": "10x10",
+      "notes": [
+        "Deux formats de faces distincts 10x10 et 5x15 ; ne pas étirer le même master entre ces ratios."
+      ]
+    },
+    "04Q5508": {
+      "reference": "04Q5508",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Thyme Green",
+      "kind": "Carreau",
+      "format": "5 × 15 cm",
+      "finish": "Brillant · 8 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": true,
+      "sourceFormat": "5x15",
+      "notes": [
+        "Deux formats de faces distincts 10x10 et 5x15 ; ne pas étirer le même master entre ces ratios."
+      ]
+    },
+    "04Q1208": {
+      "reference": "04Q1208",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Thyme Green",
+      "kind": "Pièce spéciale",
+      "format": "Quarter round 1,2 × 20 cm",
+      "finish": "Brillant · 8 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": false,
+      "sourceFormat": null,
+      "notes": [
+        "Pièce spéciale/mosaïque distincte ; ne pas la mapper comme teinte unie."
+      ]
+    },
+    "04Q1009": {
+      "reference": "04Q1009",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Turquoise",
+      "kind": "Carreau",
+      "format": "10 × 10 cm",
+      "finish": "Brillant · 8,5 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": true,
+      "sourceFormat": "10x10",
+      "notes": [
+        "Deux formats de faces distincts 10x10 et 5x15 ; ne pas étirer le même master entre ces ratios."
+      ]
+    },
+    "04Q5509": {
+      "reference": "04Q5509",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Turquoise",
+      "kind": "Carreau",
+      "format": "5 × 15 cm",
+      "finish": "Brillant · 8 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": true,
+      "sourceFormat": "5x15",
+      "notes": [
+        "Deux formats de faces distincts 10x10 et 5x15 ; ne pas étirer le même master entre ces ratios."
+      ]
+    },
+    "04Q1209": {
+      "reference": "04Q1209",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Turquoise",
+      "kind": "Pièce spéciale",
+      "format": "Quarter round 1,2 × 20 cm",
+      "finish": "Brillant · 8 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": false,
+      "sourceFormat": null,
+      "notes": [
+        "Pièce spéciale/mosaïque distincte ; ne pas la mapper comme teinte unie."
+      ]
+    },
+    "04Q1010": {
+      "reference": "04Q1010",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Blue",
+      "kind": "Carreau",
+      "format": "10 × 10 cm",
+      "finish": "Brillant · 8,5 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": true,
+      "sourceFormat": "10x10",
+      "notes": [
+        "Deux formats de faces distincts 10x10 et 5x15 ; ne pas étirer le même master entre ces ratios."
+      ]
+    },
+    "04Q5510": {
+      "reference": "04Q5510",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Blue",
+      "kind": "Carreau",
+      "format": "5 × 15 cm",
+      "finish": "Brillant · 8 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": true,
+      "sourceFormat": "5x15",
+      "notes": [
+        "Deux formats de faces distincts 10x10 et 5x15 ; ne pas étirer le même master entre ces ratios."
+      ]
+    },
+    "04Q1210": {
+      "reference": "04Q1210",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Blue",
+      "kind": "Pièce spéciale",
+      "format": "Quarter round 1,2 × 20 cm",
+      "finish": "Brillant · 8 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": false,
+      "sourceFormat": null,
+      "notes": [
+        "Pièce spéciale/mosaïque distincte ; ne pas la mapper comme teinte unie."
+      ]
+    },
+    "04QH100": {
+      "reference": "04QH100",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Bone - Coffee Bean",
+      "kind": "Mosaïque",
+      "format": "Cassettone 30,3 × 30,3 cm",
+      "finish": "Brillant · 8,5 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": false,
+      "sourceFormat": null,
+      "notes": [
+        "Pièce spéciale/mosaïque distincte ; ne pas la mapper comme teinte unie."
+      ]
+    },
+    "04QH101": {
+      "reference": "04QH101",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Thyme Green - Bottle Green",
+      "kind": "Mosaïque",
+      "format": "Cassettone 30,3 × 30,3 cm",
+      "finish": "Brillant · 8,5 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": false,
+      "sourceFormat": null,
+      "notes": [
+        "Pièce spéciale/mosaïque distincte ; ne pas la mapper comme teinte unie."
+      ]
+    },
+    "04QH102": {
+      "reference": "04QH102",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Turquoise - Blue",
+      "kind": "Mosaïque",
+      "format": "Cassettone 30,3 × 30,3 cm",
+      "finish": "Brillant · 8,5 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": false,
+      "sourceFormat": null,
+      "notes": [
+        "Pièce spéciale/mosaïque distincte ; ne pas la mapper comme teinte unie."
+      ]
+    },
+    "04QH103": {
+      "reference": "04QH103",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Sand - Burgundy",
+      "kind": "Mosaïque",
+      "format": "Cassettone 30,3 × 30,3 cm",
+      "finish": "Brillant · 8,5 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": false,
+      "sourceFormat": null,
+      "notes": [
+        "Pièce spéciale/mosaïque distincte ; ne pas la mapper comme teinte unie."
+      ]
+    },
+    "04QH104": {
+      "reference": "04QH104",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Bone - Coffee Bean",
+      "kind": "Mosaïque",
+      "format": "Ottagona 30,5 × 27,2 cm",
+      "finish": "Brillant · 8,5 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": false,
+      "sourceFormat": null,
+      "notes": [
+        "Pièce spéciale/mosaïque distincte ; ne pas la mapper comme teinte unie."
+      ]
+    },
+    "04QH105": {
+      "reference": "04QH105",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Thyme Green - Bottle Green",
+      "kind": "Mosaïque",
+      "format": "Ottagona 30,5 × 27,2 cm",
+      "finish": "Brillant · 8,5 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": false,
+      "sourceFormat": null,
+      "notes": [
+        "Pièce spéciale/mosaïque distincte ; ne pas la mapper comme teinte unie."
+      ]
+    },
+    "04QH106": {
+      "reference": "04QH106",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Turquoise - Blue",
+      "kind": "Mosaïque",
+      "format": "Ottagona 30,5 × 27,2 cm",
+      "finish": "Brillant · 8,5 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": false,
+      "sourceFormat": null,
+      "notes": [
+        "Pièce spéciale/mosaïque distincte ; ne pas la mapper comme teinte unie."
+      ]
+    },
+    "04QH107": {
+      "reference": "04QH107",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Sand - Burgundy",
+      "kind": "Mosaïque",
+      "format": "Ottagona 30,5 × 27,2 cm",
+      "finish": "Brillant · 8,5 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": false,
+      "sourceFormat": null,
+      "notes": [
+        "Pièce spéciale/mosaïque distincte ; ne pas la mapper comme teinte unie."
+      ]
+    },
+    "04QH108": {
+      "reference": "04QH108",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Bone - Dusk",
+      "kind": "Mosaïque",
+      "format": "Losanghe 23,4 × 23,4 cm",
+      "finish": "Brillant · 8,5 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": false,
+      "sourceFormat": null,
+      "notes": [
+        "Pièce spéciale/mosaïque distincte ; ne pas la mapper comme teinte unie."
+      ]
+    },
+    "04QH109": {
+      "reference": "04QH109",
+      "collection": "Azuli Mood",
+      "collectionId": "azuli-mood",
+      "color": "Chalk - Dawn",
+      "kind": "Mosaïque",
+      "format": "Losanghe 23,4 × 23,4 cm",
+      "finish": "Brillant · 8,5 mm",
+      "catalogueSource": "Catalogue Général ELIOS 2026 · Azuli Mood · pages Catalogue dédié 2026 · pages 64–67",
+      "sourceDataPath": "functions/elios-catalog.js",
+      "referenceFoundInGeneralCatalogue": false,
+      "pdfPages": [],
+      "colorAppearsOnReferencePage": false,
+      "automaticTextureAssignmentAllowed": false,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_AZULI-MOOD_new.pdf",
+      "pdfPage": 34,
+      "printedPage": 66,
+      "verifiedBy": "visual_review_official_table",
+      "nativeTextureAssignmentAllowed": false,
+      "sourceFormat": null,
+      "notes": [
+        "Pièce spéciale/mosaïque distincte ; ne pas la mapper comme teinte unie."
+      ]
+    }
+  },
+  "notAProductionManifest": true,
+  "rightsStatus": {
+    "explicitThirdPartyConfiguratorLicenseObserved": false,
+    "publicationAuthorizedByManufacturer": true,
+    "status": "confirmed_by_user",
+    "authorizationEvidenceSource": "user-confirmation-in-conversation",
+    "confirmationDate": "2026-10-23",
+    "manufacturerSignedContractObserved": false,
+    "evidence": "Le 23 octobre 2026, Jérôme a confirmé être agent d’usine Elios et disposer de l’autorisation d’utiliser ces visuels dans les configurateurs LE ROY FACTORY. Cette confirmation est retenue pour la mission ; aucun contrat signé du fabricant ni licence publique explicite n’est prétendu reçu.",
+    "hostingActivated": false,
+    "productionPublished": false
+  },
+  "querciaVerified": {
+    "00Y2C00": {
+      "collection": "Quercia",
+      "colorId": "white",
+      "color": "White",
+      "reference": "00Y2C00",
+      "sourceFormat": "24x120",
+      "sourceFormatCm": {
+        "width": 24,
+        "height": 120
+      },
+      "engineFormatMetres": {
+        "width": 1.2,
+        "height": 0.24
+      },
+      "finish": "R10 B · Non rectifié · 8,5 mm",
+      "kind": "base",
+      "nativeTextureAssignmentAllowed": true,
+      "assignmentScope": "exact_reference_and_format_only",
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": 43,
+      "printedPage": 82,
+      "portalFaces": [
+        "00Y2C00@1.jpg",
+        "00Y2C00@2.jpg",
+        "00Y2C00@3.jpg",
+        "00Y2C00@4.jpg",
+        "00Y2C00@5.jpg",
+        "00Y2C00@6.jpg",
+        "00Y2C00@7.jpg",
+        "00Y2C00@8.jpg",
+        "00Y2C00@9.jpg",
+        "00Y2C00@10.jpg",
+        "00Y2C00@11.jpg",
+        "00Y2C00@12.jpg",
+        "00Y2C00@13.jpg",
+        "00Y2C00@14.jpg",
+        "00Y2C00@15.jpg"
+      ],
+      "portalFaceCount": 15,
+      "cataloguePatternCount": 15,
+      "faceObservations": {},
+      "notes": [
+        "La référence du fichier est une référence commerciale exacte.",
+        "Le moteur représente la longueur sur la largeur UV : tourner de 90 degrés toute source portrait, sans agrandir la définition native.",
+        "Ne pas attribuer ces faces aux formats rectifiés 23,4x119,5, aux versions R11 C ou aux dalles 40x120 : ces références restent inactives dans cette intégration.",
+        "La qualité haute utilise la définition native disponible et ne doit pas être présentée comme un master 4K si la source est inférieure."
+      ]
+    },
+    "00Y2900": {
+      "collection": "Quercia",
+      "colorId": "white",
+      "color": "White",
+      "reference": "00Y2900",
+      "sourceFormat": "20.3x90.6",
+      "sourceFormatCm": {
+        "width": 20.3,
+        "height": 90.6
+      },
+      "engineFormatMetres": {
+        "width": 0.9059999999999999,
+        "height": 0.203
+      },
+      "finish": "R10 B · Non rectifié · 8,5 mm",
+      "kind": "base",
+      "nativeTextureAssignmentAllowed": true,
+      "assignmentScope": "exact_reference_and_format_only",
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": 43,
+      "printedPage": 82,
+      "portalFaces": [
+        "00Y2900@1.jpg",
+        "00Y2900@2.jpg",
+        "00Y2900@3.jpg",
+        "00Y2900@4.jpg",
+        "00Y2900@5.jpg",
+        "00Y2900@6.jpg",
+        "00Y2900@7.jpg",
+        "00Y2900@8.jpg",
+        "00Y2900@9.jpg",
+        "00Y2900@10.jpg",
+        "00Y2900@11.jpg",
+        "00Y2900@12.jpg",
+        "00Y2900@13.jpg",
+        "00Y2900@14.jpg",
+        "00Y2900@15.jpg"
+      ],
+      "portalFaceCount": 15,
+      "cataloguePatternCount": 15,
+      "faceObservations": {},
+      "notes": [
+        "La référence du fichier est une référence commerciale exacte.",
+        "Le moteur représente la longueur sur la largeur UV : tourner de 90 degrés toute source portrait, sans agrandir la définition native.",
+        "Ne pas attribuer ces faces aux formats rectifiés 23,4x119,5, aux versions R11 C ou aux dalles 40x120 : ces références restent inactives dans cette intégration.",
+        "La qualité haute utilise la définition native disponible et ne doit pas être présentée comme un master 4K si la source est inférieure."
+      ]
+    },
+    "00Y2C40": {
+      "collection": "Quercia",
+      "colorId": "honey",
+      "color": "Honey",
+      "reference": "00Y2C40",
+      "sourceFormat": "24x120",
+      "sourceFormatCm": {
+        "width": 24,
+        "height": 120
+      },
+      "engineFormatMetres": {
+        "width": 1.2,
+        "height": 0.24
+      },
+      "finish": "R10 B · Non rectifié · 8,5 mm",
+      "kind": "base",
+      "nativeTextureAssignmentAllowed": true,
+      "assignmentScope": "exact_reference_and_format_only",
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": 43,
+      "printedPage": 82,
+      "portalFaces": [
+        "00Y2C40@1.jpg",
+        "00Y2C40@2.jpg",
+        "00Y2C40@3.jpg",
+        "00Y2C40@4.jpg",
+        "00Y2C40@5.jpg",
+        "00Y2C40@6.jpg",
+        "00Y2C40@7.jpg",
+        "00Y2C40@8.jpg",
+        "00Y2C40@9.jpg",
+        "00Y2C40@10.jpg",
+        "00Y2C40@11.jpg",
+        "00Y2C40@12.jpg",
+        "00Y2C40@13.jpg",
+        "00Y2C40@14.jpg",
+        "00Y2C40@15.jpg"
+      ],
+      "portalFaceCount": 15,
+      "cataloguePatternCount": 15,
+      "faceObservations": {},
+      "notes": [
+        "La référence du fichier est une référence commerciale exacte.",
+        "Le moteur représente la longueur sur la largeur UV : tourner de 90 degrés toute source portrait, sans agrandir la définition native.",
+        "Ne pas attribuer ces faces aux formats rectifiés 23,4x119,5, aux versions R11 C ou aux dalles 40x120 : ces références restent inactives dans cette intégration.",
+        "La qualité haute utilise la définition native disponible et ne doit pas être présentée comme un master 4K si la source est inférieure."
+      ]
+    },
+    "00Y2940": {
+      "collection": "Quercia",
+      "colorId": "honey",
+      "color": "Honey",
+      "reference": "00Y2940",
+      "sourceFormat": "20.3x90.6",
+      "sourceFormatCm": {
+        "width": 20.3,
+        "height": 90.6
+      },
+      "engineFormatMetres": {
+        "width": 0.9059999999999999,
+        "height": 0.203
+      },
+      "finish": "R10 B · Non rectifié · 8,5 mm",
+      "kind": "base",
+      "nativeTextureAssignmentAllowed": true,
+      "assignmentScope": "exact_reference_and_format_only",
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": 43,
+      "printedPage": 82,
+      "portalFaces": [
+        "00Y2940@1.jpg",
+        "00Y2940@2.jpg",
+        "00Y2940@3.jpg",
+        "00Y2940@4.jpg",
+        "00Y2940@5.jpg",
+        "00Y2940@6.jpg",
+        "00Y2940@7.jpg",
+        "00Y2940@8.jpg",
+        "00Y2940@9.jpg",
+        "00Y2940@10.jpg",
+        "00Y2940@11.jpg",
+        "00Y2940@12.jpg",
+        "00Y2940@13.jpg",
+        "00Y2940@14.jpg",
+        "00Y2940@15.jpg"
+      ],
+      "portalFaceCount": 15,
+      "cataloguePatternCount": 15,
+      "faceObservations": {},
+      "notes": [
+        "La référence du fichier est une référence commerciale exacte.",
+        "Le moteur représente la longueur sur la largeur UV : tourner de 90 degrés toute source portrait, sans agrandir la définition native.",
+        "Ne pas attribuer ces faces aux formats rectifiés 23,4x119,5, aux versions R11 C ou aux dalles 40x120 : ces références restent inactives dans cette intégration.",
+        "La qualité haute utilise la définition native disponible et ne doit pas être présentée comme un master 4K si la source est inférieure."
+      ]
+    },
+    "00Y2C70": {
+      "collection": "Quercia",
+      "colorId": "amber",
+      "color": "Amber",
+      "reference": "00Y2C70",
+      "sourceFormat": "24x120",
+      "sourceFormatCm": {
+        "width": 24,
+        "height": 120
+      },
+      "engineFormatMetres": {
+        "width": 1.2,
+        "height": 0.24
+      },
+      "finish": "R10 B · Non rectifié · 8,5 mm",
+      "kind": "base",
+      "nativeTextureAssignmentAllowed": true,
+      "assignmentScope": "exact_reference_and_format_only",
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": 43,
+      "printedPage": 82,
+      "portalFaces": [
+        "00Y2C70@2.jpg",
+        "00Y2C70@3.jpg",
+        "00Y2C70@4.jpg",
+        "00Y2C70@5.jpg",
+        "00Y2C70@6.jpg",
+        "00Y2C70@7.jpg",
+        "00Y2C70@8.jpg",
+        "00Y2C70@9.jpg",
+        "00Y2C70@11.jpg",
+        "00Y2C70@12.jpg",
+        "00Y2C70@13.jpg",
+        "00Y2C70@14.jpg",
+        "00Y2C70@15.jpg"
+      ],
+      "portalFaceCount": 13,
+      "cataloguePatternCount": 15,
+      "faceObservations": {
+        "00Y2C70@11.jpg": {
+          "sha256": "79ef6a5045f5e1eb96db8a4002ea689adcc13c2ff7ba6953060d154fe7b2c93f",
+          "bytes": 141658,
+          "nativeWidth": 245,
+          "nativeHeight": 1200,
+          "colorMode": "RGB",
+          "embeddedICC": true,
+          "iccProfileBytes": 3144,
+          "visuallyReviewed": true,
+          "rotationClockwiseDegreesToEngine": 90,
+          "engineOrientedWidth": 1200,
+          "engineOrientedHeight": 245,
+          "upscaled": false,
+          "notes": [
+            "Face de bois réelle, veinage dans la longueur, sans bordure blanche ni scène d’ambiance.",
+            "Ratio nominal longueur/largeur 5 ; ratio du fichier 1200/245 ≈ 4,898. Écart de rapport ≈ 2,08 %. Conserver le master complet et les dimensions géométriques réelles.",
+            "Cette observation ne vaut que pour ce fichier. Vérifier chaque autre fichier avant de généraliser ses dimensions ou son profil."
+          ]
+        }
+      },
+      "notes": [
+        "La référence du fichier est une référence commerciale exacte.",
+        "Le moteur représente la longueur sur la largeur UV : tourner de 90 degrés toute source portrait, sans agrandir la définition native.",
+        "Ne pas attribuer ces faces aux formats rectifiés 23,4x119,5, aux versions R11 C ou aux dalles 40x120 : ces références restent inactives dans cette intégration.",
+        "La qualité haute utilise la définition native disponible et ne doit pas être présentée comme un master 4K si la source est inférieure.",
+        "Le portail inventorié ne livre que 13 faces pour cette référence ; les faces @1 et @10 sont absentes. Ne pas les recréer ni les dupliquer pour annoncer 15 faces."
+      ]
+    },
+    "00Y2970": {
+      "collection": "Quercia",
+      "colorId": "amber",
+      "color": "Amber",
+      "reference": "00Y2970",
+      "sourceFormat": "20.3x90.6",
+      "sourceFormatCm": {
+        "width": 20.3,
+        "height": 90.6
+      },
+      "engineFormatMetres": {
+        "width": 0.9059999999999999,
+        "height": 0.203
+      },
+      "finish": "R10 B · Non rectifié · 8,5 mm",
+      "kind": "base",
+      "nativeTextureAssignmentAllowed": true,
+      "assignmentScope": "exact_reference_and_format_only",
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": 43,
+      "printedPage": 82,
+      "portalFaces": [
+        "00Y2970@1.jpg",
+        "00Y2970@2.jpg",
+        "00Y2970@3.jpg",
+        "00Y2970@4.jpg",
+        "00Y2970@5.jpg",
+        "00Y2970@6.jpg",
+        "00Y2970@7.jpg",
+        "00Y2970@8.jpg",
+        "00Y2970@9.jpg",
+        "00Y2970@10.jpg",
+        "00Y2970@11.jpg",
+        "00Y2970@12.jpg",
+        "00Y2970@13.jpg",
+        "00Y2970@14.jpg",
+        "00Y2970@15.jpg"
+      ],
+      "portalFaceCount": 15,
+      "cataloguePatternCount": 15,
+      "faceObservations": {},
+      "notes": [
+        "La référence du fichier est une référence commerciale exacte.",
+        "Le moteur représente la longueur sur la largeur UV : tourner de 90 degrés toute source portrait, sans agrandir la définition native.",
+        "Ne pas attribuer ces faces aux formats rectifiés 23,4x119,5, aux versions R11 C ou aux dalles 40x120 : ces références restent inactives dans cette intégration.",
+        "La qualité haute utilise la définition native disponible et ne doit pas être présentée comme un master 4K si la source est inférieure."
+      ]
+    },
+    "00Y2C60": {
+      "collection": "Quercia",
+      "colorId": "natural",
+      "color": "Natural",
+      "reference": "00Y2C60",
+      "sourceFormat": "24x120",
+      "sourceFormatCm": {
+        "width": 24,
+        "height": 120
+      },
+      "engineFormatMetres": {
+        "width": 1.2,
+        "height": 0.24
+      },
+      "finish": "R10 B · Non rectifié · 8,5 mm",
+      "kind": "base",
+      "nativeTextureAssignmentAllowed": true,
+      "assignmentScope": "exact_reference_and_format_only",
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": 43,
+      "printedPage": 82,
+      "portalFaces": [
+        "00Y2C60@1.jpg",
+        "00Y2C60@2.jpg",
+        "00Y2C60@3.jpg",
+        "00Y2C60@4.jpg",
+        "00Y2C60@5.jpg",
+        "00Y2C60@6.jpg",
+        "00Y2C60@7.jpg",
+        "00Y2C60@8.jpg",
+        "00Y2C60@9.jpg",
+        "00Y2C60@10.jpg",
+        "00Y2C60@11.jpg",
+        "00Y2C60@12.jpg",
+        "00Y2C60@13.jpg",
+        "00Y2C60@14.jpg",
+        "00Y2C60@15.jpg"
+      ],
+      "portalFaceCount": 15,
+      "cataloguePatternCount": 15,
+      "faceObservations": {},
+      "notes": [
+        "La référence du fichier est une référence commerciale exacte.",
+        "Le moteur représente la longueur sur la largeur UV : tourner de 90 degrés toute source portrait, sans agrandir la définition native.",
+        "Ne pas attribuer ces faces aux formats rectifiés 23,4x119,5, aux versions R11 C ou aux dalles 40x120 : ces références restent inactives dans cette intégration.",
+        "La qualité haute utilise la définition native disponible et ne doit pas être présentée comme un master 4K si la source est inférieure."
+      ]
+    },
+    "00Y2960": {
+      "collection": "Quercia",
+      "colorId": "natural",
+      "color": "Natural",
+      "reference": "00Y2960",
+      "sourceFormat": "20.3x90.6",
+      "sourceFormatCm": {
+        "width": 20.3,
+        "height": 90.6
+      },
+      "engineFormatMetres": {
+        "width": 0.9059999999999999,
+        "height": 0.203
+      },
+      "finish": "R10 B · Non rectifié · 8,5 mm",
+      "kind": "base",
+      "nativeTextureAssignmentAllowed": true,
+      "assignmentScope": "exact_reference_and_format_only",
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": 43,
+      "printedPage": 82,
+      "portalFaces": [
+        "00Y2960@1.jpg",
+        "00Y2960@2.jpg",
+        "00Y2960@3.jpg",
+        "00Y2960@4.jpg",
+        "00Y2960@5.jpg",
+        "00Y2960@6.jpg",
+        "00Y2960@7.jpg",
+        "00Y2960@8.jpg",
+        "00Y2960@9.jpg",
+        "00Y2960@10.jpg",
+        "00Y2960@11.jpg",
+        "00Y2960@12.jpg",
+        "00Y2960@13.jpg",
+        "00Y2960@14.jpg",
+        "00Y2960@15.jpg"
+      ],
+      "portalFaceCount": 15,
+      "cataloguePatternCount": 15,
+      "faceObservations": {},
+      "notes": [
+        "La référence du fichier est une référence commerciale exacte.",
+        "Le moteur représente la longueur sur la largeur UV : tourner de 90 degrés toute source portrait, sans agrandir la définition native.",
+        "Ne pas attribuer ces faces aux formats rectifiés 23,4x119,5, aux versions R11 C ou aux dalles 40x120 : ces références restent inactives dans cette intégration.",
+        "La qualité haute utilise la définition native disponible et ne doit pas être présentée comme un master 4K si la source est inférieure."
+      ]
+    }
+  }
+}

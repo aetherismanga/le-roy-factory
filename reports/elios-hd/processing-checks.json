@@ -1,0 +1,162 @@
+{
+  "scope": "Local preparation and confirmed Firebase console upload; public media verified; no application activation or deployment",
+  "files": [
+    {
+      "reference": "03V6A00",
+      "colour": "Zucchero",
+      "identityVerified": true,
+      "reuseAuthorization": "confirmed-by-user",
+      "portraitSource": true,
+      "clockwiseRotation": 90,
+      "variants": {
+        "fluid": {
+          "valid": true,
+          "width": 256,
+          "height": 128,
+          "bytes": 1158,
+          "embeddedSRGB": true
+        },
+        "balanced": {
+          "valid": true,
+          "width": 1024,
+          "height": 512,
+          "bytes": 10638,
+          "embeddedSRGB": true
+        },
+        "max": {
+          "valid": true,
+          "width": 4096,
+          "height": 2048,
+          "bytes": 1463202,
+          "embeddedSRGB": true
+        }
+      },
+      "readyForIntegration": true,
+      "publishedVariants": 3
+    },
+    {
+      "reference": "03V6A10",
+      "colour": "Avena",
+      "identityVerified": true,
+      "reuseAuthorization": "confirmed-by-user",
+      "portraitSource": true,
+      "clockwiseRotation": 90,
+      "variants": {
+        "fluid": {
+          "valid": true,
+          "width": 256,
+          "height": 128,
+          "bytes": 1698,
+          "embeddedSRGB": true
+        },
+        "balanced": {
+          "valid": true,
+          "width": 1024,
+          "height": 512,
+          "bytes": 33842,
+          "embeddedSRGB": true
+        },
+        "max": {
+          "valid": true,
+          "width": 4096,
+          "height": 2048,
+          "bytes": 2407800,
+          "embeddedSRGB": true
+        }
+      },
+      "readyForIntegration": true,
+      "publishedVariants": 3
+    },
+    {
+      "reference": "03V6A20",
+      "colour": "Malto",
+      "identityVerified": true,
+      "reuseAuthorization": "confirmed-by-user",
+      "portraitSource": true,
+      "clockwiseRotation": 90,
+      "variants": {
+        "fluid": {
+          "valid": true,
+          "width": 256,
+          "height": 128,
+          "bytes": 1296,
+          "embeddedSRGB": true
+        },
+        "balanced": {
+          "valid": true,
+          "width": 1024,
+          "height": 512,
+          "bytes": 27730,
+          "embeddedSRGB": true
+        },
+        "max": {
+          "valid": true,
+          "width": 4096,
+          "height": 2048,
+          "bytes": 1909230,
+          "embeddedSRGB": true
+        }
+      },
+      "readyForIntegration": true,
+      "publishedVariants": 3
+    }
+  ],
+  "totals": {
+    "originals": 3,
+    "originalBytes": 387872271,
+    "variants": 9,
+    "variantBytes": 5856594
+  },
+  "checks": {
+    "repeatedPipelineSameSHA256": true,
+    "queueResumeVerifiesExistingSHA256": true,
+    "CMYKwithoutICCRejected": true,
+    "imageOutputInsideGitRejected": true,
+    "publicExistingObjectHEAD": 200,
+    "publicExistingObjectCORS": "https://leroyfactory.fr",
+    "googleCloudStorageAvailable": false,
+    "adcConfigured": false,
+    "authorizationConfirmationRecorded": true,
+    "variantHashesUnchangedAfterAuthorization": true,
+    "readyFacesIdentityAndICCVerified": 3,
+    "firebaseConsoleWriteConfirmed": true,
+    "variantsUploaded": 9,
+    "newPublicMediaGETChecks": 27,
+    "newPublicMediaPassedChecks": 27,
+    "newPublicMediaAllSHA256Match": true,
+    "newPublicMediaAllCORSReadable": true,
+    "activated3DReferences": 0,
+    "collectionIncomplete": true,
+    "formatAwareCacheIntegrationPending": true,
+    "cliConnected": false
+  },
+  "limits": [
+    "No calibrated colour sample measurement",
+    "No browser texture rendering or mobile performance tested in this subtask"
+  ],
+  "reuseAuthorizationEvidence": {
+    "status": "confirmed-by-user",
+    "confirmationDate": "2026-10-23",
+    "confirmedRole": "agent d’usine Elios",
+    "scope": "Utilisation des visuels Elios dans le site et les configurateurs LE ROY FACTORY",
+    "evidenceSource": "user-confirmation-in-conversation",
+    "manufacturerSignedContractObserved": false,
+    "note": "Confirmation explicite de Jérôme ; aucun contrat signé ni licence publique nouvellement reçue n’est allégué."
+  },
+  "storagePublication": {
+    "method": "Authenticated Firebase Storage console UI",
+    "accountAuthenticationDataReadOrExported": false,
+    "uploadedVariants": 9,
+    "publicOrigins": [
+      "https://leroyfactory.fr",
+      "https://studio-one-beta-test-v2.vercel.app",
+      "https://randal-catalogue-general-3d.vercel.app"
+    ],
+    "publicGETChecks": 27,
+    "passedChecks": 27,
+    "report": "publication-checks.json",
+    "publicURLManifest": "published-assets.json",
+    "newActiveReferences": 0,
+    "deploymentPerformed": false
+  }
+}

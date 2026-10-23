@@ -1,0 +1,426 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-10-23",
+  "manufacturer": "ELIOS Ceramica",
+  "collection": "Mysterium",
+  "source": {
+    "repositoryPath": "assets/pdf/ELIOSCATALOGUE-GENERALE 2026-1.pdf",
+    "url": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+    "sha256": "04bab2aba9802417df50b52d8ee4f42eba5f7c6fa3c74ad10e66c9d8187c90f1",
+    "pdfPages": 240,
+    "visuallyReviewed": true,
+    "pdfPage": 36,
+    "printedPages": [
+      68,
+      69
+    ]
+  },
+  "portalCollection": "Magnus",
+  "portalFacesListed": 24,
+  "runtimeExactReferencesPresent": 6,
+  "downloadedByThisAudit": 0,
+  "mysteriumVerified": {
+    "LB1201": {
+      "collection": "Mysterium",
+      "portalCollection": "Magnus",
+      "portalFolder": "Magnus/Mysterium/Amber",
+      "colorId": "amber",
+      "color": "Amber",
+      "reference": "LB1201",
+      "sourceFormat": "120x278",
+      "sourceFormatCm": {
+        "width": 120,
+        "height": 278
+      },
+      "engineFormatMetres": {
+        "width": 2.78,
+        "height": 1.2
+      },
+      "finish": "Poli · Rectifié · 6,5 mm",
+      "kind": "base",
+      "nativeTextureAssignmentAllowed": true,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": 36,
+      "printedPages": [
+        68,
+        69
+      ],
+      "portalFaces": [
+        "LB1201@1.jpg",
+        "LB1201@2.jpg",
+        "LB1201@3.jpg",
+        "LB1201@4.jpg"
+      ],
+      "cataloguePatternCount": 4,
+      "faceObservations": {
+        "LB1201@1.jpg": {
+          "portalSize": "1400,92 KB",
+          "bytesRounded": 1400920,
+          "roundingToleranceBytes": 5
+        },
+        "LB1201@2.jpg": {
+          "portalSize": "1216,92 KB",
+          "bytesRounded": 1216920,
+          "roundingToleranceBytes": 5
+        },
+        "LB1201@3.jpg": {
+          "portalSize": "683,96 KB",
+          "bytesRounded": 683960,
+          "roundingToleranceBytes": 5
+        },
+        "LB1201@4.jpg": {
+          "portalSize": "1473,38 KB",
+          "bytesRounded": 1473380,
+          "roundingToleranceBytes": 5
+        }
+      },
+      "otherCatalogueProductsSameColor": [
+        {
+          "reference": "03U6A01",
+          "format": "60x120",
+          "finish": "Poli · Rectifié · 8,5 mm"
+        }
+      ],
+      "notes": [
+        "Native reference of the observed file is the 120x278 slab. Do not attach these faces to the 60x120 SKU.",
+        "Source pixel dimensions, colour profile, orientation and checksums remain to be inspected after download. No source image is claimed downloaded by this mapping."
+      ]
+    },
+    "LB1202": {
+      "collection": "Mysterium",
+      "portalCollection": "Magnus",
+      "portalFolder": "Magnus/Mysterium/White",
+      "colorId": "white",
+      "color": "White",
+      "reference": "LB1202",
+      "sourceFormat": "120x278",
+      "sourceFormatCm": {
+        "width": 120,
+        "height": 278
+      },
+      "engineFormatMetres": {
+        "width": 2.78,
+        "height": 1.2
+      },
+      "finish": "Poli · Rectifié · 6,5 mm",
+      "kind": "base",
+      "nativeTextureAssignmentAllowed": true,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": 36,
+      "printedPages": [
+        68,
+        69
+      ],
+      "portalFaces": [
+        "LB1202@1.jpg",
+        "LB1202@2.jpg",
+        "LB1202@3.jpg",
+        "LB1202@4.jpg"
+      ],
+      "cataloguePatternCount": 4,
+      "faceObservations": {
+        "LB1202@1.jpg": {
+          "portalSize": "376,82 KB",
+          "bytesRounded": 376820,
+          "roundingToleranceBytes": 5
+        },
+        "LB1202@2.jpg": {
+          "portalSize": "1011,62 KB",
+          "bytesRounded": 1011620,
+          "roundingToleranceBytes": 5
+        },
+        "LB1202@3.jpg": {
+          "portalSize": "1254,11 KB",
+          "bytesRounded": 1254110,
+          "roundingToleranceBytes": 5
+        },
+        "LB1202@4.jpg": {
+          "portalSize": "1242,34 KB",
+          "bytesRounded": 1242340,
+          "roundingToleranceBytes": 5
+        }
+      },
+      "otherCatalogueProductsSameColor": [
+        {
+          "reference": "03U6A02",
+          "format": "60x120",
+          "finish": "Poli · Rectifié · 8,5 mm"
+        }
+      ],
+      "notes": [
+        "Native reference of the observed file is the 120x278 slab. Do not attach these faces to the 60x120 SKU.",
+        "Source pixel dimensions, colour profile, orientation and checksums remain to be inspected after download. No source image is claimed downloaded by this mapping."
+      ]
+    },
+    "LB1203": {
+      "collection": "Mysterium",
+      "portalCollection": "Magnus",
+      "portalFolder": "Magnus/Mysterium/Pearl",
+      "colorId": "pearl",
+      "color": "Pearl",
+      "reference": "LB1203",
+      "sourceFormat": "120x278",
+      "sourceFormatCm": {
+        "width": 120,
+        "height": 278
+      },
+      "engineFormatMetres": {
+        "width": 2.78,
+        "height": 1.2
+      },
+      "finish": "Poli · Rectifié · 6,5 mm",
+      "kind": "base",
+      "nativeTextureAssignmentAllowed": true,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": 36,
+      "printedPages": [
+        68,
+        69
+      ],
+      "portalFaces": [
+        "LB1203@1.jpg",
+        "LB1203@2.jpg",
+        "LB1203@3.jpg",
+        "LB1203@4.jpg"
+      ],
+      "cataloguePatternCount": 4,
+      "faceObservations": {
+        "LB1203@1.jpg": {
+          "portalSize": "549,59 KB",
+          "bytesRounded": 549590,
+          "roundingToleranceBytes": 5
+        },
+        "LB1203@2.jpg": {
+          "portalSize": "1123,2 KB",
+          "bytesRounded": 1123200,
+          "roundingToleranceBytes": 5
+        },
+        "LB1203@3.jpg": {
+          "portalSize": "1325,52 KB",
+          "bytesRounded": 1325520,
+          "roundingToleranceBytes": 5
+        },
+        "LB1203@4.jpg": {
+          "portalSize": "1427,41 KB",
+          "bytesRounded": 1427410,
+          "roundingToleranceBytes": 5
+        }
+      },
+      "otherCatalogueProductsSameColor": [
+        {
+          "reference": "03U6A03",
+          "format": "60x120",
+          "finish": "Poli · Rectifié · 8,5 mm"
+        }
+      ],
+      "notes": [
+        "Native reference of the observed file is the 120x278 slab. Do not attach these faces to the 60x120 SKU.",
+        "Source pixel dimensions, colour profile, orientation and checksums remain to be inspected after download. No source image is claimed downloaded by this mapping."
+      ]
+    },
+    "LB1204": {
+      "collection": "Mysterium",
+      "portalCollection": "Magnus",
+      "portalFolder": "Magnus/Mysterium/Black",
+      "colorId": "black",
+      "color": "Black",
+      "reference": "LB1204",
+      "sourceFormat": "120x278",
+      "sourceFormatCm": {
+        "width": 120,
+        "height": 278
+      },
+      "engineFormatMetres": {
+        "width": 2.78,
+        "height": 1.2
+      },
+      "finish": "Poli · Rectifié · 6,5 mm",
+      "kind": "base",
+      "nativeTextureAssignmentAllowed": true,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": 36,
+      "printedPages": [
+        68,
+        69
+      ],
+      "portalFaces": [
+        "LB1204@1.jpg",
+        "LB1204@2.jpg",
+        "LB1204@3.jpg",
+        "LB1204@4.jpg"
+      ],
+      "cataloguePatternCount": 4,
+      "faceObservations": {
+        "LB1204@1.jpg": {
+          "portalSize": "1358,73 KB",
+          "bytesRounded": 1358730,
+          "roundingToleranceBytes": 5
+        },
+        "LB1204@2.jpg": {
+          "portalSize": "1267,19 KB",
+          "bytesRounded": 1267190,
+          "roundingToleranceBytes": 5
+        },
+        "LB1204@3.jpg": {
+          "portalSize": "1420,53 KB",
+          "bytesRounded": 1420530,
+          "roundingToleranceBytes": 5
+        },
+        "LB1204@4.jpg": {
+          "portalSize": "1293,97 KB",
+          "bytesRounded": 1293970,
+          "roundingToleranceBytes": 5
+        }
+      },
+      "otherCatalogueProductsSameColor": [
+        {
+          "reference": "03U6A04",
+          "format": "60x120",
+          "finish": "Poli · Rectifié · 8,5 mm"
+        }
+      ],
+      "notes": [
+        "Native reference of the observed file is the 120x278 slab. Do not attach these faces to the 60x120 SKU.",
+        "Source pixel dimensions, colour profile, orientation and checksums remain to be inspected after download. No source image is claimed downloaded by this mapping."
+      ]
+    },
+    "LB1205": {
+      "collection": "Mysterium",
+      "portalCollection": "Magnus",
+      "portalFolder": "Magnus/Mysterium/Acqua",
+      "colorId": "acqua",
+      "color": "Acqua",
+      "reference": "LB1205",
+      "sourceFormat": "120x278",
+      "sourceFormatCm": {
+        "width": 120,
+        "height": 278
+      },
+      "engineFormatMetres": {
+        "width": 2.78,
+        "height": 1.2
+      },
+      "finish": "Poli · Rectifié · 6,5 mm",
+      "kind": "base",
+      "nativeTextureAssignmentAllowed": true,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": 36,
+      "printedPages": [
+        68,
+        69
+      ],
+      "portalFaces": [
+        "LB1205@1.jpg",
+        "LB1205@2.jpg",
+        "LB1205@3.jpg",
+        "LB1205@4.jpg"
+      ],
+      "cataloguePatternCount": 4,
+      "faceObservations": {
+        "LB1205@1.jpg": {
+          "portalSize": "1431,03 KB",
+          "bytesRounded": 1431030,
+          "roundingToleranceBytes": 5
+        },
+        "LB1205@2.jpg": {
+          "portalSize": "1226,99 KB",
+          "bytesRounded": 1226990,
+          "roundingToleranceBytes": 5
+        },
+        "LB1205@3.jpg": {
+          "portalSize": "1580,43 KB",
+          "bytesRounded": 1580430,
+          "roundingToleranceBytes": 5
+        },
+        "LB1205@4.jpg": {
+          "portalSize": "670,14 KB",
+          "bytesRounded": 670140,
+          "roundingToleranceBytes": 5
+        }
+      },
+      "otherCatalogueProductsSameColor": [
+        {
+          "reference": "03U6A05",
+          "format": "60x120",
+          "finish": "Poli · Rectifié · 8,5 mm"
+        }
+      ],
+      "notes": [
+        "Native reference of the observed file is the 120x278 slab. Do not attach these faces to the 60x120 SKU.",
+        "Source pixel dimensions, colour profile, orientation and checksums remain to be inspected after download. No source image is claimed downloaded by this mapping."
+      ]
+    },
+    "LB1206": {
+      "collection": "Mysterium",
+      "portalCollection": "Magnus",
+      "portalFolder": "Magnus/Mysterium/Ocean",
+      "colorId": "ocean",
+      "color": "Ocean",
+      "reference": "LB1206",
+      "sourceFormat": "120x278",
+      "sourceFormatCm": {
+        "width": 120,
+        "height": 278
+      },
+      "engineFormatMetres": {
+        "width": 2.78,
+        "height": 1.2
+      },
+      "finish": "Poli · Rectifié · 6,5 mm",
+      "kind": "base",
+      "nativeTextureAssignmentAllowed": true,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": 36,
+      "printedPages": [
+        68,
+        69
+      ],
+      "portalFaces": [
+        "LB1206@1.jpg",
+        "LB1206@2.jpg",
+        "LB1206@3.jpg",
+        "LB1206@4.jpg"
+      ],
+      "cataloguePatternCount": 4,
+      "faceObservations": {
+        "LB1206@1.jpg": {
+          "portalSize": "1428,97 KB",
+          "bytesRounded": 1428970,
+          "roundingToleranceBytes": 5
+        },
+        "LB1206@2.jpg": {
+          "portalSize": "1349,88 KB",
+          "bytesRounded": 1349880,
+          "roundingToleranceBytes": 5
+        },
+        "LB1206@3.jpg": {
+          "portalSize": "1595,51 KB",
+          "bytesRounded": 1595510,
+          "roundingToleranceBytes": 5
+        },
+        "LB1206@4.jpg": {
+          "portalSize": "632,99 KB",
+          "bytesRounded": 632990,
+          "roundingToleranceBytes": 5
+        }
+      },
+      "otherCatalogueProductsSameColor": [
+        {
+          "reference": "03U6A06",
+          "format": "60x120",
+          "finish": "Poli · Rectifié · 8,5 mm"
+        }
+      ],
+      "notes": [
+        "Native reference of the observed file is the 120x278 slab. Do not attach these faces to the 60x120 SKU.",
+        "Source pixel dimensions, colour profile, orientation and checksums remain to be inspected after download. No source image is claimed downloaded by this mapping."
+      ]
+    }
+  }
+}
