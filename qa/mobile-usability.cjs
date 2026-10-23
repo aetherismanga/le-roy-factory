@@ -69,10 +69,12 @@ const assert=require('node:assert/strict'),fs=require('node:fs');
   await page.evaluate(()=>window.studioOnePrototype.captureHD({width:1920}).then(()=>null));
   const captured=await state();assert.equal(captured.qualityProfile,'fluid');assert(captured.capture.last.width>=1920,'HD export is independent of the working quality');
   assert.equal(await page.evaluate(()=>JSON.stringify(window.studioOnePrototype.exportProject())),project,'HD capture preserves the project');
+  const embeddedViewport=await page.evaluate(()=>{document.documentElement.style.setProperty('--app-height','700px');document.documentElement.style.setProperty('--host-safe-bottom','24px');const nav=document.querySelector('.workspace-nav').getBoundingClientRect();return {outerHeight:innerHeight,hostHeight:700,safeBottom:24,navBottom:nav.bottom,navHeight:nav.height,viewerHeight:document.querySelector('#viewer').getBoundingClientRect().height};});
+  assert(embeddedViewport.navBottom<=700.1&&embeddedViewport.navHeight>=84&&embeddedViewport.viewerHeight>=500,'The official host can reserve space for browser bars and the bottom safe area');
   const desktop=await browser.newPage({viewport:{width:1440,height:900}});await desktop.goto('http://127.0.0.1:4173/atelier.html');await desktop.waitForFunction(()=>window.studioOnePrototype,null,{timeout:60000});await desktop.screenshot({path:'qa/desktop-workshop-1440.png'});
   const desktopLayout=await desktop.evaluate(()=>({viewer:document.querySelector('#viewer').getBoundingClientRect().width,settings:document.querySelector('#settings').getBoundingClientRect().width}));assert(desktopLayout.viewer>800&&desktopLayout.settings>=280);
   assert.deepEqual(errors,[]);
-  const report={passed:true,realWebGL2:true,viewports:sizes,restored:{azuliMood:11,allure:9},touch:{singleFingerLooks:true,twoFingersMove:true,releaseStops:true,idleFrames:idle.frames-stopped.frames},hdCapture:captured.capture.last,desktop:desktopLayout,limitations:'Software GPU and simulated touch screens; no physical phone benchmark.'};
+  const report={passed:true,realWebGL2:true,viewports:sizes,embeddedViewport,restored:{azuliMood:11,allure:9},touch:{singleFingerLooks:true,twoFingersMove:true,releaseStops:true,idleFrames:idle.frames-stopped.frames},hdCapture:captured.capture.last,desktop:desktopLayout,limitations:'Software GPU and simulated touch screens; no physical phone benchmark.'};
   fs.writeFileSync('reports/mobile-usability-20261023.json',JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report,null,2));
  }finally{await browser.close();local.server.close();}
 })().catch(e=>{console.error(e);process.exit(1);});
