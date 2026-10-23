@@ -1,5 +1,5 @@
-import {distance} from './core.mjs?v=20261022-6';
-import {orthogonalContour} from './dimensions.mjs?v=20261022-6';
+import {distance} from './core.mjs?v=20261023-1';
+import {orthogonalContour} from './dimensions.mjs?v=20261023-1';
 
 // Architectural bands have two long faces and ink inside their thickness (solid or hatched).
 // Thin furniture outlines and dimension leaders do not satisfy this test.
