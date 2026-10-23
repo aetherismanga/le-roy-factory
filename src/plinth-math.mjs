@@ -2,12 +2,19 @@
 // checked byte-for-byte by the release tests; no renderer or DOM dependency.
 const EPS=1e-6;
 export function plinthSettings(value={}){
- return {enabled:value.enabled!==false,type:['tile','factory','wood'].includes(value.type)?value.type:'tile',height:Number.isFinite(value.height)?value.height:8,thickness:Number.isFinite(value.thickness)?value.thickness:1,kerf:Number.isFinite(value.kerf)?value.kerf:.3,reserve:Number.isFinite(value.reserve)?value.reserve:0,aligned:value.aligned!==false,walls:{...(value.walls||{})},product:value.product||null};
+ return {enabled:value.enabled!==false,type:['tile','factory','wood'].includes(value.type)?value.type:'tile',height:Number.isFinite(value.height)?value.height:8,thickness:Number.isFinite(value.thickness)?value.thickness:1,kerf:Number.isFinite(value.kerf)?value.kerf:.3,reserve:Number.isFinite(value.reserve)?value.reserve:0,aligned:value.aligned!==false,walls:{...(value.walls||{})},product:value.product||null,purchaseHT:Number.isFinite(value.purchaseHT)?value.purchaseHT:null};
 }
 export function plinthSettingsError(value){
  if(value===undefined)return '';if(!value||typeof value!=='object'||Array.isArray(value))return 'Réglages de plinthes invalides.';
+ if(value.purchaseHT!=null&&(!Number.isFinite(value.purchaseHT)||value.purchaseHT<0||value.purchaseHT>100000))return 'Prix d’achat des plinthes invalide.';
  const s=plinthSettings(value);if(!['tile','factory','wood',undefined].includes(value.type)||s.height<3||s.height>30||s.thickness<.3||s.thickness>3||s.kerf<0||s.kerf>1||s.reserve<0||s.reserve>30||Object.keys(s.walls).length>1000||Object.values(s.walls).some(v=>![true,false,'auto'].includes(v)))return 'Plinthes : hauteur 3–30 cm, épaisseur 0,3–3 cm, trait de coupe 0–1 cm et réserve 0–30 %.';
- if(s.product&&(!Number.isFinite(s.product.length)||s.product.length<3||s.product.length>300||!Number.isInteger(s.product.packPieces)||s.product.packPieces<1||s.product.packPieces>1000))return 'Conditionnement des plinthes invalide.';return '';
+ if(s.product&&(!Number.isFinite(s.product.length)||s.product.length<3||s.product.length>300||!Number.isInteger(s.product.packPieces)||s.product.packPieces<1||s.product.packPieces>1000||!['pièce','ml','boîte',undefined].includes(s.product.priceUnit)||s.product.purchaseHT!=null&&(!Number.isFinite(s.product.purchaseHT)||s.product.purchaseHT<0||s.product.purchaseHT>100000)))return 'Conditionnement ou prix des plinthes invalide.';return '';
+}
+export function plinthPurchase(report,tile={}){
+ if(!report||report.error)return {totalHT:null};
+ const included=report.type==='tile',unit=included?'m²':report.type==='wood'?'barre':report.product?.priceUnit||'pièce',quantity=included?report.tileArea:unit==='ml'?report.order:unit==='boîte'?report.boxes:report.units;
+ const unitPriceHT=included?tile.purchaseHT:report.purchaseHT??report.product?.purchaseHT??null;
+ return {included,unit,quantity,unitPriceHT,totalHT:quantity===0?0:Number.isFinite(unitPriceHT)&&Number.isFinite(quantity)?Math.round(quantity*unitPriceHT*100)/100:null};
 }
 export function subtractIntervals(length,cuts=[]){
  const sorted=cuts.filter(v=>Array.isArray(v)&&v.every(Number.isFinite)).map(([a,b])=>[Math.max(0,Math.min(a,b)),Math.min(length,Math.max(a,b))]).filter(([a,b])=>b>a+EPS).sort((a,b)=>a[0]-b[0]);
@@ -41,5 +48,5 @@ export function calculatePlinths(walls,value={},grid=null){
  let debit=0,order=0,units=0,stockNeeded=0,tiles=0,tileArea=0;const cutting=[];
  for(const g of groups.values()){const bins=packLengths(g.lengths,g.stock,s.kerf),reserved=Math.ceil(bins.length*(1+s.reserve/100)-EPS);debit+=bins.length*g.stock;stockNeeded+=reserved;let count=reserved;if(s.type==='tile'){count=Math.ceil(reserved/g.strips);tiles+=count;tileArea+=count*g.stock*g.cross/10000;order+=count*g.strips*g.stock;}else if(s.type==='factory'){count=Math.ceil(reserved/(s.product.packPieces||1))*(s.product.packPieces||1);order+=count*g.stock;}else order+=count*g.stock;units+=count;cutting.push({stock:g.stock,stripsPerTile:g.strips,bins,orderedUnits:count});}
  const boxes=s.type==='factory'&&s.product?.packPieces?units/s.product.packPieces:null;
- return {type:s.type,net:net/100,debit:debit/100,order:order/100,waste:Math.max(0,debit-net)/100,orderSurplus:Math.max(0,order-net)/100,pieces:pieces.length,units,stockNeeded,tiles,tileArea,boxes,runs,pieceList:pieces,cutting,height:s.type==='factory'?(s.product?.height||s.height):s.height,product:s.type==='factory'?s.product:null,aligned:s.type!=='wood'&&s.aligned};
+ return {type:s.type,net:net/100,debit:debit/100,order:order/100,waste:Math.max(0,debit-net)/100,orderSurplus:Math.max(0,order-net)/100,pieces:pieces.length,units,stockNeeded,tiles,tileArea,boxes,runs,pieceList:pieces,cutting,height:s.type==='factory'?(s.product?.height||s.height):s.height,product:s.type==='factory'?s.product:null,purchaseHT:s.purchaseHT,aligned:s.type!=='wood'&&s.aligned};
 }
