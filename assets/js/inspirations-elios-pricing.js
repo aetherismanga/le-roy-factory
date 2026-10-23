@@ -84,6 +84,7 @@
       if (f === '23.4x148') return result(17.5);
     }
     if (slug === 'allure' && f === '60x120') return result(24);
+    if (slug === 'shell' && f === '60x120') return result(22, { note: 'Tarif net 2026 V01 : ligne Shell 60×120. La grille ne distingue pas les finitions Matt et Saten.' });
     if (slug === 'segmento' && f === '15x15') return result(25);
     if (slug === 'clay' && f === '10x10') return result(23, { note: 'Uni. Décor PAT : +5,00 € net/pièce ; décor FLO : +7,00 € net/pièce.' });
     if (slug === 'd-esign-evo' && f === '20x20') return result(20, { note: 'Uni. Décor : 23,00 € net/m².' });
