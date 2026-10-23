@@ -5,3 +5,46 @@
 .commerce-account{display:inline-block;font-size:10px;margin-top:10px;color:#435b35;text-decoration:underline;text-underline-offset:3px}.administrator{color:#c32626!important;font-weight:800!important}.commerce-label{overflow-wrap:anywhere}.brand>img{display:block;width:125px;height:50px;object-fit:contain}.atelier-beta{position:absolute;top:5px;right:20px;font:8px Arial,sans-serif;letter-spacing:1.2px;color:#65705c}body>header{position:relative}@media(max-width:760px){.brand>img{width:96px;height:38px}.atelier-beta{font-size:6px;top:2px;right:12px}body>header>.project-menu{padding-top:4px}}@media(max-width:380px){.brand>img{width:82px;height:35px}}
 
 .brand>.studio-logo{display:block;width:125px;height:45px}@media(max-width:760px){.brand>.studio-logo{width:96px;height:35px}}@media(max-width:380px){.brand>.studio-logo{width:82px;height:32px}}
+
+body>header>.project-name{min-width:0}body>header>.quit-configurator{flex:0 0 auto}@media(max-width:760px){body>header{grid-template-rows:40px 40px}body>header>.back-to-quote{grid-column:1/4;grid-row:2;min-height:38px}body>header>.quit-configurator{grid-column:4;grid-row:2;min-height:38px;align-self:stretch;justify-self:stretch;padding:7px;font-size:9px}}
+
+/* STUDIO ONE: illustrations lisibles au lieu de symboles typographiques */
+.add-items button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:117px;padding:9px 5px;text-align:center}
+.add-items button .palette-picture{display:flex;align-items:center;justify-content:center;width:min(100%,92px);height:62px;padding:3px;border-radius:11px;background:linear-gradient(145deg,#f5f2e9,#dfe8e0);box-shadow:inset 0 0 0 1px #d7ded5}
+.add-items button .palette-picture svg{display:block;max-width:100%;height:54px;filter:drop-shadow(1px 3px 2px #22352824)}
+.add-items button strong{font-size:11px;line-height:1.2;font-weight:700;overflow-wrap:anywhere}
+.add-items button small{display:block;font-size:9px;line-height:1.2;opacity:.7}
+.add-items #add-shower .palette-picture,.add-items #add-screen .palette-picture,.add-items #add-window .palette-picture{background:linear-gradient(145deg,#f1f7f7,#d6e6ec)}
+.add-items #add-cabinet .palette-picture,.add-items #add-column .palette-picture,.add-items #add-door .palette-picture{background:linear-gradient(145deg,#fcf5e9,#eddfc9)}
+.lrf-pictogram-sprite{position:absolute!important;width:0!important;height:0!important;overflow:hidden!important}
+.catalogue-real-model{display:flex!important;align-items:center;justify-content:center;width:100%;height:160px;max-height:none!important;background:linear-gradient(#f8f5ee,#eee7dc);border-radius:12px;overflow:hidden}
+.catalogue-real-model svg{display:block;width:100%;height:100%;max-width:100%;filter:drop-shadow(0 10px 12px #4b39212e)}
+.catalogue-real-model img{display:block;width:100%;height:100%;max-width:100%;object-fit:contain}
+.add-card:has(.catalogue-real-model){min-height:205px}
+@media(max-width:720px){.add-items button{min-height:105px}.add-items button .palette-picture{height:54px}.add-items button .palette-picture svg{height:47px}.catalogue-real-model{height:130px}}
+
+.quit-configurator{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:34px;padding:8px 11px;border:1px solid #cbd0bf;border-radius:8px;background:#fffef9;color:#344736;font:600 10px/1.2 Arial,sans-serif;text-decoration:none;white-space:nowrap;touch-action:manipulation}.quit-configurator:focus-visible{outline:3px solid #a78f64;outline-offset:3px}
+
+/* Both marks stay inside the header row, including narrow smartphone screens. */
+body>header>.brand{display:flex;align-items:center;gap:12px;background:transparent;line-height:1;flex:0 0 auto}
+body>header>.brand>.randal-partner-logo{margin-right:0!important}
+body>header>.brand>.studio-logo{flex:none;background:transparent;overflow:hidden}
+@media(max-width:760px){body>header>.brand{flex-direction:column;align-items:flex-start;gap:2px;align-self:center;max-height:40px;width:96px}body>header>.brand>.randal-partner-logo{width:65px!important;height:13px;max-height:13px!important;object-fit:cover!important}body>header>.brand>.studio-logo{width:96px;height:24px}}
+@media(max-width:380px){body>header>.brand{width:82px}body>header>.brand>.studio-logo{width:82px;height:21px}}
+
+/* Product views share neutral backgrounds and the geometry actually added. */
+.add-items{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.add-items button{padding:0 0 12px;gap:7px;min-height:150px;overflow:hidden;border:1px solid #d7d9cf;border-radius:12px;background:#fffef9;box-shadow:0 2px 6px #263b2e08;transition:border-color .15s ease,box-shadow .15s ease}
+.add-items button:hover,.add-items button:focus-visible{border-color:#648074;box-shadow:0 3px 12px #263b2e14}
+.add-items button .palette-picture{width:100%;height:110px;padding:0;border-radius:0;background:#f6f5ef!important;box-shadow:none;overflow:hidden}
+.add-items button .palette-product-image{display:block;width:100%;height:100%;object-fit:contain}
+.add-items button strong{font-size:12px;color:#29483e}
+.add-items button small{font-size:10px;color:#72766c;margin:0 7px;opacity:1}
+#add-choices .add-card{padding:10px 10px 15px;gap:9px;border-color:#d7d9cf;border-radius:12px;background:#fffef9;overflow:hidden}
+#add-choices .add-card:hover{border-color:#648074;background:#fafaf4}
+#add-choices .catalogue-icon{height:170px;border-radius:8px;background:#f6f5ef;overflow:hidden}
+#add-choices .catalogue-product-image{display:block;width:100%;height:100%;object-fit:contain}
+#add-choices .add-card strong{font:600 14px/1.35 Arial,sans-serif;color:#29483e}
+#add-choices .add-card small{font:11px/1.5 Arial,sans-serif;color:#74796d}
+.product-image-unavailable{display:grid;place-items:center;height:100%;padding:12px;font:11px/1.5 Arial,sans-serif;color:#74796d}
+@media(max-width:720px){.add-items button{min-height:145px}.add-items button .palette-picture{height:105px}#add-choices .catalogue-icon{height:145px}#add-choices .add-card{padding:8px 8px 13px}#add-choices .add-card strong{font-size:13px}}

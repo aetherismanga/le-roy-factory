@@ -1,0 +1,78 @@
+// Real WebGL2 rendering and native touch events. Use a fresh, local project;
+// no client account, external write or email operation is exercised.
+const {chromium}=require(require.resolve('playwright',{paths:[process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES]}));
+const assert=require('node:assert/strict'),fs=require('node:fs');
+(async()=>{
+ const local=await import('./preview-server.mjs');
+ const browser=await chromium.launch({executablePath:process.env.STUDIO_CHROMIUM,headless:true,proxy:process.env.HTTPS_PROXY?{server:process.env.HTTPS_PROXY,bypass:'127.0.0.1,localhost'}:undefined,args:['--no-sandbox','--disable-dev-shm-usage','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader','--ignore-gpu-blocklist']});
+ try{
+  const page=await browser.newPage({viewport:{width:390,height:844},isMobile:true,hasTouch:true,deviceScaleFactor:1}),errors=[],sizes=[];
+  page.on('pageerror',e=>errors.push(e.message));
+  await page.goto('http://127.0.0.1:4173/atelier.html');
+  await page.waitForFunction(()=>window.studioOnePrototype,null,{timeout:60000});
+  assert(await page.evaluate(()=>!!document.createElement('canvas').getContext('webgl2')));
+  const state=()=>page.evaluate(()=>window.studioOnePrototype.getDiagnostics());
+  for(const [width,height] of [[320,740],[360,800],[390,844],[430,932],[844,390]]){
+   await page.setViewportSize({width,height});await page.waitForTimeout(180);
+   const layout=await page.evaluate(()=>{
+    const rect=selector=>{const r=document.querySelector(selector).getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,bottom:r.bottom,right:r.right};};
+    return {width:innerWidth,height:innerHeight,scrollWidth:document.documentElement.scrollWidth,header:rect('body>header'),viewer:rect('#viewer'),nav:rect('.workspace-nav'),visit:rect('.walk-toggle'),lock:rect('#scene-position-lock')};
+   });
+   assert.equal(layout.scrollWidth,layout.width,'No horizontal page overflow');
+   assert(layout.viewer.height>height*.45,'The scene remains usable, including landscape');
+   assert(layout.nav.bottom<=height+1,'Navigation remains above the bottom edge');
+   assert(layout.visit.right<=layout.lock.x,'Visit and lock controls never overlap');
+   assert(layout.lock.width<=44.1,'No oversized round overlay');sizes.push(layout);
+  }
+  await page.setViewportSize({width:390,height:844});
+  await page.screenshot({path:'qa/mobile-workshop-390.png'});
+  console.log('Layouts passed');await page.locator('[data-workspace=finishes]').click();
+  const picker=page.locator('#wall-surface-library');
+  await picker.locator('[data-surface-brand=ELIOS]').click();
+  const series=picker.locator('[data-surface-field="collection"]');
+  await series.selectOption('Azuli Mood');assert.equal(await picker.locator('[data-surface-color]').count(),11);
+  await picker.locator('[data-surface-color="blue"]').click();
+  await page.evaluate(()=>window.studioOnePrototype.waitForTextures());
+  console.log('Azuli material',JSON.stringify((await state()).textures.surfaces.filter(t=>t.collection==='Azuli Mood')));
+  assert((await state()).textures.surfaces.some(t=>t.collection==='Azuli Mood'&&t.id==='blue'&&t.width>=200),'Recovered source is actually decoded in the material');
+  await page.screenshot({path:'qa/mobile-azuli-390.png'});
+  console.log('Azuli source rendered');await series.selectOption('Allure');assert.equal(await picker.locator('[data-surface-color]').count(),9);
+  await picker.locator('[data-surface-color="safari"]').click();
+  await page.evaluate(()=>window.studioOnePrototype.waitForTextures());
+  assert((await picker.locator('.surface-picker-note').innerText()).includes('définition limitée'));
+  await picker.locator('[data-surface-color="eden"]').click();
+  await page.evaluate(()=>window.studioOnePrototype.waitForTextures());
+  assert((await state()).textures.surfaces.some(t=>t.collection==='Allure'&&t.id==='eden'));
+  await page.screenshot({path:'qa/mobile-allure-390.png'});
+  console.log('Allure decors rendered');await page.locator('#settings-toggle').click();
+  await page.evaluate(()=>window.studioOnePrototype.setView('room',true));
+  await page.locator('.walk-toggle').click();
+  assert.equal(await page.locator('#viewer.walk-active').count(),1);
+  assert.equal(await page.locator('#viewer .view-commands').isVisible(),false);
+  assert.equal(await page.getByText(/Joystick/).count(),0);
+  const session=await page.context().newCDPSession(page),box=await page.locator('#scene').boundingBox(),x=box.x+box.width*.5,y=box.y+box.height*.5;
+  const touch=(type,points)=>session.send('Input.dispatchTouchEvent',{type,touchPoints:points.map(([id,x,y])=>({id,x,y,radiusX:5,radiusY:5}))});
+  const beforeLook=(await state()).walk;
+  await touch('touchStart',[[1,x,y]]);await touch('touchMove',[[1,x+45,y+5]]);await touch('touchEnd',[]);
+  const looked=(await state()).walk;assert(Math.abs(looked.heading-beforeLook.heading)>.05,'One finger looks around');assert.deepEqual(looked.position,beforeLook.position,'Looking never moves the person');
+  await touch('touchStart',[[1,x-25,y],[2,x+25,y]]);
+  for(let n=1;n<=4;n++)await touch('touchMove',[[1,x-25,y-n*15],[2,x+25,y-n*15]]);
+  await page.waitForTimeout(500);await touch('touchEnd',[]);
+  const moved=(await state()).walk;assert(Math.hypot(moved.position[0]-looked.position[0],moved.position[2]-looked.position[2])>.08,'Two fingers move through the room');
+  await page.waitForTimeout(700);const stopped=await state();await page.waitForTimeout(500);const idle=await state();
+  assert.deepEqual(idle.walk.position,stopped.walk.position,'Releasing the gesture immediately stops walking');
+  assert(idle.frames-stopped.frames<=2,'An idle visit does not render continuously');
+  await page.screenshot({path:'qa/mobile-visit-390.png'});
+  await page.locator('.walk-toggle').click();assert.equal((await state()).walk.active,false);
+  console.log('Native touch and idle rendering passed');const project=await page.evaluate(()=>JSON.stringify(window.studioOnePrototype.exportProject()));
+  await page.evaluate(()=>window.studioOnePrototype.setQualityMode('fluid'));
+  await page.evaluate(()=>window.studioOnePrototype.captureHD({width:1920}).then(()=>null));
+  const captured=await state();assert.equal(captured.qualityProfile,'fluid');assert(captured.capture.last.width>=1920,'HD export is independent of the working quality');
+  assert.equal(await page.evaluate(()=>JSON.stringify(window.studioOnePrototype.exportProject())),project,'HD capture preserves the project');
+  const desktop=await browser.newPage({viewport:{width:1440,height:900}});await desktop.goto('http://127.0.0.1:4173/atelier.html');await desktop.waitForFunction(()=>window.studioOnePrototype,null,{timeout:60000});await desktop.screenshot({path:'qa/desktop-workshop-1440.png'});
+  const desktopLayout=await desktop.evaluate(()=>({viewer:document.querySelector('#viewer').getBoundingClientRect().width,settings:document.querySelector('#settings').getBoundingClientRect().width}));assert(desktopLayout.viewer>800&&desktopLayout.settings>=280);
+  assert.deepEqual(errors,[]);
+  const report={passed:true,realWebGL2:true,viewports:sizes,restored:{azuliMood:11,allure:9},touch:{singleFingerLooks:true,twoFingersMove:true,releaseStops:true,idleFrames:idle.frames-stopped.frames},hdCapture:captured.capture.last,desktop:desktopLayout,limitations:'Software GPU and simulated touch screens; no physical phone benchmark.'};
+  fs.writeFileSync('reports/mobile-usability-20261023.json',JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report,null,2));
+ }finally{await browser.close();local.server.close();}
+})().catch(e=>{console.error(e);process.exit(1);});

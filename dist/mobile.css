@@ -1,0 +1,82 @@
+/* Phone layout lives after the desktop styles, including landscape touch screens. */
+.walk-active .scene-title,.walk-active .view-commands,.walk-active .viewer-footer{display:none!important}
+.walk-active .viewer-top>:not(#fullscreen){display:none!important}
+.walk-hint{pointer-events:none}
+@media(max-width:760px),(pointer:coarse) and (max-width:1024px){
+ body{height:100dvh;overflow:hidden;--mobile-header:92px;--mobile-nav:calc(60px + env(safe-area-inset-bottom,0px))}
+ body>header{height:var(--mobile-header);display:grid;grid-template-columns:84px minmax(0,1fr) auto auto;grid-template-rows:40px 36px;gap:4px 6px;padding:6px 10px;align-items:center}
+ body>header>.brand{grid-area:1/1;flex-direction:column;align-items:flex-start;gap:2px;width:84px;max-height:40px}
+ body>header>.brand>.randal-partner-logo{width:65px!important;height:13px;max-height:13px!important;object-fit:contain!important}
+ body>header>.brand>.studio-logo{width:84px;height:24px}
+ body>header>.project-name{grid-area:1/2;max-width:none;min-width:0;margin:0}
+ body>header>.project-name>span{display:none}
+ body>header>.project-name input{width:100%;min-width:0;font-size:12px;text-overflow:ellipsis;padding:8px 0}
+ body>header>.project-name input:focus{font-size:16px}
+ body>header>.history-actions{grid-area:1/3;gap:0}
+ body>header>.history-actions button{width:40px;height:40px;font-size:23px}
+ body>header>.project-menu{grid-area:1/4;padding:0}
+ body>header>.project-menu summary{min-height:40px;display:flex;align-items:center;padding:8px;font-size:11px;gap:5px}
+ body>header>.back-to-quote{grid-area:2/1/3/4;justify-self:stretch;margin:0;min-height:36px;padding:6px 8px;font-size:12px}
+ body>header>.quit-configurator{grid-area:2/4;align-self:stretch;min-height:36px;padding:6px;font-size:10px}
+ body>#atelier{display:block;height:calc(100dvh - var(--mobile-header));min-height:0;padding-bottom:var(--mobile-nav)}
+ #atelier #viewer{position:relative;top:auto;grid-area:auto;width:100%;height:100%;min-height:0;max-height:none}
+ #atelier .workspace-nav{position:absolute;inset:auto 0 0;height:var(--mobile-nav);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:3px;padding:3px 6px calc(3px + env(safe-area-inset-bottom,0px));border-right:0;border-top:1px solid #dbe3ce}
+ #atelier .workspace-nav button{width:100%;height:54px;min-height:44px;padding:4px;gap:3px}
+ #atelier .workspace-nav .step-number{display:none}
+ #atelier .workspace-nav .step-symbol{font-size:20px;line-height:22px}
+ #atelier .workspace-nav strong{font-size:11px}
+ #atelier #settings{display:none;position:absolute;inset:auto 0 var(--mobile-nav);width:auto;height:auto;max-height:min(60dvh,calc(100% - var(--mobile-nav) - 52px));padding:10px 16px 16px;border:0;border-top:1px solid #d5d9cc;border-radius:16px 16px 0 0;overflow-y:auto;overscroll-behavior:contain;z-index:6;scroll-padding:50px 0 20px}
+ #atelier.mobile-sheet-open #settings{display:block}
+ #settings .settings-toggle{position:sticky;top:-10px;z-index:2;display:flex;min-height:44px;align-items:center;background:var(--paper);font-size:12px}
+ #settings .panel-heading{padding-top:0}
+ #settings .panel-heading .eyebrow,#settings .panel-heading p{display:none}
+ #settings .panel-heading h2{font-size:23px;margin:6px 0 12px}
+ #settings .setting-section{padding:12px 0}
+ #settings input,#settings select,#object-editor input,#object-editor select{font-size:16px!important;min-height:44px}
+ #settings .quality-section{display:block!important}
+ #settings .quality-section select{font-size:16px;min-height:44px}
+ #viewer .scene-title,#viewer .viewer-footer{display:none}
+ #viewer .viewer-top{top:10px;right:10px;gap:5px}
+ #viewer .viewer-top #live-status{display:none!important}
+ #viewer .viewer-top button{height:44px;min-height:44px;min-width:44px;padding:8px;font-size:12px}
+ #viewer .viewer-top .icon-button{width:44px;border-radius:10px;font-size:23px;background:#fafaf3e8}
+ #viewer .walk-toggle{top:62px!important;right:64px!important;min-height:44px;padding:8px 12px!important;font-size:12px;border-radius:10px!important;z-index:5!important}
+ #viewer .scene-position-lock{top:62px!important;right:10px;width:44px;height:44px;border-radius:10px}
+ #viewer.walk-active .walk-toggle{top:10px!important;left:10px;right:auto!important}
+ #viewer.walk-active .scene-position-lock{top:10px!important;right:64px}
+ #viewer .walk-hint{left:12px!important;bottom:12px!important;max-width:calc(100% - 24px)!important;padding:9px 12px!important;font-size:12px!important;line-height:1.5}
+ #viewer .view-commands{bottom:10px;max-width:calc(100% - 20px);width:max-content;min-height:48px;padding:2px;border-radius:10px;backdrop-filter:none;background:#fafaf6f5}
+ #viewer .view-commands button{min-height:44px;padding:8px;font-size:11px}
+ #viewer .view-commands #zoom-in,#viewer .view-commands #zoom-out{min-width:36px;width:36px;font-size:20px}
+ #viewer .view-commands #navigation-direction{display:none}
+ #viewer .view-commands #orbit span{display:none}
+ #viewer .object-editor{left:10px;right:10px;bottom:10px;width:auto;max-width:none}
+ #viewer .object-editor.surface-context{max-height:calc(100% - 64px);scroll-padding-bottom:16px}
+ #viewer .surface-picker select,#settings .surface-picker select{font-size:16px;min-height:46px}
+ #viewer .surface-picker .surface-color,#settings .surface-picker .surface-color{min-height:70px}
+ #viewer .surface-picker-note{font-size:12px}
+ #viewer .add-menu{top:60px;right:10px;max-height:calc(100% - 72px);overflow-y:auto;overscroll-behavior:contain}
+ #viewer .add-menu button{min-height:44px;font-size:13px}
+ #viewer .move-status{top:112px}
+ #atelier.mobile-sheet-open .view-commands{visibility:hidden;pointer-events:none}
+ #atelier.presentation-mode{height:100dvh;padding-bottom:0}
+ #atelier.presentation-mode #viewer{height:100dvh}
+ body:has(#atelier.presentation-mode)>header{display:none}
+ #viewer.expanded{position:fixed!important;inset:0!important;height:100dvh!important;z-index:30}
+ #viewer:fullscreen{height:100dvh}
+ .catalogue-dialog,.projects-dialog{max-height:calc(100dvh - 24px);overscroll-behavior:contain}
+}
+@media(max-width:360px){
+ body>header{grid-template-columns:76px minmax(0,1fr) auto auto;gap:4px}
+ body>header>.brand,body>header>.brand>.studio-logo{width:76px}
+ body>header>.history-actions button{width:36px}
+ #viewer .view-commands button{padding:7px;font-size:10px}
+}
+@media(pointer:coarse) and (min-width:761px) and (max-width:1024px) and (max-height:600px){
+ body{--mobile-header:52px;--mobile-nav:52px}
+ body>header{display:flex;height:52px;gap:8px;padding:4px 10px}
+ body>header>.project-name{flex:1}
+ body>header>.back-to-quote{min-height:40px;font-size:11px}
+ #atelier .workspace-nav button{height:46px;gap:1px}
+ #atelier .workspace-nav .step-symbol{font-size:16px;line-height:18px}
+}
