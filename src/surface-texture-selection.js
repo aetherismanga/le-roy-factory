@@ -14,7 +14,7 @@ export function resolveSurfaceTexture(collection,id,profile='balanced',finish={}
  const limit=faceCounts.length?Math.min(40,...faceCounts):40;
  const files=(Array.isArray(selected)?selected:selected?[selected]:[]).filter(file=>typeof file==='string'&&file.trim()).slice(0,limit);
  const sourceKey=JSON.stringify(mapped?[collection,id,format,reference]:[collection,id,'legacy']);
- return {files,sourceKey,cacheKey:'surface|'+sourceKey+'|'+profile,format,reference,profile,mapped,rotation:mapped?candidate.textureRotation:undefined,choice};
+ return {files,sourceKey,cacheKey:'surface|'+sourceKey+'|'+profile,format,reference,profile,mapped,rotation:mapped?candidate.textureRotation:choice?.textureRotation,choice};
 }
 
 export function finishForSurface(collection,color,layout={},finish={},collections=COLLECTIONS){

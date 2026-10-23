@@ -1,0 +1,123 @@
+{
+  "passed": true,
+  "published": false,
+  "realWebGL2": true,
+  "checks": [
+    {
+      "color": "fenix-juniper",
+      "direction": "horizontal",
+      "profile": "balanced",
+      "width": 416,
+      "height": 832,
+      "url": "assets/elios-restored/allure-fenix-juniper-panel-balanced.webp"
+    },
+    {
+      "color": "fenix-juniper",
+      "direction": "vertical",
+      "profile": "balanced",
+      "width": 416,
+      "height": 832,
+      "url": "assets/elios-restored/allure-fenix-juniper-panel-balanced.webp"
+    },
+    {
+      "color": "fenix-blueberry",
+      "direction": "horizontal",
+      "profile": "balanced",
+      "width": 418,
+      "height": 836,
+      "url": "assets/elios-restored/allure-fenix-blueberry-panel-balanced.webp"
+    },
+    {
+      "color": "fenix-blueberry",
+      "direction": "vertical",
+      "profile": "balanced",
+      "width": 418,
+      "height": 836,
+      "url": "assets/elios-restored/allure-fenix-blueberry-panel-balanced.webp"
+    },
+    {
+      "color": "safari",
+      "direction": "horizontal",
+      "profile": "balanced",
+      "width": 416,
+      "height": 832,
+      "url": "assets/elios-restored/allure-safari-panel-balanced.webp"
+    },
+    {
+      "color": "safari",
+      "direction": "vertical",
+      "profile": "balanced",
+      "width": 416,
+      "height": 832,
+      "url": "assets/elios-restored/allure-safari-panel-balanced.webp"
+    },
+    {
+      "color": "eden",
+      "direction": "horizontal",
+      "profile": "balanced",
+      "width": 420,
+      "height": 840,
+      "url": "assets/elios-restored/allure-eden-panel-balanced.webp"
+    },
+    {
+      "color": "eden",
+      "direction": "vertical",
+      "profile": "balanced",
+      "width": 420,
+      "height": 840,
+      "url": "assets/elios-restored/allure-eden-panel-balanced.webp"
+    },
+    {
+      "color": "eden",
+      "mode": "balanced",
+      "texture": {
+        "collection": "Allure",
+        "id": "eden",
+        "format": "60x120",
+        "reference": "",
+        "mapped": false,
+        "profile": "balanced",
+        "width": 420,
+        "height": 840,
+        "url": "assets/elios-restored/allure-eden-panel-balanced.webp"
+      }
+    },
+    {
+      "color": "eden",
+      "mode": "max",
+      "texture": {
+        "collection": "Allure",
+        "id": "eden",
+        "format": "60x120",
+        "reference": "",
+        "mapped": false,
+        "profile": "max",
+        "width": 420,
+        "height": 840,
+        "url": "assets/elios-restored/allure-eden-panel-native.jpg"
+      }
+    },
+    {
+      "color": "eden",
+      "mode": "fluid",
+      "texture": {
+        "collection": "Allure",
+        "id": "eden",
+        "format": "60x120",
+        "reference": "",
+        "mapped": false,
+        "profile": "fluid",
+        "width": 128,
+        "height": 256,
+        "url": "assets/elios-restored/allure-eden-panel-fluid.webp"
+      }
+    }
+  ],
+  "legacyStaggerRepaired": true,
+  "mobileWidths": [
+    320,
+    390,
+    430
+  ],
+  "limitations": "Software GPU and touch emulation; no physical smartphone benchmark."
+}
