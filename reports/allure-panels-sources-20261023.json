@@ -1,0 +1,135 @@
+{
+  "collection": "Allure",
+  "manufacturer": "ELIOS",
+  "reviewed": "2026-10-23",
+  "collectionUrl": "https://eliosceramica.com/collezione/allure/",
+  "catalogueUrl": "https://eliosceramica.com/wp-content/uploads/2023/05/Elios_catalogo_ALLURE.pdf",
+  "physicalPanelCm": [
+    60,
+    120
+  ],
+  "textureRotationDegrees": -90,
+  "layout": "straight, consistent orientation; manufacturer permits horizontal and vertical installation",
+  "panels": [
+    {
+      "id": "fenix-juniper",
+      "url": "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_fenix_juniper_schema.jpg",
+      "sourceSha256": "a70b8e9282c0b0b5959ee12b8172fc61248dfad277b02922246e19f399a832b2",
+      "cropPx": [
+        0,
+        1,
+        417,
+        836
+      ],
+      "resolutionPx": [
+        416,
+        832
+      ],
+      "processing": "Extract full left-hand panel only, remove surrounding white margin and installation icon; normalize 1:2 aspect ratio. No redraw, mirroring or added detail.",
+      "assets": {
+        "fluid": {
+          "path": "dist/assets/elios-restored/allure-fenix-juniper-panel-fluid.webp",
+          "sha256": "da38e9ef036fd6f2aa66b204381639f296752a085f4a11c3e1a4278744250d8d"
+        },
+        "balanced": {
+          "path": "dist/assets/elios-restored/allure-fenix-juniper-panel-balanced.webp",
+          "sha256": "9bdf563ba754a58ec4705696ae5188e247d3f71d6e0433d04ea893138c9a9e90"
+        },
+        "max": {
+          "path": "dist/assets/elios-restored/allure-fenix-juniper-panel-native.jpg",
+          "sha256": "4c08d1436ee1c46938e2b16a636dc80ea87b2a55c1a328e7f4296108abe7af1a"
+        }
+      }
+    },
+    {
+      "id": "fenix-blueberry",
+      "url": "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_fenix_blueberry_schema.jpg",
+      "sourceSha256": "93fd8a06c18a99709a8568d0adb137afa88dbf374c106757e781607ee8df74e5",
+      "cropPx": [
+        0,
+        1,
+        419,
+        837
+      ],
+      "resolutionPx": [
+        418,
+        836
+      ],
+      "processing": "Extract full left-hand panel only, remove surrounding white margin and installation icon; normalize 1:2 aspect ratio. No redraw, mirroring or added detail.",
+      "assets": {
+        "fluid": {
+          "path": "dist/assets/elios-restored/allure-fenix-blueberry-panel-fluid.webp",
+          "sha256": "1aa3b4a45691f1119b95c17d65254894834fd2d9c09eab149fc070193809ebe8"
+        },
+        "balanced": {
+          "path": "dist/assets/elios-restored/allure-fenix-blueberry-panel-balanced.webp",
+          "sha256": "c6297ef816b46b9831b3d036c55046756f361ab9f3aa178880860e89ca1a3b8c"
+        },
+        "max": {
+          "path": "dist/assets/elios-restored/allure-fenix-blueberry-panel-native.jpg",
+          "sha256": "fbed07f9bd2fc84131be67accca7c9e43aba830480e19ef046fb9d1d96d72ec0"
+        }
+      }
+    },
+    {
+      "id": "safari",
+      "url": "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_safari_schema.jpg",
+      "sourceSha256": "ba8b251abbe0db750eef8cfb0aaedbc313bcc13c9223ce03d587e679a0281f4b",
+      "cropPx": [
+        0,
+        6,
+        417,
+        837
+      ],
+      "resolutionPx": [
+        416,
+        832
+      ],
+      "processing": "Extract full left-hand panel only, remove surrounding white margin and installation icon; normalize 1:2 aspect ratio. No redraw, mirroring or added detail.",
+      "assets": {
+        "fluid": {
+          "path": "dist/assets/elios-restored/allure-safari-panel-fluid.webp",
+          "sha256": "d6a17fc2afbc8ba0e1d12052780e265205a19748763cba9191553ff50e593edd"
+        },
+        "balanced": {
+          "path": "dist/assets/elios-restored/allure-safari-panel-balanced.webp",
+          "sha256": "c3e30fc109e440f08fcd2cbd363e5d696cb81bb5c039e589fe2cab16b70a377d"
+        },
+        "max": {
+          "path": "dist/assets/elios-restored/allure-safari-panel-native.jpg",
+          "sha256": "7ffd013c88a435708c857f22ff092c4195b9ac6f892a9eb44b61d43bb22b9a06"
+        }
+      }
+    },
+    {
+      "id": "eden",
+      "url": "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_eden_schema-1.jpg",
+      "sourceSha256": "1002139f67fb05b2a9524f6c151da07c01aa1b424f725d2f237085dccbc4df78",
+      "cropPx": [
+        0,
+        0,
+        421,
+        843
+      ],
+      "resolutionPx": [
+        420,
+        840
+      ],
+      "processing": "Extract full left-hand panel only, remove surrounding white margin and installation icon; normalize 1:2 aspect ratio. No redraw, mirroring or added detail.",
+      "assets": {
+        "fluid": {
+          "path": "dist/assets/elios-restored/allure-eden-panel-fluid.webp",
+          "sha256": "0cfd2d8b4e9df96cb410d9949bddf07c7c61a8f35eb18cc8fabb9f2071ed892f"
+        },
+        "balanced": {
+          "path": "dist/assets/elios-restored/allure-eden-panel-balanced.webp",
+          "sha256": "d0a8a86a8af8de057965ea308930690552e057766b8d0229f939f0cb9a37233e"
+        },
+        "max": {
+          "path": "dist/assets/elios-restored/allure-eden-panel-native.jpg",
+          "sha256": "032cd190c9858492d3567ed15a328dd3d244ab7243e243552fcc4ce3c8e1a797"
+        }
+      }
+    }
+  ]
+}

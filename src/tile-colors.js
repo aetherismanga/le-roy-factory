@@ -2,7 +2,24 @@ import {COLLECTIONS} from './surface-catalog.js';
 import {quantityForSurface} from './quantities.js';
 import {resolveSurfaceTexture,finishForSurface} from './surface-texture-selection.js';
 export function validTileColors(surface,finish){const keys=new Set(surface.tiles.geometry.userData.cells.map(c=>c.key)),colors=new Set(COLLECTIONS[finish.collection]?.colors.map(c=>c.id)||[]);return Object.fromEntries(Object.entries(finish.tiles||{}).slice(0,12000).filter(([key,color])=>keys.has(key)&&colors.has(color)&&color!==finish.color));}
+function orientContinuousDecor(surface,finish){
+ if(!surface.tiles.geometry.userData.originalTileUV&&!COLLECTIONS[finish.collection]?.colors.some(c=>c.continuousDecor)){surface.tiles.geometry.userData.continuousDecor=false;return;}
+ const continuous=new Set((COLLECTIONS[finish.collection]?.colors||[]).filter(c=>c.continuousDecor).map(c=>c.id)),colors=validTileColors(surface,finish),enabled=[finish.color,...Object.values(colors)].some(id=>continuous.has(id));
+ // A half-tile stagger cannot join these full-panel drawings. Rebuild older
+ // saved layouts on a straight grid before assigning their material groups.
+ if(enabled&&surface.layout?.pattern&&surface.layout.pattern!=='straight'&&surface.setLayout){surface.setLayout({...surface.layout,pattern:'straight'});return orientContinuousDecor(surface,finish);}
+ const g=surface.tiles.geometry,data=g.userData,uv=g.attributes.uv;data.continuousDecor=enabled;
+ if(!uv||!enabled&&!data.originalTileUV)return;
+ const signature=JSON.stringify([finish.collection,finish.color,colors]);if(data.tileOrientationKey===signature)return;
+ const original=data.originalTileUV??=uv.array.slice(),source=data.sourceFaceCells||data.faceCells||[];
+ // Tile geometry keeps natural materials varied by turning alternate slabs.
+ // Restore the unturned UVs only for the selected continuous decor, including
+ // partial tiles at openings. Keep the source order when groups are reindexed.
+ for(let face=0;face<source.length;face++){const key=source[face],[col=0,row=0]=key.split(':').map(Number),unturn=continuous.has(colors[key]||finish.color)&&Math.abs(col*13+row*7)%2===1;for(let i=face*6;i<face*6+6;i++)uv.array[i]=unturn?1-original[i]:original[i];}
+ data.tileOrientationKey=signature;uv.needsUpdate=true;
+}
 export function applyTileColors(surface,finish,createMaterial){
+ orientContinuousDecor(surface,finish);
  for(const m of surface.tileMaterials||[]){m.lrfTileMapClone?.dispose();m.dispose();}surface.tileMaterials=[];
  const colors=validTileColors(surface,finish),g=surface.tiles.geometry,source=g.userData.sourceFaceCells||g.userData.faceCells||[];g.userData.sourceFaceCells=source;
  const materials=[],buckets=[],lookup=new Map(),faceCounts=new Map();
