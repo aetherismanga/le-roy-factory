@@ -1,0 +1,72 @@
+name: Secure configurator purchase prices
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'functions/configurator-purchase-prices*.js'
+      - 'functions/test/configurator-purchase-prices.test.cjs'
+      - 'tools/migrate-configurator-purchase-prices.cjs'
+      - '.github/workflows/migrate-configurator-purchase-prices.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: firebase-functions-production
+  cancel-in-progress: false
+
+jobs:
+  migrate-and-deploy:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout reviewed production history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install function dependencies
+        working-directory: functions
+        run: npm install --omit=dev --ignore-scripts
+
+      - name: Validate authorization and historical catalogue extraction
+        run: node --test functions/test/configurator-purchase-prices.test.cjs
+
+      - name: Prepare Firebase CLI
+        run: npx --yes firebase-tools@latest --version
+
+      - name: Authenticate to the existing Firebase project
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_LE_ROY_FACTORY }}'
+
+      - name: Migrate prices to private Storage without creating repository files
+        run: node tools/migrate-configurator-purchase-prices.cjs
+
+      - name: Deploy only the verified agent purchase endpoint
+        run: >-
+          npx --yes firebase-tools@latest deploy
+          --project le-roy-factory
+          --only functions:getConfiguratorPurchasePrices
+          --non-interactive
+
+      - name: Verify anonymous and client sessions cannot retrieve prices
+        run: |
+          node - <<'JS'
+          (async()=>{
+            const url='https://us-central1-le-roy-factory.cloudfunctions.net/getConfiguratorPurchasePrices';
+            for(const token of ['', 'client-pro-session-is-not-a-firebase-agent']){
+              const response=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json',...(token?{Authorization:'Bearer '+token}:{})},body:JSON.stringify({variant:'plan-pose',type:'admin',isAdmin:true})});
+              const data=await response.json();
+              if(response.status!==401||data.success!==false||data.products||data.plinths)throw Error('Purchase endpoint must reject unauthenticated and client-only sessions.');
+            }
+            console.log('Private purchase endpoint ready; anonymous and client-only access rejected.');
+          })().catch(()=>{console.error('Purchase endpoint authorization smoke check failed.');process.exit(1);});
+          JS

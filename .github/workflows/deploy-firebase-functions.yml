@@ -43,15 +43,6 @@ jobs:
         with:
           credentials_json: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_LE_ROY_FACTORY }}'
 
-      - name: Show Firebase service account email
-        shell: bash
-        run: |
-          python - <<'PY'
-          import json, os
-          with open(os.environ['GOOGLE_APPLICATION_CREDENTIALS'], 'r', encoding='utf-8') as f:
-              print('LRF_SERVICE_ACCOUNT=' + json.load(f)['client_email'])
-          PY
-
       - name: Install Firebase CLI
         run: npm install --global firebase-tools
 
@@ -59,6 +50,7 @@ jobs:
         working-directory: functions
         run: |
           node --test test/configurator-projects.test.cjs
+          node --test test/configurator-purchase-prices.test.cjs
           node - <<'JS'
           const {GoogleAuth}=require('google-auth-library');
           (async()=>{const client=await new GoogleAuth({scopes:['https://www.googleapis.com/auth/cloud-platform']}).getClient();const {data}=await client.request({url:'https://firestore.googleapis.com/v1/projects/le-roy-factory/databases/(default)'});console.log(JSON.stringify({name:data.name,type:data.type,databaseEdition:data.databaseEdition||'STANDARD_LEGACY'}));if(data.type!=='FIRESTORE_NATIVE'||data.databaseEdition==='ENTERPRISE')throw Error('Expected existing native Standard Firestore database.');})().catch(e=>{console.error(e.message);process.exit(1);});
@@ -73,7 +65,8 @@ jobs:
           import os, subprocess
           changed=subprocess.check_output(['git','diff','--name-only','HEAD^','HEAD','--','functions'],text=True).splitlines()
           project_only=bool(changed) and all(p in ['functions/entry.js','functions/configurator-projects.js','functions/configurator-projects-core.js','functions/test/configurator-projects.test.cjs'] for p in changed)
-          target='functions:randalProjects' if project_only and os.environ['EVENT_NAME']=='push' else 'functions:getTariffPdf,functions:getNeobathDnaTariff,functions:createProSession,functions:validateProSession,functions:revokeProSession,functions:trackLrfActivity,functions:getLrfAnalytics,functions:eliosStock,functions:eliosOrder,functions:eliosPoseOrder,functions:eliosCatalog,functions:biltOrder,functions:biltDecision,functions:biltScheduleAutoRelease,functions:biltAutoReleaseSweep,functions:crmFilesUpload,functions:siteControl,functions:aquahomeCatalog,functions:reitanoCatalog,functions:randalProjects'
+          purchase_only=bool(changed) and all(p in ['functions/entry.js','functions/configurator-purchase-prices.js','functions/configurator-purchase-prices-core.js','functions/test/configurator-purchase-prices.test.cjs'] for p in changed)
+          target='functions:getConfiguratorPurchasePrices' if purchase_only and os.environ['EVENT_NAME']=='push' else 'functions:randalProjects' if project_only and os.environ['EVENT_NAME']=='push' else 'functions:getTariffPdf,functions:getNeobathDnaTariff,functions:createProSession,functions:validateProSession,functions:revokeProSession,functions:trackLrfActivity,functions:getLrfAnalytics,functions:eliosStock,functions:eliosOrder,functions:eliosPoseOrder,functions:eliosCatalog,functions:biltOrder,functions:biltDecision,functions:biltScheduleAutoRelease,functions:biltAutoReleaseSweep,functions:crmFilesUpload,functions:siteControl,functions:aquahomeCatalog,functions:reitanoCatalog,functions:randalProjects,functions:getConfiguratorPurchasePrices'
           with open(os.environ['GITHUB_OUTPUT'],'a') as out:out.write('only='+target+'\n')
           PYTHON
 
