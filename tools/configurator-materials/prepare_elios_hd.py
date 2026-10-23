@@ -92,7 +92,11 @@ def srgb_image(path: Path, rotate_cw: int) -> tuple[Image.Image, dict]:
         decoded = list(source.size)
         if source.width * source.height > 40_000_000:
             raise ValueError("Reduced decode remains above 40 Mpx; use a tiled image decoder")
-        image = ImageOps.exif_transpose(source)
+        # exif_transpose() copies even an already upright source. Avoid a full
+        # extra CMYK raster (about 120 MB for a reduced Creta source) when its
+        # EXIF orientation is 1. Subsequent rotation/conversion still creates
+        # an independent image before the source is closed.
+        image = source if orientation == 1 else ImageOps.exif_transpose(source)
         if rotate_cw:
             rotated = image.transpose({90: Image.Transpose.ROTATE_270,
                                        180: Image.Transpose.ROTATE_180,

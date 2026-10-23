@@ -1,0 +1,1168 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-10-23",
+  "manufacturer": "ELIOS Ceramica",
+  "collection": "Deco",
+  "source": {
+    "repositoryPath": "assets/pdf/ELIOSCATALOGUE-GENERALE 2026-1.pdf",
+    "url": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+    "sha256": "04bab2aba9802417df50b52d8ee4f42eba5f7c6fa3c74ad10e66c9d8187c90f1",
+    "pdfPages": 240,
+    "visuallyReviewed": true,
+    "pdfPage": 119,
+    "printedPages": [
+      234,
+      235
+    ]
+  },
+  "publicPageReview": {
+    "url": "https://eliosceramica.com/collezione/deco/",
+    "reviewedAt": "2026-10-23",
+    "listedDecorNamesMatchCurrentCatalogue": true,
+    "originalADecorListed": false
+  },
+  "portalFacesListed": 25,
+  "baseReferencesVerified": 6,
+  "decorReferencesVerified": 17,
+  "portalOnlyReferencesUnconfirmed": [
+    "089D3A1",
+    "089D3A2"
+  ],
+  "downloadedByThisAudit": 0,
+  "decoVerified": {
+    "0892000": {
+      "collection": "Deco",
+      "portalCollection": "Deco",
+      "colorId": "white",
+      "color": "White",
+      "reference": "0892000",
+      "sourceFormat": "20x20",
+      "sourceFormatCm": {
+        "width": 20,
+        "height": 20
+      },
+      "engineFormatMetres": {
+        "width": 0.2,
+        "height": 0.2
+      },
+      "finish": "R10 · 9 mm",
+      "kind": "base",
+      "catalogueVerified": true,
+      "runtimeExactSkuPresent": true,
+      "nativeTextureAssignmentAllowed": true,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": 119,
+      "printedPages": [
+        234,
+        235
+      ],
+      "portalFaces": [
+        "Deco_Anthology_0892000_White.jpg"
+      ],
+      "portalFaceNumbers": {
+        "Deco_Anthology_0892000_White.jpg": 1
+      },
+      "faceObservations": {
+        "Deco_Anthology_0892000_White.jpg": {
+          "portalSize": "1750,9 KB",
+          "bytesRounded": 1750900,
+          "roundingToleranceBytes": 5
+        }
+      },
+      "packPieces": 30,
+      "packAreaM2": 1.12,
+      "notes": [
+        "Exact base SKU already exists. Inspect original face bounds, orientation and ICC before integration."
+      ]
+    },
+    "0892010": {
+      "collection": "Deco",
+      "portalCollection": "Deco",
+      "colorId": "light-blue",
+      "color": "Light Blue",
+      "reference": "0892010",
+      "sourceFormat": "20x20",
+      "sourceFormatCm": {
+        "width": 20,
+        "height": 20
+      },
+      "engineFormatMetres": {
+        "width": 0.2,
+        "height": 0.2
+      },
+      "finish": "R10 · 9 mm",
+      "kind": "base",
+      "catalogueVerified": true,
+      "runtimeExactSkuPresent": true,
+      "nativeTextureAssignmentAllowed": true,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": 119,
+      "printedPages": [
+        234,
+        235
+      ],
+      "portalFaces": [
+        "Deco_Anthology_0892010_LightBlue.jpg"
+      ],
+      "portalFaceNumbers": {
+        "Deco_Anthology_0892010_LightBlue.jpg": 1
+      },
+      "faceObservations": {
+        "Deco_Anthology_0892010_LightBlue.jpg": {
+          "portalSize": "4210,55 KB",
+          "bytesRounded": 4210550,
+          "roundingToleranceBytes": 5
+        }
+      },
+      "packPieces": 30,
+      "packAreaM2": 1.12,
+      "notes": [
+        "Exact base SKU already exists. Inspect original face bounds, orientation and ICC before integration."
+      ]
+    },
+    "0892060": {
+      "collection": "Deco",
+      "portalCollection": "Deco",
+      "colorId": "taupe",
+      "color": "Taupe",
+      "reference": "0892060",
+      "sourceFormat": "20x20",
+      "sourceFormatCm": {
+        "width": 20,
+        "height": 20
+      },
+      "engineFormatMetres": {
+        "width": 0.2,
+        "height": 0.2
+      },
+      "finish": "R10 · 9 mm",
+      "kind": "base",
+      "catalogueVerified": true,
+      "runtimeExactSkuPresent": true,
+      "nativeTextureAssignmentAllowed": true,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": 119,
+      "printedPages": [
+        234,
+        235
+      ],
+      "portalFaces": [
+        "Deco_Anthology_0892060_Taupe.jpg"
+      ],
+      "portalFaceNumbers": {
+        "Deco_Anthology_0892060_Taupe.jpg": 1
+      },
+      "faceObservations": {
+        "Deco_Anthology_0892060_Taupe.jpg": {
+          "portalSize": "4826,48 KB",
+          "bytesRounded": 4826480,
+          "roundingToleranceBytes": 5
+        }
+      },
+      "packPieces": 30,
+      "packAreaM2": 1.12,
+      "notes": [
+        "Exact base SKU already exists. Inspect original face bounds, orientation and ICC before integration."
+      ]
+    },
+    "0892070": {
+      "collection": "Deco",
+      "portalCollection": "Deco",
+      "colorId": "grey",
+      "color": "Grey",
+      "reference": "0892070",
+      "sourceFormat": "20x20",
+      "sourceFormatCm": {
+        "width": 20,
+        "height": 20
+      },
+      "engineFormatMetres": {
+        "width": 0.2,
+        "height": 0.2
+      },
+      "finish": "R10 · 9 mm",
+      "kind": "base",
+      "catalogueVerified": true,
+      "runtimeExactSkuPresent": true,
+      "nativeTextureAssignmentAllowed": true,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": 119,
+      "printedPages": [
+        234,
+        235
+      ],
+      "portalFaces": [
+        "Deco_Anthology_0892070_Grey.jpg"
+      ],
+      "portalFaceNumbers": {
+        "Deco_Anthology_0892070_Grey.jpg": 1
+      },
+      "faceObservations": {
+        "Deco_Anthology_0892070_Grey.jpg": {
+          "portalSize": "4542,9 KB",
+          "bytesRounded": 4542900,
+          "roundingToleranceBytes": 5
+        }
+      },
+      "packPieces": 30,
+      "packAreaM2": 1.12,
+      "notes": [
+        "Exact base SKU already exists. Inspect original face bounds, orientation and ICC before integration."
+      ]
+    },
+    "0892080": {
+      "collection": "Deco",
+      "portalCollection": "Deco",
+      "colorId": "black",
+      "color": "Black",
+      "reference": "0892080",
+      "sourceFormat": "20x20",
+      "sourceFormatCm": {
+        "width": 20,
+        "height": 20
+      },
+      "engineFormatMetres": {
+        "width": 0.2,
+        "height": 0.2
+      },
+      "finish": "R10 · 9 mm",
+      "kind": "base",
+      "catalogueVerified": true,
+      "runtimeExactSkuPresent": true,
+      "nativeTextureAssignmentAllowed": true,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": 119,
+      "printedPages": [
+        234,
+        235
+      ],
+      "portalFaces": [
+        "Deco_Anthology_0892080_Black.jpg"
+      ],
+      "portalFaceNumbers": {
+        "Deco_Anthology_0892080_Black.jpg": 1
+      },
+      "faceObservations": {
+        "Deco_Anthology_0892080_Black.jpg": {
+          "portalSize": "285,44 KB",
+          "bytesRounded": 285440,
+          "roundingToleranceBytes": 5
+        }
+      },
+      "packPieces": 30,
+      "packAreaM2": 1.12,
+      "notes": [
+        "Exact base SKU already exists. Inspect original face bounds, orientation and ICC before integration."
+      ]
+    },
+    "0892090": {
+      "collection": "Deco",
+      "portalCollection": "Deco",
+      "colorId": "nordic-green",
+      "color": "Nordic Green",
+      "reference": "0892090",
+      "sourceFormat": "20x20",
+      "sourceFormatCm": {
+        "width": 20,
+        "height": 20
+      },
+      "engineFormatMetres": {
+        "width": 0.2,
+        "height": 0.2
+      },
+      "finish": "R10 · 9 mm",
+      "kind": "base",
+      "catalogueVerified": true,
+      "runtimeExactSkuPresent": true,
+      "nativeTextureAssignmentAllowed": true,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": 119,
+      "printedPages": [
+        234,
+        235
+      ],
+      "portalFaces": [
+        "Deco_Anthology_0892090_Nordic_Green.jpg"
+      ],
+      "portalFaceNumbers": {
+        "Deco_Anthology_0892090_Nordic_Green.jpg": 1
+      },
+      "faceObservations": {
+        "Deco_Anthology_0892090_Nordic_Green.jpg": {
+          "portalSize": "305,02 KB",
+          "bytesRounded": 305020,
+          "roundingToleranceBytes": 5
+        }
+      },
+      "packPieces": 30,
+      "packAreaM2": 1.12,
+      "notes": [
+        "Exact base SKU already exists. Inspect original face bounds, orientation and ICC before integration."
+      ]
+    },
+    "089D1A1": {
+      "collection": "Deco",
+      "portalCollection": "Deco",
+      "colorId": "etnic-a-light-blue",
+      "color": "Etnic A Light Blue",
+      "reference": "089D1A1",
+      "sourceFormat": "20x20",
+      "sourceFormatCm": {
+        "width": 20,
+        "height": 20
+      },
+      "engineFormatMetres": {
+        "width": 0.2,
+        "height": 0.2
+      },
+      "finish": "R10 · 9 mm",
+      "kind": "decor",
+      "catalogueVerified": true,
+      "runtimeExactSkuPresent": false,
+      "nativeTextureAssignmentAllowed": false,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": 119,
+      "printedPages": [
+        234,
+        235
+      ],
+      "portalFaces": [
+        "Deco_Anthology_089D1A1-ETNIC-A-LIGHT-BLUE.jpg"
+      ],
+      "portalFaceNumbers": {
+        "Deco_Anthology_089D1A1-ETNIC-A-LIGHT-BLUE.jpg": 1
+      },
+      "faceObservations": {
+        "Deco_Anthology_089D1A1-ETNIC-A-LIGHT-BLUE.jpg": {
+          "portalSize": "280,19 KB",
+          "bytesRounded": 280190,
+          "roundingToleranceBytes": 5
+        }
+      },
+      "packPieces": 30,
+      "packAreaM2": 1.12,
+      "notes": [
+        "Decor is a distinct SKU, not a base-colour face. Current runtime has only a generic unavailable decors placeholder; add a distinct reviewed product before activation."
+      ]
+    },
+    "089D1A2": {
+      "collection": "Deco",
+      "portalCollection": "Deco",
+      "colorId": "etnic-a-bw",
+      "color": "Etnic A B&W",
+      "reference": "089D1A2",
+      "sourceFormat": "20x20",
+      "sourceFormatCm": {
+        "width": 20,
+        "height": 20
+      },
+      "engineFormatMetres": {
+        "width": 0.2,
+        "height": 0.2
+      },
+      "finish": "R10 · 9 mm",
+      "kind": "decor",
+      "catalogueVerified": true,
+      "runtimeExactSkuPresent": false,
+      "nativeTextureAssignmentAllowed": false,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": 119,
+      "printedPages": [
+        234,
+        235
+      ],
+      "portalFaces": [
+        "Deco_Anthology_089D1A2-ETNIC-A-B&W.jpg"
+      ],
+      "portalFaceNumbers": {
+        "Deco_Anthology_089D1A2-ETNIC-A-B&W.jpg": 1
+      },
+      "faceObservations": {
+        "Deco_Anthology_089D1A2-ETNIC-A-B&W.jpg": {
+          "portalSize": "259,22 KB",
+          "bytesRounded": 259220,
+          "roundingToleranceBytes": 5
+        }
+      },
+      "packPieces": 30,
+      "packAreaM2": 1.12,
+      "notes": [
+        "Decor is a distinct SKU, not a base-colour face. Current runtime has only a generic unavailable decors placeholder; add a distinct reviewed product before activation."
+      ]
+    },
+    "089D1B1": {
+      "collection": "Deco",
+      "portalCollection": "Deco",
+      "colorId": "etnic-b-light-blue",
+      "color": "Etnic B Light Blue",
+      "reference": "089D1B1",
+      "sourceFormat": "20x20",
+      "sourceFormatCm": {
+        "width": 20,
+        "height": 20
+      },
+      "engineFormatMetres": {
+        "width": 0.2,
+        "height": 0.2
+      },
+      "finish": "R10 · 9 mm",
+      "kind": "decor",
+      "catalogueVerified": true,
+      "runtimeExactSkuPresent": false,
+      "nativeTextureAssignmentAllowed": false,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": 119,
+      "printedPages": [
+        234,
+        235
+      ],
+      "portalFaces": [
+        "Deco_Anthology_089D1B1-ETNIC-B-LIGHT-BLUE.jpg"
+      ],
+      "portalFaceNumbers": {
+        "Deco_Anthology_089D1B1-ETNIC-B-LIGHT-BLUE.jpg": 1
+      },
+      "faceObservations": {
+        "Deco_Anthology_089D1B1-ETNIC-B-LIGHT-BLUE.jpg": {
+          "portalSize": "309,8 KB",
+          "bytesRounded": 309800,
+          "roundingToleranceBytes": 5
+        }
+      },
+      "packPieces": 30,
+      "packAreaM2": 1.12,
+      "notes": [
+        "Decor is a distinct SKU, not a base-colour face. Current runtime has only a generic unavailable decors placeholder; add a distinct reviewed product before activation."
+      ]
+    },
+    "089D1B2": {
+      "collection": "Deco",
+      "portalCollection": "Deco",
+      "colorId": "etnic-b-bw",
+      "color": "Etnic B B&W",
+      "reference": "089D1B2",
+      "sourceFormat": "20x20",
+      "sourceFormatCm": {
+        "width": 20,
+        "height": 20
+      },
+      "engineFormatMetres": {
+        "width": 0.2,
+        "height": 0.2
+      },
+      "finish": "R10 · 9 mm",
+      "kind": "decor",
+      "catalogueVerified": true,
+      "runtimeExactSkuPresent": false,
+      "nativeTextureAssignmentAllowed": false,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": 119,
+      "printedPages": [
+        234,
+        235
+      ],
+      "portalFaces": [
+        "Deco_Anthology_089D1B2-ETNIC-B-B&W.jpg"
+      ],
+      "portalFaceNumbers": {
+        "Deco_Anthology_089D1B2-ETNIC-B-B&W.jpg": 1
+      },
+      "faceObservations": {
+        "Deco_Anthology_089D1B2-ETNIC-B-B&W.jpg": {
+          "portalSize": "285,42 KB",
+          "bytesRounded": 285420,
+          "roundingToleranceBytes": 5
+        }
+      },
+      "packPieces": 30,
+      "packAreaM2": 1.12,
+      "notes": [
+        "Decor is a distinct SKU, not a base-colour face. Current runtime has only a generic unavailable decors placeholder; add a distinct reviewed product before activation."
+      ]
+    },
+    "089D1C1": {
+      "collection": "Deco",
+      "portalCollection": "Deco",
+      "colorId": "etnic-c-bw",
+      "color": "Etnic C B&W",
+      "reference": "089D1C1",
+      "sourceFormat": "20x20",
+      "sourceFormatCm": {
+        "width": 20,
+        "height": 20
+      },
+      "engineFormatMetres": {
+        "width": 0.2,
+        "height": 0.2
+      },
+      "finish": "R10 · 9 mm",
+      "kind": "decor",
+      "catalogueVerified": true,
+      "runtimeExactSkuPresent": false,
+      "nativeTextureAssignmentAllowed": false,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": 119,
+      "printedPages": [
+        234,
+        235
+      ],
+      "portalFaces": [
+        "Deco_Anthology_089D1C1-ETNIC-C-B&W.jpg"
+      ],
+      "portalFaceNumbers": {
+        "Deco_Anthology_089D1C1-ETNIC-C-B&W.jpg": 1
+      },
+      "faceObservations": {
+        "Deco_Anthology_089D1C1-ETNIC-C-B&W.jpg": {
+          "portalSize": "271,34 KB",
+          "bytesRounded": 271340,
+          "roundingToleranceBytes": 5
+        }
+      },
+      "packPieces": 30,
+      "packAreaM2": 1.12,
+      "notes": [
+        "Decor is a distinct SKU, not a base-colour face. Current runtime has only a generic unavailable decors placeholder; add a distinct reviewed product before activation."
+      ]
+    },
+    "089D2A1": {
+      "collection": "Deco",
+      "portalCollection": "Deco",
+      "colorId": "geo-a-light-blue",
+      "color": "Geo A Light Blue",
+      "reference": "089D2A1",
+      "sourceFormat": "20x20",
+      "sourceFormatCm": {
+        "width": 20,
+        "height": 20
+      },
+      "engineFormatMetres": {
+        "width": 0.2,
+        "height": 0.2
+      },
+      "finish": "R10 · 9 mm",
+      "kind": "decor",
+      "catalogueVerified": true,
+      "runtimeExactSkuPresent": false,
+      "nativeTextureAssignmentAllowed": false,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": 119,
+      "printedPages": [
+        234,
+        235
+      ],
+      "portalFaces": [
+        "Deco_Anthology_089D2A1-GEO-A_Azzurro.jpg"
+      ],
+      "portalFaceNumbers": {
+        "Deco_Anthology_089D2A1-GEO-A_Azzurro.jpg": 1
+      },
+      "faceObservations": {
+        "Deco_Anthology_089D2A1-GEO-A_Azzurro.jpg": {
+          "portalSize": "299,03 KB",
+          "bytesRounded": 299030,
+          "roundingToleranceBytes": 5
+        }
+      },
+      "packPieces": 30,
+      "packAreaM2": 1.12,
+      "notes": [
+        "Decor is a distinct SKU, not a base-colour face. Current runtime has only a generic unavailable decors placeholder; add a distinct reviewed product before activation."
+      ]
+    },
+    "089D2B1": {
+      "collection": "Deco",
+      "portalCollection": "Deco",
+      "colorId": "geo-b-bw",
+      "color": "Geo B B&W",
+      "reference": "089D2B1",
+      "sourceFormat": "20x20",
+      "sourceFormatCm": {
+        "width": 20,
+        "height": 20
+      },
+      "engineFormatMetres": {
+        "width": 0.2,
+        "height": 0.2
+      },
+      "finish": "R10 · 9 mm",
+      "kind": "decor",
+      "catalogueVerified": true,
+      "runtimeExactSkuPresent": false,
+      "nativeTextureAssignmentAllowed": false,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": 119,
+      "printedPages": [
+        234,
+        235
+      ],
+      "portalFaces": [
+        "Deco_Anthology_089D2B1-GEO-B_B&W.jpg"
+      ],
+      "portalFaceNumbers": {
+        "Deco_Anthology_089D2B1-GEO-B_B&W.jpg": 1
+      },
+      "faceObservations": {
+        "Deco_Anthology_089D2B1-GEO-B_B&W.jpg": {
+          "portalSize": "157,8 KB",
+          "bytesRounded": 157800,
+          "roundingToleranceBytes": 5
+        }
+      },
+      "packPieces": 30,
+      "packAreaM2": 1.12,
+      "notes": [
+        "Decor is a distinct SKU, not a base-colour face. Current runtime has only a generic unavailable decors placeholder; add a distinct reviewed product before activation."
+      ]
+    },
+    "089D2C1": {
+      "collection": "Deco",
+      "portalCollection": "Deco",
+      "colorId": "geo-c-taupe",
+      "color": "Geo C Taupe",
+      "reference": "089D2C1",
+      "sourceFormat": "20x20",
+      "sourceFormatCm": {
+        "width": 20,
+        "height": 20
+      },
+      "engineFormatMetres": {
+        "width": 0.2,
+        "height": 0.2
+      },
+      "finish": "R10 · 9 mm",
+      "kind": "decor",
+      "catalogueVerified": true,
+      "runtimeExactSkuPresent": false,
+      "nativeTextureAssignmentAllowed": false,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": 119,
+      "printedPages": [
+        234,
+        235
+      ],
+      "portalFaces": [
+        "Deco_Anthology_089D2C1-GEO-C_Taupe.jpg"
+      ],
+      "portalFaceNumbers": {
+        "Deco_Anthology_089D2C1-GEO-C_Taupe.jpg": 1
+      },
+      "faceObservations": {
+        "Deco_Anthology_089D2C1-GEO-C_Taupe.jpg": {
+          "portalSize": "248,78 KB",
+          "bytesRounded": 248780,
+          "roundingToleranceBytes": 5
+        }
+      },
+      "packPieces": 30,
+      "packAreaM2": 1.12,
+      "notes": [
+        "Decor is a distinct SKU, not a base-colour face. Current runtime has only a generic unavailable decors placeholder; add a distinct reviewed product before activation."
+      ]
+    },
+    "089D3A1": {
+      "collection": "Deco",
+      "portalCollection": "Deco",
+      "colorId": "original-a-black",
+      "color": "Original A Black",
+      "reference": "089D3A1",
+      "sourceFormat": null,
+      "sourceFormatCm": null,
+      "engineFormatMetres": null,
+      "finish": null,
+      "kind": "decor",
+      "catalogueVerified": false,
+      "runtimeExactSkuPresent": false,
+      "nativeTextureAssignmentAllowed": false,
+      "verifiedBy": "official_portal_filename_only",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": null,
+      "printedPages": null,
+      "portalFaces": [
+        "Deco_Anthology_089D3A1-ORIGINAL-A-BLACK.jpg"
+      ],
+      "portalFaceNumbers": {
+        "Deco_Anthology_089D3A1-ORIGINAL-A-BLACK.jpg": 1
+      },
+      "faceObservations": {
+        "Deco_Anthology_089D3A1-ORIGINAL-A-BLACK.jpg": {
+          "portalSize": "310,77 KB",
+          "bytesRounded": 310770,
+          "roundingToleranceBytes": 5
+        }
+      },
+      "packPieces": null,
+      "packAreaM2": null,
+      "notes": [
+        "Decor is a distinct SKU, not a base-colour face. Current runtime has only a generic unavailable decors placeholder; add a distinct reviewed product before activation.",
+        "Absent from the current 2026 catalogue table and current official public Deco page; keep unavailable pending source confirmation. Do not infer format, finish or price from neighbouring references."
+      ]
+    },
+    "089D3A2": {
+      "collection": "Deco",
+      "portalCollection": "Deco",
+      "colorId": "original-a-white",
+      "color": "Original A White",
+      "reference": "089D3A2",
+      "sourceFormat": null,
+      "sourceFormatCm": null,
+      "engineFormatMetres": null,
+      "finish": null,
+      "kind": "decor",
+      "catalogueVerified": false,
+      "runtimeExactSkuPresent": false,
+      "nativeTextureAssignmentAllowed": false,
+      "verifiedBy": "official_portal_filename_only",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": null,
+      "printedPages": null,
+      "portalFaces": [
+        "Deco_Anthology_089D3A2-ORIGINAL-A-WHITE.jpg"
+      ],
+      "portalFaceNumbers": {
+        "Deco_Anthology_089D3A2-ORIGINAL-A-WHITE.jpg": 1
+      },
+      "faceObservations": {
+        "Deco_Anthology_089D3A2-ORIGINAL-A-WHITE.jpg": {
+          "portalSize": "227,1 KB",
+          "bytesRounded": 227100,
+          "roundingToleranceBytes": 5
+        }
+      },
+      "packPieces": null,
+      "packAreaM2": null,
+      "notes": [
+        "Decor is a distinct SKU, not a base-colour face. Current runtime has only a generic unavailable decors placeholder; add a distinct reviewed product before activation.",
+        "Absent from the current 2026 catalogue table and current official public Deco page; keep unavailable pending source confirmation. Do not infer format, finish or price from neighbouring references."
+      ]
+    },
+    "089D3B1": {
+      "collection": "Deco",
+      "portalCollection": "Deco",
+      "colorId": "original-b-bw",
+      "color": "Original B B&W",
+      "reference": "089D3B1",
+      "sourceFormat": "20x20",
+      "sourceFormatCm": {
+        "width": 20,
+        "height": 20
+      },
+      "engineFormatMetres": {
+        "width": 0.2,
+        "height": 0.2
+      },
+      "finish": "R10 · 9 mm",
+      "kind": "decor",
+      "catalogueVerified": true,
+      "runtimeExactSkuPresent": false,
+      "nativeTextureAssignmentAllowed": false,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": 119,
+      "printedPages": [
+        234,
+        235
+      ],
+      "portalFaces": [
+        "Deco_Anthology_089D3B1-ORIGINAL-B-B&W.jpg"
+      ],
+      "portalFaceNumbers": {
+        "Deco_Anthology_089D3B1-ORIGINAL-B-B&W.jpg": 1
+      },
+      "faceObservations": {
+        "Deco_Anthology_089D3B1-ORIGINAL-B-B&W.jpg": {
+          "portalSize": "308,98 KB",
+          "bytesRounded": 308980,
+          "roundingToleranceBytes": 5
+        }
+      },
+      "packPieces": 30,
+      "packAreaM2": 1.12,
+      "notes": [
+        "Decor is a distinct SKU, not a base-colour face. Current runtime has only a generic unavailable decors placeholder; add a distinct reviewed product before activation."
+      ]
+    },
+    "089D3B2": {
+      "collection": "Deco",
+      "portalCollection": "Deco",
+      "colorId": "original-b-light-blue",
+      "color": "Original B Light Blue",
+      "reference": "089D3B2",
+      "sourceFormat": "20x20",
+      "sourceFormatCm": {
+        "width": 20,
+        "height": 20
+      },
+      "engineFormatMetres": {
+        "width": 0.2,
+        "height": 0.2
+      },
+      "finish": "R10 · 9 mm",
+      "kind": "decor",
+      "catalogueVerified": true,
+      "runtimeExactSkuPresent": false,
+      "nativeTextureAssignmentAllowed": false,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": 119,
+      "printedPages": [
+        234,
+        235
+      ],
+      "portalFaces": [
+        "Deco_Anthology_089D3B2-ORIGINAL-B-LIGHT-BLUE.jpg"
+      ],
+      "portalFaceNumbers": {
+        "Deco_Anthology_089D3B2-ORIGINAL-B-LIGHT-BLUE.jpg": 1
+      },
+      "faceObservations": {
+        "Deco_Anthology_089D3B2-ORIGINAL-B-LIGHT-BLUE.jpg": {
+          "portalSize": "201,03 KB",
+          "bytesRounded": 201030,
+          "roundingToleranceBytes": 5
+        }
+      },
+      "packPieces": 30,
+      "packAreaM2": 1.12,
+      "notes": [
+        "Decor is a distinct SKU, not a base-colour face. Current runtime has only a generic unavailable decors placeholder; add a distinct reviewed product before activation."
+      ]
+    },
+    "089D3C1": {
+      "collection": "Deco",
+      "portalCollection": "Deco",
+      "colorId": "original-c-grey",
+      "color": "Original C Grey",
+      "reference": "089D3C1",
+      "sourceFormat": "20x20",
+      "sourceFormatCm": {
+        "width": 20,
+        "height": 20
+      },
+      "engineFormatMetres": {
+        "width": 0.2,
+        "height": 0.2
+      },
+      "finish": "R10 · 9 mm",
+      "kind": "decor",
+      "catalogueVerified": true,
+      "runtimeExactSkuPresent": false,
+      "nativeTextureAssignmentAllowed": false,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": 119,
+      "printedPages": [
+        234,
+        235
+      ],
+      "portalFaces": [
+        "Deco_Anthology_089D3C1-ORIGINAL-C-GREY.jpg"
+      ],
+      "portalFaceNumbers": {
+        "Deco_Anthology_089D3C1-ORIGINAL-C-GREY.jpg": 1
+      },
+      "faceObservations": {
+        "Deco_Anthology_089D3C1-ORIGINAL-C-GREY.jpg": {
+          "portalSize": "262,59 KB",
+          "bytesRounded": 262590,
+          "roundingToleranceBytes": 5
+        }
+      },
+      "packPieces": 30,
+      "packAreaM2": 1.12,
+      "notes": [
+        "Decor is a distinct SKU, not a base-colour face. Current runtime has only a generic unavailable decors placeholder; add a distinct reviewed product before activation."
+      ]
+    },
+    "089D3C4": {
+      "collection": "Deco",
+      "portalCollection": "Deco",
+      "colorId": "original-c-taupe",
+      "color": "Original C Taupe",
+      "reference": "089D3C4",
+      "sourceFormat": "20x20",
+      "sourceFormatCm": {
+        "width": 20,
+        "height": 20
+      },
+      "engineFormatMetres": {
+        "width": 0.2,
+        "height": 0.2
+      },
+      "finish": "R10 · 9 mm",
+      "kind": "decor",
+      "catalogueVerified": true,
+      "runtimeExactSkuPresent": false,
+      "nativeTextureAssignmentAllowed": false,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": 119,
+      "printedPages": [
+        234,
+        235
+      ],
+      "portalFaces": [
+        "Deco_Anthology_089D3C4-ORIGINAL-C-TAUPE.jpg"
+      ],
+      "portalFaceNumbers": {
+        "Deco_Anthology_089D3C4-ORIGINAL-C-TAUPE.jpg": 1
+      },
+      "faceObservations": {
+        "Deco_Anthology_089D3C4-ORIGINAL-C-TAUPE.jpg": {
+          "portalSize": "318,88 KB",
+          "bytesRounded": 318880,
+          "roundingToleranceBytes": 5
+        }
+      },
+      "packPieces": 30,
+      "packAreaM2": 1.12,
+      "notes": [
+        "Decor is a distinct SKU, not a base-colour face. Current runtime has only a generic unavailable decors placeholder; add a distinct reviewed product before activation."
+      ]
+    },
+    "089D3D1": {
+      "collection": "Deco",
+      "portalCollection": "Deco",
+      "colorId": "original-d-grey",
+      "color": "Original D Grey",
+      "reference": "089D3D1",
+      "sourceFormat": "20x20",
+      "sourceFormatCm": {
+        "width": 20,
+        "height": 20
+      },
+      "engineFormatMetres": {
+        "width": 0.2,
+        "height": 0.2
+      },
+      "finish": "R10 · 9 mm",
+      "kind": "decor",
+      "catalogueVerified": true,
+      "runtimeExactSkuPresent": false,
+      "nativeTextureAssignmentAllowed": false,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": 119,
+      "printedPages": [
+        234,
+        235
+      ],
+      "portalFaces": [
+        "Deco_Anthology_089D3D1-ORIGINAL-D-GREY.jpg"
+      ],
+      "portalFaceNumbers": {
+        "Deco_Anthology_089D3D1-ORIGINAL-D-GREY.jpg": 1
+      },
+      "faceObservations": {
+        "Deco_Anthology_089D3D1-ORIGINAL-D-GREY.jpg": {
+          "portalSize": "228,66 KB",
+          "bytesRounded": 228660,
+          "roundingToleranceBytes": 5
+        }
+      },
+      "packPieces": 30,
+      "packAreaM2": 1.12,
+      "notes": [
+        "Decor is a distinct SKU, not a base-colour face. Current runtime has only a generic unavailable decors placeholder; add a distinct reviewed product before activation."
+      ]
+    },
+    "089D3D3": {
+      "collection": "Deco",
+      "portalCollection": "Deco",
+      "colorId": "original-d-taupe",
+      "color": "Original D Taupe",
+      "reference": "089D3D3",
+      "sourceFormat": "20x20",
+      "sourceFormatCm": {
+        "width": 20,
+        "height": 20
+      },
+      "engineFormatMetres": {
+        "width": 0.2,
+        "height": 0.2
+      },
+      "finish": "R10 · 9 mm",
+      "kind": "decor",
+      "catalogueVerified": true,
+      "runtimeExactSkuPresent": false,
+      "nativeTextureAssignmentAllowed": false,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": 119,
+      "printedPages": [
+        234,
+        235
+      ],
+      "portalFaces": [
+        "Deco_Anthology_089D3D3-ORIGINAL-D-TAUPE.jpg"
+      ],
+      "portalFaceNumbers": {
+        "Deco_Anthology_089D3D3-ORIGINAL-D-TAUPE.jpg": 1
+      },
+      "faceObservations": {
+        "Deco_Anthology_089D3D3-ORIGINAL-D-TAUPE.jpg": {
+          "portalSize": "305,71 KB",
+          "bytesRounded": 305710,
+          "roundingToleranceBytes": 5
+        }
+      },
+      "packPieces": 30,
+      "packAreaM2": 1.12,
+      "notes": [
+        "Decor is a distinct SKU, not a base-colour face. Current runtime has only a generic unavailable decors placeholder; add a distinct reviewed product before activation."
+      ]
+    },
+    "089D4A1": {
+      "collection": "Deco",
+      "portalCollection": "Deco",
+      "colorId": "nordic-a",
+      "color": "Nordic A",
+      "reference": "089D4A1",
+      "sourceFormat": "20x20",
+      "sourceFormatCm": {
+        "width": 20,
+        "height": 20
+      },
+      "engineFormatMetres": {
+        "width": 0.2,
+        "height": 0.2
+      },
+      "finish": "R10 · 9 mm",
+      "kind": "decor",
+      "catalogueVerified": true,
+      "runtimeExactSkuPresent": false,
+      "nativeTextureAssignmentAllowed": false,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": 119,
+      "printedPages": [
+        234,
+        235
+      ],
+      "portalFaces": [
+        "Deco_Anthology_089D4A1_Nordic_A.jpg"
+      ],
+      "portalFaceNumbers": {
+        "Deco_Anthology_089D4A1_Nordic_A.jpg": 1
+      },
+      "faceObservations": {
+        "Deco_Anthology_089D4A1_Nordic_A.jpg": {
+          "portalSize": "778,62 KB",
+          "bytesRounded": 778620,
+          "roundingToleranceBytes": 5
+        }
+      },
+      "packPieces": 30,
+      "packAreaM2": 1.12,
+      "notes": [
+        "Decor is a distinct SKU, not a base-colour face. Current runtime has only a generic unavailable decors placeholder; add a distinct reviewed product before activation."
+      ]
+    },
+    "089D4B1": {
+      "collection": "Deco",
+      "portalCollection": "Deco",
+      "colorId": "nordic-b",
+      "color": "Nordic B",
+      "reference": "089D4B1",
+      "sourceFormat": "20x20",
+      "sourceFormatCm": {
+        "width": 20,
+        "height": 20
+      },
+      "engineFormatMetres": {
+        "width": 0.2,
+        "height": 0.2
+      },
+      "finish": "R10 · 9 mm",
+      "kind": "decor",
+      "catalogueVerified": true,
+      "runtimeExactSkuPresent": false,
+      "nativeTextureAssignmentAllowed": false,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": 119,
+      "printedPages": [
+        234,
+        235
+      ],
+      "portalFaces": [
+        "Deco_Anthology_089D4B1_Nordic_B.jpg"
+      ],
+      "portalFaceNumbers": {
+        "Deco_Anthology_089D4B1_Nordic_B.jpg": 1
+      },
+      "faceObservations": {
+        "Deco_Anthology_089D4B1_Nordic_B.jpg": {
+          "portalSize": "316,45 KB",
+          "bytesRounded": 316450,
+          "roundingToleranceBytes": 5
+        }
+      },
+      "packPieces": 30,
+      "packAreaM2": 1.12,
+      "notes": [
+        "Decor is a distinct SKU, not a base-colour face. Current runtime has only a generic unavailable decors placeholder; add a distinct reviewed product before activation."
+      ]
+    },
+    "089D4C1": {
+      "collection": "Deco",
+      "portalCollection": "Deco",
+      "colorId": "nordic-c",
+      "color": "Nordic C",
+      "reference": "089D4C1",
+      "sourceFormat": "20x20",
+      "sourceFormatCm": {
+        "width": 20,
+        "height": 20
+      },
+      "engineFormatMetres": {
+        "width": 0.2,
+        "height": 0.2
+      },
+      "finish": "R10 · 9 mm",
+      "kind": "decor",
+      "catalogueVerified": true,
+      "runtimeExactSkuPresent": false,
+      "nativeTextureAssignmentAllowed": false,
+      "verifiedBy": "visual_review_official_table",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-GENERALE-2026.pdf",
+      "pdfPage": 119,
+      "printedPages": [
+        234,
+        235
+      ],
+      "portalFaces": [
+        "Deco_Anthology_089D4C1_Nordic_C.jpg"
+      ],
+      "portalFaceNumbers": {
+        "Deco_Anthology_089D4C1_Nordic_C.jpg": 1
+      },
+      "faceObservations": {
+        "Deco_Anthology_089D4C1_Nordic_C.jpg": {
+          "portalSize": "279,59 KB",
+          "bytesRounded": 279590,
+          "roundingToleranceBytes": 5
+        }
+      },
+      "packPieces": 30,
+      "packAreaM2": 1.12,
+      "notes": [
+        "Decor is a distinct SKU, not a base-colour face. Current runtime has only a generic unavailable decors placeholder; add a distinct reviewed product before activation."
+      ]
+    }
+  }
+}
