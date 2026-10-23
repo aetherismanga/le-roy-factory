@@ -55,7 +55,7 @@ function latestHistoryText(){
   const native=nativeHistoryEntries();
   if(native.length){
     const head=native[0].querySelector(":scope > div:first-child");
-    const date=head?.querySelector("span")?.textContent?.trim()||"";
+    const date=head?.querySelector("span:last-child")?.textContent?.trim()||"";
     if(date) return `${date} • Visite / échange`;
     return "Historique présent";
   }
@@ -72,18 +72,28 @@ function updateSummary(){
   const activity=document.getElementById("edit-activity")?.selectedOptions?.[0]?.textContent||"Non renseigné";
   const contactCount=countContacts(),partnerCount=countPartners(),historyCount=countHistory();
   const last=latestHistoryText();
-  root.innerHTML=`
+  const markup=`
     <div class="lrf-summary-main"><div class="lrf-summary-name">${esc(company)}</div><div class="lrf-summary-sub">📍 ${esc([cp,city].filter(Boolean).join(" ")||"Adresse à compléter")}<br>${type==="prospect"?"🎯 Prospect":"🏢 Client"} · ${esc(activity)}</div></div>
     <div class="lrf-summary-card"><small>Interlocuteurs</small><strong>👤 ${contactCount}</strong></div>
     <div class="lrf-summary-card"><small>Partenaires</small><strong>🏭 ${partnerCount}</strong></div>
     <div class="lrf-summary-card"><small>Historique</small><strong>🕘 ${historyCount} échange${historyCount>1?"s":""}</strong></div>
     <div class="lrf-summary-card" title="${esc(last)}"><small>Dernier contact</small><strong>${esc(last)}</strong></div>`;
+  if(root._lrfSummaryMarkup!==markup){root.innerHTML=markup;root._lrfSummaryMarkup=markup;}
   updateTabCounts();
 }
 
+function setClass(el,name,enabled=true){
+  if(el.classList.contains(name)!==enabled)el.classList.toggle(name,enabled);
+}
 function activateTab(key){
-  document.querySelectorAll("#client-modal .lrf-tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===key));
-  document.querySelectorAll("#client-modal .lrf-tab-pane").forEach(p=>p.classList.toggle("active",p.dataset.lrfPane===key));
+  if(key==="partners")document.getElementById("lrf-partner-access-section")?.setAttribute("data-collapsed","0");
+  document.querySelectorAll("#client-modal .lrf-tab").forEach(b=>{
+    const selected=b.dataset.tab===key;
+    setClass(b,"active",selected);
+    b.setAttribute("aria-selected",String(selected));
+    b.tabIndex=selected?0:-1;
+  });
+  document.querySelectorAll("#client-modal .lrf-tab-pane").forEach(p=>setClass(p,"active",p.dataset.lrfPane===key));
 }
 function updateTabCounts(){
   const counts={contacts:countContacts(),partners:countPartners(),history:countHistory()};
@@ -92,26 +102,28 @@ function updateTabCounts(){
 
 function classifySections(){
   const modal=document.getElementById("client-modal");if(!modal)return;
-  const info=modal.querySelector(".modal-grid-edit");if(info){info.classList.add("lrf-tab-pane");info.dataset.lrfPane="infos";}
+  const info=modal.querySelector(".modal-grid-edit");if(info){setClass(info,"lrf-tab-pane");info.dataset.lrfPane="infos";}
   const extras=[...modal.querySelectorAll(".crm-extra-section")];
   extras.forEach(sec=>{
-    const t=(sec.textContent||"").toLowerCase();
-    if(t.includes("interlocuteur")){sec.hidden=false;sec.classList.add("lrf-tab-pane");sec.dataset.lrfPane="contacts";}
-    else if(t.includes("partenaire")){sec.hidden=false;sec.classList.add("lrf-tab-pane");sec.dataset.lrfPane="partners";}
+    const t=(sec.querySelector(".crm-extra-title,h3")?.textContent||"").toLowerCase();
+    if(t.includes("interlocuteur")){sec.hidden=false;setClass(sec,"lrf-tab-pane");sec.dataset.lrfPane="contacts";}
+    else if(t.includes("partenaire")){sec.hidden=false;setClass(sec,"lrf-tab-pane");sec.dataset.lrfPane="partners";}
     else if(t.includes("historique")){
       // Historique Moovago dupliqué : la section native Comptes-Rendus reste la référence unique.
-      sec.classList.remove("lrf-tab-pane","active");
+      setClass(sec,"lrf-tab-pane",false);setClass(sec,"active",false);
       sec.removeAttribute("data-lrf-pane");
       sec.hidden=true;
     }
   });
+  const partnerAccess=modal.querySelector("#lrf-partner-access-section");
+  if(partnerAccess){setClass(partnerAccess,"lrf-tab-pane");partnerAccess.dataset.lrfPane="partners";}
   const docs=[...modal.querySelectorAll(".documents-section")];
   docs.forEach(sec=>{
-    const t=(sec.textContent||"").toLowerCase();
-    if(t.includes("documents joints")){sec.classList.add("lrf-tab-pane");sec.dataset.lrfPane="documents";}
+    const t=(sec.querySelector(".documents-title,h3")?.textContent||"").toLowerCase();
+    if(t.includes("documents joints")){setClass(sec,"lrf-tab-pane");sec.dataset.lrfPane="documents";}
     else if(t.includes("compte")||t.includes("visites")||t.includes("échanges")){
       // Une seule zone Historique : formulaire + liste des visites/échanges.
-      sec.classList.add("lrf-tab-pane");sec.dataset.lrfPane="history";sec.hidden=false;
+      setClass(sec,"lrf-tab-pane");sec.dataset.lrfPane="history";sec.hidden=false;
     }
   });
 }
@@ -130,26 +142,84 @@ function buildShell(){
       <button type="button" class="lrf-tab" data-tab="history">🕘 Historique <span class="lrf-tab-count">0</span></button>
       <button type="button" class="lrf-tab" data-tab="documents">📎 Documents</button>`;
     document.getElementById("lrf-client-summary").insertAdjacentElement("afterend",tabs);
-    tabs.querySelectorAll(".lrf-tab").forEach(btn=>btn.addEventListener("click",()=>activateTab(btn.dataset.tab)));
+    tabs.setAttribute("role","tablist");tabs.setAttribute("aria-label","Rubriques de la fiche client");
+    tabs.querySelectorAll(".lrf-tab").forEach(btn=>{
+      btn.setAttribute("role","tab");btn.id=`lrf-tab-${btn.dataset.tab}`;
+      btn.setAttribute("aria-controls",`lrf-pane-${btn.dataset.tab}`);
+      btn.addEventListener("click",()=>activateTab(btn.dataset.tab));
+    });
+    tabs.addEventListener("keydown",event=>{
+      const buttons=[...tabs.querySelectorAll(".lrf-tab")],index=buttons.indexOf(document.activeElement);
+      if(index<0||!["ArrowRight","ArrowLeft","Home","End"].includes(event.key))return;
+      event.preventDefault();
+      const next=event.key==="Home"?0:event.key==="End"?buttons.length-1:(index+(event.key==="ArrowRight"?1:-1)+buttons.length)%buttons.length;
+      activateTab(buttons[next].dataset.tab);buttons[next].focus();
+    });
   }
   classifySections();
+  modal.querySelectorAll(".lrf-tab-pane").forEach(p=>{
+    if(!p.id)p.id=`lrf-pane-${p.dataset.lrfPane}`;
+    p.setAttribute("role","tabpanel");
+    p.setAttribute("aria-labelledby",`lrf-tab-${p.dataset.lrfPane}`);
+    document.getElementById(`lrf-tab-${p.dataset.lrfPane}`)?.setAttribute("aria-controls",p.id);
+  });
   activateTab(document.querySelector("#lrf-client-tabs .lrf-tab.active")?.dataset.tab||"infos");
   updateSummary();
 }
 
 function watchModal(){
   const modal=document.getElementById("client-modal");if(!modal)return;
-  let timer;
-  const refreshShell=()=>{clearTimeout(timer);timer=setTimeout(()=>{if(getComputedStyle(modal).display!=="none")buildShell();},40)};
+  let timer,wasOpen=false,returnFocus=null;
+  modal.setAttribute("role","dialog");modal.setAttribute("aria-modal","true");modal.setAttribute("aria-labelledby","modal-title");
+  const refreshShell=()=>{clearTimeout(timer);timer=setTimeout(()=>{
+    const open=getComputedStyle(modal).display!=="none";
+    document.body.classList.toggle("lrf-client-modal-open",open);
+    if(open){
+      buildShell();
+      if(!wasOpen){returnFocus=document.activeElement;activateTab("infos");document.getElementById("edit-societe")?.focus();}
+    }else if(wasOpen&&returnFocus?.isConnected){returnFocus.focus();}
+    wasOpen=open;
+  },40)};
+  // Explicit form lifecycle also covers closing and reopening between two
+  // observer deliveries, including switching from one client to another.
+  window.addEventListener("lrf-client-opened",()=>{
+    document.body.classList.add("lrf-client-modal-open");
+    if(!wasOpen)returnFocus=document.activeElement;
+    clearTimeout(timer);buildShell();activateTab("infos");wasOpen=true;
+    document.getElementById("edit-societe")?.focus();
+  });
+  window.addEventListener("lrf-client-closed",()=>{
+    document.body.classList.remove("lrf-client-modal-open");
+    clearTimeout(timer);wasOpen=false;
+    if(returnFocus?.isConnected)returnFocus.focus();
+  });
   new MutationObserver(refreshShell).observe(modal,{attributes:true,attributeFilter:["style"]});
 
   const form=document.getElementById("client-form");
   if(form){
-    const refreshData=()=>{clearTimeout(timer);timer=setTimeout(()=>{if(getComputedStyle(modal).display!=="none"){classifySections();updateSummary();}},35)};
-    new MutationObserver(refreshData).observe(form,{childList:true,subtree:true,attributes:true,attributeFilter:["class"]});
+    const refreshData=()=>{clearTimeout(timer);timer=setTimeout(()=>{if(getComputedStyle(modal).display!=="none"){buildShell();}},35)};
+    // Observe structural changes only. Watching classes while classifying the
+    // sections schedules an endless idle render loop on the open form.
+    new MutationObserver(refreshData).observe(form,{childList:true,subtree:true});
+    form.addEventListener("invalid",event=>{
+      const pane=event.target.closest(".lrf-tab-pane");if(pane)activateTab(pane.dataset.lrfPane);
+    },true);
   }
-  modal.addEventListener("input",()=>setTimeout(updateSummary,30));
-  modal.addEventListener("change",()=>setTimeout(updateSummary,30));
+  const refreshSummary=()=>{clearTimeout(timer);timer=setTimeout(updateSummary,35)};
+  modal.addEventListener("input",refreshSummary);
+  modal.addEventListener("change",refreshSummary);
+  modal.addEventListener("click",refreshSummary);
+  modal.addEventListener("keydown",event=>{
+    if(getComputedStyle(modal).display==="none")return;
+    if(event.key==="Escape"){event.preventDefault();document.getElementById("btn-close-modal")?.click();return;}
+    if(event.key!=="Tab")return;
+    const focusables=[...modal.querySelectorAll('button,input,select,textarea,a[href],[tabindex="0"]')]
+      .filter(el=>!el.disabled&&el.tabIndex>=0&&el.getClientRects().length);
+    if(!focusables.length)return;
+    const first=focusables[0],last=focusables[focusables.length-1];
+    if(event.shiftKey&&(document.activeElement===first||!modal.contains(document.activeElement))){event.preventDefault();last.focus();}
+    else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
+  });
 }
 
 function init(){injectStyles();watchModal();const modal=document.getElementById("client-modal");if(modal&&getComputedStyle(modal).display!=="none")buildShell();}

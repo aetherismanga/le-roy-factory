@@ -1,4 +1,4 @@
-import { auth } from './firebase.js';
+import { auth, waitForAgent } from './firebase.js?v=20261023-crm-audit1';
 
 // Tous les appels vers les Cloud Functions LE ROY FACTORY effectués depuis le CRM
 // transportent automatiquement le jeton Firebase de l'agent connecté.
@@ -8,15 +8,13 @@ if (!window.__lrfSecureCloudFetchInstalled) {
   window.fetch = async (input, init = {}) => {
     const url = typeof input === 'string' ? input : String(input?.url || '');
     const isLrfCloudFunction = url.startsWith('https://us-central1-le-roy-factory.cloudfunctions.net/');
-    if (isLrfCloudFunction && auth.currentUser) {
-      try {
-        const token = await auth.currentUser.getIdToken();
-        const headers = new Headers(init.headers || (input instanceof Request ? input.headers : undefined));
-        headers.set('Authorization', `Bearer ${token}`);
-        return nativeFetch(input, { ...init, headers });
-      } catch (error) {
-        console.warn('Impossible d’ajouter le jeton Firebase à la requête CRM :', error);
-      }
+    if (isLrfCloudFunction) {
+      const profile = await waitForAgent();
+      if (!profile || !auth.currentUser) throw new Error('Session CRM expirée. Reconnectez-vous.');
+      const token = await auth.currentUser.getIdToken();
+      const headers = new Headers(init.headers || (input instanceof Request ? input.headers : undefined));
+      headers.set('Authorization', `Bearer ${token}`);
+      return nativeFetch(input, { ...init, headers });
     }
     return nativeFetch(input, init);
   };
@@ -36,13 +34,13 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 
 const lrfCurrentPage=(location.pathname.split('/').pop()||'').toLowerCase();
 const lrfClientIntegrityReady=lrfCurrentPage==='clients.html'
-  ? import('./crm-client-integrity.js?v=20260909-integrity2')
+  ? import('./crm-client-integrity.js?v=20261023-crm-audit1')
       .then(m=>m.ready)
       .catch(err=>{console.error('Erreur contrôle intégrité fiches clients :',err);})
   : Promise.resolve();
 
 if(lrfCurrentPage==='clients.html'){
-  lrfClientIntegrityReady.then(()=>import('./client-partners-sync.js?v=20260909-fix2'))
+  lrfClientIntegrityReady.then(()=>import('./client-partners-sync.js?v=20261023-crm-audit1'))
     .catch(err=>console.error('Erreur synchronisation partenaires client :',err));
 }
 
@@ -64,6 +62,6 @@ if(lrfClockPages.has(lrfCurrentPage)){
   }).catch(err=>console.error('Erreur chargement outils horloge du CRM :',err));
 }
 if(new Set(['dashboard.html','clients.html','comptes-rendus.html']).has(lrfCurrentPage)){
-  const loadSmart=()=>import('./crm-smart-search.js?v=20260909-smart4').catch(err=>console.error('Erreur recherche intelligente CRM :',err));
+  const loadSmart=()=>import('./crm-smart-search.js?v=20261023-crm-audit1').catch(err=>console.error('Erreur recherche intelligente CRM :',err));
   if(lrfCurrentPage==='clients.html')lrfClientIntegrityReady.then(loadSmart);else loadSmart();
 }

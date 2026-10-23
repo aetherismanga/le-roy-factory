@@ -32,36 +32,97 @@
       <input id="note" class="note" type="text" placeholder="Note facultative : ex. ouverture de compte VIEW, RIB 2026…">
       <div class="actions"><button id="upload" class="btn" type="button">Enregistrer les fichiers</button></div>
       <div id="status" class="status">Envoi en cours…</div>
+      <label style="display:block;margin-top:16px"><input id="show-archived" type="checkbox"> Afficher les documents archivés</label>
       <div id="docs" class="docs"></div>
     </section>
   </section>
 </main>
 <script type="module">
-import {db,auth,getAgentProfile} from './assets/js/firebase.js?v=20260914-client-docs1';
-import {collection,doc,onSnapshot,query,orderBy,serverTimestamp,addDoc,updateDoc,arrayUnion,deleteDoc,getDocs} from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
-import {onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
+import {db,auth,getAgentProfile,waitForAgent} from './assets/js/firebase.js';
+import {registerDocument,setDocumentArchive} from './assets/js/crm-records-core.mjs';
+import {collection,doc,onSnapshot,query,where,serverTimestamp,runTransaction} from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+
 
 const UPLOAD_URL='https://us-central1-le-roy-factory.cloudfunctions.net/crmFilesUpload';
 const MAX_BYTES=20*1024*1024;
 const search=document.querySelector('#search'),results=document.querySelector('#results'),workspace=document.querySelector('#workspace'),files=document.querySelector('#files'),drop=document.querySelector('#drop'),note=document.querySelector('#note'),uploadBtn=document.querySelector('#upload'),status=document.querySelector('#status'),docsEl=document.querySelector('#docs');
-let clients=[],allDocs=[],selectedClient=null,started=false;
+let clients=[],allDocs=[],selectedClient=null,started=false,uploading=false,docsUnsubscribe=null;
+const pendingUploads=new Map(),showArchived=document.querySelector("#show-archived");
+showArchived.addEventListener("change",renderDocs);
+const code=c=>c.codeClient||c.codeLRF||c.code_lrf||"";
+const safeUrl=value=>{try{const u=new URL(value);return ["https:","http:"].includes(u.protocol)?u.href:"#"}catch{return "#"}};
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const norm=s=>String(s??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
 const fmtSize=n=>n>=1048576?(n/1048576).toFixed(1)+' Mo':n>=1024?Math.round(n/1024)+' Ko':n+' o';
 function icon(type='',name=''){const t=(type+' '+name).toLowerCase();if(type.startsWith('image/'))return'🖼️';if(t.includes('pdf'))return'📕';if(t.includes('sheet')||t.includes('excel')||t.includes('csv')||t.includes('xlsx'))return'📊';if(t.includes('word')||t.includes('doc'))return'📘';if(t.includes('presentation')||t.includes('powerpoint')||t.includes('ppt'))return'📙';if(t.includes('zip'))return'🗜️';return'📎'}
-function clientLabel(c){return [c.societe,c.ville,c.codePostal||c.code_postal,c.codeLRF||c.code_lrf,c.contact,c.email].filter(Boolean).join(' ')}
-function renderResults(){const q=norm(search.value);results.innerHTML='';if(!q){results.innerHTML='<div class="empty">Commencez à écrire le nom d’un client.</div>';return}const matches=clients.filter(c=>c.archived!==true&&norm(clientLabel(c)).includes(q)).slice(0,30);if(!matches.length){results.innerHTML='<div class="empty">Aucun client trouvé.</div>';return}matches.forEach(c=>{const b=document.createElement('button');b.type='button';b.className='result';b.innerHTML=`<strong>${esc(c.societe||'Client')}</strong><small>${esc([c.codePostal||c.code_postal,c.ville,c.codeLRF||c.code_lrf].filter(Boolean).join(' · '))}</small>`;b.onclick=()=>selectClient(c);results.appendChild(b)})}
-function selectClient(c){selectedClient=c;search.value=c.societe||'';results.innerHTML='';workspace.classList.add('open');document.querySelector('#clientName').textContent=c.societe||'Client';const phones=Array.isArray(c.telephones)?c.telephones.filter(Boolean).join(' / '):(c.telephone||'');document.querySelector('#clientMeta').innerHTML=`${c.codeLRF||c.code_lrf?'<div><strong>Code LRF :</strong> '+esc(c.codeLRF||c.code_lrf)+'</div>':''}${c.adresse?'<div><strong>Adresse :</strong> '+esc(c.adresse)+'</div>':''}<div><strong>Ville :</strong> ${esc([c.codePostal||c.code_postal,c.ville].filter(Boolean).join(' '))}</div>${c.contact?'<div><strong>Contact :</strong> '+esc(c.contact)+'</div>':''}${c.email?'<div><strong>Email :</strong> '+esc(c.email)+'</div>':''}${phones?'<div><strong>Tél. :</strong> '+esc(phones)+'</div>':''}`;renderDocs();setTimeout(()=>workspace.scrollIntoView({behavior:'smooth',block:'start'}),50)}
-function currentDocs(){return selectedClient?allDocs.filter(d=>d.clientId===selectedClient.id):[]}
-function renderDocs(){const list=currentDocs();document.querySelector('#docCount').textContent=`${list.length} document${list.length>1?'s':''}`;if(!list.length){docsEl.innerHTML='<div class="empty">Aucun document enregistré pour ce client.</div>';return}docsEl.innerHTML=list.map(d=>{const isImg=(d.type||'').startsWith('image/');return `<div class="doc">${isImg?`<a href="${esc(d.url)}" target="_blank" rel="noopener"><img class="thumb" src="${esc(d.url)}" alt=""></a>`:`<span class="docIcon">${icon(d.type,d.name)}</span>`}<div><a href="${esc(d.url)}" target="_blank" rel="noopener">${esc(d.name)}</a><small>${d.note?esc(d.note)+' · ':''}${fmtSize(Number(d.size)||0)}${d.uploadedBy?' · '+esc(d.uploadedBy):''}</small></div><button class="delete" type="button" data-id="${esc(d.id)}">Supprimer</button></div>`}).join('')}
+function clientLabel(c){return [c.societe,c.ville,c.codePostal||c.code_postal,code(c),c.contact,c.email].filter(Boolean).join(' ')}
+function renderResults(){const q=norm(search.value);results.innerHTML='';if(!q){results.innerHTML='<div class="empty">Commencez à écrire le nom d’un client.</div>';return}const matches=clients.filter(c=>c.archived!==true&&c.archive!==true&&norm(clientLabel(c)).includes(q)).slice(0,30);if(!matches.length){results.innerHTML='<div class="empty">Aucun client trouvé.</div>';return}matches.forEach(c=>{const b=document.createElement('button');b.type='button';b.className='result';b.innerHTML=`<strong>${esc(c.societe||'Client')}</strong><small>${esc([c.codePostal||c.code_postal,c.ville,code(c)].filter(Boolean).join(' · '))}</small>`;b.onclick=()=>selectClient(c);results.appendChild(b)})}
+function selectClient(c){if(uploading)return;const changed=selectedClient?.id!==c.id||!docsUnsubscribe;selectedClient=c;if(changed)loadClientDocuments(c.id);search.value=c.societe||'';results.innerHTML='';workspace.classList.add('open');document.querySelector('#clientName').textContent=c.societe||'Client';const phones=Array.isArray(c.telephones)?c.telephones.filter(Boolean).join(' / '):(c.telephone||'');document.querySelector('#clientMeta').innerHTML=`${code(c)?'<div><strong>Code LRF :</strong> '+esc(code(c))+'</div>':''}${c.adresse?'<div><strong>Adresse :</strong> '+esc(c.adresse)+'</div>':''}<div><strong>Ville :</strong> ${esc([c.codePostal||c.code_postal,c.ville].filter(Boolean).join(' '))}</div>${c.contact?'<div><strong>Contact :</strong> '+esc(c.contact)+'</div>':''}${c.email?'<div><strong>Email :</strong> '+esc(c.email)+'</div>':''}${phones?'<div><strong>Tél. :</strong> '+esc(phones)+'</div>':''}`;renderDocs();setTimeout(()=>workspace.scrollIntoView({behavior:'smooth',block:'start'}),50)}
+function currentDocs(){return selectedClient?allDocs.filter(d=>d.clientId===selectedClient.id&&(showArchived.checked||d.archived!==true)):[]}
+function renderDocs(){const list=currentDocs();document.querySelector('#docCount').textContent=`${list.length} document${list.length>1?'s':''}`;if(!list.length){docsEl.innerHTML='<div class="empty">Aucun document enregistré pour ce client.</div>';return}docsEl.innerHTML=list.map(d=>{const isImg=String(d.type||'').startsWith('image/');return `<div class="doc">${isImg?`<a href="${esc(safeUrl(d.url))}" target="_blank" rel="noopener"><img class="thumb" src="${esc(safeUrl(d.url))}" alt=""></a>`:`<span class="docIcon">${icon(d.type,d.name)}</span>`}<div><a href="${esc(safeUrl(d.url))}" target="_blank" rel="noopener">${esc(d.name)}</a><small>${d.archived===true?"Archivé · ":""}${d.note?esc(d.note)+' · ':''}${fmtSize(Number(d.size)||0)}${d.uploadedBy?' · '+esc(d.uploadedBy):''}</small></div><button class="delete" type="button" data-id="${esc(d.id)}">${d.archived===true?"Restaurer":"Archiver"}</button></div>`}).join('')}
 function fileToBase64(file){return new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>{const s=String(r.result||'');resolve(s.includes(',')?s.slice(s.indexOf(',')+1):s)};r.onerror=()=>reject(new Error('Impossible de lire '+file.name));r.readAsDataURL(file)})}
 async function uploadOne(clientId,file){if(file.size>MAX_BYTES)throw new Error(file.name+' dépasse 20 Mo.');const user=auth.currentUser;if(!user)throw new Error('Session CRM expirée.');const token=await user.getIdToken();const base64=await fileToBase64(file);const response=await fetch(UPLOAD_URL,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify({scope:'client-documents',parentId:clientId,fileName:file.name,contentType:file.type||'application/octet-stream',base64})});const payload=await response.json().catch(()=>({}));if(!response.ok||!payload.success||!payload.file)throw new Error(payload.error||'Échec de l’envoi de '+file.name);return payload.file}
-async function saveSelected(){if(!selectedClient){alert('Sélectionnez d’abord un client.');return}const selected=Array.from(files.files||[]);if(!selected.length){alert('Choisissez au moins un fichier.');return}const profile=getAgentProfile(auth.currentUser);if(!profile){alert('Session CRM expirée. Reconnectez-vous.');return}uploadBtn.disabled=true;status.classList.add('show');try{for(let i=0;i<selected.length;i++){const f0=selected[i];status.textContent=`Envoi ${i+1}/${selected.length} : ${f0.name}…`;const f=await uploadOne(selectedClient.id,f0);const meta={clientId:selectedClient.id,clientName:selectedClient.societe||'',name:f.name,url:f.url,type:f.type,size:f.size,path:f.path,note:note.value.trim(),uploadedBy:profile.name,uploadedByEmail:profile.email,createdAt:serverTimestamp()};await addDoc(collection(db,'clientDocuments'),meta);await updateDoc(doc(db,'clients',selectedClient.id),{documents:arrayUnion({nom:f.name,name:f.name,url:f.url,type:f.type,size:f.size,path:f.path,note:note.value.trim(),source:'Documents clients',uploadedBy:profile.name,uploadedAt:new Date().toISOString()})})}files.value='';note.value='';status.textContent='Documents enregistrés.';setTimeout(()=>status.classList.remove('show'),1500)}catch(err){console.error(err);alert(err?.message||'Impossible d’enregistrer les documents.');status.classList.remove('show')}finally{uploadBtn.disabled=false}}
+async function saveSelected(){
+  if(uploading)return;
+  if(!selectedClient){alert('Sélectionnez d’abord un client.');return}
+  const selected=Array.from(files.files||[]);
+  if(!selected.length){alert('Choisissez au moins un fichier.');return}
+  const oversized=selected.find(file=>file.size>MAX_BYTES);
+  if(oversized){alert(oversized.name+' dépasse 20 Mo.');return}
+  const profile=getAgentProfile(auth.currentUser);
+  if(!profile){alert('Session CRM expirée. Reconnectez-vous.');return}
+  const client={...selectedClient},draftNote=note.value.trim();
+  uploading=true;uploadBtn.disabled=true;search.disabled=true;files.disabled=true;note.disabled=true;status.classList.add('show');
+  try{
+    for(let i=0;i<selected.length;i++){
+      const source=selected[i],key=[client.id,source.name,source.size,source.lastModified].join('|');
+      status.textContent=`Envoi ${i+1}/${selected.length} : ${source.name}…`;
+      let pending=pendingUploads.get(key);
+      if(!pending){
+        const uploaded=await uploadOne(client.id,source);
+        pending={id:doc(collection(db,'clientDocuments')).id,file:uploaded};
+        pendingUploads.set(key,pending);
+      }
+      const f=pending.file,uploadedAt=new Date().toISOString();
+      const metadata={clientId:client.id,clientName:client.societe||'',name:f.name,url:f.url,type:f.type||'',size:f.size||0,path:f.path||'',note:draftNote,uploadedBy:profile.name,uploadedByEmail:profile.email,uploadedAt,createdAt:serverTimestamp(),archived:false};
+      await registerDocument({db,doc,runTransaction,documentId:pending.id,metadata});
+    }
+    files.value='';note.value='';pendingUploads.clear();status.textContent='Documents enregistrés.';
+    setTimeout(()=>status.classList.remove('show'),2500);
+  }catch(err){console.error(err);status.textContent='Enregistrement incomplet. Les fichiers déjà enregistrés sont conservés. Réessayez pour terminer.';alert(err?.message||'Impossible d’enregistrer les documents.')}
+  finally{uploading=false;uploadBtn.disabled=false;search.disabled=false;files.disabled=false;note.disabled=false}
+}
 uploadBtn.addEventListener('click',saveSelected);search.addEventListener('input',renderResults);search.addEventListener('focus',renderResults);
 ['dragenter','dragover'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('drag')}));['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('drag')}));drop.addEventListener('drop',e=>{if(e.dataTransfer?.files?.length)files.files=e.dataTransfer.files});
-docsEl.addEventListener('click',async e=>{const b=e.target.closest('.delete');if(!b||!selectedClient)return;const d=allDocs.find(x=>x.id===b.dataset.id);if(!d)return;if(!confirm(`Supprimer « ${d.name} » de la liste des documents ?`))return;try{await deleteDoc(doc(db,'clientDocuments',d.id))}catch(err){console.error(err);alert('Suppression impossible.')}});
-function start(){if(started)return;started=true;onSnapshot(collection(db,'clients'),snap=>{clients=snap.docs.map(d=>({id:d.id,...d.data()})).filter(c=>c.archived!==true);clients.sort((a,b)=>String(a.societe||'').localeCompare(String(b.societe||''),'fr',{sensitivity:'base'}));renderResults()},err=>{console.error(err);results.innerHTML='<div class="empty">Impossible de charger les clients.</div>'});onSnapshot(query(collection(db,'clientDocuments'),orderBy('createdAt','desc')),snap=>{allDocs=snap.docs.map(d=>({id:d.id,...d.data()}));renderDocs()},err=>{console.error(err);docsEl.innerHTML='<div class="empty">Impossible de charger les documents.</div>'})}
-onAuthStateChanged(auth,user=>{if(!getAgentProfile(user)){location.replace('agent.html?return='+encodeURIComponent('documents-clients.html'));return}start()});
+docsEl.addEventListener('click',async e=>{
+  const button=e.target.closest('.delete');if(!button||uploading||!selectedClient)return;
+  const item=allDocs.find(x=>x.id===button.dataset.id&&x.clientId===selectedClient.id);if(!item)return;
+  const archived=item.archived!==true;
+  if(!confirm(`${archived?'Archiver':'Restaurer'} « ${item.name} » ? Le fichier sera conservé.`))return;
+  button.disabled=true;
+  try{await setDocumentArchive({db,doc,runTransaction,documentId:item.id,archived,author:getAgentProfile(auth.currentUser)?.name||'Agent',now:new Date().toISOString()})}
+  catch(err){console.error(err);alert(err.message||'Modification impossible.')}
+  finally{button.disabled=false}
+});
+function loadClientDocuments(clientId){
+  docsUnsubscribe?.();allDocs=[];
+  docsUnsubscribe=onSnapshot(query(collection(db,'clientDocuments'),where('clientId','==',clientId)),snap=>{
+    allDocs=snap.docs.map(d=>({...d.data(),id:d.id}));
+    const time=d=>d.createdAt?.toMillis?.()||Date.parse(d.uploadedAt||'')||0;
+    allDocs.sort((a,b)=>time(b)-time(a));renderDocs();
+  },err=>{docsUnsubscribe=null;console.error(err);docsEl.innerHTML='<div class="empty">Impossible de charger les documents. Réessayez en sélectionnant à nouveau ce client.</div>'});
+}
+function start(){
+  if(started)return;started=true;
+  onSnapshot(collection(db,'clients'),snap=>{
+    clients=snap.docs.map(d=>({...d.data(),id:d.id})).filter(c=>c.archived!==true&&c.archive!==true);
+    clients.sort((a,b)=>String(a.societe||'').localeCompare(String(b.societe||''),'fr',{sensitivity:'base'}));
+    renderResults();
+    const requested=new URLSearchParams(location.search).get('client');
+    if(!selectedClient&&requested){const match=clients.find(c=>c.id===requested);if(match)selectClient(match)}
+  },err=>{console.error(err);results.innerHTML='<div class="empty">Impossible de charger les clients.</div>'});
+}
+if(await waitForAgent())start();
 </script>
 </body>
 </html>

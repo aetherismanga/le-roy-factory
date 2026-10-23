@@ -167,7 +167,7 @@
   if(document.getElementById('lrf-global-search-router-loader'))return;
   const script=document.createElement('script');
   script.id='lrf-global-search-router-loader';
-  script.src='assets/js/global-search-router.js?v=20260907-search3';
+  script.src='assets/js/global-search-router.js?v=20261023-crm-audit1';
   script.async=false;
   (document.head||document.documentElement).appendChild(script);
 })();
