@@ -368,7 +368,7 @@ function refreshInspector(){const item=composition?.selected;
  const grid=document.createElement('div');grid.className='object-grid';body.append(grid);if(['furniture','basin'].includes(editTarget)&&composition?.selected?.type==='cabinet')renderCabinetSizeControls(body,composition.selected);
  const option=(label,selected,action,sample)=>{const b=document.createElement('button');b.className='object-choice';b.setAttribute('aria-pressed',String(selected));b.onclick=action;if(sample){const swatch=document.createElement('span');swatch.className='object-sample';swatch.style.backgroundColor=sample.hex||'#ddd';if(sample.file)swatch.style.backgroundImage=`url(${/^(?:https?:|\/)/.test(sample.file)?sample.file:'https://studio-one-beta-test-v2.vercel.app/assets/'+sample.file})`;b.append(swatch);}const text=document.createElement('small');text.textContent=label;b.append(text);grid.append(b);};
  if(editTarget==='profile'){grid.hidden=true;renderProfileInspector(body);}
- else if(editTarget==='tile'){grid.className='object-grid';for(const c of choicesFor(state.wallCollection))option(c.name,(wallFinishes[selectedWall].tiles?.[selectedTile?.key]||state.wall)===c.id,()=>setIndividualTile(c.id),{file:c.file});button(body,'Reprendre la couleur du mur',()=>setIndividualTile(null));button(body,'Terminer les carreaux',()=>{tileEditing=false;selectedTile=null;highlightIndividualTile();openInspector('wall');});}
+ else if(editTarget==='tile'){if(tileSelectionMode==='vertical'){const moves=document.createElement('div');moves.className='object-actions';button(moves,'← Déplacer la colonne',()=>moveSelectedTileColumn(-1));button(moves,'Déplacer la colonne →',()=>moveSelectedTileColumn(1));body.append(moves);}grid.className='object-grid';for(const c of choicesFor(state.wallCollection))option(c.name,(wallFinishes[selectedWall].tiles?.[selectedTile?.key]||state.wall)===c.id,()=>setIndividualTile(c.id),{file:c.file});button(body,'Reprendre la couleur du mur',()=>setIndividualTile(null));button(body,'Terminer les carreaux',()=>{tileEditing=false;selectedTile=null;highlightIndividualTile();openInspector('wall');});}
  else if(isFixture(editTarget)||isAccessory(editTarget)){grid.hidden=true;renderFixtureEditor(body,composition.selected);}
  else if(editTarget==='handle'){grid.hidden=true;renderHandleControls(body,item);}
  else if(editTarget==='furniture'||editTarget==='column'){for(const f of finishesFor(composition.selected?.type==='column'?composition.selected.settings.columnModel:state.format,composition.selected?.type||'cabinet'))option(f.name,state.finish===f.id,()=>selectFinish(f.id),{hex:f.hex,file:f.swatch||f.textureURL||f.texture});}
@@ -641,9 +641,41 @@ function handleObjectTap(hit){
  openInspector(hit?.editTarget);
 }
 function applyWallTileColors(index){applySurfaceTileColors(roomScene?.walls[index],wallFinishes[index]);}
-function tileKeysForSelection(surface,key){const [col,row]=key.split(':').map(Number),vertical=surface.layout.direction==='vertical';return surface.tiles.geometry.userData.cells.filter(c=>{const [x,y]=c.key.split(':').map(Number);return tileSelectionMode==='single'?c.key===key:tileSelectionMode==='horizontal'?(vertical?x===col:y===row):(vertical?y===row:x===col);}).map(c=>c.key);}
+function moveSelectedTileColumn(direction){
+  if(!selectedTile||tileSelectionMode!=='vertical'||![-1,1].includes(direction))return false;
+  const index=selectedTile.wall,surface=roomScene?.walls[index],finish=wallFinishes[index];
+  if(!surface||!finish||finish.collection==='Peinture')return false;
+  const cells=surface.tiles.geometry.userData.cells,allKeys=new Set(cells.map(c=>c.key)),swapped=surface.layout.direction==='vertical';
+  const parts=selectedTile.key.split(':').map(Number),column=parts[swapped?1:0];
+  const columnOf=key=>Number(key.split(':')[swapped?1:0]),otherOf=key=>Number(key.split(':')[swapped?0:1]);
+  const keyAt=(c,o)=>swapped?o+':'+c:c+':'+o,source=cells.filter(c=>columnOf(c.key)===column);
+  const decorated=finish.tiles||{},positions=new Set(source.map(c=>otherOf(c.key)));
+  const available=[...new Set(cells.map(c=>columnOf(c.key)))].filter(c=>direction*(c-column)>0).sort((a,b)=>direction*(a-b));
+  for(const destination of available){
+   const target=cells.filter(c=>columnOf(c.key)===destination);
+   const rows=new Set([...positions,...target.map(c=>otherOf(c.key))]);let compatible=true;
+   for(const row of rows){const a=keyAt(column,row),b=keyAt(destination,row);if(!allKeys.has(a)&&Object.hasOwn(decorated,b)||!allKeys.has(b)&&Object.hasOwn(decorated,a)){compatible=false;break;}}
+   if(!compatible)continue;
+   const next={...decorated};
+   for(const row of rows){
+    const a=keyAt(column,row),b=keyAt(destination,row);
+    if(!allKeys.has(a)||!allKeys.has(b))continue;
+    if(Object.hasOwn(decorated,b))next[a]=decorated[b];else delete next[a];
+    if(Object.hasOwn(decorated,a))next[b]=decorated[a];else delete next[b];
+   }
+   finish.tiles=next;
+   selectedTile.key=allKeys.has(keyAt(destination,parts[swapped?0:1]))?keyAt(destination,parts[swapped?0:1]):target[0].key;
+   selectedTile.keys=tileKeysForSelection(surface,selectedTile.key);
+   applyWallTileColors(index);highlightIndividualTile();refreshInspector();refreshQuantities();invalidate();scheduleProjectCheckpoint();
+   placementStatus('Colonne déplacée '+(direction<0?'vers la gauche.':'vers la droite.')+' Les motifs restent dans le même ordre.');
+   return true;
+  }
+  placementStatus('Pas de colonne libre dans ce sens, ou une ouverture empêche le déplacement.');
+  return false;
+ }
+ function tileKeysForSelection(surface,key){const [col,row]=key.split(':').map(Number),vertical=surface.layout.direction==='vertical';return surface.tiles.geometry.userData.cells.filter(c=>{const [x,y]=c.key.split(':').map(Number);return tileSelectionMode==='single'?c.key===key:tileSelectionMode==='horizontal'?(vertical?x===col:y===row):(vertical?y===row:x===col);}).map(c=>c.key);}
 function highlightIndividualTile(){for(const w of roomScene?.walls||[]){if(w.tileSelection){w.tileSelection.removeFromParent();disposeObject(w.tileSelection);w.tileSelection.geometry?.dispose();w.tileSelection.material?.dispose();w.tileSelection=null;}}if(!selectedTile)return;const w=roomScene.walls[selectedTile.wall],g=w.tiles.geometry,p=g.attributes.position,positions=[];for(const [i,key]of (g.userData.faceCells||[]).entries())if(selectedTile.keys.includes(key))for(let j=0;j<3;j++)positions.push(p.getX(g.index?.getX(i*3+j)??i*3+j),p.getY(g.index?.getX(i*3+j)??i*3+j),p.getZ(g.index?.getX(i*3+j)??i*3+j)+.002);const selected=new T.BufferGeometry();selected.setAttribute('position',new T.Float32BufferAttribute(positions,3));const lines=new T.LineSegments(new T.EdgesGeometry(selected),new T.LineBasicMaterial({color:'#c6a15c'}));selected.dispose();lines.raycast=()=>{};w.tileSelection=lines;w.group.add(lines);}
-function setIndividualTile(color){if(!selectedTile||selectedTile.wall!==selectedWall||state.wallCollection==='Peinture')return false;const w=roomScene.walls[selectedWall],f=wallFinishes[selectedWall];if(!w.tiles.geometry.userData.cells.some(c=>c.key===selectedTile.key)||color!==null&&!choicesFor(f.collection).some(c=>c.id===color))return false;f.tiles={...f.tiles};for(const key of selectedTile.keys){if(color===null||color===f.color)delete f.tiles[key];else f.tiles[key]=color;}applyWallTileColors(selectedWall);refreshInspector();refreshQuantities();invalidate();return true;}
+function setIndividualTile(color){if(!selectedTile||selectedTile.wall!==selectedWall||state.wallCollection==='Peinture')return false;const w=roomScene.walls[selectedWall],f=wallFinishes[selectedWall];if(!w.tiles.geometry.userData.cells.some(c=>c.key===selectedTile.key)||color!==null&&!choicesFor(f.collection).some(c=>c.id===color))return false;f.tiles={...f.tiles};for(const key of selectedTile.keys){if(color===null||color===f.color)delete f.tiles[key];else f.tiles[key]=color;}applyWallTileColors(selectedWall);refreshInspector();refreshQuantities();invalidate();scheduleProjectCheckpoint();return true;}
 function renderPartitionInspector(parent){const index=roomScene.walls[selectedWall].partition,p=roomConfig.partitions[index],box=document.createElement('div');box.className='partition-context';const length=numberField(box,'Longueur (cm)',Math.round(Math.hypot(p.b[0]-p.a[0],p.b[1]-p.a[1])),20,1000),thickness=numberField(box,'Épaisseur (cm)',p.thickness,5,30);field(box,'Hauteur',p.fullHeight?'full':'custom',[{id:'full',name:'Toute hauteur'},{id:'custom',name:'Demi-cloison / au choix'}],mode=>updatePartitionFromInspector({fullHeight:mode==='full',height:mode==='full'?roomConfig.height:Math.min(p.height,120)}));const height=numberField(box,'Hauteur (cm)',p.height,30,roomConfig.height);height.disabled=!!p.fullHeight;button(box,'Appliquer à la cloison',()=>updatePartitionFromInspector({length:Number(length.value),thickness:Number(thickness.value),height:Number(height.value)}));button(box,'Déplacer sur le plan',()=>roomEditor.open(index));button(box,'Supprimer la cloison',removeSelectedPartition);parent.append(box);}
 function updatePartitionFromInspector(patch){const index=roomScene?.walls[selectedWall]?.partition;if(index===undefined)return false;const draft=cloneRoom(roomConfig),p=draft.partitions[index];if(patch.length!==undefined){if(!Number.isInteger(patch.length)||patch.length<20||patch.length>1000){placementStatus('Longueur entre 20 et 1 000 cm.');return false;}const dx=p.b[0]-p.a[0],dy=p.b[1]-p.a[1],length=Math.hypot(dx,dy);p.b=[Math.round(p.a[0]+dx/length*patch.length),Math.round(p.a[1]+dy/length*patch.length)];}for(const key of ['thickness','height','fullHeight'])if(patch[key]!==undefined)p[key]=patch[key];if(p.fullHeight)p.height=draft.height;if(!applyRoom(draft)){placementStatus($('#room-status').textContent);return false;}refreshInspector();placementStatus('Cloison mise à jour.');return true;}
 function removeSelectedPartition(){const index=roomScene?.walls[selectedWall]?.partition;if(index===undefined)return false;const draft=cloneRoom(roomConfig);draft.partitions.splice(index,1);if(!applyRoom(draft)){placementStatus($('#room-status').textContent);return false;}closeInspector();placementStatus('Cloison supprimée.');return true;}
