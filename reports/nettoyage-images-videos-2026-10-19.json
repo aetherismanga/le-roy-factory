@@ -8,7 +8,7 @@
   "removedPaths": [
     "assets/brand-v2/accueil-desktop.png",
     "assets/brand-v2/accueil-mobile.png",
-    "assets/brand-v2/assetlogorond.png",
+    "assets/brand-v2/assetlogorond.png?v=20260915-lrf-green-standard",
     "assets/brand-v2/fondsite-home.webp",
     "assets/brand-v2/fondsite.jpg",
     "assets/brand-v2/logo-le-roy-factory-wine.svg",
@@ -896,7 +896,7 @@
     "assets/videos/video01.mp4"
   ],
   "retainedCompatibilityFiles": [
-    "assets/img/logo03lrf.png",
+    "assets/img/logo03lrf.png?v=20260915-lrf-green-standard",
     "assets/img/randal/finishes/harmony/serenade-alba.webp",
     "assets/img/randal/finishes/harmony/blanco-mate.webp",
     "assets/img/randal/finishes/harmony/gris-tortora.webp"

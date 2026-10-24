@@ -1,5 +1,5 @@
-const CACHE='lrf-pwa-v14-suite-20261024';
-const CORE=['/','/index.html','/assets/img/logo03lrf.png'];
+const CACHE='lrf-pwa-v10-green-logo-20260915';
+const CORE=['/','/index.html','/assets/img/logo03lrf.png?v=20260915-lrf-green-standard'];
 
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).catch(()=>{}));
