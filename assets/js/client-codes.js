@@ -1,5 +1,5 @@
 import { db } from "./firebase.js";
-import { collection, doc, onSnapshot, runTransaction } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 let clients=[];
 let assigning=false;
@@ -22,47 +22,8 @@ function departmentFromPostal(cp){
 }
 function clientDepartment(c){return String(c?.departement||c?.Dept||departmentFromPostal(c?.codePostal||c?.code_postal)||"").replace(/^FR-/i,"").trim()}
 
-async function assignCode(clientId){
-  const clientRef=doc(db,"clients",clientId);
-  const counterRef=doc(db,"crm_meta","client_codes");
-  return runTransaction(db,async tx=>{
-    const clientSnap=await tx.get(clientRef);
-    if(!clientSnap.exists())return null;
-    const data=clientSnap.data();
-    if(/^LRF-\d{5}$/i.test(String(data.codeClient||"")))return data.codeClient;
-    const counterSnap=await tx.get(counterRef);
-    const last=Number(counterSnap.exists()?counterSnap.data().lastNumber:0)||0;
-    const next=last+1;
-    if(next>99999)throw new Error("La limite de 99 999 codes clients est atteinte.");
-    const code=formatCode(next);
-    tx.set(counterRef,{lastNumber:next,updatedAt:new Date().toISOString()},{merge:true});
-    tx.update(clientRef,{codeClient:code,departement:clientDepartment(data)||departmentFromPostal(data.codePostal||data.code_postal)});
-    return code;
-  });
-}
-
-async function ensureCounterAtLeastExisting(){
-  const maxExisting=clients.reduce((m,c)=>Math.max(m,codeNumber(c.codeClient)),0);
-  if(!maxExisting)return;
-  const ref=doc(db,"crm_meta","client_codes");
-  await runTransaction(db,async tx=>{
-    const snap=await tx.get(ref);
-    const last=Number(snap.exists()?snap.data().lastNumber:0)||0;
-    if(last<maxExisting)tx.set(ref,{lastNumber:maxExisting,updatedAt:new Date().toISOString()},{merge:true});
-  });
-}
-
-async function assignMissingCodes(){
-  if(assigning)return;
-  assigning=true;
-  try{
-    await ensureCounterAtLeastExisting();
-    const missing=clients.filter(c=>c.archived!==true&&c.archive!==true&&!c.duplicateOf&&!/^LRF-\d{5}$/i.test(String(c.codeClient||""))).sort((a,b)=>String(a.societe||"").localeCompare(String(b.societe||""),"fr"));
-    for(const c of missing){
-      try{await assignCode(c.id)}catch(e){console.error("Attribution code LRF",c.societe,e)}
-    }
-  }finally{assigning=false}
-}
+// Codes are assigned atomically only when a new client is explicitly saved.
+// Existing codes, including legacy formats, remain unchanged on page visits.
 
 function injectStyles(){
   if(document.getElementById("client-code-style"))return;
@@ -110,7 +71,7 @@ function decorateRows(){
     const c=findClientForRow(row);if(!c)return;row.dataset.clientId=c.id;
     let wrap=cells[1].querySelector(".lrf-identifiers");
     if(!wrap){wrap=document.createElement("div");wrap.className="lrf-identifiers";cells[1].appendChild(wrap)}
-    const dep=clientDepartment(c);wrap.innerHTML=`${c.codeClient?`<span class="lrf-code-badge">${esc(c.codeClient)}</span>`:"<span class=\"lrf-code-badge\">Attribution…</span>"}${dep?`<span class="lrf-dept-badge">Dép. ${esc(dep)}</span>`:""}`;
+    const dep=clientDepartment(c);wrap.innerHTML=`${c.codeClient?`<span class="lrf-code-badge">${esc(c.codeClient)}</span>`:"<span class=\"lrf-code-badge\">Non attribué</span>"}${dep?`<span class="lrf-dept-badge">Dép. ${esc(dep)}</span>`:""}`;
   });
   applyCodeSearch();
 }
@@ -118,8 +79,8 @@ function decorateRows(){
 function fillModal(){
   injectModalFields();
   const modal=document.getElementById("client-modal");if(!modal||getComputedStyle(modal).display==="none")return;
-  let c=activeClientId?clients.find(x=>x.id===activeClientId):null;
-  if(!c){const title=document.getElementById("modal-title")?.textContent||"";const name=title.replace(/^Édition\s*:\s*/i,"").trim();if(name)c=clients.find(x=>norm(x.societe)===norm(name))||null;}
+  const id = modal.dataset.clientId || activeClientId;
+  const c = id ? clients.find(x=>x.id===id) : null;
   const code=document.getElementById("edit-code-client"),dep=document.getElementById("edit-departement");
   if(code)code.value=c?.codeClient||"";
   if(dep)dep.value=c?clientDepartment(c):departmentFromPostal(document.getElementById("edit-code-postal")?.value||"");
@@ -172,12 +133,14 @@ function installMobileUnifiedSearch(){
 }
 
 function init(){
+  window.addEventListener("lrf-client-opened",e=>{activeClientId=e.detail?.clientId||null;fillModal()});
+  window.addEventListener("lrf-client-closed",()=>{activeClientId=null});
   injectStyles();injectModalFields();
   const tbody=document.getElementById("clients-table-body");if(tbody)new MutationObserver(()=>setTimeout(()=>{decorateRows();injectCodeSearch();installMobileUnifiedSearch()},0)).observe(tbody,{childList:true});
   document.addEventListener("click",e=>{const row=e.target.closest("#clients-table-body tr");if(row){const c=findClientForRow(row);activeClientId=c?.id||null;setTimeout(fillModal,30)}},true);
   document.getElementById("btn-add-client")?.addEventListener("click",()=>{activeClientId=null;setTimeout(fillModal,30)},true);
   const modal=document.getElementById("client-modal");if(modal)new MutationObserver(()=>setTimeout(fillModal,0)).observe(modal,{attributes:true,attributeFilter:["style"]});
-  onSnapshot(collection(db,"clients"),snap=>{clients=[];snap.forEach(d=>clients.push({id:d.id,...d.data()}));setTimeout(()=>{decorateRows();injectCodeSearch();fillModal();installMobileUnifiedSearch()},0);assignMissingCodes()});
+  onSnapshot(collection(db,"clients"),snap=>{clients=[];snap.forEach(d=>clients.push({...d.data(),id:d.id}));setTimeout(()=>{decorateRows();injectCodeSearch();fillModal();installMobileUnifiedSearch()},0)});
   setTimeout(()=>{injectCodeSearch();installMobileUnifiedSearch()},150);
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();

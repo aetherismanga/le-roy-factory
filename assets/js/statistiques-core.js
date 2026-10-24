@@ -1,4 +1,4 @@
-import { db } from './firebase.js';
+import { db, waitForAgent } from './firebase.js?v=20261023-crm-audit1';
 import { collection, onSnapshot, doc, updateDoc, arrayUnion } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
 import { ELIOS_STATS_CLIENTS } from './statistiques-elios-data.js';
 import { VIEW_STATS_CLIENTS_2026_07 } from './statistiques-view-data.js';
@@ -439,8 +439,8 @@ function render(){
   renderKpis();renderClients();
 }
 
-function init(){
-  if(!localStorage.getItem('agentLoggedIn')){location.href='agent.html';return}
+async function init(){
+  if (!await waitForAgent()) return;
   ensureAdvancedPeriodControls();
   selectedYear=latestYear();
   if(!annualKeyForYear(selectedYear))periodMode='month';
@@ -467,7 +467,7 @@ function init(){
   });
 
   onSnapshot(collection(db,'clients'),snap=>{
-    crmClients=[];snap.forEach(d=>crmClients.push({id:d.id,...d.data()}));
+    crmClients=[];snap.forEach(d=>crmClients.push({...d.data(),id:d.id}));
     renderClients();
   });
 }

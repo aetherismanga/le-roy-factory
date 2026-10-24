@@ -1,0 +1,89 @@
+{
+  "mode": "offline-fictional-only",
+  "started": "2026-10-23T08:23:24.390Z",
+  "finished": "2026-10-23T08:23:33.106Z",
+  "summary": "13 browser checks passed",
+  "checks": [
+    {
+      "name": "Idle modal mutation loop reduced",
+      "status": "passed",
+      "detail": {
+        "baselineIdleFormMutationsPerSecond": 174,
+        "updatedIdleFormMutationsPerSecond": 0
+      }
+    },
+    {
+      "name": "Directory opens without writes; archived records excluded",
+      "status": "passed"
+    },
+    {
+      "name": "Partners panel is accessible; history text cannot misclassify the document pane",
+      "status": "passed"
+    },
+    {
+      "name": "Exact document ID, LRF code, aliases and same-name branch preserved; double submit writes once",
+      "status": "passed"
+    },
+    {
+      "name": "Simulated save failure preserves the open form and unsaved input",
+      "status": "passed"
+    },
+    {
+      "name": "Modal tabs support keyboard arrows and Escape closes the modal",
+      "status": "passed"
+    },
+    {
+      "name": "Fictional create allocates one document and next LRF code under double submit",
+      "status": "passed"
+    },
+    {
+      "name": "Search by LRF code and type filtering",
+      "status": "passed"
+    },
+    {
+      "name": "Saved fictional data survives reload and exact deep link reopens correct record",
+      "status": "passed"
+    },
+    {
+      "name": "Map excludes archived/missing coordinates, filters agent/department/type and links exact document ID",
+      "status": "passed"
+    },
+    {
+      "name": "Mobile cards stay within viewport; modal and map filter sheet work at 390 px",
+      "status": "passed"
+    },
+    {
+      "name": "Client data reads wait for restored Firebase authentication",
+      "status": "passed"
+    },
+    {
+      "name": "Stale localStorage without Firebase session redirects without CRM reads or writes",
+      "status": "passed"
+    }
+  ],
+  "metrics": {
+    "baselineIdleFormMutationsPerSecond": 174,
+    "updatedIdleFormMutationsPerSecond": 0
+  },
+  "pageErrors": [],
+  "unit_tests": {
+    "passed": 83,
+    "failed": 0
+  },
+  "syntax_checks": {
+    "scripts": 63,
+    "errors": 0
+  },
+  "console_errors": [
+    {
+      "message": "Erreur de sauvegarde : Error: Offline simulated save failure\n    at https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js:29:169",
+      "location": {
+        "url": "http://crm-offline.test/clients.html",
+        "line": 623,
+        "column": 18,
+        "lineNumber": 623,
+        "columnNumber": 18
+      }
+    }
+  ]
+}

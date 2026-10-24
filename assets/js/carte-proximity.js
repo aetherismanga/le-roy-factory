@@ -1,11 +1,14 @@
 const isCartePage=(location.pathname.split('/').pop()||'').toLowerCase()==='carte.html';
 if(isCartePage){
-  const waitForMap=()=>new Promise(resolve=>{let n=0;const t=setInterval(()=>{const m=window.__lrfCarteMap;if(m||n++>80){clearInterval(t);resolve(m||null)}},100)});
+  const waitForMap=()=>new Promise(resolve=>{
+    if(window.__lrfCarteMap){resolve(window.__lrfCarteMap);return}
+    window.addEventListener('lrf-map-ready',()=>resolve(window.__lrfCarteMap||null),{once:true});
+  });
   const hav=(a,b)=>{const R=6371,toRad=x=>x*Math.PI/180,dLat=toRad(b.lat-a.lat),dLon=toRad(b.lng-a.lng),la1=toRad(a.lat),la2=toRad(b.lat);const h=Math.sin(dLat/2)**2+Math.cos(la1)*Math.cos(la2)*Math.sin(dLon/2)**2;return 2*R*Math.asin(Math.sqrt(h))};
   const esc=v=>String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   const norm=v=>String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\b(sarl|sas|sasu|eurl|sa|ets|etablissement|materiaux|carrelage|ceramique)\b/g,'').replace(/[^a-z0-9]/g,'');
   const route=(lat,lng)=>`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(`${lat},${lng}`)}`;
-  let map,userMarker,userCircle,userPos=null,externalLayer=null,externalVisible=true,clientsVisible=true,prospectsVisible=true,externalLoaded=false;
+  let map,userMarker,userCircle,userPos=null,externalLayer=null,externalVisible=false,clientsVisible=true,prospectsVisible=true,externalLoaded=false;
   const nearTourKey='lrf:nearby-tour-v1';
   const nearbySelection=new Set();
   let gpsWatchId=null, firstGpsFix=false, focusNextGpsFix=true;
@@ -46,6 +49,7 @@ if(isCartePage){
 
   function markerType(layer){
     if(layer===userMarker)return 'me';if(layer.__lrfExternal)return 'external';
+    if(layer.__lrfClientType)return layer.__lrfClientType;
     const html=String(layer.getPopup?.()?.getContent?.()||'').toLowerCase();
     if(html.includes('badge-prospect')||html.includes('>prospect'))return 'prospect';
     if(html.includes('badge-client')||html.includes('>client'))return 'client';
@@ -53,8 +57,8 @@ if(isCartePage){
     if(iconClass.includes('gold'))return 'prospect';if(iconClass.includes('green'))return 'client';return 'other';
   }
   function crmMarkers(){const out=[];if(!map)return out;map.eachLayer(layer=>{if(layer instanceof L.Marker&&!layer.__lrfExternal&&layer!==userMarker){const ll=layer.getLatLng?.();if(ll)out.push({layer,ll,type:markerType(layer),html:String(layer.getPopup?.()?.getContent?.()||'')})}});return out}
-  function crmNames(){return crmMarkers().map(x=>({name:norm((x.html.match(/class="popup-title">([^<]+)/i)||[])[1]||''),lat:x.ll.lat,lng:x.ll.lng})).filter(x=>x.name)}
-  function isAlreadyInCrm(name,lat,lng){const n=norm(name);if(!n)return false;return crmNames().some(c=>{const same=n===c.name||(n.length>5&&c.name.length>5&&(n.includes(c.name)||c.name.includes(n)));return same&&hav({lat,lng},{lat:c.lat,lng:c.lng})<1.5})}
+  function crmNames(){return crmMarkers().map(x=>({name:norm(x.layer.__lrfClientName||''),lat:x.ll.lat,lng:x.ll.lng})).filter(x=>x.name)}
+  function isAlreadyInCrm(name,lat,lng,names){const n=norm(name);if(!n)return false;return names.some(c=>{const same=n===c.name||(n.length>5&&c.name.length>5&&(n.includes(c.name)||c.name.includes(n)));return same&&hav({lat,lng},{lat:c.lat,lng:c.lng})<1.5})}
 
   function nearestItems(limit=20){
     if(!map||!userPos)return[];
@@ -125,7 +129,7 @@ if(isCartePage){
   function addToTourFromPopup(e){
     const btn=e.target.closest('.lrf-add-tour-map');
     if(!btn)return;
-    const id=decodeURIComponent(btn.dataset.clientId||'');
+    let id;try{id=decodeURIComponent(btn.dataset.clientId||'')}catch{return}
     if(!id)return;
     nearbySelection.add(id);
     btn.textContent='✓ Dans ma tournée';
@@ -140,8 +144,9 @@ if(isCartePage){
     const endpoints=['https://overpass-api.de/api/interpreter','https://overpass.kumi.systems/api/interpreter'];let data=null;
     for(const endpoint of endpoints){try{const r=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},body:'data='+encodeURIComponent(q)});if(!r.ok)throw new Error('overpass '+r.status);data=await r.json();break}catch(e){console.warn('Overpass indisponible',endpoint,e)}}
     if(!data){externalLoaded=false;return}
+    const names=crmNames();
     const icon=L.divIcon({className:'lrf-external-pin',html:'<div></div>',iconSize:[18,18],iconAnchor:[9,9]});const seen=new Set();
-    for(const e of data.elements||[]){const lat=e.lat??e.center?.lat,lng=e.lon??e.center?.lon;if(!Number.isFinite(lat)||!Number.isFinite(lng))continue;const name=e.tags?.name||e.tags?.brand||'Négoce / magasin carrelage';const k=`${norm(name)}|${lat.toFixed(3)}|${lng.toFixed(3)}`;if(seen.has(k)||isAlreadyInCrm(name,lat,lng))continue;seen.add(k);const marker=L.marker([lat,lng],{icon});marker.__lrfExternal=true;marker.__lrfName=name;const addr=[e.tags?.['addr:housenumber'],e.tags?.['addr:street'],e.tags?.['addr:postcode'],e.tags?.['addr:city']].filter(Boolean).join(' ');marker.bindPopup(`<div style="min-width:190px"><b style="color:#7C3AED">Négoce externe</b><div style="font-weight:800;margin:.35rem 0">${esc(name)}</div>${addr?`<div style="font-size:.78rem;color:#666;margin-bottom:.4rem">${esc(addr)}</div>`:''}<a class="popup-btn btn-gps" target="_blank" rel="noopener" href="${route(lat,lng)}">🧭 Y aller</a></div>`);externalLayer.addLayer(marker)}if(!externalVisible)map.removeLayer(externalLayer);updateLayerButtons()}
+    for(const e of data.elements||[]){const lat=e.lat??e.center?.lat,lng=e.lon??e.center?.lon;if(!Number.isFinite(lat)||!Number.isFinite(lng))continue;const name=e.tags?.name||e.tags?.brand||'Négoce / magasin carrelage';const k=`${norm(name)}|${lat.toFixed(3)}|${lng.toFixed(3)}`;if(seen.has(k)||isAlreadyInCrm(name,lat,lng,names))continue;seen.add(k);const marker=L.marker([lat,lng],{icon});marker.__lrfExternal=true;marker.__lrfName=name;const addr=[e.tags?.['addr:housenumber'],e.tags?.['addr:street'],e.tags?.['addr:postcode'],e.tags?.['addr:city']].filter(Boolean).join(' ');marker.bindPopup(`<div style="min-width:190px"><b style="color:#7C3AED">Négoce externe</b><div style="font-weight:800;margin:.35rem 0">${esc(name)}</div>${addr?`<div style="font-size:.78rem;color:#666;margin-bottom:.4rem">${esc(addr)}</div>`:''}<a class="popup-btn btn-gps" target="_blank" rel="noopener" href="${route(lat,lng)}">🧭 Y aller</a></div>`);externalLayer.addLayer(marker)}if(!externalVisible)map.removeLayer(externalLayer);updateLayerButtons()}
 
   function gpsSuccess(position){
     if(!map||!position||!Number.isFinite(position.coords.latitude)||!Number.isFinite(position.coords.longitude))return;
@@ -208,13 +213,13 @@ if(isCartePage){
       const el=document.createElement('div');
       el.id='lrf-gps-status';el.className='lrf-gps-status';
       el.setAttribute('role','status');el.setAttribute('aria-live','polite');
-      el.textContent='📍 Recherche de ta position GPS…';
+      el.textContent='📍 Touchez Ma position pour activer le GPS.';
       card.insertBefore(el,document.getElementById('map'));
     }
   }
 
-  function updateLayerButtons(){document.body.classList.toggle('lrf-hide-clients',!clientsVisible);document.body.classList.toggle('lrf-hide-prospects',!prospectsVisible);const c=document.getElementById('lrf-toggle-clients'),p=document.getElementById('lrf-toggle-prospects'),e=document.getElementById('lrf-toggle-external');c?.classList.toggle('off',!clientsVisible);p?.classList.toggle('off',!prospectsVisible);e?.classList.toggle('off',!externalVisible);if(externalLayer){if(externalVisible&&!map.hasLayer(externalLayer))externalLayer.addTo(map);if(!externalVisible&&map.hasLayer(externalLayer))map.removeLayer(externalLayer)}}
-  function injectLayerChooser(){const filter=document.querySelector('.filter-bar');if(!filter||document.getElementById('lrf-layer-chooser'))return;const box=document.createElement('div');box.id='lrf-layer-chooser';box.className='lrf-layer-chooser';box.innerHTML=`<button id="lrf-toggle-clients" class="lrf-layer-toggle client" type="button">🟢 Clients<span>Afficher / masquer</span></button><button id="lrf-toggle-prospects" class="lrf-layer-toggle prospect" type="button">🟡 Prospects<span>Afficher / masquer</span></button><button id="lrf-toggle-external" class="lrf-layer-toggle external" type="button">🟣 Négoces<span>Afficher / masquer</span></button>`;const head=filter.querySelector('.map-filter-sheet-head');if(head)head.after(box);else filter.prepend(box);document.getElementById('lrf-toggle-clients').onclick=()=>{clientsVisible=!clientsVisible;updateLayerButtons()};document.getElementById('lrf-toggle-prospects').onclick=()=>{prospectsVisible=!prospectsVisible;updateLayerButtons()};document.getElementById('lrf-toggle-external').onclick=()=>{externalVisible=!externalVisible;updateLayerButtons()};updateLayerButtons()}
+  function updateLayerButtons(){document.body.classList.toggle('lrf-hide-clients',!clientsVisible);document.body.classList.toggle('lrf-hide-prospects',!prospectsVisible);const c=document.getElementById('lrf-toggle-clients'),p=document.getElementById('lrf-toggle-prospects'),e=document.getElementById('lrf-toggle-external');c?.classList.toggle('off',!clientsVisible);p?.classList.toggle('off',!prospectsVisible);e?.classList.toggle('off',!externalVisible);c?.setAttribute('aria-pressed',String(clientsVisible));p?.setAttribute('aria-pressed',String(prospectsVisible));e?.setAttribute('aria-pressed',String(externalVisible));if(externalLayer){if(externalVisible&&!map.hasLayer(externalLayer))externalLayer.addTo(map);if(!externalVisible&&map.hasLayer(externalLayer))map.removeLayer(externalLayer)}}
+  function injectLayerChooser(){const filter=document.querySelector('.filter-bar');if(!filter||document.getElementById('lrf-layer-chooser'))return;const box=document.createElement('div');box.id='lrf-layer-chooser';box.className='lrf-layer-chooser';box.innerHTML=`<button id="lrf-toggle-clients" class="lrf-layer-toggle client" type="button">🟢 Clients<span>Afficher / masquer</span></button><button id="lrf-toggle-prospects" class="lrf-layer-toggle prospect" type="button">🟡 Prospects<span>Afficher / masquer</span></button><button id="lrf-toggle-external" class="lrf-layer-toggle external" type="button">🟣 Négoces<span>Afficher / masquer</span></button>`;const head=filter.querySelector('.map-filter-sheet-head');if(head)head.after(box);else filter.prepend(box);document.getElementById('lrf-toggle-clients').onclick=()=>{clientsVisible=!clientsVisible;updateLayerButtons();window.dispatchEvent(new CustomEvent('lrf-map-types-changed',{detail:{clients:clientsVisible,prospects:prospectsVisible}}))};document.getElementById('lrf-toggle-prospects').onclick=()=>{prospectsVisible=!prospectsVisible;updateLayerButtons();window.dispatchEvent(new CustomEvent('lrf-map-types-changed',{detail:{clients:clientsVisible,prospects:prospectsVisible}}))};document.getElementById('lrf-toggle-external').onclick=()=>{externalVisible=!externalVisible;updateLayerButtons();if(externalVisible)fetchExternalAllSectors()};updateLayerButtons()}
 
   function addUi(){
     styles();ensureSheet();addGpsControls();
@@ -236,9 +241,8 @@ if(isCartePage){
     map=m;
     if(!map)return;
     addUi();
-    locate(false);
-    setTimeout(fetchExternalAllSectors,1200);
-    setInterval(addUi,1500);
+    window.addEventListener('lrf-map-mobile-ui-ready',addUi);
+    window.addEventListener('lrf-map-markers-changed',()=>{if(document.getElementById('lrf-near-sheet')?.classList.contains('open'))showNearest()});
     window.addEventListener('pagehide',()=>{
       if(gpsWatchId!==null&&navigator.geolocation)navigator.geolocation.clearWatch(gpsWatchId);
       gpsWatchId=null;

@@ -1,5 +1,5 @@
 import { db } from './firebase.js';
-import { collection, doc, onSnapshot, updateDoc } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+import { collection, onSnapshot } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
 
 if (!window.__LRF_CLIENT_PARTNER_ACCESS__) {
   window.__LRF_CLIENT_PARTNER_ACCESS__ = true;
@@ -15,27 +15,16 @@ if (!window.__LRF_CLIENT_PARTNER_ACCESS__) {
   let clients = [];
   let activeClientId = '';
   let draft = new Set();
-  let saving = false;
+  let draftIdentity;
+  let openedClient = null;
   const clean = v => String(v ?? '').trim();
   const norm = v => clean(v).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');
   const esc = v => clean(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
 
   function currentClient() {
-    if (activeClientId) {
-      const c = clients.find(x => x.id === activeClientId);
-      if (c) return c;
-    }
-    const code = clean(document.querySelector('#edit-code-client')?.value).toUpperCase();
-    if (code) {
-      const c = clients.find(x => clean(x.codeClient).toUpperCase() === code);
-      if (c) { activeClientId = c.id; return c; }
-    }
-    const company = norm(document.querySelector('#edit-societe')?.value);
-    if (company) {
-      const c = clients.find(x => norm(x.societe) === company);
-      if (c) { activeClientId = c.id; return c; }
-    }
-    return null;
+    const id = document.querySelector('#client-modal')?.dataset.clientId;
+    if (!id) return null;
+    return openedClient?.id === id ? openedClient : clients.find(x => x.id === id) || null;
   }
 
   function installStyles() {
@@ -88,7 +77,7 @@ if (!window.__LRF_CLIENT_PARTNER_ACCESS__) {
         <h3>Partenaires / autorisations tarifs</h3>
         <p>Sélectionnez les fabricants autorisés pour ce client. Les tarifs PRO suivent exactement cette sélection.</p>
         <div id="crm-partner-grid"></div>
-        <div class="lrf-partner-save-row"><span class="lrf-partner-state">Aucune modification.</span><button class="lrf-partner-save" type="button">Enregistrer les autorisations</button></div>`;
+        <div class="lrf-partner-save-row"><span class="lrf-partner-state">Aucune modification.</span><button class="lrf-partner-save" type="button">Enregistrer la fiche</button></div>`;
       const grid = form.querySelector('.modal-grid-edit');
       if (grid) grid.insertAdjacentElement('afterend', section); else form.prepend(section);
       section.querySelector('.lrf-partner-save').addEventListener('click', saveDraft);
@@ -105,8 +94,9 @@ if (!window.__LRF_CLIENT_PARTNER_ACCESS__) {
     const section = ensureSection();
     const grid = section?.querySelector('#crm-partner-grid');
     const client = currentClient();
-    if (!grid || !client) return;
-    draft = new Set(Array.isArray(client.partenaires) ? client.partenaires.filter(id => PARTNERS[id]) : []);
+    if (!grid) return;
+    draftIdentity = document.querySelector("#client-modal")?.dataset.clientId || "";
+    draft = new Set(Array.isArray(client?.partenaires) ? client.partenaires : []);
     grid.innerHTML = Object.entries(PARTNERS).map(([id,[name,logo]]) => `
       <button type="button" class="partner-card-mini${draft.has(id)?' active':''}" data-pid="${esc(id)}" aria-pressed="${draft.has(id)?'true':'false'}">
         ${partnerVisual(id,logo)}<span class="partner-name">${esc(name)}</span>
@@ -125,22 +115,9 @@ if (!window.__LRF_CLIENT_PARTNER_ACCESS__) {
     ensureMobilePartnerButton();
   }
 
-  async function saveDraft() {
-    const client = currentClient();
-    const state = document.querySelector('#lrf-partner-access-section .lrf-partner-state');
-    if (!client || saving) return;
-    saving = true;
-    if (state) state.textContent = 'Enregistrement…';
-    try {
-      const next = [...draft];
-      await updateDoc(doc(db,'clients',client.id), { partenaires:next, partenairesUpdatedAt:new Date().toISOString() });
-      client.partenaires = next;
-      if (state) state.textContent = `✓ ${next.length} partenaire${next.length>1?'s':''} enregistré${next.length>1?'s':''} — accès tarifs mis à jour`;
-      window.dispatchEvent(new CustomEvent('lrf-client-partners-saved',{detail:{clientId:client.id,partenaires:next}}));
-    } catch (error) {
-      console.error('Enregistrement partenaires', error);
-      if (state) state.textContent = 'Erreur lors de l’enregistrement.';
-    } finally { saving = false; }
+  function saveDraft() {
+    // One explicit save path for identity, contacts and partner permissions.
+    document.querySelector('#client-form')?.requestSubmit();
   }
 
   function ensureMobilePartnerButton() {
@@ -212,18 +189,27 @@ if (!window.__LRF_CLIENT_PARTNER_ACCESS__) {
   const quickObserver = new MutationObserver(() => { if (modalOpen()) ensureMobilePartnerButton(); });
   quickObserver.observe(document.body,{childList:true,subtree:true});
 
-  document.querySelector('#client-form')?.addEventListener('submit', () => { if (activeClientId) saveDraft(); }, true);
-  window.addEventListener('lrf-client-opened', e => { if (e.detail?.clientId) activeClientId = clean(e.detail.clientId); setTimeout(refreshModal,30); });
+  window.addEventListener('lrf-client-opened', e => {
+    activeClientId = clean(e.detail?.clientId);
+    openedClient = e.detail?.client || null;
+    refreshModal();
+  });
+  window.addEventListener('lrf-client-collect-draft', e => {
+    if (document.querySelector('#crm-partner-grid') && draftIdentity === (e.detail.clientId || '')) e.detail.draft.partenaires = [...draft];
+  });
+  window.addEventListener('lrf-client-closed', () => { activeClientId = ''; openedClient = null; });
 
   onSnapshot(collection(db,'clients'), snap => {
     clients = [];
     snap.forEach(d => {
-      const c = {id:d.id,...d.data()};
-      if (c.archived === true || c.archive === true || clean(c.codeClient).toUpperCase() === 'LRF-00001') return;
+      const c = {...d.data(),id:d.id};
+      if (c.archived === true || c.archive === true) return;
       clients.push(c);
     });
     if (activeClientId && !clients.some(c => c.id === activeClientId)) activeClientId = '';
-    if (modalOpen()) setTimeout(refreshModal,30);
+    const id = document.querySelector('#client-modal')?.dataset.clientId || '';
+    if (modalOpen() && draftIdentity !== id) refreshModal();
+    // Preserve the open permission draft when remote rows change.
     handleFocusQuery();
   });
 }

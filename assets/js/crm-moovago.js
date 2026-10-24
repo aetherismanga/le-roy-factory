@@ -1,5 +1,8 @@
 import { db } from "./firebase.js";
-import { collection, getDocs, doc, setDoc, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { collection, getDocs, doc, runTransaction, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+import { createClientSaver } from './crm-client-save-core.mjs?v=20261023-crm-audit1';
+const saveImportedClient = createClientSaver({ db, collection, doc, getDocs, runTransaction });
 
 const PARTNER_LOGOS = {
   "elios-ceramica":"elios.png","view-ceramica":"view.png","la-fenice":"lafenice.png","reviglass":"reviglass.png",
@@ -16,8 +19,8 @@ let clients = [];
 let fabricants = [];
 let activeClientId = null;
 let contactDraft = [];
+let draftIdentity;
 let partnerDraft = [];
-let pendingNewExtras = null;
 let analysedImport = null;
 
 const clean = v => String(v ?? "").trim();
@@ -32,14 +35,8 @@ function normalizeCp(v){ const s=clean(v).replace(/\.0$/,""); return /^\d+$/.tes
 function companyKey(name, cp, city){ return `${norm(name)}|${normalizeCp(cp)}|${norm(city)}`; }
 function companyAddressKey(name, address){ return `${norm(name)}|${norm(address)}`; }
 function exactClient(id){
-  const wanted=clean(id); if(!wanted)return null;
-  const direct=clients.find(c=>c.id===wanted); if(!direct)return null;
-  const canonicalId=clean(direct.canonicalClientId||direct.duplicateOf);
-  if((!isActive(direct)||canonicalId)&&canonicalId){
-    const canonical=clients.find(c=>c.id===canonicalId);
-    if(canonical)return canonical;
-  }
-  return direct;
+  const wanted=clean(id);
+  return wanted ? clients.find(c=>c.id===wanted) || null : null;
 }
 function rememberedExactId(){
   const globalId=clean(window.__LRF_EXACT_CLIENT_ID__);
@@ -177,13 +174,11 @@ function renderContacts(){ const box=document.getElementById("crm-contacts-list"
 function renderPartners(){ const box=document.getElementById("crm-partner-grid"); if(!box)return; box.innerHTML=fabricants.map(f=>{const active=partnerDraft.includes(f.id);const logo=PARTNER_LOGOS[f.id];return `<div class="partner-card-mini ${active?"active":""}" data-pid="${esc(f.id)}">${logo?`<img src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/${logo}" alt="${esc(f.nom)}">`:""}<span>${esc(f.nom)}</span></div>`}).join(""); box.querySelectorAll("[data-pid]").forEach(el=>el.onclick=()=>{const id=el.dataset.pid;partnerDraft=partnerDraft.includes(id)?partnerDraft.filter(x=>x!==id):[...partnerDraft,id];renderPartners()}); }
 function renderHistory(client){ const box=document.getElementById("crm-history-list"); if(!box)return; const list=[...(client?.comptes_rendus||client?.comptesRendus||[])].sort((a,b)=>clean(b.dateCreation||b.date).localeCompare(clean(a.dateCreation||a.date))); box.innerHTML=list.length?list.map(cr=>`<div class="history-card"><div class="history-meta">${esc(cr.date||"")} • ${esc(cr.type||"Compte-rendu")} • ${esc(cr.author||"Agent")}</div><div class="history-text">${esc(cr.text||cr.note||"")}</div></div>`).join(""):`<div style="color:#777;font-style:italic;font-size:.85rem">Aucun historique commercial.</div>`; }
 function currentClientFromForm(){
-  const forced=rememberedExactId();
-  const exact=exactClient(forced); if(exact&&isActive(exact))return exact;
-  const soc=clean(document.getElementById("edit-societe")?.value), cp=normalizeCp(document.getElementById("edit-code-postal")?.value), city=clean(document.getElementById("edit-ville")?.value);
-  return clients.find(c=>isActive(c)&&companyKey(c.societe,c.codePostal||c.code_postal,c.ville)===companyKey(soc,cp,city))||null;
+  const id = document.getElementById('client-modal')?.dataset.clientId;
+  return id ? clients.find(c => c.id === id) || null : null;
 }
-function populateExtras(){
-  const c=exactClient(activeClientId)||currentClientFromForm();
+function populateExtras(c=currentClientFromForm()){
+  draftIdentity = document.getElementById("client-modal")?.dataset.clientId || "";
   if(c)rememberExactClient(c.id);
   contactDraft=(c?.contacts||[]).map(x=>({...x}));
   partnerDraft=[...(c?.partenaires||[])];
@@ -196,13 +191,13 @@ async function analyseImport(){
   const result=document.getElementById("moovago-result"); result.textContent="Analyse en cours...";
   try{
     const [sRows,iRows,cRows]=await Promise.all(fs.map(readCsvFile)); const soc=sRows.map(mapSociete).filter(x=>x.societe); const contacts=iRows.map(mapContact).filter(x=>x.societe); const crs=cRows.map(mapCR).filter(x=>x.societe);
-    const snap=await getDocs(collection(db,"clients")); const existing=[]; snap.forEach(d=>existing.push({id:d.id,...d.data()}));
-    const virtual=existing.map(x=>({...x})); let newCompanies=0, updatedCompanies=0;
+    const snap=await getDocs(collection(db,"clients")); const existing=[]; snap.forEach(d=>existing.push({...d.data(),id:d.id}));
+    const virtual=structuredClone(existing); let newCompanies=0, updatedCompanies=0;
     soc.forEach(s=>{const m=findExisting(virtual,s);if(m){Object.assign(m,mergedCompany(m,s));updatedCompanies++;}else{virtual.push({id:`new-${s.moovagoId||Math.random()}`,...s,contacts:[],comptes_rendus:[]});newCompanies++;}});
     let contactsAdded=0,contactsMerged=0,crAdded=0,crDup=0,unmatchedContacts=0,unmatchedCR=0;
     contacts.forEach(ct=>{const co=findCompanyForRelated(virtual,ct);if(!co){unmatchedContacts++;return;}const arr=co.contacts||[];const k=contactKey(ct);const idx=arr.findIndex(x=>contactKey(x)===k);if(idx>=0){arr[idx]={...arr[idx],...Object.fromEntries(Object.entries(ct).filter(([,v])=>clean(v)))};contactsMerged++;}else{arr.push(ct);contactsAdded++;}co.contacts=arr;});
     crs.forEach(cr=>{const co=findCompanyForRelated(virtual,cr);if(!co){unmatchedCR++;return;}const arr=co.comptes_rendus||co.comptesRendus||[];const k=crKey(cr);if(arr.some(x=>crKey(x)===k)){crDup++;}else{arr.push(cr);crAdded++;}co.comptes_rendus=arr;co.partenaires=mergeUnique(co.partenaires||[],cr.partenaires||[],v=>v);});
-    analysedImport={virtual,existingIds:new Set(existing.map(x=>x.id)),stats:{soc:soc.length,contacts:contacts.length,crs:crs.length,newCompanies,updatedCompanies,contactsAdded,contactsMerged,crAdded,crDup,unmatchedContacts,unmatchedCR}};
+    analysedImport={virtual,originalById:new Map(existing.map(x=>[x.id,structuredClone(x)])),existingIds:new Set(existing.map(x=>x.id)),stats:{soc:soc.length,contacts:contacts.length,crs:crs.length,newCompanies,updatedCompanies,contactsAdded,contactsMerged,crAdded,crDup,unmatchedContacts,unmatchedCR}};
     const st=analysedImport.stats; result.innerHTML=`<strong>Analyse terminée — aucune donnée modifiée.</strong><br>🏢 ${st.soc} sociétés lues : <strong>${st.newCompanies} nouvelles</strong>, ${st.updatedCompanies} correspondances/mises à jour.<br>👤 ${st.contacts} interlocuteurs : <strong>${st.contactsAdded} à ajouter</strong>, ${st.contactsMerged} fusionnés/actualisés, ${st.unmatchedContacts} non rattachés.<br>🕘 ${st.crs} comptes-rendus : <strong>${st.crAdded} à ajouter</strong>, ${st.crDup} déjà présents, ${st.unmatchedCR} non rattachés.<br><small>FT et PROPAMSA sont volontairement ignorés car absents de votre liste Partenaires.</small>`;
     document.getElementById("moovago-apply").disabled=false;
   }catch(e){console.error(e);result.textContent=`Erreur d'analyse : ${e.message}`;}
@@ -211,12 +206,14 @@ async function applyImport(){
   if(!analysedImport)return; const btn=document.getElementById("moovago-apply"); if(!confirm("Confirmer l'import et la mise à jour des données Firebase ?"))return; btn.disabled=true;btn.textContent="Import en cours..."; const result=document.getElementById("moovago-result");
   try{
     let done=0; for(const c of analysedImport.virtual){
-      const isExisting=analysedImport.existingIds.has(c.id); const payload={...c}; delete payload.id;
-      if(isExisting) await updateDoc(doc(db,"clients",c.id),payload); else { const newId=clean(c.moovagoId)?`moovago_${clean(c.moovagoId)}`:undefined; if(newId) await setDoc(doc(db,"clients",newId),payload,{merge:true}); else await setDoc(doc(collection(db,"clients")),payload); }
-      done++; if(done%20===0)result.innerHTML=`Import en cours : <strong>${done}/${analysedImport.virtual.length}</strong> sociétés traitées...`;
+      const original = analysedImport.originalById.get(c.id);
+      if (original && JSON.stringify(original) === JSON.stringify(c)) continue;
+      const payload={...c}; delete payload.id;
+      await saveImportedClient({ clientId: original ? c.id : null, draft: payload, original });
+      done++; if(done%20===0)result.innerHTML=`Import en cours : <strong>${done}</strong> sociétés enregistrées...`;
     }
     result.innerHTML=`✅ <strong>Import terminé : ${done} fiches traitées.</strong><br>Les interlocuteurs, comptes-rendus, coordonnées et partenaires sont maintenant intégrés. La carte géocodera automatiquement les nouvelles adresses.`; analysedImport=null; btn.textContent="✅ Import terminé";
-  }catch(e){console.error(e);result.innerHTML=`❌ Import interrompu : ${esc(e.message)}<br>Les fiches déjà traitées restent enregistrées. Vous pouvez relancer l'analyse : les identifiants Moovago empêcheront les doublons.`;btn.disabled=false;btn.textContent="Réessayer";}
+  }catch(e){console.error(e);result.innerHTML=`❌ Import interrompu : ${esc(e.message)}<br>Les fiches déjà traitées restent enregistrées. Relancez l’analyse avant de reprendre : les créations sont contrôlées et aucun identifiant existant n’est remplacé.`;btn.disabled=false;btn.textContent="Réessayer";}
 }
 
 function setupClientModal(){
@@ -246,36 +243,30 @@ function setupClientModal(){
   },true);
 
   window.addEventListener("lrf-client-opened",e=>{
-    const id=clean(e.detail?.clientId); if(!id)return;
-    const c=rememberExactClient(id); if(!c)return;
-    if(modal&&getComputedStyle(modal).display!=="none")setTimeout(populateExtras,0);
+    const id=clean(e.detail?.clientId);
+    clearExactClient();
+    if (id) rememberExactClient(id);
+    if(modal&&getComputedStyle(modal).display!=="none")populateExtras(e.detail?.client);
   });
 
-  const form=document.getElementById("client-form");
-  form?.addEventListener("submit",()=>{
-    const c=exactClient(activeClientId)||currentClientFromForm();
-    if(c){
-      setTimeout(()=>updateDoc(doc(db,"clients",c.id),{contacts:contactDraft}).catch(console.error),50);
-    }else{
-      pendingNewExtras={societe:clean(document.getElementById("edit-societe")?.value),cp:normalizeCp(document.getElementById("edit-code-postal")?.value),ville:clean(document.getElementById("edit-ville")?.value),contacts:contactDraft,at:Date.now()};
+  window.addEventListener('lrf-client-collect-draft', e => {
+    if (document.getElementById('crm-contacts-list') && draftIdentity === (e.detail.clientId || '')) {
+      e.detail.draft.contacts = contactDraft.map(c => ({...c}));
     }
-  },true);
-}
-function checkPending(){
-  if(!pendingNewExtras||Date.now()-pendingNewExtras.at>15000)return;
-  const c=clients.find(x=>isActive(x)&&companyKey(x.societe,x.codePostal||x.code_postal,x.ville)===companyKey(pendingNewExtras.societe,pendingNewExtras.cp,pendingNewExtras.ville));
-  if(c){updateDoc(doc(db,"clients",c.id),{contacts:pendingNewExtras.contacts}).catch(console.error);pendingNewExtras=null;}
+  });
 }
 
 async function init(){
   injectStyles(); injectImportUI();
-  try{fabricants=await fetch("data/fabricants.json").then(r=>r.json());}catch{fabricants=[];}
   setupClientModal();
+  // Partner permissions are rendered by crm-client-partner-access.js. The old
+  // unused catalogue request targeted a file that does not exist.
   onSnapshot(collection(db,"clients"),snap=>{
-    clients=[];snap.forEach(d=>clients.push({id:d.id,...d.data()}));
+    clients=[];snap.forEach(d=>clients.push({...d.data(),id:d.id}));
     const remembered=rememberedExactId(); if(remembered)rememberExactClient(remembered);
-    checkPending();
-    if(document.getElementById("client-modal")&&getComputedStyle(document.getElementById("client-modal")).display!=="none")populateExtras();
+    const modal = document.getElementById('client-modal');
+    if (modal && getComputedStyle(modal).display !== 'none' && draftIdentity !== (modal.dataset.clientId || '')) populateExtras();
+    // Later snapshots must not replace contact inputs in an open draft.
   });
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();
