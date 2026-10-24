@@ -1,5 +1,7 @@
 # RANDAL — textures et performances · 22 octobre 2026
 
+> Actualisation du 24 octobre 2026 : les sept échantillons manquants ont été reçus et intégrés. Alba reste identique au rendu approuvé. Voir [le rapport des huit finitions](randal-finishes-20261024.md). Le compte rendu ci-dessous décrit la situation historique du 22 octobre.
+
 ## Livré
 
 Les moteurs, modèles paramétriques, dimensions et formats de projets sont conservés. Les modes existants Léger, Standard et Ultra HD, ainsi que l’adaptation automatique, sont réutilisés.

@@ -1093,10 +1093,29 @@ export const CATALOG = {
     {
       "id": "harmony--gris-tortora",
       "name": "Gris tórtora",
-      "hex": "#a59886",
+      "hex": "#807768",
       "kind": "Laque mate",
       "roughness": 0.36,
-      "collection": "harmony"
+      "collection": "harmony",
+      "texture": "finishes/20261022/gris-balanced.webp",
+      "textureVariants": {
+        "fluid": "/assets/finishes/20261022/gris-fluid.webp",
+        "balanced": "/assets/finishes/20261022/gris-balanced.webp",
+        "max": "/assets/finishes/20261022/gris-max.webp"
+      },
+      "swatch": "/assets/finishes/20261022/gris-swatch.webp",
+      "frontRotation": 1.5707963267948966,
+      "textureRepeat": [
+        1,
+        0.42008891
+      ],
+      "frontRepeat": [
+        1,
+        0.54868755
+      ],
+      "manufacturerSample": true,
+      "source": "Juan Carlos Segura · Gris Tórtora_acabado.jpeg · 2026-10-22",
+      "textureURL": "/assets/finishes/20261022/gris-balanced.webp"
     },
     {
       "id": "luce--verde-utopia",
@@ -1192,62 +1211,164 @@ export const CATALOG = {
     {
       "id": "aruba-rainure--roble-amazona-acanalado",
       "name": "Roble Amazona acanalado",
-      "hex": "#bd9f83",
+      "hex": "#af9374",
       "kind": "Bois",
       "roughness": 0.45,
-      "texture": "roble.webp",
-      "textureURL": "/assets/materials/aruba-roble-detail.jpg",
-      "materialSample": "aruba-fluted",
-      "collection": "aruba-rainure"
+      "texture": "finishes/20261022/roble-balanced.webp",
+      "textureURL": "/assets/finishes/20261022/roble-balanced.webp",
+      "collection": "aruba-rainure",
+      "textureVariants": {
+        "fluid": "/assets/finishes/20261022/roble-fluid.webp",
+        "balanced": "/assets/finishes/20261022/roble-balanced.webp",
+        "max": "/assets/finishes/20261022/roble-max.webp"
+      },
+      "swatch": "/assets/finishes/20261022/roble-swatch.webp",
+      "frontRotation": 0,
+      "textureRepeat": [
+        1,
+        0.51518692
+      ],
+      "frontRepeat": [
+        1,
+        0.51518692
+      ],
+      "manufacturerSample": true,
+      "source": "Juan Carlos Segura · Roble amazona_acabado.jpeg · 2026-10-22"
     },
     {
       "id": "aruba-rainure--nogal-valentina-acanalado",
       "name": "Nogal Valentina acanalado",
-      "hex": "#7e5741",
+      "hex": "#77513d",
       "kind": "Bois",
       "roughness": 0.45,
-      "texture": "nogal-valentina.webp",
-      "textureURL": "/assets/materials/aruba-nogal-detail.jpg",
-      "materialSample": "aruba-fluted",
-      "collection": "aruba-rainure"
+      "texture": "finishes/20261022/nogal-balanced.webp",
+      "textureURL": "/assets/finishes/20261022/nogal-balanced.webp",
+      "collection": "aruba-rainure",
+      "textureVariants": {
+        "fluid": "/assets/finishes/20261022/nogal-fluid.webp",
+        "balanced": "/assets/finishes/20261022/nogal-balanced.webp",
+        "max": "/assets/finishes/20261022/nogal-max.webp"
+      },
+      "swatch": "/assets/finishes/20261022/nogal-swatch.webp",
+      "frontRotation": 0,
+      "textureRepeat": [
+        1,
+        0.40368186
+      ],
+      "frontRepeat": [
+        1,
+        0.40368186
+      ],
+      "manufacturerSample": true,
+      "source": "Juan Carlos Segura · Nogal valentina_acabado.jpeg · 2026-10-22"
     },
     {
       "id": "aruba-rainure--biscuit-acanalado",
       "name": "Biscuit acanalado",
-      "hex": "#e5ddd2",
+      "hex": "#ebe2d9",
       "kind": "Laque mate",
       "roughness": 0.36,
-      "collection": "aruba-rainure"
+      "collection": "aruba-rainure",
+      "texture": "finishes/20261022/bisc-balanced.webp",
+      "textureVariants": {
+        "fluid": "/assets/finishes/20261022/bisc-fluid.webp",
+        "balanced": "/assets/finishes/20261022/bisc-balanced.webp",
+        "max": "/assets/finishes/20261022/bisc-max.webp"
+      },
+      "swatch": "/assets/finishes/20261022/bisc-swatch.webp",
+      "frontRotation": 1.5707963267948966,
+      "textureRepeat": [
+        1,
+        0.40374756
+      ],
+      "frontRepeat": [
+        1,
+        0.52734375
+      ],
+      "manufacturerSample": true,
+      "source": "Juan Carlos Segura · Biscuit_acabado.jpeg · 2026-10-22",
+      "textureURL": "/assets/finishes/20261022/bisc-balanced.webp"
     },
     {
       "id": "aruba--roble-amazona",
       "name": "Roble Amazona",
-      "hex": "#b29574",
+      "hex": "#af9374",
       "kind": "Bois",
       "roughness": 0.45,
-      "texture": "roble.webp",
-      "textureURL": "/assets/materials/aruba-roble-detail.jpg",
-      "materialSample": "aruba-fluted",
-      "collection": "aruba"
+      "texture": "finishes/20261022/roble-balanced.webp",
+      "textureURL": "/assets/finishes/20261022/roble-balanced.webp",
+      "collection": "aruba",
+      "textureVariants": {
+        "fluid": "/assets/finishes/20261022/roble-fluid.webp",
+        "balanced": "/assets/finishes/20261022/roble-balanced.webp",
+        "max": "/assets/finishes/20261022/roble-max.webp"
+      },
+      "swatch": "/assets/finishes/20261022/roble-swatch.webp",
+      "frontRotation": 1.5707963267948966,
+      "textureRepeat": [
+        1,
+        0.51518692
+      ],
+      "frontRepeat": [
+        1,
+        0.6728972
+      ],
+      "manufacturerSample": true,
+      "source": "Juan Carlos Segura · Roble amazona_acabado.jpeg · 2026-10-22"
     },
     {
       "id": "aruba--nogal-valentina",
       "name": "Nogal Valentina",
-      "hex": "#80573f",
+      "hex": "#77513d",
       "kind": "Bois",
       "roughness": 0.45,
-      "texture": "nogal-valentina.webp",
-      "textureURL": "/assets/materials/aruba-nogal-front.jpg",
-      "materialSample": "aruba-flat-nogal",
-      "collection": "aruba"
+      "texture": "finishes/20261022/nogal-balanced.webp",
+      "textureURL": "/assets/finishes/20261022/nogal-balanced.webp",
+      "collection": "aruba",
+      "textureVariants": {
+        "fluid": "/assets/finishes/20261022/nogal-fluid.webp",
+        "balanced": "/assets/finishes/20261022/nogal-balanced.webp",
+        "max": "/assets/finishes/20261022/nogal-max.webp"
+      },
+      "swatch": "/assets/finishes/20261022/nogal-swatch.webp",
+      "frontRotation": 1.5707963267948966,
+      "textureRepeat": [
+        1,
+        0.40368186
+      ],
+      "frontRepeat": [
+        1,
+        0.52725793
+      ],
+      "manufacturerSample": true,
+      "source": "Juan Carlos Segura · Nogal valentina_acabado.jpeg · 2026-10-22"
     },
     {
       "id": "aruba--biscuit",
       "name": "Biscuit",
-      "hex": "#e5ddd2",
+      "hex": "#ebe2d9",
       "kind": "Laque mate",
       "roughness": 0.36,
-      "collection": "aruba"
+      "collection": "aruba",
+      "texture": "finishes/20261022/bisc-balanced.webp",
+      "textureVariants": {
+        "fluid": "/assets/finishes/20261022/bisc-fluid.webp",
+        "balanced": "/assets/finishes/20261022/bisc-balanced.webp",
+        "max": "/assets/finishes/20261022/bisc-max.webp"
+      },
+      "swatch": "/assets/finishes/20261022/bisc-swatch.webp",
+      "frontRotation": 1.5707963267948966,
+      "textureRepeat": [
+        1,
+        0.40374756
+      ],
+      "frontRepeat": [
+        1,
+        0.52734375
+      ],
+      "manufacturerSample": true,
+      "source": "Juan Carlos Segura · Biscuit_acabado.jpeg · 2026-10-22",
+      "textureURL": "/assets/finishes/20261022/bisc-balanced.webp"
     },
     {
       "id": "aruba--blanco-mate",
@@ -1288,28 +1409,83 @@ export const CATALOG = {
     {
       "id": "aruba--azul-acero",
       "name": "Azul Acero",
-      "hex": "#4d5c70",
+      "hex": "#67757e",
       "kind": "Laque mate",
       "roughness": 0.36,
-      "collection": "aruba"
+      "collection": "aruba",
+      "texture": "finishes/20261022/azul-balanced.webp",
+      "textureVariants": {
+        "fluid": "/assets/finishes/20261022/azul-fluid.webp",
+        "balanced": "/assets/finishes/20261022/azul-balanced.webp",
+        "max": "/assets/finishes/20261022/azul-max.webp"
+      },
+      "swatch": "/assets/finishes/20261022/azul-swatch.webp",
+      "frontRotation": 1.5707963267948966,
+      "textureRepeat": [
+        1,
+        0.40374756
+      ],
+      "frontRepeat": [
+        1,
+        0.52734375
+      ],
+      "manufacturerSample": true,
+      "source": "Juan Carlos Segura · Azul acero_acabado.jpeg · 2026-10-22",
+      "textureURL": "/assets/finishes/20261022/azul-balanced.webp"
     },
     {
       "id": "aras--nogal-valentina",
       "name": "Nogal Valentina",
-      "hex": "#80563e",
+      "hex": "#77513d",
       "kind": "Bois",
       "roughness": 0.45,
-      "texture": "nogal-valentina.webp",
-      "textureURL": "https://studio-one-beta-test-v2.vercel.app/assets/nogal-valentina.webp",
-      "collection": "aras"
+      "texture": "finishes/20261022/nogal-balanced.webp",
+      "textureURL": "/assets/finishes/20261022/nogal-balanced.webp",
+      "collection": "aras",
+      "textureVariants": {
+        "fluid": "/assets/finishes/20261022/nogal-fluid.webp",
+        "balanced": "/assets/finishes/20261022/nogal-balanced.webp",
+        "max": "/assets/finishes/20261022/nogal-max.webp"
+      },
+      "swatch": "/assets/finishes/20261022/nogal-swatch.webp",
+      "frontRotation": 1.5707963267948966,
+      "textureRepeat": [
+        1,
+        0.40368186
+      ],
+      "frontRepeat": [
+        1,
+        0.52725793
+      ],
+      "manufacturerSample": true,
+      "source": "Juan Carlos Segura · Nogal valentina_acabado.jpeg · 2026-10-22"
     },
     {
       "id": "aras--biscuit",
       "name": "Biscuit",
-      "hex": "#e5ddd2",
+      "hex": "#ebe2d9",
       "kind": "Laque mate",
       "roughness": 0.36,
-      "collection": "aras"
+      "collection": "aras",
+      "texture": "finishes/20261022/bisc-balanced.webp",
+      "textureVariants": {
+        "fluid": "/assets/finishes/20261022/bisc-fluid.webp",
+        "balanced": "/assets/finishes/20261022/bisc-balanced.webp",
+        "max": "/assets/finishes/20261022/bisc-max.webp"
+      },
+      "swatch": "/assets/finishes/20261022/bisc-swatch.webp",
+      "frontRotation": 1.5707963267948966,
+      "textureRepeat": [
+        1,
+        0.40374756
+      ],
+      "frontRepeat": [
+        1,
+        0.52734375
+      ],
+      "manufacturerSample": true,
+      "source": "Juan Carlos Segura · Biscuit_acabado.jpeg · 2026-10-22",
+      "textureURL": "/assets/finishes/20261022/bisc-balanced.webp"
     },
     {
       "id": "aras--blanco-mate",
@@ -1350,28 +1526,83 @@ export const CATALOG = {
     {
       "id": "aras--azul-acero",
       "name": "Azul Acero",
-      "hex": "#4d5c70",
+      "hex": "#67757e",
       "kind": "Laque mate",
       "roughness": 0.36,
-      "collection": "aras"
+      "collection": "aras",
+      "texture": "finishes/20261022/azul-balanced.webp",
+      "textureVariants": {
+        "fluid": "/assets/finishes/20261022/azul-fluid.webp",
+        "balanced": "/assets/finishes/20261022/azul-balanced.webp",
+        "max": "/assets/finishes/20261022/azul-max.webp"
+      },
+      "swatch": "/assets/finishes/20261022/azul-swatch.webp",
+      "frontRotation": 1.5707963267948966,
+      "textureRepeat": [
+        1,
+        0.40374756
+      ],
+      "frontRepeat": [
+        1,
+        0.52734375
+      ],
+      "manufacturerSample": true,
+      "source": "Juan Carlos Segura · Azul acero_acabado.jpeg · 2026-10-22",
+      "textureURL": "/assets/finishes/20261022/azul-balanced.webp"
     },
     {
       "id": "boreal--nogal-valentina",
       "name": "Nogal Valentina",
-      "hex": "#80563e",
+      "hex": "#77513d",
       "kind": "Bois",
       "roughness": 0.45,
-      "texture": "nogal-valentina.webp",
-      "textureURL": "https://studio-one-beta-test-v2.vercel.app/assets/nogal-valentina.webp",
-      "collection": "boreal"
+      "texture": "finishes/20261022/nogal-balanced.webp",
+      "textureURL": "/assets/finishes/20261022/nogal-balanced.webp",
+      "collection": "boreal",
+      "textureVariants": {
+        "fluid": "/assets/finishes/20261022/nogal-fluid.webp",
+        "balanced": "/assets/finishes/20261022/nogal-balanced.webp",
+        "max": "/assets/finishes/20261022/nogal-max.webp"
+      },
+      "swatch": "/assets/finishes/20261022/nogal-swatch.webp",
+      "frontRotation": 1.5707963267948966,
+      "textureRepeat": [
+        1,
+        0.40368186
+      ],
+      "frontRepeat": [
+        1,
+        0.52725793
+      ],
+      "manufacturerSample": true,
+      "source": "Juan Carlos Segura · Nogal valentina_acabado.jpeg · 2026-10-22"
     },
     {
       "id": "boreal--biscuit",
       "name": "Biscuit",
-      "hex": "#e5ddd2",
+      "hex": "#ebe2d9",
       "kind": "Laque mate",
       "roughness": 0.36,
-      "collection": "boreal"
+      "collection": "boreal",
+      "texture": "finishes/20261022/bisc-balanced.webp",
+      "textureVariants": {
+        "fluid": "/assets/finishes/20261022/bisc-fluid.webp",
+        "balanced": "/assets/finishes/20261022/bisc-balanced.webp",
+        "max": "/assets/finishes/20261022/bisc-max.webp"
+      },
+      "swatch": "/assets/finishes/20261022/bisc-swatch.webp",
+      "frontRotation": 1.5707963267948966,
+      "textureRepeat": [
+        1,
+        0.40374756
+      ],
+      "frontRepeat": [
+        1,
+        0.52734375
+      ],
+      "manufacturerSample": true,
+      "source": "Juan Carlos Segura · Biscuit_acabado.jpeg · 2026-10-22",
+      "textureURL": "/assets/finishes/20261022/bisc-balanced.webp"
     },
     {
       "id": "boreal--blanco-mate",
@@ -1412,10 +1643,29 @@ export const CATALOG = {
     {
       "id": "boreal--azul-acero",
       "name": "Azul Acero",
-      "hex": "#4d5c70",
+      "hex": "#67757e",
       "kind": "Laque mate",
       "roughness": 0.36,
-      "collection": "boreal"
+      "collection": "boreal",
+      "texture": "finishes/20261022/azul-balanced.webp",
+      "textureVariants": {
+        "fluid": "/assets/finishes/20261022/azul-fluid.webp",
+        "balanced": "/assets/finishes/20261022/azul-balanced.webp",
+        "max": "/assets/finishes/20261022/azul-max.webp"
+      },
+      "swatch": "/assets/finishes/20261022/azul-swatch.webp",
+      "frontRotation": 1.5707963267948966,
+      "textureRepeat": [
+        1,
+        0.40374756
+      ],
+      "frontRepeat": [
+        1,
+        0.52734375
+      ],
+      "manufacturerSample": true,
+      "source": "Juan Carlos Segura · Azul acero_acabado.jpeg · 2026-10-22",
+      "textureURL": "/assets/finishes/20261022/azul-balanced.webp"
     },
     {
       "id": "brunei--blanco-mate",
@@ -1472,10 +1722,29 @@ export const CATALOG = {
     {
       "id": "amat--biscuit",
       "name": "Biscuit",
-      "hex": "#e5ddd2",
+      "hex": "#ebe2d9",
       "kind": "Laque mate",
       "roughness": 0.36,
-      "collection": "amat"
+      "collection": "amat",
+      "texture": "finishes/20261022/bisc-balanced.webp",
+      "textureVariants": {
+        "fluid": "/assets/finishes/20261022/bisc-fluid.webp",
+        "balanced": "/assets/finishes/20261022/bisc-balanced.webp",
+        "max": "/assets/finishes/20261022/bisc-max.webp"
+      },
+      "swatch": "/assets/finishes/20261022/bisc-swatch.webp",
+      "frontRotation": 1.5707963267948966,
+      "textureRepeat": [
+        1,
+        0.40374756
+      ],
+      "frontRepeat": [
+        1,
+        0.52734375
+      ],
+      "manufacturerSample": true,
+      "source": "Juan Carlos Segura · Biscuit_acabado.jpeg · 2026-10-22",
+      "textureURL": "/assets/finishes/20261022/bisc-balanced.webp"
     },
     {
       "id": "amat--fresno-lagom",
@@ -1547,18 +1816,56 @@ export const CATALOG = {
     {
       "id": "less--azul-acero-tirador-niquel",
       "name": "Azul acero / Tirador Níquel",
-      "hex": "#4d5c70",
+      "hex": "#67757e",
       "kind": "Laque mate",
       "roughness": 0.36,
-      "collection": "less"
+      "collection": "less",
+      "texture": "finishes/20261022/azul-balanced.webp",
+      "textureVariants": {
+        "fluid": "/assets/finishes/20261022/azul-fluid.webp",
+        "balanced": "/assets/finishes/20261022/azul-balanced.webp",
+        "max": "/assets/finishes/20261022/azul-max.webp"
+      },
+      "swatch": "/assets/finishes/20261022/azul-swatch.webp",
+      "frontRotation": 1.5707963267948966,
+      "textureRepeat": [
+        1,
+        0.40374756
+      ],
+      "frontRepeat": [
+        1,
+        0.52734375
+      ],
+      "manufacturerSample": true,
+      "source": "Juan Carlos Segura · Azul acero_acabado.jpeg · 2026-10-22",
+      "textureURL": "/assets/finishes/20261022/azul-balanced.webp"
     },
     {
       "id": "less--gris-tortora-tirador-negro",
       "name": "Gris Tórtora / Tirador Negro",
-      "hex": "#a59886",
+      "hex": "#807768",
       "kind": "Laque mate",
       "roughness": 0.36,
-      "collection": "less"
+      "collection": "less",
+      "texture": "finishes/20261022/gris-balanced.webp",
+      "textureVariants": {
+        "fluid": "/assets/finishes/20261022/gris-fluid.webp",
+        "balanced": "/assets/finishes/20261022/gris-balanced.webp",
+        "max": "/assets/finishes/20261022/gris-max.webp"
+      },
+      "swatch": "/assets/finishes/20261022/gris-swatch.webp",
+      "frontRotation": 1.5707963267948966,
+      "textureRepeat": [
+        1,
+        0.42008891
+      ],
+      "frontRepeat": [
+        1,
+        0.54868755
+      ],
+      "manufacturerSample": true,
+      "source": "Juan Carlos Segura · Gris Tórtora_acabado.jpeg · 2026-10-22",
+      "textureURL": "/assets/finishes/20261022/gris-balanced.webp"
     },
     {
       "id": "sima--roble-natura",
@@ -1657,38 +1964,110 @@ export const CATALOG = {
     {
       "id": "plan--roble-amazona",
       "name": "Roble Amazona",
-      "hex": "#b29574",
+      "hex": "#af9374",
       "kind": "Bois",
       "roughness": 0.45,
-      "texture": "roble.webp",
-      "textureURL": "https://studio-one-beta-test-v2.vercel.app/assets/roble.webp",
-      "collection": "plans"
+      "texture": "finishes/20261022/roble-balanced.webp",
+      "textureURL": "/assets/finishes/20261022/roble-balanced.webp",
+      "collection": "plans",
+      "textureVariants": {
+        "fluid": "/assets/finishes/20261022/roble-fluid.webp",
+        "balanced": "/assets/finishes/20261022/roble-balanced.webp",
+        "max": "/assets/finishes/20261022/roble-max.webp"
+      },
+      "swatch": "/assets/finishes/20261022/roble-swatch.webp",
+      "frontRotation": 1.5707963267948966,
+      "textureRepeat": [
+        1,
+        0.51518692
+      ],
+      "frontRepeat": [
+        1,
+        0.6728972
+      ],
+      "manufacturerSample": true,
+      "source": "Juan Carlos Segura · Roble amazona_acabado.jpeg · 2026-10-22"
     },
     {
       "id": "plan--azul-acero",
       "name": "Azul Acero",
-      "hex": "#4d5c70",
+      "hex": "#67757e",
       "kind": "Laque mate",
       "roughness": 0.36,
-      "collection": "plans"
+      "collection": "plans",
+      "texture": "finishes/20261022/azul-balanced.webp",
+      "textureVariants": {
+        "fluid": "/assets/finishes/20261022/azul-fluid.webp",
+        "balanced": "/assets/finishes/20261022/azul-balanced.webp",
+        "max": "/assets/finishes/20261022/azul-max.webp"
+      },
+      "swatch": "/assets/finishes/20261022/azul-swatch.webp",
+      "frontRotation": 1.5707963267948966,
+      "textureRepeat": [
+        1,
+        0.40374756
+      ],
+      "frontRepeat": [
+        1,
+        0.52734375
+      ],
+      "manufacturerSample": true,
+      "source": "Juan Carlos Segura · Azul acero_acabado.jpeg · 2026-10-22",
+      "textureURL": "/assets/finishes/20261022/azul-balanced.webp"
     },
     {
       "id": "plan--nogal-valentina",
       "name": "Nogal Valentina",
-      "hex": "#80573f",
+      "hex": "#77513d",
       "kind": "Bois",
       "roughness": 0.45,
-      "texture": "nogal-valentina.webp",
-      "textureURL": "https://studio-one-beta-test-v2.vercel.app/assets/nogal-valentina.webp",
-      "collection": "plans"
+      "texture": "finishes/20261022/nogal-balanced.webp",
+      "textureURL": "/assets/finishes/20261022/nogal-balanced.webp",
+      "collection": "plans",
+      "textureVariants": {
+        "fluid": "/assets/finishes/20261022/nogal-fluid.webp",
+        "balanced": "/assets/finishes/20261022/nogal-balanced.webp",
+        "max": "/assets/finishes/20261022/nogal-max.webp"
+      },
+      "swatch": "/assets/finishes/20261022/nogal-swatch.webp",
+      "frontRotation": 1.5707963267948966,
+      "textureRepeat": [
+        1,
+        0.40368186
+      ],
+      "frontRepeat": [
+        1,
+        0.52725793
+      ],
+      "manufacturerSample": true,
+      "source": "Juan Carlos Segura · Nogal valentina_acabado.jpeg · 2026-10-22"
     },
     {
       "id": "plan--biscuit",
       "name": "Biscuit",
-      "hex": "#e5ddd2",
+      "hex": "#ebe2d9",
       "kind": "Laque mate",
       "roughness": 0.36,
-      "collection": "plans"
+      "collection": "plans",
+      "texture": "finishes/20261022/bisc-balanced.webp",
+      "textureVariants": {
+        "fluid": "/assets/finishes/20261022/bisc-fluid.webp",
+        "balanced": "/assets/finishes/20261022/bisc-balanced.webp",
+        "max": "/assets/finishes/20261022/bisc-max.webp"
+      },
+      "swatch": "/assets/finishes/20261022/bisc-swatch.webp",
+      "frontRotation": 1.5707963267948966,
+      "textureRepeat": [
+        1,
+        0.40374756
+      ],
+      "frontRepeat": [
+        1,
+        0.52734375
+      ],
+      "manufacturerSample": true,
+      "source": "Juan Carlos Segura · Biscuit_acabado.jpeg · 2026-10-22",
+      "textureURL": "/assets/finishes/20261022/bisc-balanced.webp"
     }
   ],
   "sizes": [],
@@ -1751,13 +2130,13 @@ export const CATALOG = {
           "ttc": 38760,
           "ref": "6235"
         },
-        "120double": {
-          "ttc": 38760,
-          "ref": "6235"
-        },
         "140": {
           "ttc": 80760,
           "ref": "6236"
+        },
+        "120double": {
+          "ttc": 38760,
+          "ref": "6235"
         }
       },
       "matte": {
@@ -1785,13 +2164,13 @@ export const CATALOG = {
           "ref": "13045",
           "ttc": 59880
         },
-        "120double": {
-          "ttc": 59880,
-          "ref": "13045"
-        },
         "140": {
           "ref": "13000",
           "ttc": 108240
+        },
+        "120double": {
+          "ttc": 59880,
+          "ref": "13045"
         }
       },
       "black": {
