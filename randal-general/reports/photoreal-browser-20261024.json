@@ -1,0 +1,98 @@
+{
+  "passed": true,
+  "desktop": {
+    "device": "desktop",
+    "passed": true,
+    "actualRoom": {
+      "height": 280,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          420,
+          0
+        ],
+        [
+          420,
+          360
+        ],
+        [
+          0,
+          360
+        ]
+      ]
+    },
+    "image": {
+      "width": 1920,
+      "height": 1539
+    },
+    "automaticQuoteToRoom": true,
+    "clipboardFallback": true,
+    "pngDownload": true,
+    "menuAndPresentationReopen": true,
+    "currentEditedFinish": true,
+    "projectAndQualityPreserved": true,
+    "noPrivateData": true,
+    "noExternalChatGPTNavigation": true,
+    "errors": [],
+    "overflow": false,
+    "recordedRun": "combined-run desktop passed; subsequent mobile readiness stalled, isolated mobile then passed"
+  },
+  "mobile": {
+    "device": "mobile",
+    "automaticQuoteToRoom": true,
+    "actualRoom": {
+      "height": 280,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          420,
+          0
+        ],
+        [
+          420,
+          360
+        ],
+        [
+          0,
+          360
+        ]
+      ],
+      "partitions": []
+    },
+    "image": {
+      "width": 1920,
+      "height": 3318
+    },
+    "clipboardFallback": true,
+    "pngDownload": true,
+    "menuAndPresentationReopen": true,
+    "currentEditedFinish": true,
+    "projectAndQualityPreserved": true,
+    "noPrivateData": true,
+    "noExternalChatGPTNavigation": true,
+    "errors": [],
+    "overflow": false,
+    "networkFailures": []
+  },
+  "latestBuildDesktopFocus": {
+    "passed": true,
+    "currentAppSHA": "37dc6ece5d43",
+    "desktopMenuFocusReturned": true,
+    "stickyCloseVisibleAfterScroll": true,
+    "projectPreserved": true,
+    "errors": []
+  },
+  "browserContextsClosed": true,
+  "notes": [
+    "Actual application geometry/capture paths tested; source images not mocked. Existing shared Studio preload assets routed to identical local copies.",
+    "An initial combined PC-to-mobile browser run timed out before the mobile handoff; a fresh isolated mobile context completed all checks without asset substitutions or product changes.",
+    "Desktop full-flow preceded the final focus/sticky-header adjustment; latest desktop app was then checked specifically for those adjustments. Mobile passed the summary-focus fix; shared final sticky header was checked on desktop.",
+    "These are software GPU/browser emulation checks, not physical-phone performance measurements."
+  ]
+}

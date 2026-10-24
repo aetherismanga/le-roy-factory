@@ -49,3 +49,6 @@ body>header>.project-name{min-width:0}body>header>.quit-configurator{flex:0 0 au
 #add-choices .add-card small{font:11px/1.5 Arial,sans-serif;color:#74796d}
 .product-image-unavailable{display:grid;place-items:center;height:100%;padding:12px;font:11px/1.5 Arial,sans-serif;color:#74796d}
 @media(max-width:720px){.add-items button{min-height:145px}.add-items button .palette-picture{height:105px}#add-choices .catalogue-icon{height:145px}#add-choices .add-card{padding:8px 8px 13px}#add-choices .add-card strong{font-size:13px}}
+
+/* Optional ChatGPT handoff, scoped to the presentation step. */
+.photoreal-card{border:1px solid #d5c8ad!important;border-radius:10px;background:#f6f2e8;padding:18px!important}.photoreal-card p{margin:0 0 14px;font-size:12px;line-height:1.6;color:#586154}.photoreal-card .primary-action{white-space:normal;min-height:44px}.photoreal-card button:focus-visible{outline:3px solid #ac9567;outline-offset:3px}
