@@ -1,0 +1,31 @@
+import assert from 'node:assert/strict';
+import * as T from 'three';
+import {makeModel} from '../src/model.js';
+import {makeTiledSurface} from '../src/surfaces.js';
+import {tapGesture,pickEditable} from '../src/picking.js';
+import {basinColors,basinReference} from '../src/basins.js';
+import {writeFileSync} from 'node:fs';
+const scene=new T.Scene(),model=makeModel();scene.add(model.root);
+const floor=makeTiledSurface('floor',10,20);floor.group.rotation.x=-Math.PI/2;floor.group.userData.editTarget='floor';scene.add(floor.group);
+const wall=makeTiledSurface('wall',5,5);wall.group.position.set(0,1.5,-.230);wall.group.userData.editTarget='wall';scene.add(wall.group);
+const camera=new T.PerspectiveCamera(42,1,.035,120);camera.position.set(1.1,1.4,2.7);camera.lookAt(0,.9,0);camera.updateMatrixWorld();
+const pick=(x,y,z)=>pickEditable(scene,camera,new T.Vector3(x,y,z).project(camera));
+assert.equal(pick(0,.414,.23),'furniture');assert.equal(pick(.35,.84,.1),'basin');
+assert.equal(pick(.8,0,.8),'floor');assert.equal(pick(-1.5,1.3,-.23),'wall');
+wall.group.visible=false;assert.equal(pick(-1.5,1.3,-.23),null,'Hidden ancestors must not be selected');wall.group.visible=true;
+model.setTop('plain');assert.equal(pick(.35,.84,.1),'basin','A matching worktop opens compatible basin choices');
+for(const mode of ['tampa','neris','torne']){model.setTop(mode);assert.equal(mode==='tampa'?pick(.35,.84,.1):pick(.1,.92,.17),'basin',mode+' should be selectable as actual geometry');}
+model.setTop('sella');model.drawers[1].position.z=.315;assert.equal(pick(0,.414,.54),'furniture','Open drawer uses current world transform');
+const blocker=new T.Mesh(new T.PlaneGeometry(4,4),new T.MeshBasicMaterial());blocker.position.set(0,1,1.5);scene.add(blocker);assert.equal(pick(0,.414,.54),null,'Do not select through foreground geometry');
+const tap=tapGesture(),e=(pointerId=1,x=10,y=10,t=0)=>({pointerId,clientX:x,clientY:y,timeStamp:t,button:0});
+tap.down(e());assert(tap.up(e(1,12,12,100)));
+tap.down(e());tap.move(e(1,40,10,30));assert.equal(tap.up(e(1,10,10,100)),false,'Orbiting and returning is not a click');
+tap.down(e());tap.down(e(2));assert.equal(tap.up(e(2,10,10,100)),false);assert.equal(tap.up(e(1,10,10,101)),false,'Pinching must not select');
+tap.down(e());tap.cancel(e());assert.equal(tap.up(e(1,10,10,100)),false);
+tap.down(e());assert.equal(tap.up(e(1,10,10,900)),false,'Long press must not select');
+const right={...e(),button:2};tap.down(right);assert.equal(tap.up({...right,timeStamp:100}),false);
+assert.equal(basinColors('sella').length,1);assert.equal(basinColors('tampa').length,3);assert.equal(basinColors('plain').length,0);
+for(const top of ['neris','torne']){assert.equal(basinColors(top).length,9);for(const c of basinColors(top))assert(basinReference(top,c.id,80));}
+assert.equal(basinReference('tampa','black',80),'13041');assert.equal(basinReference('tampa','matte',80),'13041');
+const report={passed:true,at:new Date().toISOString(),checks:['raycast actual furniture, inset basins, vessels, tiles and matching worktop','hidden ancestors and foreground occlusion respected','open drawers use updated world transforms','tap, orbit, right pan, pinch, cancel and long press distinguished','only catalogue-supported colours and references offered'],browserQA:'Not run; geometric raycasting and shipped controls tested in Node'};
+writeFileSync('qa/picking-result.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));

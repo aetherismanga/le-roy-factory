@@ -8,3 +8,15 @@ qa/*.png
 
 node_modules/
 node_modules
+
+# Rebuilt from src; retain dist/style.css and manufacturer assets.
+/dist/app.js
+/dist/accueil.js
+/dist/maison.js
+/dist/chunks/*.js
+/dist/atelier.html
+/dist/accueil.html
+/dist/index.html
+/dist/maison.html
+/dist/commerce.css
+/dist/accueil.css

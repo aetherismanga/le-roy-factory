@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "node build.mjs",
-    "check": "node qa/catalogue.mjs && node qa/manufacturer.mjs && node qa/project-lighting.mjs && node qa/viewport.mjs && node qa/ceramic-basins.mjs && node qa/surface-picker-check.mjs && node qa/quality-capture.mjs && node qa/surface-reference-textures.mjs && node qa/quercia-native-selection.mjs && node qa/photoreal-project.mjs && node qa/photoreal-restore.mjs && node qa/release-20261024.mjs"
+    "check": "node qa/catalogue.mjs && node qa/manufacturer.mjs && node qa/project-lighting.mjs && node qa/viewport.mjs && node qa/ceramic-basins.mjs && node qa/surface-picker-check.mjs && node qa/quality-capture.mjs && node qa/surface-reference-textures.mjs && node qa/quercia-native-selection.mjs && node qa/photoreal-project.mjs && node qa/photoreal-restore.mjs && node qa/release-20261024.mjs && node qa/allure-shared-check.mjs && node qa/room-interaction.mjs"
   },
   "dependencies": {
     "three": "0.180.0"

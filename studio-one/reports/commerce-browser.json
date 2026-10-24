@@ -1,0 +1,198 @@
+{
+  "screens": [
+    {
+      "width": 1440,
+      "scroll": 1440,
+      "badImages": []
+    },
+    {
+      "width": 1024,
+      "scroll": 1024,
+      "badImages": []
+    },
+    {
+      "width": 768,
+      "scroll": 768,
+      "badImages": []
+    },
+    {
+      "width": 390,
+      "scroll": 390,
+      "badImages": []
+    },
+    {
+      "width": 320,
+      "scroll": 320,
+      "badImages": []
+    }
+  ],
+  "errors": [],
+  "failed": [],
+  "homeResources": [
+    {
+      "name": "http://localhost:4173/accueil.css",
+      "bytes": 11432,
+      "duration": 9
+    },
+    {
+      "name": "http://localhost:4173/accueil.js",
+      "bytes": 25342,
+      "duration": 9
+    },
+    {
+      "name": "http://localhost:4173/api/commercial",
+      "bytes": 358,
+      "duration": 5
+    },
+    {
+      "name": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/hero-meuble-hd.webp",
+      "bytes": 0,
+      "duration": 4807
+    },
+    {
+      "name": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/2-tiroirs.webp",
+      "bytes": 0,
+      "duration": 4747
+    },
+    {
+      "name": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/3-tiroirs.webp",
+      "bytes": 0,
+      "duration": 4744
+    },
+    {
+      "name": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/2-tiroirs-xl.webp",
+      "bytes": 0,
+      "duration": 4747
+    },
+    {
+      "name": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/1-tiroir-xl.webp",
+      "bytes": 0,
+      "duration": 4748
+    }
+  ],
+  "guided": {
+    "version": 1,
+    "step": 4,
+    "format": "three",
+    "width": 100,
+    "finish": "BISC",
+    "top": "tampa",
+    "basinColor": "black",
+    "column": true,
+    "columnFinish": "NOGAL",
+    "mirror": "ilse",
+    "mirrorSize": 2,
+    "mirrorFinish": "Noir"
+  },
+  "guidedPublicTTC": "2 788,80 €",
+  "transferPayload": {
+    "version": 2,
+    "title": "Ma composition STUDIO ONE",
+    "room": {
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          300,
+          0
+        ],
+        [
+          300,
+          300
+        ],
+        [
+          0,
+          300
+        ]
+      ],
+      "height": 260,
+      "partitions": []
+    },
+    "floor": {
+      "collection": "Shell",
+      "color": "beige"
+    },
+    "walls": [
+      {
+        "collection": "Creta",
+        "color": "avena"
+      },
+      {
+        "collection": "Creta",
+        "color": "avena"
+      },
+      {
+        "collection": "Creta",
+        "color": "avena"
+      },
+      {
+        "collection": "Creta",
+        "color": "avena"
+      }
+    ],
+    "lighting": "day",
+    "brightness": 100,
+    "items": [
+      {
+        "id": "guided-cabinet",
+        "type": "cabinet",
+        "settings": {
+          "format": "three",
+          "width": 100,
+          "finish": "BISC",
+          "top": "tampa",
+          "basinColor": "black",
+          "tampaColor": "black",
+          "vesselColor": "black",
+          "drawers": [
+            0,
+            0,
+            0
+          ],
+          "decor": true,
+          "tap": null
+        },
+        "placement": {
+          "wall": 0,
+          "u": 125,
+          "height": 0
+        }
+      },
+      {
+        "id": "guided-column",
+        "type": "column",
+        "settings": {
+          "finish": "NOGAL",
+          "hingeSide": "left",
+          "doorOpen": false
+        },
+        "placement": {
+          "wall": 0,
+          "u": 199,
+          "height": 28
+        }
+      },
+      {
+        "id": "guided-mirror",
+        "type": "mirror",
+        "settings": {
+          "mirrorModel": "ilse",
+          "width": 100,
+          "height": 80,
+          "mirrorFinish": "Noir",
+          "led": true
+        },
+        "placement": {
+          "wall": 0,
+          "u": 125,
+          "height": 149
+        }
+      }
+    ]
+  },
+  "sceneVisual": "NOT RUN: software Chromium cannot create WebGL2 in this execution environment",
+  "homePassed": true,
+  "full3DPassed": false
+}

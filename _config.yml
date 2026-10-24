@@ -1,0 +1,40 @@
+# GitHub Pages is the current host of leroyfactory.fr.
+# Publish the website and its shared browser contracts, never nested servers,
+# QA reports, tooling, dependencies or the source workspaces.
+exclude:
+  - node_modules
+  - package.json
+  - package-lock.json
+  - functions
+  - api
+  - server
+  - reports
+  - scripts
+  - tests
+  - tools
+  - randal-general
+  - studio-one
+  - review-studio-source
+  - mobile
+  - generated
+  - public-site
+  - shared/lrf-server
+  - shared/lrf-3d/qa
+  - shared/lrf-3d/package.json
+  - shared/lrf-3d/README.md
+  - shared/lrf-3d/extraction-provenance.json
+  - review-studio/app.js
+  - review-studio/accueil.js
+  - review-studio/maison.js
+  - review-studio/chunks
+  - review-studio/index.html
+  - review-studio/accueil.html
+  - review-studio/atelier.html
+  - review-studio/maison.html
+  - review-studio/style.css
+  - review-studio/accueil.css
+  - review-studio/commerce.css
+  - review-studio/mobile.css
+  - README.md
+  - RELEASE.md
+  - playwright.config.cjs

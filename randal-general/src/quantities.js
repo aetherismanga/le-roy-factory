@@ -1,21 +1,2 @@
-import {COLLECTIONS,tileFormat} from './surface-catalog.js';
-import {polygonArea} from './room.js';
-export const packagingKey=(finish,format)=>[finish.collection,finish.color,format].join('|');
-export function packagingFor(finish,formatId){const f=tileFormat(finish.collection,formatId)||{},legacy=finish.pack;return finish.packs?.[packagingKey(finish,formatId)]||(legacy?.format===formatId&&(!legacy.collection||legacy.collection===finish.collection)&&(!legacy.color||legacy.color===finish.color)?legacy:null)||f.packByColor?.[finish.color]||f;}
-export function quantityForSurface(surface,finish,layout={},loss=10,label=''){
- const c=COLLECTIONS[finish.collection],format=tileFormat(finish.collection,finish.format),polygon=surface.polygon;
- const cuts=[...(surface.openings||[]),...(surface.niches||[]).map(n=>({left:(n.u-n.width/2)/100,right:(n.u+n.width/2)/100,bottom:n.bottom/100,top:(n.bottom+n.height)/100})),...(surface.zoneCuts||[])];
- const geometric=surface.length!==undefined?surface.length*surface.height-cuts.reduce((n,o)=>n+(o.right-o.left)*(o.top-o.bottom),0):Math.abs(polygonArea(polygon))-(surface.holes||[]).reduce((n,h)=>n+Math.abs(polygonArea(h)),0),area=Math.max(0,surface.quantityAreaOverride??geometric);
- if(!c||!format||finish.collection==='Peinture')return {label,collection:finish.collection,color:finish.color,area,paint:true,boxes:0};
- const cells=surface.tiles.geometry.userData.cells||[],tileCount=cells.length,full=cells.filter(v=>v.area>=(v.faceArea??((format.width-.002)*(format.height-.002)))-.00001).length,cut=tileCount-full,layoutArea=cells.reduce((n,v)=>n+(v.nominalArea??format.width*format.height),0),withLoss=area*(1+Math.max(0,Math.min(30,loss))/100),needed=Math.max(layoutArea,withLoss),pack=packagingFor(finish,format.id),packVerified=Number(pack.m2Box)>0&&Number.isInteger(Number(pack.pcsBox))&&Number(pack.pcsBox)>0,boxes=packVerified?Math.ceil((needed-1e-8)/Number(pack.m2Box)):null;
- const row={label,catalogueKey:finish.catalogueKey,customPack:Boolean(finish.packs?.[packagingKey(finish,format.id)]||finish.pack?.format===format.id),brand:c.brand,collection:finish.collection,color:finish.color,format:format.id,area,tileCount,full,cut,layoutArea,cutWaste:Math.max(0,layoutArea-area),loss,withLoss,needed,pcsBox:packVerified?Number(pack.pcsBox):null,m2Box:packVerified?Number(pack.m2Box):null,packVerified,boxes,orderArea:packVerified?boxes*Number(pack.m2Box):null,orderPieces:packVerified?boxes*Number(pack.pcsBox):Math.ceil(tileCount*(1+Math.max(0,loss)/100)),source:pack.source||format.source||c.source||'Conditionnement fabricant à confirmer'};
- if(layout.pattern==='opus'&&layout.opus?.mode!=='manufacturer6'){
-  const groups=new Map();for(const cell of cells){const key=cell.width+'|'+cell.height;if(!groups.has(key))groups.set(key,[]);groups.get(key).push(cell);}
-  if(groups.size>1){const sum=cells.reduce((n,c)=>n+c.area,0);row.components=[...groups.values()].map(values=>{const cell=values[0],f=c.formats.find(f=>Math.abs(f.width-cell.width)<.001&&Math.abs(f.height-cell.height)<.001||Math.abs(f.height-cell.width)<.001&&Math.abs(f.width-cell.height)<.001);if(!f)throw Error('Le module opus comporte un format absent de cette collection.');return quantityForSurface({...surface,quantityAreaOverride:area*values.reduce((n,v)=>n+v.area,0)/sum,tiles:{geometry:{userData:{cells:values}}}},{...finish,format:f.id},{...layout,pattern:'straight'},loss,label+' · opus '+f.id);});}
- }
- return row;
-}
-export function summarizeQuantities(rows){
- const groups=new Map();for(const row of rows.flatMap(r=>r.components||[r])){if(row.paint)continue;const key=[row.brand,row.collection,row.color,row.format,row.reference,row.catalogueKey,row.m2Box,row.pcsBox].join('|');if(!groups.has(key))groups.set(key,{...row,area:0,needed:0,tileCount:0,full:0,cut:0,layoutArea:0,withLoss:0,cutWaste:0,plinthArea:0});const g=groups.get(key);for(const k of ['area','needed','tileCount','full','cut','layoutArea','withLoss','cutWaste','plinthArea'])g[k]+=row[k]||0;}
- for(const g of groups.values()){g.boxes=g.packVerified?Math.ceil((g.needed-1e-8)/g.m2Box):null;g.orderArea=g.packVerified?g.boxes*g.m2Box:null;g.orderPieces=g.packVerified?g.boxes*g.pcsBox:Math.ceil(g.tileCount*(1+Math.max(0,g.loss)/100));}return [...groups.values()];
-}
+// Shared LRF implementation; preserve this legacy import path.
+export * from '../../shared/lrf-3d/quantities.js';

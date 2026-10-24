@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "at": "2026-10-23T23:53:18.945Z",
+  "checks": [
+    "three explicit UltraHD/Standard/Light tiers plus independent automatic adaptation",
+    "Ultra supersampling and4K shadow/2K reflection budgets are higher than Standard",
+    "Standard retains the former detailed-quality budgets",
+    "Light disables cast shadows and expensive physical glass transmission",
+    "actual HDR beauty/GTAO/output/FXAA pipeline with half-resolution contact pass",
+    "transparent glass excluded from real AO normal override then restored",
+    "Ultra buffers and materials disposed when no longer used",
+    "GPU texture limits and narrow-screen caps respected"
+  ],
+  "browserQA": "CPU objects/controllers tested, not WebGL shaders or visual photorealism on actual hardware"
+}

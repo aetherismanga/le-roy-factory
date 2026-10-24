@@ -1,0 +1,82 @@
+{
+  "at": "2026-10-23T23:53:05.932Z",
+  "passed": true,
+  "meshes": 97,
+  "triangles": 59620,
+  "cabinetMetres": [
+    0.7999999993890524,
+    0.5400000214576721,
+    0.45999999850243334
+  ],
+  "panelMetres": 0.019,
+  "drawerTravel": 0.315,
+  "finishes": [
+    "Roble Amazona",
+    "Serenade Alba",
+    "Nogal Valentina",
+    "White Bolero",
+    "Azul Acero",
+    "Gris Tórtora",
+    "Biscuit",
+    "Muted Green"
+  ],
+  "checks": [
+    "finite genuine mesh geometry",
+    "external dimensions and 19mm panels",
+    "45-degree front geometry with high front lip and recessed rear on both drawers",
+    "recessed ceramic bowl and open basin/tap holes",
+    "independent drawer movement",
+    "60cm mirror frame",
+    "camera projections at desktop/tablet/phone aspect ratios",
+    "live planar reflection implementation",
+    "all local runtime dependencies"
+  ],
+  "browserQA": "NOT_RUN: required control-browser skill unavailable in managed Sites environment",
+  "assets": [
+    {
+      "file": "app.js",
+      "bytes": 2245949,
+      "sha256": "d140b5f49d65abd6f6cbf852e89bc64df421f7adcf65f3704df8ff68ff1ddeaf"
+    },
+    {
+      "file": "style.css",
+      "bytes": 59386,
+      "sha256": "c011575523b7cb4596832db5d359af1c7eeacb1013b7df5e812682e6144c5148"
+    },
+    {
+      "file": "icon.svg",
+      "bytes": 263,
+      "sha256": "1d2eaa002e26763308d6e86e3b184da02062ab4033fb9f71a2d085ac59ca542f"
+    },
+    {
+      "file": "assets/roble.webp",
+      "bytes": 25746,
+      "sha256": "8924e68102244ef316bcce91ddce078d728d009e6297fea0a22be46c76ef83a6"
+    },
+    {
+      "file": "assets/finishes/20261022/alba-balanced.webp",
+      "bytes": 90714,
+      "sha256": "b4440bd4a958008cf2aa9a70b48aa7bfb7aec671cba8b9a70bd0f87f1018e48d"
+    },
+    {
+      "file": "assets/nogal-valentina.webp",
+      "bytes": 25778,
+      "sha256": "9ecfda26adb00835f04d6711cd11b92de1a2108f41e49886ac70358c7bee9355"
+    },
+    {
+      "file": "assets/white-bolero.webp",
+      "bytes": 19416,
+      "sha256": "6284e76d7679be116fc99e5aacf3d1154f6a6f51c4a3e79841f708f19ddea429"
+    },
+    {
+      "file": "assets/day.hdr",
+      "bytes": 1682195,
+      "sha256": "dfc8505761018d644997a803f332339328af2b53e82023fb3bec37cefdf43b83"
+    },
+    {
+      "file": "assets/studio.hdr",
+      "bytes": 1615248,
+      "sha256": "e7cfda5f4e98e623db12b8bfd0184e048488e4855d9c83e2751fb44a32e80c45"
+    }
+  ]
+}

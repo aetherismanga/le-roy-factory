@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "at": "2026-10-23T23:53:20.241Z",
+  "checks": [
+    "bath aprons meet real rim height, no coupled shower/bath taps or screens",
+    "partition thickness/height validation, floor footprint deduction and two selectable faces",
+    "real door cuts through both partition faces, attached furniture prevents accidental partition deletion",
+    "independent tray/screen/tap placement and deletion with allowed physical overlap",
+    "six mirror families, catalogue sizes, reversible Basic and correct finish references",
+    "actual tile cells: aligned/vertical/staggered, cut counts, no-reuse waste, margin and whole-box rounding",
+    "verified manufacturer packaging arithmetic, with unknown new formats left unpriced and Golden Stone 120x120 corrected to one piece",
+    "existing VIEW assets retained and additional native faces shared, real paint bump and continuous no-joint face",
+    "aluminium edge profiles have actual 3D geometry and measured lengths",
+    "legacy project upgraded to independent accessories"
+  ],
+  "browserQA": "Not run: geometry, markup and controllers tested without browser/GPU; visual/device validation still required"
+}

@@ -1,0 +1,78 @@
+{
+  "passed": true,
+  "at": "2026-10-23T23:53:06.218Z",
+  "checks": [
+    "mode switches are mutually exclusive and reversible",
+    "solid countertop 800x460x20mm",
+    "Tampa real recessed 150mm ceramic shell and perforated plate",
+    "Neris 460x330x140mm",
+    "Torne diameter370mm height120mm",
+    "real recessed vessel interiors",
+    "aligned drain and tap holes",
+    "tall mixer clears both vessel rims and bodies",
+    "countertop shares exact furniture finish material",
+    "all 14 textures preserve original SHA256",
+    "UI targets exist"
+  ],
+  "floorColors": [
+    "Beige",
+    "Beige Light",
+    "Grey",
+    "Grey Light",
+    "Ivory",
+    "Ivory Light"
+  ],
+  "wallColors": [
+    "Avena",
+    "Biscotto",
+    "Caramello",
+    "Ginepro",
+    "Malto",
+    "Matcha",
+    "Pepe",
+    "Zucchero"
+  ],
+  "topModes": [
+    {
+      "mode": "neris",
+      "passed": true
+    },
+    {
+      "mode": "sella",
+      "passed": true
+    },
+    {
+      "mode": "tampa",
+      "passed": true
+    },
+    {
+      "mode": "torne",
+      "passed": true
+    },
+    {
+      "mode": "plain",
+      "passed": true
+    },
+    {
+      "mode": "bare",
+      "passed": true
+    },
+    {
+      "mode": "neris",
+      "passed": true
+    },
+    {
+      "mode": "tampa",
+      "passed": true
+    },
+    {
+      "mode": "torne",
+      "passed": true
+    },
+    {
+      "mode": "sella",
+      "passed": true
+    }
+  ],
+  "imageBytes": 2293128
+}

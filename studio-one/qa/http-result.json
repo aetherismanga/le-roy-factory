@@ -1,0 +1,65 @@
+[
+  {
+    "path": "index.html",
+    "status": 200,
+    "url": "https://studio-one-atelier-3d.ccjacou.chatgpt.site/",
+    "shaMatches": true,
+    "bytes": 6769
+  },
+  {
+    "path": "app.js",
+    "status": 200,
+    "url": "https://studio-one-atelier-3d.ccjacou.chatgpt.site/app.js",
+    "shaMatches": true,
+    "bytes": 840557
+  },
+  {
+    "path": "style.css",
+    "status": 200,
+    "url": "https://studio-one-atelier-3d.ccjacou.chatgpt.site/style.css",
+    "shaMatches": true,
+    "bytes": 11884
+  },
+  {
+    "path": "assets/roble.webp",
+    "status": 200,
+    "url": "https://studio-one-atelier-3d.ccjacou.chatgpt.site/assets/roble.webp",
+    "shaMatches": true,
+    "bytes": 25746
+  },
+  {
+    "path": "assets/serenade-alba.webp",
+    "status": 200,
+    "url": "https://studio-one-atelier-3d.ccjacou.chatgpt.site/assets/serenade-alba.webp",
+    "shaMatches": true,
+    "bytes": 40806
+  },
+  {
+    "path": "assets/nogal-valentina.webp",
+    "status": 200,
+    "url": "https://studio-one-atelier-3d.ccjacou.chatgpt.site/assets/nogal-valentina.webp",
+    "shaMatches": true,
+    "bytes": 25778
+  },
+  {
+    "path": "assets/white-bolero.webp",
+    "status": 200,
+    "url": "https://studio-one-atelier-3d.ccjacou.chatgpt.site/assets/white-bolero.webp",
+    "shaMatches": true,
+    "bytes": 19416
+  },
+  {
+    "path": "assets/day.hdr",
+    "status": 200,
+    "url": "https://studio-one-atelier-3d.ccjacou.chatgpt.site/assets/day.hdr",
+    "shaMatches": true,
+    "bytes": 1682195
+  },
+  {
+    "path": "assets/studio.hdr",
+    "status": 200,
+    "url": "https://studio-one-atelier-3d.ccjacou.chatgpt.site/assets/studio.hdr",
+    "shaMatches": true,
+    "bytes": 1615248
+  }
+]

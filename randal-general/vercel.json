@@ -47,6 +47,15 @@
   "functions": {
     "api/projects.js": {
       "maxDuration": 60
+    },
+    "api/commercial.js": {
+      "includeFiles": "server/data/*.enc.json"
+    },
+    "api/agent-tariffs.mjs": {
+      "includeFiles": "server/data/*.enc.json"
     }
+  },
+  "git": {
+    "deploymentEnabled": false
   }
 }

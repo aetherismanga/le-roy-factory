@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "checks": [
+    "Save/update by stable ID without duplicate project; equal names remain distinct projects",
+    "Full scene returns to quote, including extra cabinet, window, materials, views and profile overrides",
+    "Quota failure prevents leaving the scene",
+    "Order message preserves exact references and computed public quote, no invented PRO",
+    "Email compose only; recipients copied from existing RANDAL configurator; no message transmitted",
+    "Contact details remain out of saved project data",
+    "Fresh SVG dimensions and correct inward-descending 45-degree section"
+  ],
+  "realWebGL": "Existing GPU test limitation remains; actual scene restoration covered by existing controller suite"
+}

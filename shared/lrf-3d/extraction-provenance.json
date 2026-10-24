@@ -1,0 +1,186 @@
+{
+  "main": "8571318620b70a7d7c0c9a0580b1d65bdc32db5e",
+  "studio": "4668cd99df55734a46fcd3bd330acb60da53d3f5",
+  "modules": [
+    {
+      "module": "aquahome-catalog.js",
+      "sha256": "233f575ac29e8c8b47bacb94655ea35a75b0f9c952def8f016cde3bcfb3b21f6",
+      "bytes": 19959,
+      "originalsIdentical": true
+    },
+    {
+      "module": "catalogue-product-visuals.js",
+      "sha256": "05ccd68ad62e70ec187b03e5bf0c782e0fdb26266f85909f7cedea9abadcabde",
+      "bytes": 4183,
+      "originalsIdentical": true
+    },
+    {
+      "module": "ceramic-basins.js",
+      "sha256": "b569575ebeff68c54d4060cfc55d0b7c23c9481f10b1354bac174a161e4d3aad",
+      "bytes": 3414,
+      "originalsIdentical": true
+    },
+    {
+      "module": "colour-rendering.js",
+      "sha256": "576744fdd670cf0c8358b6d3f6d5a05e7af112680a4ac5cd981f43306e22c443",
+      "bytes": 418,
+      "originalsIdentical": true
+    },
+    {
+      "module": "commerce/identity-state.js",
+      "sha256": "de2768c29c0c4b596241448d3aa150df6ab2384f38aa8ab85b7dc2a49c8470d5",
+      "bytes": 3785,
+      "originalsIdentical": true
+    },
+    {
+      "module": "commerce/navigation.js",
+      "sha256": "ca0212a0c3de94826396c297ec6c3bd3c596d8effb17085704f37c2ee4bccf76",
+      "bytes": 799,
+      "originalsIdentical": true
+    },
+    {
+      "module": "equipment-collision.js",
+      "sha256": "6e0c84f6bae3e34c459220d4b0076d2e9a7e0dd4dd1b34d6dedb24a3af1181a6",
+      "bytes": 1773,
+      "originalsIdentical": true
+    },
+    {
+      "module": "equipment.js",
+      "sha256": "501041c67ffaa0e6a8edeb2a49e218abdaab7dd9eb877cd5c81c7a996a6e35ce",
+      "bytes": 4171,
+      "originalsIdentical": true
+    },
+    {
+      "module": "hd-capture.js",
+      "sha256": "957ebf31d341a79b6bc251d3074e0ace014e0d9c976749cf5f3daaf9dd9542f3",
+      "bytes": 917,
+      "originalsIdentical": true
+    },
+    {
+      "module": "integrated-basins.js",
+      "sha256": "d185a69f37f2e8eb0bd3318c3c67b6e3892fd119e944d719c4f3aecf02df64e4",
+      "bytes": 1869,
+      "originalsIdentical": true
+    },
+    {
+      "module": "mirror-lighting.js",
+      "sha256": "9ffa79f96dc8287c47a0bb171724042acc60b743cf2f0c9332b263e15e56daef",
+      "bytes": 2442,
+      "originalsIdentical": true
+    },
+    {
+      "module": "mirror-reflection.js",
+      "sha256": "a5ba9868473a34de1a820cb6ea02e8a395c4ed8b92910704435ef8ee49d6c166",
+      "bytes": 1319,
+      "originalsIdentical": true
+    },
+    {
+      "module": "mirror-thumbnail.js",
+      "sha256": "25ae784948dc238c72419d148f597995d29fe1c66c1bb7b99e892ba2fa10a935",
+      "bytes": 2336,
+      "originalsIdentical": true
+    },
+    {
+      "module": "mirrors.js",
+      "sha256": "e20a04b4a667b8e403ac01d99272776ca4704171fbdec25f9bb8bb2a1aa28aa2",
+      "bytes": 3818,
+      "originalsIdentical": true
+    },
+    {
+      "module": "navigation.js",
+      "sha256": "fbdbd6dabb399504df9f8ff9e59fee40072ce5d94b9f5541a995afcad4c0c8fc",
+      "bytes": 406,
+      "originalsIdentical": true
+    },
+    {
+      "module": "niches.js",
+      "sha256": "4d387fa7f2c56238d1d32eb0aae13148a60ccf75e0d12f99736439a8ae281298",
+      "bytes": 2149,
+      "originalsIdentical": true
+    },
+    {
+      "module": "photoreal-export.js",
+      "sha256": "2c57bd2f06d2a6aa573fb239cfdafebd5fde2a503fb85015254ab1a1f84862ea",
+      "bytes": 12444,
+      "originalsIdentical": true
+    },
+    {
+      "module": "picking.js",
+      "sha256": "c27c4308b358f6772d4e54eba027ce4c198eaf61f194bc7445470c2873c72e3a",
+      "bytes": 1475,
+      "originalsIdentical": true
+    },
+    {
+      "module": "plan-snap.js",
+      "sha256": "44cfcf08f1f00d1bfc5b6ebe7d7433cbd47444bb2bfb9194dece28b80b4573c8",
+      "bytes": 2912,
+      "originalsIdentical": true
+    },
+    {
+      "module": "plan-topology.mjs",
+      "sha256": "1c2d6beae37b5d0fb32fc7214846bf8e6d92201c8e5687a004030990759fbc22",
+      "bytes": 3767,
+      "originalsIdentical": true
+    },
+    {
+      "module": "plinth-math.mjs",
+      "sha256": "09157dd9ede590367eb8423ec133cebbe6d69f513cdaea04c048134b428e35db",
+      "bytes": 8097,
+      "originalsIdentical": true
+    },
+    {
+      "module": "plinth-ui.mjs",
+      "sha256": "8d6d558e5aa5b5b78bb9dd832edd36e581400388de62f6643b772b04e18d1776",
+      "bytes": 6954,
+      "originalsIdentical": true
+    },
+    {
+      "module": "polygon-clipping.mjs",
+      "sha256": "c7a2b9ea12e0d71780af4983f92cdd480f60d9d1751433a19c5735248558ac7f",
+      "bytes": 26514,
+      "originalsIdentical": true
+    },
+    {
+      "module": "profiles.js",
+      "sha256": "2c3cd95e47199999620f3bab4aef0b95dc574956877d2d04ffd0310b34ef21cd",
+      "bytes": 3805,
+      "originalsIdentical": true
+    },
+    {
+      "module": "sanitaries.js",
+      "sha256": "960b0704366ae25ca64703f463cff1c4dcef00dd75cc2e2a655bd41352e3d6fd",
+      "bytes": 7756,
+      "originalsIdentical": true
+    },
+    {
+      "module": "screen-mount.js",
+      "sha256": "4e342c733eb3a6f87978dd903e404b7066190a0c8d853b1dcf2a72ec7491ed91",
+      "bytes": 2074,
+      "originalsIdentical": true
+    },
+    {
+      "module": "surfaces.js",
+      "sha256": "4a1bca248f8a9aba1f724b05448aae2cfa11efa5cf380446bf2623ad4b552d9d",
+      "bytes": 3451,
+      "originalsIdentical": true
+    },
+    {
+      "module": "taps.js",
+      "sha256": "d9abb9fa930dc6714acdeccdee31ad30b5e63b95fbb345f0e97a1659c75d4c18",
+      "bytes": 4429,
+      "originalsIdentical": true
+    },
+    {
+      "module": "tile-layout.js",
+      "sha256": "1e4f24d67e760055b97b6e47596ebc0a2d89f4fd6b252c0e1f5635b72ba2fe7b",
+      "bytes": 9166,
+      "originalsIdentical": true
+    },
+    {
+      "module": "ultra-rendering.js",
+      "sha256": "2072cfc76d6714699faebf590a957cb5bd0d79ae64ceb583258eadf29d483bb5",
+      "bytes": 2443,
+      "originalsIdentical": true
+    }
+  ]
+}

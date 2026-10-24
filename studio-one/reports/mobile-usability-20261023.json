@@ -1,0 +1,297 @@
+{
+  "passed": true,
+  "realWebGL2": true,
+  "viewports": [
+    {
+      "width": 320,
+      "height": 740,
+      "scrollWidth": 320,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 92,
+        "bottom": 92,
+        "right": 320
+      },
+      "viewer": {
+        "x": 0,
+        "y": 92,
+        "width": 320,
+        "height": 588,
+        "bottom": 680,
+        "right": 320
+      },
+      "nav": {
+        "x": 0,
+        "y": 680,
+        "width": 320,
+        "height": 60,
+        "bottom": 740,
+        "right": 320
+      },
+      "visit": {
+        "x": 176.34375,
+        "y": 154,
+        "width": 79.65625,
+        "height": 44,
+        "bottom": 198,
+        "right": 256
+      },
+      "lock": {
+        "x": 266,
+        "y": 154,
+        "width": 44,
+        "height": 44,
+        "bottom": 198,
+        "right": 310
+      }
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "scrollWidth": 360,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 360,
+        "height": 92,
+        "bottom": 92,
+        "right": 360
+      },
+      "viewer": {
+        "x": 0,
+        "y": 92,
+        "width": 360,
+        "height": 648,
+        "bottom": 740,
+        "right": 360
+      },
+      "nav": {
+        "x": 0,
+        "y": 740,
+        "width": 360,
+        "height": 60,
+        "bottom": 800,
+        "right": 360
+      },
+      "visit": {
+        "x": 216.34375,
+        "y": 154,
+        "width": 79.65625,
+        "height": 44,
+        "bottom": 198,
+        "right": 296
+      },
+      "lock": {
+        "x": 306,
+        "y": 154,
+        "width": 44,
+        "height": 44,
+        "bottom": 198,
+        "right": 350
+      }
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "scrollWidth": 390,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 92,
+        "bottom": 92,
+        "right": 390
+      },
+      "viewer": {
+        "x": 0,
+        "y": 92,
+        "width": 390,
+        "height": 692,
+        "bottom": 784,
+        "right": 390
+      },
+      "nav": {
+        "x": 0,
+        "y": 784,
+        "width": 390,
+        "height": 60,
+        "bottom": 844,
+        "right": 390
+      },
+      "visit": {
+        "x": 246.34375,
+        "y": 154,
+        "width": 79.65625,
+        "height": 44,
+        "bottom": 198,
+        "right": 326
+      },
+      "lock": {
+        "x": 336,
+        "y": 154,
+        "width": 44,
+        "height": 44,
+        "bottom": 198,
+        "right": 380
+      }
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "scrollWidth": 430,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 430,
+        "height": 92,
+        "bottom": 92,
+        "right": 430
+      },
+      "viewer": {
+        "x": 0,
+        "y": 92,
+        "width": 430,
+        "height": 780,
+        "bottom": 872,
+        "right": 430
+      },
+      "nav": {
+        "x": 0,
+        "y": 872,
+        "width": 430,
+        "height": 60,
+        "bottom": 932,
+        "right": 430
+      },
+      "visit": {
+        "x": 286.34375,
+        "y": 154,
+        "width": 79.65625,
+        "height": 44,
+        "bottom": 198,
+        "right": 366
+      },
+      "lock": {
+        "x": 376,
+        "y": 154,
+        "width": 44,
+        "height": 44,
+        "bottom": 198,
+        "right": 420
+      }
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "scrollWidth": 844,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 844,
+        "height": 52,
+        "bottom": 52,
+        "right": 844
+      },
+      "viewer": {
+        "x": 0,
+        "y": 52,
+        "width": 844,
+        "height": 286,
+        "bottom": 338,
+        "right": 844
+      },
+      "nav": {
+        "x": 0,
+        "y": 338,
+        "width": 844,
+        "height": 52,
+        "bottom": 390,
+        "right": 844
+      },
+      "visit": {
+        "x": 700.34375,
+        "y": 114,
+        "width": 79.65625,
+        "height": 44,
+        "bottom": 158,
+        "right": 780
+      },
+      "lock": {
+        "x": 790,
+        "y": 114,
+        "width": 44,
+        "height": 44,
+        "bottom": 158,
+        "right": 834
+      }
+    }
+  ],
+  "restored": {
+    "azuliMood": 11,
+    "allure": 9
+  },
+  "touch": {
+    "singleFingerLooks": true,
+    "twoFingersMove": true,
+    "releaseStops": true,
+    "idleFrames": 0
+  },
+  "hdCapture": {
+    "width": 1920,
+    "height": 3407,
+    "profile": "max",
+    "textures": {
+      "finishes": [
+        {
+          "id": "ROBLE",
+          "profile": "max",
+          "width": 186,
+          "height": 186,
+          "url": "assets/roble.webp"
+        }
+      ],
+      "surfaces": [
+        {
+          "collection": "wall",
+          "id": "caramello",
+          "format": "60x120",
+          "reference": "",
+          "mapped": false,
+          "profile": "max",
+          "width": 1400,
+          "height": 700,
+          "url": "assets/creta-caramello.webp"
+        },
+        {
+          "collection": "Allure",
+          "id": "eden",
+          "format": "60x120",
+          "reference": "",
+          "mapped": false,
+          "profile": "max",
+          "width": 1200,
+          "height": 600,
+          "url": "assets/elios-restored/allure-eden-native.jpg"
+        }
+      ],
+      "pending": 0,
+      "cached": 6
+    },
+    "at": 1792770706903
+  },
+  "desktop": {
+    "viewer": 1038,
+    "settings": 320
+  },
+  "limitations": "Software GPU and simulated touch screens; no physical phone benchmark.",
+  "embeddedViewport": {
+    "outerHeight": 844,
+    "hostHeight": 700,
+    "safeBottom": 24,
+    "navBottom": 700,
+    "navHeight": 84,
+    "viewerHeight": 524
+  }
+}

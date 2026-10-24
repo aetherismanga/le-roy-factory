@@ -1,5 +1,6 @@
 import {LinearFilter,LinearMipmapLinearFilter} from 'three';
-export function textureLimit(profile,renderer){return Math.min(renderer?.capabilities?.maxTextureSize||4096,profile==='fluid'?256:profile==='balanced'?1024:4096);}
+import {textureLimit} from './texture-budget.js';
+export {textureLimit};
 // Resampling never changes colour space, white balance, grain direction or UVs.
 export function fitTexture(texture,profile,renderer){
  const limit=textureLimit(profile,renderer),image=texture.image;

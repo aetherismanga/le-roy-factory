@@ -1,14 +1,22 @@
 {
-  "name": "lrf-client-virtuel-tests",
+  "name": "le-roy-factory-suite",
   "version": "1.0.0",
   "private": true,
   "description": "Tests Playwright du client virtuel LE ROY FACTORY",
   "scripts": {
     "test:e2e": "playwright test",
     "test:e2e:desktop": "playwright test --project=desktop-chrome",
-    "test:e2e:mobile": "playwright test --project=iphone-webkit --project=android-chrome"
+    "test:e2e:mobile": "playwright test --project=iphone-webkit --project=android-chrome",
+    "build:site": "node scripts/build-public-site.mjs",
+    "build:studio": "npm run build --workspace=studio-one-atelier-3d",
+    "build:general": "npm run build --workspace=randal-general-3d",
+    "check:core": "node shared/lrf-3d/qa/core-check.mjs && node shared/lrf-3d/qa/shared-graph-check.mjs && node shared/lrf-3d/qa/room-interaction-check.mjs"
   },
   "devDependencies": {
     "@playwright/test": "1.55.0"
-  }
+  },
+  "workspaces": [
+    "randal-general",
+    "studio-one"
+  ]
 }

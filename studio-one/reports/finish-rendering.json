@@ -1,0 +1,92 @@
+{
+  "passed": true,
+  "realWebGL2": true,
+  "renders": [
+    {
+      "finish": "ROBLE",
+      "sampleRGB": [
+        170,
+        151,
+        110
+      ],
+      "sourceHex": "#bda084",
+      "texture": "roble.webp"
+    },
+    {
+      "finish": "ALBA",
+      "sampleRGB": [
+        188,
+        167,
+        134
+      ],
+      "sourceHex": "#c4ae94",
+      "texture": "serenade-alba.webp"
+    },
+    {
+      "finish": "NOGAL",
+      "sampleRGB": [
+        99,
+        82,
+        77
+      ],
+      "sourceHex": "#53433e",
+      "texture": "nogal-valentina.webp"
+    },
+    {
+      "finish": "WHITE",
+      "sampleRGB": [
+        232,
+        239,
+        231
+      ],
+      "sourceHex": "#dfdeda",
+      "texture": "white-bolero.webp"
+    },
+    {
+      "finish": "AZUL",
+      "sampleRGB": [
+        96,
+        115,
+        127
+      ],
+      "sourceHex": "#61717c",
+      "texture": null
+    },
+    {
+      "finish": "GRIS",
+      "sampleRGB": [
+        93,
+        82,
+        86
+      ],
+      "sourceHex": "#5e5559",
+      "texture": null
+    },
+    {
+      "finish": "BISC",
+      "sampleRGB": [
+        214,
+        189,
+        162
+      ],
+      "sourceHex": "#c9b29a",
+      "texture": null
+    },
+    {
+      "finish": "GREEN",
+      "sampleRGB": [
+        156,
+        154,
+        133
+      ],
+      "sourceHex": "#949280",
+      "texture": null
+    }
+  ],
+  "checks": [
+    "All eight genuine finishes rendered, with unchanged texture files",
+    "Dark walnut and Tortora stay distinct from light finishes",
+    "Biscuit warmth and Azul blue retained after the colour transform",
+    "No WebGL shader errors"
+  ]
+}

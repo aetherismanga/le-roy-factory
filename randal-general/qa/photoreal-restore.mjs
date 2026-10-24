@@ -7,7 +7,7 @@ const resume=source.slice(source.indexOf('function resumePhotorealHandoff(){'),s
 function scenario({restore=true,stored='{}'}={}){
  const data=new Map([['randal-general-guided-transfer-v1',stored]]),events=[],location=new URL('https://test.local/atelier.html?guided=1&photoreal=1');
  const box=()=>({append(){},after(){},setAttribute(){}});
- const context=vm.createContext({URL,URLSearchParams,Error,JSON,journal:null,photorealProjectReady:false,ACTIVE_ID:'active',location,
+ const context=vm.createContext({state:{surfaceNotices:[]},URL,URLSearchParams,Error,JSON,journal:null,photorealProjectReady:false,ACTIVE_ID:'active',location,
   localStorage:{getItem:key=>data.get(key)||null,removeItem:key=>data.delete(key)},history:{replaceState:(_,__,url)=>{const next=new URL(url,location);location.href=next.href;}},
   ProjectJournal:class{seed(){events.push('seed');}},defaultBathroomProject:()=>({version:2,room:{},items:[]}),restoreProject:()=>restore,
   setWorkspace(){},setView(){},decodeProject:JSON.parse,collectProject:()=>({version:2,room:{},items:[]}),updateHistoryButtons(){},

@@ -1,0 +1,34 @@
+{
+  "passed": true,
+  "devices": [
+    {
+      "device": "desktop",
+      "capture": [
+        1920,
+        1539
+      ],
+      "workingQualityRestored": "fluid",
+      "projectUnchanged": true,
+      "errors": []
+    },
+    {
+      "device": "mobile",
+      "capture": [
+        1920,
+        3407
+      ],
+      "workingQualityRestored": "fluid",
+      "projectUnchanged": true,
+      "errors": []
+    }
+  ],
+  "checks": [
+    "actual final quote to full-room atelier handoff",
+    "one-time route consumed",
+    "native HD capture and working quality restored",
+    "project unchanged by export",
+    "explicit prompt copy and manual fallback",
+    "image download and trusted ChatGPT link",
+    "failure dialog, retry and no blank download"
+  ]
+}

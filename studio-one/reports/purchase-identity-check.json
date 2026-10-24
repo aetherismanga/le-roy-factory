@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "checks": [
+    "Encrypted server grid; missing key fails closed",
+    "Anonymous, customer and partner sessions expose no purchase amounts or encoded reference",
+    "Expired session, forged/unverified administrator and revoked token blocked",
+    "Verified agent still receives the authorised quote structure",
+    "Actual model geometry and official finishing samples preserved"
+  ],
+  "liveAccounts": "Synthetic tests only. No real account or password used.",
+  "browser3D": "Requires WebGL2; see browser evidence."
+}

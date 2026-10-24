@@ -33,7 +33,20 @@
       "packVerified": true,
       "packSource": "https://eliosceramica.com/wp-content/uploads/2025/06/Elios_catalogo_ROMA.pdf",
       "boxesPallet": 60,
-      "opusModule": true
+      "opusModule": true,
+      "renderColorId": "aventino",
+      "catalogueRevision": "lrf-surfaces-20261024-v1",
+      "faces": [
+        "https://eliosceramica.com/wp-content/uploads/2016/09/roma_aventino_z-e1613149566773.jpg"
+      ],
+      "nativeFaces": false,
+      "textureResolution": [
+        415,
+        242
+      ],
+      "definitionLimited": false,
+      "continuousDecor": false,
+      "textureSourceKind": "manufacturer-face"
     },
     {
       "brand": "ELIOS",
@@ -68,7 +81,20 @@
       "packVerified": true,
       "packSource": "https://eliosceramica.com/wp-content/uploads/2025/06/Elios_catalogo_ROMA.pdf",
       "boxesPallet": 60,
-      "opusModule": true
+      "opusModule": true,
+      "renderColorId": "celio",
+      "catalogueRevision": "lrf-surfaces-20261024-v1",
+      "faces": [
+        "https://eliosceramica.com/wp-content/uploads/2016/09/roma_celio_z-e1613149555384.jpg"
+      ],
+      "nativeFaces": false,
+      "textureResolution": [
+        415,
+        242
+      ],
+      "definitionLimited": false,
+      "continuousDecor": false,
+      "textureSourceKind": "manufacturer-face"
     },
     {
       "brand": "ELIOS",
@@ -103,7 +129,20 @@
       "packVerified": true,
       "packSource": "https://eliosceramica.com/wp-content/uploads/2025/06/Elios_catalogo_ROMA.pdf",
       "boxesPallet": 40,
-      "opusModule": true
+      "opusModule": true,
+      "renderColorId": "viminale",
+      "catalogueRevision": "lrf-surfaces-20261024-v1",
+      "faces": [
+        "https://eliosceramica.com/wp-content/uploads/2016/09/roma_viminale_z-e1613149529947.jpg"
+      ],
+      "nativeFaces": false,
+      "textureResolution": [
+        415,
+        242
+      ],
+      "definitionLimited": false,
+      "continuousDecor": false,
+      "textureSourceKind": "manufacturer-face"
     },
     {
       "brand": "ELIOS",
@@ -138,7 +177,20 @@
       "packVerified": true,
       "packSource": "https://eliosceramica.com/wp-content/uploads/2025/06/Elios_catalogo_ROMA.pdf",
       "boxesPallet": 40,
-      "opusModule": true
+      "opusModule": true,
+      "renderColorId": "palatino",
+      "catalogueRevision": "lrf-surfaces-20261024-v1",
+      "faces": [
+        "https://eliosceramica.com/wp-content/uploads/2016/09/roma_palatino_z-e1613149542456.jpg"
+      ],
+      "nativeFaces": false,
+      "textureResolution": [
+        415,
+        242
+      ],
+      "definitionLimited": false,
+      "continuousDecor": false,
+      "textureSourceKind": "manufacturer-face"
     },
     {
       "brand": "ELIOS",
@@ -173,7 +225,20 @@
       "packVerified": true,
       "packSource": "https://eliosceramica.com/wp-content/uploads/2025/06/Elios_catalogo_ROMA.pdf",
       "boxesPallet": 60,
-      "opusModule": true
+      "opusModule": true,
+      "renderColorId": "aventino",
+      "catalogueRevision": "lrf-surfaces-20261024-v1",
+      "faces": [
+        "https://eliosceramica.com/wp-content/uploads/2016/09/roma_aventino_z-e1613149566773.jpg"
+      ],
+      "nativeFaces": false,
+      "textureResolution": [
+        415,
+        242
+      ],
+      "definitionLimited": false,
+      "continuousDecor": false,
+      "textureSourceKind": "manufacturer-face"
     },
     {
       "brand": "ELIOS",
@@ -208,7 +273,20 @@
       "packVerified": true,
       "packSource": "https://eliosceramica.com/wp-content/uploads/2025/06/Elios_catalogo_ROMA.pdf",
       "boxesPallet": 60,
-      "opusModule": true
+      "opusModule": true,
+      "renderColorId": "celio",
+      "catalogueRevision": "lrf-surfaces-20261024-v1",
+      "faces": [
+        "https://eliosceramica.com/wp-content/uploads/2016/09/roma_celio_z-e1613149555384.jpg"
+      ],
+      "nativeFaces": false,
+      "textureResolution": [
+        415,
+        242
+      ],
+      "definitionLimited": false,
+      "continuousDecor": false,
+      "textureSourceKind": "manufacturer-face"
     },
     {
       "key": "ELIOS|03ZM101",
@@ -242,7 +320,20 @@
       "opusModule": true,
       "shape": "rectangle",
       "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/WHITE-SELECTED_z.jpg",
-      "previewDefinition": "Échantillon fabricant · 1400 × 700 px"
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "renderColorId": "white",
+      "catalogueRevision": "lrf-surfaces-20261024-v1",
+      "faces": [
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/sedimenti/white.webp"
+      ],
+      "nativeFaces": true,
+      "textureResolution": [
+        1400,
+        700
+      ],
+      "definitionLimited": false,
+      "continuousDecor": false,
+      "textureSourceKind": "manufacturer-face"
     },
     {
       "key": "ELIOS|03ZM102",
@@ -276,7 +367,20 @@
       "opusModule": true,
       "shape": "rectangle",
       "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/BEIGE-SELECTED_z.jpg",
-      "previewDefinition": "Échantillon fabricant · 1400 × 700 px"
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "renderColorId": "beige",
+      "catalogueRevision": "lrf-surfaces-20261024-v1",
+      "faces": [
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/sedimenti/beige.webp"
+      ],
+      "nativeFaces": true,
+      "textureResolution": [
+        1400,
+        700
+      ],
+      "definitionLimited": false,
+      "continuousDecor": false,
+      "textureSourceKind": "manufacturer-face"
     },
     {
       "key": "ELIOS|03ZM103",
@@ -310,7 +414,9 @@
       "opusModule": true,
       "shape": "rectangle",
       "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/SAND-SELECTED_z.jpg",
-      "previewDefinition": "Échantillon fabricant · 1400 × 700 px"
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "renderColorId": "sand",
+      "catalogueRevision": "lrf-surfaces-20261024-v1"
     },
     {
       "key": "ELIOS|03ZM104",
@@ -344,7 +450,20 @@
       "opusModule": true,
       "shape": "rectangle",
       "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/GREY-SELECTED_z.jpg",
-      "previewDefinition": "Échantillon fabricant · 1400 × 700 px"
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "renderColorId": "grey",
+      "catalogueRevision": "lrf-surfaces-20261024-v1",
+      "faces": [
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/sedimenti/grey.webp"
+      ],
+      "nativeFaces": true,
+      "textureResolution": [
+        1400,
+        700
+      ],
+      "definitionLimited": false,
+      "continuousDecor": false,
+      "textureSourceKind": "manufacturer-face"
     }
   ],
   "previews": {

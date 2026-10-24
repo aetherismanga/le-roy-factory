@@ -1,0 +1,45 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "private, no-store"
+        }
+      ]
+    },
+    {
+      "source": "/manufacturer-materials/:path*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400, s-maxage=2592000"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/shared/avatar/:path*",
+      "destination": "https://maison-3d-leroyfactory-hugol-trading.vercel.app/assets/avatar/:path*"
+    },
+    {
+      "source": "/manufacturer-materials/elios/:path*",
+      "destination": "https://eliosceramica.com/:path*"
+    }
+  ],
+  "functions": {
+    "api/projects.js": {
+      "maxDuration": 60
+    },
+    "api/commercial.js": {
+      "includeFiles": "server/data/*.enc.json"
+    }
+  },
+  "git": {
+    "deploymentEnabled": false
+  }
+}

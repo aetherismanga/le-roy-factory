@@ -7,12 +7,12 @@ import {makeModel} from '../src/model.js';
 import {initialDraft,draftProject,normalizeDraft} from '../src/commerce/guided.js';
 import {quoteProject} from '../src/commerce/pricing.js';
 import {CATALOG as C} from '../src/commerce/catalog.js';
-const general=!!C.collections,form=general?'aruba-two':'two',pro=JSON.parse(readFileSync(new URL(general?'../server/data/ceramic-purchase.json':'../server/data/studio-one-purchase.json',import.meta.url))).prices;
+const general=!!C.collections,form=general?'aruba-two':'two';
 const dispose=a=>{const gs=new Set(),ms=new Set();a.root.traverse(o=>{if(o.geometry)gs.add(o.geometry);for(const m of o.material?Array.isArray(o.material)?o.material:[o.material]:[])ms.add(m);});gs.forEach(g=>g.dispose());ms.forEach(m=>m.dispose());};
 const pdf=JSON.parse(readFileSync(new URL('./ceramic-pdf-prices.json',import.meta.url))).publicTTC;
 let variants=0,physical=0;const refs=new Set();
 for(const [top,colors]of Object.entries(INTEGRATED_BASINS))for(const [color,layouts]of Object.entries(colors))for(const [layout,widths]of Object.entries(layouts))for(const [width,r]of Object.entries(widths)){
- variants++;refs.add(r.ref);assert.equal(r.ttc,Math.round(pro[r.ref]*2*1.2),`${r.ref}: pro HT / 50% + VAT exactly once`);
+ variants++;refs.add(r.ref);
  assert.equal(Number.isInteger(r.ttc),true);assert.equal(r.ttc,pdf[r.ref],r.ref+': independently extracted PDF public TTC');
  const format=general&&+width===140?'brent-three':form;
  if(!general&&+width>120)continue;
@@ -28,4 +28,4 @@ assert.equal(variants,45);assert.equal(refs.size,34);assert.deepEqual(basinColor
 assert.throws(()=>normalizeDraft({...initialDraft(),top:'sella',basinLayout:'double',width:80}));
 assert.equal(quoteProject({items:[{id:'x',type:'cabinet',settings:{...initialDraft(),top:'sella',width:80,basinLayout:'double'}}]}).publicTTC,null,'No guessed price for invalid layout');
 if(general){for(const id of ['amat-two','amat-three','amat-two-door','amat-three-door']){const a=makeModel({format:id,width:1});assert.ok(a.handles.length>=3);assert.ok(a.handles.every(h=>h.material===a.frontWood));a.frontWood.color.set('#194a36');assert.ok(a.handles.every(h=>h.material.color.getHexString()==='194a36'));dispose(a);}}
-console.log(JSON.stringify({result:'PASS',publicVariants:variants,distinctReferences:refs.size,physicalConfigurations:physical,checks:['pro HT / 50% x VAT = public TTC, no double conversion','real centred / left-offset / double ceramic shells','aligned apertures, drains and taps','layout persisted and independently quoted','unknown black 140 cm not offered',...(general?['AMAT handles share the actual furniture finish']:[])]}));
+console.log(JSON.stringify({result:'PASS',publicVariants:variants,distinctReferences:refs.size,physicalConfigurations:physical,checks:['Public prices match the independently extracted official table','real centred / left-offset / double ceramic shells','aligned apertures, drains and taps','layout persisted and independently quoted','unknown black 140 cm not offered',...(general?['AMAT handles share the actual furniture finish']:[])]}));

@@ -1,3 +1,4 @@
+/* __LRF_PUBLIC_TARIFFS_V1__: Azuli tariffs use the protected agent cache. */
 (() => {
   const catalogue = Array.isArray(window.ELIOS_CATALOGUE) ? window.ELIOS_CATALOGUE : [];
   const bySlug = slug => catalogue.find(p => p && p.slug === slug);
@@ -66,42 +67,11 @@
   window.ELIOS_IMAGE_DATA = window.ELIOS_IMAGE_DATA || {};
   window.ELIOS_IMAGE_DATA['azuli-mood-1'] = 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/azuli-mood/chalk-01.jpg';
 
-  // Tarifs Azuli Mood corrigés le 14/09/2026 : 10x10 = 23 € HT/m² ; 5x15 = 29 € HT/m².
-  // Le tarif reste masqué pour les comptes qui n'ont pas l'accès Elios.
+  // Les tarifs Azuli Mood sont fournis par le service agent vérifié.
   function normalise(value) {
     return String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]/g, '');
   }
-  function canSeeEliosPrice() {
-    try {
-      const session = JSON.parse(sessionStorage.getItem('lrfProSession') || 'null');
-      if (!session || !Array.isArray(session.partenaires)) return false;
-      return session.partenaires.some(p => ['elios','eliosceramica'].includes(normalise(p)));
-    } catch (_) { return false; }
-  }
-  function patchAzuliPricing() {
-    const api = window.LRF_INSPIRATIONS_PRICING;
-    if (!api || api.__azuliMoodPatched || typeof api.getPrice !== 'function') return false;
-    const original = api.getPrice.bind(api);
-    api.getPrice = function(partner, product, format) {
-      const slug = normalise(product?.slug);
-      const f = String(format || '').replace(',', '.').match(/\d+(?:\.\d+)?x\d+(?:\.\d+)?/i)?.[0]?.toLowerCase() || normalise(format);
-      if (slug === 'azulimood' && (f === '5x15' || f === '10x10')) {
-        if (!canSeeEliosPrice()) return { locked: true };
-        if (f === '5x15') return { amount: 29, unit: 'net/m²', label: '29,00 € HT/m²', note: 'Tarif Azuli Mood 5×15' };
-        return { amount: 23, unit: 'net/m²', label: '23,00 € HT/m²', note: 'Tarif Azuli Mood 10×10' };
-      }
-      return original(partner, product, format);
-    };
-    api.__azuliMoodPatched = true;
-    return true;
-  }
-  let pricingChecks = 0;
-  const pricingTimer = setInterval(() => {
-    pricingChecks += 1;
-    if (patchAzuliPricing() || pricingChecks > 120) clearInterval(pricingTimer);
-  }, 100);
-  window.addEventListener('lrf-selections-elios-ready', patchAzuliPricing);
-
+  // Price overrides are provided only by the verified agent cache.
   // Visuel Azuli Mood : rendu directement depuis le PDF local afin de ne pas dupliquer les photos.
   const AZULI_PDF = 'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FAZULI-MOOD_new.pdf?alt=media&token=f1de9127-c904-4768-81c0-d0207e5b00a1';
   let azuliPdfDoc = null;
@@ -155,14 +125,14 @@
     }
     if (!info) return;
 
-    // Garantit l'affichage du tarif dès la première ouverture, même si le module tarif est encore en chargement.
-    if (canSeeEliosPrice()) {
-      info.querySelectorAll('.formats-table tbody tr').forEach(row => {
-        const f = normalise(row.cells?.[0]?.textContent);
-        if (f === '5x15') row.cells[1].innerHTML = '<span class="price-ok">29,00 € HT/m²</span>';
-        if (f === '10x10') row.cells[1].innerHTML = '<span class="price-ok">23,00 € HT/m²</span>';
-      });
-    }
+    // Prices come only from the verified in-memory agent enrichment.
+    const product = (window.ELIOS_CATALOGUE || []).find(p => normalise(p.slug) === 'azulimood');
+    info.querySelectorAll('.formats-table tbody tr').forEach(row => {
+      if (!row.cells?.[1]) return;
+      const quote = window.LRF_AGENT_TARIFFS?.eliosPrice(product, row.cells[0].textContent) || { locked: true };
+      const label = quote.locked ? 'Connexion agent requise' : quote.label || 'Sur demande';
+      if (row.cells[1].textContent !== label) row.cells[1].textContent = label;
+    });
 
     if (!info.querySelector('[data-azuli-stock-block]')) {
       const stock = document.createElement('div');

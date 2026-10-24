@@ -1,0 +1,44 @@
+name: Verify LRF configurator suite
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+    paths:
+      - 'shared/**'
+      - 'studio-one/**'
+      - 'randal-general/**'
+      - 'assets/js/lrf-plan-pose/**'
+      - 'assets/js/lrf-plinths.mjs'
+      - 'api/**'
+      - 'server/**'
+      - 'scripts/build-public-site.mjs'
+      - 'scripts/public-agent-tariffs.mjs'
+      - 'package*.json'
+      - '.github/workflows/suite-quality.yml'
+permissions:
+  contents: read
+concurrency:
+  group: lrf-quality-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts --include=dev --no-audit --no-fund
+      - run: npm run build:general && npm run build:studio
+      - run: npm run check:core
+      - run: node --test tests/lrf-plan-pose/*.test.mjs tests/security/*.test.mjs tests/secure-agent-tariffs.test.mjs tests/release-impact.test.mjs
+      - run: npm run check --workspace=randal-general-3d
+      - run: npm run check --workspace=studio-one-atelier-3d
+      - run: npm run build:site
+      - run: npx playwright install --with-deps chromium
+      - run: node tests/lrf-plan-pose/recovery-render-browser.cjs
+      # No deployment, credentials, environment pull or production mutation here.

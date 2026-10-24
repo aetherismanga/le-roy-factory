@@ -28,3 +28,7 @@ keystore.properties
 
 # Logs
 *.log
+
+# Generated suite outputs and local credentials
+/public-site/
+.env*

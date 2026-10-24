@@ -1,0 +1,12 @@
+{
+  "name": "@lrf/3d-core",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "three": "0.180.0"
+  },
+  "scripts": {
+    "check": "node qa/core-check.mjs && node qa/room-interaction-check.mjs && node qa/shared-graph-check.mjs"
+  }
+}

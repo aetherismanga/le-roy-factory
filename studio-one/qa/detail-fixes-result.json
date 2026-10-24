@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "at": "2026-10-23T23:53:20.582Z",
+  "checks": [
+    "bath and tray flush into both corners of all four walls at four rotations",
+    "overshooting floor pointer clamps to the footprint; concave outlines still reject escape",
+    "thin lengthwise metal cover over an actual recessed drain opening",
+    "all apron tile UVs retain 120x60cm physical scale; plain carrier never covers tiled face",
+    "LED area lights and shaped wall halo toggle without extra allocations; Light skips dynamic lights; halo cannot steal clicks"
+  ],
+  "rendering": "Node geometry/material checks; no WebGL shader or visual/device validation"
+}

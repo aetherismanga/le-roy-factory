@@ -9,12 +9,7 @@
   const norm = v => String(v || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]/g, '');
   const fr = (v, d = 2) => Number(v || 0).toLocaleString('fr-FR', {minimumFractionDigits:d, maximumFractionDigits:d});
   const session = () => window.LRF_PRO_SESSION?.read?.() || (() => { try { return JSON.parse(sessionStorage.getItem('lrfProSession') || 'null'); } catch { return null; } })();
-  const hasViewAccess = () => {
-    const s = session();
-    if (!s) return false;
-    if (s.isAdmin || s.admin) return true;
-    return Array.isArray(s.partenaires) && s.partenaires.some(p => ['view','viewceramica','viewceramiche'].includes(norm(p)));
-  };
+  const hasViewAccess = () => window.LRF_AGENT_TARIFFS?.verified === true;
   const isView = () => norm($('#workspace-title')?.textContent) === 'viewceramica';
   const imageUrl = image => typeof image === 'string' ? image : image?.url;
   const uniqueKeepOrder = list => {
@@ -222,7 +217,11 @@
     }));
     $('#product-modal-v2')?.addEventListener('click', e => { if (e.target.id === 'product-modal-v2' && activeProduct) closeModal(); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape' && activeProduct) closeModal(); });
-    window.addEventListener('lrf-pro-session-changed', () => { if (isView()) render(); });
+    window.addEventListener('lrf-pro-session-changed', () => {
+      if (!isView()) return;
+      render();
+      if (activeProduct) { if (hasViewAccess()) openModal(activeProduct); else closeModal(); }
+    });
   }
 
   function start() {

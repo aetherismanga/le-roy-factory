@@ -1548,10 +1548,10 @@
       "tariffPage": 5,
       "sourceHT": 520.0,
       "publicTTC": 624.0,
-      "proHT": 260.0,
+      "proHT": null,
       "badgeMode": "from",
       "badgeMinimumPublicTTC": 624.0,
-      "badgeMinimumProHT": 260.0
+      "badgeMinimumProHT": null
     },
     {
       "reference": "G201",
@@ -1562,10 +1562,10 @@
       "tariffPage": 28,
       "sourceHT": 510.0,
       "publicTTC": 612.0,
-      "proHT": 255.0,
+      "proHT": null,
       "badgeMode": "from",
       "badgeMinimumPublicTTC": 474.0,
-      "badgeMinimumProHT": 197.5
+      "badgeMinimumProHT": null
     },
     {
       "reference": "P285B3",
@@ -1576,10 +1576,10 @@
       "tariffPage": 34,
       "sourceHT": 350.0,
       "publicTTC": 420.0,
-      "proHT": 175.0,
+      "proHT": null,
       "badgeMode": "from",
       "badgeMinimumPublicTTC": 282.0,
-      "badgeMinimumProHT": 117.5
+      "badgeMinimumProHT": null
     },
     {
       "reference": "87702LL",
@@ -1590,10 +1590,10 @@
       "tariffPage": 37,
       "sourceHT": 555.0,
       "publicTTC": 666.0,
-      "proHT": 277.5,
+      "proHT": null,
       "badgeMode": "from",
       "badgeMinimumPublicTTC": 276.0,
-      "badgeMinimumProHT": 115.0
+      "badgeMinimumProHT": null
     },
     {
       "reference": "5101RR",
@@ -1604,10 +1604,10 @@
       "tariffPage": 46,
       "sourceHT": 570.0,
       "publicTTC": 684.0,
-      "proHT": 285.0,
+      "proHT": null,
       "badgeMode": "from",
       "badgeMinimumPublicTTC": 684.0,
-      "badgeMinimumProHT": 285.0
+      "badgeMinimumProHT": null
     },
     {
       "reference": "5502",
@@ -1618,10 +1618,10 @@
       "tariffPage": 57,
       "sourceHT": 265.0,
       "publicTTC": 318.0,
-      "proHT": 132.5,
+      "proHT": null,
       "badgeMode": "from",
       "badgeMinimumPublicTTC": 228.0,
-      "badgeMinimumProHT": 95.0
+      "badgeMinimumProHT": null
     },
     {
       "reference": "55105",
@@ -1632,10 +1632,10 @@
       "tariffPage": 71,
       "sourceHT": 340.0,
       "publicTTC": 408.0,
-      "proHT": 170.0,
+      "proHT": null,
       "badgeMode": "from",
       "badgeMinimumPublicTTC": 372.0,
-      "badgeMinimumProHT": 155.0
+      "badgeMinimumProHT": null
     },
     {
       "reference": "5801",
@@ -1646,10 +1646,10 @@
       "tariffPage": 73,
       "sourceHT": 345.0,
       "publicTTC": 414.0,
-      "proHT": 172.5,
+      "proHT": null,
       "badgeMode": "from",
       "badgeMinimumPublicTTC": 276.0,
-      "badgeMinimumProHT": 115.0
+      "badgeMinimumProHT": null
     },
     {
       "reference": "9102",
@@ -1660,10 +1660,10 @@
       "tariffPage": 77,
       "sourceHT": 290.0,
       "publicTTC": 348.0,
-      "proHT": 145.0,
+      "proHT": null,
       "badgeMode": "from",
       "badgeMinimumPublicTTC": 276.0,
-      "badgeMinimumProHT": 115.0
+      "badgeMinimumProHT": null
     },
     {
       "reference": "2501",
@@ -1674,10 +1674,10 @@
       "tariffPage": 85,
       "sourceHT": 180.0,
       "publicTTC": 216.0,
-      "proHT": 90.0,
+      "proHT": null,
       "badgeMode": "from",
       "badgeMinimumPublicTTC": 162.0,
-      "badgeMinimumProHT": 67.5
+      "badgeMinimumProHT": null
     },
     {
       "reference": "6801",
@@ -1688,10 +1688,10 @@
       "tariffPage": 90,
       "sourceHT": 175.0,
       "publicTTC": 210.0,
-      "proHT": 87.5,
+      "proHT": null,
       "badgeMode": "from",
       "badgeMinimumPublicTTC": 156.0,
-      "badgeMinimumProHT": 65.0
+      "badgeMinimumProHT": null
     },
     {
       "reference": "486R",
@@ -1702,10 +1702,10 @@
       "tariffPage": 95,
       "sourceHT": 190.0,
       "publicTTC": 228.0,
-      "proHT": 95.0,
+      "proHT": null,
       "badgeMode": "from",
       "badgeMinimumPublicTTC": 204.0,
-      "badgeMinimumProHT": 85.0
+      "badgeMinimumProHT": null
     },
     {
       "reference": "401H",
@@ -1716,10 +1716,10 @@
       "tariffPage": 100,
       "sourceHT": 550.0,
       "publicTTC": 660.0,
-      "proHT": 275.0,
+      "proHT": null,
       "badgeMode": "from",
       "badgeMinimumPublicTTC": 540.0,
-      "badgeMinimumProHT": 225.0
+      "badgeMinimumProHT": null
     },
     {
       "reference": "586R",
@@ -1730,10 +1730,10 @@
       "tariffPage": 105,
       "sourceHT": 155.0,
       "publicTTC": 186.0,
-      "proHT": 77.5,
+      "proHT": null,
       "badgeMode": "from",
       "badgeMinimumPublicTTC": 134.4,
-      "badgeMinimumProHT": 56.0
+      "badgeMinimumProHT": null
     },
     {
       "reference": "686R",
@@ -1744,10 +1744,10 @@
       "tariffPage": 112,
       "sourceHT": 590.0,
       "publicTTC": 708.0,
-      "proHT": 295.0,
+      "proHT": null,
       "badgeMode": "from",
       "badgeMinimumPublicTTC": 708.0,
-      "badgeMinimumProHT": 295.0
+      "badgeMinimumProHT": null
     },
     {
       "reference": "886R",
@@ -1758,10 +1758,10 @@
       "tariffPage": 116,
       "sourceHT": 180.0,
       "publicTTC": 216.0,
-      "proHT": 90.0,
+      "proHT": null,
       "badgeMode": "from",
       "badgeMinimumPublicTTC": 132.0,
-      "badgeMinimumProHT": 55.0
+      "badgeMinimumProHT": null
     },
     {
       "reference": "137W",
@@ -1772,10 +1772,10 @@
       "tariffPage": 125,
       "sourceHT": 315.0,
       "publicTTC": 378.0,
-      "proHT": 157.5,
+      "proHT": null,
       "badgeMode": "from",
       "badgeMinimumPublicTTC": 330.0,
-      "badgeMinimumProHT": 137.5
+      "badgeMinimumProHT": null
     },
     {
       "reference": "317L",
@@ -1786,10 +1786,10 @@
       "tariffPage": 128,
       "sourceHT": 308.0,
       "publicTTC": 369.6,
-      "proHT": 154.0,
+      "proHT": null,
       "badgeMode": "from",
       "badgeMinimumPublicTTC": 294.0,
-      "badgeMinimumProHT": 122.5
+      "badgeMinimumProHT": null
     },
     {
       "reference": "SE001",
@@ -1800,10 +1800,10 @@
       "tariffPage": 137,
       "sourceHT": 560.0,
       "publicTTC": 672.0,
-      "proHT": 280.0,
+      "proHT": null,
       "badgeMode": "from",
       "badgeMinimumPublicTTC": 486.0,
-      "badgeMinimumProHT": 202.5
+      "badgeMinimumProHT": null
     },
     {
       "reference": "TE001",
@@ -1814,10 +1814,10 @@
       "tariffPage": 137,
       "sourceHT": 220.0,
       "publicTTC": 264.0,
-      "proHT": 110.0,
+      "proHT": null,
       "badgeMode": "from",
       "badgeMinimumPublicTTC": 192.0,
-      "badgeMinimumProHT": 80.0
+      "badgeMinimumProHT": null
     }
   ],
   "privateProducts": {

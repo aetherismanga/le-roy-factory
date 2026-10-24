@@ -1,0 +1,132 @@
+{
+  "verified_at": "2026-10-19",
+  "method": "Read-only catalogue PDFs from the existing Firebase public assets; inspected rendered pages and dimension diagrams. No manufacturer CAD supplied.",
+  "catalogues": {
+    "sanitaries": {
+      "name": "UPTREND 2026",
+      "existing_storage_path": "public-site-assets/le-roy-factory/85d5f6bd3f78/assets/pdf/UPTREND_Catalogue_2026.pdf",
+      "sha256": "ffc99c2295466dff0a3169ef05618da2971c29e0755855cb561b87bfac5337c1"
+    },
+    "plumbing": {
+      "name": "AQUA HOME 2026",
+      "existing_storage_path": "public-site-assets/le-roy-factory/85d5f6bd3f78/assets/pdf/aquahome2026.pdf",
+      "sha256": "b283022c028ec4acd18dcac7738a48739a4ebfdf845794c8e618f5b7aa64b1b9",
+      "pdf_page": 52,
+      "printed_pages": "102–103"
+    }
+  },
+  "sanitaries": [
+    {
+      "reference": "TR2217R",
+      "name": "AMARO VORTEX",
+      "width_cm": 36,
+      "depth_cm": 48,
+      "height_cm": 36,
+      "finish": "white gloss",
+      "pdf_page": 44
+    },
+    {
+      "reference": "TR2217R-U18",
+      "name": "AMARO BLACK VORTEX",
+      "width_cm": 36,
+      "depth_cm": 48,
+      "height_cm": 36,
+      "finish": "black matte",
+      "pdf_page": 44
+    },
+    {
+      "reference": "TR2224",
+      "name": "KRAL",
+      "width_cm": 36,
+      "depth_cm": 61.5,
+      "height_cm": 74.5,
+      "finish": "white gloss",
+      "pdf_page": 54
+    },
+    {
+      "reference": "STR4335",
+      "name": "DALIA",
+      "width_cm": 55,
+      "depth_cm": 31,
+      "height_cm": 12.5,
+      "finish": "white gloss",
+      "pdf_page": 30
+    },
+    {
+      "reference": "TR443",
+      "name": "TRIXIE",
+      "width_cm": 62.5,
+      "depth_cm": 28.5,
+      "height_cm": 15,
+      "finish": "white gloss",
+      "pdf_page": 29,
+      "discrepancy": "Tariff JSON lists 44 × 27 × 15 cm; catalogue dimension diagram is 62.5 × 28.5 × 15 cm. PDF retained; manufacturer confirmation remains advisable."
+    }
+  ],
+  "plumbing_pairs": [
+    {
+      "finish": "Chrome brillant",
+      "trap": "31141112704",
+      "click_clack": "000550"
+    },
+    {
+      "finish": "Noir mat",
+      "trap": "31141112708",
+      "click_clack": "000553"
+    },
+    {
+      "finish": "Or brossé",
+      "trap": "31141112709",
+      "click_clack": "000558"
+    },
+    {
+      "finish": "Cuivre",
+      "trap": "31141112705",
+      "click_clack": "000559"
+    },
+    {
+      "finish": "Inox brossé",
+      "trap": "31141112760",
+      "click_clack": "000556"
+    },
+    {
+      "finish": "Gris canon",
+      "trap": "31141112706",
+      "click_clack": "000566"
+    },
+    {
+      "finish": "Blanc mat",
+      "trap": "31141112703",
+      "click_clack": "000552"
+    }
+  ],
+  "square_chrome": {
+    "trap": "31141112702",
+    "click_clack": "000560",
+    "trap_body_mm": [
+      50,
+      50,
+      128
+    ],
+    "cap_mm": 70
+  },
+  "round_plumbing_dimensions_mm": {
+    "outlet_diameter": 32,
+    "cap_diameter": 63,
+    "trap_body_height": 180,
+    "horizontal_telescope": [
+      260,
+      320
+    ],
+    "vertical_adjustment": [
+      40,
+      130
+    ]
+  },
+  "limits": [
+    "Overall dimensions and finish references are catalogue-based; hidden manufacturing geometry and precise curvature reconstructed from photos.",
+    "No Vortex water flow, plumbing installation, waterproofing or load-bearing simulation.",
+    "No new heavy binary assets or Firebase uploads in this version.",
+    "No actual browser/GPU/mobile rendering validation available in the managed Sites environment."
+  ]
+}

@@ -2,6 +2,7 @@ name: Publish RANDAL public prices
 on:
   workflow_dispatch:
   push:
+    branches: [main]
     paths:
       - 'scripts/randal_public_prices.py'
       - '.github/workflows/publish-randal-public-prices.yml'
@@ -16,6 +17,7 @@ concurrency:
 
 jobs:
   convert:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

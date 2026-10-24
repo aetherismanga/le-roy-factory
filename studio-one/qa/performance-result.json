@@ -1,0 +1,79 @@
+{
+  "passed": true,
+  "at": "2026-10-23T23:53:18.827Z",
+  "checks": [
+    "slow and extremely slow active frames reduce quality automatically",
+    "hysteresis avoids rapid oscillation and restores detail after sustained headroom",
+    "manual maximum/fluid choices are respected",
+    "idle/background gaps excluded from FPS samples",
+    "screen pixel budgets respected at phone,desktop and4K sizes",
+    "true reflection captures reused for stationary scenes and rate-limited during movement",
+    "resizing a mirror target forces a fresh real reflection"
+  ],
+  "budgets": [
+    {
+      "profile": "max",
+      "width": 390,
+      "height": 700,
+      "ratio": 2.5,
+      "pixels": 1706250
+    },
+    {
+      "profile": "max",
+      "width": 1600,
+      "height": 1000,
+      "ratio": 2,
+      "pixels": 6400000
+    },
+    {
+      "profile": "max",
+      "width": 3840,
+      "height": 2160,
+      "ratio": 1,
+      "pixels": 8300000
+    },
+    {
+      "profile": "balanced",
+      "width": 390,
+      "height": 700,
+      "ratio": 2,
+      "pixels": 1092000
+    },
+    {
+      "profile": "balanced",
+      "width": 1600,
+      "height": 1000,
+      "ratio": 1.37,
+      "pixels": 3000000
+    },
+    {
+      "profile": "balanced",
+      "width": 3840,
+      "height": 2160,
+      "ratio": 0.6,
+      "pixels": 3000000
+    },
+    {
+      "profile": "fluid",
+      "width": 390,
+      "height": 700,
+      "ratio": 0.8,
+      "pixels": 174720
+    },
+    {
+      "profile": "fluid",
+      "width": 1600,
+      "height": 1000,
+      "ratio": 0.56,
+      "pixels": 500000
+    },
+    {
+      "profile": "fluid",
+      "width": 3840,
+      "height": 2160,
+      "ratio": 0.25,
+      "pixels": 500000
+    }
+  ],
+  "browserQA": "Policy tests without a WebGL/GPU benchmark; client PC not available"
+}

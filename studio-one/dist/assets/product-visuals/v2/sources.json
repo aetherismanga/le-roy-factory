@@ -1,0 +1,504 @@
+{
+  "kind": "model-render",
+  "source": "Existing configurator source geometry: openings, fixtures, equipment, models, column and mirrors; bath parts from existing Innerscene CC0-derived geometry. Black leg from manufacturer reference ALBUFERA_CB_NG.jpg, height 10cm. Not manufacturer photographs.",
+  "lighting": "Studio softbox, 32-sample soft shadows",
+  "files": [
+    {
+      "name": "window",
+      "type": "window",
+      "options": {},
+      "meshes": 16,
+      "size": [
+        1.225000023841858,
+        1.0000000003799796,
+        0.24000000089406967
+      ],
+      "file": "window.webp",
+      "width": 600,
+      "height": 500,
+      "bytes": 19838,
+      "sha256": "9479208feb16c18cb58054c21de56e7eb7fc4824bff0859b0d7709ec6b4b7b90"
+    },
+    {
+      "name": "door",
+      "type": "door",
+      "options": {},
+      "meshes": 11,
+      "size": [
+        0.830000000745058,
+        2.039999981299043,
+        0.27197027492871034
+      ],
+      "file": "door.webp",
+      "width": 600,
+      "height": 500,
+      "bytes": 3580,
+      "sha256": "9fa3e81b2a0b4ba3334953fbb6f8e012be49b7219c083009bd75bbc991578424"
+    },
+    {
+      "name": "bath-round",
+      "type": "bath",
+      "options": {
+        "kind": "round"
+      },
+      "meshes": 15,
+      "size": [
+        1.7040000000000002,
+        0.5700000140666961,
+        0.752
+      ],
+      "file": "bath-round.webp",
+      "width": 600,
+      "height": 500,
+      "bytes": 3084,
+      "sha256": "f5115a65ff3abf3923fc16a95b3cdae3a1c5dafb8e698fd226a3717374d17f07"
+    },
+    {
+      "name": "bath-rect",
+      "type": "bath",
+      "options": {
+        "kind": "rect"
+      },
+      "meshes": 15,
+      "size": [
+        1.7040000000000002,
+        0.5700000140666961,
+        0.752
+      ],
+      "file": "bath-rect.webp",
+      "width": 600,
+      "height": 500,
+      "bytes": 3286,
+      "sha256": "b6cd017fc972497bdd3a9ddab198f1ffad6fa42440664cc9e321393084bfd255"
+    },
+    {
+      "name": "bath-island",
+      "type": "bath",
+      "options": {
+        "kind": "island"
+      },
+      "meshes": 5,
+      "size": [
+        1.7000000000000002,
+        0.62,
+        0.75
+      ],
+      "file": "bath-island.webp",
+      "width": 600,
+      "height": 500,
+      "bytes": 3318,
+      "sha256": "7817e642363e08106ea5179b913983b48f95d4410f76ad62ea7704e217d59230"
+    },
+    {
+      "name": "shower",
+      "type": "shower",
+      "options": {},
+      "meshes": 3,
+      "size": [
+        1.399999976158142,
+        0.03500000014901164,
+        0.8999999761581421
+      ],
+      "file": "shower.webp",
+      "width": 600,
+      "height": 500,
+      "bytes": 2652,
+      "sha256": "43072fdb31a3a3356dfefe5621cebd643618c93f48f7f64f95bf807dba3d2de2"
+    },
+    {
+      "name": "screen-fixed",
+      "type": "screen",
+      "options": {
+        "screen": "fixed"
+      },
+      "meshes": 4,
+      "size": [
+        1.0000000004321337,
+        2.01200008392334,
+        0.019999999552965164
+      ],
+      "file": "screen-fixed.webp",
+      "width": 600,
+      "height": 500,
+      "bytes": 3846,
+      "sha256": "32c4ab811e8a7da3c043c85826e030435c076259b3483eb51c57511483482aea"
+    },
+    {
+      "name": "screen-return",
+      "type": "screen",
+      "options": {
+        "screen": "return"
+      },
+      "meshes": 6,
+      "size": [
+        1.0089999998286365,
+        2.01200008392334,
+        0.4189999993890524
+      ],
+      "file": "screen-return.webp",
+      "width": 600,
+      "height": 500,
+      "bytes": 4386,
+      "sha256": "604912931c87f315e5c617defd550a8fc7cc21addfdfb22e76146aec8b503021"
+    },
+    {
+      "name": "towel-round",
+      "type": "towel",
+      "options": {
+        "model": "round"
+      },
+      "meshes": 24,
+      "size": [
+        0.5139999997615814,
+        1.276000024601817,
+        0.0940000003129244
+      ],
+      "file": "towel-round.webp",
+      "width": 600,
+      "height": 500,
+      "bytes": 9208,
+      "sha256": "8bb90ede19a6dd9d1f3095762e86fb8efef7b4d65a1322da181201d10ca5105c"
+    },
+    {
+      "name": "towel-flat",
+      "type": "towel",
+      "options": {
+        "model": "flat"
+      },
+      "meshes": 24,
+      "size": [
+        0.5139999997615814,
+        1.276000024601817,
+        0.09100000075250865
+      ],
+      "file": "towel-flat.webp",
+      "width": 600,
+      "height": 500,
+      "bytes": 8864,
+      "sha256": "7fa67ed1080751dec4aaae9e6df00ff52d59d3b8069f4af589c535ec57f187dd"
+    },
+    {
+      "name": "tap-shower",
+      "type": "tap",
+      "options": {
+        "use": "shower"
+      },
+      "meshes": 6,
+      "size": [
+        0.3407553434371948,
+        1.4991447925567627,
+        0.41999999769032004
+      ],
+      "file": "tap-shower.webp",
+      "width": 600,
+      "height": 500,
+      "bytes": 4098,
+      "sha256": "b8bda2d026494b9f0b22b3318442a886f3b0d4023686b45fb98ae2090e022c66"
+    },
+    {
+      "name": "tap-bath",
+      "type": "tap",
+      "options": {
+        "use": "bath"
+      },
+      "meshes": 4,
+      "size": [
+        0.4229273200035095,
+        0.40223750472068787,
+        0.3854312337934971
+      ],
+      "file": "tap-bath.webp",
+      "width": 600,
+      "height": 500,
+      "bytes": 9564,
+      "sha256": "f0cb2a0f5674447e4e5d9dc67cad768dc1bf5d09db66a62ee120da5b18dd5467"
+    },
+    {
+      "name": "tap-island",
+      "type": "tap",
+      "options": {
+        "use": "island"
+      },
+      "meshes": 6,
+      "size": [
+        0.27609212696552277,
+        1.221317291148007,
+        0.38328345119953156
+      ],
+      "file": "tap-island.webp",
+      "width": 600,
+      "height": 500,
+      "bytes": 4674,
+      "sha256": "b6ef0d6b1a214b199e42ff0b728e1dd327052d0a4b941d612610ea8ff7bdf583"
+    },
+    {
+      "name": "toilet-tr2217r",
+      "type": "toilet",
+      "options": {
+        "reference": "TR2217R"
+      },
+      "meshes": 4,
+      "size": [
+        0.36,
+        0.36,
+        0.48
+      ],
+      "file": "toilet-tr2217r.webp",
+      "width": 600,
+      "height": 500,
+      "bytes": 5992,
+      "sha256": "61120db005bd45bdcc86c37010d61d51fa7ee1cc6cc2bd060602fd818bd469ea"
+    },
+    {
+      "name": "toilet-tr2217r-u18",
+      "type": "toilet",
+      "options": {
+        "reference": "TR2217R-U18"
+      },
+      "meshes": 4,
+      "size": [
+        0.36,
+        0.36,
+        0.48
+      ],
+      "file": "toilet-tr2217r-u18.webp",
+      "width": 600,
+      "height": 500,
+      "bytes": 6466,
+      "sha256": "693c4f9e939ec0270e176e01c63a1b8f950f20b76cb2de3e1439d536b846c0be"
+    },
+    {
+      "name": "toilet-tr2224",
+      "type": "toilet",
+      "options": {
+        "reference": "TR2224"
+      },
+      "meshes": 7,
+      "size": [
+        0.36,
+        0.7449999999999999,
+        0.615
+      ],
+      "file": "toilet-tr2224.webp",
+      "width": 600,
+      "height": 500,
+      "bytes": 4732,
+      "sha256": "d1e8cc0b76bf9bbeac70947117099676511297f8cfb388ebb176b5a2e6145259"
+    },
+    {
+      "name": "toilet-support",
+      "type": "toilet",
+      "options": {
+        "reference": "TR2217R",
+        "support": true,
+        "supportColor": "#d6cabb",
+        "plateColor": "Chrome brillant"
+      },
+      "meshes": 10,
+      "size": [
+        0.6000000238418579,
+        1.1200000047683716,
+        0.6800000014901162
+      ],
+      "file": "toilet-support.webp",
+      "width": 600,
+      "height": 500,
+      "bytes": 4764,
+      "sha256": "17382276eaeb2a48fdfba23f86025c0e24e46d6afcd4ec195f4c922db48bc2d2"
+    },
+    {
+      "name": "washstand-str4335",
+      "type": "washstand",
+      "options": {
+        "reference": "STR4335"
+      },
+      "meshes": 13,
+      "size": [
+        0.550000011920929,
+        0.594000003516674,
+        0.3100000023841858
+      ],
+      "file": "washstand-str4335.webp",
+      "width": 600,
+      "height": 500,
+      "bytes": 5932,
+      "sha256": "5ac99234882bce7bdb8be0414f3cf30bf10b172aa4bd450e1deca64008a3d0ac"
+    },
+    {
+      "name": "washstand-tr443",
+      "type": "washstand",
+      "options": {
+        "reference": "TR443"
+      },
+      "meshes": 15,
+      "size": [
+        0.6245000060498714,
+        0.6190000035166741,
+        0.28500000394880765
+      ],
+      "file": "washstand-tr443.webp",
+      "width": 600,
+      "height": 500,
+      "bytes": 6302,
+      "sha256": "583d939fcead0d7e3ea659a13ce98f38fa62c837db5a1a848d5647e71e1c3838"
+    },
+    {
+      "name": "cabinet",
+      "type": "cabinet",
+      "options": {},
+      "meshes": 95,
+      "size": [
+        0.8083999752998352,
+        0.7204565823078156,
+        0.4684000015258789
+      ],
+      "file": "cabinet.webp",
+      "width": 600,
+      "height": 500,
+      "bytes": 19080,
+      "sha256": "7379c78ed59a8d455370d50199e38b640660b06116f748144425eb4194a553f8"
+    },
+    {
+      "name": "column",
+      "type": "column",
+      "options": {},
+      "meshes": 24,
+      "size": [
+        0.3799999993890524,
+        1.3200000524520874,
+        0.269999999884516
+      ],
+      "file": "column.webp",
+      "width": 600,
+      "height": 500,
+      "bytes": 7478,
+      "sha256": "8ae0987e6126a2ebfb77a385b6015f8daadd9fed19e44bebd737033dccf5ae4d"
+    },
+    {
+      "name": "leg-black",
+      "type": "leg",
+      "options": {},
+      "meshes": 3,
+      "size": [
+        0.07400000095367432,
+        0.0999999999012798,
+        0.07400000095367432
+      ],
+      "file": "leg-black.webp",
+      "width": 600,
+      "height": 500,
+      "bytes": 4876,
+      "sha256": "6ebac313861249a2288e9f4f4af219b989b50fb3ad0f96e58233c645f4bf4dd8"
+    },
+    {
+      "name": "mirror-round",
+      "type": "mirror",
+      "options": {
+        "mirrorModel": "round"
+      },
+      "meshes": 4,
+      "size": [
+        0.6000000238418579,
+        0.6000000238418579,
+        0.028999999999999998
+      ],
+      "file": "mirror-round.webp",
+      "width": 600,
+      "height": 500,
+      "bytes": 18798,
+      "sha256": "a567537e1d33080a9fde82a8f835f3744e94c9194f3290cdd54245ca2998dc07"
+    },
+    {
+      "name": "mirror-metal-rect",
+      "type": "mirror",
+      "options": {
+        "mirrorModel": "metal-rect"
+      },
+      "meshes": 4,
+      "size": [
+        0.800000011920929,
+        0.6000000238418579,
+        0.028999999999999998
+      ],
+      "file": "mirror-metal-rect.webp",
+      "width": 600,
+      "height": 500,
+      "bytes": 15986,
+      "sha256": "3c0ab0b875dc06868a3979bc79220fa8791b3a6b61db783c827907ce7c7fa025"
+    },
+    {
+      "name": "mirror-basic",
+      "type": "mirror",
+      "options": {
+        "mirrorModel": "basic"
+      },
+      "meshes": 4,
+      "size": [
+        0.6000000238418579,
+        0.800000011920929,
+        0.028999999999999998
+      ],
+      "file": "mirror-basic.webp",
+      "width": 600,
+      "height": 500,
+      "bytes": 13790,
+      "sha256": "2005ad7901eaa8006c631ac87872c9b5c15a36760828c1024bfd9d194fc53217"
+    },
+    {
+      "name": "mirror-zen",
+      "type": "mirror",
+      "options": {
+        "mirrorModel": "zen"
+      },
+      "meshes": 4,
+      "size": [
+        0.6000000238418579,
+        0.800000011920929,
+        0.03
+      ],
+      "file": "mirror-zen.webp",
+      "width": 600,
+      "height": 500,
+      "bytes": 14150,
+      "sha256": "a451d55acf004db5ac1326fe5fb4c5ae9252edae9573be710b16a3656c73e250"
+    },
+    {
+      "name": "mirror-ilse",
+      "type": "mirror",
+      "options": {
+        "mirrorModel": "ilse"
+      },
+      "meshes": 5,
+      "size": [
+        0.6000000238418579,
+        0.800000011920929,
+        0.03
+      ],
+      "file": "mirror-ilse.webp",
+      "width": 600,
+      "height": 500,
+      "bytes": 13826,
+      "sha256": "175c3c466eb43116788eb02c7b9ba5678b82ad8b831258174f8aea261cdb6894"
+    },
+    {
+      "name": "mirror-capsule",
+      "type": "mirror",
+      "options": {
+        "mirrorModel": "capsule"
+      },
+      "meshes": 4,
+      "size": [
+        0.44999998807907104,
+        0.8999999761581421,
+        0.028999999999999998
+      ],
+      "file": "mirror-capsule.webp",
+      "width": 600,
+      "height": 500,
+      "bytes": 12688,
+      "sha256": "bd32e6028687c2c6af8bb36b3cf92a231b328b84a83e600fa3559c7dfac7a3e9"
+    }
+  ],
+  "errors": [],
+  "mirrorReflection": "Mirrors use the existing live 3D reflector and a staged studio window in the reflected scene; shapes and LED strips match each selectable model."
+}

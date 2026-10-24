@@ -1,9 +1,9 @@
 // Only catalogue-verified Elios tile faces are used; room imports cannot add URLs.
 export const TEXTURE_QUALITIES = ['fluid', 'balanced', 'max'];
-const MAX_FACES = 8;
+const MAX_FACES = 40;
 const MAX_BYTES = 16 * 1024 * 1024;
 const PIXEL_BUDGET = 16 * 1024 * 1024;
-const MAX_ENTRIES = 512; // 60 rooms × at most 8 faces, including mixed references.
+const MAX_ENTRIES = 2400; // 60 rooms × at most 40 reviewed faces; decoded pixels stay separately bounded.
 const allowedImage = /^image\/(jpeg|png|webp|avif)$/i;
 
 export function textureProduct(tile, catalogue) {
@@ -49,7 +49,7 @@ export function textureMatrix(layout, rotation = 0) {
 }
 
 export function textureImageRotation(product, image) {
-  if ([0, 90, 180, 270].includes(product?.textureRotation)) return product.textureRotation;
+  if (Number.isFinite(product?.textureRotation) && product.textureRotation % 90 === 0) return ((product.textureRotation % 360) + 360) % 360;
   const tileRatio = product.width / product.height, imageRatio = image.width / image.height;
   return Math.abs(Math.log(imageRatio / tileRatio)) > Math.abs(Math.log(1 / imageRatio / tileRatio)) ? 90 : 0;
 }

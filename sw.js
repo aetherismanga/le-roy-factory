@@ -1,4 +1,4 @@
-const CACHE='lrf-pwa-v13-catalogues-20260924-fallback2';
+const CACHE='lrf-pwa-v14-suite-20261024';
 const CORE=['/','/index.html','/assets/img/logo03lrf.png'];
 
 self.addEventListener('install',event=>{
@@ -8,7 +8,7 @@ self.addEventListener('install',event=>{
 
 self.addEventListener('activate',event=>{
   event.waitUntil(
-    caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k))))
+    caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('lrf-pwa-')&&k!==CACHE).map(k=>caches.delete(k))))
   );
   self.clients.claim();
 });
@@ -18,6 +18,7 @@ function isMigratedPublicMedia(url){
 }
 
 function canCacheResponse(response,request){
+  if(/(?:no-store|private)/i.test(response?.headers?.get('cache-control')||''))return false;
   return response && (response.status===200 || (response.type==='opaque' && isMigratedPublicMedia(new URL(request.url))));
 }
 
@@ -40,6 +41,11 @@ self.addEventListener('fetch',event=>{
   if(event.request.method!=='GET')return;
   const url=new URL(event.request.url);
   if(url.origin!==location.origin && !isMigratedPublicMedia(url))return;
+  // Authenticated prices and APIs must never enter a service-worker cache.
+  if(url.origin===location.origin && (/^\/api\//.test(url.pathname)||/\/server\//.test(url.pathname)))return;
+  if(url.origin===location.origin && ((url.pathname.startsWith('/assets/js/lrf-plan-pose/')||url.pathname.startsWith('/shared/lrf-3d/'))&&url.pathname.endsWith('.json'))){
+    event.respondWith(networkFirst(event.request));return;
+  }
 
   if(event.request.mode==='navigate'){
     event.respondWith(

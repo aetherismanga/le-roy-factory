@@ -1,0 +1,48 @@
+# Mise à jour du 24 octobre 2026 — huit finitions officielles
+
+Les sept échantillons manquants sont maintenant intégrés : Roble Amazona, Nogal Valentina, White Bolero, Azul Acero, Gris Tórtora, Biscuit et Muted Green. Les quatre fichiers Alba déjà approuvés restent identiques octet pour octet.
+
+Les sources jointes ont été orientées selon EXIF et converties depuis leur profil ICC en sRGB (dont eciRGBv2 pour Roble). Trois budgets de texture sont disponibles : 256, 1 024 et 2 048 pixels maximum, sans agrandir les petits originaux. Le veinage et le rapport de proportions de chaque échantillon sont conservés ; façades horizontales et côtés verticaux. Les réglages de brillance existants sont conservés faute de mesure fabricant.
+
+Voir `assets/finishes/20261022/sources.json`, `reports/manufacturer-finishes-20261024.json` et `reports/manufacturer-finishes-browser-20261024.json` pour la traçabilité et les contrôles. Les limites et mentions d’échantillons manquants ci-dessous décrivent l’état historique du 22 octobre.
+
+---
+
+# RANDAL — textures et performances · 22 octobre 2026
+
+## Livré
+
+Les moteurs, modèles paramétriques, dimensions et formats de projets sont conservés. Les modes existants Léger, Standard et Ultra HD, ainsi que l’adaptation automatique, sont réutilisés.
+
+- Chargement des finitions et revêtements actifs à la demande.
+- Ressources adaptées au niveau de travail et libération des textures devenues inutiles.
+- Export PNG HD indépendant du niveau de travail : préparation des matières actives en définition maximale disponible, compilation, rendu, puis restauration des textures, de la caméra, du mode et des contrôles. Un échec annule la capture et restaure le travail.
+- Impression du récapitulatif d’accueil : même préparation HD et attente du décodage de l’image avant impression.
+- Les petites miniatures des cartes de projets restent adaptées au stockage.
+
+## Ressources fabricant
+
+Les douze liens WeTransfer reçus le 22 octobre fonctionnent ; aucun lien expiré lors du contrôle. Expiration annoncée : 25 octobre 2026. Les originaux ont été téléchargés et contrôlés par CRC et SHA-256.
+
+Inventaire : 1 106 fichiers (977 PNG, 32 PSD, 8 JPG, 4 JPEG, 1 TIFF, 83 Thumbs.db et 1 fichier technique .smbdelete). Aucun modèle 3D. Les images et PSD de mise en scène ne sont pas utilisés comme textures planes.
+
+Le meuble pilote est STUDIO ONE deux tiroirs de 80 cm. Les huit photographies fabricant existent. Une seule nouvelle texture plane est récupérable via l’accès Gmail disponible : Serenade_alba_acabado.jpg (1 292 × 2 800 pixels).
+
+Serenade Alba utilise désormais cette source dans STUDIO ONE et dans les finitions du Général qui réutilisaient déjà explicitement la même source Serenade Alba. Variantes : Léger 118 × 256 (2 738 octets), Standard 473 × 1 024 (90 714 octets), HD 945 × 2 048 (662 954 octets). Le sélecteur reprend le même échantillon. Le grain reste horizontal en façade et vertical sur les joues.
+
+Les sept autres nouvelles pièces jointes sont signalées comme non prises en charge par l’accès Gmail (application/octet-stream). Leurs finitions existantes sont conservées : Roble Amazona, Nogal Valentina, White Bolero, Azul Acero, Gris Tórtora, Biscuit et Muted Green. Elles ne sont pas présentées comme nouvellement validées à partir des échantillons reçus. Aucun coloris manquant n’est inventé.
+
+Les dimensions physiques de l’échantillon, la brillance et la rugosité mesurées n’étaient pas fournies. Le rapport d’image est conservé ; la conformité colorimétrique et l’échelle physique exacte nécessitent les données fabricant ou un échantillon mesuré. Les caractéristiques de surface existantes sont maintenues.
+
+## Vérifications
+
+- STUDIO ONE : build et 24 scripts de contrôle réussis.
+- Général : build et contrôles catalogue, matériaux, géométrie, tarifs, affichage et capture.
+- Navigateur Chromium/WebGL : ordinateur 1 440 × 900 et smartphone simulé 390 × 844.
+- Huit choix de finition du pilote STUDIO ONE, trois modes de qualité et retour au mode automatique.
+- Exports atelier depuis chaque qualité : 1 920 × 1 539 sur ordinateur ; 1 920 × 3 318 sur smartphone simulé.
+- Conservation des dimensions, finitions et contenu du projet ; export et réouverture JSON.
+- Panne de chargement HD injectée : capture refusée, mode Léger et projet restaurés.
+- Accueil : matières communes au sélecteur et au modèle, capture avant impression, arrêt en cas d’échec d’encodage.
+
+Ces essais utilisent un GPU logiciel de test. Ils ne mesurent pas les performances d’un téléphone physique. La sauvegarde cloud sur un compte client connecté n’a pas été testée ; les flux d’identification et de synchronisation ne sont pas modifiés.

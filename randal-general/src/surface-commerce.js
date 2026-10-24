@@ -1,10 +1,11 @@
-import data from './commercial-surfaces.json' with {type:'json'};
+import data from '../../shared/lrf-3d/commercial-surfaces.json' with {type:'json'};
+import {commercialSurfaceOptions} from '../../shared/lrf-3d/surface-identity.mjs';
 const norm=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,''),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),fmt=n=>Number(n||0).toLocaleString('fr-FR',{maximumFractionDigits:2,minimumFractionDigits:2}),money=n=>Number.isFinite(n)?n.toLocaleString('fr-FR',{style:'currency',currency:'EUR'}):'À confirmer';
 let privatePrices={products:{},plinths:{}};
 export function clearPurchasePrices(){privatePrices={products:{},plinths:{}};}
 export async function loadPurchasePrices(){if(!globalThis.LRF_VERIFIED_IDENTITY?.isAdmin)throw Error('Accès réservé aux agents LRF.');const response=await fetch('/api/purchase-prices',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}',credentials:'same-origin',cache:'no-store'}),result=await response.json();if(!response.ok||!result.success||!globalThis.LRF_VERIFIED_IDENTITY?.isAdmin)throw Error(result.error||'Accès aux achats refusé.');privatePrices={products:result.products||{},plinths:result.plinths||{}};}
 export function publicProject(value){if(Array.isArray(value))return value.map(publicProject);if(value&&typeof value==='object')return Object.fromEntries(Object.entries(value).filter(([key])=>!['purchaseHT','purchasePaletteHT','totalPurchaseHT','unitPriceHT','proHT'].includes(key)).map(([key,v])=>[key,publicProject(v)]));return value;}
-export const commercialOptions=f=>data.products.filter(p=>norm(p.collection)===norm(f.collection)&&p.colorId===f.color&&p.format===f.format);
+export const commercialOptions=f=>commercialSurfaceOptions(f,data.products);
 export function commercialProduct(f){const choices=commercialOptions(f);const product=choices.find(p=>p.key===f.catalogueKey)||choices[0];return product?{...product,...privatePrices.products[product.key]}:null;}
 export const matchingPlinthProducts=f=>data.plinths.filter(p=>norm(p.collection)===norm(f.collection)&&p.colorId===f.color).map(p=>({...p,...privatePrices.plinths[p.key]}));
 export function enrichQuantity(row,finish){

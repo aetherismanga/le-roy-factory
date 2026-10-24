@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "at": "2026-10-23T23:53:21.283Z",
+  "checks": [
+    "five sanitary references with real hollow geometry, overall WC dimensions and catalogue finish",
+    "seven real round trap/drain finish pairs plus square chrome references",
+    "TRIXIE open towel slot, cloth, bottles and reversible decoration visibility",
+    "large cabinet proposals sum correctly and include 80+80 and 100+60 for 160 cm",
+    "90-degree drawing snap, visual guide and right-angle corner snapping",
+    "bath mixer solid collision rejected during drag and release; raised fixture accepted",
+    "large 100 m² and twelve-corner geometry builds; unchanged layouts and openings retain buffers"
+  ],
+  "timings": [
+    {
+      "kind": "rectangle",
+      "ms": 11.11,
+      "floorVertices": 5559
+    },
+    {
+      "kind": "l",
+      "ms": 11.94,
+      "floorVertices": 5196
+    },
+    {
+      "kind": "chamfer",
+      "ms": 8.85,
+      "floorVertices": 5622
+    },
+    {
+      "kind": "twelve",
+      "ms": 9.44,
+      "floorVertices": 6759
+    }
+  ],
+  "browserQA": "CPU/controller checks only. No actual browser, mobile, GPU, FPS or photorealism validation."
+}

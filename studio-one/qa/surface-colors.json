@@ -1,0 +1,90 @@
+{
+  "creta": [
+    {
+      "id": "avena",
+      "name": "Avena",
+      "file": "creta-avena.webp",
+      "sha256": "103c15a27588b04216c6aa5a80af8da81dbbb8ced605b9a097b36e34c5c05ebe"
+    },
+    {
+      "id": "biscotto",
+      "name": "Biscotto",
+      "file": "creta-biscotto.webp",
+      "sha256": "6b9627985a55a3f8ec4d68c370c83e441e07494f13e7bd8623ce91f0612f4c07"
+    },
+    {
+      "id": "caramello",
+      "name": "Caramello",
+      "file": "creta-caramello.webp",
+      "sha256": "be9ccc936645607b9fc4decea7975b8cb9420772aa61c080b5c3f3c862edb2e3"
+    },
+    {
+      "id": "ginepro",
+      "name": "Ginepro",
+      "file": "creta-ginepro.webp",
+      "sha256": "850ab963e5a7f917cd4fb6baf9b3bb6563e4d5bf6a44a38ff8ca6a3ef6eab7d4"
+    },
+    {
+      "id": "malto",
+      "name": "Malto",
+      "file": "creta-malto.webp",
+      "sha256": "33ab8d8d6a73e14fbac7550955cede8ed06512979e9436ce8a86c97841fddab5"
+    },
+    {
+      "id": "matcha",
+      "name": "Matcha",
+      "file": "creta-matcha.webp",
+      "sha256": "1ffb2a88d1f1be61720b9424a9d91e8fd4430a17aa94f71e5bf02e62af125003"
+    },
+    {
+      "id": "pepe",
+      "name": "Pepe",
+      "file": "creta-pepe.webp",
+      "sha256": "fee1444f3cca8658afe5747ca7902c3dbca992e80238920af053ffc5491ddc76"
+    },
+    {
+      "id": "zucchero",
+      "name": "Zucchero",
+      "file": "creta-zucchero.webp",
+      "sha256": "43ecf7a81c047146f618c58002173447e35059f397a88d16298b3162ebc4928f"
+    }
+  ],
+  "shell": [
+    {
+      "id": "beige",
+      "name": "Beige",
+      "file": "shell-beige.webp",
+      "sha256": "99a6fa45f1144b5bad49ce3a1a3e96fb2ef12d752655d07feef36ec8af4440d7"
+    },
+    {
+      "id": "beige-light",
+      "name": "Beige Light",
+      "file": "shell-beige-light.webp",
+      "sha256": "e957b101cfb317580ba794bd2afa413eb88434b9c6749de762476e4ee6a2509d"
+    },
+    {
+      "id": "grey",
+      "name": "Grey",
+      "file": "shell-grey.webp",
+      "sha256": "4647ba5c84a51d809ff970893abf3619fc50951d09317033ea7e5a0e269ddf45"
+    },
+    {
+      "id": "grey-light",
+      "name": "Grey Light",
+      "file": "shell-grey-light.webp",
+      "sha256": "055192a898511f12fea1a062d9249b080360eec216634b9fa210d9a6f115c889"
+    },
+    {
+      "id": "ivory",
+      "name": "Ivory",
+      "file": "shell-ivory.webp",
+      "sha256": "06c84c8557aa9d9502df5046c2f19e0fe6b3eed2b6754705df2d4a4f0a024f33"
+    },
+    {
+      "id": "ivory-light",
+      "name": "Ivory Light",
+      "file": "shell-ivory-light.webp",
+      "sha256": "1597863c775890bb7cd989f7c37a1697db8406b873ca25a5510263f645b2891c"
+    }
+  ]
+}

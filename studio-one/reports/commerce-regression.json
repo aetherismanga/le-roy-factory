@@ -1,0 +1,100 @@
+{
+  "suites": [
+    {
+      "suite": "formats-result.json",
+      "passed": true,
+      "at": "2026-10-20T11:24:51.117Z"
+    },
+    {
+      "suite": "controls-result.json",
+      "passed": true,
+      "at": "2026-10-20T11:24:49.925Z"
+    },
+    {
+      "suite": "navigation-result.json",
+      "passed": true,
+      "at": "2026-10-20T11:24:52.174Z"
+    },
+    {
+      "suite": "enhancements-result.json",
+      "passed": true,
+      "at": "2026-10-20T11:24:55.337Z"
+    },
+    {
+      "suite": "picking-result.json",
+      "passed": true,
+      "at": "2026-10-20T11:24:51.374Z"
+    },
+    {
+      "suite": "mission-result.json",
+      "passed": true,
+      "at": "2026-10-20T11:24:55.660Z"
+    },
+    {
+      "suite": "openings-result.json",
+      "passed": true,
+      "at": "2026-10-20T11:24:52.384Z"
+    },
+    {
+      "suite": "quality-tiers-result.json",
+      "passed": true,
+      "at": "2026-10-20T11:24:52.974Z"
+    },
+    {
+      "suite": "bathroom-result.json",
+      "passed": true,
+      "at": "2026-10-20T11:24:53.998Z"
+    },
+    {
+      "suite": "options-result.json",
+      "passed": true,
+      "at": "2026-10-20T11:24:43.776Z"
+    },
+    {
+      "suite": "performance-result.json",
+      "passed": true,
+      "at": "2026-10-20T11:24:52.841Z"
+    },
+    {
+      "suite": "surfaces-result.json",
+      "passed": true,
+      "at": null
+    },
+    {
+      "suite": "geometry-result.json",
+      "passed": true,
+      "at": "2026-10-20T11:24:43.453Z"
+    },
+    {
+      "suite": "renovation-result.json",
+      "passed": true,
+      "at": "2026-10-20T11:24:54.490Z"
+    },
+    {
+      "suite": "placement-result.json",
+      "passed": true,
+      "at": "2026-10-20T11:24:52.770Z"
+    },
+    {
+      "suite": "room-result.json",
+      "passed": true,
+      "at": "2026-10-20T11:24:51.546Z"
+    },
+    {
+      "suite": "composition-result.json",
+      "passed": true,
+      "at": "2026-10-20T11:24:52.067Z"
+    },
+    {
+      "suite": "detail-fixes-result.json",
+      "passed": true,
+      "at": "2026-10-20T11:24:54.893Z"
+    }
+  ],
+  "guidedInitializerRoundtrips": 6,
+  "notes": "Geometry/controller regressions. Browser 3D acceptance is recorded separately.",
+  "guidedInitializerResult": "passed: actual initializer and restoreProject preserve references, dimensions, finishes, public amount and site reference",
+  "lastValidatedAt": "2026-10-20T13:50:03.793760+00:00",
+  "lastCommand": "npm run check",
+  "lastCommandExitCode": 0
+}

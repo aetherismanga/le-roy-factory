@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "finishes": 8,
+  "textureVariants": 24,
+  "approvedAlbaByteIdentical": true,
+  "colourSpace": "sRGB",
+  "noUpscaling": true,
+  "checks": [
+    "All eight official samples shared by swatches, preview and atelier",
+    "Embedded ICC conversion, including eciRGBv2 Roble",
+    "Sample proportions and facade/side grain preserved",
+    "Three resolution budgets capped at genuine source pixels",
+    "All four approved Alba assets retain their SHA256"
+  ]
+}

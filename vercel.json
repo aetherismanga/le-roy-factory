@@ -1,14 +1,25 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "git": {
-    "deploymentEnabled": {
-      "review-plan-pose-20261023": false
-    }
+    "deploymentEnabled": false
   },
   "rewrites": [
     {
       "source": "/manufacturer-materials/elios/:path*",
       "destination": "https://eliosceramica.com/:path*"
+    }
+  ],
+  "buildCommand": "npm run build:site",
+  "outputDirectory": "public-site",
+  "headers": [
+    {
+      "source": "/review-studio/assets/:path*",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        }
+      ]
     }
   ]
 }

@@ -1,5 +1,2 @@
-import {SRGBColorSpace,NeutralToneMapping} from 'three';
-// Use the same colour transform in the product preview and the workshop.
-// The neutral transform retains product saturation in the highlights; colour
-// maps are decoded as sRGB by the existing texture loaders in both views.
-export function configureColourRendering(renderer){renderer.outputColorSpace=SRGBColorSpace;renderer.toneMapping=NeutralToneMapping;}
+// Compatibility path; the implementation is shared by both RANDAL applications.
+export * from '../../shared/lrf-3d/colour-rendering.js';

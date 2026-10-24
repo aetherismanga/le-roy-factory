@@ -14,12 +14,7 @@
   const euros = v => `${fr(v, 2)} € net/m²`;
   const unique = a => [...new Set((a || []).filter(Boolean))].sort((x, y) => String(x).localeCompare(String(y), 'fr', {numeric:true}));
   const currentSession = () => window.LRF_PRO_SESSION?.read?.() || (() => { try { return JSON.parse(sessionStorage.getItem('lrfProSession') || 'null'); } catch { return null; } })();
-  const hasViewAccess = () => {
-    const s = currentSession();
-    if (!s) return false;
-    if (s.isAdmin || s.admin) return true;
-    return Array.isArray(s.partenaires) && s.partenaires.some(p => ['view','viewceramica','viewceramiche'].includes(norm(p)));
-  };
+  const hasViewAccess = () => window.LRF_AGENT_TARIFFS?.verified === true;
   const isView = () => norm($('#workspace-title')?.textContent) === 'viewceramica';
   const imageUrl = image => typeof image === 'string' ? image : image?.url;
   const galleryOf = p => {
@@ -263,7 +258,7 @@
     const modal = $('#product-modal-v2'), box = $('#product-modal-v2-card');
     modal?.classList.remove('open');
     box?.classList.remove('view-modal-card');
-    if (box) delete box.dataset.viewModal;
+    if (box) { delete box.dataset.viewModal; box.innerHTML = ''; }
     activeProduct = null;
     document.body.style.overflow = '';
   }
@@ -419,7 +414,11 @@
     if ($('#view-action-dialog')?.classList.contains('open')) { $('#view-action-dialog').classList.remove('open'); e.stopPropagation(); return; }
     if (activeProduct) closeProduct();
   });
-  window.addEventListener('lrf-pro-session-changed', () => { if (isView()) activate(); });
+  window.addEventListener('lrf-pro-session-changed', () => {
+    if (!isView()) return;
+    activate();
+    if (activeProduct) { if (hasViewAccess()) openProduct(activeProduct); else closeProduct(); }
+  });
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => setTimeout(activate, 140), {once:true});
   else setTimeout(activate, 140);
