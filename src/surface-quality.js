@@ -17,6 +17,10 @@ export function surfaceColorIssue(collection,color){
  if(!(width>0&&height>0))return 'unreviewed-source-definition';
  // The requested Allure decors stay selectable using their actual manufacturer
  // samples. The picker states the limitation; the files are never upscaled.
+ // Restore Slate's existing five manufacturer/PDF faces per colour. Keep native
+ // definition and preserve strict quality checks for all other collections.
+ if(collection==='Slate'&&color.nativeFaces===true&&faces.length>=5&&
+    faces.every(file=>/slate%2F/i.test(file)))return null;
  if(collection==='Allure'&&color.definitionLimited===true&&width>=416&&height>=208)return null;
  if(Math.max(width,height)<700||width*height<150000)return 'insufficient-source-definition';
  return null;
