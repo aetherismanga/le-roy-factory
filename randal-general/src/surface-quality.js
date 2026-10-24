@@ -18,6 +18,11 @@ export function surfaceColorIssue(collection,color){
  // Long, narrow wood faces are retained when their genuine source has detail.
  const [width,height]=color.resolution||[];
  if(!(width>0&&height>0))return 'unreviewed-source-definition';
+ // Keep the six user-confirmed Slate finishes usable with their five genuine
+ // catalogue-extracted faces per colour. Do not upscale or label them as 4K.
+ // Other collections continue to require the standard source-resolution check.
+ if(collection==='Slate'&&color.nativeFaces===true&&faces.length>=5&&
+    faces.every(file=>/slate%2F/i.test(file)))return null;
  if(Math.max(width,height)<700||width*height<150000)return 'insufficient-source-definition';
  return null;
 }
