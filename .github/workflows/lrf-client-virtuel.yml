@@ -46,7 +46,8 @@ env:
 jobs:
   client-virtuel:
     name: Navigation client + PC + mobile + images
-    runs-on: ubuntu-latest
+    # Playwright 1.55 supports this runner; ubuntu-latest moved to 26.04.
+    runs-on: ubuntu-24.04
     timeout-minutes: 60
     steps:
       - name: Recuperer le site
