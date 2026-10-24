@@ -133,7 +133,7 @@ assert.equal(vm.runInContext('composition.items.length',context),2);
 const firstId=vm.runInContext('composition.items.find(i=>i.type==="cabinet").id',context);
 assert(vm.runInContext("addItem('cabinet')",context));const secondId=vm.runInContext('composition.selectedId',context);assert.notEqual(firstId,secondId);
 vm.runInContext(`selectItem(${JSON.stringify(firstId)});selectFinish('AZUL')`,context);
-assert.equal(vm.runInContext('composition.items[0].asset.wood.color.getHexString()',context),'61717c');assert.equal(vm.runInContext(`composition.items.find(i=>i.id===${JSON.stringify(secondId)}).settings.finish`,context),'ROBLE');
+assert.equal(vm.runInContext('composition.items[0].asset.wood.color.getHexString()',context),'67757e');assert.equal(vm.runInContext(`composition.items.find(i=>i.id===${JSON.stringify(secondId)}).settings.finish`,context),'ROBLE');
 assert(vm.runInContext("addItem('column')",context));const columnId=vm.runInContext('composition.selectedId',context);vm.runInContext("selectFinish('GREEN');toggleColumn()",context);
 assert.equal(vm.runInContext('composition.selected.settings.finish',context),'GREEN');assert.equal(vm.runInContext('composition.items[0].settings.finish',context),'AZUL');
 ids.get('placement-wall').value=1;ids.get('placement-u').value=225;ids.get('placement-height').value=40;ids.get('apply-placement').onclick();assert.equal(vm.runInContext('composition.selected.placement.wall',context),1);assert.equal(vm.runInContext('composition.selected.placement.height',context),40);

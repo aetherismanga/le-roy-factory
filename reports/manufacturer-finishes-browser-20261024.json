@@ -1,0 +1,598 @@
+{
+  "passed": true,
+  "previews": [
+    {
+      "viewport": "desktop",
+      "finish": "ROBLE",
+      "workingProfile": "balanced",
+      "capture": [
+        1920,
+        1260
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "finish": "ALBA",
+      "workingProfile": "balanced",
+      "capture": [
+        1920,
+        1260
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "finish": "NOGAL",
+      "workingProfile": "balanced",
+      "capture": [
+        1920,
+        1260
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "finish": "WHITE",
+      "workingProfile": "balanced",
+      "capture": [
+        1920,
+        1260
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "finish": "AZUL",
+      "workingProfile": "balanced",
+      "capture": [
+        1920,
+        1260
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "finish": "GRIS",
+      "workingProfile": "balanced",
+      "capture": [
+        1920,
+        1260
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "finish": "BISC",
+      "workingProfile": "balanced",
+      "capture": [
+        1920,
+        1260
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "finish": "GREEN",
+      "workingProfile": "balanced",
+      "capture": [
+        1920,
+        1260
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "finish": "ROBLE",
+      "workingProfile": "fluid",
+      "capture": [
+        1920,
+        2068
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "finish": "ALBA",
+      "workingProfile": "fluid",
+      "capture": [
+        1920,
+        2068
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "finish": "NOGAL",
+      "workingProfile": "fluid",
+      "capture": [
+        1920,
+        2068
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "finish": "WHITE",
+      "workingProfile": "fluid",
+      "capture": [
+        1920,
+        2068
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "finish": "AZUL",
+      "workingProfile": "fluid",
+      "capture": [
+        1920,
+        2068
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "finish": "GRIS",
+      "workingProfile": "fluid",
+      "capture": [
+        1920,
+        2068
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "finish": "BISC",
+      "workingProfile": "fluid",
+      "capture": [
+        1920,
+        2068
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "finish": "GREEN",
+      "workingProfile": "fluid",
+      "capture": [
+        1920,
+        2068
+      ]
+    }
+  ],
+  "workshops": [
+    {
+      "viewport": "desktop",
+      "finish": "ROBLE",
+      "profile": "fluid",
+      "pixels": [
+        151,
+        256
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "finish": "ALBA",
+      "profile": "fluid",
+      "pixels": [
+        118,
+        256
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "finish": "NOGAL",
+      "profile": "fluid",
+      "pixels": [
+        118,
+        256
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "finish": "WHITE",
+      "profile": "fluid",
+      "pixels": [
+        118,
+        256
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "finish": "AZUL",
+      "profile": "fluid",
+      "pixels": [
+        118,
+        256
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "finish": "GRIS",
+      "profile": "fluid",
+      "pixels": [
+        123,
+        256
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "finish": "BISC",
+      "profile": "fluid",
+      "pixels": [
+        118,
+        256
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "finish": "GREEN",
+      "profile": "fluid",
+      "pixels": [
+        118,
+        256
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "finish": "ROBLE",
+      "profile": "balanced",
+      "pixels": [
+        567,
+        963
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "finish": "ALBA",
+      "profile": "balanced",
+      "pixels": [
+        473,
+        1024
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "finish": "NOGAL",
+      "profile": "balanced",
+      "pixels": [
+        472,
+        1024
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "finish": "WHITE",
+      "profile": "balanced",
+      "pixels": [
+        472,
+        1024
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "finish": "AZUL",
+      "profile": "balanced",
+      "pixels": [
+        472,
+        1024
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "finish": "GRIS",
+      "profile": "balanced",
+      "pixels": [
+        492,
+        1024
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "finish": "BISC",
+      "profile": "balanced",
+      "pixels": [
+        472,
+        1024
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "finish": "GREEN",
+      "profile": "balanced",
+      "pixels": [
+        472,
+        1024
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "finish": "ROBLE",
+      "profile": "max",
+      "pixels": [
+        567,
+        963
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "finish": "ALBA",
+      "profile": "max",
+      "pixels": [
+        945,
+        2048
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "finish": "NOGAL",
+      "profile": "max",
+      "pixels": [
+        567,
+        1229
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "finish": "WHITE",
+      "profile": "max",
+      "pixels": [
+        945,
+        2048
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "finish": "AZUL",
+      "profile": "max",
+      "pixels": [
+        945,
+        2048
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "finish": "GRIS",
+      "profile": "max",
+      "pixels": [
+        567,
+        1181
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "finish": "BISC",
+      "profile": "max",
+      "pixels": [
+        945,
+        2048
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "finish": "GREEN",
+      "profile": "max",
+      "pixels": [
+        945,
+        2048
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "finish": "ROBLE",
+      "profile": "fluid",
+      "pixels": [
+        151,
+        256
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "finish": "ALBA",
+      "profile": "fluid",
+      "pixels": [
+        118,
+        256
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "finish": "NOGAL",
+      "profile": "fluid",
+      "pixels": [
+        118,
+        256
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "finish": "WHITE",
+      "profile": "fluid",
+      "pixels": [
+        118,
+        256
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "finish": "AZUL",
+      "profile": "fluid",
+      "pixels": [
+        118,
+        256
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "finish": "GRIS",
+      "profile": "fluid",
+      "pixels": [
+        123,
+        256
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "finish": "BISC",
+      "profile": "fluid",
+      "pixels": [
+        118,
+        256
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "finish": "GREEN",
+      "profile": "fluid",
+      "pixels": [
+        118,
+        256
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "finish": "ROBLE",
+      "profile": "balanced",
+      "pixels": [
+        567,
+        963
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "finish": "ALBA",
+      "profile": "balanced",
+      "pixels": [
+        473,
+        1024
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "finish": "NOGAL",
+      "profile": "balanced",
+      "pixels": [
+        472,
+        1024
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "finish": "WHITE",
+      "profile": "balanced",
+      "pixels": [
+        472,
+        1024
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "finish": "AZUL",
+      "profile": "balanced",
+      "pixels": [
+        472,
+        1024
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "finish": "GRIS",
+      "profile": "balanced",
+      "pixels": [
+        492,
+        1024
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "finish": "BISC",
+      "profile": "balanced",
+      "pixels": [
+        472,
+        1024
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "finish": "GREEN",
+      "profile": "balanced",
+      "pixels": [
+        472,
+        1024
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "finish": "ROBLE",
+      "profile": "max",
+      "pixels": [
+        567,
+        963
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "finish": "ALBA",
+      "profile": "max",
+      "pixels": [
+        945,
+        2048
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "finish": "NOGAL",
+      "profile": "max",
+      "pixels": [
+        567,
+        1229
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "finish": "WHITE",
+      "profile": "max",
+      "pixels": [
+        945,
+        2048
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "finish": "AZUL",
+      "profile": "max",
+      "pixels": [
+        945,
+        2048
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "finish": "GRIS",
+      "profile": "max",
+      "pixels": [
+        567,
+        1181
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "finish": "BISC",
+      "profile": "max",
+      "pixels": [
+        945,
+        2048
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "finish": "GREEN",
+      "profile": "max",
+      "pixels": [
+        945,
+        2048
+      ]
+    }
+  ],
+  "errors": [],
+  "desktopCapture": {
+    "width": 1920,
+    "height": 1601,
+    "profile": "max",
+    "workingProfileRestored": "fluid"
+  },
+  "mobileCapture": {
+    "width": 1920,
+    "height": 3407,
+    "profile": "max",
+    "workingProfileRestored": "fluid"
+  },
+  "realWebGL2": true,
+  "sourceManifest": "assets/finishes/20261022/sources.json"
+}
