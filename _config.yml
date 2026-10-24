@@ -13,7 +13,7 @@ exclude:
   - tests
   - tools
   - randal-general
-  - studio-one
+  - studio-one/
   - review-studio-source
   - mobile
   - generated
@@ -38,3 +38,7 @@ exclude:
   - README.md
   - RELEASE.md
   - playwright.config.cjs
+
+# The public wrapper shares the workspace prefix and must stay reachable.
+include:
+  - studio-one-configurateur.html
