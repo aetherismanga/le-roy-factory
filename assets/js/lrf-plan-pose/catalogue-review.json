@@ -1,0 +1,2487 @@
+{
+  "products": [
+    {
+      "brand": "ELIOS",
+      "collection": "Roma",
+      "color": "Aventino",
+      "colorId": "aventino",
+      "reference": "085M140",
+      "finish": "R10 · 10 mm",
+      "source": "https://eliosceramica.com/wp-content/uploads/2025/06/Elios_catalogo_ROMA.pdf",
+      "catalogueSource": "ELIOS Catalogo Generale 2026 · Roma pp. 156–157",
+      "priceSource": "",
+      "priceNote": "",
+      "purchaseHT": null,
+      "priceUnit": "m²",
+      "purchasePaletteHT": null,
+      "publicPriceHT": null,
+      "priceTTC": null,
+      "preview": "https://eliosceramica.com/wp-content/uploads/2016/09/roma_aventino_z-e1613149566773.jpg",
+      "native": true,
+      "available3d": true,
+      "surfaces": [
+        "floor",
+        "wall"
+      ],
+      "key": "ELIOS|085M140",
+      "shape": "rectangle",
+      "format": "Opus · module 4 formats",
+      "width": 121.8,
+      "height": 60.9,
+      "packArea": 0.75,
+      "packPieces": 6,
+      "packVerified": true,
+      "packSource": "https://eliosceramica.com/wp-content/uploads/2025/06/Elios_catalogo_ROMA.pdf",
+      "boxesPallet": 60,
+      "opusModule": true
+    },
+    {
+      "brand": "ELIOS",
+      "collection": "Roma",
+      "color": "Celio",
+      "colorId": "celio",
+      "reference": "085M105",
+      "finish": "R10 · 10 mm",
+      "source": "https://eliosceramica.com/wp-content/uploads/2025/06/Elios_catalogo_ROMA.pdf",
+      "catalogueSource": "ELIOS Catalogo Generale 2026 · Roma pp. 156–157",
+      "priceSource": "",
+      "priceNote": "",
+      "purchaseHT": null,
+      "priceUnit": "m²",
+      "purchasePaletteHT": null,
+      "publicPriceHT": null,
+      "priceTTC": null,
+      "preview": "https://eliosceramica.com/wp-content/uploads/2016/09/roma_celio_z-e1613149555384.jpg",
+      "native": true,
+      "available3d": true,
+      "surfaces": [
+        "floor",
+        "wall"
+      ],
+      "key": "ELIOS|085M105",
+      "shape": "rectangle",
+      "format": "Opus · module 4 formats",
+      "width": 121.8,
+      "height": 60.9,
+      "packArea": 0.75,
+      "packPieces": 6,
+      "packVerified": true,
+      "packSource": "https://eliosceramica.com/wp-content/uploads/2025/06/Elios_catalogo_ROMA.pdf",
+      "boxesPallet": 60,
+      "opusModule": true
+    },
+    {
+      "brand": "ELIOS",
+      "collection": "Roma",
+      "color": "Viminale",
+      "colorId": "viminale",
+      "reference": "085M100",
+      "finish": "R10 · 10 mm",
+      "source": "https://eliosceramica.com/wp-content/uploads/2025/06/Elios_catalogo_ROMA.pdf",
+      "catalogueSource": "ELIOS Catalogo Generale 2026 · Roma pp. 156–157",
+      "priceSource": "",
+      "priceNote": "",
+      "purchaseHT": null,
+      "priceUnit": "m²",
+      "purchasePaletteHT": null,
+      "publicPriceHT": null,
+      "priceTTC": null,
+      "preview": "https://eliosceramica.com/wp-content/uploads/2016/09/roma_viminale_z-e1613149529947.jpg",
+      "native": true,
+      "available3d": true,
+      "surfaces": [
+        "floor",
+        "wall"
+      ],
+      "key": "ELIOS|085M100",
+      "shape": "rectangle",
+      "format": "Opus · module 4 formats",
+      "width": 121.8,
+      "height": 60.9,
+      "packArea": 0.75,
+      "packPieces": 6,
+      "packVerified": true,
+      "packSource": "https://eliosceramica.com/wp-content/uploads/2025/06/Elios_catalogo_ROMA.pdf",
+      "boxesPallet": 40,
+      "opusModule": true
+    },
+    {
+      "brand": "ELIOS",
+      "collection": "Roma",
+      "color": "Palatino",
+      "colorId": "palatino",
+      "reference": "085M170",
+      "finish": "R10 · 10 mm",
+      "source": "https://eliosceramica.com/wp-content/uploads/2025/06/Elios_catalogo_ROMA.pdf",
+      "catalogueSource": "ELIOS Catalogo Generale 2026 · Roma pp. 156–157",
+      "priceSource": "",
+      "priceNote": "",
+      "purchaseHT": null,
+      "priceUnit": "m²",
+      "purchasePaletteHT": null,
+      "publicPriceHT": null,
+      "priceTTC": null,
+      "preview": "https://eliosceramica.com/wp-content/uploads/2016/09/roma_palatino_z-e1613149542456.jpg",
+      "native": true,
+      "available3d": true,
+      "surfaces": [
+        "floor",
+        "wall"
+      ],
+      "key": "ELIOS|085M170",
+      "shape": "rectangle",
+      "format": "Opus · module 4 formats",
+      "width": 121.8,
+      "height": 60.9,
+      "packArea": 0.75,
+      "packPieces": 6,
+      "packVerified": true,
+      "packSource": "https://eliosceramica.com/wp-content/uploads/2025/06/Elios_catalogo_ROMA.pdf",
+      "boxesPallet": 40,
+      "opusModule": true
+    },
+    {
+      "brand": "ELIOS",
+      "collection": "Roma",
+      "color": "Aventino",
+      "colorId": "aventino",
+      "reference": "085M141",
+      "finish": "Outdoor R11 · 10 mm",
+      "source": "https://eliosceramica.com/wp-content/uploads/2025/06/Elios_catalogo_ROMA.pdf",
+      "catalogueSource": "ELIOS Catalogo Generale 2026 · Roma pp. 156–157",
+      "priceSource": "",
+      "priceNote": "",
+      "purchaseHT": null,
+      "priceUnit": "m²",
+      "purchasePaletteHT": null,
+      "publicPriceHT": null,
+      "priceTTC": null,
+      "preview": "https://eliosceramica.com/wp-content/uploads/2016/09/roma_aventino_z-e1613149566773.jpg",
+      "native": true,
+      "available3d": true,
+      "surfaces": [
+        "floor",
+        "wall"
+      ],
+      "key": "ELIOS|085M141",
+      "shape": "rectangle",
+      "format": "Opus · module 4 formats",
+      "width": 121.8,
+      "height": 60.9,
+      "packArea": 0.75,
+      "packPieces": 6,
+      "packVerified": true,
+      "packSource": "https://eliosceramica.com/wp-content/uploads/2025/06/Elios_catalogo_ROMA.pdf",
+      "boxesPallet": 60,
+      "opusModule": true
+    },
+    {
+      "brand": "ELIOS",
+      "collection": "Roma",
+      "color": "Celio",
+      "colorId": "celio",
+      "reference": "085M106",
+      "finish": "Outdoor R11 · 10 mm",
+      "source": "https://eliosceramica.com/wp-content/uploads/2025/06/Elios_catalogo_ROMA.pdf",
+      "catalogueSource": "ELIOS Catalogo Generale 2026 · Roma pp. 156–157",
+      "priceSource": "",
+      "priceNote": "",
+      "purchaseHT": null,
+      "priceUnit": "m²",
+      "purchasePaletteHT": null,
+      "publicPriceHT": null,
+      "priceTTC": null,
+      "preview": "https://eliosceramica.com/wp-content/uploads/2016/09/roma_celio_z-e1613149555384.jpg",
+      "native": true,
+      "available3d": true,
+      "surfaces": [
+        "floor",
+        "wall"
+      ],
+      "key": "ELIOS|085M106",
+      "shape": "rectangle",
+      "format": "Opus · module 4 formats",
+      "width": 121.8,
+      "height": 60.9,
+      "packArea": 0.75,
+      "packPieces": 6,
+      "packVerified": true,
+      "packSource": "https://eliosceramica.com/wp-content/uploads/2025/06/Elios_catalogo_ROMA.pdf",
+      "boxesPallet": 60,
+      "opusModule": true
+    },
+    {
+      "key": "ELIOS|03ZM101",
+      "brand": "ELIOS",
+      "collection": "Sedimenti",
+      "color": "White",
+      "colorId": "white",
+      "format": "Opus · module 4 formats",
+      "width": 121.8,
+      "height": 60.9,
+      "reference": "03ZM101",
+      "finish": "Tumbled R10 · 8,5 mm",
+      "purchaseHT": null,
+      "purchasePaletteHT": null,
+      "publicPriceHT": null,
+      "priceUnit": "m²",
+      "priceTTC": null,
+      "priceSource": "",
+      "packArea": 0.75,
+      "packPieces": 6,
+      "packVerified": true,
+      "packSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf",
+      "preview": "/assets/img/lrf-plan-pose/faces/official-65745fd39853fbce.webp",
+      "surfaces": [
+        "floor",
+        "wall"
+      ],
+      "available3d": true,
+      "native": true,
+      "opusModule": true,
+      "shape": "rectangle",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/WHITE-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px"
+    },
+    {
+      "key": "ELIOS|03ZM102",
+      "brand": "ELIOS",
+      "collection": "Sedimenti",
+      "color": "Beige",
+      "colorId": "beige",
+      "format": "Opus · module 4 formats",
+      "width": 121.8,
+      "height": 60.9,
+      "reference": "03ZM102",
+      "finish": "Tumbled R10 · 8,5 mm",
+      "purchaseHT": null,
+      "purchasePaletteHT": null,
+      "publicPriceHT": null,
+      "priceUnit": "m²",
+      "priceTTC": null,
+      "priceSource": "",
+      "packArea": 0.75,
+      "packPieces": 6,
+      "packVerified": true,
+      "packSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf",
+      "preview": "/assets/img/lrf-plan-pose/faces/official-630b5fc8589df02b.webp",
+      "surfaces": [
+        "floor",
+        "wall"
+      ],
+      "available3d": true,
+      "native": true,
+      "opusModule": true,
+      "shape": "rectangle",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/BEIGE-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px"
+    },
+    {
+      "key": "ELIOS|03ZM103",
+      "brand": "ELIOS",
+      "collection": "Sedimenti",
+      "color": "Sand",
+      "colorId": "sand",
+      "format": "Opus · module 4 formats",
+      "width": 121.8,
+      "height": 60.9,
+      "reference": "03ZM103",
+      "finish": "Tumbled R10 · 8,5 mm",
+      "purchaseHT": null,
+      "purchasePaletteHT": null,
+      "publicPriceHT": null,
+      "priceUnit": "m²",
+      "priceTTC": null,
+      "priceSource": "",
+      "packArea": 0.75,
+      "packPieces": 6,
+      "packVerified": true,
+      "packSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf",
+      "preview": "/assets/img/lrf-plan-pose/faces/official-149c47ac5de8605c.webp",
+      "surfaces": [
+        "floor",
+        "wall"
+      ],
+      "available3d": true,
+      "native": true,
+      "opusModule": true,
+      "shape": "rectangle",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/SAND-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px"
+    },
+    {
+      "key": "ELIOS|03ZM104",
+      "brand": "ELIOS",
+      "collection": "Sedimenti",
+      "color": "Grey",
+      "colorId": "grey",
+      "format": "Opus · module 4 formats",
+      "width": 121.8,
+      "height": 60.9,
+      "reference": "03ZM104",
+      "finish": "Tumbled R10 · 8,5 mm",
+      "purchaseHT": null,
+      "purchasePaletteHT": null,
+      "publicPriceHT": null,
+      "priceUnit": "m²",
+      "priceTTC": null,
+      "priceSource": "",
+      "packArea": 0.75,
+      "packPieces": 6,
+      "packVerified": true,
+      "packSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf",
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf",
+      "preview": "/assets/img/lrf-plan-pose/faces/official-f5e07fba3cadf258.webp",
+      "surfaces": [
+        "floor",
+        "wall"
+      ],
+      "available3d": true,
+      "native": true,
+      "opusModule": true,
+      "shape": "rectangle",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/GREY-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px"
+    }
+  ],
+  "previews": {
+    "ELIOS|03C6A50": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-e1aaabd5cc84977c.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_blueberry_zoom.jpg",
+      "previewDefinition": "Échantillon fabricant · 1200 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03C6A60": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-2b62591a415780f4.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_juniper_zoom.jpg",
+      "previewDefinition": "Échantillon fabricant · 1200 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03C6A00": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-00a19c94c6244269.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_snow_zoom.jpg",
+      "previewDefinition": "Échantillon fabricant · 1200 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03C6A10": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-f927e6610c2dcaff.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_oyster_zoom.jpg",
+      "previewDefinition": "Échantillon fabricant · 1200 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|Allure|fenix-blueberry|60x120": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-fbc7fffe85c4c95d.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_fenix_blueberry_zoom.jpg",
+      "previewDefinition": "Échantillon fabricant · 416 × 208 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|Allure|eden|60x120": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-5ae0f09602df8647.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2023/05/allure_eden_tacca_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1200 × 600 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|Allure|safari|60x120": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-b82ea33f44bd4e2d.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_safari_zoom.jpg",
+      "previewDefinition": "Échantillon fabricant · 416 × 208 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|LD1203": {
+      "preview": "/assets/img/lrf-plan-pose/faces/lithos-ivory.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=22",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 297 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|LD1201": {
+      "preview": "/assets/img/lrf-plan-pose/faces/lithos-grey.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=22",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 297 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|LD1202": {
+      "preview": "/assets/img/lrf-plan-pose/faces/lithos-sand.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=22",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 299 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|R931245": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-663a4ddfe16c04f5.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2020/06/Bavaria_Stone_pan.jpg",
+      "previewDefinition": "Échantillon fabricant · 1200 × 720 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|R935X45": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-663a4ddfe16c04f5.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2020/06/Bavaria_Stone_pan.jpg",
+      "previewDefinition": "Échantillon fabricant · 1200 × 720 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0936A45": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-663a4ddfe16c04f5.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2020/06/Bavaria_Stone_pan.jpg",
+      "previewDefinition": "Échantillon fabricant · 1200 × 720 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0936045": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-663a4ddfe16c04f5.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2020/06/Bavaria_Stone_pan.jpg",
+      "previewDefinition": "Échantillon fabricant · 1200 × 720 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0933645": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-663a4ddfe16c04f5.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2020/06/Bavaria_Stone_pan.jpg",
+      "previewDefinition": "Échantillon fabricant · 1200 × 720 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0933145": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-663a4ddfe16c04f5.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2020/06/Bavaria_Stone_pan.jpg",
+      "previewDefinition": "Échantillon fabricant · 1200 × 720 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0933345": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-663a4ddfe16c04f5.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2020/06/Bavaria_Stone_pan.jpg",
+      "previewDefinition": "Échantillon fabricant · 1200 × 720 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|R941X00": {
+      "preview": "/assets/img/lrf-plan-pose/faces/harmony-white.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=70",
+      "previewDefinition": "Échantillon catalogue fabricant · 148 × 148 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|R945X00": {
+      "preview": "/assets/img/lrf-plan-pose/faces/harmony-white.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=70",
+      "previewDefinition": "Échantillon catalogue fabricant · 148 × 148 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0946000": {
+      "preview": "/assets/img/lrf-plan-pose/faces/harmony-white.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=70",
+      "previewDefinition": "Échantillon catalogue fabricant · 148 × 148 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0943600": {
+      "preview": "/assets/img/lrf-plan-pose/faces/harmony-white.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=70",
+      "previewDefinition": "Échantillon catalogue fabricant · 148 × 148 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|R941X80": {
+      "preview": "/assets/img/lrf-plan-pose/faces/harmony-grey.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=70",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|R945X80": {
+      "preview": "/assets/img/lrf-plan-pose/faces/harmony-grey.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=70",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0946080": {
+      "preview": "/assets/img/lrf-plan-pose/faces/harmony-grey.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=70",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0943680": {
+      "preview": "/assets/img/lrf-plan-pose/faces/harmony-grey.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=70",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|R941X85": {
+      "preview": "/assets/img/lrf-plan-pose/faces/harmony-black.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=70",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0946085": {
+      "preview": "/assets/img/lrf-plan-pose/faces/harmony-black.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=70",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0943685": {
+      "preview": "/assets/img/lrf-plan-pose/faces/harmony-black.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=70",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|R941X40": {
+      "preview": "/assets/img/lrf-plan-pose/faces/harmony-cream.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=70",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|R945X40": {
+      "preview": "/assets/img/lrf-plan-pose/faces/harmony-cream.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=70",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0946040": {
+      "preview": "/assets/img/lrf-plan-pose/faces/harmony-cream.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=70",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0943640": {
+      "preview": "/assets/img/lrf-plan-pose/faces/harmony-cream.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=70",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|R941X60": {
+      "preview": "/assets/img/lrf-plan-pose/faces/harmony-taupe.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=70",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0946060": {
+      "preview": "/assets/img/lrf-plan-pose/faces/harmony-taupe.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=70",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0943660": {
+      "preview": "/assets/img/lrf-plan-pose/faces/harmony-taupe.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=70",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Q6A90": {
+      "preview": "/assets/img/lrf-plan-pose/faces/millenniumquartz-vulcano.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=75",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 151 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Q6090": {
+      "preview": "/assets/img/lrf-plan-pose/faces/millenniumquartz-vulcano.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=75",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 151 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Q3690": {
+      "preview": "/assets/img/lrf-plan-pose/faces/millenniumquartz-vulcano.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=75",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 151 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Q6C10": {
+      "preview": "/assets/img/lrf-plan-pose/faces/millenniumquartz-deserto.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=75",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 151 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Q6A10": {
+      "preview": "/assets/img/lrf-plan-pose/faces/millenniumquartz-deserto.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=75",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 151 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Q6010": {
+      "preview": "/assets/img/lrf-plan-pose/faces/millenniumquartz-deserto.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=75",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 151 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Q3610": {
+      "preview": "/assets/img/lrf-plan-pose/faces/millenniumquartz-deserto.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=75",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 151 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Q3111": {
+      "preview": "/assets/img/lrf-plan-pose/faces/millenniumquartz-deserto.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=75",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 151 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Q2410": {
+      "preview": "/assets/img/lrf-plan-pose/faces/millenniumquartz-deserto.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=75",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 151 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Q6C60": {
+      "preview": "/assets/img/lrf-plan-pose/faces/millenniumquartz-scoglio.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=75",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 150 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Q6A60": {
+      "preview": "/assets/img/lrf-plan-pose/faces/millenniumquartz-scoglio.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=75",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 150 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Q6060": {
+      "preview": "/assets/img/lrf-plan-pose/faces/millenniumquartz-scoglio.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=75",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 150 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Q3660": {
+      "preview": "/assets/img/lrf-plan-pose/faces/millenniumquartz-scoglio.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=75",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 150 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Q3161": {
+      "preview": "/assets/img/lrf-plan-pose/faces/millenniumquartz-scoglio.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=75",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 150 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Q2460": {
+      "preview": "/assets/img/lrf-plan-pose/faces/millenniumquartz-scoglio.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=75",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 150 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Q6C70": {
+      "preview": "/assets/img/lrf-plan-pose/faces/millenniumquartz-roccia.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=75",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 151 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Q6A70": {
+      "preview": "/assets/img/lrf-plan-pose/faces/millenniumquartz-roccia.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=75",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 151 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Q6070": {
+      "preview": "/assets/img/lrf-plan-pose/faces/millenniumquartz-roccia.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=75",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 151 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Q3670": {
+      "preview": "/assets/img/lrf-plan-pose/faces/millenniumquartz-roccia.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=75",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 151 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Q3171": {
+      "preview": "/assets/img/lrf-plan-pose/faces/millenniumquartz-roccia.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=75",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 151 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Q2470": {
+      "preview": "/assets/img/lrf-plan-pose/faces/millenniumquartz-roccia.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=75",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 151 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Q6C20": {
+      "preview": "/assets/img/lrf-plan-pose/faces/millenniumquartz-terra.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=75",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 150 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Q6A20": {
+      "preview": "/assets/img/lrf-plan-pose/faces/millenniumquartz-terra.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=75",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 150 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Q6020": {
+      "preview": "/assets/img/lrf-plan-pose/faces/millenniumquartz-terra.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=75",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 150 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Q3620": {
+      "preview": "/assets/img/lrf-plan-pose/faces/millenniumquartz-terra.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=75",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 150 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Q3121": {
+      "preview": "/assets/img/lrf-plan-pose/faces/millenniumquartz-terra.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=75",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 150 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Q2420": {
+      "preview": "/assets/img/lrf-plan-pose/faces/millenniumquartz-terra.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=75",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 150 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|LF1311": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-65745fd39853fbce.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/WHITE-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z6A01": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-65745fd39853fbce.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/WHITE-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z6A91": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-65745fd39853fbce.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/WHITE-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z1101": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-65745fd39853fbce.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/WHITE-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z1191": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-65745fd39853fbce.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/WHITE-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z6001": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-65745fd39853fbce.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/WHITE-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z6091": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-65745fd39853fbce.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/WHITE-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z6A11": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-65745fd39853fbce.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/WHITE-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z3301": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-65745fd39853fbce.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/WHITE-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z7301": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-65745fd39853fbce.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/WHITE-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z7701": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-65745fd39853fbce.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/WHITE-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|LF1312": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-630b5fc8589df02b.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/BEIGE-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z6A02": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-630b5fc8589df02b.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/BEIGE-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z6A92": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-630b5fc8589df02b.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/BEIGE-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z1102": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-630b5fc8589df02b.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/BEIGE-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z1192": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-630b5fc8589df02b.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/BEIGE-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z6002": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-630b5fc8589df02b.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/BEIGE-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z6092": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-630b5fc8589df02b.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/BEIGE-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z6A12": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-630b5fc8589df02b.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/BEIGE-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z3302": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-630b5fc8589df02b.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/BEIGE-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z7302": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-630b5fc8589df02b.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/BEIGE-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z7702": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-630b5fc8589df02b.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/BEIGE-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|LF1313": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-149c47ac5de8605c.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/SAND-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z6A03": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-149c47ac5de8605c.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/SAND-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z6A93": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-149c47ac5de8605c.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/SAND-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z1103": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-149c47ac5de8605c.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/SAND-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z1193": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-149c47ac5de8605c.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/SAND-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z6003": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-149c47ac5de8605c.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/SAND-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z6093": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-149c47ac5de8605c.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/SAND-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z6A13": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-149c47ac5de8605c.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/SAND-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z3303": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-149c47ac5de8605c.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/SAND-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z7303": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-149c47ac5de8605c.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/SAND-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z7703": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-149c47ac5de8605c.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/SAND-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|LF1314": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-f5e07fba3cadf258.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/GREY-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z6A04": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-f5e07fba3cadf258.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/GREY-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z6A94": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-f5e07fba3cadf258.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/GREY-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z1104": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-f5e07fba3cadf258.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/GREY-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z1194": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-f5e07fba3cadf258.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/GREY-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z6004": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-f5e07fba3cadf258.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/GREY-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z6094": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-f5e07fba3cadf258.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/GREY-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z6A14": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-f5e07fba3cadf258.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/GREY-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z3304": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-f5e07fba3cadf258.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/GREY-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z7304": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-f5e07fba3cadf258.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/GREY-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z7704": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-f5e07fba3cadf258.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/GREY-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z4501": {
+      "preview": "/assets/img/lrf-plan-pose/faces/sedimenti-white-tumbled.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf#page=33",
+      "previewDefinition": "Face extraite du module fabricant · 193 × 127 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z2001": {
+      "preview": "/assets/img/lrf-plan-pose/faces/sedimenti-white-tumbled.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf#page=33",
+      "previewDefinition": "Face extraite du module fabricant · 193 × 127 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z2401": {
+      "preview": "/assets/img/lrf-plan-pose/faces/sedimenti-white-tumbled.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf#page=33",
+      "previewDefinition": "Face extraite du module fabricant · 193 × 127 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z4001": {
+      "preview": "/assets/img/lrf-plan-pose/faces/sedimenti-white-tumbled.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf#page=33",
+      "previewDefinition": "Face extraite du module fabricant · 193 × 127 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z4601": {
+      "preview": "/assets/img/lrf-plan-pose/faces/sedimenti-white-tumbled.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf#page=33",
+      "previewDefinition": "Face extraite du module fabricant · 193 × 127 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z6A21": {
+      "preview": "/assets/img/lrf-plan-pose/faces/sedimenti-white-tumbled.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf#page=33",
+      "previewDefinition": "Face extraite du module fabricant · 193 × 127 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z6C21": {
+      "preview": "/assets/img/lrf-plan-pose/faces/sedimenti-white-tumbled.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf#page=33",
+      "previewDefinition": "Face extraite du module fabricant · 193 × 127 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z4502": {
+      "preview": "/assets/img/lrf-plan-pose/faces/sedimenti-beige-tumbled.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf#page=33",
+      "previewDefinition": "Face extraite du module fabricant · 193 × 127 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z2002": {
+      "preview": "/assets/img/lrf-plan-pose/faces/sedimenti-beige-tumbled.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf#page=33",
+      "previewDefinition": "Face extraite du module fabricant · 193 × 127 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z2402": {
+      "preview": "/assets/img/lrf-plan-pose/faces/sedimenti-beige-tumbled.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf#page=33",
+      "previewDefinition": "Face extraite du module fabricant · 193 × 127 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z4002": {
+      "preview": "/assets/img/lrf-plan-pose/faces/sedimenti-beige-tumbled.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf#page=33",
+      "previewDefinition": "Face extraite du module fabricant · 193 × 127 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z4602": {
+      "preview": "/assets/img/lrf-plan-pose/faces/sedimenti-beige-tumbled.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf#page=33",
+      "previewDefinition": "Face extraite du module fabricant · 193 × 127 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z6A22": {
+      "preview": "/assets/img/lrf-plan-pose/faces/sedimenti-beige-tumbled.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf#page=33",
+      "previewDefinition": "Face extraite du module fabricant · 193 × 127 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z6C22": {
+      "preview": "/assets/img/lrf-plan-pose/faces/sedimenti-beige-tumbled.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf#page=33",
+      "previewDefinition": "Face extraite du module fabricant · 193 × 127 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z4504": {
+      "preview": "/assets/img/lrf-plan-pose/faces/sedimenti-sand-tumbled.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf#page=33",
+      "previewDefinition": "Face extraite du module fabricant · 193 × 127 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z2003": {
+      "preview": "/assets/img/lrf-plan-pose/faces/sedimenti-sand-tumbled.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf#page=33",
+      "previewDefinition": "Face extraite du module fabricant · 193 × 127 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z2403": {
+      "preview": "/assets/img/lrf-plan-pose/faces/sedimenti-sand-tumbled.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf#page=33",
+      "previewDefinition": "Face extraite du module fabricant · 193 × 127 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z4003": {
+      "preview": "/assets/img/lrf-plan-pose/faces/sedimenti-sand-tumbled.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf#page=33",
+      "previewDefinition": "Face extraite du module fabricant · 193 × 127 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z4603": {
+      "preview": "/assets/img/lrf-plan-pose/faces/sedimenti-sand-tumbled.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf#page=33",
+      "previewDefinition": "Face extraite du module fabricant · 193 × 127 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z6A23": {
+      "preview": "/assets/img/lrf-plan-pose/faces/sedimenti-sand-tumbled.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf#page=33",
+      "previewDefinition": "Face extraite du module fabricant · 193 × 127 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z6C23": {
+      "preview": "/assets/img/lrf-plan-pose/faces/sedimenti-sand-tumbled.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf#page=33",
+      "previewDefinition": "Face extraite du module fabricant · 193 × 127 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z4503": {
+      "preview": "/assets/img/lrf-plan-pose/faces/sedimenti-grey-tumbled.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf#page=33",
+      "previewDefinition": "Face extraite du module fabricant · 193 × 127 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z2004": {
+      "preview": "/assets/img/lrf-plan-pose/faces/sedimenti-grey-tumbled.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf#page=33",
+      "previewDefinition": "Face extraite du module fabricant · 193 × 127 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z2404": {
+      "preview": "/assets/img/lrf-plan-pose/faces/sedimenti-grey-tumbled.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf#page=33",
+      "previewDefinition": "Face extraite du module fabricant · 193 × 127 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z4004": {
+      "preview": "/assets/img/lrf-plan-pose/faces/sedimenti-grey-tumbled.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf#page=33",
+      "previewDefinition": "Face extraite du module fabricant · 193 × 127 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z4604": {
+      "preview": "/assets/img/lrf-plan-pose/faces/sedimenti-grey-tumbled.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf#page=33",
+      "previewDefinition": "Face extraite du module fabricant · 193 × 127 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z6A24": {
+      "preview": "/assets/img/lrf-plan-pose/faces/sedimenti-grey-tumbled.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf#page=33",
+      "previewDefinition": "Face extraite du module fabricant · 193 × 127 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z6C24": {
+      "preview": "/assets/img/lrf-plan-pose/faces/sedimenti-grey-tumbled.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf#page=33",
+      "previewDefinition": "Face extraite du module fabricant · 193 × 127 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z2005": {
+      "preview": "/assets/img/lrf-plan-pose/faces/sedimenti-beige-tumbled.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf#page=33",
+      "previewDefinition": "Face extraite du module fabricant · 193 × 127 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z2405": {
+      "preview": "/assets/img/lrf-plan-pose/faces/sedimenti-beige-tumbled.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf#page=33",
+      "previewDefinition": "Face extraite du module fabricant · 193 × 127 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z4005": {
+      "preview": "/assets/img/lrf-plan-pose/faces/sedimenti-beige-tumbled.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf#page=33",
+      "previewDefinition": "Face extraite du module fabricant · 193 × 127 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z4605": {
+      "preview": "/assets/img/lrf-plan-pose/faces/sedimenti-beige-tumbled.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf#page=33",
+      "previewDefinition": "Face extraite du module fabricant · 193 × 127 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z2006": {
+      "preview": "/assets/img/lrf-plan-pose/faces/sedimenti-sand-tumbled.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf#page=33",
+      "previewDefinition": "Face extraite du module fabricant · 193 × 127 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z2406": {
+      "preview": "/assets/img/lrf-plan-pose/faces/sedimenti-sand-tumbled.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf#page=33",
+      "previewDefinition": "Face extraite du module fabricant · 193 × 127 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z4006": {
+      "preview": "/assets/img/lrf-plan-pose/faces/sedimenti-sand-tumbled.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf#page=33",
+      "previewDefinition": "Face extraite du module fabricant · 193 × 127 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03Z4606": {
+      "preview": "/assets/img/lrf-plan-pose/faces/sedimenti-sand-tumbled.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_CATALOGO-SEDIMENTI-1.pdf#page=33",
+      "previewDefinition": "Face extraite du module fabricant · 193 × 127 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0792000": {
+      "preview": "/assets/img/lrf-plan-pose/faces/designevo-bianco.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=125",
+      "previewDefinition": "Échantillon catalogue fabricant · 150 × 150 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0792070": {
+      "preview": "/assets/img/lrf-plan-pose/faces/designevo-grigio.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=125",
+      "previewDefinition": "Échantillon catalogue fabricant · 150 × 150 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0792080": {
+      "preview": "/assets/img/lrf-plan-pose/faces/designevo-antracite.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=125",
+      "previewDefinition": "Échantillon catalogue fabricant · 150 × 149 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0792030": {
+      "preview": "/assets/img/lrf-plan-pose/faces/designevo-burro.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=125",
+      "previewDefinition": "Échantillon catalogue fabricant · 150 × 149 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0792040": {
+      "preview": "/assets/img/lrf-plan-pose/faces/designevo-tortora.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=125",
+      "previewDefinition": "Échantillon catalogue fabricant · 150 × 150 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0792060": {
+      "preview": "/assets/img/lrf-plan-pose/faces/designevo-brown.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=125",
+      "previewDefinition": "Échantillon catalogue fabricant · 150 × 150 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0792010": {
+      "preview": "/assets/img/lrf-plan-pose/faces/designevo-ciano.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=125",
+      "previewDefinition": "Échantillon catalogue fabricant · 149 × 148 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0792090": {
+      "preview": "/assets/img/lrf-plan-pose/faces/designevo-verde-inglese.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=125",
+      "previewDefinition": "Échantillon catalogue fabricant · 149 × 149 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0792020": {
+      "preview": "/assets/img/lrf-plan-pose/faces/designevo-terra-di-siena.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=125",
+      "previewDefinition": "Échantillon catalogue fabricant · 148 × 149 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|R911X00": {
+      "preview": "/assets/img/lrf-plan-pose/faces/horizon-polvere.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=152",
+      "previewDefinition": "Échantillon catalogue fabricant",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0916A00": {
+      "preview": "/assets/img/lrf-plan-pose/faces/horizon-polvere.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=152",
+      "previewDefinition": "Échantillon catalogue fabricant",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0916000": {
+      "preview": "/assets/img/lrf-plan-pose/faces/horizon-polvere.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=152",
+      "previewDefinition": "Échantillon catalogue fabricant",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0913600": {
+      "preview": "/assets/img/lrf-plan-pose/faces/horizon-polvere.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=152",
+      "previewDefinition": "Échantillon catalogue fabricant",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|R919970": {
+      "preview": "/assets/img/lrf-plan-pose/faces/horizon-cava.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=152",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0916A70": {
+      "preview": "/assets/img/lrf-plan-pose/faces/horizon-cava.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=152",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0916070": {
+      "preview": "/assets/img/lrf-plan-pose/faces/horizon-cava.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=152",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0913670": {
+      "preview": "/assets/img/lrf-plan-pose/faces/horizon-cava.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=152",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|R919940": {
+      "preview": "/assets/img/lrf-plan-pose/faces/horizon-calce.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=152",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 150 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0916A40": {
+      "preview": "/assets/img/lrf-plan-pose/faces/horizon-calce.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=152",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 150 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0916040": {
+      "preview": "/assets/img/lrf-plan-pose/faces/horizon-calce.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=152",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 150 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0913640": {
+      "preview": "/assets/img/lrf-plan-pose/faces/horizon-calce.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=152",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 150 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|R919980": {
+      "preview": "/assets/img/lrf-plan-pose/faces/horizon-carbone.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=152",
+      "previewDefinition": "Échantillon catalogue fabricant",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0916A80": {
+      "preview": "/assets/img/lrf-plan-pose/faces/horizon-carbone.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=152",
+      "previewDefinition": "Échantillon catalogue fabricant",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0916080": {
+      "preview": "/assets/img/lrf-plan-pose/faces/horizon-carbone.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=152",
+      "previewDefinition": "Échantillon catalogue fabricant",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0913680": {
+      "preview": "/assets/img/lrf-plan-pose/faces/horizon-carbone.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=152",
+      "previewDefinition": "Échantillon catalogue fabricant",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|00X1X00": {
+      "preview": "/assets/img/lrf-plan-pose/faces/montreal-white.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=164",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|00X6A00": {
+      "preview": "/assets/img/lrf-plan-pose/faces/montreal-white.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=164",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|00X6000": {
+      "preview": "/assets/img/lrf-plan-pose/faces/montreal-white.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=164",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|00X3600": {
+      "preview": "/assets/img/lrf-plan-pose/faces/montreal-white.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=164",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|00X1X80": {
+      "preview": "/assets/img/lrf-plan-pose/faces/montreal-grey.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=164",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|00X6A80": {
+      "preview": "/assets/img/lrf-plan-pose/faces/montreal-grey.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=164",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|00X6080": {
+      "preview": "/assets/img/lrf-plan-pose/faces/montreal-grey.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=164",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|00X3680": {
+      "preview": "/assets/img/lrf-plan-pose/faces/montreal-grey.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=164",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|00X1X81": {
+      "preview": "/assets/img/lrf-plan-pose/faces/montreal-grey.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=164",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|00X1280": {
+      "preview": "/assets/img/lrf-plan-pose/faces/montreal-grey.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=164",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|00X1X40": {
+      "preview": "/assets/img/lrf-plan-pose/faces/montreal-beige.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=164",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|00X6A40": {
+      "preview": "/assets/img/lrf-plan-pose/faces/montreal-beige.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=164",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|00X6040": {
+      "preview": "/assets/img/lrf-plan-pose/faces/montreal-beige.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=164",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|00X3640": {
+      "preview": "/assets/img/lrf-plan-pose/faces/montreal-beige.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=164",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|00X1X41": {
+      "preview": "/assets/img/lrf-plan-pose/faces/montreal-beige.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=164",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|00X1240": {
+      "preview": "/assets/img/lrf-plan-pose/faces/montreal-beige.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=164",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|00X1X60": {
+      "preview": "/assets/img/lrf-plan-pose/faces/montreal-taupe.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=164",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|00X6A60": {
+      "preview": "/assets/img/lrf-plan-pose/faces/montreal-taupe.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=164",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|00X6060": {
+      "preview": "/assets/img/lrf-plan-pose/faces/montreal-taupe.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=164",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|00X3660": {
+      "preview": "/assets/img/lrf-plan-pose/faces/montreal-taupe.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=164",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|00X1X61": {
+      "preview": "/assets/img/lrf-plan-pose/faces/montreal-taupe.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=164",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|00X1260": {
+      "preview": "/assets/img/lrf-plan-pose/faces/montreal-taupe.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=164",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|00X1X90": {
+      "preview": "/assets/img/lrf-plan-pose/faces/montreal-dark.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=164",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|00X6A90": {
+      "preview": "/assets/img/lrf-plan-pose/faces/montreal-dark.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=164",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|00X6090": {
+      "preview": "/assets/img/lrf-plan-pose/faces/montreal-dark.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=164",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|00X3690": {
+      "preview": "/assets/img/lrf-plan-pose/faces/montreal-dark.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=164",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|LE1203": {
+      "preview": "/assets/img/lrf-plan-pose/faces/manhattan-ash.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=31",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 298 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|LE1202": {
+      "preview": "/assets/img/lrf-plan-pose/faces/manhattan-pearl.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=31",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 297 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|LE1201": {
+      "preview": "/assets/img/lrf-plan-pose/faces/manhattan-sand.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=31",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 298 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|04I1590": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-cb057859663d8203.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-VIRIDIS_tacca.jpg",
+      "previewDefinition": "Échantillon fabricant · 529 × 309 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0992000": {
+      "preview": "/assets/img/lrf-plan-pose/faces/tropical-bianco.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=208",
+      "previewDefinition": "Échantillon catalogue fabricant · 102 × 102 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0996B00": {
+      "preview": "/assets/img/lrf-plan-pose/faces/tropical-bianco.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=208",
+      "previewDefinition": "Échantillon catalogue fabricant · 102 × 102 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|099ES00": {
+      "preview": "/assets/img/lrf-plan-pose/faces/tropical-bianco.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=208",
+      "previewDefinition": "Échantillon catalogue fabricant · 102 × 102 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0992070": {
+      "preview": "/assets/img/lrf-plan-pose/faces/tropical-grigio.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=208",
+      "previewDefinition": "Échantillon catalogue fabricant · 102 × 102 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0996B70": {
+      "preview": "/assets/img/lrf-plan-pose/faces/tropical-grigio.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=208",
+      "previewDefinition": "Échantillon catalogue fabricant · 102 × 102 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|099ES70": {
+      "preview": "/assets/img/lrf-plan-pose/faces/tropical-grigio.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=208",
+      "previewDefinition": "Échantillon catalogue fabricant · 102 × 102 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0992075": {
+      "preview": "/assets/img/lrf-plan-pose/faces/tropical-ocra.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=208",
+      "previewDefinition": "Échantillon catalogue fabricant · 102 × 102 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0996B75": {
+      "preview": "/assets/img/lrf-plan-pose/faces/tropical-ocra.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=208",
+      "previewDefinition": "Échantillon catalogue fabricant · 102 × 102 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|099ES75": {
+      "preview": "/assets/img/lrf-plan-pose/faces/tropical-ocra.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=208",
+      "previewDefinition": "Échantillon catalogue fabricant · 102 × 102 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0992080": {
+      "preview": "/assets/img/lrf-plan-pose/faces/tropical-salvia.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=208",
+      "previewDefinition": "Échantillon catalogue fabricant · 102 × 102 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0996B80": {
+      "preview": "/assets/img/lrf-plan-pose/faces/tropical-salvia.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=208",
+      "previewDefinition": "Échantillon catalogue fabricant · 102 × 102 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|099ES80": {
+      "preview": "/assets/img/lrf-plan-pose/faces/tropical-salvia.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=208",
+      "previewDefinition": "Échantillon catalogue fabricant · 102 × 102 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0992040": {
+      "preview": "/assets/img/lrf-plan-pose/faces/tropical-petrolio.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=208",
+      "previewDefinition": "Échantillon catalogue fabricant · 102 × 102 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0996B40": {
+      "preview": "/assets/img/lrf-plan-pose/faces/tropical-petrolio.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=208",
+      "previewDefinition": "Échantillon catalogue fabricant · 102 × 102 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|099ES40": {
+      "preview": "/assets/img/lrf-plan-pose/faces/tropical-petrolio.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=208",
+      "previewDefinition": "Échantillon catalogue fabricant · 102 × 102 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0992010": {
+      "preview": "/assets/img/lrf-plan-pose/faces/tropical-azzurro.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=208",
+      "previewDefinition": "Échantillon catalogue fabricant · 102 × 102 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0996B10": {
+      "preview": "/assets/img/lrf-plan-pose/faces/tropical-azzurro.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=208",
+      "previewDefinition": "Échantillon catalogue fabricant · 102 × 102 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|099ES10": {
+      "preview": "/assets/img/lrf-plan-pose/faces/tropical-azzurro.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=208",
+      "previewDefinition": "Échantillon catalogue fabricant · 102 × 102 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0992050": {
+      "preview": "/assets/img/lrf-plan-pose/faces/tropical-blu.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=208",
+      "previewDefinition": "Échantillon catalogue fabricant · 102 × 102 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|0996B50": {
+      "preview": "/assets/img/lrf-plan-pose/faces/tropical-blu.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=208",
+      "previewDefinition": "Échantillon catalogue fabricant · 102 × 102 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|099ES50": {
+      "preview": "/assets/img/lrf-plan-pose/faces/tropical-blu.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=208",
+      "previewDefinition": "Échantillon catalogue fabricant · 102 × 102 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|00T2030": {
+      "preview": "/assets/img/lrf-plan-pose/faces/twist-brick.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=211",
+      "previewDefinition": "Échantillon couleur du catalogue fabricant",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|00T2060": {
+      "preview": "/assets/img/lrf-plan-pose/faces/twist-green.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=211",
+      "previewDefinition": "Échantillon couleur du catalogue fabricant",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|00T2050": {
+      "preview": "/assets/img/lrf-plan-pose/faces/twist-sky.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=211",
+      "previewDefinition": "Échantillon couleur du catalogue fabricant",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|00T2000": {
+      "preview": "/assets/img/lrf-plan-pose/faces/twist-white.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=211",
+      "previewDefinition": "Échantillon couleur du catalogue fabricant",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|00T2090": {
+      "preview": "/assets/img/lrf-plan-pose/faces/twist-black.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=211",
+      "previewDefinition": "Échantillon couleur du catalogue fabricant",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|04H3X03": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-0f85fc4a00b435b4.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_FLORA_Z.jpg",
+      "previewDefinition": "Échantillon fabricant · 600 × 300 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|04H3X01": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-6e7545474a0da4d5.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_ATLANTE_Z.jpg",
+      "previewDefinition": "Échantillon fabricant · 600 × 300 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|Harmony|black|50x100": {
+      "preview": "/assets/img/lrf-plan-pose/faces/harmony-black.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=70",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|Harmony|taupe|50x100": {
+      "preview": "/assets/img/lrf-plan-pose/faces/harmony-taupe.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=70",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 147 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|Millennium Quartz|vulcano|30.5x60.5": {
+      "preview": "/assets/img/lrf-plan-pose/faces/millenniumquartz-vulcano.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=75",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 151 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|Millennium Quartz|vulcano|20.3x40.6": {
+      "preview": "/assets/img/lrf-plan-pose/faces/millenniumquartz-vulcano.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=75",
+      "previewDefinition": "Échantillon catalogue fabricant · 147 × 151 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|Sedimenti|sand|120x278": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-149c47ac5de8605c.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/SAND-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|Sedimenti|sand|120x120": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-149c47ac5de8605c.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/SAND-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|Sedimenti|sand|60x120": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-149c47ac5de8605c.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/SAND-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|Sedimenti|sand|60x60": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-149c47ac5de8605c.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/SAND-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|Sedimenti|sand|40.6x60.9": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-149c47ac5de8605c.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/SAND-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|Sedimenti|sand|40.6x40.6": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-149c47ac5de8605c.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/SAND-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|Sedimenti|sand|30x30": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-149c47ac5de8605c.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/SAND-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|Sedimenti|sand|20.3x40.6": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-149c47ac5de8605c.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/SAND-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|Sedimenti|sand|20.3x20.3": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-149c47ac5de8605c.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/SAND-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|Sedimenti|sand|7.5x30": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-149c47ac5de8605c.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/SAND-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|Sedimenti|sand|7.5x7.5": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-149c47ac5de8605c.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/SAND-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|Sedimenti|sand|4.8x45": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-149c47ac5de8605c.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/SAND-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|D_esign Evo|bianco|60x60": {
+      "preview": "/assets/img/lrf-plan-pose/faces/designevo-bianco.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=125",
+      "previewDefinition": "Échantillon catalogue fabricant · 150 × 150 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|D_esign Evo|brown|60x60": {
+      "preview": "/assets/img/lrf-plan-pose/faces/designevo-brown.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=125",
+      "previewDefinition": "Échantillon catalogue fabricant · 150 × 150 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|D_esign Evo|grigio|60x60": {
+      "preview": "/assets/img/lrf-plan-pose/faces/designevo-grigio.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=125",
+      "previewDefinition": "Échantillon catalogue fabricant · 150 × 150 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|D_esign Evo|ciano|60x60": {
+      "preview": "/assets/img/lrf-plan-pose/faces/designevo-ciano.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=125",
+      "previewDefinition": "Échantillon catalogue fabricant · 149 × 148 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|D_esign Evo|antracite|60x60": {
+      "preview": "/assets/img/lrf-plan-pose/faces/designevo-antracite.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=125",
+      "previewDefinition": "Échantillon catalogue fabricant · 150 × 149 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|D_esign Evo|verde-inglese|60x60": {
+      "preview": "/assets/img/lrf-plan-pose/faces/designevo-verde-inglese.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=125",
+      "previewDefinition": "Échantillon catalogue fabricant · 149 × 149 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|D_esign Evo|burro|60x60": {
+      "preview": "/assets/img/lrf-plan-pose/faces/designevo-burro.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=125",
+      "previewDefinition": "Échantillon catalogue fabricant · 150 × 149 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|D_esign Evo|terra-di-siena|60x60": {
+      "preview": "/assets/img/lrf-plan-pose/faces/designevo-terra-di-siena.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=125",
+      "previewDefinition": "Échantillon catalogue fabricant · 148 × 149 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|D_esign Evo|tortora|60x60": {
+      "preview": "/assets/img/lrf-plan-pose/faces/designevo-tortora.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431#page=125",
+      "previewDefinition": "Échantillon catalogue fabricant · 150 × 150 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|Marechiaro|amalfi|40.6x40.6": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-12c5b00e24cd6c6c.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2023/10/marechiaro_amalfi_tacca_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1200 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|Marechiaro|amalfi|20.3x20.3": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-12c5b00e24cd6c6c.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2023/10/marechiaro_amalfi_tacca_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1200 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03ZM101": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-65745fd39853fbce.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/WHITE-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03ZM102": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-630b5fc8589df02b.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/BEIGE-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03ZM103": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-149c47ac5de8605c.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/SAND-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|03ZM104": {
+      "preview": "/assets/img/lrf-plan-pose/faces/official-f5e07fba3cadf258.webp",
+      "previewSource": "https://eliosceramica.com/wp-content/uploads/2024/10/GREY-SELECTED_z.jpg",
+      "previewDefinition": "Échantillon fabricant · 1400 × 700 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|04A1510": {
+      "preview": "/assets/img/lrf-plan-pose/faces/pool-acqua-light.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf#page=13",
+      "previewDefinition": "Échantillon catalogue fabricant · 245 × 245 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|04A1530": {
+      "preview": "/assets/img/lrf-plan-pose/faces/pool-acqua-river.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf#page=13",
+      "previewDefinition": "Échantillon catalogue fabricant · 245 × 245 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|04A1520": {
+      "preview": "/assets/img/lrf-plan-pose/faces/pool-acqua-deep.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf#page=13",
+      "previewDefinition": "Échantillon catalogue fabricant · 245 × 245 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|04A1540": {
+      "preview": "/assets/img/lrf-plan-pose/faces/pool-acqua-cobalt.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf#page=13",
+      "previewDefinition": "Échantillon catalogue fabricant · 245 × 245 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|2091540": {
+      "preview": "/assets/img/lrf-plan-pose/faces/pool-italian-slate-naples.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf#page=19",
+      "previewDefinition": "Échantillon catalogue fabricant · 204 × 204 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|2091511": {
+      "preview": "/assets/img/lrf-plan-pose/faces/pool-italian-slate-firenze.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf#page=19",
+      "previewDefinition": "Échantillon catalogue fabricant · 204 × 204 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|LAKSHA6": {
+      "preview": "/assets/img/lrf-plan-pose/faces/pool-lakes-shasta.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf#page=22",
+      "previewDefinition": "Échantillon catalogue fabricant · 240 × 240 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|LAKTAH6": {
+      "preview": "/assets/img/lrf-plan-pose/faces/pool-lakes-tahoe.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf#page=22",
+      "previewDefinition": "Échantillon catalogue fabricant · 240 × 240 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|2151590": {
+      "preview": "/assets/img/lrf-plan-pose/faces/pool-mare-viridus.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf#page=25",
+      "previewDefinition": "Échantillon catalogue fabricant · 209 × 209 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|2151515": {
+      "preview": "/assets/img/lrf-plan-pose/faces/pool-mare-altum.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf#page=25",
+      "previewDefinition": "Échantillon catalogue fabricant · 210 × 210 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|2151510": {
+      "preview": "/assets/img/lrf-plan-pose/faces/pool-mare-caeles.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf#page=25",
+      "previewDefinition": "Échantillon catalogue fabricant · 210 × 210 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|NEMOH66": {
+      "preview": "/assets/img/lrf-plan-pose/faces/pool-nevada-mohave.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf#page=28",
+      "previewDefinition": "Échantillon catalogue fabricant · 245 × 245 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|NECAR66": {
+      "preview": "/assets/img/lrf-plan-pose/faces/pool-nevada-carson.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf#page=28",
+      "previewDefinition": "Échantillon catalogue fabricant · 245 × 245 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|NEVEG66": {
+      "preview": "/assets/img/lrf-plan-pose/faces/pool-nevada-vegas.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf#page=28",
+      "previewDefinition": "Échantillon catalogue fabricant · 245 × 245 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|NEREN66": {
+      "preview": "/assets/img/lrf-plan-pose/faces/pool-nevada-reno.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf#page=28",
+      "previewDefinition": "Échantillon catalogue fabricant · 245 × 245 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|04B1510": {
+      "preview": "/assets/img/lrf-plan-pose/faces/pool-pacific-japan.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf#page=31",
+      "previewDefinition": "Échantillon catalogue fabricant · 245 × 245 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|04B1520": {
+      "preview": "/assets/img/lrf-plan-pose/faces/pool-pacific-mex.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf#page=31",
+      "previewDefinition": "Échantillon catalogue fabricant · 245 × 246 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|04B1530": {
+      "preview": "/assets/img/lrf-plan-pose/faces/pool-pacific-australia.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf#page=31",
+      "previewDefinition": "Échantillon catalogue fabricant · 245 × 246 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|04LBN02": {
+      "preview": "/assets/img/lrf-plan-pose/faces/pool-quantum-prism.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf#page=34",
+      "previewDefinition": "Échantillon catalogue fabricant · 249 × 250 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|04LBN03": {
+      "preview": "/assets/img/lrf-plan-pose/faces/pool-quantum-vector.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf#page=34",
+      "previewDefinition": "Échantillon catalogue fabricant · 249 × 249 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|04LBN01": {
+      "preview": "/assets/img/lrf-plan-pose/faces/pool-quantum-nova.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf#page=34",
+      "previewDefinition": "Échantillon catalogue fabricant · 249 × 249 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|2011570": {
+      "preview": "/assets/img/lrf-plan-pose/faces/pool-sea-breeze-sky.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf#page=37",
+      "previewDefinition": "Échantillon catalogue fabricant · 244 × 245 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|2011590": {
+      "preview": "/assets/img/lrf-plan-pose/faces/pool-sea-breeze-teal.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf#page=37",
+      "previewDefinition": "Échantillon catalogue fabricant · 245 × 244 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|04C1510": {
+      "preview": "/assets/img/lrf-plan-pose/faces/pool-seychelles-original.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf#page=40",
+      "previewDefinition": "Échantillon catalogue fabricant · 195 × 195 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|04C1530": {
+      "preview": "/assets/img/lrf-plan-pose/faces/pool-seychelles-blue.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf#page=40",
+      "previewDefinition": "Échantillon catalogue fabricant · 195 × 195 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|04C1540": {
+      "preview": "/assets/img/lrf-plan-pose/faces/pool-seychelles-cobalt.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf#page=40",
+      "previewDefinition": "Échantillon catalogue fabricant · 195 × 195 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|04C1550": {
+      "preview": "/assets/img/lrf-plan-pose/faces/pool-seychelles-light.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf#page=40",
+      "previewDefinition": "Échantillon catalogue fabricant · 195 × 195 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|04C1520": {
+      "preview": "/assets/img/lrf-plan-pose/faces/pool-seychelles-pearl.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf#page=40",
+      "previewDefinition": "Échantillon catalogue fabricant · 195 × 195 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|NETN615": {
+      "preview": "/assets/img/lrf-plan-pose/faces/pool-twelfth-night-orsino.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf#page=43",
+      "previewDefinition": "Échantillon catalogue fabricant · 245 × 245 px",
+      "native": true,
+      "available3d": true
+    },
+    "ELIOS|NETN639": {
+      "preview": "/assets/img/lrf-plan-pose/faces/pool-twelfth-night-viola.webp",
+      "previewSource": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Pool_Surfaces_2026_INTERACTIF.pdf?alt=media&token=690214a6-9929-41a9-af87-f82e1fb8c2bf#page=43",
+      "previewDefinition": "Échantillon catalogue fabricant · 245 × 245 px",
+      "native": true,
+      "available3d": true
+    },
+    "VIEW|WAVE|artico|60x120": {
+      "preview": "/assets/img/lrf-plan-pose/faces/wave-artico.webp",
+      "previewSource": "https://leroyfactory.fr/assets/pdf/VIEW-EXTERIEUR.pdf#page=11",
+      "previewDefinition": "Échantillon catalogue fabricant · 266 × 531 px",
+      "native": true,
+      "available3d": true
+    },
+    "VIEW|WAVE|sabbia|60x120": {
+      "preview": "/assets/img/lrf-plan-pose/faces/wave-sabbia.webp",
+      "previewSource": "https://leroyfactory.fr/assets/pdf/VIEW-EXTERIEUR.pdf#page=11",
+      "previewDefinition": "Échantillon catalogue fabricant · 531 × 266 px",
+      "native": true,
+      "available3d": true
+    },
+    "VIEW|WAVE|silver|60x120": {
+      "preview": "/assets/img/lrf-plan-pose/faces/wave-silver.webp",
+      "previewSource": "https://leroyfactory.fr/assets/pdf/VIEW-EXTERIEUR.pdf#page=11",
+      "previewDefinition": "Échantillon catalogue fabricant · 266 × 531 px",
+      "native": true,
+      "available3d": true
+    },
+    "VIEW|PHURA|ivory|30x60": {
+      "preview": "/assets/img/lrf-plan-pose/faces/phura-ivory.webp",
+      "previewSource": "https://leroyfactory.fr/assets/pdf/VIEW_CATALOGO_PHURA_2026.pdf#page=6",
+      "previewDefinition": "Face du catalogue numérisé fabricant · 164 × 77 px",
+      "native": true,
+      "available3d": true
+    },
+    "VIEW|PHURA|ivory|60x60": {
+      "preview": "/assets/img/lrf-plan-pose/faces/phura-ivory.webp",
+      "previewSource": "https://leroyfactory.fr/assets/pdf/VIEW_CATALOGO_PHURA_2026.pdf#page=6",
+      "previewDefinition": "Face du catalogue numérisé fabricant · 164 × 77 px",
+      "native": true,
+      "available3d": true
+    },
+    "VIEW|PHURA|ivory|60x120": {
+      "preview": "/assets/img/lrf-plan-pose/faces/phura-ivory.webp",
+      "previewSource": "https://leroyfactory.fr/assets/pdf/VIEW_CATALOGO_PHURA_2026.pdf#page=6",
+      "previewDefinition": "Face du catalogue numérisé fabricant · 164 × 77 px",
+      "native": true,
+      "available3d": true
+    },
+    "VIEW|PHURA|ivory|120x120": {
+      "preview": "/assets/img/lrf-plan-pose/faces/phura-ivory.webp",
+      "previewSource": "https://leroyfactory.fr/assets/pdf/VIEW_CATALOGO_PHURA_2026.pdf#page=6",
+      "previewDefinition": "Face du catalogue numérisé fabricant · 164 × 77 px",
+      "native": true,
+      "available3d": true
+    },
+    "VIEW|PHURA|sand|30x60": {
+      "preview": "/assets/img/lrf-plan-pose/faces/phura-sand.webp",
+      "previewSource": "https://leroyfactory.fr/assets/pdf/VIEW_CATALOGO_PHURA_2026.pdf#page=10",
+      "previewDefinition": "Face du catalogue numérisé fabricant · 164 × 77 px",
+      "native": true,
+      "available3d": true
+    },
+    "VIEW|PHURA|sand|60x60": {
+      "preview": "/assets/img/lrf-plan-pose/faces/phura-sand.webp",
+      "previewSource": "https://leroyfactory.fr/assets/pdf/VIEW_CATALOGO_PHURA_2026.pdf#page=10",
+      "previewDefinition": "Face du catalogue numérisé fabricant · 164 × 77 px",
+      "native": true,
+      "available3d": true
+    },
+    "VIEW|PHURA|sand|60x120": {
+      "preview": "/assets/img/lrf-plan-pose/faces/phura-sand.webp",
+      "previewSource": "https://leroyfactory.fr/assets/pdf/VIEW_CATALOGO_PHURA_2026.pdf#page=10",
+      "previewDefinition": "Face du catalogue numérisé fabricant · 164 × 77 px",
+      "native": true,
+      "available3d": true
+    },
+    "VIEW|PHURA|sand|120x120": {
+      "preview": "/assets/img/lrf-plan-pose/faces/phura-sand.webp",
+      "previewSource": "https://leroyfactory.fr/assets/pdf/VIEW_CATALOGO_PHURA_2026.pdf#page=10",
+      "previewDefinition": "Face du catalogue numérisé fabricant · 164 × 77 px",
+      "native": true,
+      "available3d": true
+    },
+    "VIEW|PHURA|clay|30x60": {
+      "preview": "/assets/img/lrf-plan-pose/faces/phura-clay.webp",
+      "previewSource": "https://leroyfactory.fr/assets/pdf/VIEW_CATALOGO_PHURA_2026.pdf#page=14",
+      "previewDefinition": "Face du catalogue numérisé fabricant · 164 × 77 px",
+      "native": true,
+      "available3d": true
+    },
+    "VIEW|PHURA|clay|60x60": {
+      "preview": "/assets/img/lrf-plan-pose/faces/phura-clay.webp",
+      "previewSource": "https://leroyfactory.fr/assets/pdf/VIEW_CATALOGO_PHURA_2026.pdf#page=14",
+      "previewDefinition": "Face du catalogue numérisé fabricant · 164 × 77 px",
+      "native": true,
+      "available3d": true
+    },
+    "VIEW|PHURA|clay|60x120": {
+      "preview": "/assets/img/lrf-plan-pose/faces/phura-clay.webp",
+      "previewSource": "https://leroyfactory.fr/assets/pdf/VIEW_CATALOGO_PHURA_2026.pdf#page=14",
+      "previewDefinition": "Face du catalogue numérisé fabricant · 164 × 77 px",
+      "native": true,
+      "available3d": true
+    },
+    "VIEW|PHURA|clay|120x120": {
+      "preview": "/assets/img/lrf-plan-pose/faces/phura-clay.webp",
+      "previewSource": "https://leroyfactory.fr/assets/pdf/VIEW_CATALOGO_PHURA_2026.pdf#page=14",
+      "previewDefinition": "Face du catalogue numérisé fabricant · 164 × 77 px",
+      "native": true,
+      "available3d": true
+    },
+    "VIEW|PHURA|silver|30x60": {
+      "preview": "/assets/img/lrf-plan-pose/faces/phura-silver.webp",
+      "previewSource": "https://leroyfactory.fr/assets/pdf/VIEW_CATALOGO_PHURA_2026.pdf#page=18",
+      "previewDefinition": "Face du catalogue numérisé fabricant · 164 × 77 px",
+      "native": true,
+      "available3d": true
+    },
+    "VIEW|PHURA|silver|60x60": {
+      "preview": "/assets/img/lrf-plan-pose/faces/phura-silver.webp",
+      "previewSource": "https://leroyfactory.fr/assets/pdf/VIEW_CATALOGO_PHURA_2026.pdf#page=18",
+      "previewDefinition": "Face du catalogue numérisé fabricant · 164 × 77 px",
+      "native": true,
+      "available3d": true
+    },
+    "VIEW|PHURA|silver|60x120": {
+      "preview": "/assets/img/lrf-plan-pose/faces/phura-silver.webp",
+      "previewSource": "https://leroyfactory.fr/assets/pdf/VIEW_CATALOGO_PHURA_2026.pdf#page=18",
+      "previewDefinition": "Face du catalogue numérisé fabricant · 164 × 77 px",
+      "native": true,
+      "available3d": true
+    },
+    "VIEW|PHURA|silver|120x120": {
+      "preview": "/assets/img/lrf-plan-pose/faces/phura-silver.webp",
+      "previewSource": "https://leroyfactory.fr/assets/pdf/VIEW_CATALOGO_PHURA_2026.pdf#page=18",
+      "previewDefinition": "Face du catalogue numérisé fabricant · 164 × 77 px",
+      "native": true,
+      "available3d": true
+    }
+  }
+}

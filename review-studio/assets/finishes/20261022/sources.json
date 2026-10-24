@@ -1,0 +1,49 @@
+{
+  "collection": "STUDIO ONE",
+  "date": "2026-10-22",
+  "notes": [
+    "ALBA is the original manufacturer sample attached to Juan Carlos Segura email of 22 October 2026.",
+    "ROBLE/NOGAL/WHITE retain existing application assets pending access to the new original attachments.",
+    "Physical panel sample dimensions and measured gloss/roughness were not supplied; current material settings are retained.",
+    "Reference photographs are not used as flat textures."
+  ],
+  "finishes": {
+    "ALBA": {
+      "original": "Serenade_alba_acabado.jpg",
+      "sha256": "f8768e957fb0e5f3d456a0824db63c3c5e46792fb4a562fce9e8485106cf5e2a",
+      "sourcePixels": [
+        1292,
+        2800
+      ],
+      "newManufacturerSample": true,
+      "averageSRGB": "#bfa386",
+      "variants": {
+        "fluid": {
+          "file": "finishes/20261022/alba-fluid.webp",
+          "size": [
+            118,
+            256
+          ],
+          "bytes": 2738
+        },
+        "balanced": {
+          "file": "finishes/20261022/alba-balanced.webp",
+          "size": [
+            473,
+            1024
+          ],
+          "bytes": 90714
+        },
+        "max": {
+          "file": "finishes/20261022/alba-max.webp",
+          "size": [
+            945,
+            2048
+          ],
+          "bytes": 662954
+        }
+      },
+      "swatch": "finishes/20261022/alba-swatch.webp"
+    }
+  }
+}

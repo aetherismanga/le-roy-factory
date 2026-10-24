@@ -1,5 +1,5 @@
 import {build} from 'esbuild';
-import {readFileSync,writeFileSync,copyFileSync,rmSync} from 'node:fs';
+import {readFileSync,writeFileSync,copyFileSync,rmSync,readdirSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 await build({entryPoints:['src/app.js'],bundle:true,format:'esm',target:['es2020'],minify:true,outfile:'dist/app.js',legalComments:'eof'});
 // Give updated assets a distinct URL so mobile caches cannot retain old
@@ -11,8 +11,10 @@ for(const file of ['app.js','style.css','commerce.css']){const hash=createHash('
 writeFileSync('dist/atelier.html',html);
 console.log('Static standalone build ready.');
 
-// Retain the previous hashed chunks so an already-open mobile tab can finish loading.
-await build({entryPoints:{accueil:'src/commerce/home.js'},bundle:true,format:'esm',splitting:true,target:['es2020'],minify:true,outdir:'dist',chunkNames:'chunks/[name]-[hash]'});
+// Retire obsolete generated chunks: old bundles may contain superseded private data.
+const homeBuild=await build({entryPoints:{accueil:'src/commerce/home.js'},bundle:true,format:'esm',splitting:true,target:['es2020'],minify:true,outdir:'dist',chunkNames:'chunks/[name]-[hash]',metafile:true});
+const currentChunks=new Set(Object.keys(homeBuild.metafile.outputs));
+for(const file of readdirSync('dist/chunks'))if(file.endsWith('.js')&&!currentChunks.has('dist/chunks/'+file))rmSync('dist/chunks/'+file);
 copyFileSync('src/commerce/home.css','dist/accueil.css');
 let home=readFileSync('src/commerce/home.html','utf8');
 for(const file of ['accueil.js','accueil.css']){const hash=createHash('sha256').update(readFileSync('dist/'+file)).digest('hex').slice(0,12);home=home.replaceAll('"'+file+'"','"'+file+'?v='+hash+'"');}

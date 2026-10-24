@@ -7,8 +7,8 @@ const MAX_ENTRIES = 512; // 60 rooms × at most 8 faces, including mixed referen
 const allowedImage = /^image\/(jpeg|png|webp|avif)$/i;
 
 export function textureProduct(tile, catalogue) {
-  if (tile?.brand !== 'ELIOS') return null;
-  return catalogue?.products?.find(p => p.brand === 'ELIOS' && p.key === tile.key &&
+  if (!['ELIOS','VIEW','LA FENICE'].includes(tile?.brand)) return null;
+  return catalogue?.products?.find(p => p.brand === tile.brand && p.key === tile.key &&
     p.collection === tile.collection && p.colorId === tile.colorId &&
     p.width === tile.width && p.height === tile.height &&
     (!tile.reference || p.reference === tile.reference)) || null;
@@ -18,18 +18,19 @@ function imageURL(value) {
   if (typeof value !== 'string' || value.length > 3000) return '';
   try {
     const url = new URL(value, globalThis.location?.href || 'https://leroyfactory.fr/');
-    return url.protocol === 'https:' && !url.username && !url.password ? url.href : '';
+    return (url.protocol === 'https:'||/^\/assets\/img\/lrf-plan-pose\/faces\//.test(value)&&url.origin===globalThis.location?.origin) && !url.username && !url.password ? url.href : '';
   } catch { return ''; }
 }
 
 export function textureSources(product, quality = 'balanced') {
-  if (product?.brand !== 'ELIOS') return [];
+  if (!product) return [];
   const variants = product.textureVariants;
   const requested = TEXTURE_QUALITIES.includes(quality) ? quality : 'balanced';
   // A missing HD tier must never silently export the low-resolution tier.
   const tiers = requested === 'max' ? ['max'] : requested === 'fluid' ? ['fluid', 'balanced', 'max'] : ['balanced', 'max'];
   let list = tiers.map(k => variants?.[k]).find(v => Array.isArray(v) && v.length);
   if (!list && !variants && product.nativeFaces === true) list = product.faces;
+  if(!list && !variants && product.preview) list=[product.preview];
   return [...new Set((list || []).map(imageURL).filter(Boolean))].slice(0, MAX_FACES);
 }
 

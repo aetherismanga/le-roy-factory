@@ -2620,3 +2620,7 @@ export const CATALOG = {
     }
   }
 };
+
+// Selection images use neutral mirror glass; the scene reflector remains live.
+import {mirrorThumbnail} from '../mirror-thumbnail.js';
+for(const mirror of CATALOG.mirrors)mirror.image=mirrorThumbnail(mirror.id);

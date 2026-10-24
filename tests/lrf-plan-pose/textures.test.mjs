@@ -30,7 +30,7 @@ test('les URLs viennent de la référence ELIOS vérifiée du catalogue, pas du 
 test('les trois qualités sélectionnent leurs vraies sources ; le HD ne retombe jamais sur la basse définition',()=>{
  const official=product();for(const quality of ['fluid','balanced','max'])assert.deepEqual(textureSources(official,quality),[urls[quality]]);
  assert.deepEqual(textureSources({...official,textureVariants:{fluid:[urls.fluid]}},'max'),[]);
- assert.deepEqual(textureSources({...official,brand:'VIEW'},'max'),[]);
+ assert.deepEqual(textureSources({...official,brand:'VIEW'},'max'),[urls.max]);
  assert.deepEqual(textureSources({...official,textureVariants:{max:['javascript:alert(1)','http://example.test/face.webp','https://user:password@example.test/face.webp',urls.max,urls.max]}},'max'),[urls.max]);
 });
 
