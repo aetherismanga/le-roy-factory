@@ -22,7 +22,7 @@ export function surfaceColorIssue(collection,color){
  // catalogue-extracted faces per colour. Do not upscale or label them as 4K.
  // Other collections continue to require the standard source-resolution check.
  if(collection==='Slate'&&color.nativeFaces===true&&faces.length>=5&&
-    faces.every(file=>/\/slate%2F/i.test(file)))return null;
+    faces.every(file=>/slate%2F/i.test(file)))return null;
  if(Math.max(width,height)<700||width*height<150000)return 'insufficient-source-definition';
  return null;
 }
