@@ -1,4 +1,4 @@
-import {area,bounds,distance,inside,polygonError,simplify,signedArea} from './core.mjs?v=20261023-1';
+import {area,bounds,distance,inside,polygonError,simplify,signedArea} from './core.mjs?v=20261024-1';
 
 // Text readings are observations. Pixel distances are never substituted for missing dimensions.
 export function dimensionValue(text,defaultUnit='cm'){
@@ -106,4 +106,14 @@ export function chooseReadings(shape,candidates,unit='cm'){
  walk(0,[],0);
  if(!best){allowReview=true;visited=0;walk(0,[],0);}
  return best||bestPartial||{readings:options.map(c=>c[0]||null),...solveDimensions(shape,options.map(c=>c[0]?valueOf(c[0].text):null))};
+}
+
+// SVG meet scaling includes the unused margin on either axis.
+export function dimensionScale(view,width=700,height=600){return Math.max(view.w/(width||700),view.h/(height||600));}
+export function resizeWall(points,index,length){
+ if(!Number.isFinite(length)||length<=0)throw Error('Saisissez une longueur positive.');
+ const a=points[index],b=points[(index+1)%points.length],old=distance(a,b),ux=(b[0]-a[0])/old,uy=(b[1]-a[1])/old,local=points.map(p=>[(p[0]-a[0])*ux+(p[1]-a[1])*uy,-(p[0]-a[0])*uy+(p[1]-a[1])*ux]);
+ if(local.some((p,i)=>{const q=local[(i+1)%local.length];return Math.abs(q[0]-p[0])>1e-7&&Math.abs(q[1]-p[1])>1e-7;}))throw Error('Cette cote est oblique. Corrigez son tracé ou son échelle avant de la valider.');
+ const result=local.map(p=>[...p]),j=(index+1)%points.length,delta=length-old,coordinate=local[j][0];for(let count=0,k=j;count<points.length-1;count++,k=(k+1)%points.length){if(Math.abs(local[k][0]-coordinate)>1e-7)break;result[k][0]+=delta;}
+ return result.map(p=>[a[0]+ux*p[0]-uy*p[1],a[1]+uy*p[0]+ux*p[1]]);
 }

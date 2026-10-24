@@ -1,31 +1,30 @@
-import reportFont from '../../vendor/lrf-plan-pose/report-font.mjs?v=20261023-1';
-import {orderLines,plinthOrderLines,purchaseSummary} from './core.mjs?v=20261023-1';
+import reportFont from '../../vendor/lrf-plan-pose/report-font.mjs?v=20261024-1';
+import {orderLines,plinthOrderLines,purchaseSummary} from './core.mjs?v=20261024-1';
+import {publicQuote} from './workflow.mjs?v=20261024-1';
 const fmt=(v,d=2)=>Number.isFinite(v)?v.toLocaleString('fr-FR',{maximumFractionDigits:d,minimumFractionDigits:d}):'—';
-const pdfText=value=>String(value).replace(/[\u00a0\u202f]/g,' ').replace(/[’‘]/g,"'").replace(/[–—‑]/g,'-').replace(/œ/g,'oe').replace(/…/g,'...');
-const money=v=>Number.isFinite(v)?v.toLocaleString('fr-FR',{style:'currency',currency:'EUR'}):'À confirmer';
-export function buildPDFReport(jsPDF,project,rows,image,{includePurchase=false}={}){
- const pdf=new jsPDF({orientation:'landscape',unit:'mm',format:'a4'}),confirmed=rows.length>0&&rows.every(x=>x.r.confirmed&&!x.error);let page=1,y=18;pdf.addFileToVFS('LRFReport.ttf',reportFont);pdf.addFont('LRFReport.ttf','LRFReport','normal');pdf.setFont('LRFReport','normal');
- const footer=()=>{pdf.setFontSize(8);pdf.setTextColor(110);pdf.text('LE ROY FACTORY · PLAN & POSE · '+new Date().toLocaleDateString('fr-FR',{timeZone:'Europe/Paris'}),14,201);pdf.text(String(page),283,201,{align:'right'});};
- const newPage=title=>{pdf.addPage();page++;y=18;pdf.setTextColor(43,48,39);pdf.setFontSize(17);pdf.text(pdfText(title),14,y);y+=12;footer();};
- const line=(text,{size=10,color=[65,69,58],gap=2}={})=>{const wrapped=pdf.splitTextToSize(pdfText(text),262),height=wrapped.length*size*.43+gap;if(y+height>190)newPage('Suite du récapitulatif');pdf.setFontSize(size);pdf.setTextColor(...color);pdf.text(wrapped,14,y);y+=height;};
- pdf.setTextColor(43,48,39);pdf.setFontSize(22);pdf.text('LRF PLAN & POSE',14,19);pdf.setFontSize(12);pdf.text(pdf.splitTextToSize(pdfText(project.title),260)[0],14,29);pdf.setFontSize(9);pdf.setTextColor(130,98,44);pdf.text(pdfText(confirmed?'COTES VALIDÉES PAR L’UTILISATEUR':'PROVISOIRE · COTES À VÉRIFIER'),14,37);
- if(project.reference){pdf.setTextColor(100);pdf.text(pdfText('Chantier : '+project.reference.slice(0,100)),14,44);}const factor=Math.min(265/image.width,140/image.height),w=image.width*factor,h=image.height*factor;pdf.addImage(image.jpeg,'JPEG',(297-w)/2,48,w,h);footer();
- newPage('Mon projet, pièce par pièce');line('Marge carrelage : '+project.loss+' % · les portes et passages au sol sont déduits des plinthes.',{size:9});
- for(const row of rows){if(y>140)newPage('Mes pièces');line(row.r.name+' · '+(row.r.confirmed?'cotes validées':'cotes à vérifier'),{size:13});if(row.error){line('À corriger : '+row.error);continue;}const t=row.r.tile,p=row.plinths;
-  line(t.brand+' · '+t.collection+' · '+(t.color||'Coloris à confirmer')+' · '+t.format+' cm · Réf. '+(t.reference||'à confirmer'));
-  line('Sol net : '+fmt(row.area)+' m² · '+row.full+' carreaux entiers / '+row.cut+' à découper · chutes du calepinage : '+fmt(row.cutWaste)+' m²');
-  if(p){line('Plinthes à poser : '+fmt(p.net)+' ml · débit avec chutes : '+fmt(p.debit)+' ml · chutes de débit : '+fmt(p.waste)+' ml');line(p.type==='wood'?p.units+' barre(s) bois blanc de 2,20 m · '+fmt(p.order)+' ml à acheter':p.type==='factory'?p.boxes+' boîte(s) de plinthes · réf. '+(p.product?.reference||'à confirmer')+' · '+p.units+' pièces · '+fmt(p.order)+' ml à acheter':p.tiles+' carreau(x) réservés aux plinthes, inclus dans la liste de carrelage.');if(p.aligned)line('Joints des plinthes alignés sur le calepinage du sol.',{size:9});if(includePurchase)line('Achat des plinthes : '+money(row.plinthTotalHT)+(p.type==='tile'?' - déjà inclus dans les carreaux commandés.':' - ajouté au total.'));}
-  y+=5;
+const pdfText=v=>String(v??'').replace(/[\u00a0\u202f]/g,' ').replace(/[’‘]/g,"'").replace(/[–—‑]/g,'-').replace(/œ/g,'oe').replace(/…/g,'...');
+const money=v=>Number.isFinite(v)?v.toLocaleString('fr-FR',{style:'currency',currency:'EUR'}):'Prix sur demande';
+export function buildPDFReport(jsPDF,project,rows,image,{includePurchase=false,roomImages=[]}={}){
+ const pdf=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});let page=1,y=18;pdf.addFileToVFS('LRFReport.ttf',reportFont);pdf.addFont('LRFReport.ttf','LRFReport','normal');pdf.setFont('LRFReport','normal');
+ const footer=()=>{pdf.setFontSize(8);pdf.setTextColor(110);pdf.text('LE ROY FACTORY · PLAN & POSE · '+new Date().toLocaleDateString('fr-FR',{timeZone:'Europe/Paris'}),14,286);pdf.text(String(page),196,286,{align:'right'});};
+ const newPage=title=>{pdf.addPage('a4','portrait');page++;y=20;pdf.setTextColor(43,48,39);pdf.setFontSize(17);pdf.text(pdfText(title),14,y);y+=12;footer();};
+ const line=(text,{size=10,gap=3}={})=>{const wrapped=pdf.splitTextToSize(pdfText(text),182),height=wrapped.length*size*.43+gap;if(y+height>274)newPage('Suite du dossier');pdf.setFontSize(size);pdf.setTextColor(55,60,50);pdf.text(wrapped,14,y);y+=height;};
+ line('LRF PLAN & POSE',{size:21,gap:6});line(project.title,{size:14});const c=project.client||{};
+ if(c.name)line('Client : '+c.name);if(c.address||c.city)line([c.address,[c.postcode,c.city].filter(Boolean).join(' ')].filter(Boolean).join(' · '));if(c.phone||c.email)line([c.phone,c.email].filter(Boolean).join(' · '),{size:9});if(project.reference)line('Référence : '+project.reference,{size:9});
+ line(rows.length&&rows.every(x=>x.r.confirmed&&!x.error)?'COTES VALIDÉES PAR L’UTILISATEUR':'PROVISOIRE · COTES À VÉRIFIER',{size:9});
+ if(image){const available=274-y-5,factor=Math.min(182/image.width,available/image.height),w=image.width*factor,h=image.height*factor;pdf.addImage(image.jpeg,'JPEG',(210-w)/2,y+3,w,h);}footer();
+ const quote=publicQuote(rows,project);newPage('Métrés et chiffrage');line('Marge carrelage : '+project.loss+' % · portes et ouvertures au sol déduites des plinthes.',{size:9});line('Les cartons sont arrondis après regroupement des références ; leur quantité est répartie entre les pièces selon leurs besoins.',{size:9});
+ for(const row of rows){if(y>220)newPage('Métrés et chiffrage');line(row.r.name,{size:14});if(row.error){line('À corriger : '+row.error);continue;}const t=row.r.tile,p=row.plinths,sale=quote.lines.find(x=>x.roomId===row.r.id);
+  line(t.brand+' · '+t.collection+' '+t.color+' · '+t.format+' cm');line('Référence : '+(t.reference||'à confirmer')+' · '+(t.finish||''),{size:9});
+  line('Sol net : '+fmt(row.area)+' m² · commande affectée : '+fmt(sale?.floorQuantity)+' m²');line('Boîtage : '+(t.packVerified?t.packPieces+' pièces / '+fmt(t.packArea)+' m²':'à confirmer')+' · chutes de pose : '+fmt(row.cutWaste)+' m²',{size:9});
+  if(p){line('Plinthes : '+fmt(p.net)+' ml nets · débit '+fmt(p.debit)+' ml · '+(sale?.plinthIncluded?'matière incluse dans le carrelage':'commande affectée '+fmt(sale?.plinthQuantity)+' ml'));line(p.type==='factory'?'Fabricant · réf. '+(p.product?.reference||'à confirmer')+' · '+p.boxes+' boîte(s)':p.type==='wood'?p.units+' barre(s) bois blanc de 2,20 m':p.tiles+' carreau(x) réservés aux plinthes, inclus dans le carrelage',{size:9});}
+  line('Vente carrelage / m² : '+money(sale?.floor)+(sale?.plinthIncluded?' · plinthes découpées incluses':' · vente plinthes / ml : '+money(sale?.plinth)),{size:9});line('Montant de la pièce : '+money(sale?.total),{size:12});y+=4;
  }
- const groups=orderLines(rows);newPage('Ma liste de carrelage à commander');
- for(const g of groups){if(y>143)newPage('Ma liste à commander');const t=g.tile;line(t.brand+' · '+t.collection+' '+t.color+' · '+t.format+' cm',{size:12});line('Référence : '+(t.reference||'à confirmer')+' · '+(t.finish||'Finition à confirmer'));
-  line(g.packVerified?'Boîtage : '+t.packPieces+' pièces / '+fmt(t.packArea)+' m² par boîte · '+g.boxes+' boîte(s) = '+fmt(g.orderArea)+' m² / '+g.orderPieces+' pièces':'Boîtage à confirmer · besoin : '+fmt(g.needed)+' m²');
-  line('Chutes + marge + arrondi des boîtes : '+fmt(g.surplus)+' m² · carreaux de plinthes : '+fmt(g.plinthArea)+' m²');
-  if(includePurchase){line('Achat HT/m² (détail) : '+money(t.purchaseHT)+' · total achat HT : '+money(g.totalHT));line('Source tarif : '+(t.priceSource||'à confirmer'),{size:8});if(t.priceNote)line(t.priceNote,{size:8});}
-  line('Source boîtage : '+(t.packSource||'à confirmer'),{size:8});y+=5;
- }
- const plinthLines=plinthOrderLines(rows);if(plinthLines.length){line('Mes plinthes à commander',{size:13});for(const p of plinthLines){line(p.type==='wood'?'Bois blanc : '+p.units+' barre(s) de 2,20 m · '+fmt(p.order)+' ml':'Plinthes fabricant : réf. '+p.product.reference+' · '+p.boxes+' boîte(s) / '+p.units+' pièces · '+fmt(p.order)+' ml');line('À poser : '+fmt(p.net)+' ml · débit : '+fmt(p.debit)+' ml',{size:9});if(includePurchase)line('Achat HT / '+p.purchase.unit+' : '+money(p.purchase.unitPriceHT)+' · montant des plinthes : '+money(p.purchase.totalHT));}}
- if(includePurchase){const total=purchaseSummary(rows);line('Carrelage commandé : '+money(total.tileHT));line('Dont carreaux pour les plinthes : '+money(total.cutPlinthHT)+' (déjà inclus).');line('Plinthes fabricant / bois : '+money(total.extraPlinthHT));line((total.totalHT===null?'Sous-total achat HT renseigné : ':'Total achat HT : ')+(total.hasLines?money(total.totalHT??total.subtotalHT):'À confirmer'),{size:13});if(total.missing)line(total.missing+' prix ou relevé(s) à compléter : total incomplet.',{size:9});line('Hors façonnage, pose et transport.',{size:9});}
- line('Une même référence est regroupée entre les pièces avant l’arrondi des boîtes. Les chutes de sol ne sont pas présumées réutilisables en plinthes. Le débit de plinthes propose le réemploi des chutes compatibles ; il doit être contrôlé sur chantier. Ce dossier ne constitue pas une commande.',{size:8});
- return pdf.output('blob');
+ line('Total de vente du projet : '+money(quote.total),{size:15,gap:6});
+ if(project.comment){line('Commentaire',{size:13});line(project.comment);}
+ newPage('Liste à commander');for(const g of orderLines(rows)){line(g.tile.brand+' · '+g.tile.collection+' '+g.tile.color+' · '+g.tile.format+' cm',{size:12});line('Réf. '+(g.tile.reference||'à confirmer')+' · '+(g.boxes??'à confirmer')+' carton(s) · '+fmt(g.orderArea)+' m²');line('Pertes, marge et arrondi des cartons : '+fmt(g.surplus)+' m²',{size:9});if(includePurchase)line('Achat HT/m² : '+money(g.tile.purchaseHT)+' · montant HT : '+money(g.totalHT));y+=4;}
+ for(const g of plinthOrderLines(rows)){line('Plinthes '+(g.type==='wood'?'bois blanc':g.product.reference)+' · '+(g.boxes??g.units)+' '+(g.type==='factory'?'boîte(s)':'barre(s)')+' · '+fmt(g.order)+' ml');if(includePurchase)line('Achat HT : '+money(g.purchase.totalHT));}
+ if(includePurchase)line('Total achat HT : '+money(purchaseSummary(rows).totalHT),{size:13});
+ for(const entry of roomImages){newPage(entry.name);const factor=Math.min(182/entry.image.width,240/entry.image.height),w=entry.image.width*factor,h=entry.image.height*factor;pdf.addImage(entry.image.jpeg,'JPEG',(210-w)/2,y,w,h);}
+ line('Quantités issues du plan et des cotes validées. Contrôlez les coupes et les dimensions sur chantier avant commande.',{size:8});return pdf.output('blob');
 }

@@ -1,0 +1,20 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import imageHandler from '../api/plan-pose-texture.mjs';
+import purchaseHandler from '../api/purchase-prices.js';
+import urls from '../api/plan-pose-texture-urls.json' with {type:'json'};
+import {publicProject} from '../src/surface-commerce.js';
+import {makeRoom,cloneRoom,validateRoom} from '../src/room.js';
+import {plinthReport} from '../src/plinths.js';
+const response=()=>({headers:{},statusCode:200,setHeader(k,v){this.headers[k]=v;},status(n){this.statusCode=n;return this;},json(v){this.body=v;return this;},end(v){this.body=v;return this;}});
+const old=globalThis.fetch;let fetched=0;globalThis.fetch=async()=>{fetched++;throw Error('should not fetch');};
+let res=response();await purchaseHandler({method:'POST',headers:{host:'randal-catalogue-general-3d.vercel.app',origin:'https://randal-catalogue-general-3d.vercel.app',cookie:'randal_general_pro=customer-session'}},res);assert.equal(res.statusCode,401);assert.equal(fetched,0);
+res=response();await purchaseHandler({method:'POST',headers:{host:'randal-catalogue-general-3d.vercel.app',origin:'https://evil.example',cookie:'randal_general_admin=fake'}},res);assert.equal(res.statusCode,403);assert.equal(fetched,0);
+res=response();await imageHandler({method:'GET',headers:{origin:'https://leroyfactory.fr'},url:'/api/plan-pose-texture?url='+encodeURIComponent('https://evil.example/image.jpg')},res);assert.equal(res.statusCode,400);assert.equal(fetched,0);
+res=response();await imageHandler({method:'GET',headers:{origin:'https://evil.example'},url:'/api/plan-pose-texture?url='+encodeURIComponent(urls[0])},res);assert.equal(res.statusCode,403);assert.equal(fetched,0);
+globalThis.fetch=async(url,options)=>{assert(urls.includes(url));assert.equal(options.redirect,'error');assert.equal(options.headers,undefined);return new Response(new Uint8Array([1,2,3]),{headers:{'content-type':'image/jpeg'}});};
+res=response();await imageHandler({method:'GET',headers:{origin:'https://leroyfactory.fr'},url:'/api/plan-pose-texture?url='+encodeURIComponent(urls[0])},res);assert.equal(res.statusCode,200);assert.equal(res.headers['Access-Control-Allow-Origin'],'https://leroyfactory.fr');assert.equal(res.body.length,3);globalThis.fetch=old;
+const raw=JSON.parse(readFileSync(new URL('../src/commercial-surfaces.json',import.meta.url)));for(const item of [...raw.products,...raw.plinths]){assert.equal(item.purchaseHT,undefined);assert.equal(item.purchasePaletteHT,undefined);}
+assert.deepEqual(publicProject({client:{name:'Test'},plinths:{purchaseHT:12,product:{purchasePaletteHT:8,reference:'R'}},items:[]}),{client:{name:'Test'},plinths:{product:{reference:'R'}},items:[]});
+const config={height:260,points:[[0,0],[400,0],[400,300],[0,300]],plinthExclusions:{'boundary-0':[[0,50],[80,120]]}},room=makeRoom(config,0);assert.deepEqual(cloneRoom(config).plinthExclusions,config.plinthExclusions);const finishes=Array.from({length:4},()=>({collection:'Peinture',color:'white'}));assert.equal(plinthReport(room,{enabled:true,type:'wood'},finishes).net,13.1);room.dispose();assert.match(validateRoom({...config,plinthExclusions:{'boundary-0':[[0,NaN]]}},0),/Exclusions/);
+console.log('Release checks PASS: agent-only purchase gateway, public-data redaction, exact image allowlist/CORS and native plinth exclusions.');
