@@ -8,6 +8,18 @@ export const SANITARIES=[
  {id:'STR4335',name:'DALIA',type:'washstand',width:.55,depth:.31,height:.125,finish:'Blanc brillant',page:30},
  {id:'TR443',name:'TRIXIE',type:'washstand',width:.625,depth:.285,height:.15,finish:'Blanc brillant',page:29,note:'Catalogue : 62,5 × 28,5 × 15 cm ; le tarif JSON indique 44 × 27 × 15 cm. Cote PDF retenue.'}
 ];
+// Flush plates are independent of the bowl finish and of the optional support.
+export const FLUSH_PLATE_COLORS=[
+ {id:'Blanc',name:'Blanc',hex:'#f1eee7',metalness:0,roughness:.5},
+ {id:'Noir',name:'Noir',hex:'#212426',metalness:.15,roughness:.43},
+ {id:'Argent',name:'Argent',hex:'#c4ced0',metalness:1,roughness:.28},
+ {id:'Doré',name:'Doré',hex:'#bd9b60',metalness:1,roughness:.3},
+ {id:'Bronze',name:'Bronze',hex:'#94735b',metalness:1,roughness:.3}
+];
+export function flushPlateMaterial(value='Blanc'){
+ const finish=FLUSH_PLATE_COLORS.find(f=>f.id===value);
+ return finish?new T.MeshPhysicalMaterial({color:finish.hex,metalness:finish.metalness,roughness:finish.roughness,clearcoat:.14}):metalMaterial(value);
+}
 export const PLUMBING=[
  {id:'Chrome brillant',trap:'31141112704',drain:'000550'}, {id:'Noir mat',trap:'31141112708',drain:'000553'}, {id:'Or brossé',trap:'31141112709',drain:'000558'}, {id:'Cuivre',trap:'31141112705',drain:'000559'}, {id:'Inox brossé',trap:'31141112760',drain:'000556'}, {id:'Gris canon',trap:'31141112706',drain:'000566'}, {id:'Blanc mat',trap:'31141112703',drain:'000552'}
 ];
@@ -24,14 +36,15 @@ export function makeSanitary(type,s={}){const p=sanitarySpec(s),root=new T.Group
   const lid=new T.Group();lid.name='Abattant';lid.position.set(0,H+.006,z-.20);root.add(lid);const shape=new T.Shape().absellipse(0,0,.175,.231,0,Math.PI*2,false),g=new T.ExtrudeGeometry(shape,{depth:.009,bevelEnabled:true,bevelSize:.002,bevelThickness:.001,bevelSegments:2,curveSegments:64});g.rotateX(-Math.PI/2);add(g,ceramic,'Couvercle',0,0,.20,lid);lid.rotation.x=s.lidOpen?-Math.PI*.48:0;
   if(floor){box(.29,.40,.27,0,.20,-.23+.24,'Pied');box(.345,.345,.155,0,.5725,-.23+.0775,'Reservoir');box(.355,.016,.165,0,.737,-.23+.08,'Couvercle_reservoir');cyl(.022,.004,0,.747,-.23+.08,'Bouton_double_chasse');}
   else box(.32,.28,.035,0,.155,-.23+.02,'Dos_fixation');
+  const addFlushPlate=(y,z)=>{const plate=flushPlateMaterial(s.plateColor||'Blanc');box(.24,.16,.009,0,y,z,'Plaque_double_chasse',plate);for(const [x,r]of [[-.049,.042],[.055,.028]]){const button=add(new T.CylinderGeometry(r,r,.004,48),plate,'Bouton_chasse',x,y,z+.008);button.rotation.x=Math.PI/2;}};
   const angle=lid.rotation.x;lid.rotation.x=0;const bounds=new T.Box3().setFromObject(root),size=bounds.getSize(new T.Vector3()),content=new T.Group();while(root.children.length)content.add(root.children[0]);content.scale.set(p.width/size.x,p.height/size.y,p.depth/size.z);content.position.set(-(bounds.min.x+bounds.max.x)/2*content.scale.x,-bounds.min.y*content.scale.y,-.23-bounds.min.z*content.scale.z);root.add(content);lid.rotation.x=angle;root.updateMatrixWorld(true);const actualHeight=new T.Box3().setFromObject(root).getSize(new T.Vector3()).y;
   if(!floor&&s.support){const width=Math.max(.5,Math.min(1.2,(Number(s.supportWidth)||60)/100)),height=Math.max(.85,Math.min(1.35,(Number(s.supportHeight)||112)/100)),depth=Math.max(.15,Math.min(.35,(Number(s.supportDepth)||20)/100));content.position.y+=.40;content.position.z+=depth;
    const cladding=new T.MeshStandardMaterial({color:/^#[a-f0-9]{6}$/i.test(s.supportColor||'')?s.supportColor:'#d6cabb',roughness:.72}),steel=new T.MeshStandardMaterial({color:'#23595d',metalness:.8,roughness:.28});
    for(const sign of [-1,1])box(.04,height-.04,.04,sign*(width/2-.04),height/2,-.23+.04,'Montant_bati_support',steel);box(width,height,depth,0,height/2,-.23+depth/2,'Habillage_bati_support',cladding);
-   const plate=metalMaterial(s.plateColor||'Chrome brillant');box(.24,.16,.009,0,Math.min(height-.13,1.0),-.23+depth+.005,'Plaque_double_chasse',plate);
-   for(const [x,r]of [[-.049,.042],[.055,.028]]){const button=add(new T.CylinderGeometry(r,r,.004,48),plate,'Bouton_chasse',x,Math.min(height-.13,1.0),-.23+depth+.013);button.rotation.x=Math.PI/2;}
+   addFlushPlate(Math.min(height-.13,1.0),-.23+depth+.005);
    return {root,spec:p,dimensions:{width:Math.max(p.width,width),depth:p.depth+depth,height,base:0},ceramic};
   }
+  if(!floor)addFlushPlate(.90,-.225);
   return {root,spec:p,dimensions:{width:p.width,depth:p.depth,height:actualHeight,base:0},ceramic};
  }
  const trixie=p.id==='TR443',W=p.width,D=p.depth,H=p.height,x=trixie?.13:0,z=-.23+D/2;

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import * as T from 'three';
-import {makeOpening,openingError} from '../src/openings.js';
+import {makeOpening,openingError,OPENING_COLORS} from '../src/openings.js';
 import {makeRoom,DEFAULT_ROOM,roomPreset,wallRectangles} from '../src/room.js';
 import {Composition,itemDimensions} from '../src/composition.js';
 import {makeColumn} from '../src/column.js';
@@ -16,7 +16,7 @@ for(const wall of [1,2,3,0]){const old=window.placement.wall;assert(!comp.move(w
 assert.equal(room.walls[0].material.map,originalMap,'Cutting preserves selected tile material');
 assert(comp.move(window.id,{height:210}).error);assert(comp.move(window.id,{u:20}).error);assert(openingError('window',25,100));assert(openingError('door',83.5,204));
 const ds={width:83,height:204,color:'black'},da=makeOpening('door',ds),door=comp.add('door',da,ds,{wall:1,u:225,height:0}).item;assert(door);scene.add(door.root);assert.equal(wallHit(1,225,100).length,0);assert(wallHit(1,225,240).length);assert(comp.move(door.id,{height:10}).error);
-da.setOpenProgress(1);assert(da.door.rotation.y<0);da.setHingeSide('right');assert(da.door.rotation.y>0);da.setOpenProgress(0);assert.equal(da.door.rotation.y,0);asset.setColor('black');assert.equal(asset.frame.color.getHexString(),'202526');asset.setColor('white');assert.equal(asset.frame.color.getHexString(),'f1f0eb');
+da.setOpenProgress(1);assert(da.door.rotation.y<0);da.setHingeSide('right');assert(da.door.rotation.y>0);da.setOpenProgress(0);assert.equal(da.door.rotation.y,0);asset.setColor('black');assert.equal(asset.frame.color.getHexString(),OPENING_COLORS.find(c=>c.id==='black').hex.slice(1));asset.setColor('white');assert.equal(asset.frame.color.getHexString(),OPENING_COLORS.find(c=>c.id==='white').hex.slice(1));
 const occupied=comp.add('column',makeColumn(),{}, {wall:0,u:225,height:100}).item;assert(occupied);assert.notEqual(occupied.placement.u,225,'Furniture cannot cover an opening');
 // Rebuild a custom angled room and retain actual cuts on the new wall geometry.
 const next=makeRoom(roomPreset('chamfer',500,500,280),0);assert.equal(comp.setRoom(next),'');assert.equal(next.walls[0].openings.length,1);assert.equal(next.walls[1].openings.length,1);assert.equal(comp.resize(window,itemDimensions('window',{width:240,height:220}))!== '',true,'Invalid enlarged window leaves its old dimensions');

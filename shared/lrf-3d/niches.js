@@ -8,6 +8,8 @@ export function validateNiches(room){
  const slots=wallSlots(room),ids=new Set();
  for(const n of list){
   const wall=n&&slots.find(w=>w.key===n.wallKey);if(!n||typeof n.id!=='string'||!/^niche-[a-z0-9-]{1,70}$/i.test(n.id)||ids.has(n.id)||!wall)return 'Emplacement de niche invalide.';ids.add(n.id);
+  if(n.profileEdges!==undefined&&(!n.profileEdges||typeof n.profileEdges!=='object'||Array.isArray(n.profileEdges)||Object.entries(n.profileEdges).some(([edge,color])=>!['left','right','top','bottom'].includes(edge)||!['none','Argent','Noir','Doré','Bronze'].includes(color))))return 'Profilés de niche invalides.';
+  if(n.covering!==undefined){const c=n.covering;if(!c||!['inherit','all','split'].includes(c.mode))return 'Revêtement de niche invalide.';for(const f of c.mode==='split'?[c.back,c.reveal]:c.mode==='all'?[c.back]:[]){if(!f||['collection','color','format'].some(k=>typeof f[k]!=='string'||!f[k]||f[k].length>160))return 'Référence de carrelage de niche invalide.';}}
   if(!['u','bottom','width','height','depth'].every(k=>Number.isFinite(n[k])))return 'Dimensions de niche invalides.';
   if(n.width<10||n.height<10||n.width>200||n.height>200||n.bottom<2||n.bottom+n.height>wall.height-2||n.u-n.width/2<2||n.u+n.width/2>wall.length-2)return 'La niche doit rester à 2 cm des bords du mur.';
   if(n.depth<2||n.depth>wall.thickness-2)return 'Profondeur maximale : '+(wall.thickness-2)+' cm. Augmentez l’épaisseur de la cloison pour une niche plus profonde.';
@@ -16,3 +18,13 @@ export function validateNiches(room){
  return '';
 }
 export function nicheRect(n){return {left:(n.u-n.width/2)/100,right:(n.u+n.width/2)/100,bottom:n.bottom/100,top:(n.bottom+n.height)/100};}
+
+// The back may share its tile with all reveals, or use a separate tile.
+// Legacy niches inherit the wall until the user chooses their own finish.
+export function nicheSurfaceFinish(niche,part,wallFinish={}){
+ const covering=niche?.covering;if(!covering||covering.mode==='inherit')return wallFinish;
+ return covering.mode==='split'&&part!=='back'?covering.reveal||wallFinish:covering.back||wallFinish;
+}
+export function collectNicheFinishes(config){
+ return (config?.niches||[]).flatMap(n=>n.covering?.mode==='all'?[n.covering.back]:n.covering?.mode==='split'?[n.covering.back,n.covering.reveal]:[]).filter(Boolean);
+}

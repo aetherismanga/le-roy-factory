@@ -1,4 +1,7 @@
 import * as T from 'three';
+import {OPENING_COLORS} from './ral-colors.js';
+export {OPENING_COLORS};
+const frameHex=value=>OPENING_COLORS.find(c=>c.id===value||c.code===String(value)||'ral-'+c.code===value)?.hex||OPENING_COLORS[0].hex;
 import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js';
 let exteriorTexture=null;export function setExteriorTexture(texture){exteriorTexture=texture;}
 export const isOpening=type=>type==='window'||type==='door';
@@ -7,7 +10,7 @@ export function openingError(type,width,height){const l=OPENING_LIMITS[type];if(
 export function makeOpening(type,settings={}){
  const width=settings.width??(type==='window'?120:83),height=settings.height??(type==='window'?100:204),error=openingError(type,width,height);if(error)throw new Error(error);
  const w=width/100,h=height/100,root=new T.Group();root.name=type==='window'?'Fenetre_double_vitrage':'Porte_interieure';root.userData.editTarget=type;
- const frame=new T.MeshPhysicalMaterial({color:settings.color==='black'?'#202526':'#f1f0eb',roughness:.34,metalness:.08,clearcoat:.16});
+ const frame=new T.MeshPhysicalMaterial({color:frameHex(settings.color),roughness:.34,metalness:.08,clearcoat:.16});
  const metal=new T.MeshStandardMaterial({color:'#b5bfc1',metalness:1,roughness:.24});
  const box=(parent,x,y,z,ww,hh,dd,mat,name)=>{const o=new T.Mesh(new RoundedBoxGeometry(ww,hh,dd,2,Math.min(.002,ww/5,hh/5,dd/5)),mat);o.position.set(x,y,z);o.name=name;o.castShadow=o.receiveShadow=true;parent.add(o);return o;};
  const f=type==='window'?.055:.05,z=-.24,d=.12;
@@ -34,7 +37,7 @@ export function makeOpening(type,settings={}){
   const pose=()=>{const sign=side==='left'?1:-1;door.scale.x=sign;door.position.set((-w/2+f)*sign,0,z+.013);door.rotation.y=-progress*Math.PI/2*sign;root.updateMatrixWorld(true);};
   const setHingeSide=value=>{if(!['left','right'].includes(value))return false;side=value;pose();return true;};
   const setOpenProgress=value=>{progress=T.MathUtils.clamp(value,0,1);pose();};setHingeSide(settings.hingeSide||'left');
-  return {root,frame,door,setHingeSide,getHingeSide:()=>side,setOpenProgress,setColor:value=>frame.color.set(value==='black'?'#202526':'#f1f0eb')};
+  return {root,frame,door,setHingeSide,getHingeSide:()=>side,setOpenProgress,setColor:value=>frame.color.set(frameHex(value))};
  }
- return {root,frame,setColor:value=>frame.color.set(value==='black'?'#202526':'#f1f0eb')};
+ return {root,frame,setColor:value=>frame.color.set(frameHex(value))};
 }
