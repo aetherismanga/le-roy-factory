@@ -103,7 +103,7 @@ function renderQuote(){
  $('#edit-choices').hidden=quoteMode!=='guided';$('#open-3d').textContent='Voir ma composition 3D ↗';error('','#quote-status');renderAccount();attachPreview();$('#quote-panel').scrollTop=0;
 }
 function persistQuote(){project.title=$('#quote-title').value.trim().slice(0,80)||'Ma salle de bains';projectTitle=project.title;siteReference=$('#quote-site').value.trim().slice(0,100);project.siteReference=siteReference;storeQuote(localStorage,project,quoteMode);}
-function launch(input){try{const p=checkedProject(input);localStorage.setItem(TRANSFER_KEY,JSON.stringify(p));localStorage.setItem(CURRENT_KEY,JSON.stringify(p));localStorage.setItem(FLOW_KEY,JSON.stringify({view:'atelier',step}));location.href='atelier.html?guided=1';}catch(e){error(e.message||'Le transfert ne peut pas être enregistré sur cet appareil.','#quote-status');}}
+function launch(input,{photoreal=false}={}){try{const p=checkedProject(input);localStorage.setItem(TRANSFER_KEY,JSON.stringify(p));localStorage.setItem(CURRENT_KEY,JSON.stringify(p));localStorage.setItem(FLOW_KEY,JSON.stringify({view:'atelier',step}));location.href='atelier.html?guided=1'+(photoreal?'&photoreal=1':'');}catch(e){error(e.message||'Le transfert ne peut pas être enregistré sur cet appareil.','#quote-status');}}
 function openSaved(projectData,id=null){try{project=checkedProject(projectData);quoteMode='scene';projectTitle=project.title||'Ma salle de bains';if(id)localStorage.setItem(ACTIVE_ID,id);else localStorage.removeItem(ACTIVE_ID);storeQuote(localStorage,project,quoteMode);$('#projects-dialog').close();switchView('quote');}catch(e){error(e.message,'#projects-status');}}
 function downloadProject(p){const blob=new Blob([JSON.stringify(checkedProject(p),null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='studio-one-projet.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);}
 const projectDeletion=createProjectDeletion({storage:localStorage,onDeleted:()=>showProjects()});
@@ -119,6 +119,7 @@ $('#previous').onclick=()=>{if(!validateCurrentStep())return;error('');switchVie
 $('#next').onclick=()=>{if(!validateCurrentStep())return;if(step===4)reviewGuided();else switchView('wizard',step+1);};
 $('#edit-choices').onclick=()=>switchView('wizard',4);
 $('#open-3d').onclick=()=>{try{persistQuote();launch(project);}catch(e){error(e.message,'#quote-status');}};
+$('#photoreal-quote').onclick=()=>{try{persistQuote();launch(project,{photoreal:true});}catch(e){error(e.message,'#quote-status');}};
 $('#quote-title').onchange=()=>{try{persistQuote();}catch(e){error(e.message,'#quote-status');}};
 $('#save-composition').onclick=()=>{try{persistQuote();const saved=saveComposition(localStorage,project,{id:localStorage.getItem(ACTIVE_ID)||null});project=saved.data;error('Projet enregistré. Retrouvez-le dans « Mes projets enregistrés ».','#quote-status');}catch(e){error('Enregistrement indisponible : '+e.message,'#quote-status');}};
 $('#print-quote').onclick=()=>beginDocument('print');
