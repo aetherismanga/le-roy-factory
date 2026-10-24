@@ -254,8 +254,8 @@
       "width_bucket_cm": 100,
       "with_plan": true,
       "reference_prefix": "14214 100@",
-      "public_price_eur": null,
-      "status": "conflict_requires_confirmation"
+      "public_price_eur": 765,
+      "status": "confirmed_by_user"
     },
     {
       "model": "2-tiroirs-xl",
@@ -291,7 +291,10 @@
       "reference_prefix": "14214 100@",
       "france_summary_eur": 765,
       "detailed_references_eur": 766,
-      "action": "Faire confirmer par RANDAL avant toute publication de ce tarif."
+      "action": "Écart des documents conservé pour historique ; prix de 765 € confirmé par décision explicite de l’utilisateur le 24 octobre 2026.",
+      "status": "resolved_by_user",
+      "confirmed_price_eur": 765,
+      "resolution_date": "2026-10-24"
     }
   ],
   "instructions": [
