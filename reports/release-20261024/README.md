@@ -34,4 +34,24 @@ Les gestes et rendus utilisent Chromium avec WebGL logiciel, à des dimensions P
 - PR #128 : Studio One, tarifs France, miroirs et transferts.
 - La PR #126 reste conservée comme historique de la revue ; son contenu utile est repris sélectivement.
 
-Les identifiants de déploiement et versions effectivement publiées sont enregistrés après contrôle de production.
+## Versions effectivement publiées et contrôlées
+
+| Application | Source publiée | Déploiement de production |
+|---|---|---|
+| Site et PLAN & POSE sur le domaine officiel | `main` : `2fa8bc1fe483b7fee890bb01728a8556d426b232` | GitHub Pages : workflow `40043123793`, succès ; HTML du domaine identique à la version testée |
+| Copie Vercel du site | même commit `2fa8bc1f` | `dpl_3mvhyaXdYnLeRq2oTogTzvGtjbNe`, READY |
+| RANDAL STUDIO ONE | branche standalone : `90c879755bed6e04cacdcad33190faf3853dba0d` | `dpl_7RqjFZzYeLpSgBzN9bdD8kNPrTdW`, READY |
+| RANDAL Général | `main` : `2fa8bc1f` | `dpl_2aczmPPcz34ETygiU3La2HvwGZ2S`, READY |
+
+Liens publics :
+
+- https://leroyfactory.fr/lrf-plan-pose.html
+- https://leroyfactory.fr/studio-one-configurateur.html
+- https://leroyfactory.fr/randal-configurateur.html
+- https://leroyfactory.fr/tarifs-pro.html
+
+Les bundles effectivement servis par les deux alias de production ont été relus et comparés aux empreintes des builds testés : identité exacte, HTTP 200. Les passerelles achats renvoient 401 aux invités. Le proxy d'images renvoie 200 avec CORS pour une image autorisée et 400 pour une URL arbitraire. Le backend privé est issu de la PR #127 ; son workflow `40042388176` a terminé avec succès et les refus d'accès anonymes ont aussi été vérifiés directement.
+
+Les PR #128 et #129 sont fusionnées. Les déploiements de production utilisent les mêmes arbres Git que les aperçus validés. L'API Vercel a refusé la promotion directe des aperçus ; les builds de production ont donc été créés depuis les commits fusionnés, puis comparés aux versions testées.
+
+Le contrôle historique « Client virtuel » `40043125121` échouait à l'installation, avant tout test : son Playwright 1.55 ne supporte pas le nouveau runner Ubuntu 26.04. Le workflow est épinglé à Ubuntu 24.04 pour restaurer cet environnement. Les échecs des workflows Android et export Creta, hors de cette livraison, ne sont pas présentés comme des tests applicatifs réussis.

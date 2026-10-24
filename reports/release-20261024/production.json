@@ -1,0 +1,52 @@
+{
+  "date": "2026-10-24",
+  "mainAppCommit": "2fa8bc1fe483b7fee890bb01728a8556d426b232",
+  "studioAppCommit": "90c879755bed6e04cacdcad33190faf3853dba0d",
+  "deployments": {
+    "site": {
+      "id": "dpl_3mvhyaXdYnLeRq2oTogTzvGtjbNe",
+      "url": "https://le-roy-factory-a1ud2eck4-hugol-trading.vercel.app",
+      "state": "READY",
+      "target": "production",
+      "sha": "2fa8bc1fe483b7fee890bb01728a8556d426b232",
+      "aliases": [
+        "le-roy-factory.vercel.app",
+        "le-roy-factory-hugol-trading.vercel.app",
+        "le-roy-factory-git-main-hugol-trading.vercel.app"
+      ]
+    },
+    "studio": {
+      "id": "dpl_7RqjFZzYeLpSgBzN9bdD8kNPrTdW",
+      "url": "https://studio-one-beta-test-v2-20irhs4xz-hugol-trading.vercel.app",
+      "state": "READY",
+      "target": "production",
+      "sha": "90c879755bed6e04cacdcad33190faf3853dba0d",
+      "aliases": [
+        "studio-one-beta-test-v2.vercel.app",
+        "studio-one-beta-test-v2-hugol-trading.vercel.app",
+        "studio-one-beta-test-v2-git-feature-studio-252f14-hugol-trading.vercel.app"
+      ]
+    },
+    "general": {
+      "id": "dpl_2aczmPPcz34ETygiU3La2HvwGZ2S",
+      "url": "https://randal-catalogue-general-3d-j68uxy4ot-hugol-trading.vercel.app",
+      "state": "READY",
+      "target": "production",
+      "sha": "2fa8bc1fe483b7fee890bb01728a8556d426b232",
+      "aliases": [
+        "randal-catalogue-general-3d.vercel.app",
+        "randal-catalogue-general-3d-hugol-trading.vercel.app",
+        "randal-catalogue-general-3d-git-main-hugol-trading.vercel.app"
+      ]
+    }
+  },
+  "verification": {
+    "productionBundlesMatchLocal": true,
+    "officialPlanPoseHtmlMatchesLocal": true,
+    "guestPurchaseStatus": 401,
+    "textureProxyKnownSourceStatus": 200,
+    "textureProxyArbitrarySourceStatus": 400,
+    "eliosVariants": 363,
+    "eliosSha256Matches": 363
+  }
+}
