@@ -60,7 +60,15 @@
       "module": "integrated-basins.js",
       "sha256": "d185a69f37f2e8eb0bd3318c3c67b6e3892fd119e944d719c4f3aecf02df64e4",
       "bytes": 1869,
-      "originalsIdentical": true
+      "originalsIdentical": true,
+      "current": {
+        "sha256": "a00489b48a8739eb3a69a89a3a0f71d3e8f594bcfcc32f9bb2508900108b10af",
+        "bytes": 1763,
+        "changeType": "comments-only-confidentiality",
+        "reason": "Removed source comments exposing private purchasing terms; public TTC prices, references and executable code are unchanged.",
+        "originalExecutableSha256": "58830347571a835f56e3bd122077109cd06fef95658f5170c57e6e3cfb2c7a4b",
+        "executableSha256": "58830347571a835f56e3bd122077109cd06fef95658f5170c57e6e3cfb2c7a4b"
+      }
     },
     {
       "module": "mirror-lighting.js",

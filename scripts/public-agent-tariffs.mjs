@@ -9,7 +9,8 @@ export const PROTECTED_TARIFF_SCRIPTS=[
  'assets/js/inspirations-elios-pricing.js',
  'assets/js/inspirations-elios-thickness-overrides.js'
 ];
-const LEGACY_STUDIO_PAGES=new Set(['randal-studio-one.html','randal-studio-one-3d.html']);
+// The 3D legacy page owns local-project recovery on the historical origin.
+const LEGACY_STUDIO_PAGES=new Set(['randal-studio-one.html']);
 const BOOTSTRAP='assets/js/agent-tariffs.js';
 
 export function legacyStudioRedirect(){

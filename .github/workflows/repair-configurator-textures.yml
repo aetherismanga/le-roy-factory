@@ -1,59 +1,14 @@
-name: Verify configurators and STUDIO ONE
+name: Historical configurator checks (archive)
 on:
-  push:
-    branches: [work/studio-one-repair-20261019, work/studio-one-usability-20261019, main]
-    paths:
-      - assets/js/elios-surfaces/**
-      - assets/js/studio-one/**
-      - assets/js/view-surfaces/**
-      - assets/css/studio-one/**
-      - tests/studio-one/view-projects.cjs
-      - tests/studio-one/usability.cjs
-      - sw.js
-      - .github/workflows/repair-configurator-textures.yml
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:
-  regression:
+  archive-info:
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
-        with:
-          persist-credentials: false
-      - name: Verify cache regression
-        run: node tests/elios-phase2a/cache-regression.cjs
-      - name: Install test browser
+      - name: Locate the active verification workflow
         run: |
-          npm install --prefix "$RUNNER_TEMP/studio-tests" playwright@1.55.0
-          "$RUNNER_TEMP/studio-tests/node_modules/.bin/playwright" install --with-deps chromium
-      - name: Verify both configurators and all 73 ELIOS colours
-        env:
-          CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ runner.temp }}/studio-tests/node_modules
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          p=Path('tests/elios-phase2a/browser.cjs')
-          s=p.read_text().replace("executablePath:'/tmp/chrome-phase1/chrome-headless-shell-linux64/chrome-headless-shell',",'')
-          s=s.replace("server.listen(0,r)","server.listen(8765,r)")
-          p.write_text(s)
-          PY
-          node tests/elios-phase2a/browser.cjs
-      - name: Verify VIEW, cached images and project cards
-        env:
-          CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ runner.temp }}/studio-tests/node_modules
-        run: node tests/studio-one/view-projects.cjs
-      - name: Verify room defaults, grout choices and model selection
-        env:
-          CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ runner.temp }}/studio-tests/node_modules
-        run: node tests/studio-one/usability.cjs
-      - name: Keep test results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: repaired-elios-configurators
-          path: |
-            reports/elios-phase2a/
-            reports/studio-view-projects/
-            reports/studio-usability/
-          retention-days: 14
+          echo "Historical tests targeted pages that now redirect. They are retained as reference only."
+          echo "Active WebGL, HD capture, materials, plan transfer and image-cache checks run in suite-quality.yml."
+          echo "This manual archive workflow performs no application verification or deployment."

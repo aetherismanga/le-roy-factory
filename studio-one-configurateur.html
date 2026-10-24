@@ -5,23 +5,28 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#f3f0e8">
 <title>RANDAL — STUDIO ONE 3D | LE ROY FACTORY</title>
-<meta name="description" content="Configurez les collections du catalogue général RANDAL 2026 : meubles, finitions, vasques, colonnes et miroirs, puis composez votre salle de bains en 3D. Prix publics TTC.">
+<meta name="description" content="Composez votre salle de bains sur mesure avec RANDAL STUDIO ONE : meubles, finitions, vasques, colonnes et miroirs en 3D. Prix publics TTC.">
 <link rel="canonical" href="https://leroyfactory.fr/studio-one-configurateur.html">
 <link rel="preconnect" href="https://studio-one-beta-test-v2.vercel.app">
 <style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#f3f0e8;color:#292c28;font-family:Arial,sans-serif}#studio-one{--safe-bottom:env(safe-area-inset-bottom,0px);position:fixed;inset:0;width:100%;height:100%;height:100dvh;border:0;background:#f3f0e8}#opening{position:fixed;inset:0;display:grid;place-content:center;gap:14px;text-align:center;background:#f3f0e8;z-index:1}#opening strong{font-size:25px;letter-spacing:4px}#opening small{color:#7f7867;letter-spacing:1.5px;font-size:10px}#opening a{color:#534b3a;font-size:12px}#opening[hidden]{display:none}</style>
 <script src="assets/js/pro-session-bridge.js?v=20261021-projects" defer></script><script src="assets/js/configurator-session-bridge.js?v=20261021-session-prices3" defer></script></head>
 <body>
+<aside id="legacy-recovery-notice" hidden aria-label="Anciens projets Studio One"><a href="randal-studio-one-3d.html">Récupérer mes anciens projets Studio One</a><button id="legacy-recovery-close" type="button" aria-label="Masquer l’avis de récupération">×</button></aside>
+<style>#legacy-recovery-notice{position:fixed;inset:0 0 auto;z-index:3;display:flex;justify-content:space-between;align-items:center;gap:14px;padding:6px 12px;background:#f3f0e8;border-bottom:1px solid #c7bda9;box-sizing:border-box;font-size:14px}#legacy-recovery-notice[hidden]{display:none}#legacy-recovery-notice a{color:#534b3a;line-height:1.4}#legacy-recovery-close{min-width:44px;min-height:44px;border:0;background:transparent;color:#534b3a;font-size:25px;cursor:pointer}#legacy-recovery-notice :focus-visible{outline:2px solid #534b3a;outline-offset:3px}</style>
 <div id="opening" role="status"><strong>RANDAL</strong><small>VOTRE STUDIO ONE EN 3D</small><span>Ouverture de votre configurateur…</span><a id="direct-open" href="https://studio-one-beta-test-v2.vercel.app/">Ouvrir le configurateur directement ↗</a></div>
 <iframe id="studio-one" data-configurator-origin="https://studio-one-beta-test-v2.vercel.app" title="Configurateur 3D RANDAL STUDIO ONE" allow="fullscreen; clipboard-write" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
 <noscript><p><a href="https://studio-one-beta-test-v2.vercel.app/">Ouvrir le configurateur RANDAL STUDIO ONE 3D</a></p></noscript>
 <script>
 (()=>{'use strict';const origin='https://studio-one-beta-test-v2.vercel.app',frame=document.getElementById('studio-one'),url=new URL(origin+'/');
+const recoveryNotice=document.getElementById('legacy-recovery-notice');
+try{const hasDraft=!!sessionStorage.getItem('lrf-studio-one-project-v2');let hasSaved=false;for(let i=0;i<localStorage.length&&!hasSaved;i++){const key=localStorage.key(i);if(key?.startsWith('lrf-studio-one-saved-projects-v2-')){const raw=localStorage.getItem(key);hasSaved=!!raw&&raw!=='[]';}}recoveryNotice.hidden=!(hasDraft||hasSaved);}catch{}
+document.getElementById('legacy-recovery-close').onclick=()=>{recoveryNotice.hidden=true;scheduleViewport()};
 const requestedPage=new URLSearchParams(location.search).get('page');if(['index.html','atelier.html','maison.html'].includes(requestedPage))url.pathname='/'+requestedPage;
 for(const key of ['collection','view','step','account','new','guided','plans','project','template']){const value=new URLSearchParams(location.search).get(key);if(value)url.searchParams.set(key,value)}
 if(location.hash)url.hash=location.hash;
 document.getElementById('direct-open').href=url.href;
 let frameReady=false,pending=false;
-function fitViewport(){const viewport=window.visualViewport;if(viewport&&Math.abs(viewport.scale-1)>.01)return;const height=Math.floor(Math.min(innerHeight,viewport?.height||innerHeight));frame.style.height=height+'px';frame.style.top=(viewport?.offsetTop||0)+'px';const safeBottom=parseFloat(getComputedStyle(frame).getPropertyValue('--safe-bottom'))||0;if(frameReady)frame.contentWindow?.postMessage({type:'studio-one-viewport',height,safeBottom},origin)}
+function fitViewport(){const viewport=window.visualViewport;if(viewport&&Math.abs(viewport.scale-1)>.01)return;const noticeHeight=recoveryNotice.hidden?0:recoveryNotice.getBoundingClientRect().height,height=Math.max(1,Math.floor(Math.min(innerHeight,viewport?.height||innerHeight)-noticeHeight));recoveryNotice.style.top=(viewport?.offsetTop||0)+'px';frame.style.height=height+'px';frame.style.top=((viewport?.offsetTop||0)+noticeHeight)+'px';const safeBottom=parseFloat(getComputedStyle(frame).getPropertyValue('--safe-bottom'))||0;if(frameReady)frame.contentWindow?.postMessage({type:'studio-one-viewport',height,safeBottom},origin)}
 function scheduleViewport(){if(!pending){pending=true;requestAnimationFrame(()=>{pending=false;fitViewport()})}}
 addEventListener('resize',scheduleViewport);addEventListener('pageshow',scheduleViewport);window.visualViewport?.addEventListener('resize',scheduleViewport);window.visualViewport?.addEventListener('scroll',scheduleViewport);
 frame.addEventListener('load',()=>{document.getElementById('opening').hidden=true;fitViewport()});

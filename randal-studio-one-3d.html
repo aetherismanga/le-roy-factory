@@ -1,1 +1,22 @@
-<!doctype html><html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>RANDAL Studio One</title><meta http-equiv="refresh" content="0;url=studio-one-configurateur.html"><body><p>Ouverture de RANDAL Studio One… <a href="studio-one-configurateur.html">Continuer</a></p><script>const u=new URL("studio-one-configurateur.html",location.href);u.search=location.search;u.hash=location.hash;location.replace(u.href);</script></body></html>
+<!doctype html>
+<html lang="fr">
+<head>
+ <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+ <title>Récupérer mes projets — RANDAL Studio One</title>
+ <meta name="robots" content="noindex">
+ <style>
+  :root{color-scheme:light;font-family:Arial,sans-serif;color:#242321;background:#f5f2eb}*{box-sizing:border-box}body{margin:0}main{max-width:1040px;margin:auto;padding:40px 22px 72px}.brand{font-size:12px;letter-spacing:.2em;color:#6b604b}h1{font-size:clamp(28px,5vw,44px);font-weight:500;line-height:1.15;max-width:760px}p{line-height:1.65}header>p{max-width:780px}.toolbar,.actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center}.toolbar{margin:28px 0}button,.button{display:inline-block;border:1px solid #8d8067;background:#fff;color:#242321;padding:12px 17px;border-radius:4px;font:inherit;text-decoration:none;cursor:pointer;line-height:1.4}.primary{background:#252421;color:#fff;border-color:#252421}button:disabled{opacity:.5;cursor:default}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #b79451;outline-offset:3px}.project{padding:24px;background:#fff;border:1px solid #ded7c9;border-radius:8px;margin:18px 0}.project h2{margin-top:0;font-weight:500;font-size:22px}.muted{font-size:14px;color:#625e56}.notice{border-left:3px solid #aa874a;padding:12px 18px;background:#ece6da}.conversion:empty{display:none}.conversion{margin-top:20px;border-top:1px solid #ded7c9;padding-top:15px}.conversion li{margin:9px 0;line-height:1.5}.conversion .button,.conversion button{margin:8px 8px 4px 0}details{padding:18px 0}summary{cursor:pointer;font-weight:600}input[type=file]{max-width:100%;margin-top:12px}footer{border-top:1px solid #ded7c9;margin-top:30px;padding-top:12px;font-size:14px}a{color:#5f4d2b}@media(max-width:560px){main{padding-top:25px}.toolbar>*{width:100%;text-align:center}.actions>*{width:100%}.project{padding:18px}}
+ </style>
+</head>
+<body><main>
+ <header><div class="brand">LE ROY FACTORY · RANDAL</div><h1>Retrouver vos anciens projets Studio One</h1>
+ <p>Cette page recherche les sauvegardes de l’ancien atelier dans ce navigateur. Téléchargez votre archive, puis vérifiez les possibilités de conversion vers l’atelier actuel.</p>
+ <p class="notice">Vos sauvegardes d’origine restent intactes. Les archives téléchargées conservent les éléments, finitions et ambiances récupérables ; elles excluent les tarifs, codes privés et anciens objets de catalogue.</p></header>
+ <div class="toolbar"><a class="button primary" href="studio-one-configurateur.html">Accéder à l’atelier actuel</a><button id="download-all" disabled>Télécharger toutes les archives</button></div>
+ <p id="status" role="status">Recherche des projets enregistrés…</p><p id="issues" class="notice" role="alert" hidden></p>
+ <section id="projects" aria-label="Projets historiques"></section>
+ <details><summary>Récupérer un fichier déjà téléchargé</summary><p>Importez une archive de récupération ou un ancien export JSON. Un ancien export contenant seulement les meubles ne contient pas les dimensions de pièce : il restera archivé sans conversion automatique.</p><label for="recovery-file">Fichier JSON (20 Mo maximum)</label><br><input id="recovery-file" type="file" accept=".json,application/json"><p id="file-status" role="status"></p></details>
+ <footer><p>Les sauvegardes locales appartiennent à l’origine du site, au navigateur et à l’appareil utilisés à l’époque. Si la liste est vide, ouvrez cette page avec le même navigateur sur le domaine exact utilisé pour enregistrer, avec ou sans « www ». Les données présentes sur un autre appareil ou une autre origine ne sont pas accessibles ici.</p><p>La conversion conserve les références reconnues et signale les adaptations graphiques. Aucun projet original n’est écrasé. <a href="index.html">Retour à LE ROY FACTORY</a></p></footer>
+ <noscript><p class="notice">Activez JavaScript pour lire vos sauvegardes locales. Vous pouvez accéder à l’atelier actuel avec le lien ci-dessus.</p></noscript>
+</main><script type="module" src="assets/js/studio-one/legacy-recovery.mjs?v=20261024-recovery1"></script></body>
+</html>

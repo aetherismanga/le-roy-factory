@@ -1,5 +1,5 @@
-// RANDAL V04 p. 38, cross-checked with the supplied PRO HT / -50 % sheet.
-// Public TTC only, in cents. Pro HT × 2 × 1.20 matches every PDF public price.
+// RANDAL V04 p. 38.
+// Public TTC only, in cents.
 // Left-offset versions are documented; no unverified right-offset reference.
 export const BASIN_LAYOUT_NAMES=Object.freeze({center:'Vasque centrée',offset:'Vasque décentrée à gauche',double:'Double vasque'});
 const rows=(values)=>Object.fromEntries(values.map(([width,ref,ttc])=>[width,{ref,ttc}]));

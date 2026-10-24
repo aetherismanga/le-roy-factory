@@ -5,6 +5,7 @@ import {pathToFileURL} from 'node:url';
 import {resolve} from 'node:path';
 import {AdaptiveQuality,QUALITY_PROFILES,ReflectionSchedule} from '../performance.js';
 import {textureLimit} from '../texture-budget.js';
+import {transform} from 'esbuild';
 
 const suiteRoot=new URL('../../../',import.meta.url);
 const generalRoot=new URL('randal-general/src/',suiteRoot);
@@ -13,7 +14,16 @@ const provenance=JSON.parse(await readFile(new URL('../extraction-provenance.jso
 for(const record of provenance.modules){
  const canonicalURL=new URL('../'+record.module,import.meta.url);
  const source=await readFile(canonicalURL);
- assert.equal(createHash('sha256').update(source).digest('hex'),record.sha256,'Extracted implementation unchanged: '+record.module);
+ if(record.current){
+  assert.equal(record.module,'integrated-basins.js','Only the documented confidentiality cleanup changes an extracted source');
+  assert.equal(record.current.changeType,'comments-only-confidentiality');
+  assert(record.current.reason?.includes('private purchasing terms'));
+  assert.equal(createHash('sha256').update(source).digest('hex'),record.current.sha256,'Documented current source: '+record.module);
+  assert.equal(source.length,record.current.bytes);
+  const executable=(await transform(source.toString('utf8'),{minify:true,format:'esm',target:'es2020',legalComments:'none'})).code;
+  assert.equal(createHash('sha256').update(executable).digest('hex'),record.current.executableSha256,'Public prices and executable data unchanged');
+  assert.equal(record.current.executableSha256,record.current.originalExecutableSha256,'Confidentiality cleanup changes comments only');
+ }else assert.equal(createHash('sha256').update(source).digest('hex'),record.sha256,'Extracted implementation unchanged: '+record.module);
  const [canonical,general,studio]=await Promise.all([import(canonicalURL),import(new URL(record.module,generalRoot)),import(new URL(record.module,studioRoot))]);
  assert.deepEqual(Object.keys(general),Object.keys(canonical),'General compatibility exports: '+record.module);
  assert.deepEqual(Object.keys(studio),Object.keys(canonical),'Studio compatibility exports: '+record.module);
@@ -43,4 +53,4 @@ resizing.setMode('max');resizing.setMobile(false);resizing.setMobile(true);asser
 assert.equal(textureLimit('fluid'),512);assert.equal(textureLimit('balanced'),1024);assert.equal(textureLimit('max'),4096);
 assert.equal(textureLimit('max',{capabilities:{maxTextureSize:2048}}),2048);
 const reflection=new ReflectionSchedule();assert(reflection.shouldCapture(0,'scene',30));assert.equal(reflection.shouldCapture(100,'scene',30),false);reflection.reset();assert(reflection.shouldCapture(101,'scene',30));
-console.log(JSON.stringify({passed:true,unchangedExtractedModules:provenance.modules.length,wrapperIdentity:'both applications',checks:['source provenance','single module identities through compatibility paths','desktop/mobile automatic quality','manual HD preserved','responsive quality transition','texture/GPU budgets','reflection reuse']},null,2));
+console.log(JSON.stringify({passed:true,unchangedExtractedModules:provenance.modules.filter(record=>!record.current).length,documentedSourceChanges:provenance.modules.filter(record=>record.current).map(record=>({module:record.module,changeType:record.current.changeType})),wrapperIdentity:'both applications',checks:['original and current source provenance','comment-only confidentiality cleanup preserves executable data','single module identities through compatibility paths','desktop/mobile automatic quality','manual HD preserved','responsive quality transition','texture/GPU budgets','reflection reuse']},null,2));

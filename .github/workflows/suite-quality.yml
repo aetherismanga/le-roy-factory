@@ -10,7 +10,19 @@ on:
       - 'studio-one/**'
       - 'randal-general/**'
       - 'assets/js/lrf-plan-pose/**'
+      - 'assets/js/studio-one/**'
       - 'assets/js/lrf-plinths.mjs'
+      - 'lrf-plan-pose.html'
+      - 'randal-studio-one-3d.html'
+      - 'studio-one-configurateur.html'
+      - 'randal-configurateur.html'
+      - '_config.yml'
+      - 'tests/lrf-suite/**'
+      - 'tests/lrf-plan-pose/**'
+      - 'tests/security/**'
+      - 'tests/lrf-surface-contract.test.mjs'
+      - 'tests/elios-phase2a/cache-regression.cjs'
+      - 'sw.js'
       - 'api/**'
       - 'server/**'
       - 'scripts/build-public-site.mjs'
@@ -34,11 +46,24 @@ jobs:
           cache: npm
       - run: npm ci --ignore-scripts --include=dev --no-audit --no-fund
       - run: npm run build:general && npm run build:studio
+      - name: Verify readable image cache recovery
+        run: node tests/elios-phase2a/cache-regression.cjs
       - run: npm run check:core
-      - run: node --test tests/lrf-plan-pose/*.test.mjs tests/security/*.test.mjs tests/secure-agent-tariffs.test.mjs tests/release-impact.test.mjs
+      - run: node --test tests/lrf-plan-pose/*.test.mjs tests/security/*.test.mjs tests/secure-agent-tariffs.test.mjs tests/release-impact.test.mjs tests/lrf-surface-contract.test.mjs
       - run: npm run check --workspace=randal-general-3d
       - run: npm run check --workspace=studio-one-atelier-3d
       - run: npm run build:site
       - run: npx playwright install --with-deps chromium
       - run: node tests/lrf-plan-pose/recovery-render-browser.cjs
+      - name: Verify recovery of historical local projects
+        run: node tests/lrf-suite/legacy-recovery-browser.cjs
+      - name: Verify active ateliers with real WebGL and HD restoration
+        run: node tests/lrf-suite/active-configurators-browser.cjs
+      - name: Keep active atelier results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lrf-browser-checks
+          path: reports/lrf-suite/
+          retention-days: 14
       # No deployment, credentials, environment pull or production mutation here.
