@@ -1,0 +1,332 @@
+{
+  "collection": "RANDAL General",
+  "date": "2026-10-22",
+  "preparedDate": "2026-10-24",
+  "notes": [
+    "The previously approved ALBA outputs are preserved byte for byte, using its original 1292 x 2800 sample.",
+    "The seven remaining samples were supplied as user attachments on 24 October 2026; source sizes below describe those actual uploaded files.",
+    "Embedded ICC profiles are converted to sRGB; files without a profile are interpreted as sRGB. EXIF orientation is applied before resizing.",
+    "Aspect ratio is preserved and samples are never upscaled. Fluid, balanced and max indicate budgets, not invented source detail.",
+    "Physical panel dimensions and measured gloss/roughness were not supplied; existing material settings are retained.",
+    "Reference photographs are not used as flat textures.",
+    "Five newly supplied official flat samples are applied to 21 exact General finish references; the previously approved Alba remains on its nine existing references.",
+    "Only exact finish-name matches are applied to General catalogue references. White Bolero and Muted Green have no corresponding General reference and are not substituted for other whites or greens.",
+    "Fluted Aruba retains vertical wood grain along its modeled grooves; other fronts use the same horizontal mapping as Studio One. Existing manufacturer roughness and hardware are retained."
+  ],
+  "finishes": {
+    "ALBA": {
+      "original": "Serenade_alba_acabado.jpg",
+      "sha256": "f8768e957fb0e5f3d456a0824db63c3c5e46792fb4a562fce9e8485106cf5e2a",
+      "sourcePixels": [
+        1292,
+        2800
+      ],
+      "newManufacturerSample": true,
+      "averageSRGB": "#bfa386",
+      "variants": {
+        "fluid": {
+          "file": "materials/quality/alba-fluid.webp",
+          "size": [
+            118,
+            256
+          ],
+          "bytes": 2738
+        },
+        "balanced": {
+          "file": "materials/quality/alba-balanced.webp",
+          "size": [
+            473,
+            1024
+          ],
+          "bytes": 90714
+        },
+        "max": {
+          "file": "materials/quality/alba-max.webp",
+          "size": [
+            945,
+            2048
+          ],
+          "bytes": 662954
+        }
+      },
+      "swatch": "materials/quality/alba-swatch.webp",
+      "generalIds": [
+        "harmony--serenade-alba",
+        "aruba--serenade-alba",
+        "aras--serenade-alba",
+        "boreal--serenade-alba",
+        "brunei--serenade-alba",
+        "amat--serenade-alba",
+        "less--serenade-alba-tirador-blanco",
+        "sima--serenade-alba",
+        "plan--serenade-alba"
+      ]
+    },
+    "ROBLE": {
+      "original": "Roble amazona_acabado.jpeg",
+      "sha256": "5feb34589f55e04b81b86a99958760e6a8ba0389841303421473fc81fc0a4135",
+      "sourcePixels": [
+        567,
+        963
+      ],
+      "processedPixels": [
+        567,
+        963
+      ],
+      "embeddedICC": "eciRGB v2",
+      "exifOrientation": 1,
+      "outputColourSpace": "sRGB",
+      "newManufacturerSample": true,
+      "averageSRGB": "#af9374",
+      "variants": {
+        "fluid": {
+          "file": "finishes/20261022/roble-fluid.webp",
+          "size": [
+            151,
+            256
+          ],
+          "bytes": 5128,
+          "sha256": "face4963028a394a91644db568e479b4c3b7f1c5ea5669bdfc31988f8488fed8"
+        },
+        "balanced": {
+          "file": "finishes/20261022/roble-balanced.webp",
+          "size": [
+            567,
+            963
+          ],
+          "bytes": 76496,
+          "sha256": "7b59fe617ae9b7c52363c6c380b3b97ee3dbec0067ffd8d1055e2c7ba368512a"
+        },
+        "max": {
+          "file": "finishes/20261022/roble-max.webp",
+          "size": [
+            567,
+            963
+          ],
+          "bytes": 127108,
+          "sha256": "5e32375b1ac78a78c788a39e961c71d621d7067ff4c57ed7f9381f466fd0a648"
+        }
+      },
+      "swatch": "finishes/20261022/roble-swatch.webp",
+      "generalIds": [
+        "aruba-rainure--roble-amazona-acanalado",
+        "aruba--roble-amazona",
+        "plan--roble-amazona"
+      ]
+    },
+    "NOGAL": {
+      "original": "Nogal valentina_acabado.jpeg",
+      "sha256": "6b9a946cf8381fea62646b93b048e84336ac47ea67f638bca218f87283a0a15a",
+      "sourcePixels": [
+        567,
+        1229
+      ],
+      "processedPixels": [
+        567,
+        1229
+      ],
+      "embeddedICC": "IEC 61966-2.1 Default RGB colour space - sRGB",
+      "exifOrientation": 1,
+      "outputColourSpace": "sRGB",
+      "newManufacturerSample": true,
+      "averageSRGB": "#77513d",
+      "variants": {
+        "fluid": {
+          "file": "finishes/20261022/nogal-fluid.webp",
+          "size": [
+            118,
+            256
+          ],
+          "bytes": 3632,
+          "sha256": "b11c5506c618624a6fcd3e4cdf385de6bb15146a2bb4d199f6ad160f71518845"
+        },
+        "balanced": {
+          "file": "finishes/20261022/nogal-balanced.webp",
+          "size": [
+            472,
+            1024
+          ],
+          "bytes": 72148,
+          "sha256": "dea189d53ca5debdba526178162d0932d7f605b9f9bfbe4c17600359eacafb45"
+        },
+        "max": {
+          "file": "finishes/20261022/nogal-max.webp",
+          "size": [
+            567,
+            1229
+          ],
+          "bytes": 194144,
+          "sha256": "76e69031b45d3bd6b13629485dc3708a91ab1818f12829b6a136fc3f63aedc91"
+        }
+      },
+      "swatch": "finishes/20261022/nogal-swatch.webp",
+      "generalIds": [
+        "aruba-rainure--nogal-valentina-acanalado",
+        "aruba--nogal-valentina",
+        "aras--nogal-valentina",
+        "boreal--nogal-valentina",
+        "plan--nogal-valentina"
+      ]
+    },
+    "BISC": {
+      "original": "Biscuit_acabado.jpeg",
+      "sha256": "746ee602351ccab249afe3080a2c0a89e2c49ec3a9bff8e55262b08ac4183471",
+      "sourcePixels": [
+        945,
+        2048
+      ],
+      "processedPixels": [
+        945,
+        2048
+      ],
+      "embeddedICC": "sRGB",
+      "exifOrientation": null,
+      "outputColourSpace": "sRGB",
+      "newManufacturerSample": true,
+      "averageSRGB": "#ebe2d9",
+      "variants": {
+        "fluid": {
+          "file": "finishes/20261022/bisc-fluid.webp",
+          "size": [
+            118,
+            256
+          ],
+          "bytes": 174,
+          "sha256": "dcf218171f8dc0a66a1310f146e688811a6c03a5a84f8bd47993069480276866"
+        },
+        "balanced": {
+          "file": "finishes/20261022/bisc-balanced.webp",
+          "size": [
+            472,
+            1024
+          ],
+          "bytes": 2630,
+          "sha256": "6c784ce415b84ee7796f6861f20c4f84a661812edaeacbe9c2aecd10ad2fd960"
+        },
+        "max": {
+          "file": "finishes/20261022/bisc-max.webp",
+          "size": [
+            945,
+            2048
+          ],
+          "bytes": 22434,
+          "sha256": "d8b437db52997e4e946238f498c92fb44e47fe6f31a89ecc351aca899415b44c"
+        }
+      },
+      "swatch": "finishes/20261022/bisc-swatch.webp",
+      "generalIds": [
+        "aruba-rainure--biscuit-acanalado",
+        "aruba--biscuit",
+        "aras--biscuit",
+        "boreal--biscuit",
+        "amat--biscuit",
+        "plan--biscuit"
+      ]
+    },
+    "AZUL": {
+      "original": "Azul acero_acabado.jpeg",
+      "sha256": "e968ed2d2197545fc39b3a67d65c5dd0ed21a650b3a98cdee746dd7044fe0f01",
+      "sourcePixels": [
+        945,
+        2048
+      ],
+      "processedPixels": [
+        945,
+        2048
+      ],
+      "embeddedICC": "sRGB",
+      "exifOrientation": null,
+      "outputColourSpace": "sRGB",
+      "newManufacturerSample": true,
+      "averageSRGB": "#67757e",
+      "variants": {
+        "fluid": {
+          "file": "finishes/20261022/azul-fluid.webp",
+          "size": [
+            118,
+            256
+          ],
+          "bytes": 140,
+          "sha256": "b1cf4dd2c1010d425d4ae802d8b51ca544d3cd8f40e8642ed8968cc7c3499072"
+        },
+        "balanced": {
+          "file": "finishes/20261022/azul-balanced.webp",
+          "size": [
+            472,
+            1024
+          ],
+          "bytes": 1236,
+          "sha256": "ab1edebb851ff839cb5bdd911506cd530f2376cd5b395a8c00ca3d3e9ff9a0a1"
+        },
+        "max": {
+          "file": "finishes/20261022/azul-max.webp",
+          "size": [
+            945,
+            2048
+          ],
+          "bytes": 77656,
+          "sha256": "2d301d04d9387b7eee4513870e430a2c38c8dadf0dc9bfb90764cc808944a60c"
+        }
+      },
+      "swatch": "finishes/20261022/azul-swatch.webp",
+      "generalIds": [
+        "aruba--azul-acero",
+        "aras--azul-acero",
+        "boreal--azul-acero",
+        "less--azul-acero-tirador-niquel",
+        "plan--azul-acero"
+      ]
+    },
+    "GRIS": {
+      "original": "Gris Tórtora_acabado.jpeg",
+      "sha256": "73445ccf1e4cdb2589ba00bd0b995e0267419dcfa4c1884b807a9fdd77000885",
+      "sourcePixels": [
+        567,
+        1181
+      ],
+      "processedPixels": [
+        567,
+        1181
+      ],
+      "embeddedICC": null,
+      "exifOrientation": 1,
+      "outputColourSpace": "sRGB",
+      "newManufacturerSample": true,
+      "averageSRGB": "#807768",
+      "variants": {
+        "fluid": {
+          "file": "finishes/20261022/gris-fluid.webp",
+          "size": [
+            123,
+            256
+          ],
+          "bytes": 130,
+          "sha256": "c8b4a86af6e55799bcfa2da5ba9c0d334cdb6ad9055a80a95ceebdd6248ae68d"
+        },
+        "balanced": {
+          "file": "finishes/20261022/gris-balanced.webp",
+          "size": [
+            492,
+            1024
+          ],
+          "bytes": 1176,
+          "sha256": "44658219437e5ea2c80f984c2ed882067bcd1c325e60b6c270bb69b91c0f0ddc"
+        },
+        "max": {
+          "file": "finishes/20261022/gris-max.webp",
+          "size": [
+            567,
+            1181
+          ],
+          "bytes": 2144,
+          "sha256": "bf143bb0828920d4ccb424284c4f656aa2035ce0e110ed519ce2cfbe05b0995d"
+        }
+      },
+      "swatch": "finishes/20261022/gris-swatch.webp",
+      "generalIds": [
+        "harmony--gris-tortora",
+        "less--gris-tortora-tirador-negro"
+      ]
+    }
+  }
+}
