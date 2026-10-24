@@ -9,7 +9,8 @@ export const CATALOG = {
     "tariffDate": "2026-10-22",
     "tariffSource": "TARIF STUDIO ONE FRANCE PRIX TTC 20261021.pdf",
     "tariffDetails": "TARIFA STUDIO ONE Références.pdf",
-    "unconfirmedReferences": ["14214 100@"],
+    "unconfirmedReferences": [],
+    "userConfirmedPrices": [{"referencePrefix":"14214 100@","publicPriceEur":765,"status":"confirmed_by_user","date":"2026-10-24"}],
     "vat": 20
   },
   "media": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/",
@@ -58,7 +59,7 @@ export const CATALOG = {
       "base": "14176",
       "top": "14214",
       "bareTTC": [54100, 56600, 64200, 66500],
-      "topTTC": [62200, 66800, null, 80900],
+      "topTTC": [62200, 66800, 76500, 80900],
       "image": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/2-tiroirs-xl.webp"
     }
   ],
