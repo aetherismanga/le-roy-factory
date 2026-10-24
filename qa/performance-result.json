@@ -1,6 +1,6 @@
 {
   "passed": true,
-  "at": "2026-10-19T22:38:56.128Z",
+  "at": "2026-10-23T23:53:18.827Z",
   "checks": [
     "slow and extremely slow active frames reduce quality automatically",
     "hysteresis avoids rapid oscillation and restores detail after sustained headroom",

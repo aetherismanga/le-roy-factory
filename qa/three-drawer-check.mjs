@@ -49,7 +49,7 @@ close(box(model.legs).min.y,0);close(box(model.cabinet).min.y,.10);close(box(mod
 const restored=new Composition(room),raw=saved.items[0],m=makeModel({width:.8,format:'three',includeMirror:false});m.setTop('plain');
 const item=restored.add(raw.type,m,raw.settings,raw.placement).item;assert(item);close(box(item.asset.legs).min.y,0);close(box(item.asset.cabinet).max.y,.91);
 const quoted=quoteProject(project);assert.match(quoted.rows[0].detail,/caisson 81 cm \+ pieds 10 cm/);
-assert.equal(quoteProject(draftProject({...initialDraft(),width:120,format:'three',top:'plain',column:true,mirror:'basic'})).publicTTC,149160);
+assert.equal(quoteProject(draftProject({...initialDraft(),width:120,format:'three',top:'plain',column:true,mirror:'basic'})).publicTTC,146080);
 assert.match(cabinetHeightLabel('three'),/caisson 81 \+ pieds 10 cm/);
 const illustration=cabinetDrawing('three');assert.match(illustration,/data-part="legs"/);assert.match(illustration,/caisson 81 cm et pieds 10 cm/);assert.match(illustration,/hauteur totale 91 cm/);
 const catalogue=CATALOG.models.find(m=>m.id==='three');assert.equal(catalogue.height,catalogue.bodyHeight+catalogue.legHeight);assert.equal(catalogue.base,'13693');

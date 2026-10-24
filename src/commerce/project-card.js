@@ -4,7 +4,7 @@ export const validThumbnail=value=>typeof value==='string'&&value.length<=120000
 export const projectStatus=record=>record.status==='validated'?'Commande validée':record.status==='sending'?'Commande en cours d’envoi':'Devis en cours';
 export function projectAmount(record){
  if(record.kind==='house')return {amount:null,label:'Chiffrage par pièce',partial:false};
- try{const q=quoteProject(record.data),amount=Number.isInteger(q.publicTTC)?q.publicTTC:q.subtotal;return {amount,label:Number.isInteger(amount)?money(amount)+(q.missing.length?' · sous-total TTC':' TTC'):'À chiffrer',partial:!!(q.missing.length||q.excluded.length)};}catch{return {amount:null,label:'À chiffrer',partial:false};}
+ try{const q=quoteProject(record.data),amount=Number.isInteger(q.publicTTC)?q.publicTTC:q.subtotal;return {amount,label:Number.isInteger(amount)?money(amount)+(q.missing.length?' · sous-total':''):'À chiffrer',partial:!!(q.missing.length||q.excluded.length)};}catch{return {amount:null,label:'À chiffrer',partial:false};}
 }
 // Older dossiers also have a real visual: draw their saved outline and furniture
 // placements, instead of reusing an unrelated catalogue photograph.

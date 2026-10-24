@@ -1,11 +1,15 @@
-// Public TTC only. Generated from the existing source; see tools/import-public-commerce.mjs.
+// Public prices in cents. Cabinet and column prices: official France tariff 22/10/2026.
 export const CATALOG = {
   "source": {
     "repository": "aetherismanga/le-roy-factory",
     "commit": "233ab6dda7fb71c5048ac1f983a67ceb3fe0b0c9",
     "path": "assets/js/studio-one/catalog.js",
     "sha256": "fc826b4e33f48ecce4527270b48212746702e41720e1e11d460bff87f8450065",
-    "rule": "Meubles et colonne : C1 × 2 × 1,20. Vasques céramiques intégrées : grille pro HT à -50 % × 2 × 1,20, concordante avec les prix publics TTC RANDAL V04 p. 38. Autres prix publics conservés et vérifiés dans le PDF source.",
+    "rule": "Meubles et colonne : tarif officiel France du 22/10/2026. Vasques, miroirs et accessoires : prix publics existants conservés.",
+    "tariffDate": "2026-10-22",
+    "tariffSource": "TARIF STUDIO ONE FRANCE PRIX TTC 20261021.pdf",
+    "tariffDetails": "TARIFA STUDIO ONE Références.pdf",
+    "unconfirmedReferences": ["14214 100@"],
     "vat": 20
   },
   "media": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/",
@@ -17,18 +21,8 @@ export const CATALOG = {
       "depth": 46,
       "base": "13692",
       "top": "14215",
-      "bareTTC": [
-        50400,
-        52800,
-        60000,
-        62160
-      ],
-      "topTTC": [
-        58800,
-        63360,
-        72720,
-        77040
-      ],
+      "bareTTC": [49200, 51500, 58400, 60500],
+      "topTTC": [57300, 61700, 70800, 74900],
       "image": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/2-tiroirs.webp"
     },
     {
@@ -41,18 +35,8 @@ export const CATALOG = {
       "depth": 46,
       "base": "13693",
       "top": "14216",
-      "bareTTC": [
-        66720,
-        72240,
-        81120,
-        84720
-      ],
-      "topTTC": [
-        75120,
-        82800,
-        93840,
-        99600
-      ],
+      "bareTTC": [66000, 71300, 79900, 83300],
+      "topTTC": [74200, 81500, 92200, 97700],
       "image": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/3-tiroirs.webp"
     },
     {
@@ -62,18 +46,8 @@ export const CATALOG = {
       "depth": 46,
       "base": "13691",
       "top": "14178",
-      "bareTTC": [
-        45120,
-        47760,
-        54720,
-        56880
-      ],
-      "topTTC": [
-        53520,
-        58320,
-        67440,
-        71760
-      ],
+      "bareTTC": [44100, 46600, 53400, 55400],
+      "topTTC": [52200, 56900, 65700, 69700],
       "image": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/1-tiroir-xl.webp"
     },
     {
@@ -83,18 +57,8 @@ export const CATALOG = {
       "depth": 46,
       "base": "14176",
       "top": "14214",
-      "bareTTC": [
-        55440,
-        58080,
-        66000,
-        68400
-      ],
-      "topTTC": [
-        63840,
-        68640,
-        78720,
-        83280
-      ],
+      "bareTTC": [54100, 56600, 64200, 66500],
+      "topTTC": [62200, 66800, null, 80900],
       "image": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/2-tiroirs-xl.webp"
     }
   ],
@@ -582,7 +546,7 @@ export const CATALOG = {
     "height": 132,
     "depth": 27,
     "ref": "14177",
-    "ttc": 42480,
+    "ttc": 41300,
     "image": null
   },
   "gaps": [
@@ -594,3 +558,7 @@ export const CATALOG = {
     "Accessoires, robinetterie, sanitaires, revêtements et profilés : aucun prix repris sans grille vérifiée."
   ]
 };
+
+// Neutral selection images; the 3D scene keeps its actual reflections.
+import {mirrorThumbnail} from '../mirror-thumbnail.js';
+for(const mirror of CATALOG.mirrors)mirror.image=mirrorThumbnail(mirror.id);

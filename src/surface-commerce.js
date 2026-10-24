@@ -1,8 +1,9 @@
+import {privateSurfacePrice} from './private-surface-prices.js';
 import data from './commercial-surfaces.json' with {type:'json'};
 const norm=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,''),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),fmt=n=>Number(n||0).toLocaleString('fr-FR',{maximumFractionDigits:2,minimumFractionDigits:2}),money=n=>Number.isFinite(n)?n.toLocaleString('fr-FR',{style:'currency',currency:'EUR'}):'À confirmer';
 export const commercialOptions=f=>data.products.filter(p=>norm(p.collection)===norm(f.collection)&&p.colorId===f.color&&p.format===f.format);
-export function commercialProduct(f){const choices=commercialOptions(f);return choices.find(p=>p.key===f.catalogueKey)||choices[0]||null;}
-export const matchingPlinthProducts=f=>data.plinths.filter(p=>norm(p.collection)===norm(f.collection)&&p.colorId===f.color);
+export function commercialProduct(f){const choices=commercialOptions(f);const product=choices.find(p=>p.key===f.catalogueKey)||choices[0];return product?{...product,...privateSurfacePrice('products',product.key)}:null;}
+export const matchingPlinthProducts=f=>data.plinths.filter(p=>norm(p.collection)===norm(f.collection)&&p.colorId===f.color).map(p=>({...p,...privateSurfacePrice('plinths',p.key)}));
 export function enrichQuantity(row,finish){
  if(row.paint)return row;const product=commercialProduct(finish);if(!product)return row;
  const personal=finish.customPack||Object.keys(finish.packs||{}).length||finish.pack,verified=!personal&&product.packVerified,pack=verified?{m2Box:product.packArea,pcsBox:product.packPieces,packVerified:true,source:product.packSource}:{};

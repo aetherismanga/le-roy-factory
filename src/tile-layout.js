@@ -1,7 +1,8 @@
 import * as T from 'three';
 
+export function rowShift(pattern,row,width){if(pattern==='offset')return Math.abs(row%2)*width/2;if(pattern==='third')return ((row%3+3)%3)*width/3;if(pattern==='two-thirds')return ((row*2%3+3)%3)*width/3;if(pattern==='random'){const h=(Math.imul(row+104729,1664525)^1013904223)>>>0;return (.15+(h%701)/1000)*width;}return 0;}
 const area=p=>p.reduce((n,a,i)=>{const b=p[(i+1)%p.length];return n+a[0]*b[1]-b[0]*a[1];},0)/2;
-export const normalizeTileLayout=(l={})=>({direction:l.direction==='vertical'?'vertical':'horizontal',pattern:['straight','offset','opus'].includes(l.pattern)?l.pattern:'straight',x:Math.max(-1000,Math.min(1000,Number(l.x)||0)),y:Math.max(-1000,Math.min(1000,Number(l.y)||0)),width:Math.max(.025,Math.min(3,Number(l.width)||1.2)),height:Math.max(.025,Math.min(3,Number(l.height)||.6)),shape:l.shape==='hexagon'?'hexagon':'rectangle',groutWidth:Math.max(1,Math.min(10,Number(l.groutWidth)||2)),...(l.opus?{opus:l.opus}: {})});
+export const normalizeTileLayout=(l={})=>({direction:l.direction==='vertical'?'vertical':'horizontal',pattern:['straight','offset','third','two-thirds','random','opus'].includes(l.pattern)?l.pattern:'straight',x:Math.max(-1000,Math.min(1000,Number(l.x)||0)),y:Math.max(-1000,Math.min(1000,Number(l.y)||0)),width:Math.max(.025,Math.min(3,Number(l.width)||1.2)),height:Math.max(.025,Math.min(3,Number(l.height)||.6)),shape:l.shape==='hexagon'?'hexagon':'rectangle',groutWidth:Math.max(1,Math.min(10,Number(l.groutWidth)||2)),...(l.opus?{opus:l.opus}: {}),...(l.planAxes?{planAxes:true}:{})});
 
 // Clip each triangulated room fragment against a convex, physical tile face.
 // The same polygons drive the visible cuts and the order quantities.
@@ -26,8 +27,8 @@ export function tileModules(bounds,layout={}){
  if(l.pattern==='opus'){
   // Repeating 2:1 / square module: four real, non-overlapping rectangles.
   // Product-specific format compatibility is checked before this is offered.
-  const unit=l.opus?.unit||Math.min(w,h),mode=l.opus?.mode||'two',W=unit*(mode==='two'?2:6),H=unit*(mode==='roman4'?4:mode==='roman3'?3:2);
-  const pieces=mode==='roman4'?[[0,0,4,2],[4,0,2,2],[0,2,2,2],[2,2,2,1],[4,3,2,1],[4,2,1,1],[5,2,1,1],[2,3,1,1],[3,3,1,1]]:mode==='roman3'?[[0,0,2,3],[2,0,2,2],[4,1,2,2],[4,0,2,1],[2,2,2,1]]:[[0,0,1,1],[1,0,1,1],[0,1,2,1]];
+  const unit=l.opus?.unit||Math.min(w,h),mode=l.opus?.mode||'two',W=unit*(mode==='two'?2:6),H=unit*(mode==='roman4'?4:['roman3','manufacturer6'].includes(mode)?3:2);
+  const pieces=mode==='manufacturer6'?[[0,0,2,3],[2,0,2,2],[4,0,2,2],[2,2,2,1],[4,2,1,1],[5,2,1,1]]:mode==='roman4'?[[0,0,4,2],[4,0,2,2],[0,2,2,2],[2,2,2,1],[4,3,2,1],[4,2,1,1],[5,2,1,1],[2,3,1,1],[3,3,1,1]]:mode==='roman3'?[[0,0,2,3],[2,0,2,2],[4,1,2,2],[4,0,2,1],[2,2,2,1]]:[[0,0,1,1],[1,0,1,1],[0,1,2,1]];
   for(let r=Math.floor(bounds.minY/H)-1;r<=Math.ceil(bounds.maxY/H);r++)for(let c=Math.floor(bounds.minX/W)-1;c<=Math.ceil(bounds.maxX/W);c++){
    const x=c*W,y=r*H;
    pieces.forEach(([dx,dy,aa,bb],k)=>{const a=aa*unit,b=bb*unit;modules.push({key:c+':'+r+':'+k,col:c,row:r,x:x+dx*unit,y:y+dy*unit,width:a,height:b,nominalArea:a*b,polygon:rectangle(x+dx*unit,y+dy*unit,a,b,g)});});
@@ -42,7 +43,7 @@ export function tileModules(bounds,layout={}){
   }
  }else{
   for(let r=Math.floor(bounds.minY/h)-1;r<=Math.ceil(bounds.maxY/h);r++)for(let c=Math.floor(bounds.minX/w)-2;c<=Math.ceil(bounds.maxX/w)+1;c++){
-   const x=c*w+(l.pattern==='offset'&&Math.abs(r)%2?w/2:0),y=r*h;
+   const x=c*w+rowShift(l.pattern,r,w),y=r*h;
    modules.push({key:c+':'+r,col:c,row:r,x,y,width:w,height:h,nominalArea:w*h,polygon:rectangle(x,y,w,h,g)});
   }
  }
@@ -50,13 +51,13 @@ export function tileModules(bounds,layout={}){
 }
 export function buildTileGeometry(polygon,layout={},holes=[],regions=null){
  const l=normalizeTileLayout(layout),vertical=l.direction==='vertical',ox=l.x/100,oy=l.y/100;
- const local=([x,y])=>vertical?[y-oy,-x+ox]:[x-ox,y-oy],world=([x,y])=>vertical?[-y+ox,x+oy]:[x+ox,y+oy];
+ const local=([x,y])=>{if(l.planAxes)y=-y;return vertical?[y-oy,-x+ox]:[x-ox,y-oy];},world=([x,y])=>{const p=vertical?[-y+ox,x+oy]:[x+ox,y+oy];return l.planAxes?[p[0],-p[1]]:p;};
  const p=polygon.map(local),hh=holes.map(h=>h.map(local)),all=p.concat(...hh),triangles=T.ShapeUtils.triangulateShape(p.map(v=>new T.Vector2(...v)),hh.map(h=>h.map(v=>new T.Vector2(...v))));
  const clippedTriangles=regions?regions.flatMap(region=>{const v=region.map(local);return T.ShapeUtils.triangulateShape(v.map(p=>new T.Vector2(...p)),[]).map(t=>t.map(i=>v[i]));}):triangles.map(tri=>tri.map(i=>all[i]));
  const xs=p.map(v=>v[0]),ys=p.map(v=>v[1]),bounds={minX:Math.min(...xs),maxX:Math.max(...xs),minY:Math.min(...ys),maxY:Math.max(...ys)};
  const positions=[],normals=[],uv=[],cells=[],faceCells=[];
- const vertex=(v,z,n,m)=>{const q=world(v),nn=vertical?[-n[1],n[0],n[2]]:n;positions.push(q[0],q[1],z);normals.push(...nn);let u=(v[0]-m.x)/m.width,t=(v[1]-m.y)/m.height;if((Math.abs(m.col*13+m.row*7)%2)===1){u=1-u;t=1-t;}uv.push(u,t);};
- const triangle=(vs,zs,ns,m)=>{faceCells.push(m.key);for(let j=0;j<3;j++)vertex(vs[j],zs[j],ns[j],m);};
+ const vertex=(v,z,n,m)=>{const q=world(v),nn=vertical?[-n[1],n[0],n[2]]:n;positions.push(q[0],q[1],z);if(l.planAxes)nn[1]=-nn[1];normals.push(...nn);let u=(v[0]-m.x)/m.width,t=(v[1]-m.y)/m.height;if((Math.abs(m.col*13+m.row*7)%2)===1){u=1-u;t=1-t;}uv.push(u,t);};
+ const triangle=(vs,zs,ns,m)=>{if(l.planAxes){vs=[vs[0],vs[2],vs[1]];zs=[zs[0],zs[2],zs[1]];ns=[ns[0],ns[2],ns[1]];}faceCells.push(m.key);for(let j=0;j<3;j++)vertex(vs[j],zs[j],ns[j],m);};
  const key=v=>v.map(x=>Math.round(x*1e7)).join(',');
  const modules=tileModules(bounds,l);if(modules.length>60000)throw Error('Choisissez une zone plus petite pour ce petit format.');
  for(const m of modules){let usedArea=0;const edges=[];

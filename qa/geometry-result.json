@@ -1,8 +1,8 @@
 {
-  "at": "2026-10-19T22:38:48.862Z",
+  "at": "2026-10-23T23:53:05.932Z",
   "passed": true,
-  "meshes": 92,
-  "triangles": 56888,
+  "meshes": 97,
+  "triangles": 59620,
   "cabinetMetres": [
     0.7999999993890524,
     0.5400000214576721,
@@ -35,13 +35,13 @@
   "assets": [
     {
       "file": "app.js",
-      "bytes": 1114684,
-      "sha256": "8591cddfe8b20cfd88b0f403cd7d504f1265f25b97e7c23ee5c1a23dac4868d2"
+      "bytes": 2245949,
+      "sha256": "d140b5f49d65abd6f6cbf852e89bc64df421f7adcf65f3704df8ff68ff1ddeaf"
     },
     {
       "file": "style.css",
-      "bytes": 55278,
-      "sha256": "deaba873715a3ad18f125c65528b87d2b22440ea3b735a98c3261f550d02133d"
+      "bytes": 59386,
+      "sha256": "c011575523b7cb4596832db5d359af1c7eeacb1013b7df5e812682e6144c5148"
     },
     {
       "file": "icon.svg",
@@ -54,9 +54,9 @@
       "sha256": "8924e68102244ef316bcce91ddce078d728d009e6297fea0a22be46c76ef83a6"
     },
     {
-      "file": "assets/serenade-alba.webp",
-      "bytes": 40806,
-      "sha256": "e555cfdd403e097d2d9d55310fc6b693ca242735e6320dca1eccdd8b17dd0bf2"
+      "file": "assets/finishes/20261022/alba-balanced.webp",
+      "bytes": 90714,
+      "sha256": "b4440bd4a958008cf2aa9a70b48aa7bfb7aec671cba8b9a70bd0f87f1018e48d"
     },
     {
       "file": "assets/nogal-valentina.webp",

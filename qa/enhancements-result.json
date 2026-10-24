@@ -1,13 +1,13 @@
 {
   "passed": true,
-  "at": "2026-10-19T22:40:44.309Z",
+  "at": "2026-10-23T23:53:20.966Z",
   "checks": [
     "screen glass is selectable; no freestanding insertion, perimeter/height constraint at four rotations and four edges",
     "tray moves and room resize carry screens; release rejects collisions of the entire assembly",
     "two finite generic towel models in four metal finishes and independent wall placement",
     "local realistic garden behind real glazing, seals and hinges, aspect-correct UV and no stolen clicks",
     "bath hose arches above rim and reaches into bowl instead of staying against rear wall",
-    "internal profiles opt-in, external corners and tiled bathtub edges measured by default",
+    "internal profiles opt-in, no automatic partition or tiled bathtub trim",
     "per-cell material groups retain real tile geometry and split quantities by colour",
     "cell identities and chosen colours survive opening cuts and layout recalculation"
   ],
