@@ -68,49 +68,49 @@ export const CATALOG = {
       "id": "ROBLE",
       "refCode": "ROBLE",
       "name": "Roble Amazona",
-      "hex": "#bda084"
+      "hex": "#af9374"
     },
     {
       "id": "ALBA",
       "refCode": "ALBA",
       "name": "Serenade Alba",
-      "hex": "#c4ae94"
+      "hex": "#bfa386"
     },
     {
       "id": "NOGAL",
       "refCode": "NOGAL",
       "name": "Nogal Valentina",
-      "hex": "#53433e"
+      "hex": "#77513d"
     },
     {
       "id": "WHITE",
       "refCode": "WHITE",
       "name": "White Bolero",
-      "hex": "#dfdeda"
+      "hex": "#f1f0ec"
     },
     {
       "id": "AZUL",
       "refCode": "AZUL",
       "name": "Azul Acero",
-      "hex": "#61717c"
+      "hex": "#67757e"
     },
     {
       "id": "GRIS",
       "refCode": "GRIS",
       "name": "Gris Tórtora",
-      "hex": "#5e5559"
+      "hex": "#807768"
     },
     {
       "id": "BISC",
       "refCode": "BISC.",
       "name": "Biscuit",
-      "hex": "#c9b29a"
+      "hex": "#ebe2d9"
     },
     {
       "id": "GREEN",
       "refCode": "GREEN",
       "name": "Muted Green",
-      "hex": "#949280"
+      "hex": "#918c76"
     }
   ],
   "sizes": [

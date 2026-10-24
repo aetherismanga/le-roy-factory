@@ -1,10 +1,14 @@
 {
   "collection": "STUDIO ONE",
   "date": "2026-10-22",
+  "preparedDate": "2026-10-24",
   "notes": [
-    "ALBA is the original manufacturer sample attached to Juan Carlos Segura email of 22 October 2026.",
-    "ROBLE/NOGAL/WHITE retain existing application assets pending access to the new original attachments.",
-    "Physical panel sample dimensions and measured gloss/roughness were not supplied; current material settings are retained.",
+    "All eight finishes use the official flat manufacturer samples supplied by Juan Carlos Segura.",
+    "The previously approved ALBA outputs are preserved byte for byte, using its original 1292 x 2800 sample.",
+    "The seven remaining samples were supplied as user attachments on 24 October 2026; source sizes below describe those actual uploaded files.",
+    "Embedded ICC profiles are converted to sRGB; files without a profile are interpreted as sRGB. EXIF orientation is applied before resizing.",
+    "Aspect ratio is preserved and samples are never upscaled. Fluid, balanced and max indicate budgets, not invented source detail.",
+    "Physical panel dimensions and measured gloss/roughness were not supplied; existing material settings are retained.",
     "Reference photographs are not used as flat textures."
   ],
   "finishes": {
@@ -44,6 +48,335 @@
         }
       },
       "swatch": "finishes/20261022/alba-swatch.webp"
+    },
+    "ROBLE": {
+      "original": "Roble amazona_acabado.jpeg",
+      "sha256": "5feb34589f55e04b81b86a99958760e6a8ba0389841303421473fc81fc0a4135",
+      "sourcePixels": [
+        567,
+        963
+      ],
+      "processedPixels": [
+        567,
+        963
+      ],
+      "embeddedICC": "eciRGB v2",
+      "exifOrientation": 1,
+      "outputColourSpace": "sRGB",
+      "newManufacturerSample": true,
+      "averageSRGB": "#af9374",
+      "variants": {
+        "fluid": {
+          "file": "finishes/20261022/roble-fluid.webp",
+          "size": [
+            151,
+            256
+          ],
+          "bytes": 5128,
+          "sha256": "face4963028a394a91644db568e479b4c3b7f1c5ea5669bdfc31988f8488fed8"
+        },
+        "balanced": {
+          "file": "finishes/20261022/roble-balanced.webp",
+          "size": [
+            567,
+            963
+          ],
+          "bytes": 76496,
+          "sha256": "7b59fe617ae9b7c52363c6c380b3b97ee3dbec0067ffd8d1055e2c7ba368512a"
+        },
+        "max": {
+          "file": "finishes/20261022/roble-max.webp",
+          "size": [
+            567,
+            963
+          ],
+          "bytes": 127108,
+          "sha256": "5e32375b1ac78a78c788a39e961c71d621d7067ff4c57ed7f9381f466fd0a648"
+        }
+      },
+      "swatch": "finishes/20261022/roble-swatch.webp"
+    },
+    "NOGAL": {
+      "original": "Nogal valentina_acabado.jpeg",
+      "sha256": "6b9a946cf8381fea62646b93b048e84336ac47ea67f638bca218f87283a0a15a",
+      "sourcePixels": [
+        567,
+        1229
+      ],
+      "processedPixels": [
+        567,
+        1229
+      ],
+      "embeddedICC": "IEC 61966-2.1 Default RGB colour space - sRGB",
+      "exifOrientation": 1,
+      "outputColourSpace": "sRGB",
+      "newManufacturerSample": true,
+      "averageSRGB": "#77513d",
+      "variants": {
+        "fluid": {
+          "file": "finishes/20261022/nogal-fluid.webp",
+          "size": [
+            118,
+            256
+          ],
+          "bytes": 3632,
+          "sha256": "b11c5506c618624a6fcd3e4cdf385de6bb15146a2bb4d199f6ad160f71518845"
+        },
+        "balanced": {
+          "file": "finishes/20261022/nogal-balanced.webp",
+          "size": [
+            472,
+            1024
+          ],
+          "bytes": 72148,
+          "sha256": "dea189d53ca5debdba526178162d0932d7f605b9f9bfbe4c17600359eacafb45"
+        },
+        "max": {
+          "file": "finishes/20261022/nogal-max.webp",
+          "size": [
+            567,
+            1229
+          ],
+          "bytes": 194144,
+          "sha256": "76e69031b45d3bd6b13629485dc3708a91ab1818f12829b6a136fc3f63aedc91"
+        }
+      },
+      "swatch": "finishes/20261022/nogal-swatch.webp"
+    },
+    "WHITE": {
+      "original": "White bolero_acabado.jpeg",
+      "sha256": "2ffffd73d26b22185d4e5477f417bc72fefa0472b3e3916a721752a47160afb6",
+      "sourcePixels": [
+        945,
+        2048
+      ],
+      "processedPixels": [
+        945,
+        2048
+      ],
+      "embeddedICC": "sRGB",
+      "exifOrientation": null,
+      "outputColourSpace": "sRGB",
+      "newManufacturerSample": true,
+      "averageSRGB": "#f1f0ec",
+      "variants": {
+        "fluid": {
+          "file": "finishes/20261022/white-fluid.webp",
+          "size": [
+            118,
+            256
+          ],
+          "bytes": 272,
+          "sha256": "619251bb6b1c01d95e06b57ea8b27bc444a44b4215f592abcee352401ff4179c"
+        },
+        "balanced": {
+          "file": "finishes/20261022/white-balanced.webp",
+          "size": [
+            472,
+            1024
+          ],
+          "bytes": 13364,
+          "sha256": "f352298bd497327f38c4d4b3eb549e85185e3bc0f68f17c1b34588e5e4dbd1ae"
+        },
+        "max": {
+          "file": "finishes/20261022/white-max.webp",
+          "size": [
+            945,
+            2048
+          ],
+          "bytes": 200250,
+          "sha256": "fb4f3362962274121f0c81fc0ef77b810b5d3e4ba13550c2535f97663234b358"
+        }
+      },
+      "swatch": "finishes/20261022/white-swatch.webp"
+    },
+    "AZUL": {
+      "original": "Azul acero_acabado.jpeg",
+      "sha256": "e968ed2d2197545fc39b3a67d65c5dd0ed21a650b3a98cdee746dd7044fe0f01",
+      "sourcePixels": [
+        945,
+        2048
+      ],
+      "processedPixels": [
+        945,
+        2048
+      ],
+      "embeddedICC": "sRGB",
+      "exifOrientation": null,
+      "outputColourSpace": "sRGB",
+      "newManufacturerSample": true,
+      "averageSRGB": "#67757e",
+      "variants": {
+        "fluid": {
+          "file": "finishes/20261022/azul-fluid.webp",
+          "size": [
+            118,
+            256
+          ],
+          "bytes": 140,
+          "sha256": "b1cf4dd2c1010d425d4ae802d8b51ca544d3cd8f40e8642ed8968cc7c3499072"
+        },
+        "balanced": {
+          "file": "finishes/20261022/azul-balanced.webp",
+          "size": [
+            472,
+            1024
+          ],
+          "bytes": 1236,
+          "sha256": "ab1edebb851ff839cb5bdd911506cd530f2376cd5b395a8c00ca3d3e9ff9a0a1"
+        },
+        "max": {
+          "file": "finishes/20261022/azul-max.webp",
+          "size": [
+            945,
+            2048
+          ],
+          "bytes": 77656,
+          "sha256": "2d301d04d9387b7eee4513870e430a2c38c8dadf0dc9bfb90764cc808944a60c"
+        }
+      },
+      "swatch": "finishes/20261022/azul-swatch.webp"
+    },
+    "GRIS": {
+      "original": "Gris Tórtora_acabado.jpeg",
+      "sha256": "73445ccf1e4cdb2589ba00bd0b995e0267419dcfa4c1884b807a9fdd77000885",
+      "sourcePixels": [
+        567,
+        1181
+      ],
+      "processedPixels": [
+        567,
+        1181
+      ],
+      "embeddedICC": null,
+      "exifOrientation": 1,
+      "outputColourSpace": "sRGB",
+      "newManufacturerSample": true,
+      "averageSRGB": "#807768",
+      "variants": {
+        "fluid": {
+          "file": "finishes/20261022/gris-fluid.webp",
+          "size": [
+            123,
+            256
+          ],
+          "bytes": 130,
+          "sha256": "c8b4a86af6e55799bcfa2da5ba9c0d334cdb6ad9055a80a95ceebdd6248ae68d"
+        },
+        "balanced": {
+          "file": "finishes/20261022/gris-balanced.webp",
+          "size": [
+            492,
+            1024
+          ],
+          "bytes": 1176,
+          "sha256": "44658219437e5ea2c80f984c2ed882067bcd1c325e60b6c270bb69b91c0f0ddc"
+        },
+        "max": {
+          "file": "finishes/20261022/gris-max.webp",
+          "size": [
+            567,
+            1181
+          ],
+          "bytes": 2144,
+          "sha256": "bf143bb0828920d4ccb424284c4f656aa2035ce0e110ed519ce2cfbe05b0995d"
+        }
+      },
+      "swatch": "finishes/20261022/gris-swatch.webp"
+    },
+    "BISC": {
+      "original": "Biscuit_acabado.jpeg",
+      "sha256": "746ee602351ccab249afe3080a2c0a89e2c49ec3a9bff8e55262b08ac4183471",
+      "sourcePixels": [
+        945,
+        2048
+      ],
+      "processedPixels": [
+        945,
+        2048
+      ],
+      "embeddedICC": "sRGB",
+      "exifOrientation": null,
+      "outputColourSpace": "sRGB",
+      "newManufacturerSample": true,
+      "averageSRGB": "#ebe2d9",
+      "variants": {
+        "fluid": {
+          "file": "finishes/20261022/bisc-fluid.webp",
+          "size": [
+            118,
+            256
+          ],
+          "bytes": 174,
+          "sha256": "dcf218171f8dc0a66a1310f146e688811a6c03a5a84f8bd47993069480276866"
+        },
+        "balanced": {
+          "file": "finishes/20261022/bisc-balanced.webp",
+          "size": [
+            472,
+            1024
+          ],
+          "bytes": 2630,
+          "sha256": "6c784ce415b84ee7796f6861f20c4f84a661812edaeacbe9c2aecd10ad2fd960"
+        },
+        "max": {
+          "file": "finishes/20261022/bisc-max.webp",
+          "size": [
+            945,
+            2048
+          ],
+          "bytes": 22434,
+          "sha256": "d8b437db52997e4e946238f498c92fb44e47fe6f31a89ecc351aca899415b44c"
+        }
+      },
+      "swatch": "finishes/20261022/bisc-swatch.webp"
+    },
+    "GREEN": {
+      "original": "Muted green_acabado.jpeg",
+      "sha256": "56cf7476bff6083c31836e8809bf55fde3361055972ed6b480c7fd4cd42e4363",
+      "sourcePixels": [
+        945,
+        2048
+      ],
+      "processedPixels": [
+        945,
+        2048
+      ],
+      "embeddedICC": "sRGB",
+      "exifOrientation": null,
+      "outputColourSpace": "sRGB",
+      "newManufacturerSample": true,
+      "averageSRGB": "#918c76",
+      "variants": {
+        "fluid": {
+          "file": "finishes/20261022/green-fluid.webp",
+          "size": [
+            118,
+            256
+          ],
+          "bytes": 210,
+          "sha256": "a8a7f41d480f6546c5bc04cf836ac2c8e2110a58ddc73b74a1f3b16971a55939"
+        },
+        "balanced": {
+          "file": "finishes/20261022/green-balanced.webp",
+          "size": [
+            472,
+            1024
+          ],
+          "bytes": 2174,
+          "sha256": "a41e9a2a77ff931ea170f8afc99638eef214a1873b67c7b25853a7e0fb0a528c"
+        },
+        "max": {
+          "file": "finishes/20261022/green-max.webp",
+          "size": [
+            945,
+            2048
+          ],
+          "bytes": 13122,
+          "sha256": "4fed4979c9031e5aae5a4582f0a24d53d8e8f00df23a6b6e98125b1b67ca5bbf"
+        }
+      },
+      "swatch": "finishes/20261022/green-swatch.webp"
     }
   }
 }

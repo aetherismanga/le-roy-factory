@@ -1,3 +1,13 @@
+# Mise à jour du 24 octobre 2026 — huit finitions officielles
+
+Les sept échantillons manquants sont maintenant intégrés : Roble Amazona, Nogal Valentina, White Bolero, Azul Acero, Gris Tórtora, Biscuit et Muted Green. Les quatre fichiers Alba déjà approuvés restent identiques octet pour octet.
+
+Les sources jointes ont été orientées selon EXIF et converties depuis leur profil ICC en sRGB (dont eciRGBv2 pour Roble). Trois budgets de texture sont disponibles : 256, 1 024 et 2 048 pixels maximum, sans agrandir les petits originaux. Le veinage et le rapport de proportions de chaque échantillon sont conservés ; façades horizontales et côtés verticaux. Les réglages de brillance existants sont conservés faute de mesure fabricant.
+
+Voir `assets/finishes/20261022/sources.json`, `reports/manufacturer-finishes-20261024.json` et `reports/manufacturer-finishes-browser-20261024.json` pour la traçabilité et les contrôles. Les limites et mentions d’échantillons manquants ci-dessous décrivent l’état historique du 22 octobre.
+
+---
+
 # RANDAL — textures et performances · 22 octobre 2026
 
 ## Livré
