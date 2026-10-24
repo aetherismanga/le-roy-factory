@@ -14,7 +14,13 @@ const provenance=JSON.parse(await readFile(new URL('../extraction-provenance.jso
 for(const record of provenance.modules){
  const canonicalURL=new URL('../'+record.module,import.meta.url);
  const source=await readFile(canonicalURL);
- if(record.current){
+ if(record.current?.changeType==='functional-update-20261024'){
+  assert(record.current.reason?.length>40,'Functional changes are documented');
+  assert.equal(createHash('sha256').update(source).digest('hex'),record.current.sha256,'Documented current shared source: '+record.module);
+  assert.equal(source.length,record.current.bytes);
+  assert(record.current.validation?.length>=3,'Functional changes have regression coverage');
+  for(const check of record.current.validation)await readFile(new URL(check,suiteRoot));
+ }else if(record.current){
   assert.equal(record.module,'integrated-basins.js','Only the documented confidentiality cleanup changes an extracted source');
   assert.equal(record.current.changeType,'comments-only-confidentiality');
   assert(record.current.reason?.includes('private purchasing terms'));
@@ -53,4 +59,4 @@ resizing.setMode('max');resizing.setMobile(false);resizing.setMobile(true);asser
 assert.equal(textureLimit('fluid'),512);assert.equal(textureLimit('balanced'),1024);assert.equal(textureLimit('max'),4096);
 assert.equal(textureLimit('max',{capabilities:{maxTextureSize:2048}}),2048);
 const reflection=new ReflectionSchedule();assert(reflection.shouldCapture(0,'scene',30));assert.equal(reflection.shouldCapture(100,'scene',30),false);reflection.reset();assert(reflection.shouldCapture(101,'scene',30));
-console.log(JSON.stringify({passed:true,unchangedExtractedModules:provenance.modules.filter(record=>!record.current).length,documentedSourceChanges:provenance.modules.filter(record=>record.current).map(record=>({module:record.module,changeType:record.current.changeType})),wrapperIdentity:'both applications',checks:['original and current source provenance','comment-only confidentiality cleanup preserves executable data','single module identities through compatibility paths','desktop/mobile automatic quality','manual HD preserved','responsive quality transition','texture/GPU budgets','reflection reuse']},null,2));
+console.log(JSON.stringify({passed:true,unchangedExtractedModules:provenance.modules.filter(record=>!record.current).length,documentedSourceChanges:provenance.modules.filter(record=>record.current).map(record=>({module:record.module,changeType:record.current.changeType})),wrapperIdentity:'both applications',checks:['original and current source provenance','comment-only confidentiality cleanup preserves executable data','documented functional evolution retains original extraction provenance','single module identities through compatibility paths','desktop/mobile automatic quality','manual HD preserved','responsive quality transition','texture/GPU budgets','reflection reuse']},null,2));

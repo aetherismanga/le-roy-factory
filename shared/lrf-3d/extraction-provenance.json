@@ -104,7 +104,18 @@
       "module": "niches.js",
       "sha256": "4d387fa7f2c56238d1d32eb0aae13148a60ccf75e0d12f99736439a8ae281298",
       "bytes": 2149,
-      "originalsIdentical": true
+      "originalsIdentical": true,
+      "current": {
+        "sha256": "c318a9afc55fcbb8c6d730e8f9af334637b03d74b4dbd049d122f47024c45503",
+        "bytes": 3456,
+        "changeType": "functional-update-20261024",
+        "reason": "Requested shared RANDAL editing improvements: tile layouts, recessed editable niches, RAL finishes, flush plates and surface controls. Original extraction hash retained above.",
+        "validation": [
+          "shared/lrf-3d/qa/ral-sanitary-check.mjs",
+          "shared/lrf-3d/qa/niche-editing-check.mjs",
+          "shared/lrf-3d/qa/tile-layout-acceptance.mjs"
+        ]
+      }
     },
     {
       "module": "photoreal-export.js",
@@ -152,13 +163,35 @@
       "module": "profiles.js",
       "sha256": "2c3cd95e47199999620f3bab4aef0b95dc574956877d2d04ffd0310b34ef21cd",
       "bytes": 3805,
-      "originalsIdentical": true
+      "originalsIdentical": true,
+      "current": {
+        "sha256": "d421d9d7b94da631b6080772dced874abce7a88ddff36502cd27a9eb66cec621",
+        "bytes": 7035,
+        "changeType": "functional-update-20261024",
+        "reason": "Requested shared RANDAL editing improvements: tile layouts, recessed editable niches, RAL finishes, flush plates and surface controls. Original extraction hash retained above.",
+        "validation": [
+          "shared/lrf-3d/qa/ral-sanitary-check.mjs",
+          "shared/lrf-3d/qa/niche-editing-check.mjs",
+          "shared/lrf-3d/qa/tile-layout-acceptance.mjs"
+        ]
+      }
     },
     {
       "module": "sanitaries.js",
       "sha256": "960b0704366ae25ca64703f463cff1c4dcef00dd75cc2e2a655bd41352e3d6fd",
       "bytes": 7756,
-      "originalsIdentical": true
+      "originalsIdentical": true,
+      "current": {
+        "sha256": "64048b377d77b0957055ce1bbd45916d403c19c5c901667e8ec517a57420f90e",
+        "bytes": 8523,
+        "changeType": "functional-update-20261024",
+        "reason": "Requested shared RANDAL editing improvements: tile layouts, recessed editable niches, RAL finishes, flush plates and surface controls. Original extraction hash retained above.",
+        "validation": [
+          "shared/lrf-3d/qa/ral-sanitary-check.mjs",
+          "shared/lrf-3d/qa/niche-editing-check.mjs",
+          "shared/lrf-3d/qa/tile-layout-acceptance.mjs"
+        ]
+      }
     },
     {
       "module": "screen-mount.js",
@@ -182,7 +215,18 @@
       "module": "tile-layout.js",
       "sha256": "1e4f24d67e760055b97b6e47596ebc0a2d89f4fd6b252c0e1f5635b72ba2fe7b",
       "bytes": 9166,
-      "originalsIdentical": true
+      "originalsIdentical": true,
+      "current": {
+        "sha256": "7090ee48d6b25c4bf8b605e86421092c2024e70a5513b57890a93cff19ffab1c",
+        "bytes": 10752,
+        "changeType": "functional-update-20261024",
+        "reason": "Requested shared RANDAL editing improvements: tile layouts, recessed editable niches, RAL finishes, flush plates and surface controls. Original extraction hash retained above.",
+        "validation": [
+          "shared/lrf-3d/qa/ral-sanitary-check.mjs",
+          "shared/lrf-3d/qa/niche-editing-check.mjs",
+          "shared/lrf-3d/qa/tile-layout-acceptance.mjs"
+        ]
+      }
     },
     {
       "module": "ultra-rendering.js",
