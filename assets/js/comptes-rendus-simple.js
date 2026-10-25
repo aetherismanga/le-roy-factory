@@ -100,18 +100,20 @@
       results.classList.add('open');
       results.querySelectorAll('.lrf-cr-result').forEach(btn=>btn.addEventListener('click',()=>choose(btn.dataset.id)));
     }
-    function choose(id){
-      const opt=options().find(o=>o.value===id);if(!opt)return;
-      select.value=id;
-      select.dispatchEvent(new Event('change',{bubbles:true}));
+    function syncChoice(){
+      const opt=options().find(o=>o.value===select.value);
+      if(!opt){selected.classList.remove('show');search.style.display='block';picker.querySelector('.lrf-cr-search-icon').style.display='block';return;}
       selectedLabel.textContent='✓ '+opt.textContent.trim();
-      selected.classList.add('show');
-      results.classList.remove('open');
-      search.value='';
-      search.style.display='none';
-      picker.querySelector('.lrf-cr-search-icon').style.display='none';
+      selected.classList.add('show');results.classList.remove('open');search.value='';
+      search.style.display='none';picker.querySelector('.lrf-cr-search-icon').style.display='none';
+    }
+    function choose(id){
+      if(!options().some(o=>o.value===id))return;
+      select.value=id;select.dispatchEvent(new Event('change',{bubbles:true}));
       document.getElementById('cr-input-text')?.focus();
     }
+    select.addEventListener('change',syncChoice);
+    new MutationObserver(syncChoice).observe(select,{childList:true,subtree:true});
     function resetChoice(){
       select.value='';
       selected.classList.remove('show');
@@ -135,10 +137,13 @@
     form.addEventListener('reset',()=>setTimeout(resetChoice,0));
 
     const observer=new MutationObserver(()=>{
+      syncChoice();
       if(modal?.style.display==='flex'&&!selected.classList.contains('show')&&document.activeElement!==search)setTimeout(()=>search.focus(),30);
     });
     if(modal)observer.observe(modal,{attributes:true,attributeFilter:['style']});
+    syncChoice();
   }
 
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install,{once:true});else install();
 })();
+

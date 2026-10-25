@@ -1,0 +1,24 @@
+name: CRM regression checks
+on:
+  pull_request:
+    paths:
+      - '*.html'
+      - 'assets/js/**'
+      - 'assets/css/crm-*.css'
+      - 'tests/crm/**'
+      - 'tests/crm-audit/**'
+      - 'tests/crm-v2/**'
+      - 'scripts/build-crm-preview.mjs'
+      - '.github/workflows/crm-checks.yml'
+permissions:
+  contents: read
+jobs:
+  crm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Verify CRM logic with fictional records
+        run: node --test tests/crm/*.test.mjs tests/crm-audit/*.test.mjs tests/crm-v2/*.test.mjs
+

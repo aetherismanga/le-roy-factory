@@ -1,6 +1,7 @@
-import { db, auth, getAgentProfile } from './firebase.js';
+import { db, auth, getAgentProfile, waitForAgent } from './firebase.js?v=20261023-crm-audit1';
 import { collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
 
+if (!await waitForAgent()) throw new Error('Authentification agent requise.');
 const UPLOAD_URL='https://us-central1-le-roy-factory.cloudfunctions.net/crmFilesUpload';
 const input=document.getElementById('merch-files');
 const list=document.getElementById('merch-docs');
@@ -39,7 +40,7 @@ input?.addEventListener('change',async()=>{
 });
 
 onSnapshot(query(collection(db,'merchandisingFiles'),orderBy('createdAt','desc')),snap=>{
-  const rows=snap.docs.map(d=>({id:d.id,...d.data()})).filter(x=>x.manufacturer==='elios');
+  const rows=snap.docs.map(d=>({...d.data(),id:d.id})).filter(x=>x.manufacturer==='elios');
   if(count)count.textContent=`${rows.length} fichier${rows.length>1?'s':''}`;
   if(!list)return;
   if(!rows.length){list.innerHTML='<div class="merch-empty">Aucun fichier ajouté.</div>';return}
@@ -49,3 +50,4 @@ onSnapshot(query(collection(db,'merchandisingFiles'),orderBy('createdAt','desc')
     return `<a class="merch-file" href="${esc(x.url)}" target="_blank" rel="noopener"><div class="merch-preview">${preview}</div><div><strong>${esc(x.name||'Document')}</strong><small>${size(x.size)}${x.createdBy?' • '+esc(x.createdBy):''}</small></div></a>`;
   }).join('');
 },err=>{console.error(err);if(list)list.innerHTML='<div class="merch-empty">Impossible de charger les fichiers.</div>'});
+

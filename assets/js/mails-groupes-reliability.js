@@ -1,5 +1,5 @@
 import { db } from './firebase.js';
-import { collection, getDocs, addDoc } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+import { collection, getDocs } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
 
 const SEND_URL='https://us-central1-le-roy-factory.cloudfunctions.net/sendGroupEmail';
 const originalFetch=window.fetch.bind(window);
@@ -37,23 +37,8 @@ function asDate(v){
   if(v?.seconds)return new Date(v.seconds*1000);
   const d=new Date(v);return Number.isNaN(d.getTime())?null:d;
 }
-function sameRecovered(existing,recovered){
-  if(existing.gmailMessageId===recovered.gmailMessageId)return true;
-  if(String(existing.objet||'').trim()!==recovered.objet)return false;
-  const a=asDate(existing.date)?.getTime()||0,b=new Date(recovered.date).getTime();
-  return Math.abs(a-b)<10*60000;
-}
-async function recoverKnownGmail(historyRows){
-  let changed=false;
-  for(const item of RECOVERED_GMAIL){
-    if(historyRows.some(x=>sameRecovered(x,item)))continue;
-    try{
-      const ref=await addDoc(collection(db,'historique_mails'),{...item,source:'gmail-recovery',destinataires:[]});
-      historyRows.push({id:ref.id,...item,source:'gmail-recovery'});changed=true;
-    }catch(e){console.warn('Récupération historique Gmail impossible',e)}
-  }
-  return changed;
-}
+// Historical recovery records remain preserved above for review. Loading this
+// screen is read-only: never seed or rewrite production history automatically.
 function keyOf(x){
   const d=asDate(x.date)||asDate(x.sentAt)||asDate(x.scheduledAt)||new Date(0);
   const minute=Math.floor(d.getTime()/60000);
@@ -76,8 +61,7 @@ async function loadReliableHistory(){
       getDocs(collection(db,'scheduled_mails'))
     ]);
     const rows=[];
-    historySnap.forEach(d=>rows.push({id:d.id,...d.data(),_source:'history'}));
-    await recoverKnownGmail(rows);
+    historySnap.forEach(d=>rows.push({ ...d.data(), id: d.id,_source:'history'}));
     const historyScheduledIds=new Set(rows.map(x=>x.scheduledMailId).filter(Boolean));
     scheduledSnap.forEach(d=>{
       if(historyScheduledIds.has(d.id))return;
@@ -123,3 +107,4 @@ function init(){
   setInterval(()=>{if(document.getElementById('section-history')?.style.display!=='none')loadReliableHistory()},30000);
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+

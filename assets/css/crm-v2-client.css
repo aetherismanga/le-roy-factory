@@ -1,0 +1,84 @@
+/* Client V2: scoped to the test workspace. Existing form IDs and writes stay intact. */
+/* Legacy mobile form styles force display:grid on Infos. Tab visibility must win. */
+html body.crm-body.crm-v2 #client-modal .lrf-tab-pane:not(.active),
+html body.crm-body.crm-v2 #client-modal .lrf-tab-pane[hidden]{display:none!important}
+html body.crm-body.crm-v2 #client-modal .lrf-tab-pane.active:not([hidden]){display:block!important}
+html body.crm-body.crm-v2 #client-modal .modal-grid-edit.lrf-tab-pane.active:not([hidden]){display:grid!important}
+body.crm-body.crm-v2 #client-modal .modal-content{background:#fff!important;color:#27382f!important;border:1px solid #dfe6dc!important;box-shadow:0 12px 55px #243b2d18!important;border-radius:18px!important}
+body.crm-body.crm-v2 #client-modal .modal-header{background:#f4f7f1!important;color:#233e30!important;border-bottom:1px solid #e1e8dd!important;padding:18px 64px 15px 22px!important}
+body.crm-body.crm-v2 #client-modal .lrf-v2-client-reference{font-size:.68rem!important;color:#697a64!important;letter-spacing:.03em;margin:4px 0 0!important;font-weight:600}
+body.crm-body.crm-v2 #client-modal .modal-header h2{color:#233e30!important;text-shadow:none!important;font-size:1.2rem!important;line-height:1.3!important}
+body.crm-body.crm-v2 #client-modal .modal-close{background:#fff!important;color:#34513b!important;border:1px solid #dce4d7!important;box-shadow:none!important;min-height:44px;min-width:44px}
+body.crm-body.crm-v2 #client-modal #lrf-client-mobile-quick-actions{display:none!important}
+body.crm-body.crm-v2 .lrf-v2-client-actions{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));flex-shrink:0;gap:6px;margin:12px 22px 0;max-width:100%}
+body.crm-body.crm-v2 .lrf-v2-client-actions>a,body.crm-body.crm-v2 .lrf-v2-client-actions>button{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:5px;min-width:0;min-height:54px;padding:8px 4px;border:1px solid #dce5d7;border-radius:9px;background:#f7f9f4;color:#34503d;text-decoration:none;font:inherit;font-size:.73rem;font-weight:600;line-height:1.2;text-align:center;cursor:pointer;box-sizing:border-box}
+body.crm-body.crm-v2 .lrf-v2-client-actions svg{width:19px;height:19px;flex-shrink:0}
+body.crm-body.crm-v2 .lrf-v2-client-actions [aria-disabled=true]{opacity:.48;cursor:default}
+body.crm-body.crm-v2 .lrf-v2-client-actions :is(a,button):focus-visible{outline:3px solid #a78d4f;outline-offset:2px}
+body.crm-body.crm-v2 .lrf-v2-client-actions :is(a,button):active{background:#e5ecdf}
+body.crm-body.crm-v2 #client-modal .lrf-summary-main{background:#fafbf7!important;border-color:#e1e8dc!important}
+body.crm-body.crm-v2 #client-modal .lrf-summary-card{border-color:#e1e8dc!important;min-height:0!important}
+body.crm-body.crm-v2 #client-modal .lrf-summary-card strong{color:#34513b!important}
+body.crm-body.crm-v2 #client-modal .lrf-tab{color:#58665b!important;font-size:.8rem!important;min-height:44px;padding:10px 11px!important}
+body.crm-body.crm-v2 #client-modal .lrf-tab[aria-selected=true],body.crm-body.crm-v2 #client-modal .lrf-tab.active{color:#214730!important;border-bottom-color:#6a8961!important}
+body.crm-body.crm-v2 #client-modal .modal-footer{background:#fff!important;border-color:#e1e8dc!important;box-shadow:none!important;backdrop-filter:none!important}
+body.crm-body.crm-v2 #client-modal :is(input,select,textarea){max-width:100%;box-sizing:border-box;scroll-margin-block:12px}
+body.crm-body.crm-v2 .lrf-code-badge{background:#edf2e8!important;color:#48603d!important;border-color:#dce5d4!important;font-weight:650!important;letter-spacing:.02em!important}
+body.crm-body.crm-v2 .lrf-dept-badge{background:#f8f7f2!important;color:#6b6957!important;border-color:#e6e2d7!important}
+body.crm-body.crm-v2 .lrf-v2-partner-names{display:block;font-size:.7rem;font-weight:500;color:#6a7666;line-height:1.4;margin-top:6px;overflow-wrap:anywhere}
+body.crm-body.crm-v2 .lrf-v2-appointment-context{min-height:44px;padding:10px 14px;background:#edf3e7;color:#34503d;border:1px solid #d4dfcb;border-radius:9px;font:inherit;cursor:pointer}
+@media(max-width:900px){
+ body.crm-body.crm-v2 .crm-table-container{overflow:visible!important;background:transparent!important;border:0!important;box-shadow:none!important}
+ body.crm-body.crm-v2 .crm-table{display:block!important;width:100%!important;min-width:0!important;max-width:100%!important;border-collapse:separate}
+ body.crm-body.crm-v2 .crm-table thead{position:absolute!important;width:1px!important;height:1px!important;margin:-1px!important;padding:0!important;overflow:hidden!important;clip-path:inset(50%);white-space:nowrap!important;border:0!important}
+ body.crm-body.crm-v2 #clients-table-body{display:grid!important;gap:10px!important;width:100%!important;max-width:100%}
+ body.crm-body.crm-v2 #clients-table-body tr{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:5px 12px;background:#fff!important;border:1px solid #e0e6da!important;border-radius:12px!important;padding:13px!important;box-shadow:none!important;min-width:0;position:relative}
+ body.crm-body.crm-v2 #clients-table-body tr[style*="display: none"],body.crm-body.crm-v2 #clients-table-body tr[style*="display:none"],body.crm-body.crm-v2 #clients-table-body tr.ops-hidden,body.crm-body.crm-v2 #clients-table-body tr.lrf-code-hidden{display:none!important}
+ body.crm-body.crm-v2 #clients-table-body td{display:block!important;min-width:0!important;max-width:100%;padding:0!important;border:0!important;font-size:.8rem!important;overflow-wrap:anywhere;white-space:normal!important;line-height:1.5}
+ body.crm-body.crm-v2 #clients-table-body td:nth-child(1){grid-column:2;grid-row:1;align-self:start}
+ body.crm-body.crm-v2 #clients-table-body td:nth-child(2){grid-column:1;grid-row:1/3;padding-right:4px!important;color:#263c2c!important;font-size:.94rem!important;line-height:1.3}
+ body.crm-body.crm-v2 #clients-table-body td:nth-child(3){grid-column:1/-1;color:#687367!important;padding-block:3px!important}
+ body.crm-body.crm-v2 #clients-table-body td:nth-child(4),body.crm-body.crm-v2 #clients-table-body td:nth-child(5){grid-column:1/-1;color:#4d5e51!important}
+ body.crm-body.crm-v2 #clients-table-body td:nth-child(4)::before,body.crm-body.crm-v2 #clients-table-body td:nth-child(5)::before{content:attr(data-label) " : ";color:#798477;font-size:.73rem}
+ body.crm-body.crm-v2 #clients-table-body td:nth-child(6){grid-column:1;align-self:center;color:#74806e!important;font-size:.72rem!important}
+ body.crm-body.crm-v2 #clients-table-body td:nth-child(6)::before{content:"Dernier échange : "}
+ body.crm-body.crm-v2 #clients-table-body td:nth-child(7){grid-column:2;grid-row:6;justify-self:end;align-self:center}
+ body.crm-body.crm-v2 #clients-table-body td .btn-edit-row{min-height:44px!important;min-width:44px;padding:8px 12px!important;background:#edf3e7!important;border:1px solid #d7e3cf!important;color:#34513b!important;border-radius:9px!important;font-size:.78rem!important}
+ body.crm-body.crm-v2 #clients-table-body td[colspan]{grid-column:1/-1!important;grid-row:auto!important;padding:16px!important;text-align:center}
+ body.crm-body.crm-v2 #clients-table-body .row-partners{gap:4px!important;margin-top:7px!important}
+ body.crm-body.crm-v2 #clients-table-body .row-partners img{width:28px!important;height:20px!important;padding:2px!important;border-radius:4px!important}
+ body.crm-body.crm-v2 #client-modal.crm-modal{padding:max(6px,env(safe-area-inset-top)) max(6px,env(safe-area-inset-right)) max(6px,env(safe-area-inset-bottom)) max(6px,env(safe-area-inset-left))!important;align-items:center!important;overflow:hidden!important;height:var(--lrf-client-viewport-height,100dvh)!important;min-height:0!important}
+ body.crm-body.crm-v2 #client-modal .modal-content{display:flex!important;flex-direction:column!important;width:100%!important;min-width:0!important;max-width:100%!important;height:auto!important;max-height:calc(var(--lrf-client-viewport-height,100dvh) - 12px - env(safe-area-inset-top) - env(safe-area-inset-bottom))!important;margin:0!important;padding:0!important;overflow:hidden!important;position:relative!important;border-radius:14px!important}
+ body.crm-body.crm-v2 #client-modal .modal-header{position:relative!important;flex-shrink:0!important;min-height:0!important;padding:14px 60px 12px 14px!important;margin:0!important;gap:5px!important;display:block!important}
+ body.crm-body.crm-v2 #client-modal #modal-title{font-size:1.05rem!important;margin:0 0 6px!important;padding:0!important}
+ body.crm-body.crm-v2 #client-modal #btn-close-modal{position:absolute!important;top:8px!important;right:8px!important;z-index:100!important;width:44px!important;height:44px!important;min-width:44px!important;min-height:44px!important;padding:0!important}
+ body.crm-body.crm-v2 #client-modal .lrf-v2-client-actions{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin:9px 12px 0}
+ body.crm-body.crm-v2 #client-modal .lrf-v2-client-actions>a,body.crm-body.crm-v2 #client-modal .lrf-v2-client-actions>button{flex-direction:row;min-height:43px;gap:5px;padding:7px 4px;font-size:.68rem}
+ body.crm-body.crm-v2 #client-modal .lrf-v2-client-actions svg{width:16px;height:16px}
+ body.crm-body.crm-v2 #client-modal .lrf-client-summary{display:none!important}
+ body.crm-body.crm-v2 #client-modal .lrf-tabs{margin:9px 12px 0!important;flex-shrink:0!important;max-width:calc(100% - 24px);padding:0!important;gap:1px!important}
+ body.crm-body.crm-v2 #client-modal .lrf-tab{font-size:.72rem!important;min-height:42px!important;padding:9px 8px!important}
+ body.crm-body.crm-v2 #client-modal #client-form{position:relative!important;flex:1 1 auto!important;min-height:0!important;max-height:none!important;margin:0!important;padding:0 12px 12px!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scroll-padding-block:12px}
+ body.crm-body.crm-v2 #client-modal .modal-grid-edit{grid-template-columns:minmax(0,1fr)!important;gap:9px!important;padding:0!important;overflow:visible!important}
+ body.crm-body.crm-v2 #client-modal .form-field{min-width:0!important;padding:9px!important}
+ body.crm-body.crm-v2 #client-modal :is(input,select,textarea){font-size:16px!important;min-width:0!important;max-width:100%!important}
+ body.crm-body.crm-v2 #client-modal .modal-footer{position:relative!important;bottom:auto!important;top:auto!important;flex-wrap:wrap!important;gap:7px!important;margin:14px -12px -12px!important;padding:12px max(12px,env(safe-area-inset-right)) max(12px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left))!important}
+ body.crm-body.crm-v2 #client-modal .modal-footer button{min-height:44px!important;font-size:.78rem!important;flex:1 1 auto!important;white-space:normal!important;max-width:100%!important}
+ body.crm-body.crm-v2.lrf-v2-client-open :is(#crm-mobile-menu-btn,.lrf-v2-bottom-nav,.crm-v2-bottom-nav,.lrf-mobile-actions,#lrf-mobile-fab){display:none!important}
+ body.crm-body.crm-v2 #client-modal .partner-card-mini{min-width:0!important;max-width:100%!important}
+ body.crm-body.crm-v2 #client-modal .contact-card{grid-template-columns:minmax(0,1fr)!important}
+ body.crm-body.crm-v2 #client-modal .phone-row{min-width:0!important}
+ body.crm-body.crm-v2 #client-modal .phone-row .btn-remove-phone{min-width:44px!important}
+}
+@media(max-height:500px) and (max-width:900px){
+ body.crm-body.crm-v2 #client-modal .modal-header{padding-block:8px!important}
+ body.crm-body.crm-v2 #client-modal #modal-status-badge{display:none!important}
+ body.crm-body.crm-v2 #client-modal .lrf-v2-client-actions{grid-template-columns:repeat(6,minmax(0,1fr));margin-top:5px;gap:3px}
+ body.crm-body.crm-v2 #client-modal .lrf-v2-client-actions>a,body.crm-body.crm-v2 #client-modal .lrf-v2-client-actions>button{min-height:38px;padding:4px 2px;font-size:.62rem;flex-direction:column;gap:2px}
+ body.crm-body.crm-v2 #client-modal .lrf-tabs{margin-top:4px!important}
+}
+/* Inactive panes must beat the legacy mobile grid's ID selector. */
+html body.crm-body.crm-v2 #client-modal .lrf-tab-pane:not(.active),
+html body.crm-body.crm-v2 #client-modal .lrf-tab-pane[hidden]{display:none!important}
+html body.crm-body.crm-v2 #client-modal .lrf-tab-pane.active:not([hidden]){display:block!important}
+html body.crm-body.crm-v2 #client-modal .modal-grid-edit.lrf-tab-pane.active:not([hidden]){display:grid!important}

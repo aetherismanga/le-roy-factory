@@ -3,19 +3,7 @@ const isCartePage = (location.pathname.split('/').pop() || '').toLowerCase() ===
 if (isCartePage) {
   let mapInstance = null;
 
-  // Capture propre de l'instance Leaflet créée par carte.html.
-  if (window.L?.map && !window.L.map.__lrfWrapped) {
-    const originalMap = window.L.map;
-    const wrappedMap = function (...args) {
-      const map = originalMap.apply(this, args);
-      mapInstance = map;
-      window.__lrfCarteMap = map;
-      return map;
-    };
-    Object.assign(wrappedMap, originalMap);
-    wrappedMap.__lrfWrapped = true;
-    window.L.map = wrappedMap;
-  }
+  window.addEventListener('lrf-map-ready', () => { mapInstance = window.__lrfCarteMap; });
 
   function injectStyles() {
     if (document.getElementById('lrf-carte-mobile-style')) return;
@@ -30,14 +18,14 @@ if (isCartePage) {
         body.map-mobile-optimized .crm-topbar{display:none!important}
         body.map-mobile-optimized .crm-main-content{padding-top:78px!important;padding-left:0!important;padding-right:0!important;padding-bottom:92px!important}
         body.map-mobile-optimized .map-card{margin:0!important;padding:.55rem!important;border-radius:0!important;border-left:0!important;border-right:0!important;box-shadow:none!important;background:#FBF9F5!important}
-        body.map-mobile-optimized #map{height:calc(100dvh - 205px)!important;min-height:540px!important;border-radius:14px!important;border:1px solid #e4ded2!important}
+        body.map-mobile-optimized #map{height:calc(100dvh - 205px)!important;min-height:280px!important;border-radius:14px!important;border:1px solid #e4ded2!important}
         body.map-mobile-optimized .map-mobile-toolbar{display:flex;align-items:center;gap:.45rem;margin:0 0 .55rem;padding:0 .1rem;position:relative;z-index:4}
         body.map-mobile-optimized .map-count-pill{display:inline-flex;align-items:center;min-height:42px;padding:.5rem .75rem;border-radius:12px;background:#111;color:#FFD700;border:1px solid #D4AF37;font-weight:900;font-size:.82rem;white-space:nowrap;max-width:42vw;overflow:hidden;text-overflow:ellipsis}
         body.map-mobile-optimized .map-tool-btn{width:43px;height:43px;display:inline-flex;align-items:center;justify-content:center;border-radius:12px;border:1px solid #D4AF37;background:#111;color:#FFD700;font-size:1.12rem;font-weight:900;cursor:pointer;flex:0 0 auto}
         body.map-mobile-optimized .map-tool-btn.filters{width:auto;padding:0 .75rem;gap:.35rem;font-size:.78rem;margin-left:auto}
         body.map-mobile-optimized #btn-fullscreen-toggle{margin:0!important;width:43px!important;height:43px!important;padding:0!important;border-radius:12px!important;display:inline-flex!important;justify-content:center!important}
         body.map-mobile-optimized #btn-fullscreen-toggle #fs-text{display:none!important}
-        body.map-mobile-optimized .map-card>div[style*="margin-bottom"]{display:none!important}
+        body.map-mobile-optimized .map-card>.map-counter-desktop{display:none!important}
         body.map-mobile-optimized .filter-bar{position:fixed!important;left:0;right:0;bottom:0;z-index:12050!important;display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:.55rem!important;margin:0!important;padding:1rem 1rem calc(1rem + env(safe-area-inset-bottom))!important;background:#fff!important;border-radius:20px 20px 0 0!important;border:1px solid #D4AF37!important;box-shadow:0 -18px 50px rgba(0,0,0,.25)!important;transform:translateY(110%);transition:transform .22s ease;max-height:78vh;overflow:auto}
         body.map-mobile-optimized .filter-bar.mobile-open{transform:translateY(0)}
         body.map-mobile-optimized .map-filter-sheet-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.25rem}
@@ -65,13 +53,8 @@ if (isCartePage) {
   function visibleMarkerBounds() {
     const map = mapInstance || window.__lrfCarteMap;
     if (!map || !window.L) return null;
-    const points = [];
-    map.eachLayer(layer => {
-      if (layer instanceof L.Marker && typeof layer.getLatLng === 'function') {
-        const ll = layer.getLatLng();
-        if (ll && Number.isFinite(ll.lat) && Number.isFinite(ll.lng)) points.push(ll);
-      }
-    });
+    // Le cadrage correspond aux filtres CRM, sans le GPS ni les négoces externes.
+    const points = window.__lrfCarteVisiblePoints || [];
     return points.length ? L.latLngBounds(points) : null;
   }
 
@@ -127,22 +110,24 @@ if (isCartePage) {
 
     filterBar.querySelectorAll('.btn-filter').forEach(btn => btn.addEventListener('click', () => {
       closeFilters();
-      setTimeout(fitVisibleMarkers, 120);
     }));
     document.getElementById('dept-select')?.addEventListener('change', () => {
       closeFilters();
-      setTimeout(fitVisibleMarkers, 120);
     });
 
     // Le positionnement est géré exclusivement par carte-proximity.js,
     // pour afficher un point bleu GPS suivi (sans deux requêtes concurrentes).
 
     const updateCounter = () => {
-      const n = (counter.textContent.match(/\d+/) || [])[0];
-      document.getElementById('map-mobile-count').textContent = n ? `${n} clients / prospects` : 'Chargement...';
+      const n = (counter.textContent.match(/^\d+/) || [])[0];
+      const pill = document.getElementById('map-mobile-count');
+      pill.textContent = n !== undefined ? `${n} clients / prospects` : counter.textContent;
+      pill.title = counter.textContent;
     };
     updateCounter();
     new MutationObserver(updateCounter).observe(counter, { childList: true, characterData: true, subtree: true });
+    document.addEventListener('keydown', event => { if (event.key === 'Escape') closeFilters(); });
+    window.dispatchEvent(new CustomEvent('lrf-map-mobile-ui-ready'));
 
     setTimeout(() => {
       const map = mapInstance || window.__lrfCarteMap;
@@ -159,3 +144,4 @@ if (isCartePage) {
     setTimeout(() => (mapInstance || window.__lrfCarteMap)?.invalidateSize(), 100);
   });
 }
+

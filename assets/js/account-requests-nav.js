@@ -1,4 +1,4 @@
-import { auth } from './firebase.js';
+import { auth, waitForAgent } from './firebase.js?v=20261023-crm-audit1';
 
 // Tous les appels vers les Cloud Functions LE ROY FACTORY effectués depuis le CRM
 // transportent automatiquement le jeton Firebase de l'agent connecté.
@@ -8,15 +8,13 @@ if (!window.__lrfSecureCloudFetchInstalled) {
   window.fetch = async (input, init = {}) => {
     const url = typeof input === 'string' ? input : String(input?.url || '');
     const isLrfCloudFunction = url.startsWith('https://us-central1-le-roy-factory.cloudfunctions.net/');
-    if (isLrfCloudFunction && auth.currentUser) {
-      try {
-        const token = await auth.currentUser.getIdToken();
-        const headers = new Headers(init.headers || (input instanceof Request ? input.headers : undefined));
-        headers.set('Authorization', `Bearer ${token}`);
-        return nativeFetch(input, { ...init, headers });
-      } catch (error) {
-        console.warn('Impossible d’ajouter le jeton Firebase à la requête CRM :', error);
-      }
+    if (isLrfCloudFunction) {
+      const profile = await waitForAgent();
+      if (!profile || !auth.currentUser) throw new Error('Session CRM expirée. Reconnectez-vous.');
+      const token = await auth.currentUser.getIdToken();
+      const headers = new Headers(init.headers || (input instanceof Request ? input.headers : undefined));
+      headers.set('Authorization', `Bearer ${token}`);
+      return nativeFetch(input, { ...init, headers });
     }
     return nativeFetch(input, init);
   };
@@ -24,7 +22,7 @@ if (!window.__lrfSecureCloudFetchInstalled) {
 
 function addNav(){
   const menu=document.querySelector('.sidebar-menu');
-  if(menu){[...menu.querySelectorAll('a')].filter(a=>a.getAttribute('href')?.includes('filter=prospect')).forEach(a=>a.closest('li')?.remove());}
+  if(menu&&!document.body.classList.contains('crm-v2')){[...menu.querySelectorAll('a')].filter(a=>a.getAttribute('href')?.includes('filter=prospect')).forEach(a=>a.closest('li')?.remove());}
   if(menu&&!menu.querySelector('a[href="demandes-clients.html"]')){const clients=[...menu.querySelectorAll('a')].find(a=>a.getAttribute('href')==='clients.html')?.closest('li');const li=document.createElement('li');li.innerHTML='<a href="demandes-clients.html"><span class="icon">🧾</span><span class="menu-text">Demandes clients</span></a>';if(clients)clients.insertAdjacentElement('afterend',li);else menu.appendChild(li);}
   if(menu&&!menu.querySelector('a[href="tournees.html"]')){const agenda=[...menu.querySelectorAll('a')].find(a=>a.getAttribute('href')==='agenda.html')?.closest('li');const li=document.createElement('li');li.innerHTML='<a href="tournees.html"><span class="icon">🧭</span><span class="menu-text">Tournées</span></a>';if(agenda)agenda.insertAdjacentElement('afterend',li);else menu.appendChild(li);}
   if(menu&&!menu.querySelector('a[href="contacts-partenaires.html"]')){const mails=[...menu.querySelectorAll('a')].find(a=>a.getAttribute('href')==='mails-groupes.html')?.closest('li');const li=document.createElement('li');li.innerHTML='<a href="contacts-partenaires.html"><span class="icon">🏭</span><span class="menu-text">Contacts partenaire</span></a>';if(mails)mails.insertAdjacentElement('afterend',li);else menu.appendChild(li);}
@@ -36,13 +34,13 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 
 const lrfCurrentPage=(location.pathname.split('/').pop()||'').toLowerCase();
 const lrfClientIntegrityReady=lrfCurrentPage==='clients.html'
-  ? import('./crm-client-integrity.js?v=20260909-integrity2')
+  ? import('./crm-client-integrity.js?v=20261023-crm-audit1')
       .then(m=>m.ready)
       .catch(err=>{console.error('Erreur contrôle intégrité fiches clients :',err);})
   : Promise.resolve();
 
 if(lrfCurrentPage==='clients.html'){
-  lrfClientIntegrityReady.then(()=>import('./client-partners-sync.js?v=20260909-fix2'))
+  lrfClientIntegrityReady.then(()=>import('./client-partners-sync.js?v=20261023-crm-audit1'))
     .catch(err=>console.error('Erreur synchronisation partenaires client :',err));
 }
 
@@ -50,13 +48,13 @@ if(lrfCurrentPage==='demandes-clients.html'){import('./elios-order-crm.js?v=2026
 if(lrfCurrentPage==='comptes-rendus.html'){import('./comptes-rendus-simple.js?v=20260904-1').catch(err=>console.error('Erreur saisie simple compte-rendu :',err));}
 if(lrfCurrentPage==='nouveau-compte-rendu.html'){import('./nouveau-cr-client-mail.js?v=20260904-1').catch(err=>console.error('Erreur nouveau compte-rendu client/mail :',err));}
 if(new Set(['clients.html','mails-groupes.html']).has(lrfCurrentPage)){import('./mail-archive-enhancer.js?v=20260903-1').catch(err=>console.error('Erreur archivage détaillé des mails :',err));}
-if(lrfCurrentPage==='dashboard.html'){
+if(lrfCurrentPage==='dashboard.html'&&!document.body.classList.contains('crm-v2')){
   import('./dashboard-ui-fixes.js?v=20260903-1').catch(err=>console.error('Erreur correctifs dashboard :',err));
   import('./dashboard-agent-avatar.js?v=20260904-avatar3&media=20261018').catch(err=>console.error('Erreur avatar agent dashboard :',err));
   import('./crm-radio-player.js?v=20260904-radio1').catch(err=>console.error('Erreur lecteur radio CRM :',err));
 }
 const lrfClockPages=new Set(['dashboard.html','clients.html','mails-groupes.html','comptes-rendus.html','tournees.html']);
-if(lrfClockPages.has(lrfCurrentPage)){
+if(lrfClockPages.has(lrfCurrentPage)&&!document.body.classList.contains('crm-v2')){
   import('./dashboard-clock-tools.js?v=20260904-header1').then(async()=>{
     await import('./dashboard-clock-state-fix.js?v=20260903-1').catch(err=>console.error('Erreur état des outils horloge :',err));
     if(lrfCurrentPage==='dashboard.html'||document.getElementById('lrf-clock-page-layout-fix'))return;
@@ -64,6 +62,7 @@ if(lrfClockPages.has(lrfCurrentPage)){
   }).catch(err=>console.error('Erreur chargement outils horloge du CRM :',err));
 }
 if(new Set(['dashboard.html','clients.html','comptes-rendus.html']).has(lrfCurrentPage)){
-  const loadSmart=()=>import('./crm-smart-search.js?v=20260909-smart4').catch(err=>console.error('Erreur recherche intelligente CRM :',err));
+  const loadSmart=()=>import('./crm-smart-search.js?v=20261023-crm-audit1').catch(err=>console.error('Erreur recherche intelligente CRM :',err));
   if(lrfCurrentPage==='clients.html')lrfClientIntegrityReady.then(loadSmart);else loadSmart();
 }
+

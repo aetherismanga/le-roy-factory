@@ -1,4 +1,4 @@
-import { db } from './firebase.js';
+import { db, waitForAgent } from './firebase.js?v=20261023-crm-audit1';
 import {
   collection,
   getDocs,
@@ -151,7 +151,7 @@ async function fetchTours() {
     } catch {
       snap = await getDocs(collection(db, 'tournees'));
     }
-    cachedTours = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+    cachedTours = snap.docs.map((d) => ({ ...d.data(), id: d.id }));
   } catch (error) {
     console.error('[Tournées propriétaires] Chargement impossible', error);
     cachedTours = [];
@@ -311,7 +311,8 @@ function observeCurrentPlan() {
   }
 }
 
-function init() {
+async function init() {
+  if (!await waitForAgent()) return;
   addStyles();
   addLegend();
   observeSavedList();
@@ -324,3 +325,4 @@ if (document.readyState === 'loading') {
 } else {
   init();
 }
+

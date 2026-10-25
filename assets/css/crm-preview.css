@@ -1,0 +1,8 @@
+#crm-preview-banner{position:relative;z-index:20;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;padding:7px 12px;background:#eef3e9;color:#365346;border-bottom:1px solid #d1deca;font:12px/1.4 system-ui,sans-serif;min-height:34px;box-sizing:border-box}#crm-preview-banner strong{font-size:10px;letter-spacing:.09em;padding:3px 6px;border:1px solid #bdd0b5;border-radius:4px}#crm-preview-banner label{display:flex;align-items:center;gap:6px}#crm-preview-banner select{font:inherit;border:1px solid #c6d3be;background:white;border-radius:5px;padding:4px;color:#294c3a}html{scroll-padding-top:60px}@media(max-width:600px){#crm-preview-banner{justify-content:space-between;font-size:10px;gap:5px}#crm-preview-banner label{font-size:0}#crm-preview-banner select{font-size:12px}#crm-preview-banner>span{max-width:46%;line-height:1.25}}
+
+/* Test identity stays visible without consuming the first mobile screen. */
+#crm-preview-banner{flex-wrap:nowrap;min-height:36px;gap:8px;padding:5px 10px}
+#crm-preview-banner>span{white-space:nowrap;max-width:none}
+#crm-preview-banner label{flex:none;font-size:0}
+#crm-preview-banner select{font-size:12px!important;min-height:26px!important;padding:3px 5px!important;max-width:95px}
+@media(max-width:600px){#crm-preview-banner{justify-content:space-between}#crm-preview-banner>span{font-size:10px;max-width:none}#crm-preview-banner strong{font-size:9px;padding:3px 4px}}

@@ -1,6 +1,6 @@
 // Charge le coeur historique des statistiques et ajoute les situations ELIOS et VIEW juillet/août 2026.
 // Le coeur est archivé séparément pour garder ces mises à jour petites et réversibles.
-const coreUrl=new URL('./statistiques-core.js?v=20260903-elios-aout2',import.meta.url);
+const coreUrl=new URL('./statistiques-core.js?v=20261023-crm-audit1',import.meta.url);
 let source=await fetch(coreUrl,{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error(`Chargement statistiques impossible (${r.status})`);return r.text()});
 
 const oldEliosImport="import { ELIOS_STATS_CLIENTS } from './statistiques-elios-data.js';";
@@ -21,6 +21,7 @@ source=source
   .replace(oldViewBranch,newViewBranches);
 
 const moduleBase=new URL('./',coreUrl);
-source=source.replace(/from\s+(['"])(\.\/[^'"]+)\1/g,(_m,q,rel)=>`from ${q}${new URL(rel,moduleBase).href}${q}`);
+source=source.replace(/from\s+(['"])((?:\.\/|\/)[^'"]+)\1/g,(_m,q,rel)=>`from ${q}${new URL(rel,moduleBase).href}${q}`);
 const blobUrl=URL.createObjectURL(new Blob([source],{type:'text/javascript'}));
 try{await import(blobUrl)}finally{setTimeout(()=>URL.revokeObjectURL(blobUrl),0)}
+

@@ -166,11 +166,9 @@ function decorateMobile(){
 function decorate(){ensureStyles();ensureModal();decorateTable();decorateMobile()}
 
 async function cleanupMistakenCode(){
-  if(cleanupDone)return;cleanupDone=true;
-  const dm=clients.find(c=>norm(clientName(c))==='dm home'&&extraCodes(c).some(code=>norm(code)==='lrf-00309'));
-  if(!dm)return;
-  try{await updateDoc(doc(db,'clients',dm.id),{codesLRF:arrayRemove('LRF-00309')})}
-  catch(e){cleanupDone=false;console.warn('Nettoyage LRF-00309 non effectué',e)}
+  // Consultation must never repair or reassign commercial identifiers.
+  // Existing codes remain untouched; any correction requires an explicit action.
+  return;
 }
 
 document.addEventListener('click',e=>{
@@ -182,10 +180,11 @@ document.addEventListener('click',e=>{
 },true);
 
 onSnapshot(collection(db,'clients'),snap=>{
-  clients=[];snap.forEach(d=>clients.push({id:d.id,...d.data()}));
+  clients=[];snap.forEach(d=>clients.push({...d.data(),id:d.id}));
   cleanupMistakenCode();if(activeClientId)renderModal();setTimeout(decorate,0);
 });
 let decorationScheduled=false;
 function scheduleDecorate(){if(decorationScheduled)return;decorationScheduled=true;requestAnimationFrame(()=>{decorationScheduled=false;decorate()})}
 const observer=new MutationObserver(scheduleDecorate);if(document.body)observer.observe(document.body,{childList:true,subtree:true});
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',decorate,{once:true});else decorate();
+

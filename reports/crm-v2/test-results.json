@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-25",
+  "environment": "fixtures only",
+  "unitTests": 133,
+  "failures": 0,
+  "modulesParsed": 101,
+  "modulesLinked": 80,
+  "moduleErrors": 0,
+  "browser": "Chromium direct top-level viewport emulation, 20 pages × 6 sizes",
+  "observedJourneys": [
+    "dashboard KPI 4 clients 2 prospects 1 appointment 1 tour",
+    "client exact ID editing",
+    "partners 3 before and after note update",
+    "LRF-00101 stable",
+    "map 6 markers then 2 for department34",
+    "menu categories and five bottom links",
+    "ELIOS partner filter gives 2 markers",
+    "inactive client pane computed display none after partner selection",
+    "external action blocked by preview guard",
+    "Coryne authenticated demo greeting and no repeat after refresh"
+  ],
+  "notValidated": [
+    "native Safari iOS",
+    "real Android/iPhone keyboard",
+    "GPS hardware permission flow",
+    "live Firebase rules",
+    "actual mail delivery",
+    "Google Calendar",
+    "document cloud upload"
+  ],
+  "browserChecks": 695
+}
