@@ -7,6 +7,7 @@ import {columnFormat,cabinetFormat} from './configuration.js';
 import {isOpening} from './openings.js';
 import {equipmentSolidCollision} from './equipment-collision.js';
 import {screenMount,nearestScreenMount} from './screen-mount.js';
+import {isWallMountedSanitary,isFloorAnchoredSanitary,normalizeSanitaryPlacement,sanitaryMountError,remapSanitaryPlacement} from '../../shared/lrf-3d/sanitary-mount.js';
 export const OBJECT_LIMIT=32,MIRROR_LIMIT=3;
 export function itemDimensions(type,settings={}){return isAccessory(type)?equipmentDimensions(type,settings):isFixture(type)?fixtureDimensions(type,settings):isOpening(type)?{width:settings.width/100,height:settings.height/100,depth:.07,base:0}:type==='cabinet'?{width:(settings.width||80)/100,height:cabinetFormat(settings.format).height+.02+(settings.top==='neris'?.14:settings.top==='torne'?.12:0),depth:cabinetFormat(settings.format).depth,base:cabinetFormat(settings.format).base}:type==='column'?{width:columnFormat(settings.columnModel).width/100,height:columnFormat(settings.columnModel).height/100,depth:columnFormat(settings.columnModel).depth/100,base:columnFormat(settings.columnModel).base/100}:{width:mirrorSpec(settings).width,height:mirrorSpec(settings).height,depth:.038,base:1.40};}
 export function boundsOnWall(room,item,placement=item.placement,dimensions=item.dimensions){
@@ -26,12 +27,14 @@ export class Composition{
   if((item.type==='door'||isFloorItem(item)&&item.type!=='screen')&&p.height!==0)return 'Cet élément doit reposer au sol (hauteur 0 cm).';
   if(item.type==='screen'){const tray=items.find(t=>t.id===item.settings.trayId)||this.items.find(t=>t.id===item.settings.trayId),mount=tray&&screenMount(tray,{...item,dimensions:d});if(!mount||['wall','u','offset','height','rotation'].some(k=>Math.abs((p[k]||0)-(mount.placement[k]||0))>.02))return 'La paroi doit rester sur le bord supérieur du receveur.';}
   const wall=room.walls[p.wall];if(!wall)return 'Choisissez un mur existant.';
+  const mountError=sanitaryMountError({...item,dimensions:d},p,room);if(mountError)return mountError;
   if(!isFloorItem(item)&&(p.u<d.width*50||p.u>wall.length*100-d.width*50))return 'L’élément dépasse le bord du mur.';
   if(isOpening(item.type)&&(p.u<d.width*50+2||p.u>wall.length*100-d.width*50-2||p.height+d.height*100>(wall.height||room.height)*100-2))return 'Conservez au moins 2 cm autour du cadre, sous le plafond et aux extrémités du mur.';
   const b=boundsOnWall(room,item,p,d);if(b.bottom<-.001||b.top>(isFloorItem(item)?room.height:wall.height||room.height)+.001)return 'L’élément dépasse la hauteur de la pièce.';
-  if(b.corners.some(q=>!inside(q,room.points)))return 'L’élément dépasse le contour de la pièce.';
-  for(let i=0;i<4;i++)for(let j=0;j<room.points.length;j++)if(intersect(b.corners[i],b.corners[(i+1)%4],room.points[j],room.points[(j+1)%room.points.length]))return 'Un angle de la pièce empiète sur l’élément.';
-  for(const [partitionIndex,p] of (room.partitions||[]).entries()){if(isOpening(item.type)&&wall.partition===partitionIndex)continue;if(b.bottom>=p.height-.002)continue;const obstacle={corners:p.corners,bottom:0,top:p.height,tangent:new T.Vector3((p.b[0]-p.a[0])/p.length,0,-(p.a[1]-p.b[1])/p.length),normal:p.normal};if(overlap(b,obstacle))return 'Une cloison occupe cet emplacement.';}
+  const attachedNiche=!!p.nicheId,containment=attachedNiche?boundsOnWall(room,item,{...p,offset:0},d):b;
+  if(containment.corners.some(q=>!inside(q,room.points)))return 'L’élément dépasse le contour de la pièce.';
+  for(let i=0;i<4;i++)for(let j=0;j<room.points.length;j++)if(intersect(containment.corners[i],containment.corners[(i+1)%4],room.points[j],room.points[(j+1)%room.points.length]))return 'Un angle de la pièce empiète sur l’élément.';
+  for(const [partitionIndex,p] of (room.partitions||[]).entries()){if((isOpening(item.type)||attachedNiche)&&wall.partition===partitionIndex)continue;if(b.bottom>=p.height-.002)continue;const obstacle={corners:p.corners,bottom:0,top:p.height,tangent:new T.Vector3((p.b[0]-p.a[0])/p.length,0,-(p.a[1]-p.b[1])/p.length),normal:p.normal};if(overlap(b,obstacle))return 'Une cloison occupe cet emplacement.';}
   for(const other of items)if(other.id!==item.id){if(canOverlay(item,other)){if(overlap(b,boundsOnWall(room,other))&&equipmentSolidCollision({...item,dimensions:d},p,other,other.placement,room))return 'La robinetterie traverse un équipement : déplacez-la ou remontez-la.';}else if(overlap(b,boundsOnWall(room,other)))return 'Un autre élément occupe cet emplacement.';}
   if(item.type==='shower'){
    const tray={...item,placement:p,dimensions:d},children=(items.length?items:this.items).filter(i=>i.type==='screen'&&i.settings.trayId===item.id),proposed=[];
@@ -45,7 +48,7 @@ export class Composition{
  findSpace(item,preferred={}){
   const wallOrder=[preferred.wall??0,...this.room.walls.map((_,i)=>i)].filter((n,i,a)=>a.indexOf(n)===i);
   for(const wall of wallOrder){const length=this.room.walls[wall]?.length*100;if(!length)continue;const positions=[preferred.u??length/2,length/2];for(let u=item.dimensions.width*50+2;u<=length-item.dimensions.width*50-2;u+=5)positions.push(u);positions.sort((a,b)=>Math.abs(a-(preferred.u??length/2))-Math.abs(b-(preferred.u??length/2)));
-   for(const u of positions){const p={wall,u:Math.round(u),height:preferred.height??(item.type==='mirror'?140:item.type==='window'?100:item.type==='door'||isFloorItem(item)?0:28)};if(!this.validate(item,p))return p;}
+   for(const u of positions){const p={wall,u:Math.round(u),height:preferred.height??(item.type==='mirror'?140:item.type==='window'?100:item.type==='door'||isFloorItem(item)||isFloorAnchoredSanitary(item)?0:isWallMountedSanitary(item)?12:28)};const mounted=normalizeSanitaryPlacement(item,p,this.room);if(!this.validate(item,mounted))return mounted;}
   }return null;
  }
  add(type,asset,settings={},preferred={}){
@@ -53,19 +56,20 @@ export class Composition{
   const root=new T.Group(),id='object-'+this.nextId++;root.name=type+'_'+id;root.userData.itemId=id;root.add(asset.root);
   const item={id,type,root,asset,settings:{...settings,drawers:[...(settings.drawers||[0,0])]},dimensions:itemDimensions(type,settings),motion:{drawers:Array(type==='cabinet'?cabinetFormat(settings.format).drawers:2).fill(0),door:0},placement:null,decor:[]};
   if(type==='screen'){const trays=this.items.filter(t=>t.type==='shower'),tray=trays.find(t=>t.id===settings.trayId)||trays.find(t=>t.id===this.selectedId)||trays[0];if(!tray)return {error:'Ajoutez d’abord un receveur pour y poser la paroi.'};let mount=screenMount(tray,item,settings.edge||'left',settings.edgeShift||0);if(!mount)mount=nearestScreenMount(trays,item,{wall:tray.placement.wall,u:tray.placement.u,offset:tray.placement.offset||0},tray.id);if(!mount)return {error:'Cette paroi est trop grande pour les bords du receveur.'};Object.assign(item.settings,{trayId:mount.trayId,edge:mount.edge,edgeShift:mount.edgeShift});preferred=mount.placement;if(this.validate(item,preferred)){for(const edge of ['left','right','front','back']){const candidate=screenMount(tray,item,edge,0);if(!candidate)continue;const test={...item,settings:{...item.settings,edge,edgeShift:0}};if(!this.validate(test,candidate.placement)){Object.assign(item.settings,{edge,edgeShift:0});preferred=candidate.placement;break;}}}}
+  preferred=normalizeSanitaryPlacement(item,preferred,this.room);
   item.placement=!this.validate(item,preferred)?{...preferred}:type==='screen'?null:this.findSpace(item,preferred);if(!item.placement)return {error:'Aucun emplacement libre : agrandissez la pièce ou déplacez un élément.'};this.items.push(item);this.selectedId=id;this.sync(item);this.syncOpenings();return {item};
  }
  move(id,p){return this.place(id,p,false);}
  // Dragging may cross furniture, while a shower screen remains on its tray.
  previewMove(id,p){return this.place(id,p,true);}
  place(id,p,preview=false){
-  const item=this.items.find(i=>i.id===id);if(!item)return {error:'Élément introuvable.'};if(this.locked||item.locked||this.items.some(child=>child.type==='screen'&&child.settings.trayId===id&&child.locked))return {error:'Élément verrouillé : déverrouillez-le pour le déplacer.'};let candidate={...item.placement,...p},mount;
+  const item=this.items.find(i=>i.id===id);if(!item)return {error:'Élément introuvable.'};if(this.locked||item.locked||this.items.some(child=>child.type==='screen'&&child.settings.trayId===id&&child.locked))return {error:'Élément verrouillé : déverrouillez-le pour le déplacer.'};let candidate=normalizeSanitaryPlacement(item,{...item.placement,...p},this.room),mount;
   if(item.type==='screen'){mount=nearestScreenMount(this.items.filter(i=>i.type==='shower'),item,candidate,item.settings.trayId);if(!mount)return {error:'Aucun bord du receveur ne convient à cette paroi.'};candidate=mount.placement;}
   else if(preview&&isFloorItem(item))candidate=this.clampFloorPlacement(item,candidate);
   const settings=mount?{...item.settings,trayId:mount.trayId,edge:mount.edge,edgeShift:mount.edgeShift}:item.settings,proposed={...item,placement:candidate,settings},patches=[proposed];
   if(item.type==='shower')for(const child of this.items.filter(i=>i.type==='screen'&&i.settings.trayId===id)){const m=screenMount(proposed,child);if(!m)return {error:'Le nouveau receveur est trop petit pour sa paroi.'};patches.push({...child,placement:m.placement});}
   const planned=this.items.map(i=>patches.find(p=>p.id===i.id)||i);
-  for(const patch of patches){const error=this.validate(patch,patch.placement,patch.dimensions,preview&&['cabinet','column','mirror'].includes(item.type)?planned.filter(i=>i.id===patch.settings.trayId):planned);if(error)return {error};}
+  for(const patch of patches){const error=this.validate(patch,patch.placement,patch.dimensions,preview&&(['cabinet','column','mirror'].includes(item.type)||isWallMountedSanitary(item))?planned.filter(i=>i.id===patch.settings.trayId):planned);if(error)return {error};}
   for(const patch of patches){const original=this.items.find(i=>i.id===patch.id);original.placement=patch.placement;original.settings=patch.settings;this.sync(original);}this.syncOpenings();return {item,overlap:preview&&patches.some(i=>!!this.validate(i,i.placement,i.dimensions,planned))};
  }
  clampFloorPlacement(item,desired,snap=true){
@@ -95,14 +99,15 @@ export class Composition{
    for(const offset of z)for(const u of x){if(++checks>6400)return null;const p={...desired,u,offset,height:0};if(!this.validate(item,p))return p;}return null;}
 
 
+  desired=normalizeSanitaryPlacement(item,desired,this.room);
   const wall=this.room.walls[desired.wall];if(!wall)return null;const d=item.dimensions,edge=isOpening(item.type)?2:1,lo=Math.ceil(d.width*50+edge),hi=Math.floor(wall.length*100-d.width*50-edge),mirrorOffset=item.type==='mirror'?d.height*50:0;
-  const minH=mirrorOffset,maxH=Math.floor((wall.height||this.room.height)*100-d.height*100+mirrorOffset-(isOpening(item.type)?2:0)),height=item.type==='door'?0:T.MathUtils.clamp(Math.round(desired.height),minH,maxH);
+  const minH=mirrorOffset,maxH=Math.floor((wall.height||this.room.height)*100-d.height*100+mirrorOffset-(isOpening(item.type)?2:0)),height=item.type==='door'||isFloorAnchoredSanitary(item)?0:T.MathUtils.clamp(Math.round(desired.height),minH,maxH);
   const heights=new Set([height,minH,maxH]);
   for(const other of this.items){if(other.id===item.id)continue;const b=boundsOnWall(this.room,other);heights.add(Math.floor(b.bottom*100-d.height*100+mirrorOffset-1));heights.add(Math.ceil(b.top*100+mirrorOffset+1));}
-  const candidates=[...heights].filter(h=>h>=minH&&h<=maxH&&(item.type!=='door'||h===0)).sort((a,b)=>Math.abs(a-height)-Math.abs(b-height));
+  const candidates=[...heights].filter(h=>h>=minH&&h<=maxH&&((item.type!=='door'&&!isFloorAnchoredSanitary(item))||h===0)).sort((a,b)=>Math.abs(a-height)-Math.abs(b-height));
   // Prefer keeping the requested mounting height. Search at centimetre steps
   // on the requested wall, never jump silently to a different wall.
-  for(const h of candidates){const positions=[];for(let u=lo;u<=hi;u++)positions.push(u);positions.sort((a,b)=>Math.abs(a-desired.u)-Math.abs(b-desired.u)||a-b);for(const u of positions){const p={...desired,wall:desired.wall,u,height:h};if(!this.validate(item,p))return p;}}
+  for(const h of candidates){const positions=[];for(let u=lo;u<=hi;u++)positions.push(u);positions.sort((a,b)=>Math.abs(a-desired.u)-Math.abs(b-desired.u)||a-b);for(const u of positions){const p=normalizeSanitaryPlacement(item,{...desired,wall:desired.wall,u,height:h},this.room);if(!this.validate(item,p))return p;}}
   return null;
  }
  settle(id,origin){const item=this.items.find(i=>i.id===id);if(!item)return {error:'Élément introuvable.'};const desired={...item.placement};if(!this.validate(item))return {item,adjusted:false};const position=this.nearestPlacement(item,desired);if(position){const result=this.move(id,position);return {...result,adjusted:true};}const restored=this.move(id,origin);return {...restored,restored:true,error:'Aucun emplacement libre sur ce mur : position de départ rétablie.'};}
@@ -110,7 +115,7 @@ export class Composition{
  remove(id){const target=this.items.find(i=>i.id===id);if(this.locked||target?.locked||this.items.some(i=>i.type==='screen'&&i.settings.trayId===id&&i.locked))return null;for(const child of [...this.items].filter(i=>i.type==='screen'&&i.settings.trayId===id))this.remove(child.id);const index=this.items.findIndex(i=>i.id===id);if(index<0)return null;const [item]=this.items.splice(index,1);item.root.removeFromParent();if(this.selectedId===id)this.selectedId=this.items[0]?.id||null;this.syncOpenings();return item;}
  setRoom(next){
   if(this.locked)return 'Déverrouillez la composition avant de modifier la pièce.';
-  const remap=this.items.map(item=>{const old=this.room.walls[item.placement.wall],match=next.walls.findIndex(w=>w.key===old.key);if(old.partition!==undefined&&match<0)return null;const wall=match>=0?match:Math.min(item.placement.wall,next.walls.length-1);return {...item,placement:{...item.placement,wall,u:Math.round(item.placement.u/(old.length*100)*(next.walls[wall].length*100))}};});if(remap.some(i=>!i))return 'Déplacez ou supprimez les éléments fixés à cette cloison avant de la supprimer.';const planned=remap;for(const screen of planned.filter(i=>i.type==='screen')){const tray=planned.find(i=>i.id===screen.settings.trayId),mount=tray&&screenMount(tray,screen);if(!mount)return 'Le receveur ne convient plus à sa paroi.';screen.placement=mount.placement;}
+  const remap=this.items.map(item=>{const old=this.room.walls[item.placement.wall],match=next.walls.findIndex(w=>w.key===old.key);if(old.partition!==undefined&&match<0)return null;const wall=match>=0?match:Math.min(item.placement.wall,next.walls.length-1);const placement=remapSanitaryPlacement(item,{...item.placement,wall,u:Math.round(item.placement.u/(old.length*100)*(next.walls[wall].length*100))},this.room,next);return placement?{...item,placement}:null;});if(remap.some(i=>!i))return 'Déplacez les éléments fixés à cette cloison ou à cette niche avant de la supprimer ou de la réduire.';const planned=remap;for(const screen of planned.filter(i=>i.type==='screen')){const tray=planned.find(i=>i.id===screen.settings.trayId),mount=tray&&screenMount(tray,screen);if(!mount)return 'Le receveur ne convient plus à sa paroi.';screen.placement=mount.placement;}
   for(const item of planned){const error=this.validate(item,item.placement,item.dimensions,planned,next);if(error)return 'La nouvelle pièce ne convient pas à la composition : '+error;}
   this.room=next;this.items.forEach((item,i)=>{item.placement=planned[i].placement;this.sync(item);});this.syncOpenings();return '';
  }

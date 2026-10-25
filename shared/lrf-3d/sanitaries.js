@@ -1,6 +1,7 @@
 import * as T from 'three';
 import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js';
 import {makeTap,tapProduct,metalMaterial} from './taps.js';
+import {createSurface} from './room.js';
 export const SANITARIES=[
  {id:'TR2217R',name:'AMARO VORTEX',type:'toilet',width:.36,depth:.48,height:.36,finish:'Blanc brillant',page:44},
  {id:'TR2217R-U18',name:'AMARO BLACK VORTEX',type:'toilet',width:.36,depth:.48,height:.36,finish:'Noir mat',page:44},
@@ -38,11 +39,19 @@ export function makeSanitary(type,s={}){const p=sanitarySpec(s),root=new T.Group
   else box(.32,.28,.035,0,.155,-.23+.02,'Dos_fixation');
   const addFlushPlate=(y,z)=>{const plate=flushPlateMaterial(s.plateColor||'Blanc');box(.24,.16,.009,0,y,z,'Plaque_double_chasse',plate);for(const [x,r]of [[-.049,.042],[.055,.028]]){const button=add(new T.CylinderGeometry(r,r,.004,48),plate,'Bouton_chasse',x,y,z+.008);button.rotation.x=Math.PI/2;}};
   const angle=lid.rotation.x;lid.rotation.x=0;const bounds=new T.Box3().setFromObject(root),size=bounds.getSize(new T.Vector3()),content=new T.Group();while(root.children.length)content.add(root.children[0]);content.scale.set(p.width/size.x,p.height/size.y,p.depth/size.z);content.position.set(-(bounds.min.x+bounds.max.x)/2*content.scale.x,-bounds.min.y*content.scale.y,-.23-bounds.min.z*content.scale.z);root.add(content);lid.rotation.x=angle;root.updateMatrixWorld(true);const actualHeight=new T.Box3().setFromObject(root).getSize(new T.Vector3()).y;
-  if(!floor&&s.support){const width=Math.max(.5,Math.min(1.2,(Number(s.supportWidth)||60)/100)),height=Math.max(.85,Math.min(1.35,(Number(s.supportHeight)||112)/100)),depth=Math.max(.15,Math.min(.35,(Number(s.supportDepth)||20)/100));content.position.y+=.40;content.position.z+=depth;
+  if(!floor&&s.support){const width=Math.max(.5,Math.min(1.2,(Number(s.supportWidth)||60)/100)),height=Math.max(.85,Math.min(1.35,(Number(s.supportHeight)||112)/100)),depth=Math.max(.15,Math.min(.35,(Number(s.supportDepth)||20)/100));content.position.y+=.12;content.position.z+=depth;
    const cladding=new T.MeshStandardMaterial({color:/^#[a-f0-9]{6}$/i.test(s.supportColor||'')?s.supportColor:'#d6cabb',roughness:.72}),steel=new T.MeshStandardMaterial({color:'#23595d',metalness:.8,roughness:.28});
    for(const sign of [-1,1])box(.04,height-.04,.04,sign*(width/2-.04),height/2,-.23+.04,'Montant_bati_support',steel);box(width,height,depth,0,height/2,-.23+depth/2,'Habillage_bati_support',cladding);
+   const supportSurfaces=[];
+   const face=(part,w,h,x,y,z,rx=0,ry=0)=>{const surface=createSurface([[0,0],[w,0],[w,h],[0,h]],'Habillage_carrelage_'+part,[],{receiveTileShadows:true});surface.group.position.set(x,y,z);surface.group.rotation.set(rx,ry,0);surface.group.userData.editTarget='toilet';surface.group.userData.supportPart=part;surface.supportPart=part;surface.length=w;surface.height=h;surface.supportDimensions={width,height,depth};root.add(surface.group);supportSurfaces.push(surface);};
+   // The back remains exactly at the wall plane (-23 cm). Four independent
+   // physical tile faces allow real joints/cuts, matching wall material and HD.
+   face('front',width,height,-width/2,0,-.23+depth+.001);
+   face('left',depth,height,-width/2-.001,0,-.23,0,-Math.PI/2);
+   face('right',depth,height,width/2+.001,0,-.23+depth,0,Math.PI/2);
+   face('top',width,depth,-width/2,height+.001,-.23+depth,-Math.PI/2);
    addFlushPlate(Math.min(height-.13,1.0),-.23+depth+.005);
-   return {root,spec:p,dimensions:{width:Math.max(p.width,width),depth:p.depth+depth,height,base:0},ceramic};
+   return {root,spec:p,supportSurfaces,dimensions:{width:Math.max(p.width,width),depth:p.depth+depth,height,base:0},ceramic};
   }
   if(!floor)addFlushPlate(.90,-.225);
   return {root,spec:p,dimensions:{width:p.width,depth:p.depth,height:actualHeight,base:0},ceramic};

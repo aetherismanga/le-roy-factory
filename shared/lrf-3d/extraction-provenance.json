@@ -59,7 +59,19 @@
       "module": "equipment.js",
       "sha256": "501041c67ffaa0e6a8edeb2a49e218abdaab7dd9eb877cd5c81c7a996a6e35ce",
       "bytes": 4171,
-      "originalsIdentical": true
+      "originalsIdentical": true,
+      "current": {
+        "sha256": "15d4cd24a6a2b5271bcf48a6db057508568ff352c190e710d04e942cc2594172",
+        "bytes": 4260,
+        "changeType": "functional-update-20261025",
+        "reason": "Requested floor calepinage side panel and compatible wall alignment; verified Stone Icon Big Opus; wall-mounted WC with inherited editable cladding. Original extraction hash retained above.",
+        "validation": [
+          "tests/lrf-suite/floor-wall-alignment.test.mjs",
+          "tests/lrf-suite/sanitary-mount.test.mjs",
+          "tests/lrf-suite/sanitary-support-cladding.test.mjs",
+          "tests/lrf-suite/stone-icon-big-opus.test.mjs"
+        ]
+      }
     },
     {
       "module": "hd-capture.js",
@@ -204,14 +216,15 @@
       "bytes": 7756,
       "originalsIdentical": true,
       "current": {
-        "sha256": "64048b377d77b0957055ce1bbd45916d403c19c5c901667e8ec517a57420f90e",
-        "bytes": 8523,
-        "changeType": "functional-update-20261024",
-        "reason": "Requested shared RANDAL editing improvements: tile layouts, recessed editable niches, RAL finishes, flush plates and surface controls. Original extraction hash retained above.",
+        "sha256": "64cb02b54b1d035af284bc60a85f2acfd2df42251737f966f3802295436e6cd8",
+        "bytes": 9499,
+        "changeType": "functional-update-20261025",
+        "reason": "Requested floor calepinage side panel and compatible wall alignment; verified Stone Icon Big Opus; wall-mounted WC with inherited editable cladding. Original extraction hash retained above.",
         "validation": [
-          "shared/lrf-3d/qa/ral-sanitary-check.mjs",
-          "shared/lrf-3d/qa/niche-editing-check.mjs",
-          "shared/lrf-3d/qa/tile-layout-acceptance.mjs"
+          "tests/lrf-suite/floor-wall-alignment.test.mjs",
+          "tests/lrf-suite/sanitary-mount.test.mjs",
+          "tests/lrf-suite/sanitary-support-cladding.test.mjs",
+          "tests/lrf-suite/stone-icon-big-opus.test.mjs"
         ]
       }
     },
@@ -239,14 +252,15 @@
       "bytes": 9166,
       "originalsIdentical": true,
       "current": {
-        "sha256": "95a0a00f39a8a140649cb34203b91554e1672f0ed0922a4cbecb0d545659514c",
-        "bytes": 10788,
-        "changeType": "functional-update-20261024",
-        "reason": "User-requested ELIOS collections, reviewed limited catalogue samples, authorized Yosemite reconstructions and correct multi-tile decor/chevron geometry. Original extraction checksum is preserved.",
+        "sha256": "2e1c3266e0371311c4478d8340245f6a0a7b0638486ae4c720b1d95cb040930a",
+        "bytes": 11975,
+        "changeType": "functional-update-20261025",
+        "reason": "Requested floor calepinage side panel and compatible wall alignment; verified Stone Icon Big Opus; wall-mounted WC with inherited editable cladding. Original extraction hash retained above.",
         "validation": [
-          "shared/lrf-3d/qa/tile-layout-acceptance.mjs",
-          "shared/lrf-3d/qa/decor-panels-check.mjs",
-          "shared/lrf-3d/qa/surface-appearance-check.mjs"
+          "tests/lrf-suite/floor-wall-alignment.test.mjs",
+          "tests/lrf-suite/sanitary-mount.test.mjs",
+          "tests/lrf-suite/sanitary-support-cladding.test.mjs",
+          "tests/lrf-suite/stone-icon-big-opus.test.mjs"
         ]
       }
     },

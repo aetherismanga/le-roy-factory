@@ -1,5 +1,7 @@
 import {COLLECTIONS,tileFormat} from './surface-catalog.js';
 import {polygonArea} from './surface-geometry.mjs';
+import commercialSurfaces from './commercial-surfaces.json' with {type:'json'};
+import {commercialSurfaceProduct} from './surface-identity.mjs';
 export const packagingKey=(finish,format)=>[finish.collection,finish.color,format].join('|');
 export function packagingFor(finish,formatId){const f=tileFormat(finish.collection,formatId)||{},legacy=finish.pack;return finish.packs?.[packagingKey(finish,formatId)]||(legacy?.format===formatId&&(!legacy.collection||legacy.collection===finish.collection)&&(!legacy.color||legacy.color===finish.color)?legacy:null)||f.packByColor?.[finish.color]||f;}
 export function quantityForSurface(surface,finish,layout={},loss=10,label=''){
@@ -11,7 +13,13 @@ export function quantityForSurface(surface,finish,layout={},loss=10,label=''){
  const row={label,catalogueKey:finish.catalogueKey,reference:finish.reference,finish:finish.finish,customPack:Boolean(finish.packs?.[packagingKey(finish,format.id)]||finish.pack?.format===format.id),brand:c.brand,collection:finish.collection,color:finish.color,format:format.id,area,tileCount,full,cut,layoutArea,cutWaste:Math.max(0,layoutArea-area),loss,withLoss,needed,pcsBox:packVerified?Number(pack.pcsBox):null,m2Box:packVerified?Number(pack.m2Box):null,packVerified,boxes,orderArea:packVerified?boxes*Number(pack.m2Box):null,orderPieces:packVerified?boxes*Number(pack.pcsBox):Math.ceil(tileCount*(1+Math.max(0,loss)/100)),source:pack.source||format.source||c.source||'Conditionnement fabricant à confirmer'};
  if(layout.pattern==='opus'&&layout.opus?.mode!=='manufacturer6'){
   const groups=new Map();for(const cell of cells){const key=cell.width+'|'+cell.height;if(!groups.has(key))groups.set(key,[]);groups.get(key).push(cell);}
-  if(groups.size>1){const sum=cells.reduce((n,c)=>n+c.area,0);row.components=[...groups.values()].map(values=>{const cell=values[0],f=c.formats.find(f=>Math.abs(f.width-cell.width)<.001&&Math.abs(f.height-cell.height)<.001||Math.abs(f.height-cell.width)<.001&&Math.abs(f.width-cell.height)<.001);if(!f)throw Error('Le module opus comporte un format absent de cette collection.');return quantityForSurface({...surface,quantityAreaOverride:area*values.reduce((n,v)=>n+v.area,0)/sum,tiles:{geometry:{userData:{cells:values}}}},{...finish,format:f.id},{...layout,pattern:'straight'},loss,label+' · opus '+f.id);});}
+  if(groups.size>1||groups.size&&format.opus?.mode==='stone-icon-big'){const sum=cells.reduce((n,c)=>n+c.area,0);row.components=[...groups.values()].map(values=>{const cell=values[0],f=c.formats.find(f=>Math.abs(f.width-cell.width)<.001&&Math.abs(f.height-cell.height)<.001||Math.abs(f.height-cell.width)<.001&&Math.abs(f.width-cell.height)<.001);if(!f)throw Error('Le module opus comporte un format absent de cette collection.');let component={...finish,format:f.id};
+   if(layout.opus?.mode==='stone-icon-big'){
+    const product=commercialSurfaceProduct({collection:finish.collection,color:finish.color,format:f.id,finish:format.opus.finish},commercialSurfaces.products);
+    if(!product)throw Error('La référence Tumbled du composant Big Opus '+f.id+' reste à confirmer.');
+    component={...component,catalogueKey:product.key,reference:product.reference,finish:product.finish,pack:{format:f.id,collection:finish.collection,color:finish.color,m2Box:product.packArea,pcsBox:product.packPieces,source:product.packSource}};
+   }
+   return quantityForSurface({...surface,quantityAreaOverride:area*values.reduce((n,v)=>n+v.area,0)/sum,tiles:{geometry:{userData:{cells:values}}}},component,{...layout,pattern:'straight'},loss,label+' · opus '+f.id);});}
  }
  return row;
 }

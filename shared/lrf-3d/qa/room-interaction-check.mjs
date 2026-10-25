@@ -37,7 +37,7 @@ for(const config of cases){
  const door={type:'door',placement:{wall:0,u:150,height:0},dimensions:{width:.83,height:2.04},settings:{width:83,height:204}};
  for(const room of rooms)room.setOpenings([door]);
  assert.deepEqual(shape(rooms[0]),shape(rooms[1]),'Identical opening cuts and floor topology');
- assert.equal(rooms[0].floor.tiles.receiveShadow,false,'Studio existing anti-acne policy is preserved');
+ assert.equal(rooms[0].floor.tiles.receiveShadow,true,'Studio receives the same physical window daylight as General');
  assert.equal(rooms[1].floor.tiles.receiveShadow,true,'General existing daylight policy is preserved');
  for(const room of rooms)room.dispose();
 }
@@ -74,4 +74,4 @@ try{for(const app of apps){
  readonly=true;assert.equal(controller.setLock(true),false);assert.equal(composition.locked,false,'Read-only project remains unchanged');room.dispose();
 }}finally{if(priorDocument===undefined)delete globalThis.document;else globalThis.document=priorDocument;}
 
-console.log(JSON.stringify({passed:true,roomCases:cases.length,checks:['one plan editor implementation','room geometry and measurements identical in both adapters','partition/niche/opening cuts identical','invalid plinth ranges rejected consistently','transparent glass shadows fixed','existing application lighting adapters preserved','cold-start lock icon, toggle and read-only guard in both renovation adapters']},null,2));
+console.log(JSON.stringify({passed:true,roomCases:cases.length,checks:['one plan editor implementation','room geometry and measurements identical in both adapters','partition/niche/opening cuts identical','invalid plinth ranges rejected consistently','transparent glass shadows fixed','both application adapters receive physical window daylight','cold-start lock icon, toggle and read-only guard in both renovation adapters']},null,2));

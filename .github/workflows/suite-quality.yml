@@ -37,7 +37,7 @@ concurrency:
 jobs:
   verify:
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
@@ -64,6 +64,14 @@ jobs:
         run: node tests/lrf-quercia-mobile.browser.mjs
       - name: Verify tile selection with mouse and touch
         run: node tests/lrf-suite/tile-selection-browser.cjs
+      - name: Verify live floor layouts and compatible wall alignment
+        run: node tests/lrf-suite/floor-layout-browser.cjs
+      - name: Verify inspector scrollbars preserve the current selection
+        run: node tests/lrf-suite/panel-scroll-browser.cjs
+      - name: Verify wall-mounted toilets and legacy project recovery
+        run: node tests/lrf-suite/sanitary-attachment-browser.cjs
+      - name: Verify inherited and custom WC support coverings
+        run: node tests/lrf-suite/sanitary-support-browser.cjs
       - name: Verify private LRF composition references on desktop and mobile
         run: node tests/lrf-suite/lrf-reference-browser.cjs
       - name: Verify Studio One mirror references through the real server handler

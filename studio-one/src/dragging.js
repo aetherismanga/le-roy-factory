@@ -1,5 +1,6 @@
 import * as T from 'three';
 import {isFloorItem} from './composition.js';
+import {isFloorAnchoredSanitary} from '../../shared/lrf-3d/sanitary-mount.js';
 import {pickSelection,tapGesture} from './picking.js';
 export function setupObjectDragging({canvas,scene,camera,controls,getComposition,onSelect,onTap,onChange,onStatus,onStart,onEnd,setTimer=setTimeout,clearTimer=clearTimeout}){
  canvas.addEventListener('contextmenu',e=>e.preventDefault());
@@ -27,7 +28,7 @@ export function setupObjectDragging({canvas,scene,camera,controls,getComposition
   const candidates=[];
   comp.room.walls.forEach((w,index)=>{if(r.ray.direction.dot(w.normal)>=-.00001)return;const plane=new T.Plane().setFromNormalAndCoplanarPoint(w.normal,w.start),point=r.ray.intersectPlane(plane,new T.Vector3());if(!point)return;const p=coordinates(e,index);if(p&&p.u>=0&&p.u<=w.length*100&&p.height>=0&&p.height<=comp.room.height*100)candidates.push({index,distance:point.distanceTo(r.ray.origin)});});
   candidates.sort((a,b)=>a.distance-b.distance);if(candidates.length)wallIndex=candidates[0].index;
-  const p=coordinates(e,wallIndex);if(!p)return;const d=a.item.dimensions,w=comp.room.walls[wallIndex];p.u=Math.round(T.MathUtils.clamp(p.u+a.offsetU,d.width*50+(a.item.type==='window'||a.item.type==='door'?2:1),w.length*100-d.width*50-(a.item.type==='window'||a.item.type==='door'?2:1)));p.height=a.item.type==='door'?0:Math.round(T.MathUtils.clamp(p.height+a.offsetH,a.item.type==='mirror'?d.height*50:0,(w.height||comp.room.height)*100-d.height*100+(a.item.type==='mirror'?d.height*50:0)));
+  const p=coordinates(e,wallIndex);if(!p)return;const d=a.item.dimensions,w=comp.room.walls[wallIndex];p.u=Math.round(T.MathUtils.clamp(p.u+a.offsetU,d.width*50+(a.item.type==='window'||a.item.type==='door'?2:1),w.length*100-d.width*50-(a.item.type==='window'||a.item.type==='door'?2:1)));p.height=a.item.type==='door'||isFloorAnchoredSanitary(a.item)?0:Math.round(T.MathUtils.clamp(p.height+a.offsetH,a.item.type==='mirror'?d.height*50:0,(w.height||comp.room.height)*100-d.height*100+(a.item.type==='mirror'?d.height*50:0)));
   const targets=[w.length*50];for(const other of comp.items){if(other.id===a.item.id||other.placement.wall!==wallIndex)continue;targets.push(other.placement.u,other.placement.u+(other.dimensions.width+d.width)*50+2,other.placement.u-(other.dimensions.width+d.width)*50-2);}const snap=targets.sort((x,y)=>Math.abs(x-p.u)-Math.abs(y-p.u))[0];const snapped=Math.abs(snap-p.u)<=3;if(snapped)p.u=snap;const result=comp.previewMove(a.item.id,p);onStatus(result.error||(snapped?'Alignement magnétique · relâchez pour placer.':result.overlap?'Chevauchement temporaire · placement automatique au relâchement.':'Position : '+Math.round(a.item.placement.u)+' cm · hauteur '+Math.round(a.item.placement.height)+' cm'));onChange();
  },true);
  canvas.addEventListener('pointerup',e=>{const clicked=tap.up(e),a=active;pointers.delete(e.pointerId);if(a?.id===e.pointerId){const show=clicked&&!a.dragging;const hit=a.hit;finish(false);if(show)onTap(hit);}else if(clicked&&pointers.size===0)onTap(pickSelection(scene,camera,ndc(e)));},true);

@@ -41,6 +41,20 @@ export function tileModules(bounds,layout={}){
    modules.push({key:c+':'+r,col:c,row:r,x,y,width:w,height:h,nominalArea:w*h,center:[x+A/2,y+dy/2+B/2],uvBasis:{width:A,height:B,slope:sign*Math.tan(theta)},polygon});
   }
  }else if(l.pattern==='opus'){
+  if(l.opus?.mode==='stone-icon-big'){
+   // Stone Icon, manufacturer module A (catalogue p73): one each of
+   // 60x90 / 60x60 / 30x60 / 30x30, sold as individual formats. Its L-shaped
+   // 13-unit domain tiles by the lattice (3,-2), (2,3), without introducing
+   // a fake rectangular slab or changing the manufacturer's 6:4:2:1 ratio.
+   const unit=.3,pieces=[[0,0,2,3],[2,0,1,1],[2,1,2,2],[4,1,1,2]];
+   const corners=[[bounds.minX/unit-5,bounds.minY/unit-3],[bounds.minX/unit-5,bounds.maxY/unit],[bounds.maxX/unit,bounds.minY/unit-3],[bounds.maxX/unit,bounds.maxY/unit]];
+   const cs=corners.map(([x,y])=>(3*x-2*y)/13),rs=corners.map(([x,y])=>(2*x+3*y)/13);
+   for(let r=Math.floor(Math.min(...rs))-1;r<=Math.ceil(Math.max(...rs))+1;r++)for(let c=Math.floor(Math.min(...cs))-1;c<=Math.ceil(Math.max(...cs))+1;c++){
+    const x=(3*c+2*r)*unit,y=(-2*c+3*r)*unit;
+    pieces.forEach(([dx,dy,aa,bb],k)=>{const a=aa*unit,b=bb*unit,xx=x+dx*unit,yy=y+dy*unit;if(xx+a<bounds.minX||xx>bounds.maxX||yy+b<bounds.minY||yy>bounds.maxY)return;modules.push({key:c+':'+r+':'+k,col:c,row:r,x:xx,y:yy,width:a,height:b,nominalArea:a*b,polygon:rectangle(xx,yy,a,b,g)});});
+   }
+   return modules;
+  }
   // Repeating 2:1 / square module: four real, non-overlapping rectangles.
   // Product-specific format compatibility is checked before this is offered.
   const unit=l.opus?.unit||Math.min(w,h),mode=l.opus?.mode||'two',W=unit*(mode==='two'?2:6),H=unit*(mode==='roman4'?4:['roman3','manufacturer6'].includes(mode)?3:2);

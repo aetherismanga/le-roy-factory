@@ -1,7 +1,7 @@
 {
   "schema": "lrf-suite-release",
   "version": 1,
-  "releaseId": "20261024-suite-coherence-1",
+  "releaseId": "20261025-layout-wc-daylight-1",
   "baselineMain": "8571318620b70a7d7c0c9a0580b1d65bdc32db5e",
   "baselineStudio": "4668cd99df55734a46fcd3bd330acb60da53d3f5",
   "applications": [
