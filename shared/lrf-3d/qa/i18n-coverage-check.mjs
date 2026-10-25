@@ -4,6 +4,7 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {ES_UI,ES_PATTERNS} from '../i18n/es-ui.js';
 import {translateText} from '../i18n/index.js';
+import {auditSourceUI} from './i18n-source-audit.mjs';
 
 // Reproducible presentation-boundary audit. Source catalogues and saved project
 // values are not translated. This complements interactive desktop/mobile QA;
@@ -16,7 +17,7 @@ const decode=value=>value.replace(/&(?:amp|lt|gt|quot|apos|nbsp);|&#(?:x[0-9a-f]
 });
 const htmlFiles=['studio-one/src/atelier.html','randal-general/src/atelier.html','studio-one/src/commerce/home.html','randal-general/src/commerce/home.html'];
 const preserved=new Set(['STUDIO ONE','RANDAL','Studio One','LE ROY FACTORY','ELIOS','VIEW','AQUA HOME','Aruba','Roble Amazona','Shell','Creta','Corso','Golden Stone','Avena','Beige','Horizontal','Vertical','Showroom premium','Gmail','Outlook','LRF-XXXXX','RANDAL · STUDIO ONE · LE ROY FACTORY','RANDAL STUDIO ONE · LE ROY FACTORY','← RANDAL','s','o','Shell Beige · 60 × 120 cm','Creta Avena · 60 × 120 cm']);
-const numericOrSymbol=value=>!/[A-Za-zÀ-ÿ]/.test(value)||/^[\d\s.,×/Ø+−–—%°()XYm²clK↺]+$/.test(value)||/^[XY] \(cm\)$/.test(value);
+const numericOrSymbol=value=>!/[A-Za-zÀ-ÿ]/.test(value)||/^[\d\s.,×/Ø+−–—%°()XYm²clK↺·|:→]+$/.test(value)||/^[XY] \(cm\)$/.test(value);
 const ignoredSource=new Set(['Créole_argent','Butée_porte','Gorge_BRUNEI_reculée','Época','Aruba rainuré','Vert céladon · or vieilli','Vert céladon · argent vieilli']);
 const isFrench=value=>/[éèêëàâùûçôîïœ]/i.test(value)||/\b(?:votre|vos|les|des|une|pour|dans|sur|avec|le|la|du|choisir|modifier|projet|meuble|vasque|tiroir|colonne|carrelage|calepinage)\b/i.test(value);
 const omissions=[];let htmlNodes=0,translatedNodes=0;
@@ -29,6 +30,10 @@ for(const file of htmlFiles){
 }
 
 const exactCases=[
+ ['Meuble 1 → M2 : 40 cm','Mueble 1 → P2: 40 cm'],
+ ['En 85 cm, le plan assorti remplace la vasque encastrée.','En 85 cm, la encimera a juego sustituye al lavabo integrado.'],
+ ['Plan vide · 2 niveaux · ouvertures, pierre et piscine conservées','Plano vacío · 2 plantas · aberturas, piedra y piscina conservadas'],
+ ['Fermer les portes','Cerrar las puertas'],['Haut : ouvrir','Superior: abrir'],['Vasque Sella','Lavabo Sella'],
  ['Nouveau projet','Nuevo proyecto'],['Mes projets','Mis proyectos'],['Choisir un meuble','Elegir un mueble'],
  ['Plan vasque','Encimera con lavabo'],['Enregistrer','Guardar'],['Récapitulatif','Resumen'],['Visite 3D','Visita 3D'],
  ['Charnières à droite · inverser ↔','Bisagras a la derecha · invertir ↔'],
@@ -43,6 +48,11 @@ const exactCases=[
 ];
 for(const [fr,es]of exactCases){assert.equal(translateText(fr,'es'),es,fr);assert.equal(translateText(fr,'fr'),fr,`French unchanged: ${fr}`);}
 const representativeUI=[
+ 'Verrouillez les positions pour éviter un déplacement. Le calepinage s’équilibre automatiquement ; vous pouvez ensuite l’ajuster mur par mur.',
+ 'Le tapis est créé au centre du sol. Glissez-le avec la souris ; sur téléphone, maintenez le doigt puis glissez. Largeur et profondeur se modifient ici.',
+ 'Cloison ajoutée. Glissez-la dans la 3D ; réglez ses dimensions à droite.',
+ 'Vue HD de votre salle de bain configurée','Accès RANDAL non autorisé pour ce compte.',
+ 'Photo catalogue · détail · finition présentée : Chrome brillant',
  'Déverrouillez cet élément pour modifier ses dimensions.','Dimensions et position de la cloison',
  'Modifier le tapis de carrelage','Receveur à carreler','Ouvrir l’abattant','Finition des poignées',
  'Enregistrer le projet','Imprimer / PDF','Votre projet en photoréalisme','Fermer le calepinage',
@@ -60,28 +70,11 @@ for(const value of ['LRF-00317-668.88.00','TR2217R','13692','9567','Stone Icon F
 assert.equal(translateText('  Nouveau projet  ','es'),'  Nuevo proyecto  ');
 assert.equal(translateText('Clé absente de la traduction 987654','es'),'Clé absente de la traduction 987654','Explicit French fallback');
 
-// Inventory source fragments as a second coverage signal. Literal fragments
-// assembled into a sentence are verified above with actual composed examples.
-// Technical source strings and manufacturer names are excluded explicitly.
-const sourceFiles=[];
-for(const base of ['studio-one/src','randal-general/src','shared/lrf-3d']){
- const visit=dir=>{for(const entry of fs.readdirSync(dir,{withFileTypes:true})){const full=path.join(dir,entry.name);if(entry.isDirectory()){if(!['i18n','qa','media','node_modules'].includes(entry.name))visit(full);}else if(/\.(?:js|mjs)$/.test(entry.name)&&!entry.name.startsWith('polygon-clipping'))sourceFiles.push(full);}};visit(path.join(root,base));
-}
-let sourceCandidates=0;const sourceReview=[];
-for(const full of sourceFiles){
- const source=fs.readFileSync(full,'utf8');
- // Catalogue provenance/limitations describe verified source data, not UI.
- if(full.endsWith(path.join('commerce','catalog.js')))continue;
- for(const match of source.matchAll(/'((?:[^'\\\n]|\\.)*)'|"((?:[^"\\\n]|\\.)*)"/g)){
-  const raw=match[1]??match[2],value=normalize(decode(raw.replace(/\\n/g,'\n').replace(/\\'/g,"'").replace(/\\"/g,'"')));
-  if(value.length<3||value.length>1000||!isFrench(value)||preserved.has(value)||ignoredSource.has(value)||/[_{}<>;=]|\$\{|\|\||&&|(?:\.\.?\/|https?:|\bMath\.|\breturn\b|\bconst\b|\bfunction\b)|^#/.test(value)||/^(?:COLUMNA|BAÑERA|CONJUNTO)\b/.test(value)||/\.(?:js|json|svg|webp|png|jpg|hdr|css|csv|pdf|app|com)$/.test(value)||/^[a-z0-9]+(?:[-/][a-z0-9]+)+(?:[ ]+[a-z0-9-]+)*$/.test(value)||value==='projet')continue;
-  sourceCandidates++;
-  if(translateText(value,'es')===value)sourceReview.push({file:path.relative(root,full),text:value});
- }
-}
-const uniqueReview=[...new Map(sourceReview.map(item=>[item.file+'|'+item.text,item])).values()];
-const report={dictionaryEntries:Object.keys(ES_UI).length,patterns:ES_PATTERNS.length,htmlFiles:htmlFiles.length,htmlNodes,translatedNodes,htmlOmissions:omissions,sourceFiles:sourceFiles.length,sourceCandidates,sourceFragmentsToReview:uniqueReview,dynamicCases:exactCases.length+representativeUI.length,identifierCases:12};
+// Parse JavaScript and inert HTML, including templates and sentences with ';'.
+const sourceAudit=await auditSourceUI({root,translateText,preserved,isFrench,numericOrSymbol});
+const report={dictionaryEntries:Object.keys(ES_UI).length,patterns:ES_PATTERNS.length,htmlFiles:htmlFiles.length,htmlNodes,translatedNodes,htmlOmissions:omissions,...sourceAudit,dynamicCases:exactCases.length+representativeUI.length,identifierCases:12};
 console.log(JSON.stringify(report,null,2));
 assert.equal(omissions.length,0,'Untranslated HTML UI strings (see report)');
 
-assert.equal(uniqueReview.length,0,'Untranslated source UI fragments (see report; composed templates also need interactive QA)');
+assert.equal(sourceAudit.parseErrors.length,0,'JavaScript inventory parse errors');
+assert.equal(sourceAudit.sourceFragmentsToReview.length,0,'Untranslated source UI fragments (see report; composed templates also need interactive QA)');

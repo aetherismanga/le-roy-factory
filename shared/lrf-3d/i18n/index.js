@@ -9,7 +9,10 @@ const supported=value=>value==='fr'||value==='es';
 const normalize=value=>value.replace(/\u00a0/g,' ').replace(/\s+/g,' ').trim();
 const dictionary=new Map(Object.entries(ES_UI).map(([fr,es])=>[normalize(fr),es]));
 let locale='fr',initialized=false,observer,selector;
-try{const requested=typeof location==='object'?new URLSearchParams(location.search).get('lang'):null;const stored=globalThis.localStorage?.getItem(LANGUAGE_KEY);locale=supported(requested)?requested:supported(stored)?stored:'fr';}catch{}
+let requested=null;
+try{requested=typeof location==='object'?new URLSearchParams(location.search).get('lang'):null;}catch{}
+if(supported(requested))locale=requested;
+else try{const stored=globalThis.localStorage?.getItem(LANGUAGE_KEY);if(supported(stored))locale=stored;}catch{}
 export const getLocale=()=>locale;
 export const localeTag=()=>locale==='es'?'es-ES':'fr-FR';
 export const onLocaleChange=callback=>{listeners.add(callback);return ()=>listeners.delete(callback);};
@@ -22,6 +25,11 @@ function exactOrPattern(value){
 export function translateText(value,language=locale){
  const source=String(value??'');if(language!=='es'||!source.trim())return source;
  const trimmed=source.trim(),leading=source.slice(0,source.indexOf(trimmed)),trailing=source.slice(source.indexOf(trimmed)+trimmed.length);
+ // Surface checks can concatenate several independently labelled notices.
+ // Split those boundaries before a dynamic rule can consume earlier notices
+ // as part of the last wall's label.
+ const notices=trimmed.split(/(\s+(?=(?:Sol|Mur \d+|Cloison \d+|Zone \d+|Receveur \d+) :))/u);
+ if(notices.length>1)return leading+notices.map((part,index)=>index%2?part:translateText(part,language)).join('')+trailing;
  const exact=exactOrPattern(trimmed);if(exact!==null)return leading+exact+trailing;
  // Dynamic interface labels are often composed with numeric dimensions, a
  // reference or a manufacturer name. Translate only whole UI segments.
@@ -56,11 +64,16 @@ export function translateDOM(root=globalThis.document){
 export function withLocaleURL(value){
  const url=new URL(value,location.href);url.searchParams.set('lang',locale);return url.href;
 }
+function publishLocaleToSite(){
+ if(!globalThis.document||!globalThis.parent||globalThis.parent===globalThis)return;
+ try{const origin=new URL(document.referrer).origin;if(['https://leroyfactory.fr','https://www.leroyfactory.fr'].includes(origin))parent.postMessage({type:'lrf-ui-language',locale},origin);}catch{}
+}
 function preserveLinkLocale(event){
  const anchor=event.target.closest?.('a[href]');if(!anchor||anchor.hasAttribute('download'))return;
  const url=new URL(anchor.href,location.href);
  const workshop=url.origin===location.origin||/^(studio-one-beta-test-v2|randal-catalogue-general-3d)(?:-[a-z0-9-]+)?\.vercel\.app$/.test(url.hostname);
- if(!workshop||!/^https?:$/.test(url.protocol)||!/(?:\.html|\/)$/i.test(url.pathname))return;
+ const site=['leroyfactory.fr','www.leroyfactory.fr'].includes(url.hostname)&&['/','/index.html','/configurateurs-randal.html','/studio-one-configurateur.html','/randal-configurateur.html'].includes(url.pathname);
+ if((!workshop&&!site)||!/^https?:$/.test(url.protocol)||!/(?:\.html|\/)$/i.test(url.pathname))return;
  url.searchParams.set('lang',locale);anchor.href=url.href;
 }
 export function setLocale(next){
@@ -68,6 +81,7 @@ export function setLocale(next){
  const changed=next!==locale;locale=next;
  try{globalThis.localStorage?.setItem(LANGUAGE_KEY,locale);}catch{}
  if(globalThis.document?.documentElement){document.documentElement.lang=locale;if(selector)selector.value=locale;const url=new URL(location.href);url.searchParams.set('lang',locale);history.replaceState(history.state,'',url);translateDOM(document);}
+ publishLocaleToSite();
  if(changed)for(const callback of listeners)callback(locale);
  if(changed&&globalThis.dispatchEvent)dispatchEvent(new CustomEvent('lrf-locale-change',{detail:{locale}}));
  return true;

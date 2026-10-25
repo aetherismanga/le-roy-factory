@@ -1050,13 +1050,47 @@ export const ES_SHARED = {
   "Alignement": "Alineación",
   "Pièces": "Piezas",
   "Tampons": "Caras",
-  "Mon projet": "Mi proyecto"
+  "Mon projet": "Mi proyecto",
+  "Accès RANDAL non autorisé pour ce compte.": "Acceso a RANDAL no autorizado para esta cuenta.",
+  "cm pour la pièce, les meubles et leurs placements ; formats et joints selon les valeurs du configurateur": "cm para la estancia, los muebles y sus posiciones; formatos y juntas según los valores del configurador",
+  "Vue HD de votre salle de bain configurée": "Vista HD de tu cuarto de baño configurado",
+  "Le tapis est créé au centre du sol. Glissez-le avec la souris ; sur téléphone, maintenez le doigt puis glissez. Largeur et profondeur se modifient ici.": "La alfombra cerámica se crea en el centro del suelo. Arrástrala con el ratón; en el teléfono, mantén pulsado el dedo y arrastra. Aquí puedes modificar la anchura y la profundidad.",
+  "Verrouillez les positions pour éviter un déplacement. Le calepinage s’équilibre automatiquement ; vous pouvez ensuite l’ajuster mur par mur.": "Bloquea las posiciones para evitar desplazamientos. El despiece se equilibra automáticamente; después puedes ajustarlo pared por pared.",
+  "Catalogue : 62,5 × 28,5 × 15 cm ; le tarif JSON indique 44 × 27 × 15 cm. Cote PDF retenue.": "Catálogo: 62,5 × 28,5 × 15 cm; la tarifa JSON indica 44 × 27 × 15 cm. Se utiliza la cota del PDF.",
+  ": échantillon fabricant de définition limitée ; référence et finition conservées.": ": muestra del fabricante con resolución limitada; referencia y acabado conservados.",
+  ": reconstitution visuelle à partir du visuel officiel ; teinte indicative, tampons non originaux du fabricant.": ": reconstrucción visual a partir de la imagen oficial; color orientativo, caras que no son originales del fabricante.",
+  "Photo catalogue": "Foto del catálogo",
+  "Photo catalogue · détail": "Foto del catálogo · detalle",
+  "photographie originale": "fotografía original",
+  "finition présentée :": "acabado mostrado:",
+  "orientation automatique.": "orientación automática.",
+  "Bâti-support": "Bastidor",
+  "détail": "detalle",
+  "photo catalogue en": "foto del catálogo en",
+  "catalogue général, page PDF": "catálogo general, página PDF",
+  "échantillon fabricant de définition limitée": "muestra del fabricante con resolución limitada",
+  "référence et finition conservées.": "referencia y acabado conservados.",
+  "reconstitution visuelle à partir du visuel officiel": "reconstrucción visual a partir de la imagen oficial",
+  "teinte indicative, tampons non originaux du fabricant.": "color orientativo, caras que no son originales del fabricante."
 };
 
 // Patterns only match interface sentences; captured collection names, references
 // and dimensions are copied verbatim. No commercial or project data is rewritten.
-const labelES = value => ES_SHARED[value] || value.replace(/^Mur (\d+)$/, 'Pared $1').replace(/^Cloison (\d+)$/, 'Tabique $1');
+const labelES = value => ES_SHARED[value] || value.replace(/^Mur (\d+)$/, 'Pared $1').replace(/^Cloison (\d+)$/, 'Tabique $1').replace(/^Zone (\d+)$/, 'Zona $1');
 export const ES_SHARED_PATTERNS = [
+ [/^AQUAHOME 2026 · catalogue général, page PDF (\d+) · photographie originale$/, 'AQUAHOME 2026 · catálogo general, página PDF $1 · fotografía original'],
+ [/^Photo catalogue( · détail)? · finition présentée : (.+)$/, (_, detail, finish) => 'Foto del catálogo'+(detail?' · detalle':'')+' · acabado mostrado: '+labelES(finish)],
+ [/^AQUA HOME ([^·]+) · (.+?)( · détail)? · photo catalogue en (.+)$/, (_, collection, name, detail, finish) => 'AQUA HOME '+collection+' · '+name+(detail?' · detalle':'')+' · foto del catálogo en '+labelES(finish)],
+ [/^Cloison collée au mur (\d+) · orientation automatique\.$/, 'Tabique adosado a la pared $1 · orientación automática.'],
+ [/^Bâti-support · (.+)$/, (_, label) => 'Bastidor · '+labelES(label)],
+ [/^(.+) : échantillon fabricant de définition limitée ; référence et finition conservées\.$/, (_, label) => labelES(label)+': muestra del fabricante con resolución limitada; referencia y acabado conservados.'],
+ [/^(.+) : reconstitution visuelle à partir du visuel officiel ; teinte indicative, tampons non originaux du fabricant\.$/, (_, label) => labelES(label)+': reconstrucción visual a partir de la imagen oficial; color orientativo, caras que no son originales del fabricante.'],
+ [/^(.+) : référence et finition conservées, aperçu de la couleur fabricant (.+)\.$/, (_, label, color) => labelES(label)+': referencia y acabado conservados, vista previa del color del fabricante '+color+'.'],
+ [/^Décor à raccord continu · pose droite, horizontale ou verticale\. (.+)$/, (_, note) => 'Decorado continuo · colocación recta, horizontal o vertical. '+labelES(note)],
+ [/^Colonne thermostatique (.+)$/, 'Columna termostática $1'],
+ [/^Colonne bain (.+)$/, 'Columna de bañera $1'],
+ [/^Colonne (.+)$/, 'Columna $1'],
+ [/^Bain sur pied (.+)$/, 'Grifería de bañera de pie $1'],
  [/^Aperçu (.+)$/, 'Vista previa $1'],
  [/^Visuel catalogue RANDAL · (.+)$/, 'Imagen del catálogo RANDAL · $1'],
  [/^Clic-clac assortie au mitigeur · (.+) · réf\. (.+)$/, 'Válvula clic-clac a juego con el monomando · $1 · ref. $2'],

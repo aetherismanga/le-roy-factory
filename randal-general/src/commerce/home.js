@@ -26,7 +26,7 @@ if(new URLSearchParams(location.hash.slice(1)).has('projet'))location.replace(de
 const read=(key,fallback=null)=>{try{return readStored(localStorage,key,fallback);}catch{return fallback;}};
 const routeParams=new URLSearchParams(location.search);
 if(routeParams.get('new')==='1'){for(const key of [DRAFT_KEY,TRANSFER_KEY,CURRENT_KEY,QUOTE_KEY,QUOTE_CONTEXT,FLOW_KEY,ACTIVE_ID])localStorage.removeItem(key);routeParams.delete('new');history.replaceState({},'',location.pathname+'?'+routeParams+location.hash);}
-let draft=initialDraft(),view='home',step=0,project=null,projectTitle='Ma salle de bains',siteReference='',quoteMode='guided',session=null,guest=null,orderPurpose='send';
+let draft=initialDraft(),view='home',step=0,project=null,projectTitle=t('Ma salle de bains'),siteReference='',quoteMode='guided',session=null,guest=null,orderPurpose='send';
 let preview=null,previewPromise=null,previewFailed=false,previewTurn=0,lastPreviewProject=null,identityStarted=false;
 const identity=createIdentity(()=>currentComposition(),state=>{session=state;renderAccount();});
 const routeCollection=C.collections.find(c=>c.id===routeParams.get('collection')||c.name.toLowerCase()===(routeParams.get('collection')||'').toLowerCase());
@@ -120,7 +120,7 @@ const projectDeletion=createProjectDeletion({storage:localStorage,onDeleted:()=>
 function showProjects(){return projectWorkspace.showProjects();}
 
 $('#landing-image').src=C.media+'hero-meuble-hd.webp';
-$('#new-project').onclick=()=>{draft=initialDraft(draft.collection);project=null;projectTitle='Ma salle de bains';siteReference='';guest=null;quoteMode='guided';try{localStorage.removeItem(ACTIVE_ID);localStorage.removeItem(QUOTE_KEY);localStorage.removeItem(QUOTE_CONTEXT);}catch{}switchView('wizard',0);};
+$('#new-project').onclick=()=>{draft=initialDraft(draft.collection);project=null;projectTitle=t('Ma salle de bains');siteReference='';guest=null;quoteMode='guided';try{localStorage.removeItem(ACTIVE_ID);localStorage.removeItem(QUOTE_KEY);localStorage.removeItem(QUOTE_CONTEXT);}catch{}switchView('wizard',0);};
 $('#resume-project').onclick=()=>{const flow=read(FLOW_KEY,{view:'wizard',step:0});if(flow.view==='wizard'){project=null;switchView('wizard',flow.step);return;}const data=read(CURRENT_KEY)||read(QUOTE_KEY);if(data){if(flow.view==='atelier'){launch(data);return;}try{project=checkedProject(data);quoteMode=read(QUOTE_CONTEXT,{mode:'scene'}).mode;switchView('quote');return;}catch{}}switchView('wizard',0);};
 $('#saved-projects').onclick=showProjects;
 $('#direct-atelier').onclick=()=>{try{localStorage.setItem(FLOW_KEY,JSON.stringify({view:'atelier',step}));}catch{}location.href=demoRoute('atelier.html');};
@@ -164,7 +164,7 @@ $('#new-project').onclick=()=>projectNavigation.request(()=>{switchView('collect
 $('#change-collection').onclick=()=>projectNavigation.request(()=>switchView('collections'),'new');
 const requested=new URLSearchParams(location.search).get('collection');if(requested){const clean=v=>v.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();const col=C.collections.find(c=>clean(c.name)===clean(requested)||c.id===requested);if(col&&view!=='quote'&&view!=='collections'&&new URLSearchParams(location.search).get('view')!=='configure')chooseCollection(col.id);}
 
-const projectWorkspace=createWorkspace({onPublicCompositions:()=>homePublicGallery.show(),getProject:currentComposition,getThumbnail:()=>$('#preview-status').hidden?preview?.snapshot({thumbnail:true}):null,onDeletedActive:()=>{project=null;draft=initialDraft();projectTitle='Ma salle de bains';siteReference='';switchView('home');},onUpdate:data=>{project=data;projectTitle=data.title;siteReference=data.siteReference||'';storeQuote(localStorage,data,quoteMode);renderQuote();},
+const projectWorkspace=createWorkspace({onPublicCompositions:()=>homePublicGallery.show(),getProject:currentComposition,getThumbnail:()=>$('#preview-status').hidden?preview?.snapshot({thumbnail:true}):null,onDeletedActive:()=>{project=null;draft=initialDraft();projectTitle=t('Ma salle de bains');siteReference='';switchView('home');},onUpdate:data=>{project=data;projectTitle=data.title;siteReference=data.siteReference||'';storeQuote(localStorage,data,quoteMode);renderQuote();},
  onOpen:(data,id,record)=>{if(record?.kind==='house'){location.href=demoRoute('maison.html?project='+encodeURIComponent(id));return;}openSaved(data,id);},
  onLock:(locked)=>{for(const selector of ['#quote-title','#quote-site','#edit-choices','#save-composition','#prepare-order']){const el=$(selector);if(el)el.disabled=locked;}},status:text=>error(text,'#quote-status')});
 projectWorkspace.setAccount(identity.state);

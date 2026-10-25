@@ -23,7 +23,7 @@ if(new URLSearchParams(location.hash.slice(1)).has('projet'))location.replace(de
 const read=(key,fallback=null)=>{try{return readStored(localStorage,key,fallback);}catch{return fallback;}};
 const routeParams=new URLSearchParams(location.search);
 if(routeParams.get('new')==='1'){for(const key of [DRAFT_KEY,TRANSFER_KEY,CURRENT_KEY,QUOTE_KEY,QUOTE_CONTEXT,FLOW_KEY,ACTIVE_ID])localStorage.removeItem(key);routeParams.delete('new');history.replaceState({},'',location.pathname+'?'+routeParams+location.hash);}
-let draft=initialDraft(),view='home',step=0,project=null,projectTitle='Ma salle de bains',siteReference='',quoteMode='guided',session=null,guest=null,orderPurpose='send';
+let draft=initialDraft(),view='home',step=0,project=null,projectTitle=t('Ma salle de bains'),siteReference='',quoteMode='guided',session=null,guest=null,orderPurpose='send';
 let preview=null,previewPromise=null,previewModulePromise=null,previewFailed=false,previewTurn=0,lastPreviewProject=null,identityStarted=false,previewScope='composition',previewCapture=0,cachedThumbnail=null,cachedThumbnailConfiguration='';
 const columnThumbnails=new Map();
 const warmPreview=()=>{if(!previewModulePromise)previewModulePromise=import('./live-preview.js').catch(()=>{previewModulePromise=null;return null;});};
@@ -131,7 +131,7 @@ function openSaved(projectData,id=null){try{project=checkedProject(projectData);
 function downloadProject(p){const blob=new Blob([JSON.stringify(checkedProject(p),null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='studio-one-projet.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);}
 function showProjects(){return projectWorkspace.showProjects();}
 
-$('#new-project').onclick=()=>projectNavigation.request(()=>{for(const key of [DRAFT_KEY,TRANSFER_KEY,CURRENT_KEY,QUOTE_KEY,QUOTE_CONTEXT,FLOW_KEY,ACTIVE_ID])localStorage.removeItem(key);draft=initialDraft();project=null;projectTitle='Ma salle de bains';siteReference='';guest=null;quoteMode='guided';switchView('wizard',0);},'new');
+$('#new-project').onclick=()=>projectNavigation.request(()=>{for(const key of [DRAFT_KEY,TRANSFER_KEY,CURRENT_KEY,QUOTE_KEY,QUOTE_CONTEXT,FLOW_KEY,ACTIVE_ID])localStorage.removeItem(key);draft=initialDraft();project=null;projectTitle=t('Ma salle de bains');siteReference='';guest=null;quoteMode='guided';switchView('wizard',0);},'new');
 $('#resume-project').onclick=()=>{const previous=resumeStudioEntry(localStorage);if(previous){launch(previous);return;}const flow=read(FLOW_KEY,{view:'wizard',step:0});if(flow.view==='wizard'){project=null;switchView('wizard',flow.step);return;}const data=read(CURRENT_KEY)||read(QUOTE_KEY);if(data){if(flow.view==='atelier'){launch(data);return;}try{project=checkedProject(data);quoteMode=read(QUOTE_CONTEXT,{mode:'scene'}).mode;switchView('quote');return;}catch{}}switchView('wizard',0);};
 $('#saved-projects').onclick=showProjects;
 $('#direct-atelier').onclick=()=>{try{localStorage.setItem(FLOW_KEY,JSON.stringify({view:'atelier',step}));}catch{}location.href=demoRoute('atelier.html');};
@@ -170,7 +170,7 @@ addEventListener('storage',e=>{if(e.key==='studio-one-auth-revision'&&identitySt
 $('#preview-composition').onclick=()=>{previewScope='composition';const p=currentComposition();if(p)updatePreview(p);};
 $('#preview-column').onclick=()=>{if(!draft.column)return;previewScope='column';const p=currentComposition();if(p)updatePreview(p);};
 
-const projectWorkspace=createWorkspace({onPublicCompositions:()=>homePublicGallery.show(),getProject:currentComposition,getThumbnail:()=>previewScope==='composition'&&cachedThumbnailConfiguration===JSON.stringify(currentComposition()?.items)?cachedThumbnail:null,onDeletedActive:()=>{project=null;draft=initialDraft();projectTitle='Ma salle de bains';siteReference='';switchView('home');},onUpdate:data=>{project=data;projectTitle=data.title;siteReference=data.siteReference||'';storeQuote(localStorage,data,quoteMode);renderQuote();},
+const projectWorkspace=createWorkspace({onPublicCompositions:()=>homePublicGallery.show(),getProject:currentComposition,getThumbnail:()=>previewScope==='composition'&&cachedThumbnailConfiguration===JSON.stringify(currentComposition()?.items)?cachedThumbnail:null,onDeletedActive:()=>{project=null;draft=initialDraft();projectTitle=t('Ma salle de bains');siteReference='';switchView('home');},onUpdate:data=>{project=data;projectTitle=data.title;siteReference=data.siteReference||'';storeQuote(localStorage,data,quoteMode);renderQuote();},
  onOpen:(data,id,record)=>{if(record?.kind==='house'){location.href=demoRoute('maison.html?project='+encodeURIComponent(id));return;}openSaved(data,id);},
  onLock:(locked)=>{for(const selector of ['#quote-title','#quote-site','#edit-choices','#save-composition','#prepare-order']){const el=$(selector);if(el)el.disabled=locked;}},status:text=>error(text,'#quote-status')});
 projectWorkspace.setAccount(identity.state);

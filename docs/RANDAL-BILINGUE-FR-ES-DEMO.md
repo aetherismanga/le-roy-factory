@@ -37,15 +37,15 @@ Statut : **implémentation FR/ES effectuée sur la branche dédiée ; validation
 
 ## Implémentation réalisée
 
-- Service commun `shared/lrf-3d/i18n/index.js`, dictionnaires français (textes sources) et espagnols centralisés : 2 281 entrées et 153 règles de libellés dynamiques.
+- Service commun `shared/lrf-3d/i18n/index.js`, dictionnaires français (textes sources) et espagnols centralisés : 2 327 entrées et 199 règles de libellés dynamiques.
 - Sélecteur accessible sur les accueils et ateliers, adapté aux écrans de 320 px. Choix enregistré sous `lrf-ui-language-v1`, priorité à `lang=fr` ou `lang=es`, conservation dans les parcours entre ateliers.
-- Traduction du texte et des attributs accessibles, sans recharger le canvas, recréer les objets Three.js ou modifier les états métier. Les valeurs implicites des options sont figées avant traduction. Les favoris et accordéons utilisent une identité indépendante de la langue.
+- Traduction du texte et des attributs accessibles, sans recharger le canvas, recréer les objets Three.js ou modifier les états métier. Les valeurs implicites des options sont figées avant traduction. Le titre par défaut est choisi dans la langue courante uniquement à la création ; les titres des projets repris restent inchangés. Les favoris et accordéons utilisent une identité indépendante de la langue.
 - Références, SKU, collections, données saisies et fichiers de projet conservent leurs valeurs. La langue seule ne déclenche pas d'autosauvegarde. Les anciens projets restent compatibles.
 - Devis imprimables/PDF, libellés des relevés CSV et consignes photoréalistes localisés. Les exports JSON gardent leur schéma et leurs identifiants techniques pour la reprise et les échanges PLAN & POSE.
 - Page commune `demo.html` en espagnol, avec identité LE ROY FACTORY et deux accès aux applications réelles. Les deux prévisualisations vérifiées sont reliées par les paramètres `studio` et `general`.
 - Démonstration anonyme : stockage distinct préfixé `lrf-demo-randal-v1:`, aucune reprise de session client, aucun accès aux services commerciaux ou aux projets du compte, aucun code LRF privé affiché. Les autorisations serveur existantes restent inchangées.
 - Les paramètres de démonstration ne sont jamais utilisés comme autorisation. L'application Maison externe ne s'ouvre pas depuis la démonstration pour ne pas quitter son contexte isolé ; les fonctions habituelles restent présentes hors démonstration.
-- Les wrappers du site ne transmettent que les valeurs `fr` et `es`. Le CRM et PLAN & POSE ne sont pas modifiés.
+- Un pont de préférence sur le site conserve la langue lors du retour à l’accueil ou au choix des configurateurs, puis de l’ouverture de l’autre atelier. Le message ne contient que `fr` ou `es` et exige l’origine et la fenêtre exactes de l’atelier ; aucun transfert de projet ou d’authentification. Un repli fonctionne si ce helper ne charge pas. Le CRM et PLAN & POSE ne sont pas modifiés.
 
 ## Vérifications reproductibles
 
@@ -56,7 +56,7 @@ npm run build:general
 npm run check:core
 npm run check --workspace=studio-one-atelier-3d
 npm run check --workspace=randal-general-3d
-node --test tests/security/*.test.mjs tests/secure-agent-tariffs.test.mjs tests/lrf-plan-pose/*.test.mjs tests/lrf-suite/i18n-runtime.test.mjs
+node --test tests/security/*.test.mjs tests/secure-agent-tariffs.test.mjs tests/lrf-plan-pose/*.test.mjs tests/lrf-suite/i18n-runtime.test.mjs tests/lrf-suite/opening-scene.test.mjs
 node shared/lrf-3d/qa/demo-isolation-check.mjs
 node shared/lrf-3d/qa/i18n-navigation-check.mjs
 node shared/lrf-3d/qa/i18n-coverage-check.mjs
@@ -79,9 +79,16 @@ Les résultats définitifs et les URL vérifiées sont ajoutés après validatio
 
 - Builds Studio One et Catalogue Général : réussis.
 - Noyau mutualisé, batterie Studio One et batterie Catalogue Général : réussis ; géométries, HD, options, références et tarifs publics conservés.
-- Sécurité, références LRF, transferts et invariants PLAN & POSE, tests i18n : 323 réussis, aucun échec, 1 ancien scénario navigateur de récupération ignoré par sa propre détection du navigateur local. Les nouveaux scénarios Playwright ont bien été exécutés séparément.
-- Parcours réels des deux ateliers sur les trois profils navigateur : 48 blocs réussis, aucune erreur JavaScript. Composition complète, changement FR/ES en cours, même renderer, quantités et données exactes, sauvegarde et reprise dans l'autre langue, tous les inspecteurs, despiece, plan, devis imprimable, exports JSON et isolation démo contrôlés.
-- Audit de couverture : 2 281 traductions, 153 règles dynamiques, 4 HTML, 1 028 nœuds, 259 sources JS, 1 853 fragments d'interface examinés ; aucune omission détectée dans ce périmètre.
+- Sécurité, références LRF, transferts et invariants PLAN & POSE, tests i18n : 329 réussis, aucun échec, 1 ancien scénario navigateur de récupération ignoré par sa propre détection du navigateur local. Les nouveaux scénarios Playwright ont bien été exécutés séparément.
+- Parcours réels des deux ateliers sur les trois profils navigateur : 48 blocs réussis, aucune erreur JavaScript. Composition complète, changement FR/ES en cours, même renderer, quantités et données exactes, sauvegarde et reprise dans l'autre langue, tous les inspecteurs, calepinage, plan, devis imprimable, exports JSON et isolation démo contrôlés.
+- Audit de couverture approfondi : 2 327 traductions, 199 règles dynamiques, 4 HTML et 1 028 nœuds ; Acorn 8.15.0 inspecte 259 sources et 316 842 nœuds AST. DOMParser examine 463 fragments HTML générés et leurs 1 834 textes/attributs, parmi 2 957 candidats UI. Aucune omission ni erreur de parsing détectée. 58 cas dynamiques et 12 invariants vérifiés. Le retrait volontaire d'une traduction HTML fait bien échouer cet audit.
 - Scénarios séparés d'isolation démo et de navigation inter-ateliers : réussis.
 
 - Exports CSV réels : 2/2 réussis (français/espagnol sur les deux ateliers), libellés localisés et chiffres, fabricants, collections, formats et références identiques. Total des nouveaux blocs navigateur : 50 réussis.
+
+
+### Contrôle distant et présentation
+
+Un premier lot de prévisualisations a permis douze contrôles en ligne sans mocks, sur PC et iPhone WebKit : les deux accès de présentation, les photos réelles, les ateliers, WebGL, les changements de langue et la reprise isolée ont fonctionné. Les médias et les textures actives ont été contrôlés après leur chargement complet ; la comparaison avec les déploiements de production conserve les mêmes références et ressources.
+
+Les derniers textes d'aide générés découverts pendant cette vérification sont intégrés au dictionnaire et à l'audit AST/DOM. La variable de configuration `VERCEL_PREVIEW_FEEDBACK_ENABLED=0` est limitée aux prévisualisations (Studio One) et à la branche de démonstration en prévisualisation (Catalogue Général), afin de retirer la barre technique Vercel de la présentation. Aucun paramètre de production, aucune protection d'accès et aucun secret ne sont modifiés.

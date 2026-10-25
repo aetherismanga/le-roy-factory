@@ -13,7 +13,8 @@
     "check:core": "node shared/lrf-3d/qa/core-check.mjs && node shared/lrf-3d/qa/top-drawer-check.mjs && node shared/lrf-3d/qa/shared-graph-check.mjs && node shared/lrf-3d/qa/room-interaction-check.mjs && node shared/lrf-3d/qa/ral-sanitary-check.mjs && node shared/lrf-3d/qa/niche-editing-check.mjs && node shared/lrf-3d/qa/tile-layout-acceptance.mjs && node shared/lrf-3d/qa/decor-panels-check.mjs && node shared/lrf-3d/qa/surface-appearance-check.mjs && node shared/lrf-3d/qa/new-collections-check.mjs && node --test tests/lrf-texture-memory.test.mjs && node shared/lrf-3d/qa/tiled-zone-pc-check.mjs"
   },
   "devDependencies": {
-    "@playwright/test": "1.55.0"
+    "@playwright/test": "1.55.0",
+    "acorn": "8.15.0"
   },
   "workspaces": [
     "randal-general",

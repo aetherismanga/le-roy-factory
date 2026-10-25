@@ -52,6 +52,20 @@ export const ES_COMMERCE = {
 'Composition':'Composición',
 'Composition Le Roy FACTORY · lecture seule':'Composición Le Roy FACTORY · solo lectura',
 'Compte PRO LRF':'Cuenta profesional LRF',
+'Compte':'Cuenta',
+'Administrateur —':'Administrador —',
+'Accès RANDAL non autorisé pour ce compte.':'Esta cuenta no tiene acceso autorizado a RANDAL.',
+'élément(s) sans tarif intégré, hors total mobilier':'elemento(s) sin tarifa, no incluido(s) en el total del mobiliario',
+'Version différente sur un autre poste':'Versión diferente en otro dispositivo',
+'aperçu du mobilier':'vista previa del mobiliario',
+'aperçu du modèle 3D':'vista previa del modelo 3D',
+'Vasque :':'Lavabo:',
+'vasque intégrée':'lavabo integrado',
+'vasque à poser':'lavabo sobre encimera',
+'meuble seul':'solo mueble',
+'sans plan ni vasque':'sin encimera ni lavabo',
+
+
 'Compte client :':'Cuenta de cliente:',
 'Compte vérifié :':'Cuenta verificada:',
 'Configuration 3D':'Configuración 3D',
@@ -405,6 +419,11 @@ export const ES_COMMERCE = {
 
 /** Whole-message patterns preserve interpolated numbers and official names. */
 export const ES_COMMERCE_PATTERNS = [
+[/^Demande de commande (STUDIO ONE|RANDAL GÉNÉRAL)(.*)$/u,(_m,app,suffix)=>`Solicitud de pedido ${app==='RANDAL GÉNÉRAL'?'RANDAL GENERAL':app}${suffix}`],
+[/^Demande de rappel (STUDIO ONE|RANDAL GÉNÉRAL)(.*)$/u,(_m,app,suffix)=>`Solicitud de contacto ${app==='RANDAL GÉNÉRAL'?'RANDAL GENERAL':app}${suffix}`],
+[/^Vasque : (.+)$/u,'Lavabo: $1'],
+[/^(\d+) modèles?$/u,(_m,n)=>`${n} ${n==='1'?'modelo':'modelos'}`],
+
 [/^Enregistrement automatique indisponible : (.+)$/u,'Guardado automático no disponible: $1'],
 [/^(.+) sera envoyé à jerome@leroyfactory\.fr avec son numéro et son fichier de configuration\.$/u,'Se enviará $1 a jerome@leroyfactory.fr con su número y su archivo de configuración.'],
 [/^Salle de bains de la collection (.+)$/u,'Baño de la colección $1'],
@@ -414,7 +433,7 @@ export const ES_COMMERCE_PATTERNS = [
 [/^Dimensions fabricant · H (.+) cm · P (.+) cm · panneaux (.+) mm\. Les finitions choisies s’appliquent réellement en 3D\.$/u,'Dimensiones del fabricante · alto $1 cm · fondo $2 cm · paneles de $3 mm. Los acabados elegidos se aplican a la vista 3D.'],
 [/^Largeur au centimètre, de 40 à 120 cm\. Caisson (.+) cm \+ pieds (.+) cm · hauteur totale (.+) cm · profondeur 46 cm\.(.*)$/u,(_m,a,b,c,tail)=>`Anchura en centímetros enteros, de 40 a 120 cm. Casco de ${a} cm + patas de ${b} cm · altura total ${c} cm · fondo 46 cm.${tail?' La anchura de 40 cm está pendiente de confirmación del fabricante.':''}`],
 [/^Largeur au centimètre, de 40 à 120 cm\. Hauteur (.+) cm · profondeur 46 cm\.(.*)$/u,(_m,a,tail)=>`Anchura en centímetros enteros, de 40 a 120 cm. Altura ${a} cm · fondo 46 cm.${tail?' La anchura de 40 cm está pendiente de confirmación del fabricante.':''}`],
-[/^(\d+)–(\d+) cm · (\d+) modèles?$/u,'$1–$2 cm · $3 modelos'],
+[/^(\d+)–(\d+) cm · (\d+) modèles?$/u,(_m,min,max,n)=>`${min}–${max} cm · ${n} ${n==='1'?'modelo':'modelos'}`],
 [/^Référence chantier : (.*)$/u,'Referencia de obra: $1'],
 [/^Référence : (.*)$/u,'Referencia: $1'],
 [/^Quantité : (.*)$/u,'Cantidad: $1'],
@@ -442,11 +461,11 @@ export const ES_COMMERCE_PATTERNS = [
 [/^poignée (.+)$/u,'tirador $1'],
 [/^clic-clac (.+)$/u,'válvula clic-clac $1'],
 
-[/^(\d+) élément\(s\) sans tarif, hors montant mobilier\.$/u,'$1 elemento(s) sin tarifa, no incluido(s) en el importe del mobiliario.'],
-[/^(\d+) équipement\(s\) sans tarif intégré, hors montant mobilier\.$/u,'$1 equipamiento(s) sin tarifa, no incluido(s) en el importe del mobiliario.'],
-[/^(\d+) élément\(s\) sans tarif intégré, hors total mobilier$/u,'$1 elemento(s) sin tarifa, no incluido(s) en el total del mobiliario'],
-[/^(\d+) élément\(s\) · aperçu du mobilier$/u,'$1 elemento(s) · vista previa del mobiliario'],
-[/^(\d+) formats?$/u,'$1 formatos'],
+[/^(\d+) élément\(s\) sans tarif, hors montant mobilier\.$/u,(_m,n)=>`${n} ${n==='1'?'elemento sin tarifa, no incluido':'elementos sin tarifa, no incluidos'} en el importe del mobiliario.`],
+[/^(\d+) équipement\(s\) sans tarif intégré, hors montant mobilier\.$/u,(_m,n)=>`${n} ${n==='1'?'equipamiento sin tarifa, no incluido':'equipamientos sin tarifa, no incluidos'} en el importe del mobiliario.`],
+[/^(\d+) élément\(s\) sans tarif intégré, hors total mobilier$/u,(_m,n)=>`${n} ${n==='1'?'elemento sin tarifa, no incluido':'elementos sin tarifa, no incluidos'} en el total del mobiliario`],
+[/^(\d+) élément\(s\) · aperçu du mobilier$/u,(_m,n)=>`${n} ${n==='1'?'elemento':'elementos'} · vista previa del mobiliario`],
+[/^(\d+) formats?$/u,(_m,n)=>`${n} ${n==='1'?'formato':'formatos'}`],
 [/^Choisir la collection (.+)$/u,'Elegir la colección $1'],
 [/^Choisir (.+)$/u,(_m,name)=>'Elegir '+(ES_COMMERCE[name]??name)],
 [/^Compte vérifié : (.+)$/u,'Cuenta verificada: $1'],
