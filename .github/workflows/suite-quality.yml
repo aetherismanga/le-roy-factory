@@ -54,6 +54,8 @@ jobs:
       - run: npm run check --workspace=studio-one-atelier-3d
       - run: npm run build:site
       - run: npx playwright install --with-deps chromium
+      - name: Verify private LRF composition references on desktop and mobile
+        run: node tests/lrf-suite/lrf-reference-browser.cjs
       - run: node tests/lrf-plan-pose/recovery-render-browser.cjs
       - name: Verify recovery of historical local projects
         run: node tests/lrf-suite/legacy-recovery-browser.cjs

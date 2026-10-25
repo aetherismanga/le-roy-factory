@@ -1,5 +1,6 @@
 // Same-origin gateway. All PRO amounts and roles require live server verification.
-import {purchaseQuote,privateReference} from '../server/purchase.js';
+import {purchaseQuote} from '../server/purchase.js';
+import {commercialReference} from '../../shared/lrf-server/commercial-reference.mjs';
 const UPSTREAM='https://us-central1-le-roy-factory.cloudfunctions.net/',COOKIE='studio_one_pro',ADMIN_COOKIE='studio_one_admin';
 const FIREBASE_KEY='AIzaSyA3iuK5Ua8kFccURSqLihLshHnhA4rm2is',ADMINS=new Set(['jerome@leroyfactory.fr','coryne@leroyfactory.fr']);
 const json=(res,status,value)=>res.status(status).json(value),clean=(v,n=180)=>String(v??'').trim().slice(0,n);
@@ -38,7 +39,7 @@ export default async function handler(req,res){
    else return json(res,200,{client:null,proHT:null,proStatus:'unauthenticated'});
   }else return json(res,400,{error:'Action inconnue.'});
   if(!identity){const c=data?.client;if(!c||!/^LRF-\d{5}$/.test(c.codeClient||''))throw fail('Compte LRF non vérifié.');const allowed=(c.partenaires||[]).some(p=>['randal','randalpro'].includes(String(p).toLowerCase().replace(/[^a-z]/g,'')));identity={client:await customer(c),isAdmin:false,randalAllowed:allowed};}
-  let quote=null;if(body.project&&identity.randalAllowed&&identity.isAdmin===true){try{quote=purchaseQuote(body.project);}catch{throw fail('La composition ne peut pas être chiffrée.',400);}}
-  return json(res,200,{...identity,...(['identify','exchange','admin','admin-token'].includes(body.action)?{accessToken:identity.isAdmin?adminToken:token}:{}),proHT:quote?.proHT??null,proRows:quote?.rows.map(r=>({ref:r.ref,itemId:r.itemId,proHT:r.proHT}))||[],privateCode:privateReference(identity.client.codeClient),proStatus:!identity.randalAllowed?'partner-not-authorized':identity.isAdmin!==true?'public-only':quote?.pricingUnavailable?'purchase-unavailable':quote?'verified-agent-grid':'authenticated',priceSource:quote?.source||''});
+  let quote=null;if(body.project&&identity.randalAllowed===true){try{quote=purchaseQuote(body.project);}catch{throw fail('La composition ne peut pas être chiffrée.',400);}}
+  return json(res,200,{...identity,...(['identify','exchange','admin','admin-token'].includes(body.action)?{accessToken:identity.isAdmin?adminToken:token}:{}),...commercialReference(identity,quote)});
  }catch(e){return json(res,e.status||503,{error:e.status===401?e.message:e.status===400?e.message:'Connexion au service LRF indisponible. Réessayez.',client:null,proHT:null,isAdmin:false});}
 }

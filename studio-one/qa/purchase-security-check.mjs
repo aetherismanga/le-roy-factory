@@ -9,7 +9,7 @@ import {APPEARANCE} from '../src/commerce/appearance.js';
 const visualProject=draftProject({...initialDraft(),format:'three',width:100,finish:'BISC',top:'tampa',basinColor:'black',column:true,columnFinish:'NOGAL',mirror:'ilse',mirrorSize:2});
 const project={...visualProject,items:visualProject.items.filter(i=>i.type!=='mirror')};
 assert.equal(purchaseQuote(visualProject).proHT,null,'Undocumented mirror purchase price remains unavailable');
-assert.equal(privateReference('LRF-12345',12345),'LRF-12345','A public reference never encodes a purchase amount');
+assert.equal(privateReference('LRF-12345',12345),'LRF-12345','An unverified reference never encodes a purchase amount');
 assert.equal(privateReference('bad',12345),'');
 assert.equal(existsSync('server/data/studio-one-purchase.json'),false,'No plaintext grid in the source tree');
 const envelope=JSON.parse(readFileSync('server/data/studio-one-purchase.enc.json'));
@@ -33,7 +33,7 @@ try{
  let r=await request({action:'quote',project,isAdmin:true,proHT:12345,discount:100,codeClient:'LRF-12345'});
  assert.equal(r.value.proHT,null);assert.equal(r.value.client,null);assert.equal(calls.length,0);
  r=await request({action:'identify',codeClient:'LRF-12345',departement:'99',project});
- assert.equal(r.value.proHT,null);assert.deepEqual(r.value.proRows,[]);assert.equal(r.value.privateCode,'LRF-12345');assert.equal(r.value.proStatus,'public-only');assert.equal(r.value.client.email,'qa@example.invalid');assert(r.headers['Set-Cookie'][0].includes('HttpOnly; Secure; SameSite=Strict'));assert.equal(r.value.client.codeClient,'LRF-12345');assert(!calls.some(c=>c.url.includes('update')));
+ assert.equal(r.value.proHT,null);assert.deepEqual(r.value.proRows,[]);assert.equal(r.value.privateCode,'LRF-12345');assert.equal(r.value.proStatus,'purchase-unavailable');assert.equal(r.value.client.email,'qa@example.invalid');assert(r.headers['Set-Cookie'][0].includes('HttpOnly; Secure; SameSite=Strict'));assert.equal(r.value.client.codeClient,'LRF-12345');assert(!calls.some(c=>c.url.includes('update')));
  mode='forbidden';r=await request({action:'quote',project},'studio_one_pro='+('t'.repeat(44)));assert.equal(r.value.proHT,null);assert.equal(r.value.randalAllowed,false);
  mode='revoked';r=await request({action:'quote',project},'studio_one_pro='+('t'.repeat(44)));assert.equal(r.status,401);assert.equal(r.value.proHT,null);
  mode='client';r=await request({action:'admin-token',idToken:jwt(),project});assert.equal(r.value.isAdmin,true);assert.equal(r.value.client.codeClient,'');assert.equal(r.value.proRows.length,purchaseQuote(project).rows.length);
@@ -42,5 +42,5 @@ try{
  r=await request({action:'admin-token',idToken:jwt({email_verified:false}),project});assert.equal(r.status,401);
  r=await request({action:'admin-token',idToken:jwt({exp:1}),project});assert.equal(r.status,401);
 }finally{globalThis.fetch=original;}
-const result={passed:true,checks:['Encrypted server grid; missing key fails closed','Anonymous, customer and partner sessions expose no purchase amounts or encoded reference','Expired session, forged/unverified administrator and revoked token blocked','Verified agent still receives the authorised quote structure','Actual model geometry and official finishing samples preserved'],liveAccounts:'Synthetic tests only. No real account or password used.',browser3D:'Requires WebGL2; see browser evidence.'};
+const result={passed:true,checks:['Encrypted server grid; missing key fails closed','Anonymous and forbidden partner sessions expose no purchases; incomplete grids emit no amount','Expired session, forged/unverified administrator and revoked token blocked','Verified agent still receives the authorised quote structure','Actual model geometry and official finishing samples preserved'],liveAccounts:'Synthetic tests only. No real account or password used.',browser3D:'Requires WebGL2; see browser evidence.'};
 writeFileSync('reports/purchase-identity-check.json',JSON.stringify(result,null,2));console.log(result);

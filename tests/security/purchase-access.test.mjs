@@ -43,7 +43,7 @@ const roots=[['randal-general',path.join(main,'randal-general')],['studio-one',p
 const jwt=(changes={})=>'synthetic.'+Buffer.from(JSON.stringify({aud:'le-roy-factory',iss:'https://securetoken.google.com/le-roy-factory',sub:'agent-fixture',email_verified:true,exp:Math.floor(Date.now()/1000)+600,auth_time:Math.floor(Date.now()/1000),...changes})).toString('base64url')+'.signature';
 
 for(const [variant,root] of roots){
- test(variant+': anonymous and customer sessions cannot read purchases or encode them in references',async()=>{
+ test(variant+': anonymous requests cannot read purchases; customers without a complete grid receive only their own number',async()=>{
   const {default:handler}=await import(pathToFileURL(path.join(root,'api/commercial.js')));
   const {initialDraft,draftProject}=await import(pathToFileURL(path.join(root,'src/commerce/guided.js')));
   const project=draftProject(variant==='randal-general'?initialDraft('aruba'):initialDraft());
@@ -55,7 +55,7 @@ for(const [variant,root] of roots){
   const request=async(headers={},body={})=>{let result;const res={setHeader(){},status(n){this.code=n;return this;},json(value){result={status:this.code??200,value};return this;}};await handler({method:'POST',headers:{host:'test.vercel.app',...headers},body:{action:'quote',project,isAdmin:true,proHT:12345,...body}},res);return result;};
   const anonymous=await request();assert.equal(anonymous.status,200);assert.equal(anonymous.value.proHT,null);assert.equal(anonymous.value.client,null);
   const customer=await request({authorization:'Bearer synthetic-session-abcdefghijklmnopqrstuvwxyz'});
-  assert.equal(customer.status,200);assert.equal(customer.value.isAdmin,false);assert.equal(customer.value.proHT,null);assert.deepEqual(customer.value.proRows,[]);assert.equal(customer.value.privateCode,'LRF-12345');assert.equal(customer.value.proStatus,'public-only');assert.equal(customer.value.priceSource,'');assert.equal(lookup,0);
+  assert.equal(customer.status,200);assert.equal(customer.value.isAdmin,false);assert.equal(customer.value.proHT,null);assert.deepEqual(customer.value.proRows,[]);assert.equal(customer.value.privateCode,'LRF-12345');assert.equal(customer.value.proStatus,'purchase-unavailable');assert.equal(customer.value.priceSource,'');assert.equal(lookup,0);
   assert.equal(JSON.stringify(customer.value).includes('12345.00'),false);
  });
 
