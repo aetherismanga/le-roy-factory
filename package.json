@@ -10,7 +10,7 @@
     "build:site": "node scripts/build-public-site.mjs",
     "build:studio": "npm run build --workspace=studio-one-atelier-3d",
     "build:general": "npm run build --workspace=randal-general-3d",
-    "check:core": "node shared/lrf-3d/qa/core-check.mjs && node shared/lrf-3d/qa/shared-graph-check.mjs && node shared/lrf-3d/qa/room-interaction-check.mjs && node shared/lrf-3d/qa/ral-sanitary-check.mjs && node shared/lrf-3d/qa/niche-editing-check.mjs && node shared/lrf-3d/qa/tile-layout-acceptance.mjs"
+    "check:core": "node shared/lrf-3d/qa/core-check.mjs && node shared/lrf-3d/qa/shared-graph-check.mjs && node shared/lrf-3d/qa/room-interaction-check.mjs && node shared/lrf-3d/qa/ral-sanitary-check.mjs && node shared/lrf-3d/qa/niche-editing-check.mjs && node shared/lrf-3d/qa/tile-layout-acceptance.mjs && node shared/lrf-3d/qa/decor-panels-check.mjs && node shared/lrf-3d/qa/surface-appearance-check.mjs && node shared/lrf-3d/qa/new-collections-check.mjs"
   },
   "devDependencies": {
     "@playwright/test": "1.55.0"

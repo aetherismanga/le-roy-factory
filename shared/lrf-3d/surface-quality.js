@@ -11,6 +11,10 @@ export function surfaceColorIssue(collection,color){
  const [width,height]=color.resolution||[];
  if(!(width>0&&height>0))return 'unreviewed-source-definition';
  if(color.definitionLimited===true&&['Slate','Allure','COCO','Venere'].includes(collection))return null;
+ // Newly reviewed catalogue extracts remain honest previews. Their source
+ // pixels are preserved, and neither this exception nor a larger derivative
+ // marks them as original manufacturer HD faces.
+ if(color.definitionLimited===true&&color.previewReviewed===true&&color.nativeFaces===false&&color.textureProvenance?.kind==='manufacturer-catalogue-sample'&&/^https:\/\/eliosceramica\.com\/wp-content\/uploads\/.+\.pdf(?:#.*)?$/i.test(color.textureProvenance.source||''))return null;
  if(Math.max(width,height)<700||width*height<150000)return 'insufficient-source-definition';
  return null;
 }

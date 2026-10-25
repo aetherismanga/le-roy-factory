@@ -13,7 +13,7 @@ const collections=manufacturer.map(collection=>{
  const aliases=collection.name==='Sedimenti'?Object.fromEntries(['white','beige','sand','grey'].flatMap(color=>['selected','tumbled'].map(suffix=>[color+suffix,color]))):collection.name==='Bavaria Stone'?{stone:'bavaria-stone'}:{};
  const formats=collection.formats.map(({id,width,height})=>({id,width,height}));
  if(['Roma','Sedimenti'].includes(collection.name))formats.push({id:'Opus · module 4 formats',width:1.218,height:.609});
- return {name:collection.name,brand:collection.brand,surfaces:collection.surfaces,formats,aliases,colors:collection.colors.map(color=>({id:color.id,name:color.name,exportable:color.available3d!==false&&!!color.file,references:Object.entries(color.textureVariantsByReference||{}).filter(([,mapping])=>mapping.verified===true).map(([key])=>key)}))};
+ return {name:collection.name,brand:collection.brand,surfaces:collection.surfaces,formats,aliases,colors:collection.colors.map(color=>({id:color.id,name:color.name,exportable:color.available3d!==false&&!!color.file,...(color.textureProvenance?{textureProvenance:{kind:color.textureProvenance.kind},definitionLimited:color.definitionLimited===true,previewReviewed:color.previewReviewed===true}:{}),references:Object.entries(color.textureVariantsByReference||{}).filter(([,mapping])=>mapping.verified===true).map(([key])=>key)}))};
 });
 collections.push({name:'Peinture',brand:'Peinture',surfaces:['wall'],formats:[],aliases:{},colors:[...['white','ivory','sand','sage','clay','grey','dark'].map(id=>({id,name:id,exportable:true,references:[]})),...RAL_COLORS.map(({id,name})=>({id,name,exportable:true,references:[]}))]});
 const contract={version:1,catalogueRevision:revision,collections};

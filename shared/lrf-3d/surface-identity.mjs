@@ -37,7 +37,7 @@ export function canonicalSurfaceIdentity(tile,{products,usage}={}){
  if(format&&!definition.formats.some(item=>item.id===format))throw Error('Format non reconnu pour '+definition.name+' : '+format+'.');
  const choice=definition.colors.find(item=>item.id===color),reference=requested?.reference||tile.reference||'';
  if(usage&&choice.exportable===false)throw Error('Le visuel 3D de '+definition.name+' '+choice.name+' n’est pas validé. Le plan et sa référence sont conservés.');
- const fidelity=choice.references?.includes(reference)?'reference-verified':sourceColorId!==color?'color-preview':'manufacturer-face';
+ const fidelity=choice.textureProvenance?.kind==='ai-reconstruction'?'ai-reconstruction':choice.definitionLimited===true&&choice.previewReviewed===true?'catalogue-preview':choice.references?.includes(reference)?'reference-verified':sourceColorId!==color?'color-preview':'manufacturer-face';
  return {collection:definition.name,color,colorId:color,sourceColorId,format,reference,catalogueKey:requested?.key||key,finish:requested?.finish||tile.finish||'',fidelity,contractVersion:contract.version};
 }
 
@@ -51,6 +51,8 @@ export function normalizeProjectSurfaceIdentities(project){
   const format=finish.format||definition?.formats.find(item=>Math.abs(item.width-Number(layout?.width))<.001&&Math.abs(item.height-Number(layout?.height))<.001)?.id||'';
   const identity=canonicalSurfaceIdentity({...finish,format});
   if(identity.fidelity==='color-preview')notices.push(label+' : référence et finition conservées, aperçu de la couleur fabricant '+identity.color+'.');
+  if(identity.fidelity==='catalogue-preview')notices.push(label+' : échantillon fabricant de définition limitée ; référence et finition conservées.');
+  if(identity.fidelity==='ai-reconstruction')notices.push(label+' : reconstitution visuelle à partir du visuel officiel ; teinte indicative, tampons non originaux du fabricant.');
   return {...finish,...identity,zones:finish.zones?.map((zone,index)=>resolve({...finish,...zone,zones:undefined},zone,'Zone '+(index+1)))};
  };
  if(data.floor)data.floor=resolve(data.floor,data.layouts?.floor,'Sol');

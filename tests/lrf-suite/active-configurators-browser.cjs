@@ -35,6 +35,7 @@ function readWithin(dir,relative){const file=path.resolve(dir,'.'+relative);if(!
   await context.route(/^https:\/\//,async route=>{
    const u=new URL(route.request().url());let dir,relative;
    if(u.hostname==='leroyfactory.fr'&&u.pathname.startsWith('/review-studio/assets/')){dir=roots.studio;relative=u.pathname.slice('/review-studio'.length);}
+   else if(u.hostname==='leroyfactory.fr'&&u.pathname.startsWith('/assets/img/lrf-plan-pose/faces/')){dir=root;relative=u.pathname;}
    else if(u.hostname==='studio-one-beta-test-v2.vercel.app'){dir=roots.studio;relative=u.pathname;}
    else if(u.hostname==='randal-catalogue-general-3d.vercel.app'){dir=roots.general;relative=u.pathname;}
    const asset=dir&&readWithin(dir,decodeURIComponent(relative));
@@ -74,6 +75,32 @@ function readWithin(dir,relative){const file=path.resolve(dir,'.'+relative);if(!
   });
   assert.equal(capture.width,1920);assert.equal(capture.height,capture.expectedHeight);assert.equal(capture.before,capture.after);assert.equal(capture.quality,'fluid');assert.equal(capture.mode,'fluid');assert.equal(capture.inert,false);
   pass(kind+': native 1920px PNG capture restores fluid quality and preserves the complete project');
+
+  await page.locator('button[data-workspace=finishes]').click();
+  // Exercise the new reviewed catalogue, real local image bytes, selected
+  // finishing SKU, reconstructed wood and physical 2x2 decor panel in WebGL.
+  for(const surface of [
+   {collection:'Yosemite',color:'honey',format:'23.4x95.7'},
+   {collection:'Stone Icon',color:'campaspero',format:'60x60'},
+   {collection:'Terraforma',color:'flora',format:'30x30'},
+   {collection:'Dynasty',color:'crown-green',format:'30x30'}
+  ]){
+   await page.evaluate(async spec=>{const app=studioOnePrototype;app.setSurfaceCollection('floor',spec.collection);app.setSurface('floor',spec.color);if(!app.setTileFormat('floor',spec.format))throw Error('New format unavailable: '+JSON.stringify(spec));await app.waitForTextures();},surface);
+   const actual=await page.evaluate(()=>{const diagnostics=studioOnePrototype.getDiagnostics(),loaded=diagnostics.textures.surfaces;const textures=Array.isArray(loaded)?loaded:Object.entries(loaded).flatMap(([collection,entries])=>Object.entries(entries).map(([key,data])=>({collection,id:JSON.parse(key)[1],...data})));return {floor:studioOnePrototype.exportProject().floor,drawCalls:diagnostics.drawCalls,textures};});
+   assert.equal(actual.floor.collection,surface.collection);assert.equal(actual.floor.color,surface.color);assert.equal(actual.floor.format,surface.format);assert(actual.drawCalls>0);
+   assert(actual.textures.some(texture=>texture.collection===surface.collection&&texture.id===surface.color&&texture.width>32&&texture.height>32),kind+': selected '+surface.collection+' image must be decoded and loaded');
+   if(surface.collection==='Stone Icon'){
+    const chosen=products.find(p=>p.collection==='Stone Icon'&&p.colorId==='campaspero'&&p.format==='60x60'&&p.finish.includes('Tumbled Grip'));assert(chosen);
+    await page.locator('#floor-commercial select').selectOption(chosen.key);
+    const saved=await page.evaluate(()=>studioOnePrototype.exportProject());assert.equal(saved.floor.catalogueKey,chosen.key);assert.equal(saved.floor.finish,chosen.finish);assert.equal(saved.floor.reference,chosen.reference);
+    assert.equal(await page.evaluate(data=>studioOnePrototype.restoreProject(data),saved),true);await page.evaluate(()=>studioOnePrototype.waitForTextures());
+    assert.equal(await page.evaluate(()=>studioOnePrototype.exportProject().floor.catalogueKey),chosen.key);
+   }
+   pass(kind+': '+surface.collection+' real texture loading, compatible format'+(surface.collection==='Stone Icon'?', exact Grip SKU and restored finish':''));
+  }
+  const decorCapture=await page.evaluate(async()=>{await studioOnePrototype.waitForTextures();const data=await studioOnePrototype.captureHD({width:1920});const image=new Image();image.src=data;await image.decode();return {width:image.naturalWidth,quality:studioOnePrototype.getDiagnostics().qualityProfile};});
+  assert.equal(decorCapture.width,1920);assert.equal(decorCapture.quality,'fluid');
+  pass(kind+': native HD capture with the new Dynasty panel restores working quality');
 
   await page.locator('button[data-workspace=room]').click();await page.locator('#room-open').click();await page.locator('#room-height').fill('270');await page.locator('#room-apply').click();
   await page.waitForFunction(()=>!document.querySelector('#room-editor').open);assert.equal(await page.evaluate(()=>studioOnePrototype.exportProject().room.height),270);

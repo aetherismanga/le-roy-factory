@@ -1,0 +1,775 @@
+{
+  "kind": "ai-reconstruction",
+  "source": "https://eliosceramica.com/collezione/yosemite/",
+  "userAuthorized": true,
+  "facesPerColor": 8,
+  "manufacturerOriginal": false,
+  "physicalReferenceMetres": [
+    1.48,
+    0.234
+  ],
+  "colors": {
+    "honey": {
+      "sourceAtlasSha256": "adef84e4442a9a2aa717321c420e88f3453a5807fa7b7d538aa1fff3d64a1e7d",
+      "referenceSample": "https://eliosceramica.com/wp-content/uploads/2023/05/YOSEMITE_honey_zoom.jpg",
+      "faces": [
+        {
+          "fluid": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-1-fluid.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-1-fluid.webp",
+            "width": 512,
+            "height": 80,
+            "sha256": "6d10569b7054bb21887daf62a31b2f9ed85ab91399d68cf6603d4b452869f94e"
+          },
+          "balanced": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-1-balanced.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-1-balanced.webp",
+            "width": 1024,
+            "height": 160,
+            "sha256": "4889df75eb4ec1f05f81ef5e518e7b69203aee77c888e431b06f61cc72021a0d"
+          },
+          "max": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-1-max.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-1-max.webp",
+            "width": 1122,
+            "height": 175,
+            "sha256": "5f0dab716fd76b051a9da3095af74028503b3e1195c28b2760bac68785567c9f"
+          }
+        },
+        {
+          "fluid": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-2-fluid.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-2-fluid.webp",
+            "width": 512,
+            "height": 80,
+            "sha256": "956c2cc5e885f0759aaae63ede0eeb307d0450389ca6371d8275aea47655433b"
+          },
+          "balanced": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-2-balanced.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-2-balanced.webp",
+            "width": 1024,
+            "height": 160,
+            "sha256": "5cf8fafb364e77483933bdfc96bdf19dd725898dbb4643721ec7da4836409ba9"
+          },
+          "max": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-2-max.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-2-max.webp",
+            "width": 1122,
+            "height": 175,
+            "sha256": "c6135dd6be5ca7af9cc61d92e5acfa395f53808ad58b96654393af015aaf1083"
+          }
+        },
+        {
+          "fluid": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-3-fluid.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-3-fluid.webp",
+            "width": 512,
+            "height": 80,
+            "sha256": "6ea740e3230cc80731b51edc628ab345bc6e3e127c9415d92b0b329d1d0526d7"
+          },
+          "balanced": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-3-balanced.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-3-balanced.webp",
+            "width": 1024,
+            "height": 160,
+            "sha256": "7a518d86575725801e13aa4b78bf14ee9a2a4187ceed3c5b70390fc6a0d7494a"
+          },
+          "max": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-3-max.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-3-max.webp",
+            "width": 1122,
+            "height": 175,
+            "sha256": "6fabfe64b196944d0729e2e5c92c9dd6bce442688971c21e19025357e3801388"
+          }
+        },
+        {
+          "fluid": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-4-fluid.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-4-fluid.webp",
+            "width": 512,
+            "height": 80,
+            "sha256": "f9fb21fab034b067d06b2859da8e8f3d246402363f462a4c8b1fe0d01f293665"
+          },
+          "balanced": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-4-balanced.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-4-balanced.webp",
+            "width": 1024,
+            "height": 161,
+            "sha256": "b4c8bc57722e811c29c15a10a8177de3ee56fbb23c39fc111e1036e73200c8cb"
+          },
+          "max": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-4-max.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-4-max.webp",
+            "width": 1122,
+            "height": 176,
+            "sha256": "87a85c8f15427a0e38b41a791e29438a31fbd01625214957d91e1463b27a1958"
+          }
+        },
+        {
+          "fluid": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-5-fluid.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-5-fluid.webp",
+            "width": 512,
+            "height": 80,
+            "sha256": "0c231e5b441c214150924f4769b7b3429568a973be10a0fc57e5478970836c06"
+          },
+          "balanced": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-5-balanced.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-5-balanced.webp",
+            "width": 1024,
+            "height": 160,
+            "sha256": "801ad6bfc70d626bedaf109b53b736ac3713a782dfdcbbf9f9c600c4f58bf8a7"
+          },
+          "max": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-5-max.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-5-max.webp",
+            "width": 1122,
+            "height": 175,
+            "sha256": "b46cf76de8b95def36ad74f159523af7e12a47f8f105c43c21c524a0bd81625a"
+          }
+        },
+        {
+          "fluid": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-6-fluid.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-6-fluid.webp",
+            "width": 512,
+            "height": 80,
+            "sha256": "beb6e1b5e04c9e3d0fd3b4e6601b3fe2c68cddd1c7221446ac84077e272719f4"
+          },
+          "balanced": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-6-balanced.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-6-balanced.webp",
+            "width": 1024,
+            "height": 160,
+            "sha256": "00d47adf0e3a8afc913f0c84e1db7efac6b260a112cedd4bb89112dac0fefcee"
+          },
+          "max": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-6-max.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-6-max.webp",
+            "width": 1122,
+            "height": 175,
+            "sha256": "7fa6047fd5d92f386234bfcb603a780d5c253ba97505e3aa6e7817c0b6bc90b8"
+          }
+        },
+        {
+          "fluid": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-7-fluid.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-7-fluid.webp",
+            "width": 512,
+            "height": 80,
+            "sha256": "551f9ee2fcb67d0502a769ba3cf22c2d4810c62507c850373ed5734a8d60fee8"
+          },
+          "balanced": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-7-balanced.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-7-balanced.webp",
+            "width": 1024,
+            "height": 160,
+            "sha256": "d2c3a5e128adf71cd4226369c145704e2e9abf0e7a6d0a7b8e0d7dc65d6be008"
+          },
+          "max": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-7-max.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-7-max.webp",
+            "width": 1122,
+            "height": 175,
+            "sha256": "ddbc992539552df7bbaa1850fd2b4075c8add1fe322a3dd90a5ea03ddf02be1e"
+          }
+        },
+        {
+          "fluid": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-8-fluid.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-8-fluid.webp",
+            "width": 512,
+            "height": 80,
+            "sha256": "bbe732568597e36d211bf046f5b402cbee3fcd34160f15968b3096647a392b35"
+          },
+          "balanced": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-8-balanced.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-8-balanced.webp",
+            "width": 1024,
+            "height": 161,
+            "sha256": "fb04ab1e01f10d0228e8e08147b0876f444f09585a232da7e12801c5437e2503"
+          },
+          "max": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-8-max.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/honey-8-max.webp",
+            "width": 1122,
+            "height": 176,
+            "sha256": "ac19e8d58aa4ac1762659a5746dda91cfac1dee652c43761d07d3c04ca40f191"
+          }
+        }
+      ]
+    },
+    "amber": {
+      "sourceAtlasSha256": "f9f9a39f01bfc47d00448d0464be75d49917a83a9721175af4de1b23695efd88",
+      "referenceSample": "https://eliosceramica.com/wp-content/uploads/2023/05/YOSEMITE_amber_zoom.jpg",
+      "faces": [
+        {
+          "fluid": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-1-fluid.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-1-fluid.webp",
+            "width": 512,
+            "height": 80,
+            "sha256": "2bfa4c36cbe761186280288c10062bdffc5a630131955df66fcaa6fbb3210f59"
+          },
+          "balanced": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-1-balanced.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-1-balanced.webp",
+            "width": 1024,
+            "height": 160,
+            "sha256": "0d68bb9bdf874b0374741263384cd6d82ec801774e54882ba0545ef144dfe99a"
+          },
+          "max": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-1-max.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-1-max.webp",
+            "width": 1122,
+            "height": 175,
+            "sha256": "ad82c5a169f4e235b6f02dc4a7a4079630838d907ac29f3750dd7c6811c56093"
+          }
+        },
+        {
+          "fluid": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-2-fluid.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-2-fluid.webp",
+            "width": 512,
+            "height": 80,
+            "sha256": "4b210713375aa4d238b9abba95b5cc10646e895c1c500e2f87f004a3ac9312a2"
+          },
+          "balanced": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-2-balanced.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-2-balanced.webp",
+            "width": 1024,
+            "height": 160,
+            "sha256": "af210a7b57e175d2250c2a7fd5bc140196458b987053c37aec41c98711a40f07"
+          },
+          "max": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-2-max.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-2-max.webp",
+            "width": 1122,
+            "height": 175,
+            "sha256": "52d27b97ef81689ae93036c4365294ab3081e314b3e307e5c25ed1f44ae72f7b"
+          }
+        },
+        {
+          "fluid": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-3-fluid.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-3-fluid.webp",
+            "width": 512,
+            "height": 80,
+            "sha256": "724bff906ad7872144e378db29e6ebe425db9f26e0a68fae98d2605c1c5cfe8f"
+          },
+          "balanced": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-3-balanced.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-3-balanced.webp",
+            "width": 1024,
+            "height": 160,
+            "sha256": "b11efe0ec75e5d65c8634ea3869dab8cc85009425fa0d57d2f9c5a9304f6b61b"
+          },
+          "max": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-3-max.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-3-max.webp",
+            "width": 1122,
+            "height": 175,
+            "sha256": "b19b88e42ddd695a754c3f113cab6d8cf5039135f6a9bad99a6c5d7acd986eaf"
+          }
+        },
+        {
+          "fluid": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-4-fluid.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-4-fluid.webp",
+            "width": 512,
+            "height": 80,
+            "sha256": "b6873b034d2deaae36d292be258f1f087ed5eb7eacebbc4c51f337f573cd865a"
+          },
+          "balanced": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-4-balanced.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-4-balanced.webp",
+            "width": 1024,
+            "height": 161,
+            "sha256": "c33a971ef16c499b83879fa6f23a4043d6fe88835fa91a0fd3dc345484f6fbe3"
+          },
+          "max": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-4-max.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-4-max.webp",
+            "width": 1122,
+            "height": 176,
+            "sha256": "26f9cd9ce8f03c127976e97ace04eb77b6d3c12ee1147321902245c12e1d7523"
+          }
+        },
+        {
+          "fluid": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-5-fluid.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-5-fluid.webp",
+            "width": 512,
+            "height": 80,
+            "sha256": "43d96a30e449faeb1badf2804240872e29d0c9c1ebf4f31276da2abf2cff7ea3"
+          },
+          "balanced": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-5-balanced.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-5-balanced.webp",
+            "width": 1024,
+            "height": 160,
+            "sha256": "470d0442e56d834690ded3ffe5a8a1afba6083c14b425fbb91dbf24507bee10d"
+          },
+          "max": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-5-max.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-5-max.webp",
+            "width": 1122,
+            "height": 175,
+            "sha256": "12a74864699aba5c01cff07a682e40fb6da1dbaea75ed9b496e59076d538ce56"
+          }
+        },
+        {
+          "fluid": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-6-fluid.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-6-fluid.webp",
+            "width": 512,
+            "height": 80,
+            "sha256": "803aee444edaf5b18e7ef6495ea75c2c83916f1592ae2712758361b78208e4e6"
+          },
+          "balanced": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-6-balanced.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-6-balanced.webp",
+            "width": 1024,
+            "height": 160,
+            "sha256": "c60bf3c2d224296f868064447b7f2025c3fc3041e9fccc5541ed896744f67b7a"
+          },
+          "max": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-6-max.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-6-max.webp",
+            "width": 1122,
+            "height": 175,
+            "sha256": "81a44a683882642c5f8af646935487c68f31c52468cca22aeb1cb7f77768428e"
+          }
+        },
+        {
+          "fluid": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-7-fluid.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-7-fluid.webp",
+            "width": 512,
+            "height": 80,
+            "sha256": "b6dd4fdb6d621ce8b0d3fdcec608ffda8dd857aa899e4808f7d33875a1b72dff"
+          },
+          "balanced": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-7-balanced.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-7-balanced.webp",
+            "width": 1024,
+            "height": 160,
+            "sha256": "11a6796db25cea1c3aebf2bf977f425d7023e093620b22758d420839102b46c4"
+          },
+          "max": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-7-max.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-7-max.webp",
+            "width": 1122,
+            "height": 175,
+            "sha256": "1ad6c3994bcda44cf552784513d946ab65292fdd580da46aee8a21cab6d83f03"
+          }
+        },
+        {
+          "fluid": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-8-fluid.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-8-fluid.webp",
+            "width": 512,
+            "height": 80,
+            "sha256": "2e0a0569d8e2debd7e0bc1f4049a7a4ff681e1bdab0c7a6bd193b0634f72cf19"
+          },
+          "balanced": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-8-balanced.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-8-balanced.webp",
+            "width": 1024,
+            "height": 161,
+            "sha256": "378c4c6709474f0d30bf3792b479c4c6e623a1929b268795768ccc9d8793e9e8"
+          },
+          "max": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-8-max.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/amber-8-max.webp",
+            "width": 1122,
+            "height": 176,
+            "sha256": "b226352197b284f2cda7fe02830fe8e9490af9046904a1041a995c79432d3b87"
+          }
+        }
+      ]
+    },
+    "natural": {
+      "sourceAtlasSha256": "45e0c3da32d0fd2d762b2591aa49049959dd5dde417501f57977ce80eb8292f9",
+      "referenceSample": "https://eliosceramica.com/wp-content/uploads/2023/05/YOSEMITE_natural_zoom.jpg",
+      "faces": [
+        {
+          "fluid": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-1-fluid.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-1-fluid.webp",
+            "width": 512,
+            "height": 80,
+            "sha256": "fcb6ab81dafecf2174f2091f17fc335a0c00679c08b8056e8d23116187fa725a"
+          },
+          "balanced": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-1-balanced.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-1-balanced.webp",
+            "width": 1024,
+            "height": 160,
+            "sha256": "be2ea5dce707afee553b3ea945f79c14ce00a7b0c567f0887ffd106bf01601f6"
+          },
+          "max": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-1-max.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-1-max.webp",
+            "width": 1122,
+            "height": 175,
+            "sha256": "13b25f2fa6fe5f63d6c758e74d51b547d1719420472cb10d035696bd92355889"
+          }
+        },
+        {
+          "fluid": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-2-fluid.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-2-fluid.webp",
+            "width": 512,
+            "height": 80,
+            "sha256": "a9bfe8c7d9fe987f063d2da0006c5e7f4985d1f8c1b0245538efc2689ad92247"
+          },
+          "balanced": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-2-balanced.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-2-balanced.webp",
+            "width": 1024,
+            "height": 160,
+            "sha256": "ac5c5f1e15ea400ebd3215fb05dc97e7f700eee9b9c18ebefc78a7288b723521"
+          },
+          "max": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-2-max.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-2-max.webp",
+            "width": 1122,
+            "height": 175,
+            "sha256": "614f3712a16074a043c4362c0481c1e212345fb1a092e6df31d6c134646effe3"
+          }
+        },
+        {
+          "fluid": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-3-fluid.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-3-fluid.webp",
+            "width": 512,
+            "height": 80,
+            "sha256": "77eef15e9ba971120292a9820ccb88dd30295815e791fe22fd95ad3fe275a1eb"
+          },
+          "balanced": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-3-balanced.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-3-balanced.webp",
+            "width": 1024,
+            "height": 160,
+            "sha256": "e1340599c5227318ac9b165cb741baab969b2dc7bca1d9107590ee18bb61a1f2"
+          },
+          "max": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-3-max.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-3-max.webp",
+            "width": 1122,
+            "height": 175,
+            "sha256": "99762da3d8455e55deed914b6bca3beb1d924e53972393b57e1329a283e287d3"
+          }
+        },
+        {
+          "fluid": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-4-fluid.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-4-fluid.webp",
+            "width": 512,
+            "height": 80,
+            "sha256": "293f75b9c1ccf261d11bca1994ac0a22517ec0602ff5a3ab5509f132d2506c98"
+          },
+          "balanced": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-4-balanced.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-4-balanced.webp",
+            "width": 1024,
+            "height": 161,
+            "sha256": "c0f9e5cfc7b237bdfeeda570721b900cdc849f5dee07232e0aaa48f0109b3b2f"
+          },
+          "max": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-4-max.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-4-max.webp",
+            "width": 1122,
+            "height": 176,
+            "sha256": "a563d08b32a5bf9295d6a4866fbc014230210cb273b5dabd5b414b011cf9b5b1"
+          }
+        },
+        {
+          "fluid": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-5-fluid.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-5-fluid.webp",
+            "width": 512,
+            "height": 80,
+            "sha256": "a17618ec6bfd66a2371e2bbbb85de73953528f41142f9c6390aeeb7d5378468e"
+          },
+          "balanced": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-5-balanced.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-5-balanced.webp",
+            "width": 1024,
+            "height": 160,
+            "sha256": "1267b3195c1d0623feafe6a2042a2548ebca09616859dc904654f7096806a59b"
+          },
+          "max": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-5-max.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-5-max.webp",
+            "width": 1122,
+            "height": 175,
+            "sha256": "45d2b3e186d94eb31778b2231fe5bffde20880d61157e72c1f26d9049836dfb7"
+          }
+        },
+        {
+          "fluid": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-6-fluid.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-6-fluid.webp",
+            "width": 512,
+            "height": 80,
+            "sha256": "cafe4da4c1f33c6acfedfe21c23323bca88f6253c3ede205a9ade7883c4cc7b3"
+          },
+          "balanced": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-6-balanced.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-6-balanced.webp",
+            "width": 1024,
+            "height": 160,
+            "sha256": "f8239f10df1f3376371121db5157a9a5deb6ea5dc59b6569e823668cd59b61a9"
+          },
+          "max": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-6-max.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-6-max.webp",
+            "width": 1122,
+            "height": 175,
+            "sha256": "9de70de4d8aab28b040b0c2e20e7ba72d7b0d816610c057f340921d460d4e74f"
+          }
+        },
+        {
+          "fluid": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-7-fluid.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-7-fluid.webp",
+            "width": 512,
+            "height": 80,
+            "sha256": "617582e51d1b3bc290b67ac43276e53a9887e5912716c9fe135c8457f8ee774c"
+          },
+          "balanced": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-7-balanced.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-7-balanced.webp",
+            "width": 1024,
+            "height": 160,
+            "sha256": "f32e341390dc9fc8010338afc0dcffda4dc04da8c37a4c04cd17bb6b152f8ee0"
+          },
+          "max": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-7-max.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-7-max.webp",
+            "width": 1122,
+            "height": 175,
+            "sha256": "02abf9c4d7eef2a91481738a7dfc5da4d0df79f11d56bea10fafab6733bbee98"
+          }
+        },
+        {
+          "fluid": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-8-fluid.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-8-fluid.webp",
+            "width": 512,
+            "height": 80,
+            "sha256": "51fbb26832999e727215ab3f27376d83bb4db2ce0eeafc13a53f8035c221c912"
+          },
+          "balanced": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-8-balanced.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-8-balanced.webp",
+            "width": 1024,
+            "height": 161,
+            "sha256": "b20413292b2b53c5bd99aba41b97381bbec1e4b15f5d80ad36ff4bb56e19ba05"
+          },
+          "max": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-8-max.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/natural-8-max.webp",
+            "width": 1122,
+            "height": 176,
+            "sha256": "96966ba132ae3c88c4d1a687d5fc56255475b8d34cec5e30fa5619ca9908a0a3"
+          }
+        }
+      ]
+    },
+    "white": {
+      "sourceAtlasSha256": "76a2956c18dfe0c5796669a995fff716f8251ffd8799e3d3fcf2996f31e9acd4",
+      "referenceSample": "https://eliosceramica.com/wp-content/uploads/2023/05/YOSEMITE_white_zoom.jpg",
+      "faces": [
+        {
+          "fluid": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-1-fluid.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-1-fluid.webp",
+            "width": 512,
+            "height": 80,
+            "sha256": "9400510bdc5500e588ae42473e52d8d143149d4c2d48d400cb5175e9afb3e4f1"
+          },
+          "balanced": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-1-balanced.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-1-balanced.webp",
+            "width": 1024,
+            "height": 160,
+            "sha256": "393495b2e75c18841337ab8b8a1c5941211b4db1a85261138a42b9d77b72ca4e"
+          },
+          "max": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-1-max.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-1-max.webp",
+            "width": 1122,
+            "height": 175,
+            "sha256": "b9f88678c7a4d50ab99d9c0e65feb15686a0025bc043eb1e41d82ea7b04fc5d4"
+          }
+        },
+        {
+          "fluid": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-2-fluid.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-2-fluid.webp",
+            "width": 512,
+            "height": 80,
+            "sha256": "70cfa06befc40089c04d42feb72817b466e5a315d8c4d412e9e25ff4d005476b"
+          },
+          "balanced": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-2-balanced.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-2-balanced.webp",
+            "width": 1024,
+            "height": 160,
+            "sha256": "da5870aa4c6c9660828aafd666b6a955dff937d86bf25d2b063bad5eb1a05f3a"
+          },
+          "max": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-2-max.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-2-max.webp",
+            "width": 1122,
+            "height": 175,
+            "sha256": "cf5919bea50fb6c94efaa670ad5a7047682d4b457712a5dc950063a856afedad"
+          }
+        },
+        {
+          "fluid": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-3-fluid.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-3-fluid.webp",
+            "width": 512,
+            "height": 80,
+            "sha256": "3e1a8490374feb76f687c06d6e6831f2eef9c7218b69a7c07000f41b955db8cf"
+          },
+          "balanced": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-3-balanced.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-3-balanced.webp",
+            "width": 1024,
+            "height": 160,
+            "sha256": "118d61eeb0468641683f900c081bbb33124b4580162b89facb71706f05471bfd"
+          },
+          "max": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-3-max.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-3-max.webp",
+            "width": 1122,
+            "height": 175,
+            "sha256": "e7118c39a197bde96b9fd1bab3fe16a34b41df986717832bd314ebf101951555"
+          }
+        },
+        {
+          "fluid": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-4-fluid.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-4-fluid.webp",
+            "width": 512,
+            "height": 80,
+            "sha256": "2f8ffe7c9c3c4d9ed8d18df0e1b85ba465c31a461d0ff44182fce0d911e18633"
+          },
+          "balanced": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-4-balanced.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-4-balanced.webp",
+            "width": 1024,
+            "height": 161,
+            "sha256": "4d806fdf6d930d4190eff82ca9dc0b1a1bf7c3b1867e76208f143539ef59e6a7"
+          },
+          "max": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-4-max.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-4-max.webp",
+            "width": 1122,
+            "height": 176,
+            "sha256": "962ed7efbd197cada20fb3459d1c68712409b7dfe3d7204aa21f5d518fea0979"
+          }
+        },
+        {
+          "fluid": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-5-fluid.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-5-fluid.webp",
+            "width": 512,
+            "height": 80,
+            "sha256": "fa2de771f5a3bb2bf5dc70eb333a1f625b98f28394c21ab7b7753b7a0a37fce3"
+          },
+          "balanced": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-5-balanced.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-5-balanced.webp",
+            "width": 1024,
+            "height": 160,
+            "sha256": "96a2219ca864bdf36854256fc987ed198ad2b61cf5c91211ede2fd64135445fe"
+          },
+          "max": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-5-max.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-5-max.webp",
+            "width": 1122,
+            "height": 175,
+            "sha256": "ca69214bdfd6e238f55f0bf8b81f0f44a090d906486eb0669f86ec0534c40cbd"
+          }
+        },
+        {
+          "fluid": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-6-fluid.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-6-fluid.webp",
+            "width": 512,
+            "height": 80,
+            "sha256": "9d97e47e21bfce403b296a3a954d0313118013a39473fe14c4218b261dcdce47"
+          },
+          "balanced": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-6-balanced.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-6-balanced.webp",
+            "width": 1024,
+            "height": 160,
+            "sha256": "ab903be6b3d2fd1e3aa05ab7538b724a6152024d063eb6c5d810b00a7d5b0b1d"
+          },
+          "max": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-6-max.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-6-max.webp",
+            "width": 1122,
+            "height": 175,
+            "sha256": "7c0a7df683f9115c954cdd8bd023c87d89698de3197491ed83c344a4c9415cdb"
+          }
+        },
+        {
+          "fluid": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-7-fluid.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-7-fluid.webp",
+            "width": 512,
+            "height": 80,
+            "sha256": "ba9896a6bd1f730b5b6ccf85f91e8fa3d28401782bd71a813250c51659427c4e"
+          },
+          "balanced": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-7-balanced.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-7-balanced.webp",
+            "width": 1024,
+            "height": 160,
+            "sha256": "051c0463fa157536d04a6e99376de519f4d189e1574536c0346d64614e81e66a"
+          },
+          "max": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-7-max.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-7-max.webp",
+            "width": 1122,
+            "height": 175,
+            "sha256": "86c054946fc2155a253cf7883e7b3b938549530b72f9969b2e7ba3fe15f2ccad"
+          }
+        },
+        {
+          "fluid": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-8-fluid.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-8-fluid.webp",
+            "width": 512,
+            "height": 80,
+            "sha256": "d3977246284ea7084964ee449399a318bae19f85d8e54f54d2cb5ae2f3abb5af"
+          },
+          "balanced": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-8-balanced.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-8-balanced.webp",
+            "width": 1024,
+            "height": 161,
+            "sha256": "90b414d794775c862f51c0da8b0784604c9f67a59c931ea06895817516e5b033"
+          },
+          "max": {
+            "path": "assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-8-max.webp",
+            "url": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/yosemite-reconstructed/white-8-max.webp",
+            "width": 1122,
+            "height": 176,
+            "sha256": "44a1782d5bb5862917c9cf47b034d8615964033100d681208894162dd69d611a"
+          }
+        }
+      ]
+    }
+  },
+  "note": "Visual reconstruction from the official public colour sample, requested by the user; not original manufacturer faces. Images generated with built-in imagegen. Mechanical extraction and downward-only encoding preserve the generated face pixels.",
+  "promptTemplate": "Reference: official ELIOS Yosemite {COLOR} sample. Create eight distinct matte wood-look ceramic plank faces in one column of eight horizontal strips; match reference hue/value/saturation and grain species; flat orthographic diffuse albedo, no text/gutters/joints/shadows/perspective. Distinct natural grain layouts, no added rustic cracks or unrelated colour cast. Intended canvas2048x2560; actual generated dimensions1122x1402. Downward-only extraction preserves native detail."
+}
