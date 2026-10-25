@@ -63,9 +63,13 @@ function minimizeButton(document,panel,heading){
  heading.insertBefore(button,heading.lastElementChild);return button;
 }
 
-export function mountElementPanelControls({document=globalThis.document}={}){
+export function mountElementPanelControls({document=globalThis.document,onPanelOpen}={}){
  styles(document);const inspector=document.querySelector('#object-editor');if(!inspector||inspector.dataset.elementPanelControls)return;
  inspector.dataset.elementPanelControls='true';const heading=inspector.querySelector('.object-editor-heading');if(!heading)return;
+ // A custom editor owns the rail until it closes. Clear the prior inspector's
+ // controller state as well as its DOM, so live scene refreshes cannot reopen
+ // it underneath a layout or zone panel and hide both through competing CSS.
+ document.addEventListener?.('lrf-element-panel-open',()=>onPanelOpen?.());
  const button=minimizeButton(document,inspector,heading);
  if(typeof MutationObserver==='function')new MutationObserver(()=>{if(!inspector.hidden){inspector.classList.remove('element-panel-minimized');button.textContent='Réduire';button.setAttribute('aria-expanded','true');}}).observe(inspector,{attributes:true,attributeFilter:['hidden']});
 }

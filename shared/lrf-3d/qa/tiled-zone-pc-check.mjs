@@ -22,7 +22,7 @@ assert.equal(newTiledZone(wall,finish).width,120);wall.setLayout({...wall.layout
 }
 const previous={document:globalThis.document,Option:globalThis.Option,matchMedia:globalThis.matchMedia},ids=new Map();
 class Element{
- constructor(tag='div'){this.tag=tag;this.children=[];this.attributes={};this.dataset={};this.style={};this.listeners=new Map();this.classes=new Set();this.classList={add:(...names)=>names.forEach(n=>this.classes.add(n)),remove:(...names)=>names.forEach(n=>this.classes.delete(n)),contains:n=>this.classes.has(n)};this.value='';this.scrollTop=0;}
+ constructor(tag='div'){this.tag=tag;this.children=[];this.attributes={};this.dataset={};this.style={};this.listeners=new Map();this.classes=new Set();this.classList={add:(...names)=>names.forEach(n=>this.classes.add(n)),remove:(...names)=>names.forEach(n=>this.classes.delete(n)),contains:n=>this.classes.has(n),toggle:(name,force)=>{const enabled=force??!this.classes.has(name);if(enabled)this.classes.add(name);else this.classes.delete(name);return enabled;}};this.value='';this.scrollTop=0;}
  set id(value){this._id=value;ids.set(value,this);}get id(){return this._id;}
  append(...nodes){for(const n of nodes){n.parentElement?.removeChild?.(n);n.parentElement=this;this.children.push(n);}}
  removeChild(n){this.children=this.children.filter(c=>c!==n);n.parentElement=null;}
@@ -38,7 +38,7 @@ class Element{
 const all=e=>[e,...(e.children||[]).flatMap(all)],get=(p,name)=>all(p).find(e=>e.name===name);
 try{
  const body=new Element('body'),head=new Element('head'),primary=new Element('button'),rail=new Element('aside'),stage=new Element(),canvas=new Element('canvas');primary.id='room-open';rail.id='settings';body.append(primary,rail,stage);stage.append(canvas);
- globalThis.document={head,body,createElement:t=>new Element(t),createTextNode:t=>({textContent:t}),querySelector:s=>ids.get(s.slice(1))||null};globalThis.Option=function(text,value){const o=new Element('option');o.textContent=text;o.value=value;return o;};globalThis.matchMedia=()=>({matches:true});
+ const documentEvents=new EventTarget();globalThis.document={head,body,createElement:t=>new Element(t),createTextNode:t=>({textContent:t}),querySelector:s=>ids.get(s.slice(1))||null,addEventListener:documentEvents.addEventListener.bind(documentEvents),removeEventListener:documentEvents.removeEventListener.bind(documentEvents),dispatchEvent:documentEvents.dispatchEvent.bind(documentEvents)};globalThis.Option=function(text,value){const o=new Element('option');o.textContent=text;o.value=value;return o;};globalThis.matchMedia=()=>({matches:true});
  const scene=new T.Scene();scene.add(room.root);const camera=new T.PerspectiveCamera(42,1000/700,.02,100);camera.position.set(0,1.3,3);camera.lookAt(0,1.3,-.23);camera.updateMatrixWorld(true);room.updateCutaway(camera.position);
  const walls=room.walls.map(()=>({...finish,zones:[],jointProfiles:[]})),floor={...finish,zones:[],jointProfiles:[]},composition={locked:false,items:[]},controls={enabled:true};let checkpoints=0,readonly=false,controller;
  const api={canvas,camera,scene,stage,controls,getRoom:()=>room,getWallFinish:i=>walls[i],getFloorFinish:()=>floor,getComposition:()=>composition,getSelectedWall:()=>0,readonly:()=>readonly,status(){},wallLabel:i=>'Mur'+i,refresh(){controller.sync();},invalidate(){},checkpoint(){checkpoints++;},applySurface(){}};

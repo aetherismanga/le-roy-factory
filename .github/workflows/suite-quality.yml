@@ -94,6 +94,9 @@ jobs:
       LRF_QA_OUTPUT: reports/lrf-suite/element-panels
       LRF_LOCK_QA_DIR: reports/lrf-suite/position-lock
       LRF_PARTITION_QA_OUTPUT: reports/lrf-suite/partitions
+      LRF_PANEL_LIFECYCLE_QA_OUTPUT: reports/lrf-suite/panel-lifecycle
+      LRF_RUG_QA_OUTPUT: reports/lrf-suite/floor-rug
+      LRF_NICHE_OPENINGS_QA_OUTPUT: reports/lrf-suite/niche-openings
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
@@ -105,6 +108,12 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - name: Verify element choices stay beside the live scene
         run: node tests/lrf-suite/element-panels-browser.cjs
+      - name: Verify sidebar content survives editor changes and outside clicks
+        run: node tests/lrf-suite/panel-lifecycle-browser.cjs
+      - name: Verify floor rug creation, mouse and touch movement, and dimensions
+        run: node tests/lrf-suite/floor-rug-browser.cjs
+      - name: Verify niche materials and selection after locking and adding openings
+        run: node tests/lrf-suite/niche-openings-browser.cjs
       - name: Verify individual locks and movement inside a locked room
         run: node tests/lrf-suite/position-lock-browser.cjs
       - name: Verify inherited partition tiling and live geometry editing

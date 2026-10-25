@@ -12,7 +12,7 @@ export function newTiledZone(surface,finish,kind='wall'){
  const formats=formatsForColor(collection,color),layout=surface.layout||{},format=formats.find(f=>f.id===finish.format)||formats.find(f=>Math.abs(f.width-layout.width)<.001&&Math.abs(f.height-layout.height)<.001)||formats[0];
  if(!format)throw Error('Choisissez d’abord un carrelage et son format.');
  const direction=layout.direction==='vertical'?'vertical':'horizontal',tileWidth=(direction==='vertical'?format.height:format.width)*100,tileHeight=(direction==='vertical'?format.width:format.height)*100;
- const width=Math.min(bounds.width,tileWidth),height=kind==='wall'?bounds.height:Math.min(bounds.height,tileHeight),patterns=layoutPatterns(collection,color,format.id,layout);
+ const width=Math.min(bounds.width,tileWidth*(kind==='floor'?2:1)),height=kind==='wall'?bounds.height:Math.min(bounds.height,tileHeight*2),patterns=layoutPatterns(collection,color,format.id,layout);
  // Carry the chosen commercial variant only when its collection, colour and
  // format still describe this new band. A fallback size or paint conversion
  // must never attach the previous wall's SKU, finish or custom carton to it.
@@ -31,7 +31,8 @@ export function newTiledZone(surface,finish,kind='wall'){
 }
 
 export function zoneEditorCSS(){return `
- .renovation-zone-panel{position:absolute;inset:12px 12px auto auto;z-index:45;width:340px;max-width:calc(100% - 24px);max-height:calc(100% - 24px);padding:16px;border:1px solid #cdd1c4;border-radius:12px;background:#fffdf7;color:#2b3c32;box-shadow:0 8px 26px #19352b22;overflow:auto;overscroll-behavior:contain;box-sizing:border-box}
+ .rug-selection-overlay{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:4;overflow:hidden}.rug-selection-overlay polygon{fill:none;stroke:#b79850;stroke-width:2;stroke-dasharray:6 4;vector-effect:non-scaling-stroke}
+ .renovation-zone-panel{position:absolute;inset:76px 12px auto auto;z-index:45;width:340px;max-width:calc(100% - 24px);max-height:calc(100% - 88px);padding:16px;border:1px solid #cdd1c4;border-radius:12px;background:#fffdf7;color:#2b3c32;box-shadow:0 8px 26px #19352b22;overflow:auto;overscroll-behavior:contain;box-sizing:border-box}
  .renovation-zone-panel .zone-panel-heading{position:sticky;top:-16px;display:flex;align-items:center;justify-content:space-between;gap:8px;background:#fffdf7;padding:8px 0;z-index:2}
  .renovation-zone-panel h2{font:22px/1.2 Georgia,serif;margin:0}
  .renovation-zone-panel .renovation-fields{gap:9px}
@@ -48,6 +49,7 @@ export function zoneEditorCSS(){return `
  .renovation-zone-panel summary{cursor:pointer;min-height:32px;font:12px/1.5 Arial,sans-serif;color:#53654f}
  .renovation-zone-panel details>.renovation-fields{padding-top:8px}
  .renovation-zone-panel [disabled]{opacity:.6}
+ .renovation-zone-panel .zone-panel-minimize{display:none}
  .renovation-zone-panel .zone-panel-close{flex-shrink:0;min-width:36px;font-size:17px}
- @media(max-width:760px){.renovation-zone-panel{max-height:55dvh;top:auto;bottom:12px;width:min(340px,calc(100% - 24px))}}
+ @media(max-width:760px){.renovation-zone-panel{inset:auto 8px 8px;width:auto;max-width:calc(100% - 16px);max-height:48%;padding:12px}.renovation-zone-panel .zone-panel-heading{top:-12px}.renovation-zone-panel .zone-panel-heading h2{font-size:19px;flex:1}.renovation-zone-panel input,.renovation-zone-panel select,.renovation-zone-panel button{min-height:44px;font-size:16px}.renovation-zone-panel .zone-panel-heading button{font-size:12px;min-width:44px;flex-shrink:0}.renovation-zone-panel .zone-panel-minimize{display:block}.renovation-zone-panel.zone-panel-minimized>:not(.zone-panel-heading){display:none!important}}
  `;}

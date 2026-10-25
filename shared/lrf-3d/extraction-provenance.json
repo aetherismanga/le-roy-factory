@@ -140,14 +140,14 @@
       "bytes": 2149,
       "originalsIdentical": true,
       "current": {
-        "sha256": "c318a9afc55fcbb8c6d730e8f9af334637b03d74b4dbd049d122f47024c45503",
-        "bytes": 3456,
-        "changeType": "functional-update-20261024",
-        "reason": "Requested shared RANDAL editing improvements: tile layouts, recessed editable niches, RAL finishes, flush plates and surface controls. Original extraction hash retained above.",
+        "sha256": "176343b35f68e7c4b4f880405ed5167eb23a13637f22b9efaf52cfadcdd3d3f2",
+        "bytes": 3624,
+        "changeType": "functional-update-20261025",
+        "reason": "Preserve editable niche coverings after wall recuts and allow a targeted individual placement unlock while the rest of the room remains locked; original extraction provenance retained above.",
         "validation": [
-          "shared/lrf-3d/qa/ral-sanitary-check.mjs",
+          "tests/lrf-suite/niche-openings.test.mjs",
           "shared/lrf-3d/qa/niche-editing-check.mjs",
-          "shared/lrf-3d/qa/tile-layout-acceptance.mjs"
+          "shared/lrf-3d/qa/room-interaction-check.mjs"
         ]
       }
     },
