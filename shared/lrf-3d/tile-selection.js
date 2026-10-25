@@ -1,6 +1,16 @@
+import {COLLECTIONS,formatsForColor} from './surface-catalog.js';
+
 export const TILE_SELECTION_MODES=Object.freeze([
  ['single','Un carreau'],['horizontal','Rangée horizontale'],['vertical','Colonne verticale']
 ]);
+
+// Per-cell edits keep the wall's physical grid. A colour offered only in a
+// different manufacturer size must be selected through the wall's picker.
+export function tileColorMatchesLayout(collection,color,layout={}){
+ return !!COLLECTIONS[collection]?.colors.some(choice=>choice.id===color)&&formatsForColor(collection,color).some(format=>
+  Math.abs(format.width-Number(layout.width))<.001&&Math.abs(format.height-Number(layout.height))<.001&&
+  (format.shape||'rectangle')===(layout.shape||'rectangle'));
+}
 
 export function tileKeysForSelection(surface,key,mode='single'){
  const cells=surface?.tiles?.geometry?.userData.cells||[];

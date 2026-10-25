@@ -239,14 +239,14 @@
       "bytes": 9166,
       "originalsIdentical": true,
       "current": {
-        "sha256": "7090ee48d6b25c4bf8b605e86421092c2024e70a5513b57890a93cff19ffab1c",
-        "bytes": 10752,
+        "sha256": "95a0a00f39a8a140649cb34203b91554e1672f0ed0922a4cbecb0d545659514c",
+        "bytes": 10788,
         "changeType": "functional-update-20261024",
-        "reason": "Requested shared RANDAL editing improvements: tile layouts, recessed editable niches, RAL finishes, flush plates and surface controls. Original extraction hash retained above.",
+        "reason": "User-requested ELIOS collections, reviewed limited catalogue samples, authorized Yosemite reconstructions and correct multi-tile decor/chevron geometry. Original extraction checksum is preserved.",
         "validation": [
-          "shared/lrf-3d/qa/ral-sanitary-check.mjs",
-          "shared/lrf-3d/qa/niche-editing-check.mjs",
-          "shared/lrf-3d/qa/tile-layout-acceptance.mjs"
+          "shared/lrf-3d/qa/tile-layout-acceptance.mjs",
+          "shared/lrf-3d/qa/decor-panels-check.mjs",
+          "shared/lrf-3d/qa/surface-appearance-check.mjs"
         ]
       }
     },

@@ -4,18 +4,26 @@ import {resolveSurfaceTexture,finishForSurface} from './surface-texture-selectio
 export function validTileColors(surface,finish){const keys=new Set(surface.tiles.geometry.userData.cells.map(c=>c.key)),colors=new Set(COLLECTIONS[finish.collection]?.colors.map(c=>c.id)||[]);return Object.fromEntries(Object.entries(finish.tiles||{}).slice(0,12000).filter(([key,color])=>keys.has(key)&&colors.has(color)&&color!==finish.color));}
 function orientContinuousDecor(surface,finish){
  if(!surface.tiles.geometry.userData.originalTileUV&&!COLLECTIONS[finish.collection]?.colors.some(c=>c.continuousDecor)){surface.tiles.geometry.userData.continuousDecor=false;return;}
- const continuous=new Set((COLLECTIONS[finish.collection]?.colors||[]).filter(c=>c.continuousDecor).map(c=>c.id)),colors=validTileColors(surface,finish),enabled=[finish.color,...Object.values(colors)].some(id=>continuous.has(id));
+ const definitions=(COLLECTIONS[finish.collection]?.colors||[]).filter(c=>c.continuousDecor),continuous=new Map(definitions.map(c=>[c.id,c])),colors=validTileColors(surface,finish),enabled=[finish.color,...Object.values(colors)].some(id=>continuous.has(id));
  // A half-tile stagger cannot join these full-panel drawings. Rebuild older
  // saved layouts on a straight grid before assigning their material groups.
  if(enabled&&surface.layout?.pattern&&surface.layout.pattern!=='straight'&&surface.setLayout){surface.setLayout({...surface.layout,pattern:'straight'});return orientContinuousDecor(surface,finish);}
  const g=surface.tiles.geometry,data=g.userData,uv=g.attributes.uv;data.continuousDecor=enabled;
  if(!uv||!enabled&&!data.originalTileUV)return;
- const signature=JSON.stringify([finish.collection,finish.color,colors]);if(data.tileOrientationKey===signature)return;
+ const signature=JSON.stringify([finish.collection,finish.color,colors,definitions.map(c=>[c.id,c.decorRepeat])]);if(data.tileOrientationKey===signature)return;
  const original=data.originalTileUV??=uv.array.slice(),source=data.sourceFaceCells||data.faceCells||[];
  // Tile geometry keeps natural materials varied by turning alternate slabs.
  // Restore the unturned UVs only for the selected continuous decor, including
  // partial tiles at openings. Keep the source order when groups are reindexed.
- for(let face=0;face<source.length;face++){const key=source[face],[col=0,row=0]=key.split(':').map(Number),unturn=continuous.has(colors[key]||finish.color)&&Math.abs(col*13+row*7)%2===1;for(let i=face*6;i<face*6+6;i++)uv.array[i]=unturn?1-original[i]:original[i];}
+ for(let face=0;face<source.length;face++){
+  const key=source[face],[col=0,row=0]=key.split(':').map(Number),definition=continuous.get(colors[key]||finish.color),unturn=!!definition&&Math.abs(col*13+row*7)%2===1;
+  // Some manufacturer pictures contain a complete 2 × 2 tile panel. Sample
+  // each physical tile's matching quadrant instead of shrinking all four
+  // tiles into every cell. A positive modulo preserves the panel phase when
+  // a drawing starts before the origin or is clipped by a door/window.
+  const dimension=value=>Number.isInteger(value)&&value>0&&value<=64?value:1,columns=dimension(definition?.decorRepeat?.columns),rows=dimension(definition?.decorRepeat?.rows),phaseX=((col%columns)+columns)%columns,phaseY=((row%rows)+rows)%rows;
+  for(let i=face*6;i<face*6+6;i+=2){const u=unturn?1-original[i]:original[i],v=unturn?1-original[i+1]:original[i+1];uv.array[i]=definition?(phaseX+u)/columns:original[i];uv.array[i+1]=definition?(phaseY+v)/rows:original[i+1];}
+ }
  data.tileOrientationKey=signature;uv.needsUpdate=true;
 }
 export function applyTileColors(surface,finish,createMaterial){

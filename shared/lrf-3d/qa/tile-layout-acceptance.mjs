@@ -31,9 +31,9 @@ if(allContinuous)assert.deepEqual(layoutPatterns('Allure',allContinuous.id,forma
 
 // Manufacturer chevrons are mitred parallelograms: no overlapping rectangular
 // ends, finite clipped geometry around openings, correct area and usable UVs.
-for(const direction of ['horizontal','vertical'])for(const planAxes of [false,true]){
- const layout={width:.957,height:.234,shape:'chevron',pattern:'chevron',chevronAngle:45,direction,planAxes,groutWidth:2};
- assert.equal(normalizeTileLayout(layout).shape,'chevron');
+for(const chevronAngle of [30,45,60])for(const direction of ['horizontal','vertical'])for(const planAxes of [false,true]){
+ const layout={width:.957,height:.234,shape:'chevron',pattern:'chevron',chevronAngle,direction,planAxes,groutWidth:2};
+ assert.equal(normalizeTileLayout(layout).shape,'chevron');assert.equal(normalizeTileLayout(layout).chevronAngle,chevronAngle);
  const modules=tileModules({minX:0,maxX:2,minY:0,maxY:2},layout);
  assert(new Set(modules.map(c=>c.key)).size===modules.length);
  for(let a=0;a<modules.length;a++)for(let b=a+1;b<modules.length;b++)close(overlapArea(modules[a].polygon,modules[b].polygon),0);
@@ -43,6 +43,11 @@ for(const direction of ['horizontal','vertical'])for(const planAxes of [false,tr
  const area=geometry.userData.cells.reduce((n,c)=>n+c.area,0);assert(area<8&&area>7.8,'Opening area removed; only physical joints reduce remaining face area');
  assert.equal(geometry.userData.faceCells.length,geometry.attributes.position.count/3);
  geometry.dispose();
+}
+{
+ const small=buildTileGeometry([[0,0],[1,0],[1,1],[0,1]],{width:.407,height:.075,shape:'chevron',pattern:'chevron',chevronAngle:30,groutWidth:2});
+ const covered=small.userData.cells.reduce((n,c)=>n+c.area,0);assert(covered>.95&&covered<1,'Small Yosemite chevrons cover the surface, with only the2mm physical joints removed');
+ assert(Array.from(small.attributes.uv.array).every(v=>v>=-1e-5&&v<=1+1e-5));small.dispose();
 }
 const testName='QA chevron product';COLLECTIONS[testName]={brand:'ELIOS',colors:[{id:'wood'}],formats:[{id:'chevron',width:.957,height:.234,shape:'chevron',layouts:['chevron'],chevronAngle:45},{id:'plank',width:1.195,height:.234,shape:'rectangle'}]};
 assert.deepEqual(layoutPatterns(testName,'wood','chevron').map(p=>p.id),['chevron']);
@@ -67,4 +72,4 @@ assert.equal(samples.length,7,'The RAL catalogue must not flood a mobile panel w
 const ral=els.find(e=>e.dataset.surfaceField==='ral'),search=els.find(e=>e.type==='search');assert.equal(ral.value,'ral-7016');assert(ral.children.length>200);
 search.value='7016';search.oninput();assert.equal(ral.children.length,2);assert.equal(ral.children[1].value,'ral-7016');
 ral.value='ral-7016';ral.onchange();assert.equal(chosen,'ral-7016');
-console.log(JSON.stringify({passed:true,checks:['third stagger positive and negative rows','documented per-format Opus eligibility','continuous decor stays straight','mitred chevron tessellation without overlap','chevron clipping, area, directions, plan axes and UVs','visible checked grout colour','compact searchable RAL choice']}));
+console.log(JSON.stringify({passed:true,checks:['third stagger positive and negative rows','documented per-format Opus eligibility','continuous decor stays straight','mitred chevron tessellation without overlap','chevron 30/45/60 degree clipping, area, directions, plan axes and UVs','visible checked grout colour','compact searchable RAL choice']}));

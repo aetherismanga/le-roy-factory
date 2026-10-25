@@ -1,12 +1,12 @@
 import {privateSurfacePrice} from './private-surface-prices.js';
 import data from '../../shared/lrf-3d/commercial-surfaces.json' with {type:'json'};
-import {commercialSurfaceOptions} from '../../shared/lrf-3d/surface-identity.mjs';
+import {commercialSurfaceOptions,commercialSurfaceProduct} from '../../shared/lrf-3d/surface-identity.mjs';
 const norm=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,''),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),fmt=n=>Number(n||0).toLocaleString('fr-FR',{maximumFractionDigits:2,minimumFractionDigits:2}),money=n=>Number.isFinite(n)?n.toLocaleString('fr-FR',{style:'currency',currency:'EUR'}):'À confirmer';
 export const commercialOptions=f=>commercialSurfaceOptions(f,data.products);
-export function commercialProduct(f){const choices=commercialOptions(f);const product=choices.find(p=>p.key===f.catalogueKey)||choices[0];return product?{...product,...privateSurfacePrice('products',product.key)}:null;}
+export function commercialProduct(f){const product=commercialSurfaceProduct(f,data.products);return product?{...product,...privateSurfacePrice('products',product.key)}:null;}
 export const matchingPlinthProducts=f=>data.plinths.filter(p=>norm(p.collection)===norm(f.collection)&&p.colorId===f.color).map(p=>({...p,...privateSurfacePrice('plinths',p.key)}));
 export function enrichQuantity(row,finish){
- if(row.paint)return row;const product=commercialProduct(finish);if(!product)return row;
+ if(row.paint)return row;const product=commercialProduct(finish);if(!product)return {...row,catalogueKey:undefined,reference:undefined,finish:finish.finish||row.finish,purchaseHT:undefined,purchasePaletteHT:undefined,totalPurchaseHT:null};
  const personal=finish.customPack||Object.keys(finish.packs||{}).length||finish.pack,verified=!personal&&product.packVerified,pack=verified?{m2Box:product.packArea,pcsBox:product.packPieces,packVerified:true,source:product.packSource}:{};
  const result={...row,...pack,reference:product.reference,finish:product.finish,preview:product.preview,purchaseHT:product.purchaseHT,purchasePaletteHT:product.purchasePaletteHT,priceSource:product.priceSource,priceNote:product.priceNote,catalogueKey:product.key};
  if(result.packVerified){result.boxes=Math.ceil((result.needed-1e-8)/result.m2Box);result.orderArea=result.boxes*result.m2Box;result.orderPieces=result.boxes*result.pcsBox;}result.totalPurchaseHT=Number.isFinite(result.purchaseHT)&&result.orderArea!==null?Math.round(result.orderArea*result.purchaseHT*100)/100:null;return result;
