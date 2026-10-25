@@ -79,6 +79,18 @@ async function verifyPCColumns({page,kind,root,output,pass,restoration}){
  assert.equal(collision.after.width,90);assert.equal(collision.after.color,'avena');
  pass(kind+': immediate desktop pointer drag, undo/redo, right-click lock and collision-safe drop');
 
+ const active=await zoneScreen(page,id),stable=await zoneState(page,id);
+ await page.mouse.move(active.screen.x,active.screen.y);await page.mouse.down({button:'left'});await page.mouse.move(active.moveRight50.x,active.moveRight50.y,{steps:4});
+ assert.equal(await page.evaluate(()=>{const app=studioOnePrototype;return app.restoreProject(app.exportProject());}),true);
+ await page.mouse.up({button:'left'});
+ const cancelled=await zoneState(page,id);for(const key of ['x','y','width','height','collection','color','format','locked'])assert.equal(cancelled[key],stable[key],'Restoring during a held drag must preserve '+key);assert.deepEqual(cancelled.profileEdges,stable.profileEdges);
+ await page.evaluate(()=>studioOnePrototype.setView('room',true));
+ const reopened=(await zoneScreen(page,id)).screen;await page.mouse.click(reopened.x,reopened.y);await panel.waitFor({state:'visible'});
+ await contextAction(page,id,'Supprimer');await panel.waitFor({state:'detached'});
+ assert.equal(await zoneState(page,id),undefined,'Deleting through the scene menu removes the open column');
+ assert.equal(await page.locator('#settings').evaluate(element=>element.classList.contains('zone-editor-open')),false,'Deleting the open column restores the normal rail');
+ pass(kind+': restore cancels a held pointer gesture; right-click deletion closes the open panel and cannot revive a stale band');
+
  const complex=await complexRoom(root,kind);
  for(const attempt of ['initial','warm']){
   const measured=await page.evaluate(async({project,attempt})=>{
