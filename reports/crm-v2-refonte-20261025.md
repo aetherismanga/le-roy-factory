@@ -37,4 +37,8 @@ La production demeure sur sa version actuelle : aucune restauration de données 
 
 Toute future publication demande une validation explicite de Jérôme, une nouvelle revue du diff contre le `main` alors courant et des tests avec un véritable environnement Firebase de test. Aucun changement de protection Vercel n’est nécessaire : conserver la protection et utiliser un lien temporaire limité à la prévisualisation.
 
-Prévisualisation protégée : https://le-roy-factory-d8sb406cn-hugol-trading.vercel.app — déploiement `dpl_71vqBNevV44yp7UBKmhPBs3BmFUL`, cible preview (target null), aucun alias de production.
+Prévisualisation protégée : https://le-roy-factory-cpibptdbc-hugol-trading.vercel.app — déploiement `dpl_89d3GcXqJVyW1VRupLL2pyBc8AkS`, cible preview (target null), aucun alias de production.
+
+Commit applicatif vérifié : `1724031813f4bd511d6163db17c0b41e14ac39c5`. Protection Vercel SSO conservée (`all_except_custom_domains`). Proposition GitHub brouillon : https://github.com/aetherismanga/le-roy-factory/pull/141 .
+
+Captures Chrome dans `reports/crm-v2/captures/` : accueil mobile, menu mobile, fiche partenaires et accueil PC. La simulation responsive ne remplace pas un appareil réel. Vérification finale : filtre ELIOS = deux marqueurs ; panneau Infos masqué (display none) lors du choix Partenaires. Une collision CSS héritée a été corrigée pour ce dernier point. Une alerte du garde de test a confirmé le blocage d’une navigation externe.
