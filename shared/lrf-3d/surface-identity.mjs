@@ -83,5 +83,12 @@ export function normalizeProjectSurfaceIdentities(project){
  };
  if(data.floor)data.floor=resolve(data.floor,data.layouts?.floor,'Sol');
  if(Array.isArray(data.walls))data.walls=data.walls.map((finish,index)=>resolve(finish,data.layouts?.walls?.[index],'Mur '+(index+1)));
+ for(const [index,item] of (data.items||[]).entries())if(item.type==='shower'&&item.settings?.trayType==='tile'){
+  const covering=item.settings.trayCovering;
+  if(covering&&['all','split'].includes(covering.mode)){
+   covering.top=resolve(covering.top,{},'Receveur '+(index+1)+' · dessus');
+   if(covering.mode==='split')covering.reveal=resolve(covering.reveal,{},'Receveur '+(index+1)+' · rebords');
+  }
+ }
  data.surfaceNotices=[...new Set(notices)];return data;
 }

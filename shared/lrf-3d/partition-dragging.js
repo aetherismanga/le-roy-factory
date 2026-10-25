@@ -1,0 +1,16 @@
+import {Vector2,Vector3,Raycaster,Plane} from 'three';
+import {isItemPositionLocked} from './position-lock.js';
+import {worldDeltaToPlan,partitionUpdate} from './partition-editing.js';
+
+export function setupPartitionDragging({canvas,camera,controls,getRoom,getSceneRoom,getComposition,pick,enabled=()=>true,onTap,onUpdate,onStart,onEnd,onStatus}){
+ let active=null;const pointers=new Set();
+ const point=(e,plane)=>{const rect=canvas.getBoundingClientRect(),ray=new Raycaster();ray.setFromCamera(new Vector2((e.clientX-rect.left)/rect.width*2-1,-(e.clientY-rect.top)/rect.height*2+1),camera);return ray.ray.intersectPlane(plane,new Vector3());};
+ const stop=e=>{e.stopImmediatePropagation();if(e.cancelable)e.preventDefault();};
+ const finish=(cancel=false)=>{const a=active;active=null;if(!a)return;clearTimeout(a.timer);if(cancel&&a.dragging)onUpdate(a.origin,a.id);controls.enabled=a.wasEnabled;canvas.classList.remove('moving-object');if(canvas.hasPointerCapture?.(a.pointer))canvas.releasePointerCapture(a.pointer);if(a.dragging)onStatus(cancel?'Déplacement de la cloison annulé.':'Cloison positionnée.');onEnd?.();};
+ const begin=a=>{if(active!==a)return;a.dragging=true;onStart?.();canvas.classList.add('moving-object');onStatus('Glissez la cloison dans la pièce. Les éléments fixés la suivent.');};
+ canvas.addEventListener('pointerdown',e=>{pointers.add(e.pointerId);if(pointers.size>1){finish(true);return;}if(e.button!==0||!enabled())return;const hit=pick(e),match=/^wall:(\d+)$/.exec(hit?.editTarget||''),wall=match?getSceneRoom()?.walls[Number(match[1])]:null;if(wall?.partition===undefined||hit?.itemId)return;const config=getRoom(),p=config.partitions?.[wall.partition];if(!p)return;if(isItemPositionLocked(getComposition(),p))return;const plane=new Plane(new Vector3(0,1,0),-(hit.point?.y||0)),start=point(e,plane);if(!start)return;active={pointer:e.pointerId,id:p.id||'index-'+wall.partition,index:wall.partition,origin:JSON.parse(JSON.stringify(config)),plane,start,x:e.clientX,y:e.clientY,hit,wasEnabled:controls.enabled,dragging:false,last:'0,0',type:e.pointerType};controls.enabled=false;canvas.setPointerCapture(e.pointerId);if(e.pointerType==='touch'){const a=active;a.timer=setTimeout(()=>begin(a),340);}stop(e);},true);
+ canvas.addEventListener('pointermove',e=>{const a=active;if(!a||a.pointer!==e.pointerId)return;const distance=Math.hypot(e.clientX-a.x,e.clientY-a.y);if(!a.dragging){if(a.type==='touch'){if(distance>8){finish(false);}stop(e);return;}if(distance<5){stop(e);return;}begin(a);}const next=point(e,a.plane);if(!next)return;const delta=worldDeltaToPlan(a.origin,next.sub(a.start)),signature=delta.join(',');if(signature!==a.last){a.last=signature;const draft=partitionUpdate(a.origin,a.index,{moveX:delta[0],moveY:delta[1]});onUpdate(draft,a.id);}stop(e);},true);
+ canvas.addEventListener('pointerup',e=>{pointers.delete(e.pointerId);const a=active;if(!a||a.pointer!==e.pointerId)return;const tap=!a.dragging&&Math.hypot(e.clientX-a.x,e.clientY-a.y)<8;finish();if(tap)onTap(a.hit);stop(e);},true);
+ canvas.addEventListener('pointercancel',e=>{pointers.delete(e.pointerId);if(active?.pointer===e.pointerId){finish(true);stop(e);}},true);
+ return {cancel:()=>finish(true),getActive:()=>active};
+}

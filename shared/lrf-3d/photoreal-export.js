@@ -1,6 +1,9 @@
 // Local handoff only: no network upload, API key, account data or prices.
 export const CHATGPT_URL='https://chatgpt.com/';
 const visualKeys=new Set(['format','width','height','depth','finish','top','topDrawer','basinColor','basinLayout','basinWidth','basinDepth','basinPosition','tap','tapFinish','tapHeight','mirror','mirrorSize','mirrorFinish','frame','frameColor','led','hingeSide','drawers','kind','color','material','apron','apronCollection','apronColor','apronFormat','screen','glass','handle','handleColor','model','collection','reference','faucet','faucetColor','rotation','thickness','radius','diameter','gap','u','v','x','y','z','wall','offset','length','a','b','points','shape','direction','pattern','groutColor','groutWidth','groutSize','joint','jointWidth','jointColor','paintHex','catalogueKey','texturePattern','row','column','index','tile','colorId','zones','tileColors','tileShifts','columns','columnOffsets','columnShifts','rowOffset','shift','bounds','rect','vertices','columnModel','mirrorModel','topFinish','doorOpen','handleFinish','metal','use','basin','vessel','screenWidth','screenHeight','screenDepth','insetColor','vesselColor','tiles']);
+// Keep construction finishes in the visual brief with the same recursive
+// allowlist as the rest of the project; private prices and notes stay excluded.
+for(const key of ['fullHeight','profileEdges','profileColor','profile','enabled','top','back','reveal','mode','layout','opus','support','supportWidth','supportHeight','supportDepth','supportColor','supportCovering','trayType','trayInstallation','trayHeight','trayCovering','trayProfile','trayProfileColor'])visualKeys.add(key);
 const safeText=value=>String(value).replace(/[\u0000-\u001f\u007f]/g,' ').slice(0,120);
 function visualValue(value,depth=0){
  if(depth>7||value==null)return undefined;
@@ -20,7 +23,7 @@ export function buildPhotorealPrompt(project,{name='RANDAL',scope='room',finishN
   return {element:index+1,type:safeText(item.type||item.kind||'élément'),settings,placement:visualValue(item.placement||item.position||{})};
  });
  const technical={unites:'cm pour la pièce, les meubles et leurs placements ; formats et joints selon les valeurs du configurateur',
-  ...(scope==='room'?{piece:{hauteur:finite(project.room?.height),contour:project.room?.points?.slice(0,64).map(point).filter(Boolean),cloisons:project.room?.partitions?.slice(0,64).map(p=>({a:point(p.a),b:point(p.b),thickness:finite(p.thickness),height:finite(p.height)})),niches:visualValue(project.room?.niches)},
+  ...(scope==='room'?{piece:{hauteur:finite(project.room?.height),contour:project.room?.points?.slice(0,64).map(point).filter(Boolean),cloisons:project.room?.partitions?.slice(0,64).map(p=>({a:point(p.a),b:point(p.b),thickness:finite(p.thickness),height:finite(p.height),fullHeight:visualValue(p.fullHeight),profileEdges:visualValue(p.profileEdges),profileColor:visualValue(p.profileColor)})),niches:visualValue(project.room?.niches)},
    sol:visualValue(project.floor),murs:(project.walls||[]).map((v,i)=>({mur:i+1,...visualValue(v),pose:visualValue(project.layouts?.walls?.[i])})),poseSol:visualValue(project.layouts?.floor)}:{}),
   elements:items,
   lumiere:{ambiance:['day','warm','showroom'].includes(project.lighting)?project.lighting:undefined,luminosite:Number.isFinite(project.brightness)?project.brightness:undefined,temperatureKelvin:Number.isFinite(project.temperature)?project.temperature:undefined}};

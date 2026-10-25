@@ -87,3 +87,34 @@ jobs:
           path: reports/lrf-suite/
           retention-days: 14
       # No deployment, credentials, environment pull or production mutation here.
+  construction-interactions:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      LRF_QA_OUTPUT: reports/lrf-suite/element-panels
+      LRF_LOCK_QA_DIR: reports/lrf-suite/position-lock
+      LRF_PARTITION_QA_OUTPUT: reports/lrf-suite/partitions
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts --include=dev --no-audit --no-fund
+      - run: npm run build:general && npm run build:studio
+      - run: npx playwright install --with-deps chromium
+      - name: Verify element choices stay beside the live scene
+        run: node tests/lrf-suite/element-panels-browser.cjs
+      - name: Verify individual locks and movement inside a locked room
+        run: node tests/lrf-suite/position-lock-browser.cjs
+      - name: Verify inherited partition tiling and live geometry editing
+        run: node tests/lrf-suite/partition-editing-browser.cjs
+      - name: Verify flush and raised tiled shower trays
+        run: node tests/lrf-suite/tiled-shower-tray-browser.cjs
+      - name: Keep construction interaction results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lrf-construction-checks
+          path: reports/lrf-suite/
+          retention-days: 14

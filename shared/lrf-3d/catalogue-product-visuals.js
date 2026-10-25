@@ -24,6 +24,7 @@ export const PRODUCT_VISUALS=Object.freeze({
  'bath-rect':descriptor('bath-rect','Baignoire encastrée rectangulaire avec tablier blanc'),
  'bath-island':descriptor('bath-island','Baignoire îlot ovale blanche'),
  shower:descriptor('shower','Receveur de douche blanc avec caniveau encastré'),
+ 'shower-tile':Object.freeze({src:'data:image/svg+xml;charset=utf-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600"><rect width="800" height="600" fill="#f4f2eb"/><path d="M120 350L480 210L690 325L330 465Z" fill="#ded4bf" stroke="#b5ac99" stroke-width="3"/><path d="M120 350V382L330 497V465M330 497L690 357V325" fill="#c3b79f" stroke="#a59b88" stroke-width="3"/><g fill="none" stroke="#fbf8ef" stroke-width="3"><path d="M240 303L450 418M360 257L570 372M225 408L585 268"/></g><path d="M575 294L615 315L495 362L455 340Z" fill="#59645f"/><path d="M582 305L595 312L491 352L478 345Z" fill="#b8c1bb"/></svg>'),alt:'Schéma d’un receveur à carreler avec joints et caniveau, sur fond neutre',kind:'catalogue-drawing',provenance:'Schéma du receveur à carreler personnalisable, sans référence fabricant imposée'}),
  'screen-fixed':descriptor('screen-fixed','Paroi de douche fixe droite en verre, profilés noirs'),
  'screen-return':descriptor('screen-return','Paroi de douche en verre avec retour de 40 cm, profilés noirs'),
  'towel-round':descriptor('towel-round','Sèche-serviettes chromé à tubes ronds'),
@@ -39,6 +40,6 @@ export const PRODUCT_VISUALS=Object.freeze({
  'washstand-tr443':descriptor('washstand-tr443','Lave-mains TRIXIE avec tablette, robinetterie et siphon chromés, référence TR443')
 });
 export function productVisual(type,options={}){
- const key=type==='mirror'&&options.mirrorModel?'mirror-'+options.mirrorModel:type==='bath'?'bath-'+(options.kind||'island'):type==='screen'?'screen-'+(options.screen||'fixed'):type==='tap'?'tap-'+(options.use||'shower'):type==='towel'?'towel-'+(options.model||'round'):type==='toilet'?options.support?'toilet-support':'toilet-'+String(options.reference||'TR2217R').toLowerCase():type==='washstand'?'washstand-'+String(options.reference||'TR443').toLowerCase():type;
+ const key=type==='shower'&&options.trayType==='tile'?'shower-tile':type==='mirror'&&options.mirrorModel?'mirror-'+options.mirrorModel:type==='bath'?'bath-'+(options.kind||'island'):type==='screen'?'screen-'+(options.screen||'fixed'):type==='tap'?'tap-'+(options.use||'shower'):type==='towel'?'towel-'+(options.model||'round'):type==='toilet'?options.support?'toilet-support':'toilet-'+String(options.reference||'TR2217R').toLowerCase():type==='washstand'?'washstand-'+String(options.reference||'TR443').toLowerCase():type;
  return PRODUCT_VISUALS[key]||null;
 }

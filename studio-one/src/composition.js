@@ -1,3 +1,4 @@
+import {isItemPositionLocked} from '../../shared/lrf-3d/position-lock.js';
 import * as T from 'three';
 import {inside,intersect} from './room.js';
 import {isFixture,fixtureDimensions} from './fixtures.js';
@@ -63,7 +64,7 @@ export class Composition{
  // Dragging may cross furniture, while a shower screen remains on its tray.
  previewMove(id,p){return this.place(id,p,true);}
  place(id,p,preview=false){
-  const item=this.items.find(i=>i.id===id);if(!item)return {error:'Élément introuvable.'};if(this.locked||item.locked||this.items.some(child=>child.type==='screen'&&child.settings.trayId===id&&child.locked))return {error:'Élément verrouillé : déverrouillez-le pour le déplacer.'};let candidate=normalizeSanitaryPlacement(item,{...item.placement,...p},this.room),mount;
+  const item=this.items.find(i=>i.id===id);if(!item)return {error:'Élément introuvable.'};if(isItemPositionLocked(this,item)||this.items.some(child=>child.type==='screen'&&child.settings.trayId===id&&isItemPositionLocked(this,child)))return {error:'Élément verrouillé : déverrouillez-le pour le déplacer.'};let candidate=normalizeSanitaryPlacement(item,{...item.placement,...p},this.room),mount;
   if(item.type==='screen'){mount=nearestScreenMount(this.items.filter(i=>i.type==='shower'),item,candidate,item.settings.trayId);if(!mount)return {error:'Aucun bord du receveur ne convient à cette paroi.'};candidate=mount.placement;}
   else if(preview&&isFloorItem(item))candidate=this.clampFloorPlacement(item,candidate);
   const settings=mount?{...item.settings,trayId:mount.trayId,edge:mount.edge,edgeShift:mount.edgeShift}:item.settings,proposed={...item,placement:candidate,settings},patches=[proposed];
@@ -111,15 +112,15 @@ export class Composition{
   return null;
  }
  settle(id,origin){const item=this.items.find(i=>i.id===id);if(!item)return {error:'Élément introuvable.'};const desired={...item.placement};if(!this.validate(item))return {item,adjusted:false};const position=this.nearestPlacement(item,desired);if(position){const result=this.move(id,position);return {...result,adjusted:true};}const restored=this.move(id,origin);return {...restored,restored:true,error:'Aucun emplacement libre sur ce mur : position de départ rétablie.'};}
- resize(item,dimensions){if(this.locked||item.locked)return 'Élément verrouillé : déverrouillez-le pour modifier ses dimensions.';const error=this.validate(item,item.placement,dimensions);if(error)return error;item.dimensions=dimensions;return '';}
- remove(id){const target=this.items.find(i=>i.id===id);if(this.locked||target?.locked||this.items.some(i=>i.type==='screen'&&i.settings.trayId===id&&i.locked))return null;for(const child of [...this.items].filter(i=>i.type==='screen'&&i.settings.trayId===id))this.remove(child.id);const index=this.items.findIndex(i=>i.id===id);if(index<0)return null;const [item]=this.items.splice(index,1);item.root.removeFromParent();if(this.selectedId===id)this.selectedId=this.items[0]?.id||null;this.syncOpenings();return item;}
- setRoom(next){
-  if(this.locked)return 'Déverrouillez la composition avant de modifier la pièce.';
+ resize(item,dimensions){if(isItemPositionLocked(this,item))return 'Élément verrouillé : déverrouillez-le pour modifier ses dimensions.';const error=this.validate(item,item.placement,dimensions);if(error)return error;item.dimensions=dimensions;return '';}
+ remove(id){const target=this.items.find(i=>i.id===id);if(isItemPositionLocked(this,target)||this.items.some(i=>i.type==='screen'&&i.settings.trayId===id&&isItemPositionLocked(this,i)))return null;for(const child of [...this.items].filter(i=>i.type==='screen'&&i.settings.trayId===id))this.remove(child.id);const index=this.items.findIndex(i=>i.id===id);if(index<0)return null;const [item]=this.items.splice(index,1);item.root.removeFromParent();if(this.selectedId===id)this.selectedId=this.items[0]?.id||null;this.syncOpenings();return item;}
+ setRoom(next,{allowLockedPartition=false}={}){
+  if(this.locked&&!allowLockedPartition)return 'Déverrouillez la composition avant de modifier la pièce.';
   const remap=this.items.map(item=>{const old=this.room.walls[item.placement.wall],match=next.walls.findIndex(w=>w.key===old.key);if(old.partition!==undefined&&match<0)return null;const wall=match>=0?match:Math.min(item.placement.wall,next.walls.length-1);const placement=remapSanitaryPlacement(item,{...item.placement,wall,u:Math.round(item.placement.u/(old.length*100)*(next.walls[wall].length*100))},this.room,next);return placement?{...item,placement}:null;});if(remap.some(i=>!i))return 'Déplacez les éléments fixés à cette cloison ou à cette niche avant de la supprimer ou de la réduire.';const planned=remap;for(const screen of planned.filter(i=>i.type==='screen')){const tray=planned.find(i=>i.id===screen.settings.trayId),mount=tray&&screenMount(tray,screen);if(!mount)return 'Le receveur ne convient plus à sa paroi.';screen.placement=mount.placement;}
   for(const item of planned){const error=this.validate(item,item.placement,item.dimensions,planned,next);if(error)return 'La nouvelle pièce ne convient pas à la composition : '+error;}
   this.room=next;this.items.forEach((item,i)=>{item.placement=planned[i].placement;this.sync(item);});this.syncOpenings();return '';
  }
- snapshot(){return this.items.map(i=>({id:i.id,type:i.type,locked:!!i.locked,placement:{...i.placement},settings:{...i.settings,drawers:[...i.settings.drawers]}}));}
+ snapshot(){return this.items.map(i=>({id:i.id,type:i.type,locked:!!i.locked,...(i.positionUnlocked===true?{positionUnlocked:true}:{}),placement:{...i.placement},settings:{...i.settings,drawers:[...i.settings.drawers]}}));}
 }
 export function disposeObject(root){const gs=new Set(),ms=new Set();root.traverse(o=>{if(o.isMesh){gs.add(o.geometry);for(const m of Array.isArray(o.material)?o.material:[o.material])ms.add(m);}});gs.forEach(g=>g.dispose());ms.forEach(m=>m.dispose());}
 

@@ -11,7 +11,7 @@ export function buildProfiles(room,settings={},finishes=[],items=[]){
  for(const [i,wall]of room.walls.entries()){
   const painted=finishes[i]?.collection==='Peinture';const local=new T.Group();local.userData.wallIndex=i;local.userData.profileKey=wall.key;local.userData.editTarget='wall:'+i;local.position.copy(wall.group.position);local.rotation.copy(wall.group.rotation);group.add(local);
   const upright=(x,kind,on=true)=>strip(local,[x,0,.002],[x,wall.height,.002],kind,on);
-  if(!painted&&wall.partition!==undefined){upright(0,'angle_externe',false);upright(wall.length,'angle_externe',false);if(wall.height<room.height-.01)strip(local,[0,wall.height,.002],[wall.length,wall.height,.002],'rive_cloison',false);}
+  if(!painted&&wall.partition!==undefined){const edges=room.partitions[wall.partition]?.profileEdges||{},option=edge=>({own:edges[edge]!==undefined,enabled:edges[edge]!==undefined&&edges[edge]!=='none',color:edges[edge]!=='none'?edges[edge]:undefined});strip(local,[0,0,.002],[0,wall.height,.002],'angle_externe',false,option(wall.partitionSide?'b':'a'));strip(local,[wall.length,0,.002],[wall.length,wall.height,.002],'angle_externe',false,option(wall.partitionSide?'a':'b'));if(wall.height<room.height-.01)strip(local,[0,wall.height,.002],[wall.length,wall.height,.002],'rive_cloison',false,option('top'));}
   else if(!painted){
    const p=room.points,n=p.length,a=p[(i+n-1)%n],b=p[i],c=p[(i+1)%n],turn=(b[0]-a[0])*(c[1]-b[1])-(b[1]-a[1])*(c[0]-b[0]);
    if(turn<-.00001)upright(0,'angle_externe');
@@ -45,7 +45,7 @@ export function buildProfiles(room,settings={},finishes=[],items=[]){
 // Niche/zone dialogs and the clicked-edge inspector edit the same persisted
 // property. Legacy global overrides remain a read fallback for untouched edges.
 export function updateAttachedProfile({room,config,finishes},id,patch){
- const [key,kind]=String(id||'').split('|'),match=/^(?:niche_|colonne_carrelage_)(left|right|top|bottom)$/.exec(kind||'');
+ const [key,kind]=String(id||'').split('|');if(key?.startsWith('partition-')&&['angle_externe','rive_cloison'].includes(kind)){const wall=room?.walls?.find(w=>w.key===key),source=wall&&config?.partitions?.[wall.partition];if(!source)return false;const x=Number(String(id).split('|')[2]?.split(',')[0]),edge=kind==='rive_cloison'?'top':(x<wall.length/2?(wall.partitionSide?'b':'a'):(wall.partitionSide?'a':'b'));const edges={...source.profileEdges};if(patch===null)delete edges[edge];else{if(patch.color&&!['Argent','Noir','Doré','Bronze'].includes(patch.color))return false;edges[edge]=patch.enabled===false?'none':patch.color||(['Argent','Noir','Doré','Bronze'].includes(edges[edge])?edges[edge]:'Argent');}source.profileEdges=edges;room.partitions[wall.partition].profileEdges={...edges};return true;}const match=/^(?:niche_|colonne_carrelage_)(left|right|top|bottom)$/.exec(kind||'');
  if(!match)return false;const edge=match[1];let source,copies=[];
  if(key.startsWith('niche-')&&kind.startsWith('niche_')){const nicheId=key.slice(6);source=config?.niches?.find(n=>n.id===nicheId);if(!source)return false;copies=(room?.walls||[]).flatMap(w=>(w.niches||[]).filter(n=>n.id===nicheId));}
  else if(key.startsWith('zone-')&&kind.startsWith('colonne_carrelage_')){const zoneId=key.slice(5);source=(finishes||[]).flatMap(f=>f?.zones||[]).find(z=>z.id===zoneId);if(!source)return false;}

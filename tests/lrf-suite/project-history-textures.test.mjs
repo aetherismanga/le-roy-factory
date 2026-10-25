@@ -57,13 +57,13 @@ for(const app of ['studio-one','randal-general']){
    refreshFurnitureMaterials(){counts.finishes++;},repaintFurnitureMaterials(){counts.finishes++;},
    applyAllRoomMaterials(){counts.materials++;},refreshLayouts(){},refreshCommerce(){},fitCompositionLights(){},applyArchitecturalGlass(){},animate(){},requestAnimationFrame:run=>frames.push(run),
    shadowsDirty:false,sceneRevision:0,lastMove:0,lastTime:0,
-   projectWorkspace:null,journal:null,restoring:false,projectTimer:null,textureRefresh:null,state:{ready:true},dragController:{getActive:()=>null,cancel(){}},
+   projectWorkspace:null,journal:null,restoring:false,projectTimer:null,textureRefresh:null,state:{ready:true},dragController:{getActive:()=>null,cancel(){}},partitionDragController:{getActive:()=>null,cancel(){}},
    localStorage:{getItem:key=>storage.get(key)??null,setItem:(key,value)=>storage.set(key,value)},dispatchEvent:event=>events.push(event.type),markStudioEntryEdited:()=>false,
    location:{href:'https://atelier.invalid/atelier.html',search:''},history:{},$,
    document:{createElement:()=>({})},makeRoom,Composition:class{constructor(){this.items=[];}},composition:{items:[]},roomScene:makeRoom(),roomConfig:base.room,
    validateRoom:()=>'',plinthSettingsError:()=>'',plinthSettings:value=>value||{},remapProfileOverrides:value=>value,
    scene:{add(){},remove(){}},disposeObject(){},cloneRoom:structuredClone,cloneRoomData:structuredClone,
-   closeInspector(){},renderSavedViews(){},renderComposition(){},renderSurfacePalettes(){},paintAsset(){},selectItem(){},
+   closeElementPanel(){},closeInspector(){},renderSavedViews(){},renderComposition(){},renderSurfacePalettes(){},paintAsset(){},selectItem(){},
    selectLighting(){},setBrightness(){},setTemperature(){},applyQuality(){},placementStatus:message=>errors.push(message),
    choicesFor:collection=>COLLECTIONS[collection]?.colors||[],GROUT_COLORS:{Ivoire:'#eee'},tiledSurfaces:{},floorDesign:{},wallFinishes:[],
    renovation:{restore(){}},initialRenovation:null,lastProjectRestore:null,plinthConfig:{},plinthSignature:'',profileSettings:{},tileLoss:10,savedViews:[],selectedWall:0,wall:null,tileEditing:false,selectedTile:null,
@@ -104,6 +104,15 @@ for(const app of ['studio-one','randal-general']){
    assert.notEqual(context.projectTimer,null);vm.runInContext('undoProject()',context);assert.equal(x(),250);await textures();
    assert(context.journal.canRedo);assert.equal($('#redo').disabled,false);assert.equal(storedX(),250);
    vm.runInContext('redoProject()',context);assert.equal(x(),275);await textures();
+
+   // Intermediate partition positions must not create history entries while
+   // the drag is still active. The completed change is recorded on release.
+   const entriesBeforeDrag=context.journal.entries.length;
+   context.partitionDragController.getActive=()=>({dragging:true});
+   vm.runInContext('invalidate()',context);await waitCheckpoint();
+   assert.equal(context.projectTimer,null);
+   assert.equal(context.journal.entries.length,entriesBeforeDrag);
+   context.partitionDragController.getActive=()=>null;
 
    // A genuine new edit is still recorded and discards the abandoned future.
    vm.runInContext('undoProject()',context);context.wallFinishes[0].zones[0].x=290;vm.runInContext('invalidate()',context);await textures();

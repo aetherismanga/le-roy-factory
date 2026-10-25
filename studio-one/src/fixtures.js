@@ -1,3 +1,4 @@
+import {isTiledShowerTray,tiledShowerTrayDimensions,tiledShowerTrayError,makeTiledShowerTray} from '../../shared/lrf-3d/tiled-shower-tray.js';
 import * as T from 'three';
 import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js';
 import {tiledPolygonGeometry} from './room.js';
@@ -8,9 +9,9 @@ export const BATH_LENGTHS=[140,150,160,170],SCREEN_WIDTHS=[80,90,100,110,120,140
 export const TRAY_COLORS=[{id:'white',name:'Blanc',hex:'#e9e7e1'},{id:'grey',name:'Gris',hex:'#9d9d97'},{id:'beige',name:'Beige',hex:'#c7b69d'},{id:'anthracite',name:'Anthracite',hex:'#444849'}];
 let bathData=null;export function setBathData(data){bathData=data;}
 export async function preloadBaths(){const r=await fetch('assets/bathroom/baths.json');if(!r.ok)throw new Error('Baignoires indisponibles');setBathData(await r.json());}
-export function fixtureDimensions(type,s){return {width:s.width/100,depth:s.depth/100,height:type==='bath'?(s.kind==='island'?.62:.57):.035,base:0};}
-export function fixtureError(type,s){if(!Number.isInteger(s.width)||!Number.isInteger(s.depth))return 'Saisissez des dimensions entières.';if(type==='bath'&&!BATH_LENGTHS.includes(s.width))return 'Baignoire : 140, 150, 160 ou 170 cm.';if(type==='shower'&&(s.width<80||s.width>200||s.depth<80||s.depth>200))return 'Douche : dimensions entre 80 et 200 cm.';if(type==='bath'&&!['rect','round','island'].includes(s.kind))return 'Modèle de baignoire inconnu.';if(s.depth<65||s.depth>200)return 'Profondeur incompatible.';return '';}
-export function makeFixture(type,s){const error=fixtureError(type,s);if(error)throw new Error(error);const root=new T.Group();root.userData.editTarget=type;root.name=type==='bath'?'Baignoire_'+s.kind:'Douche_italienne';const w=s.width/100,d=s.depth/100;
+export function fixtureDimensions(type,s){if(type==='shower'&&isTiledShowerTray(s))return tiledShowerTrayDimensions(s);return {width:s.width/100,depth:s.depth/100,height:type==='bath'?(s.kind==='island'?.62:.57):.035,base:0};}
+export function fixtureError(type,s){if(type==='shower'&&isTiledShowerTray(s))return tiledShowerTrayError(s);if(!Number.isInteger(s.width)||!Number.isInteger(s.depth))return 'Saisissez des dimensions entières.';if(type==='bath'&&!BATH_LENGTHS.includes(s.width))return 'Baignoire : 140, 150, 160 ou 170 cm.';if(type==='shower'&&(s.width<80||s.width>200||s.depth<80||s.depth>200))return 'Douche : dimensions entre 80 et 200 cm.';if(type==='bath'&&!['rect','round','island'].includes(s.kind))return 'Modèle de baignoire inconnu.';if(s.depth<65||s.depth>200)return 'Profondeur incompatible.';return '';}
+export function makeFixture(type,s){if(type==='shower'&&isTiledShowerTray(s))return makeTiledShowerTray(s);const error=fixtureError(type,s);if(error)throw new Error(error);const root=new T.Group();root.userData.editTarget=type;root.name=type==='bath'?'Baignoire_'+s.kind:'Douche_italienne';const w=s.width/100,d=s.depth/100;
  const white=new T.MeshPhysicalMaterial({color:'#f1f0e9',roughness:.18,clearcoat:.75,ior:1.5}),metal=metalMaterial(s.metal||'Chrome brillant');
  const box=(ww,hh,dd,m,x,y,z,name)=>{const o=new T.Mesh(new RoundedBoxGeometry(ww,hh,dd,2,Math.min(.004,hh/4)),m);o.position.set(x,y,z);o.name=name;o.castShadow=o.receiveShadow=true;root.add(o);return o;};const apron=[];
  if(type==='bath'){

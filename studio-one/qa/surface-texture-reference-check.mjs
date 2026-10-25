@@ -12,6 +12,7 @@ import {AdaptiveQuality} from '../src/performance.js';
 import {createHDCapture,captureSize} from '../src/hd-capture.js';
 import {collectNicheFinishes} from '../../shared/lrf-3d/niches.js';
 import {collectSupportFinishes} from '../../shared/lrf-3d/sanitary-support.js';
+import {collectTrayFinishes} from '../../shared/lrf-3d/tiled-shower-tray.js';
 import {selectedFormat} from '../src/surface-picker.js';
 import {createProjectRefreshBatch} from '../../shared/lrf-3d/project-refresh.js';
 import {selectedCommercialSurface,surfaceFinishAppearance,applySurfaceTextureMapping,disposeSurfaceTextureClones} from '../../shared/lrf-3d/surface-appearance.js';
@@ -60,7 +61,7 @@ try{
  const roomScene={floor,walls:[wall]},floorDesign={...finish,zones:[]},wallFinishes=[{collection:'Creta',color:'zucchero',format:'60x60'}];
  const quality=new AdaptiveQuality();quality.setMode('fluid');const loaded=[],disposed=[];
  const source=readFileSync('src/app.js','utf8'),code=source.slice(source.indexOf('function disposeTextureSet('),source.indexOf('function applyApronMaterial('));
- const context=vm.createContext({sceneUpdates:createProjectRefreshBatch({requestFrame:()=>{}}),T,AbortController,COLLECTIONS,tileFormat,formatsForColor,normalizeLayout,collectNicheFinishes,collectSupportFinishes,roomConfig:{niches:[]},commercialProduct,commercialOptions,selectedFormat,selectedCommercialSurface,surfaceFinishAppearance,applySurfaceTextureMapping,disposeSurfaceTextureClones,resolveSurfaceTexture,finishForSurface,quality,
+ const context=vm.createContext({sceneUpdates:createProjectRefreshBatch({requestFrame:()=>{}}),T,AbortController,COLLECTIONS,tileFormat,formatsForColor,normalizeLayout,collectNicheFinishes,collectSupportFinishes,collectTrayFinishes,roomConfig:{niches:[]},commercialProduct,commercialOptions,selectedFormat,selectedCommercialSurface,surfaceFinishAppearance,applySurfaceTextureMapping,disposeSurfaceTextureClones,resolveSurfaceTexture,finishForSurface,quality,
   textureCache:new Map(),textureFlights:new Map(),surfaceTextures:{floor:{},wall:{}},finishTextures:{},textureRefresh:Promise.resolve(),captureBusy:false,
   roomScene,floorDesign,wallFinishes,composition:{items:[]},state:{ready:true,floorCollection:'Creta',floor:'zucchero',wallCollection:'Creta',wall:'zucchero'},FINISHES:[],selectedWall:0,
   paintTexture:null,tileAssetURL:file=>file,refreshFurnitureMaterials(){},refreshLayouts(){},refreshSurfacePickerHosts(){},refreshInspector(){},invalidate(){},placementStatus(){},
@@ -127,6 +128,9 @@ try{
  assert.equal(context.textureFlights.size,0);assert(created<=6,'intermediate colours do not finish their full face sets');
  context.composition.items=[{type:'toilet',settings:{support:true,supportCovering:{mode:'all',back:{collection:'Corso',color:'beige',format:'60x90'}}}}];
  assert(context.activeTextureKeys('max').surfaces.some(([collection,color,finish])=>collection==='Corso'&&color==='beige'&&finish.format==='60x90'),'the real HD preparation includes a custom WC support covering even when it differs from every room surface');
+ context.composition.items=[{type:'shower',settings:{trayType:'tile',trayCovering:{mode:'split',top:{collection:'Corso',color:'beige',format:'60x90'},reveal:{collection:'Shell',color:'grey',format:'60x120'}}}}];
+ assert(context.activeTextureKeys('max').surfaces.some(([collection,color,finish])=>collection==='Corso'&&color==='beige'&&finish.format==='60x90'),'the real HD preparation includes custom tray tiles independently of room surfaces');
+ assert(context.activeTextureKeys('max').surfaces.some(([collection,color,finish])=>collection==='Shell'&&color==='grey'&&finish.format==='60x120'),'the real HD preparation includes a separate custom tray riser finish');
  disposeObject(floor.group);disposeObject(wall.group);
  console.log('Studio texture references: real format/reference isolation, other manufacturers, native face variation, format reload/cache release and HD success/failure restoration, mobile8→15→8 capture and rapid-choice cancellation passed.');
 }finally{if(original===undefined)delete color.textureVariantsByReference;else color.textureVariantsByReference=original;}

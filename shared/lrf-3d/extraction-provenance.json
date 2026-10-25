@@ -12,7 +12,18 @@
       "module": "catalogue-product-visuals.js",
       "sha256": "05ccd68ad62e70ec187b03e5bf0c782e0fdb26266f85909f7cedea9abadcabde",
       "bytes": 4183,
-      "originalsIdentical": true
+      "originalsIdentical": true,
+      "current": {
+        "sha256": "f74bc1ed8150971857c233f223e9c797227729a74587ab80c794cabbe853ab4b",
+        "bytes": 5114,
+        "changeType": "functional-update-20261025",
+        "reason": "Requested editable tiled partitions, individual placement locks, tiled shower tray and compact side panels; original extraction provenance retained above.",
+        "validation": [
+          "tests/lrf-suite/tiled-shower-tray.test.mjs",
+          "tests/lrf-suite/tiled-shower-tray-browser.cjs",
+          "tests/lrf-suite/element-panels-browser.cjs"
+        ]
+      }
     },
     {
       "module": "ceramic-basins.js",
@@ -146,12 +157,12 @@
       "bytes": 12444,
       "originalsIdentical": true,
       "current": {
+        "sha256": "4eacdac513f48d75bb238f78f1b02ddd04e76c04f9280dc382f560471129678f",
+        "bytes": 13058,
         "changeType": "functional-update-20261025",
-        "reason": "Keep the optional full upper drawer design in the visual project exported for photorealistic rendering, using the same public geometry setting and preserving the existing private-price filter.",
-        "sha256": "4d3009ece2fcf48c8d40af94aa74d68a3222e8f062f11e90cc3d2c2b442d09f6",
-        "bytes": 12456,
+        "reason": "Requested editable tiled partitions, individual placement locks, tiled shower tray and compact side panels; original extraction provenance retained above.",
         "validation": [
-          "shared/lrf-3d/qa/top-drawer-check.mjs",
+          "tests/lrf-suite/construction-photoreal.test.mjs",
           "studio-one/qa/photoreal-export-check.mjs",
           "randal-general/qa/photoreal-project.mjs"
         ]
@@ -199,14 +210,14 @@
       "bytes": 3805,
       "originalsIdentical": true,
       "current": {
-        "sha256": "edacef32ddca1f742585a9ac86969a211495bd2df9b7cb98aea3eded0dd3ba53",
-        "bytes": 7127,
+        "sha256": "410f72e7c83e91d1bdda7388f974c5965603d0c3a05ce227a0500d92c7e0a046",
+        "bytes": 8266,
         "changeType": "functional-update-20261025",
-        "reason": "User-requested desktop tiled-column editing: retain only the two vertical trims on new and legacy wall bands, while preserving all four niche angles, floor borders and the original extraction provenance.",
+        "reason": "Requested editable tiled partitions, individual placement locks, tiled shower tray and compact side panels; original extraction provenance retained above.",
         "validation": [
+          "tests/lrf-suite/partition-editing.test.mjs",
           "shared/lrf-3d/qa/niche-editing-check.mjs",
-          "shared/lrf-3d/qa/tiled-zone-pc-check.mjs",
-          "tests/lrf-suite/active-configurators-browser.cjs"
+          "shared/lrf-3d/qa/room-interaction-check.mjs"
         ]
       }
     },
