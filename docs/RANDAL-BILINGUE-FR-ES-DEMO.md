@@ -72,7 +72,7 @@ Aucune traduction manquante connue dans les parcours contrôlés. La terminologi
 
 ## Livraison
 
-Les résultats définitifs et les URL vérifiées sont ajoutés après validation des deux prévisualisations. La branche reste indépendante de `main` et aucune fusion ni publication en production n'est autorisée par cette mission.
+Les deux prévisualisations finales sont vérifiées. La branche reste indépendante de `main` ; aucune fusion ni publication en production n’a été effectuée.
 
 
 ### Résultats locaux du lot
@@ -89,6 +89,23 @@ Les résultats définitifs et les URL vérifiées sont ajoutés après validatio
 
 ### Contrôle distant et présentation
 
-Un premier lot de prévisualisations a permis douze contrôles en ligne sans mocks, sur PC et iPhone WebKit : les deux accès de présentation, les photos réelles, les ateliers, WebGL, les changements de langue et la reprise isolée ont fonctionné. Les médias et les textures actives ont été contrôlés après leur chargement complet ; la comparaison avec les déploiements de production conserve les mêmes références et ressources.
+Le SHA de code vérifié et déployé est `1e9c3184401f16103e1161d79e08f820f38ddbf7`. Les deux builds Vercel sont `READY`, cible prévisualisation (`target: null`).
 
-Les derniers textes d'aide générés découverts pendant cette vérification sont intégrés au dictionnaire et à l'audit AST/DOM. La variable de configuration `VERCEL_PREVIEW_FEEDBACK_ENABLED=0` est limitée aux prévisualisations (Studio One) et à la branche de démonstration en prévisualisation (Catalogue Général), afin de retirer la barre technique Vercel de la présentation. Aucun paramètre de production, aucune protection d'accès et aucun secret ne sont modifiés.
+- Contrôles réels finaux : 12/12 réussis, sans mocks, sur PC et iPhone WebKit simulé.
+- Photos, textures Stone Icon et finitions des meubles réellement chargées ; rendu contrôlé après stabilisation.
+- Changement FR/ES, ajout de meuble, reprise du projet de démonstration et absence d’accès aux API privées vérifiés.
+- Aucune erreur JavaScript, aucune réponse HTTP ≥ 400, aucune erreur CORS des médias actifs. Les annulations de vignettes pendant les changements de page ne concernent pas les matériaux utilisés dans la scène.
+- Notices Sol/Mur et aides générées entièrement en espagnol dans les contextes contrôlés ; aucune traduction restante identifiée.
+- Barre Vercel absente des deux prévisualisations. La variable `VERCEL_PREVIEW_FEEDBACK_ENABLED=0` est limitée aux prévisualisations Studio One et à la branche de démonstration en prévisualisation du Catalogue Général. Aucun paramètre de production, aucune protection d’accès et aucun secret ne sont modifiés.
+
+Le pont de préférence côté site est préparé dans cette branche et testé ; son déploiement sur le site principal attend l’autorisation de publication du lot. Les liens de démonstration fonctionnent directement entre les deux prévisualisations.
+
+### Liens vérifiés
+
+- [Démonstration espagnole pour Juan Carlos — les deux ateliers](https://studio-one-beta-test-v2-d6qpra090-hugol-trading.vercel.app/demo.html?studio=https%3A%2F%2Fstudio-one-beta-test-v2-d6qpra090-hugol-trading.vercel.app&general=https%3A%2F%2Frandal-catalogue-general-3d-4r6n1r0iv-hugol-trading.vercel.app)
+- [STUDIO ONE en espagnol](https://studio-one-beta-test-v2-d6qpra090-hugol-trading.vercel.app/index.html?lang=es&demo=randal&studio=https%3A%2F%2Fstudio-one-beta-test-v2-d6qpra090-hugol-trading.vercel.app&general=https%3A%2F%2Frandal-catalogue-general-3d-4r6n1r0iv-hugol-trading.vercel.app)
+- [Catalogue Général en espagnol](https://randal-catalogue-general-3d-4r6n1r0iv-hugol-trading.vercel.app/index.html?lang=es&demo=randal&studio=https%3A%2F%2Fstudio-one-beta-test-v2-d6qpra090-hugol-trading.vercel.app&general=https%3A%2F%2Frandal-catalogue-general-3d-4r6n1r0iv-hugol-trading.vercel.app)
+
+### Production préservée
+
+Les alias publics des deux configurateurs continuent de servir le commit antérieur `d206ee4097ca94d4c5f5cc3ffcd7702065dee856` : `dpl_AcC6Rd1JV8BH2dXE71i1j4b8mgkZ` pour Studio One et `dpl_4SnyRuZKumvc8nARkRx84bQFeRQp` pour le Catalogue Général. Aucun commit n’est poussé sur `main`. Le CRM et PLAN & POSE sont inchangés.
