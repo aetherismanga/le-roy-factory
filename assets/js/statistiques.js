@@ -21,7 +21,7 @@ source=source
   .replace(oldViewBranch,newViewBranches);
 
 const moduleBase=new URL('./',coreUrl);
-source=source.replace(/from\s+(['"])(\.\/[^'"]+)\1/g,(_m,q,rel)=>`from ${q}${new URL(rel,moduleBase).href}${q}`);
+source=source.replace(/from\s+(['"])((?:\.\/|\/)[^'"]+)\1/g,(_m,q,rel)=>`from ${q}${new URL(rel,moduleBase).href}${q}`);
 const blobUrl=URL.createObjectURL(new Blob([source],{type:'text/javascript'}));
 try{await import(blobUrl)}finally{setTimeout(()=>URL.revokeObjectURL(blobUrl),0)}
 

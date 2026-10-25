@@ -1,12 +1,12 @@
 {
   "date": "2026-10-25",
   "environment": "fixtures only",
-  "unitTests": 123,
+  "unitTests": 133,
   "failures": 0,
-  "modulesParsed": 100,
-  "modulesLinked": 79,
+  "modulesParsed": 101,
+  "modulesLinked": 80,
   "moduleErrors": 0,
-  "browser": "Cloud Chrome; simulated iframe viewport, not physical Android/iOS",
+  "browser": "Chromium direct top-level viewport emulation, 20 pages × 6 sizes",
   "observedJourneys": [
     "dashboard KPI 4 clients 2 prospects 1 appointment 1 tour",
     "client exact ID editing",
@@ -28,6 +28,5 @@
     "Google Calendar",
     "document cloud upload"
   ],
-  "applicationCommit": "1724031813f4bd511d6163db17c0b41e14ac39c5",
-  "deployment": "dpl_89d3GcXqJVyW1VRupLL2pyBc8AkS"
+  "browserChecks": 695
 }

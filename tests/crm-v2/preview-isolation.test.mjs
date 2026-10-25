@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {readFile,readdir,mkdtemp,rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import path from 'node:path';
-import {buildPreview,transformSource,previewCsp} from '../../scripts/build-crm-preview.mjs';
+import {buildPreview,transformSource,previewCsp,previewMediaOrigins} from '../../scripts/build-crm-preview.mjs';
 import {createClientSaver} from '../../assets/js/crm-client-save-core.mjs';
 import * as sdk from '../../assets/js/crm-preview-sdk.mjs';
 
@@ -110,4 +110,59 @@ test('actual PR121 client saver creates and edits through the preview adapter wi
 test('dangerous output locations are rejected before deletion',async()=>{
  await assert.rejects(buildPreview('/'),/Refus/);
  await assert.rejects(buildPreview(new URL('../../assets',import.meta.url).pathname),/seule la sortie/);
+});
+
+
+test('radio allows only established station media origins while all external API connections stay blocked',async()=>{
+ const source=await readFile(new URL('../../assets/js/crm-radio-player.js',import.meta.url),'utf8');
+ const stations=[...source.matchAll(/stream:'(https:[^']+)'/g)].map(x=>new URL(x[1]).origin);
+ const verifiedRedirects=['https://streaming-ice.audiomeans.fr'];
+ assert.deepEqual([...new Set([...stations,...verifiedRedirects])].sort(),[...previewMediaOrigins].sort());
+ const directives=Object.fromEntries(previewCsp.split(';').map(x=>x.trim().split(/\s+/)).filter(x=>x[0]).map(([key,...values])=>[key,values]));
+ assert.deepEqual(directives['connect-src'],["'self'"]);
+ assert.deepEqual(directives['media-src'],[...previewMediaOrigins]);
+ assert.ok(!previewCsp.includes('*.bfmtv.com'));
+ const guard=await readFile(new URL('../../assets/js/crm-preview-guard.js',import.meta.url),'utf8');
+ assert.ok(guard.includes('url.origin!==location.origin'));
+ assert.ok(guard.includes('nativeWindowOpen'));
+});
+
+test('preview identities provide the matching local portraits without identifying users from cache hints',()=>{
+ const jerome=sdk.selectPreviewActor('jerome');
+ assert.equal(jerome.photoURL,'/assets/img/jeromelogo.png');
+ const coryne=sdk.selectPreviewActor('coryne');
+ assert.equal(coryne.photoURL,'/assets/img/corynelogo.png');
+ assert.notEqual(jerome.uid,coryne.uid);
+ assert.equal(sdk.getAgentProfile().name,'Coryne');
+ sdk.selectPreviewActor('jerome');
+});
+
+
+test('all referenced portrait aliases prefer compact canonical images over old or truncated files',async()=>{
+ const folder=await mkdtemp(path.join(tmpdir(),'crm-isolation-portrait-'));
+ try{
+  const manifest=await buildPreview(folder);
+  for(const actor of ['jerome','coryne']){
+   const canonical=await readFile(new URL(`../../assets/img/${actor}logo.png`,import.meta.url));
+   assert.ok(canonical.length>1000&&canonical.length<250000);
+   for(const file of manifest.files.filter(x=>new RegExp(`^assets/(?:img/|compat/)?${actor}logo(?:-\\d+)?\\.png$`).test(x))){
+    const bytes=await readFile(path.join(folder,file));
+    assert.ok(bytes.equals(canonical),`${file} must use the valid canonical portrait`);
+   }
+  }
+ }finally{await rm(folder,{recursive:true,force:true});}
+});
+
+
+test('demonstration tour matches native engine days schema while retaining dashboard legacy fields',()=>{
+ const tour=sdk.createFixtureStore().tournees['demo-tour-1'];
+ assert.equal(tour.version,6);assert.match(tour.name,/DÉMO/);
+ assert.equal(tour.dateStart,tour.date);assert.equal(tour.dateEnd,tour.date);
+ assert.equal(tour.days.length,1);assert.equal(tour.days[0].date,tour.date);
+ assert.deepEqual(tour.days[0].stops,tour.stops);assert.equal(tour.stops.length,2);
+ assert.equal(tour.totalDistance,tour.metrics.distanceMeters);assert.equal(tour.totalDrive,tour.metrics.driveSeconds);
+ assert.ok(tour.totalDistance>0);assert.ok(tour.totalDrive>0);
+ tour.days[0].stops.forEach((stop,i)=>{assert.equal(stop.order,i+1);assert.ok(stop.departure>stop.arrival);assert.equal(stop.lat,stop.latitude);assert.equal(stop.lng,stop.longitude);assert.ok(stop.clientId.startsWith('demo-client-'));});
+ assert.equal(tour.stops.reduce((sum,stop)=>sum+stop.distanceMeters,0),tour.totalDistance);
+ assert.equal(tour.stops.reduce((sum,stop)=>sum+stop.travelSeconds,0),tour.totalDrive);
 });

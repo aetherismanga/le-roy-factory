@@ -3,6 +3,11 @@
   if (window.__LRF_PREVIEW_GUARD__) return;
   window.__LRF_PREVIEW_GUARD__ = true;
   window.__LRF_CRM_PREVIEW__ = true;
+  // Missing decorative demo assets keep their text labels, without broken-image glyphs.
+  document.addEventListener('error', event => {
+    const img = event.target;
+    if (img?.tagName === 'IMG') img.style.setProperty('display', 'none', 'important');
+  }, true);
   const message='Version test : cette action externe est désactivée. Aucun e-mail ni aucune donnée réelle ne sera envoyé.';
   const nativeFetch=window.fetch.bind(window);
   window.fetch=(input,init)=>{
@@ -29,7 +34,7 @@
   function banner(){
     if(document.getElementById('crm-preview-banner'))return;
     const bar=document.createElement('aside');bar.id='crm-preview-banner';bar.setAttribute('aria-label','Environnement de test');
-    bar.innerHTML='<strong>VERSION TEST</strong><span>Données fictives · sauvegarde sur cet appareil</span><label>Compte démo <select id="crm-preview-actor" aria-label="Choisir le compte de démonstration"><option value="jerome">Jérôme</option><option value="coryne">Coryne</option></select></label>';
+    bar.innerHTML='<strong>VERSION TEST</strong><span title="Données fictives · sauvegarde sur cet appareil">Données fictives</span><label>Compte démo <select id="crm-preview-actor" aria-label="Choisir le compte de démonstration"><option value="jerome">Jérôme</option><option value="coryne">Coryne</option></select></label>';
     document.body.prepend(bar);
     import('/assets/js/crm-preview-sdk.mjs').then(sdk=>{const select=bar.querySelector('select');select.value=sdk.previewRuntime.actor;select.addEventListener('change',()=>{sdk.selectPreviewActor(select.value);location.reload();});});
   }

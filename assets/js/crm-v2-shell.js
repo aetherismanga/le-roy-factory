@@ -29,12 +29,29 @@
     ['ACTIVITÉ', [['agenda.html', 'Agenda', 'calendar'], ['tournees.html', 'Tournées', 'route'], ['comptes-rendus.html', 'Comptes-rendus et relances', 'file']]],
     ['COMMUNICATION', [['mails-groupes.html', 'Mails et historique', 'send']]],
     ['ANALYSE', [['statistiques.html', 'Statistiques', 'chart'], ['analyse-ventes-clients.html', 'Ventes clients', 'chart'], ['analyse-clients-lrf.html', 'Analyse clients LRF', 'chart']]],
-    ['OUTILS', [['documents-clients.html', 'Documents clients', 'folder'], ['parametres.html', 'Paramètres', 'settings']]],
+    ['OUTILS', [['documents-clients.html', 'Documents clients', 'folder'], ['contrats-usine-jerome.html', 'Contrats usines', 'file'], ['merchandising-usines.html', 'Merchandising', 'folder'], ['expo-clients.html', 'Expositions clients', 'folder'], ['document-usines.html', 'Documents usines', 'folder'], ['controle-site.html', 'Contrôle du site', 'settings'], ['parametres.html', 'Paramètres', 'settings']]],
   ];
+  const iconTone = { home: 'emerald', users: 'blue', map: 'violet', route: 'coral', calendar: 'blue', file: 'amber', send: 'coral', chart: 'emerald', settings: 'teal', contact: 'teal', folder: 'amber' };
   function boot() {
     const body = document.body;
     if (!body.classList.contains('crm-v2')) return;
-    const sidebar = document.querySelector('aside.crm-sidebar');
+    let sidebar = document.querySelector('aside.crm-sidebar');
+    // Older document tools are standalone CRM pages. Give them the same shell
+    // when opened directly, rather than relying on a dashboard iframe.
+    if (!sidebar) {
+      sidebar = document.createElement('aside'); sidebar.className = 'crm-sidebar';
+      const brand = document.createElement('div'); brand.className = 'sidebar-brand';
+      const link = document.createElement('a'); link.href = 'dashboard.html'; link.className = 'logo-link';
+      const circle = document.createElement('div'); circle.className = 'logo-circle';
+      const logo = document.createElement('img'); logo.alt = 'LE ROY FACTORY';
+      logo.src = document.querySelector('link[rel="icon"]')?.href || 'assets/img/logo03lrf.png';
+      circle.append(logo); link.append(circle); brand.append(link);
+      const list = document.createElement('ul'); list.className = 'sidebar-menu';
+      const footer = document.createElement('div'); footer.className = 'sidebar-footer';
+      const logout = document.createElement('button'); logout.type = 'button'; logout.id = 'logout-btn'; logout.className = 'btn-logout-sidebar'; logout.textContent = 'Déconnexion'; footer.append(logout);
+      sidebar.append(brand, list, footer); body.prepend(sidebar);
+      document.querySelector('main')?.classList.add('crm-main-content');
+    }
     const menu = sidebar?.querySelector('.sidebar-menu');
     if (!sidebar || !menu) return;
     const main = document.querySelector('main');
@@ -79,6 +96,7 @@
           let pic = link.querySelector('.icon');
           if (!pic) { pic = document.createElement('span'); pic.className = 'icon'; link.prepend(pic); }
           pic.innerHTML = icon(symbol);
+          link.dataset.v2Tone = iconTone[symbol] || 'emerald';
           const text = link.querySelector('.menu-text');
           if (text) text.textContent = label;
           const isCurrent = current === file.split('?')[0] && (file.includes('?') ? location.search === file.slice(file.indexOf('?')) : !location.search.includes('filter=prospect'));
@@ -90,7 +108,11 @@
       const rest = original.filter(li => li.isConnected && !used.has(li) && !li.classList.contains('crm-v2-nav-heading'));
       if (rest.length) {
         const heading = document.createElement('li'); heading.className = 'crm-v2-nav-heading'; heading.textContent = 'AUTRES OUTILS'; heading.setAttribute('role', 'presentation'); menu.append(heading);
-        rest.forEach(li => menu.append(li));
+        rest.forEach(li => {
+          const a = li.querySelector(':scope > a');
+          if (a && !a.querySelector('.icon')) { const pic = document.createElement('span'); pic.className = 'icon'; pic.innerHTML = icon('folder'); a.prepend(pic); a.dataset.v2Tone = 'amber'; }
+          menu.append(li);
+        });
       }
       grouping = false;
       observer?.observe(menu, { childList: true });
@@ -112,9 +134,21 @@
     const backdrop = document.createElement('button');
     backdrop.className = 'crm-v2-backdrop'; backdrop.type = 'button'; backdrop.setAttribute('aria-label', 'Fermer le menu'); backdrop.hidden = true; body.append(backdrop);
     const appbar = document.createElement('header'); appbar.className = 'crm-v2-appbar';
-    const brand = document.createElement('a'); brand.className = 'crm-v2-brand'; brand.href = 'dashboard.html'; brand.setAttribute('aria-label', 'LE ROY FACTORY — Accueil');
+    const brand = document.createElement('div'); brand.className = 'crm-v2-brand';
+    const logoLinkMobile = document.createElement('a'); logoLinkMobile.className = 'crm-v2-logo-link'; logoLinkMobile.href = 'dashboard.html'; logoLinkMobile.setAttribute('aria-label', 'LE ROY FACTORY — Accueil');
     const logo = sidebar.querySelector('.sidebar-brand img');
-    if (logo) { const copy = logo.cloneNode(); copy.removeAttribute('id'); copy.alt = 'LE ROY FACTORY'; brand.append(copy); }
+    if (logo) {
+      const copy = logo.cloneNode(); copy.removeAttribute('id'); copy.removeAttribute('style'); copy.removeAttribute('class');
+      copy.className = 'crm-v2-app-logo'; copy.alt = 'LE ROY FACTORY'; copy.width = 40; copy.height = 40;
+      // Sidebar originals often contain inline width:100%; never copy sizing
+      // into this independent mobile logo. The original asset stays untouched.
+      for (const element of [copy, logoLinkMobile]) {
+        for (const property of ['width', 'min-width', 'max-width', 'height', 'min-height', 'max-height']) element.style.setProperty(property, '40px', 'important');
+        element.style.setProperty('flex', '0 0 40px', 'important');
+      }
+      copy.style.setProperty('object-fit', 'contain', 'important'); copy.style.setProperty('transform', 'none', 'important');
+      logoLinkMobile.append(copy); brand.append(logoLinkMobile);
+    }
     const brandCopy = document.createElement('span'); brandCopy.innerHTML = '<strong>LE ROY FACTORY</strong><small>Espace commercial</small>'; brand.append(brandCopy);
     const moment = document.createElement('span'); moment.className = 'crm-v2-moment';
     appbar.append(brand, moment); body.prepend(appbar);

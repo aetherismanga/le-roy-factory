@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#f7f8f3">
+  <meta name="theme-color" content="#f5f7ef">
   <title>Accueil — CRM LE ROY FACTORY V2</title>
   <link rel="icon" type="image/png" href="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/brand-v2/lrf-logo-officiel-2026.png?v=20260918-crm-floral-1">
   <link rel="stylesheet" href="assets/css/variables.css?v=20260918-sage-global1">
@@ -11,7 +11,8 @@
   <link rel="stylesheet" href="assets/css/layout.css?media=20261018">
   <link rel="stylesheet" href="assets/css/clients.css">
   <link rel="stylesheet" href="assets/css/crm-v2-dashboard.css?v=20261025">
-<link rel="stylesheet" href="assets/css/crm-v2.css?v=20261025">
+<link rel="stylesheet" href="assets/css/crm-v2.css?v=20261025-vivant1">
+<link rel="stylesheet" href="assets/css/crm-v2-agent-music.css?v=20261025-vivant1">
 </head>
 <body class="crm-body crm-v2">
   <aside class="crm-sidebar" aria-label="Navigation principale">
@@ -41,11 +42,12 @@
     <div class="v2-dashboard">
       <header class="v2-home-header">
         <div class="v2-home-identity">
-          <img class="v2-home-logo" src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/brand-v2/lrf-logo-officiel-2026.png?v=20260918-crm-floral-1" width="54" height="54" alt="LE ROY FACTORY">
-          <div><span class="v2-eyebrow">Votre espace commercial</span><h1 id="welcome-title">Bonjour</h1><div class="v2-date-time"><span id="current-date">Votre journée</span><span aria-hidden="true">·</span><time id="digital-clock">—</time></div></div>
+          <div><span class="v2-eyebrow"><span aria-hidden="true"></span> Une nouvelle journée sur le terrain</span><h1 id="welcome-title">Bonjour</h1><p class="v2-hero-subtitle">Les bonnes relations font les beaux projets.</p><div class="v2-date-time"><span id="current-date">Votre journée</span><span aria-hidden="true">·</span><time id="digital-clock">—</time></div></div>
         </div>
-        <a class="v2-profile" href="parametres.html" aria-label="Ouvrir mon profil et mes paramètres"><span class="v2-profile-avatar" id="v2-profile-initials">LRF</span><span class="v2-profile-name" id="v2-profile-name">Mon profil</span></a>
+        <div id="v2-agent-portrait-slot" aria-label="Photo et profil utilisateur"><a class="v2-profile" href="parametres.html" aria-label="Ouvrir mon profil et mes paramètres"><span class="v2-profile-avatar" id="v2-profile-initials">LRF</span><span class="v2-profile-name" id="v2-profile-name">Mon profil</span></a></div>
+        <div class="v2-day-strip" id="v2-day-summary"><span>Votre planning se prépare…</span></div>
       </header>
+      <div id="v2-home-personal-tools"></div>
       <div class="v2-search">
         <label class="v2-search-field" for="crm-global-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></svg><input id="crm-global-search" type="search" placeholder="Client, code LRF, contact…" aria-label="Rechercher dans le CRM : clients, prospects, codes LRF, contacts, partenaires, comptes-rendus" aria-expanded="false" aria-controls="crm-global-results" autocomplete="off"><kbd aria-hidden="true">Ctrl K</kbd></label>
         <div id="crm-global-results" aria-label="Résultats de recherche" hidden></div>
@@ -56,7 +58,7 @@
         <a href="tournees.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="5" r="2"/><circle cx="18" cy="19" r="2"/><path d="M8 5h8a4 4 0 0 1 0 8H8a3 3 0 0 0 0 6h8"/></svg>Créer une tournée</a>
         <a href="comptes-rendus.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-9M9 15l3-1 9-9-2-2-9 9-1 3Z"/></svg>Compte-rendu</a>
       </nav>
-      <div class="v2-home-heading"><h2>L’essentiel de votre activité</h2><button id="v2-refresh" type="button">Actualiser</button></div>
+      <div class="v2-home-heading"><h2>Votre activité en un regard</h2><button id="v2-refresh" type="button">Actualiser</button></div>
       <p id="v2-dashboard-loading" role="status">Chargement de votre activité…</p>
       <p id="v2-data-status" class="v2-dash-notice" role="status" hidden></p>
       <nav class="v2-kpis" aria-label="Indicateurs commerciaux"><a class="v2-kpi" href="clients.html"><strong id="v2-count-clients">—</strong><span>Clients actifs</span><small>portefeuille</small></a>
@@ -75,6 +77,6 @@
     </div>
   </main>
   <script type="module" src="assets/js/crm-v2-dashboard.js?v=20261025"></script>
-<script type="module" src="assets/js/crm-v2-bootstrap.js?v=20261025"></script>
+<script type="module" src="assets/js/crm-v2-bootstrap.js?v=20261025-vivant1"></script>
 </body>
 </html>

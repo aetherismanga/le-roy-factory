@@ -58,6 +58,7 @@ function render() {
   setCount('v2-count-activities',activities.filter(a=>Date.now()-a.date.getTime()<=30*86400000 && a.date<=new Date()).length,!failed.has('clients'));
   $('v2-today').innerHTML = failed.has('agenda_events') ? empty('Agenda indisponible. Réessayez pour afficher les rendez-vous.') : todayEvents.slice(0,5).map(event=>row(event.title||'Rendez-vous',event.description||event.ownerName||'Agenda partagé','agenda.html',parseDate(event.start).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}))).join('') || empty('Votre journée est libre pour le moment. Ajoutez un rendez-vous dans l’agenda.');
   const next=upcomingTours[0];
+  const summary=$('v2-day-summary');if(summary)summary.innerHTML=`<a href="agenda.html"><span class="v2-day-dot" aria-hidden="true"></span><strong>${failed.has('agenda_events')?'Agenda à actualiser':todayEvents.length+' rendez-vous'}</strong><span>aujourd’hui</span><span aria-hidden="true">↗</span></a><a href="tournees.html"><span class="v2-day-dot gold" aria-hidden="true"></span><strong>${failed.has('tournees')?'Tournées à actualiser':next?((next.day.stops||[]).length+' visites'):'Prochaine tournée'}</strong><span>${next?'à préparer':'à organiser'}</span><span aria-hidden="true">↗</span></a>`;
   $('v2-next-tour').innerHTML = failed.has('tournees') ? empty('Tournées indisponibles pour le moment.') : next ? row(next.tour.name||next.tour.nom||`Tournée ${next.tour.departement||''}`,`${parseDate(next.day.date+'T12:00:00')?.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'})||next.day.date} · ${(next.day.stops||[]).length} visite(s)`,`tournees.html?view=${encodeURIComponent(next.tour.id)}`)+`<div class="v2-tour-stops">${(next.day.stops||[]).slice(0,3).map(stop=>`<span>${esc(stop.societe||stop.name||'Visite')} ${esc(stop.arrival||'')}</span>`).join('')}</div>` : empty('Aucune tournée à venir. Préparez votre prochaine visite terrain.');
   $('v2-followups').innerHTML = failed.has('clients') ? empty('Portefeuille indisponible pour le moment.') : followups.slice(0,4).map(client=>row(client.societe||'Client',client.ville||client.codeClient||'',link(client.id),`${age(client)} j`)).join('') || empty('Aucun client avec un dernier contact connu datant de plus de 60 jours.');
   $('v2-pending-reports').innerHTML = failed.has('clients') ? empty('Comptes-rendus indisponibles pour le moment.') : pending.slice(0,4).map(({client,report})=>row(client.societe||'Client',report.type||'Compte-rendu à finaliser',`comptes-rendus.html?client=${encodeURIComponent(client.id)}`,'Brouillon')).join('') || empty('Aucun compte-rendu explicitement marqué « en attente » ou « brouillon ».');
@@ -97,8 +98,8 @@ async function refresh(){
 function showAgent(profile){
   const first=clean(profile?.name||profile?.displayName).split(/\s+/)[0];
   $('welcome-title').textContent=first?`Bonjour ${first}`:'Bonjour';
-  $('v2-profile-name').textContent=clean(profile?.name||profile?.displayName)||'Mon profil';
-  $('v2-profile-initials').textContent=clean(profile?.name||profile?.displayName).split(/\s+/).filter(Boolean).slice(0,2).map(word=>word[0]).join('')||'LRF';
+  if($('v2-profile-name'))$('v2-profile-name').textContent=clean(profile?.name||profile?.displayName)||'Mon profil';
+  if($('v2-profile-initials'))$('v2-profile-initials').textContent=clean(profile?.name||profile?.displayName).split(/\s+/).filter(Boolean).slice(0,2).map(word=>word[0]).join('')||'LRF';
 }
 function updateTime(){
   const now=new Date();$('current-date').textContent=now.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
