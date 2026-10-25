@@ -19,6 +19,26 @@ for(const slug of official.allCollectionKeys()){
  }
 }
 for(const p of context.window.VIEW_CATALOGUE||[]){const visual=source.find(c=>c.brand==='VIEW'&&(norm(c.name)===norm(p.name)||norm(c.name)===norm(p.collection)));for(const v of p.variants||[]){const wh=dimensions(v.format);if(!wh)continue;const [w,h]=wh;for(const colorName of v.colors||p.colors||[]){const color=visual?.colors.find(c=>norm(c.name)===norm(colorName)),f=visual?.formats.find(f=>Math.abs(Math.max(w,h)-Math.max(f.width,f.height)*100)<.02&&Math.abs(Math.min(w,h)-Math.min(f.width,f.height)*100)<.02),reference=v.refs?.[colorName]||'';products.push({key:['VIEW',p.name,colorName,v.key].join('|'),brand:'VIEW',collection:visual?.name||p.name,color:colorName,colorId:color?.id||norm(colorName),format:f?.id||`${Math.min(w,h)}x${Math.max(w,h)}`,width:f?f.width*100:Math.max(w,h),height:f?f.height*100:Math.min(w,h),reference,finish:v.finish+(v.thickness?' · '+v.thickness:''),priceUnit:v.unit||'m²',priceTTC:null,priceSource:p.sourceLabel,packArea:v.pack?.m2Box||null,packPieces:v.pack?.pcsBox||null,packVerified:Boolean(v.pack?.m2Box&&v.pack?.pcsBox),packSource:p.sourceLabel,boxesPallet:v.pack?.boxesPallet||null,source:p.sourceUrl||visual?.source||'',preview:color?.file||color?.faces?.[0]||p.images?.[0]?.url||'',surfaces:visual?.surfaces||['floor','wall'],available3d:color?.available3d===true,native:Boolean(f&&color)});}}}
+// Recent manufacturer tables are reviewed once in the canonical manufacturer
+// collection. Consume those records before the visual fallback, so regenerating
+// PLAN & POSE cannot erase a new SKU or invent a reference/finish from its colour.
+function upsertReviewedRows(target,rows,collection,kind){
+ for(const row of rows||[]){
+  const color=collection.colors.find(color=>color.id===row.colorId),format=kind==='plinth'?null:collection.formats.find(format=>format.id===row.format);
+  if(row.brand!==collection.brand||row.collection!==collection.name||!color||!row.reference||!row.key||kind!=='plinth'&&(!format||color.formats?.length&&!color.formats.includes(format.id)))throw Error('Invalid reviewed manufacturer row: '+collection.name+' / '+String(row.key));
+  const expected=collection.brand+'|'+(kind==='plinth'?'plinth|':'')+row.reference;
+  if(row.key!==expected&&!(kind==='plinth'&&row.key===collection.brand+'|plinth|'+collection.name+'|'+row.reference))throw Error('Reviewed manufacturer key/reference mismatch: '+row.key);
+  const found=target.findIndex(item=>item.key===row.key);
+  if(found>=0&&(target[found].reference!==row.reference||target[found].collection!==row.collection))throw Error('Reviewed manufacturer SKU conflicts with an existing product: '+row.key);
+  const reviewed={...row,preview:row.preview||color.file||color.faces?.[0]||'',source:row.source||collection.source,native:false,nativeFaces:false,available3d:color.available3d===true};
+  if(kind!=='plinth')Object.assign(reviewed,{format:format.id,width:format.width*100,height:format.height*100,shape:format.shape||'rectangle'});
+  if(found>=0)target[found]={...target[found],...reviewed};else target.push(reviewed);
+ }
+}
+for(const collection of source){
+ upsertReviewedRows(products,collection.catalogueProducts,collection,'product');
+ upsertReviewedRows(plinths,collection.cataloguePlinths,collection,'plinth');
+}
 // Keep a visual catalogue choice if the detailed commercial dataset has no row;
 // unknown references/prices/boxes remain explicitly unknown, never fabricated.
 for(const c of source){for(const color of c.colors){for(const f of c.formats){if(f.shape&&f.shape!=='rectangle'||color.formats?.length&&!color.formats.includes(f.id))continue;if(products.some(p=>p.brand===c.brand&&p.collection===c.name&&p.colorId===color.id&&p.format===f.id))continue;const pack=f.packByColor?.[color.id]||f;products.push({key:[c.brand,c.name,color.id,f.id].join('|'),brand:c.brand,collection:c.name,color:color.name,colorId:color.id,format:f.id,width:f.width*100,height:f.height*100,reference:'',finish:'',priceUnit:'m²',priceTTC:null,priceSource:'',packArea:pack.m2Box||null,packPieces:pack.pcsBox||null,packVerified:Boolean(pack.m2Box&&pack.pcsBox),packSource:pack.source||c.source,source:c.source,preview:color.file||color.faces?.[0]||'',surfaces:c.surfaces||['floor','wall'],available3d:color.available3d===true,native:true});}}}
@@ -30,11 +50,31 @@ const previous=JSON.parse(read('assets/js/lrf-plan-pose/catalogue.json'));
 function preserveReviewed(generated,existing=[]){const byKey=new Map(generated.map(item=>[item.key,item])),known=new Set(existing.map(item=>item.key));return [...existing.map(item=>byKey.has(item.key)?{...byKey.get(item.key),...item}:item),...generated.filter(item=>!known.has(item.key))];}
 products.splice(0,products.length,...preserveReviewed(products,previous.products));
 plinths.splice(0,plinths.length,...preserveReviewed(plinths,previous.plinths));
+// Explicit newly reviewed source records take precedence for their own SKU;
+// every unrelated prior product and its reviewed fields remain untouched.
+for(const collection of source){
+ upsertReviewedRows(products,collection.catalogueProducts,collection,'product');
+ upsertReviewedRows(plinths,collection.cataloguePlinths,collection,'plinth');
+}
+
+// A reference can be shared by two manufacturer collections. Keep the old
+// Quercia key and the new explicitly scoped Yosemite key, while removing only
+// the superseded duplicate Yosemite context for that same physical plinth.
+for(const collection of source)for(const row of collection.cataloguePlinths||[]){
+ if(!row.supersedesContextKey||row.supersedesContextKey===row.key)continue;
+ for(let i=plinths.length-1;i>=0;i--){const old=plinths[i];if(old.key===row.supersedesContextKey&&old.collection===row.collection&&old.reference===row.reference&&old.length===row.length&&old.height===row.height)plinths.splice(i,1);}
+}
 function publicOnly(value){if(Array.isArray(value))return value.map(publicOnly);if(value&&typeof value==='object')return Object.fromEntries(Object.entries(value).filter(([key])=>!/^purchase/.test(key)&&!['publicPriceHT','unitPriceHT','totalPurchaseHT','proHT'].includes(key)).map(([key,item])=>[key,publicOnly(item)]));return value;}
 const data={version:2,sourceCommit:'f5282df25c8ccae3de36232f9382a3b4f6ae94f0',tariffs:{ELIOS:'ELIOS TARIF NET 2026 V01',VIEW:'VIEW Tarif net FR CL 0126 · applicable au 15/10/2026'},products,plinths,fenice};
-fs.writeFileSync(path.join(root,'assets/js/lrf-plan-pose/catalogue.json'),JSON.stringify(publicOnly(data)));
+// Legacy PLAN & POSE consumers distinguish an explicitly unknown price from a
+// missing field. Preserve only these compatibility slots, always forced null;
+// real purchase values and every other private field are still stripped.
+const publicCatalogue=publicOnly(data);
+for(const row of [...publicCatalogue.products,...publicCatalogue.plinths])Object.assign(row,{purchaseHT:null,purchasePaletteHT:null,publicPriceHT:null});
+fs.writeFileSync(path.join(root,'assets/js/lrf-plan-pose/catalogue.json'),JSON.stringify(publicCatalogue));
 
 const commercialFields=['key','brand','collection','color','colorId','format','reference','finish','preview','priceTTC','packVerified','packArea','packPieces','packSource','priceSource','priceNote'];
-fs.writeFileSync(path.join(root,'shared/lrf-3d/commercial-surfaces.json'),JSON.stringify(publicOnly({products:products.map(p=>Object.fromEntries(commercialFields.map(k=>[k,p[k]??null]))),plinths})));
+const commercialOptionalFields=['kind','thicknessMm','rectified','nativeFaces','definitionLimited','previewReviewed','textureProvenance','geometrySchema','visualNote','continuousDecor','decorRepeat','nativePerTileResolution','manufacturerRecommendedJointMm','graphicAlignmentToleranceMm','dimensionNote','technicalTableFormat'];
+fs.writeFileSync(path.join(root,'shared/lrf-3d/commercial-surfaces.json'),JSON.stringify(publicOnly({products:products.map(p=>({...Object.fromEntries(commercialFields.map(k=>[k,p[k]??null])),...Object.fromEntries(commercialOptionalFields.filter(k=>p[k]!==undefined).map(k=>[k,p[k]]))})),plinths})));
 require('node:child_process').execFileSync(process.execPath,[path.join(root,'scripts/sync-lrf-surface-catalogue.mjs')],{stdio:'inherit'});
 console.log(JSON.stringify({products:products.length,publicPriced:products.filter(p=>Number.isFinite(p.priceTTC)).length,references:products.filter(p=>p.reference).length,packaged:products.filter(p=>p.packVerified).length,plinths:plinths.length,fenice:fenice.length}));

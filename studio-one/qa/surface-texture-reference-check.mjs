@@ -11,6 +11,8 @@ import {applyTileColors} from '../src/tile-colors.js';
 import {AdaptiveQuality} from '../src/performance.js';
 import {createHDCapture,captureSize} from '../src/hd-capture.js';
 import {collectNicheFinishes} from '../../shared/lrf-3d/niches.js';
+import {selectedFormat} from '../src/surface-picker.js';
+import {selectedCommercialSurface,surfaceFinishAppearance,applySurfaceTextureMapping,disposeSurfaceTextureClones} from '../../shared/lrf-3d/surface-appearance.js';
 
 // These are the eight exact non-rectified R10 references in the reviewed
 // commercial catalogue, not references inferred from an image colour.
@@ -55,7 +57,7 @@ try{
  const roomScene={floor,walls:[wall]},floorDesign={...finish,zones:[]},wallFinishes=[{collection:'Creta',color:'zucchero',format:'60x60'}];
  const quality=new AdaptiveQuality();quality.setMode('fluid');const loaded=[],disposed=[];
  const source=readFileSync('src/app.js','utf8'),code=source.slice(source.indexOf('function disposeTextureSet('),source.indexOf('function applyApronMaterial('));
- const context=vm.createContext({T,COLLECTIONS,tileFormat,formatsForColor,normalizeLayout,collectNicheFinishes,roomConfig:{niches:[]},commercialProduct,resolveSurfaceTexture,finishForSurface,quality,
+ const context=vm.createContext({T,COLLECTIONS,tileFormat,formatsForColor,normalizeLayout,collectNicheFinishes,roomConfig:{niches:[]},commercialProduct,commercialOptions,selectedFormat,selectedCommercialSurface,surfaceFinishAppearance,applySurfaceTextureMapping,disposeSurfaceTextureClones,resolveSurfaceTexture,finishForSurface,quality,
   textureCache:new Map(),textureFlights:new Map(),surfaceTextures:{floor:{},wall:{}},finishTextures:{},textureRefresh:Promise.resolve(),captureBusy:false,
   roomScene,floorDesign,wallFinishes,composition:{items:[]},state:{ready:true,floorCollection:'Creta',floor:'zucchero',wallCollection:'Creta',wall:'zucchero'},FINISHES:[],selectedWall:0,
   paintTexture:null,tileAssetURL:file=>file,refreshFurnitureMaterials(){},refreshLayouts(){},refreshSurfacePickerHosts(){},refreshInspector(){},invalidate(){},placementStatus(){},
