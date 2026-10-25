@@ -1,5 +1,6 @@
 import * as T from 'three';
-import {createSurface,inside} from './room.js';
+import {inside} from './room.js';
+import {renderSurfaceZones} from '../../shared/lrf-3d/zone-rendering.js';
 import {disposeObject} from './composition.js';
 
 export const zonePolygon=z=>[[z.x/100,z.y/100],[(z.x+z.width)/100,z.y/100],[(z.x+z.width)/100,(z.y+z.height)/100],[z.x/100,(z.y+z.height)/100]];
@@ -16,15 +17,8 @@ export function validateZones(surface,zones=[]){
  }
  return '';
 }
-export function renderZones(surface,zones,material,layoutFor){
- const signature=JSON.stringify(zones);if(surface.zoneSignature!==signature){
-  for(const z of surface.decorativeZones||[]){z.group.removeFromParent();disposeObject(z.group);}surface.decorativeZones=[];surface.zoneSignature=signature;
-  surface.setExtraHoles(zones.map(zonePolygon));
-  for(const z of zones){const face=createSurface([[0,0],[z.width/100,0],[z.width/100,z.height/100],[0,z.height/100]],'Zone_'+z.id);face.group.position.set(z.x/100,z.y/100,.001);face.group.userData.editTarget='zone:'+z.id;face.zone=z;face.setLayout(layoutFor(z));surface.group.add(face.group);surface.decorativeZones.push(face);}
- }
- for(const face of surface.decorativeZones||[]){material(face,face.zone);face.grout.material.color.set(face.zone.groutColor||'#d5d0c3');}
- return surface.decorativeZones||[];
-}
+// Keep the local furniture-disposal adapter while sharing zone rendering.
+export const renderZones=(surface,zones,material,layoutFor)=>renderSurfaceZones(surface,zones,material,layoutFor,disposeObject,zonePolygon);
 export function zoneProfileSegments(surface,zones){const output=[];for(const z of zones){if(!z.profile)continue;const p=zonePolygon(z);for(let i=0;i<4;i++){const u=p[i],v=p[(i+1)%4],dx=v[0]-u[0],dy=v[1]-u[1],length=Math.hypot(dx,dy),outside=[(u[0]+v[0])/2+dy/length*.001,(u[1]+v[1])/2-dx/length*.001];if(!inside(outside,surface.polygon)||(surface.baseHoles||[]).some(h=>inside(outside,h)))continue;const a=new T.Vector3(...u,.006),b=new T.Vector3(...v,.006);output.push({id:z.id+'-'+i,a,b,color:z.profileColor||'Argent'});}}return output;}
 
 // Clip joint profiles to the real face, leaving doorways, niches and zones clear.

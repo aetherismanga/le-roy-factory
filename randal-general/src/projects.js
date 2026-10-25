@@ -2,6 +2,8 @@ const clone=value=>JSON.parse(JSON.stringify(value));
 export class ProjectJournal{
  constructor(limit=50){this.limit=limit;this.entries=[];this.index=-1;}
  seed(value){this.entries=[clone(value)];this.index=0;}
+ // Restore may canonicalize legacy surface identities without creating an edit.
+ replaceCurrent(value){if(this.index<0)return false;this.entries[this.index]=clone(value);return true;}
  record(value){const key=JSON.stringify(value);if(this.index>=0&&JSON.stringify(this.entries[this.index])===key)return false;this.entries.splice(this.index+1);this.entries.push(clone(value));if(this.entries.length>this.limit)this.entries.shift();this.index=this.entries.length-1;return true;}
  undo(){if(this.index<=0)return null;return clone(this.entries[--this.index]);}
  redo(){if(this.index>=this.entries.length-1)return null;return clone(this.entries[++this.index]);}

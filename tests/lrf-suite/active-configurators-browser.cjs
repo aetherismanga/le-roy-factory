@@ -1,9 +1,10 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),http=require('node:http');
 const {pathToFileURL}=require('node:url'),{chromium}=require('playwright');
+const {verifyPCColumns}=require('./pc-column-checks.cjs');
 const root=path.resolve(__dirname,'../..'),output=path.resolve(process.env.LRF_QA_OUTPUT||path.join(root,'reports/lrf-suite/active-configurators'));
 const roots={studio:path.resolve(process.env.LRF_STUDIO_DIST||path.join(root,'studio-one/dist')),general:path.resolve(process.env.LRF_GENERAL_DIST||path.join(root,'randal-general/dist'))};
 const mime={'.html':'text/html','.js':'text/javascript','.mjs':'text/javascript','.css':'text/css','.json':'application/json','.webp':'image/webp','.jpg':'image/jpeg','.png':'image/png','.svg':'image/svg+xml','.hdr':'application/octet-stream','.glb':'model/gltf-binary'};
-const checks=[],errors=[],network=[],blocked=new Set();let browser,server,page,activeKind='studio';
+const checks=[],errors=[],network=[],restoration=[],blocked=new Set();let browser,server,page,activeKind='studio';
 function pass(message){checks.push(message);console.log('PASS',message);}
 function readWithin(dir,relative){const file=path.resolve(dir,'.'+relative);if(!file.startsWith(dir+path.sep)||!fs.existsSync(file)||!fs.statSync(file).isFile())return null;return {file,body:fs.readFileSync(file),contentType:mime[path.extname(file)]||'application/octet-stream'};}
 (async()=>{
@@ -102,6 +103,8 @@ function readWithin(dir,relative){const file=path.resolve(dir,'.'+relative);if(!
   assert.equal(decorCapture.width,1920);assert.equal(decorCapture.quality,'fluid');
   pass(kind+': native HD capture with the new Dynasty panel restores working quality');
 
+  await verifyPCColumns({page,kind,root,output,pass,restoration});
+
   await page.locator('button[data-workspace=room]').click();await page.locator('#room-open').click();await page.locator('#room-height').fill('270');await page.locator('#room-apply').click();
   await page.waitForFunction(()=>!document.querySelector('#room-editor').open);assert.equal(await page.evaluate(()=>studioOnePrototype.exportProject().room.height),270);
   await page.setViewportSize({width:390,height:844});await page.locator('button[data-workspace=room]').click();await page.locator('#room-open').click();
@@ -113,10 +116,10 @@ function readWithin(dir,relative){const file=path.resolve(dir,'.'+relative);if(!
   await context.close();page=null;
  }
  assert.equal(errors.length,0,errors.join('\n'));
- fs.writeFileSync(path.join(output,'results.json'),JSON.stringify({passed:true,checks,errors,network,blockedRemoteRequests:[...blocked]},null,2));
+ fs.writeFileSync(path.join(output,'results.json'),JSON.stringify({passed:true,checks,errors,network,restoration,blockedRemoteRequests:[...blocked]},null,2));
  console.log('ACTIVE ATELIERS CHECKS',checks.length);
 })().catch(async error=>{
- const state=page?await page.evaluate(()=>({url:location.pathname,loading:document.querySelector('#loading')?.textContent,loadingClass:document.querySelector('#loading')?.className,error:document.querySelector('#error-text')?.textContent,status:document.querySelector('#placement-status')?.textContent,ready:window.studioOnePrototype?.getState().ready})).catch(()=>null):null;console.error('FAILURE STATE',JSON.stringify(state));console.error('NETWORK',JSON.stringify(network));fs.mkdirSync(output,{recursive:true});fs.writeFileSync(path.join(output,'results.json'),JSON.stringify({passed:false,error:error.stack,state,checks,errors,network,blockedRemoteRequests:[...blocked]},null,2));
+ const state=page?await page.evaluate(()=>({url:location.pathname,loading:document.querySelector('#loading')?.textContent,loadingClass:document.querySelector('#loading')?.className,error:document.querySelector('#error-text')?.textContent,status:document.querySelector('#placement-status')?.textContent,ready:window.studioOnePrototype?.getState().ready})).catch(()=>null):null;console.error('FAILURE STATE',JSON.stringify(state));console.error('NETWORK',JSON.stringify(network));fs.mkdirSync(output,{recursive:true});fs.writeFileSync(path.join(output,'results.json'),JSON.stringify({passed:false,error:error.stack,state,checks,errors,network,restoration,blockedRemoteRequests:[...blocked]},null,2));
  if(page)await page.screenshot({path:path.join(output,'failure.png')}).catch(()=>{});
  console.error(error);process.exitCode=1;
 }).finally(async()=>{if(browser)await browser.close();if(server)await new Promise(resolve=>server.close(resolve));});

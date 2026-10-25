@@ -17,11 +17,14 @@
 <iframe id="studio-one" data-configurator-origin="https://studio-one-beta-test-v2.vercel.app" title="Configurateur 3D RANDAL STUDIO ONE" allow="fullscreen; clipboard-write" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
 <noscript><p><a href="https://studio-one-beta-test-v2.vercel.app/">Ouvrir le configurateur RANDAL STUDIO ONE 3D</a></p></noscript>
 <script>
-(()=>{'use strict';const origin='https://studio-one-beta-test-v2.vercel.app',frame=document.getElementById('studio-one'),url=new URL(origin+'/atelier.html');
+(()=>{'use strict';const origin='https://studio-one-beta-test-v2.vercel.app',frame=document.getElementById('studio-one'),url=new URL(origin+'/index.html');
 const recoveryNotice=document.getElementById('legacy-recovery-notice');
 try{const hasDraft=!!sessionStorage.getItem('lrf-studio-one-project-v2');let hasSaved=false;for(let i=0;i<localStorage.length&&!hasSaved;i++){const key=localStorage.key(i);if(key?.startsWith('lrf-studio-one-saved-projects-v2-')){const raw=localStorage.getItem(key);hasSaved=!!raw&&raw!=='[]';}}recoveryNotice.hidden=!(hasDraft||hasSaved);}catch{}
 document.getElementById('legacy-recovery-close').onclick=()=>{recoveryNotice.hidden=true;scheduleViewport()};
-const entryParams=new URLSearchParams(location.search);if(entryParams.has('view')||entryParams.has('account'))url.pathname='/index.html';
+const entryParams=new URLSearchParams(location.search),homeRoute=entryParams.has('view')||entryParams.has('account');
+// The chooser opens the welcome page. Direct workshop/import links remain explicit.
+const atelierRoute=['new','guided','plans','resume','project','template'].some(key=>entryParams.has(key))||new URLSearchParams(location.hash.slice(1)).has('projet');
+if(!homeRoute&&atelierRoute)url.pathname='/atelier.html';
 const requestedPage=entryParams.get('page');if(['index.html','atelier.html','maison.html'].includes(requestedPage))url.pathname='/'+requestedPage;
 for(const key of ['collection','view','step','account','new','guided','plans','project','template','resume']){const value=new URLSearchParams(location.search).get(key);if(value)url.searchParams.set(key,value)}
 if(location.hash)url.hash=location.hash;

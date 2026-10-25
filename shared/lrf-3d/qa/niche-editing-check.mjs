@@ -34,7 +34,7 @@ const nicheEdges=profiles.entries.filter(e=>e.kind.startsWith('niche_'));
 assert.equal(nicheEdges.length,4);assert(nicheEdges.every(e=>e.enabled));
 assert(Math.abs(nicheEdges.reduce((m,e)=>m+e.length,0)-2)<1e-8,'Niche profiles measure its 2 m perimeter');
 const columnEdges=profiles.entries.filter(e=>e.kind.startsWith('colonne_carrelage_'));
-assert.equal(columnEdges.length,4);assert.equal(columnEdges.filter(e=>e.enabled).length,2);
+assert.equal(columnEdges.length,2);assert.equal(columnEdges.filter(e=>e.enabled).length,2);
 assert(columnEdges.every(e=>e.id.startsWith('zone-zone-column|')),'Tiled column edges have stable selectable targets');
 profiles.group.updateMatrixWorld(true);
 for(const child of profiles.group.children[0].children.filter(o=>o.userData.editTarget?.startsWith('niche:')))child.traverse(o=>{
@@ -100,4 +100,4 @@ try{
  readonly=true;assert(controller.contextActions({editTarget:'niche:'+config.niches[0].id}).filter(a=>a.label!=='Configurer la niche et ses finitions').every(a=>a.disabled));
  const restored=JSON.parse(JSON.stringify(config));assert.equal(validateRoom(restored,0),'');const again=makeRoom(restored,0);assert.equal(again.walls[0].niches[0].covering.mode,'split');again.dispose();room.dispose();
 }finally{if(priorDocument===undefined)delete globalThis.document;else globalThis.document=priorDocument;}
-console.log(JSON.stringify({passed:true,checks:['five recessed niche faces; no protruding top','deep-cloned finish and edge settings','independent back/reveal materials and quantity rows','four selectable niche and tiled-column profiles','real shared controller duplicate/lock/delete/read-only','project round-trip preserves split coverings','stale profile overrides cannot defeat dialog removal or colour; clicked edges share persisted fields']},null,2));
+console.log(JSON.stringify({passed:true,checks:['five recessed niche faces; no protruding top','deep-cloned finish and edge settings','independent back/reveal materials and quantity rows','four selectable niche edges and two vertical tiled-column profiles','real shared controller duplicate/lock/delete/read-only','project round-trip preserves split coverings','stale profile overrides cannot defeat dialog removal or colour; clicked edges share persisted fields']},null,2));
