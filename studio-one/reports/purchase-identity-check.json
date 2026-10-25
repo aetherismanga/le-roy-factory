@@ -2,7 +2,7 @@
   "passed": true,
   "checks": [
     "Encrypted server grid; missing key fails closed",
-    "Anonymous, customer and partner sessions expose no purchase amounts or encoded reference",
+    "Anonymous and forbidden partner sessions expose no purchases; incomplete grids emit no amount",
     "Expired session, forged/unverified administrator and revoked token blocked",
     "Verified agent still receives the authorised quote structure",
     "Actual model geometry and official finishing samples preserved"

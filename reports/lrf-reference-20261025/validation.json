@@ -1,0 +1,30 @@
+{
+  "base": "d238279752209aacf0474e673418af3cd752b3ce",
+  "scope": [
+    "RANDAL Studio One",
+    "RANDAL Général"
+  ],
+  "nodeTests": {
+    "total": 327,
+    "passed": 326,
+    "skipped": 1,
+    "failed": 0,
+    "skip": "Legacy storage inline browser check: default Chromium unavailable; dedicated recovery browser check is run separately."
+  },
+  "checks": [
+    "Both workspace builds",
+    "Shared core and both full workspace QA commands",
+    "12 private-reference browser scenarios at 1440, 390 and 320 px",
+    "8 active WebGL2, official local texture, 1920px HD capture and room-edit scenarios",
+    "Public site build and private-tree exclusion",
+    "Purchase gateway checks using synthetic identities",
+    "Real API gateways, session validation and encrypted synthetic grid exercised end to end for both apps",
+    "PLAN & POSE recovery rendering and original local project recovery browser checks passed"
+  ],
+  "limits": [
+    "No real customer or agent account authenticated during these tests.",
+    "Amounts are displayed only for complete verified server price grids. The General grid currently covers ceramic basins only; other General furniture and accessories require the official purchase tariff. Missing Studio One rows also suppress the amount.",
+    "Browser accounts and amounts are synthetic and never included in production data.",
+    "Physical Android/iPhone devices were not used."
+  ]
+}

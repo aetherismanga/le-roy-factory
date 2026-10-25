@@ -1,15 +1,9 @@
 import {commercialRequest} from './client.js';
 import {quoteProject} from './pricing.js';
 import {createIdentityState} from './identity-state.js';
-export const escapeHTML=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-export function privateMarkup(s){
- if(!s?.client)return '<span>Mon compte client LRF</span>';
- // Keep the verified purchase reference unchanged, but never show its
- // underlying purchase amount or any partial purchase totals in the UI.
- const priced=Number.isInteger(s.proHT)&&s.randalAllowed!==false;
- const code=priced?(s.privateCode||s.client.codeClient):s.client.codeClient;
- return '<strong class="pro-reference">'+escapeHTML(code||'Administrateur')+'</strong><small>STUDIO ONE · '+escapeHTML(s.client.societe||'')+'</small>'+(s.randalAllowed===false?'<small>Accès RANDAL non autorisé pour ce compte.</small>':'');
-}
+import {privateMarkup as referenceMarkup} from '../../../shared/lrf-3d/commerce/private-reference.js';
+export {escapeHTML} from '../../../shared/lrf-3d/commerce/private-reference.js';
+export const privateMarkup=state=>referenceMarkup(state,'STUDIO ONE');
 export function createIdentity(getProject,changed=()=>{}){
  const origins=['https://leroyfactory.fr','https://www.leroyfactory.fr'];let host='';try{host=new URL(document.referrer).origin;}catch{}const embedded=parent!==window&&origins.includes(host);
  let manualLogout=false,waiting=null,resolveParent=null,parentTimer;

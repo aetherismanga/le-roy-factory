@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "checks": [
+    "studio-one: 1440px, exact reference, equal small font and unchanged large public price",
+    "studio-one: 390px, exact reference, equal small font and unchanged large public price",
+    "studio-one: 320px, exact reference, equal small font and unchanged large public price",
+    "studio-one: incomplete grid keeps only the own account number and retains public price",
+    "studio-one: forbidden partner cannot see the amount and account switch uses its own number",
+    "studio-one: expired session clears the confidential reference",
+    "randal-general: 1440px, exact reference, equal small font and unchanged large public price",
+    "randal-general: 390px, exact reference, equal small font and unchanged large public price",
+    "randal-general: 320px, exact reference, equal small font and unchanged large public price",
+    "randal-general: incomplete grid keeps only the own account number and retains public price",
+    "randal-general: forbidden partner cannot see the amount and account switch uses its own number",
+    "randal-general: expired session clears the confidential reference"
+  ],
+  "errors": [],
+  "accounts": "Synthetic local fixtures; no live customer authentication."
+}
