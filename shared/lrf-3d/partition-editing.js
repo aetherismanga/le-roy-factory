@@ -31,6 +31,7 @@ export function inheritedPartitionLayout(source,target){
 export function partitionUpdate(config,index,patch){
  const draft=copy(config),p=draft.partitions?.[index];if(!p)throw Error('Cloison introuvable.');
  if(patch.length!==undefined){if(!Number.isFinite(patch.length)||patch.length<20||patch.length>1000)throw Error('Longueur entre 20 et 1 000 cm.');const dx=p.b[0]-p.a[0],dy=p.b[1]-p.a[1],length=Math.hypot(dx,dy);p.b=[Math.round(p.a[0]+dx/length*patch.length),Math.round(p.a[1]+dy/length*patch.length)];}
+ if(patch.rotate){const cx=(p.a[0]+p.b[0])/2,cy=(p.a[1]+p.b[1])/2;p.a=[cx-(p.a[1]-cy),cy+(p.a[0]-cx)];p.b=[cx-(p.b[1]-cy),cy+(p.b[0]-cx)];}
  if(patch.moveX!==undefined||patch.moveY!==undefined){const dx=Number(patch.moveX)||0,dy=Number(patch.moveY)||0;if(![dx,dy].every(Number.isFinite))throw Error('Position de cloison invalide.');p.a=p.a.map((v,i)=>v+(i?dy:dx));p.b=p.b.map((v,i)=>v+(i?dy:dx));}
  for(const key of ['thickness','height','fullHeight','profileEdges'])if(patch[key]!==undefined)p[key]=copy(patch[key]);
  if(patch.height!==undefined&&patch.fullHeight===undefined)p.fullHeight=false;
