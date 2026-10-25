@@ -39,3 +39,9 @@ Aucune donnée réelle, règle Firebase, fonction serveur, branche main ou publi
 ## Retour arrière
 
 La production conserve sa version actuelle : aucune restauration de données n’est nécessaire. Retirer ou révoquer le partage de la prévisualisation pour interrompre le test. La clé locale `lrf:crm-v2:fictional-store:v1` ne concerne que les données fictives de son origine ; ne pas effacer le stockage du site officiel. Conserver la branche sans la fusionner. Toute future mise en production exige une autorisation explicite et une nouvelle validation contre le main alors courant.
+
+## Vérification de la prévisualisation hébergée
+
+Déploiement de test READY : `dpl_6TwZhXf4hMranDh3zq8RSk97tsX3`, commit applicatif `c298d55ccb859271df90e786790f3197f71b3183`. URL : https://le-roy-factory-jb1b456wv-hugol-trading.vercel.app/dashboard.html . Les contrôles GitHub CRM et suite ont réussi.
+
+Vérification complémentaire dans Cloud Chrome : le portrait ouvre les cinq radios ; un clic volontaire sur BFM lance la lecture avec `readyState=4`, `paused=false`, aucune erreur média. Pause et fermeture du panneau vérifiées, lecture arrêtée après le contrôle. Cette preuve complète la limitation réseau du navigateur Chromium local, sans constituer un test matériel iPhone/Android.
