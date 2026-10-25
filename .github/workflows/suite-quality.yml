@@ -159,3 +159,32 @@ jobs:
           name: lrf-opening-product-checks
           path: reports/lrf-suite/
           retention-days: 14
+  public-compositions-and-visits:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      LRF_PUBLIC_QA_OUTPUT: reports/lrf-suite/public-compositions
+      LRF_PUBLIC_UI_QA_OUTPUT: reports/lrf-suite/public-gallery
+      LRF_VISIT_QA_OUTPUT: reports/lrf-suite/visit-openings
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts --include=dev --no-audit --no-fund
+      - run: npm run build:general && npm run build:studio
+      - run: npx playwright install --with-deps chromium
+      - name: Verify the public gallery on desktop and phone
+        run: node tests/lrf-suite/public-compositions-ui-browser.cjs
+      - name: Verify protected previews, private project preservation and editable copies
+        run: node tests/lrf-suite/public-compositions-browser.cjs
+      - name: Verify native opening gestures during a 3D visit
+        run: node tests/lrf-suite/visit-openings-browser.cjs
+      - name: Keep public composition and visit checks
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lrf-public-compositions-visits
+          path: reports/lrf-suite/
+          retention-days: 14

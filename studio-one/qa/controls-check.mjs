@@ -96,6 +96,12 @@ for(const match of appModuleSource.matchAll(/^import\s*\{([^}]+)\}\s*from\s*['"]
  }
 }
 let source=appModuleSource.replace(/^import .*;\n/gm,'').replace(/\nstart\(\);\s*$/,'');
+// The walk controller now shares its gesture recognizer with the two apps.
+const walkControllerSource=readFileSync('src/walk-mode.js','utf8');
+for(const match of walkControllerSource.matchAll(/^import\s*\{([^}]+)\}\s*from\s*['"]([^'"]+)['"];?/gm)){
+ const imported=await import(new URL('../src/'+match[2],import.meta.url));
+ for(const binding of match[1].split(',')){const [original,local=original]=binding.trim().split(/\s+as\s+/);context[local]=imported[original];}
+}
 vm.runInContext(readFileSync('src/walk-mode.js','utf8').replace(/^import .*;\n/gm,'').replace('export function','function'),context);
 // surface-picker is the real shared module imported above, including its style and callbacks.
 vm.runInContext(source,context);

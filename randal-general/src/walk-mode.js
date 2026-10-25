@@ -1,8 +1,10 @@
+import {createVisitTapGesture} from '../../shared/lrf-3d/visit-interactions.js';
 import {boundsOnWall} from './composition.js';
 import * as T from 'three';
 
 // Visite à hauteur humaine : caméra indépendante des objets et des contrôles d'édition.
-export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,onMove,onExit}){
+export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,onMove,onEnter,onExit,onTap}){
+  const taps=createVisitTapGesture();
   const keys=new Set();const eye=1.58,radius=.20,speed=1.7,turn=1.8;
   let viewMode='first',walker=new T.Vector3(),moving=false;
   let active=false,forward=new T.Vector3(0,0,-1),panel=null,button=null,pitch=0,touchMove={x:0,y:0},touchLook=null,mouseLook=false;
@@ -58,9 +60,9 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
   }
 
   function setActive(next){
-    if(active===next)return;active=next;keys.clear();
+    if(active===next)return;active=next;stage.classList.toggle('walk-active',active);keys.clear();taps.reset();
     if(active){
-      pitch=0;
+      onEnter?.();pitch=0;
       const room=getRoom();const center=room?.bounds?.getCenter(new T.Vector3())||new T.Vector3();
       const p=camera.position.clone();if(!inside(p.x,p.z,room?.points)){camera.position.set(center.x,eye,center.z);}
       else camera.position.y=eye;
@@ -68,25 +70,25 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
       if(forward.lengthSq()<.001)forward.set(0,0,-1);forward.normalize();
       controls.enabled=false;view();onMove();
     }else{controls.enabled=true;touchMove={x:0,y:0};touchLook=null;mouseLook=false;onExit?.();onMove();}
-    button.textContent=active?'Quitter la visite':'Visite 3D';
+    button.textContent=active?'Quitter la visite':'Visite 3D';button.setAttribute('aria-pressed',String(active));
     panel.hidden=!active;joystick.hidden=!active||!(innerWidth<761||navigator.maxTouchPoints>0||matchMedia('(pointer:coarse)').matches);
   }
   button=document.createElement('button');button.type='button';button.textContent='Visite 3D';
-  button.setAttribute('aria-label','Activer ou quitter le déplacement dans les pièces');
+  button.className='walk-toggle';button.setAttribute('aria-pressed','false');button.setAttribute('aria-label','Activer ou quitter le déplacement dans les pièces');
   Object.assign(button.style,{position:'absolute',top:'72px',right:'12px',zIndex:'41',padding:'9px 13px',borderRadius:'10px',background:'#184a40',color:'white',border:'1px solid #acd0c1',cursor:'pointer'});
   button.addEventListener('click',()=>setActive(!active));stage.append(button);
   panel=document.createElement('div');panel.hidden=true;panel.setAttribute('aria-label','Commandes de visite');
   Object.assign(panel.style,{position:'absolute',left:'12px',bottom:'calc(110px + env(safe-area-inset-bottom,0px))',zIndex:'41',background:'rgba(17,42,37,.88)',color:'white',borderRadius:'10px',padding:'8px',fontSize:'12px',maxWidth:'55%'});
-  panel.textContent=innerWidth<761?'Joystick : marcher · glisser : regarder':'ZQSD / flèches : marcher · Maj : courir · Échap : quitter';
+  panel.textContent=innerWidth<761?'Touchez pour ouvrir · joystick : marcher · glisser : regarder':'Cliquez pour ouvrir · ZQSD / flèches : marcher · Maj : courir · Échap : quitter';
   stage.append(panel);
   const supported=new Set(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','KeyW','KeyS','KeyA','KeyD','KeyQ','KeyE','KeyZ','ShiftLeft','ShiftRight']);
   document.addEventListener('keydown',e=>{
     if(!active||editable(e.target)||e.altKey||e.ctrlKey||e.metaKey||!supported.has(e.code))return;
-    e.preventDefault();e.stopImmediatePropagation();keys.add(e.code);onMove();
+    e.preventDefault();e.stopImmediatePropagation();taps.cancel();keys.add(e.code);onMove();
   },true);
   document.addEventListener('keyup',e=>{keys.delete(e.code);if(active&&supported.has(e.code))e.preventDefault()},true);
-  window.addEventListener('blur',()=>keys.clear());
-  document.addEventListener('visibilitychange',()=>{if(document.hidden)keys.clear()});
+  window.addEventListener('blur',()=>{keys.clear();taps.reset();mouseLook=false;touchLook=null;});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden){keys.clear();taps.reset();mouseLook=false;touchLook=null;}});
   document.addEventListener('keydown',e=>{if(active&&e.key==='Escape'&&!editable(e.target)){setActive(false);e.stopImmediatePropagation()}},true);
 
   const joystick=document.createElement('div');joystick.hidden=true;
@@ -95,14 +97,15 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
   Object.assign(knob.style,{position:'absolute',left:'39px',top:'39px',width:'38px',height:'38px',borderRadius:'50%',background:'#e4f4ea',pointerEvents:'none'});
   joystick.append(knob);stage.append(joystick);panel.style.bottom='calc(240px + env(safe-area-inset-bottom,0px))';
   function updatePad(e){const rect=joystick.getBoundingClientRect(),dx=e.clientX-(rect.left+rect.width/2),dy=e.clientY-(rect.top+rect.height/2),length=Math.max(1,Math.hypot(dx,dy)),scale=Math.min(1,47/length);touchMove={x:dx*scale/47,y:dy*scale/47};knob.style.transform='translate('+touchMove.x*38+'px,'+touchMove.y*38+'px)';onMove();}
-  joystick.addEventListener('pointerdown',e=>{e.preventDefault();joystick.setPointerCapture(e.pointerId);updatePad(e)});
+  joystick.addEventListener('pointerdown',e=>{taps.cancel(e);e.preventDefault();joystick.setPointerCapture(e.pointerId);updatePad(e)});
   joystick.addEventListener('pointermove',e=>{if(joystick.hasPointerCapture(e.pointerId))updatePad(e)});
   const resetPad=()=>{touchMove={x:0,y:0};knob.style.transform='';};
   joystick.addEventListener('pointerup',resetPad);joystick.addEventListener('pointercancel',resetPad);
-  stage.addEventListener('pointerdown',e=>{if(!active||e.target!==canvas)return;if(e.pointerType==='mouse'){mouseLook=true;return;}touchLook={id:e.pointerId,x:e.clientX,y:e.clientY};},true);
+  stage.addEventListener('pointerdown',e=>{if(!active||e.target!==canvas)return;if(e.pointerType==='mouse'&&e.button!==0)return;taps.down(e);e.preventDefault();e.stopPropagation();canvas.setPointerCapture(e.pointerId);if(e.pointerType==='mouse'){mouseLook=true;return;}if(touchLook&&touchLook.id!==e.pointerId){taps.cancel(e);return;}touchLook={id:e.pointerId,x:e.clientX,y:e.clientY};},true);
   function look(dx,dy){forward.applyAxisAngle(new T.Vector3(0,1,0),-dx*.004).normalize();pitch=T.MathUtils.clamp(pitch-dy*.004,-1.35,1.35);view();onMove();}
-  stage.addEventListener('pointermove',e=>{if(!active)return;if(e.pointerType==='mouse'&&mouseLook){look(e.movementX,e.movementY)}else if(touchLook?.id===e.pointerId){look(e.clientX-touchLook.x,e.clientY-touchLook.y);touchLook.x=e.clientX;touchLook.y=e.clientY;}});
-  window.addEventListener('pointerup',()=>{mouseLook=false;touchLook=null});
+  stage.addEventListener('pointermove',e=>{if(!active)return;taps.move(e);if(e.pointerType==='mouse'&&mouseLook){look(e.movementX,e.movementY)}else if(touchLook?.id===e.pointerId){look(e.clientX-touchLook.x,e.clientY-touchLook.y);touchLook.x=e.clientX;touchLook.y=e.clientY;}});
+  function release(e){if(!active||(!mouseLook&&touchLook?.id!==e.pointerId)){taps.cancel(e);return;}const tapped=e.type==='pointerup'&&taps.up(e);if(e.type!=='pointerup')taps.cancel(e);mouseLook=false;touchLook=null;if(tapped&&onTap?.(e)){e.preventDefault();e.stopImmediatePropagation();}onMove();}
+  window.addEventListener('pointerup',release,true);window.addEventListener('pointercancel',release,true);canvas.addEventListener('lostpointercapture',e=>{taps.cancel(e);mouseLook=false;touchLook=null;});
   function tick(dt){
     moving=false;if(!active)return false;
     const left=keys.has('ArrowLeft'),right=keys.has('ArrowRight');
@@ -117,7 +120,7 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
       if(passable(p.x,p.z+move.z))p.z+=move.z;
       p.y=eye;moving=p.distanceToSquared(before)>1e-8;
     }
-    if(rotation||move.lengthSq()>0||viewMode==='third'){view();return true}
+    if(rotation||move.lengthSq()>0){taps.cancel();view();return true}if(viewMode==='third'){view();return true}
     return false;
   }
   return {tick,get active(){return active},setActive,get position(){return walker;},get heading(){return Math.atan2(forward.x,forward.z);},get moving(){return moving;},get running(){return keys.has('ShiftLeft')||keys.has('ShiftRight');},get view(){return viewMode;},setView(mode){viewMode=mode==='third'?'third':'first';if(active)view();onMove();}};

@@ -26,3 +26,5 @@ await build({entryPoints:['src/commerce/house-workspace.js'],bundle:true,format:
 let house=readFileSync('src/commerce/house-workspace.html','utf8');house=house.replace('"maison.js"','"maison.js?v='+createHash('sha256').update(readFileSync('dist/maison.js')).digest('hex').slice(0,12)+'"');writeFileSync('dist/maison.html',house);
 
 cpSync('../shared/lrf-3d/media/aquahome-2026','dist/assets/aquahome-2026',{recursive:true});
+
+cpSync('../shared/lrf-3d/media/public-compositions','dist/assets/public-compositions',{recursive:true});

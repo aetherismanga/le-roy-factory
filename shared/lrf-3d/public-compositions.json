@@ -1,0 +1,1654 @@
+{
+  "version": 1,
+  "compositions": [
+    {
+      "id": "lrf-expo-studio-one",
+      "title": "Composition Le Roy FACTORY · Studio One",
+      "variant": "studio-one",
+      "description": "Salle de bain de présentation · meuble 120 cm, douche à carreler et baignoire",
+      "thumbnail": "assets/public-compositions/lrf-expo-studio-one.webp",
+      "itemCount": 12,
+      "project": {
+        "version": 2,
+        "title": "Composition Le Roy FACTORY · Studio One",
+        "room": {
+          "height": 260,
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              450,
+              0
+            ],
+            [
+              450,
+              450
+            ],
+            [
+              0,
+              450
+            ]
+          ],
+          "partitions": [
+            {
+              "id": "p-lrf-expo-studio-one-01",
+              "a": [
+                449,
+                84
+              ],
+              "b": [
+                329,
+                84
+              ],
+              "thickness": 8,
+              "height": 208,
+              "fullHeight": false,
+              "profileEdges": {
+                "b": "Bronze",
+                "top": "Bronze",
+                "a": "none"
+              },
+              "locked": true
+            }
+          ]
+        },
+        "renovation": {
+          "autoCalepinage": false,
+          "locked": true
+        },
+        "floor": {
+          "collection": "Stone Icon",
+          "color": "leccese",
+          "groutColor": "Gris clair",
+          "format": "60x90",
+          "zones": [],
+          "jointProfiles": [],
+          "colorId": "leccese",
+          "sourceColorId": "leccese",
+          "reference": "",
+          "catalogueKey": "",
+          "finish": "",
+          "fidelity": "catalogue-preview",
+          "contractVersion": 1
+        },
+        "walls": [
+          {
+            "collection": "Stone Icon",
+            "color": "francese",
+            "format": "60x90",
+            "tiles": {},
+            "groutColor": "Beige",
+            "colorId": "francese",
+            "sourceColorId": "francese",
+            "reference": "",
+            "catalogueKey": "",
+            "finish": "",
+            "fidelity": "catalogue-preview",
+            "contractVersion": 1,
+            "zones": [
+              {
+                "collection": "Terraforma",
+                "color": "marna",
+                "format": "30x30",
+                "tiles": {},
+                "groutColor": "#c6ad89",
+                "id": "zone-lrf-expo-studio-one-01",
+                "name": "Bande murale",
+                "x": 0,
+                "y": 0,
+                "width": 90,
+                "height": 260,
+                "direction": "horizontal",
+                "pattern": "straight",
+                "groutWidth": 2,
+                "alignFurniture": false,
+                "profile": false,
+                "profileColor": "none",
+                "profileEdges": {
+                  "top": "none",
+                  "bottom": "none",
+                  "left": "none",
+                  "right": "Bronze"
+                },
+                "colorId": "marna",
+                "sourceColorId": "marna",
+                "reference": "04T33D2",
+                "catalogueKey": "ELIOS|04T33D2",
+                "finish": "R10 B · Rectifié · 8,5 mm",
+                "fidelity": "catalogue-preview",
+                "contractVersion": 1,
+                "locked": true
+              }
+            ]
+          },
+          {
+            "collection": "Stone Icon",
+            "color": "francese",
+            "format": "60x120",
+            "tiles": {},
+            "colorId": "francese",
+            "sourceColorId": "francese",
+            "reference": "",
+            "catalogueKey": "",
+            "finish": "",
+            "fidelity": "catalogue-preview",
+            "contractVersion": 1
+          },
+          {
+            "collection": "Stone Icon",
+            "color": "leccese",
+            "format": "60x90",
+            "tiles": {},
+            "colorId": "leccese",
+            "sourceColorId": "leccese",
+            "reference": "",
+            "catalogueKey": "",
+            "finish": "",
+            "fidelity": "catalogue-preview",
+            "contractVersion": 1
+          },
+          {
+            "collection": "Stone Icon",
+            "color": "leccese",
+            "format": "60x90",
+            "tiles": {},
+            "colorId": "leccese",
+            "sourceColorId": "leccese",
+            "reference": "",
+            "catalogueKey": "",
+            "finish": "",
+            "fidelity": "catalogue-preview",
+            "contractVersion": 1,
+            "zones": [
+              {
+                "collection": "Terraforma",
+                "color": "marna",
+                "format": "30x30",
+                "tiles": {},
+                "id": "zone-lrf-expo-studio-one-02",
+                "name": "Bande murale",
+                "x": 360,
+                "y": 0,
+                "width": 90,
+                "height": 260,
+                "direction": "horizontal",
+                "pattern": "straight",
+                "groutColor": "#d5d0c3",
+                "groutWidth": 2,
+                "alignFurniture": false,
+                "profile": false,
+                "profileColor": "none",
+                "profileEdges": {
+                  "top": "none",
+                  "bottom": "none",
+                  "left": "Bronze",
+                  "right": "none"
+                },
+                "colorId": "marna",
+                "sourceColorId": "marna",
+                "reference": "04T33D2",
+                "catalogueKey": "ELIOS|04T33D2",
+                "finish": "R10 B · Rectifié · 8,5 mm",
+                "fidelity": "catalogue-preview",
+                "contractVersion": 1,
+                "locked": true
+              }
+            ]
+          },
+          {
+            "collection": "Stone Icon",
+            "color": "francese",
+            "format": "60x90",
+            "groutColor": "Beige",
+            "tiles": {},
+            "colorId": "francese",
+            "sourceColorId": "francese",
+            "reference": "",
+            "catalogueKey": "",
+            "finish": "",
+            "fidelity": "catalogue-preview",
+            "contractVersion": 1
+          },
+          {
+            "collection": "Stone Icon",
+            "color": "francese",
+            "format": "60x90",
+            "groutColor": "Beige",
+            "tiles": {},
+            "zones": [
+              {
+                "collection": "Terraforma",
+                "color": "petra",
+                "format": "30x30",
+                "groutColor": "#c6ad89",
+                "tiles": {},
+                "id": "zone-lrf-expo-studio-one-03",
+                "name": "Bande murale",
+                "x": 47,
+                "y": 0,
+                "width": 60,
+                "height": 208,
+                "direction": "horizontal",
+                "pattern": "straight",
+                "groutWidth": 2,
+                "alignFurniture": false,
+                "profile": false,
+                "profileColor": "none",
+                "profileEdges": {
+                  "top": "none",
+                  "bottom": "none",
+                  "left": "none",
+                  "right": "none"
+                },
+                "locked": true,
+                "colorId": "petra",
+                "sourceColorId": "petra",
+                "reference": "04T33D3",
+                "catalogueKey": "ELIOS|04T33D3",
+                "finish": "R10 B · Rectifié · 8,5 mm",
+                "fidelity": "catalogue-preview",
+                "contractVersion": 1
+              }
+            ],
+            "colorId": "francese",
+            "sourceColorId": "francese",
+            "reference": "",
+            "catalogueKey": "",
+            "finish": "",
+            "fidelity": "catalogue-preview",
+            "contractVersion": 1
+          }
+        ],
+        "lighting": "day",
+        "brightness": 135,
+        "profiles": {
+          "enabled": false,
+          "internalCorners": false,
+          "overrides": {
+            "boundary-1|angle_interne|0.000,0.000,0.002|0.000,2.600,0.002": {
+              "enabled": false,
+              "color": "Argent"
+            },
+            "bath-object-lrf-expo-studio-one-08|angle_baignoire|-0.850,0.000,0.523|-0.850,0.558,0.523": {
+              "enabled": true,
+              "color": "Bronze"
+            }
+          },
+          "color": "Argent",
+          "walls": [],
+          "editMode": false
+        },
+        "plinths": {
+          "enabled": true,
+          "type": "tile",
+          "height": 8,
+          "thickness": 1,
+          "kerf": 0.3,
+          "reserve": 0,
+          "aligned": true,
+          "walls": {},
+          "product": null
+        },
+        "tileLoss": 10,
+        "temperature": 5700,
+        "layouts": {
+          "floor": {
+            "direction": "horizontal",
+            "pattern": "straight",
+            "x": 45,
+            "y": 0,
+            "width": 0.9,
+            "height": 0.6,
+            "shape": "rectangle",
+            "chevronAngle": 45,
+            "groutWidth": 2
+          },
+          "walls": [
+            {
+              "direction": "horizontal",
+              "pattern": "straight",
+              "x": 0,
+              "y": 0,
+              "width": 0.9,
+              "height": 0.6,
+              "shape": "rectangle",
+              "chevronAngle": 45,
+              "groutWidth": 2
+            },
+            {
+              "direction": "horizontal",
+              "pattern": "straight",
+              "x": 0,
+              "y": 0,
+              "width": 1.2,
+              "height": 0.6,
+              "shape": "rectangle",
+              "chevronAngle": 45,
+              "groutWidth": 2
+            },
+            {
+              "direction": "horizontal",
+              "pattern": "straight",
+              "x": 0,
+              "y": 0,
+              "width": 0.9,
+              "height": 0.6,
+              "shape": "rectangle",
+              "chevronAngle": 45,
+              "groutWidth": 2
+            },
+            {
+              "direction": "horizontal",
+              "pattern": "straight",
+              "x": 0,
+              "y": 0,
+              "width": 0.9,
+              "height": 0.6,
+              "shape": "rectangle",
+              "chevronAngle": 45,
+              "groutWidth": 2
+            },
+            {
+              "direction": "horizontal",
+              "pattern": "straight",
+              "x": 0,
+              "y": 0,
+              "width": 0.9,
+              "height": 0.6,
+              "shape": "rectangle",
+              "chevronAngle": 45,
+              "groutWidth": 2
+            },
+            {
+              "direction": "horizontal",
+              "pattern": "straight",
+              "x": 0,
+              "y": 0,
+              "width": 0.9,
+              "height": 0.6,
+              "shape": "rectangle",
+              "chevronAngle": 45,
+              "groutWidth": 2
+            }
+          ]
+        },
+        "views": [],
+        "items": [
+          {
+            "id": "object-lrf-expo-studio-one-01",
+            "type": "cabinet",
+            "locked": true,
+            "placement": {
+              "wall": 0,
+              "u": 197,
+              "height": 28
+            },
+            "settings": {
+              "format": "two",
+              "width": 120,
+              "finish": "NOGAL",
+              "top": "tampa",
+              "topDrawer": "siphon",
+              "basinLayout": "offset",
+              "basinColor": "gloss",
+              "tampaColor": "gloss",
+              "vesselColor": "gloss",
+              "drawers": [
+                0,
+                0
+              ],
+              "decor": true,
+              "tap": "11340112701",
+              "drainFinish": "Chrome brillant",
+              "drainReference": "000550"
+            }
+          },
+          {
+            "id": "object-lrf-expo-studio-one-02",
+            "type": "mirror",
+            "locked": true,
+            "placement": {
+              "wall": 0,
+              "u": 197,
+              "height": 138
+            },
+            "settings": {
+              "finish": "ROBLE",
+              "width": 120,
+              "top": "bare",
+              "topDrawer": "siphon",
+              "basinColor": "gloss",
+              "tampaColor": "gloss",
+              "vesselColor": "gloss",
+              "drawers": [
+                0,
+                0
+              ],
+              "doorOpen": false,
+              "hingeSide": "left",
+              "format": "two",
+              "tap": null,
+              "mirrorFinish": "Bronze",
+              "led": true,
+              "height": 75,
+              "mirrorModel": "metal-rect"
+            }
+          },
+          {
+            "id": "object-lrf-expo-studio-one-03",
+            "type": "door",
+            "locked": true,
+            "placement": {
+              "wall": 3,
+              "u": 219,
+              "height": 0
+            },
+            "settings": {
+              "finish": "ROBLE",
+              "width": 83,
+              "top": "bare",
+              "topDrawer": "siphon",
+              "basinColor": "gloss",
+              "tampaColor": "gloss",
+              "vesselColor": "gloss",
+              "drawers": [
+                0,
+                0
+              ],
+              "doorOpen": false,
+              "hingeSide": "left",
+              "format": "two",
+              "tap": null,
+              "mirrorFinish": "Noir",
+              "led": false,
+              "height": 204,
+              "color": "white"
+            }
+          },
+          {
+            "id": "object-lrf-expo-studio-one-04",
+            "type": "toilet",
+            "locked": true,
+            "placement": {
+              "wall": 1,
+              "u": 38,
+              "height": 0,
+              "offset": 0,
+              "rotation": 0
+            },
+            "settings": {
+              "finish": "ROBLE",
+              "width": 80,
+              "top": "bare",
+              "topDrawer": "siphon",
+              "basinColor": "gloss",
+              "tampaColor": "gloss",
+              "vesselColor": "gloss",
+              "drawers": [
+                0,
+                0
+              ],
+              "doorOpen": false,
+              "hingeSide": "left",
+              "format": "two",
+              "tap": null,
+              "mirrorFinish": "Noir",
+              "led": false,
+              "reference": "TR2217R",
+              "metal": "Chrome brillant",
+              "trap": "round",
+              "drain": "round",
+              "decor": true,
+              "support": true,
+              "supportColor": "#d6cabb",
+              "plateColor": "Or brossé",
+              "supportWidth": 74,
+              "supportHeight": 112,
+              "supportDepth": 20,
+              "supportCovering": {
+                "mode": "all",
+                "back": {
+                  "collection": "Terraforma",
+                  "color": "marna",
+                  "format": "30x30",
+                  "tiles": {}
+                }
+              }
+            }
+          },
+          {
+            "id": "object-lrf-expo-studio-one-05",
+            "type": "shower",
+            "locked": true,
+            "placement": {
+              "wall": 1,
+              "u": 163,
+              "height": 0,
+              "offset": 0,
+              "rotation": 180
+            },
+            "settings": {
+              "finish": "ROBLE",
+              "width": 150,
+              "top": "bare",
+              "topDrawer": "siphon",
+              "basinColor": "gloss",
+              "tampaColor": "gloss",
+              "vesselColor": "gloss",
+              "drawers": [
+                0,
+                0
+              ],
+              "doorOpen": false,
+              "hingeSide": "left",
+              "format": "two",
+              "tap": null,
+              "mirrorFinish": "Noir",
+              "led": false,
+              "depth": 90,
+              "trayColor": "white",
+              "metal": "Chrome brillant",
+              "trayType": "tile",
+              "trayInstallation": "raised",
+              "trayHeight": 8,
+              "trayCovering": {
+                "mode": "all",
+                "top": {
+                  "collection": "Terraforma",
+                  "color": "siena",
+                  "format": "30x30",
+                  "tiles": {},
+                  "colorId": "siena",
+                  "sourceColorId": "siena",
+                  "reference": "",
+                  "catalogueKey": "",
+                  "finish": "",
+                  "fidelity": "catalogue-preview",
+                  "contractVersion": 1
+                }
+              },
+              "trayProfile": false,
+              "trayProfileColor": "Argent"
+            }
+          },
+          {
+            "id": "object-lrf-expo-studio-one-06",
+            "type": "window",
+            "locked": true,
+            "placement": {
+              "wall": 2,
+              "u": 151,
+              "height": 96
+            },
+            "settings": {
+              "finish": "ROBLE",
+              "width": 155,
+              "top": "bare",
+              "topDrawer": "siphon",
+              "basinColor": "gloss",
+              "tampaColor": "gloss",
+              "vesselColor": "gloss",
+              "drawers": [
+                0,
+                0
+              ],
+              "doorOpen": false,
+              "hingeSide": "left",
+              "format": "two",
+              "tap": null,
+              "mirrorFinish": "Noir",
+              "led": false,
+              "height": 100,
+              "color": "anthracite"
+            }
+          },
+          {
+            "id": "object-lrf-expo-studio-one-07",
+            "type": "towel",
+            "locked": true,
+            "placement": {
+              "wall": 1,
+              "u": 335,
+              "height": 52
+            },
+            "settings": {
+              "finish": "ROBLE",
+              "width": 80,
+              "top": "bare",
+              "topDrawer": "siphon",
+              "basinColor": "gloss",
+              "tampaColor": "gloss",
+              "vesselColor": "gloss",
+              "drawers": [
+                0,
+                0
+              ],
+              "doorOpen": false,
+              "hingeSide": "left",
+              "format": "two",
+              "tap": null,
+              "mirrorFinish": "Noir",
+              "led": false,
+              "model": "round",
+              "metal": "Cuivre"
+            }
+          },
+          {
+            "id": "object-lrf-expo-studio-one-08",
+            "type": "bath",
+            "locked": true,
+            "placement": {
+              "wall": 3,
+              "u": 37.5,
+              "height": 0,
+              "offset": 47.5,
+              "rotation": 90
+            },
+            "settings": {
+              "finish": "ROBLE",
+              "width": 170,
+              "top": "bare",
+              "topDrawer": "siphon",
+              "basinColor": "gloss",
+              "tampaColor": "gloss",
+              "vesselColor": "gloss",
+              "drawers": [
+                0,
+                0
+              ],
+              "doorOpen": false,
+              "hingeSide": "left",
+              "format": "two",
+              "tap": null,
+              "mirrorFinish": "Noir",
+              "led": false,
+              "kind": "rect",
+              "depth": 75,
+              "apron": "tile",
+              "metal": "Chrome brillant"
+            }
+          },
+          {
+            "id": "object-lrf-expo-studio-one-09",
+            "type": "tap",
+            "locked": true,
+            "placement": {
+              "wall": 2,
+              "u": 380,
+              "height": 41
+            },
+            "settings": {
+              "finish": "ROBLE",
+              "width": 80,
+              "top": "bare",
+              "topDrawer": "siphon",
+              "basinColor": "gloss",
+              "tampaColor": "gloss",
+              "vesselColor": "gloss",
+              "drawers": [
+                0,
+                0
+              ],
+              "doorOpen": false,
+              "hingeSide": "left",
+              "format": "two",
+              "tap": "11342112701",
+              "mirrorFinish": "Noir",
+              "led": false,
+              "use": "bath",
+              "metal": "Chrome brillant"
+            }
+          },
+          {
+            "id": "object-lrf-expo-studio-one-10",
+            "type": "tap",
+            "locked": true,
+            "placement": {
+              "wall": 5,
+              "u": 80,
+              "height": 46,
+              "offset": 0
+            },
+            "settings": {
+              "finish": "ROBLE",
+              "width": 80,
+              "top": "bare",
+              "topDrawer": "siphon",
+              "basinColor": "gloss",
+              "tampaColor": "gloss",
+              "vesselColor": "gloss",
+              "drawers": [
+                0,
+                0
+              ],
+              "doorOpen": false,
+              "hingeSide": "left",
+              "format": "two",
+              "tap": "540000019",
+              "mirrorFinish": "Noir",
+              "led": false,
+              "use": "shower",
+              "metal": "Cuivre"
+            }
+          },
+          {
+            "id": "object-lrf-expo-studio-one-11",
+            "type": "screen",
+            "locked": true,
+            "placement": {
+              "wall": 1,
+              "u": 158.00000002160667,
+              "offset": 87.4,
+              "height": 8,
+              "rotation": 180
+            },
+            "settings": {
+              "finish": "ROBLE",
+              "width": 140,
+              "top": "bare",
+              "topDrawer": "siphon",
+              "basinColor": "gloss",
+              "tampaColor": "gloss",
+              "vesselColor": "gloss",
+              "drawers": [
+                0,
+                0
+              ],
+              "doorOpen": false,
+              "hingeSide": "left",
+              "format": "two",
+              "tap": null,
+              "mirrorFinish": "Noir",
+              "led": false,
+              "screen": "fixed",
+              "metal": "Chrome brillant",
+              "trayId": "object-lrf-expo-studio-one-05",
+              "edge": "back",
+              "edgeShift": 4.999999978393321
+            }
+          },
+          {
+            "id": "object-lrf-expo-studio-one-12",
+            "type": "column",
+            "locked": true,
+            "placement": {
+              "wall": 0,
+              "u": 47,
+              "height": 55,
+              "offset": 0,
+              "rotation": 0
+            },
+            "settings": {
+              "finish": "NOGAL",
+              "width": 80,
+              "top": "bare",
+              "topDrawer": "siphon",
+              "basinColor": "gloss",
+              "tampaColor": "gloss",
+              "vesselColor": "gloss",
+              "drawers": [
+                0,
+                0
+              ],
+              "doorOpen": false,
+              "hingeSide": "left",
+              "format": "two",
+              "tap": null,
+              "mirrorFinish": "Noir",
+              "led": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "lrf-expo-general",
+      "title": "Composition Le Roy FACTORY · Catalogue Général",
+      "variant": "randal-general",
+      "description": "Salle de bain de présentation · meuble Harmony, baignoire îlot et douche séparée",
+      "thumbnail": "assets/public-compositions/lrf-expo-general.webp",
+      "itemCount": 13,
+      "project": {
+        "version": 2,
+        "title": "Composition Le Roy FACTORY · Catalogue Général",
+        "room": {
+          "height": 260,
+          "niches": [
+            {
+              "id": "niche-lrf-expo-general-01",
+              "wallKey": "boundary-3",
+              "u": 118.7,
+              "bottom": 78.5,
+              "width": 120,
+              "height": 30,
+              "depth": 8,
+              "covering": {
+                "mode": "split",
+                "back": {
+                  "collection": "Terraforma",
+                  "color": "petra",
+                  "format": "30x30",
+                  "tiles": {}
+                },
+                "reveal": {
+                  "collection": "Stone Icon",
+                  "color": "francese",
+                  "format": "60x120",
+                  "tiles": {}
+                }
+              },
+              "profileEdges": {
+                "left": "none",
+                "right": "none",
+                "top": "none",
+                "bottom": "none"
+              },
+              "locked": true
+            }
+          ],
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              450,
+              0
+            ],
+            [
+              450,
+              450
+            ],
+            [
+              0,
+              450
+            ]
+          ],
+          "partitions": [
+            {
+              "id": "p-lrf-expo-general-01",
+              "a": [
+                114.3,
+                0
+              ],
+              "b": [
+                114.3,
+                180.3
+              ],
+              "thickness": 8,
+              "height": 260,
+              "fullHeight": true,
+              "profileEdges": {
+                "b": "none"
+              },
+              "locked": true
+            },
+            {
+              "id": "p-lrf-expo-general-02",
+              "a": [
+                0,
+                185.9
+              ],
+              "b": [
+                120.3,
+                185.9
+              ],
+              "thickness": 8,
+              "height": 260,
+              "fullHeight": true,
+              "profileEdges": {
+                "b": "none"
+              },
+              "locked": true
+            }
+          ]
+        },
+        "renovation": {
+          "autoCalepinage": true,
+          "locked": true
+        },
+        "floor": {
+          "collection": "Yosemite",
+          "format": "15x85",
+          "groutColor": "Beige",
+          "color": "honey",
+          "zones": [
+            {
+              "id": "zone-lrf-expo-general-01",
+              "name": "Tapis de carrelage",
+              "x": -225,
+              "y": -180,
+              "width": 110,
+              "height": 180,
+              "collection": "Terraforma",
+              "color": "duna",
+              "format": "30x30",
+              "direction": "horizontal",
+              "pattern": "straight",
+              "groutColor": "#c6ad89",
+              "groutWidth": 2,
+              "alignFurniture": false,
+              "profile": false,
+              "profileColor": "none",
+              "profileEdges": {
+                "left": "none",
+                "right": "none",
+                "top": "none",
+                "bottom": "none"
+              },
+              "adjusted": false,
+              "locked": true
+            }
+          ],
+          "jointProfiles": [],
+          "colorId": "honey",
+          "sourceColorId": "honey",
+          "reference": "",
+          "catalogueKey": "",
+          "finish": "",
+          "fidelity": "ai-reconstruction",
+          "contractVersion": 1
+        },
+        "walls": [
+          {
+            "collection": "Stone Icon",
+            "format": "60x90",
+            "finish": "Tumbled · R10 B · Rectifié · 8,5 mm",
+            "groutColor": "Beige",
+            "color": "francese",
+            "catalogueKey": "ELIOS|04S6902",
+            "reference": "04S6902",
+            "colorId": "francese",
+            "sourceColorId": "francese",
+            "fidelity": "catalogue-preview",
+            "contractVersion": 1,
+            "tiles": {}
+          },
+          {
+            "collection": "Stone Icon",
+            "format": "60x90",
+            "finish": "Tumbled · R10 B · Rectifié · 8,5 mm",
+            "groutColor": "Beige",
+            "color": "francese",
+            "catalogueKey": "ELIOS|04S6902",
+            "reference": "04S6902",
+            "colorId": "francese",
+            "sourceColorId": "francese",
+            "fidelity": "catalogue-preview",
+            "contractVersion": 1,
+            "tiles": {},
+            "zones": [
+              {
+                "id": "zone-lrf-expo-general-02",
+                "name": "Bande murale",
+                "x": 360,
+                "y": 0,
+                "width": 90,
+                "height": 260,
+                "collection": "Terraforma",
+                "color": "petra",
+                "format": "30x30",
+                "direction": "horizontal",
+                "pattern": "straight",
+                "groutColor": "#c6ad89",
+                "groutWidth": 2,
+                "alignFurniture": false,
+                "profile": false,
+                "profileColor": "none",
+                "profileEdges": {
+                  "top": "none",
+                  "bottom": "none",
+                  "left": "Noir",
+                  "right": "none"
+                },
+                "locked": true
+              }
+            ]
+          },
+          {
+            "collection": "Peinture",
+            "groutColor": "Beige",
+            "color": "sage",
+            "tiles": {},
+            "colorId": "sage",
+            "sourceColorId": "sage",
+            "format": "",
+            "reference": "",
+            "catalogueKey": "",
+            "finish": "",
+            "fidelity": "manufacturer-face",
+            "contractVersion": 1,
+            "zones": [
+              {
+                "id": "zone-lrf-expo-general-03",
+                "name": "Bande murale",
+                "x": 0,
+                "y": 0,
+                "width": 150,
+                "height": 260,
+                "collection": "Terraforma",
+                "color": "petra",
+                "format": "30x30",
+                "direction": "horizontal",
+                "pattern": "straight",
+                "groutColor": "#c6ad89",
+                "groutWidth": 2,
+                "alignFurniture": false,
+                "profile": false,
+                "profileColor": "none",
+                "profileEdges": {
+                  "top": "none",
+                  "bottom": "none",
+                  "left": "none",
+                  "right": "Noir"
+                },
+                "locked": true
+              }
+            ]
+          },
+          {
+            "collection": "Stone Icon",
+            "color": "francese",
+            "format": "60x120",
+            "tiles": {},
+            "colorId": "francese",
+            "sourceColorId": "francese",
+            "reference": "",
+            "catalogueKey": "",
+            "finish": "",
+            "fidelity": "catalogue-preview",
+            "contractVersion": 1
+          },
+          {
+            "collection": "Stone Icon",
+            "format": "60x90",
+            "finish": "Tumbled · R10 B · Rectifié · 8,5 mm",
+            "groutColor": "Beige",
+            "color": "francese",
+            "catalogueKey": "ELIOS|04S6902",
+            "reference": "04S6902",
+            "colorId": "francese",
+            "sourceColorId": "francese",
+            "fidelity": "catalogue-preview",
+            "contractVersion": 1,
+            "tiles": {}
+          },
+          {
+            "collection": "Stone Icon",
+            "format": "60x90",
+            "finish": "Tumbled · R10 B · Rectifié · 8,5 mm",
+            "groutColor": "Beige",
+            "color": "francese",
+            "catalogueKey": "ELIOS|04S6902",
+            "reference": "04S6902",
+            "colorId": "francese",
+            "sourceColorId": "francese",
+            "fidelity": "catalogue-preview",
+            "contractVersion": 1,
+            "tiles": {}
+          },
+          {
+            "collection": "Stone Icon",
+            "color": "francese",
+            "format": "60x120",
+            "tiles": {},
+            "colorId": "francese",
+            "sourceColorId": "francese",
+            "reference": "",
+            "catalogueKey": "",
+            "finish": "",
+            "fidelity": "catalogue-preview",
+            "contractVersion": 1
+          },
+          {
+            "collection": "Stone Icon",
+            "color": "francese",
+            "format": "60x120",
+            "colorId": "francese",
+            "sourceColorId": "francese",
+            "reference": "",
+            "catalogueKey": "",
+            "finish": "",
+            "fidelity": "catalogue-preview",
+            "contractVersion": 1
+          }
+        ],
+        "lighting": "day",
+        "brightness": 180,
+        "profiles": {
+          "enabled": false,
+          "internalCorners": false,
+          "overrides": {},
+          "color": "Argent",
+          "walls": [],
+          "editMode": false
+        },
+        "plinths": {
+          "enabled": true,
+          "type": "tile",
+          "height": 8,
+          "thickness": 1,
+          "kerf": 0.3,
+          "reserve": 0,
+          "aligned": true,
+          "walls": {},
+          "product": null
+        },
+        "tileLoss": 10,
+        "temperature": 4000,
+        "layouts": {
+          "floor": {
+            "direction": "horizontal",
+            "pattern": "chevron",
+            "x": -225,
+            "y": -465,
+            "width": 0.85,
+            "height": 0.15,
+            "shape": "chevron",
+            "chevronAngle": 45,
+            "groutWidth": 2
+          },
+          "walls": [
+            {
+              "direction": "horizontal",
+              "pattern": "straight",
+              "x": 56,
+              "y": 33,
+              "width": 0.9,
+              "height": 0.6,
+              "shape": "rectangle",
+              "chevronAngle": 45,
+              "groutWidth": 2
+            },
+            {
+              "direction": "horizontal",
+              "pattern": "straight",
+              "x": 410,
+              "y": 103,
+              "width": 0.9,
+              "height": 0.6,
+              "shape": "rectangle",
+              "chevronAngle": 45,
+              "groutWidth": 2
+            },
+            {
+              "direction": "horizontal",
+              "pattern": "straight",
+              "x": 0,
+              "y": 0,
+              "width": 0.9,
+              "height": 0.6,
+              "shape": "rectangle",
+              "chevronAngle": 45,
+              "groutWidth": 2
+            },
+            {
+              "direction": "horizontal",
+              "pattern": "straight",
+              "x": 47,
+              "y": 0,
+              "width": 1.2,
+              "height": 0.6,
+              "shape": "rectangle",
+              "chevronAngle": 45,
+              "groutWidth": 2
+            },
+            {
+              "direction": "horizontal",
+              "pattern": "straight",
+              "x": 0,
+              "y": 0,
+              "width": 0.9,
+              "height": 0.6,
+              "shape": "rectangle",
+              "chevronAngle": 45,
+              "groutWidth": 2
+            },
+            {
+              "direction": "horizontal",
+              "pattern": "straight",
+              "x": 44,
+              "y": 0,
+              "width": 0.9,
+              "height": 0.6,
+              "shape": "rectangle",
+              "chevronAngle": 45,
+              "groutWidth": 2
+            },
+            {
+              "direction": "horizontal",
+              "pattern": "straight",
+              "x": -119.85,
+              "y": 0,
+              "width": 1.2,
+              "height": 0.6,
+              "shape": "rectangle",
+              "chevronAngle": 45,
+              "groutWidth": 2
+            },
+            {
+              "direction": "horizontal",
+              "pattern": "straight",
+              "x": -119.85,
+              "y": 0,
+              "width": 1.2,
+              "height": 0.6,
+              "shape": "rectangle",
+              "chevronAngle": 45,
+              "groutWidth": 2
+            }
+          ]
+        },
+        "views": [],
+        "items": [
+          {
+            "id": "object-lrf-expo-general-01",
+            "type": "cabinet",
+            "locked": true,
+            "placement": {
+              "wall": 0,
+              "u": 326,
+              "height": 34
+            },
+            "settings": {
+              "format": "harmony-two",
+              "width": 90,
+              "finish": "harmony--blanco-mate",
+              "top": "sella",
+              "topDrawer": "siphon",
+              "basinLayout": "center",
+              "topFinish": "plan--blanco-mate",
+              "basinColor": "gloss",
+              "tampaColor": "gloss",
+              "vesselColor": "gloss",
+              "drawers": [
+                0,
+                0
+              ],
+              "decor": true,
+              "tap": "13340112701",
+              "drainFinish": "Chrome brillant",
+              "drainReference": "000550"
+            }
+          },
+          {
+            "id": "object-lrf-expo-general-02",
+            "type": "mirror",
+            "locked": true,
+            "placement": {
+              "wall": 0,
+              "u": 326,
+              "height": 147
+            },
+            "settings": {
+              "mirrorModel": "basic",
+              "width": 60,
+              "height": 80,
+              "mirrorFinish": "Noir",
+              "led": false,
+              "drawers": [
+                0,
+                0
+              ],
+              "rotated": false
+            }
+          },
+          {
+            "id": "object-lrf-expo-general-03",
+            "type": "door",
+            "locked": true,
+            "placement": {
+              "wall": 0,
+              "u": 198,
+              "height": 0
+            },
+            "settings": {
+              "width": 83,
+              "height": 204,
+              "color": "white",
+              "drawers": [
+                0,
+                0
+              ],
+              "doorOpen": false
+            }
+          },
+          {
+            "id": "object-lrf-expo-general-04",
+            "type": "bath",
+            "locked": true,
+            "placement": {
+              "wall": 3,
+              "u": 124,
+              "height": 0,
+              "offset": 11,
+              "rotation": 0
+            },
+            "settings": {
+              "finish": "harmony--blanco-mate",
+              "width": 170,
+              "top": "sella",
+              "topDrawer": "siphon",
+              "basinColor": "gloss",
+              "tampaColor": "gloss",
+              "vesselColor": "gloss",
+              "drawers": [
+                0,
+                0
+              ],
+              "doorOpen": false,
+              "hingeSide": "left",
+              "format": "harmony-two",
+              "tap": null,
+              "mirrorFinish": "Noir",
+              "led": false,
+              "kind": "island",
+              "depth": 75,
+              "apron": "white",
+              "metal": "Chrome brillant"
+            }
+          },
+          {
+            "id": "object-lrf-expo-general-05",
+            "type": "tap",
+            "locked": true,
+            "placement": {
+              "wall": 3,
+              "u": 47,
+              "height": 0,
+              "offset": 25,
+              "rotation": 90
+            },
+            "settings": {
+              "finish": "harmony--blanco-mate",
+              "width": 80,
+              "top": "sella",
+              "topDrawer": "siphon",
+              "basinColor": "gloss",
+              "tampaColor": "gloss",
+              "vesselColor": "gloss",
+              "drawers": [
+                0,
+                0
+              ],
+              "doorOpen": false,
+              "hingeSide": "left",
+              "format": "harmony-two",
+              "tap": "11355112203",
+              "mirrorFinish": "Noir",
+              "led": false,
+              "use": "island",
+              "metal": "Noir mat"
+            }
+          },
+          {
+            "id": "object-lrf-expo-general-06",
+            "type": "tap",
+            "locked": true,
+            "placement": {
+              "wall": 1,
+              "u": 410,
+              "height": 30,
+              "offset": 0
+            },
+            "settings": {
+              "finish": "harmony--blanco-mate",
+              "width": 80,
+              "top": "sella",
+              "topDrawer": "siphon",
+              "basinColor": "gloss",
+              "tampaColor": "gloss",
+              "vesselColor": "gloss",
+              "drawers": [
+                0,
+                0
+              ],
+              "doorOpen": false,
+              "hingeSide": "left",
+              "format": "harmony-two",
+              "tap": "540000013",
+              "mirrorFinish": "Noir",
+              "led": false,
+              "use": "shower",
+              "metal": "Noir mat"
+            }
+          },
+          {
+            "id": "object-lrf-expo-general-07",
+            "type": "shower",
+            "locked": true,
+            "placement": {
+              "wall": 2,
+              "u": 75,
+              "height": 0,
+              "offset": 0,
+              "rotation": 180
+            },
+            "settings": {
+              "finish": "harmony--blanco-mate",
+              "width": 150,
+              "top": "sella",
+              "topDrawer": "siphon",
+              "basinColor": "gloss",
+              "tampaColor": "gloss",
+              "vesselColor": "gloss",
+              "drawers": [
+                0,
+                0
+              ],
+              "doorOpen": false,
+              "hingeSide": "left",
+              "format": "harmony-two",
+              "tap": null,
+              "mirrorFinish": "Noir",
+              "led": false,
+              "depth": 90,
+              "trayColor": "white",
+              "metal": "Chrome brillant"
+            }
+          },
+          {
+            "id": "object-lrf-expo-general-08",
+            "type": "door",
+            "locked": true,
+            "placement": {
+              "wall": 5,
+              "u": 44,
+              "height": 0
+            },
+            "settings": {
+              "finish": "harmony--blanco-mate",
+              "width": 83,
+              "top": "sella",
+              "topDrawer": "siphon",
+              "basinColor": "gloss",
+              "tampaColor": "gloss",
+              "vesselColor": "gloss",
+              "drawers": [
+                0,
+                0
+              ],
+              "doorOpen": false,
+              "hingeSide": "left",
+              "format": "harmony-two",
+              "tap": null,
+              "mirrorFinish": "Noir",
+              "led": false,
+              "height": 204,
+              "color": "white"
+            }
+          },
+          {
+            "id": "object-lrf-expo-general-09",
+            "type": "screen",
+            "locked": true,
+            "placement": {
+              "wall": 2,
+              "u": 70.00000002160667,
+              "offset": 87.4,
+              "height": 3.5000000000000004,
+              "rotation": 180
+            },
+            "settings": {
+              "finish": "harmony--blanco-mate",
+              "width": 140,
+              "top": "sella",
+              "topDrawer": "siphon",
+              "basinColor": "gloss",
+              "tampaColor": "gloss",
+              "vesselColor": "gloss",
+              "drawers": [
+                0,
+                0
+              ],
+              "doorOpen": false,
+              "hingeSide": "left",
+              "format": "harmony-two",
+              "tap": null,
+              "mirrorFinish": "Noir",
+              "led": false,
+              "screen": "fixed",
+              "metal": "Noir mat",
+              "trayId": "object-lrf-expo-general-07",
+              "edge": "back",
+              "edgeShift": 4.999999978393321
+            }
+          },
+          {
+            "id": "object-lrf-expo-general-10",
+            "type": "towel",
+            "locked": true,
+            "placement": {
+              "wall": 2,
+              "u": 230,
+              "height": 41
+            },
+            "settings": {
+              "finish": "harmony--blanco-mate",
+              "width": 80,
+              "top": "sella",
+              "topDrawer": "siphon",
+              "basinColor": "gloss",
+              "tampaColor": "gloss",
+              "vesselColor": "gloss",
+              "drawers": [
+                0,
+                0
+              ],
+              "doorOpen": false,
+              "hingeSide": "left",
+              "format": "harmony-two",
+              "tap": null,
+              "mirrorFinish": "Noir",
+              "led": false,
+              "model": "flat",
+              "metal": "Noir mat"
+            }
+          },
+          {
+            "id": "object-lrf-expo-general-11",
+            "type": "toilet",
+            "locked": true,
+            "placement": {
+              "wall": 0,
+              "u": 56,
+              "height": 33,
+              "offset": 0,
+              "rotation": 0
+            },
+            "settings": {
+              "finish": "harmony--blanco-mate",
+              "width": 80,
+              "top": "sella",
+              "topDrawer": "siphon",
+              "basinColor": "gloss",
+              "tampaColor": "gloss",
+              "vesselColor": "gloss",
+              "drawers": [
+                0,
+                0
+              ],
+              "doorOpen": false,
+              "hingeSide": "left",
+              "format": "harmony-two",
+              "tap": null,
+              "mirrorFinish": "Noir",
+              "led": false,
+              "reference": "TR2217R-U18",
+              "metal": "Chrome brillant",
+              "trap": "round",
+              "drain": "round",
+              "decor": true,
+              "plateColor": "Noir"
+            }
+          },
+          {
+            "id": "object-lrf-expo-general-12",
+            "type": "window",
+            "locked": true,
+            "placement": {
+              "wall": 1,
+              "u": 212,
+              "height": 103
+            },
+            "settings": {
+              "finish": "harmony--blanco-mate",
+              "width": 160,
+              "top": "sella",
+              "topDrawer": "siphon",
+              "basinColor": "gloss",
+              "tampaColor": "gloss",
+              "vesselColor": "gloss",
+              "drawers": [
+                0,
+                0
+              ],
+              "doorOpen": false,
+              "hingeSide": "left",
+              "format": "harmony-two",
+              "tap": null,
+              "mirrorFinish": "Noir",
+              "led": false,
+              "height": 90,
+              "color": "white"
+            }
+          },
+          {
+            "id": "object-lrf-expo-general-13",
+            "type": "column",
+            "locked": true,
+            "placement": {
+              "wall": 0,
+              "u": 412.9,
+              "height": 52.1,
+              "offset": 0,
+              "rotation": 0
+            },
+            "settings": {
+              "finish": "harmony--blanco-mate",
+              "width": 80,
+              "top": "sella",
+              "topDrawer": "siphon",
+              "basinColor": "gloss",
+              "tampaColor": "gloss",
+              "vesselColor": "gloss",
+              "drawers": [
+                0,
+                0
+              ],
+              "doorOpen": false,
+              "hingeSide": "left",
+              "format": "harmony-two",
+              "tap": null,
+              "mirrorFinish": "Noir",
+              "led": false,
+              "columnModel": "harmony-column"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

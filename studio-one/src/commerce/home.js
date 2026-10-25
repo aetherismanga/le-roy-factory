@@ -1,3 +1,6 @@
+import {PUBLIC_COMPOSITIONS} from '../../../shared/lrf-3d/public-compositions.js';
+import {mountPublicCompositionsGallery} from '../../../shared/lrf-3d/public-compositions-ui.js';
+import {publicCompositionURL,navigatePublicComposition} from '../../../shared/lrf-3d/public-composition-routes.js';
 import {resumeStudioEntry} from './start-entry.js';
 import {fullTopDrawerAvailable,drawerDescription} from '../../../shared/lrf-3d/drawer-options.js';
 import '../viewport.js';
@@ -11,6 +14,7 @@ import {chipStyle,APPEARANCE} from './appearance.js';
 import {basinColors,basinLayouts,basinEntry,resolveBasinLayout} from '../basins.js';
 import {cabinetDrawing,bevelSection,columnDrawing} from './visuals.js';
 import {FLOW_KEY,QUOTE_KEY,QUOTE_CONTEXT,ACTIVE_ID,CURRENT_KEY,SAVED_KEY,ORDER_TO,readStored,checkedProject,storeQuote,saveComposition,orderText,composeLinks} from './flow.js';
+const homePublicGallery=mountPublicCompositionsGallery({getCompositions:()=>PUBLIC_COMPOSITIONS,getCurrentVariant:()=>'studio-one',onPreview:c=>{navigatePublicComposition(c,'preview');},onCopy:c=>{navigatePublicComposition(c,'copy');},onNavigate:({composition,mode})=>{navigatePublicComposition(composition,mode);}});
 const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 if(new URLSearchParams(location.hash.slice(1)).has('projet'))location.replace('atelier.html'+location.hash);
 const read=(key,fallback=null)=>{try{return readStored(localStorage,key,fallback);}catch{return fallback;}};
@@ -163,7 +167,7 @@ addEventListener('storage',e=>{if(e.key==='studio-one-auth-revision'&&identitySt
 $('#preview-composition').onclick=()=>{previewScope='composition';const p=currentComposition();if(p)updatePreview(p);};
 $('#preview-column').onclick=()=>{if(!draft.column)return;previewScope='column';const p=currentComposition();if(p)updatePreview(p);};
 
-const projectWorkspace=createWorkspace({getProject:currentComposition,getThumbnail:()=>previewScope==='composition'&&cachedThumbnailConfiguration===JSON.stringify(currentComposition()?.items)?cachedThumbnail:null,onDeletedActive:()=>{project=null;draft=initialDraft();projectTitle='Ma salle de bains';siteReference='';switchView('home');},onUpdate:data=>{project=data;projectTitle=data.title;siteReference=data.siteReference||'';storeQuote(localStorage,data,quoteMode);renderQuote();},
+const projectWorkspace=createWorkspace({onPublicCompositions:()=>homePublicGallery.show(),getProject:currentComposition,getThumbnail:()=>previewScope==='composition'&&cachedThumbnailConfiguration===JSON.stringify(currentComposition()?.items)?cachedThumbnail:null,onDeletedActive:()=>{project=null;draft=initialDraft();projectTitle='Ma salle de bains';siteReference='';switchView('home');},onUpdate:data=>{project=data;projectTitle=data.title;siteReference=data.siteReference||'';storeQuote(localStorage,data,quoteMode);renderQuote();},
  onOpen:(data,id,record)=>{if(record?.kind==='house'){location.href='maison.html?project='+encodeURIComponent(id);return;}openSaved(data,id);},
  onLock:(locked)=>{for(const selector of ['#quote-title','#quote-site','#edit-choices','#save-composition','#prepare-order']){const el=$(selector);if(el)el.disabled=locked;}},status:text=>error(text,'#quote-status')});
 projectWorkspace.setAccount(identity.state);

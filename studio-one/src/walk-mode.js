@@ -1,14 +1,16 @@
+import {createVisitTapGesture} from '../../shared/lrf-3d/visit-interactions.js';
 import {boundsOnWall} from './composition.js';
 import * as T from 'three';
 
 // Visite à hauteur humaine : caméra indépendante des objets et des contrôles d'édition.
-export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,onMove,onEnter,onExit}){
+export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,onMove,onEnter,onExit,onTap}){
+  const taps=createVisitTapGesture();
   const keys=new Set();const eye=1.58,radius=.20,speed=1.7,turn=1.8;
   let viewMode='first',walker=new T.Vector3(),moving=false;
   let active=false,forward=new T.Vector3(0,0,-1),panel=null,button=null,pitch=0,touchMove={x:0,y:0},mouseLook=false;
   const touches=new Map();let moveOrigin=null,hintTimer=null;
   const touchDevice=()=>navigator.maxTouchPoints>0||matchMedia('(pointer:coarse)').matches;
-  function resetInput(){keys.clear();touches.clear();moveOrigin=null;touchMove={x:0,y:0};mouseLook=false;}
+  function resetInput(){taps.reset();keys.clear();touches.clear();moveOrigin=null;touchMove={x:0,y:0};mouseLook=false;}
   const editable=el=>!!el?.closest?.('input,textarea,select,[contenteditable="true"],[role="textbox"]');
   const inside=(x,z,pts)=>{
     if(!pts?.length)return true;
@@ -75,7 +77,7 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
     }else{controls.enabled=true;onExit?.();onMove();}
     button.textContent=active?'Quitter la visite':'Visite 3D';
     button.setAttribute('aria-pressed',String(active));
-    panel.textContent=touchDevice()?'1 doigt : regarder · 2 doigts : se déplacer':'ZQSD / flèches : marcher · Maj : courir · Échap : quitter';
+    panel.textContent=touchDevice()?'Touchez pour ouvrir · 1 doigt : regarder · 2 doigts : se déplacer':'Cliquez pour ouvrir · ZQSD / flèches : marcher · Maj : courir · Échap : quitter';
     panel.hidden=!active;clearTimeout(hintTimer);
     if(active)hintTimer=setTimeout(()=>{panel.hidden=true;},6000);
   }
@@ -89,7 +91,7 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
   const supported=new Set(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','KeyW','KeyS','KeyA','KeyD','KeyQ','KeyE','KeyZ','ShiftLeft','ShiftRight']);
   document.addEventListener('keydown',e=>{
     if(!active||editable(e.target)||e.altKey||e.ctrlKey||e.metaKey||!supported.has(e.code))return;
-    e.preventDefault();e.stopImmediatePropagation();keys.add(e.code);onMove();
+    e.preventDefault();e.stopImmediatePropagation();taps.cancel();keys.add(e.code);onMove();
   },true);
   document.addEventListener('keyup',e=>{keys.delete(e.code);if(active&&supported.has(e.code))e.preventDefault()},true);
   window.addEventListener('blur',resetInput);
@@ -98,24 +100,24 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
 
   const center=()=>{const points=[...touches.values()].slice(0,2);return {x:(points[0].x+points[1].x)/2,y:(points[0].y+points[1].y)/2};};
   stage.addEventListener('pointerdown',e=>{
-    if(!active||e.target!==canvas)return;
-    e.preventDefault();e.stopPropagation();canvas.setPointerCapture(e.pointerId);
+    if(!active||e.target!==canvas)return;if(e.pointerType==='mouse'&&e.button!==0)return;
+    taps.down(e);e.preventDefault();e.stopPropagation();canvas.setPointerCapture(e.pointerId);
     if(e.pointerType==='mouse'){mouseLook=true;return;}
     touches.set(e.pointerId,{x:e.clientX,y:e.clientY});
     if(touches.size===2)moveOrigin=center();
   },true);
   function look(dx,dy){forward.applyAxisAngle(new T.Vector3(0,1,0),-dx*.004).normalize();pitch=T.MathUtils.clamp(pitch-dy*.004,-1.35,1.35);view();onMove();}
   stage.addEventListener('pointermove',e=>{
-    if(!active)return;
+    if(!active)return;taps.move(e);
     if(e.pointerType==='mouse'&&mouseLook){look(e.movementX,e.movementY);return;}
     const prior=touches.get(e.pointerId);if(!prior)return;
     touches.set(e.pointerId,{x:e.clientX,y:e.clientY});
     if(touches.size===1)look(e.clientX-prior.x,e.clientY-prior.y);
     else if(moveOrigin){const p=center(),limit=90;touchMove={x:T.MathUtils.clamp((p.x-moveOrigin.x)/limit,-1,1),y:T.MathUtils.clamp((p.y-moveOrigin.y)/limit,-1,1)};onMove();}
   });
-  function release(e){if(!active||(!mouseLook&&!touches.has(e.pointerId)))return;mouseLook=false;touches.delete(e.pointerId);if(touches.size<2){moveOrigin=null;touchMove={x:0,y:0};}onMove();}
-  for(const event of ['pointerup','pointercancel'])window.addEventListener(event,release);
-  canvas.addEventListener('lostpointercapture',release);
+  function release(e){if(!active||(!mouseLook&&!touches.has(e.pointerId))){taps.cancel(e);return;}const tapped=e.type==='pointerup'&&taps.up(e);if(e.type!=='pointerup')taps.cancel(e);mouseLook=false;touches.delete(e.pointerId);if(touches.size<2){moveOrigin=null;touchMove={x:0,y:0};}if(tapped&&onTap?.(e)){e.preventDefault();e.stopImmediatePropagation();}onMove();}
+  for(const event of ['pointerup','pointercancel'])window.addEventListener(event,release,true);
+  canvas.addEventListener('lostpointercapture',event=>{taps.cancel(event);mouseLook=false;touches.delete(event.pointerId);if(touches.size<2){moveOrigin=null;touchMove={x:0,y:0};}});
   function tick(dt){
     moving=false;if(!active)return false;
     const left=keys.has('ArrowLeft'),right=keys.has('ArrowRight');
@@ -130,7 +132,7 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
       if(passable(p.x,p.z+move.z))p.z+=move.z;
       p.y=eye;moving=p.distanceToSquared(before)>1e-8;
     }
-    if(rotation||move.lengthSq()>0||viewMode==='third'){view();return true}
+    if(rotation||move.lengthSq()>0){taps.cancel();view();return true}if(viewMode==='third'){view();return true}
     return false;
   }
   return {tick,get active(){return active},setActive,get position(){return walker;},get heading(){return Math.atan2(forward.x,forward.z);},get moving(){return moving;},get running(){return keys.has('ShiftLeft')||keys.has('ShiftRight');},get view(){return viewMode;},setView(mode){viewMode=mode==='third'?'third':'first';if(active)view();onMove();}};

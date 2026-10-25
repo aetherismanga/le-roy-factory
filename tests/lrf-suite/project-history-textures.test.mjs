@@ -57,7 +57,7 @@ for(const app of ['studio-one','randal-general']){
    refreshFurnitureMaterials(){counts.finishes++;},repaintFurnitureMaterials(){counts.finishes++;},
    applyAllRoomMaterials(){counts.materials++;},refreshLayouts(){},refreshCommerce(){},fitCompositionLights(){},applyArchitecturalGlass(){},animate(){},requestAnimationFrame:run=>frames.push(run),
    shadowsDirty:false,sceneRevision:0,lastMove:0,lastTime:0,
-   projectWorkspace:null,journal:null,restoring:false,projectTimer:null,textureRefresh:null,state:{ready:true},dragController:{getActive:()=>null,cancel(){}},partitionDragController:{getActive:()=>null,cancel(){}},productDragController:{cancel(){}},
+   projectWorkspace:null,publicCompositionSession:null,walkMode:null,journal:null,restoring:false,projectTimer:null,textureRefresh:null,state:{ready:true},dragController:{getActive:()=>null,cancel(){}},partitionDragController:{getActive:()=>null,cancel(){}},productDragController:{cancel(){}},
    localStorage:{getItem:key=>storage.get(key)??null,setItem:(key,value)=>storage.set(key,value)},dispatchEvent:event=>events.push(event.type),markStudioEntryEdited:()=>false,
    location:{href:'https://atelier.invalid/atelier.html',search:''},history:{},$,
    document:{createElement:()=>({})},makeRoom,Composition:class{constructor(){this.items=[];}},composition:{items:[]},roomScene:makeRoom(),roomConfig:base.room,
