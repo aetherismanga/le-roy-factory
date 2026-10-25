@@ -86,8 +86,9 @@ function readWithin(dir,relative){const file=path.resolve(dir,'.'+relative);if(!
    {collection:'Dynasty',color:'crown-green',format:'30x30'}
   ]){
    await page.evaluate(async spec=>{const app=studioOnePrototype;app.setSurfaceCollection('floor',spec.collection);app.setSurface('floor',spec.color);if(!app.setTileFormat('floor',spec.format))throw Error('New format unavailable: '+JSON.stringify(spec));await app.waitForTextures();},surface);
-   const actual=await page.evaluate(()=>({floor:studioOnePrototype.exportProject().floor,drawCalls:studioOnePrototype.getDiagnostics().drawCalls}));
+   const actual=await page.evaluate(()=>{const diagnostics=studioOnePrototype.getDiagnostics(),loaded=diagnostics.textures.surfaces;const textures=Array.isArray(loaded)?loaded:Object.entries(loaded).flatMap(([collection,entries])=>Object.entries(entries).map(([key,data])=>({collection,id:JSON.parse(key)[1],...data})));return {floor:studioOnePrototype.exportProject().floor,drawCalls:diagnostics.drawCalls,textures};});
    assert.equal(actual.floor.collection,surface.collection);assert.equal(actual.floor.color,surface.color);assert.equal(actual.floor.format,surface.format);assert(actual.drawCalls>0);
+   assert(actual.textures.some(texture=>texture.collection===surface.collection&&texture.id===surface.color&&texture.width>32&&texture.height>32),kind+': selected '+surface.collection+' image must be decoded and loaded');
    if(surface.collection==='Stone Icon'){
     const chosen=products.find(p=>p.collection==='Stone Icon'&&p.colorId==='campaspero'&&p.format==='60x60'&&p.finish.includes('Tumbled Grip'));assert(chosen);
     await page.locator('#floor-commercial select').selectOption(chosen.key);
@@ -97,8 +98,8 @@ function readWithin(dir,relative){const file=path.resolve(dir,'.'+relative);if(!
    }
    pass(kind+': '+surface.collection+' real texture loading, compatible format'+(surface.collection==='Stone Icon'?', exact Grip SKU and restored finish':''));
   }
-  const decorCapture=await page.evaluate(async()=>{await studioOnePrototype.waitForTextures();const data=await studioOnePrototype.captureHD({width:1280});const image=new Image();image.src=data;await image.decode();return {width:image.naturalWidth,quality:studioOnePrototype.getDiagnostics().qualityProfile};});
-  assert.equal(decorCapture.width,1280);assert.equal(decorCapture.quality,'fluid');
+  const decorCapture=await page.evaluate(async()=>{await studioOnePrototype.waitForTextures();const data=await studioOnePrototype.captureHD({width:1920});const image=new Image();image.src=data;await image.decode();return {width:image.naturalWidth,quality:studioOnePrototype.getDiagnostics().qualityProfile};});
+  assert.equal(decorCapture.width,1920);assert.equal(decorCapture.quality,'fluid');
   pass(kind+': native HD capture with the new Dynasty panel restores working quality');
 
   await page.locator('button[data-workspace=room]').click();await page.locator('#room-open').click();await page.locator('#room-height').fill('270');await page.locator('#room-apply').click();
