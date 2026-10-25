@@ -1,4 +1,9 @@
 /* Client V2: scoped to the test workspace. Existing form IDs and writes stay intact. */
+/* Legacy mobile form styles force display:grid on Infos. Tab visibility must win. */
+html body.crm-body.crm-v2 #client-modal .lrf-tab-pane:not(.active),
+html body.crm-body.crm-v2 #client-modal .lrf-tab-pane[hidden]{display:none!important}
+html body.crm-body.crm-v2 #client-modal .lrf-tab-pane.active:not([hidden]){display:block!important}
+html body.crm-body.crm-v2 #client-modal .modal-grid-edit.lrf-tab-pane.active:not([hidden]){display:grid!important}
 body.crm-body.crm-v2 #client-modal .modal-content{background:#fff!important;color:#27382f!important;border:1px solid #dfe6dc!important;box-shadow:0 12px 55px #243b2d18!important;border-radius:18px!important}
 body.crm-body.crm-v2 #client-modal .modal-header{background:#f4f7f1!important;color:#233e30!important;border-bottom:1px solid #e1e8dd!important;padding:18px 64px 15px 22px!important}
 body.crm-body.crm-v2 #client-modal .lrf-v2-client-reference{font-size:.68rem!important;color:#697a64!important;letter-spacing:.03em;margin:4px 0 0!important;font-weight:600}
@@ -72,3 +77,8 @@ body.crm-body.crm-v2 .lrf-v2-appointment-context{min-height:44px;padding:10px 14
  body.crm-body.crm-v2 #client-modal .lrf-v2-client-actions>a,body.crm-body.crm-v2 #client-modal .lrf-v2-client-actions>button{min-height:38px;padding:4px 2px;font-size:.62rem;flex-direction:column;gap:2px}
  body.crm-body.crm-v2 #client-modal .lrf-tabs{margin-top:4px!important}
 }
+/* Inactive panes must beat the legacy mobile grid's ID selector. */
+html body.crm-body.crm-v2 #client-modal .lrf-tab-pane:not(.active),
+html body.crm-body.crm-v2 #client-modal .lrf-tab-pane[hidden]{display:none!important}
+html body.crm-body.crm-v2 #client-modal .lrf-tab-pane.active:not([hidden]){display:block!important}
+html body.crm-body.crm-v2 #client-modal .modal-grid-edit.lrf-tab-pane.active:not([hidden]){display:grid!important}
