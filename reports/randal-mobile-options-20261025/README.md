@@ -15,8 +15,8 @@ Consolidation avec `a8bcc9c9d2105aedce357350c9fb0a72e6408278` : nouvelles collec
 - Installation verrouillée, builds Studio/Général/site réussis ; noyau et QA complète des deux ateliers réussis.
 - 332 tests Node réussis, aucun échec. Un ancien test navigateur intégré est ignoré faute de Chromium par défaut ; sa vérification dédiée est maintenue dans la CI.
 - 11 cas de géométrie et 6 cas de persistance tiroirs ; 4 tests de file mémoire/annulation ; 1 655 combinaisons vasques.
-- 24 scénarios Chromium WebGL2 : sélection souris/touch (8), entrée vide/reprise (2), tiroirs PC/mobile (4), Quercia mobile/HD/changements rapides (2), rendu natif/import/export HD et édition PC/mobile (8).
-- Les épreuves anciennes qui supposaient le chargement de toutes les faces à l’édition ont été remplacées par des contrôles comportementaux des limites de travail et de la restitution HD complète.
+- 34 scénarios Chromium WebGL2 : sélection souris/touch (8), entrée vide/reprise (2), tiroirs PC/mobile (4), Quercia mobile/HD/changements rapides (2), rendu natif/import/export HD et édition PC/mobile et nouvelles collections ELIOS (18).
+- Les épreuves anciennes qui supposaient le chargement de toutes les faces à l’édition ont été remplacées par des contrôles comportementaux des limites de travail et de la restitution HD complète. Les changements de format utilisent un vrai SKU source ; une référence inconnue est explicitement refusée.
 - Aucune modification des grilles privées, du service LRF, du CRM, de PLAN & POSE, des catalogues ELIOS/VIEW ni des fichiers originaux.
 
 Les essais mobiles utilisent une fenêtre tactile émulée et WebGL logiciel. Aucun téléphone physique n’a été utilisé ; la baisse du nombre de décodages et textures réduit la charge mais ne constitue pas une mesure de mémoire sur le téléphone de Jérôme. Aucun compte réel ni message n’a été utilisé/envoyé pendant les essais.

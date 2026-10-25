@@ -21,15 +21,16 @@ for(const [colorId,references]of Object.entries({white:['00Y2C00','00Y2900'],hon
  definition.textureVariantsByReference=Object.fromEntries(references.map((reference,index)=>[reference,{verified:true,format:index?'20.3x90.6':'24x120',textureRotation:0,textureVariants:Object.fromEntries(['fluid','balanced','max'].map(profile=>[profile,Array.from({length:reference==='00Y2C70'?13:15},(_,face)=>`https://texture-fixture.invalid/quercia/${reference}/${profile}/${face}.webp`)]))}]));
  try{
   for(const [index,format]of ['24x120','20.3x90.6'].entries()){
-   const geometry=COLLECTIONS.Quercia.formats.find(item=>item.id===format),finish=finishForSurface('Quercia',colorId,geometry,{catalogueKey:'ELIOS|stale-previous-format'});
+   const geometry=COLLECTIONS.Quercia.formats.find(item=>item.id===format),previousReference=references[1-index],finish=finishForSurface('Quercia',colorId,geometry,{catalogueKey:'ELIOS|'+previousReference});
    for(const profile of ['fluid','balanced','max']){
     const selected=resolveSurfaceTexture('Quercia',colorId,profile,finish);
-    assert(selected.mapped);assert.equal(selected.reference,references[index],`${colorId} ${format} defaults to the exact R10 reference`);assert.equal(selected.nativeFaceCount,references[index]==='00Y2C70'?13:15);assert.equal(selected.files.length,profile==='fluid'?4:profile==='balanced'?6:selected.nativeFaceCount);assert(selected.files.length<=40);
+    assert(selected.mapped,`${colorId} ${format} ${profile}: geometry must replace previous-format SKU ${previousReference} with compatible R10 SKU ${references[index]}`);assert.equal(selected.reference,references[index],`${colorId} ${format} resolves the exact R10 reference after a known SKU's format changes`);assert.equal(selected.nativeFaceCount,references[index]==='00Y2C70'?13:15);assert.equal(selected.files.length,profile==='fluid'?4:profile==='balanced'?6:selected.nativeFaceCount);assert(selected.files.length<=40);
    }
    const outdoor=commercialOptions({collection:'Quercia',color:colorId,format}).find(product=>product.finish.startsWith('Outdoor'));
    assert(outdoor);assert(!resolveSurfaceTexture('Quercia',colorId,'max',{format,catalogueKey:outdoor.key}).mapped,'outdoor R11 never borrows its R10 neighbour');
   }
   assert(!resolveSurfaceTexture('Quercia',colorId,'max',{format:'23.4x119.5'}).mapped,'rectified dimensions require their own native reference');
+  assert(!resolveSurfaceTexture('Quercia',colorId,'max',{format:'24x120',catalogueKey:'ELIOS|unknown-reference'}).mapped,'an unknown explicit SKU must not silently select a known native reference');
  }finally{if(previous===undefined)delete definition.textureVariantsByReference;else definition.textureVariantsByReference=previous;}
 }
 
