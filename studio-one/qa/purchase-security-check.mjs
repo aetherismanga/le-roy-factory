@@ -8,7 +8,7 @@ import {APPEARANCE} from '../src/commerce/appearance.js';
 
 const visualProject=draftProject({...initialDraft(),format:'three',width:100,finish:'BISC',top:'tampa',basinColor:'black',column:true,columnFinish:'NOGAL',mirror:'ilse',mirrorSize:2});
 const project={...visualProject,items:visualProject.items.filter(i=>i.type!=='mirror')};
-assert.equal(purchaseQuote(visualProject).proHT,null,'Undocumented mirror purchase price remains unavailable');
+assert.equal(purchaseQuote(visualProject).proHT,null,'Missing private grid key keeps the full composition unavailable');
 assert.equal(privateReference('LRF-12345',12345),'LRF-12345','An unverified reference never encodes a purchase amount');
 assert.equal(privateReference('bad',12345),'');
 assert.equal(existsSync('server/data/studio-one-purchase.json'),false,'No plaintext grid in the source tree');

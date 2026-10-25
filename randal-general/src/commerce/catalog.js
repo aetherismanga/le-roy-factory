@@ -1136,13 +1136,29 @@ export const CATALOG = {
     {
       "id": "luce--nogal-lincoln",
       "name": "Nogal Lincoln",
-      "hex": "#885c45",
+      "hex": "#77513d",
       "kind": "Bois",
       "roughness": 0.45,
-      "texture": "nogal-lincoln.webp",
-      "textureURL": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/finishes/luce/nogal-lincoln.webp",
+      "texture": "finishes/20261022/nogal-balanced.webp",
+      "textureURL": "/assets/finishes/20261022/nogal-balanced.webp",
       "collection": "luce",
-      "textureCrop": true
+      "textureVariants": {
+        "fluid": "/assets/finishes/20261022/nogal-fluid.webp",
+        "balanced": "/assets/finishes/20261022/nogal-balanced.webp",
+        "max": "/assets/finishes/20261022/nogal-max.webp"
+      },
+      "swatch": "/assets/finishes/20261022/nogal-swatch.webp",
+      "frontRotation": 1.5707963267948966,
+      "textureRepeat": [
+        1,
+        0.40368186
+      ],
+      "frontRepeat": [
+        1,
+        0.52725793
+      ],
+      "manufacturerSample": true,
+      "source": "Juan Carlos Segura · Nogal valentina_acabado.jpeg · 2026-10-22"
     },
     {
       "id": "brent--vert-celadon-or-vieilli",

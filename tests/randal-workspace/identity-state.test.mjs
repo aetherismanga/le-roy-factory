@@ -29,3 +29,32 @@ test('a late logout response cannot hide a newer verified account',async()=>{
  await c.load();const logout=c.logout();await c.authenticate('exchange',{sessionToken:'new-account'});pending.resolve({client:null,proHT:null});await logout;
  assert.equal(c.state.client.codeClient,'LRF-00003');assert.equal(c.state.proHT,22000);
 });
+
+test('rapid composition changes keep the newest quote when older responses arrive last',async()=>{
+ let key='initial';const older=deferred(),newer=deferred(),calls=[];
+ const result=amount=>({...verified(amount),privateCode:'LRF-00003-'+(amount/100).toFixed(2)+'.00',referenceAllowed:true,randalAllowed:true});
+ const c=createIdentityState({getProject:()=>({key}),getKey:p=>p.key,request:(_,payload)=>{
+  calls.push(payload.project.key);
+  return payload.project.key==='older'?older.promise:payload.project.key==='newer'?newer.promise:Promise.resolve(result(22000));
+ },delay:0});
+ await c.load();key='older';const first=c.refresh();await Promise.resolve();
+ assert.equal(c.state.proHT,null);assert.equal(c.state.privateCode,'LRF-00003');assert.equal(c.state.referenceAllowed,false);
+ key='newer';const latest=c.refresh();await Promise.resolve();
+ newer.resolve(result(35001));await latest;
+ assert.equal(c.state.privateCode,'LRF-00003-350.01.00');
+ older.resolve(result(25000));await first;
+ assert.equal(c.state.privateCode,'LRF-00003-350.01.00');assert.equal(c.state.proHT,35001);assert.equal(c.state.pending,false);
+ assert.deepEqual(calls,['initial','older','newer']);
+});
+
+test('a pending quote from the previous account cannot replace the newly authenticated account',async()=>{
+ let key='initial';const oldQuote=deferred(),nextAccount=deferred();
+ const other={client:{codeClient:'LRF-00004',societe:'Autre compte synthétique'},proHT:47002,privateCode:'LRF-00004-470.02.00',referenceAllowed:true,randalAllowed:true};
+ const c=createIdentityState({getProject:()=>({key}),getKey:p=>p.key,request:(action)=>action==='exchange'?nextAccount.promise:action==='quote'?oldQuote.promise:Promise.resolve(verified(22000)),delay:0});
+ await c.load();key='changed';const quote=c.refresh();await Promise.resolve();
+ const login=c.authenticate('exchange',{sessionToken:'different-synthetic-account'});await Promise.resolve();
+ assert.equal(c.state.client,null);assert.equal(c.state.privateCode,'');assert.equal(c.state.proHT,null);
+ nextAccount.resolve(other);await login;
+ oldQuote.resolve({...verified(99999),privateCode:'LRF-00003-999.99.00',referenceAllowed:true,randalAllowed:true});await quote;
+ assert.equal(c.state.client.codeClient,'LRF-00004');assert.equal(c.state.privateCode,'LRF-00004-470.02.00');assert.equal(c.state.proHT,47002);assert.equal(c.state.pending,false);
+});

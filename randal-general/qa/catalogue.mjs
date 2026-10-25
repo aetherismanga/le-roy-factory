@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
 import * as T from 'three';
 import {CATALOG as C} from '../src/commerce/catalog.js';
 import {initialDraft,normalizeDraft,draftProject} from '../src/commerce/guided.js';
@@ -9,6 +10,8 @@ import {topAvailable,defaultTop,cabinetFormat} from '../src/configuration.js';
 import {encodeProject,decodeProject} from '../src/projects.js';
 import {buildPreview} from '../src/commerce/preview-model.js';
 import {finishTextureURL} from '../src/finish-texture.js';
+import {chipStyle} from '../src/commerce/appearance.js';
+import {purchaseQuote,privateReference} from '../server/purchase.js';
 let count=0;
 for(const m of C.models)for(const width of m.widths)for(const finish of m.finishes){
  const d=normalizeDraft({...initialDraft(m.collection),format:m.id,width,finish,top:defaultTop(m.id)}),p=draftProject(d),q=quoteProject(p);
@@ -49,3 +52,37 @@ for(const finish of C.finishes.filter(f=>f.textureURL?.startsWith('https://stora
  const url=new URL(finishTextureURL(finish)),original=new URL(finish.textureURL),parts=original.pathname.slice(1).split('/');assert.ok(url.pathname.startsWith('/download/storage/v1/b/'));assert.equal(decodeURIComponent(url.pathname.split('/o/')[1]),parts.slice(1).join('/'));assert.equal(url.searchParams.get('alt'),'media');
 }
 console.log('HARMONY straight fronts, two handle-free doors, basin clearance and CORS media URLs: PASS');
+
+// Nogal Lincoln is a commercial identity: only its visual sample is substituted.
+// Both cabinet and column retain their stored finish ID and official references.
+const lincoln=C.finishes.find(f=>f.id==='luce--nogal-lincoln');
+const valentina=C.finishes.find(f=>f.id==='aruba--nogal-valentina');
+assert.equal(lincoln.name,'Nogal Lincoln');assert.equal(lincoln.collection,'luce');
+for(const key of ['hex','texture','textureURL','textureVariants','swatch','frontRotation','textureRepeat','frontRepeat','manufacturerSample','source'])assert.deepEqual(lincoln[key],valentina[key],key);
+assert.equal(lincoln.textureCrop,undefined);assert.equal(lincoln.materialSample,undefined);
+assert.match(chipStyle(lincoln.id),/background-image:url\(\/assets\/finishes\/20261022\/nogal-swatch\.webp\)/);
+assert.equal(finishTextureURL(lincoln),'/assets/finishes/20261022/nogal-balanced.webp');
+for(const path of [...Object.values(lincoln.textureVariants),lincoln.swatch]){
+ const local=readFileSync(new URL('../dist'+path,import.meta.url));
+ const studio=readFileSync(new URL('../../studio-one/dist'+path,import.meta.url));
+ assert.deepEqual(local,studio,'Reuse the existing manufacturer sample without a separate Lincoln asset');
+}
+assert.ok(readFileSync(new URL('../dist'+lincoln.textureVariants.max,import.meta.url)).length>100000,'HD capture must retain the full existing Nogal sample');
+const luceDraft={...initialDraft('luce'),format:'luce-single',width:80,finish:lincoln.id,top:'tampa',basinColor:'gloss'};
+const luceProject=draftProject(luceDraft),luceQuote=quoteProject(luceProject);
+assert.equal(luceQuote.publicTTC,73560);assert.deepEqual(luceQuote.rows.map(r=>[r.ref,r.publicTTC]),[['11350',56520],['6228',17040]]);
+assert.match(luceQuote.rows[0].detail,/Nogal Lincoln.*poignée Doré/);
+assert.equal(purchaseQuote(luceProject).proHT,30650);
+assert.equal(privateReference('LRF-00317',purchaseQuote(luceProject).proHT,true),'LRF-00317-306.50.00');
+const luceWithMirror=draftProject({...luceDraft,mirror:'round',mirrorFinish:'Doré'});
+assert.equal(quoteProject(luceWithMirror).publicTTC,93000);
+assert.equal(privateReference('LRF-00317',purchaseQuote(luceWithMirror).proHT,true),'LRF-00317-387.50.00');
+const luceWithColumn=draftProject({...luceDraft,column:true,columnModel:'luce-column',columnFinish:lincoln.id});
+const reopened=decodeProject(encodeProject(luceWithColumn));
+assert.deepEqual(reopened,luceWithColumn);assert.ok(reopened.items.every(i=>i.settings.finish===lincoln.id));
+assert.equal(quoteProject(reopened).rows.at(-1).ref,'11352');
+assert.equal(quoteProject(reopened).publicTTC,139200);
+const lincolnPreview=buildPreview(reopened);
+for(const item of lincolnPreview.items){assert.equal(item.settings.finish,lincoln.id);assert.equal(item.asset.wood.color.getHexString(),'77513d');assert.equal(item.asset.frontWood.color.getHexString(),'77513d');}
+lincolnPreview.group.traverse(o=>{o.geometry?.dispose();if(o.material)for(const m of Array.isArray(o.material)?o.material:[o.material])m.dispose();});
+console.log('Nogal Lincoln: existing Valentina variants and swatch, HD source, stored identities, Luce references/public prices/LRF codes with and without mirror: PASS');

@@ -553,7 +553,6 @@ export const CATALOG = {
   "gaps": [
     "Conditions commerciales individuelles RANDAL : absentes de validateProSession et des sources consultées.",
     "Colonne 14177 : photographie isolée avec correspondance certaine introuvable. Aucun visuel d’un autre modèle utilisé.",
-    "Miroirs : prix public vérifié dans RANDAL V04 page 36 ; prix d’achat professionnel non documenté, sur demande.",
     "Largeur 40 cm : confirmation usine déjà demandée par le configurateur historique.",
     "Doubles vasques 120 cm : références présentes mais géométrie non prise en charge par la Bêta ; non proposées dans le parcours.",
     "Accessoires, robinetterie, sanitaires, revêtements et profilés : aucun prix repris sans grille vérifiée."
