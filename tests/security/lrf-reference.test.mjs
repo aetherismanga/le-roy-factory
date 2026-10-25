@@ -13,6 +13,11 @@ import {randomBytes,createCipheriv} from 'node:crypto';
 const identity={client:{codeClient:'LRF-12345',societe:'Compte synthétique'},randalAllowed:true,isAdmin:false};
 const priced=cents=>({rows:[{ref:'SYNTHETIC',itemId:'fixture',proHT:cents}],proHT:cents,source:'Synthetic fixture'});
 const complete=cents=>({...identity,...commercialReference(identity,priced(cents))});
+// Independent integer/rational expectation from the approved General policy and
+// public quote lines. Do not import its purchase implementation as the oracle.
+const expectedGeneralTotal=quote=>quote.rows.length&&quote.rows.every(row=>Number.isSafeInteger(row.publicTTC)&&row.publicTTC>=0)?quote.rows.reduce((sum,row)=>sum+Number((BigInt(row.publicTTC)*5n+6n)/12n),0):null;
+const expectedCode=(code,cents)=>cents===null?code:code+'-'+(cents/100).toFixed(2)+'.00';
+
 
 test('exact reference format uses integer cents, two decimals and the fixed .00 suffix',()=>{
  for(const [cents,suffix] of [[66888,'668.88.00'],[100,'1.00.00'],[101,'1.01.00'],[199,'1.99.00'],[0,'0.00.00']])assert.equal(privateReference('LRF-00317',cents,true),'LRF-00317-'+suffix);
@@ -45,7 +50,7 @@ test('every line is priced from the server grid, duplicates are summed and parti
 });
 
 for(const variant of ['studio-one','randal-general']){
- test(variant+': real gateway validates the session, decrypts server-only fixtures and never trusts a submitted account or amount',async()=>{
+ test(variant+': real gateway validates its server pricing policy and never trusts a submitted account or amount',async()=>{
   const root=fileURLToPath(new URL('../../',import.meta.url)),temp=await mkdtemp(path.join(tmpdir(),'lrf-reference-'));
   const originalFetch=globalThis.fetch,originalKey=process.env.LRF_PURCHASE_GRID_KEY;
   try{
@@ -55,7 +60,7 @@ for(const variant of ['studio-one','randal-general']){
    const {initialDraft,draftProject}=await import('../../'+variant+'/src/commerce/guided.js');
    const {quoteProject}=await import('../../'+variant+'/src/commerce/pricing.js');
    const project=draftProject(variant==='studio-one'?{...initialDraft(),top:'bare',column:false,mirror:null}:initialDraft('aruba'));
-   const quote=quoteProject(project),prices=Object.fromEntries(quote.rows.map((row,index)=>[row.ref,index===0?66888-(quote.rows.length-1)*100:100]));
+   const quote=quoteProject(project),expected=variant==='studio-one'?66888:expectedGeneralTotal(quote),prices=Object.fromEntries(quote.rows.map((row,index)=>[row.ref,index===0?66888-(quote.rows.length-1)*100:100]));
    const key=randomBytes(32),iv=randomBytes(12),cipher=createCipheriv('aes-256-gcm',key,iv);cipher.setAAD(Buffer.from('lrf-purchase-grid/v1/'+variant));
    const ciphertext=Buffer.concat([cipher.update(JSON.stringify({source:'Synthetic integration fixture',prices})),cipher.final()]);
    const envelope={version:1,algorithm:'A256GCM',variant,iv:iv.toString('base64'),tag:cipher.getAuthTag().toString('base64'),ciphertext:ciphertext.toString('base64')};
@@ -68,10 +73,21 @@ for(const variant of ['studio-one','randal-general']){
    };
    const {default:handler}=await import(pathToFileURL(path.join(app,'api/commercial.js')).href);
    const request=async(extra={})=>{let result;await handler({method:'POST',headers:{host:'fixture.vercel.app',authorization:'Bearer synthetic-session-abcdefghijklmnopqrstuvwxyz',cookie:'studio_one_admin=stale; randal_general_admin=stale'},body:{action:'quote',project,codeClient:'LRF-54321',isAdmin:true,randalAllowed:true,proHT:1,privateCode:'LRF-54321-0.01.00',...extra}},{setHeader(){},status(status){this.statusCode=status;return this;},json(body){result={status:this.statusCode,body};}});return result;};
-   let response=await request();assert.equal(response.status,200);assert.equal(response.body.privateCode,'LRF-12345-668.88.00');assert.equal(response.body.proHT,null);assert.deepEqual(response.body.proRows,[]);assert.equal(response.body.referenceAllowed,true);assert.equal(response.body.priceSource,'');
-   const doubled={...project,items:[...project.items,...project.items.map(item=>({...item,id:item.id+'-duplicate'}))]};response=await request({project:doubled});assert.equal(response.body.privateCode,'LRF-12345-1337.76.00');
-   code='LRF-99999';response=await request();assert.equal(response.body.privateCode,'LRF-99999-668.88.00');
-   partner=false;response=await request();assert.equal(response.body.privateCode,'LRF-99999');assert.equal(response.body.referenceAllowed,false);assert(!JSON.stringify(response.body).includes('668.88'));
+   let response=await request();assert.equal(response.status,200);assert.equal(response.body.privateCode,expectedCode('LRF-12345',expected));assert.equal(response.body.proHT,null);assert.deepEqual(response.body.proRows,[]);assert.equal(response.body.referenceAllowed,true);assert.equal(response.body.priceSource,'');
+   const doubled={...project,items:[...project.items,...project.items.map(item=>({...item,id:item.id+'-duplicate'}))]};response=await request({project:doubled});assert.equal(response.body.privateCode,expectedCode('LRF-12345',expected*2));
+   code='LRF-99999';response=await request();assert.equal(response.body.privateCode,expectedCode('LRF-99999',expected));
+   for(const unavailableKey of ['',randomBytes(32).toString('hex')]){
+    if(unavailableKey)process.env.LRF_PURCHASE_GRID_KEY=unavailableKey;else delete process.env.LRF_PURCHASE_GRID_KEY;
+    response=await request();assert.equal(response.status,200);assert.equal(response.body.privateCode,variant==='studio-one'?'LRF-99999':expectedCode('LRF-99999',expected));assert.equal(response.body.proStatus,variant==='studio-one'?'purchase-unavailable':'verified-composition');assert.equal(response.body.proHT,null);assert.deepEqual(response.body.proRows,[]);assert.equal(response.body.priceSource,'');
+   }
+   process.env.LRF_PURCHASE_GRID_KEY=key.toString('hex');
+   const encryptedFile=path.join(data,variant==='studio-one'?'studio-one-purchase.enc.json':'ceramic-purchase.enc.json');
+   await writeFile(encryptedFile,JSON.stringify({...envelope,tag:'broken'}));response=await request();assert.equal(response.body.privateCode,variant==='studio-one'?'LRF-99999':expectedCode('LRF-99999',expected));assert.equal(response.body.proStatus,variant==='studio-one'?'purchase-unavailable':'verified-composition');assert.equal(response.body.proHT,null);assert.deepEqual(response.body.proRows,[]);await writeFile(encryptedFile,JSON.stringify(envelope));
+   const partial={...project,items:[...project.items,{id:'unknown-sku',type:'mirror',settings:{mirrorModel:'missing-model',width:60,height:60,publicTTC:1,proHT:1,reference:'FORGED'},placement:{wall:0,u:50,height:140}}]};
+   response=await request({project:partial});assert.equal(response.status,200);assert.equal(response.body.privateCode,'LRF-99999');assert.equal(response.body.referenceAllowed,false);assert.equal(response.body.proStatus,'purchase-unavailable');assert.equal(response.body.proHT,null);assert.deepEqual(response.body.proRows,[]);
+   response=await request({project:{...project,items:[]}});assert.equal(response.status,200);assert.equal(response.body.privateCode,'LRF-99999');assert.equal(response.body.referenceAllowed,false);assert.equal(response.body.proStatus,'purchase-unavailable');assert.equal(response.body.proHT,null);assert.deepEqual(response.body.proRows,[]);
+
+   partner=false;response=await request();assert.equal(response.body.privateCode,'LRF-99999');assert.equal(response.body.referenceAllowed,false);assert(!JSON.stringify(response.body).includes((expected/100).toFixed(2)));assert.equal(response.body.proHT,null);assert.deepEqual(response.body.proRows,[]);assert.equal(response.body.priceSource,'');
    revoked=true;response=await request();assert.equal(response.status,401);assert.equal(response.body.client,null);assert.equal(response.body.privateCode,undefined);
   }finally{
    globalThis.fetch=originalFetch;if(originalKey===undefined)delete process.env.LRF_PURCHASE_GRID_KEY;else process.env.LRF_PURCHASE_GRID_KEY=originalKey;
@@ -83,9 +99,9 @@ for(const variant of ['studio-one','randal-general']){
   const {quoteProject}=await import('../../'+variant+'/src/commerce/pricing.js');
   const draft=variant==='studio-one'?{...initialDraft(),top:'bare',column:false,mirror:null}:initialDraft('aruba');
   const project=draftProject(draft),q=quoteProject(project),prices=Object.fromEntries(q.rows.map((row,index)=>[row.ref,10001+index]));
-  const first=purchaseRows(q,{prices});assert(Number.isSafeInteger(first.proHT));
+  const {purchaseQuote}=variant==='randal-general'?await import('../../randal-general/server/purchase.js'):{purchaseQuote:null};const first=variant==='randal-general'?purchaseQuote(project):purchaseRows(q,{prices});assert(Number.isSafeInteger(first.proHT));if(variant==='randal-general')assert.equal(first.proHT,expectedGeneralTotal(q));
   const duplicated={...project,items:project.items.concat(project.items.map(item=>({...item,id:item.id+'-duplicate'})))};
-  const next=purchaseRows(quoteProject(duplicated),{prices});assert.equal(next.proHT,first.proHT*2);
+  const next=variant==='randal-general'?purchaseQuote(duplicated):purchaseRows(quoteProject(duplicated),{prices});assert.equal(next.proHT,first.proHT*2);if(variant==='randal-general')assert.equal(next.proHT,expectedGeneralTotal(quoteProject(duplicated)));
   assert.equal(quoteProject(project).publicTTC,q.publicTTC);
   assert.notEqual(commercialReference(identity,first).privateCode,commercialReference(identity,next).privateCode);
  });
