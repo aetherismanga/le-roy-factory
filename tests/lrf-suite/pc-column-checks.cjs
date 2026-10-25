@@ -93,7 +93,9 @@ async function verifyPCColumns({page,kind,root,output,pass,restoration}){
  assert.equal(moved.after.width,before.width);assert.equal(moved.after.height,before.height);assert.equal(moved.after.color,before.color);
  await page.waitForTimeout(300);await page.locator('#undo').click();
  await page.waitForFunction(({id,x})=>studioOnePrototype.exportProject().walls[0].zones?.find(z=>z.id===id)?.x===x,{id,x:before.x});
+  assert.equal((await zoneState(page,id)).color,before.color,'Undo must preserve the band colour independently of its parent wall');
  await page.locator('#redo').click();await page.waitForFunction(({id,x})=>studioOnePrototype.exportProject().walls[0].zones?.find(z=>z.id===id)?.x===x,{id,x:moved.after.x});
+  assert.equal((await zoneState(page,id)).color,before.color,'Redo must preserve the band colour independently of its parent wall');
  await contextAction(page,id,'Verrouiller');assert.equal((await zoneState(page,id)).locked,true);
  const locked=await zoneState(page,id);await dragZone(page,id,30);assert.deepEqual(await zoneState(page,id),locked,'A locked column must not move under the same mouse gesture');
  await showRoomView(page);await contextAction(page,id,'Déverrouiller');
@@ -125,10 +127,12 @@ async function verifyPCColumns({page,kind,root,output,pass,restoration}){
    const app=studioOnePrototype,start=performance.now(),heartbeat=new Promise(resolve=>setTimeout(()=>resolve(performance.now()-start),0));
    const ok=app.restoreProject(project),synchronousMs=performance.now()-start,firstHeartbeatMs=await heartbeat;
    await app.waitForTextures();await new Promise(resolve=>requestAnimationFrame(resolve));const visualReadyMs=performance.now()-start,diagnostics=app.getDiagnostics(),saved=app.exportProject();
-   return {attempt,ok,synchronousMs,firstHeartbeatMs,visualReadyMs,restore:diagnostics.restore||diagnostics.restoration||null,items:saved.items.map(item=>item.type),walls:saved.walls.map(w=>({collection:w.collection,color:w.color,zones:w.zones?.length||0})),niche:saved.room.niches?.[0],mappedWalls:app.renovation().getDiagnostics().wallMaterials,quality:diagnostics.qualityProfile,inert:document.body.inert};
+   return {attempt,ok,synchronousMs,firstHeartbeatMs,visualReadyMs,restore:diagnostics.restore||diagnostics.restoration||null,items:saved.items.map(item=>item.type),walls:saved.walls.map(w=>({collection:w.collection,color:w.color,zones:w.zones?.length||0,zoneColors:(w.zones||[]).map(zone=>zone.color)})),niche:saved.room.niches?.[0],mappedWalls:app.renovation().getDiagnostics().wallMaterials,quality:diagnostics.qualityProfile,inert:document.body.inert};
   },{project:complex,attempt});
   restoration.push({kind,...measured});console.log('RESTORATION',JSON.stringify({kind,...measured}));
   assert(measured.ok);assert.equal(measured.items.length,5);assert.equal(measured.walls[0].zones,1);assert(measured.mappedWalls.slice(0,3).every(w=>w.mapped),'The three tiled walls remain mapped after restoring the complete project');assert.equal(measured.niche.profileEdges.top,'Noir');assert.equal(measured.niche.profileEdges.bottom,'Noir');assert.equal(measured.inert,false);assert.equal(measured.quality,'fluid');
+  assert.deepEqual(measured.walls[0].zoneColors,['eden'],'The Allure band keeps its own decor through both restores');
+  assert.equal(measured.niche.covering.back.color,'avena');assert.equal(measured.niche.covering.reveal.color,'caramello');
   if(attempt==='warm'){assert(measured.synchronousMs<8000,'Warm restoration must not stall the browser for eight seconds');assert(measured.firstHeartbeatMs<10000,'A browser timer must resume after restoration');}
  }
  await showRoomView(page);await page.screenshot({path:path.join(output,kind+'-pc-restored-complex.png')});
