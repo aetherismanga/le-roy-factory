@@ -105,6 +105,7 @@ function applyFilters(){
 function init(){
   injectStyles();injectFilters();
   const tbody=document.getElementById("clients-table-body");if(tbody)new MutationObserver(()=>setTimeout(decorate,0)).observe(tbody,{childList:true});
-  onSnapshot(collection(db,"clients"),snap=>{clients=[];snap.forEach(d=>clients.push({id:d.id,...d.data()}));setTimeout(decorate,0)});
+  onSnapshot(collection(db,"clients"),snap=>{clients=[];snap.forEach(d=>clients.push({...d.data(),id:d.id}));setTimeout(decorate,0)});
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();
+

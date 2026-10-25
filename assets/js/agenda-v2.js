@@ -1,4 +1,4 @@
-import { db, auth, getAgentProfile } from './firebase.js';
+import { db, auth, getAgentProfile, waitForAgent } from './firebase.js?v=20261023-crm-audit1';
 import { collection, addDoc, deleteDoc, doc, onSnapshot, serverTimestamp, updateDoc } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
 
 const CLIENT_ID = '226219482076-kc5gofed3hr09qs62349mbdshlgk88u8.apps.googleusercontent.com';
@@ -47,14 +47,7 @@ function waitFor(test,timeout=12000){
     },80);
   });
 }
-function getAgent(){
-  const profile=getAgentProfile(auth.currentUser);
-  if(profile) return Promise.resolve(profile);
-  return new Promise(resolve=>{
-    const fallback=setTimeout(()=>resolve({email:lower(localStorage.getItem('agentEmail')),name:clean(localStorage.getItem('agentName'))||'Agent',uid:clean(localStorage.getItem('agentUid'))}),2500);
-    window.addEventListener('lrf-agent-auth-ready',event=>{clearTimeout(fallback);resolve(event.detail);},{once:true});
-  });
-}
+function getAgent(){ return waitForAgent(); }
 function tokenStorageKey(){return `lrf-google-session:${agent?.email||'agent'}`;}
 function calendarStorageKey(){return `lrf-google-calendars:${agent?.email||'agent'}`;}
 function readStoredToken(){
@@ -233,7 +226,7 @@ function subscribeTours(){
   tourUnsubscribe=onSnapshot(collection(db,'tournees'),snap=>{
     calendar.getEvents().filter(e=>e.extendedProps.sourceType==='tour').forEach(e=>e.remove());
     snap.docs.forEach(tourDoc=>{
-      const tour={id:tourDoc.id,...tourDoc.data()},ownerKey=ownerKeyFrom(`${tour.createdBy||''} ${tour.createdByEmail||''}`),color=ownerColor(ownerKey);
+      const tour={...tourDoc.data(),id:tourDoc.id},ownerKey=ownerKeyFrom(`${tour.createdBy||''} ${tour.createdByEmail||''}`),color=ownerColor(ownerKey);
       (tour.days||[]).forEach((day,index)=>{
         const stops=Array.isArray(day.stops)?day.stops:[],first=stops[0],last=stops[stops.length-1];
         const startTime=first?.arrival||tour.startTime||'08:00',endTime=last?.departure||tour.endTime||'18:00';
@@ -328,3 +321,4 @@ async function init(){
   updateDateTime();setInterval(updateDateTime,30000);initCalendar();bindUi();subscribeTours();subscribeSharedAgenda();renderLegend();initGoogleApi();
 }
 init().catch(err=>{console.error('[Agenda] Erreur d’initialisation',err);const text=$('#sync-text');if(text)text.textContent='Agenda : erreur de chargement';});
+

@@ -1,9 +1,9 @@
 // Firebase central — LE ROY FACTORY
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-import "./carte-mobile-enhancements.js?v=20261022-mapgps1";
-import "./carte-proximity.js?v=20261022-mapgps1";
+import "./carte-mobile-enhancements.js?v=20261023-crm-audit1";
+import "./carte-proximity.js?v=20261023-crm-audit1";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA3iuK5Ua8kFccURSqLihLshHnhA4rm2is",
@@ -14,7 +14,7 @@ const firebaseConfig = {
   appId: "1:249878619253:web:05f051710b6251dbfa843c"
 };
 
-const app = initializeApp(firebaseConfig);
+const app = getApps().some(app => app.name === "[DEFAULT]") ? getApp() : initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const auth = getAuth(app);
 
@@ -34,13 +34,37 @@ const CRM_PAGES = new Set([
   "mails-groupes.html", "carte.html", "statistiques.html", "demandes-clients.html",
   "nouveau-compte-rendu.html", "contacts-partenaires.html", "analyse-clients-lrf.html",
   "parametres.html", "contrats-usine-jerome.html", "merchandising-usines.html", "expo-clients.html",
-  "document-usines.html"
+  "document-usines.html", "documents-clients.html", "analyse-ventes-clients.html", "controle-site.html"
 ]);
 const currentPage = (location.pathname.split("/").pop() || "index.html").toLowerCase();
 const isCrmPage = CRM_PAGES.has(currentPage);
 
-if (isCrmPage) document.documentElement.style.visibility = "hidden";
+if (isCrmPage) document.documentElement.style.visibility = getAgentProfile(auth.currentUser) ? "visible" : "hidden";
 
+// Legacy localStorage values are display hints. Only the restored Firebase
+// session is authoritative, including on a first load in a new tab.
+// Modules may import this entry point with different cache-busting queries.
+// Share the authentication gate and effects so those URLs cannot create
+// duplicate auth listeners, logout handlers or enrichment bundles.
+const runtime = window.__LRF_FIREBASE_RUNTIME__ ||= {};
+if (!runtime.initialAgentAuth) {
+  runtime.initialAgentAuth = new Promise(resolve => { runtime.resolveInitialAuth = resolve; });
+}
+const initialAgentAuth = runtime.initialAgentAuth;
+const resolveInitialAuth = value => runtime.resolveInitialAuth(value);
+export async function waitForAgent() {
+  await initialAgentAuth;
+  return getAgentProfile(auth.currentUser);
+}
+// Kept as a descriptive alias for modules migrating to the shared gate.
+export const waitForAgentAuth = waitForAgent;
+
+function clearAgentSession() {
+  for (const key of ["agentLoggedIn", "agentEmail", "agentName", "agentUid"]) localStorage.removeItem(key);
+}
+
+if (!runtime.authListenerInstalled) {
+runtime.authListenerInstalled = true;
 onAuthStateChanged(auth, async user => {
   const profile = getAgentProfile(user);
   if (profile) {
@@ -49,37 +73,50 @@ onAuthStateChanged(auth, async user => {
     localStorage.setItem("agentName", profile.name);
     localStorage.setItem("agentUid", profile.uid);
     if (isCrmPage) document.documentElement.style.visibility = "visible";
+    resolveInitialAuth(profile);
     window.dispatchEvent(new CustomEvent("lrf-agent-auth-ready", { detail: profile }));
     return;
   }
 
-  localStorage.removeItem("agentLoggedIn");
-  localStorage.removeItem("agentEmail");
-  localStorage.removeItem("agentName");
-  localStorage.removeItem("agentUid");
+  clearAgentSession();
 
   if (user) {
     try { await signOut(auth); } catch (_) {}
   }
 
+  resolveInitialAuth(null);
+  if (isCrmPage) {
+    const returnTo = encodeURIComponent(currentPage + location.search + location.hash);
+    location.replace(`agent.html?return=${returnTo}`);
+  }
+}, error => {
+  console.error("Restauration de la session CRM impossible :", error?.code || "auth-error");
+  clearAgentSession();
+  resolveInitialAuth(null);
   if (isCrmPage) {
     const returnTo = encodeURIComponent(currentPage + location.search + location.hash);
     location.replace(`agent.html?return=${returnTo}`);
   }
 });
 
+}
+
+if (!runtime.logoutInstalled) {
+runtime.logoutInstalled = true;
 document.addEventListener("click", async event => {
   const btn = event.target.closest("#logout-btn, .btn-logout-sidebar");
   if (!btn) return;
   event.preventDefault();
   event.stopImmediatePropagation();
-  try { await signOut(auth); } catch (err) { console.warn("Déconnexion Firebase", err); }
-  localStorage.removeItem("agentLoggedIn");
-  localStorage.removeItem("agentEmail");
-  localStorage.removeItem("agentName");
-  localStorage.removeItem("agentUid");
+  try { await signOut(auth); } catch (err) {
+    console.warn("Déconnexion Firebase", err);
+    alert("La déconnexion a échoué. Réessayez avant de quitter cet appareil.");
+    return;
+  }
+  clearAgentSession();
   location.href = "agent.html";
 }, true);
+}
 
 function ensureMobileCss() {
   if (!window.matchMedia("(max-width: 900px)").matches) return;
@@ -103,26 +140,33 @@ document.addEventListener("click", e => {
   }
 }, true);
 
-import("./account-requests-nav.js?v=20261009-avc1").catch(err => console.error("Erreur chargement navigation demandes clients :", err));
-import("./crm-settings-nav.js?v=20260904-1").catch(err => console.error("Erreur chargement sous-menu Paramètres :", err));
+// Load CRM enrichments only after authentication has been restored. Public
+// catalogue pages importing Firebase do not need the CRM navigation bundle.
+waitForAgent().then(profile => {
+if (!profile || !isCrmPage || runtime.enrichmentsInstalled) return;
+runtime.enrichmentsInstalled = true;
+import("./crm-workspace-ui.js?v=20261023-audit1").catch(error => console.error("Interface CRM :", error));
+import("./account-requests-nav.js?v=20261023-crm-audit1").catch(err => console.error("Erreur chargement navigation demandes clients :", err));
+import("./crm-settings-nav.js?v=20261023-crm-audit1").catch(err => console.error("Erreur chargement sous-menu Paramètres :", err));
 if (currentPage === "clients.html" || currentPage === "comptes-rendus.html") {
   import("./cmr-unified.js?v=20260908-1").catch(err => console.error("Erreur chargement CMR unifié :", err));
 }
 if (currentPage === "clients.html") {
-  import("./crm-client-dedupe-hotfix.js?v=20260912-dedupe1").catch(err => console.error("Erreur contrôle doublons clients :", err));
-  import("./seed-bilt-annexe-clients.js?v=20260901").catch(err => console.error("Erreur chargement clients Annexe 1 BILT :", err));
-  import("./client-direct-email.js?v=20260817-1845&media=20261018").catch(err => console.error("Erreur chargement module e-mail client :", err));
-  import("./crm-moovago.js?v=20260909-exact-client1&media=20261018").catch(err => console.error("Erreur chargement enrichissement CRM :", err));
-  import("./crm-client-enhancements.js?v=20260817-1845&media=20261018").catch(err => console.error("Erreur chargement améliorations Clients :", err));
-  import("./crm-ui-modern.js?v=20260911-summaryfix1").catch(err => console.error("Erreur chargement interface moderne CRM :", err));
+  import("./crm-client-dedupe-hotfix.js?v=20261023-crm-audit1").catch(err => console.error("Erreur contrôle doublons clients :", err));
+  // Seed/import operations must be initiated explicitly; simply opening the
+  // client directory must never create or overwrite production customers.
+  import("./client-direct-email.js?v=20261023-crm-audit1").catch(err => console.error("Erreur chargement module e-mail client :", err));
+  import("./crm-moovago.js?v=20261023-crm-audit1").catch(err => console.error("Erreur chargement enrichissement CRM :", err));
+  import("./crm-client-enhancements.js?v=20261023-crm-audit1").catch(err => console.error("Erreur chargement améliorations Clients :", err));
+  import("./crm-ui-modern.js?v=20261023-audit1").catch(err => console.error("Erreur chargement interface moderne CRM :", err));
   import("./clients-tournee-ui.js?v=20260903-1").catch(err => console.error("Erreur chargement accès tournées :", err));
-  import("./clients-operations.js?v=20260817-1845").catch(err => console.error("Erreur chargement outils opérationnels Clients :", err));
-  import("./client-codes.js?v=20260817-1845").catch(err => console.error("Erreur chargement codes clients LRF :", err));
+  import("./clients-operations.js?v=20261023-crm-audit1").catch(err => console.error("Erreur chargement outils opérationnels Clients :", err));
+  import("./client-codes.js?v=20261023-crm-audit1").catch(err => console.error("Erreur chargement codes clients LRF :", err));
   import("./clients-export.js?v=20260817-1845").catch(err => console.error("Erreur chargement impression/export clients :", err));
   import("./account-form-send.js?v=20260817-1845").catch(err => console.error("Erreur chargement envoi formulaire ouverture/mise à jour :", err));
   import("./client-contact-import.js?v=20260904-iphone2").catch(err => console.error("Erreur import contact téléphone :", err));
 }
-if (currentPage === "dashboard.html") {
+if (currentPage === "dashboard.html" && !document.body.classList.contains("crm-v2")) {
   import("./dashboard-clock-tools.js?v=20260904-weather2")
     .then(() => import("./dashboard-weather-geofix.js?v=20260904-geofix1"))
     .then(() => import("./dashboard-weather-daily.js?v=20260904-weather2"))
@@ -132,6 +176,8 @@ if (currentPage === "dashboard.html") {
 if (currentPage === "mails-groupes.html") {
   import("./mails-groupes-programmation.js?v=20260817-1145&media=20261018").catch(err => console.error("Erreur chargement mails programmés :", err));
 }
+
+}).catch(error => console.error("Initialisation CRM impossible :", error));
 
 function initCrmMobile() {
   if (!window.matchMedia("(max-width: 900px)").matches || !document.body.classList.contains("crm-body")) return;

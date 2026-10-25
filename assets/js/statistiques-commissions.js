@@ -1,5 +1,5 @@
 import './statistiques-lrf-manuel.js?v=20260818-1300';
-import { db } from './firebase.js';
+import { db, waitForAgent } from './firebase.js?v=20261023-crm-audit1';
 import { collection, onSnapshot, doc, getDoc, setDoc } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
 import { ELIOS_STATS_CLIENTS } from './statistiques-elios-data.js';
 import { VIEW_STATS_CLIENTS_2026_07 } from './statistiques-view-data.js';
@@ -108,5 +108,6 @@ function observeUI(){
   document.addEventListener('click',e=>{if(e.target.closest('.partner-tab'))setTimeout(render,50)});
   document.addEventListener('change',e=>{if(e.target.matches('#stats-month,#stats-year,#stats-period-type,#stats-date-from,#stats-date-to'))setTimeout(render,20)});
 }
-function init(){loadLocal();ensureUI();observeUI();onSnapshot(collection(db,'clients'),snap=>{clients=[];snap.forEach(d=>clients.push({id:d.id,...d.data()}));render();});loadRemote();render();}
+async function init(){if (!await waitForAgent()) return;loadLocal();ensureUI();observeUI();onSnapshot(collection(db,'clients'),snap=>{clients=[];snap.forEach(d=>clients.push({...d.data(),id:d.id}));render();});loadRemote();render();}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+

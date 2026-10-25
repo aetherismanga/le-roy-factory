@@ -1,5 +1,5 @@
 import './statistiques-lrf-multi.js?v=20260818-1300';
-import { db } from './firebase.js';
+import { db, waitForAgent } from './firebase.js?v=20261023-crm-audit1';
 import { collection, onSnapshot } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
 import { ELIOS_STATS_CLIENTS } from './statistiques-elios-data.js';
 import { VIEW_STATS_CLIENTS_2026_07 } from './statistiques-view-data.js';
@@ -143,8 +143,9 @@ function injectStyles(){
 }
 function fixHeadings(){const th=document.querySelector('.stats-table th:nth-child(2)');if(th)th.textContent='N° usine';const intro=document.querySelector('.stats-intro p');if(intro)intro.textContent='Choisis un partenaire, une année et une période. Les données partielles restent incluses et sont signalées.'}
 function refreshAfterMain(){setTimeout(()=>{ensureSimplePeriod();normalizeOldAnnualMode();rebuildSimplePeriod();fixHeadings();if(hiddenMode()==='annual')renderAnnualListing()},90)}
-function init(){
+async function init(){if (!await waitForAgent()) return;
   injectStyles();ensureSimplePeriod();fixHeadings();document.addEventListener('click',e=>{if(e.target.closest('.partner-tab'))refreshAfterMain()});document.getElementById('stats-year')?.addEventListener('change',refreshAfterMain);document.getElementById('stats-period-type')?.addEventListener('change',refreshAfterMain);document.getElementById('stats-month')?.addEventListener('change',refreshAfterMain);document.getElementById('stats-range-apply')?.addEventListener('click',refreshAfterMain);document.getElementById('stats-search')?.addEventListener('input',()=>{if(hiddenMode()==='annual')setTimeout(renderAnnualListing,0)});['stats-filter','stats-owner','stats-dept'].forEach(id=>document.getElementById(id)?.addEventListener('change',()=>{if(hiddenMode()==='annual')setTimeout(renderAnnualListing,0)}));
-  onSnapshot(collection(db,'clients'),snap=>{clients=[];snap.forEach(d=>clients.push({id:d.id,...d.data()}));refreshAfterMain()});refreshAfterMain();
+  onSnapshot(collection(db,'clients'),snap=>{clients=[];snap.forEach(d=>clients.push({...d.data(),id:d.id}));refreshAfterMain()});refreshAfterMain();
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+

@@ -2,235 +2,79 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#f7f8f3">
+  <title>Accueil — CRM LE ROY FACTORY V2</title>
   <link rel="icon" type="image/png" href="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/brand-v2/lrf-logo-officiel-2026.png?v=20260918-crm-floral-1">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tableau de bord — LE ROY FACTORY CRM</title>
-  
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
   <link rel="stylesheet" href="assets/css/variables.css?v=20260918-sage-global1">
   <link rel="stylesheet" href="assets/css/base.css?media=20261018">
-  <link rel="stylesheet" href="assets/css/components.css?media=20261018">
   <link rel="stylesheet" href="assets/css/layout.css?media=20261018">
   <link rel="stylesheet" href="assets/css/clients.css">
-  <style>
-    /* Fond général de la page en blanc crème / coquille d'œuf */
-    body.crm-body {
-      background-color: #FBF9F5 !important;
-      background-image: none !important;
-      color: #1A2530 !important;
-    }
-
-    /* Topbar avec bandeau02.png */
-    .crm-topbar {
-      background-image: none !important;
-      background-size: cover !important;
-      background-position: center !important;
-      background-repeat: no-repeat !important;
-      border-bottom: 2px solid #D4AF37 !important;
-      color: #FFFFFF !important;
-    }
-    .crm-topbar h1, .crm-topbar p, .welcome-box h1, .welcome-box p {
-      color: #FFFFFF !important;
-      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
-    }
-  </style>
-  <link rel="stylesheet" href="assets/css/crm-sidebar-sage.css?v=20260918-sage-global1">
+  <link rel="stylesheet" href="assets/css/crm-v2-dashboard.css?v=20261025">
+<link rel="stylesheet" href="assets/css/crm-v2.css?v=20261025">
 </head>
-<body class="crm-body">
-
-  <aside class="crm-sidebar">
-    <div class="sidebar-brand">
-      <a href="index.html" class="logo-link">
-        <div class="logo-circle" style="width: 60px; height: 60px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.4); border: 2px solid #D4AF37; background-color: #000;">
-          <img src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/brand-v2/lrf-logo-officiel-2026.png?v=20260918-crm-floral-1" alt="LE ROY FACTORY" style="width: 100%; height: 100%; object-fit: cover;">
-        </div>
-      </a>
-    </div>
-    <ul class="sidebar-menu">
-      <li><a href="dashboard.html" class="active"><span class="icon">🏠</span><span class="menu-text">Accueil</span></a></li>
-      <li><a href="clients.html"><span class="icon">👥</span><span class="menu-text">Clients</span></a></li>
-      <li><a href="clients.html?filter=prospect"><span class="icon">🎯</span><span class="menu-text">Prospects</span></a></li>
-      <li><a href="agenda.html"><span class="icon">📅</span><span class="menu-text">Agenda</span></a></li>
-      <li><a href="comptes-rendus.html"><span class="icon">📞</span><span class="menu-text">Comptes-rendus</span></a></li>
-      <li><a href="mails-groupes.html"><span class="icon">✉️</span><span class="menu-text">Mails groupés</span></a></li>
-      <li><a href="carte.html"><span class="icon">🗺</span><span class="menu-text">Carte</span></a></li>
-      <li><a href="#"><span class="icon">📊</span><span class="menu-text">Statistiques</span></a></li>
-      <li><a href="#"><span class="icon">⚙</span><span class="menu-text">Paramètres</span></a></li>
-    </ul>
-    <div class="sidebar-footer">
-      <button id="logout-btn" class="btn-logout-sidebar">
-        <span>🚪</span> <span class="menu-text">Déconnexion</span>
-      </button>
-    </div>
+<body class="crm-body crm-v2">
+  <aside class="crm-sidebar" aria-label="Navigation principale">
+    <div class="sidebar-brand"><a href="dashboard.html" class="logo-link" aria-label="Accueil LE ROY FACTORY"><img src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/brand-v2/lrf-logo-officiel-2026.png?v=20260918-crm-floral-1" width="52" height="52" alt="LE ROY FACTORY"></a></div>
+    <ul class="sidebar-menu"><li><a href="dashboard.html" aria-current="page" class="active"><span class="menu-text">Accueil</span></a></li>
+<li><a href="clients.html"><span class="menu-text">Clients</span></a></li>
+<li><a href="clients.html?filter=prospect"><span class="menu-text">Prospects</span></a></li>
+<li><a href="demandes-clients.html"><span class="menu-text">Demandes clients</span></a></li>
+<li><a href="contacts-partenaires.html"><span class="menu-text">Contacts partenaires</span></a></li>
+<li><a href="carte.html"><span class="menu-text">Carte commerciale</span></a></li>
+<li><a href="agenda.html"><span class="menu-text">Agenda</span></a></li>
+<li><a href="tournees.html"><span class="menu-text">Tournées</span></a></li>
+<li><a href="comptes-rendus.html"><span class="menu-text">Comptes-rendus</span></a></li>
+<li><a href="mails-groupes.html"><span class="menu-text">Mails groupés</span></a></li>
+<li><a href="statistiques.html"><span class="menu-text">Statistiques</span></a></li>
+<li><a href="analyse-ventes-clients.html"><span class="menu-text">Analyse des ventes clients</span></a></li>
+<li><a href="analyse-clients-lrf.html"><span class="menu-text">Analyse clients LRF</span></a></li>
+<li><a href="documents-clients.html"><span class="menu-text">Documents clients</span></a></li>
+<li><a href="contrats-usine-jerome.html"><span class="menu-text">Contrats usines</span></a></li>
+<li><a href="merchandising-usines.html"><span class="menu-text">Merchandising</span></a></li>
+<li><a href="expo-clients.html"><span class="menu-text">Expositions clients</span></a></li>
+<li><a href="document-usines.html"><span class="menu-text">Documents usines</span></a></li>
+<li><a href="parametres.html"><span class="menu-text">Paramètres</span></a></li></ul>
+    <div class="sidebar-footer"><button id="logout-btn" class="btn-logout-sidebar" type="button">Déconnexion</button></div>
   </aside>
-
-  <main class="crm-main-content">
-    <div class="crm-topbar">
-      <div class="welcome-box">
-        <h1 id="welcome-title">Bonjour Jérôme 👋</h1>
-        <p>Bienvenue dans votre espace commercial sécurisé LE ROY FACTORY.</p>
-      </div>
-      <div class="info-widgets">
-        <div class="widget-item"><span>📅</span> <span id="current-date">--</span></div>
-        <div class="widget-item"><span>⏰</span> <span id="current-time">--</span></div>
-        <div class="widget-item"><span>🌤</span> <span>26°C, Ensoleillé</span></div>
-      </div>
-    </div>
-
-    <div style="margin-bottom: 2rem;">
-      <h2 style="font-size: 1.1rem; margin-bottom: 1rem; color: #1A2530; font-weight: 700;">Actions rapides</h2>
-      <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-        <a href="clients.html?action=new-client" class="btn-primary-gold" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem;">➕ Nouveau client</a>
-        <a href="clients.html?action=new-prospect" class="btn-primary-gold" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem;">🎯 Nouveau prospect</a>
-        <a href="agenda.html" class="btn-primary-gold" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem;">📅 Nouveau rendez-vous</a>
-        <a href="comptes-rendus.html" class="btn-primary-gold" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem;">📞 Nouveau compte-rendu</a>
-        <a href="mails-groupes.html" class="btn-primary-gold" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem;">✉️ Mails groupés</a>
-      </div>
-    </div>
-
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
-      
-      <div style="background: #FFF; padding: 1.75rem; border-radius: 12px; border: 1px solid rgba(0,0,0,0.08); box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
-        <h3 style="font-size: 0.9rem; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">Portefeuille Clients</h3>
-        <p id="dash-clients-actifs" style="font-size: 2.25rem; font-weight: 800; color: #111; margin-bottom: 0.25rem;">...</p>
-        <p style="font-size: 0.85rem; color: #888;">Clients actifs enregistrés</p>
-      </div>
-
-      <div style="background: #FFF; padding: 1.75rem; border-radius: 12px; border: 1px solid rgba(0,0,0,0.08); box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
-        <h3 style="font-size: 0.9rem; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">Prospects en cours</h3>
-        <p id="dash-prospects" style="font-size: 2.25rem; font-weight: 800; color: #111; margin-bottom: 0.25rem;">...</p>
-        <p style="font-size: 0.85rem; color: #888;">Suivi commercial actif</p>
-      </div>
-
-      <div style="background: #FFF; padding: 1.75rem; border-radius: 12px; border: 1px solid rgba(0,0,0,0.08); box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
-        <h3 style="font-size: 0.9rem; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">Agenda</h3>
-        <p style="font-size: 2.25rem; font-weight: 800; color: #D4AF37; margin-bottom: 0.25rem;">12</p>
-        <p style="font-size: 0.85rem; color: #888; margin-bottom: 0.5rem;">Rendez-vous planifiés</p>
-        <a href="agenda.html" style="font-size: 0.85rem; color: #111; font-weight: 600; text-decoration: none;">Accéder au calendrier Google &rarr;</a>
-      </div>
-
-    </div>
-
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
-      
-      <div style="background: #FFF; padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(0,0,0,0.08);">
-        <h3 style="font-size: 1rem; color: #1A2530; margin-bottom: 1rem; font-weight: 700;">⚡ Aujourd'hui</h3>
-        <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.75rem;">
-          <li style="display: flex; justify-content: space-between; font-size: 0.9rem; color: #444; border-bottom: 1px solid #F3F4F6; padding-bottom: 0.5rem;">
-            <span>3 rendez-vous showroom</span><strong style="background: #FEF3C7; color: #D97706; padding: 2px 8px; border-radius: 12px; font-size: 0.8rem;">3</strong>
-          </li>
-          <li style="display: flex; justify-content: space-between; font-size: 0.9rem; color: #444; border-bottom: 1px solid #F3F4F6; padding-bottom: 0.5rem;">
-            <span>5 prospects à relancer</span><strong style="background: #DBEAFE; color: #1D4ED8; padding: 2px 8px; border-radius: 12px; font-size: 0.8rem;">5</strong>
-          </li>
-          <li style="display: flex; justify-content: space-between; font-size: 0.9rem; color: #444; border-bottom: 1px solid #F3F4F6; padding-bottom: 0.5rem;">
-            <span>2 comptes-rendus rédigés</span><strong style="background: #D1FAE5; color: #047857; padding: 2px 8px; border-radius: 12px; font-size: 0.8rem;">2</strong>
-          </li>
-          <li style="display: flex; justify-content: space-between; font-size: 0.9rem; color: #444;">
-            <span>1 rappel important chantier</span><strong style="background: #FEE2E2; color: #DC2626; padding: 2px 8px; border-radius: 12px; font-size: 0.8rem;">1</strong>
-          </li>
-        </ul>
-      </div>
-
-      <div style="background: #FFF; padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(0,0,0,0.08);">
-        <h3 style="font-size: 1rem; color: #1A2530; margin-bottom: 1rem; font-weight: 700;">📊 Objectif du mois</h3>
-        <p style="font-size: 0.9rem; color: #666; margin-bottom: 0.5rem;">Chiffre d'affaires & Showrooms</p>
-        <div style="font-size: 1.5rem; font-weight: 800; color: #111; margin-bottom: 0.75rem;">78 %</div>
-        <div style="width: 100%; background: #E5E7EB; height: 10px; border-radius: 5px; overflow: hidden; margin-bottom: 0.75rem;">
-          <div style="width: 78%; background: #D4AF37; height: 100%;"></div>
+  <main class="crm-main-content" id="main-content">
+    <div class="v2-dashboard">
+      <header class="v2-home-header">
+        <div class="v2-home-identity">
+          <img class="v2-home-logo" src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/brand-v2/lrf-logo-officiel-2026.png?v=20260918-crm-floral-1" width="54" height="54" alt="LE ROY FACTORY">
+          <div><span class="v2-eyebrow">Votre espace commercial</span><h1 id="welcome-title">Bonjour</h1><div class="v2-date-time"><span id="current-date">Votre journée</span><span aria-hidden="true">·</span><time id="digital-clock">—</time></div></div>
         </div>
-        <p style="font-size: 0.8rem; color: #888;">Objectif atteint à 78% — Plus que 5 jours restants.</p>
+        <a class="v2-profile" href="parametres.html" aria-label="Ouvrir mon profil et mes paramètres"><span class="v2-profile-avatar" id="v2-profile-initials">LRF</span><span class="v2-profile-name" id="v2-profile-name">Mon profil</span></a>
+      </header>
+      <div class="v2-search">
+        <label class="v2-search-field" for="crm-global-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></svg><input id="crm-global-search" type="search" placeholder="Client, code LRF, contact…" aria-label="Rechercher dans le CRM : clients, prospects, codes LRF, contacts, partenaires, comptes-rendus" aria-expanded="false" aria-controls="crm-global-results" autocomplete="off"><kbd aria-hidden="true">Ctrl K</kbd></label>
+        <div id="crm-global-results" aria-label="Résultats de recherche" hidden></div>
       </div>
-
-      <div style="background: #FFF; padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(0,0,0,0.08);">
-        <h3 style="font-size: 1rem; color: #1A2530; margin-bottom: 1rem; font-weight: 700;">🕒 Dernières activités</h3>
-        <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.9rem;">
-          <li style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #F3F4F6; padding-bottom: 0.5rem;">
-            <span style="color: #047857;">✔ Compte-rendu ajouté</span>
-            <span style="color: #666; font-size: 0.8rem;">— Ciffreo Bona</span>
-          </li>
-          <li style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #F3F4F6; padding-bottom: 0.5rem;">
-            <span style="color: #047857;">✔ Prospect créé</span>
-            <span style="color: #666; font-size: 0.8rem;">— MP CETIN EDEN</span>
-          </li>
-          <li style="display: flex; align-items: center; justify-content: space-between;">
-            <span style="color: #047857;">✔ Client modifié</span>
-            <span style="color: #666; font-size: 0.8rem;">— Balitrand Biot</span>
-          </li>
-        </ul>
+      <nav class="v2-quick-actions" aria-label="Actions rapides">
+        <a href="clients.html?action=new-client"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Nouveau client</a>
+        <a href="clients.html?action=new-prospect"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="7" r="3"/><path d="M4 21v-3a6 6 0 0 1 12 0v3m1-12h6m-3-3v6"/></svg>Prospect</a>
+        <a href="tournees.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="5" r="2"/><circle cx="18" cy="19" r="2"/><path d="M8 5h8a4 4 0 0 1 0 8H8a3 3 0 0 0 0 6h8"/></svg>Créer une tournée</a>
+        <a href="comptes-rendus.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-9M9 15l3-1 9-9-2-2-9 9-1 3Z"/></svg>Compte-rendu</a>
+      </nav>
+      <div class="v2-home-heading"><h2>L’essentiel de votre activité</h2><button id="v2-refresh" type="button">Actualiser</button></div>
+      <p id="v2-dashboard-loading" role="status">Chargement de votre activité…</p>
+      <p id="v2-data-status" class="v2-dash-notice" role="status" hidden></p>
+      <nav class="v2-kpis" aria-label="Indicateurs commerciaux"><a class="v2-kpi" href="clients.html"><strong id="v2-count-clients">—</strong><span>Clients actifs</span><small>portefeuille</small></a>
+<a class="v2-kpi" href="clients.html?filter=prospect"><strong id="v2-count-prospects">—</strong><span>Prospects</span><small>à accompagner</small></a>
+<a class="v2-kpi" href="agenda.html"><strong id="v2-count-events">—</strong><span>Rendez-vous</span><small>aujourd’hui</small></a>
+<a class="v2-kpi" href="tournees.html#tour-saved-list"><strong id="v2-count-tours">—</strong><span>Tournées</span><small>enregistrées</small></a>
+<a class="v2-kpi" href="#v2-followups-card"><strong id="v2-count-followups">—</strong><span>Relances</span><small>contact connu > 60 j</small></a>
+<a class="v2-kpi" href="#v2-activity-card"><strong id="v2-count-activities">—</strong><span>Activité</span><small>30 derniers jours</small></a></nav>
+      <div class="v2-dashboard-grid">
+        <section class="v2-dash-card" id="v2-today-card"><div class="v2-card-heading"><h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18m-14 4h3m4 0h3"/></svg>Rendez-vous du jour</h2><a href="agenda.html">Agenda <span aria-hidden="true">›</span></a></div><div id="v2-today"><p class="v2-dash-empty">Chargement…</p></div></section>
+<section class="v2-dash-card" id="v2-next-tour-card"><div class="v2-card-heading"><h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="5" r="2"/><circle cx="18" cy="19" r="2"/><path d="M8 5h8a4 4 0 0 1 0 8H8a3 3 0 0 0 0 6h8"/></svg>Prochaine tournée</h2><a href="tournees.html">Mes tournées <span aria-hidden="true">›</span></a></div><div id="v2-next-tour"><p class="v2-dash-empty">Chargement…</p></div></section>
+<section class="v2-dash-card" id="v2-followups-card"><div class="v2-card-heading"><h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 1-2-5M20 3v5h-5"/></svg>Clients à relancer</h2><a href="clients.html">Portefeuille <span aria-hidden="true">›</span></a></div><div id="v2-followups"><p class="v2-dash-empty">Chargement…</p></div></section>
+<section class="v2-dash-card" id="v2-pending-card"><div class="v2-card-heading"><h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-9M9 15l3-1 9-9-2-2-9 9-1 3Z"/></svg>Comptes-rendus à finaliser</h2><a href="comptes-rendus.html">Voir tout <span aria-hidden="true">›</span></a></div><div id="v2-pending-reports"><p class="v2-dash-empty">Chargement…</p></div></section>
+        <section class="v2-dash-card wide" id="v2-activity-card"><div class="v2-card-heading"><h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Dernières activités</h2><a href="comptes-rendus.html">Historique <span aria-hidden="true">›</span></a></div><p class="v2-activity-caption">Visites et communications enregistrées</p><div id="v2-activity"><p class="v2-dash-empty">Chargement…</p></div></section>
       </div>
-
     </div>
   </main>
-
-  <script type="module">
-    import { db } from "./assets/js/firebase.js";
-    import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-    document.addEventListener("DOMContentLoaded", async () => {
-      // Vérification session
-      const isLoggedIn = localStorage.getItem("agentLoggedIn");
-      if (!isLoggedIn) {
-        window.location.href = "agent.html";
-        return;
-      }
-
-      const agentName = localStorage.getItem("agentName") || "Jérôme";
-      const firstName = agentName.split(" ")[0];
-      const titleEl = document.getElementById("welcome-title");
-      if (titleEl) {
-        titleEl.textContent = `Bonjour ${firstName} 👋`;
-      }
-
-      // Date et Heure en direct
-      function updateDateTime() {
-        const now = new Date();
-        const dateEl = document.getElementById("current-date");
-        const timeEl = document.getElementById("current-time");
-        if (dateEl) {
-          let formatted = now.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
-          dateEl.textContent = formatted.charAt(0).toUpperCase() + formatted.slice(1);
-        }
-        if (timeEl) {
-          timeEl.textContent = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
-        }
-      }
-      updateDateTime();
-      setInterval(updateDateTime, 1000);
-
-      // Chargement des compteurs depuis Firebase Firestore
-      try {
-        const querySnapshot = await getDocs(collection(db, "clients"));
-        let clientsCount = 0;
-        let prospectsCount = 0;
-
-        querySnapshot.forEach((docSnap) => {
-          const data = docSnap.data();
-          const type = (data.type || "").toLowerCase();
-          if (type === "client") {
-            clientsCount++;
-          } else if (type === "prospect") {
-            prospectsCount++;
-          }
-        });
-
-        const clientsEl = document.getElementById("dash-clients-actifs");
-        const prospectsEl = document.getElementById("dash-prospects");
-
-        if (clientsEl) clientsEl.textContent = clientsCount;
-        if (prospectsEl) prospectsEl.textContent = prospectsCount;
-      } catch (error) {
-        console.error("Erreur de récupération des stats Firebase sur l'accueil :", error);
-      }
-
-      // Déconnexion
-      document.getElementById("logout-btn")?.addEventListener("click", () => {
-        localStorage.removeItem("agentLoggedIn");
-        localStorage.removeItem("agentName");
-        localStorage.removeItem("agentEmail");
-        window.location.href = "agent.html";
-      });
-    });
-  </script>
+  <script type="module" src="assets/js/crm-v2-dashboard.js?v=20261025"></script>
+<script type="module" src="assets/js/crm-v2-bootstrap.js?v=20261025"></script>
 </body>
 </html>

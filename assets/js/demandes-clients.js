@@ -1,4 +1,4 @@
-import { db } from './firebase.js';
+import { db, waitForAgent } from './firebase.js?v=20261023-crm-audit1';
 import { collection,onSnapshot,doc,updateDoc,query,where,getDocs,getDoc,limit,runTransaction,serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
 import { partnerOpeningEmail } from './partner-opening-config.js';
 
@@ -10,7 +10,7 @@ const $=s=>document.querySelector(s);const esc=v=>String(v??'').replace(/&/g,'&a
 const depFromCp=cp=>{const s=String(cp||'').replace(/\s/g,'');if(!/^\d{5}$/.test(s))return'';if(s.startsWith('97')||s.startsWith('98'))return s.slice(0,3);if(s.startsWith('20'))return Number(s)>=20200?'2B':'2A';return s.slice(0,2)};
 const fmtCode=n=>`LRF-${String(n).padStart(5,'0')}`;
 
-if(!localStorage.getItem('agentLoggedIn'))location.href='agent.html';
+if (!await waitForAgent()) throw new Error('Authentification agent requise.');
 $('#logout-btn')?.addEventListener('click',()=>{localStorage.removeItem('agentLoggedIn');location.href='agent.html'});
 $('#panel-close').onclick=()=>$('#drawer').classList.remove('open');
 $('#drawer').addEventListener('click',e=>{if(e.target===$('#drawer'))$('#drawer').classList.remove('open')});
@@ -19,7 +19,7 @@ function statusLabel(s){return s==='validee'?'Validée':s==='refusee'?'Refusée'
 function statusClass(s){return s==='validee'?'s-validee':s==='refusee'?'s-refusee':s==='complement'?'s-complement':'s-attente'}
 function render(){const st=$('#status-filter').value,ty=$('#type-filter').value,q=$('#search').value.toLowerCase().trim();const rows=requests.filter(r=>(!st||r.status===st)&&(!ty||r.requestType===ty)&&(!q||[r.societe,r.codeClient,r.departement,r.departementAuth,r.ville].some(x=>String(x||'').toLowerCase().includes(q))));$('#requests-list').innerHTML=rows.length?rows.map(r=>`<div class="req-card" data-id="${r.id}"><div><div class="req-title">${esc(r.societe||'Sans nom')}</div><div class="req-meta">${r.requestType==='mise_a_jour'?'Mise à jour':'Ouverture'} · ${esc(r.codeClient||'Nouveau compte')} · Dép. ${esc(r.departement||r.departementAuth||'-')} · ${new Date(r.submittedAt?.toDate?r.submittedAt.toDate():r.submittedAt||Date.now()).toLocaleDateString('fr-FR')}</div></div><span class="status ${statusClass(r.status)}">${statusLabel(r.status)}</span></div>`).join(''):'<div class="section">Aucune demande.</div>';document.querySelectorAll('.req-card').forEach(c=>c.onclick=()=>openRequest(c.dataset.id))}
 ['status-filter','type-filter','search'].forEach(id=>$('#'+id).addEventListener(id==='search'?'input':'change',render));
-onSnapshot(collection(db,'account_requests'),snap=>{requests=[];snap.forEach(d=>requests.push({id:d.id,...d.data()}));requests.sort((a,b)=>{const ad=a.submittedAt?.toMillis?.()||Date.parse(a.submittedAt||0),bd=b.submittedAt?.toMillis?.()||Date.parse(b.submittedAt||0);return bd-ad});render()});
+onSnapshot(collection(db,'account_requests'),snap=>{requests=[];snap.forEach(d=>requests.push({...d.data(),id:d.id}));requests.sort((a,b)=>{const ad=a.submittedAt?.toMillis?.()||Date.parse(a.submittedAt||0),bd=b.submittedAt?.toMillis?.()||Date.parse(b.submittedAt||0);return bd-ad});render()});
 
 async function findExisting(r){
   if(r.requestType!=='mise_a_jour')return null;
@@ -27,11 +27,11 @@ async function findExisting(r){
     const direct=await getDoc(doc(db,'clients',String(r.existingClientId)));
     if(direct.exists()){
       const data=direct.data();
-      if(!r.codeClient||String(data.codeClient||'').toUpperCase()===String(r.codeClient||'').toUpperCase())return{id:direct.id,...data};
+      if(!r.codeClient||String(data.codeClient||'').toUpperCase()===String(r.codeClient||'').toUpperCase())return{...data,id:direct.id};
     }
   }
   if(!r.codeClient)return null;
-  const s=await getDocs(query(collection(db,'clients'),where('codeClient','==',r.codeClient),limit(1)));if(s.empty)return null;const d=s.docs[0];return{id:d.id,...d.data()}
+  const s=await getDocs(query(collection(db,'clients'),where('codeClient','==',r.codeClient),limit(1)));if(s.empty)return null;const d=s.docs[0];return{...d.data(),id:d.id}
 }
 async function openRequest(id){current=requests.find(x=>x.id===id);if(!current)return;currentClient=await findExisting(current);$('#panel-title').textContent=`${current.requestType==='mise_a_jour'?'Mise à jour':'Ouverture'} — ${current.societe||''}`;$('#panel-sub').textContent=`Réf. ${id} · ${statusLabel(current.status)}`;renderPanel();$('#drawer').classList.add('open')}
 function partnerChips(){return (current.partenaires||[]).map(p=>`<span class="chip">${esc(p)}</span>`).join('')||'<span class="req-meta">Aucun partenaire demandé</span>'}

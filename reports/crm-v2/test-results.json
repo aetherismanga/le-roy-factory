@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-25",
+  "environment": "fixtures only",
+  "unitTests": 123,
+  "failures": 0,
+  "modulesParsed": 100,
+  "modulesLinked": 79,
+  "moduleErrors": 0,
+  "browser": "Cloud Chrome; simulated iframe viewport, not physical Android/iOS",
+  "observedJourneys": [
+    "dashboard KPI 4 clients 2 prospects 1 appointment 1 tour",
+    "client exact ID editing",
+    "partners 3 before and after note update",
+    "LRF-00101 stable",
+    "map 6 markers then 2 for department34",
+    "menu categories and five bottom links"
+  ],
+  "notValidated": [
+    "native Safari iOS",
+    "real Android/iPhone keyboard",
+    "GPS hardware permission flow",
+    "live Firebase rules",
+    "actual mail delivery",
+    "Google Calendar",
+    "document cloud upload"
+  ]
+}

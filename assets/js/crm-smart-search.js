@@ -93,7 +93,7 @@ if (!window.__LRF_CRM_SMART_SEARCH__) {
       clientsPromise = getDocs(collection(db, 'clients')).then(snap => {
         const out = [];
         snap.forEach(d => {
-          const c = { id:d.id, ...d.data() };
+          const c = { ...d.data(), id:d.id };
           if (c.archived === true || c.archive === true) return;
           out.push(c);
         });
@@ -300,3 +300,4 @@ if (!window.__LRF_CRM_SMART_SEARCH__) {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => setTimeout(init, 120), {once:true});
   else setTimeout(init, 120);
 }
+
