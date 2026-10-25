@@ -35,3 +35,15 @@ test('an already exact saved placement skips only a redundant move',()=>{
  for(const patch of [{wall:1},{u:121},{height:29},{offset:1},{rotation:90}])assert(!sameProjectPlacement({wall:0,u:120,height:28},{wall:0,u:120,height:28,...patch}));
  assert(!sameProjectPlacement(null,{wall:0}));assert(!sameProjectPlacement({wall:0,u:120,height:0},{u:120,height:0}));assert(!sameProjectPlacement({wall:0,u:120,height:0},{wall:0,u:120}));
 });
+
+test('batched visual redraws preserve every pending user-edit effect in either order',()=>{
+ for(const scheduled of [false,true])for(const reverse of [false,true]){
+  const frames=[],batch=createProjectRefreshBatch({requestFrame:run=>frames.push(run)}),calls=[];
+  function invalidate(shadows=true,changed=true){if(batch.defer('invalidate',invalidate,[shadows,changed]))return;calls.push([shadows,changed]);}
+  const effects=reverse?[[false,false],[true,false],[false,true]]:[[false,true],[true,false],[false,false]];
+  if(!scheduled)batch.begin();
+  for(const flags of effects)if(scheduled)batch.schedule('invalidate',invalidate,flags);else invalidate(...flags);
+  if(scheduled)frames.shift()();else batch.end();
+  assert.deepEqual(calls,[[true,true]],'A texture redraw must not erase a pending project edit or shadow refresh');
+ }
+});
