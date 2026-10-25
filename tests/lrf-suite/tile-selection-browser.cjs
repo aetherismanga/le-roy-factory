@@ -13,7 +13,7 @@ const pass=message=>{checks.push(message);console.log('PASS',message);};
   if(!asset){res.writeHead(404);return res.end('Missing QA asset');}res.setHeader('Content-Type',asset.contentType);res.end(asset.body);
  });
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const origin='http://127.0.0.1:'+server.address().port;
- browser=await chromium.launch({headless:true,executablePath:process.env.LRF_BROWSER_EXECUTABLE||'/root/.cache/ms-playwright/chromium_headless_shell-1187/chrome-linux/headless_shell',args:['--no-sandbox','--disable-dev-shm-usage','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
+ browser=await chromium.launch({headless:true,executablePath:process.env.LRF_BROWSER_EXECUTABLE||undefined,args:['--no-sandbox','--disable-dev-shm-usage','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
  for(const kind of ['studio','general'])for(const mobile of [false,true]){
   activeKind=kind;const context=await browser.newContext({viewport:mobile?{width:390,height:844}:{width:1365,height:930},hasTouch:mobile,isMobile:mobile,reducedMotion:'reduce'});
   await context.addInitScript(()=>{window.__LRF_STANDALONE_PREVIEW__=true;localStorage.setItem('studio-one-render-quality','fluid');localStorage.setItem('randal-general-render-quality','fluid');});
