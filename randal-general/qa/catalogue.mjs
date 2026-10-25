@@ -79,7 +79,7 @@ assert.equal(quoteProject(luceWithMirror).publicTTC,93000);
 assert.equal(privateReference('LRF-00317',purchaseQuote(luceWithMirror).proHT,true),'LRF-00317-387.50.00');
 const luceWithColumn=draftProject({...luceDraft,column:true,columnModel:'luce-column',columnFinish:lincoln.id});
 const reopened=decodeProject(encodeProject(luceWithColumn));
-assert.deepEqual(reopened,luceWithColumn);assert.ok(reopened.items.every(i=>i.settings.finish===lincoln.id));
+assert.deepEqual(reopened,luceWithColumn);const reopenedFurniture=reopened.items.filter(i=>['cabinet','column'].includes(i.type));assert.equal(reopenedFurniture.length,2);assert.ok(reopenedFurniture.every(i=>i.settings.finish===lincoln.id));assert.deepEqual(reopened.items.filter(i=>['window','door'].includes(i.type)).map(i=>i.type).sort(),['door','window']);
 assert.equal(quoteProject(reopened).rows.at(-1).ref,'11352');
 assert.equal(quoteProject(reopened).publicTTC,139200);
 const lincolnPreview=buildPreview(reopened);

@@ -1,7 +1,7 @@
 // RANDAL V04 p. 38.
 // Public TTC only, in cents.
 // Left-offset versions are documented; no unverified right-offset reference.
-export const BASIN_LAYOUT_NAMES=Object.freeze({center:'Vasque centrée',offset:'Vasque décentrée à gauche',double:'Double vasque'});
+export const BASIN_LAYOUT_NAMES=Object.freeze({center:'Vasque centrée',offset:'Vasque déportée à gauche','vessel-left':'Vasque déportée à gauche','offset-right':'Vasque déportée à droite',double:'Double vasque'});
 const rows=(values)=>Object.fromEntries(values.map(([width,ref,ttc])=>[width,{ref,ttc}]));
 const tampaMatte={
  center:rows([[60,'13039',24360],[70,'13040',31680],[80,'13041',31680],[90,'13042',37920],[100,'13043',39840],[120,'13044',57000]]),
@@ -27,4 +27,11 @@ export function integratedOptions(kind,width,color='gloss'){
  const w=width===79?80:width;
  return Object.entries(INTEGRATED_BASINS[kind]?.[color]||{}).flatMap(([layout,sizes])=>sizes[w]?[{...sizes[w],layout,name:BASIN_LAYOUT_NAMES[layout],width:w,color}]:[]);
 }
-export function basinCenters(layout,width){return layout==='double'?[-width/4,width/4]:layout==='offset'?[-Math.max(0,(width-.6)/2)]:[0];}
+// Countertop bowls can be drilled on either side of the same wooden top; their
+// product identity does not change. Integrated ceramic references stay limited
+// to the actual manufacturer options above.
+export function vesselLayoutOptions(kind,width){
+ if(!['neris','torne'].includes(kind)||!Number.isFinite(width)||width<(kind==='neris'?50:40))return [];
+ return ['center',...(width>=80?['vessel-left','offset-right']:[])].map(layout=>({layout,name:BASIN_LAYOUT_NAMES[layout],width}));
+}
+export function basinCenters(layout,width){return layout==='double'?[-width/4,width/4]:(layout==='offset'||layout==='vessel-left')?[-Math.max(0,(width-.6)/2)]:layout==='offset-right'?[Math.max(0,(width-.6)/2)]:[0];}

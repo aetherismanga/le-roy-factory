@@ -1,5 +1,5 @@
 import {cabinetFormat} from './configuration.js';
-import {integratedOptions,BASIN_LAYOUT_NAMES} from './integrated-basins.js';
+import {integratedOptions,vesselLayoutOptions,BASIN_LAYOUT_NAMES} from './integrated-basins.js';
 export {BASIN_LAYOUT_NAMES};
 // RANDAL V04 catalogue, pp. 38 and 41. Colour chips are catalogue references,
 // not spectrophotometric measurements; PBR roughness is a rendering estimate.
@@ -21,6 +21,7 @@ export const VESSEL_COLORS=Object.freeze([
 ]);
 export function basinLayouts(top,width,format,color='gloss'){
  const form=cabinetFormat(format),w=width===79?80:width;
+ if(['neris','torne'].includes(top))return vesselLayoutOptions(top,w).map(o=>({...o,ref:VESSEL_COLORS.find(c=>c.id===color)?.[top]||null,color}));
  let options=integratedOptions(top,w,color);
   return options;
 }

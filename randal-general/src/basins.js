@@ -1,4 +1,4 @@
-import {integratedOptions,BASIN_LAYOUT_NAMES} from './integrated-basins.js';
+import {integratedOptions,vesselLayoutOptions,BASIN_LAYOUT_NAMES} from './integrated-basins.js';
 export {BASIN_LAYOUT_NAMES};
 import {CATALOG as C} from './commerce/catalog.js';
 import {cabinetFormat} from './configuration.js';
@@ -22,6 +22,7 @@ export const VESSEL_COLORS=Object.freeze([
 ]);
 export function basinLayouts(top,width,format,color='gloss'){
  const form=cabinetFormat(format),w=width===79?80:width;
+ if(['neris','torne'].includes(top))return vesselLayoutOptions(top,w).map(o=>({...o,ref:VESSEL_COLORS.find(c=>c.id===color)?.[top]||null,color}));
  let options=integratedOptions(top,w,color);
  if(w===120&&!['luce','amat','sima','less'].includes(form.collection))options=options.filter(o=>o.layout!=='center');
  return options;

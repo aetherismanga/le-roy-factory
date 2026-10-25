@@ -19,7 +19,7 @@ export function createIntegratedBasin({parent,W,kind,layout,ceramic,chrome,dark,
  for(let j=0;j<profiles.length;j++){const [rx,rz,y,p]=profiles[j];for(let k=0;k<=N;k++){const a=k/N*Math.PI*2;ps.push((rx>.024?rx*basinScale:rx)*Math.sign(Math.cos(a))*Math.abs(Math.cos(a))**(2/p),y,rz*Math.sign(Math.sin(a))*Math.abs(Math.sin(a))**(2/p)+.027);uv.push(k/N,j/(profiles.length-1));if(j<profiles.length-1&&k<N){const a=j*(N+1)+k,b=a+N+1;ix.push(a,b,a+1,b,b+1,a+1);}}}
  const bowlG=new T.BufferGeometry();bowlG.setAttribute('position',new T.Float32BufferAttribute(ps,3));bowlG.setAttribute('uv',new T.Float32BufferAttribute(uv,2));bowlG.setIndex(ix);bowlG.computeVertexNormals();for(const x of offsets)mesh(bowlG.clone(),ceramic,'Vasque_'+kind.toUpperCase()+'_coque_3D',insetGroup,x);
  const drainG=new T.CylinderGeometry(.022,.02,.008,64);for(const x of offsets)mesh(drainG.clone(),chrome,'Bonde_chromee',insetGroup,x,isTampa?.695:.685,.027);
- for(const x of offsets)mesh(new T.CylinderGeometry(.019,.019,.0018,64),chrome,'Couvercle_bonde',insetGroup,x,isTampa?.701:.691,.027);
+ for(const x of offsets)mesh(new T.CylinderGeometry(.0315,.0315,.002,64),chrome,'Couvercle_bonde',insetGroup,x,isTampa?.701:.691,.027);
  if(isTampa)for(const x of offsets)box(.036,.007,.0015,dark,'Trop_plein_Tampa',insetGroup,x,.801,-.097,.001);
  insetGroup.userData.basinLayout=layout;insetGroup.userData.basinCenters=offsets;return insetGroup;
 }

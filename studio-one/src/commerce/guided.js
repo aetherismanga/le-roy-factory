@@ -1,5 +1,6 @@
+import {openingBathroomProject} from '../../../shared/lrf-3d/opening-project.js';
 import {normalizeTopDrawer} from '../../../shared/lrf-3d/drawer-options.js';
-import {basinEntry,resolveBasinLayout} from '../basins.js';
+import {basinEntry,basinLayouts,resolveBasinLayout} from '../basins.js';
 import {CATALOG as C} from './catalog.js';
 export const DRAFT_KEY='studio-one-guided-v1';
 export const TRANSFER_KEY='studio-one-guided-transfer-v1';
@@ -11,6 +12,7 @@ export function normalizeDraft(input){
  if(['sella','tampa'].includes(d.top)&&!C.inset[d.top]?.[d.basinColor]?.[d.width])throw Error('Cette vasque n’est pas disponible dans cette largeur et cette finition.');
  if(['sella','tampa'].includes(d.top)){d.basinLayout=d.basinLayout??resolveBasinLayout(d.top,d.width,d.format);if(!basinEntry(d.top,d.basinColor,d.width,d.format,d.basinLayout))throw Error('Implantation de vasque indisponible dans cette largeur et cette finition.');}
  if(['neris','torne'].includes(d.top)&&(!C.vesselColors.some(c=>c.code===d.basinColor)||d.width<(d.top==='neris'?50:40)))throw Error('Vasque à poser incompatible.');
+ if(['neris','torne'].includes(d.top)){d.basinLayout=d.basinLayout??'center';if(!basinLayouts(d.top,d.width,d.format,d.basinColor).some(o=>o.layout===d.basinLayout))throw Error('Implantation de vasque à poser incompatible avec la largeur du plan.');}
  if(!C.finishes.some(f=>f.id===d.columnFinish))throw Error('Finition de colonne inconnue.');
  if(d.mirror!==null){const m=C.mirrors.find(m=>m.id===d.mirror),size=m?.sizes[d.mirrorSize];if(!size||size.refs&&!Object.hasOwn(size.refs,d.mirrorFinish))throw Error('Miroir non reconnu.');}
  d.topDrawer=normalizeTopDrawer(d.topDrawer,d.top);d.column=!!d.column;d.step=Math.min(4,Math.max(0,Number.isInteger(d.step)?d.step:0));return d;
@@ -22,5 +24,6 @@ export function draftProject(input){
  const selectedMirror=d.mirror?C.mirrors.find(v=>v.id===d.mirror).sizes[d.mirrorSize]:null;
  if(d.column)items.push({id:'guided-column',type:'column',settings:{finish:d.columnFinish,hingeSide:'left',doorOpen:false},placement:{wall:0,u:125+Math.max(d.width,selectedMirror?.width||0)/2+24,height:28}});
  if(d.mirror){const mirror=C.mirrors.find(m=>m.id===d.mirror),size=mirror.sizes[d.mirrorSize];items.push({id:'guided-mirror',type:'mirror',settings:{mirrorModel:d.mirror,width:size.width,height:size.height,mirrorFinish:d.mirrorFinish,led:d.mirror==='zen'||d.mirror==='ilse'||d.mirror==='capsule'},placement:{wall:0,u:125,height:Math.max(109,m.height+(m.id==='three'?0:28)+2+(d.top==='neris'?14:d.top==='torne'?12:0)+10)+size.height/2}});}
- return {version:2,title:'Ma composition STUDIO ONE',room:{points:[[0,0],[450,0],[450,450],[0,450]],height:260,partitions:[]},floor:{collection:'Creta',color:'caramello',groutColor:'Gris clair'},walls:Array.from({length:4},()=>({collection:'Peinture',color:'white'})),lighting:'day',brightness:100,items};
+ const opening=openingBathroomProject();
+ return {...opening,title:'Ma composition STUDIO ONE',items:[...items,...opening.items]};
 }

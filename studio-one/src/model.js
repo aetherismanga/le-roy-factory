@@ -106,9 +106,9 @@ export function makeModel({width=.80,includeMirror=true,basinLayout,basinTop='se
  const outlet=mesh(new T.CylinderGeometry(.01,.01,.004,32),dark,'Mousseur',faucet,0,.972,-.041);outlet.rotation.x=.3;
  box(.018,.006,.071,chrome,'Levier_mitigeur',faucet,0,.985,-.182,.002);
  const secondFaucet=faucet.clone(true);secondFaucet.name='Mitigeur_illustratif_double';root.add(secondFaucet);
- const getBasinCenters=mode=>insets[mode]?.userData.basinCenters||[0];
+ const getBasinCenters=mode=>insets[mode]?.userData.basinCenters||(['neris','torne'].includes(mode)?basinCenters(chosenLayout,W):[0]);
  const mirror=includeMirror?makeMirrorFrame():null;if(mirror)root.add(mirror);
- const tops=createTopSet({wood:frontWood,ceramic,chrome,roundedRect,woodUV,width:W});root.add(tops.root);
+ const tops=createTopSet({wood:frontWood,ceramic,chrome,roundedRect,woodUV,width:W,basinLayout:chosenLayout});root.add(tops.root);
  cabinet.userData.editTarget='furniture';faucet.userData.editTarget='basin';
  tops.root.userData.editTarget='basin';tops.solid.userData.editTarget='basin';tops.drilled.userData.editTarget='basin';
  for(const v of Object.values(tops.vessels))v.group.userData.editTarget='basin';

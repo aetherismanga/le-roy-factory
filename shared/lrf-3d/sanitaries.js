@@ -21,9 +21,8 @@ export function flushPlateMaterial(value='Blanc'){
  const finish=FLUSH_PLATE_COLORS.find(f=>f.id===value);
  return finish?new T.MeshPhysicalMaterial({color:finish.hex,metalness:finish.metalness,roughness:finish.roughness,clearcoat:.14}):metalMaterial(value);
 }
-export const PLUMBING=[
- {id:'Chrome brillant',trap:'31141112704',drain:'000550'}, {id:'Noir mat',trap:'31141112708',drain:'000553'}, {id:'Or brossé',trap:'31141112709',drain:'000558'}, {id:'Cuivre',trap:'31141112705',drain:'000559'}, {id:'Inox brossé',trap:'31141112760',drain:'000556'}, {id:'Gris canon',trap:'31141112706',drain:'000566'}, {id:'Blanc mat',trap:'31141112703',drain:'000552'}
-];
+export {PLUMBING} from './plumbing-catalog.js';
+import {PLUMBING} from './plumbing-catalog.js';
 export const sanitarySpec=s=>SANITARIES.find(p=>p.id===s.reference)||SANITARIES[0];
 // The catalogue gives overall dimensions/photos, not manufacturer CAD. Closed
 // multi-profile ceramic shells preserve the hollow interior and physical rims.

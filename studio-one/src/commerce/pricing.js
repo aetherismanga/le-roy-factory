@@ -1,7 +1,10 @@
-import {basinEntry} from '../basins.js';
+import {AQUAHOME} from '../../../shared/lrf-3d/aquahome-catalog.js';
+import {matchingDrain} from '../../../shared/lrf-3d/plumbing-catalog.js';
+import {basinEntry,BASIN_LAYOUT_NAMES} from '../basins.js';
 import {CATALOG as C} from './catalog.js';
 export const money=cents=>Number.isInteger(cents)?new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR'}).format(cents/100):'Prix sur demande';
 export const finish=id=>C.finishes.find(f=>f.id===id);
+const drainSummary=s=>{const d=matchingDrain(AQUAHOME.find(p=>p.reference===s.tap)?.finish||s.drainFinish);return ' · clic-clac '+d.finish+' · réf. '+d.reference+' (hors chiffrage)';};
 export function lineItems(item){
  const s=item.settings||{},f=finish(s.finish),rows=[];
  const row=(name,ref,ttc,detail='',note='')=>rows.push({itemId:item.id,name,ref:ref||'À confirmer',detail,publicTTC:Number.isInteger(ttc)?ttc:null,note});
@@ -12,10 +15,10 @@ export function lineItems(item){
   row('STUDIO ONE · '+m.name,ref,(hasPlan?m.topTTC:m.bareTTC)[b],`${s.width} × ${m.height} × 46 cm${m.legHeight?' · caisson '+m.bodyHeight+' cm + pieds '+m.legHeight+' cm':''} · ${f.name} · ${hasPlan?'plan assorti':top==='bare'?'meuble seul · sans plan ni vasque':'sans plan bois'}`,s.width===40?'40 cm : à confirmer usine':'');
   if(['sella','tampa'].includes(top)){
    const color=s.basinColor||'gloss',r=basinEntry(top,color,s.width,s.format,s.basinLayout);
-   row('Vasque '+(top==='sella'?'Sella':'Tampa'),r?.ref,r?.ttc,`${s.width} cm · ${C.insetColors.find(c=>c.code===color)?.name||color}${r?' · '+r.name:''}`);
+   row('Vasque '+(top==='sella'?'Sella':'Tampa'),r?.ref,r?.ttc,`${s.width} cm · ${C.insetColors.find(c=>c.code===color)?.name||color}${r?' · '+r.name:''}${drainSummary(s)}`);
   }else if(['neris','torne'].includes(top)){
    const color=C.vesselColors.find(c=>c.code===(s.basinColor||'gloss')),name=top==='neris'?'Neris':'Torne';
-   row('Vasque '+name,color?.[name],color&&s.width>=(top==='neris'?50:40)?C.vesselTTC:null,color?.name||'Couleur à vérifier');
+   row('Vasque '+name,color?.[name],color&&s.width>=(top==='neris'?50:40)?C.vesselTTC:null,(color?.name||'Couleur à vérifier')+' · '+(BASIN_LAYOUT_NAMES[s.basinLayout]||BASIN_LAYOUT_NAMES.center)+drainSummary(s));
   }
  }else if(item.type==='column'){
   row(C.column.name,f?C.column.ref+' '+f.refCode:null,f?C.column.ttc:null,`38 × 132 × 27 cm · ${f?.name||'Finition à vérifier'}`);

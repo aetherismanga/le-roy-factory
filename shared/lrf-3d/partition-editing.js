@@ -41,5 +41,5 @@ export function partitionUpdate(config,index,patch){
 
 export function worldDeltaToPlan(config,delta){
  const a=config.points[0],b=config.points[1],length=Math.hypot(b[0]-a[0],b[1]-a[1]),ux=(b[0]-a[0])/length,uy=(b[1]-a[1])/length,area=config.points.reduce((s,p,i)=>{const q=config.points[(i+1)%config.points.length];return s+p[0]*q[1]-q[0]*p[1];},0),sign=area>0?1:-1;
- return [Math.round((ux*delta.x-sign*uy*delta.z)*100),Math.round((uy*delta.x+sign*ux*delta.z)*100)];
+ return [Math.round((ux*delta.x-sign*uy*delta.z)*1000)/10,Math.round((uy*delta.x+sign*ux*delta.z)*1000)/10];
 }

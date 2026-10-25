@@ -1,4 +1,5 @@
 import * as T from 'three';
+import {basinCenters} from './integrated-basins.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 
 export const TOP_OPTIONS=Object.freeze([
@@ -33,23 +34,23 @@ export function vesselGeometry(kind){
  const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(positions,3));g.setAttribute('uv',new T.Float32BufferAttribute(uv,2));g.setIndex(indices);g.computeVertexNormals();return g;
 }
 
-export function createTopSet({wood,ceramic,chrome,roundedRect,woodUV,width=.8}){
+export function createTopSet({wood,ceramic,chrome,roundedRect,woodUV,width=.8,basinLayout='center'}){
  const root=new T.Group();root.name='Plans_et_vasques_a_poser';
  const add=(geometry,material,name,parent=root,x=0,y=0,z=0)=>{const m=new T.Mesh(geometry,material);m.name=name;m.position.set(x,y,z);m.castShadow=m.receiveShadow=true;parent.add(m);return m;};
  const solid=woodUV(add(new RoundedBoxGeometry(width,.02,.46,3,.0008),wood,'Plan_assorti_'+Math.round(width*1000)+'x460x20',root,0,.83,0));
- const shape=roundedRect(width-.0016,.4584,.006);
- const waste=new T.Path();waste.absarc(0,-.020,.024,0,Math.PI*2,true);shape.holes.push(waste);
- const tap=new T.Path();tap.absarc(0,.190,.017,0,Math.PI*2,true);shape.holes.push(tap);
+ const vesselX=basinCenters(basinLayout,width)[0],shape=roundedRect(width-.0016,.4584,.006);
+ const waste=new T.Path();waste.absarc(vesselX,-.020,.024,0,Math.PI*2,true);shape.holes.push(waste);
+ const tap=new T.Path();tap.absarc(vesselX,.190,.017,0,Math.PI*2,true);shape.holes.push(tap);
  const geometry=new T.ExtrudeGeometry(shape,{depth:.0184,steps:1,bevelEnabled:true,bevelSize:.0008,bevelThickness:.0008,bevelSegments:3,curveSegments:48});geometry.rotateX(-Math.PI/2);
  const drilled=woodUV(add(geometry,wood,'Plan_assorti_perce',root,0,.8208,0));
  const vessels={};
  for(const kind of ['neris','torne']){
-  const group=new T.Group();group.name=kind==='neris'?'Vasque_a_poser_Neris_460x330x140':'Vasque_a_poser_Torne_D370x120';group.position.set(0,.84,.020);root.add(group);
+  const group=new T.Group();group.name=kind==='neris'?'Vasque_a_poser_Neris_460x330x140':'Vasque_a_poser_Torne_D370x120';group.position.set(vesselX,.84,.020);root.add(group);
   const bowl=add(vesselGeometry(kind),ceramic,'Coque_ceramique_'+kind,group);
   add(new T.CylinderGeometry(.022,.021,.006,64),chrome,'Bonde_'+kind,group,0,.019,0);
-  add(new T.CylinderGeometry(.019,.019,.0018,64),chrome,'Couvercle_bonde_'+kind,group,0,.023,0);
+  add(new T.CylinderGeometry(.0315,.0315,.002,64),chrome,'Couvercle_bonde_'+kind,group,0,.023,0);
   vessels[kind]={group,bowl};group.visible=false;
  }
  root.visible=false;solid.visible=false;drilled.visible=false;
- return {root,solid,drilled,vessels};
+ return {root,solid,drilled,vessels,basinCenters:[vesselX]};
 }

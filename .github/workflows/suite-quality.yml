@@ -127,3 +127,35 @@ jobs:
           name: lrf-construction-checks
           path: reports/lrf-suite/
           retention-days: 14
+  opening-and-product-placement:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      LRF_OPENING_QA_OUTPUT: reports/lrf-suite/opening
+      LRF_PRODUCT_DROP_QA_OUTPUT: reports/lrf-suite/product-drop
+      LRF_BASIN_QA_OUTPUT: reports/lrf-suite/basin-options
+      LRF_PARTITION_QA_OUTPUT: reports/lrf-suite/partition-snap
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts --include=dev --no-audit --no-fund
+      - run: npm run build:general && npm run build:studio
+      - run: npx playwright install --with-deps chromium
+      - name: Verify fresh scenes and preserve explicitly resumed projects
+        run: node tests/lrf-suite/opening-scene-browser.cjs
+      - name: Verify visual basin choices, right placement and matching drains
+        run: node tests/lrf-suite/basin-ergonomics-browser.cjs
+      - name: Verify click and exact manual product placement
+        run: node tests/lrf-suite/product-placement-drag-browser.cjs
+      - name: Verify partition snapping in the plan
+        run: node tests/lrf-suite/partition-snap-browser.cjs
+      - name: Keep opening and product interaction results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lrf-opening-product-checks
+          path: reports/lrf-suite/
+          retention-days: 14

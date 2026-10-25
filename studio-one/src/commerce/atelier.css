@@ -48,3 +48,5 @@ body>header>.brand>.studio-logo{flex:none;background:transparent;overflow:hidden
 #add-choices .add-card small{font:11px/1.5 Arial,sans-serif;color:#74796d}
 .product-image-unavailable{display:grid;place-items:center;height:100%;padding:12px;font:11px/1.5 Arial,sans-serif;color:#74796d}
 @media(max-width:720px){.add-items button{min-height:145px}.add-items button .palette-picture{height:105px}#add-choices .catalogue-icon{height:145px}#add-choices .add-card{padding:8px 8px 13px}#add-choices .add-card strong{font-size:13px}}
+
+@media(max-width:760px){body>header>.quit-configurator{white-space:normal;text-align:center;max-width:118px;line-height:1.25}}

@@ -1,0 +1,627 @@
+{
+  "version": "2026-catalogue-originals-1",
+  "source": "AQUAHOME 2026 · catalogue général existant",
+  "sourcePath": "assets/pdf/aquahome2026.pdf",
+  "sourceSHA256": "b283022c028ec4acd18dcac7738a48739a4ebfdf845794c8e618f5b7aa64b1b9",
+  "sourceURL": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2Faquahome2026.pdf?alt=media&token=70b1b113-0f0e-4cec-ad43-ddb81021590c",
+  "models": [
+    {
+      "references": [
+        "11340212701",
+        "11340212703",
+        "11340212708",
+        "11340212710",
+        "11340212705",
+        "11340212706",
+        "11340212702"
+      ],
+      "file": "catalogue-p10-x111.webp",
+      "page": 10,
+      "xref": 111,
+      "width": 183,
+      "height": 240,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "11340112701",
+        "11340112703",
+        "11340112708",
+        "11340112710",
+        "11340112705",
+        "11340112706",
+        "11340112702"
+      ],
+      "file": "catalogue-p10-x105.webp",
+      "page": 10,
+      "xref": 105,
+      "width": 147,
+      "height": 177,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "11342112701",
+        "11342112703",
+        "11342112708",
+        "11342112710",
+        "11342112705",
+        "11342112706"
+      ],
+      "file": "catalogue-p11-x136.webp",
+      "page": 11,
+      "xref": 136,
+      "width": 187,
+      "height": 187,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "11350212701",
+        "11350212703",
+        "11350212708",
+        "11350212710",
+        "11350212705",
+        "11350212706"
+      ],
+      "file": "catalogue-p12-x158.webp",
+      "page": 12,
+      "xref": 158,
+      "width": 166,
+      "height": 217,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "11350112701",
+        "11350112703",
+        "11350112708",
+        "11350112710",
+        "11350112705",
+        "11350112706"
+      ],
+      "file": "catalogue-p12-x156.webp",
+      "page": 12,
+      "xref": 156,
+      "width": 138,
+      "height": 167,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "11640212701",
+        "11640212705"
+      ],
+      "file": "catalogue-p13-x174.webp",
+      "page": 13,
+      "xref": 174,
+      "width": 194,
+      "height": 225,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "11640112701",
+        "11640112705"
+      ],
+      "file": "catalogue-p13-x172.webp",
+      "page": 13,
+      "xref": 172,
+      "width": 219,
+      "height": 178,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "11642112701",
+        "11642112705"
+      ],
+      "file": "catalogue-p14-x187.webp",
+      "page": 14,
+      "xref": 187,
+      "width": 213,
+      "height": 125,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "11940212701",
+        "11940212703",
+        "11940212706"
+      ],
+      "file": "catalogue-p15-x213.webp",
+      "page": 15,
+      "xref": 213,
+      "width": 235,
+      "height": 232,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "11940112701",
+        "11940112703",
+        "11940112706"
+      ],
+      "file": "catalogue-p15-x225.webp",
+      "page": 15,
+      "xref": 225,
+      "width": 213,
+      "height": 201,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "11942112701",
+        "11942112703",
+        "11942112706"
+      ],
+      "file": "catalogue-p16-x240.webp",
+      "page": 16,
+      "xref": 240,
+      "width": 185,
+      "height": 95,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "10440212701",
+        "10440212703",
+        "10440212708",
+        "10440212709"
+      ],
+      "file": "catalogue-p17-x308.webp",
+      "page": 17,
+      "xref": 308,
+      "width": 255,
+      "height": 244,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "10440112701",
+        "10440112703",
+        "10440112708",
+        "10440112709"
+      ],
+      "file": "catalogue-p17-x304.webp",
+      "page": 17,
+      "xref": 304,
+      "width": 237,
+      "height": 168,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "10442112701",
+        "10442112703",
+        "10442112708",
+        "10442112709"
+      ],
+      "file": "catalogue-p18-x360.webp",
+      "page": 18,
+      "xref": 360,
+      "width": 177,
+      "height": 91,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "13340212701",
+        "13340212708"
+      ],
+      "file": "catalogue-p19-x386.webp",
+      "page": 19,
+      "xref": 386,
+      "width": 244,
+      "height": 214,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "13340112701"
+      ],
+      "file": "catalogue-p19-x377.webp",
+      "page": 19,
+      "xref": 377,
+      "width": 242,
+      "height": 179,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "13240212701",
+        "13240212703",
+        "13240212708"
+      ],
+      "file": "catalogue-p20-x396.webp",
+      "page": 20,
+      "xref": 396,
+      "width": 234,
+      "height": 273,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "13240112701",
+        "13240112703",
+        "13240112708"
+      ],
+      "file": "catalogue-p20-x398.webp",
+      "page": 20,
+      "xref": 398,
+      "width": 218,
+      "height": 218,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "13242112701",
+        "13242112703",
+        "13242112708"
+      ],
+      "file": "catalogue-p21-x438.webp",
+      "page": 21,
+      "xref": 438,
+      "width": 199,
+      "height": 178,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "12640112701",
+        "12640112703"
+      ],
+      "file": "catalogue-p22-x491.webp",
+      "page": 22,
+      "xref": 491,
+      "width": 209,
+      "height": 175,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "12642112701",
+        "12642112703"
+      ],
+      "file": "catalogue-p22-x493.webp",
+      "page": 22,
+      "xref": 493,
+      "width": 187,
+      "height": 110,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "11840112701",
+        "11840112601",
+        "11840112703"
+      ],
+      "file": "catalogue-p23-x562.webp",
+      "page": 23,
+      "xref": 562,
+      "width": 210,
+      "height": 169,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "11842112701",
+        "11842112703"
+      ],
+      "file": "catalogue-p23-x564.webp",
+      "page": 23,
+      "xref": 564,
+      "width": 182,
+      "height": 110,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "10340112701"
+      ],
+      "file": "catalogue-p24-x639.webp",
+      "page": 24,
+      "xref": 639,
+      "width": 220,
+      "height": 166,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "10342112701"
+      ],
+      "file": "catalogue-p24-x592.webp",
+      "page": 24,
+      "xref": 592,
+      "width": 160,
+      "height": 136,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "12040112701"
+      ],
+      "file": "catalogue-p24-x631.webp",
+      "page": 24,
+      "xref": 631,
+      "width": 204,
+      "height": 147,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "12042112701"
+      ],
+      "file": "catalogue-p24-x629.webp",
+      "page": 24,
+      "xref": 629,
+      "width": 273,
+      "height": 219,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "14640212701",
+        "14640212707"
+      ],
+      "file": "catalogue-p25-x679.webp",
+      "page": 25,
+      "xref": 679,
+      "width": 185,
+      "height": 164,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "14642212701",
+        "14642212707"
+      ],
+      "file": "catalogue-p25-x681.webp",
+      "page": 25,
+      "xref": 681,
+      "width": 111,
+      "height": 179,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "11355112201",
+        "11355112203",
+        "11355112208",
+        "11355112210",
+        "11355112205",
+        "11355112206"
+      ],
+      "file": "catalogue-p27-x722.webp",
+      "page": 27,
+      "xref": 722,
+      "width": 102,
+      "height": 231,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "11356112201",
+        "11356112203"
+      ],
+      "file": "catalogue-p27-x732.webp",
+      "page": 27,
+      "xref": 732,
+      "width": 148,
+      "height": 227,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "11354112201",
+        "11354112203"
+      ],
+      "file": "catalogue-p27-x725.webp",
+      "page": 27,
+      "xref": 725,
+      "width": 111,
+      "height": 248,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "540000010",
+        "540000013",
+        "540000018",
+        "540000015",
+        "540000016"
+      ],
+      "file": "catalogue-p30-x800.webp",
+      "page": 30,
+      "xref": 800,
+      "width": 119,
+      "height": 260,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "56000001",
+        "56000003"
+      ],
+      "file": "catalogue-p30-x802.webp",
+      "page": 30,
+      "xref": 802,
+      "width": 95,
+      "height": 243,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "520000012"
+      ],
+      "file": "catalogue-p30-x804.webp",
+      "page": 30,
+      "xref": 804,
+      "width": 84,
+      "height": 256,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "520000019",
+        "530000012"
+      ],
+      "file": "catalogue-p31-x827.webp",
+      "page": 31,
+      "xref": 827,
+      "width": 95,
+      "height": 240,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "510000019"
+      ],
+      "file": "catalogue-p31-x837.webp",
+      "page": 31,
+      "xref": 837,
+      "width": 93,
+      "height": 240,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "520000020",
+        "520000028"
+      ],
+      "file": "catalogue-p31-x826.webp",
+      "page": 31,
+      "xref": 826,
+      "width": 94,
+      "height": 247,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "520000016"
+      ],
+      "file": "catalogue-p31-x814.webp",
+      "page": 31,
+      "xref": 814,
+      "width": 107,
+      "height": 275,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "520000014",
+        "530000015"
+      ],
+      "file": "catalogue-p32-x853.webp",
+      "page": 32,
+      "xref": 853,
+      "width": 89,
+      "height": 250,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "520000013",
+        "530000013",
+        "530000018",
+        "530000028",
+        "540001326"
+      ],
+      "file": "catalogue-p32-x843.webp",
+      "page": 32,
+      "xref": 843,
+      "width": 187,
+      "height": 287,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "550000016"
+      ],
+      "file": "catalogue-p33-x860.webp",
+      "page": 33,
+      "xref": 860,
+      "width": 153,
+      "height": 339,
+      "shownFinish": "Chrome brillant",
+      "detail": false
+    },
+    {
+      "references": [
+        "530000016"
+      ],
+      "file": "catalogue-p31-x824.webp",
+      "page": 31,
+      "xref": 824,
+      "width": 298,
+      "height": 485,
+      "shownFinish": "Noir mat",
+      "detail": false
+    },
+    {
+      "references": [
+        "540000019"
+      ],
+      "file": "catalogue-p30-x806.webp",
+      "page": 30,
+      "xref": 806,
+      "width": 280,
+      "height": 459,
+      "shownFinish": "Cuivre",
+      "detail": true
+    },
+    {
+      "references": [
+        "530000036"
+      ],
+      "file": "catalogue-p32-x855.webp",
+      "page": 32,
+      "xref": 855,
+      "width": 641,
+      "height": 588,
+      "shownFinish": "Gris canon",
+      "detail": true
+    }
+  ]
+}

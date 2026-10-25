@@ -1,8 +1,7 @@
-// Catalogue views rendered from the existing, editable 3D models. They are
-// illustrative model renders, not manufacturer photographs or additional items.
-// Paths are shared by STUDIO ONE and RANDAL General so each only loads images
-// visible in its product chooser. Existing manufacturer cabinet/mirror photos
-// remain the first choice for collection-specific catalogue cards.
+// Product cards prefer manufacturer photographs when catalogue originals exist.
+// Other generic room objects retain clearly identified views of their editable
+// 3D models. These images never create additional items or change references.
+import {aquahomeProductVisual,defaultAquahomeProductVisual} from './aquahome-product-visuals.js';
 import {mirrorThumbnail} from './mirror-thumbnail.js';
 const base='assets/product-visuals/v2/';
 const descriptor=(file,alt)=>Object.freeze({src:base+file+'.webp',alt,kind:'model-render',provenance:'Vue du modèle 3D proposé dans le configurateur · éclairage studio'});
@@ -29,9 +28,9 @@ export const PRODUCT_VISUALS=Object.freeze({
  'screen-return':descriptor('screen-return','Paroi de douche en verre avec retour de 40 cm, profilés noirs'),
  'towel-round':descriptor('towel-round','Sèche-serviettes chromé à tubes ronds'),
  'towel-flat':descriptor('towel-flat','Sèche-serviettes chromé à lames plates'),
- 'tap-shower':descriptor('tap-shower','Colonne de douche AQUA HOME chromée avec douche de tête'),
- 'tap-bath':descriptor('tap-bath','Robinetterie de bain murale AQUA HOME chromée'),
- 'tap-island':descriptor('tap-island','Robinetterie de bain sur pied AQUA HOME chromée'),
+ 'tap-shower':Object.freeze(defaultAquahomeProductVisual('shower')),
+ 'tap-bath':Object.freeze(defaultAquahomeProductVisual('bath')),
+ 'tap-island':Object.freeze(defaultAquahomeProductVisual('island')),
  'toilet-tr2217r':descriptor('toilet-tr2217r','WC suspendu AMARO VORTEX blanc, référence TR2217R'),
  'toilet-tr2217r-u18':descriptor('toilet-tr2217r-u18','WC suspendu AMARO BLACK VORTEX noir, référence TR2217R-U18'),
  'toilet-tr2224':descriptor('toilet-tr2224','WC sur pied KRAL blanc avec réservoir, référence TR2224'),
@@ -40,6 +39,7 @@ export const PRODUCT_VISUALS=Object.freeze({
  'washstand-tr443':descriptor('washstand-tr443','Lave-mains TRIXIE avec tablette, robinetterie et siphon chromés, référence TR443')
 });
 export function productVisual(type,options={}){
+ if(type==='tap'){const reference=options.tap||options.reference;return reference?aquahomeProductVisual(reference):defaultAquahomeProductVisual(options.use||'shower');}
  const key=type==='shower'&&options.trayType==='tile'?'shower-tile':type==='mirror'&&options.mirrorModel?'mirror-'+options.mirrorModel:type==='bath'?'bath-'+(options.kind||'island'):type==='screen'?'screen-'+(options.screen||'fixed'):type==='tap'?'tap-'+(options.use||'shower'):type==='towel'?'towel-'+(options.model||'round'):type==='toilet'?options.support?'toilet-support':'toilet-'+String(options.reference||'TR2217R').toLowerCase():type==='washstand'?'washstand-'+String(options.reference||'TR443').toLowerCase():type;
  return PRODUCT_VISUALS[key]||null;
 }

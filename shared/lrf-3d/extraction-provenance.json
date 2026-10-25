@@ -6,7 +6,18 @@
       "module": "aquahome-catalog.js",
       "sha256": "233f575ac29e8c8b47bacb94655ea35a75b0f9c952def8f016cde3bcfb3b21f6",
       "bytes": 19959,
-      "originalsIdentical": true
+      "originalsIdentical": true,
+      "current": {
+        "sha256": "fb4a717e572172c53f30c8f46a60ce221b7059450737a7f72e6d93ef57765a83",
+        "bytes": 19963,
+        "changeType": "functional-update-20261025",
+        "reason": "Correct the original catalogue page 24 Sprinter mixer collection label while preserving the existing product references, finish choices and non-price public catalog structure.",
+        "validation": [
+          "tests/lrf-suite/aquahome-product-visuals.test.mjs",
+          "studio-one/qa/bathroom-check.mjs",
+          "tests/lrf-suite/basin-ergonomics.test.mjs"
+        ]
+      }
     },
     {
       "module": "catalogue-product-visuals.js",
@@ -14,22 +25,46 @@
       "bytes": 4183,
       "originalsIdentical": true,
       "current": {
-        "sha256": "f74bc1ed8150971857c233f223e9c797227729a74587ab80c794cabbe853ab4b",
-        "bytes": 5114,
+        "sha256": "8ee2201ed9a86cabcb66856d00fafa8023fd4892855c344f70c5dfa8cbdd0c5b",
+        "bytes": 5165,
         "changeType": "functional-update-20261025",
-        "reason": "Requested editable tiled partitions, individual placement locks, tiled shower tray and compact side panels; original extraction provenance retained above.",
+        "reason": "Replace generic AQUAHOME tap model illustrations with original, reference-matched manufacturer photographs extracted from the existing general catalogue; preserve other product cards and honestly identify photographs shown in a different finish.",
         "validation": [
-          "tests/lrf-suite/tiled-shower-tray.test.mjs",
-          "tests/lrf-suite/tiled-shower-tray-browser.cjs",
-          "tests/lrf-suite/element-panels-browser.cjs"
+          "tests/lrf-suite/aquahome-product-visuals.test.mjs",
+          "tests/lrf-suite/element-panels-browser.cjs",
+          "tests/lrf-suite/product-placement-drag-browser.cjs"
         ]
-      }
+      },
+      "history": [
+        {
+          "sha256": "f74bc1ed8150971857c233f223e9c797227729a74587ab80c794cabbe853ab4b",
+          "bytes": 5114,
+          "changeType": "functional-update-20261025",
+          "reason": "Requested editable tiled partitions, individual placement locks, tiled shower tray and compact side panels; original extraction provenance retained above.",
+          "validation": [
+            "tests/lrf-suite/tiled-shower-tray.test.mjs",
+            "tests/lrf-suite/tiled-shower-tray-browser.cjs",
+            "tests/lrf-suite/element-panels-browser.cjs"
+          ]
+        }
+      ]
     },
     {
       "module": "ceramic-basins.js",
       "sha256": "b569575ebeff68c54d4060cfc55d0b7c23c9481f10b1354bac174a161e4d3aad",
       "bytes": 3414,
-      "originalsIdentical": true
+      "originalsIdentical": true,
+      "current": {
+        "sha256": "2b16714ca8613a9c763d01cd364e2559647088f10974d7f808e3c9cc3f06a7ca",
+        "bytes": 3415,
+        "changeType": "functional-update-20261025",
+        "reason": "Give integrated ceramic basins a visible 63 mm clic-clac cap that can follow the selected mixer material, preserving the bowl geometry, original public catalogue references and existing layout restrictions.",
+        "validation": [
+          "tests/lrf-suite/basin-ergonomics.test.mjs",
+          "studio-one/qa/ceramic-basins.mjs",
+          "randal-general/qa/ceramic-basins.mjs"
+        ]
+      }
     },
     {
       "module": "colour-rendering.js",
@@ -96,13 +131,27 @@
       "bytes": 1869,
       "originalsIdentical": true,
       "current": {
-        "sha256": "a00489b48a8739eb3a69a89a3a0f71d3e8f594bcfcc32f9bb2508900108b10af",
-        "bytes": 1763,
-        "changeType": "comments-only-confidentiality",
-        "reason": "Removed source comments exposing private purchasing terms; public TTC prices, references and executable code are unchanged.",
-        "originalExecutableSha256": "58830347571a835f56e3bd122077109cd06fef95658f5170c57e6e3cfb2c7a4b",
-        "executableSha256": "58830347571a835f56e3bd122077109cd06fef95658f5170c57e6e3cfb2c7a4b"
-      }
+        "sha256": "4d29c8576e9db8a541ea0df27c6bbc20f13a1dd411f231e4e4e82ccb3e7efcec",
+        "bytes": 2419,
+        "changeType": "functional-update-20261025",
+        "reason": "Add a right-offset drilling layout for loose Neris and Torne countertop bowls and matching centre coordinates, keeping manufacturer integrated ceramic SKU and public-price tables unchanged and retaining the earlier comments-only confidentiality cleanup in history.",
+        "validation": [
+          "tests/lrf-suite/basin-ergonomics.test.mjs",
+          "studio-one/qa/ceramic-basins.mjs",
+          "randal-general/qa/ceramic-basins.mjs"
+        ],
+        "previousExecutableSha256": "58830347571a835f56e3bd122077109cd06fef95658f5170c57e6e3cfb2c7a4b"
+      },
+      "history": [
+        {
+          "sha256": "a00489b48a8739eb3a69a89a3a0f71d3e8f594bcfcc32f9bb2508900108b10af",
+          "bytes": 1763,
+          "changeType": "comments-only-confidentiality",
+          "reason": "Removed source comments exposing private purchasing terms; public TTC prices, references and executable code are unchanged.",
+          "originalExecutableSha256": "58830347571a835f56e3bd122077109cd06fef95658f5170c57e6e3cfb2c7a4b",
+          "executableSha256": "58830347571a835f56e3bd122077109cd06fef95658f5170c57e6e3cfb2c7a4b"
+        }
+      ]
     },
     {
       "module": "mirror-lighting.js",
@@ -227,17 +276,30 @@
       "bytes": 7756,
       "originalsIdentical": true,
       "current": {
-        "sha256": "64cb02b54b1d035af284bc60a85f2acfd2df42251737f966f3802295436e6cd8",
-        "bytes": 9499,
+        "sha256": "5573ccbabc2d08ec0cb8dece33fd646ee59924c0732042b14961b9ea9f98c938",
+        "bytes": 9197,
         "changeType": "functional-update-20261025",
-        "reason": "Requested floor calepinage side panel and compatible wall alignment; verified Stone Icon Big Opus; wall-mounted WC with inherited editable cladding. Original extraction hash retained above.",
+        "reason": "Share the existing seven plumbing finish and reference mappings with cabinet clic-clac matching, without changing sanitary identifiers, dimensions, bowl geometry or the independent flush-plate finishes.",
         "validation": [
-          "tests/lrf-suite/floor-wall-alignment.test.mjs",
-          "tests/lrf-suite/sanitary-mount.test.mjs",
-          "tests/lrf-suite/sanitary-support-cladding.test.mjs",
-          "tests/lrf-suite/stone-icon-big-opus.test.mjs"
+          "tests/lrf-suite/basin-ergonomics.test.mjs",
+          "shared/lrf-3d/qa/ral-sanitary-check.mjs",
+          "tests/lrf-suite/sanitary-support-cladding.test.mjs"
         ]
-      }
+      },
+      "history": [
+        {
+          "sha256": "64cb02b54b1d035af284bc60a85f2acfd2df42251737f966f3802295436e6cd8",
+          "bytes": 9499,
+          "changeType": "functional-update-20261025",
+          "reason": "Requested floor calepinage side panel and compatible wall alignment; verified Stone Icon Big Opus; wall-mounted WC with inherited editable cladding. Original extraction hash retained above.",
+          "validation": [
+            "tests/lrf-suite/floor-wall-alignment.test.mjs",
+            "tests/lrf-suite/sanitary-mount.test.mjs",
+            "tests/lrf-suite/sanitary-support-cladding.test.mjs",
+            "tests/lrf-suite/stone-icon-big-opus.test.mjs"
+          ]
+        }
+      ]
     },
     {
       "module": "screen-mount.js",

@@ -1,3 +1,4 @@
+import {cpSync} from 'node:fs';
 import {build} from 'esbuild';
 import {readFileSync,writeFileSync,copyFileSync,rmSync,readdirSync} from 'node:fs';
 import {createHash} from 'node:crypto';
@@ -25,3 +26,5 @@ writeFileSync('dist/index.html',home);
 
 await build({entryPoints:['src/commerce/house-workspace.js'],bundle:true,format:'esm',target:['es2020'],minify:true,outfile:'dist/maison.js',legalComments:'eof'});
 let house=readFileSync('src/commerce/house-workspace.html','utf8');house=house.replace('"maison.js"','"maison.js?v='+createHash('sha256').update(readFileSync('dist/maison.js')).digest('hex').slice(0,12)+'"');writeFileSync('dist/maison.html',house);
+
+cpSync('../shared/lrf-3d/media/aquahome-2026','dist/assets/aquahome-2026',{recursive:true});
