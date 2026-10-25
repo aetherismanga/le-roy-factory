@@ -132,7 +132,18 @@
       "module": "photoreal-export.js",
       "sha256": "2c57bd2f06d2a6aa573fb239cfdafebd5fde2a503fb85015254ab1a1f84862ea",
       "bytes": 12444,
-      "originalsIdentical": true
+      "originalsIdentical": true,
+      "current": {
+        "changeType": "functional-update-20261025",
+        "reason": "Keep the optional full upper drawer design in the visual project exported for photorealistic rendering, using the same public geometry setting and preserving the existing private-price filter.",
+        "sha256": "4d3009ece2fcf48c8d40af94aa74d68a3222e8f062f11e90cc3d2c2b442d09f6",
+        "bytes": 12456,
+        "validation": [
+          "shared/lrf-3d/qa/top-drawer-check.mjs",
+          "studio-one/qa/photoreal-export-check.mjs",
+          "randal-general/qa/photoreal-project.mjs"
+        ]
+      }
     },
     {
       "module": "picking.js",

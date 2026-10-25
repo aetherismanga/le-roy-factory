@@ -1,0 +1,779 @@
+{
+  "passed": true,
+  "test": "Quercia native exact reference textures in both active ateliers",
+  "date": "2026-10-25",
+  "environment": "Chromium headless WebGL2 with SwiftShader, 390x844 viewport, emulated mobile/touch; not a physical smartphone memory or performance benchmark",
+  "media": "Exact published WebP bodies, SHA-256 checked against the reviewed official-face inventory; unrelated remote thumbnails blocked",
+  "results": [
+    {
+      "app": "studio",
+      "passed": true,
+      "reference": "00Y2900",
+      "format": "20.3x90.6",
+      "profiles": [
+        {
+          "profile": "balanced",
+          "count": 6,
+          "width": 906,
+          "height": 203
+        },
+        {
+          "profile": "fluid",
+          "count": 4,
+          "width": 256,
+          "height": 57
+        },
+        {
+          "profile": "max",
+          "count": 8,
+          "width": 906,
+          "height": 203
+        }
+      ],
+      "capture": {
+        "width": 1920,
+        "height": 3407,
+        "nativeFaces": 15,
+        "restoredFaces": 8,
+        "projectPreserved": true
+      },
+      "rapidSwitch": {
+        "latestColor": "white",
+        "staleSurfaces": 0,
+        "contextLost": false
+      },
+      "screenshot": "quercia-mobile-20261025/studio-mobile-quercia.png"
+    },
+    {
+      "app": "general",
+      "passed": true,
+      "reference": "00Y2900",
+      "format": "20.3x90.6",
+      "profiles": [
+        {
+          "profile": "balanced",
+          "count": 6,
+          "width": 906,
+          "height": 203
+        },
+        {
+          "profile": "fluid",
+          "count": 4,
+          "width": 256,
+          "height": 57
+        },
+        {
+          "profile": "max",
+          "count": 8,
+          "width": 906,
+          "height": 203
+        }
+      ],
+      "capture": {
+        "width": 1920,
+        "height": 3318,
+        "nativeFaces": 15,
+        "restoredFaces": 8,
+        "projectPreserved": true
+      },
+      "rapidSwitch": {
+        "latestColor": "white",
+        "staleSurfaces": 0,
+        "contextLost": false
+      },
+      "screenshot": "quercia-mobile-20261025/general-mobile-quercia.png"
+    }
+  ],
+  "errors": [],
+  "requests": [
+    {
+      "app": "studio",
+      "stage": "startup",
+      "reference": "00Y2900",
+      "face": 1,
+      "profile": "balanced",
+      "bytes": 37852
+    },
+    {
+      "app": "studio",
+      "stage": "balanced",
+      "reference": "00Y2900",
+      "face": 3,
+      "profile": "balanced",
+      "bytes": 32804
+    },
+    {
+      "app": "studio",
+      "stage": "balanced",
+      "reference": "00Y2900",
+      "face": 6,
+      "profile": "balanced",
+      "bytes": 41174
+    },
+    {
+      "app": "studio",
+      "stage": "balanced",
+      "reference": "00Y2900",
+      "face": 8,
+      "profile": "balanced",
+      "bytes": 33914
+    },
+    {
+      "app": "studio",
+      "stage": "balanced",
+      "reference": "00Y2900",
+      "face": 11,
+      "profile": "balanced",
+      "bytes": 37074
+    },
+    {
+      "app": "studio",
+      "stage": "balanced",
+      "reference": "00Y2900",
+      "face": 13,
+      "profile": "balanced",
+      "bytes": 33630
+    },
+    {
+      "app": "studio",
+      "stage": "fluid",
+      "reference": "00Y2900",
+      "face": 1,
+      "profile": "fluid",
+      "bytes": 2380
+    },
+    {
+      "app": "studio",
+      "stage": "fluid",
+      "reference": "00Y2900",
+      "face": 4,
+      "profile": "fluid",
+      "bytes": 2388
+    },
+    {
+      "app": "studio",
+      "stage": "fluid",
+      "reference": "00Y2900",
+      "face": 8,
+      "profile": "fluid",
+      "bytes": 2238
+    },
+    {
+      "app": "studio",
+      "stage": "fluid",
+      "reference": "00Y2900",
+      "face": 12,
+      "profile": "fluid",
+      "bytes": 2386
+    },
+    {
+      "app": "studio",
+      "stage": "manual-max",
+      "reference": "00Y2900",
+      "face": 1,
+      "profile": "max",
+      "bytes": 55828
+    },
+    {
+      "app": "studio",
+      "stage": "manual-max",
+      "reference": "00Y2900",
+      "face": 2,
+      "profile": "max",
+      "bytes": 55474
+    },
+    {
+      "app": "studio",
+      "stage": "manual-max",
+      "reference": "00Y2900",
+      "face": 4,
+      "profile": "max",
+      "bytes": 47166
+    },
+    {
+      "app": "studio",
+      "stage": "manual-max",
+      "reference": "00Y2900",
+      "face": 6,
+      "profile": "max",
+      "bytes": 55518
+    },
+    {
+      "app": "studio",
+      "stage": "manual-max",
+      "reference": "00Y2900",
+      "face": 8,
+      "profile": "max",
+      "bytes": 49372
+    },
+    {
+      "app": "studio",
+      "stage": "manual-max",
+      "reference": "00Y2900",
+      "face": 10,
+      "profile": "max",
+      "bytes": 59142
+    },
+    {
+      "app": "studio",
+      "stage": "manual-max",
+      "reference": "00Y2900",
+      "face": 12,
+      "profile": "max",
+      "bytes": 58472
+    },
+    {
+      "app": "studio",
+      "stage": "manual-max",
+      "reference": "00Y2900",
+      "face": 14,
+      "profile": "max",
+      "bytes": 42730
+    },
+    {
+      "app": "studio",
+      "stage": "export",
+      "reference": "00Y2900",
+      "face": 1,
+      "profile": "max",
+      "bytes": 55828
+    },
+    {
+      "app": "studio",
+      "stage": "export",
+      "reference": "00Y2900",
+      "face": 2,
+      "profile": "max",
+      "bytes": 55474
+    },
+    {
+      "app": "studio",
+      "stage": "export",
+      "reference": "00Y2900",
+      "face": 3,
+      "profile": "max",
+      "bytes": 48174
+    },
+    {
+      "app": "studio",
+      "stage": "export",
+      "reference": "00Y2900",
+      "face": 4,
+      "profile": "max",
+      "bytes": 47166
+    },
+    {
+      "app": "studio",
+      "stage": "export",
+      "reference": "00Y2900",
+      "face": 5,
+      "profile": "max",
+      "bytes": 52142
+    },
+    {
+      "app": "studio",
+      "stage": "export",
+      "reference": "00Y2900",
+      "face": 6,
+      "profile": "max",
+      "bytes": 55518
+    },
+    {
+      "app": "studio",
+      "stage": "export",
+      "reference": "00Y2900",
+      "face": 7,
+      "profile": "max",
+      "bytes": 42844
+    },
+    {
+      "app": "studio",
+      "stage": "export",
+      "reference": "00Y2900",
+      "face": 8,
+      "profile": "max",
+      "bytes": 49372
+    },
+    {
+      "app": "studio",
+      "stage": "export",
+      "reference": "00Y2900",
+      "face": 9,
+      "profile": "max",
+      "bytes": 47258
+    },
+    {
+      "app": "studio",
+      "stage": "export",
+      "reference": "00Y2900",
+      "face": 10,
+      "profile": "max",
+      "bytes": 59142
+    },
+    {
+      "app": "studio",
+      "stage": "export",
+      "reference": "00Y2900",
+      "face": 11,
+      "profile": "max",
+      "bytes": 54100
+    },
+    {
+      "app": "studio",
+      "stage": "export",
+      "reference": "00Y2900",
+      "face": 12,
+      "profile": "max",
+      "bytes": 58472
+    },
+    {
+      "app": "studio",
+      "stage": "export",
+      "reference": "00Y2900",
+      "face": 13,
+      "profile": "max",
+      "bytes": 46184
+    },
+    {
+      "app": "studio",
+      "stage": "export",
+      "reference": "00Y2900",
+      "face": 14,
+      "profile": "max",
+      "bytes": 42730
+    },
+    {
+      "app": "studio",
+      "stage": "export",
+      "reference": "00Y2900",
+      "face": 15,
+      "profile": "max",
+      "bytes": 49144
+    },
+    {
+      "app": "studio",
+      "stage": "rapid-switch",
+      "reference": "00Y2940",
+      "face": 1,
+      "profile": "balanced",
+      "bytes": 49164
+    },
+    {
+      "app": "studio",
+      "stage": "rapid-switch",
+      "reference": "00Y2960",
+      "face": 1,
+      "profile": "balanced",
+      "bytes": 65882
+    },
+    {
+      "app": "studio",
+      "stage": "rapid-switch",
+      "reference": "00Y2900",
+      "face": 1,
+      "profile": "balanced",
+      "bytes": 37852
+    },
+    {
+      "app": "studio",
+      "stage": "rapid-switch",
+      "reference": "00Y2900",
+      "face": 3,
+      "profile": "balanced",
+      "bytes": 32804
+    },
+    {
+      "app": "studio",
+      "stage": "rapid-switch",
+      "reference": "00Y2900",
+      "face": 6,
+      "profile": "balanced",
+      "bytes": 41174
+    },
+    {
+      "app": "studio",
+      "stage": "rapid-switch",
+      "reference": "00Y2900",
+      "face": 8,
+      "profile": "balanced",
+      "bytes": 33914
+    },
+    {
+      "app": "studio",
+      "stage": "rapid-switch",
+      "reference": "00Y2900",
+      "face": 11,
+      "profile": "balanced",
+      "bytes": 37074
+    },
+    {
+      "app": "studio",
+      "stage": "rapid-switch",
+      "reference": "00Y2900",
+      "face": 13,
+      "profile": "balanced",
+      "bytes": 33630
+    },
+    {
+      "app": "general",
+      "stage": "startup",
+      "reference": "00Y2900",
+      "face": 1,
+      "profile": "balanced",
+      "bytes": 37852
+    },
+    {
+      "app": "general",
+      "stage": "startup",
+      "reference": "00Y2900",
+      "face": 3,
+      "profile": "balanced",
+      "bytes": 32804
+    },
+    {
+      "app": "general",
+      "stage": "startup",
+      "reference": "00Y2900",
+      "face": 6,
+      "profile": "balanced",
+      "bytes": 41174
+    },
+    {
+      "app": "general",
+      "stage": "balanced",
+      "reference": "00Y2900",
+      "face": 8,
+      "profile": "balanced",
+      "bytes": 33914
+    },
+    {
+      "app": "general",
+      "stage": "balanced",
+      "reference": "00Y2900",
+      "face": 11,
+      "profile": "balanced",
+      "bytes": 37074
+    },
+    {
+      "app": "general",
+      "stage": "balanced",
+      "reference": "00Y2900",
+      "face": 13,
+      "profile": "balanced",
+      "bytes": 33630
+    },
+    {
+      "app": "general",
+      "stage": "fluid",
+      "reference": "00Y2900",
+      "face": 1,
+      "profile": "fluid",
+      "bytes": 2380
+    },
+    {
+      "app": "general",
+      "stage": "fluid",
+      "reference": "00Y2900",
+      "face": 4,
+      "profile": "fluid",
+      "bytes": 2388
+    },
+    {
+      "app": "general",
+      "stage": "fluid",
+      "reference": "00Y2900",
+      "face": 8,
+      "profile": "fluid",
+      "bytes": 2238
+    },
+    {
+      "app": "general",
+      "stage": "fluid",
+      "reference": "00Y2900",
+      "face": 12,
+      "profile": "fluid",
+      "bytes": 2386
+    },
+    {
+      "app": "general",
+      "stage": "manual-max",
+      "reference": "00Y2900",
+      "face": 1,
+      "profile": "max",
+      "bytes": 55828
+    },
+    {
+      "app": "general",
+      "stage": "manual-max",
+      "reference": "00Y2900",
+      "face": 2,
+      "profile": "max",
+      "bytes": 55474
+    },
+    {
+      "app": "general",
+      "stage": "manual-max",
+      "reference": "00Y2900",
+      "face": 4,
+      "profile": "max",
+      "bytes": 47166
+    },
+    {
+      "app": "general",
+      "stage": "manual-max",
+      "reference": "00Y2900",
+      "face": 6,
+      "profile": "max",
+      "bytes": 55518
+    },
+    {
+      "app": "general",
+      "stage": "manual-max",
+      "reference": "00Y2900",
+      "face": 8,
+      "profile": "max",
+      "bytes": 49372
+    },
+    {
+      "app": "general",
+      "stage": "manual-max",
+      "reference": "00Y2900",
+      "face": 10,
+      "profile": "max",
+      "bytes": 59142
+    },
+    {
+      "app": "general",
+      "stage": "manual-max",
+      "reference": "00Y2900",
+      "face": 12,
+      "profile": "max",
+      "bytes": 58472
+    },
+    {
+      "app": "general",
+      "stage": "manual-max",
+      "reference": "00Y2900",
+      "face": 14,
+      "profile": "max",
+      "bytes": 42730
+    },
+    {
+      "app": "general",
+      "stage": "export",
+      "reference": "00Y2900",
+      "face": 1,
+      "profile": "max",
+      "bytes": 55828
+    },
+    {
+      "app": "general",
+      "stage": "export",
+      "reference": "00Y2900",
+      "face": 2,
+      "profile": "max",
+      "bytes": 55474
+    },
+    {
+      "app": "general",
+      "stage": "export",
+      "reference": "00Y2900",
+      "face": 3,
+      "profile": "max",
+      "bytes": 48174
+    },
+    {
+      "app": "general",
+      "stage": "export",
+      "reference": "00Y2900",
+      "face": 4,
+      "profile": "max",
+      "bytes": 47166
+    },
+    {
+      "app": "general",
+      "stage": "export",
+      "reference": "00Y2900",
+      "face": 5,
+      "profile": "max",
+      "bytes": 52142
+    },
+    {
+      "app": "general",
+      "stage": "export",
+      "reference": "00Y2900",
+      "face": 6,
+      "profile": "max",
+      "bytes": 55518
+    },
+    {
+      "app": "general",
+      "stage": "export",
+      "reference": "00Y2900",
+      "face": 7,
+      "profile": "max",
+      "bytes": 42844
+    },
+    {
+      "app": "general",
+      "stage": "export",
+      "reference": "00Y2900",
+      "face": 8,
+      "profile": "max",
+      "bytes": 49372
+    },
+    {
+      "app": "general",
+      "stage": "export",
+      "reference": "00Y2900",
+      "face": 9,
+      "profile": "max",
+      "bytes": 47258
+    },
+    {
+      "app": "general",
+      "stage": "export",
+      "reference": "00Y2900",
+      "face": 10,
+      "profile": "max",
+      "bytes": 59142
+    },
+    {
+      "app": "general",
+      "stage": "export",
+      "reference": "00Y2900",
+      "face": 11,
+      "profile": "max",
+      "bytes": 54100
+    },
+    {
+      "app": "general",
+      "stage": "export",
+      "reference": "00Y2900",
+      "face": 12,
+      "profile": "max",
+      "bytes": 58472
+    },
+    {
+      "app": "general",
+      "stage": "export",
+      "reference": "00Y2900",
+      "face": 13,
+      "profile": "max",
+      "bytes": 46184
+    },
+    {
+      "app": "general",
+      "stage": "export",
+      "reference": "00Y2900",
+      "face": 14,
+      "profile": "max",
+      "bytes": 42730
+    },
+    {
+      "app": "general",
+      "stage": "export",
+      "reference": "00Y2900",
+      "face": 15,
+      "profile": "max",
+      "bytes": 49144
+    },
+    {
+      "app": "general",
+      "stage": "rapid-switch",
+      "reference": "00Y2940",
+      "face": 1,
+      "profile": "balanced",
+      "bytes": 49164
+    },
+    {
+      "app": "general",
+      "stage": "rapid-switch",
+      "reference": "00Y2940",
+      "face": 3,
+      "profile": "balanced",
+      "bytes": 44624
+    },
+    {
+      "app": "general",
+      "stage": "rapid-switch",
+      "reference": "00Y2940",
+      "face": 6,
+      "profile": "balanced",
+      "bytes": 41434
+    },
+    {
+      "app": "general",
+      "stage": "rapid-switch",
+      "reference": "00Y2960",
+      "face": 1,
+      "profile": "balanced",
+      "bytes": 65882
+    },
+    {
+      "app": "general",
+      "stage": "rapid-switch",
+      "reference": "00Y2960",
+      "face": 3,
+      "profile": "balanced",
+      "bytes": 61362
+    },
+    {
+      "app": "general",
+      "stage": "rapid-switch",
+      "reference": "00Y2960",
+      "face": 6,
+      "profile": "balanced",
+      "bytes": 43994
+    },
+    {
+      "app": "general",
+      "stage": "rapid-switch",
+      "reference": "00Y2900",
+      "face": 1,
+      "profile": "balanced",
+      "bytes": 37852
+    },
+    {
+      "app": "general",
+      "stage": "rapid-switch",
+      "reference": "00Y2900",
+      "face": 3,
+      "profile": "balanced",
+      "bytes": 32804
+    },
+    {
+      "app": "general",
+      "stage": "rapid-switch",
+      "reference": "00Y2900",
+      "face": 6,
+      "profile": "balanced",
+      "bytes": 41174
+    },
+    {
+      "app": "general",
+      "stage": "rapid-switch",
+      "reference": "00Y2900",
+      "face": 8,
+      "profile": "balanced",
+      "bytes": 33914
+    },
+    {
+      "app": "general",
+      "stage": "rapid-switch",
+      "reference": "00Y2900",
+      "face": 11,
+      "profile": "balanced",
+      "bytes": 37074
+    },
+    {
+      "app": "general",
+      "stage": "rapid-switch",
+      "reference": "00Y2900",
+      "face": 13,
+      "profile": "balanced",
+      "bytes": 33630
+    }
+  ],
+  "blockedRemoteThumbnailCount": 4
+}

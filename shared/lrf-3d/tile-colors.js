@@ -23,7 +23,7 @@ export function applyTileColors(surface,finish,createMaterial){
  for(const m of surface.tileMaterials||[]){m.lrfTileMapClone?.dispose();m.dispose();}surface.tileMaterials=[];
  const colors=validTileColors(surface,finish),g=surface.tiles.geometry,source=g.userData.sourceFaceCells||g.userData.faceCells||[];g.userData.sourceFaceCells=source;
  const materials=[],buckets=[],lookup=new Map(),faceCounts=new Map();
- const countFor=color=>{if(!faceCounts.has(color)){const definition=COLLECTIONS[finish.collection]?.colors.find(c=>c.id===color),selection=resolveSurfaceTexture(finish.collection,color,'max',finishForSurface(finish.collection,color,surface.layout,finish));faceCounts.set(color,Math.min(40,(selection.mapped?selection.files.length:definition?.faces?.length)||1));}return faceCounts.get(color);};
+ const countFor=color=>{if(!faceCounts.has(color)){const definition=COLLECTIONS[finish.collection]?.colors.find(c=>c.id===color),selection=resolveSurfaceTexture(finish.collection,color,'max',finishForSurface(finish.collection,color,surface.layout,finish));faceCounts.set(color,Math.min(40,(color===finish.color&&surface.material.userData.lrfTextureFaceCount)||(selection.mapped?selection.files.length:definition?.faces?.length)||1));}return faceCounts.get(color);};
  for(let face=0;face<source.length;face++){
   const key=source[face],color=colors[key]||finish.color,faceCount=countFor(color),[col=0,row=0,part=0]=key.split(':').map(Number),variant=((col+row*3+part*7)%faceCount+faceCount)%faceCount,id=color+'|'+variant;
   if(!lookup.has(id)){const m=color===finish.color&&variant===0?surface.material:createMaterial(color,variant);lookup.set(id,materials.length);materials.push(m);buckets.push([]);if(m!==surface.material)surface.tileMaterials.push(m);}

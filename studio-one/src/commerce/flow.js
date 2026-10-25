@@ -1,3 +1,4 @@
+import {drawerDescription} from '../../../shared/lrf-3d/drawer-options.js';
 import {validateProject} from '../projects.js';
 import {quoteProject,money} from './pricing.js';
 export const FLOW_KEY='studio-one-flow-v2';
@@ -27,7 +28,7 @@ export function orderText(project,{name='',email='',telephone='',adresse='',code
  const p=checkedProject(project),q=quoteProject(p),parts=[kind==='callback'?'DEMANDE DE RAPPEL — STUDIO ONE':'DEMANDE DE COMMANDE — STUDIO ONE',p.title||'Ma salle de bains','Référence chantier : '+(siteReference||p.siteReference||'À renseigner'),''];
  if(client){parts.push(isAdmin?'Administrateur : '+client.societe:'Compte client : '+client.codeClient,'Société : '+(client.societe||''));for(const [label,key]of [['Contact','contact'],['Adresse','adresse'],['Code postal','codePostal'],['Ville','ville'],['E-mail','email'],['Téléphone','telephone']])if(client[key])parts.push(label+' : '+client[key]);}
  for(const [label,value]of [['Contact',name],['E-mail',email],['Téléphone',telephone],['Adresse',adresse],['Code postal',codePostal],['Ville',ville]])if(value)parts.push(label+' : '+String(value).trim());parts.push('');
- for(const r of q.rows)parts.push(r.name,r.detail,'Référence : '+r.ref,'Quantité : 1','Prix : '+money(r.publicTTC),...(r.note?[r.note]:[]),'');
+ for(const r of q.rows)parts.push(r.name,r.detail+drawerDescription(p,q.rows,r),'Référence : '+r.ref,'Quantité : 1','Prix : '+money(r.publicTTC),...(r.note?[r.note]:[]),'');
  parts.push('TOTAL COMPOSITION : '+money(q.publicTTC));if(client&&privateCode)parts.push('Code composition : '+privateCode);
  if(q.missing.length)parts.push('Sous-total renseigné : '+money(q.subtotal));if(q.excluded.length)parts.push(q.excluded.length+' équipement(s) sans tarif intégré, hors montant mobilier.');parts.push('Revêtements, pose et transport exclus.','Merci de confirmer les références, compatibilités, disponibilités et délais.','Cette demande est soumise à confirmation et ne constitue pas une commande ferme.');return parts.join('\n');
 }

@@ -49,11 +49,19 @@ jobs:
       - name: Verify readable image cache recovery
         run: node tests/elios-phase2a/cache-regression.cjs
       - run: npm run check:core
-      - run: node --test tests/lrf-plan-pose/*.test.mjs tests/security/*.test.mjs tests/secure-agent-tariffs.test.mjs tests/release-impact.test.mjs tests/lrf-surface-contract.test.mjs
+      - run: node --test tests/lrf-plan-pose/*.test.mjs tests/lrf-suite/*.test.mjs tests/security/*.test.mjs tests/secure-agent-tariffs.test.mjs tests/release-impact.test.mjs tests/lrf-surface-contract.test.mjs
       - run: npm run check --workspace=randal-general-3d
       - run: npm run check --workspace=studio-one-atelier-3d
       - run: npm run build:site
       - run: npx playwright install --with-deps chromium
+      - name: Verify full upper drawers on desktop and mobile
+        run: node shared/lrf-3d/qa/top-drawer-browser.cjs
+      - name: Verify Quercia mobile texture budgets and HD restoration
+        run: node tests/lrf-quercia-mobile.browser.mjs
+      - name: Verify tile selection with mouse and touch
+        run: node tests/lrf-suite/tile-selection-browser.cjs
+      - name: Verify empty Studio One entry and explicit resume
+        run: node tests/lrf-suite/studio-empty-entry-browser.cjs
       - name: Verify private LRF composition references on desktop and mobile
         run: node tests/lrf-suite/lrf-reference-browser.cjs
       - run: node tests/lrf-plan-pose/recovery-render-browser.cjs

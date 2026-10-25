@@ -22,7 +22,7 @@ for(const [colorId,references]of Object.entries({white:['00Y2C00','00Y2900'],hon
    const geometry=COLLECTIONS.Quercia.formats.find(item=>item.id===format),finish=finishForSurface('Quercia',colorId,geometry,{catalogueKey:'ELIOS|stale-previous-format'});
    for(const profile of ['fluid','balanced','max']){
     const selected=resolveSurfaceTexture('Quercia',colorId,profile,finish);
-    assert(selected.mapped);assert.equal(selected.reference,references[index],`${colorId} ${format} defaults to the exact R10 reference`);assert.equal(selected.files.length,references[index]==='00Y2C70'?13:15);assert(selected.files.length<=40);
+    assert(selected.mapped);assert.equal(selected.reference,references[index],`${colorId} ${format} defaults to the exact R10 reference`);assert.equal(selected.nativeFaceCount,references[index]==='00Y2C70'?13:15);assert.equal(selected.files.length,profile==='fluid'?4:profile==='balanced'?6:selected.nativeFaceCount);assert(selected.files.length<=40);
    }
    const outdoor=commercialOptions({collection:'Quercia',color:colorId,format}).find(product=>product.finish.startsWith('Outdoor'));
    assert(outdoor);assert(!resolveSurfaceTexture('Quercia',colorId,'max',{format,catalogueKey:outdoor.key}).mapped,'outdoor R11 never borrows its R10 neighbour');
@@ -55,7 +55,7 @@ try{
  const roomScene={floor,walls:[wall]},floorDesign={...finish,zones:[]},wallFinishes=[{collection:'Creta',color:'zucchero',format:'60x60'}];
  const quality=new AdaptiveQuality();quality.setMode('fluid');const loaded=[],disposed=[];
  const source=readFileSync('src/app.js','utf8'),code=source.slice(source.indexOf('function disposeTextureSet('),source.indexOf('function applyApronMaterial('));
- const context=vm.createContext({T,COLLECTIONS,tileFormat,formatsForColor,normalizeLayout,collectNicheFinishes,roomConfig:{niches:[]},commercialProduct,resolveSurfaceTexture,finishForSurface,quality,
+ const context=vm.createContext({T,AbortController,COLLECTIONS,tileFormat,formatsForColor,normalizeLayout,collectNicheFinishes,roomConfig:{niches:[]},commercialProduct,resolveSurfaceTexture,finishForSurface,quality,
   textureCache:new Map(),textureFlights:new Map(),surfaceTextures:{floor:{},wall:{}},finishTextures:{},textureRefresh:Promise.resolve(),captureBusy:false,
   roomScene,floorDesign,wallFinishes,composition:{items:[]},state:{ready:true,floorCollection:'Creta',floor:'zucchero',wallCollection:'Creta',wall:'zucchero'},FINISHES:[],selectedWall:0,
   paintTexture:null,tileAssetURL:file=>file,refreshFurnitureMaterials(){},refreshLayouts(){},refreshSurfacePickerHosts(){},refreshInspector(){},invalidate(){},placementStatus(){},
@@ -85,6 +85,41 @@ try{
  assert.equal(floor.material.map,wall.material.map,'format change reloads the correct legacy square source');assert.equal(context.textureCache.size,1,'inactive mapped rectangle cache is released');
  assert(context.setTileFormat('floor','60x120'));await context.textureRefresh;
  assert.equal(floor.material.map.userData.quality.url,urls('fluid')[0]);assert.equal(context.textureCache.size,2);assert(loaded.some(item=>item.url===urls('max')[1]));assert(disposed.some(url=>url===urls('max')[0]));
+ // A mobile user can select manual max for editing, then capture every native
+ // face, without retaining that larger set after capture restores the scene.
+ quality.setMobile(true);quality.setMode('max');
+ mapping.textureVariants.max=Array.from({length:15},(_,face)=>`https://texture-fixture.invalid/max/${face}.webp`);
+ // All reviewed profiles describe these same fifteen manufacturer faces.
+ for(const profile of ['fluid','balanced'])mapping.textureVariants[profile]=Array.from({length:15},(_,face)=>`https://texture-fixture.invalid/${profile}/${face}.webp`);
+ await context.prepareActiveTextures();
+ let rectangleTextures=()=>context.surfaceTextures.wall[resolveSurfaceTexture('Creta','zucchero','max',finish).sourceKey];
+ assert.equal(rectangleTextures().faces.length,8,'mobile manual max remains within eight native faces');
+ const beforeMobileCapture=loaded.length;
+ await context.fixtureCapture();
+ assert.equal(rectangleTextures().faces.length,8,'capture restores the original eight-face working set');
+ assert(loaded.slice(beforeMobileCapture).some(entry=>entry.url.endsWith('/max/14.webp')),'HD capture really loads native face fifteen');
+ assert.equal(context.quality.textureExporting,false);
+
+ // Exercise the real app orchestration with a cancellable decode in flight.
+ // The mock delays image completion; it does not replace any selection logic.
+ let cancelled=0,created=0;
+ context.loadTexture=(url,profile,{signal}={})=>new Promise((resolve,reject)=>{
+  const cancel=()=>{clearTimeout(timer);cancelled++;reject(Object.assign(Error('superseded'),{name:'AbortError'}));};
+  const timer=setTimeout(()=>{signal?.removeEventListener('abort',cancel);created++;const texture=new T.Texture({width:256,height:52});texture.userData.quality={url,profile};texture.addEventListener('dispose',()=>disposed.push(url));resolve(texture);},8);
+  signal?.addEventListener('abort',cancel,{once:true});if(signal?.aborted)cancel();
+ });
+ quality.setMode('fluid');floor.setLayout({width:1.2,height:.24});
+ context.applyAllRoomMaterials=()=>{context.updateSurfaceMaterial(floor,context.state.floorCollection,context.state.floor,null,0,context.floorDesign);context.updateSurfaceMaterial(wall,'Creta','zucchero',null,0,wallFinishes[0]);};
+ const choices=[];
+ for(const id of ['white','honey','amber','natural']){
+  context.state.floorCollection='Quercia';context.state.floor=id;context.floorDesign={collection:'Quercia',color:id,format:'24x120'};
+  choices.push(context.prepareActiveTextures());
+ }
+ await Promise.all(choices);
+ assert(cancelled>=3,'intermediate colours abort their running decode');
+ const activeQuercia=Object.values(context.surfaceTextures.Quercia);
+ assert.equal(activeQuercia.length,1);assert.equal(activeQuercia[0].id,'natural');assert.equal(activeQuercia[0].faces.length,4);
+ assert.equal(context.textureFlights.size,0);assert(created<=6,'intermediate colours do not finish their full face sets');
  disposeObject(floor.group);disposeObject(wall.group);
- console.log('Studio texture references: real format/reference isolation, other manufacturers, native face variation, format reload/cache release and HD success/failure restoration passed.');
+ console.log('Studio texture references: real format/reference isolation, other manufacturers, native face variation, format reload/cache release and HD success/failure restoration, mobile8→15→8 capture and rapid-choice cancellation passed.');
 }finally{if(original===undefined)delete color.textureVariantsByReference;else color.textureVariantsByReference=original;}

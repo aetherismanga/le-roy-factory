@@ -13,3 +13,28 @@ Room interaction is also shared. The plan editor combines Studio's draggable wal
 Run `npm run check:core` from the suite root after installing dependencies. The checks prove that both compatibility paths expose the same implementation identities, validate the 29 unchanged extraction hashes and the documented sanitized-source/executable hashes, exercise mobile/desktop quality transitions and compare the two actual esbuild dependency graphs. The room checks compare floor, partition, niche and opening geometry and exercise cold-start locking through both renovation adapters. The original room acceptance cases also run against each application's actual adapter and HTML. These checks complement the geometry, quantity, interaction and HD-capture suites; they do not certify WebGL output on real devices.
 
 Shared implementation changes affect both 3D builds. Build and validate both applications before releasing a shared-core change. Keep project-schema and catalogue versions compatible during rollback; do not restore a historical public artifact containing private purchase prices.
+
+### Quercia mobile texture policy (25 October 2026)
+
+Verified reference-specific native faces use existing manufacturer derivatives:
+four distinct faces in fluid, six in balanced, and eight in mobile manual max.
+The subset is deterministic and spread across the exact SKU's native face list.
+VIEW, legacy colour previews and continuous Allure drawings keep their existing
+selection. Explicit HD capture loads the complete max list for the exact reference
+and restores the bounded working set afterwards. The 118 Quercia faces, 354 URLs,
+original files, ICC conversion, commercial references and catalogue manifests are
+unchanged; no new texture or format fallback was introduced.
+
+The shared queue owns download, decode and proportional resampling, with at most
+three tasks active. A superseded room source removes its queued tasks, aborts its
+in-flight fetches, and disposes partially decoded or stale results. A timeout also
+aborts the underlying request. Sources still used by another wall, niche, tile
+colour or apron remain active. This prevents rapid colour selection from keeping
+many obsolete complete native sets alive on a phone.
+
+Regression coverage: `tests/lrf-texture-memory.test.mjs`,
+`studio-one/qa/surface-texture-reference-check.mjs`, both applications' existing
+reference/capture checks, and `tests/lrf-quercia-mobile.browser.mjs`. The shared
+files changed for this correction were added after the original extraction and
+are not entries in `extraction-provenance.json`; the historical extracted-module
+hashes and existing functional-change entries remain untouched.
