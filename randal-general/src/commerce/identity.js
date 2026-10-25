@@ -1,10 +1,12 @@
+import {localStorage,sessionStorage,isRandalDemo,createDemoIdentity} from '../../../shared/lrf-3d/demo-session.js';
 import {commercialRequest} from './client.js';
 import {quoteProject} from './pricing.js';
 import {createIdentityState} from './identity-state.js';
 import {privateMarkup as referenceMarkup} from '../../../shared/lrf-3d/commerce/private-reference.js';
 export {escapeHTML} from '../../../shared/lrf-3d/commerce/private-reference.js';
-export const privateMarkup=state=>referenceMarkup(state,'Catalogue général');
+export const privateMarkup=state=>isRandalDemo()?'':referenceMarkup(state,'Catalogue général');
 export function createIdentity(getProject,changed=()=>{}){
+ if(isRandalDemo())return createDemoIdentity(changed);
  const origins=['https://leroyfactory.fr','https://www.leroyfactory.fr'];let host='';try{host=new URL(document.referrer).origin;}catch{}const embedded=parent!==window&&origins.includes(host);
  let manualLogout=false,waiting=null,resolveParent=null,parentTimer;
  const notify=s=>{globalThis.LRF_VERIFIED_IDENTITY=s;return dispatchEvent(new CustomEvent('lrf-identity',{detail:s}));};
@@ -26,5 +28,5 @@ export function createIdentity(getProject,changed=()=>{}){
 }
 // Read the existing site's Firebase persistence only on explicit account access.
 // A different preview origin cannot read the production site's browser storage.
-export async function existingAdministrator(){try{if(sessionStorage.getItem('randal-general-auth-manual')==='1')return null;}catch{}const load=url=>import(url),[app,auth]=await Promise.all([load('https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js'),load('https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js')]);const config={apiKey:'AIzaSyA3iuK5Ua8kFccURSqLihLshHnhA4rm2is',authDomain:'le-roy-factory.firebaseapp.com',projectId:'le-roy-factory',storageBucket:'le-roy-factory.firebasestorage.app',messagingSenderId:'249878619253',appId:'1:249878619253:web:05f051710b6251dbfa843c'};
+export async function existingAdministrator(){if(isRandalDemo())return null;try{if(sessionStorage.getItem('randal-general-auth-manual')==='1')return null;}catch{}const load=url=>import(url),[app,auth]=await Promise.all([load('https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js'),load('https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js')]);const config={apiKey:'AIzaSyA3iuK5Ua8kFccURSqLihLshHnhA4rm2is',authDomain:'le-roy-factory.firebaseapp.com',projectId:'le-roy-factory',storageBucket:'le-roy-factory.firebasestorage.app',messagingSenderId:'249878619253',appId:'1:249878619253:web:05f051710b6251dbfa843c'};
  const instance=auth.getAuth(app.getApps().length?app.getApp():app.initializeApp(config));await instance.authStateReady();const user=instance.currentUser;if(!user)return null;return user.getIdToken();}

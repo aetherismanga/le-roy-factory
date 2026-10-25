@@ -30,3 +30,6 @@ let house=readFileSync('src/commerce/house-workspace.html','utf8');house=house.r
 cpSync('../shared/lrf-3d/media/aquahome-2026','dist/assets/aquahome-2026',{recursive:true});
 
 cpSync('../shared/lrf-3d/media/public-compositions','dist/assets/public-compositions',{recursive:true});
+
+// One shared presentation page; preview origins are supplied by its reviewed URL.
+writeFileSync('dist/demo.html',readFileSync('../shared/lrf-3d/demo/demo.html','utf8').replaceAll('__LRF_DEMO_VARIANT__','studio-one'));

@@ -1,3 +1,4 @@
+import {translateText as t} from '../../shared/lrf-3d/i18n/index.js';
 import * as T from 'three';
 import {cabinetFormat} from './configuration.js';
 import {isFloorItem} from './composition.js';
@@ -25,4 +26,4 @@ export function projectDimensions(segments,camera,width,height){
  for(const {a,b,label} of segments){const pa=a.clone().project(camera),pb=b.clone().project(camera);if([pa,pb].some(p=>!Number.isFinite(p.x)||p.z<-1||p.z>1))continue;const x1=(pa.x+1)*width/2,y1=(1-pa.y)*height/2,x2=(pb.x+1)*width/2,y2=(1-pb.y)*height/2,dx=x2-x1,dy=y2-y1,len=Math.hypot(dx,dy);if(len<12)continue;const x=(x1+x2)/2,y=(y1+y2)/2;if(x<0||x>width||y<0||y>height)continue;output.push({x1,y1,x2,y2,x,y,label,nx:-dy/len*4,ny:dx/len*4});
  }return output;
 }
-export function dimensionMarkup(projected){return projected.map(p=>{const n=v=>v.toFixed(1),{x1,y1,x2,y2,x,y,nx,ny,label}=p;return `<g><path d="M${n(x1)} ${n(y1)}L${n(x2)} ${n(y2)}M${n(x1-nx)} ${n(y1-ny)}L${n(x1+nx)} ${n(y1+ny)}M${n(x2-nx)} ${n(y2-ny)}L${n(x2+nx)} ${n(y2+ny)}"/><text x="${n(x)}" y="${n(y-7)}">${label}</text></g>`;}).join('');}
+export function dimensionMarkup(projected){return projected.map(p=>{const n=v=>v.toFixed(1),{x1,y1,x2,y2,x,y,nx,ny,label}=p;return `<g><path d="M${n(x1)} ${n(y1)}L${n(x2)} ${n(y2)}M${n(x1-nx)} ${n(y1-ny)}L${n(x1+nx)} ${n(y1+ny)}M${n(x2-nx)} ${n(y2-ny)}L${n(x2+nx)} ${n(y2+ny)}"/><text x="${n(x)}" y="${n(y-7)}">${t(label)}</text></g>`;}).join('');}

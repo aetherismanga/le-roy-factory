@@ -18,6 +18,7 @@
 (()=>{'use strict';const origin='https://randal-catalogue-general-3d.vercel.app',frame=document.getElementById('randal-general'),url=new URL(origin+'/');
 const requestedPage=new URLSearchParams(location.search).get('page');if(['index.html','atelier.html','maison.html'].includes(requestedPage))url.pathname='/'+requestedPage;
 for(const key of ['collection','view','step','account','new','guided','plans','project','template','composition','compositionMode']){const value=new URLSearchParams(location.search).get(key);if(value)url.searchParams.set(key,value)}
+const language=new URLSearchParams(location.search).get('lang');if(language==='fr'||language==='es')url.searchParams.set('lang',language);
 if(location.hash)url.hash=location.hash;
 document.getElementById('direct-open').href=url.href;
 let frameReady=false,pending=false;

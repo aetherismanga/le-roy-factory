@@ -206,14 +206,14 @@
       "bytes": 12444,
       "originalsIdentical": true,
       "current": {
-        "sha256": "4eacdac513f48d75bb238f78f1b02ddd04e76c04f9280dc382f560471129678f",
-        "bytes": 13058,
+        "sha256": "953090891fa29ccbb5ab998adcaf09a4e17b85d4ef1fbbcccc61bcb83c88f6f8",
+        "bytes": 13411,
         "changeType": "functional-update-20261025",
-        "reason": "Requested editable tiled partitions, individual placement locks, tiled shower tray and compact side panels; original extraction provenance retained above.",
+        "reason": "Localize the existing photorealistic instructions and refresh their read-only display after a language switch, retaining the unchanged visual-data allowlist, original HD capture and exclusion of commercial and customer information.",
         "validation": [
-          "tests/lrf-suite/construction-photoreal.test.mjs",
           "studio-one/qa/photoreal-export-check.mjs",
-          "randal-general/qa/photoreal-project.mjs"
+          "randal-general/qa/photoreal-project.mjs",
+          "shared/lrf-3d/qa/i18n-browser-check.mjs"
         ]
       }
     },

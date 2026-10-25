@@ -1,8 +1,12 @@
+import {initI18n} from '../../../shared/lrf-3d/i18n/index.js';
+initI18n();
+import {localStorage,demoRoute,isRandalDemo} from '../../../shared/lrf-3d/demo-session.js';
 import '../viewport.js';
 import {createIdentity,privateMarkup} from './identity.js';
 import {createWorkspace,readProjects} from './workspace.js';
 import {ACTIVE_ID,CURRENT_KEY,storeQuote} from './flow.js';
 import {returnToRandal} from './navigation.js';
+if(isRandalDemo())location.replace(demoRoute('index.html'));
 const frame=document.querySelector('#house-frame'),ORIGIN='https://maison-3d-leroyfactory-hugol-trading.vercel.app';
 const params=new URLSearchParams(location.search);let current=null,ready=false;
 if(params.has('template'))localStorage.removeItem(ACTIVE_ID);else if(params.has('project')){localStorage.setItem(ACTIVE_ID,params.get('project'));current=readProjects().find(p=>p.id===params.get('project'))?.data||null;}
@@ -14,6 +18,6 @@ addEventListener('message',async e=>{if(e.source!==frame.contentWindow||e.origin
  if(d?.type==='lrf-house-ready'){ready=true;document.querySelector('#house-loading').hidden=true;}
  if(d?.type==='lrf-house-checkpoint'&&!workspace.locked&&d.project?.schema===2){current=d.project;workspace.checkpoint();document.querySelector('#house-name').textContent=current.name;}
 });
-frame.src=ORIGIN+'/?workspace=1';
+if(!isRandalDemo())frame.src=ORIGIN+'/?workspace=1';
 document.querySelector('#save-house').onclick=()=>workspace.save();document.querySelector('#house-order').onclick=()=>workspace.order();document.querySelector('#house-projects').onclick=()=>workspace.showProjects();document.querySelector('#house-export').onclick=()=>workspace.download();document.querySelector('#house-send').onclick=()=>workspace.sendAdministrator();document.querySelector('#house-duplicate').onclick=()=>workspace.duplicate();document.querySelector('#house-quit').onclick=async()=>{await workspace.flush();returnToRandal();};document.querySelector('#house-plans').onclick=async()=>{await workspace.flush();location.href='atelier.html?plans=1';};
 addEventListener('pagehide',()=>{frame.contentWindow.postMessage({type:'lrf-house-flush'},ORIGIN);workspace.checkpoint();});

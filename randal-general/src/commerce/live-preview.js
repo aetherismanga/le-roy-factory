@@ -1,3 +1,4 @@
+import {localStorage} from '../../../shared/lrf-3d/demo-session.js';
 import {furnitureThumbnail} from '../furniture-thumbnails.js';
 import {prepareFinishTexture,finishTextureURL} from '../finish-texture.js';
 import * as T from 'three';

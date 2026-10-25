@@ -1,3 +1,4 @@
+import {localStorage} from '../../../shared/lrf-3d/demo-session.js';
 import {quoteProject,money} from './pricing.js';
 import {storeQuote} from './flow.js';
 import {createIdentity,escapeHTML,privateMarkup} from './identity.js';

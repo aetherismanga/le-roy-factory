@@ -1,6 +1,8 @@
+import {getSourceText} from './i18n/index.js';
+import {localStorage} from './demo-session.js';
 // Shared desktop and phone controls. Rendering and project state stay in the hosts.
 const mobileQuery='(max-width:760px), (pointer:coarse) and (max-width:1024px)';
-const textOf=element=>(element.getAttribute('aria-label')||element.getAttribute('title')||element.textContent||'').replace(/\s+/g,' ').trim().slice(0,90);
+const textOf=element=>getSourceText(element,{accessible:true}).replace(/\s+/g,' ').trim().slice(0,90);
 const descriptor=element=>{
  if(element.id)return {key:'id:'+element.id,id:element.id,label:textOf(element)};
  const scope=element.closest('[id]')?.id||'',data=Object.fromEntries(Object.entries(element.dataset).filter(([key])=>!['favorite'].includes(key)));

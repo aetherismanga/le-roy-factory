@@ -1,6 +1,8 @@
+import {sessionStorage,isRandalDemo,anonymousDemoState} from '../../../shared/lrf-3d/demo-session.js';
 // Verified credentials stay in this tab and are never included in project files.
 let credential='',credentialVersion=0;try{credential=sessionStorage.getItem('studio-one-session')||'';}catch{}
 async function request(url,body){
+ if(isRandalDemo()){if(url==='/api/commercial')return anonymousDemoState();throw Object.assign(Error('Les envois sont indisponibles dans la démonstration. Exportez votre projet sur cet appareil.'),{status:403});}
  const changesIdentity=url==='/api/commercial'&&['identify','exchange','admin','admin-token','logout'].includes(body.action),turn=changesIdentity?++credentialVersion:credentialVersion;
  const response=await fetch(url,{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json',...(credential?{'Authorization':'Bearer '+credential}:{})},body:JSON.stringify(body),signal:AbortSignal.timeout(url.includes('projects')?(body.action==='save'?12000:65000):30000),keepalive:url.includes('projects')&&body.action==='save'&&new Blob([JSON.stringify(body)]).size<60000});
  const result=await response.json().catch(()=>({error:'Réponse du service indisponible.'}));
