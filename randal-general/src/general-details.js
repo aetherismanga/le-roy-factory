@@ -1,3 +1,4 @@
+import {normalizeTopDrawer} from '../../shared/lrf-3d/drawer-options.js';
 import * as T from 'three';
 import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js';
 import {flutedFront,arubaPull,borealPull} from './general-fronts.js';
@@ -75,11 +76,12 @@ export function adaptGeneralModel(asset,{form,W,H,B,topY,layout}){
  if(form.counter)tops.root.position.y-=.02;
  const baseSet=asset.setTop;let mode=asset.getTop();
  asset.setTop=next=>{
-  if(next==='none'){for(const g of Object.values(insets))g.visible=false;tops.root.visible=false;faucet.visible=false;mode=next;return true;}
-  if(next==='compact'&&form.collection==='less'){for(const [key,g]of Object.entries(insets))g.visible=key==='sella';tops.root.visible=false;faucet.visible=false;mode=next;return true;}
+  if(next==='none'){asset.setTopDrawer('siphon');for(const g of Object.values(insets))g.visible=false;tops.root.visible=false;faucet.visible=false;mode=next;return true;}
+  if(next==='compact'&&form.collection==='less'){asset.setTopDrawer('siphon');for(const [key,g]of Object.entries(insets))g.visible=key==='sella';tops.root.visible=false;faucet.visible=false;mode=next;return true;}
   const result=baseSet(next);if(result){mode=next;if(form.counter){tops.solid.visible=false;tops.drilled.visible=false;}}
   return result;
  };
+ const baseDrawer=asset.setTopDrawer;asset.setTopDrawer=value=>baseDrawer(normalizeTopDrawer(value,mode));
  asset.getTop=()=>mode;asset.handles=handles;asset.handleMaterial=hardware;asset.getHandleChoices=()=>handleChoices(form);
  asset.doors=doors;asset.setDoorProgress=value=>doors.forEach(p=>p.rotation.y=(p.userData.side==='right'?1:-1)*value*Math.PI*.52);
  asset.setMetalFinish=finish=>{const c=HANDLE_FINISHES[handleFinish(form,finish)];if(c){hardware.color.set(c.hex);hardware.metalness=c.metalness;hardware.roughness=c.roughness;}return c?.id||null;};

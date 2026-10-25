@@ -1,6 +1,7 @@
 import {COLLECTIONS} from './surface-catalog.js';
 import products from './commercial-surfaces.json' with {type:'json'};
 import {commercialSurfaceProduct} from './surface-identity.mjs';
+import {surfaceFaceLimit} from './texture-budget.js';
 const commercialProduct=finish=>commercialSurfaceProduct(finish,products.products);
 
 // The commercial reference identifies a physical format and finish. A new HD
@@ -14,9 +15,13 @@ export function resolveSurfaceTexture(collection,id,profile='balanced',finish={}
  const selected=mapped?candidate.textureVariants?.[profile]:choice?.textureVariants?.[profile]||(choice?.faces?.length?choice.faces:choice?.file?[choice.file]:[]);
  const faceCounts=mapped?['fluid','balanced','max'].map(quality=>candidate.textureVariants?.[quality]).filter(Array.isArray).map(files=>files.length).filter(Boolean):[];
  const limit=faceCounts.length?Math.min(40,...faceCounts):40;
- const files=(Array.isArray(selected)?selected:selected?[selected]:[]).filter(file=>typeof file==='string'&&file.trim()).slice(0,limit);
+ const nativeFiles=(Array.isArray(selected)?selected:selected?[selected]:[]).filter(file=>typeof file==='string'&&file.trim()).slice(0,limit);
+ const count=mapped?Math.min(nativeFiles.length,surfaceFaceLimit(profile,context)):nativeFiles.length;
+ // Spread the editing subset across the manufacturer's actual faces, keeping
+ // face zero stable. No borrowed colour, format, inferred face or new image.
+ const faceIndices=Array.from({length:count},(_,index)=>Math.floor(index*nativeFiles.length/count)),files=faceIndices.map(index=>nativeFiles[index]);
  const sourceKey=JSON.stringify(mapped?[collection,id,format,reference]:[collection,id,'legacy']);
- return {files,sourceKey,cacheKey:'surface|'+sourceKey+'|'+profile,format,reference,profile,mapped,rotation:mapped?candidate.textureRotation:choice?.textureRotation,choice};
+ return {files,faceIndices,nativeFaceCount:nativeFiles.length,sourceKey,cacheKey:'surface|'+sourceKey+'|'+profile+(count<nativeFiles.length?'|faces:'+faceIndices.join(','):''),format,reference,profile,mapped,rotation:mapped?candidate.textureRotation:choice?.textureRotation,choice};
 }
 
 export function finishForSurface(collection,color,layout={},finish={},collections=COLLECTIONS){

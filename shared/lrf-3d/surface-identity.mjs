@@ -15,7 +15,14 @@ export function commercialSurfaceOptions(finish,products){
 }
 export function commercialSurfaceProduct(finish,products){
  const options=commercialSurfaceOptions(finish,products);
- return options.find(product=>product.key===finish.catalogueKey)||options.find(product=>finish.reference&&product.reference===finish.reference)||options[0]||null;
+ const exact=options.find(product=>product.key===finish.catalogueKey)||options.find(product=>finish.reference&&product.reference===finish.reference);
+ if(exact)return exact;
+ // A per-cell colour inherits the wall's finish, but its SKU belongs to that
+ // colour. Recover older rows from the source SKU when no finish was stored.
+ const source=products.find(product=>product.key===finish.catalogueKey)||products.find(product=>finish.reference&&product.reference===finish.reference),requiredFinish=finish.finish||source?.finish;
+ if(requiredFinish)return options.find(product=>product.finish===requiredFinish)||null;
+ if(finish.catalogueKey||finish.reference)return null;
+ return options[0]||null;
 }
 
 // Resolve only reviewed aliases. A commercial SKU/finish is never replaced by

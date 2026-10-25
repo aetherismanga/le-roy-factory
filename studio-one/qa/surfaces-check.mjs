@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import * as T from 'three';
 import {makeTiledSurface,SURFACES} from '../src/surfaces.js';
+import {resolveSurfaceTexture} from '../src/surface-texture-selection.js';
 import {createHash} from 'node:crypto';
 import {readFileSync,writeFileSync} from 'node:fs';
 const originalHashes={floor:'99a6fa45f1144b5bad49ce3a1a3e96fb2ef12d752655d07feef36ec8af4440d7',wall:'103c15a27588b04216c6aa5a80af8da81dbbb8ced605b9a097b36e34c5c05ebe'};
@@ -22,5 +23,12 @@ for(const [kind,columns,rows] of [['floor',10,20],['wall',5,5]]){
  const bytes=readFileSync('dist/assets/'+spec.file);const hash=createHash('sha256').update(bytes).digest('hex');assert.equal(hash,originalHashes[kind]);
  results.push({kind,collection:spec.collection,color:spec.color,format:'60x120',jointMm:2,tiles:surface.tiles.count,bytes:bytes.length,sha256:hash});
 }
-const source=readFileSync('src/app.js','utf8');assert(source.includes("prepareActiveTextures(quality.profile.id)"));assert(source.includes("files.slice(0,40).map(tileAssetURL)"));assert(source.includes('texture.colorSpace=T.SRGBColorSpace'));assert(source.includes('applyRoom(roomConfig)'));assert(!/loadAsync\(['"]https?:/.test(source),'3D texture assets remain local');
-const report={passed:true,date:new Date().toISOString(),checks:['physical 60x120cm modules','2mm joints and recessed grout','floor lies at y=0','legacy reference-grid geometry remains valid; custom room checked separately','authentic textures unchanged byte for byte','local texture loading and sRGB colour space','wall cutaway retained'],surfaces:results};writeFileSync('qa/surfaces-result.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));
+const finish={format:'24x120',catalogueKey:'ELIOS|00Y2C00'};
+for(const [profile,count]of Object.entries({fluid:4,balanced:6,max:8})){
+ const selection=resolveSurfaceTexture('Quercia','white',profile,finish,{mobile:true});
+ assert(selection.mapped);assert.equal(selection.reference,'00Y2C00');assert.equal(selection.nativeFaceCount,15);assert.equal(selection.files.length,count);
+ assert.deepEqual(selection.files,selection.faceIndices.map(index=>selection.choice.textureVariantsByReference['00Y2C00'].textureVariants[profile][index]),'Working faces come from the exact native SKU and requested tier');
+}
+const capture=resolveSurfaceTexture('Quercia','white','max',finish,{mobile:true,export:true});assert.equal(capture.files.length,15,'HD retains the complete manufacturer face set');assert(capture.files.length<=40);
+const source=readFileSync('src/app.js','utf8');assert(source.includes("prepareActiveTextures(quality.profile.id)"));assert(source.includes('texture.colorSpace=T.SRGBColorSpace'));assert(source.includes('applyRoom(roomConfig)'));assert(!/loadAsync\(['"]https?:/.test(source),'3D texture assets remain local');
+const report={passed:true,date:new Date().toISOString(),checks:['physical 60x120cm modules','2mm joints and recessed grout','floor lies at y=0','legacy reference-grid geometry remains valid; custom room checked separately','authentic textures unchanged byte for byte','bounded exact-SKU working faces and complete HD face set','local texture loading and sRGB colour space','wall cutaway retained'],surfaces:results};writeFileSync('qa/surfaces-result.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));
