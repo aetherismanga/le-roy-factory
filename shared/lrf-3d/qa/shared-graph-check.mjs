@@ -11,6 +11,7 @@ const sharedRoot=await realpath(new URL('../',import.meta.url));
 const studioSource=process.env.LRF_STUDIO_SOURCE?resolve(process.env.LRF_STUDIO_SOURCE):resolve(suiteRoot,'studio-one/src');
 const generalSource=resolve(suiteRoot,'randal-general/src');
 const modules=['performance.js','hd-capture.js','mirror-reflection.js','ultra-rendering.js','tile-layout.js','plinth-math.mjs','plinth-ui.mjs','surface-catalog.js','surface-picker.js','surface-quality.js','surface-texture-selection.js','tile-colors.js','quantities.js','openings.js','room-editor.js'];
+const interactionModules=['tiled-zone-controls.js','zone-rendering.js','project-refresh.js'];
 for(const name of modules){
  const target=pathToFileURL(resolve(sharedRoot,name));
  const canonical=await import(target);
@@ -44,7 +45,7 @@ for(const graph of graphs){
   const found=inputs.filter(path=>path.endsWith(sep+name));
   assert.deepEqual(found,[resolve(sharedRoot,name)],'Exactly one canonical '+name+' per application build');
  }
- for(const name of [...modules,'room.js','renovation.js']){
+ for(const name of [...modules,...interactionModules,'room.js','renovation.js']){
   assert(inputs.includes(resolve(sharedRoot,name)),'Application build reaches shared '+name);
  }
 }

@@ -32,7 +32,9 @@ export function buildProfiles(room,settings={},finishes=[],items=[]){
   for(const z of finishes[i]?.zones||[]){
    const carrier=new T.Group();carrier.userData.profileKey='zone-'+z.id;carrier.userData.editTarget='zone:'+z.id;local.add(carrier);
    const l=z.x/100,r=(z.x+z.width)/100,b=z.y/100,t=(z.y+z.height)/100;
-   const edges={left:[[l,b,.004],[l,t,.004]],right:[[r,b,.004],[r,t,.004]],bottom:[[l,b,.004],[r,b,.004]],top:[[l,t,.004],[r,t,.004]]};
+   // Tiled wall columns carry vertical edge trims only, including legacy
+   // projects whose old profile flag or overrides enabled a full perimeter.
+   const edges={left:[[l,b,.004],[l,t,.004]],right:[[r,b,.004],[r,t,.004]]};
    for(const [edge,[a,end]]of Object.entries(edges)){const own=z.profileEdges?.[edge],enabled=own!==undefined?own!=='none':!!z.profile;strip(carrier,a,end,'colonne_carrelage_'+edge,false,{own:own!==undefined,enabled,color:own&&own!=='none'?own:z.profileColor||'Argent',inlay:true});}
   }
  }

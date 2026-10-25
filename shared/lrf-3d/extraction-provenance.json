@@ -187,14 +187,14 @@
       "bytes": 3805,
       "originalsIdentical": true,
       "current": {
-        "sha256": "d421d9d7b94da631b6080772dced874abce7a88ddff36502cd27a9eb66cec621",
-        "bytes": 7035,
-        "changeType": "functional-update-20261024",
-        "reason": "Requested shared RANDAL editing improvements: tile layouts, recessed editable niches, RAL finishes, flush plates and surface controls. Original extraction hash retained above.",
+        "sha256": "edacef32ddca1f742585a9ac86969a211495bd2df9b7cb98aea3eded0dd3ba53",
+        "bytes": 7127,
+        "changeType": "functional-update-20261025",
+        "reason": "User-requested desktop tiled-column editing: retain only the two vertical trims on new and legacy wall bands, while preserving all four niche angles, floor borders and the original extraction provenance.",
         "validation": [
-          "shared/lrf-3d/qa/ral-sanitary-check.mjs",
           "shared/lrf-3d/qa/niche-editing-check.mjs",
-          "shared/lrf-3d/qa/tile-layout-acceptance.mjs"
+          "shared/lrf-3d/qa/tiled-zone-pc-check.mjs",
+          "tests/lrf-suite/active-configurators-browser.cjs"
         ]
       }
     },
