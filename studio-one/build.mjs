@@ -31,5 +31,8 @@ cpSync('../shared/lrf-3d/media/aquahome-2026','dist/assets/aquahome-2026',{recur
 
 cpSync('../shared/lrf-3d/media/public-compositions','dist/assets/public-compositions',{recursive:true});
 
+// Dedicated lightweight presentation visuals; project gallery thumbnails stay unchanged.
+cpSync('../shared/lrf-3d/demo/media','dist/assets/demo',{recursive:true});
+
 // One shared presentation page; preview origins are supplied by its reviewed URL.
 writeFileSync('dist/demo.html',readFileSync('../shared/lrf-3d/demo/demo.html','utf8').replaceAll('__LRF_DEMO_VARIANT__','studio-one'));
