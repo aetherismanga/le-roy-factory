@@ -134,11 +134,58 @@ Deux prévisualisations Vercel créées pour ce lot, toutes deux `READY`,
 
 Les liens ci-dessous remplacent ceux de la première présentation.
 
+### Export photoréaliste en un seul fichier — 26 octobre 2026
+
+Correctif demandé après la présentation : le téléchargement principal fournit
+maintenant un seul PNG contenant la capture HD d'origine, suivie des consignes
+complètes lisibles dans l'image. Le texte est dessiné sous la scène, sans
+recouvrement ni redimensionnement de la capture et sans dépendre de métadonnées
+PNG. Seuls les espaces de présentation JSON sont compactés ; toutes les valeurs
+techniques et les descriptions fabricant restent dans les instructions.
+
+Parcours : « Télécharger l’image avec les consignes », puis joindre ce fichier
+à ChatGPT. Aucune copie séparée du prompt n'est nécessaire. Le lien ChatGPT
+ouvre le service ; la pièce jointe reste ajoutée par l'utilisateur. Les anciens
+boutons de téléchargement HD seul et de copie des consignes sont conservés
+sous les options avancées. Sur un projet dépassant les limites de taille du
+canevas, un message explicite propose ces options, sans tronquer les consignes.
+
+Le fichier suit la langue FR/ES. Un changement de langue dans le dialogue
+régénère le PNG et révoque son ancienne URL locale sans refaire la capture,
+modifier le projet ni appeler un service externe. Les filtres de confidentialité
+préexistants sont conservés ; aucune information client ou tarif d'achat ajouté.
+
+SHA de code : `c43d225f2f0f1e6f15845efebe4fa69aae0dcb53`.
+Prévisualisations `READY`, cible `null` :
+Studio One `dpl_F4NQPmdmDRPsAivvVdzy6fAocPkr`,
+Catalogue Général `dpl_72BWKbk7NBqUcqbSibyezX9UtKDN`.
+
+- Builds, contrôles du noyau et batteries des deux ateliers : réussis.
+- Audit de traduction : aucune omission identifiée ; 12 nouveaux libellés ES.
+- Sécurité, PLAN & POSE, i18n et consignes de construction : 326 tests réussis,
+  aucun échec, un ancien scénario navigateur ignoré par sa détection locale.
+- Exports photoréalistes métier Studio One/Général, isolation et navigation : réussis.
+- Nouveau test permanent `shared/lrf-3d/qa/photoreal-handoff-browser-check.mjs` :
+  12/12, deux ateliers en FR/ES sur PC, Android Pixel 5 et iPhone WebKit simulés.
+  PNG effectivement téléchargés, image conservée, prompt visible dans la bonne
+  langue, références inchangées, sentinelles privées exclues, projet identique,
+  langue modifiable sans recapture. Aucune erreur JavaScript ni requête externe.
+- Parcours distants réels sans mocks : 8/8, deux vrais ateliers en FR/ES sur
+  ordinateur et iPhone WebKit simulé. Téléchargement du fichier unique réussi ;
+  égalité exacte de tous les pixels de la partie scène avec l'original HD.
+  Huit PNG de largeur 1920 pixels, consignes intégrées, environ 2,3 à 2,5 Mo.
+  Projet inchangé ; aucune erreur JavaScript, HTTP ≥ 400 ou requête API privée.
+- Pas d'essai sur téléphone physique et pas d'envoi automatique à ChatGPT.
+
+Le correctif français pour le site principal est préparé dans la même source
+commune, mais reste en attente d'autorisation explicite de publication.
+La production et `main` ne sont pas modifiés.
+
 ### Liens vérifiés — présentation photoréaliste
 
-- [Démonstration espagnole pour Juan Carlos — les deux ateliers](https://studio-one-beta-test-v2-pdqups5za-hugol-trading.vercel.app/demo.html?studio=https%3A%2F%2Fstudio-one-beta-test-v2-pdqups5za-hugol-trading.vercel.app&general=https%3A%2F%2Frandal-catalogue-general-3d-oek4pxzxr-hugol-trading.vercel.app)
-- [STUDIO ONE en espagnol](https://studio-one-beta-test-v2-pdqups5za-hugol-trading.vercel.app/index.html?lang=es&demo=randal&studio=https%3A%2F%2Fstudio-one-beta-test-v2-pdqups5za-hugol-trading.vercel.app&general=https%3A%2F%2Frandal-catalogue-general-3d-oek4pxzxr-hugol-trading.vercel.app)
-- [Catalogue Général en espagnol](https://randal-catalogue-general-3d-oek4pxzxr-hugol-trading.vercel.app/index.html?lang=es&demo=randal&studio=https%3A%2F%2Fstudio-one-beta-test-v2-pdqups5za-hugol-trading.vercel.app&general=https%3A%2F%2Frandal-catalogue-general-3d-oek4pxzxr-hugol-trading.vercel.app)
+- [Démonstration espagnole pour Juan Carlos — les deux ateliers](https://studio-one-beta-test-v2-a0vlbylwo-hugol-trading.vercel.app/demo.html?studio=https%3A%2F%2Fstudio-one-beta-test-v2-a0vlbylwo-hugol-trading.vercel.app&general=https%3A%2F%2Frandal-catalogue-general-3d-l7ueyrz8w-hugol-trading.vercel.app)
+- [STUDIO ONE en espagnol](https://studio-one-beta-test-v2-a0vlbylwo-hugol-trading.vercel.app/index.html?lang=es&demo=randal&studio=https%3A%2F%2Fstudio-one-beta-test-v2-a0vlbylwo-hugol-trading.vercel.app&general=https%3A%2F%2Frandal-catalogue-general-3d-l7ueyrz8w-hugol-trading.vercel.app)
+- [Catalogue Général en espagnol](https://randal-catalogue-general-3d-l7ueyrz8w-hugol-trading.vercel.app/index.html?lang=es&demo=randal&studio=https%3A%2F%2Fstudio-one-beta-test-v2-a0vlbylwo-hugol-trading.vercel.app&general=https%3A%2F%2Frandal-catalogue-general-3d-l7ueyrz8w-hugol-trading.vercel.app)
 
 ### Production préservée
 
