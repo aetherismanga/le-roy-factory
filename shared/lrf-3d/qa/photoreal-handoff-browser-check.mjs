@@ -36,6 +36,18 @@ try{
     const downloadPromise=page.waitForEvent('download');await page.locator('[data-photo-action=download]').click();const download=await downloadPromise;assert.equal(await download.failure(),null);await download.saveAs(path.join(output,key+'-chatgpt.png'));
     const result=await page.evaluate(async lang=>{const test=window.photoTest,link=document.querySelector('[data-photo-action=download]'),old=link.href;test.words.length=0;test.setLocale(lang==='es'?'fr':'es');await new Promise((resolve,reject)=>{const start=Date.now();const timer=setInterval(()=>{if(link.href!==old&&link.href.startsWith('blob:')){clearInterval(timer);resolve();}else if(Date.now()-start>20000){clearInterval(timer);reject(Error('Locale export not refreshed'));}},20);});return {words:test.words,captures:test.captures(),unchanged:JSON.stringify(test.project)===test.before};},lang);
     assert.equal(result.captures,1);assert(result.unchanged);assert(result.words.some(w=>w.includes(lang==='es'?'CONSIGNES POUR CHATGPT':'INSTRUCCIONES PARA CHATGPT')));
+    // A single trusted click must download, copy the combined PNG and open ChatGPT.
+    await page.evaluate(()=>{
+     window.photoTest.controller.close();
+     window.photoTest.clipboardBlobs=[];window.photoTest.opened=[];
+     window.open=(url)=>{window.photoTest.opened.push(url);return null;};
+     Object.defineProperty(navigator,'clipboard',{configurable:true,value:{write:async items=>{window.photoTest.clipboardBlobs.push(await items[0].getType('image/png'));}}});
+     document.querySelector('#launch').onclick=e=>window.photoTest.controller.open(e.currentTarget,{handoff:true});
+    });
+    const autoDownload=page.waitForEvent('download');await page.locator('#launch').click();const automatic=await autoDownload;assert.equal(await automatic.failure(),null);
+    await page.waitForFunction(()=>window.photoTest.clipboardBlobs.length===1);
+    const handoff=await page.evaluate(()=>({url:window.photoTest.opened,type:window.photoTest.clipboardBlobs[0].type,bytes:window.photoTest.clipboardBlobs[0].size,unchanged:JSON.stringify(window.photoTest.project)===window.photoTest.before,prompt:document.querySelector('textarea').value}));
+    assert.deepEqual(handoff.url,['https://chatgpt.com/']);assert.equal(handoff.type,'image/png');assert(handoff.bytes>1000);assert(handoff.unchanged);assert.match(handoff.prompt,/sans poser de question|sin hacer preguntas/);
     await page.screenshot({path:path.join(output,key+'.png'),fullPage:true});report.checks.push(key);console.log('PASS',key,first.width+'x'+first.height,first.bytes+' bytes');
    }catch(error){report.failures.push({key,error:error.stack});}finally{await context.close();}
   }}finally{await browser.close();}

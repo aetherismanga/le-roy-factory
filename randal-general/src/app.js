@@ -875,7 +875,7 @@ async function importProjectFile(e){await projectWorkspace?.importFile(e.target.
 async function shareProject(){return projectWorkspace?.sendAdministrator();}
 
 const photorealExport=createPhotorealExport({name:'RANDAL Catalogue Général',filename:'randal-general',capture:()=>captureHD(1920),getProject:collectProject,getPrompt:buildGeneralPhotorealPrompt});
-function openPhotoreal(event){const trigger=event?.currentTarget;return photorealExport.open(trigger?.id==='photoreal-menu'?$('#project-menu summary'):trigger||$('#photoreal-export'));}
+function openPhotoreal(event){const trigger=event?.currentTarget;return photorealExport.open(trigger?.id==='photoreal-menu'?$('#project-menu summary'):trigger||$('#photoreal-export'),{handoff:!!event?.isTrusted});}
 function resumePhotorealHandoff(){const url=new URL(location.href);if(!url.searchParams.has('photoreal'))return;url.searchParams.delete('photoreal');history.replaceState(null,'',url);if(!photorealProjectReady){placementStatus('Le projet demandé n’a pas pu être ouvert. Revenez au récapitulatif pour préparer son rendu.');return;}setWorkspace('presentation',true);requestAnimationFrame(()=>openPhotoreal());}
 
 async function exportImage(){try{const data=await captureHD(1920);const a=document.createElement('a');a.href=data;a.download='randal-general-composition.png';a.click();}catch{placementStatus('Capture HD indisponible : vérifiez le chargement des matières puis réessayez.');}}

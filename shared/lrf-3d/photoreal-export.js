@@ -29,6 +29,7 @@ export function buildPhotorealPrompt(project,{name='RANDAL',scope='room',finishN
   elements:items,
   lumiere:{ambiance:['day','warm','showroom'].includes(project.lighting)?project.lighting:undefined,luminosite:Number.isFinite(project.brightness)?project.brightness:undefined,temperatureKelvin:Number.isFinite(project.temperature)?project.temperature:undefined}};
  return [t('Crée directement une image photoréaliste à partir de l’image 3D jointe de ce projet ')+safeText(name)+'.',
+  'Génère maintenant l’image finale avec ton outil de création d’images, sans poser de question ni demander de confirmation. N’analyse pas les consignes dans une réponse texte : réalise directement le rendu demandé.',
   'La vue jointe est la référence prioritaire : conserve exactement le cadrage, la caméra, les proportions, les contours de la pièce, les cloisons et toutes les ouvertures visibles.',
   'Conserve le nombre, le modèle, les dimensions et la position de tous les meubles, colonnes, tiroirs, portes, vasques, miroirs, robinets, douche, baignoire et accessoires déjà présents. Ne déplace, ne remplace et n’ajoute aucun objet ni décoration.',
   'Respecte les finitions fabricant, les teintes, le sens et l’échelle du veinage. Conserve le format des carreaux, leur orientation, le calepinage, les joints et chaque décor continu dans son ordre exact, notamment les panneaux Allure. Ne retourne pas et ne mélange pas les motifs.',
@@ -75,21 +76,30 @@ export async function buildPhotorealHandoff(image,prompt){
 const css=`.rf-photo-dialog{box-sizing:border-box;width:min(760px,calc(100vw - 24px));max-width:760px;max-height:calc(100dvh - 24px);padding:24px;border:1px solid #d7d2c8;border-radius:18px;background:#fcfbf8;color:#24231f;overflow:auto;box-shadow:0 20px 80px #0004;font:15px/1.5 Arial,sans-serif}.rf-photo-dialog::backdrop{background:#181713a8}.rf-photo-dialog *{box-sizing:border-box}.rf-photo-head{position:sticky;top:0;z-index:2;background:#fcfbf8;box-shadow:0 -24px 0 24px #fcfbf8;padding-bottom:8px;display:flex;align-items:start;justify-content:space-between;gap:20px}.rf-photo-dialog h2{margin:0 0 10px;font-size:25px;line-height:1.2}.rf-photo-dialog p{margin:8px 0 14px}.rf-photo-dialog button,.rf-photo-dialog .rf-photo-link{display:inline-flex;align-items:center;justify-content:center;min-height:44px;border:1px solid #bbb5a9;border-radius:9px;padding:10px 16px;background:#fff;color:#24231f;font:inherit;font-weight:600;text-decoration:none;cursor:pointer;max-width:100%;white-space:normal}.rf-photo-dialog button:focus-visible,.rf-photo-dialog a:focus-visible,.rf-photo-dialog textarea:focus-visible{outline:3px solid #a38142;outline-offset:3px}.rf-photo-dialog .rf-photo-close{min-width:44px;padding:5px;font-size:24px}.rf-photo-dialog .rf-photo-primary{background:#282620;color:#fff;border-color:#282620}.rf-photo-dialog a[aria-disabled=true]{opacity:.55;pointer-events:none}.rf-photo-dialog button:disabled{opacity:.55;cursor:wait}.rf-photo-preview{display:block;max-width:100%;max-height:36dvh;margin:16px auto;object-fit:contain;border-radius:8px;background:#eeeae2}.rf-photo-step{padding:14px 0;border-top:1px solid #e0dcd3}.rf-photo-step h3{margin:0 0 8px;font-size:17px}.rf-photo-dialog textarea{display:block;width:100%;min-height:130px;max-height:240px;margin:12px 0;padding:12px;border:1px solid #bdb7aa;border-radius:8px;background:#fff;color:#24231f;font:13px/1.5 monospace;resize:vertical}.rf-photo-status{padding:10px 0;min-height:1.5em}.rf-photo-dialog [hidden]{display:none!important}.rf-photo-caption{color:#666056;font-size:13px}.rf-photo-dialog details>summary{cursor:pointer;padding:8px 0}@media(max-width:540px){.rf-photo-dialog{padding:18px;border-radius:12px}.rf-photo-dialog h2{font-size:22px}.rf-photo-dialog .rf-photo-link,.rf-photo-step>button{width:100%}.rf-photo-preview{max-height:30dvh}}@media print{.rf-photo-dialog{display:none!important}}`;
 export function createPhotorealExport({capture,getProject,getPrompt,name='RANDAL',filename='randal-projet'}={}){
  if(typeof capture!=='function'||typeof getProject!=='function')throw Error('Capture et projet requis.');
- let dialog,turn=0,lastTrigger=null,promptProject=null,imageData=null,bundleURL=null,bundleTurn=0;
+ let bundleBlob=null,dialog,turn=0,lastTrigger=null,promptProject=null,imageData=null,bundleURL=null,bundleTurn=0;
  onLocaleChange(()=>{if(dialog?.open&&promptProject){dialog.querySelector('textarea').value=String(getPrompt?getPrompt(promptProject):buildPhotorealPrompt(promptProject,{name}));if(imageData)void refreshBundle();}});
  async function refreshBundle(){
   const ticket=++bundleTurn,link=dialog.querySelector('[data-photo-action=download]');
-  link.removeAttribute('href');link.setAttribute('aria-disabled','true');
-  try{const blob=await buildPhotorealHandoff(dialog.querySelector('.rf-photo-preview'),dialog.querySelector('textarea').value);if(ticket!==bundleTurn||!dialog.open)return false;const url=URL.createObjectURL(blob);if(bundleURL)URL.revokeObjectURL(bundleURL);bundleURL=url;link.href=url;link.download=filename+'-chatgpt.png';link.removeAttribute('aria-disabled');return true;}catch(error){if(ticket===bundleTurn&&dialog.open)dialog.querySelector('.rf-photo-status').textContent=error.message;return false;}
+  bundleBlob=null;dialog.querySelector('[data-photo-action=launch]').disabled=true;link.removeAttribute('href');link.setAttribute('aria-disabled','true');
+  try{const blob=await buildPhotorealHandoff(dialog.querySelector('.rf-photo-preview'),dialog.querySelector('textarea').value);if(ticket!==bundleTurn||!dialog.open)return false;const url=URL.createObjectURL(blob);if(bundleURL)URL.revokeObjectURL(bundleURL);bundleBlob=blob;bundleURL=url;link.href=url;link.download=filename+'-chatgpt.png';link.removeAttribute('aria-disabled');dialog.querySelector('[data-photo-action=launch]').disabled=false;return true;}catch(error){if(ticket===bundleTurn&&dialog.open)dialog.querySelector('.rf-photo-status').textContent=error.message;return false;}
  }
  function ensure(){
   if(dialog)return dialog;
   if(!document.getElementById('rf-photo-style')){const style=document.createElement('style');style.id='rf-photo-style';style.textContent=css;document.head.append(style);}
   dialog=document.createElement('dialog');dialog.className='rf-photo-dialog';dialog.id='photoreal-dialog';dialog.setAttribute('aria-labelledby','rf-photo-title');
-  dialog.innerHTML='<div class="rf-photo-head"><div><h2 id="rf-photo-title">Votre projet en photoréalisme</h2><p>Préparez le rendu de votre pièce avec votre compte ChatGPT.</p></div><button type="button" class="rf-photo-close" aria-label="Fermer">×</button></div><p class="rf-photo-status" role="status" aria-live="polite"></p><button type="button" data-photo-action="retry" hidden>Réessayer la préparation</button><div data-photo-content hidden><img class="rf-photo-preview" alt="Vue HD de votre salle de bain configurée"><section class="rf-photo-step"><h3>1. Téléchargez votre fichier pour ChatGPT</h3><p>La vue HD et toutes les consignes sont réunies dans une seule image.</p><a class="rf-photo-link rf-photo-primary" data-photo-action="download" aria-disabled="true">Télécharger l’image avec les consignes</a></section><section class="rf-photo-step"><h3>2. Joignez ce fichier dans ChatGPT</h3><p>Ouvrez ChatGPT et joignez le fichier téléchargé. Les consignes sont déjà intégrées à l’image.</p><a class="rf-photo-link rf-photo-primary" data-photo-action="chatgpt" target="_blank" rel="noopener noreferrer">Ouvrir ChatGPT ↗</a><p class="rf-photo-caption">La création du rendu se poursuit dans votre compte ChatGPT.</p></section><details class="rf-photo-step" data-photo-advanced><summary>Options avancées : image et consignes séparées</summary><a class="rf-photo-link" data-photo-action="raw">Télécharger l’image HD seule</a><button type="button" data-photo-action="copy">Copier les consignes</button><details><summary>Afficher les consignes</summary><textarea readonly aria-label="Consignes pour le rendu photoréaliste"></textarea></details></details></div>';
+  dialog.innerHTML='<div class="rf-photo-head"><div><h2 id="rf-photo-title">Votre projet en photoréalisme</h2><p>Préparez le rendu de votre pièce avec votre compte ChatGPT.</p></div><button type="button" class="rf-photo-close" aria-label="Fermer">×</button></div><p class="rf-photo-status" role="status" aria-live="polite"></p><button type="button" data-photo-action="retry" hidden>Réessayer la préparation</button><div data-photo-content hidden><img class="rf-photo-preview" alt="Vue HD de votre salle de bain configurée"><section class="rf-photo-step"><button type="button" class="rf-photo-primary" data-photo-action="launch" disabled>Visualiser avec ChatGPT ↗</button><p>Un clic enregistre l’image avec les consignes et ouvre ChatGPT. Collez ensuite l’image dans la conversation ; si la copie est indisponible, joignez le fichier téléchargé.</p></section><section class="rf-photo-step"><h3>1. Téléchargez votre fichier pour ChatGPT</h3><p>La vue HD et toutes les consignes sont réunies dans une seule image.</p><a class="rf-photo-link rf-photo-primary" data-photo-action="download" aria-disabled="true">Télécharger l’image avec les consignes</a></section><section class="rf-photo-step"><h3>2. Joignez ce fichier dans ChatGPT</h3><p>Ouvrez ChatGPT et joignez le fichier téléchargé. Les consignes sont déjà intégrées à l’image.</p><a class="rf-photo-link rf-photo-primary" data-photo-action="chatgpt" target="_blank" rel="noopener noreferrer">Ouvrir ChatGPT ↗</a><p class="rf-photo-caption">La création du rendu se poursuit dans votre compte ChatGPT.</p></section><details class="rf-photo-step" data-photo-advanced><summary>Options avancées : image et consignes séparées</summary><a class="rf-photo-link" data-photo-action="raw">Télécharger l’image HD seule</a><button type="button" data-photo-action="copy">Copier les consignes</button><details><summary>Afficher les consignes</summary><textarea readonly aria-label="Consignes pour le rendu photoréaliste"></textarea></details></details></div>';
   document.body.append(dialog);
   const q=s=>dialog.querySelector(s);
   q('[data-photo-action="chatgpt"]').href=CHATGPT_URL;
+  q('[data-photo-action="launch"]').onclick=()=>{
+   if(!bundleBlob||!bundleURL)return;
+   // Start all gesture-gated operations before awaiting anything.
+   let copied;
+   try{copied=navigator.clipboard?.write&&typeof ClipboardItem!=='undefined'?navigator.clipboard.write([new ClipboardItem({'image/png':bundleBlob})]):Promise.reject(Error('Clipboard unavailable'));}catch(error){copied=Promise.reject(error);}
+   q('[data-photo-action="download"]').click();
+   window.open(CHATGPT_URL,'_blank','noopener,noreferrer');
+   Promise.resolve(copied).then(()=>{q('.rf-photo-status').textContent=t('Image copiée et enregistrée. Collez-la dans ChatGPT puis envoyez-la pour créer le rendu.');},()=>{q('.rf-photo-status').textContent=t('Image enregistrée. Joignez le fichier téléchargé dans ChatGPT pour créer le rendu.');});
+  };
   q('.rf-photo-close').onclick=close;
   q('[data-photo-action="retry"]').onclick=()=>open(lastTrigger);
   dialog.addEventListener('cancel',()=>{turn++;bundleTurn++;});
@@ -102,19 +112,30 @@ export function createPhotorealExport({capture,getProject,getPrompt,name='RANDAL
   };
   return dialog;
  }
- async function open(trigger){
+ async function open(trigger,{handoff=false}={}){
   const el=ensure(),q=s=>el.querySelector(s),ticket=++turn;lastTrigger=trigger?.focus?trigger:document.activeElement;
   q('[data-photo-content]').hidden=true;q('[data-photo-action="retry"]').hidden=true;q('.rf-photo-status').textContent='Préparation de la vue HD de votre pièce…';
   imageData=null;bundleTurn++;if(bundleURL){URL.revokeObjectURL(bundleURL);bundleURL=null;}q('textarea').value='';q('.rf-photo-preview').removeAttribute('src');q('[data-photo-action="raw"]').removeAttribute('href');q('[data-photo-action="download"]').removeAttribute('href');q('[data-photo-action="download"]').setAttribute('aria-disabled','true');
   if(!el.open)el.showModal();
+  let deliver;
+  if(handoff){
+   // ClipboardItem may await the capture while retaining the original user gesture.
+   const pending=new Promise(resolve=>{deliver=resolve;});
+   let copied;
+   try{copied=navigator.clipboard?.write&&typeof ClipboardItem!=='undefined'?navigator.clipboard.write([new ClipboardItem({'image/png':pending})]):Promise.reject(Error('Clipboard unavailable'));}catch(error){copied=Promise.reject(error);}
+   // Handle rejection immediately: unsupported clipboard must never block export.
+   const result=Promise.resolve(copied).then(()=>true,()=>false);
+   window.open(CHATGPT_URL,'_blank','noopener,noreferrer');
+   deliver=((resolve)=>blob=>{resolve(blob||new Blob([],{type:'image/png'}));if(blob)void result.then(ok=>{if(ticket===turn&&el.open)q('.rf-photo-status').textContent=t(ok?'Image copiée et enregistrée. Collez-la dans ChatGPT puis envoyez-la pour créer le rendu.':'Image enregistrée. Joignez le fichier téléchargé dans ChatGPT pour créer le rendu.');});})(deliver);
+  }
   try{
    const project=getProject();promptProject=project;if(!project)throw Error('Ouvrez une composition avant de préparer le rendu.');
-   const data=await capture();if(ticket!==turn||!el.open)return false;
+   const data=await capture();if(ticket!==turn||!el.open){deliver?.(null);return false;}
    if(typeof data!=='string'||!data.startsWith('data:image/png;base64,'))throw Error('La vue HD n’a pas pu être créée.');
-   const img=q('.rf-photo-preview');img.src=data;await img.decode();if(ticket!==turn||!el.open)return false;
+   const img=q('.rf-photo-preview');img.src=data;await img.decode();if(ticket!==turn||!el.open){deliver?.(null);return false;}
    if(img.naturalWidth<1920)throw Error('La vue HD est indisponible sur cet appareil.');
-   q('[data-photo-action="raw"]').href=data;q('[data-photo-action="raw"]').download=filename+'-photorealisme.png';imageData=data;q('textarea').value=String(getPrompt?getPrompt(project):buildPhotorealPrompt(project,{name}));q('[data-photo-content]').hidden=false;const ready=await refreshBundle();if(ticket!==turn||!el.open)return false;if(ready)q('.rf-photo-status').textContent='Votre fichier ChatGPT est prêt : image HD et consignes intégrées.';return ready;
-  }catch(error){if(ticket!==turn||!el.open)return false;q('.rf-photo-status').textContent='Préparation impossible. '+(error?.message||'Réessayez après le chargement du projet.');q('[data-photo-action="retry"]').hidden=false;return false;}
+   q('[data-photo-action="raw"]').href=data;q('[data-photo-action="raw"]').download=filename+'-photorealisme.png';imageData=data;q('textarea').value=String(getPrompt?getPrompt(project):buildPhotorealPrompt(project,{name}));q('[data-photo-content]').hidden=false;const ready=await refreshBundle();if(ticket!==turn||!el.open){deliver?.(null);return false;}if(ready){q('.rf-photo-status').textContent='Votre fichier ChatGPT est prêt : image HD et consignes intégrées.';if(handoff){q('[data-photo-action=download]').click();deliver?.(bundleBlob);}}else deliver?.(null);return ready;
+  }catch(error){deliver?.(null);if(ticket!==turn||!el.open){deliver?.(null);return false;}q('.rf-photo-status').textContent='Préparation impossible. '+(error?.message||'Réessayez après le chargement du projet.');q('[data-photo-action="retry"]').hidden=false;return false;}
  }
  function close(){turn++;bundleTurn++;dialog?.close();}
  return {open,close,get element(){return dialog;}};

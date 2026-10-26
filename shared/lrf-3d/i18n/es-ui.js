@@ -1,8 +1,15 @@
 // UI translations only. Product identifiers, SKU and project state remain untouched.
-import {ES_COMMERCE,ES_COMMERCE_PATTERNS} from './es-commerce.js';
+import {
+ES_COMMERCE,ES_COMMERCE_PATTERNS} from './es-commerce.js';
 import {ES_SHARED,ES_SHARED_PATTERNS} from './es-shared.js';
 
 export const ES_ATELIER = {
+"Génère maintenant l’image finale avec ton outil de création d’images, sans poser de question ni demander de confirmation. N’analyse pas les consignes dans une réponse texte : réalise directement le rendu demandé.": "Genera ahora la imagen final con tu herramienta de creación de imágenes, sin hacer preguntas ni pedir confirmación. No analices las instrucciones en una respuesta de texto: crea directamente el render solicitado.",
+"Visualiser avec ChatGPT ↗": "Visualizar con ChatGPT ↗",
+"Un clic enregistre l’image avec les consignes et ouvre ChatGPT. Collez ensuite l’image dans la conversation ; si la copie est indisponible, joignez le fichier téléchargé.": "Un clic guarda la imagen con las instrucciones y abre ChatGPT. Pegue la imagen en la conversación; si no se puede copiar, adjunte el archivo descargado.",
+"Image copiée et enregistrée. Collez-la dans ChatGPT puis envoyez-la pour créer le rendu.": "Imagen copiada y guardada. Péguela en ChatGPT y envíela para crear el render.",
+"Image enregistrée. Joignez le fichier téléchargé dans ChatGPT pour créer le rendu.": "Imagen guardada. Adjunte el archivo descargado en ChatGPT para crear el render.",
+
   "Le fichier image avec consignes n’a pas pu être créé.": "No se ha podido crear la imagen con las instrucciones.",
   "Les consignes dépassent la taille d’image disponible sur cet appareil. Utilisez les options séparées.": "Las instrucciones superan el tamaño de imagen disponible en este dispositivo. Utilice las opciones por separado.",
   "CONSIGNES POUR CHATGPT — IMAGE DE RÉFÉRENCE CI-DESSUS": "INSTRUCCIONES PARA CHATGPT — IMAGEN DE REFERENCIA ARRIBA",

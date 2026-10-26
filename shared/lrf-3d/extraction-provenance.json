@@ -206,10 +206,10 @@
       "bytes": 12444,
       "originalsIdentical": true,
       "current": {
-        "sha256": "14b1e0e8bfc3137fff2bf340c4f5c18691f643a0e9b4057bf415d10929beae0d",
-        "bytes": 17438,
+        "sha256": "86603fda09be4c94056e95300b5f47fb83cee72bc95efa253d75f9c368c4efb4",
+        "bytes": 20243,
         "changeType": "functional-update-20261025",
-        "reason": "Add a local single-PNG handoff with the original unaltered HD scene and complete readable FR/ES instructions below it; compact only JSON whitespace, preserve the existing privacy allowlist, scene, catalogues and prices; retain separate files as an advanced fallback.",
+        "reason": "Single-click ChatGPT handoff saves the combined PNG, requests clipboard image copying during the user gesture and opens ChatGPT; FR/ES instructions request immediate image generation without confirmation.",
         "validation": [
           "studio-one/qa/photoreal-export-check.mjs",
           "randal-general/qa/photoreal-project.mjs",
