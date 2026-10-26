@@ -99,7 +99,7 @@ function installProSessionBridge() {
     if (document.getElementById('lrf-pro-session-bridge')) return;
     const script = document.createElement('script');
     script.id = 'lrf-pro-session-bridge';
-    script.src = 'assets/js/pro-session-bridge.js?v=20260818b';
+    script.src = 'assets/js/pro-session-bridge.js?v=20261026-pro-access1';
     script.defer = true;
     document.head.appendChild(script);
 }
@@ -310,7 +310,7 @@ document.addEventListener('DOMContentLoaded', () => {
     installProEmptyPlaceholders();
 
     if (window.location.pathname.toLowerCase().endsWith('tarifs-pro.html')) {
-        import('./tarifs-pro-client-access.js?v=20260901-profix1')
+        import('./tarifs-pro-client-access.js?v=20261026-pro-access1')
             .then(() => installProEmptyPlaceholders())
             .catch(err => console.error('Erreur chargement accès tarifs PRO client :', err));
     }

@@ -61,11 +61,12 @@ function clearDeviceToken(){
   try{localStorage.removeItem(REMEMBER_TOKEN_KEY)}catch(_){}
 }
 function clearSession({forgetDevice=false}={}){
-  try{sessionStorage.removeItem(SESSION_KEY)}catch(_){}
+  try{sessionStorage.removeItem(SESSION_KEY);sessionStorage.removeItem("lrfProSession1h")}catch(_){}
   // Supprime seulement les anciennes sessions en clair éventuellement laissées par une ancienne version.
   try{localStorage.removeItem(SESSION_KEY)}catch(_){}
   if(forgetDevice)clearDeviceToken();
   window.LRF_PRO_CONTEXT=null;
+  window.dispatchEvent(new CustomEvent("lrf-pro-session-changed",{detail:null}));
 }
 function saveVerifiedSession(client,partners,activity,sessionToken=""){
   const safe={

@@ -61,10 +61,10 @@
     source: 'ELIOS TARIF NET - 2026 V01',
     sessionKey: SESSION_KEY,
     getSession: readSession,
-    canAccess(partner = PARTNER) { return ['elios-ceramica','elios','eliosceramica'].includes(norm(partner)) && window.LRF_AGENT_TARIFFS?.verified === true; },
+    canAccess(partner = PARTNER) { return ['elios-ceramica','elios','eliosceramica'].includes(norm(partner)) && window.LRF_AGENT_TARIFFS?.canAccess?.(PARTNER) === true; },
     getPrice(partner, product, format) {
       if (norm(partner) !== PARTNER && norm(partner) !== 'elios' && norm(partner) !== 'eliosceramica') return null;
-      if (window.LRF_AGENT_TARIFFS?.verified !== true) return { locked: true };
+      if (window.LRF_AGENT_TARIFFS?.canAccess?.(PARTNER) !== true) return { locked: true };
       const price = lookup(product || {}, format);
       return price || { unavailable: true };
     }

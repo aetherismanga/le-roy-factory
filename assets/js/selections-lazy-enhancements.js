@@ -5,7 +5,7 @@
 
   const GROUPS = {
     elios: [
-      'assets/js/inspirations-elios-pricing.js?v=20260902-20mm1&media=20261018',
+      'assets/js/inspirations-elios-pricing.js?v=20261026-pro-access1&media=20261018',
       'assets/js/inspirations-elios-pool-integrated.js?v=20260907-pool2',
       'assets/js/inspirations-elios-official-galleries.js?v=20260902-batch2',
       'assets/js/inspirations-elios-official-galleries-2.js?v=20260902-batch3',
@@ -30,7 +30,7 @@
       'assets/js/inspirations-view-tariff-2026-10-15.js?v=20261005-view-tariff1',
       'assets/js/inspirations-view-accessories.js?v=20260911-view-accessories1',
       'assets/js/inspirations-view-hd.js?v=20260907-view-hd1',
-      'assets/js/inspirations-view-mobile-safe.js?v=20260907-view-safe1&media=20261018',
+      'assets/js/inspirations-view-mobile-safe.js?v=20261026-pro-access1&media=20261018',
       'assets/js/inspirations-view-accessories-ui.js?v=20260911-view-accessories-ui1',
       'assets/js/inspirations-view-order-v4.js?v=20260911-view-order-v4',
       'assets/js/inspirations-view-order-v5-polish.js?v=20260911-view-order-v5',

@@ -36,7 +36,7 @@ export async function preparePublicAgentTariffs({root,out,files=[]}){
   if(LEGACY_STUDIO_PAGES.has(path)){writeFileSync(target,legacyStudioRedirect());continue;}
   let text=readFileSync(target,'utf8');
   if(!/inspirations-(?:view|elios)|secure-tariff-links\.js|RANDAL-STUDIO-ONE-VASQUES-TARIF-PRO-HT\.pdf/.test(text)||text.includes('src="'+BOOTSTRAP))continue;
-  const tag='<script type="module" src="'+BOOTSTRAP+'?v=20261024-private1"></script>';
+  const tag='<script type="module" src="'+BOOTSTRAP+'?v=20261026-pro-access1"></script>';
   text=text.includes('</body>')?text.replace('</body>',tag+'\n</body>'):text+'\n'+tag;
   writeFileSync(target,text);injected++;
  }

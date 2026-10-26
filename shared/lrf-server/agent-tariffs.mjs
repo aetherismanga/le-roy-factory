@@ -2,6 +2,8 @@ import {createDecipheriv} from 'node:crypto';
 import {readFileSync,statSync} from 'node:fs';
 const ADMINS=new Set(['jerome@leroyfactory.fr','coryne@leroyfactory.fr']);
 const FIREBASE_KEY='AIzaSyA3iuK5Ua8kFccURSqLihLshHnhA4rm2is';
+const PRO_SESSION_URL='https://us-central1-le-roy-factory.cloudfunctions.net/validateProSession';
+const CLIENT_TARIFF_PARTNERS=Object.freeze(['elios-ceramica','view-ceramica']);
 const MAX_BYTES=2*1024*1024;
 const ALLOWED_ORIGINS=new Set(['https://leroyfactory.fr','https://www.leroyfactory.fr','https://le-roy-factory.vercel.app','https://randal-catalogue-general-3d.vercel.app']);
 let cacheKey='',cacheValue=null;
@@ -49,7 +51,26 @@ export async function verifyAgentToken(header,{request=fetch,now=Date.now()}={})
  }catch{return null;}
 }
 
-export function createAgentTariffsHandler({verify=verifyAgentToken,read}={}){
+// Reuse the existing Firebase session authority. It checks the opaque token's
+// hash, expiry/revocation and current client record, including live permissions.
+// Browser-supplied customer IDs, roles and partner lists are never authoritative.
+export async function verifyClientToken(token,{request=fetch,now=Date.now()}={}){
+ if(typeof token!=='string'||!/^[A-Za-z0-9_-]{43}$/.test(token))return null;
+ let response,data;
+ try{
+  response=await request(PRO_SESSION_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionToken:token}),signal:AbortSignal.timeout(10000)});
+  if(response.status===401||response.status===403||response.status===404)return null;
+  if(!response.ok)throw Error();
+  data=await response.json();
+ }catch{throw Error('Professional session verification unavailable');}
+ const client=data?.client;
+ if(data?.success!==true||!Number.isFinite(data.expiresAt)||data.expiresAt<=now||!client||!/^LRF-\d{5}$/.test(client.codeClient||'')||client.codeClient==='LRF-00001'||!/^(?:\d{2,3}|2A|2B)$/.test(client.departement||'')||!Array.isArray(client.partenaires)||client.partenaires.length>100||client.partenaires.some(p=>typeof p!=='string'||p.length>120))return null;
+ const partners=new Set(client.partenaires.map(normaliseTariffSlug));
+ const allowedPartners=CLIENT_TARIFF_PARTNERS.filter(partner=>[normaliseTariffSlug(partner),partner==='elios-ceramica'?'elios':'view'].some(alias=>partners.has(alias)));
+ return {allowedPartners,expiresAt:data.expiresAt};
+}
+
+export function createAgentTariffsHandler({verify=verifyAgentToken,verifyClient=verifyClientToken,read}={}){
  return async(req,res)=>{
   res.setHeader('Cache-Control','private, no-store, max-age=0');res.setHeader('Pragma','no-cache');res.setHeader('Vary','Authorization, Origin');res.setHeader('X-Content-Type-Options','nosniff');
   const origin=req.headers?.origin,host=String(req.headers?.host||'');
@@ -58,9 +79,17 @@ export function createAgentTariffsHandler({verify=verifyAgentToken,read}={}){
   res.setHeader('Access-Control-Allow-Headers','Content-Type, Authorization');res.setHeader('Access-Control-Allow-Methods','POST, OPTIONS');
   if(req.method==='OPTIONS')return res.status(204).send('');
   if(req.method!=='POST')return res.status(405).json({success:false,error:'Méthode non autorisée.'});
-  const identity=await verify(req.headers?.authorization);if(!identity)return res.status(401).json({success:false,error:'Connexion à un compte agent vérifié requise.'});
-  let body;try{body=typeof req.body==='string'?JSON.parse(req.body):req.body||{};if(JSON.stringify(body).length>2048)throw Error();}catch{return res.status(400).json({success:false,error:'Requête invalide.'});}
+  let body;try{body=typeof req.body==='string'?JSON.parse(req.body):req.body||{};if(!body||typeof body!=='object'||Array.isArray(body)||JSON.stringify(body).length>2048)throw Error();}catch{return res.status(400).json({success:false,error:'Requête invalide.'});}
   if(!['bootstrap','document'].includes(body.action))return res.status(400).json({success:false,error:'Action inconnue.'});
+  const agent=await verify(req.headers?.authorization);
+  // Confidential agent documents remain exclusive to the verified agent path.
+  if(body.action==='document'&&!agent)return res.status(401).json({success:false,error:'Connexion à un compte agent vérifié requise.'});
+  let client=null;
+  if(!agent){
+   try{client=await verifyClient(body.sessionToken);}catch{return res.status(503).json({success:false,error:'Vérification de la session professionnelle momentanément indisponible.'});}
+   if(!client)return res.status(401).json({success:false,error:'Session professionnelle expirée ou connexion requise.'});
+   if(!client.allowedPartners?.length)return res.status(403).json({success:false,error:'Aucun de ces tarifs n’est autorisé pour ce compte.'});
+  }
   let data;try{data=await read();}catch{return res.status(503).json({success:false,error:'Tarifs agents momentanément indisponibles.'});}
   if(!data)return res.status(503).json({success:false,error:'Tarifs agents momentanément indisponibles.'});
   if(body.action==='document'){
@@ -71,6 +100,7 @@ export function createAgentTariffsHandler({verify=verifyAgentToken,read}={}){
    res.setHeader('Content-Type','application/pdf');res.setHeader('Content-Disposition','inline; filename="RANDAL-STUDIO-ONE-VASQUES-TARIF-PRO-HT.pdf"');
    return res.status(200).send(bytes);
   }
-  return res.status(200).json({success:true,version:1,view:data.view,elios:data.elios});
+  const allowedPartners=agent?CLIENT_TARIFF_PARTNERS.slice():client.allowedPartners;
+  return res.status(200).json({success:true,version:1,accessType:agent?'agent':'client',allowedPartners,expiresAt:agent?Date.now()+300000:client.expiresAt,view:allowedPartners.includes('view-ceramica')?data.view:[],elios:allowedPartners.includes('elios-ceramica')?data.elios:{}});
  };
 }

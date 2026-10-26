@@ -94,7 +94,7 @@ for(const filename of ['inspirations-view-v1.js','inspirations-view-mobile-safe.
  const modal={classList:{remove:v=>classes.delete(v)},addEventListener(){}},box={classList:{remove:v=>classes.delete(v)},dataset:{viewModal:'1'},innerHTML:'Synthetic private price'},grid={dataset:{},addEventListener(){}};
  const nodes={'#workspace-title':{textContent:'View Ceramica'},'#product-modal-v2':modal,'#product-modal-v2-card':box,'#partner-products':grid};
  const document={readyState:'loading',addEventListener(){},querySelector:s=>nodes[s]||null,querySelectorAll:()=>[],body:{style:{overflow:'hidden'}}};
- const window={VIEW_CATALOGUE:[{id:'test',name:'Test',variants:[]}],LRF_AGENT_TARIFFS:{verified:true},addEventListener:(type,fn)=>events.set(type,fn)};
+ const window={VIEW_CATALOGUE:[{id:'test',name:'Test',variants:[]}],LRF_AGENT_TARIFFS:{verified:true,canAccess(partner){return this.verified&&partner==='view-ceramica';}},addEventListener:(type,fn)=>events.set(type,fn)};
  const source=readFileSync(new URL('../assets/js/'+filename,import.meta.url),'utf8'),safe=filename.includes('mobile-safe');
  const hook='\nwindow.__viewSecurityTest={hasViewAccess,setActive(v){activeProduct=v;},getActive(){return activeProduct;}};render=()=>{};'+(safe?'bind();':'activate=()=>{};');
  const end=source.lastIndexOf('})();');const instrumented=source.slice(0,end)+hook+source.slice(end);
@@ -104,7 +104,7 @@ for(const filename of ['inspirations-view-v1.js','inspirations-view-mobile-safe.
 });
 
 test('ELIOS pricing uses verified agent cache without requiring a client PRO session',()=>{
- const quote={amount:4.56,label:'Synthetic agent quote'},context={window:{LRF_AGENT_TARIFFS:{verified:true,eliosPrice:()=>quote}},document:{readyState:'loading',addEventListener(){}},sessionStorage:{getItem:()=>null}};vm.createContext(context);
+ const quote={amount:4.56,label:'Synthetic agent quote'},context={window:{LRF_AGENT_TARIFFS:{verified:true,canAccess(partner){return this.verified&&partner==='elios-ceramica';},eliosPrice:()=>quote}},document:{readyState:'loading',addEventListener(){}},sessionStorage:{getItem:()=>null}};vm.createContext(context);
  vm.runInContext(readFileSync(new URL('../assets/js/inspirations-elios-pricing.js',import.meta.url),'utf8'),context);
  assert.equal(context.window.LRF_INSPIRATIONS_PRICING.canAccess('elios'),true);
  assert.equal(context.window.LRF_INSPIRATIONS_PRICING.getPrice('elios',{},'60x60'),quote);
@@ -113,9 +113,9 @@ test('ELIOS pricing uses verified agent cache without requiring a client PRO ses
 
 test('browser enrichment keeps purchases only in memory and clears catalogue fields on logout',()=>{
  const catalogue=[{id:'test',variants:[{key:'test-60',publicPrice:99}]}],window={VIEW_CATALOGUE:catalogue,addEventListener(){},dispatchEvent(){}},document={addEventListener(){},querySelectorAll(){return [];},getElementById(){return null;},body:{style:{}}};
- const source=readFileSync(new URL('../assets/js/agent-tariffs.js',import.meta.url),'utf8').replace('connect().catch(()=>{clear();redraw();});','');
- const context={window,document,CustomEvent:class{},console,localStorage:{getItem:()=>'{"isAdmin":true}'}};vm.createContext(context);
- vm.runInContext(source+'\nverified=true;view=[{productId:"test",variantKey:"test-60",proDetail:12.34}];elios={"test|60x60|standard":{amount:4.56}};enrich();globalThis.testClear=clear;',context);
+ const source=readFileSync(new URL('../assets/js/agent-tariffs.js',import.meta.url),'utf8').replace('refresh();\nconnect().catch(() => refresh());','');
+ const context={window,document,setTimeout(){},clearTimeout(){},CustomEvent:class{},console,localStorage:{getItem:()=>'{"isAdmin":true}'}};vm.createContext(context);
+ vm.runInContext(source+'\nverified=true;validUntil=Date.now()+60000;allowedPartners=new Set(["elios-ceramica","view-ceramica"]);view=[{productId:"test",variantKey:"test-60",proDetail:12.34}];elios={"test|60x60|standard":{amount:4.56}};enrich();globalThis.testClear=clear;',context);
  assert.equal(catalogue[0].variants[0].proDetail,12.34);assert.equal(window.LRF_AGENT_TARIFFS.verified,true);
  context.testClear();assert.equal(catalogue[0].variants[0].proDetail,undefined);assert.equal(catalogue[0].variants[0].publicPrice,99);assert.equal(window.LRF_AGENT_TARIFFS.verified,false);assert.equal(window.LRF_AGENT_TARIFFS.eliosPrice({slug:'test'},'60x60').locked,true);
 });

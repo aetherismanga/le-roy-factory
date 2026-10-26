@@ -129,6 +129,7 @@
     removeStored(); purgeLegacy();
     if (options.forgetDevice === true) removeToken();
     window.LRF_PRO_CONTEXT = null;
+    emitSession(null);
   }
   function sync() { return read(); }
   function unlockLegacy() { clear(); return false; }
@@ -173,14 +174,10 @@
     const originalCanAccess = api.canAccess?.bind(api);
     const originalGetPrice = api.getPrice?.bind(api);
     api.getSession = read;
-    api.canAccess = partner => {
-      const session = read(); if (!session) return false; if (session.isAdmin) return true;
-      return originalCanAccess ? originalCanAccess(partner) : session.partenaires.includes(partner);
-    };
-    api.getPrice = (partner, product, format) => {
-      const session = read(); if (!session) return null;
-      return originalGetPrice ? originalGetPrice(partner, product, format) : null;
-    };
+    // Price access is determined by the server-verified tariff cache. A local
+    // PRO session (including an admin flag) must neither grant nor block it.
+    api.canAccess = partner => originalCanAccess ? originalCanAccess(partner) : false;
+    api.getPrice = (partner, product, format) => originalGetPrice ? originalGetPrice(partner, product, format) : null;
     api.__sessionBridgePatched = true; return true;
   }
 

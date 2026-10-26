@@ -1,4 +1,4 @@
-/* __LRF_PUBLIC_TARIFFS_V1__: Azuli tariffs use the protected agent cache. */
+/* __LRF_PUBLIC_TARIFFS_V1__: Azuli tariffs use the server-verified tariff cache. */
 (() => {
   const catalogue = Array.isArray(window.ELIOS_CATALOGUE) ? window.ELIOS_CATALOGUE : [];
   const bySlug = slug => catalogue.find(p => p && p.slug === slug);
@@ -67,7 +67,7 @@
   window.ELIOS_IMAGE_DATA = window.ELIOS_IMAGE_DATA || {};
   window.ELIOS_IMAGE_DATA['azuli-mood-1'] = 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/azuli-mood/chalk-01.jpg';
 
-  // Les tarifs Azuli Mood sont fournis par le service agent vérifié.
+  // Les tarifs Azuli Mood sont fournis après validation serveur des droits du compte.
   function normalise(value) {
     return String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]/g, '');
   }
@@ -125,12 +125,12 @@
     }
     if (!info) return;
 
-    // Prices come only from the verified in-memory agent enrichment.
+    // Prices come only from the server-verified in-memory tariff enrichment.
     const product = (window.ELIOS_CATALOGUE || []).find(p => normalise(p.slug) === 'azulimood');
     info.querySelectorAll('.formats-table tbody tr').forEach(row => {
       if (!row.cells?.[1]) return;
       const quote = window.LRF_AGENT_TARIFFS?.eliosPrice(product, row.cells[0].textContent) || { locked: true };
-      const label = quote.locked ? 'Connexion agent requise' : quote.label || 'Sur demande';
+      const label = quote.locked ? 'Connexion professionnelle requise' : quote.label || 'Sur demande';
       if (row.cells[1].textContent !== label) row.cells[1].textContent = label;
     });
 
