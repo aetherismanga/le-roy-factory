@@ -40,6 +40,10 @@ jobs:
               const d=await read(base+name);
               console.log(JSON.stringify({service:name,error:d.error,message:d.message,terminalCondition:d.terminalCondition,conditions:d.conditions,latestReadyRevision:d.latestReadyRevision,latestCreatedRevision:d.latestCreatedRevision,scaling:d.template?.scaling}));
             }
+            for(const [label,path] of [['ELIOS','private-tariffs/elios/elios2026.pdf'],['LIFE','private-tariffs/life/life2026.pdf'],['LA FENICE','private-tariffs/lafenice/lafenice2026.pdf']]){
+              const file=await read('https://storage.googleapis.com/storage/v1/b/le-roy-factory.firebasestorage.app/o/'+encodeURIComponent(path)+'?fields=size,contentType');
+              console.log(JSON.stringify({tariffMetadata:label,size:file.size,contentType:file.contentType,error:file.error,message:file.message}));
+            }
             const billing=await read('https://cloudbilling.googleapis.com/v1/projects/'+project+'/billingInfo');
             const screenshotAccountHash='207d885f2b5b48e529fdff07079f656a74911ea110111acfeab21311feb18420';
             const accountHash=require('node:crypto').createHash('sha256').update(String(billing.billingAccountName||'')).digest('hex');
