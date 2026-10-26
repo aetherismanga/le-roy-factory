@@ -5,7 +5,7 @@
 
   const GROUPS = {
     elios: [
-      'assets/js/inspirations-elios-pricing.js?v=20261026-pro-access1&media=20261018',
+      'assets/js/inspirations-elios-pricing.js?v=20261026-safari1&media=20261018',
       'assets/js/inspirations-elios-pool-integrated.js?v=20260907-pool2',
       'assets/js/inspirations-elios-official-galleries.js?v=20260902-batch2',
       'assets/js/inspirations-elios-official-galleries-2.js?v=20260902-batch3',

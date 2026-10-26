@@ -125,6 +125,7 @@
       const ctx = canvas.getContext('2d', { alpha: false });
       await page.render({ canvasContext: ctx, viewport }).promise;
       const url = canvas.toDataURL('image/jpeg', 0.78);
+      canvas.width = canvas.height = 0;
       poolCache.set(id, url);
       return url;
     } catch (error) {
@@ -133,22 +134,52 @@
     }
   }
 
-  async function hydratePoolCards() {
+  async function hydratePoolCard(card) {
+    const id = card.dataset.id;
+    const img = card.querySelector('img');
+    if (!card.isConnected || !img) return;
+    img.dataset.poolHydrated = 'loading';
+    const url = await renderPoolPage(id);
+    if (!card.isConnected) return;
+    if (url) img.src = url;
+    // A failed PDF must not restart the observer and fetch/render loop.
+    img.dataset.poolHydrated = url ? '1' : 'error';
+    const eyebrow = card.querySelector('.eyebrow');
+    if (eyebrow && eyebrow.textContent !== 'Elios Ceramica · Piscine') {
+      eyebrow.textContent = 'Elios Ceramica · Piscine';
+    }
+  }
+
+  let poolQueue = Promise.resolve();
+  const observedPoolCards = new Set();
+  function queuePoolCard(card) {
+    poolQueue = poolQueue.then(() => hydratePoolCard(card));
+  }
+  const poolObserver = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      poolObserver.unobserve(entry.target);
+      observedPoolCards.delete(entry.target);
+      queuePoolCard(entry.target);
+    });
+  }, { rootMargin: '200px' }) : null;
+
+  function hydratePoolCards() {
+    observedPoolCards.forEach(card => {
+      if (card.isConnected) return;
+      poolObserver.unobserve(card);
+      observedPoolCards.delete(card);
+    });
     const cards = [...document.querySelectorAll('#partner-products [data-id^="elios-pool-"]')];
     for (const card of cards) {
-      const id = card.dataset.id;
       const img = card.querySelector('img');
       if (!img || img.dataset.poolHydrated) continue;
-      img.dataset.poolHydrated = 'loading';
-      const url = await renderPoolPage(id);
-      if (url) {
-        img.src = url;
-        img.dataset.poolHydrated = '1';
-      } else {
-        delete img.dataset.poolHydrated;
+      img.dataset.poolHydrated = 'queued';
+      if (poolObserver) {
+        observedPoolCards.add(card);
+        poolObserver.observe(card);
       }
-      const eyebrow = card.querySelector('.eyebrow');
-      if (eyebrow) eyebrow.textContent = 'Elios Ceramica · Piscine';
+      else queuePoolCard(card);
     }
   }
 
@@ -203,9 +234,7 @@
     const grid = document.getElementById('partner-products');
     if (grid && !grid.dataset.poolObserver) {
       grid.dataset.poolObserver = '1';
-      new MutationObserver(() => {
-        if (grid.querySelector('[data-id^="elios-pool-"]')) hydratePoolCards();
-      }).observe(grid, { childList: true, subtree: true });
+      new MutationObserver(hydratePoolCards).observe(grid, { childList: true, subtree: true });
     }
 
     const modal = document.getElementById('product-modal-v2-card');

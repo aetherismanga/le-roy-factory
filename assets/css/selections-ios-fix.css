@@ -18,8 +18,6 @@
       background-repeat:no-repeat!important;
       -webkit-appearance:none!important;
       appearance:none!important;
-      transform:translateZ(0);
-      -webkit-transform:translateZ(0);
     }
     body.lrf-ios .mobile-partner-trigger,
     body.lrf-ios .mobile-filter-trigger {
@@ -38,8 +36,6 @@
       contain-intrinsic-size:auto!important;
       visibility:visible!important;
       opacity:1!important;
-      -webkit-transform:translateZ(0);
-      transform:translateZ(0);
     }
     body.lrf-ios .product-card-v2 img,
     body.lrf-ios .workspace img,

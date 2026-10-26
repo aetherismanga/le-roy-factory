@@ -3,7 +3,9 @@
 .category-card{
   position:relative;
   aspect-ratio:8/3;
-  min-height:0!important;
+  /* Keep a real height on Safari versions that do not size grid buttons
+     from aspect-ratio (all children used to be hidden). */
+  min-height:96px!important;
   padding:0!important;
   overflow:hidden;
   border:0!important;
@@ -15,6 +17,8 @@
   box-shadow:0 4px 13px rgba(43,34,20,.06)!important;
 }
 .category-card .category-icon,.category-card .category-name,.category-card .category-meta{display:none!important}
+.category-card .category-name{display:block!important;position:absolute;left:10px;bottom:8px;max-width:calc(100% - 20px);margin:0;padding:5px 9px;border-radius:7px;background:#fffdf5;color:#202733;font-size:.82rem;line-height:1.25;text-shadow:none}
+.category-card:focus-visible{outline:3px solid #8e6c18;outline-offset:3px}
 .category-card[data-cat='carrelage']{background-image:url('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/inspirations/carrelage.webp?v=20260901-5')!important}
 .category-card[data-cat='exception']{background-image:url('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/inspirations/exception.webp?v=20260901-5')!important}
 .category-card[data-cat='mosaique']{background-image:url('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/inspirations/mosaique.webp?v=20260901-5')!important}
@@ -26,4 +30,4 @@
 .category-card:hover{transform:translateY(-1px)!important;box-shadow:0 6px 16px rgba(43,34,20,.09)!important}
 .category-card.active{transform:none!important;box-shadow:0 0 0 2px #D4AF37,0 5px 16px rgba(43,34,20,.08)!important}
 @media(max-width:900px){.category-grid{gap:.5rem!important}.category-card{aspect-ratio:8/3;border-radius:13px!important;box-shadow:0 3px 10px rgba(43,34,20,.055)!important}}
-@media(max-width:560px){.category-card{min-height:0!important;aspect-ratio:8/3}}
+@media(max-width:560px){.category-card{min-height:72px!important;aspect-ratio:8/3}.category-card .category-name{left:6px;bottom:6px;max-width:calc(100% - 12px);padding:4px 6px;font-size:.72rem}}
