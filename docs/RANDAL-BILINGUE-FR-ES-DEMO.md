@@ -87,9 +87,9 @@ Les deux prévisualisations finales sont vérifiées. La branche reste indépend
 - Exports CSV réels : 2/2 réussis (français/espagnol sur les deux ateliers), libellés localisés et chiffres, fabricants, collections, formats et références identiques. Total des nouveaux blocs navigateur : 50 réussis.
 
 
-### Contrôle distant et présentation
+### Contrôle distant du lot bilingue initial
 
-Le SHA de code vérifié et déployé est `1e9c3184401f16103e1161d79e08f820f38ddbf7`. Les deux builds Vercel sont `READY`, cible prévisualisation (`target: null`).
+Le SHA du lot bilingue initial vérifié et déployé est `1e9c3184401f16103e1161d79e08f820f38ddbf7`. Les deux builds Vercel sont `READY`, cible prévisualisation (`target: null`).
 
 - Contrôles réels finaux : 12/12 réussis, sans mocks, sur PC et iPhone WebKit simulé.
 - Photos, textures Stone Icon et finitions des meubles réellement chargées ; rendu contrôlé après stabilisation.
@@ -100,11 +100,45 @@ Le SHA de code vérifié et déployé est `1e9c3184401f16103e1161d79e08f820f38dd
 
 Le pont de préférence côté site est préparé dans cette branche et testé ; son déploiement sur le site principal attend l’autorisation de publication du lot. Les liens de démonstration fonctionnent directement entre les deux prévisualisations.
 
-### Liens vérifiés
+### Présentation photoréaliste — 26 octobre 2026
 
-- [Démonstration espagnole pour Juan Carlos — les deux ateliers](https://studio-one-beta-test-v2-d6qpra090-hugol-trading.vercel.app/demo.html?studio=https%3A%2F%2Fstudio-one-beta-test-v2-d6qpra090-hugol-trading.vercel.app&general=https%3A%2F%2Frandal-catalogue-general-3d-4r6n1r0iv-hugol-trading.vercel.app)
-- [STUDIO ONE en espagnol](https://studio-one-beta-test-v2-d6qpra090-hugol-trading.vercel.app/index.html?lang=es&demo=randal&studio=https%3A%2F%2Fstudio-one-beta-test-v2-d6qpra090-hugol-trading.vercel.app&general=https%3A%2F%2Frandal-catalogue-general-3d-4r6n1r0iv-hugol-trading.vercel.app)
-- [Catalogue Général en espagnol](https://randal-catalogue-general-3d-4r6n1r0iv-hugol-trading.vercel.app/index.html?lang=es&demo=randal&studio=https%3A%2F%2Fstudio-one-beta-test-v2-d6qpra090-hugol-trading.vercel.app&general=https%3A%2F%2Frandal-catalogue-general-3d-4r6n1r0iv-hugol-trading.vercel.app)
+À la demande de Jérôme, la page commune de présentation a été retravaillée :
+visuels photoréalistes bois et blanc à partir des deux compositions publiques,
+images plus grandes, hiérarchie typographique plus lisible, crème/anthracite/doré,
+accès aux deux logiciels et pied de page LE ROY FACTORY conservés. Les images
+sont identifiées comme visuels d'inspiration ; elles ne remplacent aucun média
+fabricant ni aucun rendu de scène. Les WebP adaptatifs pèsent ensemble environ
+65 Ko en petit format, 246 Ko en grand format. Leur provenance et la direction
+des prompts sont décrites dans `shared/lrf-3d/demo/ASSETS.md`.
+
+SHA de code testé : `91bf54f6c0a0e5b8c8f3744fdb157a928caaa69b`.
+Deux prévisualisations Vercel créées pour ce lot, toutes deux `READY`,
+`target: null` : Studio One `dpl_6FFKKwKtKKgJczxCAiRNx512oWAc`, Catalogue Général
+`dpl_Gccwv3sJBUCMTr8U7Yx1eeYU2Kfj`. Aucune publication de production.
+
+- Builds des deux applications, noyau partagé et deux batteries de contrôles : réussis.
+- Sécurité, PLAN & POSE et tests i18n existants relancés : 329 réussis, zéro échec,
+  un ancien scénario navigateur ignoré par sa détection locale.
+- Isolation et navigation de démonstration : contrôles réussis.
+- Page locale : 10/10 profils réussis, les deux variantes à 1440, 768, 390,
+  320 px et iPhone WebKit simulé ; captures visuellement contrôlées.
+- Contraste des petits textes au moins 4,79:1 ; boutons de 49 px ; aucun débordement.
+- Vérifications distantes sans mocks : 8/8 réussies. Six pages/profils PC,
+  Android Pixel 5 simulé et iPhone WebKit simulé, plus les deux accès réels
+  aux accueils anonymes en espagnol. HTML servi identique aux fichiers testés,
+  12 images téléchargées HTTP 200 avec empreintes exactes des quatre variantes.
+- Aucune erreur JavaScript, réponse HTTP ≥ 400, barre Vercel ou requête API privée.
+- Le script de navigation de la page est inchangé. Les 17 bundles JS/CSS des
+  configurateurs sont strictement identiques au lot bilingue précédent ; aucune
+  donnée, texture 3D, géométrie, option, référence, règle tarifaire ou sauvegarde modifiée.
+
+Les liens ci-dessous remplacent ceux de la première présentation.
+
+### Liens vérifiés — présentation photoréaliste
+
+- [Démonstration espagnole pour Juan Carlos — les deux ateliers](https://studio-one-beta-test-v2-pdqups5za-hugol-trading.vercel.app/demo.html?studio=https%3A%2F%2Fstudio-one-beta-test-v2-pdqups5za-hugol-trading.vercel.app&general=https%3A%2F%2Frandal-catalogue-general-3d-oek4pxzxr-hugol-trading.vercel.app)
+- [STUDIO ONE en espagnol](https://studio-one-beta-test-v2-pdqups5za-hugol-trading.vercel.app/index.html?lang=es&demo=randal&studio=https%3A%2F%2Fstudio-one-beta-test-v2-pdqups5za-hugol-trading.vercel.app&general=https%3A%2F%2Frandal-catalogue-general-3d-oek4pxzxr-hugol-trading.vercel.app)
+- [Catalogue Général en espagnol](https://randal-catalogue-general-3d-oek4pxzxr-hugol-trading.vercel.app/index.html?lang=es&demo=randal&studio=https%3A%2F%2Fstudio-one-beta-test-v2-pdqups5za-hugol-trading.vercel.app&general=https%3A%2F%2Frandal-catalogue-general-3d-oek4pxzxr-hugol-trading.vercel.app)
 
 ### Production préservée
 
