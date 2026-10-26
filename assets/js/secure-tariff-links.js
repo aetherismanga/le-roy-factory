@@ -53,11 +53,12 @@
       import('https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js'),
       import('https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js')
     ]);
-    const app=appModule.getApps().length?appModule.getApp():appModule.initializeApp(FIREBASE_CONFIG);
+    const app=appModule.getApps().find(app=>app.options.projectId===FIREBASE_CONFIG.projectId)||appModule.initializeApp(FIREBASE_CONFIG);
     const auth=authModule.getAuth(app);
+    await auth.authStateReady();
     const user=auth.currentUser;
     const email=String(user?.email||'').trim().toLowerCase();
-    if(!user||!ADMIN_EMAILS.has(email))throw new Error('Session administrateur Firebase introuvable. Reconnectez-vous à l’Espace Agent.');
+    if(!user||!ADMIN_EMAILS.has(email))return null;
     return user.getIdToken(true);
   }
 
@@ -90,12 +91,7 @@
   async function openSecureTariff(anchor){
     if(!cardAllowsSecureOpen(anchor))return;
     const s=session();
-    if(!s){
-      alert('Votre accès PRO a expiré. Saisissez à nouveau votre Code LRF et votre département.');
-      location.href='tarifs-pro.html';
-      return;
-    }
-
+    // Open synchronously for mobile popup policies, before awaiting Firebase.
     const popup=window.open('about:blank','_blank');
     if(popup){
       popup.document.write('<!doctype html><title>LE ROY FACTORY</title><body style="font-family:Arial;padding:30px">Ouverture du tarif sécurisé…</body>');
@@ -109,9 +105,15 @@
       const headers={'Content-Type':'application/json'};
       const body={tariffId:anchor.dataset.secureTariffId};
 
-      if(isAdminSession(s)){
-        headers.Authorization=`Bearer ${await adminToken()}`;
+      // The PRO page clears its client session when opening for an agent.
+      // Only the live Firebase identity, verified again by the server, can
+      // authorize an administrator; browser flags are never credentials.
+      const token=await adminToken();
+      if(token){
+        headers.Authorization=`Bearer ${token}`;
       }else{
+        if(isAdminSession(s))throw new Error('Session administrateur Firebase introuvable. Reconnectez-vous à l’Espace Agent.');
+        if(!s)throw new Error('Votre accès PRO a expiré. Saisissez à nouveau votre Code LRF et votre département.');
         body.codeClient=s.codeClient;
         body.departement=s.departement;
       }
