@@ -41,7 +41,9 @@ jobs:
               console.log(JSON.stringify({service:name,error:d.error,message:d.message,terminalCondition:d.terminalCondition,conditions:d.conditions,latestReadyRevision:d.latestReadyRevision,latestCreatedRevision:d.latestCreatedRevision,scaling:d.template?.scaling}));
             }
             const billing=await read('https://cloudbilling.googleapis.com/v1/projects/'+project+'/billingInfo');
-            console.log(JSON.stringify({billingEnabled:billing.billingEnabled,billingAccountLinked:!!billing.billingAccountName,error:billing.error,message:billing.message}));
+            const screenshotAccountHash='207d885f2b5b48e529fdff07079f656a74911ea110111acfeab21311feb18420';
+            const accountHash=require('node:crypto').createHash('sha256').update(String(billing.billingAccountName||'')).digest('hex');
+            console.log(JSON.stringify({billingEnabled:billing.billingEnabled,billingAccountLinked:!!billing.billingAccountName,matchesAccountShownByOwner:accountHash===screenshotAccountHash,error:billing.error,message:billing.message}));
             if(billing.billingAccountName){const account=await read('https://cloudbilling.googleapis.com/v1/'+billing.billingAccountName);console.log(JSON.stringify({linkedBillingAccountOpen:account.open,error:account.error,message:account.message}));}
             try{
               const {data}=await auth.request({url:'https://logging.googleapis.com/v2/entries:list',method:'POST',data:{resourceNames:['projects/'+project],filter:'resource.type="cloud_run_revision" AND severity>=ERROR AND timestamp>="'+new Date(Date.now()-6*3600000).toISOString()+'" AND (resource.labels.service_name="gettariffpdf" OR resource.labels.service_name="createprosession" OR resource.labels.service_name="validateprosession" OR resource.labels.service_name="getaccountclientprefill")',orderBy:'timestamp desc',pageSize:15}});
