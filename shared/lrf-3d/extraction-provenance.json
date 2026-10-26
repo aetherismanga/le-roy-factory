@@ -206,14 +206,15 @@
       "bytes": 12444,
       "originalsIdentical": true,
       "current": {
-        "sha256": "953090891fa29ccbb5ab998adcaf09a4e17b85d4ef1fbbcccc61bcb83c88f6f8",
-        "bytes": 13411,
+        "sha256": "14b1e0e8bfc3137fff2bf340c4f5c18691f643a0e9b4057bf415d10929beae0d",
+        "bytes": 17438,
         "changeType": "functional-update-20261025",
-        "reason": "Localize the existing photorealistic instructions and refresh their read-only display after a language switch, retaining the unchanged visual-data allowlist, original HD capture and exclusion of commercial and customer information.",
+        "reason": "Add a local single-PNG handoff with the original unaltered HD scene and complete readable FR/ES instructions below it; compact only JSON whitespace, preserve the existing privacy allowlist, scene, catalogues and prices; retain separate files as an advanced fallback.",
         "validation": [
           "studio-one/qa/photoreal-export-check.mjs",
           "randal-general/qa/photoreal-project.mjs",
-          "shared/lrf-3d/qa/i18n-browser-check.mjs"
+          "shared/lrf-3d/qa/i18n-browser-check.mjs",
+          "shared/lrf-3d/qa/photoreal-handoff-browser-check.mjs"
         ]
       }
     },

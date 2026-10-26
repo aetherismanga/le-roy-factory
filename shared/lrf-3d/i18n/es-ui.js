@@ -3,6 +3,19 @@ import {ES_COMMERCE,ES_COMMERCE_PATTERNS} from './es-commerce.js';
 import {ES_SHARED,ES_SHARED_PATTERNS} from './es-shared.js';
 
 export const ES_ATELIER = {
+  "Le fichier image avec consignes n’a pas pu être créé.": "No se ha podido crear la imagen con las instrucciones.",
+  "Les consignes dépassent la taille d’image disponible sur cet appareil. Utilisez les options séparées.": "Las instrucciones superan el tamaño de imagen disponible en este dispositivo. Utilice las opciones por separado.",
+  "CONSIGNES POUR CHATGPT — IMAGE DE RÉFÉRENCE CI-DESSUS": "INSTRUCCIONES PARA CHATGPT — IMAGEN DE REFERENCIA ARRIBA",
+  "Créez le rendu demandé à partir de la vue ci-dessus. Ne reproduisez pas cette zone de texte.": "Cree el render solicitado a partir de la imagen que aparece arriba. No reproduzca esta zona de texto.",
+  "1. Téléchargez votre fichier pour ChatGPT": "1. Descargue su archivo para ChatGPT",
+  "La vue HD et toutes les consignes sont réunies dans une seule image.": "La vista HD y todas las instrucciones se reúnen en una sola imagen.",
+  "Télécharger l’image avec les consignes": "Descargar la imagen con las instrucciones",
+  "2. Joignez ce fichier dans ChatGPT": "2. Adjunte este archivo en ChatGPT",
+  "Ouvrez ChatGPT et joignez le fichier téléchargé. Les consignes sont déjà intégrées à l’image.": "Abra ChatGPT y adjunte el archivo descargado. Las instrucciones ya están integradas en la imagen.",
+  "Options avancées : image et consignes séparées": "Opciones avanzadas: imagen e instrucciones por separado",
+  "Télécharger l’image HD seule": "Descargar solo la imagen HD",
+  "Votre fichier ChatGPT est prêt : image HD et consignes intégrées.": "Su archivo para ChatGPT está listo: imagen HD e instrucciones integradas.",
+
   "Collection": "Colección",
   "Votre navigateur ne permet pas de lancer WebGL 2. Essayez une version récente de Safari, Chrome ou Firefox.": "Tu navegador no permite iniciar WebGL 2. Prueba una versión reciente de Safari, Chrome o Firefox.",
   "Une ressource 3D n’a pas pu être chargée. Vérifiez votre connexion puis réessayez.": "No se ha podido cargar un recurso 3D. Comprueba tu conexión e inténtalo de nuevo.",
