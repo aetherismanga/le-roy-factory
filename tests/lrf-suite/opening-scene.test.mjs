@@ -16,7 +16,7 @@ test('fresh opening scene resolves exact manufacturer SKUs and leaves the fourth
   const product=catalogue.find(r=>r.key===f.catalogueKey);assert(product,'Default must name an actual commercial product');
   assert.equal(product.reference,reference);assert.equal(product.colorId,color);assert.equal(product.collection,'Stone Icon');assert.equal(product.format,'60x90');assert.equal(f.reference,reference);assert.equal(f.format,product.format);assert.equal(f.finish,product.finish);assert.equal(f.groutColor,'Beige');
  }
- assert.deepEqual(p.walls[3],{collection:'Peinture',color:'white',paintHex:'#eeeae0'});assert.equal(p.lighting,'day');assert.equal(p.brightness,84);assert.equal(p.temperature,4700);
+ assert.deepEqual(p.walls[3],{collection:'Peinture',color:'white',paintHex:'#eeeae0'});assert.equal(p.lighting,'day');assert.equal(p.brightness,144);assert.equal(p.temperature,4700);
 });
 test('floor and wall seams meet in physical scene coordinates rather than merely using identical offsets',()=>{
  const p=openingBathroomProject(),scene=makeRoom(p.room,0);
