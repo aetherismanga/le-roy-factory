@@ -1,5 +1,6 @@
 // Shared interface vocabulary. Product names, codes and persisted values stay in their source data.
 export const ES_SHARED = {
+  "Visiter l’aperçu": "Visitar la vista previa",
   "Vue du modèle 3D proposé dans le configurateur · éclairage studio": "Vista del modelo 3D disponible en el configurador · iluminación de estudio",
   "Forme et proportions du modèle proposé · verre sur fond neutre": "Forma y proporciones del modelo disponible · vidrio sobre fondo neutro",
   "Meuble de salle de bains deux tiroirs, finition Serenade Alba, sans plan": "Mueble de baño de dos cajones, acabado Serenade Alba, sin encimera",

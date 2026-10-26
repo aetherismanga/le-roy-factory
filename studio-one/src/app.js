@@ -874,7 +874,7 @@ function previewPublicComposition(id,options){return publicCompositionSession.pr
 function copyPublicComposition(id,options){return publicCompositionSession.copy(id,options);}
 function initializePublicCompositions(){
  publicCompositionSession=createPublicCompositionSession({getProject:collectProject,restoreProject,getWorkspace:()=>projectWorkspace,storage:localStorage,activeKey:ACTIVE_ID,onBefore:()=>{walkMode?.setActive(false);clearTimeout(projectTimer);projectTimer=null;},onChange:publicCompositionChanged});
- publicCompositionBanner=mountPublicCompositionBanner({stage,session:publicCompositionSession,onCopy:copyPublicComposition,onClose:()=>publicCompositionSession.leave()});
+ publicCompositionBanner=mountPublicCompositionBanner({stage,session:publicCompositionSession,onCopy:copyPublicComposition,onVisit:()=>{if(publicCompositionSession.isPreview){projectWorkspace?.refreshLock();walkMode?.setActive(true);}}});
  publicCompositionGallery=mountPublicCompositionsGallery({getCompositions:()=>PUBLIC_COMPOSITIONS,getCurrentVariant:()=>'studio-one',onPreview:composition=>previewPublicComposition(composition.id),onCopy:composition=>copyPublicComposition(composition.id),onNavigate:({composition,mode})=>{navigatePublicComposition(composition,mode);}});
  const params=new URLSearchParams(location.search),id=params.get('composition');if(id){const descriptor=publicComposition(id);if(descriptor?.variant!=='studio-one'){if(descriptor)navigatePublicComposition(descriptor,params.get('compositionMode')||'preview');return;}try{params.get('compositionMode')==='copy'?copyPublicComposition(id,{checkpoint:false}):previewPublicComposition(id,{checkpoint:false});}catch(error){placementStatus(error.message);}}
 }

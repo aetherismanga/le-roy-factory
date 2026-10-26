@@ -95,7 +95,7 @@ for(const match of appModuleSource.matchAll(/^import\s*\{([^}]+)\}\s*from\s*['"]
   if(!(local in context))context[local]=imported[original];
  }
 }
-let source=appModuleSource.replace(/^import .*;\n/gm,'').replace(/\nstart\(\);\s*$/,'');
+let source=appModuleSource.replace(/^import .*;\n/gm,'').replace(/^start\(\);$/m,'');
 // The walk controller now shares its gesture recognizer with the two apps.
 const walkControllerSource=readFileSync('src/walk-mode.js','utf8');
 for(const match of walkControllerSource.matchAll(/^import\s*\{([^}]+)\}\s*from\s*['"]([^'"]+)['"];?/gm)){
