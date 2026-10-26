@@ -1,0 +1,52 @@
+name: Verify PRO services health
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pro-services-health.yml'
+      - 'scripts/check-pro-service-health.mjs'
+permissions:
+  contents: read
+concurrency:
+  group: pro-services-health
+  cancel-in-progress: false
+jobs:
+  diagnose:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Google API client
+        run: npm install --prefix /tmp/lrf-pro-health --ignore-scripts --no-audit --no-fund google-auth-library@9.15.1
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_LE_ROY_FACTORY }}'
+      - name: Read service health and startup errors
+        run: |
+          node <<'JS'
+          const {GoogleAuth}=require('/tmp/lrf-pro-health/node_modules/google-auth-library');
+          (async()=>{
+            const auth=await new GoogleAuth({scopes:['https://www.googleapis.com/auth/cloud-platform']}).getClient();
+            async function read(url){try{return(await auth.request({url})).data}catch(e){return {error:e.response?.status||e.code,message:e.response?.data?.error?.message||e.message}}}
+            const project='le-roy-factory',base='https://run.googleapis.com/v2/projects/'+project+'/locations/us-central1/services/';
+            for(const name of ['gettariffpdf','createprosession','validateprosession','getaccountclientprefill']){
+              const d=await read(base+name);
+              console.log(JSON.stringify({service:name,error:d.error,message:d.message,terminalCondition:d.terminalCondition,conditions:d.conditions,latestReadyRevision:d.latestReadyRevision,latestCreatedRevision:d.latestCreatedRevision,scaling:d.template?.scaling}));
+            }
+            const billing=await read('https://cloudbilling.googleapis.com/v1/projects/'+project+'/billingInfo');
+            console.log(JSON.stringify({billingEnabled:billing.billingEnabled,error:billing.error,message:billing.message}));
+            try{
+              const {data}=await auth.request({url:'https://logging.googleapis.com/v2/entries:list',method:'POST',data:{resourceNames:['projects/'+project],filter:'resource.type="cloud_run_revision" AND severity>=ERROR AND timestamp>="'+new Date(Date.now()-6*3600000).toISOString()+'" AND (resource.labels.service_name="gettariffpdf" OR resource.labels.service_name="createprosession" OR resource.labels.service_name="validateprosession" OR resource.labels.service_name="getaccountclientprefill")',orderBy:'timestamp desc',pageSize:15}});
+              for(const e of data.entries||[])console.log(JSON.stringify({time:e.timestamp,service:e.resource?.labels?.service_name,severity:e.severity,message:String(e.textPayload||e.jsonPayload?.message||e.protoPayload?.status?.message||'').slice(0,1800)}));
+            }catch(e){console.log(JSON.stringify({logsError:e.response?.status||e.code,message:e.response?.data?.error?.message||e.message}));}
+          })().catch(e=>{console.error(e.message);process.exitCode=1});
+          JS
+      - name: Verify public PRO endpoints and access rejection
+        run: node scripts/check-pro-service-health.mjs
