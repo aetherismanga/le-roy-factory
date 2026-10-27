@@ -32,6 +32,8 @@ for(const [name,type,device] of [
       let pdfRequests=0;
       await context.addInitScript(()=>{
         window.selectionObserverCalls=0;
+        window.selectionEliosReady=false;
+        window.addEventListener('lrf-selections-elios-ready',()=>{window.selectionEliosReady=true;});
         const Observer=window.MutationObserver;
         window.MutationObserver=class extends Observer{
           constructor(callback){super((records,observer)=>{window.selectionObserverCalls++;callback(records,observer);});}
@@ -63,7 +65,7 @@ for(const [name,type,device] of [
       for(const card of await page.locator('.category-card').all()){
         assert((await card.boundingBox()).height>=72);
         assert((await card.getAttribute('aria-label'))?.trim(), 'Every universe keeps an accessible name');
-        if(await card.getAttribute('data-cat')==='mosaique'){
+        if(await card.getAttribute('data-cat')==='mosaique'||(await card.getAttribute('class')).includes('category-image-unavailable')){
           await expect(card.locator('.category-name')).toBeVisible();
         }else{
           await expect(card.locator('.category-name')).toBeHidden();
@@ -95,6 +97,7 @@ for(const [name,type,device] of [
         await page.locator('[data-cat="carrelage"]').click();
         await expect(page.locator('#workspace-title')).toHaveText('Elios Ceramica');
         await expect(page.locator('#partner-products .product-card-v2').first()).toBeVisible();
+        await page.waitForFunction(()=>window.selectionEliosReady);
         await idle();
       }
       const pool=page.locator('[data-id^="elios-pool-"]').first();

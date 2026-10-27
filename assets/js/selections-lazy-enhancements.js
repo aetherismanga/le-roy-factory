@@ -39,20 +39,26 @@
   };
 
   const states = new Map();
+  const scriptFlights = window.__LRF_SELECTION_SCRIPT_LOADS__ = window.__LRF_SELECTION_SCRIPT_LOADS__ || new Map();
   const nextFrame = () => new Promise(resolve => requestAnimationFrame(() => resolve()));
   const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 
   function loadScript(src) {
-    if ([...document.scripts].some(s => s.src && s.src.includes(src.split('?')[0]))) return Promise.resolve();
-    return new Promise(resolve => {
+    const key=src.split('?')[0];
+    if(scriptFlights.has(key))return scriptFlights.get(key).catch(()=>{});
+    if ([...document.scripts].some(s => s.src && s.src.includes(key))) return Promise.resolve();
+    const promise=new Promise((resolve,reject) => {
       const script = document.createElement('script');
       script.src = src;
       script.async = false;
       script.dataset.lrfLazySelection = '1';
       script.onload = resolve;
-      script.onerror = resolve;
+      script.onerror = error => {scriptFlights.delete(key);script.remove();reject(error);};
       document.body.appendChild(script);
     });
+    scriptFlights.set(key,promise);
+    // A missing optional gallery must not block the remaining enhancements.
+    return promise.catch(()=>{});
   }
 
   async function loadGroup(name, urgent = false) {
@@ -68,11 +74,6 @@
     })();
     states.set(name, promise);
     return promise;
-  }
-
-  function idle(callback, timeout = 1200) {
-    if ('requestIdleCallback' in window) return window.requestIdleCallback(callback, { timeout });
-    return setTimeout(callback, 260);
   }
 
   /* Lexique produits : accès rapide aux collections depuis le bloc Produits. */
@@ -239,31 +240,32 @@
     return true;
   }
 
-  document.addEventListener('pointerdown', e => {
+  function requestManufacturerEnhancements(e) {
     const partner = e.target.closest?.('[data-partner]');
-    if (partner && /view/i.test(partner.dataset.partner || '')) loadGroup('view', true);
+    if (partner) {
+      if (/view/i.test(partner.dataset.partner || '')) loadGroup('view', true);
+      else if (/elios/i.test(partner.dataset.partner || '')) loadGroup('elios', true);
+    }
+    // The carrelage category deliberately opens its first manufacturer (ELIOS).
+    if (e.target.closest?.('[data-cat="carrelage"]')) loadGroup('elios', true);
     const card = e.target.closest?.('.product-card-v2');
     const title = document.getElementById('workspace-title')?.textContent || '';
     if (card && /elios/i.test(title)) loadGroup('elios', true);
-  }, { capture: true, passive: true });
+  }
+  document.addEventListener('pointerdown', requestManufacturerEnhancements, { capture: true, passive: true });
+  // Native keyboard activation and the product lexicon dispatch click without
+  // pointerdown. Keep the same ordered, single-flight loader for both inputs.
+  document.addEventListener('click', requestManufacturerEnhancements, { capture: true, passive: true });
 
-  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent || '') ||
-    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-
-  const startBackgroundLoad = () => {
+  const startEssentialUI = () => {
     installProductLexicon();
-
-    // Safari iOS has a tighter per-tab memory budget. Load heavy galleries only
-    // when the user actually selects/opens the relevant manufacturer/product.
-    if (isIOS) return;
-
-    idle(() => {
-      loadGroup('elios');
-    }, 1000);
   };
 
-  if (document.readyState === 'complete') startBackgroundLoad();
-  else window.addEventListener('load', startBackgroundLoad, { once: true, passive: true });
+  // The pricing bridge is an early deferred script in univers.html. Large HD
+  // gallery enhancements are now requested by a user action on every device;
+  // neither slow media nor window.load should delay the small lexicon control.
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', startEssentialUI, { once: true });
+  else startEssentialUI();
 
   let lexiconTries = 0;
   const lexiconTimer = setInterval(() => {
