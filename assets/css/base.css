@@ -187,7 +187,7 @@ header a.logo > img {
 body:not(.crm-body) header a.logo > img,
 body:not(.crm-body) .site-header a.logo > img,
 body:not(.crm-body) .logo > img {
-  content: url('../img/performance-20261027/brand-wordmark-wine.svg') !important;
+  content: normal !important;
   width: 76px !important;
   height: 76px !important;
   max-width: 76px !important;

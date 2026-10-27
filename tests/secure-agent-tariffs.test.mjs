@@ -35,13 +35,23 @@ test('agent tariff reads fail closed without deployment key and recover with val
  try{writeFileSync(path,JSON.stringify(envelope));delete process.env.LRF_AGENT_TARIFFS_KEY;assert.equal(readAgentTariffs(path),null);process.env.LRF_AGENT_TARIFFS_KEY=key;assert.deepEqual(readAgentTariffs(path),payload);process.env.LRF_AGENT_TARIFFS_KEY='invalid';assert.equal(readAgentTariffs(path),null);}finally{if(old===undefined)delete process.env.LRF_AGENT_TARIFFS_KEY;else process.env.LRF_AGENT_TARIFFS_KEY=old;rmSync(directory,{recursive:true,force:true});}
 });
 
-test('agent identity is verified against Google, email verification and revocation',async()=>{
+test('agent identity is verified against Google, live account and revocation',async()=>{
  assert.deepEqual(await verifyAgentToken('Bearer '+jwt(),{request:google(liveUser)}),{uid:'agent-test',email:'jerome@leroyfactory.fr'});
- const denied=[{email:'client@example.invalid'},{email_verified:false},{aud:'other'},{iss:'other'},{exp:1},{exp:'9999999999'},{auth_time:0},{auth_time:'9999999999'}];
+ const denied=[{email:'client@example.invalid'},{aud:'other'},{iss:'other'},{exp:1},{exp:'9999999999'},{auth_time:0},{auth_time:'9999999999'}];
  for(const claims of denied)assert.equal(await verifyAgentToken('Bearer '+jwt(claims),{request:google({...liveUser,validSince:1})}),null);
- for(const user of [null,{...liveUser,emailVerified:false},{...liveUser,disabled:true},{...liveUser,localId:'other'},{...liveUser,email:'client@example.invalid'},{...liveUser,validSince:Date.now()/1000+30}])assert.equal(await verifyAgentToken('Bearer '+jwt(),{request:google(user)}),null);
+ for(const user of [null,{...liveUser,disabled:true},{...liveUser,localId:'other'},{...liveUser,email:'client@example.invalid'},{...liveUser,validSince:Date.now()/1000+30}])assert.equal(await verifyAgentToken('Bearer '+jwt(),{request:google(user)}),null);
  assert.equal(await verifyAgentToken('Bearer '+jwt(),{request:async()=>({ok:false})}),null);
  assert.equal(await verifyAgentToken('forged-local-session'),null);
+});
+
+test('existing password agents use the same live Firebase policy as protected PDF access',async()=>{
+ for(const email of ['jerome@leroyfactory.fr','coryne@leroyfactory.fr']){
+  const token=jwt({email,email_verified:false});
+  assert.deepEqual(await verifyAgentToken('Bearer '+token,{request:google({...liveUser,email,emailVerified:false})}),{uid:'agent-test',email});
+  assert.equal(await verifyAgentToken('Bearer '+token,{request:google({...liveUser,email,emailVerified:false,disabled:true})}),null);
+  assert.equal(await verifyAgentToken('Bearer '+token,{request:google({...liveUser,email,emailVerified:false,localId:'different-user'})}),null);
+  assert.equal(await verifyAgentToken('Bearer '+token,{request:google({...liveUser,email,emailVerified:false,validSince:Date.now()/1000+30})}),null);
+ }
 });
 
 test('anonymous and client-local role fields cannot trigger a private read',async()=>{

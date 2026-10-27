@@ -9,7 +9,7 @@ function browser(request){
  const window={VIEW_CATALOGUE:[{id:'view-test',variants:[{key:'60x60',publicPrice:99}]}],ELIOS_CATALOGUE:[],addEventListener:(name,fn)=>events.set(name,fn),dispatchEvent:e=>{emitted.push(e.type);events.get(e.type)?.(e);}};
  const document={visibilityState:'visible',addEventListener(){},querySelectorAll:()=>[],getElementById:()=>null,body:{style:{}}};
  const context={window,document,sessionStorage,localStorage,fetch:request,AbortSignal,CustomEvent:class{constructor(type,options){this.type=type;this.detail=options?.detail;}},Date:class extends Date{static now(){return time;}},setTimeout:(fn,ms)=>{timers.set(++id,{fn,ms});return id;},clearTimeout:key=>timers.delete(key)};
- vm.createContext(context);vm.runInContext(source+'\nglobalThis.testApi={refresh,identity,clear,agent(user){currentAuth={currentUser:user};}};',context);
+ vm.createContext(context);vm.runInContext(source.replaceAll('import(', 'loadFirebase(')+'\nglobalThis.testApi={connect,refresh,identity,clear,firebase(loader){globalThis.loadFirebase=loader;},agent(user){currentAuth={currentUser:user};}};',context);
  return {...context,events,emitted,timers,api:context.testApi,setTime:v=>{time=v;},login(token='x'.repeat(43)){window.LRF_PRO_CONTEXT={sessionToken:token,partenaires:['ELIOS','VIEW']};},logout(){window.LRF_PRO_CONTEXT=null;sessionStorage.removeItem('lrfProSession');sessionStorage.removeItem('lrfProSessionToken');localStorage.removeItem('lrfProRememberToken');},quote:()=>window.LRF_AGENT_TARIFFS};
 }
 const data=(partners=['elios-ceramica','view-ceramica'],expiresAt=1000000)=>({success:true,version:1,accessType:'client',allowedPartners:partners,expiresAt,elios:{'azulimood|5x15|standard':{label:'Synthetic A'},'azulimood|10x10|standard':{label:'Synthetic B'}},view:[{productId:'view-test',variantKey:'60x60',proDetail:12.34}]});
@@ -50,6 +50,32 @@ test('expired tab cache fails closed even before a throttled browser timer runs,
 test('verified agent keeps bearer verification with no client token and no local admin trust',async()=>{
  const h=browser(async(_url,options)=>{assert.equal(options.headers.Authorization,'Bearer synthetic-agent-id-token');assert.equal(JSON.parse(options.body).sessionToken,undefined);return ok({...data(),accessType:'agent'});});
  h.api.agent({uid:'local-agent',email:'jerome@leroyfactory.fr',emailVerified:true,getIdToken:async()=>'synthetic-agent-id-token'});await h.api.refresh();assert.equal(h.quote().canAccess('elios'),true);assert.equal(h.quote().canAccess('view'),true);
+});
+
+test('existing password agents refresh their Firebase credential before loading prices',async()=>{
+ for(const email of ['jerome@leroyfactory.fr','coryne@leroyfactory.fr']){
+  let refreshed=false;
+  const h=browser(async(_url,options)=>{assert.equal(refreshed,true);assert.equal(options.headers.Authorization,'Bearer synthetic-existing-agent');return ok({...data(),accessType:'agent'});});
+  h.api.agent({uid:'existing-agent',email,emailVerified:false,getIdToken:async force=>{assert.equal(force,true);refreshed=true;return 'synthetic-existing-agent';}});
+  await h.api.refresh();assert.equal(h.quote().canAccess('elios'),true);assert.equal(h.quote().canAccess('view'),true);assert.equal(h.quote().status,'ready');
+ }
+});
+
+test('tariff startup awaits Firebase persistence and reuses the LRF app among unrelated apps',async()=>{
+ let ready=false,token=false;
+ const h=browser(async()=>{assert(ready&&token);return ok(data());});
+ const lrf={options:{projectId:'le-roy-factory'}},other={options:{projectId:'unrelated'}};
+ const user={uid:'existing',email:'jerome@leroyfactory.fr',emailVerified:false,getIdToken:async force=>{assert.equal(force,true);token=true;return 'synthetic-existing-token';}};
+ const auth={currentUser:null,async authStateReady(){this.currentUser=user;ready=true;}};
+ h.api.firebase(async url=>url.includes('firebase-app')?{getApps:()=>[other,lrf],initializeApp(){throw Error('Must reuse LRF app');}}:{getAuth:app=>{assert.equal(app,lrf);return auth;},onIdTokenChanged:(a,fn)=>{assert(ready);fn();}});
+ await h.api.connect();await h.api.refresh();assert.equal(h.quote().canAccess('elios'),true);
+});
+
+test('a failed tariff request can be retried without changing access rights or trusting local flags',async()=>{
+ let available=false,calls=0;
+ const h=browser(async()=>{calls++;if(!available)throw Error('Temporary network failure');return ok(data(['elios-ceramica']));});h.login();
+ await h.api.refresh();assert.equal(h.quote().verified,false);assert.equal(h.quote().status,'error');
+ available=true;await h.quote().retry();assert.equal(calls,2);assert.equal(h.quote().canAccess('elios'),true);assert.equal(h.quote().canAccess('view'),false);
 });
 
 test('pre-expiry renewal preserves the current price view and real session events recheck rights once',async()=>{

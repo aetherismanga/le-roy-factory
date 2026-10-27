@@ -280,12 +280,14 @@
     if (!logoLink) return;
     let img = logoLink.querySelector('img');
     if (!img || !img.classList.contains('lrf-monogram-header')) {
-      logoLink.innerHTML = '<img class="lrf-monogram-header" src="assets/img/performance-20261027/brand-wordmark-wine.svg" alt="LRF">';
+      logoLink.innerHTML = '<img class="lrf-monogram-header" src="assets/img/logo03lrf.png" alt="LE ROY FACTORY" width="76" height="76" decoding="async">';
       img = logoLink.querySelector('img');
     }
-    if (img && img.getAttribute('src') !== 'assets/img/performance-20261027/brand-wordmark-wine.svg') {
-      img.setAttribute('src','assets/img/performance-20261027/brand-wordmark-wine.svg');
+    if (img && img.getAttribute('src') !== 'assets/img/logo03lrf.png') {
+      img.setAttribute('src','assets/img/logo03lrf.png');
     }
+    // An older cached base.css replaced image pixels through CSS content.
+    if (img) img.style.setProperty('content', 'normal', 'important');
     logoLink.removeAttribute('style');
   };
 
@@ -309,8 +311,8 @@
 
     const favicon = document.querySelector('link[rel="icon"]');
     if (favicon) {
-      favicon.href = 'assets/img/performance-20261027/brand-wordmark-wine.svg';
-      favicon.type = 'image/svg+xml';
+      favicon.href = 'assets/img/logo03lrf.png';
+      favicon.type = 'image/png';
     }
 
     enforceHeaderLogo();
@@ -335,7 +337,7 @@
 
     const clientBrand = document.querySelector('.brand img');
     if (page === 'ouverture-compte.html' && clientBrand) {
-      clientBrand.src = 'assets/img/performance-20261027/brand-wordmark-wine.svg';
+      clientBrand.src = 'assets/img/logo03lrf.png';
       clientBrand.alt = 'LRF';
     }
 

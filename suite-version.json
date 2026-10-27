@@ -11,8 +11,12 @@
   ],
   "sharedCatalogueVersion": "20261024-suite-1",
   "publicSite": {
-    "releaseId": "20261027-public-loading-1",
-    "sourceCommit": "8bec5611f7829a25a2318e08af39bd85381fdbc8",
-    "pages": ["index.html", "univers.html", "catalogues.html"]
+    "releaseId": "20261027-logo-pro-access-2",
+    "pages": [
+      "index.html",
+      "univers.html",
+      "catalogues.html"
+    ],
+    "baselineCommit": "c4b5e0707de3241b5dba340f8f8c16bce9a7d05c"
   }
 }

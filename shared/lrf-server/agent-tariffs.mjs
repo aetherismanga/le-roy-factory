@@ -35,18 +35,20 @@ export function readAgentTariffs(url){
 }
 
 // Google accounts:lookup validates the ID token. Identity is then checked
-// against the verified allowlisted account and the live revocation timestamp.
+// against the live allowlisted account and revocation timestamp, matching
+// functions/auth.js. Existing password agents do not require a separate email
+// verification flow; no browser role or locally stored email grants access.
 export async function verifyAgentToken(header,{request=fetch,now=Date.now()}={}){
  const match=String(header||'').match(/^Bearer\s+([A-Za-z0-9_.-]{20,8192})$/i);if(!match)return null;
  const token=match[1];let claims;
  try{claims=JSON.parse(Buffer.from(token.split('.')[1],'base64url').toString('utf8'));}catch{return null;}
- if(claims.aud!=='le-roy-factory'||claims.iss!=='https://securetoken.google.com/le-roy-factory'||typeof claims.sub!=='string'||!claims.sub||!Number.isFinite(claims.exp)||claims.exp<=now/1000||!Number.isFinite(claims.auth_time)||claims.email_verified!==true)return null;
+ if(claims.aud!=='le-roy-factory'||claims.iss!=='https://securetoken.google.com/le-roy-factory'||typeof claims.sub!=='string'||!claims.sub||!Number.isFinite(claims.exp)||claims.exp<=now/1000||!Number.isFinite(claims.auth_time))return null;
  const email=String(claims.email||'').trim().toLowerCase();if(!ADMINS.has(email))return null;
  try{
   const response=await request('https://identitytoolkit.googleapis.com/v1/accounts:lookup?key='+FIREBASE_KEY,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({idToken:token}),signal:AbortSignal.timeout(10000)});
   if(!response.ok)return null;
   const user=(await response.json()).users?.[0];
-  if(!user||user.disabled||user.emailVerified!==true||user.localId!==claims.sub||String(user.email||'').trim().toLowerCase()!==email||!Number.isFinite(claims.auth_time)||claims.auth_time<Number(user.validSince||0))return null;
+  if(!user||user.disabled||user.localId!==claims.sub||String(user.email||'').trim().toLowerCase()!==email||!Number.isFinite(claims.auth_time)||claims.auth_time<Number(user.validSince||0))return null;
   return {uid:user.localId,email};
  }catch{return null;}
 }
