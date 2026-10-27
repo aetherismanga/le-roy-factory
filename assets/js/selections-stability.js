@@ -13,6 +13,29 @@
   const products = document.getElementById('partner-products');
   const count = document.getElementById('partner-count');
   const filters = document.getElementById('v2-filters');
+  const categoryImages = new Map();
+  const checkedCategoryCards = new WeakSet();
+
+  function refreshCategoryLabels() {
+    grid.querySelectorAll('.category-card').forEach(card => {
+      if (checkedCategoryCards.has(card)) return;
+      checkedCategoryCards.add(card);
+      const match = getComputedStyle(card).backgroundImage.match(/^url\(["']?(.*?)["']?\)$/);
+      if (!match) { card.classList.add('category-image-unavailable'); return; }
+      const url = match[1];
+      if (!categoryImages.has(url)) {
+        categoryImages.set(url, new Promise(resolve => {
+          const image = new Image();
+          image.onload = () => resolve(true);
+          image.onerror = () => resolve(false);
+          image.src = url;
+        }));
+      }
+      categoryImages.get(url).then(available => {
+        if (grid.contains(card)) card.classList.toggle('category-image-unavailable', !available);
+      });
+    });
+  }
 
   const norm = v => String(v || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]/g, '');
   const session = () => {
@@ -118,6 +141,7 @@
   const categoryObserver = new MutationObserver(() => {
     renamePierre();
     ensureOutillages();
+    refreshCategoryLabels();
   });
   categoryObserver.observe(grid, { childList: true });
 
@@ -131,5 +155,6 @@
 
   renamePierre();
   ensureOutillages();
+  refreshCategoryLabels();
   queueImageOptimization();
 })();
