@@ -95,17 +95,17 @@ try{
   await page.goto(origins[variant]+'/atelier.html?standalone=1',{waitUntil:'domcontentloaded'});
   await page.waitForFunction(()=>window.studioOnePrototype&&window.__avatarCollisionQA&&document.querySelector('#scene')?.getAttribute('aria-busy')==='false',null,{timeout:180000});
   console.log('READY',variant);
-  await page.evaluate(()=>{
+  await page.evaluate(pauseRendering=>{
+   if(pauseRendering){for(let id=0;id<10000;id++)window.cancelAnimationFrame(id);window.requestAnimationFrame=()=>0;}
    const api=studioOnePrototype;for(const item of api.getState().items||[])if(!['window','door'].includes(item.type))api.removeItem(item.id);
    if(!api.addItem('cabinet',0,{width:100,top:'neris',placement:{wall:0,u:225,height:28}}))throw Error('Test cabinet could not be placed');
-   if(!api.addItem('mirror',0,{mirrorModel:'metal-rect',width:120,height:80,placement:{wall:0,u:225,height:145}}))throw Error('Test mirror could not be placed');api.setView('front',true);api.setQualityMode('max');api.enterVisit();
-  });
-  await page.waitForFunction(()=>studioOnePrototype.getDiagnostics().avatar.loaded||studioOnePrototype.getDiagnostics().avatar.failure,null,{timeout:120000});
+   if(!api.addItem('mirror',0,{mirrorModel:'metal-rect',width:120,height:80,placement:{wall:0,u:225,height:145}}))throw Error('Test mirror could not be placed');api.setView('front',true);api.setQualityMode('max');api.enterVisit();__avatarCollisionQA.avatar.sync();
+  },process.env.QA_CAPTURE==='none');
+  await page.waitForFunction(()=>studioOnePrototype.getDiagnostics().avatar.loaded||studioOnePrototype.getDiagnostics().avatar.failure,null,{timeout:120000,polling:100});
   console.log('AVATAR',variant,JSON.stringify(modelRequests.at(-1)));
   assert.equal(await page.evaluate(()=>studioOnePrototype.getDiagnostics().avatar.failure),'');
-  // Once the real rig has loaded, collision-only runs integrate controllers
-  // manually without queuing expensive software-GPU frames between commands.
-  if(process.env.QA_CAPTURE==='none')await page.evaluate(()=>{window.requestAnimationFrame=()=>0;});
+  // Collision-only runs drive the real controller and rig manually. Ultra's
+  // software-GPU pipeline is intentionally not an assertion in this run.
   const bounds=await cabinetBounds(page);await resetApproach(page,bounds);
   console.log('APPROACH',variant,JSON.stringify(bounds));
   await page.keyboard.down('KeyW');let result;try{result=await drive(page,6);}finally{await page.keyboard.up('KeyW');}

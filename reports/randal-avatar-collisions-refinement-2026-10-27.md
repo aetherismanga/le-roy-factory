@@ -21,3 +21,11 @@ Le personnage reste réservé à la visite avec le choix explicite Ultra HD et a
 Livraison limitée aux prévisualisations des deux ateliers, sans mise à jour de `main` ni des domaines de production.
 
 Le contrôle final du Général a détecté une sphère source de feuillage instancié interprétée à sa taille brute. La collecte applique maintenant chaque matrice d'instance pour conserver les dimensions réelles des décorations. Un test sur le meuble Harmony / Neris de 100 cm vérifie une empreinte de meuble réaliste et un arrêt à 30 cm du bord visible.
+
+## Acceptation navigateur ciblée
+
+Le contrôle initial Studio One a validé le clavier et le déplacement tactile à deux doigts. Une capture du miroir a été inspectée avant le nettoyage automatique : le personnage était visible et ne traversait pas le meuble.
+
+Après correction du feuillage instancié, le contrôle final du Catalogue Général passe ses quatre assertions : clavier maintenu, joystick tactile dans un écran de 390 × 844, animation au repos et libération à la sortie d'Ultra. Les deux entrées avancent les vrais contrôleurs de visite et le squelette sur six secondes simulées à 20 Hz. Le front réel du meuble Neris de 100 cm est à Z = 0,220000 m ; le visiteur s'arrête à Z = 0,547500 m, soit une marge de 32,75 cm. La vitesse de marche mesurée est nulle et le mélange de marche revient au repos. Aucune erreur JavaScript, aucun échec d'asset et aucune substitution de média n'ont été observés.
+
+Le fichier GLB effectivement demandé par le navigateur final possède les 4 449 532 octets et le SHA256 indiqués ci-dessus. Pour ce contrôle de collisions final, la programmation des images a été gelée et les contrôleurs avancés manuellement après le chargement réel du squelette ; il ne constitue donc pas une nouvelle validation visuelle GPU des reflets, et ne simule pas les performances d'un téléphone physique. La capture de Studio est une vérification antérieure, distincte de ce contrôle final.
