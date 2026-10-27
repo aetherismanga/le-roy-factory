@@ -44,6 +44,7 @@ for(const [name,type,device] of [
           return route.abort('failed');
         }
         if(url.origin===base)return route.continue();
+        if(url.pathname.endsWith('/inspirations/mosaique.webp'))return route.abort('failed');
         if(request.resourceType()==='image')return route.fulfill({contentType:'image/png',body:image});
         if(url.pathname.endsWith('/firebase-app.js'))return route.fulfill({contentType:'text/javascript',body:'export const getApps=()=>[];export const getApp=()=>({});export const initializeApp=()=>({});'});
         if(url.pathname.endsWith('/firebase-auth.js'))return route.fulfill({contentType:'text/javascript',body:'export const getAuth=()=>({currentUser:null});export const onAuthStateChanged=(a,f)=>{f(null);return ()=>{}};export const onIdTokenChanged=(a,f)=>{f(null);return ()=>{}};'});
@@ -56,11 +57,17 @@ for(const [name,type,device] of [
       await page.waitForTimeout(4000);
       const universes=await page.locator('.category-card').count();
       assert(universes>=8);
-      // Reproduce old Safari's absent aspect-ratio and a failed category image.
-      await page.addStyleTag({content:'.category-card{aspect-ratio:auto!important;background-image:none!important}'});
+      // Old Safari keeps usable heights. Artwork already contains its label;
+      // only the deliberately failed mosaic image needs an HTML title.
+      await page.addStyleTag({content:'.category-card{aspect-ratio:auto!important}'});
       for(const card of await page.locator('.category-card').all()){
         assert((await card.boundingBox()).height>=72);
-        await expect(card.locator('.category-name')).toBeVisible();
+        assert((await card.getAttribute('aria-label'))?.trim(), 'Every universe keeps an accessible name');
+        if(await card.getAttribute('data-cat')==='mosaique'){
+          await expect(card.locator('.category-name')).toBeVisible();
+        }else{
+          await expect(card.locator('.category-name')).toBeHidden();
+        }
       }
       const idle=async()=>{
         await page.waitForTimeout(300);

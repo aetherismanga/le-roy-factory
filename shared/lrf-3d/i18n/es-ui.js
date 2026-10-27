@@ -202,6 +202,7 @@ export const ES_ATELIER = {
   "Ce coloris n’existe pas dans le format actuel du mur. Choisissez un format compatible dans le revêtement du mur.": "Este color no existe en el formato actual de la pared. Elige un formato compatible en el revestimiento de la pared.",
   "Déverrouillez la pièce pour ajouter une cloison.": "Desbloquea la estancia para añadir un tabique.",
   "Pas assez de place pour cette cloison de 120 cm. Libérez un emplacement.": "No hay espacio suficiente para este tabique de 120 cm. Deja libre una ubicación.",
+  "Pas assez de place : décalez-vous légèrement.": "No hay espacio suficiente: muévete un poco a un lado.",
   "Dimensions et position de la cloison": "Dimensiones y posición del tabique",
   "Déverrouiller cette cloison": "Desbloquear este tabique",
   "Toute hauteur · suit la pièce": "Hasta el techo · sigue la altura de la estancia",

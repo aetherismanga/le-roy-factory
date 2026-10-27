@@ -44,13 +44,13 @@
 
   function loadScript(src) {
     if ([...document.scripts].some(s => s.src && s.src.includes(src.split('?')[0]))) return Promise.resolve();
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       const script = document.createElement('script');
       script.src = src;
       script.async = false;
       script.dataset.lrfLazySelection = '1';
       script.onload = resolve;
-      script.onerror = resolve;
+      script.onerror = () => { script.remove(); reject(new Error(`Unable to load ${src}`)); };
       document.body.appendChild(script);
     });
   }
@@ -65,14 +65,14 @@
         else await wait(45);
       }
       window.dispatchEvent(new CustomEvent(`lrf-selections-${name}-ready`));
-    })();
+      return true;
+    })().catch(error => {
+      states.delete(name);
+      console.warn(`LRF Sélections ${name}`, error);
+      return false;
+    });
     states.set(name, promise);
     return promise;
-  }
-
-  function idle(callback, timeout = 1200) {
-    if ('requestIdleCallback' in window) return window.requestIdleCallback(callback, { timeout });
-    return setTimeout(callback, 260);
   }
 
   /* Lexique produits : accès rapide aux collections depuis le bloc Produits. */
@@ -239,31 +239,29 @@
     return true;
   }
 
-  document.addEventListener('pointerdown', e => {
+  const activateManufacturer = e => {
     const partner = e.target.closest?.('[data-partner]');
     if (partner && /view/i.test(partner.dataset.partner || '')) loadGroup('view', true);
+    if (partner && /elios/i.test(partner.dataset.partner || '')) loadGroup('elios', true);
     const card = e.target.closest?.('.product-card-v2');
+    const category = e.target.closest?.('[data-cat="carrelage"]');
     const title = document.getElementById('workspace-title')?.textContent || '';
-    if (card && /elios/i.test(title)) loadGroup('elios', true);
-  }, { capture: true, passive: true });
+    if ((card || category) && /elios/i.test(title)) loadGroup('elios', true);
+  };
+  document.addEventListener('pointerdown', activateManufacturer, { capture: true, passive: true });
+  document.addEventListener('click', activateManufacturer, { capture: true, passive: true });
 
-  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent || '') ||
-    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-
-  const startBackgroundLoad = () => {
+  const startSelections = () => {
     installProductLexicon();
-
-    // Safari iOS has a tighter per-tab memory budget. Load heavy galleries only
-    // when the user actually selects/opens the relevant manufacturer/product.
-    if (isIOS) return;
-
-    idle(() => {
-      loadGroup('elios');
-    }, 1000);
+    // Deep links need the same enhancements as selecting a manufacturer.
+    const selected = new URLSearchParams(location.search).get('partner') || '';
+    if (/elios/i.test(selected)) loadGroup('elios', true);
+    else if (/view/i.test(selected)) loadGroup('view', true);
   };
 
-  if (document.readyState === 'complete') startBackgroundLoad();
-  else window.addEventListener('load', startBackgroundLoad, { once: true, passive: true });
+  // Controls must work even when a remote image is slow or never completes.
+  if (document.readyState !== 'loading') startSelections();
+  else document.addEventListener('DOMContentLoaded', startSelections, { once: true });
 
   let lexiconTries = 0;
   const lexiconTimer = setInterval(() => {

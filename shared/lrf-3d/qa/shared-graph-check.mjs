@@ -11,7 +11,7 @@ const sharedRoot=await realpath(new URL('../',import.meta.url));
 const studioSource=process.env.LRF_STUDIO_SOURCE?resolve(process.env.LRF_STUDIO_SOURCE):resolve(suiteRoot,'studio-one/src');
 const generalSource=resolve(suiteRoot,'randal-general/src');
 const modules=['performance.js','hd-capture.js','mirror-reflection.js','ultra-rendering.js','tile-layout.js','plinth-math.mjs','plinth-ui.mjs','surface-catalog.js','surface-picker.js','surface-quality.js','surface-texture-selection.js','tile-colors.js','quantities.js','openings.js','room-editor.js'];
-const interactionModules=['tiled-zone-controls.js','zone-rendering.js','project-refresh.js'];
+const interactionModules=['lightweight-rendering.js','tiled-zone-controls.js','zone-rendering.js','project-refresh.js'];
 for(const name of modules){
  const target=pathToFileURL(resolve(sharedRoot,name));
  const canonical=await import(target);

@@ -9,5 +9,10 @@
     "studio-one",
     "randal-general"
   ],
-  "sharedCatalogueVersion": "20261024-suite-1"
+  "sharedCatalogueVersion": "20261024-suite-1",
+  "publicSite": {
+    "releaseId": "20261027-public-loading-1",
+    "sourceCommit": "8bec5611f7829a25a2318e08af39bd85381fdbc8",
+    "pages": ["index.html", "univers.html", "catalogues.html"]
+  }
 }

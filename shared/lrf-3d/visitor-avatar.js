@@ -1,4 +1,5 @@
 import {createResident} from './resident.js';
+import {createVisitorInteraction} from './visitor-interaction.js';
 
 const JEROME={jerome:{model:'resident.glb',height:1.65,noJewelry:true,noOpacity:true,
  source:'Microsoft Rocketbox · MIT · textures Jérôme personnalisées',
@@ -41,10 +42,30 @@ export function mountUltraVisitorAvatar({scene,renderer,walk,getQuality,isCaptur
  let resident=null,loading=null,enabled=false,disposed=false,failure='',revision=0,captures=0,elapsed=0,loadToken=0;
  const motionSampler=createVisitorMotionSampler();
  const wanted=()=>ultraVisitorEnabled({walking:walk.active,qualityMode:getQuality().mode,capturing:isCapturing(),hidden:typeof document!=='undefined'&&document.hidden});
+ let activeAction=null,lastOperation=null,lastNormal=null,actionCommitted=false,actionTail=0;
+ const interactions=createVisitorInteraction({getActorRoot:()=>resident?.getRoot(),getHandContactPosition:side=>resident?.getHandContactPosition(side),getPosition:()=>walk.position,getHeading:()=>walk.heading,isActive:()=>enabled&&!!resident?.ready&&wanted(),onStateChange:()=>{if(!disposed)invalidate(false,false);}});
+ function cancelInteraction(reason='cancelled'){interactions.cancel(reason);activeAction=null;lastOperation=null;lastNormal=null;actionCommitted=false;actionTail=0;}
+ function interact(action){
+  sync();
+  if(!enabled||!resident?.ready||(typeof matchMedia==='function'&&matchMedia('(prefers-reduced-motion: reduce)').matches)){cancelInteraction();return false;}
+  const accepted=interactions.start(action);
+  activeAction=accepted?action:null;lastOperation=null;lastNormal=null;actionCommitted=false;actionTail=0;
+  if(accepted)invalidate(false,false);
+  return accepted;
+ }
+ const actuating=item=>enabled&&activeAction?.item===item&&actionCommitted&&(interactions.active||actionTail>0);
+ function constrainOpening(item,dt){
+  if(!actuating(item)||typeof walk.clearOpening!=='function')return true;
+  const normal=Array.isArray(lastNormal)?{x:lastNormal[0],z:lastNormal[2]}:lastNormal;
+  if(walk.clearOpening(dt,normal,item))return true;
+  const rollback=activeAction?.rollback;cancelInteraction('blocked');
+  if(rollback?.())status('Pas assez de place : décalez-vous légèrement.');
+  return false;
+ }
 
  function sync(){
   const next=!disposed&&wanted();
-  if(!next&&(enabled||resident)){loadToken++;resident?.dispose();resident=null;loading=null;elapsed=0;failure='';}
+  if(!next&&(enabled||resident)){cancelInteraction('inactive');loadToken++;resident?.dispose();resident=null;loading=null;elapsed=0;failure='';}
   enabled=next;
   if(resident)resident.setVisible(false);
   if(enabled&&!resident&&!loading&&!failure){
@@ -80,7 +101,11 @@ export function mountUltraVisitorAvatar({scene,renderer,walk,getQuality,isCaptur
   const step=elapsed;elapsed=0;
   const motion=motionSampler.sample(walk.position,walk.heading,step,{running:walk.running});
   resident.place({x:walk.position.x,y:0,z:walk.position.z},motion.heading);
-  resident.animate(step,motion);
+  resident.pivot.updateMatrixWorld(true);
+  lastOperation=interactions.tick(step);
+  if(lastOperation){lastNormal=lastOperation.normal;actionCommitted=interactions.diagnostics().committed;actionTail=2;}
+  else if(activeAction){actionTail-=step;if(actionTail<=0){activeAction=null;actionCommitted=false;lastNormal=null;}}
+  resident.animate(step,{...motion,interaction:lastOperation});
   resident.pivot.updateMatrixWorld(true);revision++;
   return true;
  }
@@ -94,7 +119,7 @@ export function mountUltraVisitorAvatar({scene,renderer,walk,getQuality,isCaptur
   try{return capture();}finally{resident.pivot.visible=previous;}
  }
 
- function dispose(){if(disposed)return;disposed=true;enabled=false;loadToken++;loading=null;resident?.dispose();resident=null;}
- return {sync,tick,withReflection,dispose,get ready(){return !!resident?.ready;},get enabled(){return enabled;},
-  diagnostics(){return {...(resident?.diagnostics||{}),id:'jerome',loaded:!!resident?.ready,enabled,loading:!!loading,visible:!!resident?.pivot.visible,reflectionOnly:true,reflectionRevision:revision,captureCount:captures,position:walk.position.toArray(),heading:walk.heading,failure};}};
+ function dispose(){if(disposed)return;disposed=true;enabled=false;cancelInteraction('disposed');interactions.dispose();loadToken++;loading=null;resident?.dispose();resident=null;}
+ return {sync,tick,interact,cancelInteraction,actuating,constrainOpening,withReflection,dispose,get ready(){return !!resident?.ready;},get enabled(){return enabled;},
+  diagnostics(){return {...(resident?.diagnostics||{}),visitAction:interactions.diagnostics(),id:'jerome',loaded:!!resident?.ready,enabled,loading:!!loading,visible:!!resident?.pivot.visible,reflectionOnly:true,reflectionRevision:revision,captureCount:captures,position:walk.position.toArray(),heading:walk.heading,failure};}};
 }

@@ -15,9 +15,10 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
   const editable=el=>!!el?.closest?.('input,textarea,select,[contenteditable="true"],[role="textbox"]');
   // Reuse mesh envelopes between movement frames; opened drawers refresh within 80 ms.
   let collisions=null,collisionAge=Infinity,collisionRoom=null,collisionItems=null,collisionCount=-1;
-  function collisionWorld(){
+  function collisionWorld(force=false,openingItem=null){
     const room=getRoom(),items=getItems()||[];
-    if(!collisions||collisionAge>=.08||room!==collisionRoom||items!==collisionItems||items.length!==collisionCount){
+    if(openingItem){collisions=null;collisionAge=Infinity;return createVisitCollisionWorld({room,items,boundsOnWall,openingItem});}
+    if(force||!collisions||collisionAge>=.08||room!==collisionRoom||items!==collisionItems||items.length!==collisionCount){
       collisions=createVisitCollisionWorld({room,items,boundsOnWall});collisionAge=0;collisionRoom=room;collisionItems=items;collisionCount=items.length;
     }
     return collisions;
@@ -31,6 +32,20 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
       camera.position.copy(walker).addScaledVector(forward,-3.1).addScaledVector(side,1.2);camera.position.y=3.3;controls.target.copy(target);
     }else{camera.position.copy(walker);controls.target.copy(goal);}
     controls.update();
+  }
+
+  // Called only by an active pull gesture after its proposed mechanism frame.
+  // Keep the camera on the body's physical retreat; failure is atomic so the
+  // driver can restore that frame instead of pushing the visitor through a wall.
+  function clearOpening(dt,normalWorld,openingItem=null){
+    if(!active)return false;
+    const beforeX=walker.x,beforeZ=walker.z;
+    const cleared=collisionWorld(true,openingItem).clearOpening(walker,dt,normalWorld);
+    if(!cleared){collisions=null;collisionAge=Infinity;return false;}
+    if(cleared&&(walker.x!==beforeX||walker.z!==beforeZ)){
+      walker.y=eye;moving=true;view();onMove();
+    }
+    return cleared;
   }
 
   function setActive(next){
@@ -106,5 +121,5 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
     if(rotation||move.lengthSq()>0){taps.cancel();view();return true}if(viewMode==='third'){view();return true}
     return false;
   }
-  return {tick,get active(){return active},setActive,get position(){return walker;},get heading(){return Math.atan2(forward.x,forward.z);},get moving(){return moving;},get running(){return keys.has('ShiftLeft')||keys.has('ShiftRight');},get view(){return viewMode;},setView(mode){viewMode=mode==='third'?'third':'first';if(active)view();onMove();}};
+  return {tick,clearOpening,get active(){return active},setActive,get position(){return walker;},get heading(){return Math.atan2(forward.x,forward.z);},get moving(){return moving;},get running(){return keys.has('ShiftLeft')||keys.has('ShiftRight');},get view(){return viewMode;},setView(mode){viewMode=mode==='third'?'third':'first';if(active)view();onMove();}};
 }

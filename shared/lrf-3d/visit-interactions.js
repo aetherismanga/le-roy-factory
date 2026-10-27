@@ -13,8 +13,8 @@ export function createVisitTapGesture({threshold=7,maxDuration=650}={}){
 export function visitOpeningTarget(item,hit){
  if(!item?.settings||!hit)return null;
  if(item.type==='cabinet'){
-  const drawers=item.asset?.drawers||[];
-  for(let object=hit.object;object;object=object.parent){const index=drawers.indexOf(object);if(index>=0)return {kind:'drawer',index};if(object===item.root)break;}
+  const drawers=item.asset?.drawers||[],doors=item.asset?.doors||[];
+  for(let object=hit.object;object;object=object.parent){const index=drawers.indexOf(object);if(index>=0)return {kind:'drawer',index};const door=doors.indexOf(object);if(door>=0)return {kind:'door',index:door};if(object===item.root)break;}
   return null;
  }
  if(item.type==='column'||item.type==='door')return {kind:'door'};
@@ -24,9 +24,10 @@ export function visitOpeningTarget(item,hit){
 const own=(object,key)=>Object.prototype.hasOwnProperty.call(object,key);
 const copy=value=>value===undefined?undefined:JSON.parse(JSON.stringify(value));
 
-export function createVisitInteractions({getItems,onChange=()=>{}}){
- let transient=false;const originals=new Map();
+export function createVisitInteractions({getItems,onChange=()=>{},onBeforeAction=()=>false,onCancelAction=()=>{}}){
+ let transient=false,generation=0;const originals=new Map();
  function restore(){
+  generation++;onCancelAction();
   const current=new Set(getItems()||[]),restored=[];
   for(const [item,fields]of originals){
    if(!current.has(item))continue;
@@ -40,10 +41,28 @@ export function createVisitInteractions({getItems,onChange=()=>{}}){
   begin({transient:next=false}={}){restore();transient=!!next;if(transient)for(const item of getItems()||[]){if(!['cabinet','column','door','toilet'].includes(item.type))continue;originals.set(item,Object.fromEntries(['drawers','doorOpen','lidOpen'].map(key=>[key,{present:own(item.settings,key),value:copy(item.settings[key])}])));}},
   tap(hit){
    const item=(getItems()||[]).find(value=>value.id===hit?.itemId),target=visitOpeningTarget(item,hit);if(!target)return false;
-   if(target.kind==='drawer'){item.settings.drawers=Array.from({length:item.asset.drawers.length},(_,index)=>index===target.index?!item.settings.drawers?.[index]?1:0:item.settings.drawers?.[index]?1:0);}
-   else if(target.kind==='door')item.settings.doorOpen=!item.settings.doorOpen;
-   else{item.settings.lidOpen=!item.settings.lidOpen;item.asset.root.getObjectByName('Abattant').rotation.x=item.settings.lidOpen?-Math.PI*.48:0;}
-   onChange({item,...target,transient});return true;
+   const token=++generation,opening=target.kind==='drawer'?!item.settings.drawers?.[target.index]:target.kind==='door'?!item.settings.doorOpen:!item.settings.lidOpen;
+   let committed=false;
+   // A reachable Ultra visitor commits only when its palm reaches the handle.
+   // Tokens also protect locked previews and project replacement from a late
+   // contact callback. Ordinary visits and distant clicks remain immediate.
+   const commit=()=>{
+    if(committed||token!==generation||!(getItems()||[]).includes(item))return false;
+    committed=true;
+    if(target.kind==='drawer')item.settings.drawers=Array.from({length:item.asset.drawers.length},(_,index)=>index===target.index?Number(opening):Number(!!item.settings.drawers?.[index]));
+    else if(target.kind==='door')item.settings.doorOpen=opening;
+    else{item.settings.lidOpen=opening;item.asset.root.getObjectByName('Abattant').rotation.x=opening?-Math.PI*.48:0;}
+    onChange({item,...target,opening,transient});return true;
+   };
+   const rollback=()=>{
+    if(!committed||token!==generation||!(getItems()||[]).includes(item))return false;
+    if(target.kind==='drawer')item.settings.drawers[target.index]=Number(!opening);
+    else if(target.kind==='door')item.settings.doorOpen=!opening;
+    else{item.settings.lidOpen=!opening;item.asset.root.getObjectByName('Abattant').rotation.x=!opening?-Math.PI*.48:0;}
+    onChange({item,...target,opening:!opening,transient,blocked:true});return true;
+   };
+   if(onBeforeAction({item,target,hit,opening,commit,rollback,transient})!==true){onCancelAction();commit();}
+   return true;
   },
   end:restore,
   get transient(){return transient;}

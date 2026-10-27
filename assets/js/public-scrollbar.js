@@ -47,10 +47,13 @@
 
   const sync = () => {
     const m = metrics();
-    thumb.style.height = `${thumbHeight}px`;
+    const height = `${thumbHeight}px`;
+    if (thumb.style.height !== height) thumb.style.height = height;
     const ratio = m.maxScroll ? Math.min(1, Math.max(0, currentTop() / m.maxScroll)) : 0;
-    thumb.style.transform = `translate3d(0,${Math.round(m.travel * ratio)}px,0)`;
-    track.style.display = m.maxScroll > 2 ? 'block' : 'none';
+    const transform = `translate3d(0,${Math.round(m.travel * ratio)}px,0)`;
+    if (thumb.style.transform !== transform) thumb.style.transform = transform;
+    const display = m.maxScroll > 2 ? 'block' : 'none';
+    if (track.style.display !== display) track.style.display = display;
   };
 
   let dragging = false, startY = 0, startScroll = 0;
@@ -74,7 +77,12 @@
     setTop(m.travel ? (wanted / m.travel) * m.maxScroll : 0); sync();
   });
 
-  const queueSync = () => requestAnimationFrame(sync);
+  // Coalesce wheel, scroll, resize and DOM changes into one layout per paint.
+  let pendingFrame = null;
+  const queueSync = () => {
+    if (pendingFrame !== null) return;
+    pendingFrame = requestAnimationFrame(() => { pendingFrame = null; sync(); });
+  };
   window.addEventListener('scroll', queueSync, { passive:true, capture:true });
   document.addEventListener('scroll', queueSync, { passive:true, capture:true });
   window.addEventListener('wheel', queueSync, { passive:true });

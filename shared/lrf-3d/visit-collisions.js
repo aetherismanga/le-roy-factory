@@ -10,6 +10,7 @@ const nonSolid=new Set(['window','door','mirror','tap','towel']);
 const distanceToSegment=(x,z,a,b)=>{const dx=b[0]-a[0],dz=b[1]-a[1],n=dx*dx+dz*dz,u=n?T.MathUtils.clamp(((x-a[0])*dx+(z-a[1])*dz)/n,0,1):0;return Math.hypot(x-a[0]-u*dx,z-a[1]-u*dz);};
 function inside(x,z,points){let hit=false;for(let i=0,j=points.length-1;i<points.length;j=i++){const a=points[i],b=points[j];if((a[1]>z)!==(b[1]>z)&&x<(b[0]-a[0])*(z-a[1])/(b[1]-a[1])+a[0])hit=!hit;}return hit;}
 function touchesPolygon(x,z,points,radius){return inside(x,z,points)||points.some((a,i)=>distanceToSegment(x,z,a,points[(i+1)%points.length])<radius-EPS);}
+function polygonClearance(x,z,points){const edge=Math.min(...points.map((a,i)=>distanceToSegment(x,z,a,points[(i+1)%points.length])));return inside(x,z,points)?-edge:edge;}
 
 // Collision polygons are in world coordinates. Composition's plan bounds have
 // a historical +23 cm Z offset; they must be converted before comparing them
@@ -63,10 +64,28 @@ function obstacleFor(item,room,boundsOnWall){
  return [[a,d],[c,d],[c,e],[a,e]].map(([u,v])=>[u*tx+v*nx,u*tz+v*nz]);
 }
 
-export function createVisitCollisionWorld({room,items=[],boundsOnWall,radius=VISITOR_BODY_RADIUS}){
- if(!room)return {passable:()=>true,findSafe:p=>({x:p.x,z:p.z}),move:(p,d)=>{p.x+=d.x;p.z+=d.z;return true;}};
+// The normal walk deliberately treats a doorway as a passage. During a hand
+// action only, constrain against the actual swinging panel, never the fixed
+// frame or an AABB covering the entire doorway and swing arc.
+function openingLeafObstacle(item){
+ if(item?.type!=='door')return null;
+ const leaf=item.asset?.door?.getObjectByName?.('Vantail_40mm');
+ if(!leaf?.isMesh||!leaf.geometry)return null;
+ for(let object=leaf;object;object=object.parent){if(object.visible===false)return null;if(object===item.root)break;}
+ item.root?.updateWorldMatrix(true,true);leaf.updateWorldMatrix(true,false);
+ if(!leaf.geometry.boundingBox)leaf.geometry.computeBoundingBox();
+ const box=leaf.geometry.boundingBox;if(!box||box.isEmpty())return null;
+ const worldBox=box.clone().applyMatrix4(leaf.matrixWorld);
+ if(worldBox.max.y<=STEP_HEIGHT||worldBox.min.y>=VISITOR_BODY_HEIGHT)return null;
+ const point=new T.Vector3(),y=(box.min.y+box.max.y)/2;
+ return [[box.min.x,box.min.z],[box.max.x,box.min.z],[box.max.x,box.max.z],[box.min.x,box.max.z]].map(([x,z])=>{point.set(x,y,z).applyMatrix4(leaf.matrixWorld);return [point.x,point.z];});
+}
+
+export function createVisitCollisionWorld({room,items=[],boundsOnWall,radius=VISITOR_BODY_RADIUS,openingItem=null}){
+ if(!room)return {passable:()=>true,clearOpening:()=>true,findSafe:p=>({x:p.x,z:p.z}),move:(p,d)=>{p.x+=d.x;p.z+=d.z;return true;}};
  const floor=(room.points||[]).map(p=>[Array.isArray(p)?p[0]:p.x,(Array.isArray(p)?p[1]:p.z)-FLOOR_PLAN_Z]);
  const obstacles=items.map(item=>obstacleFor(item,room,boundsOnWall)).filter(Boolean);
+ const leaf=items.includes(openingItem)&&openingLeafObstacle(openingItem);if(leaf)obstacles.push(leaf);
  const doors=items.filter(item=>item.type==='door'&&item.settings?.doorOpen&&item.placement?.wall!==undefined);
  function doorway(wall,u){return doors.some(item=>{
   const other=room.walls[item.placement.wall];if(!other)return false;
@@ -74,9 +93,8 @@ export function createVisitCollisionWorld({room,items=[],boundsOnWall,radius=VIS
   const center=wall===other?item.placement.u/100:wall.length-item.placement.u/100;
   return Math.abs(u-center)<(item.dimensions?.width||.83)/2-radius-EPS;
  });}
- function passable(x,z){
+ function roomPassable(x,z){
   if(!Number.isFinite(x)||!Number.isFinite(z))return false;
-  if(obstacles.some(poly=>touchesPolygon(x,z,poly,radius)))return false;
   let openBoundary=false;
   for(const wall of room.walls||[]){
    if(wall.height<=STEP_HEIGHT)continue;
@@ -89,6 +107,36 @@ export function createVisitCollisionWorld({room,items=[],boundsOnWall,radius=VIS
   if(!inside(x,z,floor))return openBoundary;
   // Segment checks include concave room corners, unlike four cardinal samples.
   return true;
+ }
+ function passable(x,z){return roomPassable(x,z)&&!obstacles.some(poly=>touchesPolygon(x,z,poly,radius));}
+ // The gesture driver first proposes a mechanism frame, then requests room for
+ // the visitor. A proposed drawer may already overlap the body by a few mm.
+ // Permit only monotonically leaving that initial overlap along the supplied
+ // outward normal; never use findSafe, slide sideways or mutate on failure.
+ // Returning false means the driver must roll the mechanism back one frame.
+ function clearOpening(position,dt,normal){
+  if(passable(position.x,position.z))return true;
+  if(!roomPassable(position.x,position.z))return false;
+  const nx=normal?.x,nz=normal?.z,length=Math.hypot(nx,nz),seconds=Math.min(.1,dt);
+  if(!Number.isFinite(length)||length<1e-6||!Number.isFinite(seconds)||seconds<=0)return false;
+  const dx=nx/length,dz=nz/length,distance=.65*seconds,steps=Math.max(1,Math.ceil(distance/.0025));
+  const overlapping=obstacles.map(poly=>touchesPolygon(position.x,position.z,poly,radius));
+  const clearance=obstacles.map(poly=>polygonClearance(position.x,position.z,poly));
+  for(let step=1;step<=steps;step++){
+   const travel=distance*step/steps,x=position.x+dx*travel,z=position.z+dz*travel;
+   if(!roomPassable(x,z))return false;
+   let clear=true;
+   for(let index=0;index<obstacles.length;index++){
+    const next=polygonClearance(x,z,obstacles[index]);
+    if(next<radius-EPS){
+     clear=false;
+     if(!overlapping[index]||next<clearance[index]-EPS)return false;
+    }
+    clearance[index]=next;
+   }
+   if(clear){position.x=x;position.z=z;return true;}
+  }
+  return false;
  }
  function findSafe(preferred){
   if(passable(preferred.x,preferred.z))return {x:preferred.x,z:preferred.z};
@@ -111,5 +159,5 @@ export function createVisitCollisionWorld({room,items=[],boundsOnWall,radius=VIS
   }
   return Math.hypot(position.x-initialX,position.z-initialZ)>1e-6;
  }
- return {passable,findSafe,move,radius,obstacles};
+ return {passable,clearOpening,findSafe,move,radius,obstacles};
 }

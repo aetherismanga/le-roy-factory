@@ -18,7 +18,7 @@ body.lrf-page-index .hero-video-section{
   background:
     linear-gradient(90deg,rgba(3,3,3,.72),rgba(3,3,3,.28) 50%,rgba(3,3,3,.68)),
     radial-gradient(circle at 50% 34%,rgba(255,190,30,.16),transparent 34%),
-    url('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/02.png') center 54%/cover no-repeat!important;
+    url('../img/performance-20261027/selections-background.webp') center 54%/cover no-repeat!important;
 }
 body.lrf-page-index .bg-video{display:none!important}
 body.lrf-page-index .hero-overlay{background:linear-gradient(180deg,rgba(0,0,0,.10),rgba(0,0,0,.28) 65%,rgba(0,0,0,.72))!important}

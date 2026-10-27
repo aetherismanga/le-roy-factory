@@ -1,0 +1,107 @@
+{
+  "created": "2026-10-27",
+  "purpose": "Lightweight public-page derivatives; original manufacturer and source media unchanged.",
+  "method": "Pillow WEBP quality 88 method 6. Dark and selection backgrounds keep full original dimensions. Light backgrounds use documented central crops to remove baked floral borders; never upscaled. Original media unchanged.",
+  "assets": [
+    {
+      "file": "assets/img/performance-20261027/home-desktop-dark.webp",
+      "source": "home-desktop-dark.png",
+      "width": 1672,
+      "height": 941,
+      "quality": 88,
+      "bytes": 288748,
+      "originalBytes": 2324476,
+      "sha256": "35f87a6370accf70c96b68de792d0ca61edd8b2dceb2cef1aec220b7a6d56c69",
+      "psnrRgbDb": 34.73,
+      "sourceContentPreserved": true
+    },
+    {
+      "file": "assets/img/performance-20261027/home-mobile-dark.webp",
+      "source": "home-mobile-dark.png",
+      "width": 941,
+      "height": 1672,
+      "quality": 88,
+      "bytes": 254054,
+      "originalBytes": 2252214,
+      "sha256": "87ad5f55496a39e4049711348c063414afa760144c3044d9ab68915c3e39503e",
+      "psnrRgbDb": 36.25,
+      "sourceContentPreserved": true
+    },
+    {
+      "file": "assets/img/performance-20261027/selections-background.webp",
+      "source": "selections-background.png",
+      "width": 1672,
+      "height": 941,
+      "quality": 88,
+      "bytes": 311052,
+      "originalBytes": 2673239,
+      "sha256": "ad0078ddb7688480b1c90689ac0f719d0568e2a91ecbfb1536d2fd06e566cd65",
+      "psnrRgbDb": 38.38,
+      "sourceContentPreserved": true
+    },
+    {
+      "file": "assets/img/performance-20261027/home-desktop-light.webp",
+      "source": "home-desktop-light.png",
+      "sourceDimensions": [
+        1672,
+        941
+      ],
+      "cropBox": [
+        272,
+        120,
+        1392,
+        750
+      ],
+      "width": 1120,
+      "height": 630,
+      "quality": 88,
+      "bytes": 110216,
+      "originalBytes": 2450508,
+      "sha256": "95dfdebec1e3840dc4443ca24e1cacb2cbb186110ab7634c60fdd8581cfa4a31",
+      "psnrRgbDb": 39.29,
+      "cropReason": "Remove all baked floral corner artwork; source bathroom scene pixels only; no upscaling, repainting or generated content."
+    },
+    {
+      "file": "assets/img/performance-20261027/home-mobile-light.webp",
+      "source": "home-mobile-light.png",
+      "sourceDimensions": [
+        941,
+        1672
+      ],
+      "cropBox": [
+        110,
+        195,
+        830,
+        1475
+      ],
+      "width": 720,
+      "height": 1280,
+      "quality": 88,
+      "bytes": 188426,
+      "originalBytes": 2565280,
+      "sha256": "54532bf9840b86d93a4d29abd0e7d5a3600a9aea22b989d21967883d4f4daef8",
+      "psnrRgbDb": 37.79,
+      "cropReason": "Remove baked floral corner artwork; existing bathroom scene pixels only; no upscaling, repainting or generated content."
+    },
+    {
+      "file": "assets/img/performance-20261027/brand-wordmark-wine.svg",
+      "sourceURL": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/brand-v2/logo-le-roy-factory-wine.svg",
+      "bytes": 2633,
+      "sha256": "6c270bbda3cc041d5c9ee92c578b3da6436123a45e87c2457729459886b72354",
+      "sourceContentPreserved": true,
+      "method": "Existing nonfloral SVG copied byte for byte; no alterations."
+    },
+    {
+      "file": "assets/img/performance-20261027/brand-wordmark-gold.svg",
+      "sourceURL": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/brand-v2/logo-le-roy-factory.svg",
+      "bytes": 2241,
+      "sha256": "48147e4a91669a1be665170b9bca4a63e929fedf0a935f810005e09743266fb5",
+      "sourceContentPreserved": true,
+      "method": "Existing nonfloral SVG copied byte for byte; no alterations."
+    }
+  ],
+  "excludedPendingReview": [
+    "lrf-logo.png: pink flower motif; use existing nonfloral brand SVG instead.",
+    "four corner PNGs: floral artwork; no derivatives created."
+  ]
+}
