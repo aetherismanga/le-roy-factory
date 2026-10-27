@@ -30,11 +30,20 @@ function obstacleFor(item,room,boundsOnWall){
     if(materials.some(material=>material&&material.visible!==false&&(!material.transparent||material.opacity>.05))){
      const geometry=object.geometry;if(!geometry.boundingBox)geometry.computeBoundingBox?.();const box=geometry.boundingBox;
      if(box&&!box.isEmpty()){
-      const worldBox=box.clone().applyMatrix4(object.matrixWorld);
-      if(worldBox.max.y>STEP_HEIGHT&&worldBox.min.y<VISITOR_BODY_HEIGHT){
-       bottom=Math.min(bottom,worldBox.min.y);top=Math.max(top,worldBox.max.y);
-       const transform=inverse.clone().multiply(object.matrixWorld);
-       for(const x of [box.min.x,box.max.x])for(const y of [box.min.y,box.max.y])for(const z of [box.min.z,box.max.z])local.expandByPoint(point.set(x,y,z).applyMatrix4(transform));
+      const instance=new T.Matrix4(),worldMatrix=new T.Matrix4(),transform=new T.Matrix4();
+      // An InstancedMesh geometry describes its unscaled source (e.g. a unit
+      // sphere for 8 mm leaves). Only its rendered instance matrices describe
+      // physical dimensions; using the source creates metre-wide obstacles.
+      const count=object.isInstancedMesh?object.count:1;
+      for(let index=0;index<count;index++){
+       worldMatrix.copy(object.matrixWorld);
+       if(object.isInstancedMesh){object.getMatrixAt(index,instance);worldMatrix.multiply(instance);}
+       const worldBox=box.clone().applyMatrix4(worldMatrix);
+       if(worldBox.max.y>STEP_HEIGHT&&worldBox.min.y<VISITOR_BODY_HEIGHT){
+        bottom=Math.min(bottom,worldBox.min.y);top=Math.max(top,worldBox.max.y);
+        transform.copy(inverse).multiply(worldMatrix);
+        for(const x of [box.min.x,box.max.x])for(const y of [box.min.y,box.max.y])for(const z of [box.min.z,box.max.z])local.expandByPoint(point.set(x,y,z).applyMatrix4(transform));
+       }
       }
      }
     }

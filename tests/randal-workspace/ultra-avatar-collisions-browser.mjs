@@ -40,17 +40,19 @@ async function cabinetBounds(page){return page.evaluate(()=>{
  const min=[Infinity,Infinity,Infinity],max=[-Infinity,-Infinity,-Infinity],point=item.root.position.clone();item.root.updateWorldMatrix(true,true);
  function visit(o){
   if(!o.visible||o.userData?.collision===false)return;
-  if(o.isMesh&&o.geometry){o.geometry.computeBoundingBox();const b=o.geometry.boundingBox;if(b){const corners=[];for(const x of [b.min.x,b.max.x])for(const y of [b.min.y,b.max.y])for(const z of [b.min.z,b.max.z])corners.push(point.set(x,y,z).applyMatrix4(o.matrixWorld).toArray());if(Math.max(...corners.map(p=>p[1]))>.15&&Math.min(...corners.map(p=>p[1]))<1.65)for(const p of corners)for(let k=0;k<3;k++){min[k]=Math.min(min[k],p[k]);max[k]=Math.max(max[k],p[k]);}}}
+  const materials=Array.isArray(o.material)?o.material:[o.material],solidMaterial=materials.some(m=>m&&m.visible!==false&&(!m.transparent||m.opacity>.05));
+  if(o.isMesh&&o.geometry&&solidMaterial){o.geometry.computeBoundingBox();const b=o.geometry.boundingBox;if(b)for(let instance=0;instance<(o.isInstancedMesh?o.count:1);instance++){const transform=o.matrixWorld.clone();if(o.isInstancedMesh){o.getMatrixAt(instance,transform);transform.premultiply(o.matrixWorld);}const corners=[];for(const x of [b.min.x,b.max.x])for(const y of [b.min.y,b.max.y])for(const z of [b.min.z,b.max.z])corners.push(point.set(x,y,z).applyMatrix4(transform).toArray());if(Math.max(...corners.map(p=>p[1]))>.15&&Math.min(...corners.map(p=>p[1]))<1.65)for(const p of corners)for(let k=0;k<3;k++){min[k]=Math.min(min[k],p[k]);max[k]=Math.max(max[k],p[k]);}}}
   for(const child of o.children||[])visit(child);
  }
  visit(item.root);return {id:item.id,min,max,placement:item.placement,dimensions:item.dimensions};
 });}
 async function resetApproach(page,bounds){
  await page.evaluate(({id,min,max})=>{
-  const api=studioOnePrototype;api.exitVisit();api.selectItem(id);api.setView('front',true);api.enterVisit();
+  const api=studioOnePrototype;
+  if(!__avatarCollisionQA.walk.active){api.selectItem(id);api.setView('front',true);api.enterVisit();}
   const qa=__avatarCollisionQA;qa.walk.position.set((min[0]+max[0])/2,1.55,max[2]+1.05);qa.walk.setView('first');qa.avatar.tick(.05);
  },bounds);
- await page.waitForFunction(()=>studioOnePrototype.getDiagnostics().avatar.loaded||studioOnePrototype.getDiagnostics().avatar.failure,null,{timeout:120000});
+ await page.waitForFunction(()=>studioOnePrototype.getDiagnostics().avatar.loaded||studioOnePrototype.getDiagnostics().avatar.failure,null,{timeout:120000,polling:100});
  assert.equal(await page.evaluate(()=>studioOnePrototype.getDiagnostics().avatar.failure),'');
 }
 function assertStopped(result,bounds,label){
@@ -96,11 +98,14 @@ try{
   await page.evaluate(()=>{
    const api=studioOnePrototype;for(const item of api.getState().items||[])if(!['window','door'].includes(item.type))api.removeItem(item.id);
    if(!api.addItem('cabinet',0,{width:100,top:'neris',placement:{wall:0,u:225,height:28}}))throw Error('Test cabinet could not be placed');
-   if(!api.addItem('mirror',0,{mirrorModel:'metal-rect',width:120,height:80,placement:{wall:0,u:225,height:145}}))throw Error('Test mirror could not be placed');api.setQualityMode('max');api.enterVisit();
+   if(!api.addItem('mirror',0,{mirrorModel:'metal-rect',width:120,height:80,placement:{wall:0,u:225,height:145}}))throw Error('Test mirror could not be placed');api.setView('front',true);api.setQualityMode('max');api.enterVisit();
   });
   await page.waitForFunction(()=>studioOnePrototype.getDiagnostics().avatar.loaded||studioOnePrototype.getDiagnostics().avatar.failure,null,{timeout:120000});
   console.log('AVATAR',variant,JSON.stringify(modelRequests.at(-1)));
   assert.equal(await page.evaluate(()=>studioOnePrototype.getDiagnostics().avatar.failure),'');
+  // Once the real rig has loaded, collision-only runs integrate controllers
+  // manually without queuing expensive software-GPU frames between commands.
+  if(process.env.QA_CAPTURE==='none')await page.evaluate(()=>{window.requestAnimationFrame=()=>0;});
   const bounds=await cabinetBounds(page);await resetApproach(page,bounds);
   console.log('APPROACH',variant,JSON.stringify(bounds));
   await page.keyboard.down('KeyW');let result;try{result=await drive(page,6);}finally{await page.keyboard.up('KeyW');}
@@ -122,9 +127,10 @@ try{
   }
   save(false,{inProgress:true});
   const before=await page.evaluate(()=>studioOnePrototype.getDiagnostics().avatar.reflectionRevision);
-  await page.waitForFunction(n=>studioOnePrototype.getDiagnostics().avatar.reflectionRevision>n,before,{timeout:60000});pass(variant+': idle animation continues updating reflected character');
+  if(process.env.QA_CAPTURE==='none')await page.evaluate(()=>__avatarCollisionQA.avatar.tick(.05));
+  await page.waitForFunction(n=>studioOnePrototype.getDiagnostics().avatar.reflectionRevision>n,before,{timeout:60000,polling:100});pass(variant+': idle animation continues updating reflected character');
   if(process.env.QA_CAPTURE!=='none')await snapshot(page,path.join(output,variant+'-mobile-safe-mirror.png'));
-  await page.evaluate(()=>studioOnePrototype.setQualityMode('balanced'));await page.waitForFunction(()=>!studioOnePrototype.getDiagnostics().avatar.enabled);
+  await page.evaluate(()=>studioOnePrototype.setQualityMode('balanced'));await page.waitForFunction(()=>!studioOnePrototype.getDiagnostics().avatar.enabled,null,{polling:100});
   assert.equal(await page.evaluate(()=>studioOnePrototype.getDiagnostics().avatar.loaded),false);pass(variant+': leaving Ultra releases character after keyboard/touch use');
   await context.close();activePage=null;
  }

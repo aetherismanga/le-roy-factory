@@ -12,10 +12,12 @@ Le personnage reste réservé à la visite avec le choix explicite Ultra HD et a
 
 ## Vérifications
 
-- Six tests de collisions : les quatre murs, meuble suspendu, débord et tiroir, entrée libre, pas rapides/diagonaux, cloison basse, porte ouverte, receveur et vitrage.
+- Huit tests de collisions : les quatre murs, meuble suspendu, débord et tiroir, entrée libre, pas rapides/diagonaux, cloison basse, porte ouverte, receveur et vitrage, maillages instanciés et vrai meuble Général décoré.
 - Neuf contrôles d'animation sur le vrai GLB et sept contrôles de cycle de vie passent, y compris après restauration de l'espace de travail.
 - Les deux constructions, les scripts de contrôle des deux workspaces et le noyau partagé ont passé avant le nettoyage automatique de l'espace de travail.
 - Les tests PLAN & POSE/sécurité avaient un seul échec historique sur l'interface de récupération retirée (`tests/security/legacy-recovery-storage.test.mjs:127`), déjà présent avant ce lot.
 - Sources restaurées depuis les patches exacts ; modèle récupéré depuis le blob GitHub sauvegardé. Aucune texture ni géométrie régénérée pendant la restauration.
 
 Livraison limitée aux prévisualisations des deux ateliers, sans mise à jour de `main` ni des domaines de production.
+
+Le contrôle final du Général a détecté une sphère source de feuillage instancié interprétée à sa taille brute. La collecte applique maintenant chaque matrice d'instance pour conserver les dimensions réelles des décorations. Un test sur le meuble Harmony / Neris de 100 cm vérifie une empreinte de meuble réaliste et un arrêt à 30 cm du bord visible.

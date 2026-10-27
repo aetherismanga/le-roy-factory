@@ -69,3 +69,29 @@ test('shower trays remain walkable and solid fixed glass screens block the body'
  assert.equal(world(r,[tray,screen]).passable(0,-.23+.15),false);
  r.dispose();
 });
+
+
+test('instanced geometry uses each rendered scale and position, never its unit source',()=>{
+ const r=room(),item=cabinet(),root=new T.Group(),leaves=new T.InstancedMesh(new T.SphereGeometry(1,10,6),new T.MeshBasicMaterial(),1),matrix=new T.Matrix4();
+ matrix.compose(new T.Vector3(0,.95,0),new T.Quaternion(),new T.Vector3(.008,.038,.004));leaves.setMatrixAt(0,matrix);root.add(leaves);item.root=root;
+ let c=world(r,[item]);assert.equal(c.passable(0,.8),true,'A tiny leaf must not introduce a 2 metre source-sphere obstacle');
+ matrix.compose(new T.Vector3(0,.8,.9),new T.Quaternion(),new T.Vector3(.03,.04,.04));leaves.setMatrixAt(0,matrix);
+ c=world(r,[item]);assert.equal(c.passable(0,1.2),false,'Actual translated instances still contribute their real physical envelope');
+ root.traverse(o=>{o.geometry?.dispose();o.material?.dispose();});r.dispose();
+});
+
+test('real decorated General Neris 100 cm keeps the vanity envelope at its rendered size',async()=>{
+ const {makeModel}=await import('../../randal-general/src/model.js');
+ const {Composition,boundsOnWall:generalBounds,disposeObject}=await import('../../randal-general/src/composition.js');
+ const {decorateAsset}=await import('../../randal-general/src/decor.js');
+ const r=room(),asset=makeModel({width:1,format:'harmony-two',basinTop:'neris',includeMirror:false}),settings={width:100,format:'harmony-two',top:'neris'},composition=new Composition(r);
+ decorateAsset(asset,'cabinet',settings);const result=composition.add('cabinet',asset,settings,{wall:0,u:225,height:28});assert.ok(result.item,result.error);
+ assert.equal(asset.root.getObjectByName('Feuillage')?.isInstancedMesh,true,'Exercise the actual instanced foliage from the product');
+ const c=createVisitCollisionWorld({room:r,items:composition.items,boundsOnWall:generalBounds}),xs=c.obstacles[0].map(p=>p[0]),zs=c.obstacles[0].map(p=>p[1]);
+ assert.ok(Math.max(...xs)-Math.min(...xs)<1.1,'100 cm vanity has no phantom 2 metre collision width');
+ assert.ok(Math.max(...zs)-Math.min(...zs)<.6,'Vanity depth remains near its 45 cm product dimensions');
+ const front=Math.max(...zs),p={x:0,z:1.3};c.move(p,{x:0,z:-1});
+ assert.ok(p.z>=front+VISITOR_BODY_RADIUS-.01&&p.z<front+VISITOR_BODY_RADIUS+.06,'Approach stops at the actual rendered front plus shoulder clearance');
+ assert.equal(c.passable(0,front+VISITOR_BODY_RADIUS+.02),true);
+ disposeObject(result.item.root);r.dispose();
+});
