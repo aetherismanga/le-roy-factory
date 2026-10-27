@@ -2,6 +2,7 @@ import {cpSync} from 'node:fs';
 import {build} from 'esbuild';
 import {readFileSync,writeFileSync,copyFileSync,rmSync,readdirSync} from 'node:fs';
 import {createHash} from 'node:crypto';
+await import('../shared/lrf-3d/qa/texture-credentials-check.mjs');
 await build({entryPoints:['src/app.js'],bundle:true,format:'esm',target:['es2020'],minify:true,outfile:'dist/app.js',legalComments:'eof'});
 // Give updated assets a distinct URL so mobile caches cannot retain old
 // controls after the user opens the new publication.
