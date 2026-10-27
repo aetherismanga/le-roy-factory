@@ -66,7 +66,7 @@ export function mountUltraVisitorAvatar({scene,renderer,walk,getQuality,isCaptur
 
  function sync(){
   const next=!disposed&&wanted();
-  if(!next&&(enabled||resident)){cancelInteraction('inactive');loadToken++;arms?.dispose();arms=null;resident?.dispose();resident=null;loading=null;elapsed=0;failure='';}
+  if(!next&&(enabled||resident)){cancelInteraction('inactive');loadToken++;arms?.dispose();arms=null;walk.setInteracting?.(false);resident?.dispose();resident=null;loading=null;elapsed=0;failure='';}
   enabled=next;
   if(resident)resident.setVisible(false);
   if(enabled&&!resident&&!loading&&!failure){
@@ -107,7 +107,7 @@ export function mountUltraVisitorAvatar({scene,renderer,walk,getQuality,isCaptur
   if(lastOperation){lastNormal=lastOperation.normal;actionCommitted=interactions.diagnostics().committed;actionTail=2;}
   else if(activeAction){actionTail-=step;if(actionTail<=0){activeAction=null;actionCommitted=false;lastNormal=null;}}
   resident.animate(step,{...motion,interaction:lastOperation});
-  resident.pivot.updateMatrixWorld(true);arms?.update(resident.diagnostics.interaction);revision++;
+  resident.pivot.updateMatrixWorld(true);arms?.update(resident.diagnostics.interaction);walk.setInteracting?.(!!arms?.diagnostics().visible);revision++;
   return true;
  }
 
@@ -120,7 +120,7 @@ export function mountUltraVisitorAvatar({scene,renderer,walk,getQuality,isCaptur
   try{return arms?arms.withHidden(capture):capture();}finally{resident.pivot.visible=previous;}
  }
 
- function dispose(){if(disposed)return;disposed=true;enabled=false;cancelInteraction('disposed');interactions.dispose();loadToken++;loading=null;arms?.dispose();arms=null;resident?.dispose();resident=null;}
+ function dispose(){if(disposed)return;disposed=true;enabled=false;cancelInteraction('disposed');interactions.dispose();loadToken++;loading=null;arms?.dispose();arms=null;walk.setInteracting?.(false);resident?.dispose();resident=null;}
  return {sync,tick,interact,cancelInteraction,actuating,constrainOpening,withReflection,dispose,get ready(){return !!resident?.ready;},get enabled(){return enabled;},
   diagnostics(){return {...(resident?.diagnostics||{}),visitAction:interactions.diagnostics(),id:'jerome',loaded:!!resident?.ready,enabled,loading:!!loading,visible:!!resident?.pivot.visible,reflectionOnly:false,bodyReflectionOnly:true,firstPersonArms:arms?.diagnostics()||{visible:false,meshes:0,triangles:0},reflectionRevision:revision,captureCount:captures,position:walk.position.toArray(),heading:walk.heading,failure};}};
 }

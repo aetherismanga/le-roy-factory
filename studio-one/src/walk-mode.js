@@ -8,8 +8,8 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
   const taps=createVisitTapGesture();
   const keys=new Set();const eye=VISITOR_EYE_HEIGHT,speed=1.7,turn=1.8;
   let viewMode='first',walker=new T.Vector3(),moving=false;
-  let active=false,forward=new T.Vector3(0,0,-1),panel=null,button=null,pitch=0,touchMove={x:0,y:0},mouseLook=false;
-  const touches=new Map();let moveOrigin=null,hintTimer=null;
+  let active=false,interacting=false,forward=new T.Vector3(0,0,-1),panel=null,button=null,pitch=0,touchMove={x:0,y:0},mouseLook=false;
+  const touches=new Map();let moveOrigin=null,hintTimer=null,hintExpired=false;
   const touchDevice=()=>navigator.maxTouchPoints>0||matchMedia('(pointer:coarse)').matches;
   function resetInput(){taps.reset();keys.clear();touches.clear();moveOrigin=null;touchMove={x:0,y:0};mouseLook=false;}
   const editable=el=>!!el?.closest?.('input,textarea,select,[contenteditable="true"],[role="textbox"]');
@@ -49,7 +49,7 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
   }
 
   function setActive(next){
-    if(active===next)return;active=next;resetInput();
+    if(active===next)return;active=next;interacting=false;hintExpired=false;resetInput();
     stage.classList.toggle('walk-active',active);
     if(active){
       collisions=null;collisionAge=Infinity;onEnter?.();
@@ -66,7 +66,7 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
     button.setAttribute('aria-pressed',String(active));
     panel.textContent=touchDevice()?'Touchez pour ouvrir · 1 doigt : regarder · 2 doigts : se déplacer':'Cliquez pour ouvrir · ZQSD / flèches : marcher · Maj : courir · Échap : quitter';
     panel.hidden=!active;clearTimeout(hintTimer);
-    if(active)hintTimer=setTimeout(()=>{panel.hidden=true;},6000);
+    if(active)hintTimer=setTimeout(()=>{hintExpired=true;panel.hidden=true;},6000);
   }
   button=document.createElement('button');button.type='button';button.textContent='Visite 3D';button.className='walk-toggle';button.setAttribute('aria-pressed','false');
   button.setAttribute('aria-label','Activer ou quitter le déplacement dans les pièces');
@@ -121,5 +121,8 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
     if(rotation||move.lengthSq()>0){taps.cancel();view();return true}if(viewMode==='third'){view();return true}
     return false;
   }
-  return {tick,clearOpening,get active(){return active},setActive,get position(){return walker;},get heading(){return Math.atan2(forward.x,forward.z);},get moving(){return moving;},get running(){return keys.has('ShiftLeft')||keys.has('ShiftRight');},get view(){return viewMode;},setView(mode){viewMode=mode==='third'?'third':'first';if(active)view();onMove();}};
+  // Keep the hand and its grip visible while the gesture runs. Controls stay
+  // usable: moving or looking can still cancel the interaction immediately.
+  function setInteracting(next){interacting=!!next&&active;panel.hidden=!active||interacting||hintExpired;}
+  return {tick,clearOpening,setInteracting,get active(){return active},setActive,get position(){return walker;},get heading(){return Math.atan2(forward.x,forward.z);},get moving(){return moving;},get running(){return keys.has('ShiftLeft')||keys.has('ShiftRight');},get view(){return viewMode;},setView(mode){viewMode=mode==='third'?'third':'first';if(active)view();onMove();}};
 }

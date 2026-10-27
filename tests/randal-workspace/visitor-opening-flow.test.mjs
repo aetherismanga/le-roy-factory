@@ -39,7 +39,10 @@ for(const variant of ['studio-one','randal-general'])test(variant+': production 
  try{
   assert.equal(f.controller.tap(f.hit),true);assert.equal(f.avatar.diagnostics().visitAction.active,true);
   assert.equal(f.item.settings.drawers[0],0);f.step(.24);assert.equal(f.item.settings.drawers[0],0);
-  f.step(2.8);assert.equal(f.item.settings.drawers[0],1);assert.ok(Math.abs(f.item.motion.drawers[0]-.2)<.0001);
+  f.step(.55);
+  const contact=f.avatar.diagnostics();assert.equal(contact.visitAction.fallbacks,0);
+  assert.ok(Math.abs(contact.interaction.target[0])<.13,'The reachable real grip must be inside the portrait view, not at the shoulder');
+  f.step(2.25);assert.equal(f.item.settings.drawers[0],1);assert.ok(Math.abs(f.item.motion.drawers[0]-.2)<.0001);
   assert.ok(f.walk.position.z-f.initial.z>.14,'A close operator takes a small safe step back');
   assert.equal(f.avatar.diagnostics().visitAction.active,false);assert.equal(f.avatar.diagnostics().gesture,'idle');assert.equal(f.statuses.length,0);
   assert.equal(f.events.filter(e=>!e.restored).length,1,'One contact produces one opening');
@@ -55,6 +58,7 @@ test('General 80 cm single drawer reaches its lower real grip from normal collis
   const action=f.avatar.diagnostics().visitAction;
   assert.equal(action.committed,true);assert.equal(action.fallbacks,0,'The real palm must make contact, not fall back to remote opening');
   assert.ok(action.contactDistance<.035);
+  assert.ok(Math.abs(f.avatar.diagnostics().interaction.target[0])<.13,'The low grip stays inside the portrait view');
   f.step(2);assert.equal(f.item.settings.drawers[0],1);assert.ok(Math.abs(f.item.motion.drawers[0]-.315)<.0001);
  }finally{f.dispose();}
 });

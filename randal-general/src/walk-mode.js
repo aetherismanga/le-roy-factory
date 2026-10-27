@@ -8,7 +8,7 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
   const taps=createVisitTapGesture();
   const keys=new Set();const eye=VISITOR_EYE_HEIGHT,speed=1.7,turn=1.8;
   let viewMode='first',walker=new T.Vector3(),moving=false;
-  let active=false,forward=new T.Vector3(0,0,-1),panel=null,button=null,pitch=0,touchMove={x:0,y:0},touchLook=null,mouseLook=false;
+  let active=false,interacting=false,forward=new T.Vector3(0,0,-1),panel=null,button=null,pitch=0,touchMove={x:0,y:0},touchLook=null,mouseLook=false;
   const editable=el=>!!el?.closest?.('input,textarea,select,[contenteditable="true"],[role="textbox"]');
   // Reuse mesh envelopes between movement frames; opened drawers refresh within 80 ms.
   let collisions=null,collisionAge=Infinity,collisionRoom=null,collisionItems=null,collisionCount=-1;
@@ -46,7 +46,7 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
   }
 
   function setActive(next){
-    if(active===next)return;active=next;stage.classList.toggle('walk-active',active);keys.clear();taps.reset();
+    if(active===next)return;active=next;setInteracting(false);stage.classList.toggle('walk-active',active);keys.clear();taps.reset();
     if(active){
       collisions=null;collisionAge=Infinity;onEnter?.();pitch=0;
       const room=getRoom(),center=room?.bounds?.getCenter(new T.Vector3())||new T.Vector3(),collision=collisionWorld();
@@ -109,5 +109,8 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
     if(rotation||move.lengthSq()>0){taps.cancel();view();return true}if(viewMode==='third'){view();return true}
     return false;
   }
-  return {tick,clearOpening,get active(){return active},setActive,get position(){return walker;},get heading(){return Math.atan2(forward.x,forward.z);},get moving(){return moving;},get running(){return keys.has('ShiftLeft')||keys.has('ShiftRight');},get view(){return viewMode;},setView(mode){viewMode=mode==='third'?'third':'first';if(active)view();onMove();}};
+  // Keep the hand and its grip visible while the gesture runs. Controls stay
+  // usable: moving or looking can still cancel the interaction immediately.
+  function setInteracting(next){interacting=!!next&&active;panel.hidden=!active||interacting;joystick.style.opacity=interacting?'.3':'1';}
+  return {tick,clearOpening,setInteracting,get active(){return active},setActive,get position(){return walker;},get heading(){return Math.atan2(forward.x,forward.z);},get moving(){return moving;},get running(){return keys.has('ShiftLeft')||keys.has('ShiftRight');},get view(){return viewMode;},setView(mode){viewMode=mode==='third'?'third':'first';if(active)view();onMove();}};
 }

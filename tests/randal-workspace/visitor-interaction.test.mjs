@@ -105,10 +105,22 @@ test('the real 1.65 m Jérôme rig can grasp a continuous upper drawer grip at t
  const studio=item(makeModel({width:.8,includeMirror:false})),general=item(makeGeneralModel({width:.8,includeMirror:false,basinTop:'none'}));
  for(const it of [studio,general]){
   let commits=0;assert.equal(driver.start({item:it,target:{kind:'drawer',index:0},commit:()=>commits++}),true,'Grip in front of a real shoulder is within the real arm reach');
-  const pose=driver.tick(.01);assert.ok(Math.abs(pose.target[0])>.13&&Math.abs(pose.target[0])<.26,'The continuous grip is grasped in front of the chosen shoulder');
+  const pose=driver.tick(.01);assert.ok(Math.abs(pose.target[0])<.13,'A reachable interior grip keeps the hand inside the portrait view');
   advance(driver,.31);assert.equal(commits,1);driver.cancel();
  }
  driver.dispose();clean(studio);clean(general);clean({root});
+});
+
+test('a continuous grip prefers the actual tap while keeping the contact on its real moving hardware',()=>{
+ const s=setup();let commits=0;
+ try{
+  const request=s.request(()=>commits++);request.hit.point=new T.Vector3(.075,.72,.22);
+  assert.equal(s.driver.start(request),true);
+  const first=s.driver.tick(.1);assert.ok(Math.abs(first.target[0]-.075)<1e-6,'The contact follows the tapped horizontal position, not the shoulder');
+  s.it.asset.drawers[0].position.z=.16;const moved=s.driver.tick(.1);
+  assert.ok(Math.abs(moved.target[0]-.075)<1e-6);assert.ok(Math.abs(moved.target[2]-first.target[2]-.16)<1e-6);
+  assert.equal(commits,0);
+ }finally{s.driver.dispose();clean(s.it);}
 });
 
 test('a replacement, movement, removed target or Ultra exit discards an uncommitted reach',()=>{

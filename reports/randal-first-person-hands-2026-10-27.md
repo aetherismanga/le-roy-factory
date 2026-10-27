@@ -10,12 +10,14 @@ La livraison précédente conservait intentionnellement le personnage entier hor
 - Géométrie limitée aux triangles des bras/mains, extraite du modèle existant et liée au même squelette. La main en vue directe suit donc exactement la prise du personnage réfléchi. Aucun deuxième modèle ni téléchargement de textures.
 - Le personnage entier reste réservé aux reflets. Les bras séparés sont masqués pendant ces captures pour éviter un doublon.
 - Les bras sont exclus du picking : les touches suivantes atteignent toujours le meuble et les vrais obstacles conservent leur priorité.
+- Une prise continue privilégie le point touché ou un point central réellement atteignable. Le point le plus proche de l'épaule reste un recours, car il plaçait la main au bord d'un écran portrait.
+- Le texte d'aide se masque pendant la prise. Le joystick du Général s'estompe tout en restant utilisable. L'aide retrouve son cycle habituel après le geste ; le délai de six secondes de Studio est conservé.
 - Aucun changement du regard ou de la caméra ; le visiteur garde le contrôle. Ultra HD explicite, mode visite et préférence de réduction des animations restent respectés.
 - Les collisions et le recul progressif de l'opérateur restent en place.
 
 ## Validation
 
-- 68 tests ciblés réussis : contact réel de la paume, ouverture progressive, retour, portes/tiroirs, collisions, retrait, annulation, isolation des bras et picking réel.
+- 69 tests ciblés réussis : contact réel de la paume, ouverture progressive, retour, portes/tiroirs, collisions, retrait, annulation, isolation des bras et picking réel.
 - Le meuble LUCE 80 cm à un seul tiroir de la capture déclenche bien la prise à distance normale de collision, sans ouverture de secours à distance.
 - Noyau partagé et contrôles des deux ateliers réussis. Les deux builds réussissent.
 - Captures GPU avec le vrai modèle en première personne : main visible sur le tiroir et sur la poignée de porte, sans tête ni torse. Modèle direct limité à 2 140 triangles ; aucun nouveau matériau ou texture.

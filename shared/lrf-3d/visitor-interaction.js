@@ -22,11 +22,11 @@ function movingPart(item,target,hit){
 // Keep a point on the actual moving front, rather than a cached world-space hit.
 // This works for mirrored hinges, parent scales, and the General column's proxy
 // `asset.door`, whose real Object3D leaves live in `asset.doors`.
-export function resolveVisitorContact({item,target,hit,actorPosition}={}){
+export function resolveVisitorContact({item,target,hit,actorPosition,gripPosition=actorPosition}={}){
  if(!item?.root?.isObject3D||!target)return null;
  const part=movingPart(item,target,hit);if(!part?.isObject3D)return null;
  item.root.updateWorldMatrix(true,true);
- const actor=vector(actorPosition),handles=[];
+ const actor=vector(actorPosition),grip=vector(gripPosition),handles=[];
  part.traverse(object=>{
   if(!object.isMesh||!visible(object)||!solidMaterial(object)||/Zone_tactile|Rosace|_tige|Paumelle|Charniere/i.test(object.name))return;
   if(/Poign[eé]e|Bequille|Bouton/i.test(object.name)||item.asset?.handles?.includes(object))handles.push(object);
@@ -34,7 +34,7 @@ export function resolveVisitorContact({item,target,hit,actorPosition}={}){
  let node=null,point=null,score=Infinity;
  for(const object of handles){
   const box=bounds(object);if(!box||box.isEmpty())continue;
-  const p=box.getCenter(new T.Vector3()),near=object.worldToLocal(actor.clone());
+  const p=box.getCenter(new T.Vector3()),near=object.worldToLocal(grip.clone());
   if(box.max.x-box.min.x>.12)p.x=clamp(near.x,box.min.x+.025,box.max.x-.025);
   const distance=object.localToWorld(p.clone()).distanceToSquared(actor);
   if(distance<score){node=object;point=p;score=distance;}
@@ -46,7 +46,7 @@ export function resolveVisitorContact({item,target,hit,actorPosition}={}){
   if(!node&&target.kind==='lid')part.traverse(o=>{if(!node&&o.isMesh&&visible(o)&&solidMaterial(o))node=o;});
   const box=node&&bounds(node);if(!box||box.isEmpty())return null;
   point=box.getCenter(new T.Vector3());
-  const near=node.worldToLocal(actor.clone());
+  const near=node.worldToLocal(grip.clone());
   if(target.kind==='drawer'){
    point.x=clamp(near.x,box.min.x+.025,box.max.x-.025);
    point.y=box.max.y-.008;point.z=box.max.z+.003;
@@ -112,18 +112,25 @@ export function createVisitorInteraction({getActorRoot,getPosition,getHeading=()
   const root=getActorRoot?.(),position=vector(getPosition?.());
   if(!root){lastReason='no-contact';return false;}
   root.updateWorldMatrix(true,true);
-  // A continuous grip or wide pull is naturally grasped in front of the hand,
-  // not at the visitor's centre line. Evaluate each shoulder against its own
-  // valid point on the hardware before selecting the easier arm.
-  const contacts=['L','R'].map(side=>{
-   const shoulder=root.getObjectByName('Bip01_'+side+'_UpperArm');
-   const contact=resolveVisitorContact({item,target,hit,actorPosition:shoulder?.getWorldPosition(new T.Vector3())||position});
-   if(!contact)return null;
-   const sample=contact.sample(position),reach=armReach(root,side,sample);
-   return reach?{...reach,contact,sample}:null;
-  }).filter(Boolean);
+  // Prefer a reachable point where the visitor tapped, then the centre of
+  // their view. Always choosing the closest point to a shoulder pushes the
+  // hand outside a portrait camera, even when an interior grip is reachable.
+  // A midpoint and the shoulder remain fallbacks for a low or distant pull;
+  // every candidate uses the same real arm-length and crouch limits.
+  const contacts=[];
+  for(const side of ['L','R']){
+   const shoulder=root.getObjectByName('Bip01_'+side+'_UpperArm')?.getWorldPosition(new T.Vector3())||position;
+   const preferred=hit?.point&&vector(hit.point),points=[preferred,position,position.clone().lerp(shoulder,.5),shoulder];
+   for(let preference=0;preference<points.length;preference++){
+    if(!points[preference])continue;
+    const contact=resolveVisitorContact({item,target,hit,actorPosition:position,gripPosition:points[preference]});
+    if(!contact)continue;
+    const sample=contact.sample(position),reach=armReach(root,side,sample);
+    if(reach)contacts.push({...reach,preference,contact,sample});
+   }
+  }
   if(!contacts.length){lastReason='no-contact';return false;}
-  const options=contacts.filter(v=>v.reachable).sort((a,b)=>a.distance-b.distance);
+  const options=contacts.filter(v=>v.reachable).sort((a,b)=>a.preference-b.preference||a.distance-b.distance);
   if(!options.length){lastReason='out-of-reach';return false;}
   const {contact,sample}=options[0];
   current={item,target:{...target},contact,commit,committed:false,elapsed:0,contactWait:0,waiting:false,sensorFailed:false,side:options[0].side,startPosition:position,startHeading:getHeading(),parent:item.root.parent,reach:.30,follow:target.kind==='drawer'?.78:.88,release:.34,lastSample:sample,retreat:false};
