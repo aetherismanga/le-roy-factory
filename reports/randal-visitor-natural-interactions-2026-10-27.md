@@ -21,3 +21,12 @@ Les gestes restent réservés au choix explicite Ultra en visite. Les autres pro
 - Le test historique `tests/security/legacy-recovery-storage.test.mjs:127` reste en échec sur l'interface retirée de récupération. Ce chemin n'est pas modifié par ce lot.
 
 Les textures et le modèle GLB sont conservés. Livraison sur une branche de test et prévisualisations des deux ateliers ; aucune mise à jour de `main` ni des adresses de production n'est effectuée.
+
+## Résultats du lot livré
+
+- 60 tests ciblés sur les contrôleurs, les gestes, les collisions et la planification du rendu : 60 réussis.
+- Solveur du vrai squelette : 8 contrôles de portée, 9 de marche et 7 de cycle de vie réussis ; contrôles de reflets partagés également réussis.
+- Construction et script `check` des deux workspaces réussis ; noyau partagé réussi.
+- Régressions PLAN & POSE/sécurité : 305 réussis sur 306, avec le seul échec historique de récupération déjà indiqué.
+- Prévisualisations Vercel du SHA `621ca3e1661ed24040ad84d73042a2e0192871a8` prêtes. Contrôle HTTPS des deux ateliers : page 200, empreinte de chaque application identique au build testé, vrai GLB de 4 449 532 octets et quatre cartes WebP disponibles.
+- Les sources du site public et les domaines de production n’ont pas été publiés par cette livraison.
