@@ -1,0 +1,56 @@
+{
+  "version": 5,
+  "geometrySource": "https://github.com/microsoft/Microsoft-Rocketbox",
+  "recoveredModel": "https://studio-one-beta-test-v2.vercel.app/shared/avatar/resident-v1.glb",
+  "sourceModelSha256": "d0a656e3b839d4c578086e4620e48ec94eaf5b455e84d90efcd5c8aca56622b5",
+  "meshPreparationScript": "scripts/personalize-jerome-avatar.py",
+  "geometryEdits": [
+    "face UV landmark correction",
+    "original leg topology/positions preserved",
+    "complete shirt hem triangles preserved by original UV island and per-vertex height classification",
+    "dedicated matte Jerome_pantalon and Jerome_chaussures materials",
+    "chin beard volume",
+    "raised short scalp silhouette",
+    "legacy long hair alpha-card primitives removed"
+  ],
+  "skeletonJointCount": 80,
+  "facialMorphCount": 4,
+  "headAlbedo": "image-generated UV edit from existing authorized reference",
+  "bodyAlbedo": "image-generated UV edit from existing authorized reference",
+  "albedoNativeDimensions": [
+    1254,
+    1254
+  ],
+  "albedoUpscaled": false,
+  "photographicScan": false,
+  "files": {
+    "README.md": {
+      "bytes": 2254,
+      "sha256": "0288074b86ca2a6f657c824667516293ec1b42546988e61b2925fdb98e5e1a5f"
+    },
+    "body-normal.webp": {
+      "bytes": 522174,
+      "sha256": "8f9af264456900af1454a3a03e4a2de467994ec4ec9b8748dbe0f9e2c6e262b9"
+    },
+    "body.webp": {
+      "bytes": 316980,
+      "sha256": "2ec3db957e45739af37ea2f77246d36d1593b092d4a5d42fb4d56181ad91c200"
+    },
+    "head.webp": {
+      "bytes": 356610,
+      "sha256": "1ba4bd0dbe04758a35d541ec93985ef07647bfd6736f44f9ca28e47f79360489"
+    },
+    "resident.glb": {
+      "bytes": 2498292,
+      "sha256": "5b6380f09b9321b757ecc06d996bb92aba71fd26856f061ee8f959c12be96321"
+    },
+    "LICENSE.txt": {
+      "bytes": 1591,
+      "sha256": "496ebd8ab533358cc913ec53f5a2bb376224e8202bbfcf3dd8ce0c8cfabc89f0"
+    },
+    "head-normal.webp": {
+      "bytes": 496422,
+      "sha256": "2c3493aee033018b64a74c654d5ae8dece8fdc1cee17e9852c3d49d4d33a2d76"
+    }
+  }
+}

@@ -34,3 +34,7 @@ cpSync('../shared/lrf-3d/demo/media','dist/assets/demo',{recursive:true});
 
 // One shared presentation page; preview origins are supplied by its reviewed URL.
 writeFileSync('dist/demo.html',readFileSync('../shared/lrf-3d/demo/demo.html','utf8').replaceAll('__LRF_DEMO_VARIANT__','randal-general'));
+
+// Self-host the skinned visitor and its UV maps; fetched only in an Ultra visit.
+rmSync('dist/assets/avatar/jerome-v1',{recursive:true,force:true});
+cpSync('../shared/avatar/jerome-v1','dist/assets/avatar/jerome-v1',{recursive:true});
