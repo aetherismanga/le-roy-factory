@@ -13,7 +13,7 @@
   function loadScript(src,id) {
     return new Promise((resolve,reject) => {
       if (document.getElementById(id) || [...document.scripts].some(s => s.src && s.src.includes(src.split('?')[0]))) { resolve(); return; }
-      const s=document.createElement('script');s.id=id;s.src=src;s.async=false;s.onload=resolve;s.onerror=reject;(document.head||document.documentElement).appendChild(s);
+      const s=document.createElement('script');s.id=id;s.src=src;s.async=false;s.onload=resolve;s.onerror=error=>{s.remove();reject(error);};(document.head||document.documentElement).appendChild(s);
     });
   }
 
@@ -39,7 +39,8 @@
         await loadScript('assets/js/inspirations-view-data.js?v=20260907-view-lot1-final','lrf-view-data-boot');
         await loadScript('assets/js/inspirations-view-elios-parity.js?v=20260907-view-parity3','lrf-view-parity-boot');
         await loadScript('assets/js/inspirations-view-data-lot2.js?v=20260907-view-lot2','lrf-view-data2-boot');
-        await loadScript('assets/js/inspirations-view-data-lot3.js?v=20260907-view-lot3','lrf-view-data3-boot');\n        await loadScript('assets/js/inspirations-view-tariff-2026-10-15.js?v=20261005-view-tariff1','lrf-view-tariff-20261015-boot');
+        await loadScript('assets/js/inspirations-view-data-lot3.js?v=20260907-view-lot3','lrf-view-data3-boot');
+        await loadScript('assets/js/inspirations-view-tariff-2026-10-15.js?v=20261005-view-tariff1','lrf-view-tariff-20261015-boot');
         await loadScript('assets/js/inspirations-view-accessories.js?v=20260911-view-accessories1','lrf-view-accessories-boot');
         await loadScript('assets/js/inspirations-view-hd.js?v=20260907-view-hd1','lrf-view-hd-boot');
         await loadScript('assets/js/inspirations-view-mobile-safe.js?v=20260911-view-safe-stable2','lrf-view-mobile-safe');
@@ -62,17 +63,47 @@
       button.setAttribute('aria-label','Rechercher sur LE ROY FACTORY');
       button.innerHTML='<svg class="lrf-search-trigger-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 15.5 21 21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Rechercher</span>';
       old.replaceWith(button);
-      addCss('assets/css/site-search.css?v=20260913-mobile3','lrf-site-search-css');
-      try {
+      // Building the full product index is only useful after opening search.
+      // Keep startup free of nine extra scripts and thousands of index entries.
+      let loading = false;
+      const openOnDemand = async () => {
+        if (loading) return;
+        loading = true;
+        const label = button.innerHTML;
+        button.setAttribute('aria-busy', 'true');
+        button.disabled = true;
+        button.textContent = 'Chargement…';
+        addCss('assets/css/site-search.css?v=20260913-mobile3','lrf-site-search-css');
+        try {
         await loadScript('assets/js/inspirations-elios-data.js?v=20260907-search9','lrf-search-elios-data');
         await loadScript('assets/js/inspirations-view-data.js?v=20260907-view-lot1-final','lrf-search-view-data');
         await loadScript('assets/js/inspirations-view-elios-parity.js?v=20260907-view-parity3','lrf-search-view-parity');
         await loadScript('assets/js/inspirations-view-data-lot2.js?v=20260907-view-lot2','lrf-search-view-data-lot2');
-        await loadScript('assets/js/inspirations-view-data-lot3.js?v=20260907-view-lot3','lrf-search-view-data-lot3');\n        await loadScript('assets/js/inspirations-view-tariff-2026-10-15.js?v=20261005-view-tariff1','lrf-search-view-tariff-20261015');
+        await loadScript('assets/js/inspirations-view-data-lot3.js?v=20260907-view-lot3','lrf-search-view-data-lot3');
+        await loadScript('assets/js/inspirations-view-tariff-2026-10-15.js?v=20261005-view-tariff1','lrf-search-view-tariff-20261015');
         await loadScript('assets/js/inspirations-neobath-data.js?v=20260907-search9','lrf-search-neobath-data');
         await loadScript('assets/js/reviglass-search-index.js?v=20260911-ref1','lrf-search-reviglass-index');
         await loadScript('assets/js/site-search-v2.js?v=20260911-ref1','lrf-site-search-js-v2');
-      } catch (err) { console.warn('LRF search load',err); }
+          button.removeEventListener('click', openOnDemand);
+          button.disabled = false;
+          button.click();
+        } catch (err) {
+          console.warn('LRF search load',err);
+          button.title = 'Recherche indisponible. Cliquez pour réessayer.';
+        } finally {
+          loading = false;
+          button.disabled = false;
+          button.removeAttribute('aria-busy');
+          button.innerHTML = label;
+        }
+      };
+      button.addEventListener('click', openOnDemand);
+      document.addEventListener('keydown', event => {
+        if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k' && !document.getElementById('lrf-search-overlay')) {
+          event.preventDefault();
+          openOnDemand();
+        }
+      });
     };
     if (document.readyState==='loading') document.addEventListener('DOMContentLoaded',start,{once:true}); else start();
   }
@@ -80,8 +111,8 @@
   if (file==='index.html' || file==='') installHomeSearch();
   if (file==='univers.html') {
     installViewInspirationsGuard();
-    bootstrapViewInspirations();
-    loadScript('assets/js/inspirations-biopietra-2026.js?v=20260912-bio2','lrf-biopietra-2026')
+    let biopietraPromise;
+    const bootstrapBiopietra = () => biopietraPromise ||= loadScript('assets/js/inspirations-biopietra-2026.js?v=20260912-bio2','lrf-biopietra-2026')
       .then(()=>loadScript('assets/js/inspirations-biopietra-fix.js?v=20260912-bio2','lrf-biopietra-fix'))
       .then(()=>loadScript('assets/js/inspirations-biopietra-actions.js?v=20260912-bio3','lrf-biopietra-actions'))
       .then(()=>loadScript('assets/js/inspirations-biopietra-search-v2.js?v=20260912-bio4','lrf-biopietra-search-v2'))
@@ -92,7 +123,17 @@
       .then(()=>loadScript('assets/js/inspirations-biopietra-modal-safety.js?v=20260912-bio8','lrf-biopietra-modal-safety'))
       .then(()=>loadScript('assets/js/inspirations-biopietra-batch2.js?v=20260912-bio9','lrf-biopietra-batch2'))
       .then(()=>loadScript('assets/js/inspirations-biopietra-stability-hotfix.js?v=20260913-bio-stability1','lrf-biopietra-stability-hotfix'))
-      .catch(()=>{});
+      .catch(error=>{biopietraPromise=null;console.warn('LRF Biopietra',error);});
+    const activate = name => {
+      if (/view/i.test(name)) bootstrapViewInspirations();
+      if (/biopietra/i.test(name)) bootstrapBiopietra();
+    };
+    const onPartner = event => activate(event.target.closest?.('[data-partner]')?.dataset.partner || '');
+    document.addEventListener('pointerdown', onPartner, {capture:true, passive:true});
+    document.addEventListener('click', onPartner, {capture:true, passive:true});
+    const fromLink = () => activate(new URLSearchParams(location.search).get('partner') || '');
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fromLink, {once:true});
+    else fromLink();
     loadScript('assets/js/reviglass-search-index.js?v=20260911-ref1','lrf-univers-reviglass-index')
       .then(()=>loadScript('assets/js/inspirations-search-bridge-v2.js?v=20260911-ref1','lrf-inspirations-search-bridge-v2'))
       .catch(()=>{});

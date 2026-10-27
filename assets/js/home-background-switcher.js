@@ -7,28 +7,16 @@
   const heroButtons = hero.querySelector('.hero-buttons');
   const media = window.matchMedia('(max-width: 900px)');
 
-  const preloadImage = (src) => {
-    if (!src) return;
-    const clean = src.split('?')[0];
-    if (document.querySelector('link[data-lrf-preload="' + clean + '"]')) return;
-    const link = document.createElement('link');
-    link.rel = 'prefetch';
-    link.as = 'image';
-    link.href = src;
-    link.dataset.lrfPreload = clean;
-    document.head.appendChild(link);
-  };
-
   const IMAGES = {
-    desktopLight: 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/acceuilclair1.png?v=20260907-home3',
-    desktopDark: 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/brand-v2/accueil-desktop.png?v=20260901-hd2',
-    mobileLight: 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/acceuilsmartphone.png?v=20260907-mobile2',
-    mobileDark: 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/brand-v2/accueil-mobile.png?v=20260901-hd2'
+    desktopLight: 'assets/img/performance-20261027/home-desktop-light.webp',
+    desktopDark: 'assets/img/performance-20261027/home-desktop-dark.webp',
+    mobileLight: 'assets/img/performance-20261027/home-mobile-light.webp',
+    mobileDark: 'assets/img/performance-20261027/home-mobile-dark.webp'
   };
 
   const LOGOS = {
-    light: 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/brand-v2/logo-le-roy-factory-wine.svg?v=20260907-wine1',
-    dark: 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/brand-v2/logo-le-roy-factory.svg?v=20260901-gold1'
+    light: 'assets/img/performance-20261027/brand-wordmark-wine.svg',
+    dark: 'assets/img/performance-20261027/brand-wordmark-gold.svg'
   };
 
   hero.classList.add('lrf-home-bg-controlled');
@@ -207,14 +195,7 @@
   }
 
   applyBackground();
-  const warmAlternateBackground = () => {
-    const mobile = media.matches;
-    preloadImage(mobile
-      ? (mode === 'light' ? IMAGES.mobileDark : IMAGES.mobileLight)
-      : (mode === 'light' ? IMAGES.desktopDark : IMAGES.desktopLight));
-  };
-  if ('requestIdleCallback' in window) requestIdleCallback(warmAlternateBackground,{timeout:2500});
-  else setTimeout(warmAlternateBackground,1200);
+  // Alternate backgrounds load only when the visitor chooses that mode.
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded',()=>setTimeout(applyBackground,0),{once:true});
   window.addEventListener('load',()=>setTimeout(applyBackground,0),{once:true});
   setTimeout(applyBackground,120);
