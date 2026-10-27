@@ -14,7 +14,9 @@ export function loadQueuedTexture(url,{timeout=45000,signal,maxDimension=Infinit
   const timer=setTimeout(()=>controller.abort(Object.assign(Error('Délai de chargement de la texture dépassé. Réessayez.'),{name:'TimeoutError'})),timeout);
   let objectURL,image;
   try{
-   const response=await fetch(url,{signal:controller.signal,mode:'cors',credentials:'omit'});
+   // Protected preview assets need their own origin's access cookie. Fetch
+   // still excludes credentials for external manufacturer origins.
+   const response=await fetch(url,{signal:controller.signal,mode:'cors',credentials:'same-origin'});
    if(!response.ok)throw Error('Image fabricant indisponible (HTTP '+response.status+').');
    const blob=await response.blob();
    if(controller.signal.aborted)throw textureAbortError(controller.signal);
