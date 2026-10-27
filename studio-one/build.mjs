@@ -2,6 +2,7 @@ import {cpSync} from 'node:fs';
 import {build} from 'esbuild';
 import {readFileSync,writeFileSync,copyFileSync,rmSync,readdirSync} from 'node:fs';
 import {createHash} from 'node:crypto';
+await import('../shared/lrf-3d/qa/texture-credentials-check.mjs');
 await build({entryPoints:['src/app.js'],bundle:true,format:'esm',target:['es2020'],minify:true,outfile:'dist/app.js',legalComments:'eof'});
 // Give updated assets a distinct URL so mobile caches cannot retain old
 // controls after the user opens the new publication.
@@ -36,3 +37,7 @@ cpSync('../shared/lrf-3d/demo/media','dist/assets/demo',{recursive:true});
 
 // One shared presentation page; preview origins are supplied by its reviewed URL.
 writeFileSync('dist/demo.html',readFileSync('../shared/lrf-3d/demo/demo.html','utf8').replaceAll('__LRF_DEMO_VARIANT__','studio-one'));
+
+// Self-host the skinned visitor and its UV maps; fetched only in an Ultra visit.
+rmSync('dist/assets/avatar/jerome-v1',{recursive:true,force:true});
+cpSync('../shared/avatar/jerome-v1','dist/assets/avatar/jerome-v1',{recursive:true});

@@ -1,0 +1,61 @@
+{
+  "version": 6,
+  "geometrySource": "https://github.com/microsoft/Microsoft-Rocketbox",
+  "recoveredModel": "https://studio-one-beta-test-v2.vercel.app/shared/avatar/resident-v1.glb",
+  "sourceModelSha256": "d0a656e3b839d4c578086e4620e48ec94eaf5b455e84d90efcd5c8aca56622b5",
+  "meshPreparationScript": "scripts/personalize-jerome-avatar.py",
+  "geometryEdits": [
+    "face UV landmark correction",
+    "original leg topology and positions preserved",
+    "complete shirt hem triangles preserved by original UV island and per-vertex height classification",
+    "dedicated matte Jerome_pantalon and Jerome_chaussures materials",
+    "chin beard volume",
+    "raised short scalp silhouette",
+    "legacy long hair alpha-card primitives removed",
+    "single-level head subdivision with duplicated UV seams, interpolated normalized skin weights and all four facial morph targets",
+    "conservative crown/chin silhouette smoothing with authored eye/nose/lip landmarks"
+  ],
+  "skeletonJointCount": 80,
+  "facialMorphCount": 4,
+  "headAlbedo": "image-generated UV edit from existing authorized reference",
+  "bodyAlbedo": "image-generated UV edit from existing authorized reference",
+  "albedoNativeDimensions": [
+    1254,
+    1254
+  ],
+  "albedoUpscaled": false,
+  "photographicScan": false,
+  "files": {
+    "README.md": {
+      "bytes": 2722,
+      "sha256": "609367f9275fee86fcc8b056300973c0b32c706589cb10423f87d1540263d1d6"
+    },
+    "body-normal.webp": {
+      "bytes": 522174,
+      "sha256": "8f9af264456900af1454a3a03e4a2de467994ec4ec9b8748dbe0f9e2c6e262b9"
+    },
+    "body.webp": {
+      "bytes": 316980,
+      "sha256": "2ec3db957e45739af37ea2f77246d36d1593b092d4a5d42fb4d56181ad91c200"
+    },
+    "head.webp": {
+      "bytes": 356610,
+      "sha256": "1ba4bd0dbe04758a35d541ec93985ef07647bfd6736f44f9ca28e47f79360489"
+    },
+    "resident.glb": {
+      "bytes": 4449532,
+      "sha256": "8d8058c1b5270dcd3e58554f71462cbed0ec4e4e448a58b423df8fc59ea41678"
+    },
+    "LICENSE.txt": {
+      "bytes": 1591,
+      "sha256": "496ebd8ab533358cc913ec53f5a2bb376224e8202bbfcf3dd8ce0c8cfabc89f0"
+    },
+    "head-normal.webp": {
+      "bytes": 496422,
+      "sha256": "2c3493aee033018b64a74c654d5ae8dece8fdc1cee17e9852c3d49d4d33a2d76"
+    }
+  },
+  "modelTriangles": 15967,
+  "headTriangles": 12028,
+  "modelBytes": 4449532
+}
