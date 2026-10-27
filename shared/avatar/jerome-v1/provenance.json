@@ -1,17 +1,19 @@
 {
-  "version": 5,
+  "version": 6,
   "geometrySource": "https://github.com/microsoft/Microsoft-Rocketbox",
   "recoveredModel": "https://studio-one-beta-test-v2.vercel.app/shared/avatar/resident-v1.glb",
   "sourceModelSha256": "d0a656e3b839d4c578086e4620e48ec94eaf5b455e84d90efcd5c8aca56622b5",
   "meshPreparationScript": "scripts/personalize-jerome-avatar.py",
   "geometryEdits": [
     "face UV landmark correction",
-    "original leg topology/positions preserved",
+    "original leg topology and positions preserved",
     "complete shirt hem triangles preserved by original UV island and per-vertex height classification",
     "dedicated matte Jerome_pantalon and Jerome_chaussures materials",
     "chin beard volume",
     "raised short scalp silhouette",
-    "legacy long hair alpha-card primitives removed"
+    "legacy long hair alpha-card primitives removed",
+    "single-level head subdivision with duplicated UV seams, interpolated normalized skin weights and all four facial morph targets",
+    "conservative crown/chin silhouette smoothing with authored eye/nose/lip landmarks"
   ],
   "skeletonJointCount": 80,
   "facialMorphCount": 4,
@@ -25,8 +27,8 @@
   "photographicScan": false,
   "files": {
     "README.md": {
-      "bytes": 2254,
-      "sha256": "0288074b86ca2a6f657c824667516293ec1b42546988e61b2925fdb98e5e1a5f"
+      "bytes": 2722,
+      "sha256": "609367f9275fee86fcc8b056300973c0b32c706589cb10423f87d1540263d1d6"
     },
     "body-normal.webp": {
       "bytes": 522174,
@@ -41,8 +43,8 @@
       "sha256": "1ba4bd0dbe04758a35d541ec93985ef07647bfd6736f44f9ca28e47f79360489"
     },
     "resident.glb": {
-      "bytes": 2498292,
-      "sha256": "5b6380f09b9321b757ecc06d996bb92aba71fd26856f061ee8f959c12be96321"
+      "bytes": 4449532,
+      "sha256": "8d8058c1b5270dcd3e58554f71462cbed0ec4e4e448a58b423df8fc59ea41678"
     },
     "LICENSE.txt": {
       "bytes": 1591,
@@ -52,5 +54,8 @@
       "bytes": 496422,
       "sha256": "2c3493aee033018b64a74c654d5ae8dece8fdc1cee17e9852c3d49d4d33a2d76"
     }
-  }
+  },
+  "modelTriangles": 15967,
+  "headTriangles": 12028,
+  "modelBytes": 4449532
 }

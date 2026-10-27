@@ -34,14 +34,82 @@ export function createResident(scene,renderer,{profiles=PROFILES,baseURL='/share
  prepareModel?.({root,bones,spec});
  const head=bones.get('Bip01_Head'),eye=local('LEye'),headPos=local('Head'),signs=spec.noJewelry?[]:id==='female'?[-1,1]:[-1];if(signs.length){const metal=remember(job,new T.MeshPhysicalMaterial({color:'#bfc4bd',metalness:.93,roughness:.2}));for(const sign of signs){const o=new T.Mesh(remember(job,id==='female'?new T.TorusGeometry(2.3,.13,8,40):new T.SphereGeometry(.28,12,10)),metal);o.name=id==='female'?'Créole_argent':'Puce_argent';const p=new T.Vector3(sign*7.1,eye.y-(id==='female'?8:4.9),headPos.z+3.7);root.localToWorld(p);head.worldToLocal(p);o.position.copy(p);root.getWorldQuaternion(q);head.getWorldQuaternion(parentQ).invert();o.quaternion.copy(parentQ.multiply(q));head.add(o);o.castShadow=true;}}
  rememberObject(job,root);
- return {id,root,bones,rest,expressions,pelvis,pelvisRest:pelvis.position.clone(),legs,scale:root.scale.x,shoulder:local('L_UpperArm'),headHeight:eye.y,textures};})().catch(e=>{if(job.root)rememberObject(job,job.root);close(job);cache.delete(id);throw e;});cache.set(id,pending);return pending;}
+ return {id,root,bones,rest,expressions,pelvis,pelvisRest:pelvis.position.clone(),legs,scale:root.scale.x,shoulder:local('L_UpperArm'),headHeight:eye.y,blinkMorph:[...expressions].some(name=>/EyeBlink/.test(name)),textures};})().catch(e=>{if(job.root)rememberObject(job,job.root);close(job);cache.delete(id);throw e;});cache.set(id,pending);return pending;}
  async function load(id=selected){if(disposed)return null;const n=++ticket;failure=failureDetail='';try{const next=await prepare(id);if(disposed||n!==ticket)return current?.root||null;if(current)current.root.visible=false;current=next;selected=id;current.root.visible=true;blend=0;animate(0,false);return current.root;}catch(e){if(disposed||n!==ticket)return current?.root||null;failureDetail=e?.message||e?.type||String(e);failure='Le personnage n’a pas pu être chargé. Réessayez.';throw Error(failure+' '+failureDetail);}}
  function aim(name,childName,target){const b=current.bones.get('Bip01_'+name),child=current.bones.get('Bip01_'+childName);if(!b||!child)return;b.getWorldPosition(v);child.getWorldPosition(direction);direction.sub(v).normalize();dir.copy(target);current.root.localToWorld(dir);dir.sub(v).normalize();q.setFromUnitVectors(direction,dir);b.getWorldQuaternion(parentQ);q.multiply(parentQ);b.parent.getWorldQuaternion(parentQ).invert();b.quaternion.copy(parentQ.multiply(q));b.updateWorldMatrix(false,true);}
- function animate(dt,motion){if(!current)return;const m=typeof motion==='boolean'?{moving:motion}:motion||{},moving=!!m.moving&&!m.seated;lastMotion=m;elapsed+=dt;blend=T.MathUtils.damp(blend,moving?1:0,9,dt);sitBlend=T.MathUtils.damp(sitBlend,m.seated?1:0,10,dt);phase+=dt*(moving?(m.running?12.5:8.2):1);
- const {root,bones,rest,pelvis,pelvisRest,legs,shoulder}=current;for(const [name,b]of bones){const r=rest.get(name);b.quaternion.copy(r.q);b.position.copy(r.p);b.scale.copy(r.s);}pelvis.position.copy(pelvisRest);root.updateWorldMatrix(true,true);const hip=position('L_Thigh'),seatTarget=((m.seatHeight||.52)+.09)/current.scale;pelvis.position.y+=Math.sin(elapsed*1.6)*.16+Math.sin(phase*2)*blend*(m.running?1.6:.55)-blend*(m.running?5:2.5)+(seatTarget-hip.y)*sitBlend;root.updateWorldMatrix(true,true);
- for(const sign of [-1,1]){const side=sign===1?'L':'R',leg=legs[side],swing=Math.sin(phase+(sign===1?0:Math.PI))*blend,ankle=leg.foot.clone();ankle.z+=swing*(m.running?31:18);ankle.y+=Math.max(0,swing)*(m.running?13:5);ankle.lerp(new T.Vector3(sign*11,leg.foot.y,leg.foot.z+37),sitBlend);if(m.airborne){ankle.y+=5;ankle.z+=sign*3;}
- const h=position(side+'_Thigh'),axis=ankle.clone().sub(h),dist=T.MathUtils.clamp(axis.length(),Math.abs(leg.a-leg.b)+.1,leg.a+leg.b-.2);axis.normalize();const along=(leg.a*leg.a-leg.b*leg.b+dist*dist)/(2*dist),height=Math.sqrt(Math.max(0,leg.a*leg.a-along*along)),bend=new T.Vector3(0,0,1).addScaledVector(axis,-axis.z).normalize(),knee=h.clone().addScaledVector(axis,along).addScaledVector(bend,height);if(blend>.001||sitBlend>.001||m.airborne){aim(side+'_Thigh',side+'_Calf',knee);aim(side+'_Calf',side+'_Foot',ankle);}
- const wave=gesture==='wave'&&elapsed<gestureUntil&&side==='R',arm=-swing,elbow=new T.Vector3(sign*(wave?31:Math.abs(shoulder.x)+3),wave?shoulder.y+3:shoulder.y-24,wave?3:arm*(m.running?20:13)),hand=new T.Vector3(sign*(wave?37:Math.abs(shoulder.x)+4),wave?current.headHeight+7:shoulder.y-47,wave?8+Math.sin(elapsed*12)*7:7+arm*(m.running?27:18));elbow.lerp(new T.Vector3(sign*22,seatTarget+24,16),sitBlend);hand.lerp(new T.Vector3(sign*15,seatTarget+6,29),sitBlend);if(m.airborne){elbow.z-=8;hand.y+=13;}aim(side+'_UpperArm',side+'_Forearm',elbow);aim(side+'_Forearm',side+'_Hand',hand);}
- const head=bones.get('Bip01_Head');head.rotateX(Math.sin(elapsed*.62)*.018);head.rotateY(Math.sin(elapsed*.39)*.03);if(gesture==='look'&&elapsed<gestureUntil)head.rotateX(Math.sin(elapsed*1.6)*.16);const blinkT=elapsed%4.3,blink=blinkT<.14?Math.sin(blinkT/.14*Math.PI):0;root.traverse(o=>{if(o.morphTargetDictionary)for(const [name,i]of Object.entries(o.morphTargetDictionary))o.morphTargetInfluences[i]=/EyeBlink/.test(name)?blink:/Smile/.test(name)?.1:0;});contact.material.opacity=m.airborne?.4:1;}
- return {pivot,load,select:load,get ready(){return !!current;},get selected(){return selected;},get diagnostics(){const dimensions=key=>{const image=current?.textures[key]?.image;return {width:image?.width||image?.naturalWidth||0,height:image?.height||image?.naturalHeight||0};},head=dimensions('head_color');return {loaded:!!current,id:selected,bones:current?.bones.size||0,expressions:current?.expressions.size||0,source:profiles[selected]?.source||'Microsoft Rocketbox · MIT · textures personnalisées',textures:Math.max(head.width,head.height),textureDimensions:{head,body:dimensions('body_color')},failure,failureDetail,gesture:elapsed<gestureUntil?gesture:lastMotion.seated?'sit':lastMotion.airborne?'jump':lastMotion.moving?lastMotion.running?'run':'walk':'idle',height:profiles[selected]?.height,seatBlend:sitBlend};},setVisible(v){pivot.visible=!disposed&&v&&!!current;},animate,wave(){gesture='wave';gestureUntil=elapsed+2.7;},look(){gesture='look';gestureUntil=elapsed+3;},place(p,heading){pivot.position.copy(p);pivot.rotation.y=heading;contact.position.y=.003-(lastMotion.jumpHeight||0);},getRoot:()=>current?.root,getEyePosition:()=>{if(!current)return null;current.root.updateWorldMatrix(true,true);const eyes=['Bip01_LEye','Bip01_REye'].map(name=>current.bones.get(name)).filter(Boolean);if(!eyes.length)return null;return eyes.reduce((p,b)=>p.add(b.getWorldPosition(new T.Vector3())),new T.Vector3()).multiplyScalar(1/eyes.length);},dispose(){if(disposed)return;disposed=true;ticket++;pivot.visible=false;pivot.removeFromParent();rememberObject(base,pivot);for(const job of [...jobs])close(job);close(base);pivot.clear();cache.clear();current=null;}};
+ function animate(dt,motion){
+  if(!current)return;
+  dt=T.MathUtils.clamp(Number.isFinite(dt)?dt:0,0,.2);
+  const m=typeof motion==='boolean'?{moving:motion}:motion||{};
+  const measured=Number.isFinite(m.distance)&&Number.isFinite(m.speed);
+  const moving=(measured?m.speed>.015:!!m.moving)&&!m.seated;
+  const speed=measured?Math.max(0,m.speed):moving?(m.running?2.7:1.6):0;
+  lastMotion={...m,moving,speed};elapsed+=dt;
+  const target=moving?T.MathUtils.clamp(speed/1.5,.12,1):0;
+  blend=T.MathUtils.damp(blend,target,moving?8:12,dt);
+  sitBlend=T.MathUtils.damp(sitBlend,m.seated?1:0,10,dt);
+  // A full stride advances with the true distance accepted by collision. When
+  // standing still the phase freezes and the feet settle, including at a wall.
+  phase+=measured?(moving?Math.max(0,m.distance)/(m.running?1.75:1.25)*Math.PI*2:0):dt*(moving?(m.running?12.5:8.2):0);
+  const directionX=measured?T.MathUtils.clamp(m.directionX||0,-1,1):0;
+  const directionZ=measured?T.MathUtils.clamp(m.directionZ??1,-1,1):1;
+  const {root,bones,rest,pelvis,pelvisRest,legs,shoulder}=current;
+  for(const [name,b]of bones){const r=rest.get(name);b.quaternion.copy(r.q);b.position.copy(r.p);b.scale.copy(r.s);}
+  pelvis.position.copy(pelvisRest);root.updateWorldMatrix(true,true);
+  const hip=position('L_Thigh'),seatTarget=((m.seatHeight||.52)+.09)/current.scale;
+  const breathing=Math.sin(elapsed*1.52),weight=Math.sin(elapsed*.51)*.34*(1-blend)*(1-sitBlend);
+  pelvis.position.x+=weight+Math.sin(phase)*blend*.24;
+  pelvis.position.y+=breathing*.13+Math.sin(phase*2)*blend*(m.running?1.05:.38)-blend*(m.running?3.3:1.35)+(seatTarget-hip.y)*sitBlend;
+  // Tiny independent shoulder/torso motion avoids a rigid mannequin without
+  // putting a visible wobble into the first-person camera.
+  bones.get('Bip01_Spine')?.rotateX(breathing*.004+blend*(m.running?.025:.01));
+  bones.get('Bip01_Spine1')?.rotateY(Math.sin(phase)*blend*.016+Math.sin(elapsed*.38)*.005*(1-blend));
+  bones.get('Bip01_Spine2')?.rotateZ(-weight*.012);
+  root.updateWorldMatrix(true,true);
+  for(const sign of [-1,1]){
+   const side=sign===1?'L':'R',leg=legs[side],cycle=Math.sin(phase+(sign===1?0:Math.PI)),swing=cycle*blend,ankle=leg.foot.clone();
+   const stride=m.running?33:24;
+   ankle.z+=swing*stride*directionZ;ankle.x+=swing*stride*directionX*.72;
+   ankle.y+=Math.max(0,cycle)*blend*(m.running?10:4.8);
+   ankle.lerp(new T.Vector3(sign*11,leg.foot.y,leg.foot.z+37),sitBlend);
+   if(m.airborne){ankle.y+=5;ankle.z+=sign*3;}
+   const h=position(side+'_Thigh'),axis=ankle.clone().sub(h),dist=T.MathUtils.clamp(axis.length(),Math.abs(leg.a-leg.b)+.1,leg.a+leg.b-.2);axis.normalize();
+   const along=(leg.a*leg.a-leg.b*leg.b+dist*dist)/(2*dist),height=Math.sqrt(Math.max(0,leg.a*leg.a-along*along));
+   const bend=new T.Vector3(0,0,1).addScaledVector(axis,-axis.z).normalize(),knee=h.clone().addScaledVector(axis,along).addScaledVector(bend,height);
+   aim(side+'_Thigh',side+'_Calf',knee);aim(side+'_Calf',side+'_Foot',ankle);
+   bones.get('Bip01_'+side+'_Foot')?.rotateX(-Math.max(0,cycle)*blend*.07);
+   const wave=gesture==='wave'&&elapsed<gestureUntil&&side==='R',arm=-swing;
+   const relaxed=Math.sin(elapsed*.84+sign*.7)*.36*(1-blend);
+   const elbow=new T.Vector3(sign*(wave?31:Math.abs(shoulder.x)+2.2),wave?shoulder.y+3:shoulder.y-25.5+relaxed,wave?3:3.2+sign*.5+arm*(m.running?17:10));
+   const hand=new T.Vector3(sign*(wave?37:Math.abs(shoulder.x)+2.9),wave?current.headHeight+7:shoulder.y-49+relaxed,wave?8+Math.sin(elapsed*12)*7:7.8+sign*.7+arm*(m.running?24:15));
+   elbow.lerp(new T.Vector3(sign*22,seatTarget+24,16),sitBlend);hand.lerp(new T.Vector3(sign*15,seatTarget+6,29),sitBlend);
+   if(m.airborne){elbow.z-=8;hand.y+=13;}
+   aim(side+'_UpperArm',side+'_Forearm',elbow);aim(side+'_Forearm',side+'_Hand',hand);
+   bones.get('Bip01_'+side+'_Hand')?.rotateZ(Math.sin(elapsed*.7+sign)*.012);
+   // Rocketbox's finger local Z is the flexion axis on both hands. A little
+   // relaxed curl keeps the fingers from looking like flat paddles.
+   for(let finger=1;finger<=4;finger++)for(const [joint,curl]of [['',.035],['1',.11],['2',.075]]){
+    bones.get('Bip01_'+side+'_Finger'+finger+joint)?.rotateZ(curl+(finger-1)*.008);
+   }
+  }
+  const head=bones.get('Bip01_Head');
+  head.rotateX(Math.sin(elapsed*.62)*.012+blend*Math.sin(phase*2)*.006);
+  head.rotateY(Math.sin(elapsed*.39)*.016+(m.headYaw||0));
+  if(gesture==='look'&&elapsed<gestureUntil)head.rotateX(Math.sin(elapsed*1.6)*.16);
+  const blinkT=(elapsed+1.37)%4.7,blink=blinkT<.16?Math.sin(blinkT/.16*Math.PI):0;
+  root.traverse(o=>{if(o.morphTargetDictionary)for(const [name,i]of Object.entries(o.morphTargetDictionary))o.morphTargetInfluences[i]=/EyeBlink/.test(name)?blink:/Smile/.test(name)?.08:0;});
+  // The personalized model uses facial joints rather than morph targets.
+  // Move its lid joints in the model's vertical axis so blinking also works.
+  if(!current.blinkMorph&&blink){
+   root.updateWorldMatrix(true,true);
+   for(const side of ['L','R'])for(const [part,offset]of [['Top',-.72],['Bottom',.18]]){
+    const lid=bones.get('Bip01_'+side+'EyeBlink'+part);if(!lid)continue;
+    const p=root.worldToLocal(lid.getWorldPosition(new T.Vector3()));p.y+=offset*blink;
+    root.localToWorld(p);lid.position.copy(lid.parent.worldToLocal(p));
+   }
+  }
+  contact.material.opacity=m.airborne?.4:1;
+ }
+
+ return {pivot,load,select:load,get ready(){return !!current;},get selected(){return selected;},get diagnostics(){const dimensions=key=>{const image=current?.textures[key]?.image;return {width:image?.width||image?.naturalWidth||0,height:image?.height||image?.naturalHeight||0};},head=dimensions('head_color');return {loaded:!!current,id:selected,bones:current?.bones.size||0,expressions:current?.expressions.size||0,source:profiles[selected]?.source||'Microsoft Rocketbox · MIT · textures personnalisées',textures:Math.max(head.width,head.height),textureDimensions:{head,body:dimensions('body_color')},failure,failureDetail,gesture:elapsed<gestureUntil?gesture:lastMotion.seated?'sit':lastMotion.airborne?'jump':lastMotion.moving?lastMotion.running?'run':'walk':'idle',height:profiles[selected]?.height,seatBlend:sitBlend,locomotionSpeed:lastMotion.speed||0,gaitBlend:blend,gaitPhase:phase};},setVisible(v){pivot.visible=!disposed&&v&&!!current;},animate,wave(){gesture='wave';gestureUntil=elapsed+2.7;},look(){gesture='look';gestureUntil=elapsed+3;},place(p,heading){pivot.position.copy(p);pivot.rotation.y=heading;contact.position.y=.003-(lastMotion.jumpHeight||0);},getRoot:()=>current?.root,getEyePosition:()=>{if(!current)return null;current.root.updateWorldMatrix(true,true);const eyes=['Bip01_LEye','Bip01_REye'].map(name=>current.bones.get(name)).filter(Boolean);if(!eyes.length)return null;return eyes.reduce((p,b)=>p.add(b.getWorldPosition(new T.Vector3())),new T.Vector3()).multiplyScalar(1/eyes.length);},dispose(){if(disposed)return;disposed=true;ticket++;pivot.visible=false;pivot.removeFromParent();rememberObject(base,pivot);for(const job of [...jobs])close(job);close(base);pivot.clear();cache.clear();current=null;}};
 }

@@ -10,8 +10,36 @@ export function ultraVisitorEnabled({walking,qualityMode,capturing=false,hidden=
  return walking===true&&qualityMode==='max'&&!capturing&&!hidden;
 }
 
+// Measure the accepted displacement, never the joystick/key intent. A visitor
+// pushing against a basin therefore eases back to idle instead of marching on
+// the spot. The body follows the gaze with a short, shortest-angle turn while
+// the neck absorbs the remaining small offset.
+export function createVisitorMotionSampler(){
+ let previous=null,bodyHeading=0;
+ const angle=value=>Math.atan2(Math.sin(value),Math.cos(value));
+ return {
+  reset(position,heading=0){previous={x:position.x,z:position.z};bodyHeading=heading;},
+  sample(position,heading,dt,{running=false}={}){
+   if(!previous)this.reset(position,heading);
+   const step=Math.max(0,Math.min(Number.isFinite(dt)?dt:0,.2));
+   let dx=position.x-previous.x,dz=position.z-previous.z;
+   previous={x:position.x,z:position.z};
+   let distance=Math.hypot(dx,dz);
+   // Restores/spawn corrections are relocation, not a several-metre stride.
+   if(!Number.isFinite(distance)||distance>Math.max(.45,step*4.5)||!step){dx=dz=distance=0;bodyHeading=heading;}
+   bodyHeading+=angle(heading-bodyHeading)*(1-Math.exp(-10*step));
+   const speed=step?distance/step:0,moving=speed>.015;
+   const x=dx*Math.cos(bodyHeading)-dz*Math.sin(bodyHeading),z=dx*Math.sin(bodyHeading)+dz*Math.cos(bodyHeading);
+   return {moving,running:running&&speed>2.05,speed,distance: moving?distance:0,
+    directionX:moving?x/distance:0,directionZ:moving?z/distance:1,
+    heading:bodyHeading,headYaw:Math.max(-.45,Math.min(.45,angle(heading-bodyHeading)))};
+  }
+ };
+}
+
 export function mountUltraVisitorAvatar({scene,renderer,walk,getQuality,isCapturing=()=>false,invalidate=()=>{},status=()=>{},prepareModel}){
  let resident=null,loading=null,enabled=false,disposed=false,failure='',revision=0,captures=0,elapsed=0,loadToken=0;
+ const motionSampler=createVisitorMotionSampler();
  const wanted=()=>ultraVisitorEnabled({walking:walk.active,qualityMode:getQuality().mode,capturing:isCapturing(),hidden:typeof document!=='undefined'&&document.hidden});
 
  function sync(){
@@ -22,6 +50,8 @@ export function mountUltraVisitorAvatar({scene,renderer,walk,getQuality,isCaptur
   if(enabled&&!resident&&!loading&&!failure){
    const actor=createResident(scene,renderer,{profiles:JEROME,baseURL:'/assets/avatar/jerome-v1/',prepareModel:context=>{
     context.root.traverse(object=>{if(!object.isMesh)return;for(const material of Array.isArray(object.material)?object.material:[object.material]){
+     if(/head/i.test(material.name)){material.roughness=.64;material.normalScale?.set(.1,.1);}
+     if(/body/i.test(material.name)){material.roughness=.92;material.normalScale?.set(.18,.18);}
      if(/opacity/i.test(material.name)){material.color.set('#252321');material.roughness=.85;}
      if(/Jerome_(pantalon|chaussures)/i.test(material.name)){material.map=null;material.normalMap=null;material.color.set(/chaussures/i.test(material.name)?'#242121':'#303138');material.roughness=/chaussures/i.test(material.name)?.66:.9;material.needsUpdate=true;}
     }});
@@ -31,7 +61,8 @@ export function mountUltraVisitorAvatar({scene,renderer,walk,getQuality,isCaptur
    const token=++loadToken;
    loading=actor.load('jerome').then(()=>{
     if(disposed||token!==loadToken){actor.dispose();return;}
-    actor.place({x:walk.position.x,y:0,z:walk.position.z},walk.heading);actor.animate(0,{moving:false});
+    motionSampler.reset(walk.position,walk.heading);
+    actor.place({x:walk.position.x,y:0,z:walk.position.z},walk.heading);actor.animate(0,{moving:false,speed:0,distance:0});
     actor.setVisible(false);revision++;invalidate(false,false);
    }).catch(error=>{
     actor.dispose();if(disposed||token!==loadToken)return;
@@ -47,8 +78,9 @@ export function mountUltraVisitorAvatar({scene,renderer,walk,getQuality,isCaptur
   elapsed+=Math.max(0,Math.min(dt,.1));
   if(elapsed<1/30)return false;
   const step=elapsed;elapsed=0;
-  resident.place({x:walk.position.x,y:0,z:walk.position.z},walk.heading);
-  resident.animate(step,{moving:walk.moving,running:walk.running,heading:walk.heading});
+  const motion=motionSampler.sample(walk.position,walk.heading,step,{running:walk.running});
+  resident.place({x:walk.position.x,y:0,z:walk.position.z},motion.heading);
+  resident.animate(step,motion);
   resident.pivot.updateMatrixWorld(true);revision++;
   return true;
  }

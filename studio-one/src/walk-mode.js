@@ -1,55 +1,26 @@
 import {createVisitTapGesture} from '../../shared/lrf-3d/visit-interactions.js';
 import {boundsOnWall} from './composition.js';
+import {createVisitCollisionWorld,VISITOR_EYE_HEIGHT} from '../../shared/lrf-3d/visit-collisions.js';
 import * as T from 'three';
 
 // Visite à hauteur humaine : caméra indépendante des objets et des contrôles d'édition.
 export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,onMove,onEnter,onExit,onTap}){
   const taps=createVisitTapGesture();
-  const keys=new Set();const eye=1.58,radius=.20,speed=1.7,turn=1.8;
+  const keys=new Set();const eye=VISITOR_EYE_HEIGHT,speed=1.7,turn=1.8;
   let viewMode='first',walker=new T.Vector3(),moving=false;
   let active=false,forward=new T.Vector3(0,0,-1),panel=null,button=null,pitch=0,touchMove={x:0,y:0},mouseLook=false;
   const touches=new Map();let moveOrigin=null,hintTimer=null;
   const touchDevice=()=>navigator.maxTouchPoints>0||matchMedia('(pointer:coarse)').matches;
   function resetInput(){taps.reset();keys.clear();touches.clear();moveOrigin=null;touchMove={x:0,y:0};mouseLook=false;}
   const editable=el=>!!el?.closest?.('input,textarea,select,[contenteditable="true"],[role="textbox"]');
-  const inside=(x,z,pts)=>{
-    if(!pts?.length)return true;
-    let hit=false;
-    for(let i=0,j=pts.length-1;i<pts.length;j=i++){
-      const a=pts[i],b=pts[j];const ax=Array.isArray(a)?a[0]:a.x,az=(Array.isArray(a)?a[1]:a.z)-.23;
-      const bx=Array.isArray(b)?b[0]:b.x,bz=(Array.isArray(b)?b[1]:b.z)-.23;
-      if((az>z)!==(bz>z)&&x<(bx-ax)*(z-az)/(bz-az)+ax)hit=!hit;
-    }return hit;
-  };
-  function passable(x,z){
-    const room=getRoom();if(!room)return true;
-    const pts=room.points;
-    const insideRoom=[[-radius,0],[radius,0],[0,-radius],[0,radius],[0,0]].every(([dx,dz])=>inside(x+dx,z+dz,pts));
-    const doorway=(wall,u)=>{
-      const candidates=(getItems()||[]).filter(item=>item.type==='door'&&item.settings?.doorOpen&&item.placement?.wall!==undefined);
-      return candidates.some(item=>{
-        const other=room.walls[item.placement.wall];
-        if(!other)return false;
-        const same=wall===other||wall.partition!==undefined&&other.partition===wall.partition;
-        if(!same)return false;
-        const center=wall===other?item.placement.u/100:wall.length-item.placement.u/100;
-        return Math.abs(u-center)<(item.dimensions?.width||.83)/2-radius*.55;
-      });
-    };
-    for(const wall of room.walls||[]){
-      if(wall.height<eye+.1)continue;
-      const d=new T.Vector3(x,0,z).sub(wall.start);
-      const axis=new T.Vector3(wall.normal.z,0,-wall.normal.x);
-      const u=d.dot(axis),distance=Math.abs(d.dot(wall.normal));
-      if(u<-.001||u>wall.length+.001||distance>=radius)continue;
-      if(!doorway(wall,u))return false;
+  // Reuse mesh envelopes between movement frames; opened drawers refresh within 80 ms.
+  let collisions=null,collisionAge=Infinity,collisionRoom=null,collisionItems=null,collisionCount=-1;
+  function collisionWorld(){
+    const room=getRoom(),items=getItems()||[];
+    if(!collisions||collisionAge>=.08||room!==collisionRoom||items!==collisionItems||items.length!==collisionCount){
+      collisions=createVisitCollisionWorld({room,items,boundsOnWall});collisionAge=0;collisionRoom=room;collisionItems=items;collisionCount=items.length;
     }
-    for(const item of getItems()||[]){if(['window','door','mirror','tap','towel','screen'].includes(item.type))continue;const bounds=boundsOnWall(room,item);if(!bounds||bounds.bottom>1.65||bounds.top<.15)continue;const poly=bounds.corners;let hit=false;for(let i=0,j=poly.length-1;i<poly.length;j=i++){const a=poly[i],b=poly[j];if((a[1]>z)!==(b[1]>z)&&x<(b[0]-a[0])*(z-a[1])/(b[1]-a[1])+a[0])hit=!hit;const dx=b[0]-a[0],dz=b[1]-a[1],u=Math.max(0,Math.min(1,((x-a[0])*dx+(z-a[1])*dz)/(dx*dx+dz*dz)));if(Math.hypot(x-a[0]-u*dx,z-a[1]-u*dz)<radius)hit=true;}if(hit)return false;}
-    return insideRoom||room.walls?.some(w=>{
-      const d=new T.Vector3(x,0,z).sub(w.start);
-      const axis=new T.Vector3(w.normal.z,0,-w.normal.x);
-      return Math.abs(d.dot(w.normal))<.30&&doorway(w,d.dot(axis));
-    });
+    return collisions;
   }
   function view(){
     const goal=walker.clone().add(forward.clone().multiplyScalar(Math.cos(pitch))).add(new T.Vector3(0,Math.sin(pitch),0));
@@ -66,11 +37,12 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
     if(active===next)return;active=next;resetInput();
     stage.classList.toggle('walk-active',active);
     if(active){
-      onEnter?.();
+      collisions=null;collisionAge=Infinity;onEnter?.();
       pitch=0;
-      const room=getRoom();const center=room?.bounds?.getCenter(new T.Vector3())||new T.Vector3();
-      const p=camera.position.clone();if(!inside(p.x,p.z,room?.points)){camera.position.set(center.x,eye,center.z);}
-      else camera.position.y=eye;
+      const room=getRoom(),center=room?.bounds?.getCenter(new T.Vector3())||new T.Vector3(),collision=collisionWorld();
+      const spawn=collision.findSafe(camera.position)||collision.findSafe(center);
+      if(!spawn){active=false;stage.classList.remove('walk-active');controls.enabled=true;onExit?.();return;}
+      camera.position.set(spawn.x,eye,spawn.z);
       walker.copy(camera.position);forward.set(controls.target.x-camera.position.x,0,controls.target.z-camera.position.z);
       if(forward.lengthSq()<.001)forward.set(0,0,-1);forward.normalize();
       controls.enabled=false;view();onMove();
@@ -119,7 +91,7 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
   for(const event of ['pointerup','pointercancel'])window.addEventListener(event,release,true);
   canvas.addEventListener('lostpointercapture',event=>{taps.cancel(event);mouseLook=false;touches.delete(event.pointerId);if(touches.size<2){moveOrigin=null;touchMove={x:0,y:0};}});
   function tick(dt){
-    moving=false;if(!active)return false;
+    moving=false;if(!active)return false;collisionAge+=Math.max(0,dt);
     const left=keys.has('ArrowLeft'),right=keys.has('ArrowRight');
     const rotation=(Number(left)-Number(right))*turn*dt;
     if(rotation)forward.applyAxisAngle(new T.Vector3(0,1,0),rotation).normalize();
@@ -128,8 +100,7 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
     const side=new T.Vector3(-forward.z,0,forward.x);
     const move=forward.clone().multiplyScalar(f).addScaledVector(side,strafe);
     if(move.lengthSq()>0){move.normalize().multiplyScalar(speed*(keys.has('ShiftLeft')||keys.has('ShiftRight')?1.6:1)*dt);const p=walker,before=p.clone();
-      if(passable(p.x+move.x,p.z))p.x+=move.x;
-      if(passable(p.x,p.z+move.z))p.z+=move.z;
+      collisionWorld().move(p,move);
       p.y=eye;moving=p.distanceToSquared(before)>1e-8;
     }
     if(rotation||move.lengthSq()>0){taps.cancel();view();return true}if(viewMode==='third'){view();return true}
