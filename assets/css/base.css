@@ -187,7 +187,7 @@ header a.logo > img {
 body:not(.crm-body) header a.logo > img,
 body:not(.crm-body) .site-header a.logo > img,
 body:not(.crm-body) .logo > img {
-  content: url('https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/brand-v2/logoLRF.png?v=20260918-pc-logo3') !important;
+  content: url('../img/performance-20261027/brand-wordmark-wine.svg') !important;
   width: 76px !important;
   height: 76px !important;
   max-width: 76px !important;
@@ -291,37 +291,12 @@ footer p,
 }
 
 /* ========================================================================== 
-   PUBLIC — ANTI-FLASH / PREMIER AFFICHAGE
-   Les pages publiques possèdent le menu .main-nav. Elles restent masquées
-   pendant le chargement du thème premium afin qu'aucun ancien visuel ne
-   puisse apparaître entre deux pages. Le CRM n'est pas concerné.
+   PUBLIC — PREMIER AFFICHAGE
+   Les pages restent visibles pendant les améliorations JavaScript.
    ========================================================================== */
-html:not(.lrf-premium-ready) body:has(> header .main-nav) {
-  opacity: 0;
-  visibility: hidden;
-  animation: lrf-public-failsafe .01s linear 1.2s forwards;
-}
+/* Public content stays readable while the optional enhancements initialize. */
+body:has(> header .main-nav) { visibility: visible; opacity: 1; }
 
-html.lrf-premium-ready body:has(> header .main-nav) {
-  visibility: visible !important;
-  animation: lrf-public-first-paint .12s ease .08s both !important;
-}
-
-@keyframes lrf-public-first-paint {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes lrf-public-failsafe {
-  to { opacity: 1; visibility: visible; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html.lrf-premium-ready body:has(> header .main-nav) {
-    animation-duration: .01s !important;
-    animation-delay: .04s !important;
-  }
-}
 
 /* ========================================================================== 
    SCROLLBAR — visible en permanence sur PC

@@ -207,6 +207,8 @@
       button.type = 'button';
       button.className = 'category-card';
       button.dataset.poolShortcut = '1';
+      button.setAttribute('aria-label', 'Piscine · ELIOS Pool Surfaces 2026');
+      button.title = 'Piscine · ELIOS Pool Surfaces 2026';
       button.innerHTML = '<span class="category-icon">≈</span><span class="category-name">Piscine</span><span class="category-meta">ELIOS · Pool Surfaces 2026</span>';
       button.addEventListener('click', () => {
         categories.querySelector('[data-cat="carrelage"]')?.click();

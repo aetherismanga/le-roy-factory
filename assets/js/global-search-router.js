@@ -5,16 +5,22 @@
 
   const path = (location.pathname || '/').toLowerCase();
   const file = path.split('/').pop() || 'index.html';
+  const scriptFlights = window.__LRF_SELECTION_SCRIPT_LOADS__ = window.__LRF_SELECTION_SCRIPT_LOADS__ || new Map();
 
   function addCss(href,id) {
     if (document.getElementById(id)) return;
     const link=document.createElement('link');link.id=id;link.rel='stylesheet';link.href=href;document.head.appendChild(link);
   }
   function loadScript(src,id) {
-    return new Promise((resolve,reject) => {
-      if (document.getElementById(id) || [...document.scripts].some(s => s.src && s.src.includes(src.split('?')[0]))) { resolve(); return; }
-      const s=document.createElement('script');s.id=id;s.src=src;s.async=false;s.onload=resolve;s.onerror=reject;(document.head||document.documentElement).appendChild(s);
+    const key=src.split('?')[0];
+    if(scriptFlights.has(key))return scriptFlights.get(key);
+    if(document.getElementById(id)||[...document.scripts].some(s=>s.src&&s.src.includes(key)))return Promise.resolve();
+    const promise=new Promise((resolve,reject)=>{
+      const s=document.createElement('script');s.id=id;s.src=src;s.async=false;s.onload=resolve;
+      s.onerror=error=>{scriptFlights.delete(key);s.remove();reject(error);};
+      (document.head||document.documentElement).appendChild(s);
     });
+    scriptFlights.set(key,promise);return promise;
   }
 
   function installViewInspirationsGuard(){
@@ -39,18 +45,43 @@
         await loadScript('assets/js/inspirations-view-data.js?v=20260907-view-lot1-final','lrf-view-data-boot');
         await loadScript('assets/js/inspirations-view-elios-parity.js?v=20260907-view-parity3','lrf-view-parity-boot');
         await loadScript('assets/js/inspirations-view-data-lot2.js?v=20260907-view-lot2','lrf-view-data2-boot');
-        await loadScript('assets/js/inspirations-view-data-lot3.js?v=20260907-view-lot3','lrf-view-data3-boot');\n        await loadScript('assets/js/inspirations-view-tariff-2026-10-15.js?v=20261005-view-tariff1','lrf-view-tariff-20261015-boot');
+        await loadScript('assets/js/inspirations-view-data-lot3.js?v=20260907-view-lot3','lrf-view-data3-boot');
+        await loadScript('assets/js/inspirations-view-tariff-2026-10-15.js?v=20261005-view-tariff1','lrf-view-tariff-20261015-boot');
         await loadScript('assets/js/inspirations-view-accessories.js?v=20260911-view-accessories1','lrf-view-accessories-boot');
         await loadScript('assets/js/inspirations-view-hd.js?v=20260907-view-hd1','lrf-view-hd-boot');
         await loadScript('assets/js/inspirations-view-mobile-safe.js?v=20260911-view-safe-stable2','lrf-view-mobile-safe');
         await loadScript('assets/js/inspirations-view-pallet-info.js?v=20260912-pallet1','lrf-view-pallet-info');
         window.dispatchEvent(new CustomEvent('lrf-view-bootstrap-ready'));
+        // The first activation may already have drawn the lightweight list.
+        // Reuse its normal input path to refresh newly available imagery while
+        // preserving the current query and avoiding a synthetic partner click.
+        if(/view/i.test(document.getElementById('workspace-title')?.textContent||'')){
+          document.getElementById('v2-search')?.dispatchEvent(new Event('input',{bubbles:true}));
+        }
       }catch(err){
         console.warn('LRF VIEW bootstrap',err);
         setTimeout(()=>{loadScript('assets/js/inspirations-view-mobile-safe.js?v=20260911-view-safe-stable2','lrf-view-mobile-safe-retry').catch(()=>{});},500);
       }
     })();
     return window.__LRF_VIEW_BOOTSTRAP_PROMISE__;
+  }
+
+  function bootstrapBiopietraInspirations(){
+    if(window.__LRF_BIOPIETRA_BOOTSTRAP_PROMISE__)return window.__LRF_BIOPIETRA_BOOTSTRAP_PROMISE__;
+    window.__LRF_BIOPIETRA_BOOTSTRAP_PROMISE__=loadScript('assets/js/inspirations-biopietra-2026.js?v=20260912-bio2','lrf-biopietra-2026')
+      .then(()=>loadScript('assets/js/inspirations-biopietra-fix.js?v=20260912-bio2','lrf-biopietra-fix'))
+      .then(()=>loadScript('assets/js/inspirations-biopietra-actions.js?v=20260912-bio3','lrf-biopietra-actions'))
+      .then(()=>loadScript('assets/js/inspirations-biopietra-search-v2.js?v=20260912-bio4','lrf-biopietra-search-v2'))
+      .then(()=>loadScript('assets/js/inspirations-biopietra-gallery.js?v=20260912-bio4','lrf-biopietra-gallery'))
+      .then(()=>loadScript('assets/js/inspirations-biopietra-stable.js?v=20260912-bio5','lrf-biopietra-stable'))
+      .then(()=>loadScript('assets/js/inspirations-biopietra-product-details.js?v=20260912-bio8','lrf-biopietra-details'))
+      .then(()=>loadScript('assets/js/inspirations-biopietra-overview-consumables.js?v=20260924-bio-about2','lrf-biopietra-overview-consumables'))
+      .then(()=>loadScript('assets/js/inspirations-biopietra-modal-safety.js?v=20260912-bio8','lrf-biopietra-modal-safety'))
+      .then(()=>loadScript('assets/js/inspirations-biopietra-batch2.js?v=20260912-bio9','lrf-biopietra-batch2'))
+      .then(()=>loadScript('assets/js/inspirations-biopietra-stability-hotfix.js?v=20260913-bio-stability1','lrf-biopietra-stability-hotfix'))
+      .then(()=>window.dispatchEvent(new CustomEvent('lrf-biopietra-bootstrap-ready')))
+      .catch(error=>{console.warn('LRF Biopietra bootstrap',error);});
+    return window.__LRF_BIOPIETRA_BOOTSTRAP_PROMISE__;
   }
 
   async function installHomeSearch() {
@@ -68,7 +99,8 @@
         await loadScript('assets/js/inspirations-view-data.js?v=20260907-view-lot1-final','lrf-search-view-data');
         await loadScript('assets/js/inspirations-view-elios-parity.js?v=20260907-view-parity3','lrf-search-view-parity');
         await loadScript('assets/js/inspirations-view-data-lot2.js?v=20260907-view-lot2','lrf-search-view-data-lot2');
-        await loadScript('assets/js/inspirations-view-data-lot3.js?v=20260907-view-lot3','lrf-search-view-data-lot3');\n        await loadScript('assets/js/inspirations-view-tariff-2026-10-15.js?v=20261005-view-tariff1','lrf-search-view-tariff-20261015');
+        await loadScript('assets/js/inspirations-view-data-lot3.js?v=20260907-view-lot3','lrf-search-view-data-lot3');
+        await loadScript('assets/js/inspirations-view-tariff-2026-10-15.js?v=20261005-view-tariff1','lrf-search-view-tariff-20261015');
         await loadScript('assets/js/inspirations-neobath-data.js?v=20260907-search9','lrf-search-neobath-data');
         await loadScript('assets/js/reviglass-search-index.js?v=20260911-ref1','lrf-search-reviglass-index');
         await loadScript('assets/js/site-search-v2.js?v=20260911-ref1','lrf-site-search-js-v2');
@@ -80,19 +112,13 @@
   if (file==='index.html' || file==='') installHomeSearch();
   if (file==='univers.html') {
     installViewInspirationsGuard();
-    bootstrapViewInspirations();
-    loadScript('assets/js/inspirations-biopietra-2026.js?v=20260912-bio2','lrf-biopietra-2026')
-      .then(()=>loadScript('assets/js/inspirations-biopietra-fix.js?v=20260912-bio2','lrf-biopietra-fix'))
-      .then(()=>loadScript('assets/js/inspirations-biopietra-actions.js?v=20260912-bio3','lrf-biopietra-actions'))
-      .then(()=>loadScript('assets/js/inspirations-biopietra-search-v2.js?v=20260912-bio4','lrf-biopietra-search-v2'))
-      .then(()=>loadScript('assets/js/inspirations-biopietra-gallery.js?v=20260912-bio4','lrf-biopietra-gallery'))
-      .then(()=>loadScript('assets/js/inspirations-biopietra-stable.js?v=20260912-bio5','lrf-biopietra-stable'))
-      .then(()=>loadScript('assets/js/inspirations-biopietra-product-details.js?v=20260912-bio8','lrf-biopietra-details'))
-      .then(()=>loadScript('assets/js/inspirations-biopietra-overview-consumables.js?v=20260924-bio-about2','lrf-biopietra-overview-consumables'))
-      .then(()=>loadScript('assets/js/inspirations-biopietra-modal-safety.js?v=20260912-bio8','lrf-biopietra-modal-safety'))
-      .then(()=>loadScript('assets/js/inspirations-biopietra-batch2.js?v=20260912-bio9','lrf-biopietra-batch2'))
-      .then(()=>loadScript('assets/js/inspirations-biopietra-stability-hotfix.js?v=20260913-bio-stability1','lrf-biopietra-stability-hotfix'))
-      .catch(()=>{});
+    const requestManufacturer=event=>{
+      const name=event.target.closest?.('[data-partner]')?.dataset.partner||'';
+      if(/view/i.test(name))bootstrapViewInspirations();
+      if(/biopietra/i.test(name)||event.target.closest?.('[data-cat="parement"]'))bootstrapBiopietraInspirations();
+    };
+    document.addEventListener('pointerdown',requestManufacturer,{capture:true,passive:true});
+    document.addEventListener('click',requestManufacturer,{capture:true,passive:true});
     loadScript('assets/js/reviglass-search-index.js?v=20260911-ref1','lrf-univers-reviglass-index')
       .then(()=>loadScript('assets/js/inspirations-search-bridge-v2.js?v=20260911-ref1','lrf-inspirations-search-bridge-v2'))
       .catch(()=>{});
