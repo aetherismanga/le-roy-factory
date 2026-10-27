@@ -16,10 +16,10 @@ GLTFLoader.prototype.loadAsync=()=>new GLTFLoader().parseAsync(bytes.buffer.slic
 let requests=0;
 T.TextureLoader.prototype.loadAsync=async()=>{requests++;return new T.Texture({width:1254,height:1254});};
 
-async function fixture(variant,{depth=450,mode='max'}={}){
+async function fixture(variant,{depth=450,mode='max',format=variant==='studio-one'?'two':'harmony-two'}={}){
  const {makeModel}=await import(`../../${variant}/src/model.js`),{Composition,boundsOnWall,disposeObject}=await import(`../../${variant}/src/composition.js`);
- const room=makeRoom({...DEFAULT_ROOM,points:[[0,0],[450,0],[450,depth],[0,depth]]}),asset=makeModel({format:variant==='studio-one'?'two':'harmony-two',includeMirror:false}),composition=new Composition(room),scene=new T.Scene();
- const result=composition.add('cabinet',asset,{width:80,format:variant==='studio-one'?'two':'harmony-two',top:'sella'},{wall:0,u:225,height:28});assert.ok(result.item,result.error);
+ const room=makeRoom({...DEFAULT_ROOM,points:[[0,0],[450,0],[450,depth],[0,depth]]}),asset=makeModel({format,includeMirror:false}),composition=new Composition(room),scene=new T.Scene();
+ const result=composition.add('cabinet',asset,{width:80,format,top:'sella'},{wall:0,u:225,height:28});assert.ok(result.item,result.error);
  const item=result.item;scene.add(item.root);const world=()=>createVisitCollisionWorld({room,items:composition.items,boundsOnWall}),front=Math.max(...world().obstacles[0].map(p=>p[1]));
  const walk={active:true,position:new T.Vector3(0,1.55,front+.32),heading:Math.PI,moving:false,running:false,clearOpening(dt,normal){const before=this.position.clone(),ok=world().clearOpening(this.position,dt,normal);assert.ok(this.position.distanceTo(before)<=.65*dt+1e-6);return ok;}};
  let quality=mode;const statuses=[],events=[];
@@ -30,7 +30,7 @@ async function fixture(variant,{depth=450,mode='max'}={}){
  if(mode==='max')assert.equal(avatar.ready,true,avatar.diagnostics().failure);
  controller.begin({transient:true});
  const hit={itemId:item.id,object:asset.drawers[0].children[0]},initial=walk.position.clone();
- const step=seconds=>{for(let i=0;i<Math.ceil(seconds*60);i++){advanceVisitOpenings(composition.items,1/60,{visitor:avatar,drawerTravel:index=>index===0?.2:.315});avatar.tick(1/60);assert.equal(world().passable(walk.position.x,walk.position.z),true,'Actual body stays outside the mechanism after each frame');}};
+ const step=seconds=>{for(let i=0;i<Math.ceil(seconds*60);i++){advanceVisitOpenings(composition.items,1/60,{visitor:avatar,drawerTravel:index=>asset.drawers.length===1?.315:index===0?.2:.315});avatar.tick(1/60);assert.equal(world().passable(walk.position.x,walk.position.z),true,'Actual body stays outside the mechanism after each frame');}};
  return {item,asset,avatar,controller,walk,statuses,events,hit,initial,step,setMode(next){quality=next;avatar.sync();},dispose(){controller.end();avatar.dispose();disposeObject(item.root);room.dispose();}};
 }
 
@@ -43,6 +43,19 @@ for(const variant of ['studio-one','randal-general'])test(variant+': production 
   assert.ok(f.walk.position.z-f.initial.z>.14,'A close operator takes a small safe step back');
   assert.equal(f.avatar.diagnostics().visitAction.active,false);assert.equal(f.avatar.diagnostics().gesture,'idle');assert.equal(f.statuses.length,0);
   assert.equal(f.events.filter(e=>!e.restored).length,1,'One contact produces one opening');
+ }finally{f.dispose();}
+});
+
+test('General 80 cm single drawer reaches its lower real grip from normal collision clearance',async()=>{
+ const f=await fixture('randal-general',{format:'luce-single'});
+ try{
+  assert.equal(f.asset.drawers.length,1);assert.equal(f.controller.tap(f.hit),true);
+  assert.equal(f.avatar.diagnostics().visitAction.active,true,'The lower front must start an actual reach');
+  f.step(.8);
+  const action=f.avatar.diagnostics().visitAction;
+  assert.equal(action.committed,true);assert.equal(action.fallbacks,0,'The real palm must make contact, not fall back to remote opening');
+  assert.ok(action.contactDistance<.035);
+  f.step(2);assert.equal(f.item.settings.drawers[0],1);assert.ok(Math.abs(f.item.motion.drawers[0]-.315)<.0001);
  }finally{f.dispose();}
 });
 

@@ -222,7 +222,18 @@
       "module": "picking.js",
       "sha256": "c27c4308b358f6772d4e54eba027ce4c198eaf61f194bc7445470c2873c72e3a",
       "bytes": 1475,
-      "originalsIdentical": true
+      "originalsIdentical": true,
+      "current": {
+        "sha256": "03eff5ee0039eb9663e7ba9a5f7fa20e556686be224b066fe7e5a73f5fa473c1",
+        "bytes": 1736,
+        "changeType": "functional-update-20261027",
+        "reason": "Visible first-person skinned hands are visual overlays for the visitor; exclude an explicitly marked mesh or ancestor from picking so real furniture still receives opening and closing taps, while physical occluders retain selection priority.",
+        "validation": [
+          "tests/randal-workspace/visitor-picking.test.mjs",
+          "tests/randal-workspace/visitor-opening-flow.test.mjs",
+          "tests/randal-workspace/first-person-arms.test.mjs"
+        ]
+      }
     },
     {
       "module": "plan-snap.js",

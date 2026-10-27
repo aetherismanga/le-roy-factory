@@ -97,7 +97,8 @@ try{
   assert.equal(diagnostics.avatar.loaded,true);
   assert.equal(diagnostics.avatar.enabled,true);
   assert.equal(diagnostics.avatar.visible,false,'The first-person camera must not see the inside of its own head');
-  assert.equal(diagnostics.avatar.reflectionOnly,true);
+  assert.equal(diagnostics.avatar.bodyReflectionOnly,true);
+  assert.equal(diagnostics.avatar.firstPersonArms.visible,false,'Arms remain at rest until a handle is reached');
   assert.ok(diagnostics.avatar.bones>40,'A rigged body, not a flat image, is loaded');
   assert.ok(requests.length>before,'The real character assets were requested');
   await page.waitForFunction(()=>studioOnePrototype.getDiagnostics().avatar.captureCount>0,null,{timeout:60000});
@@ -106,7 +107,7 @@ try{
   assert.ok(diagnostics.glassReflections.targets<=2,'Glazing must respect its GPU target budget');
   assert.ok(diagnostics.glassReflections.captures>0,'The existing visible glazing captures the real reflected scene');
   await snapshot(page,path.join(output,variant+'-ultra-mirror.png'));
-  pass(variant+': Ultra visit loads a rigged reflection-only character and captures it in a real mirror');
+  pass(variant+': Ultra visit keeps the rigged body in reflections and the direct-view arms at rest');
 
   const start=await page.evaluate(()=>studioOnePrototype.getDiagnostics().avatar);
   await page.keyboard.down('KeyW');

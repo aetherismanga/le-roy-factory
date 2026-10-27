@@ -1,5 +1,6 @@
 import {createResident} from './resident.js';
 import {createVisitorInteraction} from './visitor-interaction.js';
+import {createFirstPersonArms} from './first-person-arms.js';
 
 const JEROME={jerome:{model:'resident.glb',height:1.65,noJewelry:true,noOpacity:true,
  source:'Microsoft Rocketbox · MIT · textures Jérôme personnalisées',
@@ -39,7 +40,7 @@ export function createVisitorMotionSampler(){
 }
 
 export function mountUltraVisitorAvatar({scene,renderer,walk,getQuality,isCapturing=()=>false,invalidate=()=>{},status=()=>{},prepareModel}){
- let resident=null,loading=null,enabled=false,disposed=false,failure='',revision=0,captures=0,elapsed=0,loadToken=0;
+ let arms=null,resident=null,loading=null,enabled=false,disposed=false,failure='',revision=0,captures=0,elapsed=0,loadToken=0;
  const motionSampler=createVisitorMotionSampler();
  const wanted=()=>ultraVisitorEnabled({walking:walk.active,qualityMode:getQuality().mode,capturing:isCapturing(),hidden:typeof document!=='undefined'&&document.hidden});
  let activeAction=null,lastOperation=null,lastNormal=null,actionCommitted=false,actionTail=0;
@@ -65,7 +66,7 @@ export function mountUltraVisitorAvatar({scene,renderer,walk,getQuality,isCaptur
 
  function sync(){
   const next=!disposed&&wanted();
-  if(!next&&(enabled||resident)){cancelInteraction('inactive');loadToken++;resident?.dispose();resident=null;loading=null;elapsed=0;failure='';}
+  if(!next&&(enabled||resident)){cancelInteraction('inactive');loadToken++;arms?.dispose();arms=null;resident?.dispose();resident=null;loading=null;elapsed=0;failure='';}
   enabled=next;
   if(resident)resident.setVisible(false);
   if(enabled&&!resident&&!loading&&!failure){
@@ -84,7 +85,7 @@ export function mountUltraVisitorAvatar({scene,renderer,walk,getQuality,isCaptur
     if(disposed||token!==loadToken){actor.dispose();return;}
     motionSampler.reset(walk.position,walk.heading);
     actor.place({x:walk.position.x,y:0,z:walk.position.z},walk.heading);actor.animate(0,{moving:false,speed:0,distance:0});
-    actor.setVisible(false);revision++;invalidate(false,false);
+    actor.setVisible(false);arms=createFirstPersonArms({scene,root:actor.getRoot()});revision++;invalidate(false,false);
    }).catch(error=>{
     actor.dispose();if(disposed||token!==loadToken)return;
     failure=error?.message||String(error);resident=null;
@@ -106,20 +107,20 @@ export function mountUltraVisitorAvatar({scene,renderer,walk,getQuality,isCaptur
   if(lastOperation){lastNormal=lastOperation.normal;actionCommitted=interactions.diagnostics().committed;actionTail=2;}
   else if(activeAction){actionTail-=step;if(actionTail<=0){activeAction=null;actionCommitted=false;lastNormal=null;}}
   resident.animate(step,{...motion,interaction:lastOperation});
-  resident.pivot.updateMatrixWorld(true);revision++;
+  resident.pivot.updateMatrixWorld(true);arms?.update(resident.diagnostics.interaction);revision++;
   return true;
  }
 
- // The first-person camera never sees its own head/body, including during the
- // transmission and AO passes. Only a real reflected-scene capture reveals it.
+ // The primary camera sees only the reaching arm. Reflections show the complete
+ // visitor once, with the separate direct-view arm suppressed for that capture.
  function withReflection(capture){
   if(!enabled||!resident?.ready||!wanted())return capture();
   const previous=resident.pivot.visible;
   resident.setVisible(true);captures++;
-  try{return capture();}finally{resident.pivot.visible=previous;}
+  try{return arms?arms.withHidden(capture):capture();}finally{resident.pivot.visible=previous;}
  }
 
- function dispose(){if(disposed)return;disposed=true;enabled=false;cancelInteraction('disposed');interactions.dispose();loadToken++;loading=null;resident?.dispose();resident=null;}
+ function dispose(){if(disposed)return;disposed=true;enabled=false;cancelInteraction('disposed');interactions.dispose();loadToken++;loading=null;arms?.dispose();arms=null;resident?.dispose();resident=null;}
  return {sync,tick,interact,cancelInteraction,actuating,constrainOpening,withReflection,dispose,get ready(){return !!resident?.ready;},get enabled(){return enabled;},
-  diagnostics(){return {...(resident?.diagnostics||{}),visitAction:interactions.diagnostics(),id:'jerome',loaded:!!resident?.ready,enabled,loading:!!loading,visible:!!resident?.pivot.visible,reflectionOnly:true,reflectionRevision:revision,captureCount:captures,position:walk.position.toArray(),heading:walk.heading,failure};}};
+  diagnostics(){return {...(resident?.diagnostics||{}),visitAction:interactions.diagnostics(),id:'jerome',loaded:!!resident?.ready,enabled,loading:!!loading,visible:!!resident?.pivot.visible,reflectionOnly:false,bodyReflectionOnly:true,firstPersonArms:arms?.diagnostics()||{visible:false,meshes:0,triangles:0},reflectionRevision:revision,captureCount:captures,position:walk.position.toArray(),heading:walk.heading,failure};}};
 }

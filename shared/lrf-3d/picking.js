@@ -10,7 +10,13 @@ export function tapGesture(threshold=7){
  };
 }
 export function pickSelection(scene,camera,ndc){
- scene.updateMatrixWorld(true);camera.updateMatrixWorld(true);const meshes=[];scene.traverseVisible(o=>{if(o.isMesh)meshes.push(o);});
+ scene.updateMatrixWorld(true);camera.updateMatrixWorld(true);const meshes=[];scene.traverseVisible(o=>{
+  if(!o.isMesh)return;
+  // First-person hands can sit between the camera and a handle. Their draw
+  // group is visual only: taps still reach the actual furniture behind it.
+  for(let parent=o;parent;parent=parent.parent)if(parent.userData.skipPicking===true)return;
+  meshes.push(o);
+ });
  const ray=new T.Raycaster();ray.setFromCamera(ndc,camera);const hit=ray.intersectObjects(meshes,false)[0];if(!hit)return null;
  let editTarget=null,itemId=null;for(let o=hit.object;o;o=o.parent){if(!editTarget&&o.userData.editTarget)editTarget=o.userData.editTarget;if(o.userData.itemId)itemId=o.userData.itemId;}
  return {editTarget,itemId,point:hit.point,object:hit.object,cellKey:hit.object.geometry.userData.faceCells?.[hit.faceIndex]||null};
