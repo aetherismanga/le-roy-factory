@@ -74,7 +74,7 @@
       description:p.description||'',
       formats:p.formats||[],
       colors:p.colors||[],
-      colorFamilies:basicColors(p),
+      colorFamilies:p.colorFamilies||basicColors(p),
       effect:basicEffect(p),
       finishes:p.finishes||[],
       images:(p.gallery||[]).map(k=>eliosImages[k]).filter(Boolean),
@@ -110,7 +110,7 @@
   }
   function match(p){
     const hay=norm([
-      p.collection,p.name,p.catalogueLabel,p.slug,p.description,p.category,p.effect,
+      p.collection,p.name,p.catalogueLabel,p.slug,p.description,p.category,p.effect,p.badge,
       ...(p.formats||[]),...(p.colors||[]),...(p.colorFamilies||[]),...(p.finishes||[])
     ].join(' '));
     if(state.q&&!hay.includes(norm(state.q)))return false;

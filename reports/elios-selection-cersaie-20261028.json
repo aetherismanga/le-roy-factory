@@ -1,0 +1,241 @@
+{
+  "source": "Catalogue officiel ELIOS Living Gallery · Fall Winter 2026 (Cersaie 2026)",
+  "pdfSha256": "4340ea746a3d58860f6c22ac80d07aa7f34e1c5b7e170cbd658be0906495b338",
+  "extraction": "Embedded original images, no resampling or recompression",
+  "collections": {
+    "dynasty": [
+      {
+        "path": "assets/img/elios/cersaie-2026/dynasty/ambiance-01.jpeg",
+        "pdfPage": 12,
+        "width": 1221,
+        "height": 1592,
+        "sha256": "95f6a35e1fc0a1d1182e0ce4e5c8d89c464c15fa027cbc0528ca36477c5f65fa",
+        "bytes": 314092
+      },
+      {
+        "path": "assets/img/elios/cersaie-2026/dynasty/ambiance-02.jpeg",
+        "pdfPage": 13,
+        "width": 1105,
+        "height": 1422,
+        "sha256": "eb92555a1d7b02c7d47978abab155196407fffac9027d14e4446fc9567540677",
+        "bytes": 270798
+      },
+      {
+        "path": "assets/img/elios/cersaie-2026/dynasty/ambiance-03.jpeg",
+        "pdfPage": 13,
+        "width": 807,
+        "height": 1179,
+        "sha256": "32df6a845f7e438245af34fdd90fc7ed5e90055484e27c4ba7691c9a127089a4",
+        "bytes": 183780
+      },
+      {
+        "path": "assets/img/elios/cersaie-2026/dynasty/ambiance-04.jpeg",
+        "pdfPage": 14,
+        "width": 2442,
+        "height": 1591,
+        "sha256": "d6523f6adfef7ec88350e638193ac8f52bacd9244dff64f6fd2178d3575de2b8",
+        "bytes": 619381
+      },
+      {
+        "path": "assets/img/elios/cersaie-2026/dynasty/ambiance-05.jpeg",
+        "pdfPage": 15,
+        "width": 1220,
+        "height": 1591,
+        "sha256": "6af8f7d0d15c9c05593fa66f5a894c326a618c3c22424114d292e0bb9ff81404",
+        "bytes": 294522
+      },
+      {
+        "path": "assets/img/elios/cersaie-2026/dynasty/ambiance-06.jpeg",
+        "pdfPage": 15,
+        "width": 807,
+        "height": 1181,
+        "sha256": "616683c5394975d35606f34e00d75aaf61e8e7ebb7e11adc421e428c2367df4a",
+        "bytes": 85609
+      },
+      {
+        "path": "assets/img/elios/cersaie-2026/dynasty/ambiance-07.jpeg",
+        "pdfPage": 16,
+        "width": 1105,
+        "height": 1422,
+        "sha256": "8e882b3163c3194c22d546cb672fb5903e9b73748866335d895819627a19d935",
+        "bytes": 290653
+      },
+      {
+        "path": "assets/img/elios/cersaie-2026/dynasty/ambiance-08.jpeg",
+        "pdfPage": 16,
+        "width": 806,
+        "height": 1179,
+        "sha256": "e048b5dedf3bfc962f3a195ef64388efe97cc70a39593a1b092b5dad5f9e2d60",
+        "bytes": 184830
+      }
+    ],
+    "montblanc": [
+      {
+        "path": "assets/img/elios/cersaie-2026/montblanc/ambiance-01.jpeg",
+        "pdfPage": 22,
+        "width": 1169,
+        "height": 1521,
+        "sha256": "ceb98890aeb56468bae8cc708a11af10a83cd1ab908fff120609161dade0b887",
+        "bytes": 469038
+      },
+      {
+        "path": "assets/img/elios/cersaie-2026/montblanc/ambiance-02.jpeg",
+        "pdfPage": 23,
+        "width": 2324,
+        "height": 1424,
+        "sha256": "b1bbe167b305050be47da8a452535763ea91a59ff3ae1337e19cfbf22d7b669a",
+        "bytes": 453778
+      },
+      {
+        "path": "assets/img/elios/cersaie-2026/montblanc/ambiance-03.jpeg",
+        "pdfPage": 24,
+        "width": 2442,
+        "height": 1591,
+        "sha256": "16814523adeab37a283521f1fb0961221e4dced52569c509f39def8215c83a57",
+        "bytes": 814105
+      },
+      {
+        "path": "assets/img/elios/cersaie-2026/montblanc/ambiance-04.jpeg",
+        "pdfPage": 25,
+        "width": 1220,
+        "height": 1591,
+        "sha256": "8e9b1554fc73cd2b90d9a1ee24a71015b4c429a40cbba3ec273126dc8a6e7860",
+        "bytes": 314270
+      },
+      {
+        "path": "assets/img/elios/cersaie-2026/montblanc/ambiance-05.jpeg",
+        "pdfPage": 25,
+        "width": 807,
+        "height": 1179,
+        "sha256": "62d2f5f99b22addf508505e1f665de88799be417a47f93091852f555a4e50e04",
+        "bytes": 112016
+      },
+      {
+        "path": "assets/img/elios/cersaie-2026/montblanc/ambiance-06.jpeg",
+        "pdfPage": 26,
+        "width": 2442,
+        "height": 1592,
+        "sha256": "fd4b41747ca6db194c194cdea833c7d077737871d7d191558b541388fb66671c",
+        "bytes": 687678
+      }
+    ],
+    "stone-icon": [
+      {
+        "path": "assets/img/elios/cersaie-2026/stone-icon/ambiance-01.jpeg",
+        "pdfPage": 30,
+        "width": 998,
+        "height": 1293,
+        "sha256": "8c3d6bd11b07b1ce2b083ad232b2b06bf26ce471a26c5278d8928257219d1a44",
+        "bytes": 208592
+      },
+      {
+        "path": "assets/img/elios/cersaie-2026/stone-icon/ambiance-02.jpeg",
+        "pdfPage": 31,
+        "width": 1220,
+        "height": 1591,
+        "sha256": "1dc9863197c2a7aa2169ed0644cbe10630b13b6283a902631f663c301b2f8537",
+        "bytes": 200771
+      },
+      {
+        "path": "assets/img/elios/cersaie-2026/stone-icon/ambiance-03.jpeg",
+        "pdfPage": 31,
+        "width": 807,
+        "height": 1183,
+        "sha256": "ac8eba20498a1f68ca4d8f33709a9f2bdcc69d7b20412f856c82e59d73271be4",
+        "bytes": 157180
+      },
+      {
+        "path": "assets/img/elios/cersaie-2026/stone-icon/ambiance-04.jpeg",
+        "pdfPage": 32,
+        "width": 2442,
+        "height": 1591,
+        "sha256": "4a3162ff879cfdf0d5f0de52b8f6023680505eea97d24849af729532243bcfb2",
+        "bytes": 551883
+      },
+      {
+        "path": "assets/img/elios/cersaie-2026/stone-icon/ambiance-05.jpeg",
+        "pdfPage": 33,
+        "width": 1105,
+        "height": 1422,
+        "sha256": "54c5e997e889fe6a4475f4fe9f07c5a3a582c6634520ff7b41dba6c394b99357",
+        "bytes": 197540
+      },
+      {
+        "path": "assets/img/elios/cersaie-2026/stone-icon/ambiance-06.jpeg",
+        "pdfPage": 33,
+        "width": 807,
+        "height": 1179,
+        "sha256": "52751cfc708c66e2b1f93f66bdd75c2124a0c6626584ebd09a614065b19992bb",
+        "bytes": 213066
+      },
+      {
+        "path": "assets/img/elios/cersaie-2026/stone-icon/ambiance-07.jpeg",
+        "pdfPage": 34,
+        "width": 1221,
+        "height": 1591,
+        "sha256": "e23505eb25496a02379488cd82ecdd52a2dc94b125cc88efc9ad6c8e1105679c",
+        "bytes": 232490
+      }
+    ],
+    "terraforma": [
+      {
+        "path": "assets/img/elios/cersaie-2026/terraforma/ambiance-01.jpeg",
+        "pdfPage": 40,
+        "width": 1223,
+        "height": 1591,
+        "sha256": "2007d5b6d4ccf3ca105d72f74d3c9a2b759f554da1ae2858a43d2d31982840d3",
+        "bytes": 354760
+      },
+      {
+        "path": "assets/img/elios/cersaie-2026/terraforma/ambiance-02.jpeg",
+        "pdfPage": 41,
+        "width": 1220,
+        "height": 1591,
+        "sha256": "fdffab6c777fb0ab4ced67881e742712c7faa57dcfb88dd41dfbb265a224160b",
+        "bytes": 283119
+      },
+      {
+        "path": "assets/img/elios/cersaie-2026/terraforma/ambiance-03.jpeg",
+        "pdfPage": 41,
+        "width": 935,
+        "height": 1183,
+        "sha256": "334eb2ebd9a0c88f94d39e5950b750a1089a062d273e33857d6729f3dc706c9f",
+        "bytes": 139366
+      },
+      {
+        "path": "assets/img/elios/cersaie-2026/terraforma/ambiance-04.jpeg",
+        "pdfPage": 42,
+        "width": 2442,
+        "height": 1591,
+        "sha256": "00bef0c697d6f5585474f5dda8b72616174934d4332fe14daff0616e542e2751",
+        "bytes": 498258
+      },
+      {
+        "path": "assets/img/elios/cersaie-2026/terraforma/ambiance-05.jpeg",
+        "pdfPage": 43,
+        "width": 2324,
+        "height": 1424,
+        "sha256": "7d70a344f9645eb2b2dfab06c3011883d2e6f0c8ce97f7ea9e8a5caacf0b158a",
+        "bytes": 484119
+      },
+      {
+        "path": "assets/img/elios/cersaie-2026/terraforma/ambiance-06.jpeg",
+        "pdfPage": 44,
+        "width": 1221,
+        "height": 1591,
+        "sha256": "3547ad9a9ce724b8084c71b6eb12016d906c4fb70f89dfb3319e3151137461f2",
+        "bytes": 227918
+      }
+    ]
+  },
+  "sourceUrl": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS%20CERSAIE%202026.pdf?alt=media&token=cb15dba1-5655-4698-bdde-9465c7d0b578",
+  "validation": {
+    "catalogueCount": 52,
+    "poolCollectionsPreserved": 12,
+    "newCollectionNativeImages": 27,
+    "targetedTestsPassed": 275,
+    "coreChecks": "passed",
+    "publicSiteBuild": "passed",
+    "browser": "Chrome, desktop page and iPhone-specific page; search, badges and native image galleries"
+  }
+}

@@ -1,5 +1,6 @@
 (() => {
-  const BADGE_TEXT = 'Nouveauté';
+  const BADGE_TEXT = 'Nouveauté Cersaie 2026';
+  const NEW_COLLECTIONS = new Set(['azuli mood', 'dynasty', 'montblanc', 'stone icon', 'terraforma']);
   const STYLE_ID = 'lrf-azuli-mood-badge-style';
   const norm = value => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\s+/g, ' ').trim();
   function ensureStyle(){
@@ -18,7 +19,10 @@
     document.head.appendChild(style);
   }
   function applyBadge(card){
-    if(!card || card.dataset.lrfAzuliBadgeApplied==='1' || !norm(card.textContent).includes('azuli mood')) return;
+    if(!card || card.dataset.lrfAzuliBadgeApplied==='1') return;
+    const id = card.dataset.id || '';
+    const name = norm(card.querySelector('h3')?.textContent);
+    if ((id && !id.startsWith('elios-')) || !NEW_COLLECTIONS.has(name)) return;
     const host=card.querySelector('.product-visual') || card;
     if(!host || host.querySelector('.lrf-azuli-mood-badge')) return;
     if(getComputedStyle(host).position==='static') host.style.position='relative';
