@@ -97,14 +97,17 @@ for(const [name,type,device] of [
         await expect(page.locator('#partner-products .product-card-v2').first()).toBeVisible();
         await idle();
       }
-      const pool=page.locator('[data-id^="elios-pool-"]').first();
-      if(await pool.count()){
-        await pool.scrollIntoViewIfNeeded();
-        await idle();
-        await expect(pool.locator('img')).toHaveAttribute('data-pool-hydrated','error');
-        assert.equal(pdfRequests,1,'A missing PDF renderer must not cause repeated loads');
-        await idle();
-      }
+      const group=page.locator('[data-id="elios-pool-surfaces"]');
+      await expect(group).toHaveCount(1);
+      await group.click();
+      await expect(page.locator('#partner-products .product-card-v2')).toHaveCount(12);
+      const pool=page.locator('[data-id="elios-pool-twelfth-night"]');
+      await pool.scrollIntoViewIfNeeded();
+      await idle();
+      await expect(pool.locator('img')).toHaveAttribute('src',/selection-20261028\/pool-twelfth-night/);
+      assert.equal(pdfRequests,0,'Native pool photos must not depend on a PDF renderer');
+      assert(!(await page.locator('#partner-products').innerText()).includes('€'),'Pool cards reveal no price');
+      await idle();
       const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
       assert(overflow<=2,'Horizontal page overflow: '+overflow);
       console.log(JSON.stringify({browser:name,universes,initialIdleCallbacks:initial,roundTrips:2}));

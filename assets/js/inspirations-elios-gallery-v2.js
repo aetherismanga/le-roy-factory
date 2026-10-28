@@ -28,7 +28,7 @@
   function imageData(){ return window.ELIOS_IMAGE_DATA || {}; }
   function remote(){ return window.ELIOS_HD_REMOTE || {}; }
   function official(){ return window.ELIOS_OFFICIAL_GALLERIES || {}; }
-  function variants(){ return window.ELIOS_VERIFIED_VARIANTS || {}; }
+  function variants(){ return {...(window.ELIOS_VERIFIED_VARIANTS||{}),...(window.ELIOS_SELECTION_MEDIA?.variants||{})}; }
 
   function productFromId(id){
     const slug=String(id||'').replace(/^elios-/,'');
@@ -67,6 +67,8 @@
   }
 
   function collectionImages(slug,product){
+    const verified=window.ELIOS_SELECTION_MEDIA?.galleries?.[slug];
+    if(verified?.length) return unique(verified);
     const vm=variantMap(slug);
     const allVariants=Object.values(vm).flat();
     return unique([

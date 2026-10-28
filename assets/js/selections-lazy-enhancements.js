@@ -5,8 +5,8 @@
 
   const GROUPS = {
     elios: [
-      'assets/js/inspirations-elios-pricing.js?v=20261026-safari1&media=20261018',
-      'assets/js/inspirations-elios-pool-integrated.js?v=20260907-pool2',
+      'assets/js/inspirations-elios-pricing.js?v=20261028-pool1',
+      'assets/js/inspirations-elios-pool-integrated.js?v=20261028-pool1',
       'assets/js/inspirations-elios-official-galleries.js?v=20260902-batch2',
       'assets/js/inspirations-elios-official-galleries-2.js?v=20260902-batch3',
       'assets/js/inspirations-elios-official-galleries-3.js?v=20260902-batch4',
@@ -20,7 +20,7 @@
       'assets/js/inspirations-elios-slate-hd.js?v=20260902-slatehq1',
       'assets/js/inspirations-elios-azuli-hd.js?v=20260911-azuli-hd2&media=20261018',
       'assets/js/inspirations-elios-dust-hd.js?v=20260913-dusthd2&media=20261018',
-      'assets/js/inspirations-elios-gallery-v2.js?v=20260918-gallery4&media=20261018'
+      'assets/js/inspirations-elios-gallery-v2.js?v=20261028-pool1'
     ],
     view: [
       'assets/js/inspirations-view-data.js?v=20260907-view-lot1-final&media=20261018',
@@ -229,6 +229,7 @@
         if (el && el.value !== 'Tous') { el.value = 'Tous'; el.dispatchEvent(new Event('change',{bubbles:true})); }
       });
       setTimeout(() => {
+        if (id.startsWith('elios-pool-')) document.querySelector('[data-id="elios-pool-surfaces"]')?.click();
         const card = document.querySelector(`#partner-products .product-card-v2[data-id="${CSS.escape(id)}"]`);
         if (card) {
           card.scrollIntoView({behavior:'smooth',block:'center'});

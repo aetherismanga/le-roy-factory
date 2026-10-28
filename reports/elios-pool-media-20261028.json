@@ -1,0 +1,634 @@
+{
+  "source": "ELIOS Pool Surfaces 2026 + Catalogue Général 2026 + existing official galleries",
+  "checkedUrls": 437,
+  "brokenUrls": [
+    "https://plitkaivanna.ru/f/product/elios_deco_etnic_b_lightblue_det.jpeg",
+    "https://eliosceramica.com/wp-content/uploads/2022/11/Montreal_amb_evidenza.jpg"
+  ],
+  "poolCollections": 12,
+  "poolColors": 35,
+  "newNativeImages": 70,
+  "galleryCounts": {
+    "lithos": 3,
+    "loveanddecors": 4,
+    "manhattan": 3,
+    "mysterium": 8,
+    "quercia": 15,
+    "yosemite": 15,
+    "bavaria-stone": 8,
+    "dolomiti": 17,
+    "grand-place": 16,
+    "harmony": 40,
+    "millennium-quartz": 5,
+    "roma": 3,
+    "sedimenti": 12,
+    "slate": 10,
+    "brooklyn": 12,
+    "clay": 7,
+    "creta": 9,
+    "deco": 14,
+    "d-esign-evo": 16,
+    "domus": 7,
+    "glow": 5,
+    "golden-hour": 9,
+    "hexagon": 12,
+    "horizon": 3,
+    "marechiaro": 29,
+    "montreal": 7,
+    "shell": 10,
+    "terre-etrusche": 22,
+    "allure": 11,
+    "dust": 35,
+    "loveanddecors-creative": 2,
+    "segmento": 9,
+    "tropical": 3,
+    "twist": 5,
+    "venere": 11,
+    "azuli-mood": 22,
+    "dynasty": 8,
+    "montblanc": 6,
+    "stone-icon": 7,
+    "terraforma": 6,
+    "pool-abyss": 6,
+    "pool-acqua": 6,
+    "pool-greek-isles": 3,
+    "pool-italian-slate": 4,
+    "pool-lakes": 4,
+    "pool-mare": 5,
+    "pool-nevada": 6,
+    "pool-pacific": 5,
+    "pool-quantum": 4,
+    "pool-sea-breeze": 4,
+    "pool-seychelles": 7,
+    "pool-twelfth-night": 4
+  },
+  "assets": [
+    {
+      "path": "assets/img/elios/selection-20261028/pool-abyss/ambiance-1.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 8,
+      "width": 1281,
+      "height": 1669,
+      "sha256": "5e4b49948eeaf9d8fc1d6141132ccb0fca0e81a7cb517e67f86fce984464fc3b"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-abyss/ambiance-2.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 8,
+      "width": 663,
+      "height": 995,
+      "sha256": "7cfae69ceef943894c3138e827d579491d304e5c1094798a40451d11714e8f6d"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-abyss/color-tikal.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 7,
+      "width": 639,
+      "height": 420,
+      "sha256": "6531334ac7942107c3bf1b02e74122df0b7f2f634e1ed58521ec1f2cb6081d7c"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-abyss/color-port-royal.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 7,
+      "width": 643,
+      "height": 420,
+      "sha256": "c736234988f59b1010a486f325b39a7d4183a29763448b8d63ae1b353213f7ba"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-abyss/color-atlantis.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 7,
+      "width": 643,
+      "height": 420,
+      "sha256": "1ce31fa8ef40a88463ddd2d39fc6d6b5e6ebbacb59ee3a972bc7e5d7bc744d73"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-abyss/color-thonis.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 7,
+      "width": 643,
+      "height": 420,
+      "sha256": "1365f3fb4d2580aa5c7a64321570739d637755a9fa8787f315e69ba95e17cc5c"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-acqua/ambiance-1.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 11,
+      "width": 1280,
+      "height": 1669,
+      "sha256": "9d7fdda9597bf5be4a50ef23d22f412d8160d3a7d3bceafa13a5afc99c2b1c2c"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-acqua/ambiance-2.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 11,
+      "width": 708,
+      "height": 917,
+      "sha256": "9b1f37fea1a543ecae23015ec4a9e167b125fa256f4ad7d4b0202acdfa799656"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-acqua/color-light.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 10,
+      "width": 639,
+      "height": 515,
+      "sha256": "5ae26cf9dcabab5dad79fc6c175cd17d09bff5c8295c587506d54aca5abdb5a6"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-acqua/color-river.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 10,
+      "width": 617,
+      "height": 619,
+      "sha256": "2e431671a0119c5cfe3e88f03659f26e993509ee1d60529adbf6730dd746fcf8"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-acqua/color-deep.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 10,
+      "width": 639,
+      "height": 639,
+      "sha256": "0a5a5876300d343e396e193f47379462099707d70ab50c637c5deb3ae3de60ba"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-acqua/color-cobalt.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 10,
+      "width": 639,
+      "height": 515,
+      "sha256": "ed4ed7c0e81d32c75413d71159c8e0749ea2a392c4355f71403db33be5297fad"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-greek-isles/ambiance-1.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 14,
+      "width": 1283,
+      "height": 1669,
+      "sha256": "ac34390b3d042172fd14ce4d3d2f22325253185c06f5220471588d101e4a9514"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-greek-isles/ambiance-2.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 14,
+      "width": 537,
+      "height": 805,
+      "sha256": "7585e517e692eb2ab3bacd8397c6dbd6711b174ad82077900690670038bba145"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-greek-isles/color-crete.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 13,
+      "width": 644,
+      "height": 1669,
+      "sha256": "b0284b6e7973afaf9f34e3b1f7d89657e35d52ad8199f4f717fe5af15ec42d02"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-italian-slate/ambiance-1.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 17,
+      "width": 1127,
+      "height": 1517,
+      "sha256": "8669de502168f911a05fe5772883032a7d814f92a9806fd76230fd92c9d885bb"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-italian-slate/ambiance-2.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 17,
+      "width": 732,
+      "height": 1668,
+      "sha256": "c2d461558a061b57d517bc90f581b4a1e5b2670c10cc7abf19e39599c65cbfdb"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-italian-slate/color-naples.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 16,
+      "width": 644,
+      "height": 835,
+      "sha256": "804b3a653ffa325892a00043d5bd38b0b95385da515be16cd514f2b328d7b47f"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-italian-slate/color-firenze.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 16,
+      "width": 644,
+      "height": 834,
+      "sha256": "125fdcf71100894384efc4a98ad8bcf89bdb4930ff41df2dfbd9ca2c69265f81"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-lakes/ambiance-1.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 20,
+      "width": 1280,
+      "height": 1669,
+      "sha256": "f01773cabd7850ddcbda01d4a1366e35ae73ca2aff5bb7f4e132d68bc1cefc41"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-lakes/ambiance-2.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 20,
+      "width": 747,
+      "height": 1000,
+      "sha256": "d6a0ee42fc9c5faa09de11be2571aef162eaa5973e9d188d084f8d08a5460af0"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-lakes/color-shasta.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 19,
+      "width": 641,
+      "height": 834,
+      "sha256": "03cfdd411b1a0d5885004b10670bb911477451e5730a57731de742c6f87a9878"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-lakes/color-tahoe.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 19,
+      "width": 641,
+      "height": 834,
+      "sha256": "cc13ceee54edd13688ad30b53464aceb50b29d85310fd7c07c349b564bf5de63"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-mare/ambiance-1.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 23,
+      "width": 1131,
+      "height": 1518,
+      "sha256": "ecbc15e09775b97f2a8ccaa46aa8f4ed501bbe1b86df9308a96c1cef18f9f5be"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-mare/ambiance-2.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 23,
+      "width": 537,
+      "height": 805,
+      "sha256": "eb888aaaa4074b47099b0c91bfc63c8f1590465dab3f47c2d6d69fa326c687ac"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-mare/color-viridus.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 22,
+      "width": 639,
+      "height": 558,
+      "sha256": "a708a8d643f5bd7ea3a2a27e34889f7b00c8f4dd5c4a235aa72f1d78446f6c9a"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-mare/color-altum.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 22,
+      "width": 638,
+      "height": 592,
+      "sha256": "d4760519861586a4b06cec5dfe8d20d9fbca3f4fec21debcad58c135bf03feaa"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-mare/color-caeles.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 22,
+      "width": 639,
+      "height": 526,
+      "sha256": "70a4b788f8c48e41d09513ac634c748cb212aa97a828cc8c6211c7a5afce6a13"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-nevada/ambiance-1.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 26,
+      "width": 1280,
+      "height": 1668,
+      "sha256": "fde27e51500ec1cd3b3b2193465100a1aa9174148de5a6bfdf4b99de0d4d6862"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-nevada/ambiance-2.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 26,
+      "width": 794,
+      "height": 1668,
+      "sha256": "457a57dfba873a79bd77acf7d2649c8470bb3c184c20d1dec5c3861552dba8e2"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-nevada/color-mohave.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 25,
+      "width": 639,
+      "height": 421,
+      "sha256": "e79b0f0596f06968200665b59d6a8907ebf647932a8c4217cd34defadd43229f"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-nevada/color-carson.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 25,
+      "width": 639,
+      "height": 420,
+      "sha256": "3a4a232e7e84a563e9be1fe551da909d3f06170045ed4ea8424d1c9f1b167375"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-nevada/color-vegas.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 25,
+      "width": 639,
+      "height": 420,
+      "sha256": "2bfe04bdafdc09c74fe677cd14d1653d5409ffbea54d483c7c20f67fea272933"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-nevada/color-reno.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 25,
+      "width": 639,
+      "height": 420,
+      "sha256": "add3fade64f9c124057bb0092af54af9d9bc0ca7e470ae64095f853b7976be6d"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-pacific/ambiance-1.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 29,
+      "width": 1280,
+      "height": 1668,
+      "sha256": "dcdc6a55ec68dc88a11a5f219b761b70cc0541b9c24047429076e2d7e31b7abe"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-pacific/ambiance-2.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 29,
+      "width": 743,
+      "height": 1002,
+      "sha256": "021afe4fea26348f41d2207b5989ba2e50aec7898fd33ef14e6939586011901b"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-pacific/color-japan.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 28,
+      "width": 639,
+      "height": 559,
+      "sha256": "d792e5ae8b3395b68f098b5023db4a4dca064e22c7ea56ae1f0e48cf6d114274"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-pacific/color-mex.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 28,
+      "width": 307,
+      "height": 271,
+      "sha256": "6b14aff84a419deb54632a52bc3198e71ab8d9d017bad8e4bc301627ec5e38f7"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-pacific/color-australia.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 28,
+      "width": 306,
+      "height": 269,
+      "sha256": "e32fdf7fa7c11a4565b002f3ae77a6251a2c039c899898285f74f14f38dd4200"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-quantum/ambiance-1.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 32,
+      "width": 1131,
+      "height": 1518,
+      "sha256": "09dbd11d745d0e46194aaa18fefd6a55a5e79c98e870151edc5ae97595ada033"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-quantum/color-prism.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 31,
+      "width": 559,
+      "height": 643,
+      "sha256": "467663cfcbf1b990b02729f78b20846e19c7d72bb09adfb48089bd12cf7934ae"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-quantum/color-vector.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 31,
+      "width": 560,
+      "height": 643,
+      "sha256": "288a339c1377ce35e5576ede5286a9888c1111bcc0f21cc2d4e02f81c88ed12c"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-quantum/color-nova.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 31,
+      "width": 559,
+      "height": 643,
+      "sha256": "104bc76c1a06387ee081a225239599657aee0ae31f5192c7a765b3eccbc8a994"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-sea-breeze/ambiance-1.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 35,
+      "width": 1280,
+      "height": 1668,
+      "sha256": "deff559155cf3de838132c90aec291338e177f446f9f98484df2370727e9d2c7"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-sea-breeze/ambiance-2.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 35,
+      "width": 732,
+      "height": 988,
+      "sha256": "69eac022324bf1dcd7c5089bcedeb014d8a9241fdb29ea156ed30dd39f45d553"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-sea-breeze/color-sky.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 34,
+      "width": 644,
+      "height": 834,
+      "sha256": "7232b7f2544b0ddc79a01655337b10ffe775e600e1ae56888ed457dbde43607b"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-sea-breeze/color-teal.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 34,
+      "width": 643,
+      "height": 834,
+      "sha256": "770aea0cc7da98bb5ce9d1b3cfcfa87b4eaf06bca268fe35f5a80d9868c7dc69"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-seychelles/ambiance-1.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 38,
+      "width": 1126,
+      "height": 1518,
+      "sha256": "8ace8a0bd12dbf826d712ad6cf0ffbd558f0bc7a73ac9712c2fc51e9bc14a4c5"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-seychelles/ambiance-2.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 38,
+      "width": 777,
+      "height": 1668,
+      "sha256": "2e6c4631ba44e4404d042e48478f9f6ac997add336c27351457b22cd685c12ea"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-seychelles/color-original.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 37,
+      "width": 638,
+      "height": 337,
+      "sha256": "cfe6fc2ed2415700d652d949a0984fa5eace866c8250e21d6eaaff37b29c5527"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-seychelles/color-blue.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 37,
+      "width": 638,
+      "height": 337,
+      "sha256": "bd851fd27dd143279d7f9b9b028741e74094d1c7054dbc4c4da6c1656b24d011"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-seychelles/color-cobalt.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 37,
+      "width": 638,
+      "height": 337,
+      "sha256": "5fc62fc8cf5f65bde4677baa3834a12fb18d9b44482161c876473264814d4f8c"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-seychelles/color-light.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 37,
+      "width": 639,
+      "height": 337,
+      "sha256": "ca2d8fdb4104910d26fd6619f5e259978394323c5e6e1b3a8ee181e85aaeff88"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-seychelles/color-pearl.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 37,
+      "width": 639,
+      "height": 337,
+      "sha256": "87c26062af29478e3d233ab5263e92f72d3bef2b85c59ae43041fd9d78abb233"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-twelfth-night/ambiance-1.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 41,
+      "width": 1280,
+      "height": 1669,
+      "sha256": "fbf98b45de0c6d3d5a8c1c8ecf91d8e7b40e7b15b01c0dd27ac5c25022939289"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-twelfth-night/ambiance-2.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 41,
+      "width": 534,
+      "height": 801,
+      "sha256": "2412b80d5eff26fd3b344775de0663b1b99108842a6a32eca9746f2526f864a1"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-twelfth-night/color-orsino.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 40,
+      "width": 643,
+      "height": 834,
+      "sha256": "fdee50c77c687b0d1e0d7f7940931e5d3561ff80f4e26b2ee3aaddf29609747f"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/pool-twelfth-night/color-viola.jpeg",
+      "source": "ELIOS Pool Surfaces 2026",
+      "page": 40,
+      "width": 643,
+      "height": 835,
+      "sha256": "732474868f2964edef45c0a2bcf9ea5f5df5f772a4d967b02fe0a5196b41665e"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/lithos/ambiance-1.jpeg",
+      "source": "ELIOS Catalogue Général 2026",
+      "page": 18,
+      "width": 655,
+      "height": 854,
+      "sha256": "2d34c9c220a22d02c3a5aec379a434071b06b5a0da8ae0d9aaa38f5a786575a7"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/lithos/ambiance-2.jpeg",
+      "source": "ELIOS Catalogue Général 2026",
+      "page": 19,
+      "width": 1148,
+      "height": 831,
+      "sha256": "477bcc50b502b74e85b7bc51f45d95f40d1d513fc81677870db7514c3bacc2d3"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/loveanddecors/ambiance-1.jpeg",
+      "source": "ELIOS Catalogue Général 2026",
+      "page": 23,
+      "width": 1150,
+      "height": 831,
+      "sha256": "7aeb7c0f0a890a3d064b13e1909bc4d450bcbbf4bf0eb9e0c9a8e2ec9a8fcd8e"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/loveanddecors/ambiance-2.jpeg",
+      "source": "ELIOS Catalogue Général 2026",
+      "page": 24,
+      "width": 763,
+      "height": 995,
+      "sha256": "298061fcffa0a2d4856217db5a967efe30d681dca46fec3d065763118a339656"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/loveanddecors/ambiance-3.jpeg",
+      "source": "ELIOS Catalogue Général 2026",
+      "page": 24,
+      "width": 655,
+      "height": 832,
+      "sha256": "483830d5c5bfc171ac8189e3cbe132dcd01ee79c6ea1b04943db4189cecb18b0"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/manhattan/ambiance-1.jpeg",
+      "source": "ELIOS Catalogue Général 2026",
+      "page": 27,
+      "width": 1148,
+      "height": 831,
+      "sha256": "1577932caebf6bbafb1a0e09d7eacab7301921bb59e32788af4aee131369d1b5"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/manhattan/ambiance-2.jpeg",
+      "source": "ELIOS Catalogue Général 2026",
+      "page": 28,
+      "width": 655,
+      "height": 832,
+      "sha256": "2eb14cf3e04c359ac27e61272fed78c594aab27b2637bea5b69a9ed732dcd8a5"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/horizon/ambiance-1.jpeg",
+      "source": "ELIOS Catalogue Général 2026",
+      "page": 148,
+      "width": 1013,
+      "height": 852,
+      "sha256": "11563c78e35ffba028ea9ea3de484d6340f753bdab5cd049863c72b7ec243c0f"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/horizon/ambiance-2.jpeg",
+      "source": "ELIOS Catalogue Général 2026",
+      "page": 149,
+      "width": 933,
+      "height": 831,
+      "sha256": "6add968f1f90ae64aa087d3a95b200335b31b1f3a63df4f6bc7978865a89810a"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/loveanddecors-creative/ambiance-1.jpeg",
+      "source": "ELIOS Catalogue Général 2026",
+      "page": 192,
+      "width": 935,
+      "height": 796,
+      "sha256": "56ce1201d4b4e77bb62c20e12149d073e2f56da80ba8ec238fa2a30af23062f5"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/tropical/ambiance-1.jpeg",
+      "source": "ELIOS Catalogue Général 2026",
+      "page": 204,
+      "width": 1151,
+      "height": 829,
+      "sha256": "0062e0c51336825bcb502a8199d0834e8a13a3cbca57aa40043fccfdd76dd686"
+    },
+    {
+      "path": "assets/img/elios/selection-20261028/tropical/ambiance-2.jpeg",
+      "source": "ELIOS Catalogue Général 2026",
+      "page": 205,
+      "width": 763,
+      "height": 995,
+      "sha256": "cfc104855ef8253e888b8ac6193cbec1167b878d18a72be7d264dd87672b619c"
+    }
+  ],
+  "validation": {
+    "targetedTests": 22,
+    "planPoseTests": 254,
+    "coreChecks": "passed",
+    "publicBuild": "passed",
+    "browser": "Desktop and iPhone-specific pages: one group, 12 series, no card prices, native Orsino/Viola photos, colour selection, return to all collections"
+  }
+}

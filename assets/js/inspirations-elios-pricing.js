@@ -110,6 +110,8 @@
   }
 
   async function renderPoolPage(id) {
+    const native=window.ELIOS_SELECTION_MEDIA?.galleries?.[String(id).replace(/^elios-/, '')]?.[0];
+    if(native) return native;
     if (poolCache.has(id)) return poolCache.get(id);
     const pageNumber = pageById[id];
     if (!pageNumber) return null;
@@ -172,6 +174,7 @@
     });
     const cards = [...document.querySelectorAll('#partner-products [data-id^="elios-pool-"]')];
     for (const card of cards) {
+      if (!pageById[card.dataset.id]) continue;
       const img = card.querySelector('img');
       if (!img || img.dataset.poolHydrated) continue;
       img.dataset.poolHydrated = 'queued';

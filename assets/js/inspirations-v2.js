@@ -83,7 +83,7 @@
     'Neobath':neoRaw.map((p,i)=>({...p,id:p.id||`neo-${i}`,name:p.name||p.collection||`Composition ${i+1}`,collection:p.collection||p.name||'',description:p.description||'',formats:p.dimensions||p.formats||[],colors:p.colors||[],colorFamilies:p.colors||[],effect:p.productType||'Meuble salle de bain',finishes:p.finishes||[],images:p.images||[],category:p.productType||'Meuble salle de bain'}))
   };
 
-  let state={category:'carrelage',partner:'Elios Ceramica',q:'',format:'Tous',color:'Tous',effect:'Tous',finish:'Tous'};
+  let state={category:'carrelage',partner:'Elios Ceramica',q:'',format:'Tous',color:'Tous',effect:'Tous',finish:'Tous',poolGroup:false};
   const categories=$('#insp-categories'),partnerPanel=$('#partner-panel'),partnerGrid=$('#partner-grid'),partnerTrigger=$('#mobile-partner-trigger'),workspace=$('#partner-workspace'),productGrid=$('#partner-products'),count=$('#partner-count');
   if(!categories||!partnerGrid||!workspace||!productGrid)return;
 
@@ -93,9 +93,10 @@
   function unique(arr){return [...new Set(arr.filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b),'fr',{numeric:true}))}
   function products(){
     if(state.partner==='View Ceramica' && Array.isArray(window.VIEW_CATALOGUE)) return window.VIEW_CATALOGUE;
+    if(state.partner==='Elios Ceramica' && state.poolGroup) return (DATA[state.partner]||[]).filter(window.LRF_ELIOS_SELECTION_MODEL.isPool);
     return DATA[state.partner]||[];
   }
-  function imageOf(p){const first=(p.images||[])[0];return (typeof first==='string'?first:first?.url)||'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/03.png'}
+  function imageOf(p){const first=(state.partner==='Elios Ceramica'&&window.ELIOS_SELECTION_MEDIA?.galleries?.[p.slug]?.[0])||(p.images||[])[0];return (typeof first==='string'?first:first?.url)||'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/03.png'}
   function fillFilters(){
     const data=products();
     const formats=unique(data.flatMap(p=>p.formats||[]));
@@ -121,8 +122,8 @@
     return true;
   }
   function renderProducts(){
-    const data=products();const found=data.filter(match).slice().sort((a,b)=>String(a.name||a.collection||'').localeCompare(String(b.name||b.collection||''),'fr',{numeric:true,sensitivity:'base'}));
-    count.textContent=data.length?`${found.length} produit${found.length>1?'s':''}`:'Catalogue produits à intégrer';
+    const data=products();const matched=data.filter(match);const visible=state.partner==='Elios Ceramica'&&!state.poolGroup?window.LRF_ELIOS_SELECTION_MODEL.groupPools(matched):matched;const found=visible.slice().sort((a,b)=>String(a.name||a.collection||'').localeCompare(String(b.name||b.collection||''),'fr',{numeric:true,sensitivity:'base'}));
+    count.textContent=data.length?`${found.length} ${state.poolGroup?('collection'+(found.length>1?'s':'')+' Pool Surfaces'):state.partner==='Elios Ceramica'?('sélection'+(found.length>1?'s':'')):('produit'+(found.length>1?'s':''))}`:'Catalogue produits à intégrer';
     if(state.partner==='Randal Pro'){
       count.textContent='Meubles RANDAL';
       productGrid.innerHTML=`
@@ -141,9 +142,10 @@
       return;
     }
     if(!data.length){const p=PARTNERS[state.partner];productGrid.innerHTML=`<div class="empty-partner"><img src="${p.logo}" alt="${esc(state.partner)}"><strong>${esc(state.partner)} est maintenant séparé dans son propre espace.</strong><p>La structure produits, formats, finitions et tarifs PRO est prête. Les références de cette usine seront intégrées depuis son catalogue sans les mélanger aux autres partenaires.</p>${hasAccess(p.slug)?`<a class="pro-link" href="tarifs-pro.html">Voir mon tarif PRO ${esc(state.partner)}</a>`:''}</div>`;return}
-    productGrid.innerHTML=found.length?found.map(p=>`<article class="product-card-v2" data-id="${esc(p.id)}"><img src="${esc(imageOf(p))}" alt="${esc(p.name)}" loading="lazy" onerror="this.onerror=null;this.src='https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/03.png'"><div class="body"><span class="eyebrow">${esc(state.partner)} · ${esc(p.effect||p.category||'Produit')}</span><h3>${esc(p.name)}</h3><p>${esc(p.description||'')}</p><div class="chips">${[...(p.colorFamilies||[]).slice(0,2),...(p.formats||[]).slice(0,2)].map(x=>`<span>${esc(x)}</span>`).join('')}</div></div></article>`).join(''):`<div class="empty-partner"><strong>Aucun produit avec ces filtres.</strong><p>Modifiez la recherche, le format, la couleur, l'effet ou la finition.</p></div>`;
+    const groupHeader=state.poolGroup?'<div class="pool-group-header"><button type="button" data-pool-back>← Toutes les collections Elios</button><h3>Pool Surfaces</h3><p>Choisissez une collection pour découvrir ses photos et ses coloris.</p></div>':'';
+    productGrid.innerHTML=groupHeader+(found.length?found.map(p=>`<article class="product-card-v2" data-id="${esc(p.id)}"><img src="${esc(imageOf(p))}" alt="${esc(p.name)}" loading="lazy" onerror="this.onerror=null;this.src='https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/03.png'"><div class="body"><span class="eyebrow">${esc(state.partner)} · ${esc(p.effect||p.category||'Produit')}</span><h3>${esc(p.name)}</h3><p>${esc(p.description||'')}</p><div class="chips">${[...(p.colorFamilies||[]).slice(0,2),...(p.formats||[]).slice(0,2)].map(x=>`<span>${esc(x)}</span>`).join('')}</div>${p.groupSize?`<span class="pool-group-open">Découvrir les ${p.groupSize} collections →</span>`:''}</div></article>`).join(''):`<div class="empty-partner"><strong>Aucun produit avec ces filtres.</strong><p>Modifiez la recherche, le format, la couleur, l'effet ou la finition.</p></div>`);
   }
-  function renderWorkspace(){const p=PARTNERS[state.partner];if(!p){workspace.classList.remove('open');return}workspace.classList.add('open');$('#workspace-logo').src=p.logo;$('#workspace-title').textContent=state.partner;$('#workspace-sub').textContent=`${p.country} · espace produits dédié`;const allowed=hasAccess(p.slug),isBio=state.partner==='Biopietra';const badge=$('#workspace-pro-badge');badge.style.display=isBio?'none':'';badge.textContent=allowed?'✓ Tarif PRO accessible':'🔒 Tarif PRO non associé à ce compte';badge.className=`pro-badge${allowed?' allowed':''}`;const link=$('#workspace-pro-link');link.style.display=!isBio&&allowed?'inline-flex':'none';link.href='tarifs-pro.html';link.textContent=`Voir tarif PRO ${state.partner}`;
+  function renderWorkspace(){const p=PARTNERS[state.partner];if(!p){workspace.classList.remove('open');return}workspace.classList.add('open');$('#workspace-logo').src=p.logo;$('#workspace-title').textContent=state.partner;$('#workspace-sub').textContent=state.poolGroup?'Pool Surfaces · collections piscine':`${p.country} · espace produits dédié`;const allowed=hasAccess(p.slug),isBio=state.partner==='Biopietra';const badge=$('#workspace-pro-badge');badge.style.display=isBio?'none':'';badge.textContent=allowed?'✓ Tarif PRO accessible':'🔒 Tarif PRO non associé à ce compte';badge.className=`pro-badge${allowed?' allowed':''}`;const link=$('#workspace-pro-link');link.style.display=!isBio&&allowed?'inline-flex':'none';link.href='tarifs-pro.html';link.textContent=`Voir tarif PRO ${state.partner}`;
     const isRandal=state.partner==='Randal Pro';
     const filters=$('#v2-filters');
     if(filters){
@@ -154,10 +156,11 @@
     const productHint=count?.parentElement?.querySelector('span');
     if(productHint)productHint.textContent=isRandal?'Choisissez votre meuble et préparez votre commande':'Cliquez sur un produit pour les détails et tarifs PRO';
     fillFilters();renderProducts()}
-  function resetFilters(){state.q='';state.format=state.color=state.effect=state.finish='Tous';const s=$('#v2-search');if(s)s.value=''}
+  function resetFilters(){state.poolGroup=false;state.q='';state.format=state.color=state.effect=state.finish='Tous';const s=$('#v2-search');if(s)s.value=''}
   function chooseCategory(id){state.category=id;const c=CATEGORIES.find(x=>x.id===id);if(!c)return;state.partner=c.partners[0]||'';resetFilters();renderCategories();renderPartners();renderWorkspace()}
   function choosePartner(name){state.partner=name;resetFilters();renderPartners();renderWorkspace();partnerPanel.classList.remove('mobile-open')}
   function openProduct(id){
+    if(id==='elios-pool-surfaces'){resetFilters();state.poolGroup=true;renderWorkspace();workspace.scrollIntoView({behavior:'smooth',block:'start'});return;}
     const p=products().find(x=>x.id===id);if(!p)return;
     const modal=$('#product-modal-v2'),box=$('#product-modal-v2-card');const partner=PARTNERS[state.partner],allowed=hasAccess(partner.slug),dims=p.formats||[];
     let tariff='';
@@ -174,7 +177,7 @@
   $('#mobile-filter-trigger').onclick=()=>$('#v2-filters').classList.toggle('mobile-open');
   $('#v2-search').addEventListener('input',e=>{state.q=e.target.value;renderProducts()});
   [['#v2-format','format'],['#v2-color','color'],['#v2-effect','effect'],['#v2-finish','finish']].forEach(([id,key])=>{const el=$(id);if(el)el.addEventListener('change',e=>{state[key]=e.target.value;renderProducts()})});
-  productGrid.addEventListener('click',e=>{const c=e.target.closest('[data-id]');if(c)openProduct(c.dataset.id)});
+  productGrid.addEventListener('click',e=>{if(e.target.closest('[data-pool-back]')){resetFilters();renderWorkspace();workspace.scrollIntoView({behavior:'smooth',block:'start'});return;}const c=e.target.closest('[data-id]');if(c)openProduct(c.dataset.id)});
   $('#product-modal-v2').addEventListener('click',e=>{if(e.target.id==='product-modal-v2'){e.currentTarget.classList.remove('open');document.body.style.overflow=''}});
 
   window.addEventListener('lrf-pro-session-changed',()=>{renderPartners();renderWorkspace();});

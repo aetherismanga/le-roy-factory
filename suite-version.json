@@ -11,11 +11,11 @@
   ],
   "sharedCatalogueVersion": "20261024-suite-1",
   "publicSite": {
-    "releaseId": "20261028-elios-selection-cersaie-1",
+    "releaseId": "20261028-elios-pool-media-1",
     "pages": [
       "univers.html",
       "univers-ios.html"
     ],
-    "baselineCommit": "bdaab9987c054aac0f48cb30b324538d9563a8ff"
+    "baselineCommit": "816284885686fd11f74603fc45c111f71ebf38d7"
   }
 }

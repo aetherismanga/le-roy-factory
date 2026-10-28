@@ -2,7 +2,6 @@
   'use strict';
 
   const STOCK_API = 'https://us-central1-le-roy-factory.cloudfunctions.net/eliosStock';
-  const PRICE = '18,00 € net/m²';
   const POOLS = {
     'pool-abyss': { title:'Pool Surfaces — Abyss', refs:[['Tikal','2071517'],['Port Royal','2071510'],['Atlantis','2071590'],['Thonis','2071512']] },
     'pool-acqua': { title:'Pool Surfaces — Acqua', refs:[['Light','04A1510'],['River','04A1530'],['Deep','04A1520'],['Cobalt','04A1540']] },
@@ -21,24 +20,13 @@
   const norm = value => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');
   const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-  function hasEliosAccess() {
-    try {
-      const session = JSON.parse(sessionStorage.getItem('lrfProSession') || 'null');
-      if (!session || !Array.isArray(session.partenaires)) return false;
-      return session.partenaires.some(p => ['elios','eliosceramica'].includes(norm(p)));
-    } catch (_) { return false; }
-  }
+  function hasEliosAccess() { return window.LRF_AGENT_TARIFFS?.canAccess?.('elios-ceramica') === true; }
 
   function injectStyles() {
     if (document.getElementById('lrf-pool-integrated-style')) return;
     const style = document.createElement('style');
     style.id = 'lrf-pool-integrated-style';
     style.textContent = `
-      .pool-card-meta{margin-top:12px;padding-top:11px;border-top:1px solid #e7dfd1;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
-      .pool-card-meta .pool-format{font-size:.72rem;font-weight:900;color:#75694f;text-transform:uppercase;letter-spacing:.04em}
-      .pool-card-meta .pool-price{font-size:.78rem;font-weight:950;color:#17623a;background:#edf8f1;border:1px solid #c5dfcf;border-radius:999px;padding:6px 9px}
-      .pool-card-meta .pool-price.locked{color:#765f22;background:#fff7dc;border-color:#ead78f}
-      .pool-card-hint{width:100%;font-size:.68rem;color:#81786b}
       .pool-stock-section{margin-top:20px;padding-top:18px;border-top:1px solid #e4ded2}
       .pool-stock-section h4{margin:0 0 7px}.pool-stock-lead{margin:0 0 12px!important;color:#6e706d;font-size:.82rem}
       .pool-stock-table-wrap{overflow:auto;border:1px solid #e3ddd1;border-radius:12px}
@@ -52,7 +40,6 @@
       .pool-stock-btn:hover{background:#104d2d}.pool-stock-btn:disabled{opacity:.55;cursor:wait}
       .pool-stock-result{font-weight:900;color:#17623a}.pool-stock-result.zero{color:#9b3732}.pool-stock-error{color:#9b3732;font-weight:800}.pool-production{display:block;margin-top:3px;color:#a96813;font-size:.7rem;font-weight:850}
       .pool-packaging{margin-top:9px!important;font-size:.72rem;color:#777b77}
-      @media(max-width:700px){.pool-stock-table-wrap{margin-left:-2px;margin-right:-2px}.pool-card-meta{align-items:flex-start}}
     `;
     document.head.appendChild(style);
   }
@@ -61,19 +48,6 @@
     document.querySelectorAll('#insp-categories [data-pool-shortcut]').forEach(el => el.remove());
   }
 
-  function enhanceCards() {
-    const allowed = hasEliosAccess();
-    document.querySelectorAll('#partner-products [data-id^="elios-pool-"]').forEach(card => {
-      const slug = String(card.dataset.id || '').replace(/^elios-/, '');
-      if (!POOLS[slug]) return;
-      const body = card.querySelector('.body');
-      if (!body || body.querySelector('.pool-card-meta')) return;
-      const meta = document.createElement('div');
-      meta.className = 'pool-card-meta';
-      meta.innerHTML = `<span class="pool-format">Pool Surface · 15×15</span><span class="pool-price${allowed?'':' locked'}">${allowed?PRICE:'🔒 Tarif PRO'}</span><span class="pool-card-hint">Références et disponibilité usine dans la fiche produit</span>`;
-      body.appendChild(meta);
-    });
-  }
 
   function poolFromModal(box) {
     const title = box.querySelector('h2')?.textContent?.trim() || '';
@@ -119,10 +93,10 @@
     section.className = 'pool-stock-section';
     section.innerHTML = `
       <h4>Références 15×15 & disponibilité usine</h4>
-      <p class="pool-stock-lead">Toutes les couleurs Pool Surfaces de cette collection sont regroupées ici avec leur code article, tarif et contrôle de stock.</p>
+      <p class="pool-stock-lead">Toutes les couleurs Pool Surfaces de cette collection sont regroupées ici avec leur code article et contrôle de stock.</p>
       <div class="pool-stock-table-wrap"><table class="pool-stock-table">
-        <thead><tr><th>Couleur</th><th>Référence</th><th>Tarif PRO</th><th>Disponibilité</th></tr></thead>
-        <tbody>${pool.refs.map(([color,ref]) => `<tr><td><strong>${esc(color)}</strong></td><td><span class="pool-ref">${esc(ref)}</span></td><td>${allowed?`<span class="pool-price-ok">${PRICE}</span>`:'<span class="pool-price-lock">🔒 Accès PRO</span>'}</td><td>${allowed?`<button class="pool-stock-btn" type="button" data-pool-stock="1" data-slug="${esc(slug)}" data-ref="${esc(ref)}">Voir le stock</button>`:'<span class="pool-price-lock">🔒 Accès PRO</span>'}</td></tr>`).join('')}</tbody>
+        <thead><tr><th>Couleur</th><th>Référence</th><th>Disponibilité</th></tr></thead>
+        <tbody>${pool.refs.map(([color,ref]) => `<tr><td><strong>${esc(color)}</strong></td><td><span class="pool-ref">${esc(ref)}</span></td><td>${allowed?`<button class="pool-stock-btn" type="button" data-pool-stock="1" data-slug="${esc(slug)}" data-ref="${esc(ref)}">Voir le stock</button>`:'<span class="pool-price-lock">🔒 Accès PRO</span>'}</td></tr>`).join('')}</tbody>
       </table></div>
       <p class="pool-packaging">15×15 cm · 56 pièces/carton · 1,26 m²/carton · contrôle de disponibilité en direct auprès d’ELIOS.</p>`;
     info.appendChild(section);
@@ -131,18 +105,12 @@
   function install() {
     injectStyles();
     removePoolShortcut();
-    enhanceCards();
     enhanceModal();
 
     const categories = document.getElementById('insp-categories');
     if (categories && !categories.dataset.poolIntegratedObserver) {
       categories.dataset.poolIntegratedObserver = '1';
       new MutationObserver(removePoolShortcut).observe(categories, { childList:true, subtree:false });
-    }
-    const grid = document.getElementById('partner-products');
-    if (grid && !grid.dataset.poolIntegratedObserver) {
-      grid.dataset.poolIntegratedObserver = '1';
-      new MutationObserver(enhanceCards).observe(grid, { childList:true, subtree:true });
     }
     const modal = document.getElementById('product-modal-v2-card');
     if (modal && !modal.dataset.poolIntegratedObserver) {

@@ -16,7 +16,7 @@
 .elios-variant-colors-v3 button img{grid-row:1/3;width:44px;height:44px;border-radius:8px;object-fit:cover;background:#eee}
 .elios-variant-colors-v3 button span{font-size:.73rem;font-weight:850;line-height:1.1}
 .elios-variant-colors-v3 button small{font-size:.61rem;color:#7c7b74;font-weight:700}
-.elios-variant-colors-v3 button.verified span::after{content:' HD';font-size:.55rem;color:#6f8b73;font-weight:900}
+.elios-variant-colors-v3 button.verified span::after{content:' ✓';font-size:.55rem;color:#6f8b73;font-weight:900}
 .modal-v2-card{scroll-behavior:smooth}.modal-v2-info>img{display:none!important}.modal-v2-info{padding-top:1.15rem!important}.modal-v2-main>img{width:100%!important;height:100%!important;min-height:400px!important;object-fit:cover!important}.modal-v2-info h2{margin-top:0!important}
 
 /* Lightbox plein écran */
@@ -121,3 +121,6 @@ body.elios-lightbox-open{overflow:hidden!important}
   #product-modal-v2 .elios-variant-colors-v3 button img{height:118px!important}
   #product-modal-v2 .elios-variant-colors-v3 button span{font-size:.78rem}
 }
+
+/* A colour without a verified photo remains a compact label, never an empty image tile. */
+#product-modal-v2 .elios-variant-colors-v3 button:not(.verified){grid-template-columns:1fr;grid-template-rows:auto auto;min-height:64px;height:auto;align-content:center}
