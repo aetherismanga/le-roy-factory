@@ -35,6 +35,25 @@ concurrency:
   group: lrf-quality-${{ github.ref }}
   cancel-in-progress: true
 jobs:
+  legacy-recovery:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts --include=dev --no-audit --no-fund
+      - run: npx playwright install --with-deps chromium
+      - name: Verify the actual legacy archive, conversion and original storage preservation
+        run: node tests/lrf-suite/legacy-recovery-browser.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lrf-legacy-recovery-checks
+          path: reports/lrf-suite/legacy-recovery/
+          retention-days: 14
   production-niche-verification:
     # Tests only; publication remains an explicit Vercel operation.
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -118,9 +137,6 @@ jobs:
         run: node tests/lrf-suite/studio-mirror-reference-browser.cjs
       - run: node tests/lrf-plan-pose/recovery-render-browser.cjs
         if: ${{ !cancelled() && steps.browser_runtime.outcome == 'success' }}
-      - name: Verify recovery of historical local projects
-        if: ${{ !cancelled() && steps.browser_runtime.outcome == 'success' }}
-        run: node tests/lrf-suite/legacy-recovery-browser.cjs
       - name: Keep active atelier results
         if: always()
         uses: actions/upload-artifact@v4
