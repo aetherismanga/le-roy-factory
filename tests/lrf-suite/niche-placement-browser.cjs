@@ -2,7 +2,7 @@
 const {chromium}=require('playwright');
 const {buildSync}=require('esbuild');
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),http=require('node:http');
-const root=path.resolve(__dirname,'../..'),out=process.env.LRF_NICHE_PLACEMENT_OUTPUT||'/tmp/lrf-niche-placement';
+const root=path.resolve(__dirname,'../..'),out=process.env.LRF_NICHE_PLACEMENT_OUTPUT||'/tmp/lrf-niche-placement',live=process.env.LRF_NICHE_LIVE==='1';
 const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.webp':'image/webp','.jpg':'image/jpeg','.png':'image/png','.svg':'image/svg+xml','.hdr':'application/octet-stream'};
 let app='studio-one',server,browser,page;const errors=[],checks=[];
 function asset(kind,name){const base=kind==='site'?root:path.join(root,kind,'dist'),file=path.resolve(base,'.'+decodeURIComponent(name));return file.startsWith(base+path.sep)&&fs.existsSync(file)&&fs.statSync(file).isFile()?file:null;}
@@ -19,15 +19,16 @@ const probe=buildSync({stdin:{contents:`import * as T from 'three';import {makeN
   if(p==='/guide-probe.js'){res.setHeader('Content-Type','text/javascript');return res.end(probe);}
   if(p.startsWith('/api/')){res.setHeader('Content-Type','application/json');return res.end(JSON.stringify({client:null,projects:[]}));}
   const file=asset(app,p==='/'?'/atelier.html':p);if(!file){res.writeHead(404);return res.end();}res.setHeader('Content-Type',mime[path.extname(file)]||'application/octet-stream');res.end(fs.readFileSync(file));
- });await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const origin='http://127.0.0.1:'+server.address().port;
+ });await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));let origin='http://127.0.0.1:'+server.address().port;
  browser=await chromium.launch({args:['--no-sandbox','--disable-dev-shm-usage','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
  const guidePage=await browser.newPage();await guidePage.goto(origin+'/guide-probe.html');await guidePage.waitForFunction(()=>window.guideProbe);
  const guideRaster=await guidePage.evaluate(()=>guideProbe());assert(guideRaster.contrast.every(n=>n>100),JSON.stringify(guideRaster));assert.equal(guideRaster.occludedDifference,0);assert.equal(guideRaster.exportDifference,0);assert(guideRaster.restored);
  await guidePage.screenshot({path:path.join(out,'depth-and-capture-probe.png')});await guidePage.close();pass('Real WebGL raster: dashes readable on white/dark; fully occluded by a nearer wall; excluded from presentation render and restored');
  for(app of ['studio-one','randal-general'])for(const mobile of [false,true]){
+  if(live)origin='https://'+(app==='studio-one'?'studio-one-beta-test-v2':'randal-catalogue-general-3d')+'.vercel.app';
   const prefix=app+' '+(mobile?'touch':'mouse'),context=await browser.newContext({viewport:mobile?{width:390,height:844}:{width:1440,height:1000},hasTouch:mobile,isMobile:mobile,reducedMotion:'reduce'});
   await context.addInitScript(()=>{window.__LRF_STANDALONE_PREVIEW__=true;localStorage.setItem('studio-one-render-quality','fluid');localStorage.setItem('randal-general-render-quality','fluid');});
-  await context.route(/^https:\/\//,route=>{const u=new URL(route.request().url());let kind=u.hostname==='studio-one-beta-test-v2.vercel.app'?'studio-one':u.hostname==='randal-catalogue-general-3d.vercel.app'?'randal-general':null,name=u.pathname;if(u.hostname==='leroyfactory.fr'&&name.startsWith('/review-studio/')){kind='studio-one';name=name.slice('/review-studio'.length);}else if(u.hostname==='leroyfactory.fr'&&name.startsWith('/assets/img/lrf-plan-pose/'))kind='site';const file=kind&&asset(kind,name);return file?route.fulfill({path:file,contentType:mime[path.extname(file)]||'application/octet-stream',headers:{'Access-Control-Allow-Origin':'*'}}):route.abort();});
+  if(!live)await context.route(/^https:\/\//,route=>{const u=new URL(route.request().url());let kind=u.hostname==='studio-one-beta-test-v2.vercel.app'?'studio-one':u.hostname==='randal-catalogue-general-3d.vercel.app'?'randal-general':null,name=u.pathname;if(u.hostname==='leroyfactory.fr'&&name.startsWith('/review-studio/')){kind='studio-one';name=name.slice('/review-studio'.length);}else if(u.hostname==='leroyfactory.fr'&&name.startsWith('/assets/img/lrf-plan-pose/'))kind='site';const file=kind&&asset(kind,name);return file?route.fulfill({path:file,contentType:mime[path.extname(file)]||'application/octet-stream',headers:{'Access-Control-Allow-Origin':'*'}}):route.abort();});
   page=await context.newPage();page.setDefaultTimeout(25000);page.on('pageerror',e=>errors.push(prefix+': '+e.message));await page.goto(origin+'/atelier.html?standalone=1&new=1');await page.waitForFunction(()=>window.studioOnePrototype?.getState().ready,null,{timeout:90000});
   const press=locator=>mobile?locator.tap():locator.click();
   async function reset(partition=null){assert.equal(await page.evaluate(partition=>{const api=studioOnePrototype,p=api.exportProject();p.items=[];p.room={height:260,points:[[0,0],[450,0],[450,450],[0,450]],...(partition?{partitions:[partition]}:{})};p.renovation={locked:false};p.walls=Array.from({length:partition?6:4},()=>({collection:'Creta',color:'avena',format:'60x120'}));p.layouts.walls=p.walls.map(()=>({width:1.2,height:.6,direction:'horizontal',pattern:'straight'}));const result=api.restoreProject(p);api.setView('room',true);return result;},partition),true);await page.waitForTimeout(200);}

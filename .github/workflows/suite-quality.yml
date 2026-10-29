@@ -35,6 +35,33 @@ concurrency:
   group: lrf-quality-${{ github.ref }}
   cancel-in-progress: true
 jobs:
+  production-niche-verification:
+    # Tests only; publication remains an explicit Vercel operation.
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts --include=dev --no-audit --no-fund
+      - run: npm run build:general && npm run build:studio
+      - run: npx playwright install --with-deps chromium
+      - name: Wait for the exact reviewed bundles on both production aliases
+        run: node tests/lrf-suite/production-niches-wait.cjs
+      - name: Verify native niches on the actual production URLs without asset mocks
+        run: node tests/lrf-suite/niche-placement-browser.cjs
+        env:
+          LRF_NICHE_LIVE: '1'
+          LRF_NICHE_PLACEMENT_OUTPUT: reports/lrf-suite/niche-production
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lrf-niche-production-checks
+          path: reports/lrf-suite/niche-production/
+          retention-days: 14
   verify:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
