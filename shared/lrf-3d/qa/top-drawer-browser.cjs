@@ -29,7 +29,9 @@ const executablePath=process.env.CHROMIUM_PATH||(fs.existsSync(localChromium)?lo
   await page.locator('#open-3d').click();await page.waitForFunction(()=>window.studioOnePrototype?.getState().ready,null,{timeout:90000}).catch(async error=>{console.error(application,width,await page.evaluate(()=>({url:location.href,loading:document.querySelector('#loading')?.textContent,error:document.querySelector('#error-text')?.textContent})),errors);throw error;});
   assert.equal(await page.evaluate(()=>studioOnePrototype.getState().topDrawer),'full');
   await page.evaluate(()=>{const item=studioOnePrototype.getState().items.find(i=>i.type==='cabinet');studioOnePrototype.handleObjectTap({itemId:item.id,editTarget:'basin'});});
-  if(width<760)await page.locator('#object-editor-body .lrf-mobile-options>summary').click();
+  // The current side inspector may expose its controls directly. Expand the
+  // legacy mobile accordion only when present, as in basin-ergonomics checks.
+  if(width<760){const details=page.locator('#object-editor-body .lrf-mobile-options');if(await details.count()&&!await details.evaluate(el=>el.open))await details.locator('summary').click();}
   const inspectorChoice=page.locator('#object-editor-body [data-top-drawer]');await inspectorChoice.waitFor({state:'visible'});assert.equal(await inspectorChoice.isChecked(),true);
   await inspectorChoice.uncheck();assert.equal(await page.evaluate(()=>studioOnePrototype.getState().topDrawer),'siphon');
   await page.locator('#object-editor-body [data-top-drawer]').check();

@@ -19,7 +19,7 @@ function pass(message){checks.push(message);console.log('PASS',message);}
   await context.route(/^https:\/\//,route=>{const url=new URL(route.request().url()),name=url.hostname==='studio-one-beta-test-v2.vercel.app'?'studio-one':url.hostname==='randal-catalogue-general-3d.vercel.app'?'randal-general':url.hostname==='leroyfactory.fr'&&url.pathname.startsWith('/review-studio/assets/')?'studio-one':null,file=name&&localAsset(name,url.pathname.replace(/^\/review-studio/,''));return file?route.fulfill({path:file,contentType:mime[path.extname(file)]||'application/octet-stream'}):route.abort();});
   const page=await context.newPage();page.setDefaultTimeout(20000);page.on('pageerror',error=>errors.push(app+': '+error.message));
   await page.goto(origin+'/atelier.html?standalone=1',{waitUntil:'domcontentloaded'});await page.waitForFunction(()=>window.studioOnePrototype?.getState().ready,null,{timeout:90000});
-  await page.evaluate(()=>{const p=studioOnePrototype.exportProject();p.items=[];p.renovation={locked:false};if(!studioOnePrototype.restoreProject(p))throw Error('Empty fixture restore failed');studioOnePrototype.setView('room',true);});
+  await page.evaluate(()=>{const p=studioOnePrototype.exportProject();p.items=[];p.room.niches=[];p.renovation={locked:false};if(!studioOnePrototype.restoreProject(p))throw Error('Empty fixture restore failed');studioOnePrototype.setView('room',true);});
   const press=async locator=>mobile?locator.tap():locator.click();
   const openChoice=async type=>{await press(page.locator('#add-open'));await press(page.locator('#add-menu-'+type));await page.locator('#add-dialog').waitFor({state:'visible'});assert.equal(await page.locator('#add-menu').isVisible(),false,'Category picker replaces the quick add menu');};
   await page.evaluate(()=>studioOnePrototype.renovation().showCalepinage('floor'));await page.locator('#calepinage-editor').waitFor({state:'visible'});
@@ -37,13 +37,45 @@ function pass(message){checks.push(message);console.log('PASS',message);}
   const inspector=page.locator('#object-editor');await inspector.waitFor({state:'visible'});
   if(mobile){const inspectorBounds=await inspector.boundingBox(),sceneBounds=await page.locator('#viewer').boundingBox();assert(inspectorBounds.height<=sceneBounds.height*.49,JSON.stringify({inspectorBounds,sceneBounds}));await press(inspector.locator('.element-panel-minimize'));assert((await inspector.boundingBox()).height<105);assert.equal(await inspector.locator('#object-editor-body').isVisible(),false);await press(inspector.locator('.element-panel-minimize'));assert.equal(await inspector.locator('#object-editor-body').isVisible(),true);}else assert.equal(await inspector.evaluate(el=>el.parentElement.id),'settings');
   await page.screenshot({path:path.join(output,app+'-'+(mobile?'mobile':'desktop')+'-inspector.png'),fullPage:true});
-  await page.evaluate(()=>{studioOnePrototype.setSurfaceCollection('wall','Creta');studioOnePrototype.handleObjectTap({editTarget:'wall:0'});studioOnePrototype.renovation().showNiche(null,0);});
+
+  // New entry: a visible ghost, not a dimensions form. Exercise the actual
+  // button, cancellation, native mouse/touch placement, then existing editing.
+  await page.evaluate(()=>{studioOnePrototype.setView('room',true);studioOnePrototype.setSurfaceCollection('wall','Creta');studioOnePrototype.handleObjectTap({editTarget:'wall:0'});});
+  await press(page.locator('#context-add-niche'));await page.locator('#niche-placement-bar').waitFor({state:'visible'});
+  assert.equal(await page.evaluate(()=>studioOnePrototype.renovation().getNichePlacementState().active),true);
+  await press(page.locator('#cancel-niche-placement'));assert.equal(await page.evaluate(()=>studioOnePrototype.exportProject().room.niches?.length||0),0);
+  await page.evaluate(()=>studioOnePrototype.renovation().showNiche(null,0));
+  await page.locator('#niche-placement-bar').waitFor({state:'visible'});await page.waitForTimeout(250);
+  const canvas=await page.locator('#scene').boundingBox();let drop=null;const attempts=[];
+  for(const fy of [.4,.5,.3,.6,.2,.7]){for(const fx of [.35,.5,.65,.2,.8]){
+   // Use the same integer device input coordinates for hover, mouse and touch.
+   // Fractional synthetic moves and native button events can quantize differently.
+   const x=Math.round(canvas.x+canvas.width*fx),y=Math.round(canvas.y+canvas.height*fy);await page.mouse.move(x,y);
+   const state=await page.evaluate(()=>studioOnePrototype.renovation().getNichePlacementState());attempts.push({x,y,state});
+   if(state.valid&&state.niche.bottom<180&&state.niche.bottom>40){drop={x,y,niche:state.niche};break;}
+  }if(drop)break;}
+  assert(drop,'No native wall placement target: '+JSON.stringify(attempts));
+  assert.equal(await page.locator('.niche-preview').count(),1);
+  if(mobile)await page.touchscreen.tap(drop.x,drop.y);else await page.mouse.click(drop.x,drop.y);
+  await page.waitForFunction(()=>studioOnePrototype.exportProject().room.niches?.length===1);
+  const placed=await page.evaluate(()=>studioOnePrototype.exportProject().room.niches[0]);assert.equal(placed.wallKey,drop.niche.wallKey);assert.equal(placed.u,drop.niche.u,JSON.stringify({placed,drop}));assert.equal(placed.bottom,drop.niche.bottom,JSON.stringify({placed,drop}));assert.equal(placed.depth,drop.niche.depth);
+  assert.equal(await page.evaluate(()=>studioOnePrototype.renovation().getNichePlacementState().active),false);
+  assert.equal(await page.locator('.niche-guide polygon:not(.niche-preview)').count(),1);
+  assert.equal(await page.locator('#scene .niche-guide').count(),0,'Editor guide is outside the exported WebGL canvas');
+  await page.screenshot({path:path.join(output,app+'-'+(mobile?'mobile':'desktop')+'-niche-placed.png'),fullPage:true});
+  if(mobile)await page.touchscreen.tap(drop.x,drop.y);else await page.mouse.click(drop.x,drop.y);
   const niche=page.locator('#renovation-dialog');await niche.waitFor({state:'visible'});assert.equal(await niche.evaluate(el=>el.matches(':modal')),false);assert.equal(await niche.evaluate(el=>el.parentElement.id),mobile?'viewer':'settings');
   if(mobile)assert((await niche.boundingBox()).height<=(await page.locator('#viewer').boundingBox()).height*.49);
   await niche.locator('[name=height]').fill('40');await press(niche.locator('#apply-niche'));await page.waitForFunction(()=>!document.querySelector('#renovation-dialog').open);assert.equal(await page.evaluate(()=>studioOnePrototype.exportProject().room.niches[0].height),40);
   await page.evaluate(()=>studioOnePrototype.renovation().showNiche(studioOnePrototype.exportProject().room.niches[0].id,0));await niche.waitFor({state:'visible'});await niche.locator('[name=niche-profile-top]').selectOption('Noir');await press(niche.locator('#apply-niche'));assert.equal(await page.evaluate(()=>studioOnePrototype.exportProject().room.niches[0].profileEdges.top),'Noir');
-  const project=await page.evaluate(()=>studioOnePrototype.exportProject());await page.evaluate(p=>{if(!studioOnePrototype.restoreProject(p))throw Error('Element project failed to reopen');},project);assert.equal(await page.evaluate(()=>studioOnePrototype.exportProject().items.length),project.items.length);
-  pass(app+' '+(mobile?'mobile':'desktop')+': side picker, live canvas orbit, plumbing choice/add, tray choice, compact object inspector, nonmodal niche size/profile edits and project reopen');await context.close();
+  const freeWall=(Number(placed.wallKey.split('-').pop())+1)%4;
+  await page.evaluate(index=>studioOnePrototype.renovation().showZone('wall',index),freeWall);
+  assert.equal(await page.locator('[name=profile-left]').inputValue(),'Argent');assert.equal(await page.locator('[name=profile-right]').inputValue(),'Argent');
+  await page.locator('[name=profile-left]').selectOption('none');await page.locator('[name=profile-right]').selectOption('none');await press(page.locator('#apply-tile-zone'));
+  const project=await page.evaluate(()=>studioOnePrototype.exportProject());assert.equal(project.walls[freeWall].zones[0].profileEdges.left,'none');assert.equal(project.walls[freeWall].zones[0].profileEdges.right,'none');
+  await page.evaluate(p=>{if(!studioOnePrototype.restoreProject(p))throw Error('Element project failed to reopen');},project);assert.equal(await page.evaluate(()=>studioOnePrototype.exportProject().items.length),project.items.length);
+  assert.equal(await page.evaluate(i=>studioOnePrototype.exportProject().walls[i].zones[0].profileEdges.left,freeWall),'none');
+  pass(app+' '+(mobile?'mobile':'desktop')+': side picker, live canvas orbit, plumbing/tray choices, visual niche cancel and native placement, dashed guide, click-to-edit dimensions/profiles, removable default column profiles, project reopen');await context.close();
  }
  assert.deepEqual(errors,[]);const result={passed:true,checks,errors};fs.writeFileSync(path.join(output,'report.json'),JSON.stringify(result,null,2));console.log(JSON.stringify(result));
 })().catch(error=>{console.error(error);process.exitCode=1;}).finally(async()=>{await browser?.close();if(server)await new Promise(resolve=>server.close(resolve));});

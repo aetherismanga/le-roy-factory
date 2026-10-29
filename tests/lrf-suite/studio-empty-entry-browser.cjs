@@ -33,7 +33,10 @@ const unauthorized=JSON.stringify({client:null,error:'Compte non connecté'});
    return route.abort();
   });
   const page=await context.newPage(),errors=[];page.on('pageerror',error=>errors.push(error.message));
-  await page.goto(origin+'/configurateurs-randal.html');await page.locator('a[href="studio-one-configurateur.html"]').click();
+  // The FR/ES bridge turns relative links into absolute URLs with ?lang=fr.
+  // Select the user-facing action and still verify its exact destination path.
+  const enterFromChooser=async()=>{await page.goto(origin+'/configurateurs-randal.html');const link=page.getByRole('link',{name:/Entrer dans STUDIO ONE/});assert.equal(new URL(await link.getAttribute('href'),page.url()).pathname,'/studio-one-configurateur.html');await link.click();};
+  await enterFromChooser();
   await page.frameLocator('#studio-one').locator('#landing').waitFor({state:'visible'});
   let app=page.frames().find(frame=>frame.url().startsWith('https://'+appHost+'/'));
   assert(app,'The real wrapper embeds Studio One');assert.equal(new URL(app.url()).pathname,'/index.html','Plain chooser entry opens the welcome page');
@@ -43,18 +46,19 @@ const unauthorized=JSON.stringify({client:null,error:'Compte non connecté'});
   await app.locator('#direct-atelier').click();
   await app.waitForFunction(()=>window.studioOnePrototype?.getState().ready,null,{timeout:45000}).catch(async error=>{console.error(await app.evaluate(()=>({url:location.href,loading:document.querySelector('#loading')?.textContent,error:document.querySelector('#error-text')?.textContent})),errors);throw error;});
   assert.equal(new URL(app.url()).pathname,'/atelier.html');assert.equal(new URL(app.url()).searchParams.has('resume'),false);
-  assert.equal(await app.evaluate(()=>studioOnePrototype.exportProject().items.length),0,'Open workshop starts with an empty room');
+  // The current opening scene has a door and window, never previous furniture.
+  assert.deepEqual(await app.evaluate(()=>studioOnePrototype.exportProject().items.map(item=>item.type).sort()),['door','window'],'Open workshop starts with the architectural shell and no previous furniture');
   await app.waitForTimeout(500);
   assert.equal(await app.evaluate(()=>JSON.parse(localStorage.getItem('studio-one-projects')).find(project=>project.id==='prior-id').data.items.length),previous.items.length,'Entering the empty workshop preserves saved projects');
   await app.goto('https://'+appHost+'/index.html');await app.locator('#resume-project').click();
   await app.waitForFunction(()=>location.pathname==='/atelier.html'&&window.studioOnePrototype?.getState().ready&&studioOnePrototype.exportProject().title==='Projet précédent conservé',null,{timeout:45000});
   assert.equal(await app.evaluate(()=>studioOnePrototype.exportProject().items.length),previous.items.length);assert.equal(await app.evaluate(()=>studioOnePrototype.exportProject().title),previous.title);
   // Returning through the chooser remains a welcome page after explicit Resume.
-  await page.goto(origin+'/configurateurs-randal.html');await page.locator('a[href="studio-one-configurateur.html"]').click();await page.frameLocator('#studio-one').locator('#landing').waitFor({state:'visible'});
+  await enterFromChooser();await page.frameLocator('#studio-one').locator('#landing').waitFor({state:'visible'});
   app=page.frames().find(frame=>frame.url().startsWith('https://'+appHost+'/'));
   for(const id of ['new-project','resume-project','saved-projects','direct-atelier'])assert(await app.locator('#'+id).isVisible());
   await app.locator('#saved-projects').click();await app.locator('#lrf-project-workspace[open]').waitFor();assert(await app.locator('.lrf-project-row').filter({hasText:previous.title}).count());await app.locator('#lrf-project-workspace .lrf-project-close').click();
   await app.locator('#new-project').click();await app.locator('#wizard-panel').waitFor({state:'visible'});assert(await app.locator('#wizard-panel').isVisible(),'New project opens the existing guided configuration');
-  assert.deepEqual(errors,[]);console.log('PASS '+width+'px: chooser → welcome with four actions; direct workshop empty; saved project intact; explicit Resume restores composition; New and My projects remain usable');await context.close();
+  assert.deepEqual(errors,[]);console.log('PASS '+width+'px: bilingual chooser → welcome with four actions; direct workshop without furniture; saved project intact; explicit Resume restores composition; New and My projects remain usable');await context.close();
  }}finally{await browser.close();await new Promise(resolve=>server.close(resolve));}
 })().catch(error=>{console.error(error);process.exitCode=1;});
