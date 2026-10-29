@@ -49,6 +49,7 @@ jobs:
       - run: npm ci --ignore-scripts --include=dev --no-audit --no-fund
       - run: npm run build:general && npm run build:studio
       - run: npx playwright install --with-deps chromium
+        id: browser_runtime
       - name: Wait for the exact reviewed bundles on both production aliases
         run: node tests/lrf-suite/production-niches-wait.cjs
       - name: Verify native niches on the actual production URLs without asset mocks
@@ -81,30 +82,44 @@ jobs:
       - run: npm run check --workspace=studio-one-atelier-3d
       - run: npm run build:site
       - run: npx playwright install --with-deps chromium
+        id: browser_runtime
       - name: Verify active ateliers with real WebGL and HD restoration
+        if: ${{ !cancelled() && steps.browser_runtime.outcome == 'success' }}
         run: node tests/lrf-suite/active-configurators-browser.cjs
       - name: Verify empty Studio One entry and explicit resume
+        if: ${{ !cancelled() && steps.browser_runtime.outcome == 'success' }}
         run: node tests/lrf-suite/studio-empty-entry-browser.cjs
       - name: Verify full upper drawers on desktop and mobile
+        if: ${{ !cancelled() && steps.browser_runtime.outcome == 'success' }}
         run: node shared/lrf-3d/qa/top-drawer-browser.cjs
       - name: Verify Quercia mobile texture budgets and HD restoration
+        if: ${{ !cancelled() && steps.browser_runtime.outcome == 'success' }}
         run: node tests/lrf-quercia-mobile.browser.mjs
       - name: Verify tile selection with mouse and touch
+        if: ${{ !cancelled() && steps.browser_runtime.outcome == 'success' }}
         run: node tests/lrf-suite/tile-selection-browser.cjs
       - name: Verify live floor layouts and compatible wall alignment
+        if: ${{ !cancelled() && steps.browser_runtime.outcome == 'success' }}
         run: node tests/lrf-suite/floor-layout-browser.cjs
       - name: Verify inspector scrollbars preserve the current selection
+        if: ${{ !cancelled() && steps.browser_runtime.outcome == 'success' }}
         run: node tests/lrf-suite/panel-scroll-browser.cjs
       - name: Verify wall-mounted toilets and legacy project recovery
+        if: ${{ !cancelled() && steps.browser_runtime.outcome == 'success' }}
         run: node tests/lrf-suite/sanitary-attachment-browser.cjs
       - name: Verify inherited and custom WC support coverings
+        if: ${{ !cancelled() && steps.browser_runtime.outcome == 'success' }}
         run: node tests/lrf-suite/sanitary-support-browser.cjs
       - name: Verify private LRF composition references on desktop and mobile
+        if: ${{ !cancelled() && steps.browser_runtime.outcome == 'success' }}
         run: node tests/lrf-suite/lrf-reference-browser.cjs
       - name: Verify Studio One mirror references through the real server handler
+        if: ${{ !cancelled() && steps.browser_runtime.outcome == 'success' }}
         run: node tests/lrf-suite/studio-mirror-reference-browser.cjs
       - run: node tests/lrf-plan-pose/recovery-render-browser.cjs
+        if: ${{ !cancelled() && steps.browser_runtime.outcome == 'success' }}
       - name: Verify recovery of historical local projects
+        if: ${{ !cancelled() && steps.browser_runtime.outcome == 'success' }}
         run: node tests/lrf-suite/legacy-recovery-browser.cjs
       - name: Keep active atelier results
         if: always()
@@ -134,21 +149,30 @@ jobs:
       - run: npm ci --ignore-scripts --include=dev --no-audit --no-fund
       - run: npm run build:general && npm run build:studio
       - run: npx playwright install --with-deps chromium
+        id: browser_runtime
       - name: Verify native niche placement, wall targeting, depth-tested guides and presentation exclusion
+        if: ${{ !cancelled() && steps.browser_runtime.outcome == 'success' }}
         run: node tests/lrf-suite/niche-placement-browser.cjs
       - name: Verify element choices stay beside the live scene
+        if: ${{ !cancelled() && steps.browser_runtime.outcome == 'success' }}
         run: node tests/lrf-suite/element-panels-browser.cjs
       - name: Verify sidebar content survives editor changes and outside clicks
+        if: ${{ !cancelled() && steps.browser_runtime.outcome == 'success' }}
         run: node tests/lrf-suite/panel-lifecycle-browser.cjs
       - name: Verify floor rug creation, mouse and touch movement, and dimensions
+        if: ${{ !cancelled() && steps.browser_runtime.outcome == 'success' }}
         run: node tests/lrf-suite/floor-rug-browser.cjs
       - name: Verify niche materials and selection after locking and adding openings
+        if: ${{ !cancelled() && steps.browser_runtime.outcome == 'success' }}
         run: node tests/lrf-suite/niche-openings-browser.cjs
       - name: Verify individual locks and movement inside a locked room
+        if: ${{ !cancelled() && steps.browser_runtime.outcome == 'success' }}
         run: node tests/lrf-suite/position-lock-browser.cjs
       - name: Verify inherited partition tiling and live geometry editing
+        if: ${{ !cancelled() && steps.browser_runtime.outcome == 'success' }}
         run: node tests/lrf-suite/partition-editing-browser.cjs
       - name: Verify flush and raised tiled shower trays
+        if: ${{ !cancelled() && steps.browser_runtime.outcome == 'success' }}
         run: node tests/lrf-suite/tiled-shower-tray-browser.cjs
       - name: Keep construction interaction results
         if: always()
@@ -174,6 +198,7 @@ jobs:
       - run: npm ci --ignore-scripts --include=dev --no-audit --no-fund
       - run: npm run build:general && npm run build:studio
       - run: npx playwright install --with-deps chromium
+        id: browser_runtime
       - name: Verify fresh scenes and preserve explicitly resumed projects
         run: node tests/lrf-suite/opening-scene-browser.cjs
       - name: Verify visual basin choices, right placement and matching drains
@@ -205,6 +230,7 @@ jobs:
       - run: npm ci --ignore-scripts --include=dev --no-audit --no-fund
       - run: npm run build:general && npm run build:studio
       - run: npx playwright install --with-deps chromium
+        id: browser_runtime
       - name: Verify the public gallery on desktop and phone
         run: node tests/lrf-suite/public-compositions-ui-browser.cjs
       - name: Verify protected previews, private project preservation and editable copies

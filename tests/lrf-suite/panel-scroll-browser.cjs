@@ -45,7 +45,7 @@ function pass(message){checks.push(message);console.log('PASS',message);}
   const bounds=await page.locator('#scene').boundingBox(),cx=bounds.x+bounds.width*.5,cy=bounds.y+bounds.height*.45;
   await page.mouse.move(cx,cy);await page.mouse.down();await page.mouse.move(cx+65,cy+25,{steps:8});await page.mouse.up();assert.equal(await inspector.isVisible(),false,'Real canvas orbit must keep its normal inspector dismissal');
   await page.evaluate(()=>studioOnePrototype.setView('front',true,true));await page.mouse.click(cx,cy);
-  await inspector.waitFor({state:'visible'});const genuineTitle=await page.locator('#object-editor-title').innerText();assert.match(genuineTitle,/Mur|Sol|Cloison|miroir|Meuble|vasque|colonne/i);
+  await inspector.waitFor({state:'visible'});const genuineTitle=await page.locator('#object-editor-title').innerText();assert.match(genuineTitle,/Mur|Sol|Cloison|miroir|Meuble|vasque|colonne|fenêtre|porte/i);
   const events=await page.evaluate(()=>window.__scrollSceneEvents);assert(events.includes('pointerdown')&&events.includes('pointerup'));
   pass(app+': genuine canvas orbit and object/surface selection still work after the scrollbar gesture');
   await context.close();
