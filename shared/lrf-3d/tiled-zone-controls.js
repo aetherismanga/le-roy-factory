@@ -27,7 +27,10 @@ export function newTiledZone(surface,finish,kind='wall'){
   if(finish.packs?.[packKey])identity.packs={[packKey]:copy(finish.packs[packKey])};
  }
  const grouts={Blanc:'#f7f5ed','Gris clair':'#c5c5c2',Gris:'#858585',Anthracite:'#343638',Beige:'#c6ad89',Ivoire:'#e8dbc0'};
- return {...identity,name:kind==='wall'?'Bande murale':'Tapis de carrelage',x:Math.round(bounds.x+(bounds.width-width)/2),y:kind==='wall'?bounds.y:Math.round(bounds.y+(bounds.height-height)/2),width,height,collection,color,format:format.id,direction,pattern:patterns.some(p=>p.id===layout.pattern)?layout.pattern:patterns[0]?.id||'straight',groutColor:/^#[a-f0-9]{6}$/i.test(finish.groutColor||'')?finish.groutColor:grouts[finish.groutColor]||'#d5d0c3',groutWidth:layout.groutWidth||2};
+ // Only new wall columns get the removable vertical trims. Existing zones
+ // and floor rugs keep their explicit choices, including "Sans profil".
+ const profiles=kind==='wall'?{profile:true,profileColor:'Argent',profileEdges:{left:'Argent',right:'Argent',top:'none',bottom:'none'}}:{};
+ return {...identity,...profiles,name:kind==='wall'?'Bande murale':'Tapis de carrelage',x:Math.round(bounds.x+(bounds.width-width)/2),y:kind==='wall'?bounds.y:Math.round(bounds.y+(bounds.height-height)/2),width,height,collection,color,format:format.id,direction,pattern:patterns.some(p=>p.id===layout.pattern)?layout.pattern:patterns[0]?.id||'straight',groutColor:/^#[a-f0-9]{6}$/i.test(finish.groutColor||'')?finish.groutColor:grouts[finish.groutColor]||'#d5d0c3',groutWidth:layout.groutWidth||2};
 }
 
 export function zoneEditorCSS(){return `

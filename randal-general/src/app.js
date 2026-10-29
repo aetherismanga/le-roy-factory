@@ -57,6 +57,7 @@ import {prepareFinishTexture,finishTextureURL} from './finish-texture.js';
 import {fitTexture,disposeTextures,textureLimit} from './texture-quality.js';
 import {FINISH_VARIANTS} from './material-variants.js';
 import {createHDCapture,captureSize} from './hd-capture.js';
+import {withoutEditorGuides} from '../../shared/lrf-3d/niche-guides.js';
 import {CATALOG as GeneralCatalog} from './commerce/catalog.js';
 import {columnFormat,finishesFor,formatsFor,defaultTop} from './configuration.js';
 import {configureColourRendering} from './colour-rendering.js';
@@ -631,7 +632,7 @@ async function start(){
   state.ready=true;refreshLayouts();$('#floor-collection').disabled=$('#wall-collection').disabled=false;$$('[data-surface-color]').forEach(b=>b.disabled=false);refreshWidthUI();syncCompositionToggle();renderComposition();setBrightness(100);applyQuality();initializeProjectSession();$('#loading').classList.add('done');canvas.setAttribute('aria-busy','false');running=false;invalidate();
   refreshCommerce=mountCommerce(collectProject);
   initializeWorkspace();
-  renovation=mountRenovation({canvas,camera,controls,scene,stage,getRoom:()=>roomScene,getRoomConfig:()=>cloneRoom(roomConfig),resetPartitionPositionUnlocks:()=>{for(const p of [...(roomConfig.partitions||[]),...(roomConfig.niches||[])])delete p.positionUnlocked;},getComposition:()=>composition,getSelectedWall:()=>selectedWall,getWallFinish:i=>wallFinishes[i],getFloorFinish:()=>Object.assign(floorDesign,{collection:state.floorCollection,color:state.floor,format:tileFormat(state.floorCollection,$('#floor-tile-format')?.value)?.id}),applySurface:(surface,collection,color,finish=surface.zone||{})=>applySurfaceTileColors(surface,{...finish,collection,color}),applyRoom,status:placementStatus,refresh:()=>{renderComposition();refreshInspector();refreshLayouts();},invalidate,checkpoint:scheduleProjectCheckpoint,readonly:()=>!!projectWorkspace?.locked,wallLabel});renovation.restore(initialRenovation);initialRenovation=null;
+  renovation=mountRenovation({canvas,camera,controls,scene,stage,stopCamera:()=>{viewTween=null;},getRoom:()=>roomScene,getRoomConfig:()=>cloneRoom(roomConfig),resetPartitionPositionUnlocks:()=>{for(const p of [...(roomConfig.partitions||[]),...(roomConfig.niches||[])])delete p.positionUnlocked;},getComposition:()=>composition,getSelectedWall:()=>selectedWall,getWallFinish:i=>wallFinishes[i],getFloorFinish:()=>Object.assign(floorDesign,{collection:state.floorCollection,color:state.floor,format:tileFormat(state.floorCollection,$('#floor-tile-format')?.value)?.id}),applySurface:(surface,collection,color,finish=surface.zone||{})=>applySurfaceTileColors(surface,{...finish,collection,color}),applyRoom,status:placementStatus,refresh:()=>{renderComposition();refreshInspector();refreshLayouts();},invalidate,checkpoint:scheduleProjectCheckpoint,readonly:()=>!!projectWorkspace?.locked,wallLabel});renovation.restore(initialRenovation);initialRenovation=null;
   if(new URLSearchParams(location.search).has('plans')){setWorkspace('room');showBathroomPresets();}
   // First-person room visits remain available; the removed Avatar control is no longer mounted.
   new ResizeObserver(resize).observe(stage);document.addEventListener('visibilitychange',()=>{quality.pause();if(!document.hidden)invalidate(true,false);});
@@ -857,7 +858,7 @@ const captureTransaction=createHDCapture({
  render:({width=1920}={})=>{
   const size=captureSize(width,stage.clientWidth/stage.clientHeight,Math.min(renderer.capabilities.maxTextureSize,renderer.capabilities.maxCubemapSize||16384));
   renderer.setPixelRatio(1);renderer.setSize(size.width,size.height,false);ultraPipeline?.resize(size.width,size.height,1);renderer.shadowMap.needsUpdate=true;
-  if(ultraPipeline)ultraPipeline.render(.016);else renderer.render(scene,camera);return canvas.toDataURL('image/png');
+  return withoutEditorGuides(scene,()=>{if(ultraPipeline)ultraPipeline.render(.016);else renderer.render(scene,camera);return canvas.toDataURL('image/png');});
  },
  restore:async previous=>{
   try{
@@ -868,7 +869,7 @@ const captureTransaction=createHDCapture({
  }
 });
 function captureHD(options={}){return captureTransaction(typeof options==='number'?{width:options}:options);}
-function captureImage(width=1920,thumbnail=false){const w=stage.clientWidth,h=stage.clientHeight,ratio=renderer.getPixelRatio(),size=new T.Vector2();renderer.getSize(size);try{const desired=thumbnail?320:width,scale=Math.min(desired/w,quality.profile.ao?4:3);renderer.setPixelRatio(scale);renderer.setSize(w,h,false);ultraPipeline?.resize(w,h,scale);if(ultraPipeline)ultraPipeline.render(.016);else renderer.render(scene,camera);return canvas.toDataURL(thumbnail?'image/webp':'image/png',.8);}finally{renderer.setPixelRatio(ratio);renderer.setSize(size.x,size.y,false);ultraPipeline?.resize(w,h,ratio);invalidate(false,false);}}
+function captureImage(width=1920,thumbnail=false){const w=stage.clientWidth,h=stage.clientHeight,ratio=renderer.getPixelRatio(),size=new T.Vector2();renderer.getSize(size);try{const desired=thumbnail?320:width,scale=Math.min(desired/w,quality.profile.ao?4:3);renderer.setPixelRatio(scale);renderer.setSize(w,h,false);ultraPipeline?.resize(w,h,scale);return withoutEditorGuides(scene,()=>{if(ultraPipeline)ultraPipeline.render(.016);else renderer.render(scene,camera);return canvas.toDataURL(thumbnail?'image/webp':'image/png',.8);});}finally{renderer.setPixelRatio(ratio);renderer.setSize(size.x,size.y,false);ultraPipeline?.resize(w,h,ratio);invalidate(false,false);}}
 function saveProject(){return projectWorkspace?.save();}
 
 function showProjects(){return projectWorkspace?.showProjects();}

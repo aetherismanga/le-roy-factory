@@ -10,6 +10,7 @@ import {disposeObject} from '../src/composition.js';
 import {applyTileColors} from '../src/tile-colors.js';
 import {AdaptiveQuality} from '../src/performance.js';
 import {createHDCapture,captureSize} from '../src/hd-capture.js';
+import {withoutEditorGuides} from '../../shared/lrf-3d/niche-guides.js';
 import {collectNicheFinishes} from '../../shared/lrf-3d/niches.js';
 import {collectSupportFinishes} from '../../shared/lrf-3d/sanitary-support.js';
 import {collectTrayFinishes} from '../../shared/lrf-3d/tiled-shower-tray.js';
@@ -76,7 +77,7 @@ try{
  assert(variantMaterials.includes(1),'real tile grouping visits the second native face despite the legacy single-face definition');
 
  let rendered=0,size=new T.Vector2(1280,720),ratio=1;
- Object.assign(context,{createHDCapture,captureSize,lastCapture:null,sceneRevision:0,running:false,scene:{},ultraPipeline:null,controls:{enabled:true},document:{body:{inert:false}},camera:{aspect:16/9,updateProjectionMatrix(){}},stage:{clientWidth:1280,clientHeight:720},canvas:{toDataURL:()=> 'data:image/png;base64,fixture'},applyQuality(){},
+ Object.assign(context,{createHDCapture,captureSize,withoutEditorGuides,lastCapture:null,sceneRevision:0,running:false,scene:new T.Scene(),ultraPipeline:null,controls:{enabled:true},document:{body:{inert:false}},camera:{aspect:16/9,updateProjectionMatrix(){}},stage:{clientWidth:1280,clientHeight:720},canvas:{toDataURL:()=> 'data:image/png;base64,fixture'},applyQuality(){},
   renderer:{capabilities:{maxTextureSize:4096,maxRenderbufferSize:4096},shadowMap:{needsUpdate:false},getSize:v=>v.copy(size),getPixelRatio:()=>ratio,setPixelRatio:value=>ratio=value,setSize:(w,h)=>size.set(w,h),compileAsync:async()=>{},render(){rendered++;assert.equal(quality.profile.id,'max');assert.equal(floor.material.map.userData.quality.url,urls('max')[0]);assert.equal(wall.material.map.userData.quality.profile,'max');}},
  });
  vm.runInContext(source.slice(source.indexOf('const captureHD=createHDCapture('),source.indexOf('async function exportImage('))+'\nglobalThis.fixtureCapture=captureHD;',context);

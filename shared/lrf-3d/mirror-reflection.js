@@ -1,4 +1,5 @@
 import {Reflector} from 'three/addons/objects/Reflector.js';
+import {withoutEditorGuides} from './niche-guides.js';
 
 export function makeMirrorReflector(geometry,options={}){
  const mirror=new Reflector(geometry,{...options,color:0xffffff});
@@ -15,5 +16,5 @@ export function captureMirrorScene({room,items=[],profiles,reflector},capture){
  for(const wall of room?.walls||[])show(wall.group,true);
  for(const item of items){if(['window','door'].includes(item.type))show(item.root,true);if(item.asset.reflector)show(item.asset.reflector,item.asset.reflector===reflector);}
  for(const profile of profiles?.children||[])show(profile,true);
- try{return capture();}finally{for(const [object,visible]of visibility)object.visible=visible;}
+ try{return withoutEditorGuides(room?.root,capture);}finally{for(const [object,visible]of visibility)object.visible=visible;}
 }

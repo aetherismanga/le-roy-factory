@@ -72,6 +72,7 @@ import { configureNavigation } from './navigation.js';
 import { createWalkMode } from './walk-mode.js';
 import { AdaptiveQuality, ReflectionSchedule, renderPixelRatio, profileSizes } from './performance.js';
 import {createHDCapture,captureSize} from './hd-capture.js';
+import {withoutEditorGuides} from '../../shared/lrf-3d/niche-guides.js';
 import { createUltraPipeline, applyArchitecturalGlass } from './ultra-rendering.js';
 import {createLightweightMaterials} from '../../shared/lrf-3d/lightweight-rendering.js';
 import { dimensionSegments, projectDimensions, dimensionMarkup } from './dimensions.js';
@@ -607,7 +608,7 @@ async function start(){
   state.ready=true;refreshLayouts();$('#floor-collection').disabled=$('#wall-collection').disabled=false;$$('[data-surface-color]').forEach(b=>b.disabled=false);refreshWidthUI();syncCompositionToggle();renderComposition();setBrightness(100);applyQuality();initializeProjectSession();$('#loading').classList.add('done');canvas.setAttribute('aria-busy','false');running=false;invalidate();
   refreshCommerce=mountCommerce(collectProject);
   initializeWorkspace();
-  renovation=mountRenovation({canvas,camera,controls,scene,stage,getRoom:()=>roomScene,getRoomConfig:()=>cloneRoom(roomConfig),resetPartitionPositionUnlocks:()=>{for(const p of [...(roomConfig.partitions||[]),...(roomConfig.niches||[])])delete p.positionUnlocked;},getComposition:()=>composition,getSelectedWall:()=>selectedWall,getWallFinish:i=>wallFinishes[i],getFloorFinish:()=>Object.assign(floorDesign,{collection:state.floorCollection,color:state.floor,format:tileFormat(state.floorCollection,$('#floor-tile-format')?.value)?.id}),applySurface:(surface,collection,color,finish=surface.zone||{})=>applySurfaceTileColors(surface,{...finish,collection,color}),applyRoom,status:placementStatus,refresh:()=>{renderComposition();refreshInspector();refreshLayouts();},invalidate,checkpoint:scheduleProjectCheckpoint,readonly:()=>!!projectWorkspace?.locked,wallLabel});renovation.restore(initialRenovation);initialRenovation=null;settleEmptyStudioEntry(localStorage,collectProject());
+  renovation=mountRenovation({canvas,camera,controls,scene,stage,stopCamera:()=>{viewTween=null;},getRoom:()=>roomScene,getRoomConfig:()=>cloneRoom(roomConfig),resetPartitionPositionUnlocks:()=>{for(const p of [...(roomConfig.partitions||[]),...(roomConfig.niches||[])])delete p.positionUnlocked;},getComposition:()=>composition,getSelectedWall:()=>selectedWall,getWallFinish:i=>wallFinishes[i],getFloorFinish:()=>Object.assign(floorDesign,{collection:state.floorCollection,color:state.floor,format:tileFormat(state.floorCollection,$('#floor-tile-format')?.value)?.id}),applySurface:(surface,collection,color,finish=surface.zone||{})=>applySurfaceTileColors(surface,{...finish,collection,color}),applyRoom,status:placementStatus,refresh:()=>{renderComposition();refreshInspector();refreshLayouts();},invalidate,checkpoint:scheduleProjectCheckpoint,readonly:()=>!!projectWorkspace?.locked,wallLabel});renovation.restore(initialRenovation);initialRenovation=null;settleEmptyStudioEntry(localStorage,collectProject());
   if(new URLSearchParams(location.search).has('plans')){setWorkspace('room');showBathroomPresets();}
   // First-person room visits remain available; the removed Avatar control is no longer mounted.
   new ResizeObserver(resize).observe(stage);document.addEventListener('visibilitychange',()=>{quality.pause();if(!document.hidden)invalidate(true,false);});
@@ -783,7 +784,7 @@ function initializeProjectSession(){
  clearTimeout(projectTimer);journal.seed(collectProject());updateHistoryButtons();
 }
 function storedProjects(){try{const data=JSON.parse(localStorage.getItem('studio-one-projects')||'[]');return Array.isArray(data)?data.slice(0,20):[];}catch{return [];}}
-function captureImage(width=1920,thumbnail=false){const w=stage.clientWidth,h=stage.clientHeight,ratio=renderer.getPixelRatio(),size=new T.Vector2();renderer.getSize(size);try{const desired=thumbnail?320:width,scale=Math.min(desired/w,quality.profile.ao?4:3);renderer.setPixelRatio(scale);renderer.setSize(w,h,false);ultraPipeline?.resize(w,h,scale);if(ultraPipeline)ultraPipeline.render(.016);else renderer.render(scene,camera);return canvas.toDataURL(thumbnail?'image/webp':'image/png',.8);}finally{renderer.setPixelRatio(ratio);renderer.setSize(size.x,size.y,false);ultraPipeline?.resize(w,h,ratio);invalidate(false,false);}}
+function captureImage(width=1920,thumbnail=false){const w=stage.clientWidth,h=stage.clientHeight,ratio=renderer.getPixelRatio(),size=new T.Vector2();renderer.getSize(size);try{const desired=thumbnail?320:width,scale=Math.min(desired/w,quality.profile.ao?4:3);renderer.setPixelRatio(scale);renderer.setSize(w,h,false);ultraPipeline?.resize(w,h,scale);return withoutEditorGuides(scene,()=>{if(ultraPipeline)ultraPipeline.render(.016);else renderer.render(scene,camera);return canvas.toDataURL(thumbnail?'image/webp':'image/png',.8);});}finally{renderer.setPixelRatio(ratio);renderer.setSize(size.x,size.y,false);ultraPipeline?.resize(w,h,ratio);invalidate(false,false);}}
 function saveProject(){return projectWorkspace?.save();}
 
 function showProjects(){return projectWorkspace?.showProjects();}
@@ -812,8 +813,8 @@ const captureHD=createHDCapture({
   if(size.width<1920)throw Error('Ce navigateur ne dispose pas de la mémoire nécessaire pour une image HD.');
   renderer.setPixelRatio(1);renderer.setSize(size.width,size.height,false);camera.aspect=size.width/size.height;camera.updateProjectionMatrix();ultraPipeline?.resize(size.width,size.height,1);
   renderer.shadowMap.needsUpdate=true;sceneRevision++;for(const item of composition?.items||[])item.asset.reflector?.userData.reflectionSchedule.reset();
-  if(ultraPipeline)ultraPipeline.render(.016);else renderer.render(scene,camera);
-  const result=canvas.toDataURL('image/png');lastCapture={...size,profile:'max',textures:textureDiagnostics(),at:Date.now()};return result;
+  return withoutEditorGuides(scene,()=>{if(ultraPipeline)ultraPipeline.render(.016);else renderer.render(scene,camera);
+  const result=canvas.toDataURL('image/png');lastCapture={...size,profile:'max',textures:textureDiagnostics(),at:Date.now()};return result;});
  },
  restore(previous){
   try{

@@ -2,7 +2,7 @@ import {openElementPanel,closeElementPanel} from './element-panels.js';
 import {isItemPositionLocked,setItemPositionLock,setCompositionPositionLock} from './position-lock.js';
 import {surfaceSeries,availableColors,renderSurfacePicker} from './surface-picker.js';
 import {surfaceAssetURL} from './texture-loader.js';
-import {nicheSurfaceFinish} from './niches.js';
+import {nicheSurfaceFinish,validateNiches} from './niches.js';
 import {sameNichePosition} from './niche-editing.js';
 import * as T from 'three';
 import {COLLECTIONS,tileFormat,formatsForColor,layoutPatterns,normalizeLayout} from './surface-catalog.js';
@@ -226,7 +226,7 @@ export function mountRenovation(api,{validateZones,renderZones,zoneProfileSegmen
   const w=room().walls.find(w=>w.key===value.wallKey),a={x:(value.u-value.width/2)/100,y:value.bottom/100,width:value.width/100,height:value.height/100};
   for(const o of w?.openings||[])if(a.x<o.right&&o.left<a.x+a.width&&a.y<o.top&&o.bottom<a.y+a.height)throw Error('La niche ne peut pas croiser une porte ou une fenêtre.');
   const indexWall=room().walls.indexOf(w);for(const z of api.getWallFinish(indexWall)?.zones||[])if(a.x<(z.x+z.width)/100&&z.x/100<a.x+a.width&&a.y<(z.y+z.height)/100&&z.y/100<a.y+a.height)throw Error('Déplacez la bande de carrelage avant de creuser une niche à cet endroit.');
-  if(index>=0)list[index]=value;else list.push(value);config.niches=list;
+  if(index>=0)list[index]=value;else list.push(value);config.niches=list;const geometryError=validateNiches(config);if(geometryError)throw Error(geometryError);
   if(!api.applyRoom(config,false,null,prior?value.id:null))throw Error('Cette niche ne convient pas au mur : vérifiez sa profondeur et ses dimensions.');touch();return value;
  }
  function finishEditor(parent,title,initial,fallback){
@@ -247,9 +247,12 @@ export function mountRenovation(api,{validateZones,renderZones,zoneProfileSegmen
   const updateMode=()=>{backHost.hidden=mode.value==='inherit';revealHost.hidden=mode.value!=='split';};mode.onchange=updateMode;updateMode();
   const profileTitle=document.createElement('h3');profileTitle.textContent='Profilés des angles';d.append(profileTitle);const edges=document.createElement('div');edges.className='renovation-fields';d.append(edges);const profileEdges={};for(const [edge,label]of [['left','Angle gauche'],['right','Angle droit'],['top','Angle haut'],['bottom','Angle bas']])profileEdges[edge]=select(edges,label,[{id:'none',name:'Sans profil'},'Argent','Noir','Doré','Bronze'],n.profileEdges?.[edge]||'none','niche-profile-'+edge);
   const note=document.createElement('p');note.textContent='La niche reste entièrement encastrée dans la paroi. Cliquez dessus pour modifier ses dimensions, ses carreaux ou ses profilés. Le fond peut recevoir un carrelage différent de celui des quatre contours.';d.append(note);const actions=document.createElement('div');actions.className='renovation-actions';d.append(actions);
-  button(actions,'Appliquer la niche',()=>{try{saveNiche({...n,u:Number(u.value),bottom:Number(bottom.value),width:Number(width.value),height:Number(height.value),depth:Number(depth.value),covering:{mode:mode.value,...(mode.value!=='inherit'?{back:back.value()}:{}),...(mode.value==='split'?{reveal:reveal.value()}: {})},profileEdges:Object.fromEntries(Object.entries(profileEdges).map(([edge,el])=>[edge,el.value]))});d.close();}catch(e){status.textContent=e.message;}},'apply-niche');
+  // Keep validation beside the action even after scrolling past the finishes.
+  actions.after(status);status.setAttribute('role','alert');
+  const showError=e=>{status.textContent=e.message;status.scrollIntoView?.({block:'nearest'});};
+  button(actions,'Appliquer la niche',()=>{try{saveNiche({...n,u:Number(u.value),bottom:Number(bottom.value),width:Number(width.value),height:Number(height.value),depth:Number(depth.value),covering:{mode:mode.value,...(mode.value!=='inherit'?{back:back.value()}:{}),...(mode.value==='split'?{reveal:reveal.value()}: {})},profileEdges:Object.fromEntries(Object.entries(profileEdges).map(([edge,el])=>[edge,el.value]))});d.close();}catch(e){showError(e);}},'apply-niche');
   const apply=d.querySelector('#apply-niche'),noteBase=note.textContent;let lock,remove;
-  if(prior){lock=button(actions,'',()=>{if(toggleNicheLock(prior.id)){d.close();showNiche(prior.id);}},'niche-position-lock');remove=button(actions,'Supprimer la niche',()=>{removeNiche(prior.id);d.close();});}
+  if(prior){lock=button(actions,'',()=>{try{if(toggleNicheLock(prior.id)){d.close();showNiche(prior.id);}}catch(e){showError(e);}},'niche-position-lock');remove=button(actions,'Supprimer la niche',()=>{try{removeNiche(prior.id);d.close();}catch(e){showError(e);}});}
   nicheEditorRefresh=()=>{
    if(!d.open||d.querySelector('#apply-niche')!==apply)return;
    const current=prior?api.getRoomConfig().niches?.find(value=>value.id===prior.id):null;if(prior&&!current){d.close();return;}

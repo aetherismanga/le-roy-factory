@@ -17,13 +17,11 @@ const mime={'.html':'text/html','.mjs':'text/javascript','.js':'text/javascript'
   const key='lrf-studio-one-saved-projects-v2-fixture-compte';
   await page.goto(origin+'/robots.txt');await page.evaluate(({key,record})=>localStorage.setItem(key,JSON.stringify([record])),{key,record});
   const before=await page.evaluate(()=>JSON.stringify({local:{...localStorage},session:{...sessionStorage}}));
-  // This scenario verifies the wrapper's recovery notice, not the independent account bridges.
-  await page.route('**/assets/js/*session-bridge.js*',route=>route.fulfill({contentType:'text/javascript',body:''}));
-  await page.goto(origin+'/studio-one-configurateur.html');
-  const recovery=page.getByRole('link',{name:'Récupérer mes anciens projets Studio One',exact:true});await recovery.waitFor();
-  const bounds=await page.locator('#studio-one').evaluate(e=>({top:e.getBoundingClientRect().top,height:e.getBoundingClientRect().height,screen:innerHeight}));assert(bounds.top>0);assert(bounds.top+bounds.height<=bounds.screen+1);
-  await page.getByRole('button',{name:'Masquer l’avis de récupération'}).click();assert(await page.locator('#legacy-recovery-notice').isHidden());
-  await page.reload();await recovery.waitFor();await recovery.click();await page.getByRole('heading',{name:'Retrouver vos anciens projets Studio One'}).waitFor();await page.locator('.project').first().waitFor();
+  // The current wrapper opens the welcome page without the historical banner.
+  // Recovery remains available at its dedicated original URL. Exercise that
+  // actual entry point and retain every archive/conversion/storage assertion.
+  await page.goto(origin+'/randal-studio-one-3d.html');
+  await page.getByRole('heading',{name:'Retrouver vos anciens projets Studio One'}).waitFor();await page.locator('.project').first().waitFor();
   assert.equal(await page.locator('.project').count(),1);assert.equal(new URL(page.url()).pathname,'/randal-studio-one-3d.html');
   const pending=page.waitForEvent('download');await page.locator('#download-all').click();const download=await pending;
   const archive=JSON.parse(fs.readFileSync(await download.path(),'utf8')),serialized=JSON.stringify(archive);
