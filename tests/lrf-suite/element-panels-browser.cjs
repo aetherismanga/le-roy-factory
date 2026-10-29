@@ -48,7 +48,9 @@ function pass(message){checks.push(message);console.log('PASS',message);}
   await page.locator('#niche-placement-bar').waitFor({state:'visible'});await page.waitForTimeout(250);
   const canvas=await page.locator('#scene').boundingBox();let drop=null;const attempts=[];
   for(const fy of [.4,.5,.3,.6,.2,.7]){for(const fx of [.35,.5,.65,.2,.8]){
-   const x=canvas.x+canvas.width*fx,y=canvas.y+canvas.height*fy;await page.mouse.move(x,y);
+   // Use the same integer device input coordinates for hover, mouse and touch.
+   // Fractional synthetic moves and native button events can quantize differently.
+   const x=Math.round(canvas.x+canvas.width*fx),y=Math.round(canvas.y+canvas.height*fy);await page.mouse.move(x,y);
    const state=await page.evaluate(()=>studioOnePrototype.renovation().getNichePlacementState());attempts.push({x,y,state});
    if(state.valid&&state.niche.bottom<180&&state.niche.bottom>40){drop={x,y,niche:state.niche};break;}
   }if(drop)break;}
@@ -56,7 +58,7 @@ function pass(message){checks.push(message);console.log('PASS',message);}
   assert.equal(await page.locator('.niche-preview').count(),1);
   if(mobile)await page.touchscreen.tap(drop.x,drop.y);else await page.mouse.click(drop.x,drop.y);
   await page.waitForFunction(()=>studioOnePrototype.exportProject().room.niches?.length===1);
-  const placed=await page.evaluate(()=>studioOnePrototype.exportProject().room.niches[0]);assert.equal(placed.wallKey,drop.niche.wallKey);assert.equal(placed.u,drop.niche.u);assert.equal(placed.bottom,drop.niche.bottom);assert.equal(placed.depth,drop.niche.depth);
+  const placed=await page.evaluate(()=>studioOnePrototype.exportProject().room.niches[0]);assert.equal(placed.wallKey,drop.niche.wallKey);assert.equal(placed.u,drop.niche.u,JSON.stringify({placed,drop}));assert.equal(placed.bottom,drop.niche.bottom,JSON.stringify({placed,drop}));assert.equal(placed.depth,drop.niche.depth);
   assert.equal(await page.evaluate(()=>studioOnePrototype.renovation().getNichePlacementState().active),false);
   assert.equal(await page.locator('.niche-guide polygon:not(.niche-preview)').count(),1);
   assert.equal(await page.locator('#scene .niche-guide').count(),0,'Editor guide is outside the exported WebGL canvas');
