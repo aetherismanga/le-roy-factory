@@ -62,6 +62,7 @@ function pass(message){checks.push(message);console.log('PASS',message);}
   assert.equal(await page.evaluate(()=>studioOnePrototype.renovation().getNichePlacementState().active),false);
   assert.equal(await page.evaluate(()=>studioOnePrototype.renovation().getNicheGuideState().count),1);
   assert.equal(await page.evaluate(()=>studioOnePrototype.renovation().getNicheGuideState().depthTested),true);
+  if(mobile){const toggle=await page.locator('#toggle-niche-guides').boundingBox(),commands=await page.locator('.view-commands').boundingBox();assert(toggle.y+toggle.height<=commands.y-2,'Guide visibility must not cover the mobile camera commands');}
   await page.screenshot({path:path.join(output,app+'-'+(mobile?'mobile':'desktop')+'-niche-placed.png'),fullPage:true});
   if(mobile)await page.touchscreen.tap(drop.x,drop.y);else await page.mouse.click(drop.x,drop.y);
   const niche=page.locator('#renovation-dialog');await niche.waitFor({state:'visible'});assert.equal(await niche.evaluate(el=>el.matches(':modal')),false);assert.equal(await niche.evaluate(el=>el.parentElement.id),mobile?'viewer':'settings');

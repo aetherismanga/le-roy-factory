@@ -2,7 +2,7 @@ import {openElementPanel,closeElementPanel} from './element-panels.js';
 import {isItemPositionLocked,setItemPositionLock,setCompositionPositionLock} from './position-lock.js';
 import {surfaceSeries,availableColors,renderSurfacePicker} from './surface-picker.js';
 import {surfaceAssetURL} from './texture-loader.js';
-import {nicheSurfaceFinish} from './niches.js';
+import {nicheSurfaceFinish,validateNiches} from './niches.js';
 import {sameNichePosition} from './niche-editing.js';
 import * as T from 'three';
 import {COLLECTIONS,tileFormat,formatsForColor,layoutPatterns,normalizeLayout} from './surface-catalog.js';
@@ -226,7 +226,7 @@ export function mountRenovation(api,{validateZones,renderZones,zoneProfileSegmen
   const w=room().walls.find(w=>w.key===value.wallKey),a={x:(value.u-value.width/2)/100,y:value.bottom/100,width:value.width/100,height:value.height/100};
   for(const o of w?.openings||[])if(a.x<o.right&&o.left<a.x+a.width&&a.y<o.top&&o.bottom<a.y+a.height)throw Error('La niche ne peut pas croiser une porte ou une fenêtre.');
   const indexWall=room().walls.indexOf(w);for(const z of api.getWallFinish(indexWall)?.zones||[])if(a.x<(z.x+z.width)/100&&z.x/100<a.x+a.width&&a.y<(z.y+z.height)/100&&z.y/100<a.y+a.height)throw Error('Déplacez la bande de carrelage avant de creuser une niche à cet endroit.');
-  if(index>=0)list[index]=value;else list.push(value);config.niches=list;
+  if(index>=0)list[index]=value;else list.push(value);config.niches=list;const geometryError=validateNiches(config);if(geometryError)throw Error(geometryError);
   if(!api.applyRoom(config,false,null,prior?value.id:null))throw Error('Cette niche ne convient pas au mur : vérifiez sa profondeur et ses dimensions.');touch();return value;
  }
  function finishEditor(parent,title,initial,fallback){

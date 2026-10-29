@@ -18,6 +18,7 @@ export function withNichePlacement(api,mount){
  const style=document.createElement('style');
  style.textContent=`.niche-guide{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:4;overflow:hidden}.niche-guide polygon{fill:none;stroke:#846a32;stroke-width:2;stroke-dasharray:6 4;vector-effect:non-scaling-stroke}.niche-guide .niche-preview{fill:#bda15d22;stroke:#294b3f;stroke-width:3}.niche-guide .niche-preview[data-invalid=true]{stroke:#a13929;fill:#a1392922}.niche-placement-bar{position:absolute;left:12px;bottom:16px;z-index:46;max-width:calc(100% - 24px);display:flex;align-items:center;gap:10px;padding:10px;border:1px solid #cdd1c4;border-radius:12px;background:#fffdf7;color:#29483e;box-sizing:border-box;font:13px/1.4 Arial,sans-serif;box-shadow:0 4px 18px #19352b22}.niche-placement-bar[hidden],.niche-cursor[hidden],.niche-guide[hidden]{display:none!important}.niche-placement-bar button{flex-shrink:0;min-width:44px;min-height:44px;padding:8px;border:1px solid #cdd1c4;border-radius:8px;background:#faf9f2;color:#29483e;cursor:pointer}.niche-placement-bar .niche-handle{cursor:grab;touch-action:none}.niche-placement-bar .niche-handle svg{display:block;width:44px;height:32px}.niche-cursor{position:absolute;z-index:47;pointer-events:none;width:54px;height:38px;filter:drop-shadow(0 1px 2px #fff);color:#294b3f}.niche-cursor svg{width:100%;height:100%}.niche-placement-active canvas{cursor:crosshair!important;touch-action:none}@media(max-width:760px){.niche-placement-bar{left:8px;bottom:8px;max-width:calc(100% - 16px);font-size:12px}.niche-placement-bar span{max-width:48vw}}`;
  document.head.append(style);
+ style.textContent+='@media(max-width:760px){.niche-guides-toggle{bottom:80px}}';
  const icon='<svg viewBox="0 0 60 40" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 3h54v34H3z" stroke-dasharray="4 3"/><path d="M12 11h36v18H12zM3 3l9 8m45-8-9 8M3 37l9-8m45 8-9-8"/></svg>';
  function ui(){
   if(bar)return;
@@ -26,7 +27,7 @@ export function withNichePlacement(api,mount){
   message=document.createElement('span');message.setAttribute('role','status');bar.append(message);
   const cancel=document.createElement('button');cancel.type='button';cancel.id='cancel-niche-placement';cancel.textContent='Annuler';cancel.onclick=()=>stop();bar.append(cancel);stage.append(bar);
   ghost=document.createElement('div');ghost.className='niche-cursor';ghost.hidden=true;ghost.innerHTML=icon;ghost.setAttribute('aria-hidden','true');stage.append(ghost);
-  toggle=document.createElement('button');toggle.type='button';toggle.id='toggle-niche-guides';toggle.className='niche-placement-bar';toggle.hidden=true;toggle.style.minHeight='44px';toggle.onclick=()=>setGuides(!guidesEnabled);stage.append(toggle);
+  toggle=document.createElement('button');toggle.type='button';toggle.id='toggle-niche-guides';toggle.className='niche-placement-bar niche-guides-toggle';toggle.hidden=true;toggle.style.minHeight='44px';toggle.onclick=()=>setGuides(!guidesEnabled);stage.append(toggle);
  }
  function say(text){ui();if(message.textContent!==text)message.textContent=text;}
  function release(){for(const id of pointers)if(canvas.hasPointerCapture?.(id))canvas.releasePointerCapture(id);pointers.clear();}
@@ -52,7 +53,7 @@ export function withNichePlacement(api,mount){
   const r=canvas.getBoundingClientRect();if(!r.width||!r.height||event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)return null;
   const ndc=new T.Vector2((event.clientX-r.left)/r.width*2-1,1-(event.clientY-r.top)/r.height*2),hit=pickSelection(api.scene,camera,ndc);
   if(!hit)return {error:'Choisissez la face intérieure d’un mur.'};
-  if(hit.itemId)return {error:'Choisissez une partie libre du mur, à côté des meubles.'};
+  if(hit.itemId){const item=api.getComposition().items.find(item=>item.id===hit.itemId);return {error:['door','window'].includes(item?.type)?'La niche ne peut pas croiser une porte ou une fenêtre.':'Choisissez une partie libre du mur, à côté des meubles.'};}
   if(hit.editTarget?.startsWith('niche:'))return {error:'Une niche occupe déjà cet emplacement.'};
   const walls=api.getRoom().walls;
   let wall=/^wall:\d+$/.test(hit.editTarget||'')?walls[Number(hit.editTarget.slice(5))]:null;
