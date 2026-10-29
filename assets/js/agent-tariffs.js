@@ -144,12 +144,15 @@ document.addEventListener('click', async event => {
  event.preventDefault(); event.stopImmediatePropagation();
  const user = currentAuth?.currentUser;
  if (!user || !ADMINS.has(String(user.email || '').trim().toLowerCase())) { alert('Ce tarif d’achat est réservé aux agents. Connectez-vous à l’Espace Agent.'); return; }
- const popup = window.open('about:blank', '_blank');
+ if (anchor.getAttribute('aria-busy') === 'true') return;
+ anchor.setAttribute('aria-busy', 'true');
  try {
   const token = await user.getIdToken(true), response = await fetch(ENDPOINT, {method:'POST',credentials:'omit',headers:{'Content-Type':'application/json',Authorization:'Bearer '+token},body:JSON.stringify({action:'document',id:'randal-studio-one-basins'}),signal:AbortSignal.timeout(20000)});
   if (!response.ok) throw Error('Le document agent n’est pas disponible. Réessayez après connexion.');
-  const url = URL.createObjectURL(await response.blob()); if (popup) popup.location.replace(url); else location.href = url; setTimeout(() => URL.revokeObjectURL(url), 300000);
- } catch (error) { popup?.close(); alert(error.message || 'Le document agent n’est pas disponible.'); }
+  const {showSecurePdf} = await import('./secure-pdf-viewer.mjs?v=20261029-inline1');
+  await showSecurePdf(await response.blob(), {title:'RANDAL · Vasques STUDIO ONE', filename:'RANDAL-STUDIO-ONE-VASQUES-TARIF-PRO-HT.pdf', trigger:anchor});
+ } catch (error) { alert(error.message || 'Le document agent n’est pas disponible.'); }
+ finally { anchor.removeAttribute('aria-busy'); }
 }, true);
 refresh();
 connect().catch(() => refresh());

@@ -90,13 +90,8 @@
 
   async function openSecureTariff(anchor){
     if(!cardAllowsSecureOpen(anchor))return;
+    if(anchor.getAttribute?.('aria-busy')==='true')return;
     const s=session();
-    // Open synchronously for mobile popup policies, before awaiting Firebase.
-    const popup=window.open('about:blank','_blank');
-    if(popup){
-      popup.document.write('<!doctype html><title>LE ROY FACTORY</title><body style="font-family:Arial;padding:30px">Ouverture du tarif sécurisé…</body>');
-      popup.document.close();
-    }
     anchor.setAttribute('aria-busy','true');
     const old=anchor.textContent;
     anchor.textContent='Ouverture…';
@@ -125,11 +120,13 @@
         throw new Error(message);
       }
       const blob=await response.blob();
-      const url=URL.createObjectURL(blob);
-      if(popup)popup.location.replace(url);else location.href=url;
-      setTimeout(()=>URL.revokeObjectURL(url),5*60*1000);
+      const {showSecurePdf}=await import('./secure-pdf-viewer.mjs?v=20261029-inline1');
+      await showSecurePdf(blob,{
+        title:anchor.closest('.card-premium')?.querySelector('h3')?.textContent?.trim()||'Tarif professionnel',
+        filename:anchor.dataset.secureTariffId+'.pdf',
+        trigger:anchor
+      });
     }catch(e){
-      if(popup)popup.close();
       alert(e.message||'Impossible d’ouvrir ce tarif.');
     }finally{
       anchor.removeAttribute('aria-busy');
@@ -137,12 +134,42 @@
     }
   }
 
+  // Public RANDAL documents on the PRO page use the same in-page reader.
+  // The private agent document keeps its separate live Firebase verification.
+  function publicTariffUrl(anchor){
+    if(!anchor.closest('#grid-tarifs')||anchor.dataset.secureTariffId)return null;
+    try{
+      const url=new URL(anchor.getAttribute('href'),location.href);
+      if(url.origin!==location.origin||!url.pathname.toLowerCase().endsWith('.pdf'))return null;
+      if(url.pathname.endsWith('/RANDAL-STUDIO-ONE-VASQUES-TARIF-PRO-HT.pdf'))return null;
+      return url;
+    }catch(_){return null}
+  }
+
+  async function openPublicTariff(anchor,url){
+    if(anchor.getAttribute('aria-busy')==='true')return;
+    const old=anchor.textContent;
+    anchor.setAttribute('aria-busy','true');anchor.textContent='Ouverture…';
+    try{
+      const response=await fetch(url.href,{credentials:'same-origin',cache:'no-store'});
+      if(!response.ok)throw new Error('Ce tarif est momentanément indisponible. Réessayez.');
+      const {showSecurePdf}=await import('./secure-pdf-viewer.mjs?v=20261029-inline1');
+      await showSecurePdf(await response.blob(),{
+        title:anchor.closest('.card-premium')?.querySelector('h3')?.textContent?.trim()||'Tarif professionnel',
+        filename:decodeURIComponent(url.pathname.split('/').pop()),trigger:anchor
+      });
+    }catch(e){alert(e.message||'Impossible d’ouvrir ce tarif.');}
+    finally{anchor.removeAttribute('aria-busy');anchor.textContent=old;}
+  }
+
   document.addEventListener('click',e=>{
-    const a=e.target.closest('a[data-secure-tariff-id]');
+    const a=e.target.closest('a[href]');
     if(!a)return;
     if(!cardAllowsSecureOpen(a))return;
+    const publicUrl=publicTariffUrl(a);
+    if(!a.dataset.secureTariffId&&!publicUrl)return;
     e.preventDefault();e.stopImmediatePropagation();
-    openSecureTariff(a);
+    if(a.dataset.secureTariffId)openSecureTariff(a);else openPublicTariff(a,publicUrl);
   },true);
 
   const observer=new MutationObserver(()=>patchLinks());
