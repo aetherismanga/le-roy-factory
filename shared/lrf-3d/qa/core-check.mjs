@@ -14,7 +14,7 @@ const provenance=JSON.parse(await readFile(new URL('../extraction-provenance.jso
 for(const record of provenance.modules){
  const canonicalURL=new URL('../'+record.module,import.meta.url);
  const source=await readFile(canonicalURL);
- if(['functional-update-20261024','functional-update-20261025'].includes(record.current?.changeType)){
+ if(['functional-update-20261024','functional-update-20261025','functional-update-20261029'].includes(record.current?.changeType)){
   assert(record.current.reason?.length>40,'Functional changes are documented');
   assert.equal(createHash('sha256').update(source).digest('hex'),record.current.sha256,'Documented current shared source: '+record.module);
   assert.equal(source.length,record.current.bytes);

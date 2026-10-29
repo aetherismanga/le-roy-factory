@@ -163,7 +163,18 @@
       "module": "mirror-reflection.js",
       "sha256": "a5ba9868473a34de1a820cb6ea02e8a395c4ed8b92910704435ef8ee49d6c166",
       "bytes": 1319,
-      "originalsIdentical": true
+      "originalsIdentical": true,
+      "current": {
+        "sha256": "41e26cdcfd001c3c514e1a8100b03a6ca50d872b1f19c8d1138b81f68d0cb456",
+        "bytes": 1404,
+        "changeType": "functional-update-20261029",
+        "reason": "Exclude temporary depth-tested niche editor guides from the mirror virtual camera as well as HD and thumbnail presentation renders, preserving the existing cutaway and reflection restoration behavior.",
+        "validation": [
+          "tests/lrf-suite/niche-guides.test.mjs",
+          "tests/lrf-suite/niche-placement-browser.cjs",
+          "studio-one/qa/hd-capture-check.mjs"
+        ]
+      }
     },
     {
       "module": "mirror-thumbnail.js",

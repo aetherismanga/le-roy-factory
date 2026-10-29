@@ -43,3 +43,7 @@ test('Opposite faces cannot drill through the partition',()=>{
 test('Do not create a niche for a missing wall or non-finite coordinates',()=>{
  for(const [wall,x,y] of [['floor',100,100],['boundary-0',NaN,10],['boundary-0',10,Infinity]])assert(nichePlacement(room,wall,x,y).error);
 });
+test('Unsupported thin partitions are rejected before any project mutation',()=>{
+ const config={...room,partitions:[{id:'thin',a:[50,50],b:[250,50],height:120,thickness:3}]},before=JSON.stringify(config);
+ assert.match(nichePlacement(config,'partition-thin-0',100,80).error,/trop fine/);assert.equal(JSON.stringify(config),before);
+});

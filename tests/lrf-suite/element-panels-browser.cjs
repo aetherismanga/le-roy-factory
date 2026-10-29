@@ -55,13 +55,13 @@ function pass(message){checks.push(message);console.log('PASS',message);}
    if(state.valid&&state.niche.bottom<180&&state.niche.bottom>40){drop={x,y,niche:state.niche};break;}
   }if(drop)break;}
   assert(drop,'No native wall placement target: '+JSON.stringify(attempts));
-  assert.equal(await page.locator('.niche-preview').count(),1);
+  assert.equal(await page.evaluate(()=>studioOnePrototype.renovation().getNicheGuideState().preview),true);
   if(mobile)await page.touchscreen.tap(drop.x,drop.y);else await page.mouse.click(drop.x,drop.y);
   await page.waitForFunction(()=>studioOnePrototype.exportProject().room.niches?.length===1);
   const placed=await page.evaluate(()=>studioOnePrototype.exportProject().room.niches[0]);assert.equal(placed.wallKey,drop.niche.wallKey);assert.equal(placed.u,drop.niche.u,JSON.stringify({placed,drop}));assert.equal(placed.bottom,drop.niche.bottom,JSON.stringify({placed,drop}));assert.equal(placed.depth,drop.niche.depth);
   assert.equal(await page.evaluate(()=>studioOnePrototype.renovation().getNichePlacementState().active),false);
-  assert.equal(await page.locator('.niche-guide polygon:not(.niche-preview)').count(),1);
-  assert.equal(await page.locator('#scene .niche-guide').count(),0,'Editor guide is outside the exported WebGL canvas');
+  assert.equal(await page.evaluate(()=>studioOnePrototype.renovation().getNicheGuideState().count),1);
+  assert.equal(await page.evaluate(()=>studioOnePrototype.renovation().getNicheGuideState().depthTested),true);
   await page.screenshot({path:path.join(output,app+'-'+(mobile?'mobile':'desktop')+'-niche-placed.png'),fullPage:true});
   if(mobile)await page.touchscreen.tap(drop.x,drop.y);else await page.mouse.click(drop.x,drop.y);
   const niche=page.locator('#renovation-dialog');await niche.waitFor({state:'visible'});assert.equal(await niche.evaluate(el=>el.matches(':modal')),false);assert.equal(await niche.evaluate(el=>el.parentElement.id),mobile?'viewer':'settings');

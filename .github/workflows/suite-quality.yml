@@ -97,6 +97,7 @@ jobs:
       LRF_PANEL_LIFECYCLE_QA_OUTPUT: reports/lrf-suite/panel-lifecycle
       LRF_RUG_QA_OUTPUT: reports/lrf-suite/floor-rug
       LRF_NICHE_OPENINGS_QA_OUTPUT: reports/lrf-suite/niche-openings
+      LRF_NICHE_PLACEMENT_OUTPUT: reports/lrf-suite/niche-placement
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
@@ -108,6 +109,8 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - name: Verify element choices stay beside the live scene
         run: node tests/lrf-suite/element-panels-browser.cjs
+      - name: Verify native niche placement, wall targeting, depth-tested guides and presentation exclusion
+        run: node tests/lrf-suite/niche-placement-browser.cjs
       - name: Verify sidebar content survives editor changes and outside clicks
         run: node tests/lrf-suite/panel-lifecycle-browser.cjs
       - name: Verify floor rug creation, mouse and touch movement, and dimensions

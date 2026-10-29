@@ -2,6 +2,7 @@ import * as T from 'three';
 import {pickSelection} from './picking.js';
 import {closeElementPanel} from './element-panels.js';
 import {nichePlacement} from './niche-placement-math.js';
+import {makeNicheGuide,disposeNicheGuide} from './niche-guides.js';
 
 // One shared placement controller for both ateliers. The established editor,
 // project format, finish handling and existing-niche dragging stay untouched.
@@ -9,8 +10,8 @@ export function withNichePlacement(api,mount){
  const {stage,canvas,camera,controls}=api;
  // Headless geometry/unit fixtures deliberately have no DOM or camera.
  if(!camera||!stage?.addEventListener||!document.createElementNS)return mount();
- let controller,active=null,overlay=null,bar=null,ghost=null,message=null,preview=null,swallowClick=false;
- const pointers=new Set(),svgNS='http://www.w3.org/2000/svg';
+ let controller,active=null,bar=null,ghost=null,message=null,preview=null,swallowClick=false,toggle=null,guidesEnabled=true;
+ const pointers=new Set(),guides=new Map();
  const visible=o=>{for(let p=o;p;p=p.parent)if(p.visible===false)return false;return true;};
  const visiting=()=>stage.classList.contains('walk-active');
  const readonly=()=>!!api.readonly();
@@ -19,20 +20,20 @@ export function withNichePlacement(api,mount){
  document.head.append(style);
  const icon='<svg viewBox="0 0 60 40" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 3h54v34H3z" stroke-dasharray="4 3"/><path d="M12 11h36v18H12zM3 3l9 8m45-8-9 8M3 37l9-8m45 8-9-8"/></svg>';
  function ui(){
-  if(overlay)return;
-  overlay=document.createElementNS(svgNS,'svg');overlay.classList.add('niche-guide');overlay.setAttribute('aria-hidden','true');stage.append(overlay);
+  if(bar)return;
   bar=document.createElement('div');bar.className='niche-placement-bar lrf-workspace-overlay';bar.id='niche-placement-bar';bar.hidden=true;
   const handle=document.createElement('button');handle.type='button';handle.id='niche-placement-handle';handle.className='niche-handle';handle.setAttribute('aria-label','Glisser la niche sur un mur');handle.innerHTML=icon;bar.append(handle);
   message=document.createElement('span');message.setAttribute('role','status');bar.append(message);
   const cancel=document.createElement('button');cancel.type='button';cancel.id='cancel-niche-placement';cancel.textContent='Annuler';cancel.onclick=()=>stop();bar.append(cancel);stage.append(bar);
   ghost=document.createElement('div');ghost.className='niche-cursor';ghost.hidden=true;ghost.innerHTML=icon;ghost.setAttribute('aria-hidden','true');stage.append(ghost);
+  toggle=document.createElement('button');toggle.type='button';toggle.id='toggle-niche-guides';toggle.className='niche-placement-bar';toggle.hidden=true;toggle.style.minHeight='44px';toggle.onclick=()=>setGuides(!guidesEnabled);stage.append(toggle);
  }
  function say(text){ui();if(message.textContent!==text)message.textContent=text;}
  function release(){for(const id of pointers)if(canvas.hasPointerCapture?.(id))canvas.releasePointerCapture(id);pointers.clear();}
  function stop(){
   if(!active)return;
   const previous=active;active=null;preview=null;release();controls.enabled=previous.wasEnabled;controls.enableDamping=previous.wasDamping;controls.autoRotate=previous.wasAutoRotate;
-  stage.classList.remove('niche-placement-active');bar.hidden=true;ghost.hidden=true;update();api.invalidate(false);
+  stage.classList.remove('niche-placement-active');bar.hidden=true;ghost.hidden=true;update();api.invalidate(false,false);
  }
  function start(){
   if(readonly()){api.status('Cette commande est validée. Dupliquez-la pour la modifier.');return false;}
@@ -43,9 +44,9 @@ export function withNichePlacement(api,mount){
   ui();active={wasEnabled:controls.enabled,wasDamping:controls.enableDamping,wasAutoRotate:controls.autoRotate,multi:false};
   // Disabling input alone does not drain OrbitControls' accumulated damping.
   // Complete it before the first preview, then restore the user's settings.
-  controls.enabled=false;controls.enableDamping=false;controls.autoRotate=false;controls.update();
+  api.stopCamera?.();controls.enabled=false;controls.enableDamping=false;controls.autoRotate=false;controls.update();
   bar.hidden=false;stage.classList.add('niche-placement-active');
-  say('Déplacez la niche sur le mur souhaité, puis cliquez pour la poser. Sur téléphone : touchez le mur ou glissez le dessin.');update();api.invalidate(false);return true;
+  say('Déplacez la niche sur le mur souhaité, puis cliquez pour la poser. Sur téléphone : touchez le mur ou glissez le dessin.');update();api.invalidate(false,false);return true;
  }
  function pointAt(event){
   const r=canvas.getBoundingClientRect();if(!r.width||!r.height||event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)return null;
@@ -71,37 +72,30 @@ export function withNichePlacement(api,mount){
   active.pointer=pointer;
   ghost.hidden=!preview;ghost.style.left=(event.clientX-r.left+13)+'px';ghost.style.top=(event.clientY-r.top+13)+'px';
   say(preview?.error|| (preview?.niche?'Relâchez ou cliquez pour poser la niche ici.':'Amenez le dessin sur un mur.'));
-  update();
+  update();api.invalidate(false,false);
  }
- function projected(wall,niche){
-  if(!visible(wall.group)||wall.visible===false)return null;
+ function setGuides(value){guidesEnabled=!!value;update();api.checkpoint();api.invalidate(false);}
+ function frontFacing(wall,niche){
   const normal=new T.Vector3(0,0,1).applyQuaternion(wall.group.getWorldQuaternion(new T.Quaternion())),center=wall.group.localToWorld(new T.Vector3(niche.u/100,(niche.bottom+niche.height/2)/100,0));
-  if(normal.dot(camera.getWorldPosition(new T.Vector3()).sub(center))<=0)return null;
-  const rect=canvas.getBoundingClientRect(),sr=stage.getBoundingClientRect(),offset=wall.nicheLining?.getObjectByName('Niche_'+niche.id)?.position||new T.Vector3();
-  const x=(niche.u-niche.width/2)/100,y=niche.bottom/100,w=niche.width/100,h=niche.height/100;
-  const points=[[x,y],[x+w,y],[x+w,y+h],[x,y+h]].map(([x,y])=>{
-   const p=wall.group.localToWorld(new T.Vector3(x,y,.002).add(offset)).project(camera);
-   return {x:rect.left-sr.left+(p.x+1)*rect.width/2,y:rect.top-sr.top+(1-p.y)*rect.height/2,z:p.z};
-  });
-  if(points.some(p=>!Number.isFinite(p.x)||!Number.isFinite(p.y)||p.z<-1||p.z>1))return null;
-  return points.map(p=>p.x.toFixed(1)+','+p.y.toFixed(1)).join(' ');
+  return normal.dot(camera.getWorldPosition(new T.Vector3()).sub(center))>0;
  }
  function update(){
-  if(!overlay&&!api.getRoomConfig().niches?.length&&!active)return;
-  ui();const hidden=readonly()||visiting();overlay.style.display=hidden?'none':'';if(hidden){if(active)stop();return;}
+  if(!bar&&!api.getRoomConfig().niches?.length&&!active)return;
+  ui();const hidden=readonly()||visiting();if(hidden&&active){stop();return;}
   if(active&&(readonly()||api.getComposition().locked)){stop();return;}
-  const r=stage.getBoundingClientRect();overlay.setAttribute('viewBox','0 0 '+r.width+' '+r.height);
   api.scene.updateMatrixWorld(true);camera.updateMatrixWorld(true);
   const wanted=new Set(),draw=(wall,niche,isPreview=false,error='')=>{
-   const id=isPreview?'preview':niche.id,points=projected(wall,niche);if(!points)return;
-   wanted.add(id);let polygon=overlay.querySelector('[data-niche="'+id+'"]');
-   if(!polygon){polygon=document.createElementNS(svgNS,'polygon');polygon.dataset.niche=id;overlay.append(polygon);}
-   if(polygon.getAttribute('points')!==points)polygon.setAttribute('points',points);
-   polygon.classList.toggle('niche-preview',isPreview);polygon.dataset.invalid=String(!!error);
+   const id=isPreview?'preview':niche.id,signature=JSON.stringify([niche.width,niche.height,isPreview,!!error]);wanted.add(id);let entry=guides.get(id);
+   if(entry&&(entry.wall!==wall||entry.signature!==signature)){disposeNicheGuide(entry.group);guides.delete(id);entry=null;}
+   if(!entry){const group=makeNicheGuide(niche.width/100,niche.height/100,{preview:isPreview,invalid:!!error});wall.group.add(group);entry={group,wall,signature,preview:isPreview};guides.set(id,entry);}
+   const offset=isPreview?null:wall.nicheLining?.getObjectByName('Niche_'+niche.id)?.position;
+   entry.group.position.set((niche.u-niche.width/2)/100+(offset?.x||0),niche.bottom/100+(offset?.y||0),offset?.z||0);
+   entry.group.visible=!hidden&&(isPreview||guidesEnabled)&&frontFacing(wall,niche);
   };
   for(const wall of api.getRoom().walls)for(const niche of wall.niches||[])draw(wall,niche);
   if(active&&preview?.niche)draw(preview.wall,preview.niche,true,preview.error);
-  for(const polygon of [...overlay.children])if(!wanted.has(polygon.dataset.niche))polygon.remove();
+  for(const [id,entry]of guides)if(!wanted.has(id)){disposeNicheGuide(entry.group);guides.delete(id);}
+  toggle.hidden=hidden||!!active||!(api.getRoomConfig().niches?.length);toggle.textContent=guidesEnabled?'Masquer les repères des niches':'Afficher les repères des niches';toggle.setAttribute('aria-pressed',String(guidesEnabled));
  }
  const consume=e=>{e.preventDefault();e.stopImmediatePropagation();};
  // Register before the existing renovation handlers. Stage capture runs before
@@ -129,12 +123,19 @@ export function withNichePlacement(api,mount){
  document.addEventListener('lrf-element-panel-open',()=>{if(active)stop();});
  window.addEventListener('blur',()=>stop());document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});
  controller=mount();
- const oldShow=controller.showNiche,oldRender=controller.renderContext,oldVisibility=controller.updateVisibility,oldRestore=controller.restore;
+ const addMenu=document.querySelector('#add-menu');
+ if(addMenu&&!addMenu.querySelector('#add-menu-niche')){
+  const add=document.createElement('button');add.type='button';add.id='add-menu-niche';add.textContent='Ajouter une niche';add.onclick=()=>{addMenu.hidden=true;start();};addMenu.append(add);
+ }
+ const oldShow=controller.showNiche,oldRender=controller.renderContext,oldVisibility=controller.updateVisibility,oldRestore=controller.restore,oldState=controller.getState;
  controller.showNiche=(id=null,...args)=>id===null?start():oldShow(id,...args);
  controller.startNichePlacement=start;controller.cancelNichePlacement=stop;
- controller.getNichePlacementState=()=>({active:!!active,valid:!!preview?.niche&&!preview.error,error:preview?.error||'',niche:preview?.niche||null});
+ controller.getNichePlacementState=()=>({active:!!active,controlsEnabled:controls.enabled,valid:!!preview?.niche&&!preview.error,error:preview?.error||'',niche:preview?.niche||null});
+ controller.setNicheGuidesVisible=setGuides;
+ controller.getNicheGuideState=()=>({enabled:guidesEnabled,count:[...guides.values()].filter(g=>!g.preview).length,preview:[...guides.values()].some(g=>g.preview),depthTested:[...guides.values()].every(g=>g.group.children.every(line=>line.material.depthTest))});
+ controller.getState=()=>({...oldState(),nicheGuidesVisible:guidesEnabled});
  controller.renderContext=(parent,target)=>{const result=oldRender(parent,target);const button=parent.querySelector?.('#context-add-niche');if(button)button.onclick=start;return result;};
  controller.updateVisibility=(...args)=>{oldVisibility(...args);update();};
- controller.restore=(...args)=>{stop();const result=oldRestore(...args);update();return result;};
+ controller.restore=(data,...args)=>{stop();guidesEnabled=data?.nicheGuidesVisible!==false;const result=oldRestore(data,...args);update();return result;};
  return controller;
 }
