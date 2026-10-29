@@ -1,7 +1,7 @@
 {
   "schema": "lrf-suite-release",
   "version": 1,
-  "releaseId": "20261025-panels-rugs-niches-1",
+  "releaseId": "20261029-niches-colonnes-1",
   "baselineMain": "8571318620b70a7d7c0c9a0580b1d65bdc32db5e",
   "baselineStudio": "4668cd99df55734a46fcd3bd330acb60da53d3f5",
   "applications": [
@@ -17,5 +17,17 @@
       "univers-ios.html"
     ],
     "baselineCommit": "816284885686fd11f74603fc45c111f71ebf38d7"
+  },
+  "configurators": {
+    "releaseId": "20261029-niches-colonnes-1",
+    "commit": "f17ce0a82309769c64a11fa67df93f2990c51240",
+    "studio-one": {
+      "deployment": "dpl_C9N9muJTtR4q6eHMYTTd5Z4kkj2F",
+      "appSha256": "9878c4110b9be89b5409eff716ae9858ca67e32029a7a9cd51def94b49b7f55b"
+    },
+    "randal-general": {
+      "deployment": "dpl_8c84HVatzcvw7KQwrsUpNrFyojqW",
+      "appSha256": "9573c44e5dd2717cc58bf2a5532fee19257cabca422486b540f42c40c27745d4"
+    }
   }
 }
