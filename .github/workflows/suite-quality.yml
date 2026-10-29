@@ -134,10 +134,10 @@ jobs:
       - run: npm ci --ignore-scripts --include=dev --no-audit --no-fund
       - run: npm run build:general && npm run build:studio
       - run: npx playwright install --with-deps chromium
-      - name: Verify element choices stay beside the live scene
-        run: node tests/lrf-suite/element-panels-browser.cjs
       - name: Verify native niche placement, wall targeting, depth-tested guides and presentation exclusion
         run: node tests/lrf-suite/niche-placement-browser.cjs
+      - name: Verify element choices stay beside the live scene
+        run: node tests/lrf-suite/element-panels-browser.cjs
       - name: Verify sidebar content survives editor changes and outside clicks
         run: node tests/lrf-suite/panel-lifecycle-browser.cjs
       - name: Verify floor rug creation, mouse and touch movement, and dimensions

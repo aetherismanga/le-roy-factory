@@ -11,7 +11,7 @@ export function withNichePlacement(api,mount){
  // Headless geometry/unit fixtures deliberately have no DOM or camera.
  if(!camera||!stage?.addEventListener||!document.createElementNS)return mount();
  let controller,active=null,bar=null,ghost=null,message=null,preview=null,swallowClick=false,toggle=null,guidesEnabled=true;
- const pointers=new Set(),guides=new Map();
+ const pointers=new Map(),guides=new Map();
  const visible=o=>{for(let p=o;p;p=p.parent)if(p.visible===false)return false;return true;};
  const visiting=()=>stage.classList.contains('walk-active');
  const readonly=()=>!!api.readonly();
@@ -30,7 +30,7 @@ export function withNichePlacement(api,mount){
   toggle=document.createElement('button');toggle.type='button';toggle.id='toggle-niche-guides';toggle.className='niche-placement-bar niche-guides-toggle';toggle.hidden=true;toggle.style.minHeight='44px';toggle.onclick=()=>setGuides(!guidesEnabled);stage.append(toggle);
  }
  function say(text){ui();if(message.textContent!==text)message.textContent=text;}
- function release(){for(const id of pointers)if(canvas.hasPointerCapture?.(id))canvas.releasePointerCapture(id);pointers.clear();}
+ function release(){for(const [id,owner] of pointers)if(owner.hasPointerCapture?.(id))owner.releasePointerCapture(id);pointers.clear();}
  function stop(){
   if(!active)return;
   const previous=active;active=null;preview=null;release();controls.enabled=previous.wasEnabled;controls.enableDamping=previous.wasDamping;controls.autoRotate=previous.wasAutoRotate;
@@ -103,12 +103,15 @@ export function withNichePlacement(api,mount){
  // canvas furniture picking and OrbitControls, preventing accidental selection.
  stage.addEventListener('pointerdown',e=>{
   if(!active||e.button!==0||e.target!==canvas&&!e.target.closest?.('#niche-placement-handle'))return;
-  if(pointers.size)active.multi=true;pointers.add(e.pointerId);canvas.setPointerCapture?.(e.pointerId);move(e);consume(e);
+  // A gesture starting in the handle belongs to that UI element. Capturing it
+  // on the canvas would make the shared panel guard discard its move/up events.
+  const owner=e.target.closest?.('#niche-placement-handle')||canvas;
+  if(pointers.size)active.multi=true;pointers.set(e.pointerId,owner);owner.setPointerCapture?.(e.pointerId);move(e);consume(e);
  },true);
  stage.addEventListener('pointermove',e=>{if(!active||e.target!==canvas&&!pointers.has(e.pointerId))return;move(e);consume(e);},true);
  stage.addEventListener('pointerup',e=>{
   if(!active||!pointers.has(e.pointerId))return;
-  const multi=active.multi;pointers.delete(e.pointerId);if(canvas.hasPointerCapture?.(e.pointerId))canvas.releasePointerCapture(e.pointerId);consume(e);swallowClick=true;
+  const multi=active.multi,owner=pointers.get(e.pointerId);pointers.delete(e.pointerId);if(owner.hasPointerCapture?.(e.pointerId))owner.releasePointerCapture(e.pointerId);consume(e);swallowClick=true;
   if(multi){if(!pointers.size)active.multi=false;return;}
   move(e);if(!preview?.niche||preview.error)return;
   try{
