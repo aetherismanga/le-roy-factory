@@ -40,7 +40,9 @@ const executablePath=process.env.CHROMIUM_PATH||(fs.existsSync(localChromium)?lo
   assert.equal(await page.evaluate(data=>studioOnePrototype.restoreProject(data),exported),true);
   assert.equal(await page.evaluate(()=>studioOnePrototype.getState().topDrawer),'full');
   await page.waitForFunction(key=>JSON.parse(localStorage.getItem(key)||'null')?.items.filter(i=>i.type==='cabinet'&&i.settings.topDrawer==='full').length===2,application+'-current-project');
-  await page.reload({waitUntil:'domcontentloaded'});await page.waitForFunction(()=>window.studioOnePrototype?.getState().ready,null,{timeout:90000}).catch(async error=>{console.error(application,width,await page.evaluate(()=>({url:location.href,loading:document.querySelector('#loading')?.textContent,error:document.querySelector('#error-text')?.textContent})),errors);throw error;});
+  // Returning to a plain atelier intentionally opens a fresh architectural
+  // shell. Reopen the saved project explicitly to verify drawer persistence.
+  await page.goto(origin+'/atelier.html?resume=1',{waitUntil:'domcontentloaded'});await page.waitForFunction(()=>window.studioOnePrototype?.getState().ready,null,{timeout:90000}).catch(async error=>{console.error(application,width,await page.evaluate(()=>({url:location.href,loading:document.querySelector('#loading')?.textContent,error:document.querySelector('#error-text')?.textContent})),errors);throw error;});
   assert.equal(await page.evaluate(()=>studioOnePrototype.getState().topDrawer),'full');
   assert.equal(await page.evaluate(()=>studioOnePrototype.setTop('sella')),true);assert.equal(await page.evaluate(()=>studioOnePrototype.getState().topDrawer),'siphon');
   assert.equal(await page.locator('[data-top-drawer]').count(),0,'Integrated basin hides the incompatible choice');
