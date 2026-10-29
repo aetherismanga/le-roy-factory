@@ -31,7 +31,7 @@ export function withNichePlacement(api,mount){
  function release(){for(const id of pointers)if(canvas.hasPointerCapture?.(id))canvas.releasePointerCapture(id);pointers.clear();}
  function stop(){
   if(!active)return;
-  const wasEnabled=active.wasEnabled;active=null;preview=null;release();controls.enabled=wasEnabled;
+  const previous=active;active=null;preview=null;release();controls.enabled=previous.wasEnabled;controls.enableDamping=previous.wasDamping;controls.autoRotate=previous.wasAutoRotate;
   stage.classList.remove('niche-placement-active');bar.hidden=true;ghost.hidden=true;update();api.invalidate(false);
  }
  function start(){
@@ -40,7 +40,11 @@ export function withNichePlacement(api,mount){
   if(visiting()){api.status('Quittez la visite 3D pour ajouter une niche.');return false;}
   stop();closeElementPanel();document.querySelector('#renovation-dialog')?.close();
   document.querySelector('#close-tile-zone-editor')?.click();document.querySelector('#close-calepinage-editor')?.click();
-  ui();active={wasEnabled:controls.enabled,multi:false};controls.enabled=false;bar.hidden=false;stage.classList.add('niche-placement-active');
+  ui();active={wasEnabled:controls.enabled,wasDamping:controls.enableDamping,wasAutoRotate:controls.autoRotate,multi:false};
+  // Disabling input alone does not drain OrbitControls' accumulated damping.
+  // Complete it before the first preview, then restore the user's settings.
+  controls.enabled=false;controls.enableDamping=false;controls.autoRotate=false;controls.update();
+  bar.hidden=false;stage.classList.add('niche-placement-active');
   say('Déplacez la niche sur le mur souhaité, puis cliquez pour la poser. Sur téléphone : touchez le mur ou glissez le dessin.');update();api.invalidate(false);return true;
  }
  function pointAt(event){
@@ -60,7 +64,11 @@ export function withNichePlacement(api,mount){
   return {...nichePlacement(api.getRoomConfig(),wall.key,local.x*100,local.y*100,{openings:wall.openings,zones:api.getWallFinish(walls.indexOf(wall))?.zones}),wall};
  }
  function move(event){
-  const r=stage.getBoundingClientRect();preview=pointAt(event);
+  const r=stage.getBoundingClientRect(),pointer={x:event.clientX,y:event.clientY};
+  // Commit the footprint that was displayed, not a fresh ray at an unmoved
+  // release while another frame is finishing its camera transition.
+  if(!preview||!active.pointer||pointer.x!==active.pointer.x||pointer.y!==active.pointer.y)preview=pointAt(event);
+  active.pointer=pointer;
   ghost.hidden=!preview;ghost.style.left=(event.clientX-r.left+13)+'px';ghost.style.top=(event.clientY-r.top+13)+'px';
   say(preview?.error|| (preview?.niche?'Relâchez ou cliquez pour poser la niche ici.':'Amenez le dessin sur un mur.'));
   update();
