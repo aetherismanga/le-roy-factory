@@ -1,5 +1,5 @@
 import { db } from "./firebase.js";
-import { collection, doc, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 const PARTNERS = {
   "elios-ceramica":["Elios Ceramica","elios.png"],"view-ceramica":["View Ceramica","view.png"],"la-fenice":["La Fenice","lafenice.png"],
@@ -21,6 +21,7 @@ const ACTIVITY = [
 let clients = [];
 let selectedPartners = new Set();
 let editingId = null;
+let activityIdentity;
 let autoGroupsDone = false;
 let autoIndependentDone = false;
 
@@ -195,30 +196,6 @@ function decorateRows() {
   applyPartnerFilter();
 }
 
-async function autoClassifyGroups() {
-  if (autoGroupsDone) return;
-  autoGroupsDone = true;
-  const todo = clients.filter(c => !c.categorieActivite && !c.sousCategorie && GROUP_PATTERNS.some(r => r.test(c.societe || "")));
-  for (const c of todo) {
-    try { await updateDoc(doc(db,"clients",c.id), { categorieActivite:"groupe" }); }
-    catch (e) { console.warn("Classement groupe", c.societe, e); }
-  }
-}
-
-async function autoClassifyIndependent() {
-  if (autoIndependentDone) return;
-  autoIndependentDone = true;
-  const todo = clients.filter(c => {
-    const activity = norm(c.categorieActivite || c.sousCategorie);
-    if (activity) return false;
-    return !GROUP_PATTERNS.some(r => r.test(c.societe || ""));
-  });
-  for (const c of todo) {
-    try { await updateDoc(doc(db,"clients",c.id), { categorieActivite:"negoce-independant" }); }
-    catch (e) { console.warn("Classement négoce indépendant", c.societe, e); }
-  }
-}
-
 function refreshOpenClient() {
   const c = clients.find(x => x.id === editingId) || null;
   setActivity(c);
@@ -253,22 +230,29 @@ function init() {
     }, 0);
   }, true);
 
-  document.getElementById("client-form")?.addEventListener("submit", () => {
-    if (!editingId) return;
-    const v = document.getElementById("edit-activity")?.value || "";
-    updateDoc(doc(db,"clients",editingId), { categorieActivite:v }).catch(console.error);
-  }, true);
+  window.addEventListener("lrf-client-opened", e => {
+    editingId = e.detail?.clientId || null;
+    activityIdentity = editingId || "";
+    setActivity(e.detail?.client);
+    mountMobileQuickActions(e.detail?.client);
+  });
+  window.addEventListener("lrf-client-collect-draft", e => {
+    const field = document.getElementById("edit-activity");
+    if (field && activityIdentity === (e.detail.clientId || "")) e.detail.draft.categorieActivite = field.value;
+  });
 
   const tbody = document.getElementById("clients-table-body");
   if (tbody) new MutationObserver(() => setTimeout(decorateRows, 0)).observe(tbody, { childList:true });
 
   onSnapshot(collection(db,"clients"), snap => {
     clients = [];
-    snap.forEach(d => clients.push({ id:d.id, ...d.data() }));
+    snap.forEach(d => clients.push({ ...d.data(), id:d.id }));
     setTimeout(decorateRows, 0);
-    if (modal && getComputedStyle(modal).display !== "none") setTimeout(refreshOpenClient, 0);
-    autoClassifyGroups();
-    autoClassifyIndependent();
+    const id = modal?.dataset.clientId || '';
+    if (modal && getComputedStyle(modal).display !== 'none' && activityIdentity !== id) {
+      editingId = id || null; activityIdentity = id; refreshOpenClient();
+    }
+    // Remote snapshots update rows, never overwrite a draft currently being edited.
   });
 }
 

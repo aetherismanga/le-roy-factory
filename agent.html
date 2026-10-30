@@ -99,7 +99,7 @@ html body:not(.crm-body) header .main-nav>li>a.lrf-promo-cersaie-tab:focus{
     const remember = document.getElementById("remember");
     const returnTo = new URLSearchParams(location.search).get("return") || "dashboard.html";
 
-    const safeReturn = /^(dashboard|clients|agenda|tournees|comptes-rendus|mails-groupes|carte|statistiques|demandes-clients|nouveau-compte-rendu|contacts-partenaires|analyse-clients-lrf)\.html(?:[?#].*)?$/.test(returnTo) ? returnTo : "dashboard.html";
+    const safeReturn = /^(dashboard|clients|agenda|tournees|comptes-rendus|mails-groupes|carte|statistiques|demandes-clients|nouveau-compte-rendu|contacts-partenaires|analyse-clients-lrf|documents-clients|analyse-ventes-clients|parametres|contrats-usine-jerome|merchandising-usines|expo-clients|document-usines|controle-site)\.html(?:[?#].*)?$/.test(returnTo) ? returnTo : "dashboard.html";
     let loginInProgress = false;
 
     function show(text, type = "error", code = "") {

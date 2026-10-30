@@ -1,4 +1,4 @@
-import { db } from "./firebase.js";
+import { db, auth, waitForAgent } from "./firebase.js";
 import { collection, doc, getDoc, updateDoc, addDoc, onSnapshot, arrayUnion } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 const SEND_URL = "https://us-central1-le-roy-factory.cloudfunctions.net/sendGroupEmail";
@@ -12,7 +12,7 @@ const SIGNATURES = {
 
 let clients = [];
 let activeEditClientId = null;
-let pendingNewClient = null;
+let emailDraftIdentity;
 let currentMailClient = null;
 let mailAttachments = [];
 let initialized = false;
@@ -162,7 +162,11 @@ function enhanceRows() {
     const client = findClientForRow(row);
     if (!client) return;
     row.dataset.clientId = client.id;
-    const btn = row.querySelector(".btn-edit-row, .btn-mail-row");
+    let btn = row.querySelector('.btn-mail-row');
+    if (!btn) {
+      btn = document.createElement('button'); btn.type = 'button'; btn.className = 'btn-mail-row';
+      cells[6].appendChild(btn);
+    }
     if (btn) {
       const count = emailEntries(client).length;
       btn.className = "btn-mail-row";
@@ -199,7 +203,7 @@ async function openMailModal(client) {
   if (!client?.id) return;
   try {
     const snap = await getDoc(doc(db, "clients", client.id));
-    if (snap.exists()) client = { id:snap.id, ...snap.data() };
+    if (snap.exists()) client = { ...snap.data(), id:snap.id };
   } catch (e) { console.warn("Lecture fiche e-mail", e); }
 
   currentMailClient = client;
@@ -247,28 +251,41 @@ function renderMailFiles() {
 }
 
 async function sendDirectMail() {
-  if (!currentMailClient) return;
-  const recipients = [...new Map(Array.from(document.querySelectorAll(".client-mail-recipient:checked")).map(i=>[norm(i.value),i.value])).values()];
+  if (sendDirectMail.sending || !currentMailClient?.id) return;
+  const draftClient=currentMailClient;
+  const client={id:draftClient.id,societe:draftClient.societe||""};
+  const recipients = [...new Map(Array.from(document.querySelectorAll(".client-mail-recipient:checked")).map(i=>[norm(i.value),i.value.trim()])).values()];
   const senderMode = document.getElementById("client-mail-sender").value;
   const subject = document.getElementById("client-mail-subject").value.trim();
   const body = document.getElementById("client-mail-body").value.trim();
   if (!recipients.length) return alert("Sélectionnez au moins une adresse e-mail.");
   if (!subject) return alert("Saisissez l'objet du mail.");
   if (!body) return alert("Rédigez le message.");
+  const attachments=mailAttachments.map(file=>({...file}));
   const btn = document.getElementById("client-mail-send");
+  sendDirectMail.sending=true;
   btn.disabled = true; btn.textContent = "Envoi en cours...";
   const htmlContent = `${esc(body).replace(/\n/g,"<br>")}${SIGNATURES[senderMode] || SIGNATURES.jerome}`;
   try {
-    const response = await fetch(SEND_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({senderMode,bccRecipients:recipients,subject,htmlContent,attachments:mailAttachments})});
+    if(!await waitForAgent()||!auth.currentUser)throw new Error("Session CRM expirée. Reconnectez-vous.");
+    const token=await auth.currentUser.getIdToken();
+    const response = await fetch(SEND_URL,{method:"POST",headers:{"Content-Type":"application/json","Authorization":`Bearer ${token}`},body:JSON.stringify({senderMode,bccRecipients:recipients,clientIds:[client.id],subject,htmlContent,attachments})});
     const result = await response.json();
     if (!response.ok || !result.success) throw new Error(result.error || "Erreur d'envoi");
-    const dateFr = new Date().toLocaleDateString("fr-FR");
-    const agentLabel = senderMode === "coryne" ? "Coryne" : "Jérôme";
-    await updateDoc(doc(db,"clients",currentMailClient.id),{historiqueMails:arrayUnion({date:dateFr,expediteur:agentLabel,objet:subject,destinataires:recipients})});
-    await addDoc(collection(db,"historique_mails"),{date:new Date().toISOString(),expediteur:senderMode==="coryne"?"coryne@leroyfactory.fr":"jerome@leroyfactory.fr",objet:subject,nbDestinataires:recipients.length,destinataires:recipients,clientId:currentMailClient.id,client:currentMailClient.societe||"",statut:"Succès"});
-    alert(`✅ E-mail envoyé avec succès à ${recipients.length} adresse(s).`); closeMailModal();
+    // Current server records both histories and returns their reference. Fallback
+    // only supports older deployments; archival failure cannot unsend the mail.
+    if(!result.historyId){
+      try{
+        const dateFr = new Date().toLocaleDateString("fr-FR");
+        const agentLabel = senderMode === "coryne" ? "Coryne" : "Jérôme";
+        await updateDoc(doc(db,"clients",client.id),{historiqueMails:arrayUnion({date:dateFr,expediteur:agentLabel,objet:subject,destinataires:recipients})});
+        await addDoc(collection(db,"historique_mails"),{date:new Date().toISOString(),expediteur:senderMode==="coryne"?"coryne@leroyfactory.fr":"jerome@leroyfactory.fr",objet:subject,nbDestinataires:recipients.length,destinataires:recipients,clientId:client.id,client:client.societe,statut:"Succès"});
+      }catch(historyError){console.warn("E-mail envoyé ; archivage partiel de l’historique",historyError)}
+    }
+    alert(`✅ E-mail envoyé avec succès à ${recipients.length} adresse(s).`);
+    if(currentMailClient===draftClient)closeMailModal();
   } catch (err) { console.error(err); alert(`❌ Échec de l'envoi : ${err.message || "Erreur inconnue"}`); }
-  finally { btn.disabled=false; btn.textContent="✉ Envoyer"; }
+  finally { sendDirectMail.sending=false;btn.disabled=false; btn.textContent="✉ Envoyer"; }
 }
 
 function setupEvents() {
@@ -288,19 +305,18 @@ function setupEvents() {
 
   document.getElementById("btn-add-client")?.addEventListener("click",()=>{activeEditClientId=null;setTimeout(()=>populateEditEmails(null),0);},true);
 
-  document.getElementById("client-form")?.addEventListener("submit",()=>{
+  window.addEventListener('lrf-client-opened', e => {
+    activeEditClientId = e.detail?.clientId || null;
+    emailDraftIdentity = activeEditClientId || '';
+    populateEditEmails(e.detail?.client);
+  });
+  window.addEventListener('lrf-client-collect-draft', e => {
+    if (emailDraftIdentity !== (e.detail.clientId || '')) return;
     const emails = collectEditEmails();
-    const primary = document.getElementById("edit-email");
-    if (primary) primary.value = emails[0] || "";
-    if (activeEditClientId) {
-      setTimeout(()=>updateDoc(doc(db,"clients",activeEditClientId),{email:emails[0]||"",emails}).catch(console.error),100);
-    } else {
-      pendingNewClient={societe:document.getElementById("edit-societe")?.value.trim()||"",emails,startedAt:Date.now()};
-    }
-  },true);
+    e.detail.draft.email = emails[0] || '';
+    e.detail.draft.emails = emails;
+  });
 
-  const modal=document.getElementById("client-modal");
-  if(modal)new MutationObserver(()=>{if(getComputedStyle(modal).display!=="none"){const item=clients.find(c=>c.id===activeEditClientId)||null;setTimeout(()=>populateEditEmails(item),30);}}).observe(modal,{attributes:true,attributeFilter:["style"]});
 }
 
 function init() {
@@ -309,11 +325,14 @@ function init() {
   const tbody=document.getElementById("clients-table-body");
   if(tbody)new MutationObserver(()=>setTimeout(enhanceRows,0)).observe(tbody,{childList:true});
   onSnapshot(collection(db,"clients"),snapshot=>{
-    clients=[]; snapshot.forEach(d=>clients.push({id:d.id,...d.data()})); enhanceRows();
-    if(pendingNewClient && Date.now()-pendingNewClient.startedAt<10000){
-      const match=clients.filter(c=>norm(c.societe)===norm(pendingNewClient.societe)).sort((a,b)=>String(b.id).localeCompare(String(a.id)))[0];
-      if(match){updateDoc(doc(db,"clients",match.id),{email:pendingNewClient.emails[0]||"",emails:pendingNewClient.emails}).catch(console.error);pendingNewClient=null;}
+    clients=[]; snapshot.forEach(d=>clients.push({...d.data(),id:d.id})); enhanceRows();
+    const modal = document.getElementById('client-modal');
+    const id = modal?.dataset.clientId || '';
+    if (modal && getComputedStyle(modal).display !== 'none' && emailDraftIdentity !== id) {
+      activeEditClientId = id || null; emailDraftIdentity = id;
+      populateEditEmails(clients.find(c => c.id === id));
     }
+
   });
 }
 

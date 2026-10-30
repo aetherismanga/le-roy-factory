@@ -23,7 +23,7 @@
       color: #1A2530 !important;
     }
 
-    /* Topbar avec bandeau02.png */
+    /* Bandeau CRM sobre */
     .crm-topbar {
       background-image: none !important;
       background-size: cover !important;
@@ -219,8 +219,8 @@
       <li><a href="partenaires.html"><span class="icon">🏭</span><span class="menu-text">Fabricants</span></a></li>
       <li><a href="mails-groupes.html"><span class="icon">✉️</span><span class="menu-text">Mails groupés</span></a></li>
       <li><a href="carte.html" class="active"><span class="icon">🗺</span><span class="menu-text">Carte</span></a></li>
-      <li><a href="#"><span class="icon">📊</span><span class="menu-text">Statistiques</span></a></li>
-      <li><a href="#"><span class="icon">⚙</span><span class="menu-text">Paramètres</span></a></li>
+      <li><a href="statistiques.html"><span class="icon">📊</span><span class="menu-text">Statistiques</span></a></li>
+      <li><a href="parametres.html"><span class="icon">⚙</span><span class="menu-text">Paramètres</span></a></li>
     </ul>
 
     <div class="sidebar-footer">
@@ -249,7 +249,7 @@
         <button class="btn-filter" data-filter="jerome">Secteur Jérôme (30, 34, 11, 66)</button>
         <button class="btn-filter" data-filter="coryne">Secteur Coryne (13, 83, 84, 04, 06, 05, 2A, 2B, Monaco)</button>
         
-        <select id="dept-select" class="select-dept">
+        <select id="dept-select" class="select-dept" aria-label="Filtrer par département">
           <option value="">Filtrer par département...</option>
           <option value="11">11 - Aude</option>
           <option value="13">13 - Bouches-du-Rhône</option>
@@ -273,27 +273,29 @@
         </button>
       </div>
 
-      <div style="margin-bottom: 0.75rem;">
+      <div class="map-counter-desktop" style="margin-bottom: 0.75rem;">
         <span id="map-counter" style="font-size: 0.85rem; color: #666; font-weight: 600;">Chargement instantané...</span>
       </div>
 
-      <div id="map"></div>
+      <div id="map-location-help" style="margin-bottom:.75rem" hidden>
+        <span id="map-missing-count"></span>
+        <button id="map-geocode-missing" type="button" class="btn-filter">Localiser les adresses manquantes</button>
+        <small style="display:block;margin-top:.4rem;color:#666">Recherche via OpenStreetMap à votre demande. Les fiches clients ne sont pas modifiées.</small>
+      </div>
+      <div id="map" aria-label="Carte des clients et prospects"></div>
     </div>
   </main>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
   <script type="module">
-    import { db } from "./assets/js/firebase.js?v=20261022-mapgps1";
-    import { collection, doc, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { db, waitForAgent } from "./assets/js/firebase.js?v=20261023-crm-audit1";
+    import { mapClient, mapClientKey, matchesMapFilter, mapPopup, mapCoordinate } from "./assets/js/carte-core.js?v=20261023-crm-audit1";
+    import { collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-    document.addEventListener("DOMContentLoaded", () => {
-      // 1. Vérification session
-      const isLoggedIn = localStorage.getItem("agentLoggedIn");
-      if (!isLoggedIn) {
-        window.location.href = "agent.html";
-        return;
-      }
+    document.addEventListener("DOMContentLoaded", async () => {
+      // Attendre la session Firebase réelle avant de lire les données CRM.
+      if (!await waitForAgent()) return;
 
       const agentName = localStorage.getItem("agentName") || "Agent";
       const firstName = agentName.split(" ")[0];
@@ -344,6 +346,8 @@
         return;
       }
       const map = L.map('map').setView([43.6, 4.5], 8);
+      window.__lrfCarteMap = map;
+      window.dispatchEvent(new CustomEvent('lrf-map-ready'));
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
@@ -368,15 +372,18 @@
         iconAnchor: [8, 8]
       });
 
-      const sectorJerome = ["30", "34", "11", "66"];
-      const sectorCoryne = ["13", "83", "84", "04", "06", "05", "2A", "2B", "98"];
-
       let currentFilter = "all";
       let selectedDept = "";
       let allClientData = [];
       let initialMapFramed = false;
-      const geocodingPending = new Set();
-      const geocodingFailed = new Set();
+      let clientsVisible = true, prospectsVisible = true;
+      const matchesVisible = item => matchesMapFilter(item, currentFilter, selectedDept)
+        && (item.type === 'prospect' ? prospectsVisible : clientsVisible);
+      const markerCache = new Map();
+      const coordinateCache = new Map();
+      let geocoding = false;
+      let pageActive = true;
+      let geocodeController = null;
       let lastGeocodeRequest = 0;
 
       // Le bouton tournée n'est pas un filtre : il ouvre le planificateur.
@@ -400,80 +407,58 @@
       document.getElementById("dept-select")?.addEventListener("change", (e) => {
         selectedDept = e.target.value;
         filterButtons.forEach(b => b.classList.remove("active"));
-        currentFilter = "dept";
+        currentFilter = selectedDept ? "dept" : "all";
+        if (!selectedDept) document.querySelector('.btn-filter[data-filter="all"]')?.classList.add('active');
         renderMarkers(true);
       });
 
-      function extractDept(cp, ville) {
-        let cleanCp = (cp || "").trim();
-        if (cleanCp.length >= 2) {
-          let dept = cleanCp.substring(0, 2);
-          if (dept === "20") return parseInt(cleanCp) < 20200 ? "2A" : "2B";
-          return dept;
-        }
-        if ((ville || "").toLowerCase().includes("monaco")) return "98";
-        return "";
-      }
-
-      // Rendu instantané des marqueurs
+      // Ne recréer que les marqueurs modifiés ; conserver les popups et le cadrage.
       function renderMarkers(fitView = false) {
-        markersLayer.clearLayers();
-        let validCount = 0;
         const visiblePoints = [];
-
-        allClientData.forEach(item => {
-          const dept = extractDept(item.cp, item.ville);
-          let match = false;
-
-          if (currentFilter === "all") {
-            match = true;
-          } else if (currentFilter === "jerome") {
-            match = sectorJerome.includes(dept);
-          } else if (currentFilter === "coryne") {
-            match = sectorCoryne.includes(dept);
-          } else if (currentFilter === "dept") {
-            match = (selectedDept === "" || dept === selectedDept);
+        const currentIds = new Set();
+        let missingCount = 0;
+        for (const item of allClientData) {
+          currentIds.add(item.id);
+          const match = matchesVisible(item);
+          const hasCoordinates = Number.isFinite(item.lat) && Number.isFinite(item.lon);
+          if (match && !hasCoordinates) missingCount++;
+          let cached = markerCache.get(item.id);
+          if (!hasCoordinates) {
+            if (cached) { markersLayer.removeLayer(cached.marker); markerCache.delete(item.id); }
+            continue;
           }
-
-          if (match && Number.isFinite(item.lat) && Number.isFinite(item.lon)) {
-            const icon = item.type === 'client' ? greenIcon : goldIcon;
-            const marker = L.marker([item.lat, item.lon], { icon: icon });
+          const key = mapClientKey(item);
+          if (!cached) {
+            const marker = L.marker([item.lat, item.lon], { icon: item.type === 'client' ? greenIcon : goldIcon });
+            cached = { marker, key: null };
+            markerCache.set(item.id, cached);
+          }
+          const marker = cached.marker;
+          if (cached.key !== key) {
+            marker.setLatLng([item.lat, item.lon]);
+            marker.setIcon(item.type === 'client' ? greenIcon : goldIcon);
             marker.__lrfClientId = item.id;
             marker.__lrfClientName = item.societe;
             marker.__lrfClientTown = `${item.cp} ${item.ville}`.trim();
             marker.__lrfClientType = item.type;
-
-            const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${item.lat},${item.lon}`;
-            const wazeUrl = `https://waze.com/ul?ll=${item.lat},${item.lon}&navigate=yes`;
-
-            const popupContent = `
-              <div style="font-family: 'Inter', sans-serif; padding: 2px; min-width: 200px;">
-                <span class="popup-badge ${item.type === 'prospect' ? 'badge-prospect' : 'badge-client'}">${item.type} (Dept: ${dept || 'N/C'})</span>
-                <div class="popup-title">${item.societe}</div>
-                <div class="popup-address">
-                  📍 ${item.adresse ? item.adresse + '<br>' : ''}${item.cp} ${item.ville}
-                  ${item.telephone ? '<br>📞 <a href="tel:' + item.telephone + '" style="color: #111; font-weight: 600;">' + item.telephone + '</a>' : ''}
-                </div>
-                <div class="popup-actions">
-                  <a href="clients.html?edit=${encodeURIComponent(item.id)}" class="popup-btn btn-fiche">✏️ Fiche client</a>
-                  <button type="button" class="popup-btn btn-fiche lrf-add-tour-map" data-client-id="${encodeURIComponent(item.id)}">➕ Tournée</button>
-                  <a href="${googleMapsUrl}" target="_blank" rel="noopener" class="popup-btn btn-gps">🧭 Google Maps</a>
-                  <a href="${wazeUrl}" target="_blank" rel="noopener" class="popup-btn btn-waze">🚗 Waze</a>
-                </div>
-              </div>
-            `;
-
-            marker.bindPopup(popupContent);
-            markersLayer.addLayer(marker);
-            visiblePoints.push([item.lat, item.lon]);
-            validCount++;
+            marker.bindPopup(mapPopup(item));
+            cached.key = key;
           }
-        });
-
-        if (counterEl) {
-          counterEl.textContent = `${validCount} entreprise(s) affichée(s) sur la carte (Affichage instantané)`;
+          if (match) {
+            if (!markersLayer.hasLayer(marker)) markersLayer.addLayer(marker);
+            visiblePoints.push([item.lat, item.lon]);
+          } else if (markersLayer.hasLayer(marker)) markersLayer.removeLayer(marker);
         }
-        // Cadrage initial et après un changement de filtre, y compris sur mobile.
+        for (const [id, cached] of markerCache) {
+          if (!currentIds.has(id)) { markersLayer.removeLayer(cached.marker); markerCache.delete(id); }
+        }
+        window.__lrfCarteVisiblePoints = visiblePoints;
+        window.dispatchEvent(new CustomEvent('lrf-map-markers-changed'));
+        if (counterEl) counterEl.textContent = `${visiblePoints.length} entreprise(s) sur la carte${missingCount ? ` · ${missingCount} sans coordonnées` : ''}`;
+        const help = document.getElementById('map-location-help');
+        if (help) help.hidden = missingCount === 0;
+        const missing = document.getElementById('map-missing-count');
+        if (missing) missing.textContent = `${missingCount} fiche(s) sans coordonnées dans ce filtre. `;
         if (visiblePoints.length && (fitView || !initialMapFramed)) {
           initialMapFramed = true;
           requestAnimationFrame(() => {
@@ -484,101 +469,84 @@
         }
       }
 
-      // 5. Chargement instantané + Géocodage asynchrone en arrière-plan
-      onSnapshot(collection(db, "clients"), (querySnapshot) => {
+      window.addEventListener('lrf-map-types-changed', event => {
+        clientsVisible = event.detail.clients;
+        prospectsVisible = event.detail.prospects;
+        renderMarkers(true);
+      });
+      // Lecture seule : ouvrir la carte ne modifie jamais une fiche client.
+      const unsubscribe = onSnapshot(collection(db, "clients"), snapshot => {
         allClientData = [];
-        const clientsToGeocode = [];
-
-        querySnapshot.forEach((docSnap) => {
-          const docId = docSnap.id;
-          const data = docSnap.data();
-
-          const societe = data.societe || "Entreprise sans nom";
-          const adresse = (data.adresse || "").trim();
-          
-          let cp = (data.codePostal || data.code_postal || "").toString().trim();
-          let ville = (data.ville || "").toString().trim();
-
-          // Inversion automatique CP / Ville
-          if (/^\d{5}$/.test(ville) && !/^\d{5}$/.test(cp)) {
-            const tmp = cp; cp = ville; ville = tmp;
+        snapshot.forEach(docSnap => {
+          const item = mapClient(docSnap.id, docSnap.data());
+          if (!item) return;
+          const cached = coordinateCache.get(item.id);
+          if (cached && cached.address === `${item.adresse}|${item.cp}|${item.ville}` && (item.lat === null || item.lon === null)) {
+            item.lat = cached.lat; item.lon = cached.lon;
           }
-
-          const type = (data.type || "prospect").toLowerCase();
-          const telephone = data.telephone || "";
-
-          // Accepter aussi les coordonnées déjà stockées sous latitude/longitude.
-          const rawLat = data.lat ?? data.latitude;
-          const rawLon = data.lon ?? data.lng ?? data.longitude;
-          let lat = rawLat === null || rawLat === undefined || rawLat === "" ? null : Number(rawLat);
-          let lon = rawLon === null || rawLon === undefined || rawLon === "" ? null : Number(rawLon);
-          if (!Number.isFinite(lat) || lat < -90 || lat > 90) lat = null;
-          if (!Number.isFinite(lon) || lon < -180 || lon > 180) lon = null;
-
-          const clientObj = { id: docId, societe, adresse, cp, ville, type, telephone, lat, lon };
-          allClientData.push(clientObj);
-
-          if ((lat === null || lon === null) && (adresse || cp || ville)) {
-            clientsToGeocode.push(clientObj);
-          }
+          allClientData.push(item);
         });
-
-        // AFFICHAGE IMMÉDIAT
         renderMarkers();
-
-        // GÉOCODAGE EN ARRIÈRE-PLAN
-        if (clientsToGeocode.length > 0) {
-          geocodeInBackground(clientsToGeocode);
-        }
       }, error => {
         console.error("Carte CRM : chargement des clients impossible", error);
         if (counterEl) counterEl.textContent = "Impossible de charger les clients. Vérifiez la connexion au CRM et actualisez la page.";
       });
 
-      // Limiter les appels Nominatim (1 requête par seconde maximum) et éviter
-      // que les mises à jour Firebase relancent plusieurs géocodages simultanés.
       async function searchGeocode(query) {
         const wait = Math.max(0, 1200 - (Date.now() - lastGeocodeRequest));
         if (wait) await new Promise(resolve => setTimeout(resolve, wait));
+        if (!pageActive) throw new Error('Carte fermée');
         lastGeocodeRequest = Date.now();
-        const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(query)}`);
-        if (!res.ok) throw new Error(`Geocodage HTTP ${res.status}`);
-        return res.json();
+        geocodeController = new AbortController();
+        const timeout = setTimeout(() => geocodeController?.abort(), 10000);
+        try {
+          const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(query)}`, { signal: geocodeController.signal });
+          if (!res.ok) throw new Error(`Geocodage HTTP ${res.status}`);
+          return await res.json();
+        } finally { clearTimeout(timeout); geocodeController = null; }
       }
 
-      async function geocodeInBackground(list) {
-        const pending = list.filter(item => !geocodingPending.has(item.id) && !geocodingFailed.has(item.id));
-        pending.forEach(item => geocodingPending.add(item.id));
-        for (const item of pending) {
-          const query = `${item.adresse} ${item.cp} ${item.ville}, France`.trim();
-          try {
-            let results = await searchGeocode(query);
-            if ((!results || !results.length) && item.adresse && (item.cp || item.ville)) {
-              results = await searchGeocode(`${item.cp} ${item.ville}, France`.trim());
-            }
-            const lat = Number(results?.[0]?.lat);
-            const lon = Number(results?.[0]?.lon);
-            if (results?.length && Number.isFinite(lat) && Number.isFinite(lon)) {
-              item.lat = lat;
-              item.lon = lon;
-              renderMarkers();
-              // On conserve les coordonnées sans modifier les autres données client.
-              try {
-                await updateDoc(doc(db, "clients", item.id), { lat, lon });
-              } catch (writeError) {
-                console.warn("Coordonnées affichées mais non sauvegardées :", item.id, writeError);
+      document.getElementById('map-geocode-missing')?.addEventListener('click', async event => {
+        if (geocoding) return;
+        const pending = allClientData.filter(item => matchesVisible(item)
+          && (item.lat === null || item.lon === null) && (item.adresse || item.cp || item.ville));
+        if (!pending.length) return;
+        geocoding = true;
+        const button = event.currentTarget;
+        button.disabled = true;
+        let located = 0;
+        try {
+          for (let index = 0; index < pending.length && pageActive; index++) {
+            const item = pending[index];
+            button.textContent = `Localisation ${index + 1} / ${pending.length}…`;
+            const country = item.dept === '98' ? 'Monaco' : 'France';
+            try {
+              let results = await searchGeocode(`${item.adresse} ${item.cp} ${item.ville}, ${country}`.trim());
+              if (!results?.length && item.adresse && (item.cp || item.ville)) results = await searchGeocode(`${item.cp} ${item.ville}, ${country}`.trim());
+              const lat = mapCoordinate(results?.[0]?.lat, 90), lon = mapCoordinate(results?.[0]?.lon, 180);
+              if (lat !== null && lon !== null) {
+                const address = `${item.adresse}|${item.cp}|${item.ville}`;
+                coordinateCache.set(item.id, { lat, lon, address });
+                const current = allClientData.find(record => record.id === item.id);
+                if (current && `${current.adresse}|${current.cp}|${current.ville}` === address) {
+                  current.lat = lat; current.lon = lon; located++; renderMarkers();
+                }
               }
-            } else {
-              geocodingFailed.add(item.id);
-            }
-          } catch (err) {
-            geocodingFailed.add(item.id);
-            console.warn("Échec géocodage pour :", item.societe, err);
-          } finally {
-            geocodingPending.delete(item.id);
+            } catch (error) { console.warn('Localisation indisponible', error.message); }
           }
+        } finally {
+          geocoding = false;
+          button.disabled = false;
+          button.textContent = 'Localiser les adresses manquantes';
+          renderMarkers(true);
+          if (counterEl) counterEl.textContent += ` · ${located} localisation(s) trouvée(s) pour cette session`;
         }
-      }
+      });
+      window.addEventListener('pagehide', () => {
+        pageActive = false;
+        geocodeController?.abort();
+        unsubscribe();
+      }, { once: true });
     });
   </script>
 </body>
