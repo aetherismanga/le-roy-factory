@@ -11,11 +11,11 @@
   ],
   "sharedCatalogueVersion": "20261024-suite-1",
   "publicSite": {
-    "releaseId": "20261029-tarifs-lecture-directe-1",
+    "releaseId": "20261030-studio-one-tarifs-qr-catalogue-1",
     "pages": [
       "tarifs-pro.html"
     ],
-    "baselineCommit": "2672492043c915ade829bb27db12c418eef84e2b"
+    "baselineCommit": "dbae6c9b77255a7c737b3bd7940dbc0dda77f2ca"
   },
   "configurators": {
     "releaseId": "20261029-niches-colonnes-1",
