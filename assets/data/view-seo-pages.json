@@ -1,0 +1,548 @@
+{
+  "version": 1,
+  "updated": "2026-10-31",
+  "sources": [
+    "assets/js/inspirations-view-data.js",
+    "assets/js/inspirations-view-elios-parity.js",
+    "assets/js/inspirations-view-data-lot2.js",
+    "assets/js/inspirations-view-data-lot3.js",
+    "assets/js/inspirations-view-selection-media.js"
+  ],
+  "collections": [
+    {
+      "slug": "ardenne",
+      "page": "view-ardenne.html",
+      "images": 5,
+      "formats": [
+        "30×60",
+        "60×60",
+        "60×120",
+        "80×80",
+        "120×120",
+        "120×278"
+      ],
+      "families": [
+        "30x60",
+        "60x60",
+        "60x120",
+        "80x80",
+        "120x120",
+        "120x278"
+      ]
+    },
+    {
+      "slug": "baar-stone",
+      "page": "view-baar-stone.html",
+      "images": 4,
+      "formats": [
+        "30×60",
+        "60×60",
+        "60×120",
+        "120×120",
+        "120×278"
+      ],
+      "families": [
+        "30x60",
+        "60x60",
+        "60x120",
+        "120x120",
+        "120x278"
+      ]
+    },
+    {
+      "slug": "bigsize",
+      "page": "view-bigsize.html",
+      "images": 7,
+      "formats": [
+        "120×120",
+        "120×240"
+      ],
+      "families": [
+        "120x120",
+        "120x240"
+      ]
+    },
+    {
+      "slug": "blois",
+      "page": "view-blois.html",
+      "images": 4,
+      "formats": [
+        "30×60",
+        "60×60",
+        "60×90",
+        "90×90"
+      ],
+      "families": [
+        "30x60",
+        "60x60",
+        "60x90",
+        "90x90"
+      ]
+    },
+    {
+      "slug": "coco",
+      "page": "view-coco.html",
+      "images": 4,
+      "formats": [
+        "40×60"
+      ],
+      "families": [
+        "40x60"
+      ]
+    },
+    {
+      "slug": "corso",
+      "page": "view-corso.html",
+      "images": 3,
+      "formats": [
+        "30×60",
+        "60×60",
+        "60×90",
+        "60×120",
+        "120×120",
+        "Modulo A"
+      ],
+      "families": [
+        "30x60",
+        "60x60",
+        "60x90",
+        "60x120",
+        "120x120"
+      ]
+    },
+    {
+      "slug": "digione",
+      "page": "view-digione.html",
+      "images": 4,
+      "formats": [
+        "60×90"
+      ],
+      "families": [
+        "60x90"
+      ]
+    },
+    {
+      "slug": "docks",
+      "page": "view-docks.html",
+      "images": 4,
+      "formats": [
+        "100×100"
+      ],
+      "families": [
+        "100x100"
+      ]
+    },
+    {
+      "slug": "dorset",
+      "page": "view-dorset.html",
+      "images": 6,
+      "formats": [
+        "30×60",
+        "60×60",
+        "60×90"
+      ],
+      "families": [
+        "30x60",
+        "60x60",
+        "60x90"
+      ]
+    },
+    {
+      "slug": "dorset-xl",
+      "page": "view-dorset-xl.html",
+      "images": 5,
+      "formats": [
+        "120×120",
+        "80×180"
+      ],
+      "families": [
+        "120x120",
+        "80x180"
+      ]
+    },
+    {
+      "slug": "golden-stone",
+      "page": "view-golden-stone.html",
+      "images": 7,
+      "formats": [
+        "7,5×7,5",
+        "7,5×30",
+        "30×30",
+        "30×60",
+        "60×60",
+        "60×120",
+        "120×120"
+      ],
+      "families": [
+        "7.5x7.5",
+        "7.5x30",
+        "30x30",
+        "30x60",
+        "60x60",
+        "60x120",
+        "120x120"
+      ]
+    },
+    {
+      "slug": "i-marmi-di-view",
+      "page": "view-i-marmi-di-view.html",
+      "images": 8,
+      "formats": [
+        "60×120",
+        "120×120"
+      ],
+      "families": [
+        "60x120",
+        "120x120"
+      ]
+    },
+    {
+      "slug": "light",
+      "page": "view-light.html",
+      "images": 5,
+      "formats": [
+        "30×60",
+        "60×60",
+        "60×120",
+        "100×100",
+        "120×278"
+      ],
+      "families": [
+        "30x60",
+        "60x60",
+        "60x120",
+        "100x100",
+        "120x278"
+      ]
+    },
+    {
+      "slug": "marais",
+      "page": "view-marais.html",
+      "images": 5,
+      "formats": [
+        "60×60",
+        "60×90",
+        "90×90"
+      ],
+      "families": [
+        "60x60",
+        "60x90",
+        "90x90"
+      ]
+    },
+    {
+      "slug": "new-wood",
+      "page": "view-new-wood.html",
+      "images": 5,
+      "formats": [
+        "40×122"
+      ],
+      "families": [
+        "40x120"
+      ]
+    },
+    {
+      "slug": "oikos",
+      "page": "view-oikos.html",
+      "images": 4,
+      "formats": [
+        "60×120"
+      ],
+      "families": [
+        "60x120"
+      ]
+    },
+    {
+      "slug": "pietre-60x90",
+      "page": "view-pietre-60x90.html",
+      "images": 4,
+      "formats": [
+        "60×90"
+      ],
+      "families": [
+        "60x90"
+      ]
+    },
+    {
+      "slug": "quantum",
+      "page": "view-quantum.html",
+      "images": 6,
+      "formats": [
+        "61×61",
+        "45×90"
+      ],
+      "families": [
+        "60x60",
+        "45x90"
+      ]
+    },
+    {
+      "slug": "tibur",
+      "page": "view-tibur.html",
+      "images": 4,
+      "formats": [
+        "30×60",
+        "60×60",
+        "60×90",
+        "90×90"
+      ],
+      "families": [
+        "30x60",
+        "60x60",
+        "60x90",
+        "90x90"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "file": "view-ardenne.html",
+      "images": [
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/ardenne/01-ambiance-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/ardenne/02-avorio-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/ardenne/03-sabbia-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/ardenne/04-grigio-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/ardenne/05-antracite-full.webp"
+      ]
+    },
+    {
+      "file": "view-baar-stone.html",
+      "images": [
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/baar-stone/01-ambiance-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/baar-stone/02-pure-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/baar-stone/03-beige-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/baar-stone/04-grey-full.webp"
+      ]
+    },
+    {
+      "file": "view-bigsize.html",
+      "images": [
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/bigsize/01-ambiance-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/bigsize/02-stromboli-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/bigsize/03-gransasso-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/bigsize/04-vals-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/bigsize/05-porfido-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/bigsize/06-dolomiti-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/bigsize/07-appia-full.webp"
+      ]
+    },
+    {
+      "file": "view-blois.html",
+      "images": [
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/blois/01-ambiance-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/blois/02-beige-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/blois/03-gris-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/blois/04-anthracite-full.webp"
+      ]
+    },
+    {
+      "file": "view-coco.html",
+      "images": [
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/coco/01-ambiance-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/coco/02-ambiance-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/coco/03-light-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/coco/04-beige-full.webp"
+      ]
+    },
+    {
+      "file": "view-corso.html",
+      "images": [
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/corso/01-ambiance-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/corso/02-avorio-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/corso/03-beige-full.webp"
+      ]
+    },
+    {
+      "file": "view-digione.html",
+      "images": [
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/digione/01-ambiance-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/digione/02-oro-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/digione/03-perla-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/digione/04-grigio-full.webp"
+      ]
+    },
+    {
+      "file": "view-docks.html",
+      "images": [
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/docks/01-ambiance-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/docks/02-sabbia-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/docks/03-grigio-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/docks/04-antracite-full.webp"
+      ]
+    },
+    {
+      "file": "view-dorset.html",
+      "images": [
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/dorset/01-ambiance-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/dorset/02-crema-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/dorset/03-sabbia-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/dorset/04-perla-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/dorset/05-pietra-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/dorset/06-ombra-full.webp"
+      ]
+    },
+    {
+      "file": "view-dorset-xl.html",
+      "images": [
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/dorset-xl/01-ambiance-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/dorset-xl/02-ice-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/dorset-xl/03-londra-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/dorset-xl/04-plata-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/dorset-xl/05-night-full.webp"
+      ]
+    },
+    {
+      "file": "view-golden-stone.html",
+      "images": [
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/golden-stone/01-ambiance-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/golden-stone/02-ambiance-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/golden-stone/03-ivory-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/golden-stone/04-sand-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/golden-stone/05-pearl-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/golden-stone/06-oxid-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/golden-stone/07-carbon-full.webp"
+      ]
+    },
+    {
+      "file": "view-i-marmi-di-view.html",
+      "images": [
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/i-marmi-di-view/01-ambiance-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/i-marmi-di-view/02-calacatta-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/i-marmi-di-view/03-statuario-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/i-marmi-di-view/04-soveraiasilver-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/i-marmi-di-view/05-pulpisivoire-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/i-marmi-di-view/06-pulpisgris-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/i-marmi-di-view/07-soveraiagrey-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/i-marmi-di-view/08-saharanoir-full.webp"
+      ]
+    },
+    {
+      "file": "view-light.html",
+      "images": [
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/light/01-ambiance-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/light/02-sabbia-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/light/03-perla-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/light/04-cenere-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/light/05-grafite-full.webp"
+      ]
+    },
+    {
+      "file": "view-marais.html",
+      "images": [
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/marais/01-ambiance-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/marais/02-avana-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/marais/03-beige-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/marais/04-argento-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/marais/05-grafite-full.webp"
+      ]
+    },
+    {
+      "file": "view-new-wood.html",
+      "images": [
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/new-wood/01-ambiance-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/new-wood/02-miele-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/new-wood/03-grey-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/new-wood/04-melange-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/new-wood/05-brown-full.webp"
+      ]
+    },
+    {
+      "file": "view-oikos.html",
+      "images": [
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/oikos/01-ambiance-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/oikos/02-white-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/oikos/03-silver-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/oikos/04-grey-full.webp"
+      ]
+    },
+    {
+      "file": "view-pietre-60x90.html",
+      "images": [
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/pietre-60x90/01-ambiance-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/pietre-60x90/02-limestoneyellow-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/pietre-60x90/03-fossil-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/pietre-60x90/04-multicolor-full.webp"
+      ]
+    },
+    {
+      "file": "view-quantum.html",
+      "images": [
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/quantum/01-ambiance-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/quantum/02-ambiance-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/quantum/03-cream-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/quantum/04-ivory-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/quantum/05-grey-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/quantum/06-dark-full.webp"
+      ]
+    },
+    {
+      "file": "view-tibur.html",
+      "images": [
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/tibur/01-ambiance-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/tibur/02-almond-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/tibur/03-silver-full.webp",
+        "https://leroyfactory.fr/assets/img/view-selection-20261031/tibur/04-carbon-full.webp"
+      ]
+    },
+    {
+      "file": "view-format-100x100.html",
+      "images": []
+    },
+    {
+      "file": "view-format-120x120.html",
+      "images": []
+    },
+    {
+      "file": "view-format-120x278.html",
+      "images": []
+    },
+    {
+      "file": "view-format-30x60.html",
+      "images": []
+    },
+    {
+      "file": "view-format-60x120.html",
+      "images": []
+    },
+    {
+      "file": "view-format-60x60.html",
+      "images": []
+    },
+    {
+      "file": "view-format-60x90.html",
+      "images": []
+    },
+    {
+      "file": "view-format-90x90.html",
+      "images": []
+    },
+    {
+      "file": "view-imitation-travertin.html",
+      "images": []
+    },
+    {
+      "file": "view-imitation-bois.html",
+      "images": []
+    },
+    {
+      "file": "view-pierre.html",
+      "images": []
+    },
+    {
+      "file": "view-beton-ciment.html",
+      "images": []
+    },
+    {
+      "file": "view-poli.html",
+      "images": []
+    },
+    {
+      "file": "view-terrasse-exterieur.html",
+      "images": []
+    },
+    {
+      "file": "carrelage-view.html",
+      "images": []
+    }
+  ]
+}

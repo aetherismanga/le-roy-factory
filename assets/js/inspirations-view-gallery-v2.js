@@ -90,7 +90,7 @@
     const item = openState.images[openState.index];
     resetZoom(box);
     const photo = box.querySelector('.view-lightbox-photo');
-    photo.src = item.fullUrl || item.url; photo.alt = item.alt || openState.title;
+    photo.src = item.fullUrl || item.url; photo.alt = `${item.alt || openState.title} — VIEW Ceramica`;
     box.querySelector('#view-lightbox-title').textContent = openState.title;
     box.querySelector('.view-lightbox-caption').textContent = `${item.alt || openState.title} · ${openState.index + 1} / ${openState.images.length}`;
     box.querySelector('.view-lightbox-error').hidden = true;
@@ -203,7 +203,7 @@
     function show(next, fromLightbox = false) {
       index = (next + items.length) % items.length;
       const item = items[index];
-      main.src = item.url; main.alt = item.alt || `${product.name}${selected ? ` · ${selected}` : ''}`;
+      main.src = item.url; main.alt = `${item.alt || product.name} — VIEW Ceramica — ${window.LRF_VIEW_SEARCH_META?.[product.slug]?.effect||product.effect||product.category}`;
       gallery.querySelector('.view-gallery-v2-count').textContent = `${index + 1} / ${items.length}`;
       gallery.querySelector('.view-gallery-v2-caption').textContent = item.alt || `${product.name}${selected ? ` · ${selected}` : ''}`;
       gallery.querySelector('.view-gallery-v2-error').hidden = true;
