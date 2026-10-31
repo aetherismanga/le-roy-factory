@@ -4,6 +4,7 @@ Dates are supplied only for pages actually edited in the SEO release. Do not
 replace them with the execution date during routine regeneration.
 """
 from pathlib import Path
+import json
 from xml.etree.ElementTree import Element, SubElement, ElementTree, register_namespace, indent
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -11,7 +12,7 @@ BASE = 'https://leroyfactory.fr/'
 PAGES = [
     ('', '2026-10-31'),
     ('partenaires.html', '2026-10-31'),
-    ('univers.html', None),
+    ('univers.html', '2026-10-31'),
     ('realisations.html', None),
     ('catalogues.html', None),
     ('configurateurs.html', '2026-10-31'),
@@ -46,6 +47,18 @@ for page, modified in PAGES:
         for image in ['lrf-expo-studio-one.webp', 'lrf-expo-general.webp']:
             entry = SubElement(url, f'{{{IMAGE}}}image')
             SubElement(entry, f'{{{IMAGE}}}loc').text = BASE + 'shared/lrf-3d/media/public-compositions/' + image
+# Public Elios pages generated from the existing catalogue; no private routes.
+elios_manifest = ROOT / 'assets/data/elios-seo-pages.json'
+if elios_manifest.exists():
+    for item in json.loads(elios_manifest.read_text())['pages']:
+        page = item['file']
+        assert page.endswith('.html') and '/' not in page and (ROOT / page).is_file()
+        url = SubElement(tree, f'{{{NS}}}url')
+        SubElement(url, f'{{{NS}}}loc').text = BASE + page
+        SubElement(url, f'{{{NS}}}lastmod').text = '2026-10-31'
+        for src in item['images']:
+            image = SubElement(url, f'{{{IMAGE}}}image')
+            SubElement(image, f'{{{IMAGE}}}loc').text = src
 indent(tree, space='  ')
 ElementTree(tree).write(ROOT / 'sitemap.xml', encoding='utf-8', xml_declaration=True)
-print(f'{len(PAGES)} public canonical URLs; private pages excluded')
+print(f'{len(tree)} public canonical URLs; private pages excluded')

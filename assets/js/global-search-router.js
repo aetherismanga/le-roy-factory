@@ -76,6 +76,8 @@
         addCss('assets/css/site-search.css?v=20260913-mobile3','lrf-site-search-css');
         try {
         await loadScript('assets/js/inspirations-elios-data.js?v=20260907-search9','lrf-search-elios-data');
+        await loadScript('assets/js/elios-discovery-data.js?v=20261031','lrf-search-elios-discovery-data');
+        await loadScript('assets/js/elios-discovery-search.js?v=20261031','lrf-search-elios-discovery-api');
         await loadScript('assets/js/inspirations-view-data.js?v=20260907-view-lot1-final','lrf-search-view-data');
         await loadScript('assets/js/inspirations-view-elios-parity.js?v=20260907-view-parity3','lrf-search-view-parity');
         await loadScript('assets/js/inspirations-view-data-lot2.js?v=20260907-view-lot2','lrf-search-view-data-lot2');
@@ -83,7 +85,7 @@
         await loadScript('assets/js/inspirations-view-tariff-2026-10-15.js?v=20261005-view-tariff1','lrf-search-view-tariff-20261015');
         await loadScript('assets/js/inspirations-neobath-data.js?v=20260907-search9','lrf-search-neobath-data');
         await loadScript('assets/js/reviglass-search-index.js?v=20260911-ref1','lrf-search-reviglass-index');
-        await loadScript('assets/js/site-search-v2.js?v=20260911-ref1','lrf-site-search-js-v2');
+        await loadScript('assets/js/site-search-v2.js?v=20261031-elios-seo1','lrf-site-search-js-v2');
           button.removeEventListener('click', openOnDemand);
           button.disabled = false;
           button.click();

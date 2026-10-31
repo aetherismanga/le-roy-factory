@@ -34,7 +34,7 @@ def local_page(path):
 
 def executable_scripts(source):
     return [body for attrs, body in re.findall(r'<script\b([^>]*)>(.*?)</script\s*>', source, re.I | re.S)
-            if 'application/ld+json' not in attrs]
+            if 'application/ld+json' not in attrs and body.strip()]
 
 robot = RobotFileParser()
 robot.parse((ROOT / 'robots.txt').read_text().splitlines())
