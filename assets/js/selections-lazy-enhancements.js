@@ -30,7 +30,7 @@
       'assets/js/inspirations-view-tariff-2026-10-15.js?v=20261005-view-tariff1',
       'assets/js/inspirations-view-accessories.js?v=20260911-view-accessories1',
       'assets/js/inspirations-view-hd.js?v=20261031-view1',
-      'assets/js/inspirations-view-mobile-safe.js?v=20261031-view1',
+      'assets/js/inspirations-view-mobile-safe.js?v=20261031-view-stock2',
       'assets/js/inspirations-view-gallery-v2.js?v=20261031-view1',
       'assets/js/view-catalogue-reader.js?v=20261031-view1',
       'assets/js/inspirations-view-discovery.js?v=20261031-view1',

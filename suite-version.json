@@ -11,8 +11,8 @@
   ],
   "sharedCatalogueVersion": "20261024-suite-1",
   "publicSite": {
-    "releaseId": "20261031-view-selection-1",
-    "baselineCommit": "28c6c5c47054a10bd7b7d9ee604a64b9f71e8de4",
+    "releaseId": "20261031-view-stock-2",
+    "baselineCommit": "287b3112d20db241c448f64be4cf47b028e04e3f",
     "pages": [
       "univers.html",
       "univers-ios.html"

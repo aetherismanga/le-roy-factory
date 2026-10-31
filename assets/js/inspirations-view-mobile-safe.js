@@ -170,7 +170,7 @@
         </div>
         <div class="view-safe-info"><span class="eyebrow">VIEW CERAMICA · ${esc(p.effect || p.category || 'Carrelage')}</span><h2>${esc(p.name)}</h2><p>${esc(p.description || '')}</p>${(p.colors||[]).length ? `<h4>Couleurs / déclinaisons</h4><div class="chips">${(p.colors||[]).map(x => `<span>${esc(x)}</span>`).join('')}</div>` : ''}${(p.formats||[]).length ? `<h4>Formats</h4><div class="chips">${(p.formats||[]).map(x => `<span>${esc(x)}</span>`).join('')}</div>` : ''}<h4>Tarifs professionnels</h4><table class="view-safe-table"><thead><tr><th>Format</th><th>Tarif PRO</th></tr></thead><tbody>${rows || '<tr><td>—</td><td>Sur demande</td></tr>'}</tbody></table></div>
       </div>
-      <section class="view-safe-stock"><h3>Disponibilités & commande VIEW</h3><p>Aucun stock VIEW n’est affiché. La disponibilité reste à confirmer auprès de l’usine.</p><div class="view-safe-actions"><button class="secondary" type="button" data-view-safe-action="availability">Demander disponibilité</button><button class="primary" type="button" data-view-safe-action="order">Commander</button></div></section>`;
+      <section class="view-safe-stock"><h3>Demandes & commandes VIEW</h3><p>Aucun stock en temps réel n’est disponible pour VIEW. Les disponibilités sont confirmées par l’usine sur demande.</p><div class="view-safe-actions"><button class="secondary" type="button" data-view-safe-action="availability">Demander à VIEW</button><button class="primary" type="button" data-view-safe-action="order">Commander</button></div></section>`;
 
     let index = 0, startX = null;
     const show = next => {
