@@ -11,11 +11,10 @@
   ],
   "sharedCatalogueVersion": "20261024-suite-1",
   "publicSite": {
-    "releaseId": "20261031-view-mobile-3",
-    "baselineCommit": "381f6d10a07673592cef8e390983dada01f5d061",
+    "releaseId": "20261031-home-illustrated-1",
+    "baselineCommit": "3d1049861082888a8fbe5cf7084176f8313484b9",
     "pages": [
-      "univers.html",
-      "univers-ios.html"
+      "index.html"
     ],
     "view": {
       "collections": 19,
