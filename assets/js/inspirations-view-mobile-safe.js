@@ -7,6 +7,7 @@
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const norm = v => String(v || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]/g, '');
+  const searchTerms = v => String(v || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/(\d)\s*[x×]\s*(?=\d)/g, '$1x').split(/\s+/).filter(Boolean).map(norm);
   const fr = (v, d = 2) => Number(v || 0).toLocaleString('fr-FR', {minimumFractionDigits:d, maximumFractionDigits:d});
   const session = () => window.LRF_PRO_SESSION?.read?.() || (() => { try { return JSON.parse(sessionStorage.getItem('lrfProSession') || 'null'); } catch { return null; } })();
   const hasViewAccess = () => window.LRF_AGENT_TARIFFS?.canAccess?.('view-ceramica') === true;
@@ -113,8 +114,8 @@
   }
 
   function matches(p) {
-    const hay = norm([p.name,p.collection,p.description,p.category,p.effect,...(p.formats||[]),...(p.colors||[]),...(p.colorFamilies||[]),...(p.finishes||[])].join(' '));
-    if (filters.q && !hay.includes(norm(filters.q))) return false;
+    const hay = norm([p.name,p.collection,p.description,p.category,p.effect,...(p.formats||[]).map(f=>f.replace(/×/g,'x')),...(p.colors||[]),...(p.colorFamilies||[]),...(p.finishes||[]),...(p.variants||[]).flatMap(v=>Object.values(v.refs||{}))].join(' '));
+    if (filters.q && !searchTerms(filters.q).every(term=>hay.includes(term))) return false;
     if (filters.format !== 'Tous' && !(p.formats||[]).some(x => norm(x) === norm(filters.format))) return false;
     if (filters.color !== 'Tous' && !(p.colorFamilies||p.colors||[]).some(x => norm(x) === norm(filters.color))) return false;
     if (filters.effect !== 'Tous' && norm(p.effect) !== norm(filters.effect)) return false;
@@ -129,8 +130,8 @@
     const found = DATA.filter(matches);
     if (count) count.textContent = `${found.length} collection${found.length > 1 ? 's' : ''} VIEW`;
     grid.innerHTML = found.length ? found.map(p => `
-      <article class="product-card-v2 view-safe-card" data-view-safe-id="${esc(p.__safeId)}">
-        <img src="${esc(galleryOf(p)[0])}" alt="${esc(p.name)}" loading="lazy" onerror="this.onerror=null;this.src='https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/view.png'">
+      <article class="product-card-v2 view-safe-card" data-view-safe-id="${esc(p.__safeId)}" tabindex="0" role="button" aria-label="Découvrir la collection ${esc(p.name)}">
+        <img src="${esc(p.coverImage || galleryOf(p)[0])}" alt="${esc(p.name)} · VIEW Ceramica" loading="lazy" decoding="async" width="640" height="480" onerror="this.onerror=null;this.src='https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/view.png'">
         <div class="body"><span class="eyebrow">VIEW · ${esc(p.effect || p.category || 'Carrelage')}</span><h3>${esc(p.name)}</h3><p>${esc(p.description || '')}</p><div class="chips">${[...(p.colors||[]).slice(0,2),...(p.formats||[]).slice(0,2)].map(x => `<span>${esc(x)}</span>`).join('')}</div></div>
       </article>`).join('') : '<div class="empty-partner"><strong>Aucune collection VIEW avec ces filtres.</strong><p>Modifiez la recherche, le format, la couleur, l’effet ou la finition.</p></div>';
   }
@@ -194,6 +195,7 @@
     }));
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
+    window.dispatchEvent(new CustomEvent('lrf-view-product-opened', {detail:{product:p}}));
   }
 
   function bind() {
@@ -207,6 +209,10 @@
       const p = DATA.find(x => x.__safeId === card.dataset.viewSafeId);
       if (p) openModal(p);
     }, true);
+    grid.addEventListener('keydown', e => {
+      const card=e.target.closest('[data-view-safe-id]');
+      if(card && isView() && (e.key==='Enter'||e.key===' ')) { e.preventDefault(); card.click(); }
+    });
     partnerGrid?.addEventListener('click', e => {
       const b = e.target.closest('[data-partner]');
       if (b && norm(b.dataset.partner) === 'viewceramica') setTimeout(() => { refreshData(); fillFilters(); render(); }, 0);
@@ -216,7 +222,7 @@
       if (['v2-search','v2-format','v2-color','v2-effect','v2-finish'].includes(e.target?.id)) setTimeout(render, 0);
     }));
     $('#product-modal-v2')?.addEventListener('click', e => { if (e.target.id === 'product-modal-v2' && activeProduct) closeModal(); });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape' && activeProduct) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && activeProduct && !e.defaultPrevented) closeModal(); });
     ['lrf-pro-session-changed','lrf-agent-tariffs-ready'].forEach(type => window.addEventListener(type, () => {
       if (!isView()) return;
       render();
@@ -226,8 +232,23 @@
 
   function start() {
     installStyle(); refreshData(); bind();
+    if (norm(new URLSearchParams(location.search).get('partner')) === 'viewceramica' && !isView()) {
+      $('#partner-grid [data-partner="View Ceramica"]')?.click();
+    }
     if (isView()) { fillFilters(); render(); }
   }
+
+  window.LRF_VIEW_SELECTION = {
+    openCollection(id) {
+      if(!isView()) return false;
+      refreshData();
+      const product=DATA.find(p=>p.id===id || p.slug===id);
+      if(!product) return false;
+      openModal(product); return true;
+    },
+    refresh() { if(isView()) render(); }
+  };
+  window.addEventListener('lrf-view-media-ready', () => { if(isView()) render(); });
 
   const boot = () => {
     let tries = 0;

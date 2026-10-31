@@ -11,20 +11,17 @@
   ],
   "sharedCatalogueVersion": "20261024-suite-1",
   "publicSite": {
-    "releaseId": "20261031-seo-public-2",
-    "baselineCommit": "6c0390fa29b5ec8dd88533a5ed5fd25004126189",
+    "releaseId": "20261031-view-selection-1",
+    "baselineCommit": "28c6c5c47054a10bd7b7d9ee604a64b9f71e8de4",
     "pages": [
-      "index.html",
-      "partenaires.html",
-      "configurateurs.html",
-      "configurateurs-randal.html",
-      "contact.html",
-      "agence-carrelage-languedoc-paca.html",
-      "fabricants-carrelage-salle-de-bain.html",
-      "configurateur-salle-de-bain-3d.html",
-      "logiciel-calepinage-carrelage.html",
-      "guide-projet-carrelage.html"
-    ]
+      "univers.html",
+      "univers-ios.html"
+    ],
+    "view": {
+      "collections": 19,
+      "photographs": 94,
+      "catalogues": 19
+    }
   },
   "configurators": {
     "releaseId": "20261029-niches-colonnes-1",

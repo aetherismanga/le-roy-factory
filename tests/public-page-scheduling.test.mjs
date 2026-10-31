@@ -84,10 +84,12 @@ test('keyboard-only VIEW manufacturer activation retains its dependency order',a
  const fixture=selectionFixture(),partner={dataset:{partner:'View Ceramica'}};
  fixture.fire('click',{closest:selector=>selector==='[data-partner]'?partner:null});await turn();
  assert.match(fixture.requested[0].src,/inspirations-view-data\.js/);
- for(let index=0;index<12;index++){
+ for(let index=0;index<15;index++){
   assert.equal(fixture.requested.length,index+1);fixture.requested[index].onload();await turn();
  }
  assert.match(fixture.requested.at(-1).src,/inspirations-view-order-email-recap-fix/);
+ assert.match(fixture.requested[8].src,/inspirations-view-gallery-v2/);
+ assert.match(fixture.requested[9].src,/view-catalogue-reader/);
  assert.deepEqual(fixture.dispatched,['lrf-selections-view-ready']);
 });
 

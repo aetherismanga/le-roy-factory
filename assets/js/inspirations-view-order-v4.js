@@ -118,9 +118,10 @@
     $('#view-order-total-pieces').textContent=`${pieces} pièce${pieces>1?'s':''}`;
   }
   function inferCurrent(){
-    if(current&&data().some(p=>p.id===current.id))return current;
     const title=$('.view-safe-info h2')?.textContent||$('.modal-v2-info h2')?.textContent||'';
-    return data().find(p=>norm(p.name)===norm(title)||norm(p.collection)===norm(title))||null;
+    const visible=data().find(p=>norm(p.name)===norm(title)||norm(p.collection)===norm(title));
+    if(visible)return visible;
+    return current&&data().some(p=>p.id===current.id)?current:null;
   }
   function open(type,p=null){
     current=p||inferCurrent(); ensure(); mode=type==='order'?'order':'availability'; lines=[];nextId=1;add(current||data()[0]);
@@ -148,6 +149,12 @@
     const to='maura@viewceramiche.com',cc='jerome@leroyfactory.fr,coryne@leroyfactory.fr';
     window.location.href=`mailto:${to}?cc=${encodeURIComponent(cc)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   }
+
+  window.addEventListener('lrf-view-product-opened',event=>{
+    const product=event.detail?.product;
+    if(!product)return;
+    current=productById(product.id)||data().find(p=>norm(p.name)===norm(product.name)||norm(p.collection)===norm(product.collection))||null;
+  });
 
   document.addEventListener('click',e=>{
     const card=e.target.closest?.('[data-view-safe-id],[data-view-id]');

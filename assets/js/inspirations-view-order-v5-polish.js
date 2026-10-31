@@ -65,7 +65,9 @@
 
   function polishDialog(){
     const dialog=$('#view-order-v4');if(!dialog)return;
-    const note=$('.view-order-notice',dialog);if(note)note.innerHTML='Choisissez d’abord le <strong>type d’article</strong>, puis le format et la couleur. Les carreaux sont calculés en cartons complets ; les accessoires en pièces.';
+    const note=$('.view-order-notice',dialog);
+    const notice='Choisissez d’abord le <strong>type d’article</strong>, puis le format et la couleur. Les carreaux sont calculés en cartons complets ; les accessoires en pièces.';
+    if(note&&note.innerHTML!==notice)note.innerHTML=notice;
     $$('.view-order-line',dialog).forEach(decorateRow);
   }
 

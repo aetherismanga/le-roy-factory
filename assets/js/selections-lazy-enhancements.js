@@ -29,11 +29,14 @@
       'assets/js/inspirations-view-data-lot3.js?v=20260907-view-lot3&media=20261018',
       'assets/js/inspirations-view-tariff-2026-10-15.js?v=20261005-view-tariff1',
       'assets/js/inspirations-view-accessories.js?v=20260911-view-accessories1',
-      'assets/js/inspirations-view-hd.js?v=20260907-view-hd1',
-      'assets/js/inspirations-view-mobile-safe.js?v=20261026-pro-access1&media=20261018',
+      'assets/js/inspirations-view-hd.js?v=20261031-view1',
+      'assets/js/inspirations-view-mobile-safe.js?v=20261031-view1',
+      'assets/js/inspirations-view-gallery-v2.js?v=20261031-view1',
+      'assets/js/view-catalogue-reader.js?v=20261031-view1',
+      'assets/js/inspirations-view-discovery.js?v=20261031-view1',
       'assets/js/inspirations-view-accessories-ui.js?v=20260911-view-accessories-ui1',
-      'assets/js/inspirations-view-order-v4.js?v=20260911-view-order-v4',
-      'assets/js/inspirations-view-order-v5-polish.js?v=20260911-view-order-v5',
+      'assets/js/inspirations-view-order-v4.js?v=20261031-view1',
+      'assets/js/inspirations-view-order-v5-polish.js?v=20261031-view1',
       'assets/js/inspirations-view-order-email-recap-fix.js?v=20260911-view-mail-recap2'
     ]
   };
@@ -151,6 +154,13 @@
 
     function currentEntries() {
       const partner = currentPartnerName();
+      if (/view/i.test(partner) && Array.isArray(window.VIEW_CATALOGUE)) {
+        return window.VIEW_CATALOGUE.map(p=>({
+          id:p.id,name:p.name,
+          meta:[p.effect,(p.formats||[]).join(' · ')].filter(Boolean).join(' — '),
+          keywords:[...(p.colors||[]),...(p.finishes||[]),...(p.variants||[]).flatMap(v=>Object.values(v.refs||{}))].join(' ')
+        })).sort((a,b)=>a.name.localeCompare(b.name,'fr',{sensitivity:'base'}));
+      }
       if (/fenice/i.test(partner)) {
         const cat = selectedFeniceCatalogue();
         return Array.isArray(cat?.entries) ? cat.entries.slice().sort((a,b) => a.name.localeCompare(b.name,'fr',{sensitivity:'base'})) : [];
@@ -168,14 +178,15 @@
     }
 
     function renderLexicon(query='') {
-      const q = normalise(query).trim();
-      const shown = entries.filter(x => !q || normalise(`${x.name || ''} ${x.keywords || ''} ${x.meta || ''}`).includes(q));
+      const terms = normalise(query).replace(/×/g,'x').trim().split(/\s+/).filter(Boolean);
+      const shown = entries.filter(x => terms.every(q=>normalise(`${x.name || ''} ${x.keywords || ''} ${x.meta || ''}`).replace(/×/g,'x').includes(q)));
       list.innerHTML = shown.length ? shown.map(x => `<button type="button" class="lrf-lexicon-item" data-lex-id="${String(x.id).replace(/"/g,'&quot;')}"><span class="lrf-lexicon-item-copy"><span class="lrf-lexicon-item-main">${String(x.name).replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]))}</span>${x.meta ? `<span class="lrf-lexicon-item-meta">${String(x.meta).replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]))}</span>` : ''}</span></button>`).join('') : '<div class="lrf-lexicon-empty">Aucune référence trouvée.</div>';
     }
 
     function closeLexicon() {
       overlay.classList.remove('open');
       document.body.style.overflow = '';
+      btn.focus({preventScroll:true});
     }
 
     btn.addEventListener('click', () => {
@@ -199,7 +210,16 @@
     search.addEventListener('input', () => renderLexicon(search.value));
     overlay.querySelector('.lrf-lexicon-close').addEventListener('click', closeLexicon);
     overlay.addEventListener('click', e => { if (e.target === overlay) closeLexicon(); });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape' && overlay.classList.contains('open')) closeLexicon(); });
+    document.addEventListener('keydown', e => {
+      if(!overlay.classList.contains('open')) return;
+      if(e.key==='Escape') {e.preventDefault();e.stopImmediatePropagation();closeLexicon();}
+      if(e.key==='Tab') {
+        const nodes=[...overlay.querySelectorAll('button,input,select')].filter(n=>!n.disabled && n.getClientRects().length);
+        const first=nodes[0],last=nodes.at(-1);
+        if(e.shiftKey&&document.activeElement===first){e.preventDefault();last?.focus();}
+        else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first?.focus();}
+      }
+    },true);
 
     list.addEventListener('click', e => {
       const item = e.target.closest('[data-lex-id]');
@@ -207,6 +227,8 @@
       const id = item.dataset.lexId;
       const entry = entries.find(x => x.id === id);
       closeLexicon();
+
+      if (id.startsWith('view-') && window.LRF_VIEW_SELECTION?.openCollection(id)) return;
 
       if (entry?.pdf && entry?.page) {
         const viewerCatalogue = entry.section ? 'general' : 'cersaie';

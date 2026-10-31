@@ -73,6 +73,7 @@
   const apply = () => {
     if (!Array.isArray(window.VIEW_CATALOGUE)) return;
     window.VIEW_CATALOGUE.forEach(product => {
+      if (window.VIEW_SELECTION_MEDIA?.galleries?.[product.slug]?.length) return;
       const key = norm(product.name || product.collection);
       mergeImages(product, GALLERIES[key]);
     });
