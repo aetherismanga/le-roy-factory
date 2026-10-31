@@ -11,13 +11,9 @@
   ],
   "sharedCatalogueVersion": "20261024-suite-1",
   "publicSite": {
-    "releaseId": "20261031-view-seo-1",
-    "baselineCommit": "4bab902a8fd4a8a885a9d7f4b7a1dc81557e1932",
+    "releaseId": "20261031-view-mobile-3",
+    "baselineCommit": "381f6d10a07673592cef8e390983dada01f5d061",
     "pages": [
-      "carrelage-view.html",
-      "view-coco.html",
-      "view-corso.html",
-      "view-i-marmi-di-view.html",
       "univers.html",
       "univers-ios.html"
     ],
