@@ -47,15 +47,19 @@ for page, modified in PAGES:
         for image in ['lrf-expo-studio-one.webp', 'lrf-expo-general.webp']:
             entry = SubElement(url, f'{{{IMAGE}}}image')
             SubElement(entry, f'{{{IMAGE}}}loc').text = BASE + 'shared/lrf-3d/media/public-compositions/' + image
-# Public Elios pages generated from the existing catalogue; no private routes.
-elios_manifest = ROOT / 'assets/data/elios-seo-pages.json'
-if elios_manifest.exists():
-    for item in json.loads(elios_manifest.read_text())['pages']:
+# Explicit public discovery manifests, never CRM, tariffs or private routes.
+for brand in ['elios','view']:
+    manifest = ROOT / f'assets/data/{brand}-seo-pages.json'
+    if not manifest.exists():
+        continue
+    data = json.loads(manifest.read_text())
+    for item in data['pages']:
         page = item['file']
         assert page.endswith('.html') and '/' not in page and (ROOT / page).is_file()
+        assert page.startswith((brand+'-', 'carrelage-'+brand)), page
         url = SubElement(tree, f'{{{NS}}}url')
         SubElement(url, f'{{{NS}}}loc').text = BASE + page
-        SubElement(url, f'{{{NS}}}lastmod').text = '2026-10-31'
+        SubElement(url, f'{{{NS}}}lastmod').text = data['updated']
         for src in item['images']:
             image = SubElement(url, f'{{{IMAGE}}}image')
             SubElement(image, f'{{{IMAGE}}}loc').text = src

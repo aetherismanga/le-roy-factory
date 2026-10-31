@@ -57,13 +57,14 @@
       const refs=productRefs(p);
       const searchBits=[p.collection,p.catalogueLabel,p.slug,p.description,p.category,p.productType,...(p.formats||p.dimensions||[]),...(p.colors||[]),...(p.finishes||[]),...refs].filter(Boolean);
       const baseUrl=`univers.html?partner=${u(partner)}&search=${u(name)}&open=1`;
-      add({type:defaultType,icon:'▦',title:name,desc:`${partner}${p.category?` · ${p.category}`:(p.productType?` · ${p.productType}`:'')}`,url:partner==='Elios Ceramica'&&window.LRF_ELIOS_SEARCH_META?.[p.slug]?.page||baseUrl,eliosSlug:partner==='Elios Ceramica'?p.slug:undefined,aliases:[partner,...(partnerAliases[partner]||[]),...searchBits]});
+      add({type:defaultType,icon:'▦',title:name,desc:`${partner}${p.category?` · ${p.category}`:(p.productType?` · ${p.productType}`:'')}`,url:(partner==='View Ceramica'&&window.LRF_VIEW_SEARCH_META?.[p.slug]?.page)||(partner==='Elios Ceramica'&&window.LRF_ELIOS_SEARCH_META?.[p.slug]?.page)||baseUrl,viewSlug:partner==='View Ceramica'?p.slug:undefined,eliosSlug:partner==='Elios Ceramica'?p.slug:undefined,aliases:[partner,...(partnerAliases[partner]||[]),...searchBits]});
       refs.forEach(ref=>add({type:`Référence ${partner.split(' ')[0]}`,icon:'⌕',title:ref,desc:`${partner} · ${name}`,url:`${baseUrl}&ref=${u(ref)}`,aliases:[partner,name,ref,...(partnerAliases[partner]||[])]}));
     });
   }
   const eliosSearchProducts=window.LRF_ELIOS_SEARCH_META?Object.entries(window.LRF_ELIOS_SEARCH_META).map(([slug,p])=>({...((window.ELIOS_CATALOGUE||[]).find(x=>x.slug===slug)||{}),...p,slug})):window.ELIOS_CATALOGUE;
   addProducts(eliosSearchProducts,'Elios Ceramica','Produit Elios');
-  addProducts(window.VIEW_CATALOGUE,'View Ceramica','Produit View');
+  const viewSearchProducts=window.LRF_VIEW_SEARCH_META?Object.entries(window.LRF_VIEW_SEARCH_META).map(([slug,p])=>({...((window.VIEW_CATALOGUE||[]).find(x=>x.slug===slug)||{}),...p,slug})):window.VIEW_CATALOGUE;
+  addProducts(viewSearchProducts,'View Ceramica','Produit View');
   addProducts(window.NEOBATH_CATALOGUE,'Neobath','Produit Neobath');
 
   (window.LRF_REVIGLASS_SEARCH_INDEX||[]).forEach(series=>{
@@ -78,6 +79,7 @@
   const haystack=item=>norm([item.title,item.desc,...item.aliases].join(' '));
   function score(item,rawQuery){
     const q=norm(rawQuery);if(!q)return 0;
+    if(item.viewSlug&&window.LRF_VIEW_DISCOVERY)return window.LRF_VIEW_DISCOVERY.matches({slug:item.viewSlug},rawQuery)?900+(norm(rawQuery).includes(norm(item.title))?600:0):0;
     if(item.eliosSlug&&window.LRF_ELIOS_DISCOVERY)return window.LRF_ELIOS_DISCOVERY.matches({slug:item.eliosSlug},rawQuery)?900+(norm(rawQuery).includes(norm(item.title))?600:0):0;
     const qc=compact(q),title=norm(item.title),titlec=compact(title),hay=haystack(item),hayc=compact(hay),tokens=q.split(/\s+/).filter(Boolean);
     let s=0;

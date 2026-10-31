@@ -115,7 +115,7 @@
 
   function matches(p) {
     const hay = norm([p.name,p.collection,p.description,p.category,p.effect,...(p.formats||[]).map(f=>f.replace(/×/g,'x')),...(p.colors||[]),...(p.colorFamilies||[]),...(p.finishes||[]),...(p.variants||[]).flatMap(v=>Object.values(v.refs||{}))].join(' '));
-    if (filters.q && !searchTerms(filters.q).every(term=>hay.includes(term))) return false;
+    if (filters.q && (window.LRF_VIEW_DISCOVERY ? !window.LRF_VIEW_DISCOVERY.matches(p,filters.q) : !searchTerms(filters.q).every(term=>hay.includes(term)))) return false;
     if (filters.format !== 'Tous' && !(p.formats||[]).some(x => norm(x) === norm(filters.format))) return false;
     if (filters.color !== 'Tous' && !(p.colorFamilies||p.colors||[]).some(x => norm(x) === norm(filters.color))) return false;
     if (filters.effect !== 'Tous' && norm(p.effect) !== norm(filters.effect)) return false;
@@ -131,7 +131,7 @@
     if (count) count.textContent = `${found.length} collection${found.length > 1 ? 's' : ''} VIEW`;
     grid.innerHTML = found.length ? found.map(p => `
       <article class="product-card-v2 view-safe-card" data-view-safe-id="${esc(p.__safeId)}" tabindex="0" role="button" aria-label="Découvrir la collection ${esc(p.name)}">
-        <img src="${esc(p.coverImage || galleryOf(p)[0])}" alt="${esc(p.name)} · VIEW Ceramica" loading="lazy" decoding="async" width="640" height="480" onerror="this.onerror=null;this.src='https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/view.png'">
+        <img src="${esc(p.coverImage || galleryOf(p)[0])}" alt="${esc(p.name)} · VIEW Ceramica · ${esc(window.LRF_VIEW_SEARCH_META?.[p.slug]?.effect||p.effect||p.category)}" loading="lazy" decoding="async" width="640" height="480" onerror="this.onerror=null;this.src='https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/view.png'">
         <div class="body"><span class="eyebrow">VIEW · ${esc(p.effect || p.category || 'Carrelage')}</span><h3>${esc(p.name)}</h3><p>${esc(p.description || '')}</p><div class="chips">${[...(p.colors||[]).slice(0,2),...(p.formats||[]).slice(0,2)].map(x => `<span>${esc(x)}</span>`).join('')}</div></div>
       </article>`).join('') : '<div class="empty-partner"><strong>Aucune collection VIEW avec ces filtres.</strong><p>Modifiez la recherche, le format, la couleur, l’effet ou la finition.</p></div>';
   }
@@ -168,7 +168,7 @@
           <div class="view-safe-thumbs">${items.map((url,i) => `<button class="view-safe-thumb${i===0?' active':''}" type="button" data-view-safe-thumb="${i}"><img src="${esc(url)}" alt="" loading="lazy"></button>`).join('')}</div>
           <div class="view-safe-caption">Glissez l’image sur smartphone · cliquez sur les miniatures sur PC</div>
         </div>
-        <div class="view-safe-info"><span class="eyebrow">VIEW CERAMICA · ${esc(p.effect || p.category || 'Carrelage')}</span><h2>${esc(p.name)}</h2><p>${esc(p.description || '')}</p>${(p.colors||[]).length ? `<h4>Couleurs / déclinaisons</h4><div class="chips">${(p.colors||[]).map(x => `<span>${esc(x)}</span>`).join('')}</div>` : ''}${(p.formats||[]).length ? `<h4>Formats</h4><div class="chips">${(p.formats||[]).map(x => `<span>${esc(x)}</span>`).join('')}</div>` : ''}<h4>Tarifs professionnels</h4><table class="view-safe-table"><thead><tr><th>Format</th><th>Tarif PRO</th></tr></thead><tbody>${rows || '<tr><td>—</td><td>Sur demande</td></tr>'}</tbody></table></div>
+        <div class="view-safe-info"><span class="eyebrow">VIEW CERAMICA · ${esc(p.effect || p.category || 'Carrelage')}</span><h2>${esc(p.name)}</h2><p>${esc(p.description || '')}</p>${(p.colors||[]).length ? `<h4>Couleurs / déclinaisons</h4><div class="chips">${(p.colors||[]).map(x => `<span>${esc(x)}</span>`).join('')}</div>` : ''}${(p.formats||[]).length ? `<h4>Formats</h4><div class="chips">${(p.formats||[]).map(x => `<span>${esc(x)}</span>`).join('')}</div>` : ''}${window.LRF_VIEW_SEARCH_META?.[p.slug]?`<p><a href="${esc(window.LRF_VIEW_SEARCH_META[p.slug].page)}">Fiche collection, photos et formats proches</a></p>`:''}<h4>Tarifs professionnels</h4><table class="view-safe-table"><thead><tr><th>Format</th><th>Tarif PRO</th></tr></thead><tbody>${rows || '<tr><td>—</td><td>Sur demande</td></tr>'}</tbody></table></div>
       </div>
       <section class="view-safe-stock"><h3>Demandes & commandes VIEW</h3><p>Aucun stock en temps réel n’est disponible pour VIEW. Les disponibilités sont confirmées par l’usine sur demande.</p><div class="view-safe-actions"><button class="secondary" type="button" data-view-safe-action="availability">Demander à VIEW</button><button class="primary" type="button" data-view-safe-action="order">Commander</button></div></section>`;
 
