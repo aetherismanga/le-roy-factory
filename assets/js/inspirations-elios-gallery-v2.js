@@ -142,7 +142,7 @@
     gallery.dataset.productId=id;
     gallery.innerHTML=`
       <div class="elios-gallery-stage" title="Cliquer pour agrandir">
-        <img class="elios-gallery-main" alt="${esc(product.name)}" draggable="false">
+        <img class="elios-gallery-main" alt="${esc(product.name)} — Elios Ceramica" draggable="false">
         <button class="elios-gallery-nav prev" type="button" aria-label="Image précédente">‹</button>
         <button class="elios-gallery-nav next" type="button" aria-label="Image suivante">›</button>
         <span class="elios-gallery-counter"></span>
@@ -171,7 +171,7 @@
       const box=document.getElementById('elios-gallery-lightbox');
       if(!box?.classList.contains('open')) return;
       box.querySelector('.elios-lightbox-image').src=currentImages[currentIndex]||'';
-      box.querySelector('.elios-lightbox-image').alt=caption();
+      box.querySelector('.elios-lightbox-image').alt=caption()+' — Elios Ceramica';
       box.querySelector('.elios-lightbox-caption').textContent=`${caption()} · ${currentIndex+1} / ${currentImages.length}`;
       box.querySelector('.prev').hidden=box.querySelector('.next').hidden=currentImages.length<2;
     }
@@ -186,7 +186,7 @@
         mainImg.src=fallback||'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/03.png';
       };
       mainImg.src=src;
-      mainImg.alt=caption();
+      mainImg.alt=caption()+' — Elios Ceramica';
       counter.textContent=`${currentIndex+1} / ${currentImages.length}`;
       label.textContent=caption();
       prev.hidden=next.hidden=currentImages.length<2;
@@ -208,7 +208,7 @@
       const box=ensureLightbox();
       activeGallery=api;
       box.querySelector('.elios-lightbox-image').src=currentImages[currentIndex]||'';
-      box.querySelector('.elios-lightbox-image').alt=caption();
+      box.querySelector('.elios-lightbox-image').alt=caption()+' — Elios Ceramica';
       box.querySelector('.elios-lightbox-caption').textContent=`${caption()} · ${currentIndex+1} / ${currentImages.length}`;
       box.querySelector('.prev').hidden=box.querySelector('.next').hidden=currentImages.length<2;
       box.classList.add('open');

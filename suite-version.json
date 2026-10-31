@@ -11,16 +11,25 @@
   ],
   "sharedCatalogueVersion": "20261024-suite-1",
   "publicSite": {
-    "releaseId": "20261031-view-stock-2",
-    "baselineCommit": "287b3112d20db241c448f64be4cf47b028e04e3f",
+    "releaseId": "20261031-elios-seo-1",
+    "baselineCommit": "265195ca90b8840770da3928c4452cabb25f6fee",
     "pages": [
       "univers.html",
-      "univers-ios.html"
+      "univers-ios.html",
+      "carrelage-elios.html",
+      "elios-roma.html",
+      "elios-format-40x60.html",
+      "elios-imitation-travertin.html"
     ],
     "view": {
       "collections": 19,
       "photographs": 94,
       "catalogues": 19
+    },
+    "elios": {
+      "collections": 52,
+      "photographs": 485,
+      "seoPages": 78
     }
   },
   "configurators": {
