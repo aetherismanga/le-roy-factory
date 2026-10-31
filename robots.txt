@@ -42,3 +42,19 @@ Sitemap: https://leroyfactory.fr/sitemap.xml
 
 Disallow: /promo-cersaie.html
 Disallow: /promo-fenice-participation.html
+
+# Autres interfaces internes, commandes et prototypes.
+Disallow: /analyse-ventes-clients.html
+Disallow: /documents-clients.html
+Disallow: /document-usines.html
+Disallow: /ma-station.html
+Disallow: /tarifs-pro.html
+Disallow: /aquahome-commande.html
+Disallow: /reitano-commande.html
+Disallow: /uptrend-commande.html
+Disallow: /randal-harmony-3d-test.html
+Disallow: /randal-harmony-f-119-sella-test.html
+Disallow: /randal-studio-one-3d.html
+Disallow: /bulbo-meubles-2026.html
+Disallow: /neobath-anima-interactif.html
+Disallow: /view-lots-demande.html
