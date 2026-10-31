@@ -11,8 +11,8 @@
   ],
   "sharedCatalogueVersion": "20261024-suite-1",
   "publicSite": {
-    "releaseId": "20261031-seo-public-1",
-    "baselineCommit": "6a38aa72465db6e924c517faef7af109c69f92d8",
+    "releaseId": "20261031-seo-public-2",
+    "baselineCommit": "6c0390fa29b5ec8dd88533a5ed5fd25004126189",
     "pages": [
       "index.html",
       "partenaires.html",

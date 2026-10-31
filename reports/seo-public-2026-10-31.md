@@ -18,7 +18,7 @@ Douze pages hors CRM reçoivent une directive noindex. Les exclusions robots int
 - Revue indépendante : JSON-LD valide, H1 unique sur les nouvelles pages, liens et ancres résolus, aucune donnée privée introduite.
 - Navigateur Chrome : cinq nouvelles pages et cinq pages existantes aux largeurs de cadre 1280, 390 et 360 px ; aucun débordement horizontal après correction Contact. FAQ native ouverte. Ce contrôle de largeur sous Chromium ne remplace ni Safari/iOS ni les appareils physiques.
 - L'API PageSpeed a refusé la mesure pour quota dépassé. L'interface Google a ensuite produit la mesure initiale : 64/100 performance mobile, LCP 3,9 s, CLS 0,534 et TBT 0 ms ; score SEO automatique 100/100. Il ne s'agit pas de données terrain ni d'une promesse de position.
-- Cette mesure a identifié un menu mobile visible avant l'arrivée de ses styles (0,500 de CLS). L'accueil charge désormais les feuilles mobiles existantes dans le head, masque le menu inactif dès le rendu initial et stabilise les dimensions des logos et la graisse du texte. Les fonds WebP sont prioritaires. Menu ouvert/fermé et bascules clair/sombre retestés dans Chrome : fonctionnels, aucun débordement à 390 px. Aucun JavaScript modifié.
+- Cette mesure a identifié un menu mobile visible avant l'arrivée de ses styles (0,500 de CLS). L'accueil masque le menu inactif dès le rendu initial et stabilise les dimensions des logos et la graisse du texte. Les deux feuilles mobiles restent chargées par les loaders existants afin de ne pas ajouter deux requêtes bloquantes avant le premier rendu. Les fonds WebP sont prioritaires. Menu ouvert/fermé et bascules clair/sombre retestés dans Chrome : fonctionnels, aucun débordement à 390 px. Aucun JavaScript modifié.
 
 ## Limites et séparation des accès
 
@@ -29,3 +29,7 @@ Les présentations sont françaises. Les paramètres de langue des ateliers sont
 ## Publication
 
 Branche dédiée, puis PR vers main. Suivre RELEASE.md : site via GitHub Pages, vérifier `suite-version.json` et les pages réellement servies après fusion. Le script release-impact doit sélectionner seulement `site`. Ne déclencher aucun déploiement Vercel pour ce lot. Le rapport de résultats et les données analytiques restent privés hors dépôt public.
+
+## Mesure et ajustement après publication
+
+Le premier contrôle du lot publié a donné CLS 0 mais LCP 8,5 s et score performance 62/100 (mesure de laboratoire, 31/10 à 07:45). Cette variation ne permet pas d'attribuer tout le délai à une cause unique. Les deux liens CSS mobiles ajoutés dans le head ont donc été retirés ; seuls les gardes critiques sont conservés, et les loaders JavaScript restent inchangés. Cette correction ciblée est regroupée dans une publication Pages complémentaire ; aucun atelier Vercel n'est redéployé.
