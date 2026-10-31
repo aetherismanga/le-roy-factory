@@ -1,0 +1,11 @@
+# VIEW — dimensions des fiches sur smartphone
+
+La capture transmise montre une bande vide à droite de la galerie COCO. Défaut reproduit dans la fiche réelle : sur un écran de 390 px, fenêtre de 366 px mais contenu de 293 px. Le bouton Fermer flottant, et une règle héritée de la galerie Elios plus spécifique, réservaient de la largeur au lieu de se superposer à l'image.
+
+Correction limitée au contrôleur VIEW : fermeture sticky sans float, alignée à droite avec marges prioritaires et hauteur de flux compensée ; grille à pleine largeur ; colonne mobile minmax(0,1fr). La galerie utilise désormais les 351 px de largeur intérieure disponibles dans Chrome (les 15 px restants sont la barre de défilement de l'environnement de test). Le défilement reste dans la fiche et le bouton reste accessible. Les contrôles d'accès, commandes, tarifs et moteurs 3D ne changent pas.
+
+La fenêtre mobile suit la largeur intérieure de son conteneur et la hauteur dynamique de l'écran ; les zones de sécurité iPhone sont prises en compte avec un repli vh. Le padding mobile est limité à une classe temporaire du modal VIEW, retirée à sa fermeture, pour ne pas imposer ce réglage aux autres fabricants. Les deux pages univers.html et univers-ios.html chargent la nouvelle version.
+
+Contrôles de largeur/hauteur dans Chrome, via un cadre contenant la vraie page et les vrais modules : 320×568, 360×800, 390×844, 430×932, 844×390 et 1280×800. Pas de débordement horizontal ; largeur de la grille égale à la largeur intérieure de la fenêtre. Fermeture en haut à droite et présentation PC en deux colonnes contrôlées visuellement. Sur univers-ios.html, pleine largeur 351 px, photo suivante en plein écran, retour galerie, défilement jusqu’aux tarifs verrouillés et boutons Demander/Commander puis fermeture vérifiés. La classe temporaire du modal est bien retirée à la fermeture. Il s'agit de contrôles responsive aux formats iPhone/Android, pas d'un test sur Safari ou un appareil physique.
+
+Noyau 3D : réussi. PLAN & POSE/sécurité : 485 réussites, 1 ignoré. Tests ciblés Elios/VIEW et isolation stocks : 38 réussites ; vérification finale VIEW/isolation après ajustement CSS : 23 réussites. Contrôle SEO : 133 URL inchangées. Construction publique et périmètre de publication vérifiés. GitHub Pages uniquement, aucun déploiement Vercel.

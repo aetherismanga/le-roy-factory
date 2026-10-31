@@ -43,8 +43,8 @@
     st.textContent = `
       .view-safe-card{cursor:pointer;touch-action:manipulation}
       .view-safe-modal{position:relative;width:min(980px,96vw)!important;max-height:92vh!important;padding:0!important;overflow-y:auto!important;overflow-x:hidden!important;border-radius:18px!important}
-      .view-safe-modal .modal-v2-close{position:sticky!important;float:right;top:12px;right:12px;z-index:50;width:48px;height:48px;margin:12px 12px -60px 0;border-radius:50%;background:#111!important;color:#fff!important}
-      .view-safe-main{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);min-width:0}
+      .view-safe-modal .modal-v2-close{position:sticky!important;float:none!important;display:block;top:12px!important;right:12px!important;z-index:50;width:48px;height:48px;box-sizing:border-box;margin:12px 12px -60px auto!important;border-radius:50%;background:#111!important;color:#fff!important}
+      .view-safe-main{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);width:100%;min-width:0;box-sizing:border-box}
       .view-safe-gallery{min-width:0;background:#f2efe9}
       .view-safe-stage{position:relative;aspect-ratio:4/3;overflow:hidden;background:#ebe7df;touch-action:pan-y}
       .view-safe-stage>img{display:block;width:100%;height:100%;object-fit:cover}
@@ -66,10 +66,11 @@
       .view-safe-stock h3{margin:0 0 .28rem}.view-safe-stock p{margin:.2rem 0 .75rem;color:#4d5b53}
       .view-safe-actions{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}.view-safe-actions button{min-height:46px;border-radius:9px;font-weight:900;padding:.7rem}
       .view-safe-actions .secondary{border:1px solid #77b091;background:#fff;color:#17653d}.view-safe-actions .primary{border:1px solid #176c40;background:#176c40;color:#fff}
+      @media(min-width:901px){.view-safe-info>h2{padding-right:48px}}
       @media(max-width:900px){
-        .modal-v2{padding:12px!important;box-sizing:border-box}
-        .view-safe-modal{width:calc(100vw - 24px)!important;max-width:none!important;max-height:calc(100dvh - 24px)!important;border-radius:28px!important}
-        .view-safe-main{grid-template-columns:1fr}
+        .modal-v2.view-safe-overlay{padding:12px!important;padding:max(12px,env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) max(12px,env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px))!important;box-sizing:border-box}
+        .view-safe-modal{width:100%!important;max-width:980px!important;max-height:calc(100vh - 24px)!important;max-height:calc(100dvh - max(12px,env(safe-area-inset-top,0px)) - max(12px,env(safe-area-inset-bottom,0px)))!important;border-radius:20px!important;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+        .view-safe-main{grid-template-columns:minmax(0,1fr)}
         .view-safe-info{padding:1rem .95rem 1.1rem}
         .view-safe-info h2{font-size:clamp(1.55rem,7vw,2rem)}
         .view-safe-table{font-size:.84rem}.view-safe-table th,.view-safe-table td{padding:.65rem .4rem}
@@ -147,7 +148,7 @@
 
   function closeModal() {
     const modal = $('#product-modal-v2'), box = $('#product-modal-v2-card');
-    modal?.classList.remove('open');
+    modal?.classList.remove('open','view-safe-overlay');
     if (box) { box.className = 'modal-v2-card'; box.innerHTML = ''; }
     activeProduct = null;
     document.body.style.overflow = '';
@@ -156,6 +157,7 @@
   function openModal(p) {
     const modal = $('#product-modal-v2'), box = $('#product-modal-v2-card'); if (!modal || !box) return;
     activeProduct = p;
+    modal.classList.add('view-safe-overlay');
     const allowed = hasViewAccess();
     const items = galleryOf(p);
     const rows = (p.variants || []).map(r => `<tr><td><strong>${esc(r.format || '—')}</strong>${r.thickness ? `<br><small>${esc(r.thickness)}</small>` : ''}${r.finish ? `<br><small>${esc(r.finish)}</small>` : ''}</td><td>${priceCell(r, allowed)}</td></tr>`).join('');
