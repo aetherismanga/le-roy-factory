@@ -11,10 +11,12 @@
   ],
   "sharedCatalogueVersion": "20261024-suite-1",
   "publicSite": {
-    "releaseId": "20261031-home-illustrated-1",
-    "baselineCommit": "3d1049861082888a8fbe5cf7084176f8313484b9",
+    "releaseId": "20261031-configurateurs-local-1",
+    "baselineCommit": "0a116a66e4fb03522876be09d417f853bb3b2ed9",
     "pages": [
-      "index.html"
+      "configurateur-salle-de-bain-3d.html",
+      "agence-carrelage-languedoc-paca.html",
+      "logiciel-calepinage-carrelage.html"
     ],
     "view": {
       "collections": 19,
