@@ -17,7 +17,8 @@ Douze pages hors CRM reçoivent une directive noindex. Les exclusions robots int
 - `python3 scripts/check-public-seo.py` : 21 canonical publiques, cinq pages éditoriales, 152 liens/images locaux, code exécutable des 20 pages HTML existantes modifiées conservé.
 - Revue indépendante : JSON-LD valide, H1 unique sur les nouvelles pages, liens et ancres résolus, aucune donnée privée introduite.
 - Navigateur Chrome : cinq nouvelles pages et cinq pages existantes aux largeurs de cadre 1280, 390 et 360 px ; aucun débordement horizontal après correction Contact. FAQ native ouverte. Ce contrôle de largeur sous Chromium ne remplace ni Safari/iOS ni les appareils physiques.
-- L'API PageSpeed a refusé la mesure publique pour quota dépassé ; aucun score inventé.
+- L'API PageSpeed a refusé la mesure pour quota dépassé. L'interface Google a ensuite produit la mesure initiale : 64/100 performance mobile, LCP 3,9 s, CLS 0,534 et TBT 0 ms ; score SEO automatique 100/100. Il ne s'agit pas de données terrain ni d'une promesse de position.
+- Cette mesure a identifié un menu mobile visible avant l'arrivée de ses styles (0,500 de CLS). L'accueil charge désormais les feuilles mobiles existantes dans le head, masque le menu inactif dès le rendu initial et stabilise les dimensions des logos et la graisse du texte. Les fonds WebP sont prioritaires. Menu ouvert/fermé et bascules clair/sombre retestés dans Chrome : fonctionnels, aucun débordement à 390 px. Aucun JavaScript modifié.
 
 ## Limites et séparation des accès
 
