@@ -1,8 +1,33 @@
-/* Public editorial blocks only: no application or catalogue selectors. */
-.seo-overview{max-width:1160px;margin:0 auto;padding:clamp(28px,5vw,64px) 22px;color:#29332e;line-height:1.7}
-.seo-overview h1,.seo-overview h2{font-family:Georgia,serif;color:#29332e!important;text-transform:none!important;letter-spacing:0!important;line-height:1.25}
-.seo-overview h1{font-size:clamp(1.7rem,4vw,2.6rem)}.seo-overview h2{font-size:clamp(1.25rem,3vw,1.65rem)}
-.seo-overview p{color:#515b54!important;max-width:85ch}.seo-overview a{color:#765719!important;text-decoration:underline;text-underline-offset:3px}
-.seo-overview-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}.seo-overview-grid article{background:#fffdf8;border:1px solid #ddd8ca;border-radius:14px;padding:22px;min-width:0}
-.seo-overview-grid h2{margin-top:0}.seo-overview a:focus-visible{outline:3px solid #8b691f;outline-offset:4px}
-@media(max-width:760px){.seo-overview-grid{grid-template-columns:1fr}}
+/* Home editorial content: scoped, readable and illustrated. */
+html body.lrf-page-index .seo-overview{margin:0;max-width:none;padding:64px 24px 48px;background:#f5f3ed!important;color:#29332e;line-height:1.6;border-top:1px solid #e4ddcf}
+.seo-overview .home-solutions-inner{max-width:1240px;margin:0 auto}
+.seo-overview .home-section-kicker{margin:0 0 10px!important;color:#8c6a3f!important;font:700 11px/1.4 Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase}
+html body.lrf-page-index .seo-overview h1,html body.lrf-page-index .seo-overview h2{font-family:Georgia,'Times New Roman',serif;color:#283830!important;text-transform:none!important;letter-spacing:-.025em!important;line-height:1.2;text-shadow:none!important}
+.seo-overview h1{font-size:clamp(28px,3vw,42px);font-weight:500;max-width:940px;margin:0 0 16px}
+.seo-overview p{color:#59625c!important;font-family:Arial,sans-serif;font-size:15px;text-shadow:none!important}
+.seo-overview .home-section-intro{max-width:720px;margin:0 0 32px;font-size:16px;line-height:1.65}
+.seo-overview-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.seo-overview-grid article{min-width:0;background:#fff;border:1px solid #e4dfd4;border-radius:12px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 5px 20px #26392d05}
+.seo-overview-grid figure{position:relative;aspect-ratio:16/10;margin:0;overflow:hidden;background:#e6e0d3}
+.seo-overview-grid figure img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease}
+.seo-overview-grid article:hover figure img{transform:scale(1.025)}
+.seo-overview-grid figcaption{position:absolute;inset:auto 0 0;padding:24px 16px 10px;background:linear-gradient(transparent,#18231c9c);color:#fff;font:11px/1.4 Arial,sans-serif;letter-spacing:.02em}
+.seo-overview .home-card-body{padding:24px;flex:1;display:flex;flex-direction:column;align-items:flex-start}
+.seo-overview .home-card-kicker{font:700 10px/1.5 Arial,sans-serif;letter-spacing:.13em;color:#947b57;margin-bottom:10px;text-transform:uppercase}
+.seo-overview-grid h2{font-size:clamp(22px,2vw,27px);font-weight:500;margin:0 0 12px}
+.seo-overview-grid p{margin:0 0 22px;line-height:1.65}
+.seo-overview a{color:#693049!important;text-underline-offset:4px}
+.seo-overview a:focus-visible,.seo-overview summary:focus-visible{outline:3px solid #a8874d;outline-offset:5px}
+.seo-overview .home-card-link{margin-top:auto;font:700 13px/1.5 Arial,sans-serif;text-decoration:none;border-bottom:1px solid #cdbda9;padding-bottom:4px}
+.seo-overview .home-card-link:hover{border-color:#693049}
+.seo-overview .home-project-bar{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:28px 0 24px;margin-top:18px;border-bottom:1px solid #dcd5c6}
+.seo-overview .home-project-bar p{margin:0}
+.seo-overview .home-project-bar strong{display:block;font:500 23px/1.3 Georgia,serif;color:#283830}
+.seo-overview .home-project-bar span{display:block;margin-top:5px;font-size:14px}
+.seo-overview .home-contact-link{border:1px solid #693049;border-radius:6px;padding:12px 20px;text-decoration:none;font:700 13px/1.4 Arial,sans-serif;white-space:nowrap}
+.seo-overview .home-contact-link:hover{background:#f0e8e7}
+.seo-overview .home-project-notes{margin-top:20px;max-width:900px;font:14px/1.7 Arial,sans-serif;color:#59625c}
+.seo-overview .home-project-notes summary{cursor:pointer;color:#425247;font-weight:600;padding:5px 0}
+.seo-overview .home-project-notes p{font-size:14px;margin:12px 0}
+@media(max-width:900px){html body.lrf-page-index .seo-overview{padding:38px 18px 30px}.seo-overview-grid{grid-template-columns:1fr;gap:20px}.seo-overview h1{font-size:30px}.seo-overview .home-section-intro{font-size:15px;margin-bottom:24px}.seo-overview-grid figure{aspect-ratio:16/9}.seo-overview .home-card-body{padding:22px}.seo-overview-grid h2{font-size:26px}.seo-overview-grid p{margin-bottom:18px}.seo-overview .home-project-bar{align-items:flex-start;flex-direction:column;gap:16px}.seo-overview .home-contact-link{display:inline-block}}
+@media(prefers-reduced-motion:reduce){.seo-overview-grid figure img{transition:none}.seo-overview-grid article:hover figure img{transform:none}}

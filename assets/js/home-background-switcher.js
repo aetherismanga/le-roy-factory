@@ -8,7 +8,7 @@
   const media = window.matchMedia('(max-width: 900px)');
 
   const IMAGES = {
-    desktopLight: 'assets/img/performance-20261027/home-desktop-light.webp',
+    desktopLight: 'assets/img/home-refresh-20261031/bathroom-wide-light.webp',
     desktopDark: 'assets/img/performance-20261027/home-desktop-dark.webp',
     mobileLight: 'assets/img/performance-20261027/home-mobile-light.webp',
     mobileDark: 'assets/img/performance-20261027/home-mobile-dark.webp'
