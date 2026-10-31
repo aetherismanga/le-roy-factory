@@ -12,7 +12,7 @@ export function lineItems(item){
   const m=C.models.find(m=>m.id===s.format),b=C.sizes.findIndex(b=>s.width>=b.lo&&s.width<=b.hi),top=s.top;
   if(!m||!f||!Number.isInteger(s.width)||b<0||!['bare','plain','sella','tampa','neris','torne'].includes(top)){row('Meuble STUDIO ONE',null,null,'Configuration à vérifier');return rows;}
   const hasPlan=['plain','neris','torne'].includes(top),ref=(hasPlan?m.top:m.base)+' '+C.sizes[b].ref+'@'+f.refCode;
-  row('STUDIO ONE · '+m.name,ref,(hasPlan?m.topTTC:m.bareTTC)[b],`${s.width} × ${m.height} × 46 cm${m.legHeight?' · caisson '+m.bodyHeight+' cm + pieds '+m.legHeight+' cm':''} · ${f.name} · ${hasPlan?'plan assorti':top==='bare'?'meuble seul · sans plan ni vasque':'sans plan bois'}`,s.width===40?'40 cm : à confirmer usine':'');
+  row('STUDIO ONE · '+m.name,ref,(hasPlan?m.topTTC:m.bareTTC)[b],`${s.width} × ${m.height} × 46 cm${m.legHeight?' · caisson '+m.bodyHeight+' cm + pieds '+m.legHeight+' cm':''} · ${f.name}${s.facadeMode==='inset'?' · Façade encastrée · chants latéraux de 19 mm':''} · ${hasPlan?'plan assorti':top==='bare'?'meuble seul · sans plan ni vasque':'sans plan bois'}`,s.width===40?'40 cm : à confirmer usine':'');
   if(['sella','tampa'].includes(top)){
    const color=s.basinColor||'gloss',r=basinEntry(top,color,s.width,s.format,s.basinLayout);
    row('Vasque '+(top==='sella'?'Sella':'Tampa'),r?.ref,r?.ttc,`${s.width} cm · ${C.insetColors.find(c=>c.code===color)?.name||color}${r?' · '+r.name:''}${drainSummary(s)}`);

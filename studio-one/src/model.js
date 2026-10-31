@@ -10,11 +10,15 @@ import { validWidth, topAvailable, SELLA_REFS, cabinetFormat } from './configura
 export const SPEC={series:'STUDIO ONE · 2 tiroirs',width:.80,height:.54,depth:.46,bottom:.28,panel:.019,mirrorDiameter:.60,basin:'Sella 80 · blanc brillant',cabinetRef:'13692',basinRef:'2171',mirrorRef:'3717'};
 export {FINISHES} from './finishes.js';
 export function roundedRect(w,h,r){const s=new T.Shape();s.moveTo(-w/2+r,-h/2);s.lineTo(w/2-r,-h/2);s.quadraticCurveTo(w/2,-h/2,w/2,-h/2+r);s.lineTo(w/2,h/2-r);s.quadraticCurveTo(w/2,h/2,w/2-r,h/2);s.lineTo(-w/2+r,h/2);s.quadraticCurveTo(-w/2,h/2,-w/2,h/2-r);s.lineTo(-w/2,-h/2+r);s.quadraticCurveTo(-w/2,-h/2,-w/2+r,-h/2);return s;}
-export function makeModel({width=.80,includeMirror=true,basinLayout,basinTop='sella',topDrawer='siphon',format='two'}={}){
+export function makeModel({width=.80,includeMirror=true,basinLayout,basinTop='sella',topDrawer='siphon',format='two',facadeMode='overlay'}={}){
  const widthCm=Math.round(width*100);if(!validWidth(widthCm)||Math.abs(width*100-widthCm)>.00001)throw new Error('Largeur invalide');
  const form=cabinetFormat(format),legHeight=form.legHeight||0,H=form.height-legHeight,B=form.base+legHeight,topY=B+H;const W=widthCm/100,innerWidth=W-.038,drawerWidth=W-.096;
+ facadeMode=facadeMode==='inset'?'inset':'overlay';
+ // Inset fronts fit between the 19 mm sides with 2 mm running clearance
+ // on either edge. The sides reach the closed front plane, within 46 cm overall.
+ const insetFacade=facadeMode==='inset',frontWidth=insetFacade?innerWidth-.004:W-.004,sideDepth=insetFacade?.460:.440,sideZ=insetFacade?0:-.010;
  const chosenLayout=resolveBasinLayout(basinTop,widthCm,format,basinLayout)||'center',plumbing=basinCenters(chosenLayout,W);
- const spec={...SPEC,series:'STUDIO ONE · '+form.name,height:H,bottom:B,legHeight,totalHeight:form.height,cabinetRef:form.reference,width:W,basin:`Sella ${widthCm} · blanc brillant`,basinRef:basinReference('sella','gloss',widthCm,format,basinLayout)||null};
+ const spec={...SPEC,series:'STUDIO ONE · '+form.name,height:H,bottom:B,legHeight,totalHeight:form.height,cabinetRef:form.reference,width:W,facadeMode,basin:`Sella ${widthCm} · blanc brillant`,basinRef:basinReference('sella','gloss',widthCm,format,basinLayout)||null};
  const root=new T.Group();root.name=`STUDIO_ONE_${form.id}_${widthCm}`;const cabinet=new T.Group();cabinet.name=`Caisson_${widthCm*10}x${Math.round(H*1000)}x460`;root.add(cabinet);
  const wood=new T.MeshPhysicalMaterial({color:0xffffff,roughness:.43,clearcoat:.12,clearcoatRoughness:.40});
  const frontWood=wood.clone();const inner=new T.MeshStandardMaterial(DRAWER_METAL);inner.name='Metal_anthracite_tiroirs';const baseMat=inner;
@@ -36,8 +40,8 @@ export function makeModel({width=.80,includeMirror=true,basinLayout,basinTop='se
    leg.position.set(side*(W/2-.042),form.base,front*.177);leg.scale.set(-side,1,front);
   }
  }
- panel(.019,H,.440,'Joue_gauche_19mm',-(W/2-.0095),B+H/2,-.010);
- panel(.019,H,.440,'Joue_droite_19mm',W/2-.0095,B+H/2,-.010);
+ panel(.019,H,sideDepth,'Joue_gauche_19mm',-(W/2-.0095),B+H/2,sideZ);
+ panel(.019,H,sideDepth,'Joue_droite_19mm',W/2-.0095,B+H/2,sideZ);
  panel(innerWidth,.019,.424,'Plancher_19mm',0,B+.0095,-.009);
  panel(innerWidth,H-.036,.008,'Fond_rainure_8mm',0,B+H/2,-.222);
  panel(innerWidth,.065,.018,'Traverse_haute_avant',0,topY-.036,.170);
@@ -58,7 +62,7 @@ export function makeModel({width=.80,includeMirror=true,basinLayout,basinTop='se
  for(let i=0;i<form.drawers;i++){
   const group=new T.Group();group.name=i===0?'Tiroir_superieur_avec_passage_siphon':'Tiroir_inferieur';cabinet.add(group);drawers.push(group);
   const cell=H/form.drawers,cy=B+H-(i+.5)*cell-(i===0?0:.001),h=cell-.008;
-  const front=mesh(facade(W-.004,h),frontWood,'Facade_onglet_45deg_19mm',group,0,cy,.2205);woodUV(front);frontMeshes.push(front);
+  const front=mesh(facade(frontWidth,h),frontWood,'Facade_onglet_45deg_19mm',group,0,cy,.2205);woodUV(front);frontMeshes.push(front);
   const bottom=B+H-(i+1)*cell+(i===0?.031:.035);const dh=form.id==='two'?(i===0?.107:.148):Math.min(.23,cell*.55);
   // Rebuild only the floor and rear walls; fronts, sides and slides stay in place.
   const interior=new T.Group();interior.name='Interieur_tiroir';group.add(interior);
@@ -129,7 +133,7 @@ export function makeModel({width=.80,includeMirror=true,basinLayout,basinTop='se
  }
  setTop(topAvailable(basinTop,widthCm)?basinTop:topAvailable('sella',widthCm)?'sella':'plain');setTopDrawer(topDrawer);for(const group of [...Object.values(insets),tops.root,faucet,secondFaucet])group.position.y+=topY-.82;
  // The live Reflector disk is supplied by the renderer, keeping the model testable without WebGL.
- return {root,cabinet,legs,drawers,mirror,format:form,wood,frontWood,drawerMetal:inner,ceramic,frontMeshes,panels,fasteners,spec,tops,insetGroup,insets,faucet,faucets:[faucet,secondFaucet],getBasinCenters,basinLayout:chosenLayout,setTop,setTopDrawer,getTopDrawer:()=>drawerMode,getTop:()=>topMode};
+ return {root,cabinet,legs,drawers,mirror,format:form,facadeMode,wood,frontWood,drawerMetal:inner,ceramic,frontMeshes,panels,fasteners,spec,tops,insetGroup,insets,faucet,faucets:[faucet,secondFaucet],getBasinCenters,basinLayout:chosenLayout,setTop,setTopDrawer,getTopDrawer:()=>drawerMode,getTop:()=>topMode};
 }
 
 export function makeMirrorFrame(){

@@ -32,3 +32,7 @@ body[data-view=wizard][data-step="0"] .wizard-body{display:block}body[data-view=
 .quote-photoreal{margin:22px 0;padding:20px;border:1px solid #d9d4c9;border-radius:14px;background:#f6f3ed}.quote-photoreal h2{font-size:20px;margin:0 0 8px}.quote-photoreal button{min-height:44px;max-width:100%}@media(max-width:560px){.quote-photoreal{padding:16px}.quote-photoreal button{width:100%}}@media print{.quote-photoreal{display:none!important}}
 
 .top-drawer-choice{display:flex;align-items:center;gap:.65rem;margin:1rem 0;font-size:.9rem}.top-drawer-choice input{width:1.15rem;height:1.15rem;flex:none;accent-color:#82704e}
+
+/* The facade option remains visible above every model format. */
+.facade-choice{display:flex;align-items:center;gap:10px;min-height:44px;padding:10px 12px;margin:0 0 10px;border:1px solid #cbd1bf;border-radius:9px;background:#fffef9;color:var(--ink);position:relative;z-index:1;flex:0 0 auto;cursor:pointer}.facade-choice input{width:19px;height:19px;flex:0 0 auto;margin:0;accent-color:#435a3e}.facade-choice span{display:grid;gap:3px}.facade-choice strong{font-size:12px;font-weight:600}.facade-choice small{font-size:10px;line-height:1.45;color:#6b765f}.model-step>.facade-choice{width:100%;max-width:1100px;margin:0 auto 10px}.model-step>.model-grid{height:auto;flex:1;width:100%}.dimension-fields>.facade-choice{margin-top:0}
+@media(max-width:760px){.facade-choice{gap:8px;padding:8px 10px;margin-bottom:8px}.facade-choice strong{font-size:11px}.facade-choice small{font-size:9px}.model-step>.facade-choice{margin-bottom:8px}}
