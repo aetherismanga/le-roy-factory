@@ -1,0 +1,2317 @@
+{
+  "schema": "lrf-pecchioli-media-import-v1",
+  "status": "approved-public-assets",
+  "tariffsIncluded": false,
+  "archiveSha256": "1bd3503c458b1ba828893128be55759b6330ad00527632a4cd46ebb92ebed6e3",
+  "archiveBytes": 99930198,
+  "fileCount": 460,
+  "parts": [
+    {
+      "driveFileId": "1U1UeukTBquMykp9TYhL-FU9oVU-7MK_6",
+      "size": 99930198,
+      "sha256": "1bd3503c458b1ba828893128be55759b6330ad00527632a4cd46ebb92ebed6e3"
+    }
+  ],
+  "files": [
+    {
+      "path": "assets/img/pecchioli-20261101/arredo-bagno-055dcbf802b2-thumb.webp",
+      "size": 11038,
+      "sha256": "99db75d256b8227553935f7a11cf29a4a7059f20a0168071b617900066f552e0"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/arredo-bagno-055dcbf802b2.webp",
+      "size": 27350,
+      "sha256": "6e3958269882423a8cc032827149fead75aab39f48893b4c9ed47314e215ba3f"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/arredo-bagno-20a4a3341115-thumb.webp",
+      "size": 120664,
+      "sha256": "d6aa93e238e18525ff3f4a6cc740671331626ac36cc90ac18d90e98fea769485"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/arredo-bagno-20a4a3341115.webp",
+      "size": 542024,
+      "sha256": "0be34fa535f6aa83ff868a9d3011c1bd3424a5ee0753ae8d40a8506a9149664b"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/arredo-bagno-2831904faa9b-thumb.webp",
+      "size": 27730,
+      "sha256": "3ec97c5c3bd2dd0880ec1874ed3dc166aaf85055d87f661c4122a2da7b3335a8"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/arredo-bagno-2831904faa9b.webp",
+      "size": 174910,
+      "sha256": "828b25631cf4d65154adf043a63899e966ae841ab5550c44c863fbfe4ee52b6e"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/arredo-bagno-29158b30d97b-thumb.webp",
+      "size": 40986,
+      "sha256": "bca2ebe005f5db0419f319e8e2499e3a56b27a7c1804cdb76cc806df62a2e557"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/arredo-bagno-29158b30d97b.webp",
+      "size": 103692,
+      "sha256": "c99f4f39459a93aaa40ce8850f9bd60f8ce4dc126514ec7dd4130ceffc8a4ae8"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/arredo-bagno-29ceb35da41b-thumb.webp",
+      "size": 65236,
+      "sha256": "2df35e3fbb08168970da68da9f01ea02a81bee0b3e5ddc8eb1efb30ace0c573b"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/arredo-bagno-29ceb35da41b.webp",
+      "size": 504102,
+      "sha256": "02296521bd3446c0c2617145646be4224411959714eea6c346e469b41c60430b"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/arredo-bagno-2ff203639d07-thumb.webp",
+      "size": 15018,
+      "sha256": "702057cf787dad78b0e4d401ea03e64028c60c3f5e00b350021b4865019060ea"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/arredo-bagno-2ff203639d07.webp",
+      "size": 42974,
+      "sha256": "bd0a7a8a0f3ed362127f4f2652945dc273a66c5f44dc9a103447c3ff120e1656"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/arredo-bagno-48587e06755a-thumb.webp",
+      "size": 9648,
+      "sha256": "7105528a4ffb934cf145a1671c7a769edabf6788a4313b58cabfcb5488e4080b"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/arredo-bagno-48587e06755a.webp",
+      "size": 33692,
+      "sha256": "e6e9bda363d44d155ce85121f38f5dec5f951abda8a1adb19bcd04b1e41fb1c0"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/arredo-bagno-59df787a4779-thumb.webp",
+      "size": 25828,
+      "sha256": "a29649754d251496f8a37b3b5996d87f471d09ec556b62f36aaa25cc6842a204"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/arredo-bagno-59df787a4779.webp",
+      "size": 253152,
+      "sha256": "c63ab84178e16519d54c23687f2935a916188cf9379532a79d9a57692167a86b"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/arredo-bagno-68ea7e042543-thumb.webp",
+      "size": 26762,
+      "sha256": "205227c61284ef653ca36c407e77204f5f58f69cbce9fa442a1615c99af257bd"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/arredo-bagno-68ea7e042543.webp",
+      "size": 184066,
+      "sha256": "e7ebe5732e27996a2759bec81b9814131213adc7d61324f8ac26efabdd34a81d"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/arredo-bagno-6b9b455ecbee-thumb.webp",
+      "size": 16722,
+      "sha256": "a0ab6721ff15af2917d53f38223e1fd0e6703f19265d141946cb197cc6b61cfa"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/arredo-bagno-6b9b455ecbee.webp",
+      "size": 44710,
+      "sha256": "c6666bd29476dd091a1e064b7924e9fa43d97d13b079bf5b4db121fe471bc619"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/arredo-bagno-71a608c6011f-thumb.webp",
+      "size": 42332,
+      "sha256": "07468dbd8443d5e71d824d3cc7db41f4a1004f8c93c9ec7c867ac0a1b18b12d9"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/arredo-bagno-71a608c6011f.webp",
+      "size": 326744,
+      "sha256": "a31d4822d763b80eb0201bff5172b7d7e45e8324709766e1dce5aa9d7b605d12"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/arredo-bagno-71f06e0da935-thumb.webp",
+      "size": 9864,
+      "sha256": "9dea29618bd8e6174c2cd0417c4538f8a6082e654ee3d306dc09443ad3d5d1e6"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/arredo-bagno-71f06e0da935.webp",
+      "size": 57644,
+      "sha256": "5efae709fc7d5ad18896f02b5bf7467876bdf0256b8d4455fd75daa2dcae6eb6"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/arredo-bagno-776f0e878bdd-thumb.webp",
+      "size": 5462,
+      "sha256": "dc7409c7662c65cbdb1441de8ad31e51234e64105a6a158ae6e90f1857e34e74"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/arredo-bagno-776f0e878bdd.webp",
+      "size": 43536,
+      "sha256": "cd92a1bcf1eb7888b960fff10f72bfb35c6a0e444125786ac78ae739b88263d3"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/arredo-bagno-cc1c74881ab9-thumb.webp",
+      "size": 27602,
+      "sha256": "97fd4c5e98ee56540642db3167821a096d5e1c85862531598ec899c2d5137179"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/arredo-bagno-cc1c74881ab9.webp",
+      "size": 165386,
+      "sha256": "06d617a98165b46925c42178acd3f18d7a808b985ec24250ad2507efdf92b8cb"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/arredo-bagno-dd528c173cd0-thumb.webp",
+      "size": 63892,
+      "sha256": "20802d0a43ba2dca3ac67e993f7e7145641c24c0f43bd6418335cd6738447a09"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/arredo-bagno-dd528c173cd0.webp",
+      "size": 449314,
+      "sha256": "7b457deb9fc2181b4c91ff827bc6e001aa11095f7bd4f427a421a88f32983220"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/arredo-bagno-e00f556a4d96-thumb.webp",
+      "size": 19680,
+      "sha256": "a6558a2198e7bef721308b25f0b8b8042c2e4949799d2948aea8ea5909195d82"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/arredo-bagno-e00f556a4d96.webp",
+      "size": 53288,
+      "sha256": "d22760af44ccdaa062a481aa8a27b79fb2d11e4cbd9433a01812b208937297a8"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/arredo-bagno-fef38ec34190-thumb.webp",
+      "size": 12628,
+      "sha256": "3a42f7c8355c55fcccff376af96bc408700a4672fac41479fd2c6069d82dae62"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/arredo-bagno-fef38ec34190.webp",
+      "size": 100210,
+      "sha256": "ec970e615910e36e2b7a215b21e3328a8e1eca5361ab0f8c4107e4dd730566c2"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-006c08b1cc22-thumb.webp",
+      "size": 92780,
+      "sha256": "4fb4f8ba068800f9a0ef7b3e1fd06d3377eca2955f4c1f33bd715f5eedfc7e94"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-006c08b1cc22.webp",
+      "size": 532368,
+      "sha256": "2261759a1cd91a6a269e82860ebe62c21df0e86bf5ff4aa93757ac8730fff49c"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-02c1ad711131-thumb.webp",
+      "size": 41932,
+      "sha256": "15d44abfe069c4453add69e9588360c419d2517d142b490eef698c4e1a294f91"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-02c1ad711131.webp",
+      "size": 295908,
+      "sha256": "149a3e585ba885a8201ba3759120ffa10ac348f816ba0e1ec39c51d06c1e0dff"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-057053aef063-thumb.webp",
+      "size": 33012,
+      "sha256": "9e804b0fa75cc41f54eacad26510aad57de0099a4169f1745ed81c86caf40746"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-057053aef063.webp",
+      "size": 151678,
+      "sha256": "cf23a0c8ff2beb2249d7e1dcdfc2944720cd9657b0857f62e2fa40900129774e"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-057f6ef96e49-thumb.webp",
+      "size": 72474,
+      "sha256": "b3ee426b99544a208d1625dbc80bd6e849f6338c05774ee6c53ec59db2fb602d"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-057f6ef96e49.webp",
+      "size": 428594,
+      "sha256": "a00bd22c6464b9485e1458a41a5111a0de9987aff2fe61bec25e0300e941a2ff"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-0bd52db686a1-thumb.webp",
+      "size": 63762,
+      "sha256": "a52e56592c364315d725ae8c14caeba54b56f71305c2aa0cecfd1e2225cb8310"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-0bd52db686a1.webp",
+      "size": 313716,
+      "sha256": "23240103b7b2c89273fea1b4bb12c61c364cbd306fc26700238de4b072ad0d23"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-0e36e00d1f6b-thumb.webp",
+      "size": 103562,
+      "sha256": "cbffb00df739c373b600cd4a16d6c1f904e10e99a47d325a534c6b285f0eb361"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-0e36e00d1f6b.webp",
+      "size": 726664,
+      "sha256": "d82c1d40e0c5e9cb5ce72cca3d93900a4c93e65cd4eabb024d23936293fbb606"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-0e544bb78fb3-thumb.webp",
+      "size": 68476,
+      "sha256": "52cf6353c553c868f5be422b61d490be4cbd2e8861f663350138c1df1249c6f7"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-0e544bb78fb3.webp",
+      "size": 346428,
+      "sha256": "8e9fd0b5f191c8c0f497f00a6938a13a021937b64e03aebfed54535c7642d118"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-0f41ed317d96-thumb.webp",
+      "size": 46922,
+      "sha256": "2172932db6e7d0ffd1aeabf78ddce3e3bf9cf122c673515efeef791b7f44bbe2"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-0f41ed317d96.webp",
+      "size": 370220,
+      "sha256": "af4f0303a28beeffa697412a9861606ea1241d50cbcf53a51092b0b1d8e50739"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-15a2727267e3-thumb.webp",
+      "size": 52042,
+      "sha256": "614c819a85d9ae09441b304f30b81b78f16302e80c4fe27f6c4a47cb508e110b"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-15a2727267e3.webp",
+      "size": 240528,
+      "sha256": "16a2df42599e3dd974b898edbcfbc30c47c599b968c339255d8b68a8c26a27ed"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-191bfef0046b-thumb.webp",
+      "size": 89778,
+      "sha256": "ac79cf8ddbe7a259b45ce7deb01ce620541ced36cc40e6703724ae7ce694b63e"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-191bfef0046b.webp",
+      "size": 414296,
+      "sha256": "c133d058f0f6a4cdd0dd4095b57f338a015026f2d4a3df3c1fcb58de068bfab7"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-1bb69257f09d-thumb.webp",
+      "size": 20626,
+      "sha256": "8a794bd04452a6d75e43cbf19763c1e2ffc158750d49aa59556cedfee986fbf4"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-1bb69257f09d.webp",
+      "size": 200220,
+      "sha256": "910cc08afe41617c1109aac343991c8b539407931fe5518760254887fa57c17a"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-2085b1ce4e33-thumb.webp",
+      "size": 99252,
+      "sha256": "456c642570743ffdfd36cce3fe650794cc97e706c528420f4dacdcfb28b44595"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-2085b1ce4e33.webp",
+      "size": 633542,
+      "sha256": "0d32637d2ceba62abea153a0f07ff4cf1d566d8197bb4273593e305695a781e3"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-22562385d370-thumb.webp",
+      "size": 41492,
+      "sha256": "dc176eceabe07e63a0488319eb0926de58cde23c44c432a1b28912c9c8a3d6d7"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-22562385d370.webp",
+      "size": 325558,
+      "sha256": "af579be7c2fbb1e81c56a52597f2abee002e3cb6316392adb87953c648f5c592"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-261dc314d234-thumb.webp",
+      "size": 83740,
+      "sha256": "0775f6b2ab17a86d5eb82465b46b167dfac6a8c18116e8e59dc5cc3b3728dec8"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-261dc314d234.webp",
+      "size": 572978,
+      "sha256": "c79b4968c9d87c8c30e983f61e1c3325f183d23010b705cbe3cfaccc31e7fb3c"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-2b4a9bb5145d-thumb.webp",
+      "size": 15032,
+      "sha256": "25b05074214a286161f19f89ff0e479211771dac61917f7d7177abee74d0eaeb"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-2b4a9bb5145d.webp",
+      "size": 96844,
+      "sha256": "0da13647b8ffe6eb0b15e9457167aa4f61be8cba193a203eca1cb7b4ded2f10d"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-2fb5f9a6e95e-thumb.webp",
+      "size": 64718,
+      "sha256": "f1fab9c50238f2cb468fcd083194cf297194d2b727d8b2fbe01abea4f21eeac9"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-2fb5f9a6e95e.webp",
+      "size": 466344,
+      "sha256": "7f0a291cfff01e66ed818a873ff149d26a76c06cac6abf2a179fdfd35f5ebf03"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-3042f66ea5ad-thumb.webp",
+      "size": 118638,
+      "sha256": "0563fb4c1cfc28a2b9b95488197b250d1e0cb81bd010aed289a8c14c67fc0064"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-3042f66ea5ad.webp",
+      "size": 559394,
+      "sha256": "3454b80553a9303b6ae571a150c58ff35cf8c93449226d5d12c41366a8031b4e"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-38eea311b0e6-thumb.webp",
+      "size": 107554,
+      "sha256": "1074ec59ac9228dea3eb2c541b3e93e79e2c7f7993480b5976a97bb047815089"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-38eea311b0e6.webp",
+      "size": 447244,
+      "sha256": "c091fabbc0d40221d39530690ebfdd797080d062fb5245e78a1228cc191c1f28"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-3b40778d8acb-thumb.webp",
+      "size": 24602,
+      "sha256": "e93e0d43f377f3b96f4dba3c800acd6acb017b9fdf7212d8dd47707ff5540d9c"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-3b40778d8acb.webp",
+      "size": 180230,
+      "sha256": "6e0b1927b518fd639f41e4b502e36f05409e561f56a1d02047e021cffb9c327c"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-3ca054e4ca56-thumb.webp",
+      "size": 51390,
+      "sha256": "d589a4f1f94aa2915ada0145e9bfd9d6e0c6eaf11c1c4660c49c3e280add3953"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-3ca054e4ca56.webp",
+      "size": 286670,
+      "sha256": "891faf2db5306d71171bfe3d68ab47aa99ef7f99b1f692e01bd9076578480cc7"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-3d0d69a8240c-thumb.webp",
+      "size": 56052,
+      "sha256": "9bf406be4925cab982800c3b33a7701b1e70410f7aabfc87824351017a18908f"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-3d0d69a8240c.webp",
+      "size": 457700,
+      "sha256": "53695a1889db3d20a3f71cff5aeb6c0e9973762ea8681590512d1ffa0b875152"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-4a037849c3d9-thumb.webp",
+      "size": 24228,
+      "sha256": "dc35e953c1038e9c70e511097df372d2b670764440fa48aaac879f095f700f75"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-4a037849c3d9.webp",
+      "size": 131796,
+      "sha256": "a72af26d46ef12a19412dc0af06508ff22e2c8f0c12c1bf78f32cc9b183f8f7f"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-4aa82538a083-thumb.webp",
+      "size": 44830,
+      "sha256": "06e07226ca031dee2929f4894a1fbadbe68b673fdbb2afa565fe2941283a149e"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-4aa82538a083.webp",
+      "size": 259608,
+      "sha256": "11ef45d15078e9b8ba7a4de092e6588e5c4a1dd0a7ab402eb1d6295b4d694f59"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-4c5710457ca4-thumb.webp",
+      "size": 37174,
+      "sha256": "05c9f87a3820b7fb1a065f2c53903c27442ed8a8eaf4a98b08aa4f2e75533e5a"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-4c5710457ca4.webp",
+      "size": 255046,
+      "sha256": "6d1e379489eadc78ddaf22415413c78ccd8e69934b372c7f66ae43697d3038b4"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-4ce41d0a3b52-thumb.webp",
+      "size": 69434,
+      "sha256": "018796ebe2a3f8861f18915abc9be5abf28bb2731e1b241952e97553a58032be"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-4ce41d0a3b52.webp",
+      "size": 427176,
+      "sha256": "93e187171d3c2a232ee5bca56d7c62818d26d8af7781d18e371bda389be034a2"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-54f069dd3f21-thumb.webp",
+      "size": 83524,
+      "sha256": "54b1dd2751e3b46e2ccf872516d8c8a4aa9ff18bda3d0afd9d41ecc21ebfc062"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-54f069dd3f21.webp",
+      "size": 415572,
+      "sha256": "2457173bdf4d5fa7b8d00ff66899e76a354abc3067163ec62fa437e0940749b6"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-60c112c0c5dc-thumb.webp",
+      "size": 87076,
+      "sha256": "c16c3799ea637fb47870fc744dd36d7871eb5d1d0c8ad140c0c5f056003d5659"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-60c112c0c5dc.webp",
+      "size": 433426,
+      "sha256": "42bc2a021e5c8e9f3f64f43bf2febc5222cb2c2944ea9be6b8e1dc0a1ee74476"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-628bab79539f-thumb.webp",
+      "size": 63996,
+      "sha256": "11f887e4b42cb764a74dcd619c828ecd7643a92c3a0ae5ceed95f27274647f5e"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-628bab79539f.webp",
+      "size": 380060,
+      "sha256": "9cc57f7b49e250e63d765ff6b4ac2eeefc59c0d546efd5b4d13685e8bb036546"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-698e4cf9fd57-thumb.webp",
+      "size": 64056,
+      "sha256": "6d071503fe8ad2cc3c3fb6018f294e834301869a15543e86f00c31d5d5c4df27"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-698e4cf9fd57.webp",
+      "size": 351996,
+      "sha256": "ad6e6a86e0de1efbd38e064072671792a344ed1138a94b261c6df6480054b988"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-6bbf2d395666-thumb.webp",
+      "size": 23862,
+      "sha256": "fa66aa41d02c5a4ae716a4ee7431679ef1b9e1963d0fc41226e01ed231031c9c"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-6bbf2d395666.webp",
+      "size": 203320,
+      "sha256": "ea76d4e444de05e21203751dc2d2d75f6b88930cbfd3c6425a7c4bfd8c4ad657"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-7423f8c6dd64-thumb.webp",
+      "size": 69798,
+      "sha256": "496e25f35965e7887553748133b69c9f06ee116013c5d92afe8fc20d788ec0da"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-7423f8c6dd64.webp",
+      "size": 650104,
+      "sha256": "caec2a0d77609dff2897668a29281a46bd7adc0b14794fe650b067323dfaa6ca"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-7586e8472a3a-thumb.webp",
+      "size": 91516,
+      "sha256": "c95ca5d619f1f0ecf57dc94632184070f9c1f7c2a7f5f1ba8313649624714d6c"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-7586e8472a3a.webp",
+      "size": 553960,
+      "sha256": "7631ceb2077729cdf9ad7f4488658acbf2c3e0a9121cf539abe1f87f4b123538"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-85ff4b884abd-thumb.webp",
+      "size": 49576,
+      "sha256": "b38b84d630845a7e3206aa14919c6ccf0d95a5c6abc353e24c7927228d0a84f6"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-85ff4b884abd.webp",
+      "size": 285756,
+      "sha256": "d484f38491b0e6d02f4fdb57e9d0723909bf8ca00e2ee5c24b0bc1be4775bfc2"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-8d6005c334a4-thumb.webp",
+      "size": 86918,
+      "sha256": "2b97b4a3c85054a759504860a353f58cb817dd762b045629ce79cd95318558e4"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-8d6005c334a4.webp",
+      "size": 428948,
+      "sha256": "7e151c3f249116f7822028c8746230c6b8caca0c6e7c2ed139e9cecd9de5fff3"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-9334b5eec6c9-thumb.webp",
+      "size": 69392,
+      "sha256": "48435319839c6c8bc2aacd0169beac5ba1accee27900a49aa6637aef16f597e7"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-9334b5eec6c9.webp",
+      "size": 357434,
+      "sha256": "7bf9909d61179ee7514f10ce55f8f58f103a3a79f0d4cbfc6e54e68cdb0de6fe"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-9e67a43fef1c-thumb.webp",
+      "size": 26422,
+      "sha256": "268a14c3f89e0e0d30a739c103d38cdd4758896b1bdd61cbc65979953a9ce068"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-9e67a43fef1c.webp",
+      "size": 190490,
+      "sha256": "5118436e7205d863d20c5b1891386df92b0e23b47c2015f91962937e06c07857"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-b69c615f7b7a-thumb.webp",
+      "size": 37478,
+      "sha256": "064067c02efdb1df3988ebf22f77e1835970ee7a6936ce75cbf4dd41a29b047c"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-b69c615f7b7a.webp",
+      "size": 257012,
+      "sha256": "a917edf3aa31a6c8e8674a95c24062192564375bae12c8bd10058d2d97fc2fd2"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-bca0d1bd1793-thumb.webp",
+      "size": 37048,
+      "sha256": "53cd923e681278afb60d25f1723a263e0514e5ee3c2af3d3f993dc587474762a"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-bca0d1bd1793.webp",
+      "size": 349118,
+      "sha256": "f6ba5349a38787c25cfe78b01951978320f92284820ac3bd0262b4b883c46f66"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-c29c7970d9cb-thumb.webp",
+      "size": 46438,
+      "sha256": "03cbb296d3d19883531384fac97d11a0f311cdbb43f53061dafe56e9302c197b"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-c29c7970d9cb.webp",
+      "size": 313734,
+      "sha256": "b5ae570760963e08b876f0cfc44e54da82269427dcb7358d78c12e9f99394b96"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-c3a50c8e6156-thumb.webp",
+      "size": 54158,
+      "sha256": "38167315d73099fd015c44b08097bdc9873d3ff65514b8329e171ceb18192d0d"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-c3a50c8e6156.webp",
+      "size": 265650,
+      "sha256": "00022d58baf08860f5c750904fb14c3ced4da4eeb9788a1130d00390f7a82f57"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-c4c6355731d0-thumb.webp",
+      "size": 39704,
+      "sha256": "54cb20cfd18af199cb7f20402d498ff82e49cc227c6b99d71c3b7ac783001b16"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-c4c6355731d0.webp",
+      "size": 284052,
+      "sha256": "dc09296f09ce1bef72724278d51c97ae79545c1a9abc69e42dd18eab42781dfc"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-c51c64a8b491-thumb.webp",
+      "size": 34648,
+      "sha256": "de25acb8720ecbc9b278af69284042ae323033d6fc5498448c31278a348ce960"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-c51c64a8b491.webp",
+      "size": 242558,
+      "sha256": "5e90c85f2aebf6e4463e8a67de47c8515aaab46924e0b2bbe4ced24fa5442f1b"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-ca15264b4e7a-thumb.webp",
+      "size": 22696,
+      "sha256": "a07ca9dab78b9fa0713841a5da6f136e06e7e4a8c76265968ba67e41e775d85f"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-ca15264b4e7a.webp",
+      "size": 127462,
+      "sha256": "297c577903c0e95ed6bb28075cab9b3f6f81608abb147bbceb1b4f33afe43d06"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-cd4741d2cfef-thumb.webp",
+      "size": 46406,
+      "sha256": "a67f77b35bdf2d602ed25aaf50cb508b262692f6a969404f5e558c0888960f29"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-cd4741d2cfef.webp",
+      "size": 237370,
+      "sha256": "bdb81a17715e94c83a95fe955f9720d4c0f25ef000e4d981caec0b1ced4a1597"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-d1d37c2a2e5f-thumb.webp",
+      "size": 49858,
+      "sha256": "e283ecc499a95c9ff5e6e849f4ccee94733d7f08f1d973d58c60edbaf9ae058c"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-d1d37c2a2e5f.webp",
+      "size": 313336,
+      "sha256": "a32e61d1d451f1124e209c537f92f29f669a0154fd829ea2075adc1d6b8c5571"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-dc143408a615-thumb.webp",
+      "size": 55010,
+      "sha256": "8c0cf3bde3b2276f2b6417695859c8ca95ed9d23ce93503985b4edd7165f0a0c"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-dc143408a615.webp",
+      "size": 299846,
+      "sha256": "d0f3db729be7b987a5eac8828e89b3966e4c1f4ab4d868dd7c880fc192976cc1"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-de2f3a8a1b76-thumb.webp",
+      "size": 115928,
+      "sha256": "a92a109223887e4899a6aec0445c559a9cf999331d18c19c20825f3d658f4ac2"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-de2f3a8a1b76.webp",
+      "size": 551870,
+      "sha256": "33446cff6da563131139f8d28d16991a2e1249b0f3614b7b04adf2177125cb93"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-e24ed360161c-thumb.webp",
+      "size": 43556,
+      "sha256": "30ccc09112a2aa3ba1b436a91d2799ab6ca3af4422e8586d2890316e93a88cdb"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-e24ed360161c.webp",
+      "size": 224276,
+      "sha256": "50b0f34a1b8ae4d381cc688a1ea1015b69842cd7c52879ef927616fd97f064f6"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-e79b8fe5310e-thumb.webp",
+      "size": 58208,
+      "sha256": "120d427159e6c3dac8c7d032f6e0b1d54ec8842ab86587580dbbde4bd8487040"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-e79b8fe5310e.webp",
+      "size": 353880,
+      "sha256": "46feb40db76446d4b417a10dfa4e964df1c13db5a32ae7fc34b43443360678bd"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-f0f79647ea69-thumb.webp",
+      "size": 103298,
+      "sha256": "0f4987e20be1cf2a0eb9f6cb1da6d377a0ece72a4f6f39ae9397de5bec87837c"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-f0f79647ea69.webp",
+      "size": 668706,
+      "sha256": "6d8f9b4424fca6a452676c29bb2dc39636be8085f1d172bab39524b023ac5c26"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-fda32a689303-thumb.webp",
+      "size": 26102,
+      "sha256": "b0029297108f12f7e0363d1a2783d8264aa727ecd07dbfc2b0fbb57aa16fedbf"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-fda32a689303.webp",
+      "size": 166664,
+      "sha256": "4d73e5b13739fc138c8f777d8dbb078ab76020b8a34e7b91ea7881badc377b06"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-fdcda70f1211-thumb.webp",
+      "size": 85006,
+      "sha256": "eb7ef3f343baa1bdc768df7fea34e144d3b5747afb7e97266e16262ca83b5983"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/ceramiche-di-chini-fdcda70f1211.webp",
+      "size": 480422,
+      "sha256": "f6c697d68cf9ded290546e8063e835b76cd4d2dfa97fc1ded5c166eb99bc6181"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-06ec14ca9702-thumb.webp",
+      "size": 123922,
+      "sha256": "086f8c8e2dedf139ff301e6b87ee6b9f2f80a6b8a861538cb0e6138005c540cc"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-06ec14ca9702.webp",
+      "size": 1535794,
+      "sha256": "590b8b721643c4a24e9dc332ad03f6ade686293e340e4750005acfb9023db359"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-0c7f52dc760f-thumb.webp",
+      "size": 80498,
+      "sha256": "7161b14eed9adbb4c36c9161d013db9bb91df6203e668ccea3fee51717201f9c"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-0c7f52dc760f.webp",
+      "size": 463090,
+      "sha256": "e393a39e8ba1c31a23bfdef2b1bd73438d660d374844f84634b0c6a8df7a8da4"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-1acf3987955c-thumb.webp",
+      "size": 70304,
+      "sha256": "87c565d9e2173304ca1543ba274c01385753d16657326f3edf716825d0380949"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-1acf3987955c.webp",
+      "size": 698846,
+      "sha256": "ced7b2328922fa3c1f780e7ef2add37d54e79a020816a21e667a0358c9ea19d3"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-20184e583c41-thumb.webp",
+      "size": 74494,
+      "sha256": "57870cb07e6f9aac210808cb4741fa035d9c2227674a92c7d9e242382e460c5d"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-20184e583c41.webp",
+      "size": 628118,
+      "sha256": "b11fa5bec08bba63bbbb867dc0bf676076bef8ff19271bef11b057216bc0b044"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-24a318c9a059-thumb.webp",
+      "size": 151096,
+      "sha256": "4d656aa606eca0ed6e0593d79c5050a0e2c5af098e11ba6d2628bbd4e4d794f2"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-24a318c9a059.webp",
+      "size": 978802,
+      "sha256": "87e1d763b88b0a4a568b236ce6e378cd2330d01192d278f2fdf46411558429c5"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-24a538118eba-thumb.webp",
+      "size": 114372,
+      "sha256": "488b0fea3786a26e31008907bf3631d44c53e57a2a89b933c1f3fc29dcade9e8"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-24a538118eba.webp",
+      "size": 594866,
+      "sha256": "54b2b38f1f6cc6c239fcfdf5d93e3cd8aec879a0b24f980363958434f437961b"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-258171fa3c45-thumb.webp",
+      "size": 35214,
+      "sha256": "62c46b4a323b88f7aad6f4c3dc49a4b76a5c56d03f2e0b46790ad08d3905d2f3"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-258171fa3c45.webp",
+      "size": 296160,
+      "sha256": "81a9925f26a129b6779d5a1c3ad34a5eea14638215f9adcfe13a92aad27e04eb"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-2744572daa05-thumb.webp",
+      "size": 78166,
+      "sha256": "3caef29ee8375c8530be0b7ab875924805229d04efe46d3581db7a2f7a66521d"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-2744572daa05.webp",
+      "size": 480736,
+      "sha256": "34d217ee04bc041ebadd7d26d6b3102b72e6262de600ecfeba23af3f779466f9"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-2b6436f3bc03-thumb.webp",
+      "size": 74354,
+      "sha256": "e0c31a02afa86f28c6bc97786e75d5ad387193b0e183b34dab07047ffa38bc39"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-2b6436f3bc03.webp",
+      "size": 450554,
+      "sha256": "4fedb3cc34e471d9ac170139ee0de9a4ab4e87c46b365a6add3fc1afedb4167b"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-423daeb0d7ad-thumb.webp",
+      "size": 34076,
+      "sha256": "dc717398b83ab55995452b12141027ca13d0305f3cf1daa0426deae0a63c59c8"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-423daeb0d7ad.webp",
+      "size": 310594,
+      "sha256": "7b00338616ef5c2dfa98120c8ed1b43fae8b1f943dee876d3503b8fc45a01833"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-446ed07f577f-thumb.webp",
+      "size": 24698,
+      "sha256": "a7766af49e720b129a7632be26ecddd84920ba6985ae451df24ee9198bdde4bd"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-446ed07f577f.webp",
+      "size": 186722,
+      "sha256": "c2d1ff68cd6a9164e060a025cb9d641bb0cb2fbc213443b9a9b011a4a3345cdc"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-4686b70cb3bd-thumb.webp",
+      "size": 90720,
+      "sha256": "32c7e7389df351e5ebf1d6ab463d6b27f6ed04ccc669ab7de24a7a6bdd0065be"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-4686b70cb3bd.webp",
+      "size": 617476,
+      "sha256": "7e55177f20873afbb1008a38938b4c2b5b8f15bba8dd66029d81e21fcbffe1b1"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-4d6094bcb7d0-thumb.webp",
+      "size": 67548,
+      "sha256": "96343248d22c00d12da8782b18054409a89e36acd367173819aa958739f707d8"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-4d6094bcb7d0.webp",
+      "size": 436864,
+      "sha256": "eee6fe5eb9f3373881a84c8827bbf74bf7febad263d1374c0ca6ebbbed794d6b"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-5e3ecf36d9eb-thumb.webp",
+      "size": 22504,
+      "sha256": "aa46495c8504c10433d4507a938be15095afe04f97d2de2aab7c62569d26a986"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-5e3ecf36d9eb.webp",
+      "size": 140150,
+      "sha256": "84df200bff42e9c31830693a63e808b5c5669d76476f333bbc2a28aabcc43afe"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-645f83dc96c0-thumb.webp",
+      "size": 84536,
+      "sha256": "e0b3fc53f03d8b24c12e442777c9e737f75a473ca9613b33c026bdaccb25ab0e"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-645f83dc96c0.webp",
+      "size": 931318,
+      "sha256": "c0c09d83fba2e51448d19dd332a1e93e8a51de999e9a2f4499db051813134fee"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-65c10dc38624-thumb.webp",
+      "size": 113216,
+      "sha256": "6cbbb65695add6af9a771d4b0437c20318af7e46b52d9d2c3fc5ae41986490e2"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-65c10dc38624.webp",
+      "size": 1077470,
+      "sha256": "e21a2a9da6962ceceada0be5d41eb62ed4763954dad275b5631d6705dbb82f5c"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-686afc7c572e-thumb.webp",
+      "size": 65368,
+      "sha256": "ecbf91a3cd6280ab98c7ed04d09237c9155b16167d2f642a34b7e237c7511607"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-686afc7c572e.webp",
+      "size": 453160,
+      "sha256": "170d8e5892be33f3ad1b2e21baa110da537bd9fd6dcb6bdd03ee1c613c26b0d2"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-7138fcd5d8a4-thumb.webp",
+      "size": 91382,
+      "sha256": "88e5095c0e8140940710ed09d1698f0584d50b7d8bd9c6fd5a33711afa1bba24"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-7138fcd5d8a4.webp",
+      "size": 519752,
+      "sha256": "26deb29a0bf609de15fdc50e2e2c09910b2e314142c25b3b20e8f9d2b91dfb26"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-721da6703d67-thumb.webp",
+      "size": 87994,
+      "sha256": "a484157e88b7344c9dc9a12a5fc909727c1d17c76deecb000a4d9fa01be95fb2"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-721da6703d67.webp",
+      "size": 542922,
+      "sha256": "51d737a1b46c3a8ac7604c6f069c0b83370ab699ecb14b67906cf50b7be8b6b5"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-772c92ccde78-thumb.webp",
+      "size": 77206,
+      "sha256": "415de6e5934809a66f3c52d9069ca57dd09ef9578ec9b3267e1cd7925b9d6b10"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-772c92ccde78.webp",
+      "size": 520732,
+      "sha256": "076c1c797c8214fb976a6ee4f2eec2c8f68ab307f854cf31349af6ef6ebc292b"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-79d7e41fedec-thumb.webp",
+      "size": 52528,
+      "sha256": "4374c3a30df96699cdb399fb6eca2e4cdc2fb29e0bb3ba78d31bd8681c016705"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-79d7e41fedec.webp",
+      "size": 363752,
+      "sha256": "88c25ea8d0f928844b7a7c6001a97c1e2e2cfb6c68bbf7b64b46b7c4199a85a7"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-802cdb1fe4de-thumb.webp",
+      "size": 27714,
+      "sha256": "c21ebabe8ed030fa369f6f3d3f38c22d0e327f581c57d97fa297ebd46559f15c"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-802cdb1fe4de.webp",
+      "size": 160800,
+      "sha256": "6f696331178a5ca69ec09bb79520c760e972af5a2e31d694572e163f18af5d4a"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-82afe1e50610-thumb.webp",
+      "size": 83146,
+      "sha256": "12ec1ebe4a4f330fae3a64ba0989acb9b49821db97f71c6f677d818468552a13"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-82afe1e50610.webp",
+      "size": 647090,
+      "sha256": "e16d06e5643d585628992bb1022f8acc8d67823a71b53a5ea1eedb37773bd47c"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-82b1e2fcf64a-thumb.webp",
+      "size": 95076,
+      "sha256": "7c8e26a4a0149bc272f254fee5f047695a88ad3136ac2a0c81666549eb5f2133"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-82b1e2fcf64a.webp",
+      "size": 895188,
+      "sha256": "9cb4e8a40ca0801e7674f2c8152eb38e8b6319974f782aac2e5f1fd25f59f105"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-87b3a76367a2-thumb.webp",
+      "size": 67932,
+      "sha256": "0c146b6f895dc735632ff2903720ad7da4ecb566aea2edaea01d4a092e01963d"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-87b3a76367a2.webp",
+      "size": 180598,
+      "sha256": "8a71356740c9ae8b8854457d141867f38765f039330269cae319c222e46ebc8a"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-8904a3965d14-thumb.webp",
+      "size": 33418,
+      "sha256": "62d9294ab7645655199220ac99e21e880eb5bdb84ce110aab3875b3e912aa0d9"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-8904a3965d14.webp",
+      "size": 246580,
+      "sha256": "bb9f676fa9acbfc6f43204ecc9a3a1ee0820b0f64e8d3cdaa2b175c473c64fb4"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-8a2cbb26aaa1-thumb.webp",
+      "size": 60134,
+      "sha256": "40dd6c4b9706c4de538593db835c378b9406c522cd42b46407736b7aa734953d"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-8a2cbb26aaa1.webp",
+      "size": 336528,
+      "sha256": "0fc2670239c944d134d78e2ba50cb69ac6fff2c0d72586a044d7dfd19b188074"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-8dcf535370bc-thumb.webp",
+      "size": 26934,
+      "sha256": "70de836a89e3b83144ccf504a3ef106e05ab2e712207592b12b3cab655a80033"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-8dcf535370bc.webp",
+      "size": 274956,
+      "sha256": "5f51726ad7a3306040617c4c371d00179038acc96d7411fb887e3766c3d0a11f"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-8ec9a1f7ae10-thumb.webp",
+      "size": 77284,
+      "sha256": "8a9547d8af424f186bbe933961d5ce2454d1cecdfe7544ca13f8cc61ab3e2652"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-8ec9a1f7ae10.webp",
+      "size": 443412,
+      "sha256": "105430571c9aa1813e99e8c9944c7f2aaab653fbb52ed16098ecffbffd621c04"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-9104c5d7188f-thumb.webp",
+      "size": 139140,
+      "sha256": "39d7a8533fc6e4edae23ecc718524611482fb80fa636f8acc7dd12dc62967577"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-9104c5d7188f.webp",
+      "size": 805080,
+      "sha256": "59639081c0cf029cf76f8b3f4b39b462eb9de3c6184bbb4c131458f2456a80c3"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-94d858269048-thumb.webp",
+      "size": 41480,
+      "sha256": "2d69827d854dd39c275b944b9dc28811881c954e20af096ab848020bdd2c7754"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-94d858269048.webp",
+      "size": 365530,
+      "sha256": "8e565193b1234dff1078d93ab5d5b8f82bb19c4da23a8bcf04cad47d47837b6f"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-96b3e58330bd-thumb.webp",
+      "size": 49136,
+      "sha256": "01a679cd1bcf20000ee35612d7ac7a4eb77b849b74ea6d0f11cdcc0e927f1992"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-96b3e58330bd.webp",
+      "size": 499584,
+      "sha256": "fe2b2d290f211f66760cd050fa5b349f6adb3543bc4833cf2b019d26b10a3418"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-9ad19692d570-thumb.webp",
+      "size": 136860,
+      "sha256": "79aec9888d614ab3d12a3d747aceb28a1faaccb86c2d510a2adfc38146a74f00"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-9ad19692d570.webp",
+      "size": 1424520,
+      "sha256": "e39ee1dab3a9aa3e0ed5abfbbae176ffcdada3465a7d894f0ba4e1f3f66f3258"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-b95389477eae-thumb.webp",
+      "size": 67712,
+      "sha256": "c247a728d5579b240dcd37dc7d67f48fc7c339c092f1d666af844b166cad8969"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-b95389477eae.webp",
+      "size": 401474,
+      "sha256": "172483aa6c420c5a72b8c76456ba305e2dca855c001c3aa14a5e4526db3ee77b"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-bad820226e7d-thumb.webp",
+      "size": 102138,
+      "sha256": "d1fa0cf1a9457eadf760e4158809c3fee1608a61889235ebcd6766885ac34537"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-bad820226e7d.webp",
+      "size": 1095432,
+      "sha256": "b5ea3b773857265ef028dbcaab0e2950f2cb5fcca40bfdf49af4a47424bc7ca4"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-bb665a02ce3d-thumb.webp",
+      "size": 12852,
+      "sha256": "b633a7e2b0927c2d71bc4de497e76ce47a3bc141440ef83f3c6a8872031f2c22"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-bb665a02ce3d.webp",
+      "size": 107116,
+      "sha256": "d7707339213897d65d7d20bf4ef7288b2d08f71b24fa06518047871e029390ef"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-bf5fb44be764-thumb.webp",
+      "size": 71726,
+      "sha256": "d19bcb28b48c636f5fd3a87ace6f34daed4bf8b3f6961040655cc13612fb8fad"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-bf5fb44be764.webp",
+      "size": 615002,
+      "sha256": "ec656fcfa227420914f64b699f2fcda2bce457ff1ba781f78d88296ba0c1bfbf"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-c12656a14ef8-thumb.webp",
+      "size": 31728,
+      "sha256": "82b4007de815daed28f245d3981ae8ac0b49515c8f9bfc3a8403c7e8436539da"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-c12656a14ef8.webp",
+      "size": 174152,
+      "sha256": "6b8ee61a53cf216e5834e0257d44f13be9dc660007cf7e7fd79663e047a7260e"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-c8d13eb5675b-thumb.webp",
+      "size": 57862,
+      "sha256": "c4113aad78a9324b4b1ef709ebee3809714b257907f3b30846d6f54e98db5313"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-c8d13eb5675b.webp",
+      "size": 468774,
+      "sha256": "c402db7c1baced620443a430b90e722a5350a732394dfe3205cc5d904a4ad59a"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-cbd045bf7c98-thumb.webp",
+      "size": 92640,
+      "sha256": "24462e7e727c8ac7b43e44ad99fda1042e20e84113a49e011c504a2f18c20f23"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-cbd045bf7c98.webp",
+      "size": 175642,
+      "sha256": "66b351ae524f9a51422c172c33bf540eb823de0411eb3145b4372c80ef0445eb"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-d5207368063e-thumb.webp",
+      "size": 78718,
+      "sha256": "9124576a51fdf69252dbb171871649c5603bb249b26d600612db31bfe10d54d0"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-d5207368063e.webp",
+      "size": 577858,
+      "sha256": "cfa23c6b9e41936a67a0d72f3193543b535280a8031b98d87ca7ac915c76ff6c"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-d9342fe8d419-thumb.webp",
+      "size": 94276,
+      "sha256": "55c14d2b7ea9bc257b7c3e94f0066d18a19b37334e2fb926d8f454f4a0018a39"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-d9342fe8d419.webp",
+      "size": 566996,
+      "sha256": "bf9c719b93efc17b23b01a94ae993d8840efcbe7a96b3fe08e4bc75a6e923f89"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-db509fdd226c-thumb.webp",
+      "size": 21966,
+      "sha256": "d20fb3811e8990a7560ec1dc9e3e461c3bcea6fffd5c7dadb2171c8190b8c004"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-db509fdd226c.webp",
+      "size": 143082,
+      "sha256": "459be71ed143ed93266b1550d1ba8dbfaa01c864d32e6310414ff1cc1144ca4b"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-dda0162b19ed-thumb.webp",
+      "size": 92746,
+      "sha256": "c3f3c4ac53242b143a187aaf115a23f211af10f849e4d89520947f4581f7dc6e"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-dda0162b19ed.webp",
+      "size": 908092,
+      "sha256": "e7a2a420db5d0354f765ead47884f069c7bd0c48b4355e994ea8fb2a5803fc50"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-dfd424903736-thumb.webp",
+      "size": 98532,
+      "sha256": "9e483a50b24764fa30de074307056232d225c10847c349e063a13719cbef08b3"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-dfd424903736.webp",
+      "size": 544726,
+      "sha256": "ba7ef1f93313e611c5f2b8d172f3f8f5cd877093b2ab1e6186521dd9cd4f11a2"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-e877b0427090-thumb.webp",
+      "size": 75764,
+      "sha256": "f6970aacc9f23f99f0095ee65368b0c8a6a12c29878badc28c779a1673151451"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-e877b0427090.webp",
+      "size": 645350,
+      "sha256": "418cf73cb176342d933d28de5168166348621f3e5083c229e981331b1dafefbd"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-ea3d626cf4e4-thumb.webp",
+      "size": 62630,
+      "sha256": "2c562183cdda8dabc665ac232fd47cdb794cbc0231507129c73a1170e8f4193e"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-ea3d626cf4e4.webp",
+      "size": 450054,
+      "sha256": "9c9c1ff63dfa67dab42799fd6632008a63ef28f324575740f6c85fb578723cb3"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-ee0d30b09169-thumb.webp",
+      "size": 27422,
+      "sha256": "4cd0fbfe906fc207d15d19dcaa1194fc83266d18d8c74b618c142996958314b0"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-ee0d30b09169.webp",
+      "size": 232512,
+      "sha256": "7f635645f3bcee3c8ccaf004560bb551752410c933d1ab4bad73247aff84eba7"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-ee239270212a-thumb.webp",
+      "size": 129678,
+      "sha256": "3d413859f6e2771b75dd597ae06fbb9778fd0450b9c75fa13301d8705e885080"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-ee239270212a.webp",
+      "size": 1105474,
+      "sha256": "a8095c29d0456ef3ca834b55ce0e927298c7210977a3ecd41a5b9f939d8ffaaa"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-f1abbeb297ec-thumb.webp",
+      "size": 52660,
+      "sha256": "e480995ba02597aa58b00699530066d01343556372fe7e26be08004c9870a35f"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-f1abbeb297ec.webp",
+      "size": 420736,
+      "sha256": "0fa6c951b25abf850ee5c582b2138e2c178bea5961d9ce8d4c61aa1bc7a2c241"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-f58a843c7d09-thumb.webp",
+      "size": 128206,
+      "sha256": "1675d8123413794175d9dfcd6ce649d22dc0e1803a7c8044c3ef6fb03fbf5e5b"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-f58a843c7d09.webp",
+      "size": 952208,
+      "sha256": "2cb225dca6518cbd8410e1b34c9952f83124f8e28c26614ad6a3d9045103a72f"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-f96eeaad68e1-thumb.webp",
+      "size": 81218,
+      "sha256": "6a101dc65db485266a9d18efcd979b4ccec51fcc9836faadaeaa3f4cb0b1a1c2"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/cotto-del-mugello-f96eeaad68e1.webp",
+      "size": 512940,
+      "sha256": "bed42fd76c0f710e6c9e00740d7e12354fbaefd4dd32da996bbb86cbdec0a7d1"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/formats-ceramiche-di-chini-8d08fd5b4014-thumb.webp",
+      "size": 686,
+      "sha256": "424da7a9fb156bc5fd952e5b9759bfdb10838d0aad46a243106ee4628c5c0575"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/formats-ceramiche-di-chini-8d08fd5b4014.webp",
+      "size": 3172,
+      "sha256": "953ecb1631ccc50bc2daa10d4820159dfcc64ed8934c82951149bd4e200a9214"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/formats-cotto-del-mugello-30175d6efbd6-thumb.webp",
+      "size": 3170,
+      "sha256": "fb5f588c8b37d6ae5926fd7affbefb8cb43891579096a093ecfd3c65b59f4f2d"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/formats-cotto-del-mugello-30175d6efbd6.webp",
+      "size": 24468,
+      "sha256": "0de95e534bed5080785b4759a54e69a1db2ea3957ce23b40ba179f0d369933c7"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/formats-gres-artistico-27a82385af79-thumb.webp",
+      "size": 6896,
+      "sha256": "1532322711a1ef59a1517c1890a6948923acf8ef8c7539aae1c92cb27c3bc55e"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/formats-gres-artistico-27a82385af79.webp",
+      "size": 24568,
+      "sha256": "7da5a9e61a4f8c0cd598e5ac3293f1562f604eab4bdc24f031adcc5cb128ff18"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/formats-lava-delletna-566e0b69a40d-thumb.webp",
+      "size": 2974,
+      "sha256": "0e0cb3f1e1a2d005a936986d1338603b51184b46e9cf75841f7db553f8283a26"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/formats-lava-delletna-566e0b69a40d.webp",
+      "size": 13844,
+      "sha256": "3bdda5d25469b3ed0e06cd0e2f0ccc7baf17ae643d6678479546fb0e2123efba"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/formats-tridimensionali-c2480c86984b-thumb.webp",
+      "size": 11088,
+      "sha256": "d844e8e512c2649be1dff0c6f965adaf093ea584868371673db23aa36f1efde3"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/formats-tridimensionali-c2480c86984b.webp",
+      "size": 52318,
+      "sha256": "ccfb9131f186e45e667b06cf5f6c7f36ae4d7f1a16c22bf7c5362c648d4454c4"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/gres-artistico-04f16f4e246b-thumb.webp",
+      "size": 51468,
+      "sha256": "b467ce82996dc10f85c6e988f0c8a11f2e746dc887873fb468a01967afd0d25a"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/gres-artistico-04f16f4e246b.webp",
+      "size": 265050,
+      "sha256": "f5ae4573651bf3381cba2baec7736843dc01a944fb6be2d16744bedd9913101d"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/gres-artistico-0a33bcaf071d-thumb.webp",
+      "size": 57846,
+      "sha256": "989659574d6decbbeaeb1274448ab5b8b771f91cf50ef96c5bfc6efafadf4c61"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/gres-artistico-0a33bcaf071d.webp",
+      "size": 340944,
+      "sha256": "fc480a970399673395e8ed921bf983a80a51852cf9dc4d066f8e3c2a0235984f"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/gres-artistico-1c7f0a5892d4-thumb.webp",
+      "size": 52106,
+      "sha256": "78ed76404d98e98aaa2f180d4f2902f0a7da96f7d7ef9212a30465c3b453f7f6"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/gres-artistico-1c7f0a5892d4.webp",
+      "size": 358732,
+      "sha256": "7666ebfb730189358866de3b86e7ab9762539bf9cb3d7a70a565e714cb2fb467"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/gres-artistico-2a3b4362b471-thumb.webp",
+      "size": 89236,
+      "sha256": "2f3cd3ff1fafd0da1f985395e37446bd30de8c625b1984d849cf76c5bf938c2d"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/gres-artistico-2a3b4362b471.webp",
+      "size": 549420,
+      "sha256": "54fa9e4a10a8a5ca5cc31c3e47cffe6b8ddffa50d4554d0e355103cc758ca889"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/gres-artistico-336eee9952cb-thumb.webp",
+      "size": 57020,
+      "sha256": "3b8db1c64aa0264c90de64fbbc34eb8f964fd29ea009dcca6ff25a99a46f8c4b"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/gres-artistico-336eee9952cb.webp",
+      "size": 321172,
+      "sha256": "72f318019dbe6317c969ad26c22536defa28400cb691b71a5ba77f487b2a4f3b"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/gres-artistico-35126d0a00e5-thumb.webp",
+      "size": 66596,
+      "sha256": "12231db88350a9d93d73ad3c1cacf9698cfda6a7bdb6e50cbb3ad68a8ac5dce6"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/gres-artistico-35126d0a00e5.webp",
+      "size": 318734,
+      "sha256": "354a5333a6cf35945518982253fca91e749ad4b6e3d841d8424e1454dae0ebb5"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/gres-artistico-3bc43b43621f-thumb.webp",
+      "size": 51524,
+      "sha256": "5eaa92e4428838e171522cbd4a07b3aa73413c3afd5bf806202d4c3a127d37a0"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/gres-artistico-3bc43b43621f.webp",
+      "size": 520936,
+      "sha256": "be8babfe2fba4943e3d73150202135da6af47ec5d4c7ba563c3073701624f274"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/gres-artistico-4cbca83edea3-thumb.webp",
+      "size": 37594,
+      "sha256": "d3cba4160ec6df7aedcc15ed5c742ea9358953c01f508e606d799ea12a240423"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/gres-artistico-4cbca83edea3.webp",
+      "size": 384872,
+      "sha256": "2b458405fdfcfe34822bff41288230c29782e24057267b9839e0947ac7597d24"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/gres-artistico-565f640b2391-thumb.webp",
+      "size": 44136,
+      "sha256": "f2427e14df72e99e7ccecb88078926297cfe7a513b51d2dc071e588ef7240482"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/gres-artistico-565f640b2391.webp",
+      "size": 427886,
+      "sha256": "5c196e97fea23973f2c9b48f8eb1fa0173dc97f96b2a25eb50ce2800599416b8"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/gres-artistico-5a443933c7f1-thumb.webp",
+      "size": 27626,
+      "sha256": "11eb0ab225869acd6fc393575a6d68b4d8a59a2581b9e0c4f190796d4d1eb8fa"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/gres-artistico-5a443933c7f1.webp",
+      "size": 446978,
+      "sha256": "736cf730c86e392f3cf8b1dfbcef220f7a308557a9da0a21173bcf5d07c03292"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/gres-artistico-6b68a35d96f3-thumb.webp",
+      "size": 27754,
+      "sha256": "7f84a65ef586d494fb4876092bc4b48063322a485a172cff45f1fabfaa7fec53"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/gres-artistico-6b68a35d96f3.webp",
+      "size": 221246,
+      "sha256": "00064fe848572f6b8d32da482bf7d7ec6b0f9835d480564be0f29932dabc6f3f"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/gres-artistico-6fd30ca74d51-thumb.webp",
+      "size": 64918,
+      "sha256": "1dd73f1925f4879b1cea0eb7b1a9cba04daf131aea823c24c4d383f452edeef7"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/gres-artistico-6fd30ca74d51.webp",
+      "size": 412196,
+      "sha256": "334db0ebafc3f2fef37c73f0d347d6e7754b03e7c994a2367a3d2432ec902a28"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/gres-artistico-7ec4d5972d5e-thumb.webp",
+      "size": 82108,
+      "sha256": "fa1b302806d2b27ece38375e5ff105a56a1d5851526a7c4e5741f66e5621c8c9"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/gres-artistico-7ec4d5972d5e.webp",
+      "size": 434572,
+      "sha256": "edf23d84667627cc08ae067871cbdcdff328ae56c6406dd8d94065465ec8e301"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/gres-artistico-8c2ed5b8be52-thumb.webp",
+      "size": 104786,
+      "sha256": "f2fd289366805b3271b26bac18bc2f826053c92952cbb7692dbb416bfe8f61f4"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/gres-artistico-8c2ed5b8be52.webp",
+      "size": 657964,
+      "sha256": "ed70687e960c7f7c3ff9ea51f665d82ab2aafd48b5edd6312525614e99195be5"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/gres-artistico-b124c4a7a892-thumb.webp",
+      "size": 100620,
+      "sha256": "b8dfdc2b3f6a3f46947c2d2961db0c80be6a5e523789ba6e42a2ad79ecc3df41"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/gres-artistico-b124c4a7a892.webp",
+      "size": 922748,
+      "sha256": "4d9b8800edac75c68e952a23a2938f6a47e9687f4be46bf235d93c62dd71a2a6"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/gres-artistico-c163a19063d5-thumb.webp",
+      "size": 31922,
+      "sha256": "20b20980eddea1dbcfc6919689e4749bb5fc63a62c6a5d97609efa5f70168cae"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/gres-artistico-c163a19063d5.webp",
+      "size": 221476,
+      "sha256": "0dafc1881158517ce67a12835f821a0375a4242eec6b2fc91f399190246731da"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/gres-artistico-c87fc71e0c23-thumb.webp",
+      "size": 46018,
+      "sha256": "81643f5b43332e1a9413a5d31e2db40401133c094b313e7db39c0826e50b167b"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/gres-artistico-c87fc71e0c23.webp",
+      "size": 281008,
+      "sha256": "ff8b30d1fa059c394168b6863c689daf9b2cd177049b299a60ba9fff8fe4d17c"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/gres-artistico-cc20bebcfaf0-thumb.webp",
+      "size": 43798,
+      "sha256": "244e32b27553251aac6a8cd60230b26840691c2428d91dbbecf75df556cf3706"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/gres-artistico-cc20bebcfaf0.webp",
+      "size": 188622,
+      "sha256": "d74252de383f3ae79b3705c3e05b03bc2542c02c96dd7cb5a24f1b2b57d534cc"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/gres-artistico-fa9974e4174c-thumb.webp",
+      "size": 141166,
+      "sha256": "a2c915f7f13e292417a7d6f5a967576b794780c7c84549fb241bc8e784758677"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/gres-artistico-fa9974e4174c.webp",
+      "size": 543600,
+      "sha256": "0a6f946d47ef7575c12e7a9ee80c2238aca69f7c705124d630bacaa4aa66106a"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-1242327ef819-thumb.webp",
+      "size": 22484,
+      "sha256": "411177387cd8ae2a7aa71648245f58f8650f6757342282a005c1a3826be5aaed"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-1242327ef819.webp",
+      "size": 180576,
+      "sha256": "5722146efc459e83fdb1ee58ccb11b79f6b2165b4b57fd4386f406bde4768d46"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-1a029bba40b0-thumb.webp",
+      "size": 7916,
+      "sha256": "1173b1424e2caff78aa12c5e2fdc2f38bb1304c04fbf4ad4f712215c4ef461f0"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-1a029bba40b0.webp",
+      "size": 50850,
+      "sha256": "949eee323d6fc8e87136d002df029d98fde1dac6e4662265c4626c0efd300042"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-1daa85015f15-thumb.webp",
+      "size": 74930,
+      "sha256": "2b24977598f5ffc6e4f7c7af39416b95a95b29ff481eed69a51d6125c365f8ec"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-1daa85015f15.webp",
+      "size": 1117988,
+      "sha256": "b077c317fd657fc52a2329098c0b61ec4391b3805a04c1676476bb0de07cd3ad"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-315193a30fb9-thumb.webp",
+      "size": 47756,
+      "sha256": "a3af481190af366ebd83ae3ee771532f2b8679e4457dd40494fddcd9893b6912"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-315193a30fb9.webp",
+      "size": 389284,
+      "sha256": "eb8508c1a19874902813626fdef5746fc45d21db6b0b08aa92841e3ea469ea5d"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-32170ca33cb7-thumb.webp",
+      "size": 43590,
+      "sha256": "035c9db4c73bac1931cb392799fbf53b16d6a552f0fd9ebe48c3f1596314603c"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-32170ca33cb7.webp",
+      "size": 374348,
+      "sha256": "bdfd7ff72902b2be69e98fd2c4f91379b4e5caf4ade214f7f7e0ebb6ab2197fa"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-3a6c89a012a8-thumb.webp",
+      "size": 40474,
+      "sha256": "6e7a8bc0c56dfce0184ea1f78ec85d1679c3ec0fc16ea11ea149b83ffef7afda"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-3a6c89a012a8.webp",
+      "size": 346964,
+      "sha256": "2d6cb488b3bb4ee968c9de098b5ddc0150f6fc913a5b3cfb886d01594321fb1a"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-3ecea10e241f-thumb.webp",
+      "size": 73462,
+      "sha256": "98dd5ea5c7ef2608327f0e27b4d781362c1c7bd88cf3dc53f45783c8cd6d3dab"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-3ecea10e241f.webp",
+      "size": 241454,
+      "sha256": "be918dd9a2b1837120a82c4a2ea1daa80c401613d7f2ba031f63f2c2d6dff46e"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-4d6c3032a3df-thumb.webp",
+      "size": 60504,
+      "sha256": "fc2bc7f921ccdee59e6e8ca5b56c0a52940c96484ab3aab87ad154a9dbbb0c77"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-4d6c3032a3df.webp",
+      "size": 468022,
+      "sha256": "bfeb6d9c410ee9e3e9d5923d5e793e778d111ddcb707ce6590ca8aa98bdf893d"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-4e0736e0a64e-thumb.webp",
+      "size": 79094,
+      "sha256": "90b7a3a8627aa49b2b7ff91931cd23c5a08b3a746c006914bcee12e53e26af68"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-4e0736e0a64e.webp",
+      "size": 408994,
+      "sha256": "7eb70f56815899686f4248c2e6e1fb3352e017578ae98354f2c790cc3d848d66"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-50f05fa09afb-thumb.webp",
+      "size": 56022,
+      "sha256": "822fcab82922c2208d3946322680c3559e5b058f9cb9a1c773a20a887c0ca23c"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-50f05fa09afb.webp",
+      "size": 407602,
+      "sha256": "ec73634175da7021c2db48bf461d406d420668de3ba04d2a6e290f7e77a1c0d8"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-51e9a31297be-thumb.webp",
+      "size": 77448,
+      "sha256": "6c9035419c20ff506257a975473bcf14600a94e33837e09c4063b23a79c92fe4"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-51e9a31297be.webp",
+      "size": 743580,
+      "sha256": "46fc028b3cfe78296ac9854f5f39d6297b849674d6e46daab7ab3fa10825d6b4"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-5a6ab134b610-thumb.webp",
+      "size": 52950,
+      "sha256": "5ff96048886d3f91f11318ea673f556c2f2fc52ed625eda439bacb3fca49d02c"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-5a6ab134b610.webp",
+      "size": 442488,
+      "sha256": "efe43e6b78d9c33a6a3c04ffaca173a41f89883619d19d922e09816245c0ed4f"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-67fc5ab12456-thumb.webp",
+      "size": 71686,
+      "sha256": "ede36ea9544d85a8360c16d97f6e64eaca471a67d23ca33152bd6c760e622657"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-67fc5ab12456.webp",
+      "size": 560632,
+      "sha256": "7e8568cf2b52720323d1a753c93328fd4754db2f36a40836de984144b3f1452b"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-6c70472c7cca-thumb.webp",
+      "size": 42418,
+      "sha256": "ff9a0bfee21047c8aeea716649440eb95e97eba21e17ad98cb20e7a8227331fc"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-6c70472c7cca.webp",
+      "size": 269068,
+      "sha256": "d4047f39d96bc1eb27d2a92ae1140ed25ea286de7f964570b13826f035bc13e2"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-709bbcdc1b4e-thumb.webp",
+      "size": 79376,
+      "sha256": "ca731f6bcbf4649babfbd3f372ac2ab61cb02cb96e89f868c1417a0c47d17eb8"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-709bbcdc1b4e.webp",
+      "size": 561546,
+      "sha256": "dbfe15577d6261a7800176aa47ef269add80b73d334255d81f1ff3c5f1ae1c1d"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-749267bb3034-thumb.webp",
+      "size": 138240,
+      "sha256": "a7c2395924dbd813a55c6cc712a6fc5f4d4c48a53ba758c9970098dd1f7df040"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-749267bb3034.webp",
+      "size": 786616,
+      "sha256": "581fc3fed65521ffe505bea8245cdf369c496753cbbc0cfa34564fa9077a3914"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-7b199c5a112e-thumb.webp",
+      "size": 74534,
+      "sha256": "185414d4da2985056c14c03bd838330538f5800ed6870e2a58aa1c572e687bbd"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-7b199c5a112e.webp",
+      "size": 444146,
+      "sha256": "e5272f0757c1f0ed7f62f56f2351aa16281ed537edc0ceea02fd1f5e669b7abe"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-7bf41a65a035-thumb.webp",
+      "size": 31352,
+      "sha256": "98c0d953c465faafa7e6a93e427479b11807c72c93309ddd854f4c6634334d8b"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-7bf41a65a035.webp",
+      "size": 189608,
+      "sha256": "aa9e6b7fa7d99a65fddee50de3d77effe13aa5dfdd9ac1952b36854207abfacf"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-80c150be5e68-thumb.webp",
+      "size": 129836,
+      "sha256": "e3da79dc822c686e0196a0c9bd8e84ca7b2d4a00cf9db1aa96dd3e347329a100"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-80c150be5e68.webp",
+      "size": 498540,
+      "sha256": "12deb00ce7f0439c690759996cc0b6d3c0cf76e44ebfed921e329b115a5cc63a"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-8fb19c17afdd-thumb.webp",
+      "size": 76620,
+      "sha256": "c570372ca766d884a673ab6e0bd217482f5820e5587cdfa4308ddb0bf9676afb"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-8fb19c17afdd.webp",
+      "size": 485198,
+      "sha256": "793bf9f93e88cbf5a2a8239c0a91a874db1693b07453b14bc5942336f7cff0d5"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-955b8d5a7062-thumb.webp",
+      "size": 44202,
+      "sha256": "c6376f4465ed51e99893b27476162315ee4e73248cf56ec64d90c1507e50ea0e"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-955b8d5a7062.webp",
+      "size": 397568,
+      "sha256": "b3e623eb1cbd1f9527c79621dc81e53d65f342ef210f5eda9696dbd394cb393b"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-9a13fb4bc7fe-thumb.webp",
+      "size": 22290,
+      "sha256": "1e2e30cc07ab76623b01facd9127d2a3eebbfd10073dae3543be5a89d622a819"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-9a13fb4bc7fe.webp",
+      "size": 152420,
+      "sha256": "afe36f71830baf27a0d862e99c87b6754941e6c506e03a5bf35fe1e4869550dc"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-a7bf913b593d-thumb.webp",
+      "size": 94294,
+      "sha256": "750935fdfff33c887950bf6b72692a68cb61821b130ecdd20791c67ac37781bc"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-a7bf913b593d.webp",
+      "size": 672794,
+      "sha256": "1f306d457531c6de4d7c829916194414f9290ec40e6152b22c2c027e5398c086"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-ade2f7ab0314-thumb.webp",
+      "size": 27116,
+      "sha256": "70b01511b4cc50bd1d05213114ceef23f38827d378fcff014abf71e9119474fb"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-ade2f7ab0314.webp",
+      "size": 83314,
+      "sha256": "fc2fa61a31cf15222c9d53c69cc80a7754ba9131f3ca365903190560246a5d9a"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-b337af596c6e-thumb.webp",
+      "size": 28930,
+      "sha256": "7360b5d1d31cd0c87c56a8f0a2fb881108525370d2a2c62b44966081e88bc730"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-b337af596c6e.webp",
+      "size": 205368,
+      "sha256": "021fbe3556d7eaf99584566f64377989148b397657f01811bdb7c1c69e96d0b4"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-c178218bc00c-thumb.webp",
+      "size": 84610,
+      "sha256": "c6ca7e0c5ea2c428ca6b60cd88e75136ca3e689d7738806de4b1c5c27a0e4829"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-c178218bc00c.webp",
+      "size": 436776,
+      "sha256": "654a66624974a67ce4d5906e9a093eace01c1c2d72e6863fc05c1806e0703314"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-c574c67da92a-thumb.webp",
+      "size": 111174,
+      "sha256": "16c525c78f87517e14c4d33ce7907345d1c28fec3fbecfb541976d3c8299176c"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-c574c67da92a.webp",
+      "size": 586534,
+      "sha256": "eecca45a0c9d6dd0ecae26f0c4114b3fac06d811fd0e0dea4f24f1d70701f01a"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-ca13ba63a618-thumb.webp",
+      "size": 65838,
+      "sha256": "12178bb2537decdba8a3c00c04eb990a95ea5072b42f1bd3aa1c26409f153ddc"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-ca13ba63a618.webp",
+      "size": 477348,
+      "sha256": "ef31b09ec94bc799ad9ebff1d17c32b1ad1e2bbddcffdd8729b35d5e6b57f6f3"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-d1f5b8eaba2b-thumb.webp",
+      "size": 46530,
+      "sha256": "af6c9550cd14237bdd510f9831ec7345ef2172e83329864c0627215bc86c2033"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-d1f5b8eaba2b.webp",
+      "size": 252490,
+      "sha256": "184a67828e5320a65e2281b1736305a2a50a7ef878129a7fb856f67d4ef12c2a"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-d4493e883f66-thumb.webp",
+      "size": 26906,
+      "sha256": "1c3666496a80687adfd39914806e275b98811ac44f81c93431e06575865c158b"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-d4493e883f66.webp",
+      "size": 210270,
+      "sha256": "2bdbd3019eb78ae9e55332c5976847e35303da4d0eb30bb0678b8a98679839f5"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-d9fa60bfb6cf-thumb.webp",
+      "size": 92074,
+      "sha256": "c21d58f9007bef1b52687b248461fc3f3984075130d1ca65da2aa50ff81ebe83"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-d9fa60bfb6cf.webp",
+      "size": 752044,
+      "sha256": "5b464fb1102cc63ee474b02c3c4e2635bd6053569cbe16f0f16341ebab13f3f9"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-db6df2f17a8f-thumb.webp",
+      "size": 50686,
+      "sha256": "97c857d45ca3560a22addbd2b8e24a180a2dbe9f9479e6bbc6da39279885982f"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-db6df2f17a8f.webp",
+      "size": 438318,
+      "sha256": "bd04e9d8989ad42f1074981c3363a439a621cfc7c2bc647727e42d2d95f7c081"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-e473371aff81-thumb.webp",
+      "size": 38310,
+      "sha256": "8375c1597a2503acb29bfb27e79e5fe7675541b8f06aa64f1767cb84d34d92d1"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-e473371aff81.webp",
+      "size": 218604,
+      "sha256": "cb3547d8539285f6da190a07fc15a794a634ffce0cf6ba5ca2a55be7633cdb7d"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-efc149ab8b52-thumb.webp",
+      "size": 81786,
+      "sha256": "654def6381ee492daa670c31144bffda46467b7d84d3724d08ec57ca7c21877d"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-efc149ab8b52.webp",
+      "size": 349424,
+      "sha256": "d6ff14355216d2b0b4791e3ec1022d78eec704a7ac032b7a31a1d06e7f1062f3"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-f4d4e3e7df8b-thumb.webp",
+      "size": 17188,
+      "sha256": "b620b775859cc978a6ed9a00bfb16b1f95e79cc8fd28a75e23d8c41a46ce7d0c"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/lava-delletna-f4d4e3e7df8b.webp",
+      "size": 137466,
+      "sha256": "36ddf95b38b3fe178e068679073ffad90c69af7e75e5a0253561dae552f6e3d2"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/piscine-1bc55ba73d95-thumb.webp",
+      "size": 65280,
+      "sha256": "c93286bb8c3eb9f635169c929d92e8d9716845ac80087ab0d5a5ce471e430ac5"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/piscine-1bc55ba73d95.webp",
+      "size": 553948,
+      "sha256": "c3e1fb07c28ea9549d2698203b96c6d62bfa52bd0e7267d62476571cda058279"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/piscine-1d7b8bedb409-thumb.webp",
+      "size": 106060,
+      "sha256": "47dece1db2fbc3690b969fe750e0fc46900bd03e2746cf5b0990584b721f2ae2"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/piscine-1d7b8bedb409.webp",
+      "size": 273430,
+      "sha256": "3bb56e24c4d2ecf8527e49fafba153e2bdb9897b7013dbd7788281f90859fa92"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/piscine-302a584672af-thumb.webp",
+      "size": 60428,
+      "sha256": "fb70e71b14c176612a8f7fb9a7c9b8ef389bf3da540434d9eedd62b7d0d061b8"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/piscine-302a584672af.webp",
+      "size": 182526,
+      "sha256": "4af08dd2877e1a1449b37b0aa59cd8af7f39e0b9136334251a055c0d02cbce93"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/piscine-4382d893fe8b-thumb.webp",
+      "size": 49744,
+      "sha256": "1f524c0ab1ded2e3144f2c32593884ea2a8a607956d1e2f56c51a92c0b102019"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/piscine-4382d893fe8b.webp",
+      "size": 118370,
+      "sha256": "b955b7774163f839f494f84c0b40f211dbd6b4fa171bb8e8cce6505e1b83ba32"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/piscine-50ba26abec4e-thumb.webp",
+      "size": 60106,
+      "sha256": "afe2695f9e9a9ed51ca8cd49e56ae453447b5b6cff5e6a6d8eee4ee36ad3a02c"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/piscine-50ba26abec4e.webp",
+      "size": 287642,
+      "sha256": "9de1e59d97de1f7ebf5298a72c23a3acfdc1b3e7b91d25af8a17a088edf2fa12"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/piscine-50cf3693ff23-thumb.webp",
+      "size": 109772,
+      "sha256": "deaf36a6b45fbe85d8924f268d175edfab6fac4da42b17d3ec6bd2bac74e6926"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/piscine-50cf3693ff23.webp",
+      "size": 308694,
+      "sha256": "f5c0d36a1557c91425047370b2a08ec291a3c4fc7f557dbd43f8a4d2bbbbefed"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/piscine-6c5e1a43b955-thumb.webp",
+      "size": 31148,
+      "sha256": "8b6742c5195964a4d99d44aaa9103c7ca90f17a8e446e97cb10f518cb71fb795"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/piscine-6c5e1a43b955.webp",
+      "size": 128438,
+      "sha256": "5198a0bf8d106ffa1342bc27168fc1151bdceb107b34ffcba7fbb77f18f8824b"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/piscine-723b210a8c61-thumb.webp",
+      "size": 43858,
+      "sha256": "28a9a095fbd6951740dcb089b1f728ba7ee50ebd4c90c01a7f6e8048749643ee"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/piscine-723b210a8c61.webp",
+      "size": 182896,
+      "sha256": "2be8994a56fb6c2e5a6529401db844f63606ab9dcd64617a2810f5dfaa63e3ba"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/piscine-896f10937fba-thumb.webp",
+      "size": 30182,
+      "sha256": "70d891df5306e8b721df57ab5df8536627c56596ca70c78f32c59ea8a5fc2308"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/piscine-896f10937fba.webp",
+      "size": 108386,
+      "sha256": "ee65d4ca3be4c8adf51810a0be12f92701fce0be8f816488f9d6f2e6c23fb9fc"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/piscine-8b7a7aae5f5c-thumb.webp",
+      "size": 55330,
+      "sha256": "9511c1a9536ab3b99c59ebdf86ea8d2430c3df191daefc67d3e517fa455df3c9"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/piscine-8b7a7aae5f5c.webp",
+      "size": 183810,
+      "sha256": "738a0584df2f5cb39ffbf6630b07e0189e1b4d4123c10ad01582a7c0d88722a0"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/piscine-8e8ecf92bb73-thumb.webp",
+      "size": 96018,
+      "sha256": "a043c8e20ae9bf9ed5321010c8ea2088718f282186a1f5ad2e970178b81ad736"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/piscine-8e8ecf92bb73.webp",
+      "size": 223072,
+      "sha256": "edbae3c38f15a9d155575e8352f9714505348198912dc91c7fe87d04c9cf7090"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/piscine-94568a82b025-thumb.webp",
+      "size": 109410,
+      "sha256": "a31e3817d9777fbebb0976bc916e60f25ac7042598b2f4e5662613e4aa96aa33"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/piscine-94568a82b025.webp",
+      "size": 272782,
+      "sha256": "68164f7473e2ae19ac79164d05f957086e4d0e632ba5d3b2e72d23aa0ead526c"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/piscine-c9d636adbfce-thumb.webp",
+      "size": 67132,
+      "sha256": "eb42a058a4abdadc422c91c249328c349457234bed6487175d2a0782d60bd4fd"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/piscine-c9d636adbfce.webp",
+      "size": 381118,
+      "sha256": "0a901187b186f08a1e1aba6f25357a186907ba3b26a61ec4e294dc8f0e91b569"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/piscine-df98adccfac3-thumb.webp",
+      "size": 68218,
+      "sha256": "aec5761a439162961bb87d9751c07b56399c3f7921f3949b9030163db60561a4"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/piscine-df98adccfac3.webp",
+      "size": 162234,
+      "sha256": "69431ed132822b44d5cf041aa24e30eb6489687ed1f215dc62cceca75af62ce1"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/piscine-f273b6de31d1-thumb.webp",
+      "size": 26190,
+      "sha256": "16dcc18b8e3f1a573baa920ddfbc3ebcddc3d303eb6d278dea485fbc0f4b3705"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/piscine-f273b6de31d1.webp",
+      "size": 96474,
+      "sha256": "4e42646bc4da5056bcf5abcc85717b481c4a4bbc61e29842e97f1d91c7cf1eff"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/piscine-f66f4071d79e-thumb.webp",
+      "size": 76418,
+      "sha256": "df351f23d87dca4b0060e2e3eb01e5d97fa7b3479ba352ee10219212be2f4f79"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/piscine-f66f4071d79e.webp",
+      "size": 197172,
+      "sha256": "0080e097439960094531caf8e5ea42df234f2c4e4214386bf4aa3bc98ed1d0e2"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/piscine-f8312eef513f-thumb.webp",
+      "size": 55036,
+      "sha256": "77a30e6b13644272097cf08e3a83b2892f06585e94da8d340e1d9019ae6c1209"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/piscine-f8312eef513f.webp",
+      "size": 156698,
+      "sha256": "d194047037c23fecb5e0c45b5f63823bbe4bec90ec10d32340eb6837a68fb6aa"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/piscine-fde2159548fe-thumb.webp",
+      "size": 58006,
+      "sha256": "7df55af9491813444fd07cc1284085a77843b3194e435a5c565cfcf7ebff7fc4"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/piscine-fde2159548fe.webp",
+      "size": 256644,
+      "sha256": "492e217cadf25f7f7a6f6181f9aeafbcc6f783e7cb62973ebcdd7940164d566c"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-05288e925a27-thumb.webp",
+      "size": 122150,
+      "sha256": "300c8c61b2363bc17f52bbff406df589a0abdb6b2e1250ca64ae047d0752101e"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-05288e925a27.webp",
+      "size": 646430,
+      "sha256": "642e15f25b56a917af5a879f5da58a70f7abd2bc0397dfa28f452634d1c8dacc"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-08333abfaaa6-thumb.webp",
+      "size": 35788,
+      "sha256": "5ffb1daa7af8da33add71a98a341800e2757034ac80081f87b402e65447ed2e7"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-08333abfaaa6.webp",
+      "size": 187018,
+      "sha256": "ae56005925cb9ba9824bbb89f1a78b6efacd2687f37e83d3be3f9b7961cb86e8"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-09e6517d08bb-thumb.webp",
+      "size": 61532,
+      "sha256": "871ddc7db2fe7f6e2c5d9313806992d4a2517859db9194ccbb8feecccec91368"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-09e6517d08bb.webp",
+      "size": 429418,
+      "sha256": "9f4a4c9744435eb55c86f7df480363265a95f5702199713289c304c429093f2f"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-0aaa3abef737-thumb.webp",
+      "size": 40028,
+      "sha256": "8ee17873b09050fa392ef5b5f228eeaf105aea128bbdda323eb2f89741c5dc44"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-0aaa3abef737.webp",
+      "size": 241260,
+      "sha256": "2e89fe1bdf77e90a4ee3bef18b72cd159ccdb3ae8421996dc223d8b3e2369fe7"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-0b25947fd5ea-thumb.webp",
+      "size": 126704,
+      "sha256": "212de705ab087524dd6d41a9b2c438340fe62dfcf3001d7c70b9d4591d3ebf7d"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-0b25947fd5ea.webp",
+      "size": 737184,
+      "sha256": "7c9a3fc5baff6f5dc1db23422882f6e5603384ae61e8dc378fcd821a0680fec7"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-0c6ae448ea11-thumb.webp",
+      "size": 16918,
+      "sha256": "68dea7856e7cbdf07c7749a5e8a42bb4ec7747135a5fb019b6a18c331fabd2c7"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-0c6ae448ea11.webp",
+      "size": 78904,
+      "sha256": "b25bbbd16f228978993e7276a422f3b5d7857b3f3144b0ba3e3a3f5cac3aeac4"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-1ec8dd72f339-thumb.webp",
+      "size": 33032,
+      "sha256": "615f2f18f4f9b3f7d196e4be676736120edee7accbe6297b492e7730e486e7f0"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-1ec8dd72f339.webp",
+      "size": 167480,
+      "sha256": "0e0be8d9e4db3c87527311d4fe413cb1a600fae63939f15af3cef6cb04df4a5b"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-25b5c7bb106a-thumb.webp",
+      "size": 33808,
+      "sha256": "10751c540b4b4a83a3af4b4e2a1484ae65d950b4806717f8efbfbe4eaebf46c6"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-25b5c7bb106a.webp",
+      "size": 319150,
+      "sha256": "f402af0996ef6b5523dd299b4960ca5221325ae4ed3ee18fbf7a146400e17a59"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-3bfb3191ab07-thumb.webp",
+      "size": 21998,
+      "sha256": "4b1ecf7d18a0b75db6df3dd4d18edbe47bacc6454670e3161940a5362e4eec9f"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-3bfb3191ab07.webp",
+      "size": 89838,
+      "sha256": "61efdccbb5594d519142be61f4120e7cda8832c85496e8251f0f8bc05e1377f2"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-3e71dc1a5908-thumb.webp",
+      "size": 97090,
+      "sha256": "e4e2fea9f04029c1cd008673496c48e8da70cf749f6300e6fec053f8d26e3748"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-3e71dc1a5908.webp",
+      "size": 568292,
+      "sha256": "ff04b8e35d8d78bd75ff971221a862298feb6dcb072bd04ecc307f095aae4aad"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-462957a0f9a4-thumb.webp",
+      "size": 16560,
+      "sha256": "df1bb04a7916f1c53c1bcbf76b565501ef3acaff8f2e27b629bc2c55701b7db7"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-462957a0f9a4.webp",
+      "size": 125478,
+      "sha256": "58f8cea3bc8939191e46dd342f22d32ddeca7c970e704164d4b69b291c22fd5d"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-51d85cc75f96-thumb.webp",
+      "size": 32256,
+      "sha256": "55aa7c4659389f87d9a90db2492e70fce4f94ba7678a09b94630663675226cf0"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-51d85cc75f96.webp",
+      "size": 189544,
+      "sha256": "19fbb5581408bf61000292def2d8f089e160f0a5491b11bd146010482f685e80"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-56e3c4f780e3-thumb.webp",
+      "size": 78290,
+      "sha256": "14949ca0a34dd606a6688e1cc23bcd065d61122a2722caa19455b59ace2c338f"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-56e3c4f780e3.webp",
+      "size": 399850,
+      "sha256": "813e7eebdb41076510de8c6cd53936ab5a125849790cd7b589fb54c993c03fe9"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-5df71f774091-thumb.webp",
+      "size": 37402,
+      "sha256": "c8e23b88fdf447c4ac40e9a5ce718403aede37f25aa81c0ba39c5794a96dc3b8"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-5df71f774091.webp",
+      "size": 219432,
+      "sha256": "60ced9c691113291ffb7b618a190b4feeae1b4af613f0e1a7583c4be8f7a4c45"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-628cc691d61b-thumb.webp",
+      "size": 30238,
+      "sha256": "d7eb9e704d393300364fc5f81ac64a03ceed5355745ac3fa944c7109e10dc705"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-628cc691d61b.webp",
+      "size": 184146,
+      "sha256": "50a8d72d126803d78cdce4a697de813f89eb550b742582b54f37fafbbc41f4db"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-6955e7b5638f-thumb.webp",
+      "size": 21308,
+      "sha256": "8ea0fb6a2fd09b271cf2f94d7747bbcfb641d2cfd3a98ca9dcbf2277156dac5c"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-6955e7b5638f.webp",
+      "size": 116266,
+      "sha256": "0c22a312127a174ba6c7bf2bf01f3f925b2b54bb635015781bce552cd3b2a2f3"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-8646a5cb1f7c-thumb.webp",
+      "size": 56492,
+      "sha256": "5a4a27c882daa38b30fcae8ceae4b25b67db2b2ab30bf95f880d23f1471e7fcd"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-8646a5cb1f7c.webp",
+      "size": 272234,
+      "sha256": "0c1a1bedda8f49dd5b3f3c252c315a0854db92023ad3000cf98ac4f8edb72142"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-8b65fd5f2dba-thumb.webp",
+      "size": 62278,
+      "sha256": "507513bef4a3ab6f241148115e98dc24f6f62e2e734e3e14c559ca2a9ff394ba"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-8b65fd5f2dba.webp",
+      "size": 400260,
+      "sha256": "77b7755abd35ee016e2d25400e08c5cb4db6333b5b4958f692d356574d799d90"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-8fa07ac33e7c-thumb.webp",
+      "size": 39488,
+      "sha256": "96b06ff812d5255ad01b9bffd00394ce03a51d34ad598b876c1c886bd1c982d0"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-8fa07ac33e7c.webp",
+      "size": 290134,
+      "sha256": "00667805cb55b024f337fad3c409eb2dab17b9ba598e1a6a45d432d3f1458c24"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-915a86249644-thumb.webp",
+      "size": 18828,
+      "sha256": "9971d72a1cf12e7b2fcfbc2f73620fb8c88e4f41f01a04b9736ab18c23e72c40"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-915a86249644.webp",
+      "size": 131462,
+      "sha256": "0650fbc295fe548a717b691f4c82812b257eba6b7dd8aa45a58b2e640b49c00d"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-9504b7c0af8a-thumb.webp",
+      "size": 200584,
+      "sha256": "51ed4c5f90ded1d9a09407c2320a284907196224e492c306023acc55ed2431c9"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-9504b7c0af8a.webp",
+      "size": 382106,
+      "sha256": "644598833a418543e9890fdffbb119c2f7a24456225a44432a4e70fdb3e6d8ca"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-95d18efc3c79-thumb.webp",
+      "size": 53438,
+      "sha256": "f77e9be50b5b58bf40b3630e05b243e7c2c7c9baccef257acf88684ba3d21eb1"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-95d18efc3c79.webp",
+      "size": 429826,
+      "sha256": "e86d21248d807d6e0da2c8ba5fb5d3d8cdf3c80a9a3231f99053901135691c22"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-a64682d53d1e-thumb.webp",
+      "size": 13878,
+      "sha256": "b06a7c307875d2326fd58c903e307a25bd8272a7ef593e40edddfc1e731ac1ef"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-a64682d53d1e.webp",
+      "size": 69136,
+      "sha256": "c70b912d6a19ed1fc961d3fb30f6c8c639671eb9b2a1937c627afd4d861f5556"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-b7beb98bb246-thumb.webp",
+      "size": 30758,
+      "sha256": "c1bf886295219f094db83aef6aeb9ee362f29b4f36a04f5f746afa4ff8203bb7"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-b7beb98bb246.webp",
+      "size": 149572,
+      "sha256": "5e0a03aeb4cd78ab2bb6085f7c5e9e4e402367d5ddf658778ae148ddf2288c70"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-b9011534c9f8-thumb.webp",
+      "size": 27880,
+      "sha256": "de3f200df82509a2fb6057e7d4693bde53e164064919da9ef0eb4753848b21cf"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-b9011534c9f8.webp",
+      "size": 224018,
+      "sha256": "5691091ad7b4827d6a6d460a95fb797e853045a6fc016e72bc6fa30d15c019f2"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-ce1fb114fe6d-thumb.webp",
+      "size": 51102,
+      "sha256": "bed24bd6ae6867e31cb71a0adeb9fd0dc6a7091cf45b1d187f6fef3403bda62c"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-ce1fb114fe6d.webp",
+      "size": 269248,
+      "sha256": "9115c751ba332f099a99ab7c1be072a7d42e0f28c3a3ed6eaadf7082a39fbdbe"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-d5b8467e23a9-thumb.webp",
+      "size": 111826,
+      "sha256": "c3f345cab1db66eb4b2037a129f8e61253e32ec1170665c04504d76cb9674f7d"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-d5b8467e23a9.webp",
+      "size": 564420,
+      "sha256": "0145e500785a2743c03caf608a7262497c1d08c7f2658997d1c184d35a118b32"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-d7ddb5f7e1ef-thumb.webp",
+      "size": 78844,
+      "sha256": "947b26a22dde046cc1e525ca37f41e05a3988533e6f4097ad4ba64c4f4598c52"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-d7ddb5f7e1ef.webp",
+      "size": 435310,
+      "sha256": "f0c8c73c262d96285a5f5f66f0e40e3cf92842e8c5ac847bede283b2da310cfb"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-dc5083ab797d-thumb.webp",
+      "size": 35648,
+      "sha256": "99443ca77d811395cd2aacf1705fd0ac5a6ff2c0bc0909519ce0801df674f30b"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-dc5083ab797d.webp",
+      "size": 171844,
+      "sha256": "455b3377c77ac25336957f62a369699691a0bd519320582feff204e689e1a880"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-e4fbfabf944b-thumb.webp",
+      "size": 89232,
+      "sha256": "c18600f740352e15dc41a9c3a100be967b22853ad2bc47127dc5d964fb2beb10"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-e4fbfabf944b.webp",
+      "size": 444036,
+      "sha256": "d17a9852816ceef2dbbecf2874f2f5b0de22c8f9f0d8945ef928f44df7917ac4"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-f25eab5edff4-thumb.webp",
+      "size": 30508,
+      "sha256": "9375f235f1e34d454dd69b8206f11e0c68a92032737da9f4238564e3bb24d536"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-f25eab5edff4.webp",
+      "size": 243962,
+      "sha256": "1318a9ee8a0692e356ac4e48709771673fd0bb5248f0d074dbe71bd2b049c2da"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-f65196cbc860-thumb.webp",
+      "size": 52198,
+      "sha256": "4b36e4f6ff01c11e78bd1cecb252f07444aed0a583a051511d608bb4a4df51e7"
+    },
+    {
+      "path": "assets/img/pecchioli-20261101/tridimensionali-f65196cbc860.webp",
+      "size": 376836,
+      "sha256": "6b42b1c5af1cb2ca53e3caaa6ad222ffe980761a65e6cd3cc434053b980eb37c"
+    }
+  ]
+}
