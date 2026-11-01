@@ -31,5 +31,5 @@ export function lineItems(item){
 }
 export function quoteProject(project){
  const items=Array.isArray(project?.items)?project.items:[],rows=items.flatMap(lineItems),subtotal=rows.reduce((n,r)=>n+(r.publicTTC??0),0),missing=rows.filter(r=>r.publicTTC===null);
- return {rows,subtotal,publicTTC:missing.length?null:subtotal,missing,indicative:rows.some(r=>r.note),excluded:[...items.filter(i=>!['cabinet','column','mirror'].includes(i.type)).map(i=>({id:i.id,type:i.type})),...items.filter(i=>i.type==='cabinet'&&i.settings?.tap).map(i=>({id:i.id+'-tap',type:'attached-tap',reference:i.settings.tap}))],vat:20};
+ return {rows,subtotal,publicTTC:missing.length?null:subtotal,missing,indicative:rows.some(r=>r.note),excluded:[...items.filter(i=>!['cabinet','column','mirror'].includes(i.type)).map(i=>({id:i.id,type:i.type,...(i.type==='tap'&&i.settings?.tap?{reference:i.settings.tap}:{})})),...items.filter(i=>i.type==='cabinet'&&i.settings?.tap).map(i=>({id:i.id+'-tap',type:'attached-tap',reference:i.settings.tap}))],vat:20};
 }

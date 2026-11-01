@@ -1,15 +1,21 @@
 import * as T from 'three';
-import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js';
 import {cabinetFormat} from './configuration.js';
+import {createDecorMaterials,addDecorBottle,addFoldedTowels,addHangingTowel,addDecorPlant,addDecorSoap} from '../../shared/lrf-3d/basin-decor.js';
 export const decorationVisible=(type,s={})=>s.decor!==false&&(type!=='cabinet'||!['bare','plain'].includes(s.top));
-let textile=null;function fabric(){if(!textile){const data=new Uint8Array(64*64);for(let y=0;y<64;y++)for(let x=0;x<64;x++)data[y*64+x]=110+((x%3===0?40:0)+(y%3===0?32:0));textile=new T.DataTexture(data,64,64,T.RedFormat);textile.wrapS=textile.wrapT=T.RepeatWrapping;textile.repeat.set(20,20);textile.needsUpdate=true;}return new T.MeshStandardMaterial({color:'#d1c5b1',roughness:1,bumpMap:fabricTexture(),bumpScale:.0008});}function fabricTexture(){return textile;}
 export function decorateAsset(asset,type,s={}){
- let group=asset.root.getObjectByName('Accessoires_decoratifs');if(group){group.visible=decorationVisible(type,s);return;}if(!['cabinet','towel','washstand'].includes(type))return;group=new T.Group();group.name='Accessoires_decoratifs';group.visible=decorationVisible(type,s);asset.root.add(group);const cloth=fabric(),white=new T.MeshPhysicalMaterial({color:'#e3dfd1',roughness:.36,clearcoat:.25}),glass=new T.MeshPhysicalMaterial({color:'#926f45',roughness:.22,metalness:.08,clearcoat:.8});
- const add=(g,m,x,y,z,name)=>{const o=new T.Mesh(g,m);o.position.set(x,y,z);o.name=name;o.castShadow=o.receiveShadow=true;group.add(o);return o;};
- const towel=(x,y,z,w=.17,h=.31)=>{const geometry=new T.PlaneGeometry(w,h,24,36),p=geometry.attributes.position;for(let i=0;i<p.count;i++)p.setZ(i,Math.sin(p.getX(i)/w*Math.PI*10)*.003+Math.sin(p.getY(i)/h*Math.PI)*.008);geometry.computeVertexNormals();const mat=cloth.clone();mat.side=T.DoubleSide;add(geometry,mat,x,y,z,'Serviette_suspendue');};
- const bottle=(x,y,z)=>{add(new T.CylinderGeometry(.019,.021,.084,32),glass,x,y+.042,z,'Flacon');add(new T.CylinderGeometry(.009,.009,.018,24),white,x,y+.093,z,'Pompe');const spout=add(new T.BoxGeometry(.029,.005,.008),white,x+.008,y+.102,z,'Bec_pompe');};
- const plant=(x,y,z)=>{add(new T.CylinderGeometry(.035,.026,.07,32),white,x,y+.035,z,'Pot');const m=new T.MeshStandardMaterial({color:'#607257',roughness:.9,side:T.DoubleSide}),geometry=new T.SphereGeometry(1,10,6),leaves=new T.InstancedMesh(geometry,m,12),matrix=new T.Matrix4();for(let i=0;i<12;i++){const a=i*2.399,position=new T.Vector3(x+Math.cos(a)*.026,y+.08+(i%4)*.016,z+Math.sin(a)*.026),rotation=new T.Quaternion().setFromEuler(new T.Euler(.5,a,.4)),scale=new T.Vector3(.008,.038,.004);matrix.compose(position,rotation,scale);leaves.setMatrixAt(i,matrix);}leaves.castShadow=true;leaves.name='Feuillage';group.add(leaves);};
- if(type==='cabinet'){const W=(s.width||80)/100,h=cabinetFormat(s.format).base+cabinetFormat(s.format).height+.023;if(W>=.7){for(let i=0;i<3;i++)add(new RoundedBoxGeometry(.10,.014,.13,3,.004),cloth,-W/2+.068,h+.007+i*.014,.02,'Serviette_pliee');bottle(W/2-.055,h,-.04);}if(W>=1)plant(-W/2+.065,h,-.155);}
- if(type==='towel')towel(0,.64,-.23+.125,.21,.40);
- if(type==='washstand'){const trixie=s.reference==='TR443',h=trixie?.15:.125;if(trixie){towel(-.20,-.095,-.23+.295,.18,.28);bottle(-.20,h,-.23+.095);add(new RoundedBoxGeometry(.07,.024,.043,3,.005),white,-.245,h+.012,-.23+.20,'Savon');}else bottle(-.20,h,-.23+.04);}
+ let group=asset.root.getObjectByName('Accessoires_decoratifs');if(group){group.visible=decorationVisible(type,s);return;}
+ if(!['cabinet','towel','washstand'].includes(type))return;
+ group=new T.Group();group.name='Accessoires_decoratifs';group.visible=decorationVisible(type,s);asset.root.add(group);
+ const materials=createDecorMaterials();
+ if(type==='cabinet'){
+  const W=(s.width||80)/100,format=cabinetFormat(s.format),h=format.base+format.height+.023;
+  if(W>=.7){addFoldedTowels(group,-W/2+.068,h,.02,materials);addDecorBottle(group,W/2-.055,h,-.04,materials);}
+  if(W>=1)addDecorPlant(group,-W/2+.065,h,-.155,materials);
+ }
+ if(type==='towel')addHangingTowel(group,0,.64,-.23+.125,.21,.40,materials);
+ if(type==='washstand'){
+  const trixie=s.reference==='TR443',h=trixie?.15:.125;
+  if(trixie){addHangingTowel(group,-.20,-.095,-.23+.295,.18,.28,materials);addDecorBottle(group,-.20,h,-.23+.095,materials);addDecorSoap(group,-.245,h+.012,-.23+.20,materials);}
+  else addDecorBottle(group,-.20,h,-.23+.04,materials);
+ }
 }

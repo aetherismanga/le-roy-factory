@@ -8,14 +8,16 @@
       "bytes": 19959,
       "originalsIdentical": true,
       "current": {
-        "sha256": "fb4a717e572172c53f30c8f46a60ce221b7059450737a7f72e6d93ef57765a83",
-        "bytes": 19963,
-        "changeType": "functional-update-20261025",
-        "reason": "Correct the original catalogue page 24 Sprinter mixer collection label while preserving the existing product references, finish choices and non-price public catalog structure.",
+        "sha256": "89c8ee41d1ed38c6a6f4ab12cc5c3177b061e174ba4f3cd1bfd1f5e5e1207614",
+        "bytes": 20395,
+        "changeType": "functional-update-20261101",
+        "reason": "Extend the original 123 references with 85 photographed bathroom references whose installation-specific geometry is implemented; preserve all original identities and keep unmodelled categories pending instead of exposing a generic replacement.",
         "validation": [
           "tests/lrf-suite/aquahome-product-visuals.test.mjs",
           "studio-one/qa/bathroom-check.mjs",
-          "tests/lrf-suite/basin-ergonomics.test.mjs"
+          "tests/lrf-suite/basin-ergonomics.test.mjs",
+          "tests/lrf-suite/aquahome-bathroom-catalog.test.mjs",
+          "tests/lrf-suite/aquahome-geometry.test.mjs"
         ]
       }
     },
@@ -99,7 +101,18 @@
       "module": "equipment-collision.js",
       "sha256": "6e0c84f6bae3e34c459220d4b0076d2e9a7e0dd4dd1b34d6dedb24a3af1181a6",
       "bytes": 1773,
-      "originalsIdentical": true
+      "originalsIdentical": true,
+      "current": {
+        "sha256": "42519e1e69cdf278f819995aac36ae89fca6d7f2996700f260ecc7695af51763",
+        "bytes": 1853,
+        "changeType": "functional-update-20261101",
+        "reason": "Apply the shared AquaHome installation wall/floor classification to collision placement for the additional bathroom references, retaining the established collision rules for sanitary furniture and existing projects.",
+        "validation": [
+          "tests/lrf-suite/aquahome-installation.test.mjs",
+          "tests/lrf-suite/aquahome-geometry.test.mjs",
+          "tests/lrf-suite/basin-ergonomics.test.mjs"
+        ]
+      }
     },
     {
       "module": "equipment.js",
@@ -107,15 +120,17 @@
       "bytes": 4171,
       "originalsIdentical": true,
       "current": {
-        "sha256": "15d4cd24a6a2b5271bcf48a6db057508568ff352c190e710d04e942cc2594172",
-        "bytes": 4260,
-        "changeType": "functional-update-20261025",
-        "reason": "Requested floor calepinage side panel and compatible wall alignment; verified Stone Icon Big Opus; wall-mounted WC with inherited editable cladding. Original extraction hash retained above.",
+        "sha256": "6a96274f03f443891e47413107041f2c949c7a369377eaafa94049d686250e25",
+        "bytes": 4497,
+        "changeType": "functional-update-20261101",
+        "reason": "Integrate the six additional photographed AquaHome installation types through a shared installation contract, with placement anchors and compatible wall/floor behaviour while retaining existing fixture and project contracts.",
         "validation": [
           "tests/lrf-suite/floor-wall-alignment.test.mjs",
           "tests/lrf-suite/sanitary-mount.test.mjs",
           "tests/lrf-suite/sanitary-support-cladding.test.mjs",
-          "tests/lrf-suite/stone-icon-big-opus.test.mjs"
+          "tests/lrf-suite/stone-icon-big-opus.test.mjs",
+          "tests/lrf-suite/aquahome-installation.test.mjs",
+          "tests/lrf-suite/aquahome-geometry.test.mjs"
         ]
       }
     },
@@ -329,7 +344,18 @@
       "module": "taps.js",
       "sha256": "d9abb9fa930dc6714acdeccdee31ad30b5e63b95fbb345f0e97a1659c75d4c18",
       "bytes": 4429,
-      "originalsIdentical": true
+      "originalsIdentical": true,
+      "current": {
+        "sha256": "0007dec42d5d6f75f5b15d468d2dfa2eb6ecc172c3a4d05834cc63faf6e59b1c",
+        "bytes": 19171,
+        "changeType": "functional-update-20261101",
+        "reason": "Replace generic mixer volumes with catalogue-family reconstructions, documented Flip and Bel Air outlet heights, close-view physical finishes and instanced small details; preserve saved-project origins and refuse unsupported installation types.",
+        "validation": [
+          "tests/lrf-suite/aquahome-geometry.test.mjs",
+          "tests/lrf-suite/aquahome-installation.test.mjs",
+          "tests/lrf-suite/aquahome-product-visuals.test.mjs"
+        ]
+      }
     },
     {
       "module": "tile-layout.js",

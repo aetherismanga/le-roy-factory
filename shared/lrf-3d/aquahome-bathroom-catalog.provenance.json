@@ -1,0 +1,1547 @@
+{
+  "catalogue": "AQUAHOME 2026",
+  "sourcePath": "assets/data/aquahome-products.json",
+  "sourceVersion": "2026-09-13",
+  "sourceSHA256": "3424a638fa84341afe42294f7ab211063e88e1795b1c4c5bae002d3f8ea508f5",
+  "sourcePageCount": 61,
+  "scope": "Additional bathroom fittings verified against the public source. Active reconstructions cover wall and floor basin taps, bidet taps, wall and concealed shower fittings, and Piccolo thermostatic kits. Hygiene showers, accessible fittings and clinical/timed/sensor taps are recorded as pending and must not be exposed until dedicated models are verified. Kitchen fittings, spare parts, separate shower heads/hoses/rails, decorative accessories and lighting are outside this lot.",
+  "geometryStatus": "Reconstructed from catalogue visual references; not manufacturer CAD or installation dimensions.",
+  "excludedAmbiguousReferences": [
+    "12759112601"
+  ],
+  "counts": {
+    "bidet": 20,
+    "basin-wall": 14,
+    "shower-concealed": 16,
+    "shower-mixer": 28,
+    "basin-floor": 6,
+    "hygiene": 12,
+    "shower-kit": 2,
+    "basin": 5,
+    "accessible": 13
+  },
+  "products": [
+    {
+      "reference": "11341112701",
+      "page": 10,
+      "hotspot": [
+        0.772395,
+        0.778098,
+        0.172947,
+        0.023587
+      ],
+      "sourceName": "BIDÉ",
+      "sourceCollection": "Bel Air",
+      "configurable": true
+    },
+    {
+      "reference": "11341112703",
+      "page": 10,
+      "hotspot": [
+        0.772395,
+        0.797099,
+        0.173033,
+        0.023587
+      ],
+      "sourceName": "BIDÉ",
+      "sourceCollection": "Bel Air",
+      "configurable": true
+    },
+    {
+      "reference": "11341112708",
+      "page": 10,
+      "hotspot": [
+        0.772395,
+        0.816101,
+        0.17252,
+        0.023587
+      ],
+      "sourceName": "BIDÉ",
+      "sourceCollection": "Bel Air",
+      "configurable": true
+    },
+    {
+      "reference": "11341112710",
+      "page": 10,
+      "hotspot": [
+        0.772395,
+        0.835102,
+        0.17252,
+        0.023587
+      ],
+      "sourceName": "BIDÉ",
+      "sourceCollection": "Bel Air",
+      "configurable": true
+    },
+    {
+      "reference": "11341112705",
+      "page": 10,
+      "hotspot": [
+        0.772395,
+        0.854103,
+        0.172763,
+        0.023587
+      ],
+      "sourceName": "BIDÉ",
+      "sourceCollection": "Bel Air",
+      "configurable": true
+    },
+    {
+      "reference": "11341112706",
+      "page": 10,
+      "hotspot": [
+        0.772395,
+        0.873105,
+        0.17252,
+        0.023587
+      ],
+      "sourceName": "BIDÉ",
+      "sourceCollection": "Bel Air",
+      "configurable": true
+    },
+    {
+      "reference": "11341112702",
+      "page": 10,
+      "hotspot": [
+        0.772395,
+        0.892106,
+        0.173033,
+        0.023587
+      ],
+      "sourceName": "BIDÉ",
+      "sourceCollection": "Bel Air",
+      "configurable": true
+    },
+    {
+      "reference": "12756112701",
+      "page": 11,
+      "hotspot": [
+        0.760034,
+        0.154447,
+        0.173067,
+        0.023587
+      ],
+      "sourceName": "LAVABO ENCASTRAR",
+      "sourceCollection": "Bel Air",
+      "configurable": true
+    },
+    {
+      "reference": "12756112703",
+      "page": 11,
+      "hotspot": [
+        0.760034,
+        0.172267,
+        0.17385,
+        0.023587
+      ],
+      "sourceName": "LAVABO ENCASTRAR",
+      "sourceCollection": "Bel Air",
+      "configurable": true
+    },
+    {
+      "reference": "12756112708",
+      "page": 11,
+      "hotspot": [
+        0.760034,
+        0.190088,
+        0.173449,
+        0.023587
+      ],
+      "sourceName": "LAVABO ENCASTRAR",
+      "sourceCollection": "Bel Air",
+      "configurable": true
+    },
+    {
+      "reference": "12756112710",
+      "page": 11,
+      "hotspot": [
+        0.760034,
+        0.207908,
+        0.173449,
+        0.023587
+      ],
+      "sourceName": "LAVABO ENCASTRAR",
+      "sourceCollection": "Bel Air",
+      "configurable": true
+    },
+    {
+      "reference": "12756112705",
+      "page": 11,
+      "hotspot": [
+        0.760034,
+        0.225728,
+        0.173377,
+        0.023587
+      ],
+      "sourceName": "LAVABO ENCASTRAR",
+      "sourceCollection": "Bel Air",
+      "configurable": true
+    },
+    {
+      "reference": "12756112716",
+      "page": 11,
+      "hotspot": [
+        0.760034,
+        0.243548,
+        0.173449,
+        0.023587
+      ],
+      "sourceName": "LAVABO ENCASTRAR",
+      "sourceCollection": "Bel Air",
+      "configurable": true
+    },
+    {
+      "reference": "12756112702",
+      "page": 11,
+      "hotspot": [
+        0.760034,
+        0.261368,
+        0.17385,
+        0.023587
+      ],
+      "sourceName": "LAVABO ENCASTRAR",
+      "sourceCollection": "Bel Air",
+      "configurable": true
+    },
+    {
+      "reference": "12757113701",
+      "page": 11,
+      "hotspot": [
+        0.760077,
+        0.862608,
+        0.17577,
+        0.023587
+      ],
+      "sourceName": "KIT DE GRIFO TERMOSTÁTICO ENCASTRAR DE DUCHA",
+      "sourceCollection": "Bel Air",
+      "configurable": true
+    },
+    {
+      "reference": "12757113703",
+      "page": 11,
+      "hotspot": [
+        0.760077,
+        0.881609,
+        0.176809,
+        0.023587
+      ],
+      "sourceName": "KIT DE GRIFO TERMOSTÁTICO ENCASTRAR DE DUCHA",
+      "sourceCollection": "Bel Air",
+      "configurable": true
+    },
+    {
+      "reference": "12757113708",
+      "page": 11,
+      "hotspot": [
+        0.760077,
+        0.90061,
+        0.175981,
+        0.023587
+      ],
+      "sourceName": "KIT DE GRIFO TERMOSTÁTICO ENCASTRAR DE DUCHA",
+      "sourceCollection": "Bel Air",
+      "configurable": true
+    },
+    {
+      "reference": "11343112701",
+      "page": 11,
+      "hotspot": [
+        0.278394,
+        0.561213,
+        0.174363,
+        0.023587
+      ],
+      "sourceName": "DUCHA",
+      "sourceCollection": "Bel Air",
+      "configurable": true
+    },
+    {
+      "reference": "11343112703",
+      "page": 11,
+      "hotspot": [
+        0.278394,
+        0.580214,
+        0.175554,
+        0.023587
+      ],
+      "sourceName": "DUCHA",
+      "sourceCollection": "Bel Air",
+      "configurable": true
+    },
+    {
+      "reference": "11343112708",
+      "page": 11,
+      "hotspot": [
+        0.278394,
+        0.599216,
+        0.175494,
+        0.023587
+      ],
+      "sourceName": "DUCHA",
+      "sourceCollection": "Bel Air",
+      "configurable": true
+    },
+    {
+      "reference": "11343112710",
+      "page": 11,
+      "hotspot": [
+        0.278394,
+        0.618217,
+        0.175494,
+        0.023587
+      ],
+      "sourceName": "DUCHA",
+      "sourceCollection": "Bel Air",
+      "configurable": true
+    },
+    {
+      "reference": "11343112705",
+      "page": 11,
+      "hotspot": [
+        0.278394,
+        0.637218,
+        0.175343,
+        0.023587
+      ],
+      "sourceName": "DUCHA",
+      "sourceCollection": "Bel Air",
+      "configurable": true
+    },
+    {
+      "reference": "11343112706",
+      "page": 11,
+      "hotspot": [
+        0.278394,
+        0.656219,
+        0.175494,
+        0.023587
+      ],
+      "sourceName": "DUCHA",
+      "sourceCollection": "Bel Air",
+      "configurable": true
+    },
+    {
+      "reference": "12757112701",
+      "page": 11,
+      "hotspot": [
+        0.761183,
+        0.491223,
+        0.175429,
+        0.023587
+      ],
+      "sourceName": "KIT DE GRIFO MONOMANDO ENCASTRAR DE DUCHA",
+      "sourceCollection": "Bel Air",
+      "configurable": true
+    },
+    {
+      "reference": "12757112703",
+      "page": 11,
+      "hotspot": [
+        0.761183,
+        0.510224,
+        0.177027,
+        0.023587
+      ],
+      "sourceName": "KIT DE GRIFO MONOMANDO ENCASTRAR DE DUCHA",
+      "sourceCollection": "Bel Air",
+      "configurable": true
+    },
+    {
+      "reference": "12757112708",
+      "page": 11,
+      "hotspot": [
+        0.761183,
+        0.529226,
+        0.176152,
+        0.023587
+      ],
+      "sourceName": "KIT DE GRIFO MONOMANDO ENCASTRAR DE DUCHA",
+      "sourceCollection": "Bel Air",
+      "configurable": true
+    },
+    {
+      "reference": "12757112710",
+      "page": 11,
+      "hotspot": [
+        0.761183,
+        0.548227,
+        0.176152,
+        0.023587
+      ],
+      "sourceName": "KIT DE GRIFO MONOMANDO ENCASTRAR DE DUCHA",
+      "sourceCollection": "Bel Air",
+      "configurable": true
+    },
+    {
+      "reference": "12757112705",
+      "page": 11,
+      "hotspot": [
+        0.761183,
+        0.567228,
+        0.176823,
+        0.023587
+      ],
+      "sourceName": "KIT DE GRIFO MONOMANDO ENCASTRAR DE DUCHA",
+      "sourceCollection": "Bel Air",
+      "configurable": true
+    },
+    {
+      "reference": "12757112716",
+      "page": 11,
+      "hotspot": [
+        0.761183,
+        0.58623,
+        0.176152,
+        0.023587
+      ],
+      "sourceName": "KIT DE GRIFO MONOMANDO ENCASTRAR DE DUCHA",
+      "sourceCollection": "Bel Air",
+      "configurable": true
+    },
+    {
+      "reference": "12757112702",
+      "page": 11,
+      "hotspot": [
+        0.761183,
+        0.605231,
+        0.177027,
+        0.023587
+      ],
+      "sourceName": "KIT DE GRIFO MONOMANDO ENCASTRAR DE DUCHA",
+      "sourceCollection": "Bel Air",
+      "configurable": true
+    },
+    {
+      "reference": "11641112701",
+      "page": 13,
+      "hotspot": [
+        0.78309,
+        0.833858,
+        0.17385,
+        0.023587
+      ],
+      "sourceName": "BIDÉ",
+      "sourceCollection": "Alsacia",
+      "configurable": true
+    },
+    {
+      "reference": "11641112705",
+      "page": 13,
+      "hotspot": [
+        0.78309,
+        0.852859,
+        0.173015,
+        0.023587
+      ],
+      "sourceName": "BIDÉ",
+      "sourceCollection": "Alsacia",
+      "configurable": true
+    },
+    {
+      "reference": "11643112701",
+      "page": 14,
+      "hotspot": [
+        0.272923,
+        0.597008,
+        0.172811,
+        0.023587
+      ],
+      "sourceName": "DUCHA",
+      "sourceCollection": "Alsacia",
+      "configurable": true
+    },
+    {
+      "reference": "11643112705",
+      "page": 14,
+      "hotspot": [
+        0.272923,
+        0.61601,
+        0.173889,
+        0.023587
+      ],
+      "sourceName": "DUCHA",
+      "sourceCollection": "Alsacia",
+      "configurable": true
+    },
+    {
+      "reference": "11941112701",
+      "page": 15,
+      "hotspot": [
+        0.782147,
+        0.821195,
+        0.173324,
+        0.023587
+      ],
+      "sourceName": "BIDÉ",
+      "sourceCollection": "Malibú",
+      "configurable": true
+    },
+    {
+      "reference": "11941112703",
+      "page": 15,
+      "hotspot": [
+        0.782147,
+        0.840297,
+        0.175961,
+        0.023455
+      ],
+      "sourceName": "BIDÉ",
+      "sourceCollection": "Malibú",
+      "configurable": true
+    },
+    {
+      "reference": "11941112706",
+      "page": 15,
+      "hotspot": [
+        0.782147,
+        0.859197,
+        0.174107,
+        0.023587
+      ],
+      "sourceName": "BIDÉ",
+      "sourceCollection": "Malibú",
+      "configurable": true
+    },
+    {
+      "reference": "11943112701",
+      "page": 16,
+      "hotspot": [
+        0.271925,
+        0.558042,
+        0.179224,
+        0.023587
+      ],
+      "sourceName": "DUCHA",
+      "sourceCollection": "Malibú",
+      "configurable": true
+    },
+    {
+      "reference": "11943112703",
+      "page": 16,
+      "hotspot": [
+        0.271925,
+        0.577144,
+        0.182071,
+        0.023456
+      ],
+      "sourceName": "DUCHA",
+      "sourceCollection": "Malibú",
+      "configurable": true
+    },
+    {
+      "reference": "11943112706",
+      "page": 16,
+      "hotspot": [
+        0.271925,
+        0.596044,
+        0.181637,
+        0.023587
+      ],
+      "sourceName": "DUCHA",
+      "sourceCollection": "Malibú",
+      "configurable": true
+    },
+    {
+      "reference": "11956112701",
+      "page": 16,
+      "hotspot": [
+        0.76498,
+        0.223608,
+        0.176092,
+        0.023587
+      ],
+      "sourceName": "LAVABO ENCASTRAR",
+      "sourceCollection": "Malibú",
+      "configurable": true
+    },
+    {
+      "reference": "11956112706",
+      "page": 16,
+      "hotspot": [
+        0.76498,
+        0.242609,
+        0.174981,
+        0.023587
+      ],
+      "sourceName": "LAVABO ENCASTRAR",
+      "sourceCollection": "Malibú",
+      "configurable": true
+    },
+    {
+      "reference": "11956112703",
+      "page": 16,
+      "hotspot": [
+        0.76498,
+        0.261711,
+        0.175711,
+        0.023456
+      ],
+      "sourceName": "LAVABO ENCASTRAR",
+      "sourceCollection": "Malibú",
+      "configurable": true
+    },
+    {
+      "reference": "11957112701",
+      "page": 16,
+      "hotspot": [
+        0.765091,
+        0.633046,
+        0.177204,
+        0.023587
+      ],
+      "sourceName": "KIT DE GRIFO MONOMANDO ENCASTRAR DE DUCHA",
+      "sourceCollection": "Malibú",
+      "configurable": true
+    },
+    {
+      "reference": "11957112703",
+      "page": 16,
+      "hotspot": [
+        0.765091,
+        0.652148,
+        0.175915,
+        0.023455
+      ],
+      "sourceName": "KIT DE GRIFO MONOMANDO ENCASTRAR DE DUCHA",
+      "sourceCollection": "Malibú",
+      "configurable": true
+    },
+    {
+      "reference": "11957112706",
+      "page": 16,
+      "hotspot": [
+        0.765091,
+        0.671049,
+        0.176455,
+        0.023587
+      ],
+      "sourceName": "KIT DE GRIFO MONOMANDO ENCASTRAR DE DUCHA",
+      "sourceCollection": "Malibú",
+      "configurable": true
+    },
+    {
+      "reference": "10443112701",
+      "page": 18,
+      "hotspot": [
+        0.273008,
+        0.568262,
+        0.174849,
+        0.023587
+      ],
+      "sourceName": "DUCHA",
+      "sourceCollection": "Manila",
+      "configurable": true
+    },
+    {
+      "reference": "10443112703",
+      "page": 18,
+      "hotspot": [
+        0.273008,
+        0.587263,
+        0.17552,
+        0.023587
+      ],
+      "sourceName": "DUCHA",
+      "sourceCollection": "Manila",
+      "configurable": true
+    },
+    {
+      "reference": "10443112708",
+      "page": 18,
+      "hotspot": [
+        0.273008,
+        0.606365,
+        0.174751,
+        0.023455
+      ],
+      "sourceName": "DUCHA",
+      "sourceCollection": "Manila",
+      "configurable": true
+    },
+    {
+      "reference": "10443112709",
+      "page": 18,
+      "hotspot": [
+        0.273008,
+        0.625366,
+        0.174751,
+        0.023455
+      ],
+      "sourceName": "DUCHA",
+      "sourceCollection": "Manila",
+      "configurable": true
+    },
+    {
+      "reference": "13343112701",
+      "page": 19,
+      "hotspot": [
+        0.784868,
+        0.844142,
+        0.175645,
+        0.023587
+      ],
+      "sourceName": "DUCHA",
+      "sourceCollection": "Bora Bora",
+      "configurable": true
+    },
+    {
+      "reference": "13343112708",
+      "page": 19,
+      "hotspot": [
+        0.784868,
+        0.863143,
+        0.175343,
+        0.023587
+      ],
+      "sourceName": "DUCHA",
+      "sourceCollection": "Bora Bora",
+      "configurable": true
+    },
+    {
+      "reference": "13243112701",
+      "page": 21,
+      "hotspot": [
+        0.285809,
+        0.551721,
+        0.174446,
+        0.022758
+      ],
+      "sourceName": "DUCHA",
+      "sourceCollection": "New Twist",
+      "configurable": true
+    },
+    {
+      "reference": "13243112703",
+      "page": 21,
+      "hotspot": [
+        0.285809,
+        0.570726,
+        0.173128,
+        0.022758
+      ],
+      "sourceName": "DUCHA",
+      "sourceCollection": "New Twist",
+      "configurable": true
+    },
+    {
+      "reference": "13243112708",
+      "page": 21,
+      "hotspot": [
+        0.285809,
+        0.589731,
+        0.173685,
+        0.022758
+      ],
+      "sourceName": "DUCHA",
+      "sourceCollection": "New Twist",
+      "configurable": true
+    },
+    {
+      "reference": "13155402701",
+      "page": 21,
+      "hotspot": [
+        0.770757,
+        0.208972,
+        0.17399,
+        0.022758
+      ],
+      "sourceName": "KIT DE LAVABO ENCASTRAR",
+      "sourceCollection": "New Twist",
+      "configurable": true
+    },
+    {
+      "reference": "13155402703",
+      "page": 21,
+      "hotspot": [
+        0.770757,
+        0.229165,
+        0.174243,
+        0.022758
+      ],
+      "sourceName": "KIT DE LAVABO ENCASTRAR",
+      "sourceCollection": "New Twist",
+      "configurable": true
+    },
+    {
+      "reference": "13155402708",
+      "page": 21,
+      "hotspot": [
+        0.770757,
+        0.249358,
+        0.173686,
+        0.022758
+      ],
+      "sourceName": "KIT DE LAVABO ENCASTRAR",
+      "sourceCollection": "New Twist",
+      "configurable": true
+    },
+    {
+      "reference": "13155112701",
+      "page": 21,
+      "hotspot": [
+        0.771364,
+        0.574392,
+        0.175296,
+        0.022758
+      ],
+      "sourceName": "KIT DE GRIFO MONOMANDO ENCASTRAR DE DUCHA",
+      "sourceCollection": "New Twist",
+      "configurable": true
+    },
+    {
+      "reference": "13155112703",
+      "page": 21,
+      "hotspot": [
+        0.771364,
+        0.594585,
+        0.175315,
+        0.022758
+      ],
+      "sourceName": "KIT DE GRIFO MONOMANDO ENCASTRAR DE DUCHA",
+      "sourceCollection": "New Twist",
+      "configurable": true
+    },
+    {
+      "reference": "13155112708",
+      "page": 21,
+      "hotspot": [
+        0.771364,
+        0.614777,
+        0.175054,
+        0.022758
+      ],
+      "sourceName": "KIT DE GRIFO MONOMANDO ENCASTRAR DE DUCHA",
+      "sourceCollection": "New Twist",
+      "configurable": true
+    },
+    {
+      "reference": "12641112701",
+      "page": 22,
+      "hotspot": [
+        0.781847,
+        0.4519,
+        0.173297,
+        0.023587
+      ],
+      "sourceName": "BIDÉ",
+      "sourceCollection": "Oporto",
+      "configurable": true
+    },
+    {
+      "reference": "12641112703",
+      "page": 22,
+      "hotspot": [
+        0.781847,
+        0.468882,
+        0.172903,
+        0.023587
+      ],
+      "sourceName": "BIDÉ",
+      "sourceCollection": "Oporto",
+      "configurable": true
+    },
+    {
+      "reference": "12643112701",
+      "page": 22,
+      "hotspot": [
+        0.78203,
+        0.882623,
+        0.173067,
+        0.023587
+      ],
+      "sourceName": "DUCHA",
+      "sourceCollection": "Oporto",
+      "configurable": true
+    },
+    {
+      "reference": "12643112703",
+      "page": 22,
+      "hotspot": [
+        0.78203,
+        0.899606,
+        0.173153,
+        0.023587
+      ],
+      "sourceName": "DUCHA",
+      "sourceCollection": "Oporto",
+      "configurable": true
+    },
+    {
+      "reference": "11841112701",
+      "page": 23,
+      "hotspot": [
+        0.781847,
+        0.438432,
+        0.173377,
+        0.023587
+      ],
+      "sourceName": "BIDÉ",
+      "sourceCollection": "Lyon",
+      "configurable": true
+    },
+    {
+      "reference": "11841112703",
+      "page": 23,
+      "hotspot": [
+        0.781847,
+        0.457433,
+        0.173507,
+        0.023587
+      ],
+      "sourceName": "BIDÉ",
+      "sourceCollection": "Lyon",
+      "configurable": true
+    },
+    {
+      "reference": "11843112701",
+      "page": 23,
+      "hotspot": [
+        0.78203,
+        0.877573,
+        0.173297,
+        0.023587
+      ],
+      "sourceName": "DUCHA",
+      "sourceCollection": "Lyon",
+      "configurable": true
+    },
+    {
+      "reference": "11843112703",
+      "page": 23,
+      "hotspot": [
+        0.78203,
+        0.896574,
+        0.173113,
+        0.023587
+      ],
+      "sourceName": "DUCHA",
+      "sourceCollection": "Lyon",
+      "configurable": true
+    },
+    {
+      "reference": "10341112701",
+      "page": 24,
+      "hotspot": [
+        0.281692,
+        0.470613,
+        0.17389,
+        0.023587
+      ],
+      "sourceName": "BIDÉ",
+      "sourceCollection": "Munich",
+      "configurable": true
+    },
+    {
+      "reference": "10343112701",
+      "page": 24,
+      "hotspot": [
+        0.282381,
+        0.916108,
+        0.173252,
+        0.023587
+      ],
+      "sourceName": "DUCHA",
+      "sourceCollection": "Munich",
+      "configurable": true
+    },
+    {
+      "reference": "12041112701",
+      "page": 24,
+      "hotspot": [
+        0.777248,
+        0.467246,
+        0.173284,
+        0.023587
+      ],
+      "sourceName": "BIDÉ",
+      "sourceCollection": "Munich",
+      "configurable": true,
+      "normalization": {
+        "field": "collection",
+        "source": "Munich",
+        "display": "Sprinter",
+        "reason": "The 1204 reference family is Sprinter on the page 24 manufacturer product board; preserve original collection here for traceability."
+      }
+    },
+    {
+      "reference": "12043112701",
+      "page": 24,
+      "hotspot": [
+        0.777937,
+        0.908533,
+        0.173297,
+        0.023587
+      ],
+      "sourceName": "DUCHA",
+      "sourceCollection": "Munich",
+      "configurable": true,
+      "normalization": {
+        "field": "collection",
+        "source": "Munich",
+        "display": "Sprinter",
+        "reason": "The 1204 reference family is Sprinter on the page 24 manufacturer product board; preserve original collection here for traceability."
+      }
+    },
+    {
+      "reference": "14641212701",
+      "page": 25,
+      "hotspot": [
+        0.783514,
+        0.430864,
+        0.172699,
+        0.023587
+      ],
+      "sourceName": "BIDÉ",
+      "sourceCollection": "Época",
+      "configurable": true
+    },
+    {
+      "reference": "14641212707",
+      "page": 25,
+      "hotspot": [
+        0.783514,
+        0.449866,
+        0.173981,
+        0.023587
+      ],
+      "sourceName": "BIDÉ",
+      "sourceCollection": "Época",
+      "configurable": true
+    },
+    {
+      "reference": "14643212701",
+      "page": 25,
+      "hotspot": [
+        0.783698,
+        0.889349,
+        0.172699,
+        0.023587
+      ],
+      "sourceName": "DUCHA",
+      "sourceCollection": "Época",
+      "configurable": true
+    },
+    {
+      "reference": "14643212707",
+      "page": 25,
+      "hotspot": [
+        0.783698,
+        0.90835,
+        0.173981,
+        0.023587
+      ],
+      "sourceName": "DUCHA",
+      "sourceCollection": "Época",
+      "configurable": true
+    },
+    {
+      "reference": "14057112201",
+      "page": 26,
+      "hotspot": [
+        0.272256,
+        0.273916,
+        0.175429,
+        0.023587
+      ],
+      "sourceName": "LAVABO DE PIE BEL AIR",
+      "sourceCollection": "Época",
+      "configurable": true
+    },
+    {
+      "reference": "14057112203",
+      "page": 26,
+      "hotspot": [
+        0.272256,
+        0.292917,
+        0.177027,
+        0.023587
+      ],
+      "sourceName": "LAVABO DE PIE BEL AIR",
+      "sourceCollection": "Época",
+      "configurable": true
+    },
+    {
+      "reference": "14057112208",
+      "page": 26,
+      "hotspot": [
+        0.272256,
+        0.311918,
+        0.176816,
+        0.023587
+      ],
+      "sourceName": "LAVABO DE PIE BEL AIR",
+      "sourceCollection": "Época",
+      "configurable": true
+    },
+    {
+      "reference": "14059112201",
+      "page": 26,
+      "hotspot": [
+        0.272168,
+        0.615269,
+        0.175343,
+        0.023587
+      ],
+      "sourceName": "LAVABO DE PIE STAR",
+      "sourceCollection": "Época",
+      "configurable": true
+    },
+    {
+      "reference": "14059112203",
+      "page": 26,
+      "hotspot": [
+        0.272168,
+        0.634271,
+        0.175429,
+        0.023587
+      ],
+      "sourceName": "LAVABO DE PIE STAR",
+      "sourceCollection": "Época",
+      "configurable": true
+    },
+    {
+      "reference": "14059112208",
+      "page": 26,
+      "hotspot": [
+        0.272168,
+        0.653272,
+        0.176691,
+        0.023587
+      ],
+      "sourceName": "LAVABO DE PIE STAR",
+      "sourceCollection": "Época",
+      "configurable": true
+    },
+    {
+      "reference": "13130112701",
+      "page": 28,
+      "hotspot": [
+        0.772257,
+        0.215013,
+        0.173501,
+        0.023587
+      ],
+      "sourceName": "BIDÉ SUSTITUTIVO 1 AGUA",
+      "sourceCollection": "Época",
+      "configurable": false
+    },
+    {
+      "reference": "13130112702",
+      "page": 28,
+      "hotspot": [
+        0.771466,
+        0.535758,
+        0.174849,
+        0.023587
+      ],
+      "sourceName": "BIDÉ SUSTITUTIVO 2 AGUAS",
+      "sourceCollection": "Época",
+      "configurable": false
+    },
+    {
+      "reference": "13130112705",
+      "page": 28,
+      "hotspot": [
+        0.771466,
+        0.554759,
+        0.17435,
+        0.023587
+      ],
+      "sourceName": "BIDÉ SUSTITUTIVO 2 AGUAS",
+      "sourceCollection": "Época",
+      "configurable": false
+    },
+    {
+      "reference": "12730112701",
+      "page": 28,
+      "hotspot": [
+        0.276217,
+        0.215013,
+        0.173383,
+        0.023587
+      ],
+      "sourceName": "BIDÉ SUSTITUTIVO 1 AGUA",
+      "sourceCollection": "Época",
+      "configurable": false
+    },
+    {
+      "reference": "12730112703",
+      "page": 28,
+      "hotspot": [
+        0.276259,
+        0.861776,
+        0.17389,
+        0.023587
+      ],
+      "sourceName": "BIDÉ WC CON GRIFO 1 AGUA",
+      "sourceCollection": "Época",
+      "configurable": false
+    },
+    {
+      "reference": "12730112708",
+      "page": 28,
+      "hotspot": [
+        0.276259,
+        0.880777,
+        0.173383,
+        0.023587
+      ],
+      "sourceName": "BIDÉ WC CON GRIFO 1 AGUA",
+      "sourceCollection": "Época",
+      "configurable": false
+    },
+    {
+      "reference": "12730112702",
+      "page": 28,
+      "hotspot": [
+        0.279145,
+        0.494883,
+        0.174974,
+        0.023587
+      ],
+      "sourceName": "BIDÉ SUSTITUTIVO 2 AGUAS",
+      "sourceCollection": "Época",
+      "configurable": false
+    },
+    {
+      "reference": "12730112705",
+      "page": 28,
+      "hotspot": [
+        0.279145,
+        0.513884,
+        0.174107,
+        0.023587
+      ],
+      "sourceName": "BIDÉ SUSTITUTIVO 2 AGUAS",
+      "sourceCollection": "Época",
+      "configurable": false
+    },
+    {
+      "reference": "12730212708",
+      "page": 28,
+      "hotspot": [
+        0.279145,
+        0.532886,
+        0.175612,
+        0.023587
+      ],
+      "sourceName": "BIDÉ SUSTITUTIVO 2 AGUAS",
+      "sourceCollection": "Época",
+      "configurable": false
+    },
+    {
+      "reference": "12730112716",
+      "page": 28,
+      "hotspot": [
+        0.279145,
+        0.551887,
+        0.175612,
+        0.023587
+      ],
+      "sourceName": "BIDÉ SUSTITUTIVO 2 AGUAS",
+      "sourceCollection": "Época",
+      "configurable": false
+    },
+    {
+      "reference": "12730112715",
+      "page": 28,
+      "hotspot": [
+        0.279145,
+        0.570888,
+        0.175271,
+        0.023587
+      ],
+      "sourceName": "BIDÉ SUSTITUTIVO 2 AGUAS",
+      "sourceCollection": "Época",
+      "configurable": false
+    },
+    {
+      "reference": "12730112706",
+      "page": 28,
+      "hotspot": [
+        0.279145,
+        0.589889,
+        0.175612,
+        0.023587
+      ],
+      "sourceName": "BIDÉ SUSTITUTIVO 2 AGUAS",
+      "sourceCollection": "Época",
+      "configurable": false
+    },
+    {
+      "reference": "20042122701",
+      "page": 34,
+      "hotspot": [
+        0.273367,
+        0.310171,
+        0.175994,
+        0.023456
+      ],
+      "sourceName": "KIT TERMOSTÁTICO DE BAÑO PICCOLO",
+      "sourceCollection": "Grifería Termostática",
+      "configurable": true
+    },
+    {
+      "reference": "20043122701",
+      "page": 34,
+      "hotspot": [
+        0.272158,
+        0.597213,
+        0.174764,
+        0.023456
+      ],
+      "sourceName": "KIT TERMOSTÁTICO DE DUCHA PICCOLO",
+      "sourceCollection": "Grifería Termostática",
+      "configurable": true
+    },
+    {
+      "reference": "12240112702",
+      "page": 48,
+      "hotspot": [
+        0.278082,
+        0.270107,
+        0.17164,
+        0.023587
+      ],
+      "sourceName": "LAVABO MANETA CLÍNICA",
+      "sourceCollection": "Grifos De Maneta Clínica",
+      "configurable": false
+    },
+    {
+      "reference": "19039112701",
+      "page": 50,
+      "hotspot": [
+        0.292664,
+        0.850315,
+        0.173304,
+        0.023587
+      ],
+      "sourceName": "TEMPORIZADO MURAL 1 AGUA",
+      "sourceCollection": "Robinets temporisés",
+      "configurable": false
+    },
+    {
+      "reference": "19040112710",
+      "page": 50,
+      "hotspot": [
+        0.805789,
+        0.25702,
+        0.168323,
+        0.023587
+      ],
+      "sourceName": "GRIFO TEMPORIZADO",
+      "sourceCollection": "Robinets temporisés",
+      "configurable": false
+    },
+    {
+      "reference": "19040112703",
+      "page": 50,
+      "hotspot": [
+        0.805789,
+        0.276021,
+        0.16879,
+        0.023587
+      ],
+      "sourceName": "GRIFO TEMPORIZADO",
+      "sourceCollection": "Robinets temporisés",
+      "configurable": false
+    },
+    {
+      "reference": "19040112701",
+      "page": 50,
+      "hotspot": [
+        0.762088,
+        0.55367,
+        0.168911,
+        0.023587
+      ],
+      "sourceName": "LAVABO TEMPORIZADO 1 AGUA",
+      "sourceCollection": "Robinets temporisés",
+      "configurable": false
+    },
+    {
+      "reference": "19140112701",
+      "page": 50,
+      "hotspot": [
+        0.751083,
+        0.861168,
+        0.176086,
+        0.023455
+      ],
+      "sourceName": "LAVABO CON SENSOR AUTOMÁTICO PARA AGUA Y JABÓN",
+      "sourceCollection": "Robinets temporisés",
+      "configurable": false
+    },
+    {
+      "reference": "308222",
+      "page": 53,
+      "hotspot": [
+        0.252923,
+        0.668583,
+        0.173376,
+        0.023587
+      ],
+      "sourceName": "ASA DE BAÑO ANGULAR CON JABONERA 40CM",
+      "sourceCollection": "Accesorios De Minusvalía",
+      "configurable": false
+    },
+    {
+      "reference": "308111",
+      "page": 53,
+      "hotspot": [
+        0.252612,
+        0.454027,
+        0.173146,
+        0.023587
+      ],
+      "sourceName": "ASA DE BAÑO ANGULAR 40CM",
+      "sourceCollection": "Accesorios De Minusvalía",
+      "configurable": false
+    },
+    {
+      "reference": "301026",
+      "page": 53,
+      "hotspot": [
+        0.28851,
+        0.181892,
+        0.168416,
+        0.023587
+      ],
+      "sourceName": "ASA SEGURIDAD BAÑO DUCHA ANTIDESLIZANTE",
+      "sourceCollection": "Accesorios De Minusvalía",
+      "configurable": false
+    },
+    {
+      "reference": "311030",
+      "page": 53,
+      "hotspot": [
+        0.28851,
+        0.200893,
+        0.167416,
+        0.023587
+      ],
+      "sourceName": "ASA SEGURIDAD BAÑO DUCHA ANTIDESLIZANTE",
+      "sourceCollection": "Accesorios De Minusvalía",
+      "configurable": false
+    },
+    {
+      "reference": "311040",
+      "page": 53,
+      "hotspot": [
+        0.28851,
+        0.219894,
+        0.168541,
+        0.023587
+      ],
+      "sourceName": "ASA SEGURIDAD BAÑO DUCHA ANTIDESLIZANTE",
+      "sourceCollection": "Accesorios De Minusvalía",
+      "configurable": false
+    },
+    {
+      "reference": "3082891",
+      "page": 53,
+      "hotspot": [
+        0.288621,
+        0.88015,
+        0.171507,
+        0.023587
+      ],
+      "sourceName": "BARRA DE BAÑO DE A POYO 770X770mm",
+      "sourceCollection": "Accesorios De Minusvalía",
+      "configurable": false
+    },
+    {
+      "reference": "3082892",
+      "page": 53,
+      "hotspot": [
+        0.288621,
+        0.899151,
+        0.171507,
+        0.023587
+      ],
+      "sourceName": "BARRA DE BAÑO DE A POYO 770X770mm",
+      "sourceCollection": "Accesorios De Minusvalía",
+      "configurable": false
+    },
+    {
+      "reference": "30828520",
+      "page": 53,
+      "hotspot": [
+        0.752557,
+        0.655305,
+        0.176685,
+        0.023455
+      ],
+      "sourceName": "ASIENTO DE BAÑO PARED ABS",
+      "sourceCollection": "Accesorios De Minusvalía",
+      "configurable": false
+    },
+    {
+      "reference": "30828530",
+      "page": 53,
+      "hotspot": [
+        0.752347,
+        0.896918,
+        0.175856,
+        0.023455
+      ],
+      "sourceName": "ASIENTO DE BAÑO PARED CON AMORTIGUADOR ABS",
+      "sourceCollection": "Accesorios De Minusvalía",
+      "configurable": false
+    },
+    {
+      "reference": "308600",
+      "page": 53,
+      "hotspot": [
+        0.782454,
+        0.217558,
+        0.170909,
+        0.023456
+      ],
+      "sourceName": "ASA BAÑO ABATIBLE DUCHA ø32",
+      "sourceCollection": "Accesorios De Minusvalía",
+      "configurable": false
+    },
+    {
+      "reference": "308800",
+      "page": 53,
+      "hotspot": [
+        0.782454,
+        0.23656,
+        0.17081,
+        0.023456
+      ],
+      "sourceName": "ASA BAÑO ABATIBLE DUCHA ø32",
+      "sourceCollection": "Accesorios De Minusvalía",
+      "configurable": false
+    },
+    {
+      "reference": "308601",
+      "page": 53,
+      "hotspot": [
+        0.7826,
+        0.442383,
+        0.170672,
+        0.023456
+      ],
+      "sourceName": "ASA BAÑO ABATIBLE C/ PORTARROLLOS ø32",
+      "sourceCollection": "Accesorios De Minusvalía",
+      "configurable": false
+    },
+    {
+      "reference": "308802",
+      "page": 53,
+      "hotspot": [
+        0.7826,
+        0.459486,
+        0.170153,
+        0.023456
+      ],
+      "sourceName": "ASA BAÑO ABATIBLE C/ PORTARROLLOS ø32",
+      "sourceCollection": "Accesorios De Minusvalía",
+      "configurable": false
+    }
+  ],
+  "configurableCount": 85,
+  "pendingCount": 31
+}
