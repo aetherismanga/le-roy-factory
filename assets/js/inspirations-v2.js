@@ -92,11 +92,12 @@
   function renderPartners(){const c=CATEGORIES.find(x=>x.id===state.category);const list=[...(c?.partners||[])].sort((a,b)=>c?.id==='meubles'?c.partners.indexOf(a)-c.partners.indexOf(b):String(a).localeCompare(String(b),'fr',{sensitivity:'base'}));$('#partner-panel-title').textContent=c?.label||'Partenaires';partnerGrid.innerHTML=list.length?list.map(name=>{const p=PARTNERS[name];const allowed=hasAccess(p.slug),isBio=name==='Biopietra';return `<button class="partner-card ${name===state.partner?'active':''}" data-partner="${esc(name)}"><img src="${p.logo}" alt="${esc(name)}"><span><strong>${esc(name)}</strong><small>${esc(p.country)}</small>${isBio?'':`<span class="access ${allowed?'':'locked'}">${allowed?'✓ Tarif PRO autorisé':'🔒 Tarif PRO selon compte'}</span>`}</span></button>`}).join(''):`<div class="empty-partner"><strong>Sanitaire</strong><p>Aucun partenaire sanitaire n'est encore intégré.</p></div>`;partnerTrigger.textContent=`☰ Choisir une usine${state.partner?` — ${state.partner}`:''}`}
   function unique(arr){return [...new Set(arr.filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b),'fr',{numeric:true}))}
   function products(){
+    if(state.partner==='La Fenice') return (window.FENICE_CATALOGUE || []).map(p=>({...p,category:p.productType||'Carrelage',colorFamilies:p.colorFamilies||basicColors(p)}));
     if(state.partner==='View Ceramica' && Array.isArray(window.VIEW_CATALOGUE)) return window.VIEW_CATALOGUE;
     if(state.partner==='Elios Ceramica' && state.poolGroup) return (DATA[state.partner]||[]).filter(window.LRF_ELIOS_SELECTION_MODEL.isPool);
     return DATA[state.partner]||[];
   }
-  function imageOf(p){const first=(state.partner==='Elios Ceramica'&&window.ELIOS_SELECTION_MEDIA?.galleries?.[p.slug]?.[0])||(p.images||[])[0];return (typeof first==='string'?first:first?.url)||'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/03.png'}
+  function imageOf(p){if(state.partner==='La Fenice'&&p.coverImage)return p.coverImage;const first=(state.partner==='Elios Ceramica'&&window.ELIOS_SELECTION_MEDIA?.galleries?.[p.slug]?.[0])||(p.images||[])[0];return (typeof first==='string'?first:first?.url)||'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/03.png'}
   function fillFilters(){
     const data=products();
     const formats=unique(data.flatMap(p=>p.formats||[]));
@@ -110,11 +111,13 @@
     fill('#v2-finish',finishes,'Toutes les finitions');
   }
   function match(p){
+    if(state.partner==='La Fenice' && window.LRF_FENICE_SELECTION?.matchesCatalogue && !window.LRF_FENICE_SELECTION.matchesCatalogue(p))return false;
     const hay=norm([
-      p.collection,p.name,p.catalogueLabel,p.slug,p.description,p.category,p.effect,p.badge,
+      p.collection,p.name,p.catalogueLabel,p.slug,p.description,p.category,p.effect,p.badge,p.keywords,...(p.categories||[]),
       ...(p.formats||[]),...(p.colors||[]),...(p.colorFamilies||[]),...(p.finishes||[])
     ].join(' '));
-    if(state.q){const discovery=state.partner==='Elios Ceramica'&&window.LRF_ELIOS_DISCOVERY; if(discovery?!discovery.matches(p,state.q):!hay.includes(norm(state.q)))return false;}
+    if(state.q && state.partner==='La Fenice'){const terms=state.q.toLowerCase().replace(/\bimitations?\b/g,'effet').replace(/\bpolis?\b/g,'brillant').replace(/\b(carrelages?|la|fenice|ceramique|céramique|en|de|du|des|pour)\b/g,' ').replace(/(\d)\s*[×x]\s*(?=\d)/g,'$1x').split(/\s+/).map(norm).filter(Boolean);if(!terms.every(t=>hay.includes(t)))return false;}
+    else if(state.q){const discovery=state.partner==='Elios Ceramica'&&window.LRF_ELIOS_DISCOVERY; if(discovery?!discovery.matches(p,state.q):!hay.includes(norm(state.q)))return false;}
     if(state.format!=='Tous'&&!(p.formats||[]).some(x=>norm(x)===norm(state.format)))return false;
     if(state.color!=='Tous'&&!(p.colorFamilies||p.colors||[]).some(x=>norm(x)===norm(state.color)))return false;
     if(state.effect!=='Tous'&&norm(p.effect)!==norm(state.effect))return false;
@@ -141,11 +144,12 @@
         </section>`;
       return;
     }
+    if(!data.length && state.partner==='La Fenice'){productGrid.innerHTML='<div class="empty-partner" role="status"><strong>Chargement des collections La Fenice…</strong><p>Catalogues, photos et formats.</p><button type="button" class="pro-link" data-fenice-retry>Recharger le catalogue</button></div>';return;}
     if(!data.length){const p=PARTNERS[state.partner];productGrid.innerHTML=`<div class="empty-partner"><img src="${p.logo}" alt="${esc(state.partner)}"><strong>${esc(state.partner)} est maintenant séparé dans son propre espace.</strong><p>La structure produits, formats, finitions et tarifs PRO est prête. Les références de cette usine seront intégrées depuis son catalogue sans les mélanger aux autres partenaires.</p>${hasAccess(p.slug)?`<a class="pro-link" href="tarifs-pro.html">Voir mon tarif PRO ${esc(state.partner)}</a>`:''}</div>`;return}
     const groupHeader=state.poolGroup?'<div class="pool-group-header"><button type="button" data-pool-back>← Toutes les collections Elios</button><h3>Pool Surfaces</h3><p>Choisissez une collection pour découvrir ses photos et ses coloris.</p></div>':'';
     productGrid.innerHTML=groupHeader+(found.length?found.map(p=>`<article class="product-card-v2" data-id="${esc(p.id)}"><img src="${esc(imageOf(p))}" alt="${esc(state.partner==='Elios Ceramica'?`${p.name} — Elios Ceramica — ${window.LRF_ELIOS_SEARCH_META?.[p.slug]?.effect||p.effect||p.category}`:p.name)}" loading="lazy" onerror="this.onerror=null;this.src='https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/03.png'"><div class="body"><span class="eyebrow">${esc(state.partner)} · ${esc(p.effect||p.category||'Produit')}</span><h3>${esc(p.name)}</h3><p>${esc(p.description||'')}</p><div class="chips">${[...(p.colorFamilies||[]).slice(0,2),...(p.formats||[]).slice(0,2)].map(x=>`<span>${esc(x)}</span>`).join('')}</div>${p.groupSize?`<span class="pool-group-open">Découvrir les ${p.groupSize} collections →</span>`:''}</div></article>`).join(''):`<div class="empty-partner"><strong>Aucun produit avec ces filtres.</strong><p>Modifiez la recherche, le format, la couleur, l'effet ou la finition.</p></div>`);
   }
-  function renderWorkspace(){const p=PARTNERS[state.partner];if(!p){workspace.classList.remove('open');return}workspace.classList.add('open');$('#workspace-logo').src=p.logo;$('#workspace-title').textContent=state.partner;$('#workspace-sub').textContent=state.poolGroup?'Pool Surfaces · collections piscine':`${p.country} · espace produits dédié`;const allowed=hasAccess(p.slug),isBio=state.partner==='Biopietra';const badge=$('#workspace-pro-badge');badge.style.display=isBio?'none':'';badge.textContent=allowed?'✓ Tarif PRO accessible':'🔒 Tarif PRO non associé à ce compte';badge.className=`pro-badge${allowed?' allowed':''}`;const link=$('#workspace-pro-link');link.style.display=!isBio&&allowed?'inline-flex':'none';link.href='tarifs-pro.html';link.textContent=`Voir tarif PRO ${state.partner}`;
+  function renderWorkspace(){const p=PARTNERS[state.partner];if(!p){workspace.classList.remove('open');return}workspace.classList.add('open');$('#workspace-logo').src=p.logo;$('#workspace-title').textContent=state.partner;$('#workspace-sub').textContent=state.poolGroup?'Pool Surfaces · collections piscine':`${p.country} · espace produits dédié`;const allowed=hasAccess(p.slug),isBio=state.partner==='Biopietra';const badge=$('#workspace-pro-badge');badge.style.display=isBio?'none':'';badge.textContent=allowed?'✓ Tarif PRO accessible':'🔒 Tarif PRO non associé à ce compte';badge.className=`pro-badge${allowed?' allowed':''}`;const link=$('#workspace-pro-link');link.hidden=isBio||!allowed;link.style.display=!isBio&&allowed?'inline-flex':'none';link.href='tarifs-pro.html';link.textContent=`Voir tarif PRO ${state.partner}`;
     const isRandal=state.partner==='Randal Pro';
     const filters=$('#v2-filters');
     if(filters){
@@ -160,6 +164,7 @@
   function chooseCategory(id){state.category=id;const c=CATEGORIES.find(x=>x.id===id);if(!c)return;state.partner=c.partners[0]||'';resetFilters();renderCategories();renderPartners();renderWorkspace()}
   function choosePartner(name){state.partner=name;resetFilters();renderPartners();renderWorkspace();partnerPanel.classList.remove('mobile-open')}
   function openProduct(id){
+    if(state.partner==='La Fenice' && window.LRF_FENICE_SELECTION?.openCollection){window.LRF_FENICE_SELECTION.openCollection(id);return;}
     if(id==='elios-pool-surfaces'){resetFilters();state.poolGroup=true;renderWorkspace();workspace.scrollIntoView({behavior:'smooth',block:'start'});return;}
     const p=products().find(x=>x.id===id);if(!p)return;
     const modal=$('#product-modal-v2'),box=$('#product-modal-v2-card');const partner=PARTNERS[state.partner],allowed=hasAccess(partner.slug),dims=p.formats||[];
@@ -184,5 +189,12 @@
   window.addEventListener('lrf-agent-tariffs-ready',()=>{renderPartners();renderWorkspace();});
   window.addEventListener('pageshow',()=>{if(window.LRF_PRO_SESSION?.read?.()){renderPartners();renderWorkspace();}},{passive:true});
 
-  renderCategories();renderPartners();renderWorkspace();
+  let requestedFeniceOpened=false;
+  function openRequestedFenice(){const collection=new URLSearchParams(location.search).get('collection');if(!requestedFeniceOpened && state.partner==='La Fenice' && collection && window.LRF_FENICE_SELECTION?.openCollection('fenice-'+collection))requestedFeniceOpened=true;}
+  window.addEventListener('lrf-fenice-data-ready',()=>{if(state.partner==='La Fenice'){fillFilters();renderProducts();openRequestedFenice();}});
+  window.addEventListener('lrf-fenice-filter-change',()=>{if(state.partner==='La Fenice')renderProducts();});
+  window.addEventListener('lrf-fenice-data-error',()=>{if(state.partner==='La Fenice')productGrid.innerHTML='<div class="empty-partner" role="alert"><strong>Le catalogue n’a pas pu être chargé.</strong><button type="button" class="pro-link" data-fenice-retry>Réessayer</button></div>';});
+  if(/fenice/i.test(new URLSearchParams(location.search).get('partner')||''))state.partner='La Fenice';
+  renderCategories();renderPartners();renderWorkspace();openRequestedFenice();
 })();
+

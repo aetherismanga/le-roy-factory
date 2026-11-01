@@ -1,0 +1,1061 @@
+{
+  "source": "assets/data/fenice-catalogue.json",
+  "updated": "2026-11-01",
+  "collectionCount": 82,
+  "pages": [
+    {
+      "path": "carrelage-la-fenice.html",
+      "url": "https://leroyfactory.fr/carrelage-la-fenice.html",
+      "type": "index"
+    },
+    {
+      "path": "la-fenice-allure.html",
+      "url": "https://leroyfactory.fr/la-fenice-allure.html",
+      "type": "collection",
+      "slug": "allure",
+      "name": "Allure",
+      "images": [
+        "/assets/img/fenice-covers/allure.webp",
+        "/assets/img/fenice-selection-20261101/allure-02.webp",
+        "/assets/img/fenice-selection-20261101/allure-01.webp",
+        "/assets/img/fenice-selection-20261101/allure-03.webp"
+      ]
+    },
+    {
+      "path": "la-fenice-amazing.html",
+      "url": "https://leroyfactory.fr/la-fenice-amazing.html",
+      "type": "collection",
+      "slug": "amazing",
+      "name": "Amazing",
+      "images": [
+        "/assets/img/fenice-covers/amazing.webp",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/amb-amazing-1.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/amb-amazing-0.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/amb-amazing-2.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2022/12/ambiente-amazing.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-antique-aurea.html",
+      "url": "https://leroyfactory.fr/la-fenice-antique-aurea.html",
+      "type": "collection",
+      "slug": "antique-aurea",
+      "name": "Antique Aurea",
+      "images": [
+        "/assets/img/fenice-covers/antique-aurea.webp",
+        "https://lafenicegc.com/wp-content/uploads/2024/04/LaFenice_Antique_Aurea_Gold_Living_2WEB-4.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2024/04/LaFenice_Antique_Aurea_Black_White_Zenitale_WEB.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2024/04/LaFenice_Antique_Aurea_amb_Nero_Oro.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2024/04/LaFenice_Antique_Aurea_amb_Nero_Trastevere.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2024/04/LaFenice_Antique_Aurea_amb_greige_Trevi.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-apache.html",
+      "url": "https://leroyfactory.fr/la-fenice-apache.html",
+      "type": "collection",
+      "slug": "apache",
+      "name": "Apache",
+      "images": [
+        "/assets/img/fenice-covers/apache.webp",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/amb-apache-01.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-aspen.html",
+      "url": "https://leroyfactory.fr/la-fenice-aspen.html",
+      "type": "collection",
+      "slug": "aspen",
+      "name": "Aspen",
+      "images": [
+        "/assets/img/fenice-covers/aspen.webp",
+        "/assets/img/fenice-selection-20261101/aspen-02.webp",
+        "/assets/img/fenice-selection-20261101/aspen-01.webp",
+        "/assets/img/fenice-selection-20261101/aspen-03.webp"
+      ]
+    },
+    {
+      "path": "la-fenice-beton-wall.html",
+      "url": "https://leroyfactory.fr/la-fenice-beton-wall.html",
+      "type": "collection",
+      "slug": "beton-wall",
+      "name": "Beton Wall",
+      "images": [
+        "/assets/img/fenice-covers/beton-wall.webp",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/LaFenice_Beton_Wall_amb_Grey.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/amb-beton-wall-01.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/LaFenice_Beton_Wall_amb_Cube_White.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-bianchi.html",
+      "url": "https://leroyfactory.fr/la-fenice-bianchi.html",
+      "type": "collection",
+      "slug": "bianchi",
+      "name": "Bianchi",
+      "images": [
+        "/assets/img/fenice-covers/bianchi.webp",
+        "/assets/img/fenice-selection-20261101/bianchi-01.webp"
+      ]
+    },
+    {
+      "path": "la-fenice-briccole.html",
+      "url": "https://leroyfactory.fr/la-fenice-briccole.html",
+      "type": "collection",
+      "slug": "briccole",
+      "name": "Briccole",
+      "images": [
+        "/assets/img/fenice-covers/briccole.webp",
+        "https://lafenicegc.com/wp-content/uploads/2024/12/Briccole_soggiorno.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2024/12/Briccole_cucina.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2024/12/Briccole_cucina2.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2024/12/Briccole_copertina.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-calacatta-gold.html",
+      "url": "https://leroyfactory.fr/la-fenice-calacatta-gold.html",
+      "type": "collection",
+      "slug": "calacatta-gold",
+      "name": "Calacatta Gold",
+      "images": [
+        "/assets/img/fenice-covers/calacatta-gold.webp",
+        "https://lafenicegc.com/wp-content/uploads/2026/03/LaFenice_Calacatta_Gold_amb.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-calcarea.html",
+      "url": "https://leroyfactory.fr/la-fenice-calcarea.html",
+      "type": "collection",
+      "slug": "calcarea",
+      "name": "Calcarea",
+      "images": [
+        "/assets/img/fenice-covers/calcarea.webp",
+        "https://lafenicegc.com/wp-content/uploads/2022/12/LaFenice_Calcarea_amb_grigio.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2022/12/amb.Calcarea_Giardino.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-circus.html",
+      "url": "https://leroyfactory.fr/la-fenice-circus.html",
+      "type": "collection",
+      "slug": "circus",
+      "name": "Circus",
+      "images": [
+        "/assets/img/fenice-covers/circus.webp",
+        "https://lafenicegc.com/wp-content/uploads/2022/12/amb-circus-03.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2022/12/amb-circus-01.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-city-loft.html",
+      "url": "https://leroyfactory.fr/la-fenice-city-loft.html",
+      "type": "collection",
+      "slug": "city-loft",
+      "name": "City Loft",
+      "images": [
+        "/assets/img/fenice-covers/city-loft.webp",
+        "/assets/img/fenice-selection-20261101/city-loft-02.webp",
+        "/assets/img/fenice-selection-20261101/city-loft-01.webp",
+        "/assets/img/fenice-selection-20261101/city-loft-03.webp"
+      ]
+    },
+    {
+      "path": "la-fenice-core.html",
+      "url": "https://leroyfactory.fr/la-fenice-core.html",
+      "type": "collection",
+      "slug": "core",
+      "name": "Core",
+      "images": [
+        "/assets/img/fenice-covers/core.webp",
+        "https://lafenicegc.com/wp-content/uploads/2023/01/ambiente-core.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2022/12/ambienti-core.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-cromie-2-0.html",
+      "url": "https://leroyfactory.fr/la-fenice-cromie-2-0.html",
+      "type": "collection",
+      "slug": "cromie-2-0",
+      "name": "Cromie 2.0",
+      "images": [
+        "/assets/img/fenice-covers/cromie-2-0.webp",
+        "/assets/img/fenice-selection-20261101/cromie-2-0-01.webp",
+        "/assets/img/fenice-selection-20261101/cromie-2-0-02.webp"
+      ]
+    },
+    {
+      "path": "la-fenice-docks-25.html",
+      "url": "https://leroyfactory.fr/la-fenice-docks-25.html",
+      "type": "collection",
+      "slug": "docks-25",
+      "name": "Docks 25",
+      "images": [
+        "/assets/img/fenice-covers/docks-25.webp",
+        "https://lafenicegc.com/wp-content/uploads/2023/11/Docks25_Grigio_Esterno_Dett-1.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2023/11/Floor_Ivory.png"
+      ]
+    },
+    {
+      "path": "la-fenice-dolmen.html",
+      "url": "https://leroyfactory.fr/la-fenice-dolmen.html",
+      "type": "collection",
+      "slug": "dolmen",
+      "name": "Dolmen",
+      "images": [
+        "/assets/img/fenice-covers/dolmen.webp",
+        "https://lafenicegc.com/wp-content/uploads/2023/01/LaFenice_Dolmen_amb_Corda_Carbone.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2023/01/LaFenice_Dolmen_amb_Corda.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-easy.html",
+      "url": "https://leroyfactory.fr/la-fenice-easy.html",
+      "type": "collection",
+      "slug": "easy",
+      "name": "Easy",
+      "images": [
+        "/assets/img/fenice-covers/easy.webp",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/amb-easy-01.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-emotion.html",
+      "url": "https://leroyfactory.fr/la-fenice-emotion.html",
+      "type": "collection",
+      "slug": "emotion",
+      "name": "Emotion",
+      "images": [
+        "/assets/img/fenice-covers/emotion.webp",
+        "https://lafenicegc.com/wp-content/uploads/2022/04/amb-emotion-01.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-etoile.html",
+      "url": "https://leroyfactory.fr/la-fenice-etoile.html",
+      "type": "collection",
+      "slug": "etoile",
+      "name": "Étoile",
+      "images": [
+        "/assets/img/fenice-covers/etoile.webp",
+        "https://lafenicegc.com/wp-content/uploads/2025/10/Etoile_Ambiente_Bagno.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2025/10/LaFenice_Etoile_amb_beige.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-ever.html",
+      "url": "https://leroyfactory.fr/la-fenice-ever.html",
+      "type": "collection",
+      "slug": "ever",
+      "name": "Ever",
+      "images": [
+        "/assets/img/fenice-covers/ever.webp",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/amb-ever-04.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/ambientazione-ever.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-fiordi.html",
+      "url": "https://leroyfactory.fr/la-fenice-fiordi.html",
+      "type": "collection",
+      "slug": "fiordi",
+      "name": "Fiordi",
+      "images": [
+        "/assets/img/fenice-covers/fiordi.webp",
+        "https://lafenicegc.com/wp-content/uploads/2022/12/amb-fiordi-01.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-flash.html",
+      "url": "https://leroyfactory.fr/la-fenice-flash.html",
+      "type": "collection",
+      "slug": "flash",
+      "name": "Flash",
+      "images": [
+        "/assets/img/fenice-covers/flash.webp",
+        "https://lafenicegc.com/wp-content/uploads/2026/03/LaFenice_Flash_amb_Flash_Black.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-gate.html",
+      "url": "https://leroyfactory.fr/la-fenice-gate.html",
+      "type": "collection",
+      "slug": "gate",
+      "name": "Gate",
+      "images": [
+        "/assets/img/fenice-covers/gate.webp",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/amb_gate.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-genesis.html",
+      "url": "https://leroyfactory.fr/la-fenice-genesis.html",
+      "type": "collection",
+      "slug": "genesis",
+      "name": "Genesis",
+      "images": [
+        "/assets/img/fenice-covers/genesis.webp",
+        "https://lafenicegc.com/wp-content/uploads/2022/12/amb-genesis-03.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-glowood.html",
+      "url": "https://leroyfactory.fr/la-fenice-glowood.html",
+      "type": "collection",
+      "slug": "glowood",
+      "name": "Glowood",
+      "images": [
+        "/assets/img/fenice-covers/glowood.webp",
+        "https://lafenicegc.com/wp-content/uploads/2022/12/amb-glowood-02.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-heritage.html",
+      "url": "https://leroyfactory.fr/la-fenice-heritage.html",
+      "type": "collection",
+      "slug": "heritage",
+      "name": "Heritage",
+      "images": [
+        "/assets/img/fenice-covers/heritage.webp",
+        "/assets/img/fenice-selection-20261101/heritage-02.webp",
+        "/assets/img/fenice-selection-20261101/heritage-01.webp",
+        "/assets/img/fenice-selection-20261101/heritage-03.webp"
+      ]
+    },
+    {
+      "path": "la-fenice-hollywood.html",
+      "url": "https://leroyfactory.fr/la-fenice-hollywood.html",
+      "type": "collection",
+      "slug": "hollywood",
+      "name": "Hollywood",
+      "images": [
+        "/assets/img/fenice-covers/hollywood.webp",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/amb-hollywood-01.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/amb-hollywood-02.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2022/12/LaFenice_Hollywood_amb_almond.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-home-etagere.html",
+      "url": "https://leroyfactory.fr/la-fenice-home-etagere.html",
+      "type": "collection",
+      "slug": "home-etagere",
+      "name": "Home · Étagère",
+      "images": [
+        "/assets/img/fenice-covers/home-etagere.webp",
+        "/assets/img/fenice-selection-20261101/home-etagere.webp"
+      ]
+    },
+    {
+      "path": "la-fenice-home-tables-dappoint.html",
+      "url": "https://leroyfactory.fr/la-fenice-home-tables-dappoint.html",
+      "type": "collection",
+      "slug": "home-tables-dappoint",
+      "name": "Home · Tables d’appoint",
+      "images": [
+        "/assets/img/fenice-covers/home-tables-dappoint.webp",
+        "/assets/img/fenice-selection-20261101/home-tables-dappoint.webp"
+      ]
+    },
+    {
+      "path": "la-fenice-home-vasque-a-poser.html",
+      "url": "https://leroyfactory.fr/la-fenice-home-vasque-a-poser.html",
+      "type": "collection",
+      "slug": "home-vasque-a-poser",
+      "name": "Home · Vasque à poser",
+      "images": [
+        "/assets/img/fenice-covers/home-vasque-a-poser.webp",
+        "/assets/img/fenice-selection-20261101/home-vasque-a-poser.webp"
+      ]
+    },
+    {
+      "path": "la-fenice-home-vasque-sur-pied.html",
+      "url": "https://leroyfactory.fr/la-fenice-home-vasque-sur-pied.html",
+      "type": "collection",
+      "slug": "home-vasque-sur-pied",
+      "name": "Home · Vasque sur pied",
+      "images": [
+        "/assets/img/fenice-covers/home-vasque-sur-pied.webp",
+        "/assets/img/fenice-selection-20261101/home-vasque-sur-pied.webp"
+      ]
+    },
+    {
+      "path": "la-fenice-home-vasque-suspendue.html",
+      "url": "https://leroyfactory.fr/la-fenice-home-vasque-suspendue.html",
+      "type": "collection",
+      "slug": "home-vasque-suspendue",
+      "name": "Home · Vasque suspendue",
+      "images": [
+        "/assets/img/fenice-covers/home-vasque-suspendue.webp",
+        "/assets/img/fenice-selection-20261101/home-vasque-suspendue.webp"
+      ]
+    },
+    {
+      "path": "la-fenice-il-travertino.html",
+      "url": "https://leroyfactory.fr/la-fenice-il-travertino.html",
+      "type": "collection",
+      "slug": "il-travertino",
+      "name": "Il Travertino",
+      "images": [
+        "/assets/img/fenice-covers/il-travertino.webp",
+        "https://lafenicegc.com/wp-content/uploads/2025/10/Il_Travertino_ambiente_bagno.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2025/10/LaFenice_IlTravertino_amb_Window_Ivory.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-imperial-grey.html",
+      "url": "https://leroyfactory.fr/la-fenice-imperial-grey.html",
+      "type": "collection",
+      "slug": "imperial-grey",
+      "name": "Imperial Grey",
+      "images": [
+        "/assets/img/fenice-covers/imperial-grey.webp",
+        "https://lafenicegc.com/wp-content/uploads/2026/03/LaFenice_Imperial_Grey_amb.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-jungle-wall.html",
+      "url": "https://leroyfactory.fr/la-fenice-jungle-wall.html",
+      "type": "collection",
+      "slug": "jungle-wall",
+      "name": "Jungle Wall",
+      "images": [
+        "/assets/img/fenice-covers/jungle-wall.webp",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/amb-jungle-wall-02.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-lapis.html",
+      "url": "https://leroyfactory.fr/la-fenice-lapis.html",
+      "type": "collection",
+      "slug": "lapis",
+      "name": "Lapis",
+      "images": [
+        "/assets/img/fenice-covers/lapis.webp",
+        "https://lafenicegc.com/wp-content/uploads/2023/11/Travertino_Pubblico-1.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2023/11/Travertino_White_Pubblico_Dett-1.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-le-doghe.html",
+      "url": "https://leroyfactory.fr/la-fenice-le-doghe.html",
+      "type": "collection",
+      "slug": "le-doghe",
+      "name": "Le Doghe",
+      "images": [
+        "/assets/img/fenice-covers/le-doghe.webp",
+        "https://lafenicegc.com/wp-content/uploads/2023/11/Ledoghe_esterno.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2023/11/Ledoghe_camera.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2023/11/LeDoghe_Rovere_Suveya_Botticino_Cucina.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2023/11/Ledoghe_letto.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2023/11/Ledoghe_vasca.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2023/11/Ledoghe_floor.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-lifestile.html",
+      "url": "https://leroyfactory.fr/la-fenice-lifestile.html",
+      "type": "collection",
+      "slug": "lifestile",
+      "name": "LifesTile",
+      "images": [
+        "/assets/img/fenice-covers/lifestile.webp",
+        "/assets/img/fenice-selection-20261101/lifestile-02.webp",
+        "/assets/img/fenice-selection-20261101/lifestile-01.webp",
+        "/assets/img/fenice-selection-20261101/lifestile-03.webp"
+      ]
+    },
+    {
+      "path": "la-fenice-lime-evolution.html",
+      "url": "https://leroyfactory.fr/la-fenice-lime-evolution.html",
+      "type": "collection",
+      "slug": "lime-evolution",
+      "name": "Lime Evolution",
+      "images": [
+        "/assets/img/fenice-covers/lime-evolution.webp",
+        "https://lafenicegc.com/wp-content/uploads/2024/04/Lime_Evolution_amb_Moon.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2024/04/LaFenice_Lime_Evolution_amb_wall.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2024/04/LaFenice_Lime_Evolution_amb_Grey.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-lithos.html",
+      "url": "https://leroyfactory.fr/la-fenice-lithos.html",
+      "type": "collection",
+      "slug": "lithos",
+      "name": "Lithos",
+      "images": [
+        "/assets/img/fenice-covers/lithos.webp",
+        "https://lafenicegc.com/wp-content/uploads/2025/10/Lithos_Ambiente_Cucina2.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2025/10/LaFenice_Lythos_amb_Otranto_Grip.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2025/10/Lithos_Ambiente_Cucina.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2025/10/LaFenice_Lythos_amb_Provenza_Antibes.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2025/10/LaFenice_Lythos_amb_Provenza_Antibes2.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-living-wall.html",
+      "url": "https://leroyfactory.fr/la-fenice-living-wall.html",
+      "type": "collection",
+      "slug": "living-wall",
+      "name": "Living Wall",
+      "images": [
+        "/assets/img/fenice-covers/living-wall.webp",
+        "/assets/img/fenice-selection-20261101/living-wall-01.webp",
+        "/assets/img/fenice-selection-20261101/living-wall-02.webp"
+      ]
+    },
+    {
+      "path": "la-fenice-lumiere.html",
+      "url": "https://leroyfactory.fr/la-fenice-lumiere.html",
+      "type": "collection",
+      "slug": "lumiere",
+      "name": "Lumiere",
+      "images": [
+        "/assets/img/fenice-covers/lumiere.webp",
+        "https://lafenicegc.com/wp-content/uploads/2023/11/Lumiere_Milk_Bagno-1.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2024/03/New.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-majestic.html",
+      "url": "https://leroyfactory.fr/la-fenice-majestic.html",
+      "type": "collection",
+      "slug": "majestic",
+      "name": "Majestic",
+      "images": [
+        "/assets/img/fenice-covers/majestic.webp",
+        "https://lafenicegc.com/wp-content/uploads/2025/02/LaFenice_Majestic_Mosaico_Versilia_Alpi.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2025/02/LaFenice_Majestic_amb_mosaico_bianco_blu.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2025/02/LaFenice_Majestic_amb_Nero_Bilbao_dett.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2025/02/LaFenice_Majestic_amb_Rosso_Barga.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2025/02/LaFenice_Majestic_amb_prestige_oro_verde_crema.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2025/02/LaFenice_Majestic_Squared.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2025/02/LaFenice_Majestic_amb_prestige_blu_nero_bianco.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-marble-velvet.html",
+      "url": "https://leroyfactory.fr/la-fenice-marble-velvet.html",
+      "type": "collection",
+      "slug": "marble-velvet",
+      "name": "Marble Velvet",
+      "images": [
+        "/assets/img/fenice-covers/marble-velvet.webp",
+        "https://lafenicegc.com/wp-content/uploads/2022/12/amb-marble-velvet-07.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2022/12/amb-marble-velvet-01.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2022/12/amb-marble-velvet-02.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2023/01/florida-warm-1.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2023/01/invisible-marble-velvet.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2023/01/ambiente-saint-laurent.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2022/12/amb-marble-velvet-09.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-marfil-creme.html",
+      "url": "https://leroyfactory.fr/la-fenice-marfil-creme.html",
+      "type": "collection",
+      "slug": "marfil-creme",
+      "name": "Marfil Creme",
+      "images": [
+        "/assets/img/fenice-covers/marfil-creme.webp",
+        "https://lafenicegc.com/wp-content/uploads/2026/03/LaFenice_Marfil_Creme_amb.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-meco.html",
+      "url": "https://leroyfactory.fr/la-fenice-meco.html",
+      "type": "collection",
+      "slug": "meco",
+      "name": "Meco",
+      "images": [
+        "/assets/img/fenice-covers/meco.webp",
+        "https://lafenicegc.com/wp-content/uploads/2025/02/LaFenice_Meco_amb_Beige.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2025/02/LaFenice_Meco_amb_Grau_Blau.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2025/02/LaFenice_Meco_amb_White.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-metal-wall.html",
+      "url": "https://leroyfactory.fr/la-fenice-metal-wall.html",
+      "type": "collection",
+      "slug": "metal-wall",
+      "name": "Metal Wall",
+      "images": [
+        "/assets/img/fenice-covers/metal-wall.webp",
+        "https://lafenicegc.com/wp-content/uploads/2024/12/Metall_Wall_Bagno.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-natural-resine.html",
+      "url": "https://leroyfactory.fr/la-fenice-natural-resine.html",
+      "type": "collection",
+      "slug": "natural-resine",
+      "name": "Natural Resine",
+      "images": [
+        "/assets/img/fenice-covers/natural-resine.webp",
+        "https://lafenicegc.com/wp-content/uploads/2025/10/LaFenice_Natural_Resine_amb_Panna_Caffe.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2025/10/LaFenice_Natural_Resine_amb_Oro_Latte_Cioccolato.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2025/10/LaFenice_Natural_Resine_amb_Avena.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2025/10/LaFenice_Natural_Resine_amb_Riga_The.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-natural-terre.html",
+      "url": "https://leroyfactory.fr/la-fenice-natural-terre.html",
+      "type": "collection",
+      "slug": "natural-terre",
+      "name": "Natural Terre",
+      "images": [
+        "/assets/img/fenice-covers/natural-terre.webp",
+        "https://lafenicegc.com/wp-content/uploads/2025/10/LaFenice_Natural_Terre_amb_Terra_Sabbia.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2025/10/LaFenice_Natural_Terre_amb_Argilla_Rows.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2025/10/LaFenice_Natural_Terre_amb_Lava_Felce_Gesso.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-norbistone.html",
+      "url": "https://leroyfactory.fr/la-fenice-norbistone.html",
+      "type": "collection",
+      "slug": "norbistone",
+      "name": "Norbistone",
+      "images": [
+        "/assets/img/fenice-covers/norbistone.webp",
+        "https://lafenicegc.com/wp-content/uploads/2024/12/Prime_Stone_negozio.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2024/12/Prime_Stone_Abiti.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-outside.html",
+      "url": "https://leroyfactory.fr/la-fenice-outside.html",
+      "type": "collection",
+      "slug": "outside",
+      "name": "Outside",
+      "images": [
+        "/assets/img/fenice-covers/outside.webp",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/amb-outside-01.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-oykos.html",
+      "url": "https://leroyfactory.fr/la-fenice-oykos.html",
+      "type": "collection",
+      "slug": "oykos",
+      "name": "Oykos",
+      "images": [
+        "/assets/img/fenice-covers/oykos.webp",
+        "/assets/img/fenice-selection-20261101/oykos-ambiance.webp",
+        "/assets/img/fenice-selection-20261101/oykos-01.webp",
+        "/assets/img/fenice-selection-20261101/oykos-03.webp"
+      ]
+    },
+    {
+      "path": "la-fenice-oykos-fossil.html",
+      "url": "https://leroyfactory.fr/la-fenice-oykos-fossil.html",
+      "type": "collection",
+      "slug": "oykos-fossil",
+      "name": "Oykos Fossil",
+      "images": [
+        "/assets/img/fenice-covers/oykos-fossil.webp",
+        "/assets/img/fenice-selection-20261101/oykos-fossil-ambiance.webp",
+        "/assets/img/fenice-selection-20261101/oykos-fossil-01.webp"
+      ]
+    },
+    {
+      "path": "la-fenice-paris.html",
+      "url": "https://leroyfactory.fr/la-fenice-paris.html",
+      "type": "collection",
+      "slug": "paris",
+      "name": "Paris",
+      "images": [
+        "/assets/img/fenice-covers/paris.webp",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/amb-paris-01.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-patagonia.html",
+      "url": "https://leroyfactory.fr/la-fenice-patagonia.html",
+      "type": "collection",
+      "slug": "patagonia",
+      "name": "Patagonia",
+      "images": [
+        "/assets/img/fenice-covers/patagonia.webp",
+        "https://lafenicegc.com/wp-content/uploads/2025/04/Patagonia_amb_Ghiaccio.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-pietra-de-medici.html",
+      "url": "https://leroyfactory.fr/la-fenice-pietra-de-medici.html",
+      "type": "collection",
+      "slug": "pietra-de-medici",
+      "name": "Pietra De’ Medici",
+      "images": [
+        "/assets/img/fenice-covers/pietra-de-medici.webp",
+        "https://lafenicegc.com/wp-content/uploads/2024/12/Pietra_Medici_amb_Pitti_Sand.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2024/12/Pietra_Medici_amb_Signoria_Brown_.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2024/12/Pietra_De_Medici_Copertina.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-polveri-vietresi.html",
+      "url": "https://leroyfactory.fr/la-fenice-polveri-vietresi.html",
+      "type": "collection",
+      "slug": "polveri-vietresi",
+      "name": "Polveri Vietresi",
+      "images": [
+        "/assets/img/fenice-covers/polveri-vietresi.webp",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/amb-polveri-vietresi-04.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/amb-polveri-vietresi-05.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/amb-polveri-vietresi-03.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/amb-polveri-vietresi-02.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-polveri-vietresi-wall.html",
+      "url": "https://leroyfactory.fr/la-fenice-polveri-vietresi-wall.html",
+      "type": "collection",
+      "slug": "polveri-vietresi-wall",
+      "name": "Polveri Vietresi Wall",
+      "images": [
+        "/assets/img/fenice-covers/polveri-vietresi-wall.webp",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/amb-polveri-vietresi-wall-01.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/amb-polveri-vietresi-wall-03.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/amb-polveri-vietresi-wall-02.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/amb-polveri-vietresi-wall-04.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-prime-stone.html",
+      "url": "https://leroyfactory.fr/la-fenice-prime-stone.html",
+      "type": "collection",
+      "slug": "prime-stone",
+      "name": "Prime Stone",
+      "images": [
+        "/assets/img/fenice-covers/prime-stone.webp",
+        "/assets/img/fenice-selection-20261101/prime-stone-02.webp",
+        "/assets/img/fenice-selection-20261101/prime-stone-01.webp",
+        "/assets/img/fenice-selection-20261101/prime-stone-03.webp"
+      ]
+    },
+    {
+      "path": "la-fenice-resinart-wall.html",
+      "url": "https://leroyfactory.fr/la-fenice-resinart-wall.html",
+      "type": "collection",
+      "slug": "resinart-wall",
+      "name": "Resinart Wall",
+      "images": [
+        "/assets/img/fenice-covers/resinart-wall.webp",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/amb-resinart-wall-01.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/resinart.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-rovere.html",
+      "url": "https://leroyfactory.fr/la-fenice-rovere.html",
+      "type": "collection",
+      "slug": "rovere",
+      "name": "Rovere",
+      "images": [
+        "/assets/img/fenice-covers/rovere.webp",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/amb-rovere-01.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-royal.html",
+      "url": "https://leroyfactory.fr/la-fenice-royal.html",
+      "type": "collection",
+      "slug": "royal",
+      "name": "Royal",
+      "images": [
+        "/assets/img/fenice-covers/royal.webp",
+        "https://lafenicegc.com/wp-content/uploads/2026/03/LaFenice_Royal_amb_Royal_Onix.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-saturn.html",
+      "url": "https://leroyfactory.fr/la-fenice-saturn.html",
+      "type": "collection",
+      "slug": "saturn",
+      "name": "Saturn",
+      "images": [
+        "/assets/img/fenice-covers/saturn.webp",
+        "https://lafenicegc.com/wp-content/uploads/2023/01/ambiente-saturn.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/amb-saturn-03.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/amb-saturn-04.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-segesta.html",
+      "url": "https://leroyfactory.fr/la-fenice-segesta.html",
+      "type": "collection",
+      "slug": "segesta",
+      "name": "Segesta",
+      "images": [
+        "/assets/img/fenice-covers/segesta.webp",
+        "https://lafenicegc.com/wp-content/uploads/2025/02/LaFenice_Segesta_amb_Ghiaccio_Moro.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2025/02/LaFenice_Segesta_amb_Moro.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2025/02/LaFenice_Segesta_amb_Crema.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-shabby-wall.html",
+      "url": "https://leroyfactory.fr/la-fenice-shabby-wall.html",
+      "type": "collection",
+      "slug": "shabby-wall",
+      "name": "Shabby Wall",
+      "images": [
+        "/assets/img/fenice-covers/shabby-wall.webp",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/amb-shabby-wall-02.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-shabby-wood.html",
+      "url": "https://leroyfactory.fr/la-fenice-shabby-wood.html",
+      "type": "collection",
+      "slug": "shabby-wood",
+      "name": "Shabby Wood",
+      "images": [
+        "/assets/img/fenice-covers/shabby-wood.webp",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/amb_shabby-wood_2.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-shapes.html",
+      "url": "https://leroyfactory.fr/la-fenice-shapes.html",
+      "type": "collection",
+      "slug": "shapes",
+      "name": "Shapes",
+      "images": [
+        "/assets/img/fenice-covers/shapes.webp",
+        "https://lafenicegc.com/wp-content/uploads/2025/10/Shapes_ambiente_Ingresso.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2025/10/Shapes_ambiente_Sedie.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-slate.html",
+      "url": "https://leroyfactory.fr/la-fenice-slate.html",
+      "type": "collection",
+      "slug": "slate",
+      "name": "Slate",
+      "images": [
+        "/assets/img/fenice-covers/slate.webp",
+        "https://lafenicegc.com/wp-content/uploads/2023/11/Slate_Greige_InOut.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2024/03/Floor_sand.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-statuario.html",
+      "url": "https://leroyfactory.fr/la-fenice-statuario.html",
+      "type": "collection",
+      "slug": "statuario",
+      "name": "Statuario",
+      "images": [
+        "/assets/img/fenice-covers/statuario.webp",
+        "https://lafenicegc.com/wp-content/uploads/2026/03/LaFenice_Statutario_amb.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-steel-art.html",
+      "url": "https://leroyfactory.fr/la-fenice-steel-art.html",
+      "type": "collection",
+      "slug": "steel-art",
+      "name": "Steel Art",
+      "images": [
+        "/assets/img/fenice-covers/steel-art.webp",
+        "https://lafenicegc.com/wp-content/uploads/2023/11/SteelArts_Corten_Nikel_Living-2.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2023/11/metal-feeling.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-stone.html",
+      "url": "https://leroyfactory.fr/la-fenice-stone.html",
+      "type": "collection",
+      "slug": "stone",
+      "name": "Stone",
+      "images": [
+        "/assets/img/fenice-covers/stone.webp",
+        "https://lafenicegc.com/wp-content/uploads/2022/12/amb-stone-02.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-supreme.html",
+      "url": "https://leroyfactory.fr/la-fenice-supreme.html",
+      "type": "collection",
+      "slug": "supreme",
+      "name": "Supreme",
+      "images": [
+        "/assets/img/fenice-covers/supreme.webp",
+        "https://lafenicegc.com/wp-content/uploads/2026/03/LaFenice_Supreme_amb_Supreme_Venatino.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-suveya-reactive-3d-evo.html",
+      "url": "https://leroyfactory.fr/la-fenice-suveya-reactive-3d-evo.html",
+      "type": "collection",
+      "slug": "suveya-reactive-3d-evo",
+      "name": "Suveya – Reactive 3D Evo",
+      "images": [
+        "/assets/img/fenice-covers/suveya-reactive-3d-evo.webp",
+        "https://lafenicegc.com/wp-content/uploads/2023/11/LaFenice_NovitaCersaie2023_Suveya_Beige_Emperador_Living-1.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-tendance.html",
+      "url": "https://leroyfactory.fr/la-fenice-tendance.html",
+      "type": "collection",
+      "slug": "tendance",
+      "name": "Tendance",
+      "images": [
+        "/assets/img/fenice-covers/tendance.webp",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/amb-tendance-01.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-thasos.html",
+      "url": "https://leroyfactory.fr/la-fenice-thasos.html",
+      "type": "collection",
+      "slug": "thasos",
+      "name": "Thasos",
+      "images": [
+        "/assets/img/fenice-covers/thasos.webp",
+        "https://lafenicegc.com/wp-content/uploads/2026/03/LaFenice_Thasos_amb.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-touch.html",
+      "url": "https://leroyfactory.fr/la-fenice-touch.html",
+      "type": "collection",
+      "slug": "touch",
+      "name": "Touch",
+      "images": [
+        "/assets/img/fenice-covers/touch.webp",
+        "https://lafenicegc.com/wp-content/uploads/2023/01/LaFenice_Touch_amb_Foglie.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/amb-touch-14.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/amb-touch-10.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/amb-touch-11.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2023/01/LaFenice_Touch_amb_Cube_Warm_Beige.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-touch-evo.html",
+      "url": "https://leroyfactory.fr/la-fenice-touch-evo.html",
+      "type": "collection",
+      "slug": "touch-evo",
+      "name": "Touch Evo",
+      "images": [
+        "/assets/img/fenice-covers/touch-evo.webp",
+        "https://lafenicegc.com/wp-content/uploads/2022/12/amb-touch-evo-02.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2022/12/amb-touch-evo-01.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2023/01/LaFenice_Touch_Evo_amb_Charme_Green.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-walk-materials.html",
+      "url": "https://leroyfactory.fr/la-fenice-walk-materials.html",
+      "type": "collection",
+      "slug": "walk-materials",
+      "name": "Walk Materials",
+      "images": [
+        "/assets/img/fenice-covers/walk-materials.webp",
+        "https://lafenicegc.com/wp-content/uploads/2023/11/Walk-Materials_mud-1.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2023/11/Walk_Living_Dett.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2023/11/LaFenice_Walk_Materials_amb_smoke.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-wall-rock.html",
+      "url": "https://leroyfactory.fr/la-fenice-wall-rock.html",
+      "type": "collection",
+      "slug": "wall-rock",
+      "name": "Wall Rock",
+      "images": [
+        "/assets/img/fenice-covers/wall-rock.webp",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/amb-wall-rock-01.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-woodland.html",
+      "url": "https://leroyfactory.fr/la-fenice-woodland.html",
+      "type": "collection",
+      "slug": "woodland",
+      "name": "Woodland",
+      "images": [
+        "/assets/img/fenice-covers/woodland.webp",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/amb-woodland-01.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-x-beton.html",
+      "url": "https://leroyfactory.fr/la-fenice-x-beton.html",
+      "type": "collection",
+      "slug": "x-beton",
+      "name": "X Beton",
+      "images": [
+        "/assets/img/fenice-covers/x-beton.webp",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/amb-x-beton-02.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/amb-x-beton-05.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-x-metal.html",
+      "url": "https://leroyfactory.fr/la-fenice-x-metal.html",
+      "type": "collection",
+      "slug": "x-metal",
+      "name": "X Metal",
+      "images": [
+        "/assets/img/fenice-covers/x-metal.webp",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/amb-x-metal-01.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/amb-x-metal-03.jpg",
+        "https://lafenicegc.com/wp-content/uploads/2022/11/amb-x-metal-04.jpg"
+      ]
+    },
+    {
+      "path": "la-fenice-format-120x120.html",
+      "url": "https://leroyfactory.fr/la-fenice-format-120x120.html",
+      "type": "format",
+      "format": "120x120"
+    },
+    {
+      "path": "la-fenice-format-20x120.html",
+      "url": "https://leroyfactory.fr/la-fenice-format-20x120.html",
+      "type": "format",
+      "format": "20x120"
+    },
+    {
+      "path": "la-fenice-format-30.8x61.5.html",
+      "url": "https://leroyfactory.fr/la-fenice-format-30.8x61.5.html",
+      "type": "format",
+      "format": "30.8x61.5"
+    },
+    {
+      "path": "la-fenice-format-30x30.html",
+      "url": "https://leroyfactory.fr/la-fenice-format-30x30.html",
+      "type": "format",
+      "format": "30x30"
+    },
+    {
+      "path": "la-fenice-format-30x60.html",
+      "url": "https://leroyfactory.fr/la-fenice-format-30x60.html",
+      "type": "format",
+      "format": "30x60"
+    },
+    {
+      "path": "la-fenice-format-60x120.html",
+      "url": "https://leroyfactory.fr/la-fenice-format-60x120.html",
+      "type": "format",
+      "format": "60x120"
+    },
+    {
+      "path": "la-fenice-format-60x60.html",
+      "url": "https://leroyfactory.fr/la-fenice-format-60x60.html",
+      "type": "format",
+      "format": "60x60"
+    },
+    {
+      "path": "la-fenice-format-90x90.html",
+      "url": "https://leroyfactory.fr/la-fenice-format-90x90.html",
+      "type": "format",
+      "format": "90x90"
+    }
+  ]
+}

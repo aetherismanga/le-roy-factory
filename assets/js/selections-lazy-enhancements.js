@@ -131,14 +131,14 @@
     const isFenice = () => /fenice/i.test(currentPartnerName());
 
     function selectedFeniceCatalogue() {
-      const data = window.LRF_FENICE_LEXICON;
+      const data = Array.isArray(window.FENICE_CATALOGUES) ? {catalogues:[{id:'all',label:'Tous les catalogues · collections sans doublons'},...window.FENICE_CATALOGUES.filter(c=>(window.FENICE_CATALOGUE||[]).some(p=>(p.catalogueIds||[]).includes(c.id)))],defaultCatalogue:'all'} : window.LRF_FENICE_LEXICON;
       if (!isFenice() || !data || !Array.isArray(data.catalogues) || !data.catalogues.length) return null;
       const wanted = catalogueSelect.value || data.defaultCatalogue || data.catalogues[0].id;
       return data.catalogues.find(c => c.id === wanted) || data.catalogues[0];
     }
 
     function setupFeniceCatalogueSelector() {
-      const data = window.LRF_FENICE_LEXICON;
+      const data = Array.isArray(window.FENICE_CATALOGUES) ? {catalogues:[{id:'all',label:'Tous les catalogues · collections sans doublons'},...window.FENICE_CATALOGUES.filter(c=>(window.FENICE_CATALOGUE||[]).some(p=>(p.catalogueIds||[]).includes(c.id)))],defaultCatalogue:'all'} : window.LRF_FENICE_LEXICON;
       if (!isFenice() || !data || !Array.isArray(data.catalogues) || !data.catalogues.length) {
         catalogueWrap.classList.remove('show');
         catalogueSelect.innerHTML = '';
@@ -157,9 +157,13 @@
       if (/view/i.test(partner) && Array.isArray(window.VIEW_CATALOGUE)) {
         return window.VIEW_CATALOGUE.map(p=>({
           id:p.id,name:p.name,
-          meta:[p.effect,(p.formats||[]).join(' · ')].filter(Boolean).join(' — '),
+          meta:[p.productType||p.effect,(p.formats||[]).join(' · ')].filter(Boolean).join(' — '),
           keywords:[...(p.colors||[]),...(p.finishes||[]),...(p.variants||[]).flatMap(v=>Object.values(v.refs||{}))].join(' ')
         })).sort((a,b)=>a.name.localeCompare(b.name,'fr',{sensitivity:'base'}));
+      }
+      if (/fenice/i.test(partner) && Array.isArray(window.FENICE_CATALOGUE)) {
+        const selected=catalogueSelect.value;
+        return window.FENICE_CATALOGUE.filter(p=>!selected || selected==='all' || (p.catalogueIds||[]).includes(selected)).map(p=>({id:p.id,name:p.name,meta:[p.productType||p.effect,(p.formats||[]).join(' · ')].filter(Boolean).join(' — '),keywords:[...(p.colors||[]),...(p.finishes||[])].join(' ')})).sort((a,b)=>a.name.localeCompare(b.name,'fr',{sensitivity:'base'}));
       }
       if (/fenice/i.test(partner)) {
         const cat = selectedFeniceCatalogue();
@@ -228,6 +232,7 @@
       const entry = entries.find(x => x.id === id);
       closeLexicon();
 
+      if(id.startsWith('fenice-') && window.LRF_FENICE_SELECTION?.openCollection(id))return;
       if (id.startsWith('view-') && window.LRF_VIEW_SELECTION?.openCollection(id)) return;
 
       if (entry?.pdf && entry?.page) {
@@ -292,3 +297,4 @@
     if (installProductLexicon() || lexiconTries > 40) clearInterval(lexiconTimer);
   }, 250);
 })();
+
