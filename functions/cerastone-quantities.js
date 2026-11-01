@@ -25,5 +25,21 @@
     const boxes = unit === 'boîtes' ? quantity : Math.max(1, Math.ceil((quantity - 1e-9) / (unit === 'pièces' ? pieces : factor)));
     return {status:'known', requestedQuantity:quantity, requestedUnit:unit, boxes, quantity:round(boxes * factor), unit:baseUnit, pieces:pieces ? boxes * pieces : null, factor, piecesPerBox:pieces};
   }
-  return Object.freeze({convert, units});
+  // Sale prices only: purchase facts never belong in the browser or registry.
+  function priceEnding90(purchaseHt) {
+    if (!positive(purchaseHt)) throw new RangeError('Prix de base invalide.');
+    const multipliedCents = Math.round(purchaseHt * 300);
+    return Math.max(90, Math.round((multipliedCents - 90) / 100) * 100 + 90) / 100;
+  }
+  function estimateLine(product, quantity, unit) {
+    if (!positive(product.priceTtc)) return null;
+    const packing = convert(product, quantity, unit);
+    const priceUnit = product.priceUnit || product.unit;
+    let billedQuantity;
+    if (priceUnit === 'boîtes') billedQuantity = packing.boxes;
+    else if (packing.unit === priceUnit) billedQuantity = packing.quantity;
+    if (!positive(billedQuantity)) return null;
+    return {unitPrice:product.priceTtc,priceUnit,quantity:billedQuantity,total:Math.round((billedQuantity * product.priceTtc + Number.EPSILON) * 100) / 100,demo:product.priceBasis === 'demo'};
+  }
+  return Object.freeze({convert, units, priceEnding90, estimateLine});
 });

@@ -1,6 +1,6 @@
 'use strict';
 const crypto = require('node:crypto');
-const {convert} = require('./cerastone-quantities');
+const {convert,estimateLine} = require('./cerastone-quantities');
 const RECIPIENT = 'jerome@leroyfactory.fr';
 const ORIGINS = new Set(['https://cera-stone-atelier.ccjacou.chatgpt.site','https://www.cera-stone.fr','https://cera-stone.fr','http://terminal.local:4173']);
 const failure = (message, status = 400) => Object.assign(new Error(message), {status});
@@ -48,17 +48,22 @@ function checkedRequest(body, registry) {
 }
 const fr = value => Number(value).toLocaleString('fr-FR',{maximumFractionDigits:6});
 function requestMail(request, registry) {
+  let estimateTotal=0,pricedCount=0,hasDemoPrice=false;
   const rows = request.items.map((line,index) => {
     const p = registry[line.id], real = p.internal || {}, q = line.packing;
     const description = real.description || [real.manufacturer,real.collection,real.color,p.format,p.finish].filter(Boolean).join(' · ');
-    const packed = q.status === 'known' ? `${fr(q.boxes)} boîte(s) — ${fr(q.quantity)} ${q.unit}${q.pieces ? ' — '+fr(q.pieces)+' pièce(s)' : ''}` : q.status === 'piece' ? `${fr(q.quantity)} ${p.salesLabel || 'pièce(s)'}` : 'Conditionnement à confirmer avant chiffrage ; aucun arrondi inventé.';
+    const packed = q.status === 'known' ? `${fr(q.boxes)} ${p.packLabel||'boîte'}(s) — ${fr(q.quantity)} ${q.unit}${q.pieces&&q.unit!=='pièces' ? ' — '+fr(q.pieces)+' pièce(s)' : ''}` : q.status === 'piece' ? `${fr(q.quantity)} ${p.salesLabel || 'pièce(s)'}` : 'Conditionnement à confirmer avant chiffrage ; aucun arrondi inventé.';
+    const price=estimateLine(p,line.quantity,line.unit);
+    if(price){estimateTotal+=price.total;pricedCount++;hasDemoPrice||=price.demo;}
+    const money=value=>value.toLocaleString('fr-FR',{style:'currency',currency:'EUR'});
     return [
       `${index+1}. ${p.code} — ${description}`,
       real.reference ? `Référence fabricant : ${real.reference}` : 'Identification : collection, coloris, format et finition ; code usine à confirmer si nécessaire.',
       `Type : ${p.kind} | Format : ${p.format || 'à préciser'} | Finition : ${p.finish || 'à préciser'}`,
       `Besoin du client : ${fr(line.quantity)} ${line.unit}`,
       `Quantité au conditionnement : ${packed}`,
-      q.status === 'known' ? `Boîtage fabricant déclaré : ${fr(q.factor)} ${q.unit}/boîte${q.piecesPerBox ? ' ; '+q.piecesPerBox+' pièces/boîte' : ''}` : '',
+      price ? `Tarif TTC affiché : ${money(price.unitPrice)} / ${p.priceLabel||price.priceUnit}${price.demo?' — TARIF DE DÉMONSTRATION':''}. Estimation ligne TTC : ${money(price.total)}.` : 'Tarif : à chiffrer par le magasin.',
+      q.status === 'known' ? `Boîtage fabricant déclaré : ${fr(q.factor)} ${q.unit}/${p.packLabel||'boîte'}${q.piecesPerBox ? ' ; '+q.piecesPerBox+' pièces/'+(p.packLabel||'boîte') : ''}` : '',
       p.kind === 'ambiance' ? 'Ambiance photographique : valider le carreau et le format exacts avec le client avant devis.' : '',
       p.source?.url ? `Source de vérification : ${p.source.url}` : ''
     ].filter(Boolean).join('\n');
@@ -69,7 +74,9 @@ function requestMail(request, registry) {
     'Destinataire provisoire : Jérôme · LE ROY FACTORY, pour le magasin CeraStone.','',
     `Client : ${request.name}`,`E-mail : ${request.email}`,`Téléphone : ${request.phone}`,
     `Secteur du projet : ${request.postalCode} ${request.city}`,`Projet : ${request.project || 'à préciser'}`,'',
-    ...rows.flatMap(row => [row,'']),'MESSAGE DU CLIENT',request.message || '—','',
+    ...rows.flatMap(row => [row,'']),
+    pricedCount ? `ESTIMATION ${pricedCount<request.items.length?'PARTIELLE ':''}TTC : ${estimateTotal.toLocaleString('fr-FR',{style:'currency',currency:'EUR'})} — hors livraison.${hasDemoPrice?' Comprend des tarifs de démonstration à confirmer.':''}` : 'ESTIMATION : à chiffrer par le magasin.',
+    '', 'MESSAGE DU CLIENT',request.message || '—','',
     'Le client a accepté la transmission de sa demande et de ses coordonnées pour être recontacté.',
     'Demande de prix et de conseil uniquement. Les références, le conditionnement, la disponibilité et les tarifs TTC restent à valider lors du devis.'
   ].join('\n');

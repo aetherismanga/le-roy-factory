@@ -1,7 +1,8 @@
 {
   "schema": "cerastone-catalogue-v1",
-  "articles": 2898,
-  "sha256": "7269bd2696792eb5cd699bb6a5fbb2cabc93c40ae8c26e682f1427c4f98c17bc",
+  "articles": 3042,
+  "sha256": "fa2f752e2932a9a84091a07ccf263e1fd2f3a641027264379bb4be2f7a2301a8",
   "sources": "Official manufacturer documents and CeraStone; readable source registry retained with CeraStone Site source.",
-  "pricesIncluded": false
+  "pricesIncluded": "retail-ttc-only",
+  "purchasePricesIncluded": false
 }
