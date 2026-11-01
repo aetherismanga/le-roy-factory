@@ -148,7 +148,7 @@
   const next=document.getElementById('bulbo-next');
   const pause=document.getElementById('bulbo-pause');
   const full=document.getElementById('bulbo-full');
-  let index=0,timer=0,paused=false,touchX=0;
+  let index=0,timer=0,paused=false;
   const render=i=>{index=(i+slides.length)%slides.length;slides.forEach((s,n)=>s.classList.toggle('active',n===index));dots.forEach((d,n)=>d.classList.toggle('active',n===index))};
   const stop=()=>{clearInterval(timer);timer=0};
   const start=()=>{stop();if(paused||matchMedia('(prefers-reduced-motion: reduce)').matches)return;timer=setInterval(()=>render(index+1),5200)};
@@ -156,7 +156,12 @@
   prev.addEventListener('click',()=>go(index-1));next.addEventListener('click',()=>go(index+1));dots.forEach(d=>d.addEventListener('click',()=>go(Number(d.dataset.go))));document.querySelectorAll('.ref-card[data-slide]').forEach(card=>card.addEventListener('click',()=>{go(Number(card.dataset.slide));shell.scrollIntoView({behavior:'smooth',block:'center'})}));
   pause.addEventListener('click',()=>{paused=!paused;pause.textContent=paused?'Lecture':'Pause';pause.setAttribute('aria-label',paused?'Relancer le diaporama':'Mettre le diaporama en pause');paused?stop():start()});
   shell.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(index-1);if(e.key==='ArrowRight')go(index+1)});
-  shell.addEventListener('touchstart',e=>{touchX=e.changedTouches[0].clientX},{passive:true});shell.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-touchX;if(Math.abs(dx)>45)go(index+(dx<0?1:-1))},{passive:true});
+  import('./assets/js/gallery-swipe.mjs?v=20261101-swipe1').then(({bindGallerySwipe})=>{
+    bindGallerySwipe(shell.querySelector('.slides'),{
+      onSwipe:delta=>go(index+delta),
+      isEnabled:()=>slides.length>1
+    });
+  }).catch(error=>console.warn('Navigation tactile du diaporama BULBO indisponible.',error));
   const fsActive=()=>document.fullscreenElement===shell||shell.classList.contains('fullscreen-fallback');
   full.addEventListener('click',async()=>{try{if(!fsActive()){if(shell.requestFullscreen)await shell.requestFullscreen();else shell.classList.add('fullscreen-fallback')}else{if(document.fullscreenElement)await document.exitFullscreen();else shell.classList.remove('fullscreen-fallback')}}catch(_){shell.classList.toggle('fullscreen-fallback')}});
   document.addEventListener('fullscreenchange',()=>{full.textContent=fsActive()?'× Quitter':'⛶ Plein écran'});

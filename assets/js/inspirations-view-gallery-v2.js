@@ -47,7 +47,7 @@
     const stage = box.querySelector('.view-lightbox-stage');
     stage.addEventListener('click', e => { if (e.target === stage && !box.classList.contains('zoomed')) closeLightbox(); });
     stage.addEventListener('dblclick', e => { if (e.target.tagName === 'IMG') { e.preventDefault(); toggleZoom(); } });
-    installSwipe(stage, delta => moveLightbox(delta), () => !box.classList.contains('zoomed'));
+    installSwipe(stage, delta => moveLightbox(delta), () => !!openState && openState.images.length > 1 && !box.classList.contains('zoomed'));
     box.querySelector('img').addEventListener('error', () => {
       if (!openState) return;
       box.querySelector('.view-lightbox-error').hidden = false;
@@ -137,21 +137,7 @@
   }
 
   function installSwipe(stage, move, allowed = () => true) {
-    let start = null, swipedAt = 0;
-    stage.addEventListener('click', e => {
-      if (Date.now() - swipedAt < 400) { e.preventDefault(); e.stopImmediatePropagation(); }
-    }, true);
-    stage.addEventListener('touchstart', e => {
-      start = e.touches.length === 1 && allowed() ? {x:e.touches[0].clientX, y:e.touches[0].clientY} : null;
-    }, {passive:true});
-    stage.addEventListener('touchend', e => {
-      if (!start || !allowed()) { start = null; return; }
-      const touch = e.changedTouches[0];
-      const dx = touch.clientX - start.x, dy = touch.clientY - start.y;
-      start = null;
-      if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.25) { swipedAt = Date.now(); move(dx < 0 ? 1 : -1); }
-    }, {passive:true});
-    stage.addEventListener('touchcancel', () => { start = null; }, {passive:true});
+    return window.LRF_GALLERY_GESTURES?.bind(stage,{onSwipe:move,isEnabled:allowed});
   }
 
   document.addEventListener('keydown', e => {
@@ -217,7 +203,7 @@
     thumbs.addEventListener('click', e => { const button = e.target.closest('[data-view-gallery-index]'); if (button) show(Number(button.dataset.viewGalleryIndex)); });
     expand.addEventListener('click', () => openImages(items, {title:product.name, index, trigger:expand, productModal:true, onChange:next => show(next,true)}));
     main.addEventListener('error', () => { gallery.querySelector('.view-gallery-v2-error').hidden = false; });
-    installSwipe(gallery.querySelector('.view-gallery-v2-stage'), move);
+    installSwipe(gallery.querySelector('.view-gallery-v2-stage'), move, () => items.length > 1);
     gallery.querySelector('.view-gallery-v2-colors')?.addEventListener('click', e => {
       const button = e.target.closest('[data-view-gallery-color]');
       if (!button) return;

@@ -222,7 +222,7 @@ html body:not(.crm-body) header .main-nav>li>a.lrf-promo-cersaie-tab:focus{
 
   <footer><div class="container" style="text-align:center;padding:2rem 0;"><p style="color:#fff!important;font-weight:600;text-shadow:0 1px 4px rgba(0,0,0,.9);">&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p></div></footer>
 
-  <script defer src="assets/js/app.js?v=20261027-logo-pro2"></script>
+  <script defer src="assets/js/app.js?v=20261101-swipe1"></script>
   <script>
     (()=>{
       const buttons=[...document.querySelectorAll('[data-filter]')];
@@ -238,9 +238,6 @@ html body:not(.crm-body) header .main-nav>li>a.lrf-promo-cersaie-tab:focus{
       const formatEl=document.getElementById('realisation-lightbox-format');
       let lastFocused=null;
       let currentIndex=-1;
-      let touchStartX=0;
-      let touchStartY=0;
-      const SWIPE_THRESHOLD=48;
       const normalize=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
 
       const getVisibleCards=()=>cards.filter(card=>!card.hidden);
@@ -338,20 +335,12 @@ html body:not(.crm-body) header .main-nav>li>a.lrf-promo-cersaie-tab:focus{
         else if(e.key==='Escape')closeLightbox();
       });
 
-      lightbox.addEventListener('touchstart',e=>{
-        if(!lightbox.classList.contains('open')||!e.changedTouches?.length)return;
-        touchStartX=e.changedTouches[0].clientX;
-        touchStartY=e.changedTouches[0].clientY;
-      },{passive:true});
-
-      lightbox.addEventListener('touchend',e=>{
-        if(!lightbox.classList.contains('open')||!e.changedTouches?.length)return;
-        const dx=e.changedTouches[0].clientX-touchStartX;
-        const dy=e.changedTouches[0].clientY-touchStartY;
-        if(Math.abs(dx)>=SWIPE_THRESHOLD&&Math.abs(dx)>Math.abs(dy)*1.15){
-          go(dx<0?1:-1);
-        }
-      },{passive:true});
+      import('./assets/js/gallery-swipe.mjs?v=20261101-swipe1').then(({bindGallerySwipe})=>{
+        bindGallerySwipe(lightbox,{
+          onSwipe:go,
+          isEnabled:()=>lightbox.classList.contains('open')
+        });
+      }).catch(error=>console.warn('Navigation tactile des réalisations indisponible.',error));
 
       document.addEventListener('fullscreenchange',()=>{
         if(!document.fullscreenElement&&lightbox.classList.contains('open'))closeLightbox(true);

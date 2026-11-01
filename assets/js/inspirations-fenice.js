@@ -238,7 +238,7 @@
       const photo = $('.fenice-main-image',box);
       photo.addEventListener('error',()=>{ $('.fenice-image-error',box).hidden=false; });
       photo.addEventListener('load',()=>{ $('.fenice-image-error',box).hidden=true; });
-      swipe($('.fenice-gallery-stage',box),delta=>showImage(index+delta));
+      swipe($('.fenice-gallery-stage',box),delta=>showImage(index+delta),()=>images.length>1 && box.open);
       showImage(0);
     }
     box.onclick = e => {
@@ -279,10 +279,8 @@
     $('.fenice-image-prev',dialog).hidden=$('.fenice-image-next',dialog).hidden=images.length<2;
     if (lightbox?.open && lightboxMode === 'ambience') { lightboxIndex=index; renderLightbox(); }
   }
-  function swipe(element,move) {
-    let start;
-    element.addEventListener('touchstart',e=>{if(e.touches.length===1)start={x:e.touches[0].clientX,y:e.touches[0].clientY};},{passive:true});
-    element.addEventListener('touchend',e=>{if(!start||e.changedTouches.length!==1)return;const dx=e.changedTouches[0].clientX-start.x,dy=e.changedTouches[0].clientY-start.y;start=null;if(Math.abs(dx)>48&&Math.abs(dx)>Math.abs(dy)*1.4)move(dx<0?1:-1);},{passive:true});
+  function swipe(element,move,isEnabled=()=>true) {
+    return window.LRF_GALLERY_GESTURES?.bind(element,{onSwipe:move,isEnabled});
   }
   function moveLightbox(delta) {
     if (!lightboxImages.length) return;
@@ -308,7 +306,7 @@
       lightbox.addEventListener('close',()=>{ if(dialog?.open)lightboxTrigger?.focus({preventScroll:true}); });
       $('.fenice-lightbox-stage img',lightbox).addEventListener('error',()=>$('.fenice-image-error',lightbox).hidden=false);
       $('.fenice-lightbox-stage img',lightbox).addEventListener('load',()=>$('.fenice-image-error',lightbox).hidden=true);
-      swipe($('.fenice-lightbox-stage',lightbox),delta=>{if(!lightbox.classList.contains('fenice-zoomed'))moveLightbox(delta);});
+      swipe($('.fenice-lightbox-stage',lightbox),moveLightbox,()=>lightbox.open && lightboxImages.length>1 && !lightbox.classList.contains('fenice-zoomed'));
     }
     renderLightbox();
     if (!lightbox.open) lightbox.showModal();
