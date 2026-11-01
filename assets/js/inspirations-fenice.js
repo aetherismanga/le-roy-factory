@@ -22,6 +22,16 @@
       return {url, fullUrl:safeUrl(item.fullUrl || item.full) || url, thumbnail:safeUrl(item.thumbnail || item.thumb) || url, alt:item.alt || `${p.name} — La Fenice — ${p.effect || 'carrelage'}`};
     }).filter(Boolean);
   };
+  const swatchList = p => {
+    const seen = new Set();
+    return (p.swatches || []).map(item => {
+      const url = safeUrl(item?.image || item?.url || item?.src);
+      const name = String(item?.name || item?.color || '').trim();
+      if (!url || !name || seen.has(norm(name))) return null;
+      seen.add(norm(name));
+      return {url, fullUrl:safeUrl(item.original || item.fullUrl || item.full) || url, thumbnail:url, name, alt:item.alt || `${p.name} · ${name} — La Fenice`};
+    }).filter(Boolean);
+  };
   const sourceList = p => {
     const sources = Array.isArray(p.sources) ? p.sources.filter(s => safeUrl(s.url)).slice() : [];
     if (safeUrl(p.pdf) && !sources.some(s => s.url === p.pdf)) sources.push({label:`Catalogue ${p.name}`,url:p.pdf});
@@ -33,6 +43,15 @@
   let active = null;
   let index = 0;
   let images = [];
+  let swatches = [];
+  let lightboxImages = [];
+  let lightboxIndex = 0;
+  let lightboxMode = 'ambience';
+  let lightboxTrigger = null;
+  let tariffShown = false;
+  let tariffLoading = false;
+  let tariffError = '';
+  let tariffEpoch = 0;
   let lastTrigger = null;
   let previousOverflow = '';
   let pending = false;
@@ -123,12 +142,17 @@
       lightbox?.close();
       document.body.style.overflow = previousOverflow;
       active = null;
+      tariffShown = false;
+      tariffLoading = false;
+      tariffError = '';
+      tariffEpoch += 1;
+      $('.fenice-tariffs',dialog)?.replaceChildren();
       lastTrigger?.focus({preventScroll:true});
     });
     dialog.addEventListener('cancel', e => { e.preventDefault(); closeProduct(); });
     dialog.addEventListener('keydown', e => {
       if (e.key === 'Escape') { e.stopImmediatePropagation(); return; }
-      if (lightbox?.open) return;
+      if (lightbox?.open || e.target.closest?.('.fenice-swatches')) return;
       if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
         if (/INPUT|SELECT|TEXTAREA/.test(e.target.tagName)) return;
         e.preventDefault(); showImage(index + (e.key === 'ArrowRight' ? 1 : -1));
@@ -139,13 +163,56 @@
   function closeProduct() { if (dialog?.open) dialog.close(); }
   function requestLink(product) { return `fenice-demande.html?collection=${encodeURIComponent(product.slug)}`; }
   function priceLabel(product,format) {
-    if (!allowed()) return 'Accès PRO requis';
+    if (!tariffShown || !allowed()) return '—';
     const quote = window.LRF_FENICE_ACCESS?.getPrice?.(product,format);
-    if (quote && !quote.locked && !quote.unavailable) return String(quote.label || quote.amount || 'Sur demande');
-    return 'Consulter le tarif PRO';
+    if (!quote || quote.locked) return 'Tarif indisponible';
+    return String(quote.label || 'Sur demande');
+  }
+  function swatchHtml(product) {
+    if (!swatches.length) return (product.colors || []).length ? `<h3>Coloris</h3><div class="fenice-tags">${product.colors.map(c=>`<span>${esc(c)}</span>`).join('')}</div>` : '';
+    const covered = new Set(swatches.map(item => norm(item.name)));
+    const extra = (product.colors || []).filter(name => !covered.has(norm(name)));
+    return `<section class="fenice-color-section" aria-label="Coloris de ${esc(product.name)}"><h3>Coloris & matières <span>${swatches.length}</span></h3><p class="fenice-swatch-hint">Touchez un coloris pour l’agrandir.</p>${product.materialsNote ? `<p class="fenice-materials-note">${esc(product.materialsNote)}</p>` : ''}<div class="fenice-swatches">${swatches.map((item,i)=>`<button type="button" class="fenice-swatch" data-fenice-swatch="${i}" aria-label="Agrandir ${esc(product.name)} · ${esc(item.name)}"><img src="${esc(item.thumbnail)}" alt="${esc(item.alt)}" loading="lazy" decoding="async"><span>${esc(item.name)}</span></button>`).join('')}</div>${extra.length ? `<div class="fenice-tags fenice-extra-colors">${extra.map(name=>`<span>${esc(name)}</span>`).join('')}</div>` : ''}</section>`;
   }
   function tariffHtml(product) {
-    return `<section class="fenice-tariffs" aria-label="Formats et tarifs professionnels"><h3>Formats & tarifs professionnels</h3>${(product.formats || []).length ? `<div class="fenice-format-table"><table><thead><tr><th scope="col">Format</th><th scope="col">Tarif PRO</th></tr></thead><tbody>${product.formats.map(f => `<tr><td>${esc(f)} cm</td><td>${esc(priceLabel(product,f))}</td></tr>`).join('')}</tbody></table></div>` : '<p>Formats détaillés dans la fiche catalogue.</p>'}${allowed() ? '<button class="fenice-button fenice-button-secondary" data-fenice-tariff type="button">Ouvrir mon tarif PRO La Fenice</button>' : '<p class="fenice-access-note">Tarifs réservés aux professionnels disposant de l’accès La Fenice. <a href="tarifs-pro.html">Se connecter à l’espace PRO</a></p>'}<p class="fenice-tariff-status" role="status" aria-live="polite"></p></section>`;
+    const access = allowed();
+    const show = tariffShown && access;
+    const status = tariffLoading ? 'Vérification de votre accès et chargement des montants…' : tariffError || '';
+    return `<section class="fenice-tariffs" aria-label="Formats et tarifs professionnels"><div class="fenice-tariff-heading"><h3 data-lrf-tariff-toggle="1">Formats & tarifs professionnels</h3>${access ? `<button class="fenice-tariff-toggle" type="button" data-fenice-price-toggle aria-controls="fenice-price-table" aria-expanded="${show}"${tariffLoading ? ' disabled aria-busy="true"' : ''}>${tariffLoading ? 'Chargement…' : show ? 'Cacher' : 'Voir'}</button>` : ''}</div>${(product.formats || []).length ? `<div class="fenice-format-table"><table id="fenice-price-table" data-lrf-tariff-controlled="fenice"><thead><tr><th scope="col">Format</th><th scope="col">Tarif PRO</th></tr></thead><tbody>${product.formats.map(f => `<tr><td>${esc(f)} cm</td><td${show ? '' : ' class="fenice-price-masked"'}>${esc(priceLabel(product,f))}</td></tr>`).join('')}</tbody></table></div>` : '<p>Formats détaillés dans la fiche catalogue.</p>'}${access ? `${!show && !tariffLoading && !tariffError ? '<p class="fenice-access-note">Appuyez sur « Voir » pour afficher vos tarifs.</p>' : ''}<button class="fenice-button fenice-button-secondary" data-fenice-tariff type="button">Ouvrir mon tarif PRO La Fenice</button>` : '<p class="fenice-access-note">Tarifs réservés aux professionnels disposant de l’accès La Fenice. <a href="tarifs-pro.html">Se connecter à l’espace PRO</a></p>'}<p class="fenice-tariff-status" role="status" aria-live="polite">${esc(status)}</p></section>`;
+  }
+  function refreshTariffs() {
+    if (!active || !dialog?.open) return;
+    const section = $('.fenice-tariffs',dialog);
+    if (!section) return;
+    const focusedToggle = document.activeElement?.matches?.('[data-fenice-price-toggle]');
+    const epoch = tariffEpoch;
+    const html = tariffHtml(active);
+    section.outerHTML = epoch === tariffEpoch ? html : tariffHtml(active);
+    if (focusedToggle) $('[data-fenice-price-toggle]',dialog)?.focus({preventScroll:true});
+  }
+  async function togglePrices() {
+    if (!active || tariffLoading) return;
+    const epoch = ++tariffEpoch, product = active;
+    tariffError = '';
+    if (tariffShown) {
+      tariffShown = false;
+      refreshTariffs();
+      return;
+    }
+    tariffLoading = true;
+    refreshTariffs();
+    try {
+      if (!allowed() || !window.LRF_FENICE_ACCESS?.loadPrices) throw Error('Connectez-vous à votre espace PRO pour consulter les montants.');
+      await window.LRF_FENICE_ACCESS.loadPrices();
+      if (epoch !== tariffEpoch || active !== product || !dialog?.open || !allowed()) return;
+      tariffShown = true;
+    } catch (error) {
+      if (epoch !== tariffEpoch || active !== product) return;
+      tariffShown = false;
+      tariffError = error.message || 'Les montants sont momentanément indisponibles. Appuyez sur « Voir » pour réessayer.';
+    } finally {
+      if (epoch === tariffEpoch && active === product) { tariffLoading = false; refreshTariffs(); }
+    }
   }
   function openCollection(id,trigger) {
     const p = products().find(p => p.id === id || p.slug === id);
@@ -153,23 +220,30 @@
     const box = createDialog();
     const alreadyOpen = box.open;
     if (!alreadyOpen) { lastTrigger = trigger || document.activeElement; previousOverflow = document.body.style.overflow; }
-    active = p; images = imageList(p); index = 0;
+    active = p; images = imageList(p); swatches = swatchList(p); index = 0;
+    tariffShown = false; tariffLoading = false; tariffError = ''; tariffEpoch += 1;
     const sources = sourceList(p);
-    box.innerHTML = `<div class="fenice-dialog-header"><div><span class="fenice-eyebrow">LA FENICE · ${esc(p.effect || 'Carrelage italien')}</span><h2 id="fenice-product-title">${esc(p.name)}</h2></div><button type="button" class="fenice-close" aria-label="Fermer la collection">×</button></div><div class="fenice-dialog-body"><section class="fenice-gallery" aria-label="Visuels de ${esc(p.name)}">${images.length ? '<div class="fenice-gallery-stage"><button type="button" class="fenice-gallery-expand" aria-label="Agrandir le visuel en plein écran"><img class="fenice-main-image" alt=""><span>⤢ Plein écran</span></button><button type="button" class="fenice-image-prev" aria-label="Visuel précédent">‹</button><button type="button" class="fenice-image-next" aria-label="Visuel suivant">›</button><span class="fenice-image-count" aria-live="polite"></span><p class="fenice-image-error" hidden>Ce visuel est momentanément indisponible. Consultez le suivant ou le catalogue.</p></div><div class="fenice-thumbnails"></div><p class="fenice-image-caption"></p>' : '<p class="fenice-no-image">Consultez les visuels dans le catalogue de cette collection.</p>'}</section><div class="fenice-product-info"><p class="fenice-description">${esc(p.description || `Découvrez les formats, coloris et visuels de la collection ${p.name} de La Fenice.`)}</p>${(p.colors || []).length ? `<h3>Coloris</h3><div class="fenice-tags">${p.colors.map(c=>`<span>${esc(c)}</span>`).join('')}</div>` : ''}${(p.finishes || []).length ? `<h3>Finitions</h3><div class="fenice-tags">${p.finishes.map(f=>`<span>${esc(f)}</span>`).join('')}</div>` : ''}${tariffHtml(p)}<section class="fenice-sources"><h3>Pages & catalogues</h3>${sources.length ? sources.map(s => `<a class="fenice-source-link" href="${esc(safeUrl(s.url))}${s.page && !String(s.url).includes('#') ? `#page=${encodeURIComponent(s.page)}` : ''}" target="_blank" rel="noopener">${esc(sourceText(s))}<span aria-hidden="true">↗</span></a>`).join('') : ''}${safeUrl(p.sourceUrl) ? `<a class="fenice-text-link" href="${esc(safeUrl(p.sourceUrl))}" target="_blank" rel="noopener">Fiche technique du fabricant ↗</a>` : ''}</section></div></div><div class="fenice-dialog-actions"><a class="fenice-button" href="${requestLink(p)}">${allowed() ? 'Préparer ma commande' : 'Demander un renseignement'}</a><a class="fenice-text-link" href="la-fenice-${esc(encodeURIComponent(p.slug))}.html">Voir la fiche collection →</a></div>`;
+    box.innerHTML = `<div class="fenice-dialog-header"><div><span class="fenice-eyebrow">LA FENICE · ${esc(p.effect || 'Carrelage italien')}</span><h2 id="fenice-product-title">${esc(p.name)}</h2></div><button type="button" class="fenice-close" aria-label="Fermer la collection">×</button></div><div class="fenice-dialog-body"><section class="fenice-gallery" aria-label="Visuels de ${esc(p.name)}">${images.length ? '<div class="fenice-gallery-stage"><button type="button" class="fenice-gallery-expand" aria-label="Agrandir le visuel en plein écran"><img class="fenice-main-image" alt=""><span>⤢ Plein écran</span></button><button type="button" class="fenice-image-prev" aria-label="Visuel précédent">‹</button><button type="button" class="fenice-image-next" aria-label="Visuel suivant">›</button><span class="fenice-image-count" aria-live="polite"></span><p class="fenice-image-error" hidden>Ce visuel est momentanément indisponible. Consultez le suivant ou le catalogue.</p></div><div class="fenice-thumbnails"></div><p class="fenice-image-caption"></p>' : '<p class="fenice-no-image">Consultez les visuels dans le catalogue de cette collection.</p>'}</section><div class="fenice-product-info"><p class="fenice-description">${esc(p.description || `Découvrez les formats, coloris et visuels de la collection ${p.name} de La Fenice.`)}</p>${swatchHtml(p)}${(p.finishes || []).length ? `<h3>Finitions</h3><div class="fenice-tags">${p.finishes.map(f=>`<span>${esc(f)}</span>`).join('')}</div>` : ''}${tariffHtml(p)}<section class="fenice-sources"><h3>Pages & catalogues</h3>${sources.length ? sources.map(s => `<a class="fenice-source-link" href="${esc(safeUrl(s.url))}${s.page && !String(s.url).includes('#') ? `#page=${encodeURIComponent(s.page)}` : ''}" target="_blank" rel="noopener">${esc(sourceText(s))}<span aria-hidden="true">↗</span></a>`).join('') : ''}${safeUrl(p.sourceUrl) ? `<a class="fenice-text-link" href="${esc(safeUrl(p.sourceUrl))}" target="_blank" rel="noopener">Fiche technique du fabricant ↗</a>` : ''}</section></div></div><div class="fenice-dialog-actions"><a class="fenice-button" href="${requestLink(p)}">${allowed() ? 'Préparer ma commande' : 'Demander un renseignement'}</a><a class="fenice-text-link" href="la-fenice-${esc(encodeURIComponent(p.slug))}.html">Voir la fiche collection →</a></div>`;
     $('.fenice-close',box).addEventListener('click',closeProduct);
     if (images.length) {
       $('.fenice-thumbnails',box).innerHTML = images.map((image,i) => `<button type="button" data-fenice-image="${i}" aria-label="Visuel ${i+1} de ${esc(p.name)}" aria-pressed="false"><img src="${esc(image.thumbnail)}" alt="" loading="lazy"></button>`).join('');
       $('.fenice-thumbnails',box).addEventListener('click',e => { const button = e.target.closest('[data-fenice-image]'); if (button) showImage(Number(button.dataset.feniceImage)); });
       $('.fenice-image-prev',box).addEventListener('click',()=>showImage(index-1));
       $('.fenice-image-next',box).addEventListener('click',()=>showImage(index+1));
-      $('.fenice-gallery-expand',box).addEventListener('click',openLightbox);
+      $('.fenice-gallery-expand',box).addEventListener('click',e=>openLightbox(images,index,e.currentTarget,'ambience'));
       const photo = $('.fenice-main-image',box);
       photo.addEventListener('error',()=>{ $('.fenice-image-error',box).hidden=false; });
       photo.addEventListener('load',()=>{ $('.fenice-image-error',box).hidden=true; });
       swipe($('.fenice-gallery-stage',box),delta=>showImage(index+delta));
       showImage(0);
     }
-    $('[data-fenice-tariff]',box)?.addEventListener('click',openTariff);
+    box.onclick = e => {
+      const swatch = e.target.closest?.('[data-fenice-swatch]');
+      if (swatch) openLightbox(swatches,Number(swatch.dataset.feniceSwatch),swatch,'swatch');
+      if (e.target.closest?.('[data-fenice-price-toggle]')) togglePrices();
+      const tariff = e.target.closest?.('[data-fenice-tariff]');
+      if (tariff) openTariff(tariff);
+    };
     if (!alreadyOpen) box.showModal();
     document.body.style.overflow = 'hidden';
     box.scrollTop = 0;
@@ -177,8 +251,7 @@
     window.dispatchEvent(new CustomEvent('lrf-fenice-product-opened',{detail:{product:p}}));
     return true;
   }
-  async function openTariff(e) {
-    const button=e.currentTarget;
+  async function openTariff(button) {
     const status=$('.fenice-tariff-status',dialog);
     button.disabled=true;
     status.textContent='Vérification de votre accès…';
@@ -200,15 +273,22 @@
     $('.fenice-image-caption',dialog).textContent=image.alt;
     dialog.querySelectorAll('[data-fenice-image]').forEach(button=>button.setAttribute('aria-pressed',String(Number(button.dataset.feniceImage)===index)));
     $('.fenice-image-prev',dialog).hidden=$('.fenice-image-next',dialog).hidden=images.length<2;
-    if (lightbox?.open) renderLightbox();
+    if (lightbox?.open && lightboxMode === 'ambience') { lightboxIndex=index; renderLightbox(); }
   }
   function swipe(element,move) {
     let start;
     element.addEventListener('touchstart',e=>{if(e.touches.length===1)start={x:e.touches[0].clientX,y:e.touches[0].clientY};},{passive:true});
     element.addEventListener('touchend',e=>{if(!start||e.changedTouches.length!==1)return;const dx=e.changedTouches[0].clientX-start.x,dy=e.changedTouches[0].clientY-start.y;start=null;if(Math.abs(dx)>48&&Math.abs(dx)>Math.abs(dy)*1.4)move(dx<0?1:-1);},{passive:true});
   }
-  function openLightbox() {
-    if (!images.length) return;
+  function moveLightbox(delta) {
+    if (!lightboxImages.length) return;
+    lightboxIndex=(lightboxIndex+delta+lightboxImages.length)%lightboxImages.length;
+    if (lightboxMode === 'ambience') showImage(lightboxIndex);
+    else renderLightbox();
+  }
+  function openLightbox(items=images,next=index,trigger=null,mode='ambience') {
+    if (!items.length) return;
+    lightboxImages=items; lightboxIndex=next; lightboxTrigger=trigger; lightboxMode=mode;
     if (!lightbox) {
       lightbox=document.createElement('dialog');
       lightbox.id='fenice-lightbox';
@@ -218,19 +298,20 @@
       document.body.appendChild(lightbox);
       $('.fenice-close',lightbox).addEventListener('click',()=>lightbox.close());
       $('.fenice-zoom',lightbox).addEventListener('click',()=>{const zoomed=lightbox.classList.toggle('fenice-zoomed');$('.fenice-zoom',lightbox).setAttribute('aria-pressed',String(zoomed));$('.fenice-zoom',lightbox).textContent=zoomed?'Réduire':'Zoom +';});
-      $('.fenice-image-prev',lightbox).addEventListener('click',()=>showImage(index-1));
-      $('.fenice-image-next',lightbox).addEventListener('click',()=>showImage(index+1));
-      lightbox.addEventListener('keydown',e=>{if(e.key==='Escape'){e.stopImmediatePropagation();return;}if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();e.stopImmediatePropagation();showImage(index+(e.key==='ArrowRight'?1:-1));}});
-      lightbox.addEventListener('close',()=>$('.fenice-gallery-expand',dialog)?.focus({preventScroll:true}));
+      $('.fenice-image-prev',lightbox).addEventListener('click',()=>moveLightbox(-1));
+      $('.fenice-image-next',lightbox).addEventListener('click',()=>moveLightbox(1));
+      lightbox.addEventListener('keydown',e=>{if(e.key==='Escape'){e.stopImmediatePropagation();return;}if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();e.stopImmediatePropagation();moveLightbox(e.key==='ArrowRight'?1:-1);}});
+      lightbox.addEventListener('close',()=>{ if(dialog?.open)lightboxTrigger?.focus({preventScroll:true}); });
       $('.fenice-lightbox-stage img',lightbox).addEventListener('error',()=>$('.fenice-image-error',lightbox).hidden=false);
       $('.fenice-lightbox-stage img',lightbox).addEventListener('load',()=>$('.fenice-image-error',lightbox).hidden=true);
-      swipe($('.fenice-lightbox-stage',lightbox),delta=>{if(!lightbox.classList.contains('fenice-zoomed'))showImage(index+delta);});
+      swipe($('.fenice-lightbox-stage',lightbox),delta=>{if(!lightbox.classList.contains('fenice-zoomed'))moveLightbox(delta);});
     }
     renderLightbox();
-    lightbox.showModal();
+    if (!lightbox.open) lightbox.showModal();
   }
   function renderLightbox() {
-    const item=images[index];
+    const item=lightboxImages[lightboxIndex];
+    if (!item || !active) return;
     lightbox.classList.remove('fenice-zoomed');
     $('.fenice-zoom',lightbox).textContent='Zoom +';
     $('.fenice-zoom',lightbox).setAttribute('aria-pressed','false');
@@ -238,8 +319,8 @@
     const photo=$('.fenice-lightbox-stage img',lightbox);
     photo.src=item.fullUrl;photo.alt=item.alt;
     $('.fenice-image-error',lightbox).hidden=true;
-    $('.fenice-lightbox-caption',lightbox).textContent=`${item.alt} · ${index+1} / ${images.length}`;
-    $('.fenice-image-prev',lightbox).hidden=$('.fenice-image-next',lightbox).hidden=images.length<2;
+    $('.fenice-lightbox-caption',lightbox).textContent=`${item.alt} · ${lightboxIndex+1} / ${lightboxImages.length}`;
+    $('.fenice-image-prev',lightbox).hidden=$('.fenice-image-next',lightbox).hidden=lightboxImages.length<2;
   }
   document.addEventListener('click', e => {
     const card=e.target.closest?.('#partner-products .product-card-v2[data-id^="fenice-"]');
@@ -251,10 +332,17 @@
     if(!card||!isFenice()||(e.key!=='Enter'&&e.key!==' '))return;
     e.preventDefault();e.stopImmediatePropagation();openCollection(card.dataset.id,card);
   },true);
-  ['lrf-pro-session-changed','lrf-agent-tariffs-ready'].forEach(name=>window.addEventListener(name,()=>{
-    if(active&&dialog?.open)openCollection(active.id,lastTrigger);
-    schedule();
-  }));
+  window.addEventListener('lrf-pro-session-changed',()=>{
+    tariffEpoch += 1; tariffShown = false; tariffLoading = false; tariffError = '';
+    refreshTariffs(); schedule();
+  });
+  window.addEventListener('lrf-fenice-prices-changed',event=>{
+    if (['idle','cleared'].includes(event.detail?.state) || !allowed()) {
+      tariffEpoch += 1; tariffShown = false; tariffLoading = false; tariffError = '';
+    }
+    refreshTariffs();
+  });
+  window.addEventListener('lrf-agent-tariffs-ready',schedule);
   ['lrf-fenice-data-ready','lrf-selections-fenice-ready','pageshow'].forEach(name=>window.addEventListener(name,schedule));
   const grid=$('#partner-products'), title=$('#workspace-title');
   if(grid)new MutationObserver(schedule).observe(grid,{childList:true});

@@ -50,6 +50,18 @@ def images(product):
                         'alt': plain(image.get('alt')) if isinstance(image, dict) else ''})
     return out
 
+def swatches(product):
+    seen = set()
+    out = []
+    for item in product.get('swatches', []):
+        name = plain(item.get('name'))
+        image = safe_url(item.get('image'))
+        original = safe_url(item.get('original')) or image
+        if name and image and norm(name) not in seen:
+            seen.add(norm(name))
+            out.append({'name':name,'image':image,'original':original,'alt':plain(item.get('alt')) or f"{product['name']} · {name} — La Fenice"})
+    return out
+
 def exact_format(value):
     value = norm(value).replace('×', 'x').replace(',', '.')
     m = re.fullmatch(r'\s*(\d+(?:\.\d+)?)\s*x\s*(\d+(?:\.\d+)?)\s*(?:cm)?\s*', value)
@@ -98,8 +110,8 @@ def source_label(source):
 
 CSS = '''
 :root{--seo-ink:#29262a;--seo-muted:#6d6660;--seo-paper:#f7f4ee;--seo-white:#fffdf9;--seo-dark:#722d3a;--seo-gold:#876222}.seo-button:hover{background:#58222d}.seo-card>a:first-child{display:block;text-decoration:none}.seo-card>a:first-child img{display:block;width:100%;height:220px;object-fit:cover;border-radius:7px;margin-bottom:18px}.seo-card h3{color:#3c2c2e}
-.fenice-tools{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px;margin:22px 0}.fenice-tools label{display:grid;gap:7px;font-weight:700}.fenice-tools input,.fenice-tools select{min-width:0;width:100%;padding:12px;border:1px solid #cbbf9f;border-radius:10px;font:inherit;background:#fff;color:#252529}.fenice-tags{display:flex;gap:8px;flex-wrap:wrap;padding:0;list-style:none}.fenice-tags li{padding:7px 11px;border:1px solid #d7cdbb;border-radius:8px;background:#fff}.fenice-jump{display:flex;gap:7px;flex-wrap:wrap;margin:18px 0}.fenice-jump a{padding:7px 11px;background:#fff;border:1px solid #d7cdbb;border-radius:6px;text-decoration:none}.fenice-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.fenice-gallery figure{margin:0}.fenice-gallery a{display:block;background:#f0ece4;border-radius:12px;overflow:hidden}.fenice-gallery img{display:block;width:100%;height:auto;max-height:550px;object-fit:contain}.fenice-gallery figcaption{padding:8px 0;color:#68615b;font-size:.87rem}.fenice-catalogues{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}.fenice-catalogues a{padding:14px;border:1px solid #d7cdbb;border-radius:10px;background:#fff;text-decoration:none}.fenice-catalogues strong{display:block}.fenice-count{color:#68615b}.fenice-source-list{padding-left:22px}.fenice-source-list li{margin:10px 0}.fenice-summary{max-width:900px}.seo-card[hidden]{display:none!important}.fenice-tools button{cursor:pointer}.fenice-no-image{display:grid;place-items:center;min-height:180px;background:#f0ece4;color:#68615b}.fenice-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.fenice-facts div{padding:18px;background:#fff;border:1px solid #e5dfd4;border-radius:12px}.fenice-facts dt{font-weight:800;margin-bottom:8px}.fenice-facts dd{margin:0}.fenice-detail-header{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:center}.fenice-detail-header img{width:100%;max-height:510px;object-fit:cover;border-radius:15px}.fenice-formats a{margin-right:8px}.fenice-collection-table{width:100%;border-collapse:collapse}.fenice-collection-table td,.fenice-collection-table th{padding:12px;border-bottom:1px solid #e0d7c7;text-align:left}.fenice-collection-table th{background:#f3eee4}.fenice-reset{padding:10px 15px;border:1px solid #cbbf9f;border-radius:8px;background:#fff;color:#382e30;font:inherit}.fenice-details{padding:18px;border:1px solid #d7cdbb;border-radius:12px}.fenice-details summary{font-weight:800;cursor:pointer}.fenice-letter{grid-column:1/-1;margin:26px 0 2px}.fenice-letter h3{font-size:1.5rem;margin:0;color:#722d3a}
-@media(max-width:720px){.fenice-tools,.fenice-detail-header{grid-template-columns:1fr}.fenice-tools{gap:15px}.fenice-gallery,.fenice-catalogues,.fenice-facts{grid-template-columns:1fr}.fenice-detail-header{gap:20px}.fenice-detail-header img{max-height:380px}.seo-nav{flex-wrap:wrap}.fenice-collection-table{font-size:.92rem}.fenice-collection-table td,.fenice-collection-table th{padding:9px}}
+.fenice-swatches{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}.fenice-swatches figure{margin:0;min-width:0;padding:6px;border:1px solid #e0d7c7;border-radius:12px;background:#fffdf9}.fenice-swatches a{display:block}.fenice-swatches img{display:block;width:100%;aspect-ratio:1;object-fit:cover;border-radius:7px}.fenice-swatches figcaption{padding:9px 5px 5px;font-weight:700;font-size:.87rem;line-height:1.4;overflow-wrap:anywhere}.fenice-swatches a:focus-visible{outline:3px solid #876222;outline-offset:3px}.fenice-materials-note{color:#6d6660;font-size:.88rem;line-height:1.6}.fenice-tools{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px;margin:22px 0}.fenice-tools label{display:grid;gap:7px;font-weight:700}.fenice-tools input,.fenice-tools select{min-width:0;width:100%;padding:12px;border:1px solid #cbbf9f;border-radius:10px;font:inherit;background:#fff;color:#252529}.fenice-tags{display:flex;gap:8px;flex-wrap:wrap;padding:0;list-style:none}.fenice-tags li{padding:7px 11px;border:1px solid #d7cdbb;border-radius:8px;background:#fff}.fenice-jump{display:flex;gap:7px;flex-wrap:wrap;margin:18px 0}.fenice-jump a{padding:7px 11px;background:#fff;border:1px solid #d7cdbb;border-radius:6px;text-decoration:none}.fenice-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.fenice-gallery figure{margin:0}.fenice-gallery a{display:block;background:#f0ece4;border-radius:12px;overflow:hidden}.fenice-gallery img{display:block;width:100%;height:auto;max-height:550px;object-fit:contain}.fenice-gallery figcaption{padding:8px 0;color:#68615b;font-size:.87rem}.fenice-catalogues{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}.fenice-catalogues a{padding:14px;border:1px solid #d7cdbb;border-radius:10px;background:#fff;text-decoration:none}.fenice-catalogues strong{display:block}.fenice-count{color:#68615b}.fenice-source-list{padding-left:22px}.fenice-source-list li{margin:10px 0}.fenice-summary{max-width:900px}.seo-card[hidden]{display:none!important}.fenice-tools button{cursor:pointer}.fenice-no-image{display:grid;place-items:center;min-height:180px;background:#f0ece4;color:#68615b}.fenice-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.fenice-facts div{padding:18px;background:#fff;border:1px solid #e5dfd4;border-radius:12px}.fenice-facts dt{font-weight:800;margin-bottom:8px}.fenice-facts dd{margin:0}.fenice-detail-header{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:center}.fenice-detail-header img{width:100%;max-height:510px;object-fit:cover;border-radius:15px}.fenice-formats a{margin-right:8px}.fenice-collection-table{width:100%;border-collapse:collapse}.fenice-collection-table td,.fenice-collection-table th{padding:12px;border-bottom:1px solid #e0d7c7;text-align:left}.fenice-collection-table th{background:#f3eee4}.fenice-reset{padding:10px 15px;border:1px solid #cbbf9f;border-radius:8px;background:#fff;color:#382e30;font:inherit}.fenice-details{padding:18px;border:1px solid #d7cdbb;border-radius:12px}.fenice-details summary{font-weight:800;cursor:pointer}.fenice-letter{grid-column:1/-1;margin:26px 0 2px}.fenice-letter h3{font-size:1.5rem;margin:0;color:#722d3a}
+@media(max-width:720px){.fenice-swatches{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.fenice-tools,.fenice-detail-header{grid-template-columns:1fr}.fenice-tools{gap:15px}.fenice-gallery,.fenice-catalogues,.fenice-facts{grid-template-columns:1fr}.fenice-detail-header{gap:20px}.fenice-detail-header img{max-height:380px}.seo-nav{flex-wrap:wrap}.fenice-collection-table{font-size:.92rem}.fenice-collection-table td,.fenice-collection-table th{padding:9px}}
 '''
 
 def breadcrumb(items):
@@ -172,6 +184,12 @@ def build_collection(product, products):
     gallery = ''
     if photo:
         gallery = f'<section class="seo-section"><h2>Visuels {esc(name)}</h2><p>Ouvrez une image pour la consulter en grand format, ou retrouvez la galerie interactive dans la sélection.</p><div class="fenice-gallery">' + ''.join(f'<figure><a href="{esc(p["url"])}" target="_blank" rel="noopener" aria-label="Agrandir {esc(name)}, visuel {i+1}"><img src="{esc(p["thumbnail"])}" alt="{esc(p["alt"] or name + " — La Fenice — " + effect + " — visuel " + str(i+1))}" loading="lazy" decoding="async"></a><figcaption>{esc(p["alt"] or name + " · visuel fabricant " + str(i+1))}</figcaption></figure>' for i, p in enumerate(photo)) + '</div></section>'
+    palette = swatches(product)
+    color_gallery = ''
+    if palette:
+        material_note = f'<p class="fenice-materials-note">{esc(product["materialsNote"])}</p>' if product.get('materialsNote') else ''
+        color_gallery = f'<section class="seo-section"><h2>Coloris et matières {esc(name)}</h2><p>Ouvrez chaque visuel pour le consulter en grand format.</p>{material_note}<div class="fenice-swatches">' + ''.join(f'<figure><a href="{esc(item["original"])}" target="_blank" rel="noopener" aria-label="Agrandir {esc(name)} · {esc(item["name"])}"><img src="{esc(item["image"])}" alt="{esc(item["alt"])}" loading="lazy" decoding="async" width="300" height="300"></a><figcaption>{esc(item["name"])}</figcaption></figure>' for item in palette) + '</div></section>'
+    pricing = f'<section class="seo-section"><h2>Tarifs professionnels {esc(name)}</h2><p>Connectez-vous avec votre compte autorisé, ouvrez cette collection dans la sélection puis appuyez sur « Voir » pour afficher les montants par format.</p><div class="seo-actions"><a class="seo-button" href="{esc(query_link(product))}">Voir mes tarifs professionnels</a><a class="seo-button secondary" href="/tarifs-pro.html">Mon accès PRO</a></div></section>'
     source_items = []
     seen_sources = set()
     sources = product.get('sources', [])[:]
@@ -190,13 +208,13 @@ def build_collection(product, products):
     crumbs = [('Accueil', ''), ('La Fenice', INDEX), (name, product_path(product))]
     schema_product = {'@type': 'Product', '@id': ORIGIN + product_path(product) + '#collection', 'name': name,
                       'brand': {'@type': 'Brand', 'name': 'La Fenice Ceramiche'}, 'category': effect, 'url': ORIGIN + product_path(product)}
-    if photo:
-        schema_product['image'] = [p['url'] for p in photo]
+    if photo or palette:
+        schema_product['image'] = list(dict.fromkeys([p['url'] for p in photo]+[item['original'] for item in palette]))
     if formats:
         schema_product['additionalProperty'] = [{'@type': 'PropertyValue', 'name': 'Dimensions proposées' if home else 'Formats de la collection', 'value': list_text([fmt(f) for f in formats])}]
     if colors:
         schema_product['color'] = ', '.join(colors)
-    return page(title, description, product_path(product), hero + facts + gallery + documents + project_block(product) + related_html, cover or BRAND, crumbs, schema_product)
+    return page(title, description, product_path(product), hero + facts + gallery + color_gallery + pricing + documents + project_block(product) + related_html, cover or BRAND, crumbs, schema_product)
 
 FILTER_JS = '''
 <script>
@@ -257,7 +275,7 @@ def main():
     for p in products:
         path = product_path(p)
         (ROOT/path).write_text(build_collection(p, products))
-        entries.append({'path':path,'url':ORIGIN+path,'type':'collection','slug':p['slug'],'name':p['name'],'images':list(dict.fromkeys([cover_image(p)]+[im['url'] for im in images(p)]))})
+        entries.append({'path':path,'url':ORIGIN+path,'type':'collection','slug':p['slug'],'name':p['name'],'images':list(dict.fromkeys([cover_image(p)]+[im['url'] for im in images(p)]+[item['original'] for item in swatches(p)]))})
     (ROOT/INDEX).write_text(build_index(products, catalogues, format_pages))
     entries.insert(0, {'path':INDEX,'url':ORIGIN+INDEX,'type':'index'})
     for f,path in format_pages.items():

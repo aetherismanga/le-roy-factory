@@ -4,9 +4,12 @@ const ADMINS=new Set(['jerome@leroyfactory.fr','coryne@leroyfactory.fr']);
 const FIREBASE_KEY='AIzaSyA3iuK5Ua8kFccURSqLihLshHnhA4rm2is';
 const PRO_SESSION_URL='https://us-central1-le-roy-factory.cloudfunctions.net/validateProSession';
 const CLIENT_TARIFF_PARTNERS=Object.freeze(['elios-ceramica','view-ceramica']);
+const FENICE_PARTNER='la-fenice';
+const PRIVATE_CACHE_TTL=300000;
 const MAX_BYTES=2*1024*1024;
 const ALLOWED_ORIGINS=new Set(['https://leroyfactory.fr','https://www.leroyfactory.fr','https://le-roy-factory.vercel.app','https://randal-catalogue-general-3d.vercel.app']);
 let cacheKey='',cacheValue=null;
+let feniceCacheKey='',feniceCacheValue=null;
 
 export const normaliseTariffSlug=value=>String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');
 export function tariffKey(slug,format){
@@ -34,6 +37,16 @@ export function readAgentTariffs(url){
  try{if(statSync(url).size>MAX_BYTES*2)throw Error('Unavailable');cacheValue=decodeAgentTariffs(JSON.parse(readFileSync(url,'utf8')),key);return cacheValue;}catch{return null;}
 }
 
+// La Fenice uses its own deployment secret and envelope so an update cannot
+// replace or invalidate the existing Elios/View/Randal private catalogue.
+export function readFeniceTariffs(url){
+ const key=process.env.LRF_FENICE_TARIFFS_KEY||'';
+ if(key!==feniceCacheKey){feniceCacheKey=key;feniceCacheValue=null;}
+ if(feniceCacheValue)return feniceCacheValue;
+ if(!key)return null;
+ try{if(statSync(url).size>MAX_BYTES*2)throw Error('Unavailable');feniceCacheValue=decodeAgentTariffs(JSON.parse(readFileSync(url,'utf8')),key);return feniceCacheValue;}catch{return null;}
+}
+
 // Google accounts:lookup validates the ID token. Identity is then checked
 // against the live allowlisted account and revocation timestamp, matching
 // functions/auth.js. Existing password agents do not require a separate email
@@ -56,7 +69,7 @@ export async function verifyAgentToken(header,{request=fetch,now=Date.now()}={})
 // Reuse the existing Firebase session authority. It checks the opaque token's
 // hash, expiry/revocation and current client record, including live permissions.
 // Browser-supplied customer IDs, roles and partner lists are never authoritative.
-export async function verifyClientToken(token,{request=fetch,now=Date.now()}={}){
+export async function verifyClientToken(token,{request=fetch,now=Date.now(),includeFenice=false}={}){
  if(typeof token!=='string'||!/^[A-Za-z0-9_-]{43}$/.test(token))return null;
  let response,data;
  try{
@@ -68,11 +81,28 @@ export async function verifyClientToken(token,{request=fetch,now=Date.now()}={})
  const client=data?.client;
  if(data?.success!==true||!Number.isFinite(data.expiresAt)||data.expiresAt<=now||!client||!/^LRF-\d{5}$/.test(client.codeClient||'')||client.codeClient==='LRF-00001'||!/^(?:\d{2,3}|2A|2B)$/.test(client.departement||'')||!Array.isArray(client.partenaires)||client.partenaires.length>100||client.partenaires.some(p=>typeof p!=='string'||p.length>120))return null;
  const partners=new Set(client.partenaires.map(normaliseTariffSlug));
- const allowedPartners=CLIENT_TARIFF_PARTNERS.filter(partner=>[normaliseTariffSlug(partner),partner==='elios-ceramica'?'elios':'view'].some(alias=>partners.has(alias)));
+ const requestedPartners=includeFenice?[...CLIENT_TARIFF_PARTNERS,FENICE_PARTNER]:CLIENT_TARIFF_PARTNERS;
+ const allowedPartners=requestedPartners.filter(partner=>[normaliseTariffSlug(partner),...(partner==='elios-ceramica'?['elios']:partner==='view-ceramica'?['view']:[])].some(alias=>partners.has(alias)));
  return {allowedPartners,expiresAt:data.expiresAt};
 }
 
-export function createAgentTariffsHandler({verify=verifyAgentToken,verifyClient=verifyClientToken,read}={}){
+// Project only the expected commercial row fields; an encrypted envelope must
+// never turn into an unrestricted export of internal document metadata.
+function feniceRows(value){
+ if(!Array.isArray(value)||!value.length||value.length>10000)return null;
+ const strings=['collection','description','detail','format','unit','condition','source'];
+ const rows=[];
+ for(const row of value){
+  if(!row||typeof row!=='object'||Array.isArray(row)||!Number.isFinite(row.amount)||row.amount<0||row.amount>1000000||!Number.isSafeInteger(row.page)||row.page<1||row.page>10000)return null;
+  if(strings.some(key=>row[key]!==undefined&&(typeof row[key]!=='string'||row[key].length>1000))||typeof row.description!=='string'||typeof row.format!=='string'||!row.format.trim()||typeof row.unit!=='string')return null;
+  const output={amount:row.amount,page:row.page};
+  for(const key of strings)if(row[key]!==undefined)output[key]=row[key];
+  rows.push(output);
+ }
+ return Buffer.byteLength(JSON.stringify(rows))<=MAX_BYTES?rows:null;
+}
+
+export function createAgentTariffsHandler({verify=verifyAgentToken,verifyClient=verifyClientToken,read,readFenice}={}){
  return async(req,res)=>{
   res.setHeader('Cache-Control','private, no-store, max-age=0');res.setHeader('Pragma','no-cache');res.setHeader('Vary','Authorization, Origin');res.setHeader('X-Content-Type-Options','nosniff');
   const origin=req.headers?.origin,host=String(req.headers?.host||'');
@@ -82,18 +112,26 @@ export function createAgentTariffsHandler({verify=verifyAgentToken,verifyClient=
   if(req.method==='OPTIONS')return res.status(204).send('');
   if(req.method!=='POST')return res.status(405).json({success:false,error:'Méthode non autorisée.'});
   let body;try{body=typeof req.body==='string'?JSON.parse(req.body):req.body||{};if(!body||typeof body!=='object'||Array.isArray(body)||JSON.stringify(body).length>2048)throw Error();}catch{return res.status(400).json({success:false,error:'Requête invalide.'});}
-  if(!['bootstrap','document'].includes(body.action))return res.status(400).json({success:false,error:'Action inconnue.'});
+  if(!['bootstrap','document','fenice'].includes(body.action))return res.status(400).json({success:false,error:'Action inconnue.'});
   const agent=await verify(req.headers?.authorization);
   // Confidential agent documents remain exclusive to the verified agent path.
   if(body.action==='document'&&!agent)return res.status(401).json({success:false,error:'Connexion à un compte agent vérifié requise.'});
   let client=null;
   if(!agent){
-   try{client=await verifyClient(body.sessionToken);}catch{return res.status(503).json({success:false,error:'Vérification de la session professionnelle momentanément indisponible.'});}
+   try{client=await verifyClient(body.sessionToken,{includeFenice:body.action==='fenice'});}catch{return res.status(503).json({success:false,error:'Vérification de la session professionnelle momentanément indisponible.'});}
    if(!client)return res.status(401).json({success:false,error:'Session professionnelle expirée ou connexion requise.'});
-   if(!client.allowedPartners?.length)return res.status(403).json({success:false,error:'Aucun de ces tarifs n’est autorisé pour ce compte.'});
+   const permitted=body.action==='fenice'?client.allowedPartners?.includes(FENICE_PARTNER):CLIENT_TARIFF_PARTNERS.some(partner=>client.allowedPartners?.includes(partner));
+   if(!permitted)return res.status(403).json({success:false,error:'Aucun de ces tarifs n’est autorisé pour ce compte.'});
   }
-  let data;try{data=await read();}catch{return res.status(503).json({success:false,error:'Tarifs agents momentanément indisponibles.'});}
+  let data;try{data=body.action==='fenice'?await readFenice?.():await read();}catch{return res.status(503).json({success:false,error:'Tarifs agents momentanément indisponibles.'});}
   if(!data)return res.status(503).json({success:false,error:'Tarifs agents momentanément indisponibles.'});
+  if(body.action==='fenice'){
+   const now=Date.now(),expiresAt=agent?now+PRIVATE_CACHE_TTL:Math.min(client.expiresAt,now+PRIVATE_CACHE_TTL);
+   if(!Number.isFinite(expiresAt)||expiresAt<=now)return res.status(401).json({success:false,error:'Session professionnelle expirée ou connexion requise.'});
+   const fenice=feniceRows(data.fenice);
+   if(!fenice)return res.status(503).json({success:false,error:'Tarifs La Fenice momentanément indisponibles.'});
+   return res.status(200).json({success:true,version:1,accessType:agent?'agent':'client',allowedPartners:[FENICE_PARTNER],expiresAt,fenice});
+  }
   if(body.action==='document'){
    if(body.id!=='randal-studio-one-basins')return res.status(404).json({success:false,error:'Document introuvable.'});
    const raw=data.documents?.[body.id];
@@ -102,7 +140,7 @@ export function createAgentTariffsHandler({verify=verifyAgentToken,verifyClient=
    res.setHeader('Content-Type','application/pdf');res.setHeader('Content-Disposition','inline; filename="RANDAL-STUDIO-ONE-VASQUES-TARIF-PRO-HT.pdf"');
    return res.status(200).send(bytes);
   }
-  const allowedPartners=agent?CLIENT_TARIFF_PARTNERS.slice():client.allowedPartners;
+  const allowedPartners=agent?CLIENT_TARIFF_PARTNERS.slice():CLIENT_TARIFF_PARTNERS.filter(partner=>client.allowedPartners.includes(partner));
   return res.status(200).json({success:true,version:1,accessType:agent?'agent':'client',allowedPartners,expiresAt:agent?Date.now()+300000:client.expiresAt,view:allowedPartners.includes('view-ceramica')?data.view:[],elios:allowedPartners.includes('elios-ceramica')?data.elios:{}});
  };
 }
