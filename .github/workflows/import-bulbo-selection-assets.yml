@@ -13,11 +13,30 @@ permissions:
 
 concurrency:
   group: bulbo-selection-public-media-import
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
+  identify:
+    name: Identify importer service account
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Authenticate existing importer identity
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_LE_ROY_FACTORY }}'
+
+      - name: Print only the non-secret importer email
+        run: |
+          node - <<'JS'
+          const {readFileSync}=require('node:fs');
+          const email=JSON.parse(readFileSync(process.env.GOOGLE_APPLICATION_CREDENTIALS,'utf8')).client_email;
+          if(!email||!email.endsWith('.gserviceaccount.com'))throw Error('Importer service account identity unavailable.');
+          console.log('Drive importer service account: '+email);
+          JS
+
   import:
     name: Verify and import approved BULBO public media
+    needs: identify
     runs-on: ubuntu-24.04
     timeout-minutes: 25
     steps:
