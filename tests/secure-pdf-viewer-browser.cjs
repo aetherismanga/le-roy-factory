@@ -63,10 +63,31 @@ async function setMocks(context,origin,state){
 }
 const hostSelector='[data-lrf-secure-pdf-viewer]';
 async function ready(page,number=1){
- const host=page.locator(hostSelector);await expect(host.locator('canvas')).toBeVisible({timeout:20000});
+ const host=page.locator(hostSelector),sheet=host.locator(`.pdf-page[data-number="${number}"]`);
+ await expect(sheet.locator('canvas').first()).toBeVisible({timeout:20000});
  await expect(host.locator('[data-page]')).toHaveValue(String(number));
- await expect(host.locator('canvas')).toHaveAttribute('aria-label',new RegExp('Page '+number+' sur 3'));
- await expect(host.locator('[data-total]')).toHaveText('/ 3');return host;
+ await expect(sheet.locator('canvas').first()).toHaveAttribute('aria-label',new RegExp('Page '+number+' sur 3'));
+ await expect(host.locator('[data-total]')).toHaveText('/ 3');
+ await expect(host.locator('[data-page-indicator]')).toHaveText(number+' / 3');return host;
+}
+async function tools(host,open=true){
+ const toggle=host.locator('[data-tools-toggle]');
+ if((await toggle.getAttribute('aria-expanded'))!==String(open))await toggle.click();
+ await expect(toggle).toHaveAttribute('aria-expanded',String(open));
+}
+async function scrollToPage(host,number){
+ await host.locator('.stage').evaluate((stage,number)=>{
+  const sheet=stage.querySelector(`.pdf-page[data-number="${number}"]`);
+  stage.scrollTop+=sheet.getBoundingClientRect().top-stage.getBoundingClientRect().top;
+  stage.dispatchEvent(new Event('scroll'));
+ },number);
+}
+async function backingStats(host){
+ return host.locator('.pdf-page canvas').evaluateAll(canvases=>canvases.map(canvas=>({width:canvas.width,height:canvas.height,pixels:canvas.width*canvas.height})));
+}
+function assertBoundedTiles(tiles){
+ assert(tiles.length>0,'The viewport has rendered PDF tiles');
+ for(const tile of tiles){assert(tile.pixels<=4000000,'Each tile uses at most four megapixels');assert(tile.width<=4096&&tile.height<=4096,'Tile sides stay inside browser canvas limits');}
 }
 async function close(page){
  await page.locator(hostSelector).locator('[data-close]').click();await expect(page.locator(hostSelector)).toHaveCount(0);
@@ -83,30 +104,53 @@ async function runProfile(browser,name,options,origin){
   await page.locator('#protected').click();let host=await ready(page);
   assert.equal(state.protected.length,1);assert.equal(state.protected[0].authorization,'Bearer synthetic-id-token');
   assert.equal(state.protected[0].body.tariffId,'elios-2026');
-  const colored=await host.locator('canvas').evaluate(canvas=>{
+  await expect(host.locator('.pdf-page')).toHaveCount(3);
+  await expect(host.locator('[data-tools-toggle]')).toHaveAttribute('aria-expanded','false');
+  await expect(host.locator('[data-page]')).not.toBeVisible();
+  await expect(host.locator('[data-query]')).not.toBeVisible();
+  await expect(host.locator('[data-page-indicator]')).toBeVisible();
+  const layout=await host.locator('.reader').evaluate(reader=>({
+   height:reader.getBoundingClientRect().height,
+   stageHeight:reader.querySelector('.stage').getBoundingClientRect().height,
+   headerHeight:reader.querySelector('header').getBoundingClientRect().height
+  }));
+  assert(layout.stageHeight/layout.height>.85,'The document occupies more than 85% of the viewport');
+  if(options.viewport.width<=680)assert(layout.headerHeight<=56,'The mobile top bar stays within 56px');
+  result.checks.push('continuous page shells, hidden optional tools, compact mobile top bar and document-first viewport');
+  const colored=await host.locator('.pdf-page[data-number="1"] canvas').first().evaluate(canvas=>{
    const data=canvas.getContext('2d').getImageData(0,0,canvas.width,canvas.height).data;let found=0;
    for(let i=0;i<data.length;i+=400)if(data[i]<180&&data[i+2]>data[i]+30)found++;
    return {found,width:canvas.width,height:canvas.height,pixels:canvas.width*canvas.height};
   });
-  assert(colored.found>20,'PDF canvas must contain the synthetic colored rectangle');assert(colored.pixels<=4000000);assert(colored.width<=4096&&colored.height<=4096);
-  result.checks.push('authorized protected POST renders actual nonblank PDF canvas with three pages and bounded memory');
-  await host.locator('[data-next]').click();host=await ready(page,2);
-  await host.locator('[data-page]').fill('3');await host.locator('[data-page]').press('Enter');host=await ready(page,3);
-  await host.locator('[data-in]').click();await expect(host.locator('[data-zoom]')).toHaveText('125 %');
-  await host.locator('[data-fit]').click();await expect(host.locator('[data-zoom]')).toHaveText('100 %');
-  await host.locator('[data-query]').fill('BETA');await host.locator('[data-search]').click();await ready(page,2);
+  assert(colored.found>20,'PDF canvas must contain the synthetic colored rectangle');assertBoundedTiles(await backingStats(host));
+  result.checks.push('authorized protected POST renders nonblank PDF tiles with bounded backing buffers');
+  await scrollToPage(host,2);host=await ready(page,2);
+  result.checks.push('natural vertical scrolling advances the current page indicator');
+  await tools(host);await host.locator('[data-page]').fill('3');await host.locator('[data-page]').press('Enter');host=await ready(page,3);
+  await tools(host);await host.locator('[data-in]').click();await expect(host.locator('[data-zoom]')).toHaveText('125 %');
+  await expect(host.locator('[data-page]')).toHaveValue('3');assertBoundedTiles(await backingStats(host));
+  await tools(host);await host.locator('[data-fit]').click();await expect(host.locator('[data-zoom]')).toHaveText('100 %');
+  await tools(host);await host.locator('[data-query]').fill('BETA');await host.locator('[data-search]').click();await ready(page,2);
   await expect(host.locator('.status')).toContainText('Texte trouvé à la page 2');
-  result.checks.push('next page, direct page entry, zoom, fit width and full-document text search');
+  result.checks.push('direct page entry, anchored zoom, fit width and full-document text search remain available on demand');
+  await tools(host,false);
+  const sheet=host.locator('.pdf-page[data-number="2"]'),beforeZoom=await sheet.evaluate(node=>node.getBoundingClientRect().width);
+  await sheet.locator('canvas').first().dblclick();
+  await expect.poll(()=>sheet.evaluate(node=>node.getBoundingClientRect().width)).toBeGreaterThan(beforeZoom);
+  await expect(sheet.locator('canvas').first()).toBeVisible();assertBoundedTiles(await backingStats(host));
+  await tools(host);await host.locator('[data-fit]').click();await expect(host.locator('[data-zoom]')).toHaveText('100 %');await tools(host,false);
+  result.checks.push('double-tap zoom enlarges the actual page and rerenders bounded PDF tiles');
   assert.equal(downloads.length,0);assert.equal(popups.length,0);assert.equal(page.url(),origin+'/tarifs-pro.html');
   assert(!/[?&](?:token|codeClient|departement|authorization)=/i.test(page.url()));
   await page.screenshot({path:path.join(output,name+'-reader.png'),fullPage:false});
+  if(!await host.locator('[data-download]').isVisible())await tools(host);
   const downloadPromise=page.waitForEvent('download');await host.locator('[data-download]').click();const download=await downloadPromise;
   assert.equal(download.suggestedFilename(),'elios-2026.pdf');await download.delete();assert.equal(downloads.length,1);
   result.checks.push('zero automatic downloads/popups; explicit download creates named PDF only on request; URL contains no credentials');
   await close(page);await expect(page.locator('#protected')).toBeFocused();
   result.checks.push('close restores focus, page and history state');
   await page.locator('#protected').click();host=await ready(page);
-  await host.locator('[data-next]').evaluate(button=>{button.click();button.click();});await ready(page,3);
+  await host.locator('[data-page]').evaluate(input=>{input.value='2';input.dispatchEvent(new Event('change'));input.value='3';input.dispatchEvent(new Event('change'));});await ready(page,3);
   await page.goBack();await expect(page.locator(hostSelector)).toHaveCount(0);await expect(page.locator('#protected')).toBeFocused();
   result.checks.push('repeat opening, rapid navigation and browser Back close cleanly');
   await page.locator('#public').click();await ready(page);await close(page);
@@ -143,7 +187,7 @@ async function historyTransactions(browser,origin){
   for(const scenario of ['immediate-close-and-reopen','programmatic-replacement']){
    await page.goto(origin+'/tarifs-pro.html');
    const result=await page.evaluate(async({base64,scenario})=>{
-    const {showSecurePdf}=await import('./assets/js/secure-pdf-viewer.mjs?v=20261029-inline1');
+    const {showSecurePdf}=await import('./assets/js/secure-pdf-viewer.mjs?v=20261101-compact1');
     const bytes=Uint8Array.from(atob(base64),letter=>letter.charCodeAt(0)),blob=new Blob([bytes],{type:'application/pdf'});
     history.pushState({fixtureBase:scenario},'',location.href);const baseline=history.length;
     const first=await showSecurePdf(blob,{title:'History transaction test',trigger:document.querySelector('#protected')});

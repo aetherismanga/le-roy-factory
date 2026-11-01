@@ -149,7 +149,7 @@ document.addEventListener('click', async event => {
  try {
   const token = await user.getIdToken(true), response = await fetch(ENDPOINT, {method:'POST',credentials:'omit',headers:{'Content-Type':'application/json',Authorization:'Bearer '+token},body:JSON.stringify({action:'document',id:'randal-studio-one-basins'}),signal:AbortSignal.timeout(20000)});
   if (!response.ok) throw Error('Le document agent n’est pas disponible. Réessayez après connexion.');
-  const {showSecurePdf} = await import('./secure-pdf-viewer.mjs?v=20261029-inline1');
+  const {showSecurePdf} = await import('./secure-pdf-viewer.mjs?v=20261101-compact1');
   await showSecurePdf(await response.blob(), {title:'RANDAL · Vasques STUDIO ONE', filename:'RANDAL-STUDIO-ONE-VASQUES-TARIF-PRO-HT.pdf', trigger:anchor});
  } catch (error) { alert(error.message || 'Le document agent n’est pas disponible.'); }
  finally { anchor.removeAttribute('aria-busy'); }

@@ -120,7 +120,7 @@
         throw new Error(message);
       }
       const blob=await response.blob();
-      const {showSecurePdf}=await import('./secure-pdf-viewer.mjs?v=20261029-inline1');
+      const {showSecurePdf}=await import('./secure-pdf-viewer.mjs?v=20261101-compact1');
       await showSecurePdf(blob,{
         title:anchor.closest('.card-premium')?.querySelector('h3')?.textContent?.trim()||'Tarif professionnel',
         filename:anchor.dataset.secureTariffId+'.pdf',
@@ -153,7 +153,7 @@
     try{
       const response=await fetch(url.href,{credentials:'same-origin',cache:'no-store'});
       if(!response.ok)throw new Error('Ce tarif est momentanément indisponible. Réessayez.');
-      const {showSecurePdf}=await import('./secure-pdf-viewer.mjs?v=20261029-inline1');
+      const {showSecurePdf}=await import('./secure-pdf-viewer.mjs?v=20261101-compact1');
       await showSecurePdf(await response.blob(),{
         title:anchor.closest('.card-premium')?.querySelector('h3')?.textContent?.trim()||'Tarif professionnel',
         filename:decodeURIComponent(url.pathname.split('/').pop()),trigger:anchor

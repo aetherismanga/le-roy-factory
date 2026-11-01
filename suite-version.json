@@ -11,7 +11,7 @@
   ],
   "sharedCatalogueVersion": "20261024-suite-1",
   "publicSite": {
-    "releaseId": "20261101-la-fenice-1",
+    "releaseId": "20261101-pdf-compact-1",
     "baselineCommit": "0a116a66e4fb03522876be09d417f853bb3b2ed9",
     "pages": [
       "configurateur-salle-de-bain-3d.html",
@@ -35,6 +35,14 @@
       "catalogues": 17,
       "seoPages": 91,
       "optimizedCovers": 82
+    },
+    "pdfReader": {
+      "version": "20261101-compact1",
+      "compactHeader": 48,
+      "continuousPages": true,
+      "touchZoom": true,
+      "maxZoom": 8,
+      "visibleTiles": true
     }
   },
   "configurators": {

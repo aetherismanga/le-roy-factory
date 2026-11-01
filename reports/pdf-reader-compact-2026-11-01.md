@@ -1,0 +1,11 @@
+# Lecteur des tarifs PDF — correction du 1 novembre 2026
+
+Le lecteur partagé donne la priorité au document : barre unique de 48 px, titre court et deux icônes ; recherche, choix direct de page, adaptation et téléchargement volontaire sont rangés dans un menu superposé fermé par défaut. Les pages défilent verticalement ; un repère discret indique la page courante.
+
+Zoom tactile par pincement, double tap, double clic et molette Ctrl/Meta ; limite 800 %. Le point visé est conservé. Après agrandissement, PDF.js recalcule uniquement les zones visibles de la page vectorielle au zoom choisi, avec densité écran jusqu’à 3, maximum 4 mégapixels et 4096 pixels par côté pour chaque tuile. Budget de travail de 12 mégapixels pour les pages proches, éviction des zones hors écran. Une image raster présente dans le PDF conserve la définition de son original.
+
+Préservés : contrôles d’accès serveur et vérification PDF, lecture en mémoire sans URL de document publique ni ouverture/téléchargement automatiques, téléchargement explicite de l’original, focus, historique et retour, fermeture/réouverture, annulation des rendus et destruction des workers. Aucun changement des données commerciales ou de l’authentification.
+
+Validation : noyau commun réussi ; 99 tests sécurité/tarifs réussis, 1 ignoré ; 8 tests géométriques couvrant 400 combinaisons de zoom/densité/budget ; 11 tests des accès tarifaires réussis ; syntaxe et build public réussis. Le test navigateur automatisé existant a été adapté au nouveau lecteur mais n’a pas été exécuté localement (binaires absents). Vérification visuelle dans le navigateur cloud avec un PDF fictif de quatre pages denses, sans donnée client : cadres 390×844, 375×667 et ordinateur ; barre48px, document619px sur petit cadre667px, menu fermé, défilement/recherche/page4, gestes tactiles simulés200–800%, double clic retour100%, retour navigateur et réouverture. Le fort zoom a produit une tuile704×896pixels dans le navigateur de contrôle, et non un bitmap de page entière étiré. Pas de test sur un appareil iPhone physique.
+
+Les imports et URLs de chargement ont été versionnés sur tarifs-pro, univers et univers-ios, ainsi que la prévisualisation Elios. Publication du site uniquement, sans déploiement des ateliers Vercel.

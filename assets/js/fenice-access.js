@@ -30,7 +30,7 @@
       throw Error(error.error || 'Le tarif La Fenice n’est pas disponible pour ce compte.');
     }
     if (!(response.headers.get('Content-Type') || '').includes('application/pdf')) throw Error('Le document tarifaire est indisponible.');
-    const {showSecurePdf} = await import('./secure-pdf-viewer.mjs?v=20261029-inline1');
+    const {showSecurePdf} = await import('./secure-pdf-viewer.mjs?v=20261101-compact1');
     await showSecurePdf(await response.blob(), {title:'La Fenice · Tarif professionnel',filename:'LA-FENICE-Tarifs-2026.pdf',trigger});
   }
   window.LRF_FENICE_ACCESS = Object.freeze({canAccess,openTariff});
