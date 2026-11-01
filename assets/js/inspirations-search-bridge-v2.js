@@ -52,6 +52,7 @@
   }
   function choose(name){
     // Dedicated controllers restore their category and exact collection themselves.
+    if(requestedCategory==='piscine' && compact(name)==='eliosceramica' && compact(document.getElementById('workspace-title')?.textContent)==='eliosceramica')return 'Elios Ceramica';
     if(/^petracers?$/.test(compact(name)) && compact(document.getElementById('workspace-title')?.textContent)==='petracers')return "Petracer's";
     if(compact(name)==='bulbo' && compact(document.getElementById('workspace-title')?.textContent)==='bulbo')return 'Bulbo';
     if(compact(name)==='pecchiolifirenze' && compact(document.getElementById('workspace-title')?.textContent)==='pecchiolifirenze')return 'Pecchioli Firenze';

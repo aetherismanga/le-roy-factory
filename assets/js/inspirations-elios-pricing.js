@@ -199,41 +199,7 @@
     });
   }
 
-  function installPoolShortcut() {
-    const categories = document.getElementById('insp-categories');
-    if (!categories) return;
-
-    const addButton = () => {
-      const existing = categories.querySelector('[data-cat="piscine"],[data-pool-shortcut]');
-      if (existing) return existing;
-      const button = document.createElement('button');
-      button.type = 'button';
-      button.className = 'category-card';
-      button.dataset.poolShortcut = '1';
-      button.innerHTML = '<span class="category-icon">≈</span><span class="category-name">Piscine</span><span class="category-meta">ELIOS · Pool Surfaces 2026</span>';
-      button.addEventListener('click', () => {
-        categories.querySelector('[data-cat="carrelage"]')?.click();
-        const restored = addButton();
-        categories.querySelectorAll('.category-card').forEach(el => el.classList.remove('active'));
-        restored?.classList.add('active');
-        document.querySelector('#partner-grid [data-partner="Elios Ceramica"]')?.click();
-        const search = document.getElementById('v2-search');
-        if (search) {
-          search.value = 'Piscine';
-          search.dispatchEvent(new Event('input', { bubbles: true }));
-        }
-        setTimeout(hydratePoolCards, 0);
-        document.getElementById('partner-workspace')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-      categories.appendChild(button);
-      return button;
-    };
-
-    addButton();
-    categories.addEventListener('click', event => {
-      if (event.target.closest('[data-cat]')) setTimeout(addButton, 0);
-    });
-
+  function installPoolHydration() {
     const grid = document.getElementById('partner-products');
     if (grid && !grid.dataset.poolObserver) {
       grid.dataset.poolObserver = '1';
@@ -248,8 +214,8 @@
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', installPoolShortcut, { once: true });
+    document.addEventListener('DOMContentLoaded', installPoolHydration, { once: true });
   } else {
-    setTimeout(installPoolShortcut, 0);
+    setTimeout(installPoolHydration, 0);
   }
 })();

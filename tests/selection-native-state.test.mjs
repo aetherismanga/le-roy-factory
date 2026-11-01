@@ -13,6 +13,7 @@ function selection(search = '') {
       setAttribute(){}, scrollIntoView(){}, querySelector(){return null;},
       addEventListener(type, handler){handlers.set(type, handler);},
       classList:{add(v){classes.add(v);},remove(v){classes.delete(v);},contains(v){return classes.has(v);},toggle(v){classes.has(v)?classes.delete(v):classes.add(v);}},
+      click(){handlers.get('click')?.({target:this});},
       clickAs(attribute, value) {
         const target = {closest(selector){return selector === '[' + attribute + ']' ? {dataset:{[attribute === 'data-cat' ? 'cat' : 'partner']:value}} : null;}};
         handlers.get('click')?.({target});
@@ -69,18 +70,31 @@ test('Bilt login and logout refresh only Bilt and keep its catalogue routes', ()
   assert.equal(h.node('#workspace-title').textContent,'Bilt','stale controls cannot choose a foreign partner or invalid category');
 });
 
-test('sanitary manufacturers remain distinct and pool category keeps its state on refresh', () => {
+test('sanitary manufacturers stay distinct and the Elios pool section keeps its state on refresh', () => {
   const h=selection();
   h.choose('sanitaire');h.partner('UPTREND');
   h.event('lrf-pro-session-changed');
   assert.equal(h.node('#workspace-title').textContent,'UPTREND');
   h.partner("Petracer's");h.event('lrf-agent-tariffs-ready');
   assert.equal(h.node('#workspace-title').textContent,"Petracer's");
-  h.choose('piscine');h.event('lrf-pro-session-changed');
-  assert.equal(h.node('#partner-workspace').dataset.category,'piscine');
+  h.choose('carrelage');h.node('#elios-pool-collections').click();h.event('lrf-pro-session-changed');
+  assert.equal(h.node('#partner-workspace').dataset.category,'carrelage');
+  assert.equal(h.node('#elios-pool-nav').hidden,false);
   assert.match(h.node('#partner-products').innerHTML,/pool-abyss/);
   assert.doesNotMatch(h.node('#partner-products').innerHTML,/data-id="elios-stone"/);
-  assert.match(h.node('#insp-categories').innerHTML,/aria-pressed="true" class="category-card active" data-cat="piscine"/);
+  assert.doesNotMatch(h.node('#insp-categories').innerHTML,/data-cat="piscine"/);
+  h.node('#elios-all-collections').click();assert.match(h.node('#partner-products').innerHTML,/elios-stone/);
   h.choose('outillages');h.event('lrf-agent-tariffs-ready');
   assert.equal(h.node('#workspace-title').textContent,'Bilt');
+  assert.equal(h.node('#elios-pool-nav').hidden,true);
+});
+
+
+test('old pool links open inside Elios without a main universe button',()=>{
+  const h=selection('?partner=Elios%20Ceramica&category=piscine');
+  assert.equal(h.node('#partner-workspace').dataset.category,'carrelage');
+  assert.equal(h.node('#workspace-title').textContent,'Elios Ceramica');
+  assert.equal(h.node('#elios-pool-nav').hidden,false);
+  assert.match(h.node('#partner-products').innerHTML,/pool-abyss/);
+  assert.doesNotMatch(h.node('#insp-categories').innerHTML,/data-cat="piscine"/);
 });

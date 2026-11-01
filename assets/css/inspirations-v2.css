@@ -22,3 +22,6 @@ body.insp-v2{--lrf-gold:#c9a646;--lrf-ink:#202733;--lrf-cream:#faf5eb;--lrf-line
 
 /* ELIOS: one Pool Surfaces entry, then its twelve collections. */
 .pool-group-open{display:inline-flex;margin-top:14px;padding:9px 12px;border-radius:10px;background:#e7efe6;color:#284b35;font-weight:800;font-size:.85rem}.pool-group-header{grid-column:1/-1;padding:6px 0 14px}.pool-group-header button{border:1px solid #b6c4b3;border-radius:10px;padding:11px 15px;background:#f8faf5;color:#284b35;font:inherit;font-weight:800;cursor:pointer}.pool-group-header h3{margin:18px 0 6px;font-size:1.5rem}.pool-group-header p{margin:0;color:#726d63}
+
+/* The pool collections belong to the Elios workspace, below its manufacturer heading. */
+.elios-pool-nav{display:flex;flex-wrap:wrap;gap:.6rem;margin:0 0 .7rem}.elios-pool-nav[hidden]{display:none}.elios-pool-nav button{appearance:none;min-height:44px;padding:.65rem 1rem;border:1px solid #d9cba9;border-radius:10px;background:#fffdf8;color:#35372f;font:inherit;font-size:.86rem;font-weight:750;cursor:pointer}.elios-pool-nav button[aria-pressed="true"]{background:#e4ede2;border-color:#9ab298;color:#263c29}.elios-pool-nav button:focus-visible{outline:3px solid #b49b55;outline-offset:3px}
