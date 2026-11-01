@@ -38,57 +38,28 @@
     box.setAttribute('role', 'dialog');
     box.setAttribute('aria-modal', 'true');
     box.setAttribute('aria-labelledby', 'view-lightbox-title');
-    box.innerHTML = `<div class="view-lightbox-toolbar"><h2 id="view-lightbox-title"></h2><button type="button" class="view-lightbox-zoom" aria-pressed="false">Zoom +</button><button type="button" class="view-lightbox-close" aria-label="Fermer la galerie plein écran">×</button></div><div class="view-lightbox-stage"><img class="view-lightbox-photo" alt="" draggable="false"><p class="view-lightbox-error" role="status" hidden>Ce visuel est indisponible. Vous pouvez consulter les autres images.</p></div><button type="button" class="view-lightbox-prev" aria-label="Image précédente">‹</button><button type="button" class="view-lightbox-next" aria-label="Image suivante">›</button><div class="view-lightbox-footer"><p class="view-lightbox-caption" aria-live="polite"></p><p class="view-lightbox-help">Glissez pour parcourir · Zoom pour voir les détails</p></div>`;
+    box.innerHTML = `<div class="view-lightbox-toolbar"><h2 id="view-lightbox-title"></h2><button type="button" class="view-lightbox-close" aria-label="Fermer la galerie plein écran">×</button></div><div class="view-lightbox-stage"><img class="view-lightbox-photo" alt="" draggable="false"><p class="view-lightbox-error" role="status" hidden>Ce visuel est indisponible. Vous pouvez consulter les autres images.</p></div><button type="button" class="view-lightbox-prev" aria-label="Image précédente">‹</button><button type="button" class="view-lightbox-next" aria-label="Image suivante">›</button><div class="view-lightbox-footer"><p class="view-lightbox-caption" aria-live="polite"></p><p class="view-lightbox-help">Glissez pour parcourir les photos</p></div>`;
     document.body.appendChild(box);
     box.querySelector('.view-lightbox-close').addEventListener('click', closeLightbox);
     box.querySelector('.view-lightbox-prev').addEventListener('click', () => moveLightbox(-1));
     box.querySelector('.view-lightbox-next').addEventListener('click', () => moveLightbox(1));
-    box.querySelector('.view-lightbox-zoom').addEventListener('click', toggleZoom);
     const stage = box.querySelector('.view-lightbox-stage');
-    stage.addEventListener('click', e => { if (e.target === stage && !box.classList.contains('zoomed')) closeLightbox(); });
-    stage.addEventListener('dblclick', e => { if (e.target.tagName === 'IMG') { e.preventDefault(); toggleZoom(); } });
-    installSwipe(stage, delta => moveLightbox(delta), () => !!openState && openState.images.length > 1 && !box.classList.contains('zoomed'));
+    stage.addEventListener('click', e => { if (e.target === stage) closeLightbox(); });
+    installSwipe(stage, delta => moveLightbox(delta), () => !!openState && openState.images.length > 1);
     box.querySelector('img').addEventListener('error', () => {
       if (!openState) return;
       box.querySelector('.view-lightbox-error').hidden = false;
-      box.querySelector('.view-lightbox-zoom').disabled = true;
     });
     box.querySelector('img').addEventListener('load', () => {
       box.querySelector('.view-lightbox-error').hidden = true;
-      box.querySelector('.view-lightbox-zoom').disabled = false;
     });
     return box;
-  }
-
-  function resetZoom(box) {
-    box.classList.remove('zoomed');
-    const photo = box.querySelector('.view-lightbox-photo');
-    photo.style.width = ''; photo.style.height = '';
-    box.querySelector('.view-lightbox-zoom').textContent = 'Zoom +';
-    box.querySelector('.view-lightbox-zoom').setAttribute('aria-pressed', 'false');
-    const stage = box.querySelector('.view-lightbox-stage');
-    stage.scrollTop = stage.scrollLeft = 0;
-  }
-
-  function toggleZoom() {
-    if (!openState) return;
-    const box = ensureLightbox();
-    if (box.classList.contains('zoomed')) { resetZoom(box); return; }
-    const photo = box.querySelector('.view-lightbox-photo');
-    const rect = photo.getBoundingClientRect();
-    if (!rect.width || !rect.height || !photo.naturalWidth) return;
-    photo.style.width = `${Math.round(rect.width * 2)}px`;
-    photo.style.height = `${Math.round(rect.height * 2)}px`;
-    box.classList.add('zoomed');
-    box.querySelector('.view-lightbox-zoom').textContent = 'Réduire';
-    box.querySelector('.view-lightbox-zoom').setAttribute('aria-pressed', 'true');
   }
 
   function renderLightbox() {
     if (!openState) return;
     const box = ensureLightbox();
     const item = openState.images[openState.index];
-    resetZoom(box);
     const photo = box.querySelector('.view-lightbox-photo');
     photo.src = item.fullUrl || item.url; photo.alt = `${item.alt || openState.title} — VIEW Ceramica`;
     box.querySelector('#view-lightbox-title').textContent = openState.title;
@@ -125,7 +96,7 @@
   function closeLightbox() {
     if (!openState) return;
     const box = ensureLightbox();
-    box.hidden = true; resetZoom(box);
+    box.hidden = true;
     box.querySelector('.view-lightbox-photo').removeAttribute('src');
     const productModal = openState.productModal;
     openState = null;

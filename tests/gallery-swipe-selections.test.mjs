@@ -43,10 +43,10 @@ function harness(brand) {
 }
 
 for(const config of [
-  {brand:'bulbo',stage:'.bulbo-main-photo',image:'#bulbo-main-image',count:'#bulbo-image-count',expand:'.bulbo-main-photo',lightbox:'.bulbo-lightbox-stage',zoom:'[data-bulbo-zoom]',label:'.bulbo-lightbox-label',firstHd:'/assets/first.webp'},
-  {brand:'biopietra',stage:'.bpc-stage',image:'#bpc-main-image',count:'#bpc-count',expand:'.bpc-expand',lightbox:'.bpc-lightbox-stage',zoom:'[data-bpc-zoom]',label:'strong',firstHd:'/assets/first-hd.webp'}
+  {brand:'bulbo',stage:'.bulbo-main-photo',image:'#bulbo-main-image',count:'#bulbo-image-count',expand:'.bulbo-main-photo',lightbox:'.bulbo-lightbox-stage',label:'.bulbo-lightbox-label',firstHd:'/assets/first.webp'},
+  {brand:'biopietra',stage:'.bpc-stage',image:'#bpc-main-image',count:'#bpc-count',expand:'.bpc-expand',lightbox:'.bpc-lightbox-stage',label:'strong',firstHd:'/assets/first-hd.webp'}
 ]) {
-  test(`${config.brand}: swiping navigates once and synchronizes the collection and unzoomed fullscreen photo`,()=>{
+  test(`${config.brand}: swiping navigates once and synchronizes the collection and fullscreen photo without artificial enlargement`,()=>{
     const h=harness(config.brand),dialog=h.dialogs[0],gallery=h.bindingFor(config.stage);
     assert.ok(gallery,'collection stage binds the shared gesture controller');
     assert.equal(gallery.isEnabled(),true);
@@ -65,9 +65,7 @@ for(const config of [
     assert.equal(lightbox.querySelector('img').src,config.firstHd);
     assert.match(lightbox.querySelector(config.label).textContent,/1\/2$/);
 
-    lightbox.querySelector(config.zoom).click();
-    assert.equal(fullscreen.isEnabled(),false,'zoomed drag pans the image instead of changing photos');
-    lightbox.querySelector(config.zoom).click();
+    assert.doesNotMatch(lightbox.innerHTML,/data-(?:bulbo|bpc)-zoom|Zoom ×2/);
     assert.equal(fullscreen.isEnabled(),true);
     lightbox.close();
     assert.equal(fullscreen.isEnabled(),false,'closed viewers do not consume swipes');

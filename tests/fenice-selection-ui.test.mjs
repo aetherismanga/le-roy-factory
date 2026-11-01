@@ -95,6 +95,6 @@ test('named color thumbnails open their own HD original without replacing the am
   assert.match(h.dialog.innerHTML,/assets\/white-thumb.webp/);assert.match(h.dialog.innerHTML,/>White</);
   h.click('[data-fenice-swatch]');
   const lightbox=h.elements[1];
-  assert.equal(lightbox.open,true);assert.equal(lightbox.querySelector('.fenice-lightbox-stage img').src,'https://example.com/white-hd.jpg');
+  assert.equal(lightbox.open,true);assert.doesNotMatch(lightbox.innerHTML,/fenice-zoom|Zoom \+/);assert.equal(lightbox.querySelector('.fenice-lightbox-stage img').src,'https://example.com/white-hd.jpg');
   assert.equal(lightbox.querySelector('.fenice-lightbox-stage img').alt,'Sample White');
 });

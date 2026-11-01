@@ -80,11 +80,9 @@
 .pcr-lightbox-label{font:12px Arial;flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;color:#e8dfd0}
 .pcr-lightbox button{min-width:44px;min-height:44px;border:1px solid #ffffff50;background:#ffffff0a;color:white;font-size:13px;cursor:pointer;padding:7px 12px;flex-shrink:0}
 .pcr-lightbox-stage{height:calc(100dvh - 124px);overflow:auto;display:grid;place-items:center;touch-action:pan-y pinch-zoom}
-.pcr-lightbox-stage>img{display:block;width:100%;height:100%;min-height:0;object-fit:contain;max-width:none}
+.pcr-lightbox-stage>img{display:block;width:100%;height:100%;min-height:0;object-fit:scale-down;max-width:none}
 .pcr-lightbox-nav{height:60px;display:flex;justify-content:center;align-items:center;gap:25px;padding:7px 15px;border-top:1px solid #ffffff1a}
 .pcr-lightbox-nav span{font-size:11px;color:#c5bbaa}
-.pcr-zoomed .pcr-lightbox-stage{display:block;touch-action:pan-x pan-y pinch-zoom}
-.pcr-zoomed .pcr-lightbox-stage>img{width:200%;height:auto;object-fit:initial;max-width:none;max-height:none}
 .pcr-card-button:focus-visible,.pcr-guide :focus-visible,.pcr-dialog :focus-visible,.pcr-lightbox :focus-visible{outline:3px solid #b69660;outline-offset:3px}
 @media(min-width:1500px){.pcr-workspace #partner-products{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media(max-width:900px){.pcr-workspace #partner-products{grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}.pcr-introduction{gap:28px;padding:28px}.pcr-intro-detail{padding-left:27px}.pcr-detail{grid-template-columns:1fr}.pcr-gallery{position:static;padding:18px}.pcr-main-photo{height:54vh}.pcr-product-info{padding:24px 25px 32px}.pcr-card-name{font-size:25px}.pcr-specs{max-height:none}}
@@ -95,4 +93,4 @@
 @media(min-width:901px){.pcr-workspace[data-category="meubles"] .filters-inner,.pcr-workspace[data-category="sanitaire"] .filters-inner,.pcr-workspace[data-category="robinetterie"] .filters-inner{grid-template-columns:repeat(auto-fit,minmax(175px,1fr))}}
 
 .pcr-workspace[data-category="meubles"] .pcr-card-visual>img,.pcr-workspace[data-category="sanitaire"] .pcr-card-visual>img,.pcr-workspace[data-category="robinetterie"] .pcr-card-visual>img{object-fit:scale-down;background:#fff}
-.pcr-dialog[data-category]:not([data-category="exception"]) .pcr-main-photo>img,.pcr-lightbox[data-category]:not([data-category="exception"]):not(.pcr-zoomed) .pcr-lightbox-stage>img{object-fit:scale-down}
+.pcr-dialog[data-category]:not([data-category="exception"]) .pcr-main-photo>img{object-fit:scale-down}

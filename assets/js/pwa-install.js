@@ -147,7 +147,7 @@
   }else if(path.endsWith('tarifs-pro.html')){
     scripts.push(['lrf-uptrend-tarifs-loader','assets/js/uptrend-tarifs.js?v=20260913-secure3&media=20261018']);
   }else if(/\/univers(?:-ios)?\.html$/.test(path)){
-    scripts.push(['lrf-uptrend-selection-loader','assets/js/uptrend-selection.js?v=20260914-cart1&media=20261018']);
+    scripts.push(['lrf-uptrend-selection-loader','assets/js/uptrend-selection.js?v=20261101-selection-state2']);
     scripts.push(['lrf-aquahome-selection-loader','assets/js/aquahome-selection.js?v=20261026-safari1&media=20261018']);
     scripts.push(['lrf-reitano-selection-loader','assets/js/reitano-selection.js?v=20261026-safari1&media=20261018']);
   }

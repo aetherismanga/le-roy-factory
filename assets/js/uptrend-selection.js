@@ -11,6 +11,17 @@
   let sanitaryActive = false;
 
   const $ = selector => document.querySelector(selector);
+  const norm = value => String(value || '').trim().toLowerCase().replace(/[^a-z0-9]/g, '');
+  function selected() {
+    const workspace = $('#partner-workspace');
+    // The shared controller owns the selection. Never restore an old URL after
+    // the visitor has chosen another manufacturer or universe.
+    const controlled = workspace?.dataset.partner;
+    if (controlled) return norm(controlled) === 'uptrend';
+    const active = $('#partner-grid .partner-card.active[data-partner]');
+    if (active) return norm(active.dataset.partner) === 'uptrend';
+    return norm($('#workspace-title')?.textContent) === 'uptrend';
+  }
 
   function hasProAccess() {
     try {
@@ -96,54 +107,18 @@
     document.head.appendChild(style);
   }
 
-  function setFiltersDisabled(disabled) {
-    document.querySelectorAll('#v2-filters input, #v2-filters select, #v2-filters button').forEach(el => {
-      if (disabled) {
-        if (!el.hasAttribute('data-uptrend-disabled')) el.setAttribute('data-uptrend-disabled', el.disabled ? '1' : '0');
-        el.disabled = true;
-        el.setAttribute('aria-disabled', 'true');
-      } else {
-        const previous = el.getAttribute('data-uptrend-disabled');
-        if (previous === '0') el.disabled = false;
-        el.removeAttribute('data-uptrend-disabled');
-        el.removeAttribute('aria-disabled');
-      }
-    });
-  }
-
-  function decorateSanitaryCard() {
-    const card = document.querySelector('#insp-categories [data-cat="sanitaire"]');
-    if (!card) return;
-    const meta = card.querySelector('.category-meta, .cat-meta');
-    if (meta && meta.textContent !== 'UPTREND') meta.textContent = 'UPTREND';
-  }
-
   function renderSanitary() {
+    if (!selected()) { leaveSanitary(); return; }
     ensureStyles();
     sanitaryActive = true;
     document.body.classList.add('lrf-uptrend-view');
-    setFiltersDisabled(true);
 
-    document.querySelectorAll('#insp-categories [data-cat]').forEach(card => {
-      card.classList.toggle('active', card.dataset.cat === 'sanitaire');
-    });
-
-    const panel = $('#partner-panel');
-    const grid = $('#partner-grid');
     const workspace = $('#partner-workspace');
-    if (!panel || !grid || !workspace) return;
-
-    const panelTitle = $('#partner-panel-title');
-    if (panelTitle) panelTitle.textContent = 'Sanitaire';
-    const trigger = $('#mobile-partner-trigger');
-    if (trigger) trigger.innerHTML = '<span>Changer de fabricant</span><span aria-hidden="true">⌄</span>';
-
+    const products = $('#partner-products');
+    if (!workspace || !products) return;
     const allowed = hasProAccess();
-    grid.innerHTML = `
-      <button class="partner-card active" type="button" data-uptrend-partner="1">
-        <img src="${LOGO}" alt="UPTREND">
-        <span><strong>UPTREND</strong><small>International · céramique sanitaire</small><span class="access ${allowed ? '' : 'locked'}">${allowed ? '✓ Tarif PRO autorisé' : '🔒 Accès PRO requis'}</span></span>
-      </button>`;
+    const signature = `${allowed}|${cartQuantity()}`;
+    if (products.dataset.uptrendSignature === signature && products.querySelector('[data-uptrend-doc]')) return;
 
     workspace.hidden = false;
     workspace.classList.add('open', 'active');
@@ -166,8 +141,8 @@
 
     const count = $('#partner-count');
     if (count) count.textContent = 'Documentation UPTREND';
-    const products = $('#partner-products');
     if (products) {
+      products.dataset.uptrendSignature = signature;
       products.innerHTML = `
         <section class="uptrend-doc-shell" data-uptrend-doc>
           <div class="uptrend-doc-intro">
@@ -218,50 +193,33 @@
     if (!sanitaryActive) return;
     sanitaryActive = false;
     document.body.classList.remove('lrf-uptrend-view');
-    setFiltersDisabled(false);
+  }
+
+  let pending = false;
+  function schedule() {
+    if (pending) return;
+    pending = true;
+    requestAnimationFrame(() => { pending = false; renderSanitary(); });
   }
 
   function install() {
     ensureStyles();
-    const categories = $('#insp-categories');
-    const filters = $('#v2-filters');
-    if (!categories) return;
-
-    decorateSanitaryCard();
-    if (!window.__LRF_UPTREND_SANITARY_OBSERVER__) {
-      window.__LRF_UPTREND_SANITARY_OBSERVER__ = new MutationObserver(() => {
-        decorateSanitaryCard();
-        if (sanitaryActive) renderSanitary();
-      });
-      window.__LRF_UPTREND_SANITARY_OBSERVER__.observe(categories, { childList: true, subtree: true });
+    // Observe only the shared selection outputs, never our own style or filter
+    // attributes. A delayed render must re-check the current manufacturer.
+    const observer = new MutationObserver(schedule);
+    for (const id of ['partner-grid', 'partner-products', 'workspace-title']) {
+      const element = document.getElementById(id);
+      if (element) observer.observe(element, { childList:true, ...(id === 'workspace-title' ? {subtree:true, characterData:true} : {}) });
     }
-
-    categories.addEventListener('click', event => {
-      const button = event.target.closest('[data-cat]');
-      if (!button) return;
-      if (button.dataset.cat === 'sanitaire') {
-        event.preventDefault();
-        event.stopImmediatePropagation();
-        renderSanitary();
-      } else {
-        leaveSanitary();
-      }
-    }, true);
-
-    if (filters) {
-      ['input', 'change', 'click'].forEach(type => filters.addEventListener(type, event => {
-        if (!sanitaryActive) return;
-        event.preventDefault();
-        event.stopImmediatePropagation();
-      }, true));
-    }
-
-    const requested = new URLSearchParams(location.search).get('partner');
-    if (requested && requested.trim().toLowerCase() === 'uptrend') {
-      setTimeout(renderSanitary, 0);
-    }
+    const workspace = $('#partner-workspace');
+    if (workspace) observer.observe(workspace, {attributes:true, attributeFilter:['data-partner']});
+    window.addEventListener('lrf-pro-session-changed', schedule);
+    window.addEventListener('pageshow', schedule);
+    window.addEventListener('storage', event => { if (event.key === CART_KEY) schedule(); });
+    schedule();
   }
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', install, { once: true });
+  window.LRF_UPTREND_SELECTION = Object.freeze({ refresh:renderSanitary });
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', install, { once:true });
   else install();
 })();

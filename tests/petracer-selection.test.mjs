@@ -141,7 +141,7 @@ test('cards escape supplier text and details keep documented choices without pre
   assert.ok(decodeURIComponent(email).includes('partner=petracers&collection=example'));
 });
 
-test('main and full screen swipes stay synchronized, arrows work and zoom disables photo changing drag', () => {
+test('main and full screen swipes stay synchronized without artificial enlargement', () => {
   const h = harness();
   h.api.openCollection('example');
   const dialog = h.dialogs[0], gallery = h.bindingFor('.pcr-main-photo');
@@ -162,9 +162,7 @@ test('main and full screen swipes stay synchronized, arrows work and zoom disabl
   assert.equal(lightbox.querySelector('.pcr-lightbox-stage img').src, '/assets/second-hd.webp');
   lightbox.querySelector('[data-pcr-next]').click();
   assert.equal(dialog.querySelector('#pcr-image-count').textContent, '1 / 2');
-  lightbox.querySelector('[data-pcr-zoom]').click();
-  assert.equal(fullscreen.isEnabled(), false);
-  lightbox.querySelector('[data-pcr-zoom]').click();
+  assert.doesNotMatch(lightbox.innerHTML, /data-pcr-zoom|Zoom ×2/);
   assert.equal(fullscreen.isEnabled(), true);
   lightbox.dispatch('keydown', {key:'ArrowRight'});
   assert.equal(dialog.querySelector('#pcr-image-count').textContent, '2 / 2');

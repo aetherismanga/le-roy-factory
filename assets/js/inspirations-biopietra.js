@@ -89,15 +89,13 @@
     if (!photo?.dataset.original) return;
     if (!lightbox) {
       lightbox = document.createElement('dialog'); lightbox.className = 'bpc-lightbox'; lightbox.setAttribute('aria-label','Visuel Biopietra en grand format');
-      lightbox.innerHTML = '<div class="bpc-lightbox-head"><strong></strong><button type="button" data-bpc-zoom>Zoom ×2</button><button type="button" class="bpc-close" aria-label="Fermer le visuel">×</button></div><div class="bpc-lightbox-stage"><img alt=""></div><div class="bpc-lightbox-nav"><button type="button" data-bpc-prev aria-label="Image précédente">←</button><button type="button" data-bpc-next aria-label="Image suivante">→</button></div>';
+      lightbox.innerHTML = '<div class="bpc-lightbox-head"><strong></strong><button type="button" class="bpc-close" aria-label="Fermer le visuel">×</button></div><div class="bpc-lightbox-stage"><img alt=""></div><div class="bpc-lightbox-nav"><button type="button" data-bpc-prev aria-label="Image précédente">←</button><button type="button" data-bpc-next aria-label="Image suivante">→</button></div>';
       $('.bpc-close',lightbox).onclick = ()=>lightbox.close();
-      $('[data-bpc-zoom]',lightbox).onclick = event=>{const zoomed=lightbox.classList.toggle('bpc-zoomed');event.currentTarget.textContent=zoomed?'Ajuster':'Zoom ×2';};
       $('[data-bpc-prev]',lightbox).onclick=()=>showPhoto(index-1);
       $('[data-bpc-next]',lightbox).onclick=()=>showPhoto(index+1);
-      window.LRF_GALLERY_GESTURES?.bind($('.bpc-lightbox-stage',lightbox),{onSwipe:delta=>showPhoto(index+delta),isEnabled:()=>lightbox.open && photos.length>1 && !lightbox.classList.contains('bpc-zoomed')});
+      window.LRF_GALLERY_GESTURES?.bind($('.bpc-lightbox-stage',lightbox),{onSwipe:delta=>showPhoto(index+delta),isEnabled:()=>lightbox.open && photos.length>1});
       document.body.appendChild(lightbox);
     }
-    lightbox.classList.remove('bpc-zoomed'); $('[data-bpc-zoom]',lightbox).textContent = 'Zoom ×2';
     $('strong',lightbox).textContent = photo.alt;
     $('img',lightbox).src = photo.dataset.original; $('img',lightbox).alt = photo.alt;
     $('.bpc-lightbox-nav',lightbox).hidden=photos.length<2;

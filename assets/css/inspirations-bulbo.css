@@ -75,9 +75,7 @@
 .bulbo-lightbox-label{flex:1;font:12px Arial;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .bulbo-lightbox button{min-width:44px;min-height:44px;border:1px solid #ffffff50;background:#ffffff0c;color:#fff;cursor:pointer;font-size:14px}
 .bulbo-lightbox-stage{height:calc(100dvh - 116px);overflow:auto;display:grid;place-items:center}
-.bulbo-lightbox-stage img{display:block;width:100%;height:100%;object-fit:contain;min-height:0}
-.bulbo-zoomed .bulbo-lightbox-stage{display:block}
-.bulbo-zoomed .bulbo-lightbox-stage img{width:200%;height:auto;max-width:none;max-height:none;object-fit:initial}
+.bulbo-lightbox-stage img{display:block;width:100%;height:100%;object-fit:scale-down;min-height:0}
 .bulbo-lightbox-nav{height:56px;display:flex;justify-content:center;gap:25px;padding:6px}
 .bulbo-card-button:focus-visible,.bulbo-guide button:focus-visible,.bulbo-dialog :focus-visible{outline:3px solid #8b7855;outline-offset:3px}
 @media(min-width:1500px){.bulbo-workspace #partner-products{grid-template-columns:repeat(4,minmax(0,1fr))}}

@@ -199,25 +199,16 @@
       lightbox = document.createElement('dialog');
       lightbox.className = 'pcr-lightbox';
       lightbox.setAttribute('aria-label', 'Photographie Petracer’s en plein écran');
-      lightbox.innerHTML = '<div class="pcr-lightbox-toolbar"><span class="pcr-lightbox-label" aria-live="polite"></span><button type="button" data-pcr-zoom aria-pressed="false">Zoom ×2</button><button type="button" data-pcr-close-image aria-label="Fermer le plein écran">×</button></div><div class="pcr-lightbox-stage"><img alt="" draggable="false"></div><div class="pcr-lightbox-nav"><button type="button" data-pcr-prev aria-label="Image précédente">←</button><span>Glissez pour explorer</span><button type="button" data-pcr-next aria-label="Image suivante">→</button></div>';
+      lightbox.innerHTML = '<div class="pcr-lightbox-toolbar"><span class="pcr-lightbox-label" aria-live="polite"></span><button type="button" data-pcr-close-image aria-label="Fermer le plein écran">×</button></div><div class="pcr-lightbox-stage"><img alt="" draggable="false"></div><div class="pcr-lightbox-nav"><button type="button" data-pcr-prev aria-label="Image précédente">←</button><span>Glissez pour explorer</span><button type="button" data-pcr-next aria-label="Image suivante">→</button></div>';
       $('[data-pcr-close-image]', lightbox).onclick = closeImage;
-      $('[data-pcr-zoom]', lightbox).onclick = event => {
-        const zoomed = lightbox.classList.toggle('pcr-zoomed');
-        event.currentTarget.textContent = zoomed ? 'Ajuster' : 'Zoom ×2';
-        event.currentTarget.setAttribute('aria-pressed', String(zoomed));
-        $('.pcr-lightbox-stage', lightbox).scrollTo?.(0, 0);
-      };
       $('[data-pcr-prev]', lightbox).onclick = () => showPhoto(index - 1);
       $('[data-pcr-next]', lightbox).onclick = () => showPhoto(index + 1);
       lightbox.addEventListener('cancel', event => { event.preventDefault(); closeImage(); });
       lightbox.addEventListener('keydown', keyboardPhoto);
-      window.LRF_GALLERY_GESTURES?.bind($('.pcr-lightbox-stage', lightbox), {onSwipe:delta => showPhoto(index + delta), isEnabled:() => lightbox.open && photos.length > 1 && !lightbox.classList.contains('pcr-zoomed')});
+      window.LRF_GALLERY_GESTURES?.bind($('.pcr-lightbox-stage', lightbox), {onSwipe:delta => showPhoto(index + delta), isEnabled:() => lightbox.open && photos.length > 1});
       document.body.appendChild(lightbox);
     }
     lightbox.dataset.category = category;
-    lightbox.classList.remove('pcr-zoomed');
-    $('[data-pcr-zoom]', lightbox).textContent = 'Zoom ×2';
-    $('[data-pcr-zoom]', lightbox).setAttribute('aria-pressed', 'false');
     lightbox.querySelectorAll('[data-pcr-prev],[data-pcr-next]').forEach(button => { button.hidden = photos.length < 2; });
     $('.pcr-lightbox-nav span', lightbox).hidden = photos.length < 2;
     if (!lightbox.open) lightbox.showModal();

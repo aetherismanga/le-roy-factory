@@ -99,15 +99,13 @@
     if(!photos.length)return;
     if(!lightbox){
       lightbox=document.createElement('dialog');lightbox.className='bulbo-lightbox';lightbox.setAttribute('aria-label','Visuel BULBO en plein écran');
-      lightbox.innerHTML='<div class="bulbo-lightbox-toolbar"><span class="bulbo-lightbox-label"></span><button type="button" data-bulbo-zoom>Zoom ×2</button><button type="button" data-bulbo-close-image aria-label="Fermer le plein écran">×</button></div><div class="bulbo-lightbox-stage"><img alt=""></div><div class="bulbo-lightbox-nav"><button type="button" data-bulbo-prev aria-label="Image précédente">←</button><button type="button" data-bulbo-next aria-label="Image suivante">→</button></div>';
+      lightbox.innerHTML='<div class="bulbo-lightbox-toolbar"><span class="bulbo-lightbox-label"></span><button type="button" data-bulbo-close-image aria-label="Fermer le plein écran">×</button></div><div class="bulbo-lightbox-stage"><img alt=""></div><div class="bulbo-lightbox-nav"><button type="button" data-bulbo-prev aria-label="Image précédente">←</button><button type="button" data-bulbo-next aria-label="Image suivante">→</button></div>';
       $('[data-bulbo-close-image]',lightbox).onclick=()=>lightbox.close();
-      $('[data-bulbo-zoom]',lightbox).onclick=event=>{const zoom=lightbox.classList.toggle('bulbo-zoomed');event.currentTarget.textContent=zoom?'Ajuster':'Zoom ×2';};
       $('[data-bulbo-prev]',lightbox).onclick=()=>showPhoto(photoIndex-1);$('[data-bulbo-next]',lightbox).onclick=()=>showPhoto(photoIndex+1);
-      window.LRF_GALLERY_GESTURES?.bind($('.bulbo-lightbox-stage',lightbox),{onSwipe:delta=>showPhoto(photoIndex+delta),isEnabled:()=>lightbox.open && photos.length>1 && !lightbox.classList.contains('bulbo-zoomed')});
+      window.LRF_GALLERY_GESTURES?.bind($('.bulbo-lightbox-stage',lightbox),{onSwipe:delta=>showPhoto(photoIndex+delta),isEnabled:()=>lightbox.open && photos.length>1});
       lightbox.addEventListener('keydown',event=>{if(event.key==='ArrowRight')showPhoto(photoIndex+1);if(event.key==='ArrowLeft')showPhoto(photoIndex-1);});
       document.body.appendChild(lightbox);
     }
-    lightbox.classList.remove('bulbo-zoomed');$('[data-bulbo-zoom]',lightbox).textContent='Zoom ×2';
     lightbox.showModal();showPhoto(photoIndex);
   }
   function requestUrl(){
