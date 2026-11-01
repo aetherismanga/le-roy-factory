@@ -296,17 +296,16 @@
       lightbox.id='fenice-lightbox';
       lightbox.className='fenice-lightbox';
       lightbox.setAttribute('aria-label','Galerie La Fenice en plein écran');
-      lightbox.innerHTML='<div class="fenice-lightbox-toolbar"><strong></strong><button class="fenice-zoom" type="button" aria-pressed="false">Zoom +</button><button type="button" class="fenice-close" aria-label="Fermer le plein écran">×</button></div><div class="fenice-lightbox-stage"><img alt=""><p class="fenice-image-error" hidden>Ce visuel est momentanément indisponible.</p></div><button class="fenice-image-prev" type="button" aria-label="Visuel précédent">‹</button><button class="fenice-image-next" type="button" aria-label="Visuel suivant">›</button><p class="fenice-lightbox-caption" aria-live="polite"></p>';
+      lightbox.innerHTML='<div class="fenice-lightbox-toolbar"><strong></strong><button type="button" class="fenice-close" aria-label="Fermer le plein écran">×</button></div><div class="fenice-lightbox-stage"><img alt=""><p class="fenice-image-error" hidden>Ce visuel est momentanément indisponible.</p></div><button class="fenice-image-prev" type="button" aria-label="Visuel précédent">‹</button><button class="fenice-image-next" type="button" aria-label="Visuel suivant">›</button><p class="fenice-lightbox-caption" aria-live="polite"></p>';
       document.body.appendChild(lightbox);
       $('.fenice-close',lightbox).addEventListener('click',()=>lightbox.close());
-      $('.fenice-zoom',lightbox).addEventListener('click',()=>{const zoomed=lightbox.classList.toggle('fenice-zoomed');$('.fenice-zoom',lightbox).setAttribute('aria-pressed',String(zoomed));$('.fenice-zoom',lightbox).textContent=zoomed?'Réduire':'Zoom +';});
       $('.fenice-image-prev',lightbox).addEventListener('click',()=>moveLightbox(-1));
       $('.fenice-image-next',lightbox).addEventListener('click',()=>moveLightbox(1));
       lightbox.addEventListener('keydown',e=>{if(e.key==='Escape'){e.stopImmediatePropagation();return;}if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();e.stopImmediatePropagation();moveLightbox(e.key==='ArrowRight'?1:-1);}});
       lightbox.addEventListener('close',()=>{ if(dialog?.open)lightboxTrigger?.focus({preventScroll:true}); });
       $('.fenice-lightbox-stage img',lightbox).addEventListener('error',()=>$('.fenice-image-error',lightbox).hidden=false);
       $('.fenice-lightbox-stage img',lightbox).addEventListener('load',()=>$('.fenice-image-error',lightbox).hidden=true);
-      swipe($('.fenice-lightbox-stage',lightbox),moveLightbox,()=>lightbox.open && lightboxImages.length>1 && !lightbox.classList.contains('fenice-zoomed'));
+      swipe($('.fenice-lightbox-stage',lightbox),moveLightbox,()=>lightbox.open && lightboxImages.length>1);
     }
     renderLightbox();
     if (!lightbox.open) lightbox.showModal();
@@ -314,9 +313,6 @@
   function renderLightbox() {
     const item=lightboxImages[lightboxIndex];
     if (!item || !active) return;
-    lightbox.classList.remove('fenice-zoomed');
-    $('.fenice-zoom',lightbox).textContent='Zoom +';
-    $('.fenice-zoom',lightbox).setAttribute('aria-pressed','false');
     $('.fenice-lightbox-toolbar strong',lightbox).textContent=active.name;
     const photo=$('.fenice-lightbox-stage img',lightbox);
     photo.src=item.fullUrl;photo.alt=item.alt;

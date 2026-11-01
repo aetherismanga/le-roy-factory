@@ -19,7 +19,7 @@
     if(document.getElementById('lrf-pwa-install-loader')) return;
     const script=document.createElement('script');
     script.id='lrf-pwa-install-loader';
-    script.src='assets/js/pwa-install.js?v=20261026-safari1';
+    script.src='assets/js/pwa-install.js?v=20261101-selection-state2';
     script.defer=true;
     document.head.appendChild(script);
 })();

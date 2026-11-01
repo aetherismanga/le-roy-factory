@@ -204,7 +204,7 @@
     if (!categories) return;
 
     const addButton = () => {
-      const existing = categories.querySelector('[data-pool-shortcut]');
+      const existing = categories.querySelector('[data-cat="piscine"],[data-pool-shortcut]');
       if (existing) return existing;
       const button = document.createElement('button');
       button.type = 'button';

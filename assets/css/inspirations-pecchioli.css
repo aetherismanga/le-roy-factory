@@ -75,9 +75,7 @@
 .pcf-lightbox-label{flex:1;font:12px Arial;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .pcf-lightbox button{min-width:44px;min-height:44px;border:1px solid #ffffff50;background:#ffffff0c;color:#fff;cursor:pointer;font-size:14px}
 .pcf-lightbox-stage{height:calc(100dvh - 116px);overflow:auto;display:grid;place-items:center}
-.pcf-lightbox-stage img{display:block;width:100%;height:100%;object-fit:contain;min-height:0}
-.pcf-zoomed .pcf-lightbox-stage{display:block}
-.pcf-zoomed .pcf-lightbox-stage img{width:200%;height:auto;max-width:none;max-height:none;object-fit:initial}
+.pcf-lightbox-stage img{display:block;width:100%;height:100%;object-fit:scale-down;min-height:0}
 .pcf-lightbox-nav{height:56px;display:flex;justify-content:center;gap:25px;padding:6px}
 .pcf-card-button:focus-visible,.pcf-guide button:focus-visible,.pcf-dialog :focus-visible{outline:3px solid #8b7855;outline-offset:3px}
 @media(min-width:1500px){.pcf-workspace #partner-products{grid-template-columns:repeat(4,minmax(0,1fr))}}

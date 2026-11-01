@@ -56,7 +56,7 @@
   }
 
   function ensureOutillages() {
-    if (grid.querySelector('[data-custom-cat="outillages"]')) return;
+    if (grid.querySelector('[data-cat="outillages"],[data-custom-cat="outillages"]')) return;
     const b = document.createElement('button');
     b.type = 'button';
     b.className = 'category-card';
