@@ -32,6 +32,23 @@
     add({type:'Tarif PRO',icon:'€',title:`Tarifs ${name}`,desc:`Grilles tarifaires professionnelles ${name}`,url:`tarifs-pro.html?partner=${u(name)}`,aliases:[name,...(partnerAliases[name]||[]),'tarif','tarifs','prix','grille','pro']});
   });
 
+  const petracerBathCategories = {
+    meubles:{label:'Meubles', aliases:['meuble','meubles','mobilier','meuble salle de bain']},
+    sanitaire:{label:'Sanitaires', aliases:['sanitaire','sanitaires','baignoire','lavabo','vasque','wc','bidet']},
+    robinetterie:{label:'Robinetterie & miroirs', aliases:['robinet','robinetterie','mitigeur','miroir','miroirs']}
+  };
+  Object.entries(petracerBathCategories).forEach(([category,meta])=>add({type:'Univers Petracer’s',icon:'◆',title:`Petracer’s · ${meta.label}`,desc:'Originali Interni Italiani · Découvrir les créations du fabricant',url:`univers.html?partner=petracers&category=${category}`,aliases:[...partnerAliases["Petracer's"],...meta.aliases]}));
+  function petracerBathAliases(product){
+    const type={furniture:['meuble','meubles','mobilier','meuble salle de bain'],sanitary:['sanitaire','sanitaires'],tapware:['robinet','robinets','robinetterie','mitigeur','mitigeurs'],mirror:['miroir','miroirs'],accessory:['accessoire','accessoires']}[product.productType]||[];
+    const text=norm([product.name,product.family,product.category,product.description,product.keywords,...(product.technicalNotes||[])].join(' '));
+    const aliases=[...type];
+    if(/\b(lavabo|lavabos|vasque|vasques|washbasin|washbasins|lavandino|lavandini)\b/.test(text))aliases.push('lavabo','lavabos','vasque','vasques');
+    if(/\b(baignoire|baignoires|vasca|vasche|bathtub|bathtubs)\b/.test(text))aliases.push('baignoire','baignoires');
+    if(/\b(wc|toilet|toilets|toilette|toilettes)\b/.test(text))aliases.push('wc','toilettes');
+    if(/\b(bidet|bidets)\b/.test(text))aliases.push('bidet','bidets');
+    return [...aliases,...(Array.isArray(product.keywords)?product.keywords:[product.keywords||''])];
+  }
+
   function flattenStrings(value,out=[]){
     if(value==null)return out;
     if(typeof value==='string'||typeof value==='number'){out.push(String(value));return out;}
@@ -55,9 +72,9 @@
     source.forEach((p,i)=>{
       const name=p.name||p.collection||`Produit ${i+1}`;
       const refs=productRefs(p);
-      const searchBits=[p.collection,p.catalogueLabel,p.slug,p.description,p.category,p.productType,...(p.formats||p.dimensions||[]),...(p.colors||[]),...(p.finishes||[]),...refs].filter(Boolean);
-      const baseUrl=`univers.html?partner=${u(partner)}&search=${u(name)}&open=1`;
-      add({type:defaultType,icon:'▦',title:name,desc:`${partner}${p.category?` · ${p.category}`:(p.productType?` · ${p.productType}`:'')}`,url:(partner==='View Ceramica'&&window.LRF_VIEW_SEARCH_META?.[p.slug]?.page)||(partner==='Elios Ceramica'&&window.LRF_ELIOS_SEARCH_META?.[p.slug]?.page)||(partner==='La Fenice'?`la-fenice-${p.slug}.html`:partner==='Biopietra'?`biopietra-${p.slug}.html`:partner==='Bulbo'?`univers.html?partner=bulbo&collection=${u(p.slug)}`:partner==='Pecchioli Firenze'?`univers.html?partner=pecchioli-firenze&collection=${u(p.slug)}`:partner==="Petracer's"?`univers.html?partner=petracers&collection=${u(p.slug)}`:null)||baseUrl,viewSlug:partner==='View Ceramica'?p.slug:undefined,eliosSlug:partner==='Elios Ceramica'?p.slug:undefined,aliases:[partner,...(partnerAliases[partner]||[]),...searchBits]});
+      const searchBits=[p.collection,p.catalogueLabel,p.slug,p.description,p.category,p.productType,...(p.formats||p.dimensions||[]),...(p.colors||[]),...(p.finishes||[]),...(p.searchAliases||[]),...refs].filter(Boolean);
+      const baseUrl=partner==="Petracer's"&&petracerBathCategories[p.navCategory]?`univers.html?partner=petracers&category=${u(p.navCategory)}&collection=${u(p.slug)}&search=${u(name)}&open=1`:`univers.html?partner=${u(partner)}&search=${u(name)}&open=1`;
+      add({type:defaultType,icon:'▦',title:name,desc:`${partner}${p.category?` · ${p.category}`:(p.productType?` · ${p.productType}`:'')}`,url:(partner==='View Ceramica'&&window.LRF_VIEW_SEARCH_META?.[p.slug]?.page)||(partner==='Elios Ceramica'&&window.LRF_ELIOS_SEARCH_META?.[p.slug]?.page)||(partner==='La Fenice'?`la-fenice-${p.slug}.html`:partner==='Biopietra'?`biopietra-${p.slug}.html`:partner==='Bulbo'?`univers.html?partner=bulbo&collection=${u(p.slug)}`:partner==='Pecchioli Firenze'?`univers.html?partner=pecchioli-firenze&collection=${u(p.slug)}`:partner==="Petracer's"?`univers.html?partner=petracers${petracerBathCategories[p.navCategory]?'&category='+u(p.navCategory):''}&collection=${u(p.slug)}`:null)||baseUrl,viewSlug:partner==='View Ceramica'?p.slug:undefined,eliosSlug:partner==='Elios Ceramica'?p.slug:undefined,aliases:[partner,...(partnerAliases[partner]||[]),...searchBits]});
       refs.forEach(ref=>add({type:`Référence ${partner.split(' ')[0]}`,icon:'⌕',title:ref,desc:`${partner} · ${name}`,url:`${baseUrl}&ref=${u(ref)}`,aliases:[partner,name,ref,...(partnerAliases[partner]||[])]}));
     });
   }
@@ -68,6 +85,7 @@
   addProducts(window.FENICE_CATALOGUE,'La Fenice','Produit La Fenice');
   addProducts((window.LRF_BIOPIETRA_SEARCH_META||[]).map(p=>({...p,category:p.family})),'Biopietra','Produit Biopietra');
   addProducts((window.PETRACER_CATALOGUE||[]).filter(p=>p.productType!=='furniture').map(p=>({...p,category:p.family||'Carrelage d’exception'})),"Petracer's",'Collection Petracer’s');
+  addProducts((window.PETRACER_BATH_CATALOGUE||[]).filter(p=>petracerBathCategories[p.navCategory]).map(p=>({...p,category:p.family||petracerBathCategories[p.navCategory].label,searchAliases:petracerBathAliases(p)})),"Petracer's",'Création Petracer’s');
   addProducts((window.PECCHIOLI_CATALOGUE||[]).map(p=>({...p,category:p.family})),'Pecchioli Firenze','Création Pecchioli');
   addProducts((window.BULBO_CATALOGUE||[]).map(p=>({...p,category:p.productType==='furniture'?'Meubles AQUERELLE':'Décors & surfaces'})),'Bulbo','Collection BULBO');
   addProducts(window.NEOBATH_CATALOGUE,'Neobath','Produit Neobath');

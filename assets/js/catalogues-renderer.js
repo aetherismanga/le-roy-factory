@@ -41,9 +41,13 @@
       ['Configurateur Virtuel Piscine','Créez votre design de piscine en ligne.','https://myvirtualpool.reviglass.es/']
     ]},
     {nom:'Biopietra',pays:'Italie',logo:'biopietra.png',presentation:"Pierre naturelle régénérée fabriquée en Italie pour la construction écologique et l'architecture durable",fichiers:[['Catalogue Biopietra',"Pierre naturelle régénérée fabriquée en Italie pour la construction écologique et l'architecture durable",'https://www.biopietra.com']]},
-    {nom:"Petracer's",pays:'Italie',logo:'petracer.png',presentation:"Carrelage d’exception italien : décors, reliefs et compositions céramiques.",fichiers:[
+    {nom:"Petracer's",pays:'Italie',logo:'petracer.png',presentation:"Carrelages, mobilier et créations italiennes pour le bain.",fichiers:[
       ['Catalogue général carrelage Petracer’s','Sols et revêtements. Édition intérieure mai 2023, fichier actuellement proposé par le fabricant.','https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf'],
-      ['Explorer les collections Petracer’s','21 collections, galeries et accès direct aux pages du catalogue.','univers.html?partner=petracers']
+      ['Originali Interni Italiani · bain & mobilier','Catalogue officiel : meubles, sanitaires, robinetterie, miroirs et accessoires.','https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf'],
+      ['Carrelage d’exception Petracer’s','Collections, photographies et pages catalogue.','univers.html?partner=petracers'],
+      ['Meubles Petracer’s','Mobilier et consoles pour la salle de bain.','univers.html?partner=petracers&category=meubles'],
+      ['Sanitaires Petracer’s','Vasques, baignoires, WC, bidets et espace douche.','univers.html?partner=petracers&category=sanitaire'],
+      ['Robinetterie & miroirs Petracer’s','Robinets, douche, miroirs et accessoires coordonnés.','univers.html?partner=petracers&category=robinetterie']
     ]},
     {nom:'Pecchioli Firenze',pays:'Italie',logo:'pecchioli.png',presentation:'Céramique artistique et historique faite à Florence.',fichiers:[['Catalogue général Pecchioli · édition 2020',"Céramiques d’art et créations artisanales. Édition du catalogue : mars 2020 ; créations actuelles dans la sélection Pecchioli.",'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2Fcatalogue%20pecchioli%202026.pdf?alt=media&token=73aacc90-fffd-4ca9-af0a-3c8b41487fbe'],['Explorer la sélection Pecchioli','Créations, références, matières et visuels du site actuel de l’usine.','univers.html?partner=pecchioli-firenze']]},
     {nom:'Bulbo',pays:'Italie',logo:'bulbo.png',presentation:'Créations céramiques audacieuses et design avant-gardiste.',fichiers:[

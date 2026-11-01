@@ -11,7 +11,7 @@
   ],
   "sharedCatalogueVersion": "20261024-suite-1",
   "publicSite": {
-    "releaseId": "20261101-petracer-selection-1",
+    "releaseId": "20261101-petracer-bain-selection-1",
     "baselineCommit": "0a116a66e4fb03522876be09d417f853bb3b2ed9",
     "pages": [
       "configurateur-salle-de-bain-3d.html",
@@ -115,9 +115,21 @@
       "photographs": 81,
       "catalogueEdition": "2023-05",
       "cataloguePages": 122,
-      "tilesOnly": true,
+      "tilesOnly": false,
       "touchPhotoNavigation": true,
-      "singleLatestCatalogue": true
+      "singleLatestCatalogue": true,
+      "bath": {
+        "products": 69,
+        "furniture": 12,
+        "sanitary": 20,
+        "tapware": 23,
+        "mirrors": 9,
+        "accessories": 5,
+        "photographs": 117,
+        "cataloguePages": 129,
+        "categoryRouting": true,
+        "nativeImageDimensionsPreserved": true
+      }
     }
   },
   "configurators": {
