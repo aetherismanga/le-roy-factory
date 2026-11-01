@@ -47,8 +47,10 @@
     ]},
     {nom:'Pecchioli Firenze',pays:'Italie',logo:'pecchioli.png',presentation:'Céramique artistique et historique faite à Florence.',fichiers:[['Catalogue Pecchioli 2026',"Faïences d'art et créations sur mesure.",'https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2Fcatalogue%20pecchioli%202026.pdf?alt=media&token=73aacc90-fffd-4ca9-af0a-3c8b41487fbe']]},
     {nom:'Bulbo',pays:'Italie',logo:'bulbo.png',presentation:'Créations céramiques audacieuses et design avant-gardiste.',fichiers:[
-      ['Catalogue Design 1','Lignes avant-gardistes et colorées.','https://heyzine.com/flip-book/50766f6757.html'],
-      ['Catalogue Design 2','Collections et ambiances.','https://heyzine.com/flip-book/890ffb683e.html']
+      ['Superfici Magnifiche · catalogue actuel','Décors grand format, matières et collections BULBO.','https://cdnm.heyzine.com/files/uploaded/v3/6f6b7484aa9f5ac27c76902694b04b990ac95317.pdf'],
+      ['Superfici Brillanti · catalogue actuel','Surfaces brillantes et créations BULBO.','https://cdnm.heyzine.com/files/uploaded/v3/890ffb683eee8dedf56b08330f5bb70719087d96.pdf'],
+      ['Cersaie 2026 & AQUERELLE','Nouveaux décors et meubles MIVAR, TWIX, BULBINO et MONOLITH.','assets/pdf/bulbo/BULBO-CERSAIE-2026.pdf'],
+      ['Explorer les collections BULBO','Visuels, couleurs, formats et préparation de votre projet.','univers.html?partner=bulbo']
     ]},
     {nom:'Randal Pro',pays:'Espagne',logo:'randal.png',presentation:'Mobilier de salle de bain sur mesure haut de gamme.',fichiers:[
       ['Catalogue RANDAL V04 interactif','Choisissez une collection et accédez immédiatement à sa page dans le PDF officiel.','randal-catalogue-interactif.html'],

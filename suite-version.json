@@ -11,7 +11,7 @@
   ],
   "sharedCatalogueVersion": "20261024-suite-1",
   "publicSite": {
-    "releaseId": "20261101-elios-images-1",
+    "releaseId": "20261101-bulbo-selection-1",
     "baselineCommit": "0a116a66e4fb03522876be09d417f853bb3b2ed9",
     "pages": [
       "configurateur-salle-de-bain-3d.html",
@@ -74,6 +74,17 @@
       "seoPages": 161,
       "protectedTariffDocuments": true,
       "requestEndpoint": "https://us-central1-le-roy-factory.cloudfunctions.net/biopietraRequest"
+    },
+    "bulbo": {
+      "collections": 99,
+      "furnitureModels": 4,
+      "photographs": 1004,
+      "swatches": 241,
+      "exactCataloguePages": 93,
+      "catalogues": 3,
+      "protectedTariffDate": "2026-10-01",
+      "singleLatestCatalogue": true,
+      "requestForm": "bulbo-projet.html"
     }
   },
   "configurators": {

@@ -90,7 +90,8 @@
         await loadScript('assets/js/fenice-catalogue-loader.js?v=20261101-fenice1','lrf-search-fenice-loader');
         await window.LRF_FENICE_LOAD?.();
         await loadScript('assets/js/biopietra-discovery-data.js?v=20261101-biopietra1','lrf-search-biopietra-data');
-        await loadScript('assets/js/site-search-v2.js?v=20261101-biopietra1','lrf-site-search-js-v2');
+        try{const response=await fetch('assets/data/bulbo-catalogue.json?v=20261101-bulbo1');if(response.ok){const data=await response.json();window.BULBO_CATALOGUE=data.collections||[];}}catch(_){}
+        await loadScript('assets/js/site-search-v2.js?v=20261101-bulbo1','lrf-site-search-js-v2');
           button.removeEventListener('click', openOnDemand);
           button.disabled = false;
           button.click();
@@ -130,7 +131,7 @@
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fromLink, {once:true});
     else fromLink();
     loadScript('assets/js/reviglass-search-index.js?v=20260911-ref1','lrf-univers-reviglass-index')
-      .then(()=>loadScript('assets/js/inspirations-search-bridge-v2.js?v=20260911-ref1','lrf-inspirations-search-bridge-v2'))
+      .then(()=>loadScript('assets/js/inspirations-search-bridge-v2.js?v=20261101-bulbo1','lrf-inspirations-search-bridge-v2'))
       .catch(()=>{});
   }
   if (file==='tarifs-pro.html') loadScript('assets/js/tarifs-search-bridge.js?v=20260907-search9','lrf-tarifs-search-bridge').catch(()=>{});
