@@ -18,6 +18,7 @@ test('Pecchioli references retain unique identities, official sources and docume
     assert.ok(['surface','sanitary','furniture'].includes(p.productType));
     for(const v of p.variants||[]){
       assert.ok(v.id&&v.label);
+      if(v.imageUrl)assert.ok(p.images.some(image=>image.url===v.imageUrl&&image.originalUrl===v.originalUrl),p.slug+' exact variant photo');
       if(v.format)assert.ok(p.formats.includes(v.format),p.slug+' variant format');
       for(const id of v.colorIds||[])assert.ok(p.swatches.some(s=>s.id===id),p.slug+' variant colour');
     }

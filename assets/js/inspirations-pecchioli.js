@@ -63,7 +63,7 @@
     lightbox.classList.remove('pcf-zoomed');$('[data-pcf-zoom]',lightbox).textContent='Zoom ×2';lightbox.showModal();showPhoto(index);
   }
   function requestUrl(){const params=new URLSearchParams({collection:active.slug});for(const key of ['variant','color','format','finish','quantity','unit','details']){const value=$('#pcf-choice-'+key,dialog)?.value;if(value)params.set(key,value);}return 'pecchioli-projet.html?'+params;}
-  function variantText(product,variant){if(!variant)return 'Choisissez une variante documentée ou laissez l’agence vous conseiller.';const colors=(variant.colorIds||[]).map(id=>(product.swatches||[]).find(s=>s.id===id||s.code===id)?.name||id);return [...new Set([variant.label,variant.format,...colors,...(variant.finishIds||[])].filter(Boolean))].join(' · ');}
+  function variantText(product,variant){return variant?.label||'Choisissez une variante documentée ou laissez l’agence vous conseiller.';}
   function openCollection(id,from){
     const product=products().find(p=>p.id===id||p.slug===id);if(!product)return false;makeDialog();if(!dialog.open){trigger=from||document.activeElement;overflow=document.body.style.overflow;}active=product;photos=images(product);index=0;
     const variants=product.variants||[],allowed=window.LRF_PECCHIOLI_ACCESS?.canAccess?.()===true;
