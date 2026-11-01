@@ -1,0 +1,721 @@
+{
+  "updated": "2026-11-01",
+  "collections": {
+    "dynasty": 14,
+    "montblanc": 8,
+    "stone-icon": 3,
+    "terraforma": 8
+  },
+  "nativePdfReview": {
+    "source": "https://eliosceramica.com/wp-content/uploads/0202/09/ELIOS_CATALOGO_CERSAIE_2026_new.pdf",
+    "sha256": "1b5c1a37e532bee1e58e2e974593d928674aded1c816ae5ea197a3b720b8231a",
+    "pagesReviewed": [
+      45,
+      46,
+      47
+    ],
+    "note": "Terraforma uses existing native manufacturer catalogue samples, without upscaling; individual samples are definition-limited."
+  },
+  "media": {
+    "variants": {
+      "dynasty": {
+        "Bianco Aurora": [
+          "assets/img/elios-colors-20261101/dynasty/bianco-aurora.webp"
+        ],
+        "Marfil": [
+          "assets/img/elios-colors-20261101/dynasty/marfil.webp"
+        ],
+        "Monet": [
+          "assets/img/elios-colors-20261101/dynasty/monet.webp"
+        ],
+        "Alpi": [
+          "assets/img/elios-colors-20261101/dynasty/alpi.webp"
+        ],
+        "Calacatta Viola": [
+          "assets/img/elios-colors-20261101/dynasty/calacatta-viola.webp"
+        ],
+        "Lepanto": [
+          "assets/img/elios-colors-20261101/dynasty/lepanto.webp"
+        ],
+        "Saint Laurent": [
+          "assets/img/elios-colors-20261101/dynasty/saint-laurent.webp"
+        ],
+        "Crown Green": [
+          "assets/img/elios-colors-20261101/dynasty/crown-green.webp"
+        ],
+        "Victoria Green": [
+          "assets/img/elios-colors-20261101/dynasty/victoria-green.webp"
+        ],
+        "Kingdom Red": [
+          "assets/img/elios-colors-20261101/dynasty/kingdom-red.webp"
+        ],
+        "Noble Red": [
+          "assets/img/elios-colors-20261101/dynasty/noble-red.webp"
+        ],
+        "Kingdom White": [
+          "assets/img/elios-colors-20261101/dynasty/kingdom-white.webp"
+        ],
+        "Imperial Black": [
+          "assets/img/elios-colors-20261101/dynasty/imperial-black.webp"
+        ],
+        "Prestige Black": [
+          "assets/img/elios-colors-20261101/dynasty/prestige-black.webp"
+        ]
+      },
+      "montblanc": {
+        "Imperial": [
+          "assets/img/elios-colors-20261101/montblanc/imperial.webp"
+        ],
+        "Reserve": [
+          "assets/img/elios-colors-20261101/montblanc/reserve.webp"
+        ],
+        "Prestige": [
+          "assets/img/elios-colors-20261101/montblanc/prestige.webp"
+        ],
+        "Eclipse": [
+          "assets/img/elios-colors-20261101/montblanc/eclipse.webp"
+        ],
+        "Art Imperial": [
+          "assets/img/elios-colors-20261101/montblanc/art-imperial.webp"
+        ],
+        "Art Reserve": [
+          "assets/img/elios-colors-20261101/montblanc/art-reserve.webp"
+        ],
+        "Art Prestige": [
+          "assets/img/elios-colors-20261101/montblanc/art-prestige.webp"
+        ],
+        "Art Eclipse": [
+          "assets/img/elios-colors-20261101/montblanc/art-eclipse.webp"
+        ]
+      },
+      "stone-icon": {
+        "Campaspero": [
+          "assets/img/elios-colors-20261101/stone-icon/campaspero.webp"
+        ],
+        "Francese": [
+          "assets/img/elios-colors-20261101/stone-icon/francese.webp"
+        ],
+        "Leccese": [
+          "assets/img/elios-colors-20261101/stone-icon/leccese.webp"
+        ]
+      },
+      "terraforma": {
+        "Limo": [
+          "assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/limo-1.webp"
+        ],
+        "Mattone": [
+          "assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/mattone-1.webp"
+        ],
+        "Sabbia": [
+          "assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/sabbia-1.webp"
+        ],
+        "Siena": [
+          "assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/siena-1.webp"
+        ],
+        "Flora": [
+          "assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/deco-flora.webp"
+        ],
+        "Marna": [
+          "assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/deco-marna.webp"
+        ],
+        "Petra": [
+          "assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/deco-petra.webp"
+        ],
+        "Duna": [
+          "assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/deco-duna.webp"
+        ]
+      }
+    },
+    "galleries": {},
+    "assets": {
+      "assets/img/elios-colors-20261101/dynasty/bianco-aurora.webp": {
+        "thumbnail": "assets/img/elios-colors-20261101/dynasty/bianco-aurora.webp",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/08/BIANCO-AURORA_Z.jpg",
+        "width": 1200,
+        "height": 700,
+        "kind": "manufacturer-colour-sample"
+      },
+      "assets/img/elios-colors-20261101/dynasty/marfil.webp": {
+        "thumbnail": "assets/img/elios-colors-20261101/dynasty/marfil.webp",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/08/MARFIL_Z.jpg",
+        "width": 1200,
+        "height": 700,
+        "kind": "manufacturer-colour-sample"
+      },
+      "assets/img/elios-colors-20261101/dynasty/monet.webp": {
+        "thumbnail": "assets/img/elios-colors-20261101/dynasty/monet.webp",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/08/MONET_Z.jpg",
+        "width": 1200,
+        "height": 700,
+        "kind": "manufacturer-colour-sample"
+      },
+      "assets/img/elios-colors-20261101/dynasty/alpi.webp": {
+        "thumbnail": "assets/img/elios-colors-20261101/dynasty/alpi.webp",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/08/ALPI_Z.jpg",
+        "width": 1200,
+        "height": 700,
+        "kind": "manufacturer-colour-sample"
+      },
+      "assets/img/elios-colors-20261101/dynasty/calacatta-viola.webp": {
+        "thumbnail": "assets/img/elios-colors-20261101/dynasty/calacatta-viola.webp",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/08/CALACATTA-VIOLA_Z.jpg",
+        "width": 1200,
+        "height": 700,
+        "kind": "manufacturer-colour-sample"
+      },
+      "assets/img/elios-colors-20261101/dynasty/lepanto.webp": {
+        "thumbnail": "assets/img/elios-colors-20261101/dynasty/lepanto.webp",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/08/LEPANTO_Z.jpg",
+        "width": 1200,
+        "height": 700,
+        "kind": "manufacturer-colour-sample"
+      },
+      "assets/img/elios-colors-20261101/dynasty/saint-laurent.webp": {
+        "thumbnail": "assets/img/elios-colors-20261101/dynasty/saint-laurent.webp",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/08/SAINT-LAURENT_Z.jpg",
+        "width": 1200,
+        "height": 700,
+        "kind": "manufacturer-colour-sample"
+      },
+      "assets/img/elios-colors-20261101/dynasty/crown-green.webp": {
+        "thumbnail": "assets/img/elios-colors-20261101/dynasty/crown-green.webp",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/08/CROWN-GREEN_z.jpg",
+        "width": 751,
+        "height": 751,
+        "kind": "manufacturer-decor-sample"
+      },
+      "assets/img/elios-colors-20261101/dynasty/victoria-green.webp": {
+        "thumbnail": "assets/img/elios-colors-20261101/dynasty/victoria-green.webp",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/08/VICTORIA-GREEN_z.jpg",
+        "width": 744,
+        "height": 745,
+        "kind": "manufacturer-decor-sample"
+      },
+      "assets/img/elios-colors-20261101/dynasty/kingdom-red.webp": {
+        "thumbnail": "assets/img/elios-colors-20261101/dynasty/kingdom-red.webp",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/08/KINGDOM-RED_z.jpg",
+        "width": 751,
+        "height": 751,
+        "kind": "manufacturer-decor-sample"
+      },
+      "assets/img/elios-colors-20261101/dynasty/noble-red.webp": {
+        "thumbnail": "assets/img/elios-colors-20261101/dynasty/noble-red.webp",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/08/NOBLE-RED_z.jpg",
+        "width": 751,
+        "height": 751,
+        "kind": "manufacturer-decor-sample"
+      },
+      "assets/img/elios-colors-20261101/dynasty/kingdom-white.webp": {
+        "thumbnail": "assets/img/elios-colors-20261101/dynasty/kingdom-white.webp",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/08/KINGDOM-WHITE_z.jpg",
+        "width": 751,
+        "height": 751,
+        "kind": "manufacturer-decor-sample"
+      },
+      "assets/img/elios-colors-20261101/dynasty/imperial-black.webp": {
+        "thumbnail": "assets/img/elios-colors-20261101/dynasty/imperial-black.webp",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/08/IMPERIAL-BLACK_z.jpg",
+        "width": 751,
+        "height": 751,
+        "kind": "manufacturer-decor-sample"
+      },
+      "assets/img/elios-colors-20261101/dynasty/prestige-black.webp": {
+        "thumbnail": "assets/img/elios-colors-20261101/dynasty/prestige-black.webp",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/08/PRESTIGE-BLACK_z.jpg",
+        "width": 751,
+        "height": 751,
+        "kind": "manufacturer-decor-sample"
+      },
+      "assets/img/elios-colors-20261101/montblanc/imperial.webp": {
+        "thumbnail": "assets/img/elios-colors-20261101/montblanc/imperial.webp",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/10/MontBlanc_Imperial_col.jpg",
+        "width": 1200,
+        "height": 700,
+        "kind": "manufacturer-colour-sample"
+      },
+      "assets/img/elios-colors-20261101/montblanc/reserve.webp": {
+        "thumbnail": "assets/img/elios-colors-20261101/montblanc/reserve.webp",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/10/MontBlanc_Reserve_col.jpg",
+        "width": 1200,
+        "height": 700,
+        "kind": "manufacturer-colour-sample"
+      },
+      "assets/img/elios-colors-20261101/montblanc/prestige.webp": {
+        "thumbnail": "assets/img/elios-colors-20261101/montblanc/prestige.webp",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/10/MontBlanc_Prestige_col-1.jpg",
+        "width": 900,
+        "height": 600,
+        "kind": "manufacturer-colour-sample"
+      },
+      "assets/img/elios-colors-20261101/montblanc/eclipse.webp": {
+        "thumbnail": "assets/img/elios-colors-20261101/montblanc/eclipse.webp",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/10/MontBlanc_Eclipse_col.jpg",
+        "width": 1200,
+        "height": 700,
+        "kind": "manufacturer-colour-sample"
+      },
+      "assets/img/elios-colors-20261101/montblanc/art-imperial.webp": {
+        "thumbnail": "assets/img/elios-colors-20261101/montblanc/art-imperial.webp",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/10/ART-IMPERIAL.jpg",
+        "width": 374,
+        "height": 738,
+        "kind": "manufacturer-decor-sample"
+      },
+      "assets/img/elios-colors-20261101/montblanc/art-reserve.webp": {
+        "thumbnail": "assets/img/elios-colors-20261101/montblanc/art-reserve.webp",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/10/ART-RESERVE.jpg",
+        "width": 374,
+        "height": 738,
+        "kind": "manufacturer-decor-sample"
+      },
+      "assets/img/elios-colors-20261101/montblanc/art-prestige.webp": {
+        "thumbnail": "assets/img/elios-colors-20261101/montblanc/art-prestige.webp",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/10/ART-PRESTIGE.jpg",
+        "width": 374,
+        "height": 738,
+        "kind": "manufacturer-decor-sample"
+      },
+      "assets/img/elios-colors-20261101/montblanc/art-eclipse.webp": {
+        "thumbnail": "assets/img/elios-colors-20261101/montblanc/art-eclipse.webp",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/10/ART-ECLIPSE.jpg",
+        "width": 374,
+        "height": 738,
+        "kind": "manufacturer-decor-sample"
+      },
+      "assets/img/elios-colors-20261101/stone-icon/campaspero.webp": {
+        "thumbnail": "assets/img/elios-colors-20261101/stone-icon/campaspero.webp",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/10/StoneIcon_campaspero_col-1.jpg",
+        "width": 900,
+        "height": 600,
+        "kind": "manufacturer-colour-sample"
+      },
+      "assets/img/elios-colors-20261101/stone-icon/francese.webp": {
+        "thumbnail": "assets/img/elios-colors-20261101/stone-icon/francese.webp",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/10/StoneIcon_francese_col-1.jpg",
+        "width": 900,
+        "height": 600,
+        "kind": "manufacturer-colour-sample"
+      },
+      "assets/img/elios-colors-20261101/stone-icon/leccese.webp": {
+        "thumbnail": "assets/img/elios-colors-20261101/stone-icon/leccese.webp",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/10/StoneIcon_leccese_col.jpg",
+        "width": 900,
+        "height": 600,
+        "kind": "manufacturer-colour-sample"
+      },
+      "assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/limo-1.webp": {
+        "thumbnail": "assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/limo-1.webp",
+        "original": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/limo-1.webp",
+        "width": 126,
+        "height": 126,
+        "kind": "manufacturer-catalogue-sample",
+        "definitionLimited": true,
+        "definition": "Échantillon natif du catalogue fabricant ; définition limitée, sans agrandissement artificiel."
+      },
+      "assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/mattone-1.webp": {
+        "thumbnail": "assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/mattone-1.webp",
+        "original": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/mattone-1.webp",
+        "width": 131,
+        "height": 131,
+        "kind": "manufacturer-catalogue-sample",
+        "definitionLimited": true,
+        "definition": "Échantillon natif du catalogue fabricant ; définition limitée, sans agrandissement artificiel."
+      },
+      "assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/sabbia-1.webp": {
+        "thumbnail": "assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/sabbia-1.webp",
+        "original": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/sabbia-1.webp",
+        "width": 131,
+        "height": 131,
+        "kind": "manufacturer-catalogue-sample",
+        "definitionLimited": true,
+        "definition": "Échantillon natif du catalogue fabricant ; définition limitée, sans agrandissement artificiel."
+      },
+      "assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/siena-1.webp": {
+        "thumbnail": "assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/siena-1.webp",
+        "original": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/siena-1.webp",
+        "width": 131,
+        "height": 131,
+        "kind": "manufacturer-catalogue-sample",
+        "definitionLimited": true,
+        "definition": "Échantillon natif du catalogue fabricant ; définition limitée, sans agrandissement artificiel."
+      },
+      "assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/deco-flora.webp": {
+        "thumbnail": "assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/deco-flora.webp",
+        "original": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/deco-flora.webp",
+        "width": 222,
+        "height": 222,
+        "kind": "manufacturer-catalogue-sample",
+        "definitionLimited": true,
+        "definition": "Échantillon natif du catalogue fabricant ; définition limitée, sans agrandissement artificiel."
+      },
+      "assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/deco-marna.webp": {
+        "thumbnail": "assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/deco-marna.webp",
+        "original": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/deco-marna.webp",
+        "width": 222,
+        "height": 222,
+        "kind": "manufacturer-catalogue-sample",
+        "definitionLimited": true,
+        "definition": "Échantillon natif du catalogue fabricant ; définition limitée, sans agrandissement artificiel."
+      },
+      "assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/deco-petra.webp": {
+        "thumbnail": "assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/deco-petra.webp",
+        "original": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/deco-petra.webp",
+        "width": 222,
+        "height": 222,
+        "kind": "manufacturer-catalogue-sample",
+        "definitionLimited": true,
+        "definition": "Échantillon natif du catalogue fabricant ; définition limitée, sans agrandissement artificiel."
+      },
+      "assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/deco-duna.webp": {
+        "thumbnail": "assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/deco-duna.webp",
+        "original": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/deco-duna.webp",
+        "width": 222,
+        "height": 222,
+        "kind": "manufacturer-catalogue-sample",
+        "definitionLimited": true,
+        "definition": "Échantillon natif du catalogue fabricant ; définition limitée, sans agrandissement artificiel."
+      }
+    },
+    "sources": {
+      "dynasty:Bianco Aurora": {
+        "page": "https://eliosceramica.com/collezione/dynasty/",
+        "officialLabel": "BIANCO AURORA",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/08/BIANCO-AURORA_Z.jpg",
+        "sha256": "feaa22acca64c3fe83294411856033e38d2dabb31daffdb0c5918daf03966950",
+        "kind": "manufacturer-colour-sample"
+      },
+      "dynasty:Marfil": {
+        "page": "https://eliosceramica.com/collezione/dynasty/",
+        "officialLabel": "MARFIL",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/08/MARFIL_Z.jpg",
+        "sha256": "94fdba9d53806f80bf64fbfa5d43b495c0ffd8d60eb6845d5b75c5f72470c320",
+        "kind": "manufacturer-colour-sample"
+      },
+      "dynasty:Monet": {
+        "page": "https://eliosceramica.com/collezione/dynasty/",
+        "officialLabel": "MONET",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/08/MONET_Z.jpg",
+        "sha256": "fad492fe1e75f531c8c6a65e183c75eb7fc55736c45256a0aa2d29bb42e97a2d",
+        "kind": "manufacturer-colour-sample"
+      },
+      "dynasty:Alpi": {
+        "page": "https://eliosceramica.com/collezione/dynasty/",
+        "officialLabel": "ALPI",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/08/ALPI_Z.jpg",
+        "sha256": "b59b9c1152386db6f4c3946732990bf5e7bf9cfecd977cfe8a45dc368c37a245",
+        "kind": "manufacturer-colour-sample"
+      },
+      "dynasty:Calacatta Viola": {
+        "page": "https://eliosceramica.com/collezione/dynasty/",
+        "officialLabel": "CALACATTA VIOLA",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/08/CALACATTA-VIOLA_Z.jpg",
+        "sha256": "bc9169657920e3dbb795efc2d68b30a98ce6c1b976881fce33ac18cf4965982a",
+        "kind": "manufacturer-colour-sample"
+      },
+      "dynasty:Lepanto": {
+        "page": "https://eliosceramica.com/collezione/dynasty/",
+        "officialLabel": "LEPANTO",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/08/LEPANTO_Z.jpg",
+        "sha256": "55b27745ce6cc1ead2fb4edf2b036c1831e5b968324db9ae9cf41e622abefd03",
+        "kind": "manufacturer-colour-sample"
+      },
+      "dynasty:Saint Laurent": {
+        "page": "https://eliosceramica.com/collezione/dynasty/",
+        "officialLabel": "SAINT LAURENT",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/08/SAINT-LAURENT_Z.jpg",
+        "sha256": "82b365da3d95b2f5279525187a0f81915651ab9add190b791ca667f8154e0a69",
+        "kind": "manufacturer-colour-sample"
+      },
+      "dynasty:Crown Green": {
+        "page": "https://eliosceramica.com/collezione/dynasty/",
+        "officialLabel": "Crown Green",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/08/CROWN-GREEN_z.jpg",
+        "sha256": "266a66ec601408cdba18fb15e67aa7717f4605f8f0c874a41410e031bf291640",
+        "kind": "manufacturer-decor-sample"
+      },
+      "dynasty:Victoria Green": {
+        "page": "https://eliosceramica.com/collezione/dynasty/",
+        "officialLabel": "Victoria Green",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/08/VICTORIA-GREEN_z.jpg",
+        "sha256": "d222a717147cb0a1872acfa095894fa05aa777457f8261bf1275833788d3c68f",
+        "kind": "manufacturer-decor-sample"
+      },
+      "dynasty:Kingdom Red": {
+        "page": "https://eliosceramica.com/collezione/dynasty/",
+        "officialLabel": "Kingdom Red",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/08/KINGDOM-RED_z.jpg",
+        "sha256": "e7bba97b57832365a03b391eaa889fe97a33affb3ac610807cf555a1dc2c971b",
+        "kind": "manufacturer-decor-sample"
+      },
+      "dynasty:Noble Red": {
+        "page": "https://eliosceramica.com/collezione/dynasty/",
+        "officialLabel": "Noble Red",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/08/NOBLE-RED_z.jpg",
+        "sha256": "b26f8485d551fb2ac060ea68675207cb1179b9b42aff4fcf6cad715e0b209872",
+        "kind": "manufacturer-decor-sample"
+      },
+      "dynasty:Kingdom White": {
+        "page": "https://eliosceramica.com/collezione/dynasty/",
+        "officialLabel": "Kingdome White",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/08/KINGDOM-WHITE_z.jpg",
+        "sha256": "fedee1ba629b842c7349ae2ed86762d0dfa465079d5ce5f637bdddfedb8f7c7b",
+        "kind": "manufacturer-decor-sample"
+      },
+      "dynasty:Imperial Black": {
+        "page": "https://eliosceramica.com/collezione/dynasty/",
+        "officialLabel": "Imperial Black",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/08/IMPERIAL-BLACK_z.jpg",
+        "sha256": "5819a55453b2b50ff20b7d4acdfec7af369c15beed148066a37602e131c2e844",
+        "kind": "manufacturer-decor-sample"
+      },
+      "dynasty:Prestige Black": {
+        "page": "https://eliosceramica.com/collezione/dynasty/",
+        "officialLabel": "Prestige Black",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/08/PRESTIGE-BLACK_z.jpg",
+        "sha256": "c419012ad1d4de057ab18dc7e8ed697d4115718093422d7bcc8434eafbd4a3f7",
+        "kind": "manufacturer-decor-sample"
+      },
+      "montblanc:Imperial": {
+        "page": "https://eliosceramica.com/collezione/montblanc/",
+        "officialLabel": "Imperial",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/10/MontBlanc_Imperial_col.jpg",
+        "sha256": "27ce968d8d093db802badaa6903fcef6eb4180ddd654c1bc37a39bbe291a89a0",
+        "kind": "manufacturer-colour-sample"
+      },
+      "montblanc:Reserve": {
+        "page": "https://eliosceramica.com/collezione/montblanc/",
+        "officialLabel": "Reserve",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/10/MontBlanc_Reserve_col.jpg",
+        "sha256": "200bfb654d9200e18180ba38b940337d16a45537d0d7a28bbdf1b7962e1ee743",
+        "kind": "manufacturer-colour-sample"
+      },
+      "montblanc:Prestige": {
+        "page": "https://eliosceramica.com/collezione/montblanc/",
+        "officialLabel": "Prestige",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/10/MontBlanc_Prestige_col-1.jpg",
+        "sha256": "fef8f1d24649459d98f878e313f1a53fbae08e3ce0d5d67aa3db7a8468675205",
+        "kind": "manufacturer-colour-sample"
+      },
+      "montblanc:Eclipse": {
+        "page": "https://eliosceramica.com/collezione/montblanc/",
+        "officialLabel": "Eclipse",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/10/MontBlanc_Eclipse_col.jpg",
+        "sha256": "40605ad3d8fb2f1415953bb9027313f5229651dc3729a8643350d29c6eeda51e",
+        "kind": "manufacturer-colour-sample"
+      },
+      "montblanc:Art Imperial": {
+        "page": "https://eliosceramica.com/collezione/montblanc/",
+        "officialLabel": "Art Imperial",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/10/ART-IMPERIAL.jpg",
+        "sha256": "5ec8bc266022d1e763516a030da2d5816d01fe0601a2202cb806dd5381d6794f",
+        "kind": "manufacturer-decor-sample"
+      },
+      "montblanc:Art Reserve": {
+        "page": "https://eliosceramica.com/collezione/montblanc/",
+        "officialLabel": "Art Reserve",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/10/ART-RESERVE.jpg",
+        "sha256": "53cadc1978725cb27f8f6fac6e1266ec698923ed6ae591224d91c666f41cb479",
+        "kind": "manufacturer-decor-sample"
+      },
+      "montblanc:Art Prestige": {
+        "page": "https://eliosceramica.com/collezione/montblanc/",
+        "officialLabel": "Art Prestige",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/10/ART-PRESTIGE.jpg",
+        "sha256": "e4e0f7df40a9b09ed050370f4c7d66c3d3a2b1b83eefe935cbccf84c2d8a0776",
+        "kind": "manufacturer-decor-sample"
+      },
+      "montblanc:Art Eclipse": {
+        "page": "https://eliosceramica.com/collezione/montblanc/",
+        "officialLabel": "Art Eclipse",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/10/ART-ECLIPSE.jpg",
+        "sha256": "4c7ce57eaba9bef947e5a43c4382aa8eccf7af8adea692e36071263c9d81c2ea",
+        "kind": "manufacturer-decor-sample"
+      },
+      "stone-icon:Campaspero": {
+        "page": "https://eliosceramica.com/collezione/stone-icon/",
+        "officialLabel": "Campaspero",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/10/StoneIcon_campaspero_col-1.jpg",
+        "sha256": "a0229a9c0771c25e05a0dafb2fd2ee74a0af5090ada7e1dc021646745b27709b",
+        "kind": "manufacturer-colour-sample"
+      },
+      "stone-icon:Francese": {
+        "page": "https://eliosceramica.com/collezione/stone-icon/",
+        "officialLabel": "Francese",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/10/StoneIcon_francese_col-1.jpg",
+        "sha256": "bc36913c0ba0312c0241fc1ed6f3fcf74d3927b6717aeb86d8fc6f7ce83dadeb",
+        "kind": "manufacturer-colour-sample"
+      },
+      "stone-icon:Leccese": {
+        "page": "https://eliosceramica.com/collezione/stone-icon/",
+        "officialLabel": "Leccese",
+        "original": "https://eliosceramica.com/wp-content/uploads/2026/10/StoneIcon_leccese_col.jpg",
+        "sha256": "289355ff516036c775123a87d529dfe6385a604c9ea7bbba19e0709a5e235005",
+        "kind": "manufacturer-colour-sample"
+      },
+      "terraforma:Limo": {
+        "page": "https://eliosceramica.com/wp-content/uploads/0202/09/ELIOS_CATALOGO_CERSAIE_2026_new.pdf",
+        "pdfPage": 45,
+        "sourceSha256": "1b5c1a37e532bee1e58e2e974593d928674aded1c816ae5ea197a3b720b8231a",
+        "officialLabel": "Limo",
+        "kind": "manufacturer-catalogue-sample",
+        "nativeXrefs": [
+          1651,
+          1652,
+          1653,
+          1654,
+          1655,
+          1656,
+          1657,
+          1658,
+          1659,
+          1660,
+          1661,
+          1662
+        ],
+        "nativeDimensions": [
+          126,
+          126
+        ],
+        "original": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/limo-1.webp"
+      },
+      "terraforma:Mattone": {
+        "page": "https://eliosceramica.com/wp-content/uploads/0202/09/ELIOS_CATALOGO_CERSAIE_2026_new.pdf",
+        "pdfPage": 46,
+        "sourceSha256": "1b5c1a37e532bee1e58e2e974593d928674aded1c816ae5ea197a3b720b8231a",
+        "officialLabel": "Mattone",
+        "kind": "manufacturer-catalogue-sample",
+        "nativeXrefs": [
+          1701,
+          1702,
+          1703,
+          1704,
+          1705,
+          1706,
+          1707,
+          1708,
+          1709,
+          1710,
+          1711,
+          1712
+        ],
+        "nativeDimensions": [
+          131,
+          131
+        ],
+        "original": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/mattone-1.webp"
+      },
+      "terraforma:Sabbia": {
+        "page": "https://eliosceramica.com/wp-content/uploads/0202/09/ELIOS_CATALOGO_CERSAIE_2026_new.pdf",
+        "pdfPage": 46,
+        "sourceSha256": "1b5c1a37e532bee1e58e2e974593d928674aded1c816ae5ea197a3b720b8231a",
+        "officialLabel": "Sabbia",
+        "kind": "manufacturer-catalogue-sample",
+        "nativeXrefs": [
+          1673,
+          1674,
+          1675,
+          1676,
+          1677,
+          1678,
+          1679,
+          1680,
+          1681,
+          1682,
+          1683,
+          1684
+        ],
+        "nativeDimensions": [
+          131,
+          131
+        ],
+        "original": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/sabbia-1.webp"
+      },
+      "terraforma:Siena": {
+        "page": "https://eliosceramica.com/wp-content/uploads/0202/09/ELIOS_CATALOGO_CERSAIE_2026_new.pdf",
+        "pdfPage": 46,
+        "sourceSha256": "1b5c1a37e532bee1e58e2e974593d928674aded1c816ae5ea197a3b720b8231a",
+        "officialLabel": "Siena",
+        "kind": "manufacturer-catalogue-sample",
+        "nativeXrefs": [
+          1686,
+          1687,
+          1688,
+          1689,
+          1690,
+          1691,
+          1692,
+          1693,
+          1694,
+          1695,
+          1696,
+          1697
+        ],
+        "nativeDimensions": [
+          131,
+          131
+        ],
+        "original": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/siena-1.webp"
+      },
+      "terraforma:Flora": {
+        "page": "https://eliosceramica.com/wp-content/uploads/0202/09/ELIOS_CATALOGO_CERSAIE_2026_new.pdf",
+        "pdfPage": 47,
+        "sourceSha256": "1b5c1a37e532bee1e58e2e974593d928674aded1c816ae5ea197a3b720b8231a",
+        "officialLabel": "Flora",
+        "kind": "manufacturer-catalogue-sample",
+        "nativeXrefs": [
+          1739
+        ],
+        "nativeDimensions": [
+          222,
+          222
+        ],
+        "original": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/deco-flora.webp"
+      },
+      "terraforma:Marna": {
+        "page": "https://eliosceramica.com/wp-content/uploads/0202/09/ELIOS_CATALOGO_CERSAIE_2026_new.pdf",
+        "pdfPage": 47,
+        "sourceSha256": "1b5c1a37e532bee1e58e2e974593d928674aded1c816ae5ea197a3b720b8231a",
+        "officialLabel": "Marna",
+        "kind": "manufacturer-catalogue-sample",
+        "nativeXrefs": [
+          1738
+        ],
+        "nativeDimensions": [
+          222,
+          222
+        ],
+        "original": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/deco-marna.webp"
+      },
+      "terraforma:Petra": {
+        "page": "https://eliosceramica.com/wp-content/uploads/0202/09/ELIOS_CATALOGO_CERSAIE_2026_new.pdf",
+        "pdfPage": 47,
+        "sourceSha256": "1b5c1a37e532bee1e58e2e974593d928674aded1c816ae5ea197a3b720b8231a",
+        "officialLabel": "Petra",
+        "kind": "manufacturer-catalogue-sample",
+        "nativeXrefs": [
+          1741
+        ],
+        "nativeDimensions": [
+          222,
+          222
+        ],
+        "original": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/deco-petra.webp"
+      },
+      "terraforma:Duna": {
+        "page": "https://eliosceramica.com/wp-content/uploads/0202/09/ELIOS_CATALOGO_CERSAIE_2026_new.pdf",
+        "pdfPage": 47,
+        "sourceSha256": "1b5c1a37e532bee1e58e2e974593d928674aded1c816ae5ea197a3b720b8231a",
+        "officialLabel": "Duna",
+        "kind": "manufacturer-catalogue-sample",
+        "nativeXrefs": [
+          1740
+        ],
+        "nativeDimensions": [
+          222,
+          222
+        ],
+        "original": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/deco-duna.webp"
+      }
+    }
+  }
+}

@@ -28,7 +28,11 @@
   function imageData(){ return window.ELIOS_IMAGE_DATA || {}; }
   function remote(){ return window.ELIOS_HD_REMOTE || {}; }
   function official(){ return window.ELIOS_OFFICIAL_GALLERIES || {}; }
-  function variants(){ return {...(window.ELIOS_VERIFIED_VARIANTS||{}),...(window.ELIOS_SELECTION_MEDIA?.variants||{})}; }
+  const model=window.ELIOS_SELECTION_MEDIA_MODEL;
+  if(!model)return;
+  const asset=(url,kind)=>window.ELIOS_COLOR_MEDIA?.assets?.[url]?.[kind]||url;
+  const limited=url=>window.ELIOS_COLOR_MEDIA?.assets?.[url]?.definitionLimited===true;
+  function variants(){ return model.mergeVariants(window.ELIOS_VERIFIED_VARIANTS,window.ELIOS_SELECTION_MEDIA?.variants,window.ELIOS_COLOR_MEDIA?.variants); }
 
   function productFromId(id){
     const slug=String(id||'').replace(/^elios-/,'');
@@ -37,12 +41,14 @@
   }
 
   function productFromOpenModal(){
-    if(activeId){
-      const found=productFromId(activeId);
-      if(found) return found;
-    }
+    const partner=document.getElementById('workspace-title')?.textContent;
+    if(partner && !norm(partner).includes('elios'))return null;
     const title=modalCard.querySelector('.modal-v2-info h2, h2')?.textContent?.trim();
     if(!title) return null;
+    if(activeId){
+      const found=productFromId(activeId);
+      if(found && [found.product.name,found.product.catalogueLabel].some(name=>norm(name)===norm(title))) return found;
+    }
     const p=catalogue().find(x=>norm(x.name)===norm(title) || norm(x.catalogueLabel)===norm(title));
     return p ? {slug:p.slug,product:p,id:'elios-'+p.slug} : null;
   }
@@ -68,11 +74,11 @@
 
   function collectionImages(slug,product){
     const verified=window.ELIOS_SELECTION_MEDIA?.galleries?.[slug];
-    if(verified?.length) return unique(verified);
+    if(verified?.length) return unique([...verified,...(window.ELIOS_COLOR_MEDIA?.galleries?.[slug]||[])]);
     const vm=variantMap(slug);
     const allVariants=Object.values(vm).flat();
     return unique([
-      ...(official()[slug]||[]),
+      ...(official()[slug]||[]),...(window.ELIOS_COLOR_MEDIA?.galleries?.[slug]||[]),
       ...allVariants,
       ...(remote()[slug] ? [remote()[slug]] : []),
       ...bestLocal(product)
@@ -136,6 +142,7 @@
     let currentImages=all.slice();
     let currentIndex=0;
     let selectedColor='';
+    let selectionNote='';
 
     const gallery=document.createElement('div');
     gallery.className='elios-gallery-v3';
@@ -150,6 +157,7 @@
         <span class="elios-gallery-zoom-hint">⤢ Agrandir</span>
       </div>
       <div class="elios-gallery-thumbs"></div>
+      <p class="elios-gallery-status" role="status" hidden></p>
     `;
     if(oldImg) oldImg.replaceWith(gallery); else main.prepend(gallery);
 
@@ -160,6 +168,7 @@
     const label=gallery.querySelector('.elios-gallery-image-label');
     const prev=gallery.querySelector('.prev');
     const next=gallery.querySelector('.next');
+    const status=gallery.querySelector('.elios-gallery-status');
 
     function caption(){
       const src=currentImages[currentIndex]||'';
@@ -170,7 +179,7 @@
     function updateLightbox(){
       const box=document.getElementById('elios-gallery-lightbox');
       if(!box?.classList.contains('open')) return;
-      box.querySelector('.elios-lightbox-image').src=currentImages[currentIndex]||'';
+      box.querySelector('.elios-lightbox-image').src=asset(currentImages[currentIndex]||'','original');
       box.querySelector('.elios-lightbox-image').alt=caption()+' — Elios Ceramica';
       box.querySelector('.elios-lightbox-caption').textContent=`${caption()} · ${currentIndex+1} / ${currentImages.length}`;
       box.querySelector('.prev').hidden=box.querySelector('.next').hidden=currentImages.length<2;
@@ -179,20 +188,25 @@
     function render(){
       if(!currentImages.length) currentImages=all.slice();
       currentIndex=Math.max(0,Math.min(currentIndex,currentImages.length-1));
-      const src=currentImages[currentIndex]||'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/03.png';
+      const src=currentImages[currentIndex]||'';
+      const note=selectionNote||(limited(src)?'Échantillon issu du catalogue, dans sa définition d’origine.':'');
+      status.hidden=!note;
+      status.textContent=note;
+      mainImg.hidden=false;
       mainImg.onerror=()=>{
-        const fallback=all.find(x=>x!==src);
         mainImg.onerror=null;
-        mainImg.src=fallback||'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/03.png';
+        mainImg.hidden=true;
+        status.hidden=false;
+        status.textContent='Le visuel '+caption()+' n’a pas pu être chargé. Choisissez un autre visuel ou réessayez.';
       };
-      mainImg.src=src;
+      mainImg.src=asset(src,'original');
       mainImg.alt=caption()+' — Elios Ceramica';
       counter.textContent=`${currentIndex+1} / ${currentImages.length}`;
       label.textContent=caption();
       prev.hidden=next.hidden=currentImages.length<2;
       thumbs.innerHTML=currentImages.map((src,i)=>`
         <button type="button" class="elios-gallery-thumb ${i===currentIndex?'active':''}" data-gallery-index="${i}" aria-label="${esc(caption())} image ${i+1}">
-          <img src="${esc(src)}" alt="" loading="lazy" draggable="false">
+          <img src="${esc(asset(src,'thumbnail'))}" alt="" loading="lazy" draggable="false">
         </button>`).join('');
       updateLightbox();
     }
@@ -207,7 +221,7 @@
     function openLightbox(){
       const box=ensureLightbox();
       activeGallery=api;
-      box.querySelector('.elios-lightbox-image').src=currentImages[currentIndex]||'';
+      box.querySelector('.elios-lightbox-image').src=asset(currentImages[currentIndex]||'','original');
       box.querySelector('.elios-lightbox-image').alt=caption()+' — Elios Ceramica';
       box.querySelector('.elios-lightbox-caption').textContent=`${caption()} · ${currentIndex+1} / ${currentImages.length}`;
       box.querySelector('.prev').hidden=box.querySelector('.next').hidden=currentImages.length<2;
@@ -243,29 +257,42 @@
     const colorHeading=headings.find(h=>norm(h.textContent).startsWith('couleurs'));
     const oldColors=colorHeading?.nextElementSibling;
     const productColors=Array.isArray(product.colors)?product.colors:[];
-    const colors=unique([...productColors,...Object.keys(vm)]);
+    const entries=model.colorEntries(productColors,vm);
+    const colors=entries.map(entry=>entry.color);
 
     if(colorHeading && colors.length){
       const colorBox=document.createElement('div');
       colorBox.className='elios-variant-colors-v3';
       colorBox.innerHTML=colors.map(color=>{
-        const imgs=Array.isArray(vm[color])?unique(vm[color]):[];
+        const imgs=model.imagesForColor(vm,color);
         const thumb=imgs[0]||'';
-        return `<button type="button" data-elios-color="${esc(color)}" class="${imgs.length?'verified':''}">
-          ${thumb?`<img src="${esc(thumb)}" alt="" loading="lazy">`:''}
+        return `<button type="button" data-elios-color="${esc(color)}" aria-pressed="false" class="${imgs.length?'verified':''}">
+          ${thumb?`<img src="${esc(asset(thumb,'thumbnail'))}" alt="${esc(product.name+' · '+color)}" loading="lazy">`:''}
           <span>${esc(color)}</span>
-          ${imgs.length?`<small>${imgs.length} image${imgs.length>1?'s':''}</small>`:'<small>Collection</small>'}
+          ${imgs.length?`<small>${limited(thumb)?'Aperçu catalogue':imgs.length+' image'+(imgs.length>1?'s':'')}</small>`:'<small>Visuel à confirmer</small>'}
         </button>`;
       }).join('');
       if(oldColors && (oldColors.classList.contains('chips')||oldColors.classList.contains('elios-variant-colors')||oldColors.classList.contains('elios-variant-colors-v3'))) oldColors.replaceWith(colorBox);
       else colorHeading.insertAdjacentElement('afterend',colorBox);
 
+      colorBox.addEventListener('error',event=>{
+        const image=event.target;
+        if(image.tagName!=='IMG')return;
+        image.hidden=true;
+        const button=image.closest('button');
+        button?.classList.remove('verified');
+        const message=button?.querySelector('small');
+        if(message)message.textContent='Visuel indisponible';
+      },true);
+
       colorBox.addEventListener('click',e=>{
         const b=e.target.closest('[data-elios-color]'); if(!b)return;
-        selectedColor=b.dataset.eliosColor||'';
-        colorBox.querySelectorAll('button').forEach(x=>x.classList.toggle('active',x===b));
-        const imgs=Array.isArray(vm[selectedColor])?unique(vm[selectedColor]):[];
+        const wanted=b.dataset.eliosColor||'';
+        colorBox.querySelectorAll('button').forEach(x=>{x.classList.toggle('active',x===b);x.setAttribute('aria-pressed',String(x===b));});
+        const imgs=model.imagesForColor(vm,wanted);
+        selectedColor=imgs.length?wanted:'';
         currentImages=imgs.length?imgs:all.slice();
+        selectionNote=imgs.length?'':'Le visuel exact du coloris '+wanted+' reste à confirmer. Les images affichées sont celles de la collection.';
         currentIndex=0; render();
       });
     }

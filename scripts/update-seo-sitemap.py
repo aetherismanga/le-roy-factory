@@ -60,7 +60,7 @@ for brand in ['elios','view','fenice','biopietra']:
         assert page not in ['biopietra-commande.html','biopietra-disponibilite.html'], page
         url = SubElement(tree, f'{{{NS}}}url')
         SubElement(url, f'{{{NS}}}loc').text = BASE + page
-        SubElement(url, f'{{{NS}}}lastmod').text = data.get('updated') or '2026-11-01'
+        SubElement(url, f'{{{NS}}}lastmod').text = item.get('updated') or data.get('updated') or '2026-11-01'
         for src in item.get('images', []):
             image = SubElement(url, f'{{{IMAGE}}}image')
             SubElement(image, f'{{{IMAGE}}}loc').text = src

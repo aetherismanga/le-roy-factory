@@ -1,0 +1,2142 @@
+{
+  "date": "2026-11-01",
+  "collectionsRequested": 35,
+  "mappedColors": 234,
+  "mappedCollections": 37,
+  "pages": [
+    {
+      "slug": "lithos",
+      "page": "https://eliosceramica.com/collezione/lithos/",
+      "title": "",
+      "choices": [],
+      "missing": [
+        "Ivory",
+        "Grey",
+        "Sand"
+      ],
+      "availableLabels": []
+    },
+    {
+      "slug": "loveanddecors",
+      "page": "https://eliosceramica.com/collezione/love-decors-2/",
+      "title": "",
+      "choices": [],
+      "missing": [
+        "Garden",
+        "Rainforest"
+      ],
+      "availableLabels": []
+    },
+    {
+      "slug": "manhattan",
+      "page": "https://eliosceramica.com/collezione/manhattan/",
+      "title": "",
+      "choices": [],
+      "missing": [
+        "Pearl",
+        "Sand",
+        "Ash"
+      ],
+      "availableLabels": []
+    },
+    {
+      "slug": "mysterium",
+      "page": "https://eliosceramica.com/collezione/mysterium/",
+      "title": "Mysterium",
+      "choices": [],
+      "missing": [
+        "Acqua",
+        "White",
+        "Amber",
+        "Ocean",
+        "Pearl",
+        "Black"
+      ],
+      "availableLabels": []
+    },
+    {
+      "slug": "quercia",
+      "page": "https://eliosceramica.com/collezione/quercia/",
+      "title": "Quercia",
+      "choices": [
+        {
+          "slug": "quercia",
+          "color": "White",
+          "label": "WHITE",
+          "url": "https://eliosceramica.com/wp-content/uploads/2022/11/Quercia_tacca_white_zoom.jpg",
+          "cardSlug": "quercia-white",
+          "sourcePage": "https://eliosceramica.com/collezione/quercia/",
+          "advertisedWidth": 1200,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "quercia",
+          "color": "Honey",
+          "label": "HONEY",
+          "url": "https://eliosceramica.com/wp-content/uploads/2022/11/Quercia_tacca_honey_zoom.jpg",
+          "cardSlug": "quercia-white-2-2",
+          "sourcePage": "https://eliosceramica.com/collezione/quercia/",
+          "advertisedWidth": 1200,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "quercia",
+          "color": "Amber",
+          "label": "AMBER",
+          "url": "https://eliosceramica.com/wp-content/uploads/2022/11/Quercia_tacca_amber_zoom.jpg",
+          "cardSlug": "quercia-white-2-2-2",
+          "sourcePage": "https://eliosceramica.com/collezione/quercia/",
+          "advertisedWidth": 1200,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "quercia",
+          "color": "Natural",
+          "label": "NATURAL",
+          "url": "https://eliosceramica.com/wp-content/uploads/2022/11/Quercia_tacca_natural_zoom.jpg",
+          "cardSlug": "quercia-white-2",
+          "sourcePage": "https://eliosceramica.com/collezione/quercia/",
+          "advertisedWidth": 1200,
+          "advertisedHeight": 700
+        }
+      ],
+      "missing": [],
+      "availableLabels": [
+        "WHITE",
+        "NATURAL",
+        "HONEY",
+        "AMBER"
+      ]
+    },
+    {
+      "slug": "yosemite",
+      "page": "https://eliosceramica.com/collezione/yosemite/",
+      "title": "Yosemite",
+      "choices": [
+        {
+          "slug": "yosemite",
+          "color": "Natural",
+          "label": "NATURAL",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/YOSEMITE_natural_zoom.jpg",
+          "cardSlug": "yosemite-honey-2-2",
+          "sourcePage": "https://eliosceramica.com/collezione/yosemite/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "yosemite",
+          "color": "Honey",
+          "label": "HONEY",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/YOSEMITE_honey_zoom.jpg",
+          "cardSlug": "yosemite-honey",
+          "sourcePage": "https://eliosceramica.com/collezione/yosemite/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "yosemite",
+          "color": "White",
+          "label": "WHITE",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/YOSEMITE_white_zoom.jpg",
+          "cardSlug": "yosemite-honey-2-2-2",
+          "sourcePage": "https://eliosceramica.com/collezione/yosemite/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "yosemite",
+          "color": "Amber",
+          "label": "AMBER",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/YOSEMITE_amber_zoom.jpg",
+          "cardSlug": "yosemite-honey-2",
+          "sourcePage": "https://eliosceramica.com/collezione/yosemite/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        }
+      ],
+      "missing": [],
+      "availableLabels": [
+        "HONEY",
+        "AMBER",
+        "NATURAL",
+        "WHITE"
+      ]
+    },
+    {
+      "slug": "bavaria-stone",
+      "page": "https://eliosceramica.com/collezione/bavaria-stone/",
+      "title": "Bavaria stone",
+      "choices": [],
+      "missing": [
+        "Bavaria Stone"
+      ],
+      "availableLabels": []
+    },
+    {
+      "slug": "dolomiti",
+      "page": "https://eliosceramica.com/collezione/dolomiti/",
+      "title": "Dolomiti",
+      "choices": [
+        {
+          "slug": "dolomiti",
+          "color": "Bianco",
+          "label": "BIANCO",
+          "url": "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_bianco_macro.jpg",
+          "cardSlug": "dolomiti-bianco",
+          "sourcePage": "https://eliosceramica.com/collezione/dolomiti/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "dolomiti",
+          "color": "Grigio",
+          "label": "GRIGIO",
+          "url": "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_grigio_macro.jpg",
+          "cardSlug": "dolomiti-grigio",
+          "sourcePage": "https://eliosceramica.com/collezione/dolomiti/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "dolomiti",
+          "color": "Beige",
+          "label": "BEIGE",
+          "url": "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_beige_macro.jpg",
+          "cardSlug": "dolomiti-beige",
+          "sourcePage": "https://eliosceramica.com/collezione/dolomiti/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "dolomiti",
+          "color": "Antracite",
+          "label": "ANTRACITE",
+          "url": "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_antracite_macro.jpg",
+          "cardSlug": "dolomiti-antracite",
+          "sourcePage": "https://eliosceramica.com/collezione/dolomiti/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "dolomiti",
+          "color": "Greige",
+          "label": "GREIGE",
+          "url": "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_greige_macro.jpg",
+          "cardSlug": "dolomiti-greige",
+          "sourcePage": "https://eliosceramica.com/collezione/dolomiti/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        }
+      ],
+      "missing": [],
+      "availableLabels": [
+        "BIANCO",
+        "BEIGE",
+        "GREIGE",
+        "GRIGIO",
+        "ANTRACITE"
+      ]
+    },
+    {
+      "slug": "grand-place",
+      "page": "https://eliosceramica.com/collezione/grand-place/",
+      "title": "Grand Place",
+      "choices": [
+        {
+          "slug": "grand-place",
+          "color": "Bruxelles",
+          "label": "BRUXELLES",
+          "url": "https://eliosceramica.com/wp-content/uploads/2021/01/grand_place_bruxelles_z.jpg",
+          "cardSlug": "grand-place-bruxelles",
+          "sourcePage": "https://eliosceramica.com/collezione/grand-place/",
+          "advertisedWidth": 415,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "grand-place",
+          "color": "Namur",
+          "label": "NAMUR",
+          "url": "https://eliosceramica.com/wp-content/uploads/2021/01/grand_place_namur_z.jpg",
+          "cardSlug": "grand-place-namur",
+          "sourcePage": "https://eliosceramica.com/collezione/grand-place/",
+          "advertisedWidth": 415,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "grand-place",
+          "color": "Antwerpen",
+          "label": "ANTWERPEN",
+          "url": "https://eliosceramica.com/wp-content/uploads/2021/01/grand_place_antwerpen_z.jpg",
+          "cardSlug": "grand-place-antwerpen",
+          "sourcePage": "https://eliosceramica.com/collezione/grand-place/",
+          "advertisedWidth": 415,
+          "advertisedHeight": 208
+        }
+      ],
+      "missing": [],
+      "availableLabels": [
+        "BRUXELLES",
+        "ANTWERPEN",
+        "NAMUR",
+        "MONS"
+      ]
+    },
+    {
+      "slug": "harmony",
+      "page": "https://eliosceramica.com/collezione/harmony/",
+      "title": "",
+      "choices": [],
+      "missing": [
+        "White",
+        "Grey",
+        "Black",
+        "Cream",
+        "Taupe"
+      ],
+      "availableLabels": []
+    },
+    {
+      "slug": "millennium-quartz",
+      "page": "https://eliosceramica.com/collezione/millenium-quartz/",
+      "title": "Millennium Quartz",
+      "choices": [
+        {
+          "slug": "millennium-quartz",
+          "color": "Deserto",
+          "label": "DESERTO",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/10/millenium_quartz_deserto_z.jpg",
+          "cardSlug": "millennium-quartz-deserto",
+          "sourcePage": "https://eliosceramica.com/collezione/millenium-quartz/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "millennium-quartz",
+          "color": "Roccia",
+          "label": "ROCCIA",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/10/millenium_quartz_roccia_z.jpg",
+          "cardSlug": "millennium-quartz-roccia",
+          "sourcePage": "https://eliosceramica.com/collezione/millenium-quartz/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "millennium-quartz",
+          "color": "Scoglio",
+          "label": "SCOGLIO",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/10/millenium_quartz_scoglio_z.jpg",
+          "cardSlug": "millennium-quartz-scoglio",
+          "sourcePage": "https://eliosceramica.com/collezione/millenium-quartz/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "millennium-quartz",
+          "color": "Terra",
+          "label": "TERRA",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/10/millenium_quartz_terra_z.jpg",
+          "cardSlug": "millennium-quartz-terra",
+          "sourcePage": "https://eliosceramica.com/collezione/millenium-quartz/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "millennium-quartz",
+          "color": "Vulcano",
+          "label": "VULCANO",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/10/millenium_quartz_vulcano_z.jpg",
+          "cardSlug": "millennium-quartz-vulcano",
+          "sourcePage": "https://eliosceramica.com/collezione/millenium-quartz/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        }
+      ],
+      "missing": [],
+      "availableLabels": [
+        "DESERTO",
+        "ROCCIA",
+        "SCOGLIO",
+        "TERRA",
+        "VULCANO"
+      ]
+    },
+    {
+      "slug": "roma",
+      "page": "https://eliosceramica.com/collezione/roma/",
+      "title": "Roma",
+      "choices": [
+        {
+          "slug": "roma",
+          "color": "Aventino",
+          "label": "AVENTINO",
+          "url": "https://eliosceramica.com/wp-content/uploads/2016/09/roma_aventino_z-e1613149566773.jpg",
+          "cardSlug": "roma-aventino",
+          "sourcePage": "https://eliosceramica.com/collezione/roma/",
+          "advertisedWidth": 415,
+          "advertisedHeight": 242
+        },
+        {
+          "slug": "roma",
+          "color": "Celio",
+          "label": "CELIO",
+          "url": "https://eliosceramica.com/wp-content/uploads/2016/09/roma_celio_z-e1613149555384.jpg",
+          "cardSlug": "roma-celio",
+          "sourcePage": "https://eliosceramica.com/collezione/roma/",
+          "advertisedWidth": 415,
+          "advertisedHeight": 242
+        },
+        {
+          "slug": "roma",
+          "color": "Viminale",
+          "label": "VIMINALE",
+          "url": "https://eliosceramica.com/wp-content/uploads/2016/09/roma_viminale_z-e1613149529947.jpg",
+          "cardSlug": "roma-viminale",
+          "sourcePage": "https://eliosceramica.com/collezione/roma/",
+          "advertisedWidth": 415,
+          "advertisedHeight": 242
+        },
+        {
+          "slug": "roma",
+          "color": "Palatino",
+          "label": "PALATINO",
+          "url": "https://eliosceramica.com/wp-content/uploads/2016/09/roma_palatino_z-e1613149542456.jpg",
+          "cardSlug": "roma-palatino",
+          "sourcePage": "https://eliosceramica.com/collezione/roma/",
+          "advertisedWidth": 415,
+          "advertisedHeight": 242
+        }
+      ],
+      "missing": [],
+      "availableLabels": [
+        "AVENTINO",
+        "CELIO",
+        "VIMINALE",
+        "PALATINO"
+      ]
+    },
+    {
+      "slug": "sedimenti",
+      "page": "https://eliosceramica.com/collezione/sedimenti/",
+      "title": "Sedimenti",
+      "choices": [
+        {
+          "slug": "sedimenti",
+          "color": "White",
+          "label": "WHITE",
+          "url": "https://eliosceramica.com/wp-content/uploads/2024/10/WHITE-SELECTED_z.jpg",
+          "cardSlug": "sedimenti-white",
+          "sourcePage": "https://eliosceramica.com/collezione/sedimenti/",
+          "advertisedWidth": 1400,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "sedimenti",
+          "color": "Beige",
+          "label": "BEIGE",
+          "url": "https://eliosceramica.com/wp-content/uploads/2024/10/BEIGE-SELECTED_z.jpg",
+          "cardSlug": "sedimenti-beige",
+          "sourcePage": "https://eliosceramica.com/collezione/sedimenti/",
+          "advertisedWidth": 1400,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "sedimenti",
+          "color": "Sand",
+          "label": "SAND",
+          "url": "https://eliosceramica.com/wp-content/uploads/2024/10/SAND-SELECTED_z.jpg",
+          "cardSlug": "sedimenti-send",
+          "sourcePage": "https://eliosceramica.com/collezione/sedimenti/",
+          "advertisedWidth": 1400,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "sedimenti",
+          "color": "Grey",
+          "label": "GREY",
+          "url": "https://eliosceramica.com/wp-content/uploads/2024/10/GREY-SELECTED_z.jpg",
+          "cardSlug": "sedimenti-grey",
+          "sourcePage": "https://eliosceramica.com/collezione/sedimenti/",
+          "advertisedWidth": 1400,
+          "advertisedHeight": 700
+        }
+      ],
+      "missing": [],
+      "availableLabels": [
+        "BEIGE",
+        "GREY",
+        "SAND",
+        "WHITE"
+      ]
+    },
+    {
+      "slug": "slate",
+      "page": "https://eliosceramica.com/collezione/slate/",
+      "title": "Slate",
+      "choices": [
+        {
+          "slug": "slate",
+          "color": "River",
+          "label": "RIVER",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/slate_river_zoom.jpg",
+          "cardSlug": "slate-river",
+          "sourcePage": "https://eliosceramica.com/collezione/slate/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "slate",
+          "color": "Dark",
+          "label": "DARK",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/slate_dark_zoom.jpg",
+          "cardSlug": "slate-river-2-2-2-2-2",
+          "sourcePage": "https://eliosceramica.com/collezione/slate/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "slate",
+          "color": "Flame",
+          "label": "FLAME",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/slate_flame_zoom.jpg",
+          "cardSlug": "slate-river-2",
+          "sourcePage": "https://eliosceramica.com/collezione/slate/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "slate",
+          "color": "Natural",
+          "label": "NATURAL",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/slate_natural_zoom.jpg",
+          "cardSlug": "slate-river-2-2",
+          "sourcePage": "https://eliosceramica.com/collezione/slate/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "slate",
+          "color": "Gold",
+          "label": "GOLD",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/slate_gold_zoom.jpg",
+          "cardSlug": "slate-river-2-2-2",
+          "sourcePage": "https://eliosceramica.com/collezione/slate/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "slate",
+          "color": "Grey",
+          "label": "GREY",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/slate_grey_zoom.jpg",
+          "cardSlug": "slate-river-2-2-2-2",
+          "sourcePage": "https://eliosceramica.com/collezione/slate/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        }
+      ],
+      "missing": [],
+      "availableLabels": [
+        "RIVER",
+        "FLAME",
+        "NATURAL",
+        "GOLD",
+        "GREY",
+        "DARK"
+      ]
+    },
+    {
+      "slug": "brooklyn",
+      "page": "https://eliosceramica.com/collezione/brooklyn/",
+      "title": "Brooklyn",
+      "choices": [
+        {
+          "slug": "brooklyn",
+          "color": "White",
+          "label": "WHITE",
+          "url": "https://eliosceramica.com/wp-content/uploads/2021/11/BROOKLIN_WHITE_taccaZ.jpg",
+          "cardSlug": "brooklyn-white",
+          "sourcePage": "https://eliosceramica.com/collezione/brooklyn/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "brooklyn",
+          "color": "Almond",
+          "label": "ALMOND",
+          "url": "https://eliosceramica.com/wp-content/uploads/2024/10/brooklin_ALMOND_tacca_z.jpg",
+          "cardSlug": "brooklyn-almond",
+          "sourcePage": "https://eliosceramica.com/collezione/brooklyn/",
+          "advertisedWidth": 1400,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "brooklyn",
+          "color": "Gold",
+          "label": "GOLD",
+          "url": "https://eliosceramica.com/wp-content/uploads/2024/10/brooklin_GOLD_tacca_z.jpg",
+          "cardSlug": "brooklyn-gold",
+          "sourcePage": "https://eliosceramica.com/collezione/brooklyn/",
+          "advertisedWidth": 1400,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "brooklyn",
+          "color": "Grey",
+          "label": "GREY",
+          "url": "https://eliosceramica.com/wp-content/uploads/2021/11/BROOKLIN_GREY_taccaZ.jpg",
+          "cardSlug": "brooklyn-grey",
+          "sourcePage": "https://eliosceramica.com/collezione/brooklyn/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "brooklyn",
+          "color": "Beige",
+          "label": "BEIGE",
+          "url": "https://eliosceramica.com/wp-content/uploads/2021/11/BROOKLIN_BEIGE_taccaZ.jpg",
+          "cardSlug": "brooklyn-beige",
+          "sourcePage": "https://eliosceramica.com/collezione/brooklyn/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "brooklyn",
+          "color": "Taupe",
+          "label": "TAUPE",
+          "url": "https://eliosceramica.com/wp-content/uploads/2021/11/BROOKLIN_TAUPE_taccaZ.jpg",
+          "cardSlug": "brooklyn-taupe",
+          "sourcePage": "https://eliosceramica.com/collezione/brooklyn/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "brooklyn",
+          "color": "Dark",
+          "label": "DARK",
+          "url": "https://eliosceramica.com/wp-content/uploads/2021/11/BROOKLIN_DARK_taccaZ.jpg",
+          "cardSlug": "brooklyn-dark",
+          "sourcePage": "https://eliosceramica.com/collezione/brooklyn/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        }
+      ],
+      "missing": [],
+      "availableLabels": [
+        "WHITE",
+        "BEIGE",
+        "TAUPE",
+        "GREY",
+        "DARK",
+        "ALMOND",
+        "GOLD"
+      ]
+    },
+    {
+      "slug": "clay",
+      "page": "https://eliosceramica.com/collezione/clay/",
+      "title": "Clay",
+      "choices": [
+        {
+          "slug": "clay",
+          "color": "Emerald",
+          "label": "EMERALD",
+          "url": "https://eliosceramica.com/wp-content/uploads/2021/11/Clay_Emerald_macro.jpg",
+          "cardSlug": "clay-emerald",
+          "sourcePage": "https://eliosceramica.com/collezione/clay/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "clay",
+          "color": "Linen",
+          "label": "LINEN",
+          "url": "https://eliosceramica.com/wp-content/uploads/2021/11/Clay_Linen_macro.jpg",
+          "cardSlug": "clay-linen",
+          "sourcePage": "https://eliosceramica.com/collezione/clay/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 207
+        },
+        {
+          "slug": "clay",
+          "color": "Ocean",
+          "label": "OCEAN",
+          "url": "https://eliosceramica.com/wp-content/uploads/2021/11/Clay_Ocean_macro.jpg",
+          "cardSlug": "clay-ocean",
+          "sourcePage": "https://eliosceramica.com/collezione/clay/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 207
+        },
+        {
+          "slug": "clay",
+          "color": "Bouquet",
+          "label": "BOUQUET",
+          "url": "https://eliosceramica.com/wp-content/uploads/2021/11/Clay_Bouquet_macro.jpg",
+          "cardSlug": "clay-bouquet",
+          "sourcePage": "https://eliosceramica.com/collezione/clay/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 207
+        },
+        {
+          "slug": "clay",
+          "color": "Aqua",
+          "label": "AQUA",
+          "url": "https://eliosceramica.com/wp-content/uploads/2021/11/Clay_Aqua_macro.jpg",
+          "cardSlug": "clay-aqua",
+          "sourcePage": "https://eliosceramica.com/collezione/clay/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 207
+        },
+        {
+          "slug": "clay",
+          "color": "Silk",
+          "label": "SILK",
+          "url": "https://eliosceramica.com/wp-content/uploads/2021/11/Clay_Silk_macro.jpg",
+          "cardSlug": "clay-silk",
+          "sourcePage": "https://eliosceramica.com/collezione/clay/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 207
+        },
+        {
+          "slug": "clay",
+          "color": "Mustard",
+          "label": "MUSTARD",
+          "url": "https://eliosceramica.com/wp-content/uploads/2021/11/Clay_Mustard_macro.jpg",
+          "cardSlug": "clay-mustard",
+          "sourcePage": "https://eliosceramica.com/collezione/clay/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 207
+        },
+        {
+          "slug": "clay",
+          "color": "Cotton",
+          "label": "COTTON",
+          "url": "https://eliosceramica.com/wp-content/uploads/2021/11/Clay_Cotton_macro.jpg",
+          "cardSlug": "clay-cotton",
+          "sourcePage": "https://eliosceramica.com/collezione/clay/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 207
+        }
+      ],
+      "missing": [],
+      "availableLabels": [
+        "EMERALD",
+        "OCEAN",
+        "AQUA",
+        "MUSTARD",
+        "LINEN",
+        "BOUQUET",
+        "SILK",
+        "COTTON"
+      ]
+    },
+    {
+      "slug": "creta",
+      "page": "https://eliosceramica.com/collezione/creta/",
+      "title": "Creta",
+      "choices": [
+        {
+          "slug": "creta",
+          "color": "Zucchero",
+          "label": "ZUCCHERO",
+          "url": "https://eliosceramica.com/wp-content/uploads/2024/10/creta_ZUCCHERO_tacca_z.jpg",
+          "cardSlug": "creta-zucchero",
+          "sourcePage": "https://eliosceramica.com/collezione/creta/",
+          "advertisedWidth": 1400,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "creta",
+          "color": "Matcha",
+          "label": "MATCHA",
+          "url": "https://eliosceramica.com/wp-content/uploads/2024/10/creta_MATCHA_tacca_z.jpg",
+          "cardSlug": "creta-matcha",
+          "sourcePage": "https://eliosceramica.com/collezione/creta/",
+          "advertisedWidth": 1400,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "creta",
+          "color": "Avena",
+          "label": "AVENA",
+          "url": "https://eliosceramica.com/wp-content/uploads/2024/10/creta_AVENA_tacca_z.jpg",
+          "cardSlug": "creta-avena",
+          "sourcePage": "https://eliosceramica.com/collezione/creta/",
+          "advertisedWidth": 1400,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "creta",
+          "color": "Biscotto",
+          "label": "BISCOTTO",
+          "url": "https://eliosceramica.com/wp-content/uploads/2024/10/creta_BISCOTTO_tacca_z.jpg",
+          "cardSlug": "creta-biscotto",
+          "sourcePage": "https://eliosceramica.com/collezione/creta/",
+          "advertisedWidth": 1400,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "creta",
+          "color": "Caramello",
+          "label": "CARAMELLO",
+          "url": "https://eliosceramica.com/wp-content/uploads/2024/10/creta_CARAMELLO_tacca_z.jpg",
+          "cardSlug": "creta-caramello",
+          "sourcePage": "https://eliosceramica.com/collezione/creta/",
+          "advertisedWidth": 1400,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "creta",
+          "color": "Ginepro",
+          "label": "GINEPRO",
+          "url": "https://eliosceramica.com/wp-content/uploads/2024/10/creta_GINEPRO_tacca_z.jpg",
+          "cardSlug": "creta-ginepro",
+          "sourcePage": "https://eliosceramica.com/collezione/creta/",
+          "advertisedWidth": 1400,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "creta",
+          "color": "Pepe",
+          "label": "PEPE",
+          "url": "https://eliosceramica.com/wp-content/uploads/2025/10/creta_pepe_tacca_Z.jpg",
+          "cardSlug": "creta-pepe",
+          "sourcePage": "https://eliosceramica.com/collezione/creta/",
+          "advertisedWidth": 1200,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "creta",
+          "color": "Malto",
+          "label": "MALTO",
+          "url": "https://eliosceramica.com/wp-content/uploads/2025/10/creta_malto_tacca_Z.jpg",
+          "cardSlug": "creta-malto",
+          "sourcePage": "https://eliosceramica.com/collezione/creta/",
+          "advertisedWidth": 1200,
+          "advertisedHeight": 700
+        }
+      ],
+      "missing": [
+        "Coccio"
+      ],
+      "availableLabels": [
+        "AVENA",
+        "BISCOTTO",
+        "CARAMELLO",
+        "GINEPRO",
+        "MATCHA",
+        "ZUCCHERO",
+        "MALTO",
+        "PEPE"
+      ]
+    },
+    {
+      "slug": "deco",
+      "page": "https://eliosceramica.com/collezione/deco/",
+      "title": "Deco",
+      "choices": [
+        {
+          "slug": "deco",
+          "color": "Décors",
+          "label": "DECORI",
+          "url": "https://eliosceramica.com/wp-content/uploads/2020/03/Deco_decori_z.jpg",
+          "cardSlug": "deco-decori",
+          "sourcePage": "https://eliosceramica.com/collezione/deco/",
+          "advertisedWidth": 415,
+          "advertisedHeight": 208
+        }
+      ],
+      "missing": [
+        "White",
+        "Black",
+        "Grey",
+        "Taupe",
+        "Light Blue",
+        "Nordic Green"
+      ],
+      "availableLabels": [
+        "DECORI"
+      ]
+    },
+    {
+      "slug": "d-esign-evo",
+      "page": "https://eliosceramica.com/collezione/design-evo/",
+      "title": "D_esign Evo",
+      "choices": [
+        {
+          "slug": "d-esign-evo",
+          "color": "Bianco",
+          "label": "BIANCO",
+          "url": "https://eliosceramica.com/wp-content/uploads/2017/03/Design_Evo_col_Bianco_z.jpg",
+          "cardSlug": "design-evo-bianco",
+          "sourcePage": "https://eliosceramica.com/collezione/design-evo/",
+          "advertisedWidth": 1200,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "d-esign-evo",
+          "color": "Brown",
+          "label": "BROWN",
+          "url": "https://eliosceramica.com/wp-content/uploads/2017/03/Design_Evo_col_Brown_z.jpg",
+          "cardSlug": "design-evo-brown",
+          "sourcePage": "https://eliosceramica.com/collezione/design-evo/",
+          "advertisedWidth": 1200,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "d-esign-evo",
+          "color": "Grigio",
+          "label": "GRIGIO",
+          "url": "https://eliosceramica.com/wp-content/uploads/2017/03/Design_Evo_col_Grigio_z.jpg",
+          "cardSlug": "design-evo-grigio",
+          "sourcePage": "https://eliosceramica.com/collezione/design-evo/",
+          "advertisedWidth": 1200,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "d-esign-evo",
+          "color": "Ciano",
+          "label": "CIANO",
+          "url": "https://eliosceramica.com/wp-content/uploads/2017/03/Design_Evo_col_Ciano_z.jpg",
+          "cardSlug": "design-evo-ciano",
+          "sourcePage": "https://eliosceramica.com/collezione/design-evo/",
+          "advertisedWidth": 1200,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "d-esign-evo",
+          "color": "Antracite",
+          "label": "ANTRACITE",
+          "url": "https://eliosceramica.com/wp-content/uploads/2017/03/Design_Evo_col_Antracite_z.jpg",
+          "cardSlug": "design-evo-antracite",
+          "sourcePage": "https://eliosceramica.com/collezione/design-evo/",
+          "advertisedWidth": 1200,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "d-esign-evo",
+          "color": "Verde Inglese",
+          "label": "VERDE INGLESE",
+          "url": "https://eliosceramica.com/wp-content/uploads/2017/03/Design_Evo_col_Verde_Inglese_z.jpg",
+          "cardSlug": "design-evo-verde-inglese",
+          "sourcePage": "https://eliosceramica.com/collezione/design-evo/",
+          "advertisedWidth": 1200,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "d-esign-evo",
+          "color": "Burro",
+          "label": "BURRO",
+          "url": "https://eliosceramica.com/wp-content/uploads/2017/03/Design_Evo_col_Burro_z.jpg",
+          "cardSlug": "design-evo-burro",
+          "sourcePage": "https://eliosceramica.com/collezione/design-evo/",
+          "advertisedWidth": 1200,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "d-esign-evo",
+          "color": "Terra di Siena",
+          "label": "TERRA DI SIENA",
+          "url": "https://eliosceramica.com/wp-content/uploads/2017/03/Design_Evo_col_Terra_di_Siena_z.jpg",
+          "cardSlug": "design-evo-terra-di-siena",
+          "sourcePage": "https://eliosceramica.com/collezione/design-evo/",
+          "advertisedWidth": 1200,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "d-esign-evo",
+          "color": "Tortora",
+          "label": "TORTORA",
+          "url": "https://eliosceramica.com/wp-content/uploads/2017/03/Design_Evo_col_Tortora_z.jpg",
+          "cardSlug": "design-evo-tortora",
+          "sourcePage": "https://eliosceramica.com/collezione/design-evo/",
+          "advertisedWidth": 1200,
+          "advertisedHeight": 700
+        }
+      ],
+      "missing": [],
+      "availableLabels": [
+        "DECORI",
+        "BIANCO",
+        "GRIGIO",
+        "ANTRACITE",
+        "BURRO",
+        "TORTORA",
+        "BROWN",
+        "CIANO",
+        "VERDE INGLESE",
+        "TERRA DI SIENA"
+      ]
+    },
+    {
+      "slug": "domus",
+      "page": "https://eliosceramica.com/collezione/domus/",
+      "title": "Domus",
+      "choices": [
+        {
+          "slug": "domus",
+          "color": "Canyon Rust",
+          "label": "CANYON RUST",
+          "url": "https://eliosceramica.com/wp-content/uploads/2025/05/domus_Canyon_Rust_600.jpg",
+          "cardSlug": "domus-canyon-rust",
+          "sourcePage": "https://eliosceramica.com/collezione/domus/",
+          "advertisedWidth": 1400,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "domus",
+          "color": "Forest Green",
+          "label": "FOREST GREEN",
+          "url": "https://eliosceramica.com/wp-content/uploads/2024/10/domus_FOREST-GREEN_tacca_z.jpg",
+          "cardSlug": "domus-forest-green",
+          "sourcePage": "https://eliosceramica.com/collezione/domus/",
+          "advertisedWidth": 1400,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "domus",
+          "color": "Clay Red",
+          "label": "CLAY RED",
+          "url": "https://eliosceramica.com/wp-content/uploads/2024/10/domus_CLAY-RED_tacca_z.jpg",
+          "cardSlug": "domus-clay-red",
+          "sourcePage": "https://eliosceramica.com/collezione/domus/",
+          "advertisedWidth": 1400,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "domus",
+          "color": "Sandstone Beige",
+          "label": "SAND STONE BEIGE",
+          "url": "https://eliosceramica.com/wp-content/uploads/2024/10/domus_SANDSTONE-BEIGE_tacca_z.jpg",
+          "cardSlug": "domus-sandstone-beige",
+          "sourcePage": "https://eliosceramica.com/collezione/domus/",
+          "advertisedWidth": 1400,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "domus",
+          "color": "Ocean Blue",
+          "label": "OCEAN BLUE",
+          "url": "https://eliosceramica.com/wp-content/uploads/2024/10/domus_OCEAN-BLUE_tacca_z.jpg",
+          "cardSlug": "domus-ocean-blue",
+          "sourcePage": "https://eliosceramica.com/collezione/domus/",
+          "advertisedWidth": 1400,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "domus",
+          "color": "Moon White",
+          "label": "MOON WHITE",
+          "url": "https://eliosceramica.com/wp-content/uploads/2024/10/domus_MOON-WHITE_tacca_z.jpg",
+          "cardSlug": "domus-moon-white",
+          "sourcePage": "https://eliosceramica.com/collezione/domus/",
+          "advertisedWidth": 1400,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "domus",
+          "color": "Sunset Rose",
+          "label": "SUNSET ROSE",
+          "url": "https://eliosceramica.com/wp-content/uploads/2024/10/domus_SUNSET-ROSE_tacca_z.jpg",
+          "cardSlug": "domus-sunset-rose",
+          "sourcePage": "https://eliosceramica.com/collezione/domus/",
+          "advertisedWidth": 1400,
+          "advertisedHeight": 700
+        }
+      ],
+      "missing": [],
+      "availableLabels": [
+        "MOON WHITE",
+        "SAND STONE BEIGE",
+        "SUNSET ROSE",
+        "CLAY RED",
+        "FOREST GREEN",
+        "OCEAN BLUE",
+        "CANYON RUST"
+      ]
+    },
+    {
+      "slug": "glow",
+      "page": "https://eliosceramica.com/collezione/glow/",
+      "title": "Glow",
+      "choices": [
+        {
+          "slug": "glow",
+          "color": "Arizona",
+          "label": "ARIZONA",
+          "url": "https://eliosceramica.com/wp-content/uploads/2024/10/Glow_ARIZONA_tacca_z.jpg",
+          "cardSlug": "glow-arizona",
+          "sourcePage": "https://eliosceramica.com/collezione/glow/",
+          "advertisedWidth": 1400,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "glow",
+          "color": "Dakota",
+          "label": "DAKOTA",
+          "url": "https://eliosceramica.com/wp-content/uploads/2024/10/Glow_DAKOTA_tacca_z.jpg",
+          "cardSlug": "glow-dakota",
+          "sourcePage": "https://eliosceramica.com/collezione/glow/",
+          "advertisedWidth": 1400,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "glow",
+          "color": "Montana",
+          "label": "MONTANA",
+          "url": "https://eliosceramica.com/wp-content/uploads/2024/10/Glow_MONTANA_tacca_z.jpg",
+          "cardSlug": "glow-montana",
+          "sourcePage": "https://eliosceramica.com/collezione/glow/",
+          "advertisedWidth": 1400,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "glow",
+          "color": "Oregon",
+          "label": "OREGON",
+          "url": "https://eliosceramica.com/wp-content/uploads/2024/10/Glow_OREGON_tacca_z.jpg",
+          "cardSlug": "glow-oregon",
+          "sourcePage": "https://eliosceramica.com/collezione/glow/",
+          "advertisedWidth": 1400,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "glow",
+          "color": "California",
+          "label": "CALIFORNIA",
+          "url": "https://eliosceramica.com/wp-content/uploads/2024/10/Glow_CALIFORNIA_tacca_z.jpg",
+          "cardSlug": "glow-california",
+          "sourcePage": "https://eliosceramica.com/collezione/glow/",
+          "advertisedWidth": 1400,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "glow",
+          "color": "Texas",
+          "label": "TEXAS",
+          "url": "https://eliosceramica.com/wp-content/uploads/2024/10/Glow_TEXAS_tacca_z.jpg",
+          "cardSlug": "glow-texas",
+          "sourcePage": "https://eliosceramica.com/collezione/glow/",
+          "advertisedWidth": 1400,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "glow",
+          "color": "Virginia",
+          "label": "VIRGINIA",
+          "url": "https://eliosceramica.com/wp-content/uploads/2024/10/Glow_VIRGINIA_tacca_z.jpg",
+          "cardSlug": "glow-virginia",
+          "sourcePage": "https://eliosceramica.com/collezione/glow/",
+          "advertisedWidth": 1400,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "glow",
+          "color": "Florida",
+          "label": "FLORIDA",
+          "url": "https://eliosceramica.com/wp-content/uploads/2024/10/Glow_FLORIDA_tacca_z.jpg",
+          "cardSlug": "glow-florida",
+          "sourcePage": "https://eliosceramica.com/collezione/glow/",
+          "advertisedWidth": 1400,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "glow",
+          "color": "Washington",
+          "label": "WASHINGTON",
+          "url": "https://eliosceramica.com/wp-content/uploads/2024/10/Glow_washinton_tacca_z-1.jpg",
+          "cardSlug": "glow-washington",
+          "sourcePage": "https://eliosceramica.com/collezione/glow/",
+          "advertisedWidth": 1349,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "glow",
+          "color": "Indiana",
+          "label": "INDIANA",
+          "url": "https://eliosceramica.com/wp-content/uploads/2024/10/Glow_INDIANA_tacca_z.jpg",
+          "cardSlug": "glow-indiana",
+          "sourcePage": "https://eliosceramica.com/collezione/glow/",
+          "advertisedWidth": 1400,
+          "advertisedHeight": 700
+        }
+      ],
+      "missing": [],
+      "availableLabels": [
+        "OREGON",
+        "CALIFORNIA",
+        "MONTANA",
+        "FLORIDA",
+        "VIRGINIA",
+        "ARIZONA",
+        "DAKOTA",
+        "INDIANA",
+        "WASHINGTON",
+        "TEXAS"
+      ]
+    },
+    {
+      "slug": "golden-hour",
+      "page": "https://eliosceramica.com/collezione/golden-hour/",
+      "title": "Golden Hour",
+      "choices": [
+        {
+          "slug": "golden-hour",
+          "color": "White Lady",
+          "label": "WHITE LADY",
+          "url": "https://eliosceramica.com/wp-content/uploads/2025/10/Golden_Hour_WHITE-LADY_tacca_Z.jpg",
+          "cardSlug": "golden-white-lady",
+          "sourcePage": "https://eliosceramica.com/collezione/golden-hour/",
+          "advertisedWidth": 1200,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "golden-hour",
+          "color": "Mojito",
+          "label": "MOJITO",
+          "url": "https://eliosceramica.com/wp-content/uploads/2025/10/Golden_Hour_MOJITO_tacca_Z.jpg",
+          "cardSlug": "golden-mojito",
+          "sourcePage": "https://eliosceramica.com/collezione/golden-hour/",
+          "advertisedWidth": 1200,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "golden-hour",
+          "color": "Gin Tonic",
+          "label": "GIN TONIC",
+          "url": "https://eliosceramica.com/wp-content/uploads/2025/10/Golden_Hour_GIN-TONIC_tacca_Z.jpg",
+          "cardSlug": "golden-gin-tonic",
+          "sourcePage": "https://eliosceramica.com/collezione/golden-hour/",
+          "advertisedWidth": 1200,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "golden-hour",
+          "color": "Bellini",
+          "label": "BELLINI",
+          "url": "https://eliosceramica.com/wp-content/uploads/2025/10/Golden_Hour_BELLINI_tacca_Z.jpg",
+          "cardSlug": "golden-bellini",
+          "sourcePage": "https://eliosceramica.com/collezione/golden-hour/",
+          "advertisedWidth": 1200,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "golden-hour",
+          "color": "Caipirinha",
+          "label": "CAIPIRINHA",
+          "url": "https://eliosceramica.com/wp-content/uploads/2025/10/Golden_Hour_CAIPIRINHA_tacca_Z.jpg",
+          "cardSlug": "golden-caipirinha",
+          "sourcePage": "https://eliosceramica.com/collezione/golden-hour/",
+          "advertisedWidth": 1200,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "golden-hour",
+          "color": "Hawaian",
+          "label": "HAWAIAN",
+          "url": "https://eliosceramica.com/wp-content/uploads/2025/10/Golden_Hour_HAWAIAN_tacca_Z.jpg",
+          "cardSlug": "golden-hawaian",
+          "sourcePage": "https://eliosceramica.com/collezione/golden-hour/",
+          "advertisedWidth": 1200,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "golden-hour",
+          "color": "Margarita",
+          "label": "MARGARITA",
+          "url": "https://eliosceramica.com/wp-content/uploads/2025/10/Golden_Hour_MARGARITA_tacca_Z.jpg",
+          "cardSlug": "golden-margarita",
+          "sourcePage": "https://eliosceramica.com/collezione/golden-hour/",
+          "advertisedWidth": 1200,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "golden-hour",
+          "color": "Blue Lagoon",
+          "label": "BLUE LAGOON",
+          "url": "https://eliosceramica.com/wp-content/uploads/2025/10/Golden_Hour_BLUE-LAGOON_tacca_Z.jpg",
+          "cardSlug": "golden-blue-lagoon",
+          "sourcePage": "https://eliosceramica.com/collezione/golden-hour/",
+          "advertisedWidth": 1200,
+          "advertisedHeight": 700
+        }
+      ],
+      "missing": [],
+      "availableLabels": [
+        "WHITE LADY",
+        "GIN TONIC",
+        "BELLINI",
+        "MARGARITA",
+        "MOJITO",
+        "CAIPIRINHA",
+        "HAWAIAN",
+        "BLUE LAGOON"
+      ]
+    },
+    {
+      "slug": "hexagon",
+      "page": "https://eliosceramica.com/collezione/hexagon/",
+      "title": "Hexagon",
+      "choices": [
+        {
+          "slug": "hexagon",
+          "color": "Sky",
+          "label": "SKY",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/HEXAGON_sky_zoom.jpg",
+          "cardSlug": "hexagon-sky",
+          "sourcePage": "https://eliosceramica.com/collezione/hexagon/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "hexagon",
+          "color": "Teal",
+          "label": "TEAL",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/HEXAGON_teal_zoom.jpg",
+          "cardSlug": "hexagon-teal",
+          "sourcePage": "https://eliosceramica.com/collezione/hexagon/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "hexagon",
+          "color": "Grey",
+          "label": "GREY",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/HEXAGON_grey_zoom.jpg",
+          "cardSlug": "hexagon-grey",
+          "sourcePage": "https://eliosceramica.com/collezione/hexagon/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "hexagon",
+          "color": "White",
+          "label": "WHITE",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/HEXAGON_white_zoom.jpg",
+          "cardSlug": "hexagon-white",
+          "sourcePage": "https://eliosceramica.com/collezione/hexagon/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "hexagon",
+          "color": "Mint",
+          "label": "MINT",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/HEXAGON_mint_zoom.jpg",
+          "cardSlug": "hexagon-mint",
+          "sourcePage": "https://eliosceramica.com/collezione/hexagon/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "hexagon",
+          "color": "Dark",
+          "label": "DARK",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/HEXAGON_dark_zoom.jpg",
+          "cardSlug": "hexagon-dark",
+          "sourcePage": "https://eliosceramica.com/collezione/hexagon/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "hexagon",
+          "color": "Beige",
+          "label": "BEIGE",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/HEXAGON_beige_zoom.jpg",
+          "cardSlug": "hexagon-beige",
+          "sourcePage": "https://eliosceramica.com/collezione/hexagon/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "hexagon",
+          "color": "Décors",
+          "label": "DECORI",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/HEXAGON_decori_zoom.jpg",
+          "cardSlug": "hexagon-decori",
+          "sourcePage": "https://eliosceramica.com/collezione/hexagon/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        }
+      ],
+      "missing": [],
+      "availableLabels": [
+        "DECORI",
+        "SKY",
+        "TEAL",
+        "MINT",
+        "BEIGE",
+        "WHITE",
+        "GREY",
+        "DARK"
+      ]
+    },
+    {
+      "slug": "horizon",
+      "page": "https://eliosceramica.com/collezione/horizon/",
+      "title": "",
+      "choices": [],
+      "missing": [
+        "Polvere",
+        "Cava",
+        "Calce",
+        "Carbone"
+      ],
+      "availableLabels": []
+    },
+    {
+      "slug": "marechiaro",
+      "page": "https://eliosceramica.com/collezione/marechiaro/",
+      "title": "Marechiaro",
+      "choices": [
+        {
+          "slug": "marechiaro",
+          "color": "Bianco",
+          "label": "BIANCO",
+          "url": "https://eliosceramica.com/wp-content/uploads/2024/02/marechiaro_bianco_tacca_z.jpg",
+          "cardSlug": "marechiaro-bianco",
+          "sourcePage": "https://eliosceramica.com/collezione/marechiaro/",
+          "advertisedWidth": 1200,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "marechiaro",
+          "color": "Blu",
+          "label": "BLU",
+          "url": "https://eliosceramica.com/wp-content/uploads/2024/02/marechiaro_blu_tacca_z.jpg",
+          "cardSlug": "marechiaro-blu",
+          "sourcePage": "https://eliosceramica.com/collezione/marechiaro/",
+          "advertisedWidth": 1200,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "marechiaro",
+          "color": "Mix",
+          "label": "MIX",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/10/marechiaro_mix_z.jpg",
+          "cardSlug": "marechiaro-mix",
+          "sourcePage": "https://eliosceramica.com/collezione/marechiaro/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "marechiaro",
+          "color": "Amalfi",
+          "label": "AMALFI",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/10/marechiaro_amalfi_tacca_z.jpg",
+          "cardSlug": "marechiaro-amalfi",
+          "sourcePage": "https://eliosceramica.com/collezione/marechiaro/",
+          "advertisedWidth": 1200,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "marechiaro",
+          "color": "Positano",
+          "label": "POSITANO",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/10/marechiaro_positano_z.jpg",
+          "cardSlug": "marechiaro-positano",
+          "sourcePage": "https://eliosceramica.com/collezione/marechiaro/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "marechiaro",
+          "color": "Sorrento",
+          "label": "SORRENTO",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/10/marechiaro_sorrento_z.jpg",
+          "cardSlug": "marechiaro-sorrento",
+          "sourcePage": "https://eliosceramica.com/collezione/marechiaro/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "marechiaro",
+          "color": "Vietri",
+          "label": "VIETRI",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/10/marechiaro_vietri_z.jpg",
+          "cardSlug": "marechiaro-vietri",
+          "sourcePage": "https://eliosceramica.com/collezione/marechiaro/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        }
+      ],
+      "missing": [],
+      "availableLabels": [
+        "AMALFI",
+        "POSITANO",
+        "SORRENTO",
+        "VIETRI",
+        "MIX",
+        "BLU",
+        "BIANCO"
+      ]
+    },
+    {
+      "slug": "montreal",
+      "page": "https://eliosceramica.com/collezione/montreal/",
+      "title": "",
+      "choices": [],
+      "missing": [
+        "White",
+        "Taupe",
+        "Grey",
+        "Beige",
+        "Dark"
+      ],
+      "availableLabels": []
+    },
+    {
+      "slug": "shell",
+      "page": "https://eliosceramica.com/collezione/shell/",
+      "title": "Shell",
+      "choices": [
+        {
+          "slug": "shell",
+          "color": "Beige",
+          "label": "BEIGE",
+          "url": "https://eliosceramica.com/wp-content/uploads/2025/10/shell_beige_tacca_Z.jpg",
+          "cardSlug": "shell-beige",
+          "sourcePage": "https://eliosceramica.com/collezione/shell/",
+          "advertisedWidth": 1200,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "shell",
+          "color": "Beige Light",
+          "label": "BEIGE LIGHT",
+          "url": "https://eliosceramica.com/wp-content/uploads/2025/10/shell_beige_light_tacca_Z.jpg",
+          "cardSlug": "shell-beige-light",
+          "sourcePage": "https://eliosceramica.com/collezione/shell/",
+          "advertisedWidth": 1200,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "shell",
+          "color": "Ivory",
+          "label": "IVORY",
+          "url": "https://eliosceramica.com/wp-content/uploads/2025/10/shell_ivory_tacca_Z.jpg",
+          "cardSlug": "shell-ivory",
+          "sourcePage": "https://eliosceramica.com/collezione/shell/",
+          "advertisedWidth": 1200,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "shell",
+          "color": "Grey",
+          "label": "GREY",
+          "url": "https://eliosceramica.com/wp-content/uploads/2025/10/shell_grey_tacca_Z.jpg",
+          "cardSlug": "shell-grey",
+          "sourcePage": "https://eliosceramica.com/collezione/shell/",
+          "advertisedWidth": 1200,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "shell",
+          "color": "Ivory Light",
+          "label": "IVORY LIGHT",
+          "url": "https://eliosceramica.com/wp-content/uploads/2025/10/shell_ivory_light_tacca_Z.jpg",
+          "cardSlug": "shell-ivory-light",
+          "sourcePage": "https://eliosceramica.com/collezione/shell/",
+          "advertisedWidth": 1200,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "shell",
+          "color": "Grey Light",
+          "label": "GREY LIGHT",
+          "url": "https://eliosceramica.com/wp-content/uploads/2025/10/shell_grey_light_tacca_Z.jpg",
+          "cardSlug": "shell-grey-light",
+          "sourcePage": "https://eliosceramica.com/collezione/shell/",
+          "advertisedWidth": 1200,
+          "advertisedHeight": 700
+        }
+      ],
+      "missing": [],
+      "availableLabels": [
+        "IVORY",
+        "BEIGE",
+        "GREY",
+        "IVORY LIGHT",
+        "BEIGE LIGHT",
+        "GREY LIGHT"
+      ]
+    },
+    {
+      "slug": "terre-etrusche",
+      "page": "https://eliosceramica.com/collezione/terre-etrusche/",
+      "title": "Terre Etrusche",
+      "choices": [
+        {
+          "slug": "terre-etrusche",
+          "color": "Toscana",
+          "label": "TOSCANA",
+          "url": "https://eliosceramica.com/wp-content/uploads/2020/10/TerreEtrusche_Toscana-e1613569790377.jpg",
+          "cardSlug": "terre-etrusche-toscana",
+          "sourcePage": "https://eliosceramica.com/collezione/terre-etrusche/",
+          "advertisedWidth": 600,
+          "advertisedHeight": 350
+        },
+        {
+          "slug": "terre-etrusche",
+          "color": "Umbria",
+          "label": "UMBRIA",
+          "url": "https://eliosceramica.com/wp-content/uploads/2020/10/TerreEtrusche_Umbria-e1613569782337.jpg",
+          "cardSlug": "terre-etrusche-umbria",
+          "sourcePage": "https://eliosceramica.com/collezione/terre-etrusche/",
+          "advertisedWidth": 600,
+          "advertisedHeight": 350
+        },
+        {
+          "slug": "terre-etrusche",
+          "color": "Lazio",
+          "label": "LAZIO",
+          "url": "https://eliosceramica.com/wp-content/uploads/2020/10/TerreEtrusche_Lazio-e1613569803536.jpg",
+          "cardSlug": "terre-etrusche-lazio",
+          "sourcePage": "https://eliosceramica.com/collezione/terre-etrusche/",
+          "advertisedWidth": 600,
+          "advertisedHeight": 350
+        },
+        {
+          "slug": "terre-etrusche",
+          "color": "Marche",
+          "label": "MARCHE",
+          "url": "https://eliosceramica.com/wp-content/uploads/2020/10/TerreEtrusche_Marche-e1613569796860.jpg",
+          "cardSlug": "terre-etrusche-marche",
+          "sourcePage": "https://eliosceramica.com/collezione/terre-etrusche/",
+          "advertisedWidth": 600,
+          "advertisedHeight": 350
+        }
+      ],
+      "missing": [],
+      "availableLabels": [
+        "TOSCANA",
+        "UMBRIA",
+        "LAZIO",
+        "MARCHE"
+      ]
+    },
+    {
+      "slug": "allure",
+      "page": "https://eliosceramica.com/collezione/allure/",
+      "title": "Allure",
+      "choices": [
+        {
+          "slug": "allure",
+          "color": "Fenix Blueberry",
+          "label": "FENIX BLUEBERRY",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_fenix_blueberry_zoom.jpg",
+          "cardSlug": "allure-blossom-2-2-2-2-2-3",
+          "sourcePage": "https://eliosceramica.com/collezione/allure/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "allure",
+          "color": "Fenix Juniper",
+          "label": "FENIX JUNIPER",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_fenix_juniper_zoom.jpg",
+          "cardSlug": "allure-fenix-juniper",
+          "sourcePage": "https://eliosceramica.com/collezione/allure/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "allure",
+          "color": "Eden",
+          "label": "EDEN",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/allure_eden_tacca_z.jpg",
+          "cardSlug": "allure-eden",
+          "sourcePage": "https://eliosceramica.com/collezione/allure/",
+          "advertisedWidth": 1200,
+          "advertisedHeight": 600
+        },
+        {
+          "slug": "allure",
+          "color": "Safari",
+          "label": "SAFARI",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_safari_zoom.jpg",
+          "cardSlug": "allure-blossom-2-2-2-2-2-2",
+          "sourcePage": "https://eliosceramica.com/collezione/allure/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "allure",
+          "color": "Blueberry",
+          "label": "BLUEBERRY",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_blueberry_zoom.jpg",
+          "cardSlug": "allure-blossom-2",
+          "sourcePage": "https://eliosceramica.com/collezione/allure/",
+          "advertisedWidth": 1200,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "allure",
+          "color": "Blossom",
+          "label": "BLOSSOM",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_blossom_zoom.jpg",
+          "cardSlug": "allure-blossom",
+          "sourcePage": "https://eliosceramica.com/collezione/allure/",
+          "advertisedWidth": 1200,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "allure",
+          "color": "Snow",
+          "label": "SNOW",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_snow_zoom.jpg",
+          "cardSlug": "allure-blossom-2-2-2",
+          "sourcePage": "https://eliosceramica.com/collezione/allure/",
+          "advertisedWidth": 1200,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "allure",
+          "color": "Juniper",
+          "label": "JUNIPER",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_juniper_zoom.jpg",
+          "cardSlug": "allure-blossom-2-2-2-2",
+          "sourcePage": "https://eliosceramica.com/collezione/allure/",
+          "advertisedWidth": 1200,
+          "advertisedHeight": 700
+        },
+        {
+          "slug": "allure",
+          "color": "Oyster",
+          "label": "OYSTER",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_oyster_zoom.jpg",
+          "cardSlug": "allure-blossom-2-2",
+          "sourcePage": "https://eliosceramica.com/collezione/allure/",
+          "advertisedWidth": 1200,
+          "advertisedHeight": 700
+        }
+      ],
+      "missing": [],
+      "availableLabels": [
+        "BLOSSOM",
+        "BLUEBERRY",
+        "OYSTER",
+        "SNOW",
+        "JUNIPER",
+        "FENIX JUNIPER",
+        "SAFARI",
+        "FENIX BLUEBERRY",
+        "EDEN"
+      ]
+    },
+    {
+      "slug": "dust",
+      "page": "https://eliosceramica.com/collezione/dust/",
+      "title": "Dust",
+      "choices": [
+        {
+          "slug": "dust",
+          "color": "Niagara",
+          "label": "NIAGARA",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/DUST_niagara_zoom-1.jpg",
+          "cardSlug": "dust-niagara",
+          "sourcePage": "https://eliosceramica.com/collezione/dust/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "dust",
+          "color": "Ink",
+          "label": "INK",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/DUST_ink_zoom-1.jpg",
+          "cardSlug": "dust-ink",
+          "sourcePage": "https://eliosceramica.com/collezione/dust/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "dust",
+          "color": "Terrae",
+          "label": "TERRAE",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/DUST_terrae_zoom-1.jpg",
+          "cardSlug": "dust-terrae",
+          "sourcePage": "https://eliosceramica.com/collezione/dust/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "dust",
+          "color": "Blush",
+          "label": "BLUSH",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/DUST_blush_zoom-1.jpg",
+          "cardSlug": "dust-blush",
+          "sourcePage": "https://eliosceramica.com/collezione/dust/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "dust",
+          "color": "Dove",
+          "label": "DOVE",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/DUST_dove_zoom-1.jpg",
+          "cardSlug": "dust-dove",
+          "sourcePage": "https://eliosceramica.com/collezione/dust/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "dust",
+          "color": "Ice",
+          "label": "ICE",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/DUST_ice_zoom-1.jpg",
+          "cardSlug": "dust-ice",
+          "sourcePage": "https://eliosceramica.com/collezione/dust/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "dust",
+          "color": "Sage",
+          "label": "SAGE",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/DUST_sage_zoom-1.jpg",
+          "cardSlug": "dust-sage",
+          "sourcePage": "https://eliosceramica.com/collezione/dust/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        },
+        {
+          "slug": "dust",
+          "color": "Pine",
+          "label": "PINE",
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/DUST_pine_zoom-1.jpg",
+          "cardSlug": "dust-pine",
+          "sourcePage": "https://eliosceramica.com/collezione/dust/",
+          "advertisedWidth": 416,
+          "advertisedHeight": 208
+        }
+      ],
+      "missing": [],
+      "availableLabels": [
+        "TERRAE",
+        "BLUSH",
+        "DOVE",
+        "ICE",
+        "SAGE",
+        "PINE",
+        "NIAGARA",
+        "INK"
+      ]
+    },
+    {
+      "slug": "loveanddecors-creative",
+      "page": "https://eliosceramica.com/collezione/love-decors/",
+      "title": "",
+      "choices": [],
+      "missing": [
+        "Lagoon",
+        "Paradise",
+        "Peony",
+        "Flamingo",
+        "Leaf",
+        "Equatorial",
+        "Ibis",
+        "Flora",
+        "Autumn",
+        "Paint",
+        "Natura"
+      ],
+      "availableLabels": []
+    },
+    {
+      "slug": "segmento",
+      "page": "https://eliosceramica.com/collezione/segmento/",
+      "title": "Segmento",
+      "choices": [
+        {
+          "slug": "segmento",
+          "color": "Albus",
+          "label": "ALBUS",
+          "url": "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-ALBUS_tacca.jpg",
+          "cardSlug": "segmento-albus",
+          "sourcePage": "https://eliosceramica.com/collezione/segmento/",
+          "advertisedWidth": 529,
+          "advertisedHeight": 309
+        },
+        {
+          "slug": "segmento",
+          "color": "Nigrum",
+          "label": "NIGRUM",
+          "url": "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-NIGRUM_tacca.jpg",
+          "cardSlug": "segmento-nigrum",
+          "sourcePage": "https://eliosceramica.com/collezione/segmento/",
+          "advertisedWidth": 529,
+          "advertisedHeight": 309
+        },
+        {
+          "slug": "segmento",
+          "color": "Amaryllis",
+          "label": "AMARYLLIS",
+          "url": "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-AMARYLLIS_tacca.jpg",
+          "cardSlug": "segmento-amaryllis",
+          "sourcePage": "https://eliosceramica.com/collezione/segmento/",
+          "advertisedWidth": 529,
+          "advertisedHeight": 309
+        },
+        {
+          "slug": "segmento",
+          "color": "Rubens",
+          "label": "RUBENS",
+          "url": "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-RUBENS_tacca.jpg",
+          "cardSlug": "segmento-rubens",
+          "sourcePage": "https://eliosceramica.com/collezione/segmento/",
+          "advertisedWidth": 529,
+          "advertisedHeight": 309
+        },
+        {
+          "slug": "segmento",
+          "color": "Coelestis",
+          "label": "COELESTIS",
+          "url": "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-COELESTIS_tacca.jpg",
+          "cardSlug": "segmento-coelestis",
+          "sourcePage": "https://eliosceramica.com/collezione/segmento/",
+          "advertisedWidth": 529,
+          "advertisedHeight": 309
+        },
+        {
+          "slug": "segmento",
+          "color": "Caeruleus",
+          "label": "CAERLUEUS",
+          "url": "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-CAERULEUS_tacca-1.jpg",
+          "cardSlug": "segmento-caeruleus",
+          "sourcePage": "https://eliosceramica.com/collezione/segmento/",
+          "advertisedWidth": 529,
+          "advertisedHeight": 309
+        },
+        {
+          "slug": "segmento",
+          "color": "Flavus",
+          "label": "FLAVUS",
+          "url": "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-FLAVUS_tacca.jpg",
+          "cardSlug": "segmento-flavus",
+          "sourcePage": "https://eliosceramica.com/collezione/segmento/",
+          "advertisedWidth": 529,
+          "advertisedHeight": 309
+        },
+        {
+          "slug": "segmento",
+          "color": "Viridis",
+          "label": "VIRIDISIS",
+          "url": "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-VIRIDIS_tacca.jpg",
+          "cardSlug": "segmento-viridisis",
+          "sourcePage": "https://eliosceramica.com/collezione/segmento/",
+          "advertisedWidth": 529,
+          "advertisedHeight": 309
+        },
+        {
+          "slug": "segmento",
+          "color": "Lapis",
+          "label": "LAPIS",
+          "url": "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-LAPIS_tacca.jpg",
+          "cardSlug": "segmento-lapis",
+          "sourcePage": "https://eliosceramica.com/collezione/segmento/",
+          "advertisedWidth": 529,
+          "advertisedHeight": 309
+        },
+        {
+          "slug": "segmento",
+          "color": "Nox",
+          "label": "NOX",
+          "url": "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-NOX_tacca.jpg",
+          "cardSlug": "segmento-nox",
+          "sourcePage": "https://eliosceramica.com/collezione/segmento/",
+          "advertisedWidth": 529,
+          "advertisedHeight": 309
+        },
+        {
+          "slug": "segmento",
+          "color": "Duplex",
+          "label": "DUPLEX A",
+          "url": "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-DUPLEX-A_tacca.jpg",
+          "cardSlug": "segmento-duplex-a",
+          "sourcePage": "https://eliosceramica.com/collezione/segmento/",
+          "advertisedWidth": 535,
+          "advertisedHeight": 309
+        },
+        {
+          "slug": "segmento",
+          "color": "Duplex",
+          "label": "DUPLEX B",
+          "url": "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-DUPLEX-B_tacca.jpg",
+          "cardSlug": "segmento-duplex-b",
+          "sourcePage": "https://eliosceramica.com/collezione/segmento/",
+          "advertisedWidth": 529,
+          "advertisedHeight": 309
+        },
+        {
+          "slug": "segmento",
+          "color": "Duplex",
+          "label": "DUPLEX C",
+          "url": "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-DUPLEX-C_tacca.jpg",
+          "cardSlug": "segmento-duplex-c",
+          "sourcePage": "https://eliosceramica.com/collezione/segmento/",
+          "advertisedWidth": 529,
+          "advertisedHeight": 309
+        },
+        {
+          "slug": "segmento",
+          "color": "Duplex",
+          "label": "DUPLEX D",
+          "url": "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-DUPLEX-D_tacca.jpg",
+          "cardSlug": "segmento-duplex-d",
+          "sourcePage": "https://eliosceramica.com/collezione/segmento/",
+          "advertisedWidth": 529,
+          "advertisedHeight": 309
+        },
+        {
+          "slug": "segmento",
+          "color": "Duplex",
+          "label": "DUPLEX E",
+          "url": "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-DUPLEX-E_tacca.jpg",
+          "cardSlug": "segmento-duplex-e",
+          "sourcePage": "https://eliosceramica.com/collezione/segmento/",
+          "advertisedWidth": 529,
+          "advertisedHeight": 309
+        },
+        {
+          "slug": "segmento",
+          "color": "Duplex",
+          "label": "DUPLEX F",
+          "url": "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-DUPLEX-F_tacca.jpg",
+          "cardSlug": "segmento-duplex-f",
+          "sourcePage": "https://eliosceramica.com/collezione/segmento/",
+          "advertisedWidth": 535,
+          "advertisedHeight": 309
+        }
+      ],
+      "missing": [],
+      "availableLabels": [
+        "ALBUS",
+        "COELESTIS",
+        "AMARYLLIS",
+        "RUBENS",
+        "CAERLUEUS",
+        "NIGRUM",
+        "VIRIDISIS",
+        "FLAVUS",
+        "LAPIS",
+        "NOX",
+        "DUPLEX A",
+        "DUPLEX B",
+        "DUPLEX C",
+        "DUPLEX D",
+        "DUPLEX E",
+        "DUPLEX F"
+      ]
+    },
+    {
+      "slug": "tropical",
+      "page": "https://eliosceramica.com/collezione/tropical/",
+      "title": "",
+      "choices": [],
+      "missing": [
+        "Bianco",
+        "Ocra",
+        "Grigio",
+        "Nero",
+        "Salvia",
+        "Petrolio",
+        "Azzurro",
+        "Blu"
+      ],
+      "availableLabels": []
+    },
+    {
+      "slug": "twist",
+      "page": "https://eliosceramica.com/collezione/twist/",
+      "title": "",
+      "choices": [],
+      "missing": [
+        "Brick",
+        "White",
+        "Green",
+        "Black",
+        "Sky"
+      ],
+      "availableLabels": []
+    },
+    {
+      "slug": "venere",
+      "page": "https://eliosceramica.com/collezione/venere/",
+      "title": "Venere",
+      "choices": [
+        {
+          "slug": "venere",
+          "color": "Perla",
+          "label": "PERLA",
+          "url": "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_PERLA_Z.jpg",
+          "cardSlug": "venere-perla",
+          "sourcePage": "https://eliosceramica.com/collezione/venere/",
+          "advertisedWidth": 600,
+          "advertisedHeight": 300
+        },
+        {
+          "slug": "venere",
+          "color": "Aura",
+          "label": "AURA",
+          "url": "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_AURA_Z.jpg",
+          "cardSlug": "venere-aura",
+          "sourcePage": "https://eliosceramica.com/collezione/venere/",
+          "advertisedWidth": 600,
+          "advertisedHeight": 300
+        },
+        {
+          "slug": "venere",
+          "color": "Seta",
+          "label": "SETA",
+          "url": "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_SETA_Z.jpg",
+          "cardSlug": "venere-seta",
+          "sourcePage": "https://eliosceramica.com/collezione/venere/",
+          "advertisedWidth": 600,
+          "advertisedHeight": 300
+        },
+        {
+          "slug": "venere",
+          "color": "Zefiro",
+          "label": "ZEFIRO",
+          "url": "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_ZEFIRO_Z.jpg",
+          "cardSlug": "venere-zefiro",
+          "sourcePage": "https://eliosceramica.com/collezione/venere/",
+          "advertisedWidth": 600,
+          "advertisedHeight": 300
+        },
+        {
+          "slug": "venere",
+          "color": "Rugiada",
+          "label": "RUGIADA",
+          "url": "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_RUGIADA_Z.jpg",
+          "cardSlug": "venere-rugiada",
+          "sourcePage": "https://eliosceramica.com/collezione/venere/",
+          "advertisedWidth": 600,
+          "advertisedHeight": 300
+        },
+        {
+          "slug": "venere",
+          "color": "Mare",
+          "label": "MARE",
+          "url": "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_MARE_Z.jpg",
+          "cardSlug": "venere-mare",
+          "sourcePage": "https://eliosceramica.com/collezione/venere/",
+          "advertisedWidth": 600,
+          "advertisedHeight": 300
+        }
+      ],
+      "missing": [],
+      "availableLabels": [
+        "PERLA",
+        "AURA",
+        "SETA",
+        "FLORA",
+        "RUGIADA",
+        "ZEFIRO",
+        "MARE",
+        "ATLANTE"
+      ]
+    }
+  ],
+  "sampleFailures": [],
+  "derivatives": 240
+}

@@ -123,8 +123,11 @@ body.elios-lightbox-open{overflow:hidden!important}
 }
 
 /* A colour without a verified photo remains a compact label, never an empty image tile. */
+.elios-gallery-status{margin:10px 12px;color:#655d4a;font-size:.82rem;line-height:1.6}.elios-gallery-status[hidden]{display:none!important}
 #product-modal-v2 .elios-variant-colors-v3 button:not(.verified){grid-template-columns:1fr;grid-template-rows:auto auto;min-height:64px;height:auto;align-content:center}
-/* Keep photo captions inside their colour button at every viewport width. */
+/* Colour previews must not inherit the 400px minimum of the main product image. */
+#product-modal-v2 .elios-variant-colors-v3{align-items:start;align-content:start;grid-auto-rows:min-content}
 #product-modal-v2 .elios-variant-colors-v3 button.verified{display:flex!important;flex-direction:column!important;align-items:stretch!important;justify-content:flex-start!important;gap:5px!important;height:auto!important;min-height:0!important;padding:7px!important}
-#product-modal-v2 .elios-variant-colors-v3 button.verified img{display:block!important;width:100%!important;max-width:none!important;height:100px!important;max-height:100px!important;flex:none!important;object-fit:cover}
+#product-modal-v2 .elios-variant-colors-v3 button.verified img{display:block!important;width:100%!important;min-width:0!important;max-width:100%!important;height:auto!important;min-height:0!important;max-height:none!important;aspect-ratio:1;flex:none!important;object-fit:contain!important;object-position:center;border-radius:8px;background:#f0ede7}
 #product-modal-v2 .elios-variant-colors-v3 button.verified span,#product-modal-v2 .elios-variant-colors-v3 button.verified small{position:static!important;min-height:0!important;height:auto!important;flex:none!important;overflow-wrap:anywhere!important}
+#product-modal-v2 .elios-variant-colors-v3 button img[hidden],#product-modal-v2 .elios-gallery-main[hidden]{display:none!important}

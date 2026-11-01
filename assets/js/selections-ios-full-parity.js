@@ -71,7 +71,7 @@
       'assets/js/inspirations-bilt-order-link.js?v=20260923-ios-parity1&media=20261018',
       'assets/js/fenice-lexicon-data.js?v=20260923-ios-parity1',
       'assets/js/products-alphabetical-order.js?v=20260923-ios-parity1',
-      'assets/js/selections-lazy-enhancements.js?v=20261031-view-stock2'
+      'assets/js/selections-lazy-enhancements.js?v=20261101-elios-images1'
     ]);
   }
 

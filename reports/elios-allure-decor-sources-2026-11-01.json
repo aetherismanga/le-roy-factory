@@ -1,0 +1,162 @@
+{
+  "variants": {
+    "allure": {
+      "Fenix Blueberry": [
+        "assets/img/elios-colors-20261101/allure/fenix-blueberry-panel-native.webp"
+      ],
+      "Fenix Juniper": [
+        "assets/img/elios-colors-20261101/allure/fenix-juniper-panel-native.webp"
+      ],
+      "Safari": [
+        "assets/img/elios-colors-20261101/allure/safari-panel-native.webp"
+      ],
+      "Eden": [
+        "assets/img/elios-colors-20261101/allure/eden-panel-native.webp",
+        "https://eliosceramica.com/wp-content/uploads/2023/05/allure_eden_tacca_z.jpg"
+      ]
+    }
+  },
+  "galleries": {},
+  "assets": {
+    "assets/img/elios-colors-20261101/allure/fenix-blueberry-panel-native.webp": {
+      "thumbnail": "assets/img/elios-colors-20261101/allure/fenix-blueberry-panel-thumb.webp",
+      "original": "assets/img/elios-colors-20261101/allure/fenix-blueberry-panel-native.webp",
+      "width": 419,
+      "height": 837,
+      "kind": "manufacturer-decor-panel",
+      "sourceOriginal": "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_fenix_blueberry_schema.jpg",
+      "cropRectPixels": [
+        0,
+        0,
+        419,
+        837
+      ],
+      "nativeSourceWidth": 710,
+      "nativeSourceHeight": 843,
+      "generated": false
+    },
+    "assets/img/elios-colors-20261101/allure/fenix-juniper-panel-native.webp": {
+      "thumbnail": "assets/img/elios-colors-20261101/allure/fenix-juniper-panel-thumb.webp",
+      "original": "assets/img/elios-colors-20261101/allure/fenix-juniper-panel-native.webp",
+      "width": 417,
+      "height": 837,
+      "kind": "manufacturer-decor-panel",
+      "sourceOriginal": "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_fenix_juniper_schema.jpg",
+      "cropRectPixels": [
+        0,
+        0,
+        417,
+        837
+      ],
+      "nativeSourceWidth": 710,
+      "nativeSourceHeight": 843,
+      "generated": false
+    },
+    "assets/img/elios-colors-20261101/allure/safari-panel-native.webp": {
+      "thumbnail": "assets/img/elios-colors-20261101/allure/safari-panel-thumb.webp",
+      "original": "assets/img/elios-colors-20261101/allure/safari-panel-native.webp",
+      "width": 417,
+      "height": 837,
+      "kind": "manufacturer-decor-panel",
+      "sourceOriginal": "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_safari_schema.jpg",
+      "cropRectPixels": [
+        0,
+        0,
+        417,
+        837
+      ],
+      "nativeSourceWidth": 710,
+      "nativeSourceHeight": 843,
+      "generated": false
+    },
+    "assets/img/elios-colors-20261101/allure/eden-panel-native.webp": {
+      "thumbnail": "assets/img/elios-colors-20261101/allure/eden-panel-thumb.webp",
+      "original": "assets/img/elios-colors-20261101/allure/eden-panel-native.webp",
+      "width": 421,
+      "height": 843,
+      "kind": "manufacturer-decor-panel",
+      "sourceOriginal": "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_eden_schema-1.jpg",
+      "cropRectPixels": [
+        0,
+        0,
+        421,
+        843
+      ],
+      "nativeSourceWidth": 710,
+      "nativeSourceHeight": 843,
+      "generated": false
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/allure_eden_tacca_z.jpg": {
+      "thumbnail": "assets/img/elios-colors-20261101/allure/eden-panel-thumb.webp",
+      "original": "https://eliosceramica.com/wp-content/uploads/2023/05/allure_eden_tacca_z.jpg",
+      "width": 1200,
+      "height": 600,
+      "kind": "manufacturer-colour-detail"
+    }
+  },
+  "sources": {
+    "allure:Fenix Blueberry": {
+      "page": "https://eliosceramica.com/collezione/allure/",
+      "officialLabel": "Fenix Blueberry",
+      "original": "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_fenix_blueberry_schema.jpg",
+      "sourceSha256": "93fd8a06c18a99709a8568d0adb137afa88dbf374c106757e781607ee8df74e5",
+      "kind": "manufacturer-decor-panel",
+      "cropRectPixels": [
+        0,
+        0,
+        419,
+        837
+      ],
+      "note": "Panneau photographique natif du schéma fabricant ; seule la bande blanche des consignes de pose est retirée. Aucun agrandissement ni modification de motif."
+    },
+    "allure:Fenix Juniper": {
+      "page": "https://eliosceramica.com/collezione/allure/",
+      "officialLabel": "Fenix Juniper",
+      "original": "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_fenix_juniper_schema.jpg",
+      "sourceSha256": "a70b8e9282c0b0b5959ee12b8172fc61248dfad277b02922246e19f399a832b2",
+      "kind": "manufacturer-decor-panel",
+      "cropRectPixels": [
+        0,
+        0,
+        417,
+        837
+      ],
+      "note": "Panneau photographique natif du schéma fabricant ; seule la bande blanche des consignes de pose est retirée. Aucun agrandissement ni modification de motif."
+    },
+    "allure:Safari": {
+      "page": "https://eliosceramica.com/collezione/allure/",
+      "officialLabel": "Safari",
+      "original": "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_safari_schema.jpg",
+      "sourceSha256": "ba8b251abbe0db750eef8cfb0aaedbc313bcc13c9223ce03d587e679a0281f4b",
+      "kind": "manufacturer-decor-panel",
+      "cropRectPixels": [
+        0,
+        0,
+        417,
+        837
+      ],
+      "note": "Panneau photographique natif du schéma fabricant ; seule la bande blanche des consignes de pose est retirée. Aucun agrandissement ni modification de motif."
+    },
+    "allure:Eden": {
+      "page": "https://eliosceramica.com/collezione/allure/",
+      "officialLabel": "Eden",
+      "original": "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_eden_schema-1.jpg",
+      "sourceSha256": "1002139f67fb05b2a9524f6c151da07c01aa1b424f725d2f237085dccbc4df78",
+      "kind": "manufacturer-decor-panel",
+      "cropRectPixels": [
+        0,
+        0,
+        421,
+        843
+      ],
+      "note": "Panneau photographique natif du schéma fabricant ; seule la bande blanche des consignes de pose est retirée. Aucun agrandissement ni modification de motif."
+    },
+    "allure:Eden-detail": {
+      "page": "https://eliosceramica.com/collezione/allure/",
+      "officialLabel": "EDEN",
+      "original": "https://eliosceramica.com/wp-content/uploads/2023/05/allure_eden_tacca_z.jpg",
+      "sha256": "5ae0f09602df864790a483f524b105d16c82ea56545c8e4afdc3bd3ab0b69746",
+      "kind": "manufacturer-colour-detail"
+    }
+  }
+}

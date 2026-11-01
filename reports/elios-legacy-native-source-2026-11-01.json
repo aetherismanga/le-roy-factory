@@ -1,0 +1,811 @@
+{
+  "pdfUrl": "https://firebasestorage.googleapis.com/v0/b/le-roy-factory.firebasestorage.app/o/public-site-assets%2Fle-roy-factory%2F85d5f6bd3f78%2Fassets%2Fpdf%2FELIOS_Catalogue_General_2026_INTERACTIF.pdf?alt=media&token=6a69ecb0-39cc-4cd3-93cf-803e461c6431",
+  "pdfSha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+  "rule": "Native embedded source images; A+B panels assembled without interpolation. A per-panel size difference is retained with transparent padding, never resized.",
+  "mappings": [
+    {
+      "slug": "loveanddecors",
+      "color": "Garden",
+      "url": "assets/img/elios-colors-20261101/loveanddecors/garden-catalogue-native.webp",
+      "document": "ELIOS Catalogue Général 2026",
+      "colourConversion": "MuPDF source CMYK to sRGB, matching PDF renderer; native pixel dimensions retained",
+      "pdfSha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+      "pdfPage": 27,
+      "xrefs": [
+        1980,
+        1982
+      ],
+      "nativeParts": [
+        {
+          "xref": 1980,
+          "width": 158,
+          "height": 362
+        },
+        {
+          "xref": 1982,
+          "width": 158,
+          "height": 362
+        }
+      ],
+      "assembly": "A+B at native pixels"
+    },
+    {
+      "slug": "loveanddecors-creative",
+      "color": "Equatorial",
+      "url": "assets/img/elios-colors-20261101/loveanddecors-creative/equatorial-catalogue-native.webp",
+      "document": "ELIOS Catalogue Général 2026",
+      "colourConversion": "MuPDF source CMYK to sRGB, matching PDF renderer; native pixel dimensions retained",
+      "pdfSha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+      "pdfPage": 196,
+      "xrefs": [
+        5243,
+        5244
+      ],
+      "nativeParts": [
+        {
+          "xref": 5243,
+          "width": 130,
+          "height": 261
+        },
+        {
+          "xref": 5244,
+          "width": 130,
+          "height": 261
+        }
+      ],
+      "assembly": "A+B at native pixels"
+    },
+    {
+      "slug": "loveanddecors-creative",
+      "color": "Flora",
+      "url": "assets/img/elios-colors-20261101/loveanddecors-creative/flora-catalogue-native.webp",
+      "document": "ELIOS Catalogue Général 2026",
+      "colourConversion": "MuPDF source CMYK to sRGB, matching PDF renderer; native pixel dimensions retained",
+      "pdfSha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+      "pdfPage": 196,
+      "xrefs": [
+        5245,
+        5246
+      ],
+      "nativeParts": [
+        {
+          "xref": 5245,
+          "width": 129,
+          "height": 260
+        },
+        {
+          "xref": 5246,
+          "width": 129,
+          "height": 260
+        }
+      ],
+      "assembly": "A+B at native pixels"
+    },
+    {
+      "slug": "loveanddecors-creative",
+      "color": "Leaf",
+      "url": "assets/img/elios-colors-20261101/loveanddecors-creative/leaf-catalogue-native.webp",
+      "document": "ELIOS Catalogue Général 2026",
+      "colourConversion": "MuPDF source CMYK to sRGB, matching PDF renderer; native pixel dimensions retained",
+      "pdfSha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+      "pdfPage": 196,
+      "xrefs": [
+        5247,
+        5248
+      ],
+      "nativeParts": [
+        {
+          "xref": 5247,
+          "width": 130,
+          "height": 260
+        },
+        {
+          "xref": 5248,
+          "width": 130,
+          "height": 260
+        }
+      ],
+      "assembly": "A+B at native pixels"
+    },
+    {
+      "slug": "loveanddecors-creative",
+      "color": "Ibis",
+      "url": "assets/img/elios-colors-20261101/loveanddecors-creative/ibis-catalogue-native.webp",
+      "document": "ELIOS Catalogue Général 2026",
+      "colourConversion": "MuPDF source CMYK to sRGB, matching PDF renderer; native pixel dimensions retained",
+      "pdfSha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+      "pdfPage": 196,
+      "xrefs": [
+        5249,
+        5250
+      ],
+      "nativeParts": [
+        {
+          "xref": 5249,
+          "width": 130,
+          "height": 262
+        },
+        {
+          "xref": 5250,
+          "width": 130,
+          "height": 262
+        }
+      ],
+      "assembly": "A+B at native pixels"
+    },
+    {
+      "slug": "loveanddecors-creative",
+      "color": "Natura",
+      "url": "assets/img/elios-colors-20261101/loveanddecors-creative/natura-catalogue-native.webp",
+      "document": "ELIOS Catalogue Général 2026",
+      "colourConversion": "MuPDF source CMYK to sRGB, matching PDF renderer; native pixel dimensions retained",
+      "pdfSha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+      "pdfPage": 197,
+      "xrefs": [
+        5260,
+        5261
+      ],
+      "nativeParts": [
+        {
+          "xref": 5260,
+          "width": 131,
+          "height": 262
+        },
+        {
+          "xref": 5261,
+          "width": 132,
+          "height": 262
+        }
+      ],
+      "assembly": "A+B at native pixels"
+    },
+    {
+      "slug": "loveanddecors-creative",
+      "color": "Peony",
+      "url": "assets/img/elios-colors-20261101/loveanddecors-creative/peony-catalogue-native.webp",
+      "document": "ELIOS Catalogue Général 2026",
+      "colourConversion": "MuPDF source CMYK to sRGB, matching PDF renderer; native pixel dimensions retained",
+      "pdfSha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+      "pdfPage": 197,
+      "xrefs": [
+        5258,
+        5259
+      ],
+      "nativeParts": [
+        {
+          "xref": 5258,
+          "width": 130,
+          "height": 262
+        },
+        {
+          "xref": 5259,
+          "width": 130,
+          "height": 262
+        }
+      ],
+      "assembly": "A+B at native pixels"
+    },
+    {
+      "slug": "loveanddecors-creative",
+      "color": "Lagoon",
+      "url": "assets/img/elios-colors-20261101/loveanddecors-creative/lagoon-catalogue-native.webp",
+      "document": "ELIOS Catalogue Général 2026",
+      "colourConversion": "MuPDF source CMYK to sRGB, matching PDF renderer; native pixel dimensions retained",
+      "pdfSha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+      "pdfPage": 197,
+      "xrefs": [
+        5263
+      ],
+      "nativeParts": [
+        {
+          "xref": 5263,
+          "width": 264,
+          "height": 261
+        }
+      ],
+      "assembly": "embedded image, original pixels"
+    },
+    {
+      "slug": "loveanddecors-creative",
+      "color": "Paradise",
+      "url": "assets/img/elios-colors-20261101/loveanddecors-creative/paradise-catalogue-native.webp",
+      "document": "ELIOS Catalogue Général 2026",
+      "colourConversion": "MuPDF source CMYK to sRGB, matching PDF renderer; native pixel dimensions retained",
+      "pdfSha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+      "pdfPage": 197,
+      "xrefs": [
+        5264,
+        5265
+      ],
+      "nativeParts": [
+        {
+          "xref": 5264,
+          "width": 131,
+          "height": 263
+        },
+        {
+          "xref": 5265,
+          "width": 131,
+          "height": 261
+        }
+      ],
+      "assembly": "A+B at native pixels"
+    },
+    {
+      "slug": "loveanddecors-creative",
+      "color": "Paint",
+      "url": "assets/img/elios-colors-20261101/loveanddecors-creative/paint-catalogue-native.webp",
+      "document": "ELIOS Catalogue Général 2026",
+      "colourConversion": "MuPDF source CMYK to sRGB, matching PDF renderer; native pixel dimensions retained",
+      "pdfSha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+      "pdfPage": 198,
+      "xrefs": [
+        5276,
+        5277
+      ],
+      "nativeParts": [
+        {
+          "xref": 5276,
+          "width": 130,
+          "height": 263
+        },
+        {
+          "xref": 5277,
+          "width": 130,
+          "height": 263
+        }
+      ],
+      "assembly": "A+B at native pixels"
+    },
+    {
+      "slug": "loveanddecors-creative",
+      "color": "Autumn",
+      "url": "assets/img/elios-colors-20261101/loveanddecors-creative/autumn-catalogue-native.webp",
+      "document": "ELIOS Catalogue Général 2026",
+      "colourConversion": "MuPDF source CMYK to sRGB, matching PDF renderer; native pixel dimensions retained",
+      "pdfSha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+      "pdfPage": 198,
+      "xrefs": [
+        5271,
+        5272
+      ],
+      "nativeParts": [
+        {
+          "xref": 5271,
+          "width": 130,
+          "height": 261
+        },
+        {
+          "xref": 5272,
+          "width": 130,
+          "height": 261
+        }
+      ],
+      "assembly": "A+B at native pixels"
+    },
+    {
+      "slug": "loveanddecors-creative",
+      "color": "Flamingo",
+      "url": "assets/img/elios-colors-20261101/loveanddecors-creative/flamingo-catalogue-native.webp",
+      "document": "ELIOS Catalogue Général 2026",
+      "colourConversion": "MuPDF source CMYK to sRGB, matching PDF renderer; native pixel dimensions retained",
+      "pdfSha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+      "pdfPage": 198,
+      "xrefs": [
+        5273
+      ],
+      "nativeParts": [
+        {
+          "xref": 5273,
+          "width": 130,
+          "height": 262
+        }
+      ],
+      "assembly": "embedded image, original pixels"
+    },
+    {
+      "slug": "creta",
+      "color": "Coccio",
+      "url": "assets/img/elios-colors-20261101/creta/coccio-catalogue-native.webp",
+      "document": "ELIOS Catalogue Général 2026",
+      "colourConversion": "MuPDF source CMYK to sRGB, matching PDF renderer; native pixel dimensions retained",
+      "pdfSha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+      "pdfPage": 114,
+      "xrefs": [
+        3582
+      ],
+      "nativeParts": [
+        {
+          "xref": 3582,
+          "width": 117,
+          "height": 118
+        }
+      ],
+      "assembly": "embedded image, original pixels"
+    },
+    {
+      "slug": "lithos",
+      "color": "Ivory",
+      "url": "assets/img/elios-colors-20261101/lithos/ivory-catalogue-native.webp",
+      "document": "ELIOS Catalogue Général 2026",
+      "colourConversion": "MuPDF source CMYK to sRGB, matching PDF renderer; native pixel dimensions retained",
+      "pdfSha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+      "pdfPage": 22,
+      "xrefs": [
+        1933
+      ],
+      "nativeParts": [
+        {
+          "xref": 1933,
+          "width": 147,
+          "height": 297
+        }
+      ],
+      "assembly": "embedded image, original pixels"
+    },
+    {
+      "slug": "lithos",
+      "color": "Sand",
+      "url": "assets/img/elios-colors-20261101/lithos/sand-catalogue-native.webp",
+      "document": "ELIOS Catalogue Général 2026",
+      "colourConversion": "MuPDF source CMYK to sRGB, matching PDF renderer; native pixel dimensions retained",
+      "pdfSha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+      "pdfPage": 22,
+      "xrefs": [
+        1935
+      ],
+      "nativeParts": [
+        {
+          "xref": 1935,
+          "width": 147,
+          "height": 299
+        }
+      ],
+      "assembly": "embedded image, original pixels"
+    },
+    {
+      "slug": "lithos",
+      "color": "Grey",
+      "url": "assets/img/elios-colors-20261101/lithos/grey-catalogue-native.webp",
+      "document": "ELIOS Catalogue Général 2026",
+      "colourConversion": "MuPDF source CMYK to sRGB, matching PDF renderer; native pixel dimensions retained",
+      "pdfSha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+      "pdfPage": 22,
+      "xrefs": [
+        1934
+      ],
+      "nativeParts": [
+        {
+          "xref": 1934,
+          "width": 147,
+          "height": 297
+        }
+      ],
+      "assembly": "embedded image, original pixels"
+    },
+    {
+      "slug": "manhattan",
+      "color": "Pearl",
+      "url": "assets/img/elios-colors-20261101/manhattan/pearl-catalogue-native.webp",
+      "document": "ELIOS Catalogue Général 2026",
+      "colourConversion": "MuPDF source CMYK to sRGB, matching PDF renderer; native pixel dimensions retained",
+      "pdfSha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+      "pdfPage": 31,
+      "xrefs": [
+        2018
+      ],
+      "nativeParts": [
+        {
+          "xref": 2018,
+          "width": 147,
+          "height": 297
+        }
+      ],
+      "assembly": "embedded image, original pixels"
+    },
+    {
+      "slug": "manhattan",
+      "color": "Ash",
+      "url": "assets/img/elios-colors-20261101/manhattan/ash-catalogue-native.webp",
+      "document": "ELIOS Catalogue Général 2026",
+      "colourConversion": "MuPDF source CMYK to sRGB, matching PDF renderer; native pixel dimensions retained",
+      "pdfSha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+      "pdfPage": 31,
+      "xrefs": [
+        2019
+      ],
+      "nativeParts": [
+        {
+          "xref": 2019,
+          "width": 147,
+          "height": 298
+        }
+      ],
+      "assembly": "embedded image, original pixels"
+    },
+    {
+      "slug": "manhattan",
+      "color": "Sand",
+      "url": "assets/img/elios-colors-20261101/manhattan/sand-catalogue-native.webp",
+      "document": "ELIOS Catalogue Général 2026",
+      "colourConversion": "MuPDF source CMYK to sRGB, matching PDF renderer; native pixel dimensions retained",
+      "pdfSha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+      "pdfPage": 31,
+      "xrefs": [
+        2020
+      ],
+      "nativeParts": [
+        {
+          "xref": 2020,
+          "width": 147,
+          "height": 298
+        }
+      ],
+      "assembly": "embedded image, original pixels"
+    },
+    {
+      "slug": "horizon",
+      "color": "Polvere",
+      "url": "assets/img/elios-colors-20261101/horizon/polvere-catalogue-native.webp",
+      "document": "ELIOS Catalogue Général 2026",
+      "colourConversion": "MuPDF source CMYK to sRGB, matching PDF renderer; native pixel dimensions retained",
+      "pdfSha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+      "pdfPage": 152,
+      "xrefs": [
+        4616
+      ],
+      "nativeParts": [
+        {
+          "xref": 4616,
+          "width": 164,
+          "height": 320
+        }
+      ],
+      "assembly": "embedded image, original pixels"
+    },
+    {
+      "slug": "horizon",
+      "color": "Cava",
+      "url": "assets/img/elios-colors-20261101/horizon/cava-catalogue-native.webp",
+      "document": "ELIOS Catalogue Général 2026",
+      "colourConversion": "MuPDF source CMYK to sRGB, matching PDF renderer; native pixel dimensions retained",
+      "pdfSha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+      "pdfPage": 152,
+      "xrefs": [
+        4618
+      ],
+      "nativeParts": [
+        {
+          "xref": 4618,
+          "width": 147,
+          "height": 147
+        }
+      ],
+      "assembly": "embedded image, original pixels"
+    },
+    {
+      "slug": "horizon",
+      "color": "Calce",
+      "url": "assets/img/elios-colors-20261101/horizon/calce-catalogue-native.webp",
+      "document": "ELIOS Catalogue Général 2026",
+      "colourConversion": "MuPDF source CMYK to sRGB, matching PDF renderer; native pixel dimensions retained",
+      "pdfSha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+      "pdfPage": 152,
+      "xrefs": [
+        4619
+      ],
+      "nativeParts": [
+        {
+          "xref": 4619,
+          "width": 147,
+          "height": 150
+        }
+      ],
+      "assembly": "embedded image, original pixels"
+    },
+    {
+      "slug": "horizon",
+      "color": "Carbone",
+      "url": "assets/img/elios-colors-20261101/horizon/carbone-catalogue-native.webp",
+      "document": "ELIOS Catalogue Général 2026",
+      "colourConversion": "MuPDF source CMYK to sRGB, matching PDF renderer; native pixel dimensions retained",
+      "pdfSha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+      "pdfPage": 152,
+      "xrefs": [
+        4617
+      ],
+      "nativeParts": [
+        {
+          "xref": 4617,
+          "width": 162,
+          "height": 212
+        }
+      ],
+      "assembly": "embedded image, original pixels"
+    },
+    {
+      "slug": "tropical",
+      "color": "Bianco",
+      "url": "assets/img/elios-colors-20261101/tropical/bianco-catalogue-native.webp",
+      "document": "ELIOS Catalogue Général 2026",
+      "colourConversion": "MuPDF source CMYK to sRGB, matching PDF renderer; native pixel dimensions retained",
+      "pdfSha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+      "pdfPage": 208,
+      "xrefs": [
+        5432
+      ],
+      "nativeParts": [
+        {
+          "xref": 5432,
+          "width": 102,
+          "height": 102
+        }
+      ],
+      "assembly": "embedded image, original pixels"
+    },
+    {
+      "slug": "tropical",
+      "color": "Grigio",
+      "url": "assets/img/elios-colors-20261101/tropical/grigio-catalogue-native.webp",
+      "document": "ELIOS Catalogue Général 2026",
+      "colourConversion": "MuPDF source CMYK to sRGB, matching PDF renderer; native pixel dimensions retained",
+      "pdfSha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+      "pdfPage": 208,
+      "xrefs": [
+        5437
+      ],
+      "nativeParts": [
+        {
+          "xref": 5437,
+          "width": 102,
+          "height": 102
+        }
+      ],
+      "assembly": "embedded image, original pixels"
+    },
+    {
+      "slug": "tropical",
+      "color": "Nero",
+      "url": "assets/img/elios-colors-20261101/tropical/nero-catalogue-native.webp",
+      "document": "ELIOS Catalogue Général 2026",
+      "colourConversion": "MuPDF source CMYK to sRGB, matching PDF renderer; native pixel dimensions retained",
+      "pdfSha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+      "pdfPage": 208,
+      "xrefs": [
+        5438
+      ],
+      "nativeParts": [
+        {
+          "xref": 5438,
+          "width": 102,
+          "height": 103
+        }
+      ],
+      "assembly": "embedded image, original pixels"
+    },
+    {
+      "slug": "tropical",
+      "color": "Ocra",
+      "url": "assets/img/elios-colors-20261101/tropical/ocra-catalogue-native.webp",
+      "document": "ELIOS Catalogue Général 2026",
+      "colourConversion": "MuPDF source CMYK to sRGB, matching PDF renderer; native pixel dimensions retained",
+      "pdfSha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+      "pdfPage": 208,
+      "xrefs": [
+        5433
+      ],
+      "nativeParts": [
+        {
+          "xref": 5433,
+          "width": 102,
+          "height": 102
+        }
+      ],
+      "assembly": "embedded image, original pixels"
+    },
+    {
+      "slug": "tropical",
+      "color": "Salvia",
+      "url": "assets/img/elios-colors-20261101/tropical/salvia-catalogue-native.webp",
+      "document": "ELIOS Catalogue Général 2026",
+      "colourConversion": "MuPDF source CMYK to sRGB, matching PDF renderer; native pixel dimensions retained",
+      "pdfSha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+      "pdfPage": 208,
+      "xrefs": [
+        5435
+      ],
+      "nativeParts": [
+        {
+          "xref": 5435,
+          "width": 102,
+          "height": 102
+        }
+      ],
+      "assembly": "embedded image, original pixels"
+    },
+    {
+      "slug": "tropical",
+      "color": "Petrolio",
+      "url": "assets/img/elios-colors-20261101/tropical/petrolio-catalogue-native.webp",
+      "document": "ELIOS Catalogue Général 2026",
+      "colourConversion": "MuPDF source CMYK to sRGB, matching PDF renderer; native pixel dimensions retained",
+      "pdfSha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+      "pdfPage": 208,
+      "xrefs": [
+        5439
+      ],
+      "nativeParts": [
+        {
+          "xref": 5439,
+          "width": 102,
+          "height": 102
+        }
+      ],
+      "assembly": "embedded image, original pixels"
+    },
+    {
+      "slug": "tropical",
+      "color": "Azzurro",
+      "url": "assets/img/elios-colors-20261101/tropical/azzurro-catalogue-native.webp",
+      "document": "ELIOS Catalogue Général 2026",
+      "colourConversion": "MuPDF source CMYK to sRGB, matching PDF renderer; native pixel dimensions retained",
+      "pdfSha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+      "pdfPage": 208,
+      "xrefs": [
+        5436
+      ],
+      "nativeParts": [
+        {
+          "xref": 5436,
+          "width": 102,
+          "height": 102
+        }
+      ],
+      "assembly": "embedded image, original pixels"
+    },
+    {
+      "slug": "tropical",
+      "color": "Blu",
+      "url": "assets/img/elios-colors-20261101/tropical/blu-catalogue-native.webp",
+      "document": "ELIOS Catalogue Général 2026",
+      "colourConversion": "MuPDF source CMYK to sRGB, matching PDF renderer; native pixel dimensions retained",
+      "pdfSha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+      "pdfPage": 208,
+      "xrefs": [
+        5434
+      ],
+      "nativeParts": [
+        {
+          "xref": 5434,
+          "width": 102,
+          "height": 102
+        }
+      ],
+      "assembly": "embedded image, original pixels"
+    },
+    {
+      "slug": "twist",
+      "color": "Brick",
+      "url": "assets/img/elios-colors-20261101/twist/brick-catalogue-vector-swatch.svg",
+      "sourceKind": "catalogue-vector-swatch",
+      "document": "ELIOS Catalogue Général 2026",
+      "pdfSha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+      "pdfPage": 214,
+      "printedPage": 421,
+      "sourceRect": [
+        651.965576171875,
+        158.739990234375,
+        770.3128051757812,
+        277.08721923828125
+      ],
+      "fillSRGB": [
+        0.7162126898765564,
+        0.5602197051048279,
+        0.45259785652160645
+      ],
+      "strokeSRGB": null,
+      "strokeWidthPDFPoints": null,
+      "extraction": "Exact PDF vector rectangle, MuPDF colour conversion to sRGB; no photographed texture and no raster upscaling"
+    },
+    {
+      "slug": "twist",
+      "color": "Green",
+      "url": "assets/img/elios-colors-20261101/twist/green-catalogue-vector-swatch.svg",
+      "sourceKind": "catalogue-vector-swatch",
+      "document": "ELIOS Catalogue Général 2026",
+      "pdfSha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+      "pdfPage": 214,
+      "printedPage": 421,
+      "sourceRect": [
+        787.3280029296875,
+        158.739990234375,
+        905.6719970703125,
+        277.08721923828125
+      ],
+      "fillSRGB": [
+        0.4800183176994324,
+        0.5277790427207947,
+        0.46608683466911316
+      ],
+      "strokeSRGB": null,
+      "strokeWidthPDFPoints": null,
+      "extraction": "Exact PDF vector rectangle, MuPDF colour conversion to sRGB; no photographed texture and no raster upscaling"
+    },
+    {
+      "slug": "twist",
+      "color": "White",
+      "url": "assets/img/elios-colors-20261101/twist/white-catalogue-vector-swatch.svg",
+      "sourceKind": "catalogue-vector-swatch",
+      "document": "ELIOS Catalogue Général 2026",
+      "pdfSha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+      "pdfPage": 214,
+      "printedPage": 421,
+      "sourceRect": [
+        922.6719970703125,
+        158.739990234375,
+        1041.0191650390625,
+        277.08721923828125
+      ],
+      "fillSRGB": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "strokeSRGB": [
+        0.13669031858444214,
+        0.12195010483264923,
+        0.1252918243408203
+      ],
+      "strokeWidthPDFPoints": 0.24999919533729553,
+      "extraction": "Exact PDF vector rectangle, MuPDF colour conversion to sRGB; no photographed texture and no raster upscaling"
+    },
+    {
+      "slug": "twist",
+      "color": "Black",
+      "url": "assets/img/elios-colors-20261101/twist/black-catalogue-vector-swatch.svg",
+      "sourceKind": "catalogue-vector-swatch",
+      "document": "ELIOS Catalogue Général 2026",
+      "pdfSha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+      "pdfPage": 214,
+      "printedPage": 421,
+      "sourceRect": [
+        1058.0321044921875,
+        158.739990234375,
+        1176.3792724609375,
+        277.08721923828125
+      ],
+      "fillSRGB": [
+        0.11523613333702087,
+        0.10539406538009644,
+        0.11445792019367218
+      ],
+      "strokeSRGB": null,
+      "strokeWidthPDFPoints": null,
+      "extraction": "Exact PDF vector rectangle, MuPDF colour conversion to sRGB; no photographed texture and no raster upscaling"
+    },
+    {
+      "slug": "twist",
+      "color": "Sky",
+      "url": "assets/img/elios-colors-20261101/twist/sky-catalogue-vector-swatch.svg",
+      "sourceKind": "catalogue-vector-swatch",
+      "document": "ELIOS Catalogue Général 2026",
+      "pdfSha256": "1dff8b70dd23a6eb0f04825a4c4f1ca4ae8a001a035e2aa19c0aa620efd167de",
+      "pdfPage": 214,
+      "printedPage": 421,
+      "sourceRect": [
+        651.965576171875,
+        303.3056335449219,
+        770.3128051757812,
+        421.6528015136719
+      ],
+      "fillSRGB": [
+        0.43994811177253723,
+        0.496726930141449,
+        0.539589524269104
+      ],
+      "strokeSRGB": null,
+      "strokeWidthPDFPoints": null,
+      "extraction": "Exact PDF vector rectangle, MuPDF colour conversion to sRGB; no photographed texture and no raster upscaling"
+    }
+  ]
+}
