@@ -47,8 +47,9 @@
     const qn=norm(q);return names.find(n=>qn.includes(norm(n.split(' ')[0])))||'Elios Ceramica';
   }
   function choose(name){
-    // BULBO's controller restores its category and exact collection itself.
+    // Dedicated controllers restore their category and exact collection themselves.
     if(compact(name)==='bulbo' && compact(document.getElementById('workspace-title')?.textContent)==='bulbo')return 'Bulbo';
+    if(compact(name)==='pecchiolifirenze' && compact(document.getElementById('workspace-title')?.textContent)==='pecchiolifirenze')return 'Pecchioli Firenze';
     name=canonical(name);const cat=categories[name];if(cat)document.querySelector(`[data-cat="${cat}"]`)?.click();
     const button=[...document.querySelectorAll('[data-partner]')].find(el=>compact(el.dataset.partner)===compact(name));button?.click();return name;
   }
