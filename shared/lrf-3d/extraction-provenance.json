@@ -346,16 +346,30 @@
       "bytes": 4429,
       "originalsIdentical": true,
       "current": {
-        "sha256": "0007dec42d5d6f75f5b15d468d2dfa2eb6ecc172c3a4d05834cc63faf6e59b1c",
-        "bytes": 19171,
-        "changeType": "functional-update-20261101",
-        "reason": "Replace generic mixer volumes with catalogue-family reconstructions, documented Flip and Bel Air outlet heights, close-view physical finishes and instanced small details; preserve saved-project origins and refuse unsupported installation types.",
+        "sha256": "572ae26902aabb2167d10956e64aaed4d57190e99d2dbac0fbe466a624e4af8f",
+        "bytes": 20153,
+        "changeType": "functional-update-20261102",
+        "reason": "Correct catalogue control directions for Flip, Bel Air and floor-mounted taps; restore outward-facing full-height diamond knurling with the actual selected metal colour; preserve distinct square, swept and open control shapes. Reference identities, prices and outlet heights are retained.",
         "validation": [
+          "tests/lrf-suite/aquahome-controls.test.mjs",
           "tests/lrf-suite/aquahome-geometry.test.mjs",
           "tests/lrf-suite/aquahome-installation.test.mjs",
-          "tests/lrf-suite/aquahome-product-visuals.test.mjs"
+          "studio-one/qa/bathroom-check.mjs"
         ]
-      }
+      },
+      "history": [
+        {
+          "sha256": "0007dec42d5d6f75f5b15d468d2dfa2eb6ecc172c3a4d05834cc63faf6e59b1c",
+          "bytes": 19171,
+          "changeType": "functional-update-20261101",
+          "reason": "Replace generic mixer volumes with catalogue-family reconstructions, documented Flip and Bel Air outlet heights, close-view physical finishes and instanced small details; preserve saved-project origins and refuse unsupported installation types.",
+          "validation": [
+            "tests/lrf-suite/aquahome-geometry.test.mjs",
+            "tests/lrf-suite/aquahome-installation.test.mjs",
+            "tests/lrf-suite/aquahome-product-visuals.test.mjs"
+          ]
+        }
+      ]
     },
     {
       "module": "tile-layout.js",

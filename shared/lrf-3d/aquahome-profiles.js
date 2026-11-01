@@ -2,8 +2,10 @@
 // Except the documented Flip dimensions, these are reconstruction dimensions,
 // not certified manufacturer CAD. Sources remain in aquahome-product-photos.json.
 const basinProfiles={
- 'Bel Air':{shape:'round-tube',height:.165,xlHeight:.274,reach:.110,xlReach:.138,outlet:.066,xlOutlet:.168,headGap:.075},
- 'Flip':{shape:'knurled',height:.165,xlHeight:.302,reach:.093,xlReach:.138,outlet:.063,xlOutlet:.168,headGap:.075,radius:.020},
+ 'Bel Air':{shape:'round-tube',height:.165,xlHeight:.274,reach:.110,xlReach:.138,outlet:.066,xlOutlet:.168,headGap:.075,leverDirection:'forward'},
+ // Handle proportions follow the standard/XL photographs; head height is not
+ // a separately certified dimension in the catalogue's technical drawing.
+ 'Flip':{shape:'knurled',height:.165,xlHeight:.302,reach:.093,xlReach:.138,outlet:.063,xlOutlet:.168,headGap:.075,radius:.020,leverDirection:'forward',headHeight:.043,xlHeadHeight:.056},
  'Alsacia':{shape:'round-flat',height:.165,xlHeight:.312,reach:.091,xlReach:.168,headGap:.051,xlOutlet:.264,spoutWidth:.039,leverWidth:.036,radius:.022},
  'Malibú':{shape:'round-flat',height:.157,xlHeight:.242,reach:.1255,xlReach:.125,headGap:.024,outlet:.133,xlOutlet:.215,radius:.020,spoutWidth:.032},
  'Manila':{shape:'swept',height:.162,xlHeight:.2765,reach:.152,xlReach:.178,headGap:.040,outlet:.130,xlOutlet:.254,width:.032,spoutWidth:.038,leverWidth:.037},

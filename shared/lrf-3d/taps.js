@@ -2,6 +2,7 @@ import * as T from 'three';
 import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js';
 import {AQUAHOME} from './aquahome-catalog.js';
 import {aquahomeProfile} from './aquahome-profiles.js';
+import {diamondKnurlGeometry} from './aquahome-knurl.js';
 export {AQUAHOME};
 export const METAL_FINISHES=[
  {id:'Chrome brillant',name:'Chrome',hex:'#e5e9ed',metalness:1,roughness:.10},
@@ -36,7 +37,7 @@ export function makeTap(product){
  if(!product)throw new Error('Référence AQUA HOME indisponible.');
  if(!['basin','basin-xl','bath','island','shower','basin-wall','basin-floor','bidet','shower-mixer','shower-concealed','shower-kit'].includes(product.use))throw new Error('Pose AQUA HOME sans modèle 3D validé : '+product.use);
  const profile=aquahomeProfile(product),root=new T.Group();root.name='AQUAHOME_'+product.reference;
- root.userData={reference:product.reference,model:profile.key,geometryVersion:'2026-detail-2',provenance:'Reconstitution 3D des photographies AQUAHOME 2026 — pas un fichier CAO fabricant'};
+ root.userData={reference:product.reference,model:profile.key,geometryVersion:'2026-detail-3',provenance:'Reconstitution 3D des photographies AQUAHOME 2026 — pas un fichier CAO fabricant'};
  const metal=metalMaterial(product.finish),dark=new T.MeshStandardMaterial({color:'#24292a',roughness:.72}),rubber=new T.MeshStandardMaterial({color:'#969a98',roughness:.84});
  const mesh=(geometry,material,x,y,z,name,parent=root)=>{const object=new T.Mesh(geometry,material);object.position.set(x,y,z);object.name=name;object.castShadow=object.receiveShadow=true;parent.add(object);return object;};
  const box=(w,h,d,x,y,z,name,parent=root,r=.0015)=>mesh(new RoundedBoxGeometry(w,h,d,3,Math.min(r,w/3,h/3,d/3)),metal,x,y,z,name,parent);
@@ -55,7 +56,7 @@ export function makeTap(product){
   instances(new T.CylinderGeometry(.00048,.00048,.0005,6),rubber,holes,'Grille_mousseur',parent);
  };
  const lever=(x,y,z,width=.029,length=.071,parent=root,open=false)=>{
-  if(open){box(width,.006,.010,x,y,z+length*.75,'Levier_extremite',parent,.002);for(const side of [-1,1])box(.006,.006,length,x+side*(width-.006)/2,y,z+length*.30,'Levier_ajoure',parent,.002);}
+  if(open){box(width,.006,.010,x,y,z+length*.75,'Levier_extremite',parent,.002);box(width,.006,.009,x,y,z-length*.1,'Levier_ajoure_arriere',parent,.0015);for(const side of [-1,1])box(.006,.006,length,x+side*(width-.006)/2,y,z+length*.30,'Levier_ajoure',parent,.002);}
   else box(width,.006,length,x,y,z+length*.30,'Levier',parent,.0025);
   round(.003,.001,x,y-.004,z+.016,'Repere_eau',parent,dark);
  };
@@ -98,7 +99,8 @@ export function makeTap(product){
   round(.075,.010,0,.005,0,'Socle');round(.020,star?h-.030:h-.20,0,(star?h-.030:h-.20)/2+.010,0,'Corps_sur_pied');
   if(star)tube([[0,.84,.004],[0,.84,.11],[0,.838,.21],[0,.81,.25]],.0125,'Bec');
   else tube([[0,h-.22,0],[0,h-.045,.012],[0,h-.010,.075],[0,h-.05,.17],[0,h-.20,.20]],.018,'Bec_col_de_cygne');
-  round(.023,.040,0,star?h-.035:.85,0,'Mitigeur_lavabo');rod([.022,star?h-.035:.85,0],[.065,star?h-.035:.85,0],.0035,'Levier');
+  if(star){round(.023,.040,0,h-.035,0,'Mitigeur_lavabo');rod([0,h-.035,.022],[0,h-.035,.065],.0035,'Levier');}
+  else{const command=round(.023,.040,.026,.85,0,'Mitigeur_lavabo');command.rotation.z=Math.PI/2;rod([.050,.841,0],[.050,.901,0],.0035,'Levier');}
   aerator(0,star?.805:.994,star?.25:.20,.009);
  }else if(product.use==='shower-concealed'){
   const square=profile.shape==='square',thermostatic=/TERMOSTÁTICO/.test(product.sourceName),plate=box(square?.105:.090,thermostatic?.210:.145,.007,0,1.05,.004,'Mitigeur_douche',root,.008);
@@ -112,7 +114,7 @@ export function makeTap(product){
   round(.011,.67,.10,1.58,.035,'Barre_douchette');for(const y of [1.27,1.89]){rosette(.10,y,.005);rod([.10,y,.005],[.10,y,.035],.010,'Fixation_barre');}handset(.10,1.58,.070,false);hose([[.10,1.49,.070],[.16,.82,.10],[.04,.72,.12],[0,.85,.09],[0,1.025,.065]]);
   if(profile.bathSpout){tube([[0,1.05,.07],[0,1.04,.13],[0,1.01,.19]],.014,'Bec_bain');aerator(0,1.004,.19,.011);}
  }else if(product.use==='basin'||product.use==='basin-xl'||product.use==='bidet'){
-  const xl=product.use==='basin-xl',h=xl?profile.xlHeight:profile.height,reach=xl?profile.xlReach:profile.reach,spout=xl?(profile.xlOutlet||h-profile.headGap):(profile.outlet||h-profile.headGap),bodyHeight=h-.024;
+  const xl=product.use==='basin-xl',h=xl?profile.xlHeight:profile.height,reach=xl?profile.xlReach:profile.reach,spout=xl?(profile.xlOutlet||h-profile.headGap):(profile.outlet||h-profile.headGap),headHeight=(xl?profile.xlHeadHeight:profile.headHeight)||.023,headCenter=profile.headHeight?h-headHeight/2:h-.015,bodyHeight=profile.headHeight?h-headHeight-.004:h-.024;
   if(profile.shape==='classic'){
    round(.031,.009,0,.0045,0,'Embase');round(.025,.040,0,.029,0,'Pied_evase',root,metal,.017);
    tube([[0,.038,0],[0,h-.035,.012],[0,h-.005,.075],[0,h-.052,reach]],.014,'Bec_col_de_cygne');
@@ -129,19 +131,23 @@ export function makeTap(product){
     for(let i=0;i<attributes.count;i++){const forward=attributes.getZ(i)/(reach+.008)+.5;attributes.setY(i,attributes.getY(i)-Math.pow(forward,2)*(profile.shape==='swept'?.014:.005));}geometry.computeVertexNormals();
     mesh(geometry,metal,0,spout,reach/2,'Bec');aerator(0,spout-.015,reach-.010,width*.22);
    }
-   joint(0,h-.028,0,radius*.99);round(radius*1.01,.023,0,h-.015,0,'Commande');
+   const headZ=profile.shape==='swept'?.020:0;
+   joint(0,h-headHeight-.001,headZ,profile.openLever?.012:square?.014:radius*.99);
+   if(profile.openLever)round(.0085,.026,0,h-.012,headZ,'Commande');
+   else if(square)box(profile.leverWidth||profile.width||.034,profile.shape==='swept'?.009:headHeight,.034,0,profile.shape==='swept'?h-.012:headCenter,headZ,'Commande',root,.0015);
+   else round(radius*1.01,headHeight,0,headCenter,0,'Commande');
+   if(square&&!profile.openLever)round(.006,.009,0,h-.004,headZ,'Axe_levier');
    if(profile.shape==='round-tube'||profile.shape==='knurled'){
-    rod([radius*.55,h-.009,0],[radius+.061,h-.009,0],.0032,'Levier');
+    const leverY=headCenter+.003;
+    // Both rods leave the same front side as the spout in the catalogue's
+    // neutral position. +X made the lever incorrectly point sideways.
+    rod([0,leverY,radius*.55],[0,leverY,radius+.061],.0032,'Levier');
     if(profile.shape==='knurled'){
-     // Two crossing helical sets form the Flip's fine diamond knurl in one mesh.
-     const geometry=new T.BufferGeometry(),vertices=[],indices=[];let vertex=0;
-     for(const direction of [-1,1])for(let line=0;line<48;line++){
-      for(let step=0;step<=12;step++){const y=-.010+step*.020/12,a=line*Math.PI*2/48+direction*y/radius*1.4;for(const side of [-1,1]){const theta=a+side*.006;vertices.push(Math.cos(theta)*(radius+.00045),h-.015+y,Math.sin(theta)*(radius+.00045));}if(step<12){const k=vertex+step*2;indices.push(k,k+1,k+2,k+1,k+3,k+2);}}
-      vertex+=26;
-     }
-     geometry.setAttribute('position',new T.Float32BufferAttribute(vertices,3));geometry.setIndex(indices);geometry.computeVertexNormals();mesh(geometry,metal,0,0,0,'Moletage_Flip');
+     const grip=metalMaterial(product.finish);grip.roughness=Math.max(.20,grip.roughness);grip.clearcoat=.04;
+     const geometry=diamondKnurlGeometry(radius*1.01+.00006,headHeight-.0012);
+     mesh(geometry,grip,0,headCenter,0,'Moletage_Flip');
     }
-   }else lever(0,h+.001,.006,profile.leverWidth||.029,profile.leverLength||.068,root,profile.openLever);
+   }else lever(0,h+.001,headZ+.006,profile.leverWidth||.029,profile.leverLength||.068,root,profile.openLever);
   }
   if(product.use==='bidet'){
    const nozzle=root.getObjectByName('Bague_mousseur');if(nozzle){
@@ -159,7 +165,16 @@ export function makeTap(product){
   else{round(.021,h-.16,0,(h-.16)/2+.010,0,'Corps_sur_pied');tube([[0,h-.18,0],[0,h-.035,.013],[0,h,.080],[0,h-.19,.20]],.018,'Bec');}
   if(square)box(.035,.024,.247,0,h-.025,.108,'Bec',root,.003);
   aerator(0,curve?h-.125:square?h-.039:h-.197,curve?.185:square?.219:.20,.012);
-  round(.027,.060,0,.72,.005,'Commande');rod([0,.74,.005],[.052,.74,.005],.0032,'Levier');box(.06,.015,.026,.042,.80,0,'Support_douchette');handset(.08,.80,0,true);hose([[.08,.70,0],[.15,.52,.04],[.10,.40,.08],[.02,.48,.05],[.01,.70,.02]]);
+  if(curve){
+   box(.040,.026,.040,.025,.72,.005,'Commande',root,.003);
+   const handle=new T.Group();handle.name='Levier_cadre_vertical';root.add(handle);
+   for(const z of [-.009,.019])box(.006,.058,.005,.047,.751,z,'Levier_cadre_montant',handle,.001);
+   for(const y of [.724,.778])box(.006,.005,.033,.047,y,.005,'Levier_cadre_traverse',handle,.001);
+  }else{
+   const command=round(.027,.060,.025,.72,.005,'Commande');command.rotation.z=Math.PI/2;
+   rod([.055,square?.723:.717,.005],[.055,square?.780:.660,.005],.0032,'Levier');
+  }
+  box(.06,.015,.026,.042,.80,0,'Support_douchette');handset(.08,.80,0,true);hose([[.08,.70,0],[.15,.52,.04],[.10,.40,.08],[.02,.48,.05],[.01,.70,.02]]);
  }else if(product.use==='shower'){
   const h=2.06,square=profile.squareRain,thermostatic=profile.thermostatic;
   rosette(-.075,1.05,.004,profile.squareBody);rosette(.075,1.05,.004,profile.squareBody);
