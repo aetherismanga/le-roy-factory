@@ -93,7 +93,8 @@
         try{const response=await fetch('assets/data/bulbo-catalogue.json?v=20261101-bulbo1');if(response.ok){const data=await response.json();window.BULBO_CATALOGUE=data.collections||[];}}catch(_){}
         try{const response=await fetch('assets/data/pecchioli-catalogue.json?v=20261101-pecchioli1');if(response.ok){const data=await response.json();window.PECCHIOLI_CATALOGUE=data.collections||[];window.PECCHIOLI_CATALOGUES=data.catalogues||[];window.PECCHIOLI_FAMILIES=data.families||[];}}catch(_){}
         try{const response=await fetch('assets/data/petracer-catalogue.json?v=20261101-petracer1');if(response.ok){const data=await response.json();window.PETRACER_CATALOGUE=(data.products||[]).filter(p=>p.productType!=='furniture');}}catch(_){}
-        await loadScript('assets/js/site-search-v2.js?v=20261101-petracer1','lrf-site-search-js-v2');
+        try{const response=await fetch('assets/data/petracer-bain-catalogue.json?v=20261101-petracer-bain1');if(response.ok){const data=await response.json();window.PETRACER_BATH_CATALOGUE=(data.products||[]).filter(p=>['meubles','sanitaire','robinetterie'].includes(p.navCategory));}}catch(_){}
+        await loadScript('assets/js/site-search-v2.js?v=20261101-petracer-bain1','lrf-site-search-js-v2');
           button.removeEventListener('click', openOnDemand);
           button.disabled = false;
           button.click();
@@ -133,7 +134,7 @@
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fromLink, {once:true});
     else fromLink();
     loadScript('assets/js/reviglass-search-index.js?v=20260911-ref1','lrf-univers-reviglass-index')
-      .then(()=>loadScript('assets/js/inspirations-search-bridge-v2.js?v=20261101-petracer1','lrf-inspirations-search-bridge-v2'))
+      .then(()=>loadScript('assets/js/inspirations-search-bridge-v2.js?v=20261101-petracer-bain1','lrf-inspirations-search-bridge-v2'))
       .catch(()=>{});
   }
   if (file==='tarifs-pro.html') loadScript('assets/js/tarifs-search-bridge.js?v=20260907-search9','lrf-tarifs-search-bridge').catch(()=>{});

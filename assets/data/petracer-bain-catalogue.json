@@ -1,0 +1,3317 @@
+{
+  "brand": "Petracer’s",
+  "updatedAt": "2026-11-01",
+  "source": "https://petracer.it/collezioni/arredo-bagno/",
+  "scope": "Meubles, sanitaires, robinetterie, miroirs et accessoires Originali Interni Italiani. Les carrelages restent dans leur sélection dédiée.",
+  "notes": [
+    "Produits identifiés par leur modèle et leur type réel dans le catalogue et les pages officiels, consultés le 1er novembre 2026.",
+    "Le PDF officiel compte 129 pages de doubles pages ; ses métadonnées indiquent novembre 2022, sans année éditoriale explicite. Il n’est pas présenté comme une édition 2026.",
+    "Le document de présentation ne publie ni code article ni cote. Aucun SKU ni dimension ne sont inventés ; les formats restent vides jusqu’à confirmation technique du fournisseur.",
+    "Les photos conservent leur définition native, sans agrandissement artificiel. Les ambiances peuvent montrer des éléments complémentaires.",
+    "Les finitions et les configurations ne supposent pas toutes les associations possibles ; chaque composition se valide pour le projet.",
+    "Aucun prix ou condition d’achat n’est inclus dans ces données."
+  ],
+  "catalogues": [
+    {
+      "id": "petracer-originali-interni-italiani",
+      "label": "Originali Interni Italiani · meubles & salle de bains",
+      "url": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+      "sourceEdition": "Année éditoriale non indiquée",
+      "pages": 129,
+      "supplierUrl": "https://petracer.it/downloads/"
+    }
+  ],
+  "products": [
+    {
+      "id": "petracer-bain-cuore-di-roccia-console",
+      "slug": "cuore-di-roccia-console",
+      "name": "Cuore di Roccia — console en pierre",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "furniture",
+      "typeLabel": "console en pierre",
+      "navCategory": "meubles",
+      "family": "Cuore di Roccia",
+      "description": "Une console sculpturale dont le plan poli contraste avec la face de pierre brute.",
+      "formats": [],
+      "colors": [],
+      "finishes": [
+        "Pierre naturelle"
+      ],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p011-x224.webp",
+          "hd": "/assets/images/petracer-bain/oii-p011-x224.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p011-x224-thumb.webp",
+          "width": 681,
+          "height": 822,
+          "sourcePdfPage": 11,
+          "sourceXref": 224,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Cuore di Roccia — console en pierre — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p012-x234.webp",
+          "hd": "/assets/images/petracer-bain/oii-p012-x234.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p012-x234-thumb.webp",
+          "width": 681,
+          "height": 822,
+          "sourcePdfPage": 12,
+          "sourceXref": 234,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Cuore di Roccia — console en pierre — autre vue"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p013-x243.webp",
+          "hd": "/assets/images/petracer-bain/oii-p013-x243.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p013-x243-thumb.webp",
+          "width": 681,
+          "height": 822,
+          "sourcePdfPage": 13,
+          "sourceXref": 243,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Cuore di Roccia — console en pierre — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-cuore-di-roccia/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=11",
+      "cataloguePage": 11,
+      "technicalUrl": "",
+      "details": [
+        "La console avec lavabo est présentée dans les pages mobilier du catalogue. La pierre et la composition se définissent avec le fabricant."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-opera-prima-console",
+      "slug": "opera-prima-console",
+      "name": "Opera Prima — console métallique",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "furniture",
+      "typeLabel": "console métallique",
+      "navCategory": "meubles",
+      "family": "Opera Prima",
+      "description": "Une console aux lignes octogonales et au piètement métallique ouvragé, pour composer le meuble de toilette.",
+      "formats": [],
+      "colors": [],
+      "finishes": [
+        "Cromo",
+        "Dorato"
+      ],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p015-x259.webp",
+          "hd": "/assets/images/petracer-bain/oii-p015-x259.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p015-x259-thumb.webp",
+          "width": 680,
+          "height": 822,
+          "sourcePdfPage": 15,
+          "sourceXref": 259,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Opera Prima — console métallique — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p017-x277.webp",
+          "hd": "/assets/images/petracer-bain/oii-p017-x277.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p017-x277.webp",
+          "width": 420,
+          "height": 408,
+          "sourcePdfPage": 17,
+          "sourceXref": 277,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Opera Prima — console métallique — autre vue"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p017-x279.webp",
+          "hd": "/assets/images/petracer-bain/oii-p017-x279.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p017-x279.webp",
+          "width": 420,
+          "height": 408,
+          "sourcePdfPage": 17,
+          "sourceXref": 279,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Opera Prima — console métallique — autre vue"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p018-x288.webp",
+          "hd": "/assets/images/petracer-bain/oii-p018-x288.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p018-x288-thumb.webp",
+          "width": 680,
+          "height": 822,
+          "sourcePdfPage": 18,
+          "sourceXref": 288,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Opera Prima — console métallique — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-opera-prima/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=15",
+      "cataloguePage": 15,
+      "technicalUrl": "",
+      "details": [
+        "Le choix du lavabo et des éléments associés se précise dans le devis."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-opera-prima-specula-lavabo",
+      "slug": "opera-prima-specula-lavabo",
+      "name": "Opera Prima Specula — lavabo",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "sanitary",
+      "typeLabel": "lavabo",
+      "navCategory": "sanitaire",
+      "family": "Opera Prima",
+      "description": "Le lavabo Specula joue avec neuf surfaces réfléchissantes et une évacuation intégrée au dessin.",
+      "formats": [],
+      "colors": [],
+      "finishes": [
+        "Surface miroir"
+      ],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p019-x298.webp",
+          "hd": "/assets/images/petracer-bain/oii-p019-x298.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p019-x298.webp",
+          "width": 341,
+          "height": 451,
+          "sourcePdfPage": 19,
+          "sourceXref": 298,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Opera Prima Specula — lavabo — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p019-x299.webp",
+          "hd": "/assets/images/petracer-bain/oii-p019-x299.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p019-x299-thumb.webp",
+          "width": 681,
+          "height": 822,
+          "sourcePdfPage": 19,
+          "sourceXref": 299,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Opera Prima Specula — lavabo — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-opera-prima/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=19",
+      "cataloguePage": 19,
+      "technicalUrl": "",
+      "details": [
+        "Le nom Specula est explicitement donné au lavabo dans le catalogue. Les autres éléments de la console sont à préciser séparément."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-posterum-console",
+      "slug": "posterum-console",
+      "name": "Posterum — console avec lavabo",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "furniture",
+      "typeLabel": "console avec lavabo",
+      "navCategory": "meubles",
+      "family": "Posterum",
+      "description": "Un plan de lavabo dessiné dans la pierre s’associe à une structure métallique aux proportions classiques.",
+      "formats": [],
+      "colors": [],
+      "finishes": [
+        "Pierre naturelle",
+        "Structure métallique"
+      ],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p024-x349.webp",
+          "hd": "/assets/images/petracer-bain/oii-p024-x349.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p024-x349-thumb.webp",
+          "width": 681,
+          "height": 822,
+          "sourcePdfPage": 24,
+          "sourceXref": 349,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Posterum — console avec lavabo — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p025-x357.webp",
+          "hd": "/assets/images/petracer-bain/oii-p025-x357.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p025-x357-thumb.webp",
+          "width": 680,
+          "height": 822,
+          "sourcePdfPage": 25,
+          "sourceXref": 357,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Posterum — console avec lavabo — autre vue"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p026-x368.webp",
+          "hd": "/assets/images/petracer-bain/oii-p026-x368.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p026-x368-thumb.webp",
+          "width": 681,
+          "height": 822,
+          "sourcePdfPage": 26,
+          "sourceXref": 368,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Posterum — console avec lavabo — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/posterum/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=24",
+      "cataloguePage": 24,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-fantasma-meuble-vasque-simple",
+      "slug": "fantasma-meuble-vasque-simple",
+      "name": "Fantasma — meuble simple vasque",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "furniture",
+      "typeLabel": "meuble simple vasque",
+      "navCategory": "meubles",
+      "family": "Fantasma",
+      "description": "Un meuble à façades miroir, organisé autour d’une vasque et de rangements dissimulés.",
+      "formats": [],
+      "colors": [],
+      "finishes": [
+        "Façades miroir"
+      ],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p028-x385.webp",
+          "hd": "/assets/images/petracer-bain/oii-p028-x385.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p028-x385-thumb.webp",
+          "width": 681,
+          "height": 822,
+          "sourcePdfPage": 28,
+          "sourceXref": 385,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Fantasma — meuble simple vasque — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p031-x415.webp",
+          "hd": "/assets/images/petracer-bain/oii-p031-x415.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p031-x415.webp",
+          "width": 292,
+          "height": 344,
+          "sourcePdfPage": 31,
+          "sourceXref": 415,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Fantasma — meuble simple vasque — autre vue"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p032-x426.webp",
+          "hd": "/assets/images/petracer-bain/oii-p032-x426.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p032-x426-thumb.webp",
+          "width": 681,
+          "height": 822,
+          "sourcePdfPage": 32,
+          "sourceXref": 426,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Fantasma — meuble simple vasque — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-fantasma/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=28",
+      "cataloguePage": 28,
+      "technicalUrl": "",
+      "details": [
+        "La vue isolée de la page 31 présente la version simple vasque. Les ambiances montrent des compositions coordonnées."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-fantasma-meuble-vasque-double",
+      "slug": "fantasma-meuble-vasque-double",
+      "name": "Fantasma — meuble double vasque",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "furniture",
+      "typeLabel": "meuble double vasque",
+      "navCategory": "meubles",
+      "family": "Fantasma",
+      "description": "La version double vasque conserve les façades miroir et la géométrie octogonale de Fantasma.",
+      "formats": [],
+      "colors": [],
+      "finishes": [
+        "Façades miroir"
+      ],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p031-x414.webp",
+          "hd": "/assets/images/petracer-bain/oii-p031-x414.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p031-x414.webp",
+          "width": 302,
+          "height": 279,
+          "sourcePdfPage": 31,
+          "sourceXref": 414,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Fantasma — meuble double vasque — vue produit"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-fantasma/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=31",
+      "cataloguePage": 31,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-fantasma-armoire",
+      "slug": "fantasma-armoire",
+      "name": "Fantasma — armoire de rangement",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "furniture",
+      "typeLabel": "armoire de rangement",
+      "navCategory": "meubles",
+      "family": "Fantasma",
+      "description": "Une armoire à façades miroir complète les meubles Fantasma et prolonge leur dessin à facettes.",
+      "formats": [],
+      "colors": [],
+      "finishes": [
+        "Façades miroir"
+      ],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p031-x416.webp",
+          "hd": "/assets/images/petracer-bain/oii-p031-x416.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p031-x416.webp",
+          "width": 285,
+          "height": 381,
+          "sourcePdfPage": 31,
+          "sourceXref": 416,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Fantasma — armoire de rangement — vue produit"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-fantasma/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=31",
+      "cataloguePage": 31,
+      "technicalUrl": "",
+      "details": [
+        "Les aménagements intérieurs et les éventuelles options se confirment selon la configuration choisie."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-fantasma-meuble-rangement",
+      "slug": "fantasma-meuble-rangement",
+      "name": "Fantasma — meuble de rangement bas",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "furniture",
+      "typeLabel": "meuble de rangement bas",
+      "navCategory": "meubles",
+      "family": "Fantasma",
+      "description": "Un meuble bas sans vasque, habillé de miroirs, pour compléter les rangements de la salle de bains.",
+      "formats": [],
+      "colors": [],
+      "finishes": [
+        "Façades miroir"
+      ],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p031-x417.webp",
+          "hd": "/assets/images/petracer-bain/oii-p031-x417.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p031-x417.webp",
+          "width": 302,
+          "height": 348,
+          "sourcePdfPage": 31,
+          "sourceXref": 417,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Fantasma — meuble de rangement bas — vue produit"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-fantasma/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=31",
+      "cataloguePage": 31,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-primo-attore-cassettiera-singola",
+      "slug": "primo-attore-cassettiera-singola",
+      "name": "Primo Attore — rangement suspendu simple",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "furniture",
+      "typeLabel": "rangement suspendu simple",
+      "navCategory": "meubles",
+      "family": "Primo Attore",
+      "description": "Le rangement suspendu simple accompagne le plan de toilette dans un dessin octogonal aux lignes tendues.",
+      "formats": [],
+      "colors": [
+        "Grigio visone",
+        "Blu cobalto",
+        "Cioccolato",
+        "Rosso Petracer’s"
+      ],
+      "finishes": [
+        "Bois",
+        "Laqué brillant",
+        "Laqué mat"
+      ],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p036-x478.webp",
+          "hd": "/assets/images/petracer-bain/oii-p036-x478.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p036-x478-thumb.webp",
+          "width": 681,
+          "height": 822,
+          "sourcePdfPage": 36,
+          "sourceXref": 478,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Primo Attore — rangement suspendu simple — vue produit"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-primo-attore/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=36",
+      "cataloguePage": 36,
+      "technicalUrl": "",
+      "details": [
+        "Désignation fournisseur : cassettiera singola. Couleur RAL personnalisée sur demande ; compatibilité des finitions à confirmer."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-primo-attore-cassettiera-doppia",
+      "slug": "primo-attore-cassettiera-doppia",
+      "name": "Primo Attore — rangement suspendu double",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "furniture",
+      "typeLabel": "rangement suspendu double",
+      "navCategory": "meubles",
+      "family": "Primo Attore",
+      "description": "La version double superpose les rangements tout en conservant la légèreté de la composition suspendue.",
+      "formats": [],
+      "colors": [
+        "Grigio visone",
+        "Blu cobalto",
+        "Cioccolato",
+        "Rosso Petracer’s"
+      ],
+      "finishes": [
+        "Bois",
+        "Laqué brillant",
+        "Laqué mat"
+      ],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p037-x489.webp",
+          "hd": "/assets/images/petracer-bain/oii-p037-x489.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p037-x489-thumb.webp",
+          "width": 681,
+          "height": 822,
+          "sourcePdfPage": 37,
+          "sourceXref": 489,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Primo Attore — rangement suspendu double — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p038-x501.webp",
+          "hd": "/assets/images/petracer-bain/oii-p038-x501.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p038-x501-thumb.webp",
+          "width": 681,
+          "height": 822,
+          "sourcePdfPage": 38,
+          "sourceXref": 501,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Primo Attore — rangement suspendu double — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-primo-attore/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=37",
+      "cataloguePage": 37,
+      "technicalUrl": "",
+      "details": [
+        "Désignation fournisseur : cassettiera doppia. Le lavabo et les accessoires présentés sont à préciser dans la composition."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-primo-attore-lavabo-suspendu",
+      "slug": "primo-attore-lavabo-suspendu",
+      "name": "Primo Attore — lavabo suspendu",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "sanitary",
+      "typeLabel": "lavabo suspendu",
+      "navCategory": "sanitaire",
+      "family": "Primo Attore",
+      "description": "Un lavabo suspendu au contour octogonal, conçu pour composer un plan de toilette coordonné aux rangements Primo Attore.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p036-x478.webp",
+          "hd": "/assets/images/petracer-bain/oii-p036-x478.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p036-x478-thumb.webp",
+          "width": 681,
+          "height": 822,
+          "sourcePdfPage": 36,
+          "sourceXref": 478,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Primo Attore — lavabo suspendu — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p037-x489.webp",
+          "hd": "/assets/images/petracer-bain/oii-p037-x489.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p037-x489-thumb.webp",
+          "width": 681,
+          "height": 822,
+          "sourcePdfPage": 37,
+          "sourceXref": 489,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Primo Attore — lavabo suspendu — autre vue"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p038-x501.webp",
+          "hd": "/assets/images/petracer-bain/oii-p038-x501.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p038-x501-thumb.webp",
+          "width": 681,
+          "height": 822,
+          "sourcePdfPage": 38,
+          "sourceXref": 501,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Primo Attore — lavabo suspendu — autre vue"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p039-x510.webp",
+          "hd": "/assets/images/petracer-bain/oii-p039-x510.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p039-x510.webp",
+          "width": 379,
+          "height": 294,
+          "sourcePdfPage": 39,
+          "sourceXref": 510,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Primo Attore — lavabo suspendu — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-primo-attore/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=36",
+      "cataloguePage": 36,
+      "technicalUrl": "",
+      "details": [
+        "La fiche concerne le lavabo. Les meubles et les accessoires visibles sur les ambiances constituent des éléments distincts."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-800-italiano-meuble-vasque",
+      "slug": "800-italiano-meuble-vasque",
+      "name": "800 Italiano — meuble avec lavabo",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "furniture",
+      "typeLabel": "meuble avec lavabo",
+      "navCategory": "meubles",
+      "family": "800 Italiano",
+      "description": "Un meuble de toilette inspiré de la boiserie, avec portes ouvrantes et détails de finition coordonnés.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p040-x519.webp",
+          "hd": "/assets/images/petracer-bain/oii-p040-x519.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p040-x519-thumb.webp",
+          "width": 504,
+          "height": 788,
+          "sourcePdfPage": 40,
+          "sourceXref": 519,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "800 Italiano — meuble avec lavabo — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p041-x529.webp",
+          "hd": "/assets/images/petracer-bain/oii-p041-x529.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p041-x529-thumb.webp",
+          "width": 681,
+          "height": 822,
+          "sourcePdfPage": 41,
+          "sourceXref": 529,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "800 Italiano — meuble avec lavabo — autre vue"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p041-x530.webp",
+          "hd": "/assets/images/petracer-bain/oii-p041-x530.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p041-x530-thumb.webp",
+          "width": 681,
+          "height": 822,
+          "sourcePdfPage": 41,
+          "sourceXref": 530,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "800 Italiano — meuble avec lavabo — autre vue"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p043-x548.webp",
+          "hd": "/assets/images/petracer-bain/oii-p043-x548.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p043-x548.webp",
+          "width": 531,
+          "height": 437,
+          "sourcePdfPage": 43,
+          "sourceXref": 548,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "800 Italiano — meuble avec lavabo — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-800-italiano/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=40",
+      "cataloguePage": 40,
+      "technicalUrl": "",
+      "details": [
+        "Le mobilier est distinct de la collection de carrelage 800 Italiano. Les dimensions et les finitions se confirment pour le projet."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-800-italiano-vitrine",
+      "slug": "800-italiano-vitrine",
+      "name": "800 Italiano — vitrine de rangement",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "furniture",
+      "typeLabel": "vitrine de rangement",
+      "navCategory": "meubles",
+      "family": "800 Italiano",
+      "description": "Une vitrine haute associe étagères de présentation et rangement fermé dans le style de 800 Italiano.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p044-x560.webp",
+          "hd": "/assets/images/petracer-bain/oii-p044-x560.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p044-x560.webp",
+          "width": 196,
+          "height": 568,
+          "sourcePdfPage": 44,
+          "sourceXref": 560,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "800 Italiano — vitrine de rangement — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p044-x561.webp",
+          "hd": "/assets/images/petracer-bain/oii-p044-x561.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p044-x561-thumb.webp",
+          "width": 681,
+          "height": 822,
+          "sourcePdfPage": 44,
+          "sourceXref": 561,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "800 Italiano — vitrine de rangement — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-800-italiano/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=44",
+      "cataloguePage": 44,
+      "technicalUrl": "",
+      "details": [
+        "La fiche porte sur la vitrine. Les objets de décoration visibles ne font pas partie de la sélection."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-grand-jete-meuble",
+      "slug": "grand-jete-meuble",
+      "name": "Grand Jeté — meuble de salle de bains",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "furniture",
+      "typeLabel": "meuble de salle de bains",
+      "navCategory": "meubles",
+      "family": "Grand Jeté",
+      "description": "Des façades sobres, des poignées graphiques et un piètement métallique composent un meuble aux accents des années soixante.",
+      "formats": [],
+      "colors": [
+        "Grigio visone",
+        "Blu cobalto",
+        "Cioccolato",
+        "Rosso Petracer’s"
+      ],
+      "finishes": [
+        "Laqué brillant",
+        "Laqué mat"
+      ],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p047-x584.webp",
+          "hd": "/assets/images/petracer-bain/oii-p047-x584.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p047-x584-thumb.webp",
+          "width": 681,
+          "height": 822,
+          "sourcePdfPage": 47,
+          "sourceXref": 584,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Grand Jeté — meuble de salle de bains — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p047-x585.webp",
+          "hd": "/assets/images/petracer-bain/oii-p047-x585.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p047-x585-thumb.webp",
+          "width": 680,
+          "height": 822,
+          "sourcePdfPage": 47,
+          "sourceXref": 585,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Grand Jeté — meuble de salle de bains — autre vue"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p048-x594.webp",
+          "hd": "/assets/images/petracer-bain/oii-p048-x594.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p048-x594-thumb.webp",
+          "width": 666,
+          "height": 822,
+          "sourcePdfPage": 48,
+          "sourceXref": 594,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Grand Jeté — meuble de salle de bains — autre vue"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p049-x605.webp",
+          "hd": "/assets/images/petracer-bain/oii-p049-x605.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p049-x605-thumb.webp",
+          "width": 680,
+          "height": 822,
+          "sourcePdfPage": 49,
+          "sourceXref": 605,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Grand Jeté — meuble de salle de bains — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/grand-jete/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=47",
+      "cataloguePage": 47,
+      "technicalUrl": "",
+      "details": [
+        "Le site officiel annonce des versions avec ou sans vasque et une personnalisation de la taille et de la couleur. La configuration exacte se précise avec le fabricant."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-michelangelo-console",
+      "slug": "michelangelo-console",
+      "name": "Michelangelo — console en marbre",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "sanitary",
+      "typeLabel": "Console avec lavabo",
+      "navCategory": "sanitaire",
+      "family": "Michelangelo",
+      "description": "Console sur piètement métallique avec lavabo en pierre naturelle.",
+      "formats": [],
+      "colors": [],
+      "finishes": [
+        "Marbre clair ou Black Moon selon modèle ; piètement métallique selon version"
+      ],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p053-x653.webp",
+          "hd": "/assets/images/petracer-bain/oii-p053-x653.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p053-x653.webp",
+          "width": 340,
+          "height": 453,
+          "sourcePdfPage": 53,
+          "sourceXref": 653,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Michelangelo — console en marbre — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p053-x654.webp",
+          "hd": "/assets/images/petracer-bain/oii-p053-x654.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p053-x654-thumb.webp",
+          "width": 681,
+          "height": 822,
+          "sourcePdfPage": 53,
+          "sourceXref": 654,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Michelangelo — console en marbre — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-michelangelo/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=53",
+      "cataloguePage": 53,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-michelangelo-lavabo-pied",
+      "slug": "michelangelo-lavabo-pied",
+      "name": "Michelangelo — lavabo sur pied",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "sanitary",
+      "typeLabel": "Lavabo sur pied",
+      "navCategory": "sanitaire",
+      "family": "Michelangelo",
+      "description": "Lavabo sculptural sur pied, entièrement en marbre.",
+      "formats": [],
+      "colors": [],
+      "finishes": [
+        "Black Moon",
+        "Paonazzetto"
+      ],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p055-x671.webp",
+          "hd": "/assets/images/petracer-bain/oii-p055-x671.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p055-x671.webp",
+          "width": 345,
+          "height": 401,
+          "sourcePdfPage": 55,
+          "sourceXref": 671,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Michelangelo — lavabo sur pied — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p058-x707.webp",
+          "hd": "/assets/images/petracer-bain/oii-p058-x707.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p058-x707.webp",
+          "width": 319,
+          "height": 379,
+          "sourcePdfPage": 58,
+          "sourceXref": 707,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Michelangelo — lavabo sur pied — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-michelangelo/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=55",
+      "cataloguePage": 55,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-michelangelo-wc-sol",
+      "slug": "michelangelo-wc-sol",
+      "name": "Michelangelo — WC au sol",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "sanitary",
+      "typeLabel": "WC au sol",
+      "navCategory": "sanitaire",
+      "family": "Michelangelo",
+      "description": "Cuvette au sol en pierre naturelle, coordonnée à la ligne Michelangelo.",
+      "formats": [],
+      "colors": [],
+      "finishes": [
+        "Black Moon",
+        "Onice Miele"
+      ],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p052-x641.webp",
+          "hd": "/assets/images/petracer-bain/oii-p052-x641.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p052-x641.webp",
+          "width": 369,
+          "height": 289,
+          "sourcePdfPage": 52,
+          "sourceXref": 641,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Michelangelo — WC au sol — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p056-x686.webp",
+          "hd": "/assets/images/petracer-bain/oii-p056-x686.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p056-x686-thumb.webp",
+          "width": 680,
+          "height": 822,
+          "sourcePdfPage": 56,
+          "sourceXref": 686,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Michelangelo — WC au sol — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-michelangelo/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=52",
+      "cataloguePage": 52,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-michelangelo-bidet-sol",
+      "slug": "michelangelo-bidet-sol",
+      "name": "Michelangelo — bidet au sol",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "sanitary",
+      "typeLabel": "Bidet au sol",
+      "navCategory": "sanitaire",
+      "family": "Michelangelo",
+      "description": "Bidet au sol en pierre naturelle, dans la géométrie octogonale de Michelangelo.",
+      "formats": [],
+      "colors": [],
+      "finishes": [
+        "Black Moon"
+      ],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p052-x643.webp",
+          "hd": "/assets/images/petracer-bain/oii-p052-x643.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p052-x643.webp",
+          "width": 368,
+          "height": 289,
+          "sourcePdfPage": 52,
+          "sourceXref": 643,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Michelangelo — bidet au sol — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p056-x687.webp",
+          "hd": "/assets/images/petracer-bain/oii-p056-x687.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p056-x687-thumb.webp",
+          "width": 680,
+          "height": 822,
+          "sourcePdfPage": 56,
+          "sourceXref": 687,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Michelangelo — bidet au sol — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-michelangelo/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=52",
+      "cataloguePage": 52,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-pura-ceramica-lavabo-console",
+      "slug": "pura-ceramica-lavabo-console",
+      "name": "Pura Ceramica Bianca — lavabo sur console",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "sanitary",
+      "typeLabel": "Lavabo sur piètement métallique",
+      "navCategory": "sanitaire",
+      "family": "Pura Ceramica Bianca",
+      "description": "Lavabo blanc de forme octogonale, installé sur un piètement métallique coordonné.",
+      "formats": [],
+      "colors": [],
+      "finishes": [
+        "Céramique blanche",
+        "Piètement chromé ou doré selon version"
+      ],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p061-x732.webp",
+          "hd": "/assets/images/petracer-bain/oii-p061-x732.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p061-x732.webp",
+          "width": 340,
+          "height": 454,
+          "sourcePdfPage": 61,
+          "sourceXref": 732,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Pura Ceramica Bianca — lavabo sur console — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p061-x733.webp",
+          "hd": "/assets/images/petracer-bain/oii-p061-x733.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p061-x733-thumb.webp",
+          "width": 681,
+          "height": 822,
+          "sourcePdfPage": 61,
+          "sourceXref": 733,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Pura Ceramica Bianca — lavabo sur console — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-pura-ceramica-bianca/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=61",
+      "cataloguePage": 61,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-pura-ceramica-lavabo-colonne",
+      "slug": "pura-ceramica-lavabo-colonne",
+      "name": "Pura Ceramica Bianca — lavabo sur colonne",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "sanitary",
+      "typeLabel": "Lavabo sur colonne",
+      "navCategory": "sanitaire",
+      "family": "Pura Ceramica Bianca",
+      "description": "Lavabo blanc sur colonne en céramique, aux lignes néoclassiques.",
+      "formats": [],
+      "colors": [],
+      "finishes": [
+        "Céramique blanche"
+      ],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p060-x723.webp",
+          "hd": "/assets/images/petracer-bain/oii-p060-x723.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p060-x723-thumb.webp",
+          "width": 681,
+          "height": 822,
+          "sourcePdfPage": 60,
+          "sourceXref": 723,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Pura Ceramica Bianca — lavabo sur colonne — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p063-x748.webp",
+          "hd": "/assets/images/petracer-bain/oii-p063-x748.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p063-x748.webp",
+          "width": 428,
+          "height": 567,
+          "sourcePdfPage": 63,
+          "sourceXref": 748,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Pura Ceramica Bianca — lavabo sur colonne — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-pura-ceramica-bianca/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=60",
+      "cataloguePage": 60,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-pura-ceramica-bidet-sol",
+      "slug": "pura-ceramica-bidet-sol",
+      "name": "Pura Ceramica Bianca — bidet au sol",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "sanitary",
+      "typeLabel": "Bidet au sol",
+      "navCategory": "sanitaire",
+      "family": "Pura Ceramica Bianca",
+      "description": "Bidet blanc au sol ; le catalogue présente deux configurations de perçage pour la robinetterie.",
+      "formats": [],
+      "colors": [],
+      "finishes": [
+        "Céramique blanche"
+      ],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p065-x765.webp",
+          "hd": "/assets/images/petracer-bain/oii-p065-x765.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p065-x765.webp",
+          "width": 187,
+          "height": 203,
+          "sourcePdfPage": 65,
+          "sourceXref": 765,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Pura Ceramica Bianca — bidet au sol — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p065-x766.webp",
+          "hd": "/assets/images/petracer-bain/oii-p065-x766.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p065-x766.webp",
+          "width": 153,
+          "height": 207,
+          "sourcePdfPage": 65,
+          "sourceXref": 766,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Pura Ceramica Bianca — bidet au sol — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-pura-ceramica-bianca/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=65",
+      "cataloguePage": 65,
+      "technicalUrl": "",
+      "details": [
+        "Perçage un trou présenté p65",
+        "Perçage trois trous présenté p65"
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-pura-ceramica-wc-sol",
+      "slug": "pura-ceramica-wc-sol",
+      "name": "Pura Ceramica Bianca — WC au sol",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "sanitary",
+      "typeLabel": "WC au sol",
+      "navCategory": "sanitaire",
+      "family": "Pura Ceramica Bianca",
+      "description": "WC au sol avec commande de chasse murale présentée dans le catalogue.",
+      "formats": [],
+      "colors": [],
+      "finishes": [
+        "Céramique blanche"
+      ],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p065-x769.webp",
+          "hd": "/assets/images/petracer-bain/oii-p065-x769.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p065-x769.webp",
+          "width": 179,
+          "height": 255,
+          "sourcePdfPage": 65,
+          "sourceXref": 769,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Pura Ceramica Bianca — WC au sol — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p066-x781.webp",
+          "hd": "/assets/images/petracer-bain/oii-p066-x781.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p066-x781-thumb.webp",
+          "width": 681,
+          "height": 822,
+          "sourcePdfPage": 66,
+          "sourceXref": 781,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Pura Ceramica Bianca — WC au sol — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-pura-ceramica-bianca/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=65",
+      "cataloguePage": 65,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-pura-ceramica-wc-reservoir-bas",
+      "slug": "pura-ceramica-wc-reservoir-bas",
+      "name": "Pura Ceramica Bianca — WC à réservoir bas",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "sanitary",
+      "typeLabel": "WC avec réservoir apparent",
+      "navCategory": "sanitaire",
+      "family": "Pura Ceramica Bianca",
+      "description": "WC au sol avec réservoir bas apparent, présenté dans le catalogue de la collection.",
+      "formats": [],
+      "colors": [],
+      "finishes": [
+        "Céramique blanche"
+      ],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p065-x768.webp",
+          "hd": "/assets/images/petracer-bain/oii-p065-x768.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p065-x768.webp",
+          "width": 196,
+          "height": 255,
+          "sourcePdfPage": 65,
+          "sourceXref": 768,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Pura Ceramica Bianca — WC à réservoir bas — vue produit"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-pura-ceramica-bianca/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=65",
+      "cataloguePage": 65,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-pura-ceramica-wc-reservoir-haut",
+      "slug": "pura-ceramica-wc-reservoir-haut",
+      "name": "Pura Ceramica Bianca — WC à réservoir haut",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "sanitary",
+      "typeLabel": "WC avec réservoir haut",
+      "navCategory": "sanitaire",
+      "family": "Pura Ceramica Bianca",
+      "description": "WC au sol avec réservoir haut apparent et tuyau de chasse vertical.",
+      "formats": [],
+      "colors": [],
+      "finishes": [
+        "Céramique blanche"
+      ],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p065-x767.webp",
+          "hd": "/assets/images/petracer-bain/oii-p065-x767.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p065-x767.webp",
+          "width": 220,
+          "height": 560,
+          "sourcePdfPage": 65,
+          "sourceXref": 767,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Pura Ceramica Bianca — WC à réservoir haut — vue produit"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-pura-ceramica-bianca/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=65",
+      "cataloguePage": 65,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-venetia-lavabo-console",
+      "slug": "venetia-lavabo-console",
+      "name": "Venetia — lavabo sur console",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "sanitary",
+      "typeLabel": "Lavabo sur piètement métallique",
+      "navCategory": "sanitaire",
+      "family": "Venetia",
+      "description": "Lavabo blanc sur piètement métallique, aux lignes classiques de Venetia.",
+      "formats": [],
+      "colors": [],
+      "finishes": [
+        "Céramique blanche",
+        "Piètement chromé, doré ou ton cuivre selon version"
+      ],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p068-x796.webp",
+          "hd": "/assets/images/petracer-bain/oii-p068-x796.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p068-x796-thumb.webp",
+          "width": 681,
+          "height": 823,
+          "sourcePdfPage": 68,
+          "sourceXref": 796,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Venetia — lavabo sur console — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p068-x798.webp",
+          "hd": "/assets/images/petracer-bain/oii-p068-x798.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p068-x798.webp",
+          "width": 340,
+          "height": 484,
+          "sourcePdfPage": 68,
+          "sourceXref": 798,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Venetia — lavabo sur console — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-venetia/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=68",
+      "cataloguePage": 68,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-venetia-lavabo-colonne",
+      "slug": "venetia-lavabo-colonne",
+      "name": "Venetia — lavabo sur colonne",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "sanitary",
+      "typeLabel": "Lavabo sur colonne",
+      "navCategory": "sanitaire",
+      "family": "Venetia",
+      "description": "Lavabo blanc sur colonne en céramique.",
+      "formats": [],
+      "colors": [],
+      "finishes": [
+        "Céramique blanche"
+      ],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p069-x812.webp",
+          "hd": "/assets/images/petracer-bain/oii-p069-x812.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p069-x812.webp",
+          "width": 340,
+          "height": 516,
+          "sourcePdfPage": 69,
+          "sourceXref": 812,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Venetia — lavabo sur colonne — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p069-x813.webp",
+          "hd": "/assets/images/petracer-bain/oii-p069-x813.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p069-x813-thumb.webp",
+          "width": 681,
+          "height": 822,
+          "sourcePdfPage": 69,
+          "sourceXref": 813,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Venetia — lavabo sur colonne — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-venetia/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=69",
+      "cataloguePage": 69,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-venetia-wc-sol",
+      "slug": "venetia-wc-sol",
+      "name": "Venetia — WC au sol Rimless",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "sanitary",
+      "typeLabel": "WC au sol Rimless",
+      "navCategory": "sanitaire",
+      "family": "Venetia",
+      "description": "Version au sol RIMLESS, explicitement désignée dans le catalogue officiel.",
+      "formats": [],
+      "colors": [],
+      "finishes": [
+        "Céramique blanche"
+      ],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p071-x833.webp",
+          "hd": "/assets/images/petracer-bain/oii-p071-x833.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p071-x833.webp",
+          "width": 556,
+          "height": 272,
+          "sourcePdfPage": 71,
+          "sourceXref": 833,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Venetia — WC au sol Rimless — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p072-x844.webp",
+          "hd": "/assets/images/petracer-bain/oii-p072-x844.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p072-x844.webp",
+          "width": 382,
+          "height": 397,
+          "sourcePdfPage": 72,
+          "sourceXref": 844,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Venetia — WC au sol Rimless — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-venetia/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=71",
+      "cataloguePage": 71,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-venetia-bidet-sol",
+      "slug": "venetia-bidet-sol",
+      "name": "Venetia — bidet au sol",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "sanitary",
+      "typeLabel": "Bidet au sol",
+      "navCategory": "sanitaire",
+      "family": "Venetia",
+      "description": "Bidet blanc au sol, coordonné à la cuvette Venetia.",
+      "formats": [],
+      "colors": [],
+      "finishes": [
+        "Céramique blanche"
+      ],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p071-x834.webp",
+          "hd": "/assets/images/petracer-bain/oii-p071-x834.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p071-x834.webp",
+          "width": 541,
+          "height": 261,
+          "sourcePdfPage": 71,
+          "sourceXref": 834,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Venetia — bidet au sol — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p072-x845.webp",
+          "hd": "/assets/images/petracer-bain/oii-p072-x845.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p072-x845-thumb.webp",
+          "width": 680,
+          "height": 822,
+          "sourcePdfPage": 72,
+          "sourceXref": 845,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Venetia — bidet au sol — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-venetia/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=71",
+      "cataloguePage": 71,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-venetia-wc-suspendu",
+      "slug": "venetia-wc-suspendu",
+      "name": "Venetia — WC suspendu",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "sanitary",
+      "typeLabel": "WC suspendu",
+      "navCategory": "sanitaire",
+      "family": "Venetia",
+      "description": "Version suspendue du WC Venetia ; commande de chasse murale présentée.",
+      "formats": [],
+      "colors": [],
+      "finishes": [
+        "Céramique blanche"
+      ],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p073-x857.webp",
+          "hd": "/assets/images/petracer-bain/oii-p073-x857.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p073-x857.webp",
+          "width": 194,
+          "height": 272,
+          "sourcePdfPage": 73,
+          "sourceXref": 857,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Venetia — WC suspendu — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p073-x858.webp",
+          "hd": "/assets/images/petracer-bain/oii-p073-x858.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p073-x858.webp",
+          "width": 194,
+          "height": 238,
+          "sourcePdfPage": 73,
+          "sourceXref": 858,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Venetia — WC suspendu — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-venetia/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=73",
+      "cataloguePage": 73,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-venetia-bidet-suspendu",
+      "slug": "venetia-bidet-suspendu",
+      "name": "Venetia — bidet suspendu",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "sanitary",
+      "typeLabel": "Bidet suspendu",
+      "navCategory": "sanitaire",
+      "family": "Venetia",
+      "description": "Bidet suspendu Venetia, présenté de face et de profil dans le catalogue.",
+      "formats": [],
+      "colors": [],
+      "finishes": [
+        "Céramique blanche"
+      ],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p073-x854.webp",
+          "hd": "/assets/images/petracer-bain/oii-p073-x854.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p073-x854.webp",
+          "width": 220,
+          "height": 290,
+          "sourcePdfPage": 73,
+          "sourceXref": 854,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Venetia — bidet suspendu — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p073-x856.webp",
+          "hd": "/assets/images/petracer-bain/oii-p073-x856.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p073-x856.webp",
+          "width": 162,
+          "height": 290,
+          "sourcePdfPage": 73,
+          "sourceXref": 856,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Venetia — bidet suspendu — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-venetia/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=73",
+      "cataloguePage": 73,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-vasca-elegance-baignoire",
+      "slug": "vasca-elegance-baignoire",
+      "name": "Elegance — baignoire sur pieds",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "sanitary",
+      "typeLabel": "Baignoire sur pieds",
+      "navCategory": "sanitaire",
+      "family": "Vasca Elegance",
+      "description": "Baignoire indépendante de forme classique, montée sur pieds décoratifs.",
+      "formats": [],
+      "colors": [],
+      "finishes": [
+        "Blanc avec pieds chromés",
+        "Blanc avec pieds dorés",
+        "Extérieur doré présenté dans le catalogue"
+      ],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p076-x883.webp",
+          "hd": "/assets/images/petracer-bain/oii-p076-x883.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p076-x883.webp",
+          "width": 571,
+          "height": 598,
+          "sourcePdfPage": 76,
+          "sourceXref": 883,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Elegance — baignoire sur pieds — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p077-x898.webp",
+          "hd": "/assets/images/petracer-bain/oii-p077-x898.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p077-x898-thumb.webp",
+          "width": 680,
+          "height": 822,
+          "sourcePdfPage": 77,
+          "sourceXref": 898,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Elegance — baignoire sur pieds — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-vasca-elegance/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=76",
+      "cataloguePage": 76,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-romantica-paroi-douche",
+      "slug": "romantica-paroi-douche",
+      "name": "Romantica — Paroi de douche",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "sanitary",
+      "typeLabel": "Paroi de douche",
+      "navCategory": "sanitaire",
+      "family": "Romantica",
+      "description": "Une paroi de douche aux lignes courbes et aux détails métalliques, présentée dans l’univers Romantica.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p079-x917.webp",
+          "hd": "/assets/images/petracer-bain/oii-p079-x917.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p079-x917-thumb.webp",
+          "width": 491,
+          "height": 744,
+          "sourcePdfPage": 79,
+          "sourceXref": 917,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Romantica — Paroi de douche — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p081-x935.webp",
+          "hd": "/assets/images/petracer-bain/oii-p081-x935.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p081-x935-thumb.webp",
+          "width": 680,
+          "height": 822,
+          "sourcePdfPage": 81,
+          "sourceXref": 935,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Romantica — Paroi de douche — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/romantica/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=79",
+      "cataloguePage": 79,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-hermitage-lavabo-trois-trous",
+      "slug": "hermitage-lavabo-trois-trous",
+      "name": "Hermitage — Mélangeur lavabo 3 trous",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "tapware",
+      "typeLabel": "Mélangeur lavabo 3 trous",
+      "navCategory": "robinetterie",
+      "family": "Hermitage",
+      "description": "Mélangeur lavabo 3 trous Hermitage, avec poignées en pierre naturelle et détails métalliques.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p083-x953.webp",
+          "hd": "/assets/images/petracer-bain/oii-p083-x953.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p083-x953-thumb.webp",
+          "width": 681,
+          "height": 822,
+          "sourcePdfPage": 83,
+          "sourceXref": 953,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Hermitage — Mélangeur lavabo 3 trous — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p085-x971.webp",
+          "hd": "/assets/images/petracer-bain/oii-p085-x971.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p085-x971-thumb.webp",
+          "width": 681,
+          "height": 822,
+          "sourcePdfPage": 85,
+          "sourceXref": 971,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Hermitage — Mélangeur lavabo 3 trous — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-hermitage/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=83",
+      "cataloguePage": 83,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition.",
+        "La compatibilité de la finition et des éléments encastrés se confirme selon la configuration."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-hermitage-bain-douche-sur-pied",
+      "slug": "hermitage-bain-douche-sur-pied",
+      "name": "Hermitage — Mélangeur bain-douche sur pied",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "tapware",
+      "typeLabel": "Mélangeur bain-douche sur pied",
+      "navCategory": "robinetterie",
+      "family": "Hermitage",
+      "description": "Mélangeur bain-douche sur pied Hermitage, avec poignées en pierre naturelle et détails métalliques.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p087-x991.webp",
+          "hd": "/assets/images/petracer-bain/oii-p087-x991.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p087-x991-thumb.webp",
+          "width": 681,
+          "height": 822,
+          "sourcePdfPage": 87,
+          "sourceXref": 991,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Hermitage — Mélangeur bain-douche sur pied — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p087-x989.webp",
+          "hd": "/assets/images/petracer-bain/oii-p087-x989.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p087-x989.webp",
+          "width": 216,
+          "height": 434,
+          "sourcePdfPage": 87,
+          "sourceXref": 989,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Hermitage — Mélangeur bain-douche sur pied — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-hermitage/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=87",
+      "cataloguePage": 87,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition.",
+        "La compatibilité de la finition et des éléments encastrés se confirme selon la configuration."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-hermitage-bain-douche-bord",
+      "slug": "hermitage-bain-douche-bord",
+      "name": "Hermitage — Ensemble bain-douche sur gorge",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "tapware",
+      "typeLabel": "Ensemble bain-douche sur gorge",
+      "navCategory": "robinetterie",
+      "family": "Hermitage",
+      "description": "Ensemble bain-douche sur gorge Hermitage, avec poignées en pierre naturelle et détails métalliques.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p088-x999.webp",
+          "hd": "/assets/images/petracer-bain/oii-p088-x999.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p088-x999.webp",
+          "width": 261,
+          "height": 209,
+          "sourcePdfPage": 88,
+          "sourceXref": 999,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Hermitage — Ensemble bain-douche sur gorge — vue produit"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-hermitage/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=88",
+      "cataloguePage": 88,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition.",
+        "La compatibilité de la finition et des éléments encastrés se confirme selon la configuration."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-hermitage-bain-douche-encastre",
+      "slug": "hermitage-bain-douche-encastre",
+      "name": "Hermitage — Ensemble bain-douche encastré",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "tapware",
+      "typeLabel": "Ensemble bain-douche encastré",
+      "navCategory": "robinetterie",
+      "family": "Hermitage",
+      "description": "Ensemble bain-douche encastré Hermitage, avec poignées en pierre naturelle et détails métalliques.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p088-x1000.webp",
+          "hd": "/assets/images/petracer-bain/oii-p088-x1000.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p088-x1000.webp",
+          "width": 253,
+          "height": 276,
+          "sourcePdfPage": 88,
+          "sourceXref": 1000,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Hermitage — Ensemble bain-douche encastré — vue produit"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-hermitage/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=88",
+      "cataloguePage": 88,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition.",
+        "La compatibilité de la finition et des éléments encastrés se confirme selon la configuration."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-hermitage-colonne-douche",
+      "slug": "hermitage-colonne-douche",
+      "name": "Hermitage — Colonne de douche apparente",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "tapware",
+      "typeLabel": "Colonne de douche apparente",
+      "navCategory": "robinetterie",
+      "family": "Hermitage",
+      "description": "Colonne de douche apparente Hermitage, avec poignées en pierre naturelle et détails métalliques.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p088-x1001.webp",
+          "hd": "/assets/images/petracer-bain/oii-p088-x1001.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p088-x1001.webp",
+          "width": 185,
+          "height": 348,
+          "sourcePdfPage": 88,
+          "sourceXref": 1001,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Hermitage — Colonne de douche apparente — vue produit"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-hermitage/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=88",
+      "cataloguePage": 88,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition.",
+        "La compatibilité de la finition et des éléments encastrés se confirme selon la configuration."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-hermitage-douche-encastree",
+      "slug": "hermitage-douche-encastree",
+      "name": "Hermitage — Ensemble de douche encastré",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "tapware",
+      "typeLabel": "Ensemble de douche encastré",
+      "navCategory": "robinetterie",
+      "family": "Hermitage",
+      "description": "Ensemble de douche encastré Hermitage, avec poignées en pierre naturelle et détails métalliques.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p088-x1002.webp",
+          "hd": "/assets/images/petracer-bain/oii-p088-x1002.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p088-x1002.webp",
+          "width": 205,
+          "height": 355,
+          "sourcePdfPage": 88,
+          "sourceXref": 1002,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Hermitage — Ensemble de douche encastré — vue produit"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-hermitage/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=88",
+      "cataloguePage": 88,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition.",
+        "La compatibilité de la finition et des éléments encastrés se confirme selon la configuration."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-aquadolce-lavabo-trois-trous",
+      "slug": "aquadolce-lavabo-trois-trous",
+      "name": "Aquadolce — Mélangeur lavabo 3 trous",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "tapware",
+      "typeLabel": "Mélangeur lavabo 3 trous",
+      "navCategory": "robinetterie",
+      "family": "Aquadolce",
+      "description": "Mélangeur lavabo 3 trous Aquadolce, avec poignées en forme de nœud et lignes inspirées du col de cygne.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p093-x1049.webp",
+          "hd": "/assets/images/petracer-bain/oii-p093-x1049.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p093-x1049-thumb.webp",
+          "width": 680,
+          "height": 822,
+          "sourcePdfPage": 93,
+          "sourceXref": 1049,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Aquadolce — Mélangeur lavabo 3 trous — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p094-x1058.webp",
+          "hd": "/assets/images/petracer-bain/oii-p094-x1058.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p094-x1058-thumb.webp",
+          "width": 681,
+          "height": 822,
+          "sourcePdfPage": 94,
+          "sourceXref": 1058,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Aquadolce — Mélangeur lavabo 3 trous — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-aqua-dolce/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=93",
+      "cataloguePage": 93,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition.",
+        "La compatibilité de la finition et des éléments encastrés se confirme selon la configuration."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-aquadolce-lavabo-mural",
+      "slug": "aquadolce-lavabo-mural",
+      "name": "Aquadolce — Mélangeur lavabo mural",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "tapware",
+      "typeLabel": "Mélangeur lavabo mural",
+      "navCategory": "robinetterie",
+      "family": "Aquadolce",
+      "description": "Mélangeur lavabo mural Aquadolce, avec poignées en forme de nœud et lignes inspirées du col de cygne.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p095-x1068.webp",
+          "hd": "/assets/images/petracer-bain/oii-p095-x1068.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p095-x1068.webp",
+          "width": 228,
+          "height": 234,
+          "sourcePdfPage": 95,
+          "sourceXref": 1068,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Aquadolce — Mélangeur lavabo mural — vue produit"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-aqua-dolce/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=95",
+      "cataloguePage": 95,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition.",
+        "La compatibilité de la finition et des éléments encastrés se confirme selon la configuration."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-aquadolce-bidet",
+      "slug": "aquadolce-bidet",
+      "name": "Aquadolce — Robinet de bidet",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "tapware",
+      "typeLabel": "Robinet de bidet",
+      "navCategory": "robinetterie",
+      "family": "Aquadolce",
+      "description": "Robinet de bidet Aquadolce, avec poignées en forme de nœud et lignes inspirées du col de cygne.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p095-x1070.webp",
+          "hd": "/assets/images/petracer-bain/oii-p095-x1070.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p095-x1070.webp",
+          "width": 205,
+          "height": 163,
+          "sourcePdfPage": 95,
+          "sourceXref": 1070,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Aquadolce — Robinet de bidet — vue produit"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-aqua-dolce/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=95",
+      "cataloguePage": 95,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition.",
+        "La compatibilité de la finition et des éléments encastrés se confirme selon la configuration."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-aquadolce-lavabo-monotrou",
+      "slug": "aquadolce-lavabo-monotrou",
+      "name": "Aquadolce — Mélangeur lavabo monotrou",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "tapware",
+      "typeLabel": "Mélangeur lavabo monotrou",
+      "navCategory": "robinetterie",
+      "family": "Aquadolce",
+      "description": "Mélangeur lavabo monotrou Aquadolce, avec poignées en forme de nœud et lignes inspirées du col de cygne.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p095-x1071.webp",
+          "hd": "/assets/images/petracer-bain/oii-p095-x1071.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p095-x1071.webp",
+          "width": 147,
+          "height": 175,
+          "sourcePdfPage": 95,
+          "sourceXref": 1071,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Aquadolce — Mélangeur lavabo monotrou — vue produit"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-aqua-dolce/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=95",
+      "cataloguePage": 95,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition.",
+        "La compatibilité de la finition et des éléments encastrés se confirme selon la configuration."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-aquadolce-bain-douche-mural",
+      "slug": "aquadolce-bain-douche-mural",
+      "name": "Aquadolce — Mélangeur bain-douche mural",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "tapware",
+      "typeLabel": "Mélangeur bain-douche mural",
+      "navCategory": "robinetterie",
+      "family": "Aquadolce",
+      "description": "Mélangeur bain-douche mural Aquadolce, avec poignées en forme de nœud et lignes inspirées du col de cygne.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p096-x1080.webp",
+          "hd": "/assets/images/petracer-bain/oii-p096-x1080.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p096-x1080-thumb.webp",
+          "width": 680,
+          "height": 822,
+          "sourcePdfPage": 96,
+          "sourceXref": 1080,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Aquadolce — Mélangeur bain-douche mural — vue produit"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-aqua-dolce/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=96",
+      "cataloguePage": 96,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition.",
+        "La compatibilité de la finition et des éléments encastrés se confirme selon la configuration."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-aquadolce-bain-douche-sur-pied",
+      "slug": "aquadolce-bain-douche-sur-pied",
+      "name": "Aquadolce — Mélangeur bain-douche sur pied",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "tapware",
+      "typeLabel": "Mélangeur bain-douche sur pied",
+      "navCategory": "robinetterie",
+      "family": "Aquadolce",
+      "description": "Mélangeur bain-douche sur pied Aquadolce, avec poignées en forme de nœud et lignes inspirées du col de cygne.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p096-x1079.webp",
+          "hd": "/assets/images/petracer-bain/oii-p096-x1079.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p096-x1079-thumb.webp",
+          "width": 680,
+          "height": 822,
+          "sourcePdfPage": 96,
+          "sourceXref": 1079,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Aquadolce — Mélangeur bain-douche sur pied — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p097-x1089.webp",
+          "hd": "/assets/images/petracer-bain/oii-p097-x1089.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p097-x1089.webp",
+          "width": 183,
+          "height": 410,
+          "sourcePdfPage": 97,
+          "sourceXref": 1089,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Aquadolce — Mélangeur bain-douche sur pied — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-aqua-dolce/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=96",
+      "cataloguePage": 96,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition.",
+        "La compatibilité de la finition et des éléments encastrés se confirme selon la configuration."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-aquadolce-colonne-douche",
+      "slug": "aquadolce-colonne-douche",
+      "name": "Aquadolce — Colonne de douche apparente",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "tapware",
+      "typeLabel": "Colonne de douche apparente",
+      "navCategory": "robinetterie",
+      "family": "Aquadolce",
+      "description": "Colonne de douche apparente Aquadolce, avec poignées en forme de nœud et lignes inspirées du col de cygne.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p097-x1090.webp",
+          "hd": "/assets/images/petracer-bain/oii-p097-x1090.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p097-x1090.webp",
+          "width": 185,
+          "height": 375,
+          "sourcePdfPage": 97,
+          "sourceXref": 1090,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Aquadolce — Colonne de douche apparente — vue produit"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-aqua-dolce/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=97",
+      "cataloguePage": 97,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition.",
+        "La compatibilité de la finition et des éléments encastrés se confirme selon la configuration."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-aquadolce-douche-encastree",
+      "slug": "aquadolce-douche-encastree",
+      "name": "Aquadolce — Ensemble de douche encastré",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "tapware",
+      "typeLabel": "Ensemble de douche encastré",
+      "navCategory": "robinetterie",
+      "family": "Aquadolce",
+      "description": "Ensemble de douche encastré Aquadolce, avec poignées en forme de nœud et lignes inspirées du col de cygne.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p097-x1091.webp",
+          "hd": "/assets/images/petracer-bain/oii-p097-x1091.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p097-x1091.webp",
+          "width": 205,
+          "height": 387,
+          "sourcePdfPage": 97,
+          "sourceXref": 1091,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Aquadolce — Ensemble de douche encastré — vue produit"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-aqua-dolce/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=97",
+      "cataloguePage": 97,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition.",
+        "La compatibilité de la finition et des éléments encastrés se confirme selon la configuration."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-divino-lavabo-trois-trous",
+      "slug": "divino-lavabo-trois-trous",
+      "name": "Divino — Mélangeur lavabo 3 trous",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "tapware",
+      "typeLabel": "Mélangeur lavabo 3 trous",
+      "navCategory": "robinetterie",
+      "family": "Divino",
+      "description": "Mélangeur lavabo 3 trous Divino, dans le dessin octogonal de la collection Divino.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p101-x1125.webp",
+          "hd": "/assets/images/petracer-bain/oii-p101-x1125.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p101-x1125-thumb.webp",
+          "width": 658,
+          "height": 552,
+          "sourcePdfPage": 101,
+          "sourceXref": 1125,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Divino — Mélangeur lavabo 3 trous — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p100-x1114.webp",
+          "hd": "/assets/images/petracer-bain/oii-p100-x1114.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p100-x1114-thumb.webp",
+          "width": 681,
+          "height": 822,
+          "sourcePdfPage": 100,
+          "sourceXref": 1114,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Divino — Mélangeur lavabo 3 trous — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-divino/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=100",
+      "cataloguePage": 100,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition.",
+        "La compatibilité de la finition et des éléments encastrés se confirme selon la configuration."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-divino-lavabo-monotrou",
+      "slug": "divino-lavabo-monotrou",
+      "name": "Divino — Mitigeur lavabo monotrou",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "tapware",
+      "typeLabel": "Mitigeur lavabo monotrou",
+      "navCategory": "robinetterie",
+      "family": "Divino",
+      "description": "Mitigeur lavabo monotrou Divino, dans le dessin octogonal de la collection Divino.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p103-x1142.webp",
+          "hd": "/assets/images/petracer-bain/oii-p103-x1142.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p103-x1142-thumb.webp",
+          "width": 1176,
+          "height": 1301,
+          "sourcePdfPage": 103,
+          "sourceXref": 1142,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Divino — Mitigeur lavabo monotrou — vue produit"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-divino/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=103",
+      "cataloguePage": 103,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition.",
+        "La compatibilité de la finition et des éléments encastrés se confirme selon la configuration."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-divino-bidet-monotrou",
+      "slug": "divino-bidet-monotrou",
+      "name": "Divino — Mitigeur bidet monotrou",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "tapware",
+      "typeLabel": "Mitigeur bidet monotrou",
+      "navCategory": "robinetterie",
+      "family": "Divino",
+      "description": "Mitigeur bidet monotrou Divino, dans le dessin octogonal de la collection Divino.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p103-x1145.webp",
+          "hd": "/assets/images/petracer-bain/oii-p103-x1145.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p103-x1145-thumb.webp",
+          "width": 1216,
+          "height": 1362,
+          "sourcePdfPage": 103,
+          "sourceXref": 1145,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Divino — Mitigeur bidet monotrou — vue produit"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-divino/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=103",
+      "cataloguePage": 103,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition.",
+        "La compatibilité de la finition et des éléments encastrés se confirme selon la configuration."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-divino-bain-douche-mural",
+      "slug": "divino-bain-douche-mural",
+      "name": "Divino — Mélangeur bain-douche mural",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "tapware",
+      "typeLabel": "Mélangeur bain-douche mural",
+      "navCategory": "robinetterie",
+      "family": "Divino",
+      "description": "Mélangeur bain-douche mural Divino, dans le dessin octogonal de la collection Divino.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p104-x1154.webp",
+          "hd": "/assets/images/petracer-bain/oii-p104-x1154.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p104-x1154-thumb.webp",
+          "width": 681,
+          "height": 822,
+          "sourcePdfPage": 104,
+          "sourceXref": 1154,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Divino — Mélangeur bain-douche mural — vue produit"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-divino/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=104",
+      "cataloguePage": 104,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition.",
+        "La compatibilité de la finition et des éléments encastrés se confirme selon la configuration."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-divino-pomme-douche",
+      "slug": "divino-pomme-douche",
+      "name": "Divino — Pomme de douche",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "tapware",
+      "typeLabel": "Pomme de douche",
+      "navCategory": "robinetterie",
+      "family": "Divino",
+      "description": "Pomme de douche Divino, dans le dessin octogonal de la collection Divino.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p105-x1164.webp",
+          "hd": "/assets/images/petracer-bain/oii-p105-x1164.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p105-x1164-thumb.webp",
+          "width": 681,
+          "height": 822,
+          "sourcePdfPage": 105,
+          "sourceXref": 1164,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Divino — Pomme de douche — vue produit"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-divino/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=105",
+      "cataloguePage": 105,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition.",
+        "La compatibilité de la finition et des éléments encastrés se confirme selon la configuration."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-divino-colonne-douche",
+      "slug": "divino-colonne-douche",
+      "name": "Divino — Colonne de douche",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "tapware",
+      "typeLabel": "Colonne de douche",
+      "navCategory": "robinetterie",
+      "family": "Divino",
+      "description": "Colonne de douche Divino, dans le dessin octogonal de la collection Divino.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p106-x1177.webp",
+          "hd": "/assets/images/petracer-bain/oii-p106-x1177.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p106-x1177.webp",
+          "width": 207,
+          "height": 466,
+          "sourcePdfPage": 106,
+          "sourceXref": 1177,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Divino — Colonne de douche — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p106-x1179.webp",
+          "hd": "/assets/images/petracer-bain/oii-p106-x1179.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p106-x1179-thumb.webp",
+          "width": 681,
+          "height": 822,
+          "sourcePdfPage": 106,
+          "sourceXref": 1179,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Divino — Colonne de douche — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-divino/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=106",
+      "cataloguePage": 106,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition.",
+        "La compatibilité de la finition et des éléments encastrés se confirme selon la configuration."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-divino-ultra-lavabo-trois-trous",
+      "slug": "divino-ultra-lavabo-trois-trous",
+      "name": "Divino Ultra — Mélangeur lavabo 3 trous",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "tapware",
+      "typeLabel": "Mélangeur lavabo 3 trous",
+      "navCategory": "robinetterie",
+      "family": "Divino Ultra",
+      "description": "Mélangeur lavabo 3 trous Divino Ultra, avec habillage de cuir et détails métalliques octogonaux.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p108-x1199.webp",
+          "hd": "/assets/images/petracer-bain/oii-p108-x1199.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p108-x1199-thumb.webp",
+          "width": 680,
+          "height": 822,
+          "sourcePdfPage": 108,
+          "sourceXref": 1199,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Divino Ultra — Mélangeur lavabo 3 trous — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p109-x1209.webp",
+          "hd": "/assets/images/petracer-bain/oii-p109-x1209.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p109-x1209-thumb.webp",
+          "width": 681,
+          "height": 822,
+          "sourcePdfPage": 109,
+          "sourceXref": 1209,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Divino Ultra — Mélangeur lavabo 3 trous — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-divino-ultra/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=108",
+      "cataloguePage": 108,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition.",
+        "La compatibilité de la finition et des éléments encastrés se confirme selon la configuration."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-divino-ultra-bain-douche-bord",
+      "slug": "divino-ultra-bain-douche-bord",
+      "name": "Divino Ultra — Ensemble bain-douche sur gorge",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "tapware",
+      "typeLabel": "Ensemble bain-douche sur gorge",
+      "navCategory": "robinetterie",
+      "family": "Divino Ultra",
+      "description": "Ensemble bain-douche sur gorge Divino Ultra, avec habillage de cuir et détails métalliques octogonaux.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p111-x1229.webp",
+          "hd": "/assets/images/petracer-bain/oii-p111-x1229.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p111-x1229.webp",
+          "width": 410,
+          "height": 257,
+          "sourcePdfPage": 111,
+          "sourceXref": 1229,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Divino Ultra — Ensemble bain-douche sur gorge — vue produit"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-divino-ultra/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=111",
+      "cataloguePage": 111,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition.",
+        "La compatibilité de la finition et des éléments encastrés se confirme selon la configuration."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-divino-ultra-bain-douche-mural",
+      "slug": "divino-ultra-bain-douche-mural",
+      "name": "Divino Ultra — Mélangeur bain-douche mural",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "tapware",
+      "typeLabel": "Mélangeur bain-douche mural",
+      "navCategory": "robinetterie",
+      "family": "Divino Ultra",
+      "description": "Mélangeur bain-douche mural Divino Ultra, avec habillage de cuir et détails métalliques octogonaux.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p111-x1230.webp",
+          "hd": "/assets/images/petracer-bain/oii-p111-x1230.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p111-x1230-thumb.webp",
+          "width": 680,
+          "height": 822,
+          "sourcePdfPage": 111,
+          "sourceXref": 1230,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Divino Ultra — Mélangeur bain-douche mural — vue produit"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-divino-ultra/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=111",
+      "cataloguePage": 111,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition.",
+        "La compatibilité de la finition et des éléments encastrés se confirme selon la configuration."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-opera-prima-miroir",
+      "slug": "opera-prima-miroir",
+      "name": "Opera Prima — Miroir",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "mirror",
+      "typeLabel": "Miroir",
+      "navCategory": "robinetterie",
+      "family": "Opera Prima",
+      "description": "Le miroir Opera Prima complète l’aménagement de la salle de bains avec le dessin présenté dans le catalogue Petracer’s.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p115-x1274.webp",
+          "hd": "/assets/images/petracer-bain/oii-p115-x1274.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p115-x1274.webp",
+          "width": 224,
+          "height": 335,
+          "sourcePdfPage": 115,
+          "sourceXref": 1274,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Opera Prima — Miroir — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p115-x1275.webp",
+          "hd": "/assets/images/petracer-bain/oii-p115-x1275.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p115-x1275-thumb.webp",
+          "width": 681,
+          "height": 822,
+          "sourcePdfPage": 115,
+          "sourceXref": 1275,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Opera Prima — Miroir — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-specchi/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=115",
+      "cataloguePage": 115,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-diamante-miroir",
+      "slug": "diamante-miroir",
+      "name": "Diamante — Miroir",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "mirror",
+      "typeLabel": "Miroir",
+      "navCategory": "robinetterie",
+      "family": "Diamante",
+      "description": "Le miroir Diamante complète l’aménagement de la salle de bains avec le dessin présenté dans le catalogue Petracer’s.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p115-x1273.webp",
+          "hd": "/assets/images/petracer-bain/oii-p115-x1273.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p115-x1273.webp",
+          "width": 238,
+          "height": 374,
+          "sourcePdfPage": 115,
+          "sourceXref": 1273,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Diamante — Miroir — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p054-x663.webp",
+          "hd": "/assets/images/petracer-bain/oii-p054-x663.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p054-x663-thumb.webp",
+          "width": 681,
+          "height": 822,
+          "sourcePdfPage": 54,
+          "sourceXref": 663,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Diamante — Miroir — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-specchi/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=54",
+      "cataloguePage": 54,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-fantasma-miroir",
+      "slug": "fantasma-miroir",
+      "name": "Fantasma — Miroir triptyque",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "mirror",
+      "typeLabel": "Miroir triptyque",
+      "navCategory": "robinetterie",
+      "family": "Fantasma",
+      "description": "Le miroir Fantasma complète l’aménagement de la salle de bains avec le dessin présenté dans le catalogue Petracer’s.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p116-x1285.webp",
+          "hd": "/assets/images/petracer-bain/oii-p116-x1285.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p116-x1285.webp",
+          "width": 247,
+          "height": 367,
+          "sourcePdfPage": 116,
+          "sourceXref": 1285,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Fantasma — Miroir triptyque — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p116-x1288.webp",
+          "hd": "/assets/images/petracer-bain/oii-p116-x1288.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p116-x1288-thumb.webp",
+          "width": 681,
+          "height": 822,
+          "sourcePdfPage": 116,
+          "sourceXref": 1288,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Fantasma — Miroir triptyque — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-specchi/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=116",
+      "cataloguePage": 116,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-primo-attore-miroir",
+      "slug": "primo-attore-miroir",
+      "name": "Primo Attore — Miroir",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "mirror",
+      "typeLabel": "Miroir",
+      "navCategory": "robinetterie",
+      "family": "Primo Attore",
+      "description": "Le miroir Primo Attore complète l’aménagement de la salle de bains avec le dessin présenté dans le catalogue Petracer’s.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p116-x1286.webp",
+          "hd": "/assets/images/petracer-bain/oii-p116-x1286.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p116-x1286.webp",
+          "width": 220,
+          "height": 315,
+          "sourcePdfPage": 116,
+          "sourceXref": 1286,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Primo Attore — Miroir — vue produit"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-specchi/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=116",
+      "cataloguePage": 116,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-casanova-miroir",
+      "slug": "casanova-miroir",
+      "name": "Casanova — Miroir",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "mirror",
+      "typeLabel": "Miroir",
+      "navCategory": "robinetterie",
+      "family": "Casanova",
+      "description": "Le miroir Casanova complète l’aménagement de la salle de bains avec le dessin présenté dans le catalogue Petracer’s.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p117-x1296.webp",
+          "hd": "/assets/images/petracer-bain/oii-p117-x1296.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p117-x1296.webp",
+          "width": 306,
+          "height": 237,
+          "sourcePdfPage": 117,
+          "sourceXref": 1296,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Casanova — Miroir — vue produit"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-specchi/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=117",
+      "cataloguePage": 117,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-800-italiano-miroir",
+      "slug": "800-italiano-miroir",
+      "name": "800 Italiano — Miroir",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "mirror",
+      "typeLabel": "Miroir",
+      "navCategory": "robinetterie",
+      "family": "800 Italiano",
+      "description": "Le miroir 800 Italiano complète l’aménagement de la salle de bains avec le dessin présenté dans le catalogue Petracer’s.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p117-x1297.webp",
+          "hd": "/assets/images/petracer-bain/oii-p117-x1297.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p117-x1297.webp",
+          "width": 209,
+          "height": 265,
+          "sourcePdfPage": 117,
+          "sourceXref": 1297,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "800 Italiano — Miroir — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p117-x1298.webp",
+          "hd": "/assets/images/petracer-bain/oii-p117-x1298.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p117-x1298-thumb.webp",
+          "width": 680,
+          "height": 822,
+          "sourcePdfPage": 117,
+          "sourceXref": 1298,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "800 Italiano — Miroir — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-specchi/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=117",
+      "cataloguePage": 117,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-venetia-miroir",
+      "slug": "venetia-miroir",
+      "name": "Venetia — Miroir",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "mirror",
+      "typeLabel": "Miroir",
+      "navCategory": "robinetterie",
+      "family": "Venetia",
+      "description": "Le miroir Venetia complète l’aménagement de la salle de bains avec le dessin présenté dans le catalogue Petracer’s.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p118-x1308.webp",
+          "hd": "/assets/images/petracer-bain/oii-p118-x1308.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p118-x1308.webp",
+          "width": 261,
+          "height": 275,
+          "sourcePdfPage": 118,
+          "sourceXref": 1308,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Venetia — Miroir — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p118-x1310.webp",
+          "hd": "/assets/images/petracer-bain/oii-p118-x1310.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p118-x1310-thumb.webp",
+          "width": 681,
+          "height": 822,
+          "sourcePdfPage": 118,
+          "sourceXref": 1310,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Venetia — Miroir — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-specchi/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=118",
+      "cataloguePage": 118,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-efesto-miroir",
+      "slug": "efesto-miroir",
+      "name": "Efesto — Miroir",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "mirror",
+      "typeLabel": "Miroir",
+      "navCategory": "robinetterie",
+      "family": "Efesto",
+      "description": "Le miroir Efesto complète l’aménagement de la salle de bains avec le dessin présenté dans le catalogue Petracer’s.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p118-x1309.webp",
+          "hd": "/assets/images/petracer-bain/oii-p118-x1309.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p118-x1309.webp",
+          "width": 181,
+          "height": 347,
+          "sourcePdfPage": 118,
+          "sourceXref": 1309,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Efesto — Miroir — vue produit"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-specchi/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=118",
+      "cataloguePage": 118,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-casanova-porte-serviettes",
+      "slug": "casanova-porte-serviettes",
+      "name": "Casanova — Porte-serviettes sur pied",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "accessory",
+      "typeLabel": "Porte-serviettes sur pied",
+      "navCategory": "robinetterie",
+      "family": "Casanova",
+      "description": "Porte-serviettes sur pied de la collection Casanova, pour compléter les équipements de la salle de bains dans un ensemble coordonné.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p122-x1360.webp",
+          "hd": "/assets/images/petracer-bain/oii-p122-x1360.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p122-x1360.webp",
+          "width": 359,
+          "height": 434,
+          "sourcePdfPage": 122,
+          "sourceXref": 1360,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Casanova — Porte-serviettes sur pied — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p122-x1361.webp",
+          "hd": "/assets/images/petracer-bain/oii-p122-x1361.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p122-x1361-thumb.webp",
+          "width": 681,
+          "height": 822,
+          "sourcePdfPage": 122,
+          "sourceXref": 1361,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Casanova — Porte-serviettes sur pied — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-casanova/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=122",
+      "cataloguePage": 122,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-casanova-miroir-grossissant",
+      "slug": "casanova-miroir-grossissant",
+      "name": "Casanova — Miroir de courtoisie",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "mirror",
+      "typeLabel": "Miroir de courtoisie",
+      "navCategory": "robinetterie",
+      "family": "Casanova",
+      "description": "Le miroir Casanova complète l’aménagement de la salle de bains avec le dessin présenté dans le catalogue Petracer’s.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p123-x1375.webp",
+          "hd": "/assets/images/petracer-bain/oii-p123-x1375.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p123-x1375-thumb.webp",
+          "width": 680,
+          "height": 822,
+          "sourcePdfPage": 123,
+          "sourceXref": 1375,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Casanova — Miroir de courtoisie — vue produit"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-casanova/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=123",
+      "cataloguePage": 123,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-alta-moda-porte-verre",
+      "slug": "alta-moda-porte-verre",
+      "name": "Alta Moda — Porte-verre mural",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "accessory",
+      "typeLabel": "Porte-verre mural",
+      "navCategory": "robinetterie",
+      "family": "Alta Moda",
+      "description": "Porte-verre mural de la collection Alta Moda, pour compléter les équipements de la salle de bains dans un ensemble coordonné.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p124-x1387.webp",
+          "hd": "/assets/images/petracer-bain/oii-p124-x1387.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p124-x1387-thumb.webp",
+          "width": 680,
+          "height": 822,
+          "sourcePdfPage": 124,
+          "sourceXref": 1387,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Alta Moda — Porte-verre mural — vue produit"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-alta-moda/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=124",
+      "cataloguePage": 124,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-alta-moda-distributeur-savon",
+      "slug": "alta-moda-distributeur-savon",
+      "name": "Alta Moda — Distributeur de savon",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "accessory",
+      "typeLabel": "Distributeur de savon",
+      "navCategory": "robinetterie",
+      "family": "Alta Moda",
+      "description": "Distributeur de savon de la collection Alta Moda, pour compléter les équipements de la salle de bains dans un ensemble coordonné.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p125-x1399.webp",
+          "hd": "/assets/images/petracer-bain/oii-p125-x1399.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p125-x1399-thumb.webp",
+          "width": 681,
+          "height": 822,
+          "sourcePdfPage": 125,
+          "sourceXref": 1399,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Alta Moda — Distributeur de savon — vue produit"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-alta-moda/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=125",
+      "cataloguePage": 125,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-alta-moda-anneau-serviettes",
+      "slug": "alta-moda-anneau-serviettes",
+      "name": "Alta Moda — Anneau porte-serviettes",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "accessory",
+      "typeLabel": "Anneau porte-serviettes",
+      "navCategory": "robinetterie",
+      "family": "Alta Moda",
+      "description": "Anneau porte-serviettes de la collection Alta Moda, pour compléter les équipements de la salle de bains dans un ensemble coordonné.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p126-x1413.webp",
+          "hd": "/assets/images/petracer-bain/oii-p126-x1413.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p126-x1413-thumb.webp",
+          "width": 680,
+          "height": 822,
+          "sourcePdfPage": 126,
+          "sourceXref": 1413,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Alta Moda — Anneau porte-serviettes — vue produit"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-alta-moda/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=126",
+      "cataloguePage": 126,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    },
+    {
+      "id": "petracer-bain-alta-moda-serviteur-wc",
+      "slug": "alta-moda-serviteur-wc",
+      "name": "Alta Moda — Serviteur WC sur pied",
+      "brand": "Petracer’s",
+      "collectionGroup": "Originali Interni Italiani",
+      "productType": "accessory",
+      "typeLabel": "Serviteur WC sur pied",
+      "navCategory": "robinetterie",
+      "family": "Alta Moda",
+      "description": "Serviteur WC sur pied de la collection Alta Moda, pour compléter les équipements de la salle de bains dans un ensemble coordonné.",
+      "formats": [],
+      "colors": [],
+      "finishes": [],
+      "manufacturerReference": null,
+      "images": [
+        {
+          "url": "/assets/images/petracer-bain/oii-p127-x1423.webp",
+          "hd": "/assets/images/petracer-bain/oii-p127-x1423.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p127-x1423.webp",
+          "width": 210,
+          "height": 412,
+          "sourcePdfPage": 127,
+          "sourceXref": 1423,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Alta Moda — Serviteur WC sur pied — vue produit"
+        },
+        {
+          "url": "/assets/images/petracer-bain/oii-p127-x1425.webp",
+          "hd": "/assets/images/petracer-bain/oii-p127-x1425.webp",
+          "thumb": "/assets/images/petracer-bain/oii-p127-x1425-thumb.webp",
+          "width": 680,
+          "height": 822,
+          "sourcePdfPage": 127,
+          "sourceXref": 1425,
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf",
+          "label": "Alta Moda — Serviteur WC sur pied — autre vue"
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/arredo-bagno-alta-moda/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Low-catalogo-OII-mail-.pdf#page=127",
+      "cataloguePage": 127,
+      "technicalUrl": "",
+      "details": [
+        "Le catalogue présente ce modèle. Les éléments visibles autour du produit se précisent séparément dans la composition."
+      ],
+      "availabilityNote": "Dimensions, finition, composition et disponibilité à confirmer pour le projet.",
+      "unit": "pièces"
+    }
+  ]
+}

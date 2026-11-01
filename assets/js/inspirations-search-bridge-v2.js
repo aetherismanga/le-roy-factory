@@ -2,6 +2,8 @@
   'use strict';
   const params=new URLSearchParams(location.search);
   const requested=(params.get('partner')||'').trim();
+  const requestedCategory=(params.get('category')||'').trim();
+  let guessedCategory='';
   const query=(params.get('search')||'').trim();
   const requestedSeries=(params.get('series')||'').trim();
   const requestedRef=(params.get('ref')||'').trim();
@@ -43,8 +45,9 @@
     if(Array.isArray(window.ELIOS_CATALOGUE))window.ELIOS_CATALOGUE.forEach(p=>all.push({name:'Elios Ceramica',s:score(p,requestedRef||q)}));
     if(Array.isArray(window.VIEW_CATALOGUE))window.VIEW_CATALOGUE.forEach(p=>all.push({name:'View Ceramica',s:score(p,requestedRef||q)}));
     if(Array.isArray(window.PETRACER_CATALOGUE))window.PETRACER_CATALOGUE.filter(p=>p.productType!=='furniture').forEach(p=>all.push({name:"Petracer's",s:score(p,requestedRef||q)}));
+    if(Array.isArray(window.PETRACER_BATH_CATALOGUE))window.PETRACER_BATH_CATALOGUE.filter(p=>['meubles','sanitaire','robinetterie'].includes(p.navCategory)).forEach(p=>all.push({name:"Petracer's",category:p.navCategory,s:score(p,requestedRef||q)}));
     if(Array.isArray(window.NEOBATH_CATALOGUE))window.NEOBATH_CATALOGUE.forEach(p=>all.push({name:'Neobath',s:score(p,requestedRef||q)}));
-    all.sort((a,b)=>b.s-a.s);if(all[0]?.s>0)return all[0].name;
+    all.sort((a,b)=>b.s-a.s);if(all[0]?.s>0){guessedCategory=all[0].category||'';return all[0].name;}
     const qn=norm(q);return names.find(n=>qn.includes(norm(n.split(' ')[0])))||'Elios Ceramica';
   }
   function choose(name){
@@ -52,7 +55,7 @@
     if(/^petracers?$/.test(compact(name)) && compact(document.getElementById('workspace-title')?.textContent)==='petracers')return "Petracer's";
     if(compact(name)==='bulbo' && compact(document.getElementById('workspace-title')?.textContent)==='bulbo')return 'Bulbo';
     if(compact(name)==='pecchiolifirenze' && compact(document.getElementById('workspace-title')?.textContent)==='pecchiolifirenze')return 'Pecchioli Firenze';
-    name=canonical(name);const cat=categories[name];if(cat)document.querySelector(`[data-cat="${cat}"]`)?.click();
+    name=canonical(name);const petracerCategory=requestedCategory||guessedCategory;const cat=name==="Petracer's"&&['meubles','sanitaire','robinetterie'].includes(petracerCategory)?petracerCategory:categories[name];if(cat)document.querySelector(`[data-cat="${cat}"]`)?.click();
     const button=[...document.querySelectorAll('[data-partner]')].find(el=>compact(el.dataset.partner)===compact(name));button?.click();return name;
   }
 
