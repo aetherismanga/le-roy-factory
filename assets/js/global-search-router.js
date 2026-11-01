@@ -134,7 +134,7 @@
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fromLink, {once:true});
     else fromLink();
     loadScript('assets/js/reviglass-search-index.js?v=20260911-ref1','lrf-univers-reviglass-index')
-      .then(()=>loadScript('assets/js/inspirations-search-bridge-v2.js?v=20261101-petracer-bain1','lrf-inspirations-search-bridge-v2'))
+      .then(()=>loadScript('assets/js/inspirations-search-bridge-v2.js?v=20261101-elios-pool3','lrf-inspirations-search-bridge-v2'))
       .catch(()=>{});
   }
   if (file==='tarifs-pro.html') loadScript('assets/js/tarifs-search-bridge.js?v=20260907-search9','lrf-tarifs-search-bridge').catch(()=>{});

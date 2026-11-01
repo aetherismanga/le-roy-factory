@@ -7,8 +7,7 @@
     {id:'meubles',label:'Meubles',icon:'▥',partners:['Randal Pro','Neobath',"Petracer's"]},
     {id:'robinetterie',label:'Robinetterie & miroir',icon:'◉',partners:['Aquahome','Opal','Reitano Rubinetterie',"Petracer's"]},
     {id:'sanitaire',label:'Sanitaire',icon:'○',partners:["Petracer's",'UPTREND']},
-    {id:'outillages',label:'Outillages / divers',icon:'⚒',partners:['Bilt']},
-    {id:'piscine',label:'Piscine',icon:'≈',partners:['Elios Ceramica']}
+    {id:'outillages',label:'Outillages / divers',icon:'⚒',partners:['Bilt']}
   ];
   const PARTNERS={
     'Elios Ceramica':{slug:'elios-ceramica',logo:'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios.png',country:'Italie',data:'elios'},
@@ -102,7 +101,7 @@
     if(state.partner==='Biopietra') return window.LRF_BIOPIETRA_SELECTION?.normaliseProducts() || [];
     if(state.partner==='La Fenice') return (window.FENICE_CATALOGUE || []).map(p=>({...p,category:p.productType||'Carrelage',colorFamilies:p.colorFamilies||basicColors(p)}));
     if(state.partner==='View Ceramica' && Array.isArray(window.VIEW_CATALOGUE)) return window.VIEW_CATALOGUE;
-    if(state.partner==='Elios Ceramica' && (state.poolGroup || state.category==='piscine')) return (DATA[state.partner]||[]).filter(window.LRF_ELIOS_SELECTION_MODEL.isPool);
+    if(state.partner==='Elios Ceramica' && state.poolGroup) return (DATA[state.partner]||[]).filter(window.LRF_ELIOS_SELECTION_MODEL.isPool);
     return DATA[state.partner]||[];
   }
   function imageOf(p){if(state.partner==='La Fenice'&&p.coverImage)return p.coverImage;const first=(state.partner==='Elios Ceramica'&&window.ELIOS_SELECTION_MEDIA?.galleries?.[p.slug]?.[0])||(p.images||[])[0];return (typeof first==='string'?first:first?.url)||'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/03.png'}
@@ -198,8 +197,10 @@
     const productHint=count?.parentElement?.querySelector('span');
     if(productHint)productHint.textContent=isRandal?'Choisissez votre meuble et préparez votre commande':'Cliquez sur un produit pour les détails et tarifs PRO';
     for(const[id,label]of [['v2-search','Rechercher dans cette sélection'],['v2-format','Filtrer les formats'],['v2-color','Filtrer les couleurs'],['v2-effect','Filtrer les effets'],['v2-finish','Filtrer les finitions']])document.getElementById(id)?.setAttribute('aria-label',label);
+    const poolNav=$('#elios-pool-nav');if(poolNav)poolNav.hidden=state.partner!=='Elios Ceramica';
+    $('#elios-all-collections')?.setAttribute('aria-pressed',String(!state.poolGroup));$('#elios-pool-collections')?.setAttribute('aria-pressed',String(state.poolGroup));
     fillFilters();renderProducts();window.LRF_BIOPIETRA_SELECTION?.refreshChrome();window.LRF_BULBO_SELECTION?.refreshChrome();window.LRF_PECCHIOLI_SELECTION?.refreshChrome();window.LRF_PETRACER_SELECTION?.refreshChrome(state.category);window.LRF_UPTREND_SELECTION?.refresh?.();}
-  function resetFilters(){state.poolGroup=state.category==='piscine';state.q='';state.format=state.color=state.effect=state.finish='Tous';const s=$('#v2-search');if(s)s.value=''}
+  function resetFilters(){state.poolGroup=false;state.q='';state.format=state.color=state.effect=state.finish='Tous';const s=$('#v2-search');if(s)s.value=''}
   function chooseCategory(id){const c=CATEGORIES.find(x=>x.id===id);if(!c)return;state.category=id;state.partner=c.partners[0]||'';resetFilters();renderCategories();renderPartners();renderWorkspace()}
   function choosePartner(name){if(!CATEGORIES.find(c=>c.id===state.category)?.partners.includes(name))return;state.partner=name;resetFilters();renderPartners();renderWorkspace();partnerPanel.classList.remove('mobile-open')}
   function openProduct(id){
@@ -227,13 +228,15 @@
     modal.classList.add('open');document.body.style.overflow='hidden';$('.modal-v2-close',box).onclick=()=>{modal.classList.remove('open');document.body.style.overflow=''};
   }
 
+  $('#elios-all-collections')?.addEventListener('click',()=>{if(state.partner!=='Elios Ceramica')return;resetFilters();renderWorkspace();});
+  $('#elios-pool-collections')?.addEventListener('click',()=>{if(state.partner!=='Elios Ceramica')return;resetFilters();state.poolGroup=true;renderWorkspace();});
   categories.addEventListener('click',e=>{const b=e.target.closest('[data-cat]');if(b)chooseCategory(b.dataset.cat)});
   partnerGrid.addEventListener('click',e=>{const b=e.target.closest('[data-partner]');if(b)choosePartner(b.dataset.partner)});
   partnerTrigger.onclick=()=>partnerPanel.classList.toggle('mobile-open');
   $('#mobile-filter-trigger').onclick=()=>$('#v2-filters').classList.toggle('mobile-open');
   $('#v2-search').addEventListener('input',e=>{state.q=e.target.value;renderProducts()});
   [['#v2-format','format'],['#v2-color','color'],['#v2-effect','effect'],['#v2-finish','finish']].forEach(([id,key])=>{const el=$(id);if(el)el.addEventListener('change',e=>{state[key]=e.target.value;renderProducts()})});
-  productGrid.addEventListener('click',e=>{if(e.target.closest('[data-pool-back]')){if(state.category==='piscine')chooseCategory('carrelage');else{resetFilters();renderWorkspace();}workspace.scrollIntoView({behavior:'smooth',block:'start'});return;}const c=e.target.closest('[data-id]');if(c)openProduct(c.dataset.id)});
+  productGrid.addEventListener('click',e=>{if(e.target.closest('[data-pool-back]')){resetFilters();renderWorkspace();workspace.scrollIntoView({behavior:'smooth',block:'start'});return;}const c=e.target.closest('[data-id]');if(c)openProduct(c.dataset.id)});
   $('#product-modal-v2').addEventListener('click',e=>{if(e.target.id==='product-modal-v2'){e.currentTarget.classList.remove('open');document.body.style.overflow=''}});
 
   window.addEventListener('lrf-pro-session-changed',()=>{renderPartners();renderWorkspace();});
@@ -273,7 +276,7 @@
   const requestedParams=new URLSearchParams(location.search);
   if(norm(requestedParams.get('partner'))==='bilt'||requestedParams.get('category')==='outillages'){state.category='outillages';state.partner='Bilt';}
   if(norm(requestedParams.get('partner'))==='uptrend'){state.category='sanitaire';state.partner='UPTREND';}
-  if(requestedParams.get('category')==='piscine'){state.category='piscine';state.partner='Elios Ceramica';state.poolGroup=true;}
+  if(requestedParams.get('category')==='piscine'){state.category='carrelage';state.partner='Elios Ceramica';state.poolGroup=true;}
   renderCategories();renderPartners();renderWorkspace();openRequestedPetracer();openRequestedPecchioli();openRequestedFenice();openRequestedBiopietra();openRequestedBulbo();
 })();
 
