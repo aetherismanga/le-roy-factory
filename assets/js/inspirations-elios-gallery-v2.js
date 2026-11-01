@@ -106,6 +106,10 @@
     box.addEventListener('click',e=>{ if(e.target===box) closeLightbox(); });
     box.querySelector('.prev').addEventListener('click',e=>{e.stopPropagation();activeGallery?.go(-1,true)});
     box.querySelector('.next').addEventListener('click',e=>{e.stopPropagation();activeGallery?.go(1,true)});
+    window.LRF_GALLERY_GESTURES?.bind(box.querySelector('.elios-lightbox-inner'),{
+      onSwipe:delta=>activeGallery?.go(delta,true),
+      isEnabled:()=>box.classList.contains('open') && activeGallery?.canSwipe()===true
+    });
     return box;
   }
 
@@ -230,7 +234,7 @@
       document.body.classList.add('elios-lightbox-open');
     }
 
-    const api={go,render,openLightbox};
+    const api={go,render,openLightbox,canSwipe:()=>currentImages.length>1};
     activeGallery=api;
 
     prev.addEventListener('click',e=>{e.stopPropagation();go(-1)});
@@ -244,13 +248,10 @@
       openLightbox();
     });
 
-    let tx=null,ty=null;
-    stage.addEventListener('touchstart',e=>{const t=e.touches[0];tx=t.clientX;ty=t.clientY},{passive:true});
-    stage.addEventListener('touchend',e=>{
-      if(tx===null||ty===null)return;
-      const t=e.changedTouches[0],dx=t.clientX-tx,dy=t.clientY-ty;tx=ty=null;
-      if(Math.abs(dx)>42&&Math.abs(dx)>Math.abs(dy))go(dx<0?1:-1);
-    },{passive:true});
+    window.LRF_GALLERY_GESTURES?.bind(stage,{
+      onSwipe:delta=>go(delta),
+      isEnabled:()=>currentImages.length>1 && modal.classList.contains('open')
+    });
 
     // Remplace les simples chips par des cartes couleur avec aperçu image.
     const headings=[...info.querySelectorAll('h4')];

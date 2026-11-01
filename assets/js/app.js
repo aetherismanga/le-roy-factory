@@ -1,3 +1,20 @@
+/* Bindings can be registered before the small shared gesture module arrives. */
+(() => {
+    if (window.LRF_GALLERY_GESTURES) return;
+    const source = document.currentScript?.src || new URL('assets/js/app.js',location.href).href;
+    let ready;
+    const load = () => ready || (ready = import(new URL('./gallery-swipe.mjs?v=20261101-swipe1',source).href).catch(error => { ready = null; throw error; }));
+    window.LRF_GALLERY_GESTURES = Object.freeze({
+        bind(element,options) {
+            if (!element) return () => {};
+            let cancelled = false, dispose;
+            load().then(api => { if (!cancelled) dispose = api.bindGallerySwipe(element,options); }).catch(error => console.warn('Navigation tactile des photos indisponible',error));
+            return () => { cancelled = true; dispose?.(); };
+        }
+    });
+    load().catch(() => {});
+})();
+
 (()=>{
     if(document.getElementById('lrf-pwa-install-loader')) return;
     const script=document.createElement('script');

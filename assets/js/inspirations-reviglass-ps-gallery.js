@@ -140,6 +140,7 @@
     lb.addEventListener('click',e=>{if(e.target===lb)closeLightbox()});
     lb.addEventListener('wheel',e=>{e.preventDefault();scale=Math.min(5,Math.max(1,scale+(e.deltaY<0?.25:-.25)));applyTransform()}, {passive:false});
     lb.addEventListener('touchstart',onTouchStart,{passive:false});lb.addEventListener('touchmove',onTouchMove,{passive:false});
+    lb.dataset.lrfPhotoSwipe='1';window.LRF_GALLERY_GESTURES?.bind(lb,{onSwipe:delta=>showLightbox(activeIndex+delta),isEnabled:()=>lb.classList.contains('open') && activeImages.length>1 && scale<=1});
     return lb;
   }
   function resetTransform(){scale=1;tx=0;ty=0;applyTransform()}
@@ -172,6 +173,15 @@
     activeKey=ref;activeImages=imgs;activeIndex=0;failedIndexes.clear();
     let box=$('.rev-ps-gallery',modal);if(!box){box=document.createElement('section');box.className='rev-ps-gallery';const action=$('.rev-ref-choice',modal);(action?.parentNode||$('#reviglass-modal-body',modal))?.insertBefore(box,action||null)}
     box.innerHTML=`<h3>Photos HD — ${ref}</h3><small>Photos officielles Reviglass · appuyez sur une miniature pour changer de photo.</small><div class="rev-ps-main" data-rev-ps-open="0"><img src="${imgs[0]}" alt="${ref} Reviglass" loading="eager"><span class="zoom-hint">🔍 Agrandir</span></div><div class="rev-ps-thumbs">${imgs.map((u,i)=>`<button type="button" class="rev-ps-thumb${i===0?' active':''}" data-rev-ps-thumb="${i}"><img src="${u}" alt="" loading="lazy"></button>`).join('')}</div>`;
+    const main=$('.rev-ps-main',box);
+    window.LRF_GALLERY_GESTURES?.bind(main,{
+      onSwipe:delta=>{
+        activeIndex=(Number(main.dataset.revPsOpen||0)+delta+activeImages.length)%activeImages.length;
+        $('img',main).src=activeImages[activeIndex];main.dataset.revPsOpen=String(activeIndex);
+        $$('.rev-ps-thumb',box).forEach((button,i)=>button.classList.toggle('active',i===activeIndex));
+      },
+      isEnabled:()=>activeImages.length>1 && modal.classList.contains('open')
+    });
     return true;
   }
 

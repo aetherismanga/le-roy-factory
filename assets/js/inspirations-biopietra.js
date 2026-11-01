@@ -78,20 +78,29 @@
     setPhoto(photos[index]);
     $('#bpc-count',dialog).textContent = `${index+1} / ${photos.length}`;
     dialog.querySelectorAll('[data-bpc-photo]').forEach(button=>button.setAttribute('aria-pressed',String(Number(button.dataset.bpcPhoto) === index)));
+    if (lightbox?.open) {
+      const photo=$('#bpc-main-image',dialog);
+      $('img',lightbox).src=photo.dataset.original;$('img',lightbox).alt=photo.alt;
+      $('strong',lightbox).textContent=photo.alt+` · ${index+1}/${photos.length}`;
+    }
   }
   function openImage() {
     const photo = $('#bpc-main-image',dialog);
     if (!photo?.dataset.original) return;
     if (!lightbox) {
       lightbox = document.createElement('dialog'); lightbox.className = 'bpc-lightbox'; lightbox.setAttribute('aria-label','Visuel Biopietra en grand format');
-      lightbox.innerHTML = '<div class="bpc-lightbox-head"><strong></strong><button type="button" data-bpc-zoom>Zoom ×2</button><button type="button" class="bpc-close" aria-label="Fermer le visuel">×</button></div><div class="bpc-lightbox-stage"><img alt=""></div>';
+      lightbox.innerHTML = '<div class="bpc-lightbox-head"><strong></strong><button type="button" data-bpc-zoom>Zoom ×2</button><button type="button" class="bpc-close" aria-label="Fermer le visuel">×</button></div><div class="bpc-lightbox-stage"><img alt=""></div><div class="bpc-lightbox-nav"><button type="button" data-bpc-prev aria-label="Image précédente">←</button><button type="button" data-bpc-next aria-label="Image suivante">→</button></div>';
       $('.bpc-close',lightbox).onclick = ()=>lightbox.close();
       $('[data-bpc-zoom]',lightbox).onclick = event=>{const zoomed=lightbox.classList.toggle('bpc-zoomed');event.currentTarget.textContent=zoomed?'Ajuster':'Zoom ×2';};
+      $('[data-bpc-prev]',lightbox).onclick=()=>showPhoto(index-1);
+      $('[data-bpc-next]',lightbox).onclick=()=>showPhoto(index+1);
+      window.LRF_GALLERY_GESTURES?.bind($('.bpc-lightbox-stage',lightbox),{onSwipe:delta=>showPhoto(index+delta),isEnabled:()=>lightbox.open && photos.length>1 && !lightbox.classList.contains('bpc-zoomed')});
       document.body.appendChild(lightbox);
     }
     lightbox.classList.remove('bpc-zoomed'); $('[data-bpc-zoom]',lightbox).textContent = 'Zoom ×2';
     $('strong',lightbox).textContent = photo.alt;
     $('img',lightbox).src = photo.dataset.original; $('img',lightbox).alt = photo.alt;
+    $('.bpc-lightbox-nav',lightbox).hidden=photos.length<2;
     lightbox.showModal(); $('.bpc-close',lightbox).focus();
   }
   function updateChoice() {
@@ -132,6 +141,7 @@
     dialog.innerHTML = `<div class="bpc-dialog-head"><div><span class="bpc-eyebrow">BIOPIETRA · ${esc(family(product))}</span><h2 id="bpc-title">${esc(product.name)}</h2></div><button type="button" class="bpc-close" aria-label="Fermer la collection">×</button></div><div class="bpc-dialog-body"><section class="bpc-gallery" aria-label="Visuels ${esc(product.name)}">${photos.length || palette.some(c=>safe(c.image)) ? '<div class="bpc-stage"><button type="button" class="bpc-expand" aria-label="Agrandir le visuel"><img id="bpc-main-image" alt=""><span>⤢ Plein écran</span></button><span id="bpc-count"></span></div><div class="bpc-thumbnails">'+photos.map((photo,i)=>`<button type="button" data-bpc-photo="${i}" aria-label="Visuel ${i+1}" aria-pressed="false"><img src="${esc(safe(photo.thumbnail || photo.url))}" alt="" loading="lazy"></button>`).join('')+'</div><p id="bpc-caption" class="bpc-muted"></p>' : '<p class="bpc-muted">Consultez le visuel sur la fiche fabricant ci-dessous.</p>'}</section><section class="bpc-choices"><p>${esc(product.description || '')}</p>${product.composition ? `<div class="bpc-composition"><strong>Composition du mélange</strong><p>${esc(product.composition)}</p></div>` : ''}${palette.length ? `<h3>1. Choisir le coloris ou le mélange</h3><div class="bpc-swatches">${palette.map(color=>`<button type="button" data-bpc-color="${esc(color.id)}" aria-pressed="false">${safe(color.image)?`<img src="${esc(safe(color.image))}" alt="${esc(product.name+' · '+color.name)}" loading="lazy">`:'<span class="bpc-missing-photo">Visuel à confirmer</span>'}<span>${esc(color.name)}</span></button>`).join('')}</div><p id="bpc-chosen-color" class="bpc-muted" aria-live="polite"></p>` : '<p id="bpc-chosen-color" class="bpc-muted">Coloris à préciser avec l’agence.</p>'}<h3>2. Choisir l’élément et la quantité</h3><label class="bpc-field" for="bpc-variant">Plaques, angles ou pièces de finition<select id="bpc-variant"><option value="">Choisir l’élément / l’épaisseur</option>${variants.map(variant=>`<option value="${esc(variant.id)}"${variant.id===selectedVariant?' selected':''}>${esc([variant.label,variant.dimensions,variant.thickness].filter(Boolean).join(' · '))}</option>`).join('')}</select></label>${variants.length ? '' : '<p class="bpc-muted">Les pièces et conditionnements de cette composition sont à confirmer.</p>'}<label class="bpc-field" for="bpc-quantity">Quantité souhaitée <span id="bpc-quantity-unit"></span><input id="bpc-quantity" type="text" inputmode="decimal" maxlength="12" placeholder="Ex. 12,5"></label><output id="bpc-pack-result" class="bpc-pack-result" aria-live="polite"></output>${(product.technicalNotes || []).length ? `<details class="bpc-notes"><summary>Caractéristiques et conseils</summary><ul>${product.technicalNotes.map(note=>`<li>${esc(note)}</li>`).join('')}</ul></details>` : ''}<section class="bpc-tariff"><h3>Tarifs professionnels</h3><p class="bpc-muted">Documents réservés aux comptes autorisés. Les conditions de votre projet seront confirmées par l’agence.</p><button type="button" class="bpc-secondary" data-bpc-tariff="biopietra-code-prix">Ouvrir la liste fabricant et les conditions</button><p id="bpc-tariff-status" role="status"></p></section>${sourceHref ? `<section class="bpc-source"><h3>Document de la collection</h3><a href="${esc(sourceHref)}" target="_blank" rel="noopener">${esc(source.label || 'Fiche fabricant '+product.name)}${source.printedPage ? ' · p. '+esc(source.printedPage) : ''} ↗</a></section>` : ''}</section></div><div class="bpc-dialog-actions"><a id="bpc-order" class="bpc-button" href="${esc(requestLink(product))}">Préparer mon projet →</a><a href="biopietra-${esc(product.slug)}.html">Voir la fiche détaillée</a></div>`;
     $('.bpc-close',dialog).onclick = close;
     $('.bpc-expand',dialog)?.addEventListener('click',openImage);
+    window.LRF_GALLERY_GESTURES?.bind($('.bpc-stage',dialog),{onSwipe:delta=>showPhoto(index+delta),isEnabled:()=>dialog.open && photos.length>1});
     dialog.querySelectorAll('[data-bpc-photo]').forEach(button=>button.onclick=()=>showPhoto(Number(button.dataset.bpcPhoto)));
     dialog.querySelectorAll('[data-bpc-color]').forEach(button=>button.onclick=()=>{
       selectedColor = button.dataset.bpcColor;

@@ -133,6 +133,12 @@
   document.getElementById('talox-prev')?.addEventListener('click',()=>show(current-1));
   document.getElementById('talox-next')?.addEventListener('click',()=>show(current+1));
   thumbs.forEach(b=>b.addEventListener('click',()=>show(Number(b.dataset.taloxIndex)||0)));
+  import('./assets/js/gallery-swipe.mjs?v=20261101-swipe1').then(({bindGallerySwipe})=>{
+    bindGallerySwipe(document.querySelector('.talox-gallery-main'),{
+      onSwipe:delta=>show(current+delta),
+      isEnabled:()=>images.length>1
+    });
+  }).catch(error=>console.warn('Navigation tactile des photos BILT indisponible.',error));
   document.addEventListener('keydown',e=>{
     if(e.key==='ArrowLeft')show(current-1);
     if(e.key==='ArrowRight')show(current+1);

@@ -11,7 +11,7 @@
   ],
   "sharedCatalogueVersion": "20261024-suite-1",
   "publicSite": {
-    "releaseId": "20261101-bulbo-selection-1",
+    "releaseId": "20261101-gallery-swipe-1",
     "baselineCommit": "0a116a66e4fb03522876be09d417f853bb3b2ed9",
     "pages": [
       "configurateur-salle-de-bain-3d.html",
@@ -85,6 +85,16 @@
       "protectedTariffDate": "2026-10-01",
       "singleLatestCatalogue": true,
       "requestForm": "bulbo-projet.html"
+    },
+    "photoNavigation": {
+      "version": "20261101-swipe1",
+      "directions": [
+        "left",
+        "right"
+      ],
+      "touchPhotoNavigation": true,
+      "preserveZoomAndVerticalScroll": true,
+      "sharedGestureController": true
     }
   },
   "configurators": {

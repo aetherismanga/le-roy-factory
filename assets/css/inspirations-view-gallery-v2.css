@@ -1,6 +1,6 @@
 /* Scoped to the VIEW collection viewer. */
 .view-gallery-v2{min-width:0;background:#f5f2eb;color:#25231f}
-.view-gallery-v2-stage{position:relative;aspect-ratio:4/3;background:#eae6de;overflow:hidden;touch-action:pan-y}
+.view-gallery-v2-stage{position:relative;aspect-ratio:4/3;background:#eae6de;overflow:hidden;touch-action:pan-y pinch-zoom}
 .view-gallery-v2-expand{display:block;width:100%;height:100%;padding:0;border:0;border-radius:0;background:transparent;cursor:zoom-in;position:relative;overflow:hidden}
 .view-gallery-v2 .view-gallery-v2-main{display:block!important;width:100%!important;height:100%!important;min-height:0!important;max-height:none!important;object-fit:contain!important;background:#eae6de}
 .view-gallery-v2-expand-label{position:absolute;left:12px;bottom:12px;padding:7px 11px;background:rgba(22,24,25,.8);color:#fff;border-radius:8px;font-size:.8rem;font-weight:750;pointer-events:none}
@@ -26,9 +26,9 @@
 .view-lightbox-v2 button{background:#33373b;border:1px solid #74787c;border-radius:8px;color:#fff;min-width:44px;min-height:44px;font:inherit;cursor:pointer}
 .view-lightbox-zoom{padding:8px 12px;font-size:.85rem!important}
 .view-lightbox-close{font-size:1.8rem!important}
-.view-lightbox-stage{position:relative;min-width:0;min-height:0;display:grid;place-items:center;overflow:hidden;touch-action:pan-y;padding:12px 60px;box-sizing:border-box}
+.view-lightbox-stage{position:relative;min-width:0;min-height:0;display:grid;place-items:center;overflow:hidden;touch-action:pan-y pinch-zoom;padding:12px 60px;box-sizing:border-box}
 .view-lightbox-photo{display:block;width:auto;height:auto;max-width:100%;max-height:100%;object-fit:contain;min-height:0}
-.view-lightbox-v2.zoomed .view-lightbox-stage{display:block;overflow:auto;padding:12px;touch-action:pan-x pan-y}
+.view-lightbox-v2.zoomed .view-lightbox-stage{display:block;overflow:auto;padding:12px;touch-action:pan-x pan-y pinch-zoom}
 .view-lightbox-v2.zoomed .view-lightbox-photo{max-width:none;max-height:none;margin:0 auto}
 .view-lightbox-prev,.view-lightbox-next{position:absolute;top:50%;transform:translateY(-50%);font-size:2rem!important;box-shadow:0 2px 8px #0004}
 .view-lightbox-prev{left:max(10px,env(safe-area-inset-left,0px))}.view-lightbox-next{right:max(10px,env(safe-area-inset-right,0px))}

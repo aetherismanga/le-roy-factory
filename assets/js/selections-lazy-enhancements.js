@@ -22,7 +22,7 @@
       'assets/js/inspirations-elios-dust-hd.js?v=20260913-dusthd2&media=20261018',
       'assets/js/inspirations-elios-color-media-20261101.js?v=20261101-elios-images1',
       'assets/js/elios-selection-media-model.js?v=20261101-elios-images1',
-      'assets/js/inspirations-elios-gallery-v2.js?v=20261101-elios-images1'
+      'assets/js/inspirations-elios-gallery-v2.js?v=20261101-swipe1'
     ],
     view: [
       'assets/js/inspirations-view-data.js?v=20260907-view-lot1-final&media=20261018',
@@ -33,7 +33,7 @@
       'assets/js/inspirations-view-accessories.js?v=20260911-view-accessories1',
       'assets/js/inspirations-view-hd.js?v=20261031-view1',
       'assets/js/inspirations-view-mobile-safe.js?v=20261031-view-mobile3',
-      'assets/js/inspirations-view-gallery-v2.js?v=20261031-view-seo1',
+      'assets/js/inspirations-view-gallery-v2.js?v=20261101-swipe1',
       'assets/js/view-catalogue-reader.js?v=20261031-view1',
       'assets/js/inspirations-view-discovery.js?v=20261031-view1',
       'assets/js/inspirations-view-accessories-ui.js?v=20260911-view-accessories-ui1',
