@@ -89,7 +89,8 @@
         await loadScript('assets/js/reviglass-search-index.js?v=20260911-ref1','lrf-search-reviglass-index');
         await loadScript('assets/js/fenice-catalogue-loader.js?v=20261101-fenice1','lrf-search-fenice-loader');
         await window.LRF_FENICE_LOAD?.();
-        await loadScript('assets/js/site-search-v2.js?v=20261101-fenice1','lrf-site-search-js-v2');
+        await loadScript('assets/js/biopietra-discovery-data.js?v=20261101-biopietra1','lrf-search-biopietra-data');
+        await loadScript('assets/js/site-search-v2.js?v=20261101-biopietra1','lrf-site-search-js-v2');
           button.removeEventListener('click', openOnDemand);
           button.disabled = false;
           button.click();
@@ -117,19 +118,7 @@
   if (file==='index.html' || file==='') installHomeSearch();
   if (file==='univers.html') {
     installViewInspirationsGuard();
-    let biopietraPromise;
-    const bootstrapBiopietra = () => biopietraPromise ||= loadScript('assets/js/inspirations-biopietra-2026.js?v=20260912-bio2','lrf-biopietra-2026')
-      .then(()=>loadScript('assets/js/inspirations-biopietra-fix.js?v=20260912-bio2','lrf-biopietra-fix'))
-      .then(()=>loadScript('assets/js/inspirations-biopietra-actions.js?v=20260912-bio3','lrf-biopietra-actions'))
-      .then(()=>loadScript('assets/js/inspirations-biopietra-search-v2.js?v=20260912-bio4','lrf-biopietra-search-v2'))
-      .then(()=>loadScript('assets/js/inspirations-biopietra-gallery.js?v=20260912-bio4','lrf-biopietra-gallery'))
-      .then(()=>loadScript('assets/js/inspirations-biopietra-stable.js?v=20260912-bio5','lrf-biopietra-stable'))
-      .then(()=>loadScript('assets/js/inspirations-biopietra-product-details.js?v=20260912-bio8','lrf-biopietra-details'))
-      .then(()=>loadScript('assets/js/inspirations-biopietra-overview-consumables.js?v=20260924-bio-about2','lrf-biopietra-overview-consumables'))
-      .then(()=>loadScript('assets/js/inspirations-biopietra-modal-safety.js?v=20260912-bio8','lrf-biopietra-modal-safety'))
-      .then(()=>loadScript('assets/js/inspirations-biopietra-batch2.js?v=20260912-bio9','lrf-biopietra-batch2'))
-      .then(()=>loadScript('assets/js/inspirations-biopietra-stability-hotfix.js?v=20260913-bio-stability1','lrf-biopietra-stability-hotfix'))
-      .catch(error=>{biopietraPromise=null;console.warn('LRF Biopietra',error);});
+    const bootstrapBiopietra = () => window.LRF_BIOPIETRA_LOAD?.().catch(error=>console.warn('LRF Biopietra',error));
     const activate = name => {
       if (/view/i.test(name)) bootstrapViewInspirations();
       if (/biopietra/i.test(name)) bootstrapBiopietra();

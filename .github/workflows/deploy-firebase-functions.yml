@@ -52,6 +52,7 @@ jobs:
           node --test test/configurator-projects.test.cjs
           node --test test/configurator-purchase-prices.test.cjs
           node --test test/fenice-request.test.cjs
+          node --test test/biopietra-request.test.cjs
           node - <<'JS'
           const {GoogleAuth}=require('google-auth-library');
           (async()=>{const client=await new GoogleAuth({scopes:['https://www.googleapis.com/auth/cloud-platform']}).getClient();const {data}=await client.request({url:'https://firestore.googleapis.com/v1/projects/le-roy-factory/databases/(default)'});console.log(JSON.stringify({name:data.name,type:data.type,databaseEdition:data.databaseEdition||'STANDARD_LEGACY'}));if(data.type!=='FIRESTORE_NATIVE'||data.databaseEdition==='ENTERPRISE')throw Error('Expected existing native Standard Firestore database.');})().catch(e=>{console.error(e.message);process.exit(1);});
@@ -68,7 +69,8 @@ jobs:
           project_only=bool(changed) and all(p in ['functions/entry.js','functions/configurator-projects.js','functions/configurator-projects-core.js','functions/test/configurator-projects.test.cjs'] for p in changed)
           purchase_only=bool(changed) and all(p in ['functions/entry.js','functions/configurator-purchase-prices.js','functions/configurator-purchase-prices-core.js','functions/test/configurator-purchase-prices.test.cjs'] for p in changed)
           fenice_only=bool(changed) and all(p in ['functions/entry.js','functions/fenice-request.js','functions/fenice-request-core.js','functions/fenice-packaging.json','functions/fenice-packaging.mjs','functions/test/fenice-request.test.cjs'] for p in changed)
-          target='functions:feniceRequest' if fenice_only and os.environ['EVENT_NAME']=='push' else 'functions:getConfiguratorPurchasePrices' if purchase_only and os.environ['EVENT_NAME']=='push' else 'functions:randalProjects' if project_only and os.environ['EVENT_NAME']=='push' else 'functions:getTariffPdf,functions:getNeobathDnaTariff,functions:createProSession,functions:validateProSession,functions:revokeProSession,functions:trackLrfActivity,functions:getLrfAnalytics,functions:eliosStock,functions:eliosOrder,functions:eliosPoseOrder,functions:eliosCatalog,functions:biltOrder,functions:biltDecision,functions:biltScheduleAutoRelease,functions:biltAutoReleaseSweep,functions:crmFilesUpload,functions:siteControl,functions:aquahomeCatalog,functions:reitanoCatalog,functions:randalProjects,functions:getConfiguratorPurchasePrices,functions:feniceRequest'
+          biopietra_only=bool(changed) and all(p in ['functions/entry.js','functions/biopietra-request.js','functions/biopietra-request-core.js','functions/biopietra-catalogue.json','functions/test/biopietra-request.test.cjs'] for p in changed)
+          target='functions:biopietraRequest' if biopietra_only and os.environ['EVENT_NAME']=='push' else 'functions:feniceRequest' if fenice_only and os.environ['EVENT_NAME']=='push' else 'functions:getConfiguratorPurchasePrices' if purchase_only and os.environ['EVENT_NAME']=='push' else 'functions:randalProjects' if project_only and os.environ['EVENT_NAME']=='push' else 'functions:getTariffPdf,functions:getNeobathDnaTariff,functions:createProSession,functions:validateProSession,functions:revokeProSession,functions:trackLrfActivity,functions:getLrfAnalytics,functions:eliosStock,functions:eliosOrder,functions:eliosPoseOrder,functions:eliosCatalog,functions:biltOrder,functions:biltDecision,functions:biltScheduleAutoRelease,functions:biltAutoReleaseSweep,functions:crmFilesUpload,functions:siteControl,functions:aquahomeCatalog,functions:reitanoCatalog,functions:randalProjects,functions:getConfiguratorPurchasePrices,functions:feniceRequest,functions:biopietraRequest'
           with open(os.environ['GITHUB_OUTPUT'],'a') as out:out.write('only='+target+'\n')
           PYTHON
 
@@ -80,7 +82,7 @@ jobs:
           --non-interactive
 
       - name: Verify project endpoint rejects unauthenticated access
-        if: steps.targets.outputs.only != 'functions:feniceRequest'
+        if: steps.targets.outputs.only != 'functions:feniceRequest' && steps.targets.outputs.only != 'functions:biopietraRequest'
         run: |
           node - <<'JS'
           (async()=>{const r=await fetch('https://us-central1-le-roy-factory.cloudfunctions.net/randalProjects',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'list',variant:'studio-one'})});const body=await r.json();if(r.status!==401||body.success!==false)throw Error('Project endpoint authentication check failed: '+r.status);console.log('RANDAL project API ready; unauthenticated access rejected. No project or email created.');})().catch(e=>{console.error(e.message);process.exit(1);});
@@ -103,5 +105,25 @@ jobs:
               if(response.status!==check.status||body.success!==false)throw Error('La Fenice request validation failed: '+response.status+' expected '+check.status);
             }
             console.log('La Fenice request API ready; method, required fields and origin rejected as expected. No email or inquiry created.');
+          })().catch(e=>{console.error(e.message);process.exit(1);});
+          JS
+
+      - name: Verify Biopietra request validation without sending an email
+        if: contains(steps.targets.outputs.only, 'functions:biopietraRequest')
+        run: |
+          node - <<'JS'
+          (async()=>{
+            const url='https://us-central1-le-roy-factory.cloudfunctions.net/biopietraRequest';
+            const checks=[
+              {method:'GET',origin:'https://leroyfactory.fr',status:405},
+              {method:'POST',origin:'https://leroyfactory.fr',body:'{}',status:400},
+              {method:'POST',origin:'https://not-authorized.invalid',body:'{}',status:403}
+            ];
+            for(const check of checks){
+              const response=await fetch(url,{method:check.method,headers:{'Content-Type':'application/json',Origin:check.origin},...(check.body?{body:check.body}:{})});
+              const body=await response.json();
+              if(response.status!==check.status||body.success!==false)throw Error('Biopietra request validation failed: '+response.status+' expected '+check.status);
+            }
+            console.log('Biopietra endpoint validation verified. No email sent.');
           })().catch(e=>{console.error(e.message);process.exit(1);});
           JS

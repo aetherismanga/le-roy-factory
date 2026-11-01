@@ -1,0 +1,6127 @@
+{
+  "schema": "lrf-biopietra-request-catalogue",
+  "version": "20261101-biopietra1",
+  "updatedAt": "2026-11-01",
+  "source": "https://biopietra.com/prodotto/",
+  "collections": [
+    {
+      "slug": "acropoli",
+      "name": "Acropoli",
+      "swatches": [
+        {
+          "id": "b81",
+          "name": "B81"
+        },
+        {
+          "id": "b82",
+          "name": "B82"
+        },
+        {
+          "id": "beige-credaro",
+          "name": "Beige Credaro"
+        },
+        {
+          "id": "d0",
+          "name": "D0"
+        },
+        {
+          "id": "g85",
+          "name": "G85"
+        },
+        {
+          "id": "g87",
+          "name": "G87"
+        },
+        {
+          "id": "m92",
+          "name": "M92"
+        },
+        {
+          "id": "m94",
+          "name": "M94"
+        },
+        {
+          "id": "m95",
+          "name": "M95"
+        },
+        {
+          "id": "m96",
+          "name": "M96"
+        },
+        {
+          "id": "mix-acr-01",
+          "name": "Mix ACR 01"
+        },
+        {
+          "id": "terra",
+          "name": "Terra"
+        },
+        {
+          "id": "zolfo",
+          "name": "Zolfo"
+        }
+      ],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/acropoli/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/acropoli/",
+          "packagingSource": "1 ml"
+        }
+      ]
+    },
+    {
+      "slug": "alviano",
+      "name": "Alviano",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/alviano-biopietra/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/alviano-biopietra/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "aosta",
+      "name": "Aosta",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-aosta/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-aosta/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "asolo",
+      "name": "Asolo",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/45-asolo/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/45-asolo/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "aulla",
+      "name": "Aulla",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/aulla/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/aulla/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "bergamo",
+      "name": "Bergamo",
+      "swatches": [
+        {
+          "id": "650-bianco",
+          "name": "650 Bianco"
+        },
+        {
+          "id": "b80",
+          "name": "B80"
+        },
+        {
+          "id": "beige-credaro",
+          "name": "Beige Credaro"
+        },
+        {
+          "id": "c58",
+          "name": "C58"
+        },
+        {
+          "id": "g85",
+          "name": "G85"
+        },
+        {
+          "id": "g86",
+          "name": "G86"
+        },
+        {
+          "id": "m95",
+          "name": "M95"
+        },
+        {
+          "id": "m96",
+          "name": "M96"
+        },
+        {
+          "id": "mix-ber-01",
+          "name": "Mix BER 01"
+        },
+        {
+          "id": "o91",
+          "name": "O91"
+        }
+      ],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/bergamo/",
+          "packagingSource": "1,00 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles Acropoli compatibles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/bergamo/",
+          "packagingSource": "1,00 ml (LM)",
+          "relatedCollectionSlug": "acropoli"
+        }
+      ]
+    },
+    {
+      "slug": "bienno",
+      "name": "Bienno",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/bienno-biopietra/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/bienno-biopietra/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "biofin",
+      "name": "Biofin",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "bidon-1-l",
+          "label": "Bidon 1 L",
+          "component": "accessory",
+          "unit": "L",
+          "packQuantity": 1,
+          "packLabel": "bidon",
+          "dimensions": "1 L",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/accessorio/biofin/"
+        },
+        {
+          "id": "bidon-5-l",
+          "label": "Bidon 5 L",
+          "component": "accessory",
+          "unit": "L",
+          "packQuantity": 5,
+          "packLabel": "bidon",
+          "dimensions": "5 L",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/accessorio/biofin/"
+        },
+        {
+          "id": "bidon-10-l",
+          "label": "Bidon 10 L",
+          "component": "accessory",
+          "unit": "L",
+          "packQuantity": 10,
+          "packLabel": "bidon",
+          "dimensions": "10 L",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/accessorio/biofin/"
+        }
+      ]
+    },
+    {
+      "slug": "biostucco",
+      "name": "Biostucco",
+      "swatches": [
+        {
+          "id": "bianco",
+          "name": "Bianco"
+        },
+        {
+          "id": "grigio-chiaro",
+          "name": "Grigio Chiaro"
+        },
+        {
+          "id": "grigio-medio",
+          "name": "Grigio Medio"
+        },
+        {
+          "id": "grigio-scuro",
+          "name": "Grigio Scuro"
+        },
+        {
+          "id": "grigio-cemento",
+          "name": "Grigio Cemento"
+        },
+        {
+          "id": "perla",
+          "name": "Perla"
+        },
+        {
+          "id": "terra",
+          "name": "Terra"
+        },
+        {
+          "id": "fango",
+          "name": "Fango"
+        },
+        {
+          "id": "coccio-pesto",
+          "name": "Coccio Pesto"
+        },
+        {
+          "id": "ardesia",
+          "name": "Ardesia"
+        }
+      ],
+      "variants": [
+        {
+          "id": "sac-25-kg",
+          "label": "Sac de 25 kg",
+          "component": "accessory",
+          "unit": "kg",
+          "packQuantity": 25,
+          "packLabel": "sac",
+          "dimensions": "Sac 25 kg",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/accessorio/biostucco/"
+        }
+      ]
+    },
+    {
+      "slug": "borgo-antico",
+      "name": "Borgo Antico",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-borgo-antico/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-borgo-antico/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "brick-design",
+      "name": "Brick Design",
+      "swatches": [
+        {
+          "id": "agata",
+          "name": "Agata"
+        },
+        {
+          "id": "bianco",
+          "name": "Bianco"
+        },
+        {
+          "id": "bianco-posa-in-verticale",
+          "name": "Bianco_posa in verticale"
+        },
+        {
+          "id": "g86",
+          "name": "G86"
+        },
+        {
+          "id": "g88",
+          "name": "G88"
+        },
+        {
+          "id": "mattone",
+          "name": "Mattone"
+        },
+        {
+          "id": "rosso-vintage",
+          "name": "Rosso Vintage"
+        }
+      ],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 0.8,
+          "packLabel": "boîte",
+          "dimensions": "~4,5 x 46 cm",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/brick-design-new/",
+          "packagingSource": "0,80 m²"
+        }
+      ]
+    },
+    {
+      "slug": "brunico",
+      "name": "Brunico",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-brunico/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-brunico/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "busseto",
+      "name": "Busseto",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/busseto/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/busseto/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "calenzano",
+      "name": "Calenzano",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/calenzano/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/calenzano/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "camaiore",
+      "name": "Camaiore",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/camaiore-biopietra-pietra-rigenerata/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/camaiore-biopietra-pietra-rigenerata/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "campagnolo",
+      "name": "Campagnolo",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/campagnolo/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/campagnolo/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "capri",
+      "name": "Capri",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/capri/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/capri/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "carmignano",
+      "name": "Carmignano",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/carmignano-biopietra/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/carmignano-biopietra/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "carrara",
+      "name": "Carrara",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/carrara/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/carrara/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "castel-san-pietro",
+      "name": "Castel San Pietro",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/castel-san-pietro/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/castel-san-pietro/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "cavalese",
+      "name": "Cavalese",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/cavalese/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/cavalese/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "ciottolo-river",
+      "name": "Ciottolo River",
+      "swatches": [
+        {
+          "id": "b82",
+          "name": "B82"
+        },
+        {
+          "id": "granito",
+          "name": "Granito"
+        },
+        {
+          "id": "grigio",
+          "name": "Grigio"
+        },
+        {
+          "id": "mix-cio-01",
+          "name": "Mix CIO 01"
+        },
+        {
+          "id": "quarzo",
+          "name": "Quarzo"
+        },
+        {
+          "id": "terra",
+          "name": "Terra"
+        },
+        {
+          "id": "zolfo",
+          "name": "Zolfo"
+        }
+      ],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/cittolo-river/",
+          "packagingSource": "1,00 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/cittolo-river/",
+          "packagingSource": "1,00 ml"
+        }
+      ]
+    },
+    {
+      "slug": "classic-brick",
+      "name": "Classic Brick",
+      "swatches": [
+        {
+          "id": "m50",
+          "name": "M50"
+        }
+      ],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 0.96,
+          "packLabel": "boîte",
+          "dimensions": "~16 x 40 cm",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/classic-brick/",
+          "packagingSource": "0,96 m² 15 pz",
+          "piecesPerPack": 15
+        }
+      ]
+    },
+    {
+      "slug": "compiano",
+      "name": "Compiano",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/compiano/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/compiano/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "cornici-di-finitura",
+      "name": "Cornici di finitura",
+      "swatches": [
+        {
+          "id": "650-bianco",
+          "name": "650 Bianco"
+        },
+        {
+          "id": "zolfo",
+          "name": "Zolfo"
+        },
+        {
+          "id": "c58-cromite",
+          "name": "C58 Cromite"
+        },
+        {
+          "id": "granito",
+          "name": "Granito"
+        },
+        {
+          "id": "700-grigio",
+          "name": "700 Grigio"
+        },
+        {
+          "id": "c54-beige",
+          "name": "C54 Beige"
+        }
+      ],
+      "variants": [
+        {
+          "id": "cornice-2-5-cm",
+          "label": "Cornice · 2,5 cm",
+          "component": "piece",
+          "unit": "pièce",
+          "packQuantity": 50,
+          "packLabel": "boîte",
+          "dimensions": "±30 × 3,5 cm",
+          "thickness": "2,5 cm",
+          "sourceUrl": "https://biopietra.com/angoli-pietra-ricostruita-cornici-lampade/"
+        },
+        {
+          "id": "cornice-3-5-cm",
+          "label": "Cornice · 3,5 cm",
+          "component": "piece",
+          "unit": "pièce",
+          "packQuantity": 50,
+          "packLabel": "boîte",
+          "dimensions": "±30 × 3,5 cm",
+          "thickness": "3,5 cm",
+          "sourceUrl": "https://biopietra.com/angoli-pietra-ricostruita-cornici-lampade/"
+        }
+      ]
+    },
+    {
+      "slug": "cortina",
+      "name": "Cortina",
+      "swatches": [
+        {
+          "id": "tabacco",
+          "name": "Tabacco"
+        },
+        {
+          "id": "cromo",
+          "name": "Cromo"
+        },
+        {
+          "id": "bianco",
+          "name": "Bianco"
+        },
+        {
+          "id": "granito",
+          "name": "Granito"
+        }
+      ],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 0.5,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/cortina-biopietra-rivestimento/",
+          "packagingSource": "0,50 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/cortina-biopietra-rivestimento/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "cortona",
+      "name": "Cortona",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/cortona/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/cortona/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "credaro",
+      "name": "Credaro",
+      "swatches": [
+        {
+          "id": "b80",
+          "name": "B80"
+        },
+        {
+          "id": "b81",
+          "name": "B81"
+        },
+        {
+          "id": "b82",
+          "name": "B82"
+        },
+        {
+          "id": "c54-beige",
+          "name": "C54 Beige"
+        },
+        {
+          "id": "g85",
+          "name": "G85"
+        },
+        {
+          "id": "g86",
+          "name": "G86"
+        },
+        {
+          "id": "m92",
+          "name": "M92"
+        },
+        {
+          "id": "m95",
+          "name": "M95"
+        },
+        {
+          "id": "m96",
+          "name": "M96"
+        },
+        {
+          "id": "mix-cre-01",
+          "name": "Mix CRE 01"
+        },
+        {
+          "id": "mix-cre-02",
+          "name": "Mix CRE 02"
+        },
+        {
+          "id": "mix-cre-03",
+          "name": "Mix CRE 03"
+        },
+        {
+          "id": "mix-cre-04",
+          "name": "Mix CRE 04"
+        },
+        {
+          "id": "o91",
+          "name": "O91"
+        },
+        {
+          "id": "zolfo",
+          "name": "Zolfo"
+        }
+      ],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/credaro/",
+          "packagingSource": "1,00 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/credaro/",
+          "packagingSource": "1,00 ml"
+        }
+      ]
+    },
+    {
+      "slug": "cuneo",
+      "name": "Cuneo",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/cuneo/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/cuneo/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "cusano",
+      "name": "Cusano",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/cusano/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/cusano/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "ecokoll",
+      "name": "Ecokoll",
+      "swatches": [
+        {
+          "id": "grigia",
+          "name": "Grigia"
+        }
+      ],
+      "variants": [
+        {
+          "id": "sac-25-kg",
+          "label": "Sac de 25 kg",
+          "component": "accessory",
+          "unit": "kg",
+          "packQuantity": 25,
+          "packLabel": "sac",
+          "dimensions": "Sac 25 kg",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/accessorio/eco-koll/"
+        }
+      ]
+    },
+    {
+      "slug": "empoli",
+      "name": "Empoli",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/empoli/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/empoli/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "favignana",
+      "name": "Favignana",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/favignana-biopietra-pietra-rigenerata/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/favignana-biopietra-pietra-rigenerata/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "fiesole",
+      "name": "Fiesole",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/fiesole/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/fiesole/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "garda",
+      "name": "Garda",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/garda/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/garda/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "grosseto",
+      "name": "Grosseto",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/grosseto/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/grosseto/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "inserti",
+      "name": "Inserti décoratifs",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "inserti-a-confirmer",
+          "label": "Inserts · référence à confirmer",
+          "component": "piece",
+          "unit": "pièce",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/biopietra-ortisei-e-inserti/",
+          "packagingNote": "Boîtage à confirmer ; aucun conditionnement chiffré n’est documenté sur la page officielle consultée."
+        }
+      ]
+    },
+    {
+      "slug": "iseo",
+      "name": "Iseo",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/34-iseo/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/34-iseo/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "listello-liguria",
+      "name": "Listello Liguria",
+      "swatches": [
+        {
+          "id": "listello-liguria-agata",
+          "name": "Listello Liguria Agata"
+        },
+        {
+          "id": "beige",
+          "name": "Beige"
+        },
+        {
+          "id": "beige-vintage",
+          "name": "Beige Vintage"
+        },
+        {
+          "id": "listello-liguria-bianco",
+          "name": "Listello Liguria Bianco"
+        },
+        {
+          "id": "b0",
+          "name": "B0"
+        },
+        {
+          "id": "listello-liguria-fume",
+          "name": "Listello Liguria Fumè"
+        },
+        {
+          "id": "g88",
+          "name": "G88"
+        },
+        {
+          "id": "listello-liguria-fume-50-listello-liguria-mokka-50",
+          "name": "Listello Liguria Fumè 50%, Listello Liguria Mokka 50%"
+        },
+        {
+          "id": "listello-liguria-mokka",
+          "name": "Listello Liguria Mokka"
+        },
+        {
+          "id": "mokka-vintage",
+          "name": "Mokka Vintage"
+        },
+        {
+          "id": "listello-liguria-mokka-50-liguria-tobacco-50",
+          "name": "Listello Liguria Mokka 50%, Liguria Tobacco 50%"
+        },
+        {
+          "id": "listello-liguria-noce",
+          "name": "Listello Liguria Noce"
+        },
+        {
+          "id": "listello-liguria-noce-50-liguria-tobacco-50",
+          "name": "Listello Liguria Noce 50%, Liguria Tobacco 50%"
+        },
+        {
+          "id": "listello-liguria-rosso-vintage",
+          "name": "Listello Liguria Rosso Vintage"
+        },
+        {
+          "id": "listello-liguria-tobacco",
+          "name": "Listello Liguria Tobacco"
+        }
+      ],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "~ 21 x 4,3/4,5 cm",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/listello-liguria/",
+          "packagingSource": "1,00 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "~ 21 x 10 x 4,3/4,5 cm",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/listello-liguria/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "listello-liguria-mix",
+      "name": "Listello Liguria Mix",
+      "swatches": [
+        {
+          "id": "listello-liguria-fume-50-listello-liguria-mokka-50",
+          "name": "Listello Liguria Fumè 50%, Listello Liguria Mokka 50%"
+        },
+        {
+          "id": "listello-liguria-mokka-50-listello-liguria-tobacco-50",
+          "name": "Listello Liguria Mokka 50%, Listello Liguria Tobacco 50%"
+        },
+        {
+          "id": "listello-liguria-noce-50-listello-liguria-tobacco-50",
+          "name": "Listello Liguria Noce 50%, Listello Liguria Tobacco 50%"
+        }
+      ],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "~ 21 x 5 cm",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/listello-liguria-mix/",
+          "packagingSource": "1,00 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "~ 21 x 10 x 4,3/4,5 cm",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/listello-liguria-mix/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "listello-mattone-antico",
+      "name": "Listello Mattone Antico",
+      "swatches": [
+        {
+          "id": "agata",
+          "name": "Agata"
+        },
+        {
+          "id": "beige",
+          "name": "Beige"
+        },
+        {
+          "id": "bianco",
+          "name": "Bianco"
+        },
+        {
+          "id": "c58-cromite",
+          "name": "C58 Cromite"
+        },
+        {
+          "id": "mattone-antico-mokka-50-mattone-antico-c58-cromite-50",
+          "name": "Mattone Antico Mokka 50%, Mattone Antico C58 Cromite 50%"
+        },
+        {
+          "id": "mattone-antico-rosso-50-mattone-antico-beige-50",
+          "name": "Mattone Antico Rosso 50%, Mattone Antico Beige 50%"
+        },
+        {
+          "id": "mix-mattone-antico-c58-cromite-50-mattone-antico-beige-50",
+          "name": "Mix Mattone Antico C58 Cromite 50%, Mattone Antico Beige 50%"
+        },
+        {
+          "id": "mokka",
+          "name": "Mokka"
+        },
+        {
+          "id": "rosso",
+          "name": "Rosso"
+        },
+        {
+          "id": "rosso-vintage",
+          "name": "Rosso Vintage"
+        }
+      ],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "~ 15,5/18 x 5,5 cm",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/listello-mattone-antico/",
+          "packagingSource": "1,00 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "~ 15 x 5,5 x 5 cm",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/listello-mattone-antico/",
+          "packagingSource": "1 ml (LM) (14 Pz)",
+          "piecesPerPack": 14
+        }
+      ]
+    },
+    {
+      "slug": "listello-mattone-antico-mix",
+      "name": "Listello Mattone Antico Mix",
+      "swatches": [
+        {
+          "id": "mattone-antico-mokka-50-mattone-antico-c58-cromite-50",
+          "name": "Mattone Antico Mokka 50%, Mattone Antico C58 Cromite 50%"
+        },
+        {
+          "id": "mattone-antico-rosso-50-mattone-antico-beige-50",
+          "name": "Mattone Antico Rosso 50%, Mattone Antico Beige 50%"
+        },
+        {
+          "id": "mattone-antico-c58-cromite-50-mattone-antico-beige-50",
+          "name": "Mattone Antico C58 Cromite 50%, Mattone Antico Beige 50%"
+        }
+      ],
+      "variants": [
+        {
+          "id": "reference-a-confirmer",
+          "label": "Référence à confirmer",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/listello-mattone-antico-mix/",
+          "packagingNote": "Conditionnement à confirmer sur la référence choisie."
+        }
+      ]
+    },
+    {
+      "slug": "listello-toscana",
+      "name": "Listello Toscana",
+      "swatches": [
+        {
+          "id": "beige",
+          "name": "Beige"
+        },
+        {
+          "id": "beige-vintage",
+          "name": "Beige Vintage"
+        },
+        {
+          "id": "bianco",
+          "name": "Bianco"
+        },
+        {
+          "id": "b0",
+          "name": "B0"
+        },
+        {
+          "id": "c58",
+          "name": "C58"
+        },
+        {
+          "id": "cenere",
+          "name": "Cenere"
+        },
+        {
+          "id": "g88",
+          "name": "G88"
+        },
+        {
+          "id": "p2",
+          "name": "P2"
+        },
+        {
+          "id": "r0",
+          "name": "R0"
+        },
+        {
+          "id": "rosso",
+          "name": "Rosso"
+        },
+        {
+          "id": "rosso-vintage",
+          "name": "Rosso Vintage"
+        },
+        {
+          "id": "terracotta",
+          "name": "Terracotta"
+        }
+      ],
+      "variants": [
+        {
+          "id": "fondo-1-50-cm",
+          "label": "Plaques / fond · 1,50 cm",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "~ 24 x 5,5 cm",
+          "thickness": "1,50 cm",
+          "sourceUrl": "https://biopietra.com/prodotto/listello-toscana/",
+          "packagingSource": "1,00 m²"
+        },
+        {
+          "id": "angle-1-50-cm",
+          "label": "Angles · 1,50 cm",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "~ 23 x 10 x 5,5 cm",
+          "thickness": "1,50 cm",
+          "sourceUrl": "https://biopietra.com/prodotto/listello-toscana/",
+          "packagingSource": "1,00 ml (LM) (16 Pz)",
+          "piecesPerPack": 16
+        },
+        {
+          "id": "fondo-3-cm",
+          "label": "Plaques / fond · 3 cm",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 0.5,
+          "packLabel": "boîte",
+          "dimensions": "~ 24 x 5,5 cm",
+          "thickness": "3 cm",
+          "sourceUrl": "https://biopietra.com/prodotto/listello-toscana/",
+          "packagingSource": "0,50 m²"
+        },
+        {
+          "id": "angle-3-cm",
+          "label": "Angles · 3 cm",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 0.5,
+          "packLabel": "boîte",
+          "dimensions": "~ 23 x 10 x 5,5 cm",
+          "thickness": "3 cm",
+          "sourceUrl": "https://biopietra.com/prodotto/listello-toscana/",
+          "packagingSource": "0,50 ml (LM) (8 Pz)",
+          "piecesPerPack": 8
+        }
+      ]
+    },
+    {
+      "slug": "livigno",
+      "name": "Livigno",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/livigno/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/livigno/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "livorno",
+      "name": "Livorno",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/livorno-biopietra/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/livorno-biopietra/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "lonato",
+      "name": "Lonato",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/lonato/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/lonato/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "loreto",
+      "name": "Loreto",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/loreto/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/loreto/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "mediterraneo",
+      "name": "Mediterraneo",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-mediterraneo/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-mediterraneo/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "mix-acr-01",
+      "name": "MIX ACR 01",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-acr-01/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-acr-01/",
+          "packagingSource": "1 ml"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ber-01",
+      "name": "MIX BER 01",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ber-01-classic-new/",
+          "packagingSource": "1,00 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ber-01-classic-new/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-cio-01",
+      "name": "MIX CIO 01",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-cio-01/",
+          "packagingSource": "1,00 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-cio-01/",
+          "packagingSource": "1,00 ml"
+        }
+      ]
+    },
+    {
+      "slug": "mix-cre-01",
+      "name": "MIX CRE 01",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo-3-4-00-cm",
+          "label": "Plaques / fond · 3 ± 4,00 cm",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "3 ± 4,00 cm",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-cre-01/",
+          "packagingSource": "1,00 m²"
+        },
+        {
+          "id": "angle-3-4-00-cm",
+          "label": "Angles · 3 ± 4,00 cm",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "3 ± 4,00 cm",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-cre-01/",
+          "packagingSource": "1,00 ml"
+        }
+      ]
+    },
+    {
+      "slug": "mix-cre-02",
+      "name": "MIX CRE 02",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo-3-4-00-cm",
+          "label": "Plaques / fond · 3 ± 4,00 cm",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "3 ± 4,00 cm",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-cre-02/",
+          "packagingSource": "1,00 m²"
+        },
+        {
+          "id": "angle-3-4-00-cm",
+          "label": "Angles · 3 ± 4,00 cm",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "3 ± 4,00 cm",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-cre-02/",
+          "packagingSource": "1,00 ml"
+        }
+      ]
+    },
+    {
+      "slug": "mix-cre-03",
+      "name": "MIX CRE 03",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo-3-4-00-cm",
+          "label": "Plaques / fond · 3 ± 4,00 cm",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "3 ± 4,00 cm",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-cre-03/",
+          "packagingSource": "1,00 m²"
+        },
+        {
+          "id": "angle-3-4-00-cm",
+          "label": "Angles · 3 ± 4,00 cm",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "3 ± 4,00 cm",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-cre-03/",
+          "packagingSource": "1,00 ml"
+        }
+      ]
+    },
+    {
+      "slug": "mix-cre-04",
+      "name": "MIX CRE 04",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo-3-4-00-cm",
+          "label": "Plaques / fond · 3 ± 4,00 cm",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "3 ± 4,00 cm",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-cre-04/",
+          "packagingSource": "1,00 m²"
+        },
+        {
+          "id": "angle-3-4-00-cm",
+          "label": "Angles · 3 ± 4,00 cm",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "3 ± 4,00 cm",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-cre-04/",
+          "packagingSource": "1,00 ml"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ort-17",
+      "name": "Mix ORT 17",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ort-17-new/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ort-17-new/",
+          "packagingSource": "1 ml"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ort-18",
+      "name": "Mix ORT 18",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ort-18-new/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ort-18-new/",
+          "packagingSource": "1 ml"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ort-19",
+      "name": "MIX ORT 19",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ort-19/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ort-19/",
+          "packagingSource": "1 ml"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ort-20",
+      "name": "MIX ORT 20",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ort-20/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ort-20/",
+          "packagingSource": "1 ml"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ort-21",
+      "name": "MIX ORT 21",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ort-21/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ort-21/",
+          "packagingSource": "1 ml"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ort-22",
+      "name": "MIX ORT 22",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ort-22/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ort-22/",
+          "packagingSource": "1 ml"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ort-23",
+      "name": "MIX ORT 23",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ort-23/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ort-23/",
+          "packagingSource": "1 ml"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ort-24",
+      "name": "MIX ORT 24",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ort-24/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ort-24/",
+          "packagingSource": "1 ml"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ort-25",
+      "name": "MIX ORT 25",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ort-25/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ort-25/",
+          "packagingSource": "1 ml"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ort-26",
+      "name": "MIX ORT 26",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ort-26/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ort-26/",
+          "packagingSource": "1 ml"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ort-27",
+      "name": "MIX ORT 27",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ort-27/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ort-27/",
+          "packagingSource": "1 ml"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ort-28",
+      "name": "MIX ORT 28",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ort-28/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ort-28/",
+          "packagingSource": "1 ml"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ort-29",
+      "name": "MIX ORT 29",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ort-29/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ort-29/",
+          "packagingSource": "1 ml"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ort-30",
+      "name": "MIX ORT 30",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ort-30/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ort-30/",
+          "packagingSource": "1 ml"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ort-31",
+      "name": "MIX ORT 31",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ort-31/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ort-31/",
+          "packagingSource": "1 ml"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ort-32",
+      "name": "MIX ORT 32",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ort-32/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ort-32/",
+          "packagingSource": "1 ml"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ort-33",
+      "name": "MIX ORT 33",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ort-33/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ort-33/",
+          "packagingSource": "1 ml"
+        }
+      ]
+    },
+    {
+      "slug": "mix-roc-02",
+      "name": "MIX ROC 02",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-roc-02/",
+          "packagingSource": "1,00 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-roc-02/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-roc-03",
+      "name": "MIX ROC 03",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-roc-03/",
+          "packagingSource": "1,00 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-roc-03/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-roc-04",
+      "name": "MIX ROC 04",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-roc-04/",
+          "packagingSource": "1,00 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-roc-04/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-roc-05",
+      "name": "MIX ROC 05",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-roc-05/",
+          "packagingSource": "1,00 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-roc-05/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-roc-06",
+      "name": "MIX ROC 06",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-roc-06/",
+          "packagingSource": "1,00 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-roc-06/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-sie-00",
+      "name": "MIX SIE 00",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-sie-00-new/",
+          "packagingSource": "1,00 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-sie-00-new/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-sie-19",
+      "name": "Mix SIE 19",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-sie-19-new/",
+          "packagingSource": "1,00 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-sie-19-new/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-sie-20",
+      "name": "Mix SIE 20",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-sie-20-new/",
+          "packagingSource": "1,00 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-sie-20-new/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-sie-21",
+      "name": "MIX SIE 21",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-sie-21/",
+          "packagingSource": "1,00 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-sie-21/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-sie-22",
+      "name": "Mix SIE 22",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-sie-22-new/",
+          "packagingSource": "1,00 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-sie-22-new/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-sie-23",
+      "name": "MIX SIE 23",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-sie-23/",
+          "packagingSource": "1,00 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-sie-23/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-sie-30",
+      "name": "MIX SIE 30",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-sie-30/",
+          "packagingSource": "1,00 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-sie-30/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-sie-40",
+      "name": "MIX SIE 40",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-sie-40/",
+          "packagingSource": "1,00 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-sie-40/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-spc-01",
+      "name": "MIX SPC 01",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 0.75,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-spa-01/",
+          "packagingSource": "0,75 m²"
+        }
+      ]
+    },
+    {
+      "slug": "mix-spc-02",
+      "name": "MIX SPC 02",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 0.75,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-spa-02/",
+          "packagingSource": "0,75 m²"
+        }
+      ]
+    },
+    {
+      "slug": "mix-spc-03",
+      "name": "MIX SPC 03",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 0.75,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-spa-03/",
+          "packagingSource": "0,75 m²"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ste-00",
+      "name": "Mix STE 00",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-00/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-00/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ste-10",
+      "name": "Mix STE 10",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-10/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-10/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ste-11",
+      "name": "Mix STE 11",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-11/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-11/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ste-23",
+      "name": "Mix STE 23",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-23-new/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-23-new/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ste-24",
+      "name": "Mix STE 24",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-24/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-24/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ste-25",
+      "name": "MIX STE 25",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-25/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-25/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ste-26",
+      "name": "MIX STE 26",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-26/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-26/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ste-27",
+      "name": "Mix STE 27",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-27-new/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-27-new/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ste-28",
+      "name": "MIX STE 28",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-28/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-28/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ste-29",
+      "name": "MIX STE 29",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-29/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-29/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ste-30",
+      "name": "MIX STE 30",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-30/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-30/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ste-31",
+      "name": "MIX STE 31",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-31/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-31/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ste-32",
+      "name": "MIX STE 32",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-32/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-32/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ste-33",
+      "name": "MIX STE 33",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-33/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-33/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ste-34",
+      "name": "MIX STE 34",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-34-classic-new/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-34-classic-new/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ste-35",
+      "name": "MIX STE 35",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-35/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-35/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ste-37",
+      "name": "MIX STE 37",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-37/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-37/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ste-38",
+      "name": "MIX STE 38",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-38/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-38/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ste-39",
+      "name": "MIX STE 39",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-39/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-39/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ste-41",
+      "name": "MIX STE 41",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-41/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-41/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ste-42",
+      "name": "MIX STE 42",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-42/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-42/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ste-43",
+      "name": "MIX STE 43",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-43/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-43/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ste-44",
+      "name": "MIX STE 44",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-44/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-44/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ste-45",
+      "name": "MIX STE 45",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-45/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-45/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ste-46",
+      "name": "MIX STE 46",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/46-gradara/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/46-gradara/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ste-47",
+      "name": "MIX STE 47",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-47/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-47/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "mix-ste-48",
+      "name": "Mix STE 48",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-48/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-ste-48/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "montalcino",
+      "name": "Montalcino",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/38-montalcino/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/38-montalcino/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "montegiove",
+      "name": "Montegiove",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/montegiove/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/montegiove/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "monteriggioni",
+      "name": "Monteriggioni",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/37-monteriggioni/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/37-monteriggioni/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "monteverde",
+      "name": "Monteverde",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/monteverde/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/monteverde/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "multikoll",
+      "name": "Multikoll",
+      "swatches": [
+        {
+          "id": "grigia",
+          "name": "Grigia"
+        },
+        {
+          "id": "ardesia",
+          "name": "Ardesia"
+        },
+        {
+          "id": "quarzo",
+          "name": "Quarzo"
+        }
+      ],
+      "variants": [
+        {
+          "id": "sac-25-kg",
+          "label": "Sac de 25 kg",
+          "component": "accessory",
+          "unit": "kg",
+          "packQuantity": 25,
+          "packLabel": "sac",
+          "dimensions": "Sac 25 kg",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/accessorio/multikoll/"
+        }
+      ]
+    },
+    {
+      "slug": "murano",
+      "name": "Murano",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/murano/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/murano/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "narni",
+      "name": "Narni",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/narni/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/narni/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "ortisei",
+      "name": "Ortisei",
+      "swatches": [
+        {
+          "id": "b80",
+          "name": "B80"
+        },
+        {
+          "id": "b82",
+          "name": "B82"
+        },
+        {
+          "id": "b82-posa-a-secco",
+          "name": "B82 Posa a secco"
+        },
+        {
+          "id": "beige-credaro",
+          "name": "Beige Credaro"
+        },
+        {
+          "id": "g85",
+          "name": "G85"
+        },
+        {
+          "id": "g86",
+          "name": "G86"
+        },
+        {
+          "id": "g87",
+          "name": "G87"
+        },
+        {
+          "id": "m92",
+          "name": "M92"
+        },
+        {
+          "id": "m94",
+          "name": "M94"
+        },
+        {
+          "id": "m95",
+          "name": "M95"
+        },
+        {
+          "id": "m96",
+          "name": "M96"
+        },
+        {
+          "id": "mix-ort-17",
+          "name": "MIX ORT 17"
+        },
+        {
+          "id": "mix-ort-18",
+          "name": "MIX ORT 18"
+        },
+        {
+          "id": "mix-ort-19",
+          "name": "MIX ORT 19"
+        },
+        {
+          "id": "mix-ort-20",
+          "name": "MIX ORT 20"
+        },
+        {
+          "id": "mix-ort-21",
+          "name": "MIX ORT 21"
+        },
+        {
+          "id": "mix-ort-22",
+          "name": "MIX ORT 22"
+        },
+        {
+          "id": "mix-ort-23",
+          "name": "MIX ORT 23"
+        },
+        {
+          "id": "mix-ort-24",
+          "name": "MIX ORT 24"
+        },
+        {
+          "id": "mix-ort-25",
+          "name": "MIX ORT 25"
+        },
+        {
+          "id": "mix-ort-26",
+          "name": "MIX ORT 26"
+        },
+        {
+          "id": "mix-ort-27",
+          "name": "MIX ORT 27"
+        },
+        {
+          "id": "mix-ort-28",
+          "name": "MIX ORT 28"
+        },
+        {
+          "id": "mix-ort-29",
+          "name": "MIX ORT 29"
+        },
+        {
+          "id": "mix-ort-30",
+          "name": "MIX ORT 30"
+        },
+        {
+          "id": "mix-ort-31",
+          "name": "MIX ORT 31"
+        },
+        {
+          "id": "mix-ort-32",
+          "name": "MIX ORT 32"
+        },
+        {
+          "id": "mix-ort-33",
+          "name": "MIX ORT 33"
+        },
+        {
+          "id": "o91",
+          "name": "O91"
+        },
+        {
+          "id": "zolfo",
+          "name": "Zolfo"
+        }
+      ],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/ortisei-new/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/ortisei-new/",
+          "packagingSource": "1 ml"
+        }
+      ]
+    },
+    {
+      "slug": "ortless",
+      "name": "Ortless",
+      "swatches": [
+        {
+          "id": "cromo",
+          "name": "Cromo"
+        },
+        {
+          "id": "sabbia",
+          "name": "Sabbia"
+        }
+      ],
+      "variants": [
+        {
+          "id": "reference-a-confirmer",
+          "label": "Référence à confirmer",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/ortles/",
+          "packagingNote": "Conditionnement à confirmer sur la référence choisie."
+        }
+      ]
+    },
+    {
+      "slug": "orvieto",
+      "name": "Orvieto",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "reference-a-confirmer",
+          "label": "Référence à confirmer",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-orvieto/",
+          "packagingNote": "Conditionnement à confirmer sur la référence choisie."
+        }
+      ]
+    },
+    {
+      "slug": "ostuni",
+      "name": "Ostuni",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/ostuni/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/ostuni/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "perugia",
+      "name": "Perugia",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/perugia/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/perugia/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "pisano",
+      "name": "Pisano",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/pisano/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/pisano/",
+          "packagingSource": "1,00 ml"
+        }
+      ]
+    },
+    {
+      "slug": "ponte-di-legno",
+      "name": "Ponte di legno",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/ponte-di-legno/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/ponte-di-legno/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "pontremoli",
+      "name": "Pontremoli",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/pontremoli/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/pontremoli/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "prato",
+      "name": "Prato",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/prato/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/prato/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "provenzale",
+      "name": "Provenzale",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-provenzale/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-provenzale/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "riva",
+      "name": "Riva",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/riva/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/riva/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "roccia",
+      "name": "Roccia",
+      "swatches": [
+        {
+          "id": "b80",
+          "name": "B80"
+        },
+        {
+          "id": "c54-beige",
+          "name": "C54 Beige"
+        },
+        {
+          "id": "granito",
+          "name": "Granito"
+        },
+        {
+          "id": "m92",
+          "name": "M92"
+        },
+        {
+          "id": "m95",
+          "name": "M95"
+        },
+        {
+          "id": "mix-roc-01",
+          "name": "MIX ROC 01"
+        },
+        {
+          "id": "mix-roc-02",
+          "name": "MIX ROC 02"
+        },
+        {
+          "id": "mix-roc-03",
+          "name": "MIX ROC 03"
+        },
+        {
+          "id": "mix-roc-04",
+          "name": "MIX ROC 04"
+        },
+        {
+          "id": "mix-roc-05",
+          "name": "MIX ROC 05"
+        },
+        {
+          "id": "mix-roc-o6",
+          "name": "MIX ROC O6"
+        },
+        {
+          "id": "quarzo",
+          "name": "Quarzo"
+        },
+        {
+          "id": "s43-ruggine",
+          "name": "S43 Ruggine"
+        },
+        {
+          "id": "s44-castagno",
+          "name": "S44 Castagno"
+        },
+        {
+          "id": "terra",
+          "name": "Terra"
+        },
+        {
+          "id": "v1",
+          "name": "V1"
+        },
+        {
+          "id": "v8",
+          "name": "V8"
+        },
+        {
+          "id": "zolfo",
+          "name": "Zolfo"
+        }
+      ],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/roccia/",
+          "packagingSource": "1,00 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/roccia/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "roma",
+      "name": "Roma",
+      "swatches": [
+        {
+          "id": "ardesia",
+          "name": "Ardesia"
+        },
+        {
+          "id": "naturale",
+          "name": "Naturale"
+        },
+        {
+          "id": "quarzo",
+          "name": "Quarzo"
+        }
+      ],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.7,
+          "packLabel": "boîte",
+          "dimensions": "~ 30 x 40 cm",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/roma/",
+          "packagingSource": "1,70 m²"
+        }
+      ]
+    },
+    {
+      "slug": "sabbio",
+      "name": "Sabbio",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/sabbio/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/sabbio/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "sarentino",
+      "name": "Sarentino",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/sarentino/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/sarentino/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "savona",
+      "name": "Savona",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/savona/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/savona/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "scaglia-carsica",
+      "name": "Scaglia Carsica",
+      "swatches": [
+        {
+          "id": "antracite",
+          "name": "Antracite"
+        },
+        {
+          "id": "arena",
+          "name": "Arena"
+        },
+        {
+          "id": "bianco",
+          "name": "Bianco"
+        },
+        {
+          "id": "cromo",
+          "name": "Cromo"
+        },
+        {
+          "id": "granito",
+          "name": "Granito"
+        },
+        {
+          "id": "grigio",
+          "name": "Grigio"
+        },
+        {
+          "id": "malva",
+          "name": "Malva"
+        },
+        {
+          "id": "marrone",
+          "name": "Marrone"
+        },
+        {
+          "id": "melange",
+          "name": "Melange"
+        },
+        {
+          "id": "sabbia",
+          "name": "Sabbia"
+        }
+      ],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 0.5,
+          "packLabel": "boîte",
+          "dimensions": "51 X 10 cm 30 X 10 cm 21 X 10 cm",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/scaglia-carsica/",
+          "packagingSource": "0,50 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/scaglia-carsica/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "scaglia-marmolada",
+      "name": "Scaglia Marmolada",
+      "swatches": [
+        {
+          "id": "ardesia",
+          "name": "Ardesia"
+        },
+        {
+          "id": "c58",
+          "name": "C58"
+        },
+        {
+          "id": "beige-credaro",
+          "name": "Beige Credaro"
+        },
+        {
+          "id": "g85",
+          "name": "G85"
+        },
+        {
+          "id": "g86",
+          "name": "G86"
+        },
+        {
+          "id": "g87",
+          "name": "G87"
+        },
+        {
+          "id": "ghiaccio",
+          "name": "Ghiaccio"
+        },
+        {
+          "id": "m34",
+          "name": "M34"
+        },
+        {
+          "id": "o91",
+          "name": "O91"
+        },
+        {
+          "id": "quarzo",
+          "name": "Quarzo"
+        },
+        {
+          "id": "zolfo",
+          "name": "Zolfo"
+        }
+      ],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 0.85,
+          "packLabel": "boîte",
+          "dimensions": "~ 48 x 10 cm",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/scaglia-marmolada/",
+          "packagingSource": "0,85 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "21 x 9 x 10 cm",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/scaglia-marmolada/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "scaglia-montebello",
+      "name": "Scaglia Montebello",
+      "swatches": [
+        {
+          "id": "c58",
+          "name": "C58"
+        },
+        {
+          "id": "g85",
+          "name": "G85"
+        },
+        {
+          "id": "g86",
+          "name": "G86"
+        },
+        {
+          "id": "quarzo",
+          "name": "Quarzo"
+        }
+      ],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 0.8,
+          "packLabel": "boîte",
+          "dimensions": "~ 21 x 46,5 cm",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/scaglia-montebello/",
+          "packagingSource": "0,80 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 0.8,
+          "packLabel": "boîte",
+          "dimensions": "~ 22 x 8 x h21 cm",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/scaglia-montebello/",
+          "packagingSource": "0,80 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "sierra-nevada",
+      "name": "Sierra Nevada",
+      "swatches": [
+        {
+          "id": "b80",
+          "name": "B80"
+        },
+        {
+          "id": "b81",
+          "name": "B81"
+        },
+        {
+          "id": "b82",
+          "name": "B82"
+        },
+        {
+          "id": "beige-credaro",
+          "name": "Beige Credaro"
+        },
+        {
+          "id": "g85",
+          "name": "G85"
+        },
+        {
+          "id": "g86",
+          "name": "G86"
+        },
+        {
+          "id": "m92",
+          "name": "M92"
+        },
+        {
+          "id": "m95",
+          "name": "M95"
+        },
+        {
+          "id": "m96",
+          "name": "M96"
+        },
+        {
+          "id": "mix-sie-00",
+          "name": "MIX SIE 00"
+        },
+        {
+          "id": "mix-sie-19",
+          "name": "MIX SIE 19"
+        },
+        {
+          "id": "mix-sie-20",
+          "name": "MIX SIE 20"
+        },
+        {
+          "id": "mix-sie-21",
+          "name": "MIX SIE 21"
+        },
+        {
+          "id": "mix-sie-22",
+          "name": "MIX SIE 22"
+        },
+        {
+          "id": "mix-sie-23",
+          "name": "MIX SIE 23"
+        },
+        {
+          "id": "mix-sie-30",
+          "name": "MIX SIE 30"
+        },
+        {
+          "id": "mix-sie-40",
+          "name": "MIX SIE 40"
+        },
+        {
+          "id": "o91",
+          "name": "O91"
+        },
+        {
+          "id": "quarzo",
+          "name": "Quarzo"
+        },
+        {
+          "id": "s40-bianco",
+          "name": "S40 Bianco"
+        },
+        {
+          "id": "s43",
+          "name": "S43"
+        },
+        {
+          "id": "terra",
+          "name": "Terra"
+        },
+        {
+          "id": "v913",
+          "name": "V913"
+        },
+        {
+          "id": "zolfo",
+          "name": "Zolfo"
+        }
+      ],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/sierra-nevada/",
+          "packagingSource": "1,00 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/sierra-nevada/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "spaccatello",
+      "name": "Spaccatello",
+      "swatches": [
+        {
+          "id": "b80",
+          "name": "B80"
+        },
+        {
+          "id": "b82",
+          "name": "B82"
+        },
+        {
+          "id": "c58",
+          "name": "C58"
+        },
+        {
+          "id": "carrara",
+          "name": "Carrara"
+        },
+        {
+          "id": "carrara-posa-irregolare",
+          "name": "Carrara_posa irregolare"
+        },
+        {
+          "id": "g85",
+          "name": "G85"
+        },
+        {
+          "id": "g86-a-secco",
+          "name": "G86 a secco"
+        },
+        {
+          "id": "g86-con-fuga",
+          "name": "G86 con fuga"
+        },
+        {
+          "id": "granito",
+          "name": "Granito"
+        },
+        {
+          "id": "m95",
+          "name": "M95"
+        },
+        {
+          "id": "m96",
+          "name": "M96"
+        },
+        {
+          "id": "mix-spa-01",
+          "name": "Mix SPA 01"
+        },
+        {
+          "id": "mix-spa-02",
+          "name": "Mix SPA 02"
+        },
+        {
+          "id": "mix-spa-03",
+          "name": "Mix SPA 03"
+        },
+        {
+          "id": "naturale",
+          "name": "Naturale"
+        },
+        {
+          "id": "naturale-posa-irregolare",
+          "name": "Naturale_posa irregolare"
+        },
+        {
+          "id": "o91",
+          "name": "O91"
+        },
+        {
+          "id": "zolfo",
+          "name": "Zolfo"
+        }
+      ],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 0.75,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/spaccatello-new/",
+          "packagingSource": "0,75 m²"
+        }
+      ]
+    },
+    {
+      "slug": "stelvio",
+      "name": "Stelvio",
+      "swatches": [
+        {
+          "id": "c55",
+          "name": "C55"
+        },
+        {
+          "id": "b5",
+          "name": "B5"
+        },
+        {
+          "id": "mix-ste-00",
+          "name": "Mix STE 00"
+        },
+        {
+          "id": "mix-ste-10",
+          "name": "Mix STE 10"
+        },
+        {
+          "id": "602",
+          "name": "602"
+        },
+        {
+          "id": "b80",
+          "name": "B80"
+        },
+        {
+          "id": "beige-credaro",
+          "name": "Beige Credaro"
+        },
+        {
+          "id": "b81",
+          "name": "B81"
+        },
+        {
+          "id": "b82",
+          "name": "B82"
+        },
+        {
+          "id": "c54",
+          "name": "C54"
+        },
+        {
+          "id": "c58",
+          "name": "C58"
+        },
+        {
+          "id": "g85",
+          "name": "G85"
+        },
+        {
+          "id": "g86",
+          "name": "G86"
+        },
+        {
+          "id": "g87",
+          "name": "G87"
+        },
+        {
+          "id": "granito",
+          "name": "Granito"
+        },
+        {
+          "id": "m92",
+          "name": "M92"
+        },
+        {
+          "id": "m95",
+          "name": "M95"
+        },
+        {
+          "id": "m96",
+          "name": "M96"
+        },
+        {
+          "id": "o91",
+          "name": "O91"
+        },
+        {
+          "id": "mix-ste-11",
+          "name": "Mix STE 11"
+        },
+        {
+          "id": "mix-ste-23",
+          "name": "Mix STE 23"
+        },
+        {
+          "id": "mix-ste-24",
+          "name": "Mix STE 24"
+        },
+        {
+          "id": "mix-ste-25",
+          "name": "Mix STE 25"
+        },
+        {
+          "id": "mix-ste-26",
+          "name": "Mix STE 26"
+        },
+        {
+          "id": "mix-ste-27",
+          "name": "Mix STE 27"
+        },
+        {
+          "id": "mix-ste-28",
+          "name": "Mix STE 28"
+        },
+        {
+          "id": "mix-ste-29",
+          "name": "Mix STE 29"
+        },
+        {
+          "id": "mix-ste-30",
+          "name": "Mix STE 30"
+        },
+        {
+          "id": "mix-ste-31",
+          "name": "Mix STE 31"
+        },
+        {
+          "id": "mix-ste-32",
+          "name": "Mix STE 32"
+        },
+        {
+          "id": "mix-ste-33",
+          "name": "Mix STE 33"
+        },
+        {
+          "id": "mix-ste-34-biostucco-terra",
+          "name": "Mix STE 34 Biostucco Terra"
+        },
+        {
+          "id": "mix-ste-34-biostucco-fango",
+          "name": "Mix STE 34 Biostucco Fango"
+        },
+        {
+          "id": "mix-ste-35",
+          "name": "Mix STE 35"
+        },
+        {
+          "id": "mix-ste-37",
+          "name": "Mix STE 37"
+        },
+        {
+          "id": "mix-ste-38",
+          "name": "Mix STE 38"
+        },
+        {
+          "id": "mix-ste-39",
+          "name": "Mix STE 39"
+        },
+        {
+          "id": "mix-ste-40",
+          "name": "Mix STE 40"
+        },
+        {
+          "id": "mix-ste-41",
+          "name": "Mix STE 41"
+        },
+        {
+          "id": "mix-ste-42",
+          "name": "Mix STE 42"
+        },
+        {
+          "id": "mix-ste-43",
+          "name": "Mix STE 43"
+        },
+        {
+          "id": "mix-ste-44",
+          "name": "Mix STE 44"
+        },
+        {
+          "id": "mix-ste-45",
+          "name": "Mix STE 45"
+        },
+        {
+          "id": "mix-ste-46",
+          "name": "Mix STE 46"
+        },
+        {
+          "id": "mix-ste-47",
+          "name": "Mix STE 47"
+        },
+        {
+          "id": "mix-ste-48",
+          "name": "Mix STE 48"
+        },
+        {
+          "id": "terra",
+          "name": "Terra"
+        },
+        {
+          "id": "v913",
+          "name": "V913"
+        },
+        {
+          "id": "zolfo",
+          "name": "Zolfo"
+        }
+      ],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/stelvio/",
+          "packagingSource": "1,00 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/stelvio/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "stelvio-baleari",
+      "name": "Stelvio Baleari",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/stelvio-baleari/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/stelvio-baleari/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "stelvio-mares",
+      "name": "Stelvio Mares",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/baleari/",
+          "packagingSource": "1 m²"
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": 1.0,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/baleari/",
+          "packagingSource": "1,00 ml (LM)"
+        }
+      ]
+    },
+    {
+      "slug": "stigliano",
+      "name": "Stigliano",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/stigliano/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/stigliano/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "tavoleto",
+      "name": "Tavoleto",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/tavoleto/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/tavoleto/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "tignale",
+      "name": "Tignale",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/tignale/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/tignale/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "tione",
+      "name": "Tione",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/tione/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/tione/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "tirolo",
+      "name": "Tirolo",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-tirolo/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/mix-tirolo/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "travertino",
+      "name": "Travertino",
+      "swatches": [
+        {
+          "id": "c58-cromite",
+          "name": "C58 Cromite"
+        },
+        {
+          "id": "grigio-vintage",
+          "name": "Grigio Vintage"
+        },
+        {
+          "id": "naturale",
+          "name": "Naturale"
+        },
+        {
+          "id": "quarzo",
+          "name": "Quarzo"
+        }
+      ],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 1.7,
+          "packLabel": "boîte",
+          "dimensions": "∼ 48 x 30 cm",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/travertino/",
+          "packagingSource": "1,70 m²"
+        }
+      ]
+    },
+    {
+      "slug": "tremosine",
+      "name": "Tremosine",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/33-tremosine/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/33-tremosine/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "treviso",
+      "name": "Treviso",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/treviso/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/treviso/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "valdarno",
+      "name": "Valdarno",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/valdarno/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/valdarno/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "varese",
+      "name": "Varese",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/varese/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/varese/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "vega-ecotufo",
+      "name": "Vega – Ecotufo",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": 0.8,
+          "packLabel": "boîte",
+          "dimensions": "~20×40 cm",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/vega/",
+          "packagingSource": "0,80 m²"
+        }
+      ]
+    },
+    {
+      "slug": "viareggio",
+      "name": "Viareggio",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/viareggio/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/viareggio/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "vipiteno",
+      "name": "Vipiteno",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/vipiteno/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/vipiteno/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    },
+    {
+      "slug": "volpedo",
+      "name": "Volpedo",
+      "swatches": [],
+      "variants": [
+        {
+          "id": "fondo",
+          "label": "Plaques / fond",
+          "component": "fondo",
+          "unit": "m²",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/volpedo-biopietra/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        },
+        {
+          "id": "angle",
+          "label": "Angles",
+          "component": "angle",
+          "unit": "ml",
+          "packQuantity": null,
+          "packLabel": "boîte",
+          "dimensions": "Formats mixtes",
+          "thickness": "",
+          "sourceUrl": "https://biopietra.com/prodotto/volpedo-biopietra/",
+          "packagingSource": "–",
+          "packagingNote": "Conditionnement à confirmer par composant ; le fabricant renvoie aux produits de la composition."
+        }
+      ]
+    }
+  ]
+}

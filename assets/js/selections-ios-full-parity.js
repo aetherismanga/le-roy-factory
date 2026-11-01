@@ -33,23 +33,7 @@
     }
   }
 
-  const BIO = [
-    'assets/js/inspirations-biopietra-series-media.js?v=20260923-ios-parity1&media=20261018',
-    'assets/js/inspirations-biopietra-2026.js?v=20260923-ios-parity1&media=20261018',
-    'assets/js/inspirations-biopietra-fix.js?v=20260923-ios-parity1',
-    'assets/js/inspirations-biopietra-actions.js?v=20260923-ios-parity1',
-    'assets/js/inspirations-biopietra-search-v2.js?v=20260923-ios-parity1',
-    'assets/js/inspirations-biopietra-gallery.js?v=20260923-ios-parity1',
-    'assets/js/inspirations-biopietra-stable.js?v=20260923-ios-parity1&media=20261018',
-    'assets/js/inspirations-biopietra-product-details.js?v=20260923-ios-parity1',
-    'assets/js/inspirations-biopietra-overview-consumables.js?v=20260924-bio-about2',
-    'assets/js/inspirations-biopietra-modal-safety.js?v=20260923-ios-parity1',
-    'assets/js/inspirations-biopietra-batch2.js?v=20260923-ios-parity1',
-    'assets/js/inspirations-biopietra-stability-hotfix.js?v=20260923-ios-parity1',
-    'assets/js/biopietra-product-options.js?v=20260923-ios-parity1',
-    'assets/js/inspirations-biopietra-colors.js?v=20260923-ios-parity1',
-    'assets/js/biopietra-ui-hotfix-20260913.js?v=20260924-bio-about2'
-  ];
+  const BIO = []; // Biopietra uses the shared verified catalogue renderer.
 
   const REV = [
     'assets/js/reviglass-search-index.js?v=20260923-ios-parity1',
@@ -76,7 +60,7 @@
 
   async function ensureForPartner(name) {
     const n = norm(name || currentPartner());
-    if (n === 'biopietra' && !bioPromise) bioPromise = loadSeries(BIO);
+    if (n === 'biopietra' && !bioPromise) bioPromise = window.LRF_BIOPIETRA_LOAD?.().catch(()=>{bioPromise=null;});
     if (n === 'reviglass' && !revPromise) revPromise = loadSeries(REV);
     return n === 'biopietra' ? bioPromise : n === 'reviglass' ? revPromise : Promise.resolve();
   }

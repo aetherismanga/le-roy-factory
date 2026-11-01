@@ -48,19 +48,20 @@ for page, modified in PAGES:
             entry = SubElement(url, f'{{{IMAGE}}}image')
             SubElement(entry, f'{{{IMAGE}}}loc').text = BASE + 'shared/lrf-3d/media/public-compositions/' + image
 # Explicit public discovery manifests, never CRM, tariffs or private routes.
-for brand in ['elios','view']:
+for brand in ['elios','view','fenice','biopietra']:
     manifest = ROOT / f'assets/data/{brand}-seo-pages.json'
     if not manifest.exists():
         continue
     data = json.loads(manifest.read_text())
     for item in data['pages']:
-        page = item['file']
+        page = item.get('file') or item['path']
         assert page.endswith('.html') and '/' not in page and (ROOT / page).is_file()
-        assert page.startswith((brand+'-', 'carrelage-'+brand)), page
+        assert page.startswith((brand+'-', 'carrelage-'+brand, 'la-fenice-' if brand=='fenice' else brand+'.html', 'carrelage-la-fenice' if brand=='fenice' else brand+'.html')), page
+        assert page not in ['biopietra-commande.html','biopietra-disponibilite.html'], page
         url = SubElement(tree, f'{{{NS}}}url')
         SubElement(url, f'{{{NS}}}loc').text = BASE + page
-        SubElement(url, f'{{{NS}}}lastmod').text = data['updated']
-        for src in item['images']:
+        SubElement(url, f'{{{NS}}}lastmod').text = data.get('updated') or '2026-11-01'
+        for src in item.get('images', []):
             image = SubElement(url, f'{{{IMAGE}}}image')
             SubElement(image, f'{{{IMAGE}}}loc').text = src
 indent(tree, space='  ')

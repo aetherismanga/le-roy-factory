@@ -53,16 +53,17 @@ test('home search requests no catalogue data until activation, then opens on the
   fixture.shortcut();
   assert.equal(fixture.requested.length, 1, 'Concurrent input shares the in-progress bootstrap');
   const paths = [];
-  for (let index = 0; index < 9; index++) {
+  for (let index = 0; index < 30; index++) {
     assert.equal(fixture.requested.length, index + 1, 'Dependencies load in order');
     const script = fixture.requested[index]; paths.push(script.src);
     fixture.loaded(script); await turn();
+    if(script.src.includes('site-search-v2.js'))break;
   }
   assert.match(paths.at(-1), /site-search-v2/);
   assert.equal(fixture.opened, 1, 'The original activation opens search after loading');
   assert.equal(fixture.button.disabled, false);
   fixture.button.click(); await turn();
-  assert.equal(fixture.requested.length, 9, 'Reopening does not rebuild the catalogue index');
+  assert.equal(fixture.requested.length, paths.length, 'Reopening does not rebuild the catalogue index');
   assert.equal(fixture.opened, 2);
 });
 

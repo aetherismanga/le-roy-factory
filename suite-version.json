@@ -11,7 +11,7 @@
   ],
   "sharedCatalogueVersion": "20261024-suite-1",
   "publicSite": {
-    "releaseId": "20261101-fenice-catalogue-4",
+    "releaseId": "20261101-biopietra-1",
     "baselineCommit": "0a116a66e4fb03522876be09d417f853bb3b2ed9",
     "pages": [
       "configurateur-salle-de-bain-3d.html",
@@ -57,6 +57,18 @@
       "touchZoom": true,
       "maxZoom": 8,
       "visibleTiles": true
+    },
+    "biopietra": {
+      "collections": 160,
+      "photographs": 857,
+      "colorOptions": 293,
+      "colorVisuals": 273,
+      "variants": 307,
+      "documentedPackaging": 184,
+      "optimizedCovers": 160,
+      "seoPages": 161,
+      "protectedTariffDocuments": true,
+      "requestEndpoint": "https://us-central1-le-roy-factory.cloudfunctions.net/biopietraRequest"
     }
   },
   "configurators": {

@@ -17,8 +17,9 @@ const reitanoCatalog = require('./reitano-catalog');
 const randalProjects = require('./configurator-projects');
 const configuratorPurchasePrices = require('./configurator-purchase-prices');
 const feniceRequest = require('./fenice-request');
+const biopietraRequest = require('./biopietra-request');
 
-Object.assign(exports, base, tariffAccess, proSession, lrfAnalytics, eliosStock, eliosOrder, eliosPoseOrder, eliosCatalog, biltOrder, biltAutoTask, biltSchedule, crmFiles, siteControl, aquahomeCatalog, reitanoCatalog, randalProjects, configuratorPurchasePrices, feniceRequest);
+Object.assign(exports, base, tariffAccess, proSession, lrfAnalytics, eliosStock, eliosOrder, eliosPoseOrder, eliosCatalog, biltOrder, biltAutoTask, biltSchedule, crmFiles, siteControl, aquahomeCatalog, reitanoCatalog, randalProjects, configuratorPurchasePrices, feniceRequest, biopietraRequest);
 
 // La migration vers Storage privé est terminée. Cet endpoint temporaire reste
 // présent uniquement pour éviter une suppression de fonction lors du déploiement,

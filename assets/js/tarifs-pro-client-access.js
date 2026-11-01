@@ -1,4 +1,4 @@
-import { partnerContacts } from "./partner-contacts.js?v=20260901-2&media=20261018";
+import { partnerContacts } from "./partner-contacts.js?v=20261101-biopietra1";
 import { initializeApp, getApp, getApps } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 

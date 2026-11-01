@@ -4,7 +4,7 @@ import {readFileSync} from 'node:fs';
 import vm from 'node:vm';
 
 const source=readFileSync(new URL('../assets/js/secure-tariff-links.js',import.meta.url),'utf8');
-const tariffIds=['elios-2026','life-2026','view-2026','lafenice-2026','reviglass-2026','petracers','pecchioli','bulbo-2026','randal','neobath-anima','neobath-dna-pdf','aquahome','bilt','uptrend-2026'];
+const tariffIds=['elios-2026','life-2026','view-2026','lafenice-2026','reviglass-2026','biopietra-2026','biopietra-code-prix','petracers','pecchioli','bulbo-2026','randal','neobath-anima','neobath-dna-pdf','aquahome','bilt','uptrend-2026'];
 
 function harness({email=null,session=null,restoring=false,tokenError=false,responseStatus=200,viewerError=false,responseGate=null}={}){
   const requests=[],alerts=[],viewers=[],nativeOpenings=[],order=[];

@@ -1,0 +1,972 @@
+{
+  "version": "20261101-biopietra1",
+  "brand": "Biopietra",
+  "collections": 160,
+  "pages": [
+    {
+      "path": "biopietra.html",
+      "name": "Collections Biopietra",
+      "type": "index"
+    },
+    {
+      "path": "biopietra-acropoli.html",
+      "slug": "acropoli",
+      "name": "Acropoli",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-alviano.html",
+      "slug": "alviano",
+      "name": "Alviano",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-aosta.html",
+      "slug": "aosta",
+      "name": "Aosta",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-asolo.html",
+      "slug": "asolo",
+      "name": "Asolo",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-aulla.html",
+      "slug": "aulla",
+      "name": "Aulla",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-bergamo.html",
+      "slug": "bergamo",
+      "name": "Bergamo",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-bienno.html",
+      "slug": "bienno",
+      "name": "Bienno",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-biofin.html",
+      "slug": "biofin",
+      "name": "Biofin",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-biostucco.html",
+      "slug": "biostucco",
+      "name": "Biostucco",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-borgo-antico.html",
+      "slug": "borgo-antico",
+      "name": "Borgo Antico",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-brick-design.html",
+      "slug": "brick-design",
+      "name": "Brick Design",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-brunico.html",
+      "slug": "brunico",
+      "name": "Brunico",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-busseto.html",
+      "slug": "busseto",
+      "name": "Busseto",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-calenzano.html",
+      "slug": "calenzano",
+      "name": "Calenzano",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-camaiore.html",
+      "slug": "camaiore",
+      "name": "Camaiore",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-campagnolo.html",
+      "slug": "campagnolo",
+      "name": "Campagnolo",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-capri.html",
+      "slug": "capri",
+      "name": "Capri",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-carmignano.html",
+      "slug": "carmignano",
+      "name": "Carmignano",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-carrara.html",
+      "slug": "carrara",
+      "name": "Carrara",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-castel-san-pietro.html",
+      "slug": "castel-san-pietro",
+      "name": "Castel San Pietro",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-cavalese.html",
+      "slug": "cavalese",
+      "name": "Cavalese",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-ciottolo-river.html",
+      "slug": "ciottolo-river",
+      "name": "Ciottolo River",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-classic-brick.html",
+      "slug": "classic-brick",
+      "name": "Classic Brick",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-compiano.html",
+      "slug": "compiano",
+      "name": "Compiano",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-cornici-di-finitura.html",
+      "slug": "cornici-di-finitura",
+      "name": "Cornici di finitura",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-cortina.html",
+      "slug": "cortina",
+      "name": "Cortina",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-cortona.html",
+      "slug": "cortona",
+      "name": "Cortona",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-credaro.html",
+      "slug": "credaro",
+      "name": "Credaro",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-cuneo.html",
+      "slug": "cuneo",
+      "name": "Cuneo",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-cusano.html",
+      "slug": "cusano",
+      "name": "Cusano",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-ecokoll.html",
+      "slug": "ecokoll",
+      "name": "Ecokoll",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-empoli.html",
+      "slug": "empoli",
+      "name": "Empoli",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-favignana.html",
+      "slug": "favignana",
+      "name": "Favignana",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-fiesole.html",
+      "slug": "fiesole",
+      "name": "Fiesole",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-garda.html",
+      "slug": "garda",
+      "name": "Garda",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-grosseto.html",
+      "slug": "grosseto",
+      "name": "Grosseto",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-inserti.html",
+      "slug": "inserti",
+      "name": "Inserti décoratifs",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-iseo.html",
+      "slug": "iseo",
+      "name": "Iseo",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-listello-liguria.html",
+      "slug": "listello-liguria",
+      "name": "Listello Liguria",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-listello-liguria-mix.html",
+      "slug": "listello-liguria-mix",
+      "name": "Listello Liguria Mix",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-listello-mattone-antico.html",
+      "slug": "listello-mattone-antico",
+      "name": "Listello Mattone Antico",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-listello-mattone-antico-mix.html",
+      "slug": "listello-mattone-antico-mix",
+      "name": "Listello Mattone Antico Mix",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-listello-toscana.html",
+      "slug": "listello-toscana",
+      "name": "Listello Toscana",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-livigno.html",
+      "slug": "livigno",
+      "name": "Livigno",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-livorno.html",
+      "slug": "livorno",
+      "name": "Livorno",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-lonato.html",
+      "slug": "lonato",
+      "name": "Lonato",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-loreto.html",
+      "slug": "loreto",
+      "name": "Loreto",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mediterraneo.html",
+      "slug": "mediterraneo",
+      "name": "Mediterraneo",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-acr-01.html",
+      "slug": "mix-acr-01",
+      "name": "MIX ACR 01",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ber-01.html",
+      "slug": "mix-ber-01",
+      "name": "MIX BER 01",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-cio-01.html",
+      "slug": "mix-cio-01",
+      "name": "MIX CIO 01",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-cre-01.html",
+      "slug": "mix-cre-01",
+      "name": "MIX CRE 01",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-cre-02.html",
+      "slug": "mix-cre-02",
+      "name": "MIX CRE 02",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-cre-03.html",
+      "slug": "mix-cre-03",
+      "name": "MIX CRE 03",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-cre-04.html",
+      "slug": "mix-cre-04",
+      "name": "MIX CRE 04",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ort-17.html",
+      "slug": "mix-ort-17",
+      "name": "Mix ORT 17",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ort-18.html",
+      "slug": "mix-ort-18",
+      "name": "Mix ORT 18",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ort-19.html",
+      "slug": "mix-ort-19",
+      "name": "MIX ORT 19",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ort-20.html",
+      "slug": "mix-ort-20",
+      "name": "MIX ORT 20",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ort-21.html",
+      "slug": "mix-ort-21",
+      "name": "MIX ORT 21",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ort-22.html",
+      "slug": "mix-ort-22",
+      "name": "MIX ORT 22",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ort-23.html",
+      "slug": "mix-ort-23",
+      "name": "MIX ORT 23",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ort-24.html",
+      "slug": "mix-ort-24",
+      "name": "MIX ORT 24",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ort-25.html",
+      "slug": "mix-ort-25",
+      "name": "MIX ORT 25",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ort-26.html",
+      "slug": "mix-ort-26",
+      "name": "MIX ORT 26",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ort-27.html",
+      "slug": "mix-ort-27",
+      "name": "MIX ORT 27",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ort-28.html",
+      "slug": "mix-ort-28",
+      "name": "MIX ORT 28",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ort-29.html",
+      "slug": "mix-ort-29",
+      "name": "MIX ORT 29",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ort-30.html",
+      "slug": "mix-ort-30",
+      "name": "MIX ORT 30",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ort-31.html",
+      "slug": "mix-ort-31",
+      "name": "MIX ORT 31",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ort-32.html",
+      "slug": "mix-ort-32",
+      "name": "MIX ORT 32",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ort-33.html",
+      "slug": "mix-ort-33",
+      "name": "MIX ORT 33",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-roc-02.html",
+      "slug": "mix-roc-02",
+      "name": "MIX ROC 02",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-roc-03.html",
+      "slug": "mix-roc-03",
+      "name": "MIX ROC 03",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-roc-04.html",
+      "slug": "mix-roc-04",
+      "name": "MIX ROC 04",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-roc-05.html",
+      "slug": "mix-roc-05",
+      "name": "MIX ROC 05",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-roc-06.html",
+      "slug": "mix-roc-06",
+      "name": "MIX ROC 06",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-sie-00.html",
+      "slug": "mix-sie-00",
+      "name": "MIX SIE 00",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-sie-19.html",
+      "slug": "mix-sie-19",
+      "name": "Mix SIE 19",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-sie-20.html",
+      "slug": "mix-sie-20",
+      "name": "Mix SIE 20",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-sie-21.html",
+      "slug": "mix-sie-21",
+      "name": "MIX SIE 21",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-sie-22.html",
+      "slug": "mix-sie-22",
+      "name": "Mix SIE 22",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-sie-23.html",
+      "slug": "mix-sie-23",
+      "name": "MIX SIE 23",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-sie-30.html",
+      "slug": "mix-sie-30",
+      "name": "MIX SIE 30",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-sie-40.html",
+      "slug": "mix-sie-40",
+      "name": "MIX SIE 40",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-spc-01.html",
+      "slug": "mix-spc-01",
+      "name": "MIX SPC 01",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-spc-02.html",
+      "slug": "mix-spc-02",
+      "name": "MIX SPC 02",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-spc-03.html",
+      "slug": "mix-spc-03",
+      "name": "MIX SPC 03",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ste-00.html",
+      "slug": "mix-ste-00",
+      "name": "Mix STE 00",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ste-10.html",
+      "slug": "mix-ste-10",
+      "name": "Mix STE 10",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ste-11.html",
+      "slug": "mix-ste-11",
+      "name": "Mix STE 11",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ste-23.html",
+      "slug": "mix-ste-23",
+      "name": "Mix STE 23",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ste-24.html",
+      "slug": "mix-ste-24",
+      "name": "Mix STE 24",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ste-25.html",
+      "slug": "mix-ste-25",
+      "name": "MIX STE 25",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ste-26.html",
+      "slug": "mix-ste-26",
+      "name": "MIX STE 26",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ste-27.html",
+      "slug": "mix-ste-27",
+      "name": "Mix STE 27",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ste-28.html",
+      "slug": "mix-ste-28",
+      "name": "MIX STE 28",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ste-29.html",
+      "slug": "mix-ste-29",
+      "name": "MIX STE 29",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ste-30.html",
+      "slug": "mix-ste-30",
+      "name": "MIX STE 30",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ste-31.html",
+      "slug": "mix-ste-31",
+      "name": "MIX STE 31",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ste-32.html",
+      "slug": "mix-ste-32",
+      "name": "MIX STE 32",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ste-33.html",
+      "slug": "mix-ste-33",
+      "name": "MIX STE 33",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ste-34.html",
+      "slug": "mix-ste-34",
+      "name": "MIX STE 34",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ste-35.html",
+      "slug": "mix-ste-35",
+      "name": "MIX STE 35",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ste-37.html",
+      "slug": "mix-ste-37",
+      "name": "MIX STE 37",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ste-38.html",
+      "slug": "mix-ste-38",
+      "name": "MIX STE 38",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ste-39.html",
+      "slug": "mix-ste-39",
+      "name": "MIX STE 39",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ste-41.html",
+      "slug": "mix-ste-41",
+      "name": "MIX STE 41",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ste-42.html",
+      "slug": "mix-ste-42",
+      "name": "MIX STE 42",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ste-43.html",
+      "slug": "mix-ste-43",
+      "name": "MIX STE 43",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ste-44.html",
+      "slug": "mix-ste-44",
+      "name": "MIX STE 44",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ste-45.html",
+      "slug": "mix-ste-45",
+      "name": "MIX STE 45",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ste-46.html",
+      "slug": "mix-ste-46",
+      "name": "MIX STE 46",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ste-47.html",
+      "slug": "mix-ste-47",
+      "name": "MIX STE 47",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-mix-ste-48.html",
+      "slug": "mix-ste-48",
+      "name": "Mix STE 48",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-montalcino.html",
+      "slug": "montalcino",
+      "name": "Montalcino",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-montegiove.html",
+      "slug": "montegiove",
+      "name": "Montegiove",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-monteriggioni.html",
+      "slug": "monteriggioni",
+      "name": "Monteriggioni",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-monteverde.html",
+      "slug": "monteverde",
+      "name": "Monteverde",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-multikoll.html",
+      "slug": "multikoll",
+      "name": "Multikoll",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-murano.html",
+      "slug": "murano",
+      "name": "Murano",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-narni.html",
+      "slug": "narni",
+      "name": "Narni",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-ortisei.html",
+      "slug": "ortisei",
+      "name": "Ortisei",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-ortless.html",
+      "slug": "ortless",
+      "name": "Ortless",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-orvieto.html",
+      "slug": "orvieto",
+      "name": "Orvieto",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-ostuni.html",
+      "slug": "ostuni",
+      "name": "Ostuni",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-perugia.html",
+      "slug": "perugia",
+      "name": "Perugia",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-pisano.html",
+      "slug": "pisano",
+      "name": "Pisano",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-ponte-di-legno.html",
+      "slug": "ponte-di-legno",
+      "name": "Ponte di legno",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-pontremoli.html",
+      "slug": "pontremoli",
+      "name": "Pontremoli",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-prato.html",
+      "slug": "prato",
+      "name": "Prato",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-provenzale.html",
+      "slug": "provenzale",
+      "name": "Provenzale",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-riva.html",
+      "slug": "riva",
+      "name": "Riva",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-roccia.html",
+      "slug": "roccia",
+      "name": "Roccia",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-roma.html",
+      "slug": "roma",
+      "name": "Roma",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-sabbio.html",
+      "slug": "sabbio",
+      "name": "Sabbio",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-sarentino.html",
+      "slug": "sarentino",
+      "name": "Sarentino",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-savona.html",
+      "slug": "savona",
+      "name": "Savona",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-scaglia-carsica.html",
+      "slug": "scaglia-carsica",
+      "name": "Scaglia Carsica",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-scaglia-marmolada.html",
+      "slug": "scaglia-marmolada",
+      "name": "Scaglia Marmolada",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-scaglia-montebello.html",
+      "slug": "scaglia-montebello",
+      "name": "Scaglia Montebello",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-sierra-nevada.html",
+      "slug": "sierra-nevada",
+      "name": "Sierra Nevada",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-spaccatello.html",
+      "slug": "spaccatello",
+      "name": "Spaccatello",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-stelvio.html",
+      "slug": "stelvio",
+      "name": "Stelvio",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-stelvio-baleari.html",
+      "slug": "stelvio-baleari",
+      "name": "Stelvio Baleari",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-stelvio-mares.html",
+      "slug": "stelvio-mares",
+      "name": "Stelvio Mares",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-stigliano.html",
+      "slug": "stigliano",
+      "name": "Stigliano",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-tavoleto.html",
+      "slug": "tavoleto",
+      "name": "Tavoleto",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-tignale.html",
+      "slug": "tignale",
+      "name": "Tignale",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-tione.html",
+      "slug": "tione",
+      "name": "Tione",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-tirolo.html",
+      "slug": "tirolo",
+      "name": "Tirolo",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-travertino.html",
+      "slug": "travertino",
+      "name": "Travertino",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-tremosine.html",
+      "slug": "tremosine",
+      "name": "Tremosine",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-treviso.html",
+      "slug": "treviso",
+      "name": "Treviso",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-valdarno.html",
+      "slug": "valdarno",
+      "name": "Valdarno",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-varese.html",
+      "slug": "varese",
+      "name": "Varese",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-vega-ecotufo.html",
+      "slug": "vega-ecotufo",
+      "name": "Vega – Ecotufo",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-viareggio.html",
+      "slug": "viareggio",
+      "name": "Viareggio",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-vipiteno.html",
+      "slug": "vipiteno",
+      "name": "Vipiteno",
+      "type": "collection"
+    },
+    {
+      "path": "biopietra-volpedo.html",
+      "slug": "volpedo",
+      "name": "Volpedo",
+      "type": "collection"
+    }
+  ]
+}

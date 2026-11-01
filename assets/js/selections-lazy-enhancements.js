@@ -154,6 +154,9 @@
 
     function currentEntries() {
       const partner = currentPartnerName();
+      if (/biopietra/i.test(partner) && Array.isArray(window.BIOPIETRA_CATALOGUE)) {
+        return window.BIOPIETRA_CATALOGUE.map(p=>({id:p.id,name:p.name,meta:p.group||p.family||'',keywords:[p.baseSeries,p.composition,...(p.swatches||[]).map(c=>c.name)].filter(Boolean).join(' ')})).sort((a,b)=>a.name.localeCompare(b.name,'fr',{numeric:true,sensitivity:'base'}));
+      }
       if (/view/i.test(partner) && Array.isArray(window.VIEW_CATALOGUE)) {
         return window.VIEW_CATALOGUE.map(p=>({
           id:p.id,name:p.name,
@@ -197,6 +200,7 @@
       const cat = setupFeniceCatalogueSelector();
       entries = currentEntries();
       const partner = currentPartnerName() || 'ce fabricant';
+      overlay.querySelector('h3').textContent = /biopietra/i.test(partner) ? 'Séries et Mix Biopietra' : 'Lexique des collections';
       sub.textContent = cat?.subtitle || `${entries.length} produit${entries.length>1?'s':''} · ${partner}`;
       search.value = '';
       renderLexicon();
@@ -233,6 +237,7 @@
       closeLexicon();
 
       if(id.startsWith('fenice-') && window.LRF_FENICE_SELECTION?.openCollection(id))return;
+      if(id.startsWith('biopietra-') && window.LRF_BIOPIETRA_SELECTION?.openCollection(id))return;
       if (id.startsWith('view-') && window.LRF_VIEW_SELECTION?.openCollection(id)) return;
 
       if (entry?.pdf && entry?.page) {
