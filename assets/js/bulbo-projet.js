@@ -31,7 +31,9 @@
   };
   const isConnected = s => !!s && ((/^LRF-\d{5}$/.test(String(s.codeClient || '').trim().toUpperCase()) && String(s.codeClient).trim().toUpperCase() !== 'LRF-00001') || ((s.isAdmin === true || s.admin === true) && ['jerome@leroyfactory.fr','coryne@leroyfactory.fr'].includes(String(s.email || '').trim().toLowerCase())));
   const productLink = slug => 'https://leroyfactory.fr/univers.html?partner=bulbo' + (slug ? '&collection=' + encodeURIComponent(slug) : '');
-  window.LRF_BULBO_PROJECT_UTILS = Object.freeze({exactChoice, quantityValue, safeImage, isConnected, productLink});
+  const supportsSecondColor = product => product?.productType === 'surface' && /deux codes couleur/i.test((Array.isArray(product.technicalNotes) ? product.technicalNotes : [product.technicalNotes]).filter(Boolean).join(' '));
+  const colorLabels = product => ['splendore','lysoform','confetto'].includes(product?.slug) ? ['Couleur de départ','Couleur d’arrivée'] : ['Couleur du fond','Couleur du motif'];
+  window.LRF_BULBO_PROJECT_UTILS = Object.freeze({exactChoice, quantityValue, safeImage, isConnected, productLink, supportsSecondColor, colorLabels});
   const $ = id => document.getElementById(id);
   const form = $('bulbo-project-form');
   if (!form) return;
@@ -76,13 +78,16 @@
   }
   function renderProduct(wanted = {}) {
     selected = products.find(product => product.slug === $('collection').value) || null;
-    const isFurniture = furniture(), isMonolith = monolith();
+    const isFurniture = furniture(), isMonolith = monolith(), twoColors = supportsSecondColor(selected);
     fillOptions('color', isMonolith ? [] : selected?.colors, wanted.color);
+    fillOptions('color2', twoColors ? selected?.colors : [], wanted.color2);
     fillOptions('format', selected?.formats, wanted.format);
     fillOptions('finish', selected?.finishes, wanted.finish);
     $('color-field').hidden = isMonolith;
+    $('color2-field').hidden = !twoColors;
     $('finish-field').hidden = isMonolith && !choices(selected?.finishes).length;
-    $('color-field').firstChild.textContent = isFurniture ? 'Couleur du plan' : 'Coloris';
+    $('color-field').firstChild.textContent = isFurniture ? 'Couleur du plan' : twoColors ? colorLabels(selected)[0] : 'Coloris';
+    $('color2-field').firstChild.textContent = colorLabels(selected)[1];
     $('format-field').firstChild.textContent = isFurniture ? 'Largeur / format' : 'Format';
     $('finish-field').firstChild.textContent = isFurniture ? 'Plan / finition' : 'Finition';
     $('quantity-label').textContent = isFurniture ? 'Quantité souhaitée (pièces)' : 'Surface souhaitée (m²)';
@@ -91,6 +96,7 @@
     $('decor-label').textContent = isFurniture ? 'Décor de façade souhaité' : 'Dimensions du mur / précisions sur le décor';
     $('decor').placeholder = isFurniture ? 'Nom du décor BULBO, couleurs, continuité avec le mur…' : 'Largeur × hauteur, emplacement, couleur ou détail souhaité…';
     $('selection-note').textContent = isMonolith ? 'MONOLITH se prépare sur mesure. Précisez votre décor, les dimensions et les détails souhaités : l’agence confirmera les possibilités et le chiffrage.' : isFurniture ? 'Le coloris ci-dessus concerne le plan. Précisez séparément le décor souhaité pour la façade. Les associations et dimensions seront confirmées par l’agence.' : 'Vous pouvez laisser les choix ouverts : ils seront définis avec l’agence. Les surfaces BULBO se préparent selon les dimensions de votre projet.';
+    if (twoColors) $('selection-note').textContent = 'Précisez les deux codes couleur dans l’ordre souhaité. La composition et cet ordre seront validés par l’agence. Le visuel présenté illustre la collection et ne simule pas cette combinaison.';
     $('summary-kind').textContent = isFurniture ? 'AQUERELLE · MEUBLE COORDONNÉ' : 'BULBO · SURFACE D’EXCEPTION';
     $('summary-name').textContent = selected?.name || 'Choisissez votre collection';
     $('summary-description').textContent = selected ? clean(selected.description || selected.summary || (isFurniture ? 'Un meuble habillé du décor de votre choix, pour une salle de bains coordonnée.' : 'Une surface décorative à composer pour votre intérieur.'), 400) : 'Les finitions et dimensions seront confirmées pour votre projet.';
@@ -128,7 +134,9 @@
       'Bonjour Jérôme,', '',
       pro ? 'Je souhaite préparer le chiffrage de mon projet BULBO.' : 'Je souhaite être conseillé sur mon projet BULBO et être orienté vers un magasin revendeur.', '',
       'MA SÉLECTION BULBO', 'Collection / meuble : ' + selected.name,
-      !monolith() ? (furniture() ? 'Couleur du plan : ' : 'Coloris : ') + chosenLabel('color') : '',
+      !monolith() ? (furniture() ? 'Couleur du plan' : supportsSecondColor(selected) ? colorLabels(selected)[0] : 'Coloris') + ' : ' + chosenLabel('color') : '',
+      supportsSecondColor(selected) ? colorLabels(selected)[1] + ' : ' + chosenLabel('color2') : '',
+      supportsSecondColor(selected) ? 'Ordre de composition : ' + colorLabels(selected)[0] + ' → ' + colorLabels(selected)[1] + '. Placement et combinaison à confirmer avec l’agence.' : '',
       (furniture() ? 'Largeur / format : ' : 'Format : ') + chosenLabel('format'),
       choices(selected.finishes).length ? (furniture() ? 'Plan / finition : ' : 'Finition : ') + chosenLabel('finish') : '',
       'Quantité souhaitée : ' + (qty.value ? Number(qty.value).toLocaleString('fr-FR') + (furniture() ? ' pièce(s)' : ' m²') : 'À préciser'),
@@ -201,7 +209,7 @@
       const wantedSlug = clean(params.get('collection'));
       const product = products.find(item => item.slug === wantedSlug || item.id === wantedSlug);
       collection.value = product?.slug || '';
-      const wanted = {color:clean(params.get('color')), format:clean(params.get('format')), finish:clean(params.get('finish'))};
+      const wanted = {color:clean(params.get('color')), color2:clean(params.get('color2')), format:clean(params.get('format')), finish:clean(params.get('finish'))};
       renderProduct(wanted);
       const quantity = clean(params.get('quantity'), 20), validated = quantityValue(quantity, furniture());
       if (!validated.error) $('quantity').value = validated.value;
