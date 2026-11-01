@@ -1,6 +1,8 @@
+import {currentPartner,mountPartnerBranding} from './commerce/partner-context.js';
+mountPartnerBranding();
 // Keep the official site as the first-party session host, including old direct links.
 // Local previews can stay standalone; credentials are never put in URLs.
-if(globalThis.__LRF_STANDALONE_PREVIEW__!==true&&parent===window&&location.hostname==='studio-one-beta-test-v2.vercel.app'&&new URLSearchParams(location.search).get('standalone')!=='1'){
+if(globalThis.__LRF_STANDALONE_PREVIEW__!==true&&parent===window&&location.hostname==='studio-one-beta-test-v2.vercel.app'&&new URLSearchParams(location.search).get('standalone')!=='1'&&!currentPartner()){
  const destination=new URL('https://leroyfactory.fr/studio-one-configurateur.html');for(const key of ['collection','view','step','account','new','guided','plans','project','template']){const value=new URLSearchParams(location.search).get(key);if(value!==null)destination.searchParams.set(key,value);}
  const page=location.pathname.split('/').filter(Boolean).at(-1)||'index.html';
  if(['index.html','atelier.html','maison.html'].includes(page))destination.searchParams.set('page',page);
