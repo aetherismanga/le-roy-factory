@@ -1,0 +1,86 @@
+name: Import BULBO selection assets
+
+on:
+  push:
+    branches: ['release/bulbo-selection-20261101']
+    paths:
+      - '.github/workflows/import-bulbo-selection-assets.yml'
+      - 'reports/bulbo-media-import.json'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: bulbo-selection-public-media-import
+  cancel-in-progress: true
+
+jobs:
+  identify:
+    name: Identify importer service account
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Authenticate existing importer identity
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_LE_ROY_FACTORY }}'
+
+      - name: Print only the non-secret importer email
+        run: |
+          node - <<'JS'
+          const {readFileSync}=require('node:fs');
+          const email=JSON.parse(readFileSync(process.env.GOOGLE_APPLICATION_CREDENTIALS,'utf8')).client_email;
+          if(!email||!email.endsWith('.gserviceaccount.com'))throw Error('Importer service account identity unavailable.');
+          console.log('Drive importer service account: '+email);
+          JS
+
+  import:
+    name: Verify and import approved BULBO public media
+    needs: identify
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Checkout release branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+          persist-credentials: true
+
+      - name: Refresh the selected branch
+        env:
+          IMPORT_BRANCH: ${{ github.ref_name }}
+        run: |
+          test "$IMPORT_BRANCH" = 'release/bulbo-selection-20261101'
+          git fetch origin "$IMPORT_BRANCH"
+          git checkout -B "$IMPORT_BRANCH" "origin/$IMPORT_BRANCH"
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install existing Google authentication dependency
+        run: npm install --prefix functions --omit=dev --ignore-scripts
+
+      - name: Authenticate existing importer service account
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_LE_ROY_FACTORY }}'
+
+      - name: Download privately and verify every approved asset
+        run: node scripts/import-bulbo-selection-assets.cjs reports/bulbo-media-import.json
+
+      - name: Commit verified public images and catalogues
+        env:
+          IMPORT_BRANCH: ${{ github.ref_name }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- assets/img/bulbo-20261101 assets/pdf/bulbo
+          if git diff --cached --quiet; then
+            echo 'The approved BULBO assets are already present.'
+          else
+            git commit -m 'Import verified BULBO collection images and official catalogues'
+            git pull --rebase origin "$IMPORT_BRANCH"
+            git push origin "HEAD:$IMPORT_BRANCH"
+          fi

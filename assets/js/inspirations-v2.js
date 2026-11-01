@@ -27,7 +27,7 @@
   const esc=v=>String(v??'').replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c]));
   const norm=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');
   const session=()=>{try{return window.LRF_PRO_SESSION?.read?.()||JSON.parse(sessionStorage.getItem('lrfProSession')||'null')}catch{return null}};
-  const hasAccess=slug=>{if(slug==='biopietra')return window.LRF_BIOPIETRA_ACCESS?.canAccess?.()===true;if(['elios-ceramica','view-ceramica'].includes(slug))return window.LRF_AGENT_TARIFFS?.canAccess?.(slug)===true;const s=session();if(!s||!Array.isArray(s.partenaires))return false;return s.partenaires.some(p=>{const n=norm(p),w=norm(slug);return n===w||n===norm(PARTNERS_BY_SLUG[slug]?.name||'')||(slug==='reitano-rubinetterie'&&(n==='reitano'||n==='reitanorubinetteria'))})};
+  const hasAccess=slug=>{if(slug==='bulbo')return window.LRF_BULBO_ACCESS?.canAccess?.()===true;if(slug==='biopietra')return window.LRF_BIOPIETRA_ACCESS?.canAccess?.()===true;if(['elios-ceramica','view-ceramica'].includes(slug))return window.LRF_AGENT_TARIFFS?.canAccess?.(slug)===true;const s=session();if(!s||!Array.isArray(s.partenaires))return false;return s.partenaires.some(p=>{const n=norm(p),w=norm(slug);return n===w||n===norm(PARTNERS_BY_SLUG[slug]?.name||'')||(slug==='reitano-rubinetterie'&&(n==='reitano'||n==='reitanorubinetteria'))})};
   const PARTNERS_BY_SLUG={};Object.entries(PARTNERS).forEach(([name,p])=>PARTNERS_BY_SLUG[p.slug]={...p,name});
 
   const COLOR_RULES=[
@@ -92,6 +92,7 @@
   function renderPartners(){const c=CATEGORIES.find(x=>x.id===state.category);const list=[...(c?.partners||[])].sort((a,b)=>c?.id==='meubles'?c.partners.indexOf(a)-c.partners.indexOf(b):String(a).localeCompare(String(b),'fr',{sensitivity:'base'}));$('#partner-panel-title').textContent=c?.label||'Partenaires';partnerGrid.innerHTML=list.length?list.map(name=>{const p=PARTNERS[name];const allowed=hasAccess(p.slug),isBio=name==='Biopietra';return `<button class="partner-card ${name===state.partner?'active':''}" data-partner="${esc(name)}"><img src="${p.logo}" alt="${esc(name)}"><span><strong>${esc(name)}</strong><small>${esc(p.country)}</small>${isBio?'':`<span class="access ${allowed?'':'locked'}">${allowed?'✓ Tarif PRO autorisé':'🔒 Tarif PRO selon compte'}</span>`}</span></button>`}).join(''):`<div class="empty-partner"><strong>Sanitaire</strong><p>Aucun partenaire sanitaire n'est encore intégré.</p></div>`;partnerTrigger.textContent=`☰ Choisir une usine${state.partner?` — ${state.partner}`:''}`}
   function unique(arr){return [...new Set(arr.filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b),'fr',{numeric:true}))}
   function products(){
+    if(state.partner==='Bulbo') return window.LRF_BULBO_SELECTION?.normaliseProducts() || [];
     if(state.partner==='Biopietra') return window.LRF_BIOPIETRA_SELECTION?.normaliseProducts() || [];
     if(state.partner==='La Fenice') return (window.FENICE_CATALOGUE || []).map(p=>({...p,category:p.productType||'Carrelage',colorFamilies:p.colorFamilies||basicColors(p)}));
     if(state.partner==='View Ceramica' && Array.isArray(window.VIEW_CATALOGUE)) return window.VIEW_CATALOGUE;
@@ -100,7 +101,7 @@
   }
   function imageOf(p){if(state.partner==='La Fenice'&&p.coverImage)return p.coverImage;const first=(state.partner==='Elios Ceramica'&&window.ELIOS_SELECTION_MEDIA?.galleries?.[p.slug]?.[0])||(p.images||[])[0];return (typeof first==='string'?first:first?.url)||'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/03.png'}
   function fillFilters(){
-    const data=products();
+    const data=state.partner==='Bulbo'?products().filter(p=>window.LRF_BULBO_SELECTION?.matches(p)):products();
     const formats=unique(data.flatMap(p=>p.formats||[]));
     const colors=unique(data.flatMap(p=>p.colorFamilies||p.colors||[]));
     const effects=unique(data.map(p=>p.effect).filter(Boolean));
@@ -112,12 +113,13 @@
     fill('#v2-finish',finishes,state.partner==='Biopietra'?'Toutes les épaisseurs':'Toutes les finitions');
   }
   function match(p){
+    if(state.partner==='Bulbo' && !window.LRF_BULBO_SELECTION?.matches(p))return false;
     if(state.partner==='La Fenice' && window.LRF_FENICE_SELECTION?.matchesCatalogue && !window.LRF_FENICE_SELECTION.matchesCatalogue(p))return false;
     const hay=norm([
       p.collection,p.name,p.catalogueLabel,p.slug,p.description,p.category,p.effect,p.badge,p.keywords,...(p.categories||[]),
       ...(p.formats||[]),...(p.colors||[]),...(p.colorFamilies||[]),...(p.finishes||[])
     ].join(' '));
-    if(state.q && ['La Fenice','Biopietra'].includes(state.partner)){const terms=state.q.toLowerCase().replace(/\bimitations?\b/g,'effet').replace(/\bpolis?\b/g,'brillant').replace(/\b(carrelages?|la|fenice|biopietra|parement|ceramique|céramique|en|de|du|des|pour)\b/g,' ').replace(/(\d)\s*[×x]\s*(?=\d)/g,'$1x').split(/\s+/).map(norm).filter(Boolean);if(!terms.every(t=>hay.includes(t)))return false;}
+    if(state.q && ['La Fenice','Biopietra','Bulbo'].includes(state.partner)){const terms=state.q.toLowerCase().replace(/\bimitations?\b/g,'effet').replace(/\bpolis?\b/g,'brillant').replace(/\b(carrelages?|la|fenice|biopietra|bulbo|parement|ceramique|céramique|en|de|du|des|pour)\b/g,' ').replace(/(\d)\s*[×x]\s*(?=\d)/g,'$1x').split(/\s+/).map(norm).filter(Boolean);if(!terms.every(t=>hay.includes(t)))return false;}
     else if(state.q){const discovery=state.partner==='Elios Ceramica'&&window.LRF_ELIOS_DISCOVERY; if(discovery?!discovery.matches(p,state.q):!hay.includes(norm(state.q)))return false;}
     if(state.format!=='Tous'&&!(p.formats||[]).some(x=>norm(x)===norm(state.format)))return false;
     if(state.color!=='Tous'&&!(p.colorFamilies||p.colors||[]).some(x=>norm(x)===norm(state.color)))return false;
@@ -128,6 +130,11 @@
   function renderProducts(){
     const data=products();const matched=data.filter(match);const visible=state.partner==='Elios Ceramica'&&!state.poolGroup?window.LRF_ELIOS_SELECTION_MODEL.groupPools(matched):matched;const found=visible.slice().sort((a,b)=>String(a.name||a.collection||'').localeCompare(String(b.name||b.collection||''),'fr',{numeric:true,sensitivity:'base'}));
     count.textContent=data.length?`${found.length} ${state.poolGroup?('collection'+(found.length>1?'s':'')+' Pool Surfaces'):state.partner==='Elios Ceramica'?('sélection'+(found.length>1?'s':'')):('produit'+(found.length>1?'s':''))}`:'Catalogue produits à intégrer';
+    if(state.partner==='Bulbo'){
+      count.textContent=data.length?`${found.length} collection${found.length>1?'s':''} BULBO`:'Collections BULBO';
+      productGrid.innerHTML=window.LRF_BULBO_SELECTION?.renderCards(found)||'';
+      return;
+    }
     if(state.partner==='Biopietra'){
       count.textContent=data.length?`${found.length} séries et compositions`:'Chargement du catalogue Biopietra…';
       productGrid.innerHTML=data.length?window.LRF_BIOPIETRA_SELECTION.renderCards(found):'<div class="empty-partner" role="status"><strong>Chargement des séries et des Mix Biopietra…</strong><button type="button" class="pro-link" data-biopietra-retry>Recharger le catalogue</button></div>';
@@ -166,11 +173,12 @@
     }
     const productHint=count?.parentElement?.querySelector('span');
     if(productHint)productHint.textContent=isRandal?'Choisissez votre meuble et préparez votre commande':'Cliquez sur un produit pour les détails et tarifs PRO';
-    fillFilters();renderProducts();window.LRF_BIOPIETRA_SELECTION?.refreshChrome();}
+    fillFilters();renderProducts();window.LRF_BIOPIETRA_SELECTION?.refreshChrome();window.LRF_BULBO_SELECTION?.refreshChrome();}
   function resetFilters(){state.poolGroup=false;state.q='';state.format=state.color=state.effect=state.finish='Tous';const s=$('#v2-search');if(s)s.value=''}
   function chooseCategory(id){state.category=id;const c=CATEGORIES.find(x=>x.id===id);if(!c)return;state.partner=c.partners[0]||'';resetFilters();renderCategories();renderPartners();renderWorkspace()}
   function choosePartner(name){state.partner=name;resetFilters();renderPartners();renderWorkspace();partnerPanel.classList.remove('mobile-open')}
   function openProduct(id){
+    if(state.partner==='Bulbo' && window.LRF_BULBO_SELECTION?.openCollection){window.LRF_BULBO_SELECTION.openCollection(id);return;}
     if(state.partner==='Biopietra' && window.LRF_BIOPIETRA_SELECTION?.openCollection){window.LRF_BIOPIETRA_SELECTION.openCollection(id);return;}
     if(state.partner==='La Fenice' && window.LRF_FENICE_SELECTION?.openCollection){window.LRF_FENICE_SELECTION.openCollection(id);return;}
     if(id==='elios-pool-surfaces'){resetFilters();state.poolGroup=true;renderWorkspace();workspace.scrollIntoView({behavior:'smooth',block:'start'});return;}
@@ -198,6 +206,11 @@
   window.addEventListener('pageshow',()=>{if(window.LRF_PRO_SESSION?.read?.()){renderPartners();renderWorkspace();}},{passive:true});
 
   let requestedFeniceOpened=false;
+  let requestedBulboOpened=false;
+  function openRequestedBulbo(){const collection=new URLSearchParams(location.search).get('collection');if(!requestedBulboOpened && state.partner==='Bulbo' && collection && window.LRF_BULBO_SELECTION?.openCollection(collection))requestedBulboOpened=true;}
+  window.addEventListener('lrf-bulbo-data-ready',()=>{if(state.partner==='Bulbo'){fillFilters();renderProducts();openRequestedBulbo();}});
+  window.addEventListener('lrf-bulbo-data-error',()=>{if(state.partner==='Bulbo')renderProducts();});
+  window.addEventListener('lrf-bulbo-filter-change',event=>{if(state.partner==='Bulbo'){if(event.detail?.reset){resetFilters();fillFilters();}renderProducts();}});
   function openRequestedFenice(){const collection=new URLSearchParams(location.search).get('collection');if(!requestedFeniceOpened && state.partner==='La Fenice' && collection && window.LRF_FENICE_SELECTION?.openCollection('fenice-'+collection))requestedFeniceOpened=true;}
   window.addEventListener('lrf-fenice-data-ready',()=>{if(state.partner==='La Fenice'){fillFilters();renderProducts();openRequestedFenice();}});
   window.addEventListener('lrf-fenice-filter-change',()=>{if(state.partner==='La Fenice')renderProducts();});
@@ -209,6 +222,7 @@
   productGrid.addEventListener('click',event=>{if(event.target.closest('[data-biopietra-retry]'))window.LRF_BIOPIETRA_LOAD?.().catch(()=>{});});
   if(/fenice/i.test(new URLSearchParams(location.search).get('partner')||''))state.partner='La Fenice';
   if(/biopietra/i.test(new URLSearchParams(location.search).get('partner')||'')){state.category='parement';state.partner='Biopietra';}
-  renderCategories();renderPartners();renderWorkspace();openRequestedFenice();openRequestedBiopietra();
+  if(/^bulbo$/i.test(new URLSearchParams(location.search).get('partner')||'')){state.category='exception';state.partner='Bulbo';}
+  renderCategories();renderPartners();renderWorkspace();openRequestedFenice();openRequestedBiopietra();openRequestedBulbo();
 })();
 

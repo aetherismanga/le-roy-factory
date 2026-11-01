@@ -1,6 +1,7 @@
 const { onRequest } = require('firebase-functions/v2/https');
 const admin = require('firebase-admin');
 const zlib = require('zlib');
+const { createHash } = require('node:crypto');
 const { GoogleAuth } = require('google-auth-library');
 const { getAgentFromRequest } = require('./auth');
 const { writeClientActivity } = require('./lrf-analytics-core');
@@ -19,7 +20,7 @@ const TARIFFS = {
   'biopietra-code-prix': { partner:'biopietra', source:'assets/pdf/biopietracodeprix.pdf', storagePath:'private-tariffs/biopietra/biopietracodeprix.pdf', filename:'BIOPIETRA-Code-Prix.pdf' },
   'petracers': { partner:'petracers', source:'assets/pdf/petracer2023.pdf', storagePath:'private-tariffs/petracers/petracer2023.pdf', filename:'PETRACERS-Tarifs.pdf' },
   'pecchioli': { partner:'pecchioli-firenze', source:'assets/pdf/pecchioli2022.pdf', storagePath:'private-tariffs/pecchioli/pecchioli2022.pdf', filename:'PECCHIOLI-Tarifs.pdf' },
-  'bulbo-2026': { partner:'bulbo', source:'assets/pdf/bulbo2026.pdf', storagePath:'private-tariffs/bulbo/bulbo2026.pdf', filename:'BULBO-Tarifs-2026.pdf' },
+  'bulbo-2026': { partner:'bulbo', storagePath:'private-tariffs/bulbo/bulbo-surfaces-aquerelle-2026-10-01.pdf', filename:'BULBO-Surfaces-AQUERELLE-Tarifs-2026-10-01.pdf' },
   'randal': { partner:'randal-pro', source:'assets/pdf/RANDAL03.pdf', storagePath:'private-tariffs/randal/RANDAL03.pdf', filename:'RANDAL-PRO-Tarifs.pdf' },
   'neobath-anima': { partner:'neobath', source:'assets/pdf/neobathANIMA.pdf', storagePath:'private-tariffs/neobath/neobathANIMA.pdf', filename:'NEOBATH-ANIMA-Tarifs.pdf' },
   'neobath-dna-pdf': { partner:'neobath', source:'assets/pdf/neobathDNA.pdf', storagePath:'private-tariffs/neobath/neobathDNA.pdf', filename:'NEOBATH-DNA-Tarifs.pdf' },
@@ -72,9 +73,31 @@ async function ensureLifeTariffPdf() {
   await lifeTariffImportPromise;
 }
 
+// Official October 2026 supplier documents: surfaces page 1, AQUERELLE page 2.
+// The source is private, shared only with the existing runtime service account.
+const BULBO_DRIVE_ID = '1O97PcQ5eCCOi8-PW-NwuERzzeIHUPTVh';
+const BULBO_PDF_SHA256 = '5eccb927ab351c960e47c07e3995d509b2fd499cf7b5a403c46b1c1f0d674a43';
+let bulboTariffImportPromise = null;
+async function ensureBulboTariffPdf() {
+  const target = bucket.file(TARIFFS['bulbo-2026'].storagePath);
+  const [exists] = await target.exists();
+  if (exists) return;
+  if (!bulboTariffImportPromise) {
+    bulboTariffImportPromise = (async () => {
+      const auth = new GoogleAuth({scopes:['https://www.googleapis.com/auth/drive.readonly']});
+      const authorizedClient = await auth.getClient();
+      const response = await authorizedClient.request({url:`https://www.googleapis.com/drive/v3/files/${BULBO_DRIVE_ID}?alt=media`,responseType:'arraybuffer'});
+      const bytes = Buffer.from(response.data);
+      if (bytes.length < 10000 || bytes.subarray(0,5).toString('ascii') !== '%PDF-' || createHash('sha256').update(bytes).digest('hex') !== BULBO_PDF_SHA256) throw new Error('Document tarifaire BULBO invalide ou modifié.');
+      await target.save(bytes,{resumable:false,contentType:'application/pdf',metadata:{cacheControl:'private,no-store,max-age=0'}});
+    })().finally(() => { bulboTariffImportPromise = null; });
+  }
+  await bulboTariffImportPromise;
+}
+
 const getTariffPdf=onRequest({timeoutSeconds:120,memory:'512MiB'},async(req,res)=>{
   if(cors(req,res))return;if(req.method!=='POST')return res.status(405).json({success:false,error:'Méthode non autorisée'});
-  try{const{codeClient,departement,tariffId}=req.body||{};const def=TARIFFS[String(tariffId||'')];if(!def)return res.status(404).json({success:false,error:'Tarif inconnu'});const agent=await getAgentFromRequest(req);if(agent){if(tariffId==='life-2026')await ensureLifeTariffPdf();return streamPrivateFile(res,bucket.file(def.storagePath),def.filename,'application/pdf');}const client=await verifiedClient(codeClient,departement);if(!client)return res.status(403).json({success:false,error:'Identifiant client ou département incorrect.'});if(!clientCanAccess(client,def.partner))return res.status(403).json({success:false,error:'Ce tarif n’est pas autorisé pour ce compte.'});await writeClientActivity(client,{action:'tariff_view',page:`tarif:${tariffId}`,title:def.filename,partner:def.partner,tariffId:String(tariffId||'')}).catch(()=>{});if(tariffId==='life-2026')await ensureLifeTariffPdf();return streamPrivateFile(res,bucket.file(def.storagePath),def.filename,'application/pdf');}
+  try{const{codeClient,departement,tariffId}=req.body||{};const def=TARIFFS[String(tariffId||'')];if(!def)return res.status(404).json({success:false,error:'Tarif inconnu'});const agent=await getAgentFromRequest(req);if(agent){if(tariffId==='life-2026')await ensureLifeTariffPdf();if(tariffId==='bulbo-2026')await ensureBulboTariffPdf();return streamPrivateFile(res,bucket.file(def.storagePath),def.filename,'application/pdf');}const client=await verifiedClient(codeClient,departement);if(!client)return res.status(403).json({success:false,error:'Identifiant client ou département incorrect.'});if(!clientCanAccess(client,def.partner))return res.status(403).json({success:false,error:'Ce tarif n’est pas autorisé pour ce compte.'});await writeClientActivity(client,{action:'tariff_view',page:`tarif:${tariffId}`,title:def.filename,partner:def.partner,tariffId:String(tariffId||'')}).catch(()=>{});if(tariffId==='life-2026')await ensureLifeTariffPdf();if(tariffId==='bulbo-2026')await ensureBulboTariffPdf();return streamPrivateFile(res,bucket.file(def.storagePath),def.filename,'application/pdf');}
   catch(e){console.error('getTariffPdf',e);return res.status(500).json({success:false,error:'Impossible d’ouvrir ce tarif.'});}
 });
 

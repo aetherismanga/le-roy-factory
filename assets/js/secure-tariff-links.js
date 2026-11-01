@@ -92,6 +92,14 @@
 
   async function openSecureTariff(anchor){
     if(!cardAllowsSecureOpen(anchor))return;
+    if (anchor.dataset.secureTariffId === 'bulbo-2026' && window.LRF_BULBO_ACCESS) {
+      if (anchor.getAttribute?.('aria-busy') === 'true') return;
+      anchor.setAttribute('aria-busy','true');
+      try { await window.LRF_BULBO_ACCESS.openTariff(anchor,'surfaces'); }
+      catch (error) { alert(error.message || 'Impossible d’ouvrir le tarif BULBO.'); }
+      finally { anchor.removeAttribute('aria-busy'); }
+      return;
+    }
     if(anchor.getAttribute?.('aria-busy')==='true')return;
     const s=session();
     anchor.setAttribute('aria-busy','true');
