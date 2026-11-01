@@ -8,7 +8,7 @@ import {publicCompositionURL,navigatePublicComposition} from '../../../shared/lr
 import {resumeStudioEntry} from './start-entry.js';
 import {fullTopDrawerAvailable,drawerDescription} from '../../../shared/lrf-3d/drawer-options.js';
 import '../viewport.js';
-import {partnerForProject,callbackRecipients} from './partner-context.js';
+import {partnerForProject,callbackRecipients,mountPartnerReturn} from './partner-context.js';
 import {createWorkspace} from './workspace.js';
 import {createProjectNavigation} from './navigation.js';
 import {CATALOG as C} from './catalog.js';
@@ -33,6 +33,7 @@ const identity=createIdentity(()=>currentComposition(),state=>{session=state;ren
 try{draft=normalizeDraft(read(DRAFT_KEY,initialDraft()));const prior=read(QUOTE_KEY);if(prior){projectTitle=prior.title||projectTitle;siteReference=prior.siteReference||'';}}catch{}
 function navigationProject(){try{if(view==='quote'&&project)return project;if(view==='wizard')return {...draftProject(draft),title:projectTitle,siteReference};const prior=read(FLOW_KEY);if(prior?.view==='atelier'||prior?.view==='quote')return read(CURRENT_KEY)||read(QUOTE_KEY);if(read(DRAFT_KEY))return {...draftProject(draft),title:projectTitle,siteReference};}catch{}return null;}
 const projectNavigation=createProjectNavigation({getProject:navigationProject,save:p=>saveComposition(localStorage,p,{id:localStorage.getItem(ACTIVE_ID)||null})});
+mountPartnerReturn(projectNavigation);
 function currentComposition(){try{if(view==='quote')return project;if(view==='wizard'&&step>0)return {...draftProject(draft),title:projectTitle,siteReference};}catch{}return null;}
 function commercialChanged(){if(!identityStarted){identityStarted=true;identity.load();}else identity.schedule();}
 function documentGuest(){if(!guest)return null;const c=session?.client;return c?guest.forClient===(c.codeClient||c.email)?guest:null:guest.forClient?null:guest;}

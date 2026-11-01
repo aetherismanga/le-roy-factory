@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {createPartnerContext,knownPartner,withPartnerReferral,partnerForProject,callbackRecipients} from '../src/commerce/partner-context.js';
+import {createPartnerContext,knownPartner,withPartnerReferral,partnerForProject,callbackRecipients,mountPartnerReturn} from '../src/commerce/partner-context.js';
 import {draftProject,initialDraft} from '../src/commerce/guided.js';
 import {orderText,composeLinks,checkedProject,storeQuote,QUOTE_KEY,ORDER_TO} from '../src/commerce/flow.js';
 const memory=()=>{const data=new Map();return {getItem:k=>data.get(k)||null,setItem:(k,v)=>data.set(k,v),removeItem:k=>data.delete(k)};};
@@ -26,3 +26,16 @@ assert.equal(new URL(links.outlook).searchParams.get('to'),'jerome@leroyfactory.
 assert.equal(new URL(links.mailto).pathname,'jerome@leroyfactory.fr');
 const defaultLinks=composeLinks('Test','Demande LRF');assert.equal(new URL(defaultLinks.gmail).searchParams.get('to'),ORDER_TO.join(','));
 console.log('Partner callback: source persistence, recipient allowlist, complete quote, and unchanged LRF path verified.');
+const back={onclick:()=>{},href:'https://leroyfactory.fr/configurateurs-randal.html'},fakeWindow={top:{location:{href:''}},location:{assign(){throw Error('Top-level navigation expected');}}};
+const events=[];let completeCheckpoint;
+const navigation={request:async action=>{events.push('checkpoint');await new Promise(resolve=>completeCheckpoint=resolve);events.push('saved');action();}};
+assert.equal(mountPartnerReturn(navigation,{partner,document:{getElementById:()=>back},window:fakeWindow}),true);
+const click=back.onclick({preventDefault(){events.push('prevented');}});
+assert.equal(fakeWindow.top.location.href,'','The return waits for the project checkpoint');
+completeCheckpoint();await click;
+assert.deepEqual(events,['prevented','checkpoint','saved']);
+assert.equal(fakeWindow.top.location.href,'https://cera-stone-atelier.ccjacou.chatgpt.site/','The CeraStone exit returns to the CeraStone homepage');
+const original=()=>{};back.onclick=original;
+assert.equal(mountPartnerReturn(navigation,{partner:null,document:{getElementById:()=>back},window:fakeWindow}),false);
+assert.equal(back.onclick,original,'The ordinary LRF exit remains untouched');
+console.log('Partner exit: approved homepage, preserved checkpoint, and unchanged LRF exit verified.');

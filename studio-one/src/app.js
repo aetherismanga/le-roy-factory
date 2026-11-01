@@ -51,6 +51,7 @@ import {showPlanPicker} from './plan-picker.js';
 import {createWorkspace} from './commerce/workspace.js';
 import './viewport.js';
 import {createProjectNavigation} from './commerce/navigation.js';
+import {mountPartnerReturn} from './commerce/partner-context.js';
 import {CATALOG as StudioOneCatalog} from './commerce/catalog.js';
 import {saveComposition,ACTIVE_ID,FLOW_KEY} from './commerce/flow.js';
 import {configureColourRendering} from './colour-rendering.js';
@@ -596,6 +597,7 @@ function animate(time){if(captureBusy||document.hidden){running=false;lastTime=0
 }
 async function start(){
  projectNavigation=createProjectNavigation({getProject:()=>state.ready?collectProject():null,save:()=>saveProject()});
+ mountPartnerReturn(projectNavigation);
  try{
   renderer=new T.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance',alpha:false});activePixelRatio=renderPixelRatio(quality.profile,stage.clientWidth,stage.clientHeight,Math.min(devicePixelRatio||1,isMobile?1.7:2.5));renderer.setPixelRatio(activePixelRatio);configureColourRendering(renderer);renderer.shadowMap.enabled=true;renderer.shadowMap.autoUpdate=false;renderer.shadowMap.needsUpdate=true;renderer.shadowMap.type=T.PCFSoftShadowMap;
   scene=new T.Scene();scene.background=new T.Color('#e5e3dc');scene.fog=new T.Fog('#e5e3dc',15,55);

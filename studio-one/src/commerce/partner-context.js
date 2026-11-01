@@ -4,7 +4,7 @@ import {sessionStorage} from '../../../shared/lrf-3d/demo-session.js';
 const KEY='studio-one-partner-entry-v1';
 const MAX_AGE=4*60*60*1000;
 const PARTNERS=Object.freeze({
- cerastone:Object.freeze({id:'cerastone',name:'CeraStone',website:'https://www.cera-stone.fr/',returnURL:'https://cera-stone-atelier.ccjacou.chatgpt.site/#studio',recipient:'jerome@leroyfactory.fr'})
+ cerastone:Object.freeze({id:'cerastone',name:'CeraStone',website:'https://www.cera-stone.fr/',returnURL:'https://cera-stone-atelier.ccjacou.chatgpt.site/',recipient:'jerome@leroyfactory.fr'})
 });
 export const knownPartner=id=>typeof id==='string'?PARTNERS[id.toLowerCase()]||null:null;
 
@@ -34,6 +34,15 @@ export function withPartnerReferral(project,partner=partnerForProject(project)){
  return {...project,referral:{version:1,partnerId:partner.id,partnerName:partner.name,sourceWebsite:partner.website}};
 }
 export function callbackRecipients(project,fallback){const partner=partnerForProject(project);return partner?[partner.recipient]:fallback;}
+// Keep the shared project checkpoint, then return to the approved partner.
+// Setting href alone is insufficient: the normal exit handler cancels the link.
+export function mountPartnerReturn(navigation,{partner=context,document=globalThis.document,window=globalThis.window}={}){
+ const approved=partner&&knownPartner(partner.id),back=document?.getElementById('quit-configurator');
+ if(!approved||!back||typeof navigation?.request!=='function')return false;
+ back.href=approved.returnURL;back.target='_top';
+ back.onclick=event=>{event.preventDefault();return navigation.request(()=>{try{window.top.location.href=approved.returnURL;}catch{window.location.assign(approved.returnURL);}});};
+ return true;
+}
 export function mountPartnerBranding(){
  const partner=context;if(!partner||typeof document==='undefined')return;
  const description=document.querySelector('.landing-description');
