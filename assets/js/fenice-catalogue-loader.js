@@ -1,7 +1,7 @@
 (() => {
   'use strict';
   let pending;
-  window.LRF_FENICE_LOAD = () => pending ||= fetch('assets/data/fenice-catalogue.json?v=20261101-fenice-colors-prices2')
+  window.LRF_FENICE_LOAD = () => pending ||= fetch('assets/data/fenice-catalogue.json?v=20261101-fenice-catalogue4')
     .then(response => { if (!response.ok) throw Error('Catalogue indisponible'); return response.json(); })
     .then(data => {
       if (!Array.isArray(data.collections) || !data.collections.length) throw Error('Catalogue incomplet');

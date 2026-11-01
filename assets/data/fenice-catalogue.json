@@ -233,7 +233,14 @@
       "coverImage": "assets/img/fenice-covers/allure.webp",
       "description": "Allure, effet marbre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "cersaie-2026",
+        "label": "Nouveautés Cersaie 2026",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Catalogo_Cersaie_2026_MR.pdf",
+        "page": 4,
+        "printedPage": 2
+      }
     },
     {
       "id": "fenice-amazing",
@@ -350,7 +357,14 @@
       "coverImage": "assets/img/fenice-covers/amazing.webp",
       "description": "Amazing, effet pierre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 106,
+        "printedPage": 104
+      }
     },
     {
       "id": "fenice-antique-aurea",
@@ -459,7 +473,14 @@
       "coverImage": "assets/img/fenice-covers/antique-aurea.webp",
       "description": "Antique Aurea, effet marbre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 24,
+        "printedPage": 22
+      }
     },
     {
       "id": "fenice-apache",
@@ -537,7 +558,14 @@
       "coverImage": "assets/img/fenice-covers/apache.webp",
       "description": "Apache, effet pierre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 114,
+        "printedPage": 112
+      }
     },
     {
       "id": "fenice-aspen",
@@ -661,7 +689,14 @@
       "coverImage": "assets/img/fenice-covers/aspen.webp",
       "description": "Aspen, effet bois : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "cersaie-2026",
+        "label": "Nouveautés Cersaie 2026",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Catalogo_Cersaie_2026_MR.pdf",
+        "page": 14,
+        "printedPage": 12
+      }
     },
     {
       "id": "fenice-beton-wall",
@@ -740,7 +775,14 @@
       "coverImage": "assets/img/fenice-covers/beton-wall.webp",
       "description": "Beton Wall, effet béton et résine : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "wall-2026-2027",
+        "label": "Revêtements et polis 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf",
+        "page": 8,
+        "printedPage": 6
+      }
     },
     {
       "id": "fenice-bianchi",
@@ -804,7 +846,14 @@
       "coverImage": "assets/img/fenice-covers/bianchi.webp",
       "description": "Bianchi, revêtement mural : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "wall-2026-2027",
+        "label": "Revêtements et polis 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf",
+        "page": 12,
+        "printedPage": 10
+      }
     },
     {
       "id": "fenice-briccole",
@@ -885,7 +934,14 @@
       "coverImage": "assets/img/fenice-covers/briccole.webp",
       "description": "Briccole, effet bois : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 342,
+        "printedPage": 340
+      }
     },
     {
       "id": "fenice-calacatta-gold",
@@ -938,7 +994,14 @@
       "coverImage": "assets/img/fenice-covers/calacatta-gold.webp",
       "description": "Calacatta Gold, effet marbre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "wall-2026-2027",
+        "label": "Revêtements et polis 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf",
+        "page": 38,
+        "printedPage": 36
+      }
     },
     {
       "id": "fenice-calcarea",
@@ -1035,7 +1098,14 @@
       "coverImage": "assets/img/fenice-covers/calcarea.webp",
       "description": "Calcarea, effet pierre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 120,
+        "printedPage": 118
+      }
     },
     {
       "id": "fenice-circus",
@@ -1115,7 +1185,14 @@
       "coverImage": "assets/img/fenice-covers/circus.webp",
       "description": "Circus, effet béton et résine : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 260,
+        "printedPage": 258
+      }
     },
     {
       "id": "fenice-city-loft",
@@ -1232,7 +1309,14 @@
       "coverImage": "assets/img/fenice-covers/city-loft.webp",
       "description": "City Loft, effet béton et résine : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "cersaie-2026",
+        "label": "Nouveautés Cersaie 2026",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Catalogo_Cersaie_2026_MR.pdf",
+        "page": 26,
+        "printedPage": 24
+      }
     },
     {
       "id": "fenice-core",
@@ -1322,7 +1406,14 @@
       "coverImage": "assets/img/fenice-covers/core.webp",
       "description": "Core, effet pierre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 126,
+        "printedPage": 124
+      }
     },
     {
       "id": "fenice-cromie-2-0",
@@ -1566,7 +1657,14 @@
       "coverImage": "assets/img/fenice-covers/cromie-2-0.webp",
       "description": "Cromie 2.0, tradition et couleur : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "wall-2026-2027",
+        "label": "Revêtements et polis 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf",
+        "page": 14,
+        "printedPage": 12
+      }
     },
     {
       "id": "fenice-docks-25",
@@ -1644,7 +1742,14 @@
       "coverImage": "assets/img/fenice-covers/docks-25.webp",
       "description": "Docks 25, effet pierre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 134,
+        "printedPage": 132
+      }
     },
     {
       "id": "fenice-dolmen",
@@ -1742,7 +1847,14 @@
       "coverImage": "assets/img/fenice-covers/dolmen.webp",
       "description": "Dolmen, effet pierre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 140,
+        "printedPage": 138
+      }
     },
     {
       "id": "fenice-easy",
@@ -1811,7 +1923,14 @@
       "coverImage": "assets/img/fenice-covers/easy.webp",
       "description": "Easy, effet béton et résine : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "wall-2026-2027",
+        "label": "Revêtements et polis 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf",
+        "page": 18,
+        "printedPage": 16
+      }
     },
     {
       "id": "fenice-emotion",
@@ -1880,7 +1999,14 @@
       "coverImage": "assets/img/fenice-covers/emotion.webp",
       "description": "Emotion, effet pierre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "wall-2026-2027",
+        "label": "Revêtements et polis 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf",
+        "page": 20,
+        "printedPage": 18
+      }
     },
     {
       "id": "fenice-etoile",
@@ -1978,7 +2104,14 @@
       "coverImage": "assets/img/fenice-covers/etoile.webp",
       "description": "Étoile, effet pierre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 148,
+        "printedPage": 146
+      }
     },
     {
       "id": "fenice-ever",
@@ -2065,7 +2198,14 @@
       "coverImage": "assets/img/fenice-covers/ever.webp",
       "description": "Ever, effet pierre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 156,
+        "printedPage": 154
+      }
     },
     {
       "id": "fenice-fiordi",
@@ -2143,7 +2283,14 @@
       "coverImage": "assets/img/fenice-covers/fiordi.webp",
       "description": "Fiordi, effet pierre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 162,
+        "printedPage": 160
+      }
     },
     {
       "id": "fenice-flash",
@@ -2197,7 +2344,14 @@
       "coverImage": "assets/img/fenice-covers/flash.webp",
       "description": "Flash, effet marbre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "wall-2026-2027",
+        "label": "Revêtements et polis 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf",
+        "page": 40,
+        "printedPage": 38
+      }
     },
     {
       "id": "fenice-gate",
@@ -2266,7 +2420,14 @@
       "coverImage": "assets/img/fenice-covers/gate.webp",
       "description": "Gate, effet béton et résine : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "wall-2026-2027",
+        "label": "Revêtements et polis 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf",
+        "page": 22,
+        "printedPage": 20
+      }
     },
     {
       "id": "fenice-genesis",
@@ -2354,7 +2515,14 @@
       "coverImage": "assets/img/fenice-covers/genesis.webp",
       "description": "Genesis, effet pierre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 168,
+        "printedPage": 166
+      }
     },
     {
       "id": "fenice-glowood",
@@ -2448,7 +2616,14 @@
       "coverImage": "assets/img/fenice-covers/glowood.webp",
       "description": "Glowood, effet bois : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 348,
+        "printedPage": 346
+      }
     },
     {
       "id": "fenice-heritage",
@@ -2610,7 +2785,14 @@
       "coverImage": "assets/img/fenice-covers/heritage.webp",
       "description": "Heritage, effet marbre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "cersaie-2026",
+        "label": "Nouveautés Cersaie 2026",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Catalogo_Cersaie_2026_MR.pdf",
+        "page": 42,
+        "printedPage": 40
+      }
     },
     {
       "id": "fenice-hollywood",
@@ -2691,7 +2873,14 @@
       "coverImage": "assets/img/fenice-covers/hollywood.webp",
       "description": "Hollywood, effet bois : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 354,
+        "printedPage": 352
+      }
     },
     {
       "id": "fenice-home-etagere",
@@ -3101,7 +3290,14 @@
       ],
       "description": "Étagère en grès cérame, proposée en 120 × 50 cm ou 95 × 50 cm, avec ou sans perçages de robinet et de vidage.",
       "priceSource": "authorized-professional-tariff",
-      "materialsNote": "28 matières présentées au catalogue Home. Autres collections La Fenice sur demande."
+      "materialsNote": "28 matières présentées au catalogue Home. Autres collections La Fenice sur demande.",
+      "primaryCatalogueSource": {
+        "catalogueId": "fenice-home",
+        "label": "La Fenice Home",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/catalogo-lafenice-home-arredo-bagno-elite-details.pdf",
+        "page": 26,
+        "printedPage": 24
+      }
     },
     {
       "id": "fenice-home-tables-dappoint",
@@ -3508,7 +3704,14 @@
       ],
       "description": "Tables d’appoint avec surface en grès cérame et structure métallique ; deux dimensions figurent dans le catalogue fabricant.",
       "priceSource": "authorized-professional-tariff",
-      "materialsNote": "28 matières présentées au catalogue Home. Autres collections La Fenice sur demande."
+      "materialsNote": "28 matières présentées au catalogue Home. Autres collections La Fenice sur demande.",
+      "primaryCatalogueSource": {
+        "catalogueId": "fenice-home",
+        "label": "La Fenice Home",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/catalogo-lafenice-home-arredo-bagno-elite-details.pdf",
+        "page": 28,
+        "printedPage": 26
+      }
     },
     {
       "id": "fenice-home-vasque-a-poser",
@@ -3915,7 +4118,14 @@
       ],
       "description": "Vasque à poser en grès cérame, réalisable sur mesure et personnalisable avec ou sans perçage pour robinet.",
       "priceSource": "authorized-professional-tariff",
-      "materialsNote": "28 matières présentées au catalogue Home. Autres collections La Fenice sur demande."
+      "materialsNote": "28 matières présentées au catalogue Home. Autres collections La Fenice sur demande.",
+      "primaryCatalogueSource": {
+        "catalogueId": "fenice-home",
+        "label": "La Fenice Home",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/catalogo-lafenice-home-arredo-bagno-elite-details.pdf",
+        "page": 22,
+        "printedPage": 20
+      }
     },
     {
       "id": "fenice-home-vasque-sur-pied",
@@ -4322,7 +4532,14 @@
       ],
       "description": "Vasque sur pied en grès cérame, réalisable sur mesure et personnalisable avec ou sans perçage pour robinet.",
       "priceSource": "authorized-professional-tariff",
-      "materialsNote": "28 matières présentées au catalogue Home. Autres collections La Fenice sur demande."
+      "materialsNote": "28 matières présentées au catalogue Home. Autres collections La Fenice sur demande.",
+      "primaryCatalogueSource": {
+        "catalogueId": "fenice-home",
+        "label": "La Fenice Home",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/catalogo-lafenice-home-arredo-bagno-elite-details.pdf",
+        "page": 8,
+        "printedPage": 6
+      }
     },
     {
       "id": "fenice-home-vasque-suspendue",
@@ -4732,7 +4949,14 @@
       ],
       "description": "Vasque suspendue en grès cérame, proposée en 120 × 50 cm ou 95 × 50 cm, également réalisable sur mesure.",
       "priceSource": "authorized-professional-tariff",
-      "materialsNote": "28 matières présentées au catalogue Home. Autres collections La Fenice sur demande."
+      "materialsNote": "28 matières présentées au catalogue Home. Autres collections La Fenice sur demande.",
+      "primaryCatalogueSource": {
+        "catalogueId": "fenice-home",
+        "label": "La Fenice Home",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/catalogo-lafenice-home-arredo-bagno-elite-details.pdf",
+        "page": 16,
+        "printedPage": 14
+      }
     },
     {
       "id": "fenice-il-travertino",
@@ -4824,7 +5048,14 @@
       "keywords": [
         "carrelage imitation travertin",
         "effet travertin"
-      ]
+      ],
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 174,
+        "printedPage": 172
+      }
     },
     {
       "id": "fenice-imperial-grey",
@@ -4877,7 +5108,14 @@
       "coverImage": "assets/img/fenice-covers/imperial-grey.webp",
       "description": "Imperial Grey, effet marbre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "wall-2026-2027",
+        "label": "Revêtements et polis 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf",
+        "page": 42,
+        "printedPage": 40
+      }
     },
     {
       "id": "fenice-jungle-wall",
@@ -4946,7 +5184,14 @@
       "coverImage": "assets/img/fenice-covers/jungle-wall.webp",
       "description": "Jungle Wall, effet bois : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "wall-2026-2027",
+        "label": "Revêtements et polis 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf",
+        "page": 24,
+        "printedPage": 22
+      }
     },
     {
       "id": "fenice-lapis",
@@ -5055,7 +5300,14 @@
       "keywords": [
         "carrelage imitation travertin",
         "effet travertin"
-      ]
+      ],
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 40,
+        "printedPage": 38
+      }
     },
     {
       "id": "fenice-le-doghe",
@@ -5140,7 +5392,14 @@
       "coverImage": "assets/img/fenice-covers/le-doghe.webp",
       "description": "Le Doghe, effet bois : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 362,
+        "printedPage": 360
+      }
     },
     {
       "id": "fenice-lifestile",
@@ -5474,7 +5733,14 @@
       "coverImage": "assets/img/fenice-covers/lifestile.webp",
       "description": "LifesTile, décoration murale : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 388,
+        "printedPage": 386
+      }
     },
     {
       "id": "fenice-lime-evolution",
@@ -5581,7 +5847,14 @@
       "coverImage": "assets/img/fenice-covers/lime-evolution.webp",
       "description": "Lime Evolution, effet pierre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 184,
+        "printedPage": 182
+      }
     },
     {
       "id": "fenice-lithos",
@@ -5697,7 +5970,14 @@
       "coverImage": "assets/img/fenice-covers/lithos.webp",
       "description": "Lithos, effet pierre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 194,
+        "printedPage": 192
+      }
     },
     {
       "id": "fenice-living-wall",
@@ -5797,7 +6077,14 @@
       "coverImage": "assets/img/fenice-covers/living-wall.webp",
       "description": "Living Wall, effet béton et résine : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "wall-2026-2027",
+        "label": "Revêtements et polis 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf",
+        "page": 26,
+        "printedPage": 24
+      }
     },
     {
       "id": "fenice-lumiere",
@@ -5895,7 +6182,14 @@
       "coverImage": "assets/img/fenice-covers/lumiere.webp",
       "description": "Lumiere, effet béton et résine : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 48,
+        "printedPage": 46
+      }
     },
     {
       "id": "fenice-majestic",
@@ -6044,7 +6338,14 @@
       "coverImage": "assets/img/fenice-covers/majestic.webp",
       "description": "Majestic, effet marbre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 56,
+        "printedPage": 54
+      }
     },
     {
       "id": "fenice-marble-velvet",
@@ -6160,7 +6461,14 @@
       "coverImage": "assets/img/fenice-covers/marble-velvet.webp",
       "description": "Marble Velvet, effet marbre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 76,
+        "printedPage": 74
+      }
     },
     {
       "id": "fenice-marfil-creme",
@@ -6213,7 +6521,14 @@
       "coverImage": "assets/img/fenice-covers/marfil-creme.webp",
       "description": "Marfil Creme, effet marbre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "wall-2026-2027",
+        "label": "Revêtements et polis 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf",
+        "page": 44,
+        "printedPage": 42
+      }
     },
     {
       "id": "fenice-meco",
@@ -6302,7 +6617,14 @@
       "coverImage": "assets/img/fenice-covers/meco.webp",
       "description": "Meco, effet pierre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 206,
+        "printedPage": 204
+      }
     },
     {
       "id": "fenice-metal-wall",
@@ -6378,7 +6700,14 @@
       "coverImage": "assets/img/fenice-covers/metal-wall.webp",
       "description": "Metal Wall, effet métal : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "wall-2026-2027",
+        "label": "Revêtements et polis 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf",
+        "page": 30,
+        "printedPage": 28
+      }
     },
     {
       "id": "fenice-natural-resine",
@@ -6508,7 +6837,14 @@
       "coverImage": "assets/img/fenice-covers/natural-resine.webp",
       "description": "Natural Resine, effet béton et résine : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 276,
+        "printedPage": 274
+      }
     },
     {
       "id": "fenice-natural-terre",
@@ -6621,7 +6957,14 @@
       "coverImage": "assets/img/fenice-covers/natural-terre.webp",
       "description": "Natural Terre, effet pierre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 266,
+        "printedPage": 264
+      }
     },
     {
       "id": "fenice-norbistone",
@@ -6703,7 +7046,14 @@
       "coverImage": "assets/img/fenice-covers/norbistone.webp",
       "description": "Norbistone, effet pierre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 226,
+        "printedPage": 224
+      }
     },
     {
       "id": "fenice-outside",
@@ -6762,7 +7112,13 @@
       "coverImage": "assets/img/fenice-covers/outside.webp",
       "description": "Outside, effet pierre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "collection-outside",
+        "label": "Catalogue Outside",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/cat-outside.pdf",
+        "page": 1
+      }
     },
     {
       "id": "fenice-oykos",
@@ -6870,7 +7226,14 @@
       "coverImage": "assets/img/fenice-covers/oykos.webp",
       "description": "Oykos, effet pierre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "cersaie-2026",
+        "label": "Nouveautés Cersaie 2026",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Catalogo_Cersaie_2026_MR.pdf",
+        "page": 54,
+        "printedPage": 52
+      }
     },
     {
       "id": "fenice-oykos-fossil",
@@ -6972,7 +7335,14 @@
       "coverImage": "assets/img/fenice-covers/oykos-fossil.webp",
       "description": "Oykos Fossil, effet pierre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "cersaie-2026",
+        "label": "Nouveautés Cersaie 2026",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Catalogo_Cersaie_2026_MR.pdf",
+        "page": 56,
+        "printedPage": 54
+      }
     },
     {
       "id": "fenice-paris",
@@ -7050,7 +7420,14 @@
       "coverImage": "assets/img/fenice-covers/paris.webp",
       "description": "Paris, effet béton et résine : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 288,
+        "printedPage": 286
+      }
     },
     {
       "id": "fenice-patagonia",
@@ -7126,7 +7503,14 @@
       "coverImage": "assets/img/fenice-covers/patagonia.webp",
       "description": "Patagonia, effet pierre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 214,
+        "printedPage": 212
+      }
     },
     {
       "id": "fenice-pietra-de-medici",
@@ -7208,7 +7592,14 @@
       "coverImage": "assets/img/fenice-covers/pietra-de-medici.webp",
       "description": "Pietra De’ Medici, effet pierre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 218,
+        "printedPage": 216
+      }
     },
     {
       "id": "fenice-polveri-vietresi",
@@ -7289,7 +7680,14 @@
       "coverImage": "assets/img/fenice-covers/polveri-vietresi.webp",
       "description": "Polveri Vietresi, tradition et couleur : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 404,
+        "printedPage": 402
+      }
     },
     {
       "id": "fenice-polveri-vietresi-wall",
@@ -7385,7 +7783,14 @@
       "coverImage": "assets/img/fenice-covers/polveri-vietresi-wall.webp",
       "description": "Polveri Vietresi Wall, tradition et couleur : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 414,
+        "printedPage": 412
+      }
     },
     {
       "id": "fenice-prime-stone",
@@ -7495,7 +7900,14 @@
       "coverImage": "assets/img/fenice-covers/prime-stone.webp",
       "description": "Prime Stone, effet pierre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "collections-120x120",
+        "label": "Collections 2026 · 120×120",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/2026-04_La-Fenice_Collection_120x120.pdf",
+        "page": 56,
+        "printedPage": 54
+      }
     },
     {
       "id": "fenice-resinart-wall",
@@ -7570,7 +7982,13 @@
       "coverImage": "assets/img/fenice-covers/resinart-wall.webp",
       "description": "Resinart Wall, tradition et couleur : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "collection-resinart-wall",
+        "label": "Catalogue Resinart Wall",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/cat-resinart-wall.pdf",
+        "page": 1
+      }
     },
     {
       "id": "fenice-rovere",
@@ -7647,7 +8065,14 @@
       "coverImage": "assets/img/fenice-covers/rovere.webp",
       "description": "Rovere, effet bois : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 376,
+        "printedPage": 374
+      }
     },
     {
       "id": "fenice-royal",
@@ -7702,7 +8127,14 @@
       "coverImage": "assets/img/fenice-covers/royal.webp",
       "description": "Royal, effet marbre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "wall-2026-2027",
+        "label": "Revêtements et polis 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf",
+        "page": 46,
+        "printedPage": 44
+      }
     },
     {
       "id": "fenice-saturn",
@@ -7784,7 +8216,14 @@
       "coverImage": "assets/img/fenice-covers/saturn.webp",
       "description": "Saturn, effet pierre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 232,
+        "printedPage": 230
+      }
     },
     {
       "id": "fenice-segesta",
@@ -7876,7 +8315,14 @@
       "coverImage": "assets/img/fenice-covers/segesta.webp",
       "description": "Segesta, effet marbre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 88,
+        "printedPage": 86
+      }
     },
     {
       "id": "fenice-shabby-wall",
@@ -7953,7 +8399,14 @@
       "coverImage": "assets/img/fenice-covers/shabby-wall.webp",
       "description": "Shabby Wall, effet béton et résine : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "wall-2026-2027",
+        "label": "Revêtements et polis 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf",
+        "page": 34,
+        "printedPage": 32
+      }
     },
     {
       "id": "fenice-shabby-wood",
@@ -8030,7 +8483,14 @@
       "coverImage": "assets/img/fenice-covers/shabby-wood.webp",
       "description": "Shabby Wood, effet bois : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 378,
+        "printedPage": 376
+      }
     },
     {
       "id": "fenice-shapes",
@@ -8111,7 +8571,14 @@
       "coverImage": "assets/img/fenice-covers/shapes.webp",
       "description": "Shapes, effet pierre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 240,
+        "printedPage": 238
+      }
     },
     {
       "id": "fenice-slate",
@@ -8201,7 +8668,14 @@
       "coverImage": "assets/img/fenice-covers/slate.webp",
       "description": "Slate, effet pierre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 246,
+        "printedPage": 244
+      }
     },
     {
       "id": "fenice-statuario",
@@ -8256,7 +8730,14 @@
       "coverImage": "assets/img/fenice-covers/statuario.webp",
       "description": "Statuario, effet marbre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "wall-2026-2027",
+        "label": "Revêtements et polis 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf",
+        "page": 48,
+        "printedPage": 46
+      }
     },
     {
       "id": "fenice-steel-art",
@@ -8353,7 +8834,14 @@
       "coverImage": "assets/img/fenice-covers/steel-art.webp",
       "description": "Steel Art, effet métal : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 290,
+        "printedPage": 288
+      }
     },
     {
       "id": "fenice-stone",
@@ -8433,7 +8921,14 @@
       "coverImage": "assets/img/fenice-covers/stone.webp",
       "description": "Stone, effet pierre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 252,
+        "printedPage": 250
+      }
     },
     {
       "id": "fenice-supreme",
@@ -8486,7 +8981,14 @@
       "coverImage": "assets/img/fenice-covers/supreme.webp",
       "description": "Supreme, effet marbre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "wall-2026-2027",
+        "label": "Revêtements et polis 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf",
+        "page": 50,
+        "printedPage": 48
+      }
     },
     {
       "id": "fenice-suveya-reactive-3d-evo",
@@ -8574,7 +9076,14 @@
       "coverImage": "assets/img/fenice-covers/suveya-reactive-3d-evo.webp",
       "description": "Suveya – Reactive 3D Evo, effet marbre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 98,
+        "printedPage": 96
+      }
     },
     {
       "id": "fenice-tendance",
@@ -8644,7 +9153,14 @@
       "coverImage": "assets/img/fenice-covers/tendance.webp",
       "description": "Tendance, effet bois : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 382,
+        "printedPage": 380
+      }
     },
     {
       "id": "fenice-thasos",
@@ -8698,7 +9214,14 @@
       "coverImage": "assets/img/fenice-covers/thasos.webp",
       "description": "Thasos, effet marbre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "wall-2026-2027",
+        "label": "Revêtements et polis 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf",
+        "page": 52,
+        "printedPage": 50
+      }
     },
     {
       "id": "fenice-touch",
@@ -8815,7 +9338,14 @@
       "coverImage": "assets/img/fenice-covers/touch.webp",
       "description": "Touch, effet béton et résine : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 296,
+        "printedPage": 294
+      }
     },
     {
       "id": "fenice-touch-evo",
@@ -8895,7 +9425,14 @@
       "coverImage": "assets/img/fenice-covers/touch-evo.webp",
       "description": "Touch Evo, effet béton et résine : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 308,
+        "printedPage": 306
+      }
     },
     {
       "id": "fenice-walk-materials",
@@ -8977,7 +9514,14 @@
       "coverImage": "assets/img/fenice-covers/walk-materials.webp",
       "description": "Walk Materials, effet béton et résine : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 318,
+        "printedPage": 316
+      }
     },
     {
       "id": "fenice-wall-rock",
@@ -9054,7 +9598,14 @@
       "coverImage": "assets/img/fenice-covers/wall-rock.webp",
       "description": "Wall Rock, effet pierre : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "wall-2026-2027",
+        "label": "Revêtements et polis 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf",
+        "page": 36,
+        "printedPage": 34
+      }
     },
     {
       "id": "fenice-woodland",
@@ -9139,7 +9690,14 @@
       "coverImage": "assets/img/fenice-covers/woodland.webp",
       "description": "Woodland, effet bois : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 384,
+        "printedPage": 382
+      }
     },
     {
       "id": "fenice-x-beton",
@@ -9214,7 +9772,14 @@
       "coverImage": "assets/img/fenice-covers/x-beton.webp",
       "description": "X Beton, effet béton et résine : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 324,
+        "printedPage": 322
+      }
     },
     {
       "id": "fenice-x-metal",
@@ -9296,7 +9861,14 @@
       "coverImage": "assets/img/fenice-covers/x-metal.webp",
       "description": "X Metal, effet métal : coloris et formats du catalogue La Fenice.",
       "productType": "Carrelage",
-      "unit": "m²"
+      "unit": "m²",
+      "primaryCatalogueSource": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 332,
+        "printedPage": 330
+      }
     }
   ],
   "errors": [],

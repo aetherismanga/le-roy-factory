@@ -1,0 +1,1493 @@
+{
+  "rule": "Highest edition end-year, then known document/cover publication month; ties prefer a confirmed series page and broader catalogue. Original source arrays are preserved.",
+  "collectionCount": 82,
+  "allPdfPagesKnown": true,
+  "selectedCatalogues": {
+    "cersaie-2026": 6,
+    "general-2026-2027": 49,
+    "wall-2026-2027": 19,
+    "fenice-home": 5,
+    "collection-outside": 1,
+    "collections-120x120": 1,
+    "collection-resinart-wall": 1
+  },
+  "editionUnknown": [
+    "home-etagere",
+    "home-tables-dappoint",
+    "home-vasque-a-poser",
+    "home-vasque-sur-pied",
+    "home-vasque-suspendue",
+    "outside",
+    "resinart-wall"
+  ],
+  "choices": [
+    {
+      "collection": "Allure",
+      "slug": "allure",
+      "selected": {
+        "catalogueId": "cersaie-2026",
+        "label": "Nouveautés Cersaie 2026",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Catalogo_Cersaie_2026_MR.pdf",
+        "page": 4,
+        "printedPage": 2
+      },
+      "editionEndYear": 2026,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/09/Copertina_catalogo_Cersaie_2026-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Catalogo_Cersaie_2026_MR.pdf#page=4",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Amazing",
+      "slug": "amazing",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 106,
+        "printedPage": 104
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=106",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Antique Aurea",
+      "slug": "antique-aurea",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 24,
+        "printedPage": 22
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=24",
+      "otherSourceCount": 2
+    },
+    {
+      "collection": "Apache",
+      "slug": "apache",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 114,
+        "printedPage": 112
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=114",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Aspen",
+      "slug": "aspen",
+      "selected": {
+        "catalogueId": "cersaie-2026",
+        "label": "Nouveautés Cersaie 2026",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Catalogo_Cersaie_2026_MR.pdf",
+        "page": 14,
+        "printedPage": 12
+      },
+      "editionEndYear": 2026,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/09/Copertina_catalogo_Cersaie_2026-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Catalogo_Cersaie_2026_MR.pdf#page=14",
+      "otherSourceCount": 1
+    },
+    {
+      "collection": "Beton Wall",
+      "slug": "beton-wall",
+      "selected": {
+        "catalogueId": "wall-2026-2027",
+        "label": "Revêtements et polis 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf",
+        "page": 8,
+        "printedPage": 6
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Rivestimenti_Levigati_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf#page=8",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Bianchi",
+      "slug": "bianchi",
+      "selected": {
+        "catalogueId": "wall-2026-2027",
+        "label": "Revêtements et polis 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf",
+        "page": 12,
+        "printedPage": 10
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Rivestimenti_Levigati_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf#page=12",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Briccole",
+      "slug": "briccole",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 342,
+        "printedPage": 340
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=342",
+      "otherSourceCount": 1
+    },
+    {
+      "collection": "Calacatta Gold",
+      "slug": "calacatta-gold",
+      "selected": {
+        "catalogueId": "wall-2026-2027",
+        "label": "Revêtements et polis 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf",
+        "page": 38,
+        "printedPage": 36
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Rivestimenti_Levigati_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf#page=38",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Calcarea",
+      "slug": "calcarea",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 120,
+        "printedPage": 118
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=120",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Circus",
+      "slug": "circus",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 260,
+        "printedPage": 258
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=260",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "City Loft",
+      "slug": "city-loft",
+      "selected": {
+        "catalogueId": "cersaie-2026",
+        "label": "Nouveautés Cersaie 2026",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Catalogo_Cersaie_2026_MR.pdf",
+        "page": 26,
+        "printedPage": 24
+      },
+      "editionEndYear": 2026,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/09/Copertina_catalogo_Cersaie_2026-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Catalogo_Cersaie_2026_MR.pdf#page=26",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Core",
+      "slug": "core",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 126,
+        "printedPage": 124
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=126",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Cromie 2.0",
+      "slug": "cromie-2-0",
+      "selected": {
+        "catalogueId": "wall-2026-2027",
+        "label": "Revêtements et polis 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf",
+        "page": 14,
+        "printedPage": 12
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Rivestimenti_Levigati_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf#page=14",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Docks 25",
+      "slug": "docks-25",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 134,
+        "printedPage": 132
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=134",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Dolmen",
+      "slug": "dolmen",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 140,
+        "printedPage": 138
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=140",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Easy",
+      "slug": "easy",
+      "selected": {
+        "catalogueId": "wall-2026-2027",
+        "label": "Revêtements et polis 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf",
+        "page": 18,
+        "printedPage": 16
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Rivestimenti_Levigati_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf#page=18",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Emotion",
+      "slug": "emotion",
+      "selected": {
+        "catalogueId": "wall-2026-2027",
+        "label": "Revêtements et polis 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf",
+        "page": 20,
+        "printedPage": 18
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Rivestimenti_Levigati_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf#page=20",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Étoile",
+      "slug": "etoile",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 148,
+        "printedPage": 146
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=148",
+      "otherSourceCount": 2
+    },
+    {
+      "collection": "Ever",
+      "slug": "ever",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 156,
+        "printedPage": 154
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=156",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Fiordi",
+      "slug": "fiordi",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 162,
+        "printedPage": 160
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=162",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Flash",
+      "slug": "flash",
+      "selected": {
+        "catalogueId": "wall-2026-2027",
+        "label": "Revêtements et polis 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf",
+        "page": 40,
+        "printedPage": 38
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Rivestimenti_Levigati_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf#page=40",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Gate",
+      "slug": "gate",
+      "selected": {
+        "catalogueId": "wall-2026-2027",
+        "label": "Revêtements et polis 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf",
+        "page": 22,
+        "printedPage": 20
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Rivestimenti_Levigati_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf#page=22",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Genesis",
+      "slug": "genesis",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 168,
+        "printedPage": 166
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=168",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Glowood",
+      "slug": "glowood",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 348,
+        "printedPage": 346
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=348",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Heritage",
+      "slug": "heritage",
+      "selected": {
+        "catalogueId": "cersaie-2026",
+        "label": "Nouveautés Cersaie 2026",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Catalogo_Cersaie_2026_MR.pdf",
+        "page": 42,
+        "printedPage": 40
+      },
+      "editionEndYear": 2026,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/09/Copertina_catalogo_Cersaie_2026-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Catalogo_Cersaie_2026_MR.pdf#page=42",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Hollywood",
+      "slug": "hollywood",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 354,
+        "printedPage": 352
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=354",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Home · Étagère",
+      "slug": "home-etagere",
+      "selected": {
+        "catalogueId": "fenice-home",
+        "label": "La Fenice Home",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/catalogo-lafenice-home-arredo-bagno-elite-details.pdf",
+        "page": 26,
+        "printedPage": 24
+      },
+      "editionEndYear": null,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2024/05/Home-24-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/catalogo-lafenice-home-arredo-bagno-elite-details.pdf#page=26",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Home · Tables d’appoint",
+      "slug": "home-tables-dappoint",
+      "selected": {
+        "catalogueId": "fenice-home",
+        "label": "La Fenice Home",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/catalogo-lafenice-home-arredo-bagno-elite-details.pdf",
+        "page": 28,
+        "printedPage": 26
+      },
+      "editionEndYear": null,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2024/05/Home-24-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/catalogo-lafenice-home-arredo-bagno-elite-details.pdf#page=28",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Home · Vasque à poser",
+      "slug": "home-vasque-a-poser",
+      "selected": {
+        "catalogueId": "fenice-home",
+        "label": "La Fenice Home",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/catalogo-lafenice-home-arredo-bagno-elite-details.pdf",
+        "page": 22,
+        "printedPage": 20
+      },
+      "editionEndYear": null,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2024/05/Home-24-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/catalogo-lafenice-home-arredo-bagno-elite-details.pdf#page=22",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Home · Vasque sur pied",
+      "slug": "home-vasque-sur-pied",
+      "selected": {
+        "catalogueId": "fenice-home",
+        "label": "La Fenice Home",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/catalogo-lafenice-home-arredo-bagno-elite-details.pdf",
+        "page": 8,
+        "printedPage": 6
+      },
+      "editionEndYear": null,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2024/05/Home-24-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/catalogo-lafenice-home-arredo-bagno-elite-details.pdf#page=8",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Home · Vasque suspendue",
+      "slug": "home-vasque-suspendue",
+      "selected": {
+        "catalogueId": "fenice-home",
+        "label": "La Fenice Home",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/catalogo-lafenice-home-arredo-bagno-elite-details.pdf",
+        "page": 16,
+        "printedPage": 14
+      },
+      "editionEndYear": null,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2024/05/Home-24-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/catalogo-lafenice-home-arredo-bagno-elite-details.pdf#page=16",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Il Travertino",
+      "slug": "il-travertino",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 174,
+        "printedPage": 172
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=174",
+      "otherSourceCount": 2
+    },
+    {
+      "collection": "Imperial Grey",
+      "slug": "imperial-grey",
+      "selected": {
+        "catalogueId": "wall-2026-2027",
+        "label": "Revêtements et polis 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf",
+        "page": 42,
+        "printedPage": 40
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Rivestimenti_Levigati_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf#page=42",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Jungle Wall",
+      "slug": "jungle-wall",
+      "selected": {
+        "catalogueId": "wall-2026-2027",
+        "label": "Revêtements et polis 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf",
+        "page": 24,
+        "printedPage": 22
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Rivestimenti_Levigati_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf#page=24",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Lapis",
+      "slug": "lapis",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 40,
+        "printedPage": 38
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=40",
+      "otherSourceCount": 1
+    },
+    {
+      "collection": "Le Doghe",
+      "slug": "le-doghe",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 362,
+        "printedPage": 360
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=362",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "LifesTile",
+      "slug": "lifestile",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 388,
+        "printedPage": 386
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=388",
+      "otherSourceCount": 3
+    },
+    {
+      "collection": "Lime Evolution",
+      "slug": "lime-evolution",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 184,
+        "printedPage": 182
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=184",
+      "otherSourceCount": 2
+    },
+    {
+      "collection": "Lithos",
+      "slug": "lithos",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 194,
+        "printedPage": 192
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=194",
+      "otherSourceCount": 2
+    },
+    {
+      "collection": "Living Wall",
+      "slug": "living-wall",
+      "selected": {
+        "catalogueId": "wall-2026-2027",
+        "label": "Revêtements et polis 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf",
+        "page": 26,
+        "printedPage": 24
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Rivestimenti_Levigati_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf#page=26",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Lumiere",
+      "slug": "lumiere",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 48,
+        "printedPage": 46
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=48",
+      "otherSourceCount": 2
+    },
+    {
+      "collection": "Majestic",
+      "slug": "majestic",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 56,
+        "printedPage": 54
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=56",
+      "otherSourceCount": 3
+    },
+    {
+      "collection": "Marble Velvet",
+      "slug": "marble-velvet",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 76,
+        "printedPage": 74
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=76",
+      "otherSourceCount": 2
+    },
+    {
+      "collection": "Marfil Creme",
+      "slug": "marfil-creme",
+      "selected": {
+        "catalogueId": "wall-2026-2027",
+        "label": "Revêtements et polis 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf",
+        "page": 44,
+        "printedPage": 42
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Rivestimenti_Levigati_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf#page=44",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Meco",
+      "slug": "meco",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 206,
+        "printedPage": 204
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=206",
+      "otherSourceCount": 1
+    },
+    {
+      "collection": "Metal Wall",
+      "slug": "metal-wall",
+      "selected": {
+        "catalogueId": "wall-2026-2027",
+        "label": "Revêtements et polis 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf",
+        "page": 30,
+        "printedPage": 28
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Rivestimenti_Levigati_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf#page=30",
+      "otherSourceCount": 1
+    },
+    {
+      "collection": "Natural Resine",
+      "slug": "natural-resine",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 276,
+        "printedPage": 274
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=276",
+      "otherSourceCount": 3
+    },
+    {
+      "collection": "Natural Terre",
+      "slug": "natural-terre",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 266,
+        "printedPage": 264
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=266",
+      "otherSourceCount": 3
+    },
+    {
+      "collection": "Norbistone",
+      "slug": "norbistone",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 226,
+        "printedPage": 224
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=226",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Outside",
+      "slug": "outside",
+      "selected": {
+        "catalogueId": "collection-outside",
+        "label": "Catalogue Outside",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/cat-outside.pdf",
+        "page": 1
+      },
+      "editionEndYear": null,
+      "publicationEvidence": null,
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/cat-outside.pdf#page=1",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Oykos",
+      "slug": "oykos",
+      "selected": {
+        "catalogueId": "cersaie-2026",
+        "label": "Nouveautés Cersaie 2026",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Catalogo_Cersaie_2026_MR.pdf",
+        "page": 54,
+        "printedPage": 52
+      },
+      "editionEndYear": 2026,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/09/Copertina_catalogo_Cersaie_2026-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Catalogo_Cersaie_2026_MR.pdf#page=54",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Oykos Fossil",
+      "slug": "oykos-fossil",
+      "selected": {
+        "catalogueId": "cersaie-2026",
+        "label": "Nouveautés Cersaie 2026",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Catalogo_Cersaie_2026_MR.pdf",
+        "page": 56,
+        "printedPage": 54
+      },
+      "editionEndYear": 2026,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/09/Copertina_catalogo_Cersaie_2026-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Catalogo_Cersaie_2026_MR.pdf#page=56",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Paris",
+      "slug": "paris",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 288,
+        "printedPage": 286
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=288",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Patagonia",
+      "slug": "patagonia",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 214,
+        "printedPage": 212
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=214",
+      "otherSourceCount": 1
+    },
+    {
+      "collection": "Pietra De’ Medici",
+      "slug": "pietra-de-medici",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 218,
+        "printedPage": 216
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=218",
+      "otherSourceCount": 1
+    },
+    {
+      "collection": "Polveri Vietresi",
+      "slug": "polveri-vietresi",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 404,
+        "printedPage": 402
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=404",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Polveri Vietresi Wall",
+      "slug": "polveri-vietresi-wall",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 414,
+        "printedPage": 412
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=414",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Prime Stone",
+      "slug": "prime-stone",
+      "selected": {
+        "catalogueId": "collections-120x120",
+        "label": "Collections 2026 · 120×120",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/2026-04_La-Fenice_Collection_120x120.pdf",
+        "page": 56,
+        "printedPage": 54
+      },
+      "editionEndYear": 2026,
+      "publicationEvidence": {
+        "kind": "document filename",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/2026-04_La-Fenice_Collection_120x120.pdf"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/2026-04_La-Fenice_Collection_120x120.pdf#page=56",
+      "otherSourceCount": 1
+    },
+    {
+      "collection": "Resinart Wall",
+      "slug": "resinart-wall",
+      "selected": {
+        "catalogueId": "collection-resinart-wall",
+        "label": "Catalogue Resinart Wall",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/cat-resinart-wall.pdf",
+        "page": 1
+      },
+      "editionEndYear": null,
+      "publicationEvidence": null,
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/cat-resinart-wall.pdf#page=1",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Rovere",
+      "slug": "rovere",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 376,
+        "printedPage": 374
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=376",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Royal",
+      "slug": "royal",
+      "selected": {
+        "catalogueId": "wall-2026-2027",
+        "label": "Revêtements et polis 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf",
+        "page": 46,
+        "printedPage": 44
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Rivestimenti_Levigati_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf#page=46",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Saturn",
+      "slug": "saturn",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 232,
+        "printedPage": 230
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=232",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Segesta",
+      "slug": "segesta",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 88,
+        "printedPage": 86
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=88",
+      "otherSourceCount": 1
+    },
+    {
+      "collection": "Shabby Wall",
+      "slug": "shabby-wall",
+      "selected": {
+        "catalogueId": "wall-2026-2027",
+        "label": "Revêtements et polis 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf",
+        "page": 34,
+        "printedPage": 32
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Rivestimenti_Levigati_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf#page=34",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Shabby Wood",
+      "slug": "shabby-wood",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 378,
+        "printedPage": 376
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=378",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Shapes",
+      "slug": "shapes",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 240,
+        "printedPage": 238
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=240",
+      "otherSourceCount": 1
+    },
+    {
+      "collection": "Slate",
+      "slug": "slate",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 246,
+        "printedPage": 244
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=246",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Statuario",
+      "slug": "statuario",
+      "selected": {
+        "catalogueId": "wall-2026-2027",
+        "label": "Revêtements et polis 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf",
+        "page": 48,
+        "printedPage": 46
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Rivestimenti_Levigati_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf#page=48",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Steel Art",
+      "slug": "steel-art",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 290,
+        "printedPage": 288
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=290",
+      "otherSourceCount": 1
+    },
+    {
+      "collection": "Stone",
+      "slug": "stone",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 252,
+        "printedPage": 250
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=252",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Supreme",
+      "slug": "supreme",
+      "selected": {
+        "catalogueId": "wall-2026-2027",
+        "label": "Revêtements et polis 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf",
+        "page": 50,
+        "printedPage": 48
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Rivestimenti_Levigati_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf#page=50",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Suveya – Reactive 3D Evo",
+      "slug": "suveya-reactive-3d-evo",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 98,
+        "printedPage": 96
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=98",
+      "otherSourceCount": 1
+    },
+    {
+      "collection": "Tendance",
+      "slug": "tendance",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 382,
+        "printedPage": 380
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=382",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Thasos",
+      "slug": "thasos",
+      "selected": {
+        "catalogueId": "wall-2026-2027",
+        "label": "Revêtements et polis 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf",
+        "page": 52,
+        "printedPage": 50
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Rivestimenti_Levigati_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf#page=52",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Touch",
+      "slug": "touch",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 296,
+        "printedPage": 294
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=296",
+      "otherSourceCount": 3
+    },
+    {
+      "collection": "Touch Evo",
+      "slug": "touch-evo",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 308,
+        "printedPage": 306
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=308",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Walk Materials",
+      "slug": "walk-materials",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 318,
+        "printedPage": 316
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=318",
+      "otherSourceCount": 1
+    },
+    {
+      "collection": "Wall Rock",
+      "slug": "wall-rock",
+      "selected": {
+        "catalogueId": "wall-2026-2027",
+        "label": "Revêtements et polis 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf",
+        "page": 36,
+        "printedPage": 34
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Rivestimenti_Levigati_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_Wall-Rivestimenti_Catalogo_2026-2027_MR.pdf#page=36",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "Woodland",
+      "slug": "woodland",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 384,
+        "printedPage": 382
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=384",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "X Beton",
+      "slug": "x-beton",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 324,
+        "printedPage": 322
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=324",
+      "otherSourceCount": 0
+    },
+    {
+      "collection": "X Metal",
+      "slug": "x-metal",
+      "selected": {
+        "catalogueId": "general-2026-2027",
+        "label": "Catalogue général 2026/2027",
+        "url": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf",
+        "page": 332,
+        "printedPage": 330
+      },
+      "editionEndYear": 2027,
+      "publicationEvidence": {
+        "kind": "cover upload month",
+        "url": "https://lafenicegc.com/wp-content/uploads/2026/02/Copertina_Catalogo_Generale_2026-2027-841x1024.jpg"
+      },
+      "directUrl": "https://lafenicegc.com/wp-content/uploads/pdf/Fenice_catalogo_Generale_2026-2027__AMERICA2_.pdf#page=332",
+      "otherSourceCount": 0
+    }
+  ]
+}

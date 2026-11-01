@@ -4,10 +4,10 @@ import {readFileSync} from 'node:fs';
 import vm from 'node:vm';
 
 const script=readFileSync(new URL('../assets/js/inspirations-fenice.js',import.meta.url),'utf8');
-function harness({access=true,loadPrices=async()=>{},swatches=[]}={}) {
+function harness({access=true,loadPrices=async()=>{},swatches=[],product={}}={}) {
   const listeners=new Map(), elements=[];
   const state={access,prices:false};
-  const source={id:'fenice-sample',slug:'sample',name:'Sample',formats:['30x60','60x60'],images:[],swatches};
+  const source={id:'fenice-sample',slug:'sample',name:'Sample',formats:['30x60','60x60'],images:[],swatches,...product};
   let focused=null;
   function node() {
     return {textContent:'',hidden:false,disabled:false,style:{},classList:{add(){},remove(){},toggle(){return false},contains(){return false}},
@@ -39,6 +39,18 @@ function harness({access=true,loadPrices=async()=>{},swatches=[]}={}) {
   return {window,state,dialog,elements,click,emit(type,detail){window.dispatchEvent({type,detail})},focused:()=>focused};
 }
 const settle=()=>new Promise(resolve=>setImmediate(resolve));
+
+test('a collection offers only its latest catalogue at the series PDF page',()=>{
+  const h=harness({product:{
+    primaryCatalogueSource:{label:'Catalogue général 2026/2027',url:'https://example.com/general.pdf',page:148,printedPage:146},
+    sources:[{label:'Ancien catalogue',url:'https://example.com/old.pdf',page:26}],
+    pdf:'https://example.com/brochure.pdf',sourceUrl:'https://example.com/collection/'
+  }});
+  assert.equal((h.dialog.innerHTML.match(/class="fenice-source-link"/g)||[]).length,1);
+  assert.match(h.dialog.innerHTML,/href="https:\/\/example.com\/general.pdf#page=148"/);
+  assert.match(h.dialog.innerHTML,/Catalogue général 2026\/2027 · p. 146/);
+  assert.doesNotMatch(h.dialog.innerHTML,/old\.pdf|brochure\.pdf|Fiche technique du fabricant|https:\/\/example.com\/collection\//);
+});
 
 test('Voir fetches amounts only on request; Cacher removes them from the HTML',async()=>{
   let calls=0;

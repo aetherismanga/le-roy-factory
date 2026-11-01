@@ -191,18 +191,15 @@ def build_collection(product, products):
         color_gallery = f'<section class="seo-section"><h2>Coloris et matières {esc(name)}</h2><p>Ouvrez chaque visuel pour le consulter en grand format.</p>{material_note}<div class="fenice-swatches">' + ''.join(f'<figure><a href="{esc(item["original"])}" target="_blank" rel="noopener" aria-label="Agrandir {esc(name)} · {esc(item["name"])}"><img src="{esc(item["image"])}" alt="{esc(item["alt"])}" loading="lazy" decoding="async" width="300" height="300"></a><figcaption>{esc(item["name"])}</figcaption></figure>' for item in palette) + '</div></section>'
     pricing = f'<section class="seo-section"><h2>Tarifs professionnels {esc(name)}</h2><p>Connectez-vous avec votre compte autorisé, ouvrez cette collection dans la sélection puis appuyez sur « Voir » pour afficher les montants par format.</p><div class="seo-actions"><a class="seo-button" href="{esc(query_link(product))}">Voir mes tarifs professionnels</a><a class="seo-button secondary" href="/tarifs-pro.html">Mon accès PRO</a></div></section>'
     source_items = []
-    seen_sources = set()
-    sources = product.get('sources', [])[:]
-    if product.get('pdf') and not any(s.get('url') == product['pdf'] for s in sources):
-        sources.append({'url': product['pdf'], 'label': f'Catalogue {name}'})
+    primary = product.get('primaryCatalogueSource')
+    sources = [primary] if primary and source_link(primary) else [s for s in product.get('sources', []) if source_link(s)][:1]
+    if not sources and safe_url(product.get('pdf')):
+        sources = [{'url': product['pdf'], 'label': f'Catalogue {name}'}]
     for s in sources:
         url, label = source_link(s), source_label(s)
-        if url and (url, label) not in seen_sources:
-            seen_sources.add((url, label))
+        if url:
             source_items.append(f'<li><a href="{esc(url)}" target="_blank" rel="noopener">{esc(label)}</a></li>')
-    if safe_url(product.get('sourceUrl')):
-        source_items.append(f'<li><a href="{esc(product["sourceUrl"])}" target="_blank" rel="noopener">Fiche officielle {esc(name)} · La Fenice</a></li>')
-    documents = '<section class="seo-section"><h2>Pages et catalogues fabricant</h2><ul class="fenice-source-list">' + ''.join(source_items) + '</ul><p class="seo-note">Les liens indiquent le catalogue et la page lorsqu’elle est identifiée. Les tarifs professionnels sont accessibles dans la sélection aux comptes autorisés.</p></section>'
+    documents = '<section class="seo-section"><h2>Catalogue de la collection</h2><ul class="fenice-source-list">' + ''.join(source_items) + '</ul><p class="seo-note">Consultez la série dans le catalogue le plus récent. Les tarifs professionnels sont accessibles dans la sélection aux comptes autorisés.</p></section>'
     related = [p for p in products if p['slug'] != product['slug'] and p.get('effect') == product.get('effect')][:3]
     related_html = '<section class="seo-section"><h2>Autres collections à découvrir</h2><div class="seo-grid">' + ''.join(card(p) for p in related) + '</div></section>' if related else ''
     crumbs = [('Accueil', ''), ('La Fenice', INDEX), (name, product_path(product))]
@@ -232,7 +229,7 @@ def build_index(products, catalogues, format_pages):
             if exact_format(f):
                 format_options[exact_format(f)] = fmt(f)
     formats = sorted(format_options, key=lambda s: tuple(float(n) for n in s.split('x')))
-    hero = f'''<section class="seo-hero"><p class="seo-eyebrow">LE ROY FACTORY · LA FENICE CERAMICHE</p><h1>La Fenice : carrelage, mobilier et vasques</h1><p class="seo-lead">Parcourez {len(products)} collections classées par ordre alphabétique. Les catalogues général, muraux, nouveautés et La Fenice Home sont réunis dans une sélection commune : une collection possède une seule fiche, avec ses photos, ses formats et ses différents documents.</p><div class="seo-actions"><a class="seo-button" href="/univers.html?partner=la-fenice">Ouvrir la sélection interactive</a><a class="seo-button secondary" href="/fenice-demande.html">Commande ou renseignement</a></div></section>'''
+    hero = f'''<section class="seo-hero"><p class="seo-eyebrow">LE ROY FACTORY · LA FENICE CERAMICHE</p><h1>La Fenice : carrelage, mobilier et vasques</h1><p class="seo-lead">Parcourez {len(products)} collections classées par ordre alphabétique. Les catalogues général, muraux, nouveautés et La Fenice Home sont réunis dans une sélection commune : une collection possède une seule fiche, avec ses photos, ses formats et un lien vers le catalogue le plus récent à la page de la série.</p><div class="seo-actions"><a class="seo-button" href="/univers.html?partner=la-fenice">Ouvrir la sélection interactive</a><a class="seo-button secondary" href="/fenice-demande.html">Commande ou renseignement</a></div></section>'''
     search = '<section class="seo-section"><h2>Rechercher par produit, aspect ou format</h2><form id="fenice-search"><div class="fenice-tools"><label for="fenice-query">Collection, coloris ou format<input id="fenice-query" type="search" placeholder="Ex. Aspen, travertin, 60x60…" autocomplete="off"></label><label for="fenice-format">Format<select id="fenice-format"><option value="">Tous les formats</option>' + ''.join(f'<option value="{esc(f)}">{esc(format_options[f])}</option>' for f in formats) + '</select></label><label for="fenice-effect">Aspect<select id="fenice-effect"><option value="">Tous les aspects</option>' + ''.join(f'<option>{esc(e)}</option>' for e in effects) + '</select></label></div><button class="fenice-reset" type="reset">Réinitialiser</button></form>'
     if format_pages:
         search += '<h3>Explorer un format</h3><nav class="fenice-jump" aria-label="Carrelage La Fenice par format">' + ''.join(f'<a href="/{path}">{esc(fmt(f))}</a>' for f, path in format_pages.items()) + '</nav>'

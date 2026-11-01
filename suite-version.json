@@ -11,7 +11,7 @@
   ],
   "sharedCatalogueVersion": "20261024-suite-1",
   "publicSite": {
-    "releaseId": "20261101-fenice-request-3",
+    "releaseId": "20261101-fenice-catalogue-4",
     "baselineCommit": "0a116a66e4fb03522876be09d417f853bb3b2ed9",
     "pages": [
       "configurateur-salle-de-bain-3d.html",
@@ -47,7 +47,8 @@
         "manufacturerPackagingEntries": 356,
         "packagingCollections": 77,
         "plinthPackagingEntries": 104
-      }
+      },
+      "singleLatestCatalogue": true
     },
     "pdfReader": {
       "version": "20261101-compact1",
