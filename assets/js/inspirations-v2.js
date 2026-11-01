@@ -92,6 +92,7 @@
   function renderPartners(){const c=CATEGORIES.find(x=>x.id===state.category);const list=[...(c?.partners||[])].sort((a,b)=>c?.id==='meubles'?c.partners.indexOf(a)-c.partners.indexOf(b):String(a).localeCompare(String(b),'fr',{sensitivity:'base'}));$('#partner-panel-title').textContent=c?.label||'Partenaires';partnerGrid.innerHTML=list.length?list.map(name=>{const p=PARTNERS[name];const allowed=hasAccess(p.slug),isBio=name==='Biopietra';return `<button class="partner-card ${name===state.partner?'active':''}" data-partner="${esc(name)}"><img src="${p.logo}" alt="${esc(name)}"><span><strong>${esc(name)}</strong><small>${esc(p.country)}</small>${isBio?'':`<span class="access ${allowed?'':'locked'}">${allowed?'✓ Tarif PRO autorisé':'🔒 Tarif PRO selon compte'}</span>`}</span></button>`}).join(''):`<div class="empty-partner"><strong>Sanitaire</strong><p>Aucun partenaire sanitaire n'est encore intégré.</p></div>`;partnerTrigger.textContent=`☰ Choisir une usine${state.partner?` — ${state.partner}`:''}`}
   function unique(arr){return [...new Set(arr.filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b),'fr',{numeric:true}))}
   function products(){
+    if(state.partner==="Petracer's") return window.LRF_PETRACER_SELECTION?.normaliseProducts() || [];
     if(state.partner==='Pecchioli Firenze') return window.LRF_PECCHIOLI_SELECTION?.normaliseProducts() || [];
     if(state.partner==='Bulbo') return window.LRF_BULBO_SELECTION?.normaliseProducts() || [];
     if(state.partner==='Biopietra') return window.LRF_BIOPIETRA_SELECTION?.normaliseProducts() || [];
@@ -102,7 +103,7 @@
   }
   function imageOf(p){if(state.partner==='La Fenice'&&p.coverImage)return p.coverImage;const first=(state.partner==='Elios Ceramica'&&window.ELIOS_SELECTION_MEDIA?.galleries?.[p.slug]?.[0])||(p.images||[])[0];return (typeof first==='string'?first:first?.url)||'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/03.png'}
   function fillFilters(){
-    const data=state.partner==='Pecchioli Firenze'?products().filter(p=>window.LRF_PECCHIOLI_SELECTION?.matches(p)):state.partner==='Bulbo'?products().filter(p=>window.LRF_BULBO_SELECTION?.matches(p)):products();
+    const data=state.partner==="Petracer's"?products().filter(p=>window.LRF_PETRACER_SELECTION?.matches(p)):state.partner==='Pecchioli Firenze'?products().filter(p=>window.LRF_PECCHIOLI_SELECTION?.matches(p)):state.partner==='Bulbo'?products().filter(p=>window.LRF_BULBO_SELECTION?.matches(p)):products();
     const formats=unique(data.flatMap(p=>p.formats||[]));
     const colors=unique(data.flatMap(p=>p.colorFamilies||p.colors||[]));
     const effects=unique(data.map(p=>p.effect).filter(Boolean));
@@ -114,6 +115,7 @@
     fill('#v2-finish',finishes,state.partner==='Biopietra'?'Toutes les épaisseurs':'Toutes les finitions');
   }
   function match(p){
+    if(state.partner==="Petracer's" && !window.LRF_PETRACER_SELECTION?.matches(p))return false;
     if(state.partner==='Pecchioli Firenze' && !window.LRF_PECCHIOLI_SELECTION?.matches(p))return false;
     if(state.partner==='Bulbo' && !window.LRF_BULBO_SELECTION?.matches(p))return false;
     if(state.partner==='La Fenice' && window.LRF_FENICE_SELECTION?.matchesCatalogue && !window.LRF_FENICE_SELECTION.matchesCatalogue(p))return false;
@@ -121,7 +123,7 @@
       p.collection,p.name,p.catalogueLabel,p.slug,p.description,p.category,p.effect,p.badge,p.keywords,...(p.categories||[]),
       ...(p.formats||[]),...(p.colors||[]),...(p.colorFamilies||[]),...(p.finishes||[])
     ].join(' '));
-    if(state.q && ['La Fenice','Biopietra','Bulbo','Pecchioli Firenze'].includes(state.partner)){const terms=state.q.toLowerCase().replace(/\bimitations?\b/g,'effet').replace(/\bpolis?\b/g,'brillant').replace(/\b(carrelages?|la|fenice|biopietra|bulbo|pecchioli|firenze|parement|ceramique|céramique|en|de|du|des|pour)\b/g,' ').replace(/(\d)\s*[×x]\s*(?=\d)/g,'$1x').split(/\s+/).map(norm).filter(Boolean);if(!terms.every(t=>hay.includes(t)))return false;}
+    if(state.q && ['La Fenice','Biopietra','Bulbo','Pecchioli Firenze',"Petracer's"].includes(state.partner)){const terms=state.q.toLowerCase().replace(/\bimitations?\b/g,'effet').replace(/\bpolis?\b/g,'brillant').replace(/\b(carrelages?|la|fenice|biopietra|bulbo|pecchioli|firenze|petracers?|parement|ceramique|céramique|en|de|du|des|pour)\b/g,' ').replace(/(\d)\s*[×x]\s*(?=\d)/g,'$1x').split(/\s+/).map(norm).filter(Boolean);if(!terms.every(t=>hay.includes(t)))return false;}
     else if(state.q){const discovery=state.partner==='Elios Ceramica'&&window.LRF_ELIOS_DISCOVERY; if(discovery?!discovery.matches(p,state.q):!hay.includes(norm(state.q)))return false;}
     if(state.format!=='Tous'&&!(p.formats||[]).some(x=>norm(x)===norm(state.format)))return false;
     if(state.color!=='Tous'&&!(p.colorFamilies||p.colors||[]).some(x=>norm(x)===norm(state.color)))return false;
@@ -132,6 +134,11 @@
   function renderProducts(){
     const data=products();const matched=data.filter(match);const visible=state.partner==='Elios Ceramica'&&!state.poolGroup?window.LRF_ELIOS_SELECTION_MODEL.groupPools(matched):matched;const found=visible.slice().sort((a,b)=>String(a.name||a.collection||'').localeCompare(String(b.name||b.collection||''),'fr',{numeric:true,sensitivity:'base'}));
     count.textContent=data.length?`${found.length} ${state.poolGroup?('collection'+(found.length>1?'s':'')+' Pool Surfaces'):state.partner==='Elios Ceramica'?('sélection'+(found.length>1?'s':'')):('produit'+(found.length>1?'s':''))}`:'Catalogue produits à intégrer';
+    if(state.partner==="Petracer's"){
+      count.textContent=data.length?`${found.length} collection${found.length>1?'s':''} Petracer’s`:'Collections Petracer’s';
+      productGrid.innerHTML=window.LRF_PETRACER_SELECTION?.renderCards(found)||'';
+      return;
+    }
     if(state.partner==='Pecchioli Firenze'){
       count.textContent=data.length?`${found.length} création${found.length>1?'s':''} Pecchioli`:'Créations Pecchioli';
       productGrid.innerHTML=window.LRF_PECCHIOLI_SELECTION?.renderCards(found)||'';
@@ -181,11 +188,12 @@
     const productHint=count?.parentElement?.querySelector('span');
     if(productHint)productHint.textContent=isRandal?'Choisissez votre meuble et préparez votre commande':'Cliquez sur un produit pour les détails et tarifs PRO';
     for(const[id,label]of [['v2-search','Rechercher dans cette sélection'],['v2-format','Filtrer les formats'],['v2-color','Filtrer les couleurs'],['v2-effect','Filtrer les effets'],['v2-finish','Filtrer les finitions']])document.getElementById(id)?.setAttribute('aria-label',label);
-    fillFilters();renderProducts();window.LRF_BIOPIETRA_SELECTION?.refreshChrome();window.LRF_BULBO_SELECTION?.refreshChrome();window.LRF_PECCHIOLI_SELECTION?.refreshChrome();}
+    fillFilters();renderProducts();window.LRF_BIOPIETRA_SELECTION?.refreshChrome();window.LRF_BULBO_SELECTION?.refreshChrome();window.LRF_PECCHIOLI_SELECTION?.refreshChrome();window.LRF_PETRACER_SELECTION?.refreshChrome();}
   function resetFilters(){state.poolGroup=false;state.q='';state.format=state.color=state.effect=state.finish='Tous';const s=$('#v2-search');if(s)s.value=''}
   function chooseCategory(id){state.category=id;const c=CATEGORIES.find(x=>x.id===id);if(!c)return;state.partner=c.partners[0]||'';resetFilters();renderCategories();renderPartners();renderWorkspace()}
   function choosePartner(name){state.partner=name;resetFilters();renderPartners();renderWorkspace();partnerPanel.classList.remove('mobile-open')}
   function openProduct(id){
+    if(state.partner==="Petracer's" && window.LRF_PETRACER_SELECTION?.openCollection){window.LRF_PETRACER_SELECTION.openCollection(id);return;}
     if(state.partner==='Pecchioli Firenze' && window.LRF_PECCHIOLI_SELECTION?.openCollection){window.LRF_PECCHIOLI_SELECTION.openCollection(id);return;}
     if(state.partner==='Bulbo' && window.LRF_BULBO_SELECTION?.openCollection){window.LRF_BULBO_SELECTION.openCollection(id);return;}
     if(state.partner==='Biopietra' && window.LRF_BIOPIETRA_SELECTION?.openCollection){window.LRF_BIOPIETRA_SELECTION.openCollection(id);return;}
@@ -222,6 +230,11 @@
   window.addEventListener('lrf-agent-tariffs-ready',()=>{renderPartners();renderWorkspace();});
   window.addEventListener('pageshow',()=>{if(window.LRF_PRO_SESSION?.read?.()){renderPartners();renderWorkspace();}},{passive:true});
 
+  let requestedPetracerOpened=false;
+  function openRequestedPetracer(){const collection=new URLSearchParams(location.search).get('collection');if(!requestedPetracerOpened && state.partner==="Petracer's" && collection && window.LRF_PETRACER_SELECTION?.openCollection(collection))requestedPetracerOpened=true;}
+  window.addEventListener('lrf-petracer-data-ready',()=>{if(state.partner==="Petracer's"){fillFilters();renderProducts();openRequestedPetracer();}});
+  window.addEventListener('lrf-petracer-data-error',()=>{if(state.partner==="Petracer's")renderProducts();});
+  window.addEventListener('lrf-petracer-filter-change',event=>{if(state.partner==="Petracer's"){if(event.detail?.reset){resetFilters();fillFilters();}renderProducts();}});
   let requestedFeniceOpened=false;
   let requestedPecchioliOpened=false;
   function openRequestedPecchioli(){const collection=new URLSearchParams(location.search).get('collection');if(!requestedPecchioliOpened && state.partner==='Pecchioli Firenze' && collection && window.LRF_PECCHIOLI_SELECTION?.openCollection(collection))requestedPecchioliOpened=true;}
@@ -246,6 +259,7 @@
   if(/biopietra/i.test(new URLSearchParams(location.search).get('partner')||'')){state.category='parement';state.partner='Biopietra';}
   if(/^bulbo$/i.test(new URLSearchParams(location.search).get('partner')||'')){state.category='exception';state.partner='Bulbo';}
   if(/^pecchioli(?:-firenze)?$/i.test(new URLSearchParams(location.search).get('partner')||'')){state.category='exception';state.partner='Pecchioli Firenze';}
-  renderCategories();renderPartners();renderWorkspace();openRequestedPecchioli();openRequestedFenice();openRequestedBiopietra();openRequestedBulbo();
+  if(/^petracer'?s?$/i.test(new URLSearchParams(location.search).get('partner')||'')){state.category='exception';state.partner="Petracer's";}
+  renderCategories();renderPartners();renderWorkspace();openRequestedPetracer();openRequestedPecchioli();openRequestedFenice();openRequestedBiopietra();openRequestedBulbo();
 })();
 

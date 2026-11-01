@@ -11,7 +11,7 @@
   ],
   "sharedCatalogueVersion": "20261024-suite-1",
   "publicSite": {
-    "releaseId": "20261101-pecchioli-selection-1",
+    "releaseId": "20261101-petracer-selection-1",
     "baselineCommit": "0a116a66e4fb03522876be09d417f853bb3b2ed9",
     "pages": [
       "configurateur-salle-de-bain-3d.html",
@@ -109,6 +109,15 @@
       "tariffValidityToConfirm": true,
       "requestForm": "pecchioli-projet.html",
       "touchPhotoNavigation": true
+    },
+    "petracer": {
+      "collections": 21,
+      "photographs": 81,
+      "catalogueEdition": "2023-05",
+      "cataloguePages": 122,
+      "tilesOnly": true,
+      "touchPhotoNavigation": true,
+      "singleLatestCatalogue": true
     }
   },
   "configurators": {

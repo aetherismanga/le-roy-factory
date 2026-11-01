@@ -1,0 +1,1602 @@
+{
+  "brand": "Petracer’s",
+  "updatedAt": "2026-11-01",
+  "source": "https://petracer.it/",
+  "scope": "Carrelages, sols et revêtements exclusivement. La collection de mobilier Originali Interni Italiani est exclue.",
+  "notes": [
+    "Collections et visuels issus du site et du catalogue officiels Petracer’s consultés le 1er novembre 2026.",
+    "Le catalogue actuellement proposé porte le colophon mai 2023, bien que le fichier ait été généré en juillet 2026.",
+    "Les noms de couleurs restent ceux du fournisseur. Les listes présentent les possibilités de la collection, sans supposer toutes les associations couleur × format × finition.",
+    "Les formats affichés concernent les principaux carreaux et compositions ; les moulures, angles, plinthes et autres pièces spéciales se consultent dans les pages techniques.",
+    "Les particularités et variations des réalisations artisanales se vérifient avec le fabricant avant commande.",
+    "Aucun prix fournisseur ni condition d’achat n’est inclus dans ces données."
+  ],
+  "catalogues": [
+    {
+      "id": "petracer-carrelage-general",
+      "label": "Catalogue général · sols & revêtements",
+      "url": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+      "sourceEdition": "Mai 2023 (colophon)",
+      "pages": 122,
+      "supplierUrl": "https://petracer.it/downloads/"
+    }
+  ],
+  "products": [
+    {
+      "id": "petracer-grand-elegance",
+      "slug": "grand-elegance",
+      "name": "Grand Elegance",
+      "brand": "Petracer’s",
+      "category": "carrelage-exception",
+      "family": "Élégance classique",
+      "description": "L’esprit des demeures anglaises, dans une céramique aux décors délicats. Fonds colorés, motifs et moulures se composent pour créer des pièces de caractère.",
+      "formats": [
+        "20 × 20 cm"
+      ],
+      "colors": [
+        "Panna",
+        "Crema",
+        "Bordeaux",
+        "Verde bosco",
+        "Blu royal"
+      ],
+      "finishes": [
+        "Décors coordonnés"
+      ],
+      "images": [
+        {
+          "url": "/assets/images/petracer/grand-elegance-04.webp",
+          "thumb": "/assets/images/petracer/grand-elegance-04-thumb.webp",
+          "hd": "/assets/images/petracer/grand-elegance-04.webp",
+          "label": "Grand Elegance — ambiance 4",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 7,
+          "width": 963,
+          "height": 709
+        },
+        {
+          "url": "/assets/images/petracer/grand-elegance-02.webp",
+          "thumb": "/assets/images/petracer/grand-elegance-02-thumb.webp",
+          "hd": "/assets/images/petracer/grand-elegance-02.webp",
+          "label": "Grand Elegance — ambiance 2",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 6,
+          "width": 696,
+          "height": 850
+        },
+        {
+          "url": "/assets/images/petracer/grand-elegance-01.webp",
+          "thumb": "/assets/images/petracer/grand-elegance-01-thumb.webp",
+          "hd": "/assets/images/petracer/grand-elegance-01.webp",
+          "label": "Grand Elegance — ambiance 1",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 5,
+          "width": 694,
+          "height": 852
+        },
+        {
+          "url": "/assets/images/petracer/grand-elegance-03.webp",
+          "thumb": "/assets/images/petracer/grand-elegance-03-thumb.webp",
+          "hd": "/assets/images/petracer/grand-elegance-03.webp",
+          "label": "Grand Elegance — ambiance 3",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 6,
+          "width": 566,
+          "height": 710
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/pavimenti-e-rivestimenti-grand-elegance/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=5",
+      "cataloguePage": 5,
+      "technicalPages": [
+        96
+      ],
+      "technicalUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=96",
+      "brochureUrl": "",
+      "details": [],
+      "availabilityNote": "Couleurs, formats, décors et finitions selon la référence. Disponibilité et composition à confirmer pour le projet."
+    },
+    {
+      "id": "petracer-grand-elegance-gold",
+      "slug": "grand-elegance-gold",
+      "name": "Grand Elegance Gold",
+      "brand": "Petracer’s",
+      "category": "carrelage-exception",
+      "family": "Élégance classique",
+      "description": "Une interprétation lumineuse de Grand Elegance : les décors dorés soulignent les fonds colorés et les lignes des accessoires coordonnés.",
+      "formats": [
+        "20 × 20 cm"
+      ],
+      "colors": [
+        "Panna",
+        "Crema",
+        "Bordeaux",
+        "Verde bosco",
+        "Blu royal"
+      ],
+      "finishes": [
+        "Décors oro"
+      ],
+      "images": [
+        {
+          "url": "/assets/images/petracer/grand-elegance-gold-02.webp",
+          "thumb": "/assets/images/petracer/grand-elegance-gold-02-thumb.webp",
+          "hd": "/assets/images/petracer/grand-elegance-gold-02.webp",
+          "label": "Grand Elegance Gold — ambiance 2",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 9,
+          "width": 1245,
+          "height": 710
+        },
+        {
+          "url": "/assets/images/petracer/grand-elegance-gold-04.webp",
+          "thumb": "/assets/images/petracer/grand-elegance-gold-04-thumb.webp",
+          "hd": "/assets/images/petracer/grand-elegance-gold-04.webp",
+          "label": "Grand Elegance Gold — ambiance 4",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 10,
+          "width": 639,
+          "height": 484
+        },
+        {
+          "url": "/assets/images/petracer/grand-elegance-gold-01.webp",
+          "thumb": "/assets/images/petracer/grand-elegance-gold-01-thumb.webp",
+          "hd": "/assets/images/petracer/grand-elegance-gold-01.webp",
+          "label": "Grand Elegance Gold — ambiance 1",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 8,
+          "width": 696,
+          "height": 850
+        },
+        {
+          "url": "/assets/images/petracer/grand-elegance-gold-03.webp",
+          "thumb": "/assets/images/petracer/grand-elegance-gold-03-thumb.webp",
+          "hd": "/assets/images/petracer/grand-elegance-gold-03.webp",
+          "label": "Grand Elegance Gold — ambiance 3",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 10,
+          "width": 567,
+          "height": 710
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/grand-elegance-gold/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=8",
+      "cataloguePage": 8,
+      "technicalPages": [
+        97
+      ],
+      "technicalUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=97",
+      "brochureUrl": "",
+      "details": [],
+      "availabilityNote": "Couleurs, formats, décors et finitions selon la référence. Disponibilité et composition à confirmer pour le projet."
+    },
+    {
+      "id": "petracer-grand-elegance-rubino",
+      "slug": "grand-elegance-rubino",
+      "name": "Grand Elegance Rubino",
+      "brand": "Petracer’s",
+      "category": "carrelage-exception",
+      "family": "Élégance classique",
+      "description": "Nouveau, Decò et Liberty revisitent le vocabulaire Art déco. Des couleurs profondes et des détails or ou lustre donnent à chaque composition une présence singulière.",
+      "formats": [
+        "20 × 20 cm"
+      ],
+      "colors": [
+        "Avorio",
+        "Ottanio",
+        "Lampone",
+        "Pervinca"
+      ],
+      "finishes": [
+        "Oro",
+        "Lustro"
+      ],
+      "images": [
+        {
+          "url": "/assets/images/petracer/grand-elegance-rubino-06.webp",
+          "thumb": "/assets/images/petracer/grand-elegance-rubino-06-thumb.webp",
+          "hd": "/assets/images/petracer/grand-elegance-rubino-06.webp",
+          "label": "Grand Elegance Rubino — ambiance 6",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 14,
+          "width": 964,
+          "height": 710
+        },
+        {
+          "url": "/assets/images/petracer/grand-elegance-rubino-02.webp",
+          "thumb": "/assets/images/petracer/grand-elegance-rubino-02-thumb.webp",
+          "hd": "/assets/images/petracer/grand-elegance-rubino-02.webp",
+          "label": "Grand Elegance Rubino — ambiance 2",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 12,
+          "width": 568,
+          "height": 404
+        },
+        {
+          "url": "/assets/images/petracer/grand-elegance-rubino-05.webp",
+          "thumb": "/assets/images/petracer/grand-elegance-rubino-05-thumb.webp",
+          "hd": "/assets/images/petracer/grand-elegance-rubino-05.webp",
+          "label": "Grand Elegance Rubino — ambiance 5",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 13,
+          "width": 695,
+          "height": 849
+        },
+        {
+          "url": "/assets/images/petracer/grand-elegance-rubino-01.webp",
+          "thumb": "/assets/images/petracer/grand-elegance-rubino-01-thumb.webp",
+          "hd": "/assets/images/petracer/grand-elegance-rubino-01.webp",
+          "label": "Grand Elegance Rubino — ambiance 1",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 11,
+          "width": 694,
+          "height": 839
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/grand-elegance-rubino/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=11",
+      "cataloguePage": 11,
+      "technicalPages": [
+        98
+      ],
+      "technicalUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=98",
+      "brochureUrl": "",
+      "details": [],
+      "availabilityNote": "Couleurs, formats, décors et finitions selon la référence. Disponibilité et composition à confirmer pour le projet."
+    },
+    {
+      "id": "petracer-ad-maiora",
+      "slug": "ad-maiora",
+      "name": "Ad Maiora",
+      "brand": "Petracer’s",
+      "category": "carrelage-exception",
+      "family": "Élégance classique",
+      "description": "De grands panneaux et un rythme de losanges dessinent une décoration architecturale. Les détails or et platine accompagnent les fonds unis de la collection.",
+      "formats": [
+        "50 × 100 cm",
+        "50 × 50 cm"
+      ],
+      "colors": [
+        "Beige",
+        "Perla",
+        "Moro",
+        "Nero"
+      ],
+      "finishes": [
+        "Oro",
+        "Platino"
+      ],
+      "images": [
+        {
+          "url": "/assets/images/petracer/ad-maiora-04.webp",
+          "thumb": "/assets/images/petracer/ad-maiora-04-thumb.webp",
+          "hd": "/assets/images/petracer/ad-maiora-04.webp",
+          "label": "Ad Maiora — ambiance 4",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 18,
+          "width": 1393,
+          "height": 854
+        },
+        {
+          "url": "/assets/images/petracer/ad-maiora-05.webp",
+          "thumb": "/assets/images/petracer/ad-maiora-05-thumb.webp",
+          "hd": "/assets/images/petracer/ad-maiora-05.webp",
+          "label": "Ad Maiora — ambiance 5",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 19,
+          "width": 1038,
+          "height": 852
+        },
+        {
+          "url": "/assets/images/petracer/ad-maiora-01.webp",
+          "thumb": "/assets/images/petracer/ad-maiora-01-thumb.webp",
+          "hd": "/assets/images/petracer/ad-maiora-01.webp",
+          "label": "Ad Maiora — ambiance 1",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 16,
+          "width": 695,
+          "height": 854
+        },
+        {
+          "url": "/assets/images/petracer/ad-maiora-02.webp",
+          "thumb": "/assets/images/petracer/ad-maiora-02-thumb.webp",
+          "hd": "/assets/images/petracer/ad-maiora-02.webp",
+          "label": "Ad Maiora — ambiance 2",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 17,
+          "width": 694,
+          "height": 851
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/pavimenti-e-rivestimenti-ad-maiora/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=16",
+      "cataloguePage": 16,
+      "technicalPages": [
+        99,
+        100
+      ],
+      "technicalUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=99",
+      "brochureUrl": "",
+      "details": [],
+      "availabilityNote": "Couleurs, formats, décors et finitions selon la référence. Disponibilité et composition à confirmer pour le projet."
+    },
+    {
+      "id": "petracer-capitonne",
+      "slug": "capitonne",
+      "name": "Capitonnè",
+      "brand": "Petracer’s",
+      "category": "carrelage-exception",
+      "family": "Reliefs & matières",
+      "description": "Des losanges lisses ou bombés transposent l’effet capitonné en céramique. Les petits inserts et les pièces de finition personnalisent le relief et le rythme de la paroi.",
+      "formats": [
+        "10 × 20 cm",
+        "10 × 10 cm"
+      ],
+      "colors": [
+        "Bianco",
+        "Vaniglia",
+        "Madreperla"
+      ],
+      "finishes": [
+        "Bombato",
+        "Liscio"
+      ],
+      "images": [
+        {
+          "url": "/assets/images/petracer/capitonne-02.webp",
+          "thumb": "/assets/images/petracer/capitonne-02-thumb.webp",
+          "hd": "/assets/images/petracer/capitonne-02.webp",
+          "label": "Capitonnè — ambiance 2",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 21,
+          "width": 1389,
+          "height": 852
+        },
+        {
+          "url": "/assets/images/petracer/capitonne-03.webp",
+          "thumb": "/assets/images/petracer/capitonne-03-thumb.webp",
+          "hd": "/assets/images/petracer/capitonne-03.webp",
+          "label": "Capitonnè — ambiance 3",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 22,
+          "width": 1248,
+          "height": 711
+        },
+        {
+          "url": "/assets/images/petracer/capitonne-06.webp",
+          "thumb": "/assets/images/petracer/capitonne-06-thumb.webp",
+          "hd": "/assets/images/petracer/capitonne-06.webp",
+          "label": "Capitonnè — ambiance 6",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 24,
+          "width": 1037,
+          "height": 851
+        },
+        {
+          "url": "/assets/images/petracer/capitonne-01.webp",
+          "thumb": "/assets/images/petracer/capitonne-01-thumb.webp",
+          "hd": "/assets/images/petracer/capitonne-01.webp",
+          "label": "Capitonnè — ambiance 1",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 20,
+          "width": 693,
+          "height": 851
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/pavimenti-e-rivestimenti-capitonne/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=20",
+      "cataloguePage": 20,
+      "technicalPages": [
+        101
+      ],
+      "technicalUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=101",
+      "brochureUrl": "",
+      "details": [
+        "Losanges 10 × 20 cm lisses ou bombés ; éléments carrés 10 × 10 cm. Inserts coordonnés 2 × 2 cm."
+      ],
+      "availabilityNote": "Couleurs, formats, décors et finitions selon la référence. Disponibilité et composition à confirmer pour le projet."
+    },
+    {
+      "id": "petracer-gran-gala",
+      "slug": "gran-gala",
+      "name": "Gran Galà",
+      "brand": "Petracer’s",
+      "category": "carrelage-exception",
+      "family": "Élégance classique",
+      "description": "Des rayures, des contrastes et des décors graphiques donnent à la salle de bains une allure théâtrale. Les bordures et les pièces coordonnées structurent la composition.",
+      "formats": [
+        "31,5 × 94,9 cm"
+      ],
+      "colors": [
+        "Bianco",
+        "Nero"
+      ],
+      "finishes": [
+        "Décors Stripes",
+        "Décors Vogue"
+      ],
+      "images": [
+        {
+          "url": "/assets/images/petracer/gran-gala-03.webp",
+          "thumb": "/assets/images/petracer/gran-gala-03-thumb.webp",
+          "hd": "/assets/images/petracer/gran-gala-03.webp",
+          "label": "Gran Galà — ambiance 3",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 27,
+          "width": 1390,
+          "height": 853
+        },
+        {
+          "url": "/assets/images/petracer/gran-gala-02.webp",
+          "thumb": "/assets/images/petracer/gran-gala-02-thumb.webp",
+          "hd": "/assets/images/petracer/gran-gala-02.webp",
+          "label": "Gran Galà — ambiance 2",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 26,
+          "width": 1248,
+          "height": 711
+        },
+        {
+          "url": "/assets/images/petracer/gran-gala-04.webp",
+          "thumb": "/assets/images/petracer/gran-gala-04-thumb.webp",
+          "hd": "/assets/images/petracer/gran-gala-04.webp",
+          "label": "Gran Galà — ambiance 4",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 28,
+          "width": 1036,
+          "height": 850
+        },
+        {
+          "url": "/assets/images/petracer/gran-gala-01.webp",
+          "thumb": "/assets/images/petracer/gran-gala-01-thumb.webp",
+          "hd": "/assets/images/petracer/gran-gala-01.webp",
+          "label": "Gran Galà — ambiance 1",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 25,
+          "width": 694,
+          "height": 852
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/pavimenti-e-rivestimenti-gran-gala/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=25",
+      "cataloguePage": 25,
+      "technicalPages": [
+        102
+      ],
+      "technicalUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=102",
+      "brochureUrl": "",
+      "details": [
+        "Le catalogue général détaille les variantes Bianco et Nero. Les ambiances historiques peuvent montrer d’autres tons : confirmation sur demande."
+      ],
+      "availabilityNote": "Couleurs, formats, décors et finitions selon la référence. Disponibilité et composition à confirmer pour le projet."
+    },
+    {
+      "id": "petracer-rinascimento",
+      "slug": "rinascimento",
+      "name": "Rinascimento",
+      "brand": "Petracer’s",
+      "category": "carrelage-exception",
+      "family": "Héritage italien",
+      "description": "Une palette profonde et des décors métalliques rendent hommage à la Renaissance italienne. Le format carré et la finition lappato révèlent les nuances de la surface.",
+      "formats": [
+        "60 × 60 cm"
+      ],
+      "colors": [
+        "Avorio",
+        "Sabbia",
+        "Rubino",
+        "Ebano",
+        "Zaffiro"
+      ],
+      "finishes": [
+        "Lappato",
+        "Décors acciaio rame",
+        "Décors lava"
+      ],
+      "images": [
+        {
+          "url": "/assets/images/petracer/rinascimento-04.webp",
+          "thumb": "/assets/images/petracer/rinascimento-04-thumb.webp",
+          "hd": "/assets/images/petracer/rinascimento-04.webp",
+          "label": "Rinascimento — ambiance 4",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 32,
+          "width": 1389,
+          "height": 853
+        },
+        {
+          "url": "/assets/images/petracer/rinascimento-05.webp",
+          "thumb": "/assets/images/petracer/rinascimento-05-thumb.webp",
+          "hd": "/assets/images/petracer/rinascimento-05.webp",
+          "label": "Rinascimento — ambiance 5",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 33,
+          "width": 1035,
+          "height": 851
+        },
+        {
+          "url": "/assets/images/petracer/rinascimento-02.webp",
+          "thumb": "/assets/images/petracer/rinascimento-02-thumb.webp",
+          "hd": "/assets/images/petracer/rinascimento-02.webp",
+          "label": "Rinascimento — ambiance 2",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 31,
+          "width": 637,
+          "height": 601
+        },
+        {
+          "url": "/assets/images/petracer/rinascimento-03.webp",
+          "thumb": "/assets/images/petracer/rinascimento-03-thumb.webp",
+          "hd": "/assets/images/petracer/rinascimento-03.webp",
+          "label": "Rinascimento — ambiance 3",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 31,
+          "width": 697,
+          "height": 851
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/pavimenti-e-rivestimento-rinascimento/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=30",
+      "cataloguePage": 30,
+      "technicalPages": [
+        103
+      ],
+      "technicalUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=103",
+      "brochureUrl": "",
+      "details": [],
+      "availabilityNote": "Couleurs, formats, décors et finitions selon la référence. Disponibilité et composition à confirmer pour le projet."
+    },
+    {
+      "id": "petracer-primavera-romana",
+      "slug": "primavera-romana",
+      "name": "Primavera Romana",
+      "brand": "Petracer’s",
+      "category": "carrelage-exception",
+      "family": "Héritage italien",
+      "description": "De grands décors expressifs évoquent la fresque et le jardin. Des couleurs intenses, des émaux en relief et des détails dorés composent des murs au caractère affirmé.",
+      "formats": [
+        "32,5 × 97,7 cm",
+        "65 × 97,7 cm"
+      ],
+      "colors": [
+        "Bianco",
+        "Rosso",
+        "Verde",
+        "Viola"
+      ],
+      "finishes": [
+        "Émaux en relief",
+        "Décors oro"
+      ],
+      "images": [
+        {
+          "url": "/assets/images/petracer/primavera-romana-02.webp",
+          "thumb": "/assets/images/petracer/primavera-romana-02-thumb.webp",
+          "hd": "/assets/images/petracer/primavera-romana-02.webp",
+          "label": "Primavera Romana — ambiance 2",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 35,
+          "width": 1389,
+          "height": 852
+        },
+        {
+          "url": "/assets/images/petracer/primavera-romana-03.webp",
+          "thumb": "/assets/images/petracer/primavera-romana-03-thumb.webp",
+          "hd": "/assets/images/petracer/primavera-romana-03.webp",
+          "label": "Primavera Romana — ambiance 3",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 36,
+          "width": 963,
+          "height": 710
+        },
+        {
+          "url": "/assets/images/petracer/primavera-romana-05.webp",
+          "thumb": "/assets/images/petracer/primavera-romana-05-thumb.webp",
+          "hd": "/assets/images/petracer/primavera-romana-05.webp",
+          "label": "Primavera Romana — ambiance 5",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 37,
+          "width": 640,
+          "height": 481
+        },
+        {
+          "url": "/assets/images/petracer/primavera-romana-04.webp",
+          "thumb": "/assets/images/petracer/primavera-romana-04-thumb.webp",
+          "hd": "/assets/images/petracer/primavera-romana-04.webp",
+          "label": "Primavera Romana — ambiance 4",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 37,
+          "width": 695,
+          "height": 852
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/pavimenti-e-rivestimenti-primavera-romana/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=34",
+      "cataloguePage": 34,
+      "technicalPages": [
+        104,
+        105
+      ],
+      "technicalUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=104",
+      "brochureUrl": "",
+      "details": [
+        "Les panneaux Fioritura de 65 × 97,7 cm sont des compositions de deux éléments."
+      ],
+      "availabilityNote": "Couleurs, formats, décors et finitions selon la référence. Disponibilité et composition à confirmer pour le projet."
+    },
+    {
+      "id": "petracer-ad-personam",
+      "slug": "ad-personam",
+      "name": "Ad Personam",
+      "brand": "Petracer’s",
+      "category": "carrelage-exception",
+      "family": "Décors & création",
+      "description": "Panneaux, compositions et monogrammes ouvrent la voie à un projet personnel. Les motifs Arabesque, Petit Château et Petites Paonnes s’accompagnent d’options de couleur à étudier sur demande.",
+      "formats": [
+        "50 × 100 cm",
+        "50 × 50 cm",
+        "50 × 200 cm",
+        "150 × 200 cm"
+      ],
+      "colors": [
+        "Avorio",
+        "Bianco",
+        "Nero",
+        "Madreperla",
+        "Beige"
+      ],
+      "finishes": [
+        "Décors oro",
+        "Décors platino"
+      ],
+      "images": [
+        {
+          "url": "/assets/images/petracer/ad-personam-06.webp",
+          "thumb": "/assets/images/petracer/ad-personam-06-thumb.webp",
+          "hd": "/assets/images/petracer/ad-personam-06.webp",
+          "label": "Ad Personam — ambiance 6",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 42,
+          "width": 1249,
+          "height": 708
+        },
+        {
+          "url": "/assets/images/petracer/ad-personam-08.webp",
+          "thumb": "/assets/images/petracer/ad-personam-08-thumb.webp",
+          "hd": "/assets/images/petracer/ad-personam-08.webp",
+          "label": "Ad Personam — ambiance 8",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 43,
+          "width": 637,
+          "height": 484
+        },
+        {
+          "url": "/assets/images/petracer/ad-personam-07.webp",
+          "thumb": "/assets/images/petracer/ad-personam-07-thumb.webp",
+          "hd": "/assets/images/petracer/ad-personam-07.webp",
+          "label": "Ad Personam — ambiance 7",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 43,
+          "width": 695,
+          "height": 850
+        },
+        {
+          "url": "/assets/images/petracer/ad-personam-04.webp",
+          "thumb": "/assets/images/petracer/ad-personam-04-thumb.webp",
+          "hd": "/assets/images/petracer/ad-personam-04.webp",
+          "label": "Ad Personam — ambiance 4",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 41,
+          "width": 695,
+          "height": 848
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/pavimenti-e-rivestimenti-ad-personam/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=39",
+      "cataloguePage": 39,
+      "technicalPages": [
+        106,
+        107,
+        108
+      ],
+      "technicalUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=106",
+      "brochureUrl": "",
+      "details": [
+        "Grès cérame en lame renforcée, épaisseur 3,5 mm. Les décors au sol sont recommandés pour les zones à faible passage.",
+        "Les formats 50 × 200 et 150 × 200 cm correspondent à des compositions. Personnalisation des couleurs et monogrammes sur demande."
+      ],
+      "availabilityNote": "Couleurs, formats, décors et finitions selon la référence. Disponibilité et composition à confirmer pour le projet."
+    },
+    {
+      "id": "petracer-unico",
+      "slug": "unico",
+      "name": "Unico",
+      "brand": "Petracer’s",
+      "category": "carrelage-exception",
+      "family": "Héritage italien",
+      "description": "Un esprit inspiré de la France et de la Provence du XIXe siècle. De grandes pièces aux contours dessinés s’accordent avec des inserts décoratifs pour créer un sol singulier.",
+      "formats": [
+        "50 × 100 cm",
+        "29 × 45 cm"
+      ],
+      "colors": [
+        "Mirra",
+        "Smeraldo",
+        "Porpora"
+      ],
+      "finishes": [
+        "Fonds unis",
+        "Tozzetti metal"
+      ],
+      "images": [
+        {
+          "url": "/assets/images/petracer/unico-03.webp",
+          "thumb": "/assets/images/petracer/unico-03-thumb.webp",
+          "hd": "/assets/images/petracer/unico-03.webp",
+          "label": "Unico — ambiance 3",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 46,
+          "width": 1389,
+          "height": 851
+        },
+        {
+          "url": "/assets/images/petracer/unico-02.webp",
+          "thumb": "/assets/images/petracer/unico-02-thumb.webp",
+          "hd": "/assets/images/petracer/unico-02.webp",
+          "label": "Unico — ambiance 2",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 45,
+          "width": 1249,
+          "height": 755
+        },
+        {
+          "url": "/assets/images/petracer/unico-05.webp",
+          "thumb": "/assets/images/petracer/unico-05-thumb.webp",
+          "hd": "/assets/images/petracer/unico-05.webp",
+          "label": "Unico — ambiance 5",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 47,
+          "width": 627,
+          "height": 494
+        },
+        {
+          "url": "/assets/images/petracer/unico-01.webp",
+          "thumb": "/assets/images/petracer/unico-01-thumb.webp",
+          "hd": "/assets/images/petracer/unico-01.webp",
+          "label": "Unico — ambiance 1",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 44,
+          "width": 694,
+          "height": 853
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/pavimenti-e-rivestimenti-unico/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=44",
+      "cataloguePage": 44,
+      "technicalPages": [
+        109
+      ],
+      "technicalUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=109",
+      "brochureUrl": "",
+      "details": [
+        "Le catalogue général détaille Mirra, Smeraldo et Porpora. La page fournisseur mentionne aussi Tabacco : disponibilité à confirmer avant projet.",
+        "Les inserts 29 × 45 cm sont vendus en boîtes complètes avec graphismes mixtes."
+      ],
+      "availabilityNote": "Couleurs, formats, décors et finitions selon la référence. Disponibilité et composition à confirmer pour le projet."
+    },
+    {
+      "id": "petracer-800-italiano",
+      "slug": "800-italiano",
+      "name": "800 Italiano",
+      "brand": "Petracer’s",
+      "category": "carrelage-exception",
+      "family": "Boiseries",
+      "description": "La boiserie devient céramique : panneaux, cassettons et moulures composent une architecture intérieure aux couleurs enveloppantes, inspirée des palais italiens.",
+      "formats": [
+        "40 × 80 cm",
+        "20 × 40 cm",
+        "20 × 80 cm",
+        "20 × 20 cm"
+      ],
+      "colors": [
+        "Blu reale",
+        "Bianco",
+        "Grigio visone",
+        "Grigio seta"
+      ],
+      "finishes": [
+        "Pannello liscio",
+        "Cassettone"
+      ],
+      "images": [
+        {
+          "url": "/assets/images/petracer/800-italiano-03.webp",
+          "thumb": "/assets/images/petracer/800-italiano-03-thumb.webp",
+          "hd": "/assets/images/petracer/800-italiano-03.webp",
+          "label": "800 Italiano — ambiance 3",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 51,
+          "width": 1387,
+          "height": 852
+        },
+        {
+          "url": "/assets/images/petracer/800-italiano-04.webp",
+          "thumb": "/assets/images/petracer/800-italiano-04-thumb.webp",
+          "hd": "/assets/images/petracer/800-italiano-04.webp",
+          "label": "800 Italiano — ambiance 4",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 52,
+          "width": 1386,
+          "height": 851
+        },
+        {
+          "url": "/assets/images/petracer/800-italiano-05.webp",
+          "thumb": "/assets/images/petracer/800-italiano-05-thumb.webp",
+          "hd": "/assets/images/petracer/800-italiano-05.webp",
+          "label": "800 Italiano — ambiance 5",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 53,
+          "width": 1386,
+          "height": 851
+        },
+        {
+          "url": "/assets/images/petracer/800-italiano-06.webp",
+          "thumb": "/assets/images/petracer/800-italiano-06-thumb.webp",
+          "hd": "/assets/images/petracer/800-italiano-06.webp",
+          "label": "800 Italiano — ambiance 6",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 54,
+          "width": 1035,
+          "height": 852
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/pavimenti-e-rivestimenti-800-italiano/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=49",
+      "cataloguePage": 49,
+      "technicalPages": [
+        112
+      ],
+      "technicalUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=112",
+      "brochureUrl": "",
+      "details": [],
+      "availabilityNote": "Couleurs, formats, décors et finitions selon la référence. Disponibilité et composition à confirmer pour le projet."
+    },
+    {
+      "id": "petracer-800-viennese",
+      "slug": "800-viennese",
+      "name": "800 Viennese",
+      "brand": "Petracer’s",
+      "category": "carrelage-exception",
+      "family": "Boiseries",
+      "description": "Le célèbre cannage viennois inspire une trame raffinée. Panneaux muraux et sols coordonnés prolongent l’univers de 800 Italiano avec une écriture graphique légère.",
+      "formats": [
+        "40 × 80 cm",
+        "60 × 60 cm"
+      ],
+      "colors": [
+        "Bianco",
+        "Blu",
+        "Grigio",
+        "Oro"
+      ],
+      "finishes": [
+        "Panneaux décorés",
+        "Sols coordonnés"
+      ],
+      "images": [
+        {
+          "url": "/assets/images/petracer/800-viennese-official.webp",
+          "thumb": "/assets/images/petracer/800-viennese-official-thumb.webp",
+          "hd": "/assets/images/petracer/800-viennese-official.webp",
+          "label": "800 Viennese — ambiance officielle",
+          "source": "https://petracer.it/wp-content/uploads/2022/07/BAGNO-RENDER_800-VIENNESE-BIANCO-DEC-40x80CAPITELLO-65x40BATTISCOPA-16x40GRIGIO-DEC-60x60_mask.jpg",
+          "width": 1730,
+          "height": 1326
+        },
+        {
+          "url": "/assets/images/petracer/800-viennese-03.webp",
+          "thumb": "/assets/images/petracer/800-viennese-03-thumb.webp",
+          "hd": "/assets/images/petracer/800-viennese-03.webp",
+          "label": "800 Viennese — ambiance 3",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 57,
+          "width": 1388,
+          "height": 1051
+        },
+        {
+          "url": "/assets/images/petracer/800-viennese-04.webp",
+          "thumb": "/assets/images/petracer/800-viennese-04-thumb.webp",
+          "hd": "/assets/images/petracer/800-viennese-04.webp",
+          "label": "800 Viennese — ambiance 4",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 58,
+          "width": 1034,
+          "height": 852
+        },
+        {
+          "url": "/assets/images/petracer/800-viennese-02.webp",
+          "thumb": "/assets/images/petracer/800-viennese-02-thumb.webp",
+          "hd": "/assets/images/petracer/800-viennese-02.webp",
+          "label": "800 Viennese — ambiance 2",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 56,
+          "width": 1034,
+          "height": 849
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/800-viennese/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=55",
+      "cataloguePage": 55,
+      "technicalPages": [
+        113
+      ],
+      "technicalUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=113",
+      "brochureUrl": "",
+      "details": [
+        "Panneaux muraux 40 × 80 cm en Bianco et Blu ; sols 60 × 60 cm en Bianco, Blu, Grigio et Oro."
+      ],
+      "availabilityNote": "Couleurs, formats, décors et finitions selon la référence. Disponibilité et composition à confirmer pour le projet."
+    },
+    {
+      "id": "petracer-swing",
+      "slug": "swing",
+      "name": "Swing",
+      "brand": "Petracer’s",
+      "category": "carrelage-exception",
+      "family": "Art déco & géométrie",
+      "description": "Labirinto, Geometria, Piuma et Pavone font revivre l’énergie de l’Art déco. Fonds mats et accents métalliques créent des combinaisons contrastées en blanc et noir.",
+      "formats": [
+        "60 × 60 cm"
+      ],
+      "colors": [
+        "Bianco",
+        "Nero"
+      ],
+      "finishes": [
+        "Matt",
+        "Ottone",
+        "Sterling silver"
+      ],
+      "images": [
+        {
+          "url": "/assets/images/petracer/swing-02.webp",
+          "thumb": "/assets/images/petracer/swing-02-thumb.webp",
+          "hd": "/assets/images/petracer/swing-02.webp",
+          "label": "Swing — ambiance 2",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 60,
+          "width": 1036,
+          "height": 854
+        },
+        {
+          "url": "/assets/images/petracer/swing-07.webp",
+          "thumb": "/assets/images/petracer/swing-07-thumb.webp",
+          "hd": "/assets/images/petracer/swing-07.webp",
+          "label": "Swing — ambiance 7",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 63,
+          "width": 1035,
+          "height": 851
+        },
+        {
+          "url": "/assets/images/petracer/swing-05.webp",
+          "thumb": "/assets/images/petracer/swing-05-thumb.webp",
+          "hd": "/assets/images/petracer/swing-05.webp",
+          "label": "Swing — ambiance 5",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 62,
+          "width": 640,
+          "height": 481
+        },
+        {
+          "url": "/assets/images/petracer/swing-01.webp",
+          "thumb": "/assets/images/petracer/swing-01-thumb.webp",
+          "hd": "/assets/images/petracer/swing-01.webp",
+          "label": "Swing — ambiance 1",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 59,
+          "width": 695,
+          "height": 853
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/pavimenti-e-rivestimenti-swing/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=59",
+      "cataloguePage": 59,
+      "technicalPages": [
+        110,
+        111
+      ],
+      "technicalUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=110",
+      "brochureUrl": "",
+      "details": [],
+      "availabilityNote": "Couleurs, formats, décors et finitions selon la référence. Disponibilité et composition à confirmer pour le projet."
+    },
+    {
+      "id": "petracer-novecento",
+      "slug": "novecento",
+      "name": "Novecento",
+      "brand": "Petracer’s",
+      "category": "carrelage-exception",
+      "family": "Reliefs & matières",
+      "description": "Une lecture des marbres et de l’architecture italienne des années quarante. Les tons Alba, Crepuscolo et Meriggio permettent des compositions unies ou en dégradé.",
+      "formats": [
+        "60 × 60 cm",
+        "20 × 20 cm"
+      ],
+      "colors": [
+        "Alba",
+        "Crepuscolo",
+        "Meriggio"
+      ],
+      "finishes": [
+        "Naturale",
+        "Lappato",
+        "Oro lappato"
+      ],
+      "images": [
+        {
+          "url": "/assets/images/petracer/novecento-03.webp",
+          "thumb": "/assets/images/petracer/novecento-03-thumb.webp",
+          "hd": "/assets/images/petracer/novecento-03.webp",
+          "label": "Novecento — ambiance 3",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 66,
+          "width": 1390,
+          "height": 852
+        },
+        {
+          "url": "/assets/images/petracer/novecento-02.webp",
+          "thumb": "/assets/images/petracer/novecento-02-thumb.webp",
+          "hd": "/assets/images/petracer/novecento-02.webp",
+          "label": "Novecento — ambiance 2",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 65,
+          "width": 1247,
+          "height": 710
+        },
+        {
+          "url": "/assets/images/petracer/novecento-04.webp",
+          "thumb": "/assets/images/petracer/novecento-04-thumb.webp",
+          "hd": "/assets/images/petracer/novecento-04.webp",
+          "label": "Novecento — ambiance 4",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 67,
+          "width": 1035,
+          "height": 852
+        },
+        {
+          "url": "/assets/images/petracer/novecento-01.webp",
+          "thumb": "/assets/images/petracer/novecento-01-thumb.webp",
+          "hd": "/assets/images/petracer/novecento-01.webp",
+          "label": "Novecento — ambiance 1",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 64,
+          "width": 695,
+          "height": 850
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/novecento/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=64",
+      "cataloguePage": 64,
+      "technicalPages": [
+        114
+      ],
+      "technicalUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=114",
+      "brochureUrl": "",
+      "details": [
+        "Le 20 × 20 cm est documenté en Alba et Crepuscolo. Meriggio figure en 60 × 60 cm."
+      ],
+      "availabilityNote": "Couleurs, formats, décors et finitions selon la référence. Disponibilité et composition à confirmer pour le projet."
+    },
+    {
+      "id": "petracer-la-boiserie",
+      "slug": "la-boiserie",
+      "name": "La Boiserie",
+      "brand": "Petracer’s",
+      "category": "carrelage-exception",
+      "family": "Boiseries",
+      "description": "Des panneaux céramiques aux cadres doux dessinent une paroi modulaire. La finition mate et les nuances délicates offrent une présence architecturale sobre et élégante.",
+      "formats": [
+        "60 × 40 cm",
+        "20 × 40 cm",
+        "20 × 60 cm",
+        "20 × 80 cm",
+        "20 × 20 cm"
+      ],
+      "colors": [
+        "Bianco gesso",
+        "Rosa antico",
+        "Verde salvia"
+      ],
+      "finishes": [
+        "Matt"
+      ],
+      "images": [
+        {
+          "url": "/assets/images/petracer/la-boiserie-official.webp",
+          "thumb": "/assets/images/petracer/la-boiserie-official-thumb.webp",
+          "hd": "/assets/images/petracer/la-boiserie-official.webp",
+          "label": "La Boiserie — ambiance officielle",
+          "source": "https://petracer.it/wp-content/uploads/2022/07/BAGNO-3D_LA-BOISERIE-BIANCO-40x60LISCIO-20x40CAPITELLO-65x40BATTISCOPA-16x40RINASCIMENTO-AVORIO-LAPP-60x60.jpg",
+          "width": 1000,
+          "height": 744
+        },
+        {
+          "url": "/assets/images/petracer/la-boiserie-02.webp",
+          "thumb": "/assets/images/petracer/la-boiserie-02-thumb.webp",
+          "hd": "/assets/images/petracer/la-boiserie-02.webp",
+          "label": "La Boiserie — ambiance 2",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 70,
+          "width": 1246,
+          "height": 710
+        },
+        {
+          "url": "/assets/images/petracer/la-boiserie-04.webp",
+          "thumb": "/assets/images/petracer/la-boiserie-04-thumb.webp",
+          "hd": "/assets/images/petracer/la-boiserie-04.webp",
+          "label": "La Boiserie — ambiance 4",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 72,
+          "width": 1035,
+          "height": 853
+        },
+        {
+          "url": "/assets/images/petracer/la-boiserie-03.webp",
+          "thumb": "/assets/images/petracer/la-boiserie-03-thumb.webp",
+          "hd": "/assets/images/petracer/la-boiserie-03.webp",
+          "label": "La Boiserie — ambiance 3",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 71,
+          "width": 1034,
+          "height": 852
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/la-boiserie/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=69",
+      "cataloguePage": 69,
+      "technicalPages": [
+        115
+      ],
+      "technicalUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=115",
+      "brochureUrl": "",
+      "details": [
+        "La brochure officielle présente Bianco gesso, Rosa antico et Verde salvia ; le tableau du catalogue général détaille Bianco gesso."
+      ],
+      "availabilityNote": "Couleurs, formats, décors et finitions selon la référence. Disponibilité et composition à confirmer pour le projet."
+    },
+    {
+      "id": "petracer-intreccio",
+      "slug": "intreccio",
+      "name": "Intreccio",
+      "brand": "Petracer’s",
+      "category": "carrelage-exception",
+      "family": "Art déco & géométrie",
+      "description": "L’hexagone et le losange s’entrelacent dans une géométrie précise. Les couleurs coordonnées à 800 Italiano permettent de faire dialoguer les sols avec les boiseries murales.",
+      "formats": [
+        "20 × 23 cm",
+        "3,7 × 13,5 cm"
+      ],
+      "colors": [
+        "Ghiaccio",
+        "Bianco",
+        "Grigio seta",
+        "Grigio visone",
+        "Blu reale",
+        "Bordeaux",
+        "Nero"
+      ],
+      "finishes": [
+        "Esagona",
+        "Losanga"
+      ],
+      "images": [
+        {
+          "url": "/assets/images/petracer/intreccio-04.webp",
+          "thumb": "/assets/images/petracer/intreccio-04-thumb.webp",
+          "hd": "/assets/images/petracer/intreccio-04.webp",
+          "label": "Intreccio — ambiance 4",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 76,
+          "width": 1389,
+          "height": 853
+        },
+        {
+          "url": "/assets/images/petracer/intreccio-03.webp",
+          "thumb": "/assets/images/petracer/intreccio-03-thumb.webp",
+          "hd": "/assets/images/petracer/intreccio-03.webp",
+          "label": "Intreccio — ambiance 3",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 75,
+          "width": 1386,
+          "height": 850
+        },
+        {
+          "url": "/assets/images/petracer/intreccio-02.webp",
+          "thumb": "/assets/images/petracer/intreccio-02-thumb.webp",
+          "hd": "/assets/images/petracer/intreccio-02.webp",
+          "label": "Intreccio — ambiance 2",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 74,
+          "width": 1246,
+          "height": 710
+        },
+        {
+          "url": "/assets/images/petracer/intreccio-05.webp",
+          "thumb": "/assets/images/petracer/intreccio-05-thumb.webp",
+          "hd": "/assets/images/petracer/intreccio-05.webp",
+          "label": "Intreccio — ambiance 5",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 77,
+          "width": 966,
+          "height": 708
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/intreccio/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=73",
+      "cataloguePage": 73,
+      "technicalPages": [
+        115
+      ],
+      "technicalUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=115",
+      "brochureUrl": "",
+      "details": [
+        "Esagona 20 × 23 cm : Ghiaccio et Bianco. Losanga 3,7 × 13,5 cm : sept couleurs documentées."
+      ],
+      "availabilityNote": "Couleurs, formats, décors et finitions selon la référence. Disponibilité et composition à confirmer pour le projet."
+    },
+    {
+      "id": "petracer-triangolo",
+      "slug": "triangolo",
+      "name": "Triangolo",
+      "brand": "Petracer’s",
+      "category": "carrelage-exception",
+      "family": "Art déco & géométrie",
+      "description": "Un triangle, de multiples compositions. Couleurs, finitions mates ou brillantes et décors Impressioni composent des surfaces graphiques pour les projets résidentiels et les lieux de réception.",
+      "formats": [
+        "17 × 15 cm"
+      ],
+      "colors": [
+        "Grigio",
+        "Rosa",
+        "Azzurro",
+        "Verde",
+        "Rosso",
+        "Blu",
+        "Bianco",
+        "Nero",
+        "Oro",
+        "Platino"
+      ],
+      "finishes": [
+        "Matt",
+        "Lucido",
+        "Impressioni"
+      ],
+      "images": [
+        {
+          "url": "/assets/images/petracer/triangolo-04.webp",
+          "thumb": "/assets/images/petracer/triangolo-04-thumb.webp",
+          "hd": "/assets/images/petracer/triangolo-04.webp",
+          "label": "Triangolo — ambiance 4",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 80,
+          "width": 1389,
+          "height": 853
+        },
+        {
+          "url": "/assets/images/petracer/triangolo-05.webp",
+          "thumb": "/assets/images/petracer/triangolo-05-thumb.webp",
+          "hd": "/assets/images/petracer/triangolo-05.webp",
+          "label": "Triangolo — ambiance 5",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 81,
+          "width": 1386,
+          "height": 851
+        },
+        {
+          "url": "/assets/images/petracer/triangolo-06.webp",
+          "thumb": "/assets/images/petracer/triangolo-06-thumb.webp",
+          "hd": "/assets/images/petracer/triangolo-06.webp",
+          "label": "Triangolo — ambiance 6",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 82,
+          "width": 1036,
+          "height": 840
+        },
+        {
+          "url": "/assets/images/petracer/triangolo-02.webp",
+          "thumb": "/assets/images/petracer/triangolo-02-thumb.webp",
+          "hd": "/assets/images/petracer/triangolo-02.webp",
+          "label": "Triangolo — ambiance 2",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 79,
+          "width": 637,
+          "height": 450
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/pavimenti-e-rivestimenti-triangolo/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=78",
+      "cataloguePage": 78,
+      "technicalPages": [
+        116
+      ],
+      "technicalUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=116",
+      "brochureUrl": "",
+      "details": [
+        "Triangle : largeur 17 cm, hauteur 15 cm. Les couleurs et les finitions disponibles dépendent de la référence ; le tableau fabricant précise les associations."
+      ],
+      "availabilityNote": "Couleurs, formats, décors et finitions selon la référence. Disponibilité et composition à confirmer pour le projet."
+    },
+    {
+      "id": "petracer-jazz",
+      "slug": "jazz",
+      "name": "Jazz",
+      "brand": "Petracer’s",
+      "category": "carrelage-exception",
+      "family": "Art déco & géométrie",
+      "description": "Le petit format et les lignes Art déco composent un dessin régulier. Les fonds blancs et noirs rencontrent les décors métalliques pour donner du rythme à la surface.",
+      "formats": [
+        "20 × 20 cm",
+        "60 × 60 cm"
+      ],
+      "colors": [
+        "Bianco",
+        "Nero"
+      ],
+      "finishes": [
+        "Matt",
+        "Ottone",
+        "Silver"
+      ],
+      "images": [
+        {
+          "url": "/assets/images/petracer/jazz-official.webp",
+          "thumb": "/assets/images/petracer/jazz-official-thumb.webp",
+          "hd": "/assets/images/petracer/jazz-official.webp",
+          "label": "Jazz — ambiance officielle",
+          "source": "https://petracer.it/wp-content/uploads/2022/11/LOFT_15945_JAZZ-GRIGIO-SU-BIANCO-20x20JAZZ-BIANCO-SU-BIANCO-20x20.jpg",
+          "width": 1100,
+          "height": 917
+        },
+        {
+          "url": "/assets/images/petracer/jazz-03.webp",
+          "thumb": "/assets/images/petracer/jazz-03-thumb.webp",
+          "hd": "/assets/images/petracer/jazz-03.webp",
+          "label": "Jazz — ambiance 3",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 86,
+          "width": 1035,
+          "height": 853
+        },
+        {
+          "url": "/assets/images/petracer/jazz-04.webp",
+          "thumb": "/assets/images/petracer/jazz-04-thumb.webp",
+          "hd": "/assets/images/petracer/jazz-04.webp",
+          "label": "Jazz — ambiance 4",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 87,
+          "width": 1034,
+          "height": 853
+        },
+        {
+          "url": "/assets/images/petracer/jazz-05.webp",
+          "thumb": "/assets/images/petracer/jazz-05-thumb.webp",
+          "hd": "/assets/images/petracer/jazz-05.webp",
+          "label": "Jazz — ambiance 5",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 88,
+          "width": 1036,
+          "height": 850
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/jazz/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=84",
+      "cataloguePage": 84,
+      "technicalPages": [
+        117
+      ],
+      "technicalUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=117",
+      "brochureUrl": "",
+      "details": [
+        "Décors 20 × 20 cm sur fonds mats Bianco ou Nero. Les fonds 60 × 60 cm existent en Bianco et Nero."
+      ],
+      "availabilityNote": "Couleurs, formats, décors et finitions selon la référence. Disponibilité et composition à confirmer pour le projet."
+    },
+    {
+      "id": "petracer-trama-dautore",
+      "slug": "trama-dautore",
+      "name": "Trama d’Autore",
+      "brand": "Petracer’s",
+      "category": "carrelage-exception",
+      "family": "Reliefs & matières",
+      "description": "Une trame céramique expressive joue avec la matière et la lumière. Trois couleurs essentielles permettent de donner de la profondeur aux sols et aux parois.",
+      "formats": [
+        "60 × 60 cm"
+      ],
+      "colors": [
+        "Bianco",
+        "Grigio",
+        "Nero"
+      ],
+      "finishes": [
+        "Surface texturée"
+      ],
+      "images": [
+        {
+          "url": "/assets/images/petracer/trama-dautore-04.webp",
+          "thumb": "/assets/images/petracer/trama-dautore-04-thumb.webp",
+          "hd": "/assets/images/petracer/trama-dautore-04.webp",
+          "label": "Trama d’Autore — ambiance 4",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 91,
+          "width": 963,
+          "height": 710
+        },
+        {
+          "url": "/assets/images/petracer/trama-dautore-01.webp",
+          "thumb": "/assets/images/petracer/trama-dautore-01-thumb.webp",
+          "hd": "/assets/images/petracer/trama-dautore-01.webp",
+          "label": "Trama d’Autore — ambiance 1",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 89,
+          "width": 694,
+          "height": 852
+        },
+        {
+          "url": "/assets/images/petracer/trama-dautore-02.webp",
+          "thumb": "/assets/images/petracer/trama-dautore-02-thumb.webp",
+          "hd": "/assets/images/petracer/trama-dautore-02.webp",
+          "label": "Trama d’Autore — ambiance 2",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 90,
+          "width": 693,
+          "height": 851
+        },
+        {
+          "url": "/assets/images/petracer/trama-dautore-03.webp",
+          "thumb": "/assets/images/petracer/trama-dautore-03-thumb.webp",
+          "hd": "/assets/images/petracer/trama-dautore-03.webp",
+          "label": "Trama d’Autore — ambiance 3",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 90,
+          "width": 567,
+          "height": 711
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/pavimenti-e-rivestimenti-trama-dautore/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=89",
+      "cataloguePage": 89,
+      "technicalPages": [
+        117
+      ],
+      "technicalUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=117",
+      "brochureUrl": "",
+      "details": [],
+      "availabilityNote": "Couleurs, formats, décors et finitions selon la référence. Disponibilité et composition à confirmer pour le projet."
+    },
+    {
+      "id": "petracer-sartoria",
+      "slug": "sartoria",
+      "name": "Sartoria",
+      "brand": "Petracer’s",
+      "category": "carrelage-exception",
+      "family": "Décors & création",
+      "description": "Des motifs inspirés du textile habillent la céramique comme une étoffe. Geometria et Damasco s’accordent aux fonds Intonaco et aux panneaux modulaires Ginko.",
+      "formats": [
+        "50 × 100 cm",
+        "50 × 50 cm"
+      ],
+      "colors": [
+        "Bianco",
+        "Blu",
+        "Marsala"
+      ],
+      "finishes": [
+        "Grès cérame rectifié",
+        "Décors oro",
+        "Décors platino"
+      ],
+      "images": [
+        {
+          "url": "/assets/images/petracer/sartoria-04.webp",
+          "thumb": "/assets/images/petracer/sartoria-04-thumb.webp",
+          "hd": "/assets/images/petracer/sartoria-04.webp",
+          "label": "Sartoria — ambiance 4",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 94,
+          "width": 1034,
+          "height": 852
+        },
+        {
+          "url": "/assets/images/petracer/sartoria-01.webp",
+          "thumb": "/assets/images/petracer/sartoria-01-thumb.webp",
+          "hd": "/assets/images/petracer/sartoria-01.webp",
+          "label": "Sartoria — ambiance 1",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 92,
+          "width": 698,
+          "height": 854
+        },
+        {
+          "url": "/assets/images/petracer/sartoria-02.webp",
+          "thumb": "/assets/images/petracer/sartoria-02-thumb.webp",
+          "hd": "/assets/images/petracer/sartoria-02.webp",
+          "label": "Sartoria — ambiance 2",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 93,
+          "width": 694,
+          "height": 852
+        },
+        {
+          "url": "/assets/images/petracer/sartoria-03.webp",
+          "thumb": "/assets/images/petracer/sartoria-03-thumb.webp",
+          "hd": "/assets/images/petracer/sartoria-03.webp",
+          "label": "Sartoria — ambiance 3",
+          "source": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf",
+          "sourcePdfPage": 93,
+          "width": 569,
+          "height": 711
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/pavimenti-e-rivestimenti-sartoria/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=92",
+      "cataloguePage": 92,
+      "technicalPages": [
+        118,
+        119,
+        120
+      ],
+      "technicalUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=118",
+      "brochureUrl": "",
+      "details": [
+        "Or et platine sur demande. Les panneaux Ginko se composent selon la matrice de pose du fabricant."
+      ],
+      "availabilityNote": "Couleurs, formats, décors et finitions selon la référence. Disponibilité et composition à confirmer pour le projet."
+    },
+    {
+      "id": "petracer-trilogia-darte",
+      "slug": "trilogia-darte",
+      "name": "Trilogia d’Arte",
+      "brand": "Petracer’s",
+      "category": "carrelage-exception",
+      "family": "Décors & création",
+      "description": "Trois créations, Eleganza, Purezza et Trasparenza, transforment la paroi en tableau. Une approche artistique de la nature, de la lumière et des reflets, pensée pour les grands panneaux.",
+      "formats": [
+        "120 × 120 cm",
+        "240 × 120 cm"
+      ],
+      "colors": [
+        "Eleganza",
+        "Purezza",
+        "Trasparenza"
+      ],
+      "finishes": [
+        "Panneaux décoratifs"
+      ],
+      "images": [
+        {
+          "url": "/assets/images/petracer/trilogia-darte-official.webp",
+          "thumb": "/assets/images/petracer/trilogia-darte-official-thumb.webp",
+          "hd": "/assets/images/petracer/trilogia-darte-official.webp",
+          "label": "Trilogia Darte — ambiance officielle",
+          "source": "https://petracer.it/wp-content/uploads/2022/07/Purezza-1.jpg",
+          "width": 1730,
+          "height": 1326
+        }
+      ],
+      "sourceUrl": "https://petracer.it/ceramiche-di-lusso/trilogia-darte/",
+      "catalogueUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=121",
+      "cataloguePage": 121,
+      "technicalPages": [
+        121
+      ],
+      "technicalUrl": "https://petracer.it/wp-content/uploads/2026/07/Interno_Cat_PET_bassa.pdf#page=121",
+      "brochureUrl": "",
+      "details": [
+        "Panneaux de décor 120 × 120 cm ; composition Eleganza 240 × 120 cm."
+      ],
+      "availabilityNote": "Couleurs, formats, décors et finitions selon la référence. Disponibilité et composition à confirmer pour le projet."
+    }
+  ]
+}

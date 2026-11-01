@@ -16,7 +16,7 @@
     'Biopietra':'parement','Neobath':'meubles','Randal Pro':'meubles','Aquahome':'robinetterie','Opal':'robinetterie'
   };
   const names=Object.keys(categories);
-  const canonical=v=>{const c=compact(v);return names.find(n=>compact(n)===c||compact(n.split(' ')[0])===c)||v};
+  const canonical=v=>{const c=compact(v);if(/^petracers?$/.test(c))return "Petracer's";return names.find(n=>compact(n)===c||compact(n.split(' ')[0])===c)||v};
 
   function flattenStrings(value,out=[]){
     if(value==null)return out;
@@ -42,12 +42,14 @@
     const all=[];
     if(Array.isArray(window.ELIOS_CATALOGUE))window.ELIOS_CATALOGUE.forEach(p=>all.push({name:'Elios Ceramica',s:score(p,requestedRef||q)}));
     if(Array.isArray(window.VIEW_CATALOGUE))window.VIEW_CATALOGUE.forEach(p=>all.push({name:'View Ceramica',s:score(p,requestedRef||q)}));
+    if(Array.isArray(window.PETRACER_CATALOGUE))window.PETRACER_CATALOGUE.filter(p=>p.productType!=='furniture').forEach(p=>all.push({name:"Petracer's",s:score(p,requestedRef||q)}));
     if(Array.isArray(window.NEOBATH_CATALOGUE))window.NEOBATH_CATALOGUE.forEach(p=>all.push({name:'Neobath',s:score(p,requestedRef||q)}));
     all.sort((a,b)=>b.s-a.s);if(all[0]?.s>0)return all[0].name;
     const qn=norm(q);return names.find(n=>qn.includes(norm(n.split(' ')[0])))||'Elios Ceramica';
   }
   function choose(name){
     // Dedicated controllers restore their category and exact collection themselves.
+    if(/^petracers?$/.test(compact(name)) && compact(document.getElementById('workspace-title')?.textContent)==='petracers')return "Petracer's";
     if(compact(name)==='bulbo' && compact(document.getElementById('workspace-title')?.textContent)==='bulbo')return 'Bulbo';
     if(compact(name)==='pecchiolifirenze' && compact(document.getElementById('workspace-title')?.textContent)==='pecchiolifirenze')return 'Pecchioli Firenze';
     name=canonical(name);const cat=categories[name];if(cat)document.querySelector(`[data-cat="${cat}"]`)?.click();
