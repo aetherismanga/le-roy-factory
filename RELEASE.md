@@ -47,6 +47,17 @@ Un Ignored Build Step seul n'économise pas le quota de créations Vercel.
   l'export demande les meilleures variantes disponibles et échoue explicitement
   lorsque la qualité requise ne peut pas être obtenue.
 
+## Accès privé de PLAN & POSE
+
+La page `lrf-plan-pose.html` présente le chantier au public. Le serveur
+`planPoseApplication` ne livre l’interface et son entrée exécutable qu’après
+vérification du jeton Firebase révoquable de Jérôme. Le gabarit canonique est
+`functions/plan-pose/application.html`, l’entrée canonique reste
+`assets/js/lrf-plan-pose/app.mjs`, exclue de Pages et du build public. Avant tout
+déploiement Functions, `node functions/scripts/prepare-plan-pose.cjs` prépare
+la copie privée de cette entrée. La publication publique ne doit jamais inclure
+ce fichier, même via un ancien cache du service worker.
+
 ## Retour arrière
 
 Conserver SHA, manifestes, grilles privées chiffrées et versions de médias d'un

@@ -10,7 +10,7 @@ const OUT=join(ROOT,'public-site');
 const ROOT_FILE=/\.(?:html|png|jpe?g|webp|svg|ico|webmanifest)$/i;
 const ROOT_NAMES=new Set(['robots.txt','sitemap.xml','sw.js','suite-version.json','CNAME']);
 const FORBIDDEN=/(?:^|\/)(?:node_modules|server|functions|reports|scripts|tests|tools|qa|\.git)(?:\/|$)|(?:^|\/)\.env(?:\.|$)|(?:purchase|private)[^/]*\.json$/i;
-export function allowedPublicPath(path){return !FORBIDDEN.test(path);}
+export function allowedPublicPath(path){return path !== 'assets/js/lrf-plan-pose/app.mjs' && !FORBIDDEN.test(path);}
 
 export async function buildPublicSite({root=ROOT,out=OUT}={}){
   if(resolve(out)===resolve(root)||!resolve(out).startsWith(resolve(root)+'/'))throw Error('Output must be an isolated child directory');

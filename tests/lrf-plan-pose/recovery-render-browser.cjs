@@ -10,7 +10,7 @@ const types={'.txt':'text/plain','.mjs':'text/javascript','.js':'text/javascript
  page.on('dialog',dialog=>dialog.accept());await page.route(/^https:\/\//,route=>route.abort());
  try{
   const initialCore=await import(pathToFileURL(path.join(root,'assets/js/lrf-plan-pose/core.mjs')).href),legacy=initialCore.newProject();legacy.id='legacy-saved';legacy.title='Version enregistrée avant migration';legacy.updatedAt='2020-01-01T00:00:00.000Z';await page.goto(url+'/robots.txt');await page.evaluate(project=>new Promise((resolve,reject)=>{const request=indexedDB.open('lrf-plan-pose-v1',1);request.onupgradeneeded=()=>request.result.createObjectStore('projects',{keyPath:'id'});request.onerror=()=>reject(request.error);request.onsuccess=()=>{const db=request.result,tx=db.transaction('projects','readwrite');tx.objectStore('projects').put(project);tx.oncomplete=()=>{db.close();resolve();};tx.onerror=()=>reject(tx.error);};}),legacy);
-  await page.goto(url+'/lrf-plan-pose.html');await page.locator('#manual-room').waitFor();
+  await require('./private-app-fixture.cjs')(page);await page.goto(url+'/lrf-plan-pose.html');await page.locator('#manual-room').waitFor();
   assert(!requests.some(u=>/catalogue(-review)?\.json|jspdf|report-font/.test(u)),'heavy catalogue/PDF must stay deferred');
   await page.locator('#manual-room').click();await page.locator('#manual-width').fill('4');await page.locator('#manual-depth').fill('3');await page.locator('#manual-room-form button[type=submit]').click();
   await page.waitForFunction(()=>document.querySelector('#save-status').textContent.includes('Brouillon sauvegardé'));

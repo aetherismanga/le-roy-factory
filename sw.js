@@ -1,4 +1,4 @@
-const CACHE='lrf-pwa-v14-suite-20261024';
+const CACHE='lrf-pwa-v15-plan-pose-private-20261102';
 const CORE=['/','/index.html','/assets/img/logo03lrf.png'];
 
 self.addEventListener('install',event=>{
@@ -41,6 +41,10 @@ self.addEventListener('fetch',event=>{
   if(event.request.method!=='GET')return;
   const url=new URL(event.request.url);
   if(url.origin!==location.origin && !isMigratedPublicMedia(url))return;
+  // Never replay the former public PLAN & POSE entry, even when offline.
+  if(url.origin===location.origin && url.pathname==='/assets/js/lrf-plan-pose/app.mjs'){
+    event.respondWith(Promise.resolve(new Response('',{status:404})));return;
+  }
   // Authenticated prices and APIs must never enter a service-worker cache.
   if(url.origin===location.origin && (/^\/api\//.test(url.pathname)||/\/server\//.test(url.pathname)))return;
   if(url.origin===location.origin && ((url.pathname.startsWith('/assets/js/lrf-plan-pose/')||url.pathname.startsWith('/shared/lrf-3d/'))&&url.pathname.endsWith('.json'))){

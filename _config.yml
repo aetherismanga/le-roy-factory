@@ -6,6 +6,7 @@ exclude:
   - package.json
   - package-lock.json
   - functions
+  - assets/js/lrf-plan-pose/app.mjs
   - api
   - server
   - reports
