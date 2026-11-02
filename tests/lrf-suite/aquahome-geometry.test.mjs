@@ -40,3 +40,23 @@ test('physical finishes cover aged brass and release only their own microfinish 
  const brass=metalMaterial('Latón Envejecido'),chrome=metalMaterial('Cr Apertura Frío'),black=metalMaterial('Noir mat'),white=metalMaterial('Blanc mat'),a=metalMaterial('Inox brossé'),b=metalMaterial('Inox brossé');
  assert.notEqual(brass.color.getHex(),chrome.color.getHex());assert.equal(black.metalness,0);assert.equal(white.metalness,0);assert(a.bumpMap);assert.notEqual(a.bumpMap,b.bumpMap);let disposed=0;a.bumpMap.addEventListener('dispose',()=>disposed++);a.dispose();assert.equal(disposed,1);for(const material of [brass,chrome,black,white,b])material.dispose();
 });
+
+test('Época bath matches the catalogue telephone handset and downturned spout in chrome and aged brass',()=>{
+ for(const reference of ['14642212701','14642212707']){
+  const root=makeTap(byRef(reference)),mixer=root.getObjectByName('Mitigeur_bain'),grip=root.getObjectByName('Manche_porcelaine_Epoca'),head=root.getObjectByName('Pomme_douchette_Epoca'),spout=root.getObjectByName('Bec_bain'),hose=root.getObjectByName('Flexible');
+  try{
+   assert(grip&&head,'The generic vertical handset is replaced by the photographed telephone assembly');
+   assert(new T.Vector3(0,1,0).applyQuaternion(grip.quaternion).dot(new T.Vector3(1,0,0))>.999,'Porcelain handle rests horizontally');
+   assert.equal(grip.material.metalness,0);assert(grip.material.color.r>.85&&grip.material.color.g>.85,'The porcelain grip stays white in both metal finishes');
+   assert(new T.Box3().setFromObject(head).min.y>new T.Box3().setFromObject(mixer).max.y,'The shower head sits above the mixer on its cradle');
+   assert(root.getObjectByName('Bague_mousseur').position.y<mixer.position.y,'Bath spout points down into the bath');
+   assert(new T.Box3().setFromObject(spout).max.y<.09,'The spout has no erroneous high swan neck');
+   const forks=[];root.traverse(o=>{if(o.name==='Fourche_support_douchette')forks.push(o);});assert.equal(forks.length,2);assert(forks.every(o=>new T.Box3().setFromObject(o).intersectsBox(new T.Box3().setFromObject(grip))),'Both cradle forks actually touch the handle');
+   const start=hose.geometry.parameters.path.getPoint(0),end=hose.geometry.parameters.path.getPoint(1);
+   assert(new T.Box3().setFromObject(root.getObjectByName('Raccord_douchette')).expandByScalar(.002).containsPoint(start),'Flexible starts at the handset connector');
+   assert(new T.Box3().setFromObject(root.getObjectByName('Raccord_flexible_mitigeur')).expandByScalar(.002).containsPoint(end),'Flexible returns to the mixer connector');
+   assert(Math.abs(new T.Box3().setFromObject(root).min.y-(-.18481457233428955))<.0005,'Retain saved mixer installation height to within 0.5 mm');
+   assert.equal(root.userData.reference,reference);
+  }finally{destroy(root);}
+ }
+});

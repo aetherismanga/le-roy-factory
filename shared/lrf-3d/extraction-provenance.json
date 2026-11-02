@@ -429,10 +429,10 @@
       "bytes": 4429,
       "originalsIdentical": true,
       "current": {
-        "sha256": "572ae26902aabb2167d10956e64aaed4d57190e99d2dbac0fbe466a624e4af8f",
-        "bytes": 20153,
+        "sha256": "439377d86ecae99a58bb367cac7cb5e0059a5f73db853f947204439a601c724e",
+        "bytes": 22561,
         "changeType": "functional-update-20261102",
-        "reason": "Correct catalogue control directions for Flip, Bel Air and floor-mounted taps; restore outward-facing full-height diamond knurling with the actual selected metal colour; preserve distinct square, swept and open control shapes. Reference identities, prices and outlet heights are retained.",
+        "reason": "Correct catalogue control directions for Flip, Bel Air and floor-mounted taps; restore outward-facing full-height diamond knurling with the actual selected metal colour; preserve distinct square, swept and open control shapes. Reference identities, prices and outlet heights are retained. Época BAÑO now follows the catalogue telephone handset with a white porcelain grip, connected cradle and hose, lateral cross controls and a downturned spout, while preserving catalogue references and saved installation height within 0.5 mm.",
         "validation": [
           "tests/lrf-suite/aquahome-controls.test.mjs",
           "tests/lrf-suite/aquahome-geometry.test.mjs",
@@ -450,6 +450,18 @@
             "tests/lrf-suite/aquahome-geometry.test.mjs",
             "tests/lrf-suite/aquahome-installation.test.mjs",
             "tests/lrf-suite/aquahome-product-visuals.test.mjs"
+          ]
+        },
+        {
+          "sha256": "572ae26902aabb2167d10956e64aaed4d57190e99d2dbac0fbe466a624e4af8f",
+          "bytes": 20153,
+          "changeType": "functional-update-20261102",
+          "reason": "Correct catalogue control directions for Flip, Bel Air and floor-mounted taps; restore outward-facing full-height diamond knurling with the actual selected metal colour; preserve distinct square, swept and open control shapes. Reference identities, prices and outlet heights are retained.",
+          "validation": [
+            "tests/lrf-suite/aquahome-controls.test.mjs",
+            "tests/lrf-suite/aquahome-geometry.test.mjs",
+            "tests/lrf-suite/aquahome-installation.test.mjs",
+            "studio-one/qa/bathroom-check.mjs"
           ]
         }
       ]

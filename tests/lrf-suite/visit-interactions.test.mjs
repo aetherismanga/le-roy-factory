@@ -40,3 +40,28 @@ test('doors, column doors and WC lid can be demonstrated and read-only preview r
 test('ending a preview never restores stale opening fields onto a newly restored item with the same id',()=>{
  const original={id:'door',type:'door',settings:{doorOpen:false}},replacement={id:'door',type:'door',settings:{doorOpen:true}};let items=[original];const controller=createVisitInteractions({getItems:()=>items});controller.begin({transient:true});controller.tap({itemId:'door'});items=[replacement];controller.end();assert.equal(replacement.settings.doorOpen,true);
 });
+
+for(const windowType of ['sliding','casement'])test(windowType+': visit clicks toggle real window sashes without changing placement, locks or appearance',()=>{
+ const settings={width:120,height:100,color:'anthracite',windowType,exteriorAmbience:'coast',windowOpen:false},asset=makeOpening('window',settings),item={id:'window',type:'window',asset,root:new T.Group(),settings,placement:{wall:1,u:180,height:90},locked:true,motion:{window:0}};item.root.add(asset.root);
+ const before=JSON.stringify({placement:item.placement,locked:item.locked,settings}),events=[];
+ const controller=createVisitInteractions({getItems:()=>[item],onChange:e=>events.push(e)});
+ try{
+  const handle=asset.root.getObjectByName('Poignee_fenetre');assert.deepEqual(visitOpeningTarget(item,{object:handle}),{kind:'window'});
+  controller.begin();assert(controller.tap({itemId:item.id,object:handle}));assert.equal(item.settings.windowOpen,true);
+  asset.setOpenProgress(1);assert.equal(asset.getOpenProgress(),1);
+  assert(controller.tap({itemId:item.id,object:handle}));assert.equal(item.settings.windowOpen,false);asset.setOpenProgress(0);
+  assert.equal(JSON.stringify({placement:item.placement,locked:item.locked,settings}),before);assert.equal(events.length,2);
+  assert(events.every(e=>e.kind==='window'&&e.transient===false));assert.equal(controller.tap({itemId:'missing',object:handle}),false);
+ }finally{disposeObject(item.root);}
+});
+
+test('read-only window visits restore exact original settings and sash progress, including absent legacy windowOpen fields',()=>{
+ for(const original of [undefined,false,true]){
+  const settings={width:120,height:100,windowType:'casement',...(original===undefined?{}:{windowOpen:original})},asset=makeOpening('window',settings),item={id:'window',type:'window',settings,asset,motion:{window:.37}};asset.setOpenProgress(.37);
+  const before=JSON.stringify(settings),events=[],controller=createVisitInteractions({getItems:()=>[item],onChange:e=>events.push(e)});
+  try{
+   controller.begin({transient:true});assert(controller.tap({itemId:item.id,object:asset.root}));asset.setOpenProgress(item.settings.windowOpen?1:0);item.motion.window=asset.getOpenProgress();controller.end();
+   assert.equal(JSON.stringify(settings),before);assert.equal(asset.getOpenProgress(),.37);assert.equal(item.motion.window,.37);assert(events.every(e=>e.transient));
+  }finally{disposeObject(asset.root);}
+ }
+});

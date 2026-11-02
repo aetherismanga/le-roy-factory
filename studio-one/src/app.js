@@ -222,11 +222,11 @@ function windowLoader(){
 function requestWindowAmbience(id='mediterranean'){
  return windowLoader().load(id).catch(error=>{placementStatus('La vue extérieure n’a pas pu être chargée. '+error.message);throw error;});
 }
-function windowOpenTarget(item){return quality.profile.id==='max'&&item.settings.windowOpen===true?1:0;}
+function windowOpenTarget(item){return (quality.profile.id==='max'||walkMode?.active)&&item.settings.windowOpen===true?1:0;}
 function updateWindowMotion(item,dt=0,instant=false){
  if(item?.type!=='window')return false;
  item.motion??={};const target=windowOpenTarget(item),current=Number.isFinite(item.motion.window)?item.motion.window:item.asset.getOpenProgress?.()||0,delta=target-current;
- item.motion.window=instant||quality.profile.id!=='max'||reduced||Math.abs(delta)<.0001?target:current+delta*(1-Math.exp(-dt*8));
+ item.motion.window=instant||quality.profile.id!=='max'&&!walkMode?.active||reduced||Math.abs(delta)<.0001?target:current+delta*(1-Math.exp(-dt*8));
  item.asset.setOpenProgress(item.motion.window);return Math.abs(item.motion.window-target)>.0001;
 }
 function syncWindowVisual(item,{instant=false}={}){
@@ -616,7 +616,7 @@ function makeUI(){
  $('#fullscreen').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else if(stage.classList.contains('expanded')){stage.classList.remove('expanded');$('#fullscreen').setAttribute('aria-label','Plein écran');}else if(stage.requestFullscreen)await stage.requestFullscreen();else{stage.classList.add('expanded');$('#fullscreen').setAttribute('aria-label','Quitter le plein écran');}}catch{stage.classList.toggle('expanded');}resize();};
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&stage.classList.contains('expanded')){stage.classList.remove('expanded');resize();}});
  visitInteractions=createVisitInteractions({getItems:()=>composition?.items||[],onChange:({item,transient})=>{if(item?.type==='cabinet'&&composition?.selectedId===item.id)state.drawers=[...item.settings.drawers];invalidate(true,!transient&&!projectWorkspace?.locked);}});
- walkMode=createWalkMode({stage,canvas,camera,controls,getRoom:()=>roomScene,getItems:()=>composition?.items||[],onMove:()=>invalidate(false,false),onEnter:()=>{closeInspector();stopOrbit();viewTween=null;$('#atelier').classList.remove('mobile-sheet-open');visitInteractions.begin({transient:!!projectWorkspace?.locked});},onTap:event=>{const r=canvas.getBoundingClientRect();return visitInteractions.tap(pickSelection(scene,camera,new T.Vector2((event.clientX-r.left)/r.width*2-1,-(event.clientY-r.top)/r.height*2+1)));},onExit:()=>visitInteractions.end()});
+ walkMode=createWalkMode({stage,canvas,camera,controls,getRoom:()=>roomScene,getItems:()=>composition?.items||[],onMove:()=>invalidate(false,false),onEnter:()=>{closeInspector();stopOrbit();viewTween=null;$('#atelier').classList.remove('mobile-sheet-open');visitInteractions.begin({transient:!!projectWorkspace?.locked});syncWindowStates();},onTap:event=>{const r=canvas.getBoundingClientRect();return visitInteractions.tap(pickSelection(scene,camera,new T.Vector2((event.clientX-r.left)/r.width*2-1,-(event.clientY-r.top)/r.height*2+1)));},onExit:()=>{visitInteractions.end();syncWindowStates(true);}});
  canvas.addEventListener('keydown',e=>{if($('#details').open)return;const keys=['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','+','-','='];if(!keys.includes(e.key))return;e.preventDefault();if(e.key==='+'||e.key==='=')zoom(.88);else if(e.key==='-')zoom(1.14);else{stopOrbit();viewTween=null;const offset=camera.position.clone().sub(controls.target);const spherical=new T.Spherical().setFromVector3(offset);spherical.theta+=e.key==='ArrowLeft'?.1:e.key==='ArrowRight'?-.1:0;spherical.phi=T.MathUtils.clamp(spherical.phi+(e.key==='ArrowUp'?-.08:e.key==='ArrowDown'?.08:0),.18,1.6);camera.position.copy(controls.target).add(new T.Vector3().setFromSpherical(spherical));controls.update();invalidate();}});
 }
 function setDrawer(i,open){if(!selectedCabinet()||i<0||i>=model.drawers.length)return;state.drawers[i]=open?1:0;const b=$(`[data-drawer="${i}"]`);b.setAttribute('aria-pressed',String(open));b.querySelector('i').textContent=open?'Fermer ↙':'Ouvrir ↗';saveCabinetState();syncCompositionToggle();renderComposition();refreshInspector();invalidate();}

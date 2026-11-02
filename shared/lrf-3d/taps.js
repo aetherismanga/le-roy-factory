@@ -198,10 +198,36 @@ export function makeTap(product){
   const square=profile.shape==='square'||profile.shape==='swept',classic=profile.shape==='classic';
   rosette(-.075,.060,-.030,square);rosette(.075,.060,-.030,square);
   if(square)box(.20,.042,.055,0,.060,.020,'Mitigeur_bain',root,.003);else{const mixer=round(.027,.23,0,.060,.020,'Mitigeur_bain');mixer.rotation.z=Math.PI/2;}
-  if(classic){crossHandle(-.118,.078,.020);crossHandle(.118,.078,.020);if(product.use==='bath'){tube([[0,.065,.030],[0,.15,.07],[0,.17,.15],[0,.04,.20]],.013,'Bec_bain');aerator(0,.034,.20,.010);}}
+  if(classic&&product.use==='bath'){
+   // Época BAÑO, catalogue p.25 (14642212701/07): bridge mixer,
+   // downturned bath spout and horizontal porcelain telephone handset.
+   for(const sign of [-1,1]){const command=new T.Group();command.name='Commande_Epoca_'+(sign<0?'gauche':'droite');command.position.set(sign*.118,.060,.020);command.rotation.z=-sign*Math.PI/2;root.add(command);crossHandle(0,0,0,command);}
+   tube([[0,.060,.020],[0,.035,.052],[0,.022,.12],[0,.005,.184],[0,-.020,.20]],.014,'Bec_bain',root,metal,24);aerator(0,-.025,.20,.010);
+   round(.013,.15,0,.135,.020,'Colonne_support_douchette');
+   for(const y of [.105,.185])round(.018,.006,0,y,.020,'Collerette_support_douchette');
+   round(.008,.017,.017,.125,.025,'Inverseur');
+   rod([-.065,.205,.020],[.065,.205,.020],.006,'Berceau_douchette');
+   for(const x of [-.065,.065])tube([[x,.205,.020],[x,.218,.005],[x,.224,.020],[x,.218,.035]],.004,'Fourche_support_douchette',root,metal,16);
+  }else if(classic){crossHandle(-.118,.078,.020);crossHandle(.118,.078,.020);}
   else{round(.024,.028,0,.102,.025,'Commande');if(profile.shape==='round-tube')rod([-.038,.060,.055],[-.080,.020,.10],.0035,'Levier');else lever(0,.119,.032);if(product.use==='bath'){if(square)box(.041,.020,.16,0,.058,.098,'Bec_bain');else tube([[0,.062,.028],[0,.059,.080],[0,.052,.14],[0,.026,.18]],.014,'Bec_bain');aerator(0,square?.043:.021,square?.168:.18,.010);round(.007,.019,.047,.096,.083,'Inverseur');}}
   if(product.use==='shower-mixer'){
    const mixer=root.getObjectByName('Mitigeur_bain');mixer.name='Mitigeur_douche';for(const child of root.children)child.position.y-=.060;round(.009,.018,0,-.040,.035,'Sortie_flexible');
+  }else if(classic){
+   const phone=new T.Group();phone.name='Douchette';root.add(phone);
+   const porcelain=new T.MeshPhysicalMaterial({color:'#f5f3ec',roughness:.16,clearcoat:.65,clearcoatRoughness:.12});porcelain.name='Porcelaine_blanche_Epoca';
+   const gripPoints=[[-.085,.010],[-.078,.013],[-.063,.014],[0,.015],[.063,.014],[.078,.013],[.085,.010]].map(([y,r])=>new T.Vector2(r,y));
+   const grip=mesh(new T.LatheGeometry(gripPoints,32),porcelain,.012,.236,.020,'Manche_porcelaine_Epoca',phone);grip.rotation.z=-Math.PI/2;
+   for(const x of [-.076,.100]){const collar=mesh(new T.CylinderGeometry(.015,.015,.014,24),metal,x,.236,.020,'Bague_manche_Epoca',phone);collar.rotation.z=Math.PI/2;}
+   tube([[-.082,.236,.020],[-.108,.233,.024],[-.119,.218,.035],[-.119,.207,.035]],.011,'Coude_douchette_Epoca',phone,metal,20);
+   const bellPoints=[[0,.0],[.027,.0],[.027,.006],[.024,.020],[.015,.040],[.011,.044]].map(([r,y])=>new T.Vector2(r,y));
+   mesh(new T.LatheGeometry(bellPoints,40),metal,-.119,.170,.035,'Pomme_douchette_Epoca',phone);
+   round(.023,.002,-.119,.169,.035,'Diffuseur_douchette',phone,rubber);
+   rod([.107,.236,.020],[.140,.230,.020],.009,'Raccord_douchette',phone);
+   // Keep the old lower hose curve: saved mixer installation heights stay stable.
+   const flexible=hose([[.14,.23,.02],[.16,.20,.11],[.23,.18,.27],[.27,-.16,.34],[.02,-.14,.33],[-.08,.02,.11]]);
+   flexible.userData.handsetConnection=[.14,.23,.02];
+   flexible.userData.mixerConnection=[-.08,.02,.11];
+   rod([-.08,.02,.11],[-.08,.046,.030],.008,'Raccord_flexible_mitigeur');
   }else{
    // Existing equipment projects are anchored to the model's lower bound.
    // Retain the original bath hose loop and its extent while refining its finish.

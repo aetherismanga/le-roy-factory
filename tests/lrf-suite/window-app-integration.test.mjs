@@ -9,6 +9,7 @@ import {WINDOW_AMBIENCES,windowAmbience} from '../../shared/lrf-3d/window-ambien
 import {AQUAHOME} from '../../shared/lrf-3d/taps.js';
 import {buildPhotorealPrompt} from '../../shared/lrf-3d/photoreal-export.js';
 import {createHDCapture} from '../../shared/lrf-3d/hd-capture.js';
+import {createVisitInteractions} from '../../shared/lrf-3d/visit-interactions.js';
 
 const functions=['windowOpenTarget','updateWindowMotion','syncWindowVisual','syncWindowStates','windowMotionSnapshot','restoreWindowMotion','updateWindowAppearance','setWindowType','setWindowAmbience','windowActionLabel','toggleRoomWindow','renderWindowAppearance','mountWindowLongPressMenu','getNicheMetalFinish','itemInspectorTarget','itemContextActions','handleObjectTap'];
 function host(app){
@@ -49,6 +50,18 @@ for(const app of ['studio-one','randal-general']){
   const capture=createHDCapture({snapshot:()=>({mode:c.quality.profile.id,windows:c.windowMotionSnapshot()}),prepare:()=>{c.quality.profile.id='max';c.syncWindowStates(true);},render:()=>{assert.equal(item.asset.getOpenProgress(),1);return 'HD';},restore:previous=>{c.quality.profile.id=previous.mode;c.syncWindowStates(true);c.restoreWindowMotion(previous.windows);}});
   assert.equal(await capture(),'HD');assert.equal(item.asset.getOpenProgress(),0);assert.equal(item.settings.windowOpen,true);assert.equal(c.quality.profile.id,'fluid');
   c.quality.profile.id='max';item.motion.window=.42;item.asset.setOpenProgress(.42);const snapshot=c.windowMotionSnapshot();c.syncWindowStates(true);c.restoreWindowMotion(snapshot);assert.equal(item.asset.getOpenProgress(),.42);
+ });
+ test(`${app}: visits open and close both window types in every quality without escalating rendering or editing read-only projects`,()=>{
+  for(const mode of ['fluid','balanced','max'])for(const style of ['sliding','casement']){
+   const {context:c,item,composition}=host(app);assert(c.setWindowType(style));c.quality.profile.id=mode;c.walkMode={active:true};c.projectWorkspace={locked:true};
+   const saved=JSON.stringify({settings:item.settings,placement:item.placement}),events=[],visit=createVisitInteractions({getItems:()=>composition.items,onChange:e=>events.push(e)});
+   visit.begin({transient:true});const hit={itemId:item.id,object:item.asset.root.getObjectByName('Poignee_fenetre')};
+   assert(visit.tap(hit));assert.equal(c.windowOpenTarget(item),1);assert(c.updateWindowMotion(item,.05));assert(item.asset.getOpenProgress()>0&&item.asset.getOpenProgress()<1,mode+' animates during visits');
+   c.updateWindowMotion(item,0,true);assert.equal(item.asset.getOpenProgress(),1);assert.equal(c.quality.profile.id,mode,'A window interaction never forces Ultra HD');
+   assert(visit.tap(hit));c.updateWindowMotion(item,0,true);assert.equal(item.asset.getOpenProgress(),0);assert.equal(item.settings.windowOpen,false);
+   assert(visit.tap(hit));c.updateWindowMotion(item,0,true);assert.equal(item.asset.getOpenProgress(),1);
+   c.walkMode.active=false;visit.end();c.syncWindowStates(true);assert.equal(JSON.stringify({settings:item.settings,placement:item.placement}),saved);assert.equal(item.asset.getOpenProgress(),0);assert.equal(c.projectWorkspace.locked,true);assert(events.every(e=>e.transient));
+  }
  });
  test(`${app}: niche profiles use the nearest actual AquaHome finish on the same wall`,()=>{
   const {context:c,composition}=host(app),pick=(finish,use='basin')=>AQUAHOME.find(p=>p.finish===finish&&p.use===use).reference;

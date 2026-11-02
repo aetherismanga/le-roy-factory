@@ -18,6 +18,7 @@ export function visitOpeningTarget(item,hit){
   return null;
  }
  if(item.type==='column'||item.type==='door')return {kind:'door'};
+ if(item.type==='window'&&typeof item.asset?.setOpenProgress==='function')return {kind:'window'};
  if(item.type==='toilet'&&item.asset?.root?.getObjectByName?.('Abattant'))return {kind:'lid'};
  return null;
 }
@@ -28,20 +29,22 @@ export function createVisitInteractions({getItems,onChange=()=>{}}){
  let transient=false;const originals=new Map();
  function restore(){
   const current=new Set(getItems()||[]),restored=[];
-  for(const [item,fields]of originals){
+  for(const [item,{fields,windowPose}]of originals){
    if(!current.has(item))continue;
    for(const [key,record]of Object.entries(fields))if(record.present)item.settings[key]=copy(record.value);else delete item.settings[key];
    const lid=item.asset?.root?.getObjectByName?.('Abattant');if(lid)lid.rotation.x=item.settings.lidOpen?-Math.PI*.48:0;
+   if(windowPose){item.asset.setOpenProgress(windowPose.progress);item.motion??={};item.motion.window=windowPose.motion;}
    restored.push(item);
   }
   originals.clear();transient=false;for(const item of restored)onChange({item,restored:true,transient:true});return restored.length>0;
  }
  return {
-  begin({transient:next=false}={}){restore();transient=!!next;if(transient)for(const item of getItems()||[]){if(!['cabinet','column','door','toilet'].includes(item.type))continue;originals.set(item,Object.fromEntries(['drawers','doorOpen','lidOpen'].map(key=>[key,{present:own(item.settings,key),value:copy(item.settings[key])}])));}},
+  begin({transient:next=false}={}){restore();transient=!!next;if(transient)for(const item of getItems()||[]){if(!['cabinet','column','door','toilet','window'].includes(item.type))continue;originals.set(item,{fields:Object.fromEntries(['drawers','doorOpen','lidOpen','windowOpen'].map(key=>[key,{present:own(item.settings,key),value:copy(item.settings[key])}])),windowPose:item.type==='window'&&item.asset?.getOpenProgress?{progress:item.asset.getOpenProgress(),motion:item.motion?.window??item.asset.getOpenProgress()}:null});}},
   tap(hit){
    const item=(getItems()||[]).find(value=>value.id===hit?.itemId),target=visitOpeningTarget(item,hit);if(!target)return false;
    if(target.kind==='drawer'){item.settings.drawers=Array.from({length:item.asset.drawers.length},(_,index)=>index===target.index?!item.settings.drawers?.[index]?1:0:item.settings.drawers?.[index]?1:0);}
    else if(target.kind==='door')item.settings.doorOpen=!item.settings.doorOpen;
+   else if(target.kind==='window')item.settings.windowOpen=!item.settings.windowOpen;
    else{item.settings.lidOpen=!item.settings.lidOpen;item.asset.root.getObjectByName('Abattant').rotation.x=item.settings.lidOpen?-Math.PI*.48:0;}
    onChange({item,...target,transient});return true;
   },
