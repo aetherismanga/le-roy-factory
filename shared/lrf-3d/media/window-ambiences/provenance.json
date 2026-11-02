@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "createdOn": "2026-11-02",
+  "generator": "image_gen.imagegen (built-in)",
+  "purpose": "Original HD exterior backgrounds for the Le Roy Factory bathroom configurator windows",
+  "kind": "generated-photorealistic-fictional-landscapes",
+  "constraints": [
+    "No window frame or interior",
+    "No people, text, logos or watermarks",
+    "No floral decoration",
+    "Native originals preserved without upscaling or image edits"
+  ],
+  "assets": [
+    {
+      "id": "coast",
+      "file": "coast.png",
+      "width": 1536,
+      "height": 1024,
+      "prompt": "Use case: photorealistic-natural. Asset type: HD landscape background texture seen through a 3D bathroom window. Create a single fictionally composed but entirely photorealistic outdoor landscape photograph, landscape 3:2 ratio, ideally 1536 by 1024 or higher native resolution. Camera: level eye-height, realistic 40mm lens, straight verticals, horizon around 45 percent from the top. Crisp high detail throughout without artificial sharpening, no depth-of-field blur. Natural soft late-morning daylight, balanced highlights and cool clean sky, subtle shadows, realistic color and material textures. This is only the exterior scene: no window frame, no wall, no glass overlay, no interior, no people, no animals, no letters, no text, no logo, no watermark, no collage, no border, no flowers or floral patterns. Scene: A tranquil Mediterranean coastal garden overlooking clear blue sea. Foreground natural pale stone terrace edge and low clipped green shrubs without flowers, a few olive/pine branches at sides, middle distance turquoise cove and pale coastal rocks, broad blue sea horizon."
+    },
+    {
+      "id": "forest-lake",
+      "file": "forest-lake.png",
+      "width": 1536,
+      "height": 1024,
+      "prompt": "Use case: photorealistic-natural. Asset type: HD landscape background texture seen through a 3D bathroom window. Create a single fictionally composed but entirely photorealistic outdoor landscape photograph, landscape 3:2 ratio, ideally 1536 by 1024 or higher native resolution. Camera: level eye-height, realistic 40mm lens, straight verticals, horizon around 45 percent from the top. Crisp high detail throughout without artificial sharpening, no depth-of-field blur. Natural soft late-morning daylight, balanced highlights and cool clean sky, subtle shadows, realistic color and material textures. This is only the exterior scene: no window frame, no wall, no glass overlay, no interior, no people, no animals, no letters, no text, no logo, no watermark, no collage, no border, no flowers or floral patterns. Scene: A calm clear woodland lake beside dense mixed pine and deciduous green forest. Foreground natural grasses and a low rocky bank, middle distance blue-green lake water reflecting trees, distant forested hills; serene and bright, not dark or misty."
+    },
+    {
+      "id": "mountains",
+      "file": "mountains.png",
+      "width": 1536,
+      "height": 1024,
+      "prompt": "Use case: photorealistic-natural. Asset type: HD landscape background texture seen through a 3D bathroom window. Create a single fictionally composed but entirely photorealistic outdoor landscape photograph, landscape 3:2 ratio, ideally 1536 by 1024 or higher native resolution. Camera: level eye-height, realistic 40mm lens, straight verticals, horizon around 45 percent from the top. Crisp high detail throughout without artificial sharpening, no depth-of-field blur. Natural soft late-morning daylight, balanced highlights and cool clean sky, subtle shadows, realistic color and material textures. This is only the exterior scene: no window frame, no wall, no glass overlay, no interior, no people, no animals, no letters, no text, no logo, no watermark, no collage, no border, no flowers or floral patterns. Scene: A bright alpine mountain valley with a calm blue mountain lake. Foreground natural grass and low slate rocks, middle distance lake and pine forest, distant layered green alpine slopes and a few rocky high peaks with small traces of snow; realistic summer landscape."
+    },
+    {
+      "id": "contemporary-garden",
+      "file": "contemporary-garden.png",
+      "width": 1536,
+      "height": 1024,
+      "prompt": "Use case: photorealistic-natural. Asset type: HD landscape background texture seen through a 3D bathroom window. Create a single fictionally composed but entirely photorealistic outdoor landscape photograph, landscape 3:2 ratio, ideally 1536 by 1024 or higher native resolution. Camera: level eye-height, realistic 40mm lens, straight verticals, horizon around 45 percent from the top. Crisp high detail throughout without artificial sharpening, no depth-of-field blur. Natural soft late-morning daylight, balanced highlights and cool clean sky, subtle shadows, realistic color and material textures. This is only the exterior scene: no window frame, no wall, no glass overlay, no interior, no people, no animals, no letters, no text, no logo, no watermark, no collage, no border, no flowers or floral patterns. Scene: A sophisticated contemporary residential garden viewed at eye level. Foreground clean pale stone patio edge, low clipped green shrubs, ornamental grasses, narrow bamboo planting, a small natural lawn and distant elegant dark timber slat fence; no flowers, no furniture and no building."
+    }
+  ],
+  "runtimeEncoding": {
+    "format": "WebP lossless",
+    "method": "ffmpeg libwebp -lossless 1 -compression_level 6",
+    "pixelParity": "Decoded RGBA MD5 equals each original PNG",
+    "files": [
+      {
+        "file": "coast.webp",
+        "sha256": "4454a522d282cc403f769d18633b7bd757c5fe0d0bd3fd7be731bcc97f22c4c4"
+      },
+      {
+        "file": "forest-lake.webp",
+        "sha256": "28ba187d61a0fe2d57380ff6b1e04d00f2ade58670e2585f78f1371dc204b4b7"
+      },
+      {
+        "file": "mountains.webp",
+        "sha256": "f0c47dcb95d46596c49ffa42fc4458337dd9d3f903e1c8fd8bf14633bf43e0fe"
+      },
+      {
+        "file": "contemporary-garden.webp",
+        "sha256": "df54cac069b7f4b20701870555c1bd62e326288720bb7beab02877b5348eb88e"
+      }
+    ]
+  }
+}

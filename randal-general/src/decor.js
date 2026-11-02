@@ -15,7 +15,7 @@ export function decorateAsset(asset,type,s={}){
  if(type==='towel')addHangingTowel(group,0,.64,-.23+.125,.21,.40,materials);
  if(type==='washstand'){
   const trixie=s.reference==='TR443',h=trixie?.15:.125;
-  if(trixie){addHangingTowel(group,-.20,-.095,-.23+.295,.18,.28,materials);addDecorBottle(group,-.20,h,-.23+.095,materials);addDecorSoap(group,-.245,h+.012,-.23+.20,materials);}
+  if(trixie){addHangingTowel(group,-.20,-.095,.003,.18,.28,materials);addDecorBottle(group,-.20,h,-.23+.095,materials);addDecorSoap(group,-.245,h+.012,-.23+.20,materials);}
   else addDecorBottle(group,-.20,h,-.23+.04,materials);
  }
 }

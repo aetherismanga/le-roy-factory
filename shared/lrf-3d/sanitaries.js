@@ -2,12 +2,14 @@ import * as T from 'three';
 import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js';
 import {makeTap,tapProduct,metalMaterial} from './taps.js';
 import {createSurface} from './room.js';
+import {makeTrixieCeramicGeometry,makeTrixieHardwareGeometries,TRIXIE_CERAMIC_PROVENANCE,makeDaliaCeramicGeometry,DALIA_LAYOUT} from './sanitary-ceramics.js';
+import {addWashstandPlumbing} from './sanitary-plumbing.js';
 export const SANITARIES=[
  {id:'TR2217R',name:'AMARO VORTEX',type:'toilet',width:.36,depth:.48,height:.36,finish:'Blanc brillant',page:44},
  {id:'TR2217R-U18',name:'AMARO BLACK VORTEX',type:'toilet',width:.36,depth:.48,height:.36,finish:'Noir mat',page:44},
  {id:'TR2224',name:'KRAL',type:'toilet',width:.36,depth:.615,height:.745,floor:true,finish:'Blanc brillant',page:54},
  {id:'STR4335',name:'DALIA',type:'washstand',width:.55,depth:.31,height:.125,finish:'Blanc brillant',page:30},
- {id:'TR443',name:'TRIXIE',type:'washstand',width:.625,depth:.285,height:.15,finish:'Blanc brillant',page:29,note:'Catalogue : 62,5 × 28,5 × 15 cm ; le tarif JSON indique 44 × 27 × 15 cm. Cote PDF retenue.'}
+ {id:'TR443',name:'TRIXIE',type:'washstand',width:.625,depth:.285,height:.15,finish:'Blanc brillant',page:29,note:'Céramique monobloc avec tablette latérale et porte-serviettes intégré.'}
 ];
 // Flush plates are independent of the bowl finish and of the optional support.
 export const FLUSH_PLATE_COLORS=[
@@ -55,13 +57,24 @@ export function makeSanitary(type,s={}){const p=sanitarySpec(s),root=new T.Group
   if(!floor)addFlushPlate(.90,-.225);
   return {root,spec:p,dimensions:{width:p.width,depth:p.depth,height:actualHeight,base:0},ceramic};
  }
- const trixie=p.id==='TR443',W=p.width,D=p.depth,H=p.height,x=trixie?.13:0,z=-.23+D/2;
- if(trixie){add(shell([[.08,.06,0],[.15,.115,.03],[.182,.1425,H-.008],[.18,.14,H],[.162,.12,H-.008],[.14,.095,.06],[.026,.026,.025],[.026,.026,.005],[.08,.06,0]],x,z),ceramic,'Vasque_ovale');box(.26,.018,D,-W/2+.13,H-.009,z,'Tablette');box(.26,.022,.02,-W/2+.13,.016,z+D/2-.01,'Porte_serviettes');box(.018,H,D,-W/2+.009,H/2,z,'Joue_tablette');}
- else{add(shell([[W/2-.01,D/2-.01,0],[W/2,D/2,H-.006],[W/2-.006,D/2-.006,H],[W/2-.023,D/2-.05,H-.005],[.20,.08,.025],[.025,.025,.012],[.025,.025,0],[W/2-.01,D/2-.01,0]],0,z,10),ceramic,'Vasque_rectangle');box(W-.02,.012,.055,0,H-.006,-.23+.035,'Plage_robinetterie');}
- const drain=s.drain==='square'?'000560':PLUMBING.find(p=>p.id===(s.metal||'Chrome brillant'))?.drain||'000550';if(s.drain==='square')box(.07,.005,.07,x,.03,z,'Bonde_'+drain,metal);else cyl(.0315,.005,x,.03,z,'Bonde_'+drain);
- cyl(.016,.18,x,-.09,z,'Tube_vertical_G1_1_4');if(s.trap==='square')box(.05,.128,.05,x,-.235,z,'Siphon_31141112702',metal);else cyl(.035,.18,x,-.22,z,'Siphon_'+(PLUMBING.find(p=>p.id===(s.metal||'Chrome brillant'))?.trap||'31141112704'));
- const outlet=add(new T.CylinderGeometry(.016,.016,D/2,32),metal,'Sortie_D32',x,-.23,z-D/4);outlet.rotation.x=Math.PI/2;
- const tap=makeTap(tapProduct(s.tap,'basin'));tap.name='Mitigeur_lave_mains';tap.position.set(trixie?-.025:0,H,-.23+.036);root.add(tap);
- const overflow=add(new T.CircleGeometry(.008,32),metal,'Trop_plein',x,H-.035,-.23+.055);overflow.rotation.x=.1;
+ const trixie=p.id==='TR443',W=p.width,D=p.depth,H=p.height,x=trixie?.1035563:DALIA_LAYOUT.drainX,z=trixie?-.0857431:DALIA_LAYOUT.drainZ;
+ let sourceHardware=null;
+ if(trixie){
+  add(makeTrixieCeramicGeometry(),ceramic,'Vasque_ovale');sourceHardware=makeTrixieHardwareGeometries();
+  root.userData.geometrySource=TRIXIE_CERAMIC_PROVENANCE;
+  // Named landmarks retain the existing decoration/controller contract. The
+  // actual tablet and towel aperture are one continuous manufacturer mesh.
+  for(const name of ['Tablette','Porte_serviettes']){const landmark=new T.Group();landmark.name=name;root.add(landmark);}
+ }
+ else{add(makeDaliaCeramicGeometry(),ceramic,'Vasque_rectangle');root.userData.geometrySource={source:DALIA_LAYOUT.source,method:DALIA_LAYOUT.method};}
+ addWashstandPlumbing(root,{x,z,drainY:trixie?.025:.018,finish:s.metal||'Chrome brillant',trap:s.trap,drain:s.drain,coverGeometry:sourceHardware?.drain});
+ const tap=makeTap(tapProduct(s.tap,'basin'));tap.name='Mitigeur_lave_mains';tap.position.set(trixie?-.046:DALIA_LAYOUT.tapX,H,trixie?-.175:DALIA_LAYOUT.tapZ);root.add(tap);
+ if(trixie)add(sourceHardware.overflow,metal,'Trop_plein');
+ else{
+  const overflow=new T.Group();overflow.name='Trop_plein';overflow.position.set(0,H-.035,-.132);overflow.rotation.x=-.38;root.add(overflow);
+  const dark=new T.MeshStandardMaterial({color:'#303537',roughness:.73});add(new T.CylinderGeometry(.0084,.0084,.002,48),dark,'Cavite_trop_plein',0,0,0,overflow).rotation.x=Math.PI/2;
+  add(new T.TorusGeometry(.0084,.0011,8,64),metal,'Bague_trop_plein',0,0,.001,overflow);
+  const cap=add(new T.CircleGeometry(.0082,48,Math.PI,Math.PI),metal,'Capot_trop_plein',0,0,.002,overflow);cap.castShadow=false;
+ }
  return {root,spec:p,ceramic,dimensions:{width:W,depth:D,height:H+.19,base:0,clearanceBelow:.31}};
 }

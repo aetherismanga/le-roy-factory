@@ -84,7 +84,7 @@ try{
  config=cloneRoom(DEFAULT_ROOM);room=makeRoom(config,0);let readonly=false,controller,applied=[];
  const api={canvas:{addEventListener:(name,fn)=>listeners.set(name,fn)},camera:null,controls:{enabled:true},stage:new Element(),scene:new T.Scene(),
   getRoom:()=>room,getRoomConfig:()=>cloneRoom(config),getComposition:()=>composition,getWallFinish:i=>walls[i],getFloorFinish:()=>({collection:'Creta',color:'avena',zones:[],jointProfiles:[]}),getSelectedWall:()=>0,
-  applyRoom(next){if(validateRoom(next,0))return false;room.dispose();config=cloneRoom(next);room=makeRoom(config,0);return true;},readonly:()=>readonly,status(){},wallLabel:i=>'Mur '+(i+1),
+  getNicheMetalFinish:()=> 'Cuivre',applyRoom(next){if(validateRoom(next,0))return false;room.dispose();config=cloneRoom(next);room=makeRoom(config,0);return true;},readonly:()=>readonly,status(){},wallLabel:i=>'Mur '+(i+1),
   refresh(){controller?.sync();},invalidate(){},checkpoint(){},applySurface(face,collection,color,finish){applied.push({part:face.nichePart,collection,color,finish});}};
  controller=mountRenovation(api);controller.saveNiche(niche);controller.sync();
  const rows=controller.quantities().rows.filter(e=>e.surface.nicheId);assert.equal(rows.length,5);
@@ -97,6 +97,10 @@ try{
  actions.find(a=>a.label==='Déverrouiller').run();controller.contextActions({editTarget:'niche:'+niche.id}).find(a=>a.label==='Dupliquer').run();
  assert.equal(config.niches.length,2);assert.equal(config.niches[1].covering.reveal.color,'caramello');assert.notEqual(config.niches[1].id,niche.id);
  controller.contextActions({editTarget:'niche:'+niche.id}).find(a=>a.label==='Supprimer').run();assert.equal(config.niches.length,1);
+ const {profileEdges:legacyEdges,...unprofiled}=niche;controller.saveNiche({...unprofiled,id:'niche-auto-profiles',u:80});const installed=config.niches.find(n=>n.id==='niche-auto-profiles');
+ assert.equal(installed.profileEnabled,true);assert.equal(installed.profileFinish,'Cuivre');assert.deepEqual(Object.values(installed.profileEdges),Array(4).fill('Cuivre'),'The actual creation controller captures the current tap finish on every edge');
+ controller.saveNiche({...installed,profileEnabled:false});assert.equal(config.niches.find(n=>n.id===installed.id).profileEnabled,false);assert.equal(validateRoom(JSON.parse(JSON.stringify(config)),0),'');
+ controller.contextActions({editTarget:'niche:'+installed.id}).find(a=>a.label==='Supprimer').run();assert.equal(config.niches.length,1);
  readonly=true;assert(controller.contextActions({editTarget:'niche:'+config.niches[0].id}).filter(a=>a.label!=='Configurer la niche et ses finitions').every(a=>a.disabled));
  const restored=JSON.parse(JSON.stringify(config));assert.equal(validateRoom(restored,0),'');const again=makeRoom(restored,0);assert.equal(again.walls[0].niches[0].covering.mode,'split');again.dispose();room.dispose();
 }finally{if(priorDocument===undefined)delete globalThis.document;else globalThis.document=priorDocument;}

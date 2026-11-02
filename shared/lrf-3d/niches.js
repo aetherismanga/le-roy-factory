@@ -1,3 +1,4 @@
+import {isNicheProfileFinish} from './niche-profile-options.js';
 export function wallSlots(room){
  const slots=room.points.map((a,i)=>({key:'boundary-'+i,length:Math.hypot(room.points[(i+1)%room.points.length][0]-a[0],room.points[(i+1)%room.points.length][1]-a[1]),height:room.height,thickness:10}));
  for(const [i,p] of (room.partitions||[]).entries())for(const side of [0,1])slots.push({key:'partition-'+(p.id||'index-'+i)+'-'+side,length:Math.hypot(p.b[0]-p.a[0],p.b[1]-p.a[1]),height:p.height,thickness:p.thickness,partition:i,side});
@@ -8,7 +9,8 @@ export function validateNiches(room){
  const slots=wallSlots(room),ids=new Set();
  for(const n of list){
   const wall=n&&slots.find(w=>w.key===n.wallKey);if(!n||typeof n.id!=='string'||!/^niche-[a-z0-9-]{1,70}$/i.test(n.id)||ids.has(n.id)||!wall)return 'Emplacement de niche invalide.';ids.add(n.id);
-  if(n.profileEdges!==undefined&&(!n.profileEdges||typeof n.profileEdges!=='object'||Array.isArray(n.profileEdges)||Object.entries(n.profileEdges).some(([edge,color])=>!['left','right','top','bottom'].includes(edge)||!['none','Argent','Noir','Doré','Bronze'].includes(color))))return 'Profilés de niche invalides.';
+  if(n.profileEdges!==undefined&&(!n.profileEdges||typeof n.profileEdges!=='object'||Array.isArray(n.profileEdges)||Object.entries(n.profileEdges).some(([edge,color])=>!['left','right','top','bottom'].includes(edge)||color!=='none'&&!isNicheProfileFinish(color))))return 'Profilés de niche invalides.';
+  if(n.profileEnabled!==undefined&&typeof n.profileEnabled!=='boolean'||n.profileFinish!==undefined&&!isNicheProfileFinish(n.profileFinish))return 'Profilés de niche invalides.';
   if(n.locked!==undefined&&typeof n.locked!=='boolean'||n.positionUnlocked!==undefined&&typeof n.positionUnlocked!=='boolean')return 'Verrouillage de niche invalide.';
   if(n.covering!==undefined){const c=n.covering;if(!c||!['inherit','all','split'].includes(c.mode))return 'Revêtement de niche invalide.';for(const f of c.mode==='split'?[c.back,c.reveal]:c.mode==='all'?[c.back]:[]){if(!f||['collection','color','format'].some(k=>typeof f[k]!=='string'||!f[k]||f[k].length>160))return 'Référence de carrelage de niche invalide.';}}
   if(!['u','bottom','width','height','depth'].every(k=>Number.isFinite(n[k])))return 'Dimensions de niche invalides.';

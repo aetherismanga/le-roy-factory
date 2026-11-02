@@ -16,6 +16,8 @@ import {collectSupportFinishes} from '../../shared/lrf-3d/sanitary-support.js';
 import {collectTrayFinishes} from '../../shared/lrf-3d/tiled-shower-tray.js';
 import {selectedFormat} from '../src/surface-picker.js';
 import {createProjectRefreshBatch} from '../../shared/lrf-3d/project-refresh.js';
+import {createWindowAmbienceLoader,windowAmbience} from '../../shared/lrf-3d/window-ambiences.js';
+import {setExteriorTexture} from '../src/openings.js';
 import {selectedCommercialSurface,surfaceFinishAppearance,applySurfaceTextureMapping,disposeSurfaceTextureClones} from '../../shared/lrf-3d/surface-appearance.js';
 
 // These are the eight exact non-rectified R10 references in the reviewed
@@ -77,11 +79,15 @@ try{
  assert(variantMaterials.includes(1),'real tile grouping visits the second native face despite the legacy single-face definition');
 
  let rendered=0,size=new T.Vector2(1280,720),ratio=1;
- Object.assign(context,{createHDCapture,captureSize,withoutEditorGuides,lastCapture:null,sceneRevision:0,running:false,scene:new T.Scene(),ultraPipeline:null,controls:{enabled:true},document:{body:{inert:false}},camera:{aspect:16/9,updateProjectionMatrix(){}},stage:{clientWidth:1280,clientHeight:720},canvas:{toDataURL:()=> 'data:image/png;base64,fixture'},applyQuality(){},
+ Object.assign(context,{createWindowAmbienceLoader,windowAmbience,setExteriorTexture,reduced:false,createHDCapture,captureSize,withoutEditorGuides,lastCapture:null,sceneRevision:0,running:false,scene:new T.Scene(),ultraPipeline:null,controls:{enabled:true},document:{body:{inert:false}},camera:{aspect:16/9,updateProjectionMatrix(){}},stage:{clientWidth:1280,clientHeight:720},canvas:{toDataURL:()=> 'data:image/png;base64,fixture'},applyQuality(){},
   renderer:{capabilities:{maxTextureSize:4096,maxRenderbufferSize:4096},shadowMap:{needsUpdate:false},getSize:v=>v.copy(size),getPixelRatio:()=>ratio,setPixelRatio:value=>ratio=value,setSize:(w,h)=>size.set(w,h),compileAsync:async()=>{},render(){rendered++;assert.equal(quality.profile.id,'max');assert.equal(floor.material.map.userData.quality.url,urls('max')[0]);assert.equal(wall.material.map.userData.quality.profile,'max');}},
  });
+ // Include the shipped window capture helpers instead of replacing them with
+ // no-op snapshot/restore stubs. This material-only scene has no windows, so
+ // the real ensureItems path must stay empty and perform no exterior download.
+ vm.runInContext('let exteriorAmbienceLoader=null;\n'+source.slice(source.indexOf('function windowLoader('),source.indexOf('function updateWindowAppearance(')),context);
  vm.runInContext(source.slice(source.indexOf('const captureHD=createHDCapture('),source.indexOf('async function exportImage('))+'\nglobalThis.fixtureCapture=captureHD;',context);
- assert.equal(await context.fixtureCapture(),'data:image/png;base64,fixture');assert.equal(rendered,1);
+ assert.equal(await context.fixtureCapture(),'data:image/png;base64,fixture');assert.equal(rendered,1);assert.equal(vm.runInContext('windowMotionSnapshot().length',context),0);assert.equal(vm.runInContext('windowLoader().diagnostics().requested.length',context),0,'A scene without windows does not request an exterior image during HD capture');
  assert.equal(quality.profile.id,'fluid');assert.equal(floor.material.map.userData.quality.url,urls('fluid')[0]);assert.equal(context.captureBusy,false);assert.equal(context.controls.enabled,true);assert.equal(context.document.body.inert,false);assert.equal(context.textureCache.size,2);
  delete mapping.textureVariants.max;
  await assert.rejects(context.fixtureCapture(),/visuel matière/,'missing native HD fails instead of using the old colour swatch');

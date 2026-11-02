@@ -215,16 +215,29 @@
       "bytes": 2149,
       "originalsIdentical": true,
       "current": {
-        "sha256": "176343b35f68e7c4b4f880405ed5167eb23a13637f22b9efaf52cfadcdd3d3f2",
-        "bytes": 3624,
-        "changeType": "functional-update-20261025",
-        "reason": "Preserve editable niche coverings after wall recuts and allow a targeted individual placement unlock while the rest of the room remains locked; original extraction provenance retained above.",
+        "sha256": "aaf3e04a5296e5566221f4fc2bba492e2518b7c43294ac7323692d4b05a2e0bd",
+        "bytes": 3855,
+        "changeType": "functional-update-20261102",
+        "reason": "Validate the explicit removable niche trim state and actual metal finish identities without reinterpreting older niches or altering room opening and covering constraints.",
         "validation": [
-          "tests/lrf-suite/niche-openings.test.mjs",
-          "shared/lrf-3d/qa/niche-editing-check.mjs",
-          "shared/lrf-3d/qa/room-interaction-check.mjs"
+          "tests/lrf-suite/niche-profile-defaults.test.mjs",
+          "tests/lrf-suite/niche-form-match.test.mjs",
+          "shared/lrf-3d/qa/niche-editing-check.mjs"
         ]
-      }
+      },
+      "history": [
+        {
+          "sha256": "176343b35f68e7c4b4f880405ed5167eb23a13637f22b9efaf52cfadcdd3d3f2",
+          "bytes": 3624,
+          "changeType": "functional-update-20261025",
+          "reason": "Preserve editable niche coverings after wall recuts and allow a targeted individual placement unlock while the rest of the room remains locked; original extraction provenance retained above.",
+          "validation": [
+            "tests/lrf-suite/niche-openings.test.mjs",
+            "shared/lrf-3d/qa/niche-editing-check.mjs",
+            "shared/lrf-3d/qa/room-interaction-check.mjs"
+          ]
+        }
+      ]
     },
     {
       "module": "photoreal-export.js",
@@ -232,17 +245,30 @@
       "bytes": 12444,
       "originalsIdentical": true,
       "current": {
-        "sha256": "86603fda09be4c94056e95300b5f47fb83cee72bc95efa253d75f9c368c4efb4",
-        "bytes": 20243,
-        "changeType": "functional-update-20261025",
-        "reason": "Single-click ChatGPT handoff saves the combined PNG, requests clipboard image copying during the user gesture and opens ChatGPT; FR/ES instructions request immediate image generation without confirmation.",
+        "sha256": "cb5e6646131eccdac17206313e5090b181d71b864b30b166f29bc820db9a9d74",
+        "bytes": 20288,
+        "changeType": "functional-update-20261102",
+        "reason": "Retain window mechanism, desired opening and selected exterior view in the public visual brief without extending access to private commercial or personal fields.",
         "validation": [
-          "studio-one/qa/photoreal-export-check.mjs",
-          "randal-general/qa/photoreal-project.mjs",
-          "shared/lrf-3d/qa/i18n-browser-check.mjs",
-          "shared/lrf-3d/qa/photoreal-handoff-browser-check.mjs"
+          "tests/lrf-suite/window-app-integration.test.mjs",
+          "tests/lrf-suite/window-loader-reflection.test.mjs",
+          "tests/lrf-suite/project-history-textures.test.mjs"
         ]
-      }
+      },
+      "history": [
+        {
+          "sha256": "86603fda09be4c94056e95300b5f47fb83cee72bc95efa253d75f9c368c4efb4",
+          "bytes": 20243,
+          "changeType": "functional-update-20261025",
+          "reason": "Single-click ChatGPT handoff saves the combined PNG, requests clipboard image copying during the user gesture and opens ChatGPT; FR/ES instructions request immediate image generation without confirmation.",
+          "validation": [
+            "studio-one/qa/photoreal-export-check.mjs",
+            "randal-general/qa/photoreal-project.mjs",
+            "shared/lrf-3d/qa/i18n-browser-check.mjs",
+            "shared/lrf-3d/qa/photoreal-handoff-browser-check.mjs"
+          ]
+        }
+      ]
     },
     {
       "module": "picking.js",
@@ -286,16 +312,29 @@
       "bytes": 3805,
       "originalsIdentical": true,
       "current": {
-        "sha256": "410f72e7c83e91d1bdda7388f974c5965603d0c3a05ce227a0500d92c7e0a046",
-        "bytes": 8266,
-        "changeType": "functional-update-20261025",
-        "reason": "Requested editable tiled partitions, individual placement locks, tiled shower tray and compact side panels; original extraction provenance retained above.",
+        "sha256": "70686180028d52acb1311f977faa386d15058b5aef047176dde5500b38515d6c",
+        "bytes": 9053,
+        "changeType": "functional-update-20261102",
+        "reason": "Render independently removable niche trims using their selected AQUAHOME metal finish, while preserving legacy per-edge choices and unrelated tiled-column, wall and bath profiles.",
         "validation": [
-          "tests/lrf-suite/partition-editing.test.mjs",
-          "shared/lrf-3d/qa/niche-editing-check.mjs",
-          "shared/lrf-3d/qa/room-interaction-check.mjs"
+          "tests/lrf-suite/niche-profile-defaults.test.mjs",
+          "tests/lrf-suite/niche-form-match.test.mjs",
+          "shared/lrf-3d/qa/niche-editing-check.mjs"
         ]
-      }
+      },
+      "history": [
+        {
+          "sha256": "410f72e7c83e91d1bdda7388f974c5965603d0c3a05ce227a0500d92c7e0a046",
+          "bytes": 8266,
+          "changeType": "functional-update-20261025",
+          "reason": "Requested editable tiled partitions, individual placement locks, tiled shower tray and compact side panels; original extraction provenance retained above.",
+          "validation": [
+            "tests/lrf-suite/partition-editing.test.mjs",
+            "shared/lrf-3d/qa/niche-editing-check.mjs",
+            "shared/lrf-3d/qa/room-interaction-check.mjs"
+          ]
+        }
+      ]
     },
     {
       "module": "sanitaries.js",
@@ -303,14 +342,14 @@
       "bytes": 7756,
       "originalsIdentical": true,
       "current": {
-        "sha256": "5573ccbabc2d08ec0cb8dece33fd646ee59924c0732042b14961b9ea9f98c938",
-        "bytes": 9197,
-        "changeType": "functional-update-20261025",
-        "reason": "Share the existing seven plumbing finish and reference mappings with cabinet clic-clac matching, without changing sanitary identifiers, dimensions, bowl geometry or the independent flush-plate finishes.",
+        "sha256": "c33c86f1a464bd6d2a2b12c05c2985b9a675ca312376636d013f0413b63cb9a7",
+        "bytes": 9573,
+        "changeType": "functional-update-20261102",
+        "reason": "Replace the inaccurate TRIXIE assembly with the manufacturer ceramic and hardware mesh, improve DALIA hollow geometry and plumbing continuity while retaining saved dimensions and commercial identities.",
         "validation": [
-          "tests/lrf-suite/basin-ergonomics.test.mjs",
-          "shared/lrf-3d/qa/ral-sanitary-check.mjs",
-          "tests/lrf-suite/sanitary-support-cladding.test.mjs"
+          "tests/lrf-suite/washstand-geometry.test.mjs",
+          "tests/lrf-suite/basin-decor.test.mjs",
+          "tests/lrf-suite/sanitary-mount.test.mjs"
         ]
       },
       "history": [
@@ -324,6 +363,17 @@
             "tests/lrf-suite/sanitary-mount.test.mjs",
             "tests/lrf-suite/sanitary-support-cladding.test.mjs",
             "tests/lrf-suite/stone-icon-big-opus.test.mjs"
+          ]
+        },
+        {
+          "sha256": "5573ccbabc2d08ec0cb8dece33fd646ee59924c0732042b14961b9ea9f98c938",
+          "bytes": 9197,
+          "changeType": "functional-update-20261025",
+          "reason": "Share the existing seven plumbing finish and reference mappings with cabinet clic-clac matching, without changing sanitary identifiers, dimensions, bowl geometry or the independent flush-plate finishes.",
+          "validation": [
+            "tests/lrf-suite/basin-ergonomics.test.mjs",
+            "shared/lrf-3d/qa/ral-sanitary-check.mjs",
+            "tests/lrf-suite/sanitary-support-cladding.test.mjs"
           ]
         }
       ]
@@ -393,7 +443,18 @@
       "module": "ultra-rendering.js",
       "sha256": "2072cfc76d6714699faebf590a957cb5bd0d79ae64ceb583258eadf29d483bb5",
       "bytes": 2443,
-      "originalsIdentical": true
+      "originalsIdentical": true,
+      "current": {
+        "sha256": "40cd410c3bedc45e8f1facb4680b7bd69ba8a0c6cdf835784cf2ade777556f82",
+        "bytes": 3105,
+        "changeType": "functional-update-20261102",
+        "reason": "Preserve the native transmission and opacity of each architectural glazing recipe through Light/Standard/Ultra toggles; shared panes do not overwrite their native state during repeated traversal.",
+        "validation": [
+          "tests/lrf-suite/architectural-glass-native.test.mjs",
+          "studio-one/qa/quality-tiers-check.mjs",
+          "randal-general/qa/project-lighting.mjs"
+        ]
+      }
     }
   ]
 }

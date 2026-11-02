@@ -3,6 +3,7 @@ import {pickSelection} from './picking.js';
 import {closeElementPanel} from './element-panels.js';
 import {nichePlacement} from './niche-placement-math.js';
 import {makeNicheGuide,disposeNicheGuide} from './niche-guides.js';
+import {nicheGuideIsVisible} from './niche-profile-options.js';
 
 // One shared placement controller for both ateliers. The established editor,
 // project format, finish handling and existing-niche dragging stay untouched.
@@ -10,7 +11,7 @@ export function withNichePlacement(api,mount){
  const {stage,canvas,camera,controls}=api;
  // Headless geometry/unit fixtures deliberately have no DOM or camera.
  if(!camera||!stage?.addEventListener||!document.createElementNS)return mount();
- let controller,active=null,bar=null,ghost=null,message=null,preview=null,swallowClick=false,toggle=null,guidesEnabled=true;
+ let controller,active=null,bar=null,ghost=null,message=null,preview=null,swallowClick=false,guidesEnabled=true,editingId=null;
  const pointers=new Map(),guides=new Map();
  const visible=o=>{for(let p=o;p;p=p.parent)if(p.visible===false)return false;return true;};
  const visiting=()=>stage.classList.contains('walk-active');
@@ -18,7 +19,6 @@ export function withNichePlacement(api,mount){
  const style=document.createElement('style');
  style.textContent=`.niche-guide{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:4;overflow:hidden}.niche-guide polygon{fill:none;stroke:#846a32;stroke-width:2;stroke-dasharray:6 4;vector-effect:non-scaling-stroke}.niche-guide .niche-preview{fill:#bda15d22;stroke:#294b3f;stroke-width:3}.niche-guide .niche-preview[data-invalid=true]{stroke:#a13929;fill:#a1392922}.niche-placement-bar{position:absolute;left:12px;bottom:16px;z-index:46;max-width:calc(100% - 24px);display:flex;align-items:center;gap:10px;padding:10px;border:1px solid #cdd1c4;border-radius:12px;background:#fffdf7;color:#29483e;box-sizing:border-box;font:13px/1.4 Arial,sans-serif;box-shadow:0 4px 18px #19352b22}.niche-placement-bar[hidden],.niche-cursor[hidden],.niche-guide[hidden]{display:none!important}.niche-placement-bar button{flex-shrink:0;min-width:44px;min-height:44px;padding:8px;border:1px solid #cdd1c4;border-radius:8px;background:#faf9f2;color:#29483e;cursor:pointer}.niche-placement-bar .niche-handle{cursor:grab;touch-action:none}.niche-placement-bar .niche-handle svg{display:block;width:44px;height:32px}.niche-cursor{position:absolute;z-index:47;pointer-events:none;width:54px;height:38px;filter:drop-shadow(0 1px 2px #fff);color:#294b3f}.niche-cursor svg{width:100%;height:100%}.niche-placement-active canvas{cursor:crosshair!important;touch-action:none}@media(max-width:760px){.niche-placement-bar{left:8px;bottom:8px;max-width:calc(100% - 16px);font-size:12px}.niche-placement-bar span{max-width:48vw}}`;
  document.head.append(style);
- style.textContent+='@media(max-width:760px){.niche-guides-toggle{bottom:80px}}';
  const icon='<svg viewBox="0 0 60 40" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 3h54v34H3z" stroke-dasharray="4 3"/><path d="M12 11h36v18H12zM3 3l9 8m45-8-9 8M3 37l9-8m45 8-9-8"/></svg>';
  function ui(){
   if(bar)return;
@@ -27,7 +27,6 @@ export function withNichePlacement(api,mount){
   message=document.createElement('span');message.setAttribute('role','status');bar.append(message);
   const cancel=document.createElement('button');cancel.type='button';cancel.id='cancel-niche-placement';cancel.textContent='Annuler';cancel.onclick=()=>stop();bar.append(cancel);stage.append(bar);
   ghost=document.createElement('div');ghost.className='niche-cursor';ghost.hidden=true;ghost.innerHTML=icon;ghost.setAttribute('aria-hidden','true');stage.append(ghost);
-  toggle=document.createElement('button');toggle.type='button';toggle.id='toggle-niche-guides';toggle.className='niche-placement-bar niche-guides-toggle';toggle.hidden=true;toggle.style.minHeight='44px';toggle.onclick=()=>setGuides(!guidesEnabled);stage.append(toggle);
  }
  function say(text){ui();if(message.textContent!==text)message.textContent=text;}
  function release(){for(const [id,owner] of pointers)if(owner.hasPointerCapture?.(id))owner.releasePointerCapture(id);pointers.clear();}
@@ -75,7 +74,7 @@ export function withNichePlacement(api,mount){
   say(preview?.error|| (preview?.niche?'Relâchez ou cliquez pour poser la niche ici.':'Amenez le dessin sur un mur.'));
   update();api.invalidate(false,false);
  }
- function setGuides(value){guidesEnabled=!!value;update();api.checkpoint();api.invalidate(false);}
+ function setGuides(value){guidesEnabled=!!value;update();api.invalidate(false);}
  function frontFacing(wall,niche){
   const normal=new T.Vector3(0,0,1).applyQuaternion(wall.group.getWorldQuaternion(new T.Quaternion())),center=wall.group.localToWorld(new T.Vector3(niche.u/100,(niche.bottom+niche.height/2)/100,0));
   return normal.dot(camera.getWorldPosition(new T.Vector3()).sub(center))>0;
@@ -91,12 +90,13 @@ export function withNichePlacement(api,mount){
    if(!entry){const group=makeNicheGuide(niche.width/100,niche.height/100,{preview:isPreview,invalid:!!error});wall.group.add(group);entry={group,wall,signature,preview:isPreview};guides.set(id,entry);}
    const offset=isPreview?null:wall.nicheLining?.getObjectByName('Niche_'+niche.id)?.position;
    entry.group.position.set((niche.u-niche.width/2)/100+(offset?.x||0),niche.bottom/100+(offset?.y||0),offset?.z||0);
-   entry.group.visible=!hidden&&(isPreview||guidesEnabled)&&frontFacing(wall,niche);
+   entry.group.visible=nicheGuideIsVisible(niche.id,{active:!!active,preview:isPreview,editingId,enabled:guidesEnabled,hidden})&&frontFacing(wall,niche);
   };
-  for(const wall of api.getRoom().walls)for(const niche of wall.niches||[])draw(wall,niche);
+  // A validated niche belongs to the room, not to the editor overlay. Only
+  // the niche actively being edited or dragged receives a temporary guide.
+  for(const wall of api.getRoom().walls)for(const niche of wall.niches||[])if(niche.id===editingId)draw(wall,niche);
   if(active&&preview?.niche)draw(preview.wall,preview.niche,true,preview.error);
   for(const [id,entry]of guides)if(!wanted.has(id)){disposeNicheGuide(entry.group);guides.delete(id);}
-  toggle.hidden=hidden||!!active||!(api.getRoomConfig().niches?.length);toggle.textContent=guidesEnabled?'Masquer les repères des niches':'Afficher les repères des niches';toggle.setAttribute('aria-pressed',String(guidesEnabled));
  }
  const consume=e=>{e.preventDefault();e.stopImmediatePropagation();};
  // Register before the existing renovation handlers. Stage capture runs before
@@ -126,6 +126,8 @@ export function withNichePlacement(api,mount){
  stage.addEventListener('pointerleave',()=>{if(active&&!pointers.size){preview=null;ghost.hidden=true;update();}});
  document.addEventListener('lrf-element-panel-open',()=>{if(active)stop();});
  window.addEventListener('blur',()=>stop());document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});
+ const previousEditingChange=api.onNicheEditingChange;
+ api.onNicheEditingChange=value=>{previousEditingChange?.(value);editingId=value?.id||null;guidesEnabled=true;update();api.invalidate(false,false);};
  controller=mount();
  const addMenu=document.querySelector('#add-menu');
  if(addMenu&&!addMenu.querySelector('#add-menu-niche')){
@@ -136,10 +138,10 @@ export function withNichePlacement(api,mount){
  controller.startNichePlacement=start;controller.cancelNichePlacement=stop;
  controller.getNichePlacementState=()=>({active:!!active,controlsEnabled:controls.enabled,valid:!!preview?.niche&&!preview.error,error:preview?.error||'',niche:preview?.niche||null});
  controller.setNicheGuidesVisible=setGuides;
- controller.getNicheGuideState=()=>({enabled:guidesEnabled,count:[...guides.values()].filter(g=>!g.preview).length,preview:[...guides.values()].some(g=>g.preview),depthTested:[...guides.values()].every(g=>g.group.children.every(line=>line.material.depthTest))});
- controller.getState=()=>({...oldState(),nicheGuidesVisible:guidesEnabled});
+ controller.getNicheGuideState=()=>({enabled:guidesEnabled,editingId,count:[...guides.values()].filter(g=>!g.preview).length,visible:[...guides.values()].filter(g=>g.group.visible).length,preview:[...guides.values()].some(g=>g.preview),depthTested:[...guides.values()].every(g=>g.group.children.every(line=>line.material.depthTest))});
+ controller.getState=()=>({...oldState()});
  controller.renderContext=(parent,target)=>{const result=oldRender(parent,target);const button=parent.querySelector?.('#context-add-niche');if(button)button.onclick=start;return result;};
  controller.updateVisibility=(...args)=>{oldVisibility(...args);update();};
- controller.restore=(data,...args)=>{stop();guidesEnabled=data?.nicheGuidesVisible!==false;const result=oldRestore(data,...args);update();return result;};
+ controller.restore=(data,...args)=>{stop();editingId=null;guidesEnabled=true;const result=oldRestore(data,...args);update();return result;};
  return controller;
 }

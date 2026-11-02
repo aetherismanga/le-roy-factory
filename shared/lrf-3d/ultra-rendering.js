@@ -15,4 +15,21 @@ export function createUltraPipeline(renderer,scene,camera){
  composer.addPass(beauty);composer.addPass(ao);composer.addPass(output);composer.addPass(antialias);
  return {composer,ao,resize(width,height,ratio){composer.setPixelRatio(ratio);composer.setSize(width,height);ao.setSize(Math.max(1,Math.round(width*ratio*.5)),Math.max(1,Math.round(height*ratio*.5)));antialias.material.uniforms.resolution.value.set(1/(width*ratio),1/(height*ratio));},render(dt){composer.render(dt);},dispose(){ao.dispose();ao.gtaoMaterial.dispose();ao.blendMaterial.dispose();output.dispose();antialias.dispose();beauty.dispose();composer.dispose();}};
 }
-export function applyArchitecturalGlass(scene,lightweight){if(!scene)return;scene.traverse(o=>{if(!o.isMesh)return;for(const m of Array.isArray(o.material)?o.material:[o.material]){if(!m?.userData?.architecturalGlass)continue;const transmission=lightweight?0:.82,opacity=lightweight?.25:1;if(m.transmission!==transmission||m.opacity!==opacity){m.transmission=transmission;m.opacity=opacity;m.needsUpdate=true;}}});}
+// A scene may contain several physical glazing recipes and many panes may
+// share one material. Capture the native recipe only on entry into Light;
+// repeated traversal must never capture the already simplified values.
+const lightweightGlassState=new WeakMap();
+export function applyArchitecturalGlass(scene,lightweight){
+ if(!scene)return;
+ scene.traverse(object=>{
+  if(!object.isMesh)return;
+  for(const material of Array.isArray(object.material)?object.material:[object.material]){
+   if(!material?.userData?.architecturalGlass)continue;
+   let native=lightweightGlassState.get(material);
+   if(lightweight){if(!native){native={transmission:material.transmission,opacity:material.opacity};lightweightGlassState.set(material,native);}}
+   else{if(!native)continue;lightweightGlassState.delete(material);}
+   const transmission=lightweight?0:native.transmission,opacity=lightweight?.25:native.opacity;
+   if(material.transmission!==transmission||material.opacity!==opacity){material.transmission=transmission;material.opacity=opacity;material.needsUpdate=true;}
+  }
+ });
+}

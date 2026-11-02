@@ -61,6 +61,15 @@ test('both workshops preserve visibility, saved settings and existing prop place
  assert.equal(asset.root.getObjectByName('Accessoires_decoratifs').visible,false);
 });
 
+test('the Trixie towel follows the integrated manufacturer slot instead of floating in front of it',()=>{
+ for(const decorate of [studioDecor,generalDecor]){
+  const asset={root:new T.Group()};decorate(asset,'washstand',{reference:'TR443'});
+  const towel=asset.root.getObjectByName('Serviette_suspendue'),bounds=new T.Box3().setFromObject(towel);
+  assert.equal(towel.position.z,.003);assert(bounds.max.z<.016,'Towel lies against the ceramic slot at z≈−5mm');
+  assert(Math.abs(bounds.max.y-.045)<1e-6,'Upper textile edge crosses the lower bar of the towel opening');
+ }
+});
+
 
 test('a document without Canvas2D keeps the bottle usable while a real context retains its sharp label',async()=>{
  const previous=globalThis.document;

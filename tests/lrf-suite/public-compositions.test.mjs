@@ -12,7 +12,9 @@ const clones=value=>JSON.parse(JSON.stringify(value));
 const sceneKeys=['version','room','renovation','floor','walls','lighting','brightness','profiles','plinths','tileLoss','temperature','layouts','views','items'];
 // These fingerprints were computed from the exact attached exports before
 // publication. Ignore only identity/lock/editor flags, never scene geometry,
-// materials, quantities, physical references, openings or user layout.
+// materials, quantities, physical references or openings. The one explicit
+// General layout correction below is checked separately, then reversed only
+// for comparison with the unchanged original export fingerprint.
 const thumbnailHashes={'lrf-expo-studio-one':'3c5c4681ebfe2abc12f75b0120e5bccd1f6e39788451ae3a840fd4cc34f0d7ea','lrf-expo-general':'85fddf0f83f72f77d8de5eeac4036e69e3cf4e94d3d9cad7bc3bc4db6670005e'};
 const originalSceneHashes={
  'lrf-expo-studio-one':'e3960ad65545c9daebe452d7d35e600dd7d7405b93125ca00a40dde0557ce63f',
@@ -33,7 +35,15 @@ test('public catalogue keeps both attached bathroom scenes and original thumbnai
  for(const name of ['ownerKey','customer','client','siteReference','comment','lrfPlanPose','positionUnlocked','purchaseHT','totalPurchaseHT','proHT'])assert(!serialized.includes('"'+name+'"'),name+' must not be published');
  assert(!/LRF-00317|LOCAL-20261025|FEC09EE7|D8FF8C78|project-[a-f0-9]{8}-/.test(serialized));
  for(const descriptor of PUBLIC_COMPOSITIONS){
-  const project=publicCompositionProject(descriptor.id);assert.equal(fingerprint(project),originalSceneHashes[descriptor.id]);assert.equal(publicComposition(descriptor.id),descriptor);
+  const project=publicCompositionProject(descriptor.id),original=clones(project);
+  if(descriptor.id==='lrf-expo-general'){
+   const tap=original.items.find(item=>item.id==='object-lrf-expo-general-05');
+   // The refined island body clipped the bathtub end by 24.4 mm. Moving 3 cm
+   // is the smallest whole-centimetre correction with a positive clearance
+   // (u=45 still collides; u=44 leaves 5.6 mm). Keep every other scene value.
+   assert.deepEqual(tap.placement,{wall:3,u:44,height:0,offset:25,rotation:90});tap.placement.u=47;
+  }
+  assert.equal(fingerprint(original),originalSceneHashes[descriptor.id]);assert.equal(publicComposition(descriptor.id),descriptor);
   const thumbnail=readFileSync(new URL('../../shared/lrf-3d/media/public-compositions/'+descriptor.id+'.webp',import.meta.url));assert.equal(thumbnail.subarray(0,4).toString(),'RIFF');assert.equal(thumbnail.subarray(8,12).toString(),'WEBP');assert(thumbnail.length>3000);assert.equal(createHash('sha256').update(thumbnail).digest('hex'),thumbnailHashes[descriptor.id]);
  }
  assert.equal(publicComposition('missing'),null);assert.throws(()=>publicCompositionProject('missing'),/introuvable/);
@@ -44,7 +54,7 @@ test('previews are independently locked and copies get fresh editable identities
   const preview=publicCompositionProject(entry.id),baseline=clones(preview),copy=publicCompositionProject(entry.id,{copy:true}),other=publicCompositionProject(entry.id,{copy:true});
   assert(preview.renovation.locked);assert(entities(preview).every(entity=>entity.locked===true));assert.equal(copy.renovation.locked,false);assert(entities(copy).every(entity=>entity.locked===false));
   const originals=new Set(entities(preview).map(entity=>entity.id)),copyIDs=new Set(entities(copy).map(entity=>entity.id));assert.equal(copyIDs.size,entities(copy).length);assert(entities(copy).every(entity=>!originals.has(entity.id)));assert(entities(other).every(entity=>!copyIDs.has(entity.id)));
-  assert.equal(fingerprint(copy),originalSceneHashes[entry.id]);
+  assert.equal(fingerprint(copy),fingerprint(baseline));
   for(const screen of copy.items.filter(item=>item.type==='screen'))assert(copy.items.some(item=>item.type==='shower'&&item.id===screen.settings.trayId));
   for(const key of Object.keys(copy.profiles?.overrides||{}))if(key.startsWith('bath-'))assert(copy.items.some(item=>item.type==='bath'&&key.startsWith('bath-'+item.id+'|')));
   for(const niche of copy.room.niches||[])assert(/^niche-[a-z0-9-]{1,70}$/i.test(niche.id));

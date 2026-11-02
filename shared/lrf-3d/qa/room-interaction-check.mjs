@@ -47,7 +47,7 @@ for(const exclusions of [{'boundary-0':[[50,20]]},{'boundary-0':[[0,Infinity]]},
 for(const app of apps){
  const opening=app.openings.makeOpening('window',{width:120,height:100});const panes=[];
  opening.root.traverse(o=>{if(o.material?.userData?.architecturalGlass)panes.push(o);});
- assert.equal(panes.length,2);assert(panes.every(p=>p.castShadow===false),'Clear glass does not cast opaque daylight shadows');
+ assert.equal(panes.length,4,'Two glass panes per sash');assert(panes.every(p=>p.castShadow===false),'Clear glass does not cast opaque daylight shadows');
  const geometries=new Set(),materials=new Set();opening.root.traverse(o=>{if(o.geometry)geometries.add(o.geometry);if(o.material)for(const m of Array.isArray(o.material)?o.material:[o.material])materials.add(m);});for(const g of geometries)g.dispose();for(const m of materials)m.dispose();
 }
 // Exercise the real cold-start lock control through both renovation adapters.

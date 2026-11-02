@@ -1,8 +1,10 @@
 import * as T from 'three';
 import {MIRROR_METALS} from './mirrors.js';
+import {METAL_FINISHES,metalMaterial} from './taps.js';
+import {isNicheProfileFinish,nicheProfileEdges} from './niche-profile-options.js';
 export function buildProfiles(room,settings={},finishes=[],items=[]){
  const group=new T.Group();group.name='Profiles_alu';const parts=[],details=[],entries=[],materials=new Map();
- const material=color=>{if(!materials.has(color)){const hex=MIRROR_METALS.find(m=>m.id===color)?.hex||MIRROR_METALS[1].hex;materials.set(color,new T.MeshStandardMaterial({color:hex,metalness:.85,roughness:.28}));}return materials.get(color);};
+ const material=color=>{if(!materials.has(color)){const finish=METAL_FINISHES.find(m=>m.id===color);const hex=MIRROR_METALS.find(m=>m.id===color)?.hex||MIRROR_METALS[1].hex;materials.set(color,finish?metalMaterial(finish.id):new T.MeshStandardMaterial({color:hex,metalness:.85,roughness:.28}));}return materials.get(color);};
  const strip=(parent,a,b,kind,defaultOn=true,options={})=>{const from=new T.Vector3(...a),to=new T.Vector3(...b),length=from.distanceTo(to);if(length<.03)return;const key=parent.userData.profileKey||'wall-'+parent.userData.wallIndex,id=key+'|'+kind+'|'+a.map(v=>v.toFixed(3)).join(',')+'|'+b.map(v=>v.toFixed(3)).join(','),override=settings.overrides?.[id],enabled=options.own?!!options.enabled:override?.enabled??(options.enabled??(!!settings.enabled&&defaultOn)),color=(options.own?options.color:override?.color||options.color)||settings.color||'Argent',g=new T.Group();g.position.copy(from);g.quaternion.setFromUnitVectors(new T.Vector3(0,1,0),to.clone().sub(from).normalize());g.name='Profile_'+kind;g.userData.editTarget='profile:'+id;parent.add(g);entries.push({id,kind,length,enabled,color});
  if(enabled&&options.inlay){const o=new T.Mesh(new T.BoxGeometry(.008,length,.0012),material(color));o.position.set(0,length/2,-.001);o.castShadow=o.receiveShadow=true;g.add(o);parts.push(length);details.push({id,kind,length,color});}
  else if(enabled){const w=.01,t=.0012;for(const [x,z,ww,dd]of [[0,w/2,t,w],[w/2,0,w,t]]){const o=new T.Mesh(new T.BoxGeometry(ww,length,dd),material(color));o.position.set(x,length/2,z);o.castShadow=o.receiveShadow=true;g.add(o);}parts.push(length);details.push({id,kind,length,color});}
@@ -25,7 +27,8 @@ export function buildProfiles(room,settings={},finishes=[],items=[]){
    const carrier=new T.Group();carrier.userData.profileKey='niche-'+n.id;carrier.userData.editTarget='niche:'+n.id;local.add(carrier);
    const l=(n.u-n.width/2)/100,r=(n.u+n.width/2)/100,b=n.bottom/100,t=(n.bottom+n.height)/100;
    const edges={left:[[l,b,0],[l,t,0]],right:[[r,b,0],[r,t,0]],bottom:[[l,b,0],[r,b,0]],top:[[l,t,0],[r,t,0]]};
-   for(const [edge,[a,z]]of Object.entries(edges)){const own=n.profileEdges?.[edge];strip(carrier,a,z,'niche_'+edge,false,{own:own!==undefined,enabled:!!own&&own!=='none',color:own&&own!=='none'?own:undefined,inlay:true});}
+   const choices=nicheProfileEdges(n);
+   for(const [edge,[a,z]]of Object.entries(edges)){const own=choices[edge];strip(carrier,a,z,'niche_'+edge,false,{own:own!==undefined,enabled:!!own&&own!=='none',color:own&&own!=='none'?own:undefined,inlay:true});}
   }
   // A vertical decorative zone is the tiled column/band. Its edge profiles use
   // the same hit targets, overrides and inspector as partition edge profiles.
@@ -50,7 +53,9 @@ export function updateAttachedProfile({room,config,finishes},id,patch){
  if(key.startsWith('niche-')&&kind.startsWith('niche_')){const nicheId=key.slice(6);source=config?.niches?.find(n=>n.id===nicheId);if(!source)return false;copies=(room?.walls||[]).flatMap(w=>(w.niches||[]).filter(n=>n.id===nicheId));}
  else if(key.startsWith('zone-')&&kind.startsWith('colonne_carrelage_')){const zoneId=key.slice(5);source=(finishes||[]).flatMap(f=>f?.zones||[]).find(z=>z.id===zoneId);if(!source)return false;}
  else return false;
- const edges={...source.profileEdges};
- if(patch===null)delete edges[edge];else{if(patch.color&&!['Argent','Noir','Doré','Bronze'].includes(patch.color))return false;edges[edge]=patch.enabled===false?'none':patch.color||(['Argent','Noir','Doré','Bronze'].includes(edges[edge])?edges[edge]:'Argent');}
- source.profileEdges=edges;for(const copy of copies)copy.profileEdges={...edges};return true;
+ const niche=kind.startsWith('niche_'),allowed=color=>niche?isNicheProfileFinish(color):['Argent','Noir','Doré','Bronze'].includes(color),edges={...source.profileEdges};
+ if(patch===null)delete edges[edge];else{if(patch.color&&!allowed(patch.color))return false;edges[edge]=patch.enabled===false?'none':patch.color||(allowed(edges[edge])?edges[edge]:niche?(source.profileFinish||'Chrome brillant'):'Argent');}
+ // An explicit clicked trim can re-enable a niche whose whole perimeter was off.
+ if(niche&&patch?.enabled!==false&&patch!==null&&source.profileEnabled===false){source.profileEdges=nicheProfileEdges(source);Object.assign(edges,source.profileEdges,{[edge]:patch.color||source.profileFinish||'Chrome brillant'});source.profileEnabled=true;}
+ source.profileEdges=edges;for(const copy of copies){copy.profileEdges={...edges};if(niche&&source.profileEnabled!==undefined)copy.profileEnabled=source.profileEnabled;}return true;
 }
