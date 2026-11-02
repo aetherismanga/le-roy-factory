@@ -1,0 +1,53 @@
+<div id="anima-app">
+  <header class="topbar">
+    <a class="brand" href="https://leroyfactory.fr/configurateurs.html" target="_top" aria-label="Retour aux configurateurs Le Roy Factory"><span class="brand-mark">N</span><span>NEOBATH<span class="brand-line">ANIMA · ATELIER 3D</span></span></a>
+    <div class="project-name-wrap"><input id="project-name" value="Ma composition Anima" aria-label="Nom du projet" maxlength="100"><span id="save-status" role="status">Atelier privé · Jérôme & Coryne</span></div>
+    <div class="top-actions"><button id="home-btn" class="quiet">Mes projets</button><button id="save-btn" class="primary">Enregistrer</button><button id="summary-btn" class="icon-button" aria-label="Ouvrir le récapitulatif">≡</button></div>
+  </header>
+  <main id="workspace" class="workspace">
+    <aside class="config-panel" aria-label="Configuration">
+      <div class="panel-heading"><span class="eyebrow">LA COLLECTION ANIMA</span><h1>Composez votre meuble.</h1><p>Des lignes simples. Votre façon d’habiter.</p></div>
+      <div class="steps" role="tablist" aria-label="Étapes de configuration"><button role="tab" aria-selected="true" data-step="module">1 <span>Meuble</span></button><button role="tab" aria-selected="false" data-step="finish">2 <span>Finition</span></button><button role="tab" aria-selected="false" data-step="equipment">3 <span>Équipement</span></button></div>
+      <section id="step-module" class="step-content">
+        <div class="field"><span class="field-label">Votre façade</span><div id="facade-choice" class="segmented"><button data-facade="PURA" class="active">Pura<span>Lisse</span></button><button data-facade="RIBELLE">Ribelle<span>Cannelée</span></button></div></div>
+        <label class="field">Type de meuble<select id="module-kind"><option value="vanity">Sous-vasque</option><option value="base">Meuble bas</option><option value="wall">Meuble haut</option><option value="column">Colonne</option></select></label>
+        <label class="field">Format<select id="module-select"></select></label>
+        <div id="module-info" class="spec-note"></div>
+        <button id="next-finish" class="primary full">Choisir la finition <span>→</span></button>
+      </section>
+      <section id="step-finish" class="step-content" hidden>
+        <div class="field"><span class="field-label">Finition du meuble</span><div id="finish-choice" class="swatches"></div></div>
+        <div id="finish-caption" class="spec-note"></div>
+        <label class="field" id="handle-field">Poignée<select id="handle-select"><option value="black">Noir</option><option value="chrome">Chrome</option></select></label>
+        <label class="field" id="hinge-field" hidden>Sens d’ouverture<select id="hinge-select"><option value="left">Charnières à gauche</option><option value="right">Charnières à droite</option></select></label>
+        <button id="next-equipment" class="primary full">Choisir l’équipement <span>→</span></button>
+      </section>
+      <section id="step-equipment" class="step-content" hidden>
+        <label class="field">Plan / lavabo<select id="top-select"><option value="">Sans plan / lavabo</option></select></label>
+        <label class="field">Vasque à poser<select id="basin-select"><option value="">Sans vasque à poser</option></select></label>
+        <label class="field">Miroir<select id="mirror-select"><option value="">Sans miroir</option></select></label>
+        <label class="field">Éclairage<select id="light-select"><option value="">Sans éclairage supplémentaire</option></select></label>
+        <label class="field">Accessoire<select id="accessory-select"><option value="">Sans accessoire supplémentaire</option></select></label>
+        <div id="compatibility-note" class="spec-note"></div>
+      </section>
+      <div class="config-footer"><div><span class="eyebrow">PRIX CATALOGUE HT</span><strong id="draft-total">—</strong><small id="draft-ref">Sélectionnez votre format</small></div><button id="add-module" class="primary">Ajouter à la composition</button><button id="update-module" class="secondary" hidden>Appliquer au meuble sélectionné</button></div>
+      <button id="inspiration-btn" class="inspiration-link">Voir les 16 compositions du catalogue <span>↗</span></button>
+    </aside>
+    <section class="scene-panel" aria-label="Composition 3D">
+      <div class="scene-top"><span class="view-label"><span></span> VOTRE COMPOSITION <b id="composition-width">0 cm</b></span><div class="scene-switch segmented"><button data-view="studio" class="active">Studio</button><button data-view="room">Pièce</button></div></div>
+      <div id="viewport"><canvas id="scene-canvas" aria-label="Vue 3D interactive : faites glisser pour tourner et pincez pour zoomer"></canvas><div id="fallback-view" hidden></div><div id="empty-state"><span class="empty-symbol">＋</span><h2>Tout commence par un meuble.</h2><p>Choisissez Pura ou Ribelle, puis ajoutez votre premier élément.</p></div><div id="scene-error" role="status" hidden></div></div>
+      <div class="scene-tools"><button id="front-view" title="Vue de face">Face</button><button id="perspective-view" title="Vue en perspective">Perspective</button><button id="open-all" title="Ouvrir ou fermer les meubles">Ouvrir les meubles</button><button id="room-btn" title="Dimensions et couleurs de la pièce">Ambiance</button><button id="fullscreen-btn" aria-label="Vue plein écran">⛶</button><button id="capture-btn" title="Télécharger la vue">Photo</button></div>
+      <div class="scene-help">Glisser pour tourner · Pincer / molette pour zoomer · Toucher un meuble pour le sélectionner</div>
+      <div id="selection-bar" class="selection-bar" hidden><div><strong id="selection-name"></strong><small id="selection-dimensions"></small></div><div class="selected-controls"><label>X <input id="item-x" type="number" step="1" aria-label="Position horizontale en cm"> cm</label><label>Pose <input id="item-bottom" type="number" step="1" min="0" aria-label="Hauteur de pose en cm"> cm</label><button id="edit-item">Modifier</button><button id="open-item">Ouvrir</button><button id="duplicate-item" aria-label="Dupliquer">Dupliquer</button><button id="remove-item" class="danger" aria-label="Supprimer le meuble">Retirer</button></div></div>
+      <div id="composition-strip" class="composition-strip" aria-label="Éléments de la composition"></div>
+      <div class="scene-bottom"><span id="composition-count">Aucun élément</span><div><span>Catalogue HT</span><strong id="composition-total">0,00 €</strong><button id="summary-bottom" class="primary">Récapitulatif <span>→</span></button></div></div>
+    </section>
+  </main>
+  <nav class="mobile-nav" aria-label="Vues de l’atelier"><button data-mobile="config" class="active">Configurer</button><button data-mobile="scene">Composition 3D</button><button data-mobile="summary">Récapitulatif</button></nav>
+  <dialog id="home-dialog" class="large-dialog"><div class="dialog-head"><div><span class="eyebrow">NEOBATH ANIMA</span><h2>Votre atelier, vos projets.</h2></div><button data-close="home-dialog" class="icon-button" aria-label="Fermer">×</button></div><div class="home-intro"><div><h3>Une composition qui vous ressemble.</h3><p>Choisissez votre façade, habillez votre meuble, puis donnez vie à votre salle de bains.</p><button id="new-project" class="primary">Nouveau projet <span>＋</span></button><button id="import-project" class="secondary">Ouvrir un fichier projet</button><input id="project-file" type="file" accept="application/json,.json" hidden></div><div class="intro-art" aria-hidden="true"><div class="art-mirror"></div><div class="art-basin"></div><div class="art-cabinet"></div><div class="art-shadow"></div></div></div><div class="saved-heading"><h3>Mes projets</h3><span>Enregistrés sur cet appareil</span></div><div id="projects-list" class="projects-list"></div></dialog>
+  <dialog id="summary-dialog" class="large-dialog"><div class="dialog-head"><div><span class="eyebrow">VOTRE COMPOSITION</span><h2 id="summary-title">Récapitulatif Anima</h2></div><button data-close="summary-dialog" class="icon-button" aria-label="Fermer">×</button></div><div id="quote-preview" class="quote-preview"></div><div class="dialog-actions"><button id="export-project" class="secondary">Fichier projet</button><button id="print-quote" class="primary">Imprimer / PDF</button></div></dialog>
+  <dialog id="room-dialog"><div class="dialog-head"><div><span class="eyebrow">VOTRE ENVIRONNEMENT</span><h2>Ambiance & dimensions</h2></div><button data-close="room-dialog" class="icon-button" aria-label="Fermer">×</button></div><div class="room-fields"><label class="field">Largeur (cm)<input id="room-width" type="number" min="150" max="1500" step="10"></label><label class="field">Profondeur (cm)<input id="room-depth" type="number" min="120" max="1500" step="10"></label><label class="field">Hauteur (cm)<input id="room-height" type="number" min="180" max="500" step="5"></label><label class="field">Murs<input id="room-wall" type="color"></label><label class="field">Sol<input id="room-floor" type="color"></label><label class="field">Qualité<select id="quality-select"><option value="normal">Équilibrée</option><option value="minimum">Minimum · petits appareils</option></select></label></div><button id="apply-room" class="primary full">Appliquer l’ambiance</button></dialog>
+  <dialog id="inspiration-dialog" class="large-dialog"><div class="dialog-head"><div><span class="eyebrow">LE CATALOGUE</span><h2>16 façons de vivre Anima.</h2></div><button data-close="inspiration-dialog" class="icon-button" aria-label="Fermer">×</button></div><div id="inspiration-grid" class="inspiration-grid"></div></dialog>
+  <dialog id="photo-dialog" class="photo-dialog"><button data-close="photo-dialog" class="photo-close" aria-label="Fermer l’image">×</button><button id="photo-prev" class="photo-arrow prev" aria-label="Image précédente">‹</button><img id="photo-image" alt="Composition Anima du catalogue"><button id="photo-next" class="photo-arrow next" aria-label="Image suivante">›</button><div id="photo-caption"></div></dialog>
+  <div id="toast" role="status" aria-live="polite" hidden></div>
+</div>

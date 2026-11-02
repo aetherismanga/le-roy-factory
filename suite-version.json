@@ -11,7 +11,7 @@
   ],
   "sharedCatalogueVersion": "20261024-suite-1",
   "publicSite": {
-    "releaseId": "20261102-plan-pose-private-1",
+    "releaseId": "20261102-neobath-anima-private-1",
     "baselineCommit": "0a116a66e4fb03522876be09d417f853bb3b2ed9",
     "pages": [
       "configurateur-salle-de-bain-3d.html",
@@ -147,6 +147,18 @@
       "access": "owner-only",
       "constructionAnimation": true,
       "privateApplicationEndpoint": "https://us-central1-le-roy-factory.cloudfunctions.net/planPoseApplication"
+    },
+    "neobathAnima": {
+      "releaseId": "20261102-neobath-anima-private-1",
+      "page": "neobath-anima-configurateur.html",
+      "access": "agents-only",
+      "modules": 42,
+      "facades": 2,
+      "finishes": 6,
+      "products": 257,
+      "compositions": 16,
+      "projectSync": "shared-agent-private-api",
+      "appSha256": "62682451dab8a024028b24e359a45c69f5e16e6c01ab4e6fa76ee5c85d00632d"
     }
   },
   "configurators": {
@@ -176,6 +188,12 @@
       "backendCommit": "63c3aef5e3e708942d6f5dcd8c4b06b24b6082b8",
       "endpoint": "https://us-central1-le-roy-factory.cloudfunctions.net/planPoseApplication",
       "access": "owner-only"
+    },
+    "neobathAnima": {
+      "releaseId": "20261102-neobath-anima-private-1",
+      "endpoint": "https://us-central1-le-roy-factory.cloudfunctions.net/neobathAnimaApplication",
+      "access": "jerome-coryne-only",
+      "serverTokenRevocationCheck": true
     }
   }
 }
