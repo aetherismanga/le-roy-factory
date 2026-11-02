@@ -1,5 +1,6 @@
 import * as T from 'three';
 import {OPENING_COLORS} from './ral-colors.js';
+import {makeDoorInterior} from './door-interior.js';
 export {OPENING_COLORS};
 const frameHex=value=>OPENING_COLORS.find(c=>c.id===value||c.code===String(value)||'ral-'+c.code===value)?.hex||OPENING_COLORS[0].hex;
 import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js';
@@ -99,15 +100,16 @@ export function makeOpening(type,settings={}){
   box(root,0,.008,z+.025,w+.025,.016,.17,frame,'Appui_fenetre');
   return {root,frame,sashes,windowType:style,setOpenProgress,getOpenProgress:()=>progress,setExteriorAmbience,getExteriorAmbience:()=>ambience,setColor:value=>frame.color.set(frameHex(value))};
  }else{
+  const interior=makeDoorInterior({width:w,height:h});root.add(interior.root);let interiorEnabled=true;
   const door=new T.Group();root.add(door);door.name='Ouvrant_porte';
   box(door,(w-2*f)/2,(h-f-.008)/2+.004,0,w-2*f-.006,h-f-.008,.04,frame,'Vantail_40mm');
   for(const zz of [-.031,.031]){box(door,w-2*f-.075,h*.49,zz,.025,.16,.015,metal,'Plaque_poignee');box(door,w-2*f-.105,h*.49,zz+Math.sign(zz)*.012,.10,.018,.020,metal,'Bequille');}
   for(const y of [.22,h/2,h-.22])box(door,.003,y,-.023,.018,.07,.022,metal,'Paumelle');
   let side='left',progress=0;
-  const pose=()=>{const sign=side==='left'?1:-1;door.scale.x=sign;door.position.set((-w/2+f)*sign,0,z+.013);door.rotation.y=-progress*Math.PI/2*sign;root.updateMatrixWorld(true);};
+  const pose=()=>{const sign=side==='left'?1:-1;door.scale.x=sign;door.position.set((-w/2+f)*sign,0,z+.013);door.rotation.y=-progress*Math.PI/2*sign;interior.setVisible(interiorEnabled&&progress>.001);root.updateMatrixWorld(true);};
   const setHingeSide=value=>{if(!['left','right'].includes(value))return false;side=value;pose();return true;};
   const setOpenProgress=value=>{progress=T.MathUtils.clamp(value,0,1);pose();};setHingeSide(settings.hingeSide||'left');
-  return {root,frame,door,setHingeSide,getHingeSide:()=>side,setOpenProgress,setColor:value=>frame.color.set(frameHex(value))};
+  return {root,frame,door,interior:interior.root,setHingeSide,getHingeSide:()=>side,setOpenProgress,getOpenProgress:()=>progress,setInteriorVisible:value=>{interiorEnabled=!!value;interior.setVisible(interiorEnabled&&progress>.001);},setColor:value=>frame.color.set(frameHex(value))};
  }
  return {root,frame,setColor:value=>frame.color.set(frameHex(value))};
 }

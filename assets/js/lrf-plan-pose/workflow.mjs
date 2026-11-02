@@ -41,8 +41,8 @@ export function publicQuote(rows,project){
   const g=floorGroups.get(key),needed=Number.isFinite(x.needed)?x.needed:x.orderArea;g.rows.push({row:x,needed});g.needed+=needed;
   const p=x.plinths;plinthQuantities.set(x,p?.type==='tile'?0:p?.order||0);
   if(!p||p.type==='tile'||!p.units)continue;
-  const product=p.product,unit=p.type==='wood'?'barre':product?.priceUnit||'pièce',price=p.purchaseHT??product?.purchaseHT??null,pk=[p.type,p.type==='wood'?'wood-220':product?.reference,product?.length,product?.packPieces,unit,price].join('|');
-  if(!plinthGroups.has(pk))plinthGroups.set(pk,{type:p.type,product,length:p.type==='wood'?220:product?.length,rows:[],needed:0});
+  const product=p.product,unit=p.type==='wood'?'barre':product?.priceUnit||'pièce',price=p.purchaseHT??product?.purchaseHT??null,pk=[p.type,p.type==='wood'?'wood-220-'+(p.finish||'white'):product?.reference,product?.length,product?.packPieces,unit,price].join('|');
+  if(!plinthGroups.has(pk))plinthGroups.set(pk,{type:p.type,...(p.type==='wood'?{finish:p.finish||'white'}:{}),product,length:p.type==='wood'?220:product?.length,rows:[],needed:0});
   const pg=plinthGroups.get(pk),stock=p.stockNeeded??p.units;pg.rows.push({row:x,needed:stock});pg.needed+=stock;
  }
  const allocate=(group,quantity,target)=>{let used=0;for(const [i,entry]of group.rows.entries()){const value=i===group.rows.length-1?quantity-used:group.needed>0?quantity*entry.needed/group.needed:0;target.set(entry.row,value);used+=value;}};

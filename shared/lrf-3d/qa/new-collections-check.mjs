@@ -14,10 +14,18 @@ const product=reference=>{const matches=catalogue.products.filter(p=>p.reference
 const privateKey=/^(?:purchase|publicPriceHT|unitPriceHT|totalPurchaseHT|proHT)/i;
 function assertPublic(value){if(!value||typeof value!=='object')return;for(const [key,item]of Object.entries(value)){assert(!privateKey.test(key),'No purchasing field in public collection: '+key);assertPublic(item);}}
 
-// Read WebP container dimensions without an image/browser dependency. This
+// Read native JPEG/WebP dimensions without an image/browser dependency. This
 // checks the actual shipped pixels, not only a declaration in catalogue JSON.
 function imageDimensions(file){
- const bytes=readFileSync(file);assert(bytes.length>20,'Nonempty WebP asset: '+file);assert.equal(bytes.toString('ascii',0,4),'RIFF','RIFF header: '+file);assert.equal(bytes.toString('ascii',8,12),'WEBP','WebP header: '+file);
+ const bytes=readFileSync(file);assert(bytes.length>20,'Nonempty image asset: '+file);
+ if(bytes[0]===0xff&&bytes[1]===0xd8){
+  for(let offset=2;offset+4<bytes.length;){assert.equal(bytes[offset],0xff);const marker=bytes[offset+1],length=bytes.readUInt16BE(offset+2);
+   if([0xc0,0xc1,0xc2,0xc3,0xc5,0xc6,0xc7,0xc9,0xca,0xcb,0xcd,0xce,0xcf].includes(marker))return [bytes.readUInt16BE(offset+7),bytes.readUInt16BE(offset+5)];
+   assert(length>=2);offset+=2+length;
+  }
+  throw Error('JPEG dimensions missing: '+file);
+ }
+ assert.equal(bytes.toString('ascii',0,4),'RIFF','RIFF header: '+file);assert.equal(bytes.toString('ascii',8,12),'WEBP','WebP header: '+file);
  for(let offset=12;offset+8<=bytes.length;){const type=bytes.toString('ascii',offset,offset+4),length=bytes.readUInt32LE(offset+4),at=offset+8;
   if(type==='VP8X')return [bytes.readUIntLE(at+4,3)+1,bytes.readUIntLE(at+7,3)+1];
   if(type==='VP8L'){assert.equal(bytes[at],0x2f);const bits=bytes.readUInt32LE(at+1);return [(bits&0x3fff)+1,((bits>>>14)&0x3fff)+1];}
@@ -28,7 +36,7 @@ function imageDimensions(file){
 }
 const files=new Set();
 function asset(url){
- const parsed=new URL(url);assert.equal(parsed.origin,'https://leroyfactory.fr');assert(parsed.pathname.startsWith('/assets/img/lrf-plan-pose/faces/elios-20261024/'));
+ const parsed=new URL(url);assert.equal(parsed.origin,'https://leroyfactory.fr');assert(parsed.pathname.startsWith('/assets/img/lrf-plan-pose/faces/elios-20261024/')||parsed.pathname==='/assets/img/lrf-plan-pose/faces/elios-20261102/terraforma/04t33d3-petra-original.jpg');
  const relative=decodeURIComponent(parsed.pathname.slice(1)),file=resolve(root,relative);assert(file.startsWith(resolve(root,'assets')+sep));assert(!relative.includes('..'));assert(existsSync(file),'Published asset exists: '+relative);files.add(relative);return {file,size:imageDimensions(file)};
 }
 function identity(collection,color,format,reference){return canonicalSurfaceIdentity({collection,color,format,...(reference?{reference}: {})});}
@@ -62,7 +70,13 @@ assert.match(terra.formats.find(f=>f.id==='5x30').note,/5,2/);
 for(const [i,id]of terraDecors.entries()){
  const c=terra.colors.find(c=>c.id===id);assert(c);assert.deepEqual(c.formats,['30x30']);assert.equal(c.continuousDecor,true);assert.equal(c.textureRotation,0);assert.equal(product('04T33D'+(i+1)).colorId,id);
 }
-for(const c of terra.colors){assert.equal(identity('Terraforma',c.id,c.formats[0]).fidelity,'catalogue-preview');assert.equal(c.nativeFaces,false);assert.equal(c.textureProvenance.generated,false);assert.equal(c.textureProvenance.hd,false);c.faces.forEach((url,index)=>{const {size}=asset(url),native=c.textureProvenance.faces[index];assert.deepEqual(size,[native.width,native.height]);assert(Math.max(...size)<=(c.kind==='decor'?222:131),'No native sample is upscaled');});}
+for(const c of terra.colors){
+ const productImage=c.id==='petra';assert.equal(identity('Terraforma',c.id,c.formats[0]).fidelity,productImage?'product-platform-image':'catalogue-preview');assert.equal(c.nativeFaces,false);assert.equal(c.textureProvenance.generated,false);assert.equal(c.textureProvenance.hd,false);
+ c.faces.forEach((url,index)=>{const {size,file}=asset(url),native=c.textureProvenance.faces[index];assert.deepEqual(size,[native.width,native.height]);
+  if(productImage){assert.deepEqual(size,[1000,1000]);assert.equal(createHash('sha256').update(readFileSync(file)).digest('hex'),c.textureProvenance.sourceSha256);assert.equal(c.textureProvenance.resizedByAgent,false);assert.equal(c.textureProvenance.reference,'04T33D3');}
+  else assert(Math.max(...size)<=(c.kind==='decor'?222:131),'No native sample is upscaled');
+ });
+}
 
 const dyn=COLLECTIONS.Dynasty,decorRefs=['04N3D01','04N3D02','04N3D03','04N3D04','04N3D05','04N3D06','04N3D07'];
 for(const ref of decorRefs){const p=product(ref),color=dyn.colors.find(c=>c.id===p.colorId);assert(color);assert(availableColors('Dynasty').some(c=>c.id===color.id));assert.equal(p.format,'30x30');assert(p.finish.startsWith('3D Honed'));assert.equal(p.packPieces,11);assert.equal(p.packArea,.99);assert.deepEqual(color.decorRepeat,{columns:2,rows:2});assert.equal(color.continuousDecor,true);assert.equal(color.nativeFaces,false);assert(color.nativePerTileResolution.every(n=>n>=370&&n<=375));assert.equal(identity('Dynasty',color.id,'30x30',ref).fidelity,'catalogue-preview');const actual=asset(color.file).size;assert.deepEqual(actual,color.resolution);assert(actual.every(n=>n>=740&&n<=751));assert.deepEqual(color.nativePerTileResolution,actual.map(n=>Math.floor(n/2)));}
@@ -84,4 +98,4 @@ const planCatalogue=JSON.parse(readFileSync(resolve(root,'assets/js/lrf-plan-pos
 for(const row of [...planCatalogue.products,...planCatalogue.plinths])for(const key of ['purchaseHT','purchasePaletteHT','publicPriceHT'])assert.equal(row[key],null,'Legacy unknown-price slots remain explicitly null');
 function noPrivateValues(value){if(!value||typeof value!=='object')return;for(const [key,item]of Object.entries(value)){if(privateKey.test(key))assert.equal(item,null,'No private purchase value is published');else noPrivateValues(item);}}
 noPrivateValues(planCatalogue);
-console.log(JSON.stringify({passed:true,verifiedAssetFiles:files.size,checks:['three Stone Icon colours, exact per-format finishes and manufacturer packaging','Terraforma bases, four continuous decors and nominal-size discrepancy','seven Dynasty Honed decors preserve their 2x2 physical repeat','all reviewed colours selectable with honest catalogue-preview provenance','18 Yosemite SKUs, real compatible chevrons and four eight-face reconstructions','native WebP dimensions preserve manufacturer samples without upscaling','all public prices remain null and no private purchasing fields exist']},null,2));
+console.log(JSON.stringify({passed:true,verifiedAssetFiles:files.size,checks:['three Stone Icon colours, exact per-format finishes and manufacturer packaging','Terraforma bases, four continuous decors and nominal-size discrepancy','seven Dynasty Honed decors preserve their 2x2 physical repeat','all reviewed colours selectable with catalogue or product-platform provenance','18 Yosemite SKUs, real compatible chevrons and four eight-face reconstructions','native JPEG/WebP dimensions preserve source pixels without upscaling','all public prices remain null and no private purchasing fields exist']},null,2));

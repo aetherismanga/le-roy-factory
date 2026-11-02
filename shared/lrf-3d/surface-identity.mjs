@@ -45,7 +45,7 @@ export function canonicalSurfaceIdentity(tile,{products,usage}={}){
  if(format&&!definition.formats.some(item=>item.id===format))throw Error('Format non reconnu pour '+definition.name+' : '+format+'.');
  const choice=definition.colors.find(item=>item.id===color),reference=requested?.reference||tile.reference||'';
  if(usage&&choice.exportable===false)throw Error('Le visuel 3D de '+definition.name+' '+choice.name+' n’est pas validé. Le plan et sa référence sont conservés.');
- const fidelity=choice.textureProvenance?.kind==='ai-reconstruction'?'ai-reconstruction':choice.definitionLimited===true&&choice.previewReviewed===true?'catalogue-preview':choice.references?.includes(reference)?'reference-verified':sourceColorId!==color?'color-preview':'manufacturer-face';
+ const preview=choice.referencePreviews?.[reference],fidelity=preview?.format===format&&preview.kind==='product-platform-image'?'product-platform-image':choice.textureProvenance?.kind==='ai-reconstruction'?'ai-reconstruction':choice.textureProvenance?.kind==='product-platform-image'?'product-platform-image':choice.definitionLimited===true&&choice.previewReviewed===true?'catalogue-preview':choice.references?.includes(reference)?'reference-verified':sourceColorId!==color?'color-preview':'manufacturer-face';
  return {collection:definition.name,color,colorId:color,sourceColorId,format,reference,catalogueKey:requested?.key||key,finish:requested?.finish||tile.finish||'',fidelity,contractVersion:contract.version};
 }
 

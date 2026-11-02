@@ -1,4 +1,5 @@
 import {normalizeTopDrawer} from '../../shared/lrf-3d/drawer-options.js';
+import {drawerFrontAttachment,drawerFloorOutline} from '../../shared/lrf-3d/drawer-joinery.js';
 import {resolveBasinLayout,basinReference} from './basins.js';
 import {makeBlackLeg,DRAWER_METAL} from './cabinet-hardware.js';
 import {basinCenters} from './integrated-basins.js';
@@ -63,17 +64,18 @@ export function makeModel({width=.80,includeMirror=true,basinLayout,basinTop='se
   const group=new T.Group();group.name=i===0?'Tiroir_superieur_avec_passage_siphon':'Tiroir_inferieur';cabinet.add(group);drawers.push(group);
   const cell=H/form.drawers,cy=B+H-(i+.5)*cell-(i===0?0:.001),h=cell-.008;
   const front=mesh(facade(frontWidth,h),frontWood,'Facade_onglet_45deg_19mm',group,0,cy,.2205);woodUV(front);frontMeshes.push(front);
+  const attachment=drawerFrontAttachment(front.position.z,.019);
   const bottom=B+H-(i+1)*cell+(i===0?.031:.035);const dh=form.id==='two'?(i===0?.107:.148):Math.min(.23,cell*.55);
   // Rebuild only the floor and rear walls; fronts, sides and slides stay in place.
   const interior=new T.Group();interior.name='Interieur_tiroir';group.add(interior);
   const rebuildInterior=()=>{
    interior.traverse(o=>{if(o.isMesh)o.geometry.dispose();});interior.clear();
   // Drawer floor is a solid shaped panel with a rear U cut, not a decal.
-  const floor=roundedRect(drawerWidth,.352,.006);
+  const floor=drawerFloorOutline(drawerWidth,attachment.floorRearLocal,attachment.floorFrontLocal,.006);
   if(i===0&&drawerMode!=='full'){
    const path=new T.Shape();path.moveTo(-drawerWidth/2,-.176);
    for(const x of plumbing){path.lineTo(x-.09,-.176);path.lineTo(x-.09,.015);path.quadraticCurveTo(x-.09,.038,x-.066,.038);path.lineTo(x+.066,.038);path.quadraticCurveTo(x+.09,.038,x+.09,.015);path.lineTo(x+.09,-.176);}
-   path.lineTo(drawerWidth/2,-.176);path.lineTo(drawerWidth/2,.176);path.lineTo(-drawerWidth/2,.176);path.closePath();floor.copy(path);
+   path.lineTo(drawerWidth/2,-.176);path.lineTo(drawerWidth/2,attachment.floorFrontLocal);path.lineTo(-drawerWidth/2,attachment.floorFrontLocal);path.closePath();floor.copy(path);
   }
   const fg=new T.ExtrudeGeometry(floor,{depth:.008,bevelEnabled:true,bevelSize:.0005,bevelThickness:.0005,bevelSegments:1,curveSegments:16});fg.rotateX(Math.PI/2);
   mesh(fg,baseMat,'Fond_tiroir_8mm',interior,0,bottom+.008,-.001);
@@ -85,15 +87,15 @@ export function makeModel({width=.80,includeMirror=true,basinLayout,basinTop='se
   else box(drawerWidth,dh,.012,inner,'Dos_tiroir',interior,0,bottom+dh/2,-.171);
   };rebuildInterior();if(i===0)upperInteriors.push(rebuildInterior);
   for(const side of [-1,1]){
-   box(.008,dh,.350,inner,'Flanc_anthracite_8mm',group,side*(W/2-.042),bottom+dh/2,-.001,.002);
-   box(.012,.008,.347,steel,'Chant_coulisse',group,side*(W/2-.043),bottom+.016,-.001);
+   box(.008,dh,attachment.sideDepth,inner,'Flanc_anthracite_8mm',group,side*(W/2-.042),bottom+dh/2,attachment.sideCentre,.002);
+   box(.012,.008,attachment.sideDepth-.003,steel,'Chant_coulisse',group,side*(W/2-.043),bottom+.016,attachment.sideCentre);
    // Fixed, intermediate and moving telescopic rails.
    box(.008,.025,.355,steel,'Coulisse_fixe',cabinet,side*(W/2-.025),bottom-.008,-.004);
    box(.007,.018,.335,dark,'Rail_mobile',group,side*(W/2-.033),bottom-.003,.002);
    for(const z of [-.11,.07])screw(group,side*(W/2-.037),bottom+.038,z,'x');
   }
-  box(drawerWidth,dh,.010,inner,'Contre_facade',group,0,bottom+dh/2,.174);
-  for(const s of [-1,1]){box(.042,.028,.015,dark,'Reglage_facade',group,s*(W/2-.085),bottom+.027,.183);screw(group,s*(W/2-.085),bottom+.027,.192);}
+  box(drawerWidth,dh,attachment.counterThickness,inner,'Contre_facade',group,0,bottom+dh/2,attachment.counterCentre);
+  for(const s of [-1,1]){box(.042,.028,.015,dark,'Reglage_facade',group,s*(W/2-.085),bottom+.027,attachment.adjustmentCentre);screw(group,s*(W/2-.085),bottom+.027,attachment.adjustmentScrew);}
  }
  for(const s of [-1,1]){
   box(.05,.044,.025,steel,'Fixation_murale_reglable',cabinet,s*(W/2-.058),topY-.044,-.2);

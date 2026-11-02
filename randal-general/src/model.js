@@ -1,4 +1,5 @@
 import {normalizeTopDrawer} from '../../shared/lrf-3d/drawer-options.js';
+import {drawerFrontAttachment,drawerFloorOutline} from '../../shared/lrf-3d/drawer-joinery.js';
 import {resolveBasinLayout,basinReference} from './basins.js';
 import {basinCenters} from './integrated-basins.js';
 import {createIntegratedBasin} from './ceramic-basins.js';
@@ -45,6 +46,7 @@ export function makeModel({width=.80,includeMirror=true,basinLayout,basinTop='se
    const bayWidth=bay.width,drawerWidth=bayWidth-2*panelSize-.044,x=bay.x;
    const frontWidth=bayWidth-(form.collection==='brunei'?2*panelSize+.004:.004);
    const front=mesh(new RoundedBoxGeometry(frontWidth,row.height,panelSize,3,.0006),frontWood,form.collection==='harmony'?'Facade_droite_16mm':'Facade_'+form.collection,group,x,row.y,row.z);woodUV(front);front.userData.joinery={width:frontWidth,height:row.height,top:row.y+row.height/2,bayWidth};frontMeshes.push(front);
+   const attachment=drawerFrontAttachment(front.position.z,panelSize);
    const bottom=row.bottom+.031,dh=Math.min(form.collection==='amat'&&i===0?.08:.15,row.height-.044);
    // Rebuild only the floor and rear walls; fronts, sides and slides stay in place.
    const interior=new T.Group();interior.name='Interieur_tiroir';group.add(interior);
@@ -52,9 +54,9 @@ export function makeModel({width=.80,includeMirror=true,basinLayout,basinTop='se
     interior.traverse(o=>{if(o.isMesh)o.geometry.dispose();});interior.clear();
    // One shared anthracite metal drawer system: a real rear U cut in
    // the top drawer and a rounded dark organiser, as in the catalogue photos.
-   const floor=roundedRect(drawerWidth,.352,.004);
+   const floor=drawerFloorOutline(drawerWidth,attachment.floorRearLocal,attachment.floorFrontLocal,.004);
    const cutWidth=Math.min(.15,drawerWidth*.38),cut=cutWidth/2,cutX=T.MathUtils.clamp(plumbing.reduce((a,b)=>Math.abs(b-x)<Math.abs(a-x)?b:a)-x,-drawerWidth/2+cut+.016,drawerWidth/2-cut-.016);
-   if(i===0&&drawerMode!=='full'&&plumbing.some(cx=>Math.abs(cx-x)<bayWidth/2)){const path=new T.Shape();path.moveTo(-drawerWidth/2,-.176);path.lineTo(cutX-cut,-.176);path.lineTo(cutX-cut,-.018);path.quadraticCurveTo(cutX-cut,.006,cutX-cut+.024,.006);path.lineTo(cutX+cut-.024,.006);path.quadraticCurveTo(cutX+cut,.006,cutX+cut,-.018);path.lineTo(cutX+cut,-.176);path.lineTo(drawerWidth/2,-.176);path.lineTo(drawerWidth/2,.176);path.lineTo(-drawerWidth/2,.176);path.closePath();floor.copy(path);}
+   if(i===0&&drawerMode!=='full'&&plumbing.some(cx=>Math.abs(cx-x)<bayWidth/2)){const path=new T.Shape();path.moveTo(-drawerWidth/2,-.176);path.lineTo(cutX-cut,-.176);path.lineTo(cutX-cut,-.018);path.quadraticCurveTo(cutX-cut,.006,cutX-cut+.024,.006);path.lineTo(cutX+cut-.024,.006);path.quadraticCurveTo(cutX+cut,.006,cutX+cut,-.018);path.lineTo(cutX+cut,-.176);path.lineTo(drawerWidth/2,-.176);path.lineTo(drawerWidth/2,attachment.floorFrontLocal);path.lineTo(-drawerWidth/2,attachment.floorFrontLocal);path.closePath();floor.copy(path);}
    const fg=new T.ExtrudeGeometry(floor,{depth:.008,bevelEnabled:true,bevelSize:.0005,bevelThickness:.0005,bevelSegments:1,curveSegments:12});fg.rotateX(Math.PI/2);
    woodUV(mesh(fg,baseMat,'Fond_tiroir_8mm',interior,x,bottom+.008,-.001));
    if(i===0&&drawerMode!=='full'&&plumbing.some(cx=>Math.abs(cx-x)<bayWidth/2)){
@@ -75,15 +77,15 @@ export function makeModel({width=.80,includeMirror=true,basinLayout,basinTop='se
    };rebuildInterior();if(i===0)upperInteriors.push(rebuildInterior);
    for(const side of [-1,1]){
     const sx=x+side*(bayWidth/2-panelSize-.014);
-    box(.008,dh,.350,sideMat,'Flanc_aluminium_8mm',group,sx,bottom+dh/2,-.001,.002);
-    box(.009,.003,.350,sideMat,'Chant_arrondi_flanc',group,sx,bottom+dh,-.001,.001);
-    box(.010,.007,.347,steel,'Chant_coulisse',group,sx,bottom+.016,-.001);
+    box(.008,dh,attachment.sideDepth,sideMat,'Flanc_aluminium_8mm',group,sx,bottom+dh/2,attachment.sideCentre,.002);
+    box(.009,.003,attachment.sideDepth,sideMat,'Chant_arrondi_flanc',group,sx,bottom+dh,attachment.sideCentre,.001);
+    box(.010,.007,attachment.sideDepth-.003,steel,'Chant_coulisse',group,sx,bottom+.016,attachment.sideCentre);
     box(.008,.025,.355,steel,'Coulisse_fixe',cabinet,x+side*(bayWidth/2-panelSize-.006),bottom-.008,-.004);
     box(.007,.018,.335,dark,'Rail_mobile',group,sx,bottom-.003,.002);
     for(const z of [-.11,.07])screw(group,sx-side*.004,bottom+.038,z,'x');
    }
-   box(drawerWidth,dh,.010,inner,'Contre_facade',group,x,bottom+dh/2,.174);
-   for(const sign of [-1,1]){box(.042,.028,.015,dark,'Reglage_facade',group,x+sign*(drawerWidth/2-.025),bottom+.027,.183);screw(group,x+sign*(drawerWidth/2-.025),bottom+.027,.192);}
+   box(drawerWidth,dh,attachment.counterThickness,inner,'Contre_facade',group,x,bottom+dh/2,attachment.counterCentre);
+   for(const sign of [-1,1]){box(.042,.028,.015,dark,'Reglage_facade',group,x+sign*(drawerWidth/2-.025),bottom+.027,attachment.adjustmentCentre);screw(group,x+sign*(drawerWidth/2-.025),bottom+.027,attachment.adjustmentScrew);}
   }
  }
  for(const s of [-1,1]){

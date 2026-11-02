@@ -42,6 +42,17 @@ export function withDefaultNicheProfiles(niche,finish='Chrome brillant',prior=nu
  return {...niche,profileEnabled:true,profileFinish,profileEdges:Object.fromEntries(NICHE_PROFILE_EDGES.map(edge=>[edge,profileFinish]))};
 }
 
+// A validated perimeter now has one finish and either all four trims or none.
+// Reading a legacy project still uses its stored edge choices until validation.
+export function nichePerimeterFinish(niche,fallback='Chrome brillant'){
+ if(isNicheProfileFinish(niche?.profileFinish))return niche.profileFinish;
+ return NICHE_PROFILE_EDGES.map(edge=>niche?.profileEdges?.[edge]).find(isNicheProfileFinish)||nicheMetalFinish(fallback);
+}
+export function withNichePerimeterProfiles(niche,{enabled=nicheProfilesEnabled(niche),finish=nichePerimeterFinish(niche)}={}){
+ const profileFinish=isNicheProfileFinish(finish)?finish:'Chrome brillant';
+ return {...niche,profileEnabled:!!enabled,profileFinish,profileEdges:Object.fromEntries(NICHE_PROFILE_EDGES.map(edge=>[edge,enabled?profileFinish:'none']))};
+}
+
 // Legacy niches keep their individual edge choices and old override fallback.
 // New explicit on/off always wins over an older global profile override.
 export function nicheProfileEdges(niche){

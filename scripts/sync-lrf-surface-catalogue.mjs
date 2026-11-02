@@ -9,11 +9,12 @@ const shared=path.join(root,'shared/lrf-3d'),pp=path.join(root,'assets/js/lrf-pl
 const read=async file=>JSON.parse(await readFile(file,'utf8'));
 const manufacturer=await read(path.join(shared,'manufacturer-surfaces.json'));
 const revision='lrf-surfaces-20261024-v1';
+const referencePreviews=color=>Object.fromEntries(Object.entries(color.textureVariantsByReference||{}).filter(([,mapping])=>mapping.verified===true&&mapping.textureProvenance?.kind==='product-platform-image').map(([reference,mapping])=>[reference,{format:mapping.format,kind:mapping.textureProvenance.kind}]));
 const collections=manufacturer.map(collection=>{
  const aliases=collection.name==='Sedimenti'?Object.fromEntries(['white','beige','sand','grey'].flatMap(color=>['selected','tumbled'].map(suffix=>[color+suffix,color]))):collection.name==='Bavaria Stone'?{stone:'bavaria-stone'}:{};
  const formats=collection.formats.map(({id,width,height})=>({id,width,height}));
  if(['Roma','Sedimenti'].includes(collection.name))formats.push({id:'Opus · module 4 formats',width:1.218,height:.609});
- return {name:collection.name,brand:collection.brand,surfaces:collection.surfaces,formats,aliases,colors:collection.colors.map(color=>({id:color.id,name:color.name,exportable:color.available3d!==false&&!!color.file,...(color.textureProvenance?{textureProvenance:{kind:color.textureProvenance.kind},definitionLimited:color.definitionLimited===true,previewReviewed:color.previewReviewed===true}:{}),references:Object.entries(color.textureVariantsByReference||{}).filter(([,mapping])=>mapping.verified===true).map(([key])=>key)}))};
+ return {name:collection.name,brand:collection.brand,surfaces:collection.surfaces,formats,aliases,colors:collection.colors.map(color=>({id:color.id,name:color.name,exportable:color.available3d!==false&&!!color.file,...(color.textureProvenance?{textureProvenance:{kind:color.textureProvenance.kind},definitionLimited:color.definitionLimited===true,previewReviewed:color.previewReviewed===true}:{}),...(Object.keys(referencePreviews(color)).length?{referencePreviews:referencePreviews(color)}:{}),references:Object.entries(color.textureVariantsByReference||{}).filter(([,mapping])=>mapping.verified===true).map(([key])=>key)}))};
 });
 collections.push({name:'Peinture',brand:'Peinture',surfaces:['wall'],formats:[],aliases:{},colors:[...['white','ivory','sand','sage','clay','grey','dark'].map(id=>({id,name:id,exportable:true,references:[]})),...RAL_COLORS.map(({id,name})=>({id,name,exportable:true,references:[]}))]});
 const contract={version:1,catalogueRevision:revision,collections};
@@ -34,7 +35,7 @@ for(const product of [...catalogue.products,...review.products]){
  if(mapped){
   // Existing reviewed native mappings are retained byte-for-byte.
   product.textureVariants??=structuredClone(candidate.textureVariants);
-  product.textureRotation=candidate.textureRotation||0;product.textureReference=product.reference;product.nativeFaces=true;
+  product.textureRotation=candidate.textureRotation||0;product.textureReference=product.reference;product.nativeFaces=candidate.nativeFaces!==false;
  }else if(choice.textureVariants){
   product.textureVariants=structuredClone(choice.textureVariants);product.textureRotation=choice.textureRotation||0;product.nativeFaces=choice.nativeFaces===true;
  }else if(!product.textureVariants){
@@ -42,6 +43,12 @@ for(const product of [...catalogue.products,...review.products]){
  }
  product.textureResolution=choice.resolution;product.definitionLimited=choice.definitionLimited===true;product.continuousDecor=choice.continuousDecor===true;
  product.textureSourceKind=mapped?'reference-face':choice.definitionLimited?'catalogue-sample':'manufacturer-face';enriched++;
+ const actualSource=mapped?candidate:choice;
+ if(actualSource.textureProvenance?.kind==='product-platform-image'){
+  product.textureProvenance=structuredClone(actualSource.textureProvenance);product.textureSourceKind='product-platform-image';product.definitionLimited=false;
+  product.textureResolution=actualSource.resolution;if(mapped)product.faces=structuredClone(candidate.textureVariants.max);
+  if(actualSource.reliefFromColor===false)product.reliefFromColor=false;
+ }
 }
 catalogue.catalogueRevision=revision;catalogue.surfaceContractVersion=contract.version;
 await writeFile(path.join(pp,'catalogue.json'),JSON.stringify(catalogue,null,2)+'\n');

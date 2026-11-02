@@ -64,10 +64,12 @@ function cutWall(wall,height,openings){
  const nicheSignature=JSON.stringify([wall.niches||[],wall.layout]),nicheChanged=wall.nicheLiningSignature!==nicheSignature;
  if(nicheChanged){
  if(wall.nicheLining){wall.nicheLining.removeFromParent();const geometries=new Set(),materials=new Set();wall.nicheLining.traverse(o=>{if(o.isMesh){geometries.add(o.geometry);for(const material of Array.isArray(o.material)?o.material:[o.material])materials.add(material);}});geometries.forEach(geometry=>geometry.dispose());materials.forEach(material=>material.dispose());}wall.nicheLining=new T.Group();wall.group.add(wall.nicheLining);wall.nicheSurfaces=[];
- for(const n of wall.niches||[]){const W=n.width/100,H=n.height/100,D=n.depth/100,L=(n.u-n.width/2)/100,B=n.bottom/100,root=new T.Group();root.name='Niche_'+n.id;root.userData.editTarget='niche:'+n.id;wall.nicheLining.add(root);
+ for(const n of wall.niches||[]){const W=n.width/100,H=n.height/100,D=n.depth/100,mouth=-.0082,revealDepth=D+mouth,L=(n.u-n.width/2)/100,B=n.bottom/100,root=new T.Group();root.name='Niche_'+n.id;root.userData.editTarget='niche:'+n.id;wall.nicheLining.add(root);
  const add=(part,w,h,x,y,z,rx=0,ry=0)=>{const face=surface([[0,0],[w,0],[w,h],[0,h]],'Niche_revetement',[],wall.renderOptions);face.setLayout(wall.layout);face.group.position.set(x,y,z);face.group.rotation.set(rx,ry,0);face.nicheId=n.id;face.nichePart=part;face.niche=n;face.group.userData.nichePart=part;face.length=w;face.height=h;root.add(face.group);wall.nicheSurfaces.push(face);};
- // All five lining faces stay inside the wall, between -depth and the wall plane.
- add('back',W,H,L,B,-D);add('left',D,H,L,B,0,0,Math.PI/2);add('right',D,H,L+W,B,-D,0,-Math.PI/2);add('bottom',W,D,L,B,0,-Math.PI/2);add('top',W,D,L,B+H,-D,Math.PI/2);
+ // Front wall tiles are 8 mm thick. Their real cut edges finish the mouth.
+ // Stop the lining behind that thickness so its own extruded edges cannot
+ // overlap the wall plane or bleed above/right of the opening at grazing views.
+ add('back',W,H,L,B,-D);add('left',revealDepth,H,L,B,mouth,0,Math.PI/2);add('right',revealDepth,H,L+W,B,-D,0,-Math.PI/2);add('bottom',W,revealDepth,L,B,mouth,-Math.PI/2);add('top',W,revealDepth,L,B+H,-D,Math.PI/2);
  }wall.nicheLiningSignature=nicheSignature;
  }wall.refreshTileColors?.();if(nicheChanged)wall.refreshNicheSurfaces?.();
 }

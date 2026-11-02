@@ -292,13 +292,35 @@
       "module": "plinth-math.mjs",
       "sha256": "09157dd9ede590367eb8423ec133cebbe6d69f513cdaea04c048134b428e35db",
       "bytes": 8097,
-      "originalsIdentical": true
+      "originalsIdentical": true,
+      "current": {
+        "sha256": "7a8a3c31e2d19d396143935e561e90bbc38c95dec40e4492ec03a26b7fb7cfef",
+        "bytes": 8830,
+        "changeType": "functional-update-20261102",
+        "reason": "Preserve legacy white stock while separating explicit oak, black and anthracite stock in cuts and quantities across PLAN & POSE and both configurators.",
+        "validation": [
+          "tests/lrf-suite/plinth-appearance.test.mjs",
+          "tests/lrf-plan-pose/plinths-commerce.test.mjs",
+          "shared/lrf-3d/qa/shared-graph-check.mjs"
+        ]
+      }
     },
     {
       "module": "plinth-ui.mjs",
       "sha256": "8d6d558e5aa5b5b78bb9dd832edd36e581400388de62f6643b772b04e18d1776",
       "bytes": 6954,
-      "originalsIdentical": true
+      "originalsIdentical": true,
+      "current": {
+        "sha256": "66c0263656d5d11f1f6363d9ab407206770fd1eef9b497c34f49387bfa1c6741",
+        "bytes": 7612,
+        "changeType": "functional-update-20261102",
+        "reason": "Expose explicit finish choices for generic 2.20m skirting stock while keeping manufacturer and floor-matched quantities and transfer state.",
+        "validation": [
+          "tests/lrf-suite/plinth-appearance.test.mjs",
+          "shared/lrf-3d/qa/shared-graph-check.mjs",
+          "studio-one/qa/controls-check.mjs"
+        ]
+      }
     },
     {
       "module": "polygon-clipping.mjs",
@@ -312,12 +334,12 @@
       "bytes": 3805,
       "originalsIdentical": true,
       "current": {
-        "sha256": "70686180028d52acb1311f977faa386d15058b5aef047176dde5500b38515d6c",
-        "bytes": 9053,
+        "sha256": "5b2e419eba2ea9e09f1fe5f0d06411d358e88d8502ab81e0603f00d5feee563f",
+        "bytes": 9657,
         "changeType": "functional-update-20261102",
-        "reason": "Render independently removable niche trims using their selected AQUAHOME metal finish, while preserving legacy per-edge choices and unrelated tiled-column, wall and bath profiles.",
+        "reason": "Build four continuous mitred niche trims without overlapping coplanar corners, and edit a niche trim frame as one all-or-none choice.",
         "validation": [
-          "tests/lrf-suite/niche-profile-defaults.test.mjs",
+          "tests/lrf-suite/niche-hd-geometry.test.mjs",
           "tests/lrf-suite/niche-form-match.test.mjs",
           "shared/lrf-3d/qa/niche-editing-check.mjs"
         ]
@@ -332,6 +354,17 @@
             "tests/lrf-suite/partition-editing.test.mjs",
             "shared/lrf-3d/qa/niche-editing-check.mjs",
             "shared/lrf-3d/qa/room-interaction-check.mjs"
+          ]
+        },
+        {
+          "sha256": "70686180028d52acb1311f977faa386d15058b5aef047176dde5500b38515d6c",
+          "bytes": 9053,
+          "changeType": "functional-update-20261102",
+          "reason": "Render independently removable niche trims using their selected AQUAHOME metal finish, while preserving legacy per-edge choices and unrelated tiled-column, wall and bath profiles.",
+          "validation": [
+            "tests/lrf-suite/niche-profile-defaults.test.mjs",
+            "tests/lrf-suite/niche-form-match.test.mjs",
+            "shared/lrf-3d/qa/niche-editing-check.mjs"
           ]
         }
       ]

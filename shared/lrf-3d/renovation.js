@@ -4,7 +4,7 @@ import {surfaceSeries,availableColors,renderSurfacePicker} from './surface-picke
 import {surfaceAssetURL} from './texture-loader.js';
 import {nicheSurfaceFinish,validateNiches} from './niches.js';
 import {sameNichePosition} from './niche-editing.js';
-import {NICHE_PROFILE_FINISHES,nicheProfileEdges,nicheProfilesEnabled,nicheMetalFinish,withDefaultNicheProfiles,nicheNeedsProfileDefaults} from './niche-profile-options.js';
+import {NICHE_PROFILE_FINISHES,nicheProfileEdges,nicheProfilesEnabled,nicheMetalFinish,withDefaultNicheProfiles,nicheNeedsProfileDefaults,nichePerimeterFinish,withNichePerimeterProfiles} from './niche-profile-options.js';
 import * as T from 'three';
 import {COLLECTIONS,tileFormat,formatsForColor,layoutPatterns,normalizeLayout} from './surface-catalog.js';
 import {packagingFor,packagingKey} from './quantities.js';
@@ -223,6 +223,7 @@ export function mountRenovation(api,{validateZones,renderZones,zoneProfileSegmen
   const config=api.getRoomConfig(),list=config.niches||[],index=list.findIndex(n=>n.id===value.id),prior=list[index];
   if(!prior)ready();else if(isItemPositionLocked(comp(),prior)&&!sameNichePosition(prior,value))throw Error('Déverrouillez cette niche pour modifier ses dimensions ou sa position.');
   value=withDefaultNicheProfiles(value,api.getNicheMetalFinish?.({wallKey:value.wallKey,niche:value}),prior,api.getProfileSettings?.());
+  value=withNichePerimeterProfiles(value);
   if(prior){value={...value,locked:!!prior.locked};if(prior.positionUnlocked===true)value.positionUnlocked=true;else delete value.positionUnlocked;}
   if(value.covering&&!['inherit','all','split'].includes(value.covering.mode))throw Error('Revêtement de niche invalide.');
   for(const finish of value.covering?.mode==='split'?[value.covering.back,value.covering.reveal]:value.covering?.mode==='all'?[value.covering.back]:[]){const preserved=[prior?.covering?.back,prior?.covering?.reveal].some(f=>f&&f.collection===finish?.collection&&f.color===finish?.color&&f.format===finish?.format);if(!finish||!preserved&&!availableColors(finish.collection).some(c=>c.id===finish.color)||!formatsForColor(finish.collection,finish.color).some(f=>f.id===finish.format))throw Error('Choisissez un carrelage et un format fabricant disponibles pour la niche.');}
@@ -249,26 +250,21 @@ export function mountRenovation(api,{validateZones,renderZones,zoneProfileSegmen
   const wallFinish=api.getWallFinish(room().walls.indexOf(w)),backHost=document.createElement('section'),revealHost=document.createElement('section');d.append(backHost,revealHost);const back=finishEditor(backHost,'Carrelage du fond / de toute la niche',n.covering?.back,wallFinish),reveal=finishEditor(revealHost,'Carrelage des contours intérieurs',n.covering?.reveal,wallFinish);
   const updateMode=()=>{backHost.hidden=mode.value==='inherit';revealHost.hidden=mode.value!=='split';};mode.onchange=updateMode;updateMode();
   const profileTitle=document.createElement('h3');profileTitle.textContent='Profilés de la niche';d.append(profileTitle);const options=document.createElement('div');options.className='renovation-fields';d.append(options);
-  const installed=select(options,'Profilés périphériques',[{id:'on',name:'Avec les profilés'},{id:'off',name:'Sans profilé'}],nicheProfilesEnabled(n)?'on':'off','niche-profiles-enabled');
-  const profileFinish=select(options,'Finition des profilés',[{id:'custom',name:'Réglage par angle'},{id:'match',name:'Assortis au mitigeur'},...NICHE_PROFILE_FINISHES],automaticProfiles?'match':n.profileFinish&&Object.values(n.profileEdges||{}).every(finish=>finish==='none'||finish===n.profileFinish)?n.profileFinish:'custom','niche-profile-finish');
-  const edges=document.createElement('div');edges.className='renovation-fields';d.append(edges);const profileEdges={},currentEdges=n.profileEnabled===false?{...n.profileEdges}:nicheProfileEdges(n);for(const [edge,label]of [['left','Angle gauche'],['right','Angle droit'],['top','Angle haut'],['bottom','Angle bas']])profileEdges[edge]=select(edges,label,[{id:'none',name:'Sans profil'},...NICHE_PROFILE_FINISHES],currentEdges[edge]||'none','niche-profile-'+edge);
+  const installed=select(options,'Poser les profilés',[{id:'on',name:'Oui · quatre côtés'},{id:'off',name:'Non'}],nicheProfilesEnabled(n)?'on':'off','niche-profiles-enabled');
+  const profileFinish=select(options,'Finition des profilés',[{id:'match',name:'Assortis au mitigeur'},...NICHE_PROFILE_FINISHES],automaticProfiles?'match':nichePerimeterFinish(n),'niche-profile-finish');
   const currentNiche=()=>({...n,u:Number(u.value),bottom:Number(bottom.value),width:Number(width.value),height:Number(height.value),depth:Number(depth.value)});
-  const matchedEdges=new Set(automaticProfiles?Object.keys(profileEdges):[]);let chosenProfileFinish=n.profileFinish;
   const matchedFinish=()=>nicheMetalFinish(api.getNicheMetalFinish?.({wallKey:w.key,niche:currentNiche()}));
-  const resolvedFinish=()=>profileFinish.value==='match'?matchedFinish():profileFinish.value==='custom'?(chosenProfileFinish||matchedFinish()):profileFinish.value;
-  const refreshProfileOptions=()=>{edges.hidden=installed.value==='off';profileFinish.disabled=api.readonly()||installed.value==='off';};
-  installed.onchange=()=>{if(installed.value==='on'&&Object.values(profileEdges).every(control=>control.value==='none')){const finish=resolvedFinish();for(const [edge,control]of Object.entries(profileEdges)){control.value=finish;if(profileFinish.value==='match')matchedEdges.add(edge);}}refreshProfileOptions();};
-  profileFinish.onchange=()=>{matchedEdges.clear();if(profileFinish.value!=='custom'){const finish=resolvedFinish();chosenProfileFinish=finish;for(const [edge,control]of Object.entries(profileEdges)){control.value=finish;if(profileFinish.value==='match')matchedEdges.add(edge);}}};
-  for(const [edge,control]of Object.entries(profileEdges))control.onchange=()=>{if(profileFinish.value==='match')matchedEdges.delete(edge);else profileFinish.value='custom';};refreshProfileOptions();
+  const resolvedFinish=()=>profileFinish.value==='match'?matchedFinish():profileFinish.value;
+  const refreshProfileOptions=()=>{profileFinish.disabled=api.readonly()||installed.value==='off';};
+  installed.onchange=refreshProfileOptions;refreshProfileOptions();
   const note=document.createElement('p');note.textContent='La niche reste entièrement encastrée dans la paroi. Cliquez dessus pour modifier ses dimensions, ses carreaux ou ses profilés. Le fond peut recevoir un carrelage différent de celui des quatre contours.';d.append(note);const actions=document.createElement('div');actions.className='renovation-actions';d.append(actions);
   // Keep validation beside the action even after scrolling past the finishes.
   actions.after(status);status.setAttribute('role','alert');
   const showError=e=>{status.textContent=e.message;status.scrollIntoView?.({block:'nearest'});};
   button(actions,'Appliquer la niche',()=>{try{
-   // Resolve against the current form and current tap choices at validation.
-   // Angles explicitly changed by the user no longer follow the matched finish.
-   const finish=resolvedFinish(),chosenEdges=Object.fromEntries(Object.entries(profileEdges).map(([edge,el])=>[edge,profileFinish.value==='match'&&matchedEdges.has(edge)?finish:el.value]));
-   saveNiche({...currentNiche(),covering:{mode:mode.value,...(mode.value!=='inherit'?{back:back.value()}:{}),...(mode.value==='split'?{reveal:reveal.value()}: {})},profileEnabled:installed.value==='on',profileFinish:finish,profileEdges:chosenEdges});setNicheEditing(null);d.close();
+   // Resolve the single finish against the current position and tap choices.
+   const value=withNichePerimeterProfiles(currentNiche(),{enabled:installed.value==='on',finish:resolvedFinish()});
+   saveNiche({...value,covering:{mode:mode.value,...(mode.value!=='inherit'?{back:back.value()}:{}),...(mode.value==='split'?{reveal:reveal.value()}: {})}});setNicheEditing(null);d.close();
   }catch(e){showError(e);}},'apply-niche');
   const apply=d.querySelector('#apply-niche'),noteBase=note.textContent;let lock,remove;
   if(prior){lock=button(actions,'',()=>{try{if(toggleNicheLock(prior.id)){d.close();showNiche(prior.id);}}catch(e){showError(e);}},'niche-position-lock');remove=button(actions,'Supprimer la niche',()=>{try{removeNiche(prior.id);d.close();}catch(e){showError(e);}});}
@@ -277,12 +273,12 @@ export function mountRenovation(api,{validateZones,renderZones,zoneProfileSegmen
    const current=prior?api.getRoomConfig().niches?.find(value=>value.id===prior.id):null;if(prior&&!current){d.close();return;}
    const locked=current?isItemPositionLocked(comp(),current):!!comp().locked,readonly=!!api.readonly();
    for(const control of [u,bottom,width,height,depth])control.disabled=readonly||locked;
-   if(apply)apply.disabled=readonly;for(const control of [mode,installed,...Object.values(profileEdges)])control.disabled=readonly;refreshProfileOptions();
+   if(apply)apply.disabled=readonly;for(const control of [mode,installed])control.disabled=readonly;refreshProfileOptions();
    if(lock){lock.textContent=locked?'Déverrouiller cette niche':'Verrouiller cette niche';lock.disabled=readonly;}if(remove)remove.disabled=readonly||locked;
    note.textContent=noteBase+(locked?' Sa position est verrouillée ; vous pouvez modifier les carreaux ou déverrouiller cette niche seule pour la déplacer.':'');
   };nicheEditorRefresh();
   setNicheEditing(n.id);
-  if(selectedEdge&&profileEdges[selectedEdge]){profileEdges[selectedEdge].focus();profileEdges[selectedEdge].scrollIntoView({block:'nearest'});}
+  if(selectedEdge){profileFinish.focus();profileFinish.scrollIntoView({block:'nearest'});}
  }
  function toggleNicheLock(id){if(api.readonly())return false;const next=api.getRoomConfig(),n=next.niches?.find(n=>n.id===id);if(!n)return false;setItemPositionLock(comp(),n,!isItemPositionLocked(comp(),n));if(!api.applyRoom(next,false,null,id))return false;touch();return true;}
  function removeNiche(id){if(nicheEditingId===id)setNicheEditing(null);if(api.readonly())return false;const next=api.getRoomConfig(),n=next.niches?.find(n=>n.id===id);if(!n)return false;if(isItemPositionLocked(comp(),n))throw Error('Déverrouillez la niche.');next.niches=next.niches.filter(n=>n.id!==id);if(!api.applyRoom(next,false,null,id))return false;touch();return true;}

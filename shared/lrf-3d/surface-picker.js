@@ -56,7 +56,9 @@ function installStyle(){
 
 
 export function surfacePreviewNote(color){
+ if(color?.textureProvenance?.kind==='product-platform-image')return `Visuel produit · ${(color.resolution||[]).join(' × ')} px · source Tilelook.`;
  if(color?.textureProvenance?.kind==='ai-reconstruction')return 'Reconstitution visuelle · '+(color.textureProvenance.facesPerColor||color.faces?.length||8)+' tampons par couleur · teinte indicative.';
+ if(Object.values(color?.textureVariantsByReference||{}).some(mapping=>mapping.verified&&mapping.textureProvenance?.kind==='product-platform-image'))return 'Visuels produit disponibles pour le 60 × 90 Tumbled. Les autres formats conservent leur échantillon catalogue.';
  if(color?.definitionLimited&&color?.previewReviewed)return 'Échantillon du catalogue fabricant · définition limitée. La référence et la finition choisies sont conservées.';
  return color?.definitionLimited?'Visuel fabricant en définition limitée. Les dimensions et la référence du décor sont conservées.':'';
 }

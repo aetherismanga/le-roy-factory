@@ -25,14 +25,14 @@ test('new niche captures each actual tap finish on four edges, uses its physical
  }
 });
 
-test('explicit removal beats old overrides, restores without metal and permits one clicked edge to be enabled',()=>{
+test('removal beats old overrides, restores without metal and a clicked edge re-enables the whole perimeter',()=>{
  const value={...withDefaultNicheProfiles({...niche},'Or brossé'),profileEnabled:false},config={...cloneRoom(DEFAULT_ROOM),niches:[value]},room=makeRoom(config,0),finishes=room.walls.map(()=>({collection:'Peinture'}));
  let profiles=buildProfiles(room,{},finishes);const ids=profiles.entries.filter(entry=>entry.kind.startsWith('niche_')).map(entry=>entry.id);dispose(profiles.group);
  const overrides=Object.fromEntries(ids.map(id=>[id,{enabled:true,color:'Noir'}]));
  profiles=buildProfiles(room,{enabled:true,overrides},finishes);assert.equal(profileMeshes(profiles.group).length,0);assert(profiles.entries.filter(entry=>entry.kind.startsWith('niche_')).every(entry=>!entry.enabled));dispose(profiles.group);
  const restored=makeRoom(JSON.parse(JSON.stringify(config)),0),again=buildProfiles(restored,{enabled:true,overrides},finishes);assert.equal(profileMeshes(again.group).length,0);dispose(again.group);restored.dispose();
  assert(updateAttachedProfile({room,config,finishes},ids[0],{enabled:true,color:'Cuivre'}));
- profiles=buildProfiles(room,{enabled:true,overrides},finishes);assert.equal(profileMeshes(profiles.group).length,1);assert.equal(profiles.entries.find(entry=>entry.id===ids[0]).color,'Cuivre');dispose(profiles.group);room.dispose();
+ profiles=buildProfiles(room,{enabled:true,overrides},finishes);assert.equal(profileMeshes(profiles.group).length,4);assert(profiles.entries.filter(entry=>entry.kind.startsWith('niche_')).every(entry=>entry.color==='Cuivre'));assert.equal(profiles.entries.find(entry=>entry.id===ids[0]).color,'Cuivre');dispose(profiles.group);room.dispose();
 });
 
 test('legacy choices remain unchanged; an untouched inherited niche receives defaults only at validation',()=>{

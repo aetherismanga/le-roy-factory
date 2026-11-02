@@ -64,7 +64,7 @@ for(const id of idsToTest)assert(updateAttachedProfile({room:legacyRoom,config:l
 const persistedConfig=JSON.parse(JSON.stringify(legacyConfig)),persistedWalls=JSON.parse(JSON.stringify(legacyFinishes)),persistedRoom=makeRoom(persistedConfig,0),restoredProfiles=buildProfiles(persistedRoom,legacySettings,persistedWalls);
 assert(idsToTest.every(id=>!entry(restoredProfiles,id).enabled),'Removed profiles remain absent after save/import even with old override data');
 for(const id of idsToTest)assert(updateAttachedProfile({room:legacyRoom,config:legacyConfig,finishes:legacyFinishes},id,null));
-assert.equal(legacyConfig.niches[0].profileEdges.left,undefined);assert.equal(legacyFinishes[0].zones[0].profileEdges.left,undefined);
+assert.equal(legacyConfig.niches[0].profileEnabled,false);assert.equal(legacyConfig.niches[0].profileEdges.left,'none');assert.equal(legacyFinishes[0].zones[0].profileEdges.left,undefined);
 assert.equal(updateAttachedProfile({room:legacyRoom,config:legacyConfig,finishes:legacyFinishes},'boundary-0|angle_interne|0|1',{enabled:true}),false,'Wall/partition profiles keep the standard override path');
 legacyRoom.dispose();persistedRoom.dispose();
 

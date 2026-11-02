@@ -56707,34 +56707,89 @@
       ],
       "shape": "rectangle",
       "nativeFaces": false,
-      "definitionLimited": true,
+      "definitionLimited": false,
       "previewReviewed": true,
       "textureProvenance": {
-        "kind": "manufacturer-catalogue-sample",
-        "source": "https://eliosceramica.com/wp-content/uploads/0202/09/ELIOS_CATALOGO_CERSAIE_2026_new.pdf",
-        "sourceSha256": "1b5c1a37e532bee1e58e2e974593d928674aded1c816ae5ea197a3b720b8231a",
-        "pdfPage": 37,
+        "kind": "product-platform-image",
+        "source": "https://www.tilelook.com/elios/stone-icon-816030b7-c7ec-408d-b43b-d7e7c9909859/tiles/stone-icon-04s6902-04s6902",
+        "publisher": "Tilelook · fiche produit Elios",
+        "reference": "04S6902",
+        "format": "60x90",
         "generated": false,
+        "resizedByAgent": false,
         "hd": false,
-        "referenceAssignmentVerified": false
+        "referenceAssignmentVerified": true,
+        "faces": [
+          {
+            "file": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6902_2.jpg",
+            "source": "https://www.tilelook.com/system/tile_picture/resource/27628805/d3d_default_04S6902_2.jpg",
+            "width": 667,
+            "height": 1000,
+            "sha256": "aff7c5f29f00054e495b38eb2211b1c65cb7380c1985361d7dd6fe8122e3f822"
+          },
+          {
+            "file": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6902_1.jpg",
+            "source": "https://www.tilelook.com/system/tile_picture/resource/27628806/d3d_default_04S6902_1.jpg",
+            "width": 667,
+            "height": 1000,
+            "sha256": "b2b67cbdeba2076fd008e90a8aab085c44699302962d06a259b4f0a1d9c53c83"
+          },
+          {
+            "file": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6902_4.jpg",
+            "source": "https://www.tilelook.com/system/tile_picture/resource/27628807/d3d_default_04S6902_4.jpg",
+            "width": 667,
+            "height": 1000,
+            "sha256": "645d775b60220df65f827883c55a364aa3c03b065058395798b02aeecac60ad6"
+          },
+          {
+            "file": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6902_3.jpg",
+            "source": "https://www.tilelook.com/system/tile_picture/resource/27628808/d3d_default_04S6902_3.jpg",
+            "width": 667,
+            "height": 1000,
+            "sha256": "42d5a1c722132d94d62f26d75c91737d0a4798429a864edce8261d798591e69d"
+          }
+        ]
       },
       "textureResolution": [
-        257,
-        514
+        667,
+        1000
       ],
       "renderColorId": "francese",
       "catalogueRevision": "lrf-surfaces-20261024-v1",
       "faces": [
-        "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/stone-icon/francese-1.webp",
-        "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/stone-icon/francese-2.webp",
-        "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/stone-icon/francese-3.webp",
-        "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/stone-icon/francese-4.webp"
+        "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6902_2.jpg",
+        "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6902_1.jpg",
+        "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6902_4.jpg",
+        "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6902_3.jpg"
       ],
       "continuousDecor": false,
-      "textureSourceKind": "catalogue-sample",
+      "textureSourceKind": "product-platform-image",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureVariants": {
+        "fluid": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6902_2.jpg",
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6902_1.jpg",
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6902_4.jpg",
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6902_3.jpg"
+        ],
+        "balanced": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6902_2.jpg",
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6902_1.jpg",
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6902_4.jpg",
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6902_3.jpg"
+        ],
+        "max": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6902_2.jpg",
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6902_1.jpg",
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6902_4.jpg",
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6902_3.jpg"
+        ]
+      },
+      "textureRotation": 90,
+      "textureReference": "04S6902",
+      "reliefFromColor": false
     },
     {
       "key": "ELIOS|04S6912",
@@ -57629,34 +57684,89 @@
       ],
       "shape": "rectangle",
       "nativeFaces": false,
-      "definitionLimited": true,
+      "definitionLimited": false,
       "previewReviewed": true,
       "textureProvenance": {
-        "kind": "manufacturer-catalogue-sample",
-        "source": "https://eliosceramica.com/wp-content/uploads/0202/09/ELIOS_CATALOGO_CERSAIE_2026_new.pdf",
-        "sourceSha256": "1b5c1a37e532bee1e58e2e974593d928674aded1c816ae5ea197a3b720b8231a",
-        "pdfPage": 37,
+        "kind": "product-platform-image",
+        "source": "https://www.tilelook.com/elios/stone-icon-816030b7-c7ec-408d-b43b-d7e7c9909859/tiles/stone-icon-04s6903-04s6903",
+        "publisher": "Tilelook · fiche produit Elios",
+        "reference": "04S6903",
+        "format": "60x90",
         "generated": false,
+        "resizedByAgent": false,
         "hd": false,
-        "referenceAssignmentVerified": false
+        "referenceAssignmentVerified": true,
+        "faces": [
+          {
+            "file": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6903_4.jpg",
+            "source": "https://www.tilelook.com/system/tile_picture/resource/27628809/d3d_default_04S6903_4.jpg",
+            "width": 667,
+            "height": 1000,
+            "sha256": "7cc8e3c0ae32ce1b6cf0ed71648308876114642664ca5b65a96704723dd5404b"
+          },
+          {
+            "file": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6903_2.jpg",
+            "source": "https://www.tilelook.com/system/tile_picture/resource/27628810/d3d_default_04S6903_2.jpg",
+            "width": 667,
+            "height": 1000,
+            "sha256": "68c9ce17e2c5a6235595bd487ff5958532fdb75890c73b8d7ce3be988e314f83"
+          },
+          {
+            "file": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6903_3.jpg",
+            "source": "https://www.tilelook.com/system/tile_picture/resource/27628811/d3d_default_04S6903_3.jpg",
+            "width": 667,
+            "height": 1000,
+            "sha256": "1cbd6d3e12ee44095e8ed3e6ce5c558186d66b3839df962062383f37234ab59f"
+          },
+          {
+            "file": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6903_1.jpg",
+            "source": "https://www.tilelook.com/system/tile_picture/resource/27628812/d3d_default_04S6903_1.jpg",
+            "width": 667,
+            "height": 1000,
+            "sha256": "1f9018e946fac72780ed1605f6de63a4b4c43428f7206d1a127373b48435da61"
+          }
+        ]
       },
       "textureResolution": [
-        257,
-        514
+        667,
+        1000
       ],
       "renderColorId": "leccese",
       "catalogueRevision": "lrf-surfaces-20261024-v1",
       "faces": [
-        "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/stone-icon/leccese-1.webp",
-        "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/stone-icon/leccese-2.webp",
-        "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/stone-icon/leccese-3.webp",
-        "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/stone-icon/leccese-4.webp"
+        "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6903_4.jpg",
+        "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6903_2.jpg",
+        "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6903_3.jpg",
+        "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6903_1.jpg"
       ],
       "continuousDecor": false,
-      "textureSourceKind": "catalogue-sample",
+      "textureSourceKind": "product-platform-image",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureVariants": {
+        "fluid": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6903_4.jpg",
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6903_2.jpg",
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6903_3.jpg",
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6903_1.jpg"
+        ],
+        "balanced": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6903_4.jpg",
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6903_2.jpg",
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6903_3.jpg",
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6903_1.jpg"
+        ],
+        "max": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6903_4.jpg",
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6903_2.jpg",
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6903_3.jpg",
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/stone-icon/04S6903_1.jpg"
+        ]
+      },
+      "textureRotation": 90,
+      "textureReference": "04S6903",
+      "reliefFromColor": false
     },
     {
       "key": "ELIOS|04S6913",
@@ -59192,30 +59302,52 @@
       ],
       "shape": "rectangle",
       "nativeFaces": false,
-      "definitionLimited": true,
+      "definitionLimited": false,
       "previewReviewed": true,
       "textureProvenance": {
-        "kind": "manufacturer-catalogue-sample",
-        "source": "https://eliosceramica.com/wp-content/uploads/0202/09/ELIOS_CATALOGO_CERSAIE_2026_new.pdf",
-        "sourceSha256": "1b5c1a37e532bee1e58e2e974593d928674aded1c816ae5ea197a3b720b8231a",
-        "pdfPage": 47,
+        "kind": "product-platform-image",
+        "source": "https://www.tilelook.com/elios/terraforma/tiles/terraforma-04t33d3-04t33d3",
+        "assetSource": "https://www.tilelook.com/system/tile_picture/resource/27628843/d3d_default_04T33D3.jpg",
+        "sourceSha256": "a34e535b5cefb357a81fd700fc422cf2c146c040934fcbdfd502d885e1778de9",
+        "publisher": "Tilelook · fiche produit Elios",
+        "reference": "04T33D3",
+        "format": "30x30",
         "generated": false,
+        "resizedByAgent": false,
         "hd": false,
-        "referenceAssignmentVerified": false,
+        "referenceAssignmentVerified": true,
         "faces": [
           {
-            "file": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/deco-petra.webp",
-            "xref": 1741,
-            "width": 222,
-            "height": 222
+            "file": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/terraforma/04t33d3-petra-original.jpg",
+            "width": 1000,
+            "height": 1000
           }
         ],
-        "sampleGeometry": "square",
-        "brickFormatAssignmentVerified": false
+        "previousSources": [
+          {
+            "kind": "manufacturer-catalogue-sample",
+            "source": "https://eliosceramica.com/wp-content/uploads/0202/09/ELIOS_CATALOGO_CERSAIE_2026_new.pdf",
+            "sourceSha256": "1b5c1a37e532bee1e58e2e974593d928674aded1c816ae5ea197a3b720b8231a",
+            "pdfPage": 47,
+            "generated": false,
+            "hd": false,
+            "referenceAssignmentVerified": false,
+            "faces": [
+              {
+                "file": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/deco-petra.webp",
+                "xref": 1741,
+                "width": 222,
+                "height": 222
+              }
+            ],
+            "sampleGeometry": "square",
+            "brickFormatAssignmentVerified": false
+          }
+        ]
       },
       "textureResolution": [
-        222,
-        222
+        1000,
+        1000
       ],
       "continuousDecor": true,
       "decorRepeat": {
@@ -59225,12 +59357,13 @@
       "renderColorId": "petra",
       "catalogueRevision": "lrf-surfaces-20261024-v1",
       "faces": [
-        "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/deco-petra.webp"
+        "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261102/terraforma/04t33d3-petra-original.jpg"
       ],
-      "textureSourceKind": "catalogue-sample",
+      "textureSourceKind": "product-platform-image",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "reliefFromColor": false
     },
     {
       "key": "ELIOS|04T33D4",

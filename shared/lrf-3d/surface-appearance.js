@@ -24,6 +24,9 @@ export function disposeSurfaceTextureClones(material){
  for(const key of ['lrfTileMapClone','lrfTileBumpClone']){const texture=material[key];if(texture){if(material.map===texture)material.map=null;if(material.bumpMap===texture)material.bumpMap=null;texture.dispose();delete material[key];}}
 }
 export function applySurfaceTextureMapping(material,{map=null,bumpMap=null,choice={},layout={},mapped=false,rotation}={}){
+ // A small catalogue photograph describes colour, not measured relief. Using
+ // its coarse pixels as height creates false ridges in close-up and HD views.
+ if(choice.definitionLimited===true||choice.reliefFromColor===false)bumpMap=null;
  disposeSurfaceTextureClones(material);material.map=map;material.bumpMap=bumpMap;
  if(!disposalInstalled.has(material)){material.addEventListener?.('dispose',()=>disposeSurfaceTextureClones(material));disposalInstalled.add(material);}
  const crop=texturePhysicalCrop(choice,layout),image=map?.image;
