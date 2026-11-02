@@ -68,3 +68,22 @@ utilise les formats hérités et ne remplace pas automatiquement l'original.
 La suppression des prix du nouvel état ne retire pas leurs anciennes copies des
 commits publics ou des anciens déploiements. Leur traitement doit être concerté
 séparément, sans réécriture destructive automatique de l'historique.
+
+## Variante Neobath Anima de Studio One
+
+Construire avec `node tools/build-neobath-anima.mjs`. Le manifeste privé conserve
+les empreintes des huit ressources et des sources originales de Studio One.
+Publier les deux `.js.gz` et les ressources de `studio-dist/`, jamais les bundles
+JavaScript bruts sur le site public. La fonction décompresse puis vérifie leurs
+empreintes avant livraison authentifiée.
+
+Exécuter les tests `tests/neobath-anima-studio-*.test.mjs`,
+`tests/neobath-anima-continuous-ui.test.mjs`, ainsi que les tests Anima de
+`functions/test/`. Vérifier la sauvegarde native du formulaire dans l’iframe,
+la navigation accueil/atelier, les couleurs et les photos chargées. Si WebGL
+est indisponible dans l’environnement de QA, consigner cette limite et ne pas
+annoncer une validation visuelle du rendu 3D.
+
+Une modification exclusivement Anima ne doit déployer que la fonction
+`neobathAnimaApplication` et les médias publics de Pages. Les deux configurateurs
+Randal ne sont pas modifiés ni redéployés pour cette adaptation.

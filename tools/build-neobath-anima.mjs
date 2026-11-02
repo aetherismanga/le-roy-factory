@@ -1,14 +1,62 @@
 import {build} from 'esbuild';
-import {readFileSync,writeFileSync} from 'node:fs';
-import {fileURLToPath} from 'node:url';
+import {readFileSync,writeFileSync,mkdirSync,existsSync} from 'node:fs';
+import {fileURLToPath,pathToFileURL} from 'node:url';
+import {resolve,dirname,relative,join} from 'node:path';
 import {createHash} from 'node:crypto';
-const root = fileURLToPath(new URL('../', import.meta.url));
-const files = ['functions/neobath-anima/app-source.mjs','functions/neobath-anima/model.js'];
-const sourceHash = createHash('sha256');
-for (const file of files) sourceHash.update(readFileSync(root + file));
-await build({absWorkingDir:root,entryPoints:[files[0]],bundle:true,format:'esm',target:['es2020'],minify:true,
-  outfile:'functions/neobath-anima/app.js',banner:{js:'// Anima source SHA256: '+sourceHash.digest('hex')},legalComments:'eof'});
-const assets = {};
-for (const file of ['app.js','application.html','style.css','catalogue.json']) assets[file] = createHash('sha256').update(readFileSync(root + 'functions/neobath-anima/' + file)).digest('hex');
-writeFileSync(root + 'functions/neobath-anima/release.json', JSON.stringify({id:'20261102-neobath-anima-private-1',assets},null,2)+'\n');
-console.log('Neobath Anima: private browser bundle ready.');
+import {gzipSync} from 'node:zlib';
+import {transformCommonStudioSource,transformSharedStudioSource,studioBody,brandCSS} from '../functions/neobath-anima/studio-adapter/studio-source-transform.mjs';
+import {transformOriginalModel} from '../functions/neobath-anima/studio-adapter/model-transform.mjs';
+
+const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
+const studio=join(root,'studio-one/src'),adapter=join(root,'functions/neobath-anima/studio-adapter'),output=join(root,'functions/neobath-anima/studio-dist');
+const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
+mkdirSync(output,{recursive:true});
+const homeModule=await import(pathToFileURL(join(adapter,'home-transform.mjs')).href);
+const {CABINET_FORMATS}=await import(pathToFileURL(join(adapter,'configuration.js')).href);
+const transformHome=homeModule.transformHomeSource||homeModule.transformHome;
+if(typeof transformHome!=='function')throw Error('Missing Studio One home data adapter.');
+const workspacePath=join(adapter,'workspace-transform.mjs');
+const workspaceModule=existsSync(workspacePath)?await import(pathToFileURL(workspacePath).href):null;
+const aliases=new Map();
+function alias(from,...candidates){const target=candidates.map(p=>join(adapter,p)).find(existsSync);if(!target)throw Error('Missing Anima adapter for '+from);aliases.set(join(studio,from),target);}
+for(const name of ['configuration','finishes','model','tops','basins','column','mirrors','catalogue-product-visuals'])alias(name+'.js',name+'.js');
+for(const name of ['catalog','guided','pricing','identity','client','appearance'])alias('commerce/'+name+'.js','commerce/'+name+'.js',name+'.js');
+alias('projects.js','projects.js');
+const sessionPath=join(adapter,'session.js');
+if(!existsSync(sessionPath))throw Error('Missing isolated private Studio One session adapter.');
+aliases.set(join(root,'shared/lrf-3d/demo-session.js'),sessionPath);
+const metadata={};
+const plugin={name:'neobath-anima-studio-one-data-adapter',setup(b){
+ b.onResolve({filter:/^@studio-one-original\//},args=>({path:join(studio,args.path.slice('@studio-one-original/'.length)),pluginData:{original:true}}));
+ b.onResolve({filter:/^@anima-adapter\//},args=>({path:join(adapter,args.path.slice('@anima-adapter/'.length))}));
+ b.onResolve({filter:/^\./},args=>{const requested=resolve(args.resolveDir,args.path),target=aliases.get(requested);return target?{path:target}:undefined;});
+ b.onLoad({filter:/\.(?:js|mjs)$/},async args=>{
+  const rel=relative(root,args.path).replaceAll('\\','/');
+  if(!rel.startsWith('studio-one/src/')&&!rel.startsWith('shared/lrf-3d/'))return;
+  let source=readFileSync(args.path,'utf8');metadata[rel]=sha(source);
+  if(rel.startsWith('studio-one/src/')){
+   const name=rel.slice('studio-one/src/'.length);
+   if(name==='model.js')source=transformOriginalModel(source);
+   if(name==='commerce/home.js')source=transformHome(source);
+   if(name==='commerce/workspace.js'&&workspaceModule?.transformWorkspace)source=workspaceModule.transformWorkspace(source);
+   source=transformCommonStudioSource(source,name);
+  }else source=transformSharedStudioSource(source,rel);
+  return {contents:source,loader:'js',resolveDir:dirname(args.path)};
+ });
+}};
+const builds=[];
+for(const [name,entry] of [['accueil','commerce/home.js'],['app','app.js']])builds.push(await build({absWorkingDir:root,entryPoints:[join(studio,entry)],bundle:true,format:'esm',target:['es2022'],minify:true,outfile:join(output,name+'.js'),plugins:[plugin],metafile:true,legalComments:'eof',logLevel:'warning'}));
+for(const name of ['commerce/home.html','atelier.html','commerce/home.css','commerce/atelier.css','mobile.css'])metadata['studio-one/src/'+name]=sha(readFileSync(join(studio,name)));
+metadata['studio-one/dist/style.css']=sha(readFileSync(join(root,'studio-one/dist/style.css')));
+writeFileSync(join(output,'accueil.html'),studioBody(readFileSync(join(studio,'commerce/home.html'),'utf8'),CABINET_FORMATS)+'\n');
+writeFileSync(join(output,'atelier.html'),studioBody(readFileSync(join(studio,'atelier.html'),'utf8'),CABINET_FORMATS)+'\n');
+writeFileSync(join(output,'accueil.css'),readFileSync(join(studio,'commerce/home.css'),'utf8')+brandCSS);
+writeFileSync(join(output,'atelier.css'),[readFileSync(join(root,'studio-one/dist/style.css'),'utf8'),readFileSync(join(studio,'commerce/atelier.css'),'utf8'),readFileSync(join(studio,'mobile.css'),'utf8'),brandCSS].join('\n'));
+writeFileSync(join(output,'catalogue.json'),readFileSync(join(root,'functions/neobath-anima/catalogue.json')));
+writeFileSync(join(output,'visuals.json'),readFileSync(join(root,'assets/data/neobath-anima-visuals.json')));
+const assets={};for(const name of ['accueil.html','accueil.css','accueil.js','atelier.html','atelier.css','app.js','catalogue.json','visuals.json'])assets[name]=sha(readFileSync(join(output,name)));
+for(const name of ['accueil.js','app.js'])writeFileSync(join(output,name+'.gz'),gzipSync(readFileSync(join(output,name)),{level:9,mtime:0}));
+writeFileSync(join(output,'.gitignore'),'/app.js\n/accueil.js\n');
+const release={id:'20261102-neobath-anima-studio-one-2',engine:'studio-one',assets,provenance:{entries:['studio-one/src/commerce/home.js','studio-one/src/app.js'],sourceHashes:metadata,originalInterface:true,originalRenderer:true}};
+writeFileSync(join(output,'release.json'),JSON.stringify(release,null,2)+'\n');
+console.log(JSON.stringify({engine:'studio-one',privateOutput:relative(root,output),assets:Object.keys(assets).length,originalSourceModules:Object.keys(metadata).length,bundledInputs:builds.map(b=>Object.keys(b.metafile.inputs).length)}));

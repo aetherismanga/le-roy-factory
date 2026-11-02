@@ -64,6 +64,7 @@ jobs:
           node --test test/plan-pose-access.test.cjs
           node --test test/neobath-anima-access.test.cjs
           node --test test/neobath-anima-projects.test.cjs
+          node --test test/neobath-anima-studio-projects.test.cjs
           node --test test/configurator-projects.test.cjs
           node --test test/configurator-purchase-prices.test.cjs
           node --test test/fenice-request.test.cjs
@@ -90,7 +91,7 @@ jobs:
           mail_verify_only=changed==['functions/scripts/verify-group-mail-deployment.cjs']
           mail_only=bool(changed) and all(p in ['functions/index.js','functions/group-mail-history.js','functions/scripts/backfill-group-mail-reports.cjs','functions/scripts/verify-group-mail-deployment.cjs','functions/test/group-mail-history.test.cjs'] for p in changed)
           plan_pose_only=bool(changed) and all(p in ['functions/entry.js','functions/plan-pose-access.js','functions/plan-pose-access-core.cjs','functions/scripts/prepare-plan-pose.cjs','functions/test/plan-pose-access.test.cjs','assets/js/lrf-plan-pose/app.mjs'] or p.startswith('functions/plan-pose/') for p in changed)
-          neobath_only=bool(changed) and all(p in ['functions/entry.js','functions/neobath-anima-access.js','functions/neobath-anima-access-core.cjs','functions/neobath-anima-projects.cjs','functions/test/neobath-anima-access.test.cjs','functions/test/neobath-anima-projects.test.cjs'] or p.startswith('functions/neobath-anima/') or p.startswith('functions/test/neobath-anima-') for p in changed)
+          neobath_only=bool(changed) and all(p == 'functions/entry.js' or p.startswith(('functions/neobath-anima-','functions/neobath-anima/','functions/test/neobath-anima-')) for p in changed)
           tariff_only=bool(changed) and all(p in ['functions/tariff-access.js','functions/test/bulbo-tariff.test.cjs'] for p in changed)
           project_only=bool(changed) and all(p in ['functions/entry.js','functions/configurator-projects.js','functions/configurator-projects-core.js','functions/test/configurator-projects.test.cjs'] for p in changed)
           purchase_only=bool(changed) and all(p in ['functions/entry.js','functions/configurator-purchase-prices.js','functions/configurator-purchase-prices-core.js','functions/test/configurator-purchase-prices.test.cjs'] for p in changed)

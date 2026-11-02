@@ -43,3 +43,18 @@ Les publications Vercel Git automatiques sont désactivées. Suivre `RELEASE.md`
 construire les workspaces avant leurs QA, vérifier le noyau et PLAN & POSE, puis
 publier uniquement les applications concernées par le lot testé. Les tests
 Playwright 1.55 utilisent Ubuntu 24.04, pas `ubuntu-latest` devenu incompatible.
+
+## Neobath Anima : variante privée de Studio One
+
+Anima utilise les véritables entrées et gabarits de `studio-one/`, compilés par
+`tools/build-neobath-anima.mjs` avec les adaptations de
+`functions/neobath-anima/studio-adapter/`. Ne pas recréer une interface Anima
+indépendante : conserver le parcours, les contrôles et le moteur de Studio One,
+et adapter les références, dimensions, finitions, façades et visuels du fabricant.
+Les anciens fichiers autonomes Anima sont historiques et ne servent plus l’application.
+
+Les sorties privées sont dans `functions/neobath-anima/studio-dist/`. Les deux
+bundles JavaScript sont conservés en gzip déterministe, décompressés et vérifiés
+par SHA-256 côté serveur. Ne jamais publier ce dossier sur Pages. L’API ne livre
+l’application et les projets partagés qu’aux identités Firebase vérifiées de
+Jérôme et Coryne. Les anciens projets restent conservés dans leur espace historique.

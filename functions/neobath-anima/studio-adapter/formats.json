@@ -1,0 +1,356 @@
+{
+  "formats": [
+    {
+      "id": "two",
+      "facade": "PURA",
+      "subtype": "vanity",
+      "trueDrawers": 2,
+      "drawers": 2,
+      "doors": 0,
+      "allowedWidths": [
+        60,
+        80,
+        100,
+        120
+      ],
+      "height": 52,
+      "depth": 46,
+      "base": 30,
+      "productsByWidth": {
+        "60": "pura-vanity-2-drawers-60-52",
+        "80": "pura-vanity-2-drawers-80-52",
+        "100": "pura-vanity-2-drawers-100-52",
+        "120": "pura-vanity-2-drawers-120-52"
+      }
+    },
+    {
+      "id": "pura-base-two",
+      "facade": "PURA",
+      "subtype": "base",
+      "trueDrawers": 2,
+      "drawers": 2,
+      "doors": 0,
+      "allowedWidths": [
+        60,
+        80,
+        100,
+        120
+      ],
+      "height": 52,
+      "depth": 46,
+      "base": 30,
+      "productsByWidth": {
+        "60": "pura-base-2-drawers-60-52",
+        "80": "pura-base-2-drawers-80-52",
+        "100": "pura-base-2-drawers-100-52",
+        "120": "pura-base-2-drawers-120-52"
+      }
+    },
+    {
+      "id": "pura-doors",
+      "facade": "PURA",
+      "subtype": "vanity",
+      "trueDrawers": 0,
+      "drawers": 0,
+      "doors": 2,
+      "allowedWidths": [
+        80
+      ],
+      "height": 52,
+      "depth": 46,
+      "base": 30,
+      "productsByWidth": {
+        "80": "pura-vanity-2-doors-80-52"
+      }
+    },
+    {
+      "id": "pura-base-doors",
+      "facade": "PURA",
+      "subtype": "base",
+      "trueDrawers": 0,
+      "drawers": 0,
+      "doors": 2,
+      "allowedWidths": [
+        80
+      ],
+      "height": 52,
+      "depth": 46,
+      "base": 30,
+      "productsByWidth": {
+        "80": "pura-base-2-doors-80-52"
+      }
+    },
+    {
+      "id": "pura-one",
+      "facade": "PURA",
+      "subtype": "vanity",
+      "trueDrawers": 1,
+      "drawers": 1,
+      "doors": 0,
+      "allowedWidths": [
+        60,
+        80,
+        100,
+        120
+      ],
+      "height": 26,
+      "depth": 46,
+      "base": 56.00000000000001,
+      "productsByWidth": {
+        "60": "pura-vanity-1-drawer-60-26",
+        "80": "pura-vanity-1-drawer-80-26",
+        "100": "pura-vanity-1-drawer-100-26",
+        "120": "pura-vanity-1-drawer-120-26"
+      }
+    },
+    {
+      "id": "pura-base-one",
+      "facade": "PURA",
+      "subtype": "base",
+      "trueDrawers": 1,
+      "drawers": 1,
+      "doors": 0,
+      "allowedWidths": [
+        60,
+        80,
+        100,
+        120
+      ],
+      "height": 26,
+      "depth": 46,
+      "base": 56.00000000000001,
+      "productsByWidth": {
+        "60": "pura-base-1-drawer-60-26",
+        "80": "pura-base-1-drawer-80-26",
+        "100": "pura-base-1-drawer-100-26",
+        "120": "pura-base-1-drawer-120-26"
+      }
+    },
+    {
+      "id": "pura-base-door",
+      "facade": "PURA",
+      "subtype": "base",
+      "trueDrawers": 0,
+      "drawers": 0,
+      "doors": 1,
+      "allowedWidths": [
+        40
+      ],
+      "height": 52,
+      "depth": 46,
+      "base": 30,
+      "productsByWidth": {
+        "40": "pura-base-1-door-40-52"
+      }
+    },
+    {
+      "id": "pura-wall",
+      "facade": "PURA",
+      "subtype": "wall",
+      "trueDrawers": 0,
+      "drawers": 0,
+      "doors": 1,
+      "allowedWidths": [
+        40
+      ],
+      "height": 70,
+      "depth": 22,
+      "base": 110.00000000000001,
+      "productsByWidth": {
+        "40": "pura-wall-1-door-40-70"
+      }
+    },
+    {
+      "id": "ribelle-two",
+      "facade": "RIBELLE",
+      "subtype": "vanity",
+      "trueDrawers": 2,
+      "drawers": 2,
+      "doors": 0,
+      "allowedWidths": [
+        60,
+        80,
+        100,
+        120
+      ],
+      "height": 52,
+      "depth": 46,
+      "base": 30,
+      "productsByWidth": {
+        "60": "ribelle-vanity-2-drawers-60-52",
+        "80": "ribelle-vanity-2-drawers-80-52",
+        "100": "ribelle-vanity-2-drawers-100-52",
+        "120": "ribelle-vanity-2-drawers-120-52"
+      }
+    },
+    {
+      "id": "ribelle-base-two",
+      "facade": "RIBELLE",
+      "subtype": "base",
+      "trueDrawers": 2,
+      "drawers": 2,
+      "doors": 0,
+      "allowedWidths": [
+        60,
+        80,
+        100,
+        120
+      ],
+      "height": 52,
+      "depth": 46,
+      "base": 30,
+      "productsByWidth": {
+        "60": "ribelle-base-2-drawers-60-52",
+        "80": "ribelle-base-2-drawers-80-52",
+        "100": "ribelle-base-2-drawers-100-52",
+        "120": "ribelle-base-2-drawers-120-52"
+      }
+    },
+    {
+      "id": "ribelle-doors",
+      "facade": "RIBELLE",
+      "subtype": "vanity",
+      "trueDrawers": 0,
+      "drawers": 0,
+      "doors": 2,
+      "allowedWidths": [
+        80
+      ],
+      "height": 52,
+      "depth": 46,
+      "base": 30,
+      "productsByWidth": {
+        "80": "ribelle-vanity-2-doors-80-52"
+      }
+    },
+    {
+      "id": "ribelle-base-doors",
+      "facade": "RIBELLE",
+      "subtype": "base",
+      "trueDrawers": 0,
+      "drawers": 0,
+      "doors": 2,
+      "allowedWidths": [
+        80
+      ],
+      "height": 52,
+      "depth": 46,
+      "base": 30,
+      "productsByWidth": {
+        "80": "ribelle-base-2-doors-80-52"
+      }
+    },
+    {
+      "id": "ribelle-one",
+      "facade": "RIBELLE",
+      "subtype": "vanity",
+      "trueDrawers": 1,
+      "drawers": 1,
+      "doors": 0,
+      "allowedWidths": [
+        60,
+        80,
+        100,
+        120
+      ],
+      "height": 26,
+      "depth": 46,
+      "base": 56.00000000000001,
+      "productsByWidth": {
+        "60": "ribelle-vanity-1-drawer-60-26",
+        "80": "ribelle-vanity-1-drawer-80-26",
+        "100": "ribelle-vanity-1-drawer-100-26",
+        "120": "ribelle-vanity-1-drawer-120-26"
+      }
+    },
+    {
+      "id": "ribelle-base-one",
+      "facade": "RIBELLE",
+      "subtype": "base",
+      "trueDrawers": 1,
+      "drawers": 1,
+      "doors": 0,
+      "allowedWidths": [
+        60,
+        80,
+        100,
+        120
+      ],
+      "height": 26,
+      "depth": 46,
+      "base": 56.00000000000001,
+      "productsByWidth": {
+        "60": "ribelle-base-1-drawer-60-26",
+        "80": "ribelle-base-1-drawer-80-26",
+        "100": "ribelle-base-1-drawer-100-26",
+        "120": "ribelle-base-1-drawer-120-26"
+      }
+    },
+    {
+      "id": "ribelle-base-door",
+      "facade": "RIBELLE",
+      "subtype": "base",
+      "trueDrawers": 0,
+      "drawers": 0,
+      "doors": 1,
+      "allowedWidths": [
+        40
+      ],
+      "height": 52,
+      "depth": 46,
+      "base": 30,
+      "productsByWidth": {
+        "40": "ribelle-base-1-door-40-52"
+      }
+    },
+    {
+      "id": "ribelle-wall",
+      "facade": "RIBELLE",
+      "subtype": "wall",
+      "trueDrawers": 0,
+      "drawers": 0,
+      "doors": 1,
+      "allowedWidths": [
+        40
+      ],
+      "height": 70,
+      "depth": 22,
+      "base": 110.00000000000001,
+      "productsByWidth": {
+        "40": "ribelle-wall-1-door-40-70"
+      }
+    },
+    {
+      "id": "pura-column",
+      "facade": "PURA",
+      "subtype": "column",
+      "drawers": 0,
+      "doors": 1,
+      "allowedWidths": [
+        40
+      ],
+      "height": 140,
+      "depth": 22,
+      "base": 30,
+      "productsByWidth": {
+        "40": "pura-column-1-door-40-140"
+      }
+    },
+    {
+      "id": "ribelle-column",
+      "facade": "RIBELLE",
+      "subtype": "column",
+      "drawers": 0,
+      "doors": 1,
+      "allowedWidths": [
+        40
+      ],
+      "height": 140,
+      "depth": 22,
+      "base": 30,
+      "productsByWidth": {
+        "40": "ribelle-column-1-door-40-140"
+      }
+    }
+  ]
+}

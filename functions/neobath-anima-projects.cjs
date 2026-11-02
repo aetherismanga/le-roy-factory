@@ -69,10 +69,12 @@ function normalizeProject(input, catalogue) {
 
 function createNeobathProjectStore({db, loadCatalogue = () => JSON.parse(readFileSync(join(__dirname, 'neobath-anima/catalogue.json'), 'utf8'))}) {
   const collection = db.collection(COLLECTION);
+  let studio;
+  const studioStore = () => studio ||= require('./neobath-anima-studio-projects.cjs').createNeobathStudioProjectStore({db});
   function agentAccount(agent) {
     if (!agent?.uid || !AGENTS.has(agent.email)) throw failure('Accès agent requis.', 403);
   }
-  return {
+  const legacy = {
     async ['projects-list'](_body, agent) {
       agentAccount(agent);
       const snapshot = await collection.orderBy('updatedAt', 'desc').limit(200).get();
@@ -107,6 +109,11 @@ function createNeobathProjectStore({db, loadCatalogue = () => JSON.parse(readFil
       return {success: true, id};
     }
   };
+  return Object.fromEntries(['projects-list','projects-save','projects-delete','projects-email','projects-order'].map(action => [action, async (body, agent) => {
+    if (body?.profile === 'studio-one') return studioStore()[action](body, agent);
+    if (!legacy[action]) throw failure('Action de projet incompatible.', 400);
+    return legacy[action](body, agent);
+  }]));
 }
 
 module.exports = {createNeobathProjectStore, normalizeProject};
