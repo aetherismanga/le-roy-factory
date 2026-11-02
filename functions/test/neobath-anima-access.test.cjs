@@ -4,6 +4,16 @@ const {readFileSync} = require('node:fs');
 const {resolve} = require('node:path');
 const {pathToFileURL} = require('node:url');
 const {createNeobathAnimaHandler} = require('../neobath-anima-access-core.cjs');
+const {createHash} = require('node:crypto');
+
+test('the private release contains matching interface, script, style and catalogue assets', () => {
+  const root = resolve(__dirname, '../neobath-anima');
+  const release = JSON.parse(readFileSync(resolve(root, 'release.json'), 'utf8'));
+  assert.equal(release.id, '20261102-neobath-anima-private-1');
+  for (const file of ['app.js', 'application.html', 'style.css', 'catalogue.json']) {
+    assert.equal(createHash('sha256').update(readFileSync(resolve(root, file))).digest('hex'), release.assets[file], file);
+  }
+});
 
 function response() {
   return {code:200,headers:{},set(k,v){this.headers[k]=v;return this;},status(v){this.code=v;return this;},json(v){this.body=v;return this;},send(v){this.body=v;return this;}};

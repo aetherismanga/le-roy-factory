@@ -20,10 +20,10 @@ Les sources exécutables privées sont sous functions/, exclu de GitHub Pages et
 
 ## Vérification
 
-- 36 tests ciblés passent : authentification, session, ouvertures/géométrie, les 42 vrais modules, catalogue/prix/compatibilités, import, sauvegarde, conflits et aller-retour complet interface/serveur/interface.
+- 37 tests ciblés passent : authentification, session, ouvertures/géométrie, les 42 vrais modules, catalogue/prix/compatibilités, import, sauvegarde, conflits et aller-retour complet interface/serveur/interface.
 - Noyau partagé Randal : npm run check:core réussi.
 - 17 tests de non-régression PLAN & POSE/tarifs sécurisés réussis.
-- Build public réussi, exclusion des sources privées confirmée.
+- Build public réussi, exclusion des sources privées confirmée. Manifestes privés vérifiés par empreinte SHA-256 avant ouverture du service.
 - Navigateur : création d'un meuble 80 cm Rovere Alba + TK80, total HT 768 €, TVA 153,60 €, TTC 921,60 € ; sauvegarde et liste de projets ; contrôle visuel desktop et smartphone 390×844.
 - Le navigateur de contrôle désactive WebGL (GL_VENDOR=Disabled). Le repli en vue de face a été vérifié. La géométrie 3D et les mouvements ont été testés sans GPU ; le rendu visuel WebGL final reste à valider sur un appareil compatible. Les intérieurs et formes de vasques sont des reconstructions de visualisation, pas une CAO de fabrication.
 

@@ -38,7 +38,7 @@ function createNeobathAnimaHandler({getAgent, loadApplication, projectStore}) {
       }
       if (action !== 'application') return res.status(400).json({success: false, error: 'Action inconnue.'});
       const application = await loadApplication();
-      return res.json({success: true, html: application.html, css: application.css, module: application.module, catalogue: application.catalogue, identity: {uid: agent.uid, email: agent.email}});
+      return res.json({success: true, html: application.html, css: application.css, module: application.module, catalogue: application.catalogue, release: application.release || null, identity: {uid: agent.uid, email: agent.email}});
     } catch (_) {
       return res.status(503).json({success: false, error: 'Atelier momentanément indisponible. Réessayez dans un instant.'});
     }
