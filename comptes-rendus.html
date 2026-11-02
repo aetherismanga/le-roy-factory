@@ -116,7 +116,7 @@
       const searchInput=$("cr-search-input"),filterAgent=$("cr-filter-agent"),filterUsine=$("cr-filter-usine"),filterDate=$("cr-filter-date"),sortSelect=$("cr-sort"),feed=$("cr-feed-container");
       const currentAgent=localStorage.getItem("agentName")||"Jérôme Hugol";
       const defaultUsines=["Elios","BILT","View","Randal","OPAL","Aquahome","Neobath","Uptrend","Bulbo","Reviglass","Koibath"];
-      let allCRs=[],editing=null,clientCache=new Map();
+      let allCRs=[],editing=null,clientCache=new Map(),crSnapshotVersion=0;
 
       const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
       const today=()=>new Date().toISOString().slice(0,10);
@@ -197,13 +197,17 @@
 
       const cpCache={};async function villeFromCP(cp){if(!/^\d{5}$/.test(cp))return"";if(cpCache[cp])return cpCache[cp];try{const r=await fetch(`https://geo.api.gouv.fr/communes?codePostal=${cp}&fields=nom&format=json`),j=await r.json();if(j?.length)return cpCache[cp]=j[0].nom}catch(e){console.warn("Résolution ville impossible",e)}return""}
       onSnapshot(collection(db,"clients"),async snap=>{
-        allCRs=[];clientCache.clear();clientSelect.innerHTML='<option value="" disabled selected>-- Sélectionner un client --</option>';
+        const version=++crSnapshotVersion,nextCRs=[],nextClients=new Map(),nextOptions=document.createDocumentFragment();
+        const placeholder=document.createElement("option");placeholder.value="";placeholder.disabled=true;placeholder.selected=true;placeholder.textContent="-- Sélectionner un client --";nextOptions.appendChild(placeholder);
         for(const ds of snap.docs){
           const data=ds.data(),id=ds.id,societe=data.societe||"Entreprise sans nom";let cp=String(data.codePostal||data.code_postal||"").trim(),ville=String(data.ville||"").trim();if(/^\d{5}$/.test(ville)&&!/^\d{5}$/.test(cp)){[cp,ville]=[ville,cp]}if(!ville&&/^\d{5}$/.test(cp))ville=await villeFromCP(cp);
-          const field=Array.isArray(data.comptes_rendus)?"comptes_rendus":Array.isArray(data.comptesRendus)?"comptesRendus":"comptes_rendus",list=Array.isArray(data[field])?data[field]:[];clientCache.set(id,{data,field,list});
-          const opt=document.createElement("option");opt.value=id;opt.textContent=`${societe} (${cp?cp+" ":""}${ville})`;clientSelect.appendChild(opt);
-          list.forEach((raw,index)=>allCRs.push({clientId:id,crIndex:index,crField:field,societe,ville,code_postal:cp,author:raw.author||raw.auteur||"Agent",date:raw.date||"",text:raw.text||raw.texte||raw.notes||"",usine:detectUsine(raw),createdAt:raw.createdAt||raw.created_at||"",raw}));
+          if(version!==crSnapshotVersion)return;
+          const field=Array.isArray(data.comptes_rendus)?"comptes_rendus":Array.isArray(data.comptesRendus)?"comptesRendus":"comptes_rendus",list=Array.isArray(data[field])?data[field]:[];nextClients.set(id,{data,field,list});
+          const opt=document.createElement("option");opt.value=id;opt.textContent=`${societe} (${cp?cp+" ":""}${ville})`;nextOptions.appendChild(opt);
+          list.forEach((raw,index)=>nextCRs.push({clientId:id,crIndex:index,crField:field,societe,ville,code_postal:cp,author:raw.author||raw.auteur||"Agent",date:raw.date||"",text:raw.text||raw.texte||raw.notes||"",usine:detectUsine(raw),createdAt:raw.createdAt||raw.created_at||"",raw}));
         }
+        if(version!==crSnapshotVersion)return;
+        const selected=clientSelect.value;allCRs=nextCRs;clientCache=nextClients;clientSelect.replaceChildren(nextOptions);if(nextClients.has(selected))clientSelect.value=selected;
         refreshUsineChoices();render();
       },err=>{console.error(err);feed.innerHTML='<div style="background:#fff;padding:2rem;border-radius:8px">Impossible de charger les comptes-rendus.</div>'});
 
