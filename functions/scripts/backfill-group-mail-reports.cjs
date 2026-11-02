@@ -1,7 +1,7 @@
 'use strict';
 
 const admin = require('firebase-admin');
-const { clientEmails, normalizeEmail, parisDate, appendGroupMailReports } = require('../group-mail-history');
+const { clientEmails, normalizeEmail, parisDate, campaignKey, appendGroupMailReports } = require('../group-mail-history');
 
 async function backfill(db, { date, subject, senderEmail, minRecipients, maxRecipients, attachment }) {
   const [history, clients] = await Promise.all([
@@ -49,17 +49,10 @@ async function backfill(db, { date, subject, senderEmail, minRecipients, maxReci
     });
     for (const key of Object.keys(counts)) counts[key] += result[key];
   }
-  let verifiedClients = 0;
-  for (const id of affected) {
-    const snapshot = await db.collection('clients').doc(id).get();
-    const client = snapshot.data() || {};
-    const list = Array.isArray(client.comptes_rendus) ? client.comptes_rendus : client.comptesRendus || [];
-    const matching = list.filter(report => report.source === 'mail-groupe' && report.date === date && report.mailSubject === subject);
-    if (matching.length !== 1) throw new Error('Le contrôle des comptes-rendus a échoué.');
-    verifiedClients += 1;
-  }
-  // Public CI output intentionally contains counts only, never client identities.
-  return { confirmedBatches: rows.length, confirmedRecipients: recipients.size, affectedClients: affected.size, verifiedClients, ...counts };
+  const id = campaignKey({ subject, senderMode: senderEmail.startsWith('coryne@') ? 'coryne' : 'jerome' }, new Date(date + 'T12:00:00Z'));
+  const report = await db.collection('comptes_rendus').doc(id).get();
+  if (!report.exists || report.data().mailRecipients.length !== recipients.size) throw new Error('Le contrôle du compte-rendu global a échoué.');
+  return { confirmedBatches: rows.length, confirmedRecipients: recipients.size, affectedClients: affected.size, verifiedCampaignReports: 1, ...counts };
 }
 
 if (require.main === module) {

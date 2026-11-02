@@ -44,8 +44,8 @@ function database(initial = {}) {
     batch: () => { const changes = []; return { update: (ref, values) => changes.push([ref, values]), commit: async () => changes.forEach(([ref, values]) => patch(ref, values)) }; },
     runTransaction: async fn => {
       const changes = [];
-      const result = await fn({ get: ref => ref.get(), update: (ref, values) => changes.push([ref, values]) });
-      changes.forEach(([ref, values]) => patch(ref, values)); return result;
+      const result = await fn({ get: ref => ref.get(), update: (ref, values) => changes.push([ref, values]), set: (ref, values) => changes.push([ref, values, true]) });
+      changes.forEach(([ref, values, isSet]) => isSet ? data.set(`${ref.collectionName}/${ref.id}`, values) : patch(ref, values)); return result;
     }
   };
 }
@@ -112,7 +112,8 @@ for (const senderMode of ['jerome', 'coryne', 'both']) {
     assert.equal(h.messages[0].options.cc, undefined);
     assert.doesNotMatch(h.messages[0].raw, /^(?:To|Cc|Bcc):/mi);
     assert.ok(h.messages[0].options.replyTo.includes(senderMode === 'coryne' ? 'coryne@' : 'jerome@'));
-    assert.equal(h.db.data.get('clients/client-a').comptes_rendus.length, 1);
+    assert.equal(h.db.data.get('clients/client-a').comptes_rendus.length, 0);
+    assert.equal([...h.db.data.keys()].filter(key => key.startsWith('comptes_rendus/')).length, 1);
   });
 }
 
@@ -129,7 +130,7 @@ test('a planned payload is preserved and creates its report only after actual se
   assert.equal(h.messages.length, 1);
   assert.deepEqual([...h.messages[0].envelope.to].sort(), [...payload.bccRecipients].sort());
   assert.equal(h.messages[0].options.attachments[0].content.toString(), 'PDF-FIXTURE');
-  assert.equal(h.db.data.get('clients/client-a').comptes_rendus[0].mailScheduled, true);
+  assert.equal([...h.db.data.entries()].find(([key]) => key.startsWith('comptes_rendus/'))[1].mailScheduled, true);
   assert.equal([...h.db.data.entries()].find(([key]) => key.startsWith('scheduled_mails/'))[1].status, 'envoye');
 });
 
@@ -140,7 +141,7 @@ test('an SMTP rejection never creates a sent commercial report', async () => {
   assert.equal(h.db.data.get('clients/client-a').comptes_rendus.length, 0);
 });
 
-test('separate lots merge once per client, preserve existing notes, and keep other clients private', async () => {
+test('separate lots and clients merge into one short campaign note and preserve client notes', async () => {
   const note = { date: '2026-10-20', author: 'Coryne', text: 'Note existante à conserver.' };
   const db = database({ 'clients/a': { email: 'one@client.example', contacts: [{ mail: 'two@client.example' }], comptesRendus: [note] } });
   const first = { ...payload, clientIds: ['a'], bccRecipients: ['one@client.example', 'unrelated@other.example'] };
@@ -151,10 +152,13 @@ test('separate lots merge once per client, preserve existing notes, and keep oth
   await appendGroupMailReports(db, later, { sentAt: laterTime, messageId: 'later', programmed: true });
   const replay = await appendGroupMailReports(db, later, { sentAt: laterTime, messageId: 'later', programmed: true });
   const client = db.data.get('clients/a');
-  assert.equal(client.comptesRendus.length, 2);
-  assert.deepEqual(client.comptesRendus[1], note);
-  assert.deepEqual(client.comptesRendus[0].mailRecipients, ['one@client.example', 'two@client.example']);
-  assert.equal(client.comptesRendus[0].createdAt, earlyTime.toISOString());
+  assert.equal(client.comptesRendus.length, 1);
+  assert.deepEqual(client.comptesRendus[0], note);
+  const report = db.data.get('comptes_rendus/' + campaignKey(first, earlyTime));
+  assert.deepEqual(report.mailRecipients, ['one@client.example', 'two@client.example', 'unrelated@other.example']);
+  assert.equal(report.createdAt, earlyTime.toISOString());
+  assert.equal(report.text, 'Envoi d’un mail groupé à l’ensemble des clients concernant RANDAL Studio One.');
+  assert.equal([...db.data.keys()].filter(k => k.startsWith('comptes_rendus/')).length, 1);
   assert.equal(replay.unchanged, 1);
   assert.equal(client.comptes_rendus, undefined);
 });
@@ -169,8 +173,31 @@ test('historic backfill ignores error, pending and frontend-duplicate entries', 
     'historique_mails/planned': { source: 'serveur', statut: 'Programmé', date: '2026-11-02T06:02:00Z', objet: subject, expediteur: 'jerome@leroyfactory.fr', destinataires: ['pending@example.invalid'] }
   });
   const options = { date: '2026-11-02', subject, senderEmail: 'jerome@leroyfactory.fr', minRecipients: 1, maxRecipients: 1, attachment: 'STUDIO_ONE.pdf' };
-  assert.equal((await backfill(db, options)).verifiedClients, 1);
+  assert.equal((await backfill(db, options)).verifiedCampaignReports, 1);
   assert.equal((await backfill(db, options)).added, 0);
   assert.equal(db.data.get('clients/excluded').comptes_rendus, undefined);
   assert.deepEqual(clientEmails({ email: 'mailto:one@client.example', emails_contact: ['one@client.example'], contacts: [{ eMail: 'two@client.example' }] }), ['one@client.example', 'two@client.example']);
+});
+
+module.exports = { database, subject, payload };
+
+
+test('consolidation retires only generated Studio One notes in both legacy fields and is repeatable', async () => {
+  const { consolidate, CAMPAIGN } = require('../scripts/consolidate-group-mail-reports.cjs');
+  const manual = { date: '2026-11-02', author: 'Jérôme', text: 'Présentation Studio One, relancer demain.' };
+  const generated = { source: 'mail-groupe', date: '2026-11-02', mailCampaignId: CAMPAIGN, mailSubject: subject, text: 'Ancien long compte-rendu' };
+  const other = { ...generated, mailCampaignId: 'another-campaign', mailSubject: 'Autre campagne' };
+  const db = database({
+    'clients/a': { email: 'one@client.example', comptes_rendus: [manual, generated, other], comptesRendus: [generated, manual] },
+    'historique_mails/sent': { source: 'serveur', messageId: 'confirmed', statut: 'Succès', date: '2026-11-02T06:00:00Z', objet: subject, expediteur: 'jerome@leroyfactory.fr', destinataires: ['one@client.example'] }
+  });
+  const result = await consolidate(db, { minRecipients: 1, maxRecipients: 1 });
+  assert.equal(result.retiredClientReports, 2);
+  assert.equal(result.remainingClientReports, 0);
+  assert.equal(result.globalCampaignReports, 1);
+  assert.deepEqual(db.data.get('clients/a').comptes_rendus, [manual, other]);
+  assert.deepEqual(db.data.get('clients/a').comptesRendus, [manual]);
+  assert.equal([...db.data.keys()].filter(k => k.startsWith('crm_report_archives/')).length, 1);
+  assert.equal((await consolidate(db, { minRecipients: 1, maxRecipients: 1 })).retiredClientReports, 0);
+  assert.equal([...db.data.keys()].filter(k => k.startsWith('comptes_rendus/')).length, 1);
 });

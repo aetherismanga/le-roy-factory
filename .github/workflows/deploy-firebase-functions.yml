@@ -61,6 +61,7 @@ jobs:
           node --test test/cerastone-request.test.cjs
           node --test test/bulbo-tariff.test.cjs
           node --test test/group-mail-history.test.cjs
+          node --test ../scripts/test-comptes-rendus-snapshots.cjs
           node - <<'JS'
           const {GoogleAuth}=require('google-auth-library');
           (async()=>{const client=await new GoogleAuth({scopes:['https://www.googleapis.com/auth/cloud-platform']}).getClient();const {data}=await client.request({url:'https://firestore.googleapis.com/v1/projects/le-roy-factory/databases/(default)'});console.log(JSON.stringify({name:data.name,type:data.type,databaseEdition:data.databaseEdition||'STANDARD_LEGACY'}));if(data.type!=='FIRESTORE_NATIVE'||data.databaseEdition==='ENTERPRISE')throw Error('Expected existing native Standard Firestore database.');})().catch(e=>{console.error(e.message);process.exit(1);});
@@ -74,6 +75,7 @@ jobs:
           python - <<'PYTHON'
           import os, subprocess
           changed=subprocess.check_output(['git','diff','--name-only','HEAD^','HEAD','--','functions','assets/js/lrf-plan-pose/app.mjs'],text=True).splitlines()
+          mail_consolidation='functions/scripts/consolidate-group-mail-reports.cjs' in changed and os.environ['EVENT_NAME']=='push'
           mail_verify_only=changed==['functions/scripts/verify-group-mail-deployment.cjs']
           mail_only=bool(changed) and all(p in ['functions/index.js','functions/group-mail-history.js','functions/scripts/backfill-group-mail-reports.cjs','functions/scripts/verify-group-mail-deployment.cjs','functions/test/group-mail-history.test.cjs'] for p in changed)
           plan_pose_only=bool(changed) and all(p in ['functions/entry.js','functions/plan-pose-access.js','functions/plan-pose-access-core.cjs','functions/scripts/prepare-plan-pose.cjs','functions/test/plan-pose-access.test.cjs','assets/js/lrf-plan-pose/app.mjs'] or p.startswith('functions/plan-pose/') for p in changed)
@@ -83,10 +85,11 @@ jobs:
           fenice_only=bool(changed) and all(p in ['functions/entry.js','functions/fenice-request.js','functions/fenice-request-core.js','functions/fenice-packaging.json','functions/fenice-packaging.mjs','functions/test/fenice-request.test.cjs'] for p in changed)
           biopietra_only=bool(changed) and all(p in ['functions/entry.js','functions/biopietra-request.js','functions/biopietra-request-core.js','functions/biopietra-catalogue.json','functions/test/biopietra-request.test.cjs'] for p in changed)
           cerastone_only=bool(changed) and all(p in ['functions/entry.js','functions/cerastone-request.js','functions/cerastone-request-core.js','functions/cerastone-quantities.js','functions/cerastone-catalogue.json.gz','functions/cerastone-catalogue.manifest.json','functions/test/cerastone-request.test.cjs'] for p in changed)
-          target='functions:planPoseApplication' if plan_pose_only and os.environ['EVENT_NAME']=='push' else 'functions:sendGroupEmail,functions:scheduleGroupEmail,functions:processScheduledEmails' if mail_only and os.environ['EVENT_NAME']=='push' else 'functions:cerastoneRequest' if cerastone_only and os.environ['EVENT_NAME']=='push' else 'functions:getTariffPdf' if tariff_only and os.environ['EVENT_NAME']=='push' else 'functions:biopietraRequest' if biopietra_only and os.environ['EVENT_NAME']=='push' else 'functions:feniceRequest' if fenice_only and os.environ['EVENT_NAME']=='push' else 'functions:getConfiguratorPurchasePrices' if purchase_only and os.environ['EVENT_NAME']=='push' else 'functions:randalProjects' if project_only and os.environ['EVENT_NAME']=='push' else 'functions:getTariffPdf,functions:getNeobathDnaTariff,functions:createProSession,functions:validateProSession,functions:revokeProSession,functions:trackLrfActivity,functions:getLrfAnalytics,functions:eliosStock,functions:eliosOrder,functions:eliosPoseOrder,functions:eliosCatalog,functions:biltOrder,functions:biltDecision,functions:biltScheduleAutoRelease,functions:biltAutoReleaseSweep,functions:crmFilesUpload,functions:siteControl,functions:aquahomeCatalog,functions:reitanoCatalog,functions:randalProjects,functions:getConfiguratorPurchasePrices,functions:feniceRequest,functions:biopietraRequest,functions:cerastoneRequest,functions:planPoseApplication'
+          target='functions:sendGroupEmail,functions:scheduleGroupEmail' if mail_consolidation else 'functions:planPoseApplication' if plan_pose_only and os.environ['EVENT_NAME']=='push' else 'functions:sendGroupEmail,functions:scheduleGroupEmail,functions:processScheduledEmails' if mail_only and os.environ['EVENT_NAME']=='push' else 'functions:cerastoneRequest' if cerastone_only and os.environ['EVENT_NAME']=='push' else 'functions:getTariffPdf' if tariff_only and os.environ['EVENT_NAME']=='push' else 'functions:biopietraRequest' if biopietra_only and os.environ['EVENT_NAME']=='push' else 'functions:feniceRequest' if fenice_only and os.environ['EVENT_NAME']=='push' else 'functions:getConfiguratorPurchasePrices' if purchase_only and os.environ['EVENT_NAME']=='push' else 'functions:randalProjects' if project_only and os.environ['EVENT_NAME']=='push' else 'functions:getTariffPdf,functions:getNeobathDnaTariff,functions:createProSession,functions:validateProSession,functions:revokeProSession,functions:trackLrfActivity,functions:getLrfAnalytics,functions:eliosStock,functions:eliosOrder,functions:eliosPoseOrder,functions:eliosCatalog,functions:biltOrder,functions:biltDecision,functions:biltScheduleAutoRelease,functions:biltAutoReleaseSweep,functions:crmFilesUpload,functions:siteControl,functions:aquahomeCatalog,functions:reitanoCatalog,functions:randalProjects,functions:getConfiguratorPurchasePrices,functions:feniceRequest,functions:biopietraRequest,functions:cerastoneRequest,functions:planPoseApplication'
           with open(os.environ['GITHUB_OUTPUT'],'a') as out:out.write('only='+target+'\n')
           with open(os.environ['GITHUB_OUTPUT'],'a') as out:out.write('mail_verify_only='+str(mail_verify_only).lower()+'\n')
-          with open(os.environ['GITHUB_OUTPUT'],'a') as out:out.write('group_mail_backfill='+str(mail_only and (mail_verify_only or 'functions/scripts/backfill-group-mail-reports.cjs' in changed)).lower()+'\n')
+          with open(os.environ['GITHUB_OUTPUT'],'a') as out:out.write('group_mail_consolidation='+str(mail_consolidation).lower()+'\n')
+          with open(os.environ['GITHUB_OUTPUT'],'a') as out:out.write('group_mail_backfill='+str(not mail_consolidation and mail_only and (mail_verify_only or 'functions/scripts/backfill-group-mail-reports.cjs' in changed)).lower()+'\n')
           PYTHON
 
       - name: Deploy secured tariff, session, analytics, ELIOS, BILT, CRM file and site control functions
@@ -170,6 +173,13 @@ jobs:
           })().catch(e=>{console.error(e.message);process.exit(1);});
           JS
 
+      - name: Update the mail worker source without changing its scheduler
+        if: steps.targets.outputs.group_mail_consolidation == 'true'
+        working-directory: functions
+        env:
+          GOOGLE_CLOUD_PROJECT: le-roy-factory
+        run: node scripts/update-group-mail-worker-source.cjs
+
       - name: Verify active bulk mail source without changing the existing scheduler
         if: contains(steps.targets.outputs.only, 'functions:sendGroupEmail')
         working-directory: functions
@@ -189,6 +199,13 @@ jobs:
             console.log('Bulk mail authentication verified. No email sent and no scheduled job changed.');
           })().catch(error=>{console.error(error.message);process.exit(1);});
           JS
+
+      - name: Consolidate Studio One into one short global report
+        if: steps.targets.outputs.group_mail_consolidation == 'true'
+        working-directory: functions
+        env:
+          GOOGLE_CLOUD_PROJECT: le-roy-factory
+        run: node scripts/consolidate-group-mail-reports.cjs
 
       - name: Record the confirmed Studio One campaign in client reports
         if: steps.targets.outputs.group_mail_backfill == 'true' && github.event_name == 'push'
