@@ -3,6 +3,7 @@ const { onSchedule } = require("firebase-functions/v2/scheduler");
 const admin = require("firebase-admin");
 const nodemailer = require("nodemailer");
 const { requireAgent } = require("./auth");
+const { appendGroupMailReports } = require("./group-mail-history");
 
 admin.initializeApp();
 const db = admin.firestore();
@@ -75,6 +76,7 @@ async function writeMailHistory(payload, fields = {}) {
     objet: subject,
     nbDestinataires: Array.isArray(bccRecipients) ? bccRecipients.length : 0,
     destinataires: Array.isArray(bccRecipients) ? bccRecipients : [],
+    clientIds: Array.isArray(payload.clientIds) ? payload.clientIds : [],
     statut: "Succès",
     source: "serveur",
     ...fields
@@ -111,7 +113,6 @@ async function sendPayload(payload) {
 
   const info = await transporter.sendMail({
     from: fromHeader,
-    to: smtpUser,
     replyTo: replyToHeader,
     bcc: bccRecipients,
     subject,
@@ -143,6 +144,9 @@ exports.sendGroupEmail = onRequest({
     });
     await appendClientHistory(payload.clientIds, payload.senderMode, payload.subject, { programme:false }).catch(err => {
       console.warn("Historique client non bloquant:", err);
+    });
+    await appendGroupMailReports(db, payload, { messageId: info?.messageId, sentAt: new Date() }).catch(err => {
+      console.warn("Compte-rendu du mail non bloquant:", err.message);
     });
     res.status(200).json({ success: true, historyId: historyRef.id, messageId: info?.messageId || null });
   } catch (error) {
@@ -265,6 +269,9 @@ async function processScheduledDoc(docSnap, now) {
 
     await appendClientHistory(payload.clientIds, payload.senderMode, payload.subject, { programme:true }).catch(err => {
       console.warn("Historique client programmé non bloquant:", err);
+    });
+    await appendGroupMailReports(db, payload, { messageId: info?.messageId, sentAt, programmed: true }).catch(err => {
+      console.warn("Compte-rendu du mail programmé non bloquant:", err.message);
     });
 
     await ref.update({ status:"envoye", sentAt:admin.firestore.FieldValue.serverTimestamp(), lastError:admin.firestore.FieldValue.delete() });

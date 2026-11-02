@@ -55,6 +55,7 @@ jobs:
           node --test test/biopietra-request.test.cjs
           node --test test/cerastone-request.test.cjs
           node --test test/bulbo-tariff.test.cjs
+          node --test test/group-mail-history.test.cjs
           node - <<'JS'
           const {GoogleAuth}=require('google-auth-library');
           (async()=>{const client=await new GoogleAuth({scopes:['https://www.googleapis.com/auth/cloud-platform']}).getClient();const {data}=await client.request({url:'https://firestore.googleapis.com/v1/projects/le-roy-factory/databases/(default)'});console.log(JSON.stringify({name:data.name,type:data.type,databaseEdition:data.databaseEdition||'STANDARD_LEGACY'}));if(data.type!=='FIRESTORE_NATIVE'||data.databaseEdition==='ENTERPRISE')throw Error('Expected existing native Standard Firestore database.');})().catch(e=>{console.error(e.message);process.exit(1);});
@@ -68,14 +69,16 @@ jobs:
           python - <<'PYTHON'
           import os, subprocess
           changed=subprocess.check_output(['git','diff','--name-only','HEAD^','HEAD','--','functions'],text=True).splitlines()
+          mail_only=bool(changed) and all(p in ['functions/index.js','functions/group-mail-history.js','functions/scripts/backfill-group-mail-reports.cjs','functions/test/group-mail-history.test.cjs'] for p in changed)
           tariff_only=bool(changed) and all(p in ['functions/tariff-access.js','functions/test/bulbo-tariff.test.cjs'] for p in changed)
           project_only=bool(changed) and all(p in ['functions/entry.js','functions/configurator-projects.js','functions/configurator-projects-core.js','functions/test/configurator-projects.test.cjs'] for p in changed)
           purchase_only=bool(changed) and all(p in ['functions/entry.js','functions/configurator-purchase-prices.js','functions/configurator-purchase-prices-core.js','functions/test/configurator-purchase-prices.test.cjs'] for p in changed)
           fenice_only=bool(changed) and all(p in ['functions/entry.js','functions/fenice-request.js','functions/fenice-request-core.js','functions/fenice-packaging.json','functions/fenice-packaging.mjs','functions/test/fenice-request.test.cjs'] for p in changed)
           biopietra_only=bool(changed) and all(p in ['functions/entry.js','functions/biopietra-request.js','functions/biopietra-request-core.js','functions/biopietra-catalogue.json','functions/test/biopietra-request.test.cjs'] for p in changed)
           cerastone_only=bool(changed) and all(p in ['functions/entry.js','functions/cerastone-request.js','functions/cerastone-request-core.js','functions/cerastone-quantities.js','functions/cerastone-catalogue.json.gz','functions/cerastone-catalogue.manifest.json','functions/test/cerastone-request.test.cjs'] for p in changed)
-          target='functions:cerastoneRequest' if cerastone_only and os.environ['EVENT_NAME']=='push' else 'functions:getTariffPdf' if tariff_only and os.environ['EVENT_NAME']=='push' else 'functions:biopietraRequest' if biopietra_only and os.environ['EVENT_NAME']=='push' else 'functions:feniceRequest' if fenice_only and os.environ['EVENT_NAME']=='push' else 'functions:getConfiguratorPurchasePrices' if purchase_only and os.environ['EVENT_NAME']=='push' else 'functions:randalProjects' if project_only and os.environ['EVENT_NAME']=='push' else 'functions:getTariffPdf,functions:getNeobathDnaTariff,functions:createProSession,functions:validateProSession,functions:revokeProSession,functions:trackLrfActivity,functions:getLrfAnalytics,functions:eliosStock,functions:eliosOrder,functions:eliosPoseOrder,functions:eliosCatalog,functions:biltOrder,functions:biltDecision,functions:biltScheduleAutoRelease,functions:biltAutoReleaseSweep,functions:crmFilesUpload,functions:siteControl,functions:aquahomeCatalog,functions:reitanoCatalog,functions:randalProjects,functions:getConfiguratorPurchasePrices,functions:feniceRequest,functions:biopietraRequest,functions:cerastoneRequest'
+          target='functions:sendGroupEmail,functions:scheduleGroupEmail,functions:processScheduledEmails' if mail_only and os.environ['EVENT_NAME']=='push' else 'functions:cerastoneRequest' if cerastone_only and os.environ['EVENT_NAME']=='push' else 'functions:getTariffPdf' if tariff_only and os.environ['EVENT_NAME']=='push' else 'functions:biopietraRequest' if biopietra_only and os.environ['EVENT_NAME']=='push' else 'functions:feniceRequest' if fenice_only and os.environ['EVENT_NAME']=='push' else 'functions:getConfiguratorPurchasePrices' if purchase_only and os.environ['EVENT_NAME']=='push' else 'functions:randalProjects' if project_only and os.environ['EVENT_NAME']=='push' else 'functions:getTariffPdf,functions:getNeobathDnaTariff,functions:createProSession,functions:validateProSession,functions:revokeProSession,functions:trackLrfActivity,functions:getLrfAnalytics,functions:eliosStock,functions:eliosOrder,functions:eliosPoseOrder,functions:eliosCatalog,functions:biltOrder,functions:biltDecision,functions:biltScheduleAutoRelease,functions:biltAutoReleaseSweep,functions:crmFilesUpload,functions:siteControl,functions:aquahomeCatalog,functions:reitanoCatalog,functions:randalProjects,functions:getConfiguratorPurchasePrices,functions:feniceRequest,functions:biopietraRequest,functions:cerastoneRequest'
           with open(os.environ['GITHUB_OUTPUT'],'a') as out:out.write('only='+target+'\n')
+          with open(os.environ['GITHUB_OUTPUT'],'a') as out:out.write('group_mail_backfill='+str(mail_only and 'functions/scripts/backfill-group-mail-reports.cjs' in changed).lower()+'\n')
           PYTHON
 
       - name: Deploy secured tariff, session, analytics, ELIOS, BILT, CRM file and site control functions
@@ -98,7 +101,7 @@ jobs:
           JS
 
       - name: Verify project endpoint rejects unauthenticated access
-        if: steps.targets.outputs.only != 'functions:feniceRequest' && steps.targets.outputs.only != 'functions:biopietraRequest' && steps.targets.outputs.only != 'functions:cerastoneRequest'
+        if: steps.targets.outputs.only != 'functions:feniceRequest' && steps.targets.outputs.only != 'functions:biopietraRequest' && steps.targets.outputs.only != 'functions:cerastoneRequest' && !contains(steps.targets.outputs.only, 'functions:sendGroupEmail')
         run: |
           node - <<'JS'
           (async()=>{const r=await fetch('https://us-central1-le-roy-factory.cloudfunctions.net/randalProjects',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'list',variant:'studio-one'})});const body=await r.json();if(r.status!==401||body.success!==false)throw Error('Project endpoint authentication check failed: '+r.status);console.log('RANDAL project API ready; unauthenticated access rejected. No project or email created.');})().catch(e=>{console.error(e.message);process.exit(1);});
@@ -157,3 +160,29 @@ jobs:
             console.log('CeraStone endpoint ready; origins, methods and malformed requests checked. No email sent.');
           })().catch(e=>{console.error(e.message);process.exit(1);});
           JS
+
+      - name: Verify bulk mail endpoints reject unauthenticated requests
+        if: contains(steps.targets.outputs.only, 'functions:sendGroupEmail')
+        run: |
+          node - <<'JS'
+          (async()=>{
+            for(const name of ['sendGroupEmail','scheduleGroupEmail']){
+              const r=await fetch('https://us-central1-le-roy-factory.cloudfunctions.net/'+name,{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});
+              if(r.status!==401)throw new Error('Unexpected bulk mail authentication result: '+r.status);
+            }
+            console.log('Bulk mail authentication verified. No email sent and no scheduled job changed.');
+          })().catch(error=>{console.error(error.message);process.exit(1);});
+          JS
+
+      - name: Record the confirmed Studio One campaign in client reports
+        if: steps.targets.outputs.group_mail_backfill == 'true' && github.event_name == 'push'
+        working-directory: functions
+        env:
+          GOOGLE_CLOUD_PROJECT: le-roy-factory
+          CAMPAIGN_DATE: '2026-11-02'
+          CAMPAIGN_SUBJECT: 'Comment configurer votre meuble STUDIO ONE en 4 étapes'
+          CAMPAIGN_SENDER: jerome@leroyfactory.fr
+          CAMPAIGN_MIN_RECIPIENTS: '195'
+          CAMPAIGN_MAX_RECIPIENTS: '333'
+          CAMPAIGN_ATTACHMENT: STUDIO_ONE_Flyer_FR_Corrige.pdf
+        run: node scripts/backfill-group-mail-reports.cjs
