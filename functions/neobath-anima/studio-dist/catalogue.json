@@ -8268,13 +8268,18 @@
       "pricePublicHT": 492,
       "prices": [
         {
-          "key": "fume-matte",
-          "label": "Fume mat",
+          "key": "white-matte",
+          "label": "Blanc mat (Opaco)",
           "price": 492
         },
         {
+          "key": "fume-matte",
+          "label": "Fumé",
+          "price": 540
+        },
+        {
           "key": "bronze-matte",
-          "label": "Bronze mat",
+          "label": "Bronze",
           "price": 540
         }
       ],
@@ -8317,7 +8322,8 @@
         "tfx6-linear-top",
         "tfx12-linear-top",
         "tgrs14-linear-top"
-      ]
+      ],
+      "colorSourceNote": "Catalogue Anima p.148–149: OPACO 492; FUME’ / BRONZO 540. Fumé and bronze renderings are indicative, without a calibrated manufacturer colour sample."
     },
     {
       "id": "eclisse115-countertop-basin",
@@ -8331,13 +8337,18 @@
       "pricePublicHT": 492,
       "prices": [
         {
-          "key": "fume-matte",
-          "label": "Fume mat",
+          "key": "white-matte",
+          "label": "Blanc mat (Opaco)",
           "price": 492
         },
         {
+          "key": "fume-matte",
+          "label": "Fumé",
+          "price": 540
+        },
+        {
           "key": "bronze-matte",
-          "label": "Bronze mat",
+          "label": "Bronze",
           "price": 540
         }
       ],
@@ -8380,7 +8391,8 @@
         "tfx6-linear-top",
         "tfx12-linear-top",
         "tgrs14-linear-top"
-      ]
+      ],
+      "colorSourceNote": "Catalogue Anima p.148–149: OPACO 492; FUME’ / BRONZO 540. Fumé and bronze renderings are indicative, without a calibrated manufacturer colour sample."
     },
     {
       "id": "eclisse114-countertop-basin",
@@ -8394,13 +8406,18 @@
       "pricePublicHT": 492,
       "prices": [
         {
-          "key": "fume-matte",
-          "label": "Fume mat",
+          "key": "white-matte",
+          "label": "Blanc mat (Opaco)",
           "price": 492
         },
         {
+          "key": "fume-matte",
+          "label": "Fumé",
+          "price": 540
+        },
+        {
           "key": "bronze-matte",
-          "label": "Bronze mat",
+          "label": "Bronze",
           "price": 540
         }
       ],
@@ -8443,7 +8460,8 @@
         "tfx6-linear-top",
         "tfx12-linear-top",
         "tgrs14-linear-top"
-      ]
+      ],
+      "colorSourceNote": "Catalogue Anima p.148–149: OPACO 492; FUME’ / BRONZO 540. Fumé and bronze renderings are indicative, without a calibrated manufacturer colour sample."
     },
     {
       "id": "cvr45-countertop-basin",
@@ -9115,13 +9133,18 @@
       "pricePublicHT": 492,
       "prices": [
         {
-          "key": "fume-matte",
-          "label": "Fume mat",
+          "key": "white-matte",
+          "label": "Blanc mat (Opaco)",
           "price": 492
         },
         {
+          "key": "fume-matte",
+          "label": "Fumé",
+          "price": 540
+        },
+        {
           "key": "bronze-matte",
-          "label": "Bronze mat",
+          "label": "Bronze",
           "price": 540
         }
       ],
@@ -9163,7 +9186,8 @@
         "tfx6-linear-top",
         "tfx12-linear-top",
         "tgrs14-linear-top"
-      ]
+      ],
+      "colorSourceNote": "Catalogue Anima p.148–149: OPACO 492; FUME’ / BRONZO 540. Fumé and bronze renderings are indicative, without a calibrated manufacturer colour sample."
     },
     {
       "id": "tvl116-accessory",
@@ -9225,13 +9249,18 @@
       "pricePublicHT": 492,
       "prices": [
         {
-          "key": "fume-matte",
-          "label": "Fume mat",
+          "key": "white-matte",
+          "label": "Blanc mat (Opaco)",
           "price": 492
         },
         {
+          "key": "fume-matte",
+          "label": "Fumé",
+          "price": 540
+        },
+        {
           "key": "bronze-matte",
-          "label": "Bronze mat",
+          "label": "Bronze",
           "price": 540
         }
       ],
@@ -9273,7 +9302,8 @@
         "tfx6-linear-top",
         "tfx12-linear-top",
         "tgrs14-linear-top"
-      ]
+      ],
+      "colorSourceNote": "Catalogue Anima p.148–149: OPACO 492; FUME’ / BRONZO 540. Fumé and bronze renderings are indicative, without a calibrated manufacturer colour sample."
     },
     {
       "id": "tvl115-accessory",
@@ -9335,13 +9365,18 @@
       "pricePublicHT": 492,
       "prices": [
         {
-          "key": "fume-matte",
-          "label": "Fume mat",
+          "key": "white-matte",
+          "label": "Blanc mat (Opaco)",
           "price": 492
         },
         {
+          "key": "fume-matte",
+          "label": "Fumé",
+          "price": 540
+        },
+        {
           "key": "bronze-matte",
-          "label": "Bronze mat",
+          "label": "Bronze",
           "price": 540
         }
       ],
@@ -9383,7 +9418,8 @@
         "tfx6-linear-top",
         "tfx12-linear-top",
         "tgrs14-linear-top"
-      ]
+      ],
+      "colorSourceNote": "Catalogue Anima p.148–149: OPACO 492; FUME’ / BRONZO 540. Fumé and bronze renderings are indicative, without a calibrated manufacturer colour sample."
     },
     {
       "id": "tvl114-accessory",

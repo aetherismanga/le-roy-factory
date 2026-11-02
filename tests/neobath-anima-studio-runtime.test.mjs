@@ -8,7 +8,7 @@ import {TOP_OPTIONS,topSelection,isIntegratedTop,isVesselTop,CATALOGUE} from '..
 import * as basins from '../functions/neobath-anima/studio-adapter/basins.js';
 import {topAvailable,cabinetFormat,CABINET_FORMATS,animaCabinetDimensions} from '../functions/neobath-anima/studio-adapter/configuration.js';
 import {continuousPlanOption} from '../functions/neobath-anima/studio-adapter/continuous-plan-ui.js';
-import {validateProject,encodeProject,decodeProject,ProjectJournal} from '../functions/neobath-anima/studio-adapter/projects.js';
+import {validateProject,encodeProject,decodeProject,ProjectJournal,continuousTopContext,continuousTopCompatible} from '../functions/neobath-anima/studio-adapter/projects.js';
 import {draftProject,initialDraft} from '../functions/neobath-anima/studio-adapter/commerce/guided.js';
 import {quoteProject} from '../functions/neobath-anima/studio-adapter/commerce/pricing.js';
 
@@ -33,6 +33,7 @@ function atelier(width=80,top='bare'){
   const composition={selected:item,selectedId:item.id,items:[item],resize:(_item,dimensions)=>{item.dimensions=dimensions;return null;}};
   const context={...basins,state,CABINET_KEYS,TOP_OPTIONS,composition,grain:null,currentDrawers:[0,0],counterDecor:[],roomScene:{},
     __animaTopSelection:topSelection,__animaIntegrated:isIntegratedTop,__animaVessel:isVesselTop,__animaPlanOption:continuousPlanOption,
+    __animaPremiumContext:continuousTopContext,__animaPremiumCompatible:continuousTopCompatible,
     topAvailable,validWidth:(w,format)=>cabinetFormat(format||state.format).allowedWidths.includes(w),cabinetFormat,
     model:item.asset,makeModel,itemDimensions:(_type,s)=>animaCabinetDimensions(s),selectedCabinet:()=>true,
     $$:()=>[],$:()=>({textContent:''}),installCabinetTap:noop,decorateAsset:noop,refreshWidthUI:noop,refreshBasinUI:noop,

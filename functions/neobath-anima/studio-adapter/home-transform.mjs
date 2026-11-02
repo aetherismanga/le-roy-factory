@@ -56,6 +56,7 @@ function renderWizard() {
     html='<div class="product-grid">'+choices.map(c=>productCard(c.id,c.name,c.detail,c.url,c.id===draft.top,c.id==='bare'?'<div class="empty-product">Meuble seul<br>Sans plan</div>':'')).join('')+'</div>';
     const colors=animaColourChoices();
     if(colors.length)html+='<label>Finition du plan / de la vasque</label>'+swatches('basinColor',colors,draft.basinColor);
+    const colorAccuracy=colors.find(color=>color.id===draft.basinColor);if(colorAccuracy?.colorAccuracy)html+='<p class="selection-note">'+esc(colorAccuracy.colorNote||'Rendu indicatif : cette teinte n’est pas calibrée sur un nuancier fabricant.')+'</p>';
     const layouts=basinLayouts(draft.top,draft.width,draft.format,draft.basinColor);
     if(layouts.length>1)html+=field('basinLayout','Implantation de la vasque',draft.basinLayout,layouts.map(o=>[o.layout,o.name+' · réf. '+o.ref]));
     if(/ncs/i.test(draft.basinColor||''))html+='<label>Code NCS demandé<input id="anima-ncs" maxlength="40" value="'+esc(draft.ncsCode||'')+'" placeholder="Ex. S 2010-G10Y"></label><p class="selection-note">Le code NCS sera indiqué sur le récapitulatif. La couleur personnalisée ne remplace pas un échantillon fabricant.</p>';
@@ -97,6 +98,13 @@ export function transformHomeSource(source) {
   source=source.replace("C.media+'hero-meuble-hd.webp'",'C.hero');
   source=source.replace("'Colonne STUDIO ONE · réf. 14177'","'Colonne NEOBATH ANIMA · 40 × 140 × 22 cm'");
   source=source.replace("if(view==='wizard'&&step===3){","if(false&&view==='wizard'&&step===3){");
+  // Start with a source-valid cabinet in the actual workshop. The detailed
+  // choices belong beside the live scene rather than in a preliminary wizard.
+  const previousNew="$('#new-project').onclick=()=>projectNavigation.request(()=>{for(const key of [DRAFT_KEY,TRANSFER_KEY,CURRENT_KEY,QUOTE_KEY,QUOTE_CONTEXT,FLOW_KEY,ACTIVE_ID])localStorage.removeItem(key);draft=initialDraft();project=null;projectTitle=t('Ma salle de bains');siteReference='';guest=null;quoteMode='guided';switchView('wizard',0);},'new');";
+  if(!source.includes(previousNew))throw Error('Studio One new-project control changed.');
+  source=source.replace(previousNew,"$('#new-project').onclick=()=>projectNavigation.request(()=>{for(const key of [DRAFT_KEY,TRANSFER_KEY,CURRENT_KEY,QUOTE_KEY,QUOTE_CONTEXT,FLOW_KEY,ACTIVE_ID])localStorage.removeItem(key);draft=initialDraft();project=null;projectTitle=t('Ma salle de bains');siteReference='';guest=null;quoteMode='guided';const initial={...draftProject(draft),title:projectTitle,siteReference};localStorage.setItem(TRANSFER_KEY,JSON.stringify(initial));localStorage.setItem(FLOW_KEY,JSON.stringify({view:'atelier',step:0}));location.href=demoRoute('atelier.html?guided=1');},'new');");
+  source=source.replace("$('#resume-project').onclick=()=>{const previous=resumeStudioEntry(localStorage);if(previous){launch(previous);return;}const flow=read(FLOW_KEY,{view:'wizard',step:0});if(flow.view==='wizard'){project=null;switchView('wizard',flow.step);return;}const data=read(CURRENT_KEY)||read(QUOTE_KEY);if(data){if(flow.view==='atelier'){launch(data);return;}try{project=checkedProject(data);quoteMode=read(QUOTE_CONTEXT,{mode:'scene'}).mode;switchView('quote');return;}catch{}}switchView('wizard',0);};", "$('#resume-project').onclick=()=>{const previous=resumeStudioEntry(localStorage),data=previous||read(CURRENT_KEY)||read(QUOTE_KEY);if(data){launch(data);return;}try{launch(draftProject(draft));}catch(e){error(e.message);}};");
+  source=source.replace("$('#edit-choices').onclick=()=>switchView('wizard',4);", "$('#edit-choices').onclick=()=>{try{persistQuote();launch(project);}catch(e){error(e.message,'#quote-status');}};");
   const imports="import {topAvailable as animaTopAvailable} from '../configuration.js';\nimport {TOP_OPTIONS as ANIMA_TOP_OPTIONS,topSelection as animaTopSelection,modelProduct as animaModelProduct,productImage as animaProductImage} from './catalog.js';\n";
   return imports+[animaTopChoices,animaColourChoices].map(f=>f.toString()).join('\n')+'\n'+source;
 }

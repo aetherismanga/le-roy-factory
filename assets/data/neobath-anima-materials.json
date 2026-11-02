@@ -1,0 +1,1666 @@
+{
+  "version": 1,
+  "collection": "NEOBATH ANIMA 2026",
+  "source": {
+    "catalogue": "NEOBATH ANIMA 2026",
+    "pdfPages": [
+      70,
+      71,
+      73,
+      74
+    ]
+  },
+  "materialFamilies": [
+    {
+      "id": "fenix",
+      "name": "FENIX",
+      "surfaces": [
+        "fenix-beige-arizona",
+        "fenix-beige-luxor",
+        "fenix-castoro-ottawa",
+        "fenix-cacao-orinoco",
+        "fenix-grigio-efeso",
+        "fenix-grigio-antrim",
+        "fenix-verde-kitami",
+        "fenix-verde-comodoro",
+        "fenix-rosso-namib",
+        "fenix-blu-shaba",
+        "fenix-viola-orissa"
+      ],
+      "referenceDepth": 46.5,
+      "depthSource": {
+        "kind": "catalogue-composition-example",
+        "reference": "TFX12 · composition06",
+        "pdfPage": 61
+      },
+      "referenceDepthNote": "Composition example only: TFX12 · composition06; not a universal manufacturing limit.",
+      "dimensionStatus": "confirm-fabrication",
+      "widthRangeNote": "The linear pricing tables do not document a universal 60–240 cm fabrication range."
+    },
+    {
+      "id": "hpl",
+      "name": "HPL",
+      "surfaces": [
+        "hpl-statuario",
+        "hpl-elite",
+        "hpl-white-yule",
+        "hpl-kaspio-oro",
+        "hpl-terrazzo",
+        "hpl-mailand",
+        "hpl-botticino",
+        "hpl-travertino-tivoli",
+        "hpl-rovere-naturale",
+        "hpl-rovere-valweg",
+        "hpl-noce-sinfonia",
+        "hpl-olmo",
+        "hpl-noce",
+        "hpl-nero-ardesia"
+      ],
+      "referenceDepth": 46.5,
+      "depthSource": {
+        "kind": "catalogue-composition-example",
+        "reference": "THPL12 · composition07",
+        "pdfPage": 62
+      },
+      "referenceDepthNote": "Composition example only: THPL12 · composition07; not a universal manufacturing limit.",
+      "dimensionStatus": "confirm-fabrication",
+      "widthRangeNote": "The linear pricing tables do not document a universal 60–240 cm fabrication range."
+    },
+    {
+      "id": "gres",
+      "name": "Grès",
+      "surfaces": [
+        "gres-calacatta-oro",
+        "gres-macchia-vecchia",
+        "gres-bianco-statuario",
+        "gres-pietra-grey",
+        "gres-ossido-bruno",
+        "gres-pietra-piasentina-grigio",
+        "gres-pietra-piasentina-taupe",
+        "gres-emperador-extra",
+        "gres-ceppo-pietra-diseo",
+        "gres-anima-nero-atlante",
+        "gres-travertino"
+      ],
+      "referenceDepth": 50,
+      "depthSource": {
+        "kind": "catalogue-composition-example",
+        "reference": "TGRS14 · composition10",
+        "pdfPage": 62
+      },
+      "referenceDepthNote": "Composition example only: TGRS14 · composition10; not a universal manufacturing limit.",
+      "dimensionStatus": "confirm-fabrication",
+      "widthRangeNote": "The linear pricing tables do not document a universal 60–240 cm fabrication range."
+    },
+    {
+      "id": "geacril",
+      "name": "Geacril",
+      "surfaces": [
+        "geacril-white-matte",
+        "geacril-ncs"
+      ],
+      "referenceDepth": 46.2,
+      "depthSource": {
+        "kind": "catalogue-composition-example",
+        "reference": "TPGEA12 · composition02",
+        "pdfPage": 60
+      },
+      "referenceDepthNote": "Composition example only: TPGEA12 · composition02; not a universal manufacturing limit.",
+      "dimensionStatus": "confirm-fabrication",
+      "widthRangeNote": "The linear pricing tables do not document a universal 60–240 cm fabrication range."
+    },
+    {
+      "id": "geacril-stone",
+      "name": "Geacril Stone",
+      "surfaces": [
+        "geacril-stone-white-matte",
+        "geacril-stone-ncs"
+      ],
+      "referenceDepth": null,
+      "depthSource": null,
+      "referenceDepthNote": "No universal plan depth is printed in the linear pricing table.",
+      "dimensionStatus": "confirm-fabrication",
+      "widthRangeNote": "The linear pricing tables do not document a universal 60–240 cm fabrication range."
+    }
+  ],
+  "surfaces": [
+    {
+      "id": "fenix-beige-arizona",
+      "family": "fenix",
+      "name": "Beige Arizona",
+      "code": "0748",
+      "codeScope": "FENIX NTM / Arpa Industriale",
+      "hex": "#B1A79D",
+      "texture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/fenix-beige-arizona.webp",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/fenix-beige-arizona.webp",
+      "hdTexture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/fenix-beige-arizona-hd.webp",
+      "roughness": 0.9,
+      "metalness": 0,
+      "clearcoat": 0,
+      "colorSource": "manufacturer field_background_color",
+      "photographicTexture": true,
+      "source": {
+        "pdfPage": 74,
+        "printedPage": 146,
+        "manufacturer": "FENIX / Arpa Industriale",
+        "url": "https://fenixforinteriors.com/fr-FR/fenix/beige-arizona",
+        "originalImageUrl": "http://res.cloudinary.com/dozlb75sf/image/upload/v1/FENIX%20Colours/High/FENIX_0748_BEIGE_ARIZONA_oxtv1f.jpg",
+        "nativeSize": [
+          6016,
+          4016
+        ],
+        "imageSha256": "f1926bdbaac4aeab104734c941d7c9037678380d989aa60bb4c8503b4fe6db6a",
+        "runtimeSize": [
+          1024,
+          684
+        ],
+        "colorManagement": "Embedded source ICC converted to sRGB for web derivatives where present. Original manufacturer file remains unmodified.",
+        "hdSize": [
+          2048,
+          1367
+        ],
+        "hdSha256": "fa046d875805b890756cd7a77ffc10bdaba7950dab878f6577123cde33876671"
+      },
+      "renderParametersNote": "Roughness is an appearance setting, not a measured PBR property. Uniform FENIX colour identity is the official manufacturer RGB."
+    },
+    {
+      "id": "fenix-beige-luxor",
+      "family": "fenix",
+      "name": "Beige Luxor",
+      "code": "0719",
+      "codeScope": "FENIX NTM / Arpa Industriale",
+      "hex": "#B0A086",
+      "texture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/fenix-beige-luxor.webp",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/fenix-beige-luxor.webp",
+      "hdTexture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/fenix-beige-luxor-hd.webp",
+      "roughness": 0.9,
+      "metalness": 0,
+      "clearcoat": 0,
+      "colorSource": "manufacturer field_background_color",
+      "photographicTexture": true,
+      "source": {
+        "pdfPage": 74,
+        "printedPage": 146,
+        "manufacturer": "FENIX / Arpa Industriale",
+        "url": "https://fenixforinteriors.com/fr-FR/fenix/beige-luxor",
+        "originalImageUrl": "http://res.cloudinary.com/dozlb75sf/image/upload/v1/FENIX%20Colours/High/FENIX_0719_BEIGE_LUXOR_qdtu4e.jpg",
+        "nativeSize": [
+          6040,
+          4320
+        ],
+        "imageSha256": "2a2f3b46ffdb071480689ba5aa42a983a370c5ea262f59ffa7014a06158b496a",
+        "runtimeSize": [
+          1024,
+          732
+        ],
+        "colorManagement": "Embedded source ICC converted to sRGB for web derivatives where present. Original manufacturer file remains unmodified.",
+        "hdSize": [
+          2048,
+          1465
+        ],
+        "hdSha256": "5f7031b367bc31cc80c1c2af01f7923f590ea8827de23e5dd01b928d800123c8"
+      },
+      "renderParametersNote": "Roughness is an appearance setting, not a measured PBR property. Uniform FENIX colour identity is the official manufacturer RGB."
+    },
+    {
+      "id": "fenix-castoro-ottawa",
+      "family": "fenix",
+      "name": "Castoro Ottawa",
+      "code": "0717",
+      "codeScope": "FENIX NTM / Arpa Industriale",
+      "hex": "#796C5B",
+      "texture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/fenix-castoro-ottawa.webp",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/fenix-castoro-ottawa.webp",
+      "hdTexture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/fenix-castoro-ottawa-hd.webp",
+      "roughness": 0.9,
+      "metalness": 0,
+      "clearcoat": 0,
+      "colorSource": "manufacturer field_background_color",
+      "photographicTexture": true,
+      "source": {
+        "pdfPage": 74,
+        "printedPage": 146,
+        "manufacturer": "FENIX / Arpa Industriale",
+        "url": "https://fenixforinteriors.com/fr-FR/fenix/castoro-ottawa",
+        "originalImageUrl": "http://res.cloudinary.com/dozlb75sf/image/upload/v1/FENIX%20Colours/High/FENIX_0717_CASTORO_OTTAWA_ioo0ce.jpg",
+        "nativeSize": [
+          6084,
+          4344
+        ],
+        "imageSha256": "08c39eefefbf7ca5fd46d03682cd90142785e58ec0608ecf568f61aeffdea0f8",
+        "runtimeSize": [
+          1024,
+          731
+        ],
+        "colorManagement": "Embedded source ICC converted to sRGB for web derivatives where present. Original manufacturer file remains unmodified.",
+        "hdSize": [
+          2048,
+          1462
+        ],
+        "hdSha256": "8e7fe4163a43e2c4862056cb30f63cdc17770ae560f69412b26219746c59d287"
+      },
+      "renderParametersNote": "Roughness is an appearance setting, not a measured PBR property. Uniform FENIX colour identity is the official manufacturer RGB."
+    },
+    {
+      "id": "fenix-cacao-orinoco",
+      "family": "fenix",
+      "name": "Cacao Orinoco",
+      "code": "0749",
+      "codeScope": "FENIX NTM / Arpa Industriale",
+      "hex": "#585350",
+      "texture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/fenix-cacao-orinoco.webp",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/fenix-cacao-orinoco.webp",
+      "hdTexture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/fenix-cacao-orinoco-hd.webp",
+      "roughness": 0.9,
+      "metalness": 0,
+      "clearcoat": 0,
+      "colorSource": "manufacturer field_background_color",
+      "photographicTexture": true,
+      "source": {
+        "pdfPage": 74,
+        "printedPage": 146,
+        "manufacturer": "FENIX / Arpa Industriale",
+        "url": "https://fenixforinteriors.com/fr-FR/fenix/cacao-orinoco",
+        "originalImageUrl": "http://res.cloudinary.com/dozlb75sf/image/upload/v1/FENIX%20Colours/High/FENIX_0749_CACAO_ORINOCO_xjagpz.jpg",
+        "nativeSize": [
+          6016,
+          4016
+        ],
+        "imageSha256": "69add775b16f0404ebb388b2d286a3457d9903b8d1f84e8ea39df5462a64f7db",
+        "runtimeSize": [
+          1024,
+          684
+        ],
+        "colorManagement": "Embedded source ICC converted to sRGB for web derivatives where present. Original manufacturer file remains unmodified.",
+        "hdSize": [
+          2048,
+          1367
+        ],
+        "hdSha256": "d9b1f13065f124538ae4e0679c19db847665d8d93a77f3c5dce0c2eafba41fb1"
+      },
+      "renderParametersNote": "Roughness is an appearance setting, not a measured PBR property. Uniform FENIX colour identity is the official manufacturer RGB."
+    },
+    {
+      "id": "fenix-grigio-efeso",
+      "family": "fenix",
+      "name": "Grigio Efeso",
+      "code": "0725",
+      "codeScope": "FENIX NTM / Arpa Industriale",
+      "hex": "#908F8D",
+      "texture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/fenix-grigio-efeso.webp",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/fenix-grigio-efeso.webp",
+      "hdTexture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/fenix-grigio-efeso-hd.webp",
+      "roughness": 0.9,
+      "metalness": 0,
+      "clearcoat": 0,
+      "colorSource": "manufacturer field_background_color",
+      "photographicTexture": true,
+      "source": {
+        "pdfPage": 74,
+        "printedPage": 146,
+        "manufacturer": "FENIX / Arpa Industriale",
+        "url": "https://fenixforinteriors.com/fr-FR/fenix/grigio-efeso",
+        "originalImageUrl": "http://res.cloudinary.com/dozlb75sf/image/upload/v1/FENIX%20Colours/High/FENIX_0725_GRIGIO_EFESO_rrcbhp.jpg",
+        "nativeSize": [
+          3385,
+          2362
+        ],
+        "imageSha256": "2047a1cff36be20771b4ab84dafe3f677533262436a3a6327a9f4a7bd71682f1",
+        "runtimeSize": [
+          1024,
+          715
+        ],
+        "colorManagement": "Embedded source ICC converted to sRGB for web derivatives where present. Original manufacturer file remains unmodified.",
+        "hdSize": [
+          2048,
+          1429
+        ],
+        "hdSha256": "cd3aa22bd22a5c763da52de308fde3ef09324c6fd659a1f48c4b9d532ddfaaab"
+      },
+      "renderParametersNote": "Roughness is an appearance setting, not a measured PBR property. Uniform FENIX colour identity is the official manufacturer RGB."
+    },
+    {
+      "id": "fenix-grigio-antrim",
+      "family": "fenix",
+      "name": "Grigio Antrim",
+      "code": "0752",
+      "codeScope": "FENIX NTM / Arpa Industriale",
+      "hex": "#969698",
+      "texture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/fenix-grigio-antrim.webp",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/fenix-grigio-antrim.webp",
+      "hdTexture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/fenix-grigio-antrim-hd.webp",
+      "roughness": 0.9,
+      "metalness": 0,
+      "clearcoat": 0,
+      "colorSource": "manufacturer field_background_color",
+      "photographicTexture": true,
+      "source": {
+        "pdfPage": 74,
+        "printedPage": 146,
+        "manufacturer": "FENIX / Arpa Industriale",
+        "url": "https://fenixforinteriors.com/fr-FR/fenix/grigio-antrim",
+        "originalImageUrl": "http://res.cloudinary.com/dozlb75sf/image/upload/v1/FENIX%20Colours/High/FENIX_0752_GRIGIO_ANTRIM_l4dxzr.jpg",
+        "nativeSize": [
+          6016,
+          4016
+        ],
+        "imageSha256": "a2111d5d78567b79a2f8fdb6539f6a765c4bf4edffa8e56f8c9aebb7fb56b0f1",
+        "runtimeSize": [
+          1024,
+          684
+        ],
+        "colorManagement": "Embedded source ICC converted to sRGB for web derivatives where present. Original manufacturer file remains unmodified.",
+        "hdSize": [
+          2048,
+          1367
+        ],
+        "hdSha256": "16a9406ea511e62cba9c5abdae14b51d96b783f221c6196d52912fad753d5352"
+      },
+      "renderParametersNote": "Roughness is an appearance setting, not a measured PBR property. Uniform FENIX colour identity is the official manufacturer RGB."
+    },
+    {
+      "id": "fenix-verde-kitami",
+      "family": "fenix",
+      "name": "Verde Kitami",
+      "code": "0794",
+      "codeScope": "FENIX NTM / Arpa Industriale",
+      "hex": "#848F7F",
+      "texture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/fenix-verde-kitami.webp",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/fenix-verde-kitami.webp",
+      "hdTexture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/fenix-verde-kitami-hd.webp",
+      "roughness": 0.9,
+      "metalness": 0,
+      "clearcoat": 0,
+      "colorSource": "manufacturer field_background_color",
+      "photographicTexture": true,
+      "source": {
+        "pdfPage": 74,
+        "printedPage": 146,
+        "manufacturer": "FENIX / Arpa Industriale",
+        "url": "https://fenixforinteriors.com/fr-FR/fenix/verde-kitami",
+        "originalImageUrl": "http://res.cloudinary.com/dozlb75sf/image/upload/v1/FENIX%20Colours/High/Verde_Kitami_vmkkqp.jpg",
+        "nativeSize": [
+          4443,
+          2499
+        ],
+        "imageSha256": "40d7b19705e1013d43ba07f7c94d3a51961b3ea9aab4d67024fb5fc8864ce181",
+        "runtimeSize": [
+          1024,
+          576
+        ],
+        "colorManagement": "Embedded source ICC converted to sRGB for web derivatives where present. Original manufacturer file remains unmodified.",
+        "hdSize": [
+          2048,
+          1152
+        ],
+        "hdSha256": "a727260af22cf78fcb85ce6c78e5c7898eb743f3c4bd5bb1a4485b194f80fa1c"
+      },
+      "renderParametersNote": "Roughness is an appearance setting, not a measured PBR property. Uniform FENIX colour identity is the official manufacturer RGB."
+    },
+    {
+      "id": "fenix-verde-comodoro",
+      "family": "fenix",
+      "name": "Verde Comodoro",
+      "code": "0750",
+      "codeScope": "FENIX NTM / Arpa Industriale",
+      "hex": "#6F7877",
+      "texture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/fenix-verde-comodoro.webp",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/fenix-verde-comodoro.webp",
+      "hdTexture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/fenix-verde-comodoro-hd.webp",
+      "roughness": 0.9,
+      "metalness": 0,
+      "clearcoat": 0,
+      "colorSource": "manufacturer field_background_color",
+      "photographicTexture": true,
+      "source": {
+        "pdfPage": 74,
+        "printedPage": 146,
+        "manufacturer": "FENIX / Arpa Industriale",
+        "url": "https://fenixforinteriors.com/fr-FR/fenix/verde-comodoro",
+        "originalImageUrl": "https://res.cloudinary.com/dozlb75sf/image/upload/v1679331756/FENIX%20Colours/High/FENIX_0750_VERDE_COMODORO_f8pvjf.jpg",
+        "nativeSize": [
+          6016,
+          4016
+        ],
+        "imageSha256": "db45ef7ffb2841a4f6ef8be750a23783e9dc5d4bd43a35d6554290894e60b9e3",
+        "runtimeSize": [
+          1024,
+          684
+        ],
+        "colorManagement": "Embedded source ICC converted to sRGB for web derivatives where present. Original manufacturer file remains unmodified.",
+        "hdSize": [
+          2048,
+          1367
+        ],
+        "hdSha256": "972537258b72090251c6d4efb7c112e67c66eb0da2e3b21d8cf3cf6c5ccc4073"
+      },
+      "renderParametersNote": "Roughness is an appearance setting, not a measured PBR property. Uniform FENIX colour identity is the official manufacturer RGB."
+    },
+    {
+      "id": "fenix-rosso-namib",
+      "family": "fenix",
+      "name": "Rosso Namib",
+      "code": "0789",
+      "codeScope": "FENIX NTM / Arpa Industriale",
+      "hex": "#A94426",
+      "texture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/fenix-rosso-namib.webp",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/fenix-rosso-namib.webp",
+      "hdTexture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/fenix-rosso-namib-hd.webp",
+      "roughness": 0.9,
+      "metalness": 0,
+      "clearcoat": 0,
+      "colorSource": "manufacturer field_background_color",
+      "photographicTexture": true,
+      "source": {
+        "pdfPage": 74,
+        "printedPage": 146,
+        "manufacturer": "FENIX / Arpa Industriale",
+        "url": "https://fenixforinteriors.com/fr-FR/fenix/rosso-namib",
+        "originalImageUrl": "http://res.cloudinary.com/dozlb75sf/image/upload/v1/FENIX%20Colours/High/Rosso_Namib_iehpcw.jpg",
+        "nativeSize": [
+          4856,
+          2731
+        ],
+        "imageSha256": "3d7e2c2215349a49ab42bb1b9de76c89205f0343b94d0f148039a709de433f61",
+        "runtimeSize": [
+          1024,
+          576
+        ],
+        "colorManagement": "Embedded source ICC converted to sRGB for web derivatives where present. Original manufacturer file remains unmodified.",
+        "hdSize": [
+          2048,
+          1152
+        ],
+        "hdSha256": "6709b9100bb10018e1e9c50dc0163152038c659568f007cd1ec8d203cab936bc"
+      },
+      "renderParametersNote": "Roughness is an appearance setting, not a measured PBR property. Uniform FENIX colour identity is the official manufacturer RGB."
+    },
+    {
+      "id": "fenix-blu-shaba",
+      "family": "fenix",
+      "name": "Blu Shaba",
+      "code": "0792",
+      "codeScope": "FENIX NTM / Arpa Industriale",
+      "hex": "#263846",
+      "texture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/fenix-blu-shaba.webp",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/fenix-blu-shaba.webp",
+      "hdTexture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/fenix-blu-shaba-hd.webp",
+      "roughness": 0.9,
+      "metalness": 0,
+      "clearcoat": 0,
+      "colorSource": "manufacturer field_background_color",
+      "photographicTexture": true,
+      "source": {
+        "pdfPage": 74,
+        "printedPage": 146,
+        "manufacturer": "FENIX / Arpa Industriale",
+        "url": "https://fenixforinteriors.com/fr-FR/fenix/blu-shaba",
+        "originalImageUrl": "http://res.cloudinary.com/dozlb75sf/image/upload/v1/FENIX%20Colours/High/Blu_Shaba_ggpi2n.jpg",
+        "nativeSize": [
+          4862,
+          2735
+        ],
+        "imageSha256": "acf8723492b3528a37b342c5c6bb5786954e2650fe698280f3df0ba993ad5ad7",
+        "runtimeSize": [
+          1024,
+          576
+        ],
+        "colorManagement": "Embedded source ICC converted to sRGB for web derivatives where present. Original manufacturer file remains unmodified.",
+        "hdSize": [
+          2048,
+          1152
+        ],
+        "hdSha256": "42d7916009a7189cf4b0169bf6b679705e13bd1cf82f9ce1fb014c4bc59f40e1"
+      },
+      "renderParametersNote": "Roughness is an appearance setting, not a measured PBR property. Uniform FENIX colour identity is the official manufacturer RGB."
+    },
+    {
+      "id": "fenix-viola-orissa",
+      "family": "fenix",
+      "name": "Viola Orissa",
+      "code": "0790",
+      "codeScope": "FENIX NTM / Arpa Industriale",
+      "hex": "#322634",
+      "texture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/fenix-viola-orissa.webp",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/fenix-viola-orissa.webp",
+      "hdTexture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/fenix-viola-orissa-hd.webp",
+      "roughness": 0.9,
+      "metalness": 0,
+      "clearcoat": 0,
+      "colorSource": "manufacturer field_background_color",
+      "photographicTexture": true,
+      "source": {
+        "pdfPage": 74,
+        "printedPage": 146,
+        "manufacturer": "FENIX / Arpa Industriale",
+        "url": "https://fenixforinteriors.com/fr-FR/fenix/viola-orissa",
+        "originalImageUrl": "http://res.cloudinary.com/dozlb75sf/image/upload/v1/FENIX%20Colours/Background/Viola_Orissa_low_rv5cbm.jpg",
+        "nativeSize": [
+          2470,
+          1100
+        ],
+        "imageSha256": "9e862abdda31b6219d3a07d0412e8e17bd0b67e0b80d4bd0daa5bd3fa6f7d8bf",
+        "runtimeSize": [
+          1024,
+          456
+        ],
+        "colorManagement": "Embedded source ICC converted to sRGB for web derivatives where present. Original manufacturer file remains unmodified.",
+        "hdSize": [
+          2048,
+          912
+        ],
+        "hdSha256": "95f2ea8427f16800c508fc7bf7c07023e366aaf8d5a143ca2fa84632672fc791"
+      },
+      "renderParametersNote": "Roughness is an appearance setting, not a measured PBR property. Uniform FENIX colour identity is the official manufacturer RGB."
+    },
+    {
+      "id": "hpl-statuario",
+      "family": "hpl",
+      "name": "Statuario",
+      "code": null,
+      "hex": "#f2f1ec",
+      "texture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-statuario.webp",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-statuario.webp",
+      "hdTexture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-statuario.webp",
+      "roughness": 0.64,
+      "metalness": 0,
+      "clearcoat": 0,
+      "colorSource": "Median of the genuine source photograph; patterned surface must use texture.",
+      "patterned": true,
+      "source": {
+        "pdfPage": 74,
+        "printedPage": 146,
+        "xref": 715,
+        "nativeSize": [
+          1500,
+          1000
+        ],
+        "url": "https://www.baido.com/hpl-unicolor/",
+        "assetKind": "official-hd-sample",
+        "resolutionNote": "Native embedded catalogue sample; not upscaled.",
+        "originalImageUrl": "https://www.baido.com/wp-content/uploads/2019/10/439-STATUARIO.jpg",
+        "sampleManufacturer": "Baido",
+        "sampleSupplierCode": "439",
+        "verification": "Same named decor and grain/vein pattern visually compared with Neobath Anima 2026 p146. The supplier code is not a Neobath SKU.",
+        "originalImageSha256": "31769a199646fd9c8c943c774aa423bdaed65db6fdd6ed09baae8440585eb81e",
+        "runtimeSize": [
+          1500,
+          1000
+        ],
+        "imageSha256": "cb5f50370de08fcf12a265ab4b614d47038c49da8f002b615c228e2d5707cd45"
+      },
+      "renderParametersNote": "Roughness is an appearance setting, not a measured PBR property."
+    },
+    {
+      "id": "hpl-elite",
+      "family": "hpl",
+      "name": "Elite",
+      "code": null,
+      "hex": "#f4ede4",
+      "texture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-elite.webp",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-elite.webp",
+      "hdTexture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-elite.webp",
+      "roughness": 0.64,
+      "metalness": 0,
+      "clearcoat": 0,
+      "colorSource": "Median of the genuine source photograph; patterned surface must use texture.",
+      "patterned": true,
+      "source": {
+        "pdfPage": 74,
+        "printedPage": 146,
+        "xref": 709,
+        "nativeSize": [
+          1500,
+          1000
+        ],
+        "url": "https://www.baido.com/hpl-unicolor/",
+        "assetKind": "official-hd-sample",
+        "resolutionNote": "Native embedded catalogue sample; not upscaled.",
+        "originalImageUrl": "https://www.baido.com/wp-content/uploads/2023/10/6102-Elite-002-1.jpg",
+        "sampleManufacturer": "Baido",
+        "sampleSupplierCode": "465",
+        "verification": "Same named decor and grain/vein pattern visually compared with Neobath Anima 2026 p146. The supplier code is not a Neobath SKU.",
+        "originalImageSha256": "192d81720cad336dd265eee5c8c607a94d0bd543cc03f867eff33ed50c664aa6",
+        "runtimeSize": [
+          1500,
+          1000
+        ],
+        "imageSha256": "71bb2d1031524352fd331926859f6f553ad2bee7daa9e9fcd9c86900f6e676d2"
+      },
+      "renderParametersNote": "Roughness is an appearance setting, not a measured PBR property."
+    },
+    {
+      "id": "hpl-white-yule",
+      "family": "hpl",
+      "name": "White Yule",
+      "code": null,
+      "hex": "#9f9b97",
+      "texture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-white-yule.webp",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-white-yule.webp",
+      "hdTexture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-white-yule.webp",
+      "roughness": 0.64,
+      "metalness": 0,
+      "clearcoat": 0,
+      "colorSource": "Median of the genuine source photograph; patterned surface must use texture.",
+      "patterned": true,
+      "source": {
+        "pdfPage": 74,
+        "printedPage": 146,
+        "xref": 719,
+        "nativeSize": [
+          1500,
+          1000
+        ],
+        "url": "https://www.baido.com/hpl-unicolor/",
+        "assetKind": "official-hd-sample",
+        "resolutionNote": "Native embedded catalogue sample; not upscaled.",
+        "originalImageUrl": "https://www.baido.com/wp-content/uploads/2023/10/WHITE-YULE.jpg",
+        "sampleManufacturer": "Baido",
+        "sampleSupplierCode": "449",
+        "verification": "Same named decor and grain/vein pattern visually compared with Neobath Anima 2026 p146. The supplier code is not a Neobath SKU.",
+        "originalImageSha256": "46514f751b2e6d9293e92d55474b7a498c1f956e71f94c1dc25fddcec0e4a763",
+        "runtimeSize": [
+          1500,
+          1000
+        ],
+        "imageSha256": "37177d8d21e381e93d8aa7c04a2bb3d0981b6ec1960e12da8dfceced2abce526"
+      },
+      "renderParametersNote": "Roughness is an appearance setting, not a measured PBR property."
+    },
+    {
+      "id": "hpl-kaspio-oro",
+      "family": "hpl",
+      "name": "Kaspio Oro",
+      "code": null,
+      "hex": "#736962",
+      "texture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-kaspio-oro.webp",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-kaspio-oro.webp",
+      "hdTexture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-kaspio-oro.webp",
+      "roughness": 0.64,
+      "metalness": 0,
+      "clearcoat": 0,
+      "colorSource": "Median of the genuine source photograph; patterned surface must use texture.",
+      "patterned": true,
+      "source": {
+        "pdfPage": 74,
+        "printedPage": 146,
+        "xref": 707,
+        "nativeSize": [
+          1500,
+          1000
+        ],
+        "url": "https://www.baido.com/hpl-unicolor/",
+        "assetKind": "official-hd-sample",
+        "resolutionNote": "Native embedded catalogue sample; not upscaled.",
+        "originalImageUrl": "https://www.baido.com/wp-content/uploads/2022/07/445-KASPIO-ORO.jpg",
+        "sampleManufacturer": "Baido",
+        "sampleSupplierCode": "445",
+        "verification": "Same named decor and grain/vein pattern visually compared with Neobath Anima 2026 p146. The supplier code is not a Neobath SKU.",
+        "originalImageSha256": "e6a5d2dcba9b2d787788ecfca42fe32ff9caf45e787524f6902ca6ac6eb7141b",
+        "runtimeSize": [
+          1500,
+          1000
+        ],
+        "imageSha256": "9b9fef1add08bdc6efe8225776e0a1acf33c83d601e2e216489c3fe59556afe8"
+      },
+      "renderParametersNote": "Roughness is an appearance setting, not a measured PBR property."
+    },
+    {
+      "id": "hpl-terrazzo",
+      "family": "hpl",
+      "name": "Terrazzo",
+      "code": null,
+      "hex": "#86817e",
+      "texture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-terrazzo.webp",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-terrazzo.webp",
+      "hdTexture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-terrazzo.webp",
+      "roughness": 0.64,
+      "metalness": 0,
+      "clearcoat": 0,
+      "colorSource": "Median of the genuine source photograph; patterned surface must use texture.",
+      "patterned": true,
+      "source": {
+        "pdfPage": 74,
+        "printedPage": 146,
+        "xref": 705,
+        "nativeSize": [
+          1920,
+          1080
+        ],
+        "url": "https://www.baido.com/hpl-unicolor/",
+        "assetKind": "official-hd-sample",
+        "resolutionNote": "Native embedded catalogue sample; not upscaled.",
+        "originalImageUrl": "https://www.baido.com/wp-content/uploads/2023/10/3475_cepp_ker.jpg",
+        "sampleManufacturer": "Baido",
+        "sampleSupplierCode": "464",
+        "verification": "Same named decor and grain/vein pattern visually compared with Neobath Anima 2026 p146. The supplier code is not a Neobath SKU.",
+        "originalImageSha256": "91047f5f917b3dcae1d0c4fdb1c2a7c7ed74082f786d59e46ab0f01902a0451e",
+        "runtimeSize": [
+          1920,
+          1080
+        ],
+        "imageSha256": "9237a88cf99df7359b5ff41818a21afee27e3b9447e9a888828a7bb7bc5258e0"
+      },
+      "renderParametersNote": "Roughness is an appearance setting, not a measured PBR property."
+    },
+    {
+      "id": "hpl-mailand",
+      "family": "hpl",
+      "name": "Mailand",
+      "code": null,
+      "hex": "#b8b6ac",
+      "texture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-mailand.webp",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-mailand.webp",
+      "hdTexture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-mailand.webp",
+      "roughness": 0.64,
+      "metalness": 0,
+      "clearcoat": 0,
+      "colorSource": "Median of the genuine source photograph; patterned surface must use texture.",
+      "patterned": true,
+      "source": {
+        "pdfPage": 74,
+        "printedPage": 146,
+        "xref": 713,
+        "nativeSize": [
+          1500,
+          1000
+        ],
+        "url": "https://www.baido.com/hpl-unicolor/",
+        "assetKind": "official-hd-sample",
+        "resolutionNote": "Native embedded catalogue sample; not upscaled.",
+        "originalImageUrl": "https://www.baido.com/wp-content/uploads/2019/10/441-MAILAND-2.jpg",
+        "sampleManufacturer": "Baido",
+        "sampleSupplierCode": "441",
+        "verification": "Same named decor and grain/vein pattern visually compared with Neobath Anima 2026 p146. The supplier code is not a Neobath SKU.",
+        "originalImageSha256": "02726e50fb29c8c66a6f5b9aa9987d0ae5142d6e0136701f43127500089310b5",
+        "runtimeSize": [
+          1500,
+          1000
+        ],
+        "imageSha256": "0adb08a375405fd6875e5f7c538efaa892492cc094747ede5640dd00723bd586"
+      },
+      "renderParametersNote": "Roughness is an appearance setting, not a measured PBR property."
+    },
+    {
+      "id": "hpl-botticino",
+      "family": "hpl",
+      "name": "Botticino",
+      "code": null,
+      "hex": "#a0948a",
+      "texture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-botticino.webp",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-botticino.webp",
+      "hdTexture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-botticino.webp",
+      "roughness": 0.64,
+      "metalness": 0,
+      "clearcoat": 0,
+      "colorSource": "Median of the genuine source photograph; patterned surface must use texture.",
+      "patterned": true,
+      "source": {
+        "pdfPage": 74,
+        "printedPage": 146,
+        "xref": 711,
+        "nativeSize": [
+          1500,
+          1000
+        ],
+        "url": "https://www.baido.com/hpl-unicolor/",
+        "assetKind": "official-hd-sample",
+        "resolutionNote": "Native embedded catalogue sample; not upscaled.",
+        "originalImageUrl": "https://www.baido.com/wp-content/uploads/2019/10/410-BOTTICINO-s_logo.jpg",
+        "sampleManufacturer": "Baido",
+        "sampleSupplierCode": "410",
+        "verification": "Same named decor and grain/vein pattern visually compared with Neobath Anima 2026 p146. The supplier code is not a Neobath SKU.",
+        "originalImageSha256": "35a3fb4d6506bb94631ed7ff3bf839d835b8207e7e15c540c1544a8579c3bc0e",
+        "runtimeSize": [
+          1500,
+          1000
+        ],
+        "imageSha256": "102c94e5129ed4068ccb7898d832598a391da8bf8f11f92816d82ba28b47cb64"
+      },
+      "renderParametersNote": "Roughness is an appearance setting, not a measured PBR property."
+    },
+    {
+      "id": "hpl-travertino-tivoli",
+      "family": "hpl",
+      "name": "Travertino Tivoli",
+      "code": null,
+      "hex": "#cec6b3",
+      "texture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-travertino-tivoli.webp",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-travertino-tivoli.webp",
+      "hdTexture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-travertino-tivoli.webp",
+      "roughness": 0.64,
+      "metalness": 0,
+      "clearcoat": 0,
+      "colorSource": "Median of the genuine source photograph; patterned surface must use texture.",
+      "patterned": true,
+      "source": {
+        "pdfPage": 74,
+        "printedPage": 146,
+        "xref": 689,
+        "nativeSize": [
+          1500,
+          1000
+        ],
+        "url": "https://www.baido.com/hpl-unicolor/",
+        "assetKind": "official-hd-sample",
+        "resolutionNote": "Native embedded catalogue sample; not upscaled.",
+        "originalImageUrl": "https://www.baido.com/wp-content/uploads/2019/10/148-TRAVERTINO-TIVOLI-s_logo.jpg",
+        "sampleManufacturer": "Baido",
+        "sampleSupplierCode": "148",
+        "verification": "Same named decor and grain/vein pattern visually compared with Neobath Anima 2026 p146. The supplier code is not a Neobath SKU.",
+        "originalImageSha256": "94f9f4ec77cac2d4f12bc4de85c3d686cdd4c95aad72d54327b37c5f9642334a",
+        "runtimeSize": [
+          1500,
+          1000
+        ],
+        "imageSha256": "eb44b4eb84f881dd72f180edfc02f4905ea824d58978a7586cd9bd5975411a58"
+      },
+      "renderParametersNote": "Roughness is an appearance setting, not a measured PBR property."
+    },
+    {
+      "id": "hpl-rovere-naturale",
+      "family": "hpl",
+      "name": "Rovere Naturale",
+      "code": null,
+      "hex": "#d0b985",
+      "texture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-rovere-naturale.webp",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-rovere-naturale.webp",
+      "hdTexture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-rovere-naturale.webp",
+      "roughness": 0.64,
+      "metalness": 0,
+      "clearcoat": 0,
+      "colorSource": "Median of the genuine source photograph; patterned surface must use texture.",
+      "patterned": true,
+      "source": {
+        "pdfPage": 74,
+        "printedPage": 146,
+        "xref": 693,
+        "nativeSize": [
+          1500,
+          1000
+        ],
+        "url": "https://www.baido.com/hpl-unicolor/",
+        "assetKind": "official-hd-sample",
+        "resolutionNote": "Native embedded catalogue sample; not upscaled.",
+        "originalImageUrl": "https://www.baido.com/wp-content/uploads/2019/10/302-ROVERE-NATURALE-s_logo.jpg",
+        "sampleManufacturer": "Baido",
+        "sampleSupplierCode": "302",
+        "verification": "Same named decor and grain/vein pattern visually compared with Neobath Anima 2026 p146. The supplier code is not a Neobath SKU.",
+        "originalImageSha256": "1807e031381dd0c8879b7cc822ed751e9621b18ca8100214d4ed2191bcc6057a",
+        "runtimeSize": [
+          1500,
+          1000
+        ],
+        "imageSha256": "1b940e4574381e32de9fc912b758a9e18d5ffd95f985ffeff4546693e13011dd"
+      },
+      "renderParametersNote": "Roughness is an appearance setting, not a measured PBR property."
+    },
+    {
+      "id": "hpl-rovere-valweg",
+      "family": "hpl",
+      "name": "Rovere Valweg",
+      "code": null,
+      "hex": "#a38879",
+      "texture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-rovere-valweg.webp",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-rovere-valweg.webp",
+      "hdTexture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-rovere-valweg.webp",
+      "roughness": 0.64,
+      "metalness": 0,
+      "clearcoat": 0,
+      "colorSource": "Median of the genuine source photograph; patterned surface must use texture.",
+      "patterned": true,
+      "source": {
+        "pdfPage": 74,
+        "printedPage": 146,
+        "xref": 699,
+        "nativeSize": [
+          1500,
+          1000
+        ],
+        "url": "https://www.baido.com/hpl-unicolor/",
+        "assetKind": "official-hd-sample",
+        "resolutionNote": "Native embedded catalogue sample; not upscaled.",
+        "originalImageUrl": "https://www.baido.com/wp-content/uploads/2023/10/ROVERE-VALDWEG.jpg",
+        "sampleManufacturer": "Baido",
+        "sampleSupplierCode": "463",
+        "verification": "Same named decor and grain/vein pattern visually compared with Neobath Anima 2026 p146. The supplier code is not a Neobath SKU.",
+        "originalImageSha256": "0d8fe9fcc5b9559ff69e59c73807c14111fd7e2c914d6c8ace6867a858d08760",
+        "runtimeSize": [
+          1500,
+          1000
+        ],
+        "imageSha256": "cc0cc29002a869be5b5b0c4ed35aebc029d062be1527f11830fedef92a06b286"
+      },
+      "renderParametersNote": "Roughness is an appearance setting, not a measured PBR property."
+    },
+    {
+      "id": "hpl-noce-sinfonia",
+      "family": "hpl",
+      "name": "Noce Sinfonia",
+      "code": null,
+      "hex": "#a78471",
+      "texture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-noce-sinfonia.webp",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-noce-sinfonia.webp",
+      "hdTexture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-noce-sinfonia.webp",
+      "roughness": 0.64,
+      "metalness": 0,
+      "clearcoat": 0,
+      "colorSource": "Median of the genuine source photograph; patterned surface must use texture.",
+      "patterned": true,
+      "source": {
+        "pdfPage": 74,
+        "printedPage": 146,
+        "xref": 697,
+        "nativeSize": [
+          1500,
+          1000
+        ],
+        "url": "https://www.baido.com/hpl-unicolor/",
+        "assetKind": "official-hd-sample",
+        "resolutionNote": "Native embedded catalogue sample; not upscaled.",
+        "originalImageUrl": "https://www.baido.com/wp-content/uploads/2023/10/NOCE-SINFONIA.jpg",
+        "sampleManufacturer": "Baido",
+        "sampleSupplierCode": "461",
+        "verification": "Same named decor and grain/vein pattern visually compared with Neobath Anima 2026 p146. The supplier code is not a Neobath SKU.",
+        "originalImageSha256": "b3279a21da4497be6df66cec00eb86e6be97a9aef2efd03b71ad4371edecda1d",
+        "runtimeSize": [
+          1500,
+          1000
+        ],
+        "imageSha256": "c9393dcc54834ffec34451ab485f2875bf59a4ee59f9c6ab4aa5134e744c27c1"
+      },
+      "renderParametersNote": "Roughness is an appearance setting, not a measured PBR property."
+    },
+    {
+      "id": "hpl-olmo",
+      "family": "hpl",
+      "name": "Olmo",
+      "code": null,
+      "hex": "#b79c75",
+      "texture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-olmo.webp",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-olmo.webp",
+      "hdTexture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-olmo.webp",
+      "roughness": 0.64,
+      "metalness": 0,
+      "clearcoat": 0,
+      "colorSource": "Median of the genuine source photograph; patterned surface must use texture.",
+      "patterned": true,
+      "source": {
+        "pdfPage": 74,
+        "printedPage": 146,
+        "xref": 701,
+        "nativeSize": [
+          1500,
+          1000
+        ],
+        "url": "https://www.baido.com/hpl-unicolor/",
+        "assetKind": "official-hd-sample",
+        "resolutionNote": "Native embedded catalogue sample; not upscaled.",
+        "originalImageUrl": "https://www.baido.com/wp-content/uploads/2019/10/134-OLMO-1.jpg",
+        "sampleManufacturer": "Baido",
+        "sampleSupplierCode": "134",
+        "verification": "Same named decor and grain/vein pattern visually compared with Neobath Anima 2026 p146. The supplier code is not a Neobath SKU.",
+        "originalImageSha256": "82eb50bb8692dd686d1ce582ee2f7d1ac5cb5c46a8e8528c266cabe5dea99425",
+        "runtimeSize": [
+          1500,
+          1000
+        ],
+        "imageSha256": "2ffc905117d6eb78f02c1fbc5ce06adf5fde14bb6f11a5b03d48cb3d8738c19e"
+      },
+      "renderParametersNote": "Roughness is an appearance setting, not a measured PBR property."
+    },
+    {
+      "id": "hpl-noce",
+      "family": "hpl",
+      "name": "Noce",
+      "code": null,
+      "hex": "#a28060",
+      "texture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-noce.webp",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-noce.webp",
+      "hdTexture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-noce.webp",
+      "roughness": 0.64,
+      "metalness": 0,
+      "clearcoat": 0,
+      "colorSource": "Median of the genuine source photograph; patterned surface must use texture.",
+      "patterned": true,
+      "source": {
+        "pdfPage": 74,
+        "printedPage": 146,
+        "xref": 691,
+        "nativeSize": [
+          1500,
+          1000
+        ],
+        "url": "https://www.baido.com/hpl-unicolor/",
+        "assetKind": "official-hd-sample",
+        "resolutionNote": "Native embedded catalogue sample; not upscaled.",
+        "originalImageUrl": "https://www.baido.com/wp-content/uploads/2019/10/131-NOCE-s_logo.jpg",
+        "sampleManufacturer": "Baido",
+        "sampleSupplierCode": "131",
+        "verification": "Same named decor and grain/vein pattern visually compared with Neobath Anima 2026 p146. The supplier code is not a Neobath SKU.",
+        "originalImageSha256": "a93e69d5060bc9cd33bb99ae7bde4f825c61cb40639af1f5cb5c4bde0185fcf1",
+        "runtimeSize": [
+          1500,
+          1000
+        ],
+        "imageSha256": "b36d33b2ec1f33448a4a55abf14124d25d6e26c98a852a8c1f2e2cb592e26edc"
+      },
+      "renderParametersNote": "Roughness is an appearance setting, not a measured PBR property."
+    },
+    {
+      "id": "hpl-nero-ardesia",
+      "family": "hpl",
+      "name": "Nero Ardesia",
+      "code": null,
+      "hex": "#333a3f",
+      "texture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-nero-ardesia.webp",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-nero-ardesia.webp",
+      "hdTexture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/hpl-nero-ardesia.webp",
+      "roughness": 0.64,
+      "metalness": 0,
+      "clearcoat": 0,
+      "colorSource": "Median of the genuine source photograph; patterned surface must use texture.",
+      "patterned": true,
+      "source": {
+        "pdfPage": 74,
+        "printedPage": 146,
+        "xref": 703,
+        "nativeSize": [
+          1500,
+          1000
+        ],
+        "url": "https://www.baido.com/hpl-unicolor/",
+        "assetKind": "official-hd-sample",
+        "resolutionNote": "Native embedded catalogue sample; not upscaled.",
+        "originalImageUrl": "https://www.baido.com/wp-content/uploads/2019/10/420-NERO-ARDESIA-s_logo.jpg",
+        "sampleManufacturer": "Baido",
+        "sampleSupplierCode": "420",
+        "verification": "Same named decor and grain/vein pattern visually compared with Neobath Anima 2026 p146. The supplier code is not a Neobath SKU.",
+        "originalImageSha256": "d4ffb2d089fd9ff0d20c7156bca630a18109248e158c2826cd268ff4ae7855e4",
+        "runtimeSize": [
+          1500,
+          1000
+        ],
+        "imageSha256": "ef2ce7e1e00197de0a77fb44e73faceb4f56be07b9cfa3943fdd2edc37de51c0"
+      },
+      "renderParametersNote": "Roughness is an appearance setting, not a measured PBR property."
+    },
+    {
+      "id": "gres-calacatta-oro",
+      "family": "gres",
+      "name": "Calacatta Oro",
+      "code": null,
+      "hex": "#f0ece0",
+      "texture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/gres-calacatta-oro.webp",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/gres-calacatta-oro.webp",
+      "hdTexture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/gres-calacatta-oro.webp",
+      "roughness": 0.5,
+      "metalness": 0,
+      "clearcoat": 0,
+      "colorSource": "Median of the genuine source photograph; patterned surface must use texture.",
+      "patterned": true,
+      "source": {
+        "pdfPage": 73,
+        "printedPage": 144,
+        "xref": 642,
+        "nativeSize": [
+          1280,
+          1280
+        ],
+        "url": "https://neobathdesign.fr/wp-content/uploads/2022/05/Gres_Calacatta_Oro.jpg",
+        "assetKind": "official-hd-sample",
+        "resolutionNote": "Native embedded catalogue sample; not upscaled.",
+        "id": "gres-calacatta-oro",
+        "originalImageUrl": "https://neobathdesign.fr/wp-content/uploads/2022/05/Gres_Calacatta_Oro.jpg",
+        "sampleManufacturer": "Neobath",
+        "verification": "Named decor and genuine stone pattern visually corroborated with the Neobath Anima 2026 p144 sample; slab faces can vary. No supplier relationship is inferred.",
+        "originalImageSha256": "a8fbdb2ae04f990a308dd6fd47eca6bac5103bb728623b1cc305c9aede99f61b",
+        "runtimeSize": [
+          1280,
+          1280
+        ],
+        "imageSha256": "246250ea07e37a19cb3cff1f31432a9db3669aad584f2dcc82eb3c897a47fe9a"
+      },
+      "renderParametersNote": "Roughness is an appearance setting, not a measured PBR property."
+    },
+    {
+      "id": "gres-macchia-vecchia",
+      "family": "gres",
+      "name": "Macchia Vecchia",
+      "code": null,
+      "hex": "#e1ceb5",
+      "texture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/gres-macchia-vecchia.webp",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/gres-macchia-vecchia.webp",
+      "hdTexture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/gres-macchia-vecchia.webp",
+      "roughness": 0.5,
+      "metalness": 0,
+      "clearcoat": 0,
+      "colorSource": "Median of the genuine source photograph; patterned surface must use texture.",
+      "patterned": true,
+      "source": {
+        "pdfPage": 73,
+        "printedPage": 144,
+        "xref": 657,
+        "nativeSize": [
+          1612,
+          4000
+        ],
+        "url": "https://www.laminam.com/en/products/diamond-cristallo-macchia-vecchia/",
+        "assetKind": "official-hd-sample",
+        "resolutionNote": "Native embedded catalogue sample; not upscaled.",
+        "originalImageUrl": "https://laminam-cdn.thron.com/delivery/public/image/laminam/34a913b5-5e06-49f1-a1fb-45bf830c50a6/miwtpa/std/2000x4000/cristallo-macchia-vecchia-rain-0.webp?format=auto&adjustcrop=extend&quality=auto-high",
+        "sampleManufacturer": "Laminam",
+        "verification": "Exact printed decor crop recovered from the genuine Anima p144 native sample: normalized cross-correlation0.94583, source resized width170, x40 y0, crop96. Visually checked matching vein arrangement.",
+        "originalImageSha256": "e644858d7dbcadf58ecbae47b0433fd5cdb737d9a657bccc339e14a6a793f962",
+        "runtimeSize": [
+          825,
+          2048
+        ],
+        "imageSha256": "1d94e6f15926600780a9c80152830696bf4f4360023e732c243e152266aa37f3"
+      },
+      "renderParametersNote": "Roughness is an appearance setting, not a measured PBR property."
+    },
+    {
+      "id": "gres-bianco-statuario",
+      "family": "gres",
+      "name": "Bianco Statuario",
+      "code": null,
+      "hex": "#ffffff",
+      "texture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/gres-bianco-statuario.webp",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/gres-bianco-statuario.webp",
+      "hdTexture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/gres-bianco-statuario.webp",
+      "roughness": 0.5,
+      "metalness": 0,
+      "clearcoat": 0,
+      "colorSource": "Median of the genuine source photograph; patterned surface must use texture.",
+      "patterned": true,
+      "source": {
+        "pdfPage": 73,
+        "printedPage": 144,
+        "xref": 659,
+        "nativeSize": [
+          1411,
+          4000
+        ],
+        "url": "https://www.laminam.com/en/products/bianco-statuario-venato/",
+        "assetKind": "official-hd-sample",
+        "resolutionNote": "Native embedded catalogue sample; not upscaled.",
+        "originalImageUrl": "https://laminam-cdn.thron.com/delivery/public/image/laminam/723d8c29-eed6-41e4-8393-3862272a145b/miwtpa/std/2000x4000/bianco-statuario-venato-polished-1.webp?format=auto&adjustcrop=extend&quality=auto-high",
+        "sampleManufacturer": "Laminam",
+        "verification": "Same vein crop recovered from the genuine Anima p144 native sample and this official slab face: normalized cross-correlation0.8653, resized width512, x36 y416, crop96. Visually checked matching upper-right veins and micro-striations.",
+        "originalImageSha256": "43bb50186f87aab3337433a8940718d23f405161b305ec0892d3c7d542be2110",
+        "runtimeSize": [
+          722,
+          2048
+        ],
+        "imageSha256": "2d75268510b909471775df17b1ef172703e5a2de7b05b90decbb85b1adaef20b"
+      },
+      "renderParametersNote": "Roughness is an appearance setting, not a measured PBR property."
+    },
+    {
+      "id": "gres-pietra-grey",
+      "family": "gres",
+      "name": "Pietra Grey",
+      "code": null,
+      "hex": "#676664",
+      "texture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/gres-pietra-grey.webp",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/gres-pietra-grey.webp",
+      "hdTexture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/gres-pietra-grey.webp",
+      "roughness": 0.5,
+      "metalness": 0,
+      "clearcoat": 0,
+      "colorSource": "Median of the genuine source photograph; patterned surface must use texture.",
+      "patterned": true,
+      "source": {
+        "pdfPage": 73,
+        "printedPage": 144,
+        "xref": 644,
+        "nativeSize": [
+          768,
+          1536
+        ],
+        "url": "https://www.laminam.com/fr/produits/i-naturali-pietra-grey/",
+        "assetKind": "official-hd-sample",
+        "resolutionNote": "Native embedded catalogue sample; not upscaled.",
+        "id": "gres-pietra-grey",
+        "originalImageUrl": "https://laminam-cdn.thron.com/delivery/public/image/laminam/04e92491-1e0d-4288-a7e0-1aea517b8869/miwtpa/std/768x1536/pietra-grey-natural-7.webp?format=auto&adjustcrop=extend&quality=auto-high",
+        "sampleManufacturer": "Laminam",
+        "verification": "Named decor and genuine stone pattern visually corroborated with the Neobath Anima 2026 p144 sample; slab faces can vary. No supplier relationship is inferred.",
+        "originalImageSha256": "348a4d3f0bcc5bf1797d74db099bb5ec05c1c6e0093444f6c90c00069a5a8628",
+        "runtimeSize": [
+          768,
+          1536
+        ],
+        "imageSha256": "3b1226448873121ae78613ca09e4d2106a8b24cb4f77604b55174f52f26910ce"
+      },
+      "renderParametersNote": "Roughness is an appearance setting, not a measured PBR property."
+    },
+    {
+      "id": "gres-ossido-bruno",
+      "family": "gres",
+      "name": "Ossido Bruno",
+      "code": null,
+      "hex": "#503e33",
+      "texture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/gres-ossido-bruno.webp",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/gres-ossido-bruno.webp",
+      "hdTexture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/gres-ossido-bruno.webp",
+      "roughness": 0.5,
+      "metalness": 0,
+      "clearcoat": 0,
+      "colorSource": "Median of the genuine source photograph; patterned surface must use texture.",
+      "patterned": true,
+      "source": {
+        "pdfPage": 73,
+        "printedPage": 144,
+        "xref": 646,
+        "nativeSize": [
+          765,
+          1536
+        ],
+        "url": "https://www.laminam.com/fr/produits/ossido-bruno/",
+        "assetKind": "official-hd-sample",
+        "resolutionNote": "Native embedded catalogue sample; not upscaled.",
+        "id": "gres-ossido-bruno",
+        "originalImageUrl": "https://laminam-cdn.thron.com/delivery/public/image/laminam/13b927e1-ae78-4a33-ba96-009fd43aa059/miwtpa/std/768x1536/bruno-natural-0.webp?format=auto&adjustcrop=extend&quality=auto-high",
+        "sampleManufacturer": "Laminam",
+        "verification": "Named decor and genuine stone pattern visually corroborated with the Neobath Anima 2026 p144 sample; slab faces can vary. No supplier relationship is inferred.",
+        "originalImageSha256": "536205c713a042e599468ff77505c5f132884439fbd58bdf323a682806f08378",
+        "runtimeSize": [
+          765,
+          1536
+        ],
+        "imageSha256": "0643ab364ebebde81dca8dd743ae23856e1a9f1732143122f75247edf7a61f3c"
+      },
+      "renderParametersNote": "Roughness is an appearance setting, not a measured PBR property."
+    },
+    {
+      "id": "gres-pietra-piasentina-grigio",
+      "family": "gres",
+      "name": "Pietra Piasentina Grigio",
+      "code": null,
+      "hex": "#97938d",
+      "texture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/gres-pietra-piasentina-grigio.webp",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/gres-pietra-piasentina-grigio.webp",
+      "hdTexture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/gres-pietra-piasentina-grigio.webp",
+      "roughness": 0.5,
+      "metalness": 0,
+      "clearcoat": 0,
+      "colorSource": "Median of the genuine source photograph; patterned surface must use texture.",
+      "patterned": true,
+      "source": {
+        "pdfPage": 73,
+        "printedPage": 144,
+        "xref": 647,
+        "nativeSize": [
+          610,
+          1536
+        ],
+        "url": "https://www.laminam.com/fr/produits/in-side-pietra-piasentina-grigio/",
+        "assetKind": "official-hd-sample",
+        "resolutionNote": "Native embedded catalogue sample; not upscaled.",
+        "id": "gres-pietra-piasentina-grigio",
+        "originalImageUrl": "https://laminam-cdn.thron.com/delivery/public/image/laminam/7a5ffff3-ac1b-4364-9de4-b1ba50d86f7e/miwtpa/std/768x1536/pietra-piasentina-grigio-natural-5.webp?format=auto&adjustcrop=extend&quality=auto-high",
+        "sampleManufacturer": "Laminam",
+        "verification": "Named decor and genuine stone pattern visually corroborated with the Neobath Anima 2026 p144 sample; slab faces can vary. No supplier relationship is inferred.",
+        "originalImageSha256": "b0bd55a5cd6201359161540c6559bfbc1a1a823789f07dc6f20b81ca946e9c39",
+        "runtimeSize": [
+          610,
+          1536
+        ],
+        "imageSha256": "c4f9900c7b896688fb00c717d8cb0e079ed72722cf2dfbeab7a45c4673e8dd6c"
+      },
+      "renderParametersNote": "Roughness is an appearance setting, not a measured PBR property."
+    },
+    {
+      "id": "gres-pietra-piasentina-taupe",
+      "family": "gres",
+      "name": "Pietra Piasentina Taupe",
+      "code": null,
+      "hex": "#665c4e",
+      "texture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/gres-pietra-piasentina-taupe.webp",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/gres-pietra-piasentina-taupe.webp",
+      "hdTexture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/gres-pietra-piasentina-taupe.webp",
+      "roughness": 0.5,
+      "metalness": 0,
+      "clearcoat": 0,
+      "colorSource": "Median of the genuine source photograph; patterned surface must use texture.",
+      "patterned": true,
+      "source": {
+        "pdfPage": 73,
+        "printedPage": 144,
+        "xref": 648,
+        "nativeSize": [
+          768,
+          1536
+        ],
+        "url": "https://www.laminam.com/fr/produits/in-side-pietra-piasentina-taupe/",
+        "assetKind": "official-hd-sample",
+        "resolutionNote": "Native embedded catalogue sample; not upscaled.",
+        "id": "gres-pietra-piasentina-taupe",
+        "originalImageUrl": "https://laminam-cdn.thron.com/delivery/public/image/laminam/58634dce-a004-416c-8389-061928dc3bd8/miwtpa/std/768x1536/pietra-piasentina-taupe-natural-2.webp?format=auto&adjustcrop=extend&quality=auto-high",
+        "sampleManufacturer": "Laminam",
+        "verification": "Named decor and genuine stone pattern visually corroborated with the Neobath Anima 2026 p144 sample; slab faces can vary. No supplier relationship is inferred.",
+        "originalImageSha256": "0e5289c54ff87910228c6a98dfe3ebfcfda78cae17d2694ba315841a21758e01",
+        "runtimeSize": [
+          768,
+          1536
+        ],
+        "imageSha256": "38471108991cce974d5139abad81a18096721f7b354c2d9839f2e979dc2c3662"
+      },
+      "renderParametersNote": "Roughness is an appearance setting, not a measured PBR property."
+    },
+    {
+      "id": "gres-emperador-extra",
+      "family": "gres",
+      "name": "Emperador Extra",
+      "code": null,
+      "hex": "#473d33",
+      "texture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/gres-emperador-extra.webp",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/gres-emperador-extra.webp",
+      "hdTexture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/gres-emperador-extra.webp",
+      "roughness": 0.5,
+      "metalness": 0,
+      "clearcoat": 0,
+      "colorSource": "Median of the genuine source photograph; patterned surface must use texture.",
+      "patterned": true,
+      "source": {
+        "pdfPage": 73,
+        "printedPage": 144,
+        "xref": 654,
+        "nativeSize": [
+          542,
+          1536
+        ],
+        "url": "https://www.laminam.com/fr/produits/i-naturali-emperador-extra/",
+        "assetKind": "official-hd-sample",
+        "resolutionNote": "Native embedded catalogue sample; not upscaled.",
+        "id": "gres-emperador-extra",
+        "originalImageUrl": "https://laminam-cdn.thron.com/delivery/public/image/laminam/28b2e61d-dcf5-4570-aa61-877cd061a332/miwtpa/std/768x1536/emperador-extra-natural-6.webp?format=auto&adjustcrop=extend&quality=auto-high",
+        "sampleManufacturer": "Laminam",
+        "verification": "Named decor and genuine stone pattern visually corroborated with the Neobath Anima 2026 p144 sample; slab faces can vary. No supplier relationship is inferred.",
+        "originalImageSha256": "0640bb819b1acf424aa803cfe0a0298326d6456b7824b4e00b0c4fc0888172cb",
+        "runtimeSize": [
+          542,
+          1536
+        ],
+        "imageSha256": "66cf4459717e6011d42758067ece328fbbda950e086aa4a970e7db627ba2cf22"
+      },
+      "renderParametersNote": "Roughness is an appearance setting, not a measured PBR property."
+    },
+    {
+      "id": "gres-ceppo-pietra-diseo",
+      "family": "gres",
+      "name": "Ceppo Pietra d’Iseo",
+      "code": null,
+      "hex": "#c3c3c1",
+      "texture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/gres-ceppo-pietra-diseo.webp",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/gres-ceppo-pietra-diseo.webp",
+      "hdTexture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/gres-ceppo-pietra-diseo.webp",
+      "roughness": 0.5,
+      "metalness": 0,
+      "clearcoat": 0,
+      "colorSource": "Median of the genuine source photograph; patterned surface must use texture.",
+      "patterned": true,
+      "source": {
+        "pdfPage": 73,
+        "printedPage": 144,
+        "xref": 656,
+        "nativeSize": [
+          182,
+          180
+        ],
+        "url": null,
+        "assetKind": "native-pdf-sample",
+        "resolutionNote": "Native embedded catalogue sample; not upscaled.",
+        "runtimeSize": [
+          182,
+          180
+        ],
+        "imageSha256": "873e0a431feaa65ef6760844ca11c38e6f3ec0e62d0560d58555a9f73573f15c"
+      },
+      "renderParametersNote": "Roughness is an appearance setting, not a measured PBR property."
+    },
+    {
+      "id": "gres-anima-nero-atlante",
+      "family": "gres",
+      "name": "Anima Nero Atlante",
+      "code": null,
+      "hex": "#050b10",
+      "texture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/gres-anima-nero-atlante.webp",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/gres-anima-nero-atlante.webp",
+      "hdTexture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/gres-anima-nero-atlante.webp",
+      "roughness": 0.5,
+      "metalness": 0,
+      "clearcoat": 0,
+      "colorSource": "Median of the genuine source photograph; patterned surface must use texture.",
+      "patterned": true,
+      "source": {
+        "pdfPage": 73,
+        "printedPage": 144,
+        "xref": 661,
+        "nativeSize": [
+          1200,
+          2780
+        ],
+        "url": "https://www.caesar.it/fr/collections/marble-inspiration/anima-nero-atlante/",
+        "assetKind": "official-hd-sample",
+        "resolutionNote": "Native embedded catalogue sample; not upscaled.",
+        "id": "gres-anima-nero-atlante",
+        "originalImageUrl": "https://www.caesar.it/assets/Uploads/Collezioni/AEGA@1.jpg",
+        "sampleManufacturer": "Caesar",
+        "verification": "Named decor and genuine stone pattern visually corroborated with the Neobath Anima 2026 p144 sample; slab faces can vary. No supplier relationship is inferred.",
+        "originalImageSha256": "187e4c93d25b96606d40492a2e02036743f39b6d8776638a3df725736f17373c",
+        "runtimeSize": [
+          884,
+          2048
+        ],
+        "imageSha256": "1225ac69e7a6fd9708345b307d4b60f9a0c3def6e596e4a680a8889a9e60d800"
+      },
+      "renderParametersNote": "Roughness is an appearance setting, not a measured PBR property."
+    },
+    {
+      "id": "gres-travertino",
+      "family": "gres",
+      "name": "Travertino",
+      "code": null,
+      "hex": "#d8c4ae",
+      "texture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/gres-travertino.webp",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/gres-travertino.webp",
+      "hdTexture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/gres-travertino.webp",
+      "roughness": 0.5,
+      "metalness": 0,
+      "clearcoat": 0,
+      "colorSource": "Median of the genuine source photograph; patterned surface must use texture.",
+      "patterned": true,
+      "source": {
+        "pdfPage": 73,
+        "printedPage": 144,
+        "xref": 640,
+        "nativeSize": [
+          182,
+          180
+        ],
+        "url": null,
+        "assetKind": "native-pdf-sample",
+        "resolutionNote": "Native embedded catalogue sample; not upscaled.",
+        "runtimeSize": [
+          182,
+          180
+        ],
+        "imageSha256": "113c9e74b89eb9a1471ae4a2ff302f959e3cc845d7ed62179960c3574f70830f"
+      },
+      "renderParametersNote": "Roughness is an appearance setting, not a measured PBR property."
+    },
+    {
+      "id": "geacril-white-matte",
+      "family": "geacril",
+      "name": "Blanc mat",
+      "code": null,
+      "hex": "#d1d1d2",
+      "texture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/geacril-white-matte.webp",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/geacril-white-matte.webp",
+      "hdTexture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/geacril-white-matte.webp",
+      "roughness": 0.88,
+      "metalness": 0,
+      "clearcoat": 0,
+      "priceKey": "white-matte",
+      "colorSource": "Representative native manufacturer photo, not a calibrated white standard.",
+      "source": {
+        "pdfPage": 70,
+        "printedPage": 138,
+        "xref": 566,
+        "crop": [
+          110,
+          5,
+          415,
+          55
+        ],
+        "nativeSize": [
+          305,
+          50
+        ],
+        "assetKind": "native-pdf-photo-crop",
+        "resolutionNote": "Native crop of the white material, with photographic lighting retained; no fabricated texture.",
+        "imageSha256": "154a5f9fbb759eae1572028ae6e337c15111df1630d5c1c0197004ef2a69612d"
+      }
+    },
+    {
+      "id": "geacril-ncs",
+      "family": "geacril",
+      "name": "Couleur mate NCS sur demande",
+      "code": null,
+      "hex": null,
+      "texture": null,
+      "swatch": null,
+      "hdTexture": null,
+      "roughness": 0.88,
+      "metalness": 0,
+      "clearcoat": 0,
+      "priceKey": "ncs-matte",
+      "customNcs": true,
+      "source": {
+        "pdfPage": 70,
+        "printedPage": 138,
+        "assetKind": "manufacturer-custom-colour",
+        "resolutionNote": "Enter the exact NCS code. No RGB conversion or invented finite palette is supplied."
+      }
+    },
+    {
+      "id": "geacril-stone-white-matte",
+      "family": "geacril-stone",
+      "name": "Blanc mat",
+      "code": null,
+      "hex": "#d8d8d6",
+      "texture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/geacril-stone-white-matte.webp",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/geacril-stone-white-matte.webp",
+      "hdTexture": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/geacril-stone-white-matte.webp",
+      "roughness": 0.94,
+      "metalness": 0,
+      "clearcoat": 0,
+      "priceKey": "white-matte",
+      "colorSource": "Representative native manufacturer photo, not a calibrated white standard.",
+      "source": {
+        "pdfPage": 71,
+        "printedPage": 140,
+        "xref": 586,
+        "crop": [
+          6,
+          6,
+          166,
+          590
+        ],
+        "nativeSize": [
+          160,
+          584
+        ],
+        "assetKind": "native-pdf-photo-crop",
+        "resolutionNote": "Native crop of the white material, with photographic lighting retained; no fabricated texture.",
+        "imageSha256": "f7b504879e9600ad89e8f5313726f805dec5707405e6735dff80347eaa92b0d3"
+      }
+    },
+    {
+      "id": "geacril-stone-ncs",
+      "family": "geacril-stone",
+      "name": "Couleur mate NCS sur demande",
+      "code": null,
+      "hex": null,
+      "texture": null,
+      "swatch": null,
+      "hdTexture": null,
+      "roughness": 0.94,
+      "metalness": 0,
+      "clearcoat": 0,
+      "priceKey": "ncs-matte",
+      "customNcs": true,
+      "source": {
+        "pdfPage": 71,
+        "printedPage": 140,
+        "assetKind": "manufacturer-custom-colour",
+        "resolutionNote": "Enter the exact NCS code. No RGB conversion or invented finite palette is supplied."
+      }
+    }
+  ],
+  "basinReferenceFinishes": [
+    {
+      "id": "fume-matte",
+      "priceKey": "fume-matte",
+      "name": "Fumé gris transparent",
+      "material": "ocritech",
+      "hex": "#292f2b",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/ocritech-grigio-reference.webp",
+      "texture": null,
+      "transparent": true,
+      "colorAccuracy": "Référence générique de matière Ocritech photographiée par Onsen ; pas une calibration Neobath.",
+      "source": {
+        "url": "https://www.onsen.it/collezioni/tratto/",
+        "originalImageUrl": "https://www.onsen.it/wp-content/uploads/2025/07/Fume-grigio-trasparente.jpg",
+        "manufacturer": "Onsen",
+        "sampleCrop": [
+          40,
+          220,
+          360,
+          360
+        ],
+        "nativeSize": [
+          400,
+          400
+        ],
+        "imageSha256": "e219e397f12e7d352f9040084852fc1665232f6f974368dc75e2177a5c57cc88",
+        "appearanceSource": "Manufacturer swatch with reflected environment retained; median sampled from the specified lower central material region."
+      }
+    },
+    {
+      "id": "bronze-matte",
+      "priceKey": "bronze-matte",
+      "name": "Fumé bronze transparent",
+      "material": "ocritech",
+      "hex": "#563627",
+      "swatch": "https://leroyfactory.fr/assets/img/neobath-anima-2026/materials-premium/ocritech-bronzo-reference.webp",
+      "texture": null,
+      "transparent": true,
+      "colorAccuracy": "Référence générique de matière Ocritech photographiée par Onsen ; pas une calibration Neobath.",
+      "source": {
+        "url": "https://www.onsen.it/collezioni/tratto/",
+        "originalImageUrl": "https://www.onsen.it/wp-content/uploads/2025/07/Fume-bronzo-trasparente.jpg",
+        "manufacturer": "Onsen",
+        "sampleCrop": [
+          40,
+          220,
+          360,
+          360
+        ],
+        "nativeSize": [
+          400,
+          400
+        ],
+        "imageSha256": "497330c07ef64c54741c07756ab668e465a69d70661f9a046643a57aefe7e8bb",
+        "appearanceSource": "Manufacturer swatch with reflected environment retained; median sampled from the specified lower central material region."
+      }
+    }
+  ],
+  "notes": [
+    "The catalogue defines 11 FENIX, 14 HPL and 11 grès finishes. Geacril / Geacril Stone are white matte or custom NCS.",
+    "Surface appearance and pricing variant are separate. Manufacturer RGB is provided only where officially published; patterned surface hexadecimal values are photographic summaries.",
+    "No upscaling and no AI-generated manufacturer textures."
+  ]
+}

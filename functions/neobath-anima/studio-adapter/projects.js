@@ -1,6 +1,8 @@
 import {CABINET_FORMATS,topAvailable} from './configuration.js';
 import {CATALOGUE} from './anima-data.js';
 import {topSelection} from './anima-data.js';
+import {SURFACE_BY_ID,normalizeTopSurface,surfaceFamilyForSelection} from './premium-materials.js';
+import {animaWellProfile} from './top-profiles.js';
 
 const clone=value=>JSON.parse(JSON.stringify(value));
 const source=()=>globalThis.NEOBATH_ANIMA_CATALOGUE||CATALOGUE;
@@ -51,20 +53,22 @@ export function continuousTopCompatible(project,hostId,mode,span,offset=0) {
   const item=project?.items?.find(item=>item?.id===hostId&&item.type==='cabinet');if(!item)return false;
   const settings={...item.settings,top:mode,topSpan:span,topOffset:offset},host={...item,settings};
   const prospective={...project,items:project.items.map(item=>item.id===hostId?host:item)};
-  const context=continuousTopContext(prospective,host),selection=context&&topSelection(mode,settings.width,settings.format,settings.basinLayout,context.span);
+  const context=continuousTopContext(prospective,host),selection=context&&topSelection(mode,settings.width,settings.format,settings.basinLayout,context.span,settings.topPlanId,settings.topLength);
   if(!selection)return false;
-  if(context.span<=settings.width||!selection.positions?.length)return true;
+  const shift=settings.topShift??0,length=selection.topLength||context.span;
+  if(!Number.isFinite(shift)||Math.abs(shift)>(length-context.span)/2+1e-6)return false;
+  if(!selection.positions?.length)return true;
   const supports=context.ids.flatMap(id=>{
     const item=project.items.find(item=>item.id===id),form=CABINET_FORMATS.find(form=>form.id===item?.settings?.format);
     return form?.subtype==='vanity'?[item]:[];
   });
   const count=Number(selection.basin?.basinCount||selection.top?.basinCount||1);
-  const bowlWidth=Number(selection.basin?.width)||(count===2?43:55);
+  const bowlWidth=animaWellProfile(selection.top,selection.basin,selection.topWidth/100/count).w*100;
   // Clearance follows the visual cabinet's 19 mm sides and a small running
   // gap. Every bowl must sit over a genuine vanity, not an uncut base drawer.
   const margin=bowlWidth/2+2.5;
   return selection.positions.every(position=>{
-    const centre=host.placement.u+context.offset+position*100;
+    const centre=host.placement.u+context.offset+shift+position*100;
     return supports.some(support=>Math.abs(centre-support.placement.u)<=support.settings.width/2-margin+JOINT_TOLERANCE_CM);
   });
 }
@@ -94,10 +98,26 @@ export function validateProject(data) {
       const context=continuousTopContext(data,item);
       if(!context)throw Error('Le plan continu doit reposer sur des meubles juxtaposés, sans autre plan, à la même hauteur.');
       if(!topAvailable(s.top||'bare',s.width,s.format,context.span))throw Error('Le plan / la vasque ne correspond pas à ce meuble Anima.');
-      const selected=topSelection(s.top||'bare',s.width,s.format,s.basinLayout,context.span),product=selected?.product;
-      if(context.span>s.width&&!continuousTopCompatible(data,item.id,s.top||'bare',context.span,context.offset))throw Error('Chaque vasque du plan continu doit être portée par un meuble sous-vasque compatible.');
+      const selected=topSelection(s.top||'bare',s.width,s.format,s.basinLayout,context.span,s.topPlanId,s.topLength),product=selected?.product;
+      if(!selected)throw Error('Le plan choisi ne correspond pas à cette vasque Anima.');
+      for(const field of ['basinColor','topPriceKey','basinPriceKey','topSurfaceId'])if(s[field]!==undefined&&typeof s[field]!=='string')throw Error('Identifiant de finition Anima invalide.');
+      if(s.topPlanId!==undefined&&(typeof s.topPlanId!=='string'||s.topPlanId&&!products.has(s.topPlanId)))throw Error('Référence de plan Anima inconnue.');
+      const length=selected.topLength||context.span,shift=s.topShift??0;
+      if(!Number.isFinite(shift)||Math.abs(shift)>(length-context.span)/2+1e-6)throw Error('Le plan doit couvrir tous ses supports ; vérifiez les débords gauche et droit.');
+      if((context.span>s.width||s.topLength!==undefined||s.topShift)&&!continuousTopCompatible(data,item.id,s.top||'bare',context.span,context.offset))throw Error('Chaque vasque du plan doit être portée par un meuble sous-vasque compatible.');
       if(product?.prices?.length&&s.basinColor&&!product.prices.some(v=>v.key===s.basinColor))throw Error('Finition du plan / de la vasque Anima inconnue.');
+      if(s.topPriceKey&&selected.top?.prices?.length&&!selected.top.prices.some(v=>v.key===s.topPriceKey))throw Error('Tarif de finition du plan Anima inconnu.');
+      if(s.basinPriceKey&&selected.basin?.prices?.length&&!selected.basin.prices.some(v=>v.key===s.basinPriceKey))throw Error('Tarif de finition de vasque Anima inconnu.');
+      if(s.basinLayout&&selected.positions.length&&s.basinLayout!==selected.layout)throw Error('Implantation de vasque Anima incompatible.');
       if(s.ncsCode!==undefined&&(typeof s.ncsCode!=='string'||s.ncsCode.length>40))throw Error('Code NCS invalide.');
+      if(s.topSurfaceId!==undefined&&s.topSurfaceId){
+        const surface=SURFACE_BY_ID.get(s.topSurfaceId),family=surfaceFamilyForSelection(selected),normalized=normalizeTopSurface(s,selected);
+        if(!surface||surface.family!==family||normalized?.id!==s.topSurfaceId)throw Error('Finition de matière du plan Anima inconnue ou incompatible.');
+        if(s.topPriceKey&&normalized.priceKey!==s.topPriceKey)throw Error('La couleur du plan ne correspond pas au tarif de sa matière.');
+        if(selected.basin?.subtype==='integrated'&&selected.basin.prices?.some(entry=>entry.key===normalized.priceKey)&&(s.basinPriceKey||s.basinColor)!==normalized.priceKey)throw Error('La vasque intégrée doit reprendre la finition de son plan.');
+        if(surface.customNcs&&(!s.topSurfaceNcs||! /^(?:S\s*)?\d{4}-(?:[YRGB](?:\d{2}[YRGB])?|N)$/i.test(s.topSurfaceNcs)))throw Error('Renseignez un code NCS complet pour la couleur sur mesure.');
+      }
+      if(s.topSurfaceNcs!==undefined&&(typeof s.topSurfaceNcs!=='string'||s.topSurfaceNcs.length>40))throw Error('Code NCS du plan invalide.');
     } else if(item.type==='column'){
       if(!finishes.has(s.finish)||s.columnModel&&!['pura-column','ribelle-column'].includes(s.columnModel))throw Error('Colonne Anima inconnue.');
     } else if(item.type==='mirror'){

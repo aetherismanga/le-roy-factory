@@ -2,8 +2,21 @@
 const {test}=require('node:test');
 const assert=require('node:assert/strict');
 const {createNeobathStudioProjectStore,checkedRecord}=require('../neobath-anima-studio-projects.cjs');
+const {mkdtempSync,cpSync,rmSync}=require('node:fs');
+const {join,resolve}=require('node:path');
+const {tmpdir}=require('node:os');
+const {pathToFileURL}=require('node:url');
 const jerome={uid:'jerome-uid',email:'jerome@leroyfactory.fr'},coryne={uid:'coryne-uid',email:'coryne@leroyfactory.fr'};
 function record(){return {id:'project-12345678-1234-1234-1234-123456789012',revision:0,title:'Anima client Montpellier',kind:'bathroom',customer:{name:'Client de test',email:'client@example.test',site:'Test sans envoi réel'},data:{version:2,manufacturer:'neobath-anima',title:'Anima client Montpellier',room:{points:[[0,0],[3,0],[3,2.5],[0,2.5]]},items:[{id:'cabinet-1',type:'cabinet',settings:{format:'two',width:80,finish:'rovere-alba',top:'bare',basinColor:'standard',drawers:[0,0]},placement:{wall:0,u:150,height:30}}]}};}
+test('the deployed validation package validates a custom Fenix plan without external website files',async()=>{
+ const directory=mkdtempSync(join(tmpdir(),'anima-server-validation-')),source=resolve(__dirname,'../neobath-anima');
+ try{
+  for(const name of ['package.json','catalogue.json','studio-adapter'])cpSync(join(source,name),join(directory,name),{recursive:true});
+  const {validateProject}=await import(pathToFileURL(join(directory,'studio-adapter/projects.js')).href),input=record().data;
+  Object.assign(input.items[0].settings,{top:'tfx1-linear-top',basinColor:'fenix',topSpan:80,topLength:90,topShift:0,topOffset:0,topSurfaceId:'fenix-beige-arizona'});
+  const project=validateProject(input);assert.equal(project.items[0].settings.topLength,90);assert.equal(project.items[0].settings.topSurfaceId,'fenix-beige-arizona');
+ }finally{rmSync(directory,{recursive:true,force:true});}
+});
 function mockStore(sendMail){const values=new Map(),sent=[];const ref=path=>({path,id:path.split('/').at(-1),set:async value=>values.set(path,value)});const snap=path=>({exists:values.has(path),data:()=>values.get(path)});const db={collection(name){const c={doc:id=>ref(name+'/'+id),orderBy:()=>c,limit:()=>c,get:async()=>({docs:[...values.keys()].filter(p=>p.startsWith(name+'/')).map(snap)})};return c;},runTransaction:async callback=>callback({get:async r=>snap(r.path),set:(r,v)=>values.set(r.path,v)})};return {values,sent,actions:createNeobathStudioProjectStore({db,now:()=> '2026-11-02T17:00:00.000Z',sendMail:sendMail|| (async mail=>{sent.push(mail);return {accepted:[mail.to],messageId:'test-only-no-network'};})})};}
 test('actual Studio One project envelope retains Anima room, objects and source identities',async()=>{const input=record(),checked=await checkedRecord(input);assert.deepEqual(checked.data,input.data);assert.equal(checked.title,input.title);for(const change of [r=>r.data.items[0].settings.width=70,r=>r.data.items[0].settings.finish='ROBLE',r=>r.data.items[0].settings.format='three',r=>r.data.items[0].placement.u=NaN,r=>r.data.manufacturer='randal']){const raw=record();change(raw);await assert.rejects(checkedRecord(raw));}});
 test('both agents share projects; stale saves and tombstone resurrection are rejected',async()=>{const {actions}=mockStore();const first=(await actions['projects-save']({project:record()},jerome)).record;assert.equal(first.revision,1);assert.equal((await actions['projects-list']({},coryne)).projects[0].id,first.id);await assert.rejects(actions['projects-save']({project:record()},coryne),{status:409});const second=(await actions['projects-save']({project:{...first,title:'Modifié par Coryne'}},coryne)).record;assert.equal(second.updatedBy,coryne.email);await actions['projects-delete']({id:second.id,revision:second.revision},jerome);const listed=await actions['projects-list']({},coryne);assert.equal(listed.projects.length,0);assert.deepEqual(listed.deletedIds,[second.id]);await assert.rejects(actions['projects-save']({project:record()},jerome),{status:410});});

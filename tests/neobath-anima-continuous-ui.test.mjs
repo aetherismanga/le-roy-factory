@@ -27,7 +27,7 @@ test('the original atelier preserves continuous plan settings through selection,
  parse(source,{ecmaVersion:'latest',sourceType:'module'});
  assert.ok(source.includes("'topSpan','topOffset'"));
  assert.ok(source.includes('topAvailable(s.top,s.width,s.format,s.topSpan)'));
- assert.ok(source.includes('model.setTop(id,{topSpan:state.topSpan,topOffset:state.topOffset})'));
+ assert.ok(source.includes('model.setTop(id,{...state})'));
  assert.ok(source.includes('basinTop:s.top,topSpan:s.topSpan,topOffset:s.topOffset,'));
  assert.ok(source.includes("__animaSyncContinuousTops();return publicProjectData"));
 });

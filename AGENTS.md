@@ -53,6 +53,13 @@ indépendante : conserver le parcours, les contrôles et le moteur de Studio One
 et adapter les références, dimensions, finitions, façades et visuels du fabricant.
 Les anciens fichiers autonomes Anima sont historiques et ne servent plus l’application.
 
+Depuis la correction premium du 2 novembre 2026, « Nouveau projet » ouvre
+directement l’atelier ; ne pas rétablir le parcours préalable à six écrans.
+Les plans se choisissent par famille, matière et vasque. Conserver leurs
+références, prix et matériaux indépendants, ainsi que les longueurs de fabrication
+et les caissons supports réels. Les palettes canoniques et leurs provenances sont
+dans `studio-adapter/materials-data.js` et `assets/data/neobath-anima-materials.json`.
+
 Les sorties privées sont dans `functions/neobath-anima/studio-dist/`. Les deux
 bundles JavaScript sont conservés en gzip déterministe, décompressés et vérifiés
 par SHA-256 côté serveur. Ne jamais publier ce dossier sur Pages. L’API ne livre

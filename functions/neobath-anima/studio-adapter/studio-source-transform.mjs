@@ -1,5 +1,7 @@
 // Build-only data and branding adaptations of the real Studio One source.
 import {transformContinuousPlans,transformContinuousPreview} from './continuous-plan-transform.mjs';
+import {transformPremiumAtelier,transformPremiumPreview} from './premium-transform.mjs';
+import {transformPremiumRendering} from './premium-render-transform.mjs';
 const STUDIO_ORIGIN='https://studio-one-beta-test-v2.vercel.app/';
 const PRIVATE_URL='https://leroyfactory.fr/neobath-anima-configurateur.html';
 const navigationPrelude=`
@@ -54,7 +56,19 @@ export function transformCommonStudioSource(input,relativePath){
   source=source.replace(/location\.href\s*=\s*(demoRoute\([^;\n]+)\s*;/g,'__animaGo($1);').replaceAll('location.replace(demoRoute(','__animaGo(demoRoute(')
    .replace(/\blocation\.(href|search|hash|pathname)\b/g,'__animaLocation().$1').replace(/\bhistory(?=\.|\[)/g,'__animaHistory');source=navigationPrelude+source;
  }
- return source;
+ if(relativePath==='app.js'){
+  source=transformPremiumAtelier(source);
+  // AquaHome taps follow the actual usable holes of the chosen Anima bowl.
+  // A vessel which requires wall mounting must never receive a deck tap
+  // intersecting its shell or a tap floating above a plan without a bowl.
+  const tapCenters='const centers=asset.getBasinCenters(item.settings.top);';
+  if(!source.includes(tapCenters))throw Error('Studio One tap positioning contract changed.');
+  source=source.replace(tapCenters,"const tapPositions=asset.getTapPositions?.(),centers=tapPositions?tapPositions.map(point=>point.x):asset.getBasinCenters(item.settings.top);if(tapPositions&&!tapPositions.length){asset.aquaTap.visible=false;if(asset.aquaTapExtra)asset.aquaTapExtra.visible=false;return;}")
+   .replace("__animaVessel(item.settings.top)?-.19:-.173);asset.aquaTap.visible=","(tapPositions?.[0]?.z??(__animaVessel(item.settings.top)?-.19:-.173)));asset.aquaTap.rotation.y=tapPositions?.[0]?.rotationY||0;asset.aquaTap.visible=")
+   .replace('asset.aquaTapExtra.position.x=centers[1];asset.aquaTapExtra.visible=true;','asset.aquaTapExtra.position.x=centers[1];asset.aquaTapExtra.position.z=tapPositions?.[1]?.z??asset.aquaTap.position.z;asset.aquaTapExtra.rotation.y=tapPositions?.[1]?.rotationY||0;asset.aquaTapExtra.visible=true;');
+ }
+ if(relativePath==='commerce/preview-model.js')source=transformPremiumPreview(source);
+ return transformPremiumRendering(source,relativePath);
 }
 
 function transformAtelierSource(source){
@@ -129,6 +143,9 @@ export function studioBody(source,formats=[]){
   .replace(/<img\b[^>]*class="randal-partner-logo"[^>]*>\s*<svg\b[^>]*class="studio-logo"[\s\S]*?<\/svg>/gi,'<span class="anima-maker">NEOBATH</span><span class="anima-collection">ANIMA</span>')
   .replaceAll('STUDIO ONE','NEOBATH ANIMA').replaceAll('Studio One','Anima').replaceAll('RANDAL','NEOBATH').replaceAll('configurateurs-randal.html','configurateurs.html');
  html=html.replaceAll('NEOBATH NEOBATH ANIMA','NEOBATH ANIMA').replace('<span class="loading-mark">s<span>o</span></span>','<span class="loading-mark">n<span>a</span></span>');
+ html=html.replace('<h1 id="landing-title"><span>Votre sur-mesure</span><br>en 3 minutes.</h1>','<h1 id="landing-title"><span>Votre meuble Anima.</span><br>Votre atelier 3D.</h1>')
+  .replace('<p class="landing-description">Créez votre salle de bains de A à Z<br>avec Le Roy Factory.</p>','<p class="landing-description">Composez vos meubles, choisissez les matières<br>et personnalisez vos plans dans l’atelier.</p>')
+  .replace('<button id="direct-atelier">','<button id="direct-atelier" hidden>');
  if(formats.length){const esc=v=>String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));html=html.replace(/(<select\b[^>]*id="cabinet-format"[^>]*>)[\s\S]*?<\/select>/,(_,start)=>start+formats.map(f=>'<option value="'+esc(f.id)+'">'+esc(f.name)+' · H '+Math.round(f.height*100)+' cm</option>').join('')+'</select>');}
  html=html.replace('<label class="full-field">Façade du meuble<select id="cabinet-facade-mode">','<label class="full-field" hidden>Façade du meuble<select id="cabinet-facade-mode">')
   .replace('<p class="control-note">Chants gauche et droit visibles de 19 mm, dans la finition du meuble.</p>','')
