@@ -32,3 +32,6 @@ keystore.properties
 # Generated suite outputs and local credentials
 /public-site/
 .env*
+
+# Built from the canonical PLAN & POSE entry before Functions deployment
+/functions/plan-pose/generated-app.mjs
