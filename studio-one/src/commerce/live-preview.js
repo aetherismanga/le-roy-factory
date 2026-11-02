@@ -4,7 +4,7 @@ import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
 import {makeMirrorReflector} from '../mirror-reflection.js';
 import {RectAreaLightUniformsLib} from 'three/addons/lights/RectAreaLightUniformsLib.js';
 import {applyMirrorLighting} from '../mirror-lighting.js';
-import {buildPreview,visibleBounds,previewStructure,applyPreviewSettings,FINISHES,mirrorGeometry} from './preview-model.js';
+import {buildPreview,visibleBounds,previewStructure,previewItems,applyPreviewSettings,FINISHES,mirrorGeometry} from './preview-model.js';
 import {configureColourRendering} from '../colour-rendering.js';
 import {createHDCapture,captureSize} from '../hd-capture.js';
 export function createPreview(host){
@@ -26,15 +26,15 @@ export function createPreview(host){
  function disposeCurrent(){if(!current)return;scene.remove(current.group);current.group.traverse(o=>{if(o.isReflector)o.getRenderTarget().dispose();if(o.isMesh){o.geometry.dispose();for(const m of Array.isArray(o.material)?o.material:[o.material])m.dispose();}});current=null;}
  const workingProfile=()=>innerWidth<700?'fluid':'balanced';
  async function texture(id,profile=workingProfile()){const key=id+'|'+profile;if(textures.has(key))return textures.get(key);const definition=FINISHES.find(f=>f.id===id);if(!definition?.texture)return null;const promise=new T.TextureLoader().loadAsync('assets/'+(definition.textureVariants?.[profile]||definition.texture)).then(t=>{t.colorSpace=T.SRGBColorSpace;t.wrapS=t.wrapT=T.RepeatWrapping;if(definition.textureRepeat)t.repeat.set(...definition.textureRepeat);t.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());const front=t.clone();front.center.set(.5,.5);front.rotation=definition.frontRotation??Math.PI/2;if(definition.frontRepeat)front.repeat.set(...definition.frontRepeat);front.needsUpdate=true;const bump=t.clone();bump.colorSpace=T.NoColorSpace;bump.needsUpdate=true;const frontBump=bump.clone();frontBump.center.set(.5,.5);frontBump.rotation=definition.frontRotation??Math.PI/2;if(definition.frontRepeat)frontBump.repeat.set(...definition.frontRepeat);frontBump.needsUpdate=true;return {map:t,front,bump,frontBump};}).catch(e=>{textures.delete(key);throw e;});textures.set(key,promise);return promise;}
- async function update(project){lastProject=project;const turn=++revision,configuration=JSON.stringify(project.items);if(configuration===lastConfiguration&&current){invalidate();return true;}
+ async function update(project){project={...project,items:previewItems(project)};lastProject=project;const turn=++revision,configuration=JSON.stringify({room:{points:project.room.points,partitions:project.room.partitions||[]},items:project.items});if(configuration===lastConfiguration&&current){invalidate();return true;}
   // Resolve materials first. The previous complete image remains on screen while
   // a finish loads; a superseded request never replaces the latest selection.
   const finishes=await Promise.all([...new Set(project.items.filter(i=>i.type==='cabinet'||i.type==='column').map(i=>i.settings.finish))].map(async id=>[id,await texture(id)]));if(turn!==revision)return false;
   const structure=previewStructure(project);
   if(!current||structure!==lastStructure){const next=buildPreview(project);for(const item of next.items)if(item.type==='mirror'){applyMirrorLighting(item,innerWidth<700);const reflector=makeMirrorReflector(mirrorGeometry(item.settings,.009),{textureWidth:innerWidth<700?256:512,textureHeight:innerWidth<700?256:512,clipBias:.003});reflector.position.z=.009;item.asset.root.add(reflector);}disposeCurrent();current=next;scene.add(current.group);lastStructure=structure;geometryBuilds++;}
   applyPreviewSettings(current,project);const loaded=new Map(finishes);
-  for(const item of current.items){const tx=loaded.get(item.settings.finish);if(!tx)continue;for(const [m,front]of [[item.asset.wood,false],[item.asset.frontWood,item.type==='cabinet']]){m.color.set('#fff');m.map=front?tx.front:tx.map;m.bumpMap=front?tx.frontBump:tx.bump;const f=FINISHES.find(f=>f.id===item.settings.finish);m.bumpScale=f?.bumpScale??(f?.id==='WHITE'?.00010:.00045);m.roughness=f?.roughness??.43;m.clearcoat=f?.clearcoat??.13;m.clearcoatRoughness=f?.clearcoatRoughness??.35;m.needsUpdate=true;}}
-  const shape=JSON.stringify(project.items.map(i=>[i.type,i.settings.format,i.settings.width,i.settings.height,i.placement]));if(shape!==lastShape){fit();lastShape=shape;}invalidate();
+  for(const item of current.items){if(item.type!=='cabinet'&&item.type!=='column')continue;const tx=loaded.get(item.settings.finish);if(!tx)continue;for(const [m,front]of [[item.asset.wood,false],[item.asset.frontWood,item.type==='cabinet']]){m.color.set('#fff');m.map=front?tx.front:tx.map;m.bumpMap=front?tx.frontBump:tx.bump;const f=FINISHES.find(f=>f.id===item.settings.finish);m.bumpScale=f?.bumpScale??(f?.id==='WHITE'?.00010:.00045);m.roughness=f?.roughness??.43;m.clearcoat=f?.clearcoat??.13;m.clearcoatRoughness=f?.clearcoatRoughness??.35;m.needsUpdate=true;}}
+  const shape=JSON.stringify([project.room.points,project.room.partitions||[],project.items.map(i=>[i.type,i.settings.format,i.settings.width,i.settings.height,i.placement])]);if(shape!==lastShape){fit();lastShape=shape;}invalidate();
   lastConfiguration=configuration;return true;
  }
  async function renderThumbnail(project){
