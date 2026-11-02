@@ -69,7 +69,8 @@ jobs:
           python - <<'PYTHON'
           import os, subprocess
           changed=subprocess.check_output(['git','diff','--name-only','HEAD^','HEAD','--','functions'],text=True).splitlines()
-          mail_only=bool(changed) and all(p in ['functions/index.js','functions/group-mail-history.js','functions/scripts/backfill-group-mail-reports.cjs','functions/test/group-mail-history.test.cjs'] for p in changed)
+          mail_verify_only=changed==['functions/scripts/verify-group-mail-deployment.cjs']
+          mail_only=bool(changed) and all(p in ['functions/index.js','functions/group-mail-history.js','functions/scripts/backfill-group-mail-reports.cjs','functions/scripts/verify-group-mail-deployment.cjs','functions/test/group-mail-history.test.cjs'] for p in changed)
           tariff_only=bool(changed) and all(p in ['functions/tariff-access.js','functions/test/bulbo-tariff.test.cjs'] for p in changed)
           project_only=bool(changed) and all(p in ['functions/entry.js','functions/configurator-projects.js','functions/configurator-projects-core.js','functions/test/configurator-projects.test.cjs'] for p in changed)
           purchase_only=bool(changed) and all(p in ['functions/entry.js','functions/configurator-purchase-prices.js','functions/configurator-purchase-prices-core.js','functions/test/configurator-purchase-prices.test.cjs'] for p in changed)
@@ -78,10 +79,12 @@ jobs:
           cerastone_only=bool(changed) and all(p in ['functions/entry.js','functions/cerastone-request.js','functions/cerastone-request-core.js','functions/cerastone-quantities.js','functions/cerastone-catalogue.json.gz','functions/cerastone-catalogue.manifest.json','functions/test/cerastone-request.test.cjs'] for p in changed)
           target='functions:sendGroupEmail,functions:scheduleGroupEmail,functions:processScheduledEmails' if mail_only and os.environ['EVENT_NAME']=='push' else 'functions:cerastoneRequest' if cerastone_only and os.environ['EVENT_NAME']=='push' else 'functions:getTariffPdf' if tariff_only and os.environ['EVENT_NAME']=='push' else 'functions:biopietraRequest' if biopietra_only and os.environ['EVENT_NAME']=='push' else 'functions:feniceRequest' if fenice_only and os.environ['EVENT_NAME']=='push' else 'functions:getConfiguratorPurchasePrices' if purchase_only and os.environ['EVENT_NAME']=='push' else 'functions:randalProjects' if project_only and os.environ['EVENT_NAME']=='push' else 'functions:getTariffPdf,functions:getNeobathDnaTariff,functions:createProSession,functions:validateProSession,functions:revokeProSession,functions:trackLrfActivity,functions:getLrfAnalytics,functions:eliosStock,functions:eliosOrder,functions:eliosPoseOrder,functions:eliosCatalog,functions:biltOrder,functions:biltDecision,functions:biltScheduleAutoRelease,functions:biltAutoReleaseSweep,functions:crmFilesUpload,functions:siteControl,functions:aquahomeCatalog,functions:reitanoCatalog,functions:randalProjects,functions:getConfiguratorPurchasePrices,functions:feniceRequest,functions:biopietraRequest,functions:cerastoneRequest'
           with open(os.environ['GITHUB_OUTPUT'],'a') as out:out.write('only='+target+'\n')
-          with open(os.environ['GITHUB_OUTPUT'],'a') as out:out.write('group_mail_backfill='+str(mail_only and 'functions/scripts/backfill-group-mail-reports.cjs' in changed).lower()+'\n')
+          with open(os.environ['GITHUB_OUTPUT'],'a') as out:out.write('mail_verify_only='+str(mail_verify_only).lower()+'\n')
+          with open(os.environ['GITHUB_OUTPUT'],'a') as out:out.write('group_mail_backfill='+str(mail_only and (mail_verify_only or 'functions/scripts/backfill-group-mail-reports.cjs' in changed)).lower()+'\n')
           PYTHON
 
       - name: Deploy secured tariff, session, analytics, ELIOS, BILT, CRM file and site control functions
+        if: steps.targets.outputs.mail_verify_only != 'true'
         run: >-
           firebase deploy
           --project le-roy-factory
@@ -160,6 +163,13 @@ jobs:
             console.log('CeraStone endpoint ready; origins, methods and malformed requests checked. No email sent.');
           })().catch(e=>{console.error(e.message);process.exit(1);});
           JS
+
+      - name: Verify active bulk mail source without changing the existing scheduler
+        if: contains(steps.targets.outputs.only, 'functions:sendGroupEmail')
+        working-directory: functions
+        env:
+          GOOGLE_CLOUD_PROJECT: le-roy-factory
+        run: node scripts/verify-group-mail-deployment.cjs
 
       - name: Verify bulk mail endpoints reject unauthenticated requests
         if: contains(steps.targets.outputs.only, 'functions:sendGroupEmail')
