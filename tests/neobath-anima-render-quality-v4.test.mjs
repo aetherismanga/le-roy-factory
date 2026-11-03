@@ -88,27 +88,27 @@ test('Anima auto retains readable pixels and anisotropy while manual minimum and
  assert.match(source,/from '@anima-adapter\/render-quality.js'/,'actual app imports the isolated policy');
 });
 
-test('custom tops have one continuous local sheet across nested meshes and every enlarged length',()=>{
- const material=new T.MeshPhysicalMaterial(),root=new T.Group(),nested=new T.Group();root.add(nested);nested.rotation.y=.21;
+test('custom tops keep one fixed-density local field across nested meshes and every enlarged length',()=>{
+ const material=new T.MeshPhysicalMaterial(),root=new T.Group(),nested=new T.Group();material.userData.animaSurface={source:{runtimeSize:[1500,1000]}};root.add(nested);nested.rotation.y=.21;
  const mesh=new T.Mesh(new T.BoxGeometry(1.2,.012,.465),material);nested.add(mesh);mesh.rotation.y=-.21;
  for(const width of[1.2,1.5,2.4,3.1]){
   mesh.geometry.dispose();mesh.geometry=new T.BoxGeometry(width,.012,.465);root.userData.animaTop={width,depth:.465,zOffset:0};
   applyPlanSurfaceUV(root,material);const uv=mesh.geometry.attributes.uv;
-  assert.ok([...uv.array].every(v=>v>=-1e-6&&v<=1.000001),'the complete slab fits one source sheet without wrapping');
-  assert.ok(Math.abs(Math.min(...Array.from({length:uv.count},(_,i)=>uv.getX(i))))<1e-6);
-  assert.ok(Math.abs(Math.max(...Array.from({length:uv.count},(_,i)=>uv.getX(i)))-1)<1e-6);
+  assert.ok([...uv.array].every(Number.isFinite));
+  const uRange=Math.max(...Array.from({length:uv.count},(_,i)=>uv.getX(i)))-Math.min(...Array.from({length:uv.count},(_,i)=>uv.getX(i)));
+  assert.ok(Math.abs(uRange-(width+.024)/1.2)<1e-6,'longer plans reveal more of a fixed-scale pattern, including the two unfolded end thicknesses');
   const before=uv.array.slice();root.position.set(.7,.3,-.4);root.rotation.y+=.3;applyPlanSurfaceUV(root,material);
   assert.ok(mesh.geometry.attributes.uv.array.every((value,i)=>Math.abs(value-before[i])<1e-6),'texture moves with the plan when it is dragged or snaps');
-  assert.equal(root.userData.animaSurfaceUV.mode,'continuous-single-sheet');
+  assert.equal(root.userData.animaSurfaceUV.mode,'fixed-metric-face-unfold');
  }
  mesh.geometry.dispose();material.dispose();
 });
 
-test('real plan material clones clamp the selected HPL sample instead of tiling visible repeated bands',async()=>{
+test('real plan material uses fixed-density charts and mirrored finite-image extension instead of stretched edge pixels',async()=>{
  const wood=new T.MeshPhysicalMaterial(),ceramic=new T.MeshPhysicalMaterial();
  const loader={async loadAsync(url){return new T.Texture({src:url,width:64,height:64});}};
  const controller=createTopSurfaceController({wood,ceramic,textureLoader:loader}),surface=MANUFACTURER_SURFACES.find(s=>s.family==='hpl'&&s.texture);
  controller.apply({topSurfaceId:surface.id},topSelection('thpl1-linear-top',120,'two'));await controller.ready();
- const texture=controller.material.map;assert.equal(texture.image.src,surface.texture);assert.equal(texture.wrapS,T.ClampToEdgeWrapping);assert.equal(texture.wrapT,T.ClampToEdgeWrapping);
- assert.deepEqual(texture.repeat.toArray(),[1,1]);assert.equal(texture.userData.animaMapping,'continuous-single-sheet');controller.dispose();wood.dispose();ceramic.dispose();
+ const texture=controller.material.map;assert.equal(texture.image.src,surface.texture);assert.equal(texture.wrapS,T.MirroredRepeatWrapping);assert.equal(texture.wrapT,T.MirroredRepeatWrapping);
+ assert.deepEqual(texture.repeat.toArray(),[1,1]);assert.equal(texture.userData.animaMapping,'fixed-metric-face-unfold');controller.dispose();wood.dispose();ceramic.dispose();
 });

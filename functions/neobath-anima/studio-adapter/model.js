@@ -64,7 +64,7 @@ export function makeModel({width=.80,includeMirror=true,basinLayout,basinTop='ba
     const normalized=surfaceController.apply(surfaceSettings,selection,options);
     if(animaBasinStyle(selection?.top,selection?.basin).gelcoat==='colored'){coloredGelcoat.color.set(normalized?.surface?.hex||'#f6f5f1');coloredGelcoat.userData.colorAccuracy='visual-approximation';coloredGelcoat.userData.colorNote='Teinte Gelcoat indicative, à confirmer sur le nuancier fabricant.';coloredGelcoat.needsUpdate=true;}
     if(surfaceFamilyForSelection(selection)==='furniture'&&asset.furniturePlanTextures){asset.planMaterial.map=asset.furniturePlanTextures.map;asset.planMaterial.bumpMap=asset.furniturePlanTextures.bump;for(const texture of[asset.planMaterial.map,asset.planMaterial.bumpMap])if(texture){texture.wrapS=texture.wrapT=T.MirroredRepeatWrapping;texture.needsUpdate=true;}asset.planMaterial.needsUpdate=true;}
-    if(currentTop)applyPlanSurfaceUV(currentTop.root,asset.planMaterial,normalized?.surface?.physicalSize||[.8,.8]);
+    if(currentTop)applyPlanSurfaceUV(currentTop.root,asset.planMaterial);
     asset.spec.topSurfaceId=normalized?.id||null;asset.spec.topSurfaceFamily=normalized?.family||surfaceFamilyForSelection(selection);
     return normalized;
   };

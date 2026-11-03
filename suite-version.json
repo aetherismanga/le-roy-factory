@@ -149,7 +149,7 @@
       "privateApplicationEndpoint": "https://us-central1-le-roy-factory.cloudfunctions.net/planPoseApplication"
     },
     "neobathAnima": {
-      "releaseId": "20261103-neobath-anima-studio-one-facades-8",
+      "releaseId": "20261103-neobath-anima-studio-one-surface-scale-9",
       "page": "neobath-anima-configurateur.html",
       "access": "agents-only",
       "modules": 42,
@@ -158,9 +158,9 @@
       "products": 257,
       "compositions": 16,
       "projectSync": "shared-agent-private-api",
-      "appSha256": "fd13b9aa9faf244fa156ab93f6b703a86e173984cc04626e65c24db2b954e97e",
+      "appSha256": "4d2d2be49b5fe4ec6cf7e99ff4dd7362c2c5e8b3284a53cb7ceabfc8beccc34b",
       "engine": "studio-one",
-      "homeSha256": "8fda236a6cfa29c36811805c1797dfb095b8706a30c003ec049361980831f6fa",
+      "homeSha256": "70131968065933b64f82832ab5ceeec23b57c44ef378bcf460201505a0817929",
       "photographs": 155,
       "sourceEntries": [
         "studio-one/src/commerce/home.js",
@@ -205,7 +205,10 @@
       "woodMaxNativeSize": [
         945,
         2048
-      ]
+      ],
+      "surfaceTextureMapping": "fixed-metric-face-unfold",
+      "surfaceImageAspectPreserved": true,
+      "surfaceEdgeTextureStretch": false
     },
     "clientAnalysis": {
       "releaseId": "20261103-reports2",
@@ -256,7 +259,7 @@
       "access": "owner-only"
     },
     "neobathAnima": {
-      "releaseId": "20261103-neobath-anima-studio-one-facades-8",
+      "releaseId": "20261103-neobath-anima-studio-one-surface-scale-9",
       "endpoint": "https://us-central1-le-roy-factory.cloudfunctions.net/neobathAnimaApplication",
       "access": "jerome-coryne-only",
       "serverTokenRevocationCheck": true
